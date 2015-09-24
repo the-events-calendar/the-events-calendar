@@ -530,7 +530,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function get_venue_label_plural() {
-			return apply_filters( 'tribe_venue_label_plural', __( 'Venues', 'the-events-calendar' ) );
+			return apply_filters( 'tribe_venue_label_plural', esc_html__( 'Venues', 'the-events-calendar' ) );
 		}
 
 		/**
@@ -538,7 +538,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function get_venue_label_singular() {
-			return apply_filters( 'tribe_venue_label_singular', __( 'Venue', 'the-events-calendar' ) );
+			return apply_filters( 'tribe_venue_label_singular', esc_html__( 'Venue', 'the-events-calendar' ) );
 		}
 
 		/**
@@ -546,7 +546,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function get_organizer_label_plural() {
-			return apply_filters( 'tribe_organizer_label_plural', __( 'Organizers', 'the-events-calendar' ) );
+			return apply_filters( 'tribe_organizer_label_plural', esc_html__( 'Organizers', 'the-events-calendar' ) );
 		}
 
 		/**
@@ -554,7 +554,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function get_organizer_label_singular() {
-			return apply_filters( 'tribe_organizer_label_singular', __( 'Organizer', 'the-events-calendar' ) );
+			return apply_filters( 'tribe_organizer_label_singular', esc_html__( 'Organizer', 'the-events-calendar' ) );
 		}
 
 		/**
@@ -562,7 +562,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function get_event_label_plural() {
-			return apply_filters( 'tribe_event_label_plural', __( 'Events', 'the-events-calendar' ) );
+			return apply_filters( 'tribe_event_label_plural', esc_html__( 'Events', 'the-events-calendar' ) );
 		}
 
 		/**
@@ -570,7 +570,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function get_event_label_singular() {
-			return apply_filters( 'tribe_event_label_singular', __( 'Event', 'the-events-calendar' ) );
+			return apply_filters( 'tribe_event_label_singular', esc_html__( 'Event', 'the-events-calendar' ) );
 		}
 
 		/**
@@ -631,7 +631,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Run on applied action init
 		 */
 		public function init() {
-			$this->pluginName = $this->plugin_name            = __( 'The Events Calendar', 'the-events-calendar' );
+			$this->pluginName = $this->plugin_name            = esc_html__( 'The Events Calendar', 'the-events-calendar' );
 			$this->rewriteSlug                                = $this->getRewriteSlug();
 			$this->rewriteSlugSingular                        = $this->getRewriteSlugSingular();
 			$this->taxRewriteSlug                             = $this->getTaxRewriteSlug();
@@ -668,7 +668,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Events__Timezones::init();
 			$this->registerPostType();
 
-			Tribe__Debug::debug( sprintf( __( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
+			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
 		}
 
@@ -745,7 +745,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					), 'upgrade-plugin_' . $plugin_short_path
 				);
 				$output .= '<div class="error">';
-				$output .= '<p>' . sprintf( __( 'Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s', 'the-events-calendar' ), '<a href="' . esc_url( $upgrade_path ) . '">', '</a>' ) . '</p>';
+				$output .= '<p>' . sprintf( esc_html__( 'Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s', 'the-events-calendar' ), '<a href="' . esc_url( $upgrade_path ) . '">', '</a>' ) . '</p>';
 				$output .= '</div>';
 			} elseif ( ! empty( $out_of_date_addons ) ) {
 				// Otherwise, if the addons are out of date, generate the proper messaging.
@@ -757,7 +757,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						'utm_source'   => 'notice',
 						), self::$tecUrl . 'knowledgebase/version-compatibility/'
 				);
-				$output .= '<p>' . sprintf( __( 'The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s.', 'the-events-calendar' ), join( $out_of_date_addons, ', ' ), "<a href='" . esc_url( $link ) . "' target='_blank'>", '</a>' ) . '</p>';
+				$output .= '<p>' . sprintf( esc_html__( 'The following plugins are out of date: %1$s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %2$sLearn More%3$s.', 'the-events-calendar' ), '<b>' . join( $out_of_date_addons, ', ' ) . '</b>', "<a href='" . esc_url( $link ) . "' target='_blank'>", '</a>' ) . '</p>';
 				$output .= '</div>';
 			}
 			// Make sure only to show the message if the user has the permissions necessary.
@@ -926,10 +926,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function notSupportedError() {
 			if ( ! self::supportedVersion( 'wordpress' ) ) {
-				echo '<div class="error"><p>' . esc_html( sprintf( __( 'Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install.', 'the-events-calendar' ), '3.0' ) ) . '</p></div>';
+				echo '<div class="error"><p>' . sprintf( esc_html__( 'Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install.', 'the-events-calendar' ), '3.0' ) . '</p></div>';
 			}
 			if ( ! self::supportedVersion( 'php' ) ) {
-				echo '<div class="error"><p>' . esc_html( sprintf( __( 'Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP.', 'the-events-calendar' ), '5.2' ) ) . '</p></div>';
+				echo '<div class="error"><p>' . sprintf( esc_html__( 'Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP.', 'the-events-calendar' ), '5.2' ) . '</p></div>';
 			}
 		}
 
@@ -1125,11 +1125,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				}
 			}
 
-			// Remove the .hentry class if it is a single event page (it is positioned elsewhere in the template markup)
-			if ( tribe_is_event( $post->ID ) && is_singular() && in_array( 'hentry', $classes ) ) {
-				unset( $classes[ array_search( 'hentry', $classes ) ] );
-			}
-
 			return $classes;
 		}
 
@@ -1241,14 +1236,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->postTypeArgs['labels'] = apply_filters( 'tribe_events_register_event_post_type_labels', array(
 				'name'               => $this->plural_event_label,
 				'singular_name'      => $this->singular_event_label,
-				'add_new'            => __( 'Add New', 'the-events-calendar' ),
-				'add_new_item'       => sprintf( __( 'Add New %s', 'the-events-calendar' ), $this->singular_event_label ),
-				'edit_item'          => sprintf( __( 'Edit %s', 'the-events-calendar' ), $this->singular_event_label ),
-				'new_item'           => sprintf( __( 'New %s', 'the-events-calendar' ), $this->singular_event_label ),
-				'view_item'          => sprintf( __( 'View %s', 'the-events-calendar' ), $this->singular_event_label ),
-				'search_items'       => sprintf( __( 'Search %s', 'the-events-calendar' ), $this->plural_event_label ),
-				'not_found'          => sprintf( __( 'No %s found', 'the-events-calendar' ), strtolower( $this->plural_event_label ) ),
-				'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->plural_event_label ) ),
+				'add_new'            => esc_html__( 'Add New', 'the-events-calendar' ),
+				'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_event_label ),
+				'edit_item'          => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_event_label ),
+				'new_item'           => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_event_label ),
+				'view_item'          => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_event_label ),
+				'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_event_label ),
+				'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), strtolower( $this->plural_event_label ) ),
+				'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->plural_event_label ) ),
 			) );
 
 			/**
@@ -1259,14 +1254,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->postVenueTypeArgs['labels'] = apply_filters( 'tribe_events_register_venue_post_type_labels', array(
 				'name'               => $this->plural_venue_label,
 				'singular_name'      => $this->singular_venue_label,
-				'add_new'            => __( 'Add New', 'the-events-calendar' ),
-				'add_new_item'       => sprintf( __( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ),
-				'edit_item'          => sprintf( __( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label ),
-				'new_item'           => sprintf( __( 'New %s', 'the-events-calendar' ), $this->singular_venue_label ),
-				'view_item'          => sprintf( __( 'View %s', 'the-events-calendar' ), $this->singular_venue_label ),
-				'search_items'       => sprintf( __( 'Search %s', 'the-events-calendar' ), $this->plural_venue_label ),
-				'not_found'          => sprintf( __( 'No %s found', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
-				'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
+				'add_new'            => esc_html__( 'Add New', 'the-events-calendar' ),
+				'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ),
+				'edit_item'          => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label ),
+				'new_item'           => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_venue_label ),
+				'view_item'          => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_venue_label ),
+				'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_venue_label ),
+				'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
+				'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
 			) );
 
 			/**
@@ -1277,14 +1272,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->postOrganizerTypeArgs['labels'] = apply_filters( 'tribe_events_register_organizer_post_type_labels', array(
 				'name'               => $this->plural_organizer_label,
 				'singular_name'      => $this->singular_organizer_label,
-				'add_new'            => __( 'Add New', 'the-events-calendar' ),
-				'add_new_item'       => sprintf( __( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ),
-				'edit_item'          => sprintf( __( 'Edit %s', 'the-events-calendar' ), $this->singular_organizer_label ),
-				'new_item'           => sprintf( __( 'New %s', 'the-events-calendar' ), $this->singular_organizer_label ),
-				'view_item'          => sprintf( __( 'View %s', 'the-events-calendar' ), $this->singular_organizer_label ),
-				'search_items'       => sprintf( __( 'Search %s', 'the-events-calendar' ), $this->plural_organizer_label ),
-				'not_found'          => sprintf( __( 'No %s found', 'the-events-calendar' ), strtolower( $this->plural_organizer_label ) ),
-				'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->plural_organizer_label ) ),
+				'add_new'            => esc_html__( 'Add New', 'the-events-calendar' ),
+				'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ),
+				'edit_item'          => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_organizer_label ),
+				'new_item'           => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_organizer_label ),
+				'view_item'          => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_organizer_label ),
+				'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_organizer_label ),
+				'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), strtolower( $this->plural_organizer_label ) ),
+				'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->plural_organizer_label ) ),
 			) );
 
 			/**
@@ -1293,16 +1288,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * @var array
 			 */
 			$this->taxonomyLabels = apply_filters( 'tribe_events_register_category_taxonomy_labels', array(
-				'name'              => sprintf( __( '%s Categories', 'the-events-calendar' ), $this->singular_event_label ),
-				'singular_name'     => sprintf( __( '%s Category', 'the-events-calendar' ), $this->singular_event_label ),
-				'search_items'      => sprintf( __( 'Search %s Categories', 'the-events-calendar' ), $this->singular_event_label ),
-				'all_items'         => sprintf( __( 'All %s Categories', 'the-events-calendar' ), $this->singular_event_label ),
-				'parent_item'       => sprintf( __( 'Parent %s Category', 'the-events-calendar' ), $this->singular_event_label ),
-				'parent_item_colon' => sprintf( __( 'Parent %s Category:', 'the-events-calendar' ), $this->singular_event_label ),
-				'edit_item'         => sprintf( __( 'Edit %s Category', 'the-events-calendar' ), $this->singular_event_label ),
-				'update_item'       => sprintf( __( 'Update %s Category', 'the-events-calendar' ), $this->singular_event_label ),
-				'add_new_item'      => sprintf( __( 'Add New %s Category', 'the-events-calendar' ), $this->singular_event_label ),
-				'new_item_name'     => sprintf( __( 'New %s Category Name', 'the-events-calendar' ), $this->singular_event_label ),
+				'name'              => sprintf( esc_html__( '%s Categories', 'the-events-calendar' ), $this->singular_event_label ),
+				'singular_name'     => sprintf( esc_html__( '%s Category', 'the-events-calendar' ), $this->singular_event_label ),
+				'search_items'      => sprintf( esc_html__( 'Search %s Categories', 'the-events-calendar' ), $this->singular_event_label ),
+				'all_items'         => sprintf( esc_html__( 'All %s Categories', 'the-events-calendar' ), $this->singular_event_label ),
+				'parent_item'       => sprintf( esc_html__( 'Parent %s Category', 'the-events-calendar' ), $this->singular_event_label ),
+				'parent_item_colon' => sprintf( esc_html__( 'Parent %s Category:', 'the-events-calendar' ), $this->singular_event_label ),
+				'edit_item'         => sprintf( esc_html__( 'Edit %s Category', 'the-events-calendar' ), $this->singular_event_label ),
+				'update_item'       => sprintf( esc_html__( 'Update %s Category', 'the-events-calendar' ), $this->singular_event_label ),
+				'add_new_item'      => sprintf( esc_html__( 'Add New %s Category', 'the-events-calendar' ), $this->singular_event_label ),
+				'new_item_name'     => sprintf( esc_html__( 'New %s Category Name', 'the-events-calendar' ), $this->singular_event_label ),
 			) );
 		}
 
@@ -1318,76 +1313,79 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$messages[ self::POSTTYPE ] = array(
 				0  => '', // Unused. Messages start at index 1.
-				1  => sprintf( __( '%1$s updated. <a href="%2$s">View %3$s</a>', 'the-events-calendar' ), $this->singular_event_label, esc_url( get_permalink( $post_ID ) ), strtolower( $this->singular_event_label ) ),
-				2  => __( 'Custom field updated.', 'the-events-calendar' ),
-				3  => __( 'Custom field deleted.', 'the-events-calendar' ),
-				4  => sprintf( __( '%s updated.', 'the-events-calendar' ), $this->singular_event_label ),
+				1  => sprintf( esc_html__( '%1$s updated. <a href="%2$s">View %3$s</a>', 'the-events-calendar' ), $this->singular_event_label, esc_url( get_permalink( $post_ID ) ), strtolower( $this->singular_event_label ) ),
+				2  => esc_html__( 'Custom field updated.', 'the-events-calendar' ),
+				3  => esc_html__( 'Custom field deleted.', 'the-events-calendar' ),
+				4  => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_event_label ),
 				/* translators: %s: date and time of the revision */
-				5  => isset( $_GET['revision'] ) ? sprintf( __( '%1$s restored to revision from %2$s', 'the-events-calendar' ), $this->singular_event_label, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+				5  => isset( $_GET['revision'] ) ? sprintf( esc_html__( '%1$s restored to revision from %2$s', 'the-events-calendar' ), $this->singular_event_label, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
 				6  => sprintf(
-					__( 'Event published. <a href="%1$s">View %2$s</a>', 'the-events-calendar' ),
-					esc_url( get_permalink( $post_ID ) ),
-					strtolower( $this->singular_event_label )
+					esc_html__( 'Event published. %1$sView %2$s', 'the-events-calendar' ),
+					'<a href="' . esc_url( get_permalink( $post_ID ) ) . '">',
+					strtolower( $this->singular_event_label ) . '</a>'
 				),
-				7  => sprintf( __( '%s saved.', 'the-events-calendar' ), $this->singular_event_label ),
+				7  => sprintf( esc_html__( '%s saved.', 'the-events-calendar' ), $this->singular_event_label ),
 				8  => sprintf(
-					__( '%1$s submitted. <a target="_blank" href="%2$s">Preview %3$s</a>', 'the-events-calendar' ),
+					esc_html__( '%1$s submitted. %2$sPreview %3$s', 'the-events-calendar' ),
 					$this->singular_event_label,
-					esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ),
-					strtolower( $this->singular_event_label )
+					'<a target="_blank" href="' . esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) . '">',
+					strtolower( $this->singular_event_label ) . '</a>'
 				),
 				9  => sprintf(
-					__( '%1$s scheduled for: <strong>%2$s</strong>. <a target="_blank" href="%3$s">Preview %4$s</a>', 'the-events-calendar' ),
+					esc_html__( '%1$s scheduled for: %2$s. %3$sPreview %4$s', 'the-events-calendar' ),
 					$this->singular_event_label,
 					// translators: Publish box date format, see http://php.net/date
-					date_i18n( __( 'M j, Y @ G:i', 'the-events-calendar' ), strtotime( $post->post_date ) ),
-					esc_url( get_permalink( $post_ID ) ),
-					strtolower( $this->singular_event_label )
+					'<strong>' . date_i18n( esc_html__( 'M j, Y @ G:i', 'the-events-calendar' ),
+						strtotime( $post->post_date ) ) . '</strong>',
+					'<a target="_blank" href="' . esc_url( get_permalink( $post_ID ) ) . '">',
+					strtolower( $this->singular_event_label ) . '</a>'
 				),
 				10 => sprintf(
-					__( '%1$s draft updated. <a target="_blank" href="%2$s">Preview %3$s</a>', 'the-events-calendar' ),
+					esc_html__( '%1$s draft updated. %2$sPreview %3$s', 'the-events-calendar' ),
 					$this->singular_event_label,
-					esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ),
-					strtolower( $this->singular_event_label )
+					'<a target="_blank" href="' . esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) . '">',
+					strtolower( $this->singular_event_label ) . '</a>'
 				),
 			);
 
 			$messages[ self::VENUE_POST_TYPE ] = array(
 				0  => '', // Unused. Messages start at index 1.
-				1  => sprintf( __( '%s updated.', 'the-events-calendar' ), $this->singular_venue_label ),
-				2  => __( 'Custom field updated.', 'the-events-calendar' ),
-				3  => __( 'Custom field deleted.', 'the-events-calendar' ),
-				4  => sprintf( __( '%s updated.', 'the-events-calendar' ), $this->singular_venue_label ),
+				1  => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_venue_label ),
+				2  => esc_html__( 'Custom field updated.', 'the-events-calendar' ),
+				3  => esc_html__( 'Custom field deleted.', 'the-events-calendar' ),
+				4  => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_venue_label ),
 				/* translators: %s: date and time of the revision */
-				5  => isset( $_GET['revision'] ) ? sprintf( __( '%s restored to revision from %s', 'the-events-calendar' ), $this->singular_venue_label, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6  => sprintf( __( '%s published.', 'the-events-calendar' ), $this->singular_venue_label ),
-				7  => sprintf( __( '%s saved.', 'the-events-calendar' ), $this->singular_venue_label ),
-				8  => sprintf( __( '%s submitted.', 'the-events-calendar' ), $this->singular_venue_label ),
+				5  => isset( $_GET['revision'] ) ? sprintf( esc_html__( '%1$s restored to revision from %2$s', 'the-events-calendar' ), $this->singular_venue_label, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+				6  => sprintf( esc_html__( '%s published.', 'the-events-calendar' ), $this->singular_venue_label ),
+				7  => sprintf( esc_html__( '%s saved.', 'the-events-calendar' ), $this->singular_venue_label ),
+				8  => sprintf( esc_html__( '%s submitted.', 'the-events-calendar' ), $this->singular_venue_label ),
 				9  => sprintf(
-					__( '%s scheduled for: <strong>%2$s</strong>.', 'the-events-calendar' ), $this->singular_venue_label,
+					esc_html__( '%1$s scheduled for: %2$s.', 'the-events-calendar' ),
+					$this->singular_venue_label,
 					// translators: Publish box date format, see http://php.net/date
-					date_i18n( __( 'M j, Y @ G:i', 'the-events-calendar' ), strtotime( $post->post_date ) )
+					'' . date_i18n( esc_html__( 'M j, Y @ G:i', 'the-events-calendar' ), strtotime( $post->post_date ) ) . '</strong>'
 				),
-				10 => sprintf( __( '%s draft updated.', 'the-events-calendar' ), $this->singular_venue_label ),
+				10 => sprintf( esc_html__( '%s draft updated.', 'the-events-calendar' ), $this->singular_venue_label ),
 			);
 
 			$messages[ self::ORGANIZER_POST_TYPE ] = array(
 				0  => '', // Unused. Messages start at index 1.
-				1  => sprintf( __( '%s updated.', 'the-events-calendar' ), $this->singular_organizer_label ),
-				2  => __( 'Custom field updated.', 'the-events-calendar' ),
-				3  => __( 'Custom field deleted.', 'the-events-calendar' ),
-				4  => sprintf( __( '%s updated.', 'the-events-calendar' ), $this->singular_organizer_label ),
+				1  => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_organizer_label ),
+				2  => esc_html__( 'Custom field updated.', 'the-events-calendar' ),
+				3  => esc_html__( 'Custom field deleted.', 'the-events-calendar' ),
+				4  => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_organizer_label ),
 				/* translators: %s: date and time of the revision */
-				5  => isset( $_GET['revision'] ) ? sprintf( __( '%s restored to revision from %s', 'the-events-calendar' ), $this->singular_organizer_label, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6  => sprintf( __( '%s published.', 'the-events-calendar' ), $this->singular_organizer_label ),
-				7  => sprintf( __( '%s saved.', 'the-events-calendar' ), $this->singular_organizer_label ),
-				8  => sprintf( __( '%s submitted.', 'the-events-calendar' ), $this->singular_organizer_label ),
+				5  => isset( $_GET['revision'] ) ? sprintf( esc_html__( '%s restored to revision from %s', 'the-events-calendar' ), $this->singular_organizer_label, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+				6  => sprintf( esc_html__( '%s published.', 'the-events-calendar' ), $this->singular_organizer_label ),
+				7  => sprintf( esc_html__( '%s saved.', 'the-events-calendar' ), $this->singular_organizer_label ),
+				8  => sprintf( esc_html__( '%s submitted.', 'the-events-calendar' ), $this->singular_organizer_label ),
 				9  => sprintf(
-					__( '%s scheduled for: <strong>%2$s</strong>.', 'the-events-calendar' ), $this->singular_organizer_label,
+					esc_html__( '%1$s scheduled for: %2$s.', 'the-events-calendar' ),
+					$this->singular_organizer_label,
 					// translators: Publish box date format, see http://php.net/date
-					date_i18n( __( 'M j, Y @ G:i', 'the-events-calendar' ), strtotime( $post->post_date ) )
+					'<strong>' . date_i18n( esc_html__( 'M j, Y @ G:i', 'the-events-calendar' ), strtotime( $post->post_date ) ) . '</strong>'
 				),
-				10 => sprintf( __( '%s draft updated.', 'the-events-calendar' ), $this->singular_organizer_label ),
+				10 => sprintf( esc_html__( '%s draft updated.', 'the-events-calendar' ), $this->singular_organizer_label ),
 			);
 
 			return $messages;
@@ -1403,8 +1401,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function addVenueAndOrganizerEditor() {
 			add_submenu_page( 'edit.php?post_type=' . self::POSTTYPE, __( $this->plural_venue_label, 'the-events-calendar' ), __( $this->plural_venue_label, 'the-events-calendar' ), 'edit_tribe_venues', 'edit.php?post_type=' . self::VENUE_POST_TYPE );
 			add_submenu_page( 'edit.php?post_type=' . self::POSTTYPE, __( $this->plural_organizer_label, 'the-events-calendar' ), __( $this->plural_organizer_label, 'the-events-calendar' ), 'edit_tribe_organizers', 'edit.php?post_type=' . self::ORGANIZER_POST_TYPE );
-			add_submenu_page( 'edit.php?post_type=' . self::VENUE_POST_TYPE, sprintf( __( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ), sprintf( __( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ), 'edit_tribe_venues', 'post-new.php?post_type=' . self::VENUE_POST_TYPE );
-			add_submenu_page( 'edit.php?post_type=' . self::ORGANIZER_POST_TYPE, sprintf( __( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ), sprintf( __( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ), 'edit_tribe_organizers', 'post-new.php?post_type=' . self::ORGANIZER_POST_TYPE );
+			add_submenu_page( 'edit.php?post_type=' . self::VENUE_POST_TYPE, sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ), sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ), 'edit_tribe_venues', 'post-new.php?post_type=' . self::VENUE_POST_TYPE );
+			add_submenu_page( 'edit.php?post_type=' . self::ORGANIZER_POST_TYPE, sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ), sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ), 'edit_tribe_organizers', 'post-new.php?post_type=' . self::ORGANIZER_POST_TYPE );
 		}
 
 		/**
@@ -1427,7 +1425,21 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			?>
 			<tr>
 				<td style="width:170px"><?php printf( __( 'Use Saved %s:', 'the-events-calendar' ), $this->singular_venue_label ); ?></td>
-				<td><?php $this->saved_venues_dropdown( $venue_id ); ?> <div class="edit-venue-link" <?php if ( empty( $venue_id ) ) { ?>style="display:none;"<?php } ?>><a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $venue_id ) ) ); ?>" target="_blank"><?php echo esc_html( sprintf( __( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label ) ); ?></a></div></td>
+				<td>
+					<?php
+					$this->saved_venues_dropdown( $venue_id );
+					$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
+					if ( current_user_can( $venue_pto->cap->edit_posts ) ) {
+						?>
+						<div class="edit-venue-link" <?php if ( empty( $venue_id ) ) { ?>style="display:none;"<?php } ?>>
+							<a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $venue_id ) ) ); ?>" target="_blank">
+								<?php echo esc_html( sprintf( __( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label ) ); ?>
+							</a>
+						</div>
+						<?php
+					}//end if
+					?>
+				</td>
 			</tr>
 		<?php
 		}
@@ -1458,7 +1470,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 			?>
 			<tr class="">
-				<td colspan="2"><?php _e( 'Without a defined location your event will not display a <a href="https://support.google.com/webmasters/answer/164506" target="_blank">Google Rich Snippet</a> on the search results.', 'the-events-calendar' ) ?></td>
+				<td colspan="2"><?php printf( esc_html__( 'Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results.', 'the-events-calendar' ), '<a href="https://support.google.com/webmasters/answer/164506" target="_blank">', '</a>' ) ?></td>
 			</tr>
 			<?php
 		}
@@ -1552,15 +1564,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				);
 			}
 			if ( $venues || $my_venues ) {
+				$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
 				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
-				echo '<option value="0">' . esc_html( sprintf( __( 'Use New %s', 'the-events-calendar' ), $this->singular_venue_label ) ) . '</option>';
+				if ( current_user_can( $venue_pto->cap->create_posts ) ) {
+					echo '<option value="0">' . esc_html( sprintf( __( 'Use New %s', 'the-events-calendar' ), $this->singular_venue_label ) ) . '</option>';
+				}
 				if ( $my_venues ) {
-					echo $venues ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_venues_dropdown_my_optgroup', sprintf( __( 'My %s', 'the-events-calendar' ), $this->plural_venue_label ) ) ) . '">' : '';
+					echo $venues ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_venues_dropdown_my_optgroup', sprintf( esc_html__( 'My %s', 'the-events-calendar' ), $this->plural_venue_label ) ) ) . '">' : '';
 					echo $my_venue_options;
 					echo $venues ? '</optgroup>' : '';
 				}
 				if ( $venues ) {
-					echo $my_venues ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_venues_dropdown_optgroup', sprintf( __( 'Available %s', 'the-events-calendar' ), $this->plural_venue_label ) ) ) . '">' : '';
+					echo $my_venues ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_venues_dropdown_optgroup', sprintf( esc_html__( 'Available %s', 'the-events-calendar' ), $this->plural_venue_label ) ) ) . '">' : '';
 					foreach ( $venues as $venue ) {
 						$venue_title = wp_kses( get_the_title( $venue->ID ), array() );
 						echo '<option data-address="' . esc_attr( $this->fullAddressString( $venue->ID ) ) . '" value="' . esc_attr( $venue->ID ) . '"';
@@ -1571,7 +1586,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				}
 				echo '</select>';
 			} else {
-				echo '<p class="nosaved">' . esc_html( sprintf( __( 'No saved %s exists.', 'the-events-calendar' ), strtolower( $this->singular_venue_label ) ) ) . '</p>';
+				echo '<p class="nosaved">' . sprintf( esc_html__( 'No saved %s exists.', 'the-events-calendar' ), strtolower( $this->singular_venue_label ) ) . '</p>';
 			}
 		}
 
@@ -1634,15 +1649,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				);
 			}
 			if ( $organizers || $my_organizers ) {
+				$oganizer_pto = get_post_type_object( self::ORGANIZER_POST_TYPE );
 				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
-				echo '<option value="0">' . esc_html( sprintf( __( 'Use New %s', 'the-events-calendar' ), $this->singular_organizer_label ) ) . '</option>';
+				if ( current_user_can( $oganizer_pto->cap->create_posts ) ) {
+					echo '<option value="0">' . sprintf( esc_html__( 'Use New %s', 'the-events-calendar' ), $this->singular_organizer_label ) . '</option>';
+				}
 				if ( $my_organizers ) {
-					echo $organizers ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_organizers_dropdown_my_optgroup', sprintf( __( 'My %s', 'the-events-calendar' ), $this->plural_organizer_label ) ) ) . '">' : '';
+					echo $organizers ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_organizers_dropdown_my_optgroup', sprintf( esc_html__( 'My %s', 'the-events-calendar' ), $this->plural_organizer_label ) ) ) . '">' : '';
 					echo $my_organizers_options;
 					echo $organizers ? '</optgroup>' : '';
 				}
 				if ( $organizers ) {
-					echo $my_organizers ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_organizers_dropdown_optgroup', sprintf( __( 'Available %s', 'the-events-calendar' ), $this->plural_organizer_label ) ) ) . '">' : '';
+					echo $my_organizers ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_organizers_dropdown_optgroup', sprintf( esc_html__( 'Available %s', 'the-events-calendar' ), $this->plural_organizer_label ) ) ) . '">' : '';
 					foreach ( $organizers as $organizer ) {
 						$organizer_title = wp_kses( get_the_title( $organizer->ID ), array() );
 						echo '<option value="' . esc_attr( $organizer->ID ) . '"';
@@ -1653,7 +1671,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				}
 				echo '</select>';
 			} else {
-				echo '<p class="nosaved">' . esc_html( sprintf( __( 'No saved %s exists.', 'the-events-calendar' ), strtolower( $this->singular_organizer_label ) ) ) . '</p>';
+				echo '<p class="nosaved">' . sprintf( esc_html__( 'No saved %s exists.', 'the-events-calendar' ), strtolower( $this->singular_organizer_label ) ) . '</p>';
 				printf( '<input type="hidden" name="%s" value="%d"/>', esc_attr( $name ), 0 );
 			}
 		}
@@ -1797,10 +1815,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'dayNamesMin'     => $this->daysOfWeekMin,
 				'monthNames'      => array_values( $this->monthNames() ),
 				'monthNamesShort' => array_values( $this->monthNames( true ) ),
-				'nextText'        => __( 'Next', 'the-events-calendar' ),
-				'prevText'        => __( 'Prev', 'the-events-calendar' ),
-				'currentText'     => __( 'Today', 'the-events-calendar' ),
-				'closeText'       => __( 'Done', 'the-events-calendar' ),
+				'nextText'        => esc_html__( 'Next', 'the-events-calendar' ),
+				'prevText'        => esc_html__( 'Prev', 'the-events-calendar' ),
+				'currentText'     => esc_html__( 'Today', 'the-events-calendar' ),
+				'closeText'       => esc_html__( 'Done', 'the-events-calendar' ),
 			);
 
 			return $bits;
@@ -2906,8 +2924,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * When we have a VenueID/OrganizerID, we just save the ID, because we're not
 			 * editing the venue/organizer from within the event.
 			 */
+			$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
 			if ( isset( $_POST['Venue']['VenueID'] ) && ! empty( $_POST['Venue']['VenueID'] ) ) {
 				$_POST['Venue'] = array( 'VenueID' => intval( $_POST['Venue']['VenueID'] ) );
+			} elseif ( ! current_user_can( $venue_pto->cap->create_posts ) ) {
+				$_POST['Venue'] = array();
 			}
 
 			$_POST['Organizer'] = $this->normalize_organizer_submission( $_POST['Organizer'] );
@@ -2920,6 +2941,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		public function normalize_organizer_submission( $submission ) {
+			$organizer_pto = get_post_type_object( self::ORGANIZER_POST_TYPE );
 			$organizers = array();
 			if ( ! isset( $submission['OrganizerID'] ) ) {
 				return $organizers; // not a valid submission
@@ -2929,7 +2951,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				foreach ( $submission['OrganizerID'] as $key => $organizer_id ) {
 					if ( ! empty( $organizer_id ) ) {
 						$organizers[] = array( 'OrganizerID' => intval( $organizer_id ) );
-					} else {
+					} elseif ( current_user_can( $organizer_pto->cap->create_posts ) ) {
 						$o = array();
 						foreach ( array( 'Organizer', 'Phone', 'Website', 'Email' ) as $field_name ) {
 							$o[ $field_name ] = isset( $submission[ $field_name ][ $key ] ) ? $submission[ $field_name ][ $key ] : '';
@@ -2941,11 +2963,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// old style with single organizer fields
-			$o = array();
-			foreach ( array( 'Organizer', 'Phone', 'Website', 'Email' ) as $field_name ) {
+			if ( current_user_can( $organizer_pto->cap->create_posts ) ) {
+				$o = array();
+				foreach ( array( 'Organizer', 'Phone', 'Website', 'Email' ) as $field_name ) {
+					$o[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : '';
+				}
+				$organizers[] = $o;
 				$o[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : '';
 			}
-			$organizers[] = $o;
 			return $organizers;
 		}
 
@@ -3399,8 +3424,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Allow programmatic override of defaultValueReplace setting
 		 *
 		 * @return boolean
+		 * @deprecated
+		 * @todo remove in 4.5
 		 */
 		public function defaultValueReplaceEnabled() {
+
+			_deprecated_function( __METHOD__, '4.0', "tribe_get_option( 'defaultValueReplace' )" );
 
 			if ( ! is_admin() ) {
 				return false;
@@ -3455,7 +3484,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function nextMonth( $date ) {
 			if ( PHP_INT_SIZE <= 4 ) {
 				if ( date( 'Y-m-d', strtotime( $date ) ) > '2037-11-30' ) {
-					throw new OverflowException( __( 'Date out of range.', 'the-events-calendar' ) );
+					throw new OverflowException( esc_html__( 'Date out of range.', 'the-events-calendar' ) );
 				}
 			}
 
@@ -3490,7 +3519,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function previousMonth( $date ) {
 			if ( PHP_INT_SIZE <= 4 ) {
 				if ( date( 'Y-m-d', strtotime( $date ) ) < '1902-02-01' ) {
-					throw new OverflowException( __( 'Date out of range.', 'the-events-calendar' ) );
+					throw new OverflowException( esc_html__( 'Date out of range.', 'the-events-calendar' ) );
 				}
 			}
 
@@ -3526,14 +3555,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				), self::POSTTYPE, 'normal', 'high'
 			);
 			add_meta_box(
-				'tribe_events_event_options', sprintf( __( '%s Options', 'the-events-calendar' ), $this->singular_event_label ), array(
+				'tribe_events_event_options', sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ), array(
 					$this,
 					'eventMetaBox',
 				), self::POSTTYPE, 'side', 'default'
 			);
 
 			add_meta_box(
-				'tribe_events_venue_details', sprintf( __( '%s Information', 'the-events-calendar' ), $this->singular_venue_label ), array(
+				'tribe_events_venue_details', sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_venue_label ), array(
 					$this,
 					'VenueMetaBox',
 				), self::VENUE_POST_TYPE, 'normal', 'high'
@@ -3544,7 +3573,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			add_meta_box(
-				'tribe_events_organizer_details', sprintf( __( '%s Information', 'the-events-calendar' ), $this->singular_organizer_label ), array(
+				'tribe_events_organizer_details', sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_organizer_label ), array(
 					$this,
 					'OrganizerMetaBox',
 				), self::ORGANIZER_POST_TYPE, 'normal', 'high'
@@ -3757,10 +3786,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function addMetaLinks( $links, $file ) {
 			if ( $file == $this->plugin_dir . 'the-events-calendar.php' ) {
-				$anchor   = __( 'Support', 'the-events-calendar' );
+				$anchor   = esc_html__( 'Support', 'the-events-calendar' );
 				$links[] = '<a href="' . esc_url( self::$dotOrgSupportUrl ) . '" target="_blank">' . $anchor . '</a>';
 
-				$anchor   = __( 'View All Add-Ons', 'the-events-calendar' );
+				$anchor   = esc_html__( 'View All Add-Ons', 'the-events-calendar' );
 				$link     = add_query_arg(
 					array(
 						'utm_campaign' => 'in-app',
@@ -3781,7 +3810,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function dashboardWidget() {
 			wp_add_dashboard_widget(
-				'tribe_dashboard_widget', __( 'News from Modern Tribe', 'the-events-calendar' ), array(
+				'tribe_dashboard_widget', esc_html__( 'News from Modern Tribe', 'the-events-calendar' ), array(
 					$this,
 					'outputDashboardWidget',
 				)
@@ -3836,7 +3865,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			<tr class="eventBritePluginPlug">
 			<td colspan="2">
 				<p><?php esc_html_e( 'Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?', 'the-events-calendar' ) ?> <?php printf(
-						__( 'Check out the <a href="%s">available add-ons</a>.', 'the-events-calendar' ),
+						esc_html__( 'Check out the %savailable add-ons%s.', 'the-events-calendar' ),
+						'<a href="' .
 						esc_url(
 							add_query_arg(
 								array(
@@ -3847,6 +3877,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 								self::$tribeUrl . self::$addOnPath
 							)
 						)
+						. '">',
+						'</a>'
 					); ?></p>
 			</td>
 			</tr><?php
@@ -3924,7 +3956,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$wp_admin_bar->add_menu(
 					array(
 						'id'     => 'tribe-events-view-calendar',
-						'title'  => __( 'View Calendar', 'the-events-calendar' ),
+						'title'  => esc_html__( 'View Calendar', 'the-events-calendar' ),
 						'href'   => $this->getLink( 'home' ),
 						'parent' => 'tribe-events-group',
 					)
@@ -3934,7 +3966,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$wp_admin_bar->add_menu(
 						array(
 							'id'     => 'tribe-events-add-event',
-							'title'  => sprintf( __( 'Add %s', 'the-events-calendar' ), $this->singular_event_label ),
+							'title'  => sprintf( esc_html__( 'Add %s', 'the-events-calendar' ), $this->singular_event_label ),
 							'href'   => trailingslashit( get_admin_url() ) . 'post-new.php?post_type=' . self::POSTTYPE,
 							'parent' => 'tribe-events-group',
 						)
@@ -3945,7 +3977,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$wp_admin_bar->add_menu(
 						array(
 							'id'     => 'tribe-events-edit-events',
-							'title'  => sprintf( __( 'Edit %s', 'the-events-calendar' ), $this->plural_event_label ),
+							'title'  => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->plural_event_label ),
 							'href'   => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE,
 							'parent' => 'tribe-events-group',
 						)
@@ -3958,7 +3990,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						$wp_admin_bar->add_menu(
 							array(
 								'id'     => 'tribe-events-import',
-								'title'  => __( 'Import', 'the-events-calendar' ),
+								'title'  => esc_html__( 'Import', 'the-events-calendar' ),
 								'parent' => 'tribe-events-import-group',
 							)
 						);
@@ -3966,7 +3998,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$wp_admin_bar->add_menu(
 						array(
 							'id'     => 'tribe-csv-import',
-							'title'  => __( 'CSV', 'the-events-calendar' ),
+							'title'  => esc_html__( 'CSV', 'the-events-calendar' ),
 							'href'   => esc_url(
 								add_query_arg(
 									array(
@@ -3988,7 +4020,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						$wp_admin_bar->add_menu(
 							array(
 								'id'     => 'tribe-events-settings',
-								'title'  => __( 'Settings', 'the-events-calendar' ),
+								'title'  => esc_html__( 'Settings', 'the-events-calendar' ),
 								'href'   => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&amp;page=tribe-events-calendar',
 								'parent' => 'tribe-events-settings-group',
 							)
@@ -4001,7 +4033,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						$wp_admin_bar->add_menu(
 									 array(
 										 'id'     => 'tribe-events-help',
-										 'title'  => __( 'Help', 'the-events-calendar' ),
+										 'title'  => esc_html__( 'Help', 'the-events-calendar' ),
 										 'href'   => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&amp;page=tribe-events-calendar&amp;tab=help',
 										 'parent' => 'tribe-events-settings-group',
 									 )
@@ -4078,8 +4110,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						),
 						admin_url( 'edit.php' )
 					)
-				) . '">' . __( 'Settings', 'the-events-calendar' ) . '</a>';
-			$actions['tribe-calendar'] = '<a href="' . $this->getLink() . '">' . __( 'Calendar', 'the-events-calendar' ) . '</a>';
+				) . '">' . esc_html__( 'Settings', 'the-events-calendar' ) . '</a>';
+			$actions['tribe-calendar'] = '<a href="' . $this->getLink() . '">' . esc_html__( 'Calendar', 'the-events-calendar' ) . '</a>';
 
 			return $actions;
 		}
@@ -4136,7 +4168,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$views[] = array(
 				'displaying'     => 'list',
 				'event_bar_hook' => 'tribe_events_before_template',
-				'anchor'         => __( 'List', 'the-events-calendar' ),
+				'anchor'         => esc_html__( 'List', 'the-events-calendar' ),
 				'url'            => tribe_get_listview_link(),
 			);
 
@@ -4154,7 +4186,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$views[] = array(
 				'displaying'     => 'month',
 				'event_bar_hook' => 'tribe_events_month_before_template',
-				'anchor'         => __( 'Month', 'the-events-calendar' ),
+				'anchor'         => esc_html__( 'Month', 'the-events-calendar' ),
 				'url'            => tribe_get_gridview_link(),
 			);
 
@@ -4171,7 +4203,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function setup_dayview_in_bar( $views ) {
 			$views[] = array(
 				'displaying'     => 'day',
-				'anchor'         => __( 'Day', 'the-events-calendar' ),
+				'anchor'         => esc_html__( 'Day', 'the-events-calendar' ),
 				'event_bar_hook' => 'tribe_events_before_template',
 				'url'            => tribe_get_day_link(),
 			);
@@ -4196,7 +4228,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( tribe_get_option( 'tribeDisableTribeBar', false ) == false ) {
 				$filters['tribe-bar-search'] = array(
 					'name'    => 'tribe-bar-search',
-					'caption' => __( 'Search', 'the-events-calendar' ),
+					'caption' => esc_html__( 'Search', 'the-events-calendar' ),
 					'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr__( 'Search', 'the-events-calendar' ) . '">',
 				);
 			}
@@ -4221,14 +4253,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$value = $_REQUEST['tribe-bar-date'];
 			}
 
-			$caption = __( 'Date', 'the-events-calendar' );
+			$caption = esc_html__( 'Date', 'the-events-calendar' );
 
 			if ( tribe_is_month() ) {
-				$caption = sprintf( __( '%s In', 'the-events-calendar' ), $this->plural_event_label );
+				$caption = sprintf( esc_html__( '%s In', 'the-events-calendar' ), $this->plural_event_label );
 			} elseif ( tribe_is_list_view() ) {
-				$caption = sprintf( __( '%s From', 'the-events-calendar' ), $this->plural_event_label );
+				$caption = sprintf( esc_html__( '%s From', 'the-events-calendar' ), $this->plural_event_label );
 			} elseif ( tribe_is_day() ) {
-				$caption = __( 'Day Of', 'the-events-calendar' );
+				$caption = esc_html__( 'Day Of', 'the-events-calendar' );
 				$value   = date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( $wp_query->query_vars['eventDate'] ) );
 			}
 
@@ -4303,7 +4335,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function register_30min_interval( $schedules ) {
 			$schedules['every_30mins'] = array(
 				'interval' => 30 * MINUTE_IN_SECONDS,
-				'display'  => __( 'Once Every 30 Mins', 'tribe-events-pro' ),
+				'display'  => esc_html__( 'Once Every 30 Mins', 'tribe-events-pro' ),
 			);
 
 			return $schedules;

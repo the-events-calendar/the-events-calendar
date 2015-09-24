@@ -8,7 +8,7 @@ $video_url = 'http://vimeo.com/108805711';
 
 ?>
 
-<p class="tribe-welcome-message"><?php echo esc_html( sprintf( __( 'You are running Version %s and deserve a hug :-)', 'the-events-calendar' ), Tribe__Events__Main::VERSION ) ); ?></p>
+<p class="tribe-welcome-message"><?php printf( esc_html__( 'You are running Version %s and deserve a hug :-)', 'the-events-calendar' ), Tribe__Events__Main::VERSION ); ?></p>
 
 <div class="tribe-welcome-video-wrapper">
 	<?php echo wp_oembed_get( $video_url ); ?>
@@ -16,8 +16,8 @@ $video_url = 'http://vimeo.com/108805711';
 
 <div class="tribe-row">
 	<div class="tribe-half-column">
-		<h2><?php _e( 'Keep The Events Calendar Core FREE', 'the-events-calendar' ); ?></h2>
-		<p><?php _e( "5 star ratings help us bring TEC to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support.", 'the-events-calendar' ); ?></p>
+		<h2><?php esc_html_e( 'Keep The Events Calendar Core FREE', 'the-events-calendar' ); ?></h2>
+		<p><?php esc_html_e( "5 star ratings help us bring TEC to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support.", 'the-events-calendar' ); ?></p>
 		<p><strong><?php esc_html_e( 'Rate it five stars today!', 'the-events-calendar' ); ?></strong> <a class="tribe-rating-link" href="http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a></p>
 		<a href="http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5" target="_blank" class="button-primary"><?php esc_html_e( 'Rate It', 'the-events-calendar' ); ?></a>
 	</div>

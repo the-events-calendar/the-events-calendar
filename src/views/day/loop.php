@@ -21,7 +21,7 @@ $current_timeslot = null;
 
 ?>
 
-<div class="tribe-events-loop hfeed vcalendar">
+<div class="tribe-events-loop">
 	<div class="tribe-events-day-time-slot">
 
 	<?php while ( have_posts() ) : the_post(); ?>
@@ -40,8 +40,6 @@ $current_timeslot = null;
 		<div id="post-<?php the_ID() ?>" class="<?php tribe_events_event_classes() ?>">
 			<?php tribe_get_template_part( 'day/single', 'event' ) ?>
 		</div>
-		<!-- .hentry .vevent -->
-
 
 		<?php do_action( 'tribe_events_inside_after_loop' ); ?>
 	<?php endwhile; ?>

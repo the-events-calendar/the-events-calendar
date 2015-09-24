@@ -19,7 +19,7 @@ if ( isset( $_POST['column_map'] ) ) {
 require_once 'header.php';
 ?>
 
-<h2><?php echo sprintf( esc_html__( 'Column Mapping: %s', 'the-events-calendar' ), ucwords( $import_type ) ) ?></h2>
+<h2><?php printf( esc_html__( 'Column Mapping: %s', 'the-events-calendar' ), ucwords( $import_type ) ) ?></h2>
 <?php if ( ! empty( $messages ) ): ?>
 	<div class="error"><?php echo implode( '', $messages ); ?></div>
 <?php endif; ?>
@@ -41,7 +41,7 @@ require_once 'header.php';
 
 				<tr>
 					<td colspan="2">
-						<?php submit_button( __( 'Perform Import', 'the-events-calendar' ) ); ?>
+						<?php submit_button( esc_html__( 'Perform Import', 'the-events-calendar' ) ); ?>
 					</td>
 				</tr>
 

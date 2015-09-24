@@ -30,7 +30,7 @@ class Tribe__Events__Importer__Column_Mapper {
 	public function make_select_box( $index ) {
 		$selected = isset( $this->defaults[ $index ] ) ? $this->defaults[ $index ] : '';
 		$html     = '<select name="column_map[' . $index . ']">';
-		$html .= '<option value="">' . __( 'Do Not Import', 'the-events-calendar' ) . '</option>';
+		$html .= '<option value="">' . esc_html__( 'Do Not Import', 'the-events-calendar' ) . '</option>';
 		foreach ( $this->column_names as $key => $value ) {
 			$html .= sprintf( '<option value="%s" %s>%s</option>', esc_attr( $key ), selected( $selected, $key, false ), esc_html( $value ) );
 		}
@@ -49,46 +49,46 @@ class Tribe__Events__Importer__Column_Mapper {
 
 	private function get_event_column_names() {
 		return apply_filters( 'tribe_events_importer_event_column_names', array(
-			'event_name'              => __( 'Event Name', 'the-events-calendar' ),
-			'event_description'       => __( 'Event Description', 'the-events-calendar' ),
-			'event_start_date'        => __( 'Event Start Date', 'the-events-calendar' ),
-			'event_start_time'        => __( 'Event Start Time', 'the-events-calendar' ),
-			'event_end_date'          => __( 'Event End Date', 'the-events-calendar' ),
-			'event_end_time'          => __( 'Event End Time', 'the-events-calendar' ),
-			'event_all_day'           => __( 'All Day Event', 'the-events-calendar' ),
-			'event_venue_name'        => __( 'Event Venue Name', 'the-events-calendar' ),
-			'event_organizer_name'    => __( 'Event Organizer Name', 'the-events-calendar' ),
-			'event_show_map_link'     => __( 'Event Show Map Link', 'the-events-calendar' ),
-			'event_show_map'          => __( 'Event Show Map', 'the-events-calendar' ),
-			'event_cost'              => __( 'Event Cost', 'the-events-calendar' ),
-			'event_currency_symbol'   => __( 'Event Currency Symbol', 'the-events-calendar' ),
-			'event_currency_position' => __( 'Event Currency Position', 'the-events-calendar' ),
-			'event_category'          => __( 'Event Category', 'the-events-calendar' ),
-			'event_tags'              => __( 'Event Tags', 'the-events-calendar' ),
-			'event_website'           => __( 'Event Website', 'the-events-calendar' ),
+			'event_name'              => esc_html__( 'Event Name', 'the-events-calendar' ),
+			'event_description'       => esc_html__( 'Event Description', 'the-events-calendar' ),
+			'event_start_date'        => esc_html__( 'Event Start Date', 'the-events-calendar' ),
+			'event_start_time'        => esc_html__( 'Event Start Time', 'the-events-calendar' ),
+			'event_end_date'          => esc_html__( 'Event End Date', 'the-events-calendar' ),
+			'event_end_time'          => esc_html__( 'Event End Time', 'the-events-calendar' ),
+			'event_all_day'           => esc_html__( 'All Day Event', 'the-events-calendar' ),
+			'event_venue_name'        => esc_html__( 'Event Venue Name', 'the-events-calendar' ),
+			'event_organizer_name'    => esc_html__( 'Event Organizer Name', 'the-events-calendar' ),
+			'event_show_map_link'     => esc_html__( 'Event Show Map Link', 'the-events-calendar' ),
+			'event_show_map'          => esc_html__( 'Event Show Map', 'the-events-calendar' ),
+			'event_cost'              => esc_html__( 'Event Cost', 'the-events-calendar' ),
+			'event_currency_symbol'   => esc_html__( 'Event Currency Symbol', 'the-events-calendar' ),
+			'event_currency_position' => esc_html__( 'Event Currency Position', 'the-events-calendar' ),
+			'event_category'          => esc_html__( 'Event Category', 'the-events-calendar' ),
+			'event_tags'              => esc_html__( 'Event Tags', 'the-events-calendar' ),
+			'event_website'           => esc_html__( 'Event Website', 'the-events-calendar' ),
 		) );
 	}
 
 	private function get_venue_column_names() {
 		return array(
-			'venue_name'     => __( 'Venue Name', 'the-events-calendar' ),
-			'venue_country'  => __( 'Venue Country', 'the-events-calendar' ),
-			'venue_address'  => __( 'Venue Address', 'the-events-calendar' ),
-			'venue_address2' => __( 'Venue Address 2', 'the-events-calendar' ),
-			'venue_city'     => __( 'Venue City', 'the-events-calendar' ),
-			'venue_state'    => __( 'Venue State/Province', 'the-events-calendar' ),
-			'venue_zip'      => __( 'Venue Zip', 'the-events-calendar' ),
-			'venue_phone'    => __( 'Venue Phone', 'the-events-calendar' ),
-			'venue_url'      => __( 'Venue Website', 'the-events-calendar' ),
+			'venue_name'     => esc_html__( 'Venue Name', 'the-events-calendar' ),
+			'venue_country'  => esc_html__( 'Venue Country', 'the-events-calendar' ),
+			'venue_address'  => esc_html__( 'Venue Address', 'the-events-calendar' ),
+			'venue_address2' => esc_html__( 'Venue Address 2', 'the-events-calendar' ),
+			'venue_city'     => esc_html__( 'Venue City', 'the-events-calendar' ),
+			'venue_state'    => esc_html__( 'Venue State/Province', 'the-events-calendar' ),
+			'venue_zip'      => esc_html__( 'Venue Zip', 'the-events-calendar' ),
+			'venue_phone'    => esc_html__( 'Venue Phone', 'the-events-calendar' ),
+			'venue_url'      => esc_html__( 'Venue Website', 'the-events-calendar' ),
 		);
 	}
 
 	private function get_organizer_column_names() {
 		return array(
-			'organizer_name'    => __( 'Organizer Name', 'the-events-calendar' ),
-			'organizer_email'   => __( 'Organizer Email', 'the-events-calendar' ),
-			'organizer_website' => __( 'Organizer Website', 'the-events-calendar' ),
-			'organizer_phone'   => __( 'Organizer Phone', 'the-events-calendar' ),
+			'organizer_name'    => esc_html__( 'Organizer Name', 'the-events-calendar' ),
+			'organizer_email'   => esc_html__( 'Organizer Email', 'the-events-calendar' ),
+			'organizer_website' => esc_html__( 'Organizer Website', 'the-events-calendar' ),
+			'organizer_phone'   => esc_html__( 'Organizer Phone', 'the-events-calendar' ),
 		);
 	}
 }

@@ -3,8 +3,8 @@
 $tec = Tribe__Events__Main::instance();
 
 $template_options = array(
-	''        => __( 'Default Events Template', 'the-events-calendar' ),
-	'default' => __( 'Default Page Template', 'the-events-calendar' ),
+	''        => esc_html__( 'Default Events Template', 'the-events-calendar' ),
+	'default' => esc_html__( 'Default Page Template', 'the-events-calendar' ),
 );
 $templates        = get_page_templates();
 ksort( $templates );
@@ -32,7 +32,7 @@ foreach ( $views as $view ) {
 }
 
 $display_tab_fields = Tribe__Main::array_insert_before_key(
-	'tribeEventsDateFormatSettingsTitle',
+	'tribe-form-content-start',
 	$display_tab_fields,
 	array(
 		'info-start'                         => array(
@@ -54,10 +54,13 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 			'type' => 'html',
 			'html' => '</div>',
 		),
-		'tribe-form-content-start'           => array(
-			'type' => 'html',
-			'html' => '<div class="tribe-settings-form-wrap">',
-		),
+	)
+);
+
+$display_tab_fields = Tribe__Main::array_insert_before_key(
+	'tribeEventsDateFormatSettingsTitle',
+	$display_tab_fields,
+	array(
 		'tribeEventsBasicSettingsTitle'      => array(
 			'type' => 'html',
 			'html' => '<h3>' . __( 'Basic Template Settings', 'the-events-calendar' ) . '</h3>',
@@ -138,23 +141,19 @@ $display_tab_fields = Tribe__Main::array_insert_after_key(
 	array(
 		'tribeEventsAdvancedSettingsTitle'   => array(
 			'type' => 'html',
-			'html' => '<h3>' . __( 'Advanced Template Settings', 'tribe-common' ) . '</h3>',
+			'html' => '<h3>' . esc_html__( 'Advanced Template Settings', 'tribe-common' ) . '</h3>',
 		),
 		'tribeEventsBeforeHTML'              => array(
 			'type'            => 'wysiwyg',
-			'label'           => __( 'Add HTML before event content', 'tribe-common' ),
-			'tooltip'         => __( 'If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout.', 'tribe-common' ),
+			'label'           => esc_html__( 'Add HTML before event content', 'tribe-common' ),
+			'tooltip'         => esc_html__( 'If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout.', 'tribe-common' ),
 			'validation_type' => 'html',
 		),
 		'tribeEventsAfterHTML'               => array(
 			'type'            => 'wysiwyg',
-			'label'           => __( 'Add HTML after event content', 'tribe-common' ),
-			'tooltip'         => __( 'If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout.', 'tribe-common' ),
+			'label'           => esc_html__( 'Add HTML after event content', 'tribe-common' ),
+			'tooltip'         => esc_html__( 'If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout.', 'tribe-common' ),
 			'validation_type' => 'html',
-		),
-		'tribe-form-content-end'             => array(
-			'type' => 'html',
-			'html' => '</div>',
 		),
 	)
 );
