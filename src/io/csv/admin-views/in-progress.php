@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once 'header.php';
 ?>
 
-<h3>Importing Data</h3>
+<h2>Importing Data</h2>
 
 <ul>
 	<?php foreach ( $messages as $message ): ?>

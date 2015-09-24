@@ -281,12 +281,13 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
 			if ( ! empty( $search_term ) ) {
-				Tribe__Events__Main::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
+				Tribe__Events__Main::setNotice( 'event-search-no-results', sprintf( esc_html__( 'There were no results found for %s this month. Try searching next month.', 'the-events-calendar' ),
+					'<strong>"' . esc_html( $search_term ) . '"</strong>' ) );
 			} // if attempting to view a category archive.
 			elseif ( ! empty( $tax_term ) ) {
-				Tribe__Events__Main::setNotice( 'events-not-found', sprintf( __( 'No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), strtolower( $events_label_plural ), $tax_term ) );
+				Tribe__Events__Main::setNotice( 'events-not-found', sprintf( esc_html__( 'No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events.', 'the-events-calendar' ), strtolower( $events_label_plural ), $tax_term ) );
 			} else {
-				Tribe__Events__Main::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
+				Tribe__Events__Main::setNotice( 'event-search-no-results', esc_html__( 'There were no results found.', 'the-events-calendar' ) );
 			}
 		}
 
@@ -393,6 +394,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			}
 
 			$post_stati = implode( "','", $post_stati );
+			$ignore_hidden_events_AND = $this->hidden_events_fragment();
 
 			$events_request = $wpdb->prepare(
 				"SELECT tribe_event_start.post_id as ID,
@@ -401,7 +403,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				FROM $wpdb->postmeta AS tribe_event_start
 				LEFT JOIN $wpdb->posts ON tribe_event_start.post_id = $wpdb->posts.ID
 				LEFT JOIN $wpdb->postmeta as tribe_event_end_date ON ( tribe_event_start.post_id = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' )
-				WHERE tribe_event_start.meta_key = '_EventStartDate'
+				WHERE $ignore_hidden_events_AND tribe_event_start.meta_key = '_EventStartDate'
 				AND ( (tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
 					OR (tribe_event_start.meta_value <= '%1\$s' AND tribe_event_end_date.meta_value >= '%1\$s')
 					OR ( tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
@@ -422,6 +424,30 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			// cache the found events in the object cache
 			$cache->set( $cache_key, $this->events_in_month, 0, 'save_post' );
+		}
+
+		/**
+		 * Returns a posts-not-in SQL fragment for use in a WHERE clause or else an empty
+		 * string if it is unneeded.
+		 *
+		 * @return string
+		 */
+		protected function hidden_events_fragment() {
+			global $wpdb;
+
+			// Despite the method name, this obtains a list of post IDs to be hidden from *all* event listings
+			$ignore_events = Tribe__Events__Query::getHideFromUpcomingEvents();
+
+			// If it is empty we don't need to do anything further
+			if ( empty( $ignore_events ) ) {
+				return '';
+			}
+
+			// Let's ensure they are all absolute integers then collapse into a string
+			$ignore_events = implode( ',', array_map( 'absint', $ignore_events ) );
+
+			// Terminate with AND so it can easily be combined with the rest of the WHERE clause
+			return " $wpdb->posts.ID NOT IN ( $ignore_events ) AND ";
 		}
 
 		/**
@@ -689,7 +715,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				return $date;
 			} else {
 				Tribe__Events__Main::setNotice( 'requested-date-invalid',
-					sprintf( __( 'The requested date "%s" was not valid &ndash; showing the current month instead', 'tribe-events-calendar' ), esc_html( $date ) ) );
+					sprintf( esc_html__( 'The requested date "%s" was not valid &ndash; showing the current month instead', 'the-events-calendar' ), esc_html( $date ) ) );
 
 				return date_i18n( 'Y-m' );
 			}
@@ -911,7 +937,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$post = $day['events']->post;
 
 			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
-			$classes         = array( 'hentry', 'vevent' );
+			$classes         = array();
 			$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
 			foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
 				$classes[] = 'tribe-events-category-' . $tribe_cat_slug;

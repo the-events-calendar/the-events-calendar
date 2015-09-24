@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, roblagatta, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, ckpicker, faction23, geoffgraham, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mdbitz, neillmcshea, ggwicz, nicosantos, peterchester, reid.peifer, ryancurban, shane.pearlman
+Contributors: ModernTribe, barry.hughes, bordoni, borkweb, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, thatdudebutch,  zbtirrell
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.3 beta 3
-Stable tag: 3.12a1
+Tested up to: 4.3
+Stable tag: 3.12.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,7 +79,7 @@ Looking for something else?
 
 = SUBMITTING PATCHES =
 
-If you’ve identified a bug and want to submit a patch, we’d welcome it at our <a href="https://github.com/moderntribe/the-events-calendar>GitHub page for The Events Calendar.</a> Simply cue up your proposed patch as a pull request, and we’ll review as part of our monthly release cycle and merge into the codebase if appropriate from there. (If a pull request is rejected, we’ll do our best to tell you why). Users whose pull requests are accepted will receive credit in the plugin’s changelog. For more information, check out the readme at our GitHub page. Happy coding!
+If you’ve identified a bug and want to submit a patch, we’d welcome it at our <a href="https://github.com/moderntribe/the-events-calendar" target="_blank">GitHub page for The Events Calendar.</a> Simply cue up your proposed patch as a pull request, and we’ll review as part of our monthly release cycle and merge into the codebase if appropriate from there. (If a pull request is rejected, we’ll do our best to tell you why). Users whose pull requests are accepted will receive credit in the plugin’s changelog. For more information, check out the readme at our GitHub page. Happy coding!
 
 = GET INVOLVED =
 
@@ -136,9 +136,9 @@ No, this plugin does not use a shortcode nor is one available at the time being.
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (3.11.2 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar (3.12 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.11.2 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.12 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
 
 Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
@@ -203,47 +203,49 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 
 = Current Contributors =
 
-
-* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
-* <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
-* <a href="http://profiles.wordpress.org/users/zbtirrell">Zachary Tirrell</a>
 * <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
+* <a href="http://profiles.wordpress.org/users/brianjessee">Brian Jessee</a>
+* <a href="http://profiles.wordpress.org/users/brook-tribe">Brook Harding</a>
+* <a href="http://profiles.wordpress.org/users/geoffgraham">Geoff Graham</a>
+* <a href="http://profiles.wordpress.org/users/ggwicz">George Gecewicz</a>
 * <a href="http://profiles.wordpress.org/users/bordoni">Gustavo Bordoni</a>
 * <a href="http://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
-* <a href="http://profiles.wordpress.org/users/lucatume">Luca Tumedei</a>
 * <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
-* <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
-* <a href="http://profiles.wordpress.org/users/brianjessee">Brian Jessee</a>
-* <a href="http://profiles.wordpress.org/users/mdbitz">Matthew Denton</a>
-* <a href="http://profiles.wordpress.org/users/geoffgraham">Geoff Graham</a>
 * <a href="http://profiles.wordpress.org/users/joshlimecuda">Josh Mallard</a>
-* <a href="http://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
-* <a href="http://profiles.wordpress.org/users/brook-tribe">Brook Harding</a>
 * <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
+* <a href="http://profiles.wordpress.org/users/lucatume">Luca Tumedei</a>
+* <a href="http://profiles.wordpress.org/users/mat-lipe">Mat Lipe</a>
+* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
+* <a href="http://profiles.wordpress.org/users/mdbitz">Matthew Denton</a>
+* <a href="http://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
+* <a href="http://profiles.wordpress.org/users/mastromktg">Nick Mastromattei</a>
+* <a href="http://profiles.wordpress.org/users/nicosantos”>Nico Santo</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
+* <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
+* <a href="http://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
+* <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
 * <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
-
+* <a href="http://profiles.wordpress.org/users/thatdudebutch">Wayne Stratton</a>
+* <a href="http://profiles.wordpress.org/users/zbtirrell">Zachary Tirrell</a>
 
 = Past Contributors =
 
-* <a href="http://profiles.wordpress.org/users/ckpicker">Casey Picker</a>
-* <a href="http://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
-* <a href="http://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
-* <a href="http://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
-* <a href="http://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
 * <a href="http://profiles.wordpress.org/users/caseypatrickdriscoll">Casey Driscoll</a>
-* <a href="http://profiles.wordpress.org/users/codearachnid">Timothy Wood</a>
-* <a href="http://profiles.wordpress.org/users/kellykathryn">Kelly Groves</a>
-* <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
-* <a href="http://profiles.wordpress.org/users/jkudish">Joachim Kudish</a>
-* <a href="http://profiles.wordpress.org/users/nickciske">Nick Ciske</a>
-* <a href="http://profiles.wordpress.org/users/kelseydamas">Kelsey Damas</a>
-* <a href="http://profiles.wordpress.org/users/mattwiebe">Matt Wiebe</a>
+* <a href="http://profiles.wordpress.org/users/ckpicker">Casey Picker</a>
 * <a href="http://profiles.wordpress.org/users/dancameron">Dan Cameron</a>
+* <a href="http://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
+* <a href="http://profiles.wordpress.org/users/jkudish">Joachim Kudish</a>
 * <a href="http://profiles.wordpress.org/users/jgadbois">John Gadbois</a>
-* Justin Endler
-
+* <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
+* <a href=“https://profiles.wordpress.org/justinendler/“>Justin Endler</a>
+* <a href="http://profiles.wordpress.org/users/kellykathryn">Kelly Groves</a>
+* <a href="http://profiles.wordpress.org/users/kelseydamas">Kelsey Damas</a>
+* <a href="http://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
+* <a href="http://profiles.wordpress.org/users/mattwiebe">Matt Wiebe</a>
+* <a href="http://profiles.wordpress.org/users/nickciske">Nick Ciske</a>
+* <a href="http://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
+* <a href="http://profiles.wordpress.org/users/codearachnid">Timothy Wood</a>
 
 = Translations =
 
@@ -268,6 +270,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Turkish
 
 Many thanks to all our translators!  You can grab the latest translations or contribute at http://translations.theeventscalendar.com
+
 == Add-Ons ==
 
 But wait: there's more! We've got a whole stable of plugins available to help you be awesome at what you do. Check out a full list of the products below, and over at the <a href="http://m.tri.be/2a" target="_blank">Modern Tribe website.</a>
@@ -314,12 +317,50 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [3.12.2] 2015-09-22 =
+* Fix - restore expected functionality for the Hide from Event Listings option
+* Fix - ensure the correct day is highlighted in month view, regardless of the site's timezone (our thanks to @james for making us aware of this)
+* Fix - improve compatibility with the standard WordPress import tool (our thanks to @joelgoodman for highlighting this)
+* Fix - ensure our URLs are compatible with pathinfo-style permalink structures (thanks to @mill.joes and others for make us aware of this)
 
-= [Unreleased] unreleased =
+= [3.12.1] 2015-09-09 =
+* Tweak - text domains updated for consistency with the plugin slug
+* Fix - restored normal operation of the changelog reader (used within the update screen)
 
+= [3.12] 2015-09-08 =
+
+* Security - Resolved JS vulnerability in minified JS by upgrading to uglifyjs 2.4.24
+* Performance - Greatly optimized the generation of Month View data
+* Feature - Extended CSV importer fields to include full coverage of Event, Organizer, and Venue fields (Thank you Sean for the original UserVoice post!)
+* Feature - Added support for WPML, thanks for waiting!
+* Feature - Make the attendees report nav filterable with tribe_events_tickets_attendees_table_nav (Thank you aaemnnosttv!)
+* Feature - Add filters to the attendees report meta information: tribe_events_tickets_attendees_event_summary_table_before, tribe_events_tickets_attendees_event_details_top, tribe_events_tickets_attendees_event_details_bottom, tribe_events_tickets_attendees_ticket_sales_top, tribe_events_tickets_attendees_ticket_sales_bottom, tribe_events_tickets_attendees_totals_top, tribe_events_tickets_attendees_totals_bottom, tribe_events_tickets_attendees_event_summary_table_after (Props to aaemnnosttv!)
+* Feature - Make the attendees report page title filterable with tribe_events_tickets_attendees_event_title (Props to aaemnnosttv!)
+* Feature - Make the venue metabox template file filterable with tribe_events_venue_meta_box_template (Thank you aaemnnosttv!)
+* Feature - Added a filter (tribe_show_organizer_email_obfuscation_alert) to make the organizer email obfuscation message optional (Thanks for the idea Cliffy!)
+* Feature - Added a filter (tribe_minutes_increment) that allows you to alter the minute incrementor used to generate the Minutes drop-down box (Thank you d4mation-!)
+* Feature - Added timezone support to allow different events to be set in different timezones
+* Feature - Added a warning when a page with the same slug as the events archive already exists
+* Tweak - Relocated event recurrence-specific JS to Events PRO where it belongs
+* Tweak - Style nowrap on ticket forms with CSS rather than HTML attributes (Thanks Mark!)
+* Tweak - Updated the attendees template to use divs to separate event data (Props to aaemnnosttv!)
+* Tweak - Display the order id with a proper link in the attendees report (Thank you aaemnnosttv!)
+* Tweak - Pointed the "Add-on Documentation" link on the Event > Settings > Help page to a better location.
+* Tweak - Pad SQL joins with spacing to avoid conflicts with other plugins that modify SQL (props to jeremyfelt)
+* Bug - Resolved bug where executing wp_insert_post within a hook to publish_tribe_events prevented event meta from being saved appropriately
+* Bug - Fixed a fatal caused by attempting to use get_current_screen before it was available for use in some contexts (props to Enchiridion)
+* Bug - Fixed bug where Date_Utils::datetime_from_format converted dates with 1 character days/months incorrectly
 * Bug - Fixed issue with event title attributes not always escaping properly on List and Day views
 * Bug - Fixed issue with Event Costs not updating when a new ticket was only submitted via Ajax
 * Bug - Fixed an issue Twenty Fourteen and the event views being hidden in screen sizes smaller then 400px
+* Bug - Fixed an issue where the month view date selector became full window width when Skeleton styles were enabled
+* Bug - Fixed a notice on the plugin updater page
+* Bug - Fixed a localization issue in the settings environment (props to @tititou36 for highlighting the issue)
+* Bug - Fixed a problem which was resetting the "Show Google Map" option for events when they were re-imported via CSV (thanks to @jameswemyss for highlighting this)
+* Bug - Fixed default event, organizer and venue website targets pointing to 'self'
+* Deprecated - The tribe_events_getLink is being deprecated in favor of tribe_events_get_link. Scheduled removal from source is v4.2
+* Deprecated - The Tribe__Events__Advanced_Functions__Register_Meta::gmap_link() has been deprecated since 3.6 and has now been removed from source
+* Deprecated - The tribe_events_single_event_meta() function has been deprecated since 3.6 and has now been removed from source
 
 = [3.11.2] 2015-07-30 =
 

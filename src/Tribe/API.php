@@ -232,12 +232,15 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				return $data;
 			}
 
-			// Store datetimes in UTC
-			if ( isset( $data['EventTimezone'] ) ) {
-				$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
-				$data['EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
-				$data['EventTimezoneAbbr'] = Tribe__Events__Timezones::abbr( $data['EventStartDate'], $data['EventTimezone'] );
+			// If a specific timezone was not specified, default to the sitewide timezone
+			if ( ! isset( $data['EventTimezone'] ) ) {
+				$data['EventTimezone'] = Tribe__Events__Timezones::wp_timezone_string();
 			}
+
+			// Additionally store datetimes in UTC
+			$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
+			$data['EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
+			$data['EventTimezoneAbbr'] = Tribe__Events__Timezones::abbr( $data['EventStartDate'], $data['EventTimezone'] );
 
 			// sanity check that start date < end date
 			$start_timestamp = strtotime( $data['EventStartDate'] );
@@ -431,7 +434,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			if ( ( isset( $data['Venue'] ) && $data['Venue'] ) || self::someVenueDataSet( $data ) ) {
 				$postdata = array(
-					'post_title'  => $data['Venue'] ? $data['Venue'] : __( "Unnamed Venue", 'tribe-events-calendar' ),
+					'post_title'  => $data['Venue'] ? $data['Venue'] : esc_html__( 'Unnamed Venue', 'the-events-calendar' ),
 					'post_type'   => Tribe__Events__Main::VENUE_POST_TYPE,
 					'post_status' => $post_status,
 				);
@@ -511,7 +514,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			// TODO: We should probably do away with 'StateProvince' and stick to 'State' and 'Province'.
 			if ( ! isset( $data['StateProvince'] ) || $data['StateProvince'] == '' ) {
 				if ( isset( $data['State'] ) && $data['State'] != '' &&
-					 ( empty( $data['Country'] ) || $data['Country'] == 'US' || $data['Country'] == __( "United States", 'tribe-events-calendar' ) )
+					 ( empty( $data['Country'] ) || $data['Country'] == 'US' || $data['Country'] == esc_html__( 'United States', 'the-events-calendar' ) )
 				) {
 					$data['StateProvince'] = $data['State'];
 				} else {

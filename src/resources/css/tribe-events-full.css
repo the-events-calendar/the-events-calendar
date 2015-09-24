@@ -1694,7 +1694,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	}
 }
 /* Stop themes from hiding elements with the .updated CSS class */
-#tribe-events-content .updated {
+#tribe-events-content .tribe-updated {
 	display: inherit;
 }
 @media screen and (max-width: 400px) {
