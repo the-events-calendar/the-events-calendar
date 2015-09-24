@@ -654,8 +654,7 @@ jQuery( document ).ready( function( $ ) {
 	} );
 
 	/**
-	 * Find any inputs with "tribe-timepicker" as one of its classes and transform into
-	 * an actual timepicker.
+	 * Find inputs with the "tribe-timepicker" class and transform into timepickers.
 	 */
 	$( "input.tribe-timepicker" ).each( tribe_init_timepicker );
 });
@@ -663,9 +662,8 @@ jQuery( document ).ready( function( $ ) {
 /**
  * Convert an ordinary input into a full blown timepicker.
  *
- * A number of properties can be defined via a data attribute,
- * "tribe-timepicker-properties" which is expected to contain a JSON-formatted
- * object. Some of the supported properies:
+ * A number of properties can be defined via a data attribute, "tribe-timepicker-properties"
+ * which is expected to contain a JSON-formatted object. Some of the supported properies:
  *
  *     format   (string):  the time format to use
  *     editable (boolean): whether or not text-based manual editing is permitted
