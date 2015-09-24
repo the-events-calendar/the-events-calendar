@@ -687,6 +687,11 @@ function tribe_init_timepicker( input ) {
 		properties = {};
 	}
 
+	// Safety check
+	if ( "function" !== typeof $.fn.pickatime ) {
+		return;
+	}
+
 	// Initialize
 	element    = $this.pickatime( properties );
 	timepicker = element.pickatime( "picker" );
