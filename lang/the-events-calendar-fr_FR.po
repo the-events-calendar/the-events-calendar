@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-10 14:12:40+0000\n"
+"PO-Revision-Date: 2015-09-15 20:39:11+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,7 +12,7 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
-msgstr ""
+msgstr "The Events Calendar est une extension soigneusement conçue qui vous permet de partager facilement vos événements. Beau. Solide. Génial."
 
 #. Author of the plugin/theme
 msgid "Modern Tribe, Inc."
@@ -32,7 +32,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:68
 msgid "<a href=\"%s\">edit The Events Calendar settings</a>."
-msgstr ""
+msgstr "<a href=\"%s\">éditer les paramètres de The Events Calendar</a>."
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:69
 msgid " ask the site administrator set a different Events URL slug."
@@ -40,23 +40,23 @@ msgstr ""
 
 #: src/Tribe/Admin/Timezone_Updater.php:77
 msgid "Please wait while timezone data is added to your events."
-msgstr ""
+msgstr "Merci de patienter pendant que les données de fuseau horaire sont ajoutées à vos événements."
 
 #: src/Tribe/Admin/Timezone_Updater.php:78
 msgid "Update complete: timezone data has been added to all events in the database."
-msgstr ""
+msgstr "Mise à jour terminée : les données de fuseau horaire ont été ajoutées à tous les événements de la base de données."
 
 #: src/Tribe/Admin/Timezone_Updater.php:87
 msgid "%d%% complete"
-msgstr ""
+msgstr "%d%% complet"
 
 #: src/Tribe/Admin/Timezone_Updater.php:105
 msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
-msgstr ""
+msgstr "Un problème a empêché la mise à jour des données de fuseau horaire d'aller à son terme. Merci d'actualiser la page et de ré-essayer."
 
 #: src/Tribe/Importer/Column_Mapper.php:64
 msgid "Event Currency Symbol"
-msgstr ""
+msgstr "Symbole monétaire de l'événement"
 
 #: src/Tribe/Importer/Column_Mapper.php:65
 msgid "Event Currency Position"
@@ -68,47 +68,47 @@ msgstr ""
 
 #: src/Tribe/Main.php:2241
 msgid "page"
-msgstr ""
+msgstr "page"
 
 #: src/Tribe/Main.php:2242
 msgid "event"
-msgstr ""
+msgstr "événement"
 
 #: src/Tribe/Main.php:2243
 msgid "events"
-msgstr ""
+msgstr "événements"
 
 #: src/Tribe/Main.php:2244
 msgid "all"
-msgstr ""
+msgstr "tous"
 
 #: src/Tribe/Settings.php:261
 msgid "Save Changes"
-msgstr ""
+msgstr "Sauvegarder les modifications"
 
 #: src/Tribe/Template/Day.php:136
 msgid "No matching %1$s listed under %2$s scheduled for <strong>%3$s</strong>. Please try another day."
-msgstr ""
+msgstr "Aucune correspondance d'%1$s listé dans %2$s prévue pour <strong>%3$s</strong>. Essayez un autre jour."
 
 #: src/Tribe/Template/Day.php:138
 msgid "No %1$s scheduled for <strong>%2$s</strong>. Please try another day."
-msgstr ""
+msgstr "Aucun %1$s prévu pour <strong>%2$s</strong>. Essayez un autre jour."
 
 #: src/Tribe/Template/Month.php:287
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
-msgstr ""
+msgstr "Aucun %1$s listé dans %2$s. Essayez de visionner le calendrier complet afin d'avoir une liste complète des événements. "
 
 #: src/Tribe/Template_Factory.php:355
 msgid "No results were found for %1$s in or near <strong>\"%2$s\"</strong>."
-msgstr ""
+msgstr "Aucun résultat n'a été trouvé pour %1$s dans ou près de <strong>\"%2$s\"</strong>."
 
 #: src/Tribe/Template_Factory.php:357
 msgid "No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar."
-msgstr ""
+msgstr "Aucun %1$s à venir répertorié sous %2$s. Découvrez les %3$s à venir pour cette catégorie ou le calendrier complet."
 
 #: src/Tribe/Template_Factory.php:359 src/Tribe/Template_Factory.php:364
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s."
-msgstr ""
+msgstr "Pas d'%1$s listés dans %2$s. Essayez de visionner le calendrier complet afin d'avoir une liste complète des %3$s."
 
 #: src/admin-views/events-meta-box.php:121
 msgid "Timezone:"
@@ -132,7 +132,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-help.php:199
 msgid "If you find that you aren't getting the level of service you've come to expect from Modern Tribe, shoot us an email at %1$s or tweet %2$s and tell us why. We'll do what we can to make it right."
-msgstr ""
+msgstr "Si vous trouvez que vous n'obtenez pas le niveau de service que vous espérez de Modern Tribe, envoyez nous un mail à %1$s ou tweetez %2$s et dites nous pourquoi. Nous ferrons de notre mieux pour répondre à votre attente."
 
 #: src/admin-views/tribe-options-licenses.php:13
 msgid "<p>The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
@@ -140,7 +140,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-timezones.php:4
 msgid "Enable timezone support"
-msgstr ""
+msgstr "Activer le support du fuseau horaire"
 
 #: src/admin-views/tribe-options-timezones.php:6
 msgid "Update Timezone Data"
@@ -183,7 +183,7 @@ msgstr[1] ""
 
 #: src/io/csv/admin-views/general.php:48
 msgid "Save Settings"
-msgstr ""
+msgstr "Enregistrer les paramètres"
 
 #: src/Tribe/Activation_Page.php:38
 msgid "Go to plugins page"
@@ -927,7 +927,7 @@ msgstr "Importation terminée !"
 
 #: src/admin-views/events-meta-box.php:195
 msgid "%s Website"
-msgstr "Site web de %s"
+msgstr "Site web de l'%s"
 
 #: src/io/csv/admin-views/result.php:19
 msgid "Inserted: %d"
@@ -943,7 +943,7 @@ msgstr "Entrées mises à jour : %d"
 
 #: src/admin-views/events-meta-box.php:229
 msgid "%s Cost"
-msgstr "Prix %s"
+msgstr "Prix de l'%s"
 
 #: src/io/csv/admin-views/result.php:21
 msgid "Skipped: %d"
@@ -1342,7 +1342,7 @@ msgstr "Désactiver la barre de recherche d'événement"
 
 #: src/admin-views/tribe-options-display.php:120
 msgid "Check this to use the classic header."
-msgstr "Cochez afin d'utiliser l'en-tête classic."
+msgstr "Cochez afin d'utiliser l'en-tête classique."
 
 #: src/admin-views/tribe-options-display.php:126
 msgid "Month view events per day"
@@ -2823,7 +2823,7 @@ msgstr "Liechtenstein"
 
 #: src/Tribe/Main.php:1361 src/Tribe/Main.php:1380
 msgid "%s restored to revision from %s"
-msgstr ""
+msgstr "%s restauré à la dernière révision de %s"
 
 #: src/Tribe/View_Helpers.php:171
 msgid "Lithuania"
