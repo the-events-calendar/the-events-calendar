@@ -240,6 +240,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->pluginDir  = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
 			$this->pluginUrl  = $this->plugin_url = plugins_url( $this->plugin_dir );
 
+			$this->maybe_set_common_lib_info();
+
+			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 1 );
+		}
+
+		public function plugins_loaded() {
 			// include the autolader class
 			$this->init_autoloading();
 
@@ -252,6 +258,31 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			} else {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
 				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
+			}
+		}
+
+		public function maybe_set_common_lib_info() {
+			$common_version = file_get_contents( $this->plugin_path . 'common/Tribe/Main.php' );
+
+			// if there isn't a tribe-common version, bail
+			if ( ! preg_match( "/const\s+VERSION\s*=\s*'([^']+)'/m", $common_version, $matches ) ) {
+				add_action( 'admin_head', array( $this, 'missing_common_libs' ) );
+
+				return;
+			}
+
+			$common_version = $matches[1];
+
+			if ( empty( $GLOBALS['tribe-common-info'] ) ) {
+				$GLOBALS['tribe-common-info'] = array(
+					'dir' => "{$this->plugin_path}common/Tribe",
+					'version' => $common_version,
+				);
+			} elseif ( 1 == version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' ) ) {
+				$GLOBALS['tribe-common-info'] = array(
+					'dir' => "{$this->plugin_path}common/Tribe",
+					'version' => $common_version,
+				);
 			}
 		}
 
@@ -931,6 +962,24 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! self::supportedVersion( 'php' ) ) {
 				echo '<div class="error"><p>' . sprintf( esc_html__( 'Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP.', 'the-events-calendar' ), '5.2' ) . '</p></div>';
 			}
+		}
+
+		/**
+		 * Display a missing-tribe-common library error
+		 */
+		public function missing_common_libs() {
+			?>
+			<div class="error">
+				<p>
+					<?php
+					echo esc_html__(
+						'It appears as if the tribe-common libraries cannot be found! The directory should be in the "common/" directory in the events calendar plugin.',
+						'the-events-calendar'
+					);
+					?>
+				</p>
+			</div>
+			<?php
 		}
 
 		/**
@@ -4463,9 +4512,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			);
 
 			if ( ! class_exists( 'Tribe__Autoloader' ) ) {
-				require_once( $this->plugin_path . '/common/Tribe/Autoloader.php' );
+				require_once $GLOBALS['tribe-common-info']['dir'] . '/Autoloader.php';
 
-				$prefixes['Tribe__'] = $this->plugin_path . 'common/Tribe';
+				$prefixes['Tribe__'] = $GLOBALS['tribe-common-info']['dir'];
 			}
 
 			$autoloader = Tribe__Autoloader::instance();
