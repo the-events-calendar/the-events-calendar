@@ -28,7 +28,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 		}
 
 		public function google_data_markup() {
-			$html = apply_filters( 'tribe_google_data_markup_json', Tribe__Events__Google_Data_Markup::instance()->script_block() );
+			$event_markup = new Tribe__Events__Google_Data_Markup__Event();
+			$html = apply_filters( 'tribe_google_data_markup_json', $event_markup->script_block() );
 			echo $html;
 		}
 
