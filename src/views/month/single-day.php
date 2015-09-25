@@ -18,7 +18,7 @@ $events_label = ( 1 === $day['total_events'] ) ? tribe_get_event_label_singular(
 ?>
 
 <!-- Day Header -->
-<div id="tribe-events-daynum-<?php echo $day['daynum'] ?>">
+<div id="tribe-events-daynum-<?php echo $day['daynum-id'] ?>">
 
 	<?php if ( $day['total_events'] > 0 && tribe_events_is_view_enabled( 'day' ) ) : ?>
 		<a href="<?php echo esc_url( tribe_get_day_link( $day['date'] ) ); ?>"><?php echo $day['daynum'] ?></a>
