@@ -19,14 +19,14 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			'StateProvince',
 			'Province',
 			'Zip',
-			'Phone'
+			'Phone',
 		);
 
 		public static $valid_organizer_keys = array(
 			'Organizer',
 			'Phone',
 			'Email',
-			'Website'
+			'Website',
 		);
 
 		/**
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$eventId           = wp_insert_post( $args, true );
 
 			if ( ! is_wp_error( $eventId ) ) {
-				Tribe__Events__API::saveEventMeta( $eventId, $args, get_post( $eventId ) );
+				self::saveEventMeta( $eventId, $args, get_post( $eventId ) );
 
 				return $eventId;
 			}
@@ -61,7 +61,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$args['post_type'] = Tribe__Events__Main::POSTTYPE;
 
 			if ( wp_update_post( $args ) ) {
-				Tribe__Events__API::saveEventMeta( $eventId, $args, get_post( $eventId ) );
+				self::saveEventMeta( $eventId, $args, get_post( $eventId ) );
 			}
 
 			return $eventId;
@@ -89,7 +89,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @return void
 		 */
 		public static function saveEventMeta( $event_id, $data, $event = null ) {
-			$tec = Tribe__Events__Main::instance();
+			$tec = self::instance();
 
 			$data = self::prepare_event_date_meta( $event_id, $data );
 
@@ -139,7 +139,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			//update meta fields
 			foreach ( $tec->metaTags as $tag ) {
 				$htmlElement = ltrim( $tag, '_' );
-				if ( isset( $data[ $htmlElement ] ) && $tag != Tribe__Events__Main::EVENTSERROROPT ) {
+				if ( isset( $data[ $htmlElement ] ) && $tag != self::EVENTSERROROPT ) {
 					if ( is_string( $data[ $htmlElement ] ) ) {
 						$data[ $htmlElement ] = filter_var( $data[ $htmlElement ], FILTER_SANITIZE_STRING );
 					}
@@ -294,12 +294,12 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 					// Only an ID was passed and we should do nothing.
 					return $data['OrganizerID'];
 				} else {
-					Tribe__Events__API::updateOrganizer( $data['OrganizerID'], $data );
+					self::updateOrganizer( $data['OrganizerID'], $data );
 
 					return $data['OrganizerID'];
 				}
 			} else {
-				return Tribe__Events__API::createOrganizer( $data, $post_status );
+				return self::createOrganizer( $data, $post_status );
 			}
 		}
 
@@ -322,7 +322,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 					$show_map_link       = get_post_meta( $data['VenueID'], '_VenueShowMapLink', true );
 					$data['ShowMap']     = $show_map ? $show_map : 'false';
 					$data['ShowMapLink'] = $show_map_link ? $show_map_link : 'false';
-					Tribe__Events__API::updateVenue( $data['VenueID'], $data );
+					self::updateVenue( $data['VenueID'], $data );
 
 					return $data['VenueID'];
 				}
@@ -331,7 +331,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				if ( isset( $data['VenueID'] ) && 0 == $data['VenueID'] ) {
 					unset( $data['VenueID'] );
 				}
-				return Tribe__Events__API::createVenue( $data, $post_status );
+				return self::createVenue( $data, $post_status );
 			}
 		}
 
@@ -347,7 +347,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			if ( ( isset( $data['Organizer'] ) && $data['Organizer'] ) || self::someOrganizerDataSet( $data ) ) {
 
 				$postdata = array(
-					'post_title'  => $data['Organizer'] ? $data['Organizer'] : "Unnamed Organizer",
+					'post_title'  => $data['Organizer'] ? $data['Organizer'] : __( 'Unnamed Organizer' ),
 					'post_type'   => Tribe__Events__Main::ORGANIZER_POST_TYPE,
 					'post_status' => $post_status,
 				);
@@ -375,7 +375,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 */
 		private static function someOrganizerDataSet( $data ) {
 			foreach ( self::$valid_organizer_keys as $key ) {
-				if ( isset( $data[$key] ) && $data[$key] ) {
+				if ( isset( $data[ $key ] ) && $data[ $key ] ) {
 					return true;
 				}
 			}
@@ -404,7 +404,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @return void
 		 */
 		public static function updateOrganizer( $organizerId, $data ) {
-			Tribe__Events__API::saveOrganizerMeta( $organizerId, $data );
+			self::saveOrganizerMeta( $organizerId, $data );
 			do_action( 'tribe_events_organizer_updated', $organizerId, $data );
 		}
 
@@ -466,7 +466,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 */
 		private static function someVenueDataSet( $data ) {
 			foreach ( self::$valid_venue_keys as $key ) {
-				if ( isset( $data[$key] ) && $data[$key] ) {
+				if ( isset( $data[ $key ] ) && $data[ $key ] ) {
 					return true;
 				}
 			}
@@ -486,7 +486,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$data['ShowMap']     = isset( $data['ShowMap'] ) ? $data['ShowMap'] : 'false';
 			$data['ShowMapLink'] = isset( $data['ShowMapLink'] ) ? $data['ShowMapLink'] : 'false';
 
-			Tribe__Events__API::saveVenueMeta( $venue_id, $data );
+			self::saveVenueMeta( $venue_id, $data );
 			do_action( 'tribe_events_venue_updated', $venue_id, $data );
 		}
 

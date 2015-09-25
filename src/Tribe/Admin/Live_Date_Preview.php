@@ -38,7 +38,7 @@ class Tribe__Events__Admin__Live_Date_Preview {
 		add_action( 'admin_enqueue_scripts', array( $this, 'live_refresh_script' ) );
 	}
 
-	public function setup_date_previews( $html, $field) {
+	public function setup_date_previews( $html, $field ) {
 		// Not one of the fields we're interested in? Return without modification
 		if ( ! in_array( $field->id, $this->target_fields ) ) {
 			return $html;
