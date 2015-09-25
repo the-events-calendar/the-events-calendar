@@ -775,13 +775,26 @@ select.tribe-events-dropdown {
 .tribe-bar-mini #tribe-bar-views ul.tribe-bar-view-list {
 	display: none;
 }
+
+
 /* Twenty Fifteen
 ========================================================================== */
+
 .tribe-theme-twentyfifteen .datepicker.dropdown-menu {
 	max-width: 340px;
 }
+
 .tribe-theme-twentyfifteen .datepicker.dropdown-menu table,
 .tribe-theme-twentyfifteen .datepicker.dropdown-menu table.table-condensed {
 	border-top-width: 0;
 	border-left-width: 0;
 }
+
+
+/* Twenty Sixteen
+========================================================================== */
+
+.tribe-theme-twentysixteen table.tribe-events-calendar {
+	table-layout: auto;
+}
+
