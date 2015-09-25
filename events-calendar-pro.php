@@ -56,7 +56,7 @@ define( 'EVENTS_CALENDAR_PRO_DIR', dirname( __FILE__ ) );
 		}
 	}
 
-	add_action( 'plugins_loaded', 'Tribe_ECP_Load', 1 ); // high priority so that it's not too late for tribe_register-helpers class
+	add_action( 'plugins_loaded', 'Tribe_ECP_Load', 2 ); // high priority so that it's not too late for tribe_register-helpers class
 
 	/**
 	 * Shows message if the plugin can't load due to TEC not being installed.
