@@ -1,7 +1,7 @@
 <?php
 
 abstract class Tribe__Events__Abstract_Deactivation {
-	protected $network = FALSE;
+	protected $network = false;
 
 	public function __construct( $network ) {
 		$this->network = (bool) $network;

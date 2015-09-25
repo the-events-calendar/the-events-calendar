@@ -119,8 +119,8 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 					'img'    => array(
 						'title' => array(),
 						'src'   => array(),
-						'alt'   => array()
-					)
+						'alt'   => array(),
+					),
 				)
 			);
 			$tooltip    = wp_kses(
@@ -135,10 +135,10 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 					'img'    => array(
 						'title' => array(),
 						'src'   => array(),
-						'alt'   => array()
+						'alt'   => array(),
 					),
 					'code'   => array( 'span' => array() ),
-					'span'   => array()
+					'span'   => array(),
 				)
 			);
 			$attributes = $args['attributes'];

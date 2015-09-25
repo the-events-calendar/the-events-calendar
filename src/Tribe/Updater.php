@@ -85,9 +85,9 @@ class Tribe__Events__Updater {
 		$version_in_db = $tec->getOption( $this->version_option );
 
 		if ( version_compare( $version, $version_in_db ) > 0 ) {
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 
 	public function update_required() {
@@ -161,7 +161,7 @@ class Tribe__Events__Updater {
 		global $current_user;
 		if ( isset( $current_user ) && ( $current_user instanceof WP_User ) ) {
 			$id = $current_user->ID;
-			$current_user = NULL;
+			$current_user = null;
 			wp_set_current_user( $id );
 		}
 	}

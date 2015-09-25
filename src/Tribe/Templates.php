@@ -43,7 +43,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		public static $themes_with_compatibility_fixes = array(
 			'twentyfifteen',
 			'twentyfourteen',
-			'twentythirteen'
+			'twentythirteen',
 		);
 
 		/**
@@ -251,7 +251,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 */
 		public static function needs_compatibility_fix ( $theme = null ) {
 			// Defaults to current active theme
-			if ( $theme === null) $theme = wp_get_theme()->Template;
+			if ( $theme === null ) $theme = wp_get_theme()->Template;
 
 			$theme_compatibility_list = apply_filters( 'tribe_themes_compatibility_fixes', self::$themes_with_compatibility_fixes );
 
