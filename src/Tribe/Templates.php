@@ -41,9 +41,10 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 * List of templates which have compatibility fixes
 		 */
 		public static $themes_with_compatibility_fixes = array(
+			'twentysixteen',
 			'twentyfifteen',
 			'twentyfourteen',
-			'twentythirteen'
+			'twentythirteen',
 		);
 
 		/**
