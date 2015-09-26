@@ -177,7 +177,7 @@ class Tribe__Events__Importer__Admin_Page {
 	private function handle_column_mapping() {
 		// Deconstruct mapping.
 		if ( empty( $_POST['column_map'] ) ) {
-			return FALSE;
+			return false;
 		}
 		$column_mapping = $_POST['column_map'];
 
@@ -185,7 +185,7 @@ class Tribe__Events__Importer__Admin_Page {
 			$importer = $this->get_importer();
 		} catch ( RuntimeException $e ) {
 			$this->errors[] = esc_html__( 'The file went away. Please try again.', 'the-events-calendar' );
-			return FALSE;
+			return false;
 		}
 		$required_fields = $importer->get_required_fields();
 		$missing = array_diff( $required_fields, $column_mapping );
@@ -198,11 +198,11 @@ class Tribe__Events__Importer__Admin_Page {
 			}
 			$message .= '</ul>';
 			$this->errors[] = $message;
-			return FALSE;
+			return false;
 		}
 
 		update_option( 'tribe_events_import_column_mapping', $column_mapping );
-		return TRUE;
+		return true;
 	}
 
 	private function begin_import() {

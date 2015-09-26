@@ -7,7 +7,7 @@
 	class Tribe__Events__Cache_Listener {
 
 		private static $instance = null;
-		private        $cache    = null;
+		private $cache    = null;
 
 		/**
 		 * Class constructor.
