@@ -1710,6 +1710,20 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-theme-twentyfifteen.events-single.tribe-events-page-template #tribe-events-content {
 	padding: 8.3333% 10%;
 }
+
+.tribe-theme-twentyfifteen.single-tribe_events #tribe-events .tribe_events {
+	margin-left: 0;
+	margin-right: 0;
+	padding-top: 0;
+	box-shadow: none;
+}
+
+.tribe-theme-twentyfifteen.single-tribe_events #tribe-events .tribe-events-schedule h2 {
+	margin: 0;
+	font-size: 1.2em;
+	display: inline-block;
+}
+
 .tribe-theme-twentyfifteen.single-tribe_events.page-template-page-php .tribe-events-single {
 	box-shadow: none;
 	margin-left: 0;
