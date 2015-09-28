@@ -1266,13 +1266,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 					$image_tool_src = $image_tool_arr[0];
 				}
 
-				if ( has_excerpt( $event->ID ) ) {
-					$excerpt = $event->post_excerpt;
-				} else {
-					$excerpt = $event->post_content;
-				}
-				$excerpt = Tribe__Events__Main::instance()->truncate( $excerpt, 30 );
-
 				$category_classes = tribe_events_event_classes( $event->ID, false );
 
 				$json['eventId'] = $event->ID;
@@ -1281,7 +1274,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$json['imageSrc'] = $image_src;
 				$json['dateDisplay'] = $date_display;
 				$json['imageTooltipSrc'] = $image_tool_src;
-				$json['excerpt'] = $excerpt;
+				$json['excerpt'] = tribe_events_get_the_excerpt( $event );
 				$json['categoryClasses'] = $category_classes;
 
 				/**
@@ -1601,8 +1594,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$post = get_the_ID();
 		}
 
-		if ( is_numeric( $post ) ) {
-			$post = new WP_Post( $post );
+		if ( ! $post instanceof WP_Post ) {
+			$post = WP_Post::get_instance( $post );
 		}
 
 		if ( ! $post instanceof WP_Post ) {
@@ -1642,7 +1635,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @link https://codex.wordpress.org/Function_Reference/wp_kses
 		 */
-		$allowed_html = apply_filters( 'tribe_events_excerpt_allowed_html', $allowed_html, $post, $words );
+		$allowed_html = apply_filters( 'tribe_events_excerpt_allowed_html', $allowed_html, $post );
 
 		/**
 		 * Allow shortcodes to be Applied on the Excerpt or not
@@ -1652,10 +1645,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$allow_shortcode = apply_filters( 'tribe_events_excerpt_allow_shortcode', false );
 
 		// Get the Excerpt or content based on what is available
-		$excerpt = '';
-		if ( ! empty( $post->post_excerpt ) ) {
+		if ( has_excerpt( $post->ID ) ) {
 			$excerpt = $post->post_excerpt;
-		} elseif ( ! empty( $post->post_content ) ) {
+		} else {
 			$excerpt = $post->post_content;
 		}
 
@@ -1670,7 +1662,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// Still treat this as an Excerpt on WP
 		$excerpt = wp_trim_excerpt( $excerpt );
 
-		return $excerpt;
+		return wpautop( $excerpt );
 	}
 
 	/**
