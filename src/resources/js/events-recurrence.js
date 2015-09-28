@@ -42,6 +42,12 @@ tribe_events_pro_admin.recurrence = {
 		window.Handlebars.registerHelper( {
 			tribe_recurrence_select: function( value, options ) {
 				var $el = $( '<select />' ).html( options.fn( this ) );
+
+				// if a value is passed in, get rid of the defaults
+				if ( value ) {
+					$el.find( 'option:selected' ).attr( 'selected', false );
+				}
+
 				$el.find( '[value="' + value + '"]' ).attr( 'selected', 'selected' );
 				return $el.html();
 			},
