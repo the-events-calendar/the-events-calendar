@@ -16,8 +16,8 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 			'label'   => esc_attr__( 'Details', 'the-events-calendar' ),
 			'classes' => array(
 				'before'       => array( 'tribe-events-meta-group tribe-events-meta-group-details' ),
-				'label_before' => array( 'tribe-events-single-section-title' )
-			)
+				'label_before' => array( 'tribe-events-single-section-title' ),
+			),
 		)
 	);
 
@@ -32,7 +32,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 			'classes'         => array( 'meta_before' => array( 'tribe-events-date' ) ),
 			'group'           => 'tribe_event_details',
 			'priority'        => 10,
-			'filter_callback' => array( 'Tribe__Events__Advanced_Functions__Register_Meta', 'event_date' )
+			'filter_callback' => array( 'Tribe__Events__Advanced_Functions__Register_Meta', 'event_date' ),
 		)
 	);
 
@@ -126,8 +126,8 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 			'label'   => esc_attr__( 'Venue', 'the-events-calendar' ),
 			'classes' => array(
 				'before'       => array( 'tribe-events-meta-group tribe-events-meta-group-venue', 'vcard' ),
-				'label_before' => array( 'tribe-events-single-section-title' )
-			)
+				'label_before' => array( 'tribe-events-single-section-title' ),
+			),
 		)
 	);
 
@@ -205,8 +205,8 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 			'label'   => esc_attr__( 'Organizer', 'the-events-calendar' ),
 			'classes' => array(
 				'before'       => array( 'tribe-events-meta-group tribe-events-meta-group-organizer', 'vcard' ),
-				'label_before' => array( 'tribe-events-single-section-title' )
-			)
+				'label_before' => array( 'tribe-events-single-section-title' ),
+			),
 		)
 	);
 
@@ -284,7 +284,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 		'tribe_event_title', array(
 			'classes'  => array( 'meta_before' => array( 'tribe-events-meta-event-title', 'summary' ) ),
 			'label'    => sprintf( esc_attr__( '%s:', 'the-events-calendar' ), tribe_get_event_label_singular() ),
-			'callback' => array( 'Tribe__Events__Advanced_Functions__Register_Meta', 'the_title' )
+			'callback' => array( 'Tribe__Events__Advanced_Functions__Register_Meta', 'the_title' ),
 		)
 	);
 
@@ -307,7 +307,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 			'classes'         => array( 'meta_before' => array( 'tribe-events-venue-map' ) ),
 			'label'           => '',
 			'priority'        => 10,
-			'filter_callback' => array( 'Tribe__Events__Advanced_Functions__Register_Meta', 'venue_map' )
+			'filter_callback' => array( 'Tribe__Events__Advanced_Functions__Register_Meta', 'venue_map' ),
 		)
 	);
 

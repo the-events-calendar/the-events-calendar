@@ -53,7 +53,7 @@ class Tribe__Events__Timezones {
 			return $schedule_text;
 		}
 
-		$timezone = Tribe__Events__Timezones::is_mode( 'site' )
+		$timezone = self::is_mode( 'site' )
 			? self::wp_timezone_abbr( tribe_get_start_date( $event_id, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) )
 			: self::get_event_timezone_abbr( $event_id );
 
@@ -146,7 +146,7 @@ class Tribe__Events__Timezones {
 		// Otherwise return the UTC offset
 		if ( 0 == $current_offset ) {
 			return 'UTC+0';
-		} elseif ($current_offset < 0) {
+		} elseif ( $current_offset < 0 ) {
 			return 'UTC' . $current_offset;
 		}
 
@@ -402,13 +402,13 @@ class Tribe__Events__Timezones {
 	 * @return DateTimeZone|false
 	 */
 	public static function get_timezone( $tzstring, $with_fallback = true ) {
-		if ( isset( self::$timezones[$tzstring] ) ) {
-			return self::$timezones[$tzstring];
+		if ( isset( self::$timezones[ $tzstring ] ) ) {
+			return self::$timezones[ $tzstring ];
 		}
 
 		try {
-			self::$timezones[$tzstring] = new DateTimeZone( $tzstring );
-			return self::$timezones[$tzstring];
+			self::$timezones[ $tzstring ] = new DateTimeZone( $tzstring );
+			return self::$timezones[ $tzstring ];
 		}
 		catch ( Exception $e ) {
 			if ( $with_fallback ) {

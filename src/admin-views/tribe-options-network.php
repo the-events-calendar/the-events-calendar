@@ -31,5 +31,5 @@ $networkTab = array(
 				'can_be_empty'    => true,
 			),
 		)
-	)
+	),
 );

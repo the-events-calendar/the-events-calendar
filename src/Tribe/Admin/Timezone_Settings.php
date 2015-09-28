@@ -84,7 +84,7 @@ class Tribe__Events__Admin__Timezone_Settings {
 	 * This approach helps to avoid potential timeout issues on sites with poor performance
 	 * or large numbers of events, besides facilitating visual feedback as to progress.
 	 */
-	function ajax_updater() {
+	public function ajax_updater() {
 		if ( ! isset( $_POST['check'] ) || ! wp_verify_nonce( $_POST['check'], 'timezone-settings' ) ) {
 			return;
 		}
