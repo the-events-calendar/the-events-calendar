@@ -202,7 +202,7 @@ $generalTabFields = array(
 	'viewUpdatePage'          => array(
 		'type'        => 'html',
 		'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'View Update Page', 'the-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . esc_url( get_site_url() . '/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-update-message' ) . '" class="button">' . __( 'View Update Page', 'the-events-calendar' ) . '</a><p class="tribe-field-indent description">' . __( 'View the page that displayed when you updated the plugin.', 'the-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
-	)
+	),
 );
 
 if ( is_super_admin() ) {

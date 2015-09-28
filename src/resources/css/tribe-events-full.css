@@ -952,6 +952,11 @@ select.tribe-events-dropdown {
 	right: 30px;
 }
 
+.tribe-events-tooltip ul,
+.tribe-events-tooltip ol {
+	margin-left: 1.6em;
+}
+
 /* Recurring info tooltip */
 .recurringinfo {
 	display: inline-block;
