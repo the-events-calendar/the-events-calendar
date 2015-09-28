@@ -12,6 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 
+	/**
+	 * Returns the link to export the whole recurring  series in iCal format.
+	 *
+	 * @param int|WP_Pos|null $event_id A event post object, an event post ID or null to use the globally defined post object.
+	 *
+	 * @return string The absolute URL to export the whole recurring series in iCal format.
+	 */
 	function tribe_get_recurrence_ical_link( $event_id = null ) {
 		$event_id = Tribe__Events__Main::postIdHelper( $event_id );
 
