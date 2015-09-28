@@ -1594,14 +1594,83 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @return string
+	 * @return string|null Will return null on Bad Post Instances
 	 */
-	function tribe_events_get_the_excerpt() {
-		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
-			return get_the_excerpt();
+	function tribe_events_get_the_excerpt( $post = null, $allowed_html = null ) {
+		if ( ! is_numeric( $post ) && ! $post instanceof WP_Post ) {
+			$post = get_the_ID();
 		}
 
-		return preg_replace( '#\[.+\]#U', '', get_the_excerpt() );
+		if ( is_numeric( $post ) ) {
+			$post = new WP_Post( $post );
+		}
+
+		if ( ! $post instanceof WP_Post ) {
+			return null;
+		}
+
+		// Default Allowed HTML
+		if ( ! is_array( $allowed_html ) ) {
+			$base_attrs = array(
+				'class' => array(),
+				'id' => array(),
+				'style' => array(),
+			);
+			$allowed_html = array(
+				'a' => array(
+					'class' => array(),
+					'id' => array(),
+					'style' => array(),
+					'href' => array(),
+					'rel' => array(),
+					'target' => array(),
+				),
+				'b' => $base_attrs,
+				'strong' => $base_attrs,
+				'em' => $base_attrs,
+				'span' => $base_attrs,
+				'ul' => $base_attrs,
+				'li' => $base_attrs,
+				'ol' => $base_attrs,
+			);
+		}
+
+		/**
+		 * Allow developers to filter what are the allowed HTML on the Excerpt
+		 *
+		 * @var array Must be compatible to wp_kses structure
+		 *
+		 * @link https://codex.wordpress.org/Function_Reference/wp_kses
+		 */
+		$allowed_html = apply_filters( 'tribe_events_excerpt_allowed_html', $allowed_html, $post, $words );
+
+		/**
+		 * Allow shortcodes to be Applied on the Excerpt or not
+		 *
+		 * @var bool
+		 */
+		$allow_shortcode = apply_filters( 'tribe_events_excerpt_allow_shortcode', false );
+
+		// Get the Excerpt or content based on what is available
+		$excerpt = '';
+		if ( ! empty( $post->post_excerpt ) ) {
+			$excerpt = $post->post_excerpt;
+		} elseif ( ! empty( $post->post_content ) ) {
+			$excerpt = $post->post_content;
+		}
+
+		// Remove all shortcode Content before removing HTML
+		if ( ! $allow_shortcode ) {
+			$excerpt = preg_replace( '#\[.+\]#U', '', $excerpt );
+		}
+
+		// Romove "all" HTML based on what is allowed
+		$excerpt = wp_kses( $excerpt, $allowed_html );
+
+		// Still treat this as an Excerpt on WP
+		$excerpt = wp_trim_excerpt( $excerpt );
+
+		return $excerpt;
 	}
 
 	/**
