@@ -1658,7 +1658,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$excerpt = preg_replace( '#\[.+\]#U', '', $excerpt );
 		}
 
-		// Romove "all" HTML based on what is allowed
+		// Remove "all" HTML based on what is allowed
 		$excerpt = wp_kses( $excerpt, $allowed_html );
 
 		// Still treat this as an Excerpt on WP
