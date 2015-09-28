@@ -139,7 +139,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			//update meta fields
 			foreach ( $tec->metaTags as $tag ) {
 				$htmlElement = ltrim( $tag, '_' );
-				if ( isset( $data[ $htmlElement ] ) && $tag != self::EVENTSERROROPT ) {
+				if ( isset( $data[ $htmlElement ] ) && $tag != Tribe__Events__Main::EVENTSERROROPT ) {
 					if ( is_string( $data[ $htmlElement ] ) ) {
 						$data[ $htmlElement ] = filter_var( $data[ $htmlElement ], FILTER_SANITIZE_STRING );
 					}
