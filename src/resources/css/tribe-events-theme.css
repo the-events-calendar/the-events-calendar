@@ -93,10 +93,10 @@ h2.tribe-events-page-title,
 /* General Template Header/Footer Nav */
 #tribe-events-header .tribe-events-sub-nav li,
 #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next a {
- 	display: none;
+	display: none;
 }
 #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next {
- 	display: block;
+	display: block;
 }
 .single-tribe_events #tribe-events-footer,
 .tribe-events-day #tribe-events-footer,
@@ -108,7 +108,7 @@ h2.tribe-events-page-title,
 }
 /* General Template Header/Footer Nav */
 .single-tribe_events #tribe-events-header {
- 	display: none;
+	display: none;
 }
 
 /* = Day Grid Template Styles
@@ -297,10 +297,10 @@ h2.tribe-events-page-title,
 	border: 1px solid #d2d2d2;
 	border-top: 0;
 	-webkit-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530);
-  	   -moz-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530);
-        -ms-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530);
-         -o-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530);
-	        transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530);
+	   -moz-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530);
+		-ms-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530);
+		 -o-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530);
+			transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530);
 }
 
 #tribe-events-content .tribe-events-calendar td:hover {
@@ -363,7 +363,7 @@ h2.tribe-events-page-title,
 	height: 7px;
 	background-image: url(../images/tribe-theme/tribe-theme-tooltips.png);
 	-webkit-background-size: 37px 20px;
-    		background-size: 37px 20px;
+			background-size: 37px 20px;
 	bottom: -7px;
 }
 
