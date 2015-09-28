@@ -1707,6 +1707,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 		display: initial;
 	}
 }
+
 /* Twenty Fifteen
 ========================================================================== */
 .tribe-theme-twentyfifteen.events-single.tribe-events-page-template #tribe-events-pg-template {
@@ -1775,6 +1776,24 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-theme-twentyfifteen .tribe-events-list .tribe-events-venue-details {
 	line-height: 1.6;
 }
+
+/* Twenty Sixteen
+========================================================================== */
+
+body.tribe-theme-twentysixteen table.tribe-events-calendar {
+	table-layout: auto;
+}
+
+body.tribe-theme-twentysixteen .tribe-events-single-section-title:first-child {
+	margin-top: 20px;
+}
+
+body.tribe-theme-twentysixteen .tribe-events-content.entry-summary {
+	font-size: inherit;
+	margin-bottom: 0;
+	margin-top: 5px;
+}
+
 
 /* = Events Retina
 =============================================*/
