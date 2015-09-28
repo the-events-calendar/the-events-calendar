@@ -1575,29 +1575,31 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Effectively aliases WP's get_the_excerpt() function, except that it additionally strips shortcodes
-	 * during ajax requests.
+	 * A Excerpt method used across the board on our Events Plugin Suite.
 	 *
-	 * The reason for this is that shortcodes added by other plugins/themes may not have been registered
-	 * by the time our ajax responses are generated. To avoid leaving unparsed shortcodes in our excerpts
-	 * then we strip out anything that looks like one.
-	 *
-	 * If this is undesirable the use of this function can simply be replaced within template overrides by
-	 * WP's own get_the_excerpt() function.
+	 * By default it removes all shortcodes, the reason for this is that shortcodes added by other plugins/themes
+	 * may not have been registered by the time our ajax responses are generated. To avoid leaving unparsed
+	 * shortcodes in our excerpts then we strip out anything that looks like one.
 	 *
 	 * @category Events
+	 *
+	 * @param  WP_Post|int|null $post The Post Object|ID, if null defaults to `get_the_ID()`
+	 * @param  array $allowed_html The wp_kses compatible array
 	 *
 	 * @return string|null Will return null on Bad Post Instances
 	 */
 	function tribe_events_get_the_excerpt( $post = null, $allowed_html = null ) {
+		// If post is not numeric or instance of WP_Post it defaults to the current Post ID
 		if ( ! is_numeric( $post ) && ! $post instanceof WP_Post ) {
 			$post = get_the_ID();
 		}
 
-		if ( ! $post instanceof WP_Post ) {
+		// If not a WP_Post we try to fetch it as one
+		if ( is_numeric( $post ) ) {
 			$post = WP_Post::get_instance( $post );
 		}
 
+		// Prevent Non usable $post instances
 		if ( ! $post instanceof WP_Post ) {
 			return null;
 		}
