@@ -124,7 +124,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 				$skip_current = '\\' == $last_char;
 				if ( ! $skip_current && isset( $keys[ $char ] ) ) {
 					$regex .= '(?P<' . $keys[ $char ][0] . '>' . $keys[ $char ][1] . ')';
-				} else if ( '\\' == $char ) {
+				} elseif ( '\\' == $char ) {
 					$regex .= $char;
 				} else {
 					$regex .= preg_quote( $char );

@@ -1,5 +1,8 @@
 <?php
-defined( 'ABSPATH' ) or exit();
+// Don't load directly
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 $enable_button_label  = __( 'Enable timezone support', 'the-events-calendar' );
 $enable_button_url    = esc_url( wp_nonce_url( add_query_arg( 'timezone-update', '1', Tribe__Events__Settings::instance()->get_url() ), 'timezone-settings' ) );
@@ -28,7 +31,7 @@ return array(
 	),
 	'tribe_events_enable_timezones' => array(
 		'type' => 'html',
-		'html' => $enable_button_html
+		'html' => $enable_button_html,
 	),
 	'tribe_events_timezone_mode' => array(
 		'type'            => 'dropdown',

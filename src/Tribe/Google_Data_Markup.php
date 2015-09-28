@@ -14,8 +14,6 @@ abstract class Tribe__Events__Google_Data_Markup {
 		global $post;
 		$id             = $post->ID;
 		$data           = array();
-		$excerpt_length = apply_filters( 'excerpt_length', 55 );
-		$excerpt        = wp_trim_words( $post->post_content, $excerpt_length, '&hellip;' );
 
 		// Index by ID: this will allow filter code to identify the actual event being referred to
 		// without injecting an additional property
@@ -23,7 +21,7 @@ abstract class Tribe__Events__Google_Data_Markup {
 		$data[ $id ]->{'@context'} = 'http://schema.org';
 		$data[ $id ]->{'@type'}    = 'Thing';
 		$data[ $id ]->name         = get_the_title();
-		$data[ $id ]->description  = $excerpt;
+		$data[ $id ]->description  = tribe_events_get_the_excerpt( $post );
 		if ( has_post_thumbnail() ) {
 			$data[ $id ]->image = wp_get_attachment_url( get_post_thumbnail_id( $id ) );
 		}

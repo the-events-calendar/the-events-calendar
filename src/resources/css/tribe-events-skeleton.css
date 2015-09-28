@@ -784,6 +784,10 @@ select.tribe-events-dropdown {
 	max-width: 340px;
 }
 
+.tribe-theme-twentyfifteen #tribe-events table.tribe-events-calendar {
+	table-layout: auto;
+}
+
 .tribe-theme-twentyfifteen .datepicker.dropdown-menu table,
 .tribe-theme-twentyfifteen .datepicker.dropdown-menu table.table-condensed {
 	border-top-width: 0;

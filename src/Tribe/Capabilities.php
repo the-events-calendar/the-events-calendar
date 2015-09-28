@@ -50,15 +50,15 @@ class Tribe__Events__Capabilities {
 			$level = 'editor';
 		}
 		if ( ! isset( $this->cap_aliases[ $level ] ) ) {
-			return FALSE;
+			return false;
 		}
 		$role = get_role( $role_id );
 		if ( ! $role ) {
-			return FALSE;
+			return false;
 		}
 		$pto = get_post_type_object( $post_type );
 		if ( empty( $pto ) ) {
-			return FALSE;
+			return false;
 		}
 
 		foreach ( $this->cap_aliases[ $level ] as $alias ) {
@@ -66,7 +66,7 @@ class Tribe__Events__Capabilities {
 				$role->add_cap( $pto->cap->$alias );
 			}
 		}
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -80,15 +80,15 @@ class Tribe__Events__Capabilities {
 	public function remove_post_type_caps( $post_type, $role_id ) {
 		$role = get_role( $role_id );
 		if ( ! $role ) {
-			return FALSE;
+			return false;
 		}
 		foreach ( $role->capabilities as $cap => $has ) {
-			if ( strpos( $cap, $post_type ) !== FALSE ) {
+			if ( strpos( $cap, $post_type ) !== false ) {
 				$role->remove_cap( $cap );
 			}
 		}
 
-		return TRUE;
+		return false;
 	}
 
 	/**

@@ -348,7 +348,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', array( Tribe__Events__Rewrite::instance(), 'hooks' ) );
 
 			add_action( 'init', array( $this, 'init' ), 10 );
-			add_action( 'admin_init', array( $this , 'admin_init' ) );
+			add_action( 'admin_init', array( $this, 'admin_init' ) );
 
 			// Frontend Javascript
 			add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );
@@ -420,7 +420,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 
 			add_action( 'add_meta_boxes', array( 'Tribe__Events__Tickets__Metabox', 'maybe_add_meta_box' ) );
-			add_action( 'admin_enqueue_scripts', array( 'Tribe__Events__Tickets__Metabox', 'add_admin_scripts'  ) );
+			add_action( 'admin_enqueue_scripts', array( 'Tribe__Events__Tickets__Metabox', 'add_admin_scripts' ) );
 
 			add_action( 'wp', array( $this, 'issue_noindex' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
@@ -1174,7 +1174,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						'edit_terms'   => 'publish_tribe_events',
 						'delete_terms' => 'publish_tribe_events',
 						'assign_terms' => 'edit_tribe_events',
-					)
+					),
 				)
 			);
 
@@ -2108,12 +2108,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Truncate a given string.
 		 *
+		 * @deprecated
+		 * @todo  remove on 4.3
+		 *
 		 * @param string $text           The text to truncate.
 		 * @param int    $excerpt_length How long you want it to be truncated to.
 		 *
 		 * @return string The truncated text.
 		 */
 		public function truncate( $text, $excerpt_length = 44 ) {
+			_deprecated_function( __FUNCTION__, '4.0', 'tribe_events_get_the_excerpt()' );
 
 			$text = apply_filters( 'the_content', $text );
 			$text = str_replace( ']]>', ']]&gt;', $text );

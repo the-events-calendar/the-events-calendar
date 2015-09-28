@@ -28,12 +28,12 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 				array(
 					'key'     => '_EventStartDate',
 					'value'   => $this->get_event_start_date( $record, true ),
-					'compare' => 'LIKE'
+					'compare' => 'LIKE',
 				),
 				array(
 					'key'     => '_EventAllDay',
-					'value'   => 'yes'
-				)
+					'value'   => 'yes',
+				),
 			);
 		// For regular, non-all day events, use the full date *and* time in the start date comparison
 		} else {
