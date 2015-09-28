@@ -4,8 +4,8 @@ Contributors: ModernTribe, barry.hughes, bordoni, borkweb, brianjessee, brook-tr
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.3
-Stable tag: 3.12
+Tested up to: 4.3.1
+Stable tag: 3.12.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -222,6 +222,11 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [Unreleased] unreleased =
+
+* Fix - Don't escape HTML on additional fields that hold URLs
+* Fix - Updated comment in Week View tooltip and mobile templates to point at the right file for customization instructions
+
 = [3.12.1] 2015-09-22 =
 
 * Fix - Ensure all event views work reliably event if the permalinks are translated or otherwise customized (our thanks to Antonio Jose and many others for reporting this)
@@ -230,6 +235,8 @@ Our Premium Plugins:
 * Fix - Prevent the AM/PM selector from reversing itself when setting up custom recurrence patterns (thanks to Sitecrafting for highlighting this)
 * Fix - Fixed a fatal error that could occur when setting up multiple custom recurrence patterns (thanks to Adam for the heads up on this one)
 * Fix - Fixed a bug preventing custom exclusions for recurring event patterns from being observed (thanks go out to nancytimper for highlighting this issue)
+* Fix - Fixed a bug stopping custom recurrence times and durations from being respected
+* Fix - Fixed a bug where specifying a custom time for a recurring event could incorrectly trigger an error
 * Fix - Fixed a problem that could lead visitors to a 404/Not Found page when following certain recurring event URLs
 * Fix - Fixed a bug preventing the removal of recurrence rules
 * Tweak - Tighten up the cleanup of old recurring events to reduce the possibility of non-event posts being inadvertently removed

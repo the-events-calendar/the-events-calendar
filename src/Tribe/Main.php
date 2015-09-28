@@ -44,7 +44,7 @@
 			public $widget_wrappers;
 
 			const REQUIRED_TEC_VERSION = '3.12';
-			const VERSION = '3.12';
+			const VERSION = '3.12.1';
 
 			private function __construct() {
 				$this->pluginDir = trailingslashit( basename( EVENTS_CALENDAR_PRO_DIR ) );
@@ -762,22 +762,22 @@
 
 				if ( $wp_query->tribe_is_event_query ) {
 					if ( $wp_query->tribe_is_week ) {
-						$classes[] = ' tribe-events-week';
+						$classes[] = 'tribe-events-week';
 						// remove the default gridview class from core
 						$classes = array_diff( $classes, array( 'events-gridview' ) );
 					}
 					if ( $wp_query->tribe_is_photo ) {
-						$classes[] = ' tribe-events-photo';
+						$classes[] = 'tribe-events-photo';
 						// remove the default gridview class from core
 						$classes = array_diff( $classes, array( 'events-gridview' ) );
 					}
 					if ( $wp_query->tribe_is_map ) {
-						$classes[] = ' tribe-events-map';
+						$classes[] = 'tribe-events-map';
 						// remove the default gridview class from core
 						$classes = array_diff( $classes, array( 'events-gridview' ) );
 					}
 					if ( tribe_is_map() || ! tribe_get_option( 'hideLocationSearch', false ) ) {
-						$classes[] = ' tribe-events-uses-geolocation';
+						$classes[] = 'tribe-events-uses-geolocation';
 					}
 
 					if (
@@ -786,7 +786,7 @@
 						&& ! empty( $wp_query->query['eventDisplay'] )
 						&& 'all' === $wp_query->query['eventDisplay']
 					) {
-						$classes[] = ' tribe-events-recurrence-archive';
+						$classes[] = 'tribe-events-recurrence-archive';
 					}
 				}
 

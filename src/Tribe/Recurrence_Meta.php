@@ -749,7 +749,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				$valid    = false;
 				$errorMsg = __( 'Custom recurrences must have a type selected.', 'tribe-events-calendar-pro' );
 			} elseif (
-				! isset( $recurrence_meta['custom']['day'] )
+				! isset( $recurrence_meta['custom']['start-time'] )
+				&& ! isset( $recurrence_meta['custom']['day'] )
 				&& ! isset( $recurrence_meta['custom']['week'] )
 				&& ! isset( $recurrence_meta['custom']['month'] )
 				&& ! isset( $recurrence_meta['custom']['year'] )
@@ -908,7 +909,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			}
 		}
 
-		$to_create = array_unique( $to_create );
+		$to_create = self::array_unique( $to_create );
 
 		// find days we should exclude
 		foreach ( $recurrences['exclusions'] as &$recurrence ) {
@@ -922,8 +923,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		}
 
 		// make sure we don't create excluded dates
-		$exclusions = array_unique( $exclusions );
-		$to_create = array_diff( $to_create, $exclusions );
+		$exclusions = self::array_unique( $exclusions );
+		$to_create  = self::remove_exclusions( $to_create, $exclusions );
 
 		if ( $possible_next_pending ) {
 			update_post_meta( $event_id, '_EventNextPendingRecurrence', date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, min( $possible_next_pending ) ) );
@@ -931,11 +932,19 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 		foreach ( $existing_instances as $instance ) {
 			$start_date = strtotime( get_post_meta( $instance, '_EventStartDate', true ) . '+00:00' );
-			$found = array_search( $start_date, $to_create );
-			$should_be_excluded = array_search( $start_date, $exclusions );
+			$end_date   = strtotime( get_post_meta( $instance, '_EventEndDate', true ) . '+00:00' );
+			$duration   = $end_date - $start_date;
+
+			$existing_date_duration = array(
+				'timestamp' => $start_date,
+				'duration'  => $duration,
+			);
+
+			$found = array_search( $existing_date_duration, $to_create );
+			$should_be_excluded = in_array( $existing_date_duration, $exclusions );
 
 			if ( $found === false || false !== $should_be_excluded ) {
-				$to_delete[ $instance ] = $start_date;
+				$to_delete[ $instance ] = $existing_date_duration;
 			} else {
 				$to_update[ $instance ] = $to_create[ $found ];
 				unset( $to_create[ $found ] ); // so we don't re-add it
@@ -949,6 +958,59 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		// ...but don't wait around, process a small initial batch right away
 		Tribe__Events__Pro__Main::instance()->queue_processor->process_batch( $event_id );
 	}//end saveEvents
+
+	/**
+	 * Drop-in replacement for array_unique(), designed to operate on an array of arrays
+	 * where each inner array is populated with strings (or types that can be stringified
+	 * while essentially keeping their unique value).
+	 *
+	 * @param array $original array_of_arrays
+	 *
+	 * @return array
+	 */
+	public static function array_unique( array $original ) {
+		$unique = array();
+
+		foreach( $original as $inner ) {
+			$unique[ join( '|', $inner ) ] = $inner;
+		}
+
+		return array_values( $unique );
+	}
+
+	/**
+	 * Accepts an array of $date_durations and removes any falling on the dates listed
+	 * within $exclusion_dates.
+	 *
+	 * Both parameters are arrays of arrays, each inner array or "date duration" taking the
+	 * following form:
+	 *
+	 *     [ 'timestamp' => int,
+	 *       'duration'  => int  ]
+	 *
+	 * In the case of exclusions, duration will always be zero as custom exclusions do
+	 * not currently support custom durations, so that element is ignored during comparison.
+	 *
+	 * @param array $date_durations
+	 * @param array $exclusion_dates
+	 *
+	 * @return array
+	 */
+	public static function remove_exclusions( array $date_durations, array $exclusion_dates ) {
+		$exclusion_timestamps = array();
+
+		foreach ( $exclusion_dates as $exclusion ) {
+			$exclusion_timestamps[] = $exclusion[ 'timestamp' ];
+		}
+
+		foreach ( $date_durations as $key => $date_duration ) {
+			if ( in_array( $date_duration[ 'timestamp' ], $exclusion_timestamps ) ) {
+				unset( $date_durations[ $key ] );
+			}
+		}
+
+		return array_values( $date_durations );
+	}
 
 	/**
 	 * Deletes events when a change in recurrence pattern renders them obsolete.
@@ -996,9 +1058,9 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			}
 
 			$excluded = array_map( 'strtotime', self::get_excluded_dates( $event_id ) );
-			foreach ( $dates as $date ) {
-				if ( ! in_array( $date, $excluded ) ) {
-					$instance = new Tribe__Events__Pro__Recurrence_Instance( $event_id, $date );
+			foreach ( $dates as $date_duration ) {
+				if ( ! in_array( $date_duration, $excluded ) ) {
+					$instance = new Tribe__Events__Pro__Recurrence_Instance( $event_id, $date_duration );
 					$instance->save();
 				}
 			}
@@ -1037,24 +1099,20 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				$rule = self::get_series_rule( $recurrence, $rule_type );
 
 				$custom_type = 'none';
+				$start_time  = null;
+				$duration    = (int) get_post_meta( $event_id, '_EventDuration', true );
 
 				if ( isset( $recurrence['custom']['type'] ) ) {
 					$custom_type = self::custom_type_to_key( $recurrence['custom']['type'] );
 				}
 
-				$start_time = null;
-				$end_time = null;
-
 				if (
-					(
-						! isset( $recurrence['custom'][ $custom_type ]['same-time'] )
-						|| 'no' === $recurrence['custom'][ $custom_type ]['same-time']
-					)
+					empty( $recurrence['custom'][ $custom_type ]['same-time'] )
 					&& isset( $recurrence['custom']['start-time'] )
-					&& isset( $recurrence['custom']['end-time'] )
+					&& isset( $recurrence['custom']['duration'] )
 				) {
 					$start_time = "{$recurrence['custom']['start-time']['hour']}:{$recurrence['custom']['start-time']['minute']}:00 {$recurrence['custom']['start-time']['meridian']}";
-					$end_time = "{$recurrence['custom']['end-time']['hour']}:{$recurrence['custom']['end-time']['minute']}:00 {$recurrence['custom']['end-time']['meridian']}";
+					$duration = self::get_duration_in_seconds( $recurrence['custom']['duration'] );
 				}
 
 				$start = strtotime( get_post_meta( $event_id, '_EventStartDate', true ) . '+00:00' );
@@ -1079,11 +1137,38 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$end = Tribe__Events__Pro__Recurrence::NO_END;
 				}
 
-				$recurrences[ $rule_type ][] = new Tribe__Events__Pro__Recurrence( $start, $end, $rule, $is_after, get_post( $event_id ), $start_time, $end_time );
+				$recurrences[ $rule_type ][] = new Tribe__Events__Pro__Recurrence( $start, $end, $rule, $is_after, get_post( $event_id ), $start_time, $duration );
 			}
 		}
 
 		return $recurrences;
+	}
+
+	/**
+	 * Returns the total number of seconds represented by an array of three integers
+	 * (with the keys "days", "hours" and "seconds" - representing those units of time
+	 * respectively).
+	 *
+	 * @param array $duration
+	 *
+	 * @return int
+	 */
+	public static function get_duration_in_seconds( array $duration ) {
+		$total = 0;
+
+		$expected = array(
+			'days'    => 0,
+			'hours'   => 0,
+			'minutes' => 0
+		);
+
+		$duration = array_merge( $expected, $duration );
+
+		$total += absint( $duration['days'] ) * DAY_IN_SECONDS;
+		$total += absint( $duration['hours'] ) * HOUR_IN_SECONDS;
+		$total += absint( $duration['minutes'] ) * MINUTE_IN_SECONDS;
+
+		return $total;
 	}
 
 	/**

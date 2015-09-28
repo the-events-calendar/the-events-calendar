@@ -20,7 +20,7 @@ class TribeEventsPro_RecurrenceInstance_Test extends Tribe__Events__Pro__WP_Unit
 			'EventEndMinute' => 0,
 		));
 		$instance = new Tribe__Events__Pro__Recurrence_Instance( $parent_id, strtotime('2014-03-01'));
-		$this->assertEquals(3600, $instance->get_duration());
+		$this->assertEquals(3600, $instance->get_parent_duration());
 	}
 
 	public function test_end_date() {
