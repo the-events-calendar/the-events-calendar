@@ -2108,12 +2108,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Truncate a given string.
 		 *
+		 * @deprecated
+		 * @todo  remove on 4.3
+		 *
 		 * @param string $text           The text to truncate.
 		 * @param int    $excerpt_length How long you want it to be truncated to.
 		 *
 		 * @return string The truncated text.
 		 */
 		public function truncate( $text, $excerpt_length = 44 ) {
+			_deprecated_function( __FUNCTION__, '4.0', 'tribe_events_get_the_excerpt()' );
 
 			$text = apply_filters( 'the_content', $text );
 			$text = str_replace( ']]>', ']]&gt;', $text );
