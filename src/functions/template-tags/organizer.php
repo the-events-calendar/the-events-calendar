@@ -89,7 +89,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return string
 	 */
-	function tribe_get_organizer_label( $singular = TRUE ) {
+	function tribe_get_organizer_label( $singular = true ) {
 		if ( $singular ) {
 			return tribe_get_organizer_label_singular();
 		} else {

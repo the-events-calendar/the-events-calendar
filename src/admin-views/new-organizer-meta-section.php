@@ -63,7 +63,7 @@ $organizer_pto = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE 
 			$.post(ajaxurl,
 				{
 					action: 'tribe_event_validation',
-					nonce: '<?php echo wp_create_nonce('tribe-validation-nonce'); ?>',
+					nonce: '<?php echo wp_create_nonce( 'tribe-validation-nonce' ); ?>',
 					type: 'organizer',
 					name: input.val()
 				},
