@@ -89,7 +89,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @return void
 		 */
 		public static function saveEventMeta( $event_id, $data, $event = null ) {
-			$tec = self::instance();
+			$tec = Tribe__Events__Main::instance();
 
 			$data = self::prepare_event_date_meta( $event_id, $data );
 
