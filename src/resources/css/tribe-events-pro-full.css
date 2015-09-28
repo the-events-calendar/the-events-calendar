@@ -310,19 +310,11 @@
 	height: 100%;
 }
 .tribe-grid-body div[id*="tribe-events-event-"] {
-<<<<<<< HEAD
-	font-weight: bold;
-	line-height: 1.25;
-	position: absolute;
-	z-index: 500;
-	width: 94%;
-=======
  	font-weight: bold;
 	line-height: 1.25;
  	position: absolute;
  	z-index: 500;
  	width: 94%;
->>>>>>> release/121
 }
 .tribe-grid-body div[id*="tribe-events-event-"]:hover {
 	z-index: 800;
@@ -445,15 +437,9 @@
 	padding: 0;
 	position: relative;
 	-webkit-transition: .1s ease-in;
-<<<<<<< HEAD
-	   -moz-transition: .1s ease-in;
-		 -o-transition: .1s ease-in;
-			transition: .1s ease-in;
-=======
   	   -moz-transition: .1s ease-in;
   	     -o-transition: .1s ease-in;
   			transition: .1s ease-in;
->>>>>>> release/121
 }
 
 .tribe-events-photo-event  {
@@ -517,15 +503,9 @@
 
 .tribe-events-photo-event .entry-title a {
 	-webkit-transition: .2s ease-in;
-<<<<<<< HEAD
 	   -moz-transition: .2s ease-in;
 		 -o-transition: .2s ease-in;
 			transition: .2s ease-in;
-=======
-  	   -moz-transition: .2s ease-in;
-  	     -o-transition: .2s ease-in;
-  			transition: .2s ease-in;
->>>>>>> release/121
 }
 
 .tribe-events-photo-event .tribe-events-event-image {
@@ -1033,7 +1013,6 @@ div.tribe-countdown-text {
 	border-bottom: 0;
 }
 
-<<<<<<< HEAD
 .tribe-theme-twentyfifteen .tribe-events-venue-widget .hentry {
 	box-shadow: none;
 	display: inline-block;
@@ -1043,12 +1022,13 @@ div.tribe-countdown-text {
 
 .tribe-theme-twentyfifteen .tribe-events-venue-widget .hentry .entry-title {
 	font-size: 1.2em;
-=======
+
+}
+
 @media screen and (min-width: 59.6875em) {
 	.tribe-theme-twentyfifteen .tribe-events-countdown-widget div.tribe-countdown-number {
 		font-size: 2.1em;
 	}
->>>>>>> release/121
 }
 
 /* = Events Venue Widget
