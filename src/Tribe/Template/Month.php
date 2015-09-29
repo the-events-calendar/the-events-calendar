@@ -628,11 +628,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			// we don't need this join since we already checked it
 			unset ( $args[ Tribe__Events__Main::TAXONOMY ] );
 
-			$result = tribe_get_events( $args, true );
-
-			$result->found_posts = count( $event_ids_on_date );
-
-			return $result;
+			return tribe_get_events( $args, true );
 		}
 
 		/**
