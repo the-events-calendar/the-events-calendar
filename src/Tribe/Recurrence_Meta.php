@@ -1294,6 +1294,10 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 */
 	public static function recurrence_strings() {
 		$strings = array(
+			'simple-every-day-on' => __( 'Daily until %1$s', 'tribe-events-calendar-pro' ),
+			'simple-every-week-on' => __( 'Weekly on the same day until %1$s', 'tribe-events-calendar-pro' ),
+			'simple-every-month-on' => __( 'Monthly on the same day until %1$s', 'tribe-events-calendar-pro' ),
+			'simple-every-year-on' => __( 'Yearly on the same date until %1$s', 'tribe-events-calendar-pro' ),
 			'every-day-on' => __( 'An event every day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s', 'tribe-events-calendar-pro' ),
 			'every-day-after' => __( 'An event every day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)', 'tribe-events-calendar-pro' ),
 			'every-day-never' => __( 'An event every day that lasts %1$s day(s) and %2$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
@@ -1413,10 +1417,19 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$year_filtered = false;
 		$rule['type'] = str_replace( ' ', '-', strtolower( $rule['type'] ) );
 		$rule['end-type'] = str_replace( ' ', '-', strtolower( $rule['end-type'] ) );
-		$formatted_end = date( tribe_get_date_format( true ), strtotime( $rule['end'] ) );
+
+		$formatted_end = _x( 'an unspecified date', 'An unspecified end date', 'tribe-events-calendar-pro' );
+		if ( ! empty( $rule['end'] ) ) {
+			$formatted_end = date( tribe_get_date_format( true ), strtotime( $rule['end'] ) );
+		}
 
 		// if the type is "none", then there's no rules to parse
 		if ( 'none' === $rule['type'] ) {
+			return;
+		}
+
+		// if there isn't an end date, then there isn't a recurrence set up
+		if ( 'on' === $rule['end-type'] && empty( $rule['end'] ) ) {
 			return;
 		}
 
@@ -1429,8 +1442,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			}
 		}
 
-		$start_date = strtotime( tribe_get_start_date( $event_id ) );
-		$end_date = strtotime( tribe_get_end_date( $event_id ) );
+		$start_date = strtotime( tribe_get_start_date( $event_id, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) );
+		$end_date = strtotime( tribe_get_end_date( $event_id, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) );
 
 		$num_days = floor( ( $end_date - $start_date ) / DAY_IN_SECONDS );
 
@@ -1521,6 +1534,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				$key .= '-unfiltered';
 			}
 		} else {
+			$key = "simple-{$key}";
 			$key .= "-{$rule['end-type']}";
 		}
 
@@ -1553,6 +1567,15 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$text = $recurrence_strings[ $key ];
 
 		switch ( $key ) {
+			case 'simple-every-day-on':
+			case 'simple-every-week-on':
+			case 'simple-every-month-on':
+			case 'simple-every-year-on':
+				$text = sprintf(
+					$text,
+					$formatted_end
+				);
+				break;
 			case 'every-day-on':
 			case 'every-week-on':
 			case 'every-month-on':
