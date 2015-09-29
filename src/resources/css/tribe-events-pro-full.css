@@ -119,8 +119,8 @@
 	z-index: 1000 !important;
 }
 .tribe-events-grid .tribe-scroller > .scroller-pane > .scroller-slider {
-	background: rgba(0,0,0,.5);
 	background: #444;
+	background: rgba(0,0,0,.5);
 	-webkit-border-radius: 3px;
 	   -moz-border-radius: 3px;
 	        border-radius: 3px;
@@ -224,8 +224,8 @@
 }
 .tribe-grid-allday .tribe-events-week-allday-single,
 .tribe-grid-body .tribe-events-week-hourly-single {
-	background-color: rgba(221, 221, 221, .75);
 	background-color: #e6e6e6;
+	background-color: rgba(221, 221, 221, .75);
 	border: 1px solid #ccc;
 	-webkit-border-radius: 3px;
 	        border-radius: 3px;
@@ -243,8 +243,8 @@
 
 .tribe-grid-allday .tribe-events-week-allday-single:hover,
 .tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single:hover {
-	background-color: rgba(221, 221, 221, .85);
 	background-color: #e2e2e2;
+	background-color: rgba(221, 221, 221, .85);
 }
 
 /* All day */
@@ -674,8 +674,8 @@
    @ Template: Map.php & Photo.php
 =============================================*/
 #tribe-geo-loading {
-	background: #fff;
 	background: rgba(255, 255, 255, .2);
+	background: #fff;
 	display: none;
 	height: 100%;
 	left: 0;

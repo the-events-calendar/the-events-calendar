@@ -24,6 +24,18 @@
 	}
 	// @endif
 
+	$( window ).load( function() {
+		var tribe_is_paged = tf.get_url_param( 'tribe_paged' ),
+			tribe_display = tf.get_url_param( 'tribe_event_display' ),
+			$container = $( '#tribe-events-photo-events' ),
+			container_width = 0,
+			resize_timer;
+
+		// Redraw after loading fonts
+		$container.isotope( 'reLayout' );
+
+	} );
+
 	$( document ).ready( function() {
 
 		var tribe_is_paged = tf.get_url_param( 'tribe_paged' ),
@@ -358,7 +370,7 @@
 							$( '#tribe-events-content' ).prev( '#tribe-events-list-hash' ).remove();
 							$( '.tribe-events-promo' ).next( '.tribe-events-promo' ).remove();
 
-							//If no events are returned, then hide Header 
+							//If no events are returned, then hide Header
 							if ( response.max_pages == 0 ) {
 								$( '#tribe-events-header' ).hide();
 							}
