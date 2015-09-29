@@ -94,7 +94,7 @@ $multiple_organizers = count( $organizer_ids ) > 1;
 						echo $organizer_links[0];
 					}// end if
 					elseif ( 2 == count( $organizer_links ) ) {
-						echo $organizer_links[0] . esc_html( $and ) . $organizer_links[1];
+						echo $organizer_links[0] . ' ' . esc_html( $and ) . ' ' . $organizer_links[1];
 					}// end elseif
 					else {
 						$last_organizer = array_pop( $organizer_links );
