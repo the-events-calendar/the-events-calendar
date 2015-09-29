@@ -59,7 +59,7 @@
 
 				// Wrap the timer in a span with a unique id so we can refer to it
 				// in the timer update code.
-				$( value ).wrap( '<span class="tribe-countdown-time" id=' + unique_id + '/>' );
+				$( value ).wrap( $( '<div>' ).attr( 'id', unique_id ).addClass( 'tribe-countdown-time' ) );
 				timers.push( new Timer( unique_id, seconds, format, complete ) );
 
 				// Kick off first update if we're at the end.

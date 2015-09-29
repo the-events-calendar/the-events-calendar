@@ -20,6 +20,15 @@ if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 		}
 
 		public function widget( $args, $instance ) {
+			// We need the Defaults to avoid problems on the Customizer
+			$defaults = array(
+				'title'         => '',
+				'venue_ID'      => null,
+				'count'         => 3,
+				'hide_if_empty' => true,
+			);
+			$instance = wp_parse_args( (array) $instance, $defaults );
+
 			extract( $args );
 			extract( $instance );
 

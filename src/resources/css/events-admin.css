@@ -27,3 +27,12 @@ div.tribe-events-recurring-update-msg.completed .progress .bar {
 #tribe-recurrence-staging {
 	display: none;
 }
+
+.recurrence-row .eventduration-preamble {
+    margin-left: 0.66rem;
+}
+
+.recurrence-row .eventduration input[type="number"] {
+    margin-left: 0.66rem;
+    width: 3rem;
+}
