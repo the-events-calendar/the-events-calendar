@@ -11,7 +11,7 @@ class Tribe__Events__Changelog_Reader {
 	}
 
 	protected function default_readme_file() {
-		return dirname( dirname( __FILE__ ) ) . '/readme.txt';
+		return dirname( dirname( dirname( __FILE__ ) ) ) . '/readme.txt';
 	}
 
 	public function get_changelog() {
@@ -40,7 +40,7 @@ class Tribe__Events__Changelog_Reader {
 	protected function extract_changelog_section() {
 		$contents = $this->get_readme_file_contents();
 		$start = strpos( $contents, '== Changelog ==' );
-		if ( $start === FALSE ) {
+		if ( $start === false ) {
 			return '';
 		}
 		$start += 16; // account for the length of the header

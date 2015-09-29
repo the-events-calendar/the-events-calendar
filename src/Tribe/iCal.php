@@ -25,22 +25,25 @@ class Tribe__Events__iCal {
 		if ( ! current_theme_supports( 'automatic-feed-links' ) ) {
 			return;
 		}
-		$separator  = _x( '&raquo;', 'feed link', 'tribe-events-calendar' );
-		$feed_title = sprintf( __( '%1$s %2$s iCal Feed', 'tribe-events-calendar' ), get_bloginfo( 'name' ), $separator );
+		$separator  = _x( '&raquo;', 'feed link', 'the-events-calendar' );
+		$feed_title = sprintf( esc_html__( '%1$s %2$s iCal Feed', 'the-events-calendar' ), get_bloginfo( 'name' ), $separator );
 
 		printf( '<link rel="alternate" type="text/calendar" title="%s" href="%s" />', esc_attr( $feed_title ), esc_url( tribe_get_ical_link() ) );
 		echo "\n";
 	}
 
 	/**
-	 * Returns the url for the iCal generator for lists of posts
+	 * Returns the url for the iCal generator for lists of posts.
 	 * @static
+	 *
+	 * @param string $type The type of iCal link to return, defaults to 'home'.
+	 *
 	 * @return string
 	 */
-	public static function get_ical_link() {
+	public static function get_ical_link( $type = 'home' ) {
 		$tec = Tribe__Events__Main::instance();
 
-		return trailingslashit( $tec->getLink( 'home' ) ) . '?ical=1';
+		return trailingslashit( $tec->getLink( $type ) ) . '?ical=1';
 	}
 
 	/**
@@ -72,8 +75,8 @@ class Tribe__Events__iCal {
 			return;
 		}
 		echo '<div class="tribe-events-cal-links">';
-		echo '<a class="tribe-events-gcal tribe-events-button" href="' . Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() ) . '" title="' . esc_attr__( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">+ ' . esc_html__( 'Google Calendar', 'tribe-events-calendar' ) . '</a>';
-		echo '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . esc_attr__( 'Download .ics file', 'tribe-events-calendar' ) . '" >+ ' . esc_html__( 'iCal Export', 'tribe-events-calendar' ) . '</a>';
+		echo '<a class="tribe-events-gcal tribe-events-button" href="' . Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() ) . '" title="' . esc_attr__( 'Add to Google Calendar', 'the-events-calendar' ) . '">+ ' . esc_html__( 'Google Calendar', 'the-events-calendar' ) . '</a>';
+		echo '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . esc_attr__( 'Download .ics file', 'the-events-calendar' ) . '" >+ ' . esc_html__( 'iCal Export', 'the-events-calendar' ) . '</a>';
 		echo '</div><!-- .tribe-events-cal-links -->';
 	}
 
@@ -103,21 +106,21 @@ class Tribe__Events__iCal {
 
 		switch ( strtolower( $view ) ) {
 			case 'month':
-				$modifier = sprintf( __( "Month's %s", 'tribe-events-calendar' ), tribe_get_event_label_plural() );
+				$modifier = sprintf( esc_html__( "Month's %s", 'the-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 			case 'week':
-				$modifier = sprintf( __( "Week's %s", 'tribe-events-calendar' ), tribe_get_event_label_plural() );
+				$modifier = sprintf( esc_html__( "Week's %s", 'the-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 			case 'day':
-				$modifier = sprintf( __( "Day's %s", 'tribe-events-calendar' ), tribe_get_event_label_plural() );
+				$modifier = sprintf( esc_html__( "Day's %s", 'the-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 			default:
-				$modifier = sprintf( __( 'Listed %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() );
+				$modifier = sprintf( esc_html__( 'Listed %s', 'the-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 		}
 
-		$text  = apply_filters( 'tribe_events_ical_export_text', __( 'Export', 'tribe-events-calendar' ) . ' ' . $modifier );
-		$title = __( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'tribe-events-calendar' );
+		$text  = apply_filters( 'tribe_events_ical_export_text', esc_html__( 'Export', 'the-events-calendar' ) . ' ' . $modifier );
+		$title = esc_html__( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'the-events-calendar' );
 		$ical  = '<a class="tribe-events-ical tribe-events-button" title="' . $title . '" href="' . esc_url( tribe_get_ical_link() ) . '">+ ' . $text . '</a>';
 
 		echo $ical;
@@ -134,7 +137,14 @@ class Tribe__Events__iCal {
 		// hijack to iCal template
 		if ( get_query_var( 'ical' ) || isset( $_GET['ical'] ) ) {
 			global $wp_query;
-			if ( is_single() ) {
+			if ( isset( $_GET['event_ids'] ) ) {
+				if ( empty( $_GET['event_ids'] ) ) {
+					die();
+				}
+				$event_ids = explode( ',', $_GET['event_ids'] );
+				$events    = Tribe__Events__Query::getEvents( array( 'post__in' => $event_ids ) );
+				self::generate_ical_feed( $events );
+			} elseif ( is_single() ) {
 				self::generate_ical_feed( $wp_query->post, null );
 			} else {
 				self::generate_ical_feed();
@@ -203,8 +213,7 @@ class Tribe__Events__iCal {
 		$blogName    = get_bloginfo( 'name' );
 
 		if ( $post ) {
-			$events_posts   = array();
-			$events_posts[] = $post;
+			$events_posts = is_array( $post ) ? $post : array( $post );
 		} else {
 			if ( tribe_is_month() ) {
 				$events_posts = self::get_month_view_events();
@@ -220,7 +229,7 @@ class Tribe__Events__iCal {
 			// add fields to iCal output
 			$item = array();
 
-			$full_format = 'Ymd\THis\Z';
+			$full_format = 'Ymd\THis';
 			$time = (object) array(
 				'start' => self::wp_strtotime( $event_post->EventStartDate ),
 				'end' => self::wp_strtotime( $event_post->EventEndDate ),
@@ -237,18 +246,19 @@ class Tribe__Events__iCal {
 			}
 
 			$tzoned = (object) array(
-				'start' => date( $format, $time->start ),
-				'end' => date( $format, $time->end ),
-				'modified' => date( $full_format, $time->modified ),
-				'created' => date( $full_format, $time->created ),
+				'start'    => date( $format, $time->start ),
+				'end'      => date( $format, $time->end ),
+				'modified' => date( $format, $time->modified ),
+				'created'  => date( $format, $time->created ),
 			);
 
 			if ( 'DATE' === $type ){
 				$item[] = "DTSTART;VALUE=$type:" . $tzoned->start;
 				$item[] = "DTEND;VALUE=$type:" . $tzoned->end;
 			} else {
-				$item[] = 'DTSTART:' . $tzoned->start;
-				$item[] = 'DTEND:' . $tzoned->end;
+				$tz = get_option( 'timezone_string' );
+				$item[] = 'DTSTART;TZID="'.$tz.'":' . $tzoned->start;
+				$item[] = 'DTEND;TZID="'.$tz.'":' . $tzoned->end;
 			}
 
 			$item[] = 'DTSTAMP:' . date( $full_format, time() );
@@ -272,7 +282,7 @@ class Tribe__Events__iCal {
 				$long = Tribe__Events__Pro__Geo_Loc::instance()->get_lng_for_event( $event_post->ID );
 				$lat  = Tribe__Events__Pro__Geo_Loc::instance()->get_lat_for_event( $event_post->ID );
 				if ( ! empty( $long ) && ! empty( $lat ) ) {
-					$item[] = sprintf( 'GEO:%s;%s', $long, $lat );
+					$item[] = sprintf( 'GEO:%s;%s', $lat, $long );
 
 					$str_title = str_replace( array( ',', "\n" ), array( '\,', '\n' ), html_entity_decode( tribe_get_address( $event_post->ID ), ENT_QUOTES ) );
 

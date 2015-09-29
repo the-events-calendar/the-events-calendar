@@ -8,8 +8,8 @@ module.exports = {
     options: {
       url: 'http://translations.theeventscalendar.com',
       domainPath: 'lang',
-      slug: 'tribe-events-calendar',
-      textdomain: 'tribe-events-calendar',
+      slug: 'the-events-calendar',
+      textdomain: 'the-events-calendar',
     },
   },
 };

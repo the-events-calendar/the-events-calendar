@@ -1280,11 +1280,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				'before'       => '<dd class="tribe-event-categories">',
 				'sep'          => ', ',
 				'after'        => '</dd>',
-				'label'        => __( 'Category', 'tribe-events-calendar' ),
+				'label'        => esc_attr__( 'Category', 'the-events-calendar' ),
 				'label_before' => '<dt>',
 				'label_after'  => '</dt>',
 				'wrap_before'  => '',
-				'wrap_after'   => ''
+				'wrap_after'   => '',
 			);
 			echo apply_filters( 'tribe_meta_event_cats', tribe_get_event_categories( get_the_ID(), $args ) );
 		}

@@ -241,7 +241,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 							break;
 						case 'day':
-							$event_date = $query->get( 'eventDate' ) != '' ? $query->get( 'eventDate' ) : Date( 'Y-m-d', current_time( 'timestamp' ) );
+							$event_date = $query->get( 'eventDate' ) != '' ? $query->get( 'eventDate' ) : date( 'Y-m-d', current_time( 'timestamp' ) );
 							$query->set( 'eventDate', $event_date );
 							$beginning_of_day = strtotime( tribe_event_beginning_of_day( $event_date ) ) + 1;
 							$query->set( 'start_date', date_i18n( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, $beginning_of_day ) );
@@ -297,13 +297,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				// Because this method filters out drafts without EventStartDate.
 				// For this screen we're doing the JOIN manually in Tribe__Events__Admin_List
 
-				$screen = null;
-
-				if ( function_exists( 'get_current_screen' ) ) {
-					$screen = ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ? null : get_current_screen();
-				}
-
-				if ( empty( $screen ) || 'edit-tribe_events' !== $screen->id ) {
+				if ( ! Tribe__Events__Admin__Helpers::instance()->is_screen( 'edit-tribe_events' ) ) {
 					$event_start_key = Tribe__Events__Timezones::is_mode( 'site' )
 						? '_EventStartDateUTC'
 						: '_EventStartDate';
@@ -319,7 +313,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			if ( $query->tribe_is_event_query && $query->get( 'venue' ) != '' ) {
 				$meta_query[] = array(
 					'key'   => '_EventVenueID',
-					'value' => $query->get( 'venue' )
+					'value' => $query->get( 'venue' ),
 				);
 			}
 
@@ -327,7 +321,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			if ( $query->tribe_is_event_query && $query->get( 'organizer' ) != '' ) {
 				$meta_query[] = array(
 					'key'   => '_EventOrganizerID',
-					'value' => $query->get( 'organizer' )
+					'value' => $query->get( 'organizer' ),
 				);
 			}
 
@@ -398,7 +392,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return string The modified DISTINCT statement.
 		 */
 		public static function posts_distinct( $distinct ) {
-			return "DISTINCT";
+			return 'DISTINCT';
 		}
 
 		/**
@@ -420,7 +414,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$postmeta_table             = self::postmeta_table( $query );
 				$fields                     = array();
 				$fields['event_start_date'] = "MIN({$postmeta_table}.meta_value) as EventStartDate";
-				$fields['event_end_date']   = "MIN(tribe_event_end_date.meta_value) as EventEndDate";
+				$fields['event_end_date']   = 'MIN(tribe_event_end_date.meta_value) as EventEndDate';
 				$fields                     = apply_filters( 'tribe_events_query_posts_fields', $fields, $query );
 
 				return $field_sql . ', ' . implode( ', ', $fields );
@@ -471,7 +465,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$event_start_key = '_EventStartDate';
 			$event_end_key   = '_EventEndDate';
 
-			if ( Tribe__Events__Timezones::mode( 'site' ) ) {
+			if ( Tribe__Events__Timezones::is_mode( 'site' ) ) {
 				$event_start_key .= 'UTC';
 				$event_end_key   .= 'UTC';
 			}
@@ -573,7 +567,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						}
 					} else {
 						if ( $end_date != '' ) {
-							$where_sql .= " AND " . $wpdb->prepare( "$event_end_date < %s", $end_date );
+							$where_sql .= ' AND ' . $wpdb->prepare( "$event_end_date < %s", $end_date );
 						}
 					}
 				}
@@ -841,10 +835,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 								$per_day_limit = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
 
 								if ( tribe_event_is_on_date( $formatted_date, $event ) ) {
-									if ( ! empty ( $terms ) ) {
-										if ( ! has_term( $terms, Tribe__Events__Main::TAXONOMY, $record->ID ) ) {
-											continue;
-										}
+									if ( ! empty ( $terms ) && ! has_term( $terms, Tribe__Events__Main::TAXONOMY, $record->ID ) ) {
+										continue;
 									}
 									if ( count( $_day_event_ids ) < $per_day_limit ) {
 										$_day_event_ids[] = $record->ID;

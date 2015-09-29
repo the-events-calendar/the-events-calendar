@@ -23,9 +23,9 @@ class Tribe__Events__Tickets__Metabox {
 		}
 
 		add_meta_box(
-			'tribetickets', __( 'Tickets', 'tribe-events-calendar' ), array(
+			'tribetickets', esc_html__( 'Tickets', 'the-events-calendar' ), array(
 			'Tribe__Events__Tickets__Metabox',
-				'do_modules_metaboxes'
+				'do_modules_metaboxes',
 			), Tribe__Events__Main::POSTTYPE, 'normal', 'high'
 		);
 	}
@@ -64,12 +64,12 @@ class Tribe__Events__Tickets__Metabox {
 		}
 
 
-		wp_enqueue_style  ( 'events-tickets', tribe_events_resource_url('tickets.css') , array(), apply_filters( 'tribe_events_css_version', Tribe__Events__Main::VERSION ) );
-		wp_enqueue_script ( 'events-tickets', tribe_events_resource_url('tickets.js'), array(), apply_filters( 'tribe_events_js_version', Tribe__Events__Main::VERSION ) );
+		wp_enqueue_style( 'events-tickets', tribe_events_resource_url( 'tickets.css' ), array(), apply_filters( 'tribe_events_css_version', Tribe__Events__Main::VERSION ) );
+		wp_enqueue_script( 'events-tickets', tribe_events_resource_url( 'tickets.js' ), array(), apply_filters( 'tribe_events_js_version', Tribe__Events__Main::VERSION ) );
 
 		$upload_header_data = array(
-			'title'  => __( 'Ticket header image', 'tribe-events-calendar' ),
-			'button' => __( 'Set as ticket header', 'tribe-events-calendar' )
+			'title'  => esc_html__( 'Ticket header image', 'the-events-calendar' ),
+			'button' => esc_html__( 'Set as ticket header', 'the-events-calendar' ),
 		);
 		wp_localize_script( 'events-tickets', 'HeaderImageData', $upload_header_data );
 
@@ -77,7 +77,7 @@ class Tribe__Events__Tickets__Metabox {
 		$nonces = array(
 			'add_ticket_nonce'    => wp_create_nonce( 'add_ticket_nonce' ),
 			'edit_ticket_nonce'   => wp_create_nonce( 'edit_ticket_nonce' ),
-			'remove_ticket_nonce' => wp_create_nonce( 'remove_ticket_nonce' )
+			'remove_ticket_nonce' => wp_create_nonce( 'remove_ticket_nonce' ),
 		);
 
 		wp_localize_script( 'events-tickets', 'TribeTickets', $nonces );

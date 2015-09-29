@@ -53,7 +53,7 @@ class Tribe__Events__Timezones {
 			return $schedule_text;
 		}
 
-		$timezone = Tribe__Events__Timezones::is_mode( 'site' )
+		$timezone = self::is_mode( 'site' )
 			? self::wp_timezone_abbr( tribe_get_start_date( $event_id, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) )
 			: self::get_event_timezone_abbr( $event_id );
 
@@ -146,7 +146,7 @@ class Tribe__Events__Timezones {
 		// Otherwise return the UTC offset
 		if ( 0 == $current_offset ) {
 			return 'UTC+0';
-		} elseif ($current_offset < 0) {
+		} elseif ( $current_offset < 0 ) {
 			return 'UTC' . $current_offset;
 		}
 
@@ -195,16 +195,17 @@ class Tribe__Events__Timezones {
 			return self::apply_offset( $datetime, $tzstring, true );
 		}
 
-		try {
-			$local = self::get_timezone( $tzstring );
-			$utc   = self::get_timezone( 'UTC' );
+		$local = self::get_timezone( $tzstring );
+		$utc   = self::get_timezone( 'UTC' );
 
-			$datetime = date_create( $datetime, $local )->setTimezone( $utc );
-			return $datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+		$new_datetime = date_create( $datetime, $local );
+
+		if ( $new_datetime && $new_datetime->setTimezone( $utc ) ) {
+			return $new_datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
 		}
-		catch ( Exception $e ) {
-			return $datetime;
-		}
+
+		// Fallback to the unmodified datetime if there was a failure during conversion
+		return $datetime;
 	}
 
 	/**
@@ -223,16 +224,17 @@ class Tribe__Events__Timezones {
 			return self::apply_offset( $datetime, $tzstring );
 		}
 
-		try {
-			$local = self::get_timezone( $tzstring );
-			$utc   = self::get_timezone( 'UTC' );
+		$local = self::get_timezone( $tzstring );
+		$utc   = self::get_timezone( 'UTC' );
 
-			$datetime = date_create( $datetime, $utc )->setTimezone( $local );
-			return $datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+		$new_datetime = date_create( $datetime, $utc );
+
+		if ( $new_datetime && $new_datetime->setTimezone( $local ) ) {
+			return $new_datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
 		}
-		catch ( Exception $e ) {
-			return $datetime;
-		}
+
+		// Fallback to the unmodified datetime if there was a failure during conversion
+		return $datetime;
 	}
 
 	/**
@@ -276,16 +278,19 @@ class Tribe__Events__Timezones {
 			$offset *= -1;
 		}
 
-		try {
-			if ( $offset > 0 ) $offset = '+' . $offset;
-			$offset = $offset . ' minutes';
+		if ( $offset > 0 ) {
+			$offset = '+' . $offset;
+		}
 
-			$datetime = date_create( $datetime )->modify( $offset );
-			return $datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+		$offset = $offset . ' minutes';
+
+		$offset_datetime = date_create( $datetime );
+
+		if ( $offset_datetime && $offset_datetime->modify( $offset ) ) {
+			return $offset_datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
 		}
-		catch ( Exception $e ) {
-			return $datetime;
-		}
+
+		return $datetime;
 	}
 
 	/**
@@ -397,13 +402,13 @@ class Tribe__Events__Timezones {
 	 * @return DateTimeZone|false
 	 */
 	public static function get_timezone( $tzstring, $with_fallback = true ) {
-		if ( isset( self::$timezones[$tzstring] ) ) {
-			return self::$timezones[$tzstring];
+		if ( isset( self::$timezones[ $tzstring ] ) ) {
+			return self::$timezones[ $tzstring ];
 		}
 
 		try {
-			self::$timezones[$tzstring] = new DateTimeZone( $tzstring );
-			return self::$timezones[$tzstring];
+			self::$timezones[ $tzstring ] = new DateTimeZone( $tzstring );
+			return self::$timezones[ $tzstring ];
 		}
 		catch ( Exception $e ) {
 			if ( $with_fallback ) {

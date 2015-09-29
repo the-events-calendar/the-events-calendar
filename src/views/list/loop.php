@@ -19,7 +19,7 @@ global $more;
 $more = false;
 ?>
 
-<div class="tribe-events-loop vcalendar">
+<div class="tribe-events-loop">
 
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php do_action( 'tribe_events_inside_before_loop' ); ?>
@@ -36,7 +36,7 @@ $more = false;
 		?>
 		<div id="post-<?php the_ID() ?>" class="<?php tribe_events_event_classes() ?>" <?php echo $post_parent; ?>>
 			<?php tribe_get_template_part( 'list/single', 'event' ) ?>
-		</div><!-- .hentry .vevent -->
+		</div>
 
 
 		<?php do_action( 'tribe_events_inside_after_loop' ); ?>

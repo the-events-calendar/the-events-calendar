@@ -19,14 +19,14 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			'StateProvince',
 			'Province',
 			'Zip',
-			'Phone'
+			'Phone',
 		);
 
 		public static $valid_organizer_keys = array(
 			'Organizer',
 			'Phone',
 			'Email',
-			'Website'
+			'Website',
 		);
 
 		/**
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$eventId           = wp_insert_post( $args, true );
 
 			if ( ! is_wp_error( $eventId ) ) {
-				Tribe__Events__API::saveEventMeta( $eventId, $args, get_post( $eventId ) );
+				self::saveEventMeta( $eventId, $args, get_post( $eventId ) );
 
 				return $eventId;
 			}
@@ -61,7 +61,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$args['post_type'] = Tribe__Events__Main::POSTTYPE;
 
 			if ( wp_update_post( $args ) ) {
-				Tribe__Events__API::saveEventMeta( $eventId, $args, get_post( $eventId ) );
+				self::saveEventMeta( $eventId, $args, get_post( $eventId ) );
 			}
 
 			return $eventId;
@@ -232,12 +232,15 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				return $data;
 			}
 
-			// Store datetimes in UTC
-			if ( isset( $data['EventTimezone'] ) ) {
-				$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
-				$data['EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
-				$data['EventTimezoneAbbr'] = Tribe__Events__Timezones::abbr( $data['EventStartDate'], $data['EventTimezone'] );
+			// If a specific timezone was not specified, default to the sitewide timezone
+			if ( ! isset( $data['EventTimezone'] ) ) {
+				$data['EventTimezone'] = Tribe__Events__Timezones::wp_timezone_string();
 			}
+
+			// Additionally store datetimes in UTC
+			$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
+			$data['EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
+			$data['EventTimezoneAbbr'] = Tribe__Events__Timezones::abbr( $data['EventStartDate'], $data['EventTimezone'] );
 
 			// sanity check that start date < end date
 			$start_timestamp = strtotime( $data['EventStartDate'] );
@@ -291,12 +294,12 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 					// Only an ID was passed and we should do nothing.
 					return $data['OrganizerID'];
 				} else {
-					Tribe__Events__API::updateOrganizer( $data['OrganizerID'], $data );
+					self::updateOrganizer( $data['OrganizerID'], $data );
 
 					return $data['OrganizerID'];
 				}
 			} else {
-				return Tribe__Events__API::createOrganizer( $data, $post_status );
+				return self::createOrganizer( $data, $post_status );
 			}
 		}
 
@@ -319,7 +322,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 					$show_map_link       = get_post_meta( $data['VenueID'], '_VenueShowMapLink', true );
 					$data['ShowMap']     = $show_map ? $show_map : 'false';
 					$data['ShowMapLink'] = $show_map_link ? $show_map_link : 'false';
-					Tribe__Events__API::updateVenue( $data['VenueID'], $data );
+					self::updateVenue( $data['VenueID'], $data );
 
 					return $data['VenueID'];
 				}
@@ -328,7 +331,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				if ( isset( $data['VenueID'] ) && 0 == $data['VenueID'] ) {
 					unset( $data['VenueID'] );
 				}
-				return Tribe__Events__API::createVenue( $data, $post_status );
+				return self::createVenue( $data, $post_status );
 			}
 		}
 
@@ -346,7 +349,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$organizer_label = tribe_get_organizer_label_singular();
 
 				$postdata = array(
-					'post_title'  => $data['Organizer'] ? $data['Organizer'] : sprintf( __( 'Unnamed %s', 'tribe-events-calendar' ), ucfirst( $organizer_label ) ),
+					'post_title'  => $data['Organizer'] ? $data['Organizer'] : sprintf( __( 'Unnamed %s', 'the-events-calendar' ), ucfirst( $organizer_label ) ),
 					'post_type'   => Tribe__Events__Main::ORGANIZER_POST_TYPE,
 					'post_status' => $post_status,
 				);
@@ -374,7 +377,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 */
 		private static function someOrganizerDataSet( $data ) {
 			foreach ( self::$valid_organizer_keys as $key ) {
-				if ( isset( $data[$key] ) && $data[$key] ) {
+				if ( isset( $data[ $key ] ) && $data[ $key ] ) {
 					return true;
 				}
 			}
@@ -403,7 +406,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @return void
 		 */
 		public static function updateOrganizer( $organizerId, $data ) {
-			Tribe__Events__API::saveOrganizerMeta( $organizerId, $data );
+			self::saveOrganizerMeta( $organizerId, $data );
 			do_action( 'tribe_events_organizer_updated', $organizerId, $data );
 		}
 
@@ -433,7 +436,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			if ( ( isset( $data['Venue'] ) && $data['Venue'] ) || self::someVenueDataSet( $data ) ) {
 				$postdata = array(
-					'post_title'  => $data['Venue'] ? $data['Venue'] : __( "Unnamed Venue", 'tribe-events-calendar' ),
+					'post_title'  => $data['Venue'] ? $data['Venue'] : esc_html__( 'Unnamed Venue', 'the-events-calendar' ),
 					'post_type'   => Tribe__Events__Main::VENUE_POST_TYPE,
 					'post_status' => $post_status,
 				);
@@ -465,7 +468,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 */
 		private static function someVenueDataSet( $data ) {
 			foreach ( self::$valid_venue_keys as $key ) {
-				if ( isset( $data[$key] ) && $data[$key] ) {
+				if ( isset( $data[ $key ] ) && $data[ $key ] ) {
 					return true;
 				}
 			}
@@ -485,7 +488,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$data['ShowMap']     = isset( $data['ShowMap'] ) ? $data['ShowMap'] : 'false';
 			$data['ShowMapLink'] = isset( $data['ShowMapLink'] ) ? $data['ShowMapLink'] : 'false';
 
-			Tribe__Events__API::saveVenueMeta( $venue_id, $data );
+			self::saveVenueMeta( $venue_id, $data );
 			do_action( 'tribe_events_venue_updated', $venue_id, $data );
 		}
 
@@ -513,7 +516,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			// TODO: We should probably do away with 'StateProvince' and stick to 'State' and 'Province'.
 			if ( ! isset( $data['StateProvince'] ) || $data['StateProvince'] == '' ) {
 				if ( isset( $data['State'] ) && $data['State'] != '' &&
-					 ( empty( $data['Country'] ) || $data['Country'] == 'US' || $data['Country'] == __( "United States", 'tribe-events-calendar' ) )
+					 ( empty( $data['Country'] ) || $data['Country'] == 'US' || $data['Country'] == esc_html__( 'United States', 'the-events-calendar' ) )
 				) {
 					$data['StateProvince'] = $data['State'];
 				} else {

@@ -13,8 +13,8 @@
 		<h4 class="entry-title summary">[[=title]]</h4>
 
 		<div class="tribe-events-event-body">
-			<div class="duration">
-				<abbr class="tribe-events-abbr updated published dtstart">[[=dateDisplay]] </abbr>
+			<div class="tribe-event-duration">
+				<abbr class="tribe-events-abbr tribe-event-date-start">[[=dateDisplay]] </abbr>
 			</div>
 			[[ if(imageTooltipSrc.length) { ]]
 			<div class="tribe-events-event-thumb">
@@ -22,7 +22,7 @@
 			</div>
 			[[ } ]]
 			[[ if(excerpt.length) { ]]
-			<p class="entry-summary description">[[=raw excerpt]]</p>
+			<p class="tribe-event-description">[[=raw excerpt]]</p>
 			[[ } ]]
 			<span class="tribe-events-arrow"></span>
 		</div>

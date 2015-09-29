@@ -75,10 +75,12 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 
 				// Hook the methods
 				add_filter( 'generate_rewrite_rules', array( $this, 'filter_generate' ) );
+				add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15, 2 );
 
 			} elseif ( true === $remove ) {
 				// Remove the Hooks
 				remove_filter( 'generate_rewrite_rules', array( $this, 'filter_generate' ) );
+				remove_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15 );
 			}
 		}
 
@@ -88,7 +90,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @param  WP_Rewrite $wp_rewrite WordPress Rewrite that will be modified, pass it by reference (&$wp_rewrite)
 		 * @return void
 		 */
-		public function filter_generate( WP_Rewrite &$wp_rewrite ) {
+		public function filter_generate( WP_Rewrite $wp_rewrite ) {
 			$options = array(
 				'default_view' => Tribe__Events__Main::instance()->getOption( 'viewOption', 'month' ),
 			);
@@ -98,7 +100,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 
 				// Single
 				->single( array( '(\d{4}-\d{2}-\d{2})' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'eventDate' => '%2' ) )
-				->single( array( '{{ all }}' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'post_type' => Tribe__Events__Main::POSTTYPE ) )
+				->single( array( '{{ all }}' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'post_type' => Tribe__Events__Main::POSTTYPE, 'eventDisplay' => 'all' ) )
 
 				->single( array( '(\d{4}-\d{2}-\d{2})', 'ical' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'eventDate' => '%2', 'ical' => 1 ) )
 				->single( array( 'ical' ), array( 'ical' => 1, 'name' => '%1', 'post_type' => Tribe__Events__Main::POSTTYPE ) )
@@ -159,6 +161,31 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		}
 
 		/**
+		 * When WPML is active we need to return the language Query Arg
+		 *
+		 * @param  string $uri Permalink for the post
+		 * @param  WP_Post $post Post Object
+		 *
+		 * @return string      Permalink with the language
+		 */
+		public function filter_post_type_link( $permalink, $post ) {
+			if ( ! $this->is_wpml_active() || empty( $_GET['lang'] ) ) {
+				return $permalink;
+			}
+
+			return add_query_arg( array( 'lang' => $_GET['lang'] ), $permalink );
+		}
+
+		/**
+		 * Checking if WPML is active on this WP
+		 *
+		 * @return boolean
+		 */
+		public function is_wpml_active() {
+			return ! empty( $GLOBALS['sitepress'] ) && $GLOBALS['sitepress'] instanceof SitePress;
+		}
+
+		/**
 		 * When you are going to use any of the functions to create new rewrite rules you need to setup first
 		 *
 		 * @param  WP_Rewrite|null $wp_rewrite  Pass the WP_Rewrite if you have it
@@ -186,12 +213,19 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			/**
 			 * If you want to modify the base slugs before the i18n happens filter this use this filter
 			 * All the bases need to have a key and a value, they might be the same or not.
+			 *
+			 * Each value is an array of possible slugs: to improve robustness the "original" English
+			 * slug is supported in addition to translated forms for month, list, today and day: this
+			 * way if the forms are altered (whether through i18n or other custom mods) *after* links
+			 * have already been promulgated, there will be less chance of visitors hitting 404s.
+			 *
+			 * @var array $bases
 			 */
 			$bases = apply_filters( 'tribe_events_rewrite_base_slugs', array(
-				'month' => (array) Tribe__Events__Main::instance()->monthSlug,
-				'list' => (array) Tribe__Events__Main::instance()->listSlug,
-				'today' => (array) Tribe__Events__Main::instance()->todaySlug,
-				'day' => (array) Tribe__Events__Main::instance()->daySlug,
+				'month' => array( 'month', Tribe__Events__Main::instance()->monthSlug ),
+				'list' => array( 'list', Tribe__Events__Main::instance()->listSlug ),
+				'today' => array( 'today', Tribe__Events__Main::instance()->todaySlug ),
+				'day' => array( 'day', Tribe__Events__Main::instance()->daySlug ),
 				'tag' => (array) 'tag',
 				'tax' => (array) 'category',
 				'page' => (array) 'page',
@@ -200,17 +234,20 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				'archive' => (array) Tribe__Events__Main::instance()->getOption( 'eventsSlug', 'events' ),
 			) );
 
+			// Remove duplicates (no need to have 'month' twice if no translations are in effect, etc)
+			$bases = array_map( 'array_unique', $bases );
+
 			// By default we always have `en_US` to avoid 404 with older URLs
 			$languages = apply_filters( 'tribe_events_rewrite_i18n_languages', array_unique( array( 'en_US', get_locale() ) ) );
 
 			// By default we load the Default and our plugin domains
 			$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
 				'default' => true, // Default doesn't need file path
-				'tribe-events-calendar' => Tribe__Events__Main::instance()->pluginDir . 'lang/',
+				'the-events-calendar' => Tribe__Events__Main::instance()->pluginDir . 'lang/',
 			) );
 
 			// If WPML exists we treat the multiple languages
-			if ( ! empty( $GLOBALS['sitepress'] ) && $GLOBALS['sitepress'] instanceof SitePress ) {
+			if ( $this->is_wpml_active() ) {
 				global $sitepress;
 
 				// Grab all languages

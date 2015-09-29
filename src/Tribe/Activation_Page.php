@@ -183,9 +183,9 @@ class Tribe__Events__Activation_Page {
 	public function display_welcome_page() {
 		do_action( 'tribe_settings_top' );
 		echo '<div class="tribe_settings tribe_welcome_page wrap">';
-		echo '<h2>';
+		echo '<h1>';
 		echo $this->welcome_page_title();
-		echo '</h2>';
+		echo '</h1>';
 		echo $this->welcome_page_content();
 		echo '</div>';
 		do_action( 'tribe_settings_bottom' );
@@ -193,7 +193,7 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function welcome_page_title() {
-		return __( 'Welcome to The Events Calendar', 'tribe-events-calendar' );
+		return __( 'Welcome to The Events Calendar', 'the-events-calendar' );
 	}
 
 	protected function welcome_page_content() {
@@ -203,9 +203,9 @@ class Tribe__Events__Activation_Page {
 	public function display_update_page() {
 		do_action( 'tribe_settings_top' );
 		echo '<div class="tribe_settings tribe_update_page wrap">';
-		echo '<h2>';
+		echo '<h1>';
 		echo $this->update_page_title();
-		echo '</h2>';
+		echo '</h1>';
 		echo $this->update_page_content();
 		echo '</div>';
 		do_action( 'tribe_settings_bottom' );
@@ -213,7 +213,7 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function update_page_title() {
-		return __( 'Thanks for Updating The Events Calendar', 'tribe-events-calendar' );
+		return __( 'Thanks for Updating The Events Calendar', 'the-events-calendar' );
 	}
 
 	protected function update_page_content() {
