@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <div class="tribe-mini-calendar-list-wrapper">
-	<div class="tribe-events-loop hfeed vcalendar">
+	<div class="tribe-events-loop">
 
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php do_action( 'tribe_events_mini_cal_list_inside_before_loop' ); ?>
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<!-- Event  -->
 			<div class="<?php tribe_events_event_classes() ?>">
 				<?php tribe_get_template_part( 'pro/widgets/modules/single-event' ) ?>
-			</div><!-- .hentry .vevent -->
+			</div>
 
 			<?php do_action( 'tribe_events_mini_cal_list_inside_after_loop' ); ?>
 		<?php endwhile; ?>

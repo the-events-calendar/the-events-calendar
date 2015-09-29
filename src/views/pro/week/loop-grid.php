@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }?>
 
-<div class="tribe-events-grid hfeed vcalendar clearfix">
+<div class="tribe-events-grid clearfix">
 	<div class="tribe-grid-header clearfix">
 		<div class="column first">
 			<span class="tribe-events-visuallyhidden"><?php esc_html_e( 'Hours', 'tribe-events-calendar-pro' ); ?></span>
