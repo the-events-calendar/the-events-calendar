@@ -33,7 +33,7 @@ class Tribe__Events__Pro__Shortcodes__This_Week extends Tribe__Events__Pro__Shor
 	 */
 	protected $tax_relationships = array(
 		'categories' => Tribe__Events__Main::TAXONOMY,
-		'tags' => 'post_tag',
+		'tags'       => 'post_tag',
 	);
 
 
@@ -44,29 +44,26 @@ class Tribe__Events__Pro__Shortcodes__This_Week extends Tribe__Events__Pro__Shor
 	*/
 	protected $default_args = array(
 		// This Week Properties
-		'layout'            => 'horizontal',
-		'highlight_color'   => '',
-		'count'             => 3,
-		'widget_id'         => '',
-
+		'layout'          => 'horizontal',
+		'highlight_color' => '',
+		'count'           => 3,
+		'widget_id'       => '',
 		// Taxonomy properties
-		'category'   => '',
-		'categories' => '',
-		'operand'    => 'OR',
-		'tag'        => '',
-		'tags'       => '',
-
+		'category'        => '',
+		'categories'      => '',
+		'operand'         => 'OR',
+		'tag'             => '',
+		'tags'            => '',
 		// Date Properties
-		'start_date'    => '',
-		'week_offset'   => '',
-		'hide_weekends' => false,
-
+		'start_date'      => '',
+		'week_offset'     => '',
+		'hide_weekends'   => false,
 		// General widget properties
-		'before_widget' => '',
-		'before_title'  => '',
-		'title'         => '',
-		'after_title'   => '',
-		'after_widget'  => '',
+		'before_widget'   => '',
+		'before_title'    => '',
+		'title'           => '',
+		'after_title'     => '',
+		'after_widget'    => '',
 	);
 
 	protected $arguments = array();
@@ -75,12 +72,12 @@ class Tribe__Events__Pro__Shortcodes__This_Week extends Tribe__Events__Pro__Shor
 	public function __construct( $attributes ) {
 
 		//Shortcode Counter
-		self::$counter++;
+		self::$counter ++;
 
 		//Set ID and unique css ID for wrapper
-		$this->default_args['widget_id'] = self::$counter;
+		$this->default_args['widget_id']     = self::$counter;
 		$this->default_args['before_widget'] = '<div id="tribe-this-week-events-widget-100' . self::$counter . '" class="tribe-this-week-events-widget" >';
-		$this->default_args['after_widget'] = '</div>';
+		$this->default_args['after_widget']  = '</div>';
 
 		$this->arguments = shortcode_atts( $this->default_args, $attributes );
 		$this->taxonomy_filters();

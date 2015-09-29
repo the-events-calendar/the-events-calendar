@@ -232,27 +232,27 @@ function tribe_events_this_week_previous_link( $start_date, $text = '' ) {
 		$text = __( '<span>&laquo;</span> Previous Week', 'tribe-events-calendar-pro' );
 	}
 
-	$attributes   = sprintf( ' data-week="%s" ', date( 'Y-m-d', strtotime( $start_date . ' -7 days' ) ) );
+	$attributes = sprintf( ' data-week="%s" ', date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( $start_date . ' -7 days' ) ) );
 
 	return sprintf( '<a %s href="#" rel="prev">%s</a>', $attributes, $text );
 
 }
 
-
 /**
  * This Week Widget - Build the next week link
  *
  * @param string $text the text to be linked
+ * @param string $start_date the date for start of the week
  *
  * @return string
  */
-function tribe_events_this_week_next_link( $end_date, $text = '' ) {
+function tribe_events_this_week_next_link( $start_date, $text = '' ) {
 
 	if ( empty( $text ) ) {
 		$text = __( 'Next Week <span>&raquo;</span>', 'tribe-events-calendar-pro' );
 	}
 
-	$attributes   = sprintf( ' data-week="%s" ', $end_date );
+	$attributes = sprintf( ' data-week="%s" ', $start_date );
 
 	return sprintf( '<a %s href="#" rel="next">%s</a>', $attributes, $text );
 
@@ -262,6 +262,7 @@ function tribe_events_this_week_next_link( $end_date, $text = '' ) {
  * This Week Widget - Get the first day of current week with provided date or current week
  *
  * @param null|mixed $date  given date or week # (week # assumes current year)
+ * @param null $week_offset # offset from current week the start date for this widget
  *
  * @return DateTime
  */
@@ -288,7 +289,7 @@ function tribe_get_this_week_first_week_day( $date = null, $week_offset = null )
 	//Add Week Offset if there
 	empty( $week_offset ) ? null : $r->modify( '+' . absint( $week_offset ) . ' weeks' );
 
-	return $r->format( 'Y-m-d' );
+	return $r->format( Tribe__Events__Date_Utils::DBDATEFORMAT );
 }
 
 /**
@@ -299,7 +300,7 @@ function tribe_get_this_week_first_week_day( $date = null, $week_offset = null )
  * @return DateTime
  */
 function tribe_get_this_week_last_week_day( $date ) {
-	return date( 'Y-m-d', strtotime( tribe_get_this_week_first_week_day( $date ) . ' +7 days' ) );
+	return date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( tribe_get_this_week_first_week_day( $date ) . ' +7 days' ) );
 }
 
 /**
@@ -310,12 +311,16 @@ function tribe_get_this_week_last_week_day( $date ) {
 function tribe_get_this_week_day_class( $day ) {
 	if ( $day['is_today'] ) {
 		$class = 'this-week-today';
+
 		return $class;
 
 	} elseif ( $day['is_past'] ) {
 		$class = 'this-week-past';
+
 		return $class;
 	}
+
+	return null;
 }
 /**
  * This Week Widget - Get Event Category Names Selected for Individual Widget
@@ -338,8 +343,12 @@ function tribe_this_week_widget_class( $tax_query ) {
 
 			$term = get_term( $term_id, $terms['taxonomy'] );
 
-			$tax_query_class .=  $term->slug . '';
+			$tax_query_class .= $term->slug . ' ';
 		}
 	}
+
+	//Filter Classes Added to the This Week Widget Wrap
+	$tax_query_class = apply_filters( 'tribe_this_week_widget_class', $tax_query_class );
+
 	return $tax_query_class;
 }

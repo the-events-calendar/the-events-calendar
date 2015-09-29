@@ -90,19 +90,16 @@ class Tribe__Events__Pro__This_Week_Widget extends WP_Widget {
 		//Setups This Week Object for Each Day
 		$week_days = Tribe__Events__Pro__This_Week::this_week_query( $this_week_query_vars );
 
-		//todo escape? this has html in it
 		echo $args['before_widget'];
 
 		do_action( 'tribe_events_this_week_widget_before_the_title' );
 
-		//todo escape? this has html in it
 		echo ( ! empty( $instance['title'] ) ) ? $args['before_title'] . $instance['title'] . $args['after_title'] : '';
 
 		do_action( 'tribe_events_this_week_widget_after_the_title' );
 
 		include Tribe__Events__Templates::getTemplateHierarchy( 'pro/widgets/this-week-widget.php' );
 
-		//todo escape? this has html in it
 		echo $args['after_widget'];
 
 		// Re-enable recurring event info
@@ -162,8 +159,7 @@ class Tribe__Events__Pro__This_Week_Widget extends WP_Widget {
 		$instance['layout']              = sanitize_text_field( $new_instance['layout'] );
 		$instance['highlight_color']     = sanitize_text_field( $new_instance['highlight_color'] );
 		$instance['count']               = absint( $new_instance['count'] );
-		//todo sanitize filter
-		$instance['filters']             = maybe_unserialize( $new_instance['filters'] );
+		$instance['filters']             = maybe_unserialize( sanitize_text_field( $new_instance['filters'] ) );
 		$instance['operand']             = sanitize_text_field( $new_instance['operand'] );
 
 		return $instance;

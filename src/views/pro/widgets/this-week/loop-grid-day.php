@@ -40,7 +40,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="tribe-events-viewmore">
 						<?php
 
-							$view_all_label = sprintf( _n( 'View 1 %1$s', 'View All %2$s %3$s', $day['total_events'], 'tribe-events-calendar' ), $this_week_template_vars['events_label_singular'], $day['total_events'], $this_week_template_vars['events_label_plural'] );
+						$label_text = $this_week_template_vars['events_label_singular'];
+						if ( 1 !== $day['total_events'] ) {
+							$label_text = $this_week_template_vars['events_label_plural'];
+						}
+
+						$view_all_label = sprintf(
+						  _n(
+						    'View %1$s %2$s',
+						    'View All %1$s %2$s',
+						    $day['total_events'],
+						    'tribe-events-calendar-pro'
+						  ),
+						  $day['total_events'],
+						  $label_text
+						);
 
 						?>
 						<a href="<?php echo esc_url( $day['view_more'] ); ?>"><?php echo esc_html( $view_all_label ); ?> &raquo;</a>

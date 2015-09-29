@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php tribe_get_template_part( 'pro/widgets/this-week/nav', 'header', array( 'start_date' => $this_week_template_vars['start_date'], 'end_date' => $this_week_template_vars['end_date'] ) ); ?>
 
 	<!-- This Week Grid -->
-	<div class="tribe-this-week-widget-weekday-wrapper <?php echo esc_html( $this_week_template_vars['hide_weekends'] === 'true' ? 'tribe-this-week-widget-hide-weekends' : '' );  ?>" >
+	<div class="tribe-this-week-widget-weekday-wrapper <?php echo esc_html( 'true' === $this_week_template_vars['hide_weekends'] ? 'tribe-this-week-widget-hide-weekends' : '' );  ?>" >
 
 		<?php foreach ( $week_days as $day ) : ?>
 
