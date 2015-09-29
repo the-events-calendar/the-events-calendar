@@ -28,8 +28,8 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 
 		$event     = get_post( $event_id );
 		$parent_id = empty( $event->post_parent ) ? $event_id : $event->post_parent;
-		$link      = trailingslashit( get_permalink( $parent_id ) );
-		$url       = trailingslashit( esc_url_raw( $link ) ) . '?ical=1';
+		$url      = get_permalink( $parent_id );
+		$url_vars  = array( 'ical' => '1' );
 
 		if ( tribe_is_recurring_event( $parent_id ) ) {
 			$child_events_ids = tribe_get_events( array(
@@ -39,8 +39,10 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 
 			$event_ids = array_merge( array( $parent_id ), $child_events_ids );
 
-			$url = sprintf( '%s&event_ids=%s', $url, implode( ',', $event_ids ) );
+			$url_vars['event_ids'] = implode( ',', $event_ids );
 		}
+
+		$url = add_query_arg( $url_vars, $url );
 
 		return apply_filters( 'tribe_get_recurrence_ical_link', $url, $event_id );
 	}

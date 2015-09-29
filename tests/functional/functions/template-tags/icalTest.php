@@ -150,8 +150,7 @@ class icalTest extends \Tribe__Events__WP_UnitTestCase {
 	 * @return string
 	 */
 	public function single_event_link( $id ) {
-		$link = trailingslashit( get_permalink( $id ) );
-		$url  = trailingslashit( esc_url_raw( $link ) ) . '?ical=1';
+		$url = get_permalink( $id ) . '&ical=1';
 
 		return $url;
 	}
