@@ -47,8 +47,12 @@ if ( ( isset( $args['widget_id'] ) || isset( $instance['widget_id'] ) ) && ( iss
 ?>
 
 	<style>
-		#<?php echo esc_attr( $wrap_id );  ?>  .tribe-this-week-event {
-			border-color: <?php echo esc_attr( $instance['highlight_color'] ); ?>;
+		#<?php echo esc_attr( $wrap_id );  ?> .tribe-this-week-event {
+			border-color : <?php echo esc_attr( $instance['highlight_color'] ); ?>;
+		}
+
+		#<?php echo esc_attr( $wrap_id );  ?> .this-week-today .tribe-this-week-widget-header-date {
+			background-color : <?php echo esc_attr( $instance['highlight_color'] ); ?>;
 		}
 	</style>
 

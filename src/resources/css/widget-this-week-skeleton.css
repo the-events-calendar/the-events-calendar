@@ -11,64 +11,67 @@
  * @package TribeEventsCalendarPro
  *
  */
+/*
+* This Week Widget CSS */
 
- /*
- * This Week Widget CSS */
+.tribe-this-week-widget-wrapper {
+    position: relative;
+    width: 100%;
+}
+.tribe-this-week-widget-weekday-wrapper {
+    overflow: hidden;
+}
+.tribe-this-week-widget-wrapper .tribe-events-page-title {
+    text-align: center;
+}
+.tribe-events-visuallyhidden {
+	display: none;
+}
+/*
+* This Week Widget Nav CSS */
 
- .tribe-this-week-widget-wrapper {
- 	width : 100%;
- 	position:relative;
- }
- .tribe-this-week-widget-weekday-wrapper {
- 	overflow:hidden;
- }
- .tribe-this-week-widget-wrapper .tribe-events-page-title {
-	text-align: center;
- }
- /*
- * This Week Widget Nav CSS */
 .entry-content ul.tribe-events-sub-nav,
 .tribe-events-sub-nav {
-	list-style-type: none;
-	overflow: hidden;
-	line-height: normal;
-	text-align: center;
- }
+    line-height: normal;
+    list-style-type: none;
+    overflow: hidden;
+    text-align: center;
+}
 .tribe-events-sub-nav .tribe-this-week-nav-link.nav-next,
 .tribe-events-sub-nav .tribe-this-week-nav-link.nav-previous {
-	text-align: left;
-	list-style-type: none;
- }
+    list-style-type: none;
+    text-align: left;
+}
 .tribe-events-sub-nav .tribe-this-week-nav-link.nav-next {
-	text-align: right;
- }
-
+    text-align: right;
+}
 /*
 * This Week Widget Common CSS */
+
 .tribe-this-week-widget-header-date {
-	border: none;
-	text-align: center;
- }
+    border: none;
+    text-align: center;
+}
+/*
+* This Week Widget Vertical CSS */
 
- /*
- * This Week Widget Vertical CSS */
- .tribe-this-week-widget-vertical .tribe-this-week-widget-day {
-	vertical-align: top;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
- }
+.tribe-this-week-widget-vertical .tribe-this-week-widget-day {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    vertical-align: top;
+}
+/*
+* This Week Widget Horizontal CSS */
 
- /*
- * This Week Widget Horizontal CSS */
- .tribe-this-week-widget-horizontal .tribe-this-week-widget-day {
-	float:left;
-	width: 14.28%;
-	vertical-align: top;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
- }
+.tribe-this-week-widget-horizontal .tribe-this-week-widget-day {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    float: left;
+    vertical-align: top;
+    width: 14.28%;
+}
 .tribe-this-week-widget-horizontal .tribe-this-week-widget-hide-weekends .tribe-this-week-widget-day {
-	width: 20%;
+    width: 20%;
 }
