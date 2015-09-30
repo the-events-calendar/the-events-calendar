@@ -534,9 +534,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Add support for tickets plugin
 			add_action( 'tribe_tickets_ticket_added', array( 'Tribe__Events__API', 'update_event_cost' ) );
 			add_action( 'tribe_tickets_ticket_deleted', array( 'Tribe__Events__API', 'update_event_cost' ) );
+			add_filter( 'tribe_tickets_default_end_date', array( $this, 'default_end_date_for_tickets' ), 10, 2 );
 
 			add_filter( 'tribe_post_types', array( $this, 'filter_post_types' ) );
 			add_filter( 'tribe_is_post_type_screen_post_types', array( $this, 'is_post_type_screen_post_types' ) );
+			add_filter( 'tribe_currency_symbol', array( $this, 'maybe_set_currency_symbol_with_post' ), 10, 2 );
+			add_filter( 'tribe_reverse_currency_position', array( $this, 'maybe_set_currency_position_with_post' ), 10, 2 );
 
 			// Settings page hooks
 			add_filter( 'tribe_general_settings_tab_fields', array( $this, 'general_settings_tab_fields' ) );
@@ -3942,18 +3945,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return int post ID
 		 */
 		public static function postIdHelper( $postId = null ) {
-			if ( $postId != null && is_numeric( $postId ) > 0 ) {
-				return (int) $postId;
-			} elseif ( is_object( $postId ) && ! empty( $postId->ID ) ) {
-				return (int) $postId->ID;
-			} else {
-				global $post;
-				if ( is_object( $post ) ) {
-					return get_the_ID();
-				} else {
-					return false;
-				}
-			}
+			return Tribe__Main::post_id_helper( $postId );
 		}
 
 		/**
@@ -4691,6 +4683,79 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			return $post_types;
+		}
+
+		/**
+		 * If tickets don't have an end date, let's provide the end date from the event
+		 */
+		public function default_end_date_for_tickets( $date, $post_id ) {
+			$post = get_post( $post_id );
+			if ( self::POSTTYPE !== $post->post_type ) {
+				return $date;
+			}
+
+			return tribe_get_end_date( $post_id, false, 'Y-m-d G:i' );
+		}
+
+		/**
+		 * Set the currency symbol from tribe_events meta data if available
+		 *
+		 * @param boolean $currency_symbol Currency symbol to use
+		 * @param int $post_id Post ID
+		 *
+		 * @return string
+		 */
+		public function maybe_set_currency_symbol_with_post( $currency_symbol, $post_id ) {
+			// if the currency symbol is already set, don't alter it
+			if ( null !== $currency_symbol ) {
+				return $currency_symbol;
+			}
+
+			// if there isn't a post id, don't change the symbol
+			if ( ! $post_id ) {
+				return $currency_symbol;
+			}
+
+			// if the post isn't a tribe_events post type, don't alter the symbol
+			$post = get_post( $post_id );
+			if ( self::POSTTYPE !== $post->post_type ) {
+				return $currency_symbol;
+			}
+
+			$currency_symbol = tribe_get_event_meta( $post_id, '_EventCurrencySymbol', true );
+
+			return $currency_symbol;
+		}
+
+		/**
+		 * Set the currency position from tribe_events meta data if available
+		 *
+		 * @param boolean $reverse_position Whether to reverse the location of the currency symbol
+		 * @param int $post_id Post ID
+		 *
+		 * @return boolean
+		 */
+		public function maybe_set_currency_position_with_post( $reverse_position, $post_id ) {
+			// if the currency symbol is already set, don't alter it
+			if ( null !== $reverse_position ) {
+				return $reverse_position;
+			}
+
+			// if there isn't a post id, don't change the symbol
+			if ( ! $post_id ) {
+				return $reverse_position;
+			}
+
+			// if the post isn't a tribe_events post type, don't alter the symbol
+			$post = get_post( $post_id );
+			if ( self::POSTTYPE !== $post->post_type ) {
+				return $reverse_position;
+			}
+
+			$reverse_position = tribe_get_event_meta( $post_id, '_EventCurrencyPosition', true );
+			$reverse_position = ( 'suffix' === $reverse_position );
+
+			return $reverse_position;
 		}
 	} // end Tribe__Events__Main class
 } // end if !class_exists Tribe__Events__Main

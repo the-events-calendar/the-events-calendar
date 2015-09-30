@@ -720,48 +720,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Receives a float and formats it with a currency symbol
-	 *
-	 * @category Cost
-	 * @param string $cost pricing to format
-	 * @param null|int $postId
-	 * @param null|string $currency_symbol
-	 * @param null|bool $reverse_position
-	 *
-	 * @return string
-	 */
-	function tribe_format_currency( $cost, $postId = null, $currency_symbol = null, $reverse_position = null ) {
-
-		$postId = Tribe__Events__Main::postIdHelper( $postId );
-
-		// if no currency symbol was passed, and we're looking at a particular event,
-		// let's check if there was a currency symbol set on that event
-		if ( $postId && $currency_symbol == null ) {
-			$currency_symbol = tribe_get_event_meta( $postId, '_EventCurrencySymbol', true );
-		}
-
-		// if no currency symbol was passed, or we're not looking at a particular event,
-		// let's get the default currency symbol
-		if ( ! $postId || ! $currency_symbol ) {
-			$currency_symbol = tribe_get_option( 'defaultCurrencySymbol', '$' );
-		}
-
-		if ( $postId && $reverse_position == null ) {
-			$reverse_position = tribe_get_event_meta( $postId, '_EventCurrencyPosition', true );
-			$reverse_position = ( 'suffix' === $reverse_position );
-		}
-
-		if ( ! $reverse_position || ! $postId ) {
-			$reverse_position = tribe_get_option( 'reverseCurrencyPosition', false );
-		}
-
-		$cost = $reverse_position ? $cost . $currency_symbol : $currency_symbol . $cost;
-
-		return $cost;
-
-	}
-
-	/**
 	 * Get the minimum cost of all events.
 	 *
 	 * @category Cost
