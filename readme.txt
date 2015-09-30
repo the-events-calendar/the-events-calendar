@@ -216,6 +216,12 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [3.12.2] 2019-09-30 =
+
+* Fix - Avoid modifying permalinks unless it is absolutely necessary (props to Jan for the fix)
+* Fix - Ensure we do not inavertently change the order of posts when events are integrated into the main blog loop
+* Fix - Ensure rewrite rules are correctly added (our thans to Nadia for highlighting this issue)
+
 = [3.12.1] 2015-09-22 =
 
 * Fix - Ensure all event views work reliably event if the permalinks are translated or otherwise customized (our thanks to Antonio Jose and many others for reporting this)
