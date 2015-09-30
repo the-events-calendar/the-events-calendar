@@ -92,10 +92,6 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @return void
 		 */
 		public function filter_generate( WP_Rewrite $wp_rewrite ) {
-			$options = array(
-				'default_view' => Tribe__Events__Main::instance()->getOption( 'viewOption', 'month' ),
-			);
-
 			// Gets the rewrite bases and completes any other required setup work
 			$this->setup( $wp_rewrite );
 
@@ -128,6 +124,10 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @param Tribe__Events__Rewrite $rewrite
 		 */
 		public function generate_core_rules( Tribe__Events__Rewrite $rewrite ) {
+			$options = array(
+				'default_view' => Tribe__Events__Main::instance()->getOption( 'viewOption', 'month' ),
+			);
+
 			$rewrite
 				// Single
 				->single( array( '(\d{4}-\d{2}-\d{2})' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'eventDate' => '%2' ) )
