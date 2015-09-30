@@ -460,15 +460,19 @@ class Tribe__Events__Pro__Recurrence_Meta {
 						continue;
 					}
 
-					if ( ( empty( $recurrence['type'] ) && empty( $recurrence['custom']['type'] ) ) || 'None' === $recurrence['custom']['type'] ) {
+					if (
+						( empty( $recurrence['type'] ) && empty( $recurrence['custom']['type'] ) )
+						|| ( 'exclusions' == $rule_type && ! empty( $recurrence['custom']['type'] ) && 'None' === $recurrence['custom']['type'] )
+					) {
 						unset( $data['recurrence'][ $rule_type ][ $key ] );
 						continue;
 					}
 
-					unset(
-						$recurrence['occurrence-count-text'],
-						$recurrence['custom']['type-text']
-					);
+					if ( isset( $recurrence['custom'] ) && isset( $recurrence['custom']['type-text'] ) ) {
+						unset( $recurrence['custom']['type-text'] );
+					}
+
+					unset( $recurrence['occurrence-count-text'] );
 
 					if ( ! empty( $recurrence['end'] ) ) {
 						$recurrence['end'] = Tribe__Events__Date_Utils::datetime_from_format( $datepicker_format, $recurrence['end'] );
@@ -476,7 +480,9 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 					// if this isn't an exclusion and it isn't a Custom rule, then we don't need the custom array index
 					if ( 'rules' === $rule_type && 'Custom' !== $recurrence['type'] ) {
-						unset( $recurrence['custom'] );
+						if ( isset( $recurrence['custom'] ) ) {
+							unset( $recurrence['custom'] );
+						}
 					} else {
 						$custom_types = array(
 							'date',
