@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3.1
-Stable tag: 3.12.2
+Stable tag: 3.12.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -317,15 +317,21 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [3.12.3] 2015-10-01 =
+
+* Fix - Ensure daily counts in month view are accurate (our thanks to @communityanswers in the support forums for highlighting this)
+
 = [3.12.2] 2015-09-22 =
-* Fix - restore expected functionality for the Hide from Event Listings option
-* Fix - ensure the correct day is highlighted in month view, regardless of the site's timezone (our thanks to @james for making us aware of this)
-* Fix - improve compatibility with the standard WordPress import tool (our thanks to @joelgoodman for highlighting this)
-* Fix - ensure our URLs are compatible with pathinfo-style permalink structures (thanks to @mill.joes and others for make us aware of this)
+
+* Fix - Restore expected functionality for the Hide from Event Listings option
+* Fix - Ensure the correct day is highlighted in month view, regardless of the site's timezone (our thanks to @james for making us aware of this)
+* Fix - Improve compatibility with the standard WordPress import tool (our thanks to @joelgoodman for highlighting this)
+* Fix - Ensure our URLs are compatible with pathinfo-style permalink structures (thanks to @mill.joes and others for make us aware of this)
 
 = [3.12.1] 2015-09-09 =
-* Tweak - text domains updated for consistency with the plugin slug
-* Fix - restored normal operation of the changelog reader (used within the update screen)
+
+* Tweak - Text domains updated for consistency with the plugin slug
+* Fix - Restored normal operation of the changelog reader (used within the update screen)
 
 = [3.12] 2015-09-08 =
 

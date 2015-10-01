@@ -621,7 +621,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'end_date'               => $end_of_day,
 					'update_post_term_cache' => false,
 					'update_post_meta_cache' => false,
-					'no_found_rows'          => true,
+					'no_found_rows'          => false,
 					'orderby'                => 'menu_order',
 				), $this->args
 			);
@@ -629,11 +629,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			// we don't need this join since we already checked it
 			unset ( $args[ Tribe__Events__Main::TAXONOMY ] );
 
-			$result = tribe_get_events( $args, true );
-
-			$result->found_posts = count( $event_ids_on_date );
-
-			return $result;
+			return tribe_get_events( $args, true );
 		}
 
 		/**
