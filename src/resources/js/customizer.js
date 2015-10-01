@@ -15,6 +15,8 @@
 
 			tribe_events_customizer[ section ][ setting ] = value;
 
+			console.log( tribe_events_customizer );
+
 			return tribe_events_customizer;
 		},
 		applyCSS: function(){
@@ -36,18 +38,6 @@
 					customizer.applyCSS()
 				} );
 			} );
-		} );
-	} );
-
-	// Now the Specfic Settings
-	wp.customize( 'tribe_events_customizer[general_theme][base_color_scheme]', function( value ) {
-		value.bind( function( newval, oldval ) {
-			$( 'body' ).removeClass( customizer.getBodyClass( oldval, 'global' ) ).addClass( customizer.getBodyClass( newval, 'global' ) );
-		} );
-	} );
-	wp.customize( 'tribe_events_customizer[widget][color_scheme]', function( value ) {
-		value.bind( function( newval, oldval ) {
-			$( 'body' ).removeClass( customizer.getBodyClass( oldval, 'widget' ) ).addClass( customizer.getBodyClass( newval, 'widget' ) );
 		} );
 	} );
 } )( window.jQuery, window.wp );

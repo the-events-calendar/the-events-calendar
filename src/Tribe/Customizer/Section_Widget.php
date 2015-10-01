@@ -77,9 +77,7 @@ final class Tribe__Events__Pro__Customizer__Section_Widget {
 	 * @return string
 	 */
 	public function get_css_template( $template ) {
-		return $template . '
-
-		';
+		return $template;
 	}
 
 	/**
@@ -88,7 +86,6 @@ final class Tribe__Events__Pro__Customizer__Section_Widget {
 	 */
 	public function get_defaults() {
 		$defaults = array(
-			'color_scheme' => 'light',
 			'calendar_header_color' => '#999',
 			'calendar_datebar_color' => '#e0e0e0',
 		);
@@ -142,33 +139,10 @@ final class Tribe__Events__Pro__Customizer__Section_Widget {
 		$customizer = Tribe__Events__Pro__Customizer__Main::instance();
 
 		$manager->add_setting(
-			$customizer->get_setting_name( 'color_scheme', $section ),
-			array(
-				'default'   => $this->get_default( 'color_scheme' ),
-				'type'      => 'option',
-				'transport' => 'postMessage',
-			)
-		);
-
-		$manager->add_control(
-			$customizer->get_setting_name( 'color_scheme', $section ),
-			array(
-				'type' => 'select',
-				'label' => esc_html__( 'Widget Color Scheme', 'tribe-events-calendar-pro' ),
-				'section' => $section->id,
-				'choices' => array(
-					'light' => 'Light',
-					'dark' => 'Dark',
-				),
-			)
-		);
-
-		$manager->add_setting(
 			$customizer->get_setting_name( 'calendar_header_color', $section ),
 			array(
 				'default'              => $this->get_default( 'calendar_header_color' ),
 				'type'                 => 'option',
-				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -191,7 +165,6 @@ final class Tribe__Events__Pro__Customizer__Section_Widget {
 			array(
 				'default'              => $this->get_default( 'calendar_datebar_color' ),
 				'type'                 => 'option',
-				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',

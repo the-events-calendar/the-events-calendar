@@ -82,7 +82,6 @@ final class Tribe__Events__Pro__Customizer__Section_General_Theme {
 		if ( $customizer->has_option( $this->ID, 'accent_color' ) ) {
 			$template .= '
 				.tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"],
-				.tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"] > a,
 				#tribe_events_filters_wrapper input[type=submit],
 				.tribe-events-button,
 				#tribe-events .tribe-events-button,
@@ -171,34 +170,12 @@ final class Tribe__Events__Pro__Customizer__Section_General_Theme {
 	public function settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
 		$customizer = Tribe__Events__Pro__Customizer__Main::instance();
 
-		$manager->add_setting(
-			$customizer->get_setting_name( 'base_color_scheme', $section ),
-			array(
-				'default' => $this->get_default( 'base_color_scheme' ),
-				'type' => 'option',
-				'transport' => 'postMessage',
-			)
-		);
-
-		$manager->add_control(
-			$customizer->get_setting_name( 'base_color_scheme', $section ),
-			array(
-				'type' => 'select',
-				'label' => esc_html__( 'Base Color Scheme', 'tribe-events-calendar-pro' ),
-				'section' => $section->id,
-				'choices' => array(
-					'light' => esc_html__( 'Light', 'tribe-events-calendar-pro' ),
-					'dark' => esc_html__( 'Dark', 'tribe-events-calendar-pro' ),
-				),
-			)
-		);
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'accent_color', $section ),
 			array(
 				'default'              => $this->get_default( 'accent_color' ),
 				'type'                 => 'option',
-				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',

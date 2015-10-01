@@ -82,30 +82,12 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 	public function get_css_template( $template ) {
 		$customizer = Tribe__Events__Pro__Customizer__Main::instance();
 
-		if ( $customizer->has_option( $this->ID, 'calendar_datebar_color' ) ) {
+		if ( $customizer->has_option( $this->ID, 'price_bg_color' ) ) {
 			$template .= '
-				.tribe-events-calendar div[id*="tribe-events-daynum-"],
-				.tribe-events-calendar div[id*="tribe-events-daynum-"] a {
-					background-color: <%= month_week_view.calendar_datebar_color %>;
-				}
-			';
-		}
-
-		if ( $customizer->has_option( $this->ID, 'calendar_header_color' ) ) {
-			$template .= '
-				.tribe-events-calendar thead th {
-					background-color: <%= month_week_view.calendar_header_color %>;
-					border-left-color: <%= month_week_view.calendar_header_color %>;
-					border-right-color: <%= month_week_view.calendar_header_color %>;
-				}
-			';
-		}
-
-		if ( $customizer->has_option( $this->ID, 'calendar_highlight_color' ) ) {
-			$template .= '
-				.tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"],
-				.tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"] > a {
-					background-color: <%= month_week_view.calendar_highlight_color %>;
+				.tribe-events-list .tribe-events-event-cost span {
+					background-color: <%= day_list_view.price_bg_color %>;
+					border-color: <%= day_list_view.price_border_color %>;
+					color: <%= day_list_view.price_color %>;
 				}
 			';
 		}
@@ -130,6 +112,17 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 
 	public function create_ghost_settings( $settings = array() ) {
 
+		if ( ! empty( $settings['price_bg_color'] ) ){
+			$price_bg_color = new Tribe__Events__Pro__Customizer__Color( $settings['price_bg_color'] );
+
+			$settings['price_border_color'] = '#' . $price_bg_color->darken( 15 );
+			if ( $price_bg_color->isDark() ) {
+				$settings['price_color'] = '#f9f9f9';
+			} else {
+				$settings['price_color'] = '#333333';
+			}
+		}
+
 		return $settings;
 	}
 
@@ -139,9 +132,11 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 	 */
 	public function get_defaults() {
 		$defaults = array(
-			'price_background_color' => '#eeeeee',
-			'highlight_color' => '#21759b',
+			'price_bg_color' => '#eeeeee',
 		);
+
+		// Create Ghost Options
+		$defaults = $this->create_ghost_settings( $defaults );
 
 		return $defaults;
 	}
@@ -192,11 +187,10 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 		$customizer = Tribe__Events__Pro__Customizer__Main::instance();
 
 		$manager->add_setting(
-			$customizer->get_setting_name( 'price_background_color', $section ),
+			$customizer->get_setting_name( 'price_bg_color', $section ),
 			array(
-				'default'              => $this->get_default( 'price_background_color' ),
+				'default'              => $this->get_default( 'price_bg_color' ),
 				'type'                 => 'option',
-				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -206,7 +200,7 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
-				$customizer->get_setting_name( 'price_background_color', $section ),
+				$customizer->get_setting_name( 'price_bg_color', $section ),
 				array(
 					'label'   => esc_html__( 'Price Background Color', 'tribe-events-calendar-pro' ),
 					'section' => $section->id,
@@ -214,28 +208,6 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 			)
 		);
 
-		$manager->add_setting(
-			$customizer->get_setting_name( 'highlight_color', $section ),
-			array(
-				'default'              => $this->get_default( 'highlight_color' ),
-				'type'                 => 'option',
-				'transport'            => 'postMessage',
-
-				'sanitize_callback'    => 'sanitize_hex_color',
-				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
-		);
-
-		$manager->add_control(
-			new WP_Customize_Color_Control(
-				$manager,
-				$customizer->get_setting_name( 'highlight_color', $section ),
-				array(
-					'label'   => esc_html__( 'Hightlight Color', 'tribe-events-calendar-pro' ),
-					'section' => $section->id,
-				)
-			)
-		);
 	}
 
 

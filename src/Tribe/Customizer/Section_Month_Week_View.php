@@ -82,31 +82,70 @@ final class Tribe__Events__Pro__Customizer__Section_Month_Week_View {
 	public function get_css_template( $template ) {
 		$customizer = Tribe__Events__Pro__Customizer__Main::instance();
 
-		if ( $customizer->has_option( $this->ID, 'calendar_datebar_color' ) ) {
+		if ( $customizer->has_option( $this->ID, 'table_bg_color' ) ) {
 			$template .= '
+				#tribe-events .tribe-events-calendar td.tribe-events-othermonth,
+				#tribe-events .tribe-grid-allday,
+				#tribe-events .tribe-week-today,
+				#tribe-events .tribe-events-calendar td:hover {
+					background-color: <%= month_week_view.cell_inactive_bg_color %>;
+				}
+
+				#tribe-events .tribe-events-calendar td,
+				#tribe-events .tribe-week-grid-block div,
+				#tribe-events .tribe-events-grid,
+				#tribe-events .tribe-grid-allday,
+				#tribe-events .tribe-events-grid .tribe-scroller,
+				#tribe-events .tribe-events-grid .tribe-grid-body .column,
+				#tribe-events .tribe-events-grid .tribe-grid-allday .column {
+					border-color: <%= month_week_view.border_dark_color %>;
+				}
+
+				.events-archive.events-gridview #tribe-events-content table .type-tribe_events {
+					border-color: <%= month_week_view.border_light_color %>;
+				}
+
+				.tribe-events-calendar td.tribe-events-past div[id*="tribe-events-daynum-"],
+				.tribe-events-calendar td.tribe-events-past div[id*="tribe-events-daynum-"] > a {
+					background-color: <%= month_week_view.cell_inactive_header_bg_color %>;
+				}
+
 				.tribe-events-calendar div[id*="tribe-events-daynum-"],
 				.tribe-events-calendar div[id*="tribe-events-daynum-"] a {
-					background-color: <%= month_week_view.calendar_datebar_color %>;
+					background-color: <%= month_week_view.cell_header_bg_color %>;
+				}
+
+				.tribe-events-calendar thead th,
+				.tribe-events-grid .tribe-grid-header .tribe-grid-content-wrap .column,
+				.tribe-grid-header {
+					background-color: <%= month_week_view.table_header_bg_color %>;
+					border-left-color: <%= month_week_view.table_header_bg_color %>;
+					border-right-color: <%= month_week_view.table_header_bg_color %>;
 				}
 			';
 		}
 
-		if ( $customizer->has_option( $this->ID, 'calendar_header_color' ) ) {
+		if ( $customizer->has_option( $this->ID, 'highlight_color' ) ) {
 			$template .= '
-				.tribe-events-calendar thead th {
-					background-color: <%= month_week_view.calendar_header_color %>;
-					border-left-color: <%= month_week_view.calendar_header_color %>;
-					border-right-color: <%= month_week_view.calendar_header_color %>;
+				#tribe-events td.tribe-events-present div[id*="tribe-events-daynum-"],
+				#tribe-events td.tribe-events-present div[id*="tribe-events-daynum-"] > a {
+					background-color: <%= month_week_view.highlight_color %>;
+					color: #fff;
 				}
-			';
-		}
 
-		if ( $customizer->has_option( $this->ID, 'calendar_highlight_color' ) ) {
-			$template .= '
-				.tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"],
-				.tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"] > a {
-					background-color: <%= month_week_view.calendar_highlight_color %>;
+				#tribe-events .tribe-events-grid .tribe-grid-header div.tribe-week-today {
+					background-color: <%= month_week_view.highlight_color %>;
 				}
+
+				.tribe-grid-allday .tribe-events-week-allday-single,
+				.tribe-grid-body .tribe-events-week-hourly-single,
+				.tribe-grid-allday .tribe-events-week-allday-single:hover,
+				.tribe-grid-body .tribe-events-week-hourly-single:hover {
+					background-color: <%= month_week_view.highlight_color %>;
+					background-color: <%= month_week_view.highlight_color_rgba %>;
+					border-color: <%= month_week_view.highlight_border_color %>
+				}
+
 			';
 		}
 
@@ -129,6 +168,26 @@ final class Tribe__Events__Pro__Customizer__Section_Month_Week_View {
 	}
 
 	public function create_ghost_settings( $settings = array() ) {
+		if ( ! empty( $settings['table_bg_color'] ) ){
+			$table_bg_color = new Tribe__Events__Pro__Customizer__Color( $settings['table_bg_color'] );
+
+			$settings['table_header_bg_color'] = '#' . $table_bg_color->darken( 70 );
+
+			$settings['border_light_color'] = '#' . $table_bg_color->darken( 8 );
+			$settings['border_dark_color'] = '#' . $table_bg_color->darken( 15 );
+
+			$settings['cell_inactive_bg_color'] = '#' . $table_bg_color->darken( 3 );
+			$settings['cell_inactive_header_bg_color'] = '#' . $table_bg_color->darken( 15 );
+			$settings['cell_header_bg_color'] = '#' . $table_bg_color->darken( 30 );
+
+		}
+
+		if ( ! empty( $settings['highlight_color'] ) ){
+			$highlight_color = new Tribe__Events__Pro__Customizer__Color( $settings['highlight_color'] );
+
+			$settings['highlight_color_rgba'] = 'rgba( ' . implode( ', ', $highlight_color->getRgb() ) . ', .75 )';
+			$settings['highlight_border_color'] = '#' . $highlight_color->darken( 15 );
+		}
 
 		return $settings;
 	}
@@ -139,10 +198,12 @@ final class Tribe__Events__Pro__Customizer__Section_Month_Week_View {
 	 */
 	public function get_defaults() {
 		$defaults = array(
-			'calendar_header_color' => '#666666',
-			'calendar_datebar_color' => '#b2b2b2',
-			'calendar_highlight_color' => '#21759b',
+			'table_bg_color' => '#f9f9f9',
+			'highlight_color' => '#21759b',
 		);
+
+		// Create Ghost Options
+		$defaults = $this->create_ghost_settings( $defaults );
 
 		return $defaults;
 	}
@@ -193,11 +254,10 @@ final class Tribe__Events__Pro__Customizer__Section_Month_Week_View {
 		$customizer = Tribe__Events__Pro__Customizer__Main::instance();
 
 		$manager->add_setting(
-			$customizer->get_setting_name( 'calendar_header_color', $section ),
+			$customizer->get_setting_name( 'table_bg_color', $section ),
 			array(
-				'default'              => $this->get_default( 'calendar_header_color' ),
+				'default'              => $this->get_default( 'table_bg_color' ),
 				'type'                 => 'option',
-				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -207,20 +267,19 @@ final class Tribe__Events__Pro__Customizer__Section_Month_Week_View {
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
-				$customizer->get_setting_name( 'calendar_header_color', $section ),
+				$customizer->get_setting_name( 'table_bg_color', $section ),
 				array(
-					'label'   => __( 'Calendar Header Color' ),
+					'label'   => __( 'Calendar Table Color' ),
 					'section' => $section->id,
 				)
 			)
 		);
 
 		$manager->add_setting(
-			$customizer->get_setting_name( 'calendar_datebar_color', $section ),
+			$customizer->get_setting_name( 'highlight_color', $section ),
 			array(
-				'default'              => $this->get_default( 'calendar_datebar_color' ),
+				'default'              => $this->get_default( 'highlight_color' ),
 				'type'                 => 'option',
-				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -230,30 +289,7 @@ final class Tribe__Events__Pro__Customizer__Section_Month_Week_View {
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
-				$customizer->get_setting_name( 'calendar_datebar_color', $section ),
-				array(
-					'label'   => __( 'Calendar Date Bar Color' ),
-					'section' => $section->id,
-				)
-			)
-		);
-
-		$manager->add_setting(
-			$customizer->get_setting_name( 'calendar_highlight_color', $section ),
-			array(
-				'default'              => $this->get_default( 'calendar_highlight_color' ),
-				'type'                 => 'option',
-				'transport'            => 'postMessage',
-
-				'sanitize_callback'    => 'sanitize_hex_color',
-				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
-		);
-
-		$manager->add_control(
-			new WP_Customize_Color_Control(
-				$manager,
-				$customizer->get_setting_name( 'calendar_highlight_color', $section ),
+				$customizer->get_setting_name( 'highlight_color', $section ),
 				array(
 					'label'   => __( 'Calendar Hightlight Color' ),
 					'section' => $section->id,

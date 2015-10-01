@@ -144,21 +144,6 @@ final class Tribe__Events__Pro__Customizer__Section_Global_Elements {
 		return $template;
 	}
 
-	public function filter_settings( $settings, $search ) {
-		// Only Apply if getting the full options or Section
-		if ( is_array( $search ) && count( $search ) > 1 ){
-			return $settings;
-		}
-
-		if ( count( $search ) === 1 ){
-			$settings = $this->create_ghost_settings( $settings );
-		} else {
-			$settings[ $this->ID ] = $this->create_ghost_settings( $settings[ $this->ID ] );
-		}
-
-		return $settings;
-	}
-
 	public function create_ghost_settings( $settings = array() ) {
 		if ( ! empty( $settings['filterbar_color'] ) ){
 			$settings['filterbar_color_darker'] = new Tribe__Events__Pro__Customizer__Color( $settings['filterbar_color'] );
@@ -202,6 +187,20 @@ final class Tribe__Events__Pro__Customizer__Section_Global_Elements {
 		return $defaults[ $key ];
 	}
 
+	public function filter_settings( $settings, $search ) {
+		// Only Apply if getting the full options or Section
+		if ( is_array( $search ) && count( $search ) > 1 ){
+			return $settings;
+		}
+
+		if ( count( $search ) === 1 ){
+			$settings = $this->create_ghost_settings( $settings );
+		} else {
+			$settings[ $this->ID ] = $this->create_ghost_settings( $settings[ $this->ID ] );
+		}
+
+		return $settings;
+	}
 
 	/**
 	 * Register this Section
@@ -238,7 +237,6 @@ final class Tribe__Events__Pro__Customizer__Section_Global_Elements {
 			array(
 				'default'              => $this->get_default( 'link_color' ),
 				'type'                 => 'option',
-				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -283,7 +281,6 @@ final class Tribe__Events__Pro__Customizer__Section_Global_Elements {
 			array(
 				'default'              => $this->get_default( 'button_color' ),
 				'type'                 => 'option',
-				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',

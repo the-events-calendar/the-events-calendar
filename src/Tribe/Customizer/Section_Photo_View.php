@@ -69,6 +69,9 @@ final class Tribe__Events__Pro__Customizer__Section_Photo_View {
 		// Append this section CSS template
 		add_filter( 'tribe_events_customizer_css_template', array( &$this, 'get_css_template' ), 10 );
 		add_filter( 'tribe_events_customizer_section_' . $this->ID . '_defaults', array( &$this, 'get_defaults' ), 10 );
+
+		// Create the Ghost Options
+		add_filter( 'tribe_events_customizer_pre_get_option', array( &$this, 'filter_settings' ), 10, 2 );
 	}
 
 	/**
@@ -76,10 +79,38 @@ final class Tribe__Events__Pro__Customizer__Section_Photo_View {
 	 *
 	 * @return string
 	 */
-	public function get_css_template() {
-		return '
+	public function get_css_template( $template ) {
+		$customizer = Tribe__Events__Pro__Customizer__Main::instance();
 
-		';
+		if ( $customizer->has_option( $this->ID, 'bg_color' ) ) {
+			$template .= '
+				.type-tribe_events.tribe-events-photo-event .tribe-events-photo-event-wrap {
+					background-color: <%= photo_view.bg_color %>;
+					color: <%= photo_view.text_color %>;
+				}
+
+				.type-tribe_events.tribe-events-photo-event .tribe-events-photo-event-wrap:hover {
+					background-color: <%= photo_view.bg_color_light %>;
+				}
+			';
+		}
+
+		return $template;
+	}
+
+	public function create_ghost_settings( $settings = array() ) {
+		if ( ! empty( $settings['bg_color'] ) ){
+			$bg_color = new Tribe__Events__Pro__Customizer__Color( $settings['bg_color'] );
+			$settings['bg_color_light'] = '#' . $bg_color->lighten();
+
+			if ( $bg_color->isDark() ) {
+				$settings['text_color'] = '#f9f9f9';
+			} else {
+				$settings['text_color'] = '#333333';
+			}
+		}
+
+		return $settings;
 	}
 
 	/**
@@ -88,9 +119,11 @@ final class Tribe__Events__Pro__Customizer__Section_Photo_View {
 	 */
 	public function get_defaults() {
 		$defaults = array(
-			'photo_background_color' => '#eee',
-			'photo_text_color' => '#333',
+			'bg_color' => '#eee',
 		);
+
+		// Create Ghost Options
+		$defaults = $this->create_ghost_settings( $defaults );
 
 		return $defaults;
 	}
@@ -109,6 +142,20 @@ final class Tribe__Events__Pro__Customizer__Section_Photo_View {
 		return $defaults[ $key ];
 	}
 
+	public function filter_settings( $settings, $search ) {
+		// Only Apply if getting the full options or Section
+		if ( is_array( $search ) && count( $search ) > 1 ){
+			return $settings;
+		}
+
+		if ( count( $search ) === 1 ){
+			$settings = $this->create_ghost_settings( $settings );
+		} else {
+			$settings[ $this->ID ] = $this->create_ghost_settings( $settings[ $this->ID ] );
+		}
+
+		return $settings;
+	}
 
 	/**
 	 * Register this Section
@@ -142,11 +189,10 @@ final class Tribe__Events__Pro__Customizer__Section_Photo_View {
 		$customizer = Tribe__Events__Pro__Customizer__Main::instance();
 
 		$manager->add_setting(
-			$customizer->get_setting_name( 'photo_background_color', $section ),
+			$customizer->get_setting_name( 'bg_color', $section ),
 			array(
-				'default'              => $this->get_default( 'photo_background_color' ),
+				'default'              => $this->get_default( 'bg_color' ),
 				'type'                 => 'option',
-				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -156,32 +202,9 @@ final class Tribe__Events__Pro__Customizer__Section_Photo_View {
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
-				$customizer->get_setting_name( 'photo_background_color', $section ),
+				$customizer->get_setting_name( 'bg_color', $section ),
 				array(
 					'label'   => __( 'Photo Background Color' ),
-					'section' => $section->id,
-				)
-			)
-		);
-
-		$manager->add_setting(
-			$customizer->get_setting_name( 'photo_text_color', $section ),
-			array(
-				'default'              => $this->get_default( 'photo_text_color' ),
-				'type'                 => 'option',
-				'transport'            => 'postMessage',
-
-				'sanitize_callback'    => 'sanitize_hex_color',
-				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
-		);
-
-		$manager->add_control(
-			new WP_Customize_Color_Control(
-				$manager,
-				$customizer->get_setting_name( 'photo_text_color', $section ),
-				array(
-					'label'   => __( 'Photo Text Color' ),
 					'section' => $section->id,
 				)
 			)

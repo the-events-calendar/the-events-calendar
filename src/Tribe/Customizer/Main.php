@@ -106,7 +106,7 @@ final class Tribe__Events__Pro__Customizer__Main {
 		$this->sections_class[] = Tribe__Events__Pro__Customizer__Section_General_Theme::instance();
 		$this->sections_class[] = Tribe__Events__Pro__Customizer__Section_Global_Elements::instance();
 		$this->sections_class[] = Tribe__Events__Pro__Customizer__Section_Single_Event::instance();
-		$this->sections_class[] = Tribe__Events__Pro__Customizer__Section_Widget::instance();
+		// $this->sections_class[] = Tribe__Events__Pro__Customizer__Section_Widget::instance();
 
 		$this->sections_class = apply_filters( 'tribe_events_customizer_sections_class', $this->sections_class, $this );
 
@@ -161,7 +161,7 @@ final class Tribe__Events__Pro__Customizer__Main {
 
 		// Search on the Array
 		if ( ! is_null( $search ) ){
-			$option = self::search_var( $option, $search, $default );
+			$option = self::search_var( $sections, $search, $default );
 		} else {
 			$option = $sections;
 		}
@@ -174,7 +174,16 @@ final class Tribe__Events__Pro__Customizer__Main {
 
 	public function has_option() {
 		$search = func_get_args();
-		$option = get_option( $this->ID, array() );
+		$option = self::get_option();
+		$real_option = get_option( $this->ID, array() );
+
+		// Get section and Settign based on keys
+		$section = reset( $search );
+		$setting = end( $search );
+
+		if ( empty( $real_option ) || empty( $real_option[ $section ] ) ){
+			return false;
+		}
 
 		// Search on the Array
 		if ( ! is_null( $search ) ){

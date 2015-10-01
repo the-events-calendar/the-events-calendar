@@ -69,6 +69,9 @@ final class Tribe__Events__Pro__Customizer__Section_Single_Event {
 		// Append this section CSS template
 		add_filter( 'tribe_events_customizer_css_template', array( &$this, 'get_css_template' ), 10 );
 		add_filter( 'tribe_events_customizer_section_' . $this->ID . '_defaults', array( &$this, 'get_defaults' ), 10 );
+
+		// Create the Ghost Options
+		add_filter( 'tribe_events_customizer_pre_get_option', array( &$this, 'filter_settings' ), 10, 2 );
 	}
 
 	/**
@@ -77,9 +80,40 @@ final class Tribe__Events__Pro__Customizer__Section_Single_Event {
 	 * @return string
 	 */
 	public function get_css_template( $template ) {
-		return $template . '
+		$customizer = Tribe__Events__Pro__Customizer__Main::instance();
 
-		';
+		if ( $customizer->has_option( $this->ID, 'details_bg_color' ) ) {
+			$template .= '
+				.single-tribe_events .tribe-events-event-meta {
+					background-color: <%= single_event.details_bg_color %>;
+					color: <%= single_event.details_text_color %>;
+				}
+			';
+		}
+
+		if ( $customizer->has_option( $this->ID, 'post_title_color' ) ) {
+			$template .= '
+				.tribe-events-single-event-title {
+					color: <%= single_event.post_title_color %>;
+				}
+			';
+		}
+
+		return $template;
+	}
+
+	public function create_ghost_settings( $settings = array() ) {
+		if ( ! empty( $settings['details_bg_color'] ) ){
+			$details_bg_color = new Tribe__Events__Pro__Customizer__Color( $settings['details_bg_color'] );
+
+			if ( $details_bg_color->isDark() ) {
+				$settings['details_text_color'] = '#f9f9f9';
+			} else {
+				$settings['details_text_color'] = '#333333';
+			}
+		}
+
+		return $settings;
 	}
 
 	/**
@@ -89,9 +123,11 @@ final class Tribe__Events__Pro__Customizer__Section_Single_Event {
 	public function get_defaults() {
 		$defaults = array(
 			'post_title_color' => '#333',
-			'details_background_color' => '#e5e5e5',
-			'details_text_color' => '#333',
+			'details_bg_color' => '#e5e5e5',
 		);
+
+		// Create Ghost Options
+		$defaults = $this->create_ghost_settings( $defaults );
 
 		return $defaults;
 	}
@@ -108,6 +144,21 @@ final class Tribe__Events__Pro__Customizer__Section_Single_Event {
 		}
 
 		return $defaults[ $key ];
+	}
+
+	public function filter_settings( $settings, $search ) {
+		// Only Apply if getting the full options or Section
+		if ( is_array( $search ) && count( $search ) > 1 ){
+			return $settings;
+		}
+
+		if ( count( $search ) === 1 ){
+			$settings = $this->create_ghost_settings( $settings );
+		} else {
+			$settings[ $this->ID ] = $this->create_ghost_settings( $settings[ $this->ID ] );
+		}
+
+		return $settings;
 	}
 
 	/**
@@ -129,7 +180,6 @@ final class Tribe__Events__Pro__Customizer__Section_Single_Event {
 		return $sections;
 	}
 
-
 	/**
 	 * Create the Fields/Settings for this sections
 	 *
@@ -146,7 +196,6 @@ final class Tribe__Events__Pro__Customizer__Section_Single_Event {
 			array(
 				'default'              => $this->get_default( 'post_title_color' ),
 				'type'                 => 'option',
-				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -158,18 +207,17 @@ final class Tribe__Events__Pro__Customizer__Section_Single_Event {
 				$manager,
 				$customizer->get_setting_name( 'post_title_color', $section ),
 				array(
-					'label'   => __( 'Post Title Color' ),
+					'label'   => esc_html__( 'Post Title Color', 'tribe-events-calendar-pro' ),
 					'section' => $section->id,
 				)
 			)
 		);
 
 		$manager->add_setting(
-			$customizer->get_setting_name( 'details_background_color', $section ),
+			$customizer->get_setting_name( 'details_bg_color', $section ),
 			array(
-				'default'              => $this->get_default( 'details_background_color' ),
+				'default'              => $this->get_default( 'details_bg_color' ),
 				'type'                 => 'option',
-				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -179,36 +227,14 @@ final class Tribe__Events__Pro__Customizer__Section_Single_Event {
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
-				$customizer->get_setting_name( 'details_background_color', $section ),
+				$customizer->get_setting_name( 'details_bg_color', $section ),
 				array(
-					'label'   => __( 'Details Background Color' ),
+					'label'   => esc_html__( 'Details Background Color', 'tribe-events-calendar-pro' ),
 					'section' => $section->id,
 				)
 			)
 		);
 
-		$manager->add_setting(
-			$customizer->get_setting_name( 'details_text_color', $section ),
-			array(
-				'default'              => $this->get_default( 'details_text_color' ),
-				'type'                 => 'option',
-				'transport'            => 'postMessage',
-
-				'sanitize_callback'    => 'sanitize_hex_color',
-				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
-		);
-
-		$manager->add_control(
-			new WP_Customize_Color_Control(
-				$manager,
-				$customizer->get_setting_name( 'details_text_color', $section ),
-				array(
-					'label'   => __( 'Details Text Color' ),
-					'section' => $section->id,
-				)
-			)
-		);
 
 	}
 }
