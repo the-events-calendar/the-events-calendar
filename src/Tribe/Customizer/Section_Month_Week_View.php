@@ -65,7 +65,51 @@ final class Tribe__Events__Pro__Customizer__Section_Month_Week_View {
 		// Hook the Register methods
 		add_action( 'tribe_events_customizer_register_' . $this->ID . '_settings', array( &$this, 'settings' ), 10, 2 );
 		add_filter( 'tribe_events_customizer_pre_sections', array( &$this, 'register' ), 10, 2 );
+
+		// Append this section CSS template
+		add_filter( 'tribe_events_customizer_css_template', array( &$this, 'get_css_template' ), 10 );
+		add_filter( 'tribe_events_customizer_section_' . $this->ID . '_defaults', array( &$this, 'get_defaults' ), 10 );
 	}
+
+	/**
+	 * Grab the CSS rules template
+	 *
+	 * @return string
+	 */
+	public function get_css_template() {
+		return '
+
+		';
+	}
+
+	/**
+	 * A way to apply filters when getting the Customizer options
+	 * @return array
+	 */
+	public function get_defaults() {
+		$defaults = array(
+			'calendar_header_color' => '#666666',
+			'calendar_datebar_color' => '#b2b2b2',
+			'calendar_highlight_color' => '#21759b',
+		);
+
+		return $defaults;
+	}
+
+	/**
+	 * Get the Default Value requested
+	 * @return mixed
+	 */
+	public function get_default( $key ) {
+		$defaults = $this->get_defaults();
+
+		if ( ! isset( $defaults[ $key ] ) ){
+			return null;
+		}
+
+		return $defaults[ $key ];
+	}
+
 
 	/**
 	 * Register this Section
@@ -100,8 +144,9 @@ final class Tribe__Events__Pro__Customizer__Section_Month_Week_View {
 		$manager->add_setting(
 			$customizer->get_setting_name( 'calendar_header_color', $section ),
 			array(
-				'default'              => '#666666',
+				'default'              => $this->get_default( 'calendar_header_color' ),
 				'type'                 => 'option',
+				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -122,8 +167,9 @@ final class Tribe__Events__Pro__Customizer__Section_Month_Week_View {
 		$manager->add_setting(
 			$customizer->get_setting_name( 'calendar_datebar_color', $section ),
 			array(
-				'default'              => '#b2b2b2',
+				'default'              => $this->get_default( 'calendar_datebar_color' ),
 				'type'                 => 'option',
+				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -144,8 +190,9 @@ final class Tribe__Events__Pro__Customizer__Section_Month_Week_View {
 		$manager->add_setting(
 			$customizer->get_setting_name( 'calendar_highlight_color', $section ),
 			array(
-				'default'              => '#21759b',
+				'default'              => $this->get_default( 'calendar_highlight_color' ),
 				'type'                 => 'option',
+				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',

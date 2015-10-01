@@ -65,7 +65,53 @@ final class Tribe__Events__Pro__Customizer__Section_Global_Elements {
 		// Hook the Register methods
 		add_action( 'tribe_events_customizer_register_' . $this->ID . '_settings', array( &$this, 'settings' ), 10, 2 );
 		add_filter( 'tribe_events_customizer_pre_sections', array( &$this, 'register' ), 10, 2 );
+
+		// Append this section CSS template
+		add_filter( 'tribe_events_customizer_css_template', array( &$this, 'get_css_template' ), 10 );
+		add_filter( 'tribe_events_customizer_section_' . $this->ID . '_defaults', array( &$this, 'get_defaults' ), 10 );
 	}
+
+	/**
+	 * Grab the CSS rules template
+	 *
+	 * @return string
+	 */
+	public function get_css_template() {
+		return '
+
+
+		';
+	}
+
+	/**
+	 * A way to apply filters when getting the Customizer options
+	 * @return array
+	 */
+	public function get_defaults() {
+		$defaults = array(
+			'link_color' => '#2ea2cc',
+			'alertbox_color' => '#d9edf7',
+			'filterbar_color' => '#f5f5f5',
+			'button_color' => '#21759b',
+		);
+
+		return $defaults;
+	}
+
+	/**
+	 * Get the Default Value requested
+	 * @return mixed
+	 */
+	public function get_default( $key ) {
+		$defaults = $this->get_defaults();
+
+		if ( ! isset( $defaults[ $key ] ) ){
+			return null;
+		}
+
+		return $defaults[ $key ];
+	}
+
 
 	/**
 	 * Register this Section
@@ -100,8 +146,9 @@ final class Tribe__Events__Pro__Customizer__Section_Global_Elements {
 		$manager->add_setting(
 			$customizer->get_setting_name( 'link_color', $section ),
 			array(
-				'default'              => '#2ea2cc',
+				'default'              => $this->get_default( 'link_color' ),
 				'type'                 => 'option',
+				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -122,8 +169,9 @@ final class Tribe__Events__Pro__Customizer__Section_Global_Elements {
 		$manager->add_setting(
 			$customizer->get_setting_name( 'alertbox_color', $section ),
 			array(
-				'default'              => '#d9edf7',
+				'default'              => $this->get_default( 'alertbox_color' ),
 				'type'                 => 'option',
+				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -144,8 +192,9 @@ final class Tribe__Events__Pro__Customizer__Section_Global_Elements {
 		$manager->add_setting(
 			$customizer->get_setting_name( 'filterbar_color', $section ),
 			array(
-				'default'              => '#f5f5f5',
+				'default'              => $this->get_default( 'filterbar_color' ),
 				'type'                 => 'option',
+				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -166,8 +215,9 @@ final class Tribe__Events__Pro__Customizer__Section_Global_Elements {
 		$manager->add_setting(
 			$customizer->get_setting_name( 'button_color', $section ),
 			array(
-				'default'              => '#21759b',
+				'default'              => $this->get_default( 'button_color' ),
 				'type'                 => 'option',
+				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',

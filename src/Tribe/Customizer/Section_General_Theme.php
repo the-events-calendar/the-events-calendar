@@ -65,7 +65,50 @@ final class Tribe__Events__Pro__Customizer__Section_General_Theme {
 		// Hook the Register methods
 		add_action( 'tribe_events_customizer_register_' . $this->ID . '_settings', array( &$this, 'settings' ), 10, 2 );
 		add_filter( 'tribe_events_customizer_pre_sections', array( &$this, 'register' ), 10, 2 );
+
+		// Append this section CSS template
+		add_filter( 'tribe_events_customizer_css_template', array( &$this, 'get_css_template' ), 10 );
+		add_filter( 'tribe_events_customizer_section_' . $this->ID . '_defaults', array( &$this, 'get_defaults' ), 10 );
 	}
+
+	/**
+	 * Grab the CSS rules template
+	 *
+	 * @return string
+	 */
+	public function get_css_template() {
+		return '
+
+		';
+	}
+
+	/**
+	 * A way to apply filters when getting the Customizer options
+	 * @return array
+	 */
+	public function get_defaults() {
+		$defaults = array(
+			'base_color_scheme' => 'light',
+			'accent_color' => '#2ea2cc',
+		);
+
+		return $defaults;
+	}
+
+	/**
+	 * Get the Default Value requested
+	 * @return mixed
+	 */
+	public function get_default( $key ) {
+		$defaults = $this->get_defaults();
+
+		if ( ! isset( $defaults[ $key ] ) ){
+			return null;
+		}
+
+		return $defaults[ $key ];
+	}
+
 
 	/**
 	 * Register this Section
@@ -100,8 +143,9 @@ final class Tribe__Events__Pro__Customizer__Section_General_Theme {
 		$manager->add_setting(
 			$customizer->get_setting_name( 'base_color_scheme', $section ),
 			array(
-				'default' => 'light',
+				'default' => $this->get_default( 'base_color_scheme' ),
 				'type' => 'option',
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -121,8 +165,9 @@ final class Tribe__Events__Pro__Customizer__Section_General_Theme {
 		$manager->add_setting(
 			$customizer->get_setting_name( 'accent_color', $section ),
 			array(
-				'default'              => '#2ea2cc',
+				'default'              => $this->get_default( 'accent_color' ),
 				'type'                 => 'option',
+				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',

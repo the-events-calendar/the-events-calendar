@@ -65,6 +65,49 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 		// Hook the Register methods
 		add_action( 'tribe_events_customizer_register_' . $this->ID . '_settings', array( &$this, 'settings' ), 10, 2 );
 		add_filter( 'tribe_events_customizer_pre_sections', array( &$this, 'register' ), 10, 2 );
+
+		// Append this section CSS template
+		add_filter( 'tribe_events_customizer_css_template', array( &$this, 'get_css_template' ), 10 );
+		add_filter( 'tribe_events_customizer_section_' . $this->ID . '_defaults', array( &$this, 'get_defaults' ), 10 );
+	}
+
+	/**
+	 * Grab the CSS rules template
+	 *
+	 * @return string
+	 */
+	public function get_css_template() {
+		return '
+
+		';
+	}
+
+	/**
+	 * A way to apply filters when getting the Customizer options
+	 * @return array
+	 */
+	public function get_defaults() {
+		$defaults = array(
+			'post_title_color' => '#333',
+			'details_background_color' => '#e5e5e5',
+			'details_text_color' => '#333',
+		);
+
+		return $defaults;
+	}
+
+	/**
+	 * Get the Default Value requested
+	 * @return mixed
+	 */
+	public function get_default( $key ) {
+		$defaults = $this->get_defaults();
+
+		if ( ! isset( $defaults[ $key ] ) ){
+			return null;
+		}
+
+		return $defaults[ $key ];
 	}
 
 	/**
@@ -103,6 +146,7 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 			array(
 				'default'              => '#eeeeee',
 				'type'                 => 'option',
+				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -125,6 +169,7 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 			array(
 				'default'              => '#21759b',
 				'type'                 => 'option',
+				'transport'            => 'postMessage',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
