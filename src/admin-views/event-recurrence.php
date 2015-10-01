@@ -120,3 +120,12 @@ $start_meridian_options = Tribe__Events__View_Helpers::getMeridianOptions( null,
 		<button id="tribe-add-exclusion" class="button"><?php esc_html_e( 'Add Exclusion', 'tribe-events-calendar-pro' ); ?></button>
 	</td>
 </tr>
+<tr class="recurrence-row tribe-recurrence-description">
+	<td class="recurrence-description-header"><?php esc_html_e( 'Recurrence Description:', 'tribe-events-calendar-pro' ); ?></td>
+	<td>
+		<input type="text" name="recurrence[description]" value="<?php echo esc_attr( empty( $recurrence['description'] ) ? '' : $recurrence['description'] ); ?>"/>
+		<div class="tribe-event-recurrence-description">
+			<?php esc_html_e( 'Use this field if you want to override the auto-generated descriptions of event recurrence', 'tribe-events-calendar-pro' ); ?>
+		</div>
+	</td>
+</tr>

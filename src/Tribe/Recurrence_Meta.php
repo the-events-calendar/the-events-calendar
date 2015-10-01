@@ -435,6 +435,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$recurrence_meta = array(
 			'rules' => array(),
 			'exclusions' => array(),
+			'description' => empty( $data['recurrence']['description'] ) ? null : sanitize_text_field( $data['recurrence']['description'] ),
 		);
 
 		$datepicker_format = Tribe__Events__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
@@ -533,6 +534,11 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$post = get_post( $post_id );
 		if ( ! empty( $post->post_parent ) ) {
 			return; // don't show recurrence fields for instances of a recurring event
+		}
+
+		$recurrence = array();
+		if ( $post_id ) {
+			$recurrence = self::getRecurrenceMeta( $post_id );
 		}
 
 		self::enqueue_recurrence_data( $post_id );
@@ -1285,6 +1291,11 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$start_date       = Tribe__Events__Main::get_series_start_date( $postId );
 
 		$output_text = array();
+
+		// if there is a description override for recurrences, return that instead of building it dynamically
+		if ( ! empty( $recurrence_rules['description'] ) ) {
+			return $recurrence_rules['description'];
+		}
 
 		foreach ( $recurrence_rules['rules'] as $rule ) {
 			$output_text[] = self::recurrenceToText( $rule, $start_date, $postId );
