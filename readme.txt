@@ -219,8 +219,8 @@ Our Premium Plugins:
 = [3.12.2] 2019-10-01 =
 
 * Fix - Avoid modifying permalinks unless it is absolutely necessary (props to Jan for the fix)
-* Fix - Ensure we do not inavertently change the order of posts when events are integrated into the main blog loop
-* Fix - Ensure rewrite rules are correctly added (our thans to Nadia for highlighting this issue)
+* Fix - Ensure we do not inadvertently change the order of posts when events are integrated into the main blog loop
+* Fix - Ensure rewrite rules are correctly added (our thanks to Nadia for highlighting this issue)
 
 = [3.12.1] 2015-09-22 =
 
