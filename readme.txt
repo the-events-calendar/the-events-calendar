@@ -320,12 +320,14 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - Ensure daily counts in month view are accurate (our thanks to @communityanswers in the support forums for highlighting this)
 
 = [3.12.2] 2015-09-22 =
+
 * Fix - Restore expected functionality for the Hide from Event Listings option
 * Fix - Ensure the correct day is highlighted in month view, regardless of the site's timezone (our thanks to @james for making us aware of this)
 * Fix - Improve compatibility with the standard WordPress import tool (our thanks to @joelgoodman for highlighting this)
 * Fix - Ensure our URLs are compatible with pathinfo-style permalink structures (thanks to @mill.joes and others for make us aware of this)
 
 = [3.12.1] 2015-09-09 =
+
 * Tweak - Text domains updated for consistency with the plugin slug
 * Fix - Restored normal operation of the changelog reader (used within the update screen)
 
