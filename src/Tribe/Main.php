@@ -44,7 +44,7 @@
 			public $widget_wrappers;
 
 			const REQUIRED_TEC_VERSION = '3.12';
-			const VERSION = '3.12.1';
+			const VERSION = '3.12.2';
 
 			private function __construct() {
 				$this->pluginDir = trailingslashit( basename( EVENTS_CALENDAR_PRO_DIR ) );
@@ -80,7 +80,7 @@
 				add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 
 				// Rewrite Related Filters
-				add_filter( 'tribe_events_pre_rewrite', array( $this, 'filter_add_routes' ), 11 );
+				add_filter( 'tribe_events_pre_rewrite', array( $this, 'filter_add_routes' ), 5 );
 				add_filter( 'tribe_events_rewrite_base_slugs', array( $this, 'filter_add_base_slugs' ), 11 );
 				add_filter( 'tribe_events_rewrite_i18n_domains', array( $this, 'filter_add_i18n_pro_domain' ), 11 );
 

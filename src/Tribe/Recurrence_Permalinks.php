@@ -6,6 +6,10 @@
 class Tribe__Events__Pro__Recurrence_Permalinks {
 
 	public function filter_recurring_event_permalinks( $post_link, $post, $leavename, $sample ) {
+		if ( ! $this->should_filter_permalink( $post, $sample ) ) {
+			return $post_link;
+		}
+
 		// URL Arguments on home_url() pre-check
 		$url_query = @parse_url( $post_link, PHP_URL_QUERY );
 		$url_args = wp_parse_args( $url_query, array() );
@@ -14,10 +18,6 @@ class Tribe__Events__Pro__Recurrence_Permalinks {
 		// Remove the "args"
 		if ( ! empty( $url_query ) && '' !== $permalink_structure ) {
 			$post_link = str_replace( '?' . $url_query, '', $post_link );
-		}
-
-		if ( ! $this->should_filter_permalink( $post, $sample ) ) {
-			return $post_link;
 		}
 
 		$permastruct = $this->get_permastruct( $post );
