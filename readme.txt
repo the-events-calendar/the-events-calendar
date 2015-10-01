@@ -216,7 +216,7 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [3.12.2] 2019-09-30 =
+= [3.12.2] 2019-10-01 =
 
 * Fix - Avoid modifying permalinks unless it is absolutely necessary (props to Jan for the fix)
 * Fix - Ensure we do not inavertently change the order of posts when events are integrated into the main blog loop
