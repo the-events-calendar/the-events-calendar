@@ -4,7 +4,7 @@ Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.3
+Tested up to: 4.3.1
 Stable tag: 3.12.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
