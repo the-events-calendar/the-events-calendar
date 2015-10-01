@@ -69,6 +69,9 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 		// Append this section CSS template
 		add_filter( 'tribe_events_customizer_css_template', array( &$this, 'get_css_template' ), 10 );
 		add_filter( 'tribe_events_customizer_section_' . $this->ID . '_defaults', array( &$this, 'get_defaults' ), 10 );
+
+		// Create the Ghost Options
+		add_filter( 'tribe_events_customizer_pre_get_option', array( &$this, 'filter_settings' ), 10, 2 );
 	}
 
 	/**
@@ -76,10 +79,58 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 	 *
 	 * @return string
 	 */
-	public function get_css_template() {
-		return '
+	public function get_css_template( $template ) {
+		$customizer = Tribe__Events__Pro__Customizer__Main::instance();
 
-		';
+		if ( $customizer->has_option( $this->ID, 'calendar_datebar_color' ) ) {
+			$template .= '
+				.tribe-events-calendar div[id*="tribe-events-daynum-"],
+				.tribe-events-calendar div[id*="tribe-events-daynum-"] a {
+					background-color: <%= month_week_view.calendar_datebar_color %>;
+				}
+			';
+		}
+
+		if ( $customizer->has_option( $this->ID, 'calendar_header_color' ) ) {
+			$template .= '
+				.tribe-events-calendar thead th {
+					background-color: <%= month_week_view.calendar_header_color %>;
+					border-left-color: <%= month_week_view.calendar_header_color %>;
+					border-right-color: <%= month_week_view.calendar_header_color %>;
+				}
+			';
+		}
+
+		if ( $customizer->has_option( $this->ID, 'calendar_highlight_color' ) ) {
+			$template .= '
+				.tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"],
+				.tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"] > a {
+					background-color: <%= month_week_view.calendar_highlight_color %>;
+				}
+			';
+		}
+
+		return $template;
+	}
+
+	public function filter_settings( $settings, $search ) {
+		// Only Apply if getting the full options or Section
+		if ( is_array( $search ) && count( $search ) > 1 ){
+			return $settings;
+		}
+
+		if ( count( $search ) === 1 ){
+			$settings = $this->create_ghost_settings( $settings );
+		} else {
+			$settings[ $this->ID ] = $this->create_ghost_settings( $settings[ $this->ID ] );
+		}
+
+		return $settings;
+	}
+
+	public function create_ghost_settings( $settings = array() ) {
+
+		return $settings;
 	}
 
 	/**
@@ -88,9 +139,8 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 	 */
 	public function get_defaults() {
 		$defaults = array(
-			'post_title_color' => '#333',
-			'details_background_color' => '#e5e5e5',
-			'details_text_color' => '#333',
+			'price_background_color' => '#eeeeee',
+			'highlight_color' => '#21759b',
 		);
 
 		return $defaults;
@@ -144,7 +194,7 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 		$manager->add_setting(
 			$customizer->get_setting_name( 'price_background_color', $section ),
 			array(
-				'default'              => '#eeeeee',
+				'default'              => $this->get_default( 'price_background_color' ),
 				'type'                 => 'option',
 				'transport'            => 'postMessage',
 
@@ -158,7 +208,7 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 				$manager,
 				$customizer->get_setting_name( 'price_background_color', $section ),
 				array(
-					'label'   => __( 'Price Background Color' ),
+					'label'   => esc_html__( 'Price Background Color', 'tribe-events-calendar-pro' ),
 					'section' => $section->id,
 				)
 			)
@@ -167,7 +217,7 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 		$manager->add_setting(
 			$customizer->get_setting_name( 'highlight_color', $section ),
 			array(
-				'default'              => '#21759b',
+				'default'              => $this->get_default( 'highlight_color' ),
 				'type'                 => 'option',
 				'transport'            => 'postMessage',
 
@@ -181,7 +231,7 @@ final class Tribe__Events__Pro__Customizer__Section_Day_List_View {
 				$manager,
 				$customizer->get_setting_name( 'highlight_color', $section ),
 				array(
-					'label'   => __( 'Hightlight Color' ),
+					'label'   => esc_html__( 'Hightlight Color', 'tribe-events-calendar-pro' ),
 					'section' => $section->id,
 				)
 			)

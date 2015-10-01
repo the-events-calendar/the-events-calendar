@@ -1,7 +1,4 @@
 ( function( $, wp ){
-
-	console.log( tribe_events_customizer_fields );
-
 	var customizer = {
 		fields: tribe_events_customizer_fields,
 		getBodyClass: function( value, place ){

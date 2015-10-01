@@ -76,8 +76,8 @@ final class Tribe__Events__Pro__Customizer__Section_Widget {
 	 *
 	 * @return string
 	 */
-	public function get_css_template() {
-		return '
+	public function get_css_template( $template ) {
+		return $template . '
 
 		';
 	}

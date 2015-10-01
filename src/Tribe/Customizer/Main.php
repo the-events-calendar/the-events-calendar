@@ -156,6 +156,9 @@ final class Tribe__Events__Pro__Customizer__Main {
 			$sections[ $section->ID ] = wp_parse_args( $settings, $defaults[ $section->ID ] );
 		}
 
+		// Allows Ghost Options to be inserted
+		$sections = apply_filters( 'tribe_events_customizer_pre_get_option', $sections, $search );
+
 		// Search on the Array
 		if ( ! is_null( $search ) ){
 			$option = self::search_var( $option, $search, $default );
@@ -163,7 +166,22 @@ final class Tribe__Events__Pro__Customizer__Main {
 			$option = $sections;
 		}
 
+		// Apply Filters After finding the variable
+		$option = apply_filters( 'tribe_events_customizer_get_option', $option, $search, $sections );
+
 		return $option;
+	}
+
+	public function has_option() {
+		$search = func_get_args();
+		$option = get_option( $this->ID, array() );
+
+		// Search on the Array
+		if ( ! is_null( $search ) ){
+			$option = self::search_var( $option, $search, null );
+		}
+
+		return ! empty( $option );
 	}
 
 	private function get_sections_settings_list() {
