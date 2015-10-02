@@ -91,7 +91,7 @@ class Tribe__Events__Pro__Customizer__Color {
             $H = 0;
             $S = 0;
         } else {
-            if ( $L < 0.5 ){
+            if ( $L < 0.5 ) {
                 $S = $del_Max / ( $var_Max + $var_Min );
             } else {
                 $S = $del_Max / ( 2 - $var_Max - $var_Min );
@@ -101,18 +101,18 @@ class Tribe__Events__Pro__Customizer__Color {
             $del_G = ( ( ( $var_Max - $var_G ) / 6 ) + ( $del_Max / 2 ) ) / $del_Max;
             $del_B = ( ( ( $var_Max - $var_B ) / 6 ) + ( $del_Max / 2 ) ) / $del_Max;
 
-            if ( $var_R == $var_Max ){
+            if ( $var_R == $var_Max ) {
                 $H = $del_B - $del_G;
-            } elseif ( $var_G == $var_Max ){
+            } elseif ( $var_G == $var_Max ) {
                 $H = ( 1 / 3 ) + $del_R - $del_B;
-            } elseif ( $var_B == $var_Max ){
+            } elseif ( $var_B == $var_Max ) {
                 $H = ( 2 / 3 ) + $del_G - $del_R;
             }
 
-            if ( $H < 0 ){
+            if ( $H < 0 ) {
                 $H++;
             }
-            if ( $H > 1 ){
+            if ( $H > 1 ) {
                 $H--;
             }
         }

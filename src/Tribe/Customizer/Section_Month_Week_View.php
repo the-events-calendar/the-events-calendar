@@ -63,15 +63,15 @@ final class Tribe__Events__Pro__Customizer__Section_Month_Week_View {
 	 */
 	private function __construct() {
 		// Hook the Register methods
-		add_action( 'tribe_events_customizer_register_' . $this->ID . '_settings', array( &$this, 'settings' ), 10, 2 );
-		add_filter( 'tribe_events_customizer_pre_sections', array( &$this, 'register' ), 10, 2 );
+		add_action( 'tribe_events_pro_customizer_register_' . $this->ID . '_settings', array( $this, 'settings' ), 10, 2 );
+		add_filter( 'tribe_events_pro_customizer_pre_sections', array( $this, 'register' ), 10, 2 );
 
 		// Append this section CSS template
-		add_filter( 'tribe_events_customizer_css_template', array( &$this, 'get_css_template' ), 20 );
-		add_filter( 'tribe_events_customizer_section_' . $this->ID . '_defaults', array( &$this, 'get_defaults' ), 10 );
+		add_filter( 'tribe_events_pro_customizer_css_template', array( $this, 'get_css_template' ), 20 );
+		add_filter( 'tribe_events_pro_customizer_section_' . $this->ID . '_defaults', array( $this, 'get_defaults' ), 10 );
 
 		// Create the Ghost Options
-		add_filter( 'tribe_events_customizer_pre_get_option', array( &$this, 'filter_settings' ), 10, 2 );
+		add_filter( 'tribe_events_pro_customizer_pre_get_option', array( $this, 'filter_settings' ), 10, 2 );
 	}
 
 	/**
@@ -154,11 +154,11 @@ final class Tribe__Events__Pro__Customizer__Section_Month_Week_View {
 
 	public function filter_settings( $settings, $search ) {
 		// Only Apply if getting the full options or Section
-		if ( is_array( $search ) && count( $search ) > 1 ){
+		if ( is_array( $search ) && count( $search ) > 1 ) {
 			return $settings;
 		}
 
-		if ( count( $search ) === 1 ){
+		if ( count( $search ) === 1 ) {
 			$settings = $this->create_ghost_settings( $settings );
 		} else {
 			$settings[ $this->ID ] = $this->create_ghost_settings( $settings[ $this->ID ] );
@@ -168,7 +168,7 @@ final class Tribe__Events__Pro__Customizer__Section_Month_Week_View {
 	}
 
 	public function create_ghost_settings( $settings = array() ) {
-		if ( ! empty( $settings['table_bg_color'] ) ){
+		if ( ! empty( $settings['table_bg_color'] ) ) {
 			$table_bg_color = new Tribe__Events__Pro__Customizer__Color( $settings['table_bg_color'] );
 
 			$settings['table_header_bg_color'] = '#' . $table_bg_color->darken( 70 );
@@ -182,7 +182,7 @@ final class Tribe__Events__Pro__Customizer__Section_Month_Week_View {
 
 		}
 
-		if ( ! empty( $settings['highlight_color'] ) ){
+		if ( ! empty( $settings['highlight_color'] ) ) {
 			$highlight_color = new Tribe__Events__Pro__Customizer__Color( $settings['highlight_color'] );
 
 			$settings['highlight_color_rgba'] = 'rgba( ' . implode( ', ', $highlight_color->getRgb() ) . ', .75 )';
@@ -215,7 +215,7 @@ final class Tribe__Events__Pro__Customizer__Section_Month_Week_View {
 	public function get_default( $key ) {
 		$defaults = $this->get_defaults();
 
-		if ( ! isset( $defaults[ $key ] ) ){
+		if ( ! isset( $defaults[ $key ] ) ) {
 			return null;
 		}
 

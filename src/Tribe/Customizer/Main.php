@@ -97,7 +97,7 @@ final class Tribe__Events__Pro__Customizer__Main {
 	 */
 	private function __construct() {
 		// The Panel ID
-		$this->ID = apply_filters( 'tribe_events_customizer_panel_id', 'tribe_events_customizer', $this );
+		$this->ID = apply_filters( 'tribe_events_pro_customizer_panel_id', 'tribe_events_pro_customizer', $this );
 
 		// Initialize the Sections
 		$this->sections_class[] = Tribe__Events__Pro__Customizer__Section_Day_List_View::instance();
@@ -106,72 +106,98 @@ final class Tribe__Events__Pro__Customizer__Main {
 		$this->sections_class[] = Tribe__Events__Pro__Customizer__Section_General_Theme::instance();
 		$this->sections_class[] = Tribe__Events__Pro__Customizer__Section_Global_Elements::instance();
 		$this->sections_class[] = Tribe__Events__Pro__Customizer__Section_Single_Event::instance();
-		// $this->sections_class[] = Tribe__Events__Pro__Customizer__Section_Widget::instance();
 
-		$this->sections_class = apply_filters( 'tribe_events_customizer_sections_class', $this->sections_class, $this );
+		$this->sections_class = apply_filters( 'tribe_events_pro_customizer_sections_class', $this->sections_class, $this );
 
 		// Hook the Registering methods
-		add_action( 'customize_register', array( &$this, 'register' ), 15 );
+		add_action( 'customize_register', array( $this, 'register' ), 15 );
 
-		add_action( 'customize_preview_init', array( &$this, 'enqueue_assets' ), 15 );
-
-		add_action( 'wp_print_footer_scripts', array( &$this, 'print_css_template' ), 15 );
+		add_action( 'wp_print_footer_scripts', array( $this, 'print_css_template' ), 15 );
 
 	}
 
-	public function enqueue_assets() {
-		wp_register_script( 'tribe_events_customizer', tribe_events_pro_resource_url( 'customizer.js' ), array( 'jquery', 'customize-preview' ), apply_filters( 'tribe_events_js_version', Tribe__Events__Main::VERSION ) );
-		wp_localize_script( 'tribe_events_customizer', 'tribe_events_customizer', $this->get_option() );
-		wp_localize_script( 'tribe_events_customizer', 'tribe_events_customizer_fields', $this->get_sections_settings_list() );
-
-		wp_enqueue_script( 'tribe_events_customizer' );
-	}
-
+	/**
+	 * A method to easily search on an array
+	 *
+	 * @param  array $variable  Varaible to be searched
+	 * @param  array  $indexes  The index that the method will try to retrieve
+	 * @param  mixed $default   If the variable doesn't exist, what is the default
+	 *
+	 * @return mixed            Return the variable based on the index
+	 */
 	public static function search_var( $variable = null, $indexes = array(), $default = null ) {
-		if ( is_object( $variable ) ){
+		if ( is_object( $variable ) ) {
 			$variable = (array) $variable;
 		}
 
-		if ( ! is_array( $variable ) ){
+		if ( ! is_array( $variable ) ) {
 			return $variable;
 		}
 
 		foreach ( (array) $indexes as $index ) {
-			if ( is_array( $variable ) && isset( $variable[ $index ] ) ){
-				$variable = $variable[ $index ];
-			} else {
+			if ( ! is_array( $variable ) || ! isset( $variable[ $index ] ) ) {
 				$variable = $default;
 				break;
 			}
+
+			$variable = $variable[ $index ];
 		}
 
 		return $variable;
 	}
 
+	/**
+	 * Get an option from the database, using index search you can retrieve the full panel, a section or even a setting
+	 *
+	 * @param  array $search   Index search, array( 'section_name', 'setting_name' )
+	 * @param  mixed $default  The default, if the requested variable doesn't exits
+	 * @return mixed           The requested option or the default
+	 */
 	public function get_option( $search = null, $default = null ) {
 		$sections = get_option( $this->ID, $default );
 		foreach ( $this->sections_class as $section ) {
-			$defaults[ $section->ID ] = apply_filters( 'tribe_events_customizer_section_' . $section->ID . '_defaults', array() );
+			/**
+			 * Allow filtering the defaults for each settings to be filtered before the Ghost options to be set
+			 *
+			 * @var array
+			 */
+			$defaults[ $section->ID ] = apply_filters( 'tribe_events_pro_customizer_section_' . $section->ID . '_defaults', array() );
 			$settings = isset( $sections[ $section->ID ] ) ? $sections[ $section->ID ] : array();
 			$sections[ $section->ID ] = wp_parse_args( $settings, $defaults[ $section->ID ] );
 		}
 
-		// Allows Ghost Options to be inserted
-		$sections = apply_filters( 'tribe_events_customizer_pre_get_option', $sections, $search );
+		/**
+		 * Allows Ghost Options to be inserted
+		 * @var array
+		 * @var array
+		 */
+		$sections = apply_filters( 'tribe_events_pro_customizer_pre_get_option', $sections, $search );
 
 		// Search on the Array
-		if ( ! is_null( $search ) ){
+		if ( ! is_null( $search ) ) {
 			$option = self::search_var( $sections, $search, $default );
 		} else {
 			$option = $sections;
 		}
 
-		// Apply Filters After finding the variable
-		$option = apply_filters( 'tribe_events_customizer_get_option', $option, $search, $sections );
+		/**
+		 * Apply Filters After finding the variable
+		 * @var mixed
+		 * @var array
+		 * @var array
+		 */
+		$option = apply_filters( 'tribe_events_pro_customizer_get_option', $option, $search, $sections );
 
 		return $option;
 	}
 
+	/**
+	 * Check if the option exists, this method is used allow only sections that were saved to be applied.
+	 *
+	 * @param strings Using the following structure: self::has_option( 'section_name', 'setting_name' );
+	 *
+	 * @return boolean Wheter the option exists in the database
+	 */
 	public function has_option() {
 		$search = func_get_args();
 		$option = self::get_option();
@@ -181,62 +207,23 @@ final class Tribe__Events__Pro__Customizer__Main {
 		$section = reset( $search );
 		$setting = end( $search );
 
-		if ( empty( $real_option ) || empty( $real_option[ $section ] ) ){
+		if ( empty( $real_option ) || empty( $real_option[ $section ] ) ) {
 			return false;
 		}
 
 		// Search on the Array
-		if ( ! is_null( $search ) ){
+		if ( ! is_null( $search ) ) {
 			$option = self::search_var( $option, $search, null );
 		}
 
 		return ! empty( $option );
 	}
 
-	private function get_sections_settings_list() {
-		$sections = array();
-
-		foreach ( $this->sections as $key => $section ) {
-			$sections[ $key ] = array();
-		}
-
-		// Gather all settings
-		$settings = $this->manager->settings();
-
-		foreach ( $settings as $key => $setting ) {
-			// Parse the ID for array keys.
-			$keys = preg_split( '/\[/', str_replace( ']', '', $setting->id ) );
-
-			// Get the Panel
-			$panel = array_shift( $keys );
-
-			// If empty we dont care
-			if ( empty( $keys ) ) {
-				continue;
-			}
-
-			// We also don't care if it's not our panel
-			if ( $this->panel->id !== $panel ) {
-				continue;
-			}
-
-			// Get section and Settign based on keys
-			$section = reset( $keys );
-			$setting = end( $keys );
-
-			// For now only Color
-			// @todo allow this to be filterable
-			if ( 'color' !== $this->manager->get_control( $key )->type ){
-				continue;
-			}
-
-			// Add the setting to the section
-			$sections[ $section ][] = $setting;
-		}
-
-		return $sections;
-	}
-
+	/**
+	 * Print the CSS for the customizer on `wp_print_footer_scripts`
+	 *
+	 * @return void
+	 */
 	public function print_css_template() {
 		/**
 		 * Use this filter to add more CSS, using Underscore Template style
@@ -245,19 +232,25 @@ final class Tribe__Events__Pro__Customizer__Main {
 		 *
 		 * @var string
 		 */
-		$css_template = apply_filters( 'tribe_events_customizer_css_template', '' );
+		$css_template = apply_filters( 'tribe_events_pro_customizer_css_template', '' );
 
 		// All sections should use this action to print their template
-		echo '<script type="text/css" id="tmpl-tribe_events_customizer_css">';
+		echo '<script type="text/css" id="tmpl-tribe_events_pro_customizer_css">';
 		echo $css_template;
 		echo '</script>';
 
 		// Place where the template will be rendered to
-		echo '<style type="text/css" id="tribe_events_customizer_css">';
+		echo '<style type="text/css" id="tribe_events_pro_customizer_css">';
 		echo $this->parse_css_template( $css_template );
 		echo '</style>';
 	}
 
+	/**
+	 * Replaces the Settings using the Underscore templating strings
+	 *
+	 * @param  string $template The template variable, that we will look to replace the variables
+	 * @return string           A Valid css after replacing the variables
+	 */
 	private function parse_css_template( $template ) {
 		$css = $template;
 		$sections = $this->get_option();
@@ -292,8 +285,13 @@ final class Tribe__Events__Pro__Customizer__Main {
 		// Set the Cutomizer on a class variable
 		$this->manager = $customizer;
 
-		// Register Panel
-		$this->panel = apply_filters( 'tribe_events_customizer_panel', $this->register_panel(), $this );
+		/**
+		 * Allow users to filter the Panel
+		 *
+		 * @var WP_Customize_Panel
+		 * @var Tribe__Events__Pro__Customizer__Main
+		 */
+		$this->panel = apply_filters( 'tribe_events_pro_customizer_panel', $this->register_panel(), $this );
 
 		/**
 		 * Filter the Sections within our Panel before they are added to the Cutomize Manager
@@ -301,8 +299,9 @@ final class Tribe__Events__Pro__Customizer__Main {
 		 * @since 4.0
 		 *
 		 * @var array
+		 * @var Tribe__Events__Pro__Customizer__Main
 		 */
-		$this->sections = apply_filters( 'tribe_events_customizer_pre_sections', $this->sections, $this );
+		$this->sections = apply_filters( 'tribe_events_pro_customizer_pre_sections', $this->sections, $this );
 
 		foreach ( $this->sections as $id => $section ) {
 			$this->sections[ $id ] = $this->register_section( $id, $section );
@@ -311,8 +310,11 @@ final class Tribe__Events__Pro__Customizer__Main {
 			 * Allows people to Register and de-register the method to register more Fields
 			 *
 			 * @since 4.0
+			 *
+			 * @var array
+			 * @var WP_Customize_Manager
 			 */
-			do_action( 'tribe_events_customizer_register_' . $id . '_settings', $this->sections[ $id ], $this->manager );
+			do_action( 'tribe_events_pro_customizer_register_' . $id . '_settings', $this->sections[ $id ], $this->manager );
 		}
 
 		/**
@@ -321,8 +323,9 @@ final class Tribe__Events__Pro__Customizer__Main {
 		 * @since 4.0
 		 *
 		 * @var array
+		 * @var Tribe__Events__Pro__Customizer__Main
 		 */
-		$this->sections = apply_filters( 'tribe_events_customizer_sections', $this->sections, $this );
+		$this->sections = apply_filters( 'tribe_events_pro_customizer_sections', $this->sections, $this );
 	}
 
 	/**
@@ -336,11 +339,11 @@ final class Tribe__Events__Pro__Customizer__Main {
 		$panel = $this->manager->get_panel( $this->ID );
 
 		// If the Panel already exists we leave returning it's instance
-		if ( ! empty( $panel ) ){
+		if ( ! empty( $panel ) ) {
 			return $panel;
 		}
 
-		$panel_args = apply_filters( 'tribe_events_customizer_panel_args', array(
+		$panel_args = apply_filters( 'tribe_events_pro_customizer_panel_args', array(
 			'title' => esc_html__( 'The Events Calendar', 'tribe-events-calendar-pro' ),
 			'description' => esc_html__( 'Use the following panel of your customizer to change the styling of your Calendar and Event pages.', 'tribe-events-calendar-pro' ),
 
@@ -368,11 +371,11 @@ final class Tribe__Events__Pro__Customizer__Main {
 	 * @return WP_Customize_Section
 	 */
 	public function register_section( $id, $args ) {
-		$section_id = apply_filters( 'tribe_events_customizer_section_id', $id, $this );
+		$section_id = apply_filters( 'tribe_events_pro_customizer_section_id', $id, $this );
 		$section = $this->manager->get_section( $section_id );
 
 		// If the Panel already exists we leave returning it's instance
-		if ( ! empty( $section ) ){
+		if ( ! empty( $section ) ) {
 			return $section;
 		}
 
@@ -380,7 +383,7 @@ final class Tribe__Events__Pro__Customizer__Main {
 		 * Filter the Section arguments, so that developers can filter arguments based on $section_id
 		 * @var array
 		 */
-		$section_args = apply_filters( 'tribe_events_customizer_section_args', $args, $section_id, $this );
+		$section_args = apply_filters( 'tribe_events_pro_customizer_section_args', $args, $section_id, $this );
 
 		// Don't allow sections outside of our panel
 		$section_args['panel'] = $this->panel->id;
@@ -406,9 +409,9 @@ final class Tribe__Events__Pro__Customizer__Main {
 		$name = $this->panel->id;
 
 		// If there is a section set append it
-		if ( $section instanceof WP_Customize_Section ){
+		if ( $section instanceof WP_Customize_Section ) {
 			$name .= '[' . $section->id . ']';
-		} elseif ( is_string( $section ) ){
+		} elseif ( is_string( $section ) ) {
 			$name .= '[' . $section . ']';
 		}
 

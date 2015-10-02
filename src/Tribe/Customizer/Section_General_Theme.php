@@ -63,12 +63,12 @@ final class Tribe__Events__Pro__Customizer__Section_General_Theme {
 	 */
 	private function __construct() {
 		// Hook the Register methods
-		add_action( 'tribe_events_customizer_register_' . $this->ID . '_settings', array( &$this, 'settings' ), 10, 2 );
-		add_filter( 'tribe_events_customizer_pre_sections', array( &$this, 'register' ), 10, 2 );
+		add_action( 'tribe_events_pro_customizer_register_' . $this->ID . '_settings', array( $this, 'settings' ), 10, 2 );
+		add_filter( 'tribe_events_pro_customizer_pre_sections', array( $this, 'register' ), 10, 2 );
 
 		// Append this section CSS template
-		add_filter( 'tribe_events_customizer_css_template', array( &$this, 'get_css_template' ), 10 );
-		add_filter( 'tribe_events_customizer_section_' . $this->ID . '_defaults', array( &$this, 'get_defaults' ), 10 );
+		add_filter( 'tribe_events_pro_customizer_css_template', array( $this, 'get_css_template' ), 10 );
+		add_filter( 'tribe_events_pro_customizer_section_' . $this->ID . '_defaults', array( $this, 'get_defaults' ), 10 );
 	}
 
 	/**
@@ -132,7 +132,7 @@ final class Tribe__Events__Pro__Customizer__Section_General_Theme {
 	public function get_default( $key ) {
 		$defaults = $this->get_defaults();
 
-		if ( ! isset( $defaults[ $key ] ) ){
+		if ( ! isset( $defaults[ $key ] ) ) {
 			return null;
 		}
 

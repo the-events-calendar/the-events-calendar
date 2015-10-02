@@ -63,15 +63,15 @@ final class Tribe__Events__Pro__Customizer__Section_Global_Elements {
 	 */
 	private function __construct() {
 		// Hook the Register methods
-		add_action( 'tribe_events_customizer_register_' . $this->ID . '_settings', array( &$this, 'settings' ), 10, 2 );
-		add_filter( 'tribe_events_customizer_pre_sections', array( &$this, 'register' ), 10, 2 );
+		add_action( 'tribe_events_pro_customizer_register_' . $this->ID . '_settings', array( $this, 'settings' ), 10, 2 );
+		add_filter( 'tribe_events_pro_customizer_pre_sections', array( $this, 'register' ), 10, 2 );
 
 		// Append this section CSS template
-		add_filter( 'tribe_events_customizer_css_template', array( &$this, 'get_css_template' ), 15 );
-		add_filter( 'tribe_events_customizer_section_' . $this->ID . '_defaults', array( &$this, 'get_defaults' ), 10 );
+		add_filter( 'tribe_events_pro_customizer_css_template', array( $this, 'get_css_template' ), 15 );
+		add_filter( 'tribe_events_pro_customizer_section_' . $this->ID . '_defaults', array( $this, 'get_defaults' ), 10 );
 
 		// Create the Ghost Options
-		add_filter( 'tribe_events_customizer_pre_get_option', array( &$this, 'filter_settings' ), 10, 2 );
+		add_filter( 'tribe_events_pro_customizer_pre_get_option', array( $this, 'filter_settings' ), 10, 2 );
 	}
 
 	/**
@@ -145,7 +145,7 @@ final class Tribe__Events__Pro__Customizer__Section_Global_Elements {
 	}
 
 	public function create_ghost_settings( $settings = array() ) {
-		if ( ! empty( $settings['filterbar_color'] ) ){
+		if ( ! empty( $settings['filterbar_color'] ) ) {
 			$settings['filterbar_color_darker'] = new Tribe__Events__Pro__Customizer__Color( $settings['filterbar_color'] );
 			$settings['filterbar_color_darker'] = '#' . $settings['filterbar_color_darker']->darken();
 
@@ -180,7 +180,7 @@ final class Tribe__Events__Pro__Customizer__Section_Global_Elements {
 	public function get_default( $key ) {
 		$defaults = $this->get_defaults();
 
-		if ( ! isset( $defaults[ $key ] ) ){
+		if ( ! isset( $defaults[ $key ] ) ) {
 			return null;
 		}
 
@@ -189,11 +189,11 @@ final class Tribe__Events__Pro__Customizer__Section_Global_Elements {
 
 	public function filter_settings( $settings, $search ) {
 		// Only Apply if getting the full options or Section
-		if ( is_array( $search ) && count( $search ) > 1 ){
+		if ( is_array( $search ) && count( $search ) > 1 ) {
 			return $settings;
 		}
 
-		if ( count( $search ) === 1 ){
+		if ( count( $search ) === 1 ) {
 			$settings = $this->create_ghost_settings( $settings );
 		} else {
 			$settings[ $this->ID ] = $this->create_ghost_settings( $settings[ $this->ID ] );

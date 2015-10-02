@@ -63,19 +63,19 @@ final class Tribe__Events__Pro__Customizer__Section_Single_Event {
 	 */
 	private function __construct() {
 		// Hook the Register methods
-		add_action( 'tribe_events_customizer_register_' . $this->ID . '_settings', array( &$this, 'settings' ), 10, 2 );
-		add_filter( 'tribe_events_customizer_pre_sections', array( &$this, 'register' ), 10, 2 );
+		add_action( 'tribe_events_pro_customizer_register_' . $this->ID . '_settings', array( $this, 'settings' ), 10, 2 );
+		add_filter( 'tribe_events_pro_customizer_pre_sections', array( $this, 'register' ), 10, 2 );
 
 		// Append this section CSS template
-		add_filter( 'tribe_events_customizer_css_template', array( &$this, 'get_css_template' ), 10 );
-		add_filter( 'tribe_events_customizer_section_' . $this->ID . '_defaults', array( &$this, 'get_defaults' ), 10 );
+		add_filter( 'tribe_events_pro_customizer_css_template', array( $this, 'get_css_template' ), 10 );
+		add_filter( 'tribe_events_pro_customizer_section_' . $this->ID . '_defaults', array( $this, 'get_defaults' ), 10 );
 
 		// Create the Ghost Options
-		add_filter( 'tribe_events_customizer_pre_get_option', array( &$this, 'filter_settings' ), 10, 2 );
+		add_filter( 'tribe_events_pro_customizer_pre_get_option', array( $this, 'filter_settings' ), 10, 2 );
 	}
 
 	/**
-	 * Grab the CSS rules template
+	 * Add the CSS rules template to the `tribe_events_pro_customizer_css_template`
 	 *
 	 * @return string
 	 */
@@ -103,7 +103,7 @@ final class Tribe__Events__Pro__Customizer__Section_Single_Event {
 	}
 
 	public function create_ghost_settings( $settings = array() ) {
-		if ( ! empty( $settings['details_bg_color'] ) ){
+		if ( ! empty( $settings['details_bg_color'] ) ) {
 			$details_bg_color = new Tribe__Events__Pro__Customizer__Color( $settings['details_bg_color'] );
 
 			if ( $details_bg_color->isDark() ) {
@@ -134,25 +134,35 @@ final class Tribe__Events__Pro__Customizer__Section_Single_Event {
 
 	/**
 	 * Get the Default Value requested
+	 *
+	 * @param string $key The key for the Default value you want to retrieve
 	 * @return mixed
 	 */
 	public function get_default( $key ) {
 		$defaults = $this->get_defaults();
 
-		if ( ! isset( $defaults[ $key ] ) ){
+		if ( ! isset( $defaults[ $key ] ) ) {
 			return null;
 		}
 
 		return $defaults[ $key ];
 	}
 
+	/**
+	 * Filter the content of the Settings to include Ghost ones when necessary
+	 *
+	 * @param  array $settings The settings from the Database
+	 * @param  array $search   Array of Searching index, used to figure out what type of settings we are talking about
+	 *
+	 * @return array           Settings after creating the Ghost ones
+	 */
 	public function filter_settings( $settings, $search ) {
 		// Only Apply if getting the full options or Section
-		if ( is_array( $search ) && count( $search ) > 1 ){
+		if ( is_array( $search ) && count( $search ) > 1 ) {
 			return $settings;
 		}
 
-		if ( count( $search ) === 1 ){
+		if ( count( $search ) === 1 ) {
 			$settings = $this->create_ghost_settings( $settings );
 		} else {
 			$settings[ $this->ID ] = $this->create_ghost_settings( $settings[ $this->ID ] );

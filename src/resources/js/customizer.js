@@ -1,3 +1,6 @@
+/**
+ * This file is not currently not been used.
+ */
 ( function( $, wp ){
 	var customizer = {
 		fields: tribe_events_customizer_fields,
@@ -14,8 +17,6 @@
 			}
 
 			tribe_events_customizer[ section ][ setting ] = value;
-
-			console.log( tribe_events_customizer );
 
 			return tribe_events_customizer;
 		},
