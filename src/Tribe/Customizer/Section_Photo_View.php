@@ -12,66 +12,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @subpackage Customizer
  * @since 4.0
  */
-final class Tribe__Events__Pro__Customizer__Section_Photo_View {
-
+final class Tribe__Events__Pro__Customizer__Section_Photo_View extends Tribe__Events__Pro__Customizer__Section {
 	/**
-	 * Private variable holding the class Instance
+	 * PHP 5.2 method of creating "instances" of an abstract require this
 	 *
-	 * @since 4.0
+	 * Note: This is the only required method for a Connector to work
 	 *
-	 * @access private
-	 * @var Tribe__Events__Pro__Customizer__Section_Photo_View
+	 * @return self The dynamic instance of this Class
 	 */
-	private static $instance;
-
-	/**
-	 * Method to return the Private instance of the Class
-	 *
-	 * @since 4.0
-	 *
-	 * @access public
-	 * @return Tribe__Events__Pro__Customizer__Section_Photo_View
-	 */
-	public static function instance() {
-		// This also prevents double instancing the class
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
-	}
-
-	/**
-	 * ID of the section
-	 *
-	 * @since 4.0
-	 *
-	 * @access public
-	 * @var string
-	 */
-	public $ID = 'photo_view';
-
-	/**
-	 * Loads the Hooks
-	 *
-	 * @since  4.0
-	 *
-	 * @see  self::instance()
-	 * @access private
-	 *
-	 * @return void
-	 */
-	private function __construct() {
-		// Hook the Register methods
-		add_action( 'tribe_events_pro_customizer_register_' . $this->ID . '_settings', array( $this, 'settings' ), 10, 2 );
-		add_filter( 'tribe_events_pro_customizer_pre_sections', array( $this, 'register' ), 10, 2 );
-
-		// Append this section CSS template
-		add_filter( 'tribe_events_pro_customizer_css_template', array( $this, 'get_css_template' ), 10 );
-		add_filter( 'tribe_events_pro_customizer_section_' . $this->ID . '_defaults', array( $this, 'get_defaults' ), 10 );
-
-		// Create the Ghost Options
-		add_filter( 'tribe_events_pro_customizer_pre_get_option', array( $this, 'filter_settings' ), 10, 2 );
+	public static function instance( $name = null ) {
+		return parent::instance( __CLASS__ );
 	}
 
 	/**
@@ -113,69 +63,18 @@ final class Tribe__Events__Pro__Customizer__Section_Photo_View {
 		return $settings;
 	}
 
-	/**
-	 * A way to apply filters when getting the Customizer options
-	 * @return array
-	 */
-	public function get_defaults() {
-		$defaults = array(
+	public function setup() {
+		$this->defaults = array(
 			'bg_color' => '#eee',
 		);
 
-		// Create Ghost Options
-		$defaults = $this->create_ghost_settings( $defaults );
-
-		return $defaults;
-	}
-
-	/**
-	 * Get the Default Value requested
-	 * @return mixed
-	 */
-	public function get_default( $key ) {
-		$defaults = $this->get_defaults();
-
-		if ( ! isset( $defaults[ $key ] ) ) {
-			return null;
-		}
-
-		return $defaults[ $key ];
-	}
-
-	public function filter_settings( $settings, $search ) {
-		// Only Apply if getting the full options or Section
-		if ( is_array( $search ) && count( $search ) > 1 ) {
-			return $settings;
-		}
-
-		if ( count( $search ) === 1 ) {
-			$settings = $this->create_ghost_settings( $settings );
-		} else {
-			$settings[ $this->ID ] = $this->create_ghost_settings( $settings[ $this->ID ] );
-		}
-
-		return $settings;
-	}
-
-	/**
-	 * Register this Section
-	 *
-	 * @param  array  $sections   Array of Sections
-	 * @param  Tribe__Events__Pro__Customizer__Main $customizer Our internal Cutomizer Class Instance
-	 *
-	 * @return array  Return the modified version of the Section array
-	 */
-	public function register( $sections, $customizer ) {
-		$sections[ $this->ID ] = array(
+		$this->arguments = array(
 			'priority'    => 50,
 			'capability'  => 'edit_theme_options',
 			'title'       => esc_html__( 'Photo View', 'tribe-events-calendar-pro' ),
 			'description' => esc_html__( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections', 'tribe-events-calendar-pro' ),
 		);
-
-		return $sections;
 	}
-
 
 	/**
 	 * Create the Fields/Settings for this sections
@@ -185,7 +84,7 @@ final class Tribe__Events__Pro__Customizer__Section_Photo_View {
 	 *
 	 * @return void
 	 */
-	public function settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
+	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
 		$customizer = Tribe__Events__Pro__Customizer__Main::instance();
 
 		$manager->add_setting(
