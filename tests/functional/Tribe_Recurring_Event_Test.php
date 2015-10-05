@@ -17,11 +17,18 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 5,
-				'type' => 'Every Week',
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 5,
+					),
+				),// end rules array
 			)
 		));
+		// process the queue, otherwise all the children won't get created
+		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
 		$this->assertTrue( tribe_is_recurring_event( $post_id ) );
 
 		// recur one time
@@ -35,12 +42,20 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 1,
-				'type' => 'Every Week',
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 1,
+					),
+				),// end rules array
 			)
 		));
+
 		$this->assertTrue( tribe_is_recurring_event( $post_id ) );
+
+
 	}
 
 	public function test_is_not_recurring() {
@@ -71,11 +86,19 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 5,
-				'type' => 'Every Week',
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 5,
+					),
+				),// end rules array
 			)
 		));
+		// process the queue, otherwise all the children won't get created
+		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+		$this->assertTrue( tribe_is_recurring_event( $post_id ) );
 		$dates = tribe_get_recurrence_start_dates( $post_id );
 		$expected = array(
 			'2014-05-01 16:00:00',
@@ -100,9 +123,14 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 5,
-				'type' => 'Every Week',
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 5,
+					),
+				),// end rules array
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
@@ -135,9 +163,14 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 5,
-				'type' => 'Every Week',
+								'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 5,
+					),
+				),// end rules array
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
@@ -177,9 +210,14 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 5,
-				'type' => 'Every Week',
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 5,
+					),
+				),// end rules array
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
@@ -232,9 +270,14 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 5,
-				'type' => 'Every Day',
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 5,
+					),
+				),// end rules array
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
@@ -287,9 +330,14 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'EventEndMinute' => 0,
 			'tags_input' => array($tags[0]),
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 5,
-				'type' => 'Every Week',
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 5,
+					),
+				),// end rules array
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
@@ -343,9 +391,14 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'Organizer' => array( 'OrganizerID' => $organizers[0] ),
 			'Venue' => array( 'VenueID' => $venues[0] ),
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 5,
-				'type' => 'Every Week',
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 5,
+					),
+				),// end rules array
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
@@ -386,9 +439,14 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 2,
-				'type' => 'Every Week',
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 2,
+					),
+				),// end rules array
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
@@ -422,9 +480,14 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 2,
-				'type' => 'Every Week',
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 2,
+					),
+				),// end rules array
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
@@ -474,9 +537,14 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 8,
-				'type' => 'Every Week',
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 8,
+					),
+				),// end rules array
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
@@ -563,9 +631,14 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 8,
-				'type' => 'Every Week',
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 8,
+					),
+				),// end rules array
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
@@ -630,9 +703,14 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 5,
-				'type' => 'Every Day',
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 5,
+					),
+				),// end rules array
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
