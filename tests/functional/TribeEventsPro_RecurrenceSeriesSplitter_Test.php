@@ -205,6 +205,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'order' => 'ASC',
 		));
 		//array of original children is not empty
+		$this->assertCount(4, $original_children );
 		$this->assertNotEmpty( $original_children );
 
 		//breaks on the 3rd event
