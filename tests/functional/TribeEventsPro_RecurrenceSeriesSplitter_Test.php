@@ -6,8 +6,6 @@
  */
 class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 	public function test_break_single_event_from_series() {
-		Tribe__Events__Main::instance()->init();
-		Tribe__Events__Pro__Main::instance()->init();
 
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
@@ -106,9 +104,6 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 						'end-count' 		=> 50,
 					),
 				),// end rules array
-				//'end-type' => 'After',
-				//'end-count' => 50,
-				//'type' => 'Every Week',
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
@@ -194,9 +189,6 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 						'end-count' 		=> 5,
 					),
 				),// end rules array
-				//'end-type' => 'After',
-				//'end-count' => 5,
-				//'type' => 'Every Week',
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
@@ -219,11 +211,12 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 		$child_to_break = $original_children[2];
 
 		$breaker = new Tribe__Events__Pro__Recurrence_Series_Splitter();
+		//sets a break and keeps the break remaining events from the original
 		$breaker->break_remaining_events_from_series($child_to_break);
 
 		$updated_children = get_posts(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
-			'post_parent' => $event_args,
+			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
 			'orderby' => 'ID',
@@ -233,8 +226,12 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 		foreach ( $original_children as $child_id ) {
 			$date = strtotime(get_post_meta($child_id, '_EventStartDate', TRUE));
 			if ( $date < strtotime('2014-05-22') ) {
+				//if its after the break it should be equal to the updated
 				$this->assertContains( $child_id, $updated_children );
-			} 
+			} else {
+				//if its after the break it should not be equal to the updated
+				$this->assertNotContains( $child_id, $updated_children );
+			}
 		}
 
 		$broken_child = get_post($child_to_break);
@@ -245,9 +242,10 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'post_status' => 'publish',
 			'fields' => 'ids',
 		)));
+		//makes sure that the event that should be broken should start on may 22 the third event.
 		$this->assertEquals( '2014-05-22 16:00:00', get_post_meta($child_to_break, '_EventStartDate', TRUE));
 
-		
+		//checking to make sure that there is four left in the original
 		$recurrence_spec = get_post_meta( $post_id, '_EventRecurrence', TRUE );
 		$this->assertEquals( 4, $recurrence_spec['rules'][0]['end-count'] );
 	}
