@@ -41,7 +41,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 		));
 		$this->assertNotEmpty($original_children);
 
-		$child_to_break = $original_children[0];
+		$child_to_break = $original_children[2];
 
 		$breaker = new Tribe__Events__Pro__Recurrence_Series_Splitter();
 
@@ -71,15 +71,13 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'orderby' => 'ID',
 			'order' => 'ASC',
 		)));
-		$this->assertEquals( '2014-05-01 16:00:00', get_post_meta( $post_id, '_EventStartDate', TRUE));
+		$this->assertEquals( '2014-05-22 16:00:00', get_post_meta( $child_to_break, '_EventStartDate', TRUE));
 
 		$parent_recurrence = get_post_meta( $post_id, '_EventRecurrence', TRUE);
-		$parent_recurrence = $parent_recurrence['rules'][0]['EventStartDate'];
-		$this->assertContains( '2014-05-01 16:00:00', $parent_recurrence );
+		$this->assertContains( '2014-05-22 16:00:00', $parent_recurrence['exclusions'][0]['custom']['date'] );
 
 		$recurrence_spec = get_post_meta( $post_id, '_EventRecurrence', TRUE );
-		$recurrence_spec=$recurrence_spec['rules'][0]['end-count'];
-		$this->assertEquals( 5, $recurrence_spec);
+		$this->assertEquals( 5, $recurrence_spec['rules'][0]['end-count'] );
 	}
 
 	public function test_break_first_event_from_series() {
@@ -160,11 +158,11 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'order' => 'ASC',
 		)));
 		// this should be the next week from the original (the 8th, not the 1st)
-		$this->assertEquals( '2014-05-08 16:00:00', get_post_meta($new_parent->ID, '_EventStartDate', TRUE));
+		$this->assertEquals( '2014-05-08 16:00:00', get_post_meta($new_parent->ID, '_EventStartDate', TRUE ) );
 
 		// let's make sure the specs for the recurrence made it to the new parent
 		$recurrence_spec = get_post_meta( $new_parent->ID, '_EventRecurrence', TRUE );
-		$this->assertEquals( 'Every Week', $recurrence_spec['rules'][0]['type']);
+		$this->assertEquals( 'Every Week', $recurrence_spec['rules'][0]['type'] );
 	}
 
 	public function test_break_remaining_events_from_series() {
@@ -204,7 +202,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'orderby' => 'ID',
 			'order' => 'ASC',
 		));
-		//array of original children is not empty
+		//There are 4 events in the original children
 		$this->assertCount(4, $original_children );
 		$this->assertNotEmpty( $original_children );
 
@@ -222,7 +220,9 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'fields' => 'ids',
 			'orderby' => 'ID',
 			'order' => 'ASC',
-		));
+		));	
+
+		$this->assertCount(4, $original_children );
 
 		foreach ( $original_children as $child_id ) {
 			$date = strtotime(get_post_meta($child_id, '_EventStartDate', TRUE));
