@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3.1
-Stable tag: 3.12.1
+Stable tag: 3.12.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -226,6 +226,12 @@ Our Premium Plugins:
 
 * Fix - Don't escape HTML on additional fields that hold URLs
 * Fix - Updated comment in Week View tooltip and mobile templates to point at the right file for customization instructions
+
+= [3.12.2] 2015-10-01 =
+
+* Fix - Avoid modifying permalinks unless it is absolutely necessary (props to Jan for the fix)
+* Fix - Ensure we do not inadvertently change the order of posts when events are integrated into the main blog loop
+* Fix - Ensure rewrite rules are correctly added (our thanks to Nadia for highlighting this issue)
 
 = [3.12.1] 2015-09-22 =
 
