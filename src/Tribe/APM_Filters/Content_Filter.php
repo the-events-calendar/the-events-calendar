@@ -34,11 +34,12 @@
 
 		public function maybe_set_active( $return, $key, $filter ) {
 			global $ecp_apm;
-			$active_filters = $ecp_apm->filters->get_active();
 
 			if ( ! empty( $_POST[ $this->key ] ) ) {
 				return $_POST[ $this->key ];
 			}
+
+			$active_filters = $ecp_apm->filters->get_active();
 
 			if ( ! empty( $active_filters[ $this->key ] ) ) {
 				return $active_filters[ $this->key ];
