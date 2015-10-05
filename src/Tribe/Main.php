@@ -802,6 +802,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'priority'  => 60,
 				'show_save' => false,
 			) );
+
+			include_once $this->pluginPath . 'src/admin-views/tribe-options-addons-api.php';
 		}
 
 		/**
