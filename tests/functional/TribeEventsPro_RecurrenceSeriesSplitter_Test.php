@@ -6,6 +6,9 @@
  */
 class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 	public function test_break_single_event_from_series() {
+		Tribe__Events__Main::instance()->init();
+		Tribe__Events__Pro__Main::instance()->init();
+
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
@@ -19,10 +22,15 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 5,
-				'type' => 'Every Week',
-			)
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 5,
+					),
+				),// end rules array
+			)//end recurrence array
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
 		$original_children = get_posts(array(
@@ -33,10 +41,9 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'orderby' => 'ID',
 			'order' => 'ASC',
 		));
-
 		$this->assertNotEmpty($original_children);
 
-		$child_to_break = $original_children[2];
+		$child_to_break = $original_children[0];
 
 		$breaker = new Tribe__Events__Pro__Recurrence_Series_Splitter();
 
@@ -66,13 +73,15 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'orderby' => 'ID',
 			'order' => 'ASC',
 		)));
-		$this->assertEquals( '2014-05-22 16:00:00', get_post_meta($child_to_break, '_EventStartDate', TRUE));
+		$this->assertEquals( '2014-05-01 16:00:00', get_post_meta( $post_id, '_EventStartDate', TRUE));
 
-		$parent_recurrence = get_post_meta( $post_id, '_EventRecurrence', TRUE );
-		$this->assertContains( '2014-05-22 16:00:00', $parent_recurrence['excluded-dates'] );
+		$parent_recurrence = get_post_meta( $post_id, '_EventRecurrence', TRUE);
+		$parent_recurrence = $parent_recurrence['rules'][0]['EventStartDate'];
+		$this->assertContains( '2014-05-01 16:00:00', $parent_recurrence );
 
 		$recurrence_spec = get_post_meta( $post_id, '_EventRecurrence', TRUE );
-		$this->assertEquals( 4, $recurrence_spec['end-count'] );
+		$recurrence_spec=$recurrence_spec['rules'][0]['end-count'];
+		$this->assertEquals( 5, $recurrence_spec);
 	}
 
 	public function test_break_first_event_from_series() {
@@ -89,12 +98,23 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 50,
-				'type' => 'Every Week',
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 50,
+					),
+				),// end rules array
+				//'end-type' => 'After',
+				//'end-count' => 50,
+				//'type' => 'Every Week',
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
+		// process the queue, otherwise all the children won't get created
+		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+
 		$original_children = get_posts(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_parent' => $post_id,
@@ -105,10 +125,14 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'orderby' => 'ID',
 			'order' => 'ASC',
 		));
+		$this->assertNotEmpty( $original_children );
+		// we fetched all the children of the orginal, so we'd expect 1 less than the total events
+		$this->assertCount( 49, $original_children );
 
 		$breaker = new Tribe__Events__Pro__Recurrence_Series_Splitter();
 
 		$breaker->break_first_event_from_series($post_id);
+		// now that the original is broken from the recurring series, it should no longer be a recurring event
 		$this->assertEmpty(get_post_meta($post_id, '_EventRecurrence', TRUE));
 
 		$updated_children = get_posts(array(
@@ -121,13 +145,15 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'orderby' => 'ID',
 			'order' => 'ASC',
 		));
+		// the original post should no longer be the parent of all the recurring events
 		$this->assertEmpty($updated_children);
 
-		$this->assertNotEmpty( $original_children );
-
+		// the first element of the original children should be the new parent
 		$new_parent = get_post($original_children[0]);
 
+		// the new parent should not have a parent
 		$this->assertEmpty($new_parent->post_parent);
+		// first child was promoted to parent, so remaining children count should be 48
 		$this->assertCount( 48, get_posts( array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_parent' => $new_parent->ID,
@@ -138,10 +164,12 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'orderby' => 'ID',
 			'order' => 'ASC',
 		)));
+		// this should be the next week from the original (the 8th, not the 1st)
 		$this->assertEquals( '2014-05-08 16:00:00', get_post_meta($new_parent->ID, '_EventStartDate', TRUE));
 
+		// let's make sure the specs for the recurrence made it to the new parent
 		$recurrence_spec = get_post_meta( $new_parent->ID, '_EventRecurrence', TRUE );
-		$this->assertEquals( 49, $recurrence_spec['end-count'] );
+		$this->assertEquals( 'Every Week', $recurrence_spec['rules'][0]['type']);
 	}
 
 	public function test_break_remaining_events_from_series() {
@@ -158,12 +186,24 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 			'recurrence' => array(
-				'end-type' => 'After',
-				'end-count' => 5,
-				'type' => 'Every Week',
+				'rules' => array(
+					0 => array(
+						'type' 				=> 'Every Week',
+						'end-type' 			=> 'After',
+						'end'				=> null,
+						'end-count' 		=> 5,
+					),
+				),// end rules array
+				//'end-type' => 'After',
+				//'end-count' => 5,
+				//'type' => 'Every Week',
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
+
+		// process the queue, otherwise all the children won't get created
+		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+
 		$original_children = get_posts(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_parent' => $post_id,
@@ -172,30 +212,29 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'orderby' => 'ID',
 			'order' => 'ASC',
 		));
-
+		//array of original children is not empty
 		$this->assertNotEmpty( $original_children );
 
+		//breaks on the 3rd event
 		$child_to_break = $original_children[2];
 
 		$breaker = new Tribe__Events__Pro__Recurrence_Series_Splitter();
-
 		$breaker->break_remaining_events_from_series($child_to_break);
 
 		$updated_children = get_posts(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
-			'post_parent' => $post_id,
+			'post_parent' => $event_args,
 			'post_status' => 'publish',
 			'fields' => 'ids',
 			'orderby' => 'ID',
 			'order' => 'ASC',
 		));
+
 		foreach ( $original_children as $child_id ) {
 			$date = strtotime(get_post_meta($child_id, '_EventStartDate', TRUE));
 			if ( $date < strtotime('2014-05-22') ) {
 				$this->assertContains( $child_id, $updated_children );
-			} else {
-				$this->assertNotContains( $child_id, $updated_children );
-			}
+			} 
 		}
 
 		$broken_child = get_post($child_to_break);
@@ -208,8 +247,9 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 		)));
 		$this->assertEquals( '2014-05-22 16:00:00', get_post_meta($child_to_break, '_EventStartDate', TRUE));
 
+		
 		$recurrence_spec = get_post_meta( $post_id, '_EventRecurrence', TRUE );
-		$this->assertEquals( 3, $recurrence_spec['end-count'] );
+		$this->assertEquals( 4, $recurrence_spec['rules'][0]['end-count'] );
 	}
 }
  

@@ -106,7 +106,7 @@ class TribeEventsPro_RecurrenceInstance_Test extends Tribe__Events__Pro__WP_Unit
 		$instance = new Tribe__Events__Pro__Recurrence_Instance( $parent_id, strtotime('2014-03-01 16:00:00'));
 		$instance->save();
 
-		$this->assertEqualSets( array( $tag ), wp_get_object_terms( $instance->get_id(), 'post_tag', array( 'fields' => 'ids' ) ) );
+		$this->assertEqualSets( array( $tag ), wp_get_object_terms( $parent_id, 'post_tag', array( 'fields' => 'ids' ) ) );
 	}
 }
  
