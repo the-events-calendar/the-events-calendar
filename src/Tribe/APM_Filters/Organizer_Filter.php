@@ -37,7 +37,12 @@
 
 		public function join_organizer( $join, $wp_query ) {
 			global $ecp_apm;
-			$active_filters = $ecp_apm->filters->get_active();
+
+			$active_filters = array();
+
+			if ( isset( $ecp_apm ) && isset( $ecp_apm->filters ) ) {
+				$active_filters = $ecp_apm->filters->get_active();
+			}
 
 			if ( empty( $_POST[ $this->key ] ) && empty( $active_filters[ $this->key ] ) ) {
 				return $join;
@@ -51,7 +56,12 @@
 
 		public function where_organizer( $where ) {
 			global $ecp_apm;
-			$active_filters = $ecp_apm->filters->get_active();
+
+			$active_filters = array();
+
+			if ( isset( $ecp_apm ) && isset( $ecp_apm->filters ) ) {
+				$active_filters = $ecp_apm->filters->get_active();
+			}
 
 			if ( empty( $_POST[ $this->key ] ) && empty( $active_filters[ $this->key ] ) ) {
 				return $where;
