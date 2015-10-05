@@ -5,7 +5,7 @@ Description: The Events Calendar is a carefully crafted, extensible plugin that 
 Version: 3.13a1
 Author: Modern Tribe, Inc.
 Author URI: http://m.tri.be/1x
-Text Domain: tribe-events-calendar
+Text Domain: the-events-calendar
 License: GPLv2 or later
 */
 

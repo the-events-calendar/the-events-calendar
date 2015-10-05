@@ -2477,7 +2477,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// account for semi-pretty permalinks
 			if ( false !== strpos( get_option( 'permalink_structure' ), 'index.php' ) ) {
-				$event_url = home_url( '/index.php' );
+				$event_url = home_url( '/index.php/' );
 			} else {
 				$event_url = home_url( '/' );
 			}

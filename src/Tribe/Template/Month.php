@@ -393,6 +393,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			}
 
 			$post_stati = implode( "','", $post_stati );
+			$ignore_hidden_events_AND = $this->hidden_events_fragment();
 
 			$events_request = $wpdb->prepare(
 				"SELECT tribe_event_start.post_id as ID,
@@ -401,7 +402,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				FROM $wpdb->postmeta AS tribe_event_start
 				LEFT JOIN $wpdb->posts ON tribe_event_start.post_id = $wpdb->posts.ID
 				LEFT JOIN $wpdb->postmeta as tribe_event_end_date ON ( tribe_event_start.post_id = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' )
-				WHERE tribe_event_start.meta_key = '_EventStartDate'
+				WHERE $ignore_hidden_events_AND tribe_event_start.meta_key = '_EventStartDate'
 				AND ( (tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
 					OR (tribe_event_start.meta_value <= '%1\$s' AND tribe_event_end_date.meta_value >= '%1\$s')
 					OR ( tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
@@ -422,6 +423,30 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			// cache the found events in the object cache
 			$cache->set( $cache_key, $this->events_in_month, 0, 'save_post' );
+		}
+
+		/**
+		 * Returns a posts-not-in SQL fragment for use in a WHERE clause or else an empty
+		 * string if it is unneeded.
+		 *
+		 * @return string
+		 */
+		protected function hidden_events_fragment() {
+			global $wpdb;
+
+			// Despite the method name, this obtains a list of post IDs to be hidden from *all* event listings
+			$ignore_events = Tribe__Events__Query::getHideFromUpcomingEvents();
+
+			// If it is empty we don't need to do anything further
+			if ( empty( $ignore_events ) ) {
+				return '';
+			}
+
+			// Let's ensure they are all absolute integers then collapse into a string
+			$ignore_events = implode( ',', array_map( 'absint', $ignore_events ) );
+
+			// Terminate with AND so it can easily be combined with the rest of the WHERE clause
+			return " $wpdb->posts.ID NOT IN ( $ignore_events ) AND ";
 		}
 
 		/**
@@ -603,11 +628,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			// we don't need this join since we already checked it
 			unset ( $args[ Tribe__Events__Main::TAXONOMY ] );
 
-			$result = tribe_get_events( $args, true );
-
-			$result->found_posts = count( $event_ids_on_date );
-
-			return $result;
+			return tribe_get_events( $args, true );
 		}
 
 		/**
@@ -846,9 +867,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 * @return string
 		 */
 		public static function day_classes() {
-			$current_day  = self::get_current_day();
-			$calendar_day = Tribe__Events__Date_Utils::date_only( $current_day['date'] );
-			$today        = date_i18n( Tribe__Events__Date_Utils::DBDATEFORMAT );
+			$calendar_day           = self::get_current_day();
+			$calendar_day_timestamp = strtotime( $calendar_day['date'] );
+			$today                  = strtotime( current_time( 'Y-m-d' ) );
 
 			// Start by determining which month we're looking at
 			if ( $current_day['month'] == self::CURRENT_MONTH ) {

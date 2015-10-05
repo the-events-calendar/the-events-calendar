@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-10 14:12:18+0000\n"
+"PO-Revision-Date: 2015-09-14 22:41:38+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,199 +12,199 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
-msgstr ""
+msgstr "The Events Calendar je  kvalitně zpracovaný, rozšiřitelný plugin, který vám umožní jednoduše sdílet vaše akce. Je nádherný, stabilní a prostě úžasný."
 
 #. Author of the plugin/theme
 msgid "Modern Tribe, Inc."
-msgstr ""
+msgstr "Modern Tribe, Inc."
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/1x"
-msgstr ""
+msgstr "http://m.tri.be/1x"
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:62
 msgid "<a href=\"%s\">Edit the page slug</a>"
-msgstr ""
+msgstr "<a href=\"%s\">Upravte název v URL u stránky</a>"
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:63
 msgid "Ask the site administrator to edit the page slug"
-msgstr ""
+msgstr "Požádejte administrátora webu aby upravil název v URL u stránky"
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:68
 msgid "<a href=\"%s\">edit The Events Calendar settings</a>."
-msgstr ""
+msgstr "<a href=\"%s\">změňte nastavení pluginu The Events Calendar</a>."
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:69
 msgid " ask the site administrator set a different Events URL slug."
-msgstr ""
+msgstr "požádejte administrátora webu aby změnil název v URL u akcí."
 
 #: src/Tribe/Admin/Timezone_Updater.php:77
 msgid "Please wait while timezone data is added to your events."
-msgstr ""
+msgstr "Počkejte prosím dokud se k vašim akcím nepřidají údaje o časovém pásmu."
 
 #: src/Tribe/Admin/Timezone_Updater.php:78
 msgid "Update complete: timezone data has been added to all events in the database."
-msgstr ""
+msgstr "Aktualizace byla dokončena: údaje o časovém pásmu byly přidány ke všem akcím v databázi."
 
 #: src/Tribe/Admin/Timezone_Updater.php:87
 msgid "%d%% complete"
-msgstr ""
+msgstr "Hotovo: %d%%"
 
 #: src/Tribe/Admin/Timezone_Updater.php:105
 msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
-msgstr ""
+msgstr "Došlo k chybě a proces aktualizace časových pásem neskončil v pořádku. Obnovte prosím stránku a zkuste to znovu."
 
 #: src/Tribe/Importer/Column_Mapper.php:64
 msgid "Event Currency Symbol"
-msgstr ""
+msgstr "Symbol měny akce"
 
 #: src/Tribe/Importer/Column_Mapper.php:65
 msgid "Event Currency Position"
-msgstr ""
+msgstr "Umístění měny akce"
 
 #: src/Tribe/Importer/Column_Mapper.php:67
 msgid "Event Tags"
-msgstr ""
+msgstr "Štítky akce"
 
 #: src/Tribe/Main.php:2241
 msgid "page"
-msgstr ""
+msgstr "strana"
 
 #: src/Tribe/Main.php:2242
 msgid "event"
-msgstr ""
+msgstr "akce"
 
 #: src/Tribe/Main.php:2243
 msgid "events"
-msgstr ""
+msgstr "kalendar-akci"
 
 #: src/Tribe/Main.php:2244
 msgid "all"
-msgstr ""
+msgstr "vse"
 
 #: src/Tribe/Settings.php:261
 msgid "Save Changes"
-msgstr ""
+msgstr "Uložit změny"
 
 #: src/Tribe/Template/Day.php:136
 msgid "No matching %1$s listed under %2$s scheduled for <strong>%3$s</strong>. Please try another day."
-msgstr ""
+msgstr "Nebyly nalezeny žádné %1$s v rubrice %2$s naplánované na <strong>%3$s</strong>. Zkuste prosím zvolit jiný den."
 
 #: src/Tribe/Template/Day.php:138
 msgid "No %1$s scheduled for <strong>%2$s</strong>. Please try another day."
-msgstr ""
+msgstr "Nebyly nalezeny žádné %1$s naplánované na <strong>%2$s</strong>. Zkuste prosím zvolit jiný den."
 
 #: src/Tribe/Template/Month.php:287
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
-msgstr ""
+msgstr "Nebyly nalezeny žádné %1$s v rubrice %2$s. Zkuste si prosím zobrazit úplný kalendář se seznamem všech akcí."
 
 #: src/Tribe/Template_Factory.php:355
 msgid "No results were found for %1$s in or near <strong>\"%2$s\"</strong>."
-msgstr ""
+msgstr "Nebyly nalezeny žádné %1$s poblíž místa <strong>\"%2$s\"</strong>."
 
 #: src/Tribe/Template_Factory.php:357
 msgid "No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar."
-msgstr ""
+msgstr "Žádné nadcházející %1$s v rubrice %2$s. Podívejte se na nadcházející %3$s z této rubriky nebo si zobrazte úplný kalendář."
 
 #: src/Tribe/Template_Factory.php:359 src/Tribe/Template_Factory.php:364
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s."
-msgstr ""
+msgstr "Nebyly nalezeny žádné %1$s v rubrice %2$s. Zkuste si zobrazit úplný kalendář a prohlédnout ostatní %3$s."
 
 #: src/admin-views/events-meta-box.php:121
 msgid "Timezone:"
-msgstr ""
+msgstr "Časové pásmo:"
 
 #: src/admin-views/tickets/attendees.php:103
 msgid "Sold %1$d %2$s"
-msgstr ""
+msgstr "Prodáno %1$d %2$s"
 
 #: src/admin-views/tickets/attendees.php:106
 msgid "Sold %1$d of %2$d %3$s"
-msgstr ""
+msgstr "Prodáno %1$d z celkem %2$d %3$s"
 
 #: src/admin-views/tickets/list.php:69
 msgid "Sold %1$d of %2$d"
-msgstr ""
+msgstr "Prodáno %1$d z celkem %2$d"
 
 #: src/admin-views/tribe-options-general.php:94
 msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%1$s\">%2$s</a>. In order to edit the slug here, <a href=\"%3$soptions-permalink.php\">enable pretty permalinks</a>."
-msgstr ""
+msgstr "Název v URL pro stránku akcí nelze změnit, protože nemáte zapnuté používání trvalých odkazů. Vaše současná URL adresa pro stránku akcí je <a href=\"%1$s\">%2$s</a>. Chcete-li upravit název v URL, musíte nejdříve <a href=\"%3$soptions-permalink.php\">zapnout trvalé odkazy</a>."
 
 #: src/admin-views/tribe-options-help.php:199
 msgid "If you find that you aren't getting the level of service you've come to expect from Modern Tribe, shoot us an email at %1$s or tweet %2$s and tell us why. We'll do what we can to make it right."
-msgstr ""
+msgstr "Pokud si myslíte, že se vám od Modern Tribe nedostává očekávané úrovně služeb, pošlete nám email na %1$s nebo tweet na %2$s a řekněte proč. Uděláme vše co je v našich silách, abychom to dali do pořádku."
 
 #: src/admin-views/tribe-options-licenses.php:13
 msgid "<p>The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
-msgstr ""
+msgstr "<p>Licenční klíč, který jste obdrželi při dokončování vašeho nákupu na %1$s, vám umožňuje přístup k zákaznické podpoře a aktualizacím. Svůj klíč nemusíte zadávat aby byly pluginy plně funkční. Nicméně bez vloženého klíče nebude možné provést automatické aktualizace. <strong>Své licenční klíče můžete najít na stránce <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Každý plugin/doplněk má svůj unikátní licenční klíč. Do příslušného políčka v níže uvedeném seznamu stačí vložit klíč a chvíli počkat na ověření. Jakmile se objeví zeleně Datum platnosti společně s nápisem \"valid\", je vše hotovo.</p> <p>Pokud však vidíte červeně zprávu, která říká že váš klíč není platný nebo že je mimo instalaci, navštivte web <a href=\"%4$s\" target=\"_blank\">%5$s</a>, kde si můžete spravovat své instalace nebo obnovit platnost licence.</p><p>Pokud se vám nezobrazila očekávaná aktualizace, přejděte ve WordPressu na stránku <a href=\"%6$s\">Nástěnka > Aktualizace</a> a klikněte na \"Zkontrolovat znovu\".</p>"
 
 #: src/admin-views/tribe-options-timezones.php:4
 msgid "Enable timezone support"
-msgstr ""
+msgstr "Povolení podpory časových pásem"
 
 #: src/admin-views/tribe-options-timezones.php:6
 msgid "Update Timezone Data"
-msgstr ""
+msgstr "Aktualizovat data s časovým pásmem"
 
 #: src/admin-views/tribe-options-timezones.php:7
 msgid "Click this button to update your database and take advantage of additional timezone capabilities. Please <a href=\"%s\" target=\"_blank\">configure WordPress</a> to use the correct timezone before clicking this button!"
-msgstr ""
+msgstr "Kliknutím na toto tlačítko dojde k aktualizaci databáze a ke zpřístupnění dodatečné funkčnosti pro časová pásma. Před kliknutím na toto tlačítko si prosím <a href=\"%s\" target=\"_blank\">nastavte ve WordPressu</a> správné časové pásmo!"
 
 #: src/admin-views/tribe-options-timezones.php:27
 msgid "Timezone Settings"
-msgstr ""
+msgstr "Nastavení časového pásma"
 
 #: src/admin-views/tribe-options-timezones.php:35
 msgid "Timezone mode"
-msgstr ""
+msgstr "Režim časového pásma"
 
 #: src/admin-views/tribe-options-timezones.php:39
 msgid "Use the local timezones for each event"
-msgstr ""
+msgstr "Použít místní časová pásma pro každou akci"
 
 #: src/admin-views/tribe-options-timezones.php:40
 msgid "Use the sitewide timezone everywhere"
-msgstr ""
+msgstr "Použít jedno časové pásmo na celém webu"
 
 #: src/admin-views/tribe-options-timezones.php:45
 msgid "Show timezone"
-msgstr ""
+msgstr "Zobrazit časové pásmo"
 
 #: src/admin-views/tribe-options-timezones.php:46
 msgid "Appends the timezone to the end of event scheduling information &ndash; this can be useful when you have events in numerous different timezones."
-msgstr ""
+msgstr "Za časový údaj každé akce se doplní i údaj o časovém pásmu &ndash; to je užitečné v případech, kdy spravujete akce v mnoha různých časových pásmech."
 
 #: src/functions/template-tags/general.php:411
 msgctxt "category list label"
 msgid "%s Category"
 msgid_plural "%s Categories"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Rubrika %s"
+msgstr[1] "Rubriky %s"
+msgstr[2] "Rubriky %s"
 
 #: src/io/csv/admin-views/general.php:48
 msgid "Save Settings"
-msgstr ""
+msgstr "Uložit nastavení"
 
 #: src/Tribe/Activation_Page.php:38
 msgid "Go to plugins page"
-msgstr "Přejít na stránku pluginů"
+msgstr "Zobrazit stránku s přehledem pluginů"
 
 #: src/Tribe/Activation_Page.php:38
 msgid "Return to Plugins page"
-msgstr "Návrat na stránku pluginů"
+msgstr "Zpět na přehled pluginů"
 
 #: src/Tribe/Activation_Page.php:46
 msgid "Go to WordPress Updates page"
-msgstr "Přejít na stránku aktualizací WordPressu"
+msgstr "Zobrazit stránku s přehledem aktualizací WordPressu"
 
 #: src/Tribe/Activation_Page.php:46
 msgid "Return to WordPress Updates"
-msgstr "Návrat na stránku aktualizací WordPressu"
+msgstr "Zpět na přehled aktualizací"
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:88
 msgid "Create New %s"
-msgstr "Vytvořit nový %s"
+msgstr "Vytvořit nový záznam"
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:148
 msgid "Add another organizer"
@@ -213,7 +213,7 @@ msgstr "Přidat dalšího pořadatele"
 #: src/Tribe/Cost_Utils.php:108
 msgctxt "Cost range separator"
 msgid " - "
-msgstr " - "
+msgstr " – "
 
 #: src/Tribe/PUE/Checker.php:416
 msgid "unknown date"
@@ -221,31 +221,31 @@ msgstr "neznámé datum"
 
 #: src/Tribe/Support.php:142
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
-msgstr ""
+msgstr "Během načítání této stránky nápovědy došlo k vyprázdnění pravidel pro přesměrování trvalých odkazů. Pravděpodobně je v některém pluginu nebo šabloně nastaveno toto vyprazdňování pravidel (rewrite rule flush)!"
 
 #: src/admin-views/tribe-options-help.php:155
 msgid "If you're looking for help with The Events Calendar, you've come to the right place. We are committed to helping make your calendar be spectacular... and hope the resources provided below will help get you there."
-msgstr ""
+msgstr "Pokud chcete pomoci s pluginem The Events Calendar, jste na správném místě. Jsme odhodláni vám pomoci s přivedením vašeho kalendáře akcí k naprosté dokonalosti a věříme, že zdroje uvedené níže vám k tomu dopomohou."
 
 #: src/admin-views/tribe-options-help.php:209
 msgid "Hi! We are Modern Tribe and we are here to help you be awesome. Thanks so much for installing our labor of love!"
-msgstr ""
+msgstr "Ahoj! Jmenujeme se Modern Tribe a jsme tu především pro vás. Moc děkujeme za to, že jste si nainstalovali výtvor naší vášně!"
 
 #: src/admin-views/tribe-options-help.php:231
 msgid "Support Resources To Help You Be Awesome"
-msgstr ""
+msgstr "Podpůrné zdroje informací na rozjezd"
 
 #: src/admin-views/tribe-options-licenses.php:17
 msgid ""
 "<strong> Using our plugins in a multisite network? </strong>\n"
 "\t\tPlease note that your license key will be applied to the entire network, not just this site."
-msgstr ""
+msgstr "<strong> Používáte naše pluginy v síti webů? </strong> Berte prosím na vědomí, že váš licenční klíč se aplikuje na celou síť webů a nikoli pouze na tento web."
 
 #: src/admin-views/tribe-options-licenses.php:20
 msgid ""
 "Only license fields for <strong>network activated</strong> plugins will be\n"
 "\t\tlisted on this screen. "
-msgstr ""
+msgstr "Na této stránce se zobrazí licenční pole pouze pro pluginy, které byly <strong>aktivovány v síti webů</strong>."
 
 #: src/Tribe/View_Helpers.php:334
 msgid "Louisiana"
@@ -518,7 +518,7 @@ msgstr "Štítky akce:"
 
 #: src/Tribe/iCal.php:29
 msgid "%1$s %2$s iCal Feed"
-msgstr "%1$s %2$s iCal Feed"
+msgstr "%1$s %2$s iCal zdroj"
 
 #: src/functions/advanced-functions/meta_registration.php:112
 msgid "Origin:"
@@ -538,7 +538,7 @@ msgstr "Kalendář Google"
 
 #: src/functions/template-tags/date.php:261
 msgid "The function needs to be passed an $event or used in the loop."
-msgstr ""
+msgstr "Funkce musí být volána s parametrem $event nebo být použita v rámci WordPress smyčky."
 
 #: src/Tribe/iCal.php:76
 msgid "Download .ics file"
@@ -550,15 +550,15 @@ msgstr "<span>&laquo;</span> Předchozí den"
 
 #: src/Tribe/iCal.php:76
 msgid "iCal Export"
-msgstr "Exportovat do iCal"
+msgstr "Exportovat iCal"
 
 #: src/functions/template-tags/day.php:109
 msgid "Next Day <span>&raquo;</span>"
-msgstr "Následující den <span>&raquo;</span>"
+msgstr "Další den <span>&raquo;</span>"
 
 #: src/Tribe/iCal.php:106
 msgid "Month's %s"
-msgstr "Měsíční %s"
+msgstr "%s měsíce"
 
 #: src/functions/template-tags/day.php:111
 msgid "Yesterday"
@@ -566,7 +566,7 @@ msgstr "Včera"
 
 #: src/Tribe/iCal.php:109
 msgid "Week's %s"
-msgstr "Týdenní %s"
+msgstr "%s týdne"
 
 #: src/functions/template-tags/day.php:113
 msgid "Tomorrow"
@@ -574,7 +574,7 @@ msgstr "Zítra"
 
 #: src/Tribe/iCal.php:112
 msgid "Day's %s"
-msgstr "Denní %s"
+msgstr "%s dne"
 
 #: src/functions/template-tags/deprecated.php:1283
 msgid "Category"
@@ -582,7 +582,7 @@ msgstr "Rubrika"
 
 #: src/Tribe/iCal.php:115
 msgid "Listed %s"
-msgstr "Zobrazeny %s"
+msgstr "uvedené %s"
 
 #: src/functions/template-tags/general.php:450
 msgid "Tags:"
@@ -590,11 +590,11 @@ msgstr "Štítky:"
 
 #: src/Tribe/iCal.php:120
 msgid "Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
-msgstr ""
+msgstr "Pro sdílení kalendářových dat v aplikaci Kalendář Google, Apple iCal nebo jiné kompatibilní"
 
 #: src/functions/template-tags/general.php:562
 msgid "Loading %s"
-msgstr "Načítání %s"
+msgstr "Načítám %s"
 
 #: src/admin-views/admin-update-message.php:9
 #: src/admin-views/admin-welcome-message.php:11
@@ -607,7 +607,7 @@ msgstr "Zdarma"
 
 #: src/admin-views/admin-update-message.php:32
 msgid "Keep the Core Plugin <strong>FREE</strong>!"
-msgstr "Ponechat Core Plugin <strong>ZDARMA</strong>!"
+msgstr "Zachovejte jádro pluginu <strong>ZDARMA</strong>!"
 
 #: src/functions/template-tags/general.php:1488
 msgid "Calendar powered by %sThe Events Calendar%s"
@@ -615,7 +615,7 @@ msgstr "Vytvořeno pomocí %sThe Events Calendar%s"
 
 #: src/admin-views/admin-update-message.php:33
 msgid "Every time you rate <strong>5 stars</strong>, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice."
-msgstr ""
+msgstr "Při každém ohodnocení <strong>5 hvězdičkami</strong> přijde na svět jedna malá víla. Dobrá, to asi ne, ale i přesto více šťastných uživatelů znamená více příspěvků a pomoci na fórech. Komunita potřebuje vědět váš názor."
 
 #: src/functions/template-tags/loop.php:131
 msgid "Upcoming %s"
@@ -628,29 +628,29 @@ msgstr "Ohodnotit"
 
 #: src/functions/template-tags/loop.php:145
 msgid "%1$s for %2$s - %3$s"
-msgstr ""
+msgstr "%1$s od %2$s do %3$s"
 
 #: src/admin-views/admin-update-message.php:37
 msgid "PSST... Want a Discount?"
-msgstr "PSST ... Chcete slevu?"
+msgstr "PSST... Chcete slevu?"
 
 #: src/functions/template-tags/loop.php:147
 msgid "Past %s"
-msgstr "Minulé %s"
+msgstr "Uplynulé %s"
 
 #: src/admin-views/admin-update-message.php:38
 msgid "We send out discounts to our core users via our newsletter."
-msgstr "Posíláme slevy našim klíčovým uživatelům prostřednictvím našeho newsletteru."
+msgstr "Našim věrným uživatelům poskytujeme slevy prostřednictvím našeho emailového zpravodaje."
 
 #: src/functions/template-tags/loop.php:152
 #: src/functions/template-tags/loop.php:161
 msgid "%1$s for %2$s"
-msgstr "%1$s za %2$s"
+msgstr "%1$s na %2$s"
 
 #: src/admin-views/admin-update-message.php:43
 #: src/admin-views/admin-welcome-message.php:31
 msgid "Sign Up"
-msgstr "Přihlásit"
+msgstr "Přihlásit k odběru"
 
 #: src/functions/template-tags/options.php:20
 msgid "Your current Events URL is %s"
@@ -666,7 +666,7 @@ msgstr "<strong>Nelze</strong> použít stejný název v URL jako výše uveden�
 
 #: src/admin-views/admin-update-message.php:51
 msgid "Pro"
-msgstr "Pro"
+msgstr "Pro verze"
 
 #: src/io/csv/admin-views/columns.php:22
 msgid "Column Mapping: %s"
@@ -674,7 +674,7 @@ msgstr "Mapování sloupců: %s"
 
 #: src/admin-views/admin-update-message.php:53
 msgid "Community Events"
-msgstr "Události komunity"
+msgstr "Komunitní akce"
 
 #: src/io/csv/admin-views/columns.php:27
 msgid "Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file."
@@ -699,7 +699,7 @@ msgstr "Pole akce"
 #: src/admin-views/admin-update-message.php:58
 #: src/admin-views/admin-welcome-message.php:53
 msgid "News For Events Users"
-msgstr "Novinky pro uživatele událostí"
+msgstr "Novinky pro uživatele Akcí"
 
 #: src/io/csv/admin-views/columns.php:44
 msgid "Perform Import"
@@ -707,7 +707,7 @@ msgstr "Importovat"
 
 #: src/admin-views/admin-welcome-message.php:19
 msgid "Keep The Events Calendar Core FREE"
-msgstr "Zachovejte jádro The Events Calendar ZDARMA"
+msgstr "Zachování bezplatného jádra pluginu The Events Calendar"
 
 #: src/io/csv/admin-views/general.php:10
 msgid "The Events Calendar: Import"
@@ -715,7 +715,7 @@ msgstr "The Events Calendar: Import"
 
 #: src/admin-views/admin-welcome-message.php:20
 msgid "5 star ratings help us bring TEC to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support."
-msgstr "5hvězdičkové hodnocení nám pomůže přivést TEC více uživatelů. Více šťastných uživatelů znamená větší podporu, více funkcí, a více všeho, co znají a mají rádi na The Events Calendar. Nedokázali bychom to bez vaší podpory."
+msgstr "Pětihvězdičkové hodnocení nám pomůže přinést TEC více uživatelům. Více šťastných uživatelů znamená větší podporu, více funkcí a vůbec více všeho, co znáte a milujete na pluginu The Events Calendar. To vše bychom nedokázali bez vaší podpory."
 
 #: src/io/csv/admin-views/general.php:12
 msgid "Instructions"
@@ -723,23 +723,23 @@ msgstr "Instrukce"
 
 #: src/admin-views/admin-welcome-message.php:21
 msgid "Rate it five stars today!"
-msgstr "Ohodnotit 5 hvězdičkami ještě dnes!"
+msgstr "Ohodnoťte 5 hvězdičkami ještě dnes!"
 
 #: src/io/csv/admin-views/general.php:14
 msgid "To import events, first select a %sDefault Import Event Status%s below to assign to your imported events."
-msgstr ""
+msgstr "Před importováním akcí si nejdříve níže zvolte %sVýchozí stav pro importované akce%s, který se hromadně přiřadí k vašim naimportovaným akcím."
 
 #: src/admin-views/admin-welcome-message.php:25
 msgid "Newsletter Signup"
-msgstr ""
+msgstr "Emailový zpravodaj"
 
 #: src/io/csv/admin-views/general.php:17
 msgid "Once your setting is saved, move to the applicable Import tab to select import specific criteria."
-msgstr ""
+msgstr "Jakmile je vaše nastavení uloženo, přejděte na příslušný panel Importu pro navolení konkrétních parametrů pro import dat."
 
 #: src/admin-views/admin-welcome-message.php:26
 msgid "Stay in touch with The Events Calendar Pro. We send out periodic updates, key developer notices, and even the occasional discount."
-msgstr ""
+msgstr "Sledujte co je nového u pluginu The Events Calendar. Pravidelně rozesíláme informace o aktualizacích, důležitá upozornění pro vývojáře a příležitostně i slevy."
 
 #: src/io/csv/admin-views/general.php:24
 msgid "Import Settings"
@@ -752,11 +752,11 @@ msgstr "Začínáme"
 
 #: src/io/csv/admin-views/general.php:27
 msgid "Default imported event status:"
-msgstr ""
+msgstr "Výchozí stav pro importované akce:"
 
 #: src/admin-views/admin-welcome-message.php:41
 msgid "Check out the New User Primer &amp; Tutorials"
-msgstr ""
+msgstr "Přečtěte si příručku nového uživatele a návody"
 
 #: src/io/csv/admin-views/general.php:30
 msgid "Published"
@@ -772,7 +772,7 @@ msgstr "Čekající na schválení"
 
 #: src/admin-views/admin-welcome-message.php:44
 msgid "Addons for Community, Tickets, Filters, Facebook and more."
-msgstr ""
+msgstr "Doplňky pro komunitní akce, vstupenky, filtry, Facebook a další."
 
 #: src/io/csv/admin-views/general.php:32
 msgid "Draft"
@@ -780,15 +780,15 @@ msgstr "Koncept"
 
 #: src/admin-views/admin-welcome-message.php:46
 msgid "Support Resources"
-msgstr ""
+msgstr "Podpůrné zdroje informací"
 
 #: src/io/csv/admin-views/header.php:17
 msgid "Events Import"
-msgstr "Importovat Akce"
+msgstr "Importování Akcí"
 
 #: src/admin-views/admin-welcome-message.php:47
 msgid "FAQs, Documentation, Tutorials and Forums"
-msgstr "FAQs, Dokumentace, Návody a Fóra"
+msgstr "Časté dotazy, dokumentace, návody a fóra"
 
 #: src/io/csv/admin-views/import.php:17
 msgid "Import Instructions"
@@ -796,7 +796,7 @@ msgstr "Instrukce pro importování"
 
 #: src/admin-views/admin-welcome-message.php:50
 msgid "Release Notes"
-msgstr "Poznámky k vydání"
+msgstr "Poznámky k verzi"
 
 #: src/io/csv/admin-views/import.php:20
 msgid "If your events have Organizers or Venues, please import those first."
@@ -804,7 +804,7 @@ msgstr "Pokud vaše akce mají Pořadatele nebo Místa konání, importujte je p
 
 #: src/admin-views/admin-welcome-message.php:51
 msgid "Get the Skinny on the Latest Updates"
-msgstr ""
+msgstr "Prozkoumejte interní informace o posledních aktualizacích"
 
 #: src/io/csv/admin-views/import.php:21
 msgid "To import organizers or venues:"
@@ -812,7 +812,7 @@ msgstr "Pro import Pořadatelů a Míst konání:"
 
 #: src/admin-views/admin-welcome-message.php:54
 msgid "Product Releases, Tutorials and Community Activity"
-msgstr ""
+msgstr "Zprávy o produktech, návody a činnost uživatelské komunity"
 
 #: src/io/csv/admin-views/import.php:23
 msgid "Select the appropriate import type."
@@ -844,7 +844,7 @@ msgstr "Po nahrání souboru budete mít možnost namapovat jednotlivé sloupce 
 
 #: src/admin-views/event-sidebar-options.php:13
 msgid "Hide From %s Listings"
-msgstr ""
+msgstr "Skrýt ve výpisu (%s)"
 
 #: src/io/csv/admin-views/import.php:28
 msgid "After importing your Organizers and Venues, import your Events:"
@@ -852,7 +852,7 @@ msgstr "Po naimportování vašich Pořadatelů a Míst konání můžete import
 
 #: src/admin-views/event-sidebar-options.php:15
 msgid "Sticky in Month View"
-msgstr ""
+msgstr "Zvýraznit v měsíčním přehledu"
 
 #: src/io/csv/admin-views/import.php:31
 msgid "One column in your CSV should have the Event title. Another should have the Event start date. All other fields are optional."
@@ -860,7 +860,7 @@ msgstr "Jeden ze sloupců ve vašem CSV souboru by měl obsahovat jméno akce. D
 
 #: src/admin-views/event-sidebar-options.php:16
 msgid "When events are sticky in month view, they'll display first in the list of events shown within a given day block."
-msgstr ""
+msgstr "Zvýrazněné akce se v měsíčním přehledu zobrazí jako první při výpisu akcí v rámci daného dne."
 
 #: src/io/csv/admin-views/import.php:36
 msgid "Questions? <a href=\"%s\">Watch the video</a>."
@@ -868,7 +868,7 @@ msgstr "Máte dotazy? <a href=\"%s\">Podívejte se na video</a>."
 
 #: src/admin-views/events-meta-box.php:60
 msgid "Time &amp; Date"
-msgstr "Čas &amp; Datum"
+msgstr "Datum a čas"
 
 #: src/io/csv/admin-views/import.php:43
 msgid "Import Type:"
@@ -876,7 +876,7 @@ msgstr "Typ importu:"
 
 #: src/admin-views/events-meta-box.php:67
 msgid "You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page."
-msgstr ""
+msgstr "Změnili jste pravidla pro opakování této %1$s. Uložením této %1$s zaktualizujete i všechny budoucí %2$s.  Pokud jste nechtěli měnit všechny %2$s, pak prosím obnovte tuto stránku."
 
 #: src/io/csv/admin-views/import.php:55
 msgid "CSV File:"
@@ -884,7 +884,7 @@ msgstr "CSV soubor:"
 
 #: src/admin-views/events-meta-box.php:70
 msgid "All Day %s:"
-msgstr "Celý den %s:"
+msgstr "Celodenní %s:"
 
 #: src/io/csv/admin-views/import.php:59
 msgid "Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file is UTF-8 encoded? Make sure to specify the character encoding when you save the file, or pass it through a <a href='http://i-tools.org/charset/exec?dest=utf-8&src=auto&download=1'>conversion tool</a>."
@@ -925,7 +925,7 @@ msgstr "Importování bylo dokončeno!"
 
 #: src/admin-views/events-meta-box.php:195
 msgid "%s Website"
-msgstr "%s Www"
+msgstr "Webová stránka %s"
 
 #: src/io/csv/admin-views/result.php:19
 msgid "Inserted: %d"
@@ -941,7 +941,7 @@ msgstr "Aktualizováno: %d"
 
 #: src/admin-views/events-meta-box.php:229
 msgid "%s Cost"
-msgstr "%s Cena"
+msgstr "Vstupné (cena %s)"
 
 #: src/io/csv/admin-views/result.php:21
 msgid "Skipped: %d"
@@ -981,17 +981,17 @@ msgstr "Cena:"
 
 #: src/admin-views/events-meta-box.php:263
 msgid "Enter a 0 for %s that are free or leave blank to hide the field."
-msgstr ""
+msgstr "Zadejte hodnotu 0 pro %s, které jsou zdarma. Pokud nic nezadáte, pole bude skryto."
 
 #: src/admin-views/new-organizer-meta-section.php:15
 #: src/admin-views/organizer-meta-box.php:24
 #: src/admin-views/venue-meta-box.php:25
 msgid "%s Name:"
-msgstr "%s Jméno:"
+msgstr "%s (název):"
 
 #: src/views/day/nav.php:16
 msgid "Day Navigation"
-msgstr "Navigece ve dnech"
+msgstr "Navigace pro dny"
 
 #: src/admin-views/new-organizer-meta-section.php:21
 #: src/admin-views/organizer-meta-box.php:31
@@ -1005,7 +1005,7 @@ msgstr "Telefon:"
 
 #: src/views/day/single-event.php:66 src/views/list/single-event.php:70
 msgid "Find out more"
-msgstr "Více informací"
+msgstr "Zobrazit více"
 
 #: src/admin-views/new-organizer-meta-section.php:27
 #: src/admin-views/organizer-meta-box.php:37
@@ -1021,7 +1021,7 @@ msgstr "Webová stránka:"
 
 #: src/views/list/nav.php:19
 msgid "%s List Navigation"
-msgstr "%s Seznam - navigace"
+msgstr "Navigace pro seznam (%s)"
 
 #: src/admin-views/new-organizer-meta-section.php:35
 #: src/admin-views/organizer-meta-box.php:43
@@ -1047,11 +1047,11 @@ msgstr "Další %s <span>&raquo;</span>"
 #: src/admin-views/organizer-meta-box.php:75
 #: src/admin-views/venue-meta-box.php:193
 msgid "%s Name Already Exists"
-msgstr "%s Jméno již existuje"
+msgstr "%s se zadaným názvem již existuje"
 
 #: src/views/modules/bar.php:30 src/views/modules/bar.php:61
 msgid "Find %s"
-msgstr "Najít %s"
+msgstr "Vyhledat %s"
 
 #: src/admin-views/tickets/attendees.php:17
 msgid "Event Summary"
@@ -1075,7 +1075,7 @@ msgstr "Datum / čas zahájení:"
 
 #: src/views/modules/meta/details.php:119
 msgid "%s Tags:"
-msgstr "%s Štítky:"
+msgstr "Štítky %s:"
 
 #: src/admin-views/tickets/attendees.php:32
 msgid "End Date / Time:"
@@ -1083,7 +1083,7 @@ msgstr "Datum / čas ukončení:"
 
 #: src/functions/template-tags/general.php:1312
 msgid "%s for"
-msgstr "%s pro"
+msgstr "%s na"
 
 #: src/admin-views/tickets/attendees.php:82
 msgid "Ticket Sales"
@@ -1096,9 +1096,9 @@ msgstr "Zobrazit více »"
 #: src/admin-views/tickets/attendees.php:99
 msgid "(%d awaiting review)"
 msgid_plural "(%d awaiting review)"
-msgstr[0] "(%d čekající hodnocení)"
-msgstr[1] "(%d čekající hodnocení)"
-msgstr[2] "(%d čekajících hodnocení)"
+msgstr[0] "(%d čeká na vyřízení)"
+msgstr[1] "(%d čekají na vyřízení)"
+msgstr[2] "(%d čeká na vyřízení)"
 
 #: src/views/month/nav.php:18
 msgid "Calendar Month Navigation"
@@ -1107,13 +1107,13 @@ msgstr "Navigace pro měsíce v kalendáři"
 #: src/views/month/single-day.php:43
 msgid "View 1 %1$s"
 msgid_plural "View All %2$s %3$s"
-msgstr[0] "Zobrazit 1 %1$s"
-msgstr[1] "Zobrazit všechny %2$s %3$s"
-msgstr[2] "Zobrazit všechny %2$s %3$s"
+msgstr[0] "Zobrazit %1$s"
+msgstr[1] "Zobrazit všechny %3$s (%2$s)"
+msgstr[2] "Zobrazit všechny %3$s (%2$s)"
 
 #: src/views/single-event.php:27
 msgid "&laquo; All %s"
-msgstr "&laquo; Vše %s"
+msgstr "&laquo; všechny %s"
 
 #: src/admin-views/tickets/attendees.php:127
 msgid "Tickets sold:"
@@ -1121,11 +1121,11 @@ msgstr "Prodáno vstupenek:"
 
 #: src/views/single-event.php:46 src/views/single-event.php:79
 msgid "%s Navigation"
-msgstr "%s Navigace"
+msgstr "Navigace pro %s"
 
 #: src/admin-views/tickets/attendees.php:136
 msgid "Finalized:"
-msgstr ""
+msgstr "Dokončeno:"
 
 #: src/views/tickets/attendees-email.php:24
 msgid "Attendee List"
@@ -1133,7 +1133,7 @@ msgstr "Seznam účastníků"
 
 #: src/admin-views/tickets/attendees.php:139
 msgid "Awaiting review:"
-msgstr "Čekající na schválení:"
+msgstr "Čeká na vyřízení:"
 
 #: src/views/tickets/email.php:26
 msgid "Your tickets"
@@ -1169,7 +1169,7 @@ msgstr "Vybrat"
 
 #: src/views/widgets/list-widget.php:71
 msgid "There are no upcoming %s at this time."
-msgstr ""
+msgstr "V tuto chvíli nejsou k dispozici žádné nadcházející %s."
 
 #: src/admin-views/tickets/attendees.php:184
 msgid "or"
@@ -1197,7 +1197,7 @@ msgstr "Prodáno %d"
 
 #: src/admin-views/tickets/meta-box.php:23
 msgid "This event was created using Community Events. Are you sure you want to sell tickets for it?"
-msgstr "Tato akce byla vytvořena pomocí Komunitních akcí. Opravdu si přejete prodávat vstupenky na tuto akci?"
+msgstr "Tato akce byla vytvořena jako komunitní akce. Opravdu si přejete prodávat vstupenky na tuto akci?"
 
 #: src/admin-views/tickets/meta-box.php:34
 msgid "Upload image for the ticket header"
@@ -1246,11 +1246,11 @@ msgstr "(pro vstupné zdarma ponechte prázdné nebo zadejte 0)"
 
 #: src/admin-views/tickets/meta-box.php:125
 msgid "Sale Price:"
-msgstr "Akční cena:"
+msgstr "Cena po slevě:"
 
 #: src/admin-views/tickets/meta-box.php:131
 msgid "(Current sale price - this can be managed via the product editor)"
-msgstr "(Aktuální cena - může být upravena přes editor produktů)"
+msgstr "(aktuální prodejní cena - může být dále upravena v editoru produktů)"
 
 #: src/admin-views/tickets/meta-box.php:137
 msgid "Start sale:"
@@ -1282,7 +1282,7 @@ msgstr "Nastavení zobrazení"
 
 #: src/admin-views/tribe-options-display.php:56
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
-msgstr ""
+msgstr "Následující nastavení ovlivňuje zobrazování vašeho kalendáře. Pokud se vám něco nezobrazuje správně, zkuste přepnout mezi třemi dodanými styly nebo zvolte šablonu pro stránky z vámi použité WordPress šablony.</p><p>Mohou nastat situace, kdy žádná z hotových šablon nebude úplně perfektní. Podívejte se na <a href=\"%s\">naší příručku šablonáře</a> s pokyny pro uživatelské úpravy."
 
 #: src/admin-views/tribe-options-display.php:70
 msgid "Basic Template Settings"
@@ -1350,15 +1350,15 @@ msgstr "Počet akcí na den v měsíčním přehledu"
 
 #: src/admin-views/tribe-options-display.php:127
 msgid "Change the default 3 events per day in month view. Please note there may be performance issues if you set this too high. <a href=\"%s\">Read more</a>."
-msgstr ""
+msgstr "Můžete změnit výchozí počet 3 akcí na den v měsíčním přehledu. Berte prosím na vědomí, že příliš vysoká hodnota může způsobovat problémy s výkonem. <a href=\"%s\">Více informací</a>."
 
 #: src/admin-views/tribe-options-display.php:134
 msgid "Enable the Month View Cache"
-msgstr "Povolit cache Měsíčního přehledu"
+msgstr "Povolit cache měsíčního přehledu"
 
 #: src/admin-views/tribe-options-display.php:135
 msgid "Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href=\"%s\">Read more</a>."
-msgstr ""
+msgstr "Zaškrtnutím této volby se uloží do cache (jako transient) HTML výstup vašeho měsíčního přehledu, což může na webech s velkým množstvím akcí zrychlit generování kalendáře. <a href=\"%s\">Více informací</a>."
 
 #: src/admin-views/tribe-options-display.php:141
 msgid "Date Format Settings"
@@ -1366,55 +1366,55 @@ msgstr "Nastavení formátu data"
 
 #: src/admin-views/tribe-options-display.php:145
 msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
-msgstr ""
+msgstr "<p>Následující tři pole používají k formátování data stejné volby, které jsou dostupné u PHP funkce date(). <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">O možnostech vlastního formátu data se dočtete zde</a>.</p>"
 
 #: src/admin-views/tribe-options-display.php:149
 msgid "Date with year"
-msgstr "Datum se zobrazením roku"
+msgstr "Datum s letopočtem"
 
 #: src/admin-views/tribe-options-display.php:150
 msgid "Enter the format to use for displaying dates with the year. Used when showing an event from a past or future year, also used for dates in view headers."
-msgstr "Zadejte formát k použití pro zobrazení dat s rokem. Používá se při zobrazení události z minulosti nebo pro budoucí rok, bude také použitý pro data zobrazená v záhlaví."
+msgstr "Zadejte formát pro zobrazování data včetně roku. Používá se při zobrazení akce z předešlého nebo příštího roku, a také při zobrazení data v záhlaví přehledů."
 
 #: src/admin-views/tribe-options-display.php:157
 msgid "Date without year"
-msgstr "Datum bez zobrazení roku"
+msgstr "Datum bez letopočtu"
 
 #: src/admin-views/tribe-options-display.php:158
 msgid "Enter the format to use for displaying dates without a year. Used when showing an event from the current year."
-msgstr ""
+msgstr "Zadejte formát pro zobrazování data bez uvedení roku. Používá se při zobrazení akce z aktuálního roku."
 
 #: src/admin-views/tribe-options-display.php:165
 msgid "Month and year format"
-msgstr "Formát měsíce a roku"
+msgstr "Formát pro měsíc a rok"
 
 #: src/admin-views/tribe-options-display.php:166
 msgid "Enter the format to use for dates that show a month and year only. Used on month view."
-msgstr ""
+msgstr "Zadejte formát pro data, která uvádí pouze měsíc a rok. Používá se u měsíčního přehledu."
 
 #: src/admin-views/tribe-options-display.php:173
 msgid "Date time separator"
-msgstr "Oddělovač času"
+msgstr "Oddělovač data a času"
 
 #: src/admin-views/tribe-options-display.php:174
 msgid "Enter the separator that will be placed between the date and time, when both are shown."
-msgstr ""
+msgstr "Zadejte oddělovač, který se vloží mezi datum a čas v případech, kdy se uvádí oba údaje."
 
 #: src/admin-views/tribe-options-display.php:181
 msgid "Time range separator"
-msgstr "Oddělovač času"
+msgstr "Oddělovač časového rozmezí"
 
 #: src/admin-views/tribe-options-display.php:182
 msgid "Enter the separator that will be used between the start and end time of an event."
-msgstr ""
+msgstr "Zadejte oddělovač, který se vloží mezi čas zahájení a ukončení akce."
 
 #: src/admin-views/tribe-options-display.php:189
 msgid "Datepicker Date Format"
-msgstr ""
+msgstr "Formát data pro Datepicker"
 
 #: src/admin-views/tribe-options-display.php:190
 msgid "Select the date format to use in datepickers"
-msgstr ""
+msgstr "Vyberte formát data, který se použije u datumového ovládacího prvku (datepicker)."
 
 #: src/admin-views/tribe-options-display.php:207
 msgid "Advanced Template Settings"
@@ -1438,7 +1438,7 @@ msgstr "Pokud se vyznáte v HTML, můžete zde přidat dodatečný kód za šabl
 
 #: src/admin-views/tribe-options-general.php:12
 msgid "Finding & extending your calendar."
-msgstr "Nalezení a přidání dalších funkcí do vašeho kalendáře."
+msgstr "Nalezení a rozšíření vašeho kalendáře."
 
 #: src/admin-views/tribe-options-general.php:17
 msgid "Finding your calendar."
@@ -1618,15 +1618,15 @@ msgstr "Zobrazit uvítací stránku"
 
 #: src/admin-views/tribe-options-general.php:199
 msgid "View the page that displayed when you initially installed the plugin."
-msgstr ""
+msgstr "Ukázat stránku, která se vám zobrazila po prvotní instalaci pluginu."
 
 #: src/admin-views/tribe-options-general.php:204
 msgid "View Update Page"
-msgstr "Zobrazit stránku s aktualizacemi"
+msgstr "Zobrazit stránku aktualizace"
 
 #: src/admin-views/tribe-options-general.php:204
 msgid "View the page that displayed when you updated the plugin."
-msgstr ""
+msgstr "Ukázat stránku, která se vám zobrazila po aktualizaci pluginu."
 
 #: src/admin-views/tribe-options-help.php:33
 msgctxt "not available"
@@ -1856,7 +1856,7 @@ msgstr "Andorra"
 
 #: src/Tribe/Activation_Page.php:196
 msgid "Welcome to The Events Calendar"
-msgstr "Vítejte v The Events Calendar"
+msgstr "Vítejte u pluginu The Events Calendar"
 
 #: src/Tribe/View_Helpers.php:52
 msgid "Angola"
@@ -1864,7 +1864,7 @@ msgstr "Angola"
 
 #: src/Tribe/Activation_Page.php:216
 msgid "Thanks for Updating The Events Calendar"
-msgstr ""
+msgstr "Děkujeme za aktualizování pluginu The Events Calendar"
 
 #: src/Tribe/View_Helpers.php:53
 msgid "Anguilla"
@@ -1872,7 +1872,7 @@ msgstr "Anguilla"
 
 #: src/Tribe/Admin_List.php:219 src/Tribe/Main.php:1295
 msgid "%s Categories"
-msgstr "%s Kategorie"
+msgstr "Rubriky %s"
 
 #: src/Tribe/View_Helpers.php:54
 msgid "Antarctica"
@@ -1977,7 +1977,7 @@ msgstr "Barbados"
 
 #: src/Tribe/Credits.php:31
 msgid "This calendar is powered by The Events Calendar."
-msgstr "Kaledář běží na pluginu The Events Calendar."
+msgstr "Tento kalendář používá plugin The Events Calendar."
 
 #: src/Tribe/View_Helpers.php:66
 msgid "Belarus"
@@ -1985,7 +1985,7 @@ msgstr "Bělorusko"
 
 #: src/Tribe/Credits.php:48
 msgid "Rate <strong>The Events Calendar</strong> <a href=\"%1$s\" target=\"_blank\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%1$s\" target=\"_blank\">WordPress.org</a> to keep this plugin free.  Thanks from the friendly folks at Modern Tribe."
-msgstr ""
+msgstr "Ohodnocením pluginu <strong>The Events Calendar</strong> <a href=\"%1$s\" target=\"_blank\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> na webu <a href=\"%1$s\" target=\"_blank\">WordPress.org</a> ho pomůžete zachovat i nadále bezplatným. Vřelé díky od lidiček v Modern Tribe."
 
 #: src/Tribe/View_Helpers.php:67
 msgid "Belgium"
@@ -2034,7 +2034,7 @@ msgstr "Bolívie"
 #: src/Tribe/Importer/Admin_Page.php:15 src/Tribe/Importer/Admin_Page.php:16
 #: src/Tribe/Main.php:4011
 msgid "Import"
-msgstr "Importovat"
+msgstr "Import"
 
 #: src/Tribe/View_Helpers.php:73
 msgid "Bosnia And Herzegowina"
@@ -2058,7 +2058,7 @@ msgstr "Bouvetův ostrov"
 
 #: src/Tribe/Importer/Admin_Page.php:96
 msgid "Import: CSV"
-msgstr "CSV import:"
+msgstr "Import: CSV"
 
 #: src/Tribe/View_Helpers.php:76
 msgid "Brazil"
@@ -2190,7 +2190,7 @@ msgstr "Kokosové (Keelingovy) ostrovy"
 
 #: src/Tribe/Importer/Column_Mapper.php:66
 msgid "Event Category"
-msgstr "Rubrika akcí"
+msgstr "Rubrika akce"
 
 #: src/Tribe/View_Helpers.php:93
 msgid "Colombia"
@@ -2230,7 +2230,7 @@ msgstr "Cookovy ostrovy"
 
 #: src/Tribe/Importer/Column_Mapper.php:77
 msgid "Venue Address 2"
-msgstr "Adresa místa konání 2"
+msgstr "Adresa místa konání (2)"
 
 #: src/Tribe/View_Helpers.php:98
 msgid "Costa Rica"
@@ -2270,7 +2270,7 @@ msgstr "Kypr"
 
 #: src/Tribe/Importer/Column_Mapper.php:82
 msgid "Venue Website"
-msgstr "Webové stránky místa konání"
+msgstr "Web místa konání"
 
 #: src/Tribe/View_Helpers.php:103
 msgid "Czech Republic"
@@ -2527,7 +2527,7 @@ msgstr "Grenada"
 
 #: src/Tribe/Main.php:709
 msgid "The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s."
-msgstr ""
+msgstr "Následující pluginy jsou zastaralé: <b>%s</b>. Všechny doplňky jsou závislé na pluginu The Events Calendar a nebudou fungovat správně, pokud nejsou spárovány se správnou verzí. %sPodrobnější informace%s."
 
 #: src/Tribe/View_Helpers.php:134
 msgid "Guadeloupe"
@@ -2595,7 +2595,7 @@ msgstr "Svatý stolec (Vatikán)"
 
 #: src/Tribe/Main.php:1243 src/Tribe/Main.php:1261 src/Tribe/Main.php:1279
 msgid "Add New"
-msgstr "Vytvořit akci"
+msgstr "Vytvořit"
 
 #: src/Tribe/View_Helpers.php:143
 msgid "Honduras"
@@ -2604,7 +2604,7 @@ msgstr "Honduras"
 #: src/Tribe/Main.php:1244 src/Tribe/Main.php:1262 src/Tribe/Main.php:1280
 #: src/Tribe/Main.php:1405 src/Tribe/Main.php:1406
 msgid "Add New %s"
-msgstr "Přidat nový %s"
+msgstr "Vytvořit nový záznam (%s)"
 
 #: src/Tribe/View_Helpers.php:144
 msgid "Hong Kong"
@@ -2614,7 +2614,7 @@ msgstr "Hongkong"
 #: src/Tribe/Main.php:1263 src/Tribe/Main.php:1281 src/Tribe/Main.php:1425
 #: src/Tribe/Main.php:1477 src/Tribe/Main.php:3998
 msgid "Edit %s"
-msgstr "Upravit %s"
+msgstr "Upravit (%s)"
 
 #: src/Tribe/View_Helpers.php:145
 msgid "Hungary"
@@ -2622,7 +2622,7 @@ msgstr "Maďarsko"
 
 #: src/Tribe/Main.php:1246 src/Tribe/Main.php:1264 src/Tribe/Main.php:1282
 msgid "New %s"
-msgstr "Nové %s"
+msgstr "Vytvořit (%s)"
 
 #: src/Tribe/View_Helpers.php:146
 msgid "Iceland"
@@ -2630,7 +2630,7 @@ msgstr "Island"
 
 #: src/Tribe/Main.php:1247 src/Tribe/Main.php:1265 src/Tribe/Main.php:1283
 msgid "View %s"
-msgstr "Zobrazit %s"
+msgstr "Zobrazit (%s)"
 
 #: src/Tribe/View_Helpers.php:147
 msgid "India"
@@ -2646,7 +2646,7 @@ msgstr "Indonésie"
 
 #: src/Tribe/Main.php:1249 src/Tribe/Main.php:1267 src/Tribe/Main.php:1285
 msgid "No %s found"
-msgstr "Žádné %s nenalezeny"
+msgstr "Nebyly nalezeny žádné záznamy (%s)"
 
 #: src/Tribe/View_Helpers.php:149
 msgid "Iran (Islamic Republic Of)"
@@ -2654,7 +2654,7 @@ msgstr "Írán"
 
 #: src/Tribe/Main.php:1250 src/Tribe/Main.php:1268 src/Tribe/Main.php:1286
 msgid "No %s found in Trash"
-msgstr "Žádný %s nebyl v koši nalezen"
+msgstr "V koši nebyly nalezeny žádné záznamy (%s)"
 
 #: src/Tribe/View_Helpers.php:150
 msgid "Iraq"
@@ -2662,7 +2662,7 @@ msgstr "Irák"
 
 #: src/Tribe/Main.php:1296
 msgid "%s Category"
-msgstr "%s Kategorie"
+msgstr "Rubrika %s"
 
 #: src/Tribe/View_Helpers.php:151
 msgid "Ireland"
@@ -2670,7 +2670,7 @@ msgstr "Irsko"
 
 #: src/Tribe/Main.php:1297
 msgid "Search %s Categories"
-msgstr "Hledat %s v kategoriích"
+msgstr "Hledat rubriky %s"
 
 #: src/Tribe/View_Helpers.php:152
 msgid "Israel"
@@ -2678,7 +2678,7 @@ msgstr "Izrael"
 
 #: src/Tribe/Main.php:1298
 msgid "All %s Categories"
-msgstr "Všechny %s Kategorie"
+msgstr "Všechny rubriky %s"
 
 #: src/Tribe/View_Helpers.php:153
 msgid "Italy"
@@ -2686,7 +2686,7 @@ msgstr "Itálie"
 
 #: src/Tribe/Main.php:1299
 msgid "Parent %s Category"
-msgstr "Nadřazená %s kategorie"
+msgstr "Nadřazená rubrika %s"
 
 #: src/Tribe/View_Helpers.php:154
 msgid "Jamaica"
@@ -2694,7 +2694,7 @@ msgstr "Jamajka"
 
 #: src/Tribe/Main.php:1300
 msgid "Parent %s Category:"
-msgstr "Nadřazená %s kategorie:"
+msgstr "Nadřazená rubrika %s:"
 
 #: src/Tribe/View_Helpers.php:155
 msgid "Japan"
@@ -2702,7 +2702,7 @@ msgstr "Japonsko"
 
 #: src/Tribe/Main.php:1301
 msgid "Edit %s Category"
-msgstr "Upravit %s Kategorii"
+msgstr "Upravit rubriku %s"
 
 #: src/Tribe/View_Helpers.php:156
 msgid "Jordan"
@@ -2710,7 +2710,7 @@ msgstr "Jordánsko"
 
 #: src/Tribe/Main.php:1302
 msgid "Update %s Category"
-msgstr "Aktualizovat %s Kategorii"
+msgstr "Aktualizovat rubriku %s"
 
 #: src/Tribe/View_Helpers.php:157
 msgid "Kazakhstan"
@@ -2718,7 +2718,7 @@ msgstr "Kazachstán"
 
 #: src/Tribe/Main.php:1303
 msgid "Add New %s Category"
-msgstr "Přuidat novou %s kategorii"
+msgstr "Vytvořit novou rubriku %s"
 
 #: src/Tribe/View_Helpers.php:158
 msgid "Kenya"
@@ -2726,7 +2726,7 @@ msgstr "Keňa"
 
 #: src/Tribe/Main.php:1304
 msgid "New %s Category Name"
-msgstr "Nové %s jména kategorií"
+msgstr "Název nové rubriky %s"
 
 #: src/Tribe/View_Helpers.php:159
 msgid "Kiribati"
@@ -2734,7 +2734,7 @@ msgstr "Kiribati"
 
 #: src/Tribe/Main.php:1320
 msgid "%1$s updated. <a href=\"%2$s\">View %3$s</a>"
-msgstr "%1$s aktualiozováno. <a href=\"%2$s\">Zobrazit %3$s</a>"
+msgstr "%1$s byla aktualizována. <a href=\"%2$s\">Zobrazit stránku %3$s</a>"
 
 #: src/Tribe/View_Helpers.php:160
 msgid "Korea, Democratic People's Republic Of"
@@ -2759,7 +2759,7 @@ msgstr "Kuvajt"
 #: src/Tribe/Main.php:1323 src/Tribe/Main.php:1356 src/Tribe/Main.php:1359
 #: src/Tribe/Main.php:1375 src/Tribe/Main.php:1378
 msgid "%s updated."
-msgstr "%s aktualizováno."
+msgstr "%s – aktualizováno."
 
 #: src/Tribe/View_Helpers.php:163
 msgid "Kyrgyzstan"
@@ -2767,7 +2767,7 @@ msgstr "Kyrgyzstán"
 
 #: src/Tribe/Main.php:1325
 msgid "%1$s restored to revision from %2$s"
-msgstr ""
+msgstr "Následující verze %1$s byla úspěšně obnovena: %2$s"
 
 #: src/Tribe/View_Helpers.php:164
 msgid "Lao People's Democratic Republic"
@@ -2783,7 +2783,7 @@ msgstr "Lotyšsko"
 
 #: src/Tribe/Main.php:1331 src/Tribe/Main.php:1363 src/Tribe/Main.php:1382
 msgid "%s saved."
-msgstr "%s uloženo."
+msgstr "%s – uloženo."
 
 #: src/Tribe/View_Helpers.php:166
 msgid "Lebanon"
@@ -2791,7 +2791,7 @@ msgstr "Libanon"
 
 #: src/Tribe/Main.php:1333
 msgid "%1$s submitted. <a target=\"_blank\" href=\"%2$s\">Preview %3$s</a>"
-msgstr ""
+msgstr "%1$s byla odeslána ke schválení. <a target=\"_blank\" href=\"%2$s\">Zobrazit náhled %3$s</a>"
 
 #: src/Tribe/View_Helpers.php:167
 msgid "Lesotho"
@@ -2799,7 +2799,7 @@ msgstr "Lesotho"
 
 #: src/Tribe/Main.php:1339
 msgid "%1$s scheduled for: <strong>%2$s</strong>. <a target=\"_blank\" href=\"%3$s\">Preview %4$s</a>"
-msgstr ""
+msgstr "%1$s bude automaticky publikována: <strong>%2$s</strong>. <a target=\"_blank\" href=\"%3$s\">Zobrazit náhled %4$s</a>"
 
 #: src/Tribe/View_Helpers.php:168
 msgid "Liberia"
@@ -2815,7 +2815,7 @@ msgstr "Libye"
 
 #: src/Tribe/Main.php:1347
 msgid "%1$s draft updated. <a target=\"_blank\" href=\"%2$s\">Preview %3$s</a>"
-msgstr ""
+msgstr "Koncept %1$s byl uložen. <a target=\"_blank\" href=\"%2$s\">Zobrazit náhled %3$s</a>"
 
 #: src/Tribe/View_Helpers.php:170
 msgid "Liechtenstein"
@@ -2823,7 +2823,7 @@ msgstr "Lichtenštejnsko"
 
 #: src/Tribe/Main.php:1361 src/Tribe/Main.php:1380
 msgid "%s restored to revision from %s"
-msgstr "%s obnoveno do stavu revize od %s"
+msgstr "Následující verze (%s) byla úspěšně obnovena: %s"
 
 #: src/Tribe/View_Helpers.php:171
 msgid "Lithuania"
@@ -2831,7 +2831,7 @@ msgstr "Litva"
 
 #: src/Tribe/Main.php:1362 src/Tribe/Main.php:1381
 msgid "%s published."
-msgstr "%s publikováno."
+msgstr "%s – publikováno."
 
 #: src/Tribe/View_Helpers.php:172
 msgid "Luxembourg"
@@ -2839,7 +2839,7 @@ msgstr "Lucembursko"
 
 #: src/Tribe/Main.php:1364 src/Tribe/Main.php:1383
 msgid "%s submitted."
-msgstr "%s uloženo."
+msgstr "%s – odesláno ke schválení."
 
 #: src/Tribe/View_Helpers.php:173
 msgid "Macau"
@@ -2847,7 +2847,7 @@ msgstr "Macao"
 
 #: src/Tribe/Main.php:1366 src/Tribe/Main.php:1385
 msgid "%s scheduled for: <strong>%2$s</strong>."
-msgstr "%s naplánováno na: <strong>%2$s</strong>."
+msgstr "%s – bude automaticky publikováno: <strong>%2$s</strong>."
 
 #: src/Tribe/View_Helpers.php:174
 msgid "Macedonia"
@@ -2855,7 +2855,7 @@ msgstr "Makedonie"
 
 #: src/Tribe/Main.php:1370 src/Tribe/Main.php:1389
 msgid "%s draft updated."
-msgstr "%s koncept aktualizován."
+msgstr "Koncept (%s) byl uložen."
 
 #: src/Tribe/View_Helpers.php:175
 msgid "Madagascar"
@@ -2864,7 +2864,7 @@ msgstr "Madagaskar"
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:88 src/Tribe/Main.php:1424
 #: src/Tribe/Main.php:1475
 msgid "Use Saved %s:"
-msgstr "Použít uloženou %s"
+msgstr "Použít dřívější hodnoty"
 
 #: src/Tribe/View_Helpers.php:176
 msgid "Malawi"
@@ -2872,7 +2872,7 @@ msgstr "Malawi"
 
 #: src/Tribe/Main.php:1452
 msgid "Without a defined location your event will not display a <a href=\"https://support.google.com/webmasters/answer/164506\" target=\"_blank\">Google Rich Snippet</a> on the search results."
-msgstr ""
+msgstr "Pokud neurčíte žádné místo, vaše akce se nezobrazí jako úryvek <a href=\"https://support.google.com/webmasters/answer/164506\" target=\"_blank\">Google Rich Snippet</a> ve výsledcích vyhledávání."
 
 #: src/Tribe/View_Helpers.php:177
 msgid "Malaysia"
@@ -2880,7 +2880,7 @@ msgstr "Malajsie"
 
 #: src/Tribe/Main.php:1543 src/Tribe/Main.php:1625
 msgid "Use New %s"
-msgstr "Použít novou %s"
+msgstr "Použít nový záznam"
 
 #: src/Tribe/View_Helpers.php:178
 msgid "Maldives"
@@ -2888,7 +2888,7 @@ msgstr "Maledivy"
 
 #: src/Tribe/Main.php:1545 src/Tribe/Main.php:1627
 msgid "My %s"
-msgstr "Moje %s"
+msgstr "Moje záznamy"
 
 #: src/Tribe/View_Helpers.php:179
 msgid "Mali"
@@ -2896,7 +2896,7 @@ msgstr "Mali"
 
 #: src/Tribe/Main.php:1550 src/Tribe/Main.php:1632
 msgid "Available %s"
-msgstr "Dostupné %s"
+msgstr "%s k dispozici"
 
 #: src/Tribe/View_Helpers.php:180
 msgid "Malta"
@@ -2904,7 +2904,7 @@ msgstr "Malta"
 
 #: src/Tribe/Main.php:1561 src/Tribe/Main.php:1643
 msgid "No saved %s exists."
-msgstr ""
+msgstr "Zatím nebyl uložen žádný záznam."
 
 #: src/Tribe/View_Helpers.php:181
 msgid "Marshall Islands"
@@ -2962,7 +2962,7 @@ msgstr "Mikronésie"
 
 #: src/Tribe/Main.php:3579
 msgid "%s Options"
-msgstr "%s Nastavení"
+msgstr "Nastavení %s"
 
 #: src/Tribe/View_Helpers.php:188
 msgid "Moldova, Republic Of"
@@ -2970,7 +2970,7 @@ msgstr "Moldavsko"
 
 #: src/Tribe/Main.php:3586 src/Tribe/Main.php:3597
 msgid "%s Information"
-msgstr "%s Informace"
+msgstr "%s – údaje"
 
 #: src/Tribe/View_Helpers.php:189
 msgid "Monaco"
@@ -3026,7 +3026,7 @@ msgstr "Myanmar"
 
 #: src/Tribe/Main.php:3940
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: src/Tribe/View_Helpers.php:196
 msgid "Namibia"
@@ -3042,7 +3042,7 @@ msgstr "Nauru"
 
 #: src/Tribe/Main.php:3987
 msgid "Add %s"
-msgstr "Přidat %s"
+msgstr "Vytvořit (%s)"
 
 #: src/Tribe/View_Helpers.php:198
 msgid "Nepal"
@@ -3114,7 +3114,7 @@ msgstr "Niue"
 
 #: src/Tribe/Main.php:4296
 msgid "%s In"
-msgstr "%s V"
+msgstr "%s v"
 
 #: src/Tribe/View_Helpers.php:207
 msgid "Norfolk Island"
@@ -3122,7 +3122,7 @@ msgstr "Norfolk"
 
 #: src/Tribe/Main.php:4298
 msgid "%s From"
-msgstr "%s Od"
+msgstr "%s od"
 
 #: src/Tribe/View_Helpers.php:208
 msgid "Northern Mariana Islands"
@@ -3130,7 +3130,7 @@ msgstr "Severní Mariany"
 
 #: src/Tribe/Main.php:4300
 msgid "Day Of"
-msgstr "Den z"
+msgstr "Dne"
 
 #: src/Tribe/View_Helpers.php:209
 msgid "Norway"
@@ -3353,7 +3353,7 @@ msgstr "Seychely"
 
 #: src/Tribe/Support.php:137
 msgid "Unknown or not set"
-msgstr "Neznámý nebo nenastavený"
+msgstr "Neznámé nebo nenastavené"
 
 #: src/Tribe/View_Helpers.php:237
 msgid "Sierra Leone"
@@ -3369,7 +3369,7 @@ msgstr "Singapur"
 
 #: src/Tribe/Template/Day.php:102 src/Tribe/Template/Day.php:118
 msgid "Ongoing"
-msgstr "Probíhající"
+msgstr "Právě probíhající"
 
 #: src/Tribe/View_Helpers.php:239
 msgid "Slovakia (Slovak Republic)"
@@ -3405,7 +3405,7 @@ msgstr "Jižní Georgie a Jižní Sandwichovy ostrovy"
 
 #: src/Tribe/Template/Month.php:692
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
-msgstr ""
+msgstr "Požadované datum \"%s\" nebylo platné &ndash; místo toho se zobrazuje aktuální měsíc"
 
 #: src/Tribe/View_Helpers.php:245
 msgid "Spain"
@@ -3441,7 +3441,7 @@ msgstr "Surinam"
 
 #: src/Tribe/Template_Factory.php:361
 msgid "No previous %s "
-msgstr ""
+msgstr "Žádné předchozí %s"
 
 #: src/Tribe/View_Helpers.php:251
 msgid "Svalbard And Jan Mayen Islands"
@@ -3556,7 +3556,7 @@ msgstr "Tunisko"
 
 #: src/Tribe/Tickets/Attendees_Table.php:213 src/Tribe/iCal.php:119
 msgid "Export"
-msgstr "Export"
+msgstr "Exportovat"
 
 #: src/Tribe/View_Helpers.php:265
 msgid "Turkey"
@@ -3564,7 +3564,7 @@ msgstr "Turecko"
 
 #: src/Tribe/Tickets/Attendees_Table.php:219
 msgid "Filter by purchaser name, ticket #, order # or security code"
-msgstr ""
+msgstr "Filtrovat podle jména kupce, čísla vstupenky, objednávky nebo kontrolního kódu"
 
 #: src/Tribe/View_Helpers.php:266
 msgid "Turkmenistan"
