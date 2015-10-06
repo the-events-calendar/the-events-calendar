@@ -49,7 +49,7 @@ class Tribe__Events__Importer__Admin_Page {
 				$value = Tribe__Events__Importer__Options::get_default_post_status( 'csv' );
 			}
 
-			$field = new Tribe__Events__Field( $key, $field_args, $value );
+			new Tribe__Events__Field( $key, $field_args, $value );
 		}
 	}
 

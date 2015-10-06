@@ -25,7 +25,6 @@ class Tribe__Events__Importer__Plugin {
 		add_action( 'admin_menu', array( self::$admin, 'register_admin_page' ) );
 		add_action( 'load-tribe_events_page_events-importer', array( self::$admin, 'handle_submission' ) );
 		add_action( 'tribe-import-general-settings', array( self::$admin, 'add_settings_fields' ) );
-
 	}
 
 	public static function get_admin_object() {

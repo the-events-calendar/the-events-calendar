@@ -66,19 +66,22 @@ class Tribe__Events__Importer__Options {
 		}
 
 		if ( ! isset( $options[ $type ] ) ) {
-			$options[ $type ] = apply_filters( 'tribe-import-default_post_status_non_saved', 'publish', $type );
+			$options[ $type ] = apply_filters( 'tribe-import-default-post-status-non-saved', 'publish', $type );
 		}
 
-		return apply_filters( 'tribe-import-default_post_status', $options[ $type ], $type );
+		/**
+		 * Allows users to filter
+		 */
+		return apply_filters( 'tribe-import-default-post-status', $options[ $type ], $type );
 	}
 
 	public static function get_possible_stati() {
 		$stati = array(
-			'publish' => __( 'Published', 'tribe-events-ical-importer' ),
-			'pending' => __( 'Pending', 'tribe-events-ical-importer' ),
-			'draft'   => __( 'Draft', 'tribe-events-ical-importer' ),
+			'publish' => __( 'Published', 'the-events-calendar' ),
+			'pending' => __( 'Pending', 'the-events-calendar' ),
+			'draft'   => __( 'Draft', 'the-events-calendar' ),
 		);
 
-		return apply_filters( 'tribe-import-possible_stati', $stati );
+		return apply_filters( 'tribe-import-possible-stati', $stati );
 	}
 }
