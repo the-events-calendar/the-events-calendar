@@ -1425,7 +1425,6 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	/**
 	 * Convert the event recurrence meta into a human readable string
 	 *
-	 * @TODO: get this to work for arbitrary recurrence
 	 * @TODO: there's a great deal of duplication between this method and tribe_events_pro_admin.recurrence.update_rule_recurrence_text (events-recurrence.js)
 	 *        let's consider generating once (by JS?) and saving the result for re-use instead
 	 *
