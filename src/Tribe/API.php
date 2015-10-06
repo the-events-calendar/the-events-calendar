@@ -158,18 +158,20 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			}
 
 			// Set sticky state for calendar view.
-			if ( isset( $data['EventShowInCalendar'] ) && $data['EventShowInCalendar'] == 'yes' && $event->menu_order != '-1' ) {
-				$update_event = array(
-					'ID'         => $event_id,
-					'menu_order' => '-1',
-				);
-				wp_update_post( $update_event );
-			} elseif ( ( ! isset( $data['EventShowInCalendar'] ) || $data['EventShowInCalendar'] != 'yes' ) && $event->menu_order == '-1' ) {
-				$update_event = array(
-					'ID'         => $event_id,
-					'menu_order' => '0',
-				);
-				wp_update_post( $update_event );
+			if ( $event instanceof WP_Post ) {
+				if ( isset( $data['EventShowInCalendar'] ) && $data['EventShowInCalendar'] == 'yes' && $event->menu_order != '-1' ) {
+					$update_event = array(
+						'ID'         => $event_id,
+						'menu_order' => '-1',
+					);
+					wp_update_post( $update_event );
+				} elseif ( ( ! isset( $data['EventShowInCalendar'] ) || $data['EventShowInCalendar'] != 'yes' ) && $event->menu_order == '-1' ) {
+					$update_event = array(
+						'ID'         => $event_id,
+						'menu_order' => '0',
+					);
+					wp_update_post( $update_event );
+				}
 			}
 
 			do_action( 'tribe_events_update_meta', $event_id, $data );

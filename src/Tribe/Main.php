@@ -24,7 +24,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '3.12.2';
+		const VERSION           = '3.12.3';
 		const MIN_ADDON_VERSION = '3.12';
 		const FEED_URL          = 'https://theeventscalendar.com/feed/';
 		const INFO_API_URL      = 'http://wpapi.org/api/plugin/the-events-calendar.php';
@@ -802,6 +802,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'priority'  => 60,
 				'show_save' => false,
 			) );
+
+			include_once $this->pluginPath . 'src/admin-views/tribe-options-addons-api.php';
 		}
 
 		/**
@@ -1331,7 +1333,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$messages[ self::POSTTYPE ] = array(
 				0  => '', // Unused. Messages start at index 1.
-				1  => sprintf( esc_html__( '%1$s updated. <a href="%2$s">View %3$s</a>', 'the-events-calendar' ), $this->singular_event_label, esc_url( get_permalink( $post_ID ) ), strtolower( $this->singular_event_label ) ),
+				1  => sprintf(
+					esc_html__( '%1$s updated. %2$sView %3$s', 'the-events-calendar' ),
+					esc_html( $this->singular_event_label ),
+					'<a href="' . esc_url( get_permalink( $post_ID ) ) . '">',
+					esc_html( $this->singular_event_label ) . '</a>'
+				),
 				2  => esc_html__( 'Custom field updated.', 'the-events-calendar' ),
 				3  => esc_html__( 'Custom field deleted.', 'the-events-calendar' ),
 				4  => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_event_label ),

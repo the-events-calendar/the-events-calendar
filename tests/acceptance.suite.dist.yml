@@ -6,5 +6,4 @@ class_name: AcceptanceTester
 modules:
     enabled:
         - WPBrowser
-        - WPDb
         - \Helper\Acceptance

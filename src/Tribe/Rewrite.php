@@ -74,6 +74,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				$this->hook_lock = true;
 
 				// Hook the methods
+				add_action( 'tribe_events_pre_rewrite', array( $this, 'generate_core_rules' ) );
 				add_filter( 'generate_rewrite_rules', array( $this, 'filter_generate' ) );
 				add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15, 2 );
 
@@ -91,13 +92,43 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @return void
 		 */
 		public function filter_generate( WP_Rewrite $wp_rewrite ) {
+			// Gets the rewrite bases and completes any other required setup work
+			$this->setup( $wp_rewrite );
+
+			/**
+			 * Use this to change the Tribe__Events__Rewrite instance before new rules
+			 * are committed.
+			 *
+			 * Should be used when you want to add more rewrite rules without having to
+			 * deal with the array merge, noting that rules for The Events Calendar are
+			 * themselves added via this hook (default priority).
+			 *
+			 * @var Tribe__Events__Rewrite $rewrite
+			 */
+			do_action( 'tribe_events_pre_rewrite', $this );
+
+			/**
+			 * Backwards Compatibility filter, this filters the WP Rewrite Rules.
+			 * @todo  Check if is worth deprecating this hook
+			 */
+			$wp_rewrite->rules = apply_filters( 'tribe_events_rewrite_rules', $this->rules + $wp_rewrite->rules, $this );
+		}
+
+		/**
+		 * Sets up the rules required by The Events Calendar.
+		 *
+		 * This should be called during tribe_events_pre_rewrite, which means other plugins needing to add rules
+		 * of their own can do so on the same hook at a lower or higher priority, according to how specific
+		 * those rules are.
+		 *
+		 * @param Tribe__Events__Rewrite $rewrite
+		 */
+		public function generate_core_rules( Tribe__Events__Rewrite $rewrite ) {
 			$options = array(
 				'default_view' => Tribe__Events__Main::instance()->getOption( 'viewOption', 'month' ),
 			);
 
-			// We need to Setup before using the Add methods
-			$this->setup( $wp_rewrite )
-
+			$rewrite
 				// Single
 				->single( array( '(\d{4}-\d{2}-\d{2})' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'eventDate' => '%2' ) )
 				->single( array( '{{ all }}' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'post_type' => Tribe__Events__Main::POSTTYPE, 'eventDisplay' => 'all' ) )
@@ -146,18 +177,6 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				->tag( array( 'ical' ), array( 'ical' => 1 ) )
 				->tag( array( 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'feed' => '%2' ) )
 				->tag( array(), array( 'eventDisplay' => $options['default_view'] ) );
-
-			/**
-			 * Use this to change the instance of the Rewrite
-			 * Should be used when you want to add more rewrite rules without having to deal with the array merge
-			 */
-			do_action( 'tribe_events_pre_rewrite', $this );
-
-			/**
-			 * Backwards Compatibility filter, this filters the WP Rewrite Rules.
-			 * @todo  Check if is worth deprecating this hook
-			 */
-			$wp_rewrite->rules = apply_filters( 'tribe_events_rewrite_rules', $this->rules + $wp_rewrite->rules, $this );
 		}
 
 		/**

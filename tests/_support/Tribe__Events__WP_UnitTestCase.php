@@ -17,8 +17,6 @@ class Tribe__Events__WP_UnitTestCase extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		tribe_load_active_plugins();
-		tribe_call_setup_functions();
 	}
 
 }
