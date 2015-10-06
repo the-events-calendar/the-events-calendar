@@ -21,26 +21,36 @@ class Tribe__Events__Importer__Admin_Page {
 	}
 
 	public function add_settings_fields() {
-		?>
-		<h3><?php esc_html_e( 'CSV Import Settings', 'the-events-calendar' ); ?></h3>
-		<p>
-			<?php
-			esc_html_e( 'Default imported event status:', 'the-events-calendar' );
+		$fields = array(
+			'csv-title' => array(
+				'type' => 'html',
+				'html' => '<h3>' . esc_html__( 'CSV Import Settings', 'the-events-calendar' ) . '</h3>',
+			),
+			'tribe-form-content-start' => array(
+				'type' => 'html',
+				'html' => '<div class="tribe-settings-form-wrap">',
+			),
+			'imported_post_status[csv]' => array(
+				'type' => 'dropdown',
+				'label' => __( 'Default status to use for imported events', 'the-events-calendar' ),
+				'options' => Tribe__Events__Importer__Options::get_possible_stati(),
+				'validation_type' => 'options',
+				'parent_option' => Tribe__Events__Main::OPTIONNAME,
+			),
+			'tribe-form-content-end' => array(
+				'type' => 'html',
+				'html' => '</div>',
+			),
+		);
+		foreach ( $fields as $key => $field_args ) {
+			if ( 'imported_post_status[csv]' !== $key ){
+				$value = Tribe__Events__Main::getOption( $key, null );
+			} else {
+				$value = Tribe__Events__Importer__Options::get_default_post_status( 'csv' );
+			}
 
-			$import_statuses = Tribe__Events__Importer__Options::get_possible_stati();
-			$selected = Tribe__Events__Importer__Options::get_default_post_status( 'csv' );
-			?>
-			<select name="imported_post_status[csv]">
-				<?php
-				foreach ( $import_statuses as $key => $value ) {
-					echo '<option value="' . esc_attr( $key ) . '" ' . selected( $key, $selected ) . '>
-					' . esc_html( $value ) . '
-				</option>';
-				}
-				?>
-			</select>
-		</p>
-		<?php
+			$field = new Tribe__Events__Field( $key, $field_args, $value );
+		}
 	}
 
 	public function render_admin_page_contents() {

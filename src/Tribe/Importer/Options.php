@@ -15,7 +15,8 @@ class Tribe__Events__Importer__Options {
 			$core = Tribe__Events__Main::instance();
 
 			foreach ( $options as $_option ) {
-				$core->setOption( $_option, $_POST[ $_option ] );
+				$value = isset( $_POST[ $_option ] ) ? $_POST[ $_option ] : null;
+				$core->setOption( $_option, $value );
 			}
 
 			add_action( 'tribe-import-under-heading', array( __CLASS__, 'settings_saved_message' ) );
@@ -52,7 +53,12 @@ class Tribe__Events__Importer__Options {
 	}
 
 	public static function get_default_post_status( $type = 'csv' ) {
-		$options = self::getOption( 'imported_post_status', array( 'csv' => 'publish' ) );
+		$options = self::getOption( 'imported_post_status', array( $type => 'publish' ) );
+
+		// Legacy for Facebook Status
+		if ( 'facebook' === $type && empty( $options['facebook'] ) ){
+			$options['facebook'] = Tribe__Events__Main::getOption( 'fb_default_status', 'publish' );
+		}
 
 		// A way to handle the legacy `imported_post_status`
 		if ( is_string( $options ) ) {
