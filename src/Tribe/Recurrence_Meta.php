@@ -1494,9 +1494,9 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				try {
 					$end_date = new DateTime( '@' . $start_date );
 
-					$end_date->modify( "+" . absint( $rule[ 'custom' ][ 'duration' ][ 'days' ] ) . ' days' );
-					$end_date->modify( "+" . absint( $rule[ 'custom' ][ 'duration' ][ 'hours' ] ) . ' hours' );
-					$end_date->modify( "+" . absint( $rule[ 'custom' ][ 'duration' ][ 'minutes' ] ) . ' minutes' );
+					$end_date->modify( '+' . absint( $rule[ 'custom' ][ 'duration' ][ 'days' ] ) . ' days' );
+					$end_date->modify( '+' . absint( $rule[ 'custom' ][ 'duration' ][ 'hours' ] ) . ' hours' );
+					$end_date->modify( '+' . absint( $rule[ 'custom' ][ 'duration' ][ 'minutes' ] ) . ' minutes' );
 
 					$new_end_date = Tribe__Events__View_Helpers::is_24hr_format()
 						? $end_date->format( 'Y-m-d H:i' )
