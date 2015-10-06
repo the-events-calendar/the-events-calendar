@@ -1426,10 +1426,14 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 * Convert the event recurrence meta into a human readable string
 	 *
 	 * @TODO: get this to work for arbitrary recurrence
+	 * @TODO: there's a great deal of duplication between this method and tribe_events_pro_admin.recurrence.update_rule_recurrence_text (events-recurrence.js)
+	 *        let's consider generating once (by JS?) and saving the result for re-use instead
 	 *
-	 * @param array $postId The recurring event
+	 * @param array   $rule
+	 * @param string  $start_date
+	 * @param int     $event_id
 	 *
-	 * @return The human readable string
+	 * @return string human readable string
 	 */
 	public static function recurrenceToText( $rule, $start_date, $event_id ) {
 		$text = '';
@@ -1460,7 +1464,12 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 		if ( 'custom' === $rule['type'] ) {
 			$is_custom = true;
-			$same_time = 'yes' === $rule['custom'][ self::custom_type_to_key( $rule['custom']['type'] ) ]['same-time'];
+
+			$same_time = false;
+
+			if ( 'yes' === @$rule['custom'][ self::custom_type_to_key( $rule['custom']['type'] ) ]['same-time'] ) {
+				$same_time = true;
+			}
 
 			if ( 'Yearly' === $rule['custom']['type'] ) {
 				$year_filtered = ! empty( $rule['custom']['year']['filter'] );
@@ -1481,15 +1490,36 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				$new_start_date .= ' ' . $rule['custom']['start-time']['meridian'];
 			}
 
-			$new_end_date = date( 'Y-m-d', $end_date ) . ' ' . $rule['custom']['end-time']['hour'] . ':' . $rule['custom']['end-time']['minute'];
+			if ( isset( $rule['custom']['duration'] ) ) {
+				try {
+					$end_date = new DateTime( '@' . $start_date );
+
+					$end_date->modify( "+" . absint( $rule[ 'custom' ][ 'duration' ][ 'days' ] ) . ' days' );
+					$end_date->modify( "+" . absint( $rule[ 'custom' ][ 'duration' ][ 'hours' ] ) . ' hours' );
+					$end_date->modify( "+" . absint( $rule[ 'custom' ][ 'duration' ][ 'minutes' ] ) . ' minutes' );
+
+					$new_end_date = Tribe__Events__View_Helpers::is_24hr_format()
+						? $end_date->format( 'Y-m-d H:i' )
+						: $end_date->format( 'Y-m-d g:i' );
+
+					$end_date = $end_date->format( 'U' );
+				}
+				catch ( Exception $e ) {
+					$new_end_date = '';
+				}
+			}
+			else {
+				$new_end_date = date( 'Y-m-d', $end_date ) . ' ' . $rule['custom']['end-time']['hour'] . ':' . $rule['custom']['end-time']['minute'];
+			}
+
 			if ( isset( $rule['custom']['end-time']['meridian'] ) ) {
 				$new_end_date .= ' ' . $rule['custom']['end-time']['meridian'];
 			}
 
-			$new_num_days = floor( ( $new_end_date - $new_start_date ) / DAY_IN_SECONDS );
+			$new_num_days = floor( ( $end_date - $start_date ) / DAY_IN_SECONDS );
 
 			// make sure we always round hours UP to when dealing with decimal lengths more than 2. Example: 4.333333 would become 4.34
-			$new_num_hours = ceil( ( ( ( $new_end_date - $new_start_date ) / HOUR_IN_SECONDS ) - ( $new_num_days * 24 ) ) * 100 ) / 100;
+			$new_num_hours = ceil( ( ( ( $end_date - $start_date ) / HOUR_IN_SECONDS ) - ( $new_num_days * 24 ) ) * 100 ) / 100;
 		}
 
 		$weekdays = array();
@@ -1651,7 +1681,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				$text = sprintf(
 					$text,
 					$interval,
-					$new_start_time,
+					$new_start_date,
 					$new_num_days,
 					$new_num_hours,
 					$formatted_end
@@ -1661,7 +1691,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				$text = sprintf(
 					$text,
 					$interval,
-					$new_start_time,
+					$new_start_date,
 					$new_num_days,
 					$new_num_hours,
 					$rule['end-count']
@@ -1694,7 +1724,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$text,
 					$interval,
 					$weekdays,
-					$new_start_time,
+					$new_start_date,
 					$new_num_days,
 					$new_num_hours,
 					$formatted_end
@@ -1705,7 +1735,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$text,
 					$interval,
 					$weekdays,
-					$new_start_time,
+					$new_start_date,
 					$new_num_days,
 					$new_num_hours,
 					$rule['end-count']
@@ -1743,7 +1773,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$text,
 					$interval,
 					$month_day_description,
-					$new_start_time,
+					$new_start_date,
 					$new_num_days,
 					$new_num_hours,
 					$formatted_end
@@ -1755,7 +1785,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$text,
 					$interval,
 					$month_day_description,
-					$new_start_time,
+					$new_start_date,
 					$new_num_days,
 					$new_num_hours,
 					$rule['end-count']
@@ -1796,7 +1826,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$interval,
 					$months,
 					$month_day_description,
-					$new_start_time,
+					$new_start_date,
 					$new_num_days,
 					$new_num_hours,
 					$formatted_end
@@ -1809,7 +1839,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$interval,
 					$months,
 					$month_day_description,
-					$new_start_time,
+					$new_start_date,
 					$new_num_days,
 					$new_num_hours,
 					$rule['end-count']
