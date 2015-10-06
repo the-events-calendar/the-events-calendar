@@ -1484,9 +1484,9 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$num_hours = ceil( ( ( ( $end_date - $start_date ) / HOUR_IN_SECONDS ) - ( $num_days * 24 ) ) * 100 ) / 100;
 
 		if ( $is_custom && 'custom' === $rule['type'] && ! $same_time ) {
-			$new_start_date = date( 'Y-m-d', $start_date ) . ' ' . $rule['custom']['start-time']['hour'] . ':' . $rule['custom']['start-time']['minute'];
+			$formatted_start = date( 'Y-m-d', $start_date ) . ' ' . $rule['custom']['start-time']['hour'] . ':' . $rule['custom']['start-time']['minute'];
 			if ( isset( $rule['custom']['start-time']['meridian'] ) ) {
-				$new_start_date .= ' ' . $rule['custom']['start-time']['meridian'];
+				$formatted_start .= ' ' . $rule['custom']['start-time']['meridian'];
 			}
 
 			if ( isset( $rule['custom']['duration'] ) ) {
@@ -1497,22 +1497,15 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$end_date->modify( '+' . absint( $rule[ 'custom' ][ 'duration' ][ 'hours' ] ) . ' hours' );
 					$end_date->modify( '+' . absint( $rule[ 'custom' ][ 'duration' ][ 'minutes' ] ) . ' minutes' );
 
-					$new_end_date = Tribe__Events__View_Helpers::is_24hr_format()
+					$formatted_end = Tribe__Events__View_Helpers::is_24hr_format()
 						? $end_date->format( 'Y-m-d H:i' )
 						: $end_date->format( 'Y-m-d g:i' );
 
 					$end_date = $end_date->format( 'U' );
 				}
 				catch ( Exception $e ) {
-					$new_end_date = '';
+					// $formatted_end will default to the "unspecified end date" text in this case
 				}
-			}
-			else {
-				$new_end_date = date( 'Y-m-d', $end_date ) . ' ' . $rule['custom']['end-time']['hour'] . ':' . $rule['custom']['end-time']['minute'];
-			}
-
-			if ( isset( $rule['custom']['end-time']['meridian'] ) ) {
-				$new_end_date .= ' ' . $rule['custom']['end-time']['meridian'];
 			}
 
 			$new_num_days = floor( ( $end_date - $start_date ) / DAY_IN_SECONDS );
@@ -1680,7 +1673,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				$text = sprintf(
 					$text,
 					$interval,
-					$new_start_date,
+					$formatted_start,
 					$new_num_days,
 					$new_num_hours,
 					$formatted_end
@@ -1690,7 +1683,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				$text = sprintf(
 					$text,
 					$interval,
-					$new_start_date,
+					$formatted_start,
 					$new_num_days,
 					$new_num_hours,
 					$rule['end-count']
@@ -1723,7 +1716,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$text,
 					$interval,
 					$weekdays,
-					$new_start_date,
+					$formatted_start,
 					$new_num_days,
 					$new_num_hours,
 					$formatted_end
@@ -1734,7 +1727,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$text,
 					$interval,
 					$weekdays,
-					$new_start_date,
+					$formatted_start,
 					$new_num_days,
 					$new_num_hours,
 					$rule['end-count']
@@ -1772,7 +1765,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$text,
 					$interval,
 					$month_day_description,
-					$new_start_date,
+					$formatted_start,
 					$new_num_days,
 					$new_num_hours,
 					$formatted_end
@@ -1784,7 +1777,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$text,
 					$interval,
 					$month_day_description,
-					$new_start_date,
+					$formatted_start,
 					$new_num_days,
 					$new_num_hours,
 					$rule['end-count']
@@ -1825,7 +1818,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$interval,
 					$months,
 					$month_day_description,
-					$new_start_date,
+					$formatted_start,
 					$new_num_days,
 					$new_num_hours,
 					$formatted_end
@@ -1838,7 +1831,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$interval,
 					$months,
 					$month_day_description,
-					$new_start_date,
+					$formatted_start,
 					$new_num_days,
 					$new_num_hours,
 					$rule['end-count']
