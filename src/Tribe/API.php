@@ -159,7 +159,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			// Set sticky state for calendar view.
 			if ( $event instanceof WP_Post ) {
-				if ( isset( $data['EventShowInCalendar'] ) && $data['EventShowInCalendar'] == 'yes'  && $event->menu_order != '-1' ) {
+				if ( isset( $data['EventShowInCalendar'] ) && $data['EventShowInCalendar'] == 'yes' && $event->menu_order != '-1' ) {
 					$update_event = array(
 						'ID'         => $event_id,
 						'menu_order' => '-1',
