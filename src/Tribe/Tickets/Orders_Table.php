@@ -72,6 +72,8 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 			'purchased'       => __( 'Purchased', 'tribe-events-calendar' ),
 			'ship_to'         => __( 'Ship to', 'tribe-events-calendar' ),
 			'date'            => __( 'Date', 'tribe-events-calendar' ),
+			'subtotal'        => __( 'Subtotal', 'tribe-events-calendar' ),
+			'site_fee'        => __( 'Site Fee', 'tribe-events-calendar' ),
 			'total'           => __( 'Total', 'tribe-events-calendar' ),
 		);
 
@@ -100,7 +102,7 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 	 * @return string
 	 */
 	public function column_date( $item ) {
-		return Tribe__Events__Date_Utils::reformat( $item->order['completed_at'], Tribe__Events__Date_Utils::DATEONLYFORMAT );
+		return Tribe__Events__Date_Utils::reformat( $item['completed_at'], Tribe__Events__Date_Utils::DATEONLYFORMAT );
 	}//end column_date
 
 	/**
@@ -111,7 +113,7 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 	 * @return string
 	 */
 	public function column_ship_to( $item ) {
-		$shipping = $item->order['shipping_address'];
+		$shipping = $item['shipping_address'];
 
 		if (
 			empty( $shipping['address_1'] )
@@ -156,14 +158,14 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 		$tickets = array();
 		$num_items = 0;
 
-		foreach ( $item->order['line_items'] as $line_item ) {
+		foreach ( $item['line_items'] as $line_item ) {
 			$num_items += $line_item['quantity'];
 
 			if ( empty( $tickets[ $line_item['name'] ] ) ) {
 				$tickets[ $line_item['name'] ] = 0;
 			}
 
-			$tickets[ $line_item['name'] ]++;
+			$tickets[ $line_item['name'] ] += $line_item['quantity'];
 		}
 
 		$this->total_purchased = $num_items;
@@ -191,19 +193,49 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 		$icon    = '';
 		$warning = false;
 
-		$order_number = $item->order['order_number'];
-		$customer = $item->order['customer'];
+		$order_number = $item['order_number'];
+		$customer = $item['customer'];
 		$customer_email = $customer['email'];
 		$customer_name = '';
 
-		if ( ! empty( $customer['first_name'] ) && ! empty( $customer['last_name'] ) ) {
-			$customer_name = "{$customer['first_name']} {$customer['last_name']}";
+		if ( empty( $customer['first_name'] ) && empty( $customer['last_name'] ) ) {
+			$customer_name = "{$item['billing_address']['first_name']} {$item['billing_address']['last_name']}";
+		} else {
+			$customer_name = empty( $customer['first_name'] ) ? '' : $customer['first_name'];
+			$customer_name .= empty( $customer['last_name'] ) ? '' : ' ' . $customer['last_name'];
 		}
 
-		$output = "{$order_number} " . __( 'by', 'tribe-events-calendar' ) . " {$customer_name}<br><a href=\"mailto:{$customer_email}\">{$customer_email}</a>";
+		$customer_name = trim( $customer_name );
+
+		$order_url = add_query_arg(
+			array(
+				'post' => $order_number,
+				'action' => 'edit',
+			),
+			admin_url( 'post.php' )
+		);
+
+		$order_number_link = '<a href="' . esc_url( $order_url ) . '">#' . absint( $order_number ) . '</a>';
+
+		$output = "{$order_number_link} " . __( 'by', 'tribe-events-calendar' ) . " {$customer_name}<br><a href=\"mailto:{$customer_email}\">{$customer_email}</a>";
 
 		return $output;
 	}//end column_order_status
+
+	/**
+	 * Handler for the subtotal column
+	 *
+	 * @param $item
+	 *
+	 * @return string
+	 */
+	public function column_subtotal( $item ) {
+		$total = 0;
+
+		$price_format = get_woocommerce_price_format();
+
+		return sprintf( $price_format, get_woocommerce_currency_symbol(), number_format( $item['subtotal'], 2 ) );
+	}//end column_subtotal
 
 	/**
 	 * Handler for the total column
@@ -215,14 +247,25 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 	public function column_total( $item ) {
 		$total = 0;
 
-		foreach ( $item->order['line_items'] as $line_item ) {
-			$total += $line_item['total'];
-		}
+		$price_format = get_woocommerce_price_format();
+
+		return sprintf( $price_format, get_woocommerce_currency_symbol(), number_format( $item['total'], 2 ) );
+	}//end column_total
+
+	/**
+	 * Handler for the site fees column
+	 *
+	 * @param $item
+	 *
+	 * @return string
+	 */
+	public function column_site_fee( $item ) {
+		$total = 0;
 
 		$price_format = get_woocommerce_price_format();
 
-		return sprintf( $price_format, get_woocommerce_currency_symbol(), number_format( $total, 2 ) );
-	}//end column_total
+		return sprintf( $price_format, get_woocommerce_currency_symbol(), number_format( $item['total'] - $item['subtotal'], 2 ) );
+	}//end column_site_fee
 
 	/**
 	 * Generates content for a single row of the table
@@ -247,16 +290,7 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 	public function extra_tablenav( $which ) {
 	}//end extra_tablenav
 
-	/**
-	 * Prepares the list of items for displaying.
-	 */
-	public function prepare_items() {
-
-		$event_id = isset( $_GET['event_id'] ) ? $_GET['event_id'] : 0;
-
-		$args = array(
-		);
-
+	public static function get_orders( $event_id ) {
 		WC()->api->includes();
 		WC()->api->register_resources( new WC_API_Server( '/' ) );
 
@@ -275,15 +309,30 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 			),
 		);
 
-		$items = get_posts( $args );
-		foreach ( $items as &$item ) {
-			$order_id = get_post_meta( $item->ID, '_tribe_wooticket_order', TRUE );
-			$order = WC()->api->WC_API_Orders->get_order( $order_id );
+		$orders = array();
+		$order_tickets = get_posts( $args );
+		foreach ( $order_tickets as &$item ) {
+			$order_id = get_post_meta( $item->ID, '_tribe_wooticket_order', true );
 
-			$item->order = $order['order'];
+			if ( isset( $orders[ $order_id ] ) ) {
+				continue;
+			}
+
+			$order = WC()->api->WC_API_Orders->get_order( $order_id );
+			$orders[ $order_id ] = $order['order'];
 		}
 
-		$this->items = $items;
+		return $orders;
+	}
+
+	/**
+	 * Prepares the list of items for displaying.
+	 */
+	public function prepare_items() {
+
+		$event_id = isset( $_GET['event_id'] ) ? $_GET['event_id'] : 0;
+
+		$this->items = self::get_orders( $event_id );
 		$total_items = count( $this->items );
 		$per_page    = $total_items;
 
