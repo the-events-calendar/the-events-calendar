@@ -4084,6 +4084,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 									array(
 										'post_type' => self::POSTTYPE,
 										'page'      => 'events-importer',
+										'tab'       => 'csv',
 									),
 									admin_url( 'edit.php' )
 								)

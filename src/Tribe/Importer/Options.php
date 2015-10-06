@@ -50,4 +50,29 @@ class Tribe__Events__Importer__Options {
 
 		return apply_filters( 'tribe-import-setting-' . $optionName, $value, $default );
 	}
+
+	public static function get_default_post_status( $type = 'csv' ) {
+		$options = self::getOption( 'imported_post_status', array( 'csv' => 'publish' ) );
+
+		// A way to handle the legacy `imported_post_status`
+		if ( is_string( $options ) ) {
+			$options = array( $type => $options );
+		}
+
+		if ( ! isset( $options[ $type ] ) ) {
+			$options[ $type ] = apply_filters( 'tribe-import-default_post_status_non_saved', 'publish', $type );
+		}
+
+		return apply_filters( 'tribe-import-default_post_status', $options[ $type ], $type );
+	}
+
+	public static function get_possible_stati() {
+		$stati = array(
+			'publish' => __( 'Published', 'tribe-events-ical-importer' ),
+			'pending' => __( 'Pending', 'tribe-events-ical-importer' ),
+			'draft'   => __( 'Draft', 'tribe-events-ical-importer' ),
+		);
+
+		return apply_filters( 'tribe-import-possible_stati', $stati );
+	}
 }

@@ -20,6 +20,29 @@ class Tribe__Events__Importer__Admin_Page {
 		);
 	}
 
+	public function add_settings_fields() {
+		?>
+		<h3><?php esc_html_e( 'CSV Import Settings', 'the-events-calendar' ); ?></h3>
+		<p>
+			<?php
+			esc_html_e( 'Default imported event status:', 'the-events-calendar' );
+
+			$import_statuses = Tribe__Events__Importer__Options::get_possible_stati();
+			$selected = Tribe__Events__Importer__Options::get_default_post_status( 'csv' );
+			?>
+			<select name="imported_post_status[csv]">
+				<?php
+				foreach ( $import_statuses as $key => $value ) {
+					echo '<option value="' . esc_attr( $key ) . '" ' . selected( $key, $selected ) . '>
+					' . esc_html( $value ) . '
+				</option>';
+				}
+				?>
+			</select>
+		</p>
+		<?php
+	}
+
 	public function render_admin_page_contents() {
 		$tab = $this->get_active_tab();
 
@@ -92,8 +115,8 @@ class Tribe__Events__Importer__Admin_Page {
 
 	public function get_available_tabs() {
 		$tabs = array(
-			esc_html__( 'General', 'the-events-calendar' ) => 'general',
-			esc_html__( 'Import: CSV', 'the-events-calendar' ) => 'csv-importer',
+			esc_html__( 'Import Settings', 'the-events-calendar' ) => 'general',
+			esc_html__( 'CSV', 'the-events-calendar' ) => 'csv-importer',
 		);
 
 		return apply_filters( 'tribe-import-tabs', $tabs );
