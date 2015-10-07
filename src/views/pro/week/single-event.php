@@ -164,6 +164,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div id="tribe-events-event-<?php echo esc_attr( $event->ID ); ?>" <?php echo tribe_events_week_event_attributes(); ?> class="<?php tribe_events_event_classes( $event->ID ) ?> tribe-week-event" data-tribejson='<?php echo tribe_events_template_data( $event ); ?>'>
 	<h3 class="entry-title summary">
-		<a href="<?php echo tribe_get_event_link( $event ); ?>" class="url" rel="bookmark"><?php echo $event->post_title; ?></a>
+		<a href="<?php echo esc_url ( tribe_get_event_link( $event ) ); ?>" class="url" rel="bookmark"><?php echo $event->post_title; ?></a>
 	</h3>
 </div>
