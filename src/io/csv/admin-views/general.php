@@ -18,7 +18,7 @@ require 'header.php';
 	/**
 	 * Hook to this action to print More information on the Instructions Box
 	 */
-	do_action( 'tribe-import-general-infobox' ); ?>
+	do_action( 'tribe_import_general_infobox' ); ?>
 </div>
 
 <div class="tribe-settings-form">
@@ -28,7 +28,7 @@ require 'header.php';
 			/**
 			 * Hook to this action to print More fields on the Importer Settings page
 			 */
-			do_action( 'tribe-import-general-settings' ); ?>
+			do_action( 'tribe_import_general_settings' ); ?>
 			<?php wp_nonce_field( 'tribe-import-general-settings', 'tribe-import-general-settings' ); ?>
 			<p>
 				<input type="submit" name="tribe-events-importexport-general-settings-submit" class="button-primary" value="<?php esc_attr_e( 'Save Settings', 'the-events-calendar' ); ?>"/>

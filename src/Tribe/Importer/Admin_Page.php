@@ -67,7 +67,24 @@ class Tribe__Events__Importer__Admin_Page {
 
 			default:
 				include Tribe__Events__Importer__Plugin::path( 'src/io/csv/admin-views/header.php' );
-				do_action( 'tribe-import-render-tab-' . $tab );
+				if ( has_action( 'tribe-import-render-tab-' . $tab ) ) {
+					/**
+					 * Remove this Action on 4.3
+					 * @deprecated
+					 */
+					__doing_it_wrong(
+						'tribe-import-render-tab-' . $tab,
+						sprintf(
+							esc_html__( 'This Action has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: "%s" To: "%s"', 'the-events-calendar' ),
+							'tribe-import-render-tab-' . $tab,
+							'tribe_import_render_tab_' . $tab
+						),
+						'4.0'
+					);
+					do_action( 'tribe-import-render-tab-' . $tab );
+				}
+
+				do_action( 'tribe_import_render_tab_' . $tab );
 				include Tribe__Events__Importer__Plugin::path( 'src/io/csv/admin-views/footer.php' );
 				break;
 		}
@@ -129,7 +146,24 @@ class Tribe__Events__Importer__Admin_Page {
 			esc_html__( 'CSV', 'the-events-calendar' ) => 'csv-importer',
 		);
 
-		return apply_filters( 'tribe-import-tabs', $tabs );
+		if ( has_filter( 'tribe-import-tabs' ) ) {
+			/**
+			 * Remove this Filter on 4.3
+			 * @deprecated
+			 */
+			__doing_it_wrong(
+				'tribe-import-tabs',
+				sprintf(
+					esc_html__( 'This Filter has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: "%s" To: "%s"', 'the-events-calendar' ),
+					'tribe-import-tabs',
+					'tribe_import_tabs'
+				),
+				'4.0'
+			);
+			$tabs = apply_filters( 'tribe-import-tabs', $tabs );
+		}
+
+		return apply_filters( 'tribe_import_tabs', $tabs );
 	}
 
 	public function handle_submission() {
