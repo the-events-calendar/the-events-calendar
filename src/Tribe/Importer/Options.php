@@ -17,7 +17,7 @@ class Tribe__Events__Importer__Options {
 				 * Remove this Filter on 4.3
 				 * @deprecated
 				 */
-				__doing_it_wrong(
+				_doing_it_wrong(
 					'tribe-import-available-options',
 					sprintf(
 						esc_html__( 'This Filter has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: "%s" To: "%s"', 'the-events-calendar' ),
@@ -71,7 +71,7 @@ class Tribe__Events__Importer__Options {
 			 * Remove this Filter on 4.3
 			 * @deprecated
 			 */
-			__doing_it_wrong(
+			_doing_it_wrong(
 				'tribe-import-setting-' . $optionName,
 				sprintf(
 					esc_html__( 'This Filter has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: "%s" To: "%s"', 'the-events-calendar' ),

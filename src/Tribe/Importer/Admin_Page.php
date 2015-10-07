@@ -72,7 +72,7 @@ class Tribe__Events__Importer__Admin_Page {
 					 * Remove this Action on 4.3
 					 * @deprecated
 					 */
-					__doing_it_wrong(
+					_doing_it_wrong(
 						'tribe-import-render-tab-' . $tab,
 						sprintf(
 							esc_html__( 'This Action has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: "%s" To: "%s"', 'the-events-calendar' ),
@@ -151,7 +151,7 @@ class Tribe__Events__Importer__Admin_Page {
 			 * Remove this Filter on 4.3
 			 * @deprecated
 			 */
-			__doing_it_wrong(
+			_doing_it_wrong(
 				'tribe-import-tabs',
 				sprintf(
 					esc_html__( 'This Filter has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: "%s" To: "%s"', 'the-events-calendar' ),
