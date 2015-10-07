@@ -892,10 +892,10 @@ tribe_events_pro_admin.recurrence = {
 		$( this ).removeClass( 'placeholder' );
 
 		/**
-		 * DEPRECATED: recurrenceEndChanged has been deprecated in 4.0. Use recurrence-end-changed.events-pro.tribe instead
+		 * DEPRECATED: recurrenceEndChanged has been deprecated in 4.0. Use recurrence-end-changed.tribe instead
 		 */
 		$( this ).trigger( 'recurrenceEndChanged' );
-		$( this ).trigger( 'recurrence-end-changed.events-pro.tribe' );
+		$( this ).trigger( 'recurrence-end-changed.tribe' );
 	};
 
 	my.event.recurrence_row_changed = function() {
