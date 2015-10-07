@@ -8,11 +8,6 @@ settings:
     bootstrap: _bootstrap.php
     colors: true
     memory_limit: 1024M
-php:
-    globals:
-        wp_tests_options:
-            active_plugins:
-                - the-events-calendar/the-events-calendar.php
 modules:
     config:
         Db:
@@ -53,6 +48,8 @@ modules:
             title: 'The Events Calendar Tests'
             phpBinary: php
             language: ''
+            plugins:
+                - the-events-calendar/the-events-calendar.php
         WPWebDriver:
             url: 'http://tec.tri.be'
             browser: phantomjs

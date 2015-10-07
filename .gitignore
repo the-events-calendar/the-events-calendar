@@ -55,4 +55,3 @@ tests/unit/_bootstrap.php
 tests/_support/_generated/*
 
 tests/_output/*
-tests/_output/*
