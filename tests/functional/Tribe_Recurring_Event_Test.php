@@ -290,7 +290,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 
 		wp_delete_post( $original_children[2], TRUE );
 
-		//Checks that the original children now have 3 after it deleted an event
+		//Checks that the original children now have 4 after it deleted a recurrence
 		$this->assertCount(4, $original_children, 'Checks that there are still 4 children after the deletion' );
 
 		$meta = get_post_meta( $post_id, '_EventRecurrence', TRUE );
