@@ -19,6 +19,7 @@ module.exports = {
 
 		'<%= pkg._resourcepath %>/js/calendar-widget-admin.processed.js',
 		'<%= pkg._resourcepath %>/js/events-admin.processed.js',
+		'<%= pkg._resourcepath %>/js/events-recurrence.processed.js',
 		'<%= pkg._resourcepath %>/js/tribe-events-ajax-maps.processed.js',
 		'<%= pkg._resourcepath %>/js/tribe-events-mini-ajax.processed.js',
 		'<%= pkg._resourcepath %>/js/tribe-events-photo-view.processed.js',

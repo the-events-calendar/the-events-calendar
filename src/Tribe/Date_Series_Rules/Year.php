@@ -81,38 +81,71 @@
 		}
 
 		/**
-		 * Get the timestamp of the Nth day of month.
+		 * Get the timestamp of the next upcoming Nth day of month.
 		 *
-		 * @param int $curdate            The current occurrence's timestamp.
-		 * @param int $day_of_week        The index of the day-of-week.
-		 * @param int $week_of_month      The index of the week of the month.
-		 * @param int $next_month_of_year The index of the next month of the year.
+		 * @param int       $curdate        The current occurrence's timestamp
+		 * @param int|array $days_of_week    Index(-es) of the possible day(s)-of-week the next instance may land on
+		 * @param int|array $weeks_of_month  Index(-es) of the possible week(s) of the month the next instance may land on
+		 * @param int|array $months_of_year  Index(-es) of the possible month(s) of the year the next instance may land on
 		 *
-		 * @return int The timestamp of the next occurrence on the nth day of the month.
+		 * @return int|false The timestamp of the next occurrence on the nth day of the month or false
 		 */
-		private function getNthDayOfMonth( $curdate, $day_of_week, $week_of_month, $next_month_of_year ) {
-			$nextdate = $this->advanceDate( $curdate, $next_month_of_year, 1 ); // advance to correct month
-			$nextdate = Tribe__Date_Utils::get_first_day_of_week_in_month( $nextdate, $day_of_week );
+		private function getNthDayOfMonth( $curdate, $days_of_week, $weeks_of_month, $months_of_year ) {
+			// Cast to arrays for consistency
+			$days_of_week   = (array) $days_of_week;
+			$weeks_of_month = (array) $weeks_of_month;
+			$months_of_year = (array) $months_of_year;
 
-			if ( $week_of_month == - 1 ) { // LAST WEEK
-				$nextdate = Tribe__Date_Utils::get_last_day_of_week_in_month( $nextdate, $day_of_week );
+			// Obtain the hour, minute and second of $curdate for later comparison
+			$cur_hour   = (int) date( 'G', $curdate );
+			$cur_minute = (int) date( 'i', $curdate );
+			$cur_second = (int) date( 's', $curdate );
 
-				return $nextdate;
-			} else {
-				$maybe_date = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . ' + ' . ( $week_of_month - 1 ) . ' weeks' );
+			// Sort and rotate the arrays to give us a sensible starting point
+			$this->sort_and_rotate_int_array( $days_of_week, (int) date( 'N', $curdate ) );
+			$this->sort_and_rotate_int_array( $months_of_year, (int) date( 'n', $curdate ) );
 
-				// if this doesn't exist, then try next month
-				while ( date( 'n', $maybe_date ) != date( 'n', $nextdate ) ) {
-					// advance again
-					$next_month_of_year = $this->getNextMonthOfYear( date( 'n', $nextdate ) );
-					$nextdate = $this->advanceDate( $nextdate, $next_month_of_year );
-					$nextdate = Tribe__Date_Utils::get_first_day_of_week_in_month( $curdate, $day_of_week );
-					$maybe_date = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . ' + ' . ( $week_of_month - 1 ) . ' weeks' );
+			sort( $weeks_of_month );
+			$weeks_of_month = array_map( 'intval', $weeks_of_month );
+
+			// The next occurence must take place this year or the next applicable year
+			$year  = (int) date( 'Y', $curdate );
+			$years = array( $year, $year + $this->years_between );
+
+			// Examine each possible year and month
+			foreach ( $years as $year ) {
+				foreach ( $months_of_year as $month ) {
+					// If we are behind $curdate's month and year then keep advancing
+					if ( $year <= date( 'Y', $curdate ) && $month < date( 'n', $curdate ) ) {
+						continue;
+					}
+
+					foreach ( $weeks_of_month as $nth_week ) {
+						foreach ( $days_of_week as $day ) {
+							// Determine the date of the first of these days (ie, the date of the first Tuesday this month)
+							$start_of_month = mktime( 0, 0, 0, $month, 1, $year );
+							$first_date     = Tribe__Date_Utils::get_first_day_of_week_in_month( $start_of_month, $day );
+							$day_of_month   = (int) date( 'j', $first_date );
+
+							// Add the relevant number of weeks
+							$day_of_month += ( $nth_week * 7 ) - 7;
+
+							// Form a timestamp representing this day of the week in the appropriate week of the month
+							$timestamp = mktime( $cur_hour, $cur_minute, $cur_second, $month, $day_of_month, $year );
+
+							// If we got a valid timestamp that is ahead of $curdate, we have a winner
+							if ( $timestamp && $timestamp > $curdate ) {
+								return $timestamp;
+							}
+						}
+					}
 				}
-
-				return $maybe_date;
 			}
+
+			// No match?
+			return false;
 		}
+
 
 		/**
 		 * Get the index of the next month of the year on which an occurrence occurs.
@@ -129,6 +162,40 @@
 			}
 
 			return $this->months_of_year[0];
+		}
+
+		/**
+		 * Given an array of integers, sorts them and then rotates them so the the first element
+		 * is equal to or greater than $start_at.
+		 *
+		 * For example, given $intvals := [ 1, 2, 3, 4, 5 ] and $start_at := 4 the result would be:
+		 *
+		 *     [ 4, 5, 1, 2, 3 ]
+		 *
+		 * @param array &$intvals
+		 * @param int   $start_at
+		 */
+		private function sort_and_rotate_int_array( array &$intvals, $start_at ) {
+			sort( $intvals );
+			$length = count( $intvals );
+
+			// We can return $intvals right away when $start_at is either:
+			// - lower than the lowest element
+			// - higher than the highest element
+			if ( $start_at > max( $intvals ) || min( $intvals ) > $start_at ) {
+				return;
+			}
+
+			// Otherwise, let's rotate $intvals until the point where the first element is equal to or greater than $start_at
+			for ( $i = 0; $i <= $length; $i++ ) {
+				if ( $start_at > $intvals[ $i ] ) {
+					$intvals[] = array_shift( $intvals );
+				} else {
+					break;
+				}
+			}
+
+			return;
 		}
 	}
 

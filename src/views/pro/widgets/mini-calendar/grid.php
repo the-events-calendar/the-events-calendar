@@ -44,7 +44,7 @@ $week         = 0;
 		</thead>
 
 
-		<tbody class="hfeed vcalendar">
+		<tbody>
 
 		<tr>
 			<?php while ( tribe_events_have_month_days() ) :

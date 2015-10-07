@@ -28,3 +28,4 @@ vendor/phpunit/*
 vendor/psr/*
 vendor/sebastian/*
 vendor/symfony/*
+tests/_output/*

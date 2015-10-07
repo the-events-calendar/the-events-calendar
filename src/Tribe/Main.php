@@ -44,7 +44,7 @@
 			public $widget_wrappers;
 
 			const REQUIRED_TEC_VERSION = '3.12';
-			const VERSION = '3.12';
+			const VERSION = '3.12.2';
 
 			private function __construct() {
 				$this->pluginDir = trailingslashit( basename( EVENTS_CALENDAR_PRO_DIR ) );
@@ -61,6 +61,7 @@
 				require_once( $this->pluginPath . 'src/functions/template-tags/week.php' );
 				require_once( $this->pluginPath . 'src/functions/template-tags/venue.php' );
 				require_once( $this->pluginPath . 'src/functions/template-tags/widgets.php' );
+				require_once( $this->pluginPath . 'src/functions/template-tags/ical.php' );
 
 				// Load Deprecated Template Tags
 				if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
@@ -80,7 +81,7 @@
 				add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 
 				// Rewrite Related Filters
-				add_filter( 'tribe_events_pre_rewrite', array( $this, 'filter_add_routes' ), 11 );
+				add_filter( 'tribe_events_pre_rewrite', array( $this, 'filter_add_routes' ), 5 );
 				add_filter( 'tribe_events_rewrite_base_slugs', array( $this, 'filter_add_base_slugs' ), 11 );
 				add_filter( 'tribe_events_rewrite_i18n_domains', array( $this, 'filter_add_i18n_pro_domain' ), 11 );
 
@@ -728,12 +729,9 @@
 			 * @return array         The modified version of the array of bases
 			 */
 			public function filter_add_base_slugs( $bases = array() ) {
-				// For translations purpose we add this as a string not required to assign it to a variable
-				__( 'week', 'tribe-events-calendar-pro' );
-				__( 'photo', 'tribe-events-calendar-pro' );
-
-				$bases['week'] = (array) 'week';
-				$bases['photo'] = (array) 'photo';
+				// Support the original and translated forms for added robustness
+				$bases['week']  = array( 'week', $this->weekSlug );
+				$bases['photo'] = array( 'photo', $this->photoSlug );
 
 				return $bases;
 			}
@@ -765,22 +763,22 @@
 
 				if ( $wp_query->tribe_is_event_query ) {
 					if ( $wp_query->tribe_is_week ) {
-						$classes[] = ' tribe-events-week';
+						$classes[] = 'tribe-events-week';
 						// remove the default gridview class from core
 						$classes = array_diff( $classes, array( 'events-gridview' ) );
 					}
 					if ( $wp_query->tribe_is_photo ) {
-						$classes[] = ' tribe-events-photo';
+						$classes[] = 'tribe-events-photo';
 						// remove the default gridview class from core
 						$classes = array_diff( $classes, array( 'events-gridview' ) );
 					}
 					if ( $wp_query->tribe_is_map ) {
-						$classes[] = ' tribe-events-map';
+						$classes[] = 'tribe-events-map';
 						// remove the default gridview class from core
 						$classes = array_diff( $classes, array( 'events-gridview' ) );
 					}
 					if ( tribe_is_map() || ! tribe_get_option( 'hideLocationSearch', false ) ) {
-						$classes[] = ' tribe-events-uses-geolocation';
+						$classes[] = 'tribe-events-uses-geolocation';
 					}
 
 					if (
@@ -789,7 +787,7 @@
 						&& ! empty( $wp_query->query['eventDisplay'] )
 						&& 'all' === $wp_query->query['eventDisplay']
 					) {
-						$classes[] = ' tribe-events-recurrence-archive';
+						$classes[] = 'tribe-events-recurrence-archive';
 					}
 				}
 
@@ -924,14 +922,26 @@
 					return; // how does this series not have a start date?
 				} else {
 					$parent_start_date = date( 'Y-m-d', strtotime( $parent_start ) );
-					$parent_start_time = date( 'H:i:s', strtotime( $parent_start ) );
 				}
 
 				if ( $parent_start_date == $date ) {
 					$post_id = $parent_id;
 				} else {
-					$child_sql = "SELECT ID FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} m ON m.post_id=p.ID AND m.meta_key='_EventStartDate' WHERE p.post_parent=%d AND p.post_type=%s AND m.meta_value=%s";
-					$child_sql = $wpdb->prepare( $child_sql, $parent_id, Tribe__Events__Main::POSTTYPE, $date.' '.$parent_start_time );
+					/* Look for child posts taking place on the requested date (but not
+					 * necessarily at the same time as the parent event). This does not
+					 * cater to scenarios where multiple children take place on the same
+					 * date but at different times - which is a known limitation to be
+					 * addressed in a future release.
+					 */
+					$child_sql = "
+						SELECT     ID
+						FROM       {$wpdb->posts} p
+						INNER JOIN {$wpdb->postmeta} m ON m.post_id=p.ID AND m.meta_key='_EventStartDate'
+						WHERE      p.post_parent=%d
+						  AND      p.post_type=%s
+						  AND      LEFT( m.meta_value, 10 ) = %s
+					";
+					$child_sql = $wpdb->prepare( $child_sql, $parent_id, Tribe__Events__Main::POSTTYPE, $date );
 					$post_id = $wpdb->get_var( $child_sql );
 				}
 

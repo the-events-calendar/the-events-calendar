@@ -33,11 +33,11 @@ $organizer_id = get_the_ID();
 			</p>
 
 		<?php do_action( 'tribe_events_single_organizer_before_organizer' ) ?>
-		<div class="tribe-events-organizer-meta vcard tribe-clearfix">
+		<div class="tribe-events-organizer-meta tribe-clearfix">
 
 				<!-- Organizer Title -->
 				<?php do_action( 'tribe_events_single_organizer_before_title' ) ?>
-				<?php the_title( '<h2 class="entry-title author fn org">', '</h2>' ); ?>
+				<?php the_title( '<h2 class="tribe-organizer-name">', '</h2>' ); ?>
 				<?php do_action( 'tribe_events_single_organizer_after_title' ) ?>
 
 				<!-- Organizer Meta -->
@@ -50,7 +50,7 @@ $organizer_id = get_the_ID();
 
 				<!-- Organizer Content -->
 				<?php if ( get_the_content() ) { ?>
-				<div class="tribe-organizer-description tribe-events-content entry-content">
+				<div class="tribe-organizer-description tribe-events-content">
 					<?php the_content(); ?>
 				</div>
 				<?php } ?>
