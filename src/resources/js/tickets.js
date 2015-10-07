@@ -137,7 +137,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 		/* "Save Ticket" button action */
 		$( '#ticket_form_save' ).click( function( e ) {
 
-			$tribetickets.trigger( 'save-ticket.tec.tribe', e );
+			$tribetickets.trigger( 'save-ticket.tribe', e );
 
 			tickets_start_spin();
 
@@ -152,7 +152,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				ajaxurl,
 				params,
 				function( response ) {
-					$tribetickets.trigger( 'saved-ticket.tec.tribe', response );
+					$tribetickets.trigger( 'saved-ticket.tribe', response );
 
 					if ( response.success ) {
 						ticket_clear_form();
@@ -177,7 +177,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 			e.preventDefault();
 
-			$tribetickets.trigger( 'delete-ticket.tec.tribe', e );
+			$tribetickets.trigger( 'delete-ticket.tribe', e );
 
 			tickets_start_spin();
 
@@ -192,7 +192,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				ajaxurl,
 				params,
 				function( response ) {
-					$tribetickets.trigger( 'deleted-ticket.tec.tribe', response );
+					$tribetickets.trigger( 'deleted-ticket.tribe', response );
 
 					if ( response.success ) {
 						ticket_clear_form();
@@ -233,7 +233,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 					function( response ) {
 						ticket_clear_form();
 
-						$tribetickets.trigger( 'edit-ticket.tec.tribe', response );
+						$tribetickets.trigger( 'edit-ticket.tribe', response );
 
 						var regularPrice = response.data.price;
 						var salePrice    = regularPrice;
