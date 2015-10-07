@@ -559,10 +559,10 @@ Date.prototype.format = function( mask, utc ) {
 			if ( prev_width !== tribe_ev.data.v_width ) {
 				tribe_ev.fn.mobile_class();
 				/**
-				 * DEPRECATED: tribe_ev_resizeComplete has been deprecated in 4.0. Use resize-complete.tec.tribe instead
+				 * DEPRECATED: tribe_ev_resizeComplete has been deprecated in 4.0. Use resize-complete.tribe instead
 				 */
 				$( tribe_ev.events ).trigger( 'tribe_ev_resizeComplete' );
-				$( tribe_ev.events ).trigger( 'resize-complete.tec.tribe' );
+				$( tribe_ev.events ).trigger( 'resize-complete.tribe' );
 			}
 
 		},
@@ -1237,7 +1237,7 @@ Date.prototype.format = function( mask, utc ) {
 
 		/**
 		 * @function tribe_ical_url
-		 * @desc tribe_ical_url This function adds required params to the ical url. Runs on doc ready, and hooks into 'ajax-success.tec.tribe' also.
+		 * @desc tribe_ical_url This function adds required params to the ical url. Runs on doc ready, and hooks into 'ajax-success.tribe' also.
 		 */
 
 		function tribe_ical_url() {
