@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-09 20:01:32+0000\n"
+"PO-Revision-Date: 2015-09-15 19:28:26+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -232,7 +232,7 @@ msgstr "Hi! Wij zijn Modern Tribe en we zijn hier om je te helpen om een succes 
 
 #: src/admin-views/tribe-options-help.php:231
 msgid "Support Resources To Help You Be Awesome"
-msgstr "Hulp bronnen om je geweldig te laten zijn"
+msgstr "Hulp bronnen om je verder te helpen"
 
 #: src/admin-views/tribe-options-licenses.php:17
 msgid ""

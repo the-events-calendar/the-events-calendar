@@ -333,4 +333,100 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 		$localized = self::to_tz( $datetime, $tzstring );
 		return strtotime( $localized );
 	}
+
+	/**
+	 * Accepts a unix timestamp and adjusts it so that when it is used to consitute
+	 * a new datetime string, that string reflects the designated timezone.
+	 *
+	 * @param string $unix_timestamp
+	 * @param string $tzstring
+	 *
+	 * @return string
+	 */
+	public static function adjust_timestamp( $unix_timestamp, $tzstring ) {
+		try {
+			$local = self::get_timezone( $tzstring );
+			$datetime = date_create_from_format( 'U', $unix_timestamp )->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+			return date_create_from_format( 'Y-m-d H:i:s', $datetime, $local )->getTimestamp();
+		}
+		catch( Exception $e ) {
+			return $unix_timestamp;
+		}
+	}
+
+	/**
+	 * Returns a DateTimeZone object matching the representation in $tzstring where
+	 * possible, or else representing UTC (or, in the worst case, false).
+	 *
+	 * If optional parameter $with_fallback is true, which is the default, then in
+	 * the event it cannot find/create the desired timezone it will try to return the
+	 * UTC DateTimeZone before bailing.
+	 *
+	 * @param  string $tzstring
+	 * @param  bool   $with_fallback = true
+	 *
+	 * @return DateTimeZone|false
+	 */
+	public static function get_timezone( $tzstring, $with_fallback = true ) {
+		if ( isset( self::$timezones[ $tzstring ] ) ) {
+			return self::$timezones[ $tzstring ];
+		}
+
+		try {
+			self::$timezones[ $tzstring ] = new DateTimeZone( $tzstring );
+			return self::$timezones[ $tzstring ];
+		}
+		catch ( Exception $e ) {
+			if ( $with_fallback ) {
+				return self::get_timezone( 'UTC', true );
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Returns a string representing the timezone/offset currently desired for
+	 * the display of dates and times.
+	 *
+	 * @return string
+	 */
+	public static function mode() {
+		$mode = self::EVENT_TIMEZONE;
+
+		if ( 'site' === tribe_get_option( 'tribe_events_timezone_mode' ) ) {
+			$mode = self::SITE_TIMEZONE;
+		}
+
+		return apply_filters( 'tribe_events_current_display_timezone', $mode );
+	}
+
+	/**
+	 * Confirms if the current timezone mode matches the $possible_mode.
+	 *
+	 * @param string $possible_mode
+	 *
+	 * @return bool
+	 */
+	public static function is_mode( $possible_mode ) {
+		return $possible_mode === self::mode();
+	}
+
+	/**
+	 * Attempts to provide the correct timezone abbreviation for the provided timezone string
+	 * on the date given (and so should account for daylight saving time, etc).
+	 *
+	 * @param string $date
+	 * @param string $timezone_string
+	 *
+	 * @return string
+	 */
+	public static function abbr( $date, $timezone_string ) {
+		try {
+			return date_create( $date, new DateTimeZone( $timezone_string ) )->format( 'T' );
+		}
+		catch ( Exception $e ) {
+			return '';
+		}
+	}
 }

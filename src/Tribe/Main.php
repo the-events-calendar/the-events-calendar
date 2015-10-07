@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '3.12.1';
+		const VERSION           = '3.12.3';
 		const MIN_ADDON_VERSION = '3.12';
 		const INFO_API_URL      = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -404,7 +404,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', array( Tribe__Events__Rewrite::instance(), 'hooks' ) );
 
 			add_action( 'init', array( $this, 'init' ), 10 );
-			add_action( 'admin_init', array( $this , 'admin_init' ) );
+			add_action( 'admin_init', array( $this, 'admin_init' ) );
 
 			// Frontend Javascript
 			add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );
@@ -542,6 +542,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_reverse_currency_position', array( $this, 'maybe_set_currency_position_with_post' ), 10, 2 );
 
 			// Settings page hooks
+			add_action( 'tribe_settings_do_tabs', array( $this, 'do_addons_api_settings_tab' ) );
 			add_filter( 'tribe_general_settings_tab_fields', array( $this, 'general_settings_tab_fields' ) );
 			add_filter( 'tribe_display_settings_tab_fields', array( $this, 'display_settings_tab_fields' ) );
 			add_filter( 'tribe_settings_url', array( $this, 'tribe_settings_url' ) );
@@ -854,6 +855,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function doSettingTabs() {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::do_setting_tabs' );
 			Tribe__Settings_Manager::instance()->do_setting_tabs();
+		}
+
+		/**
+		 * Initialize the addons api settings tab
+		 */
+		public function do_addons_api_settings_tab() {
+			include_once $this->plugin_path . 'src/admin-views/tribe-options-addons-api.php';
 		}
 
 		/**
@@ -1208,7 +1216,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						'edit_terms'   => 'publish_tribe_events',
 						'delete_terms' => 'publish_tribe_events',
 						'assign_terms' => 'edit_tribe_events',
-					)
+					),
 				)
 			);
 
@@ -1365,7 +1373,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$messages[ self::POSTTYPE ] = array(
 				0  => '', // Unused. Messages start at index 1.
-				1  => sprintf( __( '%1$s updated. <a href="%2$s">View %3$s</a>', 'the-events-calendar' ), $this->singular_event_label, esc_url( get_permalink( $post_ID ) ), strtolower( $this->singular_event_label ) ),
+				1  => sprintf(
+					esc_html__( '%1$s updated. %2$sView %3$s', 'the-events-calendar' ),
+					esc_html( $this->singular_event_label ),
+					'<a href="' . esc_url( get_permalink( $post_ID ) ) . '">',
+					esc_html( $this->singular_event_label ) . '</a>'
+				),
 				2  => esc_html__( 'Custom field updated.', 'the-events-calendar' ),
 				3  => esc_html__( 'Custom field deleted.', 'the-events-calendar' ),
 				4  => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_event_label ),
@@ -1776,6 +1789,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				wp_enqueue_style( self::POSTTYPE . '-admin', tribe_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 			}
 
+			// UI admin
+			Tribe__Events__Template_Factory::asset_package( 'admin-menu' );
+
 			// settings screen
 			if ( $admin_helpers->is_screen( 'settings_page_tribe-settings' ) ) {
 
@@ -2085,12 +2101,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Truncate a given string.
 		 *
+		 * @deprecated
+		 * @todo  remove on 4.3
+		 *
 		 * @param string $text           The text to truncate.
 		 * @param int    $excerpt_length How long you want it to be truncated to.
 		 *
 		 * @return string The truncated text.
 		 */
 		public function truncate( $text, $excerpt_length = 44 ) {
+			_deprecated_function( __FUNCTION__, '4.0', 'tribe_events_get_the_excerpt()' );
 
 			$text = apply_filters( 'the_content', $text );
 			$text = str_replace( ']]>', ']]&gt;', $text );
@@ -2453,7 +2473,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// account for semi-pretty permalinks
 			if ( false !== strpos( get_option( 'permalink_structure' ), 'index.php' ) ) {
-				$event_url = home_url( '/index.php' );
+				$event_url = home_url( '/index.php/' );
 			} else {
 				$event_url = home_url( '/' );
 			}

@@ -23,7 +23,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		'_EventEndDate' => null,
 		'_EventStartDate' => null,
 		'_EventOrganizerID' => null,
-		'_EventVenueID' => null
+		'_EventVenueID' => null,
 	);
 
 
@@ -77,7 +77,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 			return;
 		}
 		foreach ( $this->tribe->metaTags as $tag ) {
-			$this->vars[$tag] = get_post_meta( $this->event->ID, $tag, true );
+			$this->vars[ $tag ] = get_post_meta( $this->event->ID, $tag, true );
 		}
 	}
 
@@ -89,7 +89,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 			return;
 		}
 		foreach ( $this->tribe->organizerTags as $tag ) {
-			$this->vars[$tag] = get_post_meta( $this->vars['_EventOrganizerID'], $tag, true );
+			$this->vars[ $tag ] = get_post_meta( $this->vars['_EventOrganizerID'], $tag, true );
 		}
 	}
 
@@ -101,7 +101,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 			return;
 		}
 		foreach ( $this->tribe->venueTags as $tag ) {
-			$this->vars[$tag] = get_post_meta( $this->vars['_EventVenueID'], $tag, true );
+			$this->vars[ $tag ] = get_post_meta( $this->vars['_EventVenueID'], $tag, true );
 		}
 	}
 

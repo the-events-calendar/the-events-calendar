@@ -1284,7 +1284,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				'label_before' => '<dt>',
 				'label_after'  => '</dt>',
 				'wrap_before'  => '',
-				'wrap_after'   => ''
+				'wrap_after'   => '',
 			);
 			echo apply_filters( 'tribe_meta_event_cats', tribe_get_event_categories( get_the_ID(), $args ) );
 		}

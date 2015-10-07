@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-10 14:10:50+0000\n"
+"PO-Revision-Date: 2015-09-15 20:40:06+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,178 +12,178 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
-msgstr ""
+msgstr "The Events Calendar er en nøye utformet, utvidbar plugin som lar deg enkelt dele dine arrangementer. Vakkert. Solid. Awesome."
 
 #. Author of the plugin/theme
 msgid "Modern Tribe, Inc."
-msgstr ""
+msgstr "Modern Tribe, Inc."
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/1x"
-msgstr ""
+msgstr "http://m.tri.be/1x"
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:62
 msgid "<a href=\"%s\">Edit the page slug</a>"
-msgstr ""
+msgstr "<a href=\"%s\">Rediger sidens kortlenke</a>"
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:63
 msgid "Ask the site administrator to edit the page slug"
-msgstr ""
+msgstr "Spør sidens administrator om å rediger sidens kortlenke"
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:68
 msgid "<a href=\"%s\">edit The Events Calendar settings</a>."
-msgstr ""
+msgstr "<a href=\"%s\">edit The Events Calendar innstillinger</a>."
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:69
 msgid " ask the site administrator set a different Events URL slug."
-msgstr ""
+msgstr "spør sidens administrator om å sette en annen kortlenke for hendelser."
 
 #: src/Tribe/Admin/Timezone_Updater.php:77
 msgid "Please wait while timezone data is added to your events."
-msgstr ""
+msgstr "Vennligst vent mens tidssonedata blir lagt til i dine hendelser."
 
 #: src/Tribe/Admin/Timezone_Updater.php:78
 msgid "Update complete: timezone data has been added to all events in the database."
-msgstr ""
+msgstr "Oppdatering fullført: tidssonedata har blit lagt til i alle hendelser i databasen."
 
 #: src/Tribe/Admin/Timezone_Updater.php:87
 msgid "%d%% complete"
-msgstr ""
+msgstr "%d%% ferdig"
 
 #: src/Tribe/Admin/Timezone_Updater.php:105
 msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
-msgstr ""
+msgstr "Et problem stoppet tidssoneoppdateringsprosessen fra å fullføres. Vennligst last siden på nytt og prøv igjen."
 
 #: src/Tribe/Importer/Column_Mapper.php:64
 msgid "Event Currency Symbol"
-msgstr ""
+msgstr "Hendelsers valutasymbol"
 
 #: src/Tribe/Importer/Column_Mapper.php:65
 msgid "Event Currency Position"
-msgstr ""
+msgstr "Hendelsers valutaplassering"
 
 #: src/Tribe/Importer/Column_Mapper.php:67
 msgid "Event Tags"
-msgstr ""
+msgstr "Hendelsers søkeord"
 
 #: src/Tribe/Main.php:2241
 msgid "page"
-msgstr ""
+msgstr "side"
 
 #: src/Tribe/Main.php:2242
 msgid "event"
-msgstr ""
+msgstr "hendelse"
 
 #: src/Tribe/Main.php:2243
 msgid "events"
-msgstr ""
+msgstr "hendelser"
 
 #: src/Tribe/Main.php:2244
 msgid "all"
-msgstr ""
+msgstr "alle"
 
 #: src/Tribe/Settings.php:261
 msgid "Save Changes"
-msgstr ""
+msgstr "Lagre endringer"
 
 #: src/Tribe/Template/Day.php:136
 msgid "No matching %1$s listed under %2$s scheduled for <strong>%3$s</strong>. Please try another day."
-msgstr ""
+msgstr "Ingen matchende %1$s listet under %2$s planlagt for <strong>%3$s</strong>. Vennligst prøv en annen dag."
 
 #: src/Tribe/Template/Day.php:138
 msgid "No %1$s scheduled for <strong>%2$s</strong>. Please try another day."
-msgstr ""
+msgstr "Ingen %1$s planlagt for <strong>%2$s</strong>. Vennligst prøv en annen dag."
 
 #: src/Tribe/Template/Month.php:287
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
-msgstr ""
+msgstr "Ingen matchende %1$s listet under %2$s. Vennligst prøv å vise hele kalenderen for en komplett liste med hendelser."
 
 #: src/Tribe/Template_Factory.php:355
 msgid "No results were found for %1$s in or near <strong>\"%2$s\"</strong>."
-msgstr ""
+msgstr "Ingen resultater ble funnet for %1$s i eller i nærheten av <strong>\"%2$s\"</strong>."
 
 #: src/Tribe/Template_Factory.php:357
 msgid "No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar."
-msgstr ""
+msgstr "Ingen kommende %1$s listet under %2$s. Sjekk kommende %3$s for denne kategorien eller vis hele kalenderen."
 
 #: src/Tribe/Template_Factory.php:359 src/Tribe/Template_Factory.php:364
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s."
-msgstr ""
+msgstr "Ingen matchende %1$s listet under %2$s. Vennligst prøv å vise hele kalenderen for en komplett liste av %3$s."
 
 #: src/admin-views/events-meta-box.php:121
 msgid "Timezone:"
-msgstr ""
+msgstr "Tidssone:"
 
 #: src/admin-views/tickets/attendees.php:103
 msgid "Sold %1$d %2$s"
-msgstr ""
+msgstr "Solgt %1$d %2$s"
 
 #: src/admin-views/tickets/attendees.php:106
 msgid "Sold %1$d of %2$d %3$s"
-msgstr ""
+msgstr "Solgt %1$d av %2$d %3$s"
 
 #: src/admin-views/tickets/list.php:69
 msgid "Sold %1$d of %2$d"
-msgstr ""
+msgstr "Solgt %1$d av %2$d"
 
 #: src/admin-views/tribe-options-general.php:94
 msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%1$s\">%2$s</a>. In order to edit the slug here, <a href=\"%3$soptions-permalink.php\">enable pretty permalinks</a>."
-msgstr ""
+msgstr "Du kan ikke endre kortlenken for dine hendelsessider siden du ikke har aktivert pene permalinker. Den gjeldende stien for din hendelsesside er <a href=\"%1$s\">%2$s</a>. For å endre kortlenken her, <a href=\"%3$soptions-permalink.php\">aktiver pene permalinker</a>"
 
 #: src/admin-views/tribe-options-help.php:199
 msgid "If you find that you aren't getting the level of service you've come to expect from Modern Tribe, shoot us an email at %1$s or tweet %2$s and tell us why. We'll do what we can to make it right."
-msgstr ""
+msgstr "Hvis du oppdager at du ikke får den servicen som du hadde forventet fra Modern Tribe, send oss en email på%1$s eller tweet %2$s og fortell oss hvorfor. Vi vil gjøre det vi kan for gjøre det godt igjen."
 
 #: src/admin-views/tribe-options-licenses.php:13
 msgid "<p>The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
-msgstr ""
+msgstr "<p>Lisensnøkkelen du mottok etter å ha fullført kjøpet fra %1$s vil gi deg tilgang til support og oppdateringer inntil den løper ut. Du trenger ikke å skrive inn nøkkelen under for at utvidelsen skal virke, men du må gjøre det for å få automatiske oppdateringer. <strong>Finn din lisensnøkkel på <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Hvert betalte tillegg har sin egen lisensnøkkel. Bare lim inn nøkkelen i det tilhørende feltet under, og gi det et øyeblikk til å bli validert. Du vet at alt er klart når en grønn utløpsdato vises ved siden av en \"Gyldig\"-melding.</p> <p>Hvis du ser en rød beskjed som sier at nøkkelen ikke er gyldig, gå til <a href=\"%4$s\" target=\"_blank\">%5$s</a> for å håndtere dine installasjoner eller fornye 7 oppgradere din lisens.</p><p>Ser du ingen oppdatering, men hadde forventet en? I WordPress, gå til <a href=\"%6$s\">Kontrollpanel > Oppdateringer</a> og klikk \"Sjekk igjen\".</p>"
 
 #: src/admin-views/tribe-options-timezones.php:4
 msgid "Enable timezone support"
-msgstr ""
+msgstr "Aktiver tidssonestøtte"
 
 #: src/admin-views/tribe-options-timezones.php:6
 msgid "Update Timezone Data"
-msgstr ""
+msgstr "Oppdater tidssonedata"
 
 #: src/admin-views/tribe-options-timezones.php:7
 msgid "Click this button to update your database and take advantage of additional timezone capabilities. Please <a href=\"%s\" target=\"_blank\">configure WordPress</a> to use the correct timezone before clicking this button!"
-msgstr ""
+msgstr "Klikk denne knappen for å oppdatere databasen din og dra fordel av ytterligere tidssonemuligheter. Vennligst <a href=\"%s\" target=\"_blank\">konfigurer WordPress</a> til å bruke den riktige tidssonen før du klikker denne knappen!"
 
 #: src/admin-views/tribe-options-timezones.php:27
 msgid "Timezone Settings"
-msgstr ""
+msgstr "Tidssoneinnstillinger"
 
 #: src/admin-views/tribe-options-timezones.php:35
 msgid "Timezone mode"
-msgstr ""
+msgstr "Tidssonemodus"
 
 #: src/admin-views/tribe-options-timezones.php:39
 msgid "Use the local timezones for each event"
-msgstr ""
+msgstr "Bruk lokal tidssone for hver enkelt hendelse"
 
 #: src/admin-views/tribe-options-timezones.php:40
 msgid "Use the sitewide timezone everywhere"
-msgstr ""
+msgstr "Bruk sidens tidssone overalt"
 
 #: src/admin-views/tribe-options-timezones.php:45
 msgid "Show timezone"
-msgstr ""
+msgstr "Vis tidssone"
 
 #: src/admin-views/tribe-options-timezones.php:46
 msgid "Appends the timezone to the end of event scheduling information &ndash; this can be useful when you have events in numerous different timezones."
-msgstr ""
+msgstr "Legger til tidssone til slutten av hendelsens kalenderinformasjon&ndash; dette kan være nyttig når du har hendelser i flere forskjellige tidssoner."
 
 #: src/functions/template-tags/general.php:411
 msgctxt "category list label"
 msgid "%s Category"
 msgid_plural "%s Categories"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s Kategori"
+msgstr[1] "%s Kategorier"
 
 #: src/io/csv/admin-views/general.php:48
 msgid "Save Settings"
-msgstr ""
+msgstr "Lagre innstillinger"
 
 #: src/Tribe/Activation_Page.php:38
 msgid "Go to plugins page"
@@ -802,7 +802,7 @@ msgstr "Versjonshistorikk"
 
 #: src/io/csv/admin-views/import.php:20
 msgid "If your events have Organizers or Venues, please import those first."
-msgstr "Hvis dine hendelser har arrangører og lokasjoner, vær vennlig å importer disse først."
+msgstr "Hvis dine hendelser har arrangører og steder, vær vennlig å importer disse først."
 
 #: src/admin-views/admin-welcome-message.php:51
 msgid "Get the Skinny on the Latest Updates"
@@ -810,7 +810,7 @@ msgstr "Få Skinny på de siste oppdateringene"
 
 #: src/io/csv/admin-views/import.php:21
 msgid "To import organizers or venues:"
-msgstr "For å importere arrangører og lokasjoner"
+msgstr "For å importere arrangører og steder"
 
 #: src/admin-views/admin-welcome-message.php:54
 msgid "Product Releases, Tutorials and Community Activity"
@@ -834,7 +834,7 @@ msgstr "Versjon"
 
 #: src/io/csv/admin-views/import.php:25
 msgid "One column in your CSV should have the Organizer/Venue name. All other fields are optional."
-msgstr "En kolonne i din CSV-fil må ha arrangør-/lokasjonsnavn. Alle andre felt er valgfrie."
+msgstr "En kolonne i din CSV-fil må ha arrangør-/stedsnavn. Alle andre felt er valgfrie."
 
 #: src/admin-views/app-shop.php:57
 msgid "Last Update"
@@ -850,7 +850,7 @@ msgstr "Skjul fra %s listene"
 
 #: src/io/csv/admin-views/import.php:28
 msgid "After importing your Organizers and Venues, import your Events:"
-msgstr "Importer dine hendelser etter å ha importert arrangører og lokasjoner."
+msgstr "Importer dine hendelser etter å ha importert arrangører og steder."
 
 #: src/admin-views/event-sidebar-options.php:15
 msgid "Sticky in Month View"
@@ -1542,7 +1542,7 @@ msgstr "Enkelthendelse kortlenke"
 
 #: src/admin-views/tribe-options-general.php:123
 msgid "The above should ideally be plural, and this singular.<br />Your single event URL is: %s"
-msgstr "Teksten over skulle ideelt sett vært flertall, men dette er entall. <br />Din enkelthendelse sin URL er: %s"
+msgstr "Den øverste teksten skal ideelt sett vært flertall, og denne entall. <br />Din enkelthendelse sin URL er: %s"
 
 #: src/admin-views/tribe-options-general.php:128
 msgid "End of day cutoff"
@@ -1578,7 +1578,7 @@ msgstr "Aktiver Google Maps"
 
 #: src/admin-views/tribe-options-general.php:174
 msgid "Check to enable maps for events and venues."
-msgstr "Huk av for å aktivere kart for hendelser og lokasjoner."
+msgstr "Huk av for å aktivere kart for hendelser og steder."
 
 #: src/admin-views/tribe-options-general.php:181
 msgid "Google Maps default zoom level"
@@ -1594,11 +1594,11 @@ msgstr "Diverse innstillinger"
 
 #: src/admin-views/tribe-options-general.php:194
 msgid "Duplicate Venues &amp; Organizers"
-msgstr "Dupliserte lokasjoner &amp; arrangører"
+msgstr "Dupliserte steder &amp; arrangører"
 
 #: src/admin-views/tribe-options-general.php:194
 msgid "You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers."
-msgstr "Du kan få dupliserte lokasjoner og arrangører når du oppdaterer The Events Calendar fra en eldre versjon enn 3.0. Klikk denne knappen for å automatisk slå sammen identiske lokasjoner og arrangører."
+msgstr "Du kan få dupliserte steder og arrangører når du oppdaterer The Events Calendar fra en eldre versjon enn 3.0. Klikk denne knappen for å automatisk slå sammen identiske steder og arrangører."
 
 #: src/admin-views/tribe-options-general.php:211
 msgid "Debug mode"
@@ -1751,7 +1751,7 @@ msgstr "Delaware"
 
 #: src/admin-views/tribe-options-help.php:177
 msgid "%sTemplate tags, functions, and hooks & filters%s for The Events Calendar &amp; Events Calendar PRO"
-msgstr ""
+msgstr "%sTemplate tags, funksjoner, og hooks & filters%s for The Events Calendar &amp; Events Calendar PRO"
 
 #: src/Tribe/View_Helpers.php:324
 msgid "District of Columbia"
@@ -1839,7 +1839,7 @@ msgstr "Algerie"
 
 #: src/Tribe/API.php:437
 msgid "Unnamed Venue"
-msgstr "Lokasjon uten navn"
+msgstr "Sted uten navn"
 
 #: src/Tribe/View_Helpers.php:50
 msgid "American Samoa"
@@ -2146,7 +2146,7 @@ msgstr "Cayman Islands"
 
 #: src/Tribe/Importer/Column_Mapper.php:59
 msgid "Event Venue Name"
-msgstr "Lokasjonsnavn"
+msgstr "Stedsnavn"
 
 #: src/Tribe/View_Helpers.php:87
 msgid "Central African Republic"
@@ -2206,7 +2206,7 @@ msgstr "Komorene"
 
 #: src/Tribe/Importer/Column_Mapper.php:74
 msgid "Venue Name"
-msgstr "Lokasjonens navn"
+msgstr "Stedsnavn"
 
 #: src/Tribe/View_Helpers.php:95
 msgid "Congo"
@@ -2214,7 +2214,7 @@ msgstr "Kongo"
 
 #: src/Tribe/Importer/Column_Mapper.php:75
 msgid "Venue Country"
-msgstr "Lokasjonens land"
+msgstr "Stedets land"
 
 #: src/Tribe/View_Helpers.php:96
 msgid "Congo, The Democratic Republic Of The"
@@ -2222,7 +2222,7 @@ msgstr "Den demokratiske republikken Kongo"
 
 #: src/Tribe/Importer/Column_Mapper.php:76
 msgid "Venue Address"
-msgstr "Lokasjonens adresse"
+msgstr "Stedets adresse"
 
 #: src/Tribe/View_Helpers.php:97
 msgid "Cook Islands"
@@ -2238,7 +2238,7 @@ msgstr "Costa Rica"
 
 #: src/Tribe/Importer/Column_Mapper.php:78
 msgid "Venue City"
-msgstr "Lokasjonens by"
+msgstr "Stedets by"
 
 #: src/Tribe/View_Helpers.php:99
 msgid "Cote D'Ivoire"
@@ -2246,7 +2246,7 @@ msgstr "Elfenbenskysten"
 
 #: src/Tribe/Importer/Column_Mapper.php:79
 msgid "Venue State/Province"
-msgstr "Lokasjonens stat/provins"
+msgstr "Stedets stat/provins"
 
 #: src/Tribe/View_Helpers.php:100
 msgid "Croatia (Local Name: Hrvatska)"
@@ -2254,7 +2254,7 @@ msgstr "Kroatia"
 
 #: src/Tribe/Importer/Column_Mapper.php:80
 msgid "Venue Zip"
-msgstr "Lokasjonens postnr"
+msgstr "Stedets postnr"
 
 #: src/Tribe/View_Helpers.php:101
 msgid "Cuba"
@@ -2262,7 +2262,7 @@ msgstr "Cuba"
 
 #: src/Tribe/Importer/Column_Mapper.php:81
 msgid "Venue Phone"
-msgstr "Lokasjonens telefonnr"
+msgstr "Stedets telefonnr"
 
 #: src/Tribe/View_Helpers.php:102
 msgid "Cyprus"
@@ -2270,7 +2270,7 @@ msgstr "Kypros"
 
 #: src/Tribe/Importer/Column_Mapper.php:82
 msgid "Venue Website"
-msgstr "Lokasjonens hjemmeside"
+msgstr "Stedets hjemmeside"
 
 #: src/Tribe/View_Helpers.php:103
 msgid "Czech Republic"
@@ -2326,7 +2326,7 @@ msgstr "Ecuador"
 
 #: src/Tribe/Importer/File_Importer.php:118
 msgid "Failed to import record in row %d."
-msgstr ""
+msgstr "Mislyktes med å importere oppføringen i rad %d."
 
 #: src/Tribe/View_Helpers.php:110
 msgid "Egypt"
@@ -2399,7 +2399,7 @@ msgstr "Fiji"
 #: src/Tribe/Main.php:503 src/functions/template-tags/venue.php:52
 #: src/io/csv/admin-views/import.php:45
 msgid "Venues"
-msgstr "Lokasjoner"
+msgstr "Sted"
 
 #: src/Tribe/View_Helpers.php:119
 msgid "Finland"
@@ -2409,7 +2409,7 @@ msgstr "Finland"
 #: src/functions/advanced-functions/meta_registration.php:126
 #: src/functions/template-tags/venue.php:41
 msgid "Venue"
-msgstr "Lokasjon"
+msgstr "Sted"
 
 #: src/Tribe/View_Helpers.php:120
 msgid "France"
@@ -2767,7 +2767,7 @@ msgstr "Kirgistan"
 
 #: src/Tribe/Main.php:1325
 msgid "%1$s restored to revision from %2$s"
-msgstr ""
+msgstr "%1$s gjenopprettet til revisjon fra %2$s"
 
 #: src/Tribe/View_Helpers.php:164
 msgid "Lao People's Democratic Republic"
@@ -2799,7 +2799,7 @@ msgstr "Lesotho"
 
 #: src/Tribe/Main.php:1339
 msgid "%1$s scheduled for: <strong>%2$s</strong>. <a target=\"_blank\" href=\"%3$s\">Preview %4$s</a>"
-msgstr ""
+msgstr "%1$s planlagt til: <strong>%2$s</strong>. <a target=\"_blank\" href=\"%3$s\">Forhåndsvis %4$s</a>"
 
 #: src/Tribe/View_Helpers.php:168
 msgid "Liberia"
@@ -2807,7 +2807,7 @@ msgstr "Liberia"
 
 #: src/Tribe/Main.php:1342 src/Tribe/Main.php:1368 src/Tribe/Main.php:1387
 msgid "M j, Y @ G:i"
-msgstr ""
+msgstr "M j, Y @ G:i"
 
 #: src/Tribe/View_Helpers.php:169
 msgid "Libya"
@@ -2823,7 +2823,7 @@ msgstr "Liechtenstein"
 
 #: src/Tribe/Main.php:1361 src/Tribe/Main.php:1380
 msgid "%s restored to revision from %s"
-msgstr ""
+msgstr "%s gjenopprettet til revisjon fra %s"
 
 #: src/Tribe/View_Helpers.php:171
 msgid "Lithuania"

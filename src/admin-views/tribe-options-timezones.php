@@ -1,6 +1,7 @@
 <?php
+// Don't load directly
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	die( '-1' );
 }
 
 $enable_button_label  = esc_html__( 'Enable timezone support', 'the-events-calendar' );

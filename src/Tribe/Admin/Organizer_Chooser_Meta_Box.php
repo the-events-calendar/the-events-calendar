@@ -153,7 +153,13 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	 * @return void
 	 */
 	protected function render_add_organizer_button() {
-		printf( '<tfoot><tr><td colspan="2"><a class="tribe-add-organizer" href="#">%s</a></td></tr></tfoot>', esc_html__( 'Add another organizer', 'the-events-calendar' ) );
+		?>
+		<tfoot>
+			<tr>
+				<td colspan="2"><a class="tribe-add-organizer" href="#"><?php echo esc_html( sprintf( __( 'Add another %s', 'the-events-calendar' ), strtolower( tribe_get_organizer_label_singular() ) ) ); ?></a></td>
+			</tr>
+		</tfoot>
+		<?php
 	}
 
 	/**

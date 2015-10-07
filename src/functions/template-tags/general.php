@@ -996,13 +996,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 					$image_tool_src = $image_tool_arr[0];
 				}
 
-				if ( has_excerpt( $event->ID ) ) {
-					$excerpt = $event->post_excerpt;
-				} else {
-					$excerpt = $event->post_content;
-				}
-				$excerpt = Tribe__Events__Main::instance()->truncate( $excerpt, 30 );
-
 				$category_classes = tribe_events_event_classes( $event->ID, false );
 
 				$json['eventId'] = $event->ID;
@@ -1011,7 +1004,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$json['imageSrc'] = $image_src;
 				$json['dateDisplay'] = $date_display;
 				$json['imageTooltipSrc'] = $image_tool_src;
-				$json['excerpt'] = $excerpt;
+				$json['excerpt'] = tribe_events_get_the_excerpt( $event );
 				$json['categoryClasses'] = $category_classes;
 
 				/**
@@ -1225,26 +1218,96 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Effectively aliases WP's get_the_excerpt() function, except that it additionally strips shortcodes
-	 * during ajax requests.
+	 * A Excerpt method used across the board on our Events Plugin Suite.
 	 *
-	 * The reason for this is that shortcodes added by other plugins/themes may not have been registered
-	 * by the time our ajax responses are generated. To avoid leaving unparsed shortcodes in our excerpts
-	 * then we strip out anything that looks like one.
-	 *
-	 * If this is undesirable the use of this function can simply be replaced within template overrides by
-	 * WP's own get_the_excerpt() function.
+	 * By default it removes all shortcodes, the reason for this is that shortcodes added by other plugins/themes
+	 * may not have been registered by the time our ajax responses are generated. To avoid leaving unparsed
+	 * shortcodes in our excerpts then we strip out anything that looks like one.
 	 *
 	 * @category Events
 	 *
-	 * @return string
+	 * @param  WP_Post|int|null $post The Post Object|ID, if null defaults to `get_the_ID()`
+	 * @param  array $allowed_html The wp_kses compatible array
+	 *
+	 * @return string|null Will return null on Bad Post Instances
 	 */
-	function tribe_events_get_the_excerpt() {
-		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
-			return get_the_excerpt();
+	function tribe_events_get_the_excerpt( $post = null, $allowed_html = null ) {
+		// If post is not numeric or instance of WP_Post it defaults to the current Post ID
+		if ( ! is_numeric( $post ) && ! $post instanceof WP_Post ) {
+			$post = get_the_ID();
 		}
 
-		return preg_replace( '#\[.+\]#U', '', get_the_excerpt() );
+		// If not a WP_Post we try to fetch it as one
+		if ( is_numeric( $post ) ) {
+			$post = WP_Post::get_instance( $post );
+		}
+
+		// Prevent Non usable $post instances
+		if ( ! $post instanceof WP_Post ) {
+			return null;
+		}
+
+		// Default Allowed HTML
+		if ( ! is_array( $allowed_html ) ) {
+			$base_attrs = array(
+				'class' => array(),
+				'id' => array(),
+				'style' => array(),
+			);
+			$allowed_html = array(
+				'a' => array(
+					'class' => array(),
+					'id' => array(),
+					'style' => array(),
+					'href' => array(),
+					'rel' => array(),
+					'target' => array(),
+				),
+				'b' => $base_attrs,
+				'strong' => $base_attrs,
+				'em' => $base_attrs,
+				'span' => $base_attrs,
+				'ul' => $base_attrs,
+				'li' => $base_attrs,
+				'ol' => $base_attrs,
+			);
+		}
+
+		/**
+		 * Allow developers to filter what are the allowed HTML on the Excerpt
+		 *
+		 * @var array Must be compatible to wp_kses structure
+		 *
+		 * @link https://codex.wordpress.org/Function_Reference/wp_kses
+		 */
+		$allowed_html = apply_filters( 'tribe_events_excerpt_allowed_html', $allowed_html, $post );
+
+		/**
+		 * Allow shortcodes to be Applied on the Excerpt or not
+		 *
+		 * @var bool
+		 */
+		$allow_shortcode = apply_filters( 'tribe_events_excerpt_allow_shortcode', false );
+
+		// Get the Excerpt or content based on what is available
+		if ( has_excerpt( $post->ID ) ) {
+			$excerpt = $post->post_excerpt;
+		} else {
+			$excerpt = $post->post_content;
+		}
+
+		// Remove all shortcode Content before removing HTML
+		if ( ! $allow_shortcode ) {
+			$excerpt = preg_replace( '#\[.+\]#U', '', $excerpt );
+		}
+
+		// Remove "all" HTML based on what is allowed
+		$excerpt = wp_kses( $excerpt, $allowed_html );
+
+		// Still treat this as an Excerpt on WP
+		$excerpt = wp_trim_excerpt( $excerpt );
+
+		return wpautop( $excerpt );
 	}
 
 	/**
