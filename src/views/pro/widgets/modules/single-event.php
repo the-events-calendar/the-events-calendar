@@ -86,7 +86,7 @@ $multiple_organizers = count( $organizer_ids ) > 1;
 							continue;
 						}
 
-						$organizer_links[] = tribe_get_organizer_link( $organizer_id, true, false );
+						$organizer_links[] = tribe_get_organizer_link( $organizer_id, true );
 					}// end foreach
 
 					$and = _x( 'and', 'list separator for final two elements', 'tribe-events-calendar-pro' );
