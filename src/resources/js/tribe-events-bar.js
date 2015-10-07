@@ -126,10 +126,10 @@ var tribe_events_bar_action;
 				ts.date = td.cur_date;
 				td.cur_url = td.base_url;
 				/**
-				 * DEPRECATED: tribe_ev_runAjax has been deprecated in 4.0. Use run-ajax.tec.tribe instead
+				 * DEPRECATED: tribe_ev_runAjax has been deprecated in 4.0. Use run-ajax.tribe instead
 				 */
 				$( te ).trigger( 'tribe_ev_runAjax' );
-				$( te ).trigger( 'run-ajax.tec.tribe' );
+				$( te ).trigger( 'run-ajax.tribe' );
 			}
 		} );
 
@@ -307,10 +307,10 @@ var tribe_events_bar_action;
 			ts.url_params = {};
 
 			/**
-			 * DEPRECATED: tribe_ev_preCollectBarParams has been deprecated in 4.0. Use pre-collect-bar-params.tec.tribe instead
+			 * DEPRECATED: tribe_ev_preCollectBarParams has been deprecated in 4.0. Use pre-collect-bar-params.tribe instead
 			 */
 			$( te ).trigger( 'tribe_ev_preCollectBarParams' );
-			$( te ).trigger( 'pre-collect-bar-params.tec.tribe' );
+			$( te ).trigger( 'pre-collect-bar-params.tribe' );
 
 			$( '#tribe-bar-form input, #tribe-bar-form select' ).each( function() {
 				var $this = $( this );
@@ -336,10 +336,10 @@ var tribe_events_bar_action;
 			ts.url_params = $.param( ts.url_params );
 
 			/**
-			 * DEPRECATED: tribe_ev_postCollectBarParams has been deprecated in 4.0. Use post-collect-bar-params.tec.tribe instead
+			 * DEPRECATED: tribe_ev_postCollectBarParams has been deprecated in 4.0. Use post-collect-bar-params.tribe instead
 			 */
 			$( te ).trigger( 'tribe_ev_postCollectBarParams' );
-			$( te ).trigger( 'post-collect-bar-params.tec.tribe' );
+			$( te ).trigger( 'post-collect-bar-params.tribe' );
 
 			if ( ts.url_params.length ) {
 				ts.cur_url += tt.starting_delim() + ts.url_params;
