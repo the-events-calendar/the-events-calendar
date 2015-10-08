@@ -296,6 +296,22 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			return tribe_get_events( $numResults, $catName );
 		}
 	}
+	if ( ! function_exists( 'tribe_event_link' ) ) {
+		/**
+		 * @deprecated
+		 *
+		 * Display link to a single event
+		 *
+		 * @param null|int $post Optional post ID
+		 *
+		 * @return string Link html
+		 */
+		function tribe_event_link( $post = null ) {
+			_deprecated_function( __FUNCTION__, '4.0', 'tribe_get_event_link()' );
+
+			echo apply_filters( 'tribe_event_link', tribe_get_event_link( $post ) );
+		}
+	}
 	if ( ! function_exists( 'events_displaying_past' ) ) {
 		/**
 		 * @deprecated
