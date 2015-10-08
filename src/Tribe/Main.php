@@ -1002,6 +1002,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return array
 		 */
 		public function add_current_menu_item_class_to_events( $items, $args ) {
+			global $wp_query;
+
 			foreach ( $items as $item ) {
 				if ( $item->url == $this->getLink() ) {
 					if ( is_singular( self::POSTTYPE )
@@ -4624,7 +4626,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						'headers' => array( 'Accept' => 'application/json' ),
 					)
 			);
-			
+
 			if ( ! is_wp_error( $tec_info ) ) {
 				$tec_info = $tec_info['body'];
 				$tec_info = unserialize( $tec_info );
