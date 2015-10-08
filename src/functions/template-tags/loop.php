@@ -306,7 +306,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Used in list loop, displays the date headers between events in the loop when the month / year has changed
 	 *
-	 * @return void
 	 **/
 	function tribe_events_list_the_date_headers() {
 

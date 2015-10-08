@@ -36,7 +36,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 		/**
 		 * Setup meta display in this template
 		 *
-		 * @return void
 		 **/
 		public function setup_meta() {
 
@@ -105,7 +104,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 		/**
 		 * Set up the notices for this template
 		 *
-		 * @return void
 		 **/
 		public function set_notices() {
 			parent::set_notices();

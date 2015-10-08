@@ -19,7 +19,6 @@ class Tribe__Events__Updater {
 	 * alloptions caches getting out of sync with the DB,
 	 * forcing an eternal update cycle
 	 *
-	 * @return void
 	 */
 	protected function clear_option_caches() {
 		wp_cache_delete( 'notoptions', 'options' );
@@ -148,7 +147,6 @@ class Tribe__Events__Updater {
 	/**
 	 * Reset the $current_user global after capabilities have been changed
 	 *
-	 * @return void
 	 */
 	public function reload_current_user() {
 		global $current_user;
@@ -163,7 +161,6 @@ class Tribe__Events__Updater {
 	 * Reset update flags. All updates past $this->reset_version will
 	 * run again on the next page load
 	 *
-	 * @return void
 	 */
 	public function reset() {
 		$this->update_version_option( $this->reset_version );
@@ -172,7 +169,6 @@ class Tribe__Events__Updater {
 	/**
 	 * Make sure the tribeEnableViews option is always set
 	 *
-	 * @return void
 	 */
 	public function set_enabled_views() {
 		$enabled_views = tribe_get_option( 'tribeEnableViews', null );
@@ -185,7 +181,6 @@ class Tribe__Events__Updater {
 	/**
 	 * Bump the :30 min EOD cutoff option to the next full hour
 	 *
-	 * @return void
 	 */
 	public function remove_30_min_eod_cutoffs() {
 		$eod_cutoff = tribe_end_of_day();

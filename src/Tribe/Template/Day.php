@@ -22,7 +22,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 		/**
 		 * Set up hooks for this template
 		 *
-		 * @return void
 		 **/
 		public function hooks() {
 
@@ -84,7 +83,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 		/**
 		 * Organize and reorder the events posts according to time slot
 		 *
-		 * @return void
 		 **/
 		public function setup_view() {
 
@@ -145,7 +143,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 		 * AJAX handler for tribe_event_day (dayview navigation)
 		 * This loads up the day view shard with all the appropriate events for the day
 		 *
-		 * @return void
 		 */
 		public function ajax_response() {
 			if ( isset( $_POST['eventDate'] ) && $_POST['eventDate'] ) {

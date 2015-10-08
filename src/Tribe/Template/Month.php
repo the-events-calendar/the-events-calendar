@@ -181,7 +181,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		/**
 		 * Add any special hooks for this view
 		 *
-		 * @return void
 		 */
 		protected function hooks() {
 			parent::hooks();
@@ -197,7 +196,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		/**
 		 * Unhook all the hooks set up on this view
 		 *
-		 * @return void
 		 */
 		protected function unhook() {
 			parent::unhook();
@@ -248,7 +246,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		/**
 		 * Set the notices used on month view
 		 *
-		 * @return void
 		 */
 		public function set_notices() {
 			// Our focus is on the current month, not the complete range of events included in the current month view
@@ -270,7 +267,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		/**
 		 * Sets an appropriate no results found message.
 		 *
-		 * @return void
 		 */
 		protected function nothing_found_notice() {
 			if ( ! empty( $this->args['suppress_nothing_found_notice'] ) ) {
@@ -635,7 +631,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		/**
 		 * Sets up an array of $days based on the current query, that can be used in the calendar loop
 		 *
-		 * @return void
 		 */
 		public function setup_view() {
 
@@ -829,7 +824,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		/**
 		 * Advances the internal day counter (and week counter, if appropriate)
 		 *
-		 * @return void
 		 */
 		public static function the_day() {
 			if ( self::have_days() ) {
@@ -843,7 +837,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		/**
 		 * Rewind the posts and reset post index.
 		 *
-		 * @return void
 		 */
 		public static function rewind_days() {
 			self::$current_day  = - 1;
@@ -957,7 +950,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		/**
 		 * Month View Ajax Handler
 		 *
-		 * @return void
 		 */
 		public function ajax_response() {
 

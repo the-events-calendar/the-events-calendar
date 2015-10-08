@@ -13,8 +13,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 		/**
 		 * Initialize The Events Calendar query filters and post processing.
-		 *
-		 * @return void
 		 */
 		public static function init() {
 
@@ -54,8 +52,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * Set any query flags
 		 *
 		 * @param WP_Query $query
-		 *
-		 * @return void
 		 **/
 		public static function parse_query( $query ) {
 

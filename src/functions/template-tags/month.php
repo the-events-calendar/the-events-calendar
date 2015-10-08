@@ -26,7 +26,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param array  $args          query args to pass to the month view
 	 * @param string $template_path template to use, defaults to the full month view
 	 *
-	 * @return void
 	 **/
 	function tribe_show_month( $args = array(), $template_path = 'month/content' ) {
 
@@ -107,7 +106,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * ?>
 	 * </ code >
 	 *
-	 * @return void
 	 * @see Tribe__Events__Template__Month::the_day()
 	 **/
 	function tribe_events_the_month_day() {
@@ -160,7 +158,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Used in the month loop.
 	 * Outputs classes for the current month day, including special classes for past / present / future days
 	 *
-	 * @return void
 	 * @see Tribe__Events__Template__Month::day_classes()
 	 **/
 	function tribe_events_the_month_day_classes() {
@@ -171,7 +168,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Used in the month loop.
 	 * Outputs classes for the current single event in the month loop
 	 *
-	 * @return void
 	 * @see Tribe__Events__Template__Month::event_classes()
 	 **/
 	function tribe_events_the_month_single_event_classes() {
@@ -245,7 +241,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * No link will be returned if the link is to a month that precedes any existing
 	 * events.
 	 *
-	 * @return void
 	 * @uses tribe_get_previous_month_text()
 	 **/
 	function tribe_events_the_previous_month_link() {
@@ -264,7 +259,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Display an html link to the next month. Used in the month navigation.
 	 *
-	 * @return void
 	 * @uses tribe_get_next_month_text()
 	 **/
 	function tribe_events_the_next_month_link() {

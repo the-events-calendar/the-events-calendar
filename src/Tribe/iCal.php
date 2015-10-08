@@ -65,8 +65,6 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Generates the markup for iCal and gCal single event links
-	 *
-	 * @return void
 	 **/
 	public static function single_event_links() {
 

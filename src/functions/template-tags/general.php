@@ -17,7 +17,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @param bool|string $class Classname you want to instantiate
 	 *
-	 * @return void
 	 * @uses Tribe__Events__Templates::instantiate_template_class()
 	 **/
 	function tribe_initialize_view( $class = false ) {
@@ -30,7 +29,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @param bool|string $view View slug
 	 *
-	 * @return void
 	 **/
 	function tribe_get_view( $view = false ) {
 
@@ -537,7 +535,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param $event |0 post id or object
 	 * @param $echo  |true
 	 *
-	 * @return void or string
 	 **/
 	function tribe_events_event_classes( $event = 0, $echo = true ) {
 		global $post, $wp_query;
@@ -595,7 +592,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @category Events
 	 * @param string|null $current_view
 	 *
-	 * @return void
 	 * @todo move to template classes
 	 **/
 	function tribe_events_the_header_attributes( $current_view = null ) {
@@ -784,7 +780,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @todo possible candidate for deprecation - confirm if still required by other plugins
 	 * @category Tickets
-	 * @return void
 	 */
 	function tribe_get_ticket_form() {
 		$ticket_form = apply_filters( 'tribe_get_ticket_form', false );
@@ -1136,7 +1131,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @param bool $echo Whether or not to echo the banner, if false, it's returned
 	 *
-	 * @return void|string
+	 * @return string
 	 **/
 	function tribe_events_promo_banner( $echo = true ) {
 		if ( tribe_get_option( 'donate-link', false ) == true && ! tribe_is_bot() ) {

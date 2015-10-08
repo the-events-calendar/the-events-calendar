@@ -3212,7 +3212,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param int     $postID The venue id.
 		 * @param WP_Post $post   The post object.
 		 *
-		 * @return null|void
+		 * @return null
 		 */
 		public function save_venue_data( $postID = null, $post = null ) {
 			// was a venue submitted from the single venue post editor?
@@ -3263,7 +3263,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param int     $postID The organizer id.
 		 * @param WP_Post $post   The post object.
 		 *
-		 * @return null|void
+		 * @return null
 		 */
 		public function save_organizer_data( $postID = null, $post = null ) {
 			// was an organizer submitted from the single organizer post editor?
@@ -3870,8 +3870,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Set the class property postExceptionThrown.
-		 *
-		 * return void
 		 */
 		public function setPostExceptionThrown( $thrown ) {
 			$this->postExceptionThrown = $thrown;
@@ -4502,7 +4500,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Registers the list widget
-		 *
 		 */
 		public function register_list_widget() {
 			register_widget( 'Tribe__Events__List_Widget' );
@@ -4539,6 +4536,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Inject TEC specific setting fields into the general tab
 		 *
 		 * @param array $general_tab_fields Fields for the general settings tab
+		 *
+		 * @return array
 		 */
 		public function general_settings_tab_fields( $general_tab_fields ) {
 			require_once $this->plugin_path . 'src/admin-views/tribe-options-general.php';
@@ -4550,6 +4549,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Inject TEC specific setting fields into the display tab
 		 *
 		 * @param array $display_tab_fields Fields for the display settings tab
+		 *
+		 * @return array
 		 */
 		public function display_settings_tab_fields( $display_tab_fields ) {
 			require_once $this->plugin_path . 'src/admin-views/tribe-options-display.php';
@@ -4561,6 +4562,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * When TEC is activated, the Events top level menu item in the dashboard needs the post_type appended to it
 		 *
 		 * @param string $url Settings URL to filter
+		 *
+		 * @return string
 		 */
 		public function tribe_settings_url( $url ) {
 			return add_query_arg( array( 'post_type' => self::POSTTYPE ), $url );
@@ -4656,6 +4659,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Adds post types to the post_types array used to determine if on a post type screen
 		 *
 		 * @param array $post_types Collection of post types
+		 *
+		 * @return array
 		 */
 		public function is_post_type_screen_post_types( $post_types ) {
 			foreach ( self::getPostTypes() as $post_type ) {

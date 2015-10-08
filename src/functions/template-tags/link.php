@@ -19,7 +19,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @param bool|string $anchor link text. Use %title% to place the post title in your string.
 	 *
-	 * @return void
 	 * @see tribe_get_prev_event_link()
 	 */
 	function tribe_the_prev_event_link( $anchor = false ) {

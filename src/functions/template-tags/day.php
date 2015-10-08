@@ -64,7 +64,6 @@ if ( ! function_exists( 'tribe_the_day_link' ) ) {
 	 * @param string $date 'previous day', 'next day', 'yesterday', 'tomorrow', or any date string that strtotime() can parse
 	 * @param string $text text for the link
 	 *
-	 * @return void
 	 **/
 	function tribe_the_day_link( $date = null, $text = null ) {
 		$html = '';

@@ -47,7 +47,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Run include packages, set up hooks
 	 *
-	 * @return void
 	 **/
 	public function __construct() {
 		$this->hooks();
@@ -57,7 +56,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Set up hooks for this template
 	 *
-	 * @return void
 	 **/
 	protected function hooks() {
 
@@ -154,7 +152,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	 *
 	 * @param array $classes
 	 *
-	 * @return void
 	 **/
 	public function body_class( $classes = array() ) {
 
@@ -208,7 +205,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Setup meta display in this template
 	 *
-	 * @return void
 	 **/
 	public function setup_meta() {
 
@@ -235,7 +231,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Set up the notices for this template
 	 *
-	 * @return void
 	 **/
 	public function set_notices() {
 		// By default we only display notices if no events could be found
@@ -312,7 +307,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Setup the view, query hijacking, etc. This happens right before the view file is included
 	 *
-	 * @return void
 	 **/
 	public function setup_view() {
 
@@ -361,7 +355,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Echo open tags for wrapper around view
 	 *
-	 * @return void
 	 **/
 	public function view_wrapper_open() {
 		echo '<div id="tribe-events-content-wrapper" class="tribe-clearfix">';
@@ -370,7 +363,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Output an input to store the hash for the current query
 	 *
-	 * @return void
 	 **/
 	public function add_input_hash() {
 		echo '<input type="hidden" id="tribe-events-list-hash" value="">';
@@ -379,7 +371,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Echo open tags for wrapper around view
 	 *
-	 * @return void
 	 **/
 	public function view_wrapper_close() {
 		echo '</div> <!-- #tribe-events-content-wrapper -->';
@@ -395,7 +386,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Shutdown the view, restore the query, etc. This happens right after the view file is included
 	 *
-	 * @return void
 	 **/
 	public function shutdown_view() {
 		$this->unhook();
@@ -404,7 +394,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Unhook all the hooks set up on this view
 	 *
-	 * @return void
 	 **/
 	protected function unhook() {
 
@@ -454,7 +443,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	 *
 	 * @param WP_Post $post
 	 *
-	 * @return void
 	 **/
 	public function manage_sensitive_info( $post ) {
 		if ( post_password_required( $post ) ) {

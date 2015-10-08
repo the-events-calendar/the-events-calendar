@@ -155,7 +155,6 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 *
 		 * @param bool $class
 		 *
-		 * @return void
 		 **/
 		public static function instantiate_template_class( $class = false ) {
 			if ( tribe_is_event_query() || tribe_is_ajax_view_request() ) {
@@ -298,7 +297,6 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		/**
 		 * Spoof the global post just once
 		 *
-		 * @return void
 		 **/
 		public static function spoof_the_post() {
 			$GLOBALS['post'] = self::spoofed_post();

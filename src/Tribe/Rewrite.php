@@ -65,8 +65,6 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 
 		/**
 		 * Do not allow people to Hook methods twice by mistake
-		 *
-		 * @return void
 		 */
 		public function hooks( $remove = false ) {
 			if ( false === $this->hook_lock ) {
@@ -89,7 +87,6 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * Generate the Rewrite Rules
 		 *
 		 * @param  WP_Rewrite $wp_rewrite WordPress Rewrite that will be modified, pass it by reference (&$wp_rewrite)
-		 * @return void
 		 */
 		public function filter_generate( WP_Rewrite $wp_rewrite ) {
 			// Gets the rewrite bases and completes any other required setup work

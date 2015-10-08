@@ -34,7 +34,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 * @param array $args The post args.
 		 *
-		 * @return void|int The created event ID.
+		 * @return int The created event ID.
 		 */
 		public static function createEvent( $args ) {
 
@@ -86,7 +86,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param array $data     The meta fields we want saved.
 		 * @param       WP_Post   The event itself.
 		 *
-		 * @return void
 		 */
 		public static function saveEventMeta( $event_id, $data, $event = null ) {
 			$tec = Tribe__Events__Main::instance();
@@ -393,7 +392,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param int  $organizerId  The organizer ID to delete.
 		 * @param bool $force_delete Same as WP param.
 		 *
-		 * @return void
 		 */
 		public static function deleteOrganizer( $organizerId, $force_delete = false ) {
 			wp_delete_post( $organizerId, $force_delete );
@@ -405,7 +403,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param int   $organizerId The organizer ID to update.
 		 * @param array $data        The organizer data.
 		 *
-		 * @return void
 		 */
 		public static function updateOrganizer( $organizerId, $data ) {
 			self::saveOrganizerMeta( $organizerId, $data );
@@ -418,7 +415,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param int   $organizerId The organizer ID.
 		 * @param array $data        The organizer data.
 		 *
-		 * @return void
 		 */
 		private static function saveOrganizerMeta( $organizerId, $data ) {
 			foreach ( $data as $key => $var ) {
@@ -484,7 +480,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param int   $venueId The venue ID to update.
 		 * @param array $data    The venue data.
 		 *
-		 * @return void
 		 */
 		public static function updateVenue( $venue_id, $data ) {
 			$data['ShowMap']     = isset( $data['ShowMap'] ) ? $data['ShowMap'] : 'false';
@@ -500,7 +495,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param int  $venueId      The venue ID to delete.
 		 * @param bool $force_delete Same as WP param.
 		 *
-		 * @return void
 		 */
 		public static function deleteVenue( $venueId, $force_delete = false ) {
 			wp_delete_post( $venueId, $force_delete );
@@ -512,7 +506,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param int   $venueId The venue ID.
 		 * @param array $data    The venue data.
 		 *
-		 * @return void
 		 */
 		private static function saveVenueMeta( $venueId, $data ) {
 			// TODO: We should probably do away with 'StateProvince' and stick to 'State' and 'Province'.

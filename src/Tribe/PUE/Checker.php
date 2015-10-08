@@ -64,7 +64,6 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 * Install the hooks required to run periodic update checks and inject update info
 		 * into WP data structures.
 		 * Also other hooks related to the automatic updates (such as checking agains API and what not (@from Darren)
-		 * @return void
 		 */
 		public function hooks() {
 			// Override requests for plugin information
@@ -316,7 +315,6 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 * Inserts the javascript that makes the ajax checking
 		 * work on the license key page
 		 *
-		 * @return void
 		 */
 		public function do_license_key_javascript() {
 			?>
@@ -708,7 +706,6 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @param array $updates
 		 *
-		 * @return void
 		 */
 		public function check_for_updates( $updates = array() ) {
 			$state = $this->get_option( $this->pue_option_name );
@@ -777,7 +774,6 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @param callback $callback
 		 *
-		 * @return void
 		 */
 		public function add_query_arg_filter( $callback ) {
 			add_filter( 'tribe_puc_request_info_query_args-' . $this->get_slug(), $callback );
@@ -794,7 +790,6 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @param callback $callback
 		 *
-		 * @return void
 		 */
 		public function add_http_request_arg_filter( $callback ) {
 			add_filter( 'tribe_puc_request_info_options-' . $this->get_slug(), $callback );
@@ -814,7 +809,6 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @param callback $callback
 		 *
-		 * @return void
 		 */
 		public function add_result_filter( $callback ) {
 			add_filter( 'tribe_puc_request_info_result-' . $this->get_slug(), $callback, 10, 2 );
