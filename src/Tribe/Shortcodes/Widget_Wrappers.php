@@ -9,6 +9,7 @@ class Tribe__Events__Pro__Shortcodes__Widget_Wrappers {
 		add_shortcode( 'tribe_events_list', array( $this, 'events_list' ) );
 		add_shortcode( 'tribe_featured_venue', array( $this, 'featured_venue' ) );
 		add_shortcode( 'tribe_event_countdown', array( $this, 'event_countdown' ) );
+		add_shortcode( 'tribe_this_week', array( $this, 'this_week' ) );
 	}
 
 	public function mini_calendar( $atts ) {
@@ -28,6 +29,16 @@ class Tribe__Events__Pro__Shortcodes__Widget_Wrappers {
 
 	public function event_countdown( $atts ) {
 		$wrapper = new Tribe__Events__Pro__Shortcodes__Event_Countdown( $atts );
+		return $wrapper->output;
+	}
+
+	/**
+	 * @param $atts
+	 *
+	 * @return string
+	 */
+	public function this_week( $atts ) {
+		$wrapper = new Tribe__Events__Pro__Shortcodes__This_Week( $atts );
 		return $wrapper->output;
 	}
 }
