@@ -1103,7 +1103,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public static function isNotice( $key ) {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices::is_notice' );
-			return Tribe__Notices::is_notice( $key, $notice );
+			return Tribe__Notices::is_notice( $key );
 		}
 
 		/**
