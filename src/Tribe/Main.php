@@ -4503,8 +4503,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$updater = new Tribe__Events__Updater( self::VERSION );
 			if ( $updater->update_required() ) {
 				$updater->do_updates();
-					}
-				}
+			}
+		}
 
 		/**
 		 * Helper used to test if PRO is present and activated.
@@ -4614,16 +4614,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		public function tribe_help_sidebar_top() {
 			$tec_info = wp_remote_get(
-			/**
-			 * Filter the tribe info API url
-			 *
-			 * @param string $url
-			 */
-			apply_filters( 'tribe_help_tab_api_info_url', Tribe__Events__Main::INFO_API_URL ), array(
-					'timeout' => 15, //seconds
-					'headers' => array( 'Accept' => 'application/json' ),
-				)
+				/**
+				 * Filter the tribe info API url
+				 *
+				 * @param string $url
+				 */
+				apply_filters( 'tribe_help_tab_api_info_url', Tribe__Events__Main::INFO_API_URL ), array(
+						'timeout' => 15, //seconds
+						'headers' => array( 'Accept' => 'application/json' ),
+					)
 			);
+			
 			if ( ! is_wp_error( $tec_info ) ) {
 				$tec_info = $tec_info['body'];
 				$tec_info = unserialize( $tec_info );
