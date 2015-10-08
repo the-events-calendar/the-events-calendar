@@ -247,7 +247,17 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 						$( '#ticket_id' ).val( response.data.ID );
 						$( '#ticket_name' ).val( response.data.name );
 						$( '#ticket_description' ).val( response.data.description );
-						$( '#ticket_price' ).val( regularPrice );
+						var $ticket_price = $( document.getElementById( 'ticket_price' ) );
+						$ticket_price.val( regularPrice );
+						if ( 'undefined' !== typeof response.data.can_update_price && ! response.data.can_update_price ) {
+							$ticket_price.prop( 'disabled', 'disabled' );
+							$ticket_price.siblings( '.description' ).hide();
+							$ticket_price.siblings( '.no-update' ).show();
+						} else {
+							$ticket_price.siblings( '.description' ).show();
+							$ticket_price.siblings( '.no-update' ).hide();
+						}
+
 						$( '#ticket_sale_price' ).val( salePrice );
 
 						if ( onSale ) {

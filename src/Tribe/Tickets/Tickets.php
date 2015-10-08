@@ -431,8 +431,19 @@ if ( ! class_exists( 'Tribe__Events__Tickets__Tickets' ) ) {
 
 			$post_id   = $_POST["post_ID"];
 			$ticket_id = $_POST["ticket_id"];
+			$ticket = $this->get_ticket( $post_id, $ticket_id );
 
-			$return = get_object_vars( $this->get_ticket( $post_id, $ticket_id ) );
+			$return = get_object_vars( $ticket );
+
+			/**
+			 * Allow for the prevention of updating ticket price on update.
+			 *
+			 * @var boolean
+			 * @var WP_Post
+			 */
+			$can_update_price = apply_filters( 'tribe_tickets_can_update_ticket_price', true, $ticket );
+
+			$return['can_update_price'] = $can_update_price;
 
 			ob_start();
 			$this->do_metabox_advanced_options( $post_id, $ticket_id );

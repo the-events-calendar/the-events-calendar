@@ -119,6 +119,7 @@ $modules = Tribe__Events__Tickets__Tickets::modules();
 							   value='' />
 
 						<p class="description"><?php esc_html_e( '(0 or empty for free tickets)', 'the-events-calendar' ) ?></p>
+						<p class="no-update" style="display: none;"><?php esc_html_e( 'Price is not editable when purchases have already been made', 'the-events-calendar' ); ?></p>
 					</td>
 				</tr>
 
