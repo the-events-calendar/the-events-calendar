@@ -1936,7 +1936,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function setOptions( $options, $apply_filters = true ) {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::set_options' );
-			Tribe__Settings_Manager::set_options( $options, $apply_filteres );
+			Tribe__Settings_Manager::set_options( $options, $apply_filters );
 		}
 
 		/**
