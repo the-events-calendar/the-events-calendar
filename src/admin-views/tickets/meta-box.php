@@ -70,14 +70,6 @@ $modules = Tribe__Events__Tickets__Tickets::modules();
 			<h4 class="ticket_form_title_add"><?php esc_html_e( 'Add new ticket', 'tribe-events-calendar' ); ?></h4>
 			<h4 class="ticket_form_title_edit"><?php esc_html_e( 'Edit ticket', 'tribe-events-calendar' ); ?></h4>
 			<table id="ticket_form_table" class="eventtable ticket_form">
-
-				<tr>
-					<td colspan="2">
-						<h4 class="ticket_form_title_add"><?php esc_html_e( 'Add new ticket', 'the-events-calendar' ); ?></h4>
-						<h4 class="ticket_form_title_edit"><?php esc_html_e( 'Edit ticket', 'the-events-calendar' ); ?></h4>
-					</td>
-				</tr>
-
 				<tr>
 					<td width="20%"><label for="ticket_provider"><?php esc_html_e( 'Sell using:', 'the-events-calendar' ); ?></label></td>
 					<td>
