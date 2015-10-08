@@ -795,7 +795,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	 */
 	public function show_offer_to_fix_notice() {
 
-		$settings = Tribe__Events__Settings::instance();
+		$settings = Tribe__Settings::instance();
 		$url      = apply_filters( 'tribe_settings_url',
 			add_query_arg(
 				array(
