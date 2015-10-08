@@ -4480,7 +4480,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Main::array_insert_after_key' );
-			return $this->common()->array_insert_after_key( $key, $source_array, $insert_array );
+
+			return self::instance()->common()->array_insert_after_key( $key, $source_array, $insert_array );
 		}
 
 		/**
@@ -4494,7 +4495,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public static function array_insert_before_key( $key, $source_array, $insert_array ) {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Main::array_insert_before_key' );
-			return $this->common()->array_insert_before_key( $key, $source_array, $insert_array );
+
+			return self::instance()->common()->array_insert_before_key( $key, $source_array, $insert_array );
 		}
 
 		public function run_updates() {
