@@ -5,6 +5,7 @@
  */
 class Tribe__Events__Importer__Plugin {
 	private static $plugin_basename = '';
+
 	/** @var Tribe__Events__Importer__Admin_Page */
 	public static $admin = null;
 
@@ -23,6 +24,7 @@ class Tribe__Events__Importer__Plugin {
 		self::$admin = new Tribe__Events__Importer__Admin_Page();
 		add_action( 'admin_menu', array( self::$admin, 'register_admin_page' ) );
 		add_action( 'load-tribe_events_page_events-importer', array( self::$admin, 'handle_submission' ) );
+		add_filter( 'tribe_import_general_settings', array( self::$admin, 'add_settings_fields' ) );
 	}
 
 	public static function get_admin_object() {

@@ -10,15 +10,33 @@ class Tribe__Events__Importer__Options {
 
 	public static function process_general_form_submission() {
 		if ( ! empty( $_POST[ 'tribe-import-general-settings' ] ) && wp_verify_nonce( $_POST[ 'tribe-import-general-settings' ], 'tribe-import-general-settings' ) ) {
+			$options = self::$options;
 
-			$options = apply_filters( 'tribe-import-available-options', self::$options );
+			if ( has_filter( 'tribe-import-available-options' ) ) {
+				/**
+				 * Remove this Filter on 4.3
+				 * @deprecated
+				 */
+				_doing_it_wrong(
+					'tribe-import-available-options',
+					sprintf(
+						esc_html__( 'This Filter has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: "%s" To: "%s"', 'the-events-calendar' ),
+						'tribe-import-available-options',
+						'tribe_import_available_options'
+					),
+					'4.0'
+				);
+				$options = apply_filters( 'tribe-import-available-options', $options );
+			}
+			$options = apply_filters( 'tribe_import_available_options', $options );
 			$core = Tribe__Events__Main::instance();
 
 			foreach ( $options as $_option ) {
-				$core->setOption( $_option, $_POST[ $_option ] );
+				$value = isset( $_POST[ $_option ] ) ? $_POST[ $_option ] : null;
+				$core->setOption( $_option, $value );
 			}
 
-			add_action( 'tribe-import-under-heading', array( __CLASS__, 'settings_saved_message' ) );
+			add_action( 'tribe_import_under_heading', array( __CLASS__, 'settings_saved_message' ) );
 		}
 	}
 
@@ -48,6 +66,56 @@ class Tribe__Events__Importer__Options {
 
 		$value = Tribe__Events__Main::getOption( $optionName, $default );
 
-		return apply_filters( 'tribe-import-setting-' . $optionName, $value, $default );
+		if ( has_filter( 'tribe-import-setting-' . $optionName ) ) {
+			/**
+			 * Remove this Filter on 4.3
+			 * @deprecated
+			 */
+			_doing_it_wrong(
+				'tribe-import-setting-' . $optionName,
+				sprintf(
+					esc_html__( 'This Filter has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: "%s" To: "%s"', 'the-events-calendar' ),
+					'tribe-import-setting-' . $optionName,
+					'tribe_import_setting_' . $optionName
+				),
+				'4.0'
+			);
+			$value = apply_filters( 'tribe-import-setting-' . $optionName, $value, $default );
+		}
+
+		return apply_filters( 'tribe_import_setting_' . $optionName, $value, $default );
+	}
+
+	public static function get_default_post_status( $type = 'csv' ) {
+		$options = self::getOption( 'imported_post_status', array( $type => 'publish' ) );
+
+		// Legacy for Facebook Status
+		if ( 'facebook' === $type && empty( $options['facebook'] ) ){
+			$options['facebook'] = Tribe__Events__Main::getOption( 'fb_default_status', 'publish' );
+		}
+
+		// A way to handle the legacy `imported_post_status`
+		if ( is_string( $options ) ) {
+			$options = array( $type => $options );
+		}
+
+		if ( ! isset( $options[ $type ] ) ) {
+			$options[ $type ] = apply_filters( 'tribe_import_default_post_status_non_saved', 'publish', $type );
+		}
+
+		/**
+		 * Allows users to filter
+		 */
+		return apply_filters( 'tribe_import_default_post_status', $options[ $type ], $type );
+	}
+
+	public static function get_possible_stati() {
+		$stati = array(
+			'publish' => __( 'Published', 'the-events-calendar' ),
+			'pending' => __( 'Pending', 'the-events-calendar' ),
+			'draft'   => __( 'Draft', 'the-events-calendar' ),
+		);
+
+		return apply_filters( 'tribe_import_possible_stati', $stati );
 	}
 }
