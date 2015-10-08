@@ -251,7 +251,6 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 						var $ticket_price = $( document.getElementById( 'ticket_price' ) );
 						$ticket_price.val( regularPrice );
 
-						console.log( response.data );
 						if ( 'undefined' !== typeof response.data.disallow_update_price_message ) {
 							$ticket_price.siblings( '.no-update-message' ).html( response.data.disallow_update_price_message );
 						} else {
@@ -263,6 +262,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 							$ticket_price.siblings( '.description' ).hide();
 							$ticket_price.siblings( '.no-update-message' ).show();
 						} else {
+							$ticket_price.removeProp( 'disabled' );
 							$ticket_price.siblings( '.description' ).show();
 							$ticket_price.siblings( '.no-update-message' ).hide();
 						}
@@ -398,6 +398,13 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			$( '.ticket_start_time' ).hide();
 			$( '.ticket_end_time' ).hide();
 			$( '.ticket.sale_price' ).hide();
+
+			var $ticket_price = $( document.getElementById( 'ticket_price' ) );
+			var $no_update_message = $ticket_price.siblings( '.no-update-message' );
+
+			$no_update_message.html( '' ).hide();
+			$ticket_price.removeProp( 'disabled' );
+			$ticket_price.siblings( '.description' ).show();
 
 			$( '#ticket_form textarea' ).val( '' );
 
