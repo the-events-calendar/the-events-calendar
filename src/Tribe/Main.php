@@ -2669,7 +2669,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'dates'    => $dates,
 				'details'  => urlencode( $event_details ),
 				'location' => urlencode( $location ),
-				'sprop'    => get_option( 'blogname' ),
 				'trp'      => 'false',
 				'sprop'    => 'website:' . home_url(),
 			);
