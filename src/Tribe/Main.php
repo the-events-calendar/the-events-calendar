@@ -262,7 +262,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		public function maybe_set_common_lib_info() {
-			$common_version = file_get_contents( $this->plugin_path . 'common/Tribe/Main.php' );
+			$common_version = file_get_contents( $this->plugin_path . 'common/src/Tribe/Main.php' );
 
 			// if there isn't a tribe-common version, bail
 			if ( ! preg_match( "/const\s+VERSION\s*=\s*'([^']+)'/m", $common_version, $matches ) ) {
@@ -275,12 +275,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( empty( $GLOBALS['tribe-common-info'] ) ) {
 				$GLOBALS['tribe-common-info'] = array(
-					'dir' => "{$this->plugin_path}common/Tribe",
+					'dir' => "{$this->plugin_path}common/src/Tribe",
 					'version' => $common_version,
 				);
 			} elseif ( 1 == version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' ) ) {
 				$GLOBALS['tribe-common-info'] = array(
-					'dir' => "{$this->plugin_path}common/Tribe",
+					'dir' => "{$this->plugin_path}common/src/Tribe",
 					'version' => $common_version,
 				);
 			}
