@@ -153,7 +153,6 @@ class Tribe__Events__Pro__This_Week_Widget extends WP_Widget {
 	 * @return mixed
 	 */
 	public function update( $new_instance, $old_instance ) {
-		//$instance = parent::update( $new_instance, $old_instance );
 
 		$instance['title']               = sanitize_text_field( $new_instance['title'] );
 		$instance['layout']              = sanitize_text_field( $new_instance['layout'] );

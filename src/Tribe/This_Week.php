@@ -269,13 +269,13 @@ class Tribe__Events__Pro__This_Week {
 
 		// Array used for calculation of php strtotime relative dates
 		$weekday_array = array(
-			0 => 'Sunday',
-			1 => 'Monday',
-			2 => 'Tuesday',
-			3 => 'Wednesday',
-			4 => 'Thursday',
-			5 => 'Friday',
-			6 => 'Saturday',
+			'Sunday',
+			'Monday',
+			'Tuesday',
+			'Wednesday',
+			'Thursday',
+			'Friday',
+			'Saturday',
 		);
 
 		//Build an Array for Each Day

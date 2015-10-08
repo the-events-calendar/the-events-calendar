@@ -268,9 +268,6 @@ function tribe_events_this_week_next_link( $start_date, $text = '' ) {
  */
 function tribe_get_this_week_first_week_day( $date = null, $week_offset = null ) {
 
-	//If no date set to null
-	$date = is_null( $date ) ? null : $date;
-
 	//Start of Week in WordPress Settings - Zero = Sunday, 1 = Monday, etc
 	$offset = 7 - get_option( 'start_of_week', 0 );
 
