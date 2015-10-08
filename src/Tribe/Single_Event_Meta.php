@@ -32,7 +32,7 @@ class Tribe__Events__Pro__Single_Event_Meta {
 	public function link_organizer( $name, $organizer_id ) {
 		$contains_link = ( false !== strpos( $name, 'href="' ) );
 
-		return $contains_link ? '' : '<a href="' . esc_url( tribe_get_organizer_link( $organizer_id, false, false ) ) . '">' . $name . '</a>';
+		return $contains_link ? '' : '<a href="' . esc_url( tribe_get_organizer_link( $organizer_id, false ) ) . '">' . $name . '</a>';
 	}
 
 	/**
@@ -120,7 +120,7 @@ class Tribe__Events__Pro__Single_Event_Meta {
 	public static function organizer_name( $html, $meta_id ) {
 		global $_tribe_meta_factory;
 		$post_id = get_the_ID();
-		$name    = tribe_get_organizer_link( $post_id, true, false );
+		$name    = tribe_get_organizer_link( $post_id, true );
 		$html    = empty( $name ) ? $html : Tribe__Events__Meta_Factory::template(
 			$_tribe_meta_factory->meta[ $meta_id ]['label'],
 			$name,
