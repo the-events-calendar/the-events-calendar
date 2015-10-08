@@ -20,13 +20,13 @@ class Tribe__Events__Importer__Admin_Page {
 		);
 	}
 
-	public function add_settings_fields() {
-		$fields = array(
+	public function add_settings_fields( $fields = array() ) {
+		$newfields = array(
 			'csv-title' => array(
 				'type' => 'html',
 				'html' => '<h3>' . esc_html__( 'CSV Import Settings', 'the-events-calendar' ) . '</h3>',
 			),
-			'tribe-form-content-start' => array(
+			'csv-form-content-start' => array(
 				'type' => 'html',
 				'html' => '<div class="tribe-settings-form-wrap">',
 			),
@@ -37,20 +37,12 @@ class Tribe__Events__Importer__Admin_Page {
 				'validation_type' => 'options',
 				'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			),
-			'tribe-form-content-end' => array(
+			'csv-form-content-end' => array(
 				'type' => 'html',
 				'html' => '</div>',
 			),
 		);
-		foreach ( $fields as $key => $field_args ) {
-			if ( 'imported_post_status[csv]' !== $key ){
-				$value = Tribe__Events__Main::getOption( $key, null );
-			} else {
-				$value = Tribe__Events__Importer__Options::get_default_post_status( 'csv' );
-			}
-
-			new Tribe__Events__Field( $key, $field_args, $value );
-		}
+		return array_merge( $fields, $newfields );
 	}
 
 	public function render_admin_page_contents() {

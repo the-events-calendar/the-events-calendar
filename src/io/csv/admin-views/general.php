@@ -23,13 +23,25 @@ require 'header.php';
 
 <div class="tribe-settings-form">
 	<form method="POST">
+		<?php
+		/**
+		 * Hook to this filter to print More fields on the Importer Settings page
+		 */
+		$fields = apply_filters( 'tribe_import_general_settings', array() );
+
+		foreach ( $fields as $key => $field_args ) {
+			if ( strpos( $key, 'imported_post_status' ) === false ){
+				$value = Tribe__Events__Main::getOption( $key, null );
+			} else {
+				$type = isset( $field_args['importer_type'] ) ? $field_args['importer_type'] : 'csv';
+				$value = Tribe__Events__Importer__Options::get_default_post_status( $type );
+			}
+
+			new Tribe__Events__Field( $key, $field_args, $value );
+		}
+		wp_nonce_field( 'tribe-import-general-settings', 'tribe-import-general-settings' );
+		?>
 		<div class="tribe-settings-form-wrap">
-			<?php
-			/**
-			 * Hook to this action to print More fields on the Importer Settings page
-			 */
-			do_action( 'tribe_import_general_settings' ); ?>
-			<?php wp_nonce_field( 'tribe-import-general-settings', 'tribe-import-general-settings' ); ?>
 			<p>
 				<input type="submit" name="tribe-events-importexport-general-settings-submit" class="button-primary" value="<?php esc_attr_e( 'Save Settings', 'the-events-calendar' ); ?>"/>
 			</p>
