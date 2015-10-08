@@ -42,6 +42,12 @@ tribe_events_pro_admin.recurrence = {
 		window.Handlebars.registerHelper( {
 			tribe_recurrence_select: function( value, options ) {
 				var $el = $( '<select />' ).html( options.fn( this ) );
+
+				// if a value is passed in, get rid of the defaults
+				if ( value ) {
+					$el.find( 'option:selected' ).attr( 'selected', false );
+				}
+
 				$el.find( '[value="' + value + '"]' ).attr( 'selected', 'selected' );
 				return $el.html();
 			},
@@ -199,7 +205,7 @@ tribe_events_pro_admin.recurrence = {
 	};
 
 	/**
-	 * checks the current state of fields and sets appropraite data attributes for them
+	 * checks the current state of fields and sets appropriate data attributes for them
 	 * on the recurrence rule
 	 */
 	my.set_recurrence_data_attributes = function( $rules ) {
@@ -469,6 +475,23 @@ tribe_events_pro_admin.recurrence = {
 		// make sure we always round hours UP to when dealing with decimal lengths more than 2. Example: 4.333333 would become 4.34
 		var new_num_hours = Math.ceil( ( new_end_moment.diff( new_start_moment, 'hours', true ) - ( num_days * 24 ) ) * 100 ) / 100;
 
+		// If a custom duration has been specified we can obtain the days and hours directly from the relevant fields
+		if ( ! same_time ) {
+			var duration_days  = parseInt( $rule.find( '[data-field="custom-duration-days"]' ).val(), 10 );
+			var duration_hours = parseFloat( $rule.find( '[data-field="custom-duration-hours"]' ).val() );
+			var duration_mins  = parseInt( $rule.find( '[data-field="custom-duration-minutes"]' ).val(), 10 );
+
+			duration_days  = isNaN( duration_days )  ? 0 : duration_days;
+			duration_hours = isNaN( duration_hours ) ? 0 : duration_hours;
+			duration_mins  = isNaN( duration_mins )  ? 0 : duration_mins;
+
+			new_num_days  = duration_days;
+			new_num_hours = duration_hours + ( duration_mins / 60 );
+
+			// Round the number of hours
+			new_num_hours = Math.ceil( new_num_hours * 100 ) / 100;
+		}
+
 		var weekdays = [];
 		var months = [];
 		var month_number = null;
@@ -526,6 +549,7 @@ tribe_events_pro_admin.recurrence = {
 				key += '-unfiltered';
 			}
 		} else {
+			key = 'simple-' + key;
 			key += '-' + end_type;
 		}
 
@@ -584,6 +608,12 @@ tribe_events_pro_admin.recurrence = {
 		}
 
 		switch ( key ) {
+			case 'simple-every-day-on':
+			case 'simple-every-week-on':
+			case 'simple-every-month-on':
+			case 'simple-every-year-on':
+				text = text.replace( '%1$s', end );
+				break;
 			case 'every-day-on':
 			case 'every-week-on':
 			case 'every-month-on':
@@ -862,10 +892,10 @@ tribe_events_pro_admin.recurrence = {
 		$( this ).removeClass( 'placeholder' );
 
 		/**
-		 * DEPRECATED: recurrenceEndChanged has been deprecated in 4.0. Use recurrence-end-changed.events-pro.tribe instead
+		 * DEPRECATED: recurrenceEndChanged has been deprecated in 4.0. Use recurrence-end-changed.tribe instead
 		 */
 		$( this ).trigger( 'recurrenceEndChanged' );
-		$( this ).trigger( 'recurrence-end-changed.events-pro.tribe' );
+		$( this ).trigger( 'recurrence-end-changed.tribe' );
 	};
 
 	my.event.recurrence_row_changed = function() {

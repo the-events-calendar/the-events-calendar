@@ -18,24 +18,44 @@
 			</select>
 		<?php endif; ?>
 	</span>
-	to
-	<span class="timeofdayoptions">
-		<select tabindex="<?php tribe_events_tab_index(); ?>" name="recurrence[<?php echo esc_attr( $rule_type ); ?>][][custom][end-time][hour]" data-field="custom-end-time-hour">
-			{{#tribe_recurrence_select custom.[end-time].hour}}
-				<?php echo $end_hour_options; ?>
-			{{/tribe_recurrence_select}}
-		</select>
-		<select tabindex="<?php tribe_events_tab_index(); ?>" name="recurrence[<?php echo esc_attr( $rule_type ); ?>][][custom][end-time][minute]" data-field="custom-end-time-minute">
-			{{#tribe_recurrence_select custom.[end-time].minute}}
-				<?php echo $end_minute_options; ?>
-			{{/tribe_recurrence_select}}
-		</select>
-		<?php if ( ! Tribe__Events__View_Helpers::is_24hr_format() ) : ?>
-			<select tabindex="<?php tribe_events_tab_index(); ?>" name="recurrence[<?php echo esc_attr( $rule_type ); ?>][][custom][end-time][meridian]" data-field="custom-end-time-meridian">
-				{{#tribe_recurrence_select custom.[end-time].meridian}}
-					<?php echo $end_meridian_options; ?>
-				{{/tribe_recurrence_select}}
-			</select>
-		<?php endif; ?>
+
+	<span class="eventduration-preamble">
+		<?php _ex( 'and will run for:', 'custom recurrence duration', 'the-events-calendar' ); ?>
+	</span>
+
+	<span class="eventduration">
+
+		<input type="number"
+			   min="0"
+			   max="365"
+			   step="1"
+			   tabindex="<?php tribe_events_tab_index(); ?>"
+			   name="recurrence[<?php echo esc_attr( $rule_type ); ?>][][custom][duration][days]"
+			   data-field="custom-duration-days"
+			   value="{{custom.duration.days}}"
+			/>
+		<?php _ex( 'days', 'custom recurrence duration', 'the-events-calendar' ); ?>
+
+		<input type="number"
+			   min="0"
+			   max="23"
+			   step="1"
+			   tabindex="<?php tribe_events_tab_index(); ?>"
+			   name="recurrence[<?php echo esc_attr( $rule_type ); ?>][][custom][duration][hours]"
+			   data-field="custom-duration-hours"
+			   value="{{custom.duration.hours}}"
+			/>
+		<?php _ex( 'hours', 'custom recurrence duration', 'the-events-calendar' ); ?>
+
+		<input type="number"
+			   min="0"
+			   max="59"
+			   step="1"
+			   tabindex="<?php tribe_events_tab_index(); ?>"
+			   name="recurrence[<?php echo esc_attr( $rule_type ); ?>][][custom][duration][minutes]"
+			   data-field="custom-duration-minutes"
+			   value="{{custom.duration.minutes}}"
+			/>
+		<?php _ex( 'minutes', 'custom recurrence duration', 'the-events-calendar' ); ?>
 	</span>
 </div>

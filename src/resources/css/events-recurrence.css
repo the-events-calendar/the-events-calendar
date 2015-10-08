@@ -82,6 +82,11 @@ input[data-field="custom-interval"] {
 	padding: 10px 0 0;
 }
 
+.eventForm .recurrence-description-header {
+	vertical-align: top;
+}
+
+.tribe-recurrence-description,
 .tribe-event-recurrence .recurrence-changed-row,
 .tribe-event-recurrence .custom-recurrence-frequency,
 .tribe-event-recurrence .recurrence_end,
@@ -122,6 +127,10 @@ input[data-field="custom-interval"] {
 .tribe-event-recurrence-exclusion[data-recurrence-custom-type="Monthly"] .custom-recurrence-months,
 .tribe-event-recurrence-exclusion[data-recurrence-custom-type="Yearly"] .custom-recurrence-years {
 	display: block;
+}
+
+.tribe-has-recurrence-rule .tribe-recurrence-description {
+	display: table-row;
 }
 
 .tribe-custom-same-time {

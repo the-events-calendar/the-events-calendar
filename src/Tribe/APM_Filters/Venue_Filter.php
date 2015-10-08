@@ -20,18 +20,33 @@
 		}
 
 		public function maybe_set_active( $return, $key, $filter ) {
-			if ( isset( $_POST[ $this->key ] ) && ! empty( $_POST[ $this->key ] ) ) {
+			global $ecp_apm;
+
+			if ( ! empty( $_POST[ $this->key ] ) ) {
 				return $_POST[ $this->key ];
+			}
+
+			$active_filters = $ecp_apm->filters->get_active();
+
+			if ( ! empty( $active_filters[ $this->key ] ) ) {
+				return $active_filters[ $this->key ];
 			}
 
 			return $return;
 		}
 
 		public function join_venue( $join, $wp_query ) {
-			if ( empty( $_POST[ $this->key ] ) ) {
-				return $join;
+			global $ecp_apm;
+
+			$active_filters = array();
+
+			if ( isset( $ecp_apm ) && isset( $ecp_apm->filters ) ) {
+				$active_filters = $ecp_apm->filters->get_active();
 			}
 
+			if ( empty( $_POST[ $this->key ] ) && empty( $active_filters[ $this->key ] ) ) {
+				return $join;
+			}
 
 			global $wpdb;
 			$join .= " INNER JOIN {$wpdb->postmeta} AS venue_meta ON({$wpdb->posts}.ID = venue_meta.post_id AND venue_meta.meta_key='{$this->meta}') ";
@@ -40,13 +55,21 @@
 		}
 
 		public function where_venue( $where ) {
-			if ( empty( $_POST[ $this->key ] ) ) {
+			global $ecp_apm;
+
+			$active_filters = array();
+
+			if ( isset( $ecp_apm ) && isset( $ecp_apm->filters ) ) {
+				$active_filters = $ecp_apm->filters->get_active();
+			}
+
+			if ( empty( $_POST[ $this->key ] ) && empty( $active_filters[ $this->key ] ) ) {
 				return $where;
 			}
 
 			global $wpdb;
 
-			$venues = (array) $_POST[ $this->key ];
+			$venues = (array) ( empty( $_POST[ $this->key ] ) ? $active_filters[ $this->key ] : $_POST[ $this->key ] );
 
 			$ids_format_string = rtrim( str_repeat( '%d,', count( $venues ) ), ',' );
 

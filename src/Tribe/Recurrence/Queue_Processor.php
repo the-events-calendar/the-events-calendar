@@ -210,13 +210,13 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 	protected function do_updates() {
 		$instances_to_update = $this->current_queue->instances_to_update();
 
-		foreach ( $instances_to_update as $instance_id => $start_date ) {
+		foreach ( $instances_to_update as $instance_id => $date_duration ) {
 			// Don't process more than the current batch size allows
 			if ( $this->batch_complete() ) {
 				break;
 			}
 
-			$instance = new Tribe__Events__Pro__Recurrence_Instance( $this->current_event_id, $start_date, $instance_id );
+			$instance = new Tribe__Events__Pro__Recurrence_Instance( $this->current_event_id, $date_duration, $instance_id );
 			$instance->save();
 
 			unset( $instances_to_update[ $instance_id ] );
@@ -230,7 +230,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 		$exclusions = $this->current_queue->instances_to_exclude();
 		$instances_to_create = $this->current_queue->instances_to_create();
 
-		foreach ( $instances_to_create as $key => $start_date ) {
+		foreach ( $instances_to_create as $key => $date_duration ) {
 			// Don't process more than the current batch size allows
 			if ( $this->batch_complete() ) {
 				break;
@@ -238,13 +238,13 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 
 			// Some instances may deliberately have been removed - let's remove
 			// them from the list of events to create and move on
-			if ( in_array( $start_date, $exclusions ) ) {
+			if ( in_array( $date_duration, $exclusions ) ) {
 				unset( $instances_to_create[ $key ] );
 				$this->processed++;
 				continue;
 			}
 
-			$instance = new Tribe__Events__Pro__Recurrence_Instance( $this->current_event_id, $start_date );
+			$instance = new Tribe__Events__Pro__Recurrence_Instance( $this->current_event_id, $date_duration );
 			$instance->save();
 
 			unset( $instances_to_create[ $key ] );

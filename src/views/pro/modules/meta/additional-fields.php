@@ -19,7 +19,12 @@ if ( ! isset( $fields ) || empty( $fields ) || ! is_array( $fields ) ) {
 	<dl>
 		<?php foreach ( $fields as $name => $value ): ?>
 			<dt> <?php echo esc_html( $name );  ?> </dt>
-			<dd class="tribe-meta-value"> <?php echo esc_html( $value ); ?> </dd>
+			<dd class="tribe-meta-value">
+				<?php
+				// This can hold HTML. The values are cleansed upstream
+				echo $value;
+				?>
+			</dd>
 		<?php endforeach ?>
 	</dl>
 </div>
