@@ -46,8 +46,7 @@ class Tribe__Events__Updater {
 	}
 
 	protected function update_version_option( $new_version ) {
-		$tec = Tribe__Events__Main::instance();
-		$tec->setOption( $this->version_option, $new_version );
+		Tribe__Settings_Manager::set_option( $this->version_option, $new_version );
 	}
 
 	/**
@@ -83,10 +82,7 @@ class Tribe__Events__Updater {
 	protected function is_version_in_db_less_than( $version ) {
 		$version_in_db = Tribe__Settings_Manager::get_option( $this->version_option );
 
-		if ( version_compare( $version, $version_in_db ) > 0 ) {
-			return true;
-		}
-		return false;
+		return ( version_compare( $version, $version_in_db ) > 0 );
 	}
 
 	public function update_required() {

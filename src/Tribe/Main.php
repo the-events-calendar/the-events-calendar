@@ -723,8 +723,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$previous_versions   = Tribe__Settings_Manager::get_option( 'previous_ecp_versions' ) ? Tribe__Settings_Manager::get_option( 'previous_ecp_versions' ) : array();
 				$previous_versions[] = ( Tribe__Settings_Manager::get_option( 'latest_ecp_version' ) ) ? Tribe__Settings_Manager::get_option( 'latest_ecp_version' ) : '0';
 
-				$this->setOption( 'previous_ecp_versions', $previous_versions );
-				$this->setOption( 'latest_ecp_version', self::VERSION );
+				Tribe__Settings_Manager::set_option( 'previous_ecp_versions', $previous_versions );
+				Tribe__Settings_Manager::set_option( 'latest_ecp_version', self::VERSION );
 			}
 		}
 
