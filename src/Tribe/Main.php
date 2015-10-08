@@ -2911,7 +2911,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$valid_post_id   = "tribe_get_{$post_type}_id";
 			$create          = "create$posttype";
 			$preview_post_id = get_post_meta( $event_id, $meta_key, true );
-			$doing_preview   = $_REQUEST['wp-preview'] == 'dopreview' ? true : false;
+			$doing_preview   = ($_REQUEST['wp-preview'] == 'dopreview');
 
 			if ( empty( $_POST[ $posttype ][ $posttype_id ] ) ) {
 				// the event is set to use a new metapost
