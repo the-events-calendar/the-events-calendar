@@ -718,7 +718,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Set the Calendar Version in the options table if it's not already set.
-		 *
 		 */
 		public function maybeSetTECVersion() {
 			if ( version_compare( Tribe__Settings_Manager::get_option( 'latest_ecp_version' ), self::VERSION, '<' ) ) {
@@ -732,8 +731,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Check add-ons to make sure they are supported by currently running TEC version.
-		 *
-		 * @return void
 		 */
 		public function checkAddOnCompatibility() {
 
@@ -805,8 +802,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Init the settings API and add a hook to add your own setting tabs
-		 *
-		 * @return void
 		 */
 		public function initOptions() {
 			Tribe__Events__Activation_Page::init();
@@ -814,7 +809,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Trigger is_404 on single event if no events are found
-		 * @return void
 		 */
 		public function template_redirect() {
 			global $wp_query;
@@ -851,8 +845,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Create setting tabs
-		 *
-		 * @return void
 		 */
 		public function doSettingTabs() {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::do_setting_tabs' );
@@ -1062,7 +1054,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string|bool $data   Optional data to display
 		 * @param string      $format Optional format (log|warning|error|notice)
 		 *
-		 * @return void
 		 */
 		public static function debug( $title, $data = false, $format = 'log' ) {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Debug::debug' );
@@ -1076,7 +1067,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string|bool $data   - optional data to display
 		 * @param string      $format - optional format (log|warning|error|notice)
 		 *
-		 * @return void
 		 */
 		public function renderDebug( $title, $data = false, $format = 'log' ) {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Debug::render' );
@@ -1194,8 +1184,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Register the post types.
-		 *
-		 * @return void
 		 */
 		public function registerPostType() {
 			$this->generatePostTypeLabels();
@@ -1464,8 +1452,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Adds the submenu items for editing the Venues and Organizers.
 		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
 		 *
-		 *
-		 * @return void
 		 */
 		public function addVenueAndOrganizerEditor() {
 			add_submenu_page( 'edit.php?post_type=' . self::POSTTYPE, __( $this->plural_venue_label, 'the-events-calendar' ), __( $this->plural_venue_label, 'the-events-calendar' ), 'edit_tribe_venues', 'edit.php?post_type=' . self::VENUE_POST_TYPE );
@@ -1550,7 +1536,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param int $post_id the event ID for which to create the dropdown
 		 *
-		 * @return void
 		 */
 		public function displayEventOrganizerDropdown( $post_id ) {
 			$current_organizer = get_post_meta( $post_id, '_EventOrganizerID', true );
@@ -1780,7 +1765,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Add admin scripts and styles
 		 *
-		 * @return void
 		 */
 		public function add_admin_assets() {
 			$admin_helpers = Tribe__Admin__Helpers::instance();
@@ -1899,7 +1883,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Output localized admin javascript
 		 *
-		 * @return void
 		 */
 		public function printLocalizedAdmin() {
 			wp_localize_script( 'tribe-events-admin', 'TEC', $this->localizeAdmin() );
@@ -1934,7 +1917,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param array $options formatted the same as from getOptions()
 		 * @param bool  $apply_filters
 		 *
-		 * @return void
 		 */
 		public function setOptions( $options, $apply_filters = true ) {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::set_options' );
@@ -1947,7 +1929,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string $name
 		 * @param mixed  $value
 		 *
-		 * @return void
 		 */
 		public function setOption( $name, $value ) {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::set_option' );
@@ -1983,7 +1964,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param array $options formatted the same as from getOptions()
 		 * @param bool  $apply_filters
 		 *
-		 * @return void
 		 */
 		public function setNetworkOptions( $options, $apply_filters = true ) {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::set_network_options' );
@@ -1993,7 +1973,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Add the network admin options page
 		 *
-		 * @return void
 		 */
 		public function addNetworkOptionsPage() {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::add_network_options_page' );
@@ -2003,7 +1982,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Render network admin options view
 		 *
-		 * @return void
 		 */
 		public function doNetworkSettingTab() {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::do_network_settings_tab' );
@@ -2051,7 +2029,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Save hidden tabs
 		 *
-		 * @return void
 		 */
 		public function saveAllTabsHidden() {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::save_all_tabs_hidden' );
@@ -2063,7 +2040,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param int $postId
 		 *
-		 * @return void
 		 */
 		public function cleanupPostVenues( $postId ) {
 			$this->removeDeletedPostTypeAssociation( '_EventVenueID', $postId );
@@ -2074,7 +2050,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param int $postId
 		 *
-		 * @return void
 		 */
 		public function cleanupPostOrganizers( $postId ) {
 			$this->removeDeletedPostTypeAssociation( '_EventOrganizerID', $postId );
@@ -2086,7 +2061,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string $key
 		 * @param int    $postId
 		 *
-		 * @return void
 		 */
 		protected function removeDeletedPostTypeAssociation( $key, $postId ) {
 			$the_query = new WP_Query( array(
@@ -2134,7 +2108,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Load the text domain.
 		 *
-		 * @return void
 		 */
 		public function loadTextDomain() {
 			load_plugin_textdomain( 'the-events-calendar', false, $this->plugin_dir . 'lang/' );
@@ -2146,7 +2119,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Load asset packages.
 		 *
-		 * @return void
 		 */
 		public function loadStyle() {
 			if ( tribe_is_event_query() || tribe_is_event_organizer() || tribe_is_event_venue() ) {
@@ -2191,7 +2163,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Set the displaying class property.
 		 *
-		 * @return void
 		 */
 		public function setDisplay() {
 			if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
@@ -2955,7 +2926,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param int     $postId
 		 * @param WP_Post $post
 		 *
-		 * @return void
 		 */
 		public function addEventMeta( $postId, $post ) {
 
@@ -3158,7 +3128,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param int     $postId , the post ID
 		 * @param WP_Post $post   , the post object
 		 *
-		 * @return void
 		 */
 		public function addPostOrigin( $postId, $post ) {
 			// Only continue of the post being added is an event, venue, or organizer.
@@ -3187,7 +3156,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param int     $postID , the post ID
 		 * @param WP_Post $post   , the post object
 		 *
-		 * @return void
 		 */
 		public function publishAssociatedTypes( $postID, $post ) {
 
@@ -3394,7 +3362,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Adds a style chooser to the write post page
 		 *
-		 * @return void
 		 */
 		public function VenueMetaBox() {
 			global $post;
@@ -3440,7 +3407,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Adds a style chooser to the write post page
 		 *
-		 * @return void
 		 */
 		public function OrganizerMetaBox() {
 			global $post;
@@ -3484,7 +3450,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Handle ajax requests from admin form
 		 *
-		 * @return void
 		 */
 		public function ajax_form_validate() {
 			if ( $_REQUEST['name'] && $_REQUEST['nonce'] && wp_verify_nonce( $_REQUEST['nonce'], 'tribe-validation-nonce' ) ) {
@@ -3623,7 +3588,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Callback for adding the Meta box to the admin page
 		 *
-		 * @return void
 		 */
 		public function addEventBox() {
 			add_meta_box(
@@ -3661,7 +3625,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Include the event editor meta box.
 		 *
-		 * @return void
 		 */
 		public function eventMetaBox() {
 			include( $this->plugin_path . 'src/admin-views/event-sidebar-options.php' );
@@ -3685,7 +3648,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Return the next tab index
 		 *
-		 * @return void
 		 */
 		public function tabIndex() {
 			$this->tabIndexStart ++;
@@ -3884,7 +3846,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Register the dashboard widget.
 		 *
-		 * @return void
 		 */
 		public function dashboardWidget() {
 			wp_add_dashboard_widget(
@@ -3900,7 +3861,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param int $items
 		 *
-		 * @return void
 		 */
 		public function outputDashboardWidget( $items = 10 ) {
 			echo '<div class="rss-widget">';
@@ -3931,7 +3891,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param int $postId
 		 *
-		 * @return void
 		 */
 		public function maybeShowMetaUpsell( $postId ) {
 			?>
@@ -4113,8 +4072,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Displays the View Calendar link at the top of the Events list in admin.
 		 *
-		 *
-		 * @return void
 		 */
 		public function addViewCalendar() {
 			if ( Tribe__Admin__Helpers::instance()->is_screen( 'edit-' . self::POSTTYPE ) ) {
@@ -4126,8 +4083,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Set the menu-edit-page to default display the events-related items.
 		 *
-		 *
-		 * @return void
 		 */
 		public function setInitialMenuMetaBoxes() {
 			global $current_screen;
@@ -4195,7 +4150,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * When the edit-tags.php screen loads, setup filters
 		 * to fix the tagcloud links
 		 *
-		 * @return void
 		 */
 		public function prepare_to_fix_tagcloud_links() {
 			if ( Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
@@ -4386,8 +4340,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Add filters to register custom cron schedules
 		 *
-		 *
-		 * @return void
 		 */
 		public function filter_cron_schedules() {
 			add_filter( 'cron_schedules', array( $this, 'register_30min_interval' ) );
@@ -4551,7 +4503,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Registers the list widget
 		 *
-		 * @return void
 		 */
 		public function register_list_widget() {
 			register_widget( 'Tribe__Events__List_Widget' );
