@@ -445,6 +445,16 @@ if ( ! class_exists( 'Tribe__Events__Tickets__Tickets' ) ) {
 
 			$return['can_update_price'] = $can_update_price;
 
+			if ( ! $can_update_price ) {
+				/**
+				 * Filter the no-update message that is displayed when updating the price is disallowed
+				 *
+				 * @var string
+				 * @var WP_Post
+				 */
+				$return['disallow_update_price_message'] = apply_filters( 'tribe_tickets_disallow_update_ticket_price_message', esc_html__( 'Editing the ticket price is currently disallowed.', 'the-events-calendar' ), $ticket );
+			}
+
 			ob_start();
 			$this->do_metabox_advanced_options( $post_id, $ticket_id );
 			$extra = ob_get_contents();

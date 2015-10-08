@@ -247,15 +247,24 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 						$( '#ticket_id' ).val( response.data.ID );
 						$( '#ticket_name' ).val( response.data.name );
 						$( '#ticket_description' ).val( response.data.description );
+
 						var $ticket_price = $( document.getElementById( 'ticket_price' ) );
 						$ticket_price.val( regularPrice );
+
+						console.log( response.data );
+						if ( 'undefined' !== typeof response.data.disallow_update_price_message ) {
+							$ticket_price.siblings( '.no-update-message' ).html( response.data.disallow_update_price_message );
+						} else {
+							$ticket_price.siblings( '.no-update-message' ).html( '' );
+						}
+
 						if ( 'undefined' !== typeof response.data.can_update_price && ! response.data.can_update_price ) {
 							$ticket_price.prop( 'disabled', 'disabled' );
 							$ticket_price.siblings( '.description' ).hide();
-							$ticket_price.siblings( '.no-update' ).show();
+							$ticket_price.siblings( '.no-update-message' ).show();
 						} else {
 							$ticket_price.siblings( '.description' ).show();
-							$ticket_price.siblings( '.no-update' ).hide();
+							$ticket_price.siblings( '.no-update-message' ).hide();
 						}
 
 						$( '#ticket_sale_price' ).val( salePrice );
