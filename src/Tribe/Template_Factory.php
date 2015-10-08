@@ -126,11 +126,11 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Handles an asset package request.
 	 *
-	 * @param string              $name          The asset name in the `hyphen-separated-format`
-	 * @param array               $deps          An array of dependency handles
-	 * @param string              $vendor_url    URL to vendor scripts and styles dir
-	 * @param string              $prefix        MT script and style prefix
-	 * @param Tribe__Events__Main $tec           An instance of the main plugin class
+	 * @param string      $name       The asset name in the `hyphen-separated-format`
+	 * @param array       $deps       An array of dependency handles
+	 * @param string      $vendor_url URL to vendor scripts and styles dir
+	 * @param string      $prefix     MT script and style prefix
+	 * @param Tribe__Main $tec        An instance of the main plugin class
 	 */
 	protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec ) {
 
@@ -152,7 +152,8 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	 *
 	 * @param array $classes
 	 *
-	 **/
+	 * @return array
+	 */
 	public function body_class( $classes = array() ) {
 
 		// view class
@@ -498,9 +499,12 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Check if comments are disabled on this view
 	 *
-	 * @param int $more
+	 * @param $option_value
+	 * @param $option_name
 	 *
 	 * @return int
+	 * @internal param int $more
+	 *
 	 */
 	public function comments_off( $option_value, $option_name ) {
 		if ( $option_name != 'showComments' ) {
