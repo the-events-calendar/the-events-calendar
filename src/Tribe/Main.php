@@ -552,16 +552,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Load the ical template tags
 		 * Loaded late due to potential upgrade conflict since moving them from pro
+		 *
 		 * @TODO move this require to be with the rest of the template tag includes in 3.9
 		 */
 		public function init_ical() {
 			//iCal
 			Tribe__Events__iCal::init();
-				require_once $this->plugin_path . 'src/functions/template-tags/ical.php';
-			}
+			require_once $this->plugin_path . 'src/functions/template-tags/ical.php';
+		}
 
 		/**
 		 * Allow users to specify their own plural label for Venues
+		 *
 		 * @return string
 		 */
 		public function get_venue_label_plural() {
