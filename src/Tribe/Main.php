@@ -2793,6 +2793,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $network_deactivating
 		 */
 		public static function activate() {
+
+			self::instance()->plugins_loaded();
+
 			self::flushRewriteRules();
 
 			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
