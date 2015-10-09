@@ -620,7 +620,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'end_date'               => $end_of_day,
 					'update_post_term_cache' => false,
 					'update_post_meta_cache' => false,
-					'no_found_rows'          => true,
+					'no_found_rows'          => false,
 					'orderby'                => 'menu_order',
 				), $this->args
 			);
