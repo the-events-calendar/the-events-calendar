@@ -27,7 +27,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$now       = time();
 		if ( isset( $post->EventStartDate ) ) {
 			$postTimestamp = strtotime( $post->EventStartDate, $now );
-			$postTimestamp = strtotime( date( Tribe__Events__Date_Utils::DBDATEFORMAT, $postTimestamp ), $now ); // strip the time
+			$postTimestamp = strtotime( date( Tribe__Date_Utils::DBDATEFORMAT, $postTimestamp ), $now ); // strip the time
 			if ( $postTimestamp != $tribe_ecp->currentPostTimestamp ) {
 				$retval = true;
 			}
@@ -132,7 +132,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		// If there's a date selected in the tribe bar, show the date range of the currently showing events
 		if ( isset( $_REQUEST['tribe-bar-date'] ) && $wp_query->have_posts() ) {
-			$first_returned_date = tribe_get_start_date( $wp_query->posts[0], false, Tribe__Events__Date_Utils::DBDATEFORMAT );
+			$first_returned_date = tribe_get_start_date( $wp_query->posts[0], false, Tribe__Date_Utils::DBDATEFORMAT );
 			$first_event_date    = tribe_get_start_date( $wp_query->posts[0], false );
 			$last_event_date     = tribe_get_end_date( $wp_query->posts[ count( $wp_query->posts ) - 1 ], false );
 
@@ -306,7 +306,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Used in list loop, displays the date headers between events in the loop when the month / year has changed
 	 *
-	 * @return void
 	 **/
 	function tribe_events_list_the_date_headers() {
 

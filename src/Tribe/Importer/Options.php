@@ -64,7 +64,7 @@ class Tribe__Events__Importer__Options {
 			return null;
 		}
 
-		$value = Tribe__Events__Main::getOption( $optionName, $default );
+		$value = Tribe__Settings_Manager::get_option( $optionName, $default );
 
 		if ( has_filter( 'tribe-import-setting-' . $optionName ) ) {
 			/**

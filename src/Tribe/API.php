@@ -34,7 +34,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 * @param array $args The post args.
 		 *
-		 * @return void|int The created event ID.
+		 * @return int The created event ID.
 		 */
 		public static function createEvent( $args ) {
 
@@ -86,7 +86,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param array $data     The meta fields we want saved.
 		 * @param       WP_Post   The event itself.
 		 *
-		 * @return void
 		 */
 		public static function saveEventMeta( $event_id, $data, $event = null ) {
 			$tec = Tribe__Events__Main::instance();
@@ -188,27 +187,27 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$date_provided = false;
 
 			if ( isset( $data['EventAllDay'] ) ) {
-				if ( Tribe__Events__Date_Utils::is_all_day( $data['EventAllDay'] ) ) {
+				if ( Tribe__Date_Utils::is_all_day( $data['EventAllDay'] ) ) {
 					$data['EventAllDay'] = 'yes';
 				} else {
 					$data['EventAllDay'] = 'no';
 				}
 			}
 
-			$datepicker_format = Tribe__Events__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+			$datepicker_format = Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 
 			if ( isset( $data['EventStartDate'] ) ) {
-				$data['EventStartDate'] = Tribe__Events__Date_Utils::datetime_from_format( $datepicker_format, $data['EventStartDate'] );
+				$data['EventStartDate'] = Tribe__Date_Utils::datetime_from_format( $datepicker_format, $data['EventStartDate'] );
 			}
 
 			if ( isset( $data['EventEndDate'] ) ) {
-				$data['EventEndDate'] = Tribe__Events__Date_Utils::datetime_from_format( $datepicker_format, $data['EventEndDate'] );
+				$data['EventEndDate'] = Tribe__Date_Utils::datetime_from_format( $datepicker_format, $data['EventEndDate'] );
 			}
 
 			if ( isset( $data['EventAllDay'] ) && 'yes' === $data['EventAllDay'] ) {
 				$date_provided = true;
-				$data['EventStartDate'] = tribe_event_beginning_of_day( $data['EventStartDate'] );
-				$data['EventEndDate']   = tribe_event_end_of_day( $data['EventEndDate'] );
+				$data['EventStartDate'] = tribe_beginning_of_day( $data['EventStartDate'] );
+				$data['EventEndDate']   = tribe_end_of_day( $data['EventEndDate'] );
 			} elseif ( isset( $data['EventStartDate'] ) && isset( $data['EventEndDate'] ) ) {
 				$date_provided = true;
 				delete_post_meta( $event_id, '_EventAllDay' );
@@ -224,8 +223,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 					$end_date_string .= " {$data['EventEndMeridian']}";
 				}
 
-				$data['EventStartDate'] = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date_string ) );
-				$data['EventEndDate'] = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $end_date_string ) );
+				$data['EventStartDate'] = date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date_string ) );
+				$data['EventEndDate'] = date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $end_date_string ) );
 			}
 
 			if ( ! $date_provided ) {
@@ -393,7 +392,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param int  $organizerId  The organizer ID to delete.
 		 * @param bool $force_delete Same as WP param.
 		 *
-		 * @return void
 		 */
 		public static function deleteOrganizer( $organizerId, $force_delete = false ) {
 			wp_delete_post( $organizerId, $force_delete );
@@ -405,7 +403,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param int   $organizerId The organizer ID to update.
 		 * @param array $data        The organizer data.
 		 *
-		 * @return void
 		 */
 		public static function updateOrganizer( $organizerId, $data ) {
 			self::saveOrganizerMeta( $organizerId, $data );
@@ -418,7 +415,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param int   $organizerId The organizer ID.
 		 * @param array $data        The organizer data.
 		 *
-		 * @return void
 		 */
 		private static function saveOrganizerMeta( $organizerId, $data ) {
 			foreach ( $data as $key => $var ) {
@@ -484,7 +480,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param int   $venueId The venue ID to update.
 		 * @param array $data    The venue data.
 		 *
-		 * @return void
 		 */
 		public static function updateVenue( $venue_id, $data ) {
 			$data['ShowMap']     = isset( $data['ShowMap'] ) ? $data['ShowMap'] : 'false';
@@ -500,7 +495,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param int  $venueId      The venue ID to delete.
 		 * @param bool $force_delete Same as WP param.
 		 *
-		 * @return void
 		 */
 		public static function deleteVenue( $venueId, $force_delete = false ) {
 			wp_delete_post( $venueId, $force_delete );
@@ -512,7 +506,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param int   $venueId The venue ID.
 		 * @param array $data    The venue data.
 		 *
-		 * @return void
 		 */
 		private static function saveVenueMeta( $venueId, $data ) {
 			// TODO: We should probably do away with 'StateProvince' and stick to 'State' and 'Province'.

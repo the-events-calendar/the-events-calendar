@@ -13,7 +13,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 	/**
 	 * Handle views and template files.
 	 */
-	class Tribe__Events__Templates {
+	class Tribe__Events__Templates extends Tribe__Templates {
 
 		/**
 		 * @var bool Is wp_head complete?
@@ -155,7 +155,6 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 *
 		 * @param bool $class
 		 *
-		 * @return void
 		 **/
 		public static function instantiate_template_class( $class = false ) {
 			if ( tribe_is_event_query() || tribe_is_ajax_view_request() ) {
@@ -298,7 +297,6 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		/**
 		 * Spoof the global post just once
 		 *
-		 * @return void
 		 **/
 		public static function spoof_the_post() {
 			$GLOBALS['post'] = self::spoofed_post();
@@ -377,17 +375,6 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			remove_action( 'tribe_pre_get_view', array( __CLASS__, 'restore_global_post_title' ) );
 		}
 
-
-		/**
-		 * Check to see if this is operating in the main loop
-		 *
-		 * @param WP_Query $query
-		 *
-		 * @return bool
-		 */
-		private static function is_main_loop( $query ) {
-			return $query->is_main_query();
-		}
 
 		/**
 		 * Get the correct internal page template
@@ -669,39 +656,6 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			return apply_filters( 'tribe_events_template_' . $template, $file );
 		}
 
-
-		/**
-		 * Look for the stylesheets. Fall back to $fallback path if the stylesheets can't be located or the array is empty.
-		 *
-		 * @param array|string $stylesheets Path to the stylesheet
-		 * @param bool|string  $fallback    Path to fallback stylesheet
-		 *
-		 * @return bool|string Path to stylesheet
-		 */
-		public static function locate_stylesheet( $stylesheets, $fallback = false ) {
-			if ( ! is_array( $stylesheets ) ) {
-				$stylesheets = array( $stylesheets );
-			}
-			if ( empty( $stylesheets ) ) {
-				return $fallback;
-			}
-			foreach ( $stylesheets as $filename ) {
-				if ( file_exists( STYLESHEETPATH . '/' . $filename ) ) {
-					$located = trailingslashit( get_stylesheet_directory_uri() ) . $filename;
-					break;
-				} else {
-					if ( file_exists( TEMPLATEPATH . '/' . $filename ) ) {
-						$located = trailingslashit( get_template_directory_uri() ) . $filename;
-						break;
-					}
-				}
-			}
-			if ( empty( $located ) ) {
-				return $fallback;
-			}
-
-			return $located;
-		}
 
 		/**
 		 * Convert the post_date_gmt to the event date for feeds

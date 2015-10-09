@@ -40,7 +40,7 @@ class Tribe__Events__Admin__Timezone_Settings {
 		}
 
 		// Add the new section just before the settings form is closed
-		return Tribe__Events__Main::array_insert_before_key(
+		return Tribe__Main::array_insert_before_key(
 			'tribe-form-content-end',
 			$general_settings,
 			$timezone_settings
@@ -53,7 +53,7 @@ class Tribe__Events__Admin__Timezone_Settings {
 	 * @return array
 	 */
 	protected function get_settings_array() {
-		$plugin_path = Tribe__Events__Main::instance()->pluginPath;
+		$plugin_path = Tribe__Main::instance()->plugin_path;
 		return (array) include $plugin_path . 'src/admin-views/tribe-options-timezones.php';
 	}
 

@@ -17,7 +17,6 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		/**
 		 * The init function for this class, adds actions and filters.
 		 *
-		 * @return void
 		 */
 		public static function init() {
 			if ( is_admin() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
@@ -264,7 +263,6 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 * @param string $column_id The custom column id.
 		 * @param int    $post_id   The post id for the data.
 		 *
-		 * @return void
 		 */
 		public static function custom_columns( $column_id, $post_id ) {
 			switch ( $column_id ) {

@@ -31,13 +31,13 @@ require 'header.php';
 
 		foreach ( $fields as $key => $field_args ) {
 			if ( strpos( $key, 'imported_post_status' ) === false ){
-				$value = Tribe__Events__Main::getOption( $key, null );
+				$value = Tribe__Settings_Manager::get_option( $key, null );
 			} else {
 				$type = isset( $field_args['importer_type'] ) ? $field_args['importer_type'] : 'csv';
 				$value = Tribe__Events__Importer__Options::get_default_post_status( $type );
 			}
 
-			new Tribe__Events__Field( $key, $field_args, $value );
+			new Tribe__Field( $key, $field_args, $value );
 		}
 		wp_nonce_field( 'tribe-import-general-settings', 'tribe-import-general-settings' );
 		?>

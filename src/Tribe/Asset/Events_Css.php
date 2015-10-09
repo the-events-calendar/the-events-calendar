@@ -55,7 +55,7 @@ class Tribe__Events__Asset__Events_Css extends Tribe__Events__Asset__Abstract_As
 			} else {
 
 				// get full URL
-				$url = tribe_events_resource_url( $css_file );
+				$url = tribe_resource_url( $css_file );
 
 				// get the minified file
 				$url = Tribe__Events__Template_Factory::getMinFile( $url, true );

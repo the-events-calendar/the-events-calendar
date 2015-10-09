@@ -12,7 +12,7 @@
 	<div class="tribe-half-column">
 		<?php
 
-		$changelog = new Tribe__Events__Changelog_Reader();
+		$changelog = new Tribe__Changelog_Reader();
 		foreach ( $changelog->get_changelog() as $section => $messages ):
 			if ( empty( $messages ) ) {
 				continue;

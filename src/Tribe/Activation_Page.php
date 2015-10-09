@@ -77,7 +77,7 @@ class Tribe__Events__Activation_Page {
 
 		delete_transient( '_tribe_events_activation_redirect' );
 
-		if ( ! current_user_can( Tribe__Events__Settings::instance()->requiredCap ) ){
+		if ( ! current_user_can( Tribe__Settings::instance()->requiredCap ) ){
 			return;
 		}
 
@@ -109,8 +109,7 @@ class Tribe__Events__Activation_Page {
 	 * @return bool
 	 */
 	protected function showed_update_message_for_current_version() {
-		$tec = Tribe__Events__Main::instance();
-		$message_version_displayed = $tec->getOption( 'last-update-message' );
+		$message_version_displayed = Tribe__Settings_Manager::get_option( 'last-update-message' );
 		if ( empty( $message_version_displayed ) ) {
 			return false;
 		}
@@ -133,8 +132,7 @@ class Tribe__Events__Activation_Page {
 	 * @see Tribe__Events__Main::maybeSetTECVersion()
 	 */
 	protected function is_new_install() {
-		$tec = Tribe__Events__Main::instance();
-		$previous_versions = $tec->getOption( 'previous_ecp_versions' );
+		$previous_versions = Tribe__Settings_Manager::get_option( 'previous_ecp_versions' );
 		return empty( $previous_versions ) || ( end( $previous_versions ) == '0' );
 	}
 
@@ -151,7 +149,7 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function get_message_page_url( $slug ) {
-		$settings = Tribe__Events__Settings::instance();
+		$settings = Tribe__Settings::instance();
 		// get the base settings page url
 		$url  = apply_filters(
 			'tribe_settings_url', add_query_arg(
@@ -177,7 +175,7 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function disable_default_settings_page() {
-		remove_action( 'tribe_events_page_tribe-events-calendar', array( Tribe__Events__Settings::instance(), 'generatePage' ) );
+		remove_action( 'tribe_events_page_tribe-events-calendar', array( Tribe__Settings::instance(), 'generatePage' ) );
 	}
 
 	public function display_welcome_page() {

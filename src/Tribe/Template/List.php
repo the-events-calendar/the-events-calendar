@@ -51,7 +51,6 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 		/**
 		 * List view ajax handler
 		 *
-		 * @return void
 		 */
 		public function ajax_response() {
 

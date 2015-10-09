@@ -16,8 +16,6 @@ class Tribe__Events__Bar {
 
 	/**
 	 * Class constructor.
-	 *
-	 * @return void
 	 */
 	public function __construct() {
 		add_filter( 'wp_enqueue_scripts', array( $this, 'load_script' ), 9 );

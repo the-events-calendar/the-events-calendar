@@ -42,7 +42,6 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	/**
 	 * Render the organizer chooser section for the events meta box
 	 *
-	 * @return void
 	 */
 	public function render() {
 		$this->render_dropdowns();
@@ -54,7 +53,6 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	 * displays the saved organizer dropdown in the event metabox
 	 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
 	 *
-	 * @return void
 	 */
 	public function render_dropdowns() {
 		$post_id = $this->event->ID;
@@ -86,7 +84,6 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	 *
 	 * @param int $organizer_id
 	 *
-	 * @return void
 	 */
 	protected function single_organizer_dropdown( $organizer_id ) {
 		?>
@@ -109,7 +106,6 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	 *
 	 * @param int $organizer_id
 	 *
-	 * @return void
 	 */
 	protected function edit_organizer_link( $organizer_id ) {
 		$organizer_pto = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE );
@@ -141,7 +137,7 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 			return false; // the event has already been saved
 		}
 		if ( is_admin() ) {
-			return Tribe__Events__Admin__Helpers::instance()->is_action( 'add' );
+			return Tribe__Admin__Helpers::instance()->is_action( 'add' );
 		} else {
 			return true; // a front-end submission form (e.g., community)
 		}
@@ -150,7 +146,6 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	/**
 	 * Renders the "Add Another Organizer" button
 	 *
-	 * @return void
 	 */
 	protected function render_add_organizer_button() {
 		?>
@@ -165,7 +160,6 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	/**
 	 * Renders the handle for sorting organizers
 	 *
-	 * @return void
 	 */
 	protected function move_handle() {
 		echo '<span class="dashicons dashicons-screenoptions move-organizer-group"></span>';
@@ -174,7 +168,6 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	/**
 	 * Renders the handle for deleting an organizer
 	 *
-	 * @return void
 	 */
 	protected function delete_handle() {
 		echo '<a class="dashicons dashicons-trash delete-organizer-group" href="#"></a>';

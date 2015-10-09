@@ -26,7 +26,6 @@ class Tribe__Events__Amalgamator {
 	/**
 	 * Merge all duplicate event-related posts
 	 *
-	 * @return void
 	 */
 	public function merge_duplicates() {
 		$this->merge_identical_organizers();
@@ -40,7 +39,6 @@ class Tribe__Events__Amalgamator {
 	/**
 	 * Merge identical organizers
 	 *
-	 * @return void
 	 */
 	public function merge_identical_organizers() {
 		$titles  = $this->get_redundant_titles( Tribe__Events__Main::ORGANIZER_POST_TYPE );
@@ -78,7 +76,6 @@ class Tribe__Events__Amalgamator {
 	/**
 	 * Merge identical venues
 	 *
-	 * @return void
 	 */
 	public function merge_identical_venues() {
 		$titles  = $this->get_redundant_titles( Tribe__Events__Main::VENUE_POST_TYPE );
@@ -156,7 +153,6 @@ class Tribe__Events__Amalgamator {
 	 *
 	 * @param array $venue_ids
 	 *
-	 * @return void
 	 */
 	private function amalgamate_venues( $venue_ids ) {
 		if ( empty( $venue_ids ) || count( $venue_ids ) < 2 ) {
@@ -179,7 +175,6 @@ class Tribe__Events__Amalgamator {
 	 *
 	 * @param array $organizer_ids
 	 *
-	 * @return void
 	 */
 	public function amalgamate_organizers( $organizer_ids ) {
 		if ( empty( $organizer_ids ) || count( $organizer_ids ) < 2 ) {
@@ -203,7 +198,6 @@ class Tribe__Events__Amalgamator {
 	 * @param int   $keep
 	 * @param array $replace
 	 *
-	 * @return void
 	 */
 	private function update_default_venues( $keep, array $replace ) {
 		if ( $this->default_venue && in_array( $this->default_venue, $replace ) ) {
@@ -224,7 +218,6 @@ class Tribe__Events__Amalgamator {
 	 * @param int   $keep
 	 * @param array $replace
 	 *
-	 * @return void
 	 */
 	private function update_default_organizers( $keep, array $replace ) {
 		if ( $this->default_organizer && in_array( $this->default_organizer, $replace ) ) {
@@ -258,7 +251,7 @@ class Tribe__Events__Amalgamator {
 	 */
 	public static function migration_button( $text = '' ) {
 		$text     = $text ? $text : __( 'Merge Duplicates', 'the-events-calendar' );
-		$settings = Tribe__Events__Settings::instance();
+		$settings = Tribe__Settings::instance();
 
 		// get the base settings page url
 		$url  = apply_filters(
@@ -279,7 +272,6 @@ class Tribe__Events__Amalgamator {
 	/**
 	 * If the migration button is clicked, start working
 	 *
-	 * @return void
 	 */
 	public static function listen_for_migration_button() {
 		if ( empty( $_REQUEST['amalgamate'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'amalgamate_duplicates' ) ) {
@@ -290,7 +282,7 @@ class Tribe__Events__Amalgamator {
 		$amalgamator->merge_duplicates();
 
 		// redirect to base settings page
-		$settings = Tribe__Events__Settings::instance();
+		$settings = Tribe__Settings::instance();
 		$url      = apply_filters(
 			'tribe_settings_url', add_query_arg(
 				array(

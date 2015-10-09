@@ -297,7 +297,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_full_region( $event_id ) {
 		$province = tribe_get_event_meta( $event_id, '_VenueStateProvince', true );
-		$states = Tribe__Events__View_Helpers::loadStates();
+		$states = Tribe__View_Helpers::loadStates();
 
 		$full_region = isset( $states[ $province ] ) ? $states[ $province ] : $province;
 
