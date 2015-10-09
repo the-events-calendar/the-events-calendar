@@ -38,7 +38,7 @@ $fields = array_merge(
 
 /**
  * Allow developer to fully filter the Addons Tab contents
- * Following the structure of the arguments for a Tribe__Events__Settings_Tab instance
+ * Following the structure of the arguments for a Tribe__Settings_Tab instance
  *
  * @var array
  */
@@ -52,5 +52,5 @@ $addons = apply_filters(
 
 // Only create the Add-ons Tab if there is any
 if ( ! empty( $internal ) ) {
-	new Tribe__Events__Settings_Tab( 'addons', esc_html__( 'Add-Ons APIs', 'the-events-calendar' ), $addons );
+	new Tribe__Settings_Tab( 'addons', esc_html__( 'Add-Ons APIs', 'the-events-calendar' ), $addons );
 }
