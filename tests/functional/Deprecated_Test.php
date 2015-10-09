@@ -10,7 +10,6 @@ class Tribe_Deprecated_Test extends Tribe__Events__WP_UnitTestCase {
 
 	public function deprecated_classes_4_0() {
 		return array(
-			// is throwing a Fatal about an abstract class definition
 			array( 'Tribe__Events__Abstract_Deactivation' ),
 			array( 'Tribe__Events__Admin__Helpers' ),
 			array( 'Tribe__Events__App_Shop' ),
