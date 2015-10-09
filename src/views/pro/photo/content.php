@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php do_action( 'tribe_events_after_the_title' ); ?>
 
 	<!-- Notices -->
-	<?php tribe_events_the_notices(); ?>
+	<?php tribe_the_notices(); ?>
 
 	<!-- Photo View Header -->
 	<?php do_action( 'tribe_events_before_header' ); ?>

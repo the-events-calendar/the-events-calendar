@@ -585,9 +585,9 @@
 			 */
 			public function add_settings_tabs() {
 				require_once( $this->pluginPath . 'src/admin-views/tribe-options-defaults.php' );
-				new Tribe__Events__Settings_Tab( 'defaults', __( 'Default Content', 'tribe-events-calendar-pro' ), $defaultsTab );
+				new Tribe__Settings_Tab( 'defaults', __( 'Default Content', 'tribe-events-calendar-pro' ), $defaultsTab );
 				// The single-entry array at the end allows for the save settings button to be displayed.
-				new Tribe__Events__Settings_Tab( 'additional-fields', __( 'Additional Fields', 'tribe-events-calendar-pro' ), array(
+				new Tribe__Settings_Tab( 'additional-fields', __( 'Additional Fields', 'tribe-events-calendar-pro' ), array(
 					'priority' => 35,
 					'fields'   => array( null ),
 				) );
@@ -598,7 +598,7 @@
 				$this->plural_event_label = tribe_get_event_label_plural();
 				switch ( $tab ) {
 					case 'display':
-						$fields = Tribe__Events__Main::array_insert_after_key(
+						$fields = Tribe__Main::array_insert_after_key(
 							'tribeDisableTribeBar', $fields, array(
 								'hideRelatedEvents' => array(
 									'type'            => 'checkbox_bool',
@@ -609,7 +609,7 @@
 								),
 							)
 						);
-						$fields = Tribe__Events__Main::array_insert_after_key(
+						$fields = Tribe__Main::array_insert_after_key(
 							'monthAndYearFormat', $fields, array(
 								'weekDayFormat' => array(
 									'type' => 'text',
@@ -621,7 +621,7 @@
 								),
 							)
 						);
-						$fields = Tribe__Events__Main::array_insert_after_key(
+						$fields = Tribe__Main::array_insert_after_key(
 							'hideRelatedEvents', $fields, array(
 								'week_view_hide_weekends' => array(
 									'type'            => 'checkbox_bool',
@@ -852,13 +852,13 @@
 								// If so, start on the next weekday.
 								// 0 = Sunday, 6 = Saturday
 								if ( $start_of_week == 0 || $start_of_week == 6 ) {
-									$start_date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( $start_date . ' +1 Weekday' ) );
+									$start_date = date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( $start_date . ' +1 Weekday' ) );
 								}
 								// If the week starts on saturday or friday
 								// sunday and/or saturday would be on the other end, so we need to end the previous weekday
 								// 5 = Friday, 6 = Saturday
 								if ( $start_of_week == 5 || $start_of_week == 6 ) {
-									$end_date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( $end_date . ' -1 Weekday' ) );
+									$end_date = date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( $end_date . ' -1 Weekday' ) );
 								}
 							}
 
@@ -904,7 +904,7 @@
 				if ( empty( $date ) || empty( $slug ) ) {
 					return; // we shouldn't be here
 				}
-				$cache = new Tribe__Events__Cache();
+				$cache = new Tribe__Cache();
 				$post_id = $cache->get( 'single_event_' . $slug . '_' . $date, 'save_post' );
 				if ( ! empty( $post_id ) ) {
 					unset( $query->query_vars['name'] );
@@ -950,7 +950,7 @@
 					unset( $query->query_vars['name'] );
 					unset( $query->query_vars['tribe_events'] );
 					$query->set( 'p', $post_id );
-					$cache->set( 'single_event_' . $slug . '_' . $date, $post_id, Tribe__Events__Cache::NO_EXPIRATION, 'save_post' );
+					$cache->set( 'single_event_' . $slug . '_' . $date, $post_id, Tribe__Cache::NO_EXPIRATION, 'save_post' );
 				}
 			}
 

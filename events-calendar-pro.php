@@ -56,7 +56,7 @@ define( 'EVENTS_CALENDAR_PRO_DIR', dirname( __FILE__ ) );
 		}
 	}
 
-	add_action( 'plugins_loaded', 'Tribe_ECP_Load', 1 ); // high priority so that it's not too late for tribe_register-helpers class
+	add_action( 'plugins_loaded', 'Tribe_ECP_Load', 2 ); // high priority so that it's not too late for tribe_register-helpers class
 
 	/**
 	 * Shows message if the plugin can't load due to TEC not being installed.
@@ -106,10 +106,10 @@ define( 'EVENTS_CALENDAR_PRO_DIR', dirname( __FILE__ ) );
 	 * autoloading.
 	 */
 	function tribe_init_events_pro_autoloading() {
-		if ( ! class_exists( 'Tribe__Events__Autoloader' ) ) {
+		if ( ! class_exists( 'Tribe__Autoloader' ) ) {
 			return;
 		}
-		$autoloader = Tribe__Events__Autoloader::instance();
+		$autoloader = Tribe__Autoloader::instance();
 
 		$autoloader->register_prefix( 'Tribe__Events__Pro__', dirname( __FILE__ ) . '/src/Tribe' );
 

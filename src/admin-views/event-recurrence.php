@@ -1,7 +1,7 @@
 <?php
-$start_hour_options = Tribe__Events__View_Helpers::getHourOptions( null, true );
-$start_minute_options = Tribe__Events__View_Helpers::getMinuteOptions( null, true );
-$start_meridian_options = Tribe__Events__View_Helpers::getMeridianOptions( null, true );
+$start_hour_options = Tribe__View_Helpers::getHourOptions( null, true );
+$start_minute_options = Tribe__View_Helpers::getMinuteOptions( null, true );
+$start_meridian_options = Tribe__View_Helpers::getMeridianOptions( null, true );
 ?>
 <tr class="recurrence-row">
 	<td class="recurrence-rules-header"><?php esc_html_e( 'Recurrence Rules:', 'tribe-events-calendar-pro' ); ?></td>
@@ -30,7 +30,7 @@ $start_meridian_options = Tribe__Events__View_Helpers::getMeridianOptions( null,
 							<option value="Never"><?php esc_html_e( 'Never', 'tribe-events-calendar-pro' ); ?></option>
 						{{/tribe_recurrence_select}}
 					</select>
-					<input autocomplete="off" placeholder="<?php echo esc_attr( Tribe__Events__Date_Utils::date_only( date( Tribe__Events__Date_Utils::DBDATEFORMAT ) ) ); ?>" type="text" class="tribe-datepicker recurrence_end tribe-no-end-date-update" name="recurrence[rules][][end]" data-field="end" value="{{end}}"/>
+					<input autocomplete="off" placeholder="<?php echo esc_attr( Tribe__Date_Utils::date_only( date( Tribe__Date_Utils::DBDATEFORMAT ) ) ); ?>" type="text" class="tribe-datepicker recurrence_end tribe-no-end-date-update" name="recurrence[rules][][end]" data-field="end" value="{{end}}"/>
 					<span class="rec-count">
 						<input autocomplete="off" type="text" name="recurrence[rules][][end-count]" data-field="end-count" class="recurrence_end_count" value="{{this.[end-count]}}" />
 						<span class='occurence-count-text'><?php _ex( 'events', 'occurence count text', 'tribe-events-calendar-pro' ) ?></span>
@@ -95,7 +95,7 @@ $start_meridian_options = Tribe__Events__View_Helpers::getMeridianOptions( null,
 				</select>
 				<span class="recurrence-end">
 					<?php esc_html_e( 'will not occur on', 'tribe-events-calendar-pro' ); ?>
-					<input autocomplete="off" placeholder="<?php echo esc_attr( Tribe__Events__Date_Utils::date_only( date( Tribe__Events__Date_Utils::DBDATEFORMAT ) ) ); ?>" type="text" class="tribe-datepicker custom-date" name="recurrence[exclusions][][custom][date][date]" data-field="custom-date" value="{{custom.date.date}}"/>
+					<input autocomplete="off" placeholder="<?php echo esc_attr( Tribe__Date_Utils::date_only( date( Tribe__Date_Utils::DBDATEFORMAT ) ) ); ?>" type="text" class="tribe-datepicker custom-date" name="recurrence[exclusions][][custom][date][date]" data-field="custom-date" value="{{custom.date.date}}"/>
 				</span>
 				<span class="recurrence-row custom-recurrence-frequency">
 					<?php esc_html_e( 'will not occur every', 'tribe-events-calendar-pro' ); ?>

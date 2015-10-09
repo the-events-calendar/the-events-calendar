@@ -124,7 +124,7 @@
 						foreach ( $days_of_week as $day ) {
 							// Determine the date of the first of these days (ie, the date of the first Tuesday this month)
 							$start_of_month = mktime( 0, 0, 0, $month, 1, $year );
-							$first_date     = Tribe__Events__Date_Utils::get_first_day_of_week_in_month( $start_of_month, $day );
+							$first_date     = Tribe__Date_Utils::get_first_day_of_week_in_month( $start_of_month, $day );
 							$day_of_month   = (int) date( 'j', $first_date );
 
 							// Add the relevant number of weeks

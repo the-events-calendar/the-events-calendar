@@ -75,7 +75,7 @@ class Tribe__Events__Pro__Admin__Custom_Meta_Tools {
 
 	public function update_ui() {
 		// Only display the notice/update UI within the additional fields screen
-		if ( 'additional-fields' !== Tribe__Events__Settings::instance()->currentTab ) {
+		if ( 'additional-fields' !== Tribe__Settings::instance()->currentTab ) {
 			return;
 		}
 

@@ -88,16 +88,16 @@
 
 				switch ( $active['is'] ) {
 					case 'is':
-						$where .= $wpdb->prepare( " AND $field BETWEEN %s AND %s ", tribe_event_beginning_of_day( $value ), tribe_event_end_of_day( $value ) );
+						$where .= $wpdb->prepare( " AND $field BETWEEN %s AND %s ", tribe_beginning_of_day( $value ), tribe_end_of_day( $value ) );
 						break;
 					case 'not':
-						$where .= $wpdb->prepare( " AND $field NOT BETWEEN %s AND %s ", tribe_event_beginning_of_day( $value ), tribe_event_end_of_day( $value ) );
+						$where .= $wpdb->prepare( " AND $field NOT BETWEEN %s AND %s ", tribe_beginning_of_day( $value ), tribe_end_of_day( $value ) );
 						break;
 					case 'gte':
-						$where .= $wpdb->prepare( " AND $field >= %s ", tribe_event_beginning_of_day( $value ) );
+						$where .= $wpdb->prepare( " AND $field >= %s ", tribe_beginning_of_day( $value ) );
 						break;
 					case 'lte':
-						$where .= $wpdb->prepare( " AND $field <= %s ", tribe_event_end_of_day( $value ) );
+						$where .= $wpdb->prepare( " AND $field <= %s ", tribe_end_of_day( $value ) );
 						break;
 
 				}
