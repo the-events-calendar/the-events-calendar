@@ -15,10 +15,5 @@
   "prefer-stable": true,
   "config": {
     "preferred-install": "dist"
-  },
-  "autoload-dev": {
-    "files": [
-      "src/Tribe/Autoloader.php"
-    ]
   }
 }
