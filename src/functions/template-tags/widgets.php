@@ -232,7 +232,7 @@ function tribe_events_this_week_previous_link( $start_date, $text = '' ) {
 		$text = __( '<span>&laquo;</span> Previous Week', 'tribe-events-calendar-pro' );
 	}
 
-	$attributes = sprintf( ' data-week="%s" ', date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( $start_date . ' -7 days' ) ) );
+	$attributes = sprintf( ' data-week="%s" ', date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( $start_date . ' -7 days' ) ) );
 
 	return sprintf( '<a %s href="#" rel="prev">%s</a>', $attributes, $text );
 
@@ -286,7 +286,7 @@ function tribe_get_this_week_first_week_day( $date = null, $week_offset = null )
 	//Add Week Offset if there
 	empty( $week_offset ) ? null : $r->modify( '+' . absint( $week_offset ) . ' weeks' );
 
-	return $r->format( Tribe__Events__Date_Utils::DBDATEFORMAT );
+	return $r->format( Tribe__Date_Utils::DBDATEFORMAT );
 }
 
 /**
@@ -297,7 +297,7 @@ function tribe_get_this_week_first_week_day( $date = null, $week_offset = null )
  * @return DateTime
  */
 function tribe_get_this_week_last_week_day( $date ) {
-	return date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( tribe_get_this_week_first_week_day( $date ) . ' +7 days' ) );
+	return date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( tribe_get_this_week_first_week_day( $date ) . ' +7 days' ) );
 }
 
 /**
