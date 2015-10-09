@@ -3864,7 +3864,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function outputDashboardWidget( $items = 10 ) {
 			echo '<div class="rss-widget">';
-			wp_widget_rss_output( self::FEED_URL, array( 'items' => $items ) );
+			wp_widget_rss_output( Tribe__Main::FEED_URL, array( 'items' => $items ) );
 			echo '</div>';
 		}
 
