@@ -29,8 +29,6 @@ class Tribe_Autoloader_Test extends Tribe__Events__WP_UnitTestCase {
 	 * Test if a class exists that is autoloaded through the plugin and deprecated.
 	 */
 	public function test_deprecated_class_exists() {
-		$this->expectDeprecated();
-
 		$class = 'Tribe_Events_Single_Event_Template';
 		$this->expected_deprecated_file[] = dirname( dirname( dirname( __FILE__ ) ) ) . '/src/deprecated/' . $class . '.php';
 		$this->assertTrue( class_exists( $class ), 'Class "' . $class . '" does not exist.' );
