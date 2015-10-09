@@ -68,7 +68,7 @@ class Tribe__Events__Pro__This_Week {
 
 		// Load up stylesheet from theme or plugin
 		if ( $style_url && $stylesheet_option == 'tribe' ) {
-			wp_enqueue_style( 'widget-calendar-pro-style', tribe_events_pro_resource_url( 'widget-this-week-full.css' ), array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
+			wp_enqueue_style( 'widget-this-week-pro-style', tribe_events_pro_resource_url( 'widget-this-week-full.css' ), array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
 			wp_enqueue_style( Tribe__Events__Main::POSTTYPE . '-widget-this-week-pro-style', $style_url, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
 		} else {
 			wp_enqueue_style( Tribe__Events__Main::POSTTYPE . '-widget-this-week-pro-style', $style_url, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
