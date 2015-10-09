@@ -11,8 +11,13 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
  * See documentation for WP_List_Table
  */
 class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
+	public $event_id;
 	public $total_purchased = 0;
 	public $overall_total = 0;
+	public $valid_order_items = array();
+	public static $pass_fees_to_user = true;
+	public static $fee_percent = 0;
+	public static $fee_flat = 0;
 
 	/**
 	 * Class constructor
@@ -159,6 +164,12 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 		$num_items = 0;
 
 		foreach ( $item['line_items'] as $line_item ) {
+			$ticket_id = $line_item['product_id'];
+
+			if ( ! isset( $this->valid_order_items[ $item['id'] ][ $ticket_id ] ) ) {
+				continue;
+			}
+
 			$num_items += $line_item['quantity'];
 
 			if ( empty( $tickets[ $line_item['name'] ] ) ) {
@@ -219,6 +230,10 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 
 		$output = "{$order_number_link} " . __( 'by', 'tribe-events-calendar' ) . " {$customer_name}<br><a href=\"mailto:{$customer_email}\">{$customer_email}</a>";
 
+		if ( 'completed' !== $item['status'] ) {
+			$output .= '<div class="order-status order-status-' . esc_attr( $item['status'] ) . '">' . esc_html( ucwords( $item['status'] ) ) . '</div>';
+		}
+
 		return $output;
 	}//end column_order_status
 
@@ -234,7 +249,15 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 
 		$price_format = get_woocommerce_price_format();
 
-		return sprintf( $price_format, get_woocommerce_currency_symbol(), number_format( $item['subtotal'], 2 ) );
+		foreach ( $this->valid_order_items[ $item['id'] ] as $line_item ) {
+			$total += $line_item['subtotal'];
+		}
+
+		if ( ! self::$pass_fees_to_user ) {
+			$total -= self::calc_site_fee( $total );
+		}
+
+		return sprintf( $price_format, get_woocommerce_currency_symbol(), number_format( $total, 2 ) );
 	}//end column_subtotal
 
 	/**
@@ -249,7 +272,15 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 
 		$price_format = get_woocommerce_price_format();
 
-		return sprintf( $price_format, get_woocommerce_currency_symbol(), number_format( $item['total'], 2 ) );
+		foreach ( $this->valid_order_items[ $item['id'] ] as $line_item ) {
+			$total += $line_item['subtotal'];
+		}
+
+		if ( self::$pass_fees_to_user ) {
+			$total += $this->calc_site_fee( $total );
+		}
+
+		return sprintf( $price_format, get_woocommerce_currency_symbol(), number_format( $total, 2 ) );
 	}//end column_total
 
 	/**
@@ -264,7 +295,11 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 
 		$price_format = get_woocommerce_price_format();
 
-		return sprintf( $price_format, get_woocommerce_currency_symbol(), number_format( $item['total'] - $item['subtotal'], 2 ) );
+		foreach ( $this->valid_order_items[ $item['id'] ] as $line_item ) {
+			$total += $line_item['subtotal'];
+		}
+
+		return sprintf( $price_format, get_woocommerce_currency_symbol(), number_format( $this->calc_site_fee( $total ), 2 ) );
 	}//end column_site_fee
 
 	/**
@@ -300,7 +335,13 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 
 		$args = array(
 			'post_type' => 'tribe_wooticket',
-			'post_status' => 'publish',
+			'post_status' => array(
+				'wc-pending',
+				'wc-processing',
+				'wc-on-hold',
+				'wc-completed',
+				'publish',
+			),
 			'meta_query' => array(
 				array(
 					'key' => '_tribe_wooticket_event',
@@ -325,16 +366,43 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 		return $orders;
 	}
 
+	public static function get_valid_order_items_for_event( $event_id, $items ) {
+		$valid_order_items = array();
+
+		$event_id = absint( $event_id );
+
+		foreach ( $items as $order ) {
+			if ( ! isset( $valid_order_items[ $order['id'] ] ) ) {
+				$valid_order_items[ $order['id'] ] = array();
+			}
+
+			foreach ( $order['line_items'] as $line_item ) {
+				$ticket_id = $line_item['product_id'];
+				$ticket_event_id = absint( get_post_meta( $ticket_id, '_tribe_wooticket_for_event', true ) );
+
+				// if the ticket isn't for the currently viewed event, skip it
+				if ( $ticket_event_id !== $event_id ) {
+					continue;
+				}
+
+				$valid_order_items[ $order['id'] ][ $ticket_id ] = $line_item;
+			}
+		}
+
+		return $valid_order_items;
+	}
+
 	/**
 	 * Prepares the list of items for displaying.
 	 */
 	public function prepare_items() {
+		$this->event_id = isset( $_GET['event_id'] ) ? $_GET['event_id'] : 0;
 
-		$event_id = isset( $_GET['event_id'] ) ? $_GET['event_id'] : 0;
-
-		$this->items = self::get_orders( $event_id );
+		$this->items = self::get_orders( $this->event_id );
 		$total_items = count( $this->items );
 		$per_page    = $total_items;
+
+		$this->valid_order_items = self::get_valid_order_items_for_event( $this->event_id, $this->items );
 
 		$this->set_pagination_args(
 			 array(
@@ -344,4 +412,86 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 			 )
 		);
 	}//end prepare_items
+
+	/**
+	 * Return sales (sans fees) for the given event
+	 *
+	 * @param int $event_id Event post ID
+	 *
+	 * @return float
+	 */
+	public static function event_sales( $event_id ) {
+		$orders = self::get_orders( $event_id );
+		$valid_order_items = self::get_valid_order_items_for_event( $event_id, $orders );
+
+		$total = 0;
+
+		foreach ( $valid_order_items as $order ) {
+			$order_total = 0;
+
+			foreach ( $order as $line_item ) {
+				$order_total += $line_item['subtotal'];
+			}
+
+			if ( ! self::$pass_fees_to_user ) {
+				$order_total -= self::calc_site_fee( $order_total, self::$pass_fees_to_user );
+			}
+
+			$total += $order_total;
+		}
+
+		return $total;
+	}
+
+	/**
+	 * Return fees for the given event
+	 *
+	 * @param int $event_id Event post ID
+	 *
+	 * @return float
+	 */
+	public static function event_fees( $event_id ) {
+		$orders = self::get_orders( $event_id );
+		$valid_order_items = self::get_valid_order_items_for_event( $event_id, $orders );
+
+		$fees = 0;
+
+		foreach ( $valid_order_items as $order ) {
+			$order_total = 0;
+
+			foreach ( $order as $line_item ) {
+				$order_total += $line_item['subtotal'];
+			}
+
+			$fees += self::calc_site_fee( $order_total, self::$pass_fees_to_user );
+		}
+
+		return $fees;
+	}
+
+	/**
+	 * Return total revenue for the given event
+	 *
+	 * @param int $event_id Event post ID
+	 *
+	 * @return float
+	 */
+	public static function event_revenue( $event_id ) {
+		return self::event_sales( $event_id, self::$pass_fees_to_user ) + self::event_fees( $event_id, self::$pass_fees_to_user );
+	}
+
+	/**
+	 * Calculate site fees
+	 *
+	 * @param int $amount Total to calculate site fees on
+	 *
+	 * @return float
+	 */
+	public static function calc_site_fee( $amount ) {
+		if ( ! self::$pass_fees_to_user ) {
+			return round( $amount * ( self::$fee_percent / 100 ), 2 ) + self::$fee_flat;
+		}
+
+		return round( ( $amount / ( 1 - ( self::$fee_percent / 100 ) ) ) - $amount, 2 ) + self::$fee_flat;
+	}
 }//end class
