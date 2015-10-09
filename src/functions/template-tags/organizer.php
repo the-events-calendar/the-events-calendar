@@ -155,26 +155,33 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Returns the event Organizer Name with a link to their single organizer page
 	 *
 	 * @param int  $postId    Can supply either event id or organizer id, if none specified, current post is used
-	 * @param bool $full_link If true displays full html links around organizers name, if false returns just the link without displaying it
+	 * @param bool $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output
 	 * @param bool $echo      If true, echo the link, otherwise return
 	 *
 	 * @return string Organizer Name and Url
 	 */
-	function tribe_get_organizer_link( $postId = null, $full_link = true, $echo = true ) {
-		$postId = Tribe__Events__Main::postIdHelper( $postId );
+	function tribe_get_organizer_link( $postId = null, $full_link = true, $echo = false ) {
+
+		// As of TEC 4.0 this argument is deprecated
+		// If needed precede the call to this function with echo
+		if ( $echo != false ) _deprecated_argument( __FUNCTION__, '4.0' );
+
+		$org_id = tribe_get_organizer_id( $postId );
 		if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
-			$url = esc_url_raw( get_permalink( tribe_get_organizer_id( $postId ) ) );
+			$url = esc_url_raw( get_permalink( $org_id ) );
 			if ( $full_link ) {
-				$name = tribe_get_organizer( $postId );
-				$link = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '">' . $name . '</a>' : false;
-				$link = apply_filters( 'tribe_get_organizer_link', $link, $postId, $echo, $url, $name );
+				$name = tribe_get_organizer( $org_id );
+				$attr_title = the_title_attribute( array( 'post' => $org_id, 'echo' => false ) );
+				$link = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '" title="'.$attr_title.'"">' . $name . '</a>' : false;
 			} else {
 				$link = $url;
 			}
+
+			// Remove this in or before 5.x to fully deprecate the echo arg
 			if ( $echo ) {
-				echo $link;
+				echo apply_filters( 'tribe_get_organizer_link', $link, $postId, $echo, $url );
 			} else {
-				return $link;
+				return apply_filters( 'tribe_get_organizer_link', $link, $postId, $full_link, $url );
 			}
 		}
 	}

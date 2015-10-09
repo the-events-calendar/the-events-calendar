@@ -89,31 +89,24 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Returns or display the event Venue Name with a link to the venue
 	 *
 	 * @param int  $postId  Can supply either event id or venue id, if none specified, current post is used
-	 * @param bool $display If true displays full html links around venue's name, if false returns just the link without displaying it
+	 * @param bool $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output
 	 *
 	 * @return string Venue if $display is set to false, void if it's set to true.
 	 */
-	function tribe_get_venue_link( $postId = null, $display = true ) {
+	function tribe_get_venue_link( $postId = null, $full_link = true ) {
 
-		$url = '';
+		$ven_id = tribe_get_venue_id( $postId );
+		$url = esc_url_raw( get_permalink( $ven_id ) );
 
-		if ( $venue_id = tribe_get_venue_id( $postId ) ) {
-			$url = esc_url_raw( get_permalink( $venue_id ) );
-		}
-
-		if ( $display && $url != '' ) {
-			$venue_name = tribe_get_venue( $postId );
-			$link       = '<a href="' . esc_url( $url ) . '">' . $venue_name . '</a>';
+		if ( $full_link ) {
+			$name = tribe_get_venue( $ven_id );
+			$attr_title = the_title_attribute( array( 'post' => $ven_id, 'echo' => false ) );
+			$link = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '" title="'.$attr_title.'"">' . $name . '</a>' : false;
 		} else {
 			$link = $url;
 		}
-		$link = apply_filters( 'tribe_get_venue_link', $link, $postId, $display, $url );
 
-		if ( $display ) {
-			echo $link;
-		} else {
-			return $link;
-		}
+		return apply_filters( 'tribe_get_venue_link', $link, $postId, $full_link, $url );
 	}
 
 	/**
