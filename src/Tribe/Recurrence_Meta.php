@@ -1123,7 +1123,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					&& isset( $recurrence['custom']['start-time'] )
 					&& isset( $recurrence['custom']['duration'] )
 				) {
-					$start_time = "{$recurrence['custom']['start-time']['hour']}:{$recurrence['custom']['start-time']['minute']}:00 {$recurrence['custom']['start-time']['meridian']}";
+					$start_time = "{$recurrence['custom']['start-time']['hour']}:{$recurrence['custom']['start-time']['minute']}:00";
+					$start_time .= isset( $recurrence['custom']['start-time']['meridian'] ) ? " {$recurrence['custom']['start-time']['meridian']}" : '';
 					$duration = self::get_duration_in_seconds( $recurrence['custom']['duration'] );
 				}
 
@@ -1475,8 +1476,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			}
 		}
 
-		$start_date = strtotime( tribe_get_start_date( $event_id, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) );
-		$end_date = strtotime( tribe_get_end_date( $event_id, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) );
+		$start_date = strtotime( tribe_get_start_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) );
+		$end_date = strtotime( tribe_get_end_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) );
 
 		$num_days = floor( ( $end_date - $start_date ) / DAY_IN_SECONDS );
 

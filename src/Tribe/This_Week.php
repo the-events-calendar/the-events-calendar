@@ -175,7 +175,7 @@ class Tribe__Events__Pro__This_Week {
 		}
 
 		$attrs = '';
-		$attrs .= ' data-prev-date="' . esc_attr( date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( $this_week_query_vars['start_date'] . ' -7 days' ) ) ) . '"';
+		$attrs .= ' data-prev-date="' . esc_attr( date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( $this_week_query_vars['start_date'] . ' -7 days' ) ) ) . '"';
 		$attrs .= ' data-next-date="' . esc_attr( $this_week_query_vars['end_date'] ) . '"';
 		$attrs .= ' data-count="' . esc_attr( $this_week_query_vars['count'] ) . '"';
 		$attrs .= ' data-layout="' . esc_attr( $this_week_query_vars['layout'] ) . '"';
@@ -261,7 +261,7 @@ class Tribe__Events__Pro__This_Week {
 		$day_range = self::get_day_range();
 
 		//Todays Date According to WordPress
-		$timestamp_today = strtotime( current_time( Tribe__Events__Date_Utils::DBDATEFORMAT ) );
+		$timestamp_today = strtotime( current_time( Tribe__Date_Utils::DBDATEFORMAT ) );
 
 		//Date Formats from The Events Calendar
 		$display_date_format  = apply_filters( 'tribe_events_this_week_date_format', 'jS' );
@@ -289,10 +289,10 @@ class Tribe__Events__Pro__This_Week {
 			// figure out the $date that we're currently looking at
 			if ( $day_number >= $day_range[0] ) {
 				// usually we can just get the date for the next day
-				$date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( $day . "+$i days" ) );
+				$date = date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( $day . "+$i days" ) );
 			} else {
 				//Start Day of week in the Middle and not in typical Sunday or Monday
-				$date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( "Next {$weekday_array[$day_number]}", strtotime( $day ) ) );
+				$date = date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( "Next {$weekday_array[$day_number]}", strtotime( $day ) ) );
 			}
 
 			$this_week_events_sticky = $this_week_events = array();
