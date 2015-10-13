@@ -43,7 +43,7 @@ function tribe_events_the_mini_calendar_title() {
 	$args        = tribe_events_get_mini_calendar_args();
 	$date        = strtotime( $args['eventDate'] );
 	$date_format = tribe_get_option( 'monthAndYearFormat', 'M Y' );
-	$title       = tribe_event_format_date( $date, false, $date_format );
+	$title       = tribe_format_date( $date, false, $date_format );
 	echo apply_filters( 'tribe_events_the_mini_calendar_title', $title );
 }
 
@@ -200,4 +200,152 @@ function tribe_events_get_list_widget_view_all_link( $instance ) {
 	}
 
 	return apply_filters( 'tribe_events_get_list_widget_view_all_link', $link_to_all );
+}
+/**
+ * This Week - Title
+ *
+ * @param string $this_week_title
+ *
+ * @return string
+ */
+function tribe_events_get_this_week_title( $start_date ) {
+	$events_label_plural = tribe_get_event_label_plural();
+	$date_format = apply_filters( 'tribe_events_pro_page_title_date_format', tribe_get_date_format( true ) );
+
+	$this_week_title = sprintf( __( '%s for week of %s', 'tribe-events-calendar-pro' ),
+		$events_label_plural,
+		date_i18n( $date_format, strtotime( $start_date ) )
+	);
+
+	return $this_week_title;
+}
+/**
+ * This Week Widget - Build the previous week link.
+ *
+ * @param string $text The text to be linked.
+ *
+ * @return string
+ */
+function tribe_events_this_week_previous_link( $start_date, $text = '' ) {
+
+	if ( empty( $text ) ) {
+		$text = __( '<span>&laquo;</span> Previous Week', 'tribe-events-calendar-pro' );
+	}
+
+	$attributes = sprintf( ' data-week="%s" ', date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( $start_date . ' -7 days' ) ) );
+
+	return sprintf( '<a %s href="#" rel="prev">%s</a>', $attributes, $text );
+
+}
+
+/**
+ * This Week Widget - Build the next week link
+ *
+ * @param string $text the text to be linked
+ * @param string $start_date the date for start of the week
+ *
+ * @return string
+ */
+function tribe_events_this_week_next_link( $start_date, $text = '' ) {
+
+	if ( empty( $text ) ) {
+		$text = __( 'Next Week <span>&raquo;</span>', 'tribe-events-calendar-pro' );
+	}
+
+	$attributes = sprintf( ' data-week="%s" ', $start_date );
+
+	return sprintf( '<a %s href="#" rel="next">%s</a>', $attributes, $text );
+
+}
+
+/**
+ * This Week Widget - Get the first day of current week with provided date or current week
+ *
+ * @param null|mixed $date  given date or week # (week # assumes current year)
+ * @param null $week_offset # offset from current week the start date for this widget
+ *
+ * @return DateTime
+ */
+function tribe_get_this_week_first_week_day( $date = null, $week_offset = null ) {
+
+	//Start of Week in WordPress Settings - Zero = Sunday, 1 = Monday, etc
+	$offset = 7 - get_option( 'start_of_week', 0 );
+
+	//Check for Valid Date
+	try {
+		$date = new DateTime( $date );
+	} catch ( exception $e ) {
+		$date = new DateTime();
+	}
+
+	// Clone to avoid altering the original date
+	$r = clone $date;
+	//Use Offset to get Start of Week for Widget
+	$r->modify( - ( ( $date->format( 'w' ) + $offset ) % 7 ) . 'days' );
+
+	//Add Week Offset if there
+	empty( $week_offset ) ? null : $r->modify( '+' . absint( $week_offset ) . ' weeks' );
+
+	return $r->format( Tribe__Date_Utils::DBDATEFORMAT );
+}
+
+/**
+ * This Week Widget - Get the last day of the week from a provided date
+ *
+ * @param string|int $date a given date of the week
+ *
+ * @return DateTime
+ */
+function tribe_get_this_week_last_week_day( $date ) {
+	return date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( tribe_get_this_week_first_week_day( $date ) . ' +7 days' ) );
+}
+
+/**
+ * This Week Widget - Set class if today or in past for Day Grid
+ *
+ * @return string
+ */
+function tribe_get_this_week_day_class( $day ) {
+	if ( $day['is_today'] ) {
+		$class = 'this-week-today';
+
+		return $class;
+
+	} elseif ( $day['is_past'] ) {
+		$class = 'this-week-past';
+
+		return $class;
+	}
+
+	return null;
+}
+/**
+ * This Week Widget - Get Event Category Names Selected for Individual Widget
+ *
+ * @return string
+ */
+function tribe_this_week_widget_class( $tax_query ) {
+	if ( empty( $tax_query ) ) {
+		return null;
+	}
+
+	$tax_query_class = null;
+
+	foreach ( $tax_query as $tax => $terms ) {
+		if ( empty( $terms ) ) {
+			continue;
+		}
+
+		foreach ( $terms['terms'] as $term_id ) {
+
+			$term = get_term( $term_id, $terms['taxonomy'] );
+
+			$tax_query_class .= $term->slug . ' ';
+		}
+	}
+
+	//Filter Classes Added to the This Week Widget Wrap
+	$tax_query_class = apply_filters( 'tribe_this_week_widget_class', $tax_query_class );
+
+	return $tax_query_class;
 }

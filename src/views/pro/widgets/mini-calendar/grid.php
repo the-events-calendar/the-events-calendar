@@ -27,7 +27,7 @@ $week         = 0;
 					<?php tribe_events_the_mini_calendar_prev_link() ?>
 					<span id="tribe-mini-calendar-month"><?php tribe_events_the_mini_calendar_title() ?></span>
 					<?php tribe_events_the_mini_calendar_next_link() ?>
-					<img id="ajax-loading-mini" src="<?php echo tribe_events_resource_url( 'images/tribe-loading.gif' ) ?>" alt="loading..." />
+					<img id="ajax-loading-mini" src="<?php echo tribe_resource_url( 'images/tribe-loading.gif' ) ?>" alt="loading..." />
 				</div>
 			</td>
 		</tr>
@@ -44,7 +44,7 @@ $week         = 0;
 		</thead>
 
 
-		<tbody class="hfeed vcalendar">
+		<tbody>
 
 		<tr>
 			<?php while ( tribe_events_have_month_days() ) :

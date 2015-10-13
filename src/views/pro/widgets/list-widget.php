@@ -46,7 +46,7 @@ if ( isset( $posts ) && $posts ) :
 		<!-- Event  -->
 		<div class="<?php tribe_events_event_classes() ?>">
 			<?php tribe_get_template_part( 'pro/widgets/modules/single-event', null, $instance ) ?>
-		</div><!-- .hentry .vevent -->
+		</div>
 
 		<?php do_action( 'tribe_events_widget_list_inside_after_loop' ) ?>
 

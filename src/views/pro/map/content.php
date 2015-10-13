@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php do_action( 'tribe_events_after_the_title' ); ?>
 
 	<!-- Notices -->
-	<?php tribe_events_the_notices() ?>
+	<?php tribe_the_notices() ?>
 
 	<!-- List Header -->
 	<?php do_action( 'tribe_events_before_header' ); ?>
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<!-- Events Loop -->
 	<?php if ( have_posts() ) : ?>
 		<?php do_action( 'tribe_events_before_loop' ); ?>
-		<div id="tribe-geo-results" class="tribe-events-loop hfeed vcalendar">
+		<div id="tribe-geo-results" class="tribe-events-loop">
 			<?php tribe_get_template_part( 'pro/map/loop' ) ?>
 		</div> <!-- #tribe-geo-results -->
 		<?php do_action( 'tribe_events_after_loop' ); ?>

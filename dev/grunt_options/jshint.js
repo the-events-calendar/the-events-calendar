@@ -53,7 +53,8 @@ module.exports = {
 				'<%= pkg._resourcepath %>/js/tribe-events-pro.js',
 				'<%= pkg._resourcepath %>/js/tribe-events-week.js',
 				'<%= pkg._resourcepath %>/js/widget-calendar.js',
-				'<%= pkg._resourcepath %>/js/widget-countdown.js'
+				'<%= pkg._resourcepath %>/js/widget-countdown.js',
+				'<%= pkg._resourcepath %>/js/widget-this-week.js'
 			]
 		}
 	}

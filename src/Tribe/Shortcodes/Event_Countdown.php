@@ -94,6 +94,6 @@ class Tribe__Events__Pro__Shortcodes__Event_Countdown {
 			return;
 		}
 
-		$this->arguments['event_date'] = tribe_get_start_date( $this->arguments['event_ID'], false, Tribe__Events__Date_Utils::DBDATEFORMAT );
+		$this->arguments['event_date'] = tribe_get_start_date( $this->arguments['event_ID'], false, Tribe__Date_Utils::DBDATEFORMAT );
 	}
 }

@@ -8,6 +8,7 @@ compiler.jar
 
 codeception.yml
 tests/_bootstrap.php
+tests/_output/
 tests/_output/*
 tests/_support/_generated/*
 tests/acceptance/_bootstrap.php

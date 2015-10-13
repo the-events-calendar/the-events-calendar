@@ -76,7 +76,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	 * Class constructor
 	 */
 	public function __construct() {
-		$this->rewrite_slug = $this->getOption( 'geoloc_rewrite_slug', 'map' );
+		$this->rewrite_slug = Tribe__Settings_Manager::get_option( 'geoloc_rewrite_slug', 'map' );
 
 		add_action( 'tribe_events_venue_updated', array( $this, 'save_venue_geodata' ), 10, 2 );
 		add_action( 'tribe_events_venue_created', array( $this, 'save_venue_geodata' ), 10, 2 );
@@ -129,7 +129,7 @@ class Tribe__Events__Pro__Geo_Loc {
 			$venues = $this->get_venues_without_geoloc_info();
 
 			// we want to inject the map default distance and unit into the map section directly after "enable Google Maps"
-			$args = Tribe__Events__Main::array_insert_after_key( 'embedGoogleMaps', $args, array(
+			$args = Tribe__Main::array_insert_after_key( 'embedGoogleMaps', $args, array(
 					'geoloc_default_geofence' => array(
 						'type'            => 'text',
 						'label'           => __( 'Map view search distance limit', 'tribe-events-calendar-pro' ),
@@ -160,7 +160,7 @@ class Tribe__Events__Pro__Geo_Loc {
 				)
 			);
 		} elseif ( $id == 'display' ) {
-			$args = Tribe__Events__Main::array_insert_after_key( 'tribeDisableTribeBar', $args, array(
+			$args = Tribe__Main::array_insert_after_key( 'tribeDisableTribeBar', $args, array(
 				'hideLocationSearch' => array(
 					'type'            => 'checkbox_bool',
 					'label'           => __( 'Hide location search', 'tribe-events-calendar-pro' ),
@@ -351,7 +351,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	public function add_routes( $wp_rewrite ) {
 		$tec = Tribe__Events__Main::instance();
 
-		$base    = trailingslashit( $tec->getOption( 'eventsSlug', 'events' ) );
+		$base    = trailingslashit( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ) );
 		$baseTax = trailingslashit( $tec->taxRewriteSlug );
 		$baseTax = '(.*)' . $baseTax . '(?:[^/]+/)*';
 		$baseTag = trailingslashit( $tec->tagRewriteSlug );
@@ -755,7 +755,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	 * @return string
 	 */
 	private function fix_geoloc_data_button() {
-		$settings = Tribe__Events__Settings::instance();
+		$settings = Tribe__Settings::instance();
 		$url      = apply_filters( 'tribe_settings_url', add_query_arg( array(
 					'post_type' => Tribe__Events__Main::POSTTYPE,
 					'page'      => $settings->adminSlug
@@ -795,7 +795,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	 */
 	public function show_offer_to_fix_notice() {
 
-		$settings = Tribe__Events__Settings::instance();
+		$settings = Tribe__Settings::instance();
 		$url      = apply_filters( 'tribe_settings_url',
 			add_query_arg(
 				array(

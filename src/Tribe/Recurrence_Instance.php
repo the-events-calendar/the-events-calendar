@@ -120,7 +120,7 @@ class Tribe__Events__Pro__Recurrence_Instance {
 	 * @return string instance start_date in "Y-m-d H:i:s" format
 	 */
 	private function db_formatted_start_date() {
-		return $this->start_date->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+		return $this->start_date->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 	}
 
 	/**
@@ -136,7 +136,7 @@ class Tribe__Events__Pro__Recurrence_Instance {
 	 * @return string instance end_date in "Y-m-d H:i:s" format
 	 */
 	private function db_formatted_end_date() {
-		return $this->end_date->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+		return $this->end_date->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 	}
 
 	/**

@@ -49,8 +49,16 @@
 		}
 
 		public function maybe_set_active( $return, $key, $filter ) {
-			if ( isset( $_POST[ $this->key ] ) && ! empty( $_POST[ $this->key ] ) && isset( $_POST[ $this->is_key ] ) && ! empty( $_POST[ $this->is_key ] ) ) {
+			global $ecp_apm;
+
+			if ( ! empty( $_POST[ $this->key ] ) && ! empty( $_POST[ $this->is_key ] ) ) {
 				return array( 'value' => $_POST[ $this->key ], 'is' => $_POST[ $this->is_key ] );
+			}
+
+			$active_filters = $ecp_apm->filters->get_active();
+
+			if ( ! empty( $active_filters[ $this->key ] ) && ! empty( $active_filters[ $this->is_key ] ) ) {
+				return array( 'value' => $active_filters[ $this->key ], 'is' => $active_filters[ $this->is_key ] );
 			}
 
 			return $return;

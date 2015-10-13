@@ -10,7 +10,7 @@
 				<?php echo $start_minute_options; ?>
 			{{/tribe_recurrence_select}}
 		</select>
-		<?php if ( ! Tribe__Events__View_Helpers::is_24hr_format() ) : ?>
+		<?php if ( ! Tribe__View_Helpers::is_24hr_format() ) : ?>
 			<select tabindex="<?php tribe_events_tab_index(); ?>" name="recurrence[<?php echo esc_attr( $rule_type ); ?>][][custom][start-time][meridian]" data-field="custom-start-time-meridian">
 				{{#tribe_recurrence_select custom.[start-time].meridian}}
 					<?php echo $start_meridian_options; ?>
