@@ -4521,13 +4521,24 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * vendor/ submodule.
 		 */
 		public function maybe_load_tickets_framework() {
-			if ( defined( 'TRIBE_TICKETS_DIR' ) ) {
+			if ( defined( 'EVENT_TICKETS_DIR' ) ) {
 				return;
 			}
 
 			// Give the standalone plugin a chance to load on activation
 			// WordPress loads all the active plugins before activating a new one.
 			if ( isset( $_GET['action'] ) && $_GET['action'] == 'activate' && isset( $_GET['plugin'] ) && strstr( $_GET['plugin'], 'tickets.php' ) ) {
+				return;
+			}
+
+			// if there aren't any ticket plugins activated, bail
+			if (
+				! defined( 'EVENT_TICKETS_PLUS' )
+				&& ! defined( 'EVENTS_TICKETS_EDD_DIR' )
+				&& ! defined( 'EVENTS_TICKETS_SHOPP_DIR' )
+				&& ! defined( 'EVENTS_TICKETS_WOO_DIR' )
+				&& ! defined( 'EVENTS_TICKETS_WPEC_DIR' )
+			) {
 				return;
 			}
 
