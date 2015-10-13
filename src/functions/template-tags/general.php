@@ -63,6 +63,12 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 							break;
 						}
 					}
+
+				// Support legacy Recurrence
+				} elseif ( ! empty( $recurrence_meta['type'] ) ) {
+					if ( 'None' !== $recurrence_meta['type'] ) {
+						$recurring = true;
+					}
 				}
 			}
 
