@@ -6,22 +6,10 @@
  * In our timezone logic, the term "local" refers to the locality of an event
  * rather than the local WordPress timezone.
  */
-class Tribe__Events__Timezones {
-	const SITE_TIMEZONE  = 'site';
-	const EVENT_TIMEZONE = 'event';
-
-
-	/**
-	 * Container for reusable DateTimeZone objects.
-	 *
-	 * @var array
-	 */
-	protected static $timezones = array();
-
-
+class Tribe__Events__Timezones extends Tribe__Timezones {
 	public static function init() {
 		self::display_timezones();
-		self::invalidate_caches();
+		parent::init();
 	}
 
 	/**
@@ -53,8 +41,8 @@ class Tribe__Events__Timezones {
 			return $schedule_text;
 		}
 
-		$timezone = Tribe__Events__Timezones::is_mode( 'site' )
-			? self::wp_timezone_abbr( tribe_get_start_date( $event_id, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) )
+		$timezone = self::is_mode( 'site' )
+			? self::wp_timezone_abbr( tribe_get_start_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) )
 			: self::get_event_timezone_abbr( $event_id );
 
 		if ( ! empty( $timezone ) ) {
@@ -63,28 +51,6 @@ class Tribe__Events__Timezones {
 		}
 
 		return $schedule_text;
-	}
-
-	/**
-	 * Clear any cached timezone-related values when appropriate.
-	 *
-	 * Currently we are concerned only with the site timezone abbreviation.
-	 */
-	protected static function invalidate_caches() {
-		add_filter( 'pre_update_option_gmt_offset', array( __CLASS__, 'clear_site_timezone_abbr' ) );
-		add_filter( 'pre_update_option_timezone_string', array( __CLASS__, 'clear_site_timezone_abbr' ) );
-	}
-
-	/**
-	 * Wipe the cached site timezone abbreviation, if set.
-	 *
-	 * @param mixed $option_val (passed through without modification)
-	 *
-	 * @return mixed
-	 */
-	public static function clear_site_timezone_abbr( $option_val ) {
-		delete_transient( 'tribe_events_wp_timezone_abbr' );
-		return $option_val;
 	}
 
 	/**
@@ -118,7 +84,7 @@ class Tribe__Events__Timezones {
 
 		if ( empty( $abbr ) ) {
 			$timezone_string = self::get_event_timezone_string( $event_id );
-			$date = tribe_get_start_date( $event_id, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+			$date = tribe_get_start_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
 			$abbr = self::abbr( $date, $timezone_string );
 		}
 
@@ -146,7 +112,7 @@ class Tribe__Events__Timezones {
 		// Otherwise return the UTC offset
 		if ( 0 == $current_offset ) {
 			return 'UTC+0';
-		} elseif ($current_offset < 0) {
+		} elseif ( $current_offset < 0 ) {
 			return 'UTC' . $current_offset;
 		}
 
@@ -201,7 +167,7 @@ class Tribe__Events__Timezones {
 		$new_datetime = date_create( $datetime, $local );
 
 		if ( $new_datetime && $new_datetime->setTimezone( $utc ) ) {
-			return $new_datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+			return $new_datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 		}
 
 		// Fallback to the unmodified datetime if there was a failure during conversion
@@ -230,7 +196,7 @@ class Tribe__Events__Timezones {
 		$new_datetime = date_create( $datetime, $utc );
 
 		if ( $new_datetime && $new_datetime->setTimezone( $local ) ) {
-			return $new_datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+			return $new_datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 		}
 
 		// Fallback to the unmodified datetime if there was a failure during conversion
@@ -287,7 +253,7 @@ class Tribe__Events__Timezones {
 		$offset_datetime = date_create( $datetime );
 
 		if ( $offset_datetime && $offset_datetime->modify( $offset ) ) {
-			return $offset_datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+			return $offset_datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 		}
 
 		return $datetime;
@@ -307,7 +273,7 @@ class Tribe__Events__Timezones {
 	}
 
 	/**
-	 * Returns a timestamp for the event end date that can be passed to tribe_event_format_date()
+	 * Returns a timestamp for the event end date that can be passed to tribe_format_date()
 	 * in order to produce the time in the correct timezone.
 	 *
 	 * @param int    $event_id
@@ -320,7 +286,7 @@ class Tribe__Events__Timezones {
 	}
 
 	/**
-	 * Returns a timestamp for the event date that can be passed to tribe_event_format_date()
+	 * Returns a timestamp for the event date that can be passed to tribe_format_date()
 	 * in order to produce the time in the correct timezone.
 	 *
 	 * @param int    $event_id
@@ -402,13 +368,13 @@ class Tribe__Events__Timezones {
 	 * @return DateTimeZone|false
 	 */
 	public static function get_timezone( $tzstring, $with_fallback = true ) {
-		if ( isset( self::$timezones[$tzstring] ) ) {
-			return self::$timezones[$tzstring];
+		if ( isset( self::$timezones[ $tzstring ] ) ) {
+			return self::$timezones[ $tzstring ];
 		}
 
 		try {
-			self::$timezones[$tzstring] = new DateTimeZone( $tzstring );
-			return self::$timezones[$tzstring];
+			self::$timezones[ $tzstring ] = new DateTimeZone( $tzstring );
+			return self::$timezones[ $tzstring ];
 		}
 		catch ( Exception $e ) {
 			if ( $with_fallback ) {

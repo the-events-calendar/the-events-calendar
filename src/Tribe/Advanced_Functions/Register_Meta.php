@@ -27,26 +27,26 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 		 * @return string
 		 */
 		public static function event_date( $meta_id ) {
-			$time_format = get_option( 'time_format', Tribe__Events__Date_Utils::TIMEFORMAT );
+			$time_format = get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT );
 			$start_time  = tribe_get_start_date( null, false, $time_format );
 			$end_time    = tribe_get_end_date( null, false, $time_format );
 
 			if ( tribe_event_is_all_day() ) {
 				if ( tribe_event_is_multiday() ) {
 					$html = Tribe__Events__Meta_Factory::template(
-						__( 'Start:', 'tribe-events-calendar' ),
+						esc_html__( 'Start:', 'the-events-calendar' ),
 						sprintf(
 							'<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
-							tribe_get_start_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
+							tribe_get_start_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 							tribe_get_start_date()
 						),
 						$meta_id
 					);
 					$html .= Tribe__Events__Meta_Factory::template(
-						__( 'End:', 'tribe-events-calendar' ),
+						esc_html__( 'End:', 'the-events-calendar' ),
 						sprintf(
 							'<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
-							tribe_get_end_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
+							tribe_get_end_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 							tribe_get_end_date()
 						),
 						$meta_id
@@ -54,10 +54,10 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 				} else {
 					// If all day event, show only start date
 					$html = Tribe__Events__Meta_Factory::template(
-						__( 'Date:', 'tribe-events-calendar' ),
+						esc_html__( 'Date:', 'the-events-calendar' ),
 						sprintf(
 							'<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
-							tribe_get_start_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
+							tribe_get_start_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 							tribe_get_start_date()
 						),
 						$meta_id
@@ -66,19 +66,19 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 			} elseif ( tribe_event_is_multiday() ) {
 				// If multiday, show start date+time and end date+time
 				$html = Tribe__Events__Meta_Factory::template(
-					__( 'Start:', 'tribe-events-calendar' ),
+					esc_html__( 'Start:', 'the-events-calendar' ),
 					sprintf(
 						'<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
-						tribe_get_start_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
+						tribe_get_start_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 						tribe_get_start_date()
 					),
 					$meta_id
 				);
 				$html .= Tribe__Events__Meta_Factory::template(
-					__( 'End:', 'tribe-events-calendar' ),
+					esc_html__( 'End:', 'the-events-calendar' ),
 					sprintf(
 						'<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
-						tribe_get_end_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
+						tribe_get_end_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 						tribe_get_end_date()
 					),
 					$meta_id
@@ -86,10 +86,10 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 			} else {
 				// show start date
 				$html = Tribe__Events__Meta_Factory::template(
-					__( 'Date:', 'tribe-events-calendar' ),
+					esc_html__( 'Date:', 'the-events-calendar' ),
 					sprintf(
 						'<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
-						tribe_get_start_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
+						tribe_get_start_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 						tribe_get_start_date( null, false )
 					),
 					$meta_id
@@ -97,10 +97,10 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 				if ( $start_time == $end_time ) {
 					// if start and end time are the same, just show the start time
 					$html .= Tribe__Events__Meta_Factory::template(
-						__( 'Time:', 'tribe-events-calendar' ),
+						esc_html__( 'Time:', 'the-events-calendar' ),
 						sprintf(
 							'<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
-							tribe_get_end_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
+							tribe_get_end_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 							$start_time
 						),
 						$meta_id
@@ -108,10 +108,10 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 				} else {
 					// show start and end time
 					$html .= Tribe__Events__Meta_Factory::template(
-						__( 'Time:', 'tribe-events-calendar' ),
+						esc_html__( 'Time:', 'the-events-calendar' ),
 						sprintf(
 							'<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
-							tribe_get_end_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
+							tribe_get_end_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 							$start_time . ' - ' . $end_time
 						),
 						$meta_id

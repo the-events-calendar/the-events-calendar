@@ -64,7 +64,6 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 * Install the hooks required to run periodic update checks and inject update info
 		 * into WP data structures.
 		 * Also other hooks related to the automatic updates (such as checking agains API and what not (@from Darren)
-		 * @return void
 		 */
 		public function hooks() {
 			// Override requests for plugin information
@@ -301,8 +300,8 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 						'type'            => 'license_key',
 						'size'            => 'large',
 						'validation_type' => 'license_key',
-						'label'           => sprintf( __( 'License Key', 'tribe-events-calendar' ) ),
-						'tooltip'         => __( 'A valid license key is required for support and updates', 'tribe-events-calendar' ),
+						'label'           => sprintf( esc_attr__( 'License Key', 'the-events-calendar' ) ),
+						'tooltip'         => esc_html__( 'A valid license key is required for support and updates', 'the-events-calendar' ),
 						'parent_option'   => false,
 						'network_option'  => true,
 					),
@@ -316,7 +315,6 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 * Inserts the javascript that makes the ajax checking
 		 * work on the license key page
 		 *
-		 * @return void
 		 */
 		public function do_license_key_javascript() {
 			?>
@@ -374,7 +372,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				return $message;
 			}
 
-			return '<div id="message" class="updated"><p><strong>' . __( 'License key(s) updated.', 'tribe-events-calendar' ) . '</strong></p></div>';
+			return '<div id="message" class="updated"><p><strong>' . esc_html__( 'License key(s) updated.', 'the-events-calendar' ) . '</strong></p></div>';
 
 		}
 
@@ -413,27 +411,36 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				}
 
 				$pluginInfo = $this->request_info( $queryArgs );
-				$expiration = isset( $pluginInfo->expiration ) ? $pluginInfo->expiration : __( 'unknown date', 'tribe-events-calendar' );
+				$expiration = isset( $pluginInfo->expiration ) ? $pluginInfo->expiration : esc_html__( 'unknown date', 'the-events-calendar' );
 
 				if ( empty( $pluginInfo ) ) {
-					$response['message'] = __( 'Sorry, key validation server is not available.', 'tribe-events-calendar' );
+					$response['message'] = esc_html__( 'Sorry, key validation server is not available.', 'the-events-calendar' );
 				} elseif ( isset( $pluginInfo->api_expired ) && $pluginInfo->api_expired == 1 ) {
-					$response['message'] = __( 'Sorry, this key is expired.', 'tribe-events-calendar' );
+					$response['message'] = esc_html__( 'Sorry, this key is expired.', 'the-events-calendar' );
 
 				} elseif ( isset( $pluginInfo->api_upgrade ) && $pluginInfo->api_upgrade == 1 ) {
-					$problem             = __( 'Sorry, this key is out of installs.', 'tribe-events-calendar' );
-					$helpful_link        = sprintf( '<a href="%s" target="_blank">%s</a>', 'http://m.tri.be/lz', __( 'Why am I seeing this message?', 'tribe-events-calendar' ) );
+					$problem             = __( 'Sorry, this key is out of installs.', 'the-events-calendar' );
+					$helpful_link        = sprintf( '<a href="%s" target="_blank">%s</a>', 'http://m.tri.be/lz', __( 'Why am I seeing this message?' ) );
 					$response['message'] = "$problem $helpful_link";
 				} elseif ( isset( $pluginInfo->api_invalid ) && $pluginInfo->api_invalid == 1 ) {
-					$response['message'] = __( 'Sorry, this key is not valid.', 'tribe-events-calendar' );
+					$response['message'] = esc_html__( 'Sorry, this key is not valid.', 'the-events-calendar' );
 				} else {
-					$default_success_msg    = sprintf( __( 'Valid Key! Expires on %s', 'tribe-events-calendar' ), $expiration );
+					$api_secret_key = tribe_get_option( $this->pue_install_key );
+					if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
+						$default_success_msg = sprintf( esc_html__( 'Valid Key! Expires on %s', 'the-events-calendar' ), $expiration );
+					} else {
+						// Set the key
+						tribe_update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
+
+						$default_success_msg = sprintf( esc_html__( 'Thanks for setting up a valid key, it will expire on %s', 'the-events-calendar' ), $expiration );
+					}
+
 					$response['status']     = isset( $pluginInfo->api_message ) ? 2 : 1;
 					$response['message']    = isset( $pluginInfo->api_message ) ? wp_kses( $pluginInfo->api_message, 'data' ) : $default_success_msg;
 					$response['expiration'] = $expiration;
 				}
 			} else {
-				$response['message'] = sprintf( __( 'Hmmm... something\'s wrong with this validator. Please contact <a href="%s">support.</a>', 'tribe-events-calendar' ), 'http://m.tri.be/1u' );
+				$response['message'] = sprintf( esc_html__( 'Hmmm... something\'s wrong with this validator. Please contact %ssupport%s.', 'the-events-calendar' ), '<a href="http://m.tri.be/1u">', '</a>' );
 			}
 			echo json_encode( $response );
 			exit;
@@ -699,7 +706,6 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @param array $updates
 		 *
-		 * @return void
 		 */
 		public function check_for_updates( $updates = array() ) {
 			$state = $this->get_option( $this->pue_option_name );
@@ -768,7 +774,6 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @param callback $callback
 		 *
-		 * @return void
 		 */
 		public function add_query_arg_filter( $callback ) {
 			add_filter( 'tribe_puc_request_info_query_args-' . $this->get_slug(), $callback );
@@ -785,7 +790,6 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @param callback $callback
 		 *
-		 * @return void
 		 */
 		public function add_http_request_arg_filter( $callback ) {
 			add_filter( 'tribe_puc_request_info_options-' . $this->get_slug(), $callback );
@@ -805,7 +809,6 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @param callback $callback
 		 *
-		 * @return void
 		 */
 		public function add_result_filter( $callback ) {
 			add_filter( 'tribe_puc_request_info_result-' . $this->get_slug(), $callback, 10, 2 );

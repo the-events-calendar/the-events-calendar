@@ -71,16 +71,16 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 			do_action( 'tribe_meta_factory_register', $meta_id, $args );
 
 			// check if we should overwrite the existing registration args if set
-			if ( isset( $_tribe_meta_factory->{$args['register_type']}[$meta_id] ) && ! $args['register_overwrite'] ) {
+			if ( isset( $_tribe_meta_factory->{$args['register_type']}[ $meta_id ] ) && ! $args['register_overwrite'] ) {
 				return false;
 				// otherwise merge existing args with new args and reregister
 			} else {
-				if ( isset( $_tribe_meta_factory->{$args['register_type']}[$meta_id] ) ) {
-					$args = wp_parse_args( $args, $_tribe_meta_factory->{$args['register_type']}[$meta_id] );
+				if ( isset( $_tribe_meta_factory->{$args['register_type']}[ $meta_id ] ) ) {
+					$args = wp_parse_args( $args, $_tribe_meta_factory->{$args['register_type']}[ $meta_id ] );
 				}
 			}
 
-			$_tribe_meta_factory->{$args['register_type']}[$meta_id] = $args;
+			$_tribe_meta_factory->{$args['register_type']}[ $meta_id ] = $args;
 
 			// associate a meta item to a meta group(s) isset
 			if ( $args['register_type'] == 'meta' && ! empty( $args['group'] ) ) {
@@ -110,7 +110,7 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 		 */
 		public static function check_exists( $meta_id, $type = 'meta' ) {
 			global $_tribe_meta_factory;
-			$status = isset( $_tribe_meta_factory->{$type}[$meta_id] ) ? true : false;
+			$status = isset( $_tribe_meta_factory->{$type}[ $meta_id ] ) ? true : false;
 
 			return apply_filters( 'tribe_meta_factory_check_exists', $status );
 		}
@@ -125,7 +125,7 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 		 */
 		public static function get_args( $meta_id, $type = 'meta' ) {
 			global $_tribe_meta_factory;
-			$args = self::check_exists( $meta_id, $type ) ? $_tribe_meta_factory->{$type}[$meta_id] : array();
+			$args = self::check_exists( $meta_id, $type ) ? $_tribe_meta_factory->{$type}[ $meta_id ] : array();
 
 			return apply_filters( 'tribe_meta_factory_get_args', $args );
 		}
@@ -170,7 +170,7 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 		public static function set_visibility( $meta_id, $type = 'meta', $status = true ) {
 			global $_tribe_meta_factory;
 			if ( self::check_exists( $meta_id, $type ) ) {
-				$_tribe_meta_factory->{$type}[$meta_id]['show_on_meta'] = $status;
+				$_tribe_meta_factory->{$type}[ $meta_id ]['show_on_meta'] = $status;
 			}
 		}
 
@@ -219,8 +219,8 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 		public static function template( $label, $meta, $meta_id, $type = 'meta' ) {
 			global $_tribe_meta_factory;
 			$template = self::embed_classes(
-							$_tribe_meta_factory->{$type}[$meta_id]['wrap'],
-							$_tribe_meta_factory->{$type}[$meta_id]['classes']
+							$_tribe_meta_factory->{$type}[ $meta_id ]['wrap'],
+							$_tribe_meta_factory->{$type}[ $meta_id ]['classes']
 			);
 			$html     = sprintf(
 				'%s%s%s%s',

@@ -10,7 +10,7 @@ class Tribe__Events__Asset__Ajax_List extends Tribe__Events__Asset__Abstract_Ass
 			'ajaxurl'     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
 			'tribe_paged' => $tribe_paged,
 		);
-		$path        = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'tribe-events-ajax-list.js' ), true );
+		$path        = Tribe__Events__Template_Factory::getMinFile( tribe_resource_url( 'tribe-events-ajax-list.js' ), true );
 
 		$handle = 'tribe-events-list';
 		wp_enqueue_script( $handle, $path, $deps, $this->filter_js_version(), true );

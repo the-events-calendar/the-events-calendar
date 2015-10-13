@@ -46,8 +46,6 @@ module.exports = {
 		files  : {
 			src: [
 				'<%= pkg._resourcepath %>/js/events-admin.js',
-				'<%= pkg._resourcepath %>/js/tickets.js',
-				'<%= pkg._resourcepath %>/js/tickets-attendees.js',
 				'<%= pkg._resourcepath %>/js/tribe-events.js',
 				'<%= pkg._resourcepath %>/js/tribe-events-ajax-calendar.js',
 				'<%= pkg._resourcepath %>/js/tribe-events-ajax-day.js',

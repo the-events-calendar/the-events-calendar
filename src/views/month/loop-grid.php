@@ -28,7 +28,7 @@ global $wp_locale;
 			<?php endforeach; ?>
 		</tr>
 		</thead>
-		<tbody class="vcalendar">
+		<tbody>
 		<tr>
 			<?php while ( tribe_events_have_month_days() ) : tribe_events_the_month_day(); ?>
 			<?php if ( $week != tribe_events_get_current_week() ) : $week ++; ?>
@@ -42,7 +42,7 @@ global $wp_locale;
 
 			<td class="<?php tribe_events_the_month_day_classes() ?>"
 				data-day="<?php echo esc_attr( isset( $daydata['daynum'] ) ? $daydata['date'] : '' ); ?>"
-				data-tribejson='<?php echo tribe_events_template_data( null, array( 'date_name' => tribe_event_format_date( $daydata['date'], false ) ) ); ?>'
+				data-tribejson='<?php echo tribe_events_template_data( null, array( 'date_name' => tribe_format_date( $daydata['date'], false ) ) ); ?>'
 				>
 				<?php tribe_get_template_part( 'month/single', 'day' ) ?>
 			</td>

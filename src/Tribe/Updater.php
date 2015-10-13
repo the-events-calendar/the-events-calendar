@@ -19,7 +19,6 @@ class Tribe__Events__Updater {
 	 * alloptions caches getting out of sync with the DB,
 	 * forcing an eternal update cycle
 	 *
-	 * @return void
 	 */
 	protected function clear_option_caches() {
 		wp_cache_delete( 'notoptions', 'options' );
@@ -46,8 +45,7 @@ class Tribe__Events__Updater {
 	}
 
 	protected function update_version_option( $new_version ) {
-		$tec = Tribe__Events__Main::instance();
-		$tec->setOption( $this->version_option, $new_version );
+		Tribe__Settings_Manager::set_option( $this->version_option, $new_version );
 	}
 
 	/**
@@ -81,13 +79,9 @@ class Tribe__Events__Updater {
 	}
 
 	protected function is_version_in_db_less_than( $version ) {
-		$tec = Tribe__Events__Main::instance();
-		$version_in_db = $tec->getOption( $this->version_option );
+		$version_in_db = Tribe__Settings_Manager::get_option( $this->version_option );
 
-		if ( version_compare( $version, $version_in_db ) > 0 ) {
-			return TRUE;
-		}
-		return FALSE;
+		return ( version_compare( $version, $version_in_db ) > 0 );
 	}
 
 	public function update_required() {
@@ -124,8 +118,7 @@ class Tribe__Events__Updater {
 	}
 
 	protected function migrate_from_sp_options() {
-		$tec = Tribe__Events__Main::instance();
-		$tec_options = Tribe__Events__Main::getOptions();
+		$tec_options = Tribe__Settings_Manager::get_options();
 		$option_names     = array(
 			'spEventsTemplate'   => 'tribeEventsTemplate',
 			'spEventsBeforeHTML' => 'tribeEventsBeforeHTML',
@@ -137,7 +130,7 @@ class Tribe__Events__Updater {
 				unset( $tec_options[ $old_name ] );
 			}
 		}
-		$tec->setOptions( $tec_options );
+		Tribe__Settings_Manager::set_options( $tec_options );
 	}
 
 	public function flush_rewrites() {
@@ -146,8 +139,7 @@ class Tribe__Events__Updater {
 	}
 
 	public function set_capabilities() {
-		require_once( dirname( __FILE__ ) . '/Capabilities.php' );
-		$capabilities = new Tribe__Events__Capabilities();
+		$capabilities = new Tribe__Capabilities();
 		add_action( 'wp_loaded', array( $capabilities, 'set_initial_caps' ) );
 		add_action( 'wp_loaded', array( $this, 'reload_current_user' ), 11, 0 );
 	}
@@ -155,13 +147,12 @@ class Tribe__Events__Updater {
 	/**
 	 * Reset the $current_user global after capabilities have been changed
 	 *
-	 * @return void
 	 */
 	public function reload_current_user() {
 		global $current_user;
 		if ( isset( $current_user ) && ( $current_user instanceof WP_User ) ) {
 			$id = $current_user->ID;
-			$current_user = NULL;
+			$current_user = null;
 			wp_set_current_user( $id );
 		}
 	}
@@ -170,7 +161,6 @@ class Tribe__Events__Updater {
 	 * Reset update flags. All updates past $this->reset_version will
 	 * run again on the next page load
 	 *
-	 * @return void
 	 */
 	public function reset() {
 		$this->update_version_option( $this->reset_version );
@@ -179,7 +169,6 @@ class Tribe__Events__Updater {
 	/**
 	 * Make sure the tribeEnableViews option is always set
 	 *
-	 * @return void
 	 */
 	public function set_enabled_views() {
 		$enabled_views = tribe_get_option( 'tribeEnableViews', null );
@@ -192,11 +181,10 @@ class Tribe__Events__Updater {
 	/**
 	 * Bump the :30 min EOD cutoff option to the next full hour
 	 *
-	 * @return void
 	 */
 	public function remove_30_min_eod_cutoffs() {
-		$eod_cutoff = tribe_event_end_of_day();
-		if ( Tribe__Events__Date_Utils::minutes_only( $eod_cutoff ) == '29' ) {
+		$eod_cutoff = tribe_end_of_day();
+		if ( Tribe__Date_Utils::minutes_only( $eod_cutoff ) == '29' ) {
 			$eod_cutoff = date_create( '@' . ( strtotime( $eod_cutoff ) + 1 ) );
 			$eod_cutoff->modify( '+30 minutes' );
 			tribe_update_option( 'multiDayCutoff', $eod_cutoff->format( 'h:i' ) );

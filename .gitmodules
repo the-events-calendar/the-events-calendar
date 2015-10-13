@@ -7,3 +7,9 @@
 [submodule "vendor/select2"]
 	path = vendor/select2
 	url = git://github.com/ivaynberg/select2.git
+[submodule "vendor/tickets"]
+	path = vendor/tickets
+	url = git@github.com:moderntribe/tickets.git
+[submodule "common"]
+	path = common
+	url = git@github.com:moderntribe/tribe-common.git

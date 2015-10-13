@@ -65,8 +65,6 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 
 		/**
 		 * Do not allow people to Hook methods twice by mistake
-		 *
-		 * @return void
 		 */
 		public function hooks( $remove = false ) {
 			if ( false === $this->hook_lock ) {
@@ -74,6 +72,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				$this->hook_lock = true;
 
 				// Hook the methods
+				add_action( 'tribe_events_pre_rewrite', array( $this, 'generate_core_rules' ) );
 				add_filter( 'generate_rewrite_rules', array( $this, 'filter_generate' ) );
 				add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15, 2 );
 
@@ -88,16 +87,45 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * Generate the Rewrite Rules
 		 *
 		 * @param  WP_Rewrite $wp_rewrite WordPress Rewrite that will be modified, pass it by reference (&$wp_rewrite)
-		 * @return void
 		 */
 		public function filter_generate( WP_Rewrite $wp_rewrite ) {
+			// Gets the rewrite bases and completes any other required setup work
+			$this->setup( $wp_rewrite );
+
+			/**
+			 * Use this to change the Tribe__Events__Rewrite instance before new rules
+			 * are committed.
+			 *
+			 * Should be used when you want to add more rewrite rules without having to
+			 * deal with the array merge, noting that rules for The Events Calendar are
+			 * themselves added via this hook (default priority).
+			 *
+			 * @var Tribe__Events__Rewrite $rewrite
+			 */
+			do_action( 'tribe_events_pre_rewrite', $this );
+
+			/**
+			 * Backwards Compatibility filter, this filters the WP Rewrite Rules.
+			 * @todo  Check if is worth deprecating this hook
+			 */
+			$wp_rewrite->rules = apply_filters( 'tribe_events_rewrite_rules', $this->rules + $wp_rewrite->rules, $this );
+		}
+
+		/**
+		 * Sets up the rules required by The Events Calendar.
+		 *
+		 * This should be called during tribe_events_pre_rewrite, which means other plugins needing to add rules
+		 * of their own can do so on the same hook at a lower or higher priority, according to how specific
+		 * those rules are.
+		 *
+		 * @param Tribe__Events__Rewrite $rewrite
+		 */
+		public function generate_core_rules( Tribe__Events__Rewrite $rewrite ) {
 			$options = array(
-				'default_view' => Tribe__Events__Main::instance()->getOption( 'viewOption', 'month' ),
+				'default_view' => Tribe__Settings_Manager::get_option( 'viewOption', 'month' ),
 			);
 
-			// We need to Setup before using the Add methods
-			$this->setup( $wp_rewrite )
-
+			$rewrite
 				// Single
 				->single( array( '(\d{4}-\d{2}-\d{2})' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'eventDate' => '%2' ) )
 				->single( array( '{{ all }}' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'post_type' => Tribe__Events__Main::POSTTYPE, 'eventDisplay' => 'all' ) )
@@ -146,18 +174,6 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				->tag( array( 'ical' ), array( 'ical' => 1 ) )
 				->tag( array( 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'feed' => '%2' ) )
 				->tag( array(), array( 'eventDisplay' => $options['default_view'] ) );
-
-			/**
-			 * Use this to change the instance of the Rewrite
-			 * Should be used when you want to add more rewrite rules without having to deal with the array merge
-			 */
-			do_action( 'tribe_events_pre_rewrite', $this );
-
-			/**
-			 * Backwards Compatibility filter, this filters the WP Rewrite Rules.
-			 * @todo  Check if is worth deprecating this hook
-			 */
-			$wp_rewrite->rules = apply_filters( 'tribe_events_rewrite_rules', $this->rules + $wp_rewrite->rules, $this );
 		}
 
 		/**
@@ -213,19 +229,29 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			/**
 			 * If you want to modify the base slugs before the i18n happens filter this use this filter
 			 * All the bases need to have a key and a value, they might be the same or not.
+			 *
+			 * Each value is an array of possible slugs: to improve robustness the "original" English
+			 * slug is supported in addition to translated forms for month, list, today and day: this
+			 * way if the forms are altered (whether through i18n or other custom mods) *after* links
+			 * have already been promulgated, there will be less chance of visitors hitting 404s.
+			 *
+			 * @var array $bases
 			 */
 			$bases = apply_filters( 'tribe_events_rewrite_base_slugs', array(
-				'month' => (array) Tribe__Events__Main::instance()->monthSlug,
-				'list' => (array) Tribe__Events__Main::instance()->listSlug,
-				'today' => (array) Tribe__Events__Main::instance()->todaySlug,
-				'day' => (array) Tribe__Events__Main::instance()->daySlug,
+				'month' => array( 'month', Tribe__Events__Main::instance()->monthSlug ),
+				'list' => array( 'list', Tribe__Events__Main::instance()->listSlug ),
+				'today' => array( 'today', Tribe__Events__Main::instance()->todaySlug ),
+				'day' => array( 'day', Tribe__Events__Main::instance()->daySlug ),
 				'tag' => (array) 'tag',
 				'tax' => (array) 'category',
 				'page' => (array) 'page',
 				'all' => (array) 'all',
-				'single' => (array) Tribe__Events__Main::instance()->getOption( 'singleEventSlug', 'event' ),
-				'archive' => (array) Tribe__Events__Main::instance()->getOption( 'eventsSlug', 'events' ),
+				'single' => (array) Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ),
+				'archive' => (array) Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ),
 			) );
+
+			// Remove duplicates (no need to have 'month' twice if no translations are in effect, etc)
+			$bases = array_map( 'array_unique', $bases );
 
 			// By default we always have `en_US` to avoid 404 with older URLs
 			$languages = apply_filters( 'tribe_events_rewrite_i18n_languages', array_unique( array( 'en_US', get_locale() ) ) );
@@ -233,7 +259,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			// By default we load the Default and our plugin domains
 			$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
 				'default' => true, // Default doesn't need file path
-				'tribe-events-calendar' => Tribe__Events__Main::instance()->pluginDir . 'lang/',
+				'the-events-calendar' => Tribe__Events__Main::instance()->pluginDir . 'lang/',
 			) );
 
 			// If WPML exists we treat the multiple languages
