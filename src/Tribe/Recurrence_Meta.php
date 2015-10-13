@@ -1111,7 +1111,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					&& isset( $recurrence['custom']['start-time'] )
 					&& isset( $recurrence['custom']['duration'] )
 				) {
-					$start_time = "{$recurrence['custom']['start-time']['hour']}:{$recurrence['custom']['start-time']['minute']}:00 {$recurrence['custom']['start-time']['meridian']}";
+					$start_time = "{$recurrence['custom']['start-time']['hour']}:{$recurrence['custom']['start-time']['minute']}:00";
+					$start_time .= isset( $recurrence['custom']['start-time']['meridian'] ) ? " {$recurrence['custom']['start-time']['meridian']}" : '';
 					$duration = self::get_duration_in_seconds( $recurrence['custom']['duration'] );
 				}
 
@@ -1420,17 +1421,21 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			return;
 		}
 
+		// Start Date is always there
+		$start_date = strtotime( tribe_get_start_date( $event_id ) );
+
+		// End Date will depend on custom rules.
+		$end_date = strtotime( tribe_get_end_date( $event_id ) );
+
 		if ( 'custom' === $rule['type'] ) {
 			$is_custom = true;
-			$same_time = 'yes' === $rule['custom'][ self::custom_type_to_key( $rule['custom']['type'] ) ]['same-time'];
+			$custom_rule_args = $rule['custom'][ self::custom_type_to_key( $rule['custom']['type'] ) ];
+			$same_time = ! empty( $custom_rule_args['same-time'] ) && 'yes' === $custom_rule_args['same-time'];
 
 			if ( 'Yearly' === $rule['custom']['type'] ) {
 				$year_filtered = ! empty( $rule['custom']['year']['filter'] );
 			}
 		}
-
-		$start_date = strtotime( tribe_get_start_date( $event_id ) );
-		$end_date = strtotime( tribe_get_end_date( $event_id ) );
 
 		$num_days = floor( ( $end_date - $start_date ) / DAY_IN_SECONDS );
 
@@ -1438,20 +1443,26 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$num_hours = ceil( ( ( ( $end_date - $start_date ) / HOUR_IN_SECONDS ) - ( $num_days * 24 ) ) * 100 ) / 100;
 
 		if ( $is_custom && 'custom' === $rule['type'] && ! $same_time ) {
-			$new_start_date = date( 'Y-m-d', $start_date ) . ' ' . $rule['custom']['start-time']['hour'] . ':' . $rule['custom']['start-time']['minute'];
+			$new_start_time = date( 'Y-m-d', $start_date ) . ' ' . $rule['custom']['start-time']['hour'] . ':' . $rule['custom']['start-time']['minute'];
 			if ( isset( $rule['custom']['start-time']['meridian'] ) ) {
-				$new_start_date .= ' ' . $rule['custom']['start-time']['meridian'];
+				$new_start_time .= ' ' . $rule['custom']['start-time']['meridian'];
 			}
 
-			$new_end_date = date( 'Y-m-d', $end_date ) . ' ' . $rule['custom']['end-time']['hour'] . ':' . $rule['custom']['end-time']['minute'];
+			// When we don't have a end-date but a duration instead
+			if ( false === $end_date && ! empty( $rule['custom']['duration'] ) ){
+				$new_end_time = date( 'Y-m-d H:i', $start_date + self::get_duration_in_seconds( $rule['custom']['duration'] ) );
+			} else {
+				$new_end_time = date( 'Y-m-d', $end_date ) . ' ' . $rule['custom']['end-time']['hour'] . ':' . $rule['custom']['end-time']['minute'];
+			}
+
 			if ( isset( $rule['custom']['end-time']['meridian'] ) ) {
-				$new_end_date .= ' ' . $rule['custom']['end-time']['meridian'];
+				$new_end_time .= ' ' . $rule['custom']['end-time']['meridian'];
 			}
 
-			$new_num_days = floor( ( $new_end_date - $new_start_date ) / DAY_IN_SECONDS );
+			$new_num_days = floor( ( $new_end_time - $new_start_time ) / DAY_IN_SECONDS );
 
 			// make sure we always round hours UP to when dealing with decimal lengths more than 2. Example: 4.333333 would become 4.34
-			$new_num_hours = ceil( ( ( ( $new_end_date - $new_start_date ) / HOUR_IN_SECONDS ) - ( $new_num_days * 24 ) ) * 100 ) / 100;
+			$new_num_hours = ceil( ( ( ( $new_end_time - $new_start_time ) / HOUR_IN_SECONDS ) - ( $new_num_days * 24 ) ) * 100 ) / 100;
 		}
 
 		$weekdays = array();
