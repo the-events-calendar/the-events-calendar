@@ -58,12 +58,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 				// for some reason we store a blank "0" element in this array.
 				// let's scrub this garbage out
-				if ( is_array( $organizer_ids ) ) {
-					$key = array_search( '0', $organizer_ids );
-					if ( false !== $key ) {
-						array_splice( $organizer_ids, $key, 1 );
-					}
-				}
+				$organizer_ids = array_filter( (array) $organizer_ids );
 			}
 		}
 		return apply_filters( 'tribe_get_organizer_ids', $organizer_ids, $event_id );
