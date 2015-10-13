@@ -919,7 +919,14 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 			$recurrence->setMinDate( $earliest_date );
 			$recurrence->setMaxDate( $latest_date );
-			$exclusions = array_merge( $exclusions, $recurrence->getDates() );
+			$exclusion = $recurrence->getDates();
+			// On Exclusions for now, the duration is always a full day
+			$exclusion[0]['duration'] = DAY_IN_SECONDS - 1;
+
+			// Ignore Start time
+			$exclusion[0]['timestamp'] = strtotime( date( 'Y-m-d', $exclusion[0]['timestamp'] ) );
+
+			$exclusions = array_merge( $exclusions, $exclusion );
 		}
 
 		// make sure we don't create excluded dates
@@ -971,7 +978,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	public static function array_unique( array $original ) {
 		$unique = array();
 
-		foreach( $original as $inner ) {
+		foreach ( $original as $inner ) {
 			$unique[ join( '|', $inner ) ] = $inner;
 		}
 
@@ -988,8 +995,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 *     [ 'timestamp' => int,
 	 *       'duration'  => int  ]
 	 *
-	 * In the case of exclusions, duration will always be zero as custom exclusions do
-	 * not currently support custom durations, so that element is ignored during comparison.
+	 * In the case of exclusions, duration will always be a full day as custom exclusions do
+	 * not currently support custom durations.
 	 *
 	 * @param array $date_durations
 	 * @param array $exclusion_dates
@@ -997,15 +1004,14 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 * @return array
 	 */
 	public static function remove_exclusions( array $date_durations, array $exclusion_dates ) {
-		$exclusion_timestamps = array();
-
-		foreach ( $exclusion_dates as $exclusion ) {
-			$exclusion_timestamps[] = $exclusion[ 'timestamp' ];
-		}
-
 		foreach ( $date_durations as $key => $date_duration ) {
-			if ( in_array( $date_duration[ 'timestamp' ], $exclusion_timestamps ) ) {
-				unset( $date_durations[ $key ] );
+			foreach ( $exclusion_dates as $exclusion ) {
+				$start = $exclusion['timestamp'];
+				$end = $exclusion['timestamp'] + $exclusion['duration'];
+
+				if ( $date_duration['timestamp'] >= $start && $date_duration['timestamp'] < $end && isset( $date_durations[ $key ] ) ) {
+					unset( $date_durations[ $key ] );
+				}
 			}
 		}
 
@@ -1160,7 +1166,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$expected = array(
 			'days'    => 0,
 			'hours'   => 0,
-			'minutes' => 0
+			'minutes' => 0,
 		);
 
 		$duration = array_merge( $expected, $duration );
