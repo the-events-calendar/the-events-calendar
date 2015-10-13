@@ -55,6 +55,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$organizer_ids[] = $event_id;
 			} else {
 				$organizer_ids = tribe_get_event_meta( $event_id, '_EventOrganizerID', false );
+
+				// for some reason we store a blank "0" element in this array.
+				// let's scrub this garbage out
+				$organizer_ids = array_filter( (array) $organizer_ids );
 			}
 		}
 		return apply_filters( 'tribe_get_organizer_ids', $organizer_ids, $event_id );
