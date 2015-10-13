@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Events__Pro__Deactivation
  */
-class Tribe__Events__Pro__Deactivation extends Tribe__Events__Abstract_Deactivation {
+class Tribe__Events__Pro__Deactivation extends Tribe__Abstract_Deactivation {
 
 	/**
 	 * Set a flag to indicate that the plugin has been deactivated
