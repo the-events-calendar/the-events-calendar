@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-08-22 10:18:31+0000\n"
+"PO-Revision-Date: 2015-09-25 22:59:50+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,334 +12,334 @@ msgstr ""
 
 #: src/Tribe/Main.php:364
 msgid "All %1$s for %2$s"
-msgstr ""
+msgstr "Alle %1$s für %2$s"
 
 #: src/Tribe/Main.php:370
 msgid "%1$s for week of %2$s"
-msgstr ""
+msgstr " %1$s der Woche vom %2$s"
 
 #: src/Tribe/Recurrence/Queue_Processor.php:184
 msgid "Could not process queue for event %1$d: %2$s"
-msgstr ""
+msgstr "Konnte die Warteschlange für die Veranstaltung %1$d nicht verarbeiten: %2$s"
 
 #: src/Tribe/Recurrence_Meta.php:744
 msgid "Custom recurrences must have a type selected."
-msgstr ""
+msgstr "Für benutzerdefinierte Serientermine muss einen Typ gewählt werden."
 
 #: src/Tribe/Recurrence_Meta.php:752
 msgid "Custom recurrences must have all data present."
-msgstr ""
+msgstr "Für benutzerdefinierte Serientermine müssen alle Daten definiert werden."
 
 #: src/Tribe/Recurrence_Meta.php:1196
 msgctxt "Recurrence rule separator"
 msgid ",<br> and "
-msgstr ""
+msgstr ",<br> und "
 
 #: src/Tribe/Recurrence_Meta.php:1206
 msgid "An event every day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Eine tägliche Veranstaltung, welche  %1$s Tag(e) und %2$s Stunde(n) dauert. Die letzte wird am %3$s beginnen"
 
 #: src/Tribe/Recurrence_Meta.php:1207
 msgid "An event every day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Eine tägliche Veranstaltung, welche  %1$s Tag(e) und %2$s Stunde(n) dauert, aber nur %3$s Veranstaltung(en) erstellt"
 
 #: src/Tribe/Recurrence_Meta.php:1208
 msgid "An event every day that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine tägliche Veranstaltung, welche  %1$s Tag(e) und %2$s Stunde(n) dauert, aber kein Enddatum besitzt."
 
 #: src/Tribe/Recurrence_Meta.php:1209
 msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Eine wöchentliche Veranstaltung am gleichen Tag, welche  %1$s Tag(e) und %2$s Stunde(n) dauert. Die letzte wird am %3$s beginnen"
 
 #: src/Tribe/Recurrence_Meta.php:1210
 msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Eine wöchentliche Veranstaltung am gleichen Tag, welche  %1$s Tag(e) und %2$s Stunde(n) dauert, aber nur %3$s Termin(e) erstellt"
 
 #: src/Tribe/Recurrence_Meta.php:1211
 msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine wöchentliche Veranstaltung am gleichen Tag, welche  %1$s Tag(e) und %2$s Stunde(n) dauert, aber kein Enddatum besitzt"
 
 #: src/Tribe/Recurrence_Meta.php:1212
 msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Eine monatliche Veranstaltung am gleichen Tag, welche  %1$s Tag(e) und %2$s Stunde(n) dauert. Die letzte wird am %3$s beginnen"
 
 #: src/Tribe/Recurrence_Meta.php:1213
 msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Eine monatliche Veranstaltung am gleichen Tag, welche  %1$s Tag(e) und %2$s Stunde(n) dauert, aber nur %3$s Termin(e) erstellt"
 
 #: src/Tribe/Recurrence_Meta.php:1214
 msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine monatliche Veranstaltung am gleichen Tag, welche  %1$s Tag(e) und %2$s Stunde(n) dauert, aber kein Enddatum besitzt."
 
 #: src/Tribe/Recurrence_Meta.php:1215
 msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Eine jährliche Veranstaltung am gleichen Tag, welche %1$s Tag(e) und %2$s Stunde(n) dauert. Die letzte wird am %3$s beginnen"
 
 #: src/Tribe/Recurrence_Meta.php:1216
 msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Eine jährliche Veranstaltung am gleichen Tag, welche  %1$s Tag(e) und %2$s Stunde(n) dauert, aber nur %3$s Termine erstellt"
 
 #: src/Tribe/Recurrence_Meta.php:1217
 msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine jährliche Veranstaltung am gleichen Tag, welche  %1$s Tag(e) und %2$s Stunde(n) dauert, aber kein Enddatum besitzt."
 
 #: src/Tribe/Recurrence_Meta.php:1218
 msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), the last of which will begin on %4$s"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Tag(e), welche  %2$s Tag(e) und %3$s Stunde(n) dauert. Die letzte wird am %4$s beginnen"
 
 #: src/Tribe/Recurrence_Meta.php:1219
 msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), but only create %4$s event(s)"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Tag(e), welche  %2$s Tag(e) und %3$s Stunde(n) dauert, aber nur %4$s Termin(e) erstellt"
 
 #: src/Tribe/Recurrence_Meta.php:1220
 msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Tag(e), welche  %2$s Tag(e) und %3$s Stunde(n) dauert, aber keine Enddatum besitzt"
 
 #: src/Tribe/Recurrence_Meta.php:1221
 msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Tag(e), welche am %2$s beginnt und %3$s Tag(e) und %4$s Stunde(n) dauert. Die letzte wird am %5$s beginnen"
 
 #: src/Tribe/Recurrence_Meta.php:1222
 msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Tag(e), welche am %2$s beginnt und %3$s Tag(e) und %4$s Stunde(n) dauert, aber nur %5$s Termin(e) erstellt"
 
 #: src/Tribe/Recurrence_Meta.php:1223
 msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Tag(e), welche am %2$s beginnt und %3$s Tag(e) und %4$s Stunde(n) dauert, aber kein Enddatum besitzt"
 
 #: src/Tribe/Recurrence_Meta.php:1224
 msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Woche(n), welche am %2$s stattfindet und %3$s Tag(e) und %4$s Stunde(n) dauert. Die letzte wird am %5$s beginnen"
 
 #: src/Tribe/Recurrence_Meta.php:1225
 msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Woche(n) welche am %2$s stattfindet und %3$s Tag(e) und %4$s Stunde(n) dauert, aber nur %5$s Termin(e) erstellt"
 
 #: src/Tribe/Recurrence_Meta.php:1226
 msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Woche(n), welche am %2$s stattfindet und %3$s Tag(e) und %4$s Stunde(n) dauert, aber kein Enddatum besitzt"
 
 #: src/Tribe/Recurrence_Meta.php:1227
 msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Woche(n) am %2$s-ten, welche am %3$s beginnt und %4$s Tag(e) und %5$s Stunde(n) dauert. Die letzte wird am %6$s beginnen"
 
 #: src/Tribe/Recurrence_Meta.php:1228
 msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Woche(n) am %2$s, welche am %3$s beginnt und %4$s Tag(e) und %5$s Stunde(n) dauert, aber nur %6$s Termin(e) erstellt."
 
 #: src/Tribe/Recurrence_Meta.php:1229
 msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Woche(n) am %2$s, welche am %3$s beginnt und %4$s Tag(e) und %5$s Stunde(n) dauert, aber keine Enddatum besitzt."
 
 #: src/Tribe/Recurrence_Meta.php:1230
 msgid "An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Monat(e) am %2$s-ten, welche %3$s Tag(e) und %4$s Stunde(n) dauert. Die letzte wird am %5$s beginnen"
 
 #: src/Tribe/Recurrence_Meta.php:1231
 msgid "An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Monat(e) am %2$s, welche %3$s Tag(e) und %4$s Stunde(n) dauert, aber nur %5$s Termin(e) erstellt"
 
 #: src/Tribe/Recurrence_Meta.php:1232
 msgid "An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Monat(e) am %2$s, welche %3$s Tag(e) und %4$s Stunde(n) dauert, aber kein Enddatum besitzt"
 
 #: src/Tribe/Recurrence_Meta.php:1233
 msgid "An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Monat(e) am %2$s, welche am %3$s beginnt und %4$s Tag(e) und %5$s Stunde(n) dauert. Die letzte wird am %6$s beginnen"
 
 #: src/Tribe/Recurrence_Meta.php:1234
 msgid "An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Monat(e) am %2$s, welche am %3$s beginnt und %4$s Tag(e) und %5$s Stunde(n) dauert, aber nur %6$s Termin(e) erstellt"
 
 #: src/Tribe/Recurrence_Meta.php:1235
 msgid "An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Monat(e) am %2$s, welche am %3$s beginnt und %4$s Tag(e) und %5$s Stunde(n) dauert, aber kein Enddatum besitzt"
 
 #: src/Tribe/Recurrence_Meta.php:1236
 msgid "An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Monat(e) am %2$s, welche %3$s Tag(e) und %4$s Stunde(n) dauert. Die letzte wird am %5$s beginnen"
 
 #: src/Tribe/Recurrence_Meta.php:1237
 msgid "An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Monat(e) am %2$s, welche %3$s Tag(e) und %4$s Stunde(n) dauert, aber nur %5$s Termin(e) erstellt"
 
 #: src/Tribe/Recurrence_Meta.php:1238
 msgid "An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Monat(e) am %2$s, welche %3$s Tag(e) und %4$s Stunde(n) dauert, aber kein Enddatum besitzt "
 
 #: src/Tribe/Recurrence_Meta.php:1239
 msgid "An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %7$s"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Monat(e) am %2$s, welche am %3$s beginnt und %4$s Tag(e) und %5$s Stunde(n) dauert. Die letzte wird am %7$s beginnen "
 
 #: src/Tribe/Recurrence_Meta.php:1240
 msgid "An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Monat(e) am %2$s, welche am %3$s beginnt und %4$s Tag(e) und %5$s Stunde(n) dauert, aber nur %6$s Termin(e) erstellt "
 
 #: src/Tribe/Recurrence_Meta.php:1241
 msgid "An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Monat(e) am %2$s, welche am %3$s beginnt und %4$s Tag(e) und %5$s Stunde(n) dauert, aber kein Enddatum besitzt"
 
 #: src/Tribe/Recurrence_Meta.php:1242
 msgid "An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Jahr(e) in %2$s am %3$s, welche %4$s Tag(e) und %5$s Stunde(n) dauert. Die letzte wird am %6$s beginnen "
 
 #: src/Tribe/Recurrence_Meta.php:1243
 msgid "An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Jahr(e) in %2$s am %3$s, welche %4$s Tag(e) und %5$s Stunde(n) dauert, aber nur %6$s Termin(e) erstellt"
 
 #: src/Tribe/Recurrence_Meta.php:1244
 msgid "An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Jahr(e) in %2$s am %3$s, welche %4$s Tag(e) und %5$s Stunde(n) dauert, aber kein Enddatum besitzt"
 
 #: src/Tribe/Recurrence_Meta.php:1245
 msgid "An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), the last of which will begin on %7$s"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Jahr(e) in %2$s am %3$s, welche am %4$s beginnt und %5$s Tag(e) und %6$s Stunde(n) dauert. Die letzte wird am %7$s beginnen \t"
 
 #: src/Tribe/Recurrence_Meta.php:1246
 msgid "An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), but only create %7$s event(s)"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Jahr(e) in %2$s am %3$s, welche am %4$s beginnt und %5$s Tag(e) und %6$s Stunde(n) dauert, aber nur %7$s Termin(e) erstellt "
 
 #: src/Tribe/Recurrence_Meta.php:1247
 msgid "An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Jahr(e) in %2$s am %3$s, welche am %4$s beginnt und %5$s Tag(e) und %6$s Stunde(n) dauert, aber kein Enddatum besitzt"
 
 #: src/Tribe/Recurrence_Meta.php:1248
 msgid "An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Jahr(e) in %2$s am %3$s, welche %4$s Tag(e) und %5$s Stunde(n) dauert. Die letzte wird am %6$s beginnen "
 
 #: src/Tribe/Recurrence_Meta.php:1249
 msgid "An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Jahr(e) in %2$s am %3$s, welche %4$s Tag(e) und %5$s Stunde(n) dauert, aber nur %6$s Termin(e) erstellt "
 
 #: src/Tribe/Recurrence_Meta.php:1250
 msgid "An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Jahr(e) in %2$s am %3$s, welche %4$s Tag(e) und %5$s Stunde(n) dauert, aber kein Enddatum besitzt"
 
 #: src/Tribe/Recurrence_Meta.php:1251
 msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), the last of which will begin on %7$s"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Jahr(e) in %2$s am %3$s, welche am %4$s beginnt und %5$s Tag(e) und %6$s Stunde(n) dauert. Die letzte wird am %7$s beginnen \t"
 
 #: src/Tribe/Recurrence_Meta.php:1252
 msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), but only create %7$s event(s)"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Jahr(e) in %2$s am %3$s, welche am %4$s beginnt und %5$s Tag(e) und %6$s Stunde(n) dauert, aber nur %7$s Termin(e) erstellt "
 
 #: src/Tribe/Recurrence_Meta.php:1253
 msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s) with no end date"
-msgstr ""
+msgstr "Eine Veranstaltung alle %1$s Jahr(e) in %2$s am %3$s, welche am %4$s beginnt und %5$s Tag(e) und %6$s Stunde(n) dauert, aber kein Enddatum besitzt"
 
 #: src/Tribe/Recurrence_Meta.php:1289
 msgctxt "Joins the last item in a list of items (i.e. the \"and\" in Monday, Tuesday, and Wednesday)"
 msgid "and"
-msgstr ""
+msgstr "and"
 
 #: src/Tribe/Recurrence_Meta.php:1290
 msgctxt "Placeholder text for a day of the week (or days of the week) before the user has selected any"
 msgid "[day]"
-msgstr ""
+msgstr "[day]"
 
 #: src/Tribe/Recurrence_Meta.php:1291
 msgctxt "Placeholder text for a month (or months) before the user has selected any"
 msgid "[month]"
-msgstr ""
+msgstr "[month]"
 
 #: src/Tribe/Recurrence_Meta.php:1292
 msgctxt "Describes a day of the month (e.g. \"day 5\" or \"day 27\")"
 msgid "day %1$s"
-msgstr ""
+msgstr "Tag %1$s"
 
 #: src/Tribe/Recurrence_Meta.php:1293
 msgctxt "Used when displaying: \"the first Monday\" or \"the first day\""
 msgid "the first %1$s"
-msgstr ""
+msgstr "ersten %1$s"
 
 #: src/Tribe/Recurrence_Meta.php:1294
 msgctxt "Used when displaying: \"the second Monday\" or \"the second day\""
 msgid "the second %1$s"
-msgstr ""
+msgstr "der zweite %1$s"
 
 #: src/Tribe/Recurrence_Meta.php:1295
 msgctxt "Used when displaying: \"the third Monday\" or \"the third day\""
 msgid "the third %1$s"
-msgstr ""
+msgstr "der dritte %1$s"
 
 #: src/Tribe/Recurrence_Meta.php:1296
 msgctxt "Used when displaying: \"the fourth Monday\" or \"the fourth day\""
 msgid "the fourth %1$s"
-msgstr ""
+msgstr "der vierte %1$s"
 
 #: src/Tribe/Recurrence_Meta.php:1297
 msgctxt "Used when displaying: \"the fifth Monday\" or \"the fifth day\""
 msgid "the fifth %1$s"
-msgstr ""
+msgstr "der fünfte %1$s"
 
 #: src/Tribe/Recurrence_Meta.php:1298
 msgctxt "Used when displaying: \"the last Monday\" or \"the last day\""
 msgid "the last %1$s"
-msgstr ""
+msgstr "der letzte %1$s"
 
 #: src/Tribe/Recurrence_Meta.php:1299
 msgctxt "Used when displaying the word \"day\" in \"the last day\" or \"the first day\""
 msgid "day"
-msgstr ""
+msgstr "Tag"
 
 #: src/admin-views/event-recurrence.php:11
 msgid "Recurrence Rules:"
-msgstr ""
+msgstr "Wiederholungsregeln:"
 
 #: src/admin-views/event-recurrence.php:20
 msgid "Once"
-msgstr ""
+msgstr "Einmal"
 
 #: src/admin-views/event-recurrence.php:65
 #: src/admin-views/recurrence/months.php:35
 #: src/admin-views/recurrence/weeks.php:35
 #: src/admin-views/recurrence/years.php:111
 msgid "Same time"
-msgstr ""
+msgstr "Gleiche Zeit"
 
 #: src/admin-views/event-recurrence.php:80
 msgid "Add Another Rule"
-msgstr ""
+msgstr "Weitere Regel hinzufügen"
 
 #: src/admin-views/event-recurrence.php:84
 msgid "Exclusions:"
-msgstr ""
+msgstr "Ausnahmen:"
 
 #: src/admin-views/event-recurrence.php:93
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: src/admin-views/event-recurrence.php:101
 msgid "will not occur on"
-msgstr ""
+msgstr "wird nicht stattfinden am"
 
 #: src/admin-views/event-recurrence.php:105
 msgid "will not occur every"
-msgstr ""
+msgstr "wird nicht stattfinden alle"
 
 #: src/admin-views/event-recurrence.php:124
 msgid "Add Exclusion"
-msgstr ""
+msgstr "Füge Ausnahme hinzu"
 
 #: src/views/pro/widgets/venue-widget.php:59
 msgid "View all %1$s at this %2$s"
-msgstr ""
+msgstr "Zeige alle %1$s an diesem %2$s"
 
 #. Plugin Name of the plugin/theme
 msgid "The Events Calendar PRO"
-msgstr ""
+msgstr "The Events Calendar PRO"
 
 #. Description of the plugin/theme
 msgid "The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features."
-msgstr ""
+msgstr "The Events Calendar PRO, ein Premium Add-On für das Open Souce Plugin The Events Calendar (Voraussetzung), ermöglicht Serientermine, benutzerdefinierte Felder, Seiten für Veranstaltungsorte, neue Widgets und eine Basis für weitere Premium Funktionen."
 
 #. Author of the plugin/theme
 msgid "Modern Tribe, Inc."
-msgstr ""
+msgstr "Modern Tribe, Inc."
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/20"
-msgstr ""
+msgstr "http://m.tri.be/20"
 
 #: src/Tribe/Main.php:642
 msgid "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we sincerely appreciate it. If you're looking for help with Events Calendar PRO, you've come to the right place. We are committed to helping make your calendar be spectacular... and hope the resources provided below will help get you there."
@@ -347,7 +347,7 @@ msgstr "Danke, dass Sie Events Calendar PRO gekauft haben! Modern Tribe dankt Ih
 
 #: src/admin-views/event-meta-options.php:66
 msgid "tutorial that will walk you through the process"
-msgstr "Tutorial, das dich durch den Konfigurationsprozess führt"
+msgstr "Tutorial, welches Sie durch den Konfigurationsprozess führt"
 
 #: src/Tribe/Main.php:585 src/admin-views/event-meta-options.php:3
 msgid "Additional Fields"
@@ -380,7 +380,7 @@ msgstr "Format Wochentag"
 #: src/admin-views/widget-admin-advanced-list.php:62
 #: src/admin-views/widget-calendar.php:24
 msgid "Filters"
-msgstr "Filter:"
+msgstr "Filter"
 
 #: src/Tribe/Main.php:612
 msgid "Enter the format to use for week days. Used when showing days of the week in Week view."
@@ -738,7 +738,7 @@ msgstr "Keine anstehenden %s."
 
 #: src/Tribe/Recurrence_Meta.php:174
 msgid "Break this event out of its series and edit it independently"
-msgstr "Die Veranstaltung von der Serie trennen und unabhängig bearbeiten"
+msgstr "Die Veranstaltung von der Serie trennen und unabhängig davon bearbeiten"
 
 #: src/Tribe/Recurrence_Meta.php:174
 msgid "Edit Single"
@@ -948,7 +948,7 @@ msgstr "Sie bearbeiten gerade alle Veranstaltungen einer Terminserie."
 
 #: src/Tribe/Recurrence_Meta.php:2007
 msgid "%d instances of this event have been created through %s. <a href=\"%s\">Learn more.</a>"
-msgstr "%d Termine für diese Veranstaltung wurden angelegt durch %s. <a href=\"%s\">Erfahren Sie mehr.</a>"
+msgstr "%d Termine für diese Veranstaltung wurden bis zum %s angelegt. <a href=\"%s\">Erfahren Sie mehr.</a>"
 
 #: src/Tribe/Recurrence_Meta.php:2018
 msgid ""
@@ -1219,7 +1219,7 @@ msgstr "Checkbox"
 
 #: src/admin-views/event-meta-options.php:65
 msgid "Enter the field label as you want it to appear (this will be the label in the same way \"Start Date,\" \"Organizer,\" etc appear in the event details box on the frontend). Select whether the field will be a text field; URL field; radio buttons; checkboxes; or a dropdown. All of these with the exception of text and URL allow for multiple options to be included, which you can add — one per-line — in the right-hand column. If you feel flummoxed, we've got you covered with a %s."
-msgstr "Geben Sie den Feldnamen ein, wie er im Frontend erscheinen soll (dies wird auf die selbe Art und Weise dargestellt wie etwa das Startdatum, der Veranstalter usw. unter den Veranstaltungsdetails im Frontend). Wählen Sie aus den verschiedenen Feldarten (URL, Text, Radio-Buttons, Checkbox, Auswahlliste). Mit Ausnahme von Text und URL können für alle mehrere Optionen ausgewählt werden, welche in der rechte Spalte gewählt werden können (eine pro Zeile). Für weitere Infos klicken Sie hier: %s."
+msgstr "Geben Sie den Feldnamen ein, wie er im Frontend erscheinen soll (die Felder werden gleich dargestellt wie beispielsweise das Startdatum, der Veranstalter usw. unter den Veranstaltungsdetails im Frontend). Wählen Sie aus den verschiedenen Feldtypen (URL, Text, Radio-Buttons, Checkbox, Auswahlliste) aus. Mit Ausnahme von Text und URL können für alle Feldtypen rechts daneben weitere Optionen ausgewählt werden (eine pro Zeile). Für weitere Infos klicken Sie hier: %s."
 
 #: src/admin-views/event-meta-options.php:69
 msgid "Editor \"Custom Fields\" meta box"
@@ -1461,7 +1461,7 @@ msgstr "Suche"
 #: src/admin-views/recurrence/months.php:5
 #: src/admin-views/recurrence/years.php:86
 msgid "First"
-msgstr "Erste"
+msgstr "Erster"
 
 #: src/Tribe/Advanced_List_Widget.php:22
 msgid "A widget that displays the next upcoming x events."
@@ -1505,7 +1505,7 @@ msgstr "Anzahl Wiederholungen"
 #: src/admin-views/recurrence/months.php:10
 #: src/admin-views/recurrence/years.php:90
 msgid "Last"
-msgstr "letzte"
+msgstr "Letzter"
 
 #: src/Tribe/Countdown_Widget.php:17
 msgid "Displays the time remaining until a specified event."

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-08-18 11:51:16+0000\n"
+"PO-Revision-Date: 2015-10-04 20:30:23+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,120 +12,120 @@ msgstr ""
 
 #: src/Tribe/Main.php:364
 msgid "All %1$s for %2$s"
-msgstr ""
+msgstr "Todos %1$s para %2$s"
 
 #: src/Tribe/Main.php:370
 msgid "%1$s for week of %2$s"
-msgstr ""
+msgstr "%1$s para semana del %2$s"
 
 #: src/Tribe/Recurrence/Queue_Processor.php:184
 msgid "Could not process queue for event %1$d: %2$s"
-msgstr ""
+msgstr "No se pudo procesar lista de espera para evento %1$d: %2$s"
 
 #: src/Tribe/Recurrence_Meta.php:744
 msgid "Custom recurrences must have a type selected."
-msgstr ""
+msgstr "Recurrencias customizadas deben tener seleccionado un tipo"
 
 #: src/Tribe/Recurrence_Meta.php:752
 msgid "Custom recurrences must have all data present."
-msgstr ""
+msgstr "Recuerrencias customizadas deben tener todos los datos presentes"
 
 #: src/Tribe/Recurrence_Meta.php:1196
 msgctxt "Recurrence rule separator"
 msgid ",<br> and "
-msgstr ""
+msgstr "<br> y"
 
 #: src/Tribe/Recurrence_Meta.php:1206
 msgid "An event every day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Un evento cada día que dura %1$s dia(s) y %2$s hora(s), el último del cual comenzará en %3$s"
 
 #: src/Tribe/Recurrence_Meta.php:1207
 msgid "An event every day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Un evento cada día que dura %1$s dia(s) y %2$s hora(s), pero sólo crear %3$s evento(s)"
 
 #: src/Tribe/Recurrence_Meta.php:1208
 msgid "An event every day that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Un evento cada día que dura %1$s dia(s) y %2$s hora(s) sin fecha de finalización"
 
 #: src/Tribe/Recurrence_Meta.php:1209
 msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Un evento cada semana en el mismo día que dure %1$s dia(s) y %2$s hora(s), el último del cual comenzará en %3$s"
 
 #: src/Tribe/Recurrence_Meta.php:1210
 msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Un evento cada semana en el mismo día que dure %1$s dia(s) y %2$s hora(s), pero sólo crear %3$s evento(s)"
 
 #: src/Tribe/Recurrence_Meta.php:1211
 msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Un evento cada semana en el mismo día que dure %1$s dia(s) y %2$s hora(s) sin fecha de finalización"
 
 #: src/Tribe/Recurrence_Meta.php:1212
 msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Un evento cada mes en el mismo día que dure %1$s dia(s) y %2$s hora(s), el último de los cuales comenzará en %3$s"
 
 #: src/Tribe/Recurrence_Meta.php:1213
 msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Un evento cada mes en el mismo día que dure %1$s dia(s) y %2$s hora(s), pero sólo crear %3$s evento(s)"
 
 #: src/Tribe/Recurrence_Meta.php:1214
 msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Un evento cada mes en el mismo día que dure %1$s dia(s) y %2$s hora(s) sin fecha de finalización"
 
 #: src/Tribe/Recurrence_Meta.php:1215
 msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Un evento cada año en la misma fecha que dure %1$s dia(s) y %2$s hora(s), el último de los cuales comenzará en %3$s"
 
 #: src/Tribe/Recurrence_Meta.php:1216
 msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Un evento cada año en la misma fecha que dure %1$s dia(s) y %2$s hora(s), pero sólo crear %3$s evento(s)"
 
 #: src/Tribe/Recurrence_Meta.php:1217
 msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Un evento cada año en la misma fecha que dure %1$s dia(s) y %2$s hora(s) sin fecha de finalización"
 
 #: src/Tribe/Recurrence_Meta.php:1218
 msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), the last of which will begin on %4$s"
-msgstr ""
+msgstr "Un evento cada %1$s dia(s) que dure %2$s dia(s) y %3$s hora(s), el último de los cuales comenzará en %4$s"
 
 #: src/Tribe/Recurrence_Meta.php:1219
 msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), but only create %4$s event(s)"
-msgstr ""
+msgstr "Un evento cada %1$s dia(s) que dure %2$s dia(s) y %3$s hora(s), pero sólo crear %4$s evento(s)"
 
 #: src/Tribe/Recurrence_Meta.php:1220
 msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s) with no end date"
-msgstr ""
+msgstr "Un evento cada %1$s dia(s) que dure %2$s dia(s) y %3$s hora(s) sin fecha de finalización"
 
 #: src/Tribe/Recurrence_Meta.php:1221
 msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
-msgstr ""
+msgstr "Un evento cada %1$s dia(s) que comience en %2$s y dure %3$s dia(s) y %4$s hora(s), el último de los cuales comenzará en %5$s"
 
 #: src/Tribe/Recurrence_Meta.php:1222
 msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
-msgstr ""
+msgstr "Un evento cada %1$s dia(s) que comience en %2$s y dure %3$s dia(s) y %4$s hora(s), pero solamente crear %5$s evento(s)"
 
 #: src/Tribe/Recurrence_Meta.php:1223
 msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s) with no end date"
-msgstr ""
+msgstr "Un evento cada %1$s dia(s) que comience en %2$s y dure %3$s dia(s) y %4$s hora(s) sin fecha de finalización"
 
 #: src/Tribe/Recurrence_Meta.php:1224
 msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
-msgstr ""
+msgstr "Un evento cada %1$s semana(s) en %2$s que dure %3$s dia(s) y %4$s hora(s), el último de los cuales comenzará en %5$s"
 
 #: src/Tribe/Recurrence_Meta.php:1225
 msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
-msgstr ""
+msgstr "Un evento cada %1$s semana(s) en %2$s que dure %3$s dia(s) y %4$s hora(s), pero solamente crear %5$s evento(s)"
 
 #: src/Tribe/Recurrence_Meta.php:1226
 msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
-msgstr ""
+msgstr "Un evento cada %1$s semana(s) en %2$s que dure %3$s dia(s) y %4$s hora(s) sin fecha de finalización"
 
 #: src/Tribe/Recurrence_Meta.php:1227
 msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
-msgstr ""
+msgstr "Un evento cada %1$s semana(s) en %2$s que comience en %3$s y dure %4$s hora(s) y %5$s hora(s), el último de los cuales comenzará en %6$s"
 
 #: src/Tribe/Recurrence_Meta.php:1228
 msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Un evento cada %1$s semana(s) en %2$s que comience en %3$s y dure %4$s hora(s) y %5$s hora(s), pero sólo crear %6$s evento(s)"
 
 #: src/Tribe/Recurrence_Meta.php:1229
 msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
@@ -284,7 +284,7 @@ msgstr ""
 
 #: src/admin-views/event-recurrence.php:11
 msgid "Recurrence Rules:"
-msgstr ""
+msgstr "Reglas de recurrencia"
 
 #: src/admin-views/event-recurrence.php:20
 msgid "Once"
@@ -295,7 +295,7 @@ msgstr ""
 #: src/admin-views/recurrence/weeks.php:35
 #: src/admin-views/recurrence/years.php:111
 msgid "Same time"
-msgstr ""
+msgstr "Mismo horario"
 
 #: src/admin-views/event-recurrence.php:80
 msgid "Add Another Rule"
@@ -303,43 +303,43 @@ msgstr ""
 
 #: src/admin-views/event-recurrence.php:84
 msgid "Exclusions:"
-msgstr ""
+msgstr "Exclusiones:"
 
 #: src/admin-views/event-recurrence.php:93
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
 
 #: src/admin-views/event-recurrence.php:101
 msgid "will not occur on"
-msgstr ""
+msgstr "no va a ocurrir en"
 
 #: src/admin-views/event-recurrence.php:105
 msgid "will not occur every"
-msgstr ""
+msgstr "no va a ocurrir cada"
 
 #: src/admin-views/event-recurrence.php:124
 msgid "Add Exclusion"
-msgstr ""
+msgstr "Agregar exclusion"
 
 #: src/views/pro/widgets/venue-widget.php:59
 msgid "View all %1$s at this %2$s"
-msgstr ""
+msgstr "Ver todos %1$s en este %2$s"
 
 #. Plugin Name of the plugin/theme
 msgid "The Events Calendar PRO"
-msgstr ""
+msgstr "El Events Calendar PRO"
 
 #. Description of the plugin/theme
 msgid "The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features."
-msgstr ""
+msgstr "El Events Calendar PRO, un add-on premium para el plugin de código libre The Events Calendar (requerido) permite eventos recurrentes, atributos customizados, páginas de locaciones, nuevos widgets y una cantidad de nuevas funcionalidades premium"
 
 #. Author of the plugin/theme
 msgid "Modern Tribe, Inc."
-msgstr ""
+msgstr "Modern Tribe, Inc."
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/20"
-msgstr ""
+msgstr "http://m.tri.be/20"
 
 #: src/Tribe/Main.php:642
 msgid "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we sincerely appreciate it. If you're looking for help with Events Calendar PRO, you've come to the right place. We are committed to helping make your calendar be spectacular... and hope the resources provided below will help get you there."
@@ -690,7 +690,7 @@ msgstr "horas"
 
 #: src/Tribe/Recurrence/Queue_Realtime.php:67
 msgid "Recurring event data is still being generated for this event. Don&#146;t worry, you can safely navigate away &ndash; the process will resume in a bit in the background."
-msgstr ""
+msgstr "Información recurrente del evento todavía está siendo generada para este evento. No se preocupe, Ud. podrá salir de la página &ndash ; el proceso se resumirá luego en segundo plano."
 
 #: src/views/pro/widgets/countdown-widget.php:28
 msgid "min"
@@ -1432,7 +1432,7 @@ msgstr "Ju"
 
 #: src/Tribe/APM_Filters/Date_Filter.php:16
 msgid "On and Before"
-msgstr ""
+msgstr "En y antes"
 
 #: src/admin-views/recurrence/weeks.php:20
 msgid "F"
@@ -1500,7 +1500,7 @@ msgstr "Quinta Parte"
 
 #: src/Tribe/Community_Modifications.php:31
 msgid "Recurrence Count"
-msgstr ""
+msgstr "Número de recurrencias"
 
 #: src/admin-views/recurrence/months.php:10
 #: src/admin-views/recurrence/years.php:90
