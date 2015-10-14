@@ -74,6 +74,7 @@ $event_fees = Tribe__Events__Tickets__Orders_Table::event_fees( $event_id );
 						$total_sold = 0;
 						$total_pending = 0;
 						$total_profit = 0;
+						$total_completed = 0;
 
 						foreach ( $tickets as $ticket ) {
 							if ( empty( $tickets_sold[ $ticket->name ] ) ) {

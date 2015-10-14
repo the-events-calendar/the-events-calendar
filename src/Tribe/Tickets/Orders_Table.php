@@ -330,6 +330,10 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 	}//end extra_tablenav
 
 	public static function get_orders( $event_id ) {
+		if ( ! $event_id ) {
+			return array();
+		}
+
 		WC()->api->includes();
 		WC()->api->register_resources( new WC_API_Server( '/' ) );
 
@@ -355,8 +359,8 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 		);
 
 		$orders = array();
-		$order_tickets = get_posts( $args );
-		foreach ( $order_tickets as &$item ) {
+		$query = new WP_Query( $args );
+		foreach ( $query->posts as &$item ) {
 			$order_id = get_post_meta( $item->ID, '_tribe_wooticket_order', true );
 
 			if ( isset( $orders[ $order_id ] ) ) {
