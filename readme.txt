@@ -633,7 +633,7 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 == Upgrade Notice ==
 
-= 3.11 =
+= 3.11 and higher =
 
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
