@@ -73,14 +73,18 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 	 */
 	public function get_columns() {
 		$columns = array(
-			'order_status'    => __( 'Order Status', 'tribe-events-calendar' ),
-			'purchased'       => __( 'Purchased', 'tribe-events-calendar' ),
-			'ship_to'         => __( 'Ship to', 'tribe-events-calendar' ),
-			'date'            => __( 'Date', 'tribe-events-calendar' ),
-			'subtotal'        => __( 'Subtotal', 'tribe-events-calendar' ),
-			'site_fee'        => __( 'Site Fee', 'tribe-events-calendar' ),
-			'total'           => __( 'Total', 'tribe-events-calendar' ),
+			'order'      => __( 'Order', 'tribe-events-calendar' ),
+			'purchased'  => __( 'Purchased', 'tribe-events-calendar' ),
+			'ship_to'    => __( 'Ship to', 'tribe-events-calendar' ),
+			'date'       => __( 'Date', 'tribe-events-calendar' ),
 		);
+
+		if ( self::event_fees( $this->event_id ) ) {
+			$columns['subtotal'] = __( 'Subtotal', 'tribe-events-calendar' );
+			$columns['site_fee'] = __( 'Site Fee', 'tribe-events-calendar' );
+		}
+
+		$columns['total'] = __( 'Total', 'tribe-events-calendar' );
 
 		return $columns;
 	}//end get_columns
@@ -194,13 +198,13 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 	}//end column_purchased
 
 	/**
-	 * Handler for the order status column
+	 * Handler for the order column
 	 *
 	 * @param $item
 	 *
 	 * @return string
 	 */
-	public function column_order_status( $item ) {
+	public function column_order( $item ) {
 		$icon    = '';
 		$warning = false;
 
@@ -235,7 +239,7 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 		}
 
 		return $output;
-	}//end column_order_status
+	}//end column_order
 
 	/**
 	 * Handler for the subtotal column

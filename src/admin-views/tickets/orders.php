@@ -32,6 +32,10 @@ $this->orders_table->display();
 $table = ob_get_clean();
 
 $organizer = get_user_by( 'id', $event->post_author );
+
+$event_revenue = Tribe__Events__Tickets__Orders_Table::event_revenue( $event_id );
+$event_sales = Tribe__Events__Tickets__Orders_Table::event_sales( $event_id );
+$event_fees = Tribe__Events__Tickets__Orders_Table::event_fees( $event_id );
 ?>
 
 <div class="wrap">
@@ -101,7 +105,7 @@ $organizer = get_user_by( 'id', $event->post_author );
 							<?php if ( $total_pending > 0 ) : ?>
 								<div id="sales_breakdown_wrapper" class="tribe-event-meta-note">
 									<div>
-										<?php esc_html_e( 'Finalized:', 'the-events-calendar' ); ?>
+										<?php esc_html_e( 'Completed:', 'the-events-calendar' ); ?>
 										<span id="total_issued"><?php echo $total_completed ?></span>
 									</div>
 									<div>
@@ -158,38 +162,49 @@ $organizer = get_user_by( 'id', $event->post_author );
 							printf(
 								get_woocommerce_price_format(),
 								get_woocommerce_currency_symbol(),
-								number_format( Tribe__Events__Tickets__Orders_Table::event_revenue( $event_id ), 2 )
+								number_format( $event_revenue, 2 )
 							);
-							?>
-							<div class="tribe-event-meta-note">
-								<?php echo esc_html__( '(Tickets + Site Fees)', 'the-events-calendar' ); ?>
-							</div>
-						</div>
-						<div class="tribe-event-meta tribe-event-meta-total-ticket-sales">
-							<strong><?php esc_html_e( 'Total Ticket Sales:', 'the-events-calendar' ) ?></strong>
-							<?php
-							printf(
-								get_woocommerce_price_format(),
-								get_woocommerce_currency_symbol(),
-								number_format( Tribe__Events__Tickets__Orders_Table::event_sales( $event_id ), 2 )
-							);
-							?>
-						</div>
-						<div class="tribe-event-meta tribe-event-meta-total-site-fees">
-							<strong><?php esc_html_e( 'Total Site Fees:', 'the-events-calendar' ) ?></strong>
-							<?php
-							printf(
-								get_woocommerce_price_format(),
-								get_woocommerce_currency_symbol(),
-								number_format( Tribe__Events__Tickets__Orders_Table::event_fees( $event_id ), 2 )
-							);
-							?>
-							<div class="tribe-event-meta-note">
+
+							if ( $event_fees ) {
+								?>
+								<div class="tribe-event-meta-note">
+									<?php echo esc_html__( '(Tickets + Site Fees)', 'the-events-calendar' ); ?>
+								</div>
 								<?php
-								echo apply_filters( 'tribe_events_orders_report_site_fees_note', '', $event, $organizer );
+							}
+							?>
+						</div>
+						<?php
+						if ( $event_fees ) {
+							?>
+							<div class="tribe-event-meta tribe-event-meta-total-ticket-sales">
+								<strong><?php esc_html_e( 'Total Ticket Sales:', 'the-events-calendar' ) ?></strong>
+								<?php
+								printf(
+									get_woocommerce_price_format(),
+									get_woocommerce_currency_symbol(),
+									number_format( $event_sales, 2 )
+								);
 								?>
 							</div>
-						</div>
+							<div class="tribe-event-meta tribe-event-meta-total-site-fees">
+								<strong><?php esc_html_e( 'Total Site Fees:', 'the-events-calendar' ) ?></strong>
+								<?php
+								printf(
+									get_woocommerce_price_format(),
+									get_woocommerce_currency_symbol(),
+									number_format( $event_fees, 2 )
+								);
+								?>
+								<div class="tribe-event-meta-note">
+									<?php
+									echo apply_filters( 'tribe_events_orders_report_site_fees_note', '', $event, $organizer );
+									?>
+								</div>
+							</div>
+							<?php
+						}//end if
+						?>
 					</td>
 				</tr>
 			</table>
