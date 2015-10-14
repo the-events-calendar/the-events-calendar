@@ -8,14 +8,22 @@
  */
 class TribeRecurrence_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 
+	/*
+	 * testEndsOnNotBeforeLastDate()
+	 * This test creates a series rules and then makes sure that the event ends on the end date and not before it
+	 */
 	public function testEndsOnNotBeforeLastDate() {
 		$start_date = strtotime( '2011-09-06' );
 		$end_date = strtotime( '2011-12-06' );
 		$series_rules = new Tribe__Events__Pro__Date_Series_Rules__Week( 1, array( 2 ) );
 
 		$rec = new Tribe__Events__Pro__Recurrence( $start_date, $end_date, $series_rules );
-		$this->assertTrue( in_array( $end_date, $rec->getDates() ) );
-	}
+		//put the dates in dates
+		$dates = $rec->getDates();
+		$end = end( $dates );
+		//Checks to see that the end date is in the array of the dates
+		$this->assertTrue( in_array( $end_date, $end ) );
+	}//ends testEndsOnNotBeforeLastDate
 
 	public function test_max_date() {
 		$recurrence = new Tribe__Events__Pro__Recurrence( strtotime( '2013-09-21' ), 8, new Tribe__Events__Pro__Date_Series_Rules__Year( 1 ), true, null );
