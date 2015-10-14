@@ -13,11 +13,10 @@ class Tribe_Related_Events_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 	}
 
 	public function test_disable_related_events() {
-		$core = Tribe__Events__Main::instance();
+		$core = Tribe__Settings_Manager::instance();
 		$ecp = Tribe__Events__Pro__Main::instance();
-		$core->setOption('hideRelatedEvents', TRUE);
+		$core->set_option('hideRelatedEvents', TRUE);
 
 		$this->assertFalse($ecp->show_related_events());
-
 	}
 }
