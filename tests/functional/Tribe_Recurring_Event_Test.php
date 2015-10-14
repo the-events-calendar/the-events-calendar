@@ -31,8 +31,11 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 				),// end rules array
 			)
 		));
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+
+		// Create a new queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
+
 		//Checks that the event created is recurring
 		$this->assertTrue( tribe_is_recurring_event( $post_id ) );
 
@@ -110,8 +113,10 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 				),// end rules array
 			)
 		));
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+
+		// Create a new queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
 
 		//checks that the event is recurring
 		$this->assertTrue( tribe_is_recurring_event( $post_id ) );
@@ -214,8 +219,9 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
 
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+		// Create a new queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
 
 		$original_children = get_posts(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
@@ -274,8 +280,9 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
 
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+		// Create a new queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
 
 		$original_children = get_posts(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
@@ -349,8 +356,9 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
 
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+		// Create a new queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
 
 		$original_dates = tribe_get_recurrence_start_dates($post_id);
 
@@ -372,8 +380,10 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 		$event_args['EventStartDate'] = $new_date;
 		$event_args['EventEndDate'] = $new_date;
 		Tribe__Events__API::updateEvent($post_id, $event_args);
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+
+		// Create a new queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
 
 		$new_dates = tribe_get_recurrence_start_dates($post_id);
 
@@ -432,15 +442,17 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
 
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+		// Create a new queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
 
 		$event_args['tags_input'] = array($tags[1]);
 
 		Tribe__Events__API::updateEvent($post_id, $event_args);
 
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+		// Create another fresh queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
 
 		$children = get_posts(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
@@ -504,16 +516,18 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
 
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+		// Create a new queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
 
 		$event_args['Organizer'] = array( 'OrganizerID' => $organizers[1] );
 		$event_args['Venue'] = array( 'VenueID' => $venues[1] );
 
 		Tribe__Events__API::updateEvent($post_id, $event_args);
 
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+		// Create another fresh queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
 
 		$children = get_posts(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
@@ -562,8 +576,9 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
 
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+		// Create a new queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
 
 		$base_url = home_url().'/event/test-permalinks/';
 		$this->assertEquals($base_url.user_trailingslashit('2014-05-01'), get_post_permalink($post_id));
@@ -611,8 +626,9 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
 
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+		// Create a new queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
 
 		$children = get_posts(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
@@ -678,8 +694,9 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
 
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+		// Create a new queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
 
 		$children = get_posts(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
@@ -786,8 +803,9 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
 
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+		// Create a new queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
 
 		$children = get_posts(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
@@ -874,8 +892,9 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
 
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+		// Create a new queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
 
 		$original_dates = tribe_get_recurrence_start_dates($post_id);
 		//Checks that the original dates is not empty
