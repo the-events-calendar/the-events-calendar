@@ -143,10 +143,12 @@ function tribe_events_get_widget_event_post_date() {
 
 	$startDate = strtotime( $post->EventStartDate );
 	$endDate   = strtotime( $post->EventEndDate );
-	$today     = current_time( 'timestamp' );
-	$yesterday = $today - DAY_IN_SECONDS;
+
 	$is_multiday = tribe_event_is_multiday( $post->ID );
 	$is_all_day = tribe_event_is_all_day( $post->ID );
+
+	$today     = current_time( 'timestamp' );
+	$yesterday = $today - DAY_IN_SECONDS;
 
 	// Gets Yesterday cutoff to check which date we pick
 	$yesterday_end = ( (int) tribe_event_end_of_day( $yesterday, 'U' ) ) + 1;
