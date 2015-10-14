@@ -51,6 +51,9 @@ modules:
             plugins:
                 - the-events-calendar/the-events-calendar.php
                 - events-pro/events-calendar-pro.php
+            activatePlugins:
+                - the-events-calendar/the-events-calendar.php
+                - events-pro/events-calendar-pro.php
         WPWebDriver:
             url: 'http://tec.tri.be'
             browser: phantomjs
