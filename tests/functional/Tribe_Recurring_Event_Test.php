@@ -157,8 +157,12 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			)
 		);
 		$post_id = Tribe__Events__API::createEvent( $event_args );
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+
+		// The plugin's own queue processor may have been exhausted by other tests - so let's
+		// create a fresh processor and use that to ensure all expected children are generated
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_batch( $post_id );
+
 		$original_dates = tribe_get_recurrence_start_dates( $post_id );
 		$this->assertCount( 5, $original_dates, 'Checking that 5 events were created' );
 
