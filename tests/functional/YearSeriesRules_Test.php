@@ -16,55 +16,51 @@ class YearSeriesRules_Test extends Tribe__Events__Pro__WP_UnitTestCase
 		parent::setUp();
 	}
 
-	public function testNextYear()
-	{
+	public function testNextYear() {
 		$rules = new Tribe__Events__Pro__Date_Series_Rules__Year();
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2012-04-23");
-	}
+	}//ends testNextYear
 
-	public function testEveryTwoYears()
-	{
+	public function testEveryTwoYears() {
 		$rules = new Tribe__Events__Pro__Date_Series_Rules__Year(2);
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2013-04-23");
-	}
+	}//ends testEverytwoYears
 
-	public function testEveryTwoYearsMultipleMonths()
-	{
+	public function testEveryTwoYearsMultipleMonths() {
 		$rules = new Tribe__Events__Pro__Date_Series_Rules__Year(2, array(2,12));
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-12-23");
 		$nextDate = $rules->getNextDate($nextDate);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2013-02-23");
-	}
+	}//ends testEveryTwoYearsMultipleMonths
 
-	public function testEveryTwoYearsMultipleMonthsWithSkip()
-	{
+	public function testEveryTwoYearsMultipleMonthsWithSkip() {
 		$this->date = strtotime("2011-04-29");
 		$rules = new Tribe__Events__Pro__Date_Series_Rules__Year(2, array(2,12));
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-12-29");
 		$nextDate = $rules->getNextDate($nextDate);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2013-12-29");
-	}
+	}//ends testEveryTwoYearsMultipleMonthsWithSkip
 
-	public function testSecondWednesdayOfJune()
-	{
+
+	public function testSecondWednesdayOfJune() {
 		$rules = new Tribe__Events__Pro__Date_Series_Rules__Year(2, array(6,12), 2, 3);
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-06-08");
 		$nextDate = $rules->getNextDate($nextDate);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-12-14");
-	}
+	}//ends testSecondWednesdayOfJune
 
-	public function testLastWednesdayOfJune()
-	{
-		$rules = new Tribe__Events__Pro__Date_Series_Rules__Year(2, array(6,12), -1, 3);
+		public function testLastWednesdayOfJune() {
+		//This works at -.5 of the week because it is not a full week that it is counting
+		$rules = new Tribe__Events__Pro__Date_Series_Rules__Year(2, array(7,12), -.5, 3);
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-06-29");
 		$nextDate = $rules->getNextDate($nextDate);
-		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-12-28");
-	}
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2013-06-26");
+	}//ends testLastWednesdayOfJune
 }
 ?>
