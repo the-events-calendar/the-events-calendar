@@ -53,7 +53,7 @@ class Tribe__Events__Admin__Timezone_Settings {
 	 * @return array
 	 */
 	protected function get_settings_array() {
-		$plugin_path = Tribe__Main::instance()->plugin_path;
+		$plugin_path = Tribe__Events__Main::instance()->plugin_path;
 		return (array) include $plugin_path . 'src/admin-views/tribe-options-timezones.php';
 	}
 

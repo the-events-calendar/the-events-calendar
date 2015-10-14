@@ -246,7 +246,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		public function plugins_loaded() {
-			// include the autolader class
+			// include the autoloader class
 			$this->init_autoloading();
 
 			add_action( 'init', array( $this, 'loadTextDomain' ), 1 );
