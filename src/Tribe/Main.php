@@ -4527,7 +4527,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Give the standalone plugin a chance to load on activation
 			// WordPress loads all the active plugins before activating a new one.
-			if ( isset( $_GET['action'] ) && $_GET['action'] == 'activate' && isset( $_GET['plugin'] ) && strstr( $_GET['plugin'], 'tickets.php' ) ) {
+			if ( isset( $_GET['action'] ) && $_GET['action'] == 'activate' && isset( $_GET['plugin'] ) && strstr( $_GET['plugin'], 'event-tickets.php' ) ) {
 				return;
 			}
 
@@ -4542,7 +4542,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			require_once $this->plugin_path . 'vendor/tickets/tickets.php';
+			require_once $this->plugin_path . 'vendor/tickets/event-tickets.php';
 		}
 
 		/**
