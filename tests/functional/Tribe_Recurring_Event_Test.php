@@ -686,7 +686,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'order' => 'ASC',
 		));
 		//This query is failing!
-/*
+
 		$query = new WP_Query();
 		$results = $query->query(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
@@ -698,8 +698,6 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 		$results=$results;
 		$this->assertCount(1, $results);
 		$this->assertEquals($post_id, reset($results));
-		*/
-		/*
 
 		//This query is Failing
 		$results = $query->query(array(
@@ -716,7 +714,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 		$this->assertNotEmpty($children);
 
 		$this->assertEquals($children[4], reset($results));
-*/
+
 		$query = new WP_Query();
 		$results = $query->query(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
