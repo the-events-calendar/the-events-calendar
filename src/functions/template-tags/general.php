@@ -1435,7 +1435,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$url = apply_filters( 'tribe_events_resource_url', $url, $resource );
 
 		if ( $echo ) {
-			echo $url;
+			echo esc_url( $url );
 		}
 
 		return $url;
