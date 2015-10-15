@@ -31,7 +31,7 @@ define( 'EVENTS_CALENDAR_PRO_DIR', dirname( __FILE__ ) );
 
 	// Instantiate class and set up WordPress actions.
 	function Tribe_ECP_Load() {
-		if ( ! tribe_init_events_pro_autoloading() ) {
+		if ( false === tribe_init_events_pro_autoloading() ) {
 			add_action( 'admin_notices', 'tribe_show_fail_message' );
 			return;
 		}
