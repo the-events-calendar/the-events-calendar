@@ -219,7 +219,7 @@ Our Premium Plugins:
 
 = [3.12.4] 2015-10-15 =
 
-* Tweak - Altered our build process to remove utilities and libraries not needed in the finished product (our thanks to Jay for highlighting this problem)
+* Tweak - Altered our build process to remove utilities and libraries not needed in the finished product (our thanks to both Jay and jbrinley for highlighting this problem)
 
 = [3.12.3] 2015-10-15 =
 
