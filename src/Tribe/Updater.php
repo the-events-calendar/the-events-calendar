@@ -139,7 +139,7 @@ class Tribe__Events__Updater {
 	}
 
 	public function set_capabilities() {
-		$capabilities = new Tribe__Capabilities();
+		$capabilities = new Tribe__Events__Capabilities();
 		add_action( 'wp_loaded', array( $capabilities, 'set_initial_caps' ) );
 		add_action( 'wp_loaded', array( $this, 'reload_current_user' ), 11, 0 );
 	}
