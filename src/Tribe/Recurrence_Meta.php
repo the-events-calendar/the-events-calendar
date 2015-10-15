@@ -577,7 +577,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$recurrence = Tribe__Events__Pro__Recurrence_Meta::getRecurrenceMeta( $post_id );
 		?>
 		<script>
-		var tribe_events_pro_recurrence_data = <?php echo json_encode( $recurrence ); ?>;
+			var tribe_events_pro_recurrence_data = <?php echo json_encode( $recurrence ); ?>;
 		</script>
 		<?php
 	}
