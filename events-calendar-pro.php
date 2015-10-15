@@ -36,8 +36,7 @@ define( 'EVENTS_CALENDAR_PRO_DIR', dirname( __FILE__ ) );
 		$classes_exist = class_exists( 'Tribe__Events__Main' ) && class_exists( 'Tribe__Events__Pro__Main' );
 		$version_ok = $classes_exist && defined( 'Tribe__Events__Main::VERSION' ) && version_compare( Tribe__Events__Main::VERSION, Tribe__Events__Pro__Main::REQUIRED_TEC_VERSION, '>=' );
 
-		$to_run_or_not_to_run = ( $classes_exist && $version_ok );
-		if ( apply_filters( 'tribe_ecp_to_run_or_not_to_run', $to_run_or_not_to_run ) ) {
+		if ( apply_filters( 'tribe_ecp_to_run_or_not_to_run', $version_ok ) ) {
 			add_filter( 'tribe_tec_addons', 'tribe_init_ecp_addon' );
 			new Tribe__Events__Pro__PUE( __FILE__ );
 			Tribe__Events__Pro__Main::instance();
@@ -51,7 +50,7 @@ define( 'EVENTS_CALENDAR_PRO_DIR', dirname( __FILE__ ) );
 				return false;
 			}
 		}
-		if ( ! $to_run_or_not_to_run ) {
+		if ( ! $version_ok ) {
 			add_action( 'admin_notices', 'tribe_show_fail_message' );
 		}
 	}
