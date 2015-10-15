@@ -217,7 +217,7 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [3.12.3] 2015-10-13 =
+= [3.12.3] 2015-10-15 =
 * Fix - Fixed a bug to ensure date exclusion was being respected when creating recurring events ( thanks to laughmasters, Nadia, Andreas and Jeff for noting this in the forums)
 * Fix - Fixed a bug that made the event list and mini calendar widget show wrong date in Date Box due to time() function ( thank you Seth in the support forums for this one)
 * Fix - A bug that resulted in custom recurring events showing wrong times and have PHP notices ( Sitecrafting - thank you for the report on this one)
