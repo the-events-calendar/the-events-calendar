@@ -1774,7 +1774,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// admin stylesheet - only load admin stylesheet when on Tribe pages
 			if ( $admin_helpers->is_screen() ) {
-				wp_enqueue_style( self::POSTTYPE . '-admin', tribe_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
+				wp_enqueue_style( self::POSTTYPE . '-admin', tribe_events_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 			}
 
 			// UI admin
