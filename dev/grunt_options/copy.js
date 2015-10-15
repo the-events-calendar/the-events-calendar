@@ -4,7 +4,7 @@
  * Documentation: https://npmjs.org/package/grunt-contrib-copy
  * Example:
  *
- main: {
+ 	main: {
 		files: [
 		  // includes files within path
 		  {expand: true, src: ['path/*'], dest: 'dest/', filter: 'isFile'},
@@ -26,20 +26,20 @@ module.exports = {
 
 	dist: {
 		files: [{
-			expand: true,
-			src: ['*',
-				'**/lang/**',
-				'**/src/**',
-				'!**/dev/**',
-				'!**/tests/**',
-				'!**/phpunit.xml',
-				'!**/tests.md',
-				'!**/codeception*.yml',
-				'!**/composer.json',
-				'!**/composer.lock'
-			],
-			dest: '<%= pkg._zipfoldername %>/'
-		}]
+				expand: true,
+				src: ['**',
+				      '!**/dev/**',
+				      '!**/tests/**',
+				      '!**/.git/**',
+				      '!**/vendor/isotope/index.html',
+				      '!**/vendor/isotope/_includes/**',
+				      '!**/vendor/isotope/_layouts/**',
+				      '!**/vendor/isotope/_posts/**',
+				      '!**/vendor/isotope/js/**',
+				      '!**/vendor/jquery-slimscroll/examples/**'
+				],
+				dest: '<%= pkg._zipfoldername %>/'
+			}]
 	}
 
 };
