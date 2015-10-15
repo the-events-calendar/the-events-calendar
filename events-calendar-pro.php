@@ -31,7 +31,10 @@ define( 'EVENTS_CALENDAR_PRO_DIR', dirname( __FILE__ ) );
 
 	// Instantiate class and set up WordPress actions.
 	function Tribe_ECP_Load() {
-		tribe_init_events_pro_autoloading();
+		if ( ! tribe_init_events_pro_autoloading() ) {
+			add_action( 'admin_notices', 'tribe_show_fail_message' );
+			return;
+		}
 
 		$classes_exist = class_exists( 'Tribe__Events__Main' ) && class_exists( 'Tribe__Events__Pro__Main' );
 		$version_ok = defined( 'Tribe__Events__Main::VERSION' ) && version_compare( Tribe__Events__Main::VERSION, Tribe__Events__Pro__Main::REQUIRED_TEC_VERSION, '>=' );
@@ -107,7 +110,7 @@ define( 'EVENTS_CALENDAR_PRO_DIR', dirname( __FILE__ ) );
 	 */
 	function tribe_init_events_pro_autoloading() {
 		if ( ! class_exists( 'Tribe__Autoloader' ) ) {
-			return;
+			return false;
 		}
 		$autoloader = Tribe__Autoloader::instance();
 
