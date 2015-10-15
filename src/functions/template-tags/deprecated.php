@@ -1461,20 +1461,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Returns or echoes a url to a file in the Events Calendar plugin resources directory
-	 *
-	 * @category Events
-	 * @param string $resource the filename of the resource
-	 * @param bool   $echo     whether or not to echo the url
-	 *
-	 * @return string
-	 **/
-	function tribe_events_resource_url( $resource, $echo = false ) {
-		_deprecated_function( __FUNCTION__, '4.0', 'tribe_resource_url' );
-		return tribe_resource_url( $resource, $echo );
-	}
-
-	/**
 	 * Formatted Date
 	 *
 	 * Returns formatted date
