@@ -60,7 +60,6 @@ class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCas
 			'eventDisplay' => 'custom',
 		));
 
-		$results = $results;
 		$this->assertCount( 1, $results );
 		$this->assertEquals( $this->test_parent_id, reset( $results )->ID );
 
