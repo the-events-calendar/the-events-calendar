@@ -101,4 +101,24 @@ class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCas
 
 		tribe_update_option( 'hideSubsequentRecurrencesDefault', $option );
 	}
+
+	/**
+	 * A WP_Query object may be passed a return fields argument set to "ids" or
+	 * "id=>parent" and the hide-recurrence logic ought to be able to accommodate
+	 * that.
+	 */
+	public function test_supports_query_fields_property() {
+		$query   = new WP_Query();
+		$results = $query->query( [
+			'post_type'           => Tribe__Events__Main::POSTTYPE,
+			'fields'              => 'ids',
+			'tribeHideRecurrence' => 1,
+			'start_date'          => '2014-05-01',
+			'eventDisplay'        => 'custom',
+		] );
+
+		$this->markTestSkipped(
+			'Tribe__Events__Pro__Recurrence_Meta::recurrence_collapse_sql() does not support this yet.'
+		);
+	}
 }
