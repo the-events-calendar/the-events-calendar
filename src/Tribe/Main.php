@@ -242,7 +242,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$this->maybe_set_common_lib_info();
 
-			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 1 );
+			// let's initialize tec silly-early to avoid fatals with upgrades from 3.x to 4.x
+			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
 		}
 
 		public function plugins_loaded() {
