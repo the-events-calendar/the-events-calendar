@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3.1
-Stable tag: 3.12.3
+Stable tag: 3.12.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -216,6 +216,10 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/18h9" target="_blank">The Events Calendar: iCal Importer</a>
 
 == Changelog ==
+
+= [3.12.4] 2015-10-15 =
+
+* Tweak - Altered our build process to remove utilities and libraries not needed in the finished product (our thanks to Jay for highlighting this problem)
 
 = [3.12.3] 2015-10-15 =
 
