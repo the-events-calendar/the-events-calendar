@@ -1,42 +1,51 @@
 <?php
 class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
+	protected $test_parent_id = 0;
+
+
 	/**
-	 * Creates a recurring event and confirms that we get the expected range of posts
-	 * back when we query with the tribeHideRecurrence flag set.
+	 * Create a recurring event for use by all subsequent tests.
+	 */
+	public function setUp() {
+		$start_date = date( 'Y-m-d', strtotime( '2014-05-01' ) );
+
+		$event_args = [
+			'post_type'        => Tribe__Events__Main::POSTTYPE,
+			'post_title'       => __FUNCTION__,
+			'post_content'     => __CLASS__ . ' ' . __FUNCTION__,
+			'post_name'        => 'test-tribeHideRecurrence',
+			'post_status'      => 'publish',
+			'EventStartDate'   => $start_date,
+			'EventEndDate'     => $start_date,
+			'EventStartHour'   => 16,
+			'EventEndHour'     => 17,
+			'EventStartMinute' => 0,
+			'EventEndMinute'   => 0,
+			'recurrence' => [
+				'rules' => [
+					0 => [
+						'type'      => 'Every Week',
+						'end-type'  => 'After',
+						'end'       => null,
+						'end-count' => 8,
+					],
+				],
+			],
+		];
+
+		// Create the parent then trigger the build of all child events
+		$this->test_parent_id = Tribe__Events__API::createEvent($event_args);
+		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue( PHP_INT_MAX );
+	}
+
+	/**
+	 * Ensure we get back the expected event data when querying with the
+	 * tribeHideRecurrence flag set.
 	 */
 	public function test_hides_subsequent_recurring_events() {
-		$start_date = date('Y-m-d', strtotime('2014-05-01'));
-		$event_args = array(
-			'post_type' => Tribe__Events__Main::POSTTYPE,
-			'post_title' => __FUNCTION__,
-			'post_content' => __CLASS__ . ' ' . __FUNCTION__,
-			'post_name' => 'test-tribeHideRecurrence',
-			'post_status' => 'publish',
-			'EventStartDate' => $start_date,
-			'EventEndDate' => $start_date,
-			'EventStartHour' => 16,
-			'EventEndHour' => 17,
-			'EventStartMinute' => 0,
-			'EventEndMinute' => 0,
-			'recurrence' => array(
-				'rules' => array(
-					0 => array(
-						'type' 				=> 'Every Week',
-						'end-type' 			=> 'After',
-						'end'				=> null,
-						'end-count' 		=> 8,
-					),
-				),// end rules array
-			)
-		);
-		$post_id = Tribe__Events__API::createEvent($event_args);
-
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
-
 		$children = get_posts(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
-			'post_parent' => $post_id,
+			'post_parent' => $this->test_parent_id,
 			'fields' => 'ids',
 			'posts_per_page' => 10,
 			'orderby' => 'ID',
@@ -52,8 +61,8 @@ class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCas
 		));
 
 		$results = $results;
-		$this->assertCount(1, $results);
-		$this->assertEquals($post_id, reset($results));
+		$this->assertCount( 1, $results );
+		$this->assertEquals( $this->test_parent_id, reset( $results )->ID );
 
 		$results = $query->query(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
@@ -93,5 +102,4 @@ class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCas
 
 		tribe_update_option( 'hideSubsequentRecurrencesDefault', $option );
 	}
-
 }
