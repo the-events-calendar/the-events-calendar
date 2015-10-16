@@ -423,6 +423,17 @@ h2.tribe-events-page-title,
 	max-width: none;
 }
 
+/* = Twenty* overrides
+=============================================*/
+
+.tribe-theme-twentyten.single-tribe_events .tribe-events-schedule .tribe-events-divider,
+.tribe-theme-twentyeleven.single-tribe_events .tribe-events-schedule .tribe-events-divider,
+.tribe-theme-twentytwelve.single-tribe_events .tribe-events-schedule .tribe-events-divider,
+.tribe-theme-twentythirteen.single-tribe_events .tribe-events-schedule .tribe-events-divider,
+.tribe-theme-twentyfourteen.single-tribe_events .tribe-events-schedule .tribe-events-divider {
+	display: none;
+}
+
 /* = Events Retina
 =============================================*/
 @media
