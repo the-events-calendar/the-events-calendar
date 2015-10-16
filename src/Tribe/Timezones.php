@@ -346,7 +346,7 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 	public static function adjust_timestamp( $unix_timestamp, $tzstring ) {
 		try {
 			$local = self::get_timezone( $tzstring );
-			$datetime = date_create_from_format( 'U', $unix_timestamp )->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+			$datetime = date_create_from_format( 'U', $unix_timestamp )->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 			return date_create_from_format( 'Y-m-d H:i:s', $datetime, $local )->getTimestamp();
 		}
 		catch( Exception $e ) {

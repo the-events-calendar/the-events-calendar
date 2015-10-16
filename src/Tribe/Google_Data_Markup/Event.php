@@ -17,8 +17,8 @@ class Tribe__Events__Google_Data_Markup__Event extends Tribe__Events__Google_Dat
 		$event_data = parent::build_data();
 
 		$event_data[ $id ]->{'@type'} = 'Event';
-		$event_data[ $id ]->startDate = get_gmt_from_date( tribe_get_start_date( $post, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ), 'c' );
-		$event_data[ $id ]->endDate   = get_gmt_from_date( tribe_get_end_date( $post, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ), 'c' );
+		$event_data[ $id ]->startDate = get_gmt_from_date( tribe_get_start_date( $post, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), 'c' );
+		$event_data[ $id ]->endDate   = get_gmt_from_date( tribe_get_end_date( $post, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), 'c' );
 		if ( tribe_has_venue( $id ) ) {
 			$event_data[ $id ]->location          = new stdClass();
 			$event_data[ $id ]->location->{'@type'} = 'Place';
