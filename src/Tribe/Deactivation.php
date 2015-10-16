@@ -16,7 +16,7 @@ class Tribe__Events__Deactivation extends Tribe__Abstract_Deactivation {
 	 * Remove event-related capabilities
 	 */
 	private function clear_capabilities() {
-		$capabilities = new Tribe__Capabilities();
+		$capabilities = new Tribe__Events__Capabilities();
 		$capabilities->remove_all_caps();
 	}
 
