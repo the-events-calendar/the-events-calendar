@@ -496,10 +496,6 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 	 * @return float
 	 */
 	public static function calc_site_fee( $amount ) {
-		if ( ! self::$pass_fees_to_user ) {
-			return round( $amount * ( self::$fee_percent / 100 ), 2 ) + self::$fee_flat;
-		}
-
-		return round( ( $amount / ( 1 - ( self::$fee_percent / 100 ) ) ) - $amount, 2 ) + self::$fee_flat;
+		return round( $amount * ( self::$fee_percent / 100 ), 2 ) + self::$fee_flat;
 	}
 }//end class
