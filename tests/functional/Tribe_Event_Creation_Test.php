@@ -61,7 +61,8 @@ class Tribe_Event_Creation_Test extends Tribe__Events__WP_UnitTestCase {
 
 		$this->assertEquals( 3, $post->post_author );
 		$this->assertEquals( 'This is event content!', $post->post_content );
-		$this->assertEquals( '', get_post_meta( $post->ID, '_EventAllDay', true ) );
+		//The Event does not go all day so it is 'no'
+		$this->assertEquals( 'no', get_post_meta( $post->ID, '_EventAllDay', true ) );
 		$this->assertEquals( 1, get_post_meta( $post->ID, '_EventHideFromUpcoming', true ) );
 		$this->assertEquals( 5, get_post_meta( $post->ID, '_EventOrganizerID', true ) );
 		$this->assertEquals( 8, get_post_meta( $post->ID, '_EventVenueID', true ) );
@@ -91,7 +92,7 @@ class Tribe_Event_Creation_Test extends Tribe__Events__WP_UnitTestCase {
 
 		$this->assertEquals( 3, $post->post_author );
 		$this->assertEquals( 'This is event content!', $post->post_content );
-		$this->assertEquals( '', get_post_meta( $post->ID, '_EventAllDay', true ) );
+		$this->assertEquals( 'no', get_post_meta( $post->ID, '_EventAllDay', true ) );
 		$this->assertEquals( 1, get_post_meta( $post->ID, '_EventHideFromUpcoming', true ) );
 		$this->assertEquals( 5, get_post_meta( $post->ID, '_EventOrganizerID', true ) );
 		$this->assertEquals( 8, get_post_meta( $post->ID, '_EventVenueID', true ) );
