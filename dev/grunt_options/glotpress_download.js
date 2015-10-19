@@ -6,9 +6,9 @@
 module.exports = {
   core: {
     options: {
-      url: 'http://translations.theeventscalendar.com',
+      url: 'https://translate.wordpress.org',
       domainPath: 'lang',
-      slug: 'the-events-calendar',
+      slug: 'wp-plugins/the-events-calendar/stable',
       textdomain: 'the-events-calendar',
     },
   },
