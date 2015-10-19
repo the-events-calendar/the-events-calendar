@@ -136,10 +136,11 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 		 */
 		public function get_output( $instance, $deprecated = null, $deprecated_ = null, $deprecated__ = null ) {
 			if ( 'next-event' === $instance['type'] ) {
-				$event = reset( tribe_get_events( array(
+				$event = tribe_get_events( array(
 					'eventDisplay' => 'list',
 					'posts_per_page' => 1,
-				) ) );
+				) );
+				$event = reset( $event );
 			} else {
 				$event = get_post( $instance['event'] );
 			}
