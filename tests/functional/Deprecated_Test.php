@@ -16,7 +16,6 @@ class Tribe_Deprecated_Test extends Tribe__Events__WP_UnitTestCase {
 			array( 'Tribe__Events__Autoloader' ),
 			array( 'Tribe__Events__Cache' ),
 			array( 'Tribe__Events__Cache_Listener' ),
-			array( 'Tribe__Events__Capabilities' ),
 			array( 'Tribe__Events__Changelog_Reader' ),
 			array( 'Tribe__Events__Credits' ),
 			array( 'Tribe__Events__Date_Utils' ),
@@ -24,8 +23,6 @@ class Tribe_Deprecated_Test extends Tribe__Events__WP_UnitTestCase {
 			array( 'Tribe__Events__Settings' ),
 			array( 'Tribe__Events__Settings_Tab' ),
 			array( 'Tribe__Events__Support' ),
-			// this does not *actually* appear to be deprecated
-			array( 'Tribe__Events__Template_Factory' ),
 			array( 'Tribe__Events__Template_Part_Cache' ),
 			array( 'Tribe__Events__Validate' ),
 			array( 'Tribe__Events__View_Helpers' ),
