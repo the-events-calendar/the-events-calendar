@@ -93,6 +93,10 @@ class Tribe_Deprecated_Test extends Tribe__Events__WP_UnitTestCase {
 	 * @dataProvider deprecated_classes_4_0
 	 */
 	public function test_deprecated_class_4_0( $class ) {
+		if ( class_exists( $class, false ) ) {
+            $this->markTestSkipped( $class . 'was already loaded' );
+        }
+
 		$this->expected_deprecated_file[] = dirname( dirname( dirname( __FILE__ ) ) ) . '/common/src/deprecated/' . $class . '.php';
 		$this->assertTrue( class_exists( $class ), 'Class "' . $class . '" does not exist.' );
 	}
@@ -103,6 +107,10 @@ class Tribe_Deprecated_Test extends Tribe__Events__WP_UnitTestCase {
 	 * 	 * @dataProvider deprecated_classes_3_10
 	 */
 	public function test_deprecated_classes_3_10( $class ) {
+		if ( class_exists( $class, false ) ) {
+            $this->markTestSkipped( $class . 'was already loaded' );
+        }
+        
 		$this->expected_deprecated_file[] = dirname( dirname( dirname( __FILE__ ) ) ) . '/src/deprecated/' . $class . '.php';
 		$this->assertTrue( class_exists( $class ), 'Class "' . $class . '" does not exist.' );
 	}
