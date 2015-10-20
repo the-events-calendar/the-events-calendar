@@ -1498,7 +1498,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$end_date->modify( '+' . absint( $rule[ 'custom' ][ 'duration' ][ 'hours' ] ) . ' hours' );
 					$end_date->modify( '+' . absint( $rule[ 'custom' ][ 'duration' ][ 'minutes' ] ) . ' minutes' );
 
-					$formatted_end = Tribe__Events__View_Helpers::is_24hr_format()
+					$formatted_end = Tribe__View_Helpers::is_24hr_format()
 						? $end_date->format( 'Y-m-d H:i' )
 						: $end_date->format( 'Y-m-d g:i' );
 
@@ -2075,7 +2075,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 	/**
 	 * @param string     $html
-	 * @param Tribe__Events__Field $field
+	 * @param Tribe__Field $field
 	 *
 	 * @return string
 	 */
