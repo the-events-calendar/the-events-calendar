@@ -23,7 +23,7 @@ class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCas
 			'EventEndMinute'   => 0,
 			'recurrence' => [
 				'rules' => [
-					0 => [
+					[
 						'type'      => 'Every Week',
 						'end-type'  => 'After',
 						'end'       => null,
