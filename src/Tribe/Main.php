@@ -255,6 +255,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
 
 				$this->addHooks();
+				$this->maybe_load_tickets_framework();
 				$this->loadLibraries();
 			} else {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
@@ -525,9 +526,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Templates', 'init' ) );
 
 			add_action( 'init', array( $this, 'filter_cron_schedules' ) );
-
-			// The priority should always be < 5, to allow the framework to load
-			add_action( 'plugins_loaded', array( $this, 'maybe_load_tickets_framework' ), 3 );
 
 			// Add support for tickets plugin
 			add_action( 'tribe_tickets_ticket_added', array( 'Tribe__Events__API', 'update_event_cost' ) );
