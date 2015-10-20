@@ -151,7 +151,7 @@ function tribe_events_get_widget_event_post_date() {
 	$yesterday = $today - DAY_IN_SECONDS;
 
 	// Gets Yesterday cutoff to check which date we pick
-	$yesterday_end = ( (int) tribe_event_end_of_day( $yesterday, 'U' ) ) + 1;
+	$yesterday_end = ( (int) tribe_end_of_day( $yesterday, 'U' ) ) + 1;
 	$yesterday_end += $yesterday;
 
 	// Check if the yesterday cutoff will get the start date of the event
