@@ -80,29 +80,33 @@ class TribeEventsRecurrenceScheduler_Test extends Tribe__Events__Pro__WP_UnitTes
 		);
 
 		$post_id = Tribe__Events__API::createEvent($event_args);
+
+		$this->assertNotEmpty( $post_id , 'Checking that the event post has been succesfully created.' );
+
 		// process the queue, otherwise all the children won't get created
 		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
 
-		$this->assertNotEmpty( $event_args , 'Checking that there number of events is not 0' );
-
-		//checking to make sure that there is 200 events created 
+		//checking to make sure that there is 200 events created
 		$recurrence_spec = get_post_meta( $post_id, '_EventRecurrence', TRUE );
-		//200 Events are created by the end-count and it checks to make sure that there are inface 200 created
+		//200 Events are created by the end-count and it checks to make sure that there are infact 200 created
 		$this->assertEquals( 200, $recurrence_spec['rules'][0]['end-count'] ,'Check that there are 200 events' );
 
 		/** @var wpdb $wpdb */
 		global $wpdb;
 		$instances = $wpdb->get_col($wpdb->prepare("SELECT meta_value FROM {$wpdb->postmeta} m INNER JOIN {$wpdb->posts} p ON p.ID=m.post_id AND (p.post_parent=%d OR p.ID=%d) WHERE meta_key='_EventStartDate' AND meta_value < %s", $post_id, $post_id, date('Y-m-d')));
 		//Checks that the instances of the event is more than 50
-		$this->assertGreaterThan(50, count($instances), 'Checks that there are more than 50 events' );
+		$this->assertGreaterThan(50, count($instances), 'Checks that there are more than 50 weekly events in an year' );
+		$this->assertLessThanOrEqual(54, count($instances), 'Checks that there are at most 54 weekly events in an year' );
 
 		tribe_update_option('recurrenceMaxMonthsBefore', 6);
+
 		Tribe__Events__Pro__Recurrence_Meta::reset_scheduler();
 		$scheduler = Tribe__Events__Pro__Recurrence_Meta::get_scheduler();
 		$scheduler->clean_up_old_recurring_events();
 
 		$instances = $wpdb->get_col($wpdb->prepare("SELECT meta_value FROM {$wpdb->postmeta} m INNER JOIN {$wpdb->posts} p ON p.ID=m.post_id AND (p.post_parent=%d OR p.ID=%d) WHERE meta_key='_EventStartDate' AND meta_value < %s", $post_id, $post_id, date('Y-m-d')));
 		//After the cleanup old recurreing events and making sure it is less than 30
+		// Why 30? 6 months * ~4 weekly events = ~24
 		$this->assertLessThan(30, count($instances), 'Checks that after clean up there are now less than 30 events' );
 
 		// the first instance should always remain
