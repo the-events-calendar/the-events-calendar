@@ -1,6 +1,5 @@
 <?php
 
-
 class Tribe__Events__WP_UnitTestCase extends WP_UnitTestCase {
 
 	// avoid errors with singletons and closures
@@ -13,6 +12,11 @@ class Tribe__Events__WP_UnitTestCase extends WP_UnitTestCase {
 	protected $caught_deprecated_file = [];
 
 	/**
+	 * @var holds example data for the post
+	 */
+	protected $post_example_settings;
+
+	/**
 	 * Gets the path to the _data folder without trailing slash.
 	 *
 	 * @return string
@@ -22,7 +26,31 @@ class Tribe__Events__WP_UnitTestCase extends WP_UnitTestCase {
 	}
 
 	public function setUp() {
+		// set a permalink structure as soon as possible
+		$this->set_permalink_structure( '/%year%/%monthnum%/%day%/%postname%/' );
+
 		parent::setUp();
+
+		$this->post_example_settings = array(
+			'post_author'           => 3,
+			'post_title'            => 'Test event',
+			'post_content'          => 'This is event content!',
+			'post_status'           => 'publish',
+			'EventAllDay'           => false,
+			'EventHideFromUpcoming' => true,
+			'EventOrganizerID'      => 5,
+			'EventVenueID'          => 8,
+			'EventShowMapLink'      => true,
+			'EventShowMap'          => true,
+			'EventStartDate'        => '2012-01-01',
+			'EventEndDate'          => '2012-01-03',
+			'EventStartHour'        => '01',
+			'EventStartMinute'      => '15',
+			'EventStartMeridian'    => 'am',
+			'EventEndHour'          => '03',
+			'EventEndMinute'        => '25',
+			'EventEndMeridian'      => 'pm',
+		);
 	}
 
 	public function expectDeprecated() {
@@ -52,5 +80,17 @@ class Tribe__Events__WP_UnitTestCase extends WP_UnitTestCase {
 		}
 
 		parent::expectedDeprecated();
+	}
+
+	/**
+	 * For compatibility until WP_Browser updates testcase.php
+	 * See: https://github.com/lucatume/wp-browser/pull/23
+	 */
+	public function set_permalink_structure( $structure = '' ) {
+		global $wp_rewrite;
+
+		$wp_rewrite->init();
+		$wp_rewrite->set_permalink_structure( $structure );
+		$wp_rewrite->flush_rules();
 	}
 }
