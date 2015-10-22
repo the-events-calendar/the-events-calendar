@@ -176,6 +176,9 @@
 				add_filter( 'tribe_events_default_value_strategy', array( $this, 'set_default_value_strategy' ) );
 				add_action( 'plugins_loaded', array( $this, 'init_apm_filters' ) );
 
+				// Fire up the Customizer Main Class
+				add_action( 'plugins_loaded', array( 'Tribe__Events__Pro__Customizer__Main', 'instance' ) );
+
 				// override list view ajax get_event args if viewing all instances of a recurring post
 				add_filter( 'tribe_events_listview_ajax_get_event_args', array( $this, 'override_listview_get_event_args' ), 10, 2 );
 				add_filter( 'tribe_events_listview_ajax_event_display', array( $this, 'override_listview_display_setting' ), 10, 2 );
