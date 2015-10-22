@@ -596,7 +596,10 @@ select.tribe-events-dropdown {
 	padding: 6px 9px;
 	line-height: 1.2;
 }
-.tribe-events-calendar td a {font-size: 91.7%;}
+.tribe-events-calendar td a {
+	font-size: 91.7%;
+	word-break: break-all;
+}
 .tribe-events-calendar div[id*="tribe-events-event-"],
 .tribe-events-calendar div[id*="tribe-events-daynum-"] {
 	position: relative;
