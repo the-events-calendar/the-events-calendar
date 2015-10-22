@@ -46,14 +46,6 @@ $defaultsTab = array(
 			'type' => 'html',
 			'html' => '<div class="tribe-settings-form-wrap">',
 		),
-		'eventsDefaultOptionsHelperTitle'   => array(
-			'type' => 'html',
-			'html' => '<h3>' . __( 'Options', 'tribe-events-calendar-pro' ) . '</h3>',
-		),
-		'defaultValueReplaceHelper'         => array(
-			'type' => 'html',
-			'html' => '<p style="margin-top:-15px;" class="tribe-field-indent tribe-field-description description">' . __( 'Check this box to have the organizer and venue fields pre-populated with the default values below for any new event that is created.', 'tribe-events-calendar-pro' ) . '</p>',
-		),
 		'eventsDefaultOrganizerHelperTitle' => array(
 			'type' => 'html',
 			'html' => '<h3>' . __( 'Organizer', 'tribe-events-calendar-pro' ) . '</h3>',
