@@ -1060,7 +1060,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		// single-event notices are jumping in on this init when loading as a module
-		Tribe__Events__Main::removeNotice( 'event-past' );
+		Tribe__Notices::remove_notice( 'event-past' );
 
 		// get the list view template
 		ob_start();
