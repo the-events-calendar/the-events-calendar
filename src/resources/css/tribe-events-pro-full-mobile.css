@@ -44,7 +44,7 @@
 	margin-top: 0;
 }
 
-/* = Photo View Template Styles 
+/* = Photo View Template Styles
    @ Template: Photo.php
 =============================================*/
 #tribe-events-content {
@@ -141,7 +141,7 @@
 	margin-bottom: 12px;
 }
 
-/* = Map View Template Styles 
+/* = Map View Template Styles
    @ Template: Map.php
 =============================================*/
 #tribe-geo-map {
@@ -167,7 +167,7 @@ h3.tribe-events-related-events-title {
 	margin-bottom: 12px;
 	width: 100%;
 	padding:10px;
-}	
+}
 .tribe-events-single ul.tribe-related-events li:after {content: ""; display: table;}
 .tribe-events-single ul.tribe-related-events li:after {clear: both;}
 .tribe-events-single ul.tribe-related-events li {zoom: 1;}
@@ -180,7 +180,7 @@ h3.tribe-events-related-events-title {
 .tribe-events-single ul.tribe-related-events .tribe-related-events-thumbnail {
 	float:right;
 	width:30%;
-}	
+}
 .tribe-events-single ul.tribe-related-events .tribe-related-events-title {
 	margin-bottom: 4px;
 }
@@ -199,8 +199,8 @@ h3.tribe-events-related-events-title {
 /* = Mobile Styles: Photo View (max-width: 600px)
 =============================================*/
 @media (max-width: 600px) {
-	
-	/* = Photo View Template Styles 
+
+	/* = Photo View Template Styles
    	   @ Template: Photo.php
 	=============================================*/
 	div#tribe-events-photo-events {
