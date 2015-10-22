@@ -32,8 +32,16 @@
 		}
 
 		public function maybe_set_active( $return, $key, $filter ) {
-			if ( isset( $_POST[ $key ] ) && ! empty( $_POST[ $key ] ) && isset( $_POST[ 'is_' . $key ] ) && ! empty( $_POST[ 'is_' . $key ] ) ) {
+			global $ecp_apm;
+
+			if ( ! empty( $_POST[ $key ] ) && ! empty( $_POST[ 'is_' . $key ] ) ) {
 				return array( 'value' => $_POST[ $key ], 'is' => $_POST[ 'is_' . $key ], 'is_date_field' => true );
+			}
+
+			$active_filters = $ecp_apm->filters->get_active();
+
+			if ( ! empty( $active_filters[ $key ] ) && ! empty( $active_filters[ 'is_' . $key ] ) ) {
+				return array( 'value' => $active_filters[ $key ], 'is' => $active_filters[ 'is_' . $key ], 'is_date_field' => true );
 			}
 
 			return $return;
@@ -80,16 +88,16 @@
 
 				switch ( $active['is'] ) {
 					case 'is':
-						$where .= $wpdb->prepare( " AND $field BETWEEN %s AND %s ", tribe_event_beginning_of_day( $value ), tribe_event_end_of_day( $value ) );
+						$where .= $wpdb->prepare( " AND $field BETWEEN %s AND %s ", tribe_beginning_of_day( $value ), tribe_end_of_day( $value ) );
 						break;
 					case 'not':
-						$where .= $wpdb->prepare( " AND $field NOT BETWEEN %s AND %s ", tribe_event_beginning_of_day( $value ), tribe_event_end_of_day( $value ) );
+						$where .= $wpdb->prepare( " AND $field NOT BETWEEN %s AND %s ", tribe_beginning_of_day( $value ), tribe_end_of_day( $value ) );
 						break;
 					case 'gte':
-						$where .= $wpdb->prepare( " AND $field >= %s ", tribe_event_beginning_of_day( $value ) );
+						$where .= $wpdb->prepare( " AND $field >= %s ", tribe_beginning_of_day( $value ) );
 						break;
 					case 'lte':
-						$where .= $wpdb->prepare( " AND $field <= %s ", tribe_event_end_of_day( $value ) );
+						$where .= $wpdb->prepare( " AND $field <= %s ", tribe_end_of_day( $value ) );
 						break;
 
 				}

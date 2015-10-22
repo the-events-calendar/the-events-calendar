@@ -19,19 +19,32 @@
 			add_filter( 'tribe_maybe_active' . $type, array( $this, 'maybe_set_active' ), 10, 3 );
 		}
 
-
 		public function maybe_set_active( $return, $key, $filter ) {
-			if ( isset( $_POST[ $this->key ] ) && ! empty( $_POST[ $this->key ] ) ) {
+			global $ecp_apm;
+
+			if ( ! empty( $_POST[ $this->key ] ) ) {
 				return $_POST[ $this->key ];
+			}
+
+			$active_filters = $ecp_apm->filters->get_active();
+
+			if ( ! empty( $active_filters[ $this->key ] ) ) {
+				return $active_filters[ $this->key ];
 			}
 
 			return $return;
 		}
 
-
 		public function join_organizer( $join, $wp_query ) {
+			global $ecp_apm;
 
-			if ( empty( $_POST[ $this->key ] ) ) {
+			$active_filters = array();
+
+			if ( isset( $ecp_apm ) && isset( $ecp_apm->filters ) ) {
+				$active_filters = $ecp_apm->filters->get_active();
+			}
+
+			if ( empty( $_POST[ $this->key ] ) && empty( $active_filters[ $this->key ] ) ) {
 				return $join;
 			}
 
@@ -42,11 +55,20 @@
 		}
 
 		public function where_organizer( $where ) {
-			if ( empty( $_POST[ $this->key ] ) ) {
+			global $ecp_apm;
+
+			$active_filters = array();
+
+			if ( isset( $ecp_apm ) && isset( $ecp_apm->filters ) ) {
+				$active_filters = $ecp_apm->filters->get_active();
+			}
+
+			if ( empty( $_POST[ $this->key ] ) && empty( $active_filters[ $this->key ] ) ) {
 				return $where;
 			}
 
-			$organizers = array_filter( array_map( 'absint', (array) $_POST[ $this->key ] ) );
+			$organizers = empty( $_POST[ $this->key ] ) ? $active_filters[ $this->key ] : $_POST[ $this->key ];
+			$organizers = array_filter( array_map( 'absint', (array) $organizers ) );
 
 			if ( empty( $organizers ) ) {
 				return $where;

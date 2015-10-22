@@ -19,7 +19,9 @@ class TribeEventsPro_RecurrenceInstance_Test extends Tribe__Events__Pro__WP_Unit
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 		));
+		//makes a new instance of events
 		$instance = new Tribe__Events__Pro__Recurrence_Instance( $parent_id, strtotime('2014-03-01'));
+		//duration in seconds
 		$this->assertEquals(3600, $instance->get_parent_duration());
 	}
 
@@ -103,9 +105,12 @@ class TribeEventsPro_RecurrenceInstance_Test extends Tribe__Events__Pro__WP_Unit
 		));
 		$tag = $this->factory->tag->create_object(array('name' => 'test tag'));
 		wp_set_object_terms( $parent_id, (int)$tag, 'post_tag' );
+		//testing the tags on the parents
+		$this->assertEqualSets( array( $tag ), wp_get_object_terms( $parent_id, 'post_tag', array( 'fields' => 'ids' ) ) );
+
 		$instance = new Tribe__Events__Pro__Recurrence_Instance( $parent_id, strtotime('2014-03-01 16:00:00'));
 		$instance->save();
-
+		//testing the tags on the instance
 		$this->assertEqualSets( array( $tag ), wp_get_object_terms( $instance->get_id(), 'post_tag', array( 'fields' => 'ids' ) ) );
 	}
 }

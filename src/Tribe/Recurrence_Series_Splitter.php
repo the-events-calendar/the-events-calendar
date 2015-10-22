@@ -81,7 +81,7 @@ class Tribe__Events__Pro__Recurrence_Series_Splitter {
 		$new_parent->post_parent   = 0;
 		$new_parent->comment_count = 0;
 		wp_update_post( $new_parent );
-		foreach ( $children_to_move_to_new_series as $child_id ) {
+		foreach ( $children_to_move_to_new_series as $child_id => $child_date ) {
 			$child                = get_post( $child_id );
 			$child->post_parent   = $first_event_of_new_series;
 			$child->comment_count = 0;
@@ -115,7 +115,7 @@ class Tribe__Events__Pro__Recurrence_Series_Splitter {
 
 		$new_series_recurrence = get_post_meta( $first_child->ID, '_EventRecurrence', true );
 		$new_date = get_post_meta( $first_child->ID, '_EventStartDate', true );
-		$new_series_recurrence = $this->maybe_alter_recurrence_end_count( $first_child->ID, $new_series_recurrence, $date );
+		$new_series_recurrence = $this->maybe_alter_recurrence_end_count( $first_child->ID, $new_series_recurrence, $new_date );
 
 		update_post_meta( $first_child->ID, '_EventRecurrence', $new_series_recurrence );
 

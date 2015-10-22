@@ -79,8 +79,8 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 			if ( is_numeric( $instance['event'] ) ){
 				$event = get_post( $instance['event'] );
 				if ( $event instanceof WP_Post && ! in_array( $event->ID, wp_list_pluck( $events, 'ID' ) ) ){
-					$event->EventStartDate = tribe_get_start_date( $event->ID, false, Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
-					$event->EventEndDate = tribe_get_end_date( $event->ID, false, Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+					$event->EventStartDate = tribe_get_start_date( $event->ID, false, Tribe__Date_Utils::DBDATETIMEFORMAT );
+					$event->EventEndDate = tribe_get_end_date( $event->ID, false, Tribe__Date_Utils::DBDATETIMEFORMAT );
 					$events = array_merge( array( $event ), $events );
 				}
 			}
@@ -136,10 +136,11 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 		 */
 		public function get_output( $instance, $deprecated = null, $deprecated_ = null, $deprecated__ = null ) {
 			if ( 'next-event' === $instance['type'] ) {
-				$event = reset( tribe_get_events( array(
+				$event = tribe_get_events( array(
 					'eventDisplay' => 'list',
 					'posts_per_page' => 1,
-				) ) );
+				) );
+				$event = reset( $event );
 			} else {
 				$event = get_post( $instance['event'] );
 			}
@@ -152,7 +153,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 
 			if ( $event instanceof WP_Post ) {
 				// Get the event start date.
-				$startdate = tribe_get_start_date( $event->ID, false, Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+				$startdate = tribe_get_start_date( $event->ID, false, Tribe__Date_Utils::DBDATETIMEFORMAT );
 
 				// Get the number of seconds remaining until the date in question.
 				$seconds = strtotime( $startdate ) - current_time( 'timestamp' );

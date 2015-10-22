@@ -57,11 +57,21 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 				$recurrence_meta = get_post_meta( $post_id, '_EventRecurrence', true );
 
 				if ( ! empty( $recurrence_meta['rules'] ) ) {
+					// check if this is event has old-style meta (pre 3.12)
+					if ( ! isset( $recurrence_meta['rules'] ) && isset( $recurrence_meta['type'] ) ) {
+						$recurrence_meta['rules'] = array( $recurrence_meta );
+					}
 					foreach ( $recurrence_meta['rules'] as &$recurrence ) {
 						if ( 'None' !== $recurrence['type'] ) {
 							$recurring = true;
 							break;
 						}
+					}
+
+				// Support legacy Recurrence
+				} elseif ( ! empty( $recurrence_meta['type'] ) ) {
+					if ( 'None' !== $recurrence_meta['type'] ) {
+						$recurring = true;
 					}
 				}
 			}
@@ -443,7 +453,7 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 
 		$tec = Tribe__Events__Main::instance();
 
-		$unit     = $tec->getOption( 'geoloc_default_unit', 'miles' );
+		$unit     = Tribe__Settings_Manager::get_option( 'geoloc_default_unit', 'miles' );
 		$distance = round( tribe_convert_units( $distance_in_kms, 'kms', $unit ), 2 );
 
 		if ( has_filter( 'tribe_formatted_distance' ) ) {
@@ -500,7 +510,7 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 	 * @param null|mixed $date  given date or week # (week # assumes current year)
 	 *
 	 * @return string
-	 * @todo move logic to Tribe__Events__Date_Utils
+	 * @todo move logic to Tribe__Date_Utils
 	 */
 	function tribe_get_first_week_day( $date = null ) {
 		global $wp_query;

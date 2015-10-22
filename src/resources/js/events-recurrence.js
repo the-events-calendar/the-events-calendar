@@ -458,17 +458,26 @@ tribe_events_pro_admin.recurrence = {
 		var num_hours = Math.ceil( ( end_moment.diff( start_moment, 'hours', true ) - ( num_days * 24 ) ) * 100 ) / 100;
 
 		var new_start_time = $rule.find( '[data-field="custom-start-time-hour"] option:selected' ).val() + ':'+
-			$rule.find( '[data-field="custom-start-time-minute"] option:selected' ).val() + ' ' +
-			$rule.find( '[data-field="custom-start-time-meridian"] option:selected' ).val();
+			$rule.find( '[data-field="custom-start-time-minute"] option:selected' ).val();
+
+		var $custom_start_meridian = $rule.find( '[data-field="custom-start-time-meridian"] option:selected' );
+		if ( $custom_start_meridian.length ) {
+			new_start_time += ' ' + $custom_start_meridian.val();
+		}
+
 		var new_start = start_moment.format( 'YYYY-MM-DD' ) + ' ' + new_start_time;
 
-		var new_end_time = $rule.find( '[data-field="custom-end-time-hour"] option:selected' ).val() + ':' +
-			$rule.find( '[data-field="custom-end-time-minute"] option:selected' ).val() + ' ' +
-			$rule.find( '[data-field="custom-end-time-meridian"] option:selected' ).val();
-		var new_end = end_moment.format( 'YYYY-MM-DD' ) + ' ' + new_end_time;
+		var duration_days = parseInt( $rule.find( '[data-field="custom-duration-days"]' ).val(), 10 );
+		var duration_hours = parseInt( $rule.find( '[data-field="custom-duration-hours"]' ).val(), 10 );
+		var duration_minutes = parseInt( $rule.find( '[data-field="custom-duration-minutes"]' ).val(), 10 );
 
 		var new_start_moment = moment( new_start, date_format );
-		var new_end_moment = moment( new_end, date_format );
+
+		var new_end_moment = new_start_moment.add( {
+			days: duration_days,
+			hours: duration_hours,
+			minutes: duration_minutes
+		} );
 
 		var new_num_days = new_end_moment.diff( new_start_moment, 'days' );
 
@@ -892,10 +901,10 @@ tribe_events_pro_admin.recurrence = {
 		$( this ).removeClass( 'placeholder' );
 
 		/**
-		 * DEPRECATED: recurrenceEndChanged has been deprecated in 4.0. Use recurrence-end-changed.events-pro.tribe instead
+		 * DEPRECATED: recurrenceEndChanged has been deprecated in 4.0. Use recurrence-end-changed.tribe instead
 		 */
 		$( this ).trigger( 'recurrenceEndChanged' );
-		$( this ).trigger( 'recurrence-end-changed.events-pro.tribe' );
+		$( this ).trigger( 'recurrence-end-changed.tribe' );
 	};
 
 	my.event.recurrence_row_changed = function() {

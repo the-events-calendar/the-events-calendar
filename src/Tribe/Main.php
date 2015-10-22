@@ -44,7 +44,7 @@
 			public $widget_wrappers;
 
 			const REQUIRED_TEC_VERSION = '3.12';
-			const VERSION = '3.12.1';
+			const VERSION = '3.12.4dev1';
 
 			private function __construct() {
 				$this->pluginDir = trailingslashit( basename( EVENTS_CALENDAR_PRO_DIR ) );
@@ -61,6 +61,7 @@
 				require_once( $this->pluginPath . 'src/functions/template-tags/week.php' );
 				require_once( $this->pluginPath . 'src/functions/template-tags/venue.php' );
 				require_once( $this->pluginPath . 'src/functions/template-tags/widgets.php' );
+				require_once( $this->pluginPath . 'src/functions/template-tags/ical.php' );
 
 				// Load Deprecated Template Tags
 				if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
@@ -80,7 +81,7 @@
 				add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 
 				// Rewrite Related Filters
-				add_filter( 'tribe_events_pre_rewrite', array( $this, 'filter_add_routes' ), 11 );
+				add_filter( 'tribe_events_pre_rewrite', array( $this, 'filter_add_routes' ), 5 );
 				add_filter( 'tribe_events_rewrite_base_slugs', array( $this, 'filter_add_base_slugs' ), 11 );
 				add_filter( 'tribe_events_rewrite_i18n_domains', array( $this, 'filter_add_i18n_pro_domain' ), 11 );
 
@@ -394,6 +395,7 @@
 			 */
 			public function init() {
 				Tribe__Events__Pro__Mini_Calendar::instance();
+				Tribe__Events__Pro__This_Week::instance();
 				Tribe__Events__Pro__Custom_Meta::init();
 				Tribe__Events__Pro__Recurrence_Meta::init();
 				Tribe__Events__Pro__Geo_Loc::instance();
@@ -586,9 +588,9 @@
 			 */
 			public function add_settings_tabs() {
 				require_once( $this->pluginPath . 'src/admin-views/tribe-options-defaults.php' );
-				new Tribe__Events__Settings_Tab( 'defaults', __( 'Default Content', 'tribe-events-calendar-pro' ), $defaultsTab );
+				new Tribe__Settings_Tab( 'defaults', __( 'Default Content', 'tribe-events-calendar-pro' ), $defaultsTab );
 				// The single-entry array at the end allows for the save settings button to be displayed.
-				new Tribe__Events__Settings_Tab( 'additional-fields', __( 'Additional Fields', 'tribe-events-calendar-pro' ), array(
+				new Tribe__Settings_Tab( 'additional-fields', __( 'Additional Fields', 'tribe-events-calendar-pro' ), array(
 					'priority' => 35,
 					'fields'   => array( null ),
 				) );
@@ -599,7 +601,7 @@
 				$this->plural_event_label = tribe_get_event_label_plural();
 				switch ( $tab ) {
 					case 'display':
-						$fields = Tribe__Events__Main::array_insert_after_key(
+						$fields = Tribe__Main::array_insert_after_key(
 							'tribeDisableTribeBar', $fields, array(
 								'hideRelatedEvents' => array(
 									'type'            => 'checkbox_bool',
@@ -610,7 +612,7 @@
 								),
 							)
 						);
-						$fields = Tribe__Events__Main::array_insert_after_key(
+						$fields = Tribe__Main::array_insert_after_key(
 							'monthAndYearFormat', $fields, array(
 								'weekDayFormat' => array(
 									'type' => 'text',
@@ -622,7 +624,7 @@
 								),
 							)
 						);
-						$fields = Tribe__Events__Main::array_insert_after_key(
+						$fields = Tribe__Main::array_insert_after_key(
 							'hideRelatedEvents', $fields, array(
 								'week_view_hide_weekends' => array(
 									'type'            => 'checkbox_bool',
@@ -853,13 +855,13 @@
 								// If so, start on the next weekday.
 								// 0 = Sunday, 6 = Saturday
 								if ( $start_of_week == 0 || $start_of_week == 6 ) {
-									$start_date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( $start_date . ' +1 Weekday' ) );
+									$start_date = date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( $start_date . ' +1 Weekday' ) );
 								}
 								// If the week starts on saturday or friday
 								// sunday and/or saturday would be on the other end, so we need to end the previous weekday
 								// 5 = Friday, 6 = Saturday
 								if ( $start_of_week == 5 || $start_of_week == 6 ) {
-									$end_date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( $end_date . ' -1 Weekday' ) );
+									$end_date = date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( $end_date . ' -1 Weekday' ) );
 								}
 							}
 
@@ -905,7 +907,7 @@
 				if ( empty( $date ) || empty( $slug ) ) {
 					return; // we shouldn't be here
 				}
-				$cache = new Tribe__Events__Cache();
+				$cache = new Tribe__Cache();
 				$post_id = $cache->get( 'single_event_' . $slug . '_' . $date, 'save_post' );
 				if ( ! empty( $post_id ) ) {
 					unset( $query->query_vars['name'] );
@@ -951,7 +953,7 @@
 					unset( $query->query_vars['name'] );
 					unset( $query->query_vars['tribe_events'] );
 					$query->set( 'p', $post_id );
-					$cache->set( 'single_event_' . $slug . '_' . $date, $post_id, Tribe__Events__Cache::NO_EXPIRATION, 'save_post' );
+					$cache->set( 'single_event_' . $slug . '_' . $date, $post_id, Tribe__Cache::NO_EXPIRATION, 'save_post' );
 				}
 			}
 
@@ -1120,6 +1122,7 @@
 				     || is_active_widget( false, false, 'tribe-events-countdown-widget' )
 				     || is_active_widget( false, false, 'next_event' )
 				     || is_active_widget( false, false, 'tribe-events-venue-widget' )
+				     || is_active_widget( false, false, 'tribe-this-week-events-widget' )
 				) {
 
 					Tribe__Events__Pro__Template_Factory::asset_package( 'events-pro-css' );
@@ -1313,15 +1316,15 @@
 				);
 				$messages[ Tribe__Events__Main::VENUE_POST_TYPE ][10] = sprintf( __( 'Venue draft updated. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar-pro' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) );
 
-				$messages[ Tribe__Events__Main::ORGANIZER_POST_TYPE ][1] = sprintf( __( 'Organizer updated. <a href="%s">View organizer</a>', 'tribe-events-calendar' ), esc_url( get_permalink( $post_ID ) ) );
-				$messages[ Tribe__Events__Main::ORGANIZER_POST_TYPE ][6] = sprintf( __( 'Organizer published. <a href="%s">View organizer</a>', 'tribe-events-calendar' ), esc_url( get_permalink( $post_ID ) ) );
-				$messages[ Tribe__Events__Main::ORGANIZER_POST_TYPE ][8] = sprintf( __( 'Organizer submitted. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) );
+				$messages[ Tribe__Events__Main::ORGANIZER_POST_TYPE ][1] = sprintf( __( 'Organizer updated. <a href="%s">View organizer</a>', 'tribe-events-calendar-pro' ), esc_url( get_permalink( $post_ID ) ) );
+				$messages[ Tribe__Events__Main::ORGANIZER_POST_TYPE ][6] = sprintf( __( 'Organizer published. <a href="%s">View organizer</a>', 'tribe-events-calendar-pro' ), esc_url( get_permalink( $post_ID ) ) );
+				$messages[ Tribe__Events__Main::ORGANIZER_POST_TYPE ][8] = sprintf( __( 'Organizer submitted. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar-pro' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) );
 				$messages[ Tribe__Events__Main::ORGANIZER_POST_TYPE ][9]  = sprintf(
-					__( 'Organizer scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview organizer</a>', 'tribe-events-calendar' ),
+					__( 'Organizer scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview organizer</a>', 'tribe-events-calendar-pro' ),
 					// translators: Publish box date format, see http://php.net/date
-					date_i18n( __( 'M j, Y @ G:i', 'tribe-events-calendar' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) )
+					date_i18n( __( 'M j, Y @ G:i', 'tribe-events-calendar-pro' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) )
 				);
-				$messages[ Tribe__Events__Main::ORGANIZER_POST_TYPE ][10] = sprintf( __( 'Organizer draft updated. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) );
+				$messages[ Tribe__Events__Main::ORGANIZER_POST_TYPE ][10] = sprintf( __( 'Organizer draft updated. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar-pro' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) );
 
 				return $messages;
 
@@ -1338,6 +1341,7 @@
 				register_widget( 'Tribe__Events__Pro__Countdown_Widget' );
 				register_widget( 'Tribe__Events__Pro__Mini_Calendar_Widget' );
 				register_widget( 'Tribe__Events__Pro__Venue_Widget' );
+				register_widget( 'Tribe__Events__Pro__This_Week_Widget' );
 			}
 
 			/**

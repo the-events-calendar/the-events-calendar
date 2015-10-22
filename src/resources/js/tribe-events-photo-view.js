@@ -238,7 +238,7 @@
 			} );
 		}
 
-		$( te ).on( 'updating-recurrence.events-pro.tribe', function() {
+		$( te ).on( 'updating-recurrence.tribe', function() {
 			ts.popping = false;
 		} );
 
@@ -303,10 +303,10 @@
 				}
 
 				/**
-				 * DEPRECATED: tribe_ev_serializeBar has been deprecated in 4.0. Use serialize-bar.events-pro.tribe instead
+				 * DEPRECATED: tribe_ev_serializeBar has been deprecated in 4.0. Use serialize-bar.tribe instead
 				 */
 				$( te ).trigger( 'tribe_ev_serializeBar' );
-				$( te ).trigger( 'serialize-bar.events-pro.tribe' );
+				$( te ).trigger( 'serialize-bar.tribe' );
 
 				if ( tf.invalid_date_in_params( ts.params ) ) {
 					ts.ajax_running = false;
@@ -320,10 +320,10 @@
 				ts.url_params = $.param( ts.url_params );
 
 				/**
-				 * DEPRECATED: tribe_ev_collectParams has been deprecated in 4.0. Use collect-params.events-pro.tribe instead
+				 * DEPRECATED: tribe_ev_collectParams has been deprecated in 4.0. Use collect-params.tribe instead
 				 */
 				$( te ).trigger( 'tribe_ev_collectParams' );
-				$( te ).trigger( 'collect-params.events-pro.tribe' );
+				$( te ).trigger( 'collect-params.tribe' );
 
 				ts.pushstate = false;
 				ts.do_string = true;
@@ -337,10 +337,10 @@
 				// @endif
 
 				/**
-				 * DEPRECATED: tribe_ev_ajaxStart and tribe_ev_photoView_AjaxStart have been deprecated in 4.0. Use ajax-start.events-pro.tribe and photo-view-ajax-start.events-pro.tribe instead
+				 * DEPRECATED: tribe_ev_ajaxStart and tribe_ev_photoView_AjaxStart have been deprecated in 4.0. Use ajax-start.tribe and photo-view-ajax-start.tribe instead
 				 */
 				$( te ).trigger( 'tribe_ev_ajaxStart' ).trigger( 'tribe_ev_photoView_AjaxStart' );
-				$( te ).trigger( 'ajax-start.events-pro.tribe' ).trigger( 'photo-view-ajax-start.events-pro.tribe' );
+				$( te ).trigger( 'ajax-start.tribe' ).trigger( 'photo-view-ajax-start.tribe' );
 
 				$.post(
 					TribePhoto.ajaxurl,
@@ -395,10 +395,10 @@
 							tribe_setup_isotope( $( '#tribe-events-photo-events' ) );
 
 							/**
-							 * DEPRECATED: tribe_ev_ajaxSuccess and tribe_ev_photoView_AjaxSuccess have been deprecated in 4.0. Use ajax-success.events-pro.tribe and photo-view-ajax-success.events-pro.tribe instead
+							 * DEPRECATED: tribe_ev_ajaxSuccess and tribe_ev_photoView_AjaxSuccess have been deprecated in 4.0. Use ajax-success.tribe and photo-view-ajax-success.tribe instead
 							 */
 							$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_photoView_AjaxSuccess' );
-							$( te ).trigger( 'ajax-success.events-pro.tribe' ).trigger( 'photo-view-ajax-success.events-pro.tribe' );
+							$( te ).trigger( 'ajax-success.tribe' ).trigger( 'photo-view-ajax-success.tribe' );
 
 							// @ifdef DEBUG
 							dbug && debug.timeEnd( 'Photo View Ajax Timer' );

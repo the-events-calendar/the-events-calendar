@@ -90,7 +90,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 				return self::$hour_range;
 			}
 
-			$beginning_of_day = tribe_event_beginning_of_day( null, 'H' );
+			$beginning_of_day = tribe_beginning_of_day( null, 'H' );
 
 			$hours = range( 0, 23 );
 			if ( $beginning_of_day > 0 ) {
@@ -189,14 +189,14 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
 			if ( ! empty( $search_term ) ) {
-				Tribe__Events__Main::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html( $search_term ) ) );
+				Tribe__Notices::set_notice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html( $search_term ) ) );
 			} elseif ( ! empty( $geographic_term ) ) {
-				Tribe__Events__Main::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html( $geographic_term ) ) );
+				Tribe__Notices::set_notice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html( $geographic_term ) ) );
 			} // if attempting to view a category archive.
 			elseif ( ! empty( $tax_term ) ) {
-				Tribe__Events__Main::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), $tax_term ) );
+				Tribe__Notices::set_notice( 'events-not-found', sprintf( __( 'No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar-pro' ), $tax_term ) );
 			} else {
-				Tribe__Events__Main::setNotice( 'event-search-no-results', __( 'No results were found for this week. Try searching another week.', 'tribe-events-calendar-pro' ) );
+				Tribe__Notices::set_notice( 'event-search-no-results', __( 'No results were found for this week. Try searching another week.', 'tribe-events-calendar-pro' ) );
 			}
 		}
 
@@ -343,7 +343,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 							} else {
 								// if the event starts after the end of the hour range we're displaying, or ends before the start, skip it
 								$start_hour_today = $date . ' ' . tribe_events_week_get_hours( 'first-hour' );
-								$end_hour_today   = tribe_event_end_of_day( $date, 'Y-m-d ' ) . tribe_events_week_get_hours( 'last-hour' );
+								$end_hour_today   = tribe_end_of_day( $date, 'Y-m-d ' ) . tribe_events_week_get_hours( 'last-hour' );
 								if ( tribe_get_start_time( $event, 'U' ) > strtotime( $end_hour_today ) || tribe_get_end_time( $event, 'U' ) < strtotime( $start_hour_today ) ) {
 									continue;
 								}
@@ -420,7 +420,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 				$attrs['data-hour'] = 'all-day';
 							} else {
 				$start_of_day_timestamp = self::get_rounded_beginning_of_day( self::get_current_date() );
-				$end_of_day_timestamp   = tribe_event_end_of_day( self::get_current_date(), 'U' );
+				$end_of_day_timestamp   = tribe_end_of_day( self::get_current_date(), 'U' );
 				if ( has_filter( 'tribe_events_week_get_hours' ) ) {
 					// if we're filtering the hour range on week view, stop the events at that hour
 					$last_hour_timestamp = strtotime( self::get_current_date() . tribe_events_week_get_hours( 'last-hour' ) );
@@ -609,7 +609,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 		 * @return bool|string
 		 */
 		protected static function get_rounded_beginning_of_day( $date, $format = 'U' ) {
-			$beginning_of_day = tribe_event_beginning_of_day( $date, 'U' );
+			$beginning_of_day = tribe_beginning_of_day( $date, 'U' );
 			reset( self::$hour_range );
 			$date = max( $beginning_of_day, strtotime( $date . ' ' . tribe_events_week_get_hours( 'first-hour' ) ) );
 			$date = date( 'Y-m-d H:00:00', $date );
@@ -627,7 +627,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 		 * @return bool|string
 		 */
 		protected static function get_rounded_end_of_day( $date, $format = 'U' ) {
-			$end_of_day = ( (int) tribe_event_end_of_day( $date, 'U' ) ) + 1;
+			$end_of_day = ( (int) tribe_end_of_day( $date, 'U' ) ) + 1;
 			end( self::$hour_range );
 			$date = min( $end_of_day, strtotime( $date . ' ' . tribe_events_week_get_hours( 'last-hour' ) ) );
 			$date = date( 'Y-m-d H:00:00', $date );

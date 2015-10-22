@@ -4,4 +4,4 @@
 # Emulate web requests and make application process them.
 class_name: FunctionalTester
 modules:
-    enabled: [Filesystem, WPDb, WPLoader, \Helper\Functional]
+    enabled: [Filesystem, WPLoader, \Helper\Functional]

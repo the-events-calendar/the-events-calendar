@@ -44,6 +44,7 @@ class Tribe__Events__Pro__Recurrence__Event_Query {
 			$this->query->set( 'post_parent', $this->parent_event->ID );
 			$this->query->set( 'post_status', 'publish' );
 			$this->query->set( 'posts_per_page', tribe_get_option( 'postsPerPage', 10 ) );
+			$this->query->set( 'start_date', false );
 			$this->query->is_singular = false;
 			add_filter( 'posts_where', array( $this, 'include_parent_event' ) );
 		}
