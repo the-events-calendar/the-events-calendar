@@ -317,6 +317,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [unreleased] unreleased =
+
+* Tweak - Add support for wp_get_document_title in response to the WordPress 4.4 deprecation of wp_title
+
 = [3.12.3] 2015-10-01 =
 
 * Fix - Ensure daily counts in month view are accurate (our thanks to @communityanswers in the support forums for highlighting this)

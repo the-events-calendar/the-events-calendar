@@ -95,8 +95,11 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 		// hide sensitive event info if post is password protected
 		add_action( 'the_post', array( $this, 'manage_sensitive_info' ) );
 
-		// implement a filter for the page title
+		// implement a filter for the page title. Support WordPress < 4.4
 		add_filter( 'wp_title', array( $this, 'title_tag' ), 10, 2 );
+
+		// implement a filter for the page title. Support WordPress >= 4.4
+		add_filter( 'document_title_parts', array( $this, 'title_tag' ) );
 
 		// add body class
 		add_filter( 'body_class', array( $this, 'body_class' ) );
@@ -330,15 +333,30 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Apply filter to the title tag
 	 *
-	 * @param string      $title
+	 * @param string|array $title
 	 * @param string|null $sep
 	 *
 	 * @return mixed|void
 	 */
 	final public function title_tag( $title, $sep = null ) {
-		$new_title = $this->get_title( $title, $sep );
+		// WP >= 4.4 has deprecated wp_title. This conditional (and the lower one) adds support for
+		// the new and improved wp_get_document_title method and subsequent document_title_parts filter
+		if ( 'document_title_parts' === current_filter() ) {
+			$sep = apply_filters( 'document_title_separator', '-' );
+			$the_title = $title['title'];
+		} else {
+			$the_title = $title;
+		}
 
-		return apply_filters( 'tribe_events_title_tag', $new_title, $title, $sep );
+		$new_title = $this->get_title( $the_title, $sep );
+		$the_title = apply_filters( 'tribe_events_title_tag', $new_title, $the_title, $sep );
+
+		if ( 'document_title_parts' === current_filter() ) {
+			$title['title'] = $the_title;
+			return $title;
+		}
+
+		return $the_title;
 	}
 
 	/**
