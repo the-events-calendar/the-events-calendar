@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-08-06 15:37:04+0000\n"
+"PO-Revision-Date: 2015-09-17 12:48:34+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -530,7 +530,7 @@ msgstr "O Estado padrão atual é: %s"
 
 #: src/Tribe/Main.php:1295
 msgid "Venue published. <a href=\"%s\">View venue</a>"
-msgstr ""
+msgstr "Local publicado. <a href=\"%s\">Ver Local</a>"
 
 #: src/functions/template-tags/general.php:385
 msgid "The current default province is: %s"

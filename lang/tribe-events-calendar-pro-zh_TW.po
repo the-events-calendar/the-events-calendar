@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-08-24 14:40:26+0000\n"
+"PO-Revision-Date: 2015-09-17 12:48:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -940,7 +940,7 @@ msgstr "循環活動可以事先建立遠期活動"
 
 #: src/Tribe/Recurrence_Meta.php:1904
 msgid " months"
-msgstr "月"
+msgstr "month"
 
 #: src/Tribe/Recurrence_Meta.php:1999
 msgid "You are currently editing all events in a recurring series."
@@ -1732,7 +1732,7 @@ msgstr "顯示活動筆數："
 
 #: src/Tribe/Main.php:56 src/Tribe/Main.php:733
 msgid "photo"
-msgstr "圖片"
+msgstr "photo"
 
 #: src/admin-views/widget-admin-advanced-list.php:28
 msgid "Display:"

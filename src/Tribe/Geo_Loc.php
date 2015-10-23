@@ -280,12 +280,12 @@ class Tribe__Events__Pro__Geo_Loc {
 		$_lng = get_post_meta( $post->ID, self::LNG, true );
 		?>
 		<tr id="overwrite_coordinates">
-			<td class='tribe-table-field-label'><?php esc_attr_e( 'Use latitude + longitude', 'tribe-events-calendar' ); ?>:</td>
+			<td class='tribe-table-field-label'><?php esc_attr_e( 'Use latitude + longitude', 'tribe-events-calendar-pro' ); ?>:</td>
 			<td>
 				<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="VenueOverwriteCoords" name="venue[OverwriteCoords]" value="true" <?php checked( $overwrite_coords ); ?> />
 
-				<input class=" " disabled title='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLatitude" name="venue[Lat]" value="<?php echo esc_attr( is_numeric( $_lat ) ? (float) $_lat : '' ); ?>" />
-				<input class=" " disabled title='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLongitude" name="venue[Lng]" value="<?php echo esc_attr( is_numeric( $_lng ) ? (float) $_lng : '' ); ?>" />
+				<input class=" " disabled title='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar-pro' ) ?>' placeholder='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar-pro' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLatitude" name="venue[Lat]" value="<?php echo esc_attr( is_numeric( $_lat ) ? (float) $_lat : '' ); ?>" />
+				<input class=" " disabled title='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar-pro' ) ?>' placeholder='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar-pro' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLongitude" name="venue[Lng]" value="<?php echo esc_attr( is_numeric( $_lng ) ? (float) $_lng : '' ); ?>" />
 			</td>
 		</tr>
 		<?php

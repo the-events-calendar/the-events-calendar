@@ -139,15 +139,25 @@ function tribe_events_get_widget_event_atts() {
  * @return int
  **/
 function tribe_events_get_widget_event_post_date() {
-
 	global $post, $wp_query;
 
 	$startDate = strtotime( $post->EventStartDate );
 	$endDate   = strtotime( $post->EventEndDate );
-	$today     = time();
 
-	/* If the event starts way in the past or ends way in the future, let's show today's date */
-	if ( $today > $startDate && $today < $endDate ) {
+	$is_multiday = tribe_event_is_multiday( $post->ID );
+	$is_all_day = tribe_event_is_all_day( $post->ID );
+
+	$today     = current_time( 'timestamp' );
+	$yesterday = $today - DAY_IN_SECONDS;
+
+	// Gets Yesterday cutoff to check which date we pick
+	$yesterday_end = tribe_end_of_day( date( Tribe__Date_Utils::DBDATETIMEFORMAT, $yesterday ), 'U' ) + 1;
+
+	// Check if the yesterday cutoff will get the start date of the event
+	if ( $yesterday_end >= $startDate && ! $is_multiday && ! $is_all_day ) {
+		$postDate = $yesterday;
+	// If the event starts way in the past or ends way in the future, let's show today's date
+	} elseif ( $today > $startDate && $today < $endDate ) {
 		$postDate = $today;
 	} else {
 		$postDate = $startDate;
