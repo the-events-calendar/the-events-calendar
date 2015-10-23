@@ -332,8 +332,9 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 				return;
 			}
 
-			// Wait until late in the wp_title hook to actually make a change - this should allow single event titles
+			// Wait until late in the wp_title|document_title_parts hook to actually make a change - this should allow single event titles
 			// to be used within the title element itself
+			add_filter( 'document_title_parts', array( __CLASS__, 'modify_global_post_title' ), 1000 );
 			add_filter( 'wp_title', array( __CLASS__, 'modify_global_post_title' ), 1000 );
 		}
 

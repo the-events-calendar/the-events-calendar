@@ -597,7 +597,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_events_the_header_attributes( $current_view = null ) {
 		$attrs               = array();
 		$current_view        = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
-		$attrs['data-title'] = wp_title( '|', false, 'right' );
+
+		// wp_title was deprecated in WordPress 4.4. Fetch the document title with the new function (added in 4.4) if available
+		if ( function_exists( 'wp_get_document_title' ) ) {
+			$attrs['data-title'] = wp_get_document_title();
+		} else {
+			$attrs['data-title'] = wp_title( '|', false, 'right' );
+		}
+
 		switch ( $current_view ) {
 			case 'month.php' :
 				$attrs['data-view']    = 'month';
