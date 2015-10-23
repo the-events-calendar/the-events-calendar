@@ -358,6 +358,60 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Deprecated - The Tribe__Events__Main::defaultValueReplaceEnabled() method is being deprecated in favor of tribe_get_option('defaultValueReplace'). Schedules for removal in v4.5
 * Deprecated - The tribe_event_link() has been deprecated in favor of tribe_get_event_link(). Scheduled for removal in 5.0
 * Deprecated - The third parameter of tribe_get_organizer_link() (the $echo parameter) has been deprecated and is scheduled for removal in 5.0
+* Deprecated - Tribe__Events__Abstract_Deactivation in favor of Tribe__Abstract_Deactivation
+* Deprecated - Tribe__Events__Admin__Helpers in favor of Tribe__Admin__Helpers
+* Deprecated - Tribe__Events__App_Shop in favor of Tribe__App_Shop
+* Deprecated - Tribe__Events__Autoloader in favor of Tribe__Autoloader
+* Deprecated - Tribe__Events__Cache in favor of Tribe__Cache
+* Deprecated - Tribe__Events__Cache_Listener in favor of Tribe__Cache_Listener
+* Deprecated - Tribe__Events__Changelog_Reader in favor of Tribe__Changelog_Reader
+* Deprecated - Tribe__Events__Credits in favor of Tribe__Credits
+* Deprecated - Tribe__Events__Date_Utils in favor of Tribe__Date_Utils
+* Deprecated - Tribe__Events__Field in favor of Tribe__Field
+* Deprecated - Tribe__Events__Settings in favor of Tribe__Settings
+* Deprecated - Tribe__Events__Settings_Tab in favor of Tribe__Settings_Tab
+* Deprecated - Tribe__Events__Support in favor of Tribe__Support
+* Deprecated - Tribe__Events__Template_Part_Cache in favor of Tribe__Template_Part_Cache
+* Deprecated - Tribe__Events__Tickets__Attendees_Table in favor of Tribe__Tickets__Attendees_Table in the event-tickets plugin
+* Deprecated - Tribe__Events__Tickets__Metabox in favor of Tribe__Tickets__Metabox in the event-tickets plugin
+* Deprecated - Tribe__Events__Tickets__Ticket_Object in favor of Tribe__Tickets__Ticket_Object in the event-tickets plugin
+* Deprecated - Tribe__Events__Tickets__Tickets in favor of Tribe__Tickets__Tickets in the event-tickets plugin
+* Deprecated - Tribe__Events__Tickets__Tickets_Pro in favor of Tribe__Tickets__Tickets_Handler in the event-tickets plugin
+* Deprecated - Tribe__Events__Validate in favor of Tribe__Validate
+* Deprecated - Tribe__Events__View_Helpers in favor of Tribe__View_Helpers
+* Deprecated - Tribe__Events__Main::OPTIONNAME in favor of Tribe__Main::OPTIONNAME
+* Deprecated - Tribe__Events__Main::OPTIONNAMENETWORK in favor of Tribe__Main::OPTIONNAMENETWORK
+* Deprecated - Tribe__Events__Main::addHelpAdminMenuItem() in favor of Tribe__Settings_Manager::add_help_admin_menu_item()
+* Deprecated - Tribe__Events__Main::addNetworkOptionsPage() in favor of Tribe__Settings_Manager::add_network_options_page()
+* Deprecated - Tribe__Events__Main::array_insert_after_key() in favor of Tribe__Main::array_insert_after_key()
+* Deprecated - Tribe__Events__Main::array_insert_before_key() in favor of Tribe__Main::array_insert_before_key()
+* Deprecated - Tribe__Events__Main::debug() in favor of Tribe__Debug::debug()
+* Deprecated - Tribe__Events__Main::defaultValueReplaceEnabled() in favor of tribe_get_option( 'defaultValueReplace' )
+* Deprecated - Tribe__Events__Main::doHelpTab() in favor of Tribe__Settings_Manager::do_help_tab()
+* Deprecated - Tribe__Events__Main::doNetworkSettingTab() in favor of Tribe__Settings_Manager::do_network_settings_tab()
+* Deprecated - Tribe__Events__Main::doSettingTabs() in favor of Tribe__Settings_Manager::do_setting_tabs()
+* Deprecated - Tribe__Events__Main::do_licenses_tab() in favor of Tribe__Settings_Manager::do_licenses_tab()
+* Deprecated - Tribe__Events__Main::getNetworkOption() in favor of Tribe__Settings_Manager::get_network_option()
+* Deprecated - Tribe__Events__Main::getNetworkOptions() in favor of Tribe__Settings_Manager::get_network_options()
+* Deprecated - Tribe__Events__Main::getNotices() in favor of Tribe__Notices::get()
+* Deprecated - Tribe__Events__Main::getOption() in favor of Tribe__Settings_Manager::get_option()
+* Deprecated - Tribe__Events__Main::getOptions() in favor of Tribe__Settings_Manager::get_options()
+* Deprecated - Tribe__Events__Main::have_addons() in favor of Tribe__Settings_Manager::have_addons()
+* Deprecated - Tribe__Events__Main::isNotice() in favor of Tribe__Notices::is_notice()
+* Deprecated - Tribe__Events__Main::pluginDir in favor of Tribe__Events__Main::plugin_dir
+* Deprecated - Tribe__Events__Main::pluginName in favor of Tribe__Events__Main::plugin_name
+* Deprecated - Tribe__Events__Main::pluginPath in favor of Tribe__Events__Main::plugin_path
+* Deprecated - Tribe__Events__Main::pluginUrl in favor of Tribe__Events__Main::plugin_url
+* Deprecated - Tribe__Events__Main::removeNotice() in favor of Tribe__Notices::remove_notice()
+* Deprecated - Tribe__Events__Main::renderDebug() in favor of Tribe__Debug::render()
+* Deprecated - Tribe__Events__Main::saveAllTabsHidden() in favor of Tribe__Settings_Manager::save_all_tabs_hidden()
+* Deprecated - Tribe__Events__Main::setNetworkOptions() in favor of Tribe__Settings_Manager::set_network_options()
+* Deprecated - Tribe__Events__Main::setNotice() in favor of Tribe__Notices::set_notice()
+* Deprecated - Tribe__Events__Main::truncate() in favor of tribe_events_get_the_excerpt()
+* Deprecated - tribe_event_beginning_of_day() in favor of tribe_beginning_of_day()
+* Deprecated - tribe_event_end_of_day() in favor of tribe_end_of_day()
+* Deprecated - tribe_event_format_date() in favor of tribe_format_date()
+* Deprecated - tribe_events_the_notices() in favor of tribe_the_notices()
 
 = [3.12.3] 2015-10-01 =
 
