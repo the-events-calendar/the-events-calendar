@@ -339,7 +339,7 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	 * @return mixed|void
 	 */
 	final public function title_tag( $title, $sep = null ) {
-		// WP >= 4.4 has deprecated wp_title. This conditional (and the lower onw) adds support for
+		// WP >= 4.4 has deprecated wp_title. This conditional (and the lower one) adds support for
 		// the new and improved wp_get_document_title method and subsequent document_title_parts filter
 		if ( 'document_title_parts' === current_filter() ) {
 			$sep = apply_filters( 'document_title_separator', '-' );
