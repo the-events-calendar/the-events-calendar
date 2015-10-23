@@ -317,9 +317,47 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [unreleased] unreleased =
+= [4.0 beta] unreleased =
 
+* Security - A TON of escaping was added to our codebase thanks to the efforts of Andy Fragen (@afragen)
+* Feature - Moved the Ticket framework code into its own plugin (event-tickets)
+* Feature - The event cost now supports more international formats with the addition of the tribe_events_cost_separators filter
+* Feature - Added support for the twentysixteen theme
+* Feature - Created a new Add-Ons tab in Settings so that TEC add-ons can have a consolidated settings tab
+* Tweak - Restructured TEC's core settings code for reusability with other standalone plugins like event-tickets
+* Tweak - Deprecate old JS event names in favor of a new JS event naming standard. Example: deprecated tribe_ev_runAjax in favor of run-ajax.tribe
+* Tweak - Consolidated import pages for TEC and add-ons
+* Tweak - When suggesting a UTF-8 compatibility CSV formatting tool, point to one that still exists
+* Tweak - Added the ability to filter attendees CSV items via tribe_events_tickets_attendees_csv_items (props to @bostondv on GitHub for this patch!)
+* Tweak - Updated all excerpt output to use tribe_events_get_the_excerpt() to ensure a consistent display of excerpt content
 * Tweak - Add support for wp_get_document_title in response to the WordPress 4.4 deprecation of wp_title
+* Tweak - Check post creation permissions before letting users create venues and organizers from the event meta box
+* Tweak - Only display data separators between fields that have data when rendering organizers
+* Tweak - When a user cannot create organziers, prevent the auto-selection of organizers when editing an event
+* Tweak - Remove microformat CSS classes from templates and replace with namespaced content-relevant CSS classes
+* Tweak - Changed the "updated" CSS class to "tribe-updated" so that it is properly namespaced
+* Tweak - The Plugin Update Checker will now auto-save valid plugin keys
+* Tweak - Cleaned up the output of JSON-LD data. Filterable via the new tribe_google_data_markup_json filter
+* Tweak - Drop the use of the generic CSS class "placeholder" in favor of "tribe-event-placeholder"
+* Tweak - Adjusted the CSS padding on Admin Menu items for Events
+* Tweak - Various codesniffer fixes
+* Tweak - tribe_get_vanue_link() no longer echoes if you ask it to return an <a> element
+* Tweak - No longer retrieve empty costs when fetching all costs for all events
+* Tweak - Change the priority of bootstrapping the-events-calendar to ensure it occurs before any of the TEC addons in the event some addons are upgraded to v4.0 later than TEC
+* Fix - Resolved issue where the iCal feed did not provide an appropriately formatted timezone in some cases
+* Fix - Added support for translating some previously untranslatable strings
+* Fix - Prevented duplicate CSS IDs on the mini calendars
+* Fix - Fixed bug causing tribe_get_single_ical_link() and tribe_get_ical_link() to use the same URL when it shouldn't (props to Ben Byrne @drywall on Twitter for the heads up!)
+* Fix - Fixed issue where the "Add another organizer" text wasn't using the correct singular label
+* Fix - Various CSS fixes for twenty(ten-fifteen)
+* Fix - Fixed bug where accessing object properties on a non object errored out when saving event meta (props to @dalethedeveloper on GitHub for this fix!)
+* Fix - Fixed bug where organizer ID meta attached sometimes included a blank record. That blank record is no longer returned in tribe_get_organizer_ids()
+* Fix - Fixed error message returned when tabbing away from a blank event name meta box so that it properly indicates that an event name is required (our thanks to @tapan29bd for this fix!)
+* Fix - Resolved issue where Timezone event start/end date property name strings were malformed which guaranteed a a call to get_post_meta for Timezone date strings
+* Fix - Fixed CSS issue where the month view calendar could sometimes extend beyond the edge of the page when Skeleton Styles were enabled
+* Deprecated - The Tribe__Events__Main::defaultValueReplaceEnabled() method is being deprecated in favor of tribe_get_option('defaultValueReplace'). Schedules for removal in v4.5
+* Deprecated - The tribe_event_link() has been deprecated in favor of tribe_get_event_link(). Scheduled for removal in 5.0
+* Deprecated - The third parameter of tribe_get_organizer_link() (the $echo parameter) has been deprecated and is scheduled for removal in 5.0
 
 = [3.12.3] 2015-10-01 =
 
