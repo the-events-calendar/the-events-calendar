@@ -29,11 +29,10 @@ class Tribe__Events__Importer__Options {
 				$options = apply_filters( 'tribe-import-available-options', $options );
 			}
 			$options = apply_filters( 'tribe_import_available_options', $options );
-			$core = Tribe__Events__Main::instance();
 
 			foreach ( $options as $_option ) {
 				$value = isset( $_POST[ $_option ] ) ? $_POST[ $_option ] : null;
-				$core->setOption( $_option, $value );
+				Tribe__Settings_Manager::set_option( $_option, $value );
 			}
 
 			add_action( 'tribe_import_under_heading', array( __CLASS__, 'settings_saved_message' ) );
