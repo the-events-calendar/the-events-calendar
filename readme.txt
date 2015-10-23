@@ -223,10 +223,37 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [Unreleased] unreleased =
+= [4.0 beta] unreleased =
 
+* Feature - Added Customizer support for altering the colors of The Events Calendar
+* Feature - Added a new widget and shortcode called "This Week" that displays a events for a given week (with pagination). Short code is [tribe_this_week]
+* Feature - Add support for a countdown to the next upcoming event in the Countdown Widget
+* Feature - Add support for twentysixteen
+* Feature - Bring back the Recurrence Rule descroption override field
+* Feature - Add support for an iCal export link for all events in a series of recurring events via: tribe_get_recurrence_ical_link()
+* Tweak - Major tweaks to support the newly genericized tribe-common libraries
+* Tweak - Deprecate old JS event names in favor of a new JS event naming standard. Example: deprecated tribe_ev_runAjax in favor of run-ajax.tribe
+* Tweak - Altered the storage of selected multichoice values for custom fields so they can be queried more effectively
+* Tweak - Add JSON-LD markup to single venus and organizers
+* Tweak - Only pre-populate address data for venues when the venue metabox appears on the venue post editor - NOT the event post editor
+* Tweak - Simplify the machine-generated recurrence rule descriptions for simple rules
+* Tweak - Add support for multiple organizers to the List Widget
+* Tweak - Remove microformat CSS classes from templates and replace with namespaced content-relevant CSS classes
+* Fix - Resolved bug where extra spaces were added to the body_class return value (props to @garrettjohnson for this fix!)
+* Fix - Resolved issue where tribe_all_occurences_link() sometimes returned an incorrect URL when an explicit ID was passed
 * Fix - Don't escape HTML on additional fields that hold URLs
 * Fix - Updated comment in Week View tooltip and mobile templates to point at the right file for customization instructions
+* Fix - Fixed CSS issues with the responsiveness of the Calendar Widget & Countdown Widget
+* Fix - Prevent notices in the Venue Widget by declaring default settings
+* Fix - Resolved HTML validation issue with the Countdown Widget
+* Fix - Various twenty(ten-sixteen) CSS fixes
+* Fix - Fixed bug where pre-3.12 recurrence events were returning false when tribe_is_recurring_event() was called
+* Fix - Fixed issue where a recurring event's "all" view would not display past instances
+* Fix - Fixed bug with APM where sorting some columns caused post filtering to clear
+* Fix - Fixed various notices
+* Fix - Fixed issue where some strings were trying to use the wrong textdomain for translations
+* Fix - Fixed date issue with the List Widget where the fancy date box was always displaying today's date
+* Deprecated - Deprecating the "defaultValueReplace" option in the Default Content settings tab
 
 = [3.12.4] 2015-10-15 =
 
@@ -240,7 +267,6 @@ Our Premium Plugins:
 * Fix - 24h Format for your WordPress was resulting in bugs related to Meridian.
 * Fix - Simplified information related to recurring events in tooltip (Thanks to David and mmccoycchs for highlighting this)
 * Fix - Fixed a bug that occurred when a recurring events created before 3.12 resulted in the primary event not displaying as recurring
->>>>>>> master
 
 = [3.12.2] 2015-10-01 =
 
