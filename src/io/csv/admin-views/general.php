@@ -33,6 +33,9 @@ require 'header.php';
 			if ( strpos( $key, 'imported_post_status' ) === false ){
 				$value = Tribe__Settings_Manager::get_option( $key, null );
 			} else {
+				/**
+				 * Regular Expression to match "suboption_name" given "option_name[suboption_name]"
+				 */
 				if ( preg_match( '/\[([^\]]+)\]/i', $key, $match ) ) {
 					$type = end( $match );
 				} else {
