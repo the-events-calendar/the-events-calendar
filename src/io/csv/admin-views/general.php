@@ -33,7 +33,14 @@ require 'header.php';
 			if ( strpos( $key, 'imported_post_status' ) === false ){
 				$value = Tribe__Settings_Manager::get_option( $key, null );
 			} else {
-				$type = isset( $field_args['importer_type'] ) ? $field_args['importer_type'] : 'csv';
+				/**
+				 * Regular Expression to match "suboption_name" given "option_name[suboption_name]"
+				 */
+				if ( preg_match( '/\[([^\]]+)\]/i', $key, $match ) ) {
+					$type = end( $match );
+				} else {
+					$type = 'csv';
+				}
 				$value = Tribe__Events__Importer__Options::get_default_post_status( $type );
 			}
 
