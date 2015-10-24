@@ -38,7 +38,7 @@ class AcceptanceTester extends \Codeception\Actor {
 		}
 
 		$I = $this;
-		$I->amOnPage( 'wp-admin/post-new.php?post_type=tribe_events' );
+		$I->amOnPage( '/wp-admin/post-new.php?post_type=tribe_events' );
 		$I->fillField( 'post_title', $event['title'] );
 		//$I->fillField('content', $event['content'] ); // need to target WYSIWYG instance
 		if ( $event['allDay'] ) {
@@ -87,7 +87,7 @@ class AcceptanceTester extends \Codeception\Actor {
 		$I = $this;
 
 		//Set Permalinks to pretty
-		$I->amOnPage( 'wp-admin/options-permalink.php' );
+		$I->amOnPage( '/wp-admin/options-permalink.php' );
 		$I->see( 'Permalink Settings' );
 		$I->selectOption( 'form input[name=selection]', '/%postname%/' );
 		$I->click( 'Save Changes' );
