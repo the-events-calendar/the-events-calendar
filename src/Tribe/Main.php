@@ -1268,16 +1268,8 @@
 			 * @return array
 			 */
 			public function addLinksToPluginActions( $actions ) {
-				if ( class_exists( 'TribeEvents' ) ) {
-					$url = add_query_arg(
-						array(
-							'post_type' => Tribe__Events__Main::POSTTYPE,
-							'page'      => 'tribe-events-calendar',
-						),
-						admin_url( 'edit.php' )
-					);
-
-					$actions['settings'] = '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Settings', 'tribe-events-calendar-pro' ) . '</a>';
+				if ( class_exists( 'Tribe__Events__Main' ) ) {
+					$actions['settings'] = '<a href="' . Tribe__Settings::instance()->get_url() . '">' . esc_html__( 'Settings', 'tribe-events-calendar-pro' ) . '</a>';
 				}
 
 				return $actions;
