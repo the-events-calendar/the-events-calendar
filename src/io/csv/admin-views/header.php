@@ -14,7 +14,7 @@ $active = $this->get_active_tab();
 	}
 </style>
 <div class="tribe_settings wrap">
-	<?php screen_icon(); ?><h2><?php esc_html_e( 'Events Import', 'the-events-calendar' ) ?></h2>
+	<?php screen_icon(); ?><h1><?php esc_html_e( 'Events Import', 'the-events-calendar' ) ?></h1>
 
 	<?php do_action( 'tribe-import-under-heading' ); ?>
 

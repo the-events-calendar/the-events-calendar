@@ -611,7 +611,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		 *
 		 * @return string|false The path/url to minified version or false, if file not found.
 		 */
-		public static function getMinFile( $url, $default_to_original = false ) {
+		public static function getMinFile( $url, $default_to_original = true ) {
 			if ( ! defined( 'SCRIPT_DEBUG' ) || SCRIPT_DEBUG === false ) {
 				if ( substr( $url, - 3, 3 ) == '.js' ) {
 					$url_new = substr_replace( $url, '.min', - 3, 0 );

@@ -65,7 +65,7 @@ class Tribe__Events__Tickets__Metabox {
 
 
 		wp_enqueue_style  ( 'events-tickets', tribe_events_resource_url('tickets.css') , array(), apply_filters( 'tribe_events_css_version', Tribe__Events__Main::VERSION ) );
-		wp_enqueue_script ( 'events-tickets', tribe_events_resource_url('tickets.js'), array(), apply_filters( 'tribe_events_js_version', Tribe__Events__Main::VERSION ) );
+		wp_enqueue_script ( 'events-tickets', tribe_events_resource_url('tickets.js'), array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_js_version', Tribe__Events__Main::VERSION ) );
 
 		$upload_header_data = array(
 			'title'  => __( 'Ticket header image', 'the-events-calendar' ),

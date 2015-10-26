@@ -56,7 +56,7 @@ $generalTabFields = array(
 	),
 	'tribeEventsDisplayThemeTitle'  => array(
 		'type' => 'html',
-		'html' => '<h3>' . __( 'General Settings', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h2>' . __( 'General Settings', 'the-events-calendar' ) . '</h2>',
 	),
 	'postsPerPage'                  => array(
 		'type'            => 'text',
@@ -166,7 +166,7 @@ $generalTabFields = array(
 	),
 	'tribeEventsDisplayTitle'       => array(
 		'type' => 'html',
-		'html' => '<h3>' . __( 'Map Settings', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h2>' . __( 'Map Settings', 'the-events-calendar' ) . '</h2>',
 	),
 	'embedGoogleMaps'               => array(
 		'type'            => 'checkbox_bool',
@@ -187,7 +187,7 @@ $generalTabFields = array(
 	),
 	'tribeEventsMiscellaneousTitle' => array(
 		'type' => 'html',
-		'html' => '<h3>' . __( 'Miscellaneous Settings', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h2>' . __( 'Miscellaneous Settings', 'the-events-calendar' ) . '</h2>',
 	),
 	'amalgamateDuplicates'          => array(
 		'type'        => 'html',

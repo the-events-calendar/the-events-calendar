@@ -48,7 +48,7 @@ if ( ! class_exists( 'Tribe__Events__Support' ) ) {
 			$system_text   = implode( $system_text );
 			?>
 
-			<h3><?php esc_html_e( 'System Information', 'the-events-calendar' ); ?></h3>
+			<h2><?php esc_html_e( 'System Information', 'the-events-calendar' ); ?></h2>
 			<?php
 			echo apply_filters( 'tribe_help_tab_system', $system_text );
 			echo $this->formattedSupportStats();

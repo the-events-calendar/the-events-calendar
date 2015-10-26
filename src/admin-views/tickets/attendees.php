@@ -8,9 +8,9 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 
 <div class="wrap">
 	<div id="icon-edit" class="icon32 icon32-tickets-attendees"><br></div>
-	<h2><?php esc_html_e( 'Attendees', 'the-events-calendar' ); ?></h2>
 
-	<h2><?php echo apply_filters( 'tribe_events_tickets_attendees_event_title', $event->post_title, $event->ID ); ?></h2>
+	<h1><?php esc_html_e( 'Attendees', 'tribe-events-calendar' ); ?></h1>
+	<h1><?php echo apply_filters( 'tribe_events_tickets_attendees_event_title', $event->post_title, $event->ID ); ?></h1>
 
 	<div id="tribe-filters" class="metabox-holder">
 		<div id="filters-wrap" class="postbox">
@@ -161,7 +161,7 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 	</div>
 
 	<form id="topics-filter" method="post">
-		<input type="hidden" name="page" value="<?php echo esc_attr( $_GET['page'] ); ?>" />
+		<input type="hidden" name="page" value="<?php echo esc_attr( isset( $_GET['page'] ) ? $_GET['page'] : '' ); ?>" />
 		<input type="hidden" name="event_id" id="event_id" value="<?php echo esc_attr( $event_id ); ?>" />
 		<input type="hidden" name="post_type" value="<?php echo esc_attr( Tribe__Events__Main::POSTTYPE ); ?>" />
 		<?php $this->attendees_table->display() ?>

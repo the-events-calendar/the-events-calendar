@@ -133,8 +133,11 @@ div.tribe-venue-error.error, div.tribe-organizer-error.error { margin-left:5px; 
 .tribe-settings-form .tribe-settings-form-wrap .description,
 .tribe-settings-form fieldset[id^="tribe-field-geoloc_"] {padding-left: 12px;}
 .tribe-settings-form .tribe-settings-form-wrap fieldset .description {padding-left: 0; margin-left:0; max-width: 450px;}
-.tribe-settings-form .tribe-settings-form-wrap h3 {margin-bottom: 10px; background-color: #f9f9f9; padding: 6px 0 6px 12px;}
+.tribe-settings-form .tribe-settings-form-wrap h2,
+.tribe-settings-form .tribe-settings-form-wrap h3 {margin-bottom: 10px; background-color: #f9f9f9; padding: 6px 0 6px 12px; font-size:1.3em; font-weight: bold;}
+.tribe-settings-form .tribe-settings-form-wrap h2 ~ h2,
 .tribe-settings-form .tribe-settings-form-wrap h3 ~ h3 {margin-top: 2.25em;}
+.tribe-settings-form .tribe-settings-form-wrap h2 + p,
 .tribe-settings-form .tribe-settings-form-wrap h3 + p {margin: 0 0 10px; padding-left: 12px;}
 .tribe_settings .tribe-field-indent {margin-left: 245px;}
 .tribe_settings #pu_dashboard_message{ display: none;}

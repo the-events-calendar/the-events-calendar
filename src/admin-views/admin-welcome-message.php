@@ -16,13 +16,13 @@ $video_url = 'http://vimeo.com/108805711';
 
 <div class="tribe-row">
 	<div class="tribe-half-column">
-		<h3><?php _e( 'Keep The Events Calendar Core FREE', 'the-events-calendar' ); ?></h3>
+		<h2><?php _e( 'Keep The Events Calendar Core FREE', 'the-events-calendar' ); ?></h2>
 		<p><?php _e( "5 star ratings help us bring TEC to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support.", 'the-events-calendar' ); ?></p>
 		<p><strong><?php esc_html_e( 'Rate it five stars today!', 'the-events-calendar' ); ?></strong> <a class="tribe-rating-link" href="http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a></p>
 		<a href="http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5" target="_blank" class="button-primary"><?php esc_html_e( 'Rate It', 'the-events-calendar' ); ?></a>
 	</div>
 	<div class="tribe-half-column">
-		<h3><?php esc_html_e( 'Newsletter Signup', 'the-events-calendar' ); ?></h3>
+		<h2><?php esc_html_e( 'Newsletter Signup', 'the-events-calendar' ); ?></h2>
 		<p><?php esc_html_e( 'Stay in touch with The Events Calendar Pro. We send out periodic updates, key developer notices, and even the occasional discount.', 'the-events-calendar' ); ?></p>
 		<form action="http://moderntribe.createsend.com/t/r/s/athqh/" method="post">
 			<p><input id="listthkduyk" name="cm-ol-thkduyk" type="checkbox" /> <label for="listthkduyk">Developer News</label></p>

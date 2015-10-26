@@ -237,7 +237,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$html = sprintf(
 				'<a href="%s" target="%s">%s</a>',
 				esc_url( $url ),
-				apply_filters( 'tribe_get_organizer_website_link_target', 'self' ),
+				apply_filters( 'tribe_get_organizer_website_link_target', '_self' ),
 				apply_filters( 'tribe_get_organizer_website_link_label', $label )
 			);
 		} else {

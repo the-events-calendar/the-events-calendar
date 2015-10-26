@@ -361,7 +361,7 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 		 * @return string the field
 		 */
 		public function heading() {
-			$field = '<h3>' . $this->label . '</h3>';
+			$field = '<h2>' . $this->label . '</h2>';
 
 			return $field;
 		}
@@ -455,7 +455,7 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 			$field .= $this->doFieldDivStart();
 			if ( is_array( $this->options ) ) {
 				foreach ( $this->options as $option_id => $title ) {
-					$field .= '<label title="' . esc_attr( $title ) . '">';
+					$field .= '<label title="' . esc_attr( strip_tags( $title ) ) . '">';
 					$field .= '<input type="radio"';
 					$field .= $this->doFieldName();
 					$field .= ' value="' . esc_attr( $option_id ) . '" ' . checked( $this->value, $option_id, false ) . '/>';

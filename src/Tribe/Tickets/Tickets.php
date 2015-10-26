@@ -245,7 +245,7 @@ if ( ! class_exists( 'Tribe__Events__Tickets__Tickets' ) ) {
 			// Register all Tribe__Events__Tickets__Tickets api consumers
 			self::$active_modules[$this->className] = $this->pluginName;
 
-			add_filter( 'tribe_events_tickets_modules', 		 array( $this, 'modules' 					 )		  );
+			add_filter( 'tribe_events_tickets_modules', array( $this, 'modules' ) );
 			add_action( 'tribe_events_tickets_metabox_advanced', array( $this, 'do_metabox_advanced_options' ), 10, 2 );
 
 			// Admin AJAX actions for each provider
@@ -298,6 +298,7 @@ if ( ! class_exists( 'Tribe__Events__Tickets__Tickets' ) ) {
 			$ticket->name        = isset( $data["ticket_name"] ) ? esc_html( $data["ticket_name"] ) : null;
 			$ticket->description = isset( $data["ticket_description"] ) ? esc_html( $data["ticket_description"] ) : null;
 			$ticket->price       = ! empty( $data["ticket_price"] ) ? trim( $data["ticket_price"] ) : 0;
+			$ticket->purchase_limit = isset( $data['ticket_purchase_limit'] ) ? absint( $data['ticket_purchase_limit' ] ) : apply_filters( 'tribe_tickets_default_purchase_limit', 0, $ticket->ID );
 
 			if ( ! empty( $ticket->price ) ) {
 				//remove non-money characters
@@ -431,8 +432,30 @@ if ( ! class_exists( 'Tribe__Events__Tickets__Tickets' ) ) {
 
 			$post_id   = $_POST["post_ID"];
 			$ticket_id = $_POST["ticket_id"];
+			$ticket = $this->get_ticket( $post_id, $ticket_id );
+			$ticket->purchase_limit = isset( $_POST['ticket_purchase_limit'] ) ? absint( $_POST['ticket_purchase_limit' ] ) : apply_filters( 'tribe_tickets_default_purchase_limit', 0, $ticket->ID );
 
-			$return = get_object_vars( $this->get_ticket( $post_id, $ticket_id ) );
+			$return = get_object_vars( $ticket );
+
+			/**
+			 * Allow for the prevention of updating ticket price on update.
+			 *
+			 * @var boolean
+			 * @var WP_Post
+			 */
+			$can_update_price = apply_filters( 'tribe_tickets_can_update_ticket_price', true, $ticket );
+
+			$return['can_update_price'] = $can_update_price;
+
+			if ( ! $can_update_price ) {
+				/**
+				 * Filter the no-update message that is displayed when updating the price is disallowed
+				 *
+				 * @var string
+				 * @var WP_Post
+				 */
+				$return['disallow_update_price_message'] = apply_filters( 'tribe_tickets_disallow_update_ticket_price_message', esc_html__( 'Editing the ticket price is currently disallowed.', 'the-events-calendar' ), $ticket );
+			}
 
 			ob_start();
 			$this->do_metabox_advanced_options( $post_id, $ticket_id );

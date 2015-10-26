@@ -1,9 +1,8 @@
 <div id="tribe-app-shop" class="wrap">
 
 	<div class="header">
-		<h2><?php esc_html_e( 'Tribe Event Add-Ons', 'the-events-calendar' ); ?></h2>
+		<h1><?php esc_html_e( 'Tribe Event Add-Ons', 'the-events-calendar' ); ?></h1>
 	</div>
-
 
 	<div class="content-wrapper">
 		<?php
