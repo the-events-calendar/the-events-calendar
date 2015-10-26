@@ -22,7 +22,7 @@ class Tribe__Events__Importer__Admin_Page {
 	 */
 	public $admin_page_slug = null;
 
-	private function __construct() {
+	public function __construct() {
 		$this->admin_page_url = 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE;
 		$this->admin_page_slug = 'events-importer';
 	}
