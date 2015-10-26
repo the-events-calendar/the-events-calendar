@@ -4042,7 +4042,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 							array(
 								'id'     => 'tribe-events-settings',
 								'title'  => esc_html__( 'Settings', 'the-events-calendar' ),
-								'href'   => Tribe__Settings::instace()->get_url(),
+								'href'   => Tribe__Settings::instance()->get_url(),
 								'parent' => 'tribe-events-settings-group',
 							)
 						);
@@ -4055,7 +4055,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 									 array(
 										 'id'     => 'tribe-events-help',
 										 'title'  => esc_html__( 'Help', 'the-events-calendar' ),
-										 'href'   => Tribe__Settings::instace()->get_url( array( 'tab' => 'help' ) ),
+										 'href'   => Tribe__Settings::instance()->get_url( array( 'tab' => 'help' ) ),
 										 'parent' => 'tribe-events-settings-group',
 									 )
 						);
