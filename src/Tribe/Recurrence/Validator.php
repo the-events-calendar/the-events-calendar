@@ -14,7 +14,8 @@ class Tribe__Events__Pro__Recurrence__Validator {
 	 */
 	public static function is_valid( $event_id, array $recurrence_meta ) {
 		$response = (object) array(
-			'valid' => true, 'message' => '',
+			'valid' => true,
+			'message' => '',
 		);
 
 		if ( isset( $recurrence_meta['type'] ) && 'Custom' === $recurrence_meta['type'] ) {
