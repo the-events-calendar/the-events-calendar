@@ -315,6 +315,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [3.12.4] unreleased =
+
+* Feature - Added support for the new Events Community Tickets plugin
+
 = [3.12.3] 2015-10-01 =
 
 * Fix - Ensure daily counts in month view are accurate (our thanks to @communityanswers in the support forums for highlighting this)
