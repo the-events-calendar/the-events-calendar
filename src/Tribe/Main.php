@@ -485,7 +485,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( '_network_admin_menu', array( $this, 'initOptions' ) );
 			add_action( '_admin_menu', array( $this, 'initOptions' ) );
 
-			add_action( 'load-tribe_events_page_tribe-events-calendar', array( 'Tribe__Events__Amalgamator', 'listen_for_migration_button' ), 10, 0 );
+			add_action( 'load-tribe_events_page_' . Tribe__Settings::$parent_slug, array( 'Tribe__Events__Amalgamator', 'listen_for_migration_button' ), 10, 0 );
 			add_action( 'tribe_settings_after_save', array( $this, 'flushRewriteRules' ) );
 			add_action( 'load-edit-tags.php', array( $this, 'prepare_to_fix_tagcloud_links' ), 10, 0 );
 			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
@@ -4042,7 +4042,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 							array(
 								'id'     => 'tribe-events-settings',
 								'title'  => esc_html__( 'Settings', 'the-events-calendar' ),
-								'href'   => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&amp;page=tribe-events-calendar',
+								'href'   => Tribe__Settings::instance()->get_url(),
 								'parent' => 'tribe-events-settings-group',
 							)
 						);
@@ -4055,7 +4055,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 									 array(
 										 'id'     => 'tribe-events-help',
 										 'title'  => esc_html__( 'Help', 'the-events-calendar' ),
-										 'href'   => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&amp;page=tribe-events-calendar&amp;tab=help',
+										 'href'   => Tribe__Settings::instance()->get_url( array( 'tab' => 'help' ) ),
 										 'parent' => 'tribe-events-settings-group',
 									 )
 						);
@@ -4119,15 +4119,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @todo move to an admin class
 		 */
 		public function addLinksToPluginActions( $actions ) {
-			$actions['settings']       = '<a href="' . esc_url(
-					add_query_arg(
-						array(
-							'post_type' => self::POSTTYPE,
-							'page'      => 'tribe-events-calendar',
-						),
-						admin_url( 'edit.php' )
-					)
-				) . '">' . esc_html__( 'Settings', 'the-events-calendar' ) . '</a>';
+			$actions['settings']       = '<a href="' . Tribe__Settings::instance()->get_url() . '">' . esc_html__( 'Settings', 'the-events-calendar' ) . '</a>';
 			$actions['tribe-calendar'] = '<a href="' . $this->getLink() . '">' . esc_html__( 'Calendar', 'the-events-calendar' ) . '</a>';
 
 			return $actions;
