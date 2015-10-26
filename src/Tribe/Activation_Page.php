@@ -120,8 +120,7 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function log_display_of_message_page() {
-		$tec = Tribe__Events__Main::instance();
-		$tec->setOption( 'last-update-message', Tribe__Events__Main::VERSION );
+		Tribe__Settings_Manager::set_option( 'last-update-message', Tribe__Events__Main::VERSION );
 	}
 
 	/**
