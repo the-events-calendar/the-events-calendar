@@ -226,6 +226,8 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @return object         Return Base Slugs with l10n variations
 		 */
 		public function get_bases( $method = 'regex' ) {
+			$tec = Tribe__Events__Main::instance();
+
 			/**
 			 * If you want to modify the base slugs before the i18n happens filter this use this filter
 			 * All the bases need to have a key and a value, they might be the same or not.
@@ -238,12 +240,12 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			 * @var array $bases
 			 */
 			$bases = apply_filters( 'tribe_events_rewrite_base_slugs', array(
-				'month' => array( 'month', Tribe__Events__Main::instance()->monthSlug ),
-				'list' => array( 'list', Tribe__Events__Main::instance()->listSlug ),
-				'today' => array( 'today', Tribe__Events__Main::instance()->todaySlug ),
-				'day' => array( 'day', Tribe__Events__Main::instance()->daySlug ),
-				'tag' => (array) 'tag',
-				'tax' => (array) 'category',
+				'month' => array( 'month', $tec->monthSlug ),
+				'list' => array( 'list', $tec->listSlug ),
+				'today' => array( 'today', $tec->todaySlug ),
+				'day' => array( 'day', $tec->daySlug ),
+				'tag' => array( 'tag', $tec->tag_slug ),
+				'tax' => array( 'category', $tec->category_slug ),
 				'page' => (array) 'page',
 				'all' => (array) 'all',
 				'single' => (array) Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ),
