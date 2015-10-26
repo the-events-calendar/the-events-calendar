@@ -31,7 +31,7 @@
 			if ( $ticket->admin_link ) {
 				$controls[] = sprintf( "<span><a href='%s'>" . __( 'Edit in %s', "tribe-events-calendar" ) . '</a></span>', esc_url( $ticket->admin_link ), $modules[$ticket->provider_class] );
 			}
-			if ( $ticket->frontend_link && get_post_status( $post_id ) == 'publish' ) {
+			if ( $ticket->frontend_link && 'publish' === get_post_status( $post_id ) ) {
 				$controls[] = sprintf( "<span><a href='%s'>" . __( 'View', "tribe-events-calendar" ) . '</a></span>', esc_url( $ticket->frontend_link ) );
 			}
 
@@ -51,17 +51,19 @@
 					?>
 					<small>&nbsp;|&nbsp;</small>
 					<?php
-					$attendees_url = admin_url( sprintf(
-							'edit.php?post_type=%s&page=%s&event_id=%d',
-							Tribe__Events__Main::POSTTYPE,
-							Tribe__Events__Tickets__Tickets_Pro::$attendees_slug,
-							$post_id
-						) );
+					$attendees_url = add_query_arg(
+						array(
+							'post_type' => Tribe__Events__Main::POSTTYPE,
+							'page' => Tribe__Events__Tickets__Tickets_Pro::$attendees_slug,
+							'event_id' => $post_id,
+						),
+						admin_url( 'edit.php' )
+					);
 
 					echo sprintf(
 						"<small><a title='" . esc_attr__( 'See who purchased tickets to this event', 'tribe-events-calendar' ) . "' href='%s'>%s</a></small>",
 						esc_url( apply_filters( 'tribe_events_tickets_attendees_url', $attendees_url, $post_id ) ),
-						__( 'Attendees', 'the-events-calendar' )
+						esc_html__( 'Attendees', 'the-events-calendar' )
 					);
 					?>
 				</h4>

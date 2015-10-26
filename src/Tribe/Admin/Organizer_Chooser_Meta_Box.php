@@ -105,7 +105,10 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	 */
 	protected function edit_organizer_link( $organizer_id ) {
 		$organizer_pto = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE );
-		if ( ! current_user_can( $organizer_pto->cap->create_posts ) ) {
+		if (
+			empty( $organizer_pto->cap->create_posts )
+			|| ! current_user_can( $organizer_pto->cap->create_posts )
+		) {
 			return;
 		}
 		?>
@@ -113,7 +116,7 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 				<?php if ( empty( $organizer_id ) ) { ?> style="display:none;"<?php } ?>
 				data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>"
 				href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $organizer_id ) ) ); ?>"
-				target="_blank"><?php printf( __( 'Edit %s', 'the-events-calendar' ), $this->tribe->singular_organizer_label ); ?></a>
+				target="_blank"><?php printf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->tribe->singular_organizer_label ); ?></a>
 		</div>
 		<?php
 	}

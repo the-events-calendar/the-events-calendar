@@ -1579,7 +1579,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
 				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
 
-				if ( current_user_can( $venue_pto->cap->create_posts ) ) {
+				if (
+					! empty( $venue_pto->cap->create_posts )
+					&& current_user_can( $venue_pto->cap->create_posts )
+				) {
 					echo '<option value="0">' . esc_html( sprintf( __( 'Use New %s', 'tribe-events-calendar' ), $this->singular_venue_label ) ) . '</option>';
 				}
 				if ( $my_venues ) {
@@ -1665,7 +1668,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$oganizer_pto = get_post_type_object( self::ORGANIZER_POST_TYPE );
 				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
 
-				if ( current_user_can( $oganizer_pto->cap->create_posts ) ) {
+				if (
+					! empty( $oganizer_pto->cap->create_posts )
+					&& current_user_can( $oganizer_pto->cap->create_posts )
+				) {
 					echo '<option value="0">' . esc_html( sprintf( __( 'Use New %s', 'the-events-calendar' ), $this->singular_organizer_label ) ) . '</option>';
 				}
 				if ( $my_organizers ) {
@@ -3004,7 +3010,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
 			if ( isset( $_POST['Venue']['VenueID'] ) && ! empty( $_POST['Venue']['VenueID'] ) ) {
 				$_POST['Venue'] = array( 'VenueID' => intval( $_POST['Venue']['VenueID'] ) );
-			} elseif ( ! current_user_can( $venue_pto->cap->create_posts ) ) {
+			} elseif (
+				empty( $venue_pto->cap->create_posts )
+				|| ! current_user_can( $venue_pto->cap->create_posts )
+			) {
 				$_POST['Venue'] = array();
 			}
 
@@ -3028,7 +3037,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				foreach ( $submission['OrganizerID'] as $key => $organizer_id ) {
 					if ( ! empty( $organizer_id ) ) {
 						$organizers[] = array( 'OrganizerID' => intval( $organizer_id ) );
-					} elseif ( current_user_can( $organizer_pto->cap->create_posts ) ) {
+					} elseif (
+						! empty( $organizer_pto->cap->create_posts )
+						&& current_user_can( $organizer_pto->cap->create_posts )
+					) {
 						$o = array();
 						foreach ( array( 'Organizer', 'Phone', 'Website', 'Email' ) as $field_name ) {
 							$o[ $field_name ] = isset( $submission[ $field_name ][ $key ] ) ? $submission[ $field_name ][ $key ] : '';

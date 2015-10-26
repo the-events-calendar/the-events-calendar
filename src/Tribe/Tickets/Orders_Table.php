@@ -62,7 +62,9 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 	 * @access public
 	 */
 	public function ajax_user_can() {
-		return current_user_can( get_post_type_object( $this->screen->post_type )->cap->edit_posts );
+		$post_type = get_post_type_object( $this->screen->post_type );
+
+		return ! empty( $post_type->cap->edit_posts ) && current_user_can( $post_type->cap->edit_posts );
 	}//end ajax_user_can
 
 	/**
