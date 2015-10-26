@@ -13,6 +13,8 @@ $I->upload_csv( 'organizers', 'csv-test-organizers.csv' );
 
 // Go to the organizers page
 $I->amOnPage( '/wp-admin/edit.php?post_type=tribe_organizer' );
+// make sure page loaded successfully
+$I->cantSee( 'Cheatin' );
 $I->click( 'George-Michael Bluth' );
 
 $I->seeInField( 'post_title', 'George-Michael Bluth' );
@@ -24,6 +26,8 @@ $I->seeInField( '#OrganizerEmail', 'boygeorge@halliburtonteen.com' );
 $I->upload_csv( 'venues', 'csv-test-venues.csv' );
 
 $I->amOnPage( '/wp-admin/edit.php?post_type=tribe_venue' );
+// make sure page loaded successfully
+$I->cantSee( 'Cheatin' );
 $I->click( 'Soup Kitchen International' );
 
 $I->seeInField( 'post_title', 'Soup Kitchen International' );
