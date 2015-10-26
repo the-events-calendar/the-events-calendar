@@ -12,15 +12,20 @@ class Tribe__Events__Pro__Recurrence__Meta_Builder {
 	 * @var int An event type post ID
 	 */
 	private $event_id;
+	/**
+	 * @var Tribe__Events__Pro__Recurrence__Utils
+	 */
+	private $utils;
 
 	/**
 	 * Tribe__Events__Pro__Recurrence__Meta_Builder constructor.
 	 *
 	 * @param array $data
 	 */
-	public function __construct($event_id ,array $data = array() ) {
+	public function __construct($event_id ,array $data = array() ,Tribe__Events__Pro__Recurrence__Utils $utils = null ) {
 		$this->event_id = $event_id;
 		$this->data = $data;
+		$this->utils = $utils ? $utils : new Tribe__Events__Pro__Recurrence__Utils();
 	}
 
 	public function build_meta() {
@@ -61,8 +66,8 @@ class Tribe__Events__Pro__Recurrence__Meta_Builder {
 				unset( $recurrence['occurrence-count-text'] );
 
 				if ( ! empty( $recurrence['end'] ) ) {
-					$datepicker_format = Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
-					$recurrence['end'] = Tribe__Date_Utils::datetime_from_format( $datepicker_format, $recurrence['end'] );
+					$datepicker_format = $this->utils->Jdatepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+					$recurrence['end'] = $this->utils->datetime_from_format( $datepicker_format, $recurrence['end'] );
 				}
 
 				// if this isn't an exclusion and it isn't a Custom rule, then we don't need the custom array index
@@ -75,7 +80,7 @@ class Tribe__Events__Pro__Recurrence__Meta_Builder {
 						'date', 'day', 'week', 'month', 'year',
 					);
 
-					$custom_type_key = Tribe__Events__Pro__Recurrence__Custom_Types::to_key( $recurrence['custom']['type'] );
+					$custom_type_key = $this->utils->to_key( $recurrence['custom']['type'] );
 
 					// clean up extraneous array elements
 					foreach ( $custom_types as $type ) {
@@ -94,7 +99,7 @@ class Tribe__Events__Pro__Recurrence__Meta_Builder {
 				$recurrence['EventStartDate'] = $this->data['EventStartDate'];
 				$recurrence['EventEndDate']   = $this->data['EventEndDate'];
 
-				if ( Tribe__Events__Pro__Recurrence__Validator::is_valid( $this->event_id, $recurrence ) ) {
+				if ( $this->utils->is_valid( $this->event_id, $recurrence ) ) {
 					$recurrence_meta[ $rule_type ][] = $recurrence;
 				}
 			}
