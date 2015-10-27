@@ -46,16 +46,20 @@ class Tribe__Events__Capabilities {
 		if ( empty( $level ) ) {
 			$level = $role_id;
 		}
-		if ( $level == 'administrator' ) {
+
+		if ( 'administrator' === $level ) {
 			$level = 'editor';
 		}
+
 		if ( ! isset( $this->cap_aliases[ $level ] ) ) {
 			return false;
 		}
+
 		$role = get_role( $role_id );
 		if ( ! $role ) {
 			return false;
 		}
+
 		$pto = get_post_type_object( $post_type );
 		if ( empty( $pto ) ) {
 			return false;
@@ -99,6 +103,8 @@ class Tribe__Events__Capabilities {
 	public function set_initial_caps() {
 		foreach ( array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) as $role ) {
 			$this->register_post_type_caps( Tribe__Events__Main::POSTTYPE, $role );
+			$this->register_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );
+			$this->register_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
 		}
 	}
 
@@ -110,6 +116,8 @@ class Tribe__Events__Capabilities {
 	public function remove_all_caps() {
 		foreach ( array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) as $role ) {
 			$this->remove_post_type_caps( Tribe__Events__Main::POSTTYPE, $role );
+			$this->register_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );
+			$this->register_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
 		}
 	}
 }
