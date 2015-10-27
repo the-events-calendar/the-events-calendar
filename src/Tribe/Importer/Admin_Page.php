@@ -9,6 +9,24 @@ class Tribe__Events__Importer__Admin_Page {
 	private $messages = array();
 	private $errors = array();
 
+	/**
+	 * Static Singleton Holder
+	 * @var Tribe__Settings|null
+	 */
+	private static $instance;
+
+	/**
+	 * Static Singleton Factory Method
+	 *
+	 * @return Tribe__Settings
+	 */
+	public static function instance() {
+		if ( empty( self::$instance ) ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
 
 	/**
 	 * Admin page for the importer URL, relative to `admin_url()`
