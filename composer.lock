@@ -5,7 +5,6 @@
         "This file is @generated automatically"
     ],
     "hash": "4da01383a8a0b9b878cb59e171d943d8",
-    "content-hash": "51564f2f2a967fc955f6bf91a5407055",
     "packages": [],
     "packages-dev": [
         {
@@ -294,16 +293,16 @@
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "97fe7210def29451ec74923b27e552238defd75a"
+                "reference": "b1e1c0d55f8083c71eda2c28c12a228d708294ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/97fe7210def29451ec74923b27e552238defd75a",
-                "reference": "97fe7210def29451ec74923b27e552238defd75a",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/b1e1c0d55f8083c71eda2c28c12a228d708294ea",
+                "reference": "b1e1c0d55f8083c71eda2c28c12a228d708294ea",
                 "shasum": ""
             },
             "require": {
@@ -341,7 +340,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2015-08-15 19:37:21"
+            "time": "2015-10-15 22:28:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -403,22 +402,23 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "1.7.2",
+            "version": "1.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "6038d64fe3b40ddb34a453430eb54a12fddc80cd"
+                "reference": "f44185b79141ea0e468140f38485a4d5657470ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/6038d64fe3b40ddb34a453430eb54a12fddc80cd",
-                "reference": "6038d64fe3b40ddb34a453430eb54a12fddc80cd",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/f44185b79141ea0e468140f38485a4d5657470ef",
+                "reference": "f44185b79141ea0e468140f38485a4d5657470ef",
                 "shasum": ""
             },
             "require": {
                 "bacon/bacon-string-utils": "~1.0",
                 "codeception/codeception": "~2.0",
-                "php": ">=5.4.0"
+                "php": ">=5.4.0",
+                "symfony/filesystem": "^2.7"
             },
             "require-dev": {
                 "codeception/codeception": "*"
@@ -429,11 +429,8 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Codeception\\Module\\": "src/Module",
-                    "Codeception\\Lib\\Driver\\": "src/Lib/Driver",
-                    "Codeception\\Command\\": "src/Command",
-                    "Codeception\\Lib\\Generator\\": "src/Generator",
-                    "tad\\WPBrowser\\": "src/"
+                    "Codeception\\": "src\\Codeception",
+                    "tad\\": "src\\tad"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -454,7 +451,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2015-10-06 18:24:37"
+            "time": "2015-10-22 12:48:06"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -807,16 +804,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.13",
+            "version": "4.8.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "be067d6105286b74272facefc2697038f8807b77"
+                "reference": "be8f7b9eacf8243940f8412f8b4a9a434c73dd7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/be067d6105286b74272facefc2697038f8807b77",
-                "reference": "be067d6105286b74272facefc2697038f8807b77",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/be8f7b9eacf8243940f8412f8b4a9a434c73dd7b",
+                "reference": "be8f7b9eacf8243940f8412f8b4a9a434c73dd7b",
                 "shasum": ""
             },
             "require": {
@@ -875,7 +872,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-10-14 13:49:40"
+            "time": "2015-10-22 09:05:37"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1628,6 +1625,55 @@
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
             "time": "2015-09-22 13:49:29"
+        },
+        {
+            "name": "symfony/filesystem",
+            "version": "v2.7.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/filesystem.git",
+                "reference": "a17f8a17c20e8614c15b8e116e2f4bcde102cfab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/a17f8a17c20e8614c15b8e116e2f4bcde102cfab",
+                "reference": "a17f8a17c20e8614c15b8e116e2f4bcde102cfab",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Filesystem Component",
+            "homepage": "https://symfony.com",
+            "time": "2015-09-09 17:42:36"
         },
         {
             "name": "symfony/finder",
