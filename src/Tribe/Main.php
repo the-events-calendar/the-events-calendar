@@ -1100,7 +1100,7 @@
 				wp_localize_script( Tribe__Events__Main::POSTTYPE . '-premium-admin', 'TribeEventsProAdmin', $data );
 				wp_localize_script( Tribe__Events__Main::POSTTYPE . '-premium-admin', 'tribe_events_pro_recurrence_strings', array(
 					'date' => Tribe__Events__Pro__Recurrence_Meta::date_strings(),
-					'recurrence' => Tribe__Events__Pro__Recurrence_Meta::recurrence_strings(),
+					'recurrence' => Tribe__Events__Pro__Recurrence__Strings::recurrence_strings(),
 					'exclusion' => array(),
 				) );
 			}
