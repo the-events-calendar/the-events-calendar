@@ -108,9 +108,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		protected static $instance;
 		public $rewriteSlug = 'events';
 		public $rewriteSlugSingular = 'event';
-		public $taxRewriteSlug = 'event/category';
-		public $tagRewriteSlug = 'event/tag';
+		public $category_slug = 'category';
+		public $tag_slug = 'tag';
 		public $monthSlug = 'month';
+
+		/** @deprecated 4.0 */
+		public $taxRewriteSlug = 'event/category';
+
+		/** @deprecated 4.0 */
+		public $tagRewriteSlug = 'event/tag';
 
 		/** @var Tribe__Events__Admin__Timezone_Settings */
 		public $timezone_settings;
@@ -667,8 +673,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->pluginName = $this->plugin_name            = esc_html__( 'The Events Calendar', 'the-events-calendar' );
 			$this->rewriteSlug                                = $this->getRewriteSlug();
 			$this->rewriteSlugSingular                        = $this->getRewriteSlugSingular();
-			$this->taxRewriteSlug                             = $this->getTaxRewriteSlug();
-			$this->tagRewriteSlug                             = $this->getTagRewriteSlug();
+			$this->category_slug                              = $this->get_category_slug();
+			$this->tag_slug                                   = $this->get_tag_slug();
+			$this->taxRewriteSlug                             = $this->rewriteSlug . '/' . $this->category_slug;
+			$this->tagRewriteSlug                             = $this->rewriteSlug . '/' . $this->tag_slug;
 			$this->monthSlug                                  = sanitize_title( __( 'month', 'the-events-calendar' ) );
 			$this->listSlug                               	  = sanitize_title( __( 'list', 'the-events-calendar' ) );
 			$this->upcomingSlug                               = sanitize_title( __( 'upcoming', 'the-events-calendar' ) );
@@ -1192,7 +1200,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'hierarchical'          => true,
 					'update_count_callback' => '',
 					'rewrite'               => array(
-						'slug'         => $this->taxRewriteSlug,
+						'slug'         => $this->rewriteSlug . '/' . $this->category_slug,
 						'with_front'   => false,
 						'hierarchical' => true,
 					),
@@ -1233,25 +1241,75 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Get taxonomy rewrite slug
+		 * Get taxonomy rewrite slug.
 		 *
-		 * @return mixed|void
+		 * This method returns a concatenation of the base rewrite slug (ie "events") and the taxonomy slug
+		 * (ie "category"). If you only wish the taxonomy slug itself, you should call the get_tax_slug()
+		 * method.
+		 *
+		 * @deprecated 4.0 please use getRewriteSlug() and get_category_slug() instead
+		 *
+		 * @return string
 		 */
 		public function getTaxRewriteSlug() {
-			$slug = $this->getRewriteSlug() . '/' . sanitize_title( __( 'category', 'the-events-calendar' ) );
+			_deprecated_function( __CLASS__ . '::' . __METHOD__, '4.0', 'Tribe__Events__Main::get_category_slug' );
 
+			$slug = $this->getRewriteSlug() . '/' . $this->category_slug;
+
+			/**
+			 * @deprecated since 4.0
+			 */
 			return apply_filters( 'tribe_events_category_rewrite_slug', $slug );
 		}
 
 		/**
-		 * Get tag rewrite slug
+		 * Returns the string to be used as the taxonomy slug.
 		 *
-		 * @return mixed|void
+		 * @return string
+		 */
+		public function get_category_slug() {
+			/**
+			 * Provides an opportunity to modify the category slug.
+			 *
+			 * @var string
+			 */
+			return apply_filters( 'tribe_events_category_slug', sanitize_title( __( 'category', 'the-events-calendar' ) ) );
+		}
+
+		/**
+		 * Get tag rewrite slug.
+		 *
+		 * This method returns a concatenation of the base rewrite slug (ie "events") and the tag taxonomy slug
+		 * (ie "tag"). If you only wish the taxonomy slug itself, you should call the get_tag_slug()
+		 * method.
+		 *
+		 * @deprecated 4.0 please use getRewriteSlug() and get_tag_slug() instead
+		 *
+		 * @return string
 		 */
 		public function getTagRewriteSlug() {
-			$slug = $this->getRewriteSlug() . '/' . sanitize_title( __( 'tag', 'the-events-calendar' ) );
+			_deprecated_function( __CLASS__ . '::' . __METHOD__, '4.0', 'Tribe__Events__Main::get_tag_slug' );
 
+			$slug = $this->getRewriteSlug() . '/' . $this->tag_slug;
+
+			/**
+			 * @deprecated since 4.0
+			 */
 			return apply_filters( 'tribe_events_tag_rewrite_slug', $slug );
+		}
+
+		/**
+		 * Returns the string to be used as the tag slug.
+		 *
+		 * @return string
+		 */
+		public function get_tag_slug() {
+			/**
+			 * Provides an opportunity to modify the tag slug.
+			 *
+			 * @var string
+			 */
+			return apply_filters( 'tribe_events_tag_slug', sanitize_title( __( 'tag', 'the-events-calendar' ) ) );
 		}
 
 		/**
