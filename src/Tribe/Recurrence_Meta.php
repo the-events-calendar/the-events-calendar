@@ -1152,8 +1152,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			$rule = new Tribe__Events__Pro__Date_Series_Rules__Year(
 				$recurrence['custom']['interval'],
 				$recurrence['custom']['year']['month'],
-				$recurrence['custom']['year']['filter'] ? $recurrence['custom']['year']['month-number'] : null,
-				$recurrence['custom']['year']['filter'] ? $recurrence['custom']['year']['month-day'] : null
+				empty($recurrence['custom']['year']['filter']) ? null : $recurrence['custom']['year']['month-number'],
+				empty($recurrence['custom']['year']['filter']) ? null : $recurrence['custom']['year']['month-day']
 			);
 		}
 
