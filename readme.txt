@@ -232,7 +232,6 @@ Our Premium Plugins:
 * Feature - Added a new widget and shortcode called "This Week" that displays a events for a given week (with pagination). Short code is [tribe_this_week]
 * Feature - Add support for a countdown to the next upcoming event in the Countdown Widget
 * Feature - Add support for twentysixteen
-* Feature - Bring back the Recurrence Rule descroption override field
 * Feature - Add support for an iCal export link for all events in a series of recurring events via: tribe_get_recurrence_ical_link()
 * Tweak - Major tweaks to support the newly genericized tribe-common libraries
 * Tweak - Deprecate old JS event names in favor of a new JS event naming standard. Example: deprecated tribe_ev_runAjax in favor of run-ajax.tribe
