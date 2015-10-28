@@ -66,7 +66,7 @@ class Tribe__Events__Pro__Recurrence__Meta_Builder {
 				unset( $recurrence['occurrence-count-text'] );
 
 				if ( ! empty( $recurrence['end'] ) ) {
-					$datepicker_format = $this->utils->Jdatepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+					$datepicker_format = $this->utils->datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 					$recurrence['end'] = $this->utils->datetime_from_format( $datepicker_format, $recurrence['end'] );
 				}
 
