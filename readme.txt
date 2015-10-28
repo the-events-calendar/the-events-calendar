@@ -217,6 +217,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [3.12.5] 2015-10-28 =
+
+* Fix - Resolve JS errors on various views where geolocation data is anticipated but unavailable (thanks to @jesse_fo and everyone else who reported this)
+
 = [3.12.4] 2015-10-15 =
 
 * Tweak - Altered our build process to remove utilities and libraries not needed in the finished product (our thanks to both Jay and jbrinley for highlighting this problem)
