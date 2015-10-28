@@ -219,7 +219,7 @@ Our Premium Plugins:
 
 = [3.12.5] 2015-10-28 =
 
-* Feature - Bring back the Recurrence Rule descroption override field
+* Feature - Bring back the Recurrence Rule description override field
 * Fix - Resolve JS errors on various views where geolocation data is anticipated but unavailable (thanks to @jesse_fo and everyone else who reported this)
 
 = [3.12.4] 2015-10-15 =
