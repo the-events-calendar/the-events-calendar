@@ -4626,6 +4626,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			require_once $this->plugin_path . 'vendor/tickets/event-tickets.php';
+			Tribe__Tickets__Main::instance()->plugins_loaded();
 		}
 
 		/**
