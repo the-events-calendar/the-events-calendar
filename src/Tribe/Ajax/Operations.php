@@ -11,7 +11,7 @@ class Tribe__Events__Ajax__Operations {
 		return true;
 	}
 
-	public function exit( $data = array() ) {
+	public function exit_data( $data = array() ) {
 		exit( $data );
 	}
 }
