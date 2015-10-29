@@ -34,7 +34,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		const VERSION           = '4.0';
 		const MIN_ADDON_VERSION = '4.0';
-		const INFO_API_URL      = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
@@ -561,7 +560,21 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_general_settings_tab_fields', array( $this, 'general_settings_tab_fields' ) );
 			add_filter( 'tribe_display_settings_tab_fields', array( $this, 'display_settings_tab_fields' ) );
 			add_filter( 'tribe_settings_url', array( $this, 'tribe_settings_url' ) );
-			add_action( 'tribe_help_sidebar_top', array( $this, 'tribe_help_sidebar_top' ) );
+
+			// Setup Help Tab texting
+			add_filter( 'tribe_help_text_featurebox', array( $this, 'add_help_tab_feature_text' ) );
+		}
+
+		/**
+		 * Append the text about The Events Calendar to the feature box on the Help page
+		 *
+		 * @filter tribe_help_text_featurebox
+		 * @param string $text The previous Text
+		 *
+		 * @return string
+		 */
+		public function add_help_tab_feature_text( $text = '' ) {
+			return $text . ' ' . esc_html__( 'We are committed to helping make your calendar spectacular.', 'the-events-calendar' );
 		}
 
 		/**
@@ -4650,92 +4663,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function tribe_settings_url( $url ) {
 			return add_query_arg( array( 'post_type' => self::POSTTYPE ), $url );
-		}
-
-		public function tribe_help_sidebar_top() {
-			$tec_info = wp_remote_get(
-				/**
-				 * Filter the tribe info API url
-				 *
-				 * @param string $url
-				 */
-				apply_filters( 'tribe_help_tab_api_info_url', Tribe__Events__Main::INFO_API_URL ), array(
-						'timeout' => 15, //seconds
-						'headers' => array( 'Accept' => 'application/json' ),
-					)
-			);
-
-			if ( ! is_wp_error( $tec_info ) ) {
-				$tec_info = $tec_info['body'];
-				$tec_info = unserialize( $tec_info );
-				if ( isset( $tec_info['rating'] ) ) {
-					$rating = $tec_info['rating'];
-				}
-				if ( isset( $tec_info['num_ratings'] ) ) {
-					$num_rating = $tec_info['num_ratings'];
-				}
-				if ( isset( $tec_info['requires'] ) ) {
-					$requires = $tec_info['requires'];
-				}
-				if ( isset( $tec_info['version'] ) ) {
-					$version = $tec_info['version'];
-				}
-				$total_downloads = ( isset( $tec_info['total_downloads'] ) ) ? number_format( $tec_info['total_downloads'] ) : _x( 'n/a', 'not available', 'tribe-common' );
-				$up_to_date      = ( isset( $tec_info['version'] ) && version_compare( Tribe__Events__Main::VERSION, $tec_info['version'], '<' ) ) ? __( 'You need to upgrade!', 'tribe-common' ) : __( 'You are up to date!', 'tribe-common' );
-			}
-
-			?>
-			<div id="tribe-help-plugin-info">
-				<h3><?php esc_html_e( 'The Events Calendar', 'tribe-common' ); ?></h3>
-
-
-				<?php if ( isset( $up_to_date ) ) { ?><p><?php echo $up_to_date; ?></p><?php } ?>
-				<?php if ( isset( $version ) ) { ?><p>
-					<b><?php esc_html_e( 'Latest Version:', 'tribe-common' ); ?></b> <?php echo $version; ?>
-					<br /><?php } ?>
-					<b><?php esc_html_e( 'Author:', 'tribe-common' ); ?></b> <?php esc_html_e( 'Modern Tribe Inc', 'tribe-common' ); ?>
-					<br />
-					<?php
-					if ( isset( $requires ) ) {
-						?>
-						<b><?php esc_html_e( 'Requires:', 'tribe-common' ); ?></b> <?php esc_html_e( 'WordPress ', 'tribe-common' );
-						echo $requires; ?>+<br />
-						<?php
-					}
-					/**
-					 * Filter the URL to The Events Calendar plugin page on Wordpress.org
-					 *
-					 * @param string $url
-					 */
-					$tribe_help_tab_wp_plugin_url = apply_filters( 'tribe_help_tab_wp_plugin_url', Tribe__Events__Main::WP_PLUGIN_URL );
-					?>
-					<a href="<?php echo esc_url( $tribe_help_tab_wp_plugin_url ); ?>"><?php esc_html_e( 'Wordpress.org Plugin Page', 'tribe-common' ); ?></a>
-				</p>
-			</div>
-
-			<?php
-			if ( isset( $rating ) && isset( $num_rating ) ) {
-				?>
-				<h3><?php esc_html_e( 'Average Rating', 'tribe-common' ); ?></h3>
-				<?php wp_star_rating( array(
-					'rating' => $rating,
-					'type'   => 'percent',
-					'number' => $num_rating,
-				) ); ?>
-				<?php printf( _n( 'Based on %d rating', 'Based on %d ratings', $num_rating, 'tribe-common' ), $num_rating ); ?>
-				<p>
-					<?php
-					/**
-					 * Filter the URL to The Events Calendar plugin page on Wordpress.org
-					 *
-					 * @param string $url
-					 */
-					$tribe_help_tab_wp_plugin_url = apply_filters( 'tribe_help_tab_wp_plugin_url', 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5' );
-					?>
-					<a href="<?php echo esc_url( $tribe_help_tab_wp_plugin_url ); ?>"><?php esc_html_e( 'Give us 5 stars!', 'tribe-common' ); ?></a>
-				</p>
-				<?php
-			}
 		}
 
 		/**
