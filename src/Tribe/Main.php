@@ -552,7 +552,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_help_text_featurebox', array( $this, 'add_help_tab_feature_text' ) );
 		}
 
-		public function add_help_tab_feature_text( $text ) {
+		/**
+		 * Append the text about The Events Calendar to the feature box on the Help page
+		 *
+		 * @filter tribe_help_text_featurebox
+		 * @param string $text The previous Text
+		 *
+		 * @return string
+		 */
+		public function add_help_tab_feature_text( $text = '' ) {
 			return $text . ' ' . esc_html__( 'We are committed to helping make your calendar spectacular.', 'the-events-calendar' );
 		}
 
