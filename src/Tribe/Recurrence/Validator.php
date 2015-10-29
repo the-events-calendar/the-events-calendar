@@ -47,7 +47,7 @@ class Tribe__Events__Pro__Recurrence__Validator {
 				} else if ( $this->is_yearly() ) {
 					$this->ensure_yearly_day(); }
 			}
-		} catch ( \RuntimeException $e ) {
+		} catch ( RuntimeException $e ) {
 			$response->valid   = false;
 			$response->message = $e->getMessage();
 		}
