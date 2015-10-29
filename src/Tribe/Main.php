@@ -345,6 +345,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Updater object accessor method
+		 */
+		public function updater() {
+			static $updater;
+
+			if ( ! $updater ) {
+				$updater = new Tribe__Events__Updater( self::VERSION );
+			}
+
+			return $updater;
+		}
+
+		/**
 		 * before_html_data_wrapper adds a persistant tag to wrap the event display with a
 		 * way for jQuery to maintain state in the dom. Also has a hook for filtering data
 		 * attributes for inclusion in the dom
@@ -4512,9 +4525,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		public function run_updates() {
-			$updater = new Tribe__Events__Updater( self::VERSION );
-			if ( $updater->update_required() ) {
-				$updater->do_updates();
+			if ( $this->updater()->update_required() ) {
+				$this->updater()->do_updates();
 			}
 		}
 

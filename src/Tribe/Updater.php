@@ -8,6 +8,7 @@ class Tribe__Events__Updater {
 	protected $version_option = 'schema-version';
 	protected $reset_version = '3.9'; // when a reset() is called, go to this version
 	protected $current_version = 0;
+	public $capabilities;
 
 	public function __construct( $current_version ) {
 		$this->current_version = $current_version;
@@ -29,22 +30,26 @@ class Tribe__Events__Updater {
 		$this->clear_option_caches();
 		$updates = $this->get_updates();
 		uksort( $updates, 'version_compare' );
+
 		try {
 			foreach ( $updates as $version => $callback ) {
-				if ( version_compare( $version, $this->current_version, '<=' ) && $this->is_version_in_db_less_than( $version ) ) {
+
+				if ( ! $this->is_new_install() && version_compare( $version, $this->current_version, '<=' ) && $this->is_version_in_db_less_than( $version ) ) {
 					call_user_func( $callback );
 				}
 			}
+
 			foreach ( $this->constant_updates() as $callback )  {
 				call_user_func( $callback );
 			}
+
 			$this->update_version_option( $this->current_version );
 		} catch ( Exception $e ) {
 			// fail silently, but it should try again next time
 		}
 	}
 
-	protected function update_version_option( $new_version ) {
+	public function update_version_option( $new_version ) {
 		Tribe__Settings_Manager::set_option( $this->version_option, $new_version );
 	}
 
@@ -56,7 +61,7 @@ class Tribe__Events__Updater {
 	 *
 	 * @return array
 	 */
-	protected function get_updates() {
+	public function get_updates() {
 		return array(
 			'2.0.1'  => array( $this, 'migrate_from_sp_events' ),
 			'2.0.6'  => array( $this, 'migrate_from_sp_options' ),
@@ -71,24 +76,49 @@ class Tribe__Events__Updater {
 	 *
 	 * @return array
 	 */
-	protected function constant_updates() {
+	public function constant_updates() {
 		return array(
 			array( $this, 'flush_rewrites' ),
 			array( $this, 'set_capabilities' ),
 		);
 	}
 
-	protected function is_version_in_db_less_than( $version ) {
-		$version_in_db = Tribe__Settings_Manager::get_option( $this->version_option );
+	public function get_version_from_db() {
+		return Tribe__Settings_Manager::get_option( $this->version_option );
+	}
+
+	/**
+	 * Returns true if the version in the DB is less than the provided version
+	 *
+	 * @return boolean
+	 */
+	public function is_version_in_db_less_than( $version ) {
+		$version_in_db = $this->get_version_from_db();
 
 		return ( version_compare( $version, $version_in_db ) > 0 );
 	}
 
+	/**
+	 * Returns true if this is a new install
+	 *
+	 * @return boolean
+	 */
+	public function is_new_install() {
+		$version_in_db = $this->get_version_from_db();
+
+		return empty( $version_in_db );
+	}
+
+	/**
+	 * Returns true if an update is required
+	 *
+	 * @return boolean
+	 */
 	public function update_required() {
 		return $this->is_version_in_db_less_than( $this->current_version );
 	}
 
-	protected function migrate_from_sp_events() {
+	public function migrate_from_sp_events() {
 		$legacy_option = get_option( 'sp_events_calendar_options' );
 		if ( empty( $legacy_option ) ) {
 			return;
@@ -117,7 +147,7 @@ class Tribe__Events__Updater {
 		wp_cache_flush();
 	}
 
-	protected function migrate_from_sp_options() {
+	public function migrate_from_sp_options() {
 		$tec_options = Tribe__Settings_Manager::get_options();
 		$option_names     = array(
 			'spEventsTemplate'   => 'tribeEventsTemplate',
@@ -139,8 +169,8 @@ class Tribe__Events__Updater {
 	}
 
 	public function set_capabilities() {
-		$capabilities = new Tribe__Events__Capabilities();
-		add_action( 'wp_loaded', array( $capabilities, 'set_initial_caps' ) );
+		$this->capabilities = new Tribe__Events__Capabilities();
+		add_action( 'wp_loaded', array( $this->capabilities, 'set_initial_caps' ) );
 		add_action( 'wp_loaded', array( $this, 'reload_current_user' ), 11, 0 );
 	}
 
