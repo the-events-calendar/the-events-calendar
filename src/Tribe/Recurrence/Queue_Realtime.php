@@ -22,8 +22,14 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 	private $queue_processor;
 
 	public function __construct( Tribe__Events__Pro__Recurrence__Queue $queue = null, Tribe__Events__Ajax__Operations $ajax_operations = null, Tribe__Events__Pro__Recurrence__Queue_Processor $queue_processor = null ) {
-		add_action( 'admin_head-post.php', array( $this, 'post_editor' ) );
-		add_action( 'wp_ajax_tribe_events_pro_recurrence_realtime_update', array( $this, 'ajax' ) );
+		add_action( 'admin_head-post.php', array(
+			$this,
+			'post_editor'
+		) );
+		add_action( 'wp_ajax_tribe_events_pro_recurrence_realtime_update', array(
+			$this,
+			'ajax'
+		) );
 		$this->queue           = $queue;
 		$this->ajax_operations = $ajax_operations ? $ajax_operations : new Tribe__Events__Ajax__Operations();
 		$this->queue_processor = $queue_processor ? $queue_processor : Tribe__Events__Pro__Main::instance()->queue_processor;
@@ -51,7 +57,10 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 
 	protected function init_update_loop() {
 		$this->update_loop_vars();
-		add_action( 'admin_notices', array( $this, 'add_notice' ) );
+		add_action( 'admin_notices', array(
+			$this,
+			'add_notice'
+		) );
 
 		return true;
 	}
@@ -68,8 +77,10 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 
 		$progress = $this->sanitize_progress( $percentage );
 		$data     = array(
-			'eventID'      => $this->event_id, 'check' => $this->get_ajax_nonce(),
-			'completeMsg'  => __( 'Completed!', 'tribe-events-pro' ), 'progress' => $progress,
+			'eventID'      => $this->event_id,
+			'check'        => $this->get_ajax_nonce(),
+			'completeMsg'  => __( 'Completed!', 'tribe-events-pro' ),
+			'progress'     => $progress,
 			'progressText' => sprintf( __( '%d%% complete', 'tribe-events-pro' ), $progress ),
 		);
 
@@ -150,7 +161,9 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 	public function get_unable_to_continue_processing_data() {
 		return json_encode( array(
 			'html'     => __( 'Unable to continue processing recurring event data. Please reload this page to continue/try again.', 'tribe-events-pro' ),
-			'progress' => false, 'continue' => false, 'complete' => false,
+			'progress' => false,
+			'continue' => false,
+			'complete' => false,
 		) );
 	}
 
@@ -162,8 +175,10 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 	 */
 	public function get_progress_message_data( $percentage, $done ) {
 		return json_encode( array(
-			'html'         => false, 'progress' => $percentage,
-			'progressText' => sprintf( __( '%d%% complete', 'tribe-events-pro' ), $percentage ), 'continue' => ! $done,
+			'html'         => false,
+			'progress'     => $percentage,
+			'progressText' => sprintf( __( '%d%% complete', 'tribe-events-pro' ), $percentage ),
+			'continue'     => ! $done,
 			'complete'     => $done,
 		) );
 	}
