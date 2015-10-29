@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3.1
-Stable tag: 3.12.3
+Stable tag: 4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -203,49 +203,50 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 
 = Current Contributors =
 
-* <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
-* <a href="http://profiles.wordpress.org/users/brianjessee">Brian Jessee</a>
-* <a href="http://profiles.wordpress.org/users/brook-tribe">Brook Harding</a>
-* <a href="http://profiles.wordpress.org/users/geoffgraham">Geoff Graham</a>
-* <a href="http://profiles.wordpress.org/users/ggwicz">George Gecewicz</a>
-* <a href="http://profiles.wordpress.org/users/bordoni">Gustavo Bordoni</a>
-* <a href="http://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
-* <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
-* <a href="http://profiles.wordpress.org/users/joshlimecuda">Josh Mallard</a>
-* <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
-* <a href="http://profiles.wordpress.org/users/lucatume">Luca Tumedei</a>
-* <a href="http://profiles.wordpress.org/users/mat-lipe">Mat Lipe</a>
-* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
-* <a href="http://profiles.wordpress.org/users/mdbitz">Matthew Denton</a>
-* <a href="http://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
-* <a href="http://profiles.wordpress.org/users/mastromktg">Nick Mastromattei</a>
-* <a href="http://profiles.wordpress.org/users/nicosantos”>Nico Santo</a>
-* <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
-* <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
-* <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
-* <a href="http://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
-* <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
-* <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
-* <a href="http://profiles.wordpress.org/users/thatdudebutch">Wayne Stratton</a>
-* <a href="http://profiles.wordpress.org/users/zbtirrell">Zachary Tirrell</a>
+<a href="https://profiles.wordpress.org/barryhughes">Barry Hughes</a>
+<a href="https://profiles.wordpress.org/brianjessee">Brian Jessee</a>
+<a href="https://profiles.wordpress.org/brook-tribe">Brook Harding</a>
+<a href="https://profiles.wordpress.org/cliffpaulick">Clifford Paulick</a>
+<a href="https://profiles.wordpress.org/MZAWeb">Daniel Dvorkin</a>
+<a href="https://profiles.wordpress.org/geoffgraham">Geoff Graham</a>
+<a href="https://profiles.wordpress.org/ggwicz">George Gecewicz</a>
+<a href="https://profiles.wordpress.org/bordoni">Gustavo Bordoni</a>
+<a href="https://profiles.wordpress.org/jazbek">Jessica Yazbek</a>
+<a href="https://profiles.wordpress.org/joshlimecuda">Josh Mallard</a>
+<a href="https://profiles.wordpress.org/leahkoerper">Leah Koerper</a>
+<a href="https://profiles.wordpress.org/lucatume">Luca Tumedei</a>
+<a href="https://profiles.wordpress.org/borkweb">Matthew Batchelder</a>
+<a href="https://profiles.wordpress.org/neillmcshea">Neill McShea</a>
+<a href="https://profiles.wordpress.org/mastromktg">Nick Mastromattei</a>
+<a href="https://profiles.wordpress.org/nicosantos”>Nico Santo</a>
+<a href="https://profiles.wordpress.org/peterchester">Peter Chester</a>
+<a href="https://profiles.wordpress.org/roblagatta">Rob La Gatta</a>
+<a href="https://profiles.wordpress.org/reid.peifer">Reid Peifer</a>
+<a href="https://profiles.wordpress.org/shane.pearlman">Shane Pearlman</a>
+<a href="https://profiles.wordpress.org/thatdudebutch">Wayne Stratton</a>
+<a href="https://profiles.wordpress.org/zbtirrell">Zachary Tirrell</a>
 
 = Past Contributors =
 
-* <a href="http://profiles.wordpress.org/users/caseypatrickdriscoll">Casey Driscoll</a>
-* <a href="http://profiles.wordpress.org/users/ckpicker">Casey Picker</a>
-* <a href="http://profiles.wordpress.org/users/dancameron">Dan Cameron</a>
-* <a href="http://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
-* <a href="http://profiles.wordpress.org/users/jkudish">Joachim Kudish</a>
-* <a href="http://profiles.wordpress.org/users/jgadbois">John Gadbois</a>
-* <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
-* <a href=“https://profiles.wordpress.org/justinendler/“>Justin Endler</a>
-* <a href="http://profiles.wordpress.org/users/kellykathryn">Kelly Groves</a>
-* <a href="http://profiles.wordpress.org/users/kelseydamas">Kelsey Damas</a>
-* <a href="http://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
-* <a href="http://profiles.wordpress.org/users/mattwiebe">Matt Wiebe</a>
-* <a href="http://profiles.wordpress.org/users/nickciske">Nick Ciske</a>
-* <a href="http://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
-* <a href="http://profiles.wordpress.org/users/codearachnid">Timothy Wood</a>
+<a href="https://profiles.wordpress.org/caseypatrickdriscoll">Casey Driscoll</a>
+<a href="https://profiles.wordpress.org/ckpicker">Casey Picker</a>
+<a href="https://profiles.wordpress.org/dancameron">Dan Cameron</a>
+<a href="https://profiles.wordpress.org/jkudish">Joachim Kudish</a>
+<a href="https://profiles.wordpress.org/jgadbois">John Gadbois</a>
+<a href="https://profiles.wordpress.org/jonahcoyote">Jonah West</a>
+<a href="https://profiles.wordpress.org/jbrinley">Jonathan Brinley</a>
+<a href="https://profiles.wordpress.org/justinendler/">Justin Endler</a>
+<a href="https://profiles.wordpress.org/kellykathryn">Kelly Groves</a>
+<a href="https://profiles.wordpress.org/kelseydamas">Kelsey Damas</a>
+<a href="https://profiles.wordpress.org/kyleunzicker">Kyle Unzicker</a>
+<a href="https://profiles.wordpress.org/mdbitz">Matthew Denton</a>
+<a href="https://profiles.wordpress.org/mattwiebe">Matt Wiebe</a>
+<a href="https://profiles.wordpress.org/mat-lipe">Mat Lipe</a>
+<a href="https://profiles.wordpress.org/nickciske">Nick Ciske</a>
+<a href="https://profiles.wordpress.org/paulhughes01">Paul Hughes</a>
+<a href="https://profiles.wordpress.org/ryancurban">Ryan Urban</a>
+<a href="https://profiles.wordpress.org/faction23">Samuel Estok</a>
+<a href="https://profiles.wordpress.org/codearachnid">Timothy Wood</a>
 
 = Translations =
 
@@ -284,7 +285,7 @@ Our Free Plugins:
 
 Our Premium Plugins:
 
-* <a href="http://m.tri.be/2c" target="_blank">The Events Calendar PRO</a>
+* <a href="http://m.tri.be/2c" target="_blank">Events Calendar PRO</a>
 * <a href="http://m.tri.be/2e" target="_blank">The Events Calendar: Eventbrite Tickets</a>
 * <a href="http://m.tri.be/2g" target="_blank">The Events Calendar: Community Events</a>
 * <a href="http://m.tri.be/2h" target="_blank">The Events Calendar: Facebook Events</a>
@@ -317,9 +318,105 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [unreleased] unreleased =
+= [4.0 beta] unreleased =
 
+* Security - A TON of escaping was added to our codebase thanks to the efforts of Andy Fragen (@afragen)
+* Feature - Moved the Ticket framework code into its own plugin (event-tickets)
+* Feature - The event cost now supports more international formats with the addition of the tribe_events_cost_separators filter
+* Feature - Added support for the twentysixteen theme
+* Feature - Created a new Add-Ons tab in Settings so that TEC add-ons can have a consolidated settings tab
+* Tweak - Restructured TEC's core settings code for reusability with other standalone plugins like event-tickets
+* Tweak - Deprecate old JS event names in favor of a new JS event naming standard. Example: deprecated tribe_ev_runAjax in favor of run-ajax.tribe
+* Tweak - Consolidated import pages for TEC and add-ons
+* Tweak - When suggesting a UTF-8 compatibility CSV formatting tool, point to one that still exists
+* Tweak - Added the ability to filter attendees CSV items via tribe_events_tickets_attendees_csv_items (props to @bostondv on GitHub for this patch!)
+* Tweak - Updated all excerpt output to use tribe_events_get_the_excerpt() to ensure a consistent display of excerpt content
 * Tweak - Add support for wp_get_document_title in response to the WordPress 4.4 deprecation of wp_title
+* Tweak - Check post creation permissions before letting users create venues and organizers from the event meta box
+* Tweak - Only display data separators between fields that have data when rendering organizers
+* Tweak - When a user cannot create organziers, prevent the auto-selection of organizers when editing an event
+* Tweak - Remove microformat CSS classes from templates and replace with namespaced content-relevant CSS classes
+* Tweak - Changed the "updated" CSS class to "tribe-updated" so that it is properly namespaced
+* Tweak - The Plugin Update Checker will now auto-save valid plugin keys
+* Tweak - Cleaned up the output of JSON-LD data. Filterable via the new tribe_google_data_markup_json filter
+* Tweak - Drop the use of the generic CSS class "placeholder" in favor of "tribe-event-placeholder"
+* Tweak - Adjusted the CSS padding on Admin Menu items for Events
+* Tweak - Various codesniffer fixes
+* Tweak - tribe_get_vanue_link() no longer echoes if you ask it to return an <a> element
+* Tweak - No longer retrieve empty costs when fetching all costs for all events
+* Tweak - Change the priority of bootstrapping the-events-calendar to ensure it occurs before any of the TEC addons in the event some addons are upgraded to v4.0 later than TEC
+* Fix - Resolved issue where the iCal feed did not provide an appropriately formatted timezone in some cases
+* Fix - Added support for translating some previously untranslatable strings
+* Fix - Prevented duplicate CSS IDs on the mini calendars
+* Fix - Fixed bug causing tribe_get_single_ical_link() and tribe_get_ical_link() to use the same URL when it shouldn't (props to Ben Byrne @drywall on Twitter for the heads up!)
+* Fix - Fixed issue where the "Add another organizer" text wasn't using the correct singular label
+* Fix - Various CSS fixes for twenty(ten-fifteen)
+* Fix - Fixed bug where accessing object properties on a non object errored out when saving event meta (props to @dalethedeveloper on GitHub for this fix!)
+* Fix - Fixed bug where organizer ID meta attached sometimes included a blank record. That blank record is no longer returned in tribe_get_organizer_ids()
+* Fix - Fixed error message returned when tabbing away from a blank event name meta box so that it properly indicates that an event name is required (our thanks to @tapan29bd for this fix!)
+* Fix - Resolved issue where Timezone event start/end date property name strings were malformed which guaranteed a a call to get_post_meta for Timezone date strings
+* Fix - Fixed CSS issue where the month view calendar could sometimes extend beyond the edge of the page when Skeleton Styles were enabled
+* Deprecated - The Tribe__Events__Main::defaultValueReplaceEnabled() method is being deprecated in favor of tribe_get_option('defaultValueReplace'). Schedules for removal in v4.5
+* Deprecated - The tribe_event_link() has been deprecated in favor of tribe_get_event_link(). Scheduled for removal in 5.0
+* Deprecated - The third parameter of tribe_get_organizer_link() (the $echo parameter) has been deprecated and is scheduled for removal in 5.0
+* Deprecated - Tribe__Events__Abstract_Deactivation in favor of Tribe__Abstract_Deactivation
+* Deprecated - Tribe__Events__Admin__Helpers in favor of Tribe__Admin__Helpers
+* Deprecated - Tribe__Events__App_Shop in favor of Tribe__App_Shop
+* Deprecated - Tribe__Events__Autoloader in favor of Tribe__Autoloader
+* Deprecated - Tribe__Events__Cache in favor of Tribe__Cache
+* Deprecated - Tribe__Events__Cache_Listener in favor of Tribe__Cache_Listener
+* Deprecated - Tribe__Events__Changelog_Reader in favor of Tribe__Changelog_Reader
+* Deprecated - Tribe__Events__Credits in favor of Tribe__Credits
+* Deprecated - Tribe__Events__Date_Utils in favor of Tribe__Date_Utils
+* Deprecated - Tribe__Events__Field in favor of Tribe__Field
+* Deprecated - Tribe__Events__Settings in favor of Tribe__Settings
+* Deprecated - Tribe__Events__Settings_Tab in favor of Tribe__Settings_Tab
+* Deprecated - Tribe__Events__Support in favor of Tribe__Support
+* Deprecated - Tribe__Events__Template_Part_Cache in favor of Tribe__Template_Part_Cache
+* Deprecated - Tribe__Events__Tickets__Attendees_Table in favor of Tribe__Tickets__Attendees_Table in the event-tickets plugin
+* Deprecated - Tribe__Events__Tickets__Metabox in favor of Tribe__Tickets__Metabox in the event-tickets plugin
+* Deprecated - Tribe__Events__Tickets__Ticket_Object in favor of Tribe__Tickets__Ticket_Object in the event-tickets plugin
+* Deprecated - Tribe__Events__Tickets__Tickets in favor of Tribe__Tickets__Tickets in the event-tickets plugin
+* Deprecated - Tribe__Events__Tickets__Tickets_Pro in favor of Tribe__Tickets__Tickets_Handler in the event-tickets plugin
+* Deprecated - Tribe__Events__Validate in favor of Tribe__Validate
+* Deprecated - Tribe__Events__View_Helpers in favor of Tribe__View_Helpers
+* Deprecated - Tribe__Events__Main::OPTIONNAME in favor of Tribe__Main::OPTIONNAME
+* Deprecated - Tribe__Events__Main::OPTIONNAMENETWORK in favor of Tribe__Main::OPTIONNAMENETWORK
+* Deprecated - Tribe__Events__Main::addHelpAdminMenuItem() in favor of Tribe__Settings_Manager::add_help_admin_menu_item()
+* Deprecated - Tribe__Events__Main::addNetworkOptionsPage() in favor of Tribe__Settings_Manager::add_network_options_page()
+* Deprecated - Tribe__Events__Main::array_insert_after_key() in favor of Tribe__Main::array_insert_after_key()
+* Deprecated - Tribe__Events__Main::array_insert_before_key() in favor of Tribe__Main::array_insert_before_key()
+* Deprecated - Tribe__Events__Main::debug() in favor of Tribe__Debug::debug()
+* Deprecated - Tribe__Events__Main::defaultValueReplaceEnabled() in favor of tribe_get_option( 'defaultValueReplace' )
+* Deprecated - Tribe__Events__Main::doHelpTab() in favor of Tribe__Settings_Manager::do_help_tab()
+* Deprecated - Tribe__Events__Main::doNetworkSettingTab() in favor of Tribe__Settings_Manager::do_network_settings_tab()
+* Deprecated - Tribe__Events__Main::doSettingTabs() in favor of Tribe__Settings_Manager::do_setting_tabs()
+* Deprecated - Tribe__Events__Main::do_licenses_tab() in favor of Tribe__Settings_Manager::do_licenses_tab()
+* Deprecated - Tribe__Events__Main::getNetworkOption() in favor of Tribe__Settings_Manager::get_network_option()
+* Deprecated - Tribe__Events__Main::getNetworkOptions() in favor of Tribe__Settings_Manager::get_network_options()
+* Deprecated - Tribe__Events__Main::getNotices() in favor of Tribe__Notices::get()
+* Deprecated - Tribe__Events__Main::getOption() in favor of Tribe__Settings_Manager::get_option()
+* Deprecated - Tribe__Events__Main::getOptions() in favor of Tribe__Settings_Manager::get_options()
+* Deprecated - Tribe__Events__Main::have_addons() in favor of Tribe__Settings_Manager::have_addons()
+* Deprecated - Tribe__Events__Main::isNotice() in favor of Tribe__Notices::is_notice()
+* Deprecated - Tribe__Events__Main::pluginDir in favor of Tribe__Events__Main::plugin_dir
+* Deprecated - Tribe__Events__Main::pluginName in favor of Tribe__Events__Main::plugin_name
+* Deprecated - Tribe__Events__Main::pluginPath in favor of Tribe__Events__Main::plugin_path
+* Deprecated - Tribe__Events__Main::pluginUrl in favor of Tribe__Events__Main::plugin_url
+* Deprecated - Tribe__Events__Main::removeNotice() in favor of Tribe__Notices::remove_notice()
+* Deprecated - Tribe__Events__Main::renderDebug() in favor of Tribe__Debug::render()
+* Deprecated - Tribe__Events__Main::saveAllTabsHidden() in favor of Tribe__Settings_Manager::save_all_tabs_hidden()
+* Deprecated - Tribe__Events__Main::setNetworkOptions() in favor of Tribe__Settings_Manager::set_network_options()
+* Deprecated - Tribe__Events__Main::setNotice() in favor of Tribe__Notices::set_notice()
+* Deprecated - Tribe__Events__Main::truncate() in favor of tribe_events_get_the_excerpt()
+* Deprecated - tribe_event_beginning_of_day() in favor of tribe_beginning_of_day()
+* Deprecated - tribe_event_end_of_day() in favor of tribe_end_of_day()
+* Deprecated - tribe_event_format_date() in favor of tribe_format_date()
+* Deprecated - tribe_events_the_notices() in favor of tribe_the_notices()
+
+= [3.12.4] unreleased =
+
+* Feature - Added support for the new Events Community Tickets plugin
 
 = [3.12.3] 2015-10-01 =
 

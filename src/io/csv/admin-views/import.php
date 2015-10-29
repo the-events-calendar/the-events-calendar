@@ -63,7 +63,7 @@ if ( ! empty( $messages ) ): ?>
 			<tr>
 				<td>
 					<label title="Header Row">
-						<input type="checkbox" name="import_header" value="1" id="events-import-csv-file" checked="checked" />
+						<input type="checkbox" name="import_header" value="1" id="events-import-header" checked="checked" />
 						<?php esc_html_e( 'This file has column names in the first row', 'the-events-calendar' ) ?>
 					</label>
 				</td>

@@ -9,13 +9,66 @@ class Tribe__Events__Importer__Admin_Page {
 	private $messages = array();
 	private $errors = array();
 
+	/**
+	 * Static Singleton Holder
+	 * @var Tribe__Settings|null
+	 */
+	private static $instance;
+
+	/**
+	 * Static Singleton Factory Method
+	 *
+	 * @return Tribe__Settings
+	 */
+	public static function instance() {
+		if ( empty( self::$instance ) ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * Admin page for the importer URL, relative to `admin_url()`
+	 * @var null|string
+	 */
+	public $admin_page_url = null;
+
+	/**
+	 * The actual Page Slug used
+	 * @var null|string
+	 */
+	public $admin_page_slug = null;
+
+	public function __construct() {
+		$this->admin_page_url = 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE;
+		$this->admin_page_slug = 'events-importer';
+	}
+
+	/**
+	 * Returns the main admin settings URL.
+	 *
+	 * @return string
+	 */
+	public function get_url( array $args = array() ) {
+		$defaults = array(
+			'page' => $this->admin_page_slug,
+		);
+
+		// Allow the link to be "changed" on the fly
+		$args = wp_parse_args( $args, $defaults );
+		$url = admin_url( $this->admin_page_url );
+
+		return esc_url( apply_filters( 'tribe_importer_url', add_query_arg( $args, $url ), $args, $url ) );
+	}
+
 	public function register_admin_page() {
 		add_submenu_page(
-			'edit.php?post_type='.Tribe__Events__Main::POSTTYPE,
+			$this->admin_page_url,
 			esc_html__( 'Import', 'the-events-calendar' ),
 			esc_html__( 'Import', 'the-events-calendar' ),
 			'import',
-			'events-importer',
+			$this->admin_page_slug,
 			array( $this, 'render_admin_page_contents' )
 		);
 	}

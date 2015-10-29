@@ -1,5 +1,4 @@
 <?php
-namespace Tribe\Events\Test;
 /**
  * Inherited Methods
  * @method void wantToTest( $text )

@@ -120,8 +120,7 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function log_display_of_message_page() {
-		$tec = Tribe__Events__Main::instance();
-		$tec->setOption( 'last-update-message', Tribe__Events__Main::VERSION );
+		Tribe__Settings_Manager::set_option( 'last-update-message', Tribe__Events__Main::VERSION );
 	}
 
 	/**
@@ -164,18 +163,17 @@ class Tribe__Events__Activation_Page {
 	}
 
 	public function register_page() {
-		// tribe_events_page_tribe-events-calendar
 		if ( isset( $_GET['tec-welcome-message'] ) ) {
 			$this->disable_default_settings_page();
-			add_action( 'tribe_events_page_tribe-events-calendar', array( $this, 'display_welcome_page' ) );
+			add_action( 'tribe_events_page_' . Tribe__Settings::$parent_slug, array( $this, 'display_welcome_page' ) );
 		} elseif ( isset( $_GET['tec-update-message'] ) ) {
 			$this->disable_default_settings_page();
-			add_action( 'tribe_events_page_tribe-events-calendar', array( $this, 'display_update_page' ) );
+			add_action( 'tribe_events_page_' . Tribe__Settings::$parent_slug, array( $this, 'display_update_page' ) );
 		}
 	}
 
 	protected function disable_default_settings_page() {
-		remove_action( 'tribe_events_page_tribe-events-calendar', array( Tribe__Settings::instance(), 'generatePage' ) );
+		remove_action( 'tribe_events_page_' . Tribe__Settings::$parent_slug, array( Tribe__Settings::instance(), 'generatePage' ) );
 	}
 
 	public function display_welcome_page() {

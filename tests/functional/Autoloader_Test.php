@@ -38,7 +38,7 @@ class Tribe_Autoloader_Test extends Tribe__Events__WP_UnitTestCase {
 	 * Test if a class exists that is autoloaded through the common plugin and deprecated.
 	 */
 	public function test_deprecated_common_class_exists() {
-		$class = 'Tribe__Events__Capabilities';
+		$class = 'Tribe__Events__App_Shop';
 		$this->expected_deprecated_file[] = dirname( dirname( dirname( __FILE__ ) ) ) . '/common/src/deprecated/' . $class . '.php';
 		$this->assertTrue( class_exists( $class ), 'Class "' . $class . '" does not exist.' );
 	}
