@@ -1,6 +1,7 @@
 <?php
 
 class Tribe__Events__Capabilities {
+	public $set_initial_caps = false;
 	private $cap_aliases = array(
 		'editor' => array( // full permissions to a post type
 			'read',
@@ -70,6 +71,7 @@ class Tribe__Events__Capabilities {
 				$role->add_cap( $pto->cap->$alias );
 			}
 		}
+
 		return true;
 	}
 
@@ -101,6 +103,8 @@ class Tribe__Events__Capabilities {
 	 * @return void
 	 */
 	public function set_initial_caps() {
+		// this is a flag for testing purposes to make sure this function is firing
+		$this->set_initial_caps = true;
 		foreach ( array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) as $role ) {
 			$this->register_post_type_caps( Tribe__Events__Main::POSTTYPE, $role );
 			$this->register_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );

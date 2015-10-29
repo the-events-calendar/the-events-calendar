@@ -151,9 +151,12 @@ class Tribe__Events__Capabilities_Test extends Tribe__Events__WP_UnitTestCase {
 	 * @param string $role
 	 * @param bool $can
 	 *
-	 * @dataProvider editor_or_higher
+	 * @dataProvider contributor_or_higher
 	 */
 	public function tests_role_can_edit_venues( $role, $can ) {
+		$caps = new Tribe__Events__Capabilities();
+		$caps->register_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );
+
 		/** @var WP_User $user */
 		$user = $this->factory->user->create_and_get( array(
 			'role' => $role,
@@ -166,7 +169,7 @@ class Tribe__Events__Capabilities_Test extends Tribe__Events__WP_UnitTestCase {
 	 * @param string $role
 	 * @param bool $can
 	 *
-	 * @dataProvider editor_or_higher
+	 * @dataProvider contributor_or_higher
 	 */
 	public function tests_role_can_edit_organizers( $role, $can ) {
 		/** @var WP_User $user */
