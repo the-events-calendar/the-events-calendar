@@ -7,10 +7,10 @@ class Tribe__Events__Bar {
 
 	private static $instance;
 
-	// Each row should be an assosiative array with three fields: name, caption and html (html is the markup of the field)
+	// Each row should be an associative array with three fields: name, caption and html (html is the markup of the field)
 	private $filters = array();
 
-	// Each row should be an assosiative array with three fields: displaying, anchor and url.
+	// Each row should be an associative array with three fields: displaying, anchor and url.
 	// Displaying is the value of Tribe__Events__Main->displaying
 	private $views = array();
 
@@ -27,7 +27,7 @@ class Tribe__Events__Bar {
 	/**
 	 * Decide if the TribeBar should be shown in a particular pageview.
 	 *
-	 * @filter tribe-events-bar-views to get all the registred views that the Bar will show
+	 * @filter tribe-events-bar-views to get all the registered views that the Bar will show
 	 * @filter tribe-events-bar-should-show to allow themers to always hide the bar if they want.
 	 *
 	 * To always hide the Bar, add this to your theme's functions.php:

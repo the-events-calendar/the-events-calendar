@@ -17,7 +17,7 @@ class Tribe__Events__Activation_Page {
 
 	/**
 	 * Filter the Default WordPress actions when updating the plugin to prevent users to be redirected if they have an
-	 * specfific intention of going back to the plugins page.
+	 * specific intention of going back to the plugins page.
 	 *
 	 * @param  array $actions The Array of links (html)
 	 * @param  string $plugin Which plugins are been updated
