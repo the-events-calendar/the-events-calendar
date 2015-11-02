@@ -24,11 +24,11 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 	public function __construct( Tribe__Events__Pro__Recurrence__Queue $queue = null, Tribe__Events__Ajax__Operations $ajax_operations = null, Tribe__Events__Pro__Recurrence__Queue_Processor $queue_processor = null ) {
 		add_action( 'admin_head-post.php', array(
 			$this,
-			'post_editor'
+			'post_editor',
 		) );
 		add_action( 'wp_ajax_tribe_events_pro_recurrence_realtime_update', array(
 			$this,
-			'ajax'
+			'ajax',
 		) );
 		$this->queue           = $queue;
 		$this->ajax_operations = $ajax_operations ? $ajax_operations : new Tribe__Events__Ajax__Operations();
@@ -59,7 +59,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 		$this->update_loop_vars();
 		add_action( 'admin_notices', array(
 			$this,
-			'add_notice'
+			'add_notice',
 		) );
 
 		return true;
