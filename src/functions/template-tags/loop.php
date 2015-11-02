@@ -139,7 +139,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			// If we are on page 1 then we may wish to use the *selected* start date in place of the
 			// first returned event date
 			if ( 1 == $wp_query->get( 'paged' ) && $_REQUEST['tribe-bar-date'] < $first_returned_date ) {
-				$first_event_date = tribe_event_format_date( $_REQUEST['tribe-bar-date'], false );
+				$first_event_date = tribe_format_date( $_REQUEST['tribe-bar-date'], false );
 			}
 
 			$title = sprintf( __( '%1$s for %2$s - %3$s', 'the-events-calendar' ), $events_label_plural, $first_event_date, $last_event_date );

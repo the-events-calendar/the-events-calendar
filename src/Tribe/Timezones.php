@@ -260,7 +260,7 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 	}
 
 	/**
-	 * Returns a timestamp for the event start date that can be passed to tribe_event_format_date()
+	 * Returns a timestamp for the event start date that can be passed to tribe_format_date()
 	 * in order to produce the time in the correct timezone.
 	 *
 	 * @param int    $event_id
