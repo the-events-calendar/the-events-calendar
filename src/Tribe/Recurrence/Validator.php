@@ -1,4 +1,6 @@
 <?php
+
+
 class Tribe__Events__Pro__Recurrence__Validator {
 
 	/**
