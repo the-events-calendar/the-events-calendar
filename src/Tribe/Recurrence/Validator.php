@@ -37,7 +37,7 @@ class Tribe__Events__Pro__Recurrence__Validator {
 		$response = apply_filters( 'tribe_recurring_pre_event_error', $event_id, $response, $recurrence_meta );
 
 		if ( ! $response->valid ) {
-			do_action( 'tribe_recurring_event_error',$event_id, $response, $recurrence_meta );
+			do_action( 'tribe_recurring_event_error', $event_id, $response, $recurrence_meta );
 		}
 
 		return $response->valid;
