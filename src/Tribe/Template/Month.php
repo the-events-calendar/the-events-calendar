@@ -867,7 +867,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$today        = date_i18n( Tribe__Date_Utils::DBDATEFORMAT );
 
 			// Start by determining which month we're looking at
-			if ( $current_day['month'] == self::CURRENT_MONTH ) {
+			if ( $calendar_day['month'] == self::CURRENT_MONTH ) {
 				$classes = 'tribe-events-thismonth';
 			} else {
 				$classes = 'tribe-events-othermonth';
@@ -883,12 +883,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			}
 
 			// The day has some events
-			if ( $current_day['total_events'] > 0 ) {
+			if ( $calendar_day['total_events'] > 0 ) {
 				$classes .= ' tribe-events-has-events';
 			}
 
 			// Needed for mobile js
-			$day_num  = str_pad( $current_day['daynum'], 2, '0', STR_PAD_LEFT );
+			$day_num  = str_pad( $calendar_day['daynum'], 2, '0', STR_PAD_LEFT );
 			$classes .= ' mobile-trigger tribe-event-day-' . date_i18n( 'd', $day_num );
 
 			// Determine which column of the grid the day is in
