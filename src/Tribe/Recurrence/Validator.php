@@ -4,6 +4,11 @@
 class Tribe__Events__Pro__Recurrence__Validator {
 
 	/**
+	 * @var self
+	 */
+	protected static $instance;
+
+	/**
 	 * @var int
 	 */
 	protected $event_id;
