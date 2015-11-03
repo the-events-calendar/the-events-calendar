@@ -402,11 +402,12 @@
 					eventDate: ts.date
 				};
 
+				ts.url_params = {};
+
 				if ( ts.category ) {
 					ts.params['tribe_event_category'] = ts.category;
+					ts.url_params['tribe_events_cat'] = ts.category;
 				}
-
-				ts.url_params = {};
 
 				if ( td.default_permalinks ) {
 					if( !ts.url_params.hasOwnProperty( 'post_type' ) ){
