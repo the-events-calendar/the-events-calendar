@@ -1991,7 +1991,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$sql = str_replace( 'AS post_date', 'AS EventStartDate', $sql );
 
 		// The outer query should order things by EventStartDate in the same direction the inner query does by post date:
-		preg_match( '/[\s,]post_date\s+(DESC|ASC)/', $sql, $direction );
+		preg_match( '/[\s,](?:EventStartDate|post_date)\s+(DESC|ASC)/', $sql, $direction );
 		$direction = ( isset( $direction[1] ) && 'DESC' === $direction[1] )
 			? 'DESC'
 			: 'ASC';
