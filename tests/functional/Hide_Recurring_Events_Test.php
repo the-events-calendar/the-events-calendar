@@ -1,13 +1,17 @@
 <?php
 class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
-	protected $test_parent_id = 0;
+	protected $test_parent_id  = 0;
+	protected $base_date       = '';
+	protected $one_month_ahead = '';
 
 
 	/**
 	 * Create a recurring event for use by all subsequent tests.
 	 */
 	public function setUp() {
-		$start_date = date( 'Y-m-d', strtotime( '2014-05-01' ) );
+		// Use a future date for consistency
+		$this->base_date = date( 'Y-m-d', strtotime( '+1 year' ) );
+		$this->one_month_ahead = date( 'Y-m-d', strtotime( '+1 year +1 month' ) );
 
 		$event_args = [
 			'post_type'        => Tribe__Events__Main::POSTTYPE,
@@ -15,8 +19,8 @@ class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCas
 			'post_content'     => __CLASS__ . ' ' . __FUNCTION__,
 			'post_name'        => 'test-tribeHideRecurrence',
 			'post_status'      => 'publish',
-			'EventStartDate'   => $start_date,
-			'EventEndDate'     => $start_date,
+			'EventStartDate'   => $this->base_date,
+			'EventEndDate'     => $this->base_date,
 			'EventStartHour'   => 16,
 			'EventEndHour'     => 17,
 			'EventStartMinute' => 0,
@@ -56,8 +60,9 @@ class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCas
 		$results = $query->query(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'tribeHideRecurrence' => 1,
-			'start_date' => '2014-05-01',
+			'start_date' => $this->base_date,
 			'eventDisplay' => 'custom',
+			'order' => 'ASC'
 		));
 
 		$this->assertCount( 1, $results );
@@ -66,7 +71,7 @@ class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCas
 		$results = $query->query(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'tribeHideRecurrence' => 1,
-			'start_date' => '2014-06-01',
+			'start_date' => $this->one_month_ahead,
 			'eventDisplay' => 'custom',
 			'orderby' => 'ID',
 			'order' => 'ASC',
@@ -74,13 +79,13 @@ class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCas
 
 		$this->assertCount(1, $results);
 		$this->assertNotEmpty($children);
-		$this->assertEquals($children[4], reset($results));
+		$this->assertEquals( $children[4], reset($results)->ID );
 
 		$query = new WP_Query();
 		$results = $query->query(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'tribeHideRecurrence' => 0,
-			'start_date' => '2014-05-01',
+			'start_date' => $this->base_date,
 			'eventDisplay' => 'custom',
 		));
 
@@ -93,7 +98,7 @@ class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCas
 		$results = $query->query(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'tribeHideRecurrence' => 0,
-			'start_date' => '2014-05-01',
+			'start_date' => $this->base_date,
 			'eventDisplay' => 'custom',
 		));
 
@@ -108,17 +113,21 @@ class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCas
 	 * that.
 	 */
 	public function test_supports_query_fields_property() {
+		$this->markTestSkipped(
+			'Tribe__Events__Pro__Recurrence_Meta::recurrence_collapse_sql() does not support this yet.'
+		);
+
+		/* Retaining the query showing the use of the fields property we need/ought to
+		 * support - but commented out so as not to clutter test results with db errors.
+		 *
 		$query   = new WP_Query();
 		$results = $query->query( [
 			'post_type'           => Tribe__Events__Main::POSTTYPE,
 			'fields'              => 'ids',
 			'tribeHideRecurrence' => 1,
-			'start_date'          => '2014-05-01',
+			'start_date'          => $this->test_base_date,
 			'eventDisplay'        => 'custom',
 		] );
-
-		$this->markTestSkipped(
-			'Tribe__Events__Pro__Recurrence_Meta::recurrence_collapse_sql() does not support this yet.'
-		);
+		*/
 	}
 }
