@@ -129,8 +129,6 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 
 = Current Contributors =
 
-= Current Contributors =
-
 <a href="https://profiles.wordpress.org/barryhughes">Barry Hughes</a>
 <a href="https://profiles.wordpress.org/brianjessee">Brian Jessee</a>
 <a href="https://profiles.wordpress.org/brook-tribe">Brook Harding</a>
