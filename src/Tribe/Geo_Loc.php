@@ -653,7 +653,6 @@ class Tribe__Events__Pro__Geo_Loc {
 	public function estimate_center_point() {
 		global $wpdb, $wp_query;
 
-
 		$data = get_transient( self::ESTIMATION_CACHE_KEY );
 
 		if ( empty( $data ) ) {
@@ -689,13 +688,16 @@ class Tribe__Events__Pro__Geo_Loc {
 
 				if ( ! empty( $data ) ) {
 					$data = array_shift( $data );
+
+					// If there is no geoloc data then each result will be null - we cannot pass null values
+					// to the Google Maps API however
+					$data = array_map( 'floatval', $data );
 				}
 			}
 			set_transient( self::ESTIMATION_CACHE_KEY, $data, 5000 );
 		}
 
 		return $data;
-
 	}
 
 	/**

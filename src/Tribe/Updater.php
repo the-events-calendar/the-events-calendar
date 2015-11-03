@@ -32,7 +32,7 @@ class Tribe__Events__Pro__Updater extends Tribe__Events__Updater {
 		);
 	}
 
-	protected function recurring_events_from_meta_to_child_posts() {
+	public function recurring_events_from_meta_to_child_posts() {
 		$converter = new Tribe__Events__Pro__Updates__Recurrence_Meta_To_Child_Post_Converter();
 		$converter->do_conversion();
 	}
