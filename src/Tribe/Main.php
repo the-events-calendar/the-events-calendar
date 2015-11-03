@@ -1898,9 +1898,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				// select 2
 				Tribe__Events__Template_Factory::asset_package( 'select2' );
 
-				// smoothness
-				Tribe__Events__Template_Factory::asset_package( 'smoothness' );
-
 				// date picker
 				Tribe__Events__Template_Factory::asset_package( 'datepicker' );
 
@@ -4626,6 +4623,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			require_once $this->plugin_path . 'vendor/tickets/event-tickets.php';
+			Tribe__Tickets__Main::instance()->plugins_loaded();
 		}
 
 		/**
