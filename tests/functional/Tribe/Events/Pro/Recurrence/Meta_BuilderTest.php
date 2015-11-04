@@ -1,6 +1,8 @@
 <?php
 namespace Tribe\Events\Pro\Recurrence;
 
+use Tribe__Events__Pro__Recurrence__Meta_Builder as Meta_Builder;
+
 class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 
 	protected $backupGlobals = false;
@@ -23,7 +25,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 	 * is instantiatable
 	 */
 	public function test_is_instantiatable() {
-		$this->assertInstanceOf( 'Tribe__Events__Pro__Recurrence__Meta_Builder', new \Tribe__Events__Pro__Recurrence__Meta_Builder( 10 ) );
+		$this->assertInstanceOf( 'Meta_Builder', new Meta_Builder( 10 ) );
 	}
 
 	/**
@@ -32,7 +34,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 	 */
 	public function it_should_return_empty_array_for_empty_input() {
 		$data = array();
-		$sut  = new \Tribe__Events__Pro__Recurrence__Meta_Builder( 10, $data );
+		$sut  = new Meta_Builder( 10, $data );
 		$this->assertEquals( $this->get_zero_array(), $sut->build_meta() );
 	}
 
@@ -46,7 +48,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 			'description' => $str,
 			'recurrence'  => array()
 		);
-		$sut                       = new \Tribe__Events__Pro__Recurrence__Meta_Builder( 10, $data );
+		$sut                       = new Meta_Builder( 10, $data );
 		$zero_array                = $this->get_zero_array();
 		$zero_array['description'] = $str;
 		$this->assertEquals( $zero_array, $sut->build_meta() );
@@ -63,7 +65,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 				'exclusions' => array()
 			)
 		);
-		$sut        = new \Tribe__Events__Pro__Recurrence__Meta_Builder( 10, $data );
+		$sut        = new Meta_Builder( 10, $data );
 		$zero_array = $this->get_zero_array();
 		$this->assertEquals( $zero_array, $sut->build_meta() );
 	}
@@ -78,7 +80,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 				'rules' => array( 'type' => '' )
 			)
 		);
-		$sut      = new \Tribe__Events__Pro__Recurrence__Meta_Builder( 10, $data );
+		$sut      = new Meta_Builder( 10, $data );
 		$expected = $this->get_zero_array();
 		$this->assertEquals( $expected, $sut->build_meta() );
 	}
@@ -93,7 +95,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 				'rules' => array( 'type' => 'None' )
 			)
 		);
-		$sut      = new \Tribe__Events__Pro__Recurrence__Meta_Builder( 10, $data );
+		$sut      = new Meta_Builder( 10, $data );
 		$expected = $this->get_zero_array();
 		$this->assertEquals( $expected, $sut->build_meta() );
 	}
@@ -108,7 +110,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 				'exclusions' => array( 'key' => 'value' )
 			)
 		);
-		$sut  = new \Tribe__Events__Pro__Recurrence__Meta_Builder( 10, $data );
+		$sut  = new Meta_Builder( 10, $data );
 		$this->assertEquals( $this->get_zero_array(), $sut->build_meta() );
 	}
 
@@ -122,7 +124,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 				'custom' => array( 'type-text' => array( 'key' => 'value' ) )
 			)
 		);
-		$sut  = new \Tribe__Events__Pro__Recurrence__Meta_Builder( 10, $data );
+		$sut  = new Meta_Builder( 10, $data );
 		$this->assertEquals( $this->get_zero_array(), $sut->build_meta() );
 	}
 
@@ -136,7 +138,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 				'occurrence-count-text' => array( 'key' => 'value' )
 			)
 		);
-		$sut  = new \Tribe__Events__Pro__Recurrence__Meta_Builder( 10, $data );
+		$sut  = new Meta_Builder( 10, $data );
 		$this->assertEquals( $this->get_zero_array(), $sut->build_meta() );
 	}
 
@@ -171,7 +173,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 		$utils->expects( $this->once() )->method( 'datetime_from_format' )->willReturn( $end_date );
 		$utils->expects( $this->once() )->method( 'is_valid' )->willReturn( true );
 
-		$sut  = new \Tribe__Events__Pro__Recurrence__Meta_Builder( 10, $data, $utils );
+		$sut  = new Meta_Builder( 10, $data, $utils );
 		$meta = $sut->build_meta();
 
 		$this->assertNotEmpty( $meta['rules'][0]['end'] );
@@ -201,7 +203,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 		$utils->expects( $this->once() )->method( 'datetime_from_format' )->willReturn( $end_date );
 		$utils->expects( $this->once() )->method( 'is_valid' )->willReturn( true );
 
-		$sut  = new \Tribe__Events__Pro__Recurrence__Meta_Builder( 10, $data, $utils );
+		$sut  = new Meta_Builder( 10, $data, $utils );
 		$meta = $sut->build_meta();
 
 		$this->assertArrayNotHasKey( 'custom', $meta['rules'][0] );
@@ -251,7 +253,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 		$utils->expects( $this->once() )->method( 'datetime_from_format' )->willReturn( $end_date );
 		$utils->expects( $this->once() )->method( 'is_valid' )->willReturn( true );
 
-		$sut  = new \Tribe__Events__Pro__Recurrence__Meta_Builder( 10, $data, $utils );
+		$sut  = new Meta_Builder( 10, $data, $utils );
 		$meta = $sut->build_meta();
 
 		foreach ( array_diff( $custom_types, (array) $type ) as $to_prune ) {
@@ -281,7 +283,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 		$utils->expects( $this->once() )->method( 'datetime_from_format' )->willReturn( $end_date );
 		$utils->expects( $this->once() )->method( 'is_valid' )->willReturn( true );
 
-		$sut  = new \Tribe__Events__Pro__Recurrence__Meta_Builder( 10, $data, $utils );
+		$sut  = new Meta_Builder( 10, $data, $utils );
 		$meta = $sut->build_meta();
 
 		$this->assertNotEmpty( 'EventStartDate', $meta['rules'][0]['EventStartDate'] );
@@ -310,7 +312,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 		$utils->expects( $this->once() )->method( 'datetime_from_format' )->willReturn( $end_date );
 		$utils->expects( $this->once() )->method( 'is_valid' )->willReturn( true );
 
-		$sut  = new \Tribe__Events__Pro__Recurrence__Meta_Builder( 10, $data, $utils );
+		$sut  = new Meta_Builder( 10, $data, $utils );
 		$meta = $sut->build_meta();
 
 		$this->assertNotEmpty( 'EventEndDate', $meta['rules'][0]['EventEndDate'] );
@@ -339,7 +341,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 		$utils->expects( $this->once() )->method( 'datetime_from_format' )->willReturn( $end_date );
 		$utils->expects( $this->once() )->method( 'is_valid' )->willReturn( false );
 
-		$sut  = new \Tribe__Events__Pro__Recurrence__Meta_Builder( 10, $data, $utils );
+		$sut  = new Meta_Builder( 10, $data, $utils );
 		$meta = $sut->build_meta();
 
 		$this->assertEmpty( $meta['rules'] );
