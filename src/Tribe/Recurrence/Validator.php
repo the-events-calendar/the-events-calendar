@@ -29,7 +29,8 @@ class Tribe__Events__Pro__Recurrence__Validator {
 	 */
 	public function is_valid( $event_id, array $recurrence_meta ) {
 		$response = (object) array(
-			'valid' => true, 'message' => '',
+			'valid' => true,
+			'message' => '',
 		);
 
 		$this->event_id        = $event_id;
