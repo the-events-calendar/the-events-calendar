@@ -21,6 +21,13 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 	 */
 	private $queue_processor;
 
+	/**
+	 * The Queue_Realtime constructor method.
+	 *
+	 * @param Tribe__Events__Pro__Recurrence__Queue|null           $queue An optional Recurrence Queue instance.
+	 * @param Tribe__Events__Ajax__Operations|null                 $ajax_operations An optional Ajax Operations instance.
+	 * @param Tribe__Events__Pro__Recurrence__Queue_Processor|null $queue_processor An optional Queue_Processor instance.
+	 */
 	public function __construct( Tribe__Events__Pro__Recurrence__Queue $queue = null, Tribe__Events__Ajax__Operations $ajax_operations = null, Tribe__Events__Pro__Recurrence__Queue_Processor $queue_processor = null ) {
 		add_action( 'admin_head-post.php', array(
 			$this,
