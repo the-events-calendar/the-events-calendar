@@ -61,6 +61,11 @@ class Tribe__Events__Pro__Recurrence__Validator {
 		return $this->filtered_response( $response );
 	}
 
+	/**
+	 * Singleton constructor method for the class.
+	 *
+	 * @return Tribe__Events__Pro__Recurrence__Validator
+	 */
 	public static function instance() {
 		if ( empty( self::$instance ) ) {
 			self::$instance = new self;
@@ -69,6 +74,13 @@ class Tribe__Events__Pro__Recurrence__Validator {
 		return self::$instance;
 	}
 
+	/**
+	 * Returns the validation response `valid` boolean after filtering.
+	 *
+	 * @param stdClass $response
+	 *
+	 * @return bool Wheter the response is considered valid or not.
+	 */
 	private function filtered_response( $response ) {
 		$response = apply_filters( 'tribe_recurring_pre_event_error', $response, $this->event_id, $this->recurrence_meta );
 
