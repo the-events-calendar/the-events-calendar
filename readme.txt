@@ -414,9 +414,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Deprecated - tribe_event_format_date() in favor of tribe_format_date()
 * Deprecated - tribe_events_the_notices() in favor of tribe_the_notices()
 
-= [3.12.4] unreleased =
+= [3.12.4] 2015-11-04 =
 
 * Feature - Added support for the new Events Community Tickets plugin
+* Tweak - Wrapping functions in conditionals to avoid fatals in our upcoming 4.0 release
 
 = [3.12.3] 2015-10-01 =
 
