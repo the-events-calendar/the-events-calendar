@@ -55,7 +55,9 @@ class ValidatorTest extends \WP_UnitTestCase {
 		$post_id = $this->get_event();
 
 		$sut   = new Tribe__Events__Pro__Recurrence__Validator;
-		$valid = $sut->is_valid( $post_id, array( 'type' => 'Not Custom' ) );
+		$valid = $sut->is_valid( $post_id, array(
+			'type' => 'Not Custom',
+		) );
 
 		$this->assertTrue( $valid );
 	}
@@ -68,7 +70,9 @@ class ValidatorTest extends \WP_UnitTestCase {
 		$post_id = $this->get_event();
 
 		$sut   = new Tribe__Events__Pro__Recurrence__Validator;
-		$valid = $sut->is_valid( $post_id, array( 'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG ) );
+		$valid = $sut->is_valid( $post_id, array(
+			'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG,
+		) );
 
 		$this->assertFalse( $valid );
 	}
@@ -89,7 +93,8 @@ class ValidatorTest extends \WP_UnitTestCase {
 
 		$sut   = new Tribe__Events__Pro__Recurrence__Validator;
 		$valid = $sut->is_valid( $post_id, array(
-			'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG, 'custom' => array( 'type' => 'Foo' )
+			'type'   => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG,
+			'custom' => array( 'type' => 'Foo' ),
 		) );
 
 		$this->assertFalse( $valid );
@@ -105,7 +110,10 @@ class ValidatorTest extends \WP_UnitTestCase {
 		$sut   = new Tribe__Events__Pro__Recurrence__Validator;
 		$valid = $sut->is_valid( $post_id, array(
 			'type'   => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG,
-			'custom' => array( 'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::MONTHLY, 'month' => array() )
+			'custom' => array(
+				'type'  => \Tribe__Events__Pro__Recurrence__Custom_Types::MONTHLY,
+				'month' => array()
+			),
 		) );
 
 		$this->assertFalse( $valid );
@@ -120,10 +128,14 @@ class ValidatorTest extends \WP_UnitTestCase {
 
 		$sut   = new Tribe__Events__Pro__Recurrence__Validator;
 		$meta  = array(
-			'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG, 'custom' => array(
+			'type'   => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG,
+			'custom' => array(
 				'type'  => \Tribe__Events__Pro__Recurrence__Custom_Types::MONTHLY,
-				'month' => array( 'day' => 23, 'number' => '1' )
-			)
+				'month' => array(
+					'day'    => 23,
+					'number' => '1'
+				)
+			),
 		);
 		$valid = $sut->is_valid( $post_id, $meta );
 
@@ -139,9 +151,11 @@ class ValidatorTest extends \WP_UnitTestCase {
 
 		$sut   = new Tribe__Events__Pro__Recurrence__Validator;
 		$valid = $sut->is_valid( $post_id, array(
-			'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG, 'custom' => array(
-				'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::MONTHLY, 'month' => array( 'day' => 23 )
-			)
+			'type'   => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG,
+			'custom' => array(
+				'type'  => \Tribe__Events__Pro__Recurrence__Custom_Types::MONTHLY,
+				'month' => array( 'day' => 23 )
+			),
 		) );
 
 		$this->assertFalse( $valid );
@@ -156,9 +170,11 @@ class ValidatorTest extends \WP_UnitTestCase {
 
 		$sut   = new Tribe__Events__Pro__Recurrence__Validator;
 		$valid = $sut->is_valid( $post_id, array(
-			'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG, 'custom' => array(
-				'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::MONTHLY, 'month' => array( 'number' => '11' )
-			)
+			'type'   => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG,
+			'custom' => array(
+				'type'  => \Tribe__Events__Pro__Recurrence__Custom_Types::MONTHLY,
+				'month' => array( 'number' => '11' )
+			),
 		) );
 
 		$this->assertFalse( $valid );
@@ -173,9 +189,11 @@ class ValidatorTest extends \WP_UnitTestCase {
 
 		$sut   = new Tribe__Events__Pro__Recurrence__Validator;
 		$valid = $sut->is_valid( $post_id, array(
-			'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG, 'custom' => array(
-				'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::YEARLY, 'year' => array( 'foo' => 'bar' )
-			)
+			'type'   => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG,
+			'custom' => array(
+				'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::YEARLY,
+				'year' => array( 'foo' => 'bar' )
+			),
 		) );
 
 		$this->assertFalse( $valid );
@@ -190,9 +208,11 @@ class ValidatorTest extends \WP_UnitTestCase {
 
 		$sut   = new Tribe__Events__Pro__Recurrence__Validator;
 		$valid = $sut->is_valid( $post_id, array(
-			'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG, 'custom' => array(
-				'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::YEARLY, 'year' => array( 'month-day' => '-' )
-			)
+			'type'   => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG,
+			'custom' => array(
+				'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::YEARLY,
+				'year' => array( 'month-day' => '-' )
+			),
 		) );
 
 		$this->assertFalse( $valid );
@@ -207,10 +227,11 @@ class ValidatorTest extends \WP_UnitTestCase {
 
 		$sut   = new Tribe__Events__Pro__Recurrence__Validator;
 		$meta  = array(
-				'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG, 'custom' => array(
-						'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::YEARLY,
-						'year' => array( 'month-day' => 23 )
-				)
+			'type'   => \Tribe__Events__Pro__Recurrence__Custom_Types::SLUG,
+			'custom' => array(
+				'type' => \Tribe__Events__Pro__Recurrence__Custom_Types::YEARLY,
+				'year' => array( 'month-day' => 23 )
+			),
 		);
 		$valid = $sut->is_valid( $post_id, $meta );
 

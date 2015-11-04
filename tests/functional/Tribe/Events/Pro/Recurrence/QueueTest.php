@@ -1,5 +1,6 @@
 <?php
 namespace Tribe\Events\Pro\Recurrence;
+
 class QueueTest extends \WP_UnitTestCase {
 
 	protected $backupGlobals = false;
