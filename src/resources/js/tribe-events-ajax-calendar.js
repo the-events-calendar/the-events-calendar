@@ -433,7 +433,7 @@
 				$( te ).trigger( 'tribe_ev_collectParams' );
 				$( te ).trigger( 'collect-params.tribe' );
 
-				if ( ts.pushcount > 0 || ts.filters || td.default_permalinks ) {
+				if ( ts.pushcount > 0 || ts.filters || td.default_permalinks || ts.category ) {
 					ts.do_string = true;
 					ts.pushstate = false;
 				}
