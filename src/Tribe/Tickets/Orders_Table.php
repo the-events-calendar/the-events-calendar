@@ -75,18 +75,18 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 	 */
 	public function get_columns() {
 		$columns = array(
-			'order'      => __( 'Order', 'tribe-events-calendar' ),
-			'purchased'  => __( 'Purchased', 'tribe-events-calendar' ),
-			'ship_to'    => __( 'Ship to', 'tribe-events-calendar' ),
-			'date'       => __( 'Date', 'tribe-events-calendar' ),
+			'order'      => __( 'Order', 'the-events-calendar' ),
+			'purchased'  => __( 'Purchased', 'the-events-calendar' ),
+			'ship_to'    => __( 'Ship to', 'the-events-calendar' ),
+			'date'       => __( 'Date', 'the-events-calendar' ),
 		);
 
 		if ( self::event_fees( $this->event_id ) ) {
-			$columns['subtotal'] = __( 'Subtotal', 'tribe-events-calendar' );
-			$columns['site_fee'] = __( 'Site Fee', 'tribe-events-calendar' );
+			$columns['subtotal'] = __( 'Subtotal', 'the-events-calendar' );
+			$columns['site_fee'] = __( 'Site Fee', 'the-events-calendar' );
 		}
 
-		$columns['total'] = __( 'Total', 'tribe-events-calendar' );
+		$columns['total'] = __( 'Total', 'the-events-calendar' );
 
 		return $columns;
 	}//end get_columns
@@ -212,7 +212,7 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 
 		$order_number = $item['order_number'];
 		$customer = $item['customer'];
-		$customer_email = $customer['email'];
+		$customer_email = empty( $customer['email'] ) ? '' : $customer['email'];
 		$customer_name = '';
 
 		if ( empty( $customer['first_name'] ) && empty( $customer['last_name'] ) ) {
@@ -234,7 +234,22 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 
 		$order_number_link = '<a href="' . esc_url( $order_url ) . '">#' . absint( $order_number ) . '</a>';
 
-		$output = "{$order_number_link} " . __( 'by', 'tribe-events-calendar' ) . " {$customer_name}<br><a href=\"mailto:{$customer_email}\">{$customer_email}</a>";
+		$output = sprintf(
+			esc_html__(
+				'%1$s by %2$s',
+				'the-events-calendar'
+			),
+			$order_number_link,
+			esc_html( $customer_name )
+		);
+
+		if ( $customer_email ) {
+			$output .= sprintf(
+				'<br><a href="mailto:%1$s">%2$s</a>',
+				esc_attr( $customer_email ),
+				esc_html( $customer_email )
+			);
+		}
 
 		if ( 'completed' !== $item['status'] ) {
 			$output .= '<div class="order-status order-status-' . esc_attr( $item['status'] ) . '">' . esc_html( ucwords( $item['status'] ) ) . '</div>';
