@@ -142,10 +142,10 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 	 */
 	private function sanitize_progress( $percentage ) {
 		if ( $percentage === true ) {
-			return '100';
+			return 100;
 		}
 
-		return is_numeric( $percentage ) ? intval( $percentage ) : '0';
+		return is_numeric( $percentage ) ? intval( $percentage ) : 0;
 	}
 
 	/**
