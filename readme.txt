@@ -325,6 +325,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - The event cost now supports more international formats with the addition of the tribe_events_cost_separators filter
 * Feature - Added support for the twentysixteen theme
 * Feature - Created a new Add-Ons tab in Settings so that TEC add-ons can have a consolidated settings tab
+* Feature - Improve the date formats UI by providing example output for each selected format
 * Tweak - Restructured TEC's core settings code for reusability with other standalone plugins like event-tickets
 * Tweak - Deprecate old JS event names in favor of a new JS event naming standard. Example: deprecated tribe_ev_runAjax in favor of run-ajax.tribe
 * Tweak - Consolidated import pages for TEC and add-ons
@@ -345,6 +346,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - tribe_get_vanue_link() no longer echoes if you ask it to return an <a> element
 * Tweak - No longer retrieve empty costs when fetching all costs for all events
 * Tweak - Change the priority of bootstrapping the-events-calendar to ensure it occurs before any of the TEC addons in the event some addons are upgraded to v4.0 later than TEC
+* Tweak - Adjust the logic used for adding a noindex/follow tag to event views
 * Fix - Resolved issue where the iCal feed did not provide an appropriately formatted timezone in some cases
 * Fix - Added support for translating some previously untranslatable strings
 * Fix - Prevented duplicate CSS IDs on the mini calendars
@@ -356,6 +358,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - Fixed error message returned when tabbing away from a blank event name meta box so that it properly indicates that an event name is required (our thanks to @tapan29bd for this fix!)
 * Fix - Resolved issue where Timezone event start/end date property name strings were malformed which guaranteed a a call to get_post_meta for Timezone date strings
 * Fix - Fixed CSS issue where the month view calendar could sometimes extend beyond the edge of the page when Skeleton Styles were enabled
+* Fix - Fixed a problem where iCal data was generated with incorrect dates in the case of some all days events (thanks to Matt for highlighting this)
 * Deprecated - The Tribe__Events__Main::defaultValueReplaceEnabled() method is being deprecated in favor of tribe_get_option('defaultValueReplace'). Schedules for removal in v4.5
 * Deprecated - The tribe_event_link() has been deprecated in favor of tribe_get_event_link(). Scheduled for removal in 5.0
 * Deprecated - The third parameter of tribe_get_organizer_link() (the $echo parameter) has been deprecated and is scheduled for removal in 5.0
