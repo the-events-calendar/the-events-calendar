@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-10-18 01:10:56+0000\n"
+"PO-Revision-Date: 2015-10-21 21:11:50+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3728,7 +3728,7 @@ msgstr "التالي"
 
 #: src/Tribe/Main.php:1788
 msgid "Prev"
-msgstr ""
+msgstr "السابق"
 
 #: src/Tribe/Main.php:1789 src/functions/template-tags/day.php:105
 msgid "Today"

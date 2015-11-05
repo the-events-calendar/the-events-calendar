@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-16 08:37:23+0000\n"
+"PO-Revision-Date: 2015-11-04 20:47:23+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1387,7 +1387,7 @@ msgstr "Heure &amp; date"
 
 #: src/admin-views/events-meta-box.php:67
 msgid "You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page."
-msgstr "Vous avez changé les règles de récurrence de ce %1$s.  Sauver cet %1$s mettra à jour tous les futurs %2$s. Si vous ne vouliez pas tous les %2$s, rafraîchissez cette page."
+msgstr "Vous avez changé les règles de récurrence pour votre %1$s. En sauvegardant %1$s, vous allez mettre à jour tous les %2$s futurs. Si vous ne voulez pas modifier tous les %2$s, rafraichissez cette page."
 
 #: src/admin-views/events-meta-box.php:70
 msgid "All Day %s:"
