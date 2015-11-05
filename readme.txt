@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3.1
-Stable tag: 4.0
+Stable tag: 4.0beta1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -257,6 +257,10 @@ Our Premium Plugins:
 * Fix - Resolved a problem preventing some category views from working as expected when a non-default language was in use (our thanks to Cristina for highlighting this issue)
 * Fix - Resolved a problem whereby mini calendars could incorrectly render some days as populated when set to display events in a specific category (our thanks to oniregoc for highlighting this)
 * Deprecated - Deprecating the "defaultValueReplace" option in the Default Content settings tab
+
+= [3.12.6] 2015-11-05 =
+
+* Fix - Ensure the correct date displays within the upcoming events list widget (our thanks to Seth, @farmgirlref and others for highlighting this)
 
 = [3.12.5] 2015-10-28 =
 
