@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-16 08:41:47+0000\n"
+"PO-Revision-Date: 2015-10-20 09:29:35+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -444,7 +444,7 @@ msgstr "Vyhľadať viac »"
 
 #: src/functions/template-tags/general.php:1312
 msgid "%s for"
-msgstr ""
+msgstr "%s pre"
 
 #: src/functions/template-tags/general.php:1488
 msgid "Calendar powered by %sThe Events Calendar%s"
@@ -464,7 +464,7 @@ msgstr " Nadchádzajúce %s"
 
 #: src/functions/template-tags/loop.php:145
 msgid "%1$s for %2$s - %3$s"
-msgstr ""
+msgstr "%1$s pre %2$s - %3$s"
 
 #: src/functions/template-tags/loop.php:147
 msgid "Past %s"

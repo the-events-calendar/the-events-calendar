@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-10-14 20:18:19+0000\n"
+"PO-Revision-Date: 2015-11-04 06:58:45+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -531,7 +531,7 @@ msgstr "Published"
 
 #: src/io/csv/admin-views/general.php:31
 msgid "Pending"
-msgstr ""
+msgstr "Pending"
 
 #: src/io/csv/admin-views/general.php:32
 msgid "Draft"
@@ -701,7 +701,7 @@ msgstr ""
 
 #: src/views/tickets/email.php:309
 msgid "Ticket Type"
-msgstr ""
+msgstr "Ticket Type"
 
 #: src/views/tickets/email.php:313
 msgid "Purchaser"
@@ -1498,7 +1498,7 @@ msgstr ""
 
 #: src/admin-views/tickets/attendees.php:26
 msgid "Event Details"
-msgstr ""
+msgstr "Event Details"
 
 #: src/admin-views/tickets/attendees.php:28
 msgid "Start Date / Time:"
@@ -1963,7 +1963,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:3987
 msgid "Add %s"
-msgstr ""
+msgstr "Add %s"
 
 #: src/Tribe/Main.php:4019
 msgid "CSV"
@@ -3284,7 +3284,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:52
 msgid "Event Name"
-msgstr ""
+msgstr "Event Name"
 
 #: src/Tribe/Importer/Column_Mapper.php:53
 msgid "Event Description"
@@ -3344,7 +3344,7 @@ msgstr "Event Category"
 
 #: src/Tribe/Importer/Column_Mapper.php:67
 msgid "Event Tags"
-msgstr ""
+msgstr "Event Tags"
 
 #: src/Tribe/Importer/Column_Mapper.php:68
 msgid "Event Website"
@@ -3471,11 +3471,11 @@ msgstr "Organizer"
 #: src/Tribe/Main.php:535 src/functions/template-tags/general.php:71
 #: src/io/csv/admin-views/import.php:47
 msgid "Events"
-msgstr ""
+msgstr "Events"
 
 #: src/Tribe/Main.php:543 src/functions/template-tags/general.php:60
 msgid "Event"
-msgstr ""
+msgstr "Event"
 
 #. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 3.12.1) 
 #. #-#-#-#-#
@@ -3547,7 +3547,7 @@ msgstr "category"
 
 #: src/Tribe/Main.php:1208 src/Tribe/Main.php:2239
 msgid "tag"
-msgstr ""
+msgstr "tag"
 
 #: src/Tribe/Main.php:1243 src/Tribe/Main.php:1261 src/Tribe/Main.php:1279
 msgid "Add New"
@@ -3728,11 +3728,11 @@ msgstr "page"
 
 #: src/Tribe/Main.php:2242
 msgid "event"
-msgstr ""
+msgstr "event"
 
 #: src/Tribe/Main.php:2243
 msgid "events"
-msgstr ""
+msgstr "events"
 
 #: src/Tribe/Main.php:2244
 msgid "all"
