@@ -315,6 +315,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [3.12.5] 2015-11-05 =
+
+* Fix - Restore styling and full mobile functionality to month view (our thanks to Rich Cottee for highlighting this)
+
 = [3.12.4] 2015-11-04 =
 
 * Feature - Added support for the new Events Community Tickets plugin
