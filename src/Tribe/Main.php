@@ -24,7 +24,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '3.12.4';
+		const VERSION           = '3.12.5';
 		const MIN_ADDON_VERSION = '3.12';
 		const FEED_URL          = 'https://theeventscalendar.com/feed/';
 		const INFO_API_URL      = 'http://wpapi.org/api/plugin/the-events-calendar.php';
