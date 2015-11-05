@@ -1,14 +1,14 @@
-# Translation of The Events Calendar in Chinese (China)
-# This file is distributed under the same license as the The Events Calendar package.
+# Translation of The Events Calendar (deprecated) in Chinese (China)
+# This file is distributed under the same license as the The Events Calendar (deprecated) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-08-18 12:02:12+0000\n"
+"PO-Revision-Date: 2015-09-17 12:51:52+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
-"Project-Id-Version: The Events Calendar\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
+"Project-Id-Version: The Events Calendar (deprecated)\n"
 
 #. Description of the plugin/theme
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
@@ -16,11 +16,11 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Modern Tribe, Inc."
-msgstr ""
+msgstr "Modern Tribe, Inc."
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/1x"
-msgstr ""
+msgstr "http://m.tri.be/1x"
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:62
 msgid "<a href=\"%s\">Edit the page slug</a>"
@@ -64,7 +64,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:67
 msgid "Event Tags"
-msgstr ""
+msgstr "活动标签"
 
 #: src/Tribe/Main.php:2241
 msgid "page"
@@ -368,7 +368,7 @@ msgstr "北达科他州"
 
 #: src/admin-views/tribe-options-help.php:330
 msgid "(Coming Soon!)"
-msgstr "(即将上上市！)"
+msgstr "即将开始"
 
 #: src/Tribe/View_Helpers.php:351
 msgid "Ohio"
@@ -384,7 +384,7 @@ msgstr "俄克拉荷马州"
 
 #: src/admin-views/tribe-options-network.php:15
 msgid "Network Settings"
-msgstr "网路设定"
+msgstr "网络设定"
 
 #: src/Tribe/View_Helpers.php:353
 msgid "Oregon"
@@ -468,7 +468,7 @@ msgstr "维吉尼亚州"
 #: src/admin-views/venue-meta-box.php:147
 #: src/admin-views/venue-meta-box.php:169
 msgid "Show Google Maps Link:"
-msgstr "显示 Google 地图连结："
+msgstr "显示 Google 地图链接："
 
 #: src/Tribe/View_Helpers.php:363
 msgid "Washington"
@@ -492,7 +492,7 @@ msgstr "威斯康辛州"
 
 #: src/admin-views/widget-admin-list.php:28
 msgid "Show widget only if there are upcoming events:"
-msgstr "仅于如果有即将来临活动时显示小工具："
+msgstr "仅于有即将来临活动时显示Widget："
 
 #: src/Tribe/View_Helpers.php:366
 msgid "Wyoming"
@@ -501,7 +501,7 @@ msgstr "怀俄明州"
 #: src/functions/advanced-functions/meta_registration.php:16
 #: src/views/modules/meta/details.php:30
 msgid "Details"
-msgstr "明细："
+msgstr "活动信息："
 
 #: src/Tribe/iCal.php:28
 msgctxt "feed link"
@@ -510,7 +510,7 @@ msgstr "&raquo;"
 
 #: src/functions/advanced-functions/meta_registration.php:80
 msgid "Event Tags:"
-msgstr "活动标籤："
+msgstr "活动标签："
 
 #: src/Tribe/iCal.php:29
 msgid "%1$s %2$s iCal Feed"
@@ -522,7 +522,7 @@ msgstr "来源："
 
 #: src/Tribe/iCal.php:75
 msgid "Add to Google Calendar"
-msgstr "增加至 Google 日曆"
+msgstr "增加至 Google 日历"
 
 #: src/functions/advanced-functions/meta_registration.php:286
 msgid "%s:"
@@ -530,7 +530,7 @@ msgstr ""
 
 #: src/Tribe/iCal.php:75
 msgid "Google Calendar"
-msgstr "Google 日曆"
+msgstr "Google 日历"
 
 #: src/functions/template-tags/date.php:261
 msgid "The function needs to be passed an $event or used in the loop."
@@ -582,7 +582,7 @@ msgstr ""
 
 #: src/functions/template-tags/general.php:450
 msgid "Tags:"
-msgstr "标籤："
+msgstr "标签："
 
 #: src/Tribe/iCal.php:120
 msgid "Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
@@ -607,7 +607,7 @@ msgstr ""
 
 #: src/functions/template-tags/general.php:1488
 msgid "Calendar powered by %sThe Events Calendar%s"
-msgstr "行事曆由 %sThe Events Calendar%s 所提供"
+msgstr "活动日历由 %sThe Events Calendar%s 所提供"
 
 #: src/admin-views/admin-update-message.php:33
 msgid "Every time you rate <strong>5 stars</strong>, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice."
@@ -699,7 +699,7 @@ msgstr ""
 
 #: src/io/csv/admin-views/columns.php:44
 msgid "Perform Import"
-msgstr "执行汇入"
+msgstr "执行导入"
 
 #: src/admin-views/admin-welcome-message.php:19
 msgid "Keep The Events Calendar Core FREE"
@@ -788,7 +788,7 @@ msgstr ""
 
 #: src/io/csv/admin-views/import.php:17
 msgid "Import Instructions"
-msgstr "汇入操作说明"
+msgstr "导入操作说明"
 
 #: src/admin-views/admin-welcome-message.php:50
 msgid "Release Notes"
@@ -796,7 +796,7 @@ msgstr ""
 
 #: src/io/csv/admin-views/import.php:20
 msgid "If your events have Organizers or Venues, please import those first."
-msgstr "如果你的活动含有主办人或地点时，请先汇入它们。"
+msgstr "如果你的活动含有主办人或地点时，请先导入它们。"
 
 #: src/admin-views/admin-welcome-message.php:51
 msgid "Get the Skinny on the Latest Updates"
@@ -804,7 +804,7 @@ msgstr ""
 
 #: src/io/csv/admin-views/import.php:21
 msgid "To import organizers or venues:"
-msgstr "汇入主办人和地点："
+msgstr "导入主办人和地点："
 
 #: src/admin-views/admin-welcome-message.php:54
 msgid "Product Releases, Tutorials and Community Activity"
@@ -812,7 +812,7 @@ msgstr ""
 
 #: src/io/csv/admin-views/import.php:23
 msgid "Select the appropriate import type."
-msgstr "选择适当的汇入类型。"
+msgstr "选择适当的导入类型。"
 
 #: src/admin-views/app-shop.php:4
 msgid "Tribe Event Add-Ons"
@@ -844,7 +844,7 @@ msgstr ""
 
 #: src/io/csv/admin-views/import.php:28
 msgid "After importing your Organizers and Venues, import your Events:"
-msgstr "汇入你的主办人和地点后，请接着汇入你的活动："
+msgstr "导入你的主办人和地点后，请接着导入你的活动："
 
 #: src/admin-views/event-sidebar-options.php:15
 msgid "Sticky in Month View"
@@ -852,7 +852,7 @@ msgstr ""
 
 #: src/io/csv/admin-views/import.php:31
 msgid "One column in your CSV should have the Event title. Another should have the Event start date. All other fields are optional."
-msgstr "你的 CSV 中应有一栏必须是活动标题，另一栏是活动开始日期，其馀则不限。"
+msgstr "你的 CSV 中应有一栏必须是活动标题，另一栏是活动开始日期，其余则不限。"
 
 #: src/admin-views/event-sidebar-options.php:16
 msgid "When events are sticky in month view, they'll display first in the list of events shown within a given day block."
@@ -901,7 +901,7 @@ msgstr "YYYY-MM-DD"
 
 #: src/io/csv/admin-views/import.php:78
 msgid "Import CSV File"
-msgstr "汇入 CSV 档案"
+msgstr "导入CSV 档案"
 
 #: src/admin-views/events-meta-box.php:98
 msgid "End Date &amp; Time:"
@@ -909,7 +909,7 @@ msgstr "结束日期 &amp; 时间："
 
 #: src/io/csv/admin-views/result.php:15
 msgid "Import Result"
-msgstr "汇入结果"
+msgstr "导入结果"
 
 #: src/admin-views/events-meta-box.php:147
 msgid "Location"
@@ -917,7 +917,7 @@ msgstr ""
 
 #: src/io/csv/admin-views/result.php:17
 msgid "Import complete!"
-msgstr "汇入完成！"
+msgstr "导入完成！"
 
 #: src/admin-views/events-meta-box.php:195
 msgid "%s Website"
@@ -1001,7 +1001,7 @@ msgstr "电话："
 
 #: src/views/day/single-event.php:66 src/views/list/single-event.php:70
 msgid "Find out more"
-msgstr "发现更多"
+msgstr "查看活动详情"
 
 #: src/admin-views/new-organizer-meta-section.php:27
 #: src/admin-views/organizer-meta-box.php:37
@@ -1059,11 +1059,11 @@ msgstr "活动检视选单"
 
 #: src/admin-views/tickets/attendees.php:26
 msgid "Event Details"
-msgstr "活动详述"
+msgstr "活动信息"
 
 #: src/views/modules/bar.php:38
 msgid "View As"
-msgstr "检视为"
+msgstr "按…查看"
 
 #: src/admin-views/tickets/attendees.php:28
 msgid "Start Date / Time:"
@@ -1096,7 +1096,7 @@ msgstr[0] ""
 
 #: src/views/month/nav.php:18
 msgid "Calendar Month Navigation"
-msgstr "行事曆月选单"
+msgstr "月历"
 
 #: src/views/month/single-day.php:43
 msgid "View 1 %1$s"
@@ -1663,7 +1663,7 @@ msgstr "The Events Calendar: WooCommerce Tickets"
 
 #: src/Tribe/View_Helpers.php:283
 msgid "Yemen"
-msgstr "叶门"
+msgstr "也门"
 
 #: src/admin-views/tribe-options-help.php:109
 msgid "The Events Calendar: EDD Tickets"

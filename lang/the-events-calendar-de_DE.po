@@ -1,14 +1,14 @@
-# Translation of The Events Calendar in German
-# This file is distributed under the same license as the The Events Calendar package.
+# Translation of The Events Calendar (deprecated) in German
+# This file is distributed under the same license as the The Events Calendar (deprecated) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-15 20:32:30+0000\n"
+"PO-Revision-Date: 2015-09-15 20:42:33+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
-"Project-Id-Version: The Events Calendar\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
+"Project-Id-Version: The Events Calendar (deprecated)\n"
 
 #. Description of the plugin/theme
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
@@ -136,7 +136,7 @@ msgstr "Wenn Sie mit dem Service von Modern Tribe nicht zufrieden sind, senden S
 
 #: src/admin-views/tribe-options-licenses.php:13
 msgid "<p>The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
-msgstr "<p>Der Lizenzschlüssel, den Sie bei Ihrem Kauf von %1$s erhalten haben, gibt Ihnen Zugriff auf Support und Updates, bis er ausläuft. Sie müssen den Schlüssel nicht unten eingeben, damit das Plugin funktioniert, aber um automatisch über Updates informiert zu werden. <strong>Ihre Schlüssel finden Sie unter <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Jedes erworbene Add-On besitzt seinen eigenen eindeutigen Schlüssel. Fügen Sie den Schlüssel in das zugehörige Feld ein und warten Sie einen kurzen Moment, während er überprüft wird. Ein grünes Ablaufdatum und eine \"Gültig\" Anzeige zeigen einen gültigen Schlüssel an. </p> <p>Eine rote Anzeige bedeutet der Schlüssel ist ungültig oder wird schon verwendet. Besuchen Sie <a href=\"%4$s\" target=\"_blank\">%5$s</a>, um Ihre Lizenzen zu verwalten oder zu erneuern.</p><p>Sie sehen kein Update, erwarten aber eines? Gehen Sie in in WordPress auf das<a href=\"%6$s\">Dashboard</a> und klicken Sie auf Plugins -> aktualisieren.</p>"
+msgstr "<p>Der Lizenzschlüssel, den Sie bei Ihrem Kauf von %1$s erhalten haben, gibt Ihnen Zugriff auf Support und Updates, bis er ausläuft. Sie müssen den Schlüssel nicht unten eingeben, damit das Plugin funktioniert, aber um automatisch über Updates informiert zu werden. <strong>Ihre Schlüssel finden Sie unter <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Jedes erworbene Add-On besitzt seinen eigenen eindeutigen Schlüssel. Fügen Sie den Schlüssel in das zugehörige Feld ein und warten Sie einen kurzen Moment, während er überprüft wird. Ein grünes Ablaufdatum und eine \"Gültig\" Anzeige zeigen einen gültigen Schlüssel an. </p> <p>Eine rote Anzeige bedeutet der Schlüssel ist ungültig oder wird schon verwendet. Besuchen Sie <a href=\"%4$s\" target=\"_blank\">%5$s</a>, um Ihre Lizenzen zu verwalten oder zu erneuern.</p><p>Sie sehen kein Update, erwarten aber eines? Gehen Sie in in WordPress auf das <a href=\"%6$s\">Dashboard</a> und klicken Sie auf Plugins -> aktualisieren.</p>"
 
 #: src/admin-views/tribe-options-timezones.php:4
 msgid "Enable timezone support"

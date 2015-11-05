@@ -1,14 +1,14 @@
-# Translation of The Events Calendar in French (France)
-# This file is distributed under the same license as the The Events Calendar package.
+# Translation of The Events Calendar (deprecated) in French (France)
+# This file is distributed under the same license as the The Events Calendar (deprecated) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-15 20:39:11+0000\n"
+"PO-Revision-Date: 2015-09-17 12:51:45+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
-"Project-Id-Version: The Events Calendar\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
+"Project-Id-Version: The Events Calendar (deprecated)\n"
 
 #. Description of the plugin/theme
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
@@ -148,7 +148,7 @@ msgstr "Mise à jour des données de fuseau horaire"
 
 #: src/admin-views/tribe-options-timezones.php:7
 msgid "Click this button to update your database and take advantage of additional timezone capabilities. Please <a href=\"%s\" target=\"_blank\">configure WordPress</a> to use the correct timezone before clicking this button!"
-msgstr "Cliquer sur ce bouton pour mettre à jour votre base de données et bénéficier des nouvelles fonctionnalités de fuseau horaire. Merci de <a href=\"%s\" target=\"_blank\">configurer WordPress</a> avec le bon fuseau horaire avant de cliquer sur ce bouton !"
+msgstr "Cliquez sur ce bouton pour mettre à jour votre base de données et bénéficier des nouvelles fonctionnalités de fuseau horaire. Merci de <a href=\"%s\" target=\"_blank\">configurer WordPress</a> avec le bon fuseau horaire avant de cliquer sur ce bouton !"
 
 #: src/admin-views/tribe-options-timezones.php:27
 msgid "Timezone Settings"
@@ -195,7 +195,7 @@ msgstr "Retourner à la page des extensions"
 
 #: src/Tribe/Activation_Page.php:46
 msgid "Go to WordPress Updates page"
-msgstr "Aller à la page des mises à jour Wordpress"
+msgstr "Aller à la page des mises à jour de WordPress"
 
 #: src/Tribe/Activation_Page.php:46
 msgid "Return to WordPress Updates"
@@ -240,7 +240,7 @@ msgid ""
 "\t\tPlease note that your license key will be applied to the entire network, not just this site."
 msgstr ""
 "<strong> Vous utilisez nos extensions dans un réseau multisite ? </strong>\n"
-"→\t→\tNotez que votre clé de licence s'appliquera à tout le réseau, et pas seulement à ce site particulier."
+"→\t→\tNotez que votre clé de licence s'appliquera à tout le réseau, et pas uniquement à ce site."
 
 #: src/admin-views/tribe-options-licenses.php:20
 msgid ""
@@ -634,7 +634,7 @@ msgstr "%1$s pour %2$s - %3$s"
 
 #: src/admin-views/admin-update-message.php:37
 msgid "PSST... Want a Discount?"
-msgstr "Psst ... Vous voulez un rabais?"
+msgstr "Psst ... Vous voulez une remise ?"
 
 #: src/functions/template-tags/loop.php:147
 msgid "Past %s"
@@ -642,7 +642,7 @@ msgstr "%s passé"
 
 #: src/admin-views/admin-update-message.php:38
 msgid "We send out discounts to our core users via our newsletter."
-msgstr "Nous envoyons des réductions à nos utilisateurs de l'extension de base via notre infolettre."
+msgstr "Nous envoyons des réductions à nos utilisateurs de l'extension de base via notre newsletter."
 
 #: src/functions/template-tags/loop.php:152
 #: src/functions/template-tags/loop.php:161
@@ -733,7 +733,7 @@ msgstr "Pour importer des événements, sélectionnez d'abord un %sStatut par d�
 
 #: src/admin-views/admin-welcome-message.php:25
 msgid "Newsletter Signup"
-msgstr "Inscription à l'infolettre"
+msgstr "Inscription à la newsletter"
 
 #: src/io/csv/admin-views/general.php:17
 msgid "Once your setting is saved, move to the applicable Import tab to select import specific criteria."
@@ -758,7 +758,7 @@ msgstr "Statut par défaut des événements importés :"
 
 #: src/admin-views/admin-welcome-message.php:41
 msgid "Check out the New User Primer &amp; Tutorials"
-msgstr "Découvrez le Guide de départ du Nouvel Utilisateur et les tutoriels"
+msgstr "Découvrez le Guide de démarrage du Nouvel Utilisateur et les tutoriels"
 
 #: src/io/csv/admin-views/general.php:30
 msgid "Published"
@@ -1030,7 +1030,7 @@ msgstr "Navigation de la liste des %s"
 #: src/functions/advanced-functions/meta_registration.php:254
 #: src/views/modules/meta/organizer.php:52
 msgid "Email:"
-msgstr "Courriel :"
+msgstr "E-mail :"
 
 #: src/views/list/nav.php:25
 msgid "<span>&laquo;</span> Previous %s"
@@ -1177,7 +1177,7 @@ msgstr "ou"
 
 #: src/admin-views/tickets/attendees.php:186
 msgid "Email Address:"
-msgstr "Adresse Email :"
+msgstr "Adresse e-mail :"
 
 #: src/admin-views/tickets/list.php:21
 msgid "Edit"
@@ -1189,7 +1189,7 @@ msgstr "Modifier dans %s"
 
 #: src/admin-views/tickets/list.php:27
 msgid "View"
-msgstr "Voir"
+msgstr "Afficher"
 
 #: src/admin-views/tickets/list.php:67
 msgid "Sold %d"

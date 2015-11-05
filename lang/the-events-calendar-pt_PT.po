@@ -1,5 +1,5 @@
-# Translation of The Events Calendar in Portuguese (Portugal)
-# This file is distributed under the same license as the The Events Calendar package.
+# Translation of The Events Calendar (deprecated) in Portuguese (Portugal)
+# This file is distributed under the same license as the The Events Calendar (deprecated) package.
 msgid ""
 msgstr ""
 "PO-Revision-Date: 2015-08-06 15:44:28+0000\n"
@@ -7,8 +7,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
-"Project-Id-Version: The Events Calendar\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
+"Project-Id-Version: The Events Calendar (deprecated)\n"
 
 #. Description of the plugin/theme
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."

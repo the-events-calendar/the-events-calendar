@@ -1,14 +1,14 @@
-# Translation of The Events Calendar in Greek
-# This file is distributed under the same license as the The Events Calendar package.
+# Translation of The Events Calendar (deprecated) in Greek
+# This file is distributed under the same license as the The Events Calendar (deprecated) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-08-18 12:04:44+0000\n"
+"PO-Revision-Date: 2015-09-17 12:51:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
-"Project-Id-Version: The Events Calendar\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
+"Project-Id-Version: The Events Calendar (deprecated)\n"
 
 #. Description of the plugin/theme
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
@@ -2407,7 +2407,7 @@ msgstr "Φιλανδία"
 #: src/functions/advanced-functions/meta_registration.php:126
 #: src/functions/template-tags/venue.php:41
 msgid "Venue"
-msgstr "Χώρος Διεξαγωγής"
+msgstr "Venue"
 
 #: src/Tribe/View_Helpers.php:120
 msgid "France"
@@ -2426,7 +2426,7 @@ msgstr "Γαλλία, Μητροπολιτική"
 #: src/functions/advanced-functions/meta_registration.php:205
 #: src/functions/template-tags/organizer.php:71
 msgid "Organizer"
-msgstr "Διοργανωτής"
+msgstr "Organizer"
 
 #: src/Tribe/View_Helpers.php:122
 msgid "French Guiana"

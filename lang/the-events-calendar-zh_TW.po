@@ -1,14 +1,14 @@
-# Translation of The Events Calendar in Chinese (Taiwan)
-# This file is distributed under the same license as the The Events Calendar package.
+# Translation of The Events Calendar (deprecated) in Chinese (Taiwan)
+# This file is distributed under the same license as the The Events Calendar (deprecated) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-10 14:12:03+0000\n"
+"PO-Revision-Date: 2015-09-18 13:01:18+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
-"Project-Id-Version: The Events Calendar\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
+"Project-Id-Version: The Events Calendar (deprecated)\n"
 
 #. Description of the plugin/theme
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
@@ -16,11 +16,11 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Modern Tribe, Inc."
-msgstr ""
+msgstr "Modern Tribe, Inc."
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/1x"
-msgstr ""
+msgstr "http://m.tri.be/1x"
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:62
 msgid "<a href=\"%s\">Edit the page slug</a>"
@@ -56,15 +56,15 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:64
 msgid "Event Currency Symbol"
-msgstr ""
+msgstr "活動貨幣符號"
 
 #: src/Tribe/Importer/Column_Mapper.php:65
 msgid "Event Currency Position"
-msgstr ""
+msgstr "活動貨幣位置"
 
 #: src/Tribe/Importer/Column_Mapper.php:67
 msgid "Event Tags"
-msgstr ""
+msgstr "活動標籤"
 
 #: src/Tribe/Main.php:2241
 msgid "page"
@@ -72,19 +72,19 @@ msgstr ""
 
 #: src/Tribe/Main.php:2242
 msgid "event"
-msgstr ""
+msgstr "活動"
 
 #: src/Tribe/Main.php:2243
 msgid "events"
-msgstr ""
+msgstr "活動"
 
 #: src/Tribe/Main.php:2244
 msgid "all"
-msgstr ""
+msgstr "所有"
 
 #: src/Tribe/Settings.php:261
 msgid "Save Changes"
-msgstr ""
+msgstr "保存更改"
 
 #: src/Tribe/Template/Day.php:136
 msgid "No matching %1$s listed under %2$s scheduled for <strong>%3$s</strong>. Please try another day."
@@ -112,7 +112,7 @@ msgstr ""
 
 #: src/admin-views/events-meta-box.php:121
 msgid "Timezone:"
-msgstr ""
+msgstr "時區:"
 
 #: src/admin-views/tickets/attendees.php:103
 msgid "Sold %1$d %2$s"
@@ -178,44 +178,44 @@ msgstr ""
 msgctxt "category list label"
 msgid "%s Category"
 msgid_plural "%s Categories"
-msgstr[0] ""
+msgstr[0] "%s類別"
 
 #: src/io/csv/admin-views/general.php:48
 msgid "Save Settings"
-msgstr ""
+msgstr "保存設置"
 
 #: src/Tribe/Activation_Page.php:38
 msgid "Go to plugins page"
-msgstr ""
+msgstr "進入插件頁面"
 
 #: src/Tribe/Activation_Page.php:38
 msgid "Return to Plugins page"
-msgstr ""
+msgstr "返回插件頁面"
 
 #: src/Tribe/Activation_Page.php:46
 msgid "Go to WordPress Updates page"
-msgstr ""
+msgstr "轉到WordPress的更新頁面"
 
 #: src/Tribe/Activation_Page.php:46
 msgid "Return to WordPress Updates"
-msgstr ""
+msgstr "返回WordPress更新"
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:88
 msgid "Create New %s"
-msgstr ""
+msgstr "新建 %s"
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:148
 msgid "Add another organizer"
-msgstr ""
+msgstr "增加其它主辦人"
 
 #: src/Tribe/Cost_Utils.php:108
 msgctxt "Cost range separator"
 msgid " - "
-msgstr ""
+msgstr "-"
 
 #: src/Tribe/PUE/Checker.php:416
 msgid "unknown date"
-msgstr ""
+msgstr "未知的日期"
 
 #: src/Tribe/Support.php:142
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
@@ -526,7 +526,7 @@ msgstr "增加至 Google 日曆"
 
 #: src/functions/advanced-functions/meta_registration.php:286
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #: src/Tribe/iCal.php:75
 msgid "Google Calendar"
@@ -538,7 +538,7 @@ msgstr ""
 
 #: src/Tribe/iCal.php:76
 msgid "Download .ics file"
-msgstr ""
+msgstr "下載  .ics 文件"
 
 #: src/functions/template-tags/day.php:107
 msgid "<span>&laquo;</span> Previous Day"
@@ -546,7 +546,7 @@ msgstr "<span>&laquo;</span> 前一天"
 
 #: src/Tribe/iCal.php:76
 msgid "iCal Export"
-msgstr ""
+msgstr "iCal 匯入"
 
 #: src/functions/template-tags/day.php:109
 msgid "Next Day <span>&raquo;</span>"
@@ -554,7 +554,7 @@ msgstr "後一天 <span>&raquo;</span>"
 
 #: src/Tribe/iCal.php:106
 msgid "Month's %s"
-msgstr ""
+msgstr "這個月的%s"
 
 #: src/functions/template-tags/day.php:111
 msgid "Yesterday"
@@ -562,7 +562,7 @@ msgstr "昨天"
 
 #: src/Tribe/iCal.php:109
 msgid "Week's %s"
-msgstr ""
+msgstr "這個禮拜的%s"
 
 #: src/functions/template-tags/day.php:113
 msgid "Tomorrow"
@@ -624,7 +624,7 @@ msgstr ""
 
 #: src/functions/template-tags/loop.php:145
 msgid "%1$s for %2$s - %3$s"
-msgstr ""
+msgstr "%2$s - %3$s 的%1$s"
 
 #: src/admin-views/admin-update-message.php:37
 msgid "PSST... Want a Discount?"
@@ -632,7 +632,7 @@ msgstr ""
 
 #: src/functions/template-tags/loop.php:147
 msgid "Past %s"
-msgstr ""
+msgstr "過去的%s"
 
 #: src/admin-views/admin-update-message.php:38
 msgid "We send out discounts to our core users via our newsletter."
@@ -641,7 +641,7 @@ msgstr ""
 #: src/functions/template-tags/loop.php:152
 #: src/functions/template-tags/loop.php:161
 msgid "%1$s for %2$s"
-msgstr ""
+msgstr "%2$s%1$s"
 
 #: src/admin-views/admin-update-message.php:43
 #: src/admin-views/admin-welcome-message.php:31
@@ -715,7 +715,7 @@ msgstr ""
 
 #: src/io/csv/admin-views/general.php:12
 msgid "Instructions"
-msgstr ""
+msgstr "說明"
 
 #: src/admin-views/admin-welcome-message.php:21
 msgid "Rate it five stars today!"
@@ -739,7 +739,7 @@ msgstr ""
 
 #: src/io/csv/admin-views/general.php:24
 msgid "Import Settings"
-msgstr ""
+msgstr "導入設置"
 
 #: src/admin-views/admin-welcome-message.php:40
 #: src/admin-views/tribe-options-help.php:221
@@ -760,7 +760,7 @@ msgstr ""
 
 #: src/admin-views/admin-welcome-message.php:43
 msgid "Looking for More Features?"
-msgstr ""
+msgstr "尋找更多功能？"
 
 #: src/io/csv/admin-views/general.php:31
 msgid "Pending"
@@ -772,7 +772,7 @@ msgstr ""
 
 #: src/io/csv/admin-views/general.php:32
 msgid "Draft"
-msgstr ""
+msgstr "沒有之前 %s"
 
 #: src/admin-views/admin-welcome-message.php:46
 msgid "Support Resources"
@@ -780,7 +780,7 @@ msgstr ""
 
 #: src/io/csv/admin-views/header.php:17
 msgid "Events Import"
-msgstr ""
+msgstr "活動導入"
 
 #: src/admin-views/admin-welcome-message.php:47
 msgid "FAQs, Documentation, Tutorials and Forums"
@@ -921,7 +921,7 @@ msgstr "匯入完成！"
 
 #: src/admin-views/events-meta-box.php:195
 msgid "%s Website"
-msgstr ""
+msgstr "%s 網站"
 
 #: src/io/csv/admin-views/result.php:19
 msgid "Inserted: %d"
@@ -937,7 +937,7 @@ msgstr "更新：%d"
 
 #: src/admin-views/events-meta-box.php:229
 msgid "%s Cost"
-msgstr ""
+msgstr "%s 費用"
 
 #: src/io/csv/admin-views/result.php:21
 msgid "Skipped: %d"
@@ -983,7 +983,7 @@ msgstr ""
 #: src/admin-views/organizer-meta-box.php:24
 #: src/admin-views/venue-meta-box.php:25
 msgid "%s Name:"
-msgstr ""
+msgstr "地點名稱："
 
 #: src/views/day/nav.php:16
 msgid "Day Navigation"
@@ -1105,7 +1105,7 @@ msgstr[0] ""
 
 #: src/views/single-event.php:27
 msgid "&laquo; All %s"
-msgstr ""
+msgstr "&laquo; 全部%s"
 
 #: src/admin-views/tickets/attendees.php:127
 msgid "Tickets sold:"
@@ -1238,7 +1238,7 @@ msgstr "(0 或 空白為免費票券)"
 
 #: src/admin-views/tickets/meta-box.php:125
 msgid "Sale Price:"
-msgstr ""
+msgstr "售價:"
 
 #: src/admin-views/tickets/meta-box.php:131
 msgid "(Current sale price - this can be managed via the product editor)"
@@ -1606,7 +1606,7 @@ msgstr "Debug Bar Plugin"
 
 #: src/admin-views/tribe-options-general.php:199
 msgid "View Welcome Page"
-msgstr ""
+msgstr "查看歡迎頁面"
 
 #: src/admin-views/tribe-options-general.php:199
 msgid "View the page that displayed when you initially installed the plugin."
@@ -1614,7 +1614,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-general.php:204
 msgid "View Update Page"
-msgstr ""
+msgstr "查看更新頁"
 
 #: src/admin-views/tribe-options-general.php:204
 msgid "View the page that displayed when you updated the plugin."
@@ -1856,7 +1856,7 @@ msgstr "安哥拉共和國"
 
 #: src/Tribe/Activation_Page.php:216
 msgid "Thanks for Updating The Events Calendar"
-msgstr ""
+msgstr "感謝更新 The Events Calendar"
 
 #: src/Tribe/View_Helpers.php:53
 msgid "Anguilla"
@@ -1864,7 +1864,7 @@ msgstr "安圭拉"
 
 #: src/Tribe/Admin_List.php:219 src/Tribe/Main.php:1295
 msgid "%s Categories"
-msgstr ""
+msgstr "%s類別"
 
 #: src/Tribe/View_Helpers.php:54
 msgid "Antarctica"
@@ -1985,7 +1985,7 @@ msgstr "比利時"
 
 #: src/Tribe/Credits.php:48
 msgid "http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5"
-msgstr ""
+msgstr "http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5"
 
 #: src/Tribe/View_Helpers.php:68
 msgid "Belize"
@@ -2222,7 +2222,7 @@ msgstr "庫克群島"
 
 #: src/Tribe/Importer/Column_Mapper.php:77
 msgid "Venue Address 2"
-msgstr ""
+msgstr "地點地址2"
 
 #: src/Tribe/View_Helpers.php:98
 msgid "Costa Rica"
@@ -2262,7 +2262,7 @@ msgstr "賽普勒斯"
 
 #: src/Tribe/Importer/Column_Mapper.php:82
 msgid "Venue Website"
-msgstr ""
+msgstr "場地網站"
 
 #: src/Tribe/View_Helpers.php:103
 msgid "Czech Republic"
@@ -2596,7 +2596,7 @@ msgstr "洪都拉斯"
 #: src/Tribe/Main.php:1244 src/Tribe/Main.php:1262 src/Tribe/Main.php:1280
 #: src/Tribe/Main.php:1405 src/Tribe/Main.php:1406
 msgid "Add New %s"
-msgstr ""
+msgstr "新增"
 
 #: src/Tribe/View_Helpers.php:144
 msgid "Hong Kong"
@@ -2606,7 +2606,7 @@ msgstr "香港"
 #: src/Tribe/Main.php:1263 src/Tribe/Main.php:1281 src/Tribe/Main.php:1425
 #: src/Tribe/Main.php:1477 src/Tribe/Main.php:3998
 msgid "Edit %s"
-msgstr ""
+msgstr "編輯於 %s"
 
 #: src/Tribe/View_Helpers.php:145
 msgid "Hungary"
@@ -2614,7 +2614,7 @@ msgstr "匈牙利"
 
 #: src/Tribe/Main.php:1246 src/Tribe/Main.php:1264 src/Tribe/Main.php:1282
 msgid "New %s"
-msgstr ""
+msgstr "新澤西州"
 
 #: src/Tribe/View_Helpers.php:146
 msgid "Iceland"
@@ -2622,7 +2622,7 @@ msgstr "冰島"
 
 #: src/Tribe/Main.php:1247 src/Tribe/Main.php:1265 src/Tribe/Main.php:1283
 msgid "View %s"
-msgstr ""
+msgstr "檢視為"
 
 #: src/Tribe/View_Helpers.php:147
 msgid "India"
@@ -2630,7 +2630,7 @@ msgstr "印度"
 
 #: src/Tribe/Main.php:1248 src/Tribe/Main.php:1266 src/Tribe/Main.php:1284
 msgid "Search %s"
-msgstr ""
+msgstr "搜尋"
 
 #: src/Tribe/View_Helpers.php:148
 msgid "Indonesia"
@@ -2638,7 +2638,7 @@ msgstr "印尼"
 
 #: src/Tribe/Main.php:1249 src/Tribe/Main.php:1267 src/Tribe/Main.php:1285
 msgid "No %s found"
-msgstr ""
+msgstr "未發現活動"
 
 #: src/Tribe/View_Helpers.php:149
 msgid "Iran (Islamic Republic Of)"
@@ -2646,7 +2646,7 @@ msgstr "伊朗"
 
 #: src/Tribe/Main.php:1250 src/Tribe/Main.php:1268 src/Tribe/Main.php:1286
 msgid "No %s found in Trash"
-msgstr ""
+msgstr "回收桶中未發現活動"
 
 #: src/Tribe/View_Helpers.php:150
 msgid "Iraq"
@@ -2654,7 +2654,7 @@ msgstr "伊拉克"
 
 #: src/Tribe/Main.php:1296
 msgid "%s Category"
-msgstr ""
+msgstr "%s類別"
 
 #: src/Tribe/View_Helpers.php:151
 msgid "Ireland"
@@ -2670,7 +2670,7 @@ msgstr "以色列"
 
 #: src/Tribe/Main.php:1298
 msgid "All %s Categories"
-msgstr ""
+msgstr "所有%s分類"
 
 #: src/Tribe/View_Helpers.php:153
 msgid "Italy"
@@ -2710,7 +2710,7 @@ msgstr "哈薩克"
 
 #: src/Tribe/Main.php:1303
 msgid "Add New %s Category"
-msgstr ""
+msgstr "新增%s類別"
 
 #: src/Tribe/View_Helpers.php:158
 msgid "Kenya"
@@ -2751,7 +2751,7 @@ msgstr "科威特"
 #: src/Tribe/Main.php:1323 src/Tribe/Main.php:1356 src/Tribe/Main.php:1359
 #: src/Tribe/Main.php:1375 src/Tribe/Main.php:1378
 msgid "%s updated."
-msgstr ""
+msgstr "活動已更新。"
 
 #: src/Tribe/View_Helpers.php:163
 msgid "Kyrgyzstan"
@@ -2775,7 +2775,7 @@ msgstr "拉脫維亞"
 
 #: src/Tribe/Main.php:1331 src/Tribe/Main.php:1363 src/Tribe/Main.php:1382
 msgid "%s saved."
-msgstr ""
+msgstr "設定已儲存。"
 
 #: src/Tribe/View_Helpers.php:166
 msgid "Lebanon"
@@ -2815,7 +2815,7 @@ msgstr "列支敦斯登"
 
 #: src/Tribe/Main.php:1361 src/Tribe/Main.php:1380
 msgid "%s restored to revision from %s"
-msgstr ""
+msgstr "活動還原修正 %s"
 
 #: src/Tribe/View_Helpers.php:171
 msgid "Lithuania"
@@ -2823,7 +2823,7 @@ msgstr "立陶宛"
 
 #: src/Tribe/Main.php:1362 src/Tribe/Main.php:1381
 msgid "%s published."
-msgstr ""
+msgstr "地點已發佈。"
 
 #: src/Tribe/View_Helpers.php:172
 msgid "Luxembourg"
@@ -2831,7 +2831,7 @@ msgstr "盧森堡"
 
 #: src/Tribe/Main.php:1364 src/Tribe/Main.php:1383
 msgid "%s submitted."
-msgstr ""
+msgstr "地點已提交。"
 
 #: src/Tribe/View_Helpers.php:173
 msgid "Macau"
@@ -2839,7 +2839,7 @@ msgstr "澳門"
 
 #: src/Tribe/Main.php:1366 src/Tribe/Main.php:1385
 msgid "%s scheduled for: <strong>%2$s</strong>."
-msgstr ""
+msgstr "預定地點：<strong>%1$s</strong>."
 
 #: src/Tribe/View_Helpers.php:174
 msgid "Macedonia"
@@ -2847,7 +2847,7 @@ msgstr "馬其頓"
 
 #: src/Tribe/Main.php:1370 src/Tribe/Main.php:1389
 msgid "%s draft updated."
-msgstr ""
+msgstr "地點草稿已更新。"
 
 #: src/Tribe/View_Helpers.php:175
 msgid "Madagascar"
@@ -2856,7 +2856,7 @@ msgstr "馬達加斯加"
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:88 src/Tribe/Main.php:1424
 #: src/Tribe/Main.php:1475
 msgid "Use Saved %s:"
-msgstr ""
+msgstr "使用現有地點："
 
 #: src/Tribe/View_Helpers.php:176
 msgid "Malawi"
@@ -2872,7 +2872,7 @@ msgstr "馬來西亞"
 
 #: src/Tribe/Main.php:1543 src/Tribe/Main.php:1625
 msgid "Use New %s"
-msgstr ""
+msgstr "使用新地點"
 
 #: src/Tribe/View_Helpers.php:178
 msgid "Maldives"
@@ -2880,7 +2880,7 @@ msgstr "馬爾地夫"
 
 #: src/Tribe/Main.php:1545 src/Tribe/Main.php:1627
 msgid "My %s"
-msgstr ""
+msgstr "我的%s"
 
 #: src/Tribe/View_Helpers.php:179
 msgid "Mali"
@@ -2888,7 +2888,7 @@ msgstr "馬利"
 
 #: src/Tribe/Main.php:1550 src/Tribe/Main.php:1632
 msgid "Available %s"
-msgstr ""
+msgstr "可用地點"
 
 #: src/Tribe/View_Helpers.php:180
 msgid "Malta"
@@ -2896,7 +2896,7 @@ msgstr "馬爾他"
 
 #: src/Tribe/Main.php:1561 src/Tribe/Main.php:1643
 msgid "No saved %s exists."
-msgstr ""
+msgstr "現有地點不存在"
 
 #: src/Tribe/View_Helpers.php:181
 msgid "Marshall Islands"
@@ -2962,7 +2962,7 @@ msgstr "摩爾多瓦"
 
 #: src/Tribe/Main.php:3586 src/Tribe/Main.php:3597
 msgid "%s Information"
-msgstr ""
+msgstr "%s 質詢"
 
 #: src/Tribe/View_Helpers.php:189
 msgid "Monaco"
@@ -3034,7 +3034,7 @@ msgstr "諾魯"
 
 #: src/Tribe/Main.php:3987
 msgid "Add %s"
-msgstr ""
+msgstr "增加%s"
 
 #: src/Tribe/View_Helpers.php:198
 msgid "Nepal"
@@ -3106,7 +3106,7 @@ msgstr "紐埃"
 
 #: src/Tribe/Main.php:4296
 msgid "%s In"
-msgstr ""
+msgstr "%s在"
 
 #: src/Tribe/View_Helpers.php:207
 msgid "Norfolk Island"
@@ -3114,7 +3114,7 @@ msgstr "諾福克島"
 
 #: src/Tribe/Main.php:4298
 msgid "%s From"
-msgstr ""
+msgstr "%s從"
 
 #: src/Tribe/View_Helpers.php:208
 msgid "Northern Mariana Islands"
@@ -3403,7 +3403,7 @@ msgstr "西班牙"
 
 #: src/Tribe/Template/Single_Event.php:120
 msgid "This %s has passed."
-msgstr ""
+msgstr "這個%s已經過去了"
 
 #: src/Tribe/View_Helpers.php:246
 msgid "Sri Lanka"
