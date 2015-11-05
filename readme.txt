@@ -452,23 +452,23 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - Added a filter (tribe_minutes_increment) that allows you to alter the minute incrementor used to generate the Minutes drop-down box (Thank you d4mation-!)
 * Feature - Added timezone support to allow different events to be set in different timezones
 * Feature - Added a warning when a page with the same slug as the events archive already exists
+* Fix - Resolved bug where executing wp_insert_post within a hook to publish_tribe_events prevented event meta from being saved appropriately
+* Fix - Fixed a fatal caused by attempting to use get_current_screen before it was available for use in some contexts (props to Enchiridion)
+* Fix - Fixed bug where Date_Utils::datetime_from_format converted dates with 1 character days/months incorrectly
+* Fix - Fixed issue with event title attributes not always escaping properly on List and Day views
+* Fix - Fixed issue with Event Costs not updating when a new ticket was only submitted via Ajax
+* Fix - Fixed an issue Twenty Fourteen and the event views being hidden in screen sizes smaller then 400px
+* Fix - Fixed an issue where the month view date selector became full window width when Skeleton styles were enabled
+* Fix - Fixed a notice on the plugin updater page
+* Fix - Fixed a localization issue in the settings environment (props to @tititou36 for highlighting the issue)
+* Fix - Fixed a problem which was resetting the "Show Google Map" option for events when they were re-imported via CSV (thanks to @jameswemyss for highlighting this)
+* Fix - Fixed default event, organizer and venue website targets pointing to 'self'
 * Tweak - Relocated event recurrence-specific JS to Events PRO where it belongs
 * Tweak - Style nowrap on ticket forms with CSS rather than HTML attributes (Thanks Mark!)
 * Tweak - Updated the attendees template to use divs to separate event data (Props to aaemnnosttv!)
 * Tweak - Display the order id with a proper link in the attendees report (Thank you aaemnnosttv!)
 * Tweak - Pointed the "Add-on Documentation" link on the Event > Settings > Help page to a better location.
 * Tweak - Pad SQL joins with spacing to avoid conflicts with other plugins that modify SQL (props to jeremyfelt)
-* Bug - Resolved bug where executing wp_insert_post within a hook to publish_tribe_events prevented event meta from being saved appropriately
-* Bug - Fixed a fatal caused by attempting to use get_current_screen before it was available for use in some contexts (props to Enchiridion)
-* Bug - Fixed bug where Date_Utils::datetime_from_format converted dates with 1 character days/months incorrectly
-* Bug - Fixed issue with event title attributes not always escaping properly on List and Day views
-* Bug - Fixed issue with Event Costs not updating when a new ticket was only submitted via Ajax
-* Bug - Fixed an issue Twenty Fourteen and the event views being hidden in screen sizes smaller then 400px
-* Bug - Fixed an issue where the month view date selector became full window width when Skeleton styles were enabled
-* Bug - Fixed a notice on the plugin updater page
-* Bug - Fixed a localization issue in the settings environment (props to @tititou36 for highlighting the issue)
-* Bug - Fixed a problem which was resetting the "Show Google Map" option for events when they were re-imported via CSV (thanks to @jameswemyss for highlighting this)
-* Bug - Fixed default event, organizer and venue website targets pointing to 'self'
 * Deprecated - The tribe_events_getLink is being deprecated in favor of tribe_events_get_link. Scheduled removal from source is v4.2
 * Deprecated - The Tribe__Events__Advanced_Functions__Register_Meta::gmap_link() has been deprecated since 3.6 and has now been removed from source
 * Deprecated - The tribe_events_single_event_meta() function has been deprecated since 3.6 and has now been removed from source
