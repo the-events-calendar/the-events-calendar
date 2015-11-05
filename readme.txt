@@ -239,6 +239,7 @@ Our Premium Plugins:
 * Tweak - Simplify the machine-generated recurrence rule descriptions for simple rules
 * Tweak - Add support for multiple organizers to the List Widget
 * Tweak - Remove microformat CSS classes from templates and replace with namespaced content-relevant CSS classes
+* Tweak - Add support for a count argument to the mini calendar shortcode
 * Fix - Resolved bug where extra spaces were added to the body_class return value (props to @garrettjohnson for this fix!)
 * Fix - Resolved issue where tribe_all_occurences_link() sometimes returned an incorrect URL when an explicit ID was passed
 * Fix - Don't escape HTML on additional fields that hold URLs
@@ -253,6 +254,8 @@ Our Premium Plugins:
 * Fix - Fixed various notices
 * Fix - Fixed issue where some strings were trying to use the wrong textdomain for translations
 * Fix - Fixed date issue with the List Widget where the fancy date box was always displaying today's date
+* Fix - Resolved a problem preventing some category views from working as expected when a non-default language was in use (our thanks to Cristina for highlighting this issue)
+* Fix - Resolved a problem whereby mini calendars could incorrectly render some days as populated when set to display events in a specific category (our thanks to oniregoc for highlighting this)
 * Deprecated - Deprecating the "defaultValueReplace" option in the Default Content settings tab
 
 = [3.12.5] 2015-10-28 =

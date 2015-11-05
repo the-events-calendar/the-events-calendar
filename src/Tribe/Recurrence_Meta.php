@@ -1260,7 +1260,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			'custom-monthly-on-same-time' => __( 'An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s', 'tribe-events-calendar-pro' ),
 			'custom-monthly-after-same-time' => __( 'An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)', 'tribe-events-calendar-pro' ),
 			'custom-monthly-never-same-time' => __( 'An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'custom-monthly-on-diff-time' => __( 'An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %7$s', 'tribe-events-calendar-pro' ),
+			'custom-monthly-on-diff-time' => __( 'An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s', 'tribe-events-calendar-pro' ),
 			'custom-monthly-after-diff-time' => __( 'An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)', 'tribe-events-calendar-pro' ),
 			'custom-monthly-never-diff-time' => __( 'An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
 			'custom-yearly-on-same-time-unfiltered' => __( 'An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s', 'tribe-events-calendar-pro' ),
