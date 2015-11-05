@@ -258,6 +258,10 @@ Our Premium Plugins:
 * Fix - Resolved a problem whereby mini calendars could incorrectly render some days as populated when set to display events in a specific category (our thanks to oniregoc for highlighting this)
 * Deprecated - Deprecating the "defaultValueReplace" option in the Default Content settings tab
 
+= [3.12.6] 2015-11-05 =
+
+* Fix - Ensure the correct date displays within the upcoming events list widget (our thanks to Seth, @farmgirlref and others for highlighting this)
+
 = [3.12.5] 2015-10-28 =
 
 * Feature - Bring back the Recurrence Rule description override field
