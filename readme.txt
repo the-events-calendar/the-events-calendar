@@ -325,6 +325,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - The event cost now supports more international formats with the addition of the tribe_events_cost_separators filter
 * Feature - Added support for the twentysixteen theme
 * Feature - Created a new Add-Ons tab in Settings so that TEC add-ons can have a consolidated settings tab
+* Feature - Improve the date formats UI by providing example output for each selected format
 * Tweak - Restructured TEC's core settings code for reusability with other standalone plugins like event-tickets
 * Tweak - Deprecate old JS event names in favor of a new JS event naming standard. Example: deprecated tribe_ev_runAjax in favor of run-ajax.tribe
 * Tweak - Consolidated import pages for TEC and add-ons
@@ -345,6 +346,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - tribe_get_vanue_link() no longer echoes if you ask it to return an <a> element
 * Tweak - No longer retrieve empty costs when fetching all costs for all events
 * Tweak - Change the priority of bootstrapping the-events-calendar to ensure it occurs before any of the TEC addons in the event some addons are upgraded to v4.0 later than TEC
+* Tweak - Adjust the logic used for adding a noindex/follow tag to event views
 * Fix - Resolved issue where the iCal feed did not provide an appropriately formatted timezone in some cases
 * Fix - Added support for translating some previously untranslatable strings
 * Fix - Prevented duplicate CSS IDs on the mini calendars
@@ -356,6 +358,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - Fixed error message returned when tabbing away from a blank event name meta box so that it properly indicates that an event name is required (our thanks to @tapan29bd for this fix!)
 * Fix - Resolved issue where Timezone event start/end date property name strings were malformed which guaranteed a a call to get_post_meta for Timezone date strings
 * Fix - Fixed CSS issue where the month view calendar could sometimes extend beyond the edge of the page when Skeleton Styles were enabled
+* Fix - Fixed a problem where iCal data was generated with incorrect dates in the case of some all days events (thanks to Matt for highlighting this)
 * Deprecated - The Tribe__Events__Main::defaultValueReplaceEnabled() method is being deprecated in favor of tribe_get_option('defaultValueReplace'). Schedules for removal in v4.5
 * Deprecated - The tribe_event_link() has been deprecated in favor of tribe_get_event_link(). Scheduled for removal in 5.0
 * Deprecated - The third parameter of tribe_get_organizer_link() (the $echo parameter) has been deprecated and is scheduled for removal in 5.0
@@ -414,9 +417,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Deprecated - tribe_event_format_date() in favor of tribe_format_date()
 * Deprecated - tribe_events_the_notices() in favor of tribe_the_notices()
 
-= [3.12.4] unreleased =
+= [3.12.4] 2015-11-04 =
 
 * Feature - Added support for the new Events Community Tickets plugin
+* Tweak - Wrapping functions in conditionals to avoid fatals in our upcoming 4.0 release
 
 = [3.12.3] 2015-10-01 =
 
@@ -448,23 +452,23 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - Added a filter (tribe_minutes_increment) that allows you to alter the minute incrementor used to generate the Minutes drop-down box (Thank you d4mation-!)
 * Feature - Added timezone support to allow different events to be set in different timezones
 * Feature - Added a warning when a page with the same slug as the events archive already exists
+* Fix - Resolved bug where executing wp_insert_post within a hook to publish_tribe_events prevented event meta from being saved appropriately
+* Fix - Fixed a fatal caused by attempting to use get_current_screen before it was available for use in some contexts (props to Enchiridion)
+* Fix - Fixed bug where Date_Utils::datetime_from_format converted dates with 1 character days/months incorrectly
+* Fix - Fixed issue with event title attributes not always escaping properly on List and Day views
+* Fix - Fixed issue with Event Costs not updating when a new ticket was only submitted via Ajax
+* Fix - Fixed an issue Twenty Fourteen and the event views being hidden in screen sizes smaller then 400px
+* Fix - Fixed an issue where the month view date selector became full window width when Skeleton styles were enabled
+* Fix - Fixed a notice on the plugin updater page
+* Fix - Fixed a localization issue in the settings environment (props to @tititou36 for highlighting the issue)
+* Fix - Fixed a problem which was resetting the "Show Google Map" option for events when they were re-imported via CSV (thanks to @jameswemyss for highlighting this)
+* Fix - Fixed default event, organizer and venue website targets pointing to 'self'
 * Tweak - Relocated event recurrence-specific JS to Events PRO where it belongs
 * Tweak - Style nowrap on ticket forms with CSS rather than HTML attributes (Thanks Mark!)
 * Tweak - Updated the attendees template to use divs to separate event data (Props to aaemnnosttv!)
 * Tweak - Display the order id with a proper link in the attendees report (Thank you aaemnnosttv!)
 * Tweak - Pointed the "Add-on Documentation" link on the Event > Settings > Help page to a better location.
 * Tweak - Pad SQL joins with spacing to avoid conflicts with other plugins that modify SQL (props to jeremyfelt)
-* Bug - Resolved bug where executing wp_insert_post within a hook to publish_tribe_events prevented event meta from being saved appropriately
-* Bug - Fixed a fatal caused by attempting to use get_current_screen before it was available for use in some contexts (props to Enchiridion)
-* Bug - Fixed bug where Date_Utils::datetime_from_format converted dates with 1 character days/months incorrectly
-* Bug - Fixed issue with event title attributes not always escaping properly on List and Day views
-* Bug - Fixed issue with Event Costs not updating when a new ticket was only submitted via Ajax
-* Bug - Fixed an issue Twenty Fourteen and the event views being hidden in screen sizes smaller then 400px
-* Bug - Fixed an issue where the month view date selector became full window width when Skeleton styles were enabled
-* Bug - Fixed a notice on the plugin updater page
-* Bug - Fixed a localization issue in the settings environment (props to @tititou36 for highlighting the issue)
-* Bug - Fixed a problem which was resetting the "Show Google Map" option for events when they were re-imported via CSV (thanks to @jameswemyss for highlighting this)
-* Bug - Fixed default event, organizer and venue website targets pointing to 'self'
 * Deprecated - The tribe_events_getLink is being deprecated in favor of tribe_events_get_link. Scheduled removal from source is v4.2
 * Deprecated - The Tribe__Events__Advanced_Functions__Register_Meta::gmap_link() has been deprecated since 3.6 and has now been removed from source
 * Deprecated - The tribe_events_single_event_meta() function has been deprecated since 3.6 and has now been removed from source
