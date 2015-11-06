@@ -26,13 +26,13 @@ modules:
             user: root
             password: password
             dump: tests/_data/dump.sql
-            populate: true
-            cleanup: true
+            populate: false
+            cleanup: false
             url: 'http://tec.tri.be'
             tablePrefix: wptests_
             checkExistence: true
             update: true
-            reconnect: true
+            reconnect: false
         WPLoader:
             wpRootFolder: ~/www/wordpress
             dbName: wordpress-tests
