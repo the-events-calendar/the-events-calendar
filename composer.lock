@@ -403,16 +403,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "1.7.7",
+            "version": "1.7.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "f44185b79141ea0e468140f38485a4d5657470ef"
+                "reference": "c71c50d6172a4df2a251ab2064136730727e69d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/f44185b79141ea0e468140f38485a4d5657470ef",
-                "reference": "f44185b79141ea0e468140f38485a4d5657470ef",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/c71c50d6172a4df2a251ab2064136730727e69d0",
+                "reference": "c71c50d6172a4df2a251ab2064136730727e69d0",
                 "shasum": ""
             },
             "require": {
@@ -452,7 +452,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2015-10-22 12:48:06"
+            "time": "2015-11-06 09:13:42"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
