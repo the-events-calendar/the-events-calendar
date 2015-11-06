@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3.1
-Stable tag: 3.12.4dev1
+Stable tag: 4.0beta1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,16 +77,16 @@ No, this plugin does not use a shortcode nor is one available at the time being.
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (3.12 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar (4.0 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
 The most common issues we see are either plugin or theme conflicts. You
-can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.12 is running on your site. If the issue persists from there, revert to the default Twenty Twelve theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 4.0 is running on your site. If the issue persists from there, revert to the default Twenty Twelve theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
 
 Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
 = I'm still stuck. Where do I go to file a bug or ask a question? =
 
-If you're already a PRO user, you're entitled access to our more actively-monitored <a href="http://m.tri.be/3x">PRO forums</a> at the tri.be website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. No post should go more than 24-hours during that time without a response.
+If you're already a PRO user, you're entitled access to our more actively-monitored <a href="http://m.tri.be/3x">PRO forums</a> at the theeventscalendar.com website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. No post should go more than 24-hours during that time without a response.
 
 = What add-ons are available for The Events Calendar and Events Calendar PRO, and where can I read more about them? =
 
@@ -129,49 +129,50 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 
 = Current Contributors =
 
-* <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
-* <a href="http://profiles.wordpress.org/users/brianjessee">Brian Jessee</a>
-* <a href="http://profiles.wordpress.org/users/brook-tribe">Brook Harding</a>
-* <a href="http://profiles.wordpress.org/users/geoffgraham">Geoff Graham</a>
-* <a href="http://profiles.wordpress.org/users/ggwicz">George Gecewicz</a>
-* <a href="http://profiles.wordpress.org/users/bordoni">Gustavo Bordoni</a>
-* <a href="http://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
-* <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
-* <a href="http://profiles.wordpress.org/users/joshlimecuda">Josh Mallard</a>
-* <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
-* <a href="http://profiles.wordpress.org/users/lucatume">Luca Tumedei</a>
-* <a href="http://profiles.wordpress.org/users/mat-lipe">Mat Lipe</a>
-* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
-* <a href="http://profiles.wordpress.org/users/mdbitz">Matthew Denton</a>
-* <a href="http://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
-* <a href="http://profiles.wordpress.org/users/mastromktg">Nick Mastromattei</a>
-* <a href="http://profiles.wordpress.org/users/nicosantos”>Nico Santo</a>
-* <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
-* <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
-* <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
-* <a href="http://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
-* <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
-* <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
-* <a href="http://profiles.wordpress.org/users/thatdudebutch">Wayne Stratton</a>
-* <a href="http://profiles.wordpress.org/users/zbtirrell">Zachary Tirrell</a>
+<a href="https://profiles.wordpress.org/barryhughes">Barry Hughes</a>
+<a href="https://profiles.wordpress.org/brianjessee">Brian Jessee</a>
+<a href="https://profiles.wordpress.org/brook-tribe">Brook Harding</a>
+<a href="https://profiles.wordpress.org/cliffpaulick">Clifford Paulick</a>
+<a href="https://profiles.wordpress.org/MZAWeb">Daniel Dvorkin</a>
+<a href="https://profiles.wordpress.org/geoffgraham">Geoff Graham</a>
+<a href="https://profiles.wordpress.org/ggwicz">George Gecewicz</a>
+<a href="https://profiles.wordpress.org/bordoni">Gustavo Bordoni</a>
+<a href="https://profiles.wordpress.org/jazbek">Jessica Yazbek</a>
+<a href="https://profiles.wordpress.org/joshlimecuda">Josh Mallard</a>
+<a href="https://profiles.wordpress.org/leahkoerper">Leah Koerper</a>
+<a href="https://profiles.wordpress.org/lucatume">Luca Tumedei</a>
+<a href="https://profiles.wordpress.org/borkweb">Matthew Batchelder</a>
+<a href="https://profiles.wordpress.org/neillmcshea">Neill McShea</a>
+<a href="https://profiles.wordpress.org/mastromktg">Nick Mastromattei</a>
+<a href="https://profiles.wordpress.org/nicosantos”>Nico Santo</a>
+<a href="https://profiles.wordpress.org/peterchester">Peter Chester</a>
+<a href="https://profiles.wordpress.org/roblagatta">Rob La Gatta</a>
+<a href="https://profiles.wordpress.org/reid.peifer">Reid Peifer</a>
+<a href="https://profiles.wordpress.org/shane.pearlman">Shane Pearlman</a>
+<a href="https://profiles.wordpress.org/thatdudebutch">Wayne Stratton</a>
+<a href="https://profiles.wordpress.org/zbtirrell">Zachary Tirrell</a>
 
 = Past Contributors =
 
-* <a href="http://profiles.wordpress.org/users/caseypatrickdriscoll">Casey Driscoll</a>
-* <a href="http://profiles.wordpress.org/users/ckpicker">Casey Picker</a>
-* <a href="http://profiles.wordpress.org/users/dancameron">Dan Cameron</a>
-* <a href="http://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
-* <a href="http://profiles.wordpress.org/users/jkudish">Joachim Kudish</a>
-* <a href="http://profiles.wordpress.org/users/jgadbois">John Gadbois</a>
-* <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
-* <a href=“https://profiles.wordpress.org/justinendler/“>Justin Endler</a>
-* <a href="http://profiles.wordpress.org/users/kellykathryn">Kelly Groves</a>
-* <a href="http://profiles.wordpress.org/users/kelseydamas">Kelsey Damas</a>
-* <a href="http://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
-* <a href="http://profiles.wordpress.org/users/mattwiebe">Matt Wiebe</a>
-* <a href="http://profiles.wordpress.org/users/nickciske">Nick Ciske</a>
-* <a href="http://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
-* <a href="http://profiles.wordpress.org/users/codearachnid">Timothy Wood</a>
+<a href="https://profiles.wordpress.org/caseypatrickdriscoll">Casey Driscoll</a>
+<a href="https://profiles.wordpress.org/ckpicker">Casey Picker</a>
+<a href="https://profiles.wordpress.org/dancameron">Dan Cameron</a>
+<a href="https://profiles.wordpress.org/jkudish">Joachim Kudish</a>
+<a href="https://profiles.wordpress.org/jgadbois">John Gadbois</a>
+<a href="https://profiles.wordpress.org/jonahcoyote">Jonah West</a>
+<a href="https://profiles.wordpress.org/jbrinley">Jonathan Brinley</a>
+<a href="https://profiles.wordpress.org/justinendler/">Justin Endler</a>
+<a href="https://profiles.wordpress.org/kellykathryn">Kelly Groves</a>
+<a href="https://profiles.wordpress.org/kelseydamas">Kelsey Damas</a>
+<a href="https://profiles.wordpress.org/kyleunzicker">Kyle Unzicker</a>
+<a href="https://profiles.wordpress.org/mdbitz">Matthew Denton</a>
+<a href="https://profiles.wordpress.org/mattwiebe">Matt Wiebe</a>
+<a href="https://profiles.wordpress.org/mat-lipe">Mat Lipe</a>
+<a href="https://profiles.wordpress.org/nickciske">Nick Ciske</a>
+<a href="https://profiles.wordpress.org/paulhughes01">Paul Hughes</a>
+<a href="https://profiles.wordpress.org/ryancurban">Ryan Urban</a>
+<a href="https://profiles.wordpress.org/faction23">Samuel Estok</a>
+<a href="https://profiles.wordpress.org/codearachnid">Timothy Wood</a>
 
 = Translations =
 
@@ -210,7 +211,7 @@ Our Free Plugins:
 
 Our Premium Plugins:
 
-* <a href="http://m.tri.be/2c" target="_blank">The Events Calendar PRO</a>
+* <a href="http://m.tri.be/2c" target="_blank">Events Calendar PRO</a>
 * <a href="http://m.tri.be/2e" target="_blank">The Events Calendar: Eventbrite Tickets</a>
 * <a href="http://m.tri.be/2g" target="_blank">The Events Calendar: Community Events</a>
 * <a href="http://m.tri.be/2h" target="_blank">The Events Calendar: Facebook Events</a>
@@ -223,10 +224,48 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [Unreleased] unreleased =
+= [4.0 beta] unreleased =
 
+* Feature - Added Customizer support for altering the colors of The Events Calendar
+* Feature - Added a new widget and shortcode called "This Week" that displays a events for a given week (with pagination). Short code is [tribe_this_week]
+* Feature - Add support for a countdown to the next upcoming event in the Countdown Widget
+* Feature - Add support for twentysixteen
+* Feature - Add support for an iCal export link for all events in a series of recurring events via: tribe_get_recurrence_ical_link()
+* Tweak - Major tweaks to support the newly genericized tribe-common libraries
+* Tweak - Deprecate old JS event names in favor of a new JS event naming standard. Example: deprecated tribe_ev_runAjax in favor of run-ajax.tribe
+* Tweak - Altered the storage of selected multichoice values for custom fields so they can be queried more effectively
+* Tweak - Add JSON-LD markup to single venus and organizers
+* Tweak - Only pre-populate address data for venues when the venue metabox appears on the venue post editor - NOT the event post editor
+* Tweak - Simplify the machine-generated recurrence rule descriptions for simple rules
+* Tweak - Add support for multiple organizers to the List Widget
+* Tweak - Remove microformat CSS classes from templates and replace with namespaced content-relevant CSS classes
+* Tweak - Add support for a count argument to the mini calendar shortcode
+* Fix - Resolved bug where extra spaces were added to the body_class return value (props to @garrettjohnson for this fix!)
+* Fix - Resolved issue where tribe_all_occurences_link() sometimes returned an incorrect URL when an explicit ID was passed
 * Fix - Don't escape HTML on additional fields that hold URLs
 * Fix - Updated comment in Week View tooltip and mobile templates to point at the right file for customization instructions
+* Fix - Fixed CSS issues with the responsiveness of the Calendar Widget & Countdown Widget
+* Fix - Prevent notices in the Venue Widget by declaring default settings
+* Fix - Resolved HTML validation issue with the Countdown Widget
+* Fix - Various twenty(ten-sixteen) CSS fixes
+* Fix - Fixed bug where pre-3.12 recurrence events were returning false when tribe_is_recurring_event() was called
+* Fix - Fixed issue where a recurring event's "all" view would not display past instances
+* Fix - Fixed bug with APM where sorting some columns caused post filtering to clear
+* Fix - Fixed various notices
+* Fix - Fixed issue where some strings were trying to use the wrong textdomain for translations
+* Fix - Fixed date issue with the List Widget where the fancy date box was always displaying today's date
+* Fix - Resolved a problem preventing some category views from working as expected when a non-default language was in use (our thanks to Cristina for highlighting this issue)
+* Fix - Resolved a problem whereby mini calendars could incorrectly render some days as populated when set to display events in a specific category (our thanks to oniregoc for highlighting this)
+* Deprecated - Deprecating the "defaultValueReplace" option in the Default Content settings tab
+
+= [3.12.6] 2015-11-05 =
+
+* Fix - Ensure the correct date displays within the upcoming events list widget (our thanks to Seth, @farmgirlref and others for highlighting this)
+
+= [3.12.5] 2015-10-28 =
+
+* Feature - Bring back the Recurrence Rule description override field
+* Fix - Resolve JS errors on various views where geolocation data is anticipated but unavailable (thanks to @jesse_fo and everyone else who reported this)
 
 = [3.12.4] 2015-10-15 =
 
@@ -240,7 +279,6 @@ Our Premium Plugins:
 * Fix - 24h Format for your WordPress was resulting in bugs related to Meridian.
 * Fix - Simplified information related to recurring events in tooltip (Thanks to David and mmccoycchs for highlighting this)
 * Fix - Fixed a bug that occurred when a recurring events created before 3.12 resulted in the primary event not displaying as recurring
->>>>>>> master
 
 = [3.12.2] 2015-10-01 =
 

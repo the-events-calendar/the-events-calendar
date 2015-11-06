@@ -17,6 +17,12 @@
 	 * dbug = tribe_debug
 	 */
 
+	// If we do not have valid geolocation data (ie, the geocenter values are nulls) then let's
+	// gracefully exit before attempting to interact with the Google Maps API
+	if ( null === TribeEventsPro.geocenter.max_lat ) {
+		return;
+	}
+
 	$.extend( tribe_ev.fn, {
 
 		/**
