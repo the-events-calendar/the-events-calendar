@@ -20,8 +20,8 @@ class Issue_38042_Dropping_CategoryCest {
 	public function it_should_not_drop_the_category_when_using_the_tribe_search_bar( AcceptanceTester $I ) {
 		$I->fillField( 'input[name="tribe-bar-search"]', 'foo' );
 		$I->click( 'input[name="submit-bar"]' );
-		$I->waitForJS( 'return jQuery.active == 0', 10 );
-		$href = $I->executeJS( 'return location.href' );
+		$I->waitForJqueryAjax( 10 );
+		$href = $I->grabFullUrl();
 		$I->assertContains( 'tribe-bar-search=foo', $href );
 		$I->assertContains( "tribe_events_cat={$this->an_existing_event_category}", $href );
 	}
@@ -34,8 +34,8 @@ class Issue_38042_Dropping_CategoryCest {
 		$I->click( [ 'css' => 'input#tribe-bar-date' ] );
 		// I click the 5th month in the datepicker
 		$I->click( [ 'css' => 'body > .datepicker > div.datepicker-months span:nth-child(5)' ] );
-		$I->waitForJS( 'return jQuery.active == 0', 10 );
-		$href = $I->executeJS( 'return location.href' );
+		$I->waitForJqueryAjax( 10 );
+		$href = $I->grabFullUrl();
 		$I->assertContains( "tribe_events_cat={$this->an_existing_event_category}", $href );
 		$I->assertContains( 'tribe-bar-date', $href );
 	}
@@ -49,14 +49,14 @@ class Issue_38042_Dropping_CategoryCest {
 		// I click the 5th month in the datepicker, this will submit
 		$I->click( [ 'css' => 'body > .datepicker > div.datepicker-months span:nth-child(5)' ] );
 
-		$I->waitForJS( 'return jQuery.active == 0', 10 );
+		$I->waitForJqueryAjax( 10 );
 
 		$I->fillField( 'input[name="tribe-bar-search"]', 'foo' );
 		$I->click( 'input[name="submit-bar"]' );
 
-		$I->waitForJS( 'return jQuery.active == 0', 10 );
+		$I->waitForJqueryAjax( 10 );
 
-		$href = $I->executeJS( 'return location.href' );
+		$href = $I->grabFullUrl();
 		$I->assertContains( "tribe_events_cat={$this->an_existing_event_category}", $href );
 		$I->assertContains( 'tribe-bar-date', $href );
 		$I->assertContains( 'tribe-bar-search=foo', $href );
@@ -71,15 +71,15 @@ class Issue_38042_Dropping_CategoryCest {
 		$I->fillField( 'input[name="tribe-bar-search"]', 'foo' );
 		$I->click( 'input[name="submit-bar"]' );
 
-		$I->waitForJS( 'return jQuery.active == 0', 10 );
+		$I->waitForJqueryAjax( 10 );
 
 		$I->click( [ 'css' => 'input#tribe-bar-date' ] );
 		// I click the 5th month in the datepicker, this will submit
 		$I->click( [ 'css' => 'body > .datepicker > div.datepicker-months span:nth-child(5)' ] );
 
-		$I->waitForJS( 'return jQuery.active == 0', 10 );
+		$I->waitForJqueryAjax( 10 );
 
-		$href = $I->executeJS( 'return location.href' );
+		$href = $I->grabFullUrl();
 		$I->assertContains( "tribe_events_cat={$this->an_existing_event_category}", $href );
 		$I->assertContains( 'tribe-bar-date', $href );
 		$I->assertContains( 'tribe-bar-search=foo', $href );
