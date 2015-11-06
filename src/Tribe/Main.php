@@ -1694,7 +1694,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				if ( ! empty( $my_venues ) ) {
 					foreach ( $my_venues as $my_venue ) {
 						$my_venue_ids[] = $my_venue->ID;
-						$venue_title    = wp_kses( get_the_title( $my_venue->ID ), array() );
+						$venue_title    = wp_kses( $my_venue->post_title, array() );
 						$my_venue_options .= '<option data-address="' . esc_attr( $this->fullAddressString( $my_venue->ID ) ) . '" value="' . esc_attr( $my_venue->ID ) . '"';
 						$my_venue_options .= selected( $current, $my_venue->ID, false );
 						$my_venue_options .= '>' . $venue_title . '</option>';
@@ -1741,7 +1741,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				if ( $venues ) {
 					echo $my_venues ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_venues_dropdown_optgroup', sprintf( esc_html__( 'Available %s', 'the-events-calendar' ), $this->plural_venue_label ) ) ) . '">' : '';
 					foreach ( $venues as $venue ) {
-						$venue_title = wp_kses( get_the_title( $venue->ID ), array() );
+						$venue_title = wp_kses( $venue->post_title, array() );
 						echo '<option data-address="' . esc_attr( $this->fullAddressString( $venue->ID ) ) . '" value="' . esc_attr( $venue->ID ) . '"';
 						selected( ( $current == $venue->ID ) );
 						echo '>' . $venue_title . '</option>';
@@ -1783,7 +1783,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				if ( ! empty( $my_organizers ) ) {
 					foreach ( $my_organizers as $my_organizer ) {
 						$my_organizer_ids[] = $my_organizer->ID;
-						$organizer_title    = wp_kses( get_the_title( $my_organizer->ID ), array() );
+						$organizer_title    = wp_kses( $my_organizer->post_title, array() );
 						$my_organizers_options .= '<option value="' . esc_attr( $my_organizer->ID ) . '"';
 						$my_organizers_options .= selected( $current, $my_organizer->ID, false );
 						$my_organizers_options .= '>' . $organizer_title . '</option>';
@@ -1829,7 +1829,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				if ( $organizers ) {
 					echo $my_organizers ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_organizers_dropdown_optgroup', sprintf( esc_html__( 'Available %s', 'the-events-calendar' ), $this->plural_organizer_label ) ) ) . '">' : '';
 					foreach ( $organizers as $organizer ) {
-						$organizer_title = wp_kses( get_the_title( $organizer->ID ), array() );
+						$organizer_title = wp_kses( $organizer->post_title, array() );
 						echo '<option value="' . esc_attr( $organizer->ID ) . '"';
 						selected( $current == $organizer->ID );
 						echo '>' . $organizer_title . '</option>';
@@ -3812,7 +3812,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$postId = $post->ID;
 				}
 			}
-			if ( isset( $postId ) && get_post_field( 'post_type', $postId ) == self::VENUE_POST_TYPE ) {
+			if ( isset( $postId ) && get_post_type($postId) == self::VENUE_POST_TYPE ) {
 				return true;
 			}
 
@@ -3831,7 +3831,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				global $post;
 				$postId = $post->ID;
 			}
-			if ( isset( $postId ) && get_post_field( 'post_type', $postId ) == self::ORGANIZER_POST_TYPE ) {
+			if ( isset( $postId ) && get_post_type($postId) == self::ORGANIZER_POST_TYPE ) {
 				return true;
 			}
 
