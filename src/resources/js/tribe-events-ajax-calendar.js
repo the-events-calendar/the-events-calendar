@@ -405,8 +405,8 @@
 				ts.url_params = {};
 
 				if ( ts.category ) {
-					ts.params['tribe_event_category'] = ts.category;
-					ts.url_params['tribe_events_cat'] = ts.category;
+					ts.params.tribe_event_category = ts.category;
+					ts.url_params.tribe_events_cat = ts.category;
 				}
 
 				if ( td.default_permalinks ) {
