@@ -558,11 +558,7 @@ Date.prototype.format = function( mask, utc ) {
 			tribe_ev.fn.update_viewport_variables();
 			if ( prev_width !== tribe_ev.data.v_width ) {
 				tribe_ev.fn.mobile_class();
-				/**
-				 * DEPRECATED: tribe_ev_resizeComplete has been deprecated in 4.0. Use resize-complete.tec.tribe instead
-				 */
 				$( tribe_ev.events ).trigger( 'tribe_ev_resizeComplete' );
-				$( tribe_ev.events ).trigger( 'resize-complete.tec.tribe' );
 			}
 
 		},
@@ -1230,14 +1226,14 @@ Date.prototype.format = function( mask, utc ) {
 		}
 
 		// ajax complete function to remove active spinner
-		$( te ).on( 'ajax-success.tribe', function() {
+		$( te ).on( 'tribe_ev_ajaxSuccess', function() {
 			$( '.tribe-events-active-spinner' ).remove();
 			list_find_month_last_event();
 		} );
 
 		/**
 		 * @function tribe_ical_url
-		 * @desc tribe_ical_url This function adds required params to the ical url. Runs on doc ready, and hooks into 'ajax-success.tec.tribe' also.
+		 * @desc tribe_ical_url This function adds required params to the ical url. Runs on doc ready, and hooks into 'tribe_ev_ajaxSuccess' also.
 		 */
 
 		function tribe_ical_url() {
@@ -1253,7 +1249,7 @@ Date.prototype.format = function( mask, utc ) {
 			$( 'a.tribe-events-ical' ).attr( 'href', new_link );
 		}
 
-		$( te ).on( 'ajax-success.tribe', function() {
+		$( te ).on( 'tribe_ev_ajaxSuccess', function() {
 			tribe_ical_url();
 		} );
 
