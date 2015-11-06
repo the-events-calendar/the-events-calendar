@@ -83,8 +83,9 @@ class TribeEventsRecurrenceScheduler_Test extends Tribe__Events__Pro__WP_UnitTes
 
 		$this->assertNotEmpty( $post_id , 'Checking that the event post has been succesfully created.' );
 
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+		// Process the queue for this event to ensure the expected range of child events are generated
+		$processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$processor->process_batch( $post_id, PHP_INT_MAX );
 
 		//checking to make sure that there is 200 events created
 		$recurrence_spec = get_post_meta( $post_id, '_EventRecurrence', TRUE );
@@ -143,8 +144,10 @@ class TribeEventsRecurrenceScheduler_Test extends Tribe__Events__Pro__WP_UnitTes
 		);
 
 		$post_id = Tribe__Events__API::createEvent($event_args);
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+
+		// Process the queue for this event to ensure the expected range of child events are generated
+		$processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$processor->process_batch( $post_id, PHP_INT_MAX );
 
 		$this->assertNotEmpty( $event_args , 'Checking that there number of events is not 0' );
 
@@ -203,8 +206,10 @@ class TribeEventsRecurrenceScheduler_Test extends Tribe__Events__Pro__WP_UnitTes
 		);
 
 		$post_id = Tribe__Events__API::createEvent($event_args);
-		// process the queue, otherwise all the children won't get created
-		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+
+		// Process the queue for this event to ensure the expected range of child events are generated
+		$processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$processor->process_batch( $post_id, PHP_INT_MAX );
 
 		$instances = get_post_meta($post_id, '_EventStartDate', FALSE);
 		$this->assertEqualSets($expected_dates, $instances);
