@@ -30,7 +30,7 @@ $event_id = get_the_ID();
 	<!-- Notices -->
 	<?php tribe_the_notices() ?>
 
-	<?php the_title( '<h2 class="tribe-events-single-event-title">', '</h2>' ); ?>
+	<?php the_title( '<h1 class="tribe-events-single-event-title">', '</h1>' ); ?>
 
 	<div class="tribe-events-schedule tribe-clearfix">
 		<?php echo tribe_events_event_schedule_details( $event_id, '<h2>', '</h2>' ); ?>
