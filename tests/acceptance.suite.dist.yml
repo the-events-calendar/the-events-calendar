@@ -8,3 +8,4 @@ modules:
         - WPWebDriver
         - \Helper\Acceptance
         - Asserts
+        - WPDb
