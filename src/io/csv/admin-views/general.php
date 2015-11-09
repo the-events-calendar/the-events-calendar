@@ -9,10 +9,7 @@ require 'header.php';
 <div id="modern-tribe-info">
 	<h1><?php esc_html_e( 'Instructions', 'the-events-calendar' ); ?></h1>
 	<p>
-		<?php printf( esc_html__( 'To import events, first select a %sDefault Import Event Status%s below to assign to your imported events.', 'the-events-calendar' ), '<strong>', '</strong>' ); ?>
-	</p>
-	<p>
-		<?php esc_html_e( 'Once your setting is saved, move to the applicable Import tab to select import specific criteria.', 'the-events-calendar' ); ?>
+		<?php esc_html_e( 'The settings below will impact events imported from files and other websites. Be sure to save your changes before starting to import events.', 'the-events-calendar' ); ?>
 	</p>
 	<?php
 	/**
