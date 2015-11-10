@@ -375,6 +375,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 		/**
 		 * Returns whether or not the event date & upcoming filters should be removed from the query
+		 *
+		 * @since 4.0
+		 * @param WP_Query $query WP_Query object
+		 * @return boolean
 		 */
 		public static function should_remove_date_filters( $query ) {
 			// if we are on an import page, let's keep the date filters
