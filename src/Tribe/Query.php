@@ -352,24 +352,17 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			// if is in the admin remove the event date & upcoming filters, unless is an ajax call
-			if (
-				is_admin()
-				&& $query->tribe_is_event_query
-				&& $admin_helpers->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE )
-			) {
-				if ( ( ! defined( 'DOING_AJAX' ) ) || ( defined( 'DOING_AJAX' ) && ! ( DOING_AJAX ) ) ) {
+			if ( self::should_remove_date_filters( $query ) ) {
+				remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
+				remove_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ) );
+				$query->set( 'post__not_in', '' );
 
-					remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
-					remove_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ) );
-					$query->set( 'post__not_in', '' );
-
-					// set the default order for posts within admin lists
-					if ( ! isset( $query->query['order'] ) ) {
-						$query->set( 'order', 'DESC' );
-					} else {
-						// making sure we preserve the order supplied by the query string even if it is overwritten above
-						$query->set( 'order', $query->query['order'] );
-					}
+				// set the default order for posts within admin lists
+				if ( ! isset( $query->query['order'] ) ) {
+					$query->set( 'order', 'DESC' );
+				} else {
+					// making sure we preserve the order supplied by the query string even if it is overwritten above
+					$query->set( 'order', $query->query['order'] );
 				}
 			}
 
@@ -378,6 +371,31 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			return $query;
+		}
+
+		/**
+		 * Returns whether or not the event date & upcoming filters should be removed from the query
+		 *
+		 * @since 4.0
+		 * @param WP_Query $query WP_Query object
+		 * @return boolean
+		 */
+		public static function should_remove_date_filters( $query ) {
+			// if we are on an import page, let's keep the date filters
+			if ( isset( $_GET['page'] ) && 'events-importer' == $_GET['page'] ) {
+				return false;
+			}
+
+			// if we're doing ajax, let's keep the date filters
+			if ( Tribe__Main::instance()->doing_ajax() ) {
+				return false;
+			}
+
+			// otherwise, let's remove the date filters if we're in the admin dashboard and the query is
+			// and event query on the tribe_events edit page
+			return is_admin()
+				&& $query->tribe_is_event_query
+				&& Tribe__Admin__Helpers::instance()->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE );
 		}
 
 		/**
