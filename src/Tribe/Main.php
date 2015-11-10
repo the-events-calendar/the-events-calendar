@@ -32,8 +32,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '4.0';
-		const MIN_ADDON_VERSION = '4.0';
+		const VERSION           = '4.0beta1';
+		const MIN_ADDON_VERSION = '4.0beta1';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
@@ -562,19 +562,46 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_settings_url', array( $this, 'tribe_settings_url' ) );
 
 			// Setup Help Tab texting
-			add_filter( 'tribe_help_text_featurebox', array( $this, 'add_help_tab_feature_text' ) );
+			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_feature_box_content' ) );
+			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_support_content' ) );
 		}
 
 		/**
 		 * Append the text about The Events Calendar to the feature box on the Help page
 		 *
-		 * @filter tribe_help_text_featurebox
-		 * @param string $text The previous Text
-		 *
-		 * @return string
+		 * @filter "tribe_help_pre_get_sections"
+		 * @param Tribe__Admin__Help_Page $help The Help Page Instance
+		 * @return void
 		 */
-		public function add_help_tab_feature_text( $text = '' ) {
-			return $text . ' ' . esc_html__( 'We are committed to helping make your calendar spectacular.', 'the-events-calendar' );
+		public function add_help_section_feature_box_content( $help ) {
+			$link = '<a href="http://m.tri.be/18j8" target="_blank">' . esc_html__( 'New User Primer', 'the-events-calendar' ) . '</a>';
+
+			$help->add_section_content( 'feature-box', sprintf( __( 'We are committed to helping make your calendar spectacular and have a wealth of resources available to help you out, including a handy %s that will help you get your calendar up and running.', 'the-events-calendar' ), $link ) );
+		}
+
+		/**
+		 * Append the text about The Events Calendar to the support section on the Help page
+		 *
+		 * @filter "tribe_help_pre_get_sections"
+		 * @param Tribe__Admin__Help_Page $help The Help Page Instance
+		 * @return void
+		 */
+		public function add_help_section_support_content( $help ) {
+			$help->add_section_content( 'support', '<strong>' . esc_html__( 'Support for The Events Calendar', 'the-events-calendar' ) . '</strong>', 15 );
+
+			$help->add_section_content( 'support', array(
+				sprintf( __( '%s: A thorough walkthrough of The Events Calendar and the settings that are available to you.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18je" target="_blank">' . esc_html__( 'Settings overview', 'the-events-calendar' ) . '</a></strong>' ),
+
+				sprintf( __( '%s: A complete look at the feature you can expect to see right out of the box as well as how to use them.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18jc" target="_blank">' . esc_html__( 'Features overview', 'the-events-calendar' ) . '</a></strong>' ),
+
+				sprintf( __( '%s: Our most comprehensive outline for customizing the calendar to suit your needs, including custom layouts and styles.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18jg" target="_blank">' . esc_html__( 'Themer’s Guide', 'the-events-calendar' ) . '</a></strong>' ),
+
+				sprintf( __( '%s: An overview of the default templates and styles that are included in the plugin, as well as how to change them.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18jd" target="_blank">' . esc_html__( 'Using stylesheets and page templates', 'the-events-calendar' ) . '</a></strong>' ),
+
+				sprintf( __( '%s: Do you see an issue with your calendar? Try following the steps in this guide first to see where it’s coming from and how to fix it.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18jb" target="_blank">' . esc_html__( 'Troubleshooting common problems', 'the-events-calendar' ) . '</a></strong>' ),
+
+				sprintf( __( '%s: A collection of neat ideas for customizing the calendar in interesting ways that we’ve collected over time.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18ja" target="_blank">' . esc_html__( 'Customizing the Events plugins', 'the-events-calendar' ) . '</a></strong>' ),
+			), 15 );
 		}
 
 		/**

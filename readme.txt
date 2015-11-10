@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3.1
-Stable tag: 4.0
+Stable tag: 4.0beta1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -416,6 +416,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Deprecated - tribe_event_end_of_day() in favor of tribe_end_of_day()
 * Deprecated - tribe_event_format_date() in favor of tribe_format_date()
 * Deprecated - tribe_events_the_notices() in favor of tribe_the_notices()
+
+= [3.12.5] 2015-11-05 =
+
+* Fix - Restore styling and full mobile functionality to month view (our thanks to Rich Cottee for highlighting this)
 
 = [3.12.4] 2015-11-04 =
 
