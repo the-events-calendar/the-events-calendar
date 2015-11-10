@@ -13,12 +13,6 @@ $organizer_pto = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE 
 ?>
 <script type="text/template" id="tmpl-tribe-create-organizer">
 <tbody class="new-organizer">
-<?php
-if (
-	! empty( $organizer_pto->cap->create_posts )
-	&& current_user_can( $organizer_pto->cap->create_posts )
-) {
-	?>
 	<tr class="organizer">
 		<td><?php printf( __( '%s Name:', 'the-events-calendar' ), tribe_get_organizer_label_singular() ); ?></td>
 		<td>
@@ -54,9 +48,6 @@ if (
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='organizer[Email][]' class='organizer-email' size='25' value='' />
 		</td>
 	</tr>
-<?php } else { ?>
-	<tr><td></td></tr>
-<?php } ?>
 </tbody>
 </script>
 
