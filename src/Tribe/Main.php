@@ -1576,15 +1576,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				);
 			}
 			if ( $venues || $my_venues ) {
-				$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
 				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
-
-				if (
-					! empty( $venue_pto->cap->create_posts )
-					&& current_user_can( $venue_pto->cap->create_posts )
-				) {
-					echo '<option value="0">' . esc_html( sprintf( __( 'Use New %s', 'tribe-events-calendar' ), $this->singular_venue_label ) ) . '</option>';
-				}
+				echo '<option value="0">' . esc_html( sprintf( __( 'Use New %s', 'the-events-calendar' ), $this->singular_venue_label ) ) . '</option>';
+				
 				if ( $my_venues ) {
 					echo $venues ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_venues_dropdown_my_optgroup', sprintf( __( 'My %s', 'the-events-calendar' ), $this->plural_venue_label ) ) ) . '">' : '';
 					echo $my_venue_options;
@@ -1665,15 +1659,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				);
 			}
 			if ( $organizers || $my_organizers ) {
-				$oganizer_pto = get_post_type_object( self::ORGANIZER_POST_TYPE );
 				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
+				echo '<option value="0">' . esc_html( sprintf( __( 'Use New %s', 'the-events-calendar' ), $this->singular_organizer_label ) ) . '</option>';
 
-				if (
-					! empty( $oganizer_pto->cap->create_posts )
-					&& current_user_can( $oganizer_pto->cap->create_posts )
-				) {
-					echo '<option value="0">' . esc_html( sprintf( __( 'Use New %s', 'the-events-calendar' ), $this->singular_organizer_label ) ) . '</option>';
-				}
 				if ( $my_organizers ) {
 					echo $organizers ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_organizers_dropdown_my_optgroup', sprintf( __( 'My %s', 'the-events-calendar' ), $this->plural_organizer_label ) ) ) . '">' : '';
 					echo $my_organizers_options;

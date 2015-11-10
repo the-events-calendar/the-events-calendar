@@ -315,6 +315,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [3.12.6] 2015-11-10 =
+
+* Fix - Remove constraints on defining new venues and organizers that were added prematurely (our thanks to Jeramey for highlighting this)
+
 = [3.12.5] 2015-11-05 =
 
 * Fix - Restore styling and full mobile functionality to month view (our thanks to Rich Cottee for highlighting this)
