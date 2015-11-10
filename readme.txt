@@ -318,6 +318,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [3.12.6] 2015-11-10 =
 
 * Fix - Remove constraints on defining new venues and organizers that were added prematurely (our thanks to Jeramey for highlighting this)
+* Fix - Resolve error encountered by users of some ticketing addons when accessing the orders report (our thanks to Sean for highlighting this)
+* Fix - Restore live reload functionality which was failing to function in some cases (our thanks to cityofroundrock for highlighting this)
 
 = [3.12.5] 2015-11-05 =
 
