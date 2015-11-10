@@ -58,9 +58,15 @@ class Tribe__Events__Tickets__Tickets_Pro {
 		add_action( 'wp_ajax_tribe-ticket-email-attendee-list', array( $this, 'ajax_handler_attendee_mail_list' ) );
 		add_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, array( $this, 'save_image_header' ), 10, 2 );
 		add_action( 'admin_menu', array( $this, 'attendees_page_register' ) );
-		add_action( 'admin_menu', array( $this, 'orders_page_register' ) );
 		add_filter( 'post_row_actions', array( $this, 'attendees_row_action' ) );
-		add_filter( 'post_row_actions', array( $this, 'orders_row_action' ) );
+
+		// This is sort of hacky and won't exist in 4.0 as the Orders Report has been relocated to
+		// event-tickets-plus. BUT, for 3.12, let's make sure the Orders Report isn't reachable unless
+		// WooTickets is active
+		if ( defined( 'EVENTS_TICKETS_WOO_DIR' ) ) {
+			add_action( 'admin_menu', array( $this, 'orders_page_register' ) );
+			add_filter( 'post_row_actions', array( $this, 'orders_row_action' ) );
+		}
 
 		$this->path = trailingslashit( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) );
 		$this->google_event_data = new Tribe__Events__Tickets__Google_Event_Data;
