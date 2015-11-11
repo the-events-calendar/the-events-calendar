@@ -75,7 +75,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		), 10, 2 );
 
 		if ( is_admin() ) {
-			add_filter( 'tribe_events_pro_localize_script', array( __CLASS__, 'localize_scripts' ), 10, 3 );
+			add_filter( 'tribe_events_pro_localize_script', array( Tribe__Events__Pro__Recurrence__Scripts::instance(), 'localize' ), 10, 3 );
 		}
 
 		self::reset_scheduler();
@@ -1852,36 +1852,9 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 	public static function enqueue_post_editor_notices() {
 		if ( ! empty( $_REQUEST['post'] ) && tribe_is_recurring_event( $_REQUEST['post'] ) ) {
-			add_action( 'admin_notices', array( __CLASS__, 'display_post_editor_recurring_notice' ), 10, 0 );
+			add_action( 'admin_notices', array( Tribe__Events__Pro__Recurrence__Admin_Notices::instance(), 'display_editing_all_recurrences_notice' ), 10, 0 );
+			add_action( 'admin_notices', array( Tribe__Events__Pro__Recurrence__Admin_Notices::instance(), 'display_created_recurrences_notice' ), 10, 0 );
 		}
-	}
-
-	public static function display_post_editor_recurring_notice() {
-		$message = __( 'You are currently editing all events in a recurring series.', 'tribe-events-calendar-pro' );
-		printf( '<div class="updated"><p>%s</p></div>', $message );
-
-		$pending = get_post_meta( get_the_ID(), '_EventNextPendingRecurrence', true );
-		if ( $pending ) {
-			$start_dates     = tribe_get_recurrence_start_dates( get_the_ID() );
-			$count           = count( $start_dates );
-			$last            = end( $start_dates );
-			$pending_message = __( '%d instances of this event have been created through %s. <a href="%s">Learn more.</a>', 'tribe-events-calendar-pro' );
-			$pending_message = sprintf( $pending_message, $count, date_i18n( tribe_get_date_format( true ), strtotime( $last ) ), 'http://m.tri.be/lq' );
-			printf( '<div class="updated"><p>%s</p></div>', $pending_message );
-		}
-	}
-
-	public static function localize_scripts( $data, $object_name, $script_handle ) {
-		if ( ! isset( $data['recurrence'] ) ) {
-			$data['recurrence'] = array();
-		}
-		$data['recurrence'] = array_merge( $data['recurrence'], array(
-			'splitAllMessage'               => __( "You are about to split this series in two.\n\nThe event you selected and all subsequent events in the series will be separated into a new series of events that you can edit independently of the original series.\n\nThis action cannot be undone.", 'tribe-events-calendar-pro' ),
-			'splitSingleMessage'            => __( "You are about to break this event out of its series.\n\nYou will be able to edit it independently of the original series.\n\nThis action cannot be undone.", 'tribe-events-calendar-pro' ),
-			'bulkDeleteConfirmationMessage' => __( 'Are you sure you want to trash all occurrences of these events?', 'tribe-events-calendar-pro' ),
-		) );
-
-		return $data;
 	}
 
 	/**
