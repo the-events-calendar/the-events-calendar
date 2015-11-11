@@ -88,6 +88,10 @@ class Tribe__Events__Pro__Recurrence__Children_Events {
 		);
 	}
 
+	/**
+	 * Restores all the children events of an event post from the trash to their previous state.
+	 * @param $post_id
+	 */
 	public function untrash_all( $post_id ) {
 		$children = $this->get_ids( $post_id, array( 'post_status' => 'trash' ) );
 		foreach ( $children as $child_id ) {
@@ -95,6 +99,11 @@ class Tribe__Events__Pro__Recurrence__Children_Events {
 		}
 	}
 
+	/**
+	 * Trashes all the children events of an event post.
+	 *
+	 * @param int $post_id
+	 */
 	public function trash_all( $post_id ) {
 		$children = $this->get_ids( $post_id );
 		foreach ( $children as $child_id ) {
@@ -102,6 +111,11 @@ class Tribe__Events__Pro__Recurrence__Children_Events {
 		}
 	}
 
+	/**
+	 * Permanently deletes all the children events of an event post.
+	 *
+	 * @param int $post_id
+	 */
 	public function permanently_delete_all( $post_id ) {
 		$children =$this->get_ids( $post_id );
 		foreach ( $children as $child_id ) {
