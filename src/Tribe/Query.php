@@ -627,8 +627,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return string
 		 */
 		public static function set_order( $default = null, $query = null ) {
-			// What should $default be?
-			if ( null === $default && isset( $query->query['order'] ) ) {
+			// As of WordPress 4.2 'order' can be set via the 'orderby' as an associative array
+			if ( ! empty( $query->query['orderby'] ) && is_array( $query->query['orderby'] ) && ! empty( $query->query['orderby']['meta_value'] ) ){
+				$default = $query->query['orderby']['meta_value'];
+			} elseif ( ! empty( $query->query['order'] ) ) {
 				$default = $query->query['order'];
 			} elseif ( null === $default ) {
 				$default = 'ASC';
