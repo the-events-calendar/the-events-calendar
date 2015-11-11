@@ -10,7 +10,7 @@ class Tribe__Events__Pro__Recurrence__Scripts {
 	protected static $instance;
 
 	/**
-	 * Singletong constructor for the class.
+	 * Singleton constructor for the class.
 	 *
 	 * @return Tribe__Events__Pro__Recurrence__Scripts
 	 */
