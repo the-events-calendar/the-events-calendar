@@ -37,7 +37,7 @@ class Tribe__Events__Pro__Recurrence__Validator {
 		$this->recurrence_meta = $recurrence_meta;
 
 		if ( ! tribe_is_event( $event_id ) ) {
-			$response->valid   = false;
+				$response->valid   = false;
 			$response->message = __( 'Not an event post.', 'tribe-events-calendar-pro' );
 
 			return $this->filtered_response( $response );
@@ -54,7 +54,7 @@ class Tribe__Events__Pro__Recurrence__Validator {
 					$this->ensure_yearly_day(); }
 			}
 		} catch ( RuntimeException $e ) {
-			$response->valid   = false;
+				$response->valid   = false;
 			$response->message = $e->getMessage();
 		}
 
@@ -69,10 +69,10 @@ class Tribe__Events__Pro__Recurrence__Validator {
 	public static function instance() {
 		if ( empty( self::$instance ) ) {
 			self::$instance = new self;
-		}
+			}
 
 		return self::$instance;
-	}
+		}
 
 	/**
 	 * Returns the validation response `valid` boolean after filtering.

@@ -403,16 +403,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "1.7.7",
+            "version": "1.7.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "f44185b79141ea0e468140f38485a4d5657470ef"
+                "reference": "8c40e2f44a0533cc205acea26de62360333e06ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/f44185b79141ea0e468140f38485a4d5657470ef",
-                "reference": "f44185b79141ea0e468140f38485a4d5657470ef",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/8c40e2f44a0533cc205acea26de62360333e06ba",
+                "reference": "8c40e2f44a0533cc205acea26de62360333e06ba",
                 "shasum": ""
             },
             "require": {
@@ -452,7 +452,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2015-10-22 12:48:06"
+            "time": "2015-11-10 17:38:51"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -805,16 +805,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.16",
+            "version": "4.8.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "625f8c345606ed0f3a141dfb88f4116f0e22978e"
+                "reference": "6cc501c1adf86482fbb54fb2958e1c7685f57a61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/625f8c345606ed0f3a141dfb88f4116f0e22978e",
-                "reference": "625f8c345606ed0f3a141dfb88f4116f0e22978e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6cc501c1adf86482fbb54fb2958e1c7685f57a61",
+                "reference": "6cc501c1adf86482fbb54fb2958e1c7685f57a61",
                 "shasum": ""
             },
             "require": {
@@ -873,7 +873,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-10-23 06:48:33"
+            "time": "2015-11-10 21:39:46"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

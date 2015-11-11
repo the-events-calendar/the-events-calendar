@@ -11,11 +11,11 @@ class Tribe__Events__Pro__Recurrence__Meta_Builder {
 	/**
 	 * @var int An event type post ID
 	 */
-	private $event_id;
+	protected $event_id;
 	/**
 	 * @var Tribe__Events__Pro__Recurrence__Utils
 	 */
-	private $utils;
+	protected $utils;
 
 	/**
 	 * Tribe__Events__Pro__Recurrence__Meta_Builder constructor.
