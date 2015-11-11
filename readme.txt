@@ -318,6 +318,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.1] unreleased =
+
+* Tweak - For SEO reasons, use an <h1> for the title rather than an <h2> (props to wpexplorer for this fix)
+
 = [4.0 beta] unreleased =
 
 * Security - A TON of escaping was added to our codebase thanks to the efforts of Andy Fragen (@afragen)

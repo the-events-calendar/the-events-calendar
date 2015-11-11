@@ -888,8 +888,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			}
 
 			// Needed for mobile js
-			$day_num  = str_pad( $current_day['daynum'], 2, '0', STR_PAD_LEFT );
-			$classes .= ' mobile-trigger tribe-event-day-' . $day_num;
+			$daynum   = date( 'd', strtotime( $calendar_day ) );
+			$classes .= ' mobile-trigger tribe-event-day-' . $daynum;
 
 			// Determine which column of the grid the day is in
 			$column = ( self::$current_day ) - ( self::$current_week * 7 );
