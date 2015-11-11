@@ -1,6 +1,6 @@
 <?php
 
-class Tribe__Events__WP_UnitTestCase extends WP_UnitTestCase {
+class Tribe__Events__WP_UnitTestCase extends \Codeception\TestCase\WPTestCase {
 
 	// avoid errors with singletons and closures
 	protected $backupGlobals = false;
