@@ -240,7 +240,7 @@ Our Premium Plugins:
 * Tweak - Add support for multiple organizers to the List Widget
 * Tweak - Remove microformat CSS classes from templates and replace with namespaced content-relevant CSS classes
 * Tweak - Add support for a count argument to the mini calendar shortcode
-* Tweak - Refactored part of recurrence code, fixed tests and added more
+Tweak - Refactored part of recurrence code to make testing it easier
 * Fix - Resolved bug where extra spaces were added to the body_class return value (props to @garrettjohnson for this fix!)
 * Fix - Resolved issue where tribe_all_occurences_link() sometimes returned an incorrect URL when an explicit ID was passed
 * Fix - Don't escape HTML on additional fields that hold URLs
