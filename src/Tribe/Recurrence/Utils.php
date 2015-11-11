@@ -22,7 +22,7 @@ class Tribe__Events__Pro__Recurrence__Utils {
 	}
 
 	public function is_valid( $event_id, array $recurrence_meta ) {
-		return Tribe__Events__Pro__Recurrence__Validator::is_valid( $event_id, $recurrence_meta );
+		return Tribe__Events__Pro__Recurrence__Validator::instance()->is_valid( $event_id, $recurrence_meta );
 	}
 
 	public function recurrence_strings() {

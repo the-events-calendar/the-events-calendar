@@ -1153,7 +1153,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				$recurrence['custom']['interval'],
 				$recurrence['custom']['year']['month'],
 				empty( $recurrence['custom']['year']['filter'] ) ? null : $recurrence['custom']['year']['month-number'],
-				empty( $recurrence['custom']['year']['filter'] ) ? null : $recurrence['custom']['year']['month-day'],
+				empty( $recurrence['custom']['year']['filter'] ) ? null : $recurrence['custom']['year']['month-day']
 			);
 		}
 
