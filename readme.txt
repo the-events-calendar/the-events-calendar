@@ -347,6 +347,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - No longer retrieve empty costs when fetching all costs for all events
 * Tweak - Change the priority of bootstrapping the-events-calendar to ensure it occurs before any of the TEC addons in the event some addons are upgraded to v4.0 later than TEC
 * Tweak - Adjust the logic used for adding a noindex/follow tag to event views
+* Tweak - Fixed tests and added more
 * Fix - Resolved issue where the iCal feed did not provide an appropriately formatted timezone in some cases
 * Fix - Added support for translating some previously untranslatable strings
 * Fix - Prevented duplicate CSS IDs on the mini calendars
