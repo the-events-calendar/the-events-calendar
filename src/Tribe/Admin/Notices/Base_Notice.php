@@ -24,6 +24,6 @@ class Tribe__Events__Admin__Notices__Base_Notice implements Tribe__Events__Admin
 	 * @return string
 	 */
 	public function get( $message, $class ) {
-		return sprintf( '<div class="%s"><p>%s</p></div>', $class, $message );
+		return sprintf( '<div class="%s"><p>%s</p></div>', esc_attr( $class ), $message );
 	}
 }
