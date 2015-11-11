@@ -5,5 +5,7 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - WPBrowser
+        - WPWebDriver
         - \Helper\Acceptance
+        - Asserts
+        - WPDb

@@ -408,11 +408,12 @@
 					eventDate: ts.date
 				};
 
-				if ( ts.category ) {
-					ts.params['tribe_event_category'] = ts.category;
-				}
-
 				ts.url_params = {};
+
+				if ( ts.category ) {
+					ts.params.tribe_event_category = ts.category;
+					ts.url_params.tribe_events_cat = ts.category;
+				}
 
 				if ( td.default_permalinks ) {
 					if( !ts.url_params.hasOwnProperty( 'post_type' ) ){
@@ -438,7 +439,7 @@
 				$( te ).trigger( 'tribe_ev_collectParams' );
 				$( te ).trigger( 'collect-params.tribe' );
 
-				if ( ts.pushcount > 0 || ts.filters || td.default_permalinks ) {
+				if ( ts.pushcount > 0 || ts.filters || td.default_permalinks || ts.category ) {
 					ts.do_string = true;
 					ts.pushstate = false;
 				}
