@@ -25,7 +25,7 @@ class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
 	 * is instantiatable
 	 */
 	public function test_is_instantiatable() {
-		$this->assertInstanceOf( 'Meta_Builder', new Meta_Builder( 10 ) );
+		$this->assertInstanceOf( 'Tribe__Events__Pro__Recurrence__Meta_Builder', new Meta_Builder( 10 ) );
 	}
 
 	/**
