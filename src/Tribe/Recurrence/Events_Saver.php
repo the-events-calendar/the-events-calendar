@@ -29,7 +29,7 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 	 * @return void
 	 */
 	public function save_events() {
-		$existing_instances = Tribe__Events__Pro__Recurrence__Children_Events::get_ids( $this->event_id );
+		$existing_instances = Tribe__Events__Pro__Recurrence__Children_Events::instance()->get_ids( $this->event_id );
 
 		$recurrences = Tribe__Events__Pro__Recurrence_Meta::get_recurrence_for_event( $this->event_id );
 
