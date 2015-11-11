@@ -3,6 +3,10 @@
 
 class Tribe__Events__Pro__Recurrence__Custom_Types {
 
+	const SLUG    = 'Custom';
+	const MONTHLY = 'Monthly';
+	const YEARLY  = 'Yearly';
+
 	/**
 	 * converts a custom type to a custom type array index slug
 	 *
@@ -24,5 +28,9 @@ class Tribe__Events__Pro__Recurrence__Custom_Types {
 			default:
 				return 'day';
 		}
+	}
+
+	public static function data_keys() {
+		return array( 'start-time', 'day','week','month','year' );
 	}
 }

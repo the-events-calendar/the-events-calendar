@@ -79,7 +79,7 @@
 	</table>
 	<div style="clear:both"></div>
 	<div>
-	<input type="checkbox" name="recurrence[<?php echo esc_attr( $rule_type ); ?>][][custom][year][filter]" data-field="custom-year-filter" value="1" {{tribe_checked_if_is 1 custom.year.filter}}/>
+	<input type="checkbox" name="recurrence[<?php echo esc_attr( $rule_type ); ?>][][custom][year][filter]" data-field="custom-year-filter" value="1" {{tribe_checked_if_is '1' custom.year.filter}}/>
 		<?php _e( 'On the:', 'tribe-events-calendar-pro' ); ?>
 		<select name="recurrence[<?php echo esc_attr( $rule_type ); ?>][][custom][year][month-number]" data-field="custom-year-month-number">
 			{{#tribe_recurrence_select custom.year.[month-number]}}
