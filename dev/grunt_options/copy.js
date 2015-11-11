@@ -31,6 +31,7 @@ module.exports = {
 				'!**/dev/**',
 				'!**/tests/**',
 				'!**/.git/**',
+				'!**/.editorconfig',
 				'!**/phpunit.xml',
 				'!**/codeception.yml',
 				'!**/composer.json',
