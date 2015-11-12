@@ -63,7 +63,7 @@ class Tribe__Events__Tickets__Tickets_Pro {
 		// This is sort of hacky and won't exist in 4.0 as the Orders Report has been relocated to
 		// event-tickets-plus. BUT, for 3.12, let's make sure the Orders Report isn't reachable unless
 		// WooTickets is active
-		if ( defined( 'EVENTS_TICKETS_WOO_DIR' ) ) {
+		if ( defined( 'EVENTS_TICKETS_WOO_DIR' ) && version_compare( Tribe__Events__Tickets__Woo__Main::VERSION, '3.12.1', '>=' ) ) {
 			add_action( 'admin_menu', array( $this, 'orders_page_register' ) );
 			add_filter( 'post_row_actions', array( $this, 'orders_row_action' ) );
 		}
