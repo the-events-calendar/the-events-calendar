@@ -51,6 +51,10 @@ class Tribe__Events__Pro__This_Week_Widget extends WP_Widget {
 	 * @param $instance
 	 */
 	public function widget( $args, $instance ) {
+		// Initialize defaults. When the widget is added via the Customizer, the widget is rendered
+		// prior to being saved and the instance is empty. This ensures that $instance holds the
+		// defaults so the behavior is expected and doesn't throw notices.
+		$instance = $this->instance_defaults( $instance );
 
 		//Disable Tooltips
 		$ecp = Tribe__Events__Pro__Main::instance();
@@ -142,6 +146,8 @@ class Tribe__Events__Pro__This_Week_Widget extends WP_Widget {
 			'hide_weekends'     => false,
 			'instance'           => &$this->instance,
 		) );
+
+		return $this->instance;
 	}
 
 	/**
