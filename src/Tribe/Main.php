@@ -1822,6 +1822,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				) {
 					echo '<option value="0">' . sprintf( esc_html__( 'Use New %s', 'the-events-calendar' ), $this->singular_organizer_label ) . '</option>';
 				}
+
 				if ( $my_organizers ) {
 					echo $organizers ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_organizers_dropdown_my_optgroup', sprintf( esc_html__( 'My %s', 'the-events-calendar' ), $this->plural_organizer_label ) ) ) . '">' : '';
 					echo $my_organizers_options;

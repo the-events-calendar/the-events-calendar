@@ -165,10 +165,10 @@ var tribe_events_bar_action;
 				'data-tribe-bar-order': i,
 				'data-view'           : displaying
 			} ).html( [
-					'   <a href="#">',
-					'   <span class="tribe-icon-' + displaying + '">' + $view.text() + '</span>',
-					'</a>'].join( "" )
-				).appendTo( '.tribe-bar-views-list' );
+				'   <a href="#">',
+				'   <span class="tribe-icon-' + displaying + '">' + $view.text() + '</span>',
+				'</a>'].join( "" )
+			).appendTo( '.tribe-bar-views-list' );
 
 		} );
 
