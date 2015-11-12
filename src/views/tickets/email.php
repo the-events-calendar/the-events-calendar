@@ -224,7 +224,7 @@
 	<div style="margin:0; padding:0; width:100% !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:14px; line-height:145%; text-align:left;">
 		<center>
 
-			<?php do_action( 'tribe_tickets_ticket_email_top' ); ?>
+			<?php do_action( 'tribe_tickets_ticket_email_top' , $tickets ); ?>
 
 			<?php
 			$count = 0;
@@ -390,7 +390,7 @@
 
 
 
-						<?php do_action( 'tribe_tickets_ticket_email_bottom' ); ?>
+						<?php do_action( 'tribe_tickets_ticket_email_bottom' , $tickets ); ?>
 
 		</center>
 	</div>
