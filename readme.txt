@@ -315,7 +315,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [3.12.6] 2015-11-10 =
+= [3.12.6] 2015-11-12 =
 
 * Fix - Remove constraints on defining new venues and organizers that were added prematurely (our thanks to Jeramey for highlighting this)
 * Fix - Resolve error encountered by users of some ticketing addons when accessing the orders report (our thanks to Sean for highlighting this)
