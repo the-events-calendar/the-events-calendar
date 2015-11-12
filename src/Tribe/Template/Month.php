@@ -190,7 +190,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			add_filter( 'post_type_archive_title', '__return_false', 10 );
 
 			if ( ! empty( $this->events_in_month ) ) {
-				add_filter( 'tribe_events_month_has_events', '__return_true' );
+				add_filter( 'tribe_events_month_has_events', array( $this, 'has_events' ) );
 			}
 		}
 
@@ -202,8 +202,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		protected function unhook() {
 			parent::unhook();
 			remove_filter( 'post_type_archive_title', '__return_false', 10 );
+
 			if ( ! empty( $this->events_in_month ) ) {
-				remove_filter( 'tribe_events_month_has_events', '__return_true' );
+				remove_filter( 'tribe_events_month_has_events', array( $this, 'has_events' ) );
 			}
 		}
 
@@ -984,6 +985,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				echo json_encode( $response );
 				die();
 			}
+		}
+
+		public function has_events() {
+			return (bool) $this->events_in_month;
 		}
 
 	} // class Tribe__Events__Template__Month
