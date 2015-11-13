@@ -355,6 +355,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			if ( self::should_remove_date_filters( $query ) ) {
 				remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
 				remove_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ) );
+				remove_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 10, 2 );
 				$query->set( 'post__not_in', '' );
 
 				// set the default order for posts within admin lists
