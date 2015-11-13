@@ -14,7 +14,7 @@ class Tribe__Events__Pro__Updater extends Tribe__Events__Updater {
 	 *
 	 * @return array
 	 */
-	public function get_updates() {
+	public function get_update_callbacks() {
 		return array(
 			'3.5' => array( $this, 'recurring_events_from_meta_to_child_posts' ),
 		);
@@ -26,7 +26,7 @@ class Tribe__Events__Pro__Updater extends Tribe__Events__Updater {
 	 *
 	 * @return array
 	 */
-	public function constant_updates() {
+	public function get_constant_update_callbacks() {
 		return array(
 			array( $this, 'flush_rewrites' ),
 		);
