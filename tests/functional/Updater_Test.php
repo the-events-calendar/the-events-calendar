@@ -63,21 +63,21 @@ class Tribe__Events__Updater_Test extends Tribe__Events__WP_UnitTestCase {
 		$this->assertEquals( $version_in_db, 3.9, 'checking that the version in the database was set to 3.9' );
 	}
 
-	public function test_get_updates() {
+	public function test_get_update_callbacks() {
 		$current_version = Tribe__Events__Main::VERSION;
 		$updater = Tribe__Events__Main::instance()->updater();
 
-		$updates = $updater->get_updates();
+		$updates = $updater->get_update_callbacks();
 		foreach ( $updates as $version => $update_callable ) {
 			$this->assertTrue( is_callable( $update_callable ), "checking defined update function is callable ($version)" );
 		}
 	}
 
-	public function test_constant_updates() {
+	public function test_get_constant_update_callbacks() {
 		$current_version = Tribe__Events__Main::VERSION;
 		$updater = Tribe__Events__Main::instance()->updater();
 
-		$contant_updates = $updater->constant_updates();
+		$contant_updates = $updater->get_constant_update_callbacks();
 		foreach ( $contant_updates as $contant_update_callable ) {
 			$this->assertTrue( is_callable( $contant_update_callable ), 'checking constant update function is callable' );
 		}
