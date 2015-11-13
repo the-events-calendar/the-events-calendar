@@ -200,7 +200,7 @@ $defaultsTab = array(
  */
 if ( apply_filters( 'tribe_enable_default_value_replace_checkbox', false ) ) {
 	_deprecated_function( "'defaultValueReplace checkbox'", '4.0', 'Built-in WordPress postmeta filters' );
-	$defaultsTab = Tribe__Events__Main::array_insert_after_key(
+	$defaultsTab = Tribe__Main::array_insert_after_key(
 		'eventsDefaultOptionsHelperTitle', $defaultsTab, array(
 			'defaultValueReplace' => array(
 				'type'            => 'checkbox_bool',
