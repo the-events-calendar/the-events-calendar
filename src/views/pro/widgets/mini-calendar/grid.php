@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 $days_of_week = tribe_events_get_days_of_week( 'min' );
 $week         = 0;
-$mini_cal_widget_id = Tribe__Events__Utils__Id_Generator::generate_id('tribe-mini-calendar-month','tribe-mini-calendar-month');
+$mini_cal_widget_id = Tribe__Events__Utils__Id_Generator::generate_id( 'tribe-mini-calendar-month', 'tribe-mini-calendar-month' );
 
 ?>
 <div class="tribe-mini-calendar-grid-wrapper">
@@ -26,7 +26,7 @@ $mini_cal_widget_id = Tribe__Events__Utils__Id_Generator::generate_id('tribe-min
 			<td colspan="7">
 				<div>
 					<?php tribe_events_the_mini_calendar_prev_link() ?>
-					<span id="<?php echo $mini_cal_widget_id ?>"><?php tribe_events_the_mini_calendar_title() ?></span>
+					<span id="<?php echo esc_attr( $mini_cal_widget_id ) ?>"><?php tribe_events_the_mini_calendar_title() ?></span>
 					<?php tribe_events_the_mini_calendar_next_link() ?>
 					<img id="ajax-loading-mini" src="<?php echo tribe_resource_url( 'images/tribe-loading.gif' ) ?>" alt="loading..." />
 				</div>
