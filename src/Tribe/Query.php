@@ -382,11 +382,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return boolean
 		 */
 		public static function should_remove_date_filters( $query ) {
-			// if we are on an import page, let's keep the date filters
-			if ( isset( $_GET['page'] ) && 'events-importer' == $_GET['page'] ) {
-				return false;
-			}
-
 			// if we're doing ajax, let's keep the date filters
 			if ( Tribe__Main::instance()->doing_ajax() ) {
 				return false;
