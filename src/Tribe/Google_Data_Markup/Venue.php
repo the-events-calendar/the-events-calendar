@@ -26,6 +26,7 @@ class Tribe__Events__Pro__Google_Data_Markup__Venue extends Tribe__Events__Googl
 		$venue_data[ $id ]->telephone = tribe_get_event_meta( $id, '_VenuePhone', true );
 		if ( $lat && $lng ) {
 			$venue_data[ $id ]->geo            = new stdClass();
+			$venue_data[ $id ]->geo->{'@type'} = 'GeoCoordinates';
 			$venue_data[ $id ]->geo->latitude  = $lat;
 			$venue_data[ $id ]->geo->longitude = $lng;
 		}

@@ -78,7 +78,7 @@ $multiple_organizers = count( $organizer_ids ) > 1;
 
 			<?php if ( ! empty( $organizer_ids ) ): ?>
 				<span class="tribe-events-organizer">
-					<?php echo tribe_get_organizer_label_singular( ! $multiple_organizers ); ?>:
+					<?php echo tribe_get_organizer_label( ! $multiple_organizers ); ?>:
 					<?php
 					$organizer_links = array();
 					foreach ( $organizer_ids as $organizer_id ) {
