@@ -1097,7 +1097,7 @@ div.tribe-countdown-text {
 	margin: 5px 0 8px;
 }
 
-.tribe-theme-twentyfifteen #tribe-events .tribe-events-venue-meta {
+.tribe-theme-twentyfifteen.single-tribe_events #tribe-events .tribe-events-venue-meta {
 	float: left;
 }
 
