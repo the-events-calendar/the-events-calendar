@@ -135,7 +135,7 @@ class Tribe__Events__Pro__This_Week_Widget extends WP_Widget {
 	protected function instance_defaults( $instance ) {
 		$this->instance = wp_parse_args( (array) $instance, array(
 			'title'             => '',
-			'layout'            => 'horizontal',
+			'layout'            => 'vertical',
 			'highlight_color'   => '',
 			'count'             => 3,
 			'widget_id'         => 3,

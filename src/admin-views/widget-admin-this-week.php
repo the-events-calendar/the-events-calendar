@@ -22,8 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<select class="chosen layout-dropdown" id="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>"
 	        name="<?php echo esc_attr( $this->get_field_name( 'layout' ) ); ?>"
 	        value="<?php echo esc_attr( $instance['layout'] ); ?>">
-		<option <?php selected( 'horizontal', $instance['layout'] ) ?> value="horizontal"> Horizontal Layout</option>
 		<option <?php selected( 'vertical', $instance['layout'] ) ?> value="vertical"> Vertical Layout</option>
+		<option <?php selected( 'horizontal', $instance['layout'] ) ?> value="horizontal"> Horizontal Layout</option>
 	</select>
 </p>
 
