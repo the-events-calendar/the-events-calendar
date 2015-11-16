@@ -56,7 +56,7 @@ class Tribe_Query_Date_Filter_Test extends Tribe__Events__WP_UnitTestCase {
 	 *
 	 * @test
 	 */
-	public function it_should_not_remove_date_filters_on_event_import_page() {
+	public function it_should_remove_date_filters_on_event_import_page() {
 		set_current_screen( 'edit-' . Tribe__Events__Main::POSTTYPE );
 
 		$_GET['page'] = 'events-importer';
@@ -67,7 +67,7 @@ class Tribe_Query_Date_Filter_Test extends Tribe__Events__WP_UnitTestCase {
 			'post_type' => Tribe__Events__Main::POSTTYPE,
 		] );
 
-		$this->assertFalse( Tribe__Events__Query::should_remove_date_filters( $query ), 'Date filters should not be removed when on the event import page' );
+		$this->assertTrue( Tribe__Events__Query::should_remove_date_filters( $query ), 'Date filters should be removed when on the event import page' );
 	}
 
 	/**
