@@ -239,7 +239,7 @@ function tribe_events_get_this_week_title( $start_date ) {
 function tribe_events_this_week_previous_link( $start_date, $text = '' ) {
 
 	if ( empty( $text ) ) {
-		$text = __( '<span>&laquo;</span> Previous Week', 'tribe-events-calendar-pro' );
+		$text = __( '<span>&laquo;</span> <span class="tribe-nav-label">Previous</span>', 'tribe-events-calendar-pro' );
 	}
 
 	$attributes = sprintf( ' data-week="%s" ', date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( $start_date . ' -7 days' ) ) );
@@ -259,7 +259,7 @@ function tribe_events_this_week_previous_link( $start_date, $text = '' ) {
 function tribe_events_this_week_next_link( $start_date, $text = '' ) {
 
 	if ( empty( $text ) ) {
-		$text = __( 'Next Week <span>&raquo;</span>', 'tribe-events-calendar-pro' );
+		$text = __( '<span class="tribe-nav-label">Next</span> <span>&raquo;</span>', 'tribe-events-calendar-pro' );
 	}
 
 	$attributes = sprintf( ' data-week="%s" ', $start_date );
