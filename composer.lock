@@ -1,11 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "b3b2022268eb84ecea11f0aa6bec5dd7",
-    "content-hash": "64a192a3400417788e94648e88bed72d",
     "packages": [],
     "packages-dev": [
         {
@@ -403,16 +402,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "1.7.13",
+            "version": "1.7.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "8c40e2f44a0533cc205acea26de62360333e06ba"
+                "reference": "f22854b4c2ea2a30f5310bfae0cdad0315d3763e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/8c40e2f44a0533cc205acea26de62360333e06ba",
-                "reference": "8c40e2f44a0533cc205acea26de62360333e06ba",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/f22854b4c2ea2a30f5310bfae0cdad0315d3763e",
+                "reference": "f22854b4c2ea2a30f5310bfae0cdad0315d3763e",
                 "shasum": ""
             },
             "require": {
@@ -452,7 +451,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2015-11-10 17:38:51"
+            "time": "2015-11-17 14:04:36"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
