@@ -980,6 +980,13 @@ select.tribe-events-dropdown {
 	margin-left: 1.6em;
 }
 
+@media screen {
+	#tribe-events-content .tribe-events-tooltip ul,
+	#tribe-events-content .tribe-events-tooltip ol {
+		margin-left: 1.6em;
+	}
+}
+
 /* Recurring info tooltip */
 .recurringinfo {
 	*display: inline;
