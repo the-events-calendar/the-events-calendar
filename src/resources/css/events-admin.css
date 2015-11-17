@@ -36,3 +36,8 @@ div.tribe-events-recurring-update-msg.completed .progress .bar {
     margin-left: 0.66rem;
     width: 3rem;
 }
+
+/* Prevent the featured venue widget's dropdown from breaking out of widget settings meta box */
+.tribe.widget-settings select.venue-dropdown {
+    max-width: 100%;
+}

@@ -1097,7 +1097,7 @@ div.tribe-countdown-text {
 	margin: 5px 0 8px;
 }
 
-.tribe-theme-twentyfifteen #tribe-events .tribe-events-venue-meta {
+.tribe-theme-twentyfifteen.single-tribe_events #tribe-events .tribe-events-venue-meta {
 	float: left;
 }
 
@@ -1113,6 +1113,26 @@ div.tribe-countdown-text {
 	.tribe-theme-twentyfifteen .tribe-events-countdown-widget div.tribe-countdown-number {
 		font-size: 2.1em;
 	}
+}
+
+/* Twenty Sixteen Compat
+========================================================================== */
+
+.tribe-theme-twentysixteen .tribe-grid-body div[id*='tribe-events-event-'] {
+	z-index: 80;
+}
+.tribe-theme-twentysixteen .tribe-grid-body div[id*='tribe-events-event-']:hover {
+	z-index: 81;
+}
+
+.tribe-theme-twentysixteen .tribe-venue-widget-list {
+    margin-left: 0;
+    list-style: none;
+}
+
+.tribe-theme-twentysixteen .tribe-events-list-photo-description ul,
+.tribe-theme-twentysixteen .tribe-events-list-photo-description ol {
+    margin-left: 1.25em;
 }
 
 

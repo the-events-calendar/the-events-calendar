@@ -200,11 +200,17 @@ $defaultsTab = array(
  */
 if ( apply_filters( 'tribe_enable_default_value_replace_checkbox', false ) ) {
 	_deprecated_function( "'defaultValueReplace checkbox'", '4.0', 'Built-in WordPress postmeta filters' );
-	$defaultsTab = Tribe__Main::array_insert_after_key(
-		'eventsDefaultOptionsHelperTitle', $defaultsTab, array(
+	$defaultsTab['fields'] = Tribe__Main::array_insert_before_key(
+		'eventsDefaultOrganizerHelperTitle',
+		$defaultsTab['fields'],
+		array(
+			'eventsDefaultOptionsHelperTitle'   => array(
+				'type' => 'html',
+				'html' => '<h3>' . esc_html__( 'Options', 'tribe-events-calendar-pro' ) . '</h3>',
+			),
 			'defaultValueReplace' => array(
 				'type'            => 'checkbox_bool',
-				'label'           => __( 'If fields are left empty when they\'re submitted, automatically fill them in with these values.', 'tribe-events-calendar-pro' ),
+				'label'           => esc_html__( 'If fields are left empty when they\'re submitted, automatically fill them in with these values.', 'tribe-events-calendar-pro' ),
 				'default'         => false,
 				'validation_type' => 'boolean',
 			),
