@@ -56,14 +56,15 @@
 	border: none;
 	float: left;
 	list-style-type: none;
-	margin: 0 5px 0 0;
+	margin: 0 .5% 0 0;
 	padding: 0;
 	text-align: left;
+	width: 49.5%;
 }
 
 .tribe-events-sub-nav .tribe-this-week-nav-link.nav-next {
 	float: right;
-	margin: 0 0 0 5px;
+	margin: 0 0 0 .5%;
 	text-align: right;
 }
 
@@ -190,4 +191,11 @@
 .tribe-events-ajax-loading.tribe-events-active-spinner img,
 .tribe-events-loading .tribe-events-ajax-loading {
 	display: block;
+}
+
+/*
+* Twenty Fourteen CSS */
+.tribe-theme-twentyfourteen .primary-sidebar .tribe-this-week-widget-wrapper .entry-title,
+.tribe-theme-twentyfourteen .footer-sidebar .tribe-this-week-widget-wrapper .entry-title {
+	color: #fff;
 }
