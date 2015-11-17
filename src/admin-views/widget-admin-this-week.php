@@ -9,21 +9,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <p>
-	<label
-		for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'tribe-events-calendar-pro' ); ?></label>
+	<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
+		<?php esc_html_e( 'Title:', 'tribe-events-calendar-pro' ); ?>
+	</label>
 	<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
 	       name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text"
 	       value="<?php echo esc_attr( strip_tags( $instance['title'] ) ); ?>"/>
 </p>
 
 <p>
-	<label
-		for="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>"><?php esc_html_e( 'Layout:', 'tribe-events-calendar-pro' ); ?></label>
-	<select class="chosen layout-dropdown" id="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>"
-	        name="<?php echo esc_attr( $this->get_field_name( 'layout' ) ); ?>"
-	        value="<?php echo esc_attr( $instance['layout'] ); ?>">
-		<option <?php selected( 'vertical', $instance['layout'] ) ?> value="vertical"> Vertical Layout</option>
-		<option <?php selected( 'horizontal', $instance['layout'] ) ?> value="horizontal"> Horizontal Layout</option>
+	<label for="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>">
+		<?php esc_html_e( 'Layout:', 'tribe-events-calendar-pro' ); ?>
+	</label>
+	<select class="chosen layout-dropdown"
+		id="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>"
+		name="<?php echo esc_attr( $this->get_field_name( 'layout' ) ); ?>"
+		value="<?php echo esc_attr( $instance['layout'] ); ?>"
+	>
+		<option <?php selected( 'vertical', $instance['layout'] ) ?> value="vertical"> <?php echo esc_html_e( 'Vertical Layout', 'tribe-events-calendar-pro' ); ?></option>
+		<option <?php selected( 'horizontal', $instance['layout'] ) ?> value="horizontal"> <?php echo esc_html_e( 'Horizontal Layout', 'tribe-events-calendar-pro' ); ?></option>
 	</select>
 </p>
 
