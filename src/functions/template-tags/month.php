@@ -247,8 +247,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$html = '';
 		$url  = tribe_get_previous_month_link();
 		$date = Tribe__Events__Main::instance()->previousMonth( tribe_get_month_view_date() );
+		$earliest_event_date = tribe_events_earliest_date( Tribe__Date_Utils::DBYEARMONTHTIMEFORMAT );
 
-		if ( $date >= tribe_events_earliest_date( Tribe__Date_Utils::DBYEARMONTHTIMEFORMAT ) ) {
+		// Only form the link if a) we have a known earliest event date and b) the previous month date is the same or later
+		if ( $earliest_event_date && $date >= $earliest_event_date ) {
 			$text = tribe_get_previous_month_text();
 			$html = '<a data-month="' . $date . '" href="' . esc_url( $url ) . '" rel="prev"><span>&laquo;</span> ' . $text . ' </a>';
 		}
