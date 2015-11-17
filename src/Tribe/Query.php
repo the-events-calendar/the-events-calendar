@@ -355,6 +355,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			if ( self::should_remove_date_filters( $query ) ) {
 				remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
 				remove_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ) );
+				remove_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 10, 2 );
 				$query->set( 'post__not_in', '' );
 
 				// set the default order for posts within admin lists
@@ -381,11 +382,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return boolean
 		 */
 		public static function should_remove_date_filters( $query ) {
-			// if we are on an import page, let's keep the date filters
-			if ( isset( $_GET['page'] ) && 'events-importer' == $_GET['page'] ) {
-				return false;
-			}
-
 			// if we're doing ajax, let's keep the date filters
 			if ( Tribe__Main::instance()->doing_ajax() ) {
 				return false;

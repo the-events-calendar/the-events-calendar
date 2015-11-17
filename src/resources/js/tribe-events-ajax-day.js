@@ -171,11 +171,11 @@
 
 		}
 
-		$( te ).on( 'run-ajax.tribe', function() {
+		$( te ).on( 'tribe_ev_runAjax', function() {
 			tribe_events_day_ajax_post();
 		} );
 
-		$( te ).on( 'updating-recurrence.tribe', function() {
+		$( te ).on( 'tribe_ev_updatingRecurrence', function() {
 			if ( ts.filter_cats ) {
 				td.cur_url = ( td.default_permalinks ) ? base_url + '=' + td.cur_date : base_url + td.cur_date + '/';
 			}
@@ -231,20 +231,12 @@
 					}
 				}
 
-				/**
-				 * DEPRECATED: tribe_ev_serializeBar has been deprecated in 4.0. Use serialize-bar.tribe instead
-				 */
 				$( te ).trigger( 'tribe_ev_serializeBar' );
-				$( te ).trigger( 'serialize-bar.tribe' );
 
 				ts.params = $.param( ts.params );
 				ts.url_params = $.param( ts.url_params );
 
-				/**
-				 * DEPRECATED: tribe_ev_collectParams has been deprecated in 4.0. Use collect-params.tribe instead
-				 */
 				$( te ).trigger( 'tribe_ev_collectParams' );
-				$( te ).trigger( 'collect-params.tribe' );
 
 				ts.pushstate = true;
 				ts.do_string = false;
@@ -261,11 +253,7 @@
 				dbug && debug.time( 'Day View Ajax Timer' );
 				// @endif
 
-				/**
-				 * DEPRECATED: tribe_ev_ajaxStart and tribe_ev_dayView_AjaxStart have been deprecated in 4.0. Use ajax-start.tribe and day-view-ajax-start.tribe instead
-				 */
 				$( te ).trigger( 'tribe_ev_ajaxStart' ).trigger( 'tribe_ev_dayView_AjaxStart' );
-				$( te ).trigger( 'ajax-start.tribe' ).trigger( 'day-view-ajax-start.tribe' );
 
 				$( '#tribe-events-content .tribe-events-loop' ).tribe_spin();
 
@@ -321,11 +309,7 @@
 
 							tribe_day_add_classes();
 
-							/**
-							 * DEPRECATED: tribe_ev_ajaxSuccess and tribe_ev_dayView_AjaxSuccess have been deprecated in 4.0. Use ajax-success.tribe and day-view-ajax-success.tribe instead
-							 */
 							$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_dayView_AjaxSuccess' );
-							$( te ).trigger( 'ajax-success.tribe' ).trigger( 'day-view-ajax-success.tribe' );
 
 							// @ifdef DEBUG
 							dbug && debug.timeEnd( 'Day View Ajax Timer' );

@@ -565,6 +565,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Setup Help Tab texting
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_feature_box_content' ) );
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_support_content' ) );
+			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_extra_content' ) );
 		}
 
 		/**
@@ -603,6 +604,40 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 				sprintf( __( '%s: A collection of neat ideas for customizing the calendar in interesting ways that we’ve collected over time.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18ja" target="_blank">' . esc_html__( 'Customizing the Events plugins', 'the-events-calendar' ) . '</a></strong>' ),
 			), 15 );
+		}
+
+		/**
+		 * Append the text about The Events Calendar to the Extra Help section on the Help page
+		 *
+		 * @filter "tribe_help_pre_get_sections"
+		 * @param Tribe__Admin__Help_Page $help The Help Page Instance
+		 * @return void
+		 */
+		public function add_help_section_extra_content( $help ) {
+			if ( ! $help->is_active( array( 'events-calendar-pro', 'event-tickets-plus' ) ) && $help->is_active( 'event-tickets' ) ) {
+
+				$link_tec = '<a href="@todo" target="_blank">' . esc_html__( 'The Events Calendar', 'the-events-calendar' ) . '</a>';
+				$link_et = '<a href="@todo" target="_blank">' . esc_html__( 'Events Tickets', 'the-events-calendar' ) . '</a>';
+				$help->add_section_content( 'extra-help', sprintf( __( 'If you have tried the above steps and are still having trouble, you can post a new thread to our WordPress.org forums for %1$s or %2$s. Our support staff monitors these forums once a week and would be happy to assist you there. ', 'the-events-calendar' ), $link_tec, $link_et ), 20 );
+
+				$link = '<a href="@todo" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
+				$help->add_section_content( 'extra-help', sprintf( __( '<strong>Looking for more immediate support?</strong> We offer %s with the purchase of any of our premium plugins. Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays', 'the-events-calendar' ), $link ), 20 );
+
+			} elseif ( ! $help->is_active( array( 'events-calendar-pro', 'event-tickets' ) ) ) {
+
+				$link = '<a href="@todo" target="_blank">' . esc_html__( 'open-source forum on WordPress.org', 'the-events-calendar' ) . '</a>';
+				$help->add_section_content( 'extra-help', sprintf( __( 'If you have tried the above steps and are still having trouble, you can post a new thread to our %s. Our support staff monitors these forums once a week and would be happy to assist you there.', 'the-events-calendar' ), $link ), 20 );
+
+				$link_forum = '<a href="http://m.tri.be/4w/" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
+				$link_plus = '<a href="@todo" target="_blank">' . esc_html__( 'Events Calendar PRO', 'the-events-calendar' ) . '</a>';
+				$help->add_section_content( 'extra-help', sprintf( __( '<strong>Looking for more immediate support?</strong> We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays.', 'the-events-calendar' ), $link_forum, $link_plus ), 20 );
+
+			} else {
+
+				$link = '<a href="@todo" target="_blank">' . esc_html__( 'post a thread', 'the-events-calendar' ) . '</a>';
+				$help->add_section_content( 'extra-help', sprintf( __( 'If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week).', 'the-events-calendar' ), $link ), 20 );
+
+			}
 		}
 
 		/**
