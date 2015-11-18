@@ -20,13 +20,14 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 	/**
 	 * Tribe__Events__Pro__Recurrence__Events_Saver constructor.
 	 *
-	 * @param int      $event_id The post ID of the event being saved
-	 * @param bool|int $updated  The meta_id of the post meta containing the event recurrence meta information.
+	 * @param int                                             $event_id The post ID of the event being saved
+	 * @param bool|int                                        $updated  The meta_id of the post meta containing the
+	 *                                                                  event recurrence meta information.
 	 * @param Tribe__Events__Pro__Recurrence__Exclusions|null $exclusions
 	 */
-	public function __construct( $event_id, $updated,Tribe__Events__Pro__Recurrence__Exclusions $exclusions = null ) {
-		$this->event_id = $event_id;
-		$this->updated  = $updated;
+	public function __construct( $event_id, $updated, Tribe__Events__Pro__Recurrence__Exclusions $exclusions = null ) {
+		$this->event_id   = $event_id;
+		$this->updated    = $updated;
 		$this->exclusions = $exclusions ? $exclusions : Tribe__Events__Pro__Recurrence__Exclusions::instance();
 	}
 
