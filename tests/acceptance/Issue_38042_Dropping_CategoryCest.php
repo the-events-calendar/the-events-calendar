@@ -31,7 +31,7 @@ class Issue_38042_Dropping_CategoryCest {
 		$I->waitForJqueryAjax( 10 );
 		$href = $I->grabFullUrl();
 		$I->assertContains( 'tribe-bar-search=foo', $href );
-		$I->assertContains( 'tribe_eventcategory=', $href );
+		$I->assertContains( 'tribe_events_cat=', $href );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Issue_38042_Dropping_CategoryCest {
 		$I->click( [ 'css' => 'body > .datepicker > div.datepicker-months span:nth-child(5)' ] );
 		$I->waitForJqueryAjax( 10 );
 		$href = $I->grabFullUrl();
-		$I->assertContains( 'tribe_eventcategory=', $href );
+		$I->assertContains( 'tribe_events_cat=', $href );
 		$I->assertContains( 'tribe-bar-date', $href );
 	}
 
@@ -65,7 +65,7 @@ class Issue_38042_Dropping_CategoryCest {
 		$I->waitForJqueryAjax( 10 );
 
 		$href = $I->grabFullUrl();
-		$I->assertContains( 'tribe_eventcategory=', $href );
+		$I->assertContains( 'tribe_events_cat=', $href );
 		$I->assertContains( 'tribe-bar-date', $href );
 		$I->assertContains( 'tribe-bar-search=foo', $href );
 	}
@@ -88,7 +88,7 @@ class Issue_38042_Dropping_CategoryCest {
 		$I->waitForJqueryAjax( 10 );
 
 		$href = $I->grabFullUrl();
-		$I->assertContains( 'tribe_eventcategory=', $href );
+		$I->assertContains( 'tribe_events_cat=', $href );
 		$I->assertContains( 'tribe-bar-date', $href );
 		$I->assertContains( 'tribe-bar-search=foo', $href );
 	}
