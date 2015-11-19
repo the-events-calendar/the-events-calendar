@@ -12,11 +12,7 @@ modules:
             populate: false
             cleanup: false
         WPWebDriver:
-            url: 'http://tribe-pro.dev'
             browser: phantomjs
             port: 4444
             restart: true
             wait: 0
-            adminUsername: admin
-            adminPassword: iguana
-            adminUrl: /wp-admin
