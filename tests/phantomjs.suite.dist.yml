@@ -1,0 +1,22 @@
+class_name: PhantomjsTester
+modules:
+modules:
+    enabled:
+        - WPWebDriver
+        - \Helper\Phantomjs
+        - Asserts
+        - WPDb
+        - \Tribe\Tests\Modules\Core\Acceptance\Options
+    config:
+        WPDb:
+            populate: false
+            cleanup: false
+        WPWebDriver:
+            url: 'http://tec.tri.be'
+            browser: phantomjs
+            port: 4444
+            restart: true
+            wait: 0
+            adminUsername: admin
+            adminPassword: password
+            adminUrl: /wp-admin
