@@ -11,7 +11,7 @@ class Issue_38042_Dropping_CategoryCest {
 		codecept_debug( "Settings backup: " . print_r( json_encode( $this->settings_backup, true ), true ) );
 
 		// use the default events template and set the view to month
-		$options = $I->grabDefaultCoreOptions( [ 'tribeEventsTemplate' => '', 'viewOption' => 'month' ] );
+		$options = $I->getDefaultCoreOptions( [ 'tribeEventsTemplate' => '', 'viewOption' => 'month' ] );
 		$I->haveOptionInDatabase( 'tribe_events_calendar_options', $options );
 
 		// let's resize the window not to incure in mobile breakpoints

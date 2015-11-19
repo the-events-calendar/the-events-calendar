@@ -12,7 +12,7 @@ class Options extends \Codeception\Module {
 	 *
 	 * @return array
 	 */
-	public function grabDefaultCoreOptions( array $overrides = [ ] ) {
+	public function getDefaultCoreOptions( array $overrides = [ ] ) {
 		$defaults = [
 			'schema-version'                   => '4.0beta2',
 			'recurring_events_are_hidden'      => 'hidden',
