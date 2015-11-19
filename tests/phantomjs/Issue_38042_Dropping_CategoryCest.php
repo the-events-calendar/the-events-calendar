@@ -8,7 +8,7 @@ class Issue_38042_Dropping_CategoryCest {
 
 	public function _before( PhantomjsTester $I ) {
 		$this->settings_backup = $I->grabOptionFromDatabase( 'tribe_events_calendar_options' );
-		codecept_debug( "Settings backup: " . print_r( json_encode( $this->settings_backup, true ), true ) );
+		codecept_debug( "Settings backup: " . json_encode( $this->settings_backup ) );
 
 		// use the default events template and set the view to month
 		$options = $I->getDefaultCoreOptions( [ 'tribeEventsTemplate' => '', 'viewOption' => 'month' ] );
