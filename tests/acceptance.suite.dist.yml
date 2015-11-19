@@ -5,8 +5,12 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - WPWebDriver
+        - WPBrowser
         - \Helper\Acceptance
         - Asserts
         - WPDb
+    config:
+        WPDb:
+            populate: false
+            cleanup: false
 

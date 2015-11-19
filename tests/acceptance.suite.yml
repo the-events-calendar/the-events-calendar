@@ -5,8 +5,13 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - WPWebDriver
+        - WPBrowser
         - \Helper\Acceptance
         - Asserts
         - WPDb
+        - \Tribe\Tests\Modules\Pro\Acceptance\Options
+    config:
+        WPDb:
+            populate: false
+            cleanup: false
 
