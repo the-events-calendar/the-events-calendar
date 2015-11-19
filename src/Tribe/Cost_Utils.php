@@ -18,12 +18,11 @@ class Tribe__Events__Cost_Utils {
 		static $instance;
 
 		if ( ! $instance ) {
-			$className = __CLASS__;
-			$instance = new $className;
+			$instance = new self;
 		}
 
 		return $instance;
-	}//end instance
+	}
 
 	/**
 	 * fetches all event costs from the database
@@ -41,7 +40,20 @@ class Tribe__Events__Cost_Utils {
 		" );
 
 		return $costs;
-	}//end get_all_costs
+	}
+
+	/**
+	 * Fetch the possible separators
+	 *
+	 * @return array
+	 */
+	public function get_separators() {
+		/**
+		 * Allow users to create more possible separators, they must be only 1 char
+		 * @var array
+		 */
+		return apply_filters( 'tribe_events_cost_separators', array( ',', '.' ) );
+	}
 
 	/**
 	 * fetches an event's cost values
@@ -70,8 +82,7 @@ class Tribe__Events__Cost_Utils {
 				continue;
 			}
 
-			$values = $this->parse_cost_range( $value );
-			$parsed_costs = array_merge( $parsed_costs, $values );
+			$parsed_costs += $this->parse_cost_range( $value );
 		}
 
 		return $parsed_costs;
@@ -141,7 +152,7 @@ class Tribe__Events__Cost_Utils {
 	public function maybe_format_with_currency( $cost ) {
 		// check if the currency symbol is desired, and it's just a number in the field
 		// be sure to account for european formats in decimals, and thousands separators
-		if ( is_numeric( str_replace( array( ',', '.' ), '', $cost ) ) ) {
+		if ( is_numeric( str_replace( $this->get_separators(), '', $cost ) ) ) {
 			$cost = tribe_format_currency( $cost );
 		}
 
@@ -157,22 +168,22 @@ class Tribe__Events__Cost_Utils {
 	 * @return float
 	 */
 	protected function get_cost_by_func( $costs = null, $function = 'max' ) {
-		if ( null === $costs ) {
-			$costs = $this->get_all_costs();
-		} elseif ( ! is_array( $costs ) ) {
-			$costs = array( $costs );
-		}
-
-		$new_costs = array();
-
-		foreach ( $costs as $index => $value ) {
-			$values = $this->parse_cost_range( $value );
-			foreach ( $values as $numeric => $val ) {
-				$new_costs[ $numeric ] = $val;
+		if ( ! is_array( $costs ) ) {
+			if ( null === $costs ) {
+				$costs = $this->get_all_costs();
+			} else {
+				$costs = (array) $costs;
 			}
-		}
 
-		$costs = $new_costs;
+			$new_costs = array();
+			foreach ( $costs as $index => $value ) {
+				$values = $this->parse_cost_range( $value );
+				foreach ( $values as $numeric => $val ) {
+					$new_costs[ $numeric ] = $val;
+				}
+			}
+			$costs = $new_costs;
+		}
 
 		if ( empty( $costs ) ) {
 			return 0;
@@ -188,14 +199,8 @@ class Tribe__Events__Cost_Utils {
 				break;
 		}//end switch
 
-		/**
-		 * Allow users to create more possible separators, they must be only 1 char
-		 * @var array
-		 */
-		$separators = apply_filters( 'tribe_events_cost_separators', array( ',', '.' ) );
-
 		// Build the regular expression
-		$price_regex = '(-?[\d]+[\\' . implode( '\\', $separators ) . ']?[\d]*)';
+		$price_regex = '(-?[\d]+[\\' . implode( '\\', $this->get_separators() ) . ']?[\d]*)';
 
 		// use a regular expression instead of is_numeric
 		if ( ! preg_match( $price_regex, $cost ) ) {
@@ -235,14 +240,10 @@ class Tribe__Events__Cost_Utils {
 	 * @return array
 	 */
 	public function parse_cost_range( $cost ) {
-		/**
-		 * Allow users to create more possible separators, they must be only 1 char
-		 * @var array
-		 */
-		$separators = apply_filters( 'tribe_events_cost_separators', array( ',', '.' ) );
+		$separators = $this->get_separators();
 
 		// Build the regular expression
-		$price_regex = '(-?[\d]+[\\' . implode( '\\', $separators ) . ']?[\d]*)';
+		$price_regex = '((-?[\d]+)[\\' . implode( '\\', $separators ) . ']?([\d]*))';
 
 		if ( ! is_string( $cost ) ){
 			return $cost;
@@ -253,12 +254,19 @@ class Tribe__Events__Cost_Utils {
 			$cost = reset( $matches );
 		}
 
+		// Get the max number of decimals for the range
+		if ( count( $matches ) === 4 ) {
+			$decimals = max( array_map( 'strlen', end( $matches ) ) );
+		}
+
 		$cost = (array) $cost;
 		$ocost = array();
 
 		// Keep the Costs in a organizeable array by keys with the "numeric" value
 		foreach ( $cost as $key => $value ) {
-			$ocost[ str_replace( $separators, '', $value ) ] = $value;
+			// Creates a Well Balanced Index that will perform good on a Key Sorting method
+			$index = str_replace( '.', '', number_format( str_replace( $separators, '.', $value ), $decimals ) );
+			$ocost[ $index ] = $value;
 		}
 
 		// Filter keeping the Keys
