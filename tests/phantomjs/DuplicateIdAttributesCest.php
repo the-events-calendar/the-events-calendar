@@ -69,6 +69,15 @@ class DuplicateIdAttributesCest {
 	 */
 	public function it_should_not_have_duplicate_ids_when_visiting_the_calendar_view( PhantomjsTester $I ) {
 		$I->amOnPage( '/events' );
+		$this->make_sure_there_are_no_duplicate_ids( $I );
+	}
+
+	/**
+	 * @param PhantomjsTester $I
+	 *
+	 * @return array
+	 */
+	protected function get_all_the_ids_on_the_page( PhantomjsTester $I ) {
 		$fetch_script = <<< JS
 		var out = [];
 		jQuery('[id]').each(function(){
@@ -77,8 +86,29 @@ class DuplicateIdAttributesCest {
 		return out.join(',');
 JS;
 		$ids          = explode( ',', $I->executeJS( $fetch_script ) );
+
+		return $ids;
+	}
+
+	/**
+	 * @param PhantomjsTester $I
+	 * @param                 $id
+	 *
+	 * @return mixed
+	 */
+	protected function count_elements_with_id( PhantomjsTester $I, $id ) {
+		$count = $I->executeJS( sprintf( "return jQuery('#%s').length;", $id ) );
+
+		return $count;
+	}
+
+	/**
+	 * @param PhantomjsTester $I
+	 */
+	protected function make_sure_there_are_no_duplicate_ids( PhantomjsTester $I ) {
+		$ids = $this->get_all_the_ids_on_the_page( $I );
 		foreach ( $ids as $id ) {
-			$count = $I->executeJS( sprintf( "return jQuery('#%s').length;", $id ) );
+			$count = $this->count_elements_with_id( $I, $id );
 			$I->assertEquals( 1, $count );
 		}
 	}
