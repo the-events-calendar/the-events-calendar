@@ -56,6 +56,18 @@ class Tribe__Events__Cost_Utils {
 	}
 
 	/**
+	 * Check if a String is a valid cost
+	 *
+	 * @param  string  $cost String to be checked
+	 * @return boolean
+	 */
+	public function is_valid_cost( $cost, $allow_negative = true ) {
+		$price_regex = '(' . ( $allow_negative ? '-?' : '' ) . '[\d]+[\\' . implode( '\\', $this->get_separators() ) . ']?[\d]*)';
+
+		return preg_match( $price_regex, trim( $cost ) );
+	}
+
+	/**
 	 * fetches an event's cost values
 	 *
 	 * @param int|WP_Post $event The Event post object or event ID
@@ -239,7 +251,7 @@ class Tribe__Events__Cost_Utils {
 	 *
 	 * @return array
 	 */
-	public function parse_cost_range( $cost ) {
+	public function parse_cost_range( $cost, $max_decimals = null ) {
 		$separators = $this->get_separators();
 
 		// Build the regular expression
@@ -257,6 +269,11 @@ class Tribe__Events__Cost_Utils {
 		// Get the max number of decimals for the range
 		if ( count( $matches ) === 4 ) {
 			$decimals = max( array_map( 'strlen', end( $matches ) ) );
+
+			// If we passed max decimals
+			if ( ! is_null( $max_decimals ) ) {
+				$decimals = max( $max_decimals, $decimals );
+			}
 		}
 
 		$cost = (array) $cost;
