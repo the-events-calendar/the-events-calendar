@@ -33,7 +33,9 @@ class Issue_38042_Dropping_CategoryCest {
 	public function it_should_not_drop_the_category_when_using_the_tribe_search_bar( PhantomjsTester $I ) {
 		$I->fillField( 'input[name="tribe-bar-search"]', 'foo' );
 		$I->click( 'input[name="submit-bar"]' );
+
 		$I->waitForJqueryAjax( 10 );
+
 		$href = $I->grabFullUrl();
 		$I->assertContains( 'tribe-bar-search=foo', $href );
 		$I->assertContains( 'tribe_events_cat=', $href );
@@ -47,7 +49,9 @@ class Issue_38042_Dropping_CategoryCest {
 		$I->click( [ 'css' => 'input#tribe-bar-date' ] );
 		// I click the 5th month in the datepicker
 		$I->click( [ 'css' => 'body > .datepicker > div.datepicker-months span:nth-child(5)' ] );
+
 		$I->waitForJqueryAjax( 10 );
+
 		$href = $I->grabFullUrl();
 		$I->assertContains( 'tribe_events_cat=', $href );
 		$I->assertContains( 'tribe-bar-date', $href );
