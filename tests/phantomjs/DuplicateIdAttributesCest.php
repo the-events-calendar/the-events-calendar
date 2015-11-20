@@ -79,11 +79,11 @@ class DuplicateIdAttributesCest {
 	 */
 	protected function get_all_the_ids_on_the_page( PhantomjsTester $I ) {
 		$fetch_script = <<< JS
-		var out = [];
-		jQuery('[id]').each(function(){
-			out.push(jQuery(this).attr('id'));
-		});
-		return out.join(',');
+			var out = [];
+			jQuery('[id]').each(function(){
+				out.push(jQuery(this).attr('id'));
+			});
+			return out.join(',');
 JS;
 		$ids          = explode( ',', $I->executeJS( $fetch_script ) );
 
