@@ -342,7 +342,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - When a user cannot create organizers, prevent the auto-selection of organizers when editing an event
 * Tweak - Remove microformat CSS classes from templates and replace with namespaced content-relevant CSS classes
 * Tweak - Changed the "updated" CSS class to "tribe-updated" so that it is properly namespaced (Thank you vijayrajesh!)
-* Tweak - The Plugin Update Checker will now auto-save valid plugin keys
+* Tweak - The Plugin Update Checker will now auto-save valid plugin keys (Thanks to Denon for originally bringing this up!)
 * Tweak - Cleaned up the output of JSON-LD data. Filterable via the new tribe_google_data_markup_json filter
 * Tweak - Drop the use of the generic CSS class "placeholder" in favor of "tribe-event-placeholder" (Thanks to Marc on the forums!)
 * Tweak - Adjusted the CSS padding on Admin Menu items for Events
