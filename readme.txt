@@ -236,7 +236,7 @@ Our Premium Plugins:
 * Tweak - Altered the storage of selected multichoice values for custom fields so they can be queried more effectively
 * Tweak - Add JSON-LD markup to single venus and organizers
 * Tweak - Only pre-populate address data for venues when the venue metabox appears on the venue post editor - NOT the event post editor
-* Tweak - Simplify the machine-generated recurrence rule descriptions for simple rules
+* Tweak - Simplify the machine-generated recurrence rule descriptions for simple rules (Thank you jberg1 for the help!)
 * Tweak - Add support for multiple organizers to the List Widget (Thank media325 for the report!)
 * Tweak - Remove microformat CSS classes from templates and replace with namespaced content-relevant CSS classes
 * Tweak - Add support for a count argument to the mini calendar shortcode
