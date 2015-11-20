@@ -28,8 +28,30 @@ class Tribe__Events__Pro__Widgets {
 			if ( $operand == 'OR' ) {
 				$tax_operand = 'IN';
 			}
-			$arr         = array( 'taxonomy' => $tax, 'field' => 'id', 'operator' => $tax_operand, 'terms' => $terms );
-			$tax_query[] = $arr;
+
+			if ( 'AND' === $tax_operand && is_taxonomy_hierarchical( $tax ) ) {
+				/*
+				 * When making and AND query on a hierarchical taxonomy where 'include_children'
+				 * is true (the default), WP requires all matches to have ALL child terms,
+				 * not just one child of each of the supplied terms. By breaking this up
+				 * into multiple tax queries ANDed together, you get the results that
+				 * are more naturally expected.
+				 */
+				foreach ( $terms as $term ) {
+					$tax_query[] = array(
+						'taxonomy' => $tax,
+						'field' => 'id',
+						'terms' => array( $term ),
+					);
+				}
+			} else {
+				$tax_query[] = array(
+					'taxonomy' => $tax,
+					'field' => 'id',
+					'operator' => $tax_operand,
+					'terms' => $terms,
+				);
+			}
 		}
 
 		if ( count( $tax_query ) > 1 ) {
