@@ -258,6 +258,7 @@ Our Premium Plugins:
 * Fix - Fixed date issue with the List Widget where the fancy date box was always displaying today's date
 * Fix - Resolved a problem preventing some category views from working as expected when a non-default language was in use (our thanks to Cristina for highlighting this issue)
 * Fix - Resolved a problem whereby mini calendars could incorrectly render some days as populated when set to display events in a specific category (our thanks to oniregoc for highlighting this)
+* Fix - Fixed some strings that were not getting translated (thanks to Hans-Gerd for reporting this issue!)
 * Deprecated - Deprecating the "defaultValueReplace" option in the Default Content settings tab
 
 = [3.12.6] 2015-11-05 =
