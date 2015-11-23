@@ -12,7 +12,7 @@ class Tribe__Events__Cost_Utils {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 *@return Tribe__Events__Cost_Helpers
+	 * @return Tribe__Events__Cost_Helpers
 	 */
 	public static function instance() {
 		static $instance;
@@ -33,13 +33,16 @@ class Tribe__Events__Cost_Utils {
 		global $wpdb;
 
 		$costs = $wpdb->get_col( "
-			SELECT DISTINCT meta_value
-			FROM   {$wpdb->postmeta}
-			WHERE  meta_key = '_EventCost'
-			       AND LENGTH( meta_value ) > 0
+			SELECT
+				DISTINCT meta_value
+			FROM
+				{$wpdb->postmeta}
+			WHERE
+				meta_key = '_EventCost'
+				AND LENGTH( meta_value ) > 0;
 		" );
 
-		return $costs;
+		return $this->parse_cost_range( $costs );
 	}
 
 	/**
@@ -55,6 +58,10 @@ class Tribe__Events__Cost_Utils {
 		return apply_filters( 'tribe_events_cost_separators', array( ',', '.' ) );
 	}
 
+	public function get_cost_regex() {
+		return apply_filters( 'tribe_events_cost_regex', '(([\d]+)[\\' . implode( '\\', $this->get_separators() ) . ']?([\d]*))' );
+	}
+
 	/**
 	 * Check if a String is a valid cost
 	 *
@@ -62,9 +69,7 @@ class Tribe__Events__Cost_Utils {
 	 * @return boolean
 	 */
 	public function is_valid_cost( $cost, $allow_negative = true ) {
-		$price_regex = '(' . ( $allow_negative ? '-?' : '' ) . '[\d]+[\\' . implode( '\\', $this->get_separators() ) . ']?[\d]*)';
-
-		return preg_match( $price_regex, trim( $cost ) );
+		return preg_match( $this->get_cost_regex(), trim( $cost ) );
 	}
 
 	/**
@@ -98,7 +103,7 @@ class Tribe__Events__Cost_Utils {
 		}
 
 		return $parsed_costs;
-	}//end get_event_costs
+	}
 
 	/**
 	 * Returns a formatted event cost
@@ -137,7 +142,7 @@ class Tribe__Events__Cost_Utils {
 		}
 
 		return $formatted;
-	}//end get_formatted_event_cost
+	}
 
 	/**
 	 * If the cost is "0", call it "Free"
@@ -152,7 +157,7 @@ class Tribe__Events__Cost_Utils {
 		}
 
 		return $cost;
-	}//end maybe_replace_cost_with_free
+	}
 
 	/**
 	 * Formats a cost with a currency symbol
@@ -169,7 +174,7 @@ class Tribe__Events__Cost_Utils {
 		}
 
 		return $cost;
-	}//end maybe_format_with_currency
+	}
 
 	/**
 	 * Returns a particular cost within an array of costs
@@ -180,22 +185,13 @@ class Tribe__Events__Cost_Utils {
 	 * @return float
 	 */
 	protected function get_cost_by_func( $costs = null, $function = 'max' ) {
-		if ( ! is_array( $costs ) ) {
-			if ( null === $costs ) {
-				$costs = $this->get_all_costs();
-			} else {
-				$costs = (array) $costs;
-			}
-
-			$new_costs = array();
-			foreach ( $costs as $index => $value ) {
-				$values = $this->parse_cost_range( $value );
-				foreach ( $values as $numeric => $val ) {
-					$new_costs[ $numeric ] = $val;
-				}
-			}
-			$costs = $new_costs;
+		if ( null === $costs ) {
+			$costs = $this->get_all_costs();
+		} else {
+			$costs = (array) $costs;
 		}
+
+		$costs = $this->parse_cost_range( $costs );
 
 		if ( empty( $costs ) ) {
 			return 0;
@@ -209,18 +205,15 @@ class Tribe__Events__Cost_Utils {
 			default:
 				$cost = $costs[ max( array_keys( $costs ) ) ];
 				break;
-		}//end switch
-
-		// Build the regular expression
-		$price_regex = '(-?[\d]+[\\' . implode( '\\', $this->get_separators() ) . ']?[\d]*)';
+		}
 
 		// use a regular expression instead of is_numeric
-		if ( ! preg_match( $price_regex, $cost ) ) {
+		if ( ! preg_match( $this->get_cost_regex(), $cost ) ) {
 			return 0;
 		}
 
 		return $cost;
-	}//end get_cost_by_func
+	}
 
 	/**
 	 * Returns a maximum cost in a list of costs. If an array of costs is not passed in, the array of costs is fetched via query.
@@ -231,7 +224,7 @@ class Tribe__Events__Cost_Utils {
 	 */
 	public function get_maximum_cost( $costs = null ) {
 		return $this->get_cost_by_func( $costs, 'max' );
-	}//end get_maximum_cost
+	}
 
 	/**
 	 * Returns a minimum cost in a list of costs. If an array of costs is not passed in, the array of costs is fetched via query.
@@ -242,7 +235,7 @@ class Tribe__Events__Cost_Utils {
 	 */
 	public function get_minimum_cost( $costs = null ) {
 		return $this->get_cost_by_func( $costs, 'min' );
-	}//end get_minimum_cost
+	}
 
 	/**
 	 * Parses an event cost into an array of ranges. If a range isn't provided, the resulting array will hold a single value.
@@ -251,44 +244,55 @@ class Tribe__Events__Cost_Utils {
 	 *
 	 * @return array
 	 */
-	public function parse_cost_range( $cost, $max_decimals = null ) {
-		$separators = $this->get_separators();
+	public function parse_cost_range( $costs, $max_decimals = null ) {
+		if ( ! is_array( $costs ) && ! is_string( $costs ) ) {
+			return array();
+		}
+
+		// remove any empty prices
+		$costs = array_filter( (array) $costs );
+
+		// If it's empty returns 0
+		if ( empty( $costs ) ) {
+			return array();
+		}
 
 		// Build the regular expression
-		$price_regex = '((-?[\d]+)[\\' . implode( '\\', $separators ) . ']?([\d]*))';
+		$price_regex = $this->get_cost_regex();
+		$max = 0;
 
-		if ( ! is_string( $cost ) ){
-			return $cost;
-		}
+		foreach ( $costs as &$cost ) {
+			// Get the required parts
+			if ( preg_match_all( '/' . $price_regex . '/', $cost, $matches ) ) {
+				$cost = reset( $matches );
+			}
 
-		// try to find the lowest numerical value in a possible range
-		if ( preg_match_all( '/' . $price_regex . '/', $cost, $matches ) ) {
-			$cost = reset( $matches );
-		}
-
-		// Get the max number of decimals for the range
-		if ( count( $matches ) === 4 ) {
-			$decimals = max( array_map( 'strlen', end( $matches ) ) );
-
-			// If we passed max decimals
-			if ( ! is_null( $max_decimals ) ) {
-				$decimals = max( $max_decimals, $decimals );
+			// Get the max number of decimals for the range
+			if ( count( $matches ) === 4 ) {
+				$decimals = max( array_map( 'strlen', end( $matches ) ) );
+				$max = max( $max, $decimals );
 			}
 		}
 
-		$cost = (array) $cost;
-		$ocost = array();
+		// If we passed max decimals
+		if ( ! is_null( $max_decimals ) ) {
+			$max = max( $max_decimals, $max );
+		}
 
-		// Keep the Costs in a organizeable array by keys with the "numeric" value
-		foreach ( $cost as $key => $value ) {
+		$ocost = array();
+		$costs = call_user_func_array( 'array_merge', $costs );
+
+		foreach ( $costs as $cost ) {
 			// Creates a Well Balanced Index that will perform good on a Key Sorting method
-			$index = str_replace( '.', '', number_format( str_replace( $separators, '.', $value ), $decimals ) );
-			$ocost[ $index ] = $value;
+			$index = str_replace( '.', '', number_format( str_replace( $this->get_separators(), '.', $cost ), $max ) );
+
+			// Keep the Costs in a organizeable array by keys with the "numeric" value
+			$ocost[ $index ] = $cost;
 		}
 
 		// Filter keeping the Keys
-		asort( $ocost );
+		ksort( $ocost );
 
 		return (array) $ocost;
-	}//end parse_cost_range
-}//end class
+	}
+}
