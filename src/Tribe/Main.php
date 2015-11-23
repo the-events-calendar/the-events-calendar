@@ -1611,15 +1611,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function displayEventVenueDropdown( $post_id ) {
 			$venue_id = get_post_meta( $post_id, '_EventVenueID', true );
 
-			$is_community_edit = false;
-			if ( class_exists( 'Tribe__Events__Community__Main' ) ) {
-				$is_community_edit = Tribe__Events__Community__Main::instance()->isEditPage;
-			}
-
 			if (
 				( ! $post_id || get_post_status( $post_id ) === 'auto-draft' ) &&
 				! $venue_id &&
-				$is_community_edit
+				tribe_is_community_edit_event_page()
 			) {
 				$venue_id = $this->defaults()->venue_id();
 			}
@@ -1657,16 +1652,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			$is_community_edit = false;
-			if ( class_exists( 'Tribe__Events__Community__Main' ) ) {
-				$is_community_edit = Tribe__Events__Community__Main::instance()->isEditPage;
-			}
-
 			$venue_id = get_post_meta( $post_id, '_EventVenueID', true );
 			if (
 				( ! $post_id || get_post_status( $post_id ) == 'auto-draft' ) &&
 				! $venue_id &&
-				$is_community_edit
+				tribe_is_community_edit_event_page()
 			) {
 				$venue_id = $this->defaults()->venue_id();
 			}
@@ -1693,15 +1683,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function displayEventOrganizerDropdown( $post_id ) {
 			$current_organizer = get_post_meta( $post_id, '_EventOrganizerID', true );
 
-			$is_community_edit = false;
-			if ( class_exists( 'Tribe__Events__Community__Main' ) ) {
-				$is_community_edit = Tribe__Events__Community__Main::instance()->isEditPage;
-			}
-
 			if (
 				( ! $post_id || get_post_status( $post_id ) === 'auto-draft' ) &&
 				! $current_organizer &&
-				$is_community_edit
+				tribe_is_community_edit_event_page()
 			) {
 				$current_organizer = $this->defaults()->organizer_id();
 			}
