@@ -344,7 +344,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Adjusted the CSS padding on Admin Menu items for Events
 * Tweak - Various codesniffer fixes
 * Tweak - Error messages for empty Venue names
-* Tweak - Improve our respossiviness for the widget mini calendar, allowing smaller sidebars.
+* Tweak - Improve our responsiveness for the widget mini calendar, allowing smaller sidebars.
 * Tweak - tribe_get_vanue_link() no longer echoes if you ask it to return an <a> element
 * Tweak - No longer retrieve empty costs when fetching all costs for all events
 * Tweak - Change the priority of bootstrapping the-events-calendar to ensure it occurs before any of the TEC addons in the event some addons are upgraded to v4.0 later than TEC
