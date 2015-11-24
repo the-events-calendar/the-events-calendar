@@ -343,6 +343,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Drop the use of the generic CSS class "placeholder" in favor of "tribe-event-placeholder"
 * Tweak - Adjusted the CSS padding on Admin Menu items for Events
 * Tweak - Various codesniffer fixes
+* Tweak - Error messages for empty Venue names
+* Tweak - Improve our respossiviness for the widget mini calendar, allowing smaller sidebars.
 * Tweak - tribe_get_vanue_link() no longer echoes if you ask it to return an <a> element
 * Tweak - No longer retrieve empty costs when fetching all costs for all events
 * Tweak - Change the priority of bootstrapping the-events-calendar to ensure it occurs before any of the TEC addons in the event some addons are upgraded to v4.0 later than TEC
@@ -354,6 +356,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - Fixed bug causing tribe_get_single_ical_link() and tribe_get_ical_link() to use the same URL when it shouldn't (props to Ben Byrne @drywall on Twitter for the heads up!)
 * Fix - Fixed issue where the "Add another organizer" text wasn't using the correct singular label
 * Fix - Various CSS fixes for twenty(ten-fifteen)
+* Fix - Improved our handling of `get_current_screen()` across the plugin, avoiding notices and warnings
 * Fix - Fixed bug where accessing object properties on a non object errored out when saving event meta (props to @dalethedeveloper on GitHub for this fix!)
 * Fix - Fixed bug where organizer ID meta attached sometimes included a blank record. That blank record is no longer returned in tribe_get_organizer_ids()
 * Fix - Fixed error message returned when tabbing away from a blank event name meta box so that it properly indicates that an event name is required (our thanks to @tapan29bd for this fix!)
