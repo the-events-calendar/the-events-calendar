@@ -258,7 +258,7 @@ class Tribe__Events__Cost_Utils {
 			LIMIT 1
 		" );
 
-		return (int) $uncosted > 0;
+		return (bool) ( $uncosted > 0 );
 	}
 
 	/**
