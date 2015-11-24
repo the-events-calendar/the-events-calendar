@@ -12,7 +12,7 @@ class Tribe__Events__Cost_Utils {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return Tribe__Events__Cost_Helpers
+	 * @return Tribe__Events__Cost_Utils
 	 */
 	public static function instance() {
 		static $instance;
@@ -235,6 +235,30 @@ class Tribe__Events__Cost_Utils {
 	 */
 	public function get_minimum_cost( $costs = null ) {
 		return $this->get_cost_by_func( $costs, 'min' );
+	}
+
+	/**
+	 * Returns boolean true if there are events for which a cost has not been specified.
+	 *
+	 * @return bool
+	 */
+	public function has_uncosted_events() {
+		global $wpdb;
+
+		$uncosted = $wpdb->get_var( "
+			SELECT COUNT( * )
+			FROM   {$wpdb->posts}
+
+			LEFT JOIN {$wpdb->postmeta}
+			          ON ( post_id = ID AND meta_key = '_EventCost' )
+
+			WHERE LENGTH( meta_value ) = 0
+			      OR meta_value IS NULL
+
+			LIMIT 1
+		" );
+
+		return (bool) ( $uncosted > 0 );
 	}
 
 	/**
