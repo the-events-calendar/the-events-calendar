@@ -55,16 +55,16 @@
         },
         {
             "name": "codeception/codeception",
-            "version": "2.1.3",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "cd810cb78a869408602e17271f9b7368b09a7ca8"
+                "reference": "6a812e8a0d1b1db939a29b4dc14cb398b21b6112"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/cd810cb78a869408602e17271f9b7368b09a7ca8",
-                "reference": "cd810cb78a869408602e17271f9b7368b09a7ca8",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/6a812e8a0d1b1db939a29b4dc14cb398b21b6112",
+                "reference": "6a812e8a0d1b1db939a29b4dc14cb398b21b6112",
                 "shasum": ""
             },
             "require": {
@@ -131,7 +131,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-10-02 09:38:59"
+            "time": "2015-11-12 03:57:06"
         },
         {
             "name": "doctrine/instantiator",
@@ -403,16 +403,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "1.7.13",
+            "version": "1.7.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "8c40e2f44a0533cc205acea26de62360333e06ba"
+                "reference": "f22854b4c2ea2a30f5310bfae0cdad0315d3763e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/8c40e2f44a0533cc205acea26de62360333e06ba",
-                "reference": "8c40e2f44a0533cc205acea26de62360333e06ba",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/f22854b4c2ea2a30f5310bfae0cdad0315d3763e",
+                "reference": "f22854b4c2ea2a30f5310bfae0cdad0315d3763e",
                 "shasum": ""
             },
             "require": {
@@ -452,7 +452,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2015-11-10 17:38:51"
+            "time": "2015-11-17 14:04:36"
         },
         {
             "name": "phpdocumentor/reflection-docblock",

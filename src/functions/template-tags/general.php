@@ -743,6 +743,16 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Indicates if there events without a specific cost (as distinct from
+	 * free events).
+	 *
+	 * @return bool if uncosted events exist
+	 */
+	function tribe_has_uncosted_events() {
+		return Tribe__Events__Cost_Utils::instance()->has_uncosted_events();
+	}
+
+	/**
 	 * Maps the cost array to make finding the minimum and maximum costs possible.
 	 *
 	 * @category Cost

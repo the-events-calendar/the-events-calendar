@@ -1610,15 +1610,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function displayEventVenueDropdown( $post_id ) {
 			$venue_id = get_post_meta( $post_id, '_EventVenueID', true );
+
 			if (
 				( ! $post_id || get_post_status( $post_id ) === 'auto-draft' ) &&
 				! $venue_id &&
-				Tribe__Admin__Helpers::instance()->is_action( 'add' )
+				tribe_is_community_edit_event_page()
 			) {
 				$venue_id = $this->defaults()->venue_id();
 			}
-			$venue_id = apply_filters( 'tribe_display_event_venue_dropdown_id', $venue_id );
 
+			$venue_id = apply_filters( 'tribe_display_event_venue_dropdown_id', $venue_id );
 			?>
 			<tr>
 				<td style="width:170px"><?php printf( __( 'Use Saved %s:', 'the-events-calendar' ), $this->singular_venue_label ); ?></td>
@@ -1655,7 +1656,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if (
 				( ! $post_id || get_post_status( $post_id ) == 'auto-draft' ) &&
 				! $venue_id &&
-				Tribe__Admin__Helpers::instance()->is_action( 'add' )
+				tribe_is_community_edit_event_page()
 			) {
 				$venue_id = $this->defaults()->venue_id();
 			}
@@ -1681,10 +1682,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function displayEventOrganizerDropdown( $post_id ) {
 			$current_organizer = get_post_meta( $post_id, '_EventOrganizerID', true );
+
 			if (
 				( ! $post_id || get_post_status( $post_id ) === 'auto-draft' ) &&
 				! $current_organizer &&
-				Tribe__Admin__Helpers::instance()->is_action( 'add' )
+				tribe_is_community_edit_event_page()
 			) {
 				$current_organizer = $this->defaults()->organizer_id();
 			}

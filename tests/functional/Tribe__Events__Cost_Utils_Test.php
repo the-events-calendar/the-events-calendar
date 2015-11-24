@@ -2,6 +2,15 @@
 
 class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 	/**
+	 * Container for our test events. Each event will be stored as an array of
+	 * [ cost, post_id ] - in other words this is an array of arrays.
+	 *
+	 * @var array
+	 */
+	protected $test_events = [];
+
+
+	/**
 	 * Ensure we have events with a range of different costs and also
 	 * some events where the cost is not defined.
 	 */
@@ -10,7 +19,7 @@ class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 		parent::setUp();
 
 		$costs = [
-			null,
+			null, // a null value means the event has no cost - as distinct from being free
 			'4,92',
 			'4,999',
 			'5',
@@ -37,7 +46,10 @@ class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 				$new_event['EventCost'] = $event_cost;
 			}
 
-			tribe_create_event( $new_event );
+			$this->test_events[] = [
+				$event_cost,
+				tribe_create_event( $new_event )
+			];
 		}
 	}
 
@@ -54,7 +66,7 @@ class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 		);
 
 		$this->assertEquals( 1995.95, tribe_get_maximum_cost(),
-			'Expect a maximum cost of 100 units'
+			'Expect a maximum cost of 1995.95 units'
 		);
 	}
 
@@ -62,8 +74,28 @@ class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 	 *
 	 */
 	public function test_detect_uncosted_events() {
+		// Initially we should be able to detect an event without any cost
 		$this->assertTrue( tribe_has_uncosted_events(),
 			'We expect to find some events for which a cost has not been defined'
 		);
+
+		// Let's remove any uncosted test events and ensure the test works in reverse
+		$this->remove_uncosted_events();
+		$this->assertFalse( tribe_has_uncosted_events(),
+			'We do not expect to find events without a cost after they have been removed'
+		);
+	}
+
+	protected function remove_uncosted_events() {
+		foreach ( $this->test_events as $costed_event ) {
+			list( $cost, $event_id ) = $costed_event;
+
+			if ( null !== $cost ) {
+				continue;
+			}
+
+			wp_delete_post( $event_id, true );
+			unset( $this->test_events[ $event_id ] );
+		}
 	}
 }
