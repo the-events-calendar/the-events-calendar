@@ -12,7 +12,7 @@ class Tribe__Events__Cost_Utils {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return Tribe__Events__Cost_Helpers
+	 * @return Tribe__Events__Cost_Utils
 	 */
 	public static function instance() {
 		static $instance;
