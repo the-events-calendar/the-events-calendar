@@ -226,9 +226,9 @@ Our Premium Plugins:
 
 = [4.0 beta] unreleased =
 
-* Feature - Added Customizer support for altering the colors of The Events Calendar
+* Feature - Added Customizer support for altering the colors of The Events Calendar (Cheers to the anonymous user who posted the original idea on UserVoice!)
 * Feature - Added a new widget and shortcode called "This Week" that displays a events for a given week (with pagination). Short code is [tribe_this_week]
-* Feature - Add support for a countdown to the next upcoming event in the Countdown Widget
+* Feature - Add support for a countdown to the next upcoming event in the Countdown Widget (Thank you Phil de Gruchy for posting this idea on UserVoice!)
 * Feature - Add support for twentysixteen
 * Feature - Add support for an iCal export link for all events in a series of recurring events via: tribe_get_recurrence_ical_link()
 * Tweak - Major tweaks to support the newly genericized tribe-common libraries
@@ -236,28 +236,28 @@ Our Premium Plugins:
 * Tweak - Altered the storage of selected multichoice values for custom fields so they can be queried more effectively
 * Tweak - Add JSON-LD markup to single venus and organizers
 * Tweak - Only pre-populate address data for venues when the venue metabox appears on the venue post editor - NOT the event post editor
-* Tweak - Simplify the machine-generated recurrence rule descriptions for simple rules
-* Tweak - Add support for multiple organizers to the List Widget
+* Tweak - Simplify the machine-generated recurrence rule descriptions for simple rules (Thank you jberg1 for the help!)
+* Tweak - Add support for multiple organizers to the List Widget (Thank media325 for the report!)
 * Tweak - Remove microformat CSS classes from templates and replace with namespaced content-relevant CSS classes
 * Tweak - Add support for a count argument to the mini calendar shortcode
 * Tweak - Refactored part of recurrence code to make testing it easier
 * Fix - Resolved bug where recurrence exclusions were not getting respected while generating events
-* Fix - Resolved bug where extra spaces were added to the body_class return value (props to @garrettjohnson for this fix!)
+* Fix - Resolved bug where extra spaces were added to the body_class return value (Props to @garrettjohnson for this fix!)
 * Fix - Resolved issue where tribe_all_occurences_link() sometimes returned an incorrect URL when an explicit ID was passed
-* Fix - Don't escape HTML on additional fields that hold URLs
+* Fix - Don't escape HTML on additional fields that hold URLs (Thank you Gwenyth for bringing this to our attention!)
 * Fix - Updated comment in Week View tooltip and mobile templates to point at the right file for customization instructions
 * Fix - Fixed CSS issues with the responsiveness of the Calendar Widget & Countdown Widget
 * Fix - Prevent notices in the Venue Widget by declaring default settings
-* Fix - Resolved HTML validation issue with the Countdown Widget
+* Fix - Resolved HTML validation issue with the Countdown Widget (Thank you rverduin for reporting this issue!)
 * Fix - Various twenty(ten-sixteen) CSS fixes
 * Fix - Fixed bug where pre-3.12 recurrence events were returning false when tribe_is_recurring_event() was called
 * Fix - Fixed issue where a recurring event's "all" view would not display past instances
 * Fix - Fixed bug with APM where sorting some columns caused post filtering to clear
 * Fix - Fixed various notices
-* Fix - Fixed issue where some strings were trying to use the wrong textdomain for translations
+* Fix - Fixed issue where some strings were trying to use the wrong textdomain for translations (Props to Valu for the help!)
 * Fix - Fixed date issue with the List Widget where the fancy date box was always displaying today's date
-* Fix - Resolved a problem preventing some category views from working as expected when a non-default language was in use (our thanks to Cristina for highlighting this issue)
-* Fix - Resolved a problem whereby mini calendars could incorrectly render some days as populated when set to display events in a specific category (our thanks to oniregoc for highlighting this)
+* Fix - Resolved a problem preventing some category views from working as expected when a non-default language was in use (Thank you Cristina for highlighting this issue!)
+* Fix - Resolved a problem whereby mini calendars could incorrectly render some days as populated when set to display events in a specific category (Our thanks to oniregoc for highlighting this!)
 * Fix - Fixed some strings that were not getting translated (thanks to Hans-Gerd for reporting this issue!)
 * Fix - Fixed monthly exclusion not being respected when creating recurring events
 * Deprecated - Deprecating the "defaultValueReplace" option in the Default Content settings tab
