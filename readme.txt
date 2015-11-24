@@ -356,7 +356,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - Fixed bug causing tribe_get_single_ical_link() and tribe_get_ical_link() to use the same URL when it shouldn't (props to Ben Byrne @drywall on Twitter for the heads up!)
 * Fix - Fixed issue where the "Add another organizer" text wasn't using the correct singular label
 * Fix - Various CSS fixes for twenty(ten-fifteen)
-* Fix - Improved our handling of `get_current_screen()` across the plugin, avoiding notices and warnings
+* Fix - Improved our handling of `get_current_screen()` across the plugin, avoiding notices and warnings (Thank you Mike for the help!)
 * Fix - Fixed bug where accessing object properties on a non object errored out when saving event meta (props to @dalethedeveloper on GitHub for this fix!)
 * Fix - Fixed bug where organizer ID meta attached sometimes included a blank record. That blank record is no longer returned in tribe_get_organizer_ids()
 * Fix - Fixed error message returned when tabbing away from a blank event name meta box so that it properly indicates that an event name is required (our thanks to @tapan29bd for this fix!)
