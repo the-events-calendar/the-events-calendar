@@ -420,6 +420,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Add filters and actions
 		 */
 		protected function addHooks() {
+			// Since TEC is active, change the base page for the Event Settings page
+			Tribe__Settings::$parent_page = 'edit.php';
+
 			// Load Rewrite
 			add_action( 'plugins_loaded', array( Tribe__Events__Rewrite::instance(), 'hooks' ) );
 
