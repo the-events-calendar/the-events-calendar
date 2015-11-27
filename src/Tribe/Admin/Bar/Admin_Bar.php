@@ -49,7 +49,7 @@ class Tribe__Events__Admin__Bar__Admin_Bar {
 	public function is_enabled() {
 		$disabled = isset( $this->constants['TRIBE_DISABLE_TOOLBAR_ITEMS'] ) && $this->constants['TRIBE_DISABLE_TOOLBAR_ITEMS'];
 
-		return ( !( $disabled || is_network_admin()));
+		return ( ! ( $disabled || is_network_admin() ) );
 	}
 
 	/**

@@ -10,5 +10,5 @@ interface Tribe__Events__Admin__Bar__Configurator_Interface {
 	 *
 	 * @return mixed
 	 */
-	public function configure(WP_Admin_Bar $wp_admin_bar );
+	public function configure( WP_Admin_Bar $wp_admin_bar );
 }
