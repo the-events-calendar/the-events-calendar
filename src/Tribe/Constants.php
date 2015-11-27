@@ -4,7 +4,7 @@
 class Tribe__Events__Constants implements ArrayAccess {
 
 	/**
-	 * @var bool Whether the class will really define constants or not.
+	 * @var bool Whether the class will define and read real constants or not.
 	 */
 	protected $volatile;
 
@@ -13,19 +13,44 @@ class Tribe__Events__Constants implements ArrayAccess {
 	 */
 	protected $volatile_values;
 
+	/**
+	 * Tribe__Events__Constants constructor.
+	 *
+	 * @param bool $volatile If `true` the class will not define and read real constants.
+	 */
 	public function __construct( $volatile = false ) {
 		$this->volatile        = $volatile;
 		$this->volatile_values = [ ];
 	}
 
+	/**
+	 * Whether a constant is defined or not.
+	 *
+	 * @param string $offset
+	 *
+	 * @return bool
+	 */
 	public function offsetExists( $offset ) {
 		return $this->volatile ? isset( $this->volatile_values[ $offset ] ) : defined( $offset );
 	}
 
+	/**
+	 * Gets a constant value.
+	 *
+	 * @param string $offset
+	 *
+	 * @return mixed
+	 */
 	public function offsetGet( $offset ) {
 		return $this->volatile ? $this->volatile_values[ $offset ] : constant( $offset );
 	}
 
+	/**
+	 * Sets the value of a constant if not already defined.
+	 *
+	 * @param string $offset
+	 * @param mixed $value
+	 */
 	public function offsetSet( $offset, $value ) {
 		if ( $this->volatile && ! isset( $this->volatile_values[ $offset ] ) ) {
 			$this->volatile_values[ $offset ] = $value;
@@ -36,6 +61,11 @@ class Tribe__Events__Constants implements ArrayAccess {
 		}
 	}
 
+	/**
+	 * Unsets a constant if in volatile mode.
+	 *
+	 * @param string $offset
+	 */
 	public function offsetUnset( $offset ) {
 		if ( $this->volatile ) {
 			$this->volatile_values = array_diff( $this->volatile_values, array( $offset ) );
