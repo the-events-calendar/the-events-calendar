@@ -1,7 +1,6 @@
 <?php
 namespace Tribe\Events\Admin\Bar;
 
-use Pimple\Container;
 use Tribe__Events__Admin__Bar__Admin_Bar as Admin_Bar;
 use Tribe__Events__Constants as Constants;
 
