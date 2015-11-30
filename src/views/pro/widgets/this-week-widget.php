@@ -43,7 +43,9 @@ if ( ( isset( $args['widget_id'] ) || isset( $instance['widget_id'] ) ) && ( iss
 
 	//Set Highlight Color for Widget or For Shortcode based on ID from Respective System
 	$wrap_id = isset( $args['widget_id'] ) ? $args['widget_id'] : '';
-	$wrap_id = isset( $instance['widget_id'] ) ? 'tribe-this-week-events-widget-100' . $instance['widget_id'] : $wrap_id;
+    if ( is_numeric( $wrap_id ) ) {
+        $wrap_id = isset( $instance['widget_id'] ) ? 'tribe-this-week-events-widget-100' . $instance['widget_id'] : $wrap_id;
+    }
 ?>
 
 	<style>
