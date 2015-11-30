@@ -109,7 +109,7 @@ JS;
 		$ids = $this->get_all_the_ids_on_the_page( $I );
 		foreach ( $ids as $id ) {
 			$count = $this->count_elements_with_id( $I, $id );
-			$I->assertEquals( 1, $count );
+			$I->assertEquals( 1, $count, "Multiple instances ({$count}) of the '{$id}' id attribute were found on the page." );
 		}
 	}
 }
