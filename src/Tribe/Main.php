@@ -627,7 +627,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			} elseif ( ! $help->is_active( array( 'events-calendar-pro', 'event-tickets' ) ) ) {
 
-				$link = '<a href="https://wordpress.org/plugins/the-events-calendar/" target="_blank">' . esc_html__( 'open-source forum on WordPress.org', 'the-events-calendar' ) . '</a>';
+				$link = '<a href="https://wordpress.org/support/plugin/the-events-calendar" target="_blank">' . esc_html__( 'open-source forum on WordPress.org', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( 'If you have tried the above steps and are still having trouble, you can post a new thread to our %s. Our support staff monitors these forums once a week and would be happy to assist you there.', 'the-events-calendar' ), $link ), 20 );
 
 				$link_forum = '<a href="http://m.tri.be/4w/" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
