@@ -1,6 +1,7 @@
 <?php
 namespace Tribe\Events\Admin\Bar;
 
+use Tribe\Events\Test\WP_Screen;
 use Tribe__Events__Admin__Bar__Admin_Bar as Admin_Bar;
 use Tribe__Events__Constants as Constants;
 
@@ -45,8 +46,8 @@ class Admin_BarTest extends \Codeception\TestCase\WPTestCase {
 		// $screen->in_admin( 'network' )->willReturn( true );
 		// $GLOBALS['current_screen'] = $screen->reveal();
 
-		// so we mock the screnn object the 1995 way
-		$GLOBALS['current_screen'] = new Dummy_WP_Screen( true );
+		// so we mock the screen object the 1995 way
+		$GLOBALS['current_screen'] = new WP_Screen( ['in_admin'=>true] );
 
 		$sut = new Admin_Bar();
 
@@ -67,23 +68,5 @@ class Admin_BarTest extends \Codeception\TestCase\WPTestCase {
 		$sut->init( $admin_bar );
 
 		$configurator->configure( $admin_bar )->shouldHaveBeenCalled();
-	}
-}
-
-
-class Dummy_WP_Screen {
-
-	/**
-	 * @var bool
-	 */
-	private $in_admin;
-
-	public function __construct( $in_admin ) {
-
-		$this->in_admin = $in_admin;
-	}
-
-	public function in_admin() {
-		return $this->in_admin;
 	}
 }
