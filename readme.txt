@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3.1
-Stable tag: 4.0beta2
+Stable tag: 4.0rc1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -204,6 +204,8 @@ But wait: there's more! We've got a whole stable of plugins available to help yo
 
 Our Free Plugins:
 
+* <a href="https://wordpress.org/plugins/the-events-calendar/" target="_blank">The Events Calendar</a>
+* <a href="http://m.tri.be/18vx" target="_blank">Event Tickets</a>
 * <a href="http://wordpress.org/extend/plugins/advanced-post-manager/?ref=tec-readme" target="_blank">Advanced Post Manager</a>
 * <a href="http://wordpress.org/plugins/blog-copier/?ref=tec-readme" target="_blank">Blog Copier</a>
 * <a href="http://wordpress.org/plugins/image-rotation-repair/?ref=tec-readme" target="_blank">Image Rotation Widget</a>
@@ -211,16 +213,13 @@ Our Free Plugins:
 
 Our Premium Plugins:
 
-* <a href="http://m.tri.be/2c" target="_blank">Events Calendar PRO</a>
+* <a href="http://m.tri.be/18vy" target="_blank">Events Tickets Plus</a>
 * <a href="http://m.tri.be/2e" target="_blank">The Events Calendar: Eventbrite Tickets</a>
 * <a href="http://m.tri.be/2g" target="_blank">The Events Calendar: Community Events</a>
+* <a href="http://m.tri.be/18vw" target="_blank">The Events Calendar: Community Tickets</a>
 * <a href="http://m.tri.be/2h" target="_blank">The Events Calendar: Facebook Events</a>
-* <a href="http://m.tri.be/2i" target="_blank">The Events Calendar: WooCommerce Tickets</a>
-* <a href="http://m.tri.be/ci" target="_blank">The Events Calendar: EDD Tickets Tickets</a>
-* <a href="http://m.tri.be/cu" target="_blank">The Events Calendar: WPEC Tickets</a>
-* <a href="http://m.tri.be/dp" target="_blank">The Events Calendar: Shopp Tickets</a>
-* <a href="http://m.tri.be/fa" target="_blank">The Events Calendar: Filter Bar</a>
 * <a href="http://m.tri.be/18h9" target="_blank">The Events Calendar: iCal Importer</a>
+* <a href="http://m.tri.be/fa" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
 
@@ -241,6 +240,7 @@ Our Premium Plugins:
 * Tweak - Remove microformat CSS classes from templates and replace with namespaced content-relevant CSS classes
 * Tweak - Add support for a count argument to the mini calendar shortcode
 * Tweak - Refactored part of recurrence code to make testing it easier
+* Fix - Resolved bug where recurrence exclusions were not getting respected while generating events
 * Fix - Resolved bug where extra spaces were added to the body_class return value (Props to @garrettjohnson for this fix!)
 * Fix - Resolved issue where tribe_all_occurences_link() sometimes returned an incorrect URL when an explicit ID was passed
 * Fix - Don't escape HTML on additional fields that hold URLs (Thank you Gwenyth for bringing this to our attention!)
@@ -257,6 +257,8 @@ Our Premium Plugins:
 * Fix - Fixed date issue with the List Widget where the fancy date box was always displaying today's date
 * Fix - Resolved a problem preventing some category views from working as expected when a non-default language was in use (Thank you Cristina for highlighting this issue!)
 * Fix - Resolved a problem whereby mini calendars could incorrectly render some days as populated when set to display events in a specific category (Our thanks to oniregoc for highlighting this!)
+* Fix - Fixed some strings that were not getting translated (thanks to Hans-Gerd for reporting this issue!)
+* Fix - Fixed monthly exclusion not being respected when creating recurring events
 * Deprecated - Deprecating the "defaultValueReplace" option in the Default Content settings tab
 
 = [3.12.6] 2015-11-05 =

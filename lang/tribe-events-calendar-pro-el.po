@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-17 12:49:07+0000\n"
+"PO-Revision-Date: 2015-11-10 15:21:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -37,195 +37,195 @@ msgstr ",<br> και"
 
 #: src/Tribe/Recurrence_Meta.php:1206
 msgid "An event every day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Καθημερινή εκδήλωση που διαρκεί  %1$s μέρα(ες) και %2$s ώρα(ες) και η τελευταία θα είναι στις %3$s"
 
 #: src/Tribe/Recurrence_Meta.php:1207
 msgid "An event every day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Καθημερινή εκδήλωση που διαρκεί  %1$s μέρα(ες) και %2$s ώρα(ες) και θα δημιουργηθούν %3$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1208
 msgid "An event every day that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Καθημερινή εκδήλωση που διαρκεί  %1$s μέρα(ες) και %2$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1209
 msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Την ίδια μέρα κάθε βδομάδα, θα διαρκεί  %1$s μέρα(ες) και %2$s ώρα(ες) και η τελευταία θα είναι στις %3$s"
 
 #: src/Tribe/Recurrence_Meta.php:1210
 msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Την ίδια μέρα κάθε βδομάδα, θα διαρκεί  %1$s μέρα(ες) και %2$s ώρα(ες) και θα δημιουργηθούν %3$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1211
 msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Την ίδια μέρα κάθε βδομάδα, θα διαρκεί  %1$s μέρα(ες) και %2$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1212
 msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Την ίδια μέρα κάθε μήνα, θα διαρκεί  %1$s μέρα(ες) και %2$s ώρα(ες) και η τελευταία θα είναι στις %3$s"
 
 #: src/Tribe/Recurrence_Meta.php:1213
 msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Την ίδια μέρα κάθε μήνα, θα διαρκεί  %1$s μέρα(ες) και %2$s ώρα(ες) και θα δημιουργηθούν %3$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1214
 msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Την ίδια μέρα κάθε μήνα, θα διαρκεί  %1$s μέρα(ες) και %2$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1215
 msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Την ίδια μέρα κάθε χρόνο, θα διαρκεί  %1$s μέρα(ες) και %2$s ώρα(ες) και η τελευταία θα είναι στις %3$s"
 
 #: src/Tribe/Recurrence_Meta.php:1216
 msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Την ίδια μέρα κάθε χρόνο, θα διαρκεί  %1$s μέρα(ες) και %2$s ώρα(ες) και θα δημιουργηθούν %3$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1217
 msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Την ίδια μέρα κάθε χρόνο, θα διαρκεί  %1$s μέρα(ες) και %2$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1218
 msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), the last of which will begin on %4$s"
-msgstr ""
+msgstr "Mια δραστηριότητα κάθε %1$s μέρα(ες) που θα διαρκεί %2$s μέρα(ες) και %3$s ώρα(ες) και η τελευταία θα είναι στις %4$s"
 
 #: src/Tribe/Recurrence_Meta.php:1219
 msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), but only create %4$s event(s)"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μέρα(ες) που θα διαρκεί %2$s μέρα(ες) και %3$s ώρα(ες) και θα δημιουργηθούν %4$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1220
 msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s) with no end date"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μέρα(ες) που θα διαρκεί %2$s μέρα(ες) και %3$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1221
 msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μέρα(ες) που αρχίζει στις %2$s, διαρκεί %3$s μέρα(ες) %4$s ώρα(ες) και η τελευταία θα αρχίσει στις %5$s"
 
 #: src/Tribe/Recurrence_Meta.php:1222
 msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μέρα(ες) που αρχίζει στις %2$s, διαρκεί %3$s μέρα(ες) %4$s ώρα(ες) και θα δημιουργηθούν %5$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1223
 msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s) with no end date"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μέρα(ες) που αρχίζει στις %2$s, διαρκεί %3$s μέρα(ες) %4$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1224
 msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s βδομάδα(ες) την %2$s, που διαρκεί %3$s μέρα(ες) και %4$s ώρα(ες) και η τελευταία θα αρχίσει στις %5$s"
 
 #: src/Tribe/Recurrence_Meta.php:1225
 msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s βδομάδα(ες) την %2$s, που διαρκεί %3$s μέρα(ες) και %4$s ώρα(ες) και θα δημιουργηθούν %5$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1226
 msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s βδομάδα(ες) την %2$s, που διαρκεί %3$s μέρα(ες) και %4$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1227
 msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s βδομάδα(ες) την %2$s, που αρχίζει στις %3$s, διαρκεί %4$s μέρα(ες) και %5$s ώρα(ες) και η τελευταία είναι στις %6$s"
 
 #: src/Tribe/Recurrence_Meta.php:1228
 msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s βδομάδα(ες) την %2$s, που αρχίζει στις %3$s, διαρκεί %4$s μέρα(ες) και %5$s ώρα(ες) και θα δημιουργηθούν %6$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1229
 msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s βδομάδα(ες) την %2$s, που αρχίζει στις %3$s, διαρκεί %4$s μέρα(ες) και %5$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1230
 msgid "An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μήνα(ες), την %2$s, που διαρκεί %3$s μέρα(ες) και %4$s ώρα(ες) και η τελευταία είναι στις %5$s"
 
 #: src/Tribe/Recurrence_Meta.php:1231
 msgid "An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μήνα(ες), την %2$s, που διαρκεί %3$s μέρα(ες) και %4$s ώρα(ες) και θα δημιουργηθούν %5$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1232
 msgid "An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μήνα(ες), την %2$s, που διαρκεί %3$s μέρα(ες) και %4$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1233
 msgid "An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μήνα(ες), την %2$s, που αρχίζει στις %3$s, διαρκεί %4$s μέρα(ες) και %5$s ώρα(ες) και η τελευταία είναι στις %6$s"
 
 #: src/Tribe/Recurrence_Meta.php:1234
 msgid "An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μήνα(ες), την %2$s, που αρχίζει στις %3$s, διαρκεί %4$s μέρα(ες) και %5$s ώρα(ες) και θα δημιουργήσει %6$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1235
 msgid "An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μήνα(ες), την %2$s, που αρχίζει στις %3$s, διαρκεί %4$s μέρα(ες) και %5$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1236
 msgid "An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μήνα(ες), την %2$s, που διαρκεί %3$s μέρα(ες) και %4$s ώρα(ες) και η τελευταία είναι στις %5$s"
 
 #: src/Tribe/Recurrence_Meta.php:1237
 msgid "An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μήνα(ες), την %2$s, που διαρκεί %3$s μέρα(ες) και %4$s ώρα(ες) και θα δημιουργηθούν %5$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1238
 msgid "An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μήνα(ες), την %2$s, που διαρκεί %3$s μέρα(ες) και %4$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1239
 msgid "An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %7$s"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μήνα(ες), την %2$s, που αρχίζει στις %3$s, διαρκεί %4$s μέρα(ες) και %5$s ώρα(ες) και η τελευταία είναι στις %7$s"
 
 #: src/Tribe/Recurrence_Meta.php:1240
 msgid "An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μήνα(ες), την %2$s, που αρχίζει στις %3$s, διαρκεί %4$s μέρα(ες) και %5$s ώρα(ες) και θα δημιουργήσει %6$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1241
 msgid "An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s μήνα(ες), την %2$s, που αρχίζει στις %3$s, διαρκεί %4$s μέρα(ες) και %5$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1242
 msgid "An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s χρόνο(ια), τον %2$s, την %3$s μέρα, που διαρκεί %4$s μέρα(ες) και %5$s ώρα(ες) και η τελευταία είναι στις %6$s"
 
 #: src/Tribe/Recurrence_Meta.php:1243
 msgid "An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s χρόνο(ια), τον %2$s, την %3$s μέρα, που διαρκεί %4$s μέρα(ες) και %5$s ώρα(ες) και θα δημιουργηθούν %6$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1244
 msgid "An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s) with no end date"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s χρόνο(ια), τον %2$s, την %3$s μέρα, που διαρκεί %4$s μέρα(ες) και %5$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1245
 msgid "An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), the last of which will begin on %7$s"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s χρόνο(ια), τον %2$s, την %3$s μέρα, που αρχίζει στις %4$s και διαρκεί %5$s μέρα(ες) και %6$s ώρα(ες) και η τελευταία είναι στις %7$s"
 
 #: src/Tribe/Recurrence_Meta.php:1246
 msgid "An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), but only create %7$s event(s)"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s χρόνο(ια), τον %2$s, την %3$s μέρα, που αρχίζει στις %4$s και διαρκεί %5$s μέρα(ες) και %6$s ώρα(ες) και θα δημιουργηθούν %7$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1247
 msgid "An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s) with no end date"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s χρόνο(ια), τον %2$s, την %3$s μέρα, που αρχίζει στις %4$s και διαρκεί %5$s μέρα(ες) και %6$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1248
 msgid "An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s χρόνο(ια), τον %2$s, την %3$s μέρα, που διαρκεί %4$s μέρα(ες) και %5$s ώρα(ες) και η τελευταία θα αρχίσει στις %6$s"
 
 #: src/Tribe/Recurrence_Meta.php:1249
 msgid "An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s χρόνο(ια), τον %2$s, την %3$s μέρα, που διαρκεί %4$s μέρα(ες) και %5$s ώρα(ες) και θα δημιουργηθούν %6$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1250
 msgid "An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s) with no end date"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s χρόνο(ια), τον %2$s, την %3$s μέρα, που διαρκεί %4$s μέρα(ες) και %5$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1251
 msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), the last of which will begin on %7$s"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s χρόνο(ια), τον %2$s, την %3$s, που αρχίζει στις %4$s και διαρκεί %5$s μέρα(ες) και %6$s ώρα(ες) και η τελευταία είναι στις %7$s"
 
 #: src/Tribe/Recurrence_Meta.php:1252
 msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), but only create %7$s event(s)"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s χρόνο(ια), τον %2$s, την %3$s μέρα, που αρχίζει στις %4$s και διαρκεί %5$s μέρα(ες) και %6$s ώρα(ες) και θα δημιουργηθούν %7$s επαναλήψεις"
 
 #: src/Tribe/Recurrence_Meta.php:1253
 msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s) with no end date"
-msgstr ""
+msgstr "Μια δραστηριότητα κάθε %1$s χρόνο(ια), τον %2$s, την %3$s μέρα, που αρχίζει στις %4$s και διαρκεί %5$s μέρα(ες) και %6$s ώρα(ες) και δεν έχει ημερομηνία λήξης"
 
 #: src/Tribe/Recurrence_Meta.php:1289
 msgctxt "Joins the last item in a list of items (i.e. the \"and\" in Monday, Tuesday, and Wednesday)"
@@ -1638,7 +1638,7 @@ msgstr "Διεύθυνση"
 
 #: src/Tribe/Geo_Loc.php:283
 msgid "Use latitude + longitude"
-msgstr ""
+msgstr "Χρήση γεωγραφικού πλάτους + μήκους"
 
 #: src/admin-views/tribe-options-defaults.php:103
 msgid "You can use this setting to set specific, individual defaults for any new Venue you create (these will not be used for your default venue)."
@@ -1646,7 +1646,7 @@ msgstr "Μπορείτε να χρησιμοποιήσετε αυτήν τη ρ�
 
 #: src/Tribe/Geo_Loc.php:287
 msgid "Latitude"
-msgstr ""
+msgstr "Γεωγραφικό πλάτος"
 
 #: src/admin-views/tribe-options-defaults.php:107
 msgid "Default address"
@@ -1654,7 +1654,7 @@ msgstr "Προεπιλεγμένη διεύθυνση"
 
 #: src/Tribe/Geo_Loc.php:288
 msgid "Longitude"
-msgstr ""
+msgstr "Γεωγραφικό μήκος"
 
 #: src/admin-views/tribe-options-defaults.php:120
 msgid "Default city"
