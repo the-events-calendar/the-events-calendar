@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3.1
-Stable tag: 4.0beta2
+Stable tag: 4.0rc1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,7 +73,7 @@ Just getting started? Definitely watch and read through the <a href="http://m.tr
 Looking for something else?
 
 * <a href="http://m.tri.be/2c">Events Calendar PRO</a>: recurring events, a whole range of new views ( week / map / photo / venue / organizer) & widgets (calendar / featured venue / week / event countdown), custom event attributes, default content, location search and a lot more.
-* Sell tickets, collect sales, and manage attendees all from within your WordPress dashboard! Combine our <a href="http://m.tri.be/18wg">Tickets Plus add-on</a> with your favorite ecommerce plugin (WooCommerce, Shopp, Easy Digital Downloads, or WP E-commerce). 
+* Sell tickets, collect sales, and manage attendees all from within your WordPress dashboard! Combine our <a href="http://m.tri.be/18wg">Tickets Plus add-on</a> with your favorite ecommerce plugin (WooCommerce, Shopp, Easy Digital Downloads, or WP E-commerce).
 * <a href="http://m.tri.be/2h">Import events from Facebook</a> or let your <a href="http://m.tri.be/2g">users submit events</a> from right on your website!
 * Have so many amazing events that your users get overwhelmed? Drop some filters on them with the <a href="http://m.tri.be/52" target="_blank">Filter Bar plugin</a>.
 * Connect with your Eventbrite.com account! Import/export between The Events Calendar and Eventbrite, plus ticket sales. Check out the <a href="http://m.tri.be/18wf">Eventbrite Tickets</a> add-on!
@@ -155,7 +155,7 @@ Currently, the following add-ons are available for The Events Calendar:
 
 * <a href="http://m.tri.be/18wi">Events Calendar PRO</a>, for adding premium calendar features like recurring events, advanced views, cool widgets, shortcodes, additional fields, and more!
 * <a href="http://m.tri.be/18wj">Event Tickets</a> (free), which allows you to collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds RSVP functionality to WordPress posts and pages.
-* <a href="http://m.tri.be/18wk">Tickets Plus</a>, which allows you to sell tickets for your events using your favorite e-commerce platform. 
+* <a href="http://m.tri.be/18wk">Tickets Plus</a>, which allows you to sell tickets for your events using your favorite e-commerce platform.
 * <a href="http://m.tri.be/2g">Community Events</a>, for allowing frontend event submission from your readers.
 * <a href="http://m.tri.be/18wl">Community Tickets</a>, which allows event organizers to sell tickets to the events they submit via Community Events.
 * <a href="http://m.tri.be/2h">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
@@ -336,6 +336,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Adjusted the CSS padding on Admin Menu items for Events
 * Tweak - Various codesniffer fixes
 * Tweak - tribe_get_venue_link() no longer echoes if you ask it to return an <a> element
+* Tweak - Error messages for empty Venue names
+* Tweak - Improve our responsiveness for the widget mini calendar, allowing smaller sidebars.
 * Tweak - No longer retrieve empty costs when fetching all costs for all events
 * Tweak - Change the priority of bootstrapping the-events-calendar to ensure it occurs before any of the TEC addons in the event some addons are upgraded to v4.0 later than TEC
 * Tweak - Adjust the logic used for adding a noindex/follow tag to event views
@@ -346,12 +348,14 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - Fixed bug causing tribe_get_single_ical_link() and tribe_get_ical_link() to use the same URL when it shouldn't (Props to Ben Byrne @drywall on Twitter for the heads up!)
 * Fix - Fixed issue where the "Add another organizer" text wasn't using the correct singular label (Thank you MIKE for the report!)
 * Fix - Various CSS fixes for twenty(ten-fifteen)
-* Fix - Fixed bug where accessing object properties on a non object errored out when saving event meta (Props to @dalethedeveloper on GitHub for this fix!)
+* Fix - Improved our handling of `get_current_screen()` across the plugin, avoiding notices and warnings (Thank you Mike for the help!)
+* Fix - Fixed bug where accessing object properties on a non object errored out when saving event meta (props to @dalethedeveloper on GitHub for this fix!)
 * Fix - Fixed bug where organizer ID meta attached sometimes included a blank record. That blank record is no longer returned in tribe_get_organizer_ids()
 * Fix - Fixed error message returned when tabbing away from a blank event name meta box so that it properly indicates that an event name is required (Our thanks to @tapan29bd for this fix!)
 * Fix - Resolved issue where Timezone event start/end date property name strings were malformed which guaranteed a a call to get_post_meta for Timezone date strings
 * Fix - Fixed CSS issue where the month view calendar could sometimes extend beyond the edge of the page when Skeleton Styles were enabled
 * Fix - Fixed a problem where iCal data was generated with incorrect dates in the case of some all days events (thanks to Matt for highlighting this)
+* Fix - Resolved a problem causing the previous month view to appear when it should not
 * Deprecated - The Tribe__Events__Main::defaultValueReplaceEnabled() method is being deprecated in favor of tribe_get_option('defaultValueReplace'). Schedules for removal in v4.5
 * Deprecated - The tribe_event_link() has been deprecated in favor of tribe_get_event_link(). Scheduled for removal in 5.0
 * Deprecated - The third parameter of tribe_get_organizer_link() (the $echo parameter) has been deprecated and is scheduled for removal in 5.0
