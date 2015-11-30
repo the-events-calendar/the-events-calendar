@@ -20,7 +20,7 @@ class Tribe__Events__Constants implements ArrayAccess {
 	 */
 	public function __construct( $volatile = false ) {
 		$this->volatile        = $volatile;
-		$this->volatile_values = [ ];
+		$this->volatile_values = array();
 	}
 
 	/**
