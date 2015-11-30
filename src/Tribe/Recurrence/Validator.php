@@ -103,7 +103,8 @@ class Tribe__Events__Pro__Recurrence__Validator {
 
 	protected function ensure_all_data() {
 		$empty_custom_key   = empty( $this->recurrence_meta['custom'] );
-		$not_a_valid_custom = empty( array_intersect( Tribe__Events__Pro__Recurrence__Custom_Types::data_keys(), array_keys( $this->recurrence_meta['custom'] ) ) );
+		$custom_keys = array_intersect( Tribe__Events__Pro__Recurrence__Custom_Types::data_keys(), array_keys( $this->recurrence_meta['custom'] ) );
+		$not_a_valid_custom = empty( $custom_keys );
 		if ( $empty_custom_key || $not_a_valid_custom ) {
 			throw new RuntimeException( __( 'Custom recurrences must have all data present.', 'tribe-events-calendar-pro' ) );
 		}
