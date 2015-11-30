@@ -128,8 +128,8 @@
 							$day_of_month   = (int) date( 'j', $first_date );
 
 							// Add the relevant number of weeks
-							$week         = $nth_week > 0 ? $nth_week : abs($nth_week );
-							$direction = $nth_week > 0 ? 1 : -1;
+							$week         = $nth_week > 0 ? $nth_week : abs( $nth_week );
+							$direction    = $nth_week > 0 ? 1 : - 1;
 							$day_of_month = date( 'j', Tribe__Date_Utils::get_weekday_timestamp( $day, $week, $month, $year, $direction ) );
 
 							// Form a timestamp representing this day of the week in the appropriate week of the month
