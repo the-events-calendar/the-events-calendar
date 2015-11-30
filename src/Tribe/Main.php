@@ -580,7 +580,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function add_help_section_feature_box_content( $help ) {
 			$link = '<a href="http://m.tri.be/18j8" target="_blank">' . esc_html__( 'New User Primer', 'the-events-calendar' ) . '</a>';
 
-			$help->add_section_content( 'feature-box', sprintf( __( 'We are committed to helping make your calendar spectacular and have a wealth of resources available to help you out, including a handy %s that will help you get your calendar up and running.', 'the-events-calendar' ), $link ) );
+			$help->add_section_content( 'feature-box', sprintf( __( 'We are committed to helping make your calendar spectacular and have a wealth of resources available, including a handy %s to get your calendar up and running.', 'the-events-calendar' ), $link ) );
 		}
 
 		/**
@@ -596,15 +596,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$help->add_section_content( 'support', array(
 				sprintf( __( '%s: A thorough walkthrough of The Events Calendar and the settings that are available to you.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18je" target="_blank">' . esc_html__( 'Settings overview', 'the-events-calendar' ) . '</a></strong>' ),
 
-				sprintf( __( '%s: A complete look at the feature you can expect to see right out of the box as well as how to use them.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18jc" target="_blank">' . esc_html__( 'Features overview', 'the-events-calendar' ) . '</a></strong>' ),
+				sprintf( __( '%s: A complete look at the features you can expect to see right out of the box as well as how to use them.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18jc" target="_blank">' . esc_html__( 'Features overview', 'the-events-calendar' ) . '</a></strong>' ),
 
 				sprintf( __( '%s: Our most comprehensive outline for customizing the calendar to suit your needs, including custom layouts and styles.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18jg" target="_blank">' . esc_html__( 'Themer’s Guide', 'the-events-calendar' ) . '</a></strong>' ),
 
 				sprintf( __( '%s: An overview of the default templates and styles that are included in the plugin, as well as how to change them.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18jd" target="_blank">' . esc_html__( 'Using stylesheets and page templates', 'the-events-calendar' ) . '</a></strong>' ),
 
-				sprintf( __( '%s: Do you see an issue with your calendar? Try following the steps in this guide first to see where it’s coming from and how to fix it.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18jb" target="_blank">' . esc_html__( 'Troubleshooting common problems', 'the-events-calendar' ) . '</a></strong>' ),
+				sprintf( __( '%s: Do you see an issue with your calendar? Go here first to find where it’s coming from and how to fix it.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18jb" target="_blank">' . esc_html__( 'Troubleshooting common problems', 'the-events-calendar' ) . '</a></strong>' ),
 
-				sprintf( __( '%s: A collection of neat ideas for customizing the calendar in interesting ways that we’ve collected over time.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18ja" target="_blank">' . esc_html__( 'Customizing the Events plugins', 'the-events-calendar' ) . '</a></strong>' ),
+				sprintf( __( '%s: Code and guides for customizing your calendar in useful and interesting ways.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18ja" target="_blank">' . esc_html__( 'Customizing the Events plugins', 'the-events-calendar' ) . '</a></strong>' ),
 			), 15 );
 		}
 
@@ -618,25 +618,25 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function add_help_section_extra_content( $help ) {
 			if ( ! $help->is_active( array( 'events-calendar-pro', 'event-tickets-plus' ) ) && $help->is_active( 'event-tickets' ) ) {
 
-				$link_tec = '<a href="@todo" target="_blank">' . esc_html__( 'The Events Calendar', 'the-events-calendar' ) . '</a>';
-				$link_et = '<a href="@todo" target="_blank">' . esc_html__( 'Events Tickets', 'the-events-calendar' ) . '</a>';
+				$link_tec = '<a href="https://wordpress.org/support/plugin/the-events-calendar/" target="_blank">' . esc_html__( 'The Events Calendar', 'the-events-calendar' ) . '</a>';
+				$link_et = '<a href="https://wordpress.org/support/plugin/event-tickets/" target="_blank">' . esc_html__( 'Events Tickets', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( 'If you have tried the above steps and are still having trouble, you can post a new thread to our WordPress.org forums for %1$s or %2$s. Our support staff monitors these forums once a week and would be happy to assist you there. ', 'the-events-calendar' ), $link_tec, $link_et ), 20 );
 
-				$link = '<a href="@todo" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
+				$link = '<a href="http://m.tri.be/4w/" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( '<strong>Looking for more immediate support?</strong> We offer %s with the purchase of any of our premium plugins. Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays', 'the-events-calendar' ), $link ), 20 );
 
 			} elseif ( ! $help->is_active( array( 'events-calendar-pro', 'event-tickets' ) ) ) {
 
-				$link = '<a href="@todo" target="_blank">' . esc_html__( 'open-source forum on WordPress.org', 'the-events-calendar' ) . '</a>';
+				$link = '<a href="https://wordpress.org/plugins/the-events-calendar/" target="_blank">' . esc_html__( 'open-source forum on WordPress.org', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( 'If you have tried the above steps and are still having trouble, you can post a new thread to our %s. Our support staff monitors these forums once a week and would be happy to assist you there.', 'the-events-calendar' ), $link ), 20 );
 
 				$link_forum = '<a href="http://m.tri.be/4w/" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
-				$link_plus = '<a href="@todo" target="_blank">' . esc_html__( 'Events Calendar PRO', 'the-events-calendar' ) . '</a>';
+				$link_plus = '<a href="http://m.tri.be/18n0" target="_blank">' . esc_html__( 'Events Calendar PRO', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( '<strong>Looking for more immediate support?</strong> We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays.', 'the-events-calendar' ), $link_forum, $link_plus ), 20 );
 
 			} else {
 
-				$link = '<a href="@todo" target="_blank">' . esc_html__( 'post a thread', 'the-events-calendar' ) . '</a>';
+				$link = '<a href="http://m.tri.be/4w/" target="_blank">' . esc_html__( 'post a thread', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( 'If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week).', 'the-events-calendar' ), $link ), 20 );
 
 			}
