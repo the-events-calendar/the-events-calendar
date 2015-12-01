@@ -57,6 +57,44 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 	)
 );
 
+$display_tab_fields = Tribe__Main::array_insert_after_key(
+	'dateWithYearFormat',
+	$display_tab_fields,
+	array(
+		'dateWithoutYearFormat'              => array(
+			'type'            => 'text',
+			'label'           => esc_html__( 'Date without year', 'tribe-common' ),
+			'tooltip'         => esc_html__( 'Enter the format to use for displaying dates without a year. Used when showing an event from the current year.', 'tribe-common' ),
+			'default'         => 'F j',
+			'size'            => 'medium',
+			'validation_type' => 'html',
+		),
+		'monthAndYearFormat'                 => array(
+			'type'            => 'text',
+			'label'           => esc_html__( 'Month and year format', 'tribe-common' ),
+			'tooltip'         => esc_html__( 'Enter the format to use for dates that show a month and year only. Used on month view.', 'tribe-common' ),
+			'default'         => 'F Y',
+			'size'            => 'medium',
+			'validation_type' => 'html',
+		),
+	)
+);
+
+$display_tab_fields = Tribe__Main::array_insert_after_key(
+	'dateTimeSeparator',
+	$display_tab_fields,
+	array(
+		'timeRangeSeparator'                 => array(
+			'type'            => 'text',
+			'label'           => esc_html__( 'Time range separator', 'tribe-common' ),
+			'tooltip'         => esc_html__( 'Enter the separator that will be used between the start and end time of an event.', 'tribe-common' ),
+			'default'         => ' - ',
+			'size'            => 'small',
+			'validation_type' => 'html',
+		),
+	)
+);
+
 $display_tab_fields = Tribe__Main::array_insert_before_key(
 	'tribeEventsDateFormatSettingsTitle',
 	$display_tab_fields,
