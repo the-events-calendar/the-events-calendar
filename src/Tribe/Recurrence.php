@@ -5,13 +5,13 @@
  */
 class Tribe__Events__Pro__Recurrence {
 	const NO_END = -1;
-	private   $start_date;
+	private $start_date;
 	/**
 	 * @var Tribe__Events__Utils__DST
 	 */
 	protected $start_date_dst;
-	private   $duration;
-	private   $end;
+	private $duration;
+	private $end;
 	/** @var Tribe__Events__Pro__Date_Series_Rules__Rules_Interface */
 	private $series_rules;
 	private $by_occurrence_count;
