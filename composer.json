@@ -15,5 +15,10 @@
   "prefer-stable": true,
   "config": {
     "preferred-install": "dist"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tribe\\Tests\\Modules\\Pro\\": "tests/_support/Modules"
+    }
   }
 }
