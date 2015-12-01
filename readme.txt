@@ -315,7 +315,7 @@ Our Premium Plugins:
 * Feature - Added support for timezones following the introduction of timezone support in The Events Calendar
 * Performance - Removed a no-longer needed join from many queries to provide faster page loads
 * Tweak - Pad SQL joins with spacing to avoid conflicts with other plugins that modify SQL (props to jeremyfelt)
-* Fix - Fixed issue where generating recurring events did not trigger the rebuilding of the known date range
+* Fix - Fixed issue where generating recurring events did not trigger the rebuilding of the known date range (Thanks to Elizabeth City and the many other forum users who reported this critical bug)
 * Fix - Fixed APM Start/End Date filters to stop showing SQL errors
 * Fix - Fixed an issue with additional fields not showing as selected when a symbol is included in the label (Props to Justin!)
 * Fix - Resolved issue where events without venues were showing up in Map View
