@@ -240,6 +240,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 = Translations =
 
 * Bulgarian
+* Catalan
 * Czech
 * Danish
 * Dutch
@@ -252,8 +253,10 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Icelandic
 * Italian
 * Lithuanian
+* Norwegian
 * Portuguese (Brazil)
 * Portuguese (Portugal)
+* Russian
 * Slovak
 * Spanish (Spain)
 * Swedish
