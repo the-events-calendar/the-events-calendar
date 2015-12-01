@@ -199,5 +199,33 @@
 
 			return;
 		}
+
+		/**
+		 * @return int
+		 */
+		public function get_years_between() {
+			return $this->years_between;
+		}
+
+		/**
+		 * @return array
+		 */
+		public function get_months_of_year() {
+			return $this->months_of_year;
+		}
+
+		/**
+		 * @return int|null
+		 */
+		public function get_week_of_month() {
+			return $this->week_of_month;
+		}
+
+		/**
+		 * @return int|null
+		 */
+		public function get_day_of_week() {
+			return $this->day_of_week;
+		}
 	}
 

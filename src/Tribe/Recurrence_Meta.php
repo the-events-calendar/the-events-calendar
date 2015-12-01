@@ -827,7 +827,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 		foreach ( array( 'rules', 'exclusions' ) as $rule_type ) {
 			foreach ( $recurrence_meta[ $rule_type ] as &$recurrence ) {
-				$rule = self::get_series_rule( $recurrence, $rule_type );
+				$rule = Tribe__Events__Pro__Recurrence__Series_Rules_Factory::instance()->build_from( $recurrence, $rule_type );
 
 				$custom_type = 'none';
 				$start_time  = null;
@@ -910,85 +910,12 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 *
 	 * @return Tribe__Events__Pro__Date_Series_Rules__Rules_Interface
 	 */
-	public static function get_series_rule( $recurrence, $rule_type = 'rules' ) {
-		if ( 'exclusions' === $rule_type ) {
-			$recurrence['type'] = 'Custom';
-		}
-
-		$rule = null;
-
-		if ( 'Custom' === $recurrence['type'] && ! isset( $recurrence['custom']['interval'] ) ) {
-			$recurrence['custom']['interval'] = 1;
-		}
-
-		if (
-			'Custom' === $recurrence['type']
-			&& isset( $recurrence['custom']['type'] )
-			&& 'Date' === $recurrence['custom']['type']
-		) {
-			$rule = new Tribe__Events__Pro__Date_Series_Rules__Date( strtotime( $recurrence['custom']['date']['date'] ) );
-		} elseif (
-			'Every Day' === $recurrence['type']
-			|| (
-				'Custom' === $recurrence['type']
-				&& isset( $recurrence['custom']['type'] )
-				&& 'Daily' === $recurrence['custom']['type'] )
-		) {
-			$rule = new Tribe__Events__Pro__Date_Series_Rules__Day( 'Every Day' === $recurrence['type'] ? 1 : $recurrence['custom']['interval'] );
-		} elseif ( 'Every Week' === $recurrence['type'] ) {
-			$rule = new Tribe__Events__Pro__Date_Series_Rules__Week( 1 );
-		} elseif (
-			'Custom' === $recurrence['type']
-			&& 'Weekly' === $recurrence['custom']['type']
-		) {
-			$rule = new Tribe__Events__Pro__Date_Series_Rules__Week(
-				$recurrence['custom']['interval'],
-				$recurrence['custom']['week']['day']
-			);
-		} elseif ( 'Every Month' === $recurrence['type'] ) {
-			$rule = new Tribe__Events__Pro__Date_Series_Rules__Month( 1 );
-		} elseif (
-			'Custom' === $recurrence['type']
-			&& 'Monthly' === $recurrence['custom']['type']
-		) {
-			$day_of_month = isset( $recurrence['custom']['month']['number'] ) && is_numeric( $recurrence['custom']['month']['number'] ) ? array( $recurrence['custom']['month']['number'] ) : null;
-			$month_number = self::ordinalToInt( $recurrence['custom']['month']['number'] );
-			$rule = new Tribe__Events__Pro__Date_Series_Rules__Month(
-				$recurrence['custom']['interval'],
-				$day_of_month,
-				$month_number,
-				$recurrence['custom']['month']['day']
-			);
-		} elseif ( 'Every Year' === $recurrence['type'] ) {
-			$rule = new Tribe__Events__Pro__Date_Series_Rules__Year( 1 );
-		} elseif (
-			'Custom' === $recurrence['type']
-			&& 'Yearly' === $recurrence['custom']['type']
-		) {
-			$rule = new Tribe__Events__Pro__Date_Series_Rules__Year(
-				$recurrence['custom']['interval'],
-				$recurrence['custom']['year']['month'],
-				empty( $recurrence['custom']['year']['filter'] ) ? null : $recurrence['custom']['year']['month-number'],
-				empty( $recurrence['custom']['year']['filter'] ) ? null : $recurrence['custom']['year']['month-day']
-			);
-		}
-
-		return $rule;
-	}//end get_series_rule
-
-	/**
-	 * Decide which rule set to use for finding all the dates in an event series
-	 *
-	 * @param array $postId The event to find the series for
-	 *
-	 * @return Tribe__Events__Pro__Date_Series_Rules__Rules_Interface
-	 */
 	public static function getSeriesRules( $postId ) {
 		$recurrence_meta = self::getRecurrenceMeta( $postId );
 		$rules = array();
 
 		foreach ( $recurrence_meta['rules'] as &$recurrence ) {
-			$rules[] = self::get_series_rule( $recurrence );
+			$rule = Tribe__Events__Pro__Recurrence__Series_Rules_Factory::instance()->build_from( $recurrence );
 		}//end foreach
 
 		return $rules;
@@ -1563,32 +1490,6 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		}
 
 		return $month_text;
-	}
-
-	/**
-	 * Convert an ordinal from an ECP recurrence series into an integer
-	 *
-	 * @param string $ordinal The ordinal number
-	 *
-	 * @return An integer representation of the ordinal
-	 */
-	private static function ordinalToInt( $ordinal ) {
-		switch ( $ordinal ) {
-			case 'First':
-				return 1;
-			case 'Second':
-				return 2;
-			case 'Third':
-				return 3;
-			case 'Fourth':
-				return 4;
-			case 'Fifth':
-				return 5;
-			case 'Last':
-				return - 1;
-			default:
-				return null;
-		}
 	}
 
 	/**

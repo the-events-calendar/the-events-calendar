@@ -141,7 +141,7 @@ class Tribe__Events__Pro__Recurrence__Validator {
 	 * @return bool
 	 */
 	private function is_monthly() {
-		$is_monthly = Tribe__Events__Pro__Recurrence__Custom_Types::MONTHLY === $this->recurrence_meta['custom']['type'];
+		$is_monthly = Tribe__Events__Pro__Recurrence__Custom_Types::MONTHLY_CUSTOM_TYPE === $this->recurrence_meta['custom']['type'];
 
 		return $is_monthly;
 	}
@@ -150,7 +150,7 @@ class Tribe__Events__Pro__Recurrence__Validator {
 	 * @return bool
 	 */
 	private function is_yearly() {
-		$is_yearly = Tribe__Events__Pro__Recurrence__Custom_Types::YEARLY === $this->recurrence_meta['custom']['type'];
+		$is_yearly = Tribe__Events__Pro__Recurrence__Custom_Types::YEARLY_CUSTOM_TYPE === $this->recurrence_meta['custom']['type'];
 
 		return $is_yearly;
 	}
