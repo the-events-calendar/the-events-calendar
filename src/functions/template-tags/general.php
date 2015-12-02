@@ -1111,7 +1111,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		if ( isset( $deprecated ) ) {
 			_deprecated_argument( __FUNCTION__, '3.10' );
 		}
-		return tribe_get_option( 'tribeEnableViews', array() );
+		return tribe_get_option( 'tribeEnableViews', array( 'month' ) );
 	}
 
 	/**
