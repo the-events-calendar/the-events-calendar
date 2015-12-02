@@ -4,7 +4,9 @@
 class Tribe__Events__Utils__DST {
 
 	/**
-	 * @var bool|null
+	 * Whether the time is in DST or not.
+	 *
+	 * @var bool
 	 */
 	protected $_in_dst;
 
@@ -12,6 +14,11 @@ class Tribe__Events__Utils__DST {
 	 * @var string A UNIX timestamp
 	 */
 	protected $time;
+
+	/**
+	 * @var bool
+	 */
+	protected $is_dst_cache;
 
 	/**
 	 * Tribe__Events__Utils__DST constructor.
@@ -34,7 +41,18 @@ class Tribe__Events__Utils__DST {
 	 * @return bool
 	 */
 	public function is_in_dst() {
-		return is_null( $this->_in_dst ) ? (bool) date( 'I', $this->time ) : $this->_in_dst;
+		//wwid
+		if ( is_null($this->is_dst_cache) ) {
+			$default_timezone_backup = date_default_timezone_get();
+			$wp_timezone_string      = get_option( 'timezone_string' );
+			$wp_timezone_string      = empty( $wp_timezone_string ) ? $default_timezone_backup : $wp_timezone_string;
+
+			date_default_timezone_set( $wp_timezone_string );
+			$this->is_dst_cache = is_null( $this->_in_dst ) ? (bool) date( 'I', $this->time ) : $this->_in_dst;
+			date_default_timezone_set( $default_timezone_backup );
+		}
+
+		return $this->is_dst_cache;
 	}
 
 	/**
