@@ -9,6 +9,11 @@ class Tribe__Events__Utils__DST {
 	protected $_in_dst;
 
 	/**
+	 * @var string A UNIX timestamp
+	 */
+	protected $time;
+
+	/**
 	 * Tribe__Events__Utils__DST constructor.
 	 *
 	 * @param int|string $time    Either a UNIX timestamp or an english format date.
