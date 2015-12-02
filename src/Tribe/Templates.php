@@ -127,8 +127,27 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 					add_action( 'loop_start', array( __CLASS__, 'setup_ecp_template' ) );
 				}
 
-				$template = locate_template( tribe_get_option( 'tribeEventsTemplate', 'default' ) == 'default' ? 'page.php' : tribe_get_option( 'tribeEventsTemplate', 'default' ) );
+				// Get template setting
+				$tribeEventsTemplate = tribe_get_option( 'tribeEventsTemplate', 'default' );
+				
+				// Default template
+				if ( 'default' == $tribeEventsTemplate ) {
 
+					// Check for singular.php else fallback to page.php
+					if ( ! $template = locate_template( 'page.php' ) ) {
+						$template = locate_template( 'singular.php');
+					}
+
+				}
+
+				// Custom template
+				else {
+
+					$template = $tribeEventsTemplate;
+
+				}
+
+				// Fallback template
 				if ( $template == '' ) {
 					$template = get_index_template();
 				}
