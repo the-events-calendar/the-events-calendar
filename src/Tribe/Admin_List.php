@@ -99,7 +99,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			}
 
 			if ( ! empty( $clauses['orderby'] ) ) {
-				$clauses['orderby'] .= ',';
+				$original_orderby = $clauses['orderby'];
 			}
 
 			$start_orderby = "tribe_event_start_date.meta_value {$sort_direction}";
@@ -111,7 +111,12 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				$date_orderby = "{$end_orderby}, {$start_orderby}";
 			}
 
-			$clauses['orderby'] .= $date_orderby;
+			// Add the date orderby rules *before* any pre-existing orderby rules (to stop them being "trumped")
+			$revised_orderby = empty( $original_orderby )
+				? $date_orderby
+				: "$date_orderby, $original_orderby";
+
+			$clauses['orderby'] = $revised_orderby;
 
 			return $clauses;
 		}
