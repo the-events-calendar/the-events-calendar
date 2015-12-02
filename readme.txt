@@ -225,7 +225,7 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.0 beta] unreleased =
+= [4.0] 2015-12-02 =
 
 * Feature - Added Customizer support for altering the colors of The Events Calendar (Cheers to the anonymous user who posted the original idea on UserVoice!)
 * Feature - Added a new widget and shortcode called "This Week" that displays a events for a given week (with pagination). Short code is [tribe_this_week]
