@@ -309,7 +309,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.0 beta] unreleased =
+= [4.0] 2015-12-02 =
 
 * Security - A TON of escaping was added to our codebase thanks to the efforts of the always-helpful Andy Fragen (@afragen)
 * Feature - Moved the Ticket framework code into its own plugin (event-tickets)
