@@ -5,8 +5,8 @@ use Tribe__Events__Utils__DST as DST;
 
 class DSTTest extends \Codeception\TestCase\WPTestCase {
 
-	protected $backupGlobals = false;
-	protected $tz_backup;
+	protected        $backupGlobals = false;
+	protected static $tz_backup;
 
 	public static function setUpBeforeClass() {
 		self::$tz_backup = date_default_timezone_get();
@@ -144,5 +144,20 @@ class DSTTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, $wp_is_in_dst );
 	}
 
+	/**
+	 * @test
+	 * it should restore system timezone after operations
+	 */
+	public function it_should_restore_system_timezone_after_operations() {
+		$system_timezone = 'America/New_York';
+		date_default_timezone_set($system_timezone);
+		$wp_timezone     = 'Europe/Rome';
+		update_option( 'timezone_string', $wp_timezone );
+
+		$sut = new DST( strtotime( 'November 1st, 2015' ) );
+		$sut->is_in_dst();
+
+		$this->assertEquals( 'America/New_York', date_default_timezone_get() );
+	}
 
 }
