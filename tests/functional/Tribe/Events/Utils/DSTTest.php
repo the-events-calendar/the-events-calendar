@@ -41,15 +41,15 @@ class DSTTest extends \Codeception\TestCase\WPTestCase {
 		return [
 			[
 				strtotime( 'January 14th, 2015' ),
-				false
+				false,
 			],
 			[
 				strtotime( 'April 4th, 2015' ),
-				true
+				true,
 			],
 			[
 				strtotime( 'December 10th, 2015' ),
-				false
+				false,
 			],
 		];
 	}
@@ -69,17 +69,17 @@ class DSTTest extends \Codeception\TestCase\WPTestCase {
 			[
 				strtotime( '10am February 1st, 2015' ),
 				strtotime( 'February 3rd, 2015' ),
-				strtotime( '10am February 1st, 2015' )
+				strtotime( '10am February 1st, 2015' ),
 			],
 			[
 				strtotime( '11am April 4th, 2015' ),
 				strtotime( 'February 3rd, 2015' ),
-				strtotime( '10am April 4th, 2015' )
+				strtotime( '10am April 4th, 2015' ),
 			],
 			[
 				strtotime( '9am January 4th, 2015' ),
 				strtotime( 'April 4th, 2015' ),
-				strtotime( '10am January 4th, 2015' )
+				strtotime( '10am January 4th, 2015' ),
 			],
 		];
 	}
