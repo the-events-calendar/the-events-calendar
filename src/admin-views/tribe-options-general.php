@@ -95,7 +95,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 		),
 		'multiDayCutoff'                => array(
 			'type'            => 'dropdown',
-			'label'           => esc_html__( 'End of day cutoff', 'tribe-common' ),
+			'label'           => esc_html__( 'End of day cutoff', 'the-events-calendar' ),
 			'validation_type' => 'options',
 			'size'            => 'small',
 			'default'         => '12:00',
@@ -116,7 +116,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 		),
 		'multiDayCutoffHelper'          => array(
 			'type'        => 'html',
-			'html'        => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( esc_html__( "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar.", 'tribe-common' ) ) . '</p>',
+			'html'        => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( esc_html__( "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar.", 'the-events-calendar' ) ) . '</p>',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 		),
 	)
@@ -168,11 +168,11 @@ $general_tab_fields = Tribe__Main::array_insert_after_key(
 	array(
 		'viewWelcomePage'          => array(
 			'type'        => 'html',
-			'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'View Welcome Page', 'tribe-common' ) . '</legend><div class="tribe-field-wrap"><a href="' . Tribe__Settings::instance()->get_url( array( 'tec-welcome-message' => true ) ) . '" class="button">' . esc_html__( 'View Welcome Page', 'tribe-common' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you initially installed the plugin.', 'tribe-common' ) . '</p></div></fieldset><div class="clear"></div>',
+			'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'View Welcome Page', 'the-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . Tribe__Settings::instance()->get_url( array( 'tec-welcome-message' => true ) ) . '" class="button">' . esc_html__( 'View Welcome Page', 'the-events-calendar' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you initially installed the plugin.', 'the-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
 		),
 		'viewUpdatePage'          => array(
 			'type'        => 'html',
-			'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'View Update Page', 'tribe-common' ) . '</legend><div class="tribe-field-wrap"><a href="' . Tribe__Settings::instance()->get_url( array( 'tec-update-message' => true ) ) . '" class="button">' . esc_html__( 'View Update Page', 'tribe-common' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you updated the plugin.', 'tribe-common' ) . '</p></div></fieldset><div class="clear"></div>',
+			'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'View Update Page', 'the-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . Tribe__Settings::instance()->get_url( array( 'tec-update-message' => true ) ) . '" class="button">' . esc_html__( 'View Update Page', 'the-events-calendar' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you updated the plugin.', 'the-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
 		),
 	)
 );
