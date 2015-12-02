@@ -41,7 +41,6 @@ class Tribe__Events__Utils__DST {
 	 * @return bool
 	 */
 	public function is_in_dst() {
-		//wwid
 		if ( is_null($this->is_dst_cache) ) {
 			$default_timezone_backup = date_default_timezone_get();
 			$wp_timezone_string      = get_option( 'timezone_string' );
