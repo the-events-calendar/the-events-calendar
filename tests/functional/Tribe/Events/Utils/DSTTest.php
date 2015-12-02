@@ -97,4 +97,52 @@ class DSTTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $expected, $aligned_time );
 	}
+
+	public function sys_and_wp_timezone_identifiers() {
+		return [
+			[
+				'America/New_York',
+				'Europe/Rome',
+				'November 1st, 2015'
+			],
+			[
+				'Europe/Rome',
+				'America/New_York',
+				'November 1st, 2015'
+			],
+			[
+				'America/New_York',
+				'America/New_York',
+				'November 1st, 2015'
+			],
+			[
+				'Europe/Rome',
+				'Europe/Rome',
+				'November 1st, 2015'
+			],
+		];
+	}
+
+	/**
+	 * @test
+	 * it should take WP timezone settings into account if different from system timezone
+	 * @dataProvider sys_and_wp_timezone_identifiers
+	 */
+	public function it_should_take_wp_timezone_settings_into_account_if_different_from_system_timezone( $timezone_identifier, $wp_timezone_identifier, $date ) {
+		$date = strtotime( $date );
+		date_default_timezone_set( $wp_timezone_identifier );
+		$expected = (bool) date( 'I', $date );
+
+		date_default_timezone_set( $timezone_identifier );
+		$sys_is_in_dst = (bool) date( 'I', $date );
+
+		update_option( 'timezone_string', $wp_timezone_identifier );
+
+		$sut          = new DST( $date );
+		$wp_is_in_dst = $sut->is_in_dst();
+
+		$this->assertEquals( $expected, $wp_is_in_dst );
+	}
+
+
 }
