@@ -1316,8 +1316,25 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// Remove "all" HTML based on what is allowed
 		$excerpt = wp_kses( $excerpt, $allowed_html );
 
-		// Still treat this as an Excerpt on WP
-		$excerpt = wp_trim_excerpt( $excerpt );
+		/**
+		 * Filter the number of words in an excerpt.
+		 *
+		 * @since 2.7.0
+		 *
+		 * @param int $number The number of words. Default 55.
+		 */
+		$excerpt_length = apply_filters( 'excerpt_length', 55 );
+		/**
+		 * Filter the string in the "more" link displayed after a trimmed excerpt.
+		 *
+		 * @since 2.9.0
+		 *
+		 * @param string $more_string The string shown within the more link.
+		 */
+		$excerpt_more = apply_filters( 'excerpt_more', ' [&hellip;]' );
+
+		// Now we actually trim it
+		$excerpt = wp_trim_words( $excerpt, $excerpt_length, $excerpt_more );
 
 		return wpautop( $excerpt );
 	}
