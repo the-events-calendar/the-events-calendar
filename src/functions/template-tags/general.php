@@ -1319,15 +1319,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Filter the number of words in an excerpt.
 		 *
-		 * @since 2.7.0
-		 *
 		 * @param int $number The number of words. Default 55.
 		 */
 		$excerpt_length = apply_filters( 'excerpt_length', 55 );
+
 		/**
 		 * Filter the string in the "more" link displayed after a trimmed excerpt.
-		 *
-		 * @since 2.9.0
 		 *
 		 * @param string $more_string The string shown within the more link.
 		 */
