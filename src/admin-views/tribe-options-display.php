@@ -57,6 +57,44 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 	)
 );
 
+$display_tab_fields = Tribe__Main::array_insert_after_key(
+	'dateWithYearFormat',
+	$display_tab_fields,
+	array(
+		'dateWithoutYearFormat'              => array(
+			'type'            => 'text',
+			'label'           => esc_html__( 'Date without year', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Enter the format to use for displaying dates without a year. Used when showing an event from the current year.', 'the-events-calendar' ),
+			'default'         => 'F j',
+			'size'            => 'medium',
+			'validation_type' => 'html',
+		),
+		'monthAndYearFormat'                 => array(
+			'type'            => 'text',
+			'label'           => esc_html__( 'Month and year format', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Enter the format to use for dates that show a month and year only. Used on month view.', 'the-events-calendar' ),
+			'default'         => 'F Y',
+			'size'            => 'medium',
+			'validation_type' => 'html',
+		),
+	)
+);
+
+$display_tab_fields = Tribe__Main::array_insert_after_key(
+	'dateTimeSeparator',
+	$display_tab_fields,
+	array(
+		'timeRangeSeparator'                 => array(
+			'type'            => 'text',
+			'label'           => esc_html__( 'Time range separator', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Enter the separator that will be used between the start and end time of an event.', 'the-events-calendar' ),
+			'default'         => ' - ',
+			'size'            => 'small',
+			'validation_type' => 'html',
+		),
+	)
+);
+
 $display_tab_fields = Tribe__Main::array_insert_before_key(
 	'tribeEventsDateFormatSettingsTitle',
 	$display_tab_fields,
@@ -141,18 +179,18 @@ $display_tab_fields = Tribe__Main::array_insert_after_key(
 	array(
 		'tribeEventsAdvancedSettingsTitle'   => array(
 			'type' => 'html',
-			'html' => '<h3>' . esc_html__( 'Advanced Template Settings', 'tribe-common' ) . '</h3>',
+			'html' => '<h3>' . esc_html__( 'Advanced Template Settings', 'the-events-calendar' ) . '</h3>',
 		),
 		'tribeEventsBeforeHTML'              => array(
 			'type'            => 'wysiwyg',
-			'label'           => esc_html__( 'Add HTML before event content', 'tribe-common' ),
-			'tooltip'         => esc_html__( 'If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout.', 'tribe-common' ),
+			'label'           => esc_html__( 'Add HTML before event content', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout.', 'the-events-calendar' ),
 			'validation_type' => 'html',
 		),
 		'tribeEventsAfterHTML'               => array(
 			'type'            => 'wysiwyg',
-			'label'           => esc_html__( 'Add HTML after event content', 'tribe-common' ),
-			'tooltip'         => esc_html__( 'If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout.', 'tribe-common' ),
+			'label'           => esc_html__( 'Add HTML after event content', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout.', 'the-events-calendar' ),
 			'validation_type' => 'html',
 		),
 	)
