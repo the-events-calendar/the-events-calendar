@@ -225,6 +225,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.0.1] unreleased =
+
+* Fix - Resolve issue where the "Events List" shortcode view more link was being generated too generically when a category was specified
+
 = [4.0] 2015-12-02 =
 
 * Feature - Added Customizer support for altering the colors of The Events Calendar (Cheers to the anonymous user who posted the original idea on UserVoice!)
