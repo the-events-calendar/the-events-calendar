@@ -225,6 +225,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [Unreleased] unreleased =
+
+* Tweak - Included a Filter for filtering Recurrence Output Data `tribe_events_pro_output_recurrence_data`
+
 = [4.0] 2015-12-02 =
 
 * Feature - Added Customizer support for altering the colors of The Events Calendar (Cheers to the anonymous user who posted the original idea on UserVoice!)
