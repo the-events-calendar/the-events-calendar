@@ -312,6 +312,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.1] unreleased =
 
 * Tweak - For SEO reasons, use an <h1> for the title rather than an <h2> (props to wpexplorer for this fix)
+* Fix - Removed `wp_trim_excerpt` and use only it's powers, fixing the excerpt problem
 
 = [4.0] 2015-12-02 =
 
