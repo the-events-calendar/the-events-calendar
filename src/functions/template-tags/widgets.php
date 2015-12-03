@@ -182,7 +182,7 @@ function tribe_events_get_list_widget_view_all_link( $instance ) {
 
 	$link_to_all = '';
 
-	if ( empty( $instance['filters'] ) ) {
+	if ( empty( $instance['filters'] ) && empty( $instance['raw_filters'] ) ) {
 		$link_to_archive = false;
 		$link_to_all     = tribe_get_events_link();
 
@@ -190,7 +190,11 @@ function tribe_events_get_list_widget_view_all_link( $instance ) {
 	}
 
 	// Have taxonomy filters been applied?
-	$filters = json_decode( $instance['filters'], true );
+	if ( empty( $instance['filters'] ) ) {
+		$filters = $instance['raw_filters'];
+	} else {
+		$filters = json_decode( $instance['filters'], true );
+	}
 
 	// Is the filter restricted to a single taxonomy?
 	$single_taxonomy = ( is_array( $filters ) && 1 === count( $filters ) );
