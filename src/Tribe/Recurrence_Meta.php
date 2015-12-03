@@ -479,9 +479,16 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 *
 	 * @param int $post_id Post ID of event
 	 */
-	public static function output_recurrence_json_data( $post_id ) {
+	public static function output_recurrence_json_data( $post_id, $recurrence = array() ) {
 		// convert array to variables that can be used in the view
-		$recurrence = Tribe__Events__Pro__Recurrence_Meta::getRecurrenceMeta( $post_id );
+		$recurrence = self::getRecurrenceMeta( $post_id, $recurrence );
+
+		/**
+		 * Creates a way to filter the output of recurrence meta depending on the ID
+		 * @var $recurrence Meta Info
+		 * @var $post_id the post ID
+		 */
+		$recurrence = apply_filters( 'tribe_events_pro_output_recurrence_data', $recurrence, $post_id );
 		?>
 		<script>
 			var tribe_events_pro_recurrence_data = <?php echo json_encode( $recurrence ); ?>;
