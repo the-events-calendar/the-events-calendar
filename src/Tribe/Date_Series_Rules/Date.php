@@ -30,4 +30,11 @@ class Tribe__Events__Pro__Date_Series_Rules__Date implements Tribe__Events__Pro_
 
 		return null;
 	}
+
+	/**
+	 * @return int
+	 */
+	public function get_date_timestamp() {
+		return $this->date_timestamp;
+	}
 }
