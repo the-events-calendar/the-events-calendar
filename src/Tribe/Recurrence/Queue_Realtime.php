@@ -156,10 +156,16 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 	}
 
 	/**
+	 * Generates the nonce action string on an event and user base.
+	 *
+	 * @param int|null $event_id An event post ID to override the instance defined one.
+	 *
 	 * @return string
 	 */
-	public function get_ajax_nonce_action() {
-		return'generate_recurring_instances_' . $this->event_id . get_current_user_id();
+	public function get_ajax_nonce_action($event_id = null) {
+		$event_id = $event_id ? $event_id : $this->event_id;
+
+		return 'generate_recurring_instances_' . $event_id . get_current_user_id();
 	}
 
 	/**
