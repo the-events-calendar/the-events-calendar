@@ -117,16 +117,16 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 	}
 
 	public function ajax() {
-		$event_id = (int) $_POST['event'];
+		$this->event_id = (int) $_POST['event'];
 
 		// Nonce check
 		$this->ajax_operations->verify_or_exit( $_POST['check'], $this->get_ajax_nonce_action(), $this->get_unable_to_continue_processing_data() );
 
 		// Load the queue
-		$queue = $this->queue ? $this->queue : new Tribe__Events__Pro__Recurrence__Queue( $event_id );
+		$queue = $this->queue ? $this->queue : new Tribe__Events__Pro__Recurrence__Queue( $this->event_id );
 
 		if ( ! $queue->is_empty() ) {
-			$this->queue_processor->process_batch( $event_id );
+			$this->queue_processor->process_batch( $this->event_id );
 		}
 
 		$done       = $queue->is_empty();
@@ -159,7 +159,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 	 * @return string
 	 */
 	public function get_ajax_nonce_action() {
-		return 'generate_recurring_instances_' . $this->event_id . get_current_user_id();
+		return'generate_recurring_instances_' . $this->event_id . get_current_user_id();
 	}
 
 	/**
