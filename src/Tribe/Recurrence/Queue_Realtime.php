@@ -162,7 +162,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 	 *
 	 * @return string
 	 */
-	public function get_ajax_nonce_action($event_id = null) {
+	public function get_ajax_nonce_action( $event_id = null ) {
 		$event_id = $event_id ? $event_id : $this->event_id;
 
 		return 'generate_recurring_instances_' . $event_id . get_current_user_id();
