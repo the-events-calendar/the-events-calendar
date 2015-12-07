@@ -68,4 +68,18 @@
 
 			return $this->days[0];
 		}
+
+		/**
+		 * @return int
+		 */
+		public function get_weeks_between(  ) {
+			return $this->weeks_between;
+		}
+
+		/**
+		 * @return array
+		 */
+		public function get_days(  ) {
+			return $this->days;
+		}
 	}

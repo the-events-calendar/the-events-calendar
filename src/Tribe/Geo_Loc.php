@@ -76,7 +76,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	 * Class constructor
 	 */
 	public function __construct() {
-		$this->rewrite_slug = Tribe__Settings_Manager::get_option( 'geoloc_rewrite_slug', 'map' );
+		$this->rewrite_slug = Tribe__Settings_Manager::get_option( 'geoloc_rewrite_slug', __( 'map', 'tribe-events-calendar-pro' ) );
 
 		add_action( 'tribe_events_venue_updated', array( $this, 'save_venue_geodata' ), 10, 2 );
 		add_action( 'tribe_events_venue_created', array( $this, 'save_venue_geodata' ), 10, 2 );

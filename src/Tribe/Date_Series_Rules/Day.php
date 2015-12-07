@@ -27,4 +27,11 @@
 		public function getNextDate( $curdate ) {
 			return strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $curdate ) . ' + ' . $this->days_between . ' days' );
 		}
+
+		/**
+		 * @return int
+		 */
+		public function get_days_between(  ) {
+			return $this->days_between;
+		}
 	}
