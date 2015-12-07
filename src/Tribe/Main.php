@@ -809,7 +809,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Initializes any admin-specific code (expects to be called when admin_init fires).
 		 */
 		public function admin_init() {
+			global $pagenow;
+
 			$this->timezone_settings = new Tribe__Events__Admin__Timezone_Settings;
+
+			// Right now it only makes sense to add these extra upgrade notices within the plugins.php screen
+			if ( 'plugins.php' === $pagenow ) {
+				new Tribe__Admin__Notice__Plugin_Upgrade_Notice(
+					self::VERSION,
+					$this->plugin_dir . 'the-events-calendar.php'
+				);
+			}
 		}
 
 		/**
