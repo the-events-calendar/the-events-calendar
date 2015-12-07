@@ -188,11 +188,11 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 				$output .= '<div class="tribe-countdown-text"><a href="' . esc_url( $link ) . '">' . esc_attr( $event->post_title ) . '</a></div>';
 			}
 
-			return '
+			return $output . '
 			<div class="tribe-countdown-timer">
-				<span class="tribe-countdown-seconds">'.$seconds.'</span>
-				<span class="tribe-countdown-format">'.$hourformat.'</span>
-				'.$complete.'
+				<span class="tribe-countdown-seconds">' . $seconds . '</span>
+				<span class="tribe-countdown-format">' . $hourformat . '</span>
+				' . $complete . '
 			</div>';
 		}
 
