@@ -37,8 +37,8 @@ class Tribe__Events__Event_Tickets__Attendees_Report {
 
 			$url = get_post_meta( $venue_id, '_VenueURL', true );
 			if ( $url ) {
-				$url_path = parse_url( $url, PHP_URL_PATH );
-				$display_url = parse_url( $url, PHP_URL_HOST );
+				$url_path = @parse_url( $url, PHP_URL_PATH );
+				$display_url = @parse_url( $url, PHP_URL_HOST );
 				$display_url .= empty( $url_path ) && $url_path !== '/' ? '/&hellip;' : '';
 				$display_url = apply_filters( 'tribe_venue_display_url', $display_url, $url, $venue_id );
 			}
