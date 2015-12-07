@@ -225,9 +225,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [Unreleased] unreleased =
+= [4.0.1] unreleased =
 
 * Tweak - Included a Filter for filtering Recurrence Output Data `tribe_events_pro_output_recurrence_data`
+* Fix - Resolve issue where the "Events List" shortcode view more link was being generated too generically when a category was specified
 
 = [4.0] 2015-12-02 =
 
