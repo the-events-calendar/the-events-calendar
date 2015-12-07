@@ -549,6 +549,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'init', array( $this, 'filter_cron_schedules' ) );
 
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Event_Tickets__Main', 'instance' ) );
+
 			// Add support for tickets plugin
 			add_action( 'tribe_tickets_ticket_added', array( 'Tribe__Events__API', 'update_event_cost' ) );
 			add_action( 'tribe_tickets_ticket_deleted', array( 'Tribe__Events__API', 'update_event_cost' ) );
