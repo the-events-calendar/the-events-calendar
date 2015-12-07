@@ -913,7 +913,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$inner .= tribe_get_start_date( $event, true, $format );
 				$inner .= '</span>' . $time_range_separator;
 				$inner .= '<span class="tribe-event-date-end">';
-				$inner .= tribe_get_end_date( $event, true, $format2ndday );
+
+				$end_date_full_timestamp = tribe_get_end_date( $event, true, 'U' );
+
+				// if the end date is <= the beginning of the day, consider it the previous day
+				if ( $end_date_full_timestamp <= strtotime( tribe_beginning_of_day( $end_date_full_timestamp ) ) ) {
+					$end_date = tribe_format_date( $end_date_full_timestamp - DAY_IN_SECONDS, false, $format2ndday );
+				} else {
+					$end_date = tribe_get_end_date( $event, false, $format2ndday );
+				}
+
+				$inner .= $end_date;
 			} else {
 				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
 				$inner .= '</span>' . $time_range_separator;
