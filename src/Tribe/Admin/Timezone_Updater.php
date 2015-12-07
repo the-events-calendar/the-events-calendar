@@ -95,7 +95,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * Sets up the Javascript needed to facilitate the ajax loop on the frontend.
 	 */
 	public function notice_assets() {
-		$plugin = Tribe__Main::instance();
+		$plugin = Tribe__Events__Main::instance();
 		$script = trailingslashit( $plugin->plugin_url ) . 'src/resources/js/events-admin-timezone-updater.js';
 		$handle = 'tribe-events-ajax-timezone-update';
 
