@@ -694,6 +694,18 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		return $valid;
 	}
 
+	/**
+	 * Fetches child event IDs
+	 *
+	 * @param int $post_id Post ID
+	 * @param array $args Array of arguments for get_posts
+	 * @deprecated 4.0.1
+	 */
+	public static function get_child_event_ids( $post_id, $args = array() ) {
+		_deprecated_function( __METHOD__, '4.0.1', 'Tribe__Events__Pro__Recurrence_Meta::children()->get_ids()' );
+		return self::children()->get_ids( $post_id, $args );
+	}
+
 	public static function get_events_by_slug( $slug ) {
 		$cache   = new Tribe__Cache();
 		$all_ids = $cache->get( 'events_by_slug_' . $slug, 'save_post' );
