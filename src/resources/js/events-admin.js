@@ -107,7 +107,7 @@ var tribe_events_pro_admin = {
 				var elapsed = now - time;
 
 				if ( data.html ) {
-					notice.html( html );
+					notice.html( data.html );
 				}
 				if ( data.progress ) {
 					updateProgress( data.progress, data.progressText );

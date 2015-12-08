@@ -133,14 +133,16 @@ class Queue_RealtimeTest extends \WP_UnitTestCase {
 	 */
 	public function it_should_exit_if_nonce_is_not_verified() {
 		$_POST['check'] = 'foo';
-		$_POST['event'] = $this->factory->post->create( array( 'post_type' => \Tribe__Events__Main::POSTTYPE ) );
+		$event_id       = $this->factory->post->create( array( 'post_type' => \Tribe__Events__Main::POSTTYPE ) );
+		$_POST['event'] = $event_id;
 		$ajax           = $this->getMock( 'Tribe__Events__Ajax__Operations' );
 
 		$sut = new \Tribe__Events__Pro__Recurrence__Queue_Realtime( null, $ajax );
 
+		$expected_nonce_action = $sut->get_ajax_nonce_action( $event_id );
 		$ajax->expects( $this->once() )
 		     ->method( 'verify_or_exit' )
-		     ->with( 'foo', $sut->get_ajax_nonce_action(), $sut->get_unable_to_continue_processing_data() );
+		     ->with( 'foo', $expected_nonce_action, $sut->get_unable_to_continue_processing_data() );
 
 		$sut->ajax();
 	}
