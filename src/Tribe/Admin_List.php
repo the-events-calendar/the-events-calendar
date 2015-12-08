@@ -281,7 +281,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				break;
 
 				case 'end-date':
-					echo tribe_get_end_date( $post_id, false );
+					echo tribe_get_display_end_date( $post_id, false );
 				break;
 			}
 		}
