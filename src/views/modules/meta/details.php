@@ -18,7 +18,7 @@ $start_time = tribe_get_start_date( null, false, $time_format );
 $start_ts = tribe_get_start_date( null, false, Tribe__Date_Utils::DBDATEFORMAT );
 
 $end_datetime = tribe_get_end_date();
-$end_date = tribe_get_end_date( null, false );
+$end_date = tribe_get_display_end_date( null, false );
 $end_time = tribe_get_end_date( null, false, $time_format );
 $end_ts = tribe_get_end_date( null, false, Tribe__Date_Utils::DBDATEFORMAT );
 
@@ -69,7 +69,7 @@ $website = tribe_get_event_website_link();
 
 			<dt> <?php esc_html_e( 'End:', 'the-events-calendar' ) ?> </dt>
 			<dd>
-				<abbr class="tribe-events-abbr dtend" title="<?php esc_attr_e( $end_ts ) ?>"> <?php esc_html_e( $end_datetime ) ?> </abbr>
+				<abbr class="tribe-events-abbr dtend" title="<?php esc_attr_e( $end_ts ) ?>"> <?php esc_html_e( $end_date ) ?> </abbr>
 			</dd>
 
 		<?php
