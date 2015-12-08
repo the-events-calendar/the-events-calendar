@@ -309,10 +309,21 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.1] unreleased =
+= [4.0.1] unreleased =
 
+* Tweak - Add a warning message for major updates
 * Tweak - For SEO reasons, use an <h1> for the title rather than an <h2> (props to wpexplorer for this fix)
+* Tweak - Target the calendar view grid in JS using a simpler selector
+* Fix - Resolved bug where visiting /events/upcoming could sometimes result in an infinite redirect loop
 * Fix - Removed `wp_trim_excerpt` and use only it's powers, fixing the excerpt problem
+* Fix - Fixed bug where the mobile calendar view did not display the date for the date being viewed
+* Fix - Fixed bug where the admin toolbar's Events > Import > CSV did not link to the CSV importer page
+* Fix - Fixed issue where the events list in the admin dashboard were not ordered in an intuitive manner
+* Fix - Resolved bug where sorting by event category or tag resulted in an error
+* Fix - Fixed bug where full event content text was displayed where excerpts should have been displayed
+* Fix - Resolved issue where events imported via CSV were excluded from single event navigation
+* Fix - Fixed bug where /events/list would sometimes 404 on a new install
+* Fix - Resolved bug where multiday all-day events displayed the end date as one day later than it should be when the End of Day Cut-off was set to something other than 12am
 
 = [4.0] 2015-12-02 =
 
@@ -1075,4 +1086,3 @@ Please see the changelog for the complete list of changes in this release. Remem
 = 2.0.3 =
 
 2.0.3 is a minor bug patch for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
-
