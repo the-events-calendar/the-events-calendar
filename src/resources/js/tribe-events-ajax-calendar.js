@@ -174,7 +174,7 @@
 
 			var $today = $wrapper.find( '.tribe-events-present' ),
 				$mobile_trigger = $wrapper.find( '.mobile-trigger' ),
-				$tribe_grid = $wrapper.find( '#tribe-events-content > .tribe-events-calendar' );
+				$tribe_grid = $wrapper.find( document.getElementById( 'tribe-events-content' ) ).find( '.tribe-events-calendar'  );
 
 			if ( !$( '#tribe-mobile-container' ).length ) {
 				$( '<div id="tribe-mobile-container" />' ).insertAfter( $tribe_grid );
