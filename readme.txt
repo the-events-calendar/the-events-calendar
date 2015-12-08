@@ -228,7 +228,12 @@ Our Premium Plugins:
 = [4.0.1] unreleased =
 
 * Tweak - Included a Filter for filtering Recurrence Output Data `tribe_events_pro_output_recurrence_data`
+* Tweak - Add better support for Daylight Saving Time
 * Fix - Resolve issue where the "Events List" shortcode view more link was being generated too generically when a category was specified
+* Fix - Fixed bug where the "On the..." section of Recurring event fields was failing to save in some cases (props to Adam on the forums for point this out!)
+* Fix - Resolved issue where the recurring event clean-up cron was failing to clear some old events
+* Fix - Resolved bug where custom yearly recurrence rules were not generating events properly
+* Fix - Fixed issue where the Countdown widget was missing the title of the event it was counting down to
 
 = [4.0] 2015-12-02 =
 
