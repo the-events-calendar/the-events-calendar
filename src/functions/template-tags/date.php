@@ -103,14 +103,14 @@ if ( ! function_exists( 'tribe_get_display_end_date' ) ) {
 	 * Returns the event end date that observes the end of day cutoff
 	 *
 	 * @category Events
-	 * @param int    $event       (optional)
-	 * @param bool   $displayTime If true shows date and time, if false only shows date
-	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
-	 * @param string $timezone    Timezone in which to present the date/time (or default behaviour if not set)
+	 * @param int    $event        (optional)
+	 * @param bool   $display_time If true shows date and time, if false only shows date
+	 * @param string $date_format  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @param string $timezone     Timezone in which to present the date/time (or default behaviour if not set)
 	 *
 	 * @return string|null Date
 	 */
-	function tribe_get_display_end_date( $event = null, $displayTime = true, $dateFormat = '', $timezone = null ) {
+	function tribe_get_display_end_date( $event = null, $display_time = true, $date_format = '', $timezone = null ) {
 		$end_date = tribe_get_end_date( $event, true, 'U', $timezone );
 		$beginning_of_day = tribe_beginning_of_day( date( Tribe__Date_Utils::DBDATETIMEFORMAT, $end_date ) );
 
@@ -118,7 +118,7 @@ if ( ! function_exists( 'tribe_get_display_end_date' ) ) {
 			$end_date -= DAY_IN_SECONDS;
 		}
 
-		return tribe_format_date( $end_date, $displayTime, $dateFormat );
+		return tribe_format_date( $end_date, $display_time, $date_format );
 	}
 }
 
