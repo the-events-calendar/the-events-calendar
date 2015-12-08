@@ -166,6 +166,11 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			$event['tax_input']['post_tag'] = $tags;
 		}
 
+		// don't create the _EventHideFromUpcoming meta key/value pair if it doesn't need to be created
+		if ( ! $event['EventHideFromUpcoming'] ) {
+			unset( $event['EventHideFromUpcoming'] );
+		}
+
 		$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', array() );
 		if ( ! empty ( $additional_fields ) ) {
 			foreach ( $additional_fields as $key => $csv_column ) {

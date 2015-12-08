@@ -980,6 +980,13 @@ select.tribe-events-dropdown {
 	margin-left: 1.6em;
 }
 
+@media screen {
+	#tribe-events-content .tribe-events-tooltip ul,
+	#tribe-events-content .tribe-events-tooltip ol {
+		margin-left: 1.6em;
+	}
+}
+
 /* Recurring info tooltip */
 .recurringinfo {
 	*display: inline;
@@ -1835,6 +1842,10 @@ body.tribe-theme-twentysixteen .tribe-events-content.entry-summary {
 	margin-top: 5px;
 }
 
+body.tribe-theme-twentysixteen.events-archive .entry-content,
+body.tribe-theme-twentysixteen.events-archive .entry-header {
+	width: auto;
+}
 
 /* = Events Retina
 =============================================*/

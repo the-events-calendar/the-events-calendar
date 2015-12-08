@@ -43,5 +43,9 @@ Nothing different from a default Codeception environment so this command will ru
 Failing tests are ok in set up terms: the system works. Errors should be reported.
 Please refer to [Codeception documentation](http://codeception.com/docs) to learn about more run and configuaration options.
 
+If you'd like to run just the acceptance tests (or substitute for unir or functional) you can use a command like this:
+
+	vendor/bin/codecept run acceptance
+
 ## Contributing to tests
 Should you come up with good utility methods, worthy database configurations and "cool additions" in general for the plugin tests feel free to open a PR and submit them for review.

@@ -743,6 +743,16 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Indicates if there events without a specific cost (as distinct from
+	 * free events).
+	 *
+	 * @return bool if uncosted events exist
+	 */
+	function tribe_has_uncosted_events() {
+		return Tribe__Events__Cost_Utils::instance()->has_uncosted_events();
+	}
+
+	/**
 	 * Maps the cost array to make finding the minimum and maximum costs possible.
 	 *
 	 * @category Cost
@@ -1101,7 +1111,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		if ( isset( $deprecated ) ) {
 			_deprecated_argument( __FUNCTION__, '3.10' );
 		}
-		return tribe_get_option( 'tribeEnableViews', array() );
+		return tribe_get_option( 'tribeEnableViews', array(
+			'list',
+			'month',
+		) );
 	}
 
 	/**
@@ -1306,8 +1319,22 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// Remove "all" HTML based on what is allowed
 		$excerpt = wp_kses( $excerpt, $allowed_html );
 
-		// Still treat this as an Excerpt on WP
-		$excerpt = wp_trim_excerpt( $excerpt );
+		/**
+		 * Filter the number of words in an excerpt.
+		 *
+		 * @param int $number The number of words. Default 55.
+		 */
+		$excerpt_length = apply_filters( 'excerpt_length', 55 );
+
+		/**
+		 * Filter the string in the "more" link displayed after a trimmed excerpt.
+		 *
+		 * @param string $more_string The string shown within the more link.
+		 */
+		$excerpt_more = apply_filters( 'excerpt_more', ' [&hellip;]' );
+
+		// Now we actually trim it
+		$excerpt = wp_trim_words( $excerpt, $excerpt_length, $excerpt_more );
 
 		return wpautop( $excerpt );
 	}

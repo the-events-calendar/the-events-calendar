@@ -59,9 +59,24 @@ class Tribe__Events__Updater {
 	 * and lower than $this->current_version will have its
 	 * callback called.
 	 *
+	 * This method has been deprecated in favor of a more testable public function
+	 *
+	 * @return array
+	 * @deprecated 4.0
+	 */
+	protected function get_updates() {
+		return $this->get_update_callbacks();
+	}
+
+	/**
+	 * Returns an array of callbacks with version strings as keys.
+	 * Any key higher than the version recorded in the DB
+	 * and lower than $this->current_version will have its
+	 * callback called.
+	 *
 	 * @return array
 	 */
-	public function get_updates() {
+	public function get_update_callbacks() {
 		return array(
 			'2.0.1'  => array( $this, 'migrate_from_sp_events' ),
 			'2.0.6'  => array( $this, 'migrate_from_sp_options' ),
@@ -74,9 +89,22 @@ class Tribe__Events__Updater {
 	 * Returns an array of callbacks that should be called
 	 * every time the version is updated
 	 *
+	 * This method has been deprecated in favor of a more testable public function
+	 *
+	 * @return array
+	 * @deprecated 4.0
+	 */
+	protected function constant_updates() {
+		return $this->get_constant_update_callbacks();
+	}
+
+	/**
+	 * Returns an array of callbacks that should be called
+	 * every time the version is updated
+	 *
 	 * @return array
 	 */
-	public function constant_updates() {
+	public function get_constant_update_callbacks() {
 		return array(
 			array( $this, 'flush_rewrites' ),
 			array( $this, 'set_capabilities' ),

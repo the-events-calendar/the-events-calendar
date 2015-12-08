@@ -99,7 +99,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			}
 
 			if ( ! empty( $clauses['orderby'] ) ) {
-				$clauses['orderby'] .= ',';
+				$original_orderby = $clauses['orderby'];
 			}
 
 			$start_orderby = "tribe_event_start_date.meta_value {$sort_direction}";
@@ -111,7 +111,12 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				$date_orderby = "{$end_orderby}, {$start_orderby}";
 			}
 
-			$clauses['orderby'] .= $date_orderby;
+			// Add the date orderby rules *before* any pre-existing orderby rules (to stop them being "trumped")
+			$revised_orderby = empty( $original_orderby )
+				? $date_orderby
+				: "$date_orderby, $original_orderby";
+
+			$clauses['orderby'] = $revised_orderby;
 
 			return $clauses;
 		}
@@ -148,17 +153,17 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			// collect the terms in the desired taxonomy for the given post into a single string
 			$smashed_terms_sql = "
 				SELECT
-					GROUP_CONCAT( wp_terms.name ORDER BY name ASC ) smashed_terms
+					GROUP_CONCAT( $wpdb->terms.name ORDER BY name ASC ) smashed_terms
 				FROM
-					wp_term_relationships
-					LEFT JOIN wp_term_taxonomy ON (
-						wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id
+					$wpdb->term_relationships
+					LEFT JOIN $wpdb->term_taxonomy ON (
+						$wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id
 						AND taxonomy = '%s'
 					)
-					LEFT JOIN wp_terms ON (
-						wp_term_taxonomy.term_id = wp_terms.term_id
+					LEFT JOIN $wpdb->terms ON (
+						$wpdb->term_taxonomy.term_id = $wpdb->terms.term_id
 					)
-				WHERE wp_term_relationships.object_id = wp_posts.ID
+				WHERE $wpdb->term_relationships.object_id = $wpdb->posts.ID
 			";
 
 			$smashed_terms_sql = $wpdb->prepare( $smashed_terms_sql, $taxonomy );

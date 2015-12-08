@@ -37,104 +37,104 @@ var tribe_debug = true;
 
 // @ifdef DEBUG
 
-	/*!
-	 * JavaScript Debug - v0.4 - 6/22/2010
-	 * http://benalman.com/projects/javascript-debug-console-log/
-	 *
-	 * Copyright (c) 2010 "Cowboy" Ben Alman
-	 * Dual licensed under the MIT and GPL licenses.
-	 * http://benalman.com/about/license/
-	 *
-	 * With lots of help from Paul Irish!
-	 * http://paulirish.com/
-	 */
+/*!
+ * JavaScript Debug - v0.4 - 6/22/2010
+ * http://benalman.com/projects/javascript-debug-console-log/
+ *
+ * Copyright (c) 2010 "Cowboy" Ben Alman
+ * Dual licensed under the MIT and GPL licenses.
+ * http://benalman.com/about/license/
+ *
+ * With lots of help from Paul Irish!
+ * http://paulirish.com/
+ */
 
-	window.debug = (function() {
-		var window = this,
-			aps = Array.prototype.slice,
-			con = window.console,
-			that = {},
-			callback_func,
-			callback_force,
-			log_level = 9,
-			log_methods = [ 'error', 'warn', 'info', 'debug', 'log' ],
-			pass_methods = 'assert clear count dir dirxml exception group groupCollapsed groupEnd profile profileEnd table time timeEnd trace'.split( ' ' ),
-			idx = pass_methods.length,
-			logs = [];
+window.debug = (function() {
+	var window = this,
+		aps = Array.prototype.slice,
+		con = window.console,
+		that = {},
+		callback_func,
+		callback_force,
+		log_level = 9,
+		log_methods = [ 'error', 'warn', 'info', 'debug', 'log' ],
+		pass_methods = 'assert clear count dir dirxml exception group groupCollapsed groupEnd profile profileEnd table time timeEnd trace'.split( ' ' ),
+		idx = pass_methods.length,
+		logs = [];
 
-		while ( --idx >= 0 ) {
-			(function( method ) {
+	while ( --idx >= 0 ) {
+		(function( method ) {
 
-				that[ method ] = function() {
-					log_level !== 0 && con && con[ method ]
-					&& con[ method ].apply( con, arguments );
+			that[ method ] = function() {
+				log_level !== 0 && con && con[ method ]
+				&& con[ method ].apply( con, arguments );
+			}
+
+		})( pass_methods[idx] );
+	}
+
+	idx = log_methods.length;
+	while ( --idx >= 0 ) {
+		(function( idx, level ) {
+
+			that[ level ] = function() {
+				var args = aps.call( arguments ),
+					log_arr = [ level ].concat( args );
+
+				logs.push( log_arr );
+				exec_callback( log_arr );
+
+				if ( !con || !is_level( idx ) ) {
+					return;
 				}
 
-			})( pass_methods[idx] );
-		}
+				con.firebug ? con[ level ].apply( window, args )
+					: con[ level ] ? con[ level ]( args )
+					: con.log( args );
+			};
 
-		idx = log_methods.length;
-		while ( --idx >= 0 ) {
-			(function( idx, level ) {
-
-				that[ level ] = function() {
-					var args = aps.call( arguments ),
-						log_arr = [ level ].concat( args );
-
-					logs.push( log_arr );
-					exec_callback( log_arr );
-
-					if ( !con || !is_level( idx ) ) {
-						return;
-					}
-
-					con.firebug ? con[ level ].apply( window, args )
-						: con[ level ] ? con[ level ]( args )
-						: con.log( args );
-				};
-
-			})( idx, log_methods[idx] );
-		}
-
-		function exec_callback( args ) {
-			if ( callback_func && (callback_force || !con || !con.log) ) {
-				callback_func.apply( window, args );
-			}
-		}
-
-		that.setLevel = function( level ) {
-			log_level = typeof level === 'number' ? level : 9;
-		};
-
-		function is_level( level ) {
-			return log_level > 0
-				? log_level > level
-				: log_methods.length + log_level <= level;
-		}
-
-		that.setCallback = function() {
-			var args = aps.call( arguments ),
-				max = logs.length,
-				i = max;
-
-			callback_func = args.shift() || null;
-			callback_force = typeof args[0] === 'boolean' ? args.shift() : false;
-
-			i -= typeof args[0] === 'number' ? args.shift() : max;
-
-			while ( i < max ) {
-				exec_callback( logs[i++] );
-			}
-		};
-
-		return that;
-	})();
-
-	if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
-		tribe_ev.diagnostics = {
-			init: []
-		};
+		})( idx, log_methods[idx] );
 	}
+
+	function exec_callback( args ) {
+		if ( callback_func && (callback_force || !con || !con.log) ) {
+			callback_func.apply( window, args );
+		}
+	}
+
+	that.setLevel = function( level ) {
+		log_level = typeof level === 'number' ? level : 9;
+	};
+
+	function is_level( level ) {
+		return log_level > 0
+			? log_level > level
+			: log_methods.length + log_level <= level;
+	}
+
+	that.setCallback = function() {
+		var args = aps.call( arguments ),
+			max = logs.length,
+			i = max;
+
+		callback_func = args.shift() || null;
+		callback_force = typeof args[0] === 'boolean' ? args.shift() : false;
+
+		i -= typeof args[0] === 'number' ? args.shift() : max;
+
+		while ( i < max ) {
+			exec_callback( logs[i++] );
+		}
+	};
+
+	return that;
+})();
+
+if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
+	tribe_ev.diagnostics = {
+		init: []
+	};
+}
 // @endif
 
 /**
@@ -318,22 +318,22 @@ Date.prototype.format = function( mask, utc ) {
 				var name = id, string = /^[\w\-]+$/.test( id ) ? me.get( id ) : (name = 'template(string)', id); // no warnings
 				var line = 1, body = (
 					"try { " +
-						(me.variable ? "var " + me.variable + " = this.stash;" : "with (this.stash) { ") +
-						"this.ret += '" +
-						string.
-							replace( /\[\[/g, '\x11' ).replace( /\]\]/g, '\x13' ). // if you want other tag, just edit this line
-							replace( /'(?![^\x11\x13]+?\x13)/g, '\\x27' ).
-							replace( /^\s*|\s*$/g, '' ).
-							replace( /\n/g,function() {
-								return "';\nthis.line = " + (++line) + "; this.ret += '\\n"
-							} ).
-							replace( /\x11=raw(.+?)\x13/g, "' + ($1) + '" ).
-							replace( /\x11=(.+?)\x13/g, "' + this.escapeHTML($1) + '" ).
-							replace( /\x11(.+?)\x13/g, "'; $1; this.ret += '" ) +
-						"'; " + (me.variable ? "" : "}") + "return this.ret;" +
-						"} catch (e) { throw 'TemplateError: ' + e + ' (on " + name + "' + ' line ' + this.line + ')'; } " +
-						"//@ sourceURL=" + name + "\n" // source map
-					).replace( /this\.ret \+= '';/g, '' );
+					(me.variable ? "var " + me.variable + " = this.stash;" : "with (this.stash) { ") +
+					"this.ret += '" +
+					string.
+					replace( /\[\[/g, '\x11' ).replace( /\]\]/g, '\x13' ). // if you want other tag, just edit this line
+					replace( /'(?![^\x11\x13]+?\x13)/g, '\\x27' ).
+					replace( /^\s*|\s*$/g, '' ).
+					replace( /\n/g,function() {
+						return "';\nthis.line = " + (++line) + "; this.ret += '\\n"
+					} ).
+					replace( /\x11=raw(.+?)\x13/g, "' + ($1) + '" ).
+					replace( /\x11=(.+?)\x13/g, "' + this.escapeHTML($1) + '" ).
+					replace( /\x11(.+?)\x13/g, "'; $1; this.ret += '" ) +
+					"'; " + (me.variable ? "" : "}") + "return this.ret;" +
+					"} catch (e) { throw 'TemplateError: ' + e + ' (on " + name + "' + ' line ' + this.line + ')'; } " +
+					"//@ sourceURL=" + name + "\n" // source map
+				).replace( /this\.ret \+= '';/g, '' );
 				var func = new Function( body );
 				var map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '\x22': '&#x22;', '\x27': '&#x27;' };
 				var escapeHTML = function( string ) {
@@ -558,6 +558,7 @@ Date.prototype.format = function( mask, utc ) {
 			tribe_ev.fn.update_viewport_variables();
 			if ( prev_width !== tribe_ev.data.v_width ) {
 				tribe_ev.fn.mobile_class();
+
 				/**
 				 * DEPRECATED: tribe_ev_resizeComplete has been deprecated in 4.0. Use resize-complete.tribe instead
 				 */
@@ -1230,7 +1231,7 @@ Date.prototype.format = function( mask, utc ) {
 		}
 
 		// ajax complete function to remove active spinner
-		$( te ).on( 'ajax-success.tribe', function() {
+		$( te ).on( 'tribe_ev_ajaxSuccess', function() {
 			$( '.tribe-events-active-spinner' ).remove();
 			list_find_month_last_event();
 		} );
@@ -1253,7 +1254,7 @@ Date.prototype.format = function( mask, utc ) {
 			$( 'a.tribe-events-ical' ).attr( 'href', new_link );
 		}
 
-		$( te ).on( 'ajax-success.tribe', function() {
+		$( te ).on( 'tribe_ev_ajaxSuccess', function() {
 			tribe_ical_url();
 		} );
 

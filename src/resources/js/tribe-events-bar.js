@@ -165,10 +165,10 @@ var tribe_events_bar_action;
 				'data-tribe-bar-order': i,
 				'data-view'           : displaying
 			} ).html( [
-					'   <a href="#">',
-					'   <span class="tribe-icon-' + displaying + '">' + $view.text() + '</span>',
-					'</a>'].join( "" )
-				).appendTo( '.tribe-bar-views-list' );
+				'   <a href="#">',
+				'   <span class="tribe-icon-' + displaying + '">' + $view.text() + '</span>',
+				'</a>'].join( "" )
+			).appendTo( '.tribe-bar-views-list' );
 
 		} );
 
@@ -226,7 +226,7 @@ var tribe_events_bar_action;
 		// Add our date bits outside of our filter container
 		$( '#tribe-bar-filters' ).before( $( '#tribe-bar-dates' ) );
 
-		$( te ).on( 'serialize-bar.tribe', function() {
+		$( te ).on( 'tribe_ev_serializeBar', function() {
 			$( 'form#tribe-bar-form input, form#tribe-bar-form select, #tribeHideRecurrence' ).each( function() {
 				var $this = $( this );
 				if ( $this.is( '#tribe-bar-date' ) ) {

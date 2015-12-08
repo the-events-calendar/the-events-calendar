@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, barry.hughes, bordoni, borkweb, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, thatdudebutch,  zbtirrell
+Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, thatdudebutch
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3.1
-Stable tag: 4.0beta1
+Stable tag: 4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,7 +29,7 @@ The Events Calendar has been audited by many of the industry's WordPress experts
 
 We've poured hundreds of hours into QA by a dedicated support team, monthly usability tests to guarantee that it's easy to use, and numerous user interviews to make sure you get what you want. We care about quality and crafting products that thrive in the wild.
 
-The team at Modern Tribe stands by our work and offers light support every Wednesday to the community via the WordPress.org support forums. Feel free to ask a question if you're having a problem with implementation or if you find bugs. Looking for help NOW or need a deeper level of support? Add the <a href="http://m.tri.be/2c">premium add-on plugin</a> and you get access to premium support forums with under 24hr response times on weekdays.
+The team at Modern Tribe stands by our work and offers light support every Wednesday to the community via the WordPress.org support forums. Feel free to ask a question if you're having a problem with implementation or if you find bugs. Looking for help NOW or need a deeper level of support? Add the <a href="http://m.tri.be/2c">premium add-on plugin</a> and you get access to premium support forums with 24-48 hour response times on weekdays.
 
 Enjoy using The Events Calendar, know how to get under the hood and want to make money helping people? We're growing our community team and would love to hear from you. If you’re interested, <a href="http://m.tri.be/mk">check this out!</a>
 
@@ -53,13 +53,15 @@ Just getting started? Definitely watch and read through the <a href="http://m.tr
 * Saved venues & organizers
 * Calendar month view with tooltips
 * List view
+* Day view
 * Event search
 * Google maps
-* Widget: Upcoming events
+* Widget: Upcoming events list
 * Events Taxonomies (Categories & Tags)
+* Google Calendar and iCal exporting
 * Completely ajaxified for super smooth browsing
 * Completely responsive from mobile to tablet to desktop
-* Tested on the major theme frameworks such as Genesis, Woo Themes, Thesis and many more.
+* Tested on the major theme frameworks such as Avada, Genesis, Woo Themes, Thesis and many more.
 * Increase your SEO with Microformats
 * Internationalized & Translated
 * Multiple stylesheets (Skeleton, Default, Tribe Event Styles) to improve integration
@@ -70,24 +72,17 @@ Just getting started? Definitely watch and read through the <a href="http://m.tr
 
 Looking for something else?
 
-* <a href="http://m.tri.be/2c">Events PRO</a>: recurring events, a whole range of new views (day / week / map / photo / venue / organizer) & widgets (calendar / featured venue / event countdown), custom event attributes, geolocation search and a lot more.
-* Sell tickets with <a href="http://m.tri.be/2f">WooCommerce</a> or <a href="http://m.tri.be/2e">Eventbrite</a>
-* <a href="http://m.tri.be/2h">Import events from Facebook</a> or let your <a href="http://m.tri.be/2g">users submit</a> from right on your website!
-* Have so many amazing events that your users get overwhelmed? Drop some filters on them with the <a href="http://m.tri.be/52" target="_blank">Filter Bar Plugin</a>.
+* <a href="http://m.tri.be/2c">Events Calendar PRO</a>: recurring events, a whole range of new views ( week / map / photo / venue / organizer) & widgets (calendar / featured venue / week / event countdown), custom event attributes, default content, location search and a lot more.
+* Sell tickets, collect sales, and manage attendees all from within your WordPress dashboard! Combine our <a href="http://m.tri.be/18wg">Event Tickets Plus add-on</a> with your favorite ecommerce plugin (WooCommerce, Shopp, Easy Digital Downloads, or WP E-commerce).
+* <a href="http://m.tri.be/2h">Import events from Facebook</a> or let your <a href="http://m.tri.be/2g">users submit events</a> from right on your website!
+* Have so many amazing events that your users get overwhelmed? Drop some filters on them with the <a href="http://m.tri.be/52" target="_blank">Filter Bar plugin</a>.
+* Connect with your Eventbrite.com account! Import/export between The Events Calendar and Eventbrite, plus ticket sales. Check out the <a href="http://m.tri.be/18wf">Eventbrite Tickets</a> add-on!
 
-<a href="https://www.facebook.com/ModernTribeInc" target="_blank">Join us on Facebook</a> to be part of our active community, check us out <a href="https://twitter.com/ModernTribeInc/" target="_blank">on Twitter</a>, and <a href="http://m.tri.be/2k">sign up for our newsletter</a> for release announcements and discounts.
+<a href="https://www.facebook.com/theeventscalendar/" target="_blank">Join us on Facebook</a> to be part of our active community, check us out <a href="https://twitter.com/TheEventsCal" target="_blank">on Twitter</a>, and <a href="http://m.tri.be/rm">sign up for our newsletter</a> for release announcements and discounts.
 
 = SUBMITTING PATCHES =
 
 If you’ve identified a bug and want to submit a patch, we’d welcome it at our <a href="https://github.com/moderntribe/the-events-calendar" target="_blank">GitHub page for The Events Calendar.</a> Simply cue up your proposed patch as a pull request, and we’ll review as part of our monthly release cycle and merge into the codebase if appropriate from there. (If a pull request is rejected, we’ll do our best to tell you why). Users whose pull requests are accepted will receive credit in the plugin’s changelog. For more information, check out the readme at our GitHub page. Happy coding!
-
-= GET INVOLVED =
-
-Need to hack the plugin or build a new feature for a project? How about making that into an add-on plugin so other people who have been wishing for the same feature can take advantage!
-
-Want to make an add-on? Check out <a href="https://github.com/moderntribe/tribe-events-agenda-view" target="_blank">Jessica's sample add-on plugin: Agenda View</a>!
-
-Send it to us and we would be <a href="mailto:pro@tri.be">happy to review it</a> and give you feedback! Then put it up on the .org repo for everyone to appreciate!
 
 == Installation ==
 
@@ -101,9 +96,7 @@ Installing the plugin is easy. Just follow these steps:
 4. Follow the on-screen instructions and wait as the upload completes.
 5. When it's finished, activate the plugin via the prompt. A message will show confirming activation was successful. A link to access the calendar directly on the frontend will be presented here as well.
 
-That's it! Just configure your settings as you see fit, and you're on your way to creating events in style. Now that you're all set up and ready to go, how about checking out the <a href="http://m.tri.be/2l">new user primer</a> to familiarize yourself with what's in store?
-
-If you're unclear about the installation process or get stuck, check out our <a href="http://m.tri.be/53">video</a> which walks you through the process. Still having trouble from there? See the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more troubleshooting ideas.
+That's it! Just configure your settings as you see fit, and you're on your way to creating events in style. Need help getting things started? Check out our <a href="http://m.tri.be/2l">new user primer</a> for help with settings and features.
 
 = Requirements =
 
@@ -132,68 +125,64 @@ If you're unclear about the installation process or get stuck, check out our <a 
 
 = Is there a shortcode available for The Events Calendar? =
 
-No, this plugin does not use a shortcode nor is one available at the time being. However, you may want to check out the experimental, totally unsupported <a href=“https://wordpress.org/plugins/event-rocket/“>Event Rocket add-on</a> to see if it accomplishes your shortcode needs.
+No, this plugin does not use a shortcode nor is one available at the time being. However, the premium add-on Events Calendar PRO comes with <a href="http://m.tri.be/18wh">widget shortcodes</a> that allow you to post any PRO widget (including the mini calendar) into a post or page.
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (3.12 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar (4.0 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.12 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
 
 Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
 = I'm still stuck. Where do I go to file a bug or ask a question? =
 
-Users of the free The Events Calendar should post their questions in the plugin's <a href="http://wordpress.org/support/plugin/the-events-calendar/">WordPress.org forum</a>, which we hit about once a week (on Wednesdays). Please make sure to read <a href="http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first">our sticky post</a> providing an overview of the support we provide free users BEFORE posting. If you find you're not getting support in as timely a fashion as you wish, you might want to consider purchasing a PRO license.
+Users of the free The Events Calendar should post their questions in the plugin's <a href="http://wordpress.org/support/plugin/the-events-calendar/">WordPress.org forum</a>, which we hit about once a week (usually on Wednesdays). Please make sure to read <a href="http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first">our sticky post</a> providing an overview of the support we provide free users BEFORE posting. If you find you're not getting support in as timely a fashion as you wish, you might want to consider purchasing a PRO license.
 
-If you're already a PRO user, you're entitled access to our more actively-monitored <a href="http://m.tri.be/2r">PRO forums</a> at the tri.be website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. Generally, except in times of increased support loads, we reply to all comments within 24-48 hours during the business week.
+If you're already a PRO user, you're entitled access to our more actively-monitored <a href="http://m.tri.be/2r">Events Calendar PRO forum</a> on our website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. Generally, except in times of increased support loads, we reply to all comments within 24-48 hours during the business week.
 
 = Events Calendar PRO looks awesome! I'm sold! How can I get my hands on it? =
 
-Events Calendar PRO can be purchased directly at the <a href="http://m.tri.be/54">tri.be website.</a> There are three (3) license types available, and all licenses include 1 year of access to support + updates.
+Events Calendar PRO can be purchased directly on <a href="http://m.tri.be/18wi">our website.</a> There are five (5) license types available, and all licenses include 1 year of access to support + updates.
 
 = I'm interested in PRO or another add-on, but there are a few questions I've got before making the purchase. Can you help me get those addressed? =
 
-Absolutely. If you're not finding your questions answered on the product pages, hit up our <a href="http://m.tri.be/2w">pre-sale forum</a> at the tri.be site. You can save yourself some time by reviewing the threads first to verify if your question has already been asked. If it hasn't, post a new thread as a guest. We'll get you a reply as quickly as we can, so you can make an informed decision regarding purchase. Keep in mind that the pre-sale forum is available for questions related to any premium product we've got: Events Calendar PRO, Eventbrite Tickets, WooCommerce Tickets, EDD Tickets, Shopp Tickets, WPEC Tickets, Community Events, Facebook Events and Filter Bar.
-
-If your question is simple and can be addressed in 140 characters, you can always ask it <a href="http://twitter.com/moderntribeinc">on Twitter</a>.
+Absolutely. If you're not finding your questions answered on the product pages, hit up our <a href="http://m.tri.be/2w">pre-sales forum</a> on our site. You can save yourself some time by reviewing the threads first to verify if your question has already been asked. If it hasn't, post a new thread as a guest. We'll get you a reply as quickly as we can, so you can make an informed decision regarding purchase.
 
 = What add-ons are available for The Events Calendar, and where can I read more about them? =
 
-Currently, the following add-ons are available for The Events Calendar/Events Calendar PRO:
+Currently, the following add-ons are available for The Events Calendar:
 
-* <a href="http://m.tri.be/2e">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
+* <a href="http://m.tri.be/18wi">Events Calendar PRO</a>, for adding premium calendar features like recurring events, advanced views, cool widgets, shortcodes, additional fields, and more!
+* <a href="http://m.tri.be/18wj">Event Tickets</a> (free), which allows you to collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds RSVP functionality to WordPress posts and pages.
+* <a href="http://m.tri.be/18wk">Event Tickets Plus</a>, which allows you to sell tickets for your events using your favorite e-commerce platform.
 * <a href="http://m.tri.be/2g">Community Events</a>, for allowing frontend event submission from your readers.
+* <a href="http://m.tri.be/18wl">Community Tickets</a>, which allows event organizers to sell tickets to the events they submit via Community Events.
 * <a href="http://m.tri.be/2h">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
-* <a href="http://m.tri.be/2f">WooCommerce Tickets</a>, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
-* <a href="http://m.tri.be/ci">EDD Tickets</a>, for using our ticketing framework to sell tickets on your events through The Events Calendar + Easy Digital Downloads.
-* <a href="http://m.tri.be/cu">WPEC Tickets</a>, for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site.
-* <a href="http://m.tri.be/dp">Shopp Tickets</a>, for harnessing the power of Shopp to sell event tickets on your WordPress site.
 * <a href="http://m.tri.be/fa">Filter Bar</a>, for adding advanced frontend filtering capabilities to your events calendar.
 * <a href="http://m.tri.be/18h9">iCal Importer</a>, for importing events any iCal feed or ICS file.
+* <a href="http://m.tri.be/2e">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
 
 = I have a feature idea. What's the best way to tell you about it? =
 
-We've got a <a href="https://tribe.uservoice.com/forums/195723-feature-ideas">Modern Tribe UserVoice page</a> where we're actively watching for feature ideas from the community. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community's needs.
+We've got a <a href="https://tribe.uservoice.com/forums/195723-feature-ideas">UserVoice page</a> where we're actively watching for feature ideas from the community. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community's needs.
 
-= I've still got questions. Do you have a bigger FAQ somewhere? =
+= I've still got questions. Where can I find answer? =
 
-We do. If you check out our <a href="http://m.tri.be/2n">Frequently Asked Questions page</a> on the tri.be site, we've collected and addressed all of the common questions we see posed by users. In some cases we'll provide a Gist; in other cases we'll direct you to a tutorial; and in some situations we'll unfortunately say a certain capability is simply not possible. But the FAQ is a living, breathing document that we're actively updating based on commonly-seen requests.
+Check out our extensive <a href="http://m.tri.be/18wm">knowledgebase</a> for articles on using, tweaking, and troubleshooting our plugins.
+
 
 == Documentation ==
 
 All of our online documentation can be found on <a href="http://m.tri.be/eu">our documentation site</a>.
 
-Some docs you may find particularly useful are:
+Some links you may find particularly useful are:
 
 * <a href="http://m.tri.be/2l">The Events Calendar New User Primer</a>
 * <a href="http://m.tri.be/2m">The Themer's Guide to The Events Calendar</a>
-* <a href="http://m.tri.be/2n">The Events Calendar FAQ</a>
-* <a href="http://m.tri.be/2u" target="_blank">The Events Calendar Tutorials</a>
+* <a href="http://m.tri.be/18wm" target="_blank">Knowledgebase</a>
 
-For template tags, open the plugin directory and visit /plugins/events/public/template-tags/ where you can find a list of those available.
-
-If you have any questions about this plugin, take look at the forum here on WordPress.org at <a href="http://wordpress.org/tags/the-events-calendar">http://wordpress.org/tags/the-events-calendar</a>. Please search existing threads before opening a new one.
+If you have any questions about this plugin, you can post a thread in our <a href="https://wordpress.org/support/plugin/the-events-calendar">WordPress.org forum</a>. Please search existing threads before opening a new one.
 
 The <a href="http://m.tri.be/2r">Modern Tribe PRO support forums</a> are available for you to read. You won't, however, be able to post a message in any forums beyond Pre-Sale Questions unless you have purchase a PRO license.
 
@@ -251,6 +240,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 = Translations =
 
 * Bulgarian
+* Catalan
 * Czech
 * Danish
 * Dutch
@@ -263,8 +253,10 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Icelandic
 * Italian
 * Lithuanian
+* Norwegian
 * Portuguese (Brazil)
 * Portuguese (Portugal)
+* Russian
 * Slovak
 * Spanish (Spain)
 * Swedish
@@ -274,10 +266,11 @@ Many thanks to all our translators!  You can grab the latest translations or con
 
 == Add-Ons ==
 
-But wait: there's more! We've got a whole stable of plugins available to help you be awesome at what you do. Check out a full list of the products below, and over at the <a href="http://m.tri.be/2a" target="_blank">Modern Tribe website.</a>
+But wait: there's more! We've got a whole stable of plugins available to help you be awesome at what you do. Check out a full list of the products below, and over on <a href="http://m.tri.be/18wn" target="_blank">our website.</a>
 
 Our Free Plugins:
 
+* <a href="https://wordpress.org/support/plugin/event-tickets/" target="_blank">Event Tickets</a>
 * <a href="http://wordpress.org/extend/plugins/advanced-post-manager/" target="_blank">Advanced Post Manager</a>
 * <a href="http://wordpress.org/plugins/blog-copier/" target="_blank">Blog Copier</a>
 * <a href="http://wordpress.org/plugins/image-rotation-repair/" target="_blank">Image Rotation Widget</a>
@@ -285,16 +278,14 @@ Our Free Plugins:
 
 Our Premium Plugins:
 
-* <a href="http://m.tri.be/2c" target="_blank">Events Calendar PRO</a>
-* <a href="http://m.tri.be/2e" target="_blank">The Events Calendar: Eventbrite Tickets</a>
+* <a href="http://m.tri.be/18wi" target="_blank">Events Calendar PRO</a>
+* <a href="http://m.tri.be/18wk" target="_blank">Event Tickets Plus</a>
 * <a href="http://m.tri.be/2g" target="_blank">The Events Calendar: Community Events</a>
+* <a href="http://m.tri.be/18wl" target="_blank">The Events Calendar: Community Tickets</a>
 * <a href="http://m.tri.be/2h" target="_blank">The Events Calendar: Facebook Events</a>
-* <a href="http://m.tri.be/2i" target="_blank">The Events Calendar: WooCommerce Tickets</a>
-* <a href="http://m.tri.be/ci" target="_blank">The Events Calendar: EDD Tickets Tickets</a>
-* <a href="http://m.tri.be/cu" target="_blank">The Events Calendar: WPEC Tickets</a>
-* <a href="http://m.tri.be/dp" target="_blank">The Events Calendar: Shopp Tickets</a>
 * <a href="http://m.tri.be/fa" target="_blank">The Events Calendar: Filter Bar</a>
 * <a href="http://m.tri.be/18h9" target="_blank">The Events Calendar: iCal Importer</a>
+* <a href="http://m.tri.be/2e" target="_blank">The Events Calendar: Eventbrite Tickets</a>
 
 == Versioning ==
 
@@ -321,48 +312,56 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.1] unreleased =
 
 * Tweak - For SEO reasons, use an <h1> for the title rather than an <h2> (props to wpexplorer for this fix)
+* Fix - Removed `wp_trim_excerpt` and use only it's powers, fixing the excerpt problem
 
-= [4.0 beta] unreleased =
+= [4.0] 2015-12-02 =
 
-* Security - A TON of escaping was added to our codebase thanks to the efforts of Andy Fragen (@afragen)
+* Security - A TON of escaping was added to our codebase thanks to the efforts of the always-helpful Andy Fragen (@afragen)
 * Feature - Moved the Ticket framework code into its own plugin (event-tickets)
-* Feature - The event cost now supports more international formats with the addition of the tribe_events_cost_separators filter
+* Feature - The event cost now supports more international formats with the addition of the tribe_events_cost_separators filter (Thank you remokrol for bringing this to our attention!)
 * Feature - Added support for the twentysixteen theme
 * Feature - Created a new Add-Ons tab in Settings so that TEC add-ons can have a consolidated settings tab
 * Feature - Improve the date formats UI by providing example output for each selected format
-* Tweak - Restructured TEC's core settings code for reusability with other standalone plugins like event-tickets
+* Tweak - Restructured TEC's core settings code for reusability with other standalone plugins like Event Tickets
 * Tweak - Deprecate old JS event names in favor of a new JS event naming standard. Example: deprecated tribe_ev_runAjax in favor of run-ajax.tribe
 * Tweak - Consolidated import pages for TEC and add-ons
 * Tweak - When suggesting a UTF-8 compatibility CSV formatting tool, point to one that still exists
-* Tweak - Added the ability to filter attendees CSV items via tribe_events_tickets_attendees_csv_items (props to @bostondv on GitHub for this patch!)
-* Tweak - Updated all excerpt output to use tribe_events_get_the_excerpt() to ensure a consistent display of excerpt content
+* Tweak - Added the ability to filter attendees CSV items via tribe_events_tickets_attendees_csv_items (Props to @bostondv on GitHub for this patch!)
+* Tweak - Updated all excerpt output to use tribe_events_get_the_excerpt() to ensure a consistent display of excerpt content (Cheers to Joseph to pointing this out!)
 * Tweak - Add support for wp_get_document_title in response to the WordPress 4.4 deprecation of wp_title
 * Tweak - Check post creation permissions before letting users create venues and organizers from the event meta box
-* Tweak - Only display data separators between fields that have data when rendering organizers
-* Tweak - When a user cannot create organziers, prevent the auto-selection of organizers when editing an event
+* Tweak - Only display data separators between fields that have data when rendering organizers (Thank you Bud for highlighting this issue!)
+* Tweak - When a user cannot create organizers, prevent the auto-selection of organizers when editing an event
 * Tweak - Remove microformat CSS classes from templates and replace with namespaced content-relevant CSS classes
-* Tweak - Changed the "updated" CSS class to "tribe-updated" so that it is properly namespaced
-* Tweak - The Plugin Update Checker will now auto-save valid plugin keys
+* Tweak - Changed the "updated" CSS class to "tribe-updated" so that it is properly namespaced (Thank you vijayrajesh!)
+* Tweak - The Plugin Update Checker will now auto-save valid plugin keys (Thanks to Denon for originally bringing this up!)
 * Tweak - Cleaned up the output of JSON-LD data. Filterable via the new tribe_google_data_markup_json filter
-* Tweak - Drop the use of the generic CSS class "placeholder" in favor of "tribe-event-placeholder"
+* Tweak - Drop the use of the generic CSS class "placeholder" in favor of "tribe-event-placeholder" (Thanks to Marc on the forums!)
 * Tweak - Adjusted the CSS padding on Admin Menu items for Events
 * Tweak - Various codesniffer fixes
-* Tweak - tribe_get_vanue_link() no longer echoes if you ask it to return an <a> element
+* Tweak - tribe_get_venue_link() no longer echoes if you ask it to return an <a> element
+* Tweak - Error messages for empty Venue names
+* Tweak - Improve our responsiveness for the widget mini calendar, allowing smaller sidebars.
 * Tweak - No longer retrieve empty costs when fetching all costs for all events
 * Tweak - Change the priority of bootstrapping the-events-calendar to ensure it occurs before any of the TEC addons in the event some addons are upgraded to v4.0 later than TEC
 * Tweak - Adjust the logic used for adding a noindex/follow tag to event views
-* Fix - Resolved issue where the iCal feed did not provide an appropriately formatted timezone in some cases
-* Fix - Added support for translating some previously untranslatable strings
-* Fix - Prevented duplicate CSS IDs on the mini calendars
-* Fix - Fixed bug causing tribe_get_single_ical_link() and tribe_get_ical_link() to use the same URL when it shouldn't (props to Ben Byrne @drywall on Twitter for the heads up!)
-* Fix - Fixed issue where the "Add another organizer" text wasn't using the correct singular label
+* Tweak - No longer hiding default address fields when default venues are selected when Pro is active
+* Fix - Resolved issue where the iCal feed did not provide an appropriately formatted timezone in some cases (Cheers to Matt for the report!)
+* Fix - Added support for translating some previously untranslatable strings (Props to tititou36, media325, and Stef!)
+* Fix - Prevented duplicate CSS IDs on the mini calendars (Cheers to Corrado for the help!)
+* Fix - Fixed bug causing tribe_get_single_ical_link() and tribe_get_ical_link() to use the same URL when it shouldn't (Props to Ben Byrne @drywall on Twitter for the heads up!)
+* Fix - Fixed issue where the "Add another organizer" text wasn't using the correct singular label (Thank you MIKE for the report!)
 * Fix - Various CSS fixes for twenty(ten-fifteen)
+* Fix - Improved our handling of `get_current_screen()` across the plugin, avoiding notices and warnings (Thank you Mike for the help!)
 * Fix - Fixed bug where accessing object properties on a non object errored out when saving event meta (props to @dalethedeveloper on GitHub for this fix!)
 * Fix - Fixed bug where organizer ID meta attached sometimes included a blank record. That blank record is no longer returned in tribe_get_organizer_ids()
-* Fix - Fixed error message returned when tabbing away from a blank event name meta box so that it properly indicates that an event name is required (our thanks to @tapan29bd for this fix!)
+* Fix - Fixed error message returned when tabbing away from a blank event name meta box so that it properly indicates that an event name is required (Our thanks to @tapan29bd for this fix!)
 * Fix - Resolved issue where Timezone event start/end date property name strings were malformed which guaranteed a a call to get_post_meta for Timezone date strings
 * Fix - Fixed CSS issue where the month view calendar could sometimes extend beyond the edge of the page when Skeleton Styles were enabled
 * Fix - Fixed a problem where iCal data was generated with incorrect dates in the case of some all days events (thanks to Matt for highlighting this)
+* Fix - Resolved a problem causing the previous month view to appear when it should not
+* Fix - Fixed issue in mobile month view where date was missing from heading
+* Fix - Resolved issue that caused /events/ to 404 if it was visited on a new install before hitting "Save" on the Events > Settings > Display page
 * Deprecated - The Tribe__Events__Main::defaultValueReplaceEnabled() method is being deprecated in favor of tribe_get_option('defaultValueReplace'). Schedules for removal in v4.5
 * Deprecated - The tribe_event_link() has been deprecated in favor of tribe_get_event_link(). Scheduled for removal in 5.0
 * Deprecated - The third parameter of tribe_get_organizer_link() (the $echo parameter) has been deprecated and is scheduled for removal in 5.0
@@ -420,6 +419,13 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Deprecated - tribe_event_end_of_day() in favor of tribe_end_of_day()
 * Deprecated - tribe_event_format_date() in favor of tribe_format_date()
 * Deprecated - tribe_events_the_notices() in favor of tribe_the_notices()
+
+= [3.12.6] 2015-11-12 =
+
+* Fix - Remove constraints on defining new venues and organizers that were added prematurely (our thanks to Jeramey for highlighting this)
+* Fix - Resolve error encountered by users of some ticketing addons when accessing the orders report (our thanks to Sean for highlighting this)
+* Fix - Restore live reload functionality which was failing to function in some cases (our thanks to cityofroundrock for highlighting this)
+* Tweak - Alter month view logic for better isolation of different month views (such as when the calendar widget and main calendar view co-exist)
 
 = [3.12.5] 2015-11-05 =
 

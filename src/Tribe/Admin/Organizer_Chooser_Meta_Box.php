@@ -120,7 +120,7 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 				<?php if ( empty( $organizer_id ) ) { ?> style="display:none;"<?php } ?>
 				data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>"
 				href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $organizer_id ) ) ); ?>"
-				target="_blank"><?php printf( esc_html__( 'Edit %s', 'the-events-calendar' ), sanitize_title( $this->tribe->singular_organizer_label ) ); ?></a>
+				target="_blank"><?php printf( esc_html__( 'Edit %s', 'the-events-calendar' ), esc_html( tribe_get_organizer_label_singular() ) ); ?></a>
 		</div>
 		<?php
 	}

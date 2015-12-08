@@ -35,6 +35,13 @@ class Tribe__Events__Importer__Options {
 				Tribe__Settings_Manager::set_option( $_option, $value );
 			}
 
+			/**
+			 * Fires once import options have been saved/updated.
+			 *
+			 * @var array $options
+			 */
+			do_action( 'tribe_import_options_updated', $options );
+
 			add_action( 'tribe_import_under_heading', array( __CLASS__, 'settings_saved_message' ) );
 		}
 	}
