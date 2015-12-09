@@ -325,6 +325,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - Resolved issue where events imported via CSV were excluded from single event navigation
 * Fix - Fixed bug where /events/list would sometimes 404 on a new install
 * Fix - Resolved bug where multiday all-day events displayed the end date as one day later than it should be when the End of Day Cut-off was set to something other than 12am
+* Fix - Timezone handling fixed within generated iCal feeds
 
 = [4.0] 2015-12-02 =
 
