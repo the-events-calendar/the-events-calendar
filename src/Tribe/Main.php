@@ -1625,13 +1625,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param int $post_id the event ID for which to create the dropdown
 		 */
 		public function displayEventVenueDropdown( $post_id ) {
-			$venue_id = get_post_meta( $post_id, '_EventVenueID', true );
+			$venue_id           = get_post_meta( $post_id, '_EventVenueID', true );
 
-			if (
-				( ! $post_id || get_post_status( $post_id ) === 'auto-draft' ) &&
-				! $venue_id &&
-				tribe_is_community_edit_event_page()
-			) {
+			// Strange but true: the following func lives in core so is safe to call without a func_exists check
+			$new_community_post = tribe_is_community_edit_event_page() && ! $post_id;
+			$new_admin_post     = 'auto-draft' === get_post_status( $post_id );
+
+			if ( ! $venue_id && ( $new_admin_post || $new_community_post ) ) {
 				$venue_id = $this->defaults()->venue_id();
 			}
 
