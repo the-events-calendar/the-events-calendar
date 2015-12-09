@@ -49,14 +49,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<td>
 		<?php
 		$countries = Tribe__View_Helpers::constructCountries( $event->ID );
-		$defaultCountry = tribe_get_default_value( 'country' );
+
 		if ( isset( $_VenueCountry ) && $_VenueCountry ) {
 			$current = $_VenueCountry;
-		} elseif ( isset( $defaultCountry[1] ) ) {
-			$current = $defaultCountry[1];
 		} else {
 			$current = null;
 		}
+
 		if ( is_array( $current ) && isset( $current[1] ) ) {
 			$current = $current[1];
 		}
