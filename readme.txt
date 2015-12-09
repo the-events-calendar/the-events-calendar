@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.3.1
+Tested up to: 4.4
 Stable tag: 4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -314,6 +314,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Add a warning message for major updates
 * Tweak - For SEO reasons, use an <h1> for the title rather than an <h2> (props to wpexplorer for this fix)
 * Tweak - Target the calendar view grid in JS using a simpler selector
+* Fix - Resolved WP 4.4 related fatal on the Nav Menu page that prevented the admin footer from rendering/enqueuing JS
 * Fix - Resolved bug where visiting /events/upcoming could sometimes result in an infinite redirect loop
 * Fix - Removed `wp_trim_excerpt` and use only it's powers, fixing the excerpt problem
 * Fix - Fixed bug where the mobile calendar view did not display the date for the date being viewed
