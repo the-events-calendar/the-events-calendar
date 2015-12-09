@@ -225,7 +225,7 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.0.1] unreleased =
+= [4.0.1] 2015-12-09 =
 
 * Tweak - Included a Filter for filtering Recurrence Output Data `tribe_events_pro_output_recurrence_data`
 * Tweak - Add better support for Daylight Saving Time
