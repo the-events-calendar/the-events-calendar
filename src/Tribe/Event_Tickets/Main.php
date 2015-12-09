@@ -24,6 +24,13 @@ class Tribe__Events__Event_Tickets__Main {
 	private $attendees_report;
 
 	/**
+	 * Contains an instance of the Ticket Email integration class
+	 * @since 4.0.2
+	 * @var Tribe__Events__Event_Tickets__Ticket_Email
+	 */
+	private $ticket_email;
+
+	/**
 	 * Method to return the private instance of the class
 	 *
 	 * @since 4.0.1
@@ -42,10 +49,13 @@ class Tribe__Events__Event_Tickets__Main {
 	 */
 	public function __construct() {
 		$this->attendees_report();
+		$this->ticket_email();
 	}
 
 	/**
 	 * Attendees Report integration class object accessor method
+	 *
+	 * @since 4.0.1
 	 */
 	public function attendees_report( $object = null ) {
 		if ( $object ) {
@@ -55,5 +65,20 @@ class Tribe__Events__Event_Tickets__Main {
 		}
 
 		return $this->attendees_report;
+	}
+
+	/**
+	 * Ticket email integration class object accessor method
+	 *
+	 * @since 4.0.2
+	 */
+	public function ticket_email( $object = null ) {
+		if ( $object ) {
+			$this->ticket_email = $object;
+		} elseif ( ! $this->ticket_email ) {
+			$this->ticket_email = new Tribe__Events__Event_Tickets__Ticket_Email;
+		}
+
+		return $this->ticket_email;
 	}
 }
