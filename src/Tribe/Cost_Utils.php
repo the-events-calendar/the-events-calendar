@@ -289,6 +289,9 @@ class Tribe__Events__Cost_Utils {
 			// Get the required parts
 			if ( preg_match_all( '/' . $price_regex . '/', $cost, $matches ) ) {
 				$cost = reset( $matches );
+			} else {
+				$matches = array();
+				$cost = array( 0 );
 			}
 
 			// Get the max number of decimals for the range
