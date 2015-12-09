@@ -66,7 +66,7 @@ class Tribe__Events__Utils__DST {
 	 */
 	public function get_time_aligned_with( Tribe__Events__Utils__DST $dst ) {
 		$dst_aligned = $this->is_in_dst() == $dst->is_in_dst();
-		$offset      = $this->is_in_dst() ? 1 : - 1;
+		$offset      = $dst->is_in_dst() - $this->is_in_dst();
 
 		return $dst_aligned ? $this->time : $this->time + $offset * 3600;
 	}
