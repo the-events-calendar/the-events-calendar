@@ -1625,7 +1625,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param int $post_id the event ID for which to create the dropdown
 		 */
 		public function displayEventVenueDropdown( $post_id ) {
-			$venue_id           = get_post_meta( $post_id, '_EventVenueID', true );
+			$venue_id = get_post_meta( $post_id, '_EventVenueID', true );
 
 			// Strange but true: the following func lives in core so is safe to call without a func_exists check
 			$new_community_post = tribe_is_community_edit_event_page() && ! $post_id;
