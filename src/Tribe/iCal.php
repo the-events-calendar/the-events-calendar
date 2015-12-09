@@ -229,8 +229,8 @@ class Tribe__Events__iCal {
 
 			$full_format = 'Ymd\THis';
 			$time = (object) array(
-				'start' => self::wp_strtotime( $event_post->EventStartDate ),
-				'end' => self::wp_strtotime( $event_post->EventEndDate ),
+				'start' => tribe_get_start_date( $event_post->ID, false, 'U' ),
+				'end' => tribe_get_end_date( $event_post->ID, false, 'U' ),
 				'modified' => self::wp_strtotime( $event_post->post_modified ),
 				'created' => self::wp_strtotime( $event_post->post_date ),
 			);
@@ -254,7 +254,11 @@ class Tribe__Events__iCal {
 				$item[] = "DTSTART;VALUE=$type:" . $tzoned->start;
 				$item[] = "DTEND;VALUE=$type:" . $tzoned->end;
 			} else {
-				$tz = get_option( 'timezone_string' );
+				// Are we using the sitewide timezone or the local event timezone?
+				$tz = Tribe__Events__Timezones::EVENT_TIMEZONE === Tribe__Events__Timezones::mode()
+					? Tribe__Events__Timezones::get_event_timezone_string( $event_post->ID )
+					: Tribe__Events__Timezones::wp_timezone_string();
+
 				$item[] = 'DTSTART;TZID="'.$tz.'":' . $tzoned->start;
 				$item[] = 'DTEND;TZID="'.$tz.'":' . $tzoned->end;
 			}
