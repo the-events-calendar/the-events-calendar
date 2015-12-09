@@ -309,7 +309,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.0.1] unreleased =
+= [4.0.1] 2015-12-09 =
 
 * Tweak - Add a warning message for major updates
 * Tweak - For SEO reasons, use an <h1> for the title rather than an <h2> (props to wpexplorer for this fix)
