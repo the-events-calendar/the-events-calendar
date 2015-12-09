@@ -314,9 +314,7 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 
 		// If the event-specific timezone is suitable, we can obtain it without any conversion work
 		if ( $use_event_tz || ( $use_site_tz && $site_zone_is_event_zone ) ) {
-			$datetime = isset( $event->{"Event{$type}Date"} )
-				? $event->{"Event{$type}Date"}
-				: get_post_meta( $event->ID, "_Event{$type}Date", true );
+			$datetime = get_post_meta( $event->ID, "_Event{$type}Date", true );
 
 			return strtotime( $datetime );
 		}
