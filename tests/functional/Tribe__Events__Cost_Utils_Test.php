@@ -98,4 +98,35 @@ class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 			unset( $this->test_events[ $event_id ] );
 		}
 	}
+
+	/**
+	 * Test that cost ranges return appropriate data
+	 */
+	public function test_parse_cost_range() {
+		$costs = array(
+			5,
+			10,
+			1.5,
+			'1 - 15',
+			'$6',
+		);
+
+		$cost_utils = Tribe__Events__Cost_Utils::instance();
+		$range = $cost_utils->parse_cost_range( $costs );
+
+		$this->assertEquals( array(
+			10 => '1',
+			15 => '1.5',
+			50 => '5',
+			60 => '6',
+			100 => '10',
+			150 => '15',
+		), $range );
+
+		$range = $cost_utils->parse_cost_range( array( 10 ) );
+		$this->assertEquals( array( 10 => '10' ), $range );
+
+		$range = $cost_utils->parse_cost_range( array( 'Free' ) );
+		$this->assertEquals( array( 0 ), $range );
+	}
 }
