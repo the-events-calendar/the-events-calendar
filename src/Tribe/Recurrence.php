@@ -6,10 +6,6 @@
 class Tribe__Events__Pro__Recurrence {
 	const NO_END = -1;
 	private $start_date;
-	/**
-	 * @var Tribe__Events__Utils__DST
-	 */
-	protected $start_date_dst;
 	private $duration;
 	private $end;
 	/** @var Tribe__Events__Pro__Date_Series_Rules__Rules_Interface */
@@ -22,7 +18,6 @@ class Tribe__Events__Pro__Recurrence {
 
 	public function  __construct( $start_date, $end, $series_rules, $by_occurrence_count = false, $event = null, $start_time = null, $duration = null ) {
 		$this->start_date          = $start_date;
-		$this->start_date_dst      = new Tribe__Events__Utils__DST( $start_date );
 		$this->end                 = $end;
 		$this->series_rules        = $series_rules;
 		$this->by_occurrence_count = $by_occurrence_count;
@@ -79,6 +74,7 @@ class Tribe__Events__Pro__Recurrence {
 			$i = 0;
 			while ( $cur_date = $this->getNextDate( $cur_date ) ) {
 				$i ++;
+
 				if ( $cur_date > $this->maxDate ) {
 					$this->last_request_constrained = $cur_date;
 					break; // no more dates will be in range. stop here
@@ -124,11 +120,8 @@ class Tribe__Events__Pro__Recurrence {
 		if ( intval( $next_date ) < $current_date ) { // bit overflow
 			return false;
 		}
-		// Factor in Daylight Saving Time
-		$next_date_dst = new Tribe__Events__Utils__DST( $next_date );
-		$start_hour    = $next_date_dst->get_time_aligned_with( $this->start_date_dst );
 		// Makes sure to assign the proper hours to the date.
-		$next_date        = mktime( date( 'H', $start_hour ), date( 'i', $this->start_date ), date( 's', $this->start_date ), date( 'n', $next_date ), date( 'j', $next_date ), date( 'Y', $next_date ) );
+		$raw_date     = mktime( date( 'H', $this->start_date ), date( 'i', $this->start_date ), date( 's', $this->start_date ), date( 'n', $next_date ), date( 'j', $next_date ), date( 'Y', $next_date ) );
 
 		return $next_date;
 	}
