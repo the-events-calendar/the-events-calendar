@@ -914,10 +914,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$inner .= '</span>' . $time_range_separator;
 				$inner .= '<span class="tribe-event-date-end">';
 
-				$end_date_full_timestamp = tribe_get_end_date( $event, true, 'U' );
+				$end_date_full = tribe_get_end_date( $event, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
+				$end_date_full_timestamp = strtotime( $end_date_full );
 
 				// if the end date is <= the beginning of the day, consider it the previous day
-				if ( $end_date_full_timestamp <= strtotime( tribe_beginning_of_day( $end_date_full_timestamp ) ) ) {
+				if ( $end_date_full_timestamp <= strtotime( tribe_beginning_of_day( $end_date_full ) ) ) {
 					$end_date = tribe_format_date( $end_date_full_timestamp - DAY_IN_SECONDS, false, $format2ndday );
 				} else {
 					$end_date = tribe_get_end_date( $event, false, $format2ndday );

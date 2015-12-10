@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.3.1
-Stable tag: 4.0
+Tested up to: 4.4
+Stable tag: 4.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -207,7 +207,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 <a href="https://profiles.wordpress.org/borkweb">Matthew Batchelder</a>
 <a href="https://profiles.wordpress.org/neillmcshea">Neill McShea</a>
 <a href="https://profiles.wordpress.org/mastromktg">Nick Mastromattei</a>
-<a href="https://profiles.wordpress.org/nicosantos”>Nico Santo</a>
+<a href="https://profiles.wordpress.org/nicosantos">Nico Santo</a>
 <a href="https://profiles.wordpress.org/peterchester">Peter Chester</a>
 <a href="https://profiles.wordpress.org/roblagatta">Rob La Gatta</a>
 <a href="https://profiles.wordpress.org/reid.peifer">Reid Peifer</a>
@@ -309,10 +309,23 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.1] unreleased =
+= [4.0.1] 2015-12-09 =
 
+* Tweak - Add a warning message for major updates
 * Tweak - For SEO reasons, use an <h1> for the title rather than an <h2> (props to wpexplorer for this fix)
+* Tweak - Target the calendar view grid in JS using a simpler selector
+* Fix - Resolved WP 4.4 related fatal on the Nav Menu page that prevented the admin footer from rendering/enqueuing JS
+* Fix - Resolved bug where visiting /events/upcoming could sometimes result in an infinite redirect loop
 * Fix - Removed `wp_trim_excerpt` and use only it's powers, fixing the excerpt problem
+* Fix - Fixed bug where the mobile calendar view did not display the date for the date being viewed
+* Fix - Fixed bug where the admin toolbar's Events > Import > CSV did not link to the CSV importer page
+* Fix - Fixed issue where the events list in the admin dashboard were not ordered in an intuitive manner
+* Fix - Resolved bug where sorting by event category or tag resulted in an error
+* Fix - Fixed bug where full event content text was displayed where excerpts should have been displayed
+* Fix - Resolved issue where events imported via CSV were excluded from single event navigation
+* Fix - Fixed bug where /events/list would sometimes 404 on a new install
+* Fix - Resolved bug where multiday all-day events displayed the end date as one day later than it should be when the End of Day Cut-off was set to something other than 12am
+* Fix - Timezone handling fixed within generated iCal feeds
 
 = [4.0] 2015-12-02 =
 
@@ -1075,4 +1088,3 @@ Please see the changelog for the complete list of changes in this release. Remem
 = 2.0.3 =
 
 2.0.3 is a minor bug patch for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
-

@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '4.0';
+		const VERSION           = '4.0.1';
 		const MIN_ADDON_VERSION = '4.0';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -1139,13 +1139,22 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$_nav_menu_placeholder = ( 0 > $_nav_menu_placeholder ) ? intval( $_nav_menu_placeholder ) - 1 : - 1;
 			$archive_slug          = $this->getLink();
 
+			// In WP 4.4, $post_type is an object rather than an array
+			if ( is_array( $post_type ) ) {
+				// support pre WP 4.4
+				$all_items = $post_type['args']->labels->all_items;
+			} else {
+				// support WP 4.4+
+				$all_items = $post_type->labels->all_items;
+			}
+
 			array_unshift(
 				$posts, (object) array(
 					'ID'           => 0,
 					'object_id'    => $_nav_menu_placeholder,
 					'post_content' => '',
 					'post_excerpt' => '',
-					'post_title'   => $post_type['args']->labels->all_items,
+					'post_title'   => $all_items,
 					'post_type'    => 'nav_menu_item',
 					'type'         => 'custom',
 					'url'          => $archive_slug,

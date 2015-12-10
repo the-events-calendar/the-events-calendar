@@ -33,6 +33,7 @@ module.exports = {
 					'!**/*.sh',
 					'!**/.git/**',
 					'!**/phpunit.xml',
+					'!**/codeception.dist.yml',
 					'!**/codeception.yml',
 					'!**/composer.json',
 					'!**/composer.lock',
