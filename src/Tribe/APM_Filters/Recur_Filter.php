@@ -9,6 +9,7 @@
 
 		protected $opts;
 		protected $not_recur = 's:5:"rules";a:0:{}s:10:"exclusions";a:0:{}';
+		protected $not_recur_legacy = 's:4:"type";s:4:"None";';
 
 		public function __construct() {
 
@@ -51,9 +52,9 @@
 
 
 			if ( 'is' === $wp_query->apm_ecp_recur ) {
-				$where .= " AND ( recur_meta.meta_value NOT LIKE '%$this->not_recur%' AND recur_meta.meta_value <> '' )  ";
+				$where .= " AND ( recur_meta.meta_value NOT LIKE '%$this->not_recur%' AND recur_meta.meta_value NOT LIKE '%$this->not_recur_legacy%' AND recur_meta.meta_value <> '' )  ";
 			} else {
-				$where .= " AND ( recur_meta.meta_value LIKE '%$this->not_recur%' OR recur_meta.meta_value = '' ) ";
+				$where .= " AND ( recur_meta.meta_value LIKE '%$this->not_recur%' OR recur_meta.meta_value LIKE '%$this->not_recur_legacy%' OR recur_meta.meta_value = '' )  ";
 			}
 
 			return $where;
