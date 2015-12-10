@@ -273,11 +273,11 @@ class Tribe__Events__Cost_Utils {
 			return array();
 		}
 
-		// remove any empty prices
-		$costs = array_filter( (array) $costs );
+		// make sure costs is an array
+		$costs = (array) $costs;
 
-		// If it's empty returns 0
-		if ( empty( $costs ) ) {
+		// If there aren't any costs, return a blank array
+		if ( 0 === count( $costs ) ) {
 			return array();
 		}
 
@@ -290,8 +290,8 @@ class Tribe__Events__Cost_Utils {
 			if ( preg_match_all( '/' . $price_regex . '/', $cost, $matches ) ) {
 				$cost = reset( $matches );
 			} else {
-				$matches = array();
-				$cost = array( 0 );
+				$cost = array();
+				continue;
 			}
 
 			// Get the max number of decimals for the range
@@ -311,7 +311,7 @@ class Tribe__Events__Cost_Utils {
 
 		foreach ( $costs as $cost ) {
 			// Creates a Well Balanced Index that will perform good on a Key Sorting method
-			$index = str_replace( '.', '', number_format( str_replace( $this->get_separators(), '.', $cost ), $max ) );
+			$index = str_replace( array( '.', ',' ), '', number_format( str_replace( $this->get_separators(), '.', $cost ), $max ) );
 
 			// Keep the Costs in a organizeable array by keys with the "numeric" value
 			$ocost[ $index ] = $cost;

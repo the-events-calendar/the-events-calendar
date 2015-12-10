@@ -127,6 +127,6 @@ class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 		$this->assertEquals( array( 10 => '10' ), $range );
 
 		$range = $cost_utils->parse_cost_range( array( 'Free' ) );
-		$this->assertEquals( array( 0 ), $range );
+		$this->assertEquals( array(), $range );
 	}
 }
