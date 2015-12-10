@@ -785,10 +785,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->singular_event_label                       = $this->get_event_label_singular();
 			$this->plural_event_label                         = $this->get_event_label_plural();
 
-			$this->postTypeArgs['rewrite']['slug']            = sanitize_title( $this->rewriteSlugSingular );
-			$this->postVenueTypeArgs['rewrite']['slug']       = sanitize_title( $this->singular_venue_label );
+			$this->postTypeArgs['rewrite']['slug']            = $this->prepare_slug( $this->rewriteSlugSingular );
+			$this->postVenueTypeArgs['rewrite']['slug']       = $this->prepare_slug( $this->singular_venue_label );
 			$this->postVenueTypeArgs['show_in_nav_menus']     = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
-			$this->postOrganizerTypeArgs['rewrite']['slug']   = sanitize_title( $this->singular_organizer_label );
+			$this->postOrganizerTypeArgs['rewrite']['slug']   = $this->prepare_slug( $this->singular_organizer_label );
 			$this->postOrganizerTypeArgs['show_in_nav_menus'] = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
 			$this->postVenueTypeArgs['public']                = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
 			$this->postOrganizerTypeArgs['public']            = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
@@ -4714,6 +4714,25 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$reverse_position = ( 'suffix' === $reverse_position );
 
 			return $reverse_position;
+		}
+
+		/**
+		 * Accepts a string a returns a sanitized version that can be used in
+		 * rewrite rules.
+		 *
+		 * @param  string $possible_slug_name
+		 * @return string
+		 */
+		protected function prepare_slug( $possible_slug_name ) {
+			$sanitized_slug = sanitize_title( $possible_slug_name );
+
+			// Was UTF8 encoding required for the slug?
+			if ( preg_match( '/(%[0-9a-f]{2})+/', $sanitized_slug ) ) {
+				// User agents encode things the same way but in uppercase
+				$sanitized_slug = strtoupper( $sanitized_slug );
+			}
+
+			return preg_quote( $sanitized_slug );
 		}
 	} // end Tribe__Events__Main class
 } // end if !class_exists Tribe__Events__Main
