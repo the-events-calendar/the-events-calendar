@@ -112,8 +112,9 @@ class Tribe__Events__Pro__Recurrence__Series_Rules_Factory {
 				$rule = new Tribe__Events__Pro__Date_Series_Rules__Week( 1 );
 				break;
 			case Tribe__Events__Pro__Recurrence__Custom_Types::WEEKLY_CUSTOM_TYPE:
+				$days = empty( $recurrence['custom']['week']['day'] ) ? array() : $recurrence['custom']['week']['day'];
 				$rule = new Tribe__Events__Pro__Date_Series_Rules__Week(
-					$recurrence['custom']['interval'], $recurrence['custom']['week']['day']
+					$recurrence['custom']['interval'], $days
 				);
 				break;
 			case Tribe__Events__Pro__Recurrence__Custom_Types::EVERY_MONTH_TYPE:
