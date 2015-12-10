@@ -413,8 +413,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		}
 
 		/**
-		 * Accepts a string a returns a sanitized version that can be used in
-		 * rewrite rules.
+		 * Returns a sanitized version of $slug that can be used in rewrite rules.
 		 *
 		 * This is ideal for those times where we wish to support internationalized
 		 * URLs (ie, where "venue" in "venue/some-slug" may be rendered in non-ascii
@@ -423,11 +422,11 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * In the case of registering new post types, $permastruct_name should
 		 * generally match the CPT name itself.
 		 *
-		 * @param  string $permastruct_name
 		 * @param  string $slug
+		 * @param  string $permastruct_name
 		 * @return string
 		 */
-		public function prepare_slug( $permastruct_name, $slug ) {
+		public function prepare_slug( $slug, $permastruct_name ) {
 			$needs_handling = false;
 			$sanitized_slug = sanitize_title( $slug );
 
