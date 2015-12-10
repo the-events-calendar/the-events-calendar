@@ -4702,7 +4702,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// if there isn't a post id, don't change the symbol
-			if ( !$post_id ) {
+			if ( ! $post_id ) {
 				return $reverse_position;
 			}
 
