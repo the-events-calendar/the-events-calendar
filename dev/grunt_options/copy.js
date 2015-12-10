@@ -33,7 +33,7 @@ module.exports = {
 				'!**/.git/**',
 				'!**/.editorconfig',
 				'!**/phpunit.xml',
-				'!**/codeception.yml',
+				'!**/codeception*.yml',
 				'!**/composer.json',
 				'!**/composer.lock',
 				'!**/vendor/bacon/**',
