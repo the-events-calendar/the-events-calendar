@@ -8,7 +8,7 @@
 		protected $meta = '_EventRecurrence';
 
 		protected $opts;
-		protected $not_recur = 's:4:"type";s:4:"None";';
+		protected $not_recur = 's:5:"rules";a:0:{}s:10:"exclusions";a:0:{}';
 
 		public function __construct() {
 
