@@ -14,3 +14,4 @@ $I->set_pretty_permalinks();
 $I->createTag( array( 'tagName' => 'New Tag Name', 'tagSlug' => 'New Slug', 'tagDescription' => 'The tag descripton' ) );
 
 //Delete Tag
+//  Need to add this next or we will have a ton of tags pretty quickly!
