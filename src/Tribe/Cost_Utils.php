@@ -207,7 +207,7 @@ class Tribe__Events__Cost_Utils {
 				break;
 		}
 
-		// use a regular expression instead of is_numeric
+		// If there isn't anything on the cost just return 0
 		if ( empty( $cost ) ) {
 			return 0;
 		}
