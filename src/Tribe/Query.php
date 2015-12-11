@@ -375,7 +375,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		}
 
 		/**
-		 * Returns whether or not the event date & upcoming filters should be removed from the query
+		 * Returns whether or not the event date & upcoming filters should be removed from the query.
+		 *
+		 * This can be useful for admin screens (ie, importer related) that "share" the
+		 * edit.php?post_type=tribe_events screen, though we do not wish this to be applied to the
+		 * main admin events list itself.
 		 *
 		 * @since 4.0
 		 * @param WP_Query $query WP_Query object
@@ -388,10 +392,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			// otherwise, let's remove the date filters if we're in the admin dashboard and the query is
-			// and event query on the tribe_events edit page
+			// an event query on a tribe_events edit page *other* than the main events list
 			return is_admin()
 				&& $query->tribe_is_event_query
-				&& Tribe__Admin__Helpers::instance()->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE );
+				&& Tribe__Admin__Helpers::instance()->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE )
+				&& ! empty( $_GET['page'] );
 		}
 
 		/**
