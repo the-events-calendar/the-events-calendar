@@ -734,8 +734,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		}
 
 		/**
-		 * Appends the necessary conditions to the order clause in order to order by
-		 * either venue or organizer.
+		 * Appends the necessary conditions to the order clause to sort by either venue or
+		 * organizer.
 		 *
 		 * @param  array    $clauses
 		 * @param  WP_Query $query
