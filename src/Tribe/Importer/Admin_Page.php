@@ -150,7 +150,6 @@ class Tribe__Events__Importer__Admin_Page {
 					$this->state = '';
 					return $this->render_admin_page_contents();
 				}
-
 				$header = $file->get_header();
 				if ( get_option( 'tribe_events_importer_has_header', 0 ) == 0 ) {
 					$letter = 'A';
