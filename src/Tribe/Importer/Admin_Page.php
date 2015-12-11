@@ -160,24 +160,19 @@ class Tribe__Events__Importer__Admin_Page {
 						$header[] = $letter++;
 					}
 				}
-
 				$import_type = get_option( 'tribe_events_import_type' );
 				$messages = $this->errors;
 				include Tribe__Events__Importer__Plugin::path( 'src/io/csv/admin-views/columns.php' );
-
 				break;
-
 			case 'importing':
 				$messages = $this->messages;
 				include Tribe__Events__Importer__Plugin::path( 'src/io/csv/admin-views/in-progress.php' );
 				break;
-
 			case 'complete':
 				$log = get_option( 'tribe_events_import_log' );
 				$skipped = get_option( 'tribe_events_import_failed_rows', array() );
 				include Tribe__Events__Importer__Plugin::path( 'src/io/csv/admin-views/result.php' );
 				break;
-
 			default:
 				$messages = $this->errors;
 				include Tribe__Events__Importer__Plugin::path( 'src/io/csv/admin-views/import.php' );
