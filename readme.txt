@@ -309,10 +309,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.0.1] 2015-12-09 =
+= [4.0.1] 2015-12-10 =
 
 * Tweak - Add a warning message for major updates
-* Tweak - For SEO reasons, use an <h1> for the title rather than an <h2> (props to wpexplorer for this fix)
+* Tweak - For SEO reasons, use an h1 for the title rather than an h2 (props to wpexplorer for this fix)
 * Tweak - Target the calendar view grid in JS using a simpler selector
 * Fix - Resolved WP 4.4 related fatal on the Nav Menu page that prevented the admin footer from rendering/enqueuing JS
 * Fix - Resolved bug where visiting /events/upcoming could sometimes result in an infinite redirect loop
