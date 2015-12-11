@@ -316,7 +316,7 @@ class Tribe__Events__Cost_Utils {
 				// Creates a Well Balanced Index that will perform good on a Key Sorting method
 				$index = str_replace( array( '.', ',' ), '', number_format( $numeric_cost, $max ) );
 			} else {
-				//
+				// Makes sure that we have "index-safe" string
 				$index = sanitize_title( $numeric_cost );
 			}
 
