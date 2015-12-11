@@ -719,10 +719,24 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			 */
 			add_filter( 'posts_clauses', array( __CLASS__, 'posts_orderby_venue_organizer' ), 100, 2 );
 
-			/**
-			 * @deprecated since 4.0.2
-			 */
-			$join_sql = apply_filters( 'tribe_events_query_posts_join_orderby', $join_sql );
+			if ( has_filter( 'tribe_events_query_posts_join_orderby' ) ) {
+				/**
+				 * Historically this filter has only been useful to modify the joins setup
+				 * in relation to organizers and venues. In future it may have a more general
+				 * application or may be removed.
+				 *
+				 * @deprecated since 4.0.2
+				 *
+				 * @var string $join_sql
+				 */
+				$join_sql = apply_filters( 'tribe_events_query_posts_join_orderby', $join_sql );
+
+				_doing_it_wrong(
+					'tribe_events_query_posts_join_orderby (filter)',
+					'To modify joins in relation to venues and organizers specifically you are encouraged to use the tribe_events_query_posts_join_venue_organizer hook.',
+					'4.0.2'
+				);
+			}
 
 			/**
 			 * Provides an opportunity to modify the join condition added to the query when
