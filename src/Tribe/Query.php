@@ -935,13 +935,13 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return string
 		 **/
 		private static function postmeta_table( $query ) {
-
+			/** @var \wpdb $wpdb */
 			global $wpdb;
+			$postmeta_table =  $wpdb->postmeta;
 
 			if ( ! $query->tribe_is_multi_posttype ) {
-				return $wpdb->postmeta;
+				return $postmeta_table;
 			}
-
 
 			$qv = $query->query_vars;
 
@@ -962,7 +962,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			return $postmeta_table;
-
 		}
 
 		/**
