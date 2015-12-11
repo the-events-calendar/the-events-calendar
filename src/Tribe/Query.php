@@ -937,7 +937,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		private static function postmeta_table( $query ) {
 			/** @var \wpdb $wpdb */
 			global $wpdb;
-			$postmeta_table =  $wpdb->postmeta;
+			$postmeta_table = $wpdb->postmeta;
 
 			if ( ! $query->tribe_is_multi_posttype ) {
 				return $postmeta_table;
