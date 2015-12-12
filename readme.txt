@@ -309,6 +309,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+* Tweak - Now Cost Field allow non numeric values
+
 = [4.0.1] 2015-12-10 =
 
 * Tweak - Add a warning message for major updates
