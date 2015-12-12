@@ -488,7 +488,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', array( 'Tribe__Support', 'getInstance' ) );
 			add_action( 'plugins_loaded', array( $this, 'set_meta_factory_global' ) );
 
-			if ( ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			if ( ! Tribe__Main::instance()->doing_ajax() ) {
 				add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
 			} else {
 				add_action( 'admin_init', array( $this, 'init_admin_list_screen' ) );
@@ -2330,7 +2330,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function init_admin_list_screen( $screen ) {
 			// If we are dealing with a AJAX call just drop these checks
-			if ( ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			if ( ! Tribe__Main::instance()->doing_ajax() ) {
 				if ( 'edit' !== $screen->base ) {
 					return;
 				}

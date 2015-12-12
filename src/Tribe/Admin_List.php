@@ -20,7 +20,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 */
 		public static function init() {
 			if ( is_admin() ) {
-				if ( ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+				if ( ! Tribe__Main::instance()->doing_ajax() ) {
 					// Logic for sorting events by event category or tags
 					add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_tax' ), 10, 2 );
 
