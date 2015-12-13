@@ -487,7 +487,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', array( 'Tribe__Cache', 'setup' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Support', 'getInstance' ) );
 			add_action( 'plugins_loaded', array( $this, 'set_meta_factory_global' ) );
-			add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
+
+			if ( ! Tribe__Main::instance()->doing_ajax() ) {
+				add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
+			} else {
+				add_action( 'admin_init', array( $this, 'init_admin_list_screen' ) );
+			}
 
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
@@ -2324,12 +2329,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param WP_Screen $screen WP Admin screen object for the current page
 		 */
 		public function init_admin_list_screen( $screen ) {
-			if ( 'edit' !== $screen->base ) {
-				return;
-			}
+			// If we are dealing with a AJAX call just drop these checks
+			if ( ! Tribe__Main::instance()->doing_ajax() ) {
+				if ( 'edit' !== $screen->base ) {
+					return;
+				}
 
-			if ( self::POSTTYPE !== $screen->post_type ) {
-				return;
+				if ( self::POSTTYPE !== $screen->post_type ) {
+					return;
+				}
 			}
 
 			Tribe__Events__Admin_List::init();

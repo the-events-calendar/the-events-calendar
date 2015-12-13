@@ -19,25 +19,31 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 *
 		 */
 		public static function init() {
-			if ( is_admin() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-				// Logic for sorting events by event category or tags
-				add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_tax' ), 10, 2 );
+			if ( is_admin() ) {
+				if ( ! Tribe__Main::instance()->doing_ajax() ) {
+					// Logic for sorting events by event category or tags
+					add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_tax' ), 10, 2 );
 
-				// Logic for sorting events by start or end date
-				add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_event_date' ), 11, 2 );
+					// Logic for sorting events by start or end date
+					add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_event_date' ), 11, 2 );
 
-				add_filter( 'posts_fields', array( __CLASS__, 'events_search_fields' ), 10, 2 );
+					add_filter( 'posts_fields', array( __CLASS__, 'events_search_fields' ), 10, 2 );
 
-				// Pagination
-				add_filter( 'post_limits', array( __CLASS__, 'events_search_limits' ), 10, 2 );
+					// Pagination
+					add_filter( 'post_limits', array( __CLASS__, 'events_search_limits' ), 10, 2 );
 
-				add_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array( __CLASS__, 'column_headers' ) );
-				add_filter( 'tribe_apm_headers_' . Tribe__Events__Main::POSTTYPE, array( __CLASS__, 'column_headers_check' ) );
+					add_filter( 'tribe_apm_headers_' . Tribe__Events__Main::POSTTYPE, array( __CLASS__, 'column_headers_check' ) );
 
-				add_filter( 'views_edit-tribe_events', array( __CLASS__, 'update_event_counts' ) );
+					add_filter( 'views_edit-tribe_events', array( __CLASS__, 'update_event_counts' ) );
+				}
 
-				// Registers custom event columns category/start date/end date
+				/**
+				 * The following actions will need to be fired on AJAX calls, the logic above is required.
+				 *
+				 * Registers custom event columns category/start date/end date
+				 */
 				add_action( 'manage_posts_custom_column', array( __CLASS__, 'custom_columns' ), 10, 2 );
+				add_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array( __CLASS__, 'column_headers' ) );
 
 				// Registers event start/end date as sortable columns
 				add_action( 'manage_edit-' . Tribe__Events__Main::POSTTYPE . '_sortable_columns', array( __CLASS__, 'register_sortable_columns' ), 10, 2 );
