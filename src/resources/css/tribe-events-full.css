@@ -1847,6 +1847,11 @@ body.tribe-theme-twentysixteen.events-archive .entry-header {
 	width: auto;
 }
 
+body.tribe-theme-twentysixteen .datepicker table {
+	border: 0;
+	width: auto;
+}
+
 /* = Events Retina
 =============================================*/
 @media
