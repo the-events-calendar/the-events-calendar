@@ -27,32 +27,22 @@ class ExclusionsTest extends \Codeception\TestCase\WPTestCase {
 		parent::tearDown();
 	}
 
-	/**
-	 * remove_exclusions will remove exclusions
-	 */
-	public function test_remove_exclusions_will_remove_exclusions() {
-		$date_durations  = json_decode(
-			'[{"timestamp":1448438400,"duration":32400},{"timestamp":1449043200,"duration":32400},{"timestamp":1449648000,"duration":32400},{"timestamp":1450252800,"duration":32400},{"timestamp":1450857600,"duration":32400},{"timestamp":1451462400,"duration":32400},{"timestamp":1452067200,"duration":32400},{"timestamp":1452672000,"duration":32400},{"timestamp":1453276800,"duration":32400},{"timestamp":1453881600,"duration":32400},{"timestamp":1454486400,"duration":32400},{"timestamp":1455091200,"duration":32400},{"timestamp":1455696000,"duration":32400}]',
-			true
-		);
-		$exclusion_dates = json_decode(
-			'[{"timestamp":1449043200,"duration":0},{"timestamp":1452067200,"duration":0},{"timestamp":1454486400,"duration":0}]',
-			true
-		);
-		$expected        = json_decode(
-			'[{"timestamp":1448438400,"duration":32400},{"timestamp":1449648000,"duration":32400},{"timestamp":1450252800,"duration":32400},{"timestamp":1450857600,"duration":32400},{"timestamp":1451462400,"duration":32400},{"timestamp":1452672000,"duration":32400},{"timestamp":1453276800,"duration":32400},{"timestamp":1453881600,"duration":32400},{"timestamp":1455091200,"duration":32400},{"timestamp":1455696000,"duration":32400}]',
-			true
-		);
-
-		$sut = new Exclusions( 'Europe/Rome' );
-		$this->assertEquals( $expected, $sut->remove_exclusions( $date_durations, $exclusion_dates ) );
+	public function different_timezones() {
+		return [
+			[ 'America/Vancouver' ],
+			[ 'Europe/Rome' ],
+			[ 'Etc/GMT+9' ],
+			[ 'UTC' ],
+			[ 'Asia/Kathmandu' ],
+		];
 	}
 
 	/**
 	 * remove exclusion will not exclude date on the day before excluded one
+	 *
+	 * @dataProvider  different_timezones
 	 */
-	public function test_remove_exclusion_will_not_exclude_date_on_the_day_before_excluded_one() {
-		$timezone_string = 'America/Vancouver';
+	public function test_remove_exclusion_will_not_exclude_date_on_the_day_before_excluded_one( $timezone_string ) {
 		$this->set_system_timezone( $timezone_string );
 
 		$duration = 60 * 60 * 3;
@@ -75,9 +65,10 @@ class ExclusionsTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * remove exclusions will not exclude date starting on day before excluded and finishing in excluded day
+	 *
+	 * @dataProvider  different_timezones
 	 */
-	public function test_remove_exclusions_will_not_exclude_date_starting_on_day_before_excluded_and_finishing_in_excluded_day() {
-		$timezone_string = 'America/Vancouver';
+	public function test_remove_exclusions_will_not_exclude_date_starting_on_day_before_excluded_and_finishing_in_excluded_day( $timezone_string ) {
 		$this->set_system_timezone( $timezone_string );
 
 		$duration = 60 * 60 * 3;
@@ -100,9 +91,10 @@ class ExclusionsTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * remove exclusions will exclude date starting and finishing in excluded date
+	 *
+	 * @dataProvider  different_timezones
 	 */
-	public function test_remove_exclusions_will_exclude_date_starting_and_finishing_in_excluded_date() {
-		$timezone_string = 'America/Vancouver';
+	public function test_remove_exclusions_will_exclude_date_starting_and_finishing_in_excluded_date( $timezone_string ) {
 		$this->set_system_timezone( $timezone_string );
 
 		$duration = 60 * 60 * 3;
@@ -126,9 +118,10 @@ class ExclusionsTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * remove exclusions will exclude date starting on excluded date and finishing day after
+	 *
+	 * @dataProvider  different_timezones
 	 */
-	public function test_remove_exclusions_will_exclude_date_starting_on_excluded_date_and_finishing_day_after() {
-		$timezone_string = 'America/Vancouver';
+	public function test_remove_exclusions_will_exclude_date_starting_on_excluded_date_and_finishing_day_after( $timezone_string ) {
 		$this->set_system_timezone( $timezone_string );
 
 		$duration = 60 * 60 * 3;
@@ -153,9 +146,10 @@ class ExclusionsTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * remove exclusions will not exclude date starting date after excluded
+	 *
+	 * @dataProvider different_timezones
 	 */
-	public function test_remove_exclusions_will_not_exclude_date_starting_date_after_excluded() {
-		$timezone_string = 'America/Vancouver';
+	public function test_remove_exclusions_will_not_exclude_date_starting_date_after_excluded( $timezone_string ) {
 		$this->set_system_timezone( $timezone_string );
 
 		$duration = 60 * 60 * 3;
