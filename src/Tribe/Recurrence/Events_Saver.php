@@ -26,9 +26,12 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 	 * @param Tribe__Events__Pro__Recurrence__Exclusions|null $exclusions
 	 */
 	public function __construct( $event_id, $updated, Tribe__Events__Pro__Recurrence__Exclusions $exclusions = null ) {
-		$this->event_id   = $event_id;
-		$this->updated    = $updated;
-		$this->exclusions = $exclusions ? $exclusions : Tribe__Events__Pro__Recurrence__Exclusions::instance();
+		$this->event_id        = $event_id;
+		$this->updated         = $updated;
+		$event_timezone_string = $this->get_event_timezone_string( $event_id );
+		$this->exclusions = $exclusions ? $exclusions : Tribe__Events__Pro__Recurrence__Exclusions::instance(
+			$event_timezone_string
+		);
 	}
 
 	/**
@@ -80,7 +83,11 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 		$to_create  = $this->exclusions->remove_exclusions( $to_create, $exclusions );
 
 		if ( $possible_next_pending ) {
-			update_post_meta( $this->event_id, '_EventNextPendingRecurrence', date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, min( $possible_next_pending ) ) );
+			update_post_meta(
+				$this->event_id, '_EventNextPendingRecurrence', date(
+				Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, min( $possible_next_pending )
+			)
+			);
 		}
 
 		foreach ( $existing_instances as $instance ) {
@@ -89,8 +96,7 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 			$duration   = $end_date - $start_date;
 
 			$existing_date_duration = array(
-				'timestamp' => $start_date,
-				'duration'  => $duration,
+				'timestamp' => $start_date, 'duration' => $duration,
 			);
 
 			$found              = array_search( $existing_date_duration, $to_create );
@@ -110,5 +116,30 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 
 		// ...but don't wait around, process a small initial batch right away
 		Tribe__Events__Pro__Main::instance()->queue_processor->process_batch( $this->event_id );
+	}
+
+	/**
+	 * Gets the timezone string associated with an event.
+	 *
+	 * Will fall back to WP timezone string and to system timezone string in this order.
+	 *
+	 * @param $event_id
+	 *
+	 * @return mixed|string|void
+	 */
+	protected function get_event_timezone_string( $event_id ) {
+		$event_timezone_string = get_post_meta( $event_id, '_EventTimezone', true );
+		if ( empty( $event_timezone_string ) ) {
+			$event_timezone_string = get_option( 'timezone_string', false );
+			if ( empty( $event_timezone_string ) ) {
+				$event_timezone_string = date_default_timezone_get();
+
+				return $event_timezone_string;
+			}
+
+			return $event_timezone_string;
+		}
+
+		return $event_timezone_string;
 	}//end saveEvents
 }
