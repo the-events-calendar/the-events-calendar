@@ -4,9 +4,15 @@
 class Tribe__Events__Pro__Recurrence__Exclusions {
 
 	/**
-	 * Tribe__Events__Pro__Recurrence__Exclusions constructor.
+	 * @var string|null
 	 */
-	public function __construct() {
+	protected $timezone_string;
+
+	/**
+	 * @param string|null $timezone_string The event timezone string if any.
+	 */
+	public function __construct( $timezone_string = null ) {
+		$this->timezone_string = $timezone_string;
 	}
 
 	/**
@@ -14,9 +20,14 @@ class Tribe__Events__Pro__Recurrence__Exclusions {
 	 */
 	protected static $instance;
 
-	public static function instance() {
+	/**
+	 * @param string|null $timezone_string The event timezone string if any.
+	 *
+	 * @return Tribe__Events__Pro__Recurrence__Exclusions
+	 */
+	public static function instance( $timezone_string = null ) {
 		if ( empty( self::$instance ) ) {
-			self::$instance = new self();
+			self::$instance = new self( $timezone_string );
 		}
 
 		return self::$instance;
@@ -41,18 +52,33 @@ class Tribe__Events__Pro__Recurrence__Exclusions {
 	 * @return array
 	 */
 	public function remove_exclusions( array $date_durations, array $exclusion_dates ) {
+		$date_default_timezone = date_default_timezone_get();
+		date_default_timezone_set( $this->timezone_string );
+
 		$exclusion_timestamps = array();
 
+		// 24hrs in seconds -1 second
+		$almost_one_day = 86399;
+
 		foreach ( $exclusion_dates as $exclusion ) {
-			$exclusion_timestamps[] = $exclusion[ 'timestamp' ];
+			$start = strtotime( 'midnight', $exclusion['timestamp'] );
+			$exclusion_timestamps[] = array(
+				'start' => $start, 'end' => $start + $almost_one_day
+			);
 		}
 
 		foreach ( $date_durations as $key => $date_duration ) {
-			if ( in_array( $date_duration[ 'timestamp' ], $exclusion_timestamps ) ) {
-				unset( $date_durations[ $key ] );
+			foreach ( $exclusion_timestamps as $exclusion_timestamp ) {
+				if ( $exclusion_timestamp['start'] <= $date_duration['timestamp'] && $date_duration['timestamp'] <= $exclusion_timestamp['end'] ) {
+					unset( $date_durations[ $key ] );
+				}
 			}
 		}
 
-		return array_values( $date_durations );
+		$date_durations = array_values( $date_durations );
+
+		date_default_timezone_set( $date_default_timezone );
+
+		return $date_durations;
 	}
 }
