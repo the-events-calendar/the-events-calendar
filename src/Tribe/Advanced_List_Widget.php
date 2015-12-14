@@ -78,6 +78,7 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 
 	public function update( $new_instance, $old_instance ) {
 		$instance = parent::update( $new_instance, $old_instance );
+		$new_instance = $this->default_instance_args( $new_instance );
 
 		$instance['venue']     = $new_instance['venue'];
 		$instance['country']   = $new_instance['country'];
@@ -102,7 +103,6 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 
 	public function form( $instance ) {
 		$this->instance_defaults( $instance );
-		$this->include_cat_id( $this->instance['filters'], $this->instance['category'] ); // @todo remove after 3.7
 
 		$taxonomies = get_object_taxonomies( Tribe__Events__Main::POSTTYPE, 'objects' );
 		$taxonomies = array_reverse( $taxonomies );
@@ -112,7 +112,11 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 	}
 
 	protected function instance_defaults( $instance ) {
-		$this->instance = wp_parse_args( (array) $instance, array(
+		$this->instance = $this->default_instance_args( (array) $instance );
+	}
+
+	protected function default_instance_args( array $instance ) {
+		return wp_parse_args( (array) $instance, array(
 			'title'              => __( 'Upcoming Events', 'tribe-events-calendar-pro' ),
 			'limit'              => '5',
 			'no_upcoming_events' => false,
@@ -124,7 +128,6 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 			'zip'                => false,
 			'phone'              => false,
 			'cost'               => false,
-			'category'           => false, // @todo remove this element after 3.7
 			'organizer'          => false,
 			'operand'            => 'OR',
 			'filters'            => '',
