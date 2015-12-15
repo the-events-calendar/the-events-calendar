@@ -227,8 +227,7 @@ Our Premium Plugins:
 
 = [4.0.2] unreleased =
 
-* Tweak - Avoid notice level errors when events list widget settings are saved
-* Fix - Ensure the past events list displays the correct events when accessed via ajax
+* Tweak - Avoid notice level errors when advanced events list widget settings are saved
 
 = [4.0.1] 2015-12-09 =
 
