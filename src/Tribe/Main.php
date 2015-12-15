@@ -3931,7 +3931,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * return string
 		 */
-		public function get_closest_event_where( $where_sql, $query ) {
+		public function get_closest_event_where( $where_sql ) {
 			// if we are in this method, we KNOW there is a section of the SQL that looks like this:
 			//     ( table.meta_key = '_EventStartDate' AND CAST( table.meta_value AS DATETIME ) [<|>] '2015-01-01 00:00:00' )
 			// What we want to do is to extract all the portions of the WHERE BEFORE that section, all the
@@ -4064,9 +4064,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * @var WP_Post $post
 			 */
 			$args = (array) apply_filters( "tribe_events_get_{$mode}_event_link", $args, $post );
-			add_filter( 'posts_where', array( $this, 'get_closest_event_where' ), 10, 2 );
+			add_filter( 'posts_where', array( $this, 'get_closest_event_where' ) );
 			$results = tribe_get_events( $args );
-			remove_filter( 'posts_where', array( $this, 'get_closest_event_where' ), 10, 2 );
+			remove_filter( 'posts_where', array( $this, 'get_closest_event_where' ) );
 
 			$event = null;
 
