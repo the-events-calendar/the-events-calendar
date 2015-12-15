@@ -29,9 +29,9 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 		$this->event_id        = $event_id;
 		$this->updated         = $updated;
 		$event_timezone_string = $this->get_event_timezone_string( $event_id );
-		$this->exclusions = $exclusions ? $exclusions : Tribe__Events__Pro__Recurrence__Exclusions::instance(
-			$event_timezone_string
-		);
+		$this->exclusions = $exclusions ?
+			$exclusions :
+			Tribe__Events__Pro__Recurrence__Exclusions::instance( $event_timezone_string );
 	}
 
 	/**
