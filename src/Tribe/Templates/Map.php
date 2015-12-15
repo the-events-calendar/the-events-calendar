@@ -70,6 +70,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Map' ) ) {
 			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ) {
 				$view_state = 'past';
 				$defaults['eventDisplay'] = 'past';
+				$defaults['order'] = 'DESC';
 			}
 
 			if ( isset( $_POST['tribe_event_category'] ) ) {
