@@ -227,6 +227,8 @@ Our Premium Plugins:
 
 = [4.0.2] unreleased =
 
+* Fix - Ensure venue and organizer URLs can be localized even with non-Roman alphabets
+* Fix - Ensure the current default venue fields are reflected in the relevant settings screen
 * Tweak - Avoid notice level errors when advanced events list widget settings are saved
 
 = [4.0.1] 2015-12-09 =
