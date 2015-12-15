@@ -2661,12 +2661,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				if ( ! is_wp_error( $term_link ) ) {
 					$event_url = trailingslashit( $term_link );
 				}
-			} else {
-				if ( $term ) {
-					$term_link = get_term_link( (int) $term, self::TAXONOMY );
-					if ( ! is_wp_error( $term_link ) ) {
-						$event_url = trailingslashit( $term_link );
-					}
+			} elseif ( $term && is_numeric( $term ) ) {
+				$term_link = get_term_link( (int) $term, self::TAXONOMY );
+				if ( ! is_wp_error( $term_link ) ) {
+					$event_url = trailingslashit( $term_link );
 				}
 			}
 
