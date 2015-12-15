@@ -650,11 +650,16 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			global $wpdb;
 
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
-				$order   = ( isset( $query->order ) && ! empty( $query->order ) ) ? $query->order : $query->get( 'order' );
-				$orderby = ( isset( $query->orderby ) && ! empty( $query->orderby ) ) ? $query->orderby : $query->get( 'orderby' );
+				$order   = ( isset( $query->query_vars['order'] ) && ! empty( $query->query_vars['order'] ) ) ? $query->query_vars['order'] : $query->get( 'order' );
+				$orderby = ( isset( $query->query_vars['orderby'] ) && ! empty( $query->query_vars['orderby'] ) ) ? $query->query_vars['orderby'] : $query->get( 'orderby' );
 
 				if ( self::can_inject_date_field( $query ) ) {
+					$old_orderby = $order_sql;
 					$order_sql = "EventStartDate {$order}";
+
+					if ( $old_orderby ) {
+						$order_sql .= ", {$old_orderby}";
+					}
 				}
 
 				do_action( 'log', 'orderby', 'default', $orderby );
