@@ -629,34 +629,45 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 	}
 
 	/**
-	 * Get week permalink
+	 * Get the week view permalink.
 	 *
-	 * @param string $week
+	 * @param string        $week
+	 * @param bool|int|null $term
 	 *
 	 * @return string $permalink
 	 */
-	function tribe_get_week_permalink( $week = null, $term = true ) {
-		$week = is_null( $week ) ? false : date( 'Y-m-d', strtotime( $week ) );
-		if ( isset( $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ] ) ) {
-			$term = $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ];
-		}
-		$output = Tribe__Events__Main::instance()->getLink( 'week', $week, $term );
+	function tribe_get_week_permalink( $week = null, $term = null ) {
+		$week      = is_null( $week ) ? false : date( 'Y-m-d', strtotime( $week ) );
+		$permalink = Tribe__Events__Main::instance()->getLink( 'week', $week, $term );
 
-		return apply_filters( 'tribe_get_week_permalink', $output );
+		/**
+		 * Provides an opportunity to modify the week view permalink.
+		 *
+		 * @var string $permalink
+		 * @var string $week
+		 * @var mixed  $term
+		 */
+		return apply_filters( 'tribe_get_week_permalink', $permalink, $week, $term );
 	}
 
 
 	/**
-	 * Get photo permalink by provided date
+	 * Get the photo permalink.
+	 *
+	 * @param bool|int|null $term
+	 *
 	 * @return string $permalink
 	 */
-	function tribe_get_photo_permalink( $term = true ) {
-		if ( isset( $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ] ) ) {
-			$term = $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ];
-		}
-		$output = Tribe__Events__Main::instance()->getLink( 'photo', null, $term );
+	function tribe_get_photo_permalink( $term = null ) {
+		$permalink = Tribe__Events__Main::instance()->getLink( 'photo', null, $term );
 
-		return apply_filters( 'tribe_get_photo_view_permalink', $output );
+		/**
+		 * Provides an opportunity to modify the photo view permalink.
+		 *
+		 * @var string $permalink
+		 * @var mixed  $term
+		 */
+		return apply_filters( 'tribe_get_photo_view_permalink', $permalink, $term );
 	}
 
 	/**
