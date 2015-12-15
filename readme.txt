@@ -309,7 +309,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.0.2] unreleased =
+
 * Tweak - Now Cost Field allow non numeric values
+* Tweak - Avoid notice level errors when advanced events list widget settings are saved
+* Fix - Ensure the past events list displays the correct events when accessed via ajax
 
 = [4.0.1] 2015-12-10 =
 
