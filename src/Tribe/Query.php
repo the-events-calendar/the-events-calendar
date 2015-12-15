@@ -115,10 +115,13 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				? true // this is an event query of some type
 				: false; // move along, this is not the query you are looking for
 
-			// is the query pulling posts from the past
-			if ( $query->is_main_query() && ! empty( $_REQUEST['tribe_event_display'] ) && $_REQUEST['tribe_event_display'] == 'past' ) {
+			// is the query pulling posts from the past?
+			$past_requested = ! empty( $_REQUEST['tribe_event_display'] ) && 'past' === $_REQUEST['tribe_event_display'];
+			$display_past   = 'past' === $query->get( 'eventDisplay' );
+
+			if ( $query->is_main_query() && $past_requested ) {
 				$query->tribe_is_past = true;
-			} elseif ( tribe_is_ajax_view_request() && $query->get( 'eventDisplay' ) == 'past' ) {
+			} elseif ( tribe_is_ajax_view_request() && ( $display_past || $past_requested ) ) {
 				$query->tribe_is_past = true;
 			} elseif ( $query->get( 'tribe_is_past' ) ) {
 				$query->tribe_is_past = true;
