@@ -316,6 +316,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Improve messaging in the same-slug warning message
 * Fix - Ensure the past events list displays the correct events when accessed via ajax
 * Fix - Support ordering by venue/organizer within event queries
+* Fix - Fix issue where events with the same date/time would sometimes be excluded from single-event navigation
 
 = [4.0.1] 2015-12-10 =
 
