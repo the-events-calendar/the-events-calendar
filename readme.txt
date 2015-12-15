@@ -225,6 +225,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.0.2] unreleased =
+
+* Fix - Ensure the past events list displays the correct events when accessed via ajax
+
 = [4.0.1] 2015-12-09 =
 
 * Tweak - Included a Filter for filtering Recurrence Output Data `tribe_events_pro_output_recurrence_data`
