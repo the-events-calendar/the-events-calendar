@@ -150,6 +150,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
+		$new_instance = $this->default_instance_args( $new_instance );
 
 		/* Strip tags (if needed) and update the widget settings. */
 		$instance['title']              = strip_tags( $new_instance['title'] );
@@ -167,14 +168,24 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	 * @return string The output for the admin widget form.
 	 */
 	public function form( $instance ) {
-		/* Set up default widget settings. */
-		$defaults  = array(
+		$instance  = $this->default_instance_args( $instance );
+		$tribe_ecp = Tribe__Events__Main::instance();
+		include( $tribe_ecp->pluginPath . 'src/admin-views/widget-admin-list.php' );
+	}
+
+	/**
+	 * Accepts and returns the widget's instance array - ensuring any missing
+	 * elements are generated and set to their default value.
+	 *
+	 * @param array $instance
+	 *
+	 * @return array
+	 */
+	protected function default_instance_args( array $instance ) {
+		return wp_parse_args( $instance, array(
 			'title'              => esc_html__( 'Upcoming Events', 'the-events-calendar' ),
 			'limit'              => '5',
 			'no_upcoming_events' => false,
-		);
-		$instance  = wp_parse_args( (array) $instance, $defaults );
-		$tribe_ecp = Tribe__Events__Main::instance();
-		include( $tribe_ecp->pluginPath . 'src/admin-views/widget-admin-list.php' );
+		) );
 	}
 }
