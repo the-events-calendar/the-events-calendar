@@ -106,21 +106,22 @@
 							position: 'relative',
 							overflow: 'visible'
 						}
+
 					}, tribe_hide_loader() );
 					// @ifdef DEBUG
 					dbug && debug.info( 'TEC Debug: imagesLoaded setup isotope on photo view.' );
 					// @endif
+
+					$container.resize( function() {
+						tribe_apply_photo_cols( $container );
+						clearTimeout( resize_timer );
+						resize_timer = setTimeout( function() {
+							$container.isotope( 'reLayout' );
+						}, 400 );
+					} );
 				} );
 
 				tribe_apply_photo_cols( $container );
-
-				$container.resize( function() {
-					tribe_apply_photo_cols( $container );
-					clearTimeout( resize_timer );
-					resize_timer = setTimeout( function() {
-						$container.isotope( 'reLayout' );
-					}, 400 );
-				} );
 
 			}
 			else {
