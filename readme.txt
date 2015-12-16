@@ -236,6 +236,7 @@ Our Premium Plugins:
 * Fix - Fixed bug where the Isotope reLayout method was sometimes getting executed before Isotope was initialized
 * Fix - Fixed issue where past events for Map and Photo view were not in descending order
 * Fix - Resolved bug where week/photo permalinks were sometimes generated incorrectly
+* Fix - Fixed bug with the List Widget where the Organizer displayed even when it is disabled in the widget settings 
 * Fix - Resolved translation issues with the List Widget
 
 = [4.0.1] 2015-12-09 =
