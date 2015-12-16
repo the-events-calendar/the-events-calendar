@@ -193,6 +193,15 @@ class Tribe__Events__Cost_Utils {
 
 		$costs = $this->parse_cost_range( $costs );
 
+		// if there's only one item, we're looking at a single event. If the cost is non-numeric, let's
+		// return the non-numeric cost so that value is preserved
+		if ( 1 === count( $costs ) && ! is_numeric( current( $costs ) ) ) {
+			return current( $costs );
+		}
+
+		// make sure we are only trying to get numeric min/max values
+		$costs = array_filter( $costs, 'is_numeric' );
+
 		if ( empty( $costs ) ) {
 			return 0;
 		}
