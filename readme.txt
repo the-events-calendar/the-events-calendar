@@ -225,11 +225,18 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.0.2] unreleased =
+= [4.0.2] 2015-12-16 =
 
+* Tweak - Avoid notice level errors when advanced events list widget settings are saved
+* Tweak - Simplify default values logic to ensure that default values are returned regardless of post type
+* Fix - Fixed bug where recurrence excluses were not always respected
 * Fix - Ensure venue and organizer URLs can be localized even with non-Roman alphabets
 * Fix - Ensure the current default venue fields are reflected in the relevant settings screen
-* Tweak - Avoid notice level errors when advanced events list widget settings are saved
+* Fix - Resolved issue where new recurring events were not targetable by the Recurring APM filter
+* Fix - Fixed bug where the Isotope reLayout method was sometimes getting executed before Isotope was initialized
+* Fix - Fixed issue where past events for Map and Photo view were not in descending order
+* Fix - Resolved bug where week/photo permalinks were sometimes generated incorrectly
+* Fix - Resolved translation issues with the List Widget
 
 = [4.0.1] 2015-12-09 =
 
