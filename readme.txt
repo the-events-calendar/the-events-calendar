@@ -227,17 +227,17 @@ Our Premium Plugins:
 
 = [4.0.2] 2015-12-16 =
 
-* Tweak - Avoid notice level errors when advanced events list widget settings are saved
-* Tweak - Simplify default values logic to ensure that default values are returned regardless of post type
-* Fix - Fixed bug where recurrence excluses were not always respected
-* Fix - Ensure venue and organizer URLs can be localized even with non-Roman alphabets
-* Fix - Ensure the current default venue fields are reflected in the relevant settings screen
-* Fix - Resolved issue where new recurring events were not targetable by the Recurring APM filter
-* Fix - Fixed bug where the Isotope reLayout method was sometimes getting executed before Isotope was initialized
-* Fix - Fixed issue where past events for Map and Photo view were not in descending order
-* Fix - Resolved bug where week/photo permalinks were sometimes generated incorrectly
-* Fix - Fixed bug with the List Widget where the Organizer displayed even when it is disabled in the widget settings 
-* Fix - Resolved translation issues with the List Widget
+* Tweak - Avoid notice level errors when advanced events list widget settings are saved (Thank you Johan for the report!)
+* Tweak - Simplify default values logic to ensure that default values are returned regardless of post type (Thank you Karly!)
+* Fix - Fixed bug where recurrence excluses were not always respected (Cheers to inhouse for the help!)
+* Fix - Ensure venue and organizer URLs can be localized even with non-Roman alphabets (Thanks for the report Andreas!)
+* Fix - Ensure the current default venue fields are reflected in the relevant settings screen (Thank you Carly for highlighting this!)
+* Fix - Resolved issue where new recurring events were not targetable by the Recurring APM filter (Props to terrizsolo for the help!)
+* Fix - Fixed bug where the Isotope reLayout method was sometimes getting executed before Isotope was initialized causing Photo view to break (Thank you Douglas for bringing this up!)
+* Fix - Fixed issue where past events for Map and Photo view were not in descending order (Thank you Jesse!)
+* Fix - Resolved bug where week/photo permalinks were sometimes generated incorrectly (Cheers to Anthony for the tip!)
+* Fix - Fixed bug with the List Widget where the Organizer displayed even when it is disabled in the widget settings (Thank you Eric!)
+* Fix - Resolved translation issues with the List Widget (Props to amazing on the forum for reporting this!)
 
 = [4.0.1] 2015-12-09 =
 
