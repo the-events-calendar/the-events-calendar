@@ -239,7 +239,7 @@ Our Premium Plugins:
 * Fix - Fixed bug with the List Widget where the Organizer displayed even when it is disabled in the widget settings (Thank you Eric!)
 * Fix - Resolved translation issues with the List Widget (Props to amazing on the forum for reporting this!)
 
-= [4.0.1] 2015-12-09 =
+= [4.0.1] 2015-12-10 =
 
 * Tweak - Included a Filter for filtering Recurrence Output Data `tribe_events_pro_output_recurrence_data`
 * Tweak - Add better support for Daylight Saving Time
