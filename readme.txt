@@ -309,14 +309,22 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.0.2] unreleased =
+= [4.0.2] 2015-12-16 =
 
-* Tweak - Now Cost Field allow non numeric values
+* Tweak - Adding better support for non-numeric cost values on events
 * Tweak - Avoid notice level errors when advanced events list widget settings are saved
 * Tweak - Improve messaging in the same-slug warning message
+* Tweak - Hook to Event Tickets to inject event dates into ticket emails
+* Tweak - Adding better support for default venues
+* Tweak - Improve handling of internationalized slugs
 * Fix - Ensure the past events list displays the correct events when accessed via ajax
 * Fix - Support ordering by venue/organizer within event queries
-* Fix - Fix issue where events with the same date/time would sometimes be excluded from single-event navigation
+* Fix - Fixed issue where events with the same date/time would sometimes be excluded from single-event navigation
+* Fix - Resolved issue where events set with the explicit cost of 0 were not showing as "Free"
+* Fix - Fixed bug where the datepicker in Twenty Sixteen was really ugly
+* Fix - Fixed bug where using Quick Edit on events caused the table columns in the event list to become jumbled on save
+* Fix - Resolved bug where category links sometimes included event category 1
+* Fix - Fixed a settings page URL
 
 = [4.0.1] 2015-12-10 =
 
