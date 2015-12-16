@@ -311,20 +311,20 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.0.2] 2015-12-16 =
 
-* Tweak - Adding better support for non-numeric cost values on events
-* Tweak - Avoid notice level errors when advanced events list widget settings are saved
-* Tweak - Improve messaging in the same-slug warning message
+* Tweak - Adding better support for non-numeric cost values on events (Props to Mirja for highlighting this!)
+* Tweak - Avoid notice level errors when advanced events list widget settings are saved (Thank you Johan for reporting the issue!)
+* Tweak - Improve messaging in the same-slug warning message (Thanks to Simon for bringing this to our attention!)
 * Tweak - Hook to Event Tickets to inject event dates into ticket emails
-* Tweak - Adding better support for default venues
-* Tweak - Improve handling of internationalized slugs
-* Fix - Ensure the past events list displays the correct events when accessed via ajax
-* Fix - Support ordering by venue/organizer within event queries
-* Fix - Fixed issue where events with the same date/time would sometimes be excluded from single-event navigation
-* Fix - Resolved issue where events set with the explicit cost of 0 were not showing as "Free"
+* Tweak - Adding better support for default venues (Props to Karly for noting this!)
+* Tweak - Improve handling of internationalized slugs (Cheers to Oliver for the help!)
+* Fix - Ensure the past events list displays the correct events when accessed via ajax (Thank you Jesse for highlighting this!)
+* Fix - Support ordering by venue/organizer within event queries (Thank you Doug for bringing this to our attention!)
+* Fix - Fixed issue where events with the same date/time would sometimes be excluded from single-event navigation (Cheers to JeremyEnglert for the tip!)
+* Fix - Resolved issue where events set with the explicit cost of 0 were not showing as "Free" (Thank you terrizsolo for reporting this!)
 * Fix - Fixed bug where the datepicker in Twenty Sixteen was really ugly
-* Fix - Fixed bug where using Quick Edit on events caused the table columns in the event list to become jumbled on save
-* Fix - Resolved bug where category links sometimes included event category 1
-* Fix - Fixed a settings page URL
+* Fix - Fixed bug where using Quick Edit on events caused the table columns in the event list to become jumbled on save (Props to A K for the report!)
+* Fix - Resolved bug where category links sometimes included event category 1 (Thank you Anthony for the original report of this problem!)
+* Fix - Fixed a settings page URL (Props to Kristy for the heads up!)
 
 = [4.0.1] 2015-12-10 =
 
