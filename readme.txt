@@ -309,6 +309,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.0.3] unreleased =
+
+* Fix - Resolved issue with an overly escaped Event Category edit URL that prevented editing categories
+
 = [4.0.2] 2015-12-16 =
 
 * Tweak - Adding better support for non-numeric cost values on events (Props to Mirja for highlighting this!)
