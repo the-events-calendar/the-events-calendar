@@ -4362,7 +4362,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$link = add_query_arg( array( 'post_type' => self::POSTTYPE ), $link );
 			}
 
-			return esc_url( $link );
+			return esc_url_raw( $link );
 		}
 
 		/**
