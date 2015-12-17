@@ -225,6 +225,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.0.3] unreleased =
+
+* Fix - Fixed another Isotope reLayout bug that sometimes prevented the rendering of posts in Photo view
+
 = [4.0.2] 2015-12-16 =
 
 * Tweak - Avoid notice level errors when advanced events list widget settings are saved (Thank you Johan for the report!)
