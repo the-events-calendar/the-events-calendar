@@ -31,8 +31,10 @@
 			container_width = 0,
 			resize_timer;
 
-		// Redraw after loading fonts
-		$container.isotope( 'reLayout' );
+		// Redraw after loading fonts, but only if isotope has been initialized
+		if ( $container.hasClass( 'isotope' ) ) {
+			$container.isotope( 'reLayout' );
+		}
 
 	} );
 
