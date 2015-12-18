@@ -8,10 +8,9 @@ class Tribe__Events__Pro__Recurrence__Single_Event_Overrides {
 	 * constructor!
 	 */
 	public function __construct() {
-		add_filter( 'tribe_events_single_event_formatted_time', array( $this, 'maybe_render_multiple_formatted_times' ) );
+		add_filter( 'tribe_events_single_event_time_formatted', array( $this, 'maybe_render_multiple_formatted_times' ) );
 		add_filter( 'tribe_events_single_event_time_title', array( $this, 'maybe_render_time_title_as_plural' ) );
 	}
-
 
 	/**
 	 * Provides all of the recurring events for the provided date that have the same event parent
