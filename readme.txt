@@ -227,6 +227,7 @@ Our Premium Plugins:
 
 = [4.0.3] unreleased =
 
+* Tweak - When viewing a recurring event that has multiple instances in a single day, display each time in the event details
 * Fix - Fixed another Isotope reLayout bug that sometimes prevented the rendering of posts in Photo view
 
 = [4.0.2] 2015-12-16 =
