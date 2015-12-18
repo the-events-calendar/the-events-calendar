@@ -225,6 +225,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.0.3] unreleased =
+
+* Tweak - When viewing a recurring event that has multiple instances in a single day, display each time in the event details
+
 = [4.0.2] 2015-12-16 =
 
 * Tweak - Avoid notice level errors when advanced events list widget settings are saved (Thank you Johan for the report!)
