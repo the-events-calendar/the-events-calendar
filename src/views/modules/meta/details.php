@@ -22,6 +22,31 @@ $end_date = tribe_get_display_end_date( null, false );
 $end_time = tribe_get_end_date( null, false, $time_format );
 $end_ts = tribe_get_end_date( null, false, Tribe__Date_Utils::DBDATEFORMAT );
 
+$time_formatted = null;
+if ( $start_time == $end_time ) {
+	$time_formatted = esc_html( $start_time );
+} else {
+	$time_formatted = esc_html( $start_time . $time_range_separator . $end_time );
+}
+
+$event_id = Tribe__Main::post_id_helper();
+
+/**
+ * Returns a formatted time for a single event
+ *
+ * @var string Formatted time string
+ * @var int Event post id
+ */
+$time_formatted = apply_filters( 'tribe_events_single_event_time_formatted', $time_formatted, $event_id );
+
+/**
+ * Returns the title of the "Time" section of event details
+ *
+ * @var string Time title
+ * @var int Event post id
+ */
+$time_title = apply_filters( 'tribe_events_single_event_time_title', __( 'Time:', 'the-events-calendar' ), $event_id );
+
 $cost = tribe_get_formatted_cost();
 $website = tribe_get_event_website_link();
 ?>
@@ -82,14 +107,10 @@ $website = tribe_get_event_website_link();
 				<abbr class="tribe-events-abbr updated published dtstart" title="<?php esc_attr_e( $start_ts ) ?>"> <?php esc_html_e( $start_date ) ?> </abbr>
 			</dd>
 
-			<dt> <?php esc_html_e( 'Time:', 'the-events-calendar' ) ?> </dt>
-			<dd><abbr class="tribe-events-abbr updated published dtstart" title="<?php esc_attr_e( $end_ts ) ?>">
-					<?php if ( $start_time == $end_time ) {
-						esc_html_e( $start_time );
-					} else {
-						esc_html_e( $start_time . $time_range_separator . $end_time );
-					} ?>
-				</abbr></dd>
+			<dt> <?php echo esc_html( $time_title ); ?> </dt>
+			<dd><div class="tribe-events-abbr updated published dtstart" title="<?php esc_attr_e( $end_ts ) ?>">
+					<?php echo $time_formatted; ?>
+				</div></dd>
 
 		<?php endif ?>
 
