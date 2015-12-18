@@ -22,11 +22,11 @@ $end_date = tribe_get_display_end_date( null, false );
 $end_time = tribe_get_end_date( null, false, $time_format );
 $end_ts = tribe_get_end_date( null, false, Tribe__Date_Utils::DBDATEFORMAT );
 
-$formatted_time = null;
+$time_formatted = null;
 if ( $start_time == $end_time ) {
-	$formatted_time = esc_html( $start_time );
+	$time_formatted = esc_html( $start_time );
 } else {
-	$formatted_time = esc_html( $start_time . $time_range_separator . $end_time );
+	$time_formatted = esc_html( $start_time . $time_range_separator . $end_time );
 }
 
 $event_id = Tribe__Main::post_id_helper();
@@ -37,7 +37,7 @@ $event_id = Tribe__Main::post_id_helper();
  * @var string Formatted time string
  * @var int Event post id
  */
-$formatted_time = apply_filters( 'tribe_events_single_event_formatted_time', $formatted_time, $event_id );
+$time_formatted = apply_filters( 'tribe_events_single_event_time_formatted', $time_formatted, $event_id );
 
 /**
  * Returns the title of the "Time" section of event details
@@ -109,7 +109,7 @@ $website = tribe_get_event_website_link();
 
 			<dt> <?php echo esc_html( $time_title ); ?> </dt>
 			<dd><div class="tribe-events-abbr updated published dtstart" title="<?php esc_attr_e( $end_ts ) ?>">
-					<?php echo $formatted_time; ?>
+					<?php echo $time_formatted; ?>
 				</div></dd>
 
 		<?php endif ?>
