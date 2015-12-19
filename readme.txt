@@ -309,6 +309,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.1] unreleased =
+
+* Tweak - Improve the wording on override message for public calendar slug
+
 = [4.0.3] unreleased =
 
 * Tweak - Adjust single-event.php template to allow the "Time" title and content to be filterable
