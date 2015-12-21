@@ -309,7 +309,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.0.3] unreleased =
+= [4.0.3] 2015-12-22 =
 
 * Tweak - Adjust single-event.php template to allow the "Time" title and content to be filterable (Props to Sitecrafting for highlighting this issue!)
 * Fix - Resolved issue with an overly escaped Event Category edit URL that prevented editing categories (Thanks to Ian for the first report of this issue!)
