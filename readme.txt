@@ -312,8 +312,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.0.3] unreleased =
 
 * Tweak - Adjust single-event.php template to allow the "Time" title and content to be filterable
-* Fix - Resolved issue with an overly escaped Event Category edit URL that prevented editing categories
-* Fix - Fixed issue where clicking on columns on the Events listed in the Admin Dashboard were ALWAYS sorted by Event start/end date before sorting by the column selected
+* Fix - Resolved issue with an overly escaped Event Category edit URL that prevented editing categories (Thanks to Ian for the first report of this issue!)
+* Fix - Fixed issue where clicking on columns on the Events listed in the Admin Dashboard were ALWAYS sorted by Event start/end date before sorting by the column selected (Cheers to Corrado for bringing this to our attention!)
 
 = [4.0.2] 2015-12-16 =
 
