@@ -39,6 +39,7 @@ class Tribe__Events__Pro__Recurrence__Single_Event_Overrides {
 			'end_date' => tribe_end_of_day( $date ),
 			'post_status' => $post_status,
 			'post_parent' => $parent_id,
+			'tribeHideRecurrence' => false,
 		);
 
 		$events = tribe_get_events( $args );
