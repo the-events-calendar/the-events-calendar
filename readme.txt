@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.4
-Stable tag: 4.0.2
+Stable tag: 4.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -313,10 +313,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Tweak - Improve the wording on override message for public calendar slug
 
-= [4.0.3] unreleased =
+= [4.0.3] 2015-12-22 =
 
-* Tweak - Adjust single-event.php template to allow the "Time" title and content to be filterable
-* Fix - Resolved issue with an overly escaped Event Category edit URL that prevented editing categories
+* Tweak - Adjust single-event.php template to allow the "Time" title and content to be filterable (Props to Sitecrafting for highlighting this issue!)
+* Fix - Resolved issue with an overly escaped Event Category edit URL that prevented editing categories (Thanks to Ian for the first report of this issue!)
+* Fix - Fixed issue where clicking on columns on the Events listed in the Admin Dashboard were ALWAYS sorted by Event start/end date before sorting by the column selected (Cheers to Corrado for bringing this to our attention!)
 
 = [4.0.2] 2015-12-16 =
 

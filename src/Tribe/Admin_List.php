@@ -104,8 +104,16 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				$clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS tribe_event_end_date ON {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ";
 			}
 
+			$append_orderby = false;
+			$original_orderby = null;
+
 			if ( ! empty( $clauses['orderby'] ) ) {
 				$original_orderby = $clauses['orderby'];
+
+				// if the ONLY orderby clause is the post date, then let's move that toss move that to the
+				// end of the orderby. This will forever make post_date play second fiddle to the event start/end dates
+				// and that's ok
+				$append_orderby = preg_match( '/^[a-zA-Z0-9\-_]+\.post_date (DESC|ASC)$/i', $original_orderby );
 			}
 
 			$start_orderby = "tribe_event_start_date.meta_value {$sort_direction}";
@@ -118,9 +126,13 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			}
 
 			// Add the date orderby rules *before* any pre-existing orderby rules (to stop them being "trumped")
-			$revised_orderby = empty( $original_orderby )
-				? $date_orderby
-				: "$date_orderby, $original_orderby";
+			if ( empty( $original_orderby ) ) {
+				$revised_orderby = $date_orderby;
+			} elseif ( $append_orderby ) {
+				$revised_orderby = "$date_orderby, $original_orderby";
+			} else {
+				$revised_orderby = "$original_orderby, $date_orderby";
+			}
 
 			$clauses['orderby'] = $revised_orderby;
 
