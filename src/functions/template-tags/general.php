@@ -1254,7 +1254,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @param  WP_Post|int|null $post The Post Object|ID, if null defaults to `get_the_ID()`
 	 * @param  array $allowed_html The wp_kses compatible array
-	 *
+ 	 *
 	 * @return string|null Will return null on Bad Post Instances
 	 */
 	function tribe_events_get_the_excerpt( $post = null, $allowed_html = null ) {
@@ -1271,32 +1271,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// Prevent Non usable $post instances
 		if ( ! $post instanceof WP_Post ) {
 			return null;
-		}
-
-		// Default Allowed HTML
-		if ( ! is_array( $allowed_html ) ) {
-			$base_attrs = array(
-				'class' => array(),
-				'id' => array(),
-				'style' => array(),
-			);
-			$allowed_html = array(
-				'a' => array(
-					'class' => array(),
-					'id' => array(),
-					'style' => array(),
-					'href' => array(),
-					'rel' => array(),
-					'target' => array(),
-				),
-				'b' => $base_attrs,
-				'strong' => $base_attrs,
-				'em' => $base_attrs,
-				'span' => $base_attrs,
-				'ul' => $base_attrs,
-				'li' => $base_attrs,
-				'ol' => $base_attrs,
-			);
 		}
 
 		/**
@@ -1328,7 +1302,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		// Remove "all" HTML based on what is allowed
-		$excerpt = wp_kses( $excerpt, $allowed_html );
+		if ( ! is_array( $allowed_html ) ) {
+			$excerpt = wp_kses_post( $excerpt );
+		} else {
+			$excerpt = wp_kses( $excerpt, $allowed_html );
+		}
 
 		/**
 		 * Filter the number of words in an excerpt.
@@ -1344,8 +1322,24 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		$excerpt_more = apply_filters( 'excerpt_more', ' [&hellip;]' );
 
-		// Now we actually trim it
-		$excerpt = wp_trim_words( $excerpt, $excerpt_length, $excerpt_more );
+		// Trim the excerpt. The following is just wp_trim_words() without its use of wp_strip_all_tags().
+		if ( strpos( _x( 'words', 'Word count type. Do not translate!', 'the-events-calendar' ), 'characters' ) === 0 && preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) ) ) {
+			$excerpt = trim( preg_replace( "/[\n\r\t ]+/", ' ', $excerpt ), ' ' );
+			preg_match_all( '/./u', $text, $words_array );
+			$words_array = array_slice( $words_array[0], 0, $excerpt_length + 1 );
+			$sep = '';
+		} else {
+			$words_array = preg_split( "/[\n\r\t ]+/", $excerpt, $excerpt_length + 1, PREG_SPLIT_NO_EMPTY );
+			$sep = ' ';
+		}
+
+		if ( count( $words_array ) > $excerpt_length ) {
+			array_pop( $words_array );
+			$excerpt = implode( $sep, $words_array );
+			$excerpt = $excerpt . $excerpt_more;
+		} else {
+			$excerpt = implode( $sep, $words_array );
+		}
 
 		return wpautop( $excerpt );
 	}
