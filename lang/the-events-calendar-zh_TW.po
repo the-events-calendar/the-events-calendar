@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-16 08:43:43+0000\n"
+"PO-Revision-Date: 2015-12-10 08:51:12+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,329 +10,892 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Stable (latest release)\n"
 
-#: src/admin-views/tribe-options-general.php:154
+#: vendor/tickets/src/admin-views/list.php:103
+msgid " (%1$d %2$s)"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/list.php:104
+msgid "unit cancelled"
+msgid_plural "units cancelled"
+msgstr[0] ""
+
+#: vendor/tickets/src/admin-views/list.php:107
+msgid "Sold %1$d of %2$d%3$s"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/attendees.php:43
+msgid "Post Type:"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/attendees.php:26
+msgid "Edit Event"
+msgstr "編輯活動"
+
+#: vendor/tickets/src/admin-views/attendees.php:27
+msgid "See Event Page"
+msgstr ""
+
+#: src/Tribe/Event_Tickets/Attendees_Report.php:64
+msgid "Edit Venue"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/attendees.php:58
+msgid "Sales by Ticket"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/attendees.php:64
+msgid "Edit Ticket"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/attendees.php:75
+msgid "Total Sold:"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/meta-box.php:160
+msgid "When will ticket sales occur?"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/meta-box.php:164
+msgid "If you don't set a start/end date for sales, tickets will be available from now until the event ends."
+msgstr ""
+
+#: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:2
+msgid "Stock:"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:6
+msgid "(Total available # of this ticket type. Once they're gone, ticket type is sold out.)"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:16
+msgid "Selling tickets for recurring events"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:20
+msgid "Currently, Tickets will only show up on the frontend once per full event. For PRO users this means the same ticket will appear across all events in the series. Please configure your events accordingly."
+msgstr ""
+
+#: vendor/tickets/src/admin-views/tribe-options-tickets.php:41
+msgid "Ticket Settings"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/tribe-options-tickets.php:45
+msgid "Post types that can have tickets"
+msgstr ""
+
+#: vendor/tickets/src/template-tags/tickets.php:212
+msgid "Sold all %1$d %2$s"
+msgstr ""
+
+#: vendor/tickets/src/views/tickets/rsvp.php:9
+msgid "RSVP"
+msgstr ""
+
+#: vendor/tickets/src/views/tickets/rsvp.php:55
+msgid "%1$s out of %2$s available"
+msgstr ""
+
+#: vendor/tickets/src/views/tickets/rsvp.php:63
+msgid "Out of stock!"
+msgstr ""
+
+#: vendor/tickets/src/views/tickets/rsvp.php:86
+msgid "Full Name:"
+msgstr ""
+
+#: vendor/tickets/src/views/tickets/rsvp.php:105
+msgid "Confirm RSVP"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Main.php:284
+msgid "Looking for more immediate support? We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Main.php:287
+msgid "Already have Events Tickets Plus? You can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:180
+msgctxt "Attendee number"
+msgid "Attendee %1$s"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:349
+msgid "Your tickets from %s"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:552
+msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:558
+msgid "You can't RSVP more than the total remaining tickets."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:563
+msgid "In order to RSVP, you must enter your name and a valid email address."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:684
+msgid "(deleted)"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:863
+msgid "Return to the %1$sAttendees Report%2$s."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:870
+msgid "Post updated. %1$s"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:874
+msgid "Post published. %1$s"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:877
+msgid "Post submitted."
+msgstr "文章已提交。"
+
+#: vendor/tickets/src/Tribe/RSVP.php:878
+msgid "Post scheduled."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:879
+msgid "Post draft updated."
+msgstr "文章草稿已更新。"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:328
+msgid "Cheatin Huh?"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:334
+msgid "Invalid Event ID"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:340
+msgid "Empty user and email"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:352
+msgid "Invalid Email"
+msgstr "Email錯誤"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:358
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:374
+msgid "Invalid User ID"
+msgstr "不正確的使用者編號"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:395
+msgid "Error when sending the email"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:400
+msgid "Email sent successfully!"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/attendees-email.php:42
+msgid "Send Email"
+msgstr "發送電子郵件"
+
+#: src/io/csv/admin-views/result.php:26
+msgid "%1$s%2$s%3$sInserted:%4$s A new item was inserted successfully. %5$s%2$s%3$sUpdated:%4$s An item was found with the same name and/or start date. The existing item was updated with the new value from the file.%5$s%2$s%3$sSkipped:%4$s A row was found in the CSV file that could not be imported. Please see below for the invalid rows.%5$s%6$s"
+msgstr ""
+
+#: src/views/list/nav.php:25
+msgid "Previous %s"
+msgstr ""
+
+#: src/views/list/nav.php:32
+msgid "Next %s"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Main.php:141
+msgid "When The Events Calendar and Event Tickets are both activated, The Events Calendar must be running version %1$s or greater. Please %2$supdate now.%3$s"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Main.php:237
+msgid "Support for Event Tickets"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Main.php:242
+msgid "Customizing Event Tickets"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Main.php:261
+msgid "We are committed to helping you sell tickets for your event. Check out our handy %s to get started."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Main.php:283
+msgid "Events Tickets Plus"
+msgstr ""
+
+#: src/Tribe/Main.php:648 vendor/tickets/src/Tribe/Main.php:292
+msgid "If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
+msgstr ""
+
+#: src/Tribe/Main.php:1095
+msgid "It appears as if the tribe-common libraries cannot be found! The directory should be in the \"common/\" directory in the events calendar plugin."
+msgstr ""
+
+#: src/Tribe/Main.php:1543
+msgid "%1$s updated. %2$sView %3$s"
+msgstr ""
+
+#: src/Tribe/Main.php:1554
+msgid "Event published. %1$sView %2$s"
+msgstr ""
+
+#: src/Tribe/Main.php:1560
+msgid "%1$s submitted. %2$sPreview %3$s"
+msgstr ""
+
+#: src/Tribe/Main.php:1566
+msgid "%1$s scheduled for: %2$s. %3$sPreview %4$s"
+msgstr ""
+
+#: src/Tribe/Main.php:1575
+msgid "%1$s draft updated. %2$sPreview %3$s"
+msgstr ""
+
+#: src/Tribe/Main.php:1594 src/Tribe/Main.php:1614
+msgid "%1$s scheduled for: %2$s."
+msgstr ""
+
+#: src/Tribe/Main.php:1703
+msgid "Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results."
+msgstr ""
+
+#: src/Tribe/Main.php:4222
+msgid "Check out the %savailable add-ons%s."
+msgstr ""
+
+#: src/Tribe/Template/Day.php:136
+msgid "No %1$s scheduled for %2$s. Please try another day."
+msgstr ""
+
+#: src/Tribe/Template/Month.php:281
+msgid "There were no results found for %s this month. Try searching next month."
+msgstr ""
+
+#: src/Tribe/Template_Factory.php:294
+msgid "There were no results found for %s."
+msgstr ""
+
+#: src/Tribe/Template_Factory.php:296
+msgid "No results were found for %1$s in or near %2$s."
+msgstr ""
+
+#: src/admin-views/admin-update-message.php:32
+msgid "Keep the Core Plugin %sFREE%s!"
+msgstr ""
+
+#: src/admin-views/new-organizer-meta-section.php:41
+#: src/admin-views/organizer-meta-box.php:44
+msgid "You may want to consider %sobfuscating%s any e-mail address published on your site to best avoid it getting harvested by spammers."
+msgstr ""
+
+#: src/admin-views/tribe-options-addons-api.php:15
+#: src/admin-views/tribe-options-addons-api.php:55
+msgid "Add-Ons APIs"
+msgstr ""
+
+#: src/admin-views/tribe-options-addons-api.php:19
+msgid "<p>The event add-ons you have activated need to talk to some outside sources. Please follow the instructions below to configure your settings.</p>"
+msgstr ""
+
+#: src/admin-views/venue-meta-box.php:190
+msgid "%s Name can not be empty"
+msgstr ""
+
+#: src/admin-views/venue-meta-box.php:195
+msgid "%s Name already exists"
+msgstr ""
+
+#: src/functions/template-tags/day.php:106
+msgid "Previous Day"
+msgstr ""
+
+#: src/functions/template-tags/day.php:108
+msgid "Next Day"
+msgstr ""
+
+#: src/io/csv/admin-views/general.php:12
+msgid "The settings below will impact events imported from files and other websites. Be sure to save your changes before starting to import events."
+msgstr ""
+
+#: src/io/csv/admin-views/import.php:36
+msgid "Questions? %sWatch the video%s."
+msgstr ""
+
+#: src/io/csv/admin-views/import.php:59
+msgid "Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file is UTF-8 encoded? Make sure to specify the character encoding when you save the file, or pass it through a %sconversion tool%s."
+msgstr ""
+
+#: src/Tribe/Main.php:634
+msgid "<strong>Looking for more immediate support?</strong> We offer %s with the purchase of any of our premium plugins. Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays"
+msgstr ""
+
+#: src/Tribe/Main.php:638 vendor/tickets/src/Tribe/Main.php:279
+msgid "open-source forum on WordPress.org"
+msgstr ""
+
+#: src/Tribe/Main.php:639 vendor/tickets/src/Tribe/Main.php:280
+msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our %s. Our support staff monitors these forums once a week and would be happy to assist you there."
+msgstr ""
+
+#: src/Tribe/Main.php:643
+msgid "<strong>Looking for more immediate support?</strong> We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
+msgstr ""
+
+#: src/Tribe/Main.php:647 vendor/tickets/src/Tribe/Main.php:286
+#: vendor/tickets/src/Tribe/Main.php:291
+msgid "post a thread"
+msgstr ""
+
+#: src/Tribe/Main.php:609
+msgid "Themer’s Guide"
+msgstr ""
+
+#: src/Tribe/Main.php:611
+msgid "%s: An overview of the default templates and styles that are included in the plugin, as well as how to change them."
+msgstr ""
+
+#: src/Tribe/Main.php:611
+msgid "Using stylesheets and page templates"
+msgstr ""
+
+#: src/Tribe/Main.php:613
+msgid "%s: Do you see an issue with your calendar? Go here first to find where it’s coming from and how to fix it."
+msgstr ""
+
+#: src/Tribe/Main.php:613 vendor/tickets/src/Tribe/Main.php:241
+msgid "Troubleshooting common problems"
+msgstr ""
+
+#: src/Tribe/Main.php:615
+msgid "%s: Code and guides for customizing your calendar in useful and interesting ways."
+msgstr ""
+
+#: src/Tribe/Main.php:615
+msgid "Customizing the Events plugins"
+msgstr ""
+
+#: src/Tribe/Main.php:630
+msgid "Events Tickets"
+msgstr ""
+
+#: src/Tribe/Main.php:631
+msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our WordPress.org forums for %1$s or %2$s. Our support staff monitors these forums once a week and would be happy to assist you there. "
+msgstr ""
+
+#: src/Tribe/Main.php:633 src/Tribe/Main.php:641
+#: vendor/tickets/src/Tribe/Main.php:282
+msgid "premium support on our website"
+msgstr ""
+
+#: src/Tribe/Importer/Admin_Page.php:80
+msgid "CSV Import Settings"
+msgstr ""
+
+#: src/Tribe/Importer/Admin_Page.php:88
+msgid "Default status to use for imported events"
+msgstr ""
+
+#: src/Tribe/Importer/Admin_Page.php:123
+msgid "This Action has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: \"%s\" To: \"%s\""
+msgstr ""
+
+#: src/Tribe/Importer/Admin_Page.php:202 src/Tribe/Importer/Options.php:23
+#: src/Tribe/Importer/Options.php:83
+msgid "This Filter has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: \"%s\" To: \"%s\""
+msgstr ""
+
+#: src/Tribe/Main.php:589 vendor/tickets/src/Tribe/Main.php:259
+msgid "New User Primer"
+msgstr ""
+
+#: src/Tribe/Main.php:591
+msgid "We are committed to helping make your calendar spectacular and have a wealth of resources available, including a handy %s to get your calendar up and running."
+msgstr ""
+
+#: src/Tribe/Main.php:602
+msgid "Support for The Events Calendar"
+msgstr ""
+
+#: src/Tribe/Main.php:605
+msgid "%s: A thorough walkthrough of The Events Calendar and the settings that are available to you."
+msgstr ""
+
+#: src/Tribe/Main.php:605 vendor/tickets/src/Tribe/Main.php:239
+msgid "Settings overview"
+msgstr ""
+
+#: src/Tribe/Main.php:607
+msgid "%s: A complete look at the features you can expect to see right out of the box as well as how to use them."
+msgstr ""
+
+#: src/Tribe/Main.php:607 vendor/tickets/src/Tribe/Main.php:240
+msgid "Features overview"
+msgstr ""
+
+#: src/Tribe/Main.php:609
+msgid "%s: Our most comprehensive outline for customizing the calendar to suit your needs, including custom layouts and styles."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:35
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:35
+msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our premium forums, please copy and paste this information into the System Information field and it will help us help you faster!"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-licenses.php:27
+#: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:27
+msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
+msgstr ""
+
+#: src/Tribe/API.php:353
+msgid "Unnamed %s"
+msgstr ""
+
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:93
+msgid "Create New %s"
+msgstr ""
+
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:157
+msgid "Add another %s"
+msgstr ""
+
+#: src/Tribe/Asset/Bootstrap_Datepicker.php:19
+msgid "Clear"
+msgstr "清除"
+
+#: common/src/admin-views/tribe-options-help.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:30
+msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums 😄"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:31
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:31
+msgid "Read more about our support policy"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:26
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:26
+msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the forums is open only to paid customers, they are open for anyone to search and review."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:26
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:26
+msgid "Search our support forum"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:24
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:24
+msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:24
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:24
+msgid "Check our Knowledgebase"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:25
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:25
+msgid "%s. Testing for an existing conflict is the best start for in-depth troubleshooting. We will often ask you to follow these steps when opening a new thread, so doing this ahead of time will be super helpful."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:25
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:25
+msgid "Test for a theme or plugin conflict"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:15
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:15
+msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:15
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:15
+msgid "Knowledgebase"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:16
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:16
+msgid "<strong>Want to dive deeper?</strong> Check out our %s for developers."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:16
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:16
+msgid "list of available functions"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:19
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:19
+msgid "Getting More Help"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:20
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:20
+msgid "While the resources above help solve a majority of the issues we see, there are times you might be looking for extra support. If you need assistance using our plugins and would like us to take a look, please follow these steps:"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-general.php:15
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:15
+msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:11
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:11
+msgid "Thanks you for using %s! All of us at Modern Tribe sincerely appreciate your support and we’re excited to see you using our plugins."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:14
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:14
+msgid "Getting Support"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:811
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:811
+msgid "Install Plugin"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:834
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:834
+msgid "Active Users:"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:837
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:837
+msgid "Rating:"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:862
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:862
+msgid "Plugin Active"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:864
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:864
+msgid "Plugin Inactive"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:869
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:869
+msgid "Visit the Add-on Page"
+msgstr ""
+
+#: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:66
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:66
+msgid "<a href=\"%s\">edit Events settings</a>."
+msgstr ""
+
+#: common/src/Tribe/Credits.php:46
+#: vendor/tickets/common/src/Tribe/Credits.php:46
+msgid "Rate %3$sThe Events Calendar%4$s %1$s on %2$s to keep this plugin free.  Thanks from the friendly folks at Modern Tribe."
+msgstr ""
+
+#: common/src/Tribe/PUE/Checker.php:440 src/Tribe/PUE/Checker.php:435
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:440
+msgid "Thanks for setting up a valid key, it will expire on %s"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-display.php:31
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:31
+msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-general.php:10
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:10
+msgid "Thank you for using Event Tickets! All of us at Modern Tribe sincerely appreciate your support and we're excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started."
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:795
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:795
+msgid "Upgrade Plugin"
+msgstr "外掛升級"
+
+#: common/src/Tribe/Admin/Help_Page.php:811
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:811
+msgid "Install %s"
+msgstr "安裝 %s"
+
+#: common/src/Tribe/Admin/Help_Page.php:787
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:787
+msgid "Activate Plugin"
+msgstr "啟用外掛"
+
+#: common/src/Tribe/Admin/Help_Page.php:52
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:52
+msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:64
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:64
+msgid "Event Tickets"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:68
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:68
+msgid "Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events."
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:80
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:80
+msgid "Advanced Post Manager"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:84
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:84
+msgid "Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes."
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:159
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:159
+msgid " and "
+msgstr " 與 "
+
+#: common/src/Tribe/Admin/Help_Page.php:192
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:192
+msgid "Eventbrite Tickets"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:208
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:208
+msgid "Facebook Events"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:216
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:216
+msgid "Events Filter Bar"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:224
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:224
+msgid "Event Tickets Plus"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:233
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:233
+msgid "Community Tickets"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:787
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:787
+msgid "Activate %s"
+msgstr "啟用 %s"
+
+#: src/views/month/single-day.php:42
+msgid "View %1$s %2$s"
+msgid_plural "View All %1$s %2$s"
+msgstr[0] ""
+
+#: common/src/Tribe/Validate.php:195
+#: vendor/tickets/common/src/Tribe/Validate.php:195
+msgid "%s must be a positive number or percent."
+msgstr ""
+
+#: vendor/tickets/src/admin-views/meta-box.php:178
+msgid "Cancel"
+msgstr "取消"
+
+#: vendor/tickets/src/Tribe/Tickets.php:532
+msgid "Editing the ticket price is currently disallowed."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-general.php:59
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:59
 msgid "Default currency symbol"
 msgstr "預設貨幣符號"
 
-#: src/admin-views/tribe-options-general.php:155
+#: common/src/admin-views/tribe-options-general.php:60
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:60
 msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
 msgstr "設定活動費用的預設貨幣符號，請注意此項設定只會對未來的活動產生影響並不會追溯到以前。"
 
-#: src/admin-views/tribe-options-general.php:162
+#: common/src/admin-views/tribe-options-general.php:67
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:67
 msgid "Currency symbol follows value"
 msgstr "貨幣符號在數值之後"
 
-#: src/admin-views/tribe-options-general.php:163
+#: common/src/admin-views/tribe-options-general.php:68
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:68
 msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
 msgstr "貨幣符號通常會出現在數值之前，啟用此選項貨幣符號將會出現在數值 之後。"
 
-#: src/admin-views/tribe-options-general.php:169
+#: src/admin-views/tribe-options-general.php:143
 msgid "Map Settings"
 msgstr "地圖設定"
 
-#: src/admin-views/tribe-options-general.php:173
+#: src/admin-views/tribe-options-general.php:147
 msgid "Enable Google Maps"
 msgstr "啟用 Google 地圖"
 
-#: src/admin-views/tribe-options-general.php:174
+#: src/admin-views/tribe-options-general.php:148
 msgid "Check to enable maps for events and venues."
 msgstr "勾選以啟用活動及地點的地圖功能"
 
-#: src/admin-views/tribe-options-general.php:181
+#: src/admin-views/tribe-options-general.php:155
 msgid "Google Maps default zoom level"
 msgstr "Google 地圖預設縮放比率"
 
-#: src/admin-views/tribe-options-general.php:182
+#: src/admin-views/tribe-options-general.php:156
 msgid "0 = zoomed out; 21 = zoomed in."
 msgstr "0 = 縮小; 21 = 放大。"
 
-#: src/admin-views/tribe-options-general.php:190
+#: common/src/admin-views/tribe-options-general.php:74
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:74
 msgid "Miscellaneous Settings"
 msgstr "其他設定"
 
-#: src/admin-views/tribe-options-general.php:194
+#: src/admin-views/tribe-options-general.php:131
 msgid "Duplicate Venues &amp; Organizers"
 msgstr "複製地點 &amp; 主辦人"
 
-#: src/admin-views/tribe-options-general.php:194
+#: src/admin-views/tribe-options-general.php:131
 msgid "You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers."
 msgstr "當更新 The Events Calendar 到 3.0 預覽版後，你會發現新增的複製地點與主辦人功能，點擊此按鈕以自動合併完全相同的地點與主辦人。"
 
-#: src/admin-views/tribe-options-general.php:199
+#: src/admin-views/tribe-options-general.php:171
 msgid "View Welcome Page"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:199
+#: src/admin-views/tribe-options-general.php:171
 msgid "View the page that displayed when you initially installed the plugin."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:204
+#: src/admin-views/tribe-options-general.php:175
 msgid "View Update Page"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:204
+#: src/admin-views/tribe-options-general.php:175
 msgid "View the page that displayed when you updated the plugin."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:211
+#: common/src/admin-views/tribe-options-general.php:81
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:81
 msgid "Debug mode"
 msgstr "除錯模式"
 
-#: src/admin-views/tribe-options-general.php:217
+#: common/src/admin-views/tribe-options-general.php:87
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
 msgstr "啟用此選項以記錄除錯報告，預設將記錄你的伺服器 PHP 錯誤報告，如果你想於你的瀏覽器閱讀紀錄的訊息，我們推薦安裝 %s 並於除錯輸出中搜尋 \"Tribe\" 工具列標籤。"
 
-#: src/admin-views/tribe-options-general.php:217
+#: common/src/admin-views/tribe-options-general.php:87
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
 msgid "Debug Bar Plugin"
 msgstr "Debug Bar Plugin"
 
-#: src/admin-views/tribe-options-help.php:33
+#: common/src/Tribe/Admin/Help_Page.php:394
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:394
 msgctxt "not available"
 msgid "n/a"
 msgstr "n/a"
 
-#: src/admin-views/tribe-options-help.php:34
+#: common/src/Tribe/Admin/Help_Page.php:402
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:402
 msgid "You need to upgrade!"
 msgstr "你需要升級！"
 
-#: src/admin-views/tribe-options-help.php:34
+#: common/src/Tribe/Admin/Help_Page.php:402
+#: common/src/Tribe/Admin/Help_Page.php:797
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:402
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:797
 msgid "You are up to date!"
 msgstr "你的版本是最新的！"
 
-#: src/admin-views/tribe-options-help.php:63
-msgid "The Events Calendar PRO"
-msgstr "The Events Calendar PRO"
-
-#: src/admin-views/tribe-options-help.php:72
-msgid "The Events Calendar: Eventbrite Tickets"
-msgstr "The Events Calendar: Eventbrite Tickets"
-
-#: src/admin-views/tribe-options-help.php:81
-msgid "The Events Calendar: Community Events"
-msgstr "The Events Calendar: Community Events"
-
-#: src/admin-views/tribe-options-help.php:90
-msgid "The Events Calendar: Facebook Events"
-msgstr "The Events Calendar: Facebook Events"
-
-#: src/admin-views/tribe-options-help.php:99
-msgid "The Events Calendar: WooCommerce Tickets"
-msgstr "The Events Calendar: WooCommerce Tickets"
-
-#: src/admin-views/tribe-options-help.php:109
-msgid "The Events Calendar: EDD Tickets"
-msgstr "The Events Calendar: EDD Tickets"
-
-#: src/admin-views/tribe-options-help.php:119
-msgid "The Events Calendar: WPEC Tickets"
-msgstr "The Events Calendar: WPEC Tickets"
-
-#: src/admin-views/tribe-options-help.php:129
-msgid "The Events Calendar: Shopp Tickets"
-msgstr "The Events Calendar: Shopp Tickets"
-
-#: src/admin-views/tribe-options-help.php:139
-msgid "The Events Calendar: Filter Bar"
-msgstr "The Events Calendar: Filter Bar"
-
-#: src/admin-views/tribe-options-help.php:155
-msgid "If you're looking for help with The Events Calendar, you've come to the right place. We are committed to helping make your calendar be spectacular... and hope the resources provided below will help get you there."
+#: common/src/Tribe/Admin/Help_Page.php:183 src/Tribe/Main.php:642
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:183
+msgid "Events Calendar PRO"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:164
-msgid "If this is your first time using The Events Calendar, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:"
-msgstr "如果這是你第一次使用 The Events Calendar，你將會喜歡它並準備好要開始建立你的第一個活動，這是一些有助於使用者第一次進入其中的必要訊息。"
-
-#: src/admin-views/tribe-options-help.php:167
-msgid "%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time."
-msgstr "%s新手入門指南%s 為導引你正確使用本外掛產品而製作，以循序漸進的教學影片及附有豐富截圖的產品攻略雙管齊下解說產品的使用方法，此入門指南將帶領你零時差地從零到專家。"
-
-#: src/admin-views/tribe-options-help.php:169
-msgid "%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer."
-msgstr "%s安裝／設定 FAQs%s 從我們支援頁面的常見問題集中能夠幫助你了解此外掛產品的能與不能，FAQs 版區之所以會對使用者有所幫助，是因為其致力於必需的安裝問題而不是只專注在新手上路。"
-
-#: src/admin-views/tribe-options-help.php:171
-msgid "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event."
-msgstr "否則，如果你覺得如此做有風險的話，你也可以從前往活動選單新增你的第一個活動開始。"
-
-#: src/admin-views/tribe-options-help.php:175
-msgid "We've redone our support page from the ground up in an effort to better help our users. Head over to our %sSupport Page%s and you'll find lots of great resources, including:"
-msgstr "為了提供使用者更好的協助，我們重新製作了全新的支援網頁，前往我們的 %s支援網頁%s 你將會發現許多很棒的資源，包含："
-
-#: src/admin-views/tribe-options-help.php:177
-msgid "%sTemplate tags, functions, and hooks & filters%s for The Events Calendar &amp; Events Calendar PRO"
-msgstr "The Events Calendar &amp; Events Calendar PRO 的 %s模板標籤、功能、及 hooks & 過濾器%s"
-
-#: src/admin-views/tribe-options-help.php:179
-msgid "%sFrequently Asked Questions%s ranging from the most basic setup questions to advanced themer tweaks"
-msgstr "%s常見問題集%s 的範圍從最基礎的安裝問題到進階的佈景主題開發者所需要的修改與微調。"
-
-#: src/admin-views/tribe-options-help.php:182
-msgid "%sTutorials%s written by both members of our team and users from the community, covering custom queries, integration with third-party themes and plugins, etc."
-msgstr "%s導覽教學%s 由會員和我們的團隊以及來自社群的使用者所共同編寫，包含客製化的疑問、第三方佈景主題和外掛的整合以及各種關於產品的教學。"
-
-#: src/admin-views/tribe-options-help.php:184
-msgid "Release notes for painting an overall picture of the plugin's lifecycle and when features/bug fixes were introduced."
-msgstr "釋出訊息描繪外掛定期更新的概覽及告知何時功能／錯誤修復。"
-
-#: src/admin-views/tribe-options-help.php:186
-msgid "%sAdd-on documentation%s for all of Modern Tribe's official extensions for The Events Calendar (including WooTickets, Community Events, Eventbrite Tickets, Facebook Events, etc)"
-msgstr "%s附加元件使用說明%s 包含 Modern Tribe's 官方所有上市的 The Events Calendar 擴展元件 (包括 WooTickets, Community Events, Eventbrite Tickets, Facebook Events 等等)"
-
-#: src/admin-views/tribe-options-help.php:188
-msgid "We've also got a %sModern Tribe UserVoice%s page where we're actively watching for feature ideas from the community. If after playing with the plugin and reviewing the resources above, you're finding a feature isn't present that should be, let us know. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community's needs."
-msgstr "我們還建置了一個 %sModern Tribe UserVoice%s 的平台，我們聆聽所有人對功能介面提出的新點子。如果你在使用外掛與閱讀以上的資源後發現有些功能是必須的但卻沒有時，請讓我們知道，評論現有產品功能或提議你想要的新功能，還有幫助我們發展出最符合人們需求的產品功能。"
-
-#: src/admin-views/tribe-options-help.php:192
-msgid "Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play."
-msgstr "編寫使用說明文件僅能解決一定程度的問題...有時候，你需要我們團隊的協助時，這時我們的 %s支援論壇%s 便會啟動其機制。"
-
-#: src/admin-views/tribe-options-help.php:193
-msgid "Users of the free The Events Calendar should post their support concerns to the plugin's %sWordPress.org support forum%s. While we are happy to help identify and fix bugs that are reported at WordPress.org, please make sure to read our %ssupport expectations sticky thread%s before posting so you understand our limitations."
-msgstr "免費版 The Events Calendar 的使用者可提交他們有關的支援需求到外掛的 %sWordPress.org 支援論壇%s。我們將樂於協助確認及修復錯誤，當錯誤確認及修復後我們會將其揭露於 WordPress.org，提交支援需求前，請確認你已閱讀我們的 %s支援期待置頂文章%s 以了解其限制。"
-
-#: src/admin-views/tribe-options-help.php:194
-msgid "We hit the WordPress.org forum throughout the week, watching for bugs. If you report a legitimate bug that we're able to reproduce, we will log it and patch for an upcoming release. However we are unfortunately unable to provide customization tips or assist in integrating with 3rd party plugins or themes."
-msgstr "我們每星期都會點擊進入 WordPress.org 論壇關注錯誤，如果你所報告的錯誤經確認後我們將進行修復，並將其登錄列為下次更新釋出。不過我們無法提供與第三方外掛或佈景主題整合的客製技術與協助。"
-
-#: src/admin-views/tribe-options-help.php:195
-msgid "If you're a user of The Events Calendar and would like more support, please %spurchase a PRO license%s. We hit the PRO forums daily, and can provide a deeper level of customization/integration support for paying users than we can on WordPress.org."
-msgstr "如果你是 The Events Calendar 的使用者並想獲得更多的支援，請 %s購買 PRO 授權%s，我們每天都會點擊進入 PRO 論壇，並提供比在 WordPress.org 較深度的客製／整合支援給付費使用者。"
-
-#: src/admin-views/tribe-options-help.php:199
-msgid "If you find that you aren't getting the level of service you've come to expect from Modern Tribe, shoot us an email at %1$s or tweet %2$s and tell us why. We'll do what we can to make it right."
-msgstr ""
-
-#: src/admin-views/tribe-options-help.php:200
+#: common/src/admin-views/tribe-options-help.php:60
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:60
 msgid "More..."
 msgstr "更多..."
 
-#: src/admin-views/tribe-options-help.php:209
-msgid "Hi! We are Modern Tribe and we are here to help you be awesome. Thanks so much for installing our labor of love!"
-msgstr ""
-
-#: src/admin-views/tribe-options-help.php:231
-msgid "Support Resources To Help You Be Awesome"
-msgstr ""
-
-#: src/admin-views/tribe-options-help.php:241
-msgid "Forums: Because Everyone Needs A Buddy"
-msgstr "論壇：因為每個人都需要夥伴"
-
-#: src/admin-views/tribe-options-help.php:251
-msgid "Not getting help?"
-msgstr "未獲得幫助？"
-
-#: src/admin-views/tribe-options-help.php:277
+#: common/src/Tribe/Admin/Help_Page.php:828
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:828
 msgid "Latest Version:"
 msgstr "最新版本："
 
-#: src/admin-views/tribe-options-help.php:279
-msgid "Author:"
-msgstr "作者："
-
-#: src/admin-views/tribe-options-help.php:279
-msgid "Modern Tribe Inc"
-msgstr "Modern Tribe Inc"
-
-#: src/admin-views/tribe-options-help.php:284
+#: common/src/Tribe/Admin/Help_Page.php:831
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:831
 msgid "Requires:"
 msgstr "需求："
 
-#: src/admin-views/tribe-options-help.php:284
+#: common/src/Tribe/Admin/Help_Page.php:832
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:832
 msgid "WordPress "
 msgstr "WordPress "
 
-#: src/admin-views/tribe-options-help.php:295
-msgid "Wordpress.org Plugin Page"
-msgstr "Wordpress.org 外掛頁面"
-
-#: src/admin-views/tribe-options-help.php:301
-msgid "Average Rating"
-msgstr "平均評比"
-
-#: src/admin-views/tribe-options-help.php:307
-msgid "Based on %d rating"
-msgid_plural "Based on %d ratings"
-msgstr[0] "基於 %d 則評比"
-
-#: src/admin-views/tribe-options-help.php:317
-msgid "Give us 5 stars!"
-msgstr "給我們 5 顆星評價！"
-
-#: src/admin-views/tribe-options-help.php:321
+#: common/src/Tribe/Admin/Help_Page.php:856
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:856
 msgid "Premium Add-Ons"
 msgstr "超值附加元件"
 
-#: src/admin-views/tribe-options-help.php:330
-msgid "(Coming Soon!)"
-msgstr "(即將上上市！)"
-
-#: src/admin-views/tribe-options-help.php:340
+#: common/src/admin-views/tribe-options-help.php:54
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:54
 msgid "News and Tutorials"
 msgstr "消息和導覽"
 
-#: src/admin-views/tribe-options-licenses.php:13
+#: common/src/admin-views/tribe-options-licenses.php:13
+#: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:13
 msgid "<p>The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:17
-msgid ""
-"<strong> Using our plugins in a multisite network? </strong>\n"
-"\t\tPlease note that your license key will be applied to the entire network, not just this site."
+#: common/src/admin-views/tribe-options-licenses.php:18
+#: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:18
+msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:20
-msgid ""
-"Only license fields for <strong>network activated</strong> plugins will be\n"
-"\t\tlisted on this screen. "
-msgstr ""
-
-#: src/admin-views/tribe-options-network.php:15
+#: common/src/admin-views/tribe-options-network.php:15
+#: vendor/tickets/common/src/admin-views/tribe-options-network.php:15
 msgid "Network Settings"
 msgstr "網路設定"
 
-#: src/admin-views/tribe-options-network.php:19
+#: common/src/admin-views/tribe-options-network.php:19
+#: vendor/tickets/common/src/admin-views/tribe-options-network.php:19
 msgid "This is where all of the global network settings for Modern Tribe's The Events Calendar can be modified."
 msgstr "這裡是 Modern Tribe 的 The Events Calendar 所有整體網路設定可以被修改的位置。"
 
-#: src/admin-views/tribe-options-network.php:27
+#: common/src/admin-views/tribe-options-network.php:27
+#: vendor/tickets/common/src/admin-views/tribe-options-network.php:27
 msgid "Hide the following settings tabs on every site:"
 msgstr "隱藏以下設定工具列標籤於每個網站："
 
-#: src/admin-views/tribe-options-timezones.php:4
+#: src/admin-views/tribe-options-timezones.php:7
 msgid "Enable timezone support"
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:6
+#: src/admin-views/tribe-options-timezones.php:9
 msgid "Update Timezone Data"
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:7
+#: src/admin-views/tribe-options-timezones.php:10
 msgid "Click this button to update your database and take advantage of additional timezone capabilities. Please <a href=\"%s\" target=\"_blank\">configure WordPress</a> to use the correct timezone before clicking this button!"
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:27
+#: src/admin-views/tribe-options-timezones.php:30
 msgid "Timezone Settings"
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:35
+#: src/admin-views/tribe-options-timezones.php:38
 msgid "Timezone mode"
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:39
+#: src/admin-views/tribe-options-timezones.php:42
 msgid "Use the local timezones for each event"
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:40
+#: src/admin-views/tribe-options-timezones.php:43
 msgid "Use the sitewide timezone everywhere"
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:45
+#: src/admin-views/tribe-options-timezones.php:48
 msgid "Show timezone"
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:46
+#: src/admin-views/tribe-options-timezones.php:49
 msgid "Appends the timezone to the end of event scheduling information &ndash; this can be useful when you have events in numerous different timezones."
 msgstr ""
 
@@ -344,25 +907,25 @@ msgstr "城市："
 msgid "Country:"
 msgstr "國家："
 
-#: src/admin-views/venue-meta-box.php:88
+#: src/admin-views/venue-meta-box.php:87
 msgid "State or Province:"
 msgstr "州或省："
 
-#: src/admin-views/venue-meta-box.php:92
+#: src/admin-views/venue-meta-box.php:91
 msgid "Select a State:"
 msgstr "請選擇州："
 
-#: src/admin-views/venue-meta-box.php:105
+#: src/admin-views/venue-meta-box.php:104
 msgid "Postal Code:"
 msgstr "郵遞區號："
 
-#: src/admin-views/venue-meta-box.php:137
-#: src/admin-views/venue-meta-box.php:159
+#: src/admin-views/venue-meta-box.php:136
+#: src/admin-views/venue-meta-box.php:158
 msgid "Show Google Map:"
 msgstr "顯示 Google 地圖："
 
-#: src/admin-views/venue-meta-box.php:147
-#: src/admin-views/venue-meta-box.php:169
+#: src/admin-views/venue-meta-box.php:146
+#: src/admin-views/venue-meta-box.php:168
 msgid "Show Google Maps Link:"
 msgstr "顯示 Google 地圖連結："
 
@@ -395,54 +958,46 @@ msgstr "來源："
 msgid "%s:"
 msgstr ""
 
-#: src/functions/template-tags/date.php:261
+#: src/functions/template-tags/date.php:145
 msgid "The function needs to be passed an $event or used in the loop."
 msgstr ""
 
-#: src/functions/template-tags/day.php:107
-msgid "<span>&laquo;</span> Previous Day"
-msgstr "<span>&laquo;</span> 前一天"
-
-#: src/functions/template-tags/day.php:109
-msgid "Next Day <span>&raquo;</span>"
-msgstr "後一天 <span>&raquo;</span>"
-
-#: src/functions/template-tags/day.php:111
+#: src/functions/template-tags/day.php:110
 msgid "Yesterday"
 msgstr "昨天"
 
-#: src/functions/template-tags/day.php:113
+#: src/functions/template-tags/day.php:112
 msgid "Tomorrow"
 msgstr "明天"
 
-#: src/functions/template-tags/deprecated.php:1283
+#: src/functions/template-tags/deprecated.php:1299
 msgid "Category"
 msgstr "類別："
 
 #. translators: %s is the singular translation of "Event"
-#: src/functions/template-tags/general.php:411
+#: src/functions/template-tags/general.php:357
 msgctxt "category list label"
 msgid "%s Category"
 msgid_plural "%s Categories"
 msgstr[0] ""
 
-#: src/functions/template-tags/general.php:450
+#: src/functions/template-tags/general.php:396
 msgid "Tags:"
 msgstr "標籤："
 
-#: src/functions/template-tags/general.php:562
+#: src/functions/template-tags/general.php:508
 msgid "Loading %s"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1311
+#: src/functions/template-tags/general.php:1048
 msgid "Find out more »"
 msgstr "看更多 »"
 
-#: src/functions/template-tags/general.php:1312
+#: src/functions/template-tags/general.php:1049
 msgid "%s for"
 msgstr "的%s"
 
-#: src/functions/template-tags/general.php:1488
+#: src/functions/template-tags/general.php:1169
 msgid "Calendar powered by %sThe Events Calendar%s"
 msgstr "行事曆由 %sThe Events Calendar%s 所提供"
 
@@ -476,8 +1031,8 @@ msgid "Your current Events URL is %s"
 msgstr "你目前活動的網址為 %s"
 
 #: src/functions/template-tags/options.php:29
-msgid "You <strong>cannot</strong> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: %s"
-msgstr "你<strong>不能</strong>使用和上面相同的代稱，上面代稱適合複數與此單數。<br />你的單一活動網址應如：%s"
+msgid "You %1$scannot%2$s use the same slug as above. The above should ideally be plural, and this singular.%3$sYour single Event URL is like: %4$s"
+msgstr ""
 
 #: src/io/csv/admin-views/columns.php:22
 msgid "Column Mapping: %s"
@@ -500,42 +1055,26 @@ msgid "Perform Import"
 msgstr "執行匯入"
 
 #: src/io/csv/admin-views/general.php:10
-msgid "The Events Calendar: Import"
-msgstr ""
-
-#: src/io/csv/admin-views/general.php:12
 msgid "Instructions"
 msgstr ""
 
-#: src/io/csv/admin-views/general.php:14
-msgid "To import events, first select a %sDefault Import Event Status%s below to assign to your imported events."
-msgstr ""
-
-#: src/io/csv/admin-views/general.php:17
-msgid "Once your setting is saved, move to the applicable Import tab to select import specific criteria."
-msgstr ""
-
-#: src/io/csv/admin-views/general.php:24
+#: src/Tribe/Importer/Admin_Page.php:190
 msgid "Import Settings"
 msgstr ""
 
-#: src/io/csv/admin-views/general.php:27
-msgid "Default imported event status:"
-msgstr ""
-
-#: src/io/csv/admin-views/general.php:30
+#: src/Tribe/Importer/Options.php:120
 msgid "Published"
 msgstr ""
 
-#: src/io/csv/admin-views/general.php:31
+#: src/Tribe/Importer/Options.php:121
 msgid "Pending"
 msgstr ""
 
-#: src/io/csv/admin-views/general.php:32
+#: src/Tribe/Importer/Options.php:122
 msgid "Draft"
 msgstr ""
 
-#: src/io/csv/admin-views/general.php:48
+#: src/io/csv/admin-views/general.php:50
 msgid "Save Settings"
 msgstr ""
 
@@ -579,10 +1118,6 @@ msgstr "匯入你的主辦人和地點後，請接著匯入你的活動："
 msgid "One column in your CSV should have the Event title. Another should have the Event start date. All other fields are optional."
 msgstr "你的 CSV 中應有一欄必須是活動標題，另一欄是活動開始日期，其餘則不限。"
 
-#: src/io/csv/admin-views/import.php:36
-msgid "Questions? <a href=\"%s\">Watch the video</a>."
-msgstr "有問題？ <a href=\"%s\">請看教學影片</a>."
-
 #: src/io/csv/admin-views/import.php:43
 msgid "Import Type:"
 msgstr "匯入類型："
@@ -590,10 +1125,6 @@ msgstr "匯入類型："
 #: src/io/csv/admin-views/import.php:55
 msgid "CSV File:"
 msgstr "CSV 檔案："
-
-#: src/io/csv/admin-views/import.php:59
-msgid "Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file is UTF-8 encoded? Make sure to specify the character encoding when you save the file, or pass it through a <a href='http://i-tools.org/charset/exec?dest=utf-8&src=auto&download=1'>conversion tool</a>."
-msgstr "上傳正確的檔案格式是 UTF-8 編碼的 CSV 檔，如果不確定你的檔案是否為 UTF-8 編碼？ 當你儲存檔案前請先確定字符編碼，或將其傳送到 <a href='http://i-tools.org/charset/exec?dest=utf-8&src=auto&download=1'>轉換工具</a> 進行轉換。"
 
 #: src/io/csv/admin-views/import.php:67
 msgid "This file has column names in the first row"
@@ -627,10 +1158,6 @@ msgstr "略過：%d"
 msgid "The import statistics above have the following meaning:"
 msgstr "以上匯入統計資料含有下列意義："
 
-#: src/io/csv/admin-views/result.php:26
-msgid "<ol><li><strong>Inserted:</strong> A new item was inserted successfully.</li><li><strong>Updated:</strong> An item was found with the same name and/or start date. The existing item was updated with the new value from the file.</li><li><strong>Skipped:</strong> A row was found in the CSV file that could not be imported. Please see below for the invalid rows.</li></ol>"
-msgstr "<ol><li><strong>插入：</strong> 一個新項目已成功插入。</li><li><strong>更新：</strong> 發現一個項目含有相同的的名稱和／或開始日期，現有的項目已更新為新數值。</li><li><strong>略過：</strong> 發現 CSV 檔案中有一欄無法匯入，請查看以下無效欄。</li></ol>"
-
 #: src/io/csv/admin-views/result.php:29
 msgid "Skipped row numbers: %s"
 msgstr "略過欄數：%s"
@@ -645,14 +1172,6 @@ msgstr "發現更多"
 
 #: src/views/list/nav.php:19
 msgid "%s List Navigation"
-msgstr ""
-
-#: src/views/list/nav.php:25
-msgid "<span>&laquo;</span> Previous %s"
-msgstr ""
-
-#: src/views/list/nav.php:32
-msgid "Next %s <span>&raquo;</span>"
 msgstr ""
 
 #: src/views/modules/bar.php:30 src/views/modules/bar.php:61
@@ -675,32 +1194,23 @@ msgstr ""
 msgid "Calendar Month Navigation"
 msgstr "行事曆月選單"
 
-#: src/views/month/single-day.php:43
-msgid "View 1 %1$s"
-msgid_plural "View All %2$s %3$s"
-msgstr[0] ""
-
-#: src/views/single-event.php:27
-msgid "&laquo; All %s"
-msgstr ""
-
 #: src/views/single-event.php:46 src/views/single-event.php:79
 msgid "%s Navigation"
 msgstr ""
 
-#: src/views/tickets/attendees-email.php:24
+#: vendor/tickets/src/views/tickets/attendees-email.php:24
 msgid "Attendee List"
 msgstr "出席者名單"
 
-#: src/views/tickets/email.php:26
+#: vendor/tickets/src/views/tickets/email.php:26
 msgid "Your tickets"
 msgstr "你的票券"
 
-#: src/views/tickets/email.php:309
+#: vendor/tickets/src/views/tickets/email.php:336
 msgid "Ticket Type"
 msgstr "票券類型"
 
-#: src/views/tickets/email.php:313
+#: vendor/tickets/src/views/tickets/email.php:340
 msgid "Purchaser"
 msgstr "購買人"
 
@@ -724,471 +1234,588 @@ msgstr ""
 msgid "http://m.tri.be/1x"
 msgstr ""
 
-#: src/Tribe/View_Helpers.php:219
+#: common/src/Tribe/View_Helpers.php:219
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:219
 msgid "Poland"
 msgstr "波蘭"
 
-#: src/Tribe/View_Helpers.php:220
+#: common/src/Tribe/View_Helpers.php:220
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:220
 msgid "Portugal"
 msgstr "葡萄牙"
 
-#: src/Tribe/View_Helpers.php:221
+#: common/src/Tribe/View_Helpers.php:221
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:221
 msgid "Puerto Rico"
 msgstr "波多黎各"
 
-#: src/Tribe/View_Helpers.php:222
+#: common/src/Tribe/View_Helpers.php:222
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:222
 msgid "Qatar"
 msgstr "卡達"
 
-#: src/Tribe/View_Helpers.php:223
+#: common/src/Tribe/View_Helpers.php:223
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:223
 msgid "Reunion"
 msgstr "留尼旺"
 
-#: src/Tribe/View_Helpers.php:224
+#: common/src/Tribe/View_Helpers.php:224
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:224
 msgid "Romania"
 msgstr "羅馬尼亞"
 
-#: src/Tribe/View_Helpers.php:225
+#: common/src/Tribe/View_Helpers.php:225
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:225
 msgid "Russian Federation"
 msgstr "俄羅斯聯邦"
 
-#: src/Tribe/View_Helpers.php:226
+#: common/src/Tribe/View_Helpers.php:226
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:226
 msgid "Rwanda"
 msgstr "盧安達"
 
-#: src/Tribe/View_Helpers.php:227
+#: common/src/Tribe/View_Helpers.php:227
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:227
 msgid "Saint Kitts And Nevis"
 msgstr "聖克里斯多福與尼維斯"
 
-#: src/Tribe/View_Helpers.php:228
+#: common/src/Tribe/View_Helpers.php:228
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:228
 msgid "Saint Lucia"
 msgstr "聖盧西亞"
 
-#: src/Tribe/View_Helpers.php:229
+#: common/src/Tribe/View_Helpers.php:229
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:229
 msgid "Saint Vincent And The Grenadines"
 msgstr "聖文森及格瑞那丁"
 
-#: src/Tribe/View_Helpers.php:230
+#: common/src/Tribe/View_Helpers.php:230
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:230
 msgid "Samoa"
 msgstr "薩摩亞"
 
-#: src/Tribe/View_Helpers.php:231
+#: common/src/Tribe/View_Helpers.php:231
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:231
 msgid "San Marino"
 msgstr "聖馬利諾"
 
-#: src/Tribe/View_Helpers.php:232
+#: common/src/Tribe/View_Helpers.php:232
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:232
 msgid "Sao Tome And Principe"
 msgstr "聖多美與普林希比"
 
-#: src/Tribe/View_Helpers.php:233
+#: common/src/Tribe/View_Helpers.php:233
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:233
 msgid "Saudi Arabia"
 msgstr "沙烏地阿拉伯"
 
-#: src/Tribe/View_Helpers.php:234
+#: common/src/Tribe/View_Helpers.php:234
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:234
 msgid "Senegal"
 msgstr "塞內加爾"
 
-#: src/Tribe/View_Helpers.php:235
+#: common/src/Tribe/View_Helpers.php:235
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:235
 msgid "Serbia"
 msgstr "塞爾維亞"
 
-#: src/Tribe/View_Helpers.php:236
+#: common/src/Tribe/View_Helpers.php:236
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:236
 msgid "Seychelles"
 msgstr "塞席爾群島"
 
-#: src/Tribe/View_Helpers.php:237
+#: common/src/Tribe/View_Helpers.php:237
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:237
 msgid "Sierra Leone"
 msgstr "獅子山共和國"
 
-#: src/Tribe/View_Helpers.php:238
+#: common/src/Tribe/View_Helpers.php:238
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:238
 msgid "Singapore"
 msgstr "新加坡"
 
-#: src/Tribe/View_Helpers.php:239
+#: common/src/Tribe/View_Helpers.php:239
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:239
 msgid "Slovakia (Slovak Republic)"
 msgstr "斯洛伐克"
 
-#: src/Tribe/View_Helpers.php:240
+#: common/src/Tribe/View_Helpers.php:240
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:240
 msgid "Slovenia"
 msgstr "斯洛維尼亞"
 
-#: src/Tribe/View_Helpers.php:241
+#: common/src/Tribe/View_Helpers.php:241
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:241
 msgid "Solomon Islands"
 msgstr "所羅門群島"
 
-#: src/Tribe/View_Helpers.php:242
+#: common/src/Tribe/View_Helpers.php:242
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:242
 msgid "Somalia"
 msgstr "索馬利亞"
 
-#: src/Tribe/View_Helpers.php:243
+#: common/src/Tribe/View_Helpers.php:243
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:243
 msgid "South Africa"
 msgstr "南非"
 
-#: src/Tribe/View_Helpers.php:244
+#: common/src/Tribe/View_Helpers.php:244
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:244
 msgid "South Georgia, South Sandwich Islands"
 msgstr "南喬治亞與南三明治群島"
 
-#: src/Tribe/View_Helpers.php:245
+#: common/src/Tribe/View_Helpers.php:245
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:245
 msgid "Spain"
 msgstr "西班牙"
 
-#: src/Tribe/View_Helpers.php:246
+#: common/src/Tribe/View_Helpers.php:246
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:246
 msgid "Sri Lanka"
 msgstr "斯里蘭卡"
 
-#: src/Tribe/View_Helpers.php:247
+#: common/src/Tribe/View_Helpers.php:247
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:247
 msgid "St. Helena"
 msgstr "聖赫勒拿島"
 
-#: src/Tribe/View_Helpers.php:248
+#: common/src/Tribe/View_Helpers.php:248
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:248
 msgid "St. Pierre And Miquelon"
 msgstr "聖皮耶與密克隆群島"
 
-#: src/Tribe/View_Helpers.php:249
+#: common/src/Tribe/View_Helpers.php:249
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:249
 msgid "Sudan"
 msgstr "蘇丹"
 
-#: src/Tribe/View_Helpers.php:250
+#: common/src/Tribe/View_Helpers.php:250
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:250
 msgid "Suriname"
 msgstr "蘇利南莫河"
 
-#: src/Tribe/View_Helpers.php:251
+#: common/src/Tribe/View_Helpers.php:251
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:251
 msgid "Svalbard And Jan Mayen Islands"
 msgstr "斯瓦爾巴和揚馬延"
 
-#: src/Tribe/View_Helpers.php:252
+#: common/src/Tribe/View_Helpers.php:252
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:252
 msgid "Swaziland"
 msgstr "史瓦濟蘭"
 
-#: src/Tribe/View_Helpers.php:253
+#: common/src/Tribe/View_Helpers.php:253
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:253
 msgid "Sweden"
 msgstr "瑞典"
 
-#: src/Tribe/View_Helpers.php:254
+#: common/src/Tribe/View_Helpers.php:254
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:254
 msgid "Switzerland"
 msgstr "瑞士"
 
-#: src/Tribe/View_Helpers.php:255
+#: common/src/Tribe/View_Helpers.php:255
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:255
 msgid "Syrian Arab Republic"
 msgstr "敘利亞"
 
-#: src/Tribe/View_Helpers.php:256
+#: common/src/Tribe/View_Helpers.php:256
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:256
 msgid "Taiwan"
 msgstr "台灣"
 
-#: src/Tribe/View_Helpers.php:257
+#: common/src/Tribe/View_Helpers.php:257
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:257
 msgid "Tajikistan"
 msgstr "塔吉克斯坦"
 
-#: src/Tribe/View_Helpers.php:258
+#: common/src/Tribe/View_Helpers.php:258
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:258
 msgid "Tanzania, United Republic Of"
 msgstr "坦尚尼亞"
 
-#: src/Tribe/View_Helpers.php:259
+#: common/src/Tribe/View_Helpers.php:259
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:259
 msgid "Thailand"
 msgstr "泰國"
 
-#: src/Tribe/View_Helpers.php:260
+#: common/src/Tribe/View_Helpers.php:260
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:260
 msgid "Togo"
 msgstr "多哥"
 
-#: src/Tribe/View_Helpers.php:261
+#: common/src/Tribe/View_Helpers.php:261
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:261
 msgid "Tokelau"
 msgstr "托克勞群島"
 
-#: src/Tribe/View_Helpers.php:262
+#: common/src/Tribe/View_Helpers.php:262
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:262
 msgid "Tonga"
 msgstr "東加"
 
-#: src/Tribe/View_Helpers.php:263
+#: common/src/Tribe/View_Helpers.php:263
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:263
 msgid "Trinidad And Tobago"
 msgstr "千里達及多巴哥"
 
-#: src/Tribe/View_Helpers.php:264
+#: common/src/Tribe/View_Helpers.php:264
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:264
 msgid "Tunisia"
 msgstr "突尼西亞"
 
-#: src/Tribe/View_Helpers.php:265
+#: common/src/Tribe/View_Helpers.php:265
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:265
 msgid "Turkey"
 msgstr "土耳其"
 
-#: src/Tribe/View_Helpers.php:266
+#: common/src/Tribe/View_Helpers.php:266
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:266
 msgid "Turkmenistan"
 msgstr "土庫曼"
 
-#: src/Tribe/View_Helpers.php:267
+#: common/src/Tribe/View_Helpers.php:267
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:267
 msgid "Turks And Caicos Islands"
 msgstr "特克斯和凱科斯群島"
 
-#: src/Tribe/View_Helpers.php:268
+#: common/src/Tribe/View_Helpers.php:268
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:268
 msgid "Tuvalu"
 msgstr "吐瓦魯"
 
-#: src/Tribe/View_Helpers.php:269
+#: common/src/Tribe/View_Helpers.php:269
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:269
 msgid "Uganda"
 msgstr "烏干達"
 
-#: src/Tribe/View_Helpers.php:270
+#: common/src/Tribe/View_Helpers.php:270
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:270
 msgid "Ukraine"
 msgstr "烏克蘭"
 
-#: src/Tribe/View_Helpers.php:271
+#: common/src/Tribe/View_Helpers.php:271
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:271
 msgid "United Arab Emirates"
 msgstr "阿拉伯聯合大公國"
 
-#: src/Tribe/View_Helpers.php:272
+#: common/src/Tribe/View_Helpers.php:272
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:272
 msgid "United Kingdom"
 msgstr "英國"
 
-#: src/Tribe/View_Helpers.php:273
+#: common/src/Tribe/View_Helpers.php:273
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:273
 msgid "United States Minor Outlying Islands"
 msgstr "美國本土外小島嶼"
 
-#: src/Tribe/View_Helpers.php:274
+#: common/src/Tribe/View_Helpers.php:274
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:274
 msgid "Uruguay"
 msgstr "烏拉圭"
 
-#: src/Tribe/View_Helpers.php:275
+#: common/src/Tribe/View_Helpers.php:275
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:275
 msgid "Uzbekistan"
 msgstr "烏茲別克斯坦"
 
-#: src/Tribe/View_Helpers.php:276
+#: common/src/Tribe/View_Helpers.php:276
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:276
 msgid "Vanuatu"
 msgstr "萬那杜"
 
-#: src/Tribe/View_Helpers.php:277
+#: common/src/Tribe/View_Helpers.php:277
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:277
 msgid "Venezuela"
 msgstr "委內瑞拉"
 
-#: src/Tribe/View_Helpers.php:278
+#: common/src/Tribe/View_Helpers.php:278
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:278
 msgid "Viet Nam"
 msgstr "越南"
 
-#: src/Tribe/View_Helpers.php:279
+#: common/src/Tribe/View_Helpers.php:279
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:279
 msgid "Virgin Islands (British)"
 msgstr "英屬維京群島"
 
-#: src/Tribe/View_Helpers.php:280
+#: common/src/Tribe/View_Helpers.php:280
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:280
 msgid "Virgin Islands (U.S.)"
 msgstr "美屬維京群島"
 
-#: src/Tribe/View_Helpers.php:281
+#: common/src/Tribe/View_Helpers.php:281
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:281
 msgid "Wallis And Futuna Islands"
 msgstr "瓦利斯和富圖納群島"
 
-#: src/Tribe/View_Helpers.php:282
+#: common/src/Tribe/View_Helpers.php:282
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:282
 msgid "Western Sahara"
 msgstr "西撒哈拉"
 
-#: src/Tribe/View_Helpers.php:283
+#: common/src/Tribe/View_Helpers.php:283
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:283
 msgid "Yemen"
 msgstr "葉門"
 
-#: src/Tribe/View_Helpers.php:284
+#: common/src/Tribe/View_Helpers.php:284
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:284
 msgid "Zambia"
 msgstr "尚比亞"
 
-#: src/Tribe/View_Helpers.php:285
+#: common/src/Tribe/View_Helpers.php:285
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:285
 msgid "Zimbabwe"
 msgstr "辛巴威"
 
-#: src/Tribe/View_Helpers.php:316
+#: common/src/Tribe/View_Helpers.php:316
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:316
 msgid "Alabama"
 msgstr "阿拉巴馬州"
 
-#: src/Tribe/View_Helpers.php:317
+#: common/src/Tribe/View_Helpers.php:317
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:317
 msgid "Alaska"
 msgstr "阿拉斯加州"
 
-#: src/Tribe/View_Helpers.php:318
+#: common/src/Tribe/View_Helpers.php:318
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:318
 msgid "Arizona"
 msgstr "亞利桑那州"
 
-#: src/Tribe/View_Helpers.php:319
+#: common/src/Tribe/View_Helpers.php:319
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:319
 msgid "Arkansas"
 msgstr "阿肯色州"
 
-#: src/Tribe/View_Helpers.php:320
+#: common/src/Tribe/View_Helpers.php:320
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:320
 msgid "California"
 msgstr "加州"
 
-#: src/Tribe/View_Helpers.php:321
+#: common/src/Tribe/View_Helpers.php:321
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:321
 msgid "Colorado"
 msgstr "科羅拉多州"
 
-#: src/Tribe/View_Helpers.php:322
+#: common/src/Tribe/View_Helpers.php:322
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:322
 msgid "Connecticut"
 msgstr "康乃迪克州"
 
-#: src/Tribe/View_Helpers.php:323
+#: common/src/Tribe/View_Helpers.php:323
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:323
 msgid "Delaware"
 msgstr "德拉威州"
 
-#: src/Tribe/View_Helpers.php:324
+#: common/src/Tribe/View_Helpers.php:324
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:324
 msgid "District of Columbia"
 msgstr "哥倫比亞特區"
 
-#: src/Tribe/View_Helpers.php:325
+#: common/src/Tribe/View_Helpers.php:325
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:325
 msgid "Florida"
 msgstr "佛羅里達州"
 
-#: src/Tribe/View_Helpers.php:327
+#: common/src/Tribe/View_Helpers.php:327
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:327
 msgid "Hawaii"
 msgstr "夏威夷州"
 
-#: src/Tribe/View_Helpers.php:328
+#: common/src/Tribe/View_Helpers.php:328
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:328
 msgid "Idaho"
 msgstr "愛達荷州"
 
-#: src/Tribe/View_Helpers.php:329
+#: common/src/Tribe/View_Helpers.php:329
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:329
 msgid "Illinois"
 msgstr "伊利諾州"
 
-#: src/Tribe/View_Helpers.php:330
+#: common/src/Tribe/View_Helpers.php:330
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:330
 msgid "Indiana"
 msgstr "印第安納州"
 
-#: src/Tribe/View_Helpers.php:331
+#: common/src/Tribe/View_Helpers.php:331
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:331
 msgid "Iowa"
 msgstr "愛荷華州"
 
-#: src/Tribe/View_Helpers.php:332
+#: common/src/Tribe/View_Helpers.php:332
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:332
 msgid "Kansas"
 msgstr "堪薩斯州"
 
-#: src/Tribe/View_Helpers.php:333
+#: common/src/Tribe/View_Helpers.php:333
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:333
 msgid "Kentucky"
 msgstr "肯塔基州"
 
-#: src/Tribe/View_Helpers.php:334
+#: common/src/Tribe/View_Helpers.php:334
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:334
 msgid "Louisiana"
 msgstr "路易斯安那州"
 
-#: src/Tribe/View_Helpers.php:335
+#: common/src/Tribe/View_Helpers.php:335
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:335
 msgid "Maine"
 msgstr "緬因州"
 
-#: src/Tribe/View_Helpers.php:336
+#: common/src/Tribe/View_Helpers.php:336
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:336
 msgid "Maryland"
 msgstr "馬里蘭州"
 
-#: src/Tribe/View_Helpers.php:337
+#: common/src/Tribe/View_Helpers.php:337
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:337
 msgid "Massachusetts"
 msgstr "麻薩諸塞州"
 
-#: src/Tribe/View_Helpers.php:338
+#: common/src/Tribe/View_Helpers.php:338
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:338
 msgid "Michigan"
 msgstr "密西根州"
 
-#: src/Tribe/View_Helpers.php:339
+#: common/src/Tribe/View_Helpers.php:339
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:339
 msgid "Minnesota"
 msgstr "明尼蘇達州"
 
-#: src/Tribe/View_Helpers.php:340
+#: common/src/Tribe/View_Helpers.php:340
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:340
 msgid "Mississippi"
 msgstr "密西西比州"
 
-#: src/Tribe/View_Helpers.php:341
+#: common/src/Tribe/View_Helpers.php:341
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:341
 msgid "Missouri"
 msgstr "密蘇里州"
 
-#: src/Tribe/View_Helpers.php:342
+#: common/src/Tribe/View_Helpers.php:342
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:342
 msgid "Montana"
 msgstr "蒙大拿州"
 
-#: src/Tribe/View_Helpers.php:343
+#: common/src/Tribe/View_Helpers.php:343
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:343
 msgid "Nebraska"
 msgstr "內布拉斯加州"
 
-#: src/Tribe/View_Helpers.php:344
+#: common/src/Tribe/View_Helpers.php:344
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:344
 msgid "Nevada"
 msgstr "內華達州"
 
-#: src/Tribe/View_Helpers.php:345
+#: common/src/Tribe/View_Helpers.php:345
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:345
 msgid "New Hampshire"
 msgstr "新罕布夏州"
 
-#: src/Tribe/View_Helpers.php:346
+#: common/src/Tribe/View_Helpers.php:346
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:346
 msgid "New Jersey"
 msgstr "新澤西州"
 
-#: src/Tribe/View_Helpers.php:347
+#: common/src/Tribe/View_Helpers.php:347
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:347
 msgid "New Mexico"
 msgstr "新墨西哥州"
 
-#: src/Tribe/View_Helpers.php:348
+#: common/src/Tribe/View_Helpers.php:348
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:348
 msgid "New York"
 msgstr "紐約"
 
-#: src/Tribe/View_Helpers.php:349
+#: common/src/Tribe/View_Helpers.php:349
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:349
 msgid "North Carolina"
 msgstr "北卡羅來納州"
 
-#: src/Tribe/View_Helpers.php:350
+#: common/src/Tribe/View_Helpers.php:350
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:350
 msgid "North Dakota"
 msgstr "北達科他州"
 
-#: src/Tribe/View_Helpers.php:351
+#: common/src/Tribe/View_Helpers.php:351
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:351
 msgid "Ohio"
 msgstr "俄亥俄州"
 
-#: src/Tribe/View_Helpers.php:352
+#: common/src/Tribe/View_Helpers.php:352
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:352
 msgid "Oklahoma"
 msgstr "俄克拉荷馬州"
 
-#: src/Tribe/View_Helpers.php:353
+#: common/src/Tribe/View_Helpers.php:353
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:353
 msgid "Oregon"
 msgstr "奧勒崗州"
 
-#: src/Tribe/View_Helpers.php:354
+#: common/src/Tribe/View_Helpers.php:354
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:354
 msgid "Pennsylvania"
 msgstr "賓夕法尼亞州"
 
-#: src/Tribe/View_Helpers.php:355
+#: common/src/Tribe/View_Helpers.php:355
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:355
 msgid "Rhode Island"
 msgstr "羅德島州"
 
-#: src/Tribe/View_Helpers.php:356
+#: common/src/Tribe/View_Helpers.php:356
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:356
 msgid "South Carolina"
 msgstr "南卡羅來納州"
 
-#: src/Tribe/View_Helpers.php:357
+#: common/src/Tribe/View_Helpers.php:357
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:357
 msgid "South Dakota"
 msgstr "南達科他州"
 
-#: src/Tribe/View_Helpers.php:358
+#: common/src/Tribe/View_Helpers.php:358
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:358
 msgid "Tennessee"
 msgstr "田納西州"
 
-#: src/Tribe/View_Helpers.php:359
+#: common/src/Tribe/View_Helpers.php:359
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:359
 msgid "Texas"
 msgstr "德州"
 
-#: src/Tribe/View_Helpers.php:360
+#: common/src/Tribe/View_Helpers.php:360
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:360
 msgid "Utah"
 msgstr "猶他州"
 
-#: src/Tribe/View_Helpers.php:361
+#: common/src/Tribe/View_Helpers.php:361
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:361
 msgid "Vermont"
 msgstr "佛蒙特州"
 
-#: src/Tribe/View_Helpers.php:362
+#: common/src/Tribe/View_Helpers.php:362
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:362
 msgid "Virginia"
 msgstr "維吉尼亞州"
 
-#: src/Tribe/View_Helpers.php:363
+#: common/src/Tribe/View_Helpers.php:363
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:363
 msgid "Washington"
 msgstr "華盛頓州"
 
-#: src/Tribe/View_Helpers.php:364
+#: common/src/Tribe/View_Helpers.php:364
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:364
 msgid "West Virginia"
 msgstr "西佛吉尼亞州"
 
-#: src/Tribe/View_Helpers.php:365
+#: common/src/Tribe/View_Helpers.php:365
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:365
 msgid "Wisconsin"
 msgstr "威斯康辛州"
 
-#: src/Tribe/View_Helpers.php:366
+#: common/src/Tribe/View_Helpers.php:366
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:366
 msgid "Wyoming"
 msgstr "懷俄明州"
 
@@ -1201,39 +1828,39 @@ msgstr "&raquo;"
 msgid "%1$s %2$s iCal Feed"
 msgstr "%1$s %2$s iCal Feed"
 
-#: src/Tribe/iCal.php:75
+#: src/Tribe/iCal.php:76
 msgid "Add to Google Calendar"
 msgstr "增加至 Google 日曆"
 
-#: src/Tribe/iCal.php:75
+#: src/Tribe/iCal.php:76
 msgid "Google Calendar"
 msgstr "Google 日曆"
 
-#: src/Tribe/iCal.php:76
+#: src/Tribe/iCal.php:77
 msgid "Download .ics file"
 msgstr ""
 
-#: src/Tribe/iCal.php:76
+#: src/Tribe/iCal.php:77
 msgid "iCal Export"
 msgstr ""
 
-#: src/Tribe/iCal.php:106
+#: src/Tribe/iCal.php:107
 msgid "Month's %s"
 msgstr ""
 
-#: src/Tribe/iCal.php:109
+#: src/Tribe/iCal.php:110
 msgid "Week's %s"
 msgstr ""
 
-#: src/Tribe/iCal.php:112
+#: src/Tribe/iCal.php:113
 msgid "Day's %s"
 msgstr ""
 
-#: src/Tribe/iCal.php:115
+#: src/Tribe/iCal.php:116
 msgid "Listed %s"
 msgstr "列出 %s"
 
-#: src/Tribe/iCal.php:120
+#: src/Tribe/iCal.php:121
 msgid "Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
 msgstr ""
 
@@ -1242,12 +1869,8 @@ msgstr ""
 msgid "You are running Version %s and deserve a hug :-)"
 msgstr ""
 
-#: src/admin-views/admin-update-message.php:32
-msgid "Keep the Core Plugin <strong>FREE</strong>!"
-msgstr ""
-
 #: src/admin-views/admin-update-message.php:33
-msgid "Every time you rate <strong>5 stars</strong>, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice."
+msgid "Every time you rate %s5 stars%s, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice."
 msgstr ""
 
 #: src/admin-views/admin-update-message.php:34
@@ -1276,7 +1899,9 @@ msgstr ""
 msgid "Pro"
 msgstr ""
 
+#: common/src/Tribe/Admin/Help_Page.php:200
 #: src/admin-views/admin-update-message.php:53
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:200
 msgid "Community Events"
 msgstr ""
 
@@ -1314,7 +1939,6 @@ msgid "Stay in touch with The Events Calendar Pro. We send out periodic updates,
 msgstr ""
 
 #: src/admin-views/admin-welcome-message.php:40
-#: src/admin-views/tribe-options-help.php:221
 msgid "Getting Started"
 msgstr "入門指南"
 
@@ -1350,15 +1974,18 @@ msgstr ""
 msgid "Product Releases, Tutorials and Community Activity"
 msgstr ""
 
-#: src/admin-views/app-shop.php:4
+#: common/src/admin-views/app-shop.php:4
+#: vendor/tickets/common/src/admin-views/app-shop.php:4
 msgid "Tribe Event Add-Ons"
 msgstr "Tribe Event 附加元件"
 
-#: src/admin-views/app-shop.php:54
+#: common/src/admin-views/app-shop.php:54
+#: vendor/tickets/common/src/admin-views/app-shop.php:54
 msgid "Version"
 msgstr "版本"
 
-#: src/admin-views/app-shop.php:57
+#: common/src/admin-views/app-shop.php:57
+#: vendor/tickets/common/src/admin-views/app-shop.php:57
 msgid "Last Update"
 msgstr "最後更新"
 
@@ -1443,26 +2070,26 @@ msgstr "費用："
 msgid "Enter a 0 for %s that are free or leave blank to hide the field."
 msgstr ""
 
-#: src/admin-views/new-organizer-meta-section.php:15
+#: src/admin-views/new-organizer-meta-section.php:17
 #: src/admin-views/organizer-meta-box.php:24
 #: src/admin-views/venue-meta-box.php:25
 msgid "%s Name:"
 msgstr ""
 
-#: src/admin-views/new-organizer-meta-section.php:21
+#: src/Tribe/Event_Tickets/Attendees_Report.php:76
+#: src/admin-views/new-organizer-meta-section.php:23
 #: src/admin-views/organizer-meta-box.php:31
-#: src/admin-views/tickets/attendees.php:54
-#: src/admin-views/venue-meta-box.php:112
+#: src/admin-views/venue-meta-box.php:111
 #: src/functions/advanced-functions/meta_registration.php:159
 #: src/functions/advanced-functions/meta_registration.php:238
 #: src/views/modules/meta/organizer.php:41 src/views/modules/meta/venue.php:40
 msgid "Phone:"
 msgstr "電話："
 
-#: src/admin-views/new-organizer-meta-section.php:27
+#: src/Tribe/Event_Tickets/Attendees_Report.php:85
+#: src/admin-views/new-organizer-meta-section.php:29
 #: src/admin-views/organizer-meta-box.php:37
-#: src/admin-views/tickets/attendees.php:63
-#: src/admin-views/venue-meta-box.php:119
+#: src/admin-views/venue-meta-box.php:118
 #: src/functions/advanced-functions/meta_registration.php:96
 #: src/functions/advanced-functions/meta_registration.php:191
 #: src/functions/advanced-functions/meta_registration.php:270
@@ -1471,357 +2098,331 @@ msgstr "電話："
 msgid "Website:"
 msgstr "網址："
 
-#: src/admin-views/new-organizer-meta-section.php:35
+#: src/admin-views/new-organizer-meta-section.php:37
 #: src/admin-views/organizer-meta-box.php:43
 #: src/functions/advanced-functions/meta_registration.php:254
 #: src/views/modules/meta/organizer.php:52
+#: vendor/tickets/src/views/tickets/rsvp.php:94
 msgid "Email:"
 msgstr "電子郵件信箱"
 
-#: src/admin-views/new-organizer-meta-section.php:39
-#: src/admin-views/organizer-meta-box.php:44
-msgid "You may want to consider <a href=\"http://wordpress.org/plugins/tags/obfuscate\">obfuscating</a> any e-mail address published on your site to best avoid it getting harvested by spammers."
-msgstr "你可能會考慮使用 <a href=\"http://wordpress.org/plugins/tags/obfuscate\">反垃圾信過濾外掛</a> 來避免垃圾蟲蒐集任何發佈於你網站上的電子郵件地址。"
-
-#: src/admin-views/new-organizer-meta-section.php:69
+#: src/admin-views/new-organizer-meta-section.php:77
 #: src/admin-views/organizer-meta-box.php:75
-#: src/admin-views/venue-meta-box.php:193
 msgid "%s Name Already Exists"
 msgstr ""
 
-#: src/admin-views/tickets/attendees.php:17
-msgid "Event Summary"
-msgstr "活動摘要"
-
-#: src/admin-views/tickets/attendees.php:26
+#: vendor/tickets/src/admin-views/attendees.php:30
 msgid "Event Details"
 msgstr "活動詳述"
 
-#: src/admin-views/tickets/attendees.php:28
+#: src/Tribe/Event_Tickets/Attendees_Report.php:49
 msgid "Start Date / Time:"
 msgstr "開始日期／時間"
 
-#: src/admin-views/tickets/attendees.php:32
+#: src/Tribe/Event_Tickets/Attendees_Report.php:54
 msgid "End Date / Time:"
 msgstr "結束日期／時間"
 
-#: src/admin-views/tickets/attendees.php:46
+#: src/Tribe/Event_Tickets/Attendees_Report.php:68
 #: src/admin-views/venue-meta-box.php:34
 #: src/functions/advanced-functions/meta_registration.php:176
 msgid "Address:"
 msgstr "地址："
 
-#: src/admin-views/tickets/attendees.php:82
-msgid "Ticket Sales"
-msgstr "售票"
-
-#: src/admin-views/tickets/attendees.php:99
+#: vendor/tickets/src/template-tags/tickets.php:208
 msgid "(%d awaiting review)"
 msgid_plural "(%d awaiting review)"
 msgstr[0] ""
 
-#: src/admin-views/tickets/attendees.php:103
-msgid "Sold %1$d %2$s"
-msgstr ""
-
-#: src/admin-views/tickets/attendees.php:106
+#: vendor/tickets/src/template-tags/tickets.php:214
 msgid "Sold %1$d of %2$d %3$s"
 msgstr ""
 
-#: src/admin-views/tickets/attendees.php:127
-msgid "Tickets sold:"
-msgstr "票券已售："
-
-#: src/admin-views/tickets/attendees.php:136
+#: vendor/tickets/src/admin-views/attendees.php:80
 msgid "Finalized:"
 msgstr ""
 
-#: src/admin-views/tickets/attendees.php:139
+#: vendor/tickets/src/admin-views/attendees.php:86
 msgid "Awaiting review:"
 msgstr ""
 
-#: src/admin-views/tickets/attendees.php:148
+#: vendor/tickets/src/admin-views/attendees.php:91
 msgid "Checked in:"
 msgstr "報到："
 
-#: src/admin-views/tickets/attendees.php:170
+#: vendor/tickets/src/admin-views/attendees-email.php:3
 msgid "Send the attendee list by email"
 msgstr "經由電子郵件傳送出席者名單"
 
-#: src/admin-views/tickets/attendees.php:174
+#: vendor/tickets/src/admin-views/attendees-email.php:9
 msgid "Select a User:"
 msgstr "選擇使用者"
 
-#: src/admin-views/tickets/attendees.php:179
+#: vendor/tickets/src/admin-views/attendees-email.php:14
 msgid "Select..."
 msgstr "選擇..."
 
-#: src/admin-views/tickets/attendees.php:184
+#: vendor/tickets/src/admin-views/attendees-email.php:19
 msgid "or"
 msgstr "或"
 
-#: src/admin-views/tickets/attendees.php:186
+#: vendor/tickets/src/admin-views/attendees-email.php:21
 msgid "Email Address:"
 msgstr "電子郵件地址："
 
-#: src/admin-views/tickets/list.php:21
+#: vendor/tickets/src/admin-views/list.php:30
 msgid "Edit"
 msgstr "編輯"
 
-#: src/admin-views/tickets/list.php:24
+#: vendor/tickets/src/admin-views/list.php:39
 msgid "Edit in %s"
 msgstr "編輯於 %s"
 
-#: src/admin-views/tickets/list.php:27
+#: vendor/tickets/src/admin-views/list.php:34
 msgid "View"
 msgstr "檢視"
 
-#: src/admin-views/tickets/list.php:67
+#: vendor/tickets/src/admin-views/list.php:99
 msgid "Sold %d"
 msgstr "已售 %d"
 
-#: src/admin-views/tickets/list.php:69
-msgid "Sold %1$d of %2$d"
-msgstr ""
-
-#: src/admin-views/tickets/meta-box.php:23
+#: vendor/tickets/src/admin-views/meta-box.php:23
 msgid "This event was created using Community Events. Are you sure you want to sell tickets for it?"
 msgstr "此活動使用 Community Events 附加元件所建立，你確定要銷售活動門票嗎？"
 
-#: src/admin-views/tickets/meta-box.php:34
+#: vendor/tickets/src/admin-views/meta-box.php:34
 msgid "Upload image for the ticket header"
 msgstr "上傳票券表頭圖片"
 
-#: src/admin-views/tickets/meta-box.php:35
+#: vendor/tickets/src/admin-views/meta-box.php:35
 msgid "The maximum image size in the email will be 580px wide by any height, and then scaled for mobile. If you would like \"retina\" support use an image sized to 1160px wide."
 msgstr "電子郵件中圖片最大的尺寸寬為 580px 高則不限，然後會依比例縮放於行動裝置中。如果你想要支援 \"retina\" 圖片的寬必須設為 1160px。 "
 
-#: src/admin-views/tickets/meta-box.php:38
+#: vendor/tickets/src/admin-views/meta-box.php:38
 msgid "Select an Image"
 msgstr "選擇圖片"
 
-#: src/admin-views/tickets/meta-box.php:46
+#: vendor/tickets/src/admin-views/meta-box.php:46
 msgid "Remove"
 msgstr "移除"
 
-#: src/admin-views/tickets/meta-box.php:64
-#: src/admin-views/tickets/meta-box.php:74
+#: vendor/tickets/src/admin-views/meta-box.php:64
+#: vendor/tickets/src/admin-views/meta-box.php:74
 msgid "Add new ticket"
 msgstr "新增票券"
 
-#: src/admin-views/tickets/meta-box.php:75
+#: vendor/tickets/src/admin-views/meta-box.php:75
 msgid "Edit ticket"
 msgstr "編輯票券"
 
-#: src/admin-views/tickets/meta-box.php:80
+#: vendor/tickets/src/admin-views/meta-box.php:80
 msgid "Sell using:"
 msgstr "售票使用："
 
-#: src/admin-views/tickets/meta-box.php:97
+#: vendor/tickets/src/admin-views/meta-box.php:97
 msgid "Ticket Name:"
 msgstr "票券名稱："
 
-#: src/admin-views/tickets/meta-box.php:104
+#: vendor/tickets/src/admin-views/meta-box.php:104
 msgid "Ticket Description:"
 msgstr "票券說明："
 
-#: src/admin-views/tickets/meta-box.php:113
+#: vendor/tickets/src/admin-views/legacy-ticket-fields.php:15
 msgid "Price:"
 msgstr "票券售價："
 
-#: src/admin-views/tickets/meta-box.php:119
+#: vendor/tickets/src/admin-views/legacy-ticket-fields.php:19
 msgid "(0 or empty for free tickets)"
 msgstr "(0 或 空白為免費票券)"
 
-#: src/admin-views/tickets/meta-box.php:125
+#: vendor/tickets/src/admin-views/legacy-ticket-fields.php:24
 msgid "Sale Price:"
 msgstr ""
 
-#: src/admin-views/tickets/meta-box.php:131
+#: vendor/tickets/src/admin-views/legacy-ticket-fields.php:28
 msgid "(Current sale price - this can be managed via the product editor)"
 msgstr ""
 
-#: src/admin-views/tickets/meta-box.php:137
+#: vendor/tickets/src/admin-views/meta-box.php:113
 msgid "Start sale:"
 msgstr "開始售票："
 
-#: src/admin-views/tickets/meta-box.php:161
+#: vendor/tickets/src/admin-views/meta-box.php:137
 msgid "End sale:"
 msgstr "結束售票："
 
-#: src/admin-views/tickets/meta-box.php:183
-msgid "When will ticket sales occur? If you don't set a start/end date for sales, tickets will be available from now until the event ends."
-msgstr "何時開始售票？如果你不設定售票的開始／結束日期，售票期間將從現在開始一直到活動結束。"
-
-#: src/admin-views/tickets/meta-box.php:195
+#: vendor/tickets/src/admin-views/meta-box.php:177
 msgid "Save this ticket"
 msgstr "儲存此票券"
 
-#: src/admin-views/tribe-options-display.php:4
+#: src/admin-views/tribe-options-display.php:6
 msgid "Default Events Template"
 msgstr "預設活動模板"
 
-#: src/admin-views/tribe-options-display.php:5
+#: src/admin-views/tribe-options-display.php:7
 msgid "Default Page Template"
 msgstr "預設頁面模板"
 
-#: src/admin-views/tribe-options-display.php:51
+#: src/admin-views/tribe-options-display.php:44
 msgid "Display Settings"
 msgstr "顯示設定"
 
-#: src/admin-views/tribe-options-display.php:56
+#: src/admin-views/tribe-options-display.php:49
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:70
+#: src/admin-views/tribe-options-display.php:104
 msgid "Basic Template Settings"
 msgstr "基本模板設定"
 
-#: src/admin-views/tribe-options-display.php:74
+#: src/admin-views/tribe-options-display.php:108
 msgid "Default stylesheet used for events templates"
 msgstr "預設樣式表使用於活動模板"
 
-#: src/admin-views/tribe-options-display.php:77
+#: src/admin-views/tribe-options-display.php:111
 msgid "Skeleton Styles"
 msgstr "骨架樣式"
 
-#: src/admin-views/tribe-options-display.php:79
+#: src/admin-views/tribe-options-display.php:113
 msgid "Only includes enough css to achieve complex layouts like calendar and week view."
 msgstr "只包含足夠的 css 來實現複雜的佈局設計，如行事曆及週檢視表。"
 
-#: src/admin-views/tribe-options-display.php:81
+#: src/admin-views/tribe-options-display.php:115
 msgid "Full Styles"
 msgstr "全樣式"
 
-#: src/admin-views/tribe-options-display.php:83
+#: src/admin-views/tribe-options-display.php:117
 msgid "More detailed styling, tries to grab styles from your theme."
 msgstr "更多的細部設計，嘗試從你的佈景主題中抓取樣式。"
 
-#: src/admin-views/tribe-options-display.php:85
+#: src/admin-views/tribe-options-display.php:119
 msgid "Tribe Events Styles"
 msgstr "Tribe 活動樣式"
 
-#: src/admin-views/tribe-options-display.php:87
+#: src/admin-views/tribe-options-display.php:121
 msgid "A fully designed and styled theme for your events pages."
 msgstr "給你的活動頁面一個完整設計和完全樣式的佈景主題。"
 
-#: src/admin-views/tribe-options-display.php:94
+#: src/admin-views/tribe-options-display.php:128
 msgid "Events template"
 msgstr "活動模板"
 
-#: src/admin-views/tribe-options-display.php:95
+#: src/admin-views/tribe-options-display.php:129
 msgid "Choose a page template to control the appearance of your calendar and event content."
 msgstr "選擇頁面模板以操控你的行事曆外觀和活動內容。"
 
-#: src/admin-views/tribe-options-display.php:103
+#: src/admin-views/tribe-options-display.php:137
 msgid "Enable event views"
 msgstr "啟用活動檢視表"
 
-#: src/admin-views/tribe-options-display.php:104
+#: src/admin-views/tribe-options-display.php:138
 msgid "You must select at least one view."
 msgstr "你至少必須選擇一種檢視表"
 
-#: src/admin-views/tribe-options-display.php:111
+#: src/admin-views/tribe-options-display.php:145
 msgid "Default view"
 msgstr "預設檢視表"
 
-#: src/admin-views/tribe-options-display.php:119
+#: src/admin-views/tribe-options-display.php:153
 msgid "Disable the Event Search Bar"
 msgstr "關閉活動搜尋工具列"
 
-#: src/admin-views/tribe-options-display.php:120
+#: src/admin-views/tribe-options-display.php:154
 msgid "Check this to use the classic header."
 msgstr "勾選此方格以使用經典表頭。"
 
-#: src/admin-views/tribe-options-display.php:126
+#: src/admin-views/tribe-options-display.php:160
 msgid "Month view events per day"
 msgstr "每日活動月檢視表"
 
-#: src/admin-views/tribe-options-display.php:127
+#: src/admin-views/tribe-options-display.php:161
 msgid "Change the default 3 events per day in month view. Please note there may be performance issues if you set this too high. <a href=\"%s\">Read more</a>."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:134
+#: src/admin-views/tribe-options-display.php:168
 msgid "Enable the Month View Cache"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:135
+#: src/admin-views/tribe-options-display.php:169
 msgid "Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href=\"%s\">Read more</a>."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:141
+#: common/src/admin-views/tribe-options-display.php:22
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:22
 msgid "Date Format Settings"
 msgstr "日期格式設定"
 
-#: src/admin-views/tribe-options-display.php:145
+#: common/src/admin-views/tribe-options-display.php:26
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:26
 msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
 msgstr "<p>以下 3 個欄位接受 php date() 功能內置的日期格式選項 <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">由此學習如何創建你自己的日期格式</a>。</p>"
 
-#: src/admin-views/tribe-options-display.php:149
+#: common/src/admin-views/tribe-options-display.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:30
 msgid "Date with year"
 msgstr "日期中包含年"
 
-#: src/admin-views/tribe-options-display.php:150
-msgid "Enter the format to use for displaying dates with the year. Used when showing an event from a past or future year, also used for dates in view headers."
-msgstr "輸入此格式讓日期的顯示包含年，用於顯示過去或未來年份的活動，也用於檢視表的表頭日期。"
-
-#: src/admin-views/tribe-options-display.php:157
+#: src/admin-views/tribe-options-display.php:66
 msgid "Date without year"
 msgstr "日期中不包含年"
 
-#: src/admin-views/tribe-options-display.php:158
+#: src/admin-views/tribe-options-display.php:67
 msgid "Enter the format to use for displaying dates without a year. Used when showing an event from the current year."
 msgstr "輸入此格式讓日期的顯示中不包含年，用於顯示今年的活動。"
 
-#: src/admin-views/tribe-options-display.php:165
+#: src/admin-views/tribe-options-display.php:74
 msgid "Month and year format"
 msgstr "月和年的格式"
 
-#: src/admin-views/tribe-options-display.php:166
+#: src/admin-views/tribe-options-display.php:75
 msgid "Enter the format to use for dates that show a month and year only. Used on month view."
 msgstr "輸入此格式讓日期的顯示中只包含月和年，用於月檢視表。"
 
-#: src/admin-views/tribe-options-display.php:173
+#: common/src/admin-views/tribe-options-display.php:38
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:38
 msgid "Date time separator"
 msgstr "日期時間分隔符號"
 
-#: src/admin-views/tribe-options-display.php:174
+#: common/src/admin-views/tribe-options-display.php:39
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:39
 msgid "Enter the separator that will be placed between the date and time, when both are shown."
 msgstr "輸入分隔符號，當日期與時間同時顯示時，此符號將置於兩者之間作為區分。"
 
-#: src/admin-views/tribe-options-display.php:181
+#: src/admin-views/tribe-options-display.php:89
 msgid "Time range separator"
 msgstr "時間範圍分隔符號"
 
-#: src/admin-views/tribe-options-display.php:182
+#: src/admin-views/tribe-options-display.php:90
 msgid "Enter the separator that will be used between the start and end time of an event."
 msgstr "輸入分隔符號，此符號將用於活動的開始與結束時間之間作為區分。"
 
-#: src/admin-views/tribe-options-display.php:189
+#: common/src/admin-views/tribe-options-display.php:46
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:46
 msgid "Datepicker Date Format"
 msgstr "日期選擇器的日期格式"
 
-#: src/admin-views/tribe-options-display.php:190
+#: common/src/admin-views/tribe-options-display.php:47
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:47
 msgid "Select the date format to use in datepickers"
 msgstr "選擇用於日期選擇器中的日期格式"
 
-#: src/admin-views/tribe-options-display.php:207
+#: src/admin-views/tribe-options-display.php:182
 msgid "Advanced Template Settings"
 msgstr "進階模板設定"
 
-#: src/admin-views/tribe-options-display.php:211
+#: src/admin-views/tribe-options-display.php:186
 msgid "Add HTML before event content"
 msgstr "增加 HTML 於活動內容之前"
 
-#: src/admin-views/tribe-options-display.php:212
+#: src/admin-views/tribe-options-display.php:187
 msgid "If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout."
 msgstr "如果你熟悉 HTML，你可以增加額外的程式碼於活動模板之前，有些佈景主題可能需要如此來幫助完成設計或佈局。"
 
-#: src/admin-views/tribe-options-display.php:217
+#: src/admin-views/tribe-options-display.php:192
 msgid "Add HTML after event content"
 msgstr "增加 HTML 於活動內容之後"
 
-#: src/admin-views/tribe-options-display.php:218
+#: src/admin-views/tribe-options-display.php:193
 msgid "If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout."
 msgstr "如果你熟悉 HTML，你可以增加額外的程式碼於活動模板之後，有些佈景主題可能需要如此來幫助完成設計或佈局。"
 
@@ -1841,171 +2442,179 @@ msgstr "我的行事曆在哪裡？"
 msgid "Right here"
 msgstr "就在這裡"
 
-#: src/admin-views/tribe-options-general.php:26
+#: common/src/admin-views/tribe-options-general.php:20
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:20
 msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
 msgstr "尋找額外的功能，包含循環活動、自訂元規則、社群活動、售票及更多？"
 
-#: src/admin-views/tribe-options-general.php:26
+#: common/src/admin-views/tribe-options-general.php:20
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:20
 msgid "Check out the available add-ons"
 msgstr "查看可買到的附加元件"
 
-#: src/admin-views/tribe-options-general.php:31
+#: common/src/admin-views/tribe-options-general.php:25
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:25
 msgid "We hope our plugin is helping you out."
 msgstr "我們期望我們的外掛產品能夠幫助你。"
 
-#: src/admin-views/tribe-options-general.php:35
+#: common/src/admin-views/tribe-options-general.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:30
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr "是否你正想著 \"哇，這個外掛產品太棒了！我們應該感謝 Modern Tribe 他們所有的努力。\" 而你可以給我們的最大回報，就是僅需於你的行事曆底下加入簡短的文字連結到 The Events Calendar 計畫。"
 
-#: src/admin-views/tribe-options-general.php:35
-#: src/admin-views/tribe-options-general.php:40
+#: common/src/admin-views/tribe-options-general.php:30
+#: common/src/admin-views/tribe-options-general.php:35
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:35
 msgid "See an example of the link"
 msgstr "請參考連結的範例"
 
-#: src/admin-views/tribe-options-general.php:40
+#: common/src/admin-views/tribe-options-general.php:35
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:35
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr "你正想著 \"哇，這個外掛產品太棒了！我們應該感謝 Modern Tribe 他們所有的努力。\" 而我們可以請求的最大感謝回報，就是於你的行事曆下方處加入簡短的文字連結到你的活動行事曆計畫。"
 
-#: src/admin-views/tribe-options-general.php:45
+#: common/src/admin-views/tribe-options-general.php:40
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:40
 msgid "Show The Events Calendar link"
 msgstr "顯示 The Events Calendar 連結"
 
-#: src/admin-views/tribe-options-general.php:59
+#: common/src/admin-views/tribe-options-general.php:55
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:55
 msgid "General Settings"
 msgstr "一般設定"
 
-#: src/admin-views/tribe-options-general.php:63
+#: src/admin-views/tribe-options-general.php:33
 msgid "Number of events to show per page"
 msgstr "每頁顯示的活動筆數"
 
-#: src/admin-views/tribe-options-general.php:70
+#: src/admin-views/tribe-options-general.php:40
 msgid "Use Javascript to control date filtering"
 msgstr "使用 Javascript 控制日期的篩選"
 
-#: src/admin-views/tribe-options-general.php:71
+#: src/admin-views/tribe-options-general.php:41
 msgid "This option is disabled when \"Disable the Event Search Bar\" is checked on the Display settings tab."
 msgstr "當顯示設定工具列中 \"關閉活動搜尋工具列\" 的方格被勾選時，此選項的功能將被關閉。"
 
-#: src/admin-views/tribe-options-general.php:71
+#: src/admin-views/tribe-options-general.php:41
 msgid "Enable live ajax for datepicker on front end (User submit not required)."
 msgstr "啟用即時 ajax 日期選擇器於前台 (使用者提交活動時為非必要)。"
 
-#: src/admin-views/tribe-options-general.php:79
+#: src/admin-views/tribe-options-general.php:49
 msgid "Show comments"
 msgstr "顯示評論"
 
-#: src/admin-views/tribe-options-general.php:80
+#: src/admin-views/tribe-options-general.php:50
 msgid "Enable comments on event pages."
 msgstr "啟用評論於活動頁面。"
 
-#: src/admin-views/tribe-options-general.php:86
+#: src/admin-views/tribe-options-general.php:56
 msgid "Include events in main blog loop"
 msgstr "主部落格迴圈中包含活動"
 
-#: src/admin-views/tribe-options-general.php:87
+#: src/admin-views/tribe-options-general.php:57
 msgid "Show events with the site's other posts. When this box is checked, events will also continue to appear on the default events page."
 msgstr "同時顯示活動與網站中其他文章。當此方格被勾選時，活動也將會同時持續出現在其預設的活動頁面中。"
 
-#: src/admin-views/tribe-options-general.php:93
-#: src/admin-views/tribe-options-general.php:99
+#: src/admin-views/tribe-options-general.php:63
+#: src/admin-views/tribe-options-general.php:69
 msgid "Events URL slug"
 msgstr "活動網址代稱 (slug)"
 
-#: src/admin-views/tribe-options-general.php:94
+#: src/admin-views/tribe-options-general.php:64
 msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%1$s\">%2$s</a>. In order to edit the slug here, <a href=\"%3$soptions-permalink.php\">enable pretty permalinks</a>."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:106
+#: src/admin-views/tribe-options-general.php:76
 #: src/functions/template-tags/options.php:20
 msgid "The slug used for building the events URL."
 msgstr "此代稱 (slug) 用於建立活動的網址"
 
-#: src/admin-views/tribe-options-general.php:106
+#: src/admin-views/tribe-options-general.php:76
 msgid "Your current events URL is: %s"
 msgstr "你目前的活動網址是：%s"
 
-#: src/admin-views/tribe-options-general.php:111
+#: src/admin-views/tribe-options-general.php:81
 #: src/functions/template-tags/options.php:39
 msgid "Here is the iCal feed URL for your events:"
 msgstr "此為你活動的 iCal 饋送網址"
 
-#: src/admin-views/tribe-options-general.php:116
+#: src/admin-views/tribe-options-general.php:86
 msgid "Single event URL slug"
 msgstr "單一活動網址代稱 (slug)"
 
-#: src/admin-views/tribe-options-general.php:123
+#: src/admin-views/tribe-options-general.php:93
 msgid "The above should ideally be plural, and this singular.<br />Your single event URL is: %s"
 msgstr " 以上最好是複數和此單數。<br />你的單一活動網址為：%s"
 
-#: src/admin-views/tribe-options-general.php:128
+#: src/admin-views/tribe-options-general.php:98
 msgid "End of day cutoff"
 msgstr "截止日"
 
-#: src/admin-views/tribe-options-general.php:149
+#: src/admin-views/tribe-options-general.php:119
 msgid "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar."
 msgstr "有超過午夜的活動嗎？請選擇此活動結束的時間以避免顯示此活動於次日的行事曆上。"
 
-#: src/Tribe/Main.php:3889
-msgid "Check out the <a href=\"%s\">available add-ons</a>."
-msgstr "查看 <a href=\"%s\">可購買的附加元件</a>。"
-
-#: src/Tribe/Main.php:3940
+#: src/Tribe/Admin/Bar/Default_Configurator.php:18
 msgid "%s"
 msgstr ""
 
-#: src/Tribe/Main.php:3977 src/Tribe/Main.php:4073
+#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4274
 msgid "View Calendar"
 msgstr "檢視行事曆"
 
-#: src/Tribe/Main.php:3987
+#: src/Tribe/Admin/Bar/Default_Configurator.php:53
 msgid "Add %s"
 msgstr ""
 
-#: src/Tribe/Main.php:4019
+#: src/Tribe/Admin/Bar/Default_Configurator.php:79
+#: src/Tribe/Importer/Admin_Page.php:191
 msgid "CSV"
 msgstr "CSV"
 
-#: src/Tribe/Main.php:4041 src/Tribe/Main.php:4131 src/Tribe/Settings.php:161
+#: common/src/Tribe/Settings.php:215
+#: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4322
+#: vendor/tickets/common/src/Tribe/Settings.php:215
 msgid "Settings"
 msgstr "設定"
 
-#: src/Tribe/Main.php:4132
+#: src/Tribe/Main.php:4323
 msgid "Calendar"
 msgstr "行事曆"
 
-#: src/Tribe/Main.php:4208
+#: src/Tribe/Main.php:4379
 msgid "List"
 msgstr "列表"
 
-#: src/Tribe/Main.php:4226
+#: src/Tribe/Main.php:4397
 msgid "Month"
 msgstr "月"
 
-#: src/Tribe/Main.php:4243
+#: src/Tribe/Main.php:4414
 msgid "Day"
 msgstr "日"
 
-#: src/Tribe/Main.php:4268 src/Tribe/Main.php:4269
+#: src/Tribe/Main.php:4439 src/Tribe/Main.php:4440
 msgid "Search"
 msgstr "搜尋"
 
-#: src/Tribe/Main.php:4293 src/Tribe/Main.php:4309
+#: src/Tribe/Main.php:4464 src/Tribe/Main.php:4480
 msgid "Date"
 msgstr "日期"
 
-#: src/Tribe/Main.php:4296
+#: src/Tribe/Main.php:4467
 msgid "%s In"
 msgstr ""
 
-#: src/Tribe/Main.php:4298
+#: src/Tribe/Main.php:4469
 msgid "%s From"
 msgstr ""
 
-#: src/Tribe/Main.php:4300
+#: src/Tribe/Main.php:4471
 msgid "Day Of"
 msgstr "活動日"
 
-#: src/Tribe/Main.php:4375
+#: src/Tribe/Main.php:4544
 msgid "Once Every 30 Mins"
 msgstr ""
 
@@ -2013,1072 +2622,1278 @@ msgstr ""
 msgid "Error"
 msgstr "錯誤"
 
-#: src/Tribe/PUE/Checker.php:304
+#: common/src/Tribe/PUE/Checker.php:308 src/Tribe/PUE/Checker.php:303
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:308
 msgid "License Key"
 msgstr "授權密鑰"
 
-#: src/Tribe/PUE/Checker.php:305
+#: common/src/Tribe/PUE/Checker.php:309 src/Tribe/PUE/Checker.php:304
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:309
 msgid "A valid license key is required for support and updates"
 msgstr "支援與更新時，授權密鑰必須有效。"
 
-#: src/Tribe/PUE/Checker.php:377
+#: common/src/Tribe/PUE/Checker.php:380 src/Tribe/PUE/Checker.php:375
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:380
 msgid "License key(s) updated."
 msgstr "授權密鑰已更新。"
 
-#: src/Tribe/PUE/Checker.php:416
+#: common/src/Tribe/PUE/Checker.php:419 src/Tribe/PUE/Checker.php:414
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:419
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:419
+#: common/src/Tribe/PUE/Checker.php:422 src/Tribe/PUE/Checker.php:417
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:422
 msgid "Sorry, key validation server is not available."
 msgstr "抱歉，密鑰認證伺服器忙碌中。"
 
-#: src/Tribe/PUE/Checker.php:421
+#: common/src/Tribe/PUE/Checker.php:424 src/Tribe/PUE/Checker.php:419
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:424
 msgid "Sorry, this key is expired."
 msgstr "抱歉，此密鑰已到期。"
 
-#: src/Tribe/PUE/Checker.php:424
+#: common/src/Tribe/PUE/Checker.php:427 src/Tribe/PUE/Checker.php:422
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:427
 msgid "Sorry, this key is out of installs."
 msgstr "抱歉，此密鑰尚未安裝。"
 
-#: src/Tribe/PUE/Checker.php:425
+#: common/src/Tribe/PUE/Checker.php:428 src/Tribe/PUE/Checker.php:423
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:428
 msgid "Why am I seeing this message?"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:428
+#: common/src/Tribe/PUE/Checker.php:431 src/Tribe/PUE/Checker.php:426
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:431
 msgid "Sorry, this key is not valid."
 msgstr "抱歉，此密鑰無效。"
 
-#: src/Tribe/PUE/Checker.php:430
+#: common/src/Tribe/PUE/Checker.php:435 src/Tribe/PUE/Checker.php:430
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:435
 msgid "Valid Key! Expires on %s"
 msgstr "有效密鑰！到期日為 %s"
 
-#: src/Tribe/PUE/Checker.php:436
-msgid "Hmmm... something's wrong with this validator. Please contact <a href=\"%s\">support.</a>"
-msgstr "嗯... 認證器出現錯誤，請聯絡 <a href=\"%s\">支援</a>。"
+#: common/src/Tribe/PUE/Checker.php:448 src/Tribe/PUE/Checker.php:443
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:448
+msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
+msgstr ""
 
-#: src/Tribe/Settings.php:160 src/Tribe/Settings.php:176
-msgid "The Events Calendar Settings"
-msgstr "The Events Calendar 設定"
-
-#: src/Tribe/Settings.php:176
+#: common/src/Tribe/Settings.php:214 common/src/Tribe/Settings.php:235
+#: vendor/tickets/common/src/Tribe/Settings.php:214
+#: vendor/tickets/common/src/Tribe/Settings.php:235
 msgid "Events Settings"
 msgstr "活動設定"
 
-#: src/Tribe/Settings.php:239
+#: common/src/Tribe/Settings.php:300
+#: vendor/tickets/common/src/Tribe/Settings.php:300
 msgid "%s Settings"
 msgstr "%s 設定"
 
-#: src/Tribe/Settings.php:253
+#: common/src/Tribe/Settings.php:314
+#: vendor/tickets/common/src/Tribe/Settings.php:314
 msgid "You've requested a non-existent tab."
 msgstr "你要求的工具列標籤不存在。"
 
-#: src/Tribe/Settings.php:261
+#: common/src/Tribe/Settings.php:322
+#: vendor/tickets/common/src/Tribe/Settings.php:322
 msgid "Save Changes"
 msgstr ""
 
-#: src/Tribe/Settings.php:309
+#: common/src/Tribe/Settings.php:370
+#: vendor/tickets/common/src/Tribe/Settings.php:370
 msgid "You don't have permission to do that."
 msgstr "你的操作不被允許。"
 
-#: src/Tribe/Settings.php:315
+#: common/src/Tribe/Settings.php:376
+#: vendor/tickets/common/src/Tribe/Settings.php:376
 msgid "The request was sent insecurely."
 msgstr "以不安全的方式傳送要求。"
 
-#: src/Tribe/Settings.php:321
+#: common/src/Tribe/Settings.php:382
+#: vendor/tickets/common/src/Tribe/Settings.php:382
 msgid "The request wasn't sent from this tab."
 msgstr "請求未從此工具列標籤傳送。"
 
-#: src/Tribe/Settings.php:489
+#: common/src/Tribe/Settings.php:550
+#: vendor/tickets/common/src/Tribe/Settings.php:550
 msgid "Your form had the following errors:"
 msgstr "你的表格含有下列錯誤："
 
-#: src/Tribe/Settings.php:498
+#: common/src/Tribe/Settings.php:560
+#: vendor/tickets/common/src/Tribe/Settings.php:560
 msgid "None of your settings were saved. Please try again."
 msgstr "你的設定未儲存，請稍後重試。"
 
-#: src/Tribe/Settings.php:498
+#: common/src/Tribe/Settings.php:561
+#: vendor/tickets/common/src/Tribe/Settings.php:561
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "以上設定未儲存，其餘設定已成功儲存。"
 
-#: src/Tribe/Settings_Tab.php:224
+#: common/src/Tribe/Settings_Tab.php:222
+#: vendor/tickets/common/src/Tribe/Settings_Tab.php:222
 msgid "There are no fields setup for this tab yet."
 msgstr "此工具列標籤尚未設置欄位。"
 
-#: src/Tribe/Support.php:46
-msgid "Sometimes it's hard to tell what's going wrong without knowing more about your system steup. For your convenience, we've put together a little report on what's cooking under the hood."
-msgstr "有些時候很難告訴你說是怎麼回事，在還不知道更多關於系統設定的時候，我們將少許報告集中以方便你一窺其妙。"
-
-#: src/Tribe/Support.php:47
-msgid "If you suspect that the problem you're having is related to another plugin, or we're just plain having trouble reproducing your bug report, please copy and send all of this to our support team."
-msgstr "如果你猜想你所遇到的問題是與其它外掛相關，或我們正要釐清修復你所報告的錯誤時，請複製並傳送所有的資料到我們的支援團隊。"
-
-#: src/Tribe/Support.php:51
+#: common/src/admin-views/tribe-options-help.php:34
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:34
 msgid "System Information"
 msgstr "系統資訊"
 
-#: src/Tribe/Support.php:137
+#: common/src/Tribe/Support.php:122
+#: vendor/tickets/common/src/Tribe/Support.php:122
 msgid "Unknown or not set"
 msgstr ""
 
-#: src/Tribe/Support.php:142
+#: common/src/Tribe/Support.php:129
+#: vendor/tickets/common/src/Tribe/Support.php:129
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr ""
 
-#: src/Tribe/Template/Day.php:99 src/Tribe/Template/Day.php:115
+#: src/Tribe/Template/Day.php:97 src/Tribe/Template/Day.php:113
 msgid "All Day"
 msgstr "全天"
 
-#: src/Tribe/Template/Day.php:102 src/Tribe/Template/Day.php:118
+#: src/Tribe/Template/Day.php:100 src/Tribe/Template/Day.php:116
 msgid "Ongoing"
 msgstr ""
 
-#: src/Tribe/Template/Day.php:136
-msgid "No matching %1$s listed under %2$s scheduled for <strong>%3$s</strong>. Please try another day."
+#: src/Tribe/Template/Day.php:134
+msgid "No matching %1$s listed under %2$s scheduled for %3$s. Please try another day."
 msgstr ""
 
-#: src/Tribe/Template/Day.php:138
-msgid "No %1$s scheduled for <strong>%2$s</strong>. Please try another day."
-msgstr ""
-
-#: src/Tribe/Template/Month.php:284
-msgid "There were no results found for <strong>\"%s\"</strong> this month. Try searching next month."
-msgstr "本月未發現任何結果關於 <strong>\"%s\"</strong> ，請搜尋下個月。"
-
-#: src/Tribe/Template/Month.php:287
+#: src/Tribe/Template/Month.php:285
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
 msgstr ""
 
-#: src/Tribe/Template/Month.php:289 src/Tribe/Template_Factory.php:366
+#: src/Tribe/Template/Month.php:287 src/Tribe/Template_Factory.php:307
 msgid "There were no results found."
 msgstr "未發現任何結果。"
 
-#: src/Tribe/Template/Month.php:692
+#: src/Tribe/Template/Month.php:711
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr ""
 
-#: src/Tribe/Template/Single_Event.php:120
+#: src/Tribe/Template/Single_Event.php:119
 msgid "This %s has passed."
 msgstr ""
 
-#: src/Tribe/Template_Factory.php:353
-msgid "There were no results found for <strong>\"%s\"</strong>."
-msgstr "未發現任何結果關於 <strong>\"%s\"</strong>."
-
-#: src/Tribe/Template_Factory.php:355
-msgid "No results were found for %1$s in or near <strong>\"%2$s\"</strong>."
-msgstr ""
-
-#: src/Tribe/Template_Factory.php:357
+#: src/Tribe/Template_Factory.php:298
 msgid "No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar."
 msgstr ""
 
-#: src/Tribe/Template_Factory.php:359 src/Tribe/Template_Factory.php:364
+#: src/Tribe/Template_Factory.php:300 src/Tribe/Template_Factory.php:305
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s."
 msgstr ""
 
-#: src/Tribe/Template_Factory.php:361
+#: src/Tribe/Template_Factory.php:302
 msgid "No previous %s "
 msgstr ""
 
-#: src/Tribe/Templates.php:618
+#: src/Tribe/Templates.php:609
 msgid "Template overrides should be moved to the correct subdirectory: %s"
 msgstr " 模板覆蓋應移至正確的子目錄：%s"
 
-#: src/Tribe/Templates.php:660
+#: src/Tribe/Templates.php:651
 msgid "Template overrides should be moved to the correct subdirectory: tribe_get_template_part('%s')"
 msgstr " 模板覆蓋應移至正確的子目錄：tribe_get_template_part('%s')"
 
-#: src/Tribe/Tickets/Attendees_Table.php:74
+#: vendor/tickets/src/Tribe/Attendees_Table.php:76
 msgid "Order #"
 msgstr "訂單號碼 #"
 
-#: src/Tribe/Tickets/Attendees_Table.php:75
+#: vendor/tickets/src/Tribe/Attendees_Table.php:77
 msgid "Order Status"
 msgstr "訂單狀態"
 
-#: src/Tribe/Tickets/Attendees_Table.php:76
+#: vendor/tickets/src/Tribe/Attendees_Table.php:78
 msgid "Purchaser name"
 msgstr "購買人姓名"
 
-#: src/Tribe/Tickets/Attendees_Table.php:77
+#: vendor/tickets/src/Tribe/Attendees_Table.php:79
 msgid "Purchaser email"
 msgstr "購買人電子郵件信箱"
 
-#: src/Tribe/Tickets/Attendees_Table.php:78
+#: vendor/tickets/src/Tribe/Attendees_Table.php:80
 msgid "Ticket type"
 msgstr "票券類型"
 
-#: src/Tribe/Tickets/Attendees_Table.php:79 src/views/tickets/email.php:305
+#: vendor/tickets/src/Tribe/Attendees_Table.php:81
+#: vendor/tickets/src/views/tickets/email.php:332
 msgid "Ticket #"
 msgstr "票券編號 #"
 
-#: src/Tribe/Tickets/Attendees_Table.php:80 src/views/tickets/email.php:317
+#: vendor/tickets/src/Tribe/Attendees_Table.php:82
+#: vendor/tickets/src/views/tickets/email.php:344
 msgid "Security Code"
 msgstr "安全密碼"
 
-#: src/Tribe/Tickets/Attendees_Table.php:81
-#: src/Tribe/Tickets/Attendees_Table.php:166
-#: src/Tribe/Tickets/Attendees_Table.php:238
+#: vendor/tickets/src/Tribe/Attendees_Table.php:83
+#: vendor/tickets/src/Tribe/Attendees_Table.php:173
+#: vendor/tickets/src/Tribe/Attendees_Table.php:254
 msgid "Check in"
 msgstr "報到"
 
-#: src/Tribe/Tickets/Attendees_Table.php:167
-#: src/Tribe/Tickets/Attendees_Table.php:239
+#: vendor/tickets/src/Tribe/Attendees_Table.php:174
+#: vendor/tickets/src/Tribe/Attendees_Table.php:255
 msgid "Undo Check in"
 msgstr "取消報到"
 
-#: src/Tribe/Tickets/Attendees_Table.php:211
+#: vendor/tickets/src/Tribe/Attendees_Table.php:227
 msgid "Print"
 msgstr "列印"
 
-#: src/Tribe/Tickets/Attendees_Table.php:212
+#: vendor/tickets/src/Tribe/Attendees_Table.php:228
 msgid "Email"
 msgstr "電子郵件信箱"
 
-#: src/Tribe/Tickets/Attendees_Table.php:213 src/Tribe/iCal.php:119
+#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:229
 msgid "Export"
 msgstr "匯出"
 
-#: src/Tribe/Tickets/Attendees_Table.php:219
+#: vendor/tickets/src/Tribe/Attendees_Table.php:235
 msgid "Filter by purchaser name, ticket #, order # or security code"
 msgstr ""
 
-#: src/Tribe/Tickets/Attendees_Table.php:240
-#: src/admin-views/tickets/list.php:22
+#: vendor/tickets/src/Tribe/Attendees_Table.php:256
+#: vendor/tickets/src/admin-views/list.php:31
 msgid "Delete"
 msgstr "刪除"
 
-#: src/Tribe/Tickets/Metabox.php:26 src/admin-views/admin-update-message.php:52
+#: src/admin-views/admin-update-message.php:52
+#: vendor/tickets/src/Tribe/Admin/Ticket_Settings.php:22
+#: vendor/tickets/src/Tribe/Metabox.php:31
 msgid "Tickets"
 msgstr "票券"
 
-#: src/Tribe/Tickets/Metabox.php:71
+#: vendor/tickets/src/Tribe/Metabox.php:81
 msgid "Ticket header image"
 msgstr "票券表頭圖片"
 
-#: src/Tribe/Tickets/Metabox.php:72
+#: vendor/tickets/src/Tribe/Metabox.php:82
 msgid "Set as ticket header"
 msgstr "設為票券表頭"
 
-#: src/Tribe/Tickets/Tickets.php:328
+#: vendor/tickets/src/Tribe/Tickets.php:336
 msgid "Your ticket has been saved."
 msgstr "你的票券已儲存。"
 
-#: src/Tribe/Tickets/Tickets.php:409
+#: vendor/tickets/src/Tribe/Tickets.php:478
 msgid "Your ticket has been deleted."
 msgstr "你的票券已刪除。"
 
-#: src/Tribe/Tickets/Tickets_Pro.php:78 src/admin-views/tickets/list.php:41
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:82
+#: vendor/tickets/src/admin-views/list.php:68
 msgid "See who purchased tickets to this event"
 msgstr "查看有哪些人購買了此活動的票券"
 
-#: src/Tribe/Tickets/Tickets_Pro.php:78
-#: src/admin-views/tickets/attendees.php:11 src/admin-views/tickets/list.php:41
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:82
+#: vendor/tickets/src/admin-views/attendees.php:23
+#: vendor/tickets/src/admin-views/list.php:70
 msgid "Attendees"
 msgstr "出席者"
 
-#: src/Tribe/Tickets/Tickets_Pro.php:113
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:119
 msgid "You need to select a user or type a valid email address"
 msgstr "你必須選擇使用者名稱或輸入有效的電子郵件地址"
 
-#: src/Tribe/Tickets/Tickets_Pro.php:114
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:120
 msgid "Sending..."
 msgstr "傳送中..."
 
-#: src/Tribe/Tickets/Tickets_Pro.php:140
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:146
 msgid "Columns"
 msgstr "欄"
 
-#: src/Tribe/Tickets/Tickets_Pro.php:140
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:146
 msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
 msgstr "你可以使用螢幕選項選擇哪些欄是你想要看到的，此選項作用於表單下方與電子郵件信箱中，當列印及匯出 CSV 時。"
 
-#: src/Tribe/Tickets/Tickets_Pro.php:230
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:270
 msgid "Yes"
 msgstr "是"
 
-#: src/Tribe/Tickets/Tickets_Pro.php:262
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:302
 msgid "attendees"
 msgstr "出席者"
 
-#: src/Tribe/Tickets/Tickets_Pro.php:316
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:394
 msgid "Attendee List for: %s"
 msgstr "出席者名單： %s"
 
-#: src/Tribe/Validate.php:76 src/Tribe/Validate.php:117
+#: common/src/Tribe/Validate.php:76 common/src/Tribe/Validate.php:117
+#: vendor/tickets/common/src/Tribe/Validate.php:76
+#: vendor/tickets/common/src/Tribe/Validate.php:117
 msgid "Invalid or incomplete field passed"
 msgstr "無效或不完全欄位已過期"
 
-#: src/Tribe/Validate.php:77 src/Tribe/Validate.php:112
-#: src/Tribe/Validate.php:118
+#: common/src/Tribe/Validate.php:77 common/src/Tribe/Validate.php:112
+#: common/src/Tribe/Validate.php:118
+#: vendor/tickets/common/src/Tribe/Validate.php:77
+#: vendor/tickets/common/src/Tribe/Validate.php:112
+#: vendor/tickets/common/src/Tribe/Validate.php:118
 msgid "Field ID:"
 msgstr "欄位 ID："
 
-#: src/Tribe/Validate.php:111
+#: common/src/Tribe/Validate.php:111
+#: vendor/tickets/common/src/Tribe/Validate.php:111
 msgid "Non-existant field validation function passed"
 msgstr "不存在欄位確認功能已過期"
 
-#: src/Tribe/Validate.php:112
+#: common/src/Tribe/Validate.php:112
+#: vendor/tickets/common/src/Tribe/Validate.php:112
 msgctxt "non-existant function name passed for field validation"
 msgid "with function name:"
 msgstr "含有功能名稱："
 
-#: src/Tribe/Validate.php:135 src/Tribe/Validate.php:151
+#: common/src/Tribe/Validate.php:135 common/src/Tribe/Validate.php:151
+#: vendor/tickets/common/src/Tribe/Validate.php:135
+#: vendor/tickets/common/src/Tribe/Validate.php:151
 msgid "%s must contain numbers and letters only"
 msgstr "%s 必須只包含數字與字元"
 
-#: src/Tribe/Validate.php:167
+#: common/src/Tribe/Validate.php:167
+#: vendor/tickets/common/src/Tribe/Validate.php:167
 msgid "%s must contain numbers, letters and dots only"
 msgstr "%s 必須只包含數字、字元和點。"
 
-#: src/Tribe/Validate.php:181
+#: common/src/Tribe/Validate.php:181 common/src/Tribe/Validate.php:209
+#: vendor/tickets/common/src/Tribe/Validate.php:181
+#: vendor/tickets/common/src/Tribe/Validate.php:209
 msgid "%s must be a positive number."
 msgstr "%s 必須為正數。"
 
-#: src/Tribe/Validate.php:196
+#: common/src/Tribe/Validate.php:224
+#: vendor/tickets/common/src/Tribe/Validate.php:224
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr "%s 必須是有效的代稱 (數字、字元、破折號及底線)。"
 
-#: src/Tribe/Validate.php:211
+#: common/src/Tribe/Validate.php:239
+#: vendor/tickets/common/src/Tribe/Validate.php:239
 msgid "%s must be a valid absolute URL."
 msgstr "%s 必須是有效完整的網址。"
 
-#: src/Tribe/Validate.php:227 src/Tribe/Validate.php:244
-#: src/Tribe/Validate.php:266
+#: common/src/Tribe/Validate.php:255 common/src/Tribe/Validate.php:272
+#: common/src/Tribe/Validate.php:294
+#: vendor/tickets/common/src/Tribe/Validate.php:255
+#: vendor/tickets/common/src/Tribe/Validate.php:272
+#: vendor/tickets/common/src/Tribe/Validate.php:294
 msgid "%s must have a value that's part of its options."
 msgstr "%s 必須有一個數值是選項中的一部份。"
 
-#: src/Tribe/Validate.php:280
+#: common/src/Tribe/Validate.php:308
+#: vendor/tickets/common/src/Tribe/Validate.php:308
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr "比較確認失敗的原因是由於沒有提供比較數值給欄位 %s。"
 
-#: src/Tribe/Validate.php:287
+#: common/src/Tribe/Validate.php:315
+#: vendor/tickets/common/src/Tribe/Validate.php:315
 msgid "%s cannot be the same as %s."
 msgstr "%s 不能和 %s 完全一樣。"
 
-#: src/Tribe/Validate.php:289
+#: common/src/Tribe/Validate.php:317
+#: vendor/tickets/common/src/Tribe/Validate.php:317
 msgid "%s cannot be a duplicate"
 msgstr "%s 不能是複製的"
 
-#: src/Tribe/Validate.php:305
+#: common/src/Tribe/Validate.php:333
+#: vendor/tickets/common/src/Tribe/Validate.php:333
 msgid "%s must be a number or percentage."
 msgstr "%s 必須是數字或百分比符號。"
 
-#: src/Tribe/Validate.php:359
+#: common/src/Tribe/Validate.php:387
+#: vendor/tickets/common/src/Tribe/Validate.php:387
 msgid "%s must be a number between 0 and 21."
 msgstr "%s 必須是介於 0 到 21之間的數字。"
 
-#: src/Tribe/Validate.php:375
+#: common/src/Tribe/Validate.php:403
+#: vendor/tickets/common/src/Tribe/Validate.php:403
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr "%s 必須只由字元、數字、點、撇號及空格所組成。"
 
-#: src/Tribe/Validate.php:391
+#: common/src/Tribe/Validate.php:419
+#: vendor/tickets/common/src/Tribe/Validate.php:419
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr "%s 必須由字元、數字、空格、撇號及點所組成。"
 
-#: src/Tribe/Validate.php:405
+#: common/src/Tribe/Validate.php:433
+#: vendor/tickets/common/src/Tribe/Validate.php:433
 msgid "%s must consist of 5 numbers."
 msgstr "%s 必須由 5 個數字所組成。"
 
-#: src/Tribe/Validate.php:419
+#: common/src/Tribe/Validate.php:447
+#: vendor/tickets/common/src/Tribe/Validate.php:447
 msgid "%s must be a phone number."
 msgstr "%s 必須是電話號碼數字。"
 
-#: src/Tribe/Validate.php:435
+#: common/src/Tribe/Validate.php:463
+#: vendor/tickets/common/src/Tribe/Validate.php:463
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr "國家列表必須以每行一個國家的格式表列於以下的格式中：<br>US, United States <br> UK, United Kingdom."
 
-#: src/Tribe/View_Helpers.php:26 src/Tribe/View_Helpers.php:45
+#: common/src/Tribe/View_Helpers.php:26 common/src/Tribe/View_Helpers.php:45
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:26
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:45
 msgid "Select a Country:"
 msgstr "請選擇國家"
 
-#: src/Tribe/View_Helpers.php:47
+#: common/src/Tribe/View_Helpers.php:47
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:47
 msgid "Afghanistan"
 msgstr "阿富汗"
 
-#: src/Tribe/View_Helpers.php:48
+#: common/src/Tribe/View_Helpers.php:48
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:48
 msgid "Albania"
 msgstr "阿爾巴尼亞"
 
-#: src/Tribe/View_Helpers.php:49
+#: common/src/Tribe/View_Helpers.php:49
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:49
 msgid "Algeria"
 msgstr "阿爾及利亞"
 
-#: src/Tribe/View_Helpers.php:50
+#: common/src/Tribe/View_Helpers.php:50
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:50
 msgid "American Samoa"
 msgstr "美屬薩摩亞"
 
-#: src/Tribe/View_Helpers.php:51
+#: common/src/Tribe/View_Helpers.php:51
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:51
 msgid "Andorra"
 msgstr "安道爾公國"
 
-#: src/Tribe/View_Helpers.php:52
+#: common/src/Tribe/View_Helpers.php:52
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:52
 msgid "Angola"
 msgstr "安哥拉共和國"
 
-#: src/Tribe/View_Helpers.php:53
+#: common/src/Tribe/View_Helpers.php:53
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:53
 msgid "Anguilla"
 msgstr "安圭拉"
 
-#: src/Tribe/View_Helpers.php:54
+#: common/src/Tribe/View_Helpers.php:54
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:54
 msgid "Antarctica"
 msgstr "南極洲"
 
-#: src/Tribe/View_Helpers.php:55
+#: common/src/Tribe/View_Helpers.php:55
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:55
 msgid "Antigua And Barbuda"
 msgstr "安地卡及巴布達"
 
-#: src/Tribe/View_Helpers.php:56
+#: common/src/Tribe/View_Helpers.php:56
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:56
 msgid "Argentina"
 msgstr "阿根廷"
 
-#: src/Tribe/View_Helpers.php:57
+#: common/src/Tribe/View_Helpers.php:57
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:57
 msgid "Armenia"
 msgstr "亞美尼亞"
 
-#: src/Tribe/View_Helpers.php:58
+#: common/src/Tribe/View_Helpers.php:58
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:58
 msgid "Aruba"
 msgstr "阿魯巴"
 
-#: src/Tribe/View_Helpers.php:59
+#: common/src/Tribe/View_Helpers.php:59
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:59
 msgid "Australia"
 msgstr "澳大利亞"
 
-#: src/Tribe/View_Helpers.php:60
+#: common/src/Tribe/View_Helpers.php:60
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:60
 msgid "Austria"
 msgstr "奧地利"
 
-#: src/Tribe/View_Helpers.php:61
+#: common/src/Tribe/View_Helpers.php:61
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:61
 msgid "Azerbaijan"
 msgstr "亞塞拜然"
 
-#: src/Tribe/View_Helpers.php:62
+#: common/src/Tribe/View_Helpers.php:62
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:62
 msgid "Bahamas"
 msgstr "巴哈馬"
 
-#: src/Tribe/View_Helpers.php:63
+#: common/src/Tribe/View_Helpers.php:63
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:63
 msgid "Bahrain"
 msgstr "巴林"
 
-#: src/Tribe/View_Helpers.php:64
+#: common/src/Tribe/View_Helpers.php:64
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:64
 msgid "Bangladesh"
 msgstr "孟加拉"
 
-#: src/Tribe/View_Helpers.php:65
+#: common/src/Tribe/View_Helpers.php:65
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:65
 msgid "Barbados"
 msgstr "巴貝多"
 
-#: src/Tribe/View_Helpers.php:66
+#: common/src/Tribe/View_Helpers.php:66
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:66
 msgid "Belarus"
 msgstr "白俄羅斯"
 
-#: src/Tribe/View_Helpers.php:67
+#: common/src/Tribe/View_Helpers.php:67
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:67
 msgid "Belgium"
 msgstr "比利時"
 
-#: src/Tribe/View_Helpers.php:68
+#: common/src/Tribe/View_Helpers.php:68
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:68
 msgid "Belize"
 msgstr "貝里斯"
 
-#: src/Tribe/View_Helpers.php:69
+#: common/src/Tribe/View_Helpers.php:69
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:69
 msgid "Benin"
 msgstr "貝南"
 
-#: src/Tribe/View_Helpers.php:70
+#: common/src/Tribe/View_Helpers.php:70
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:70
 msgid "Bermuda"
 msgstr "百慕達"
 
-#: src/Tribe/View_Helpers.php:71
+#: common/src/Tribe/View_Helpers.php:71
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:71
 msgid "Bhutan"
 msgstr "不丹"
 
-#: src/Tribe/View_Helpers.php:72
+#: common/src/Tribe/View_Helpers.php:72
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:72
 msgid "Bolivia"
 msgstr "玻利維亞"
 
-#: src/Tribe/View_Helpers.php:73
+#: common/src/Tribe/View_Helpers.php:73
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:73
 msgid "Bosnia And Herzegowina"
 msgstr "波士尼亞與赫塞哥維納"
 
-#: src/Tribe/View_Helpers.php:74
+#: common/src/Tribe/View_Helpers.php:74
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:74
 msgid "Botswana"
 msgstr "波札那"
 
-#: src/Tribe/View_Helpers.php:75
+#: common/src/Tribe/View_Helpers.php:75
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:75
 msgid "Bouvet Island"
 msgstr "布韋群島"
 
-#: src/Tribe/View_Helpers.php:76
+#: common/src/Tribe/View_Helpers.php:76
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:76
 msgid "Brazil"
 msgstr "巴西"
 
-#: src/Tribe/View_Helpers.php:77
+#: common/src/Tribe/View_Helpers.php:77
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:77
 msgid "British Indian Ocean Territory"
 msgstr "英屬印度洋領地"
 
-#: src/Tribe/View_Helpers.php:78
+#: common/src/Tribe/View_Helpers.php:78
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:78
 msgid "Brunei Darussalam"
 msgstr "汶萊"
 
-#: src/Tribe/View_Helpers.php:79
+#: common/src/Tribe/View_Helpers.php:79
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:79
 msgid "Bulgaria"
 msgstr "保加利亞"
 
-#: src/Tribe/View_Helpers.php:80
+#: common/src/Tribe/View_Helpers.php:80
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:80
 msgid "Burkina Faso"
 msgstr "布基那法索"
 
-#: src/Tribe/View_Helpers.php:81
+#: common/src/Tribe/View_Helpers.php:81
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:81
 msgid "Burundi"
 msgstr "蒲隆地"
 
-#: src/Tribe/View_Helpers.php:82
+#: common/src/Tribe/View_Helpers.php:82
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:82
 msgid "Cambodia"
 msgstr "柬埔寨"
 
-#: src/Tribe/View_Helpers.php:83
+#: common/src/Tribe/View_Helpers.php:83
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:83
 msgid "Cameroon"
 msgstr "喀麥隆"
 
-#: src/Tribe/View_Helpers.php:84
+#: common/src/Tribe/View_Helpers.php:84
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:84
 msgid "Canada"
 msgstr "加拿大"
 
-#: src/Tribe/View_Helpers.php:85
+#: common/src/Tribe/View_Helpers.php:85
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:85
 msgid "Cape Verde"
 msgstr "維德角"
 
-#: src/Tribe/View_Helpers.php:86
+#: common/src/Tribe/View_Helpers.php:86
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:86
 msgid "Cayman Islands"
 msgstr "開曼群島"
 
-#: src/Tribe/View_Helpers.php:87
+#: common/src/Tribe/View_Helpers.php:87
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:87
 msgid "Central African Republic"
 msgstr "中非共和國"
 
-#: src/Tribe/View_Helpers.php:88
+#: common/src/Tribe/View_Helpers.php:88
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:88
 msgid "Chad"
 msgstr "查德"
 
-#: src/Tribe/View_Helpers.php:89
+#: common/src/Tribe/View_Helpers.php:89
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:89
 msgid "Chile"
 msgstr "智利"
 
-#: src/Tribe/View_Helpers.php:90
+#: common/src/Tribe/View_Helpers.php:90
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:90
 msgid "China"
 msgstr "中國"
 
-#: src/Tribe/View_Helpers.php:91
+#: common/src/Tribe/View_Helpers.php:91
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:91
 msgid "Christmas Island"
 msgstr "聖誕島"
 
-#: src/Tribe/View_Helpers.php:92
+#: common/src/Tribe/View_Helpers.php:92
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:92
 msgid "Cocos (Keeling) Islands"
 msgstr "科科斯（基林）群島"
 
-#: src/Tribe/View_Helpers.php:93
+#: common/src/Tribe/View_Helpers.php:93
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:93
 msgid "Colombia"
 msgstr "哥倫比亞"
 
-#: src/Tribe/View_Helpers.php:94
+#: common/src/Tribe/View_Helpers.php:94
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:94
 msgid "Comoros"
 msgstr "科摩洛"
 
-#: src/Tribe/View_Helpers.php:95
+#: common/src/Tribe/View_Helpers.php:95
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:95
 msgid "Congo"
 msgstr "剛果"
 
-#: src/Tribe/View_Helpers.php:96
+#: common/src/Tribe/View_Helpers.php:96
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:96
 msgid "Congo, The Democratic Republic Of The"
 msgstr "剛果民主共和國"
 
-#: src/Tribe/View_Helpers.php:97
+#: common/src/Tribe/View_Helpers.php:97
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:97
 msgid "Cook Islands"
 msgstr "庫克群島"
 
-#: src/Tribe/View_Helpers.php:98
+#: common/src/Tribe/View_Helpers.php:98
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:98
 msgid "Costa Rica"
 msgstr "哥斯大黎加"
 
-#: src/Tribe/View_Helpers.php:99
+#: common/src/Tribe/View_Helpers.php:99
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:99
 msgid "Cote D'Ivoire"
 msgstr "象牙海岸"
 
-#: src/Tribe/View_Helpers.php:100
+#: common/src/Tribe/View_Helpers.php:100
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:100
 msgid "Croatia (Local Name: Hrvatska)"
 msgstr "克羅埃西亞"
 
-#: src/Tribe/View_Helpers.php:101
+#: common/src/Tribe/View_Helpers.php:101
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:101
 msgid "Cuba"
 msgstr "古巴"
 
-#: src/Tribe/View_Helpers.php:102
+#: common/src/Tribe/View_Helpers.php:102
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:102
 msgid "Cyprus"
 msgstr "賽普勒斯"
 
-#: src/Tribe/View_Helpers.php:103
+#: common/src/Tribe/View_Helpers.php:103
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:103
 msgid "Czech Republic"
 msgstr "捷克"
 
-#: src/Tribe/View_Helpers.php:104
+#: common/src/Tribe/View_Helpers.php:104
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:104
 msgid "Denmark"
 msgstr "丹麥"
 
-#: src/Tribe/View_Helpers.php:105
+#: common/src/Tribe/View_Helpers.php:105
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:105
 msgid "Djibouti"
 msgstr "吉布提"
 
-#: src/Tribe/View_Helpers.php:106
+#: common/src/Tribe/View_Helpers.php:106
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:106
 msgid "Dominica"
 msgstr "多米尼克"
 
-#: src/Tribe/View_Helpers.php:107
+#: common/src/Tribe/View_Helpers.php:107
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:107
 msgid "Dominican Republic"
 msgstr "多明尼加"
 
-#: src/Tribe/View_Helpers.php:108
+#: common/src/Tribe/View_Helpers.php:108
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:108
 msgid "East Timor"
 msgstr "東帝汶"
 
-#: src/Tribe/View_Helpers.php:109
+#: common/src/Tribe/View_Helpers.php:109
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:109
 msgid "Ecuador"
 msgstr "厄瓜多"
 
-#: src/Tribe/View_Helpers.php:110
+#: common/src/Tribe/View_Helpers.php:110
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:110
 msgid "Egypt"
 msgstr "埃及"
 
-#: src/Tribe/View_Helpers.php:111
+#: common/src/Tribe/View_Helpers.php:111
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:111
 msgid "El Salvador"
 msgstr "薩爾瓦多"
 
-#: src/Tribe/View_Helpers.php:112
+#: common/src/Tribe/View_Helpers.php:112
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:112
 msgid "Equatorial Guinea"
 msgstr "赤道幾內亞"
 
-#: src/Tribe/View_Helpers.php:113
+#: common/src/Tribe/View_Helpers.php:113
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:113
 msgid "Eritrea"
 msgstr "厄立特里亞"
 
-#: src/Tribe/View_Helpers.php:114
+#: common/src/Tribe/View_Helpers.php:114
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:114
 msgid "Estonia"
 msgstr "愛沙尼亞"
 
-#: src/Tribe/View_Helpers.php:115
+#: common/src/Tribe/View_Helpers.php:115
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:115
 msgid "Ethiopia"
 msgstr "埃塞俄比亞"
 
-#: src/Tribe/View_Helpers.php:116
+#: common/src/Tribe/View_Helpers.php:116
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:116
 msgid "Falkland Islands (Malvinas)"
 msgstr "福克蘭群島"
 
-#: src/Tribe/View_Helpers.php:117
+#: common/src/Tribe/View_Helpers.php:117
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:117
 msgid "Faroe Islands"
 msgstr "法羅群島"
 
-#: src/Tribe/View_Helpers.php:118
+#: common/src/Tribe/View_Helpers.php:118
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:118
 msgid "Fiji"
 msgstr "斐濟"
 
-#: src/Tribe/View_Helpers.php:119
+#: common/src/Tribe/View_Helpers.php:119
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:119
 msgid "Finland"
 msgstr "芬蘭"
 
-#: src/Tribe/View_Helpers.php:120
+#: common/src/Tribe/View_Helpers.php:120
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:120
 msgid "France"
 msgstr "法國"
 
-#: src/Tribe/View_Helpers.php:121
+#: common/src/Tribe/View_Helpers.php:121
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:121
 msgid "France, Metropolitan"
 msgstr "法國本土"
 
-#: src/Tribe/View_Helpers.php:122
+#: common/src/Tribe/View_Helpers.php:122
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:122
 msgid "French Guiana"
 msgstr "法屬圭亞那"
 
-#: src/Tribe/View_Helpers.php:123
+#: common/src/Tribe/View_Helpers.php:123
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:123
 msgid "French Polynesia"
 msgstr "法屬玻里尼西亞"
 
-#: src/Tribe/View_Helpers.php:124
+#: common/src/Tribe/View_Helpers.php:124
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:124
 msgid "French Southern Territories"
 msgstr "法國南方領地"
 
-#: src/Tribe/View_Helpers.php:125
+#: common/src/Tribe/View_Helpers.php:125
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:125
 msgid "Gabon"
 msgstr "加彭"
 
-#: src/Tribe/View_Helpers.php:126
+#: common/src/Tribe/View_Helpers.php:126
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:126
 msgid "Gambia"
 msgstr "甘比亞"
 
-#: src/Tribe/View_Helpers.php:127 src/Tribe/View_Helpers.php:326
+#: common/src/Tribe/View_Helpers.php:127 common/src/Tribe/View_Helpers.php:326
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:127
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:326
 msgid "Georgia"
 msgstr "喬治亞"
 
-#: src/Tribe/View_Helpers.php:128
+#: common/src/Tribe/View_Helpers.php:128
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:128
 msgid "Germany"
 msgstr "德國"
 
-#: src/Tribe/View_Helpers.php:129
+#: common/src/Tribe/View_Helpers.php:129
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:129
 msgid "Ghana"
 msgstr "迦納"
 
-#: src/Tribe/View_Helpers.php:130
+#: common/src/Tribe/View_Helpers.php:130
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:130
 msgid "Gibraltar"
 msgstr "直布羅陀"
 
-#: src/Tribe/View_Helpers.php:131
+#: common/src/Tribe/View_Helpers.php:131
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:131
 msgid "Greece"
 msgstr "希臘"
 
-#: src/Tribe/View_Helpers.php:132
+#: common/src/Tribe/View_Helpers.php:132
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:132
 msgid "Greenland"
 msgstr "格林蘭島"
 
-#: src/Tribe/View_Helpers.php:133
+#: common/src/Tribe/View_Helpers.php:133
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:133
 msgid "Grenada"
 msgstr "格瑞納達"
 
-#: src/Tribe/View_Helpers.php:134
+#: common/src/Tribe/View_Helpers.php:134
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:134
 msgid "Guadeloupe"
 msgstr "瓜德羅普"
 
-#: src/Tribe/View_Helpers.php:135
+#: common/src/Tribe/View_Helpers.php:135
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:135
 msgid "Guam"
 msgstr "關島"
 
-#: src/Tribe/View_Helpers.php:136
+#: common/src/Tribe/View_Helpers.php:136
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:136
 msgid "Guatemala"
 msgstr "瓜地馬拉"
 
-#: src/Tribe/View_Helpers.php:137
+#: common/src/Tribe/View_Helpers.php:137
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:137
 msgid "Guinea"
 msgstr "幾內亞"
 
-#: src/Tribe/View_Helpers.php:138
+#: common/src/Tribe/View_Helpers.php:138
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:138
 msgid "Guinea-Bissau"
 msgstr "幾內亞比索"
 
-#: src/Tribe/View_Helpers.php:139
+#: common/src/Tribe/View_Helpers.php:139
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:139
 msgid "Guyana"
 msgstr "蓋亞那"
 
-#: src/Tribe/View_Helpers.php:140
+#: common/src/Tribe/View_Helpers.php:140
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:140
 msgid "Haiti"
 msgstr "海地"
 
-#: src/Tribe/View_Helpers.php:141
+#: common/src/Tribe/View_Helpers.php:141
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:141
 msgid "Heard And Mc Donald Islands"
 msgstr "赫德島和麥克唐納群島"
 
-#: src/Tribe/View_Helpers.php:142
+#: common/src/Tribe/View_Helpers.php:142
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:142
 msgid "Holy See (Vatican City State)"
 msgstr "梵蒂岡"
 
-#: src/Tribe/View_Helpers.php:143
+#: common/src/Tribe/View_Helpers.php:143
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:143
 msgid "Honduras"
 msgstr "洪都拉斯"
 
-#: src/Tribe/View_Helpers.php:144
+#: common/src/Tribe/View_Helpers.php:144
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:144
 msgid "Hong Kong"
 msgstr "香港"
 
-#: src/Tribe/View_Helpers.php:145
+#: common/src/Tribe/View_Helpers.php:145
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:145
 msgid "Hungary"
 msgstr "匈牙利"
 
-#: src/Tribe/View_Helpers.php:146
+#: common/src/Tribe/View_Helpers.php:146
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:146
 msgid "Iceland"
 msgstr "冰島"
 
-#: src/Tribe/View_Helpers.php:147
+#: common/src/Tribe/View_Helpers.php:147
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:147
 msgid "India"
 msgstr "印度"
 
-#: src/Tribe/View_Helpers.php:148
+#: common/src/Tribe/View_Helpers.php:148
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:148
 msgid "Indonesia"
 msgstr "印尼"
 
-#: src/Tribe/View_Helpers.php:149
+#: common/src/Tribe/View_Helpers.php:149
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:149
 msgid "Iran (Islamic Republic Of)"
 msgstr "伊朗"
 
-#: src/Tribe/View_Helpers.php:150
+#: common/src/Tribe/View_Helpers.php:150
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:150
 msgid "Iraq"
 msgstr "伊拉克"
 
-#: src/Tribe/View_Helpers.php:151
+#: common/src/Tribe/View_Helpers.php:151
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:151
 msgid "Ireland"
 msgstr "愛爾蘭"
 
-#: src/Tribe/View_Helpers.php:152
+#: common/src/Tribe/View_Helpers.php:152
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:152
 msgid "Israel"
 msgstr "以色列"
 
-#: src/Tribe/View_Helpers.php:153
+#: common/src/Tribe/View_Helpers.php:153
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:153
 msgid "Italy"
 msgstr "義大利"
 
-#: src/Tribe/View_Helpers.php:154
+#: common/src/Tribe/View_Helpers.php:154
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:154
 msgid "Jamaica"
 msgstr "牙買加"
 
-#: src/Tribe/View_Helpers.php:155
+#: common/src/Tribe/View_Helpers.php:155
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:155
 msgid "Japan"
 msgstr "日本"
 
-#: src/Tribe/View_Helpers.php:156
+#: common/src/Tribe/View_Helpers.php:156
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:156
 msgid "Jordan"
 msgstr "約旦"
 
-#: src/Tribe/View_Helpers.php:157
+#: common/src/Tribe/View_Helpers.php:157
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:157
 msgid "Kazakhstan"
 msgstr "哈薩克"
 
-#: src/Tribe/View_Helpers.php:158
+#: common/src/Tribe/View_Helpers.php:158
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:158
 msgid "Kenya"
 msgstr "肯亞"
 
-#: src/Tribe/View_Helpers.php:159
+#: common/src/Tribe/View_Helpers.php:159
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:159
 msgid "Kiribati"
 msgstr "吉里巴斯共和國"
 
-#: src/Tribe/View_Helpers.php:160
+#: common/src/Tribe/View_Helpers.php:160
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:160
 msgid "Korea, Democratic People's Republic Of"
 msgstr "北韓"
 
-#: src/Tribe/View_Helpers.php:161
+#: common/src/Tribe/View_Helpers.php:161
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:161
 msgid "Korea, Republic Of"
 msgstr "南韓"
 
-#: src/Tribe/View_Helpers.php:162
+#: common/src/Tribe/View_Helpers.php:162
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:162
 msgid "Kuwait"
 msgstr "科威特"
 
-#: src/Tribe/View_Helpers.php:163
+#: common/src/Tribe/View_Helpers.php:163
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:163
 msgid "Kyrgyzstan"
 msgstr "吉爾吉斯斯坦"
 
-#: src/Tribe/View_Helpers.php:164
+#: common/src/Tribe/View_Helpers.php:164
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:164
 msgid "Lao People's Democratic Republic"
 msgstr "寮國"
 
-#: src/Tribe/View_Helpers.php:165
+#: common/src/Tribe/View_Helpers.php:165
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:165
 msgid "Latvia"
 msgstr "拉脫維亞"
 
-#: src/Tribe/View_Helpers.php:166
+#: common/src/Tribe/View_Helpers.php:166
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:166
 msgid "Lebanon"
 msgstr "黎巴嫩"
 
-#: src/Tribe/View_Helpers.php:167
+#: common/src/Tribe/View_Helpers.php:167
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:167
 msgid "Lesotho"
 msgstr "賴索托"
 
-#: src/Tribe/View_Helpers.php:168
+#: common/src/Tribe/View_Helpers.php:168
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:168
 msgid "Liberia"
 msgstr "賴比瑞亞"
 
-#: src/Tribe/View_Helpers.php:169
+#: common/src/Tribe/View_Helpers.php:169
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:169
 msgid "Libya"
 msgstr "利比亞"
 
-#: src/Tribe/View_Helpers.php:170
+#: common/src/Tribe/View_Helpers.php:170
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:170
 msgid "Liechtenstein"
 msgstr "列支敦斯登"
 
-#: src/Tribe/View_Helpers.php:171
+#: common/src/Tribe/View_Helpers.php:171
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:171
 msgid "Lithuania"
 msgstr "立陶宛"
 
-#: src/Tribe/View_Helpers.php:172
+#: common/src/Tribe/View_Helpers.php:172
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:172
 msgid "Luxembourg"
 msgstr "盧森堡"
 
-#: src/Tribe/View_Helpers.php:173
+#: common/src/Tribe/View_Helpers.php:173
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:173
 msgid "Macau"
 msgstr "澳門"
 
-#: src/Tribe/View_Helpers.php:174
+#: common/src/Tribe/View_Helpers.php:174
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:174
 msgid "Macedonia"
 msgstr "馬其頓"
 
-#: src/Tribe/View_Helpers.php:175
+#: common/src/Tribe/View_Helpers.php:175
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:175
 msgid "Madagascar"
 msgstr "馬達加斯加"
 
-#: src/Tribe/View_Helpers.php:176
+#: common/src/Tribe/View_Helpers.php:176
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:176
 msgid "Malawi"
 msgstr "馬拉威"
 
-#: src/Tribe/View_Helpers.php:177
+#: common/src/Tribe/View_Helpers.php:177
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:177
 msgid "Malaysia"
 msgstr "馬來西亞"
 
-#: src/Tribe/View_Helpers.php:178
+#: common/src/Tribe/View_Helpers.php:178
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:178
 msgid "Maldives"
 msgstr "馬爾地夫"
 
-#: src/Tribe/View_Helpers.php:179
+#: common/src/Tribe/View_Helpers.php:179
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:179
 msgid "Mali"
 msgstr "馬利"
 
-#: src/Tribe/View_Helpers.php:180
+#: common/src/Tribe/View_Helpers.php:180
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:180
 msgid "Malta"
 msgstr "馬爾他"
 
-#: src/Tribe/View_Helpers.php:181
+#: common/src/Tribe/View_Helpers.php:181
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:181
 msgid "Marshall Islands"
 msgstr "馬紹爾群島"
 
-#: src/Tribe/View_Helpers.php:182
+#: common/src/Tribe/View_Helpers.php:182
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:182
 msgid "Martinique"
 msgstr "馬丁尼克"
 
-#: src/Tribe/View_Helpers.php:183
+#: common/src/Tribe/View_Helpers.php:183
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:183
 msgid "Mauritania"
 msgstr "茅利塔尼亞"
 
-#: src/Tribe/View_Helpers.php:184
+#: common/src/Tribe/View_Helpers.php:184
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:184
 msgid "Mauritius"
 msgstr "模里西斯"
 
-#: src/Tribe/View_Helpers.php:185
+#: common/src/Tribe/View_Helpers.php:185
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:185
 msgid "Mayotte"
 msgstr "馬約特"
 
-#: src/Tribe/View_Helpers.php:186
+#: common/src/Tribe/View_Helpers.php:186
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:186
 msgid "Mexico"
 msgstr "墨西哥"
 
-#: src/Tribe/View_Helpers.php:187
+#: common/src/Tribe/View_Helpers.php:187
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:187
 msgid "Micronesia, Federated States Of"
 msgstr "密克羅尼西亞聯邦"
 
-#: src/Tribe/View_Helpers.php:188
+#: common/src/Tribe/View_Helpers.php:188
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:188
 msgid "Moldova, Republic Of"
 msgstr "摩爾多瓦"
 
-#: src/Tribe/View_Helpers.php:189
+#: common/src/Tribe/View_Helpers.php:189
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:189
 msgid "Monaco"
 msgstr "摩納哥"
 
-#: src/Tribe/View_Helpers.php:190
+#: common/src/Tribe/View_Helpers.php:190
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:190
 msgid "Mongolia"
 msgstr "蒙古"
 
-#: src/Tribe/View_Helpers.php:191
+#: common/src/Tribe/View_Helpers.php:191
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:191
 msgid "Montenegro"
 msgstr "蒙特內哥羅"
 
-#: src/Tribe/View_Helpers.php:192
+#: common/src/Tribe/View_Helpers.php:192
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:192
 msgid "Montserrat"
 msgstr "蒙塞拉特島"
 
-#: src/Tribe/View_Helpers.php:193
+#: common/src/Tribe/View_Helpers.php:193
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:193
 msgid "Morocco"
 msgstr "摩洛哥"
 
-#: src/Tribe/View_Helpers.php:194
+#: common/src/Tribe/View_Helpers.php:194
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:194
 msgid "Mozambique"
 msgstr "莫三比克"
 
-#: src/Tribe/View_Helpers.php:195
+#: common/src/Tribe/View_Helpers.php:195
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:195
 msgid "Myanmar"
 msgstr "緬甸"
 
-#: src/Tribe/View_Helpers.php:196
+#: common/src/Tribe/View_Helpers.php:196
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:196
 msgid "Namibia"
 msgstr "那米比亞"
 
-#: src/Tribe/View_Helpers.php:197
+#: common/src/Tribe/View_Helpers.php:197
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:197
 msgid "Nauru"
 msgstr "諾魯"
 
-#: src/Tribe/View_Helpers.php:198
+#: common/src/Tribe/View_Helpers.php:198
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:198
 msgid "Nepal"
 msgstr "尼泊爾"
 
-#: src/Tribe/View_Helpers.php:199
+#: common/src/Tribe/View_Helpers.php:199
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:199
 msgid "Netherlands"
 msgstr "荷蘭"
 
-#: src/Tribe/View_Helpers.php:200
+#: common/src/Tribe/View_Helpers.php:200
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:200
 msgid "Netherlands Antilles"
 msgstr "荷屬安的列斯"
 
-#: src/Tribe/View_Helpers.php:201
+#: common/src/Tribe/View_Helpers.php:201
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:201
 msgid "New Caledonia"
 msgstr "新喀里多尼亞"
 
-#: src/Tribe/View_Helpers.php:202
+#: common/src/Tribe/View_Helpers.php:202
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:202
 msgid "New Zealand"
 msgstr "紐西蘭"
 
-#: src/Tribe/View_Helpers.php:203
+#: common/src/Tribe/View_Helpers.php:203
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:203
 msgid "Nicaragua"
 msgstr "尼加拉瓜"
 
-#: src/Tribe/View_Helpers.php:204
+#: common/src/Tribe/View_Helpers.php:204
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:204
 msgid "Niger"
 msgstr "尼日"
 
-#: src/Tribe/View_Helpers.php:205
+#: common/src/Tribe/View_Helpers.php:205
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:205
 msgid "Nigeria"
 msgstr "奈及利亞"
 
-#: src/Tribe/View_Helpers.php:206
+#: common/src/Tribe/View_Helpers.php:206
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:206
 msgid "Niue"
 msgstr "紐埃"
 
-#: src/Tribe/View_Helpers.php:207
+#: common/src/Tribe/View_Helpers.php:207
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:207
 msgid "Norfolk Island"
 msgstr "諾福克島"
 
-#: src/Tribe/View_Helpers.php:208
+#: common/src/Tribe/View_Helpers.php:208
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:208
 msgid "Northern Mariana Islands"
 msgstr "北馬里亞納群島"
 
-#: src/Tribe/View_Helpers.php:209
+#: common/src/Tribe/View_Helpers.php:209
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:209
 msgid "Norway"
 msgstr "挪威"
 
-#: src/Tribe/View_Helpers.php:210
+#: common/src/Tribe/View_Helpers.php:210
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:210
 msgid "Oman"
 msgstr "阿曼"
 
-#: src/Tribe/View_Helpers.php:211
+#: common/src/Tribe/View_Helpers.php:211
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:211
 msgid "Pakistan"
 msgstr "巴基斯坦"
 
-#: src/Tribe/View_Helpers.php:212
+#: common/src/Tribe/View_Helpers.php:212
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:212
 msgid "Palau"
 msgstr "帛琉"
 
-#: src/Tribe/View_Helpers.php:213
+#: common/src/Tribe/View_Helpers.php:213
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:213
 msgid "Panama"
 msgstr "巴拿馬"
 
-#: src/Tribe/View_Helpers.php:214
+#: common/src/Tribe/View_Helpers.php:214
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:214
 msgid "Papua New Guinea"
 msgstr "巴布新幾內亞"
 
-#: src/Tribe/View_Helpers.php:215
+#: common/src/Tribe/View_Helpers.php:215
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:215
 msgid "Paraguay"
 msgstr "巴拉圭"
 
-#: src/Tribe/View_Helpers.php:216
+#: common/src/Tribe/View_Helpers.php:216
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:216
 msgid "Peru"
 msgstr "祕魯"
 
-#: src/Tribe/View_Helpers.php:217
+#: common/src/Tribe/View_Helpers.php:217
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:217
 msgid "Philippines"
 msgstr "菲律賓"
 
-#: src/Tribe/View_Helpers.php:218
+#: common/src/Tribe/View_Helpers.php:218
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:218
 msgid "Pitcairn"
 msgstr "皮特肯群島"
 
@@ -3086,8 +3901,9 @@ msgstr "皮特肯群島"
 msgid "Unnamed Venue"
 msgstr "無名地點"
 
-#: src/Tribe/API.php:517 src/Tribe/View_Helpers.php:46
-#: src/functions/template-tags/venue.php:272
+#: common/src/Tribe/View_Helpers.php:46 src/Tribe/API.php:514
+#: src/functions/template-tags/venue.php:265
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:46
 msgid "United States"
 msgstr "美國"
 
@@ -3107,43 +3923,39 @@ msgstr ""
 msgid "Return to WordPress Updates"
 msgstr ""
 
-#: src/Tribe/Activation_Page.php:196
+#: src/Tribe/Activation_Page.php:192
 msgid "Welcome to The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Activation_Page.php:216
+#: src/Tribe/Activation_Page.php:212
 msgid "Thanks for Updating The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:62
+#: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:60
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:60
 msgid "<a href=\"%s\">Edit the page slug</a>"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:63
+#: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:61
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:61
 msgid "Ask the site administrator to edit the page slug"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:68
-msgid "<a href=\"%s\">edit The Events Calendar settings</a>."
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:69
+#: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:67
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:67
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:88 src/Tribe/Main.php:1424
-#: src/Tribe/Main.php:1475
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:93 src/Tribe/Main.php:1657
+#: src/Tribe/Main.php:1730
 msgid "Use Saved %s:"
 msgstr ""
 
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:112 src/Tribe/Main.php:1245
-#: src/Tribe/Main.php:1263 src/Tribe/Main.php:1281 src/Tribe/Main.php:1425
-#: src/Tribe/Main.php:1477 src/Tribe/Main.php:3998
+#: src/Tribe/Admin/Bar/Default_Configurator.php:62
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:123 src/Tribe/Main.php:1467
+#: src/Tribe/Main.php:1485 src/Tribe/Main.php:1503 src/Tribe/Main.php:1666
+#: src/Tribe/Main.php:1732
 msgid "Edit %s"
-msgstr ""
-
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:148
-msgid "Add another organizer"
 msgstr ""
 
 #: src/Tribe/Admin/Timezone_Updater.php:77
@@ -3162,19 +3974,19 @@ msgstr ""
 msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
 msgstr ""
 
-#: src/Tribe/Admin_List.php:219 src/Tribe/Main.php:1295
+#: src/Tribe/Admin_List.php:229 src/Tribe/Main.php:1517
 msgid "%s Categories"
 msgstr ""
 
-#: src/Tribe/Admin_List.php:225
+#: src/Tribe/Admin_List.php:235
 msgid "Start Date"
 msgstr "開始日期"
 
-#: src/Tribe/Admin_List.php:226
+#: src/Tribe/Admin_List.php:236
 msgid "End Date"
 msgstr "結束日期"
 
-#: src/Tribe/Admin_List.php:304
+#: src/Tribe/Admin_List.php:313 src/views/single-event.php:27
 msgid "All %s"
 msgstr "所有 %s"
 
@@ -3202,76 +4014,69 @@ msgstr "日期："
 msgid "Time:"
 msgstr "時間："
 
-#: src/Tribe/Amalgamator.php:260 src/admin-views/tribe-options-general.php:194
+#: src/Tribe/Amalgamator.php:253 src/admin-views/tribe-options-general.php:131
 msgid "Merge Duplicates"
 msgstr "合併複製"
 
-#: src/Tribe/App_Shop.php:63 src/Tribe/App_Shop.php:64
-#: src/Tribe/App_Shop.php:94
+#: common/src/Tribe/App_Shop.php:67 common/src/Tribe/App_Shop.php:68
+#: common/src/Tribe/App_Shop.php:91
+#: vendor/tickets/common/src/Tribe/App_Shop.php:67
+#: vendor/tickets/common/src/Tribe/App_Shop.php:68
+#: vendor/tickets/common/src/Tribe/App_Shop.php:91
 msgid "Event Add-Ons"
 msgstr "活動附加元件"
 
-#: src/Tribe/Cost_Utils.php:108
+#: src/Tribe/Cost_Utils.php:141
 msgctxt "Cost range separator"
 msgid " - "
 msgstr ""
 
-#: src/Tribe/Cost_Utils.php:123
+#: src/Tribe/Cost_Utils.php:156
 msgid "Free"
 msgstr "免費"
 
-#: src/Tribe/Credits.php:31
+#: common/src/Tribe/Credits.php:26
+#: vendor/tickets/common/src/Tribe/Credits.php:26
 msgid "This calendar is powered by The Events Calendar."
 msgstr ""
 
-#: src/Tribe/Credits.php:48
-msgid "Rate <strong>The Events Calendar</strong> <a href=\"%1$s\" target=\"_blank\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%1$s\" target=\"_blank\">WordPress.org</a> to keep this plugin free.  Thanks from the friendly folks at Modern Tribe."
-msgstr ""
-
-#: src/Tribe/Credits.php:48
-msgid "http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5"
-msgstr ""
-
-#: src/Tribe/Field.php:209
+#: common/src/Tribe/Field.php:209 vendor/tickets/common/src/Tribe/Field.php:209
 msgid "Invalid field type specified"
 msgstr "指定欄位類型無效"
 
-#: src/Tribe/Field.php:466
+#: common/src/Tribe/Field.php:466 vendor/tickets/common/src/Tribe/Field.php:466
 msgid "No radio options specified"
 msgstr "未指定單選選項"
 
-#: src/Tribe/Field.php:502
+#: common/src/Tribe/Field.php:502 vendor/tickets/common/src/Tribe/Field.php:502
 msgid "No checkbox options specified"
 msgstr "未指定多選選項"
 
-#: src/Tribe/Field.php:558
+#: common/src/Tribe/Field.php:558 vendor/tickets/common/src/Tribe/Field.php:558
 msgid "No select options specified"
 msgstr "未指定下拉選單選項"
 
-#: src/Tribe/Importer/Admin_Page.php:15 src/Tribe/Importer/Admin_Page.php:16
-#: src/Tribe/Main.php:4011
+#: src/Tribe/Admin/Bar/Default_Configurator.php:73
+#: src/Tribe/Importer/Admin_Page.php:68 src/Tribe/Importer/Admin_Page.php:69
 msgid "Import"
 msgstr "匯入"
 
-#: src/Tribe/Importer/Admin_Page.php:54 src/Tribe/Importer/Admin_Page.php:187
+#: src/Tribe/Importer/Admin_Page.php:149 src/Tribe/Importer/Admin_Page.php:299
 msgid "The file went away. Please try again."
 msgstr "檔案停止作業，請稍後再試。"
 
-#: src/Tribe/Importer/Admin_Page.php:95 src/Tribe/Main.php:777
+#: common/src/Tribe/Settings_Manager.php:55
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:55
 msgid "General"
 msgstr "一般"
 
-#: src/Tribe/Importer/Admin_Page.php:96
-msgid "Import: CSV"
-msgstr "匯入：CSV"
-
-#: src/Tribe/Importer/Admin_Page.php:153
+#: src/Tribe/Importer/Admin_Page.php:265
 msgid "We were unable to process your request. Please try again."
 msgstr "我們法進行處理你的請求，請稍後重試。"
 
-#: src/Tribe/Importer/Admin_Page.php:194
-msgid "<p>The following fields are required for a successful import:</p>"
-msgstr "<p>為了成功匯入以下欄位是必須的：</p>"
+#: src/Tribe/Importer/Admin_Page.php:306
+msgid "The following fields are required for a successful import:"
+msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:33
 msgid "Do Not Import"
@@ -3425,7 +4230,8 @@ msgstr "未發現模板檔案，無法儲存 %s。"
 msgid "Could not save %s."
 msgstr "無法儲存 %s。"
 
-#: src/Tribe/Importer/Options.php:29 src/Tribe/Settings.php:520
+#: common/src/Tribe/Settings.php:583 src/Tribe/Importer/Options.php:53
+#: vendor/tickets/common/src/Tribe/Settings.php:583
 msgid "Settings saved."
 msgstr "設定已儲存。"
 
@@ -3437,332 +4243,320 @@ msgstr "一個顯示即將來臨活動的小工具。"
 msgid "Events List"
 msgstr "活動列表"
 
-#: src/Tribe/List_Widget.php:172
+#: src/Tribe/List_Widget.php:186
 msgid "Upcoming Events"
 msgstr "未來活動"
 
-#: src/Tribe/Main.php:503 src/functions/template-tags/venue.php:52
+#: src/Tribe/Main.php:671 src/functions/template-tags/venue.php:52
 #: src/io/csv/admin-views/import.php:45
 msgid "Venues"
 msgstr "地點"
 
-#: src/Tribe/Main.php:511
+#: src/Tribe/Main.php:679
 #: src/functions/advanced-functions/meta_registration.php:126
 #: src/functions/template-tags/venue.php:41
 msgid "Venue"
 msgstr "地點"
 
-#: src/Tribe/Main.php:519 src/functions/template-tags/organizer.php:82
+#: src/Tribe/Main.php:687 src/functions/template-tags/organizer.php:86
 #: src/io/csv/admin-views/import.php:46
 msgid "Organizers"
 msgstr "主辦人"
 
-#: src/Tribe/Main.php:527
+#: src/Tribe/Main.php:695
 #: src/functions/advanced-functions/meta_registration.php:205
-#: src/functions/template-tags/organizer.php:71
+#: src/functions/template-tags/organizer.php:75
 msgid "Organizer"
 msgstr "主辦人"
 
-#: src/Tribe/Main.php:535 src/functions/template-tags/general.php:71
+#: common/src/Tribe/Settings.php:148 common/src/Tribe/Settings.php:203
+#: common/src/Tribe/Settings.php:204 src/Tribe/Main.php:703
+#: src/functions/template-tags/general.php:69
 #: src/io/csv/admin-views/import.php:47
+#: vendor/tickets/common/src/Tribe/Settings.php:148
+#: vendor/tickets/common/src/Tribe/Settings.php:203
+#: vendor/tickets/common/src/Tribe/Settings.php:204
 msgid "Events"
 msgstr "活動"
 
-#: src/Tribe/Main.php:543 src/functions/template-tags/general.php:60
+#: src/Tribe/Main.php:711 src/functions/template-tags/general.php:58
 msgid "Event"
 msgstr "活動"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 3.12.1) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.0.2) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: src/Tribe/Main.php:583 src/Tribe/Settings.php:132
-#: src/admin-views/tribe-options-help.php:272
+#: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:629
+#: src/Tribe/Main.php:774
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:48
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
-#: src/Tribe/Main.php:588
+#: src/Tribe/Main.php:781
 msgid "month"
 msgstr "month"
 
-#: src/Tribe/Main.php:589
+#: src/Tribe/Main.php:782
 msgid "list"
 msgstr "list"
 
-#: src/Tribe/Main.php:590
+#: src/Tribe/Main.php:783
 msgid "upcoming"
 msgstr "即將來臨"
 
-#: src/Tribe/Main.php:591
+#: src/Tribe/Main.php:784
 msgid "past"
 msgstr "過期"
 
-#: src/Tribe/Main.php:592
+#: src/Tribe/Main.php:785
 msgid "day"
 msgstr "日"
 
-#: src/Tribe/Main.php:593
+#: src/Tribe/Main.php:786
 msgid "today"
 msgstr "今天"
 
-#: src/Tribe/Main.php:620
+#: src/Tribe/Main.php:813
 msgid "Initializing Tribe Events on %s"
 msgstr "初始化 Tribe  Events 於 %s"
 
-#: src/Tribe/Main.php:697
+#: src/Tribe/Main.php:897
 msgid "Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s"
 msgstr "你的 The Events Calendar 中含有一個附加元件的版本不是最新的。%s請即更新%s。"
 
-#: src/Tribe/Main.php:709
-msgid "The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s."
+#: src/Tribe/Main.php:909
+msgid "The following plugins are out of date: %1$s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %2$sLearn More%3$s."
 msgstr ""
 
-#: src/Tribe/Main.php:778
+#: common/src/Tribe/Settings_Manager.php:56
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:56
 msgid "Display"
 msgstr "顯示"
 
-#: src/Tribe/Main.php:782 src/Tribe/Main.php:4054 src/Tribe/Main.php:4149
+#: common/src/Tribe/Settings_Manager.php:62
+#: common/src/Tribe/Settings_Manager.php:289
+#: src/Tribe/Admin/Bar/Default_Configurator.php:106
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:62
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:289
 msgid "Help"
 msgstr "幫助"
 
-#: src/Tribe/Main.php:819 src/admin-views/tribe-options-licenses.php:33
+#: common/src/Tribe/Settings_Manager.php:263
+#: common/src/admin-views/tribe-options-licenses.php:46
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:263
+#: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:46
 msgid "Licenses"
 msgstr "授權憑證"
 
-#: src/Tribe/Main.php:920
+#: src/Tribe/Main.php:1080
 msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
 msgstr "抱歉，The Events Calendar 需要 WordPress %s 或更新的版本，請即更新你的 WordPress。"
 
-#: src/Tribe/Main.php:923
+#: src/Tribe/Main.php:1083
 msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
 msgstr "抱歉，The Events Calendar 需要  PHP %s 或更新的版本，請聯絡你的伺服器業者引導你更新你的 PHP 版本。"
 
-#: src/Tribe/Main.php:1197 src/Tribe/Main.php:2240
+#: src/Tribe/Main.php:1396 src/Tribe/Main.php:2439
 msgid "category"
 msgstr "類別"
 
-#: src/Tribe/Main.php:1208 src/Tribe/Main.php:2239
+#: src/Tribe/Main.php:1432 src/Tribe/Main.php:2438
 msgid "tag"
 msgstr "標籤"
 
-#: src/Tribe/Main.php:1243 src/Tribe/Main.php:1261 src/Tribe/Main.php:1279
+#: src/Tribe/Main.php:1465 src/Tribe/Main.php:1483 src/Tribe/Main.php:1501
 msgid "Add New"
 msgstr "新增"
 
-#: src/Tribe/Main.php:1244 src/Tribe/Main.php:1262 src/Tribe/Main.php:1280
-#: src/Tribe/Main.php:1405 src/Tribe/Main.php:1406
+#: src/Tribe/Main.php:1466 src/Tribe/Main.php:1484 src/Tribe/Main.php:1502
+#: src/Tribe/Main.php:1633 src/Tribe/Main.php:1634
 msgid "Add New %s"
 msgstr ""
 
-#: src/Tribe/Main.php:1246 src/Tribe/Main.php:1264 src/Tribe/Main.php:1282
+#: src/Tribe/Main.php:1468 src/Tribe/Main.php:1486 src/Tribe/Main.php:1504
 msgid "New %s"
 msgstr ""
 
-#: src/Tribe/Main.php:1247 src/Tribe/Main.php:1265 src/Tribe/Main.php:1283
+#: src/Tribe/Main.php:1469 src/Tribe/Main.php:1487 src/Tribe/Main.php:1505
 msgid "View %s"
 msgstr ""
 
-#: src/Tribe/Main.php:1248 src/Tribe/Main.php:1266 src/Tribe/Main.php:1284
+#: src/Tribe/Main.php:1470 src/Tribe/Main.php:1488 src/Tribe/Main.php:1506
 msgid "Search %s"
 msgstr ""
 
-#: src/Tribe/Main.php:1249 src/Tribe/Main.php:1267 src/Tribe/Main.php:1285
+#: src/Tribe/Main.php:1471 src/Tribe/Main.php:1489 src/Tribe/Main.php:1507
 msgid "No %s found"
 msgstr ""
 
-#: src/Tribe/Main.php:1250 src/Tribe/Main.php:1268 src/Tribe/Main.php:1286
+#: src/Tribe/Main.php:1472 src/Tribe/Main.php:1490 src/Tribe/Main.php:1508
 msgid "No %s found in Trash"
 msgstr ""
 
-#: src/Tribe/Main.php:1296
+#: src/Tribe/Main.php:1518
 msgid "%s Category"
 msgstr ""
 
-#: src/Tribe/Main.php:1297
+#: src/Tribe/Main.php:1519
 msgid "Search %s Categories"
 msgstr ""
 
-#: src/Tribe/Main.php:1298
+#: src/Tribe/Main.php:1520
 msgid "All %s Categories"
 msgstr ""
 
-#: src/Tribe/Main.php:1299
+#: src/Tribe/Main.php:1521
 msgid "Parent %s Category"
 msgstr ""
 
-#: src/Tribe/Main.php:1300
+#: src/Tribe/Main.php:1522
 msgid "Parent %s Category:"
 msgstr ""
 
-#: src/Tribe/Main.php:1301
+#: src/Tribe/Main.php:1523
 msgid "Edit %s Category"
 msgstr ""
 
-#: src/Tribe/Main.php:1302
+#: src/Tribe/Main.php:1524
 msgid "Update %s Category"
 msgstr ""
 
-#: src/Tribe/Main.php:1303
+#: src/Tribe/Main.php:1525
 msgid "Add New %s Category"
 msgstr ""
 
-#: src/Tribe/Main.php:1304
+#: src/Tribe/Main.php:1526
 msgid "New %s Category Name"
 msgstr ""
 
-#: src/Tribe/Main.php:1320
-msgid "%1$s updated. <a href=\"%2$s\">View %3$s</a>"
-msgstr ""
-
-#: src/Tribe/Main.php:1321 src/Tribe/Main.php:1357 src/Tribe/Main.php:1376
+#: src/Tribe/Main.php:1548 src/Tribe/Main.php:1585 src/Tribe/Main.php:1605
 msgid "Custom field updated."
 msgstr "自訂欄位已更新。"
 
-#: src/Tribe/Main.php:1322 src/Tribe/Main.php:1358 src/Tribe/Main.php:1377
+#: src/Tribe/Main.php:1549 src/Tribe/Main.php:1586 src/Tribe/Main.php:1606
 msgid "Custom field deleted."
 msgstr "自訂欄位已刪除。"
 
-#: src/Tribe/Main.php:1323 src/Tribe/Main.php:1356 src/Tribe/Main.php:1359
-#: src/Tribe/Main.php:1375 src/Tribe/Main.php:1378
+#: src/Tribe/Main.php:1550 src/Tribe/Main.php:1584 src/Tribe/Main.php:1587
+#: src/Tribe/Main.php:1604 src/Tribe/Main.php:1607
 msgid "%s updated."
 msgstr ""
 
 #. translators: %s: date and time of the revision
-#: src/Tribe/Main.php:1325
+#: src/Tribe/Main.php:1552 src/Tribe/Main.php:1589
 msgid "%1$s restored to revision from %2$s"
 msgstr ""
 
-#: src/Tribe/Main.php:1327
-msgid "Event published. <a href=\"%1$s\">View %2$s</a>"
-msgstr ""
-
-#: src/Tribe/Main.php:1331 src/Tribe/Main.php:1363 src/Tribe/Main.php:1382
+#: src/Tribe/Main.php:1558 src/Tribe/Main.php:1591 src/Tribe/Main.php:1611
 msgid "%s saved."
 msgstr ""
 
-#: src/Tribe/Main.php:1333
-msgid "%1$s submitted. <a target=\"_blank\" href=\"%2$s\">Preview %3$s</a>"
-msgstr ""
-
-#: src/Tribe/Main.php:1339
-msgid "%1$s scheduled for: <strong>%2$s</strong>. <a target=\"_blank\" href=\"%3$s\">Preview %4$s</a>"
-msgstr ""
-
 #. translators: Publish box date format, see http:php.net/date
-#: src/Tribe/Main.php:1342 src/Tribe/Main.php:1368 src/Tribe/Main.php:1387
+#: src/Tribe/Main.php:1569 src/Tribe/Main.php:1597 src/Tribe/Main.php:1617
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
-#: src/Tribe/Main.php:1347
-msgid "%1$s draft updated. <a target=\"_blank\" href=\"%2$s\">Preview %3$s</a>"
-msgstr ""
-
 #. translators: %s: date and time of the revision
-#: src/Tribe/Main.php:1361 src/Tribe/Main.php:1380
+#: src/Tribe/Main.php:1609
 msgid "%s restored to revision from %s"
 msgstr ""
 
-#: src/Tribe/Main.php:1362 src/Tribe/Main.php:1381
+#: src/Tribe/Main.php:1590 src/Tribe/Main.php:1610
 msgid "%s published."
 msgstr ""
 
-#: src/Tribe/Main.php:1364 src/Tribe/Main.php:1383
+#: src/Tribe/Main.php:1592 src/Tribe/Main.php:1612
 msgid "%s submitted."
 msgstr ""
 
-#: src/Tribe/Main.php:1366 src/Tribe/Main.php:1385
-msgid "%s scheduled for: <strong>%2$s</strong>."
-msgstr ""
-
-#: src/Tribe/Main.php:1370 src/Tribe/Main.php:1389
+#: src/Tribe/Main.php:1599 src/Tribe/Main.php:1619
 msgid "%s draft updated."
 msgstr ""
 
-#: src/Tribe/Main.php:1452
-msgid "Without a defined location your event will not display a <a href=\"https://support.google.com/webmasters/answer/164506\" target=\"_blank\">Google Rich Snippet</a> on the search results."
-msgstr ""
-
-#: src/Tribe/Main.php:1543 src/Tribe/Main.php:1625
+#: src/Tribe/Main.php:1803 src/Tribe/Main.php:1891
 msgid "Use New %s"
 msgstr ""
 
-#: src/Tribe/Main.php:1545 src/Tribe/Main.php:1627
+#: src/Tribe/Main.php:1806 src/Tribe/Main.php:1895
 msgid "My %s"
 msgstr ""
 
-#: src/Tribe/Main.php:1550 src/Tribe/Main.php:1632
+#: src/Tribe/Main.php:1811 src/Tribe/Main.php:1900
 msgid "Available %s"
 msgstr ""
 
-#: src/Tribe/Main.php:1561 src/Tribe/Main.php:1643
+#: src/Tribe/Main.php:1822 src/Tribe/Main.php:1911
 msgid "No saved %s exists."
 msgstr ""
 
-#: src/Tribe/Main.php:1787
+#: src/Tribe/Main.php:2054
 msgid "Next"
 msgstr "下一頁"
 
-#: src/Tribe/Main.php:1788
+#: src/Tribe/Main.php:2055
 msgid "Prev"
 msgstr "上一頁"
 
-#: src/Tribe/Main.php:1789 src/functions/template-tags/day.php:105
+#: src/Tribe/Asset/Bootstrap_Datepicker.php:20 src/Tribe/Main.php:2056
+#: src/functions/template-tags/day.php:104
 msgid "Today"
 msgstr "今天"
 
-#: src/Tribe/Main.php:1790
+#: src/Tribe/Main.php:2057
 msgid "Done"
 msgstr "已完成"
 
-#: src/Tribe/Main.php:1964
+#: common/src/Tribe/Settings_Manager.php:229
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:229
 msgid "Network"
 msgstr "網路"
 
-#: src/Tribe/Main.php:2241
+#: src/Tribe/Main.php:2440
 msgid "page"
 msgstr ""
 
-#: src/Tribe/Main.php:2242
+#: src/Tribe/Main.php:2441
 msgid "event"
 msgstr ""
 
-#: src/Tribe/Main.php:2243
+#: src/Tribe/Main.php:2442
 msgid "events"
 msgstr ""
 
-#: src/Tribe/Main.php:2244
+#: src/Tribe/Main.php:2443
 msgid "all"
 msgstr ""
 
-#: src/Tribe/Main.php:3508 src/Tribe/Main.php:3543
-#: src/functions/template-tags/day.php:158
-#: src/functions/template-tags/day.php:180
+#: src/Tribe/Main.php:3724 src/Tribe/Main.php:3759
+#: src/functions/template-tags/day.php:157
+#: src/functions/template-tags/day.php:178
 msgid "Date out of range."
 msgstr "日期超出範圍"
 
-#: src/Tribe/Main.php:3579
+#: src/Tribe/Main.php:3794
 msgid "%s Options"
 msgstr ""
 
-#: src/Tribe/Main.php:3586 src/Tribe/Main.php:3597
+#: src/Tribe/Main.php:3801 src/Tribe/Main.php:3812
 msgid "%s Information"
 msgstr ""
 
-#: src/Tribe/Main.php:3810
+#: src/Tribe/Main.php:4148
 msgid "Support"
 msgstr "支援"
 
-#: src/Tribe/Main.php:3813
+#: src/Tribe/Main.php:4151
 msgid "View All Add-Ons"
 msgstr "檢視所有附加元件"
 
-#: src/Tribe/Main.php:3834
+#: src/Tribe/Main.php:4171
 msgid "News from Modern Tribe"
 msgstr "來自 Modern Tribe 的消息"
 
-#: src/Tribe/Main.php:3883
+#: src/Tribe/Main.php:4216
 msgid "Additional Functionality"
 msgstr "額外功能"
 
-#: src/Tribe/Main.php:3888
+#: src/Tribe/Main.php:4221
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
 msgstr "尋找額外功能，包含循環活動、自訂元規則、前台提交活動、新檢視表及更多？"
