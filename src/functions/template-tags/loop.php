@@ -151,7 +151,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$title = sprintf(
 				esc_html__( '%1$s for %2$s', 'the-events-calendar' ),
 				$events_label_plural,
-				date_i18n( tribe_get_option( 'monthAndYearFormat', 'F Y' ), strtotime( tribe_get_month_view_date() ) )
+				date_i18n( tribe_get_date_option( 'monthAndYearFormat', 'F Y' ), strtotime( tribe_get_month_view_date() ) )
 			);
 		}
 
