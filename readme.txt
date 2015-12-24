@@ -309,6 +309,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.0.4] 2015-12-23 =
+
+* Tweak - Including the latest embedded Event Tickets release for backward compatibility
+
 = [4.0.3] 2015-12-22 =
 
 * Tweak - Adjust single-event.php template to allow the "Time" title and content to be filterable (Props to Sitecrafting for highlighting this issue!)
