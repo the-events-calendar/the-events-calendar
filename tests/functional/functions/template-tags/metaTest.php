@@ -1,7 +1,7 @@
 <?php
 namespace TEC\Tests\functions\template_tags;
 
-class metaTest extends \WP_UnitTestCase {
+class metaTest extends \Tribe__Events__WP_UnitTestCase {
 
 	protected $backupGlobals = false;
 
