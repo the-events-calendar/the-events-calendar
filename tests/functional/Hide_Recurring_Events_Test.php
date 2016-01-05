@@ -25,6 +25,7 @@ class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCas
 			'EventEndHour'     => 17,
 			'EventStartMinute' => 0,
 			'EventEndMinute'   => 0,
+			'EventTimezone'   => 'UTC',
 			'recurrence' => [
 				'rules' => [
 					[
