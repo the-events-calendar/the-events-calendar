@@ -1544,6 +1544,23 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			return $sql;
 		}
 
+		// If looking just for fields then let's replace the .ID with *
+		if ( $query->query_vars['fields'] == 'ids' ) {
+			$sql = preg_replace(
+				"/(^SELECT\\s+DISTINCT\\s{$wpdb->posts}.)(ID)/",
+				"$1*, {$wpdb->postmeta}.meta_value as 'EventStartDate'",
+				$sql
+			);
+		}
+
+		if ( $query->query_vars['fields'] == 'id=>parent' ) {
+			$sql = preg_replace(
+				"/(^SELECT\\s+DISTINCT\\s{$wpdb->posts}.ID,\\s{$wpdb->posts}.post_parent)/",
+				"$1, {$wpdb->postmeta}.meta_value as 'EventStartDate'",
+				$sql
+			);
+		}
+
 		// We need to relocate the SQL_CALC_FOUND_ROWS to the outer query
 		$sql = preg_replace( '/SQL_CALC_FOUND_ROWS/', '', $sql );
 
@@ -1574,13 +1591,15 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			$limit = '';
 		}
 
+		$group_clause = $query->query_vars['fields'] == 'id=>parent' ? 'GROUP BY ID' : 'GROUP BY IF( post_parent = 0, ID, post_parent )';
+
 		return '
 			SELECT
 				SQL_CALC_FOUND_ROWS *
 			FROM (
 				' . $sql . "
 			) a
-			GROUP BY IF( post_parent = 0, ID, post_parent )
+			$group_clause
 			ORDER BY EventStartDate $direction
 			{$limit}
 		";

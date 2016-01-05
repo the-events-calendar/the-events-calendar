@@ -91,29 +91,7 @@ class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCas
 		tribe_update_option( 'hideSubsequentRecurrencesDefault', $option );
 	}
 
-	/**
-	 * A WP_Query object may be passed a return fields argument set to "ids" or
-	 * "id=>parent" and the hide-recurrence logic ought to be able to accommodate
-	 * that.
-	 */
-	public function test_supports_query_fields_property() {
-//		$this->markTestSkipped(
-//			'Tribe__Events__Pro__Recurrence_Meta::recurrence_collapse_sql() does not support this yet.'
-//		);
-
-		/* Retaining the query showing the use of the fields property we need/ought to
-		 * support - but commented out so as not to clutter test results with db errors.
-		 *
-		$query   = new WP_Query();
-		$results = $query->query( [
-			'post_type'           => Tribe__Events__Main::POSTTYPE,
-			'fields'              => 'ids',
-			'tribeHideRecurrence' => 1,
-			'start_date'          => $this->test_base_date,
-			'eventDisplay'        => 'custom',
-		] );
-		*/
-
+	public function test_supports_ids_fields_on_non_recurring_events() {
 		$args = $this->generate_event_args();
 		unset( $args['recurrence'] );
 		$count = 3;
@@ -124,27 +102,122 @@ class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCas
 
 		$query   = new WP_Query();
 		$results = $query->query( array(
-			//			'fields' => 'ids',
-			'post_type'    => Tribe__Events__Main::POSTTYPE,
-			//			'tribeHideRecurrence' => 1,
-			'start_date'   => $this->base_date,
-			'eventDisplay' => 'custom',
-			'orderby'      => 'ID',
-			'order'        => 'ASC',
-			'nopaging'     => true,
+			'fields'              => 'ids',
+			'post_type'           => Tribe__Events__Main::POSTTYPE,
+			'tribeHideRecurrence' => 1,
+			'start_date'          => $this->base_date,
+			'eventDisplay'        => 'custom',
+			'orderby'             => 'ID',
+			'order'               => 'ASC',
+			'nopaging'            => true,
 		) );
 
 		$this->assertCount( $count, $results );
+		foreach ( $results as $result ) {
+			$this->assertInternalType( 'int', $result );
+		}
+	}
+
+	/**
+	 * supports ids fields on recurring events
+	 */
+	public function test_supports_ids_fields_on_recurring_events() {
+		$args  = $this->generate_event_args();
+		$count = 3;
+		for ( $i = 0; $i < $count; $i ++ ) {
+			$this->test_parent_id = Tribe__Events__API::createEvent( $args );
+			Tribe__Events__Pro__Main::instance()->queue_processor->process_queue( PHP_INT_MAX );
+		}
+
+		$query   = new WP_Query();
+		$results = $query->query( array(
+			'fields'              => 'ids',
+			'post_type'           => Tribe__Events__Main::POSTTYPE,
+			'tribeHideRecurrence' => 1,
+			'start_date'          => $this->base_date,
+			'eventDisplay'        => 'custom',
+			'orderby'             => 'ID',
+			'order'               => 'ASC',
+			'nopaging'            => true,
+		) );
+
+		$this->assertCount( $count, $results );
+		foreach ( $results as $result ) {
+			$this->assertInternalType( 'int', $result );
+		}
+	}
+
+	/**
+	 * supports id=>parent fields on non recurring events
+	 */
+	public function test_supports_id_parent_fields_on_non_recurring_events() {
+		$args                = $this->generate_event_args();
+		$parent              = $this->factory()->post->create();
+		$args['post_parent'] = $parent;
+		unset( $args['recurrence'] );
+		$count = 3;
+		for ( $i = 0; $i < $count; $i ++ ) {
+			$this->test_parent_id = Tribe__Events__API::createEvent( $args );
+			Tribe__Events__Pro__Main::instance()->queue_processor->process_queue( PHP_INT_MAX );
+		}
+
+		$query   = new WP_Query();
+		$results = $query->query( array(
+			'fields'              => 'id=>parent',
+			'post_type'           => Tribe__Events__Main::POSTTYPE,
+			'tribeHideRecurrence' => 1,
+			'start_date'          => $this->base_date,
+			'eventDisplay'        => 'custom',
+			'orderby'             => 'ID',
+			'order'               => 'ASC',
+			'nopaging'            => true,
+		) );
+
+		$this->assertCount( $count, $results );
+		foreach ( $results as $key => $value ) {
+			$this->assertInternalType( 'int', $key );
+			$this->assertEquals( $parent, $value );
+		}
+	}
+
+	/**
+	 * supports id=>parent fields on recurring events
+	 */
+	public function test_supports_id_parent_fields_on_recurring_events() {
+		$args  = $this->generate_event_args();
+		$parent              = $this->factory()->post->create();
+		$args['post_parent'] = $parent;
+		$count = 3;
+		for ( $i = 0; $i < $count; $i ++ ) {
+			$this->test_parent_id = Tribe__Events__API::createEvent( $args );
+			Tribe__Events__Pro__Main::instance()->queue_processor->process_queue( PHP_INT_MAX );
+		}
+
+		$query   = new WP_Query();
+		$results = $query->query( array(
+			'fields'              => 'id=>parent',
+			'post_type'           => Tribe__Events__Main::POSTTYPE,
+			'tribeHideRecurrence' => 1,
+			'start_date'          => $this->base_date,
+			'eventDisplay'        => 'custom',
+			'orderby'             => 'ID',
+			'order'               => 'ASC',
+			'nopaging'            => true,
+		) );
+
+		$this->assertCount( $count, $results );
+		foreach ( $results as $key => $value ) {
+			$this->assertInternalType( 'int', $key );
+			$this->assertEquals( $parent, $value );
+		}
 	}
 
 	protected function generate_event_args() {
-		$hash = md5( time() );
-
 		return [
 			'post_type'        => Tribe__Events__Main::POSTTYPE,
-			'post_title'       => __FUNCTION__ . ' ' . $hash,
-			'post_content'     => __CLASS__ . ' ' . __FUNCTION__ . $hash,
-			'post_name'        => 'test-tribeHideRecurrence' . $hash,
+			'post_title'       => __FUNCTION__ . ' ',
+			'post_content'     => __CLASS__ . ' ' . __FUNCTION__,
+			'post_name'        => 'test-tribeHideRecurrence',
 			'post_status'      => 'publish',
 			'EventStartDate'   => $this->base_date,
 			'EventEndDate'     => $this->base_date,
