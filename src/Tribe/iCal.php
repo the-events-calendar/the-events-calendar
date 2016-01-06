@@ -330,7 +330,8 @@ class Tribe__Events__iCal {
 		}
 
 		header( 'Content-type: text/calendar; charset=UTF-8' );
-		header( 'Content-Disposition: attachment; filename="ical-event-' . implode( $event_ids ) . '.ics"' );
+		$hash = substr( md5( implode( $event_ids ) ), 0, 11 );
+		header( 'Content-Disposition: attachment; filename="ical-event-' . $hash . '.ics"' );
 		$content = "BEGIN:VCALENDAR\r\n";
 		$content .= "VERSION:2.0\r\n";
 		$content .= 'PRODID:-//' . $blogName . ' - ECPv' . Tribe__Events__Main::VERSION . "//NONSGML v1.0//EN\r\n";
