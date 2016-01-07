@@ -1644,6 +1644,8 @@
 				new Tribe__Events__Pro__APM_Filters__Title_Filter();
 				new Tribe__Events__Pro__APM_Filters__Venue_Filter();
 				new Tribe__Events__Pro__APM_Filters__Organizer_Filter();
+
+				do_action('tribe_events_pro_init_apm_filters');
 			}
 
 
