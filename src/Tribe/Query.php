@@ -218,12 +218,12 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							$start_date = $query->get( 'start_date' );
 							$start_date = $query->get( 'start_date' );
 							if ( $start_date ) {
-								$start_date_string = is_object($start_date) ? $start_date->date : $start_date;
+								$start_date_string = $start_date instanceof DateTime ? $start_date->date : $start_date;
 								$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date_string ) ) );
 							}
 							$end_date = $query->get( 'end_date' );
 							if ( $end_date ) {
-								$end_date_string = is_object($end_date) ? $end_date->date : $end_date;
+								$end_date_string = $end_date instanceof DateTime ? $end_date->date : $end_date;
 								$query->set( 'end_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $end_date_string ) ) );
 							}
 							break;
