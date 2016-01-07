@@ -151,7 +151,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$title = sprintf(
 				esc_html__( '%1$s for %2$s', 'the-events-calendar' ),
 				$events_label_plural,
-				date_i18n( tribe_get_option( 'monthAndYearFormat', 'F Y' ), strtotime( tribe_get_month_view_date() ) )
+				date_i18n( tribe_get_date_option( 'monthAndYearFormat', 'F Y' ), strtotime( tribe_get_month_view_date() ) )
 			);
 		}
 
@@ -321,7 +321,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 			$event_year        = tribe_get_start_date( $post, false, 'Y' );
 			$event_month       = tribe_get_start_date( $post, false, 'm' );
-			$month_year_format = tribe_get_option( 'monthAndYearFormat', 'F Y' );
+			$month_year_format = tribe_get_date_option( 'monthAndYearFormat', 'F Y' );
 
 			if ( $wp_query->current_post > 0 ) {
 				$prev_post = $wp_query->posts[ $wp_query->current_post - 1 ];
