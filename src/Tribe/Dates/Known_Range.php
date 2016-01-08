@@ -29,12 +29,16 @@ class Tribe__Events__Dates__Known_Range {
 		global $wpdb;
 		remove_action( 'deleted_post', array( $this, 'rebuild_known_range' ) );
 
+		$_stati = array( 'publish', 'private', 'protected' );
+		$_stati = apply_filters( 'tribe_events_known_range_stati', $_stati );
+		$stati  = "('" . implode( "'", $_stati ) . "')";
+
 		$earliest = strtotime( $wpdb->get_var( $wpdb->prepare( "
 				SELECT MIN(meta_value) FROM $wpdb->postmeta
 				JOIN $wpdb->posts ON post_id = ID
 				WHERE meta_key = '_EventStartDate'
 				AND post_type = '%s'
-				AND post_status IN ('publish', 'private', 'protected')
+				AND post_status IN $stati
 			",
 			Tribe__Events__Main::POSTTYPE ) ) );
 
@@ -43,7 +47,7 @@ class Tribe__Events__Dates__Known_Range {
 				JOIN $wpdb->posts ON post_id = ID
 				WHERE meta_key = '_EventEndDate'
 				AND post_type = '%s'
-				AND post_status IN ('publish', 'private', 'protected')
+				AND post_status IN $stati
 			",
 			Tribe__Events__Main::POSTTYPE ) ) );
 
