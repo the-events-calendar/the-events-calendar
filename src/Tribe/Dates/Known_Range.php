@@ -31,7 +31,7 @@ class Tribe__Events__Dates__Known_Range {
 
 		$_stati = array( 'publish', 'private', 'protected' );
 		$_stati = apply_filters( 'tribe_events_known_range_stati', $_stati );
-		$stati  = "('" . implode( "'", $_stati ) . "')";
+		$stati  = "('" . implode( "','", $_stati ) . "')";
 
 		$earliest = strtotime( $wpdb->get_var( $wpdb->prepare( "
 				SELECT MIN(meta_value) FROM $wpdb->postmeta
