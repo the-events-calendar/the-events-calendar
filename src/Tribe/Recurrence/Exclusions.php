@@ -53,7 +53,21 @@ class Tribe__Events__Pro__Recurrence__Exclusions {
 	 */
 	public function remove_exclusions( array $date_durations, array $exclusion_dates ) {
 		$date_default_timezone = date_default_timezone_get();
-		date_default_timezone_set( $this->timezone_string );
+
+		$timezone_identifier = $this->timezone_string;
+		$timezone_slip       = 0;
+
+		$matches = array();
+		preg_match( '/^UTC(\\+|-)+(\\d+)+(\\.(\\d+)*)*/', $this->timezone_string, $matches );
+		if ( $matches ) {
+			$timezone_identifier = 'UTC';
+			$signum              = $matches[1];
+			$hrs                 = intval( $matches[2] ) * 3600;
+			$minutes             = floatval( empty( $matches[3] ) ? 0 : $matches[3] ) * 3600;
+			$timezone_slip       = intval( $signum . ( $hrs + $minutes ) );
+		}
+
+		date_default_timezone_set( $timezone_identifier );
 
 		$exclusion_timestamps = array();
 
@@ -61,9 +75,10 @@ class Tribe__Events__Pro__Recurrence__Exclusions {
 		$almost_one_day = 86399;
 
 		foreach ( $exclusion_dates as $exclusion ) {
-			$start = strtotime( 'midnight', $exclusion['timestamp'] );
+			$start                  = strtotime( 'midnight', $exclusion['timestamp'] ) + $timezone_slip;
 			$exclusion_timestamps[] = array(
-				'start' => $start, 'end' => $start + $almost_one_day
+				'start' => $start,
+				'end'   => $start + $almost_one_day,
 			);
 		}
 
