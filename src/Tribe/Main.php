@@ -103,6 +103,7 @@
 				add_filter( 'tribe_help_tab_getting_started_text', array( $this, 'add_help_tab_getting_started_text' ) );
 				add_filter( 'tribe_help_tab_introtext', array( $this, 'add_help_tab_intro_text' ) );
 				add_filter( 'tribe_help_tab_forumtext', array( $this, 'add_help_tab_forumtext' ) );
+				add_filter( 'tribe_support_registered_template_systems', array( $this, 'register_template_updates' ) );
 
 				add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
 				add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
@@ -1646,6 +1647,22 @@
 				new Tribe__Events__Pro__APM_Filters__Organizer_Filter();
 			}
 
+			/**
+			 * Registers The Events Calendar with the views/overrides update checker.
+			 *
+			 * @param array $plugins
+			 *
+			 * @return array
+			 */
+			public function register_template_updates( $plugins ) {
+				$plugins[ __( 'Events Calendar PRO', 'tribe-events-calendar-pro' ) ] = array(
+					Tribe__Events__Pro__Main::VERSION,
+					Tribe__Events__Pro__Main::instance()->pluginPath . 'src/views',
+					trailingslashit( get_stylesheet_directory() ) . 'tribe-events',
+				);
+
+				return $plugins;
+			}
 
 			/**
 			 * plugin deactivation callback
