@@ -814,7 +814,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			$plugins[ __( 'The Events Calendar', 'the-events-calendar' ) ] = array(
 				Tribe__Events__Main::VERSION,
 				Tribe__Events__Main::instance()->plugin_path . 'src/views',
-				trailingslashit( get_stylesheet_directory() ) . 'tribe-events'
+				trailingslashit( get_stylesheet_directory() ) . 'tribe-events',
 			);
 
 			return $plugins;
