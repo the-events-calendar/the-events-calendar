@@ -58,7 +58,7 @@ class Tribe__Events__Pro__Recurrence__Exclusions {
 		$timezone_slip       = 0;
 
 		$matches = array();
-		preg_match( '/^UTC(\\+|-)*(\\d+)*(\\.(\\d+)*)*/', $this->timezone_string, $matches );
+		preg_match( '/^UTC(\\+|-)+(\\d+)+(\\.(\\d+)*)*/', $this->timezone_string, $matches );
 		if ( $matches ) {
 			$timezone_identifier = 'UTC';
 			$signum              = $matches[1];
