@@ -1657,7 +1657,7 @@
 			public function register_template_updates( $plugins ) {
 				$plugins[ __( 'Events Calendar PRO', 'tribe-events-calendar-pro' ) ] = array(
 					Tribe__Events__Pro__Main::VERSION,
-					Tribe__Events__Pro__Main::instance()->pluginPath . 'src/views/pro',
+					self::instance()->pluginPath . 'src/views/pro',
 					trailingslashit( get_stylesheet_directory() ) . 'tribe-events/pro',
 				);
 
