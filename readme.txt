@@ -225,6 +225,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.1] unreleased =
+
+* Fix - Fixed invalid class name when throwing Tribe notices in the Map template
+
 = [4.0.3] 2015-12-22 =
 
 * Tweak - When viewing a recurring event that has multiple instances in a single day, display each time in the event details (Thank you Sitecrafting for bringing this up!)
