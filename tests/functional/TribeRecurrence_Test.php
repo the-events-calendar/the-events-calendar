@@ -90,4 +90,12 @@ class TribeRecurrence_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 
 		$this->assertEquals( '2028-09-21', date( 'Y-m-d', $end_date['timestamp'] ) );
 	}
+
+	public function test_will_yield_no_recurrence_if_series_rule_is_wp_error(  ) {
+		$recurrence = new Tribe__Events__Pro__Recurrence( strtotime( '2013-09-21' ), Tribe__Events__Pro__Recurrence::NO_END, new WP_Error('bad-type', 'Bad Type'), true, null );
+
+		$dates = $recurrence->getDates();
+
+		$this->assertEquals( [ ] ,$dates);
+	}
 }
