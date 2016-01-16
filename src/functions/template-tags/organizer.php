@@ -218,7 +218,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	if ( ! function_exists( 'tribe_get_organizer_website_url' ) ) { // wrapped in if function exists to maintain compatibility with community events 3.0.x. wrapper not needed after 3.1.x.
 		function tribe_get_organizer_website_url( $postId = null ) {
 			$postId = Tribe__Events__Main::postIdHelper( $postId );
-			$output = esc_url( tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerWebsite', true ) );
+			$output = esc_url( esc_html( tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerWebsite', true ) ) );
 
 			return apply_filters( 'tribe_get_organizer_website_url', $output );
 		}
@@ -247,9 +247,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 			$html = sprintf(
 				'<a href="%s" target="%s">%s</a>',
-				esc_url( $url ),
+				esc_attr( esc_url( $url ) ),
 				apply_filters( 'tribe_get_organizer_website_link_target', '_self' ),
-				apply_filters( 'tribe_get_organizer_website_link_label', $label )
+				apply_filters( 'tribe_get_organizer_website_link_label', esc_html( $label ) )
 			);
 		} else {
 			$html = '';

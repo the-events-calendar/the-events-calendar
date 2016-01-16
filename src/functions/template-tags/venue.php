@@ -410,9 +410,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 			$html = sprintf(
 				'<a href="%s" target="%s">%s</a>',
-				esc_url( $url ),
+				esc_attr( esc_url( $url ) ),
 				apply_filters( 'tribe_get_venue_website_link_target', '_self' ),
-				apply_filters( 'tribe_get_venue_website_link_label', $label )
+				apply_filters( 'tribe_get_venue_website_link_label', esc_html( $label ) )
 			);
 		} else {
 			$html = '';
