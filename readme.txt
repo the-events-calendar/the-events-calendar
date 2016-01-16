@@ -225,6 +225,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.0.4] 2016-01-15 =
+
+* Security - Resolved issue with Organizer and Venue output
+
 = [4.0.3] 2015-12-22 =
 
 * Tweak - When viewing a recurring event that has multiple instances in a single day, display each time in the event details (Thank you Sitecrafting for bringing this up!)
