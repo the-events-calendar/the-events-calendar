@@ -332,7 +332,16 @@ class Tribe__Events__iCal {
 		header( 'Content-type: text/calendar; charset=UTF-8' );
 		$site = sanitize_title( get_bloginfo( 'name' ) );
 		$hash = substr( md5( implode( $event_ids ) ), 0, 11 );
-		header( 'Content-Disposition: attachment; filename="' . $site . '-' . $hash . '.ics"' );
+
+		/**
+		 * Modifies the filename provided in the Content-Disposition header for iCal feeds.
+		 *
+		 * @var string       $ical_feed_filename
+		 * @var WP_Post|null $post
+		 */
+		$filename = apply_filters( 'tribe_events_ical_feed_filename', $site . '-' . $hash . '.ics', $post );
+
+		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
 		$content = "BEGIN:VCALENDAR\r\n";
 		$content .= "VERSION:2.0\r\n";
 		$content .= 'PRODID:-//' . $blogName . ' - ECPv' . Tribe__Events__Main::VERSION . "//NONSGML v1.0//EN\r\n";
