@@ -35,7 +35,7 @@ $venue_id = get_the_ID();
 	<div class="tribe-events-venue-meta tribe-clearfix">
 		<!-- Venue Title -->
 		<?php do_action( 'tribe_events_single_venue_before_title' ) ?>
-		<?php the_title( '<h2 class="tribe-venue-name">', '</h2>' ); ?>
+		<h2 class="tribe-venue-name"><?php echo tribe_get_venue( $venue_id ); ?></h2>
 		<?php do_action( 'tribe_events_single_venue_after_title' ) ?>
 
 		<?php if ( tribe_embed_google_map() && tribe_address_exists() ) : ?>

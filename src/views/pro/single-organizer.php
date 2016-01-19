@@ -37,7 +37,7 @@ $organizer_id = get_the_ID();
 
 				<!-- Organizer Title -->
 				<?php do_action( 'tribe_events_single_organizer_before_title' ) ?>
-				<?php the_title( '<h2 class="tribe-organizer-name">', '</h2>' ); ?>
+				<h2 class="tribe-organizer-name"><?php echo tribe_get_organizer( $organizer_id ); ?></h2>
 				<?php do_action( 'tribe_events_single_organizer_after_title' ) ?>
 
 				<!-- Organizer Meta -->
