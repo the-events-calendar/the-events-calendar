@@ -67,7 +67,7 @@ class Tribe__Events__Pro__Recurrence {
 	 */
 	public function getDates() {
 		$this->last_request_constrained = false;
-		if ( $this->series_rules ) {
+		if ( $this->series_rules && ! is_wp_error( $this->series_rules ) ) {
 			$dates    = array();
 			$cur_date = $this->start_date;
 
