@@ -107,6 +107,13 @@ class Tribe__Events__Pro__APM_Filters__APM_Filters {
 			),
 		);
 
+		/**
+		 * Allows filtering the filters set up arguments.
+		 *
+		 * @since 4.1
+		 *
+		 * @param array $filter_args An associative array of filter set up arguments, see each filter for details.
+		 */
 		$filter_args = apply_filters('tribe_events_pro_apm_filters_args', $filter_args);
 
 		global $ecp_apm;
