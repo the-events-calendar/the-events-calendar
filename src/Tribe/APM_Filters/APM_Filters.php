@@ -34,6 +34,13 @@ class Tribe__Events__Pro__APM_Filters__APM_Filters {
 				'end-date',
 			);
 
+			/**
+			 * Allows filtering the fallback columns that will be used if nothing is explicitly set.
+			 *
+			 * @since 4.1
+			 *
+			 * @param array  $fallback_columns An array of filter identifying keys.
+			 */
 			$fallback_columns = apply_filters('tribe_events_pro_apm_filters_fallback_columns', $fallback_columns);
 
 			$ecp_apm->columns->set_fallback( $fallback_columns );
