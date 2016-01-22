@@ -17,5 +17,8 @@ tests/phantomjs.suite.yml
 tests/_support/_generated/*
 tests/functional/_bootstrap.php
 tests/acceptance/_bootstrap.php
+tests/wpunit.suite.yml
+tests/unit/_bootstrap.php
+tests/wpunit/_bootstrap.php
 
 vendor
