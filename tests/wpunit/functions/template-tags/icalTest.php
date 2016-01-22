@@ -1,7 +1,7 @@
 <?php
 namespace TEC\Tests\functions\template_tags;
 
-class icalTest extends \Tribe__Events__WP_UnitTestCase {
+class icalTest extends \Codeception\TestCase\WPTestCase {
 
 	protected $backupGlobals = false;
 	protected $post_type;

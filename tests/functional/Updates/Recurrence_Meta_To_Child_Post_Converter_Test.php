@@ -6,7 +6,7 @@
  * @group recurrence
  * @group updates
  */
-class Tribe__Events__Pro__Updates__Recurrence_Meta_To_Child_Post_Converter_Test extends Tribe__Events__Pro__WP_UnitTestCase {
+class Tribe__Events__Pro__Updates__Recurrence_Meta_To_Child_Post_Converter_Test extends \Codeception\TestCase\WPTestCase {
 	public function test_update_3_5() {
 		tribe_update_option( 'pro-schema-version', '3.4' );
 		$event_id = wp_insert_post(array(

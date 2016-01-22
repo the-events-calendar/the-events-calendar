@@ -1,10 +1,15 @@
 <?php
+namespace Tribe\Events\Pro\Recurrence;
+use Tribe__Events__API;
+use Tribe__Events__Main;
+use Tribe__Events__Pro__Main;
+use Tribe__Events__Pro__Recurrence__Series_Splitter;
 
 /**
- * Class TribeEventsPro_RecurrenceSeriesSplitter_Test
+ * Class Series_SplitterTest
  * @group recurrence
  */
-class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__WP_UnitTestCase {
+class Series_SplitterTest extends \Codeception\TestCase\WPTestCase {
 	public function test_break_single_event_from_series() {
 
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
@@ -43,7 +48,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 
 		$child_to_break = $original_children[2];
 
-		$breaker = new Tribe__Events__Pro__Recurrence_Series_Splitter();
+		$breaker = new Tribe__Events__Pro__Recurrence__Series_Splitter();
 
 		$breaker->break_single_event_from_series($child_to_break);
 
@@ -80,6 +85,9 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 		$this->assertEquals( 5, $recurrence_spec['rules'][0]['end-count'] );
 	}
 
+	/**
+	 *
+	 */
 	public function test_break_first_event_from_series() {
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
@@ -122,7 +130,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 		// we fetched all the children of the orginal, so we'd expect 1 less than the total events
 		$this->assertCount( 49, $original_children );
 
-		$breaker = new Tribe__Events__Pro__Recurrence_Series_Splitter();
+		$breaker = new Tribe__Events__Pro__Recurrence__Series_Splitter();
 
 		$breaker->break_first_event_from_series($post_id);
 		// now that the original is broken from the recurring series, it should no longer be a recurring event
@@ -209,7 +217,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 		//breaks on the 3rd event
 		$child_to_break = $original_children[2];
 
-		$breaker = new Tribe__Events__Pro__Recurrence_Series_Splitter();
+		$breaker = new Tribe__Events__Pro__Recurrence__Series_Splitter();
 		//sets a break and keeps the break remaining events from the original
 		$breaker->break_remaining_events_from_series($child_to_break);
 

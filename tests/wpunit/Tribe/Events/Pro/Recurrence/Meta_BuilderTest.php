@@ -3,7 +3,7 @@ namespace Tribe\Events\Pro\Recurrence;
 
 use Tribe__Events__Pro__Recurrence__Meta_Builder as Meta_Builder;
 
-class Meta_BuilderTest extends \Tribe__Events__WP_UnitTestCase {
+class Meta_BuilderTest extends \Codeception\TestCase\WPTestCase {
 
 	protected $backupGlobals = false;
 

@@ -6,7 +6,7 @@
  * @group pro
  * @group related
  */
-class Tribe_Widget_Date_Test extends Tribe__Events__Pro__WP_UnitTestCase {
+class Tribe_Widget_Date_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Builds a simple post and sticks it in the global scope
 	 */
