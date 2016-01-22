@@ -431,7 +431,7 @@ class Tribe__Events__Pro__Geo_Loc {
 			return false;
 		}
 
-		$url  = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode( $address ) . '&sensor=false';
+		$url  = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode( $address );
 		$data = wp_remote_get( apply_filters( 'tribe_events_pro_geocode_request_url', $url ) );
 
 		if ( is_wp_error( $data ) || ! isset( $data['body'] ) ) {
