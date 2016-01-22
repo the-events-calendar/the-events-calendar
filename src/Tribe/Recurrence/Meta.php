@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Tribe__Events__Pro__Recurrence_Meta
+ * Tribe__Events__Pro__Recurrence__Meta
  *
  * WordPress hooks and filters controlling event recurrence
  */
-class Tribe__Events__Pro__Recurrence_Meta {
+class Tribe__Events__Pro__Recurrence__Meta {
 	const UPDATE_TYPE_ALL = 1;
 	const UPDATE_TYPE_FUTURE = 2;
 	const UPDATE_TYPE_SINGLE = 3;
 
-	/** @var Tribe__Events__Pro__Recurrence_Scheduler */
+	/** @var Tribe__Events__Pro__Recurrence__Scheduler */
 	public static    $scheduler = null;
 
 	/**
@@ -251,7 +251,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			exit();
 		}
 
-		$splitter = new Tribe__Events__Pro__Recurrence_Series_Splitter();
+		$splitter = new Tribe__Events__Pro__Recurrence__Series_Splitter();
 
 		if ( ! empty( $_REQUEST['split_all'] ) ) {
 			$splitter->break_remaining_events_from_series( $post_id );
@@ -702,7 +702,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 * @deprecated 4.0.1
 	 */
 	public static function get_child_event_ids( $post_id, $args = array() ) {
-		_deprecated_function( __METHOD__, '4.0.1', 'Tribe__Events__Pro__Recurrence_Meta::children()->get_ids()' );
+		_deprecated_function( __METHOD__, '4.0.1', 'Tribe__Events__Pro__Recurrence__Meta::children()->get_ids()' );
 		return self::children()->get_ids( $post_id, $args );
 	}
 
@@ -810,7 +810,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			$excluded = array_map( 'strtotime', self::get_excluded_dates( $event_id ) );
 			foreach ( $dates as $date_duration ) {
 				if ( ! in_array( $date_duration, $excluded ) ) {
-					$instance = new Tribe__Events__Pro__Recurrence_Instance( $event_id, $date_duration );
+					$instance = new Tribe__Events__Pro__Recurrence__Instance( $event_id, $date_duration );
 					$instance->save();
 				}
 			}
@@ -1598,12 +1598,12 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		if ( ! empty( self::$scheduler ) ) {
 			self::$scheduler->remove_hooks();
 		}
-		self::$scheduler = new Tribe__Events__Pro__Recurrence_Scheduler( tribe_get_option( 'recurrenceMaxMonthsBefore', 24 ), tribe_get_option( 'recurrenceMaxMonthsAfter', 24 ) );
+		self::$scheduler = new Tribe__Events__Pro__Recurrence__Scheduler( tribe_get_option( 'recurrenceMaxMonthsBefore', 24 ), tribe_get_option( 'recurrenceMaxMonthsAfter', 24 ) );
 		self::$scheduler->add_hooks();
 	}
 
 	/**
-	 * @return Tribe__Events__Pro__Recurrence_Scheduler
+	 * @return Tribe__Events__Pro__Recurrence__Scheduler
 	 */
 	public static function get_scheduler() {
 		if ( empty( self::$scheduler ) ) {

@@ -23,8 +23,8 @@ class Tribe__Events__Pro__Recurrence__Old_Events_Cleaner {
 		return self::$instance;
 	}
 
-	public function __construct( Tribe__Events__Pro__Recurrence_Scheduler $scheduler = null ) {
-		$this->scheduler = $scheduler ? $scheduler : new Tribe__Events__Pro__Recurrence_Scheduler();
+	public function __construct( Tribe__Events__Pro__Recurrence__Scheduler $scheduler = null ) {
+		$this->scheduler = $scheduler ? $scheduler : new Tribe__Events__Pro__Recurrence__Scheduler();
 	}
 
 	public function clean_up_old_recurring_events( array $old_value, array $new_value ) {

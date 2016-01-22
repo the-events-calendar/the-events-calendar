@@ -197,7 +197,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 				break;
 			}
 
-			Tribe__Events__Pro__Recurrence_Meta::delete_unexcluded_event( $instance_id, $start_date );
+			Tribe__Events__Pro__Recurrence__Meta::delete_unexcluded_event( $instance_id, $start_date );
 
 			unset( $instances_to_delete[ $instance_id ] );
 			$this->processed++;
@@ -216,7 +216,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 				break;
 			}
 
-			$instance = new Tribe__Events__Pro__Recurrence_Instance( $this->current_event_id, $date_duration, $instance_id );
+			$instance = new Tribe__Events__Pro__Recurrence__Instance( $this->current_event_id, $date_duration, $instance_id );
 			$instance->save();
 
 			unset( $instances_to_update[ $instance_id ] );
@@ -244,7 +244,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 				continue;
 			}
 
-			$instance = new Tribe__Events__Pro__Recurrence_Instance( $this->current_event_id, $date_duration );
+			$instance = new Tribe__Events__Pro__Recurrence__Instance( $this->current_event_id, $date_duration );
 			$instance->save();
 
 			unset( $instances_to_create[ $key ] );
