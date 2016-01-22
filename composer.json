@@ -11,7 +11,7 @@
   "require-dev": {
     "lucatume/wp-browser": "~1.6"
   },
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "prefer-stable": true,
   "config": {
     "preferred-install": "dist"
