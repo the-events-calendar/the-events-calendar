@@ -67,8 +67,7 @@ class Tribe__Events__Pro__Geo_Loc {
 
 	/**
 	 * Singleton instance of this class
-	 *
-*@var Tribe__Events__Pro__Geo_Loc
+	 * @var Tribe__Events__Pro__Geo_Loc
 	 */
 	private static $instance;
 
@@ -92,7 +91,6 @@ class Tribe__Events__Pro__Geo_Loc {
 		add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ) );
 		add_action( 'tribe_events_pre_get_posts', array( $this, 'setup_geoloc_in_query' ) );
 		add_filter( 'tribe_events_list_inside_before_loop', array( $this, 'add_event_distance' ) );
-
 	}
 
 	/**
@@ -112,7 +110,6 @@ class Tribe__Events__Pro__Geo_Loc {
 			Tribe__Events__Pro__Template_Factory::asset_package( 'ajax-maps' );
 		}
 	}
-
 
 	/**
 	 * Inject the GeoLoc settings into the general TEC settings screen
@@ -141,7 +138,7 @@ class Tribe__Events__Pro__Geo_Loc {
 					),
 					'geoloc_default_unit'     => array(
 						'type'            => 'dropdown',
-						'label'           => __( 'Map view distance unit', 'tribe-events-calendar-pro' ),
+						'label'           => __( 'Distance unit', 'tribe-events-calendar-pro' ),
 						'validation_type' => 'options',
 						'size'            => 'small',
 						'default'         => 'miles',
@@ -174,7 +171,6 @@ class Tribe__Events__Pro__Geo_Loc {
 		return $args;
 	}
 
-
 	/**
 	 * @param bool $full_data
 	 *
@@ -195,7 +191,7 @@ class Tribe__Events__Pro__Geo_Loc {
 					'compare' => '!=',
 					'value'   => '',
 				),
-			)
+			),
 		);
 
 		if ( ! $full_data ) {
@@ -342,7 +338,6 @@ class Tribe__Events__Pro__Geo_Loc {
 		}
 	}
 
-
 	/**
 	 * Adds the rewrite rules to make the map view work
 	 *
@@ -454,7 +449,6 @@ class Tribe__Events__Pro__Geo_Loc {
 		delete_transient( self::ESTIMATION_CACHE_KEY );
 
 		return true;
-
 	}
 
 	/**
@@ -571,7 +565,6 @@ class Tribe__Events__Pro__Geo_Loc {
 		}
 
 		return wp_list_pluck( $data, 'venue_id' );
-
 	}
 
 	/**
@@ -682,7 +675,7 @@ class Tribe__Events__Pro__Geo_Loc {
 				            OR meta_key = '" . self::LNG . "')
 				            AND post_id IN (SELECT meta_value FROM $wpdb->postmeta WHERE meta_key='_EventVenueID' AND post_id IN ($event_ids) )
 				            ) coors
-		";
+				";
 
 				$data = $wpdb->get_results( $sql, ARRAY_A );
 
@@ -748,9 +741,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		}
 
 		return $markers;
-
 	}
-
 
 	/**
 	 * Generates the button to add the geo data info to all venues that are missing it
@@ -760,7 +751,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		$settings = Tribe__Settings::instance();
 		$url      = apply_filters( 'tribe_settings_url', add_query_arg( array(
 					'post_type' => Tribe__Events__Main::POSTTYPE,
-					'page'      => $settings->adminSlug
+					'page'      => $settings->adminSlug,
 				), admin_url( 'edit.php' ) ) );
 		$url      = add_query_arg( array( 'geoloc_fix_venues' => '1' ), $url );
 		$url      = wp_nonce_url( $url, 'geoloc_fix_venues' );
@@ -789,7 +780,6 @@ class Tribe__Events__Pro__Geo_Loc {
 		}
 
 		add_action( 'admin_notices', array( $this, 'show_offer_to_fix_notice' ) );
-
 	}
 
 	/**
@@ -812,7 +802,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		<div class="updated">
 			<p><?php echo sprintf( __( "You have venues for which we don't have Geolocation information. <a href='%s'>Click here to generate it</a>.", 'tribe-events-calendar-pro' ), esc_url( $url ) . '#geoloc_fix' ); ?></p>
 		</div>
-	<?php
+		<?php
 	}
 
 	/**
@@ -828,7 +818,6 @@ class Tribe__Events__Pro__Geo_Loc {
 		$this->last_venues_fixed_count = $this->generate_geopoints_for_all_venues();
 
 		add_action( 'admin_notices', array( $this, 'show_fixed_notice' ) );
-
 	}
 
 	/**
@@ -839,7 +828,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		<div class="updated">
 			<p><?php echo sprintf( __( 'Fixed geolocation data for %d venues', 'tribe-events-calendar-pro' ), $this->last_venues_fixed_count ); ?></p>
 		</div>
-	<?php
+		<?php
 	}
 
 	/**
@@ -867,19 +856,17 @@ class Tribe__Events__Pro__Geo_Loc {
 			self::instance()->save_venue_geodata( $venue->ID, $data );
 
 			$count ++;
-
 		}
 
 		update_option( '_tribe_geoloc_fixed', 1 );
 
 		return $count;
-
 	}
 
 	/**
 	 * Static Singleton Factory Method
 	 *
-*@return Tribe__Events__Pro__Geo_Loc
+	 * @return Tribe__Events__Pro__Geo_Loc
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
@@ -889,5 +876,4 @@ class Tribe__Events__Pro__Geo_Loc {
 
 		return self::$instance;
 	}
-
 }
