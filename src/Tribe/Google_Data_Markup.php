@@ -55,7 +55,7 @@ abstract class Tribe__Events__Google_Data_Markup {
 
 		$html = '';
 		if ( ! empty( $data ) ) {
-			$html .= '<script type="application/ld+json">';
+			$html .= '<script id="tribe-json-ld" type="application/ld+json">';
 			$html .= str_replace( '\/', '/', json_encode( $data ) );
 			$html .= '</script>';
 		}
