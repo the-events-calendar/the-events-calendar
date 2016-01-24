@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.4
-Stable tag: 4.0.4
+Stable tag: 4.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -312,6 +312,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.1] unreleased =
 
 * Tweak - Improve the wording on override message for public calendar slug
+
+= [4.0.5] 2016-01-15 =
+
+* Security - Security fix with Venues and Organizers (props to grantdayjames for reporting this!)
 
 = [4.0.4] 2015-12-23 =
 
