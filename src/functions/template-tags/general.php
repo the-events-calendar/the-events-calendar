@@ -1347,7 +1347,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// Now we actually trim it
 		$excerpt = wp_trim_words( $excerpt, $excerpt_length, $excerpt_more );
 
-		return wpautop( $excerpt );
+		// AutoP that text
+		$excerpt = wpautop( $excerpt );
+
+		// Remove "all" HTML based on what is allowed
+		$excerpt = wp_kses( $excerpt, $allowed_html );
+
+		return $excerpt;
 	}
 
 	/**
