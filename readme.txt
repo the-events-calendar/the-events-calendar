@@ -312,6 +312,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.1] unreleased =
 
 * Tweak - Improve the wording on override message for public calendar slug
+* Tweak - Allow Publicize to work with Events, Venues and Organizers
 
 = [4.0.5] 2016-01-15 =
 
