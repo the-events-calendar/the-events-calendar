@@ -138,7 +138,25 @@ class Tribe__Events__Pro__APM_Filters__APM_Filters {
 
 
 		echo '<div class="updated"><p>';
-		printf( esc_html__( 'Pssst! Looking for the filters? They live in a separate plugin now | <a href="%s">Download for free</a>| <a href="%s">Dismiss</a>', 'tribe-events-calendar-pro' ), 'https://wordpress.org/plugins/advanced-post-manager/', esc_url( add_query_arg( 'dismiss_apm_nag', 1 ) ) );
+
+		$download_link = sprintf(
+			'<a href="%s">%s</a>',
+			'https://wordpress.org/plugins/advanced-post-manager/',
+			esc_html__( 'Download for free', 'tribe-events-calendar-pro' )
+		);
+
+		$dismiss_link = sprintf(
+			'<a href="%s">%s</a>',
+			esc_url( add_query_arg( 'dismiss_apm_nag', 1 ) ),
+			esc_html__( 'Dismiss', 'tribe-events-calendar-pro' )
+		);
+
+		printf(
+			esc_html__( 'Pssst! Looking for the filters? They live in a separate plugin now | %s | %s', 'tribe-events-calendar-pro' ),
+			$download_link,
+			$dismiss_link
+		);
+
 		echo '</p></div>';
 
 	}
