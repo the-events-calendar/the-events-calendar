@@ -99,7 +99,7 @@
 			$organizer = get_post( $organizer_id );
 
 			if ( $organizer_id && $organizer ) {
-				return $organizer->post_title;
+				return esc_html( $organizer->post_title );
 			} else {
 				return $value;
 			}

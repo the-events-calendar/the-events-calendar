@@ -11,9 +11,9 @@
 
 		public function __construct() {
 			$this->query_search_options = array(
-				'like' => __( 'Search', 'tribe-events-calendar-pro' ),
-				'is' => __( 'Is', 'tribe-events-calendar-pro' ),
-				'not' => __( 'Is Not', 'tribe-events-calendar-pro' ),
+				'like' => esc_html__( 'Search', 'tribe-events-calendar-pro' ),
+				'is' => esc_html__( 'Is', 'tribe-events-calendar-pro' ),
+				'not' => esc_html__( 'Is Not', 'tribe-events-calendar-pro' ),
 				'gt' => '>',
 				'lt' => '<',
 				'gte' => '>=',
