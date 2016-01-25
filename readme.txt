@@ -228,6 +228,7 @@ Our Premium Plugins:
 = [4.1] unreleased =
 
 * Fix - Fixed invalid class name when throwing Tribe notices in the Map template
+* Fix - Improved compatibiliy with ACF on the Edit Event page
 
 = [4.0.4] 2016-01-15 =
 
