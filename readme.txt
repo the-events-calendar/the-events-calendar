@@ -227,6 +227,7 @@ Our Premium Plugins:
 
 = [4.1] unreleased =
 
+* Tweak - Show an error message when the Google Maps API query limit has been reached
 * Fix - Fixed invalid class name when throwing Tribe notices in the Map template
 
 = [4.0.4] 2016-01-15 =

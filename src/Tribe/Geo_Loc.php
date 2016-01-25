@@ -68,9 +68,16 @@ class Tribe__Events__Pro__Geo_Loc {
 	/**
 	 * Singleton instance of this class
 	 *
-*@var Tribe__Events__Pro__Geo_Loc
+	 * @var Tribe__Events__Pro__Geo_Loc
 	 */
 	private static $instance;
+
+	/**
+	 * Whether or not the OVER_QUERY_LIMIT notification has been displayed
+	 *
+	 * @var boolean
+	 */
+	private $over_query_limit_displayed = false;
 
 	/**
 	 * Class constructor
@@ -93,6 +100,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		add_action( 'tribe_events_pre_get_posts', array( $this, 'setup_geoloc_in_query' ) );
 		add_filter( 'tribe_events_list_inside_before_loop', array( $this, 'add_event_distance' ) );
 
+		add_action( 'admin_notices', array( $this, 'maybe_notify_about_google_over_limit' ) );
 	}
 
 	/**
@@ -440,6 +448,18 @@ class Tribe__Events__Pro__Geo_Loc {
 
 		$data_arr = json_decode( $data['body'] );
 
+		if ( isset( $data_arr->status ) && 'OVER_QUERY_LIMIT' === $data_arr->status ) {
+			if ( $this->over_query_limit_displayed ) {
+				return false;
+			}
+
+			set_transient( 'tribe-google-over-limit', 1, time() + MINUTE_IN_SECONDS );
+
+			$this->over_query_limit_displayed = true;
+
+			return false;
+		}
+
 		if ( ! empty( $data_arr->results[0]->geometry->location->lat ) ) {
 			update_post_meta( $venueId, self::LAT, (string) $data_arr->results[0]->geometry->location->lat );
 		}
@@ -455,6 +475,29 @@ class Tribe__Events__Pro__Geo_Loc {
 
 		return true;
 
+	}
+
+	/**
+	 * Add notification message about the Google Maps API being over its query limit
+	 */
+	public function maybe_notify_about_google_over_limit() {
+		if ( ! get_transient( 'tribe-google-over-limit' ) ) {
+			return;
+		}
+
+		delete_transient( 'tribe-google-over-limit' );
+		?>
+		<div class="error">
+			<p>
+				<?php
+				esc_html_e(
+					'The latitude and longitude for your venue could not be fetched. The Google Maps API daily query limit has been reached!',
+					'tribe-events-calendar-pro'
+				);
+				?>
+			</p>
+		</div>
+		<?php
 	}
 
 	/**
