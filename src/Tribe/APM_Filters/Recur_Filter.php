@@ -14,8 +14,8 @@
 		public function __construct() {
 
 			$this->opts = array(
-				'is' => __( 'Yes', 'tribe-events-calendar-pro' ),
-				'not' => __( 'No', 'tribe-events-calendar-pro' ),
+				'is'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
+				'not' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
 			);
 
 			$type = $this->type;
