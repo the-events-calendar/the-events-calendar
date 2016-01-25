@@ -227,7 +227,7 @@ Our Premium Plugins:
 
 = [4.0.5] 2016-01-25 =
 
-* Security - Improved escaping within Advanced Post Manager integration (our thanks to Gaylene for highlighting this)
+* Security - Improved escaping within Advanced Post Manager integration (our thanks to Daniel Kudwien for highlighting this)
 
 = [4.0.4] 2016-01-15 =
 
