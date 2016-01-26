@@ -313,8 +313,12 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Tweak - Improve the wording on override message for public calendar slug
 <<<<<<< HEAD
+* Tweak - Allow Publicize to work with Events, Venues and Organizers
+=======
+<<<<<<< HEAD
 * Tweak - Improve HTML around date and time to allow simpler CSS rules
 =======
+>>>>>>> origin/release/122
 * Tweak - Improve the JSON-LD for the Places and Descriptions of events
 >>>>>>> release/122
 
