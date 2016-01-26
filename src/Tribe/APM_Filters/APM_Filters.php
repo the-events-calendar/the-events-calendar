@@ -1,7 +1,5 @@
 <?php
-
 class Tribe__Events__Pro__APM_Filters__APM_Filters {
-
 	/**
 	 * Class constructor, adds the actions and filters.
 	 *
