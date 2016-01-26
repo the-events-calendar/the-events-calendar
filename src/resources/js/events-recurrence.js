@@ -888,7 +888,9 @@ tribe_events_pro_admin.recurrence = {
 	my.event.submit_validation = function() {
 		if ( ! tribe_events_pro_admin.validate_recurrence() ) {
 			e.preventDefault();
+			e.stopPropagation();
 			tribe_events_pro_admin.reset_submit_button();
+			return false;
 		}
 	};
 
