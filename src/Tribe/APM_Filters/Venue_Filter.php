@@ -95,7 +95,7 @@
 			$venue = get_post( $venue_id );
 
 			if ( $venue_id && $venue ) {
-				return $venue->post_title;
+				return esc_html( $venue->post_title );
 			} else {
 				return '';
 			}

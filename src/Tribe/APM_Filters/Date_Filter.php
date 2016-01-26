@@ -10,10 +10,10 @@
 
 		public function __construct() {
 			$this->query_search_options = array(
-				'is' => __( 'Is', 'tribe-events-calendar-pro' ),
-				'not' => __( 'Is Not', 'tribe-events-calendar-pro' ),
-				'gte' => __( 'On and After', 'tribe-events-calendar-pro' ),
-				'lte' => __( 'On and Before', 'tribe-events-calendar-pro' ),
+				'is'  => esc_html__( 'Is', 'tribe-events-calendar-pro' ),
+				'not' => esc_html__( 'Is Not', 'tribe-events-calendar-pro' ),
+				'gte' => esc_html__( 'On and After', 'tribe-events-calendar-pro' ),
+				'lte' => esc_html__( 'On and Before', 'tribe-events-calendar-pro' ),
 			);
 			$type = $this->type;
 			add_filter( 'tribe_custom_row' . $type, array( $this, 'form_row' ), 10, 4 );

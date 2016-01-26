@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.4
-Stable tag: 4.0.4
+Stable tag: 4.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -228,6 +228,10 @@ Our Premium Plugins:
 = [4.1] unreleased =
 
 * Fix - Fixed invalid class name when throwing Tribe notices in the Map template
+
+= [4.0.5] 2016-01-25 =
+
+* Security - Improved escaping within Advanced Post Manager integration (our thanks to Daniel Kudwien for highlighting this)
 
 = [4.0.4] 2016-01-15 =
 
