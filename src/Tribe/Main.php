@@ -520,6 +520,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Check for a page that might conflict with events archive
 			add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice' ) );
+			add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_dismiss' ), 5 );
 
 			// add-on compatibility
 			if ( is_multisite() ) {
