@@ -312,7 +312,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.1] unreleased =
 
 * Tweak - Improve the wording on override message for public calendar slug
+<<<<<<< HEAD
+* Tweak - Improve HTML around date and time to allow simpler CSS rules
+=======
 * Tweak - Improve the JSON-LD for the Places and Descriptions of events
+>>>>>>> release/122
 
 = [4.0.5] 2016-01-15 =
 
