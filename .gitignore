@@ -22,3 +22,7 @@ tests/unit/_bootstrap.php
 tests/wpunit/_bootstrap.php
 
 vendor
+!vendor/handlebars
+!vendor/isotope
+!vendor/momentjs
+!vendor/nanoscroller
