@@ -624,6 +624,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				), $this->args
 			);
 
+			$args = apply_filters( 'tribe_events_month_daily_events_query_args', $args );
+
 			// we don't need this join since we already checked it
 			unset ( $args[ Tribe__Events__Main::TAXONOMY ] );
 
