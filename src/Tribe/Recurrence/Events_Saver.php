@@ -42,15 +42,15 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 	public function save_events() {
 		$existing_instances = Tribe__Events__Pro__Recurrence__Children_Events::instance()->get_ids( $this->event_id );
 
-		$recurrences = Tribe__Events__Pro__Recurrence_Meta::get_recurrence_for_event( $this->event_id );
+		$recurrences = Tribe__Events__Pro__Recurrence__Meta::get_recurrence_for_event( $this->event_id );
 
 		$to_create             = array();
 		$exclusions            = array();
 		$to_update             = array();
 		$to_delete             = array();
 		$possible_next_pending = array();
-		$earliest_date         = strtotime( Tribe__Events__Pro__Recurrence_Meta::$scheduler->get_earliest_date() );
-		$latest_date           = strtotime( Tribe__Events__Pro__Recurrence_Meta::$scheduler->get_latest_date() );
+		$earliest_date         = strtotime( Tribe__Events__Pro__Recurrence__Meta::$scheduler->get_earliest_date() );
+		$latest_date           = strtotime( Tribe__Events__Pro__Recurrence__Meta::$scheduler->get_latest_date() );
 
 		foreach ( $recurrences['rules'] as &$recurrence ) {
 			if ( ! $recurrence ) {

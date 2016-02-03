@@ -91,7 +91,7 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 	function tribe_get_recurrence_start_dates( $post_id = null ) {
 		$post_id = Tribe__Events__Main::postIdHelper( $post_id );
 
-		return Tribe__Events__Pro__Recurrence_Meta::get_start_dates( $post_id );
+		return Tribe__Events__Pro__Recurrence__Meta::get_start_dates( $post_id );
 	}
 
 	/**
@@ -108,7 +108,7 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		function tribe_get_recurrence_text( $postId = null ) {
 			$postId = Tribe__Events__Main::postIdHelper( $postId );
 
-			return apply_filters( 'tribe_get_recurrence_text', Tribe__Events__Pro__Recurrence_Meta::recurrenceToTextByPost( $postId ) );
+			return apply_filters( 'tribe_get_recurrence_text', Tribe__Events__Pro__Recurrence__Meta::recurrenceToTextByPost( $postId ) );
 		}
 	}
 

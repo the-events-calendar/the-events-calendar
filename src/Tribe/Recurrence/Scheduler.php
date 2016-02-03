@@ -2,14 +2,14 @@
 
 
 /**
- * Class Tribe__Events__Pro__Recurrence_Scheduler
+ * Class Tribe__Events__Pro__Recurrence__Scheduler
  *
  * For recurring events with too many instances, constrain them
  * to only create instances within a configured time around
  * the current date. Use cron to add/remove instances
  * on a rolling basis.
  */
-class Tribe__Events__Pro__Recurrence_Scheduler {
+class Tribe__Events__Pro__Recurrence__Scheduler {
 
 	const CRON_HOOK = 'tribe-recurrence-cron';
 	public static $default_before_range = 24;
@@ -107,7 +107,7 @@ class Tribe__Events__Pro__Recurrence_Scheduler {
 		global $wpdb;
 		$post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT m.post_id FROM {$wpdb->postmeta} m INNER JOIN {$wpdb->posts} p ON m.post_id=p.ID WHERE m.meta_key='_EventNextPendingRecurrence' AND m.meta_value < %s AND p.post_parent = 0", $this->latest_date ) );
 		foreach ( $post_ids as $post_id ) {
-			Tribe__Events__Pro__Recurrence_Meta::save_pending_events( $post_id );
+			Tribe__Events__Pro__Recurrence__Meta::save_pending_events( $post_id );
 		}
 	}
 

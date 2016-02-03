@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class Tribe__Events__Pro__Recurrence_Instance
+ * Class Tribe__Events__Pro__Recurrence__Instance
  */
-class Tribe__Events__Pro__Recurrence_Instance {
+class Tribe__Events__Pro__Recurrence__Instance {
 	private $parent_id = 0;
 	private $start_date = null;
 	private $duration = null;

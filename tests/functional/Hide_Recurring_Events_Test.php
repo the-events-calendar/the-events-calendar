@@ -1,7 +1,7 @@
 <?php
 
 
-class Tribe_Hide_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
+class Tribe_Hide_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 
 	protected $event_args;
 	protected $test_parent_id  = 0;

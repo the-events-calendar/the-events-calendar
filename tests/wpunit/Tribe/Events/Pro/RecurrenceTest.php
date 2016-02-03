@@ -11,7 +11,7 @@ use Tribe__Events__Pro__Date_Series_Rules__Year as Year;
  * @group pro
  * @group recurrence
  */
-class RecurrenceTest extends Tribe__Events__Pro__WP_UnitTestCase {
+class RecurrenceTest extends \Codeception\TestCase\WPTestCase {
 
 	/*
 	 * testEndsOnNotBeforeLastDate()
@@ -107,7 +107,7 @@ class RecurrenceTest extends Tribe__Events__Pro__WP_UnitTestCase {
 	public function test_will_yield_no_recurrences_if_series_rules_is_wp_error_instance() {
 		$recurrence = new Recurrence( strtotime( '2013-09-21' ),
 			Recurrence::NO_END,
-			new WP_Error( 'bad-type', 'Bad Type' ),
+			new \WP_Error( 'bad-type', 'Bad Type' ),
 			true,
 			null );
 

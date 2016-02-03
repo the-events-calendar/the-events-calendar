@@ -1,6 +1,6 @@
 <?php
 namespace Tribe\Events\Pro\Recurrence;
-class Old_Events_CleanerTest extends \WP_UnitTestCase {
+class Old_Events_CleanerTest extends \Codeception\TestCase\WPTestCase {
 
 	protected $backupGlobals = false;
 
@@ -24,7 +24,7 @@ class Old_Events_CleanerTest extends \WP_UnitTestCase {
 	 */
 	public function it_should_default_scheduler_if_not_injected() {
 		$sut = new \Tribe__Events__Pro__Recurrence__Old_Events_Cleaner();
-		$this->assertInstanceOf( 'Tribe__Events__Pro__Recurrence_Scheduler', $sut->get_scheduler() );
+		$this->assertInstanceOf( 'Tribe__Events__Pro__Recurrence__Scheduler', $sut->get_scheduler() );
 	}
 
 	/**
@@ -32,7 +32,7 @@ class Old_Events_CleanerTest extends \WP_UnitTestCase {
 	 * it should set teh before range on the scheduler
 	 */
 	public function it_should_set_the_before_range_on_the_scheduler() {
-		$scheduler = $this->getMock( 'Tribe__Events__Pro__Recurrence_Scheduler' );
+		$scheduler = $this->getMock( 'Tribe__Events__Pro__Recurrence__Scheduler' );
 		$scheduler->expects( $this->once() )->method( 'set_before_range' )->with( 12 );
 		$sut = new \Tribe__Events__Pro__Recurrence__Old_Events_Cleaner( $scheduler );
 
@@ -44,7 +44,7 @@ class Old_Events_CleanerTest extends \WP_UnitTestCase {
 	 * it should call the cleanup method on the scheduler if new value smaller than old value
 	 */
 	public function it_should_call_the_cleanup_method_on_the_scheduler_if_new_value_smaller_than_old_value() {
-		$scheduler = $this->getMock( 'Tribe__Events__Pro__Recurrence_Scheduler' );
+		$scheduler = $this->getMock( 'Tribe__Events__Pro__Recurrence__Scheduler' );
 		$scheduler->expects( $this->once() )->method( 'clean_up_old_recurring_events' );
 		$sut = new \Tribe__Events__Pro__Recurrence__Old_Events_Cleaner( $scheduler );
 
@@ -57,7 +57,7 @@ class Old_Events_CleanerTest extends \WP_UnitTestCase {
 	 * it should not call cleanup method on the scheduler if new value bigger than old value
 	 */
 	public function it_should_not_call_cleanup_method_on_the_scheduler_if_new_value_bigger_than_old_value() {
-		$scheduler = $this->getMock( 'Tribe__Events__Pro__Recurrence_Scheduler' );
+		$scheduler = $this->getMock( 'Tribe__Events__Pro__Recurrence__Scheduler' );
 		$scheduler->expects( $this->never() )->method( 'clean_up_old_recurring_events' );
 		$sut = new \Tribe__Events__Pro__Recurrence__Old_Events_Cleaner( $scheduler );
 

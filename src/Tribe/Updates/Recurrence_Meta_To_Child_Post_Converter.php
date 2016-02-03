@@ -35,7 +35,7 @@ class Tribe__Events__Pro__Updates__Recurrence_Meta_To_Child_Post_Converter {
 		foreach ( $start_dates as $date ) {
 			if ( ! empty( $date ) ) {
 				set_time_limit( 30 );
-				$instance = new Tribe__Events__Pro__Recurrence_Instance( $event_id, $date );
+				$instance = new Tribe__Events__Pro__Recurrence__Instance( $event_id, $date );
 				$instance->save();
 				delete_post_meta( $event_id, '_EventStartDate', date( 'Y-m-d H:i:s', $date ) );
 			}

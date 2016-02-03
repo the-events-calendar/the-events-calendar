@@ -1,12 +1,15 @@
 <?php
+namespace Tribe\Events\Pro\Recurrence;
+use Tribe__Events__API;
+use Tribe__Events__Pro__Recurrence__Instance;
 
 /**
- * Class TribeEventsPro_RecurrenceInstance_Test
+ * Class InstanceTest
  *
  * @group pro
  * @group recurrence
  */
-class TribeEventsPro_RecurrenceInstance_Test extends Tribe__Events__Pro__WP_UnitTestCase {
+class InstanceTest extends \Codeception\TestCase\WPTestCase {
 	public function test_duration() {
 		$start_date = date('Y-m-d', strtotime('2014-01-01'));
 		$parent_id = Tribe__Events__API::createEvent(array(
@@ -20,7 +23,7 @@ class TribeEventsPro_RecurrenceInstance_Test extends Tribe__Events__Pro__WP_Unit
 			'EventEndMinute' => 0,
 		));
 		//makes a new instance of events
-		$instance = new Tribe__Events__Pro__Recurrence_Instance( $parent_id, strtotime('2014-03-01'));
+		$instance = new Tribe__Events__Pro__Recurrence__Instance( $parent_id, strtotime('2014-03-01'));
 		//duration in seconds
 		$this->assertEquals(3600, $instance->get_parent_duration());
 	}
@@ -37,7 +40,7 @@ class TribeEventsPro_RecurrenceInstance_Test extends Tribe__Events__Pro__WP_Unit
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 		));
-		$instance = new Tribe__Events__Pro__Recurrence_Instance( $parent_id, strtotime('2014-03-01 16:00:00'));
+		$instance = new Tribe__Events__Pro__Recurrence__Instance( $parent_id, strtotime('2014-03-01 16:00:00'));
 		$this->assertEquals( strtotime('2014-03-01 16:00:00')+3600, $instance->get_end_date()->format('U') );
 	}
 
@@ -53,7 +56,7 @@ class TribeEventsPro_RecurrenceInstance_Test extends Tribe__Events__Pro__WP_Unit
 			'EventStartMinute' => 0,
 			'EventEndMinute' => 0,
 		));
-		$instance = new Tribe__Events__Pro__Recurrence_Instance( $parent_id, strtotime('2014-03-01 16:00:00'));
+		$instance = new Tribe__Events__Pro__Recurrence__Instance( $parent_id, strtotime('2014-03-01 16:00:00'));
 		$instance->save();
 		$post = get_post($instance->get_id());
 		$this->assertEquals('2014-03-01 16:00:00', get_post_meta($post->ID, '_EventStartDate', true));
@@ -85,7 +88,7 @@ class TribeEventsPro_RecurrenceInstance_Test extends Tribe__Events__Pro__WP_Unit
 			'Organizer' => array( 'OrganizerID' => $organizer_id ),
 			'Venue' => array( 'VenueID' => $venue_id ),
 		));
-		$instance = new Tribe__Events__Pro__Recurrence_Instance( $parent_id, strtotime('2014-03-01 16:00:00'));
+		$instance = new Tribe__Events__Pro__Recurrence__Instance( $parent_id, strtotime('2014-03-01 16:00:00'));
 		$instance->save();
 		$this->assertEquals($organizer_id, get_post_meta($instance->get_id(), '_EventOrganizerID', TRUE));
 		$this->assertEquals($venue_id, get_post_meta($instance->get_id(), '_EventVenueID', TRUE));
@@ -108,7 +111,7 @@ class TribeEventsPro_RecurrenceInstance_Test extends Tribe__Events__Pro__WP_Unit
 		//testing the tags on the parents
 		$this->assertEqualSets( array( $tag ), wp_get_object_terms( $parent_id, 'post_tag', array( 'fields' => 'ids' ) ) );
 
-		$instance = new Tribe__Events__Pro__Recurrence_Instance( $parent_id, strtotime('2014-03-01 16:00:00'));
+		$instance = new Tribe__Events__Pro__Recurrence__Instance( $parent_id, strtotime('2014-03-01 16:00:00'));
 		$instance->save();
 		//testing the tags on the instance
 		$this->assertEqualSets( array( $tag ), wp_get_object_terms( $instance->get_id(), 'post_tag', array( 'fields' => 'ids' ) ) );

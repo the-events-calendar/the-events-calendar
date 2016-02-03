@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class Tribe__Events__Pro__Recurrence_Permalinks
+ * Class Tribe__Events__Pro__Recurrence__Permalinks
  */
-class Tribe__Events__Pro__Recurrence_Permalinks {
+class Tribe__Events__Pro__Recurrence__Permalinks {
 
 	public function filter_recurring_event_permalinks( $post_link, $post, $leavename, $sample ) {
 		if ( ! $this->should_filter_permalink( $post, $sample ) ) {

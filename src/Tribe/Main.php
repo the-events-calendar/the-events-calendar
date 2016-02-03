@@ -16,7 +16,7 @@
 			public $singular_event_label;
 			public $plural_event_label;
 
-			/** @var Tribe__Events__Pro__Recurrence_Permalinks */
+			/** @var Tribe__Events__Pro__Recurrence__Permalinks */
 			public $permalink_editor = null;
 
 			/**
@@ -168,7 +168,7 @@
 				add_filter( 'wp', array( $this, 'detect_recurrence_redirect' ) );
 				add_filter( 'template_redirect', array( $this, 'filter_canonical_link_on_recurring_events' ), 10, 1 );
 
-				$this->permalink_editor = apply_filters( 'tribe_events_permalink_editor', new Tribe__Events__Pro__Recurrence_Permalinks() );
+				$this->permalink_editor = apply_filters( 'tribe_events_permalink_editor', new Tribe__Events__Pro__Recurrence__Permalinks() );
 				add_filter( 'post_type_link', array(
 					$this->permalink_editor,
 					'filter_recurring_event_permalinks',
@@ -402,7 +402,7 @@
 				Tribe__Events__Pro__Mini_Calendar::instance();
 				Tribe__Events__Pro__This_Week::instance();
 				Tribe__Events__Pro__Custom_Meta::init();
-				Tribe__Events__Pro__Recurrence_Meta::init();
+				Tribe__Events__Pro__Recurrence__Meta::init();
 				Tribe__Events__Pro__Geo_Loc::instance();
 				Tribe__Events__Pro__Community_Modifications::init();
 				$this->displayMetaboxCustomFields();
@@ -1105,7 +1105,7 @@
 				$data = apply_filters( 'tribe_events_pro_localize_script', array(), 'TribeEventsProAdmin', Tribe__Events__Main::POSTTYPE.'-premium-admin' );
 				wp_localize_script( Tribe__Events__Main::POSTTYPE . '-premium-admin', 'TribeEventsProAdmin', $data );
 				wp_localize_script( Tribe__Events__Main::POSTTYPE . '-premium-admin', 'tribe_events_pro_recurrence_strings', array(
-					'date' => Tribe__Events__Pro__Recurrence_Meta::date_strings(),
+					'date' => Tribe__Events__Pro__Recurrence__Meta::date_strings(),
 					'recurrence' => Tribe__Events__Pro__Recurrence__Strings::recurrence_strings(),
 					'exclusion' => array(),
 				) );

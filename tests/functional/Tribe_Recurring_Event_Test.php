@@ -4,7 +4,7 @@
  * Class Tribe_Recurring_Event_Test
  * @group recurrence
  */
-class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
+class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * test_is_recurring
 	 * A test that creates a Recurring event and checks to see if it is recurring
