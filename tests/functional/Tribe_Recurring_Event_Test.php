@@ -60,7 +60,7 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 				),// end rules array
 			)
 		));
-		//Checks that the event is recurring 
+		//Checks that the event is recurring
 		$this->assertTrue( tribe_is_recurring_event( $post_id ) );
 
 	}//ends test_is_recurring
@@ -544,7 +544,7 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * test_permalink_creation
-	 * 
+	 *
 	 */
 	public function test_permalink_creation() {
 		if ( get_option( 'permalink_structure', '') == '' ) {
@@ -761,7 +761,7 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * test_remove_recurrence
-	 * 
+	 *
 	 */
 	public function test_remove_recurrence() {
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
@@ -815,6 +815,47 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 		//Checks that there is 1 new date
 		$this->assertCount(1, $new_dates, 'Checks that there is 1 new dates' );
 	}//ends test_remove_recurrence
-	
+
+	/**
+	 * test the creation of date-based recurring events
+	 */
+	public function test_date_based_recurrence() {
+		$start_date = date( 'Y-m-d', strtotime( 'tomorrow' ) );
+		$recurrence_date = date( 'Y-m-d', strtotime( '+5 days' ) );
+		$event_args = array(
+			'post_type' => Tribe__Events__Main::POSTTYPE,
+			'post_title' => __FUNCTION__,
+			'post_content' => __CLASS__ . ' ' . __FUNCTION__,
+			'post_status' => 'publish',
+			'EventStartDate' => $start_date,
+			'EventEndDate' => $start_date,
+			'EventStartHour' => 16,
+			'EventEndHour' => 17,
+			'EventStartMinute' => 0,
+			'EventEndMinute' => 0,
+			'recurrence' => array(
+				'rules' => array(
+					0 => array(
+						'type' => 'Date',
+						'end-type' => 'On',
+						'end' => $recurrence_date,
+						'end-count' => null,
+					),
+				),// end rules array
+			)
+		);
+		$post_id = Tribe__Events__API::createEvent($event_args);
+
+		// Create a new queue processor to generate the children for this new event
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
+
+		$original_dates = tribe_get_recurrence_start_dates($post_id);
+		//Checks that the original dates is not empty
+		$this->assertNotEmpty($original_dates, 'Checks the original dates and confirms that they are not empty' );
+
+		//Checks that the original events is 5
+		$this->assertCount(2, $original_dates, 'Checks original dates and confirms that there are 2' );
+	}
+
 }
- 

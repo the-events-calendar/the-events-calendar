@@ -10,6 +10,7 @@ class Tribe__Events__Pro__Recurrence__Strings {
 	 */
 	public static function recurrence_strings() {
 		$strings = array(
+			'simple-date-on'                           => __( 'Once on %1$s', 'tribe-events-calendar-pro' ),
 			'simple-every-day-on'                      => __( 'Daily until %1$s', 'tribe-events-calendar-pro' ),
 			'simple-every-week-on'                     => __( 'Weekly on the same day until %1$s', 'tribe-events-calendar-pro' ),
 			'simple-every-month-on'                    => __( 'Monthly on the same day until %1$s', 'tribe-events-calendar-pro' ),

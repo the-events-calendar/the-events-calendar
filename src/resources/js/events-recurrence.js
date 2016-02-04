@@ -617,6 +617,9 @@ tribe_events_pro_admin.recurrence = {
 		}
 
 		switch ( key ) {
+			case 'simple-date-on':
+				text = text.replace( '%1$s', end );
+				break;
 			case 'simple-every-day-on':
 			case 'simple-every-week-on':
 			case 'simple-every-month-on':
