@@ -856,6 +856,8 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 
 		//Checks that the original events is 5
 		$this->assertCount(2, $original_dates, 'Checks original dates and confirms that there are 2' );
+
+		$this->assertEquals( $recurrence_date, date( 'Y-m-d', strtotime( $original_dates[1] ) ), 'Verifies that the second date is indeed 5 days after the first date' );
 	}
 
 }
