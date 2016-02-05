@@ -80,12 +80,15 @@ class Tribe__Events__Ajax__Select2 {
 			'order' => 'ASC',
 			'paged' => $page,
 
-			's' => $_GET['q'],
-
 			// Speed up stuff
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false,
 		);
+
+		if ( ! empty( $_GET['s'] ) ) {
+			// No scaping required since it's a WP_Query Argument
+			$query_args['s'] = $_GET['q'];
+		}
 
 		// Actually do the Search
 		$search = new WP_Query( $query_args );
@@ -158,12 +161,15 @@ class Tribe__Events__Ajax__Select2 {
 			'order' => 'ASC',
 			'paged' => $page,
 
-			's' => $_GET['q'],
-
 			// Speed up stuff
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false,
 		);
+
+		if ( ! empty( $_GET['s'] ) ) {
+			// No scaping required since it's a WP_Query Argument
+			$query_args['s'] = $_GET['q'];
+		}
 
 		// Actually do the Search
 		$search = new WP_Query( $query_args );
