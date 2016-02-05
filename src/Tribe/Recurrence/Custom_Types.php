@@ -45,7 +45,7 @@ class Tribe__Events__Pro__Recurrence__Custom_Types {
 			'day',
 			'week',
 			'month',
-			'year'
+			'year',
 		);
 	}
 
@@ -66,6 +66,7 @@ class Tribe__Events__Pro__Recurrence__Custom_Types {
 
 	public static function get_legit_recurrence_types() {
 		return array(
+			self::DATE_CUSTOM_TYPE,
 			self::EVERY_DAY_TYPE,
 			self::EVERY_WEEK_TYPE,
 			self::EVERY_MONTH_TYPE,

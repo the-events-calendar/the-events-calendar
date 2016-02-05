@@ -34,6 +34,8 @@ class Tribe__Events__Pro__Recurrence__Series_Rules_Factory {
 			$recurrence['type'] = Tribe__Events__Pro__Recurrence__Custom_Types::CUSTOM_TYPE;
 		}
 
+		$recurrence['rule_type'] = $rule_type;
+
 		$rule = null;
 
 		if ( Tribe__Events__Pro__Recurrence__Custom_Types::CUSTOM_TYPE === $recurrence['type'] && ! isset( $recurrence['custom']['interval'] ) ) {
@@ -98,8 +100,14 @@ class Tribe__Events__Pro__Recurrence__Series_Rules_Factory {
 	private function build_rule_for_type( $type = Tribe__Events__Pro__Recurrence__Custom_Types::DATE_CUSTOM_TYPE, array $recurrence ) {
 		switch ( $type ) {
 			case Tribe__Events__Pro__Recurrence__Custom_Types::DATE_CUSTOM_TYPE:
+				if ( 'rules' === $recurrence['rule_type'] ) {
+					$date = $recurrence['end'];
+				} else {
+					$date = $recurrence['custom']['date']['date'];
+				}
+
 				$rule = new Tribe__Events__Pro__Date_Series_Rules__Date(
-					strtotime( $recurrence['custom']['date']['date'] )
+					strtotime( $date )
 				);
 				break;
 			case Tribe__Events__Pro__Recurrence__Custom_Types::EVERY_DAY_TYPE:

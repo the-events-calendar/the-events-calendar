@@ -14,6 +14,7 @@ $start_meridian_options = Tribe__View_Helpers::getMeridianOptions( null, true );
 				<select name="recurrence[rules][][type]" data-field="type" data-single="<?php esc_attr_e( 'event', 'tribe-events-calendar-pro' ) ?>" data-plural="<?php esc_attr_e( 'events', 'tribe-events-calendar-pro' ) ?>">
 					{{#tribe_recurrence_select type}}
 						<option value="None"><?php esc_html_e( 'Once', 'tribe-events-calendar-pro' ); ?></option>
+						<option value="Date"><?php esc_html_e( 'Date', 'tribe-events-calendar-pro' ); ?></option>
 						<option value="Every Day"><?php esc_html_e( 'Every Day', 'tribe-events-calendar-pro' ); ?></option>
 						<option value="Every Week"><?php esc_html_e( 'Every Week', 'tribe-events-calendar-pro' ); ?></option>
 						<option value="Every Month"><?php esc_html_e( 'Every Month', 'tribe-events-calendar-pro' ); ?></option>
@@ -22,14 +23,19 @@ $start_meridian_options = Tribe__View_Helpers::getMeridianOptions( null, true );
 					{{/tribe_recurrence_select}}
 				</select>
 				<span class="recurrence-end">
-					<?php esc_html_e( 'and will end', 'tribe-events-calendar-pro' ); ?>
-					<select name="recurrence[rules][][end-type]" data-field="end-type">
-						{{#tribe_recurrence_select this.[end-type]}}
-							<option value="On"><?php esc_html_e( 'On', 'tribe-events-calendar-pro' ); ?></option>
-							<option value="After"><?php esc_html_e( 'After', 'tribe-events-calendar-pro' ); ?></option>
-							<option value="Never"><?php esc_html_e( 'Never', 'tribe-events-calendar-pro' ); ?></option>
-						{{/tribe_recurrence_select}}
-					</select>
+					<span class="recurrence-end-range">
+						<?php esc_html_e( 'and will end', 'tribe-events-calendar-pro' ); ?>
+						<select name="recurrence[rules][][end-type]" data-field="end-type">
+							{{#tribe_recurrence_select this.[end-type]}}
+								<option value="On"><?php esc_html_e( 'On', 'tribe-events-calendar-pro' ); ?></option>
+								<option value="After"><?php esc_html_e( 'After', 'tribe-events-calendar-pro' ); ?></option>
+								<option value="Never"><?php esc_html_e( 'Never', 'tribe-events-calendar-pro' ); ?></option>
+							{{/tribe_recurrence_select}}
+						</select>
+					</span>
+					<span class="recurrence-end-single-date">
+						<?php esc_html_e( 'that will occur on', 'tribe-events-calendar-pro' ); ?>
+					</span>
 					<input autocomplete="off" placeholder="<?php echo esc_attr( Tribe__Date_Utils::date_only( date( Tribe__Date_Utils::DBDATEFORMAT ) ) ); ?>" type="text" class="tribe-datepicker recurrence_end tribe-no-end-date-update" name="recurrence[rules][][end]" data-field="end" value="{{end}}"/>
 					<span class="rec-count">
 						<input autocomplete="off" type="text" name="recurrence[rules][][end-count]" data-field="end-count" class="recurrence_end_count" value="{{this.[end-count]}}" />
