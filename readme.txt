@@ -316,6 +316,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Improve HTML around date and time to allow simpler CSS rules
 * Tweak - Improve the JSON-LD for the Places and Descriptions of events
 * Tweak - Venues and Organizer merge duplicates now appears for everyone
+* Tweak - Venue and Organizer dropdowns are using AJAX to speed up page load
 
 = [4.0.5] 2016-01-15 =
 
