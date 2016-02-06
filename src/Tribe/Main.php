@@ -581,6 +581,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Setup AJAX Select2 Actions
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Ajax__Select2', 'hook' ) );
+
+			// Setup Shortcodes
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Shortcode__Event_Details', 'hook' ) );
 		}
 
 		/**
