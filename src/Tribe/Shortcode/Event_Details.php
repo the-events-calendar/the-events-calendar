@@ -18,9 +18,7 @@ class Tribe__Events__Shortcode__Event_Details {
 	 * @since  4.1
 	 * @return  void
 	 */
-	private function __construct() {
-
-	}
+	private function __construct() {}
 
 	/**
 	 * Static Singleton Factory Method
@@ -77,8 +75,8 @@ class Tribe__Events__Shortcode__Event_Details {
 		 * Use this hook to filter the tribe namespace on shortcodes
 		 *
 		 * @since 4.1
-		 * @var string
 		 *
+		 * @param string Namespace
 		 * @param string Static Class Name
 		 * @param object Instance of this class
 		 */
@@ -93,8 +91,8 @@ class Tribe__Events__Shortcode__Event_Details {
 		 * Use this hook to filter the final tag of the Shortcode
 		 *
 		 * @since 4.1
-		 * @var string
 		 *
+		 * @param string The complete Tag
 		 * @param string Static Class Name
 		 * @param object Instance of this class
 		 */
@@ -114,8 +112,8 @@ class Tribe__Events__Shortcode__Event_Details {
 		 * Use this hook to filter the slug of shortcodes
 		 *
 		 * @since 4.1
-		 * @var string
 		 *
+		 * @param string The Slug
 		 * @param string Static Class Name
 		 * @param object Instance of this class
 		 */
@@ -142,10 +140,10 @@ class Tribe__Events__Shortcode__Event_Details {
 	 * @since  4.1
 	 *
 	 * @param  array $args    The Shortcode arguments
-	 * @param  string $content
+	 *
 	 * @return string
 	 */
-	public function do_shortcode( $args, $content = '' ) {
+	public function do_shortcode( $args ) {
 		$tag = $this->get_shortcode_tag();
 		$slug = $this->get_shortcode_slug();
 
@@ -165,6 +163,9 @@ class Tribe__Events__Shortcode__Event_Details {
 
 				// Set the new Event for now
 				$post = $event;
+
+				// Use WP to config the Post Data
+				setup_postdata( $post );
 			}
 		}
 
@@ -185,8 +186,8 @@ class Tribe__Events__Shortcode__Event_Details {
 		 * Use this hook to filter the classes for this shortcode container
 		 *
 		 * @since 4.1
-		 * @var array
 		 *
+		 * @param array  Array of classes used on the Container
 		 * @param object Arguments set on the shortcode
 		 * @param string Shortcode tag
 		 */
@@ -207,6 +208,9 @@ class Tribe__Events__Shortcode__Event_Details {
 
 		if ( isset( $original_event ) ) {
 			$post = $original_event;
+
+			// Use WP method to restore it back to original
+			setup_postdata( $post );
 		}
 
 		return $html;
