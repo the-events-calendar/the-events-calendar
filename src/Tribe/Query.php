@@ -286,7 +286,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				if ( ! in_array( $query->get( Tribe__Events__Main::TAXONOMY ), array( '', '-1' ) ) ) {
 					$tax_query[] = array(
 						'taxonomy'         => Tribe__Events__Main::TAXONOMY,
-						'field'            => is_numeric( $query->get( Tribe__Events__Main::TAXONOMY ) ) ? 'id' : 'slug',
+						'field'            => 'slug',
 						'terms'            => $query->get( Tribe__Events__Main::TAXONOMY ),
 						'include_children' => apply_filters( 'tribe_events_query_include_children', true ),
 					);
