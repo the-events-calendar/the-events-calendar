@@ -284,7 +284,8 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 				add_action( 'the_post', array( __CLASS__, 'spoof_the_post' ) );
 
 				// on the_content, load our events template
-				add_filter( 'the_content', array( __CLASS__, 'load_ecp_into_page_template' ) );
+				// We're hooking to priority 9 for better compatibility with other non-tribe plugins that hook to the_content
+				add_filter( 'the_content', array( __CLASS__, 'load_ecp_into_page_template' ), 9 );
 
 				// remove the comments template
 				add_filter( 'comments_template', array( __CLASS__, 'load_ecp_comments_page_template' ) );
@@ -451,7 +452,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 */
 		public static function load_ecp_into_page_template() {
 			// only run once!!!
-			remove_filter( 'the_content', array( __CLASS__, 'load_ecp_into_page_template' ) );
+			remove_filter( 'the_content', array( __CLASS__, 'load_ecp_into_page_template' ), 9 );
 
 			self::restoreQuery();
 
