@@ -225,6 +225,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.0.6] unreleased =
+
+* Fix - Resolved issue where the list widget was displaying dates in the wrong timezone when sitewide timezones were enabled
+
 = [4.0.5] 2016-01-25 =
 
 * Security - Improved escaping within Advanced Post Manager integration (our thanks to Daniel Kudwien for highlighting this)
