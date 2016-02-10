@@ -25,6 +25,26 @@ class Tribe__Events__Pro__Recurrence__Event_Query {
 		if ( ! empty( $this->slug ) ) {
 			$this->setup();
 		}
+
+	}
+
+	/**
+	 * Abuse the WP action to do one last check on the 'all' page to avoid showing a page without anything on it.
+	 * @return void
+	 */
+	public function verify_all_page() {
+		global $wp_query;
+
+		/**
+		 * If we got this far and there are not posts we need to fetch at least the parent to
+		 * prevent bugs with the page throwing a 404
+		 */
+		if ( empty( $wp_query->posts ) && isset( $wp_query->query_vars['post_parent'] ) ) {
+			$wp_query->posts = array(
+				get_post( $wp_query->query_vars['post_parent'] ),
+			);
+		}
+
 	}
 
 	/**
@@ -44,9 +64,15 @@ class Tribe__Events__Pro__Recurrence__Event_Query {
 			$this->query->set( 'post_parent', $this->parent_event->ID );
 			$this->query->set( 'post_status', 'publish' );
 			$this->query->set( 'posts_per_page', tribe_get_option( 'postsPerPage', 10 ) );
-			$this->query->set( 'start_date', false );
+
+			// Configure what this page actually is
 			$this->query->is_singular = false;
+
+			$this->query->is_archive = true;
+			$this->query->is_post_type_archive = true;
+
 			add_filter( 'posts_where', array( $this, 'include_parent_event' ) );
+			add_action( 'wp', array( $this, 'verify_all_page' ) );
 		}
 	}
 
