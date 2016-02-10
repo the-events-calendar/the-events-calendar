@@ -111,7 +111,7 @@ class Tribe__Events__Pro__Recurrence__Meta_Builder {
 	private function get_zero_array() {
 		return array(
 			'rules'       => array(), 'exclusions' => array(),
-			'description' => empty( $this->data['description'] ) ? null : sanitize_text_field( $this->data['description'] ),
+			'description' => empty( $this->data['recurrence']['description'] ) ? null : sanitize_text_field( $this->data['recurrence']['description'] ),
 		);
 	}
 }

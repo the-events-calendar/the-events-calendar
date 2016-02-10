@@ -88,6 +88,9 @@ tribe_events_pro_admin.recurrence = {
 		$( '.recurrence_end, #EventStartDate, #EventEndDate' ).datepicker( 'option', 'onClose', this.event.datepicker_updated );
 
 		this.set_recurrence_end_min_date();
+
+		// Trigger the required events after everything is done
+		$( '.eventForm' ).find( '[data-field="type"]' ).trigger( 'change' );
 	};
 
 	/**
