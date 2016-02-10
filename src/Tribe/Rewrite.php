@@ -266,7 +266,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			// By default we load the Default and our plugin domains
 			$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
 				'default' => true, // Default doesn't need file path
-				'the-events-calendar' => Tribe__Events__Main::instance()->pluginDir . 'lang/',
+				'the-events-calendar' => $tec->pluginDir . 'lang/',
 			) );
 
 			// If WPML exists we treat the multiple languages
@@ -287,14 +287,19 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				$current_locale = $sitepress->get_locale( $sitepress->get_current_language() );
 
 				// Get the strings on multiple Domains and Languages
-				$bases = Tribe__Events__Main::instance()->get_i18n_strings( $bases, $languages, $domains, $current_locale );
+				$bases = $tec->get_i18n_strings( $bases, $languages, $domains, $current_locale );
 			}
 
 			if ( 'regex' === $method ){
 				foreach ( $bases as $type => $base ) {
+					// Escape all the Bases
+					$base = array_map( 'preg_quote', $base );
+
+					// Create the Regular Expression
 					$bases[ $type ] = '(?:' . implode( '|', $base ) . ')';
 				}
 			}
+
 
 			/**
 			 * Use `tribe_events_rewrite_i18n_slugs` to modify the final version of the l10n slugs bases
@@ -487,7 +492,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 
 			foreach ( $rules as $key => $value ) {
 				$key = str_replace( self::PERCENT_PLACEHOLDER, '%', $key );
-				$new_rules[$key] = $value;
+				$new_rules[ $key ] = $value;
 			}
 
 			return $new_rules;
