@@ -309,6 +309,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.0.6] unreleased =
+
+* Tweak - Adjust injection of event data into the_content from priority 10 to 9 for better 3rd-party plugin compatibility
+
 = [4.0.5] 2016-01-15 =
 
 * Security - Security fix with Venues and Organizers (props to grantdayjames for reporting this!)
