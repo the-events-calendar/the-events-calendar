@@ -250,7 +250,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				'today' => array( 'today', $tec->todaySlug ),
 				'day' => array( 'day', $tec->daySlug ),
 				'tag' => array( 'tag', $tec->tag_slug ),
-				'tax' => array( 'category-testing', $tec->category_slug ),
+				'tax' => array( 'category', $tec->category_slug ),
 				'page' => (array) 'page',
 				'all' => (array) 'all',
 				'single' => (array) Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ),
@@ -293,7 +293,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			if ( 'regex' === $method ){
 				foreach ( $bases as $type => $base ) {
 					// Escape all the Bases
-					$base = array_map( array( $this, '_esc_regex_elements' ), $base );
+					$base = array_map( 'preg_quote', $base );
 
 					// Create the Regular Expression
 					$bases[ $type ] = '(?:' . implode( '|', $base ) . ')';
@@ -496,33 +496,6 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			}
 
 			return $new_rules;
-		}
-
-		/**
-		 * A function to Add an \ before the required caracters in Regex
-		 * Avoid using it elsewhere
-		 *
-		 * @param  string $value
-		 * @return string
-		 */
-		public function _build_replace_esc_regex( $value ) {
-			return '\\' . $value;
-		}
-
-		/**
-		 * Escapes the Required characters on a Regular Expression Word
-		 * Avoid using it elsewhere
-		 *
-		 * @param  string $base
-		 * @return string
-		 */
-		public function _esc_regex_elements( $base ) {
-			// Create the Escaping Arguments
-			$search = array( '\\', '.', '-', '^', '$', '*', '+', '?', '(', ')', '[', ']', '{', '}', '|' );
-			$replace = array_map( array( $this, '_build_replace_esc_regex' ), $search );
-
-			// Do the Actual Replacing
-			return str_replace( $search, $replace, $base );
 		}
 	} // end Tribe__Events__Rewrite class
 
