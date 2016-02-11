@@ -338,4 +338,78 @@ class Tribe__Events__Cost_Utils {
 
 		return (array) $ocost;
 	}
+
+	/**
+	 * @param       string       $original_string_cost A string cost with or without currency symbol,
+	 *                                                 e.g. `10 - 20`, `Free` or `2$ - 4$`.
+	 * @param       array|string $merging_cost         A single string cost representation to merge or a an array of
+	 *                                                 string cost representations to merge, e.g. ['Free', 10, 20,
+	 *                                                 'Donation'] or `Donation`.
+	 * @param       bool         $with_currency_symbol Whether the output should prepend the currency symbol to the
+	 *                                                 numeric costs or not.
+	 * @param array              $sorted_mins          An array of non numeric price minimums sorted smaller to larger,
+	 *                                                 e.g. `['Really free', 'Somewhat free', 'Free with 3 friends']`.
+	 * @param array              $sorted_maxs          An array of non numeric price maximums sorted smaller to larger,
+	 *                                                 e.g. `['Donation min $10', 'Donation min $20', 'Donation min
+	 *                                                 $100']`.
+	 *
+	 * @return string|array The merged cost range.
+	 */
+	public function merge_cost_ranges( $original_string_cost, $merging_cost, $with_currency_symbol, $sorted_mins = array(), $sorted_maxs = array() ) {
+		if ( empty( $merging_cost ) || $original_string_cost === $merging_cost ) {
+			return $original_string_cost;
+
+		}
+
+		$merging_cost               = (array) $merging_cost;
+		$numeric_merging_cost_costs = array();
+		foreach ( $merging_cost as $c ) {
+			if ( is_numeric( $c ) ) {
+				$numeric_merging_cost_costs[] = $c;
+			}
+		}
+
+		$matches = array();
+		preg_match_all( '!\d+(?:\.\d+)?!', $original_string_cost, $matches );
+		$numeric_orignal_costs = array_map( 'floatval', $matches[0] );
+
+		$all_numeric_costs = array_filter( array_merge( $numeric_merging_cost_costs, $numeric_orignal_costs ) );
+		$cost_min          = $cost_max = false;
+
+		$merging_mins     = array_intersect( $sorted_mins, $merging_cost );
+		$merging_has_min  = array_search( reset( $merging_mins ), $sorted_mins );
+		$original_has_min = array_search( $original_string_cost, $sorted_mins );
+		$merging_has_min  = false === $merging_has_min ? 999 : $merging_has_min;
+		$original_has_min = false === $original_has_min ? 999 : $original_has_min;
+		$string_min_key   = min( $merging_has_min, $original_has_min );
+		if ( array_key_exists( $string_min_key, $sorted_mins ) ) {
+			$cost_min = $sorted_mins[ $string_min_key ];
+		} else {
+			$cost_min = empty( $all_numeric_costs ) ? '' : min( $all_numeric_costs );
+		}
+
+		$merging_maxs     = array_intersect( $sorted_maxs, $merging_cost );
+		$merging_has_max  = array_search( end( $merging_maxs ), $sorted_maxs );
+		$original_has_max = array_search( $original_string_cost, $sorted_maxs );
+		$merging_has_max  = false === $merging_has_max ? - 1 : $merging_has_max;
+		$original_has_max = false === $original_has_max ? - 1 : $original_has_max;
+		$string_max_key   = max( $merging_has_max, $original_has_max );
+		if ( array_key_exists( $string_max_key, $sorted_maxs ) ) {
+			$cost_max = $sorted_maxs[ $string_max_key ];
+		} else {
+			$cost_max = empty( $all_numeric_costs ) ? '' : max( $all_numeric_costs );
+		}
+
+		$cost = array_filter( array( $cost_min, $cost_max ) );
+
+		if ( $with_currency_symbol ) {
+			$formatted_cost = array();
+			foreach ( $cost as $c ) {
+				$formatted_cost[] = is_numeric( $c ) ? tribe_format_currency( $c ) : $c;
+			}
+			$cost = $formatted_cost;
+		}
+
+		return empty( $cost ) ? $original_string_cost : $cost;
+	}
 }
