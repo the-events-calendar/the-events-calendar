@@ -73,7 +73,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	 * Update Event
 	 */
 	public function edit_event( $updateEvent ) {
-		$originalTitle		= $updateEvent['originalTitle'];
+		$originalTitle			= $updateEvent['originalTitle'];
 		$newTitle			= $updateEvent['newTitle'];
 		$content			= $updateEvent['content'];
 		$allDay 			= $updateEvent['allDay'];
