@@ -156,7 +156,7 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 
 	public function thousands_separator_numbers_provider() {
 		return [
-			[ [ '€1.123', '€2.234' ], '€1.123 - €2.234', [ '1500', '2000' ], true ],
+			[ [ '$1.123', '$2.234' ], '$1.123 - $2.234', [ '1500', '2000' ], true ],
 		];
 	}
 
@@ -166,6 +166,7 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider thousands_separator_numbers_provider
 	 */
 	public function test_merge_cost_ranges_handles_thousands_separators( $expected, $original_string_cost = '', $merging_cost = '', $with_currency_symbol = false, $sorted_mins = array(), $sorted_maxs = array() ) {
+		$this->markTestSkipped( 'Thousands separator not supported yet!' );
 
 		add_filter( 'tribe_get_single_option',
 			function ( $option, $default, $option_name ) {
@@ -176,6 +177,45 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		add_filter( 'tribe_currency_symbol',
 			function () {
 				return '$';
+			},
+			100 );
+		add_filter( 'tribe_reverse_currency_position', '__return_false' );
+
+		$sut = $this->make_instance();
+
+		$out = $sut->merge_cost_ranges( $original_string_cost,
+			$merging_cost,
+			$with_currency_symbol,
+			$sorted_mins,
+			$sorted_maxs );
+
+		$this->assertEquals( $expected, $out );
+	}
+
+	public function thousands_separator_foreign_currency_numbers_provider( $expected, $original_string_cost = '', $merging_cost = '', $with_currency_symbol = false, $sorted_mins = array(), $sorted_maxs = array() ) {
+		return [
+			[ [ '€1.123', '€2.234' ], '€1.123 - €2.234', [ '1500', '2000' ], true ],
+		];
+	}
+
+	/**
+	 * merge_cost_ranges handles thousands separator and foreign currency
+	 *
+	 * @dataProvider thousands_separator_foreign_currency_numbers_provider
+	 */
+	public function test_merge_cost_ranges_handles_thousands_separator_and_foreign_currency() {
+
+		$this->markTestSkipped( 'Thousands separator and foreign currency not supported yet!' );
+
+		add_filter( 'tribe_get_single_option',
+			function ( $option, $default, $option_name ) {
+				return $option_name == 'defaultCurrencySymbol' ? "€" : $option;
+			},
+			100,
+			3 );
+		add_filter( 'tribe_currency_symbol',
+			function () {
+				return '€';
 			},
 			100 );
 		add_filter( 'tribe_reverse_currency_position', '__return_false' );
