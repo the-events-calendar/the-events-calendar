@@ -16,23 +16,7 @@ class Tribe__Events__Pro__Single_Event_Meta {
 	 * Setup filters to link the organizer/venue names to their respective single post pages.
 	 */
 	public function filter_fields() {
-		add_filter( 'tribe_get_organizer', array( $this, 'link_organizer' ), 10, 2 );
 		add_filter( 'tribe_get_venue', array( $this, 'link_venue' ) );
-	}
-
-	/**
-	 * Test to see if the organizer name has already been formed as a link - if it has
-	 * not, transform it into an HTML link.
-	 *
-	 * @param string $name Name/Link of organizer
-	 * @param int $organizer_id ID of organizer post
-	 *
-	 * @return string
-	 */
-	public function link_organizer( $name, $organizer_id ) {
-		$contains_link = ( false !== strpos( $name, 'href="' ) );
-
-		return $contains_link ? '' : '<a href="' . esc_url( tribe_get_organizer_link( $organizer_id, false ) ) . '">' . $name . '</a>';
 	}
 
 	/**
