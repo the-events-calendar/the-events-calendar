@@ -29,7 +29,7 @@ $website = tribe_get_organizer_website_link();
 
 			?>
 			<dd class="tribe-organizer">
-				<?php echo tribe_get_organizer( $organizer ) ?>
+				<?php echo tribe_get_organizer_link( $organizer ) ?>
 			</dd>
 			<?php
 		}
