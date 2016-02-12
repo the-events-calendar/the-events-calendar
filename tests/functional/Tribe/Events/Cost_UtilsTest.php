@@ -116,8 +116,9 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 
 	public function euro_prices_and_separator() {
 		return [
-
 			[ [ '€10,99', '€59,95' ], '€10,99 - €59,95', [ '12.99', '39.95' ], true ],
+			[ [ '€10', '€59' ], '€10 - €59', [ '12.99', '39.95' ], true ],
+			[ [ '€2.55', '€59.99' ], '€10 - €59', [ '2.55', '59.99' ], true ],
 		];
 
 	}
@@ -138,6 +139,43 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		add_filter( 'tribe_currency_symbol',
 			function () {
 				return '€';
+			},
+			100 );
+		add_filter( 'tribe_reverse_currency_position', '__return_false' );
+
+		$sut = $this->make_instance();
+
+		$out = $sut->merge_cost_ranges( $original_string_cost,
+			$merging_cost,
+			$with_currency_symbol,
+			$sorted_mins,
+			$sorted_maxs );
+
+		$this->assertEquals( $expected, $out );
+	}
+
+	public function thousands_separator_numbers_provider() {
+		return [
+			[ [ '€1.123', '€2.234' ], '€1.123 - €2.234', [ '1500', '2000' ], true ],
+		];
+	}
+
+	/**
+	 * merge_cost_ranges handles thousands separators
+	 *
+	 * @dataProvider thousands_separator_numbers_provider
+	 */
+	public function test_merge_cost_ranges_handles_thousands_separators( $expected, $original_string_cost = '', $merging_cost = '', $with_currency_symbol = false, $sorted_mins = array(), $sorted_maxs = array() ) {
+
+		add_filter( 'tribe_get_single_option',
+			function ( $option, $default, $option_name ) {
+				return $option_name == 'defaultCurrencySymbol' ? "$" : $option;
+			},
+			100,
+			3 );
+		add_filter( 'tribe_currency_symbol',
+			function () {
+				return '$';
 			},
 			100 );
 		add_filter( 'tribe_reverse_currency_position', '__return_false' );
