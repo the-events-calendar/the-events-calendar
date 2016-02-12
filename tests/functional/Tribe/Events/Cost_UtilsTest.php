@@ -27,7 +27,7 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( 'Tribe__Events__Cost_Utils', $sut );
 	}
 
-	public function merge_cost_ranges_into_ranges() {
+	public function merge_cost_ranges_ranges() {
 		// $expected, $original_string_cost, $merging_cost, $with_currency_symbol, $sorted_mins, $sorted_maxs
 		return [
 			[ 'Free', 'Free', '' ],
@@ -76,22 +76,71 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 			[ [ 'Free', '$20' ], 'Free', [ '10', '15', '20' ], true, [ 'Donation', 'Free' ], [ 'Private deal' ] ],
 			[ [ '$8', '$20' ], '$8 - $12', [ '10', '15', '20' ], true, [ 'Donation', 'Free' ], [ 'Private deal' ] ],
 			[ [ '$5', '$20' ], '$8 - $12', [ '5', '15', '20' ], true, [ 'Donation', 'Free' ], [ 'Private deal' ] ],
+			[ [ '$10.99', '$59.95' ], '$10.99 - $59.95', [ '15', '30.55' ], true ],
+			[ [ '$2.99', '$39.95' ], '$10.99 - $19.95', [ '2.99', '39.95' ], true ],
+			[ [ '$2.99', '$39.95' ], '$2.99 - $19.95', [ '2.99', '39.95' ], true ],
+			[ [ '$2.99', '$39.95' ], '$2.99 - $19.95', [ '2.99', '39.95' ], true ],
 		];
 	}
 
 	/**
-	 * merge_cost_ranges_into
+	 * merge_cost_ranges
 	 *
-	 * @dataProvider merge_cost_ranges_into_ranges
+	 * @dataProvider merge_cost_ranges_ranges
 	 */
-	public function test_merge_cost_ranges_into( $expected, $original_string_cost = '', $merging_cost = '', $with_currency_symbol = false, $sorted_mins = array(), $sorted_maxs = array() ) {
+	public function test_merge_cost_ranges( $expected, $original_string_cost = '', $merging_cost = '', $with_currency_symbol = false, $sorted_mins = array(), $sorted_maxs = array() ) {
 
+		add_filter( 'tribe_get_single_option',
+			function ( $option, $default, $option_name ) {
+				return $option_name == 'defaultCurrencySymbol' ? "$" : $option;
+			},
+			100,
+			3 );
 		add_filter( 'tribe_currency_symbol',
 			function () {
 				return '$';
 			},
 			100 );
-		add_filter( 'tribe_reverse_currency_position', '__return_false');
+		add_filter( 'tribe_reverse_currency_position', '__return_false' );
+
+		$sut = $this->make_instance();
+
+		$out = $sut->merge_cost_ranges( $original_string_cost,
+			$merging_cost,
+			$with_currency_symbol,
+			$sorted_mins,
+			$sorted_maxs );
+
+		$this->assertEquals( $expected, $out );
+	}
+
+	public function euro_prices_and_separator() {
+		return [
+
+			[ [ '€10,99', '€59,95' ], '€10,99 - €59,95', [ '12.99', '39.95' ], true ],
+		];
+
+	}
+
+	/**
+	 * merge_cost_ranges handles euro currency and separator
+	 *
+	 * @dataProvider euro_prices_and_separator
+	 */
+	public function test_merge_cost_ranges_handles_euro_currency_and_separator( $expected, $original_string_cost = '', $merging_cost = '', $with_currency_symbol = false, $sorted_mins = array(), $sorted_maxs = array() ) {
+
+		add_filter( 'tribe_get_single_option',
+			function ( $option, $default, $option_name ) {
+				return $option_name == 'defaultCurrencySymbol' ? "€" : $option;
+			},
+			100,
+			3 );
+		add_filter( 'tribe_currency_symbol',
+			function () {
+				return '€';
+			},
+			100 );
+		add_filter( 'tribe_reverse_currency_position', '__return_false' );
 
 		$sut = $this->make_instance();
 
