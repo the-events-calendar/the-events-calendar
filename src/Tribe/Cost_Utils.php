@@ -391,7 +391,7 @@ class Tribe__Events__Cost_Utils {
 		$this->_current_original_cost_separator = empty( $matches[1][0] ) ? '.' : $matches[1][0];
 		$matches[0]                             = empty( $matches[0] ) ? $matches[0] : array_map( array(
 			$this,
-			'convert_decimal_separator'
+			'convert_decimal_separator',
 		),
 			$matches[0] );
 		$numeric_orignal_costs                  = empty( $matches[0] ) ? $matches[0] : array_map( 'floatval',
