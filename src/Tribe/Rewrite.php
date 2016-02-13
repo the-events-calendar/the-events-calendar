@@ -493,7 +493,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 */
 		public function remove_percent_placeholders( array $rules ) {
 			foreach ( $rules as $key => $value ) {
-				$this->replace_key_function( $rules, $key, str_replace( self::PERCENT_PLACEHOLDER, '%', $key ) );
+				$this->replace_array_key( $rules, $key, str_replace( self::PERCENT_PLACEHOLDER, '%', $key ) );
 			}
 
 			return $rules;
@@ -509,7 +509,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @param  string $replace Replace with this key]
 		 * @return bool            Did we replace anything?
 		 */
-		private function replace_key_function( &$array, $search, $replace ) {
+		private function replace_array_key( &$array, $search, $replace ) {
 			$keys = array_keys( $array );
 			$index = array_search( $search, $keys );
 
