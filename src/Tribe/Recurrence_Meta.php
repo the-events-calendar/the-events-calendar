@@ -74,6 +74,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			'clean_up_old_recurring_events'
 		), 10, 2 );
 
+		add_filter( 'tribe_events_pro_output_recurrence_data', array( __CLASS__, 'maybe_fix_datepicker_output' ), 10, 2 );
+
 		if ( is_admin() ) {
 			add_filter( 'tribe_events_pro_localize_script', array( Tribe__Events__Pro__Recurrence__Scripts::instance(), 'localize' ), 10, 3 );
 		}
@@ -87,6 +89,22 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		}
 
 		return $url;
+	}
+
+	public static function maybe_fix_datepicker_output( $recurrence, $post_id ) {
+		if ( ! empty( $recurrence['exclusions'] ) ) {
+			$datepicker_format = Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+			foreach ( $recurrence['exclusions'] as &$exclusion ) {
+				if ( empty( $exclusion['custom'] ) || 'Date' !== $exclusion['custom']['type'] ) {
+					continue;
+				}
+
+				// Actually do the conversion of output
+				$exclusion['custom']['date']['date'] = date( $datepicker_format, strtotime( $exclusion['custom']['date']['date'] ) );
+			}
+		}
+
+		return $recurrence;
 	}
 
 	/**
@@ -463,6 +481,13 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		if ( $post_id ) {
 			// convert array to variables that can be used in the view
 			$recurrence = self::getRecurrenceMeta( $post_id );
+
+			/**
+			 * Creates a way to filter the output of recurrence meta depending on the ID
+			 * @var $recurrence Meta Info
+			 * @var $post_id the post ID
+			 */
+			$recurrence = apply_filters( 'tribe_events_pro_output_recurrence_data', $recurrence, $post_id );
 
 			wp_localize_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'tribe_events_pro_recurrence_data', $recurrence );
 		}
