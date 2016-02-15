@@ -81,6 +81,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			}
 
 			add_filter( 'get_post_time', array( __CLASS__, 'event_date_to_pubDate' ), 10, 3 );
+			add_filter( 'tribe_support_registered_template_systems', array( __CLASS__, 'register_template_updates' ) );
 		}
 
 		/**
@@ -801,6 +802,23 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 
 			// Don't do this again
 			unset( $wp_query->spoofed );
+		}
+
+		/**
+		 * Registers The Events Calendar with the views/overrides update checker.
+		 *
+		 * @param array $plugins
+		 *
+		 * @return array
+		 */
+		public static function register_template_updates( $plugins ) {
+			$plugins[ __( 'The Events Calendar', 'the-events-calendar' ) ] = array(
+				Tribe__Events__Main::VERSION,
+				Tribe__Events__Main::instance()->plugin_path . 'src/views',
+				trailingslashit( get_stylesheet_directory() ) . 'tribe-events',
+			);
+
+			return $plugins;
 		}
 	}
 }

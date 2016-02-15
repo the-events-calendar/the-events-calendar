@@ -1322,22 +1322,22 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$excerpt = $post->post_content;
 			// We will only trim Excerpt if it comes from Post Content
 
-			/**
-			 * Filter the number of words in an excerpt.
-			 *
-			 * @param int $number The number of words. Default 55.
-			 */
-			$excerpt_length = apply_filters( 'excerpt_length', 55 );
+		/**
+		 * Filter the number of words in an excerpt.
+		 *
+		 * @param int $number The number of words. Default 55.
+		 */
+		$excerpt_length = apply_filters( 'excerpt_length', 55 );
 
-			/**
-			 * Filter the string in the "more" link displayed after a trimmed excerpt.
-			 *
-			 * @param string $more_string The string shown within the more link.
-			 */
-			$excerpt_more = apply_filters( 'excerpt_more', ' [&hellip;]' );
+		/**
+		 * Filter the string in the "more" link displayed after a trimmed excerpt.
+		 *
+		 * @param string $more_string The string shown within the more link.
+		 */
+		$excerpt_more = apply_filters( 'excerpt_more', ' [&hellip;]' );
 
-			// Now we actually trim it
-			$excerpt = wp_trim_words( $excerpt, $excerpt_length, $excerpt_more );
+		// Now we actually trim it
+		$excerpt = wp_trim_words( $excerpt, $excerpt_length, $excerpt_more );
 		}
 
 		// Remove all shortcode Content before removing HTML
@@ -1348,7 +1348,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// Remove "all" HTML based on what is allowed
 		$excerpt = wp_kses( $excerpt, $allowed_html );
 
-		return wpautop( $excerpt );
+		return $excerpt;
 	}
 
 	/**
@@ -1400,7 +1400,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		// If not, try to determine now
-		Tribe__Events__Main::instance()->rebuild_known_range();
+		Tribe__Events__Dates__Known_Range::instance()->rebuild_known_range();
 		$earliest = tribe_get_option( 'earliest_date', false );
 		if ( false !== $earliest ) {
 			return Tribe__Date_Utils::reformat( $earliest, $format );
