@@ -73,13 +73,13 @@ class AcceptanceTester extends \Codeception\Actor {
 	 * Update Event
 	 */
 	public function edit_event( $updateEvent ) {
-		$originalTitle			= $updateEvent['originalTitle'];
-		$newTitle			= $updateEvent['newTitle'];
-		$content			= $updateEvent['content'];
-		$allDay 			= $updateEvent['allDay'];
+		$originalTitle	= $updateEvent['originalTitle'];
+		$newTitle	= $updateEvent['newTitle'];
+		$content	= $updateEvent['content'];
+		$allDay		= $updateEvent['allDay'];
 		if(empty($updateEventp['originalTitle']) || empty($updateEvent['newTitle'])){
-            throw new \InvalidArgumentException('Title missing');
-        }
+        		throw new \InvalidArgumentException('Title missing');
+		}
 
 		$I = $this;
 
