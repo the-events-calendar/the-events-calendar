@@ -1637,14 +1637,26 @@
 				return 1.60934;
 			}
 
+			/**
+			 * Instances the filters.
+			 */
 			public function init_apm_filters() {
-				new Tribe__Events__Pro__APM_Filters__APM_Filters();
-				new Tribe__Events__Pro__APM_Filters__Date_Filter();
-				new Tribe__Events__Pro__APM_Filters__Recur_Filter();
-				new Tribe__Events__Pro__APM_Filters__Content_Filter();
-				new Tribe__Events__Pro__APM_Filters__Title_Filter();
-				new Tribe__Events__Pro__APM_Filters__Venue_Filter();
-				new Tribe__Events__Pro__APM_Filters__Organizer_Filter();
+				new Tribe__Events__Pro__APM_Filters__APM_Filters( );
+				new Tribe__Events__Pro__APM_Filters__Date_Filter( );
+				new Tribe__Events__Pro__APM_Filters__Recur_Filter( );
+				new Tribe__Events__Pro__APM_Filters__Content_Filter( );
+				new Tribe__Events__Pro__APM_Filters__Title_Filter( );
+				new Tribe__Events__Pro__APM_Filters__Venue_Filter( );
+				new Tribe__Events__Pro__APM_Filters__Organizer_Filter( );
+
+				/**
+				 * Fires after APM filters have been instantiated.
+				 *
+				 * This is the action additional filters defining should hook to instantiate thos filters.
+				 *
+				 * @since 4.1
+				 */
+				do_action('tribe_events_pro_init_apm_filters');
 			}
 
 			/**

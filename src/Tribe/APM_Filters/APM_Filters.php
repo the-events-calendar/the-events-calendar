@@ -22,17 +22,26 @@ class Tribe__Events__Pro__APM_Filters__APM_Filters {
 		if ( $ecp_apm === $apm ) {
 			// Fallback is the order the columns fall back to if nothing was explicitly set
 			// An array of column header IDs
-			$ecp_apm->columns->set_fallback(
-				array(
-					'title',
-					'ecp_organizer_filter_key',
-					'ecp_venue_filter_key',
-					'events-cats',
-					'recurring',
-					'start-date',
-					'end-date',
-				)
+			$fallback_columns = array(
+				'title',
+				'ecp_organizer_filter_key',
+				'ecp_venue_filter_key',
+				'events-cats',
+				'recurring',
+				'start-date',
+				'end-date',
 			);
+
+			/**
+			 * Allows filtering the fallback columns that will be used if nothing is explicitly set.
+			 *
+			 * @since 4.1
+			 *
+			 * @param array  $fallback_columns An array of filter identifying keys.
+			 */
+			$fallback_columns = apply_filters('tribe_events_pro_apm_filters_fallback_columns', $fallback_columns);
+
+			$ecp_apm->columns->set_fallback( $fallback_columns );
 		}
 	}
 
@@ -95,6 +104,15 @@ class Tribe__Events__Pro__APM_Filters__APM_Filters {
 				'disable' => 'columns',
 			),
 		);
+
+		/**
+		 * Allows filtering the filters set up arguments.
+		 *
+		 * @since 4.1
+		 *
+		 * @param array $filter_args An associative array of filter set up arguments, see each filter for details.
+		 */
+		$filter_args = apply_filters('tribe_events_pro_apm_filters_args', $filter_args);
 
 		global $ecp_apm;
 		$ecp_apm = new Tribe_APM( Tribe__Events__Main::POSTTYPE, $filter_args );
