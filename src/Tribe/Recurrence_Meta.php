@@ -74,7 +74,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			'clean_up_old_recurring_events',
 		), 10, 2 );
 
-		add_filter( 'tribe_events_pro_output_recurrence_data', array( __CLASS__, 'maybe_fix_datepicker_output' ) );
+		add_filter( 'tribe_events_pro_output_recurrence_data', array( __CLASS__, 'maybe_fix_datepicker_output' ), 10, 2 );
 
 		if ( is_admin() ) {
 			add_filter( 'tribe_events_pro_localize_script', array( Tribe__Events__Pro__Recurrence__Scripts::instance(), 'localize' ), 10, 3 );
