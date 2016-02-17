@@ -103,7 +103,8 @@ class Tribe__Events__Pro__Recurrence__Validator {
 
 	protected function ensure_all_data() {
 		$empty_custom_key   = empty( $this->recurrence_meta['custom'] );
-		$not_a_valid_custom = empty( array_intersect( Tribe__Events__Pro__Recurrence__Custom_Types::data_keys(), array_keys( $this->recurrence_meta['custom'] ) ) );
+		$custom_keys = array_intersect( Tribe__Events__Pro__Recurrence__Custom_Types::data_keys(), array_keys( $this->recurrence_meta['custom'] ) );
+		$not_a_valid_custom = empty( $custom_keys );
 		if ( $empty_custom_key || $not_a_valid_custom ) {
 			throw new RuntimeException( __( 'Custom recurrences must have all data present.', 'tribe-events-calendar-pro' ) );
 		}
@@ -140,7 +141,7 @@ class Tribe__Events__Pro__Recurrence__Validator {
 	 * @return bool
 	 */
 	private function is_monthly() {
-		$is_monthly = Tribe__Events__Pro__Recurrence__Custom_Types::MONTHLY === $this->recurrence_meta['custom']['type'];
+		$is_monthly = Tribe__Events__Pro__Recurrence__Custom_Types::MONTHLY_CUSTOM_TYPE === $this->recurrence_meta['custom']['type'];
 
 		return $is_monthly;
 	}
@@ -149,7 +150,7 @@ class Tribe__Events__Pro__Recurrence__Validator {
 	 * @return bool
 	 */
 	private function is_yearly() {
-		$is_yearly = Tribe__Events__Pro__Recurrence__Custom_Types::YEARLY === $this->recurrence_meta['custom']['type'];
+		$is_yearly = Tribe__Events__Pro__Recurrence__Custom_Types::YEARLY_CUSTOM_TYPE === $this->recurrence_meta['custom']['type'];
 
 		return $is_yearly;
 	}

@@ -74,7 +74,7 @@ class Tribe__Events__Pro__Single_Event_Meta {
 	public static function custom_recurrence_description( $meta_id ) {
 		global $_tribe_meta_factory;
 		$post_id                = get_the_ID();
-		$recurrence_meta        = Tribe__Events__Pro__Recurrence_Meta::getRecurrenceMeta( $post_id );
+		$recurrence_meta        = Tribe__Events__Pro__Recurrence__Meta::getRecurrenceMeta( $post_id );
 		$recurrence_description = ! empty( $recurrence_meta['recCustomRecurrenceDescription'] ) ? $recurrence_meta['recCustomRecurrenceDescription'] : tribe_get_recurrence_text( $post_id );
 		$html                   = tribe_is_recurring_event( $post_id ) ? Tribe__Events__Meta_Factory::template(
 			$_tribe_meta_factory->meta[ $meta_id ]['label'],

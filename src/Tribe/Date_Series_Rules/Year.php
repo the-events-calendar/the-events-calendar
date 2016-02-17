@@ -128,7 +128,9 @@
 							$day_of_month   = (int) date( 'j', $first_date );
 
 							// Add the relevant number of weeks
-							$day_of_month += ( $nth_week * 7 ) - 7;
+							$week         = $nth_week > 0 ? $nth_week : abs( $nth_week );
+							$direction    = $nth_week > 0 ? 1 : - 1;
+							$day_of_month = date( 'j', Tribe__Date_Utils::get_weekday_timestamp( $day, $week, $month, $year, $direction ) );
 
 							// Form a timestamp representing this day of the week in the appropriate week of the month
 							$timestamp = mktime( $cur_hour, $cur_minute, $cur_second, $month, $day_of_month, $year );
@@ -196,6 +198,34 @@
 			}
 
 			return;
+		}
+
+		/**
+		 * @return int
+		 */
+		public function get_years_between() {
+			return $this->years_between;
+		}
+
+		/**
+		 * @return array
+		 */
+		public function get_months_of_year() {
+			return $this->months_of_year;
+		}
+
+		/**
+		 * @return int|null
+		 */
+		public function get_week_of_month() {
+			return $this->week_of_month;
+		}
+
+		/**
+		 * @return int|null
+		 */
+		public function get_day_of_week() {
+			return $this->day_of_week;
 		}
 	}
 

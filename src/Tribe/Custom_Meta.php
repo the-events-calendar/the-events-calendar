@@ -271,6 +271,9 @@ class Tribe__Events__Pro__Custom_Meta {
 	public static function import_additional_fields( $import_fields ) {
 		$custom_fields = (array) tribe_get_option( 'custom-fields' );
 		foreach ( $custom_fields as $custom_field ) {
+			if ( empty( $custom_field['name'] ) || empty( $custom_field['label'] ) ) {
+				continue;
+			}
 			$import_fields[ $custom_field['name'] ] = $custom_field['label'];
 		}
 		return $import_fields;

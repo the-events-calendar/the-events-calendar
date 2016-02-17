@@ -13,14 +13,25 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 	protected $updated;
 
 	/**
+	 * @var Tribe__Events__Pro__Recurrence__Exclusions
+	 */
+	protected $exclusions;
+
+	/**
 	 * Tribe__Events__Pro__Recurrence__Events_Saver constructor.
 	 *
-	 * @param int      $event_id The post ID of the event being saved
-	 * @param bool|int $updated  The meta_id of the post meta containing the event recurrence meta information.
+	 * @param int                                             $event_id The post ID of the event being saved
+	 * @param bool|int                                        $updated  The meta_id of the post meta containing the
+	 *                                                                  event recurrence meta information.
+	 * @param Tribe__Events__Pro__Recurrence__Exclusions|null $exclusions
 	 */
-	public function __construct( $event_id, $updated ) {
-		$this->event_id = $event_id;
-		$this->updated  = $updated;
+	public function __construct( $event_id, $updated, Tribe__Events__Pro__Recurrence__Exclusions $exclusions = null ) {
+		$this->event_id        = $event_id;
+		$this->updated         = $updated;
+		$event_timezone_string = $this->get_event_timezone_string( $event_id );
+		$this->exclusions = $exclusions ?
+			$exclusions :
+			Tribe__Events__Pro__Recurrence__Exclusions::instance( $event_timezone_string );
 	}
 
 	/**
@@ -31,15 +42,15 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 	public function save_events() {
 		$existing_instances = Tribe__Events__Pro__Recurrence__Children_Events::instance()->get_ids( $this->event_id );
 
-		$recurrences = Tribe__Events__Pro__Recurrence_Meta::get_recurrence_for_event( $this->event_id );
+		$recurrences = Tribe__Events__Pro__Recurrence__Meta::get_recurrence_for_event( $this->event_id );
 
 		$to_create             = array();
 		$exclusions            = array();
 		$to_update             = array();
 		$to_delete             = array();
 		$possible_next_pending = array();
-		$earliest_date         = strtotime( Tribe__Events__Pro__Recurrence_Meta::$scheduler->get_earliest_date() );
-		$latest_date           = strtotime( Tribe__Events__Pro__Recurrence_Meta::$scheduler->get_latest_date() );
+		$earliest_date         = strtotime( Tribe__Events__Pro__Recurrence__Meta::$scheduler->get_earliest_date() );
+		$latest_date           = strtotime( Tribe__Events__Pro__Recurrence__Meta::$scheduler->get_latest_date() );
 
 		foreach ( $recurrences['rules'] as &$recurrence ) {
 			if ( ! $recurrence ) {
@@ -69,10 +80,14 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 
 		// make sure we don't create excluded dates
 		$exclusions = tribe_array_unique( $exclusions );
-		$to_create  = Tribe__Events__Pro__Recurrence_Meta::remove_exclusions( $to_create, $exclusions );
+		$to_create  = $this->exclusions->remove_exclusions( $to_create, $exclusions );
 
 		if ( $possible_next_pending ) {
-			update_post_meta( $this->event_id, '_EventNextPendingRecurrence', date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, min( $possible_next_pending ) ) );
+			update_post_meta(
+				$this->event_id, '_EventNextPendingRecurrence', date(
+				Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, min( $possible_next_pending )
+			)
+			);
 		}
 
 		foreach ( $existing_instances as $instance ) {
@@ -81,8 +96,7 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 			$duration   = $end_date - $start_date;
 
 			$existing_date_duration = array(
-				'timestamp' => $start_date,
-				'duration'  => $duration,
+				'timestamp' => $start_date, 'duration' => $duration,
 			);
 
 			$found              = array_search( $existing_date_duration, $to_create );
@@ -102,5 +116,30 @@ class Tribe__Events__Pro__Recurrence__Events_Saver {
 
 		// ...but don't wait around, process a small initial batch right away
 		Tribe__Events__Pro__Main::instance()->queue_processor->process_batch( $this->event_id );
+	}
+
+	/**
+	 * Gets the timezone string associated with an event.
+	 *
+	 * Will fall back to WP timezone string and to system timezone string in this order.
+	 *
+	 * @param $event_id
+	 *
+	 * @return mixed|string|void
+	 */
+	protected function get_event_timezone_string( $event_id ) {
+		$event_timezone_string = get_post_meta( $event_id, '_EventTimezone', true );
+		if ( empty( $event_timezone_string ) ) {
+			$event_timezone_string = get_option( 'timezone_string', false );
+			if ( empty( $event_timezone_string ) ) {
+				$event_timezone_string = date_default_timezone_get();
+
+				return $event_timezone_string;
+			}
+
+			return $event_timezone_string;
+		}
+
+		return $event_timezone_string;
 	}//end saveEvents
 }

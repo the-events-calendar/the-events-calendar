@@ -76,7 +76,7 @@ $multiple_organizers = count( $organizer_ids ) > 1;
 				<span class="tribe-country-name"><?php echo tribe_get_country(); ?></span>
 			<?php endif ?>
 
-			<?php if ( ! empty( $organizer_ids ) ): ?>
+			<?php if ( isset( $organizer ) && $organizer && ! empty( $organizer_ids ) ): ?>
 				<span class="tribe-events-organizer">
 					<?php echo tribe_get_organizer_label( ! $multiple_organizers ); ?>:
 					<?php

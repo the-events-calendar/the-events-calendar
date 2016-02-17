@@ -68,15 +68,22 @@ class Tribe__Events__Pro__Geo_Loc {
 	/**
 	 * Singleton instance of this class
 	 *
-*@var Tribe__Events__Pro__Geo_Loc
+	 * @var Tribe__Events__Pro__Geo_Loc
 	 */
 	private static $instance;
+
+	/**
+	 * Whether or not the OVER_QUERY_LIMIT notification has been displayed
+	 *
+	 * @var boolean
+	 */
+	private $over_query_limit_displayed = false;
 
 	/**
 	 * Class constructor
 	 */
 	public function __construct() {
-		$this->rewrite_slug = Tribe__Settings_Manager::get_option( 'geoloc_rewrite_slug', 'map' );
+		$this->rewrite_slug = Tribe__Settings_Manager::get_option( 'geoloc_rewrite_slug', __( 'map', 'tribe-events-calendar-pro' ) );
 
 		add_action( 'tribe_events_venue_updated', array( $this, 'save_venue_geodata' ), 10, 2 );
 		add_action( 'tribe_events_venue_created', array( $this, 'save_venue_geodata' ), 10, 2 );
@@ -93,6 +100,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		add_action( 'tribe_events_pre_get_posts', array( $this, 'setup_geoloc_in_query' ) );
 		add_filter( 'tribe_events_list_inside_before_loop', array( $this, 'add_event_distance' ) );
 
+		add_action( 'admin_notices', array( $this, 'maybe_notify_about_google_over_limit' ) );
 	}
 
 	/**
@@ -112,7 +120,6 @@ class Tribe__Events__Pro__Geo_Loc {
 			Tribe__Events__Pro__Template_Factory::asset_package( 'ajax-maps' );
 		}
 	}
-
 
 	/**
 	 * Inject the GeoLoc settings into the general TEC settings screen
@@ -141,7 +148,7 @@ class Tribe__Events__Pro__Geo_Loc {
 					),
 					'geoloc_default_unit'     => array(
 						'type'            => 'dropdown',
-						'label'           => __( 'Map view distance unit', 'tribe-events-calendar-pro' ),
+						'label'           => __( 'Distance unit', 'tribe-events-calendar-pro' ),
 						'validation_type' => 'options',
 						'size'            => 'small',
 						'default'         => 'miles',
@@ -174,7 +181,6 @@ class Tribe__Events__Pro__Geo_Loc {
 		return $args;
 	}
 
-
 	/**
 	 * @param bool $full_data
 	 *
@@ -195,7 +201,7 @@ class Tribe__Events__Pro__Geo_Loc {
 					'compare' => '!=',
 					'value'   => '',
 				),
-			)
+			),
 		);
 
 		if ( ! $full_data ) {
@@ -342,7 +348,6 @@ class Tribe__Events__Pro__Geo_Loc {
 		}
 	}
 
-
 	/**
 	 * Adds the rewrite rules to make the map view work
 	 *
@@ -431,7 +436,7 @@ class Tribe__Events__Pro__Geo_Loc {
 			return false;
 		}
 
-		$url  = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode( $address ) . '&sensor=false';
+		$url  = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode( $address );
 		$data = wp_remote_get( apply_filters( 'tribe_events_pro_geocode_request_url', $url ) );
 
 		if ( is_wp_error( $data ) || ! isset( $data['body'] ) ) {
@@ -439,6 +444,18 @@ class Tribe__Events__Pro__Geo_Loc {
 		}
 
 		$data_arr = json_decode( $data['body'] );
+
+		if ( isset( $data_arr->status ) && 'OVER_QUERY_LIMIT' === $data_arr->status ) {
+			if ( $this->over_query_limit_displayed ) {
+				return false;
+			}
+
+			set_transient( 'tribe-google-over-limit', 1, time() + MINUTE_IN_SECONDS );
+
+			$this->over_query_limit_displayed = true;
+
+			return false;
+		}
 
 		if ( ! empty( $data_arr->results[0]->geometry->location->lat ) ) {
 			update_post_meta( $venueId, self::LAT, (string) $data_arr->results[0]->geometry->location->lat );
@@ -454,7 +471,29 @@ class Tribe__Events__Pro__Geo_Loc {
 		delete_transient( self::ESTIMATION_CACHE_KEY );
 
 		return true;
+	}
 
+	/**
+	 * Add notification message about the Google Maps API being over its query limit
+	 */
+	public function maybe_notify_about_google_over_limit() {
+		if ( ! get_transient( 'tribe-google-over-limit' ) ) {
+			return;
+		}
+
+		delete_transient( 'tribe-google-over-limit' );
+		?>
+		<div class="error">
+			<p>
+				<?php
+				esc_html_e(
+					'The latitude and longitude for your venue could not be fetched. The Google Maps API daily query limit has been reached!',
+					'tribe-events-calendar-pro'
+				);
+				?>
+			</p>
+		</div>
+		<?php
 	}
 
 	/**
@@ -571,7 +610,6 @@ class Tribe__Events__Pro__Geo_Loc {
 		}
 
 		return wp_list_pluck( $data, 'venue_id' );
-
 	}
 
 	/**
@@ -682,7 +720,7 @@ class Tribe__Events__Pro__Geo_Loc {
 				            OR meta_key = '" . self::LNG . "')
 				            AND post_id IN (SELECT meta_value FROM $wpdb->postmeta WHERE meta_key='_EventVenueID' AND post_id IN ($event_ids) )
 				            ) coors
-		";
+				";
 
 				$data = $wpdb->get_results( $sql, ARRAY_A );
 
@@ -748,9 +786,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		}
 
 		return $markers;
-
 	}
-
 
 	/**
 	 * Generates the button to add the geo data info to all venues that are missing it
@@ -760,7 +796,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		$settings = Tribe__Settings::instance();
 		$url      = apply_filters( 'tribe_settings_url', add_query_arg( array(
 					'post_type' => Tribe__Events__Main::POSTTYPE,
-					'page'      => $settings->adminSlug
+					'page'      => $settings->adminSlug,
 				), admin_url( 'edit.php' ) ) );
 		$url      = add_query_arg( array( 'geoloc_fix_venues' => '1' ), $url );
 		$url      = wp_nonce_url( $url, 'geoloc_fix_venues' );
@@ -789,7 +825,6 @@ class Tribe__Events__Pro__Geo_Loc {
 		}
 
 		add_action( 'admin_notices', array( $this, 'show_offer_to_fix_notice' ) );
-
 	}
 
 	/**
@@ -812,7 +847,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		<div class="updated">
 			<p><?php echo sprintf( __( "You have venues for which we don't have Geolocation information. <a href='%s'>Click here to generate it</a>.", 'tribe-events-calendar-pro' ), esc_url( $url ) . '#geoloc_fix' ); ?></p>
 		</div>
-	<?php
+		<?php
 	}
 
 	/**
@@ -828,7 +863,6 @@ class Tribe__Events__Pro__Geo_Loc {
 		$this->last_venues_fixed_count = $this->generate_geopoints_for_all_venues();
 
 		add_action( 'admin_notices', array( $this, 'show_fixed_notice' ) );
-
 	}
 
 	/**
@@ -839,7 +873,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		<div class="updated">
 			<p><?php echo sprintf( __( 'Fixed geolocation data for %d venues', 'tribe-events-calendar-pro' ), $this->last_venues_fixed_count ); ?></p>
 		</div>
-	<?php
+		<?php
 	}
 
 	/**
@@ -867,19 +901,17 @@ class Tribe__Events__Pro__Geo_Loc {
 			self::instance()->save_venue_geodata( $venue->ID, $data );
 
 			$count ++;
-
 		}
 
 		update_option( '_tribe_geoloc_fixed', 1 );
 
 		return $count;
-
 	}
 
 	/**
 	 * Static Singleton Factory Method
 	 *
-*@return Tribe__Events__Pro__Geo_Loc
+	 * @return Tribe__Events__Pro__Geo_Loc
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
@@ -889,5 +921,4 @@ class Tribe__Events__Pro__Geo_Loc {
 
 		return self::$instance;
 	}
-
 }

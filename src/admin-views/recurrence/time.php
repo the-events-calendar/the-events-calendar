@@ -20,7 +20,7 @@
 	</span>
 
 	<span class="eventduration-preamble">
-		<?php _ex( 'and will run for:', 'custom recurrence duration', 'the-events-calendar' ); ?>
+		<?php echo esc_html_x( 'and will run for:', 'custom recurrence duration', 'tribe-events-calendar-pro' ); ?>
 	</span>
 
 	<span class="eventduration">
@@ -34,7 +34,7 @@
 			   data-field="custom-duration-days"
 			   value="{{custom.duration.days}}"
 			/>
-		<?php _ex( 'days', 'custom recurrence duration', 'the-events-calendar' ); ?>
+		<?php echo esc_html_x( 'days', 'custom recurrence duration', 'tribe-events-calendar-pro' ); ?>
 
 		<input type="number"
 			   min="0"
@@ -45,7 +45,7 @@
 			   data-field="custom-duration-hours"
 			   value="{{custom.duration.hours}}"
 			/>
-		<?php _ex( 'hours', 'custom recurrence duration', 'the-events-calendar' ); ?>
+		<?php echo esc_html_x( 'hours', 'custom recurrence duration', 'tribe-events-calendar-pro' ); ?>
 
 		<input type="number"
 			   min="0"
@@ -56,6 +56,6 @@
 			   data-field="custom-duration-minutes"
 			   value="{{custom.duration.minutes}}"
 			/>
-		<?php _ex( 'minutes', 'custom recurrence duration', 'the-events-calendar' ); ?>
+		<?php echo esc_html_x( 'minutes', 'custom recurrence duration', 'tribe-events-calendar-pro' ); ?>
 	</span>
 </div>

@@ -78,6 +78,7 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 
 	public function update( $new_instance, $old_instance ) {
 		$instance = parent::update( $new_instance, $old_instance );
+		$new_instance = $this->default_instance_args( $new_instance, true );
 
 		$instance['venue']     = $new_instance['venue'];
 		$instance['country']   = $new_instance['country'];
@@ -102,7 +103,6 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 
 	public function form( $instance ) {
 		$this->instance_defaults( $instance );
-		$this->include_cat_id( $this->instance['filters'], $this->instance['category'] ); // @todo remove after 3.7
 
 		$taxonomies = get_object_taxonomies( Tribe__Events__Main::POSTTYPE, 'objects' );
 		$taxonomies = array_reverse( $taxonomies );
@@ -112,7 +112,21 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 	}
 
 	protected function instance_defaults( $instance ) {
-		$this->instance = wp_parse_args( (array) $instance, array(
+		$this->instance = $this->default_instance_args( (array) $instance );
+	}
+
+	/**
+	 * Returns the instance arguments padded out with default values. If optional
+	 * param $empty_values is specified, then it simply ensures that the expected keys
+	 * are present - not that they are set to their default values.
+	 *
+	 * @param array $instance
+	 * @param bool  $empty_values
+	 *
+	 * @return array
+	 */
+	protected function default_instance_args( array $instance, $empty_values = false ) {
+		$defaults = array(
 			'title'              => __( 'Upcoming Events', 'tribe-events-calendar-pro' ),
 			'limit'              => '5',
 			'no_upcoming_events' => false,
@@ -124,12 +138,17 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 			'zip'                => false,
 			'phone'              => false,
 			'cost'               => false,
-			'category'           => false, // @todo remove this element after 3.7
 			'organizer'          => false,
 			'operand'            => 'OR',
 			'filters'            => '',
 			'instance'           => &$this->instance,
-		) );
+		);
+
+		if ( $empty_values ) {
+			$defaults = array_map( '__return_empty_string', $defaults );
+		}
+
+		return wp_parse_args( (array) $instance, $defaults );
 	}
 
 	/**
