@@ -312,6 +312,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.0.6] unreleased =
 
 * Tweak - Adjust injection of event data into the_content from priority 10 to 9 for better 3rd-party plugin compatibility
+* Tweak - Change mobile month view selector to load event details below the calendar for better theme compatibility
 
 = [4.0.5] 2016-01-15 =
 
