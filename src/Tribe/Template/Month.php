@@ -619,17 +619,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'update_post_term_cache' => false,
 					'update_post_meta_cache' => false,
 					'no_found_rows'          => false,
-					'meta_key'               => '_EventStartDate',
-					'orderby'                => 'meta_value_datetime',
+					'orderby'                => 'menu_order',
 				), $this->args
 			);
-			/**
-			 * Filter Daily Events Query Arguments.
-			 *
-			 * @param array $args an array of daily events query.
-			 *
-			 */
-			$args = apply_filters( 'tribe_events_month_daily_events_query_args', $args );
 
 			// we don't need this join since we already checked it
 			unset ( $args[ Tribe__Events__Main::TAXONOMY ] );
