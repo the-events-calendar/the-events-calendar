@@ -312,6 +312,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.0.6] 2016-02-17 =
 
 * Tweak - Adjust injection of event data into the_content from priority 10 to 9 for better 3rd-party plugin compatibility
+* Tweak - Change mobile month view selector to load event details below the calendar for better theme compatibility
 * Tweak - Better handling of edge cases on the post_excerpt for List View
 * Tweak - Removal of generic CSS classes like `.updated` and `.published`
 * Fix - Prevent Notices from appearing when using `tribe_get_organizer()`
@@ -319,7 +320,6 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - Numeric named categories URLs are now fully working
 * Fix - Event Title now Accepts HTML on Tooltips
 * Fix - Licenses Tab now will work with `DISALLOW_FILE_MODS` (Props to Sun for spotting and fixing this)
-* Fix - Improved Mobile compatibility with Genesis on Month View
 
 = [4.0.5] 2016-01-15 =
 
