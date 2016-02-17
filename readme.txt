@@ -234,6 +234,7 @@ Our Premium Plugins:
 * Fix - Ensure Photo view is fully displayed on Mobile
 * Fix - Organizer and Venue URL now respect UTF-8 characters
 * Fix - All of our Permalinks will now allow translations with non-alphanumeric characters
+* Fix - Fixing Fatals on bad Debug Classes for Map View
 * Tweak - "/all" page on Recurring events will be recoginized as a `is_archive` template
 
 = [4.0.5] 2016-01-25 =
