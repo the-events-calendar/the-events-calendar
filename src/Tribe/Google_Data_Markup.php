@@ -21,7 +21,7 @@ abstract class Tribe__Events__Google_Data_Markup {
 		$data[ $id ]->{'@context'} = 'http://schema.org';
 		$data[ $id ]->{'@type'}    = 'Thing';
 		$data[ $id ]->name         = esc_js( get_the_title() );
-		$data[ $id ]->description  = esc_js( tribe_events_get_the_excerpt( $post, array() ) );
+		$data[ $id ]->description  = esc_js( tribe_events_get_the_excerpt( $post ) );
 		if ( has_post_thumbnail() ) {
 			$data[ $id ]->image = wp_get_attachment_url( get_post_thumbnail_id( $id ) );
 		}
@@ -55,7 +55,7 @@ abstract class Tribe__Events__Google_Data_Markup {
 
 		$html = '';
 		if ( ! empty( $data ) ) {
-			$html .= '<script id="tribe-json-ld" type="application/ld+json">';
+			$html .= '<script type="application/ld+json">';
 			$html .= str_replace( '\/', '/', json_encode( $data ) );
 			$html .= '</script>';
 		}
