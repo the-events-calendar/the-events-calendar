@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.4.1
-Stable tag: 4.0.5
+Stable tag: 4.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -309,9 +309,17 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.0.6] unreleased =
+= [4.0.6] 2016-02-17 =
 
 * Tweak - Adjust injection of event data into the_content from priority 10 to 9 for better 3rd-party plugin compatibility
+* Tweak - Better handling of edge cases on the post_excerpt for List View
+* Tweak - Removal of generic CSS classes like `.updated` and `.published`
+* Fix - Prevent Notices from appearing when using `tribe_get_organizer()`
+* Fix - Make HTML Single Event Pages valid
+* Fix - Numeric named categories URLs are now fully working
+* Fix - Event Title now Accepts HTML on Tooltips
+* Fix - Licenses Tab now will work with `DISALLOW_FILE_MODS` (Props to Sun for spotting and fixing this)
+* Fix - Improved Mobile compatibility with Genesis on Month View
 
 = [4.0.5] 2016-01-15 =
 
