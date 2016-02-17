@@ -47,8 +47,9 @@ class AcceptanceTester extends \Codeception\Actor {
 		$I->click( '#publish' );
 		$I->see( 'Event published' );
 
-		// TODO Full Validation of Event Properties based of passed flag
+		// @todo Full Validation of Event Properties based on passed flag
 	}
+
 
 	/**
 	 * Delete Event
@@ -67,6 +68,39 @@ class AcceptanceTester extends \Codeception\Actor {
 
 		return array_merge( self::$defaultEvent, $random );
 	}
+
+	/**
+	 * Update Event
+	 */
+	public function edit_event( $updateEvent ) {
+		$originalTitle	= $updateEvent['originalTitle'];
+		$newTitle	= $updateEvent['newTitle'];
+		$content	= $updateEvent['content'];
+		$allDay		= $updateEvent['allDay'];
+		if(empty($updateEventp['originalTitle']) || empty($updateEvent['newTitle'])){
+        		throw new \InvalidArgumentException('Title missing');
+		}
+
+		$I = $this;
+
+		$I->amOnPage( '/wp-admin/edit.php?post_type=tribe_events' );
+		$I->fillField( 's', $originalTitle );
+		$I->click( '#search-submit' );
+		$I->click( $originalTitle );
+
+		//We should now be on the edit page but check
+		//$I->see( $updateEvent['originalTitle'] );
+
+		$I->fillField( 'post_title', $updateEvent['newTitle'] );
+		$I->fillField( 'content', $updateEvent['content'] ); // need to target WYSIWYG instance
+		if ( $updateEvent['allDay'] ) {
+			$I->checkOption( '#allDayCheckbox' );
+		}
+		$I->click( '#publish' );
+		//$I->see( $updateEvent['newTitle'] );
+		// @todo - Full Validation of Event Properties based of passed flag - also $event['name'] needs a default value
+	}
+
 
 	public function activate_tec() {
 		$I = $this;
@@ -102,7 +136,6 @@ class AcceptanceTester extends \Codeception\Actor {
 		// Might be an insufficient permissions page or some such
 		$I->see( 'Events Import', 'h1' );
 		$I->see( 'CSV', 'a.nav-tab-active' );
-
 		$I->selectOption( 'import_type', $type );
 		$I->attachFile( 'import_file', $file );
 		//$I->checkOption('import_header');
@@ -136,12 +169,78 @@ class AcceptanceTester extends \Codeception\Actor {
 		$I->see( 'Importing Data' );
 	}
 
-	public function edit_event( $name ) {
+	/**
+	 * Create new Tag
+	 */
+	public function createTag( $tag = null ) {
+		if ( is_null( $tag['tagName'] ) ) {
+			throw new \InvalidArgumentException('Missing Arguments!  Need a name at least');
+		} 
 		$I = $this;
-
-		$I->amOnPage( '/wp-admin/edit.php?post_type=tribe_events' );
-		$I->fillField( 's', $name );
-		$I->click( '#search-submit' );
-		$I->click( $name );
+		$I->amOnPage( '/wp-admin/edit-tags.php?taxonomy=post_tag&post_type=tribe_events' );
+		$I->fillField( 'tag-name', $tag['tagName'] );
+		$I->fillField( 'slug', $tag['tagSlug'] );
+		$I->fillField( 'description', $tag['tagDescription'] );
+		$I->click( '#submit' );
+		$I->see( $tag['tagName'] );
+		//$I->see( $tag['tagSlug'] );
+		//$I->see( $tag['tagDescription'] );
 	}
+
+	public function createCategory( $category = null ) {
+		if ( is_null( $tag['tagName'] ) ) {
+			throw new \InvalidArgumentException('Missing Arguments!  Need a name at least');
+		} 
+
+		$I = $this;
+		$I->amOnPage( '/wp-admin/edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' );
+		$I->fillField( 'tag-name', $tag['tagName'] );
+		$I->fillField( 'slug', $tag['tagSlug'] );
+		$I->fillField( 'description', $tag['tagDescription'] );
+		// @todo - Add selector for "Parent"
+	
+		
+		$I->click( '#submit' );
+		$I->see( $tag['tagName'] );
+		//$I->see( $tag['tagSlug'] );
+		//$I->see( $tag['tagDescription'] );
+	}
+
+	public function createVenue( $venue = null ) {
+		if ( is_null( $venue['venueTitle'] ) ) {
+			throw new \InvalidArgumentException('Missing Arguments!  Need a title at least');
+		} 
+
+		$I = $this;
+		$I->amOnPage( '/wp-admin/post-new.php?post_type=tribe_venue' );
+		$I->fillField( 'post_title', $venue['venueTitle'] );
+		$I->fillField( 'venue[Address]', $venue['venueAddress'] );
+		$I->fillField( 'venue[City]', $venue['venueCity'] );
+		// @todo - Add selector for "Parent"
+		$I->click( '#publish' );
+		$I->amOnPage( '/wp-admin/post-new.php?post_type=tribe_venue' );
+		//$I->see( $venue['venueTitle'] );
+		// @todo - add other fields
+
+	}
+
+	public function createOrganizer( $organizer = null ) {
+		if ( is_null( $organizer['organizerTitle'] ) ) {
+			throw new \InvalidArgumentException('Missing Arguments!  Need a title at least');
+		} 
+
+		$I = $this;
+		$I->amOnPage( '/wp-admin/post-new.php?post_type=tribe_organizer' );
+		$I->fillField( 'post_title', $organizer['organizerTitle'] );
+		$I->fillField( 'content', $organizer['organizerContent'] );
+		$I->fillField( 'organizer[Phone]', $organizer['organizerPhone'] );
+		$I->fillField( 'organizer[Website]', $organizer['organizerWebsite'] );
+		$I->fillField( 'organizer[Email]', $organizer['organizerEmail'] );
+		// @todo - Add selector for "Parent"
+		$I->click( '#publish' );
+		$I->amOnPage( '/wp-admin/post-new.php?post_type=tribe_venue' );
+
+	}
+
+
 }
