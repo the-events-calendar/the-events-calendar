@@ -383,7 +383,7 @@ class Tribe__Events__Cost_Utils {
 		$_merging_cost              = array_map( array( $this, 'convert_decimal_separator' ),
 			(array) $merging_cost );
 		$_merging_cost              = array_map( array( $this, 'numerize_numbers' ), $_merging_cost );
-		$numeric_merging_cost_costs = array_filter( $_merging_cost, array( $this, 'filter_numeric_values' ) );
+		$numeric_merging_cost_costs = array_filter( $_merging_cost, 'is_numeric' );
 
 		$matches = array();
 		preg_match_all( '!\d+(?:([' . preg_quote( $this->_supported_decimal_separators ) . '])\d+)?!',
@@ -439,18 +439,37 @@ class Tribe__Events__Cost_Utils {
 			$cost );
 	}
 
+	/**
+	 * Converts the original decimal separator to ".".
+	 *
+	 * @param string|int $value
+	 *
+	 * @return string
+	 */
 	protected function convert_decimal_separator( $value ) {
 		return preg_replace( '/[' . preg_quote( $this->_supported_decimal_separators ) . ']/', '.', $value );
 	}
 
-	private function filter_numeric_values( $value ) {
-		return is_numeric( $value );
-	}
-
+	/**
+	 * Restores the decimal separator to its original symbol.
+	 *
+	 * @param string $value
+	 *
+	 * @return string
+	 */
 	private function restore_original_decimal_separator( $value ) {
 		return str_replace( '.', $this->_current_original_cost_separator, $value );
 	}
 
+	/**
+	 * Extracts int and floats from a numeric "dirty" string like strings that might contain other symbols.
+	 *
+	 * E.g. "$10" will yield "10"; "23.55$" will yield "23.55".
+	 *
+	 * @param string|int $value
+	 *
+	 * @return int|float
+	 */
 	private function numerize_numbers( $value ) {
 		$matches = array();
 
