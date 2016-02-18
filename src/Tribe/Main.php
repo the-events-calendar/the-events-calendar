@@ -1652,7 +1652,7 @@
 				/**
 				 * Fires after APM filters have been instantiated.
 				 *
-				 * This is the action additional filters defining should hook to instantiate thos filters.
+				 * This is the action additional filters defining should hook to instantiate those filters.
 				 *
 				 * @since 4.1
 				 */
