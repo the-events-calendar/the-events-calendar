@@ -59,3 +59,5 @@ modules:
             adminUsername: admin
             adminPassword: password
             adminUrl: /wp-admin
+        WPBootstrapper:
+            wpRootFolder: ~/www/wordpress
