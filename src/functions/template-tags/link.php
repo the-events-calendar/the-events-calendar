@@ -150,6 +150,22 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Link to Short List View
+	 *
+	 * Returns a link to the general or category upcoming view
+	 *
+	 * @param int $term Optional event category ID to link to.
+	 *
+	 * @return string URL
+	 */
+	function tribe_get_shortlistview_link( $term = null ) {
+		$tribe_ecp = Tribe__Events__Main::instance();
+		$output    = $tribe_ecp->getLink( 'shortlist', false, $term );
+
+		return apply_filters( 'tribe_get_shortlistview_link', $output );
+	}
+
+	/**
 	 * Link to List View (Past)
 	 *
 	 * Returns a link to the general or category past view
