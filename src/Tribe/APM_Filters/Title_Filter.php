@@ -71,8 +71,4 @@ class Tribe__Events__Pro__APM_Filters__Title_Filter {
 
 		return $return;
 	}
-
-	public function log( $data = array() ) {
-		error_log( print_r( $data, 1 ) );
-	}
 }
