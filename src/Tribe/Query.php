@@ -216,15 +216,12 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						case 'custom':
 							// if the eventDisplay is 'custom', all we're gonna do is make sure the start and end dates are formatted
 							$start_date = $query->get( 'start_date' );
-							$start_date = $query->get( 'start_date' );
 							if ( $start_date ) {
-								$start_date_string = $start_date instanceof DateTime ? $start_date->date : $start_date;
-								$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date_string ) ) );
+								$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date ) ) );
 							}
 							$end_date = $query->get( 'end_date' );
 							if ( $end_date ) {
-								$end_date_string = $end_date instanceof DateTime ? $end_date->date : $end_date;
-								$query->set( 'end_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $end_date_string ) ) );
+								$query->set( 'end_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $end_date ) ) );
 							}
 							break;
 						case 'month':
@@ -289,7 +286,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				if ( ! in_array( $query->get( Tribe__Events__Main::TAXONOMY ), array( '', '-1' ) ) ) {
 					$tax_query[] = array(
 						'taxonomy'         => Tribe__Events__Main::TAXONOMY,
-						'field'            => is_numeric( $query->get( Tribe__Events__Main::TAXONOMY ) ) ? 'id' : 'slug',
+						'field'            => 'slug',
 						'terms'            => $query->get( Tribe__Events__Main::TAXONOMY ),
 						'include_children' => apply_filters( 'tribe_events_query_include_children', true ),
 					);
