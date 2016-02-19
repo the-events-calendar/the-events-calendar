@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "213df26281c702185e5a8a88e2f7965c",
-    "content-hash": "e17fb1c57f2504a3f5d7e26c973b95a8",
+    "hash": "d842d81c5a41bdc11c298c339adffe99",
+    "content-hash": "217b688c65269f9fd8845958cd88a278",
     "packages": [],
     "packages-dev": [
         {
@@ -412,16 +412,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "f5d04bdd2881ac89abde1fb78cc234bce24327bb"
+                "reference": "2e89629ff057ebb49492ba08e6995d3a6a80021b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/f5d04bdd2881ac89abde1fb78cc234bce24327bb",
-                "reference": "f5d04bdd2881ac89abde1fb78cc234bce24327bb",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/2e89629ff057ebb49492ba08e6995d3a6a80021b",
+                "reference": "2e89629ff057ebb49492ba08e6995d3a6a80021b",
                 "shasum": ""
             },
             "require": {
@@ -466,7 +466,7 @@
                 "stream",
                 "uri"
             ],
-            "time": "2016-01-23 01:23:02"
+            "time": "2016-02-18 21:54:00"
         },
         {
             "name": "hautelook/phpass",
@@ -612,16 +612,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "dev-master",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "fae4ef45bfd2a1ffdf924d3b51421f7cc57bdad3"
+                "reference": "307896619a9f8031d4febd247c3f81f838eba07e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/fae4ef45bfd2a1ffdf924d3b51421f7cc57bdad3",
-                "reference": "fae4ef45bfd2a1ffdf924d3b51421f7cc57bdad3",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/307896619a9f8031d4febd247c3f81f838eba07e",
+                "reference": "307896619a9f8031d4febd247c3f81f838eba07e",
                 "shasum": ""
             },
             "require": {
@@ -664,7 +664,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2016-02-17 16:28:26"
+            "time": "2016-02-18 16:21:18"
         },
         {
             "name": "mikemclin/laravel-wp-password",
@@ -2155,10 +2155,8 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
-    "stability-flags": {
-        "lucatume/wp-browser": 20
-    },
+    "minimum-stability": "stable",
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
