@@ -141,9 +141,13 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				// Archive
 				->archive( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%1' ) )
 				->archive( array( '(feed|rdf|rss|rss2|atom)' ), array( 'eventDisplay' => 'list', 'feed' => '%1' ) )
+				->archive( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'shortlist', 'paged' => '%1' ) )
+				->archive( array( '(feed|rdf|rss|rss2|atom)' ), array( 'eventDisplay' => 'shortlist', 'feed' => '%1' ) )
 				->archive( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
 				->archive( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%1' ) )
 				->archive( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
+				->archive( array( '{{ shortlist }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'shortlist', 'paged' => '%1' ) )
+				->archive( array( '{{ shortlist }}' ), array( 'eventDisplay' => 'shortlist' ) )
 				->archive( array( '{{ today }}' ), array( 'eventDisplay' => 'day' ) )
 				->archive( array( '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%1' ) )
 				->archive( array( '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%1' ) )
@@ -154,28 +158,36 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 
 				// Taxonomy
 				->tax( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
+				->tax( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'shortlist', 'paged' => '%2' ) )
 				->tax( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
 				->tax( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
 				->tax( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
+				->tax( array( '{{ shortlist }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'shortlist', 'paged' => '%2' ) )
+				->tax( array( '{{ shortlist }}' ), array( 'eventDisplay' => 'shortlist' ) )
 				->tax( array( '{{ today }}' ), array( 'eventDisplay' => 'day' ) )
 				->tax( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
 				->tax( array( '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2' ) )
 				->tax( array( '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
 				->tax( array( 'feed' ), array( 'eventDisplay' => 'list', 'feed' => 'rss2' ) )
+				->tax( array( 'feed' ), array( 'eventDisplay' => 'shortlist', 'feed' => 'rss2' ) )
 				->tax( array( 'ical' ), array( 'ical' => 1 ) )
 				->tax( array( 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'feed' => '%2' ) )
 				->tax( array(), array( 'eventDisplay' => $options['default_view'] ) )
 
 				// Tag
 				->tag( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
+				->tag( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'shortlist', 'paged' => '%2' ) )
 				->tag( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
 				->tag( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
 				->tag( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
+				->tag( array( '{{ shortlist }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'shortlist', 'paged' => '%2' ) )
+				->tag( array( '{{ shortlist }}' ), array( 'eventDisplay' => 'shortlist' ) )
 				->tag( array( '{{ today }}' ), array( 'eventDisplay' => 'day' ) )
 				->tag( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
 				->tag( array( '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2' ) )
 				->tag( array( '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
 				->tag( array( 'feed' ), array( 'eventDisplay' => 'list', 'feed' => 'rss2' ) )
+				->tag( array( 'feed' ), array( 'eventDisplay' => 'shortlist', 'feed' => 'rss2' ) )
 				->tag( array( 'ical' ), array( 'ical' => 1 ) )
 				->tag( array( 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'feed' => '%2' ) )
 				->tag( array(), array( 'eventDisplay' => $options['default_view'] ) );
@@ -247,6 +259,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			$bases = apply_filters( 'tribe_events_rewrite_base_slugs', array(
 				'month' => array( 'month', $tec->monthSlug ),
 				'list' => array( 'list', $tec->listSlug ),
+				'shortlist' => array( 'shortlist', $tec->shortListSlug ),
 				'today' => array( 'today', $tec->todaySlug ),
 				'day' => array( 'day', $tec->daySlug ),
 				'tag' => array( 'tag', $tec->tag_slug ),
