@@ -382,7 +382,8 @@ class Tribe__Events__Cost_Utils {
 
 		$_merging_cost              = array_map( array( $this, 'convert_decimal_separator' ),
 			(array) $merging_cost );
-		$numeric_merging_cost_costs = array_filter( $_merging_cost, array( $this, 'filter_numeric_values' ) );
+		$_merging_cost              = array_map( array( $this, 'numerize_numbers' ), $_merging_cost );
+		$numeric_merging_cost_costs = array_filter( $_merging_cost, 'is_numeric' );
 
 		$matches = array();
 		preg_match_all( '!\d+(?:([' . preg_quote( $this->_supported_decimal_separators ) . '])\d+)?!',
@@ -400,7 +401,7 @@ class Tribe__Events__Cost_Utils {
 		$all_numeric_costs = array_filter( array_merge( $numeric_merging_cost_costs, $numeric_orignal_costs ) );
 		$cost_min          = $cost_max = false;
 
-		$merging_mins = array_intersect( $sorted_mins, (array) $merging_cost );
+		$merging_mins     = array_intersect( $sorted_mins, (array) $merging_cost );
 		$merging_has_min  = array_search( reset( $merging_mins ), $sorted_mins );
 		$original_has_min = array_search( $original_string_cost, $sorted_mins );
 		$merging_has_min  = false === $merging_has_min ? 999 : $merging_has_min;
@@ -412,7 +413,7 @@ class Tribe__Events__Cost_Utils {
 			$cost_min = empty( $all_numeric_costs ) ? '' : min( $all_numeric_costs );
 		}
 
-		$merging_maxs = array_intersect( $sorted_maxs, (array) $merging_cost );
+		$merging_maxs     = array_intersect( $sorted_maxs, (array) $merging_cost );
 		$merging_has_max  = array_search( end( $merging_maxs ), $sorted_maxs );
 		$original_has_max = array_search( $original_string_cost, $sorted_maxs );
 		$merging_has_max  = false === $merging_has_max ? - 1 : $merging_has_max;
@@ -438,15 +439,42 @@ class Tribe__Events__Cost_Utils {
 			$cost );
 	}
 
+	/**
+	 * Converts the original decimal separator to ".".
+	 *
+	 * @param string|int $value
+	 *
+	 * @return string
+	 */
 	protected function convert_decimal_separator( $value ) {
 		return preg_replace( '/[' . preg_quote( $this->_supported_decimal_separators ) . ']/', '.', $value );
 	}
 
-	private function filter_numeric_values( $value ) {
-		return is_numeric( $value );
-	}
-
+	/**
+	 * Restores the decimal separator to its original symbol.
+	 *
+	 * @param string $value
+	 *
+	 * @return string
+	 */
 	private function restore_original_decimal_separator( $value ) {
 		return str_replace( '.', $this->_current_original_cost_separator, $value );
+	}
+
+	/**
+	 * Extracts int and floats from a numeric "dirty" string like strings that might contain other symbols.
+	 *
+	 * E.g. "$10" will yield "10"; "23.55$" will yield "23.55".
+	 *
+	 * @param string|int $value
+	 *
+	 * @return int|float
+	 */
+	private function numerize_numbers( $value ) {
+		$matches = array();
+
+		$pattern = '/(\\d{1,}([' . $this->_supported_decimal_separators . ']\\d{1,}))/';
+
+		return preg_match( $pattern, $value, $matches ) ? $matches[1] : $value;
 	}
 }
