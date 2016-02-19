@@ -43,7 +43,7 @@ class Tribe__Events__Pro__APM_Filters__Venue_Filter {
 	}
 
 	public function join_venue( $join, $wp_query ) {
-		// bail if this is not a query for event post type
+		// bail if this is not a query for the event post type
 		if ( $wp_query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE ) {
 			return $join;
 		}
@@ -69,7 +69,7 @@ class Tribe__Events__Pro__APM_Filters__Venue_Filter {
 	public function where_venue( $where, WP_Query $query ) {
 		global $wpdb;
 
-		// bail if this is not a query for event post type
+		// bail if this is not a query for the event post type
 		if ( $query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE ) {
 			return $where;
 		}
