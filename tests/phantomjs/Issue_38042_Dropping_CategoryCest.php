@@ -14,7 +14,7 @@ class Issue_38042_Dropping_CategoryCest {
 		$options = $I->getDefaultCoreOptions( [ 'tribeEventsTemplate' => '', 'viewOption' => 'month' ] );
 		$I->haveOptionInDatabase( 'tribe_events_calendar_options', $options );
 
-		// let's resize the window not to incure in mobile breakpoints
+		// let's resize the window not to incurr in mobile breakpoints
 		$I->resizeWindow( 1200, 1000 );
 
 		$I->amOnPage( "/events/category/{$this->an_existing_event_category}" );

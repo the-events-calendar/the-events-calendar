@@ -703,6 +703,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return string
 		 */
 		public static function posts_join_venue_organizer( $join_sql, $query ) {
+			// bail if this is not a query for event post type
+			if ( $query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE ) {
+				return $join_sql;
+			}
+
 			global $wpdb;
 
 			switch ( $query->get( 'orderby' ) ) {
