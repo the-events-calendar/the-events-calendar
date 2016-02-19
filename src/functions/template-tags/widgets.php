@@ -141,8 +141,13 @@ function tribe_events_get_widget_event_atts() {
 function tribe_events_get_widget_event_post_date() {
 	global $post, $wp_query;
 
-	$startDate = strtotime( $post->EventStartDate );
-	$endDate   = strtotime( $post->EventEndDate );
+	if ( class_exists( 'Tribe__Events__Timezones' ) ) {
+		$startDate = Tribe__Events__Timezones::event_start_timestamp( $post->ID, null );
+		$endDate = Tribe__Events__Timezones::event_end_timestamp( $post->ID, null );
+	} else {
+		$startDate = strtotime( $post->EventStartDate );
+		$endDate   = strtotime( $post->EventEndDate );
+	}
 
 	$is_multiday = tribe_event_is_multiday( $post->ID );
 	$is_all_day = tribe_event_is_all_day( $post->ID );

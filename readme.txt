@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.4
-Stable tag: 4.0.5
+Stable tag: 4.1beta1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -230,6 +230,18 @@ Our Premium Plugins:
 * Tweak - Show an error message when the Google Maps API query limit has been reached
 * Fix - Fixed invalid class name when throwing Tribe notices in the Map template
 * Fix - Improved compatibiliy with ACF on the Edit Event page
+
+= [4.0.6] 2016-02-17 =
+
+* Fix - Resolved issue where the list widget was displaying dates in the wrong timezone when sitewide timezones were enabled
+* Fix - Custom Recurring descriptions are now saving as expected
+* Fix - Administration Recurring Exclusion Datepickers are now fully operational with custom formats
+* Fix - Prevent "/all" page to show past events
+* Fix - Ensure Photo view is fully displayed on Mobile
+* Fix - Organizer and Venue URL now respect UTF-8 characters
+* Fix - All of our Permalinks will now allow translations with non-alphanumeric characters
+* Fix - Fixing Fatals on bad Debug Classes for Map View
+* Tweak - "/all" page on Recurring events will be recoginized as a `is_archive` template
 
 = [4.0.5] 2016-01-25 =
 

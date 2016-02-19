@@ -22,7 +22,7 @@ class Tribe__Events__Pro__Recurrence__Meta_Builder {
 	 *
 	 * @param array $data
 	 */
-	public function __construct( $event_id , array $data = array() , Tribe__Events__Pro__Recurrence__Utils $utils = null ) {
+	public function __construct( $event_id, array $data = array(), Tribe__Events__Pro__Recurrence__Utils $utils = null ) {
 		$this->event_id = $event_id;
 		$this->data = $data;
 		$this->utils = $utils ? $utils : new Tribe__Events__Pro__Recurrence__Utils();
@@ -65,9 +65,14 @@ class Tribe__Events__Pro__Recurrence__Meta_Builder {
 
 				unset( $recurrence['occurrence-count-text'] );
 
+				$datepicker_format = $this->utils->datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+
 				if ( ! empty( $recurrence['end'] ) ) {
-					$datepicker_format = $this->utils->datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 					$recurrence['end'] = $this->utils->datetime_from_format( $datepicker_format, $recurrence['end'] );
+				}
+
+				if ( isset( $recurrence['custom'] ) && 'Date' === $recurrence['custom']['type'] ) {
+					$recurrence['custom']['date']['date'] = $this->utils->datetime_from_format( $datepicker_format, $recurrence['custom']['date']['date'] );
 				}
 
 				// if this isn't an exclusion and it isn't a Custom rule, then we don't need the custom array index
@@ -111,7 +116,7 @@ class Tribe__Events__Pro__Recurrence__Meta_Builder {
 	private function get_zero_array() {
 		return array(
 			'rules'       => array(), 'exclusions' => array(),
-			'description' => empty( $this->data['description'] ) ? null : sanitize_text_field( $this->data['description'] ),
+			'description' => empty( $this->data['recurrence']['description'] ) ? null : sanitize_text_field( $this->data['recurrence']['description'] ),
 		);
 	}
 }

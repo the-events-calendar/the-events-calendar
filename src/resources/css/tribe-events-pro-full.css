@@ -397,6 +397,13 @@
 	        transition-property: height, width;
 }
 
+/**
+ * This prevents Isotope conflicting not showing events
+ */
+.tribe-mobile #tribe-events-photo-events {
+	opacity: 1;
+}
+
 #tribe-events-photo-events .isotope-item {
 	-webkit-transition: .2s ease-in;
 	   -moz-transition: .2s ease-in;
