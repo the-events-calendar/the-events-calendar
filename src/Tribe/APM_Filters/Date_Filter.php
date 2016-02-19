@@ -63,6 +63,11 @@ class Tribe__Events__Pro__APM_Filters__Date_Filter {
 	}
 
 	public function where( $where, $wp_query ) {
+		// bail if this is not a query for event post type
+		if ( $wp_query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE ) {
+			return $where;
+		}
+
 		global $ecp_apm, $wpdb;
 		// run once
 		remove_filter( 'posts_where', array( $this, 'where' ), 10, 2 );

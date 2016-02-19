@@ -33,6 +33,11 @@ class Tribe__Events__Pro__APM_Filters__Recur_Filter {
 	}
 
 	public function join_recur( $join, $wp_query ) {
+		// bail if this is not a query for event post type
+		if ( $wp_query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE ) {
+			return $join;
+		}
+
 		if ( ! empty( $wp_query->apm_ecp_recur ) ) {
 			global $wpdb;
 			$join .= " LEFT JOIN {$wpdb->postmeta} AS recur_meta ON({$wpdb->posts}.ID = recur_meta.post_id AND recur_meta.meta_key='{$this->meta}') ";
@@ -42,6 +47,11 @@ class Tribe__Events__Pro__APM_Filters__Recur_Filter {
 	}
 
 	public function where_recur( $where, $wp_query ) {
+		// bail if this is not a query for event post type
+		if ( $wp_query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE ) {
+			return $where;
+		}
+
 		if ( empty( $wp_query->apm_ecp_recur ) ) {
 			return $where;
 		}
