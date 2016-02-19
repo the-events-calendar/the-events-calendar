@@ -39,10 +39,15 @@ class Tribe__Events__Pro__APM_Filters__Organizer_Filter {
 
 		$this->active = $active;
 		add_filter( 'posts_join', array( $this, 'join_organizer' ), 10, 2 );
-		add_filter( 'posts_where', array( $this, 'where_organizer' ) );
+		add_filter( 'posts_where', array( $this, 'where_organizer' ), 10, 2 );
 	}
 
 	public function join_organizer( $join, $wp_query ) {
+		// bail if this is not a query for event post type
+		if ( $wp_query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE ) {
+			return $join;
+		}
+
 		global $ecp_apm;
 
 		$active_filters = array();
@@ -61,7 +66,12 @@ class Tribe__Events__Pro__APM_Filters__Organizer_Filter {
 		return $join;
 	}
 
-	public function where_organizer( $where ) {
+	public function where_organizer( $where, WP_Query $query ) {
+		// bail if this is not a query for event post type
+		if ( $query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE ) {
+			return $where;
+		}
+
 		$organizers = array_filter( array_map( 'absint', $this->active[ $this->key ] ) );
 
 		if ( empty( $organizers ) ) {
