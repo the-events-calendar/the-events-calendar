@@ -612,16 +612,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "1.10.0",
+            "version": "1.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "307896619a9f8031d4febd247c3f81f838eba07e"
+                "reference": "31f3127d40c12b9c39a31f497d2ac45ba26d48a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/307896619a9f8031d4febd247c3f81f838eba07e",
-                "reference": "307896619a9f8031d4febd247c3f81f838eba07e",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/31f3127d40c12b9c39a31f497d2ac45ba26d48a6",
+                "reference": "31f3127d40c12b9c39a31f497d2ac45ba26d48a6",
                 "shasum": ""
             },
             "require": {
@@ -664,7 +664,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2016-02-18 16:21:18"
+            "time": "2016-02-19 16:11:52"
         },
         {
             "name": "mikemclin/laravel-wp-password",
