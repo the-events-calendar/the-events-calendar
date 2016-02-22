@@ -10,6 +10,7 @@ $I->setPermalinkStructureAndFlush( '/%postname%/' );
 $current_slug = $I->getTribeOptionFromDatabase( 'eventsSlug', 'events' );
 
 // act
+$I->loginAsAdmin();
 $I->amOnAdminPage( '/edit.php?post_type=tribe_events&page=tribe-common' );
 $new_slug = 'classes-and-courses';
 $I->fillField( 'eventsSlug', $new_slug );

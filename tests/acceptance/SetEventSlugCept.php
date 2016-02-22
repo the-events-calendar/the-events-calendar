@@ -14,17 +14,17 @@ $event = get_page_by_title( $title, OBJECT, 'tribe_events' );
 if ( $event ) {
 	wp_delete_post( $event->ID );
 }
-$event             = get_post( wp_insert_post( [
+$event_id             = wp_insert_post( [
 	'post_title' => $title,
 	'post_type'  => 'tribe_events',
 	'post_namel' => 'an-event-of-mine'
-] ) );
+] );
 $single_event_slug = $I->getTribeOptionFromDatabase( 'singleEventSlug', 'event' );
 $old_event_url     = home_url( $single_event_slug . '/an-event-of-mine' );
 
 // act
 $I->loginAsAdmin();
-$I->amOnAdminPage( '/post.php?post=' . $event->ID . '&action=edit' );
+$I->amOnAdminPage( '/post.php?post=' . $event_id . '&action=edit' );
 $I->click( '#edit-slug-buttons > button.edit-slug' );
 $new_slug = 'hopefully-totally-unrelated-slug';
 $I->fillField( '#new-post-slug', $new_slug );
