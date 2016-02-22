@@ -9,7 +9,7 @@ class Known_RangeTest extends \Codeception\TestCase\WPTestCase {
 
 	protected $backupGlobals = false;
 
-	protected $format = Date_Utils::DBDATETIMEFORMAT;
+	protected $format = '';
 
 	protected $two_hrs = 7200;
 
@@ -23,6 +23,7 @@ class Known_RangeTest extends \Codeception\TestCase\WPTestCase {
 
 		// your set up methods here
 		$this->start = time();
+		$this->format =  Date_Utils::DBDATETIMEFORMAT;
 	}
 
 	public function tearDown() {

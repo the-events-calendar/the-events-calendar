@@ -232,11 +232,7 @@ class Tribe__Events__Importer__Admin_Page {
 				break;
 
 			case 'continue':
-				// This test guards against a fatal error that can occur if the action=continue
-				// screen is refreshed after the import completes
-				if ( Tribe__Events__Importer__File_Uploader::has_valid_csv_file() ) {
-					$this->continue_import();
-				}
+				$this->continue_import();
 				break;
 
 			default:

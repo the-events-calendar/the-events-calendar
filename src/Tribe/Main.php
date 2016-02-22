@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '4.0.5';
+		const VERSION           = '4.1beta1';
 		const MIN_ADDON_VERSION = '4.0';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -58,7 +58,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'thumbnail',
 				'custom-fields',
 				'comments',
-				'publicize',
 			),
 			'taxonomies'      => array( 'post_tag' ),
 			'capability_type' => array( 'tribe_event', 'tribe_events' ),
@@ -75,7 +74,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'rewrite'             => array( 'slug' => 'venue', 'with_front' => false ),
 			'show_ui'             => true,
 			'show_in_menu'        => 0,
-			'supports'            => array( 'title', 'editor', 'publicize' ),
+			'supports'            => array( 'title', 'editor' ),
 			'capability_type'     => array( 'tribe_venue', 'tribe_venues' ),
 			'map_meta_cap'        => true,
 			'exclude_from_search' => true,
@@ -92,7 +91,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'rewrite'             => array( 'slug' => 'organizer', 'with_front' => false ),
 			'show_ui'             => true,
 			'show_in_menu'        => 0,
-			'supports'            => array( 'title', 'editor', 'publicize' ),
+			'supports'            => array( 'title', 'editor' ),
 			'capability_type'     => array( 'tribe_organizer', 'tribe_organizers' ),
 			'map_meta_cap'        => true,
 			'exclude_from_search' => true,
@@ -472,10 +471,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
-			add_action( 'save_post_' . self::POSTTYPE, array( Tribe__Events__Dates__Known_Range::instance(), 'maybe_update_known_range' ) );
-			add_action( 'tribe_events_csv_import_complete', array( Tribe__Events__Dates__Known_Range::instance(), 'rebuild_known_range' ) );
+			add_action( 'save_post_' . self::POSTTYPE, array( $this, 'maybe_update_known_range' ) );
+			add_action( 'tribe_events_csv_import_complete', array( $this, 'rebuild_known_range' ) );
 			add_action( 'publish_' . self::POSTTYPE, array( $this, 'publishAssociatedTypes' ), 25, 2 );
-			add_action( 'delete_post', array( Tribe__Events__Dates__Known_Range::instance(), 'maybe_rebuild_known_range' ) );
+			add_action( 'delete_post', array( $this, 'maybe_rebuild_known_range' ) );
 			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 0 );
 			add_action( 'tribe_events_post_errors', array( 'Tribe__Events__Post_Exception', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'Tribe__Events__Options_Exception', 'displayMessage' ) );
@@ -520,7 +519,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Check for a page that might conflict with events archive
 			add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice' ) );
-			add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_dismiss' ), 5 );
 
 			// add-on compatibility
 			if ( is_multisite() ) {
@@ -578,12 +576,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_feature_box_content' ) );
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_support_content' ) );
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_extra_content' ) );
-
-			// Setup AJAX Select2 Actions
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Ajax__Select2', 'hook' ) );
-
-			// Setup Shortcodes
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Shortcode__Event_Details', 'hook' ) );
 		}
 
 		/**
@@ -1750,19 +1742,84 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string $name    the name value for the field
 		 */
 		public function saved_venues_dropdown( $current = null, $name = 'venue[VenueID]' ) {
-			if ( $current ) {
-				$current = get_post( $current );
-			}
-			if ( 1 === 1 ) {
-				if ( $current instanceof WP_Post ) {
-					$current_attr = ' value="' . $current->ID . '" data-text="' . esc_attr( wp_kses( get_the_title( $current->ID ), array() ) ) . '" ';
-				} else {
-					$current_attr = ' value="0" data-text="' . esc_attr( sprintf( __( 'Use New %s', 'the-events-calendar' ), $this->singular_venue_label ) ) . '" ';
+			$my_venue_ids     = array();
+			$current_user     = wp_get_current_user();
+			$my_venues        = false;
+			$my_venue_options = '';
+			if ( 0 != $current_user->ID ) {
+				$my_venues = $this->get_venue_info(
+					null,
+					array(
+						'post_status' => array(
+							'publish',
+							'draft',
+							'private',
+							'pending',
+						),
+						'author' => $current_user->ID,
+					)
+				);
+
+				if ( ! empty( $my_venues ) ) {
+					foreach ( $my_venues as $my_venue ) {
+						$my_venue_ids[] = $my_venue->ID;
+						$venue_title    = wp_kses( get_the_title( $my_venue->ID ), array() );
+						$my_venue_options .= '<option data-address="' . esc_attr( $this->fullAddressString( $my_venue->ID ) ) . '" value="' . esc_attr( $my_venue->ID ) . '"';
+						$my_venue_options .= selected( $current, $my_venue->ID, false );
+						$my_venue_options .= '>' . $venue_title . '</option>';
+					}
 				}
-				echo '<input class="venue-dropdown" ' . $current_attr . ' name="' . esc_attr( $name ) . '" id="saved_venue" type="hidden"/>';
+			}
+
+			if ( current_user_can( 'edit_others_tribe_venues' ) ) {
+				$venues = $this->get_venue_info(
+					null,
+					array(
+						'post_status'  => array(
+							'publish',
+							'draft',
+							'private',
+							'pending',
+						),
+						'post__not_in' => $my_venue_ids,
+					)
+				);
+			} else {
+				$venues = $this->get_venue_info(
+					null,
+					array(
+						'post_status'  => 'publish',
+						'post__not_in' => $my_venue_ids,
+					)
+				);
+			}
+			if ( $venues || $my_venues ) {
+				$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
+				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
+				if (
+					! empty( $venue_pto->cap->create_posts )
+					&& current_user_can( $venue_pto->cap->create_posts )
+				) {
+					echo '<option value="0">' . esc_html( sprintf( __( 'Use New %s', 'the-events-calendar' ), $this->singular_venue_label ) ) . '</option>';
+				}
+				if ( $my_venues ) {
+					echo $venues ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_venues_dropdown_my_optgroup', sprintf( esc_html__( 'My %s', 'the-events-calendar' ), $this->plural_venue_label ) ) ) . '">' : '';
+					echo $my_venue_options;
+					echo $venues ? '</optgroup>' : '';
+				}
+				if ( $venues ) {
+					echo $my_venues ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_venues_dropdown_optgroup', sprintf( esc_html__( 'Available %s', 'the-events-calendar' ), $this->plural_venue_label ) ) ) . '">' : '';
+					foreach ( $venues as $venue ) {
+						$venue_title = wp_kses( get_the_title( $venue->ID ), array() );
+						echo '<option data-address="' . esc_attr( $this->fullAddressString( $venue->ID ) ) . '" value="' . esc_attr( $venue->ID ) . '"';
+						selected( ( $current == $venue->ID ) );
+						echo '>' . $venue_title . '</option>';
+					}
+					echo $my_venues ? '</optgroup>' : '';
+				}
+				echo '</select>';
 			} else {
 				echo '<p class="nosaved">' . sprintf( esc_html__( 'No saved %s exists.', 'the-events-calendar' ), strtolower( $this->singular_venue_label ) ) . '</p>';
-				printf( '<input type="hidden" name="%s" value="%d"/>', esc_attr( $name ), 0 );
 			}
 		}
 
@@ -1774,16 +1831,82 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string $name    the name value for the field
 		 */
 		public function saved_organizers_dropdown( $current = null, $name = 'organizer[OrganizerID]' ) {
-			if ( $current ) {
-				$current = get_post( $current );
-			}
-			if ( 1 === 1 ) {
-				if ( $current instanceof WP_Post ) {
-					$current_attr = ' value="' . $current->ID . '" data-text="' . esc_attr( wp_kses( get_the_title( $current->ID ), array() ) ) . '" ';
-				} else {
-					$current_attr = ' value="0" data-text="' . esc_attr( sprintf( __( 'Use New %s', 'the-events-calendar' ), $this->singular_organizer_label ) ) . '" ';
+			$my_organizer_ids      = array();
+			$current_user          = wp_get_current_user();
+			$my_organizers         = false;
+			$my_organizers_options = '';
+			if ( 0 != $current_user->ID ) {
+				$my_organizers = $this->get_organizer_info(
+					null,
+					array(
+						'post_status' => array(
+							'publish',
+							'draft',
+							'private',
+							'pending',
+						),
+						'author' => $current_user->ID,
+					)
+				);
+
+				if ( ! empty( $my_organizers ) ) {
+					foreach ( $my_organizers as $my_organizer ) {
+						$my_organizer_ids[] = $my_organizer->ID;
+						$organizer_title    = wp_kses( get_the_title( $my_organizer->ID ), array() );
+						$my_organizers_options .= '<option value="' . esc_attr( $my_organizer->ID ) . '"';
+						$my_organizers_options .= selected( $current, $my_organizer->ID, false );
+						$my_organizers_options .= '>' . $organizer_title . '</option>';
+					}
 				}
-				echo '<input class="organizer-dropdown" ' . $current_attr . ' name="' . esc_attr( $name ) . '" id="saved_organizer" type="hidden"/>';
+			}
+
+
+			if ( current_user_can( 'edit_others_tribe_organizers' ) ) {
+				$organizers = $this->get_organizer_info(
+					null, array(
+						'post_status' => array(
+							'publish',
+							'draft',
+							'private',
+							'pending',
+						),
+						'post__not_in' => $my_organizer_ids,
+					)
+				);
+			} else {
+				$organizers = $this->get_organizer_info(
+					null, array(
+						'post_status'  => 'publish',
+						'post__not_in' => $my_organizer_ids,
+					)
+				);
+			}
+			if ( $organizers || $my_organizers ) {
+				$oganizer_pto = get_post_type_object( self::ORGANIZER_POST_TYPE );
+				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
+				if (
+					! empty( $oganizer_pto->cap->create_posts )
+					&& current_user_can( $oganizer_pto->cap->create_posts )
+				) {
+					echo '<option value="0">' . sprintf( esc_html__( 'Use New %s', 'the-events-calendar' ), $this->singular_organizer_label ) . '</option>';
+				}
+
+				if ( $my_organizers ) {
+					echo $organizers ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_organizers_dropdown_my_optgroup', sprintf( esc_html__( 'My %s', 'the-events-calendar' ), $this->plural_organizer_label ) ) ) . '">' : '';
+					echo $my_organizers_options;
+					echo $organizers ? '</optgroup>' : '';
+				}
+				if ( $organizers ) {
+					echo $my_organizers ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_organizers_dropdown_optgroup', sprintf( esc_html__( 'Available %s', 'the-events-calendar' ), $this->plural_organizer_label ) ) ) . '">' : '';
+					foreach ( $organizers as $organizer ) {
+						$organizer_title = wp_kses( get_the_title( $organizer->ID ), array() );
+						echo '<option value="' . esc_attr( $organizer->ID ) . '"';
+						selected( $current == $organizer->ID );
+						echo '>' . $organizer_title . '</option>';
+					}
+					echo $my_organizers ? '</optgroup>' : '';
+				}
+				echo '</select>';
 			} else {
 				echo '<p class="nosaved">' . sprintf( esc_html__( 'No saved %s exists.', 'the-events-calendar' ), strtolower( $this->singular_organizer_label ) ) . '</p>';
 				printf( '<input type="hidden" name="%s" value="%d"/>', esc_attr( $name ), 0 );
@@ -1872,9 +1995,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				// select 2
 				Tribe__Events__Template_Factory::asset_package( 'select2' );
 
-				// Add the DropDowns
-				Tribe__Events__Template_Factory::asset_package( 'dropdowns' );
-
 				// date picker
 				Tribe__Events__Template_Factory::asset_package( 'datepicker' );
 
@@ -1886,7 +2006,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 				// JS admin
 				Tribe__Events__Template_Factory::asset_package( 'admin' );
-
 
 				// ecp placeholders
 				Tribe__Events__Template_Factory::asset_package( 'ecp-plugins' );
@@ -3095,6 +3214,106 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$o[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : '';
 			}
 			return $organizers;
+		}
+
+		/**
+		 * Intended to run when the save_post_tribe_events action is fired.
+		 *
+		 * At this point we know an event is being updated or created and, if the post is going to
+		 * be visible, we can set up a further action to handle updating our record of the
+		 * populated date range once the post meta containing the start and end date for the post
+		 * has saved.
+		 */
+		public function maybe_update_known_range( $post_id ) {
+			// If the event isn't going to be visible (perhaps it's been trashed) rebuild dates and bail
+			if ( ! in_array( get_post_status( $post_id ), array( 'publish', 'private', 'protected' ) ) ) {
+				$this->rebuild_known_range();
+				return;
+			}
+
+			add_action( 'tribe_events_update_meta', array( $this, 'update_known_range' ) );
+		}
+
+		/**
+		 * Intelligently updates our record of the earliest start date/latest event date in
+		 * the system. If the existing earliest/latest values have not been superseded by the new post's
+		 * start/end date then no update takes place.
+		 *
+		 * This is deliberately hooked into save_post, rather than save_post_tribe_events, to avoid issues
+		 * where the removal/restoration of hooks within addEventMeta() etc might stop this method from
+		 * actually being called (relates to a core WP bug).
+		 */
+		public function update_known_range( $object_id ) {
+
+			$current_min = tribe_events_earliest_date();
+			$current_max = tribe_events_latest_date();
+
+			$event_start = tribe_get_start_date( $object_id, false, Tribe__Date_Utils::DBDATETIMEFORMAT );
+			$event_end   = tribe_get_end_date( $object_id, false, Tribe__Date_Utils::DBDATETIMEFORMAT );
+
+			if ( $current_min > $event_start ) {
+				tribe_update_option( 'earliest_date', $event_start );
+			}
+			if ( $current_max < $event_end ) {
+				tribe_update_option( 'latest_date', $event_end );
+			}
+		}
+
+		/**
+		 * Fires on delete_post and decides whether or not to rebuild our record or
+		 * earliest/latest event dates (which will be done when deleted_post fires,
+		 * so that the deleted event is removed from the db before we recalculate).
+		 *
+		 * @param $post_id
+		 */
+		public function maybe_rebuild_known_range( $post_id ) {
+			if ( self::POSTTYPE === get_post_type( $post_id ) ) {
+				add_action( 'deleted_post', array( $this, 'rebuild_known_range' ) );
+			}
+		}
+
+		/**
+		 * Determine the earliest start date and latest end date currently in the database
+		 * and store those values for future use.
+		 */
+		public function rebuild_known_range() {
+			global $wpdb;
+			remove_action( 'deleted_post', array( $this, 'rebuild_known_range' ) );
+
+			$earliest = strtotime(
+				$wpdb->get_var(
+					 $wpdb->prepare(
+						  "
+				SELECT MIN(meta_value) FROM $wpdb->postmeta
+				JOIN $wpdb->posts ON post_id = ID
+				WHERE meta_key = '_EventStartDate'
+				AND post_type = '%s'
+				AND post_status IN ('publish', 'private', 'protected')
+			", self::POSTTYPE
+					 )
+				)
+			);
+
+			$latest = strtotime(
+				$wpdb->get_var(
+					 $wpdb->prepare(
+						  "
+				SELECT MAX(meta_value) FROM $wpdb->postmeta
+				JOIN $wpdb->posts ON post_id = ID
+				WHERE meta_key = '_EventEndDate'
+				AND post_type = '%s'
+				AND post_status IN ('publish', 'private', 'protected')
+			", self::POSTTYPE
+					 )
+				)
+			);
+
+			if ( $earliest ) {
+				tribe_update_option( 'earliest_date', date( Tribe__Date_Utils::DBDATETIMEFORMAT, $earliest ) );
+			}
+			if ( $latest ) {
+				tribe_update_option( 'latest_date', date( Tribe__Date_Utils::DBDATETIMEFORMAT, $latest ) );
+			}
 		}
 
 		/**

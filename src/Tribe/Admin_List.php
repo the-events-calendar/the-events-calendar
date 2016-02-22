@@ -90,6 +90,11 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 * @return  Array                   Modified SQL clauses
 		 */
 		public static function sort_by_event_date( Array $clauses, WP_Query $wp_query ) {
+			// bail if this is not a query for event post type
+			if ( $wp_query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE ) {
+				return $clauses;
+			}
+
 			global $wpdb;
 
 			$sort_direction = self::get_sort_direction( $wp_query );

@@ -36,7 +36,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 					$html = Tribe__Events__Meta_Factory::template(
 						esc_html__( 'Start:', 'the-events-calendar' ),
 						sprintf(
-							'<abbr class="tribe-events-abbr tribe-events-start-datetime updated published dtstart" title="%s">%s</abbr>',
+							'<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
 							tribe_get_start_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 							tribe_get_start_date()
 						),
@@ -45,7 +45,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 					$html .= Tribe__Events__Meta_Factory::template(
 						esc_html__( 'End:', 'the-events-calendar' ),
 						sprintf(
-							'<abbr class="tribe-events-abbr tribe-events-end-datetime dtend" title="%s">%s</abbr>',
+							'<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
 							tribe_get_end_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 							tribe_get_end_date()
 						),
@@ -56,7 +56,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 					$html = Tribe__Events__Meta_Factory::template(
 						esc_html__( 'Date:', 'the-events-calendar' ),
 						sprintf(
-							'<abbr class="tribe-events-abbr tribe-events-start-datetime updated published dtstart" title="%s">%s</abbr>',
+							'<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
 							tribe_get_start_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 							tribe_get_start_date()
 						),
@@ -68,7 +68,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 				$html = Tribe__Events__Meta_Factory::template(
 					esc_html__( 'Start:', 'the-events-calendar' ),
 					sprintf(
-						'<abbr class="tribe-events-abbr tribe-events-start-datetime updated published dtstart" title="%s">%s</abbr>',
+						'<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
 						tribe_get_start_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 						tribe_get_start_date()
 					),
@@ -77,7 +77,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 				$html .= Tribe__Events__Meta_Factory::template(
 					esc_html__( 'End:', 'the-events-calendar' ),
 					sprintf(
-						'<abbr class="tribe-events-abbr tribe-events-end-datetime dtend" title="%s">%s</abbr>',
+						'<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
 						tribe_get_end_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 						tribe_get_end_date()
 					),
@@ -88,7 +88,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 				$html = Tribe__Events__Meta_Factory::template(
 					esc_html__( 'Date:', 'the-events-calendar' ),
 					sprintf(
-						'<abbr class="tribe-events-abbr tribe-events-start-datetime updated published dtstart" title="%s">%s</abbr>',
+						'<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
 						tribe_get_start_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 						tribe_get_start_date( null, false )
 					),
@@ -99,7 +99,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 					$html .= Tribe__Events__Meta_Factory::template(
 						esc_html__( 'Time:', 'the-events-calendar' ),
 						sprintf(
-							'<abbr class="tribe-events-abbr tribe-events-end-datetime dtend" title="%s">%s</abbr>',
+							'<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
 							tribe_get_end_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 							$start_time
 						),
@@ -110,7 +110,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 					$html .= Tribe__Events__Meta_Factory::template(
 						esc_html__( 'Time:', 'the-events-calendar' ),
 						sprintf(
-							'<abbr class="tribe-events-abbr tribe-events-end-datetime dtend" title="%s">%s</abbr>',
+							'<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
 							tribe_get_end_date( null, false, Tribe__Date_Utils::DBDATEFORMAT ),
 							$start_time . ' - ' . $end_time
 						),
