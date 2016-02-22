@@ -55,7 +55,9 @@ modules:
             browser: phantomjs
             port: 4444
             restart: true
-            wait: 2
+            wait: 0
             adminUsername: admin
             adminPassword: password
             adminUrl: /wp-admin
+        WPBootstrapper:
+            wpRootFolder: ~/www/wordpress

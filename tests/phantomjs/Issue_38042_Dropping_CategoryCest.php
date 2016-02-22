@@ -3,10 +3,27 @@
 
 class Issue_38042_Dropping_CategoryCest {
 
-	protected $an_existing_event_category = 'barbecue';
+	protected $term_slug = 'probably-not-in-database';
 	protected $settings_backup;
 
 	public function _before( PhantomjsTester $I ) {
+		$I->haveOptionInDatabase( 'active_plugins', [ 'the-events-calendar/the-events-calendar.php' ] );
+
+		$I->bootstrapWp();
+
+		// set the permalinks structure and flush rewrite rules
+		$found_term = get_term_by( 'slug', $this->term_slug, 'tribe_events_cats' );
+		if ( empty( $found_term ) ) {
+			wp_insert_term( $this->term_slug,
+				'tribe_events_cat',
+				[ 'slug' => $this->term_slug ] );
+		}
+
+		update_option( 'permalink_structure', '/%postname%/' );
+		codecept_debug( 'Updated permalinks structure.' );
+		flush_rewrite_rules();
+		codecept_debug( 'Flushed rewrite rules.' );
+
 		$this->settings_backup = $I->grabOptionFromDatabase( 'tribe_events_calendar_options' );
 		codecept_debug( "Settings backup: " . json_encode( $this->settings_backup ) );
 
@@ -14,10 +31,10 @@ class Issue_38042_Dropping_CategoryCest {
 		$options = $I->getDefaultCoreOptions( [ 'tribeEventsTemplate' => '', 'viewOption' => 'month' ] );
 		$I->haveOptionInDatabase( 'tribe_events_calendar_options', $options );
 
-		// let's resize the window not to incurr in mobile breakpoints
+		// let's resize the window not to incur in mobile breakpoints
 		$I->resizeWindow( 1200, 1000 );
 
-		$I->amOnPage( "/events/category/{$this->an_existing_event_category}" );
+		$I->amOnPage( "/events/category/{$this->term_slug}" );
 
 		// Why not inserting some posts and categories too?
 		//This issue *should* be independent of posts and categories in the database.
