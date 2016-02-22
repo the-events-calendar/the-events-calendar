@@ -161,43 +161,6 @@ class AcceptanceTester extends \Codeception\Actor {
 		$I->see( 'Importing Data' );
 	}
 
-	/**
-	 * Create new Tag
-	 */
-	public function createTag( $tag = null ) {
-		if ( is_null( $tag['tagName'] ) ) {
-			throw new \InvalidArgumentException('Missing Arguments!  Need a name at least');
-		} 
-		$I = $this;
-		$I->amOnPage( '/wp-admin/edit-tags.php?taxonomy=post_tag&post_type=tribe_events' );
-		$I->fillField( 'tag-name', $tag['tagName'] );
-		$I->fillField( 'slug', $tag['tagSlug'] );
-		$I->fillField( 'description', $tag['tagDescription'] );
-		$I->click( '#submit' );
-		$I->see( $tag['tagName'] );
-		//$I->see( $tag['tagSlug'] );
-		//$I->see( $tag['tagDescription'] );
-	}
-
-	public function createCategory( $category = null ) {
-		if ( is_null( $tag['tagName'] ) ) {
-			throw new \InvalidArgumentException('Missing Arguments!  Need a name at least');
-		} 
-
-		$I = $this;
-		$I->amOnPage( '/wp-admin/edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' );
-		$I->fillField( 'tag-name', $tag['tagName'] );
-		$I->fillField( 'slug', $tag['tagSlug'] );
-		$I->fillField( 'description', $tag['tagDescription'] );
-		// @todo - Add selector for "Parent"
-	
-		
-		$I->click( '#submit' );
-		$I->see( $tag['tagName'] );
-		//$I->see( $tag['tagSlug'] );
-		//$I->see( $tag['tagDescription'] );
-	}
-
 	public function createVenue( $venue = null ) {
 		if ( is_null( $venue['venueTitle'] ) ) {
 			throw new \InvalidArgumentException('Missing Arguments!  Need a title at least');
