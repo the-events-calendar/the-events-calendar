@@ -7,10 +7,7 @@ $I->am('administrator');
 $I->wantTo("verify that the Update Page has the right content");
 
 // arrange
-$I->bootstrapWp();
-$I->loadWpComponent('plugins');
-update_option('active_plugins', []);
-activate_plugin('the-events-calendar/the-events-calendar.php');
+$I->activate_tec();
 
 // act
 $I->loginAsAdmin();

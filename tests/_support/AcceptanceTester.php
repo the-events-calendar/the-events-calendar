@@ -103,18 +103,10 @@ class AcceptanceTester extends \Codeception\Actor {
 
 
 	public function activate_tec() {
-		$I = $this;
-
-		$I->am( 'administrator' );
-		$I->loginAsAdmin();
-		$I->amOnPluginsPage();
-		$link_text = $I->grabTextFrom( '#the-events-calendar [aria-label*="ctivate"]' );
-
-		if ( 'Activate' == $link_text ) {
-			$I->activatePlugin( 'the-events-calendar' );
-		}
-
-		$I->seePluginActivated( 'the-events-calendar' );
+		$this->bootstrapWp();
+		$this->loadWpComponent('plugins');
+		update_option('active_plugins', []);
+		activate_plugin('the-events-calendar/the-events-calendar.php');
 	}
 
 	public function set_pretty_permalinks() {
