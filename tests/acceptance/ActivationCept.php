@@ -1,10 +1,18 @@
 <?php
-$I = new AcceptanceTester( $scenario );
+$I = new AcceptanceTester($scenario);
 
-$I->am( 'administrator' );
-$I->wantTo( 'verify plugin activation' );
+$I->am('administrator');
+$I->wantTo('verify plugin activation');
 
-$I->activate_tec();
+// arrange
+$I->bootstrapWp();
+update_option('active_plugins', []);
 
-$I->amOnPluginsPage(); // skip the welcome message
-$I->seePluginActivated( 'the-events-calendar' );
+// act
+$I->loginAsAdmin();
+$I->amOnPluginsPage();
+$I->activatePlugin('the-events-calendar');
+
+// assert
+$active_plugins = $I->grabOptionFromDatabase('active_plugins');
+$I->assertContains('the-events-calendar/the-events-calendar.php', $active_plugins);

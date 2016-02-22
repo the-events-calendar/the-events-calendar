@@ -9,3 +9,4 @@ modules:
         - \Helper\Acceptance
         - Asserts
         - WPDb
+        - WPBootstrapper
