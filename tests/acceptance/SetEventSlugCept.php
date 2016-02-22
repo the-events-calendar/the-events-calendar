@@ -17,7 +17,7 @@ if ( $event ) {
 $event_id          = wp_insert_post( [
 	'post_title' => $title,
 	'post_type'  => 'tribe_events',
-	'post_namel' => 'an-event-of-mine'
+	'post_name' => 'an-event-of-mine'
 ] );
 $single_event_slug = $I->getTribeOptionFromDatabase( 'singleEventSlug', 'event' );
 $old_event_url     = home_url( $single_event_slug . '/an-event-of-mine' );
