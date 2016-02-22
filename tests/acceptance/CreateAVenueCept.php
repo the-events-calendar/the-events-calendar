@@ -7,11 +7,24 @@ $I = new AcceptanceTester( $scenario );
 $I->am( 'administrator' );
 $I->wantTo( "verify that a venue can be created" );
 
+// arrange
 $I->activate_tec();
-$I->set_pretty_permalinks();
+$post_title = 'House of mine';
+$existing_venue = get_page_by_title($post_title, OBJECT, 'tribe_venue');
+if ($existing_venue) {
+    wp_delete_post($existing_venue->ID);
+}
 
-//Create a venue and test it exists
-$I->createVenue( array( 'venueTitle' => 'New Venue Name', 'venueContent' => 'New Venue Details', 'venueAddress' => '111 Main St', 'venueCity' => 'New York' ) );
+// act
+$I->amOnAdminPage('/post-new.php?post_type=tribe_venue');
+$I->fillField('post_title', $post_title);
+$I->click('#publish');
+// TODO: additional fields
 
-//Delete Venue
-// TO DO - need this done so we don't end up with a giant list of venues
+// assert
+$I->amOnAdminPage('/edit.php?post_type=tribe_venue');
+$created_venue = get_page_by_title($post_title, OBJECT, 'tribe_venue');
+$row = 'tr.type-tribe_venue.post-' . $created_venue->ID;
+$I->seeElement($row);
+$I->see($post_title, $row);
+// TODO: check additional fields

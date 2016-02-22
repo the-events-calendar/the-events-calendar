@@ -1,24 +1,26 @@
 <?php
 
 // @group: settings
-$I = new AcceptanceTester( $scenario );
+$I = new AcceptanceTester($scenario);
 
 //Activate TEC Calendar
-$I->am( 'administrator' );
-$I->wantTo( "verify that deleted events can't be viewed on front end" );
+$I->am('administrator');
+$I->wantTo("verify that deleted events can't be viewed on front end");
 
+// arrange
 $I->activate_tec();
-$I->set_pretty_permalinks();
+$title = 'An event of mine';
+$event = get_page_by_title($title, OBJECT, 'tribe_events');
+if (!$event) {
+    $event = get_post(wp_insert_post(['post_title' => $title, 'post_type' => 'tribe_events']));
+}
+$event_url = get_post_permalink($event->ID);
 
-//Set up test Event and test it exists
-$I->createEvent( array( 'title' => 'Test Event A' ) );
-$event_url = $I->grabTextFrom( '#sample-permalink' );
-$I->amOnPage( $event_url );
-$I->see( 'Test Event A' );
+// act
+$I->loginAsAdmin();
+$I->amOnAdminPage('/post.php?post=' . $event->ID . '&action=edit');
+$I->click('#delete-action > a');
 
-//Delete Event
-$I->click( '.quicklinks #wp-admin-bar-edit a' );
-$I->click( 'Move to Trash' );
-
-$I->amOnPage( $event_url );
-$I->see( 'Oops! That page' );
+// assert
+$I->amOnPage($event_url);
+$I->seeElement('body.error404');

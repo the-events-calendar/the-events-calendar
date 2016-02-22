@@ -1,4 +1,6 @@
 <?php
+
+
 /**
  * Inherited Methods
  * @method void wantToTest( $text )
@@ -73,12 +75,12 @@ class AcceptanceTester extends \Codeception\Actor {
 	 * Update Event
 	 */
 	public function edit_event( $updateEvent ) {
-		$originalTitle	= $updateEvent['originalTitle'];
-		$newTitle	= $updateEvent['newTitle'];
-		$content	= $updateEvent['content'];
-		$allDay		= $updateEvent['allDay'];
-		if(empty($updateEventp['originalTitle']) || empty($updateEvent['newTitle'])){
-        		throw new \InvalidArgumentException('Title missing');
+		$originalTitle = $updateEvent['originalTitle'];
+		$newTitle      = $updateEvent['newTitle'];
+		$content       = $updateEvent['content'];
+		$allDay        = $updateEvent['allDay'];
+		if ( empty( $updateEventp['originalTitle'] ) || empty( $updateEvent['newTitle'] ) ) {
+			throw new \InvalidArgumentException( 'Title missing' );
 		}
 
 		$I = $this;
@@ -104,9 +106,9 @@ class AcceptanceTester extends \Codeception\Actor {
 
 	public function activate_tec() {
 		$this->bootstrapWp();
-		$this->loadWpComponent('plugins');
-		update_option('active_plugins', []);
-		activate_plugin('the-events-calendar/the-events-calendar.php');
+		$this->loadWpComponent( 'plugins' );
+		update_option( 'active_plugins', [ ] );
+		activate_plugin( 'the-events-calendar/the-events-calendar.php' );
 	}
 
 	public function set_pretty_permalinks() {
@@ -146,12 +148,12 @@ class AcceptanceTester extends \Codeception\Actor {
 		// <select name="column_map[0]">
 		// <option>CSV Header</option>
 
-		$csv_file = fopen( './tests/_data/'.$file, 'r' );
+		$csv_file    = fopen( './tests/_data/' . $file, 'r' );
 		$csv_headers = fgetcsv( $csv_file, 0, ',' );
 
 		$count = count( $csv_headers );
-		for ( $i = 0; $i < $count; $i++ ) {
-			$I->selectOption( 'column_map['.$i.']', $csv_headers[ $i ] );
+		for ( $i = 0; $i < $count; $i ++ ) {
+			$I->selectOption( 'column_map[' . $i . ']', $csv_headers[ $i ] );
 		}
 
 		$I->seeInField( '#submit', 'Perform Import' );
@@ -161,41 +163,22 @@ class AcceptanceTester extends \Codeception\Actor {
 		$I->see( 'Importing Data' );
 	}
 
-	public function createVenue( $venue = null ) {
-		if ( is_null( $venue['venueTitle'] ) ) {
-			throw new \InvalidArgumentException('Missing Arguments!  Need a title at least');
-		} 
+	public function getTribeOptionFromDatabase( $key, $default = '' ) {
+		$options = $this->grabOptionFromDatabase( 'tribe_events_calendar_options' );
+		if ( empty( $options ) ) {
+			return $default;
+		}
 
-		$I = $this;
-		$I->amOnPage( '/wp-admin/post-new.php?post_type=tribe_venue' );
-		$I->fillField( 'post_title', $venue['venueTitle'] );
-		$I->fillField( 'venue[Address]', $venue['venueAddress'] );
-		$I->fillField( 'venue[City]', $venue['venueCity'] );
-		// @todo - Add selector for "Parent"
-		$I->click( '#publish' );
-		$I->amOnPage( '/wp-admin/post-new.php?post_type=tribe_venue' );
-		//$I->see( $venue['venueTitle'] );
-		// @todo - add other fields
-
+		return isset( $options[ $key ] ) ? $options[ $key ] : $default;
 	}
 
-	public function createOrganizer( $organizer = null ) {
-		if ( is_null( $organizer['organizerTitle'] ) ) {
-			throw new \InvalidArgumentException('Missing Arguments!  Need a title at least');
-		} 
-
-		$I = $this;
-		$I->amOnPage( '/wp-admin/post-new.php?post_type=tribe_organizer' );
-		$I->fillField( 'post_title', $organizer['organizerTitle'] );
-		$I->fillField( 'content', $organizer['organizerContent'] );
-		$I->fillField( 'organizer[Phone]', $organizer['organizerPhone'] );
-		$I->fillField( 'organizer[Website]', $organizer['organizerWebsite'] );
-		$I->fillField( 'organizer[Email]', $organizer['organizerEmail'] );
-		// @todo - Add selector for "Parent"
-		$I->click( '#publish' );
-		$I->amOnPage( '/wp-admin/post-new.php?post_type=tribe_venue' );
-
+	public function setTribeOption( $key, $value ) {
+		$option_name = 'tribe_events_calendar_options';
+		$options     = $this->grabOptionFromDatabase( $option_name );
+		if ( empty( $options ) ) {
+			$this->haveOptionInDatabase( $option_name, [ $key => $value ] );
+		} else {
+			$this->haveOptionInDatabase( $option_name, array_merge( $options, [ $key => $value ] ) );
+		}
 	}
-
-
 }
