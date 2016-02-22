@@ -6,7 +6,7 @@
 $I = new AcceptanceTester( $scenario );
 
 $I->am( 'administrator' );
-$I->wantTo( "verify that a category can be created" );
+$I->wantTo( "verify that a tag can be created" );
 
 // arrange
 $I->activate_tec();
