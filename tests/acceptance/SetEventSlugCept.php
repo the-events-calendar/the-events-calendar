@@ -14,7 +14,7 @@ $event = get_page_by_title( $title, OBJECT, 'tribe_events' );
 if ( $event ) {
 	wp_delete_post( $event->ID );
 }
-$event_id             = wp_insert_post( [
+$event_id          = wp_insert_post( [
 	'post_title' => $title,
 	'post_type'  => 'tribe_events',
 	'post_namel' => 'an-event-of-mine'
@@ -30,7 +30,7 @@ $new_slug = 'hopefully-totally-unrelated-slug';
 $I->fillField( '#new-post-slug', $new_slug );
 $I->click( '#edit-slug-buttons > button.save' );
 $I->click( '#publish' );
-$I->wait(2);
+$I->wait( 2 );
 
 // assert
 $I->amOnPage( $old_event_url );
