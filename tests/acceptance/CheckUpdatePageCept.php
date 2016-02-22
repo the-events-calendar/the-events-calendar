@@ -12,11 +12,11 @@ $I->loadWpComponent('plugins');
 update_option('active_plugins', []);
 activate_plugin('the-events-calendar/the-events-calendar.php');
 
-//Get to the Welcome Page page
+// act
 $I->loginAsAdmin();
 $I->amOnAdminPage('/edit.php?post_type=tribe_events&page=tribe-common&tec-update-message=1');
 
-//Check content - To Do - maybe create a list of correct content to check for
+// assert
 $I->seeElement('.tribe_update_page');
 $I->seeElement('.tribe-welcome-message');
 
