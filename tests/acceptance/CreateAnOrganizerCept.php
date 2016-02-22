@@ -16,6 +16,7 @@ if ( $existing_organizer ) {
 }
 
 // act
+$I->loginAsAdmin();
 $I->amOnAdminPage( '/post-new.php?post_type=tribe_organizer' );
 $I->fillField( 'post_title', $post_title );
 $I->click( '#publish' );

@@ -16,6 +16,7 @@ if ( $existing_venue ) {
 }
 
 // act
+$I->loginAsAdmin();
 $I->amOnAdminPage( '/post-new.php?post_type=tribe_venue' );
 $I->fillField( 'post_title', $post_title );
 $I->click( '#publish' );
