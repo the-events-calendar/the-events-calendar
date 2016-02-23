@@ -4,7 +4,6 @@
 class Issue_38042_Dropping_CategoryCest {
 
 	protected $term_slug = 'probably-not-in-database';
-	protected $settings_backup;
 
 	public function _before( PhantomjsTester $I ) {
 		$I->haveOptionInDatabase( 'active_plugins', [ 'the-events-calendar/the-events-calendar.php' ] );
