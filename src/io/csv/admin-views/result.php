@@ -11,10 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once 'header.php';
 ?>
-
 <h2><?php esc_html_e( 'Import Result', 'the-events-calendar' ) ?></h2>
 
-<p><strong><?php esc_html_e( 'Import complete!', 'the-events-calendar' ); ?></strong></p>
+<p class="tribe-import-success"><strong><?php esc_html_e( 'Import complete!', 'the-events-calendar' ); ?></strong></p>
 <ul>
 	<li><?php printf( esc_html__( 'Inserted: %d', 'the-events-calendar' ), $log['created'] ); ?></li>
 	<li><?php printf( esc_html__( 'Updated: %d', 'the-events-calendar' ), $log['updated'] ); ?></li>
