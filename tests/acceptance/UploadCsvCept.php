@@ -2,73 +2,81 @@
 
 $I = new AcceptanceTester( $scenario );
 $I->am( 'administrator' );
-$I->wantTo( 'Test CSV import' );
-$I->lookForwardTo( 'Seeing them events, organizers, and venues in the database' );
+$I->wantTo( 'Test events CSV import' );
 
-//$I->activate_tec();
-// Upload Organizer
-//$I->upload_csv( 'organizers', 'csv-test-organizers.csv' );
-//
-//// Go to the organizers page
-//$I->amOnPage( '/wp-admin/edit.php?post_type=tribe_organizer' );
-//// make sure page loaded successfully
-//$I->cantSee( 'Cheatin' );
-//$I->click( 'George-Michael Bluth' );
-//
-//$I->seeInField( 'post_title', 'George-Michael Bluth' );
-//$I->seeInField( '#OrganizerPhone', '+1-987-555-1238' );
-//$I->seeInField( '#OrganizerWebsite', 'http://fakeblock.com' );
-//$I->seeInField( '#OrganizerEmail', 'boygeorge@halliburtonteen.com' );
-//
-//// Upload Venues
-//$I->upload_csv( 'venues', 'csv-test-venues.csv' );
-//
-//$I->amOnPage( '/wp-admin/edit.php?post_type=tribe_venue' );
-//// make sure page loaded successfully
-//$I->cantSee( 'Cheatin' );
-//$I->click( 'Soup Kitchen International' );
-//
-//$I->seeInField( 'post_title', 'Soup Kitchen International' );
-//$I->seeInField( 'venue[Address]', '259-A West 55th Street' );
-//$I->seeInField( 'venue[City]', 'New York' );
-////$I->seeOptionIsSelected( 'venue[Country]', 'United States' ); 	//hidden using Chosen - build helper
-////$I->seeOptionIsSelected( 'venue[State]', 'New York' ); 			//hidden using Chosen - build helper
-//$I->seeInField( 'venue[Zip]', '10019' );
-//$I->seeInField( 'venue[Phone]', '+1 (800) 555-8234' );
-//
-////@todo Test the following once it's importable
-////$I->seeInField( 'venue[URL]', '' );
-////$I->seeCheckboxIsChecked( 'venue[ShowMap]' );
-////$I->seeCheckboxIsChecked( 'venue[ShowMapLink]' );
-//
-//// Upload Events
-//$I->upload_csv( 'events', 'csv-test-events.csv' );
-//$I->edit_event( 'Ankh-Sto Associates' );
-//
-//$I->seeInField( 'post_title', 'Ankh-Sto Associates' );
-//$I->seeInField( 'content', 'Ankh-Sto Associates description goes here.' );
-////$I->seeCheckboxIsChecked( 'EventAllDay' ); @todo this lines relies on the CSV importer understanding the value "Yes", as per our docs: http://tri.be/using-the-events-calendars-csv-importer/
-//$I->seeInField( 'EventStartDate', '2014-11-25' );
-////$I->seeInField('EventStartHour', '01');
-////$I->seeInField('EventStartMinute', '00');
-////$I->seeInField('EventStartMeridian', 'am');
-//$I->seeInField( 'EventEndDate', '2014-11-25' );
-////$I->seeInField('EventEndHour', '01');
-////$I->seeInField('EventEndMinute', '00');
-////$I->seeInField('EventEndMeridian', 'am');
-//
-////$I->seeOptionIsSelected( 'venue[VenueID]', 'The Shire' );  //hidden using Chosen - build helper
-//$I->seeCheckboxIsChecked( '#EventShowMap' );
-////$I->seeCheckboxIsChecked( 'venue[EventShowMapLink]' ); @todo this lines relies on the CSV importer understanding the value "1", as per our docs: http://tri.be/using-the-events-calendars-csv-importer/
-////$I->seeOptionIsSelected( 'organizer[OrganizerID]', 'Elvis' ); //hidden using CHosen - build helper
-//$I->seeInField( 'EventURL', 'https://ankh-sto-associates.gov' );
-//
-//// Codeception errors our when you try to check for blank fields
-////$I->seeInField('EventCurrencySymbol', '');
-////$I->seeInField('EventCurrencyPosition', '');
-////$I->seeInField('EventCost', '');
-//
-//// these are commented out because we can't guarantee the Category IDs
-////$I->seeCheckboxIsChecked( '#in-tribe_events_cat-2' ); // Convention
-////$I->dontSeeCheckboxIsChecked( '#in-tribe_events_cat-4' ); // Concert
-////$I->dontSeeCheckboxIsChecked( '#in-tribe_events_cat-3' ); // Conference
+// arrange
+$I->activate_tec();
+
+// act
+$I->loginAsAdmin();
+$I->amOnAdminPage( '/edit.php?post_type=tribe_events&page=events-importer&tab=csv-importer' );
+$I->selectOption( 'import_type', 'venues' );
+$I->checkOption( '#events-import-header' );
+$I->attachFile( 'import_file', 'csv-import-test-files/venues.csv' );
+$I->click( 'form#import input[type="submit"]' );
+
+$I->submitForm( 'form#import',
+	[
+		'column_map[0]' => 'venue_name',
+		'column_map[1]' => 'venue_country',
+		'column_map[2]' => 'venue_address',
+		'column_map[3]' => 'venue_address2',
+		'column_map[4]' => 'venue_city',
+		'column_map[5]' => 'venue_state',
+		'column_map[6]' => 'venue_zip',
+		'column_map[7]' => 'venue_phone',
+	],
+	'submit' );
+
+$I->waitForJqueryAjax( 10 );
+$I->seeElement( '.tribe-import-success' );
+
+$I->amOnAdminPage( '/edit.php?post_type=tribe_events&page=events-importer&tab=csv-importer' );
+$I->selectOption( 'import_type', 'organizers' );
+$I->checkOption( '#events-import-header' );
+$I->attachFile( 'import_file', 'csv-import-test-files/organizers.csv' );
+$I->click( 'form#import input[type="submit"]' );
+
+
+$I->submitForm( 'form#import',
+	[
+		'column_map[0]' => 'organizer_name',
+		'column_map[1]' => 'organizer_email',
+		'column_map[2]' => 'organizer_website',
+		'column_map[3]' => 'organizer_phone',
+	],
+	'submit' );
+
+$I->waitForJqueryAjax( 10 );
+$I->seeElement( '.tribe-import-success' );
+
+$I->amOnAdminPage( '/edit.php?post_type=tribe_events&page=events-importer&tab=csv-importer' );
+$I->selectOption( 'import_type', 'events' );
+$I->checkOption( '#events-import-header' );
+$I->attachFile( 'import_file', 'csv-import-test-files/events.csv' );
+$I->click( 'form#import input[type="submit"]' );
+
+
+$I->submitForm( 'form#import',
+	[
+		'column_map[0]'  => 'event_name',
+		'column_map[1]'  => 'event_description',
+		'column_map[2]'  => 'event_start_date',
+		'column_map[3]'  => 'event_start_time',
+		'column_map[4]'  => 'event_end_date',
+		'column_map[5]'  => 'event_end_time',
+		'column_map[6]'  => 'event_all_day',
+		'column_map[7]'  => 'event_venue_name',
+		'column_map[8]'  => 'event_organizer_name',
+		'column_map[9]'  => 'event_show_map_link',
+		'column_map[10]' => 'event_show_map',
+		'column_map[11]' => 'event_cost',
+		'column_map[12]' => 'event_category',
+		'column_map[13]' => 'event_website',
+	],
+	'submit' );
+
+$I->waitForJqueryAjax( 10 );
+
+// assert
+$I->seeElement( '.tribe-import-success' );
