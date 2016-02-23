@@ -10,3 +10,14 @@ modules:
         - Asserts
         - WPDb
         - WPBootstrapper
+        - \Tribe\Tests\Modules\Core\Acceptance\Options
+        - \Helper\TribeDb
+    config:
+        WPDb:
+            populate: false
+            cleanup: false
+        WPWebDriver:
+            browser: firefox
+            port: 4443
+            restart: true
+            wait: 0

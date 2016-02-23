@@ -8,6 +8,7 @@ modules:
         - WPDb
         - \Tribe\Tests\Modules\Core\Acceptance\Options
         - WPBootstrapper
+        - \Helper\TribeDb
     config:
         WPDb:
             populate: false
