@@ -5,7 +5,7 @@ class Issue_38042_Dropping_CategoryCest {
 
 	protected $term_slug = 'probably-not-in-database';
 
-	public function _before( PhantomjsTester $I ) {
+	public function _before( AcceptanceTester $I ) {
 		$I->haveOptionInDatabase( 'active_plugins', [ 'the-events-calendar/the-events-calendar.php' ] );
 
 		$I->bootstrapWp();
@@ -32,14 +32,14 @@ class Issue_38042_Dropping_CategoryCest {
 		//This issue *should* be independent of posts and categories in the database.
 	}
 
-	public function _after( PhantomjsTester $I ) {
+	public function _after( AcceptanceTester $I ) {
 	}
 
 	/**
 	 * @test
 	 * it should not drop the category when using the Tribe search bar
 	 */
-	public function it_should_not_drop_the_category_when_using_the_tribe_search_bar( PhantomjsTester $I ) {
+	public function it_should_not_drop_the_category_when_using_the_tribe_search_bar( AcceptanceTester $I ) {
 		$I->fillField( 'input[name="tribe-bar-search"]', 'foo' );
 		$I->click( 'input[name="submit-bar"]' );
 
@@ -54,7 +54,7 @@ class Issue_38042_Dropping_CategoryCest {
 	 * @test
 	 * it should it should not drop the category when unsing the month selector
 	 */
-	public function it_should_it_should_not_drop_the_category_when_unsing_the_month_selector( PhantomjsTester $I ) {
+	public function it_should_it_should_not_drop_the_category_when_unsing_the_month_selector( AcceptanceTester $I ) {
 		$I->click( [ 'css' => 'input#tribe-bar-date' ] );
 		// I click the 5th month in the datepicker
 		$I->click( [ 'css' => 'body > .datepicker > div.datepicker-months span:nth-child(5)' ] );
@@ -70,7 +70,7 @@ class Issue_38042_Dropping_CategoryCest {
 	 * @test
 	 * it should not drop the category when using the month selector then the search
 	 */
-	public function it_should_not_drop_the_category_when_using_the_month_selector_and_the_search( PhantomjsTester $I ) {
+	public function it_should_not_drop_the_category_when_using_the_month_selector_and_the_search( AcceptanceTester $I ) {
 		$I->click( [ 'css' => 'input#tribe-bar-date' ] );
 		// I click the 5th month in the datepicker, this will submit
 		$I->click( [ 'css' => 'body > .datepicker > div.datepicker-months span:nth-child(11)' ] );
@@ -92,7 +92,7 @@ class Issue_38042_Dropping_CategoryCest {
 	 * @test
 	 * it should not drop category when using the search then the month selector
 	 */
-	public function it_should_not_drop_category_when_using_the_search_then_the_month_selector( PhantomjsTester $I ) {
+	public function it_should_not_drop_category_when_using_the_search_then_the_month_selector( AcceptanceTester $I ) {
 
 		$I->fillField( 'input[name="tribe-bar-search"]', 'foo' );
 		$I->click( 'input[name="submit-bar"]' );
