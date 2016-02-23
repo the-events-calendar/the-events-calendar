@@ -763,13 +763,14 @@ select.tribe-events-dropdown {
 	padding: 6px;
 	text-transform: uppercase;
 	text-align: center;
-	width: 60px;
+	width: 10%;
+	max-width: 80px;
 }
 
 .tribe-events-shortlist .tribe-events-list-event-day .tribe-event-day {
 	background-color: #fff;
 	font-size: 0.7em;
-	padding: 0 5px;
+	padding: 0;
 }
 
 .tribe-events-shortlist .tribe-events-list-event-day .tribe-event-number {

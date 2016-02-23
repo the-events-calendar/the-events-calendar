@@ -101,7 +101,7 @@ a.tribe-events-gmap {
 	white-space: normal;
 	position:relative;
 	padding-bottom: 1000px;
-    margin-bottom: -990px;
+	margin-bottom: -990px;
 	background: #666;
 }
 
@@ -173,6 +173,75 @@ a.tribe-events-gmap {
 }
 .tribe-events-list-separator-month {
 	margin: 36px 0 0;
+}
+
+/* = Short List View Template Styles
+   @ Template: shortlist.php
+=============================================*/	
+.tribe-events-shortlist .tribe-events-list-separator-month {
+	margin-top: 20px;
+}
+.tribe-events-shortlist .tribe-events-event-image {
+	float: left;
+	margin: 0 3% 0 0;
+}
+.tribe-events-shortlist .tribe-events-event-image img {
+	width: auto;
+	max-height: 400px;
+}
+.tribe-events-shortlist .tribe-events-event-image + div.tribe-events-content {
+	float: none;
+	position: relative;
+	width: 100%;
+}
+.tribe-events-shortlist .tribe-events-loop .tribe-events-event-meta {
+	background: transparent;
+	border: none;
+	padding: 0;
+}
+.tribe-events-shortlist .tribe-events-loop .tribe-events-event-meta .recurringinfo {
+	display: block;
+	margin: 4px 0 0;
+}
+#tribe-events .tribe-events-loop .tribe-events-content {
+	padding: 0;
+}
+.tribe-events-shortlist .tribe-events-loop .tribe-events-event-meta .recurringinfo .tribe-events-divider {
+	display: none;
+}
+.tribe-events-loop .tribe-events-event-meta {		
+	padding: 12px 0 15px;
+	margin-top: 12px;
+	background: #fafafa;
+	border: 1px solid #eee;
+}
+.tribe-events-shortlist .time-details {
+	padding: 0 12px;
+	margin-bottom: 0;
+}
+.tribe-events-shortlist .tribe-events-venue-details {
+	border: none;
+	margin-top: 12px;
+	padding: 0;
+}
+.tribe-events-shortlist .tribe-events-event-cost {
+	display: block;
+	position: static;
+	margin: 0;
+}
+.tribe-events-shortlist #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next a, 
+.tribe-events-shortlist #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-previous a, 
+.tribe-events-shortlist #tribe-events-header .tribe-events-sub-nav li {
+	color: #fff;
+}
+.tribe-events-shortlist .tribe-events-list-event-day {
+	width: 17%;
+	max-width: 70px;
+}
+.tribe-events-shortlist .type-tribe_events h2 {
+	padding: 0 0 0 22%;
+	min-height: 60px;
+	margin-top: -4px;
 }
 
 /* = Single Event Template Styles
