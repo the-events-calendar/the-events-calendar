@@ -35,7 +35,7 @@ $more = false;
 		}
 		?>
 		<div id="post-<?php the_ID() ?>" class="<?php tribe_events_event_classes() ?>" <?php echo $post_parent; ?>>
-			<?php tribe_get_template_part( 'list/single', 'event' ) ?>
+			<?php tribe_get_template_part( 'shortlist/single', 'event' ) ?>
 		</div>
 
 

@@ -1,7 +1,7 @@
 <?php
 /**
- * List View Nav Template
- * This file loads the list view navigation.
+ * Short List View Nav Template
+ * This file loads the short list view navigation.
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/list/nav.php
  *
