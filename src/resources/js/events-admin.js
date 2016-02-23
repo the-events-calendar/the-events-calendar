@@ -218,11 +218,10 @@ jQuery( document ).ready( function( $ ) {
 			var fields = $( create_organizer_template({}) );
 			organizer_section.find('tfoot').before( fields );
 			fields.prepend( dropdown );
-			fields.find( '.organizer-dropdown' ).select2( tribe_dropdowns.opts.organizer ).val( 0 ).trigger('change');
+			fields.find('.chosen').chosen().trigger('change');
 		});
 
-		organizer_section.on( 'change', '.organizer-dropdown', toggle_organizer_fields );
-
+		organizer_section.on('change', '.organizer-dropdown', toggle_organizer_fields);
 		organizer_rows.each( function () {
 			var row = $( this );
 			var group = row.closest( 'tbody' );
@@ -259,8 +258,6 @@ jQuery( document ).ready( function( $ ) {
 			axis: 'y',
 			delay: 100,
 		});
-
-		organizer_section.find( '.organizer-dropdown' ).trigger( 'change' );
 
 	};
 

@@ -116,7 +116,7 @@
 			var $target = $( '.tribe-mobile-day[data-day="' + date + '"]' ),
 				$cell = $( '.tribe-events-calendar td[data-day="' + date + '"]' ),
 				$more = $cell.find( '.tribe-events-viewmore' ),
-				$events = $cell.find( '.hentry' );
+				$events = $cell.find( '.type-tribe_events' );
 
 			if ( $events.length ) {
 				$events

@@ -23,14 +23,7 @@ class Tribe__Events__Google_Data_Markup__Event extends Tribe__Events__Google_Dat
 			$event_data[ $id ]->location          = new stdClass();
 			$event_data[ $id ]->location->{'@type'} = 'Place';
 			$event_data[ $id ]->location->name    = tribe_get_venue( $post->ID );
-			$event_data[ $id ]->location->address = (object) array(
-				'@type' => 'PostalAddress',
-				'streetAddress' => tribe_get_address( $post->ID ),
-				'addressCountry' => tribe_get_country( $post->ID ),
-				'addressRegion' => tribe_get_region( $post->ID ),
-				'addressLocality' => tribe_get_city( $post->ID ),
-				'postalCode' => tribe_get_zip( $post->ID ),
-			);
+			$event_data[ $id ]->location->address = strip_tags( str_replace( "\n", '', tribe_get_full_address( $post->ID ) ) );
 		}
 
 		return $event_data;
