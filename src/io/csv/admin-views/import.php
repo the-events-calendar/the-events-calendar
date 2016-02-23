@@ -35,7 +35,7 @@ if ( ! empty( $messages ) ): ?>
 		</ul>
 		<p><?php printf( esc_html__( 'Questions? %sWatch the video%s.', 'the-events-calendar' ), '<a href="http://tri.be/using-the-events-calendars-csv-importer/">', '</a>' ); ?></p>
 	</div>
-	<form method="post" enctype="multipart/form-data">
+	<form method="post" enctype="multipart/form-data" id="import">
 		<table class="form-table">
 			<tr>
 				<td>
