@@ -26,7 +26,7 @@ require_once 'header.php';
 	<div class="form">
 		<p><?php esc_html_e( 'Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file.', 'the-events-calendar' ) ?></p>
 
-		<form method="POST">
+		<form method="POST" id="import">
 			<table class="">
 				<thead>
 				<th><?php esc_html_e( 'Column Headings', 'the-events-calendar' ); ?></th>
