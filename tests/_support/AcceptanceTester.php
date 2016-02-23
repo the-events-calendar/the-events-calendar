@@ -162,23 +162,4 @@ class AcceptanceTester extends \Codeception\Actor {
 		// Check that it imported (or rather, is in the process of doing so...)
 		$I->see( 'Importing Data' );
 	}
-
-	public function getTribeOptionFromDatabase( $key, $default = '' ) {
-		$options = $this->grabOptionFromDatabase( 'tribe_events_calendar_options' );
-		if ( empty( $options ) ) {
-			return $default;
-		}
-
-		return isset( $options[ $key ] ) ? $options[ $key ] : $default;
-	}
-
-	public function setTribeOption( $key, $value ) {
-		$option_name = 'tribe_events_calendar_options';
-		$options     = $this->grabOptionFromDatabase( $option_name );
-		if ( empty( $options ) ) {
-			$this->haveOptionInDatabase( $option_name, [ $key => $value ] );
-		} else {
-			$this->haveOptionInDatabase( $option_name, array_merge( $options, [ $key => $value ] ) );
-		}
-	}
 }
