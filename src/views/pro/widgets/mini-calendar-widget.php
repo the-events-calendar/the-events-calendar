@@ -17,7 +17,7 @@ $args = tribe_events_get_mini_calendar_args();
 
 ?>
 
-<!-- Removing this wrapper class will break the claendar javascript, please avoid and extend as needed -->
+<!-- Removing this wrapper class will break the calendar JavaScript, please avoid and extend as needed -->
 
 <div class="tribe-mini-calendar-wrapper">
 
