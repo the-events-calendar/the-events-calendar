@@ -619,7 +619,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'update_post_term_cache' => false,
 					'update_post_meta_cache' => false,
 					'no_found_rows'          => false,
-					'orderby'                => 'menu_order',
+					'meta_key'               => '_EventStartDate',
+					'orderby'                => 'meta_value_date',
 				), $this->args
 			);
 
