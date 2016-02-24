@@ -1400,7 +1400,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		// If not, try to determine now
-		Tribe__Events__Main::instance()->rebuild_known_range();
+		Tribe__Events__Dates__Known_Range::instance()->rebuild_known_range();
 		$earliest = tribe_get_option( 'earliest_date', false );
 		if ( false !== $earliest ) {
 			return Tribe__Date_Utils::reformat( $earliest, $format );
