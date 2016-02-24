@@ -353,7 +353,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 					}
 				}
 
-				$display_format  = apply_filters( 'tribe_events_pro_week_header_date_format', tribe_get_option( 'weekDayFormat', 'D jS' ) );
+				$display_format  = apply_filters( 'tribe_events_pro_week_header_date_format', tribe_get_date_option( 'weekDayFormat', 'D jS' ) );
 				$formatted_date  = date_i18n( $display_format, strtotime( $date ) );
 				$timestamp_date  = strtotime( $date );
 				$timestamp_today = strtotime( current_time( 'Y-m-d' ) );
