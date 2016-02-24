@@ -169,7 +169,7 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 					}
 					$meta = sprintf( '<a href="%s" target="%s">%s</a>',
 						esc_url( $meta ),
-						apply_filters( 'tribe_get_event_website_link_target', 'self' ),
+						apply_filters( 'tribe_get_event_website_link_target', '_self' ),
 						apply_filters( 'tribe_get_event_website_link_label', $url_label )
 						);
 				}
