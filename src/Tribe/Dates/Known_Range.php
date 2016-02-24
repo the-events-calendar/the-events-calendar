@@ -104,7 +104,6 @@ class Tribe__Events__Dates__Known_Range {
 
 			return;
 		}
-
 		$current_min = tribe_events_earliest_date();
 		$current_max = tribe_events_latest_date();
 
@@ -113,9 +112,11 @@ class Tribe__Events__Dates__Known_Range {
 
 
 		if ( $current_min > $event_start ) {
+			$this->rebuild_known_range();
 			tribe_update_option( 'earliest_date', $event_start );
 		}
 		if ( $current_max < $event_end ) {
+			$this->rebuild_known_range();
 			tribe_update_option( 'latest_date', $event_end );
 		}
 	}
