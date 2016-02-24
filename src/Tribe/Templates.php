@@ -279,51 +279,17 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			do_action( 'tribe_events_filter_the_page_title' );
 
 			if ( self::is_main_loop( $query ) && self::$wpHeadComplete ) {
-
-				/**
-				 * To solve all the Filters problems happening on `the_content` hook we saw the need to free the default
-				 * space used before from the new priority (5) and the old default (10) to prevent HTML bugs but also
-				 * allow other Content Managers to control the output on The Events Calendar pages
-				 */
-				self::priority_darkmagic_on_hook( 'the_content' );
-
 				// on loop start, unset the global post so that template tags don't work before the_content()
 				add_action( 'the_post', array( __CLASS__, 'spoof_the_post' ) );
 
 				// on the_content, load our events template
-				// We're hooking to priority 5 for better compatibility with other non-tribe plugins that hook to the_content
-				add_filter( 'the_content', array( __CLASS__, 'load_ecp_into_page_template' ), 5 );
+				add_filter( 'the_content', array( __CLASS__, 'load_ecp_into_page_template' ) );
 
 				// remove the comments template
 				add_filter( 'comments_template', array( __CLASS__, 'load_ecp_comments_page_template' ) );
 
 				// only do this once
 				remove_action( 'loop_start', array( __CLASS__, 'setup_ecp_template' ) );
-
-			}
-		}
-
-		/**
-		 * Re prioritizes all hooks on a range of priorities for the given Hook
-		 *
-		 * CAUTION: Please only use this method if you really know what you are doing
-		 *
-		 * @return void
-		 */
-		private static function priority_darkmagic_on_hook( $hook_name, $start = 5, $end = 10 ) {
-			if ( ! empty( $GLOBALS['wp_filter'][ $hook_name ] ) ) {
-				$hooks = $GLOBALS['wp_filter'][ $hook_name ];
-			} else {
-				$hooks = array();
-			}
-
-			foreach ( $hooks as $priority => $hook ) {
-				if ( $priority <= $start || $priority > $end ) {
-					continue;
-				}
-				unset( $GLOBALS['wp_filter'][ $hook_name ][ $priority ] );
-
-				$GLOBALS['wp_filter'][ $hook_name ][ $priority - $start ] = $hooks[ $priority ];
 			}
 		}
 
@@ -484,7 +450,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 */
 		public static function load_ecp_into_page_template( $contents = '' ) {
 			// only run once!!!
-			remove_filter( 'the_content', array( __CLASS__, 'load_ecp_into_page_template' ), 5 );
+			remove_filter( 'the_content', array( __CLASS__, 'load_ecp_into_page_template' ) );
 
 			self::restoreQuery();
 
