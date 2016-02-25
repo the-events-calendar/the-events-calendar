@@ -684,8 +684,6 @@ Date.prototype.format = function( mask, utc ) {
 		mobile_class          : function() {
 			var $body = $( 'body' );
 
-			console.log( tribe_ev.data.v_width, tribe_ev.data.mobile_break );
-
 			if ( tribe_ev.data.v_width <= tribe_ev.data.mobile_break ) {
 				$body.addClass( 'tribe-mobile' );
 			} else {
@@ -1213,7 +1211,7 @@ Date.prototype.format = function( mask, utc ) {
 				$breakpoint_holder = $tribe_events;
 			}
 
-			td.mobile_break = parseInt( $breakpoint_holder.data( 'mobilebreak' ) );
+			td.mobile_break = parseInt( $breakpoint_holder.data( 'mobilebreak' ), 10 );
 		}
 
 		if ( $tribe_events.length && td.mobile_break > 0 ) {
