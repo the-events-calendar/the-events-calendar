@@ -514,16 +514,16 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v5.2.19",
+            "version": "v5.2.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "511a6798e097666b95c6ef3f339e386cc006feba"
+                "reference": "eea3cf7ce90651e067a914d16383b019da45fcb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/511a6798e097666b95c6ef3f339e386cc006feba",
-                "reference": "511a6798e097666b95c6ef3f339e386cc006feba",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/eea3cf7ce90651e067a914d16383b019da45fcb5",
+                "reference": "eea3cf7ce90651e067a914d16383b019da45fcb5",
                 "shasum": ""
             },
             "require": {
@@ -552,20 +552,20 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "http://laravel.com",
-            "time": "2016-01-07 19:57:38"
+            "time": "2016-02-22 09:18:57"
         },
         {
             "name": "illuminate/support",
-            "version": "v5.2.19",
+            "version": "v5.2.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "6443a072215137161dcfc56385af95dd6eceaaad"
+                "reference": "6749fab3f3d38d8b15427536a8e7bbdc57497c9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/6443a072215137161dcfc56385af95dd6eceaaad",
-                "reference": "6443a072215137161dcfc56385af95dd6eceaaad",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/6749fab3f3d38d8b15427536a8e7bbdc57497c9e",
+                "reference": "6749fab3f3d38d8b15427536a8e7bbdc57497c9e",
                 "shasum": ""
             },
             "require": {
@@ -608,20 +608,20 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2016-02-16 14:39:24"
+            "time": "2016-02-22 20:29:02"
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "1.10.2",
+            "version": "1.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "31f3127d40c12b9c39a31f497d2ac45ba26d48a6"
+                "reference": "dde7f0fdc295a77d43069b9dc940465ac345cf8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/31f3127d40c12b9c39a31f497d2ac45ba26d48a6",
-                "reference": "31f3127d40c12b9c39a31f497d2ac45ba26d48a6",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/dde7f0fdc295a77d43069b9dc940465ac345cf8c",
+                "reference": "dde7f0fdc295a77d43069b9dc940465ac345cf8c",
                 "shasum": ""
             },
             "require": {
@@ -664,7 +664,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2016-02-19 16:11:52"
+            "time": "2016-02-23 10:50:00"
         },
         {
             "name": "mikemclin/laravel-wp-password",
