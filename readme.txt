@@ -309,6 +309,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.1] TBD =
+
+* Add - Add a filter for month view daily events query: tribe_events_month_daily_events_query_args
+
 = [4.0.6] 2016-02-17 =
 
 * Tweak - Adjust injection of event data into the_content from priority 10 to 9 for better 3rd-party plugin compatibility
