@@ -684,10 +684,11 @@ Date.prototype.format = function( mask, utc ) {
 		mobile_class          : function() {
 			var $body = $( 'body' );
 
+			console.log( tribe_ev.data.v_width, tribe_ev.data.mobile_break );
+
 			if ( tribe_ev.data.v_width <= tribe_ev.data.mobile_break ) {
 				$body.addClass( 'tribe-mobile' );
-			}
-			else {
+			} else {
 				$body.removeClass( 'tribe-mobile' );
 			}
 		},
@@ -1192,14 +1193,27 @@ Date.prototype.format = function( mask, utc ) {
 		 *
 		 * Themers can override the mobile break with an override in function.php
 		 *
-		 add_action( 'tribe_events_mobile_breakpoint', 'mobile_breakpoint' );
-		 function mobile_breakpoint() {
-					return 500;
-				}
+		 *************************************************************************
+
+			add_action( 'tribe_events_mobile_breakpoint', 'mobile_breakpoint' );
+
+			function mobile_breakpoint() {
+				return 500;
+			}
+
+		 *************************************************************************
 		 */
 
-		if ( $tribe_events.length && $tribe_events.tribe_has_attr( 'data-mobilebreak' ) ) {
-			td.mobile_break = parseInt( $tribe_events.attr( 'data-mobilebreak' ) );
+		if ( $tribe_events.length ) {
+			var $breakpoint_holder = $tribe_events.tribe_has_attr( 'data-mobilebreak' );
+
+			if ( false === $breakpoint_holder ) {
+				$breakpoint_holder = $tribe_events.find( '[data-mobilebreak]' ).eq( 0 );
+			} else {
+				$breakpoint_holder = $tribe_events;
+			}
+
+			td.mobile_break = parseInt( $breakpoint_holder.data( 'mobilebreak' ) );
 		}
 
 		if ( $tribe_events.length && td.mobile_break > 0 ) {
