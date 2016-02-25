@@ -3042,10 +3042,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return mixed The meta.
 		 */
 		public function getEventMeta( $id, $meta, $single = true ) {
-			$value = get_post_meta( $id, $meta, $single );
+			// Fetch Status to check what we need to do
+			$status = get_post_status( $id );
+
+			// If the post doesn't exist just bail the get_post_meta
+			if ( is_string( $status ) && 'auto-draft' !== $status ) {
+				$value = get_post_meta( $id, $meta, $single );
+			} else {
+				$value = false;
+			}
+
 			if ( $value === false ) {
-				$method = str_replace( '_Event', '', $meta );
+				$method = str_replace( array( '_Event', '_Organizer', '_Venue' ), '', $meta );
 				$default = call_user_func( array( $this->defaults(), strtolower( $method ) ) );
+
 				$value = apply_filters( 'filter_eventsDefault' . $method, $default );
 			}
 			return $value;
