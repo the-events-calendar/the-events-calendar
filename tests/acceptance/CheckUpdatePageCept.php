@@ -1,21 +1,21 @@
 <?php
 
 // @group: settings
-$I = new AcceptanceTester( $scenario );
+$I = new AcceptanceTester($scenario);
 
-//Activate TEC Calendar
-$I->am( 'administrator' );
-$I->wantTo( "verify that the Update Page has the right content" );
+$I->am('administrator');
+$I->wantTo("verify that the Update Page has the right content");
 
+// arrange
 $I->activate_tec();
-$I->set_pretty_permalinks();
 
-//Get to the Welcome Page page
-$I->amOnPage( '/wp-admin/edit.php?post_type=tribe_events&page=tribe-common&tec-update-message=1' );
+// act
+$I->loginAsAdmin();
+$I->amOnAdminPage('/edit.php?post_type=tribe_events&page=tribe-common&tec-update-message=1');
 
-//Check content - To Do - maybe create a list of correct content to check for
-$I->see( 'Thanks for Updating The Events Calendar');
-$I->see( 'You are running Version 4.0.1 and deserve a hug :-)');
+// assert
+$I->seeElement('.tribe_update_page');
+$I->seeElement('.tribe-welcome-message');
 
 // TO DO -  All of the below seeInSource are causign errors.  Need to debug
 //$I->seeInSource( 'Keep the Core Plugin <strong>FREE</strong>');

@@ -7,15 +7,25 @@ $I = new AcceptanceTester( $scenario );
 $I->am( 'administrator' );
 $I->wantTo( "verify that an organizer can be created" );
 
+// arrange
 $I->activate_tec();
-$I->set_pretty_permalinks();
+$post_title         = 'John Doe';
+$existing_organizer = get_page_by_title( $post_title, OBJECT, 'tribe_organizer' );
+if ( $existing_organizer ) {
+	wp_delete_post( $existing_organizer->ID );
+}
 
-//Create an organizer and test it exists
-$I->createOrganizer( array( 'organizerTitle' => 'New Organizer Name', 'organizerContent' => 'New Organizer Details', 'organizerPhone' => '111-111-1111', 'organizerWebsite' => 'www.test.com', 'organizerEmail' => "tommy@test.com" ) );
-//$organizerTitle		= $updateEvent['originalTitle'];
-//Delete Organizer
-$I->amOnPage( '/wp-admin/edit.php?post_type=tribe_organizer' );
-$I->click( 'New Organizer Name');
-$I->click( 'Move to Trash');
+// act
+$I->loginAsAdmin();
+$I->amOnAdminPage( '/post-new.php?post_type=tribe_organizer' );
+$I->fillField( 'post_title', $post_title );
+$I->click( '#publish' );
+// TODO: additional fields
 
-// TO DO - would be nice to add some negative tests to test these form fields are validating but check to see if needed
+// assert
+$I->amOnAdminPage( '/edit.php?post_type=tribe_organizer' );
+$created_organizer = get_page_by_title( $post_title, OBJECT, 'tribe_organizer' );
+$row               = 'tr.type-tribe_organizer.post-' . $created_organizer->ID;
+$I->seeElement( $row );
+$I->see( $post_title, $row );
+// TODO: check additional fields

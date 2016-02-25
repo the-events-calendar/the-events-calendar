@@ -9,3 +9,15 @@ modules:
         - \Helper\Acceptance
         - Asserts
         - WPDb
+        - WPBootstrapper
+        - \Tribe\Tests\Modules\Core\Acceptance\Options
+        - \Helper\TribeDb
+    config:
+        WPDb:
+            populate: false
+            cleanup: false
+        WPWebDriver:
+            browser: phantomjs
+            port: 4444
+            restart: true
+            wait: 0

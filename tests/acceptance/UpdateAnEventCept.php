@@ -5,24 +5,26 @@ $I = new AcceptanceTester( $scenario );
 
 //Activate TEC Calendar
 $I->am( 'administrator' );
-$I->wantTo( "verify that an event can be modified" );
+$I->wantTo( "verify that an event title can be modified" );
 
+// arrange
 $I->activate_tec();
-$I->set_pretty_permalinks();
+$old_title = 'A test event';
+$event     = get_page_by_title( $old_title, OBJECT, 'tribe_events' );
+if ( $event ) {
+	// mind the status
+	wp_delete_post( $event );
+}
+$event_id = wp_insert_post( [ 'post_title' => $old_title ] );
 
-//Set up test Event and test it exists
-$I->createEvent( array( 'title' => 'An Event To Update', 'content' => 'Not yet updated', 'allDay' => 'true' ) );
-$event_url = $I->grabTextFrom( '#sample-permalink' );
-$I->amOnPage( $event_url );
-$I->see( 'An Event To Update' );
+// act
+$I->loginAsAdmin();
+$I->amOnAdminPage( '/post.php?post=' . $event_id . '&action=edit' );
+$I->fillField( 'post_title', 'A new title' );
+$I->click( '#publish' );
 
-//Modify the event 
-$I->edit_event( array( 'originalTitle' => 'An Event To Update', 'newTitle' => 'Updated Event', 'content' => 'Not yet updated', 'allDay' => 'true' ) );
+// assert
+$I->amOnPage( get_post_permalink( $event_id ) );
+$I->see( 'A new title' );
 
 
-//Delete Event
-$I->click( '#delete-action' );
-$I->click( 'Move to Trash' );
-
-$I->amOnPage( $event_url );
-$I->see( 'Oops! That page' );

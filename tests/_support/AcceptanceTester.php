@@ -1,4 +1,6 @@
 <?php
+
+
 /**
  * Inherited Methods
  * @method void wantToTest( $text )
@@ -73,12 +75,12 @@ class AcceptanceTester extends \Codeception\Actor {
 	 * Update Event
 	 */
 	public function edit_event( $updateEvent ) {
-		$originalTitle	= $updateEvent['originalTitle'];
-		$newTitle	= $updateEvent['newTitle'];
-		$content	= $updateEvent['content'];
-		$allDay		= $updateEvent['allDay'];
-		if(empty($updateEventp['originalTitle']) || empty($updateEvent['newTitle'])){
-        		throw new \InvalidArgumentException('Title missing');
+		$originalTitle = $updateEvent['originalTitle'];
+		$newTitle      = $updateEvent['newTitle'];
+		$content       = $updateEvent['content'];
+		$allDay        = $updateEvent['allDay'];
+		if ( empty( $updateEventp['originalTitle'] ) || empty( $updateEvent['newTitle'] ) ) {
+			throw new \InvalidArgumentException( 'Title missing' );
 		}
 
 		$I = $this;
@@ -103,18 +105,10 @@ class AcceptanceTester extends \Codeception\Actor {
 
 
 	public function activate_tec() {
-		$I = $this;
-
-		$I->am( 'administrator' );
-		$I->loginAsAdmin();
-		$I->amOnPluginsPage();
-		$link_text = $I->grabTextFrom( '#the-events-calendar [aria-label*="ctivate"]' );
-
-		if ( 'Activate' == $link_text ) {
-			$I->activatePlugin( 'the-events-calendar' );
-		}
-
-		$I->seePluginActivated( 'the-events-calendar' );
+		$this->bootstrapWp();
+		$this->loadWpComponent( 'plugins' );
+		update_option( 'active_plugins', [ ] );
+		activate_plugin( 'the-events-calendar/the-events-calendar.php' );
 	}
 
 	public function set_pretty_permalinks() {
@@ -154,12 +148,12 @@ class AcceptanceTester extends \Codeception\Actor {
 		// <select name="column_map[0]">
 		// <option>CSV Header</option>
 
-		$csv_file = fopen( './tests/_data/'.$file, 'r' );
+		$csv_file    = fopen( './tests/_data/' . $file, 'r' );
 		$csv_headers = fgetcsv( $csv_file, 0, ',' );
 
 		$count = count( $csv_headers );
-		for ( $i = 0; $i < $count; $i++ ) {
-			$I->selectOption( 'column_map['.$i.']', $csv_headers[ $i ] );
+		for ( $i = 0; $i < $count; $i ++ ) {
+			$I->selectOption( 'column_map[' . $i . ']', $csv_headers[ $i ] );
 		}
 
 		$I->seeInField( '#submit', 'Perform Import' );
@@ -168,79 +162,4 @@ class AcceptanceTester extends \Codeception\Actor {
 		// Check that it imported (or rather, is in the process of doing so...)
 		$I->see( 'Importing Data' );
 	}
-
-	/**
-	 * Create new Tag
-	 */
-	public function createTag( $tag = null ) {
-		if ( is_null( $tag['tagName'] ) ) {
-			throw new \InvalidArgumentException('Missing Arguments!  Need a name at least');
-		} 
-		$I = $this;
-		$I->amOnPage( '/wp-admin/edit-tags.php?taxonomy=post_tag&post_type=tribe_events' );
-		$I->fillField( 'tag-name', $tag['tagName'] );
-		$I->fillField( 'slug', $tag['tagSlug'] );
-		$I->fillField( 'description', $tag['tagDescription'] );
-		$I->click( '#submit' );
-		$I->see( $tag['tagName'] );
-		//$I->see( $tag['tagSlug'] );
-		//$I->see( $tag['tagDescription'] );
-	}
-
-	public function createCategory( $category = null ) {
-		if ( is_null( $tag['tagName'] ) ) {
-			throw new \InvalidArgumentException('Missing Arguments!  Need a name at least');
-		} 
-
-		$I = $this;
-		$I->amOnPage( '/wp-admin/edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' );
-		$I->fillField( 'tag-name', $tag['tagName'] );
-		$I->fillField( 'slug', $tag['tagSlug'] );
-		$I->fillField( 'description', $tag['tagDescription'] );
-		// @todo - Add selector for "Parent"
-	
-		
-		$I->click( '#submit' );
-		$I->see( $tag['tagName'] );
-		//$I->see( $tag['tagSlug'] );
-		//$I->see( $tag['tagDescription'] );
-	}
-
-	public function createVenue( $venue = null ) {
-		if ( is_null( $venue['venueTitle'] ) ) {
-			throw new \InvalidArgumentException('Missing Arguments!  Need a title at least');
-		} 
-
-		$I = $this;
-		$I->amOnPage( '/wp-admin/post-new.php?post_type=tribe_venue' );
-		$I->fillField( 'post_title', $venue['venueTitle'] );
-		$I->fillField( 'venue[Address]', $venue['venueAddress'] );
-		$I->fillField( 'venue[City]', $venue['venueCity'] );
-		// @todo - Add selector for "Parent"
-		$I->click( '#publish' );
-		$I->amOnPage( '/wp-admin/post-new.php?post_type=tribe_venue' );
-		//$I->see( $venue['venueTitle'] );
-		// @todo - add other fields
-
-	}
-
-	public function createOrganizer( $organizer = null ) {
-		if ( is_null( $organizer['organizerTitle'] ) ) {
-			throw new \InvalidArgumentException('Missing Arguments!  Need a title at least');
-		} 
-
-		$I = $this;
-		$I->amOnPage( '/wp-admin/post-new.php?post_type=tribe_organizer' );
-		$I->fillField( 'post_title', $organizer['organizerTitle'] );
-		$I->fillField( 'content', $organizer['organizerContent'] );
-		$I->fillField( 'organizer[Phone]', $organizer['organizerPhone'] );
-		$I->fillField( 'organizer[Website]', $organizer['organizerWebsite'] );
-		$I->fillField( 'organizer[Email]', $organizer['organizerEmail'] );
-		// @todo - Add selector for "Parent"
-		$I->click( '#publish' );
-		$I->amOnPage( '/wp-admin/post-new.php?post_type=tribe_venue' );
-
-	}
-
-
 }
