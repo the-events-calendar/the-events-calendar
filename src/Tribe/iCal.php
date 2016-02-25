@@ -179,6 +179,11 @@ class Tribe__Events__iCal {
 			'hide_upcoming' => true,
 		);
 
+		// Verify the Intial Category
+		if ( $wp_query->get( Tribe__Events__Main::TAXONOMY, false ) !== false ) {
+			$args[ Tribe__Events__Main::TAXONOMY ] = $wp_query->get( Tribe__Events__Main::TAXONOMY );
+		}
+
 		/**
 		 * Provides an opportunity to modify the query args used to build a list of events
 		 * to export from month view.
