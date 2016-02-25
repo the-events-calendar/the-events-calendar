@@ -3054,9 +3054,31 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( $value === false ) {
 				$method = str_replace( array( '_Event', '_Organizer', '_Venue' ), '', $meta );
+				$filter = str_replace( array( '_Event', '_Organizer', '_Venue' ), array( '', 'Organizer', 'Venue' ), $meta );
+
 				$default = call_user_func( array( $this->defaults(), strtolower( $method ) ) );
 
-				$value = apply_filters( 'filter_eventsDefault' . $method, $default );
+				/**
+				 * Used to Filter the default value for a Specific meta
+				 *
+				 * @deprecated 4.0.7
+				 * @var $default
+				 * @var $id
+				 * @var $meta
+				 * @var $single
+				 */
+				$value = apply_filters( 'filter_eventsDefault' . $filter, $default, $id, $meta, $single );
+
+				/**
+				 * Used to Filter the default value for a Specific meta
+				 *
+				 * @since 4.0.7
+				 * @var $default
+				 * @var $id
+				 * @var $meta
+				 * @var $single
+				 */
+				$value = apply_filters( 'tribe_get_meta_default_value_' . $filter, $default, $id, $meta, $single );
 			}
 			return $value;
 		}
@@ -3082,7 +3104,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$valid_post_id   = "tribe_get_{$post_type}_id";
 			$create          = "create$posttype";
 			$preview_post_id = get_post_meta( $event_id, $meta_key, true );
-			$doing_preview   = ($_REQUEST['wp-preview'] == 'dopreview');
+			$doing_preview   = ( $_REQUEST['wp-preview'] == 'dopreview' );
 
 			if ( empty( $_POST[ $posttype ][ $posttype_id ] ) ) {
 				// the event is set to use a new metapost
