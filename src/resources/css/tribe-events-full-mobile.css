@@ -186,8 +186,8 @@ a.tribe-events-gmap {
 	margin: 0 3% 0 0;
 }
 .tribe-events-shortlist .tribe-events-event-image img {
-	width: auto;
 	max-height: 400px;
+	width: auto;
 }
 .tribe-events-shortlist .tribe-events-event-image + div.tribe-events-content {
 	float: none;
@@ -209,15 +209,15 @@ a.tribe-events-gmap {
 .tribe-events-shortlist .tribe-events-loop .tribe-events-event-meta .recurringinfo .tribe-events-divider {
 	display: none;
 }
-.tribe-events-loop .tribe-events-event-meta {		
-	padding: 12px 0 15px;
-	margin-top: 12px;
+.tribe-events-loop .tribe-events-event-meta {
 	background: #fafafa;
 	border: 1px solid #eee;
+	margin-top: 12px;
+	padding: 12px 0 15px;
 }
 .tribe-events-shortlist .time-details {
-	padding: 0 12px;
 	margin-bottom: 0;
+	padding: 0 12px;
 }
 .tribe-events-shortlist .tribe-events-venue-details {
 	border: none;
@@ -226,8 +226,8 @@ a.tribe-events-gmap {
 }
 .tribe-events-shortlist .tribe-events-event-cost {
 	display: block;
-	position: static;
 	margin: 0;
+	position: static;
 }
 .tribe-events-shortlist #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next a, 
 .tribe-events-shortlist #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-previous a, 
@@ -235,13 +235,32 @@ a.tribe-events-gmap {
 	color: #fff;
 }
 .tribe-events-shortlist .tribe-events-list-event-day {
-	width: 17%;
 	max-width: 70px;
+	width: 17%;
 }
 .tribe-events-shortlist .type-tribe_events h2 {
-	padding: 0 0 0 22%;
-	min-height: 60px;
 	margin-top: -4px;
+	min-height: 60px;
+	padding: 0 0 0 22%;
+}
+.tribe-bar-view-list a[class^=tribe-icon-shortlist], 
+.tribe-bar-views-list span[class^=tribe-icon-shortlist] {
+	background-image: url(../images/events-bar/icon-list.png)
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+
+	.tribe-events-shortlist .tribe-events-list-event-day .tribe-event-day {
+		font-size: 0.8em;
+	}
+	.tribe-events-shortlist .tribe-events-list-event-day .tribe-event-number {
+		font-size: 1.4em;
+	}
+	.tribe-events-shortlist .type-tribe_events h2 {
+		font-size: 1.4em;
+		padding: 0 0 0 19%;
+	}
+
 }
 
 /* = Single Event Template Styles

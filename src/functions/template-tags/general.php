@@ -136,7 +136,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__List::AJAX_HOOK );
 					break;
 				case 'shortlist' :
-					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__List::AJAX_HOOK );
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__ShortList::AJAX_HOOK );
 					break;
 				case 'day' :
 					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__Day::AJAX_HOOK );
@@ -631,10 +631,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$attrs['data-startofweek'] = get_option( 'start_of_week' );
 				$attrs['data-view'] = 'shortlist';
 				if ( tribe_is_upcoming() ) {
-					$attrs['data-baseurl'] = tribe_get_listview_link( false );
+					$attrs['data-baseurl'] = tribe_get_shortlistview_link( false );
 				} elseif ( tribe_is_past() ) {
 					$attrs['data-view']    = 'past';
-					$attrs['data-baseurl'] = tribe_get_listview_past_link( false );
+					$attrs['data-baseurl'] = tribe_get_shortlistview_past_link( false );
 				}
 				break;
 		}

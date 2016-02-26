@@ -84,7 +84,7 @@ if ( ! class_exists( 'Tribe__Events__Template__ShortList' ) ) {
 				$args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
 			}
 
-			$args = apply_filters( 'tribe_events_listview_ajax_get_event_args', $args, $_POST );
+			$args = apply_filters( 'tribe_events_shortlistview_ajax_get_event_args', $args, $_POST );
 
 			$query = tribe_get_events( $args, true );
 
@@ -129,7 +129,7 @@ if ( ! class_exists( 'Tribe__Events__Template__ShortList' ) ) {
 			}
 
 			ob_start();
-			tribe_get_view( 'list/content' );
+			tribe_get_view( 'shortlist/content' );
 			$response['html'] .= ob_get_clean();
 
 			apply_filters( 'tribe_events_ajax_response', $response );

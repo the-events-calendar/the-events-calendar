@@ -147,9 +147,9 @@ ul.tribe-events-sub-nav a:hover,
 	background-image: none;
 	border: 0;
 	-webkit-border-radius: 3px;
-			border-radius: 3px;
+	        border-radius: 3px;
 	-webkit-box-shadow: none;
-			box-shadow: none;
+	        box-shadow: none;
 	color: #fff;
 	cursor: pointer;
 	display: inline-block;
@@ -682,7 +682,7 @@ select.tribe-events-dropdown {
 /* = Short List View Template Styles
    @ Template: shortlist.php
 =============================================*/
-.tribe-events-shortlist h2.tribe-events-page-title {
+.tribe-events-shortlist .tribe-events-page-title {
 	margin-top: 0;
 	margin-bottom: 15px;
 }
@@ -698,16 +698,21 @@ select.tribe-events-dropdown {
 	color: #007dce;
 }
 
+.tribe-events-shortlist #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next a:hover,
+.tribe-events-shortlist #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-previous a:hover {
+	color: #00aadc;
+}
+
 .tribe-events-shortlist .tribe-events-list-separator-month {
-	display: block;
-	text-align: left;
-	position: static;
-	padding: 0 0 0 10px;
 	background-color: #eee;
+	display: block;
 	font-size: 15px;
 	line-height: 2em;
-	text-transform: uppercase;
 	margin: 0;
+	padding: 0 0 0 10px;
+	position: static;
+	text-align: left;
+	text-transform: uppercase;
 }
 
 .tribe-events-shortlist .tribe-events-list-separator-month span {
@@ -729,7 +734,7 @@ select.tribe-events-dropdown {
 	padding-top: 0;
 }
 
-.tribe-events-shortlist h2.tribe-events-list-event-title {
+.tribe-events-shortlist .tribe-events-list-event-title {
 	border: none;
 	display: block;
 	font-size: 1.4em;
@@ -737,19 +742,24 @@ select.tribe-events-dropdown {
 	line-height: 1.4em;
 	margin: 0;
 	padding: 0;
-	text-transform: none;
 	padding-left: 12%;
 	padding-right: 12%;
+	text-transform: none;
 }
 
-.tribe-events-shortlist h2.tribe-events-list-event-title {
+.tribe-events-shortlist .tribe-events-list-event-title {
 	display: inline;
 	float: none;
 }
 
-.tribe-events-shortlist h2.tribe-events-list-event-title a {
-	color: #007dce;
+.tribe-events-shortlist .tribe-events-list-event-title a {
 	border-bottom: 1px solid #007dce;
+	color: #007dce;
+}
+
+.tribe-events-shortlist .tribe-events-list-event-title a:hover {
+	border-bottom: 1px solid #00aadc;
+	color: #00aadc;
 }
 
 .tribe-events-shortlist .tribe-events-loop .tribe-events-event-meta {
@@ -758,13 +768,13 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-shortlist .tribe-events-list-event-day {
-	position: absolute;
 	background-color: #6d6e71;
+	max-width: 80px;
 	padding: 6px;
+	position: absolute;
 	text-transform: uppercase;
 	text-align: center;
 	width: 10%;
-	max-width: 80px;
 }
 
 .tribe-events-shortlist .tribe-events-list-event-day .tribe-event-day {
@@ -799,7 +809,7 @@ select.tribe-events-dropdown {
 }
 
 /* Details (Title, Meta, Content) */
-.tribe-events-shortlist .tribe-events-event-image + div.tribe-events-content {
+.tribe-events-shortlist .tribe-events-event-image + .tribe-events-content {
 	float: left;
 	position: relative;
 	width: 67%;
@@ -840,10 +850,10 @@ select.tribe-events-dropdown {
 
 /* Cost */
 .tribe-events-shortlist .tribe-events-event-cost {
+	margin: 0 0 5px 5px;
 	position: absolute;
 	right: 0;
 	top: 1.5em;
-	margin: 0 0 5px 5px;
 }
 
 .tribe-events-shortlist .tribe-events-event-cost span {

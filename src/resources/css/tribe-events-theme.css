@@ -219,8 +219,8 @@ h2.tribe-events-page-title,
 }
 
 .tribe-events-shortlist .type-tribe_events h2 {
-	font-size: 1.2em;
 	display: block;
+	font-size: 1.2em;
 	margin-top: -6px;
 }
 
@@ -230,8 +230,8 @@ h2.tribe-events-page-title,
 
 /* Meta */
 .tribe-events-shortlist .tribe-events-loop .tribe-events-event-meta .recurringinfo {
-	padding-left: 0;
 	font-weight: normal;
+	padding-left: 0;
 	vertical-align: top;
 }
 
