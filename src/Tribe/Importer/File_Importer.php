@@ -113,7 +113,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 		$record = $this->reader->read_next_row();
 		$row    = $this->reader->get_last_line_number_read() + 1;
 		if ( ! $this->is_valid_record( $record ) ) {
-			if ( !$throw ) {
+			if ( ! $throw ) {
 				$this->log[ $row ] = sprintf( esc_html__( 'Missing required fields in row %d.', 'the-events-calendar', $row ) );
 				$this->skipped[]   = $row;
 
@@ -205,7 +205,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	 *
 	 * @return Tribe__Events__Importer__Featured_Image_Uploader
 	 */
-	protected function featured_image_uploader( $featured_image) {
-		return empty( $this->featured_image_uploader ) ? new Tribe__Events__Importer__Featured_Image_Uploader( $featured_image) : $this->featured_image_uploader;
+	protected function featured_image_uploader( $featured_image ) {
+		return empty( $this->featured_image_uploader ) ? new Tribe__Events__Importer__Featured_Image_Uploader( $featured_image ) : $this->featured_image_uploader;
 	}
 }

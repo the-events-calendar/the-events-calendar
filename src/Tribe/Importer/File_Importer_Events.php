@@ -123,7 +123,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return $value;
 	}
 
-	private function build_event_array($event_id, array $record ) {
+	private function build_event_array( $event_id, array $record ) {
 		$start_date = strtotime( $this->get_event_start_date( $record ) );
 		$end_date   = strtotime( $this->get_event_end_date( $record ) );
 
