@@ -32,7 +32,7 @@
 			</div>
 			[[ } ]]
 			[[ if(excerpt.length) { ]]
-			<p class="tribe-event-description">[[=raw excerpt]]</p>
+			<div class="tribe-event-description"> [[=raw excerpt]] </div>
 			[[ } ]]
 			<a href="[[=permalink]]" class="tribe-events-read-more" rel="bookmark">[[=i18n.find_out_more]]</a>
 		</div>
