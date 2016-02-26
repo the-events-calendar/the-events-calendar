@@ -23,6 +23,7 @@ class Tribe__Events__Google_Data_Markup__Event extends Tribe__Events__Google_Dat
 			$event_data[ $id ]->location          = new stdClass();
 			$event_data[ $id ]->location->{'@type'} = 'Place';
 			$event_data[ $id ]->location->name    = tribe_get_venue( $post->ID );
+			$event_data[ $id ]->location->address = new stdClass();
 
 			if ( tribe_get_address( $post->ID ) ) {
 				$event_data[ $id ]->location->address->streetAddress    = tribe_get_address();
