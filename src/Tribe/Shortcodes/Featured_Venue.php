@@ -29,10 +29,11 @@ class Tribe__Events__Pro__Shortcodes__Featured_Venue {
 		'after_title'   => '',
 		'after_widget'  => '',
 
-		'slug'           => '',
-		'venue'          => '',
-		'id'             => '',
-		'limit'          => '',
+		'slug'          => '',
+		'venue'         => '',
+		'id'            => '',
+		'limit'         => '',
+		'hide_if_empty' => true,
 	);
 
 	protected $arguments = array();
