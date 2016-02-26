@@ -133,6 +133,11 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$event_cost = isset( $data['EventCost'] ) ? (array) $data['EventCost'] : array();
 			$data['EventCost'] = (array) apply_filters( 'tribe_events_event_costs', $event_cost, $event_id );
 
+			if ( isset( $data['FeaturedImage'] ) && ! empty( $data['FeaturedImage'] ) ) {
+				update_post_meta( $event_id, '_thumbnail_id', $data['FeaturedImage'] );
+				unset( $data['FeaturedImage'] );
+			}
+
 			do_action( 'tribe_events_event_save', $event_id );
 
 			//update meta fields
@@ -417,6 +422,11 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 */
 		private static function saveOrganizerMeta( $organizerId, $data ) {
+			if ( isset( $data['FeaturedImage'] ) && ! empty( $data['FeaturedImage'] ) ) {
+				update_post_meta( $organizerId, '_thumbnail_id', $data['FeaturedImage'] );
+				unset( $data['FeaturedImage'] );
+			}
+
 			foreach ( $data as $key => $var ) {
 				update_post_meta( $organizerId, '_Organizer' . $key, $var );
 			}
@@ -527,6 +537,11 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			update_post_meta( $venueId, '_EventShowMap', isset( $data['EventShowMap'] ) );
 			unset( $data['EventShowMapLink'] );
 			unset( $data['EventShowMap'] );
+
+			if ( isset( $data['FeaturedImage'] ) && ! empty( $data['FeaturedImage'] ) ) {
+				update_post_meta( $venueId, '_thumbnail_id', $data['FeaturedImage'] );
+				unset( $data['FeaturedImage'] );
+			}
 
 			foreach ( $data as $key => $var ) {
 				update_post_meta( $venueId, '_Venue' . $key, $var );
