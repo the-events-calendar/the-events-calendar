@@ -4131,7 +4131,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// If we successfully located the next/prev event, we should have precisely one element in $results
 			if ( $event ) {
 				if ( ! $anchor ) {
-					$anchor = apply_filters( 'the_title', $event->post_title );
+					$anchor = apply_filters( 'the_title', $event->post_title, $event->ID );
 				} elseif ( strpos( $anchor, '%title%' ) !== false ) {
 					// get the nicely filtered post title
 					$title = apply_filters( 'the_title', $event->post_title, $event->ID );
