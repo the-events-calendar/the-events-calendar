@@ -8,7 +8,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+
 class Tribe__Events__Cost_Utils {
+
+	/**
+	 * @var string
+	 */
+	protected $_current_original_cost_separator;
+
+	/**
+	 * @var string
+	 */
+	protected $_supported_decimal_separators = '.,';
+
 	/**
 	 * Static Singleton Factory Method
 	 *
@@ -53,19 +65,22 @@ class Tribe__Events__Cost_Utils {
 	public function get_separators() {
 		/**
 		 * Allow users to create more possible separators, they must be only 1 char
+		 *
 		 * @var array
 		 */
 		return apply_filters( 'tribe_events_cost_separators', array( ',', '.' ) );
 	}
 
 	public function get_cost_regex() {
-		return apply_filters( 'tribe_events_cost_regex', '(([\d]+)[\\' . implode( '\\', $this->get_separators() ) . ']?([\d]*))' );
+		return apply_filters( 'tribe_events_cost_regex',
+			'(([\d]+)[\\' . implode( '\\', $this->get_separators() ) . ']?([\d]*))' );
 	}
 
 	/**
 	 * Check if a String is a valid cost
 	 *
-	 * @param  string  $cost String to be checked
+	 * @param  string $cost String to be checked
+	 *
 	 * @return boolean
 	 */
 	public function is_valid_cost( $cost, $allow_negative = true ) {
@@ -108,8 +123,8 @@ class Tribe__Events__Cost_Utils {
 	/**
 	 * Returns a formatted event cost
 	 *
-	 * @param int|WP_Post $event The Event post object or event ID
-	 * @param bool $with_currency_symbol Include the currency symbol (optional)
+	 * @param int|WP_Post $event                The Event post object or event ID
+	 * @param bool        $with_currency_symbol Include the currency symbol (optional)
 	 *
 	 * @return string
 	 */
@@ -138,7 +153,9 @@ class Tribe__Events__Cost_Utils {
 		if ( $relevant_costs['min'] == $relevant_costs['max'] ) {
 			$formatted = $relevant_costs['min'];
 		} else {
-			$formatted = $relevant_costs['min'] . _x( ' - ', 'Cost range separator', 'the-events-calendar' ) . $relevant_costs['max'];
+			$formatted = $relevant_costs['min'] . _x( ' - ',
+					'Cost range separator',
+					'the-events-calendar' ) . $relevant_costs['max'];
 		}
 
 		return $formatted;
@@ -179,7 +196,7 @@ class Tribe__Events__Cost_Utils {
 	/**
 	 * Returns a particular cost within an array of costs
 	 *
-	 * @param $costs mixed Cost(s) to review for max value
+	 * @param $costs    mixed Cost(s) to review for max value
 	 * @param $function string Function to use to determine which cost to return from range. Valid values: max, min
 	 *
 	 * @return float
@@ -225,7 +242,8 @@ class Tribe__Events__Cost_Utils {
 	}
 
 	/**
-	 * Returns a maximum cost in a list of costs. If an array of costs is not passed in, the array of costs is fetched via query.
+	 * Returns a maximum cost in a list of costs. If an array of costs is not passed in, the array of costs is fetched
+	 * via query.
 	 *
 	 * @param $costs mixed Cost(s) to review for max value
 	 *
@@ -236,7 +254,8 @@ class Tribe__Events__Cost_Utils {
 	}
 
 	/**
-	 * Returns a minimum cost in a list of costs. If an array of costs is not passed in, the array of costs is fetched via query.
+	 * Returns a minimum cost in a list of costs. If an array of costs is not passed in, the array of costs is fetched
+	 * via query.
 	 *
 	 * @param $costs mixed Cost(s) to review for min value
 	 *
@@ -271,7 +290,8 @@ class Tribe__Events__Cost_Utils {
 	}
 
 	/**
-	 * Parses an event cost into an array of ranges. If a range isn't provided, the resulting array will hold a single value.
+	 * Parses an event cost into an array of ranges. If a range isn't provided, the resulting array will hold a single
+	 * value.
 	 *
 	 * @param $cost string Cost for event.
 	 *
@@ -292,7 +312,7 @@ class Tribe__Events__Cost_Utils {
 
 		// Build the regular expression
 		$price_regex = $this->get_cost_regex();
-		$max = 0;
+		$max         = 0;
 
 		foreach ( $costs as &$cost ) {
 			// Get the required parts
@@ -306,7 +326,7 @@ class Tribe__Events__Cost_Utils {
 			// Get the max number of decimals for the range
 			if ( count( $matches ) === 4 ) {
 				$decimals = max( array_map( 'strlen', end( $matches ) ) );
-				$max = max( $max, $decimals );
+				$max      = max( $max, $decimals );
 			}
 		}
 
@@ -337,5 +357,124 @@ class Tribe__Events__Cost_Utils {
 		ksort( $ocost );
 
 		return (array) $ocost;
+	}
+
+	/**
+	 * @param       string       $original_string_cost A string cost with or without currency symbol,
+	 *                                                 e.g. `10 - 20`, `Free` or `2$ - 4$`.
+	 * @param       array|string $merging_cost         A single string cost representation to merge or an array of
+	 *                                                 string cost representations to merge, e.g. ['Free', 10, 20,
+	 *                                                 'Donation'] or `Donation`.
+	 * @param       bool         $with_currency_symbol Whether the output should prepend the currency symbol to the
+	 *                                                 numeric costs or not.
+	 * @param array              $sorted_mins          An array of non numeric price minimums sorted smaller to larger,
+	 *                                                 e.g. `['Really free', 'Somewhat free', 'Free with 3 friends']`.
+	 * @param array              $sorted_maxs          An array of non numeric price maximums sorted smaller to larger,
+	 *                                                 e.g. `['Donation min $10', 'Donation min $20', 'Donation min
+	 *                                                 $100']`.
+	 *
+	 * @return string|array The merged cost range.
+	 */
+	public function merge_cost_ranges( $original_string_cost, $merging_cost, $with_currency_symbol, $sorted_mins = array(), $sorted_maxs = array() ) {
+		if ( empty( $merging_cost ) || $original_string_cost === $merging_cost ) {
+			return $original_string_cost;
+		}
+
+		$_merging_cost              = array_map( array( $this, 'convert_decimal_separator' ),
+			(array) $merging_cost );
+		$_merging_cost              = array_map( array( $this, 'numerize_numbers' ), $_merging_cost );
+		$numeric_merging_cost_costs = array_filter( $_merging_cost, 'is_numeric' );
+
+		$matches = array();
+		preg_match_all( '!\d+(?:([' . preg_quote( $this->_supported_decimal_separators ) . '])\d+)?!',
+			$original_string_cost,
+			$matches );
+		$this->_current_original_cost_separator = empty( $matches[1][0] ) ? '.' : $matches[1][0];
+		$matches[0]                             = empty( $matches[0] ) ? $matches[0] : array_map( array(
+			$this,
+			'convert_decimal_separator',
+		),
+			$matches[0] );
+		$numeric_orignal_costs                  = empty( $matches[0] ) ? $matches[0] : array_map( 'floatval',
+			$matches[0] );
+
+		$all_numeric_costs = array_filter( array_merge( $numeric_merging_cost_costs, $numeric_orignal_costs ) );
+		$cost_min          = $cost_max = false;
+
+		$merging_mins     = array_intersect( $sorted_mins, (array) $merging_cost );
+		$merging_has_min  = array_search( reset( $merging_mins ), $sorted_mins );
+		$original_has_min = array_search( $original_string_cost, $sorted_mins );
+		$merging_has_min  = false === $merging_has_min ? 999 : $merging_has_min;
+		$original_has_min = false === $original_has_min ? 999 : $original_has_min;
+		$string_min_key   = min( $merging_has_min, $original_has_min );
+		if ( array_key_exists( $string_min_key, $sorted_mins ) ) {
+			$cost_min = $sorted_mins[ $string_min_key ];
+		} else {
+			$cost_min = empty( $all_numeric_costs ) ? '' : min( $all_numeric_costs );
+		}
+
+		$merging_maxs     = array_intersect( $sorted_maxs, (array) $merging_cost );
+		$merging_has_max  = array_search( end( $merging_maxs ), $sorted_maxs );
+		$original_has_max = array_search( $original_string_cost, $sorted_maxs );
+		$merging_has_max  = false === $merging_has_max ? - 1 : $merging_has_max;
+		$original_has_max = false === $original_has_max ? - 1 : $original_has_max;
+		$string_max_key   = max( $merging_has_max, $original_has_max );
+		if ( array_key_exists( $string_max_key, $sorted_maxs ) ) {
+			$cost_max = $sorted_maxs[ $string_max_key ];
+		} else {
+			$cost_max = empty( $all_numeric_costs ) ? '' : max( $all_numeric_costs );
+		}
+
+		$cost = array_filter( array( $cost_min, $cost_max ) );
+
+		if ( $with_currency_symbol ) {
+			$formatted_cost = array();
+			foreach ( $cost as $c ) {
+				$formatted_cost[] = is_numeric( $c ) ? tribe_format_currency( $c ) : $c;
+			}
+			$cost = $formatted_cost;
+		}
+
+		return empty( $cost ) ? $original_string_cost : array_map( array( $this, 'restore_original_decimal_separator' ),
+			$cost );
+	}
+
+	/**
+	 * Converts the original decimal separator to ".".
+	 *
+	 * @param string|int $value
+	 *
+	 * @return string
+	 */
+	protected function convert_decimal_separator( $value ) {
+		return preg_replace( '/[' . preg_quote( $this->_supported_decimal_separators ) . ']/', '.', $value );
+	}
+
+	/**
+	 * Restores the decimal separator to its original symbol.
+	 *
+	 * @param string $value
+	 *
+	 * @return string
+	 */
+	private function restore_original_decimal_separator( $value ) {
+		return str_replace( '.', $this->_current_original_cost_separator, $value );
+	}
+
+	/**
+	 * Extracts int and floats from a numeric "dirty" string like strings that might contain other symbols.
+	 *
+	 * E.g. "$10" will yield "10"; "23.55$" will yield "23.55".
+	 *
+	 * @param string|int $value
+	 *
+	 * @return int|float
+	 */
+	private function numerize_numbers( $value ) {
+		$matches = array();
+
+		$pattern = '/(\\d{1,}([' . $this->_supported_decimal_separators . ']\\d{1,}))/';
+
+		return preg_match( $pattern, $value, $matches ) ? $matches[1] : $value;
 	}
 }

@@ -54,6 +54,17 @@ class Tribe__Events__Importer__File_Uploader {
 		return $path;
 	}
 
+	/**
+	 * Indicates if the file returned by self::get_file_path() (still) exists
+	 * and is readable.
+	 *
+	 * @return bool
+	 */
+	public static function has_valid_csv_file() {
+		$csv_file = self::get_file_path();
+		return file_exists( $csv_file ) && is_readable( $csv_file );
+	}
+
 	private static function get_upload_directory() {
 		$upload_dir_array = wp_upload_dir();
 		$path             = $upload_dir_array['basedir'];

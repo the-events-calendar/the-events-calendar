@@ -1,9 +1,9 @@
 <?php
 namespace TEC\Tests\functions\template_tags;
 
-class metaTest extends \WP_UnitTestCase {
+use Codeception\TestCase\WPTestCase;
 
-	protected $backupGlobals = false;
+class metaTest extends WPTestCase {
 
 	public function setUp() {
 		// before

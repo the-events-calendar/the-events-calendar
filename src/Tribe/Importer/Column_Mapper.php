@@ -66,6 +66,7 @@ class Tribe__Events__Importer__Column_Mapper {
 			'event_category'          => esc_html__( 'Event Category', 'the-events-calendar' ),
 			'event_tags'              => esc_html__( 'Event Tags', 'the-events-calendar' ),
 			'event_website'           => esc_html__( 'Event Website', 'the-events-calendar' ),
+			'featured_image'          => esc_html__( 'Event Featured Image', 'the-events-calendar' ),
 		) );
 	}
 
@@ -80,6 +81,7 @@ class Tribe__Events__Importer__Column_Mapper {
 			'venue_zip'      => esc_html__( 'Venue Zip', 'the-events-calendar' ),
 			'venue_phone'    => esc_html__( 'Venue Phone', 'the-events-calendar' ),
 			'venue_url'      => esc_html__( 'Venue Website', 'the-events-calendar' ),
+			'featured_image' => esc_html__( 'Venue Featured Image', 'the-events-calendar' ),
 		);
 	}
 
@@ -89,6 +91,7 @@ class Tribe__Events__Importer__Column_Mapper {
 			'organizer_email'   => esc_html__( 'Organizer Email', 'the-events-calendar' ),
 			'organizer_website' => esc_html__( 'Organizer Website', 'the-events-calendar' ),
 			'organizer_phone'   => esc_html__( 'Organizer Phone', 'the-events-calendar' ),
+			'featured_image'    => esc_html__( 'Organizer Featured Image', 'the-events-calendar' ),
 		);
 	}
 }

@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '4.0.6';
+		const VERSION           = '4.1beta1';
 		const MIN_ADDON_VERSION = '4.0';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -471,10 +471,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
-			add_action( 'save_post_' . self::POSTTYPE, array( $this, 'maybe_update_known_range' ) );
-			add_action( 'tribe_events_csv_import_complete', array( $this, 'rebuild_known_range' ) );
+			add_action( 'save_post_' . self::POSTTYPE, array( Tribe__Events__Dates__Known_Range::instance(), 'maybe_update_known_range' ) );
+			add_action( 'tribe_events_csv_import_complete', array( Tribe__Events__Dates__Known_Range::instance(), 'rebuild_known_range' ) );
 			add_action( 'publish_' . self::POSTTYPE, array( $this, 'publishAssociatedTypes' ), 25, 2 );
-			add_action( 'delete_post', array( $this, 'maybe_rebuild_known_range' ) );
+			add_action( 'delete_post', array( Tribe__Events__Dates__Known_Range::instance(), 'maybe_rebuild_known_range' ) );
 			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 0 );
 			add_action( 'tribe_events_post_errors', array( 'Tribe__Events__Post_Exception', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'Tribe__Events__Options_Exception', 'displayMessage' ) );
@@ -3214,106 +3214,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$o[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : '';
 			}
 			return $organizers;
-		}
-
-		/**
-		 * Intended to run when the save_post_tribe_events action is fired.
-		 *
-		 * At this point we know an event is being updated or created and, if the post is going to
-		 * be visible, we can set up a further action to handle updating our record of the
-		 * populated date range once the post meta containing the start and end date for the post
-		 * has saved.
-		 */
-		public function maybe_update_known_range( $post_id ) {
-			// If the event isn't going to be visible (perhaps it's been trashed) rebuild dates and bail
-			if ( ! in_array( get_post_status( $post_id ), array( 'publish', 'private', 'protected' ) ) ) {
-				$this->rebuild_known_range();
-				return;
-			}
-
-			add_action( 'tribe_events_update_meta', array( $this, 'update_known_range' ) );
-		}
-
-		/**
-		 * Intelligently updates our record of the earliest start date/latest event date in
-		 * the system. If the existing earliest/latest values have not been superseded by the new post's
-		 * start/end date then no update takes place.
-		 *
-		 * This is deliberately hooked into save_post, rather than save_post_tribe_events, to avoid issues
-		 * where the removal/restoration of hooks within addEventMeta() etc might stop this method from
-		 * actually being called (relates to a core WP bug).
-		 */
-		public function update_known_range( $object_id ) {
-
-			$current_min = tribe_events_earliest_date();
-			$current_max = tribe_events_latest_date();
-
-			$event_start = tribe_get_start_date( $object_id, false, Tribe__Date_Utils::DBDATETIMEFORMAT );
-			$event_end   = tribe_get_end_date( $object_id, false, Tribe__Date_Utils::DBDATETIMEFORMAT );
-
-			if ( $current_min > $event_start ) {
-				tribe_update_option( 'earliest_date', $event_start );
-			}
-			if ( $current_max < $event_end ) {
-				tribe_update_option( 'latest_date', $event_end );
-			}
-		}
-
-		/**
-		 * Fires on delete_post and decides whether or not to rebuild our record or
-		 * earliest/latest event dates (which will be done when deleted_post fires,
-		 * so that the deleted event is removed from the db before we recalculate).
-		 *
-		 * @param $post_id
-		 */
-		public function maybe_rebuild_known_range( $post_id ) {
-			if ( self::POSTTYPE === get_post_type( $post_id ) ) {
-				add_action( 'deleted_post', array( $this, 'rebuild_known_range' ) );
-			}
-		}
-
-		/**
-		 * Determine the earliest start date and latest end date currently in the database
-		 * and store those values for future use.
-		 */
-		public function rebuild_known_range() {
-			global $wpdb;
-			remove_action( 'deleted_post', array( $this, 'rebuild_known_range' ) );
-
-			$earliest = strtotime(
-				$wpdb->get_var(
-					 $wpdb->prepare(
-						  "
-				SELECT MIN(meta_value) FROM $wpdb->postmeta
-				JOIN $wpdb->posts ON post_id = ID
-				WHERE meta_key = '_EventStartDate'
-				AND post_type = '%s'
-				AND post_status IN ('publish', 'private', 'protected')
-			", self::POSTTYPE
-					 )
-				)
-			);
-
-			$latest = strtotime(
-				$wpdb->get_var(
-					 $wpdb->prepare(
-						  "
-				SELECT MAX(meta_value) FROM $wpdb->postmeta
-				JOIN $wpdb->posts ON post_id = ID
-				WHERE meta_key = '_EventEndDate'
-				AND post_type = '%s'
-				AND post_status IN ('publish', 'private', 'protected')
-			", self::POSTTYPE
-					 )
-				)
-			);
-
-			if ( $earliest ) {
-				tribe_update_option( 'earliest_date', date( Tribe__Date_Utils::DBDATETIMEFORMAT, $earliest ) );
-			}
-			if ( $latest ) {
-				tribe_update_option( 'latest_date', date( Tribe__Date_Utils::DBDATETIMEFORMAT, $latest ) );
-			}
 		}
 
 		/**

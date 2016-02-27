@@ -423,6 +423,39 @@ h2.tribe-events-page-title,
 	max-width: none;
 }
 
+/**
+ * Shortcode specific CSS
+ */
+
+.tribe-shortcode-align-right {
+	float: right;
+}
+
+.tribe-shortcode-align-left {
+	float: left;
+}
+
+.tribe-shortcode-align-center {
+	display: table;
+
+	/* This !important was used to insure that this Class works everywhere */
+	margin-left: auto!important;
+	margin-right: auto!important;
+}
+
+.tribe-shortcode.tribe-events-event-meta.tribe-shortcode-align-right {
+	margin-right: 20px;
+}
+
+.tribe-shortcode.tribe-events-event-meta.tribe-shortcode-align-left {
+	margin-left: 20px;
+}
+
+.tribe-shortcode.tribe-events-event-meta .tribe-events-meta-group {
+	width: auto;
+	min-width: 250px;
+}
+
 /* = Twenty* overrides
 =============================================*/
 
