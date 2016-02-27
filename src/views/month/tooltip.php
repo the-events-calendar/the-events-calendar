@@ -22,7 +22,7 @@
 			</div>
 			[[ } ]]
 			[[ if(excerpt.length) { ]]
-			<p class="tribe-event-description">[[=raw excerpt]]</p>
+			<div class="tribe-event-description">[[=raw excerpt]]</div>
 			[[ } ]]
 			<span class="tribe-events-arrow"></span>
 		</div>

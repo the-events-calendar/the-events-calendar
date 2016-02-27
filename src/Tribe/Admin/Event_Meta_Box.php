@@ -76,8 +76,10 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		if ( ! $this->event->ID ) {
 			return;
 		}
+		$tec = Tribe__Events__Main::instance();
+
 		foreach ( $this->tribe->metaTags as $tag ) {
-			$this->vars[ $tag ] = get_post_meta( $this->event->ID, $tag, true );
+			$this->vars[ $tag ] = $tec->getEventMeta( $this->event->ID, $tag, true );
 		}
 	}
 
@@ -85,11 +87,16 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * Checks for existing organizer post meta data and populates the list of vars accordingly.
 	 */
 	protected function get_existing_organizer_vars() {
-		if ( ! $this->vars['_EventOrganizerID'] ) {
+		// Fetch Status to check what we need to do
+		$status = get_post_status( $this->event->ID );
+
+		if ( is_string( $status ) && 'auto-draft' !== $status && ! $this->vars['_EventOrganizerID'] ) {
 			return;
 		}
+		$tec = Tribe__Events__Main::instance();
+
 		foreach ( $this->tribe->organizerTags as $tag ) {
-			$this->vars[ $tag ] = get_post_meta( $this->vars['_EventOrganizerID'], $tag, true );
+			$this->vars[ $tag ] = $tec->getEventMeta( $this->vars['_EventOrganizerID'], $tag, true );
 		}
 	}
 
@@ -97,11 +104,16 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * Checks for existing venue post meta data and populates the list of vars accordingly.
 	 */
 	protected function get_existing_venue_vars() {
-		if ( ! $this->vars['_EventVenueID'] ) {
+		// Fetch Status to check what we need to do
+		$status = get_post_status( $this->event->ID );
+
+		if ( is_string( $status ) && 'auto-draft' !== $status && ! $this->vars['_EventVenueID'] ) {
 			return;
 		}
+		$tec = Tribe__Events__Main::instance();
+
 		foreach ( $this->tribe->venueTags as $tag ) {
-			$this->vars[ $tag ] = get_post_meta( $this->vars['_EventVenueID'], $tag, true );
+			$this->vars[ $tag ] = $tec->getEventMeta( $this->vars['_EventVenueID'], $tag, true );
 		}
 	}
 

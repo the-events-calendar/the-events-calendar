@@ -3042,11 +3042,43 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return mixed The meta.
 		 */
 		public function getEventMeta( $id, $meta, $single = true ) {
-			$value = get_post_meta( $id, $meta, $single );
+			// Fetch Status to check what we need to do
+			$status = get_post_status( $id );
+
+			// If the post doesn't exist just bail the get_post_meta
+			if ( is_string( $status ) && 'auto-draft' !== $status ) {
+				$value = get_post_meta( $id, $meta, $single );
+			} else {
+				$value = false;
+			}
+
 			if ( $value === false ) {
-				$method = str_replace( '_Event', '', $meta );
+				$method = str_replace( array( '_Event', '_Organizer', '_Venue' ), '', $meta );
+				$filter = str_replace( array( '_Event', '_Organizer', '_Venue' ), array( '', 'Organizer', 'Venue' ), $meta );
+
 				$default = call_user_func( array( $this->defaults(), strtolower( $method ) ) );
-				$value = apply_filters( 'filter_eventsDefault' . $method, $default );
+
+				/**
+				 * Used to Filter the default value for a Specific meta
+				 *
+				 * @deprecated 4.0.7
+				 * @var $default
+				 * @var $id
+				 * @var $meta
+				 * @var $single
+				 */
+				$value = apply_filters( 'filter_eventsDefault' . $filter, $default, $id, $meta, $single );
+
+				/**
+				 * Used to Filter the default value for a Specific meta
+				 *
+				 * @since 4.0.7
+				 * @var $value
+				 * @var $id
+				 * @var $meta
+				 * @var $single
+				 */
+				$value = apply_filters( 'tribe_get_meta_default_value_' . $filter, $value, $id, $meta, $single );
 			}
 			return $value;
 		}
@@ -3072,7 +3104,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$valid_post_id   = "tribe_get_{$post_type}_id";
 			$create          = "create$posttype";
 			$preview_post_id = get_post_meta( $event_id, $meta_key, true );
-			$doing_preview   = ($_REQUEST['wp-preview'] == 'dopreview');
+			$doing_preview   = ( $_REQUEST['wp-preview'] == 'dopreview' );
 
 			if ( empty( $_POST[ $posttype ][ $posttype_id ] ) ) {
 				// the event is set to use a new metapost
@@ -3999,7 +4031,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// If we successfully located the next/prev event, we should have precisely one element in $results
 			if ( $event ) {
 				if ( ! $anchor ) {
-					$anchor = apply_filters( 'the_title', $event->post_title );
+					$anchor = apply_filters( 'the_title', $event->post_title, $event->ID );
 				} elseif ( strpos( $anchor, '%title%' ) !== false ) {
 					// get the nicely filtered post title
 					$title = apply_filters( 'the_title', $event->post_title, $event->ID );
