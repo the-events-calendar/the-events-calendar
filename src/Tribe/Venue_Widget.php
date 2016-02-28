@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 			extract( $args );
 			extract( $instance );
 
-			if ( empty( $hide_if_empty ) ) {
+			if ( empty( $hide_if_empty ) || 'false' === $hide_if_empty ) {
 				$hide_if_empty = false;
 			}
 
