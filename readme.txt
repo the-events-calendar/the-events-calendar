@@ -227,8 +227,18 @@ Our Premium Plugins:
 
 = [4.1] unreleased =
 
+* Feature - Added a new "Date" recurrence rule that allows you to set an event to recurr on a single (or any number of) individually specified dates
+* Tweak - Added support for manual timezone offests in recurrence exclusion rules
+* Tweak - Improved the support of selected query fields when the "Recurring event instances" checkbox in Events > Settings is checked
 * Tweak - Show an error message when the Google Maps API query limit has been reached
+* Tweak - Improved the handling of addresses in JSON-LD
+* Tweak - Removed deprecated sensor get var for Google Maps API endpoint
+* Tweak - Changed the distance unit label in Settings to be less-specific to maps as it is used elsewhere
+* Tweak - Improved the structure of hierarchical taxonomy terms in List Widget queries (props to Harvard Law for this pull request!)
+* Tweak - Simplified the APM Venue and Organizer filters when the Events list is loaded (props to Jake Kantzer for the pull request!)
 * Fix - Fixed invalid class name when throwing Tribe notices in the Map template
+* Fix - Resolved issue where the Map View slug was not translatable
+* Fix - Fixed bug where the wrong class was referenced when setting notices in Map View
 * Fix - Improved compatibiliy with ACF on the Edit Event page
 
 = [4.0.6] 2016-02-17 =
