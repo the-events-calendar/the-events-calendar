@@ -311,7 +311,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.1] TBD =
 
-* Add - Add a filter for month view daily events query: tribe_events_month_daily_events_query_args
+* Feature - Created a shortcode for displaying event details: [tribe:event-details]
+* Tweak - Ignore alpha/beta/rc suffixes on version numbers when checking template versions
+* Tweak - Add a filter for month view daily events query: tribe_events_month_daily_events_query_args
 
 = [4.0.6] 2016-02-17 =
 
