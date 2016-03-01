@@ -2780,47 +2780,58 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Returns the GCal export link for a given event id.
 		 *
-		 * @param int $postId The post id requested.
+		 * @param int|WP_Post|null $post The Event Post Object or ID, if left empty will give get the current post.
 		 *
 		 * @return string The URL for the GCal export link.
 		 */
-		public function googleCalendarLink( $postId = null ) {
-			global $post;
-			$tribeEvents = self::instance();
-
-			if ( $postId === null || ! is_numeric( $postId ) ) {
-				$postId = $post->ID;
+		public function googleCalendarLink( $post = null ) {
+			if ( is_null( $post ) ) {
+				$post = self::postIdHelper( $post );
 			}
-			// protecting for reccuring because the post object will have the start/end date available
-			$start_date = isset( $post->EventStartDate )
-				? strtotime( $post->EventStartDate )
-				: strtotime( get_post_meta( $postId, '_EventStartDate', true ) );
-			$end_date   = isset( $post->EventEndDate )
-				? strtotime( $post->EventEndDate . ( get_post_meta( $postId, '_EventAllDay', true ) ? ' + 1 day' : '' ) )
-				: strtotime( get_post_meta( $postId, '_EventEndDate', true ) . ( get_post_meta( $postId, '_EventAllDay', true ) ? ' + 1 day' : '' ) );
 
-			$dates    = ( get_post_meta( $postId, '_EventAllDay', true ) ) ? date( 'Ymd', $start_date ) . '/' . date( 'Ymd', $end_date ) : date( 'Ymd', $start_date ) . 'T' . date( 'Hi00', $start_date ) . '/' . date( 'Ymd', $end_date ) . 'T' . date( 'Hi00', $end_date );
-			$location = trim( $tribeEvents->fullAddressString( $postId ) );
-			$base_url = 'http://www.google.com/calendar/event';
+			if ( is_numeric( $post ) ) {
+				$post = WP_Post::get_instance( $post );
+			}
 
-			$event_details = apply_filters( 'the_content', get_the_content() );
+			if ( ! $post instanceof WP_Post ) {
+				return false;
+			}
+
+			// After this point we know that we have a safe WP_Post object
+			// Fetch if the Event is a Full Day Event
+			$is_all_day = Tribe__Date_Utils::is_all_day( get_post_meta( $post->ID, '_EventAllDay', true ) );
+
+			// Fetch the required Date TimeStamps
+			$start_date = Tribe__Events__Timezones::event_start_timestamp( $post->ID );
+			// Google Requires that a Full Day event end day happens on the next Day
+			$end_date   = Tribe__Events__Timezones::event_end_timestamp( $post->ID ) + ( $is_all_day ? DAY_IN_SECONDS : 0 );
+
+			if ( $is_all_day ) {
+				$dates = date( 'Ymd', $start_date ) . '/' . date( 'Ymd', $end_date );
+			} else {
+				$dates = date( 'Ymd', $start_date ) . 'T' . date( 'Hi00\Z', $start_date ) . '/' . date( 'Ymd', $end_date ) . 'T' . date( 'Hi00\Z', $end_date );
+			}
+
+			// Fetch the
+			$location = trim( $this->fullAddressString( $post->ID ) );
+
+			$event_details = apply_filters( 'the_content', get_the_content( $post->ID ) );
 
  			// Hack: Add space after paragraph
 			// Normally Google Cal understands the newline character %0a
 			// And that character will automatically replace newlines on urlencode()
 			$event_details = str_replace ( '</p>', '</p> ', $event_details );
-
 			$event_details = strip_tags( $event_details );
 
 			//Truncate Event Description and add permalink if greater than 996 characters
 			if ( strlen( $event_details ) > 996 ) {
 
-				$event_url     = get_permalink();
+				$event_url     = get_permalink( $post->ID );
 				$event_details = substr( $event_details, 0, 996 );
 
 				//Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits
 				if ( strlen( $event_url ) < 900 ) {
-					$event_details .= sprintf( ' (View Full %1$s Description Here: %2$s)', $this->singular_event_label, $event_url );
+					$event_details .= sprintf( esc_html__( ' (View Full %1$s Description Here: %2$s)', 'the-events-calendar' ), $this->singular_event_label, $event_url );
 				}
 			}
 
@@ -2833,7 +2844,23 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'trp'      => 'false',
 				'sprop'    => 'website:' . home_url(),
 			);
-			$params = apply_filters( 'tribe_google_calendar_parameters', $params, $postId );
+
+			$timezone = Tribe__Events__Timezones::get_event_timezone_string( $post->ID );
+			$timezone = Tribe__Events__Timezones::maybe_get_tz_name( $timezone );
+
+			// If we have a good timezone string we setup it; UTC doesn't work on Google
+			if ( false !== $timezone ) {
+				$params['ctz'] = urlencode( $timezone );
+			}
+
+			/**
+			 * Allow users to Filter our Google Calendar Link params
+			 * @var array Params used in the add_query_arg
+			 * @var int   Event ID
+			 */
+			$params = apply_filters( 'tribe_google_calendar_parameters', $params, $post->ID );
+
+			$base_url = 'http://www.google.com/calendar/event';
 			$url    = add_query_arg( $params, $base_url );
 
 			return $url;
