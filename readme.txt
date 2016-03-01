@@ -309,7 +309,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.0.7] unreleased =
+= [4.0.7] 2016-03-01 =
 
 * Fix - Resolve display issues on templates when JetPack and a few Themes
 * Fix - Mobile breakpoints on month view working with Custom Breakpoints
