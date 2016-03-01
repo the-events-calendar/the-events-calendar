@@ -2809,7 +2809,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( $is_all_day ) {
 				$dates = date( 'Ymd', $start_date ) . '/' . date( 'Ymd', $end_date );
 			} else {
-				$dates = date( 'Ymd', $start_date ) . 'T' . date( 'Hi00\Z', $start_date ) . '/' . date( 'Ymd', $end_date ) . 'T' . date( 'Hi00\Z', $end_date );
+				$dates = date( 'Ymd', $start_date ) . 'T' . date( 'Hi00', $start_date ) . '/' . date( 'Ymd', $end_date ) . 'T' . date( 'Hi00', $end_date );
 			}
 
 			// Fetch the

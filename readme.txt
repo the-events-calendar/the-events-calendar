@@ -311,16 +311,16 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.0.7] 2016-03-01 =
 
-* Fix - Resolve display issues on templates when JetPack and a few Themes
-* Fix - Mobile breakpoints on month view working with Custom Breakpoints
+* Fix - Resolve display issues on templates with Jetpack and a few themes
+* Fix - Mobile breakpoints on month view working with custom breakpoints
 * Fix - Reordering Venue and Organizer metadata no longer breaks titles
 * Fix - Prevented notices from happening when using `the_title` filter
 * Fix - iCal links now will respect categories on the first page
-* Fix - Prevent third-party bugs with SEO plugins when inserting events programatically
-* Fix - Organizer Information is showing up again correctly
-* Fix - Modified the Add-on Licese validation method to better explain what is happening
+* Fix - Prevent third-party bugs with SEO plugins when inserting events programmatically
+* Fix - Organizer information is showing up again correctly
+* Fix - Modified the add-on license validation method to better explain what is happening
 * Fix - Description on mobile views now have the correct class attribute on HTML
-* Fix - Added missing semi colon on the list navigation for "&laquo"
+* Fix - Added missing semicolon on the list navigation for "&laquo"
 
 = [4.0.6] 2016-02-17 =
 
