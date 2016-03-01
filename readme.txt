@@ -225,6 +225,12 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.0.7] 2016-02-17 =
+
+* Fix - Load venue Shortcode when there are no Events on that Venue
+* Fix - Default value for `tribe_get_event_website_link_target` is corrected to `_self`
+* Fix - Default values for Venue and Organizers are now fully been respected across the add-ons
+
 = [4.0.6] 2016-02-17 =
 
 * Fix - Resolved issue where the list widget was displaying dates in the wrong timezone when sitewide timezones were enabled
