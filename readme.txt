@@ -311,7 +311,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.0.7] 2016-03-01 =
 
-* Fix - Resolve display issues on templates when Jetpack and a few themes
+* Fix - Resolve display issues on templates with Jetpack and a few themes
 * Fix - Mobile breakpoints on month view working with custom breakpoints
 * Fix - Reordering Venue and Organizer metadata no longer breaks titles
 * Fix - Prevented notices from happening when using `the_title` filter
