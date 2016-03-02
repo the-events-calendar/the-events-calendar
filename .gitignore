@@ -1,6 +1,8 @@
 .DS_Store
 .idea
 
+node_modules
+
 # build files for js minification
 
 compiler.jar
