@@ -150,6 +150,22 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Link to Short List View
+	 *
+	 * Returns a link to the general or category upcoming view
+	 *
+	 * @param int $term Optional event category ID to link to.
+	 *
+	 * @return string URL
+	 */
+	function tribe_get_shortlistview_link( $term = null ) {
+		$tribe_ecp = Tribe__Events__Main::instance();
+		$output    = $tribe_ecp->getLink( 'shortlist', false, $term );
+
+		return apply_filters( 'tribe_get_shortlistview_link', $output );
+	}
+
+	/**
 	 * Link to List View (Past)
 	 *
 	 * Returns a link to the general or category past view
@@ -163,6 +179,22 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$output    = $tribe_ecp->getLink( 'past', false, $term );
 
 		return apply_filters( 'tribe_get_listview_past_link', $output );
+	}
+
+	/**
+	 * Link to Short List View (Past)
+	 *
+	 * Returns a link to the general or category past view
+	 *
+	 * @param int|null $term Term ID
+	 *
+	 * @return string URL
+	 */
+	function tribe_get_shortlistview_past_link( $term = null ) {
+		$tribe_ecp = Tribe__Events__Main::instance();
+		$output    = $tribe_ecp->getLink( 'past', false, $term );
+
+		return apply_filters( 'tribe_get_shortlistview_past_link', $output );
 	}
 
 	/**
@@ -227,6 +259,67 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Link to a nearby Short List View page
+	 *
+	 * Returns a link to the next/previous short list view page
+	 *
+	 * @param string $direction 'next' or 'prev'
+	 * @param int|null $term Term ID
+	 * @param string $currently_displaying Type of listview page that is currently being displayed ('past' or 'list')
+	 * @param int $page Current page number being displayed
+	 *
+	 * @return string URL
+	 */
+	function tribe_get_shortlistview_dir_link( $direction = 'next', $term = null, $currently_displaying = null, $page = null ) {
+		$link = tribe_get_shortlistview_link( $term );
+
+		// if a page isn't passed in, attempt to fetch it from a get var
+		if ( ! $page ) {
+			if ( ! empty( $_POST['tribe_paged'] ) ) {
+				$page = absint( $_POST['tribe_paged'] );
+			} elseif ( ! empty( $_GET['tribe_paged'] ) ) {
+				$page = absint( $_GET['tribe_paged'] );
+			} else {
+				$page = 1;
+			}
+		}
+
+		// if what we are currently displaying is not passed in, let's set a default and check $_GET
+		if ( ! $currently_displaying ) {
+			$currently_displaying = 'shortlist';
+			if (
+				( ! empty( $_GET['tribe_event_display'] ) && 'past' === $_GET['tribe_event_display'] )
+				|| ( ! empty( $_POST['tribe_event_display'] ) && 'past' === $_POST['tribe_event_display'] )
+			) {
+				$currently_displaying = 'past';
+			}
+		}
+
+		// assume we want to display what we're currently displaying (until we discover otherwise)
+		$display = $currently_displaying;
+
+		if (
+			( 'next' === $direction && 'shortlist' === $currently_displaying )
+			|| ( 'prev' === $direction && 'past' === $currently_displaying )
+		) {
+			$page++;
+		} elseif ( 'shortlist' === $currently_displaying && 1 === $page ) {
+			$display = 'past';
+		} elseif ( 'past' === $currently_displaying && 1 === $page ) {
+			$display = 'shortlist';
+		} else {
+			$page--;
+		}
+
+		$link = add_query_arg( array(
+			'tribe_event_display' => $display,
+			'tribe_paged' => $page,
+		), $link );
+
+		return apply_filters( 'tribe_get_shortlistview_dir_link', $link, $term );
+	}
+
+	/**
 	 * Link to prev List View
 	 *
 	 * Returns a link to the previous list view page
@@ -252,6 +345,34 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_listview_next_link( $term = null ) {
 		$link = tribe_get_listview_dir_link( 'next', $term );
 		return apply_filters( 'tribe_get_listview_next_link', $link, $term );
+	}
+
+	/**
+	 * Link to prev Short List View
+	 *
+	 * Returns a link to the previous short list view page
+	 *
+	 * @param int|null $term Term ID
+	 *
+	 * @return string URL
+	 */
+	function tribe_get_shortlistview_prev_link( $term = null ) {
+		$link = tribe_get_shortlistview_dir_link( 'prev', $term );
+		return apply_filters( 'tribe_get_shortlistview_prev_link', $link, $term );
+	}
+
+	/**
+	 * Link to next Short List View
+	 *
+	 * Returns a link to the next short list view page
+	 *
+	 * @param int|null $term Term ID
+	 *
+	 * @return string URL
+	 */
+	function tribe_get_shortlistview_next_link( $term = null ) {
+		$link = tribe_get_shortlistview_dir_link( 'next', $term );
+		return apply_filters( 'tribe_get_shortlistview_next_link', $link, $term );
 	}
 
 	/**

@@ -210,6 +210,42 @@ h2.tribe-events-page-title,
 	padding-right: 3px;
 }
 
+/* = Short List View Template Styles
+   @ Template: shortlist.php
+=============================================*/
+.tribe-events-shortlist .type-tribe_events {
+	padding: 1.5em 0;
+	position: relative;
+}
+
+.tribe-events-shortlist .type-tribe_events h2 {
+	display: block;
+	font-size: 1.2em;
+	margin-top: -6px;
+}
+
+.tribe-events-shortlist .type-tribe_events.tribe-event-end-month {
+	padding-bottom: 1.5em;
+}
+
+/* Meta */
+.tribe-events-shortlist .tribe-events-loop .tribe-events-event-meta .recurringinfo {
+	font-weight: normal;
+	padding-left: 0;
+	vertical-align: top;
+}
+
+.tribe-events-shortlist .time-details,
+.tribe-events-shortlist .tribe-events-venue-details {
+	line-height: 1.2;
+}
+
+.tribe-events-shortlist .tribe-events-venue-details,
+.tribe-events-event-meta address.tribe-events-address {
+	font-weight: normal;
+	font-style: italic;
+}
+
 /* = List View & Single Venue (Pro Version) Template Styles
    @ Template: list.php & single-venue.php
 =============================================*/
