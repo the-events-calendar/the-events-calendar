@@ -225,7 +225,7 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.0.7] 2016-03-01 =
+= [4.0.7] 2016-03-02 =
 
 * Fix - Load venue shortcode when there are no Events on that venue
 * Fix - Default value for `tribe_get_event_website_link_target` is corrected to `_self`
