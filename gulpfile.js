@@ -7,10 +7,12 @@ var gulp   = require( 'gulp' ),
   git      = require( 'gulp-git' ),
   argv     = require( 'yargs' ).argv,
   notify   = require( 'gulp-error-notifier' ).notify,
-	zip      = require( 'gulp-vinyl-zip' ).zip,
-  fs       = require( 'fs' );
+  zip      = require( 'gulp-vinyl-zip' ).zip,
+  fs       = require( 'fs' ),
+  request  = require( 'request' ),
+  download = require( 'gulp-download-stream' );
 
-var compress = function() {
+gulp.task( 'compress-js', function() {
   gulp.src( [
     'src/resources/js/*.js',
     '!src/resources/js/*.min.js'
@@ -22,7 +24,9 @@ var compress = function() {
       } )
     )
     .pipe( gulp.dest( 'src/resources/js' ) );
+} );
 
+gulp.task( 'compress-css', function() {
   gulp.src( [
     'src/resources/css/*.css',
     '!src/resources/css/*.min.css',
@@ -34,18 +38,70 @@ var compress = function() {
       } )
     )
     .pipe( gulp.dest( 'src/resources/css' ) );
-};
+} );
 
-gulp.task( 'default', function() {
-  compress();
+gulp.task( 'glotpress', function() {
+  var json = JSON.parse( fs.readFileSync( './package.json' ) );
+
+  var options = {
+    domainPath: json._domainPath,
+    url: json._glotpressUrl,
+    slug: json._glotpressSlug,
+    textdomain: json._textDomain,
+    file_format: json._glotpressFileFormat,
+    formats: json._glotpressFormats,
+    filter: json._glotpressFilter
+  };
+
+  var api_url = options.url + '/api/projects/' + options.slug;
+
+  request( api_url, function(error, response, body) {
+    if ( ! error && response.statusCode === 200 ) {
+      var data = JSON.parse( body );
+      var set, index, format;
+
+      for ( index in data.translation_sets ) {
+        set = data.translation_sets[ index ];
+
+        if ( 0 === set.current_count ) {
+          continue;
+        }
+
+        if ( options.filter.minimum_percentage > parseInt( set.percent_translated ) ) {
+          continue;
+        }
+
+        console.log( set );
+        for ( format in options.formats ) {
+          var url = api_url + '/' + set.locale + '/' + set.slug + '/export-translations?format=' + options.formats[ format ];
+
+          var info = {
+            domainPath: options.domainPath,
+            textdomain: options.textdomain,
+            locale: set.locale,
+            wp_locale: set.wp_locale,
+            format: options.formats[ format ]
+          };
+
+          if ( ! info.wp_locale ) {
+            info.wp_locale = info.locale;
+          }
+
+          var filename = options.file_format.replace( /%(\w*)%/g, function( m, key ) {
+            return info.hasOwnProperty( key ) ? info[ key ] : '';
+          } );
+
+          download( filename )
+            .pipe( gulp.dest( 'lang/' ) );
+        }
+      }
+    }
+  } );
 } );
 
 gulp.task( 'package', function() {
-  var json = JSON.parse( fs.readFileSync( './package.json' ) ),
-    branch,
+  var branch,
     returnbranch;
-
-  console.log( json );
 
   if ( 'undefined' === typeof argv.branch ) {
     notify( new Error( 'ERROR: When packaging, you must provide a branch via --branch' ) );
@@ -73,53 +129,17 @@ gulp.task( 'package', function() {
       }
 
       git.updateSubmodule( { args: '--init --recursive' } );
-      compress();
-      gulp.src( [
-        'the-events-calendar.php',
-        'src/**/*',
-        'common/tribe-autoload.php',
-        'common/tribe-common.php',
-        'common/readme.txt',
-        'common/src/**/*',
-        'common/lang/**/*',
-        'common/vendor/jquery/*.css',
-        'common/vendor/jquery/images/*.png',
-        'lang/**/*',
-        'license.txt',
-        'readme.md',
-        'tests.md',
-        'readme.txt',
-        'vendor/bootstrap-datepicker/css/*.css',
-        'vendor/bootstrap-datepicker/js/*.js',
-        'vendor/chosen/public/*.js',
-        'vendor/chosen/public/*.css',
-        'vendor/chosen/public/*.png',
-        'vendor/jquery/*.css',
-        'vendor/jquery/*.js',
-        'vendor/jquery/smoothness/*.css',
-        'vendor/jquery/smoothness/images/*.png',
-        'vendor/select2/LICENSE',
-        'vendor/select2/*.css',
-        'vendor/select2/*.js',
-        'vendor/select2/*.gif',
-        'vendor/select2/*.png',
-        'vendor/jquery-placeholder/*.js',
-        'vendor/jquery-placeholder/LICENSE*',
-        'vendor/jquery-resize/*.js',
-        'vendor/jquery-resize/LICENSE*',
-        'vendor/tickets/event-tickets.php',
-        'vendor/tickets/readme.txt',
-        'vendor/tickets/src/**/*',
-        'vendor/tickets/lang/**/*',
-        'vendor/tickets/common/tribe-autoload.php',
-        'vendor/tickets/common/tribe-common.php',
-        'vendor/tickets/common/readme.txt',
-        'vendor/tickets/common/src/**/*',
-        'vendor/tickets/common/lang/**/*',
-        'vendor/tribe-common-libraries/**/*',
-      ], { base: '.' } )
-        .pipe( zip( json._zipname + '.' + json.version + '.zip' ) )
-        .pipe( gulp.dest( '../' ) );
     } );
   } );
 } );
+
+gulp.task( 'zip', function() {
+  var json = JSON.parse( fs.readFileSync( './package.json' ) );
+  var zip_include = JSON.parse( fs.readFileSync( './dev/zip.json' ) );
+
+  gulp.src( zip_include, { base: '.' } )
+    .pipe( zip( json._zipname + '.' + json.version + '.zip' ) )
+    .pipe( gulp.dest( '../' ) );
+} );
+
+gulp.task( 'default', [ 'compress-js', 'compress-css' ] );
