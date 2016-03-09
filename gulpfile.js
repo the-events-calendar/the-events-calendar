@@ -44,13 +44,13 @@ gulp.task( 'glotpress', function() {
   var json = JSON.parse( fs.readFileSync( './package.json' ) );
 
   var options = {
-    domainPath: json._domainPath,
-    url: json._glotpressUrl,
-    slug: json._glotpressSlug,
-    textdomain: json._textDomain,
-    file_format: json._glotpressFileFormat,
-    formats: json._glotpressFormats,
-    filter: json._glotpressFilter
+    domainPath : json._domainPath,
+    url        : json._glotPressUrl,
+    slug       : json._glotPressSlug,
+    textdomain : json._textDomain,
+    file_format: json._glotPressFileFormat,
+    formats    : json._glotPressFormats,
+    filter     : json._glotPressFilter
   };
 
   var api_url = options.url + '/api/projects/' + options.slug;
@@ -73,14 +73,14 @@ gulp.task( 'glotpress', function() {
 
         console.log( set );
         for ( format in options.formats ) {
-          var url = api_url + '/' + set.locale + '/' + set.slug + '/export-translations?format=' + options.formats[ format ];
 
+          var url = api_url + '/' + set.locale + '/' + set.slug + '/export-translations?format=' + options.formats[ format ];
           var info = {
-            domainPath: options.domainPath,
-            textdomain: options.textdomain,
-            locale: set.locale,
-            wp_locale: set.wp_locale,
-            format: options.formats[ format ]
+            domainPath : options.domainPath,
+            textdomain : options.textdomain,
+            locale     : set.locale,
+            wp_locale  : set.wp_locale,
+            format     : options.formats[ format ]
           };
 
           if ( ! info.wp_locale ) {
@@ -91,7 +91,10 @@ gulp.task( 'glotpress', function() {
             return info.hasOwnProperty( key ) ? info[ key ] : '';
           } );
 
-          download( filename )
+          download( {
+            file: filename,
+            url: url
+          } )
             .pipe( gulp.dest( 'lang/' ) );
         }
       }
