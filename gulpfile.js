@@ -138,7 +138,7 @@ gulp.task( 'pull', function() {
 
 gulp.task( 'zip', function() {
   var json = JSON.parse( fs.readFileSync( './package.json' ) );
-  var zip_include = JSON.parse( fs.readFileSync( './dev/zip.json' ) );
+  var zip_include = JSON.parse( fs.readFileSync( './zip-include.json' ) );
 
   gulp.src( zip_include, { base: '.' } )
     .pipe( zip( json._zipname + '.' + json.version + '.zip' ) )
