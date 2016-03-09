@@ -102,7 +102,7 @@ gulp.task( 'glotpress', function() {
   } );
 } );
 
-gulp.task( 'package', function() {
+gulp.task( 'pull', function() {
   var branch,
     returnbranch;
 
@@ -146,3 +146,4 @@ gulp.task( 'zip', function() {
 } );
 
 gulp.task( 'default', [ 'compress-js', 'compress-css' ] );
+gulp.task( 'package', [ 'pull', 'default', 'glotpress' ] );
