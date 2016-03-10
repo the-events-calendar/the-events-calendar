@@ -148,7 +148,7 @@ class Tribe__Events__Shortcode__Event_Details {
 		$slug = $this->get_shortcode_slug();
 
 		$args = (object) shortcode_atts( array(
-			'align' => 'right',
+			'align' => 'left',
 			'id' => null,
 		), $args, $tag );
 
