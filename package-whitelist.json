@@ -1,0 +1,13 @@
+[
+  "events-calendar-pro.php",
+  "src/**/*",
+  "lang/**/*",
+  "license.txt",
+  "readme.md",
+  "readme.txt",
+  "vendor/handlebars/*.js",
+  "vendor/isotope/*.js",
+  "vendor/isotope/css/*.css",
+  "vendor/momentjs/*.js",
+  "vendor/nanoscroller/*.js"
+]
