@@ -11,7 +11,7 @@
  * @package TribeEventsCalendar
  *
  */
- 
+
 /* Events Loop */
 .tribe-events-loop .tribe-events-loop .type-tribe_events {
 	margin: 0;
@@ -24,9 +24,10 @@
 }
 
 .tribe-events-loop .entry-title {
-	color: #333; 
-	text-decoration: none; 
-	font-size: 18px	margin: 15px 0 6px;
+	color: #333;
+	text-decoration: none;
+	font-size: 18px;
+	margin: 15px 0 6px;
 	padding: 0;
 	line-height: 1em;
 	font-weight: bold;
@@ -65,7 +66,7 @@
 /* columns & structure */
 .tribe-week-grid-wrapper {
 	height:500px;
-	overflow-y:scroll;	
+	overflow-y:scroll;
 	position:relative;
 }
 
@@ -208,7 +209,7 @@
 	position: relative;
 }
 .tribe-grid-allday .column {
-	min-height: 60px;	
+	min-height: 60px;
 }
 .tribe-grid-allday .column.first {
 	top: 0;
@@ -227,7 +228,7 @@
 	padding: 4px;
 }
 .tribe-grid-allday .type-tribe_events ~ .type-tribe_events,
-.tribe-grid-allday .tribe-event-placeholder ~ .type-tribe_events { 	
+.tribe-grid-allday .tribe-event-placeholder ~ .type-tribe_events {
 	padding: 0 4px 4px;
 }
 .tribe-grid-allday .type-tribe_events h3.entry-title {
@@ -239,14 +240,14 @@
 	display: inline-block;
 	zoom: 1;
 	*display: inline;
-	overflow: hidden; 
-	text-overflow: ellipsis; 
+	overflow: hidden;
+	text-overflow: ellipsis;
 	white-space: nowrap;
 	position: relative;
 	z-index: 1;
 }
 .tribe-grid-allday .type-tribe_events.tribe-dayspan2 > div {
-	width:200%;	
+	width:200%;
 }
 .tribe-grid-allday .type-tribe_events.tribe-dayspan3 > div {
 	width:300%;
@@ -270,9 +271,9 @@
  	height: 100%;
 	padding:4px;
 }
-.tribe-grid-body div[id*="tribe-events-event-"] { 		
- 	font-weight: bold; 
-	line-height: 1.25; 
+.tribe-grid-body div[id*="tribe-events-event-"] {
+ 	font-weight: bold;
+	line-height: 1.25;
  	position: absolute;
  	z-index: 500;
  	width: 100%;
@@ -320,13 +321,13 @@
 	margin:0 !important;
 }
 .tribe-week-grid-block div {
-	height: 30px; 
-	margin-bottom: 30px; 
-	border-bottom: 1px dotted #ddd; 
+	height: 30px;
+	margin-bottom: 30px;
+	border-bottom: 1px dotted #ddd;
 	border-top: 1px solid #ddd;
 }
 
-/* = Photo View Template Styles 
+/* = Photo View Template Styles
    @ Template: Photo.php
 =============================================*/
 
@@ -363,7 +364,7 @@
 }
 
 #tribe-events-photo-events .type-tribe_events.tribe-events-photo-event {
-	float: left; 
+	float: left;
 	width: 29.2%;
 	margin: 0 4% 30px 0;
 	padding: 0;
@@ -381,13 +382,13 @@
 .photo-loader {
 	position:absolute;
 	top:200px;
-	left:50%;	
+	left:50%;
 }
 
 /* Tile Styling */
 .tribe-events-photo-event {
 	padding: 0;
-	position: relative;	
+	position: relative;
 }
 
 .tribe-events-photo-event  {
@@ -422,7 +423,7 @@
 	-webkit-transition: .2s ease-in;
   	   -moz-transition: .2s ease-in;
   	     -o-transition: .2s ease-in;
-  			transition: .2s ease-in;	
+  			transition: .2s ease-in;
 }
 
 .tribe-events-photo-event .tribe-events-event-image {
@@ -442,7 +443,7 @@
 	padding: 0 5px;
 }
 
-/* = Map View Template Styles 
+/* = Map View Template Styles
    @ Template: Map.php
 =============================================*/
 /* tribe geolocation map area */
@@ -617,7 +618,7 @@
 	margin: 20px 0;
 }
 
-/* = View Loading / Pagination Styles 
+/* = View Loading / Pagination Styles
    @ Template: Map.php & Photo.php
 =============================================*/
 #tribe-geo-loading/*,
@@ -690,14 +691,14 @@ ul.related-events li {
 h3.tribe-events-related-events-title {
 	margin-bottom: 4%;
 }
- 
+
 .tribe-events-single ul.tribe-related-events {
 	margin: 0 -4% 8% 0;
 	border: none;
-} 
+}
 
 .tribe-events-single ul.tribe-related-events li {
-	float: left; 
+	float: left;
 	width: 29.333333%;
 	margin: 0 4% 2% 0;
 	padding: 0;
@@ -735,7 +736,7 @@ h3.tribe-events-related-events-title {
 	margin-top: 0;
 	border-collapse: collapse;
 }
-.tribe-events-calendar-widget table.tribe-events-calendar, 
+.tribe-events-calendar-widget table.tribe-events-calendar,
 .tribe-events-calendar-widget .tribe-events-calendar td {
 	border: 1px solid #bbb;
 }
@@ -756,7 +757,7 @@ h3.tribe-events-related-events-title {
 	padding: 6px 0;
 	background-color: #f9f9f9;
 }
-.tribe-events-calendar-widget div[id*="tribe-events-daynum-"], 
+.tribe-events-calendar-widget div[id*="tribe-events-daynum-"],
 .tribe-events-calendar-widget td a {
 	font-size: 10px;
 }
@@ -793,12 +794,12 @@ h3.tribe-events-related-events-title {
 #ajax-loading-mini {
 	display: none;
 }
- 
+
 /* = Events Countdown Widget
    @ Template: widgets/countdown-widget.php
 =============================================*/
 .tribe-countdown-timer span.tribe-countdown-seconds,
-.tribe-countdown-timer span.format, 
+.tribe-countdown-timer span.format,
 .tribe-countdown-timer h3.tribe-countdown-complete {
 	display: none;
 }
