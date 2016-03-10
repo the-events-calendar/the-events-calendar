@@ -241,6 +241,12 @@ Our Premium Plugins:
 * Fix - Fixed bug where the wrong class was referenced when setting notices in Map View
 * Fix - Improved compatibiliy with ACF on the Edit Event page
 
+= [4.0.7] 2016-03-02 =
+
+* Fix - Load venue shortcode when there are no Events on that venue
+* Fix - Default value for `tribe_get_event_website_link_target` is corrected to `_self`
+* Fix - Default values for Venue and Organizers are now fully respected across the add-ons
+
 = [4.0.6] 2016-02-17 =
 
 * Fix - Resolved issue where the list widget was displaying dates in the wrong timezone when sitewide timezones were enabled
