@@ -427,4 +427,45 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 			return '';
 		}
 	}
+
+	/**
+	 * Try to figure out the Timezone name base on offset
+	 *
+	 * @since  4.0.7
+	 * @param  string|int|float $timezone The timezone
+	 *
+	 * @return string           The Guessed Timezone String
+	 */
+	public static function maybe_get_tz_name( $timezone ) {
+		if ( ! self::is_utc_offset( $timezone ) && ! is_numeric( $timezone ) ) {
+			return $timezone;
+		}
+
+		if ( ! is_numeric( $timezone ) ) {
+			$offset = str_replace( 'utc', '', trim( strtolower( $timezone ) ) );
+		} else {
+			$offset = $timezone;
+		}
+
+
+		// try to get timezone from gmt_offset, respecting daylight savings
+		$timezone = timezone_name_from_abbr( null, $offset * 3600, true );
+
+		// if that didn't work, maybe they don't have daylight savings
+		if ( false === $timezone ) {
+			$timezone = timezone_name_from_abbr( null, $offset * 3600, false );
+		}
+
+		// and if THAT didn't work, round the gmt_offset down and then try to get the timezone respecting daylight savings
+		if ( false === $timezone ) {
+			$timezone = timezone_name_from_abbr( null, (int) $offset * 3600, true );
+		}
+
+		// lastly if that didn't work, round the gmt_offset down and maybe that TZ doesn't do daylight savings
+		if ( false === $timezone ) {
+			$timezone = timezone_name_from_abbr( null, (int) $offset * 3600, false );
+		}
+
+		return $timezone;
+	}
 }

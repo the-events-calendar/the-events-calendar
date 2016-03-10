@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.4.2
-Stable tag: 4.1beta1
+Stable tag: 4.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -308,6 +308,40 @@ Patch = 1
 At no point during the 3.0 lifecycle will the major version change. But you can expect that either minor version and/or patch will change with each release.
 
 == Changelog ==
+
+= [4.1] TBD =
+
+* Feature - Created a shortcode for displaying event details: [tribe:event-details]
+* Feature - Added a tribe_get_venue_website_url() function for fetching Venue website URLs (props to fervorcreative in our forums for this request!)
+* Performance - Lazy-load venue and organizer selector data
+* Tweak - Allow iCal filenames to be filtered via a new filter: tribe_events_ical_feed_filename
+* Tweak - Added a hook to allow single day queries in month view to be filtered: tribe_events_month_daily_events_query_args
+* Tweak - Improved the logic around rebuilding known date ranges
+* Tweak - Always show the "Merge Duplicates" button for venues and organizers in the Events General Settings page
+* Tweak - Allow the "same slug" notice to be dismissed and fix some text in that message
+* Tweak - Ignore alpha/beta/rc suffixes on version numbers when checking template versions
+* Tweak - Add a filter for month view daily events query: tribe_events_month_daily_events_query_args
+* Tweak - Added a more flexible cost range parsing function
+* Tweak - Obfuscate license keys Events > Help > System Information
+* Fix - Fixed a fatal that sometimes occurred when refreshing the import CSV page
+* Fix - Fixed issue where some characters were not escaped appropriately for month and year formats
+* Fix - Added missing tribe-loading@2x.gif
+* Fix - Fixed a warning produced by passing a DateTime() object into start_date or end_date args of tribe_get_events (props to iamhexcoder for the pull request!)
+* Fix - Fixed bug where events in month view were not always sorted in chronological order
+* Fix - Fixed the System Info URL in Events > Help
+
+= [4.0.7] 2016-03-02 =
+
+* Fix - Resolve display issues on templates with Jetpack and a few themes
+* Fix - Mobile breakpoints on month view working with custom breakpoints
+* Fix - Reordering Venue and Organizer metadata no longer breaks titles
+* Fix - Prevented notices from happening when using `the_title` filter
+* Fix - iCal links now will respect categories on the first page
+* Fix - Prevent third-party bugs with SEO plugins when inserting events programmatically
+* Fix - Organizer information is showing up again correctly
+* Fix - Modified the add-on license validation method to better explain what is happening
+* Fix - Description on mobile views now have the correct class attribute on HTML
+* Fix - Added missing semicolon on the list navigation for "&laquo"
 
 = [4.0.6] 2016-02-17 =
 

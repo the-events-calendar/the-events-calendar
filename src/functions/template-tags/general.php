@@ -1371,7 +1371,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		// If not, try to determine now
-		Tribe__Events__Main::instance()->rebuild_known_range();
+		Tribe__Events__Dates__Known_Range::instance()->rebuild_known_range();
 		$latest = tribe_get_option( 'latest_date', false );
 		if ( false !== $latest ) {
 			return Tribe__Date_Utils::reformat( $latest, $format );
