@@ -312,22 +312,27 @@ var tribe_events_bar_action;
 			$( te ).trigger( 'tribe_ev_preCollectBarParams' );
 			$( te ).trigger( 'pre-collect-bar-params.tribe' );
 
-			$( '#tribe-bar-form input, #tribe-bar-form select' ).each( function() {
+			// Select all the required fields
+			// Normal Form + Filter Bar
+			var $forms = $( document.getElementById( 'tribe-bar-form' ) ).add( document.getElementById( 'tribe_events_filters_wrapper' ) ),
+				$inputs = $forms.find( 'input, select' );
+
+			$inputs.each( function() {
 				var $this = $( this );
 				if ( $this.val().length && !$this.hasClass( 'tribe-no-param' ) ) {
-					if ( ts.view !== 'month' && ts.datepicker_format !== '0' && $this.is( $tribedate ) ) {
+					if ( ts.view !== 'month' && '0' !== ts.datepicker_format && $this.is( $tribedate ) ) {
 
-						ts.url_params[$this.attr( 'name' )] = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery' );
+						ts.url_params[ $this.attr( 'name' ) ] = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery' );
 
 					}
 					else {
 						if ( $this.is( ':checkbox' ) ) {
 							if ( $this.is( ':checked' ) ) {
-								ts.url_params[$this.attr( 'name' )] = $this.val();
+								ts.url_params[ $this.attr( 'name' ) ] = $this.val();
 							}
 						}
 						else {
-							ts.url_params[$this.attr( 'name' )] = $this.val();
+							ts.url_params[ $this.attr( 'name' ) ] = $this.val();
 						}
 					}
 				}

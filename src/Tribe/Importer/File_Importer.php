@@ -20,6 +20,11 @@ abstract class Tribe__Events__Importer__File_Importer {
 	private $log = array();
 
 	/**
+	 * @var Tribe__Events__Importer__Featured_Image_Uploader
+	 */
+	protected $featured_image_uploader;
+
+	/**
 	 * @param string                         $type
 	 * @param Tribe__Events__Importer__File_Reader $file_reader
 	 *
@@ -42,8 +47,9 @@ abstract class Tribe__Events__Importer__File_Importer {
 	/**
 	 * @param Tribe__Events__Importer__File_Reader $file_reader
 	 */
-	public function __construct( Tribe__Events__Importer__File_Reader $file_reader ) {
+	public function __construct( Tribe__Events__Importer__File_Reader $file_reader, Tribe__Events__Importer__Featured_Image_Uploader $featured_image_uploader = null ) {
 		$this->reader = $file_reader;
+		$this->featured_image_uploader = $featured_image_uploader;
 	}
 
 	public function set_map( array $map_array ) {
@@ -103,21 +109,27 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return $this->required_fields;
 	}
 
-	protected function import_next_row() {
+	public function import_next_row( $throw = false ) {
 		$record = $this->reader->read_next_row();
 		$row    = $this->reader->get_last_line_number_read() + 1;
 		if ( ! $this->is_valid_record( $record ) ) {
-			$this->log[ $row ] = sprintf( esc_html__( 'Missing required fields in row %d.', 'the-events-calendar', $row ) );
-			$this->skipped[] = $row;
+			if ( ! $throw ) {
+				$this->log[ $row ] = sprintf( esc_html__( 'Missing required fields in row %d.', 'the-events-calendar', $row ) );
+				$this->skipped[]   = $row;
 
-			return;
+				return false;
+			} else {
+				throw new RuntimeException( sprintf( 'Missing required fields in row %d', $row ) );
+			}
 		}
 		try {
-			$this->update_or_create_post( $record );
+			$post_id = $this->update_or_create_post( $record );
 		} catch ( Exception $e ) {
 			$this->log[ $row ] = sprintf( esc_html__( 'Failed to import record in row %d.', 'the-events-calendar' ), $row );
 			$this->skipped[] = $row;
 		}
+
+		return $post_id;
 	}
 
 	protected function update_or_create_post( array $record ) {
@@ -130,6 +142,8 @@ abstract class Tribe__Events__Importer__File_Importer {
 			$this->created ++;
 			$this->log[ $this->reader->get_last_line_number_read() + 1 ] = sprintf( esc_html__( '%s (post ID %d) created.', 'the-events-calendar' ), get_the_title( $id ), $id );
 		}
+
+		return $id;
 	}
 
 	abstract protected function match_existing_post( array $record );
@@ -184,5 +198,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 		}
 
 		return $search;
+	}
+
+	/**
+	 * @param string|int $featured_image Either an absolute path to an image or an attachment ID.
+	 *
+	 * @return Tribe__Events__Importer__Featured_Image_Uploader
+	 */
+	protected function featured_image_uploader( $featured_image ) {
+		return empty( $this->featured_image_uploader ) ? new Tribe__Events__Importer__Featured_Image_Uploader( $featured_image ) : $this->featured_image_uploader;
 	}
 }
