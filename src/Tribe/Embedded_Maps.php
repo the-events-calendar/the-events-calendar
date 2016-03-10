@@ -88,7 +88,7 @@ class Tribe__Events__Embedded_Maps {
 
 		$this->embedded_maps[] = array(
 			'address' => $this->address,
-			'title'   => tribe_get_venue( $this->venue_id ),
+			'title'   => esc_html( get_the_title( $this->venue_id ) ),
 		);
 
 		end( $this->embedded_maps );

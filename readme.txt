@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.4.2
-Stable tag: 4.1rc1
+Stable tag: 4.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -329,6 +329,19 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - Fixed a warning produced by passing a DateTime() object into start_date or end_date args of tribe_get_events (props to iamhexcoder for the pull request!)
 * Fix - Fixed bug where events in month view were not always sorted in chronological order
 * Fix - Fixed the System Info URL in Events > Help
+
+= [4.0.7] 2016-03-02 =
+
+* Fix - Resolve display issues on templates with Jetpack and a few themes
+* Fix - Mobile breakpoints on month view working with custom breakpoints
+* Fix - Reordering Venue and Organizer metadata no longer breaks titles
+* Fix - Prevented notices from happening when using `the_title` filter
+* Fix - iCal links now will respect categories on the first page
+* Fix - Prevent third-party bugs with SEO plugins when inserting events programmatically
+* Fix - Organizer information is showing up again correctly
+* Fix - Modified the add-on license validation method to better explain what is happening
+* Fix - Description on mobile views now have the correct class attribute on HTML
+* Fix - Added missing semicolon on the list navigation for "&laquo"
 
 = [4.0.6] 2016-02-17 =
 
