@@ -3,7 +3,6 @@
   "src/**/*",
   "lang/**/*",
   "license.txt",
-  "readme.md",
   "readme.txt",
   "vendor/handlebars/*.js",
   "vendor/isotope/*.js",
