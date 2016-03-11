@@ -1,0 +1,33 @@
+{
+  "name": "events-calendar-pro",
+  "version": "4.1.0beta1",
+  "repository": "git@github.com:moderntribe/events-pro.git",
+  "_zipname": "events-calendar-pro",
+  "_zipfoldername": "events-calendar-pro",
+  "_resourcepath": "src/resources",
+  "_domainPath": "lang",
+  "_textDomain": "tribe-events-calendar-pro",
+  "_glotPressUrl": "http://translations.theeventscalendar.com",
+  "_glotPressSlug": "tribe-events-calendar-pro",
+  "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
+  "_glotPressFormats": [
+    "po",
+    "mo"
+  ],
+  "_glotPressFilter": {
+    "translation_sets": false,
+    "minimum_percentage": 30,
+    "waiting_strings": false
+  },
+  "engines": {
+    "node": "0.10.30",
+    "npm": "1.4.23"
+  },
+  "devDependencies": {
+    "archiver": "^0.10.1",
+    "glob": "~4.0.5",
+    "gulp": "^3.9.1",
+    "product-taskmaster": "git+https://github.com/moderntribe/product-taskmaster.git",
+    "require-dir": "^0.3.0"
+  }
+}
