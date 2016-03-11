@@ -309,6 +309,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.2] TBD =
+
+* Tweak - improved our JSON-LD output to ensure consistency (props: @garrettjohnson)
+
 = [4.1] TBD =
 
 * Feature - Created a shortcode for displaying event details: [tribe:event-details]
