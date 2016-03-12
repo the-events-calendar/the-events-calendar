@@ -392,6 +392,11 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 				$template = self::getTemplateHierarchy( 'list', array( 'disable_view_check' => true ) );
 			}
 
+			// condensed list view
+			if ( tribe_is_condensed_list_view() ) {
+				$template = self::getTemplateHierarchy( 'condensed-list', array( 'disable_view_check' => true ) );
+			}
+
 			// month view
 			if ( tribe_is_month() ) {
 				$template = self::getTemplateHierarchy( 'month', array( 'disable_view_check' => true ) );
@@ -425,6 +430,10 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			// list view
 			if ( tribe_is_list_view() || tribe_is_showing_all() || tribe_is_ajax_view_request( 'list' ) ) {
 				$class = 'Tribe__Events__Template__List';
+			}
+			// condensed list view
+			if ( tribe_is_condensed_list_view() || tribe_is_showing_all() || tribe_is_ajax_view_request( 'list' ) ) {
+				$class = 'Tribe__Events__Template__CondensedList';
 			}
 			// month view
 			elseif ( tribe_is_month() || tribe_is_ajax_view_request( 'month' ) ) {
