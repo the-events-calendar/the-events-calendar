@@ -304,6 +304,16 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Determines if we are in condensed list view.
+	 *
+	 * @return bool
+	 */
+	function tribe_is_condensed_list_view() {
+		$is_condensed_list_view = 'condensed-list' == Tribe__Events__Main::instance()->displaying ? true : false;
+		return apply_filters( 'tribe_is_condensed_list_view', $is_condensed_list_view );
+	}
+
+	/**
 	 * Used in list loop, displays the date headers between events in the loop when the month / year has changed
 	 *
 	 **/
