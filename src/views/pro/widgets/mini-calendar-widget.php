@@ -5,6 +5,7 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/widgets/mini-calendar-widget.php
  *
+ * @version 4.1
  * @package TribeEventsCalendarPro
  *
  */
