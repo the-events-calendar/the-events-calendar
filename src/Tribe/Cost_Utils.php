@@ -72,8 +72,9 @@ class Tribe__Events__Cost_Utils {
 	}
 
 	public function get_cost_regex() {
+		$separators = '[\\' . implode( '\\', $this->get_separators() ) . ']?';
 		return apply_filters( 'tribe_events_cost_regex',
-			'(([\d]+)[\\' . implode( '\\', $this->get_separators() ) . ']?([\d]*))' );
+			'(' . $separators . '([\d]+)' . $separators . '([\d]*))' );
 	}
 
 	/**
