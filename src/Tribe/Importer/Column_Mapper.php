@@ -57,7 +57,7 @@ class Tribe__Events__Importer__Column_Mapper {
 			'event_end_time'          => esc_html__( 'Event End Time', 'the-events-calendar' ),
 			'event_all_day'           => esc_html__( 'All Day Event', 'the-events-calendar' ),
 			'event_venue_name'        => esc_html__( 'Event Venue Name', 'the-events-calendar' ),
-			'event_organizer_name'    => esc_html__( 'Event Organizer Name', 'the-events-calendar' ),
+			'event_organizer_name'    => esc_html__( 'Event Organizer Name(s) or ID(s)', 'the-events-calendar' ),
 			'event_show_map_link'     => esc_html__( 'Event Show Map Link', 'the-events-calendar' ),
 			'event_show_map'          => esc_html__( 'Event Show Map', 'the-events-calendar' ),
 			'event_cost'              => esc_html__( 'Event Cost', 'the-events-calendar' ),
