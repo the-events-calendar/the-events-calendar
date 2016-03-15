@@ -119,4 +119,21 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 		$this->assertEmpty( get_post_meta( $post_id, '_EventOrganizerID', false ) );
 	}
 
+	/**
+	 * @test
+	 * it should allow for organizers with comma in name to be imported as one
+	 */
+	public function it_should_allow_for_organizers_with_comma_in_name_to_be_imported_as_one() {
+		$organizer_id = $this->factory()->post->create( [ 'post_type' => Main::ORGANIZER_POST_TYPE, 'post_title' => 'Bond, James' ] );
+		$this->data   = [
+			'organizer_1' => '"Bond, James"',
+		];
+
+		$sut = $this->make_instance( 'multiple-organizers' );
+
+		$post_id = $sut->import_next_row();
+
+		$this->assertCount( 1, get_post_meta( $post_id, '_EventOrganizerID', false ) );
+		$this->assertEquals( $organizer_id, get_post_meta( $post_id, '_EventOrganizerID', true ) );
+	}
 }
