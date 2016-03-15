@@ -1904,3 +1904,40 @@ body.tribe-theme-twentysixteen .datepicker table {
 		background-image: url(../images/events-bar/icon-map@2x.png);
 	}
 }
+
+/* = List View Template Styles
+   @ Template: condensed-list.php
+=============================================*/
+
+.tribe-events-condensed-list .type-tribe_events {
+    border-bottom: 1px solid #ccc;
+}
+
+.tribe-events-condensed-list .type-tribe_events > div {
+    display: inline-block;
+    padding: 10px;
+    min-height: 0;
+}
+
+.tribe-events-condensed-list .tribe-event-schedule-details {
+    width: 20%;
+}
+
+.tribe-events-condensed-list .tribe-events-condensed-list-event-title {
+    width: 35%;
+}
+
+.tribe-events-condensed-list .tribe-events-venue-details {
+    width: 25%;
+}
+
+.tribe-events-condensed-list .tribe-events-event-cost {
+    width: 10%;
+}
+
+.tribe-events-condensed-list .tribe-event-schedule-details,
+.tribe-events-condensed-list .tribe-events-condensed-list-event-title,
+.tribe-events-condensed-list .tribe-events-venue-details,
+.tribe-events-condensed-list .tribe-events-event-cost {
+    font-size: 80%;
+}
