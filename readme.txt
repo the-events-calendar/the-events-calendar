@@ -225,7 +225,7 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.1] unreleased =
+= [4.1] 2016-03-15 =
 
 * Feature - Added a new "Date" recurrence rule that allows you to set an event to recur on a single (or any number of) individually specified dates (hat-tip to @tonydemarco for the idea!)
 * Tweak - Added support for manual timezone offsets in recurrence exclusion rules
