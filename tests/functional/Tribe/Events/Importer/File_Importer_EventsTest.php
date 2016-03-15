@@ -43,9 +43,7 @@ class File_Importer_EventsTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 
 		// your set up methods here
-		$this->handlebars              = new Handlebars( [
-			'loader' => new FilesystemLoader( codecept_data_dir( 'csv-import-test-files/featured-image' ) )
-		] );
+		$this->handlebars              = new Handlebars();
 		$this->featured_image_uploader = $this->prophesize( 'Tribe__Events__Importer__Featured_Image_Uploader' );
 	}
 
@@ -69,7 +67,7 @@ class File_Importer_EventsTest extends \Codeception\TestCase\WPTestCase {
 	 * it should not mark record as invalid if featured image entry is missing
 	 */
 	public function it_should_not_mark_record_as_invalid_if_featured_image_entry_is_missing() {
-		$sut = $this->make_instance();
+		$sut = $this->make_instance( 'featured-image' );
 
 		$post_id = $sut->import_next_row();
 
@@ -85,7 +83,7 @@ class File_Importer_EventsTest extends \Codeception\TestCase\WPTestCase {
 		$attachment_id = $this->factory()->attachment->create_upload_object( $image_url );
 		$this->featured_image_uploader->upload_and_get_attachment()->willReturn( $attachment_id );
 
-		$sut = $this->make_instance();
+		$sut = $this->make_instance( 'featured-image' );
 
 		$post_id = $sut->import_next_row();
 
@@ -99,7 +97,7 @@ class File_Importer_EventsTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_not_import_and_attach_featured_image_if_featured_image_is_not_ok() {
 		$this->featured_image_uploader->upload_and_get_attachment()->willReturn( false );
 
-		$sut = $this->make_instance();
+		$sut = $this->make_instance( 'featured-image' );
 
 		$post_id = $sut->import_next_row();
 
@@ -107,16 +105,14 @@ class File_Importer_EventsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $has_thumbnail );
 	}
 
-	private function make_instance() {
-		$this->rendered_file_contents = $this->handlebars->loadTemplate( $this->template )->render( $this->data );
-		vfsStream::setup( 'csv_file_root', null, [ 'events.csv' => $this->rendered_file_contents ] );
-		$this->file_reader = new \Tribe__Events__Importer__File_Reader( vfsStream::url( 'csv_file_root/events.csv' ) );
-		$this->file_reader->set_row( 1 );
+	private function make_instance( $template_dir = null ) {
+		$this->setup_file( $template_dir );
 
 		$sut = new Events_Importer( $this->file_reader, $this->featured_image_uploader->reveal() );
 		$sut->set_map( [
 			'event_name',
 			'event_description',
+			'event_excerpt',
 			'event_start_date',
 			'event_start_time',
 			'event_end_date',
@@ -133,6 +129,18 @@ class File_Importer_EventsTest extends \Codeception\TestCase\WPTestCase {
 		$sut->set_type( 'events' );
 
 		return $sut;
+	}
+
+	private function setup_file( $template_dir = null ) {
+		if ( ! empty( $template_dir ) ) {
+			$this->handlebars->setLoader( new FilesystemLoader( codecept_data_dir( trailingslashit( 'csv-import-test-files' ) . $template_dir ) ) );
+			$this->rendered_file_contents = $this->handlebars->loadTemplate( $this->template )->render( $this->data );
+			vfsStream::setup( 'csv_file_root', null, [ 'events.csv' => $this->rendered_file_contents ] );
+			$this->file_reader = new \Tribe__Events__Importer__File_Reader( vfsStream::url( 'csv_file_root/events.csv' ) );
+		} else {
+			$this->file_reader = new \Tribe__Events__Importer__File_Reader( codecept_data_dir( 'csv-import-test-files/events.csv' ) );
+		}
+		$this->file_reader->set_row( 1 );
 	}
 
 }
