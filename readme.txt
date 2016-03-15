@@ -328,6 +328,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - Fixed a warning produced by passing a DateTime() object into start_date or end_date args of tribe_get_events (props to iamhexcoder for the pull request!)
 * Fix - Fixed bug where events in month view were not always sorted in chronological order
 * Fix - Fixed the System Info URL in Events > Help
+* Fix - Resolved issue where the default country would be "Array" if no default country is set
+* Fix - Fixed bug where ajaxurl was sometimes undefined
 
 = [4.0.7] 2016-03-02 =
 
