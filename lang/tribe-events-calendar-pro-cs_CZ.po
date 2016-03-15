@@ -2,13 +2,61 @@
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-12-16 03:29:03+0000\n"
+"PO-Revision-Date: 2016-03-15 19:39:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Events Calendar Pro\n"
+
+#: src/Tribe/APM_Filters/APM_Filters.php:161
+msgid "Download for free"
+msgstr ""
+
+#: src/Tribe/APM_Filters/APM_Filters.php:167
+msgid "Dismiss"
+msgstr ""
+
+#: src/Tribe/APM_Filters/APM_Filters.php:171
+msgid "Pssst! Looking for the filters? They live in a separate plugin now | %s | %s"
+msgstr ""
+
+#: src/Tribe/Geo_Loc.php:86
+msgid "map"
+msgstr ""
+
+#: src/Tribe/Geo_Loc.php:151
+msgid "Distance unit"
+msgstr ""
+
+#: src/Tribe/Geo_Loc.php:490
+msgid "The latitude and longitude for your venue could not be fetched. The Google Maps API daily query limit has been reached!"
+msgstr ""
+
+#: src/Tribe/Main.php:1670
+msgid "Events Calendar PRO"
+msgstr "Events Calendar PRO"
+
+#: src/Tribe/Recurrence/Single_Event_Overrides.php:72
+msgid "Times:"
+msgstr ""
+
+#: src/Tribe/Recurrence/Strings.php:13
+msgid "Once on %1$s"
+msgstr ""
+
+#: src/Tribe/Recurrence/Validator.php:41
+msgid "Not an event post."
+msgstr ""
+
+#: src/Tribe/Recurrence/Validator.php:136
+msgid "Recurrence meta should not be empty."
+msgstr ""
+
+#: src/admin-views/event-recurrence.php:37
+msgid "that will occur on"
+msgstr ""
 
 #: src/Tribe/Admin/Custom_Meta_Tools.php:95
 msgid "Some additional field data still needs to be updated (unfortunately, we were unable to continue to update things automatically)."
@@ -139,35 +187,35 @@ msgstr "Barva hlavičky kalendáře"
 msgid "Calendar Date Bar Color"
 msgstr "Barva datumového panelu kalendáře"
 
-#: src/Tribe/Recurrence_Meta.php:1315
+#: src/Tribe/Recurrence/Strings.php:14
 msgid "Daily until %1$s"
 msgstr "Každý den až do %1$s"
 
-#: src/Tribe/Recurrence_Meta.php:1316
+#: src/Tribe/Recurrence/Strings.php:15
 msgid "Weekly on the same day until %1$s"
 msgstr "Každý týden ve stejný den až do %1$s"
 
-#: src/Tribe/Recurrence_Meta.php:1317
+#: src/Tribe/Recurrence/Strings.php:16
 msgid "Monthly on the same day until %1$s"
 msgstr "Každý měsíc ve stejný den až do %1$s"
 
-#: src/Tribe/Recurrence_Meta.php:1318
+#: src/Tribe/Recurrence/Strings.php:17
 msgid "Yearly on the same date until %1$s"
 msgstr "Každý rok ve stejný den až do %1$s"
 
-#: src/Tribe/Recurrence_Meta.php:1320 src/Tribe/Recurrence_Meta.php:1324
+#: src/Tribe/Recurrence/Strings.php:19 src/Tribe/Recurrence/Strings.php:23
 msgid "Weekly on the same day"
 msgstr "Každý týden ve stejný den"
 
-#: src/Tribe/Recurrence_Meta.php:1321 src/Tribe/Recurrence_Meta.php:1325
+#: src/Tribe/Recurrence/Strings.php:20 src/Tribe/Recurrence/Strings.php:24
 msgid "Monthly on the same day"
 msgstr "Každý měsíc ve stejný den"
 
-#: src/Tribe/Recurrence_Meta.php:1322 src/Tribe/Recurrence_Meta.php:1326
+#: src/Tribe/Recurrence/Strings.php:21 src/Tribe/Recurrence/Strings.php:25
 msgid "Yearly on the same date"
 msgstr "Každý rok ve stejný den"
 
-#: src/Tribe/Recurrence_Meta.php:1450
+#: src/Tribe/Recurrence/Meta.php:1079
 msgctxt "An unspecified end date"
 msgid "an unspecified date"
 msgstr "neurčené datum"
@@ -180,7 +228,7 @@ msgstr "Zobrazí po jednotlivých dnech akce v tomto týdnu."
 msgid "This Week Events"
 msgstr "Akce tento týden"
 
-#: src/admin-views/event-recurrence.php:128
+#: src/admin-views/event-recurrence.php:134
 msgid "Use this field if you want to override the auto-generated descriptions of event recurrence"
 msgstr "Použijte toto pole pokud chcete přepsat automaticky vygenerovaný popis pro opakování akce"
 
@@ -240,11 +288,11 @@ msgstr "Barva zvýraznění:"
 msgid "Number of events to show per day:"
 msgstr "Počet zobrazených akcí na den:"
 
-#: src/functions/template-tags/widgets.php:242
+#: src/functions/template-tags/widgets.php:251
 msgid "<span>&laquo;</span> <span class=\"tribe-nav-label\">Previous</span>"
 msgstr "<span>&laquo;</span> <span class=\"tribe-nav-label\">Předchozí</span>"
 
-#: src/functions/template-tags/widgets.php:262
+#: src/functions/template-tags/widgets.php:271
 msgid "<span class=\"tribe-nav-label\">Next</span> <span>&raquo;</span>"
 msgstr "<span class=\"tribe-nav-label\">Další</span> <span>&raquo;</span>"
 
@@ -268,11 +316,11 @@ msgstr "Dnes žádné akce"
 msgid "This Week Navigation"
 msgstr "Navigace pro tento týden"
 
-#: src/Tribe/Main.php:371
+#: src/Tribe/Main.php:375
 msgid "All %1$s for %2$s"
 msgstr "Všechny %1$s pro %2$s"
 
-#: src/Tribe/Main.php:377
+#: src/Tribe/Main.php:381
 msgid "%1$s for week of %2$s"
 msgstr "%1$s na týden od %2$s"
 
@@ -280,262 +328,262 @@ msgstr "%1$s na týden od %2$s"
 msgid "Could not process queue for event %1$d: %2$s"
 msgstr "Nepodařilo se zpracovat frontu pro akci %1$d: %2$s"
 
-#: src/Tribe/Recurrence_Meta.php:762
+#: src/Tribe/Recurrence/Meta.php:693 src/Tribe/Recurrence/Validator.php:100
 msgid "Custom recurrences must have a type selected."
 msgstr "Pro Vlastní opakování musíte vybrat typ."
 
-#: src/Tribe/Recurrence_Meta.php:771
+#: src/Tribe/Recurrence/Meta.php:702 src/Tribe/Recurrence/Validator.php:109
 msgid "Custom recurrences must have all data present."
 msgstr "Pro Vlastní opakování musíte zadat kompletní údaje."
 
-#: src/Tribe/Recurrence_Meta.php:1305
+#: src/Tribe/Recurrence/Meta.php:1006
 msgctxt "Recurrence rule separator"
 msgid ",<br> and "
 msgstr ",<br> a "
 
-#: src/Tribe/Recurrence_Meta.php:1327
+#: src/Tribe/Recurrence/Strings.php:26
 msgid "An event every day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
 msgstr "Akce se koná každý den, trvá po dobu %1$s dnů a %2$s hodin a skončí dnem %3$s"
 
-#: src/Tribe/Recurrence_Meta.php:1328
+#: src/Tribe/Recurrence/Strings.php:27
 msgid "An event every day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
 msgstr "Akce se koná každý den, trvá po dobu %1$s dnů a %2$s hodin a proběhne pouze %3$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1329
+#: src/Tribe/Recurrence/Strings.php:28
 msgid "An event every day that lasts %1$s day(s) and %2$s hour(s) with no end date"
 msgstr "Akce se koná každý den, trvá po dobu %1$s dnů a %2$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1330
+#: src/Tribe/Recurrence/Strings.php:29
 msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
 msgstr "Akce se koná každý týden ve stejný den, trvá po dobu %1$s dnů a %2$s hodin a skončí dnem %3$s"
 
-#: src/Tribe/Recurrence_Meta.php:1331
+#: src/Tribe/Recurrence/Strings.php:30
 msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
 msgstr "Akce se koná každý týden ve stejný den, trvá po dobu %1$s dnů a %2$s hodin a proběhne pouze %3$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1332
+#: src/Tribe/Recurrence/Strings.php:31
 msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date"
 msgstr "Akce se koná každý týden ve stejný den, trvá po dobu %1$s dnů a %2$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1333
+#: src/Tribe/Recurrence/Strings.php:32
 msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
 msgstr "Akce se koná každý měsíc ve stejný den, trvá po dobu %1$s dnů a %2$s hodin a skončí dnem %3$s"
 
-#: src/Tribe/Recurrence_Meta.php:1334
+#: src/Tribe/Recurrence/Strings.php:33
 msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
 msgstr "Akce se koná každý měsíc ve stejný den, trvá po dobu %1$s dnů a %2$s hodin a proběhne pouze %3$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1335
+#: src/Tribe/Recurrence/Strings.php:34
 msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date"
 msgstr "Akce se koná každý měsíc ve stejný den, trvá po dobu %1$s dnů a %2$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1336
+#: src/Tribe/Recurrence/Strings.php:35
 msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
 msgstr "Akce se koná každý rok ve stejný den, trvá po dobu %1$s dnů a %2$s hodin a skončí dnem %3$s"
 
-#: src/Tribe/Recurrence_Meta.php:1337
+#: src/Tribe/Recurrence/Strings.php:36
 msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
 msgstr "Akce se koná každý rok ve stejný den, trvá po dobu %1$s dnů a %2$s hodin a proběhne pouze %3$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1338
+#: src/Tribe/Recurrence/Strings.php:37
 msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s) with no end date"
 msgstr "Akce se koná každý rok ve stejný den, trvá po dobu %1$s dnů a %2$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1339
+#: src/Tribe/Recurrence/Strings.php:38
 msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), the last of which will begin on %4$s"
 msgstr "Akce se koná každý %1$s. den, trvá po dobu %2$s dnů a %3$s hodin a skončí dnem %4$s"
 
-#: src/Tribe/Recurrence_Meta.php:1340
+#: src/Tribe/Recurrence/Strings.php:39
 msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), but only create %4$s event(s)"
 msgstr "Akce se koná každý %1$s. den, trvá po dobu %2$s dnů a %3$s hodin a proběhne pouze %4$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1341
+#: src/Tribe/Recurrence/Strings.php:40
 msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s) with no end date"
 msgstr "Akce se koná každý %1$s. den, trvá po dobu %2$s dnů a %3$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1342
+#: src/Tribe/Recurrence/Strings.php:41
 msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
 msgstr "Akce se koná každý %1$s. den, začíná v %2$s a trvá po dobu %3$s dnů a %4$s hodin a skončí dnem %5$s"
 
-#: src/Tribe/Recurrence_Meta.php:1343
+#: src/Tribe/Recurrence/Strings.php:42
 msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
 msgstr "Akce se koná každý %1$s. den, začíná v %2$s a trvá po dobu %3$s dnů a %4$s hodin a proběhne pouze %5$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1344
+#: src/Tribe/Recurrence/Strings.php:43
 msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s) with no end date"
 msgstr "Akce se koná každý %1$s. den, začíná v %2$s a trvá po dobu %3$s dnů a %4$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1345
+#: src/Tribe/Recurrence/Strings.php:44
 msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
 msgstr "Akce se koná každý %1$s. týden v %2$s, trvá po dobu %3$s dnů a %4$s hodin a skončí dnem %5$s"
 
-#: src/Tribe/Recurrence_Meta.php:1346
+#: src/Tribe/Recurrence/Strings.php:45
 msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
 msgstr "Akce se koná každý %1$s. týden v %2$s, trvá po dobu %3$s dnů a %4$s hodin a proběhne pouze %5$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1347
+#: src/Tribe/Recurrence/Strings.php:46
 msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
 msgstr "Akce se koná každý %1$s. týden v %2$s, trvá po dobu %3$s dnů a %4$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1348
+#: src/Tribe/Recurrence/Strings.php:47
 msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
 msgstr "Akce se koná každý %1$s. týden v %2$s, začíná v %3$s a trvá po dobu %4$s dnů a %5$s hodin a skončí dnem %6$s"
 
-#: src/Tribe/Recurrence_Meta.php:1349
+#: src/Tribe/Recurrence/Strings.php:48
 msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
 msgstr "Akce se koná každý %1$s. týden v %2$s, začíná v %3$s a trvá po dobu %4$s dnů a %5$s hodin a proběhne pouze %6$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1350
+#: src/Tribe/Recurrence/Strings.php:49
 msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
 msgstr "Akce se koná každý %1$s. týden v %2$s, začíná v %3$s a trvá po dobu %4$s dnů a %5$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1351
+#: src/Tribe/Recurrence/Strings.php:50
 msgid "An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
 msgstr "Akce se koná každý %1$s. měsíc %2$s. dne v měsíci, trvá po dobu %3$s dnů a %4$s hodin a skončí dnem %5$s"
 
-#: src/Tribe/Recurrence_Meta.php:1352
+#: src/Tribe/Recurrence/Strings.php:51
 msgid "An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
 msgstr "Akce se koná každý %1$s. měsíc %2$s. dne v měsíci, trvá po dobu %3$s dnů a %4$s hodin a proběhne pouze %5$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1353
+#: src/Tribe/Recurrence/Strings.php:52
 msgid "An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
 msgstr "Akce se koná každý %1$s. měsíc %2$s. dne v měsíci, trvá po dobu %3$s dnů a %4$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1354
+#: src/Tribe/Recurrence/Strings.php:53
 msgid "An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
 msgstr "Akce se koná každý %1$s. měsíc %2$s. dne v měsíci, začíná v %3$s a trvá po dobu %4$s dnů a %5$s hodin a skončí dnem %6$s"
 
-#: src/Tribe/Recurrence_Meta.php:1355
+#: src/Tribe/Recurrence/Strings.php:54
 msgid "An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
 msgstr "Akce se koná každý %1$s. měsíc %2$s. dne v měsíci, začíná v %3$s a trvá po dobu %4$s dnů a %5$s hodin a proběhne pouze %6$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1356
+#: src/Tribe/Recurrence/Strings.php:55
 msgid "An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
 msgstr "Akce se koná každý %1$s. měsíc %2$s. dne v měsíci, začíná v %3$s a trvá po dobu %4$s dnů a %5$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1357
+#: src/Tribe/Recurrence/Strings.php:56
 msgid "An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
 msgstr "Akce se koná každý %1$s. měsíc v %2$s, trvá po dobu %3$s dnů a %4$s hodin a skončí dnem %5$s"
 
-#: src/Tribe/Recurrence_Meta.php:1358
+#: src/Tribe/Recurrence/Strings.php:57
 msgid "An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
 msgstr "Akce se koná každý %1$s. měsíc v %2$s, trvá po dobu %3$s dnů a %4$s hodin a proběhne pouze %5$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1359
+#: src/Tribe/Recurrence/Strings.php:58
 msgid "An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
 msgstr "Akce se koná každý %1$s. měsíc v %2$s, trvá po dobu %3$s dnů a %4$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1360
+#: src/Tribe/Recurrence/Strings.php:59
 msgid "An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
 msgstr "Akce se koná každý %1$s. měsíc v %2$s, začíná v %3$s a trvá po dobu %4$s dnů a %5$s hodin a skončí dnem %6$s"
 
-#: src/Tribe/Recurrence_Meta.php:1361
+#: src/Tribe/Recurrence/Strings.php:60
 msgid "An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
 msgstr "Akce se koná každý %1$s. měsíc v %2$s, začíná v %3$s a trvá po dobu %4$s dnů a %5$s hodin a proběhne pouze %6$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1362
+#: src/Tribe/Recurrence/Strings.php:61
 msgid "An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
 msgstr "Akce se koná každý %1$s. měsíc v %2$s, začíná v %3$s a trvá po dobu %4$s dnů a %5$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1363
+#: src/Tribe/Recurrence/Strings.php:62
 msgid "An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
 msgstr "Akce se koná každý %1$s. rok %3$s. dne v měsíci %2$s, trvá po dobu %4$s dnů a %5$s hodin a skončí dnem %6$s"
 
-#: src/Tribe/Recurrence_Meta.php:1364
+#: src/Tribe/Recurrence/Strings.php:63
 msgid "An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
 msgstr "Akce se koná každý %1$s. rok %3$s. dne v měsíci %2$s, trvá po dobu %4$s dnů a %5$s hodin a proběhne pouze %6$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1365
+#: src/Tribe/Recurrence/Strings.php:64
 msgid "An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s) with no end date"
 msgstr "Akce se koná každý %1$s. rok %3$s. dne v měsíci %2$s, trvá po dobu %4$s dnů a %5$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1366
+#: src/Tribe/Recurrence/Strings.php:65
 msgid "An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), the last of which will begin on %7$s"
 msgstr "Akce se koná každý %1$s. rok %3$s. dne v měsíci %2$s, začíná v %4$s a trvá po dobu %5$s dnů a %6$s hodin a skončí dnem %7$s"
 
-#: src/Tribe/Recurrence_Meta.php:1367
+#: src/Tribe/Recurrence/Strings.php:66
 msgid "An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), but only create %7$s event(s)"
 msgstr "Akce se koná každý %1$s. rok %3$s. dne v měsíci %2$s, začíná v %4$s a trvá po dobu %5$s dnů a %6$s hodin a proběhne pouze %7$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1368
+#: src/Tribe/Recurrence/Strings.php:67
 msgid "An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s) with no end date"
 msgstr "Akce se koná každý %1$s. rok %3$s. dne v měsíci %2$s, začíná v %4$s a trvá po dobu %5$s dnů a %6$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1369
+#: src/Tribe/Recurrence/Strings.php:68
 msgid "An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
 msgstr "Akce se koná každý %1$s. rok, %3$s v měsíci %2$s, trvá po dobu %4$s dnů a %5$s hodin a skončí dnem %6$s"
 
-#: src/Tribe/Recurrence_Meta.php:1370
+#: src/Tribe/Recurrence/Strings.php:69
 msgid "An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
 msgstr "Akce se koná každý %1$s. rok, %3$s v měsíci %2$s, trvá po dobu %4$s dnů a %5$s hodin a proběhne pouze %6$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1371
+#: src/Tribe/Recurrence/Strings.php:70
 msgid "An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s) with no end date"
 msgstr "Akce se koná každý %1$s. rok, %3$s v měsíci %2$s, trvá po dobu %4$s dnů a %5$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1372
+#: src/Tribe/Recurrence/Strings.php:71
 msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), the last of which will begin on %7$s"
 msgstr "Akce se koná každý %1$s. rok, %3$s v měsíci %2$s, začíná v %4$s a trvá po dobu %5$s dnů a %6$s hodin a skončí dnem %7$s"
 
-#: src/Tribe/Recurrence_Meta.php:1373
+#: src/Tribe/Recurrence/Strings.php:72
 msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), but only create %7$s event(s)"
 msgstr "Akce se koná každý %1$s. rok, %3$s v měsíci %2$s, začíná v %4$s a trvá po dobu %5$s dnů a %6$s hodin a proběhne pouze %7$skrát"
 
-#: src/Tribe/Recurrence_Meta.php:1374
+#: src/Tribe/Recurrence/Strings.php:73
 msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s) with no end date"
 msgstr "Akce se koná každý %1$s. rok, %3$s v měsíci %2$s, začíná v %4$s a trvá po dobu %5$s dnů a %6$s hodin a není známo kdy skončí"
 
-#: src/Tribe/Recurrence_Meta.php:1410
+#: src/Tribe/Recurrence/Meta.php:1039
 msgctxt "Joins the last item in a list of items (i.e. the \"and\" in Monday, Tuesday, and Wednesday)"
 msgid "and"
 msgstr "a"
 
-#: src/Tribe/Recurrence_Meta.php:1411
+#: src/Tribe/Recurrence/Meta.php:1040
 msgctxt "Placeholder text for a day of the week (or days of the week) before the user has selected any"
 msgid "[day]"
 msgstr "[den]"
 
-#: src/Tribe/Recurrence_Meta.php:1412
+#: src/Tribe/Recurrence/Meta.php:1041
 msgctxt "Placeholder text for a month (or months) before the user has selected any"
 msgid "[month]"
 msgstr "[měsíc]"
 
-#: src/Tribe/Recurrence_Meta.php:1413
+#: src/Tribe/Recurrence/Meta.php:1042
 msgctxt "Describes a day of the month (e.g. \"day 5\" or \"day 27\")"
 msgid "day %1$s"
 msgstr "%1$s. den"
 
-#: src/Tribe/Recurrence_Meta.php:1414
+#: src/Tribe/Recurrence/Meta.php:1043
 msgctxt "Used when displaying: \"the first Monday\" or \"the first day\""
 msgid "the first %1$s"
 msgstr "první %1$s"
 
-#: src/Tribe/Recurrence_Meta.php:1415
+#: src/Tribe/Recurrence/Meta.php:1044
 msgctxt "Used when displaying: \"the second Monday\" or \"the second day\""
 msgid "the second %1$s"
 msgstr "druhý %1$s"
 
-#: src/Tribe/Recurrence_Meta.php:1416
+#: src/Tribe/Recurrence/Meta.php:1045
 msgctxt "Used when displaying: \"the third Monday\" or \"the third day\""
 msgid "the third %1$s"
 msgstr "třetí %1$s"
 
-#: src/Tribe/Recurrence_Meta.php:1417
+#: src/Tribe/Recurrence/Meta.php:1046
 msgctxt "Used when displaying: \"the fourth Monday\" or \"the fourth day\""
 msgid "the fourth %1$s"
 msgstr "čtvrtý %1$s"
 
-#: src/Tribe/Recurrence_Meta.php:1418
+#: src/Tribe/Recurrence/Meta.php:1047
 msgctxt "Used when displaying: \"the fifth Monday\" or \"the fifth day\""
 msgid "the fifth %1$s"
 msgstr "pátý %1$s"
 
-#: src/Tribe/Recurrence_Meta.php:1419
+#: src/Tribe/Recurrence/Meta.php:1048
 msgctxt "Used when displaying: \"the last Monday\" or \"the last day\""
 msgid "the last %1$s"
 msgstr "poslední %1$s"
 
-#: src/Tribe/Recurrence_Meta.php:1420
+#: src/Tribe/Recurrence/Meta.php:1049
 msgctxt "Used when displaying the word \"day\" in \"the last day\" or \"the first day\""
 msgid "day"
 msgstr "den"
@@ -548,34 +596,35 @@ msgstr "Pravidla opakování:"
 msgid "Once"
 msgstr "Jedenkrát"
 
-#: src/admin-views/event-recurrence.php:61
+#: src/admin-views/event-recurrence.php:67
 #: src/admin-views/recurrence/months.php:35
 #: src/admin-views/recurrence/weeks.php:35
 #: src/admin-views/recurrence/years.php:111
 msgid "Same time"
 msgstr "Stejný čas"
 
-#: src/admin-views/event-recurrence.php:76
+#: src/admin-views/event-recurrence.php:82
 msgid "Add Another Rule"
 msgstr "Přidat další pravidlo"
 
-#: src/admin-views/event-recurrence.php:80
+#: src/admin-views/event-recurrence.php:86
 msgid "Exclusions:"
 msgstr "Výjimky:"
 
-#: src/admin-views/event-recurrence.php:89
+#: src/admin-views/event-recurrence.php:17
+#: src/admin-views/event-recurrence.php:95
 msgid "Date"
 msgstr "Datum"
 
-#: src/admin-views/event-recurrence.php:97
+#: src/admin-views/event-recurrence.php:103
 msgid "will not occur on"
 msgstr "neproběhne"
 
-#: src/admin-views/event-recurrence.php:101
+#: src/admin-views/event-recurrence.php:107
 msgid "will not occur every"
 msgstr "neproběhne každý"
 
-#: src/admin-views/event-recurrence.php:120
+#: src/admin-views/event-recurrence.php:126
 msgid "Add Exclusion"
 msgstr "Přidat výjimku"
 
@@ -599,7 +648,7 @@ msgstr "Modern Tribe, Inc."
 msgid "http://m.tri.be/20"
 msgstr "http://m.tri.be/20"
 
-#: src/Tribe/Main.php:651
+#: src/Tribe/Main.php:656
 msgid "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we sincerely appreciate it. If you're looking for help with Events Calendar PRO, you've come to the right place. We are committed to helping make your calendar be spectacular... and hope the resources provided below will help get you there."
 msgstr "Děkujeme za nákup Events Calendar PRO! Všichni tady v Modern Tribe jsme to víc než ocenili. Pokud potřebujete pomoci s Events Calendar PRO, jste na správném místě. Zavázali jsme se k tomu, aby i váš kalendář byl dech beroucí... a doufáme, že zdroje uvedené níže vám v tom pomohou."
 
@@ -607,7 +656,7 @@ msgstr "Děkujeme za nákup Events Calendar PRO! Všichni tady v Modern Tribe js
 msgid "tutorial that will walk you through the process"
 msgstr "návod, který vás provede celým procesem"
 
-#: src/Tribe/Main.php:594 src/admin-views/event-meta-options.php:3
+#: src/Tribe/Main.php:599 src/admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr "Dodatečná pole"
 
@@ -615,7 +664,7 @@ msgstr "Dodatečná pole"
 msgid "Country"
 msgstr "Země"
 
-#: src/Tribe/Main.php:609
+#: src/Tribe/Main.php:614
 msgid "Hide related events"
 msgstr "Skrýt související akce"
 
@@ -623,7 +672,7 @@ msgstr "Skrýt související akce"
 msgid "Phone"
 msgstr "Telefon"
 
-#: src/Tribe/Main.php:610
+#: src/Tribe/Main.php:615
 msgid "Remove related events from the single event view"
 msgstr "Odstranit výpis souvisejících akcí při zobrazení jednotlivé akce"
 
@@ -631,7 +680,7 @@ msgstr "Odstranit výpis souvisejících akcí při zobrazení jednotlivé akce"
 msgid "Price"
 msgstr "Cena"
 
-#: src/Tribe/Main.php:620
+#: src/Tribe/Main.php:625
 msgid "Week Day Format"
 msgstr "Formát pro dny v týdnu"
 
@@ -641,7 +690,7 @@ msgstr "Formát pro dny v týdnu"
 msgid "Filters"
 msgstr "Filtry"
 
-#: src/Tribe/Main.php:621
+#: src/Tribe/Main.php:626
 msgid "Enter the format to use for week days. Used when showing days of the week in Week view."
 msgstr "Zadejte formát pro dny v týdnu. Používá se při zobrazení jednotlivých dnů v týdnu u týdenního přehledu."
 
@@ -651,7 +700,7 @@ msgstr "Zadejte formát pro dny v týdnu. Používá se při zobrazení jednotli
 msgid "remove"
 msgstr "odstranit"
 
-#: src/Tribe/Main.php:632
+#: src/Tribe/Main.php:637
 msgid "Hide weekends on Week View"
 msgstr "Skrýt víkendy u týdenního přehledu"
 
@@ -661,7 +710,7 @@ msgstr "Skrýt víkendy u týdenního přehledu"
 msgid "Match all"
 msgstr "Odpovídá všem"
 
-#: src/Tribe/Main.php:633
+#: src/Tribe/Main.php:638
 msgid "Check this to only show weekdays on Week View"
 msgstr "Zaškrtnutím této volby se v týdenním přehledu zobrazí pouze pracovní dny"
 
@@ -677,7 +726,7 @@ msgstr "Odpovídá některým"
 msgid "Add a filter"
 msgstr "Přidat filtr"
 
-#: src/Tribe/Main.php:663
+#: src/Tribe/Main.php:668
 msgid "If this is your first time using The Events Calendar Pro, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:"
 msgstr "Pokud teprve začínáte s pluginem The Events Calendar Pro, čeká vás příjemné překvapení a jste již na cestě k vytvoření vaší první akce. Zde je několik základních informací, které mohou být užitečné pro začátečníky:"
 
@@ -687,7 +736,7 @@ msgstr "Pokud teprve začínáte s pluginem The Events Calendar Pro, čeká vás
 msgid "Select one..."
 msgstr "Vyberte jeden..."
 
-#: src/Tribe/Main.php:666
+#: src/Tribe/Main.php:671
 msgid "%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time."
 msgstr "%sNaše příručka nového uživatele%s byla vytvořena přávě pro vás. Pomocí video průvodců a popisných návodů se screenshoty přestanete být pouhým začátečníkem ve velmi krátkém čase."
 
@@ -696,7 +745,7 @@ msgstr "%sNaše příručka nového uživatele%s byla vytvořena přávě pro v�
 msgid "Hide this widget if there are no upcoming events:"
 msgstr "Skrýt tento widget pokud nejsou žádné nadcházející akce:"
 
-#: src/Tribe/Main.php:668
+#: src/Tribe/Main.php:673
 msgid "%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer."
 msgstr "%sFAQ k instalaci a nastavení%s na naší stránce podpory vám poskytne přehled o tom, co plugin může a nemůže dělat. Tato sekce často kladených otázek ohledně základní instalace je užitečná zejména v případech, které nejsou řešeny v příručce nového uživatele."
 
@@ -704,7 +753,7 @@ msgstr "%sFAQ k instalaci a nastavení%s na naší stránce podpory vám poskytn
 msgid "Event:"
 msgstr "Akce:"
 
-#: src/Tribe/Main.php:670
+#: src/Tribe/Main.php:675
 msgid "Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. %sHere's how to find your license key%s, if you don't have it handy."
 msgstr "Nezapomeňte na svůj licenční klíč. Ačkoli pro vytvoření vaší první akce není potřeba, co nejdříve se ujistěte, že je na svém místě a tím budete mít zaručen váš přístup k podpoře a aktualizacím. %sZde je návod, jak najít svůj licenční klíč%s, pokud ho nemáte po ruce."
 
@@ -712,7 +761,7 @@ msgstr "Nezapomeňte na svůj licenční klíč. Ačkoli pro vytvoření vaší 
 msgid "Show seconds?"
 msgstr "Zobrazit sekundy?"
 
-#: src/Tribe/Main.php:672
+#: src/Tribe/Main.php:677
 msgid "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event."
 msgstr "Pokud jste ale dobrodružné povahy, můžete rovnou přejít do nabídky Akce a vytvořit vaši první akci."
 
@@ -720,7 +769,7 @@ msgstr "Pokud jste ale dobrodružné povahy, můžete rovnou přejít do nabídk
 msgid "Countdown Completed Text:"
 msgstr "Text při ukončení odpočítávání:"
 
-#: src/Tribe/Main.php:685
+#: src/Tribe/Main.php:690
 msgid "Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play."
 msgstr "Písemná dokumentace má přeci jenom své limity a někdy zkrátka potřebujete pomoc od skutečné osoby. A právě zde vstupují do hry naše %sfóra podpory%s."
 
@@ -728,7 +777,7 @@ msgstr "Písemná dokumentace má přeci jenom své limity a někdy zkrátka pot
 msgid "Venue:"
 msgstr "Místo konání:"
 
-#: src/Tribe/Main.php:686
+#: src/Tribe/Main.php:691
 msgid "Users who have purchased an Events Calendar PRO license are granted total access to our %spremium support forums%s. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We're on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response."
 msgstr "Uživatelé, kteří si zakoupili licenci k pluginu Events Calendar PRO, mají garantován plný přístup na naše %sprémiové fórum podpory%s. Narozdíl od %sfóra podpory na WordPress.org%s, kde je naše účast omezena pouze na identifikaci a záplatování chyb, máme pro naše PRO uživatele speciální tým podpory. Na PRO fórech jsme k dispozici denně po celý pracovní týden a žádný z vašich dotazů by neměl zůstat bez odpovědi déle než 24 hodin."
 
@@ -736,7 +785,7 @@ msgstr "Uživatelé, kteří si zakoupili licenci k pluginu Events Calendar PRO,
 msgid "Show only the first upcoming instance of recurring %s"
 msgstr "Zobrazit pouze první nadcházející instanci opakující se %s"
 
-#: src/Tribe/Main.php:687
+#: src/Tribe/Main.php:692
 msgid "Our number one goal is helping you succeed, and to whatever extent possible, we'll help troubleshoot and guide your customizations or tweaks. While we won't build your site for you, and we can't guarantee we'll be able to get you 100% integrated with every theme or plugin out there, we'll do all we can to point you in the right direction and to make you -- and your client, as is often more importantly the case -- satisfied."
 msgstr "Naším hlavním cílem je vám pomoci v co možná největší míře při řešení problémů a poskytnutí rad v otázkách přizpůsobení či vylepšení. Přestože nebudeme budovat vaše stránky za vás a nemůžeme vždy zaručit plnou integraci s úplně každou šablonou a pluginem, budeme se snažit udělat vše, abychom vás nasměrovali tím správným směrem a abyste byli spokojeni nejen vy, ale -- a to je často mnohem důležitější -- i vaši klienti."
 
@@ -752,7 +801,7 @@ msgstr "Naším hlavním cílem je vám pomoci v co možná největší míře p
 msgid "No default set"
 msgstr "Výchozí není nastaveno"
 
-#: src/Tribe/Main.php:688
+#: src/Tribe/Main.php:693
 msgid "Before posting a new thread, please do a search to make sure your issue hasn't already been addressed. When posting please make sure to provide as much detail about the problem as you can (with screenshots or screencasts if feasible), and make sure that you've identified whether a plugin / theme conflict could be at play in your initial message."
 msgstr "Než založíte nové téma v diskuzi, prohledejte prosím ostatní a zkontrolujte, zda se už vašemu problému nějaká diskuze nevěnuje. Při psaní příspěvku poskytněte co možná nejvíce podrobností o vašem problému (pokud možno včetně screenshotů nebo screencastů) a ve vaší počáteční zprávě nezapomeňte uvést, zda nemůže být ve hře i konflikt s jiným pluginem či šablonou."
 
@@ -760,7 +809,7 @@ msgstr "Než založíte nové téma v diskuzi, prohledejte prosím ostatní a zk
 msgid "The current default organizer is: %s"
 msgstr "Současný výchozí pořadatel je: %s"
 
-#: src/Tribe/Main.php:1158
+#: src/Tribe/Main.php:1163
 msgid "Event: "
 msgstr "Akce:"
 
@@ -768,7 +817,7 @@ msgstr "Akce:"
 msgid "The current default venue is: %s"
 msgstr "Současné výchozí místo je: %s"
 
-#: src/Tribe/Main.php:1159
+#: src/Tribe/Main.php:1164
 msgid "Address: "
 msgstr "Adresa:"
 
@@ -776,7 +825,7 @@ msgstr "Adresa:"
 msgid "The current default address is: %s"
 msgstr "Současná výchozí adresa je: %s"
 
-#: src/Tribe/Main.php:1273
+#: src/Tribe/Main.php:1278
 msgid "Settings"
 msgstr "Nastavení"
 
@@ -784,7 +833,7 @@ msgstr "Nastavení"
 msgid "The current default city is: %s"
 msgstr "Současné výchozí město je: %s"
 
-#: src/Tribe/Main.php:1301
+#: src/Tribe/Main.php:1306
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr "Místo konání bylo aktualizováno. <a href=\"%s\">Zobrazit místo konání</a>"
 
@@ -792,7 +841,7 @@ msgstr "Místo konání bylo aktualizováno. <a href=\"%s\">Zobrazit místo kon�
 msgid "The current default state is: %s"
 msgstr "Současný výchozí stát je: %s"
 
-#: src/Tribe/Main.php:1303
+#: src/Tribe/Main.php:1308
 msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr "Místo konání bylo publikováno. <a href=\"%s\">Zobrazit místo konání</a>"
 
@@ -800,7 +849,7 @@ msgstr "Místo konání bylo publikováno. <a href=\"%s\">Zobrazit místo konán
 msgid "The current default province is: %s"
 msgstr "Současný výchozí kraj je: %s"
 
-#: src/Tribe/Main.php:1304
+#: src/Tribe/Main.php:1309
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Místo konání bylo odesláno ke schválení. <a target=\"_blank\" href=\"%s\">Zobrazit náhled místa konání</a>"
 
@@ -808,7 +857,7 @@ msgstr "Místo konání bylo odesláno ke schválení. <a target=\"_blank\" href
 msgid "The current default postal code/zip code is: %s"
 msgstr "Současné výchozí PSČ je: %s"
 
-#: src/Tribe/Main.php:1306
+#: src/Tribe/Main.php:1311
 msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
 msgstr "Místo konání bude automaticky publikováno: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Zobrazit náhled místa konání</a>"
 
@@ -816,7 +865,7 @@ msgstr "Místo konání bude automaticky publikováno: <strong>%1$s</strong>. <a
 msgid "The current default country is: %s"
 msgstr "Současná výchozí země je: %s"
 
-#: src/Tribe/Main.php:1308 src/Tribe/Main.php:1318
+#: src/Tribe/Main.php:1313 src/Tribe/Main.php:1323
 msgid "M j, Y @ G:i"
 msgstr "j.n.Y, G:i"
 
@@ -824,7 +873,7 @@ msgstr "j.n.Y, G:i"
 msgid "The current default phone is: %s"
 msgstr "Současný výchozí telefon je: %s"
 
-#: src/Tribe/Main.php:1310
+#: src/Tribe/Main.php:1315
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Koncept Místa konání byl uložen. <a target=\"_blank\" href=\"%s\">Zobrazit náhled místa konání</a>"
 
@@ -833,23 +882,23 @@ msgstr "Koncept Místa konání byl uložen. <a target=\"_blank\" href=\"%s\">Zo
 msgid "Date out of range."
 msgstr "Datum je mimo platný rozsah."
 
-#: src/Tribe/Main.php:1312
+#: src/Tribe/Main.php:1317
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
 msgstr "Pořadatel byl aktualizován. <a href=\"%s\">Zobrazit pořadatele</a>"
 
-#: src/functions/template-tags/general.php:733
+#: src/functions/template-tags/general.php:744
 msgid "Recurring %s"
 msgstr "Opakující se %s"
 
-#: src/Tribe/Main.php:1313
+#: src/Tribe/Main.php:1318
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr "Pořadatel byl publikován. <a href=\"%s\">Zobrazit pořadatele</a>"
 
-#: src/functions/template-tags/general.php:736
+#: src/functions/template-tags/general.php:747
 msgid "(See all)"
 msgstr "(zobrazit vše)"
 
-#: src/Tribe/Main.php:1314
+#: src/Tribe/Main.php:1319
 msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "Pořadatel byl odeslán ke schválení. <a target=\"_blank\" href=\"%s\">Zobrazit náhled pořadatele</a>"
 
@@ -857,7 +906,7 @@ msgstr "Pořadatel byl odeslán ke schválení. <a target=\"_blank\" href=\"%s\"
 msgid "<span>&laquo;</span> Previous Week"
 msgstr "<span>&laquo;</span> Předchozí týden"
 
-#: src/Tribe/Main.php:1316
+#: src/Tribe/Main.php:1321
 msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
 msgstr "Pořadatel bude automaticky publikován: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Zobrazit náhled pořadatele</a>"
 
@@ -865,7 +914,7 @@ msgstr "Pořadatel bude automaticky publikován: <strong>%1$s</strong>. <a targe
 msgid "Next Week <span>&raquo;</span>"
 msgstr "Další týden <span>&raquo;</span>"
 
-#: src/Tribe/Main.php:1320
+#: src/Tribe/Main.php:1325
 msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "Koncept Pořadatele byl uložen. <a target=\"_blank\" href=\"%s\">Zobrazit náhled pořadatele</a>"
 
@@ -873,7 +922,7 @@ msgstr "Koncept Pořadatele byl uložen. <a target=\"_blank\" href=\"%s\">Zobraz
 msgid "%s List Navigation"
 msgstr "Navigace pro seznam (%s)"
 
-#: src/Tribe/Main.php:1371
+#: src/Tribe/Main.php:1376
 msgid "Support"
 msgstr "Podpora"
 
@@ -881,7 +930,7 @@ msgstr "Podpora"
 msgid "<span>&laquo;</span> Previous %s"
 msgstr "<span>&laquo;</span> Předchozí %s"
 
-#: src/Tribe/Main.php:1373
+#: src/Tribe/Main.php:1378
 msgid "View All Add-Ons"
 msgstr "Prohlédnout všechny doplňky"
 
@@ -889,7 +938,7 @@ msgstr "Prohlédnout všechny doplňky"
 msgid "Next %s <span>&raquo;</span>"
 msgstr "Další %s <span>&raquo;</span>"
 
-#: src/Tribe/Main.php:1565
+#: src/Tribe/Main.php:1570
 msgid "Week"
 msgstr "Týden"
 
@@ -897,7 +946,7 @@ msgstr "Týden"
 msgid "Find out more"
 msgstr "Zobrazit více"
 
-#: src/Tribe/Main.php:1583
+#: src/Tribe/Main.php:1588
 msgid "Photo"
 msgstr "Foto"
 
@@ -905,7 +954,7 @@ msgstr "Foto"
 msgid "Related %s"
 msgstr "Související %s"
 
-#: src/Tribe/Main.php:1600
+#: src/Tribe/Main.php:1605
 msgid "Week Of"
 msgstr "V týdnu"
 
@@ -934,7 +983,7 @@ msgstr "Hodiny"
 msgid "Week Navigation"
 msgstr "Navigace pro týdny"
 
-#: src/Tribe/Recurrence/Queue_Realtime.php:53
+#: src/Tribe/Recurrence/Queue_Realtime.php:89
 msgid "Completed!"
 msgstr "Dokončeno!"
 
@@ -942,9 +991,9 @@ msgstr "Dokončeno!"
 msgid "days"
 msgstr "dnů"
 
-#: src/Tribe/Recurrence/Queue_Realtime.php:55
-#: src/Tribe/Recurrence/Queue_Realtime.php:70
-#: src/Tribe/Recurrence/Queue_Realtime.php:101
+#: src/Tribe/Recurrence/Queue_Realtime.php:91
+#: src/Tribe/Recurrence/Queue_Realtime.php:114
+#: src/Tribe/Recurrence/Queue_Realtime.php:193
 msgid "%d%% complete"
 msgstr "Hotovo: %d%%"
 
@@ -952,7 +1001,7 @@ msgstr "Hotovo: %d%%"
 msgid "hours"
 msgstr "hod."
 
-#: src/Tribe/Recurrence/Queue_Realtime.php:67
+#: src/Tribe/Recurrence/Queue_Realtime.php:111
 msgid "Recurring event data is still being generated for this event. Don&#146;t worry, you can safely navigate away &ndash; the process will resume in a bit in the background."
 msgstr "Data pro opakování této akce se stále zpracovávají. Nebojte se, klidně můžete opustit tuto stránku &ndash; proces bude pokračovat tak trochu na pozadí."
 
@@ -960,7 +1009,7 @@ msgstr "Data pro opakování této akce se stále zpracovávají. Nebojte se, kl
 msgid "min"
 msgstr "min."
 
-#: src/Tribe/Recurrence/Queue_Realtime.php:81
+#: src/Tribe/Recurrence/Queue_Realtime.php:176
 msgid "Unable to continue processing recurring event data. Please reload this page to continue/try again."
 msgstr "Nelze pokračovat ve zpracování dat pro opakování akce. Obnovte prosím tuto stránku a zkuste to znovu."
 
@@ -968,7 +1017,7 @@ msgstr "Nelze pokračovat ve zpracování dat pro opakování akce. Obnovte pros
 msgid "sec"
 msgstr "sek."
 
-#: src/Tribe/Recurrence_Meta.php:107
+#: src/Tribe/Recurrence/Meta.php:146
 msgid "Edit Series"
 msgstr "Upravit sérii"
 
@@ -976,7 +1025,7 @@ msgstr "Upravit sérii"
 msgid "View More&hellip;"
 msgstr "Zobrazit více&hellip;"
 
-#: src/Tribe/Recurrence_Meta.php:113
+#: src/Tribe/Recurrence/Meta.php:152
 msgid "Break from Series"
 msgstr "Vyčlenit ze série"
 
@@ -984,11 +1033,11 @@ msgstr "Vyčlenit ze série"
 msgid "There are no upcoming %s at this time."
 msgstr "V tuto chvíli nejsou k dispozici žádné nadcházející %s."
 
-#: src/Tribe/Recurrence_Meta.php:123
+#: src/Tribe/Recurrence/Meta.php:162
 msgid "Edit Future Events"
 msgstr "Upravit budoucí akce"
 
-#: src/Tribe/Recurrence_Meta.php:145
+#: src/Tribe/Recurrence/Meta.php:184
 msgid "—"
 msgstr "—"
 
@@ -996,221 +1045,221 @@ msgstr "—"
 msgid "No upcoming %s."
 msgstr "Žádné nadcházející %s."
 
-#: src/Tribe/Recurrence_Meta.php:174
+#: src/Tribe/Recurrence/Meta.php:213
 msgid "Break this event out of its series and edit it independently"
 msgstr "Vyčlenit tuto akci ze série a individuálně ji upravit"
 
-#: src/Tribe/Recurrence_Meta.php:174
+#: src/Tribe/Recurrence/Meta.php:213
 msgid "Edit Single"
 msgstr "Upravit jednu"
 
-#: src/Tribe/Recurrence_Meta.php:176
+#: src/Tribe/Recurrence/Meta.php:215
 msgid "Split the series in two at this point, creating a new series out of this and all subsequent events"
 msgstr "Na tomto místě rozdělit sérii na dvě a vytvořit novou sérii z této akce a všech následujících"
 
-#: src/Tribe/Recurrence_Meta.php:176
+#: src/Tribe/Recurrence/Meta.php:215
 msgid "Edit Upcoming"
 msgstr "Upravit nadcházející"
 
-#: src/Tribe/Recurrence_Meta.php:182
+#: src/Tribe/Recurrence/Meta.php:221
 msgid "Edit all events in this series"
 msgstr "Upravit všechny akce této série"
 
-#: src/Tribe/Recurrence_Meta.php:182
+#: src/Tribe/Recurrence/Meta.php:221
 msgid "Edit All"
 msgstr "Upravit vše"
 
-#: src/Tribe/Recurrence_Meta.php:187
+#: src/Tribe/Recurrence/Meta.php:226
 msgid "Move all events in this series to the Trash"
 msgstr "Přesunout všechny akce této série do koše"
 
-#: src/Tribe/Recurrence_Meta.php:187
+#: src/Tribe/Recurrence/Meta.php:226
 msgid "Trash Series"
 msgstr "Odstranit sérii"
 
-#: src/Tribe/Recurrence_Meta.php:190
+#: src/Tribe/Recurrence/Meta.php:229
 msgid "Delete all events in this series permanently"
 msgstr "Nenávratně smazat všechny akce této série"
 
-#: src/Tribe/Recurrence_Meta.php:190
+#: src/Tribe/Recurrence/Meta.php:229
 msgid "Delete Series Permanently"
 msgstr "Smazat sérii"
 
-#: src/Tribe/Recurrence_Meta.php:196
+#: src/Tribe/Recurrence/Meta.php:235
 msgid "Restore all events in this series from the Trash"
 msgstr "Obnovit všechny akce této série z koše"
 
-#: src/Tribe/Recurrence_Meta.php:196
+#: src/Tribe/Recurrence/Meta.php:235
 msgid "Restore Series"
 msgstr "Obnovit sérii"
 
-#: src/Tribe/Recurrence_Meta.php:782
+#: src/Tribe/Recurrence/Meta.php:713 src/Tribe/Recurrence/Validator.php:120
 msgid "Monthly custom recurrences cannot have a dash set as the day to occur on."
 msgstr "Měsíční vlastní opakování nemůže mít nastavenou pomlčku jako volbu dne."
 
-#: src/Tribe/Recurrence_Meta.php:791
+#: src/Tribe/Recurrence/Meta.php:722 src/Tribe/Recurrence/Validator.php:130
 msgid "Yearly custom recurrences cannot have a dash set as the day to occur on."
 msgstr "Roční vlastní opakování nemůže mít nastavenou pomlčku jako volbu dne."
 
-#: src/Tribe/Recurrence_Meta.php:1388 src/Tribe/Recurrence_Meta.php:1855
+#: src/Tribe/Recurrence/Meta.php:1017 src/Tribe/Recurrence/Meta.php:1484
 #: src/admin-views/recurrence/months.php:19
 #: src/admin-views/recurrence/years.php:95
 msgid "Monday"
 msgstr "pondělí"
 
-#: src/Tribe/Recurrence_Meta.php:1389 src/Tribe/Recurrence_Meta.php:1856
+#: src/Tribe/Recurrence/Meta.php:1018 src/Tribe/Recurrence/Meta.php:1485
 #: src/admin-views/recurrence/months.php:20
 #: src/admin-views/recurrence/years.php:96
 msgid "Tuesday"
 msgstr "úterý"
 
-#: src/Tribe/Recurrence_Meta.php:1390 src/Tribe/Recurrence_Meta.php:1857
+#: src/Tribe/Recurrence/Meta.php:1019 src/Tribe/Recurrence/Meta.php:1486
 #: src/admin-views/recurrence/months.php:21
 #: src/admin-views/recurrence/years.php:97
 msgid "Wednesday"
 msgstr "středa"
 
-#: src/Tribe/Recurrence_Meta.php:1391 src/Tribe/Recurrence_Meta.php:1858
+#: src/Tribe/Recurrence/Meta.php:1020 src/Tribe/Recurrence/Meta.php:1487
 #: src/admin-views/recurrence/months.php:22
 #: src/admin-views/recurrence/years.php:98
 msgid "Thursday"
 msgstr "čtvrtek"
 
-#: src/Tribe/Recurrence_Meta.php:1392 src/Tribe/Recurrence_Meta.php:1859
+#: src/Tribe/Recurrence/Meta.php:1021 src/Tribe/Recurrence/Meta.php:1488
 #: src/admin-views/recurrence/months.php:23
 #: src/admin-views/recurrence/years.php:99
 msgid "Friday"
 msgstr "pátek"
 
-#: src/Tribe/Recurrence_Meta.php:1393 src/Tribe/Recurrence_Meta.php:1860
+#: src/Tribe/Recurrence/Meta.php:1022 src/Tribe/Recurrence/Meta.php:1489
 #: src/admin-views/recurrence/months.php:24
 #: src/admin-views/recurrence/years.php:100
 msgid "Saturday"
 msgstr "sobota"
 
-#: src/Tribe/Recurrence_Meta.php:1394 src/Tribe/Recurrence_Meta.php:1861
+#: src/Tribe/Recurrence/Meta.php:1023 src/Tribe/Recurrence/Meta.php:1490
 #: src/admin-views/recurrence/months.php:25
 #: src/admin-views/recurrence/years.php:101
 msgid "Sunday"
 msgstr "neděle"
 
-#: src/Tribe/Recurrence_Meta.php:1868
+#: src/Tribe/Recurrence/Meta.php:1497
 msgid ", and"
 msgstr " a"
 
-#: src/Tribe/Recurrence_Meta.php:1870
+#: src/Tribe/Recurrence/Meta.php:1499
 msgid "and"
 msgstr "a"
 
-#: src/Tribe/Recurrence_Meta.php:1872
+#: src/Tribe/Recurrence/Meta.php:1501
 msgid ","
 msgstr ","
 
-#: src/Tribe/Recurrence_Meta.php:1397 src/Tribe/Recurrence_Meta.php:1890
+#: src/Tribe/Recurrence/Meta.php:1026 src/Tribe/Recurrence/Meta.php:1519
 msgid "January"
 msgstr "leden"
 
-#: src/Tribe/Recurrence_Meta.php:1398 src/Tribe/Recurrence_Meta.php:1891
+#: src/Tribe/Recurrence/Meta.php:1027 src/Tribe/Recurrence/Meta.php:1520
 msgid "February"
 msgstr "únor"
 
-#: src/Tribe/Recurrence_Meta.php:1399 src/Tribe/Recurrence_Meta.php:1892
+#: src/Tribe/Recurrence/Meta.php:1028 src/Tribe/Recurrence/Meta.php:1521
 msgid "March"
 msgstr "březen"
 
-#: src/Tribe/Recurrence_Meta.php:1400 src/Tribe/Recurrence_Meta.php:1893
+#: src/Tribe/Recurrence/Meta.php:1029 src/Tribe/Recurrence/Meta.php:1522
 msgid "April"
 msgstr "duben"
 
-#: src/Tribe/Recurrence_Meta.php:1401 src/Tribe/Recurrence_Meta.php:1894
+#: src/Tribe/Recurrence/Meta.php:1030 src/Tribe/Recurrence/Meta.php:1523
 msgid "May"
 msgstr "květen"
 
-#: src/Tribe/Recurrence_Meta.php:1402 src/Tribe/Recurrence_Meta.php:1895
+#: src/Tribe/Recurrence/Meta.php:1031 src/Tribe/Recurrence/Meta.php:1524
 msgid "June"
 msgstr "červen"
 
-#: src/Tribe/Recurrence_Meta.php:1403 src/Tribe/Recurrence_Meta.php:1896
+#: src/Tribe/Recurrence/Meta.php:1032 src/Tribe/Recurrence/Meta.php:1525
 msgid "July"
 msgstr "červenec"
 
-#: src/Tribe/Recurrence_Meta.php:1404 src/Tribe/Recurrence_Meta.php:1897
+#: src/Tribe/Recurrence/Meta.php:1033 src/Tribe/Recurrence/Meta.php:1526
 msgid "August"
 msgstr "srpen"
 
-#: src/Tribe/Recurrence_Meta.php:1405 src/Tribe/Recurrence_Meta.php:1898
+#: src/Tribe/Recurrence/Meta.php:1034 src/Tribe/Recurrence/Meta.php:1527
 msgid "September"
 msgstr "září"
 
-#: src/Tribe/Recurrence_Meta.php:1406 src/Tribe/Recurrence_Meta.php:1899
+#: src/Tribe/Recurrence/Meta.php:1035 src/Tribe/Recurrence/Meta.php:1528
 msgid "October"
 msgstr "říjen"
 
-#: src/Tribe/Recurrence_Meta.php:1407 src/Tribe/Recurrence_Meta.php:1900
+#: src/Tribe/Recurrence/Meta.php:1036 src/Tribe/Recurrence/Meta.php:1529
 msgid "November"
 msgstr "listopad"
 
-#: src/Tribe/Recurrence_Meta.php:1408 src/Tribe/Recurrence_Meta.php:1901
+#: src/Tribe/Recurrence/Meta.php:1037 src/Tribe/Recurrence/Meta.php:1530
 msgid "December"
 msgstr "prosinec"
 
-#: src/Tribe/Recurrence_Meta.php:1908
+#: src/Tribe/Recurrence/Meta.php:1537
 msgid ", and "
 msgstr " a "
 
-#: src/Tribe/Recurrence_Meta.php:1910
+#: src/Tribe/Recurrence/Meta.php:1539
 msgid " and "
 msgstr " a "
 
-#: src/Tribe/Recurrence_Meta.php:1912
+#: src/Tribe/Recurrence/Meta.php:1541
 msgid ", "
 msgstr ", "
 
-#: src/Tribe/Recurrence_Meta.php:2039
+#: src/Tribe/Recurrence/Meta.php:1567
 msgid "Recurring event instances"
 msgstr "Instance opakující se akce"
 
-#: src/Tribe/Recurrence_Meta.php:2040
+#: src/Tribe/Recurrence/Meta.php:1568
 msgid "Show only the first instance of each recurring event (only affects list-style views)."
 msgstr "Zobrazit pouze první instanci z každé opakující se akce (ovlivňuje pouze zobrazení ve formě seznamu)."
 
-#: src/Tribe/Recurrence_Meta.php:2046
+#: src/Tribe/Recurrence/Meta.php:1574
 msgid "Front-end recurring event instances toggle"
 msgstr "Možnost rozbalení instancí opakující se akce na webu"
 
-#: src/Tribe/Recurrence_Meta.php:2047
+#: src/Tribe/Recurrence/Meta.php:1575
 msgid "Allow users to decide whether to show all instances of a recurring event."
 msgstr "Povolit uživatelům možnost, zda si chtějí zobrazit všechny instance opakující se akce."
 
-#: src/Tribe/Recurrence_Meta.php:2054
+#: src/Tribe/Recurrence/Meta.php:1582
 msgid "Clean up recurring events after"
 msgstr "Vyčistit opakující se akce po uplynutí"
 
-#: src/Tribe/Recurrence_Meta.php:2055
+#: src/Tribe/Recurrence/Meta.php:1583
 msgid "Automatically remove recurring event instances older than this"
 msgstr "Automaticky odstranit instance opakujících se akcí, které jsou starší než tato hodnota"
 
-#: src/Tribe/Recurrence_Meta.php:2062
+#: src/Tribe/Recurrence/Meta.php:1590
 msgid "Create recurring events in advance for"
 msgstr "Vytvářet opakující se akce na dobu"
 
-#: src/Tribe/Recurrence_Meta.php:2063
+#: src/Tribe/Recurrence/Meta.php:1591
 msgid "Recurring events will be created this far in advance"
 msgstr "Opakující se akce budou vytvářeny až takhle daleko dopředu"
 
-#: src/Tribe/Recurrence_Meta.php:2084
+#: src/Tribe/Recurrence/Meta.php:1612
 msgid " months"
 msgstr " měsíců"
 
-#: src/Tribe/Recurrence_Meta.php:2179
+#: src/Tribe/Recurrence/Admin_Notices.php:41
 msgid "You are currently editing all events in a recurring series."
 msgstr "Právě upravujete všechny opakující se akce v sérii."
 
-#: src/Tribe/Recurrence_Meta.php:2187
+#: src/Tribe/Recurrence/Admin_Notices.php:56
 msgid "%d instances of this event have been created through %s. <a href=\"%s\">Learn more.</a>"
 msgstr "%d instancí této akce bylo vytvořeno pomocí %s. <a href=\"%s\">Podrobnější informace.</a>"
 
-#: src/Tribe/Recurrence_Meta.php:2198
+#: src/Tribe/Recurrence/Scripts.php:37
 msgid ""
 "You are about to split this series in two.\n"
 "\n"
@@ -1224,7 +1273,7 @@ msgstr ""
 "\n"
 "Tato akce je nevratná."
 
-#: src/Tribe/Recurrence_Meta.php:2199
+#: src/Tribe/Recurrence/Scripts.php:38
 msgid ""
 "You are about to break this event out of its series.\n"
 "\n"
@@ -1238,28 +1287,28 @@ msgstr ""
 "\n"
 "Tato akce je nevratná."
 
-#: src/Tribe/Recurrence_Meta.php:2200
+#: src/Tribe/Recurrence/Scripts.php:39
 msgid "Are you sure you want to trash all occurrences of these events?"
 msgstr "Opravdu chcete odstranit všechny výskyty těchto akcí?"
 
-#: src/Tribe/Single_Event_Meta.php:162
+#: src/Tribe/Single_Event_Meta.php:146
 #: src/views/pro/modules/meta/additional-fields.php:18
 msgid "Other"
 msgstr "Ostatní"
 
-#: src/Tribe/Single_Event_Meta.php:189
+#: src/Tribe/Single_Event_Meta.php:173
 msgid "Recurrence Pattern:"
 msgstr "Schéma opakování:"
 
-#: src/Tribe/Templates/Map.php:92
+#: src/Tribe/Templates/Map.php:93
 msgid "No results were found for events in or near <strong>\"%s\"</strong>."
 msgstr "Nebyly nalezeny žádné akce poblíž místa <strong>\"%s\"</strong>."
 
-#: src/Tribe/Templates/Map.php:94 src/Tribe/Templates/Week.php:197
+#: src/Tribe/Templates/Map.php:95 src/Tribe/Templates/Week.php:197
 msgid "No matching events listed under %s. Please try viewing the full calendar for a complete list of events."
 msgstr "Nebyly nalezeny žádné akce v rubrice %s. Zkuste si prosím zobrazit úplný kalendář se seznamem všech akcí."
 
-#: src/Tribe/Templates/Map.php:96
+#: src/Tribe/Templates/Map.php:97
 msgid "There were no results found."
 msgstr "Nebyly nalezeny žádné záznamy."
 
@@ -1388,73 +1437,73 @@ msgid "Additional %s Fields"
 msgstr "Dodatečná pole %s"
 
 #: src/admin-views/event-recurrence.php:14
-#: src/admin-views/event-recurrence.php:86
+#: src/admin-views/event-recurrence.php:92
 msgid "event"
 msgstr "akce"
 
 #: src/admin-views/event-recurrence.php:14
-#: src/admin-views/event-recurrence.php:86
+#: src/admin-views/event-recurrence.php:92
 msgid "events"
 msgstr "akcí"
 
 #: src/admin-views/event-meta.php:27 src/admin-views/event-meta.php:43
-#: src/admin-views/event-recurrence.php:88
+#: src/admin-views/event-recurrence.php:94
 msgid "None"
 msgstr "Žádné"
 
-#: src/admin-views/event-recurrence.php:17
+#: src/admin-views/event-recurrence.php:18
 msgid "Every Day"
 msgstr "Každý den"
 
-#: src/admin-views/event-recurrence.php:18
+#: src/admin-views/event-recurrence.php:19
 msgid "Every Week"
 msgstr "Každý týden"
 
-#: src/admin-views/event-recurrence.php:19
+#: src/admin-views/event-recurrence.php:20
 msgid "Every Month"
 msgstr "Každý měsíc"
 
-#: src/admin-views/event-recurrence.php:20
+#: src/admin-views/event-recurrence.php:21
 msgid "Every Year"
 msgstr "Každý rok"
 
-#: src/admin-views/event-recurrence.php:21
+#: src/admin-views/event-recurrence.php:22
 msgid "Custom"
 msgstr "Vlastní"
 
-#: src/admin-views/event-recurrence.php:25
+#: src/admin-views/event-recurrence.php:27
 msgid "and will end"
 msgstr "a skončí"
 
-#: src/admin-views/event-recurrence.php:28
+#: src/admin-views/event-recurrence.php:30
 msgid "On"
 msgstr "dnem"
 
-#: src/admin-views/event-recurrence.php:29
+#: src/admin-views/event-recurrence.php:31
 msgid "After"
 msgstr "po uplynutí"
 
-#: src/admin-views/event-recurrence.php:30
+#: src/admin-views/event-recurrence.php:32
 msgid "Never"
 msgstr "nikdy"
 
-#: src/admin-views/event-recurrence.php:36
-#: src/admin-views/event-recurrence.php:57
-#: src/admin-views/event-recurrence.php:105
+#: src/admin-views/event-recurrence.php:42
+#: src/admin-views/event-recurrence.php:63
+#: src/admin-views/event-recurrence.php:111
 msgctxt "occurence count text"
 msgid "events"
 msgstr "akcí"
 
-#: src/admin-views/event-recurrence.php:39
+#: src/admin-views/event-recurrence.php:45
 msgid "You must select a recurrence end date"
 msgstr "Musíte vybrat datum, kdy se opakování ukončí"
 
-#: src/admin-views/event-recurrence.php:44
+#: src/admin-views/event-recurrence.php:50
 msgid "Frequency"
 msgstr "Četnost"
 
-#: src/admin-views/event-recurrence.php:47
-#: src/admin-views/event-recurrence.php:90
+#: src/admin-views/event-recurrence.php:53
+#: src/admin-views/event-recurrence.php:96
 msgid "Day(s)"
 msgstr "den (dny)"
 
@@ -1462,9 +1511,9 @@ msgstr "den (dny)"
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
-#: src/Tribe/Recurrence_Meta.php:1319 src/Tribe/Recurrence_Meta.php:1323
-#: src/admin-views/event-recurrence.php:47
-#: src/admin-views/event-recurrence.php:90
+#: src/Tribe/Recurrence/Strings.php:18 src/Tribe/Recurrence/Strings.php:22
+#: src/admin-views/event-recurrence.php:53
+#: src/admin-views/event-recurrence.php:96
 msgid "Daily"
 msgstr "denně"
 
@@ -1472,83 +1521,79 @@ msgstr "denně"
 msgid "To begin using Events Calendar PRO, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
 msgstr "Než začnete používat plugin Events Calendar PRO, nainstalujte si prosím aktuální verzi pluginu <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
 
-#: src/admin-views/event-recurrence.php:48
-#: src/admin-views/event-recurrence.php:91
+#: src/admin-views/event-recurrence.php:54
+#: src/admin-views/event-recurrence.php:97
 msgid "Week(s) on:"
 msgstr "týden (týdny) ve dnech:"
 
-#: src/Tribe/APM_Filters/APM_Filters.php:65
+#: src/Tribe/APM_Filters/APM_Filters.php:72
 msgid "Start Date"
 msgstr "Počáteční datum"
 
-#: src/admin-views/event-recurrence.php:48
-#: src/admin-views/event-recurrence.php:91
+#: src/admin-views/event-recurrence.php:54
+#: src/admin-views/event-recurrence.php:97
 msgid "Weekly"
 msgstr "týdně"
 
-#: src/Tribe/APM_Filters/APM_Filters.php:70
+#: src/Tribe/APM_Filters/APM_Filters.php:77
 msgid "End Date"
 msgstr "Koncové datum"
 
-#: src/admin-views/event-recurrence.php:49
-#: src/admin-views/event-recurrence.php:92
+#: src/admin-views/event-recurrence.php:55
+#: src/admin-views/event-recurrence.php:98
 msgid "Month(s) on the:"
 msgstr "měsíc(e) v den:"
 
-#: src/Tribe/APM_Filters/APM_Filters.php:75
+#: src/Tribe/APM_Filters/APM_Filters.php:82
 msgid "Event Cost"
 msgstr "Vstupné na akci"
 
-#: src/admin-views/event-recurrence.php:49
-#: src/admin-views/event-recurrence.php:92
+#: src/admin-views/event-recurrence.php:55
+#: src/admin-views/event-recurrence.php:98
 msgid "Monthly"
 msgstr "měsíčně"
 
-#: src/Tribe/APM_Filters/APM_Filters.php:80
+#: src/Tribe/APM_Filters/APM_Filters.php:87
 msgid "Event Cats"
 msgstr "Rubriky akce"
 
-#: src/admin-views/event-recurrence.php:50
-#: src/admin-views/event-recurrence.php:93
+#: src/admin-views/event-recurrence.php:56
+#: src/admin-views/event-recurrence.php:99
 msgid "Year(s) on:"
 msgstr "rok(y) v měsících:"
 
-#: src/Tribe/APM_Filters/APM_Filters.php:85
+#: src/Tribe/APM_Filters/APM_Filters.php:92
 msgid "Title"
 msgstr "Název"
 
-#: src/admin-views/event-recurrence.php:50
-#: src/admin-views/event-recurrence.php:93
+#: src/admin-views/event-recurrence.php:56
+#: src/admin-views/event-recurrence.php:99
 msgid "Yearly"
 msgstr "ročně"
 
-#: src/Tribe/APM_Filters/APM_Filters.php:90 src/Tribe/Recurrence_Meta.php:135
+#: src/Tribe/APM_Filters/APM_Filters.php:97 src/Tribe/Recurrence/Meta.php:174
 msgid "Recurring"
 msgstr "Opakující"
 
-#: src/admin-views/event-recurrence.php:53
+#: src/admin-views/event-recurrence.php:59
 msgid "Every"
 msgstr "Každý"
 
-#: src/Tribe/APM_Filters/APM_Filters.php:95
+#: src/Tribe/APM_Filters/APM_Filters.php:102
 msgid "Description"
 msgstr "Popis"
 
-#: src/admin-views/event-recurrence.php:58
-#: src/admin-views/event-recurrence.php:106
+#: src/admin-views/event-recurrence.php:64
+#: src/admin-views/event-recurrence.php:112
 msgid "Frequency of recurring event must be a number"
 msgstr "Četnost opakující akce musí být číslo"
-
-#: src/Tribe/APM_Filters/APM_Filters.php:141
-msgid "Pssst! Looking for the filters? They live in a separate plugin now | <a href=\"%s\">Download for free</a>| <a href=\"%s\">Dismiss</a>"
-msgstr "Pssst! Hledáte filtry? Ty se teď nachází v samostatném pluginu. | <a href=\"%s\">Ke stažení zdarma</a>| <a href=\"%s\">Zavřít</a>"
 
 #: src/admin-views/recurrence/weeks.php:4
 msgid "M"
 msgstr "Po"
 
-#: src/Tribe/APM_Filters/Date_Filter.php:13
-#: src/Tribe/APM_Filters/Title_Filter.php:15
+#: src/Tribe/APM_Filters/Date_Filter.php:11
+#: src/Tribe/APM_Filters/Title_Filter.php:13
 msgid "Is"
 msgstr "Je"
 
@@ -1556,8 +1601,8 @@ msgstr "Je"
 msgid "Tu"
 msgstr "Út"
 
-#: src/Tribe/APM_Filters/Date_Filter.php:14
-#: src/Tribe/APM_Filters/Title_Filter.php:16
+#: src/Tribe/APM_Filters/Date_Filter.php:12
+#: src/Tribe/APM_Filters/Title_Filter.php:14
 msgid "Is Not"
 msgstr "Není"
 
@@ -1565,7 +1610,7 @@ msgstr "Není"
 msgid "W"
 msgstr "St"
 
-#: src/Tribe/APM_Filters/Date_Filter.php:15
+#: src/Tribe/APM_Filters/Date_Filter.php:13
 msgid "On and After"
 msgstr "Po dni"
 
@@ -1573,7 +1618,7 @@ msgstr "Po dni"
 msgid "Th"
 msgstr "Čt"
 
-#: src/Tribe/APM_Filters/Date_Filter.php:16
+#: src/Tribe/APM_Filters/Date_Filter.php:14
 msgid "On and Before"
 msgstr "Před dnem"
 
@@ -1581,7 +1626,7 @@ msgstr "Před dnem"
 msgid "F"
 msgstr "Pá"
 
-#: src/Tribe/APM_Filters/Recur_Filter.php:16 src/Tribe/Recurrence_Meta.php:143
+#: src/Tribe/APM_Filters/Recur_Filter.php:15 src/Tribe/Recurrence/Meta.php:182
 msgid "Yes"
 msgstr "Ano"
 
@@ -1589,7 +1634,7 @@ msgstr "Ano"
 msgid "Sa"
 msgstr "So"
 
-#: src/Tribe/APM_Filters/Recur_Filter.php:17
+#: src/Tribe/APM_Filters/Recur_Filter.php:16
 msgid "No"
 msgstr "Ne"
 
@@ -1597,7 +1642,7 @@ msgstr "Ne"
 msgid "Su"
 msgstr "Ne"
 
-#: src/Tribe/APM_Filters/Title_Filter.php:14
+#: src/Tribe/APM_Filters/Title_Filter.php:12
 msgid "Search"
 msgstr "Hledat"
 
@@ -1624,7 +1669,7 @@ msgstr "Seznam akcí"
 msgid "Third"
 msgstr "třetí"
 
-#: src/Tribe/Advanced_List_Widget.php:116
+#: src/Tribe/Advanced_List_Widget.php:130
 msgid "Upcoming Events"
 msgstr "Nadcházející akce"
 
@@ -1675,15 +1720,15 @@ msgstr "Přidat další"
 msgid "Remove"
 msgstr "Odstranit"
 
-#: src/admin-views/event-recurrence.php:124
+#: src/admin-views/event-recurrence.php:130
 msgid "Recurrence Description:"
 msgstr "Popis opakování:"
 
-#: src/Tribe/Geo_Loc.php:103
+#: src/Tribe/Geo_Loc.php:111
 msgid "Distance"
 msgstr "Vzdálenost"
 
-#: src/Tribe/Geo_Loc.php:135
+#: src/Tribe/Geo_Loc.php:142
 msgid "Map view search distance limit"
 msgstr "Limit vzdálenosti pro hledání v mapovém zobrazení"
 
@@ -1692,7 +1737,7 @@ msgstr "Limit vzdálenosti pro hledání v mapovém zobrazení"
 msgid "No Default"
 msgstr "Není výchozí"
 
-#: src/Tribe/Geo_Loc.php:137
+#: src/Tribe/Geo_Loc.php:144
 msgid "Set the distance that the location search covers (find events within X distance units of location search input)."
 msgstr "Nastavte vzdálenost pro hledání místa (nalezne akce v dosahu X jednotek vzdálenosti od hledaného místa)."
 
@@ -1700,15 +1745,11 @@ msgstr "Nastavte vzdálenost pro hledání místa (nalezne akce v dosahu X jedno
 msgid "Select a State"
 msgstr "Vyberte stát"
 
-#: src/Tribe/Geo_Loc.php:144
-msgid "Map view distance unit"
-msgstr "Jednotka vzdálenosti mapového zobrazení"
-
 #: src/admin-views/tribe-options-defaults.php:39
 msgid "<p>Choose the default venue & organizer. Set default address information to save time when entering a new venue or organizer.</p><p>You can override these settings as you enter a new event.</p>"
 msgstr "<p>Vyberte výchozí místo konání a pořadatele. Pro úsporu času při zadávání nového místa nebo pořadatele si nastavte výchozí adresu.</p><p>Tyto údaje můžete kdykoli přepsat při zadávání nové akce.</p>"
 
-#: src/Tribe/Geo_Loc.php:150 src/Tribe/Geo_Loc_Filter.php:23
+#: src/Tribe/Geo_Loc.php:157 src/Tribe/Geo_Loc_Filter.php:23
 msgid "Miles"
 msgstr "Míle"
 
@@ -1716,11 +1757,11 @@ msgstr "Míle"
 msgid "Options"
 msgstr "Možnosti"
 
-#: src/Tribe/Geo_Loc.php:151 src/Tribe/Geo_Loc_Filter.php:26
+#: src/Tribe/Geo_Loc.php:158 src/Tribe/Geo_Loc_Filter.php:26
 msgid "Kilometers"
 msgstr "Kilometry"
 
-#: src/Tribe/Geo_Loc.php:157
+#: src/Tribe/Geo_Loc.php:164
 msgid "Fix geolocation data"
 msgstr "Opravit geolokační data"
 
@@ -1729,7 +1770,7 @@ msgstr "Opravit geolokační data"
 msgid "Organizer"
 msgstr "Pořadatel"
 
-#: src/Tribe/Geo_Loc.php:157
+#: src/Tribe/Geo_Loc.php:164
 msgid "You have %d venues for which we don't have geolocation data. We need to use the Google Maps API to get that information. Doing this may take a while (aprox. 1 minute for every 200 venues)."
 msgstr "U %d míst konání nejsou k dispozici geolokační informace. Pro jejich získání musíme použít Google Maps API. To může chvíli trvat (asi 1 minutu na každých 200 míst)."
 
@@ -1737,7 +1778,7 @@ msgstr "U %d míst konání nejsou k dispozici geolokační informace. Pro jejic
 msgid "Default organizer"
 msgstr "Výchozí pořadatel"
 
-#: src/Tribe/Geo_Loc.php:166
+#: src/Tribe/Geo_Loc.php:173
 msgid "Hide location search"
 msgstr "Skrýt hledání místa"
 
@@ -1745,7 +1786,7 @@ msgstr "Skrýt hledání místa"
 msgid "No saved organizers yet."
 msgstr "Zatím nebyl uložen žádný pořadatel."
 
-#: src/Tribe/Geo_Loc.php:167
+#: src/Tribe/Geo_Loc.php:174
 msgid "Removes location search field from the events bar on all views except for map view."
 msgstr "Odstraní pole pro hledání místa z lišty akcí u všech zobrazení kromě mapového."
 
@@ -1754,7 +1795,7 @@ msgstr "Odstraní pole pro hledání místa z lišty akcí u všech zobrazení k
 msgid "Venue"
 msgstr "Místo konání"
 
-#: src/Tribe/Geo_Loc.php:223
+#: src/Tribe/Geo_Loc.php:229
 msgid "Map"
 msgstr "Mapa"
 
@@ -1762,7 +1803,7 @@ msgstr "Mapa"
 msgid "Default venue"
 msgstr "Výchozí místo konání"
 
-#: src/Tribe/Geo_Loc.php:257
+#: src/Tribe/Geo_Loc.php:263
 msgid "Near"
 msgstr "Blízko"
 
@@ -1770,7 +1811,7 @@ msgstr "Blízko"
 msgid "No saved venues yet."
 msgstr "Zatím nebylo uloženo žádné místo."
 
-#: src/Tribe/Geo_Loc.php:258
+#: src/Tribe/Geo_Loc.php:264
 msgid "Location"
 msgstr "Místo"
 
@@ -1779,7 +1820,7 @@ msgstr "Místo"
 msgid "Address"
 msgstr "Adresa"
 
-#: src/Tribe/Geo_Loc.php:283
+#: src/Tribe/Geo_Loc.php:289
 msgid "Use latitude + longitude"
 msgstr "Použijte zeměpisnou šířku + délku"
 
@@ -1787,7 +1828,7 @@ msgstr "Použijte zeměpisnou šířku + délku"
 msgid "You can use this setting to set specific, individual defaults for any new Venue you create (these will not be used for your default venue)."
 msgstr "Pomocí tohoto nastavení si můžete určit individuální výchozí hodnoty pro nově vytvářená místa konání (tyto údaje se nepoužijí pro vaše výchozí místo)."
 
-#: src/Tribe/Geo_Loc.php:287
+#: src/Tribe/Geo_Loc.php:293
 msgid "Latitude"
 msgstr "Zeměpisná šířka"
 
@@ -1795,7 +1836,7 @@ msgstr "Zeměpisná šířka"
 msgid "Default address"
 msgstr "Výchozí adresa"
 
-#: src/Tribe/Geo_Loc.php:288
+#: src/Tribe/Geo_Loc.php:294
 msgid "Longitude"
 msgstr "Zeměpisná délka"
 
@@ -1803,7 +1844,7 @@ msgstr "Zeměpisná délka"
 msgid "Default city"
 msgstr "Výchozí město"
 
-#: src/Tribe/Geo_Loc.php:768
+#: src/Tribe/Geo_Loc.php:804
 msgid "Fix venues data"
 msgstr "Opravit data u míst konání"
 
@@ -1811,7 +1852,7 @@ msgstr "Opravit data u míst konání"
 msgid "Default state"
 msgstr "Výchozí stát"
 
-#: src/Tribe/Geo_Loc.php:813
+#: src/Tribe/Geo_Loc.php:848
 msgid "You have venues for which we don't have Geolocation information. <a href='%s'>Click here to generate it</a>."
 msgstr "U některých míst konání nejsou k dispozici geolokační informace. <a href='%s'>Klikněte zde pro jejich vytvoření</a>."
 
@@ -1819,7 +1860,7 @@ msgstr "U některých míst konání nejsou k dispozici geolokační informace. 
 msgid "Default province"
 msgstr "Výchozí kraj"
 
-#: src/Tribe/Geo_Loc.php:840
+#: src/Tribe/Geo_Loc.php:874
 msgid "Fixed geolocation data for %d venues"
 msgstr "Geolokační data byla opravena pro %d míst"
 
@@ -1864,7 +1905,7 @@ msgstr "Přepínače"
 msgid "Title:"
 msgstr "Název:"
 
-#: src/Tribe/Main.php:58
+#: src/Tribe/Main.php:61
 msgid "week"
 msgstr "týden"
 
@@ -1874,7 +1915,7 @@ msgstr "týden"
 msgid "Number of events to show:"
 msgstr "Počet zobrazených akcí:"
 
-#: src/Tribe/Main.php:59
+#: src/Tribe/Main.php:62
 msgid "photo"
 msgstr "foto"
 
@@ -1886,7 +1927,7 @@ msgstr "Zobrazit:"
 msgid "City"
 msgstr "Město"
 
-#: src/functions/template-tags/widgets.php:225
+#: src/functions/template-tags/widgets.php:234
 msgid "%s for week of %s"
 msgstr "%s na týden od %s"
 
@@ -1894,7 +1935,7 @@ msgstr "%s na týden od %s"
 msgid "State (US) Or Province (Int)"
 msgstr "Kraj"
 
-#: src/Tribe/Main.php:592 src/admin-views/tribe-options-defaults.php:35
+#: src/Tribe/Main.php:597 src/admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
 msgstr "Výchozí obsah"
 
