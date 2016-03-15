@@ -311,7 +311,6 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.1] 2016-03-15 =
 
-* Feature - Created a shortcode for displaying event details: [tribe:event-details]
 * Feature - Added a tribe_get_venue_website_url() function for fetching Venue website URLs (props to fervorcreative in our forums for this request!)
 * Performance - Lazy-load venue and organizer selector data
 * Tweak - Allow iCal filenames to be filtered via a new filter: tribe_events_ical_feed_filename
