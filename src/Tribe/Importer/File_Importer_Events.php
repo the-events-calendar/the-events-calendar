@@ -151,6 +151,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventCurrencySymbol'   => $this->get_value_by_key( $record, 'event_currency_symbol' ),
 			'EventCurrencyPosition' => $this->get_value_by_key( $record, 'event_currency_position' ),
 			'FeaturedImage'         => $featured_image,
+			'EventTimezone'         => $this->get_timezone( $this->get_value_by_key( $record, 'event_timezone' ) ),
 		);
 
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {
@@ -227,6 +228,14 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		return $term_ids;
+	}
+
+	private function get_timezone( $timezone_candidate ) {
+		if ( Tribe__Timezones::is_utc_offset( $timezone_candidate ) ) {
+			return $timezone_candidate;
+		}
+
+		return Tribe__Timezones::get_timezone( $timezone_candidate, false ) ? $timezone_candidate : false;
 	}
 
 }
