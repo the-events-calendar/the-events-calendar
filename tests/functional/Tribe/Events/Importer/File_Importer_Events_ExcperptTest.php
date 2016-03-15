@@ -1,7 +1,7 @@
 <?php
 namespace Tribe\Events\Importer;
 
-require_once 'File_Importer_EventsTest.php';
+require_once 'file_importer_eventstest.php';
 
 use Handlebars\Handlebars;
 use Handlebars\Loader\FilesystemLoader;
