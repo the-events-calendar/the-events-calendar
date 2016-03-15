@@ -4,8 +4,8 @@ Contributors: ModernTribe, barry.hughes, bordoni, borkweb, brianjessee, brook-tr
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.4
-Stable tag: 4.1beta1
+Tested up to: 4.4.2
+Stable tag: 4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,11 +41,11 @@ Just getting started? You'll want to watch and read through the <a href="http://
 Remember, to use Events Calendar PRO you need to also be running The Events Calendar. You'll need to follow these steps for both plugins, starting with The Events Calendar.
 
 1. From the dashboard of your site, navigate to Plugins --> Add New.
-1. Select the Upload option and hit "Choose File."
-1. When the popup appears select the the-events-calendar-x.x.zip file or events-calendar-pro-x.x.zip file from your desktop. (The 'x.x' will change depending on the current version number).
-1. Follow the on-screen instructions and wait as the upload completes.
-1. When it's finished, activate the plugin via the prompt. A message will show confirming activation was successful. A link to access the calendar directly on the frontend will be presented here as well.
-1. For access to new updates, make sure you have added your valid License Key under Events --> Settings --> Licenses. You can find your license key on your tri.be account at http://m.tri.be/3u.
+2. Select the Upload option and hit "Choose File."
+3. When the popup appears select the the-events-calendar-x.x.zip file or events-calendar-pro-x.x.zip file from your desktop. (The 'x.x' will change depending on the current version number).
+4. Follow the on-screen instructions and wait as the upload completes.
+5. When it's finished, activate the plugin via the prompt. A message will show confirming activation was successful. A link to access the calendar directly on the frontend will be presented here as well.
+6. For access to new updates, make sure you have added your valid License Key under Events --> Settings --> Licenses. You can find your license key on your tri.be account at http://m.tri.be/3u.
 
 That's it! Just configure your settings as you see fit, and you're on your way to creating events in style.
 
@@ -225,10 +225,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.1] unreleased =
+= [4.1] 2016-03-15 =
 
-* Feature - Added a new "Date" recurrence rule that allows you to set an event to recurr on a single (or any number of) individually specified dates
-* Tweak - Added support for manual timezone offests in recurrence exclusion rules
+* Feature - Added a new "Date" recurrence rule that allows you to set an event to recur on a single (or any number of) individually specified dates (hat-tip to @tonydemarco for the idea!)
+* Tweak - Added support for manual timezone offsets in recurrence exclusion rules
 * Tweak - Improved the support of selected query fields when the "Recurring event instances" checkbox in Events > Settings is checked
 * Tweak - Show an error message when the Google Maps API query limit has been reached
 * Tweak - Improved the handling of addresses in JSON-LD
@@ -237,9 +237,9 @@ Our Premium Plugins:
 * Tweak - Improved the structure of hierarchical taxonomy terms in List Widget queries (props to Harvard Law for this pull request!)
 * Tweak - Simplified the APM Venue and Organizer filters when the Events list is loaded (props to Jake Kantzer for the pull request!)
 * Fix - Fixed invalid class name when throwing Tribe notices in the Map template
-* Fix - Resolved issue where the Map View slug was not translatable
+* Fix - Resolved issue where the Map View slug was not translatable (three cheers for @oheinrich giving us a heads up on this!)
 * Fix - Fixed bug where the wrong class was referenced when setting notices in Map View
-* Fix - Improved compatibiliy with ACF on the Edit Event page
+* Fix - Improved compatibility with ACF on the Edit Event page
 
 = [4.0.7] 2016-03-02 =
 
@@ -257,7 +257,7 @@ Our Premium Plugins:
 * Fix - Organizer and Venue URL now respect UTF-8 characters
 * Fix - All of our Permalinks will now allow translations with non-alphanumeric characters
 * Fix - Fixing Fatals on bad Debug Classes for Map View
-* Tweak - "/all" page on Recurring events will be recoginized as a `is_archive` template
+* Tweak - "/all" page on Recurring events will be recognized as a `is_archive` template
 
 = [4.0.5] 2016-01-25 =
 
@@ -276,7 +276,7 @@ Our Premium Plugins:
 
 * Tweak - Avoid notice level errors when advanced events list widget settings are saved (Thank you Johan for the report!)
 * Tweak - Simplify default values logic to ensure that default values are returned regardless of post type (Thank you Karly!)
-* Fix - Fixed bug where recurrence excluses were not always respected (Cheers to inhouse for the help!)
+* Fix - Fixed bug where recurrence exclusions were not always respected (Cheers to inhouse for the help!)
 * Fix - Ensure venue and organizer URLs can be localized even with non-Roman alphabets (Thanks for the report Andreas!)
 * Fix - Ensure the current default venue fields are reflected in the relevant settings screen (Thank you Carly for highlighting this!)
 * Fix - Resolved issue where new recurring events were not targetable by the Recurring APM filter (Props to terrizsolo for the help!)
@@ -305,7 +305,7 @@ Our Premium Plugins:
 * Feature - Add support for an iCal export link for all events in a series of recurring events via: tribe_get_recurrence_ical_link()
 * Tweak - Major tweaks to support the newly genericized tribe-common libraries
 * Tweak - Deprecate old JS event names in favor of a new JS event naming standard. Example: deprecated tribe_ev_runAjax in favor of run-ajax.tribe
-* Tweak - Altered the storage of selected multichoice values for custom fields so they can be queried more effectively
+* Tweak - Altered the storage of selected multi-choice values for custom fields so they can be queried more effectively
 * Tweak - Add JSON-LD markup to single venus and organizers
 * Tweak - Only pre-populate address data for venues when the venue metabox appears on the venue post editor - NOT the event post editor
 * Tweak - Simplify the machine-generated recurrence rule descriptions for simple rules (Thank you jberg1 for the help!)

@@ -46,8 +46,8 @@
 			 */
 			public $widget_wrappers;
 
-			const REQUIRED_TEC_VERSION = '4.1beta1';
-			const VERSION = '4.1beta1';
+			const REQUIRED_TEC_VERSION = '4.1';
+			const VERSION = '4.1';
 
 
 			private function __construct() {
