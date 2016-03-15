@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 } ?>
 
-<div id="tribe-events-content" class="tribe-events-list">
+<div id="tribe-events-content" class="tribe-events-condensed-list">
 
 	<!-- List Title -->
 	<?php do_action( 'tribe_events_before_the_title' ); ?>
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<!-- Header Navigation -->
 		<?php do_action( 'tribe_events_before_header_nav' ); ?>
-		<?php tribe_get_template_part( 'list/nav', 'header' ); ?>
+		<?php tribe_get_template_part( 'list-condensed/nav', 'header' ); ?>
 		<?php do_action( 'tribe_events_after_header_nav' ); ?>
 
 	</div>
@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<!-- Events Loop -->
 	<?php if ( have_posts() ) : ?>
 		<?php do_action( 'tribe_events_before_loop' ); ?>
-		<?php tribe_get_template_part( 'list/loop' ) ?>
+		<?php tribe_get_template_part( 'list-condensed/loop' ) ?>
 		<?php do_action( 'tribe_events_after_loop' ); ?>
 	<?php endif; ?>
 
@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<!-- Footer Navigation -->
 		<?php do_action( 'tribe_events_before_footer_nav' ); ?>
-		<?php tribe_get_template_part( 'list/nav', 'footer' ); ?>
+		<?php tribe_get_template_part( 'list-condensed/nav', 'footer' ); ?>
 		<?php do_action( 'tribe_events_after_footer_nav' ); ?>
 
 	</div>

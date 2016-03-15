@@ -21,7 +21,7 @@ do_action( 'tribe_events_before_template' );
 <?php tribe_get_template_part( 'modules/bar' ); ?>
 
 	<!-- Main Events Content -->
-<?php tribe_get_template_part( 'list/content' ); ?>
+<?php tribe_get_template_part( 'list-condensed/content' ); ?>
 
 	<div class="tribe-clear"></div>
 
