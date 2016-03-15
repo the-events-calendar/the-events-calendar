@@ -2058,7 +2058,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'prevText'        => esc_html__( 'Prev', 'the-events-calendar' ),
 				'currentText'     => esc_html__( 'Today', 'the-events-calendar' ),
 				'closeText'       => esc_html__( 'Done', 'the-events-calendar' ),
-				'ajaxurl'         => esc_url_raw( admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) ),
+				'ajaxurl'         => esc_url_raw( admin_url( 'admin-ajax.php', ( is_ssl() || FORCE_SSL_ADMIN ? 'https' : 'http' ) ) ),
 			);
 
 			return $bits;
