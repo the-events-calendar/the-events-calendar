@@ -421,7 +421,8 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 	 */
 	public static function abbr( $date, $timezone_string ) {
 		try {
-			return date_create( $date, new DateTimeZone( $timezone_string ) )->format( 'T' );
+			$tz_date = date_create( $date, new DateTimeZone( $timezone_string ) );
+			return $tz_date->format( 'T' );
 		}
 		catch ( Exception $e ) {
 			return '';

@@ -2,64 +2,169 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-12-10 22:11:03+0000\n"
+"PO-Revision-Date: 2016-03-15 03:49:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: GlotPress/1.0-alpha-1100\n"
+"X-Generator: GlotPress/1.1.0-alpha\n"
 "Project-Id-Version: Stable (latest release)\n"
 
-#: vendor/tickets/src/admin-views/list.php:103
-msgid " (%1$d %2$s)"
+#: src/Tribe/Importer/Column_Mapper.php:69
+msgid "Event Featured Image"
+msgstr "Náhledový obrázek akce"
+
+#: src/Tribe/Importer/Column_Mapper.php:84
+msgid "Venue Featured Image"
+msgstr "Náhledový obrázek místa konání"
+
+#: src/Tribe/Importer/Column_Mapper.php:94
+msgid "Organizer Featured Image"
+msgstr "Náhledový obrázek pořadatele"
+
+#: src/Tribe/Main.php:2834
+msgid " (View Full %1$s Description Here: %2$s)"
+msgstr " (úplný popis %1$s najdete zde: %2$s)"
+
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:78
+msgid "No notable changes detected"
+msgstr "Nebyly zjištěny žádné významné změny"
+
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:82
+msgid "Templates introduced or updated with this release (%s):"
+msgstr "Nové nebo aktualizované šablony v této verzi (%s):"
+
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:92
+msgid "Existing theme overrides that may need revision:"
+msgstr "Stávající upravené šablony, které by měly být zrevidovány:"
+
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:96
+msgid "version data missing from override"
+msgstr "chybí údaje o verzi"
+
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:97
+msgid "based on %s version"
+msgstr "založeno na verzi %s"
+
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:113
+msgid "No notable template changes detected."
+msgstr "Nebyly zjištěny žádné významné změny v šablonách."
+
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:115
+msgid "Information about recent template changes and potentially impacted template overrides is provided below."
+msgstr "Zde najdete přehled posledních změn v šablonách a také přehled vámi upravených šablon, které mohou být těmito změnami ovlivněny."
+
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:37
+msgid "Recent Template Changes"
+msgstr "Poslední změny v šablonách"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:174
+msgid "Reserved by:"
+msgstr "Rezervoval:"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:174
+msgid "Purchased by:"
+msgstr "Zakoupil:"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:238
+msgid "View order"
+msgstr "Zobrazit objednávku"
+
+#: vendor/tickets/src/Tribe/Metabox.php:87
+msgid "It looks like you have modified your global stock settings but have not saved or updated the post."
 msgstr ""
 
-#: vendor/tickets/src/admin-views/list.php:104
-msgid "unit cancelled"
-msgid_plural "units cancelled"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: vendor/tickets/src/admin-views/list.php:107
-msgid "Sold %1$d of %2$d%3$s"
+#: vendor/tickets/src/Tribe/Tickets.php:807
+msgid "Use global stock"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:43
+#: vendor/tickets/src/Tribe/Tickets.php:808
+msgid "Use global stock but cap sales"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Tickets.php:809
+msgid "Independent (do not use global stock)"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/attendees.php:98
+msgid "Deleted:"
+msgstr "Smazáno:"
+
+#: vendor/tickets/src/admin-views/meta-box.php:69
+msgid "Enable global stock"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/meta-box.php:79
+msgid "Global stock level"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/meta-box.php:85
+msgid "(%s sold)"
+msgid_plural "(%s sold)"
+msgstr[0] "(%s prodaná)"
+msgstr[1] "(%s prodané)"
+msgstr[2] "(%s prodaných)"
+
+#: vendor/tickets/src/template-tags/tickets.php:221
+msgid "global inventory"
+msgstr ""
+
+#: vendor/tickets/src/template-tags/tickets.php:231
+msgctxt "ticket stock message (cancelled stock)"
+msgid " cancelled: %1$d"
+msgstr " stornováno: %1$d"
+
+#: vendor/tickets/src/template-tags/tickets.php:236
+msgid " pending: %1$d"
+msgstr " čeká na vyřízení: %1$d"
+
+#: vendor/tickets/src/template-tags/tickets.php:241
+msgid "Sold %1$d (units remaining: %2$s%3$s%4$s)"
+msgstr "Prodáno %1$d (zbývá: %2$s%3$s%4$s)"
+
+#: vendor/tickets/src/views/tickets/rsvp.php:25
+msgid "Please fill in the RSVP confirmation name and email fields."
+msgstr "Zadejte prosím jméno a emailovou adresu pro potvrzení účasti."
+
+#: vendor/tickets/src/views/tickets/rsvp.php:90
+msgid "Send RSVP confirmation to:"
+msgstr "Odeslat potvrzení účasti:"
+
+#: vendor/tickets/src/admin-views/attendees.php:44
 msgid "Post Type:"
 msgstr "Typ příspěvku:"
 
-#: vendor/tickets/src/admin-views/attendees.php:26
-msgid "Edit Event"
-msgstr "Úprava události"
-
 #: vendor/tickets/src/admin-views/attendees.php:27
+msgid "Edit Event"
+msgstr "Upravit akci"
+
+#: vendor/tickets/src/admin-views/attendees.php:28
 msgid "See Event Page"
-msgstr ""
+msgstr "Zobrazit stránku akce"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:64
 msgid "Edit Venue"
-msgstr "Upravit místo zápasu"
+msgstr "Upravit místo konání"
 
-#: vendor/tickets/src/admin-views/attendees.php:58
+#: vendor/tickets/src/admin-views/attendees.php:59
 msgid "Sales by Ticket"
-msgstr ""
+msgstr "Prodeje dle vstupenky"
 
-#: vendor/tickets/src/admin-views/attendees.php:64
+#: vendor/tickets/src/admin-views/attendees.php:65
 msgid "Edit Ticket"
-msgstr ""
+msgstr "Upravit vstupenku"
 
-#: vendor/tickets/src/admin-views/attendees.php:75
+#: vendor/tickets/src/admin-views/attendees.php:76
 msgid "Total Sold:"
-msgstr ""
+msgstr "Celkem prodáno:"
 
-#: vendor/tickets/src/admin-views/meta-box.php:160
+#: vendor/tickets/src/admin-views/meta-box.php:199
 msgid "When will ticket sales occur?"
-msgstr ""
+msgstr "Kdy nastane prodej vstupenek?"
 
-#: vendor/tickets/src/admin-views/meta-box.php:164
+#: vendor/tickets/src/admin-views/meta-box.php:203
 msgid "If you don't set a start/end date for sales, tickets will be available from now until the event ends."
-msgstr ""
+msgstr "Pokud nenastavíte začátek a konec prodeje, budou vstupenky k dispozici od této chvíle až do ukončení akce."
 
 #: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:2
 msgid "Stock:"
@@ -67,588 +172,585 @@ msgstr "Skladem:"
 
 #: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:6
 msgid "(Total available # of this ticket type. Once they're gone, ticket type is sold out.)"
-msgstr ""
+msgstr "(Celkový počet vstupenek tohoto typu k dispozici. Jakmile jsou pryč, tento typ je vyprodán.)"
 
 #: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:16
 msgid "Selling tickets for recurring events"
-msgstr ""
+msgstr "Prodej vstupenek na opakující se akce"
 
 #: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:20
 msgid "Currently, Tickets will only show up on the frontend once per full event. For PRO users this means the same ticket will appear across all events in the series. Please configure your events accordingly."
-msgstr ""
+msgstr "Momentálně se vstupenky z Tickets zobrazí na webu pouze jednou pro celou akci. Pro uživatele PRO verze to znamená, že stejná vstupenka se zobrazí u všech opakujících se akcí ze stejné série. Nastavte si prosím své akce odpovídajícím způsobem."
 
 #: vendor/tickets/src/admin-views/tribe-options-tickets.php:41
 msgid "Ticket Settings"
-msgstr ""
+msgstr "Nastavení pro vstupenky"
 
 #: vendor/tickets/src/admin-views/tribe-options-tickets.php:45
 msgid "Post types that can have tickets"
-msgstr ""
+msgstr "Typy příspěvků, které mohou mít vstupenky"
 
-#: vendor/tickets/src/template-tags/tickets.php:212
-msgid "Sold all %1$d %2$s"
-msgstr ""
-
-#: vendor/tickets/src/views/tickets/rsvp.php:9
+#: vendor/tickets/src/views/tickets/rsvp.php:11
 msgid "RSVP"
-msgstr "Přihláška"
+msgstr "Potvrzení účasti"
 
-#: vendor/tickets/src/views/tickets/rsvp.php:55
+#: vendor/tickets/src/views/tickets/rsvp.php:54
 msgid "%1$s out of %2$s available"
-msgstr ""
+msgstr "%1$s z celkem %2$s k dispozici"
 
-#: vendor/tickets/src/views/tickets/rsvp.php:63
+#: vendor/tickets/src/views/tickets/rsvp.php:62
 msgid "Out of stock!"
-msgstr ""
+msgstr "Není skladem!"
 
-#: vendor/tickets/src/views/tickets/rsvp.php:86
-msgid "Full Name:"
-msgstr ""
+#: vendor/tickets/src/views/tickets/rsvp.php:102
+msgid "Full Name"
+msgstr "Celé jméno"
 
-#: vendor/tickets/src/views/tickets/rsvp.php:105
+#: vendor/tickets/src/views/tickets/rsvp.php:121
 msgid "Confirm RSVP"
-msgstr ""
+msgstr "Potvrdit účast"
 
-#: vendor/tickets/src/Tribe/Main.php:284
+#: vendor/tickets/src/Tribe/Main.php:301
 msgid "Looking for more immediate support? We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
-msgstr ""
+msgstr "Potřebujete okamžitou pomoc? Nabízíme %1$s při zakoupení některého z našich prémiových pluginů (jako např. %2$s). Získejte licenci a můžete očekávat odpověď na své dotazy během 24-48 hodin v pracovní dny."
 
-#: vendor/tickets/src/Tribe/Main.php:287
+#: vendor/tickets/src/Tribe/Main.php:304
 msgid "Already have Events Tickets Plus? You can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
-msgstr ""
+msgstr "Už máte Events Tickets Plus? Můžete %s v našem prémiovém fóru podpory. Náš tým podpory sleduje toto fórum a odpoví na vaše dotazy během 24-48 hodin (v pracovní dny)."
 
 #: vendor/tickets/src/Tribe/RSVP.php:180
 msgctxt "Attendee number"
 msgid "Attendee %1$s"
-msgstr ""
+msgstr "Účastník %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:349
+#: vendor/tickets/src/Tribe/RSVP.php:378
 msgid "Your tickets from %s"
-msgstr ""
+msgstr "Vaše vstupenky z webu %s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:552
+#: vendor/tickets/src/Tribe/RSVP.php:608
 msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
-msgstr ""
+msgstr "Vaše potvrzení účasti bylo přijato. Pro kontrolu se podívejte do své emailové schránky."
 
-#: vendor/tickets/src/Tribe/RSVP.php:558
+#: vendor/tickets/src/Tribe/RSVP.php:614
 msgid "You can't RSVP more than the total remaining tickets."
-msgstr ""
+msgstr "Nemůžete potvrdit účast pro více než kolik je k dispozici zbývajících vstupenek."
 
-#: vendor/tickets/src/Tribe/RSVP.php:563
+#: vendor/tickets/src/Tribe/RSVP.php:619
 msgid "In order to RSVP, you must enter your name and a valid email address."
-msgstr ""
+msgstr "Pro potvrzení účasti musíte zadat své jméno a platnou emailovou adresu."
 
-#: vendor/tickets/src/Tribe/RSVP.php:684
+#: vendor/tickets/src/Tribe/RSVP.php:740
 msgid "(deleted)"
-msgstr ""
+msgstr "(smazáno)"
 
-#: vendor/tickets/src/Tribe/RSVP.php:863
+#: vendor/tickets/src/Tribe/RSVP.php:920
 msgid "Return to the %1$sAttendees Report%2$s."
-msgstr ""
+msgstr "Zpět na %1$spřehled účastníků%2$s."
 
-#: vendor/tickets/src/Tribe/RSVP.php:870
+#: vendor/tickets/src/Tribe/RSVP.php:927
 msgid "Post updated. %1$s"
-msgstr ""
+msgstr "Příspěvek byl aktualizován. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:874
+#: vendor/tickets/src/Tribe/RSVP.php:931
 msgid "Post published. %1$s"
-msgstr ""
+msgstr "Příspěvek byl publikován. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:877
+#: vendor/tickets/src/Tribe/RSVP.php:934
 msgid "Post submitted."
-msgstr ""
+msgstr "Příspěvek byl odeslán ke schválení."
 
-#: vendor/tickets/src/Tribe/RSVP.php:878
+#: vendor/tickets/src/Tribe/RSVP.php:935
 msgid "Post scheduled."
-msgstr ""
+msgstr "Příspěvek bude automaticky publikován."
 
-#: vendor/tickets/src/Tribe/RSVP.php:879
+#: vendor/tickets/src/Tribe/RSVP.php:936
 msgid "Post draft updated."
-msgstr ""
+msgstr "Koncept příspěvku byl uložen."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:328
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:326
 msgid "Cheatin Huh?"
-msgstr ""
+msgstr "Co zkúšáš, jak zkúšáš?"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:334
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:332
 msgid "Invalid Event ID"
-msgstr ""
+msgstr "Neplatné ID akce"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:340
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:338
 msgid "Empty user and email"
-msgstr ""
+msgstr "Nebylo zadáno uživatelské jméno a emailová adresa"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:352
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:350
 msgid "Invalid Email"
-msgstr ""
+msgstr "Neplatná emailová adresa"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:358
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:374
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:356
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:372
 msgid "Invalid User ID"
 msgstr "Neplatné ID uživatele."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:395
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:393
 msgid "Error when sending the email"
-msgstr ""
+msgstr "Došlo k chybě při odesílání emailu"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:400
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:398
 msgid "Email sent successfully!"
-msgstr ""
+msgstr "Email byl úspěšně odeslán!"
 
-#: vendor/tickets/src/admin-views/attendees-email.php:42
+#: vendor/tickets/src/admin-views/attendees-email.php:43
 msgid "Send Email"
 msgstr "Poslat email"
 
-#: src/io/csv/admin-views/result.php:26
+#: src/io/csv/admin-views/result.php:25
 msgid "%1$s%2$s%3$sInserted:%4$s A new item was inserted successfully. %5$s%2$s%3$sUpdated:%4$s An item was found with the same name and/or start date. The existing item was updated with the new value from the file.%5$s%2$s%3$sSkipped:%4$s A row was found in the CSV file that could not be imported. Please see below for the invalid rows.%5$s%6$s"
-msgstr ""
+msgstr "%1$s%2$s%3$sVloženo:%4$s Nová položka byla úspěšně vložena. %5$s%2$s%3$sAktualizováno:%4$s Byla nalezena položka se stejným jménem anebo počátečním datem. Existující položka byla aktualizována novou hodnotou ze souboru.%5$s%2$s%3$sPřeskočeno:%4$s V CSV souboru byl nalezen řádek, který nemohl být importován. Zkontrolujte prosím níže uvedené problémové řádky.%5$s%6$s"
 
 #: src/views/list/nav.php:25
 msgid "Previous %s"
-msgstr ""
+msgstr "Předchozí %s"
 
 #: src/views/list/nav.php:32
 msgid "Next %s"
-msgstr ""
+msgstr "Další %s"
 
-#: vendor/tickets/src/Tribe/Main.php:141
+#: vendor/tickets/src/Tribe/Main.php:145
 msgid "When The Events Calendar and Event Tickets are both activated, The Events Calendar must be running version %1$s or greater. Please %2$supdate now.%3$s"
-msgstr ""
+msgstr "Když jsou pluginy The Events Calendar a Event Tickets aktivovány oba současně, plugin The Events Calendar musí být ve verzi %1$s nebo vyšší. Proveďte prosím jeho %2$s aktualizaci.%3$s"
 
-#: vendor/tickets/src/Tribe/Main.php:237
+#: vendor/tickets/src/Tribe/Main.php:254
 msgid "Support for Event Tickets"
-msgstr ""
+msgstr "Podpora pro Event Tickets"
 
-#: vendor/tickets/src/Tribe/Main.php:242
+#: vendor/tickets/src/Tribe/Main.php:259
 msgid "Customizing Event Tickets"
-msgstr ""
+msgstr "Přizpůsobení pluginu Event Tickets"
 
-#: vendor/tickets/src/Tribe/Main.php:261
+#: vendor/tickets/src/Tribe/Main.php:278
 msgid "We are committed to helping you sell tickets for your event. Check out our handy %s to get started."
-msgstr ""
+msgstr "Chceme vám pomoci při prodeji vstupenek na vaše akce. Pro začátek by se vám mohla hodit naše %s."
 
-#: vendor/tickets/src/Tribe/Main.php:283
+#: vendor/tickets/src/Tribe/Main.php:300
 msgid "Events Tickets Plus"
-msgstr ""
+msgstr "Events Tickets Plus"
 
-#: src/Tribe/Main.php:648 vendor/tickets/src/Tribe/Main.php:292
+#: src/Tribe/Main.php:648 vendor/tickets/src/Tribe/Main.php:309
 msgid "If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
-msgstr ""
+msgstr "Pokud máte platnou licenci pro některý z našich placených pluginů, můžete %s v našem prémiovém fóru podpory. Náš tým podpory sleduje toto fórum a odpoví na vaše dotazy během 24-48 hodin (v pracovní dny)."
 
 #: src/Tribe/Main.php:1095
 msgid "It appears as if the tribe-common libraries cannot be found! The directory should be in the \"common/\" directory in the events calendar plugin."
-msgstr ""
+msgstr "Vypadá to, že se nepodařilo nalézt knihovny tribe-common! Složka by se měla nacházet v podadresáři \"common/\" pluginu pro kalendář akcí."
 
 #: src/Tribe/Main.php:1543
 msgid "%1$s updated. %2$sView %3$s"
-msgstr ""
+msgstr "%1$s byla aktualizována. %2$sZobrazit stránku %3$s"
 
 #: src/Tribe/Main.php:1554
 msgid "Event published. %1$sView %2$s"
-msgstr ""
+msgstr "Akce byla publikována. %1$sZobrazit %2$s"
 
 #: src/Tribe/Main.php:1560
 msgid "%1$s submitted. %2$sPreview %3$s"
-msgstr ""
+msgstr "%1$s byla odeslána ke schválení. %2$sZobrazit náhled %3$s"
 
 #: src/Tribe/Main.php:1566
 msgid "%1$s scheduled for: %2$s. %3$sPreview %4$s"
-msgstr ""
+msgstr "%1$s bude automaticky publikována: %2$s. %3$sZobrazit náhled %4$s"
 
 #: src/Tribe/Main.php:1575
 msgid "%1$s draft updated. %2$sPreview %3$s"
-msgstr ""
+msgstr "Koncept %1$s byl uložen. %2$sZobrazit náhled %3$s"
 
 #: src/Tribe/Main.php:1594 src/Tribe/Main.php:1614
 msgid "%1$s scheduled for: %2$s."
-msgstr ""
+msgstr "%1$s – bude automaticky publikováno: %2$s."
 
 #: src/Tribe/Main.php:1703
 msgid "Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results."
-msgstr ""
+msgstr "Pokud nezadáte žádné místo, vaše akce se zobrazí ve výsledcích vyhledávání bez doplňujících údajů %sGoogle Rich Snippet%s."
 
-#: src/Tribe/Main.php:4222
+#: src/Tribe/Main.php:4181
 msgid "Check out the %savailable add-ons%s."
-msgstr ""
+msgstr "Podívejte se na %sdostupné doplňky%s."
 
 #: src/Tribe/Template/Day.php:136
 msgid "No %1$s scheduled for %2$s. Please try another day."
-msgstr ""
+msgstr "Nebyly nalezeny žádné %1$s naplánované na %2$s. Zkuste prosím zvolit jiný den."
 
 #: src/Tribe/Template/Month.php:281
 msgid "There were no results found for %s this month. Try searching next month."
-msgstr ""
+msgstr "Nebyly nalezeny žádné záznamy pro %s v tomto měsíci. Zkuste hledat v dalším měsíci."
 
 #: src/Tribe/Template_Factory.php:294
 msgid "There were no results found for %s."
-msgstr ""
+msgstr "Nebyly nalezeny žádné záznamy pro %s."
 
 #: src/Tribe/Template_Factory.php:296
 msgid "No results were found for %1$s in or near %2$s."
-msgstr ""
+msgstr "Nebyly nalezeny žádné %1$s poblíž místa %2$s."
 
 #: src/admin-views/admin-update-message.php:32
 msgid "Keep the Core Plugin %sFREE%s!"
-msgstr ""
+msgstr "Zachovejte jádro pluginu %sZDARMA%s!"
 
 #: src/admin-views/new-organizer-meta-section.php:41
 #: src/admin-views/organizer-meta-box.php:44
 msgid "You may want to consider %sobfuscating%s any e-mail address published on your site to best avoid it getting harvested by spammers."
-msgstr ""
+msgstr "Aby váš web nebyl zdrojem pro spammery, je vhodné %smaskovat%s všechny emailové adresy zveřejněné na vašich stránkách."
 
 #: src/admin-views/tribe-options-addons-api.php:15
 #: src/admin-views/tribe-options-addons-api.php:55
 msgid "Add-Ons APIs"
-msgstr ""
+msgstr "API doplňků"
 
 #: src/admin-views/tribe-options-addons-api.php:19
 msgid "<p>The event add-ons you have activated need to talk to some outside sources. Please follow the instructions below to configure your settings.</p>"
-msgstr ""
+msgstr "<p>Doplňky akcí, které máte aktivované, potřebují komunikovat s některými vnějšími zdroji. Prosím, postupujte podle pokynů níže pro konfiguraci nastavení.</p>"
 
 #: src/admin-views/venue-meta-box.php:190
 msgid "%s Name can not be empty"
-msgstr ""
+msgstr "%s nemůže zůstat prázdné"
 
 #: src/admin-views/venue-meta-box.php:195
 msgid "%s Name already exists"
-msgstr ""
+msgstr "%s se zadaným názvem již existuje"
 
 #: src/functions/template-tags/day.php:106
 msgid "Previous Day"
-msgstr ""
+msgstr "Předchozí den"
 
 #: src/functions/template-tags/day.php:108
 msgid "Next Day"
-msgstr ""
+msgstr "Další den"
 
 #: src/io/csv/admin-views/general.php:12
 msgid "The settings below will impact events imported from files and other websites. Be sure to save your changes before starting to import events."
-msgstr ""
+msgstr "Níže uvedené nastavení ovlivní import akcí ze souborů a jiných webů. Nezapomeňte uložit změny před zahájením importu akcí."
 
 #: src/io/csv/admin-views/import.php:36
 msgid "Questions? %sWatch the video%s."
-msgstr ""
+msgstr "Máte nějaké dotazy? %sPodívejte se na video%s."
 
 #: src/io/csv/admin-views/import.php:59
 msgid "Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file is UTF-8 encoded? Make sure to specify the character encoding when you save the file, or pass it through a %sconversion tool%s."
-msgstr ""
+msgstr "Nahrajte správně formátovaný CSV soubor v kódování UTF-8. Nejste si jisti, zda je váš soubor v kódování UTF-8? Ujistěte se, že jste při ukládání souboru zadali správné kódování znaků, nebo ho převeďte prostřednictvím %skonverzního nástroje%s."
 
 #: src/Tribe/Main.php:634
 msgid "<strong>Looking for more immediate support?</strong> We offer %s with the purchase of any of our premium plugins. Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays"
-msgstr ""
+msgstr "<strong>Potřebujete okamžitou pomoc?</strong> Nabízíme %s při zakoupení některého z našich prémiových pluginů. Získejte licenci a můžete očekávat odpověď na své dotazy během 24-48 hodin v pracovní dny."
 
-#: src/Tribe/Main.php:638 vendor/tickets/src/Tribe/Main.php:279
+#: src/Tribe/Main.php:638 vendor/tickets/src/Tribe/Main.php:296
 msgid "open-source forum on WordPress.org"
-msgstr ""
+msgstr "open-source fórum na WordPress.org"
 
-#: src/Tribe/Main.php:639 vendor/tickets/src/Tribe/Main.php:280
+#: src/Tribe/Main.php:639 vendor/tickets/src/Tribe/Main.php:297
 msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our %s. Our support staff monitors these forums once a week and would be happy to assist you there."
-msgstr ""
+msgstr "Pokud jste vyzkoušeli výše uvedené kroky a stále máte potíže, můžete navštívit naše %s a založit nové vlákno. Pracovníci naší podpory jednou týdně kontrolují tato fóra a rádi vám pomohou."
 
 #: src/Tribe/Main.php:643
 msgid "<strong>Looking for more immediate support?</strong> We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
-msgstr ""
+msgstr "<strong>Potřebujete okamžitou pomoc?</strong> Nabízíme %1$s při zakoupení některého z našich prémiových pluginů (jako např. %2$s). Získejte licenci a můžete očekávat odpověď na své dotazy během 24-48 hodin v pracovní dny."
 
-#: src/Tribe/Main.php:647 vendor/tickets/src/Tribe/Main.php:286
-#: vendor/tickets/src/Tribe/Main.php:291
+#: src/Tribe/Main.php:647 vendor/tickets/src/Tribe/Main.php:303
+#: vendor/tickets/src/Tribe/Main.php:308
 msgid "post a thread"
-msgstr ""
+msgstr "založit vlákno"
 
 #: src/Tribe/Main.php:609
 msgid "Themer’s Guide"
-msgstr ""
+msgstr "Příručka šablonáře"
 
 #: src/Tribe/Main.php:611
 msgid "%s: An overview of the default templates and styles that are included in the plugin, as well as how to change them."
-msgstr ""
+msgstr "%s: Přehled výchozích šablon a stylů, které jsou zahrnuty v pluginu, včetně postupů k jejich úpravě."
 
 #: src/Tribe/Main.php:611
 msgid "Using stylesheets and page templates"
-msgstr ""
+msgstr "Používání CSS stylů a šablon stránek"
 
 #: src/Tribe/Main.php:613
 msgid "%s: Do you see an issue with your calendar? Go here first to find where it’s coming from and how to fix it."
-msgstr ""
+msgstr "%s: Máte problém s vaším kalendářem? Prvně zkuste zjistit zde, jaký je možný zdroj chyby a jak ji opravit."
 
-#: src/Tribe/Main.php:613 vendor/tickets/src/Tribe/Main.php:241
+#: src/Tribe/Main.php:613 vendor/tickets/src/Tribe/Main.php:258
 msgid "Troubleshooting common problems"
-msgstr ""
+msgstr "Řešení obvyklých problémů"
 
 #: src/Tribe/Main.php:615
 msgid "%s: Code and guides for customizing your calendar in useful and interesting ways."
-msgstr ""
+msgstr "%s: Kód a návody pro přizpůsobení vašeho kalendáře užitečnými a zajímavými způsoby."
 
 #: src/Tribe/Main.php:615
 msgid "Customizing the Events plugins"
-msgstr ""
+msgstr "Přizpůsobení pluginů pro Akce"
 
 #: src/Tribe/Main.php:630
 msgid "Events Tickets"
-msgstr ""
+msgstr "Events Tickets"
 
 #: src/Tribe/Main.php:631
 msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our WordPress.org forums for %1$s or %2$s. Our support staff monitors these forums once a week and would be happy to assist you there. "
-msgstr ""
+msgstr "Pokud jste vyzkoušeli výše uvedené kroky a stále máte potíže, můžete založit nové vlákno na WordPress.org fórech pro plugin %1$s nebo %2$s. Pracovníci naší podpory jednou týdně kontrolují tato fóra a rádi vám pomohou."
 
 #: src/Tribe/Main.php:633 src/Tribe/Main.php:641
-#: vendor/tickets/src/Tribe/Main.php:282
+#: vendor/tickets/src/Tribe/Main.php:299
 msgid "premium support on our website"
-msgstr ""
+msgstr "prémiovou podporu na našem webu"
 
 #: src/Tribe/Importer/Admin_Page.php:80
 msgid "CSV Import Settings"
-msgstr ""
+msgstr "Nastavení CSV importu"
 
 #: src/Tribe/Importer/Admin_Page.php:88
 msgid "Default status to use for imported events"
-msgstr ""
+msgstr "Výchozí stav pro importované akce"
 
 #: src/Tribe/Importer/Admin_Page.php:123
 msgid "This Action has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: \"%s\" To: \"%s\""
-msgstr ""
+msgstr "Tato akce už není podporována, abychom splňovali standardy WordPressu používáme nyní podtržítko (_) místo pomlčky (-). Před: \"%s\" Po: \"%s\""
 
 #: src/Tribe/Importer/Admin_Page.php:202 src/Tribe/Importer/Options.php:23
 #: src/Tribe/Importer/Options.php:83
 msgid "This Filter has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: \"%s\" To: \"%s\""
-msgstr ""
+msgstr "Tento filtr už není podporován, abychom splňovali standardy WordPressu, používáme nyní podtržítko (_) místo pomlčky (-). Před: \"%s\" Po: \"%s\""
 
-#: src/Tribe/Main.php:589 vendor/tickets/src/Tribe/Main.php:259
+#: src/Tribe/Main.php:589 vendor/tickets/src/Tribe/Main.php:276
 msgid "New User Primer"
-msgstr ""
+msgstr "Příručka nového uživatele"
 
 #: src/Tribe/Main.php:591
 msgid "We are committed to helping make your calendar spectacular and have a wealth of resources available, including a handy %s to get your calendar up and running."
-msgstr ""
+msgstr "Chceme vám pomoci udělat váš kalendář akcí působivým a k tomu pro vás máme dostatek informačních zdrojů. Pro začátek by se vám mohla hodit naše %s."
 
 #: src/Tribe/Main.php:602
 msgid "Support for The Events Calendar"
-msgstr ""
+msgstr "Podpora pro The Events Calendar"
 
 #: src/Tribe/Main.php:605
 msgid "%s: A thorough walkthrough of The Events Calendar and the settings that are available to you."
-msgstr ""
+msgstr "%s: Detailní průvodce pluginem The Events Calendar a všech jeho nastavení, která máte k dispozici."
 
-#: src/Tribe/Main.php:605 vendor/tickets/src/Tribe/Main.php:239
+#: src/Tribe/Main.php:605 vendor/tickets/src/Tribe/Main.php:256
 msgid "Settings overview"
-msgstr ""
+msgstr "Přehled nastavení"
 
 #: src/Tribe/Main.php:607
 msgid "%s: A complete look at the features you can expect to see right out of the box as well as how to use them."
-msgstr ""
+msgstr "%s: Kompletní přehled funkcí, které budete mít k dispozici ihned po instalaci, včetně popisu jak je používat. "
 
-#: src/Tribe/Main.php:607 vendor/tickets/src/Tribe/Main.php:240
+#: src/Tribe/Main.php:607 vendor/tickets/src/Tribe/Main.php:257
 msgid "Features overview"
-msgstr ""
+msgstr "Přehled funkcí"
 
 #: src/Tribe/Main.php:609
 msgid "%s: Our most comprehensive outline for customizing the calendar to suit your needs, including custom layouts and styles."
-msgstr ""
+msgstr "%s: Náš nejkomplexnější návod pro přizpůsobení kalendáře vašim potřebám, včetně vlastních rozvržení a stylů."
 
 #: common/src/admin-views/tribe-options-help.php:35
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:35
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our premium forums, please copy and paste this information into the System Information field and it will help us help you faster!"
-msgstr ""
+msgstr "Detaily o vašem pluginu kalendáře a nastavení jsou často užitečné nejen pro vás, ale i pro naše pracovníky při řešení různých problémů. Možná vás požádáme o poskytnutí těchto informací až nás budete žádat o pomoc. Pokud budete psát dotaz na některé z našich prémiových fór podpory, zkopírujte a vložte prosím tyto informace do kolonky System Information. To nám umožní vám rychleji pomoci!"
 
 #: common/src/admin-views/tribe-options-licenses.php:27
 #: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:27
 msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
-msgstr ""
+msgstr "Na této stránce se zobrazí pole pro licenční klíče pouze pro pluginy %1$saktivované v síti webů%2$s."
 
-#: src/Tribe/API.php:353
+#: src/Tribe/API.php:357
 msgid "Unnamed %s"
-msgstr ""
+msgstr "Neznámé %s"
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:93
 msgid "Create New %s"
-msgstr "Vytvořit nový %s"
+msgstr "Vytvořit nový záznam (%s)"
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:157
 msgid "Add another %s"
-msgstr ""
+msgstr "Přidat další záznam (%s)"
 
 #: src/Tribe/Asset/Bootstrap_Datepicker.php:19
 msgid "Clear"
-msgstr "Jasno"
+msgstr "Vymazat"
 
 #: common/src/admin-views/tribe-options-help.php:30
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:30
 msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums 😄"
-msgstr ""
+msgstr "Berte prosím na vědomí, že veškerá podpora je poskytována skrze fóra. Můžete nám napsat email nebo tweet, ale pravděpodobně vás odkážeme zpět na fóra 😄"
 
 #: common/src/admin-views/tribe-options-help.php:31
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:31
 msgid "Read more about our support policy"
-msgstr ""
+msgstr "Přečtěte si více o našich pravidlech podpory"
 
 #: common/src/admin-views/tribe-options-help.php:26
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:26
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the forums is open only to paid customers, they are open for anyone to search and review."
-msgstr ""
+msgstr "%s. Existuje velmi málo problémů, na které jsme ještě nenarazili a je pravděpodobné, že jiný uživatel se na vaši otázku již zeptal a dostal odpověď od pracovníků naší podpory. Přestože je psaní na fóra umožněno pouze platícím zákazníkům, kdokoli může fórum prohledávat a prohlížet."
 
 #: common/src/admin-views/tribe-options-help.php:26
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:26
 msgid "Search our support forum"
-msgstr ""
+msgstr "Prohledejte naše fórum podpory"
 
 #: common/src/admin-views/tribe-options-help.php:24
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:24
 msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
-msgstr ""
+msgstr "%s. Odpovědi na všechny obvyklé (i méně obvyklé) dotazy najdete právě zde. Je to často nejrychlejší způsob k nalezení odpovědi!"
 
 #: common/src/admin-views/tribe-options-help.php:24
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:24
 msgid "Check our Knowledgebase"
-msgstr ""
+msgstr "Podívejte se do naší znalostní databáze"
 
 #: common/src/admin-views/tribe-options-help.php:25
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:25
 msgid "%s. Testing for an existing conflict is the best start for in-depth troubleshooting. We will often ask you to follow these steps when opening a new thread, so doing this ahead of time will be super helpful."
-msgstr ""
+msgstr "%s. Otestování na přítomnost konfliktu je nejlepším začátkem pro důkladné odstranění chyb. Při otevírání nového vlákna ve fóru často požadujeme, abyste postupovali právě tímto způsobem, takže provedení tohoto kroku dopředu je velmi užitečné."
 
 #: common/src/admin-views/tribe-options-help.php:25
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:25
 msgid "Test for a theme or plugin conflict"
-msgstr ""
+msgstr "Otestujte konflikt šablony či pluginu"
 
 #: common/src/admin-views/tribe-options-help.php:15
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:15
 msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
-msgstr ""
+msgstr "%s na našich stránkách je skvělé místo, kde najdete tipy a triky pro používání a přizpůsobení našich pluginů."
 
 #: common/src/admin-views/tribe-options-help.php:15
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:15
 msgid "Knowledgebase"
-msgstr ""
+msgstr "Znalostní báze"
 
 #: common/src/admin-views/tribe-options-help.php:16
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:16
 msgid "<strong>Want to dive deeper?</strong> Check out our %s for developers."
-msgstr ""
+msgstr "<strong>Chcete se dozvědět víc?</strong> Podívejte se na náš %s pro vývojáře."
 
 #: common/src/admin-views/tribe-options-help.php:16
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:16
 msgid "list of available functions"
-msgstr ""
+msgstr "seznam dostupných funkcí"
 
 #: common/src/admin-views/tribe-options-help.php:19
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:19
 msgid "Getting More Help"
-msgstr ""
+msgstr "Získání další pomoci"
 
 #: common/src/admin-views/tribe-options-help.php:20
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:20
 msgid "While the resources above help solve a majority of the issues we see, there are times you might be looking for extra support. If you need assistance using our plugins and would like us to take a look, please follow these steps:"
-msgstr ""
+msgstr "Přestože výše uvedené zdroje pomáhají vyřešit většinu známých problémů, mohou nastat situace, kdy budete chtít extra podporu. Pokud potřebujete asistenci při používání našich pluginů a chcete, abychom se na to podívali my, následujte prosím tyto kroky:"
 
 #: common/src/admin-views/tribe-options-general.php:15
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:15
 msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
-msgstr ""
+msgstr "Vylepšete si zobrazování akcí na vašich stránkách pomocí našeho volného pluginu %1$sThe Events Calendar%2$s. Hledáte další funkce, včetně opakujících se akcí, komunitní akce, pokročilý prodej vstupenek a další? Podívejte se na naše %3$sprémiové doplňky%4$s."
 
 #: common/src/admin-views/tribe-options-help.php:11
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:11
 msgid "Thanks you for using %s! All of us at Modern Tribe sincerely appreciate your support and we’re excited to see you using our plugins."
-msgstr ""
+msgstr "Děkujeme, že používáte %s! Všichni v Modern Tribe si upřímně ceníme vaší podpory a budeme rádi, když budete používat naše pluginy."
 
 #: common/src/admin-views/tribe-options-help.php:14
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:14
 msgid "Getting Support"
-msgstr ""
+msgstr "Získání podpory"
 
 #: common/src/Tribe/Admin/Help_Page.php:811
-#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:811
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:812
 msgid "Install Plugin"
-msgstr ""
+msgstr "Instalovat plugin"
 
 #: common/src/Tribe/Admin/Help_Page.php:834
-#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:834
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:835
 msgid "Active Users:"
-msgstr ""
+msgstr "Aktivních uživatelů:"
 
 #: common/src/Tribe/Admin/Help_Page.php:837
-#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:837
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:838
 msgid "Rating:"
 msgstr "Hodnocení:"
 
 #: common/src/Tribe/Admin/Help_Page.php:862
-#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:862
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:863
 msgid "Plugin Active"
-msgstr ""
+msgstr "Aktivovaný plugin"
 
 #: common/src/Tribe/Admin/Help_Page.php:864
-#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:864
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:865
 msgid "Plugin Inactive"
-msgstr ""
+msgstr "Neaktivní plugin"
 
 #: common/src/Tribe/Admin/Help_Page.php:869
-#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:869
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:870
 msgid "Visit the Add-on Page"
-msgstr ""
+msgstr "Navštívit webovou stránku doplňku"
 
 #: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:66
-#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:66
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:94
 msgid "<a href=\"%s\">edit Events settings</a>."
-msgstr ""
+msgstr "<a href=\"%s\">změňte nastavení akcí</a>."
 
 #: common/src/Tribe/Credits.php:46
 #: vendor/tickets/common/src/Tribe/Credits.php:46
 msgid "Rate %3$sThe Events Calendar%4$s %1$s on %2$s to keep this plugin free.  Thanks from the friendly folks at Modern Tribe."
-msgstr ""
+msgstr "Ohodnocením pluginu %3$sThe Events Calendar%4$s %1$s na webu %2$s ho pomůžete zachovat i nadále bezplatným. Vřelé díky od lidiček v Modern Tribe."
 
 #: common/src/Tribe/PUE/Checker.php:440 src/Tribe/PUE/Checker.php:435
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:440
 msgid "Thanks for setting up a valid key, it will expire on %s"
-msgstr ""
+msgstr "Děkujeme za vložení platného klíče. Jeho platnost skončí %s"
 
 #: common/src/admin-views/tribe-options-display.php:31
 #: vendor/tickets/common/src/admin-views/tribe-options-display.php:31
 msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
-msgstr ""
+msgstr "Zadejte formát pro zobrazování data včetně roku. Používá se při zobrazení data v příštím roce."
 
 #: common/src/admin-views/tribe-options-general.php:10
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:10
 msgid "Thank you for using Event Tickets! All of us at Modern Tribe sincerely appreciate your support and we're excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started."
-msgstr ""
+msgstr "Děkujeme, že používáte Event Tickets! Všichni v Modern Tribe si upřímně ceníme vaší podpory a budeme rádi, když budete používat naše pluginy. Pro začátek se podívejte na naši praktickou %1$sPříručku nového uživatele%2$s."
 
 #: common/src/Tribe/Admin/Help_Page.php:795
-#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:795
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:796
 msgid "Upgrade Plugin"
-msgstr "Aktualizace pluginu"
+msgstr "Aktualizovat plugin"
 
 #: common/src/Tribe/Admin/Help_Page.php:811
-#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:811
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:812
 msgid "Install %s"
 msgstr "Instalovat %s"
 
 #: common/src/Tribe/Admin/Help_Page.php:787
-#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:787
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:788
 msgid "Activate Plugin"
 msgstr "Aktivovat plugin"
 
 #: common/src/Tribe/Admin/Help_Page.php:52
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:52
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
-msgstr ""
+msgstr "The Events Calendar je kvalitně zpracovaný a rozšiřitelný plugin, který vám umožní jednoduše sdílet vaše akce."
 
 #: common/src/Tribe/Admin/Help_Page.php:64
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:64
+#: vendor/tickets/src/Tribe/Main.php:323
 msgid "Event Tickets"
-msgstr ""
+msgstr "Event Tickets"
 
 #: common/src/Tribe/Admin/Help_Page.php:68
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:68
 msgid "Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events."
-msgstr ""
+msgstr "Events Tickets je kvalitně zpracovaný a rozšiřitelný plugin, který vám umožní jednoduše prodávat vstupenky na vaše akce."
 
 #: common/src/Tribe/Admin/Help_Page.php:80
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:80
 msgid "Advanced Post Manager"
-msgstr ""
+msgstr "Advanced Post Manager"
 
 #: common/src/Tribe/Admin/Help_Page.php:84
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:84
 msgid "Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes."
-msgstr ""
+msgstr "Zařaďte turbo při administraci svých příspěvků jakéhokoli vlastního typu obsahu pomocí seřaditelných filtrů a sloupců a automatické registrace metaboxů."
 
 #: common/src/Tribe/Admin/Help_Page.php:159
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:159
@@ -658,52 +760,52 @@ msgstr " a "
 #: common/src/Tribe/Admin/Help_Page.php:192
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:192
 msgid "Eventbrite Tickets"
-msgstr ""
+msgstr "Eventbrite Tickets"
 
 #: common/src/Tribe/Admin/Help_Page.php:208
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:208
 msgid "Facebook Events"
-msgstr ""
+msgstr "Facebook Events"
 
 #: common/src/Tribe/Admin/Help_Page.php:216
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:216
 msgid "Events Filter Bar"
-msgstr ""
+msgstr "Events Filter Bar"
 
 #: common/src/Tribe/Admin/Help_Page.php:224
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:224
 msgid "Event Tickets Plus"
-msgstr ""
+msgstr "Event Tickets Plus"
 
 #: common/src/Tribe/Admin/Help_Page.php:233
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:233
 msgid "Community Tickets"
-msgstr ""
+msgstr "Community Tickets"
 
 #: common/src/Tribe/Admin/Help_Page.php:787
-#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:787
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:788
 msgid "Activate %s"
 msgstr "Aktivovat %s"
 
 #: src/views/month/single-day.php:42
 msgid "View %1$s %2$s"
 msgid_plural "View All %1$s %2$s"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Zobrazit %2$s (%1$s)"
+msgstr[1] "Zobrazit všechny %2$s (%1$s)"
+msgstr[2] "Zobrazit všechny %2$s (%1$s)"
 
 #: common/src/Tribe/Validate.php:195
 #: vendor/tickets/common/src/Tribe/Validate.php:195
 msgid "%s must be a positive number or percent."
-msgstr ""
+msgstr "%s musí být kladné číslo nebo procento."
 
-#: vendor/tickets/src/admin-views/meta-box.php:178
+#: vendor/tickets/src/admin-views/meta-box.php:224
 msgid "Cancel"
 msgstr "Storno"
 
-#: vendor/tickets/src/Tribe/Tickets.php:532
+#: vendor/tickets/src/Tribe/Tickets.php:577
 msgid "Editing the ticket price is currently disallowed."
-msgstr ""
+msgstr "Upravovaní ceny vstupenky není aktuálně povoleno."
 
 #: common/src/admin-views/tribe-options-general.php:59
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:59
@@ -803,42 +905,42 @@ msgstr "Je třeba provést aktualizaci!"
 #: common/src/Tribe/Admin/Help_Page.php:402
 #: common/src/Tribe/Admin/Help_Page.php:797
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:402
-#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:797
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:798
 msgid "You are up to date!"
 msgstr "Používáte nejnovější verzi!"
 
 #: common/src/Tribe/Admin/Help_Page.php:183 src/Tribe/Main.php:642
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:183
 msgid "Events Calendar PRO"
-msgstr ""
+msgstr "Events Calendar PRO"
 
 #: common/src/admin-views/tribe-options-help.php:60
-#: vendor/tickets/common/src/admin-views/tribe-options-help.php:60
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:63
 msgid "More..."
 msgstr "Více..."
 
 #: common/src/Tribe/Admin/Help_Page.php:828
-#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:828
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:829
 msgid "Latest Version:"
 msgstr "Nejnovější verze:"
 
 #: common/src/Tribe/Admin/Help_Page.php:831
-#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:831
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:832
 msgid "Requires:"
 msgstr "Vyžaduje:"
 
 #: common/src/Tribe/Admin/Help_Page.php:832
-#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:832
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:833
 msgid "WordPress "
 msgstr "WordPress"
 
 #: common/src/Tribe/Admin/Help_Page.php:856
-#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:856
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:857
 msgid "Premium Add-Ons"
 msgstr "Premium doplňky"
 
 #: common/src/admin-views/tribe-options-help.php:54
-#: vendor/tickets/common/src/admin-views/tribe-options-help.php:54
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:57
 msgid "News and Tutorials"
 msgstr "Aktuality a návody"
 
@@ -850,7 +952,7 @@ msgstr "<p>Licenční klíč, který jste obdrželi při dokončování vašeho 
 #: common/src/admin-views/tribe-options-licenses.php:18
 #: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:18
 msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
-msgstr ""
+msgstr "%1$s Používáte naše pluginy v síti webů? %2$s Berte prosím na vědomí, že váš licenční klíč se aplikuje na celou síť webů a nikoli pouze na tento web."
 
 #: common/src/admin-views/tribe-options-network.php:15
 #: vendor/tickets/common/src/admin-views/tribe-options-network.php:15
@@ -946,7 +1048,7 @@ msgid "Show widget only if there are upcoming events:"
 msgstr "Zobrazit widget pouze pokud jsou nadcházející akce:"
 
 #: src/functions/advanced-functions/meta_registration.php:16
-#: src/views/modules/meta/details.php:30
+#: src/views/modules/meta/details.php:55
 msgid "Details"
 msgstr "Podrobnosti"
 
@@ -1038,7 +1140,7 @@ msgstr "Vaše současná URL adresa pro Akce je %s"
 
 #: src/functions/template-tags/options.php:29
 msgid "You %1$scannot%2$s use the same slug as above. The above should ideally be plural, and this singular.%3$sYour single Event URL is like: %4$s"
-msgstr ""
+msgstr "%1$sNemůžete%2$s použít stejný název v URL jako je výše uvedený. Ten by měl být v ideálním případě v množném čísle a tento v jednotném.%3$sVaše URL adresa pro jednotlivou akci vypadá takto: %4$s"
 
 #: src/io/csv/admin-views/columns.php:22
 msgid "Column Mapping: %s"
@@ -1140,31 +1242,31 @@ msgstr "Soubor má v prvním řádku záhlaví sloupců"
 msgid "Import CSV File"
 msgstr "Importovat CSV soubor"
 
-#: src/io/csv/admin-views/result.php:15
+#: src/io/csv/admin-views/result.php:14
 msgid "Import Result"
 msgstr "Výsledek importu"
 
-#: src/io/csv/admin-views/result.php:17
+#: src/io/csv/admin-views/result.php:16
 msgid "Import complete!"
 msgstr "Importování bylo dokončeno!"
 
-#: src/io/csv/admin-views/result.php:19
+#: src/io/csv/admin-views/result.php:18
 msgid "Inserted: %d"
 msgstr "Vloženo: %d"
 
-#: src/io/csv/admin-views/result.php:20
+#: src/io/csv/admin-views/result.php:19
 msgid "Updated: %d"
 msgstr "Aktualizováno: %d"
 
-#: src/io/csv/admin-views/result.php:21
+#: src/io/csv/admin-views/result.php:20
 msgid "Skipped: %d"
 msgstr "Vynecháno: %d"
 
-#: src/io/csv/admin-views/result.php:25
+#: src/io/csv/admin-views/result.php:24
 msgid "The import statistics above have the following meaning:"
 msgstr "Výše uvedená statistika importu má následující význam:"
 
-#: src/io/csv/admin-views/result.php:29
+#: src/io/csv/admin-views/result.php:28
 msgid "Skipped row numbers: %s"
 msgstr "Čísla vynechaných řádků: %s"
 
@@ -1192,7 +1294,7 @@ msgstr "Navigace pro zobrazení akce"
 msgid "View As"
 msgstr "Zobrazit jako"
 
-#: src/views/modules/meta/details.php:119
+#: src/views/modules/meta/details.php:142
 msgid "%s Tags:"
 msgstr "Štítky %s:"
 
@@ -1877,7 +1979,7 @@ msgstr "Používáte verzi %s a zasloužíte si obejmout  :-)"
 
 #: src/admin-views/admin-update-message.php:33
 msgid "Every time you rate %s5 stars%s, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice."
-msgstr ""
+msgstr "Při každém ohodnocení %s5 hvězdičkami%s přijde na svět jedna malá víla. Dobrá, to asi ne, ale i přesto více šťastných uživatelů znamená více příspěvků a pomoci na fórech. Komunita potřebuje vědět váš názor."
 
 #: src/admin-views/admin-update-message.php:34
 #: src/admin-views/admin-welcome-message.php:22
@@ -2068,7 +2170,7 @@ msgstr "Za cenou"
 
 #: src/admin-views/events-meta-box.php:255
 #: src/functions/advanced-functions/meta_registration.php:48
-#: src/views/modules/meta/details.php:100
+#: src/views/modules/meta/details.php:123
 msgid "Cost:"
 msgstr "Cena:"
 
@@ -2088,7 +2190,7 @@ msgstr "%s (název):"
 #: src/admin-views/venue-meta-box.php:111
 #: src/functions/advanced-functions/meta_registration.php:159
 #: src/functions/advanced-functions/meta_registration.php:238
-#: src/views/modules/meta/organizer.php:41 src/views/modules/meta/venue.php:40
+#: src/views/modules/meta/organizer.php:42 src/views/modules/meta/venue.php:40
 msgid "Phone:"
 msgstr "Telefon:"
 
@@ -2099,16 +2201,15 @@ msgstr "Telefon:"
 #: src/functions/advanced-functions/meta_registration.php:96
 #: src/functions/advanced-functions/meta_registration.php:191
 #: src/functions/advanced-functions/meta_registration.php:270
-#: src/views/modules/meta/details.php:125
-#: src/views/modules/meta/organizer.php:63 src/views/modules/meta/venue.php:45
+#: src/views/modules/meta/details.php:148
+#: src/views/modules/meta/organizer.php:64 src/views/modules/meta/venue.php:45
 msgid "Website:"
 msgstr "Webová stránka:"
 
 #: src/admin-views/new-organizer-meta-section.php:37
 #: src/admin-views/organizer-meta-box.php:43
 #: src/functions/advanced-functions/meta_registration.php:254
-#: src/views/modules/meta/organizer.php:52
-#: vendor/tickets/src/views/tickets/rsvp.php:94
+#: src/views/modules/meta/organizer.php:53
 msgid "Email:"
 msgstr "Email:"
 
@@ -2117,7 +2218,7 @@ msgstr "Email:"
 msgid "%s Name Already Exists"
 msgstr "%s se zadaným názvem již existuje"
 
-#: vendor/tickets/src/admin-views/attendees.php:30
+#: vendor/tickets/src/admin-views/attendees.php:31
 msgid "Event Details"
 msgstr "Údaje o akci"
 
@@ -2135,103 +2236,92 @@ msgstr "Datum / čas ukončení:"
 msgid "Address:"
 msgstr "Adresa:"
 
-#: vendor/tickets/src/template-tags/tickets.php:208
-msgid "(%d awaiting review)"
-msgid_plural "(%d awaiting review)"
-msgstr[0] "(%d čeká na vyřízení)"
-msgstr[1] "(%d čekají na vyřízení)"
-msgstr[2] "(%d čeká na vyřízení)"
-
-#: vendor/tickets/src/template-tags/tickets.php:214
-msgid "Sold %1$d of %2$d %3$s"
-msgstr "Prodáno %1$d z celkem %2$d %3$s"
-
-#: vendor/tickets/src/admin-views/attendees.php:80
+#: vendor/tickets/src/admin-views/attendees.php:81
 msgid "Finalized:"
 msgstr "Dokončeno:"
 
-#: vendor/tickets/src/admin-views/attendees.php:86
+#: vendor/tickets/src/admin-views/attendees.php:87
 msgid "Awaiting review:"
 msgstr "Čeká na vyřízení:"
 
-#: vendor/tickets/src/admin-views/attendees.php:91
+#: vendor/tickets/src/admin-views/attendees.php:92
 msgid "Checked in:"
-msgstr "Zaškrtnutých:"
+msgstr "Zaregistrováno:"
 
-#: vendor/tickets/src/admin-views/attendees-email.php:3
+#: vendor/tickets/src/admin-views/attendees-email.php:4
 msgid "Send the attendee list by email"
 msgstr "Poslat seznam účastníků emailem"
 
-#: vendor/tickets/src/admin-views/attendees-email.php:9
+#: vendor/tickets/src/admin-views/attendees-email.php:10
 msgid "Select a User:"
 msgstr "Vybrat uživatele:"
 
-#: vendor/tickets/src/admin-views/attendees-email.php:14
+#: vendor/tickets/src/admin-views/attendees-email.php:15
 msgid "Select..."
-msgstr "Vybrat"
+msgstr "Vyberte..."
 
-#: vendor/tickets/src/admin-views/attendees-email.php:19
+#: vendor/tickets/src/admin-views/attendees-email.php:20
 msgid "or"
 msgstr "nebo"
 
-#: vendor/tickets/src/admin-views/attendees-email.php:21
+#: vendor/tickets/src/admin-views/attendees-email.php:22
 msgid "Email Address:"
 msgstr "Emailová adresa:"
 
-#: vendor/tickets/src/admin-views/list.php:30
+#: vendor/tickets/src/admin-views/list.php:33
 msgid "Edit"
 msgstr "Upravit"
 
-#: vendor/tickets/src/admin-views/list.php:39
+#: vendor/tickets/src/admin-views/list.php:42
 msgid "Edit in %s"
 msgstr "Upravit v %s"
 
-#: vendor/tickets/src/admin-views/list.php:34
+#: vendor/tickets/src/admin-views/list.php:37
 msgid "View"
 msgstr "Zobrazit"
 
-#: vendor/tickets/src/admin-views/list.php:99
+#: vendor/tickets/src/template-tags/tickets.php:226
 msgid "Sold %d"
 msgstr "Prodáno %d"
 
-#: vendor/tickets/src/admin-views/meta-box.php:23
+#: vendor/tickets/src/admin-views/meta-box.php:31
 msgid "This event was created using Community Events. Are you sure you want to sell tickets for it?"
 msgstr "Tato akce byla vytvořena jako komunitní akce. Opravdu si přejete prodávat vstupenky na tuto akci?"
 
-#: vendor/tickets/src/admin-views/meta-box.php:34
+#: vendor/tickets/src/admin-views/meta-box.php:42
 msgid "Upload image for the ticket header"
 msgstr "Nahrát obrázek pro záhlaví vstupenky"
 
-#: vendor/tickets/src/admin-views/meta-box.php:35
+#: vendor/tickets/src/admin-views/meta-box.php:43
 msgid "The maximum image size in the email will be 580px wide by any height, and then scaled for mobile. If you would like \"retina\" support use an image sized to 1160px wide."
 msgstr "Maximální velikost obrázku v emailu bude 580 pixelů na šířku s volnou výškou a pro mobilní zařízení bude obrázek následně zmenšen. Pokud chcete mít podporu pro \"Retina\" displej, použijte obrázek široký 1160 pixelů."
 
-#: vendor/tickets/src/admin-views/meta-box.php:38
+#: vendor/tickets/src/admin-views/meta-box.php:46
 msgid "Select an Image"
 msgstr "Zvolit obrázek"
 
-#: vendor/tickets/src/admin-views/meta-box.php:46
+#: vendor/tickets/src/admin-views/meta-box.php:54
 msgid "Remove"
 msgstr "Odstranit"
 
-#: vendor/tickets/src/admin-views/meta-box.php:64
-#: vendor/tickets/src/admin-views/meta-box.php:74
+#: vendor/tickets/src/admin-views/meta-box.php:103
+#: vendor/tickets/src/admin-views/meta-box.php:113
 msgid "Add new ticket"
 msgstr "Přidat novou vstupenku"
 
-#: vendor/tickets/src/admin-views/meta-box.php:75
+#: vendor/tickets/src/admin-views/meta-box.php:114
 msgid "Edit ticket"
 msgstr "Upravit vstupenku"
 
-#: vendor/tickets/src/admin-views/meta-box.php:80
+#: vendor/tickets/src/admin-views/meta-box.php:119
 msgid "Sell using:"
 msgstr "Prodej pomocí:"
 
-#: vendor/tickets/src/admin-views/meta-box.php:97
+#: vendor/tickets/src/admin-views/meta-box.php:136
 msgid "Ticket Name:"
 msgstr "Název vstupenky:"
 
-#: vendor/tickets/src/admin-views/meta-box.php:104
+#: vendor/tickets/src/admin-views/meta-box.php:143
 msgid "Ticket Description:"
 msgstr "Popis vstupenky:"
 
@@ -2245,21 +2335,21 @@ msgstr "(pro vstupné zdarma ponechte prázdné nebo zadejte 0)"
 
 #: vendor/tickets/src/admin-views/legacy-ticket-fields.php:24
 msgid "Sale Price:"
-msgstr "Cena po slevě:"
+msgstr "Prodejní cena:"
 
 #: vendor/tickets/src/admin-views/legacy-ticket-fields.php:28
 msgid "(Current sale price - this can be managed via the product editor)"
 msgstr "(aktuální prodejní cena - může být dále upravena v editoru produktů)"
 
-#: vendor/tickets/src/admin-views/meta-box.php:113
+#: vendor/tickets/src/admin-views/meta-box.php:152
 msgid "Start sale:"
 msgstr "Začátek prodeje:"
 
-#: vendor/tickets/src/admin-views/meta-box.php:137
+#: vendor/tickets/src/admin-views/meta-box.php:176
 msgid "End sale:"
 msgstr "Konec prodeje:"
 
-#: vendor/tickets/src/admin-views/meta-box.php:177
+#: vendor/tickets/src/admin-views/meta-box.php:223
 msgid "Save this ticket"
 msgstr "Uložit vstupenku"
 
@@ -2567,7 +2657,7 @@ msgstr "Máte akci, která trvá i po půlnoci? Zde si můžete nastavit čas kd
 msgid "%s"
 msgstr "%s"
 
-#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4274
+#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4233
 msgid "View Calendar"
 msgstr "Zobrazit kalendář"
 
@@ -2581,48 +2671,48 @@ msgid "CSV"
 msgstr "CSV"
 
 #: common/src/Tribe/Settings.php:215
-#: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4322
+#: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4281
 #: vendor/tickets/common/src/Tribe/Settings.php:215
 msgid "Settings"
 msgstr "Nastavení"
 
-#: src/Tribe/Main.php:4323
+#: src/Tribe/Main.php:4282
 msgid "Calendar"
 msgstr "Kalendář"
 
-#: src/Tribe/Main.php:4379
+#: src/Tribe/Main.php:4338
 msgid "List"
 msgstr "Seznam"
 
-#: src/Tribe/Main.php:4397
+#: src/Tribe/Main.php:4356
 msgid "Month"
 msgstr "Měsíc"
 
-#: src/Tribe/Main.php:4414
+#: src/Tribe/Main.php:4373
 msgid "Day"
 msgstr "Den"
 
-#: src/Tribe/Main.php:4439 src/Tribe/Main.php:4440
+#: src/Tribe/Main.php:4398 src/Tribe/Main.php:4399
 msgid "Search"
 msgstr "Hledat"
 
-#: src/Tribe/Main.php:4464 src/Tribe/Main.php:4480
+#: src/Tribe/Main.php:4423 src/Tribe/Main.php:4439
 msgid "Date"
 msgstr "Datum"
 
-#: src/Tribe/Main.php:4467
+#: src/Tribe/Main.php:4426
 msgid "%s In"
 msgstr "%s v"
 
-#: src/Tribe/Main.php:4469
+#: src/Tribe/Main.php:4428
 msgid "%s From"
 msgstr "%s od"
 
-#: src/Tribe/Main.php:4471
+#: src/Tribe/Main.php:4430
 msgid "Day Of"
 msgstr "Dne"
 
-#: src/Tribe/Main.php:4544
+#: src/Tribe/Main.php:4503
 msgid "Once Every 30 Mins"
 msgstr "Jednou za 30 minut"
 
@@ -2683,7 +2773,7 @@ msgstr "Platný klíč! Platnost tohoto klíče skončí %s"
 #: common/src/Tribe/PUE/Checker.php:448 src/Tribe/PUE/Checker.php:443
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:448
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
-msgstr ""
+msgstr "Hmmm... něco je špatně s tímto validátorem. Kontaktujte prosím %spodporu%s."
 
 #: common/src/Tribe/Settings.php:214 common/src/Tribe/Settings.php:235
 #: vendor/tickets/common/src/Tribe/Settings.php:214
@@ -2750,12 +2840,12 @@ msgid "System Information"
 msgstr "Informace o systému"
 
 #: common/src/Tribe/Support.php:122
-#: vendor/tickets/common/src/Tribe/Support.php:122
+#: vendor/tickets/common/src/Tribe/Support.php:137
 msgid "Unknown or not set"
 msgstr "Neznámé nebo nenastavené"
 
 #: common/src/Tribe/Support.php:129
-#: vendor/tickets/common/src/Tribe/Support.php:129
+#: vendor/tickets/common/src/Tribe/Support.php:144
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr "Během načítání této stránky nápovědy došlo k vyprázdnění pravidel pro přesměrování trvalých odkazů. Pravděpodobně je v některém pluginu nebo šabloně nastaveno toto vyprazdňování pravidel (rewrite rule flush)!"
 
@@ -2769,7 +2859,7 @@ msgstr "Právě probíhající"
 
 #: src/Tribe/Template/Day.php:134
 msgid "No matching %1$s listed under %2$s scheduled for %3$s. Please try another day."
-msgstr ""
+msgstr "Nebyly nalezeny žádné %1$s v rubrice %2$s naplánované na %3$s. Zkuste prosím zvolit jiný den."
 
 #: src/Tribe/Template/Month.php:285
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
@@ -2779,7 +2869,7 @@ msgstr "Nebyly nalezeny žádné %1$s v rubrice %2$s. Zkuste si prosím zobrazit
 msgid "There were no results found."
 msgstr "Nebyly nalezeny žádné záznamy."
 
-#: src/Tribe/Template/Month.php:711
+#: src/Tribe/Template/Month.php:712
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Požadované datum \"%s\" nebylo platné &ndash; místo toho se zobrazuje aktuální měsíc"
 
@@ -2799,73 +2889,66 @@ msgstr "Nebyly nalezeny žádné %1$s v rubrice %2$s. Zkuste si zobrazit úplný
 msgid "No previous %s "
 msgstr "Žádné předchozí %s"
 
-#: src/Tribe/Templates.php:609
+#: src/Tribe/Templates.php:606
 msgid "Template overrides should be moved to the correct subdirectory: %s"
 msgstr "Přepisy šablon je třeba přemístit do správného podadresáře: %s"
 
-#: src/Tribe/Templates.php:651
+#: src/Tribe/Templates.php:648
 msgid "Template overrides should be moved to the correct subdirectory: tribe_get_template_part('%s')"
 msgstr "Přepisy šablon je třeba přemístit do správného podadresáře: tribe_get_template_part('%s')"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:76
 msgid "Order #"
-msgstr "Objednávka č."
+msgstr "Číslo obj."
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:77
 msgid "Order Status"
 msgstr "Stav objednávky"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:78
-msgid "Purchaser name"
-msgstr "Jméno kupce"
-
-#: vendor/tickets/src/Tribe/Attendees_Table.php:79
-msgid "Purchaser email"
-msgstr "Email kupce"
-
-#: vendor/tickets/src/Tribe/Attendees_Table.php:80
 msgid "Ticket type"
 msgstr "Typ vstupenky"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:81
+#: vendor/tickets/src/Tribe/Attendees_Table.php:79
 #: vendor/tickets/src/views/tickets/email.php:332
 msgid "Ticket #"
-msgstr "Vstupenka č."
+msgstr "Vstupenka"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:82
+#: vendor/tickets/src/Tribe/Attendees_Table.php:80
 #: vendor/tickets/src/views/tickets/email.php:344
 msgid "Security Code"
 msgstr "Kontrolní kód"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:83
-#: vendor/tickets/src/Tribe/Attendees_Table.php:173
-#: vendor/tickets/src/Tribe/Attendees_Table.php:254
+#: vendor/tickets/src/Tribe/Attendees_Table.php:81
+#: vendor/tickets/src/Tribe/Attendees_Table.php:241
+#: vendor/tickets/src/Tribe/Attendees_Table.php:328
 msgid "Check in"
-msgstr "Zaškrtnout"
+msgstr "Zaregistrovat"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:174
-#: vendor/tickets/src/Tribe/Attendees_Table.php:255
+#: vendor/tickets/src/Tribe/Attendees_Table.php:242
+#: vendor/tickets/src/Tribe/Attendees_Table.php:329
 msgid "Undo Check in"
-msgstr "Zrušit zaškrtnutí"
+msgstr "Zrušit registraci"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:227
+#: vendor/tickets/src/Tribe/Attendees_Table.php:301
 msgid "Print"
 msgstr "Tisk"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:228
+#: vendor/tickets/src/Tribe/Attendees_Table.php:302
+#: vendor/tickets/src/views/tickets/rsvp.php:110
 msgid "Email"
 msgstr "Email"
 
-#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:229
+#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:303
 msgid "Export"
 msgstr "Exportovat"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:235
+#: vendor/tickets/src/Tribe/Attendees_Table.php:309
 msgid "Filter by purchaser name, ticket #, order # or security code"
 msgstr "Filtrovat podle jména kupce, čísla vstupenky, objednávky nebo kontrolního kódu"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:256
-#: vendor/tickets/src/admin-views/list.php:31
+#: vendor/tickets/src/Tribe/Attendees_Table.php:330
+#: vendor/tickets/src/admin-views/list.php:34
 msgid "Delete"
 msgstr "Smazat"
 
@@ -2883,50 +2966,50 @@ msgstr "Obrázek v záhlaví vstupenky"
 msgid "Set as ticket header"
 msgstr "Použít jako obrázek v záhlaví vstupenky"
 
-#: vendor/tickets/src/Tribe/Tickets.php:336
+#: vendor/tickets/src/Tribe/Tickets.php:363
 msgid "Your ticket has been saved."
 msgstr "Vaše vstupenka byla uložena."
 
-#: vendor/tickets/src/Tribe/Tickets.php:478
+#: vendor/tickets/src/Tribe/Tickets.php:523
 msgid "Your ticket has been deleted."
 msgstr "Vaše vstupenka byla smazána."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:82
-#: vendor/tickets/src/admin-views/list.php:68
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:84
+#: vendor/tickets/src/admin-views/list.php:71
 msgid "See who purchased tickets to this event"
 msgstr "Kdo si koupil vstupenky na tuto akci"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:82
-#: vendor/tickets/src/admin-views/attendees.php:23
-#: vendor/tickets/src/admin-views/list.php:70
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:84
+#: vendor/tickets/src/admin-views/attendees.php:24
+#: vendor/tickets/src/admin-views/list.php:73
 msgid "Attendees"
 msgstr "Účastníci"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:119
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:121
 msgid "You need to select a user or type a valid email address"
 msgstr "Je třeba vybrat uživatele nebo zadat platnou emailovou adresu"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:120
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:122
 msgid "Sending..."
 msgstr "Odesílání..."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:146
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:148
 msgid "Columns"
 msgstr "Sloupce"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:146
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:148
 msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
 msgstr "Pomocí záložky &#8222;Nastavení zobrazených informací&#8220; si můžete vybrat, které sloupce chcete zobrazit. Tento výběr se projeví při výpisu, při odesílání emailem, při tisku a při exportu do CSV souboru."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:270
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:271
 msgid "Yes"
 msgstr "Ano"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:302
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:300
 msgid "attendees"
 msgstr "ucastnici"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:394
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:392
 msgid "Attendee List for: %s"
 msgstr "Seznam účastníků na: %s"
 
@@ -3907,11 +3990,11 @@ msgstr "Filipíny"
 msgid "Pitcairn"
 msgstr "Pitcairnovy ostrovy"
 
-#: src/Tribe/API.php:437
+#: src/Tribe/API.php:450
 msgid "Unnamed Venue"
 msgstr "Neznámé místo konání"
 
-#: common/src/Tribe/View_Helpers.php:46 src/Tribe/API.php:514
+#: common/src/Tribe/View_Helpers.php:46 src/Tribe/API.php:532
 #: src/functions/template-tags/venue.php:265
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:46
 msgid "United States"
@@ -3942,17 +4025,17 @@ msgid "Thanks for Updating The Events Calendar"
 msgstr "Děkujeme za aktualizování pluginu The Events Calendar"
 
 #: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:60
-#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:60
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:88
 msgid "<a href=\"%s\">Edit the page slug</a>"
 msgstr "<a href=\"%s\">Upravte název v URL u stránky</a>"
 
 #: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:61
-#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:61
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:89
 msgid "Ask the site administrator to edit the page slug"
 msgstr "Požádejte administrátora webu aby upravil název v URL u stránky"
 
 #: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:67
-#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:67
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:95
 msgid " ask the site administrator set a different Events URL slug."
 msgstr "požádejte administrátora webu aby změnil název v URL u akcí."
 
@@ -3984,43 +4067,43 @@ msgstr "Hotovo: %d%%"
 msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
 msgstr "Došlo k chybě a proces aktualizace časových pásem neskončil v pořádku. Obnovte prosím stránku a zkuste to znovu."
 
-#: src/Tribe/Admin_List.php:229 src/Tribe/Main.php:1517
+#: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1517
 msgid "%s Categories"
 msgstr "Rubriky %s"
 
-#: src/Tribe/Admin_List.php:235
+#: src/Tribe/Admin_List.php:252
 msgid "Start Date"
 msgstr "Počáteční datum"
 
-#: src/Tribe/Admin_List.php:236
+#: src/Tribe/Admin_List.php:253
 msgid "End Date"
 msgstr "Koncové datum"
 
-#: src/Tribe/Admin_List.php:313 src/views/single-event.php:27
+#: src/Tribe/Admin_List.php:330 src/views/single-event.php:27
 msgid "All %s"
-msgstr "Celkem %s"
+msgstr "Všechny %s"
 
 #: src/Tribe/Advanced_Functions/Register_Meta.php:37
 #: src/Tribe/Advanced_Functions/Register_Meta.php:69
-#: src/views/modules/meta/details.php:40 src/views/modules/meta/details.php:65
+#: src/views/modules/meta/details.php:65 src/views/modules/meta/details.php:90
 msgid "Start:"
 msgstr "Zahájení:"
 
 #: src/Tribe/Advanced_Functions/Register_Meta.php:46
 #: src/Tribe/Advanced_Functions/Register_Meta.php:78
-#: src/views/modules/meta/details.php:45 src/views/modules/meta/details.php:70
+#: src/views/modules/meta/details.php:70 src/views/modules/meta/details.php:95
 msgid "End:"
 msgstr "Ukončení:"
 
 #: src/Tribe/Advanced_Functions/Register_Meta.php:57
 #: src/Tribe/Advanced_Functions/Register_Meta.php:89
-#: src/views/modules/meta/details.php:55 src/views/modules/meta/details.php:80
+#: src/views/modules/meta/details.php:80 src/views/modules/meta/details.php:105
 msgid "Date:"
 msgstr "Datum:"
 
 #: src/Tribe/Advanced_Functions/Register_Meta.php:100
 #: src/Tribe/Advanced_Functions/Register_Meta.php:111
-#: src/views/modules/meta/details.php:85
+#: src/views/modules/meta/details.php:48
 msgid "Time:"
 msgstr "Čas:"
 
@@ -4036,12 +4119,12 @@ msgstr "Sloučit duplicity"
 msgid "Event Add-Ons"
 msgstr "Doplňky pro akce"
 
-#: src/Tribe/Cost_Utils.php:141
+#: src/Tribe/Cost_Utils.php:156
 msgctxt "Cost range separator"
 msgid " - "
 msgstr " – "
 
-#: src/Tribe/Cost_Utils.php:156
+#: src/Tribe/Cost_Utils.php:173
 msgid "Free"
 msgstr "Zdarma"
 
@@ -4071,7 +4154,7 @@ msgstr "Nebyly specifikovány položky rozbalovacího seznamu"
 msgid "Import"
 msgstr "Import"
 
-#: src/Tribe/Importer/Admin_Page.php:149 src/Tribe/Importer/Admin_Page.php:299
+#: src/Tribe/Importer/Admin_Page.php:149 src/Tribe/Importer/Admin_Page.php:303
 msgid "The file went away. Please try again."
 msgstr "Soubor není k dispozici. Zkuste to prosím znovu."
 
@@ -4080,13 +4163,13 @@ msgstr "Soubor není k dispozici. Zkuste to prosím znovu."
 msgid "General"
 msgstr "Obecné"
 
-#: src/Tribe/Importer/Admin_Page.php:265
+#: src/Tribe/Importer/Admin_Page.php:269
 msgid "We were unable to process your request. Please try again."
 msgstr "Nepodařilo se zpracovat váš požadavek. Zkuste to prosím znovu."
 
-#: src/Tribe/Importer/Admin_Page.php:306
+#: src/Tribe/Importer/Admin_Page.php:310
 msgid "The following fields are required for a successful import:"
-msgstr ""
+msgstr "Pro úspěšný import jsou vyžadována následující pole:"
 
 #: src/Tribe/Importer/Column_Mapper.php:33
 msgid "Do Not Import"
@@ -4160,75 +4243,75 @@ msgstr "Štítky akce"
 msgid "Event Website"
 msgstr "Webová stránka akce"
 
-#: src/Tribe/Importer/Column_Mapper.php:74
+#: src/Tribe/Importer/Column_Mapper.php:75
 msgid "Venue Name"
 msgstr "Místo konání"
 
-#: src/Tribe/Importer/Column_Mapper.php:75
+#: src/Tribe/Importer/Column_Mapper.php:76
 msgid "Venue Country"
 msgstr "Země místa konání"
 
-#: src/Tribe/Importer/Column_Mapper.php:76
+#: src/Tribe/Importer/Column_Mapper.php:77
 msgid "Venue Address"
 msgstr "Adresa místa konání"
 
-#: src/Tribe/Importer/Column_Mapper.php:77
+#: src/Tribe/Importer/Column_Mapper.php:78
 msgid "Venue Address 2"
 msgstr "Adresa místa konání (2)"
 
-#: src/Tribe/Importer/Column_Mapper.php:78
+#: src/Tribe/Importer/Column_Mapper.php:79
 msgid "Venue City"
 msgstr "Město místa konání"
 
-#: src/Tribe/Importer/Column_Mapper.php:79
+#: src/Tribe/Importer/Column_Mapper.php:80
 msgid "Venue State/Province"
 msgstr "Kraj místa konání"
 
-#: src/Tribe/Importer/Column_Mapper.php:80
+#: src/Tribe/Importer/Column_Mapper.php:81
 msgid "Venue Zip"
 msgstr "PSČ místa konání"
 
-#: src/Tribe/Importer/Column_Mapper.php:81
+#: src/Tribe/Importer/Column_Mapper.php:82
 msgid "Venue Phone"
 msgstr "Telefon místa konání"
 
-#: src/Tribe/Importer/Column_Mapper.php:82
+#: src/Tribe/Importer/Column_Mapper.php:83
 msgid "Venue Website"
 msgstr "Web místa konání"
 
-#: src/Tribe/Importer/Column_Mapper.php:88
+#: src/Tribe/Importer/Column_Mapper.php:90
 msgid "Organizer Name"
 msgstr "Jméno pořadatele"
 
-#: src/Tribe/Importer/Column_Mapper.php:89
+#: src/Tribe/Importer/Column_Mapper.php:91
 msgid "Organizer Email"
 msgstr "Email pořadatele"
 
-#: src/Tribe/Importer/Column_Mapper.php:90
+#: src/Tribe/Importer/Column_Mapper.php:92
 msgid "Organizer Website"
 msgstr "Web pořadatele"
 
-#: src/Tribe/Importer/Column_Mapper.php:91
+#: src/Tribe/Importer/Column_Mapper.php:93
 msgid "Organizer Phone"
 msgstr "Telefon pořadatele"
 
-#: src/Tribe/Importer/File_Importer.php:38
+#: src/Tribe/Importer/File_Importer.php:43
 msgid "No importer defined for %s"
 msgstr "Pro %s není definovaný importer"
 
-#: src/Tribe/Importer/File_Importer.php:110
+#: src/Tribe/Importer/File_Importer.php:117
 msgid "Missing required fields in row %d."
 msgstr "Chybí vyžadovaná pole v řádku %d."
 
-#: src/Tribe/Importer/File_Importer.php:118
+#: src/Tribe/Importer/File_Importer.php:128
 msgid "Failed to import record in row %d."
 msgstr "Nepodařilo se importovat záznam v řádku %d."
 
-#: src/Tribe/Importer/File_Importer.php:127
+#: src/Tribe/Importer/File_Importer.php:139
 msgid "%s (post ID %d) updated."
 msgstr "Příspěvek %s (ID: %d) byl aktualizován."
 
-#: src/Tribe/Importer/File_Importer.php:131
+#: src/Tribe/Importer/File_Importer.php:143
 msgid "%s (post ID %d) created."
 msgstr "Příspěvek %s (ID: %d) byl vytvořen."
 
@@ -4293,7 +4376,7 @@ msgstr "Akce"
 msgid "Event"
 msgstr "Akce"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.0.2) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.0.7) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:629
@@ -4336,7 +4419,7 @@ msgstr "Vaše verze pluginu The Events Calendar není dostatečně aktuální s 
 
 #: src/Tribe/Main.php:909
 msgid "The following plugins are out of date: %1$s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %2$sLearn More%3$s."
-msgstr ""
+msgstr "Následující pluginy jsou zastaralé: %1$s. Všechny doplňky jsou závislé na pluginu The Events Calendar a nebudou fungovat správně, pokud nejsou spárovány se správnou verzí. %2$sPodrobnější informace%3$s."
 
 #: common/src/Tribe/Settings_Manager.php:56
 #: vendor/tickets/common/src/Tribe/Settings_Manager.php:56
@@ -4461,7 +4544,7 @@ msgstr "Následující verze %1$s byla úspěšně obnovena: %2$s"
 msgid "%s saved."
 msgstr "%s – uloženo."
 
-#. translators: Publish box date format, see http:php.net/date
+#. translators: Publish box date format, see http://php.net/date
 #: src/Tribe/Main.php:1569 src/Tribe/Main.php:1597 src/Tribe/Main.php:1617
 msgid "M j, Y @ G:i"
 msgstr "j.n.Y, G:i"
@@ -4537,36 +4620,36 @@ msgstr "kalendar-akci"
 msgid "all"
 msgstr "vse"
 
-#: src/Tribe/Main.php:3724 src/Tribe/Main.php:3759
+#: src/Tribe/Main.php:3683 src/Tribe/Main.php:3718
 #: src/functions/template-tags/day.php:157
 #: src/functions/template-tags/day.php:178
 msgid "Date out of range."
 msgstr "Datum je mimo platný rozsah."
 
-#: src/Tribe/Main.php:3794
+#: src/Tribe/Main.php:3753
 msgid "%s Options"
 msgstr "Nastavení %s"
 
-#: src/Tribe/Main.php:3801 src/Tribe/Main.php:3812
+#: src/Tribe/Main.php:3760 src/Tribe/Main.php:3771
 msgid "%s Information"
 msgstr "%s – údaje"
 
-#: src/Tribe/Main.php:4148
+#: src/Tribe/Main.php:4107
 msgid "Support"
 msgstr "Podpora"
 
-#: src/Tribe/Main.php:4151
+#: src/Tribe/Main.php:4110
 msgid "View All Add-Ons"
 msgstr "Prohlédnout všechny doplňky"
 
-#: src/Tribe/Main.php:4171
+#: src/Tribe/Main.php:4130
 msgid "News from Modern Tribe"
 msgstr "Novinky od Modern Tribe"
 
-#: src/Tribe/Main.php:4216
+#: src/Tribe/Main.php:4175
 msgid "Additional Functionality"
 msgstr "Další funkce"
 
-#: src/Tribe/Main.php:4221
+#: src/Tribe/Main.php:4180
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
 msgstr "Hledáte další funkce, včetně opakujících se akcí, prodeje vstupenek, veřejně přidávaných akcí, nových způsobů zobrazení a další?"
