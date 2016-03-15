@@ -192,7 +192,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			$split = explode( ' ', $name );
 			$match = array();
 			foreach ( $split as $possible_id_match ) {
-				$match[]= $this->find_matching_post_id( $possible_id_match, Tribe__Events__Main::ORGANIZER_POST_TYPE );
+				$match[] = $this->find_matching_post_id( $possible_id_match, Tribe__Events__Main::ORGANIZER_POST_TYPE );
 			}
 			if ( count( array_filter( $match ) ) == count( $split ) ) {
 				$organizer_ids = array();
