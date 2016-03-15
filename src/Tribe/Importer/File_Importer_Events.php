@@ -154,7 +154,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		);
 
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {
-			$event['Organizer'] = array( 'OrganizerID' => $organizer_id );
+			$event['Organizer'] = is_array( $organizer_id ) ? $organizer_id : array( 'OrganizerID' => $organizer_id );
 		}
 
 		if ( $venue_id = $this->find_matching_venue_id( $record ) ) {
@@ -187,6 +187,22 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	private function find_matching_organizer_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_organizer_name' );
+
+		if ( strpos( $name, ' ' ) ) {
+			$split = explode( ' ', $name );
+			$match = array();
+			foreach ( $split as $possible_id_match ) {
+				$match[]= $this->find_matching_post_id( $possible_id_match, Tribe__Events__Main::ORGANIZER_POST_TYPE );
+			}
+			if ( count( array_filter( $match ) ) == count( $split ) ) {
+				$organizer_ids = array();
+				foreach ( $match as $m ) {
+					$organizer_ids[] = array( 'OrganizerID' => $m );
+				}
+
+				return $organizer_ids;
+			}
+		}
 
 		return $this->find_matching_post_id( $name, Tribe__Events__Main::ORGANIZER_POST_TYPE );
 	}
