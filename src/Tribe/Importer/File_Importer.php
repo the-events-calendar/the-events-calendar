@@ -177,6 +177,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 		if ( empty( $name ) ) {
 			return 0;
 		}
+
+		if ( is_numeric( $name ) && intval( $name ) == $name ) {
+			$found = get_post( $name );
+			if ( $found && $found->post_type == $post_type ) {
+				return $name;
+			}
+		}
+		
 		$query_args = array(
 			'post_type'   => $post_type,
 			'post_status' => 'publish',
