@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-17 12:48:34+0000\n"
+"PO-Revision-Date: 2016-03-11 22:39:45+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -96,7 +96,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Section_Month_Week_View.php:143
 msgid "Month/Week View"
-msgstr ""
+msgstr "Visualização Mes/Semana"
 
 #: src/Tribe/Customizer/Section_Month_Week_View.php:175
 msgid "Calendar Table Color"
@@ -157,7 +157,7 @@ msgstr ""
 
 #: src/Tribe/Recurrence_Meta.php:1320 src/Tribe/Recurrence_Meta.php:1324
 msgid "Weekly on the same day"
-msgstr ""
+msgstr "Semanalmente no mesmo dia"
 
 #: src/Tribe/Recurrence_Meta.php:1321 src/Tribe/Recurrence_Meta.php:1325
 msgid "Monthly on the same day"
@@ -174,11 +174,11 @@ msgstr ""
 
 #: src/Tribe/This_Week_Widget.php:19
 msgid "Displays events by day for the week."
-msgstr ""
+msgstr "Mostrar eventos por dia para a semana"
 
 #: src/Tribe/This_Week_Widget.php:22
 msgid "This Week Events"
-msgstr ""
+msgstr "Eventos dessa semana"
 
 #: src/admin-views/event-recurrence.php:128
 msgid "Use this field if you want to override the auto-generated descriptions of event recurrence"
@@ -214,7 +214,7 @@ msgstr ""
 
 #: src/admin-views/widget-admin-countdown.php:22
 msgid "Next Event"
-msgstr ""
+msgstr "Próximo Evento"
 
 #: src/admin-views/widget-admin-countdown.php:40
 msgid "On &#8220;Next Event&#8221; type of countdown, this text will only show when there are no events to show."
@@ -238,7 +238,7 @@ msgstr ""
 
 #: src/admin-views/widget-admin-this-week.php:68
 msgid "Number of events to show per day:"
-msgstr ""
+msgstr "Numero de eventos por dia a mostrar:"
 
 #: src/functions/template-tags/widgets.php:242
 msgid "<span>&laquo;</span> <span class=\"tribe-nav-label\">Previous</span>"
@@ -261,7 +261,7 @@ msgstr[1] ""
 
 #: src/views/pro/widgets/this-week/loop-grid-day.php:67
 msgid "No Events Today"
-msgstr ""
+msgstr "Nenhum Evento Hoje"
 
 #: src/views/pro/widgets/this-week/nav.php:15
 msgid "This Week Navigation"
@@ -709,7 +709,7 @@ msgstr "Cuide da sua chave de licença. Muito embora ela não seja necessária p
 
 #: src/admin-views/widget-admin-countdown.php:45
 msgid "Show seconds?"
-msgstr ""
+msgstr "Mostrar segundos?"
 
 #: src/Tribe/Main.php:672
 msgid "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event."

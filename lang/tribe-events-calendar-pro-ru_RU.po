@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-09 14:21:08+0000\n"
+"PO-Revision-Date: 2016-01-18 03:17:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -879,7 +879,7 @@ msgstr "Поддержка"
 
 #: src/views/pro/map/nav.php:25 src/views/pro/photo/nav.php:25
 msgid "<span>&laquo;</span> Previous %s"
-msgstr ""
+msgstr "<span>&laquo;</span> Предыдущее %s"
 
 #: src/Tribe/Main.php:1373
 msgid "View All Add-Ons"
@@ -887,7 +887,7 @@ msgstr "Просмотреть все расширения"
 
 #: src/views/pro/map/nav.php:32 src/views/pro/photo/nav.php:31
 msgid "Next %s <span>&raquo;</span>"
-msgstr ""
+msgstr "Следующее %s <span>&raquo;</span>"
 
 #: src/Tribe/Main.php:1565
 msgid "Week"
@@ -903,7 +903,7 @@ msgstr "Фото"
 
 #: src/views/pro/related-events.php:26
 msgid "Related %s"
-msgstr ""
+msgstr "Похожие %s"
 
 #: src/Tribe/Main.php:1600
 msgid "Week Of"
@@ -911,7 +911,7 @@ msgstr "Неделя"
 
 #: src/views/pro/single-organizer.php:32 src/views/pro/single-venue.php:32
 msgid "&larr; Back to %s"
-msgstr ""
+msgstr "&larr; Вернуться к %s"
 
 #: src/Tribe/Mini_Calendar_Widget.php:8
 msgid "The events calendar mini calendar widget"
@@ -936,7 +936,7 @@ msgstr "Навигация недели"
 
 #: src/Tribe/Recurrence/Queue_Realtime.php:53
 msgid "Completed!"
-msgstr ""
+msgstr "Завершено!"
 
 #: src/views/pro/widgets/countdown-widget.php:20
 msgid "days"
@@ -994,7 +994,7 @@ msgstr "—"
 
 #: src/views/pro/widgets/venue-widget.php:36
 msgid "No upcoming %s."
-msgstr ""
+msgstr "Нет предстоящих %s."
 
 #: src/Tribe/Recurrence_Meta.php:174
 msgid "Break this event out of its series and edit it independently"
@@ -1888,7 +1888,7 @@ msgstr "Город"
 
 #: src/functions/template-tags/widgets.php:225
 msgid "%s for week of %s"
-msgstr ""
+msgstr "%s на неделе с %s"
 
 #: src/admin-views/widget-admin-advanced-list.php:35
 msgid "State (US) Or Province (Int)"
