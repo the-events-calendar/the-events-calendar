@@ -174,4 +174,42 @@ class File_Importer_Events_BooleanFieldsTest extends File_Importer_EventsTest {
 		$this->assertEquals( '', get_post_meta( $post_id, '_EventHideFromUpcoming', true ) );
 	}
 
+	/**
+	 * @test
+	 * it should accept truthy values to make sticky
+	 * @dataProvider truthy_boolean_values
+	 */
+	public function it_should_accept_various_valid_boolean_values_to_make_sticky( $truthy_boolean_value ) {
+		$this->data        = [
+			'value_1' => $truthy_boolean_value,
+		];
+		$this->field_map[] = 'event_sticky';
+
+		$sut = $this->make_instance( 'boolean-fields' );
+
+		$post_id = $sut->import_next_row();
+
+		$this->assertNotFalse( $post_id );
+		$this->assertEquals( -1, get_post( $post_id )->menu_order );
+	}
+
+	/**
+	 * @test
+	 * it should accept falsy values to make sticky
+	 * @dataProvider falsy_boolean_values
+	 */
+	public function it_should_accept_falsy_values_to_make_sticky( $falsy_boolean_value ) {
+		$this->data        = [
+			'value_1' => $falsy_boolean_value,
+		];
+		$this->field_map[] = 'event_sticky';
+
+		$sut = $this->make_instance( 'boolean-fields' );
+
+		$post_id = $sut->import_next_row();
+
+		$this->assertNotFalse( $post_id );
+		$this->assertEquals( 0, get_post( $post_id )->menu_order );
+	}
+
 }

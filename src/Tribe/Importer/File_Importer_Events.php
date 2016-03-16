@@ -136,6 +136,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'post_content'          => $this->get_value_by_key( $record, 'event_description' ),
 			'comment_status'        => $this->get_boolean_value_by_key( $record, 'event_comment_status', 'open', 'closed' ),
 			'ping_status'           => $this->get_boolean_value_by_key( $record, 'event_ping_status', 'open', 'closed' ),
+			'menu_order'            => $this->get_boolean_value_by_key( $record, 'event_sticky', '-1', '0' ),
 			'EventStartDate'        => date( 'Y-m-d', $start_date ),
 			'EventStartHour'        => date( 'h', $start_date ),
 			'EventStartMinute'      => date( 'i', $start_date ),
@@ -174,6 +175,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		// don't create the _EventHideFromUpcoming meta key/value pair if it doesn't need to be created
 		if ( ! $event['EventHideFromUpcoming'] ) {
 			unset( $event['EventHideFromUpcoming'] );
+		}
+
+		if ( $event['menu_order'] == '-1' ) {
+			$event['EventShowInCalendar'] = 'yes';
 		}
 
 		$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', array() );
