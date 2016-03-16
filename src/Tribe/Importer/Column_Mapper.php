@@ -67,6 +67,8 @@ class Tribe__Events__Importer__Column_Mapper {
 			'event_tags'              => esc_html__( 'Event Tags', 'the-events-calendar' ),
 			'event_website'           => esc_html__( 'Event Website', 'the-events-calendar' ),
 			'featured_image'          => esc_html__( 'Event Featured Image', 'the-events-calendar' ),
+			'event_comment_status'    => esc_html__( 'Event Allow Comments', 'the-events-calendar' ),
+			'event_ping_status'       => esc_html__( 'Event Allow Trackbacks and Pingbacks', 'the-events-calendar' ),
 		) );
 	}
 
