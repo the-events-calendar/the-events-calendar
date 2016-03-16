@@ -148,7 +148,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventShowMap'          => $this->get_boolean_value_by_key( $record, 'event_show_map' ),
 			'EventCost'             => $this->get_value_by_key( $record, 'event_cost' ),
 			'EventAllDay'           => $this->get_boolean_value_by_key( $record, 'event_all_day', 'yes' ),
-			'EventHideFromUpcoming' => $this->get_value_by_key( $record, 'event_hide' ),
+			'EventHideFromUpcoming' => $this->get_boolean_value_by_key( $record, 'event_hide', 'yes', '' ),
 			'EventURL'              => $this->get_value_by_key( $record, 'event_website' ),
 			'EventCurrencySymbol'   => $this->get_value_by_key( $record, 'event_currency_symbol' ),
 			'EventCurrencyPosition' => $this->get_value_by_key( $record, 'event_currency_position' ),
