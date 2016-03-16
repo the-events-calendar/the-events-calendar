@@ -45,6 +45,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$can_inject = false;
 			}
 
+			if (isset($query->query_vars['eventDoNotInjectDate']) && $query->query_vars['eventDoNotInjectDate']){
+				$can_inject= false;
+			}
+
 			return apply_filters( 'tribe_query_can_inject_date_field', $can_inject );
 		}
 
