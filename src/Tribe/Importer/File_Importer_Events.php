@@ -114,13 +114,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return $end_date;
 	}
 
-	private function get_boolean_value_by_key( $record, $key, $return_true_value = '1', $accepted_true_values = array( 'yes', 'true', '1' ) ) {
+	private function get_boolean_value_by_key( $record, $key, $return_true_value = '1', $return_false_value = null, $accepted_true_values = array( 'yes', 'true', '1' ) ) {
 		$value = strtolower( $this->get_value_by_key( $record, $key ) );
 		if ( in_array( $value, $accepted_true_values ) ) {
-			$value = $return_true_value;
+			return $return_true_value;
 		}
 
-		return $value;
+		return is_null( $return_false_value ) ? $value : $return_false_value;
 	}
 
 	private function build_event_array( $event_id, array $record ) {
@@ -134,6 +134,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'post_title'            => $this->get_value_by_key( $record, 'event_name' ),
 			'post_status'           => Tribe__Events__Importer__Options::get_default_post_status( 'csv' ),
 			'post_content'          => $this->get_value_by_key( $record, 'event_description' ),
+			'comment_status'        => $this->get_boolean_value_by_key( $record, 'event_comment_status', 'open', 'closed' ),
 			'EventStartDate'        => date( 'Y-m-d', $start_date ),
 			'EventStartHour'        => date( 'h', $start_date ),
 			'EventStartMinute'      => date( 'i', $start_date ),
