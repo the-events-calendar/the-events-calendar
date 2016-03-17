@@ -25,6 +25,7 @@ class Filter_Importer_Venues_FeaturedImageTest extends File_Importer_VenuesTest{
 		$image_url     = plugins_url( '_data/csv-import-test-files/featured-image/images/featured-image.jpg', codecept_data_dir() );
 		$attachment_id = $this->factory()->attachment->create_upload_object( $image_url );
 		$this->featured_image_uploader->upload_and_get_attachment()->willReturn( $attachment_id );
+		$this->field_map[] = 'venue_thumbnail';
 
 		$sut = $this->make_instance('featured-image');
 
@@ -39,6 +40,7 @@ class Filter_Importer_Venues_FeaturedImageTest extends File_Importer_VenuesTest{
 	 */
 	public function it_should_not_import_and_attach_featured_image_if_featured_image_is_not_ok() {
 		$this->featured_image_uploader->upload_and_get_attachment()->willReturn( false );
+		$this->field_map[] = 'venue_thumbnail';
 
 		$sut = $this->make_instance('featured-image');
 

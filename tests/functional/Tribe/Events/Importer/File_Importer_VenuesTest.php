@@ -17,7 +17,6 @@ class File_Importer_VenuesTest extends \Codeception\TestCase\WPTestCase {
 		'venue_state',
 		'venue_zip',
 		'venue_phone',
-		'venue_thumbnail',
 	];
 
 	/**
