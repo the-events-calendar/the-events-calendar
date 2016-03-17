@@ -87,7 +87,7 @@ class File_Importer_OrganizersTest extends \Codeception\TestCase\WPTestCase {
 		if ( ! empty( $template_dir ) ) {
 			$this->handlebars->setLoader( new FilesystemLoader( codecept_data_dir( 'csv-import-test-files/' . $template_dir ) ) );
 			$this->rendered_file_contents = $this->handlebars->loadTemplate( $this->template )->render( $this->data );
-			vfsStream::setup( 'csv_file_root', null, [ 'venues.csv' => $this->rendered_file_contents ] );
+			vfsStream::setup( 'csv_file_root', null, [ 'organizers.csv' => $this->rendered_file_contents ] );
 			$this->file_reader = new \Tribe__Events__Importer__File_Reader( vfsStream::url( 'csv_file_root/organizers.csv' ) );
 		} else {
 			$this->file_reader = new \Tribe__Events__Importer__File_Reader( codecept_data_dir( 'csv-import-test-files/organizers.csv' ) );
