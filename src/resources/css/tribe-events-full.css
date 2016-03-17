@@ -1995,7 +1995,7 @@ table.tribe-events-calendar-condensed-list {
 }
 
 .tribe-events-calendar-condensed-list .tribe-events-read-more {
-   display: none;
+   display: none; /* TODO Find a better way to 'hide' this, using visibility: hidden breaks the layout */
 }
 
 .tribe-events-calendar-condensed-list .tribe-events-read-more a {
