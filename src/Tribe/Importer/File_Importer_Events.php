@@ -134,6 +134,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'post_title'            => $this->get_value_by_key( $record, 'event_name' ),
 			'post_status'           => Tribe__Events__Importer__Options::get_default_post_status( 'csv' ),
 			'post_content'          => $this->get_value_by_key( $record, 'event_description' ),
+			'post_excerpt'          => $this->get_post_excerpt( $event_id, $this->get_value_by_key( $record, 'event_excerpt' ) ),
 			'EventStartDate'        => date( 'Y-m-d', $start_date ),
 			'EventStartHour'        => date( 'h', $start_date ),
 			'EventStartMinute'      => date( 'i', $start_date ),
@@ -151,10 +152,11 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventCurrencySymbol'   => $this->get_value_by_key( $record, 'event_currency_symbol' ),
 			'EventCurrencyPosition' => $this->get_value_by_key( $record, 'event_currency_position' ),
 			'FeaturedImage'         => $featured_image,
+			'EventTimezone'         => $this->get_timezone( $this->get_value_by_key( $record, 'event_timezone' ) ),
 		);
 
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {
-			$event['Organizer'] = array( 'OrganizerID' => $organizer_id );
+			$event['Organizer'] = is_array( $organizer_id ) ? $organizer_id : array( 'OrganizerID' => $organizer_id );
 		}
 
 		if ( $venue_id = $this->find_matching_venue_id( $record ) ) {
@@ -187,6 +189,22 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	private function find_matching_organizer_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_organizer_name' );
+
+		if ( strpos( $name, ' ' ) ) {
+			$split = explode( ' ', $name );
+			$match = array();
+			foreach ( $split as $possible_id_match ) {
+				$match[] = $this->find_matching_post_id( $possible_id_match, Tribe__Events__Main::ORGANIZER_POST_TYPE );
+			}
+			if ( count( array_filter( $match ) ) == count( $split ) ) {
+				$organizer_ids = array();
+				foreach ( $match as $m ) {
+					$organizer_ids[] = array( 'OrganizerID' => $m );
+				}
+
+				return $organizer_ids;
+			}
+		}
 
 		return $this->find_matching_post_id( $name, Tribe__Events__Main::ORGANIZER_POST_TYPE );
 	}
@@ -227,6 +245,41 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		return $term_ids;
+	}
+
+	/**
+	 * Parses a timezone string candidate and returns a TEC supported timezone string.
+	 * 
+	 * @param string $timezone_candidate
+	 *
+	 * @return bool|string Either the timezone string or `false` if the timezone candidate is invalid.
+	 */
+	private function get_timezone( $timezone_candidate ) {
+		if ( Tribe__Timezones::is_utc_offset( $timezone_candidate ) ) {
+			return $timezone_candidate;
+		}
+
+		return Tribe__Timezones::get_timezone( $timezone_candidate, false ) ? $timezone_candidate : false;
+	}
+
+	/**
+	 * Returns the `post_excerpt` to use.
+	 * 
+	 * Will return the existing one if present.
+	 * 
+	 * @param int $event_id
+	 * @param string $import_excerpt
+	 *
+	 * @return string 
+	 */
+	private function get_post_excerpt( $event_id, $import_excerpt ) {
+		if ( $event_id ) {
+			$post_excerpt = get_post( $event_id )->post_excerpt;
+
+			return empty( $post_excerpt ) && ! empty( $import_excerpt ) ? $import_excerpt : $post_excerpt;
+		}
+
+		return $import_excerpt;
 	}
 
 }
