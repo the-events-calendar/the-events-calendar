@@ -1669,7 +1669,17 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	-webkit-background-size: 15px 10px;
 	        background-size: 15px 10px;
 }
+
+.tribe-select2-results-views span.tribe-icon-condensed-list,
+.tribe-bar-views-condensed-list span.tribe-icon-condensed-list,
+.tribe-bar-view-condensed-list span[class^='tribe-icon-'] {
+    background-image: url(../images/events-bar/icon-list.png);
+    -webkit-background-size: 15px 10px;
+    background-size: 15px 10px;
+}
+
 .tribe-bar-view-list a.tribe-icon-list,
+.tribe-bar-view-list a.tribe-icon-condensed-list,
 .tribe-bar-view-list a.tribe-icon-month {
 	background-position: 10px 50%;
 	padding-left: 30px;
@@ -1910,34 +1920,72 @@ body.tribe-theme-twentysixteen .datepicker table {
 =============================================*/
 
 .tribe-events-condensed-list .type-tribe_events {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 2px solid #eaeaea;
 }
 
-.tribe-events-condensed-list .type-tribe_events > div {
-    display: inline-block;
-    padding: 10px;
-    min-height: 0;
+table.tribe-events-calendar-condensed-list {
+    border-collapse: collapse;
+    clear: both;
+    font-size: 80%;
+    table-layout: fixed;
+    width: 100%;
+    border: none;
 }
 
-.tribe-events-condensed-list .tribe-event-schedule-details {
-    width: 20%;
+.tribe-events-calendar-condensed-list thead {
+    background-color: #F5F5F5;
+    text-transform: uppercase;
 }
 
-.tribe-events-condensed-list .tribe-events-condensed-list-event-title {
-    width: 35%;
+.tribe-events-calendar-condensed-list td {
+    border: none;
+    box-sizing: border-box;
+    padding: .5em;
+    vertical-align: top;
 }
 
-.tribe-events-condensed-list .tribe-events-venue-details {
+.tribe-events-calendar-condensed-list .date {
+    width: 15%;
+}
+
+.tribe-events-calendar-condensed-list .title {
+    width: 40%;
+}
+
+.tribe-events-condensed-list-event-title .tribe-event-url {
+    border-bottom: none; /* removes bottom border on twentyfifteen a link */
+    color:#21759b;
+}
+
+.tribe-events-calendar-condensed-list .location {
     width: 25%;
 }
 
-.tribe-events-condensed-list .tribe-events-event-cost {
+.tribe-events-calendar-condensed-list .cost {
     width: 10%;
 }
 
-.tribe-events-condensed-list .tribe-event-schedule-details,
-.tribe-events-condensed-list .tribe-events-condensed-list-event-title,
-.tribe-events-condensed-list .tribe-events-venue-details,
-.tribe-events-condensed-list .tribe-events-event-cost {
-    font-size: 80%;
+.tribe-events-calendar-condensed-list .tribe-events-read-more {
+    width: 10%;
+    white-space: nowrap;
 }
+
+#tribe-events .tribe-events-calendar-condensed-list .tribe-events-button {
+    background-color: #21759b;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    padding: .5em;
+    font-size: 70%;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    transition: background-color 0.5s ease;
+}
+
+#tribe-events .tribe-events-calendar-condensed-list .tribe-events-button:hover {
+    background: #2DA0D4;
+}
+
