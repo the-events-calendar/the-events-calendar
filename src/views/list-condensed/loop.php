@@ -31,12 +31,12 @@ $more = false;
 			$post_parent = ' data-parent-post-id="' . absint( $post->post_parent ) . '"';
 		}
 		?>
-		<div id="post-<?php the_ID() ?>" class="<?php tribe_events_event_classes() ?>" <?php echo $post_parent; ?>>
+		<tr id="post-<?php the_ID() ?>" class="<?php tribe_events_condensed_list_event_classes() ?>" <?php echo $post_parent; ?>>
 			<?php tribe_get_template_part( 'list-condensed/single', 'event' ) ?>
-		</div>
-
+		</tr>
 
 		<?php do_action( 'tribe_events_inside_after_loop' ); ?>
 	<?php endwhile; ?>
+
 
 </div><!-- .tribe-events-loop -->
