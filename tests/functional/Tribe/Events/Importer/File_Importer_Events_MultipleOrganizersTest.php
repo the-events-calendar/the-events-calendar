@@ -6,7 +6,6 @@ require_once "File_Importer_EventsTest.php";
 use Handlebars\Handlebars;
 use Handlebars\Loader\FilesystemLoader;
 use org\bovigo\vfs\vfsStream;
-use Tribe__Events__Importer__File_Importer_Events as Events_Importer;
 use Tribe__Events__Main as Main;
 
 class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTest {
