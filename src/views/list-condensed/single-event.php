@@ -21,34 +21,48 @@ $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : ''
 // Organizer
 $organizer = tribe_get_organizer();
 
+$cost = tribe_get_cost();
+
 ?>
 
 <!-- Schedule & Recurrence Details -->
-<div class="tribe-event-schedule-details">
-	<?php echo tribe_events_event_schedule_details() ?>
-</div>
+<td class="tribe-event-schedule-details">
+	<?php echo tribe_get_start_date( $event );?>
+	<?php //echo tribe_events_event_schedule_details(); ?>
+</td>
 
 <!-- Event Title -->
 <?php do_action( 'tribe_events_before_the_event_title' ) ?>
-<div class="tribe-events-condensed-list-event-title">
+<td class="tribe-events-condensed-list-event-title">
 	<a class="tribe-event-url" href="<?php echo esc_url( tribe_get_event_link() ); ?>" title="<?php the_title_attribute() ?>" rel="bookmark">
 		<?php the_title() ?>
 	</a>
-</div>
+</td>
 <?php do_action( 'tribe_events_after_the_event_title' ) ?>
 
-		<?php if ( $venue_details ) : ?>
-			<!-- Venue Display Info -->
-			<div class="tribe-events-venue-details">
-				<?php echo $venue_details["name"]; ?>
-			</div> <!-- .tribe-events-venue-details -->
-		<?php endif; ?>
+<?php if ( $venue_details ) : ?>
+	<!-- Venue Display Info -->
+	<td class="tribe-events-venue-details">
+		<?php echo $venue_details["name"]; ?>
+	</td> <!-- .tribe-events-venue-details -->
+<?php endif; ?>
 
 <?php do_action( 'tribe_events_after_the_meta' ) ?>
 
 <!-- Event Cost -->
-<?php if ( tribe_get_cost() ) : ?>
-	<div class="tribe-events-event-cost">
+
+	<td class="tribe-events-event-cost">
+		<?php if ( tribe_get_cost() ) : ?>
 		<span><?php echo tribe_get_cost( null, true ); ?></span>
-	</div>
-<?php endif; ?>
+		<?php endif; ?>
+	</td>
+
+
+<td class="tribe-events-read-more">
+	<?php
+	if( $cost > 0 ) { ;?>
+	<a href="<?php echo esc_url( tribe_get_event_link() ); ?>" class="tribe-events-button" rel="bookmark"><?php esc_html_e( 'BUY', 'the-events-calendar' ) ?></a>
+	<?php } else { ?>
+		<a href="<?php echo esc_url( tribe_get_event_link() ); ?>" class="tribe-events-button" rel="bookmark"><?php esc_html_e( 'RSVP', 'the-events-calendar' ) ?></a>
+	<?php };?>
+</td>
