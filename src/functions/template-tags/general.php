@@ -587,6 +587,65 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Prints out or returns classes on an event wrapper for the Condensed List Compact Table View
+	 *
+	 * @category Events
+	 * @param $event |0 post id or object
+	 * @param $echo  |true
+	 * TODO Find out if there is a more compact way to do this.
+	 *
+	 **/
+	function tribe_events_condensed_list_event_classes( $event = 0, $echo = true ) {
+		global $post, $wp_query;
+
+		// May be called when the global $post object does not exist - ie during ajax loads of various views
+		// ... creating a dummy object allows the method to proceed semi-gracefully (interim measure only)
+
+		//If $post object doesn't exist and an $event_id wasn't specified, then use a dummy object
+		if ( $event instanceof WP_Post ) {
+			$event_id = $event->ID;
+		} elseif ( $event !== 0 ) {
+			$event_id = $event;
+		} else {
+			$event_id = $post->ID;
+		}
+
+		if ( ! $event_id ) {
+			return '';
+		}
+
+		$classes         = array( 'type-tribe_events', 'post-' . $event_id );
+		$tribe_cat_slugs = tribe_get_event_cat_slugs( $event_id );
+
+		foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
+			if ( ! empty( $tribe_cat_slug ) ) {
+				$classes[] = 'tribe-events-category-' . $tribe_cat_slug;
+			}
+		}
+		if ( $venue_id = tribe_get_venue_id( $event_id ) ) {
+			$classes[] = 'tribe-events-venue-' . $venue_id;
+		}
+		foreach ( tribe_get_organizer_ids( $event_id ) as $organizer_id ) {
+			$classes[] = 'tribe-events-organizer-' . $organizer_id;
+		}
+		// added first class for css
+		if ( ( $wp_query->current_post == 0 ) && ! tribe_is_day() ) {
+			$classes[] = 'tribe-events-first';
+		}
+		// added last class for css
+		if ( $wp_query->current_post == $wp_query->post_count - 1 ) {
+			$classes[] = 'tribe-events-last';
+		}
+
+		$classes = apply_filters( 'tribe_events_event_classes', $classes );
+		if ( $echo ) {
+			echo implode( ' ', $classes );
+		} else {
+			return implode( ' ', $classes );
+		}
+	}
+
+	/**
 	 * Prints out data attributes used in the template header tags
 	 *
 	 * @category Events
