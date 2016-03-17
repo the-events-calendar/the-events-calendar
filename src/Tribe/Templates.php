@@ -430,7 +430,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 				$class = 'Tribe__Events__Template__List';
 			}
 			// condensed list view
-			if ( tribe_is_condensed_list_view() || tribe_is_showing_all() || tribe_is_ajax_view_request( 'list' ) ) {
+			elseif ( tribe_is_condensed_list_view() || tribe_is_ajax_view_request( 'condensed-list' ) ) {
 				$class = 'Tribe__Events__Template__CondensedList';
 			}
 			// month view
