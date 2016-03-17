@@ -100,5 +100,4 @@ class File_Importer_EventsTest extends \Codeception\TestCase\WPTestCase {
 		}
 		$this->file_reader->set_row( 1 );
 	}
-
 }

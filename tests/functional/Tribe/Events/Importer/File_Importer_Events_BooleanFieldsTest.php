@@ -1,11 +1,10 @@
 <?php
 namespace Tribe\Events\Importer;
-require 'File_Importer_EventsTest.php';
+require_once 'File_Importer_EventsTest.php';
 
 use Handlebars\Handlebars;
 use Handlebars\Loader\FilesystemLoader;
 use org\bovigo\vfs\vfsStream;
-use Tribe__Events__Importer__File_Importer_Events as Events_Importer;
 
 class File_Importer_Events_BooleanFieldsTest extends File_Importer_EventsTest {
 
@@ -190,7 +189,7 @@ class File_Importer_Events_BooleanFieldsTest extends File_Importer_EventsTest {
 		$post_id = $sut->import_next_row();
 
 		$this->assertNotFalse( $post_id );
-		$this->assertEquals( -1, get_post( $post_id )->menu_order );
+		$this->assertEquals( - 1, get_post( $post_id )->menu_order );
 	}
 
 	/**
