@@ -21,6 +21,14 @@ class Tribe__Events__Pro__CSV_Importer__Fields {
 		return self::$instance;
 	}
 
+	public function filter_venue_column_names( array $venue_column_names ) {
+		$venue_column_names['venue_latitude']  = esc_html__( 'Venue Latitude', 'tribe-events-calendar-pro' );
+		$venue_column_names['venue_longitude'] = esc_html__( 'Venue Longitude', 'tribe-events-calendar-pro' );
+
+		return $venue_column_names;
+
+	}
+
 	public function filter_venue_array( array $venue, array $record, $venue_id, Tribe__Events__Importer__File_Importer_Venues $importer ) {
 		$record_latitude  = $importer->get_value_by_key( $record, 'venue_latitude' );
 		$record_longitude = $importer->get_value_by_key( $record, 'venue_longitude' );
