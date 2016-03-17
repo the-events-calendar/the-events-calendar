@@ -1995,7 +1995,7 @@ table.tribe-events-calendar-condensed-list {
 }
 
 .tribe-events-calendar-condensed-list .tribe-events-read-more {
-   visibility: hidden;
+   display: none;
 }
 
 .tribe-events-calendar-condensed-list .tribe-events-read-more a {
@@ -2005,7 +2005,6 @@ table.tribe-events-calendar-condensed-list {
 @media (max-width: 414px) { /* 414px is the width of the iPhone 6 plus) */
     .tribe-events-calendar-condensed-list .tribe-events-read-more {
         display: block;
-        visibility: visible;
         background: #F1F2F2;
         border: 1px solid #D1D3D4;
         text-align: center;
