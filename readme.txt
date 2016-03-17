@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.4.2
-Stable tag: 4.1beta1
+Stable tag: 4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -313,9 +313,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Tweak - improved our JSON-LD output to ensure consistency (props: @garrettjohnson)
 
-= [4.1] TBD =
+= [4.1] 2016-03-15 =
 
-* Feature - Created a shortcode for displaying event details: [tribe:event-details]
 * Feature - Added a tribe_get_venue_website_url() function for fetching Venue website URLs (props to fervorcreative in our forums for this request!)
 * Performance - Lazy-load venue and organizer selector data
 * Tweak - Allow iCal filenames to be filtered via a new filter: tribe_events_ical_feed_filename
@@ -333,6 +332,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - Fixed a warning produced by passing a DateTime() object into start_date or end_date args of tribe_get_events (props to iamhexcoder for the pull request!)
 * Fix - Fixed bug where events in month view were not always sorted in chronological order
 * Fix - Fixed the System Info URL in Events > Help
+* Fix - Resolved issue where the default country would be "Array" if no default country is set
+* Fix - Fixed bug where ajaxurl was sometimes undefined
 
 = [4.0.7] 2016-03-02 =
 

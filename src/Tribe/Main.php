@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '4.1beta1';
+		const VERSION           = '4.1';
 		const MIN_ADDON_VERSION = '4.1';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -2061,6 +2061,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'prevText'        => esc_html__( 'Prev', 'the-events-calendar' ),
 				'currentText'     => esc_html__( 'Today', 'the-events-calendar' ),
 				'closeText'       => esc_html__( 'Done', 'the-events-calendar' ),
+				'ajaxurl'         => esc_url_raw( admin_url( 'admin-ajax.php', ( is_ssl() || FORCE_SSL_ADMIN ? 'https' : 'http' ) ) ),
 			);
 
 			return $bits;
