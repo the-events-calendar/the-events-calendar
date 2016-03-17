@@ -27,7 +27,7 @@ $cost = tribe_get_cost();
 
 <!-- Schedule & Recurrence Details -->
 <td class="tribe-event-schedule-details">
-	<?php echo tribe_get_start_date( $event );?>
+	<?php echo tribe_get_start_date();?>
 	<?php //echo tribe_events_event_schedule_details(); ?>
 </td>
 
@@ -59,10 +59,5 @@ $cost = tribe_get_cost();
 
 
 <td class="tribe-events-read-more">
-	<?php
-	if( $cost > 0 ) { ;?>
-	<a href="<?php echo esc_url( tribe_get_event_link() ); ?>" class="tribe-events-button" rel="bookmark"><?php esc_html_e( 'BUY', 'the-events-calendar' ) ?></a>
-	<?php } else { ?>
-		<a href="<?php echo esc_url( tribe_get_event_link() ); ?>" class="tribe-events-button" rel="bookmark"><?php esc_html_e( 'RSVP', 'the-events-calendar' ) ?></a>
-	<?php };?>
+	<a href="<?php echo esc_url( tribe_get_event_link() ); ?>" rel="bookmark"><?php esc_html_e( 'View Details', 'the-events-calendar' ) ?></a>
 </td>

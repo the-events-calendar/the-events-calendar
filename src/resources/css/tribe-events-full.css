@@ -1927,6 +1927,13 @@ body.tribe-theme-twentysixteen .datepicker table {
     border-bottom: 2px solid #eaeaea;
 }
 
+@media (max-width: 414px) {
+    .tribe-events-condensed-list .type-tribe_events {
+        padding-bottom: 1em;
+        margin-bottom: 1em;
+    }
+}
+
 table.tribe-events-calendar-condensed-list {
     border-collapse: collapse;
     clear: both;
@@ -1942,7 +1949,7 @@ table.tribe-events-calendar-condensed-list {
     }
 }
 
-    .tribe-events-calendar-condensed-list thead {
+.tribe-events-calendar-condensed-list thead {
     background-color: #F5F5F5;
     text-transform: uppercase;
 }
@@ -1954,21 +1961,33 @@ table.tribe-events-calendar-condensed-list {
     vertical-align: top;
 }
 
+@media (max-width: 414px) {
+    .tribe-events-calendar-condensed-list td {
+        padding: 0 0 .25em 0;
+    }
+}
+
 .tribe-events-calendar-condensed-list .date {
     width: 15%;
 }
 
 .tribe-events-calendar-condensed-list .title {
-    width: 40%;
+    width: 45%;
 }
 
 .tribe-events-condensed-list-event-title .tribe-event-url {
     border-bottom: none; /* removes bottom border on twentyfifteen a link */
-    color:#21759b;
+    color: #007ACC;
+}
+
+@media (max-width: 414px) {
+    #tribe-events-content .tribe-events-condensed-list-event-title .tribe-event-url {
+       text-decoration: underline;
+    }
 }
 
 .tribe-events-calendar-condensed-list .location {
-    width: 25%;
+    width: 30%;
 }
 
 .tribe-events-calendar-condensed-list .cost {
@@ -1976,30 +1995,22 @@ table.tribe-events-calendar-condensed-list {
 }
 
 .tribe-events-calendar-condensed-list .tribe-events-read-more {
-    width: 10%;
-    white-space: nowrap;
+   visibility: hidden;
 }
 
-#tribe-events .tribe-events-calendar-condensed-list .tribe-events-button {
-    background-color: #21759b;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: inline-block;
-    padding: .5em;
-    font-size: 70%;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-family: sans-serif;
-    transition: background-color 0.5s ease;
+.tribe-events-calendar-condensed-list .tribe-events-read-more a {
+    border-bottom: none; /* removes bottom border on twentyfifteen a link */
 }
 
-#tribe-events .tribe-events-calendar-condensed-list .tribe-events-button:hover {
-    background: #2DA0D4;
-}
+@media (max-width: 414px) { /* 414px is the width of the iPhone 6 plus) */
+    .tribe-events-calendar-condensed-list .tribe-events-read-more {
+        display: block;
+        visibility: visible;
+        background: #F1F2F2;
+        border: 1px solid #D1D3D4;
+        text-align: center;
 
-@media (max-width: 414px) {
+    }
     .tribe-events-condensed-list table,
     .tribe-events-condensed-list thead,
     .tribe-events-condensed-list tbody,
