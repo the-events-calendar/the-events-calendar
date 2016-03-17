@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.4.2
-Stable tag: 4.1
+Stable tag: 4.1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -308,6 +308,10 @@ Patch = 1
 At no point during the 3.0 lifecycle will the major version change. But you can expect that either minor version and/or patch will change with each release.
 
 == Changelog ==
+
+= [4.1.0.1] 2016-03-17 =
+
+* Fix - Resolved multiple issues with the German `de_DE` language file that caused a number of site-breaking issues
 
 = [4.1] 2016-03-15 =
 
