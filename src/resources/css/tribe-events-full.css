@@ -1919,6 +1919,10 @@ body.tribe-theme-twentysixteen .datepicker table {
    @ Template: condensed-list.php
 =============================================*/
 
+.tribe-events-condensed-list .tribe-events-page-title {
+    margin: 0 0 1em 0;
+}
+
 .tribe-events-condensed-list .type-tribe_events {
     border-bottom: 2px solid #eaeaea;
 }
@@ -1932,7 +1936,13 @@ table.tribe-events-calendar-condensed-list {
     border: none;
 }
 
-.tribe-events-calendar-condensed-list thead {
+@media (max-width: 414px) {
+    table.tribe-events-calendar-condensed-list {
+        font-size: 100%;
+    }
+}
+
+    .tribe-events-calendar-condensed-list thead {
     background-color: #F5F5F5;
     text-transform: uppercase;
 }
@@ -1989,3 +1999,18 @@ table.tribe-events-calendar-condensed-list {
     background: #2DA0D4;
 }
 
+@media (max-width: 414px) {
+    .tribe-events-condensed-list table,
+    .tribe-events-condensed-list thead,
+    .tribe-events-condensed-list tbody,
+    .tribe-events-condensed-list th,
+    .tribe-events-condensed-list td,
+    .tribe-events-condensed-list tr {
+        display: block;
+    }
+    .tribe-events-condensed-list thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+}
