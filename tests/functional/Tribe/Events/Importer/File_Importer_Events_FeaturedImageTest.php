@@ -8,7 +8,7 @@ use Handlebars\Loader\FilesystemLoader;
 use org\bovigo\vfs\vfsStream;
 use Tribe__Events__Importer__File_Importer_Events as Events_Importer;
 
-class File_Importer_Events_ExcerptTest extends File_Importer_EventsTest {
+class File_Importer_Events_FeaturedImageTest extends File_Importer_EventsTest {
 
 	/**
 	 * @test
