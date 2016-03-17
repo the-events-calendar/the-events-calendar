@@ -8,6 +8,18 @@ use Tribe__Events__Importer__File_Importer_Venues as Venues_Importer;
 
 class File_Importer_VenuesTest extends \Codeception\TestCase\WPTestCase {
 
+	protected $field_map = [
+		'venue_name',
+		'venue_country',
+		'venue_address',
+		'venue_address2',
+		'venue_city',
+		'venue_state',
+		'venue_zip',
+		'venue_phone',
+		'venue_thumbnail',
+	];
+
 	/**
 	 * @var \Tribe__Events__Importer__File_Reader
 	 */
@@ -43,9 +55,7 @@ class File_Importer_VenuesTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 
 		// your set up methods here
-		$this->handlebars              = new Handlebars( [
-			'loader' => new FilesystemLoader( codecept_data_dir( 'csv-import-test-files/featured-image' ) )
-		] );
+		$this->handlebars              = new Handlebars();
 		$this->featured_image_uploader = $this->prophesize( 'Tribe__Events__Importer__Featured_Image_Uploader' );
 	}
 
@@ -65,27 +75,29 @@ class File_Importer_VenuesTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 
-	protected function make_instance() {
-		$this->rendered_file_contents = $this->handlebars->loadTemplate( $this->template )->render( $this->data );
-		vfsStream::setup( 'csv_file_root', null, [ 'venues.csv' => $this->rendered_file_contents ] );
-		$this->file_reader = new \Tribe__Events__Importer__File_Reader( vfsStream::url( 'csv_file_root/venues.csv' ) );
-		$this->file_reader->set_row( 1 );
+	protected function make_instance( $template_dir = null ) {
+		$this->setup_file( $template_dir );
 
 		$sut = new Venues_Importer( $this->file_reader, $this->featured_image_uploader->reveal() );
-		$sut->set_map( [
-			'venue_name',
-			'venue_country',
-			'venue_address',
-			'venue_address2',
-			'venue_city',
-			'venue_state',
-			'venue_zip',
-			'venue_phone',
-			'venue_thumbnail',
-		] );
+		$sut->set_map( $this->field_map );
 		$sut->set_type( 'venues' );
 
 		return $sut;
+	}
+
+	/**
+	 * @param $template_dir
+	 */
+	protected function setup_file( $template_dir ) {
+		if ( ! empty( $template_dir ) ) {
+			$this->handlebars->setLoader( new FilesystemLoader( codecept_data_dir( 'csv-import-test-files/' . $template_dir ) ) );
+			$this->rendered_file_contents = $this->handlebars->loadTemplate( $this->template )->render( $this->data );
+			vfsStream::setup( 'csv_file_root', null, [ 'venues.csv' => $this->rendered_file_contents ] );
+			$this->file_reader = new \Tribe__Events__Importer__File_Reader( vfsStream::url( 'csv_file_root/venues.csv' ) );
+		} else {
+			$this->file_reader = new \Tribe__Events__Importer__File_Reader( codecept_data_dir( 'csv-import-test-files/venues.csv' ) );
+		}
+		$this->file_reader->set_row( 1 );
 	}
 
 }
