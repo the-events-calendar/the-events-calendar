@@ -448,10 +448,12 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			if ( ( isset( $data['Venue'] ) && $data['Venue'] ) || self::someVenueDataSet( $data ) ) {
 				$title = $data['Venue'] ? $data['Venue'] : esc_html__( 'Unnamed Venue', 'the-events-calendar' );
+				$content = $data['Description'] ? $data['Description'] : '';
 				$slug  = sanitize_title( $title );
 
 				$postdata = array(
 					'post_title'  => $title,
+					'post_content' => $content,
 					'post_name'   => $slug,
 					'post_type'   => Tribe__Events__Main::VENUE_POST_TYPE,
 					'post_status' => $post_status,
