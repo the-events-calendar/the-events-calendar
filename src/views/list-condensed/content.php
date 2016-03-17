@@ -36,14 +36,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 	<!-- #tribe-events-header -->
 	<?php do_action( 'tribe_events_after_header' ); ?>
+	<table class="tribe-events-calendar-condensed-list">
+		<thead>
+		<tr>
+			<td class="date">
+				Date
+			</td>
+			<td class="title">
+				Event
+			</td>
+			<td class="location">
+				Location
+			</td>
+			<td class="cost">
+				Price
+			</td>
+			<td class="read-more">
+				&nbsp;
+			</td>
+		</tr>
+		</thead>
 
 
 	<!-- Events Loop -->
 	<?php if ( have_posts() ) : ?>
 		<?php do_action( 'tribe_events_before_loop' ); ?>
+
 		<?php tribe_get_template_part( 'list-condensed/loop' ) ?>
+
 		<?php do_action( 'tribe_events_after_loop' ); ?>
 	<?php endif; ?>
+	</table>
 
 	<!-- List Footer -->
 	<?php do_action( 'tribe_events_before_footer' ); ?>
