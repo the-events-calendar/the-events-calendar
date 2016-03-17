@@ -4,7 +4,7 @@ namespace Tribe\Events\Importer;
 require_once 'File_Importer_OrganizersTest.php';
 
 
-class File_Importer_Organizers_ContentTest extends File_Importer_OrganizersTest {
+class File_Importer_Organizers_FeaturedImageTest extends File_Importer_OrganizersTest {
 
 	/**
 	 * @test
