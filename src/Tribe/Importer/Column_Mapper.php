@@ -51,6 +51,7 @@ class Tribe__Events__Importer__Column_Mapper {
 		return apply_filters( 'tribe_events_importer_event_column_names', array(
 			'event_name'              => esc_html__( 'Event Name', 'the-events-calendar' ),
 			'event_description'       => esc_html__( 'Event Description', 'the-events-calendar' ),
+			'event_excerpt'           => esc_html__( 'Event Excerpt', 'the-events-calendar' ),
 			'event_start_date'        => esc_html__( 'Event Start Date', 'the-events-calendar' ),
 			'event_start_time'        => esc_html__( 'Event Start Time', 'the-events-calendar' ),
 			'event_end_date'          => esc_html__( 'Event End Date', 'the-events-calendar' ),
