@@ -46,9 +46,12 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 			'ShowMapLink'   => $venue_id ? get_post_meta( $venue_id, '_VenueShowMapLink', true ) : 'true',
 			'FeaturedImage' => $featured_image,
 		);
+		
 		if ( empty( $venue['Country'] ) ) {
 			$venue['Country'] = 'United States';
 		}
+
+		$venue = apply_filters( 'tribe_events_importer_venue_array', $venue, $record, $venue_id, $this );
 
 		return $venue;
 	}

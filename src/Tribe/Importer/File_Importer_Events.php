@@ -114,15 +114,6 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return $end_date;
 	}
 
-	private function get_boolean_value_by_key( $record, $key, $return_true_value = '1', $accepted_true_values = array( 'yes', 'true', '1' ) ) {
-		$value = strtolower( $this->get_value_by_key( $record, $key ) );
-		if ( in_array( $value, $accepted_true_values ) ) {
-			$value = $return_true_value;
-		}
-
-		return $value;
-	}
-
 	private function build_event_array( $event_id, array $record ) {
 		$start_date = strtotime( $this->get_event_start_date( $record ) );
 		$end_date   = strtotime( $this->get_event_end_date( $record ) );
