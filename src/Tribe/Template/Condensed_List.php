@@ -11,16 +11,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe__Events__Template__CondensedList' ) ) {
+if ( ! class_exists( 'Tribe__Events__Template__Condensed_List' ) ) {
 	/**
 	 * List view template class
 	 */
-	class Tribe__Events__Template__CondensedList extends Tribe__Events__Template_Factory {
+	class Tribe__Events__Template__Condensed_List extends Tribe__Events__Template_Factory {
 
-		protected $body_class = 'events-list';
-		protected $asset_packages = array( 'ajax-list' );
+		protected $body_class = 'events-condensed-list';
+		protected $asset_packages = array( 'ajax-condensed-list' );
 
-		const AJAX_HOOK = 'tribe_list';
+		const AJAX_HOOK = 'tribe_condensed_list';
 
 		protected function hooks() {
 			parent::hooks();
@@ -63,7 +63,7 @@ if ( ! class_exists( 'Tribe__Events__Template__CondensedList' ) ) {
 			}
 
 			$args = array(
-				'eventDisplay' => 'CondensedList',
+				'eventDisplay' => 'condensed-list',
 				'post_type'    => Tribe__Events__Main::POSTTYPE,
 				'post_status'  => $post_status,
 				'paged'        => $tribe_paged,
@@ -84,7 +84,7 @@ if ( ! class_exists( 'Tribe__Events__Template__CondensedList' ) ) {
 				$args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
 			}
 
-			$args = apply_filters( 'tribe_events_listview_ajax_get_event_args', $args, $_POST );
+			$args = apply_filters( 'tribe_events_condensed_listview_ajax_get_event_args', $args, $_POST );
 
 			$query = tribe_get_events( $args, true );
 
@@ -111,7 +111,7 @@ if ( ! class_exists( 'Tribe__Events__Template__CondensedList' ) ) {
 				'hash'        => $hash_str,
 				'tribe_paged' => $tribe_paged,
 				'total_count' => $query->found_posts,
-				'view'        => 'CondensedList',
+				'view'        => 'condensed-list',
 			);
 
 			global $wp_query, $post, $paged;
@@ -122,14 +122,14 @@ if ( ! class_exists( 'Tribe__Events__Template__CondensedList' ) ) {
 
 			$paged = $tribe_paged;
 
-			Tribe__Events__Main::instance()->displaying = apply_filters( 'tribe_events_listview_ajax_event_display', 'CondensedList', $args );
+			Tribe__Events__Main::instance()->displaying = apply_filters( 'tribe_events_condensed_listview_ajax_event_display', 'condensed-list', $args );
 
 			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
 				$response['view'] = 'past';
 			}
 
 			ob_start();
-			tribe_get_view( 'list/content' );
+			tribe_get_view( 'list-condensed/content' );
 			$response['html'] .= ob_get_clean();
 
 			apply_filters( 'tribe_events_ajax_response', $response );
