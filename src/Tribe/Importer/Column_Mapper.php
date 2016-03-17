@@ -71,7 +71,7 @@ class Tribe__Events__Importer__Column_Mapper {
 	}
 
 	private function get_venue_column_names() {
-		return array(
+		return apply_filters( 'tribe_events_importer_venue_column_names', array(
 			'venue_name'        => esc_html__( 'Venue Name', 'the-events-calendar' ),
 			'venue_description' => esc_html__( 'Venue Description', 'the-events-calendar' ),
 			'venue_country'     => esc_html__( 'Venue Country', 'the-events-calendar' ),
@@ -80,12 +80,10 @@ class Tribe__Events__Importer__Column_Mapper {
 			'venue_city'        => esc_html__( 'Venue City', 'the-events-calendar' ),
 			'venue_state'       => esc_html__( 'Venue State/Province', 'the-events-calendar' ),
 			'venue_zip'         => esc_html__( 'Venue Zip', 'the-events-calendar' ),
-			'venue_latitude'    => esc_html__( 'Venue Latitude', 'the-events-calendar' ),
-			'venue_longitude'   => esc_html__( 'Venue Longitude', 'the-events-calendar' ),
 			'venue_phone'       => esc_html__( 'Venue Phone', 'the-events-calendar' ),
 			'venue_url'         => esc_html__( 'Venue Website', 'the-events-calendar' ),
 			'featured_image'    => esc_html__( 'Venue Featured Image', 'the-events-calendar' ),
-		);
+		) );
 	}
 
 	private function get_organizer_column_names() {
