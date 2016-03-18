@@ -212,12 +212,12 @@ abstract class Tribe__Events__Importer__File_Importer {
 	/**
 	 * Returns a boolean value from the record.
 	 *
-	 * @param        array  $record
-	 * @param        string $key
-	 * @param string        $return_true_value    The value to return if the value was found and is truthy.
-	 * @param string        $return_false_value   The value to return if the value was not found or is not truthy;
-	 *                                            defaults to the original value.
-	 * @param array         $accepted_true_values An array of values considered truthy.
+	 * @param array  $record
+	 * @param string $key
+	 * @param string $return_true_value    The value to return if the value was found and is truthy.
+	 * @param string $return_false_value   The value to return if the value was not found or is not truthy;
+	 *                                     defaults to the original value.
+	 * @param array  $accepted_true_values An array of values considered truthy.
 	 *
 	 * @return string
 	 */
