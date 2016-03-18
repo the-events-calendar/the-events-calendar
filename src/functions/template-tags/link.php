@@ -182,6 +182,22 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Link to Condensed List View (Past)
+	 *
+	 * Returns a link to the general or category past view
+	 *
+	 * @param int|null $term Term ID
+	 *
+	 * @return string URL
+	 */
+	function tribe_get_condensed_listview_past_link( $term = null ) {
+		$tribe_ecp = Tribe__Events__Main::instance();
+		$output    = $tribe_ecp->getLink( 'past', false, $term );
+
+		return apply_filters( 'tribe_get_condensed_listview_past_link', $output );
+	}
+
+	/**
 	 * Link to a nearby List View page
 	 *
 	 * Returns a link to the next/previous list view page
