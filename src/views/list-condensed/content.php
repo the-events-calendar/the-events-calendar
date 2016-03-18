@@ -40,16 +40,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<thead>
 		<tr>
 			<td class="date">
-				Date
+				<?php _e( 'Date', 'the-events-calendar' );?>
 			</td>
 			<td class="title">
-				Event
+				<?php _e( 'Event', 'the-events-calendar' );?>
 			</td>
 			<td class="location">
-				Location
+				<?php _e( 'Location', 'the-events-calendar' );?>
 			</td>
 			<td class="cost">
-				Price
+				<?php _e( 'Price', 'the-event-calendar' );?>
 			</td>
 			<td class="read-more">
 				&nbsp;
