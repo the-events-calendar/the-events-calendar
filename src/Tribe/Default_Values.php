@@ -15,7 +15,7 @@ class Tribe__Events__Default_Values {
 	}
 
 	public function venue_id() {
-		return 0;
+		return null;
 	}
 
 	public function organizer() {
