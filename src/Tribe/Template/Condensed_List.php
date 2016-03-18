@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe__Events__Template__Condensed_List' ) ) {
+if ( ! class_exists( 'Tribe__Events__Template__Condensed__List' ) ) {
 	/**
 	 * List view template class
 	 */
-	class Tribe__Events__Template__Condensed_List extends Tribe__Events__Template_Factory {
+	class Tribe__Events__Template__Condensed__List extends Tribe__Events__Template_Factory {
 
 		protected $body_class = 'events-condensed-list';
 		protected $asset_packages = array( 'ajax-condensed-list' );
