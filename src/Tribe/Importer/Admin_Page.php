@@ -174,6 +174,27 @@ class Tribe__Events__Importer__Admin_Page {
 				break;
 			default:
 				$messages = $this->errors;
+				$import_options = array(
+					'venues'     => esc_html__( 'Venues', 'the-events-calendar' ),
+					'organizers' => esc_html__( 'Organizers', 'the-events-calendar' ),
+					'events'     => esc_html__( 'Events', 'the-events-calendar' ),
+				);
+
+				/**
+				 * Filters the CSV import options available to the user.
+				 *
+				 * @param array $import_options An associative array of option values and labels.
+				 */
+				$import_options = apply_filters( 'tribe_events_import_options_rows', $import_options );
+
+				$default_selected_import_option = 'events';
+
+				/**
+				 * Filters the default selected option for the import options.
+				 *
+				 * @param string $default_selected_import_option
+				 */
+				$default_selected_import_option = apply_filters( 'tribe_events_import_options_default_selected', $default_selected_import_option );
 				include Tribe__Events__Importer__Plugin::path( 'src/io/csv/admin-views/import.php' );
 				break;
 		}

@@ -42,9 +42,9 @@ if ( ! empty( $messages ) ): ?>
 					<label title="Import Type">
 						<?php esc_html_e( 'Import Type:', 'the-events-calendar' ) ?>
 						<select name="import_type" id="events-import-import-type">
-							<option value="venues"><?php esc_html_e( 'Venues', 'the-events-calendar' ) ?></option>
-							<option value="organizers"><?php esc_html_e( 'Organizers', 'the-events-calendar' ) ?></option>
-							<option value="events" selected="selected"><?php esc_html_e( 'Events', 'the-events-calendar' ) ?></option>
+							<?php foreach ( $import_options as $value => $label ) : ?>
+								<option value="<?php echo $value ?>" <?php selected( $value == $default_selected_import_option ); ?>><?php echo $label; ?></option>
+							<?php endforeach; ?>
 						</select>
 					</label>
 				</td>
