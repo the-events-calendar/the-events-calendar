@@ -224,4 +224,25 @@ abstract class Tribe__Events__Importer__File_Importer {
 	protected function featured_image_uploader( $featured_image ) {
 		return empty( $this->featured_image_uploader ) ? new Tribe__Events__Importer__Featured_Image_Uploader( $featured_image ) : $this->featured_image_uploader;
 	}
+
+	/**
+	 * Returns a boolean value from the record.
+	 *
+	 * @param array  $record
+	 * @param string $key
+	 * @param string $return_true_value    The value to return if the value was found and is truthy.
+	 * @param string $return_false_value   The value to return if the value was not found or is not truthy;
+	 *                                     defaults to the original value.
+	 * @param array  $accepted_true_values An array of values considered truthy.
+	 *
+	 * @return string
+	 */
+	public function get_boolean_value_by_key( $record, $key, $return_true_value = '1', $return_false_value = null, $accepted_true_values = array( 'yes', 'true', '1' ) ) {
+		$value = strtolower( $this->get_value_by_key( $record, $key ) );
+		if ( in_array( $value, $accepted_true_values ) ) {
+			return $return_true_value;
+		}
+
+		return is_null( $return_false_value ) ? $value : $return_false_value;
+	}
 }

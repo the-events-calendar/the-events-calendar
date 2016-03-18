@@ -354,11 +354,13 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 				$organizer_label = tribe_get_organizer_label_singular();
 
-				$title = $data['Organizer'] ? $data['Organizer'] : sprintf( __( 'Unnamed %s', 'the-events-calendar' ), ucfirst( $organizer_label ) );
-				$slug  = sanitize_title( $title );
+				$title   = $data['Organizer'] ? $data['Organizer'] : sprintf( __( 'Unnamed %s', 'the-events-calendar' ), ucfirst( $organizer_label ) );
+				$content = $data['Description'] ? $data['Description'] : '';
+				$slug    = sanitize_title( $title );
 
 				$postdata = array(
 					'post_title'  => $title,
+					'post_content'  => $content,
 					'post_name'   => $slug,
 					'post_type'   => Tribe__Events__Main::ORGANIZER_POST_TYPE,
 					'post_status' => $post_status,
@@ -448,10 +450,12 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			if ( ( isset( $data['Venue'] ) && $data['Venue'] ) || self::someVenueDataSet( $data ) ) {
 				$title = $data['Venue'] ? $data['Venue'] : esc_html__( 'Unnamed Venue', 'the-events-calendar' );
+				$content = $data['Description'] ? $data['Description'] : '';
 				$slug  = sanitize_title( $title );
 
 				$postdata = array(
 					'post_title'  => $title,
+					'post_content' => $content,
 					'post_name'   => $slug,
 					'post_type'   => Tribe__Events__Main::VENUE_POST_TYPE,
 					'post_status' => $post_status,
