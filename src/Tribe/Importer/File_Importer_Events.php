@@ -114,13 +114,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return $end_date;
 	}
 
-	private function get_boolean_value_by_key( $record, $key, $return_true_value = '1', $accepted_true_values = array( 'yes', 'true', '1' ) ) {
+	private function get_boolean_value_by_key( $record, $key, $return_true_value = '1', $return_false_value = null, $accepted_true_values = array( 'yes', 'true', '1' ) ) {
 		$value = strtolower( $this->get_value_by_key( $record, $key ) );
 		if ( in_array( $value, $accepted_true_values ) ) {
-			$value = $return_true_value;
+			return $return_true_value;
 		}
 
-		return $value;
+		return is_null( $return_false_value ) ? $value : $return_false_value;
 	}
 
 	private function build_event_array( $event_id, array $record ) {
@@ -134,7 +134,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'post_title'            => $this->get_value_by_key( $record, 'event_name' ),
 			'post_status'           => Tribe__Events__Importer__Options::get_default_post_status( 'csv' ),
 			'post_content'          => $this->get_value_by_key( $record, 'event_description' ),
+			'comment_status'        => $this->get_boolean_value_by_key( $record, 'event_comment_status', 'open', 'closed' ),
+			'ping_status'           => $this->get_boolean_value_by_key( $record, 'event_ping_status', 'open', 'closed' ),
 			'post_excerpt'          => $this->get_post_excerpt( $event_id, $this->get_value_by_key( $record, 'event_excerpt' ) ),
+			'menu_order'            => $this->get_boolean_value_by_key( $record, 'event_sticky', '-1', '0' ),
 			'EventStartDate'        => date( 'Y-m-d', $start_date ),
 			'EventStartHour'        => date( 'h', $start_date ),
 			'EventStartMinute'      => date( 'i', $start_date ),
@@ -147,7 +150,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventShowMap'          => $this->get_boolean_value_by_key( $record, 'event_show_map' ),
 			'EventCost'             => $this->get_value_by_key( $record, 'event_cost' ),
 			'EventAllDay'           => $this->get_boolean_value_by_key( $record, 'event_all_day', 'yes' ),
-			'EventHideFromUpcoming' => $this->get_value_by_key( $record, 'event_hide' ),
+			'EventHideFromUpcoming' => $this->get_boolean_value_by_key( $record, 'event_hide', 'yes', '' ),
 			'EventURL'              => $this->get_value_by_key( $record, 'event_website' ),
 			'EventCurrencySymbol'   => $this->get_value_by_key( $record, 'event_currency_symbol' ),
 			'EventCurrencyPosition' => $this->get_value_by_key( $record, 'event_currency_position' ),
@@ -174,6 +177,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		// don't create the _EventHideFromUpcoming meta key/value pair if it doesn't need to be created
 		if ( ! $event['EventHideFromUpcoming'] ) {
 			unset( $event['EventHideFromUpcoming'] );
+		}
+
+		if ( $event['menu_order'] == '-1' ) {
+			$event['EventShowInCalendar'] = 'yes';
 		}
 
 		$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', array() );

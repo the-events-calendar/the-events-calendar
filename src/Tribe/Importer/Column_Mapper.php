@@ -58,6 +58,8 @@ class Tribe__Events__Importer__Column_Mapper {
 			'event_end_time'          => esc_html__( 'Event End Time', 'the-events-calendar' ),
 			'event_timezone'          => esc_html__( 'Event Time Zone', 'the-events-calendar' ),
 			'event_all_day'           => esc_html__( 'All Day Event', 'the-events-calendar' ),
+			'event_hide'              => esc_html__( 'Hide Event From Event Listings', 'the-events-calendar' ),
+			'event_sticky'            => esc_html__( 'Event Sticky in Month View', 'the-events-calendar' ),
 			'event_venue_name'        => esc_html__( 'Event Venue Name', 'the-events-calendar' ),
 			'event_organizer_name'    => esc_html__( 'Event Organizer Name(s) or ID(s)', 'the-events-calendar' ),
 			'event_show_map_link'     => esc_html__( 'Event Show Map Link', 'the-events-calendar' ),
@@ -69,6 +71,8 @@ class Tribe__Events__Importer__Column_Mapper {
 			'event_tags'              => esc_html__( 'Event Tags', 'the-events-calendar' ),
 			'event_website'           => esc_html__( 'Event Website', 'the-events-calendar' ),
 			'featured_image'          => esc_html__( 'Event Featured Image', 'the-events-calendar' ),
+			'event_comment_status'    => esc_html__( 'Event Allow Comments', 'the-events-calendar' ),
+			'event_ping_status'       => esc_html__( 'Event Allow Trackbacks and Pingbacks', 'the-events-calendar' ),
 		) );
 	}
 
