@@ -431,7 +431,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			}
 			// condensed list view
 			elseif ( tribe_is_condensed_list_view() || tribe_is_ajax_view_request( 'condensed-list' ) ) {
-				$class = 'Tribe__Events__Template__CondensedList';
+				$class = 'Tribe__Events__Template__Condensed__List';
 			}
 			// month view
 			elseif ( tribe_is_month() || tribe_is_ajax_view_request( 'month' ) ) {
