@@ -162,6 +162,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return true;
 	}
 
+	/**
+	 * Retrieves a value from the record.
+	 *
+	 * @param array   $record
+	 * @param  string $key
+	 *
+	 * @return mixed|string Either the value or an empty string if the value was not found.
+	 */
 	public function get_value_by_key( array $record, $key ) {
 		if ( ! isset( $this->inverted_map[ $key ] ) ) {
 			return '';
@@ -177,6 +185,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 		if ( empty( $name ) ) {
 			return 0;
 		}
+
+		if ( is_numeric( $name ) && intval( $name ) == $name ) {
+			$found = get_post( $name );
+			if ( $found && $found->post_type == $post_type ) {
+				return $name;
+			}
+		}
+		
 		$query_args = array(
 			'post_type'   => $post_type,
 			'post_status' => 'publish',
