@@ -135,6 +135,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				case 'list' :
 					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__List::AJAX_HOOK );
 					break;
+				case 'condensed-list' :
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__Condensed__List::AJAX_HOOK );
+					break;
 				case 'day' :
 					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__Day::AJAX_HOOK );
 					break;
@@ -676,6 +679,16 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			case 'list.php' :
 				$attrs['data-startofweek'] = get_option( 'start_of_week' );
 				$attrs['data-view'] = 'list';
+				if ( tribe_is_upcoming() ) {
+					$attrs['data-baseurl'] = tribe_get_listview_link( false );
+				} elseif ( tribe_is_past() ) {
+					$attrs['data-view']    = 'past';
+					$attrs['data-baseurl'] = tribe_get_listview_past_link( false );
+				}
+				break;
+			case 'condensed-list.php' :
+				$attrs['data-startofweek'] = get_option( 'start_of_week' );
+				$attrs['data-view'] = 'condensed-list';
 				if ( tribe_is_upcoming() ) {
 					$attrs['data-baseurl'] = tribe_get_listview_link( false );
 				} elseif ( tribe_is_past() ) {
