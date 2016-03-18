@@ -101,7 +101,7 @@ class Tribe__Events__Importer__Column_Mapper {
 	}
 
 	private function get_organizer_column_names() {
-		return array(
+		$column_names = array(
 			'organizer_name'        => esc_html__( 'Organizer Name', 'the-events-calendar' ),
 			'organizer_description' => esc_html__( 'Organizer Description', 'the-events-calendar' ),
 			'organizer_email'       => esc_html__( 'Organizer Email', 'the-events-calendar' ),
@@ -109,5 +109,12 @@ class Tribe__Events__Importer__Column_Mapper {
 			'organizer_phone'       => esc_html__( 'Organizer Phone', 'the-events-calendar' ),
 			'featured_image'        => esc_html__( 'Organizer Featured Image', 'the-events-calendar' ),
 		);
+
+		/**
+		 * Filters the Organizer column names that will be shown to the user.
+		 *
+		 * @param array $column_names
+		 */
+		return apply_filters( 'tribe_events_importer_organizer_column_names', $column_names );
 	}
 }
