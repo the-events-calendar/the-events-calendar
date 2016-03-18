@@ -1928,12 +1928,12 @@ body.tribe-theme-twentysixteen .datepicker table {
 }
 
 table.tribe-events-calendar-condensed-list {
+    border: none;
     border-collapse: collapse;
     clear: both;
     font-size: 80%;
     table-layout: fixed;
     width: 100%;
-    border: none;
 }
 
 .tribe-events-calendar-condensed-list thead {
@@ -1970,14 +1970,14 @@ table.tribe-events-calendar-condensed-list {
 }
 
 .tribe-events-calendar-condensed-list .tribe-events-read-more {
-    position: absolute;
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
     margin: -1px;
     padding: 0;
-    height: 1px;
-    width: 1px;
     overflow: hidden;
-    clip: rect(0 0 0 0);
-    border: 0;
+    position: absolute;
+    width: 1px;
     word-wrap: normal !important; /* many screen reader and browser combinations announce broken words as they would appear visually */
 }
 
@@ -1990,16 +1990,16 @@ table.tribe-events-calendar-condensed-list {
         font-size: 100%;
     }
     .tribe-events-calendar-condensed-list .tribe-events-read-more {
-        display: block;
         background: #F1F2F2;
         border: 1px solid #D1D3D4;
-        text-align: center;
-        position: relative;
-        margin: .5em 0 0 0;
-        height: auto;
-        width: 100%;
         clip: auto;
+        display: block;
+        height: auto;
+        margin: .5em 0 0 0;
         padding: .5em 0 .5em 0;
+        position: relative;
+        text-align: center;
+        width: 100%;
     }
     .tribe-events-condensed-list table,
     .tribe-events-condensed-list thead,
@@ -2010,13 +2010,13 @@ table.tribe-events-calendar-condensed-list {
         display: block;
     }
     .tribe-events-condensed-list thead tr {
+        left: -9999px;
         position: absolute;
         top: -9999px;
-        left: -9999px;
     }
     .tribe-events-condensed-list .type-tribe_events {
-        padding-bottom: 1em;
         margin-bottom: 1em;
+        padding-bottom: 1em;
     }
     #tribe-events-content .tribe-events-condensed-list-event-title .tribe-event-url {
         text-decoration: underline;
