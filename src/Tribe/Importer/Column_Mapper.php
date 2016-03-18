@@ -48,7 +48,7 @@ class Tribe__Events__Importer__Column_Mapper {
 	}
 
 	private function get_event_column_names() {
-		return apply_filters( 'tribe_events_importer_event_column_names', array(
+		$column_names = array(
 			'event_name'              => esc_html__( 'Event Name', 'the-events-calendar' ),
 			'event_description'       => esc_html__( 'Event Description', 'the-events-calendar' ),
 			'event_start_date'        => esc_html__( 'Event Start Date', 'the-events-calendar' ),
@@ -67,11 +67,18 @@ class Tribe__Events__Importer__Column_Mapper {
 			'event_tags'              => esc_html__( 'Event Tags', 'the-events-calendar' ),
 			'event_website'           => esc_html__( 'Event Website', 'the-events-calendar' ),
 			'featured_image'          => esc_html__( 'Event Featured Image', 'the-events-calendar' ),
-		) );
+		);
+
+		/**
+		 * Filters the Event column names that will be shown to the user.
+		 *
+		 * @param array $column_names
+		 */
+		return apply_filters( 'tribe_events_importer_event_column_names', $column_names );
 	}
 
 	private function get_venue_column_names() {
-		return apply_filters( 'tribe_events_importer_venue_column_names', array(
+		$column_names = array(
 			'venue_name'        => esc_html__( 'Venue Name', 'the-events-calendar' ),
 			'venue_description' => esc_html__( 'Venue Description', 'the-events-calendar' ),
 			'venue_country'     => esc_html__( 'Venue Country', 'the-events-calendar' ),
@@ -83,7 +90,14 @@ class Tribe__Events__Importer__Column_Mapper {
 			'venue_phone'       => esc_html__( 'Venue Phone', 'the-events-calendar' ),
 			'venue_url'         => esc_html__( 'Venue Website', 'the-events-calendar' ),
 			'featured_image'    => esc_html__( 'Venue Featured Image', 'the-events-calendar' ),
-		) );
+		);
+
+		/**
+		 * Filters the Venue column names that will be shown to the user.
+		 *
+		 * @param array $column_names
+		 */
+		return apply_filters( 'tribe_events_importer_venue_column_names', $column_names );
 	}
 
 	private function get_organizer_column_names() {
