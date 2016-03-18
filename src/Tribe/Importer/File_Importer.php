@@ -40,7 +40,19 @@ abstract class Tribe__Events__Importer__File_Importer {
 			case 'organizers':
 				return new Tribe__Events__Importer__File_Importer_Organizers( $file_reader );
 			default:
-				throw new InvalidArgumentException( sprintf( esc_html__( 'No importer defined for %s', 'the-events-calendar' ), $type ) );
+				/**
+				 * Allows developers to return an importer instance to use for unsupported import types.
+				 *
+				 * @param bool|mixed An importer instance or `false` if not found or not supported.
+				 * @param Tribe__Events__Importer__File_Reader $file_reader
+				 */
+				$importer = apply_filters( "tribe_events_import_{$type}_importer", false, $file_reader );
+
+				if ( false === $importer ) {
+					throw new InvalidArgumentException( sprintf( esc_html__( 'No importer defined for %s', 'the-events-calendar' ), $type ) );
+				}
+
+				return $importer;
 		}
 	}
 
