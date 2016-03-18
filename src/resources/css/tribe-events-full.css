@@ -1927,13 +1927,6 @@ body.tribe-theme-twentysixteen .datepicker table {
     border-bottom: 2px solid #eaeaea;
 }
 
-@media (max-width: 414px) {
-    .tribe-events-condensed-list .type-tribe_events {
-        padding-bottom: 1em;
-        margin-bottom: 1em;
-    }
-}
-
 table.tribe-events-calendar-condensed-list {
     border-collapse: collapse;
     clear: both;
@@ -1941,12 +1934,6 @@ table.tribe-events-calendar-condensed-list {
     table-layout: fixed;
     width: 100%;
     border: none;
-}
-
-@media (max-width: 414px) {
-    table.tribe-events-calendar-condensed-list {
-        font-size: 100%;
-    }
 }
 
 .tribe-events-calendar-condensed-list thead {
@@ -1961,12 +1948,6 @@ table.tribe-events-calendar-condensed-list {
     vertical-align: top;
 }
 
-@media (max-width: 414px) {
-    .tribe-events-calendar-condensed-list td {
-        padding: 0 0 .25em 0;
-    }
-}
-
 .tribe-events-calendar-condensed-list .date {
     width: 15%;
 }
@@ -1978,12 +1959,6 @@ table.tribe-events-calendar-condensed-list {
 .tribe-events-condensed-list-event-title .tribe-event-url {
     border-bottom: none; /* removes bottom border on twentyfifteen a link */
     color: #007ACC;
-}
-
-@media (max-width: 414px) {
-    #tribe-events-content .tribe-events-condensed-list-event-title .tribe-event-url {
-       text-decoration: underline;
-    }
 }
 
 .tribe-events-calendar-condensed-list .location {
@@ -2007,10 +1982,13 @@ table.tribe-events-calendar-condensed-list {
 }
 
 .tribe-events-calendar-condensed-list .tribe-events-read-more a {
-    border-bottom: none; /* removes bottom border on twentyfifteen a link */
+    border-bottom: none; /* removes bottom border on twentyfifteen a:link */
 }
 
 @media (max-width: 414px) { /* 414px is the width of the iPhone 6 plus) */
+    table.tribe-events-calendar-condensed-list {
+        font-size: 100%;
+    }
     .tribe-events-calendar-condensed-list .tribe-events-read-more {
         display: block;
         background: #F1F2F2;
@@ -2035,5 +2013,15 @@ table.tribe-events-calendar-condensed-list {
         position: absolute;
         top: -9999px;
         left: -9999px;
+    }
+    .tribe-events-condensed-list .type-tribe_events {
+        padding-bottom: 1em;
+        margin-bottom: 1em;
+    }
+    #tribe-events-content .tribe-events-condensed-list-event-title .tribe-event-url {
+        text-decoration: underline;
+    }
+    .tribe-events-calendar-condensed-list td {
+        padding: 0 0 .25em 0;
     }
 }
