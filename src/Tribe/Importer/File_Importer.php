@@ -162,7 +162,15 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return true;
 	}
 
-	protected function get_value_by_key( array $record, $key ) {
+	/**
+	 * Retrieves a value from the record.
+	 *
+	 * @param array   $record
+	 * @param  string $key
+	 *
+	 * @return mixed|string Either the value or an empty string if the value was not found.
+	 */
+	public function get_value_by_key( array $record, $key ) {
 		if ( ! isset( $this->inverted_map[ $key ] ) ) {
 			return '';
 		}
