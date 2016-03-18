@@ -1995,7 +1995,15 @@ table.tribe-events-calendar-condensed-list {
 }
 
 .tribe-events-calendar-condensed-list .tribe-events-read-more {
-   display: none; /* TODO Find a better way to 'hide' this, using visibility: hidden breaks the layout */
+    position: absolute;
+    margin: -1px;
+    padding: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    border: 0;
+    word-wrap: normal !important; /* many screen reader and browser combinations announce broken words as they would appear visually */
 }
 
 .tribe-events-calendar-condensed-list .tribe-events-read-more a {
@@ -2008,7 +2016,12 @@ table.tribe-events-calendar-condensed-list {
         background: #F1F2F2;
         border: 1px solid #D1D3D4;
         text-align: center;
-
+        position: relative;
+        margin: .5em 0 0 0;
+        height: auto;
+        width: 100%;
+        clip: auto;
+        padding: .5em 0 .5em 0;
     }
     .tribe-events-condensed-list table,
     .tribe-events-condensed-list thead,
