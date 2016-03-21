@@ -65,7 +65,7 @@ final class Tribe__Events__Pro__Customizer__Section_Widget extends Tribe__Events
 				$manager,
 				$customizer->get_setting_name( 'calendar_header_color', $section ),
 				array(
-					'label'   => __( 'Calendar Header Color' ),
+					'label'   => __( 'Calendar Header Color', 'tribe-events-calendar-pro' ),
 					'section' => $section->id,
 				)
 			)
@@ -87,7 +87,7 @@ final class Tribe__Events__Pro__Customizer__Section_Widget extends Tribe__Events
 				$manager,
 				$customizer->get_setting_name( 'calendar_datebar_color', $section ),
 				array(
-					'label'   => __( 'Calendar Date Bar Color' ),
+					'label'   => __( 'Calendar Date Bar Color', 'tribe-events-calendar-pro' ),
 					'section' => $section->id,
 				)
 			)

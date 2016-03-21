@@ -228,6 +228,7 @@ Our Premium Plugins:
 = [4.1.1] TBD =
 
 * Fix - Resolved various capitalization issues with German translations
+* Fix - Fixed issue where some Theme Customizer headings were not translatable
 
 = [4.1] 2016-03-15 =
 
