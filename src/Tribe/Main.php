@@ -517,8 +517,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'load-edit-tags.php', array( $this, 'prepare_to_fix_tagcloud_links' ), 10, 0 );
 			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
 
-			// Check for a page that might conflict with events archive
-			add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice' ) );
+			// Check for a page that might conflict with events archive (but we only need to do that
+			// on non-ajax requests
+			if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+				add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice' ) );
+			}
 
 			// add-on compatibility
 			if ( is_multisite() ) {
