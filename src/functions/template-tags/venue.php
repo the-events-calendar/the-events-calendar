@@ -120,7 +120,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_country( $postId = null ) {
 		$postId = tribe_get_venue_id( $postId );
-		$output = esc_html( tribe_get_event_meta( $postId, '_VenueCountry', true ) );
+		$venue_country = tribe_get_event_meta( $postId, '_VenueCountry', true );
+
+		// _VenueCountry should hold an array of [ 'country_id', 'country_name' ]. Let's get the country
+		// name from that array and output that
+		if ( is_array( $venue_country ) ) {
+			$venue_country = array_pop( $venue_country );
+		}
+		$output = esc_html( $venue_country );
 
 		return apply_filters( 'tribe_get_country', $output );
 	}
