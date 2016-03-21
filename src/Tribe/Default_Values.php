@@ -47,7 +47,7 @@ class Tribe__Events__Default_Values {
 	}
 
 	public function country() {
-		return '';
+		return array( '', '' );
 	}
 
 	public function phone() {
