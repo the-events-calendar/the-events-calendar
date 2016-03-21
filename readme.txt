@@ -309,6 +309,14 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.1.1] TBD =
+
+* Fix - Resolved bug where Array notices were output on single event pages when venues were not set
+* Fix - Resolved issue where the Month View in mobile sizes retained the long day-of-week names when the abbreviations should have been used
+* Fix - Fixed bug where a "0" was added to the default Venue name when creating a new event
+* Fix - Fixed notice that caused Ajax requests to fail (props to cgrymala on WP.org for reporting this!)
+* Fix - Resolved various capitalization issues with German translations
+
 = [4.1.0.1] 2016-03-17 =
 
 * Fix - Resolved multiple issues with the German `de_DE` language file that caused a number of site-breaking issues
