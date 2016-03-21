@@ -46,7 +46,7 @@
 			 */
 			public $widget_wrappers;
 
-			const REQUIRED_TEC_VERSION = '4.1';
+			const REQUIRED_TEC_VERSION = '4.1.1';
 			const VERSION = '4.1.1';
 
 
@@ -372,7 +372,7 @@
 				$date_format = apply_filters( 'tribe_events_pro_page_title_date_format', tribe_get_date_format( true ) );
 
 				if ( tribe_is_showing_all() ) {
-					$reset_title = sprintf( __( 'All %1$s for %2$s', 'tribe-events-calendar-pro' ), strtolower( $this->plural_event_label ), get_the_title() );
+					$reset_title = sprintf( __( 'All %1$s for %2$s', 'tribe-events-calendar-pro' ), $this->plural_event_label_lowercase, get_the_title() );
 				}
 
 				// week view title
@@ -415,6 +415,8 @@
 				$this->widget_wrappers = new Tribe__Events__Pro__Shortcodes__Widget_Wrappers;
 				$this->singular_event_label = tribe_get_event_label_singular();
 				$this->plural_event_label = tribe_get_event_label_plural();
+				$this->singular_event_label_lowercase = tribe_get_event_label_singular_lowercase();
+				$this->plural_event_label_lowercase = tribe_get_event_label_plural_lowercase();
 			}
 
 			/**

@@ -138,7 +138,7 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		if ( ! tribe_is_week() && ! tribe_is_month() ) {
 			echo '<span class="tribe-events-user-recurrence-toggle">';
 				echo '<label for="tribeHideRecurrence">';
-					echo '<input type="checkbox" name="tribeHideRecurrence" value="1" id="tribeHideRecurrence" ' . checked( $hide_recurrence, 1, false ) . '>' . sprintf( __( 'Show only the first upcoming instance of recurring %s', 'tribe-events-calendar-pro' ), strtolower( tribe_get_event_label_plural() ) );
+					echo '<input type="checkbox" name="tribeHideRecurrence" value="1" id="tribeHideRecurrence" ' . checked( $hide_recurrence, 1, false ) . '>' . sprintf( __( 'Show only the first upcoming instance of recurring %s', 'tribe-events-calendar-pro' ), tribe_get_event_label_plural_lowercase() );
 				echo '</label>';
 			echo '</span>';
 		}

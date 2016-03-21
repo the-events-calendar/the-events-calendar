@@ -62,7 +62,7 @@ if ( isset( $posts ) && $posts ) :
 // No Events were found.
 else:
 ?>
-	<p><?php printf( __( 'There are no upcoming %s at this time.', 'tribe-events-calendar-pro' ), strtolower( tribe_get_event_label_plural() ) ); ?></p>
+	<p><?php printf( __( 'There are no upcoming %s at this time.', 'tribe-events-calendar-pro' ), tribe_get_event_label_plural_lowercase() ); ?></p>
 <?php
 endif;
 
