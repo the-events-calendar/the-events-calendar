@@ -284,7 +284,7 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	 * Sets an appropriate no results found message. This may be overridden in child classes.
 	 */
 	protected function nothing_found_notice() {
-		$events_label_plural = strtolower( tribe_get_event_label_plural() );
+		$events_label_plural = tribe_get_event_label_plural_lowercase();
 
 		list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 

@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $events_label_singular = tribe_get_event_label_singular();
 $events_label_plural = tribe_get_event_label_plural();
+$events_label_singular_lowercase = tribe_get_event_label_singular_lowercase();
+$events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 
 if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 	?>
@@ -64,7 +66,7 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 			<td colspan="2">
 				<table class="eventtable">
 					<tr id="recurrence-changed-row">
-						<td colspan='2'><?php printf( esc_html__( 'You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page.', 'the-events-calendar' ), strtolower( $events_label_singular ), strtolower( $events_label_plural ) ); ?></td>
+						<td colspan='2'><?php printf( esc_html__( 'You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page.', 'the-events-calendar' ), $events_label_singular_lowercase, $events_label_plural_lowercase ); ?></td>
 					</tr>
 					<tr>
 						<td><?php printf( esc_html__( 'All Day %s:', 'the-events-calendar' ), $events_label_singular ); ?></td>
@@ -260,7 +262,7 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 			<tr>
 				<td></td>
 				<td>
-					<small><?php printf( esc_html__( 'Enter a 0 for %s that are free or leave blank to hide the field.', 'the-events-calendar' ), strtolower( $events_label_plural ) ); ?></small>
+					<small><?php printf( esc_html__( 'Enter a 0 for %s that are free or leave blank to hide the field.', 'the-events-calendar' ), $events_label_plural_lowercase ); ?></small>
 				</td>
 			</tr>
 		<?php endif; ?>

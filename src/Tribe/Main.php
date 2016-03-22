@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '4.1.0.1';
+		const VERSION           = '4.1.1';
 		const MIN_ADDON_VERSION = '4.1';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -517,8 +517,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'load-edit-tags.php', array( $this, 'prepare_to_fix_tagcloud_links' ), 10, 0 );
 			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
 
-			// Check for a page that might conflict with events archive
-			add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice' ) );
+			// Check for a page that might conflict with events archive (but we only need to do that
+			// on non-ajax requests
+			if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+				add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice' ) );
+			}
 
 			// add-on compatibility
 			if ( is_multisite() ) {
@@ -794,6 +797,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->plural_organizer_label                     = $this->get_organizer_label_plural();
 			$this->singular_event_label                       = $this->get_event_label_singular();
 			$this->plural_event_label                         = $this->get_event_label_plural();
+			$this->singular_event_label_lowercase             = tribe_get_event_label_singular_lowercase();
+			$this->plural_event_label_lowercase               = tribe_get_event_label_plural_lowercase();
 
 			$this->postTypeArgs['rewrite']['slug']            = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE );
 			$this->postVenueTypeArgs['rewrite']['slug']       = $rewrite->prepare_slug( $this->singular_venue_label, self::VENUE_POST_TYPE );
@@ -1471,8 +1476,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'new_item'           => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_event_label ),
 				'view_item'          => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_event_label ),
 				'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_event_label ),
-				'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), strtolower( $this->plural_event_label ) ),
-				'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->plural_event_label ) ),
+				'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), $this->plural_event_label_lowercase ),
+				'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), $this->plural_event_label_lowercase ),
 			) );
 
 			/**
@@ -1556,14 +1561,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				6  => sprintf(
 					esc_html__( 'Event published. %1$sView %2$s', 'the-events-calendar' ),
 					'<a href="' . esc_url( get_permalink( $post_ID ) ) . '">',
-					strtolower( $this->singular_event_label ) . '</a>'
+					$this->singular_event_label_lowercase . '</a>'
 				),
 				7  => sprintf( esc_html__( '%s saved.', 'the-events-calendar' ), $this->singular_event_label ),
 				8  => sprintf(
 					esc_html__( '%1$s submitted. %2$sPreview %3$s', 'the-events-calendar' ),
 					$this->singular_event_label,
 					'<a target="_blank" href="' . esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) . '">',
-					strtolower( $this->singular_event_label ) . '</a>'
+					$this->singular_event_label_lowercase . '</a>'
 				),
 				9  => sprintf(
 					esc_html__( '%1$s scheduled for: %2$s. %3$sPreview %4$s', 'the-events-calendar' ),
@@ -1572,13 +1577,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'<strong>' . date_i18n( esc_html__( 'M j, Y @ G:i', 'the-events-calendar' ),
 						strtotime( $post->post_date ) ) . '</strong>',
 					'<a target="_blank" href="' . esc_url( get_permalink( $post_ID ) ) . '">',
-					strtolower( $this->singular_event_label ) . '</a>'
+					$this->singular_event_label_lowercase . '</a>'
 				),
 				10 => sprintf(
 					esc_html__( '%1$s draft updated. %2$sPreview %3$s', 'the-events-calendar' ),
 					$this->singular_event_label,
 					'<a target="_blank" href="' . esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) . '">',
-					strtolower( $this->singular_event_label ) . '</a>'
+					$this->singular_event_label_lowercase . '</a>'
 				),
 			);
 

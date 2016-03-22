@@ -1211,7 +1211,9 @@ Date.prototype.format = function( mask, utc ) {
 				$breakpoint_holder = $tribe_events;
 			}
 
-			td.mobile_break = parseInt( $breakpoint_holder.data( 'mobilebreak' ), 10 );
+			if ( $breakpoint_holder.length ) {
+				td.mobile_break = parseInt( $breakpoint_holder.data( 'mobilebreak' ), 10 );
+			}
 		}
 
 		if ( $tribe_events.length && td.mobile_break > 0 ) {
