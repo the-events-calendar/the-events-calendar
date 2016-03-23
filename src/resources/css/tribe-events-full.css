@@ -1985,6 +1985,15 @@ table.tribe-events-calendar-condensed-list {
     border-bottom: none; /* removes bottom border on twentyfifteen a:link */
 }
 
+.tribe-events-condensed-list-event-title {
+    font-weight: bold;
+}
+
+.tribe-events-nav-previous a,
+.tribe-events-nav-next a {
+    color: #007ACC;
+}
+
 @media (max-width: 414px) { /* 414px is the width of the iPhone 6 plus) */
     table.tribe-events-calendar-condensed-list {
         font-size: 100%;
