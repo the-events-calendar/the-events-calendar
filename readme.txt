@@ -226,7 +226,7 @@ Our Premium Plugins:
 == Changelog ==
 
 = [4.1.1] TBD =
-
+* Tweak - Change This Widget Widget query filter to a unique name
 * Fix - Resolved various capitalization issues with German translations
 * Fix - Fixed issue where some Theme Customizer headings were not translatable
 
