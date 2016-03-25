@@ -315,6 +315,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - Resolved issue where the Month View in mobile sizes retained the long day-of-week names when the abbreviations should have been used
 * Fix - Fixed bug where a "0" was added to the default Venue name when creating a new event
 * Fix - Fixed notice that caused Ajax requests to fail (props to cgrymala on WP.org for reporting this!)
+* Fix - Removed quotes from around TZID-specified timezones in iCal feeds which causes problems with some parsers
 * Fix - Resolved various capitalization issues with German translations
 
 = [4.1.0.1] 2016-03-17 =
