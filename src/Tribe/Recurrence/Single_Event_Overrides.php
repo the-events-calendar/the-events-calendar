@@ -38,9 +38,19 @@ class Tribe__Events__Pro__Recurrence__Single_Event_Overrides {
 			'start_date' => tribe_beginning_of_day( $date ),
 			'end_date' => tribe_end_of_day( $date ),
 			'post_status' => $post_status,
-			'post_parent' => $parent_id,
 			'tribeHideRecurrence' => false,
 		);
+
+		// we want event times regardless of whether or not the event is a parent or a child
+		// recurring event. We have to fetch those slightly differently depending on which
+		// it is
+		if ( empty( $event->post_parent ) ) {
+			// we're looking at the master event, so grab the info via the ID
+			$args['p'] = $parent_id;
+		} else {
+			// we're looking at a child event, so grab the info via post_parent
+			$args['post_parent'] = $parent_id;
+		}
 
 		$events = tribe_get_events( $args );
 
