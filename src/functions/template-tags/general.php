@@ -522,10 +522,13 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			$date = is_null( $date ) ? $wp_query->get( 'start_date' ) : $date;
 		}
 
+		$timezone = Tribe__Timezones::wp_timezone_string();
+		$timezone = Tribe__Timezones::generate_timezone_string_from_utc_offset( $timezone );
+
 		try {
-			$date = new DateTime( $date );
+			$date = new DateTime( $date, new DateTimeZone( $timezone ) );
 		} catch ( exception $e ) {
-			$date = new DateTime();
+			$date = new DateTime( current_time( 'Y-m-d' ), new DateTimeZone( $timezone ) );
 		}
 
 		// Clone to avoid altering the original date
