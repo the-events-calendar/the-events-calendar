@@ -229,6 +229,7 @@ Our Premium Plugins:
 
 * Tweak - Change This Widget Widget query filter to a unique name
 * Fix - Resolved issue where the week view was always using UTC rather than the configured timezone when determining the start of the week
+* Fix - Fixed bug where the first event in a recurring series would not render the start or end times
 * Fix - Resolved various capitalization issues with German translations
 * Fix - Fixed issue where some Theme Customizer headings were not translatable
 
