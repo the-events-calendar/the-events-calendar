@@ -227,6 +227,7 @@ Our Premium Plugins:
 
 = [4.1.1] TBD =
 
+* Fix - Resolved issue where the week view was always using UTC rather than the configured timezone when determining the start of the week
 * Fix - Resolved various capitalization issues with German translations
 * Fix - Fixed issue where some Theme Customizer headings were not translatable
 

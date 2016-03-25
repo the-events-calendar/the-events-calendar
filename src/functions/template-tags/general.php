@@ -525,7 +525,7 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		try {
 			$date = new DateTime( $date );
 		} catch ( exception $e ) {
-			$date = new DateTime();
+			$date = new DateTime( current_time( 'Y-m-d' ) );
 		}
 
 		// Clone to avoid altering the original date
