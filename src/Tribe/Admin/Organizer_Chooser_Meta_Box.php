@@ -36,8 +36,12 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 			$event = WP_Post::get_instance( $event );
 		}
 
+		if ( $event instanceof stdClass || is_array( $event ) ) {
+			$event = new WP_Post( $event );
+		}
+
 		if ( ! $event instanceof WP_Post ) {
-			$event = WP_Post::get_instance( 0 );
+			$event = new WP_Post( 0 );
 		}
 
 		$this->event = $event;
@@ -50,7 +54,18 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	public function render() {
 		$this->render_dropdowns();
 		$this->render_add_organizer_button();
-		include $this->tribe->pluginPath . 'src/admin-views/new-organizer-meta-section.php';
+
+		if ( class_exists( 'Tribe__Events__Community__Main' ) ) {
+			ob_start();
+			include Tribe__Events__Templates::getTemplateHierarchy( 'community/modules/organizer-multiple.php' );
+			$community_html = trim( ob_get_clean() );
+		}
+
+		if ( empty( $community_html ) ) {
+			include $this->tribe->pluginPath . 'src/admin-views/new-organizer-meta-section.php';
+		} else {
+			echo $community_html;
+		}
 	}
 
 	/**
