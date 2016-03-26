@@ -397,7 +397,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 
 				// For multisite, return the network-level siteurl ... in
 				// all other cases return the actual URL being serviced
-				$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : (defined('WP_SITEURL') ? parse_url(WP_SITEURL)['host'] : $_SERVER['SERVER_NAME']);
+				$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : ( defined( 'WP_SITEURL' ) ? parse_url( WP_SITEURL )['host'] : $_SERVER['SERVER_NAME'] );
 
 				if ( is_multisite() ) {
 					$queryArgs['multisite']         = 1;
@@ -514,7 +514,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 			$queryArgs['wp_version'] = $wp_version;
 
 			//include domain and multisite stats
-			$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : (defined('WP_SITEURL') ? parse_url(WP_SITEURL)['host'] : $_SERVER['SERVER_NAME']);
+			$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : ( defined( 'WP_SITEURL' ) ? parse_url( WP_SITEURL )['host'] : $_SERVER['SERVER_NAME'] );
 
 			if ( is_multisite() ) {
 				$queryArgs['multisite']         = 1;
