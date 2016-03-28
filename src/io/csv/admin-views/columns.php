@@ -13,7 +13,7 @@ $mapper = new Tribe__Events__Importer__Column_Mapper( $import_type );
 if ( isset( $_POST['column_map'] ) ) {
 	$mapper->set_defaults( $_POST['column_map'] );
 } else {
-	$mapper->set_defaults( get_option( 'tribe_events_import_column_mapping_' . $import_type , array() ) );
+	$mapper->set_defaults( get_option( 'tribe_events_import_column_mapping_' . $import_type, array() ) );
 }
 
 require_once 'header.php';
