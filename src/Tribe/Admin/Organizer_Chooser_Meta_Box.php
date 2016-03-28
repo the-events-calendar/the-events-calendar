@@ -55,17 +55,12 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 		$this->render_dropdowns();
 		$this->render_add_organizer_button();
 
-		if ( class_exists( 'Tribe__Events__Community__Main' ) ) {
-			ob_start();
-			include Tribe__Events__Templates::getTemplateHierarchy( 'community/modules/organizer-multiple.php' );
-			$community_html = trim( ob_get_clean() );
-		}
-
-		if ( empty( $community_html ) ) {
-			include $this->tribe->pluginPath . 'src/admin-views/new-organizer-meta-section.php';
-		} else {
-			echo $community_html;
-		}
+		/**
+		 * Make this Template filterable, used for Community Facing templates
+		 *
+		 * @var string $file_path
+		 */
+		include apply_filters( 'tribe_events_multiple_organizer_template', $this->tribe->pluginPath . 'src/admin-views/new-organizer-meta-section.php' );
 	}
 
 	/**
