@@ -109,6 +109,10 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return $this->required_fields;
 	}
 
+	public function get_type() {
+		return $this->type;
+	}
+
 	public function import_next_row( $throw = false ) {
 		$record = $this->reader->read_next_row();
 		$row    = $this->reader->get_last_line_number_read() + 1;

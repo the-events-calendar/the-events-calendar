@@ -317,7 +317,7 @@ class Tribe__Events__Importer__Admin_Page {
 			return false;
 		}
 
-		update_option( 'tribe_events_import_column_mapping', $column_mapping );
+		update_option( 'tribe_events_import_column_mapping_' . $importer->get_type(), $column_mapping );
 		return true;
 	}
 
@@ -361,7 +361,7 @@ class Tribe__Events__Importer__Admin_Page {
 		$type = get_option( 'tribe_events_import_type' );
 		$file_reader = new Tribe__Events__Importer__File_Reader( Tribe__Events__Importer__File_Uploader::get_file_path() );
 		$importer = Tribe__Events__Importer__File_Importer::get_importer( $type, $file_reader );
-		$importer->set_map( get_option( 'tribe_events_import_column_mapping', array() ) );
+		$importer->set_map( get_option( 'tribe_events_import_column_mapping_' . $type, array() ) );
 		$importer->set_type( get_option( 'tribe_events_import_type' ) );
 		$importer->set_limit( absint( apply_filters( 'tribe_events_csv_batch_size', 100 ) ) );
 		$importer->set_offset( get_option( 'tribe_events_importer_has_header', 0 ) );
