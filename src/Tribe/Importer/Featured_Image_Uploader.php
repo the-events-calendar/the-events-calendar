@@ -16,12 +16,12 @@ class Tribe__Events__Importer__Featured_Image_Uploader {
 	/**
 	 * @var bool|array
 	 */
-	protected static $_attachment_guids_cache = false;
+	protected static $attachment_guids_cache = false;
 
 	/**
 	 * @var bool|array
 	 */
-	protected static $_original_urls_cache = false;
+	protected static $original_urls_cache = false;
 
 	/**
 	 * Tribe__Events__Importer__Featured_Image_Uploader constructor.
@@ -37,8 +37,8 @@ class Tribe__Events__Importer__Featured_Image_Uploader {
 	 * Resets the static "cache" of the class.
 	 */
 	public static function reset_cache() {
-		self::$_attachment_guids_cache = false;
-		self::$_original_urls_cache    = false;
+		self::$attachment_guids_cache = false;
+		self::$original_urls_cache    = false;
 	}
 
 	/**
@@ -110,8 +110,8 @@ class Tribe__Events__Importer__Featured_Image_Uploader {
 		$this->maybe_init_attachment_guids_cache();
 		$this->maybe_init_attachment_original_urls_cache();
 
-		self::$_attachment_guids_cache[ get_post( $id )->guid ] = $id;
-		self::$_original_urls_cache[ $file_url ]           = $id;
+		self::$attachment_guids_cache[ get_post( $id )->guid ] = $id;
+		self::$original_urls_cache[ $file_url ]                = $id;
 
 		return $id;
 	}
@@ -120,30 +120,27 @@ class Tribe__Events__Importer__Featured_Image_Uploader {
 		$this->maybe_init_attachment_guids_cache();
 		$this->maybe_init_attachment_original_urls_cache();
 
-		/** @var \wpdb $wpdb */
-		global $wpdb;
-
-		if ( isset( self::$_attachment_guids_cache[ $featured_image ] ) ) {
-			return self::$_attachment_guids_cache[ $featured_image ];
-		} elseif ( isset( self::$_original_urls_cache[ $featured_image ] ) ) {
-			return self::$_original_urls_cache[ $featured_image ];
+		if ( isset( self::$attachment_guids_cache[ $featured_image ] ) ) {
+			return self::$attachment_guids_cache[ $featured_image ];
+		} elseif ( isset( self::$original_urls_cache[ $featured_image ] ) ) {
+			return self::$original_urls_cache[ $featured_image ];
 		}
 
 		return false;
 	}
 
 	protected function maybe_init_attachment_guids_cache() {
-		if ( self::$_attachment_guids_cache === false ) {
+		if ( self::$attachment_guids_cache === false ) {
 			/** @var \wpdb $wpdb */
 			global $wpdb;
 			$guids = $wpdb->get_results( "SELECT ID, guid FROM $wpdb->posts where post_type = 'attachment'" );
 
-			self::$_attachment_guids_cache = $guids ? array_combine( wp_list_pluck( $guids, 'guid' ), wp_list_pluck( $guids, 'ID' ) ) : array();
+			self::$attachment_guids_cache = $guids ? array_combine( wp_list_pluck( $guids, 'guid' ), wp_list_pluck( $guids, 'ID' ) ) : array();
 		}
 	}
 
 	protected function maybe_init_attachment_original_urls_cache() {
-		if ( self::$_original_urls_cache === false ) {
+		if ( self::$original_urls_cache === false ) {
 			/** @var \wpdb $wpdb */
 			global $wpdb;
 			$original_urls = $wpdb->get_results( "SELECT p.ID, pm.meta_value FROM $wpdb->posts p
@@ -151,7 +148,7 @@ class Tribe__Events__Importer__Featured_Image_Uploader {
 					ON p.ID = pm.post_id
 					WHERE p.post_type = 'attachment' AND pm.meta_key = '_tribe_importer_original_url'" );
 
-			self::$_original_urls_cache = $original_urls ? array_combine( wp_list_pluck( $original_urls, 'meta_value' ), wp_list_pluck( $original_urls, 'ID' ) ) : array();
+			self::$original_urls_cache = $original_urls ? array_combine( wp_list_pluck( $original_urls, 'meta_value' ), wp_list_pluck( $original_urls, 'ID' ) ) : array();
 		}
 	}
 
