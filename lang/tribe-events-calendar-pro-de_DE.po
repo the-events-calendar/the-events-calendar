@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-12-06 12:06:32+0000\n"
+"PO-Revision-Date: 2016-03-19 17:35:22+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,51 +12,51 @@ msgstr ""
 
 #: src/Tribe/APM_Filters/APM_Filters.php:161
 msgid "Download for free"
-msgstr ""
+msgstr "Kostenlos herunterladen"
 
 #: src/Tribe/APM_Filters/APM_Filters.php:167
 msgid "Dismiss"
-msgstr ""
+msgstr "ausblenden"
 
 #: src/Tribe/APM_Filters/APM_Filters.php:171
 msgid "Pssst! Looking for the filters? They live in a separate plugin now | %s | %s"
-msgstr ""
+msgstr "Pssst! Suchen Sie die Filter? Diese wurden in ein separates Plugin ausgelagert | %s | %s"
 
 #: src/Tribe/Geo_Loc.php:86
 msgid "map"
-msgstr ""
+msgstr "karte"
 
 #: src/Tribe/Geo_Loc.php:151
 msgid "Distance unit"
-msgstr ""
+msgstr "Streckeneinheit"
 
 #: src/Tribe/Geo_Loc.php:490
 msgid "The latitude and longitude for your venue could not be fetched. The Google Maps API daily query limit has been reached!"
-msgstr ""
+msgstr "Der Längen- und Breitengrad des Veranstaltungsortes konnte nicht ermittelt werden. Das tägliche Google Maps API Limit wurde erreicht."
 
 #: src/Tribe/Main.php:1670
 msgid "Events Calendar PRO"
-msgstr ""
+msgstr "Veranstaltungskalender PRO"
 
 #: src/Tribe/Recurrence/Single_Event_Overrides.php:72
 msgid "Times:"
-msgstr ""
+msgstr "Zeiten:"
 
 #: src/Tribe/Recurrence/Strings.php:13
 msgid "Once on %1$s"
-msgstr ""
+msgstr "Einmal auf %1$s"
 
 #: src/Tribe/Recurrence/Validator.php:41
 msgid "Not an event post."
-msgstr ""
+msgstr "Keine Veranstaltung."
 
 #: src/Tribe/Recurrence/Validator.php:136
 msgid "Recurrence meta should not be empty."
-msgstr ""
+msgstr "Metadaten von Serienterminen dürfen nicht leer sein."
 
 #: src/admin-views/event-recurrence.php:37
 msgid "that will occur on"
-msgstr ""
+msgstr "welche stattfinden am "
 
 #: src/Tribe/Admin/Custom_Meta_Tools.php:95
 msgid "Some additional field data still needs to be updated (unfortunately, we were unable to continue to update things automatically)."

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-03-15 19:39:55+0000\n"
+"PO-Revision-Date: 2016-03-17 18:49:09+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,27 +12,27 @@ msgstr ""
 
 #: src/Tribe/APM_Filters/APM_Filters.php:161
 msgid "Download for free"
-msgstr ""
+msgstr "Ke stažení zdarma"
 
 #: src/Tribe/APM_Filters/APM_Filters.php:167
 msgid "Dismiss"
-msgstr ""
+msgstr "Zavřít"
 
 #: src/Tribe/APM_Filters/APM_Filters.php:171
 msgid "Pssst! Looking for the filters? They live in a separate plugin now | %s | %s"
-msgstr ""
+msgstr "Pssst! Hledáte filtry? Ty se teď nachází v samostatném pluginu. | %s | %s"
 
 #: src/Tribe/Geo_Loc.php:86
 msgid "map"
-msgstr ""
+msgstr "mapa"
 
 #: src/Tribe/Geo_Loc.php:151
 msgid "Distance unit"
-msgstr ""
+msgstr "Jednotka vzdálenosti"
 
 #: src/Tribe/Geo_Loc.php:490
 msgid "The latitude and longitude for your venue could not be fetched. The Google Maps API daily query limit has been reached!"
-msgstr ""
+msgstr "U vašeho místa konání se nepodařila zjistit zeměpisná šířka a délka. Bylo dosaženo denního limitu dotazů na Google Maps API."
 
 #: src/Tribe/Main.php:1670
 msgid "Events Calendar PRO"
@@ -40,23 +40,23 @@ msgstr "Events Calendar PRO"
 
 #: src/Tribe/Recurrence/Single_Event_Overrides.php:72
 msgid "Times:"
-msgstr ""
+msgstr "Počet opakování:"
 
 #: src/Tribe/Recurrence/Strings.php:13
 msgid "Once on %1$s"
-msgstr ""
+msgstr "Jedenkrát v %1$s"
 
 #: src/Tribe/Recurrence/Validator.php:41
 msgid "Not an event post."
-msgstr ""
+msgstr "Toto není akce."
 
 #: src/Tribe/Recurrence/Validator.php:136
 msgid "Recurrence meta should not be empty."
-msgstr ""
+msgstr "Informace o opakování by neměly zůstat prázdné."
 
 #: src/admin-views/event-recurrence.php:37
 msgid "that will occur on"
-msgstr ""
+msgstr "proběhne"
 
 #: src/Tribe/Admin/Custom_Meta_Tools.php:95
 msgid "Some additional field data still needs to be updated (unfortunately, we were unable to continue to update things automatically)."
