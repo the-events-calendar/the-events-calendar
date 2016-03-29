@@ -37,11 +37,11 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 		}
 
 		if ( $event instanceof stdClass || is_array( $event ) ) {
-			$event = new WP_Post( $event );
+			$event = new WP_Post( (object) $event );
 		}
 
 		if ( ! $event instanceof WP_Post ) {
-			$event = new WP_Post( 0 );
+			$event = new WP_Post( (object) array( 'ID' => 0 ) );
 		}
 
 		$this->event = $event;
