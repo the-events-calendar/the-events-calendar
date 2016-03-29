@@ -311,7 +311,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.1.1] TBD =
 
-* Fix - Resolved bug where Array notices were output on single event pages when venues were not set
+* Fix - Resolved bug where array notices were output on single event pages when venues were not set
 * Fix - Resolved issue where the Month View in mobile sizes retained the long day-of-week names when the abbreviations should have been used
 * Fix - Fixed bug where a "0" was added to the default Venue name when creating a new event
 * Fix - Fixed notice that caused Ajax requests to fail (props to cgrymala on WP.org for reporting this!)
