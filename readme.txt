@@ -309,7 +309,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.1.1] TBD =
+= [4.1.1] 2016-03-30 =
 
 * Fix - Resolved bug where array notices were output on single event pages when venues were not set
 * Fix - Resolved issue where the Month View in mobile sizes retained the long day-of-week names when the abbreviations should have been used
