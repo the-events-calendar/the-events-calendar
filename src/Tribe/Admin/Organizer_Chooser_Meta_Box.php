@@ -36,6 +36,10 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 			$event = WP_Post::get_instance( $event );
 		}
 
+		if ( $event instanceof stdClass || is_array( $event ) ) {
+			$event = new WP_Post( $event );
+		}
+
 		if ( ! $event instanceof WP_Post ) {
 			$event = new WP_Post( array( 'ID' => 0 ) );
 		}
@@ -50,7 +54,13 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	public function render() {
 		$this->render_dropdowns();
 		$this->render_add_organizer_button();
-		include $this->tribe->pluginPath . 'src/admin-views/new-organizer-meta-section.php';
+
+		/**
+		 * Make this Template filterable, used for Community Facing templates
+		 *
+		 * @var string $file_path
+		 */
+		include apply_filters( 'tribe_events_multiple_organizer_template', $this->tribe->pluginPath . 'src/admin-views/new-organizer-meta-section.php' );
 	}
 
 	/**
