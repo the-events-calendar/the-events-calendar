@@ -225,7 +225,7 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.1.1] TBD =
+= [4.1.1] 2016-03-30 =
 
 * Tweak - Change This Widget Widget query filter to a unique name
 * Fix - Resolved issue where the week view was always using UTC rather than the configured timezone when determining the start of the week
