@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-03-12 17:04:07+0000\n"
+"PO-Revision-Date: 2016-03-27 17:04:26+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -257,7 +257,7 @@ msgstr ""
 
 #: vendor/tickets/src/Tribe/RSVP.php:751
 msgid "(deleted)"
-msgstr ""
+msgstr "(șters)"
 
 #: vendor/tickets/src/Tribe/RSVP.php:954
 msgid "Return to the %1$sAttendees Report%2$s."
@@ -2013,7 +2013,7 @@ msgstr ""
 #: src/admin-views/admin-update-message.php:43
 #: src/admin-views/admin-welcome-message.php:31
 msgid "Sign Up"
-msgstr ""
+msgstr "Înscriere"
 
 #: src/admin-views/admin-update-message.php:49
 msgid "Looking for Something Special?"
@@ -2021,7 +2021,7 @@ msgstr ""
 
 #: src/admin-views/admin-update-message.php:51
 msgid "Pro"
-msgstr ""
+msgstr "Pro"
 
 #: common/src/Tribe/Admin/Help_Page.php:200
 #: src/admin-views/admin-update-message.php:53
@@ -2706,7 +2706,7 @@ msgstr "Luna"
 
 #: src/Tribe/Main.php:4377
 msgid "Day"
-msgstr ""
+msgstr "Zi"
 
 #: src/Tribe/Main.php:4402 src/Tribe/Main.php:4403
 msgid "Search"
@@ -4065,7 +4065,7 @@ msgstr ""
 #: src/Tribe/Main.php:1488 src/Tribe/Main.php:1506 src/Tribe/Main.php:1669
 #: src/Tribe/Main.php:1735
 msgid "Edit %s"
-msgstr ""
+msgstr "Editează %s"
 
 #: src/Tribe/Admin/Timezone_Updater.php:77
 msgid "Please wait while timezone data is added to your events."
@@ -4085,7 +4085,7 @@ msgstr ""
 
 #: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1520
 msgid "%s Categories"
-msgstr ""
+msgstr "Categorii %s"
 
 #: src/Tribe/Admin_List.php:252
 msgid "Start Date"
@@ -4392,7 +4392,8 @@ msgstr "Evenimente"
 msgid "Event"
 msgstr "Eveniment"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1)  #-#-#-#-#
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.0.1) 
+#. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:632
 #: src/Tribe/Main.php:777
@@ -4479,7 +4480,7 @@ msgstr "Adăugare Nou"
 #: src/Tribe/Main.php:1469 src/Tribe/Main.php:1487 src/Tribe/Main.php:1505
 #: src/Tribe/Main.php:1636 src/Tribe/Main.php:1637
 msgid "Add New %s"
-msgstr ""
+msgstr "Adaugă %s nou"
 
 #: src/Tribe/Main.php:1471 src/Tribe/Main.php:1489 src/Tribe/Main.php:1507
 msgid "New %s"
@@ -4491,15 +4492,15 @@ msgstr "Vezi %s"
 
 #: src/Tribe/Main.php:1473 src/Tribe/Main.php:1491 src/Tribe/Main.php:1509
 msgid "Search %s"
-msgstr ""
+msgstr "Caută %s"
 
 #: src/Tribe/Main.php:1474 src/Tribe/Main.php:1492 src/Tribe/Main.php:1510
 msgid "No %s found"
-msgstr ""
+msgstr "Nu s-a găsit %s"
 
 #: src/Tribe/Main.php:1475 src/Tribe/Main.php:1493 src/Tribe/Main.php:1511
 msgid "No %s found in Trash"
-msgstr ""
+msgstr "Nu s-a găsit %s în coșul de gunoi"
 
 #: src/Tribe/Main.php:1521
 msgid "%s Category"
@@ -4531,7 +4532,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1528
 msgid "Add New %s Category"
-msgstr ""
+msgstr "Adaugă categorie nouă %s"
 
 #: src/Tribe/Main.php:1529
 msgid "New %s Category Name"
