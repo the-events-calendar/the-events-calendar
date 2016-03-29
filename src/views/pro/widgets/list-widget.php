@@ -9,6 +9,8 @@
  *
  * When the template is loaded, the following vars are set:
  *
+ * @version 4.1.1
+ *
  * @var string $start
  * @var string $end
  * @var string $venue

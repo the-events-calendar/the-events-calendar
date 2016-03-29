@@ -5,6 +5,8 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/widgets/venue-widget.php
  *
+ * @version 4.1.1
+ *
  * @package TribeEventsCalendarPro
  *
  */
