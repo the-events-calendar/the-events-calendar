@@ -126,7 +126,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 		$row    = $this->reader->get_last_line_number_read() + 1;
 		if ( ! $this->is_valid_record( $record ) ) {
 			if ( ! $throw ) {
-				$this->log[ $row ] = sprintf( esc_html__( 'Missing required fields in row %d.', 'the-events-calendar', $row ) );
+				$this->log[ $row ] =$this->get_skipped_row_message($row);
 				$this->skipped[]   = $row;
 
 				return false;
@@ -256,5 +256,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 		}
 
 		return is_null( $return_false_value ) ? $value : $return_false_value;
+	}
+
+	/**
+	 * @param $row
+	 *
+	 * @return string
+	 */
+	protected function get_skipped_row_message( $row ) {
+		return sprintf( esc_html__( 'Missing required fields in row %d.', 'the-events-calendar' ), $row );
 	}
 }
