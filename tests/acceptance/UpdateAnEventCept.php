@@ -24,7 +24,7 @@ $I->fillField( 'post_title', 'A new title' );
 $I->click( '#publish' );
 
 // assert
-$I->amOnPage( get_post_permalink( $event_id ) );
-$I->see( 'A new title' );
+clean_post_cache($event_id);
+$I->assertEquals('A new title', get_post($event_id)->post_title);
 
 
