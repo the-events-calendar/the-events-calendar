@@ -311,12 +311,12 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.1.1] 2016-03-30 =
 
-* Fix - Resolved bug where array notices were output on single event pages when venues were not set
-* Fix - Resolved issue where the Month View in mobile sizes retained the long day-of-week names when the abbreviations should have been used
+* Fix - Resolved bug where array notices were output on single event pages when venues were not set (props to zaxiscreative for reporting this issue!)
+* Fix - Resolved issue where the Month View in mobile sizes retained the long day-of-week names when the abbreviations should have been used (props to Lucy for the bug report!)
 * Fix - Fixed bug where a "0" was added to the default Venue name when creating a new event
 * Fix - Fixed notice that caused Ajax requests to fail (props to cgrymala on WP.org for reporting this!)
-* Fix - Removed quotes from around TZID-specified timezones in iCal feeds which causes problems with some parsers
-* Fix - Resolved various capitalization issues with German translations
+* Fix - Removed quotes from around TZID-specified timezones in iCal feeds which causes problems with some parsers (props to factory44 for reporting the issue that lead to this fix)
+* Fix - Resolved various capitalization issues with German translations (props to oheinrich in our forums for pointing out this issue!)
 
 = [4.1.0.1] 2016-03-17 =
 
