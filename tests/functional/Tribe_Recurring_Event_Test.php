@@ -359,6 +359,7 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 		// Create a new queue processor to generate the children for this new event
 		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
 		$queue_processor->process_queue( $post_id );
+		sleep(1);
 
 		$original_dates = tribe_get_recurrence_start_dates($post_id);
 
@@ -384,6 +385,7 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 		// Create a new queue processor to generate the children for this new event
 		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
 		$queue_processor->process_queue( $post_id );
+		sleep(1);
 
 		$new_dates = tribe_get_recurrence_start_dates($post_id);
 
@@ -445,6 +447,7 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 		// Create a new queue processor to generate the children for this new event
 		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
 		$queue_processor->process_queue( $post_id );
+		sleep(1);
 
 		$event_args['tags_input'] = array($tags[1]);
 
@@ -453,6 +456,7 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 		// Create another fresh queue processor to generate the children for this new event
 		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
 		$queue_processor->process_queue( $post_id );
+		sleep(1);
 
 		$children = get_posts(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
@@ -519,6 +523,7 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 		// Create a new queue processor to generate the children for this new event
 		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
 		$queue_processor->process_queue( $post_id );
+		sleep(1);
 
 		$event_args['Organizer'] = array( 'OrganizerID' => $organizers[1] );
 		$event_args['Venue'] = array( 'VenueID' => $venues[1] );
@@ -528,6 +533,7 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 		// Create another fresh queue processor to generate the children for this new event
 		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
 		$queue_processor->process_queue( $post_id );
+		sleep(1);
 
 		$children = get_posts(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
@@ -792,6 +798,7 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 		// Create a new queue processor to generate the children for this new event
 		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
 		$queue_processor->process_queue( $post_id );
+		sleep(1);
 
 		$original_dates = tribe_get_recurrence_start_dates($post_id);
 		//Checks that the original dates is not empty
@@ -806,6 +813,7 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 
 		// process the queue, otherwise all the children won't get created
 		Tribe__Events__Pro__Main::instance()->queue_processor->process_queue();
+		sleep(1);
 
 		$new_dates = tribe_get_recurrence_start_dates($post_id);
 
