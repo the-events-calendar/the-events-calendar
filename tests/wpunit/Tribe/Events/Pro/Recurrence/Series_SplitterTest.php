@@ -36,6 +36,8 @@ class Series_SplitterTest extends \Codeception\TestCase\WPTestCase {
 			)//end recurrence array
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
+		// give the DB the time to create the instances
+		sleep(1);
 		$original_children = get_posts(array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_parent' => $post_id,
