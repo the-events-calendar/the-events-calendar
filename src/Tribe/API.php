@@ -354,8 +354,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 				$organizer_label = tribe_get_organizer_label_singular();
 
-				$title   = $data['Organizer'] ? $data['Organizer'] : sprintf( __( 'Unnamed %s', 'the-events-calendar' ), ucfirst( $organizer_label ) );
-				$content = $data['Description'] ? $data['Description'] : '';
+				$title   = isset( $data['Organizer'] ) ? $data['Organizer'] : sprintf( __( 'Unnamed %s', 'the-events-calendar' ), ucfirst( $organizer_label ) );
+				$content = isset( $data['Description'] ) ? $data['Description'] : '';
 				$slug    = sanitize_title( $title );
 
 				$postdata = array(
