@@ -449,9 +449,9 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		public static function createVenue( $data, $post_status = 'publish' ) {
 
 			if ( ( isset( $data['Venue'] ) && $data['Venue'] ) || self::someVenueDataSet( $data ) ) {
-				$title = isset($data['Venue']) ? $data['Venue'] : esc_html__( 'Unnamed Venue', 'the-events-calendar' );
-				$content = isset($data['Description']) ? $data['Description'] : '';
-				$slug  = sanitize_title( $title );
+				$title   = isset( $data['Venue'] ) ? $data['Venue'] : esc_html__( 'Unnamed Venue', 'the-events-calendar' );
+				$content = isset( $data['Description'] ) ? $data['Description'] : '';
+				$slug    = sanitize_title( $title );
 
 				$postdata = array(
 					'post_title'  => $title,
