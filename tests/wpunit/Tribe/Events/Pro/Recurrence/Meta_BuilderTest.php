@@ -40,22 +40,6 @@ class Meta_BuilderTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
-	 * it should return array with just description if only description set
-	 */
-	public function it_should_return_array_with_just_description_if_only_description_set() {
-		$str                       = 'Description';
-		$data                      = array(
-			'description' => $str,
-			'recurrence'  => array()
-		);
-		$sut                       = new Meta_Builder( 10, $data );
-		$zero_array                = $this->get_zero_array();
-		$zero_array['description'] = $str;
-		$this->assertEquals( $zero_array, $sut->build_meta() );
-	}
-
-	/**
-	 * @test
 	 * it should return zero array if rules and exclusions are empty
 	 */
 	public function it_should_return_zero_array_if_rules_and_exclusions_are_empty() {
