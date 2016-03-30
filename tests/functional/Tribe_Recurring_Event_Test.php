@@ -5,6 +5,7 @@
  * @group recurrence
  */
 class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
+
 	/**
 	 * test_is_recurring
 	 * A test that creates a Recurring event and checks to see if it is recurring
@@ -116,7 +117,7 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 
 		// Create a new queue processor to generate the children for this new event
 		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
-		$queue_processor->process_queue( $post_id );
+		$queue_processor->process_batch( $post_id );
 
 		//checks that the event is recurring
 		$this->assertTrue( tribe_is_recurring_event( $post_id ) );
