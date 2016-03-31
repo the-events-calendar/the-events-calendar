@@ -9,6 +9,8 @@
  *
  * When the template is loaded, the following vars are set:
  *
+ * @version 4.1.1
+ *
  * @var string $start
  * @var string $end
  * @var string $venue
@@ -62,7 +64,7 @@ if ( isset( $posts ) && $posts ) :
 // No Events were found.
 else:
 ?>
-	<p><?php printf( __( 'There are no upcoming %s at this time.', 'tribe-events-calendar-pro' ), strtolower( tribe_get_event_label_plural() ) ); ?></p>
+	<p><?php printf( __( 'There are no upcoming %s at this time.', 'tribe-events-calendar-pro' ), tribe_get_event_label_plural_lowercase() ); ?></p>
 <?php
 endif;
 

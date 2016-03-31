@@ -5,6 +5,8 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/widgets/venue-widget.php
  *
+ * @version 4.1.1
+ *
  * @package TribeEventsCalendarPro
  *
  */
@@ -14,6 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $events_label_plural = tribe_get_event_label_plural();
+$events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 
 ?>
 
@@ -33,7 +36,7 @@ $events_label_plural = tribe_get_event_label_plural();
 	</div>
 
 	<?php if ( 0 === $events->post_count ): ?>
-		<?php printf( __( 'No upcoming %s.', 'tribe-events-calendar-pro' ), strtolower( $events_label_plural ) ); ?>
+		<?php printf( __( 'No upcoming %s.', 'tribe-events-calendar-pro' ), $events_label_plural_lowercase ); ?>
 	<?php else: ?>
 		<?php do_action( 'tribe_events_venue_widget_before_the_list' ); ?>
 		<ul class="tribe-venue-widget-list">

@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.4.2
-Stable tag: 4.1
+Stable tag: 4.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -224,6 +224,14 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/fa" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
+
+= [4.1.1] 2016-03-30 =
+
+* Tweak - Change This Widget Widget query filter to a unique name
+* Fix - Resolved issue where the week view was always using UTC rather than the configured timezone when determining the start of the week (props to paulhazon in our forums for pointing out this issue!)
+* Fix - Fixed bug where the first event in a recurring series would not render the start or end times (props to laughmasters for reporting this bug!)
+* Fix - Resolved various capitalization issues with German translations (props to oheinrich in our forums for pointing out this issue!)
+* Fix - Fixed issue where some Theme Customizer headings were not translatable (props to oheinrich in our forums for pointing out this issue as well!)
 
 = [4.1] 2016-03-15 =
 
