@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-02-17 22:28:59+0000\n"
+"PO-Revision-Date: 2016-03-20 11:22:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,138 +12,138 @@ msgstr ""
 
 #: vendor/tickets/src/views/tickets/rsvp.php:125
 msgid "Hide from Attendees List"
-msgstr ""
+msgstr "Auf der Teilnehmerliste ausblenden"
 
 #: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:24
 msgid "If you are creating a recurring event, Tickets will only show up once per Event Series, meaning that the same ticket will apper across all events. Please configure your events accordingly."
-msgstr ""
+msgstr "Wenn Sie eine Serientermin erstellen, werden Tickets nur einmal pro Veranstaltungsreihe angezeigt, was bedeutet, dass das gleiche Ticket für alle Veranstaltungen angezeigt wird. Bitte konfigurieren Sie Ihre Veranstaltungen entsprechend."
 
 #: src/Tribe/Importer/Column_Mapper.php:69
 msgid "Event Featured Image"
-msgstr ""
+msgstr "Hervorgehobenes Bild der Veranstaltung"
 
 #: src/Tribe/Importer/Column_Mapper.php:84
 msgid "Venue Featured Image"
-msgstr ""
+msgstr "Hervorgehobenes Bild des Veranstaltungsortes"
 
 #: src/Tribe/Importer/Column_Mapper.php:94
 msgid "Organizer Featured Image"
-msgstr ""
+msgstr "Hervorgehobenes Bild des Veranstalters"
 
 #: src/Tribe/Main.php:2838
 msgid " (View Full %1$s Description Here: %2$s)"
-msgstr ""
+msgstr "(Komplette %1$s Beschreibung anschauen: %2$s)"
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:78
 #: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:78
 msgid "No notable changes detected"
-msgstr ""
+msgstr "Keine nennenswerten Änderungen erkannt"
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:82
 #: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:82
 msgid "Templates introduced or updated with this release (%s):"
-msgstr ""
+msgstr "Vorlagen eingeführt oder aktualisiert mit dieser Version (%s):"
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:92
 #: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:92
 msgid "Existing theme overrides that may need revision:"
-msgstr ""
+msgstr "Bestehendes Theme überschreibt Punkte, die möglicherweise eine Überprüfung benötigen:"
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:96
 #: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:96
 msgid "version data missing from override"
-msgstr ""
+msgstr "Versionsdaten vom Überschreiben fehlen"
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:97
 #: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:97
 msgid "based on %s version"
-msgstr ""
+msgstr "basierend auf %s Version"
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:113
 #: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:113
 msgid "No notable template changes detected."
-msgstr ""
+msgstr "Keine nennenswerten Änderungen an der Vorlage erkannt."
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:115
 #: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:115
 msgid "Information about recent template changes and potentially impacted template overrides is provided below."
-msgstr ""
+msgstr "Informationen über die jüngsten Änderungen an der Vorlage und potenziell betroffenen Vorlagen Überschreibungen sind unten angegeben."
 
 #: common/src/admin-views/tribe-options-help.php:37
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:37
 msgid "Recent Template Changes"
-msgstr ""
+msgstr "Aktuelle Änderungen an Vorlagen"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:171
 msgid "Reserved by:"
-msgstr ""
+msgstr "Reserviert von:"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:171
 msgid "Purchased by:"
-msgstr ""
+msgstr "Gekauft von:"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:235
 msgid "View order"
-msgstr ""
+msgstr "Bestellung anzeigen"
 
 #: vendor/tickets/src/Tribe/Metabox.php:87
 msgid "It looks like you have modified your global stock settings but have not saved or updated the post."
-msgstr ""
+msgstr "Es scheint, dass Sie Ihre globalen Bestandseinstellungen geändert haben, aber den Beitrag nicht gespeichert oder aktualisiert haben."
 
 #: vendor/tickets/src/Tribe/Tickets.php:830
 msgid "Use global stock"
-msgstr ""
+msgstr "Nutze globalen Bestand"
 
 #: vendor/tickets/src/Tribe/Tickets.php:831
 msgid "Use global stock but cap sales"
-msgstr ""
+msgstr "Nutze globalen Bestand aber beschränke Verkauf"
 
 #: vendor/tickets/src/Tribe/Tickets.php:832
 msgid "Independent (do not use global stock)"
-msgstr ""
+msgstr "Unabhängig (verwende nicht den globalen Bestand)"
 
 #: vendor/tickets/src/admin-views/attendees.php:98
 msgid "Deleted:"
-msgstr ""
+msgstr "gelöscht:"
 
 #: vendor/tickets/src/admin-views/meta-box.php:69
 msgid "Enable global stock"
-msgstr ""
+msgstr "Aktiviere globalen Bestand"
 
 #: vendor/tickets/src/admin-views/meta-box.php:79
 msgid "Global stock level"
-msgstr ""
+msgstr "Niveau des globalen Bestandes"
 
 #: vendor/tickets/src/admin-views/meta-box.php:85
 msgid "(%s sold)"
 msgid_plural "(%s sold)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "(%s verkauft)"
+msgstr[1] "(%s verkauft)"
 
 #: vendor/tickets/src/template-tags/tickets.php:221
 msgid "global inventory"
-msgstr ""
+msgstr "Globales Inventar"
 
 #: vendor/tickets/src/template-tags/tickets.php:231
 msgctxt "ticket stock message (cancelled stock)"
 msgid " cancelled: %1$d"
-msgstr ""
+msgstr "abgebrochen: %1$d"
 
 #: vendor/tickets/src/template-tags/tickets.php:236
 msgid " pending: %1$d"
-msgstr ""
+msgstr "anstehend: %1$d"
 
 #: vendor/tickets/src/template-tags/tickets.php:241
 msgid "Sold %1$d (units remaining: %2$s%3$s%4$s)"
-msgstr ""
+msgstr "%1$d verkauft (verbleibende Einheiten: %2$s%3$s%4$s)"
 
 #: vendor/tickets/src/views/tickets/rsvp.php:31
 msgid "Please fill in the RSVP confirmation name and email fields."
-msgstr ""
+msgstr "Bitte füllen Sie den RSVP Bestätigungsnamen- und die E-Mail-Felder aus."
 
 #: vendor/tickets/src/views/tickets/rsvp.php:96
 msgid "Send RSVP confirmation to:"
-msgstr ""
+msgstr "Sende RSVP Bestätigung an:"
 
 #: vendor/tickets/src/admin-views/attendees.php:44
 msgid "Post Type:"
@@ -219,7 +219,7 @@ msgstr "Nicht verfügbar!"
 
 #: vendor/tickets/src/views/tickets/rsvp.php:108
 msgid "Full Name"
-msgstr ""
+msgstr "Vollständiger Name"
 
 #: vendor/tickets/src/views/tickets/rsvp.php:133
 msgid "Confirm RSVP"
@@ -1145,7 +1145,7 @@ msgstr "Vergangene %s"
 #: src/functions/template-tags/loop.php:152
 #: src/functions/template-tags/loop.php:161
 msgid "%1$s for %2$s"
-msgstr "%1$s vom %2$s"
+msgstr "%1$s im %2$s"
 
 #: src/functions/template-tags/options.php:20
 msgid "Your current Events URL is %s"
@@ -4034,7 +4034,7 @@ msgstr "Willkommen beim Plugin 'The Events Calendar'"
 
 #: src/Tribe/Activation_Page.php:212
 msgid "Thanks for Updating The Events Calendar"
-msgstr "Upgrade vom Plugin 'The Events Calendar' (freie Version)"
+msgstr "Danke für das Aktualisieren von 'The Events Calendar' (kostenlose Version)"
 
 #: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:88
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:88
@@ -4388,7 +4388,8 @@ msgstr "Veranstaltungen"
 msgid "Event"
 msgstr "Veranstaltung"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1)  #-#-#-#-#
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.0.1) 
+#. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:632
 #: src/Tribe/Main.php:777

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-03-12 12:22:10+0000\n"
+"PO-Revision-Date: 2016-03-26 20:57:53+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1076,7 +1076,7 @@ msgstr "Origin:"
 
 #: src/functions/advanced-functions/meta_registration.php:286
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #: src/functions/template-tags/date.php:145
 msgid "The function needs to be passed an $event or used in the loop."
@@ -4388,7 +4388,8 @@ msgstr "Events"
 msgid "Event"
 msgstr "Event"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1)  #-#-#-#-#
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.0.1) 
+#. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:632
 #: src/Tribe/Main.php:777

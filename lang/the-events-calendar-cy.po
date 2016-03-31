@@ -1,12 +1,12 @@
-# Translation of Stable (latest release) in Slovak
+# Translation of Stable (latest release) in Welsh
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-12-08 21:56:51+0000\n"
+"PO-Revision-Date: 2016-03-22 03:30:45+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;\n"
 "X-Generator: GlotPress/1.1.0-alpha\n"
 "Project-Id-Version: Stable (latest release)\n"
 
@@ -120,6 +120,7 @@ msgid_plural "(%s sold)"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: vendor/tickets/src/template-tags/tickets.php:221
 msgid "global inventory"
@@ -152,7 +153,7 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/attendees.php:27
 msgid "Edit Event"
-msgstr "Zmeň Udalosť"
+msgstr "Golygu Digwyddiad"
 
 #: vendor/tickets/src/admin-views/attendees.php:28
 msgid "See Event Page"
@@ -160,7 +161,7 @@ msgstr ""
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:64
 msgid "Edit Venue"
-msgstr "Upraviť miesto konania"
+msgstr ""
 
 #: vendor/tickets/src/admin-views/attendees.php:59
 msgid "Sales by Ticket"
@@ -168,7 +169,7 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/attendees.php:65
 msgid "Edit Ticket"
-msgstr ""
+msgstr "Golygu Tocyn"
 
 #: vendor/tickets/src/admin-views/attendees.php:76
 msgid "Total Sold:"
@@ -208,7 +209,7 @@ msgstr ""
 
 #: vendor/tickets/src/views/tickets/rsvp.php:17
 msgid "RSVP"
-msgstr ""
+msgstr "RSVP"
 
 #: vendor/tickets/src/views/tickets/rsvp.php:60
 msgid "%1$s out of %2$s available"
@@ -273,7 +274,7 @@ msgstr ""
 
 #: vendor/tickets/src/Tribe/RSVP.php:968
 msgid "Post submitted."
-msgstr "Článok bol odoslaný."
+msgstr "Cyflwynwyd y cofnod."
 
 #: vendor/tickets/src/Tribe/RSVP.php:969
 msgid "Post scheduled."
@@ -281,11 +282,11 @@ msgstr ""
 
 #: vendor/tickets/src/Tribe/RSVP.php:970
 msgid "Post draft updated."
-msgstr "Koncept článku bol aktualizovaný."
+msgstr "Diweddarwyd drafft cofnod."
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:326
 msgid "Cheatin Huh?"
-msgstr ""
+msgstr "Twyllo, ai e?"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:332
 msgid "Invalid Event ID"
@@ -302,7 +303,7 @@ msgstr ""
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:356
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:372
 msgid "Invalid User ID"
-msgstr "Nesprávne ID používateľa"
+msgstr "Enw Defnyddiwr Annilys"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:393
 msgid "Error when sending the email"
@@ -314,7 +315,7 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/attendees-email.php:43
 msgid "Send Email"
-msgstr "Poslať e-mail"
+msgstr "Anfon E-bost"
 
 #: src/io/csv/admin-views/result.php:25
 msgid "%1$s%2$s%3$sInserted:%4$s A new item was inserted successfully. %5$s%2$s%3$sUpdated:%4$s An item was found with the same name and/or start date. The existing item was updated with the new value from the file.%5$s%2$s%3$sSkipped:%4$s A row was found in the CSV file that could not be imported. Please see below for the invalid rows.%5$s%6$s"
@@ -577,7 +578,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:93
 msgid "Create New %s"
-msgstr "Vytvoriť Novú %s"
+msgstr ""
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:157
 msgid "Add another %s"
@@ -585,7 +586,7 @@ msgstr ""
 
 #: src/Tribe/Asset/Bootstrap_Datepicker.php:19
 msgid "Clear"
-msgstr "Jasné"
+msgstr "Clirio"
 
 #: common/src/admin-views/tribe-options-help.php:30
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:30
@@ -730,17 +731,17 @@ msgstr ""
 #: common/src/Tribe/Admin/Help_Page.php:796
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:796
 msgid "Upgrade Plugin"
-msgstr "Aktualizovať modul"
+msgstr "Diweddaru'r Ategyn"
 
 #: common/src/Tribe/Admin/Help_Page.php:812
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:812
 msgid "Install %s"
-msgstr "Inštalovať %s"
+msgstr "Gosod %s"
 
 #: common/src/Tribe/Admin/Help_Page.php:788
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:788
 msgid "Activate Plugin"
-msgstr "Aktivovať modul"
+msgstr "Cychwyn yr Ategyn"
 
 #: common/src/Tribe/Admin/Help_Page.php:52
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:52
@@ -771,17 +772,17 @@ msgstr ""
 #: common/src/Tribe/Admin/Help_Page.php:159
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:159
 msgid " and "
-msgstr "a"
+msgstr " a "
 
 #: common/src/Tribe/Admin/Help_Page.php:192
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:192
 msgid "Eventbrite Tickets"
-msgstr ""
+msgstr "Tocynnau Eventbrite"
 
 #: common/src/Tribe/Admin/Help_Page.php:208
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:208
 msgid "Facebook Events"
-msgstr ""
+msgstr "Digwyddiadau Facebook"
 
 #: common/src/Tribe/Admin/Help_Page.php:216
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:216
@@ -801,7 +802,7 @@ msgstr ""
 #: common/src/Tribe/Admin/Help_Page.php:788
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:788
 msgid "Activate %s"
-msgstr "Aktivovať %s"
+msgstr "Gweithredu %s"
 
 #: src/views/month/single-day.php:42
 msgid "View %1$s %2$s"
@@ -809,6 +810,7 @@ msgid_plural "View All %1$s %2$s"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: common/src/Tribe/Validate.php:195
 #: vendor/tickets/common/src/Tribe/Validate.php:195
@@ -817,7 +819,7 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/meta-box.php:233
 msgid "Cancel"
-msgstr "Zrušiť"
+msgstr "Canslo"
 
 #: vendor/tickets/src/Tribe/Tickets.php:583
 msgid "Editing the ticket price is currently disallowed."
@@ -826,104 +828,104 @@ msgstr ""
 #: common/src/admin-views/tribe-options-general.php:59
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:59
 msgid "Default currency symbol"
-msgstr "Predvolený symbol meny"
+msgstr "Symbol arian diofyn"
 
 #: common/src/admin-views/tribe-options-general.php:60
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:60
 msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
-msgstr "Nastaviť predvolený symbol meny pre cenu udalosti. Nezabudnite, že túto menu budú mať nastavené budúce udalosti a nie udalosti, ktoré sa už konali"
+msgstr "Dewiswch symbol diofyn ar gyfer costau digwyddiad. Dim ond digwyddiadau yn y dyfodol fydd hyn yn effeithio arnyn nhw ac ni fydd newidiadau yn cael eu gwneud i hen ddigwyddiadau."
 
 #: common/src/admin-views/tribe-options-general.php:67
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:67
 msgid "Currency symbol follows value"
-msgstr "Symbol meny uvádzať za hodnotou"
+msgstr "Symbol arian ar ôl y gwerth"
 
 #: common/src/admin-views/tribe-options-general.php:68
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:68
 msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
-msgstr "Symbol meny zvyčajne predchádza hodnotu. Povoľte nastavenie pozície symbolu po hodnote."
+msgstr "Fel arfer, mae'r symbol arian yn dod cyn y gwerth. Bydd galluogi'r opsiwn yma yn gosod y symbol ar ôl y gwerth."
 
 #: src/admin-views/tribe-options-general.php:143
 msgid "Map Settings"
-msgstr "Nastavenia mapy"
+msgstr "Gosodiadau'r Map"
 
 #: src/admin-views/tribe-options-general.php:147
 msgid "Enable Google Maps"
-msgstr "Povoliť Google Maps"
+msgstr "Galluogi Google Map"
 
 #: src/admin-views/tribe-options-general.php:148
 msgid "Check to enable maps for events and venues."
-msgstr "Zaškrtnutím povolíte mapy pre udalosti a miesta konania."
+msgstr "Ticiwch er mwyn galluogi dangos mapiau ar gyfer digwyddiadau a lleoliadau."
 
 #: src/admin-views/tribe-options-general.php:155
 msgid "Google Maps default zoom level"
-msgstr "Google Maps predvolená úroveň zoom"
+msgstr "Lefel chwyddo diofyn Google Maps"
 
 #: src/admin-views/tribe-options-general.php:156
 msgid "0 = zoomed out; 21 = zoomed in."
-msgstr "0= vzdialiť, 21 = priblížiť."
+msgstr "0 = wedi chwyddo allan; 21 = wedi chwyddo i mewn."
 
 #: common/src/admin-views/tribe-options-general.php:74
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:74
 msgid "Miscellaneous Settings"
-msgstr "Rôzne nastavenia"
+msgstr "Gosodiadau Amrywiol"
 
 #: src/admin-views/tribe-options-general.php:131
 msgid "Duplicate Venues &amp; Organizers"
-msgstr "Duplicitné miesta konania &amp; Organizátori"
+msgstr "Dyblygu Lleoliadau a Threfnwyr"
 
 #: src/admin-views/tribe-options-general.php:131
 msgid "You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers."
-msgstr "Môžete nájsť duplicitné miesta konania a organizátorov, keď aktualizujete Kalendár udalosti na verziu 3.0. Kliknite na tlačidlo pre automatické zlúčenie identických miest konania a organizátorov."
+msgstr "Wrth ddiweddaru o fersiwn cyn fersiwn 3.0 o The Events Calendar, efallai y dewch chi o hyd i ddigwyddiadau a threfnwyr dyblyg. Cliciwch y botwm yma i uno lleoliadau a threfnwyr sydd yr un peth yn awtomatig."
 
 #: src/admin-views/tribe-options-general.php:171
 msgid "View Welcome Page"
-msgstr "Zobraziť uvítaciu stránku"
+msgstr "Gweld y Dudalen Croesawu"
 
 #: src/admin-views/tribe-options-general.php:171
 msgid "View the page that displayed when you initially installed the plugin."
-msgstr "Zobraziť stránku, ktorá sa zobrazuje po inštálacii doplnku."
+msgstr "Gweld y dudalen a ymddangosodd ar ôl gosod yr ategyn i ddechrau."
 
 #: src/admin-views/tribe-options-general.php:175
 msgid "View Update Page"
-msgstr "Zobraziť aktualizovanú stránku"
+msgstr "Gweld y Dudalen Diweddaru"
 
 #: src/admin-views/tribe-options-general.php:175
 msgid "View the page that displayed when you updated the plugin."
-msgstr "Zobraziť stránku, ktorá sa zobrazuje po aktualizovaní doplnku."
+msgstr "Gweld y dudalen a ymddangosodd ar ôl diweddaru'r ategyn."
 
 #: common/src/admin-views/tribe-options-general.php:81
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:81
 msgid "Debug mode"
-msgstr "Debugovací mód"
+msgstr "Modd Difa Cwilod"
 
 #: common/src/admin-views/tribe-options-general.php:87
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
-msgstr "Povoľte tieto nastavenia pre logovanie debugovacích informácií. Prednastavením bude váš server logovať do PHP chybových logov. Ak by ste chceli vidieť logové hlásenia v prehliadači, potom vám odporúčame nainštalovať  %s a pozrieť  \"Tribe\" záložky na výstup debugovania."
+msgstr "Galluogwch yr opsiwn yma i logio gwybodaweth difa chwilod. Yn ddiofyn, bydd hwn yn logio i log gwallau PHP eich gweinydd. Os hoffech weld y negeseuon log yn eich porwr, rydyn ni'n argymell i chi osod %s a chwlio am tab \"Tribe\" yn yr allbwn difa chwilod."
 
 #: common/src/admin-views/tribe-options-general.php:87
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
 msgid "Debug Bar Plugin"
-msgstr "Debug Bar Doplnok"
+msgstr "Ategyn Difa Chwilod Bar"
 
 #: common/src/Tribe/Admin/Help_Page.php:394
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:394
 msgctxt "not available"
 msgid "n/a"
-msgstr "nedostupný"
+msgstr "Amh"
 
 #: common/src/Tribe/Admin/Help_Page.php:402
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:402
 msgid "You need to upgrade!"
-msgstr "Potrebujete upgrade!"
+msgstr "Mae angen i chi ddiweddaru!"
 
 #: common/src/Tribe/Admin/Help_Page.php:402
 #: common/src/Tribe/Admin/Help_Page.php:798
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:402
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:798
 msgid "You are up to date!"
-msgstr "Aktualizovaný!"
+msgstr "Rydych chi wedi diweddaru!"
 
 #: common/src/Tribe/Admin/Help_Page.php:183 src/Tribe/Main.php:645
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:183
@@ -933,17 +935,17 @@ msgstr ""
 #: common/src/admin-views/tribe-options-help.php:63
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:63
 msgid "More..."
-msgstr "Viac..."
+msgstr "Mwy..."
 
 #: common/src/Tribe/Admin/Help_Page.php:829
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:829
 msgid "Latest Version:"
-msgstr "Najnovšia verzia:"
+msgstr "Fersiwn Diweddaraf:"
 
 #: common/src/Tribe/Admin/Help_Page.php:832
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:832
 msgid "Requires:"
-msgstr "Požiadavky:"
+msgstr "Gofynnol:"
 
 #: common/src/Tribe/Admin/Help_Page.php:833
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:833
@@ -953,12 +955,12 @@ msgstr "WordPress "
 #: common/src/Tribe/Admin/Help_Page.php:857
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:857
 msgid "Premium Add-Ons"
-msgstr "Prémiové doplnky"
+msgstr "Ychwanegion Premiwm"
 
 #: common/src/admin-views/tribe-options-help.php:57
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:57
 msgid "News and Tutorials"
-msgstr "Novinky a tutoriály"
+msgstr "Newyddion a Thiwtorialau"
 
 #: common/src/admin-views/tribe-options-licenses.php:13
 #: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:13
@@ -973,17 +975,17 @@ msgstr ""
 #: common/src/admin-views/tribe-options-network.php:15
 #: vendor/tickets/common/src/admin-views/tribe-options-network.php:15
 msgid "Network Settings"
-msgstr "Nastavenia siete"
+msgstr "Gosodiadau'r Rhwydwaith"
 
 #: common/src/admin-views/tribe-options-network.php:19
 #: vendor/tickets/common/src/admin-views/tribe-options-network.php:19
 msgid "This is where all of the global network settings for Modern Tribe's The Events Calendar can be modified."
-msgstr "Toto je miesto, kde všetky globálne nastavenia siete Modern Tribe Kalendára udalostí možete modifikovať."
+msgstr "Dyma lle mae'n bosibl addasu holl osodiadau rhwydwaith cyffredinol ar gyfer Events Calendar Modern Tribe."
 
 #: common/src/admin-views/tribe-options-network.php:27
 #: vendor/tickets/common/src/admin-views/tribe-options-network.php:27
 msgid "Hide the following settings tabs on every site:"
-msgstr "Schovať nasledujúce nastavenia záložky na každej stránke:"
+msgstr "Cuddio'r tabiau gosodiadau canlynol ar bob safle:"
 
 #: src/admin-views/tribe-options-timezones.php:7
 msgid "Enable timezone support"
@@ -1023,62 +1025,62 @@ msgstr ""
 
 #: src/admin-views/venue-meta-box.php:41
 msgid "City:"
-msgstr "Mesto:"
+msgstr "Dinas:"
 
 #: src/admin-views/venue-meta-box.php:48
 msgid "Country:"
-msgstr "Krajina:"
+msgstr "Gwlad:"
 
 #: src/admin-views/venue-meta-box.php:87
 msgid "State or Province:"
-msgstr "Štát alebo región:"
+msgstr "Gwladwriaeth neu Dalaith:"
 
 #: src/admin-views/venue-meta-box.php:91
 msgid "Select a State:"
-msgstr "Vyberte štát:"
+msgstr "Dewiswch Dalaith:"
 
 #: src/admin-views/venue-meta-box.php:104
 msgid "Postal Code:"
-msgstr "PSČ:"
+msgstr "Cod Post:"
 
 #: src/admin-views/venue-meta-box.php:136
 #: src/admin-views/venue-meta-box.php:158
 msgid "Show Google Map:"
-msgstr "Ukázať Google Maps:"
+msgstr "Dangos Google Map:"
 
 #: src/admin-views/venue-meta-box.php:146
 #: src/admin-views/venue-meta-box.php:168
 msgid "Show Google Maps Link:"
-msgstr "Ukázať Google Maps Link:"
+msgstr "Dangos Dolen Google Maps:"
 
 #: src/admin-views/widget-admin-list.php:13
 msgid "Title:"
-msgstr "Titulok:"
+msgstr "Teitl:"
 
 #: src/admin-views/widget-admin-list.php:18
 msgid "Show:"
-msgstr "Ukázať:"
+msgstr "Dangos:"
 
 #: src/admin-views/widget-admin-list.php:28
 msgid "Show widget only if there are upcoming events:"
-msgstr "Ukázať widget len ak existujú budúce udalosti:"
+msgstr "Dangos y teclyn dim ond os oes digwyddiadau ar y gweill:"
 
 #: src/functions/advanced-functions/meta_registration.php:16
 #: src/views/modules/meta/details.php:55
 msgid "Details"
-msgstr "Podrobnosti"
+msgstr "Manylion"
 
 #: src/functions/advanced-functions/meta_registration.php:80
 msgid "Event Tags:"
-msgstr "Tagy udalosti:"
+msgstr "Tagiau'r Digwyddiad:"
 
 #: src/functions/advanced-functions/meta_registration.php:112
 msgid "Origin:"
-msgstr "Pôvod:"
+msgstr "Tarddiad:"
 
 #: src/functions/advanced-functions/meta_registration.php:286
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #: src/functions/template-tags/date.php:145
 msgid "The function needs to be passed an $event or used in the loop."
@@ -1086,28 +1088,29 @@ msgstr ""
 
 #: src/functions/template-tags/day.php:110
 msgid "Yesterday"
-msgstr "Včera"
+msgstr "Ddoe"
 
 #: src/functions/template-tags/day.php:112
 msgid "Tomorrow"
-msgstr "Zajtra"
+msgstr "Yfory"
 
 #: src/functions/template-tags/deprecated.php:1299
 msgid "Category"
-msgstr "Kategória"
+msgstr "Categori"
 
 #. translators: %s is the singular translation of "Event"
 #: src/functions/template-tags/general.php:357
 msgctxt "category list label"
 msgid "%s Category"
 msgid_plural "%s Categories"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s Categori"
+msgstr[1] "%s Categori"
+msgstr[2] "%s Categori"
+msgstr[3] "%s Categori"
 
 #: src/functions/template-tags/general.php:396
 msgid "Tags:"
-msgstr "Tagy:"
+msgstr "Tagiau:"
 
 #: src/functions/template-tags/general.php:508
 msgid "Loading %s"
@@ -1115,19 +1118,19 @@ msgstr ""
 
 #: src/functions/template-tags/general.php:1048
 msgid "Find out more »"
-msgstr "Vyhľadať viac »"
+msgstr "Dysgu rhagor »"
 
 #: src/functions/template-tags/general.php:1049
 msgid "%s for"
-msgstr "%s pre"
+msgstr ""
 
 #: src/functions/template-tags/general.php:1169
 msgid "Calendar powered by %sThe Events Calendar%s"
-msgstr "Kalendár funguje ako%sKalendár udalostí%s"
+msgstr "Pwerir y calendr gan %sThe Events Calendar%s"
 
 #: src/functions/template-tags/google-map.php:46
 msgid "Click to view a Google Map"
-msgstr "Klikni na zobrazenie Google Map"
+msgstr "Cliciwch i weld Google Map"
 
 #: src/functions/template-tags/google-map.php:47
 msgid "+ Google Map"
@@ -1135,11 +1138,11 @@ msgstr "+ Google Map"
 
 #: src/functions/template-tags/loop.php:131
 msgid "Upcoming %s"
-msgstr " Nadchádzajúce %s"
+msgstr ""
 
 #: src/functions/template-tags/loop.php:145
 msgid "%1$s for %2$s - %3$s"
-msgstr "%1$s pre %2$s - %3$s"
+msgstr ""
 
 #: src/functions/template-tags/loop.php:147
 msgid "Past %s"
@@ -1148,11 +1151,11 @@ msgstr ""
 #: src/functions/template-tags/loop.php:152
 #: src/functions/template-tags/loop.php:161
 msgid "%1$s for %2$s"
-msgstr "%1$s pre %2$s"
+msgstr ""
 
 #: src/functions/template-tags/options.php:20
 msgid "Your current Events URL is %s"
-msgstr "Vaša súčasná URL udalosti je %s"
+msgstr "Eich URL Digwyddiadau presennol yw %s"
 
 #: src/functions/template-tags/options.php:29
 msgid "You %1$scannot%2$s use the same slug as above. The above should ideally be plural, and this singular.%3$sYour single Event URL is like: %4$s"
@@ -1160,7 +1163,7 @@ msgstr ""
 
 #: src/io/csv/admin-views/columns.php:22
 msgid "Column Mapping: %s"
-msgstr "Mapovanie stĺpcov: %s"
+msgstr "Mapio Colofnau: %s"
 
 #: src/io/csv/admin-views/columns.php:27
 msgid "Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file."
@@ -1168,19 +1171,19 @@ msgstr ""
 
 #: src/io/csv/admin-views/columns.php:32
 msgid "Column Headings"
-msgstr "Názvy stĺpcov"
+msgstr "Penawdau'r Colofnau"
 
 #: src/io/csv/admin-views/columns.php:33
 msgid "Event Fields"
-msgstr "Polia pre udalosť"
+msgstr "Meysydd Digwyddiad"
 
 #: src/io/csv/admin-views/columns.php:44
 msgid "Perform Import"
-msgstr "Vykonať Import"
+msgstr "Mewnforio"
 
 #: src/io/csv/admin-views/general.php:10
 msgid "Instructions"
-msgstr "Inštrukcie"
+msgstr ""
 
 #: src/Tribe/Importer/Admin_Page.php:190
 msgid "Import Settings"
@@ -1196,7 +1199,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Options.php:122
 msgid "Draft"
-msgstr ""
+msgstr "Drafft"
 
 #: src/io/csv/admin-views/general.php:50
 msgid "Save Settings"
@@ -1208,91 +1211,91 @@ msgstr ""
 
 #: src/io/csv/admin-views/import.php:17
 msgid "Import Instructions"
-msgstr "Inšetrukcie pre import"
+msgstr "Cyfarwyddiadau Mewnforio"
 
 #: src/io/csv/admin-views/import.php:20
 msgid "If your events have Organizers or Venues, please import those first."
-msgstr "Ak vaše udalosti majú Organizátora alebo Miesto konania, prosím importujte ich ako prvé."
+msgstr "Os oes gan eich digwyddiadau Drefnwyr neu Leoliadau, dylech eu mewnforio yn gyntaf."
 
 #: src/io/csv/admin-views/import.php:21
 msgid "To import organizers or venues:"
-msgstr "Importovať organizátorov a miesta konania:"
+msgstr "I fewnforio trefnwyr neu leoliadau:"
 
 #: src/io/csv/admin-views/import.php:23
 msgid "Select the appropriate import type."
-msgstr "Vyberte vhodný typ importu."
+msgstr "Dewiswch y math priodol o fewnforio."
 
 #: src/io/csv/admin-views/import.php:24 src/io/csv/admin-views/import.php:30
 msgid "Upload a CSV file with one record on each line. The first line may contain column names (check the box below)."
-msgstr "Uploadnite CSV súbor s jedným záznamom na riadok. Prvý riadok by mal obsahovať názvy stĺpcov (zaškrtnite box nižšie)."
+msgstr "Llwythwch ffeil CSV i fyny gan osod un cofnod ar bob llinell. Gall y llinell gyntaf gynnwys enwau'r colofnau (ticiwch y blwch isod)."
 
 #: src/io/csv/admin-views/import.php:25
 msgid "One column in your CSV should have the Organizer/Venue name. All other fields are optional."
-msgstr "Jeden stĺpec vo vašom CSV súbore by mal mať názov Organizátora/Miesta konania. Ostatné polia sú voliteľné."
+msgstr "Dylai un colofn yn eich ffeil CSV gynnwys enw Trefnydd/Lleoliad. Mae pob maes arall yn ddewisol."
 
 #: src/io/csv/admin-views/import.php:26 src/io/csv/admin-views/import.php:32
 msgid "After you upload your file, you'll have the opportunity to indicate how the columns in your CSV map to fields in The Events Calendar."
-msgstr "Po nahratí súboru na server, môžete nadefinovať stĺpce v CSV súbore a namapovať na polia Kalendára udalostí."
+msgstr "Ar ôl llwytho eich ffeil i fyny, bydd cyfle i nodi sut rydych chi am i'r colofnau yn eich ffeil CSV fapio i feysydd yn The Events Calendar."
 
 #: src/io/csv/admin-views/import.php:28
 msgid "After importing your Organizers and Venues, import your Events:"
-msgstr "Po importe Organizátorov a Miest konaní importujte vaše Udalosti:"
+msgstr "Ar ôl i chi fewnforio eich Trefnwyr a Lleoliadau, gallwch fewnforio eich Digwyddiadau:"
 
 #: src/io/csv/admin-views/import.php:31
 msgid "One column in your CSV should have the Event title. Another should have the Event start date. All other fields are optional."
-msgstr "Jeden stĺpec v CSV súbor by mal obsahovat titulok Udalosti. Ostatné by mali obsahovat dátum začiatku udalosti. Všetky ostatné políčka sú voliteľné."
+msgstr "Dylai un colofn yn eich ffeil CSV gynnwys teitl y Digwyddiad. Dylai un arall gael dyddiad cychwyn y Digwyddiad. Mae pob maes arall yn ddewisol."
 
 #: src/io/csv/admin-views/import.php:43
 msgid "Import Type:"
-msgstr "Typ importu:"
+msgstr "Math o Fewnforio:"
 
 #: src/io/csv/admin-views/import.php:55
 msgid "CSV File:"
-msgstr "CSV súbor:"
+msgstr "Ffeil CSV:"
 
 #: src/io/csv/admin-views/import.php:67
 msgid "This file has column names in the first row"
-msgstr "Tento súbor má názvy stĺpcov v prvom riadku"
+msgstr "Mae gan y ffeil yma enwau colofn yn y rhes gyntaf "
 
 #: src/io/csv/admin-views/import.php:78
 msgid "Import CSV File"
-msgstr "Importovať CSV súbor"
+msgstr "Mewnforio Ffeil CSV"
 
 #: src/io/csv/admin-views/result.php:14
 msgid "Import Result"
-msgstr "Výsledok importu"
+msgstr "Mewnforio Canlyniad"
 
 #: src/io/csv/admin-views/result.php:16
 msgid "Import complete!"
-msgstr "Import úspešné dokončený!"
+msgstr "Mewnforio wedi gorffen!"
 
 #: src/io/csv/admin-views/result.php:18
 msgid "Inserted: %d"
-msgstr "Vložené: %d"
+msgstr "Mewnosodwyd: %d"
 
 #: src/io/csv/admin-views/result.php:19
 msgid "Updated: %d"
-msgstr "Aktualizované: %d"
+msgstr "Diweddarwyd: %d"
 
 #: src/io/csv/admin-views/result.php:20
 msgid "Skipped: %d"
-msgstr "Preskočené: %d"
+msgstr "Hepgorwyd: %d"
 
 #: src/io/csv/admin-views/result.php:24
 msgid "The import statistics above have the following meaning:"
-msgstr "Vyššie uvedená štatistika importu má nasledujúci význam:"
+msgstr "Mae gan yr ystadegau mewnforio uchod yr ystyr canlynol:"
 
 #: src/io/csv/admin-views/result.php:28
 msgid "Skipped row numbers: %s"
-msgstr "Preskočiť riadky číslo: %s"
+msgstr "Rhifau'r rhesi a hepgorwyd: %s"
 
 #: src/views/day/nav.php:16
 msgid "Day Navigation"
-msgstr "Navigácia podľa dní"
+msgstr "Llywiwr Dydd"
 
 #: src/views/day/single-event.php:66 src/views/list/single-event.php:70
 msgid "Find out more"
-msgstr "Vyhľadať viac"
+msgstr "Dysgu rhagor"
 
 #: src/views/list/nav.php:20
 msgid "%s List Navigation"
@@ -1300,15 +1303,15 @@ msgstr ""
 
 #: src/views/modules/bar.php:30 src/views/modules/bar.php:61
 msgid "Find %s"
-msgstr "Nájsť %s"
+msgstr ""
 
 #: src/views/modules/bar.php:37
 msgid "Event Views Navigation"
-msgstr "Navigácia pre zobrazenia udalosti"
+msgstr "Llywiwr Golwg Digwyddiadau"
 
 #: src/views/modules/bar.php:38
 msgid "View As"
-msgstr "Zobraziť ako"
+msgstr "Gweld Fel"
 
 #: src/views/modules/meta/details.php:142
 msgid "%s Tags:"
@@ -1316,7 +1319,7 @@ msgstr ""
 
 #: src/views/month/nav.php:18
 msgid "Calendar Month Navigation"
-msgstr "Navigácia pre mesiace v kalendári"
+msgstr "Llywiwr Mis Calendr"
 
 #: src/views/single-event.php:46 src/views/single-event.php:79
 msgid "%s Navigation"
@@ -1324,23 +1327,23 @@ msgstr ""
 
 #: vendor/tickets/src/views/tickets/attendees-email.php:24
 msgid "Attendee List"
-msgstr "Zoznam účastníkov"
+msgstr "Rhestr Mynychwyr"
 
 #: vendor/tickets/src/views/tickets/email.php:26
 msgid "Your tickets"
-msgstr "Vaše vstupenky"
+msgstr "Eich tocyn"
 
 #: vendor/tickets/src/views/tickets/email.php:336
 msgid "Ticket Type"
-msgstr "Typ vstupenky"
+msgstr "Math o Docyn"
 
 #: vendor/tickets/src/views/tickets/email.php:340
 msgid "Purchaser"
-msgstr "Kupujúci"
+msgstr "Prynwr"
 
 #: src/views/widgets/list-widget.php:65
 msgid "View All %s"
-msgstr "Zobraziť všetky %s"
+msgstr ""
 
 #: src/views/widgets/list-widget.php:71
 msgid "There are no upcoming %s at this time."
@@ -1361,12 +1364,12 @@ msgstr ""
 #: common/src/Tribe/View_Helpers.php:219
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:219
 msgid "Poland"
-msgstr "Poľsko"
+msgstr "Gwlad Pwyl"
 
 #: common/src/Tribe/View_Helpers.php:220
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:220
 msgid "Portugal"
-msgstr "Portugalsko"
+msgstr "Portiwgal"
 
 #: common/src/Tribe/View_Helpers.php:221
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:221
@@ -1376,7 +1379,7 @@ msgstr "Puerto Rico"
 #: common/src/Tribe/View_Helpers.php:222
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:222
 msgid "Qatar"
-msgstr "Katar"
+msgstr "Qatar"
 
 #: common/src/Tribe/View_Helpers.php:223
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:223
@@ -1386,12 +1389,12 @@ msgstr "Réunion"
 #: common/src/Tribe/View_Helpers.php:224
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:224
 msgid "Romania"
-msgstr "Rumunsko"
+msgstr "România"
 
 #: common/src/Tribe/View_Helpers.php:225
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:225
 msgid "Russian Federation"
-msgstr "Rusko"
+msgstr "Ffederasiwn Rwsia"
 
 #: common/src/Tribe/View_Helpers.php:226
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:226
@@ -1401,17 +1404,17 @@ msgstr "Rwanda"
 #: common/src/Tribe/View_Helpers.php:227
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:227
 msgid "Saint Kitts And Nevis"
-msgstr "Svätý Krištof a Nevis"
+msgstr "Saint Kitts a Nevis"
 
 #: common/src/Tribe/View_Helpers.php:228
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:228
 msgid "Saint Lucia"
-msgstr "Svätá Lucia"
+msgstr "Saint Lucia"
 
 #: common/src/Tribe/View_Helpers.php:229
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:229
 msgid "Saint Vincent And The Grenadines"
-msgstr "Svätý Vincent a Grenadíny"
+msgstr "Saint Vincent a'r Grenadines"
 
 #: common/src/Tribe/View_Helpers.php:230
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:230
@@ -1421,17 +1424,17 @@ msgstr "Samoa"
 #: common/src/Tribe/View_Helpers.php:231
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:231
 msgid "San Marino"
-msgstr "San Maríno"
+msgstr "San Marino"
 
 #: common/src/Tribe/View_Helpers.php:232
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:232
 msgid "Sao Tome And Principe"
-msgstr "Svätý Tomáš a Princov ostrov"
+msgstr "São Tomé a Príncipe"
 
 #: common/src/Tribe/View_Helpers.php:233
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:233
 msgid "Saudi Arabia"
-msgstr "Saudská Arábia"
+msgstr "Saudi Arabia"
 
 #: common/src/Tribe/View_Helpers.php:234
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:234
@@ -1441,12 +1444,12 @@ msgstr "Senegal"
 #: common/src/Tribe/View_Helpers.php:235
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:235
 msgid "Serbia"
-msgstr "Srbsko"
+msgstr "Serbia"
 
 #: common/src/Tribe/View_Helpers.php:236
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:236
 msgid "Seychelles"
-msgstr "Seychely"
+msgstr "Seychelles"
 
 #: common/src/Tribe/View_Helpers.php:237
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:237
@@ -1456,92 +1459,92 @@ msgstr "Sierra Leone"
 #: common/src/Tribe/View_Helpers.php:238
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:238
 msgid "Singapore"
-msgstr "Singapur"
+msgstr "Singapôr"
 
 #: common/src/Tribe/View_Helpers.php:239
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:239
 msgid "Slovakia (Slovak Republic)"
-msgstr "Slovenská republika"
+msgstr "Slofacia (Gweriniaeth Slofacia)"
 
 #: common/src/Tribe/View_Helpers.php:240
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:240
 msgid "Slovenia"
-msgstr "Slovinsko"
+msgstr "Slofenia"
 
 #: common/src/Tribe/View_Helpers.php:241
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:241
 msgid "Solomon Islands"
-msgstr "Šalamúnove ostrovy"
+msgstr "Ynysoedd Solomon"
 
 #: common/src/Tribe/View_Helpers.php:242
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:242
 msgid "Somalia"
-msgstr "Somálsko"
+msgstr "Somalia"
 
 #: common/src/Tribe/View_Helpers.php:243
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:243
 msgid "South Africa"
-msgstr "Južná Afrika"
+msgstr "De Affrica"
 
 #: common/src/Tribe/View_Helpers.php:244
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:244
 msgid "South Georgia, South Sandwich Islands"
-msgstr "Južná Georgia a Južné Sandwichove ostrovy"
+msgstr "De Georgia, Ynysoedd Sandwich y De"
 
 #: common/src/Tribe/View_Helpers.php:245
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:245
 msgid "Spain"
-msgstr "Španielsko"
+msgstr "Sbaen"
 
 #: common/src/Tribe/View_Helpers.php:246
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:246
 msgid "Sri Lanka"
-msgstr "Srí Lanka"
+msgstr "Sri Lanka"
 
 #: common/src/Tribe/View_Helpers.php:247
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:247
 msgid "St. Helena"
-msgstr "Svätá Helena"
+msgstr "Saint Helena"
 
 #: common/src/Tribe/View_Helpers.php:248
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:248
 msgid "St. Pierre And Miquelon"
-msgstr "Saint Pierre a Miquelon"
+msgstr "Saint-Pierre-et-Miquelon"
 
 #: common/src/Tribe/View_Helpers.php:249
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:249
 msgid "Sudan"
-msgstr "Sudán"
+msgstr "Swdan"
 
 #: common/src/Tribe/View_Helpers.php:250
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:250
 msgid "Suriname"
-msgstr "Surinam"
+msgstr "Swrinam"
 
 #: common/src/Tribe/View_Helpers.php:251
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:251
 msgid "Svalbard And Jan Mayen Islands"
-msgstr "Svalbard"
+msgstr "Ynysoedd Svalbard a Jan Mayen"
 
 #: common/src/Tribe/View_Helpers.php:252
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:252
 msgid "Swaziland"
-msgstr "Svazijsko"
+msgstr "Gwlad Swasi"
 
 #: common/src/Tribe/View_Helpers.php:253
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:253
 msgid "Sweden"
-msgstr "Švedsko"
+msgstr "Sweden"
 
 #: common/src/Tribe/View_Helpers.php:254
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:254
 msgid "Switzerland"
-msgstr "Švajčiarsko"
+msgstr "Y Swistir"
 
 #: common/src/Tribe/View_Helpers.php:255
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:255
 msgid "Syrian Arab Republic"
-msgstr "Sýria"
+msgstr "Gweriniaeth Arabaidd Syria"
 
 #: common/src/Tribe/View_Helpers.php:256
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:256
@@ -1551,17 +1554,17 @@ msgstr "Taiwan"
 #: common/src/Tribe/View_Helpers.php:257
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:257
 msgid "Tajikistan"
-msgstr "Tadžikistan"
+msgstr "Tajicistan"
 
 #: common/src/Tribe/View_Helpers.php:258
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:258
 msgid "Tanzania, United Republic Of"
-msgstr "Tanzánia"
+msgstr "Gweriniaeth Unedig Tanzania"
 
 #: common/src/Tribe/View_Helpers.php:259
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:259
 msgid "Thailand"
-msgstr "Thajsko"
+msgstr "Gwlad Thai"
 
 #: common/src/Tribe/View_Helpers.php:260
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:260
@@ -1571,7 +1574,7 @@ msgstr "Togo"
 #: common/src/Tribe/View_Helpers.php:261
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:261
 msgid "Tokelau"
-msgstr "Tokelau"
+msgstr "Tocelaw"
 
 #: common/src/Tribe/View_Helpers.php:262
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:262
@@ -1581,62 +1584,62 @@ msgstr "Tonga"
 #: common/src/Tribe/View_Helpers.php:263
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:263
 msgid "Trinidad And Tobago"
-msgstr "Trinidad a Tobago"
+msgstr "Trinidad a Thobago"
 
 #: common/src/Tribe/View_Helpers.php:264
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:264
 msgid "Tunisia"
-msgstr "Tunisko"
+msgstr "Tiwnisia"
 
 #: common/src/Tribe/View_Helpers.php:265
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:265
 msgid "Turkey"
-msgstr "Turecko"
+msgstr "Twrci"
 
 #: common/src/Tribe/View_Helpers.php:266
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:266
 msgid "Turkmenistan"
-msgstr "Turkmenistan"
+msgstr "Tyrcmenistan"
 
 #: common/src/Tribe/View_Helpers.php:267
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:267
 msgid "Turks And Caicos Islands"
-msgstr "Turks a Caicos"
+msgstr "Ynysoedd Turks a Caicos"
 
 #: common/src/Tribe/View_Helpers.php:268
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:268
 msgid "Tuvalu"
-msgstr "Tuvalu"
+msgstr "Twfalw"
 
 #: common/src/Tribe/View_Helpers.php:269
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:269
 msgid "Uganda"
-msgstr "Uganda"
+msgstr "Wganda"
 
 #: common/src/Tribe/View_Helpers.php:270
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:270
 msgid "Ukraine"
-msgstr "Ukrajina"
+msgstr "Wcráin"
 
 #: common/src/Tribe/View_Helpers.php:271
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:271
 msgid "United Arab Emirates"
-msgstr "Spojené arabské emiráty"
+msgstr "Yr Emiradau Arabaidd Unedig"
 
 #: common/src/Tribe/View_Helpers.php:272
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:272
 msgid "United Kingdom"
-msgstr "Spojené kráľovstvo"
+msgstr "Y Deyrnas Unedig"
 
 #: common/src/Tribe/View_Helpers.php:273
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:273
 msgid "United States Minor Outlying Islands"
-msgstr "Menšie odľahlé ostrovy USA"
+msgstr "Mân Ynysoedd Pellennig yr Unol Daleithiau"
 
 #: common/src/Tribe/View_Helpers.php:274
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:274
 msgid "Uruguay"
-msgstr "Uruguaj"
+msgstr "Uruguay"
 
 #: common/src/Tribe/View_Helpers.php:275
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:275
@@ -1656,32 +1659,32 @@ msgstr "Venezuela"
 #: common/src/Tribe/View_Helpers.php:278
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:278
 msgid "Viet Nam"
-msgstr "Vietnam"
+msgstr "Viet Nam"
 
 #: common/src/Tribe/View_Helpers.php:279
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:279
 msgid "Virgin Islands (British)"
-msgstr "Britské Panenské ostrovy"
+msgstr "Ynysoedd Morwynol (Prydain)"
 
 #: common/src/Tribe/View_Helpers.php:280
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:280
 msgid "Virgin Islands (U.S.)"
-msgstr "Americké Panenské ostrovy"
+msgstr "Ynysoedd Morwynol (Yr Unol Daleithiau)"
 
 #: common/src/Tribe/View_Helpers.php:281
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:281
 msgid "Wallis And Futuna Islands"
-msgstr "Wallis a Futuna"
+msgstr "Ynysoedd Wallis a Futuna"
 
 #: common/src/Tribe/View_Helpers.php:282
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:282
 msgid "Western Sahara"
-msgstr "Západná Sahara"
+msgstr "Gorllewin Sahara"
 
 #: common/src/Tribe/View_Helpers.php:283
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:283
 msgid "Yemen"
-msgstr "Jemen"
+msgstr "Yemen"
 
 #: common/src/Tribe/View_Helpers.php:284
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:284
@@ -1701,7 +1704,7 @@ msgstr "Alabama"
 #: common/src/Tribe/View_Helpers.php:317
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:317
 msgid "Alaska"
-msgstr "Aljaška"
+msgstr "Alaska"
 
 #: common/src/Tribe/View_Helpers.php:318
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:318
@@ -1716,7 +1719,7 @@ msgstr "Arkansas"
 #: common/src/Tribe/View_Helpers.php:320
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:320
 msgid "California"
-msgstr "Kalifornia"
+msgstr "California"
 
 #: common/src/Tribe/View_Helpers.php:321
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:321
@@ -1736,17 +1739,17 @@ msgstr "Delaware"
 #: common/src/Tribe/View_Helpers.php:324
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:324
 msgid "District of Columbia"
-msgstr "Washington D.C."
+msgstr "Ardal Columbia"
 
 #: common/src/Tribe/View_Helpers.php:325
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:325
 msgid "Florida"
-msgstr "Florida"
+msgstr "Fflorida"
 
 #: common/src/Tribe/View_Helpers.php:327
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:327
 msgid "Hawaii"
-msgstr "Havaj"
+msgstr "Hawaii"
 
 #: common/src/Tribe/View_Helpers.php:328
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:328
@@ -1846,22 +1849,22 @@ msgstr "New Jersey"
 #: common/src/Tribe/View_Helpers.php:347
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:347
 msgid "New Mexico"
-msgstr "New Mexico"
+msgstr "Mecsico Newydd"
 
 #: common/src/Tribe/View_Helpers.php:348
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:348
 msgid "New York"
-msgstr "New York"
+msgstr "Efrog Newydd"
 
 #: common/src/Tribe/View_Helpers.php:349
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:349
 msgid "North Carolina"
-msgstr "Severná Karolína"
+msgstr "Gogledd Carolina"
 
 #: common/src/Tribe/View_Helpers.php:350
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:350
 msgid "North Dakota"
-msgstr "Severná Dakota"
+msgstr "Gogledd Dakota"
 
 #: common/src/Tribe/View_Helpers.php:351
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:351
@@ -1881,7 +1884,7 @@ msgstr "Oregon"
 #: common/src/Tribe/View_Helpers.php:354
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:354
 msgid "Pennsylvania"
-msgstr "Pensylvánia"
+msgstr "Pennsylvania"
 
 #: common/src/Tribe/View_Helpers.php:355
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:355
@@ -1891,12 +1894,12 @@ msgstr "Rhode Island"
 #: common/src/Tribe/View_Helpers.php:356
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:356
 msgid "South Carolina"
-msgstr "Južná Karolína"
+msgstr "De Carolina"
 
 #: common/src/Tribe/View_Helpers.php:357
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:357
 msgid "South Dakota"
-msgstr "Južná Dakota"
+msgstr "De Dakota"
 
 #: common/src/Tribe/View_Helpers.php:358
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:358
@@ -1921,7 +1924,7 @@ msgstr "Vermont"
 #: common/src/Tribe/View_Helpers.php:362
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:362
 msgid "Virginia"
-msgstr "Virgínia"
+msgstr "Virginia"
 
 #: common/src/Tribe/View_Helpers.php:363
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:363
@@ -1931,7 +1934,7 @@ msgstr "Washington"
 #: common/src/Tribe/View_Helpers.php:364
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:364
 msgid "West Virginia"
-msgstr "Západná Virginia"
+msgstr "Gorllewin Virginia"
 
 #: common/src/Tribe/View_Helpers.php:365
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:365
@@ -1950,23 +1953,23 @@ msgstr "&raquo;"
 
 #: src/Tribe/iCal.php:29
 msgid "%1$s %2$s iCal Feed"
-msgstr "%1$s %2$s iCal Feed"
+msgstr "%1$s %2$s Porthydd iCal"
 
 #: src/Tribe/iCal.php:76
 msgid "Add to Google Calendar"
-msgstr "Pridať do Google Kalendára"
+msgstr "Ychwanegu at Google Calendar"
 
 #: src/Tribe/iCal.php:76
 msgid "Google Calendar"
-msgstr "Google Kalendár"
+msgstr "Google Calendar"
 
 #: src/Tribe/iCal.php:77
 msgid "Download .ics file"
-msgstr "Stiahnuť .ics súbor"
+msgstr "Llwytho ffeil .ics i lawr"
 
 #: src/Tribe/iCal.php:77
 msgid "iCal Export"
-msgstr "iCal Export"
+msgstr "Allforio i iCal"
 
 #: src/Tribe/iCal.php:107
 msgid "Month's %s"
@@ -1986,12 +1989,12 @@ msgstr ""
 
 #: src/Tribe/iCal.php:121
 msgid "Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
-msgstr "Zdieľať dáta kalendára cez Google Calendár, Apple iCal alebo inú kompatibilnú aplikáciu"
+msgstr "Defnyddiwch hwn i rannu data calendr gyda Google Calendar, Apple iCal a rhaglennig cydnaws eraill"
 
 #: src/admin-views/admin-update-message.php:9
 #: src/admin-views/admin-welcome-message.php:11
 msgid "You are running Version %s and deserve a hug :-)"
-msgstr "Používate verziu %s  a zaslúžite si objatie :-)"
+msgstr "Rydych chi'n rhedeg Fersiwn %s ac yn haeddu cwtsh mawr :-)"
 
 #: src/admin-views/admin-update-message.php:33
 msgid "Every time you rate %s5 stars%s, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice."
@@ -2000,24 +2003,24 @@ msgstr ""
 #: src/admin-views/admin-update-message.php:34
 #: src/admin-views/admin-welcome-message.php:22
 msgid "Rate It"
-msgstr "Ohodnotiť"
+msgstr "Sgoriwch"
 
 #: src/admin-views/admin-update-message.php:37
 msgid "PSST... Want a Discount?"
-msgstr "PSST... Chcete zľavu?"
+msgstr "PSST... Chwilio am Ostyngiad?"
 
 #: src/admin-views/admin-update-message.php:38
 msgid "We send out discounts to our core users via our newsletter."
-msgstr "Naše zľavy posielame našim hlavným užívateľom cez odber noviniek."
+msgstr "Rydyn ni'n anfon gostyngiadau i'n defnyddwyr craidd yn ein cylchlythyr."
 
 #: src/admin-views/admin-update-message.php:43
 #: src/admin-views/admin-welcome-message.php:31
 msgid "Sign Up"
-msgstr "Zaregistrovať sa"
+msgstr "Cofrestru"
 
 #: src/admin-views/admin-update-message.php:49
 msgid "Looking for Something Special?"
-msgstr "Hľadáte niečo špeciálne?"
+msgstr "Chwilio am Rywbeth Arbennig?"
 
 #: src/admin-views/admin-update-message.php:51
 msgid "Pro"
@@ -2027,11 +2030,11 @@ msgstr "Pro"
 #: src/admin-views/admin-update-message.php:53
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:200
 msgid "Community Events"
-msgstr "Verejné udalosti"
+msgstr "Digwyddiadau Cymunedol"
 
 #: src/admin-views/admin-update-message.php:54
 msgid "Filters"
-msgstr "Filtre"
+msgstr "Hidlyddion"
 
 #: src/admin-views/admin-update-message.php:55
 msgid "Facebook"
@@ -2040,78 +2043,78 @@ msgstr "Facebook"
 #: src/admin-views/admin-update-message.php:58
 #: src/admin-views/admin-welcome-message.php:53
 msgid "News For Events Users"
-msgstr "Novinky pre užívateľov kalendára udalostí"
+msgstr "Newyddion ar gyfer Defnyddwyr Events"
 
 #: src/admin-views/admin-welcome-message.php:19
 msgid "Keep The Events Calendar Core FREE"
-msgstr "Udržujte The Events Calendar PRO zadarmo"
+msgstr "Cadw The Events Calendar Core YN RHAD AC AM DDIM"
 
 #: src/admin-views/admin-welcome-message.php:20
 msgid "5 star ratings help us bring TEC to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support."
-msgstr "Ohodnotenie 5 hviezdičkami nám pomáha prinášať TEC (The Events Calendar - Kalendár podujatí) pre viac užívateľov. Ďalší šťastní užívatelia znamenajú viac podpory, viac funkcií a viac všetkého, čo už poznáte a máte radi z Kalendára udalostí. Neurobili by sme to bez vašej pomoci."
+msgstr "Mae sgoriau 5 seren yn galluogi ni i gynnig TEC i ragor o ddefnyddwyr. Mae defnyddwyr mwy hapus yn golygu mwy o gymorth, mwy o nodweddion a mwy o bopeth rydych chi'n ei fwynhau am The Events Calendar. Heb eich cymorth chi, fyddai hyn ddim yn bosibl."
 
 #: src/admin-views/admin-welcome-message.php:21
 msgid "Rate it five stars today!"
-msgstr "Ohodnoťte dnes piatimi hviezdičkami!"
+msgstr "Rhowch bump seren iddo heddiw!"
 
 #: src/admin-views/admin-welcome-message.php:25
 msgid "Newsletter Signup"
-msgstr "Prihlásiť sa na odber noviniek"
+msgstr "Cofrestru ar gyfer y Cylchlythyr"
 
 #: src/admin-views/admin-welcome-message.php:26
 msgid "Stay in touch with The Events Calendar Pro. We send out periodic updates, key developer notices, and even the occasional discount."
-msgstr "Zostaňte v kontakte s Kalendárom udalostí Pro. Pravidelne zasielame aktualizácie, kľúčové vývojarské oznámenia a dokonca občas aj zľavu."
+msgstr "Cadwch mewn cysylltiad gyda The Events Calendar Pro. Rydyn ni'n anfon diweddariadau cyfnodol, hysbysiadau datblygwyr allweddol ac hyd yn oed gostyngiadau o dro i dro."
 
 #: src/admin-views/admin-welcome-message.php:40
 msgid "Getting Started"
-msgstr "Začíname"
+msgstr "Cychwyn"
 
 #: src/admin-views/admin-welcome-message.php:41
 msgid "Check out the New User Primer &amp; Tutorials"
-msgstr "Skontrolujte príručky pre nových užívateľov &amp; tutoriály"
+msgstr "Ewch i weld y Gwersi a Thiwtorialau i Ddefnyddwyr Newydd"
 
 #: src/admin-views/admin-welcome-message.php:43
 msgid "Looking for More Features?"
-msgstr "Hľadáte viac funkcií?"
+msgstr "Edrych am Ragor o Nodweddion?"
 
 #: src/admin-views/admin-welcome-message.php:44
 msgid "Addons for Community, Tickets, Filters, Facebook and more."
-msgstr "Doplnky pre verejnosť, vstupenky, filtre, Facebook a viac."
+msgstr "Ychwanegion ar gyfer Cymuned, Tocynnau, Hidlyddion, Facebook a mwy."
 
 #: src/admin-views/admin-welcome-message.php:46
 msgid "Support Resources"
-msgstr "Možnosti podpory"
+msgstr "Adnoddau Cymorth"
 
 #: src/admin-views/admin-welcome-message.php:47
 msgid "FAQs, Documentation, Tutorials and Forums"
-msgstr "Najčastejšie otázky, dokumentácia, tutoriály a fóra"
+msgstr "Cwestiynau Cyffredin, Dogfennaeth, Tiwtorialau a Fforymau"
 
 #: src/admin-views/admin-welcome-message.php:50
 msgid "Release Notes"
-msgstr "Poznámky k vydaniu"
+msgstr "Nodiadau Ryddhau"
 
 #: src/admin-views/admin-welcome-message.php:51
 msgid "Get the Skinny on the Latest Updates"
-msgstr "Získajte vzhľad pre najnovšie aktualizácie"
+msgstr "Cael y Diweddariadau Diweddaraf"
 
 #: src/admin-views/admin-welcome-message.php:54
 msgid "Product Releases, Tutorials and Community Activity"
-msgstr "Správa produktov, tutoriály a verejné aktivity"
+msgstr "Cynnyrch Newydd, Tiwtorialau a Gweithgarwch y Gymuned"
 
 #: common/src/admin-views/app-shop.php:4
 #: vendor/tickets/common/src/admin-views/app-shop.php:4
 msgid "Tribe Event Add-Ons"
-msgstr "Skupina doplnkov pre udalosti"
+msgstr "Ychwanegion Digwyddiad Tribe"
 
 #: common/src/admin-views/app-shop.php:54
 #: vendor/tickets/common/src/admin-views/app-shop.php:54
 msgid "Version"
-msgstr "Verzia"
+msgstr "Fersiwn"
 
 #: common/src/admin-views/app-shop.php:57
 #: vendor/tickets/common/src/admin-views/app-shop.php:57
 msgid "Last Update"
-msgstr "Posledná aktualizácia"
+msgstr "Diweddarwyd Ddiwethaf"
 
 #: src/admin-views/event-sidebar-options.php:13
 msgid "Hide From %s Listings"
@@ -2127,7 +2130,7 @@ msgstr ""
 
 #: src/admin-views/events-meta-box.php:60
 msgid "Time &amp; Date"
-msgstr "Čas &amp; dátum"
+msgstr ""
 
 #: src/admin-views/events-meta-box.php:67
 msgid "You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page."
@@ -2139,16 +2142,16 @@ msgstr ""
 
 #: src/admin-views/events-meta-box.php:76
 msgid "Start Date &amp; Time:"
-msgstr "Čas a dátum začiatku:"
+msgstr "Dyddiad ac Amser Cychwyn:"
 
 #: src/admin-views/events-meta-box.php:80
 #: src/admin-views/events-meta-box.php:101
 msgid "YYYY-MM-DD"
-msgstr "YYYY-MM-DD"
+msgstr "BBBB-MM-DD"
 
 #: src/admin-views/events-meta-box.php:98
 msgid "End Date &amp; Time:"
-msgstr "Čas a dátum ukončenia:"
+msgstr "Dyddiad ac Amser Gorffen:"
 
 #: src/admin-views/events-meta-box.php:121
 msgid "Timezone:"
@@ -2156,7 +2159,7 @@ msgstr ""
 
 #: src/admin-views/events-meta-box.php:147
 msgid "Location"
-msgstr "Miesto"
+msgstr "Lleoliad"
 
 #: src/admin-views/events-meta-box.php:195
 msgid "%s Website"
@@ -2172,23 +2175,23 @@ msgstr ""
 
 #: src/admin-views/events-meta-box.php:232
 msgid "Currency Symbol:"
-msgstr "Symbol meny:"
+msgstr "Symbol Arian:"
 
 #: src/admin-views/events-meta-box.php:247
 msgctxt "Currency symbol position"
 msgid "Before cost"
-msgstr "Pred cenou"
+msgstr "Cyn cost"
 
 #: src/admin-views/events-meta-box.php:250
 msgctxt "Currency symbol position"
 msgid "After cost"
-msgstr "Za cenou"
+msgstr "Ar ôl cost"
 
 #: src/admin-views/events-meta-box.php:255
 #: src/functions/advanced-functions/meta_registration.php:48
 #: src/views/modules/meta/details.php:123
 msgid "Cost:"
-msgstr "Cena:"
+msgstr "Cost:"
 
 #: src/admin-views/events-meta-box.php:263
 msgid "Enter a 0 for %s that are free or leave blank to hide the field."
@@ -2198,7 +2201,7 @@ msgstr ""
 #: src/admin-views/organizer-meta-box.php:24
 #: src/admin-views/venue-meta-box.php:25
 msgid "%s Name:"
-msgstr "%s Názov:"
+msgstr "%s Enw:"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:76
 #: src/admin-views/new-organizer-meta-section.php:23
@@ -2208,7 +2211,7 @@ msgstr "%s Názov:"
 #: src/functions/advanced-functions/meta_registration.php:238
 #: src/views/modules/meta/organizer.php:42 src/views/modules/meta/venue.php:40
 msgid "Phone:"
-msgstr "Telefón:"
+msgstr "Ffôn:"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:85
 #: src/admin-views/new-organizer-meta-section.php:29
@@ -2220,14 +2223,14 @@ msgstr "Telefón:"
 #: src/views/modules/meta/details.php:148
 #: src/views/modules/meta/organizer.php:64 src/views/modules/meta/venue.php:45
 msgid "Website:"
-msgstr "Webstránka:"
+msgstr "Gwefan:"
 
 #: src/admin-views/new-organizer-meta-section.php:37
 #: src/admin-views/organizer-meta-box.php:43
 #: src/functions/advanced-functions/meta_registration.php:254
 #: src/views/modules/meta/organizer.php:53
 msgid "Email:"
-msgstr "Email:"
+msgstr "E-bost:"
 
 #: src/admin-views/new-organizer-meta-section.php:77
 #: src/admin-views/organizer-meta-box.php:75
@@ -2236,118 +2239,118 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/attendees.php:31
 msgid "Event Details"
-msgstr "Podrobnosti udalosti"
+msgstr "Manylion y Digwyddiad"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:49
 msgid "Start Date / Time:"
-msgstr "Dátum začiatku / Čas:"
+msgstr "Dyddiad / Amser Cychwyn:"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:54
 msgid "End Date / Time:"
-msgstr "Dátum ukončenia / Čas:"
+msgstr "Dyddiad / Amser Gorffen:"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:68
 #: src/admin-views/venue-meta-box.php:34
 #: src/functions/advanced-functions/meta_registration.php:176
 msgid "Address:"
-msgstr "Adresa:"
+msgstr "Cyfeiriad:"
 
 #: vendor/tickets/src/admin-views/attendees.php:81
 msgid "Finalized:"
-msgstr "Dokončené:"
+msgstr "Terfynwyd:"
 
 #: vendor/tickets/src/admin-views/attendees.php:87
 msgid "Awaiting review:"
-msgstr "Čaká na recenziu:"
+msgstr "Aros am adolygiad:"
 
 #: vendor/tickets/src/admin-views/attendees.php:92
 msgid "Checked in:"
-msgstr "Zaškrtnuté:"
+msgstr "Cofrestrwyd:"
 
 #: vendor/tickets/src/admin-views/attendees-email.php:4
 msgid "Send the attendee list by email"
-msgstr "Poslať zoznam účastníkov cez email"
+msgstr "Anfon y rhestr o fynychwyr dros e-bost"
 
 #: vendor/tickets/src/admin-views/attendees-email.php:10
 msgid "Select a User:"
-msgstr "Vybrať používateľa:"
+msgstr "Dewis Defnyddiwr:"
 
 #: vendor/tickets/src/admin-views/attendees-email.php:15
 msgid "Select..."
-msgstr "Vybrať..."
+msgstr "Dewis..."
 
 #: vendor/tickets/src/admin-views/attendees-email.php:20
 msgid "or"
-msgstr "alebo"
+msgstr "neu"
 
 #: vendor/tickets/src/admin-views/attendees-email.php:22
 msgid "Email Address:"
-msgstr "Emailová adresa:"
+msgstr "Cyfeiriad E-bost:"
 
 #: vendor/tickets/src/admin-views/list.php:33
 msgid "Edit"
-msgstr "Upravirť"
+msgstr "Golygu"
 
 #: vendor/tickets/src/admin-views/list.php:42
 msgid "Edit in %s"
-msgstr "Upraviť v %s"
+msgstr "Golygu yn %s"
 
 #: vendor/tickets/src/admin-views/list.php:37
 msgid "View"
-msgstr "Zobraziť"
+msgstr "Gweld"
 
 #: vendor/tickets/src/template-tags/tickets.php:226
 msgid "Sold %d"
-msgstr "Predané %d"
+msgstr "Gwerthwyd %d"
 
 #: vendor/tickets/src/admin-views/meta-box.php:31
 msgid "This event was created using Community Events. Are you sure you want to sell tickets for it?"
-msgstr "Táto udalosť bola vytvorená cez Verejné udalosti. Ste si istý, že chcete predávať vstupenky na danú udalosť?"
+msgstr "Cafodd y digwyddiad yma ei greu drwy ddefnyddio Digwyddiadau Cymunedol. Ydych chi'n siŵr eich bod am werthu tocynnau ar ei gyfer?"
 
 #: vendor/tickets/src/admin-views/meta-box.php:42
 msgid "Upload image for the ticket header"
-msgstr "Nahrať obrázok pre hlavičku vstupenky"
+msgstr "Llwytho delwedd i fyny ar gyfer y pennyn y tocyn"
 
 #: vendor/tickets/src/admin-views/meta-box.php:43
 msgid "The maximum image size in the email will be 580px wide by any height, and then scaled for mobile. If you would like \"retina\" support use an image sized to 1160px wide."
-msgstr "Maximálna veľkosť obrázka v email-i je 580px na šírku v ľubovoľnej výške a škálovateľné pre mobil. Ak potrebujete \"retina\" pomôcť, použite obrázok veľkosti 1160px na šírku."
+msgstr "Uchafswm maint y ddelwedd yn yr e-bost fydd 580px o led wrth unrhyw uchder, ac yna bydd y maint yn cael ei addasu ar gyfer ffonau symudol. Os hoffech gefnogi cynnyrch \"retina\", defnyddiwch ddelwedd sydd hyd at 1160px."
 
 #: vendor/tickets/src/admin-views/meta-box.php:46
 msgid "Select an Image"
-msgstr "Vybrať obrázok"
+msgstr "Dewis Delwedd"
 
 #: vendor/tickets/src/admin-views/meta-box.php:54
 msgid "Remove"
-msgstr "Odstrániť"
+msgstr "Tynnu"
 
 #: vendor/tickets/src/admin-views/meta-box.php:112
 #: vendor/tickets/src/admin-views/meta-box.php:122
 msgid "Add new ticket"
-msgstr "Pridať novú vstupenku"
+msgstr "Ychwanegu tocyn newydd"
 
 #: vendor/tickets/src/admin-views/meta-box.php:123
 msgid "Edit ticket"
-msgstr "Upraviť vstupenku"
+msgstr "Golygu tocyn"
 
 #: vendor/tickets/src/admin-views/meta-box.php:128
 msgid "Sell using:"
-msgstr "Predaj pomocou:"
+msgstr "Gwerthu drwy ddefnyddio:"
 
 #: vendor/tickets/src/admin-views/meta-box.php:145
 msgid "Ticket Name:"
-msgstr "Názov vstupenky:"
+msgstr "Enw Tocyn:"
 
 #: vendor/tickets/src/admin-views/meta-box.php:152
 msgid "Ticket Description:"
-msgstr "Popis vstupenky:"
+msgstr "Disgrifiad Tocyn:"
 
 #: vendor/tickets/src/admin-views/legacy-ticket-fields.php:15
 msgid "Price:"
-msgstr "Cena:"
+msgstr "Pris:"
 
 #: vendor/tickets/src/admin-views/legacy-ticket-fields.php:19
 msgid "(0 or empty for free tickets)"
-msgstr "(0 alebo prázdny znak voľný vstup)"
+msgstr "(0 neu gadewch yn wag ar gyfer tocynnau sydd am ddim)"
 
 #: vendor/tickets/src/admin-views/legacy-ticket-fields.php:24
 msgid "Sale Price:"
@@ -2359,95 +2362,95 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/meta-box.php:161
 msgid "Start sale:"
-msgstr "Začiatok predaja:"
+msgstr "Cychwyn gwerthu:"
 
 #: vendor/tickets/src/admin-views/meta-box.php:185
 msgid "End sale:"
-msgstr "Koniec predaja:"
+msgstr "Gorffen gwerthu:"
 
 #: vendor/tickets/src/admin-views/meta-box.php:232
 msgid "Save this ticket"
-msgstr "Uložiť túto vstupenku"
+msgstr "Cadw'r tocyn yma"
 
 #: src/admin-views/tribe-options-display.php:6
 msgid "Default Events Template"
-msgstr "Predvolená šablóna udalosti"
+msgstr "Templed Digwyddiadau Diofyn"
 
 #: src/admin-views/tribe-options-display.php:7
 msgid "Default Page Template"
-msgstr "Predvolená šablóna stránky"
+msgstr "Templed Tudalen Diofyn"
 
 #: src/admin-views/tribe-options-display.php:44
 msgid "Display Settings"
-msgstr "Nastavenia zobrazenia"
+msgstr "Gosodiadau Gwedd"
 
 #: src/admin-views/tribe-options-display.php:49
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
-msgstr "<p>Nižšie uvedené nastavenia sú pre zobrazenie kalendára. Ak je zobrazenie nesprávne, skúste prepnúť medzi tromi voľbami štýlu alebo vyberte šablónu stránky z vašej témy.</p><p>Nastanú situácie, keď žiadna zo šablón nie je  100&#37;  ideálna. Preverte nášho <a href=\"%s\"> sprievodcu tém </a> s inštrukciami pre vlastné modifikácie."
+msgstr "Mae'r gosodiadau isod yn rheoli gwedd eich calendr. Os nad yw pethau'n edrych yn iawn, ceisiwch newid rhwng y tair opsiwn neu dewiswch dempled tudalen o'ch thema.</p><p>Fe fydd sefyllfaoedd lle na fydd templed 'allan o'r bocs' yn berffaith bob amser. Mae cyfarwyddiadau ar sut i wneud addasiadau cyfaddas ar gael yn ein <a href=\"%s\">canllawiau ar themâu</a>."
 
 #: src/admin-views/tribe-options-display.php:104
 msgid "Basic Template Settings"
-msgstr "Základné nastavenia šablóny"
+msgstr "Gosodiadau Templed Syml"
 
 #: src/admin-views/tribe-options-display.php:108
 msgid "Default stylesheet used for events templates"
-msgstr "Predvolený štýl použitý pre šablónu udalosti"
+msgstr "Dalen steil ddiofyn sy'n cael ei defnyddio ar gyfer templedi digwyddiadau"
 
 #: src/admin-views/tribe-options-display.php:111
 msgid "Skeleton Styles"
-msgstr "Základné štýly"
+msgstr "Steiliau Sgerbwd"
 
 #: src/admin-views/tribe-options-display.php:113
 msgid "Only includes enough css to achieve complex layouts like calendar and week view."
-msgstr "Zahrňuje css pre dosiahnutie komplexného rozloženia ako kalendár a týždenný náhľad."
+msgstr "Yn cynnwys dim ond digon o css i gael cynlluniau cymhleth fel gwedd calendr a gwedd wythnos."
 
 #: src/admin-views/tribe-options-display.php:115
 msgid "Full Styles"
-msgstr "Úplné štýly"
+msgstr "Steiliau Llawn"
 
 #: src/admin-views/tribe-options-display.php:117
 msgid "More detailed styling, tries to grab styles from your theme."
-msgstr "Detailnejšie štýlovanie sa pokúsi natiahnuť štýly z vašej témy."
+msgstr "Steil â mwy o fanylder, sy'n ceisio bachu steiliau o'ch thema."
 
 #: src/admin-views/tribe-options-display.php:119
 msgid "Tribe Events Styles"
-msgstr "Tribe Events Štýly"
+msgstr "Steiliau Digwyddiadau Tribe"
 
 #: src/admin-views/tribe-options-display.php:121
 msgid "A fully designed and styled theme for your events pages."
-msgstr "Plne navrhnutá a nadizajnovaná téma pre vašu stránku udalosti."
+msgstr "Thema sydd wedi'i chynllunio a'i steilio'n llawn ar gyfer eich tudalennau digwyddiadau."
 
 #: src/admin-views/tribe-options-display.php:128
 msgid "Events template"
-msgstr "Šablóna udalostí"
+msgstr "Templed Digwyddiadau"
 
 #: src/admin-views/tribe-options-display.php:129
 msgid "Choose a page template to control the appearance of your calendar and event content."
-msgstr "Vyberte šablónu stránky, ktorá ovplyvní vhľad vášho kalendára a obsahu udalosti."
+msgstr "Dewiswch dempled tudalen i reoli ymddangosiad eich calendr a chynnwys eich digwyddiad."
 
 #: src/admin-views/tribe-options-display.php:137
 msgid "Enable event views"
-msgstr "Povoliť zobrazenie udalosti"
+msgstr "Galluogi golwg digwyddiadau"
 
 #: src/admin-views/tribe-options-display.php:138
 msgid "You must select at least one view."
-msgstr "Musíte vybrať aspoň jedno zobrazenie."
+msgstr "Mae'n rhaid i chi ddewis o leiaf un golwg."
 
 #: src/admin-views/tribe-options-display.php:145
 msgid "Default view"
-msgstr "Predvolené zobrazenie"
+msgstr "Golwg ddiofyn"
 
 #: src/admin-views/tribe-options-display.php:153
 msgid "Disable the Event Search Bar"
-msgstr "Deaktivovať panel na vyhľadávanie udalosti"
+msgstr "Analluogi'r Bar Chwilio am Ddigwyddiad"
 
 #: src/admin-views/tribe-options-display.php:154
 msgid "Check this to use the classic header."
-msgstr "Zaškrtnie, ak chcete použiť klasickú hlavičku."
+msgstr "Ticiwch hwn i ddefnyddio'r pennawd clasurol."
 
 #: src/admin-views/tribe-options-display.php:160
 msgid "Month view events per day"
-msgstr "Mesačné prehľad udalosti za deň"
+msgstr "Golwg mis o ddigwyddiadau fesul diwrnod"
 
 #: src/admin-views/tribe-options-display.php:161
 msgid "Change the default 3 events per day in month view. Please note there may be performance issues if you set this too high. <a href=\"%s\">Read more</a>."
@@ -2464,176 +2467,176 @@ msgstr ""
 #: common/src/admin-views/tribe-options-display.php:22
 #: vendor/tickets/common/src/admin-views/tribe-options-display.php:22
 msgid "Date Format Settings"
-msgstr "Nastavenia formátu dátumu"
+msgstr "Gosodiadau Fformat y Dyddiad"
 
 #: common/src/admin-views/tribe-options-display.php:26
 #: vendor/tickets/common/src/admin-views/tribe-options-display.php:26
 msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
-msgstr "<p>Tieto tri polia akceptujú nastavenia formátu dátumu dostupné pre php date() funkciu. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Naučte sa, ako nastaviť váš vlastný formát dátumu tu</a>.</p>"
+msgstr "<p>Mae'r tri maes canlynol yn gallu derbyn yr opsiynau fformadu dyddiad sydd ar gael i'r swyddogaeth dyddiad() php. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Dysgwch sut i greu eich fformat dyddiad eich hunan</a>.</p>"
 
 #: common/src/admin-views/tribe-options-display.php:30
 #: vendor/tickets/common/src/admin-views/tribe-options-display.php:30
 msgid "Date with year"
-msgstr "Dátum s rokom"
+msgstr "Dyddiad gyda blwyddyn"
 
 #: src/admin-views/tribe-options-display.php:66
 msgid "Date without year"
-msgstr "Dátum bez roku"
+msgstr "Dyddiad heb y flwyddyn"
 
 #: src/admin-views/tribe-options-display.php:67
 msgid "Enter the format to use for displaying dates without a year. Used when showing an event from the current year."
-msgstr "Vložte formát pre zobrazenie dátumu bez roku. Používa sa pre zobrazenie udalosti v aktuálnom roku."
+msgstr "Nodwch y fformat i'w ddefnyddio ar gyfer dangos dyddiadau heb y flwyddyn. Defnyddir hyn i ddangos digwyddiad o'r flwyddyn bresennol."
 
 #: src/admin-views/tribe-options-display.php:74
 msgid "Month and year format"
-msgstr "Formát mesiaca a roka"
+msgstr "Fformat y mis a'r flwyddyn"
 
 #: src/admin-views/tribe-options-display.php:75
 msgid "Enter the format to use for dates that show a month and year only. Used on month view."
-msgstr "Vložte formát pre zobrazenie dátumu len v mesiaci a roku. Používa sa v mesačnom zobrazení."
+msgstr "Nodwch y fformat i'w ddefnyddio ar gyfer dyddiadau sy'n dangos mis a blwyddyn yn unig. Defnyddir hyn gyda'r golwg mis."
 
 #: common/src/admin-views/tribe-options-display.php:38
 #: vendor/tickets/common/src/admin-views/tribe-options-display.php:38
 msgid "Date time separator"
-msgstr "Oddeľovač času"
+msgstr "Gwahanydd ar gyfer y dyddiad ac amser"
 
 #: common/src/admin-views/tribe-options-display.php:39
 #: vendor/tickets/common/src/admin-views/tribe-options-display.php:39
 msgid "Enter the separator that will be placed between the date and time, when both are shown."
-msgstr "Vložte oddeľovač, ktorý bude medzi dátumom a časom, keď sa zobrazujú súčasne."
+msgstr "Nodwch y gwahanydd a fydd yn cael ei osod rhwng y dyddiad a'r amser, pan fydd y ddau'n cael eu dangos."
 
 #: src/admin-views/tribe-options-display.php:89
 msgid "Time range separator"
-msgstr "Oddeľovač časového rozsahu"
+msgstr "Gwahanydd ar gyfer ystod yr amser"
 
 #: src/admin-views/tribe-options-display.php:90
 msgid "Enter the separator that will be used between the start and end time of an event."
-msgstr "Vložte oddeľovač, ktorý bude medzi časom začiatku a ukončenia udalosti."
+msgstr "Nodwch y gwahanydd a fydd yn cael ei ddefnyddio rhwng amser cychwyn a gorffen digwyddiad."
 
 #: common/src/admin-views/tribe-options-display.php:46
 #: vendor/tickets/common/src/admin-views/tribe-options-display.php:46
 msgid "Datepicker Date Format"
-msgstr "Formát dátumu pre Datepicker"
+msgstr "Fformat Dyddiad y Dewisydd Dyddiad"
 
 #: common/src/admin-views/tribe-options-display.php:47
 #: vendor/tickets/common/src/admin-views/tribe-options-display.php:47
 msgid "Select the date format to use in datepickers"
-msgstr "Vyberte formát dátumu pre používanie datepickera"
+msgstr "Dewiswch fformat y dyddiad i'w ddefnyddio gyda dewiswyr dyddiad"
 
 #: src/admin-views/tribe-options-display.php:182
 msgid "Advanced Template Settings"
-msgstr "Pokročilé nastavenia šablóny"
+msgstr "Gosodiadau Templedi Uwch"
 
 #: src/admin-views/tribe-options-display.php:186
 msgid "Add HTML before event content"
-msgstr "Pridať HTML pred obsah udalosti"
+msgstr "Ychwanegu HTML cyn cynnwys digwyddiad"
 
 #: src/admin-views/tribe-options-display.php:187
 msgid "If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout."
-msgstr "Ak poznáte HTML, potom môžete pridať ďalší kód pred šablónu udalosti. Niektoré témy môžu vyžadovať pre pomoc s naštýlovaním alebo rozložením (layout)."
+msgstr "Os ydych chi'n gyfarwydd ag HTML, gallwch ychwanegu cod ychwanegol cyn templed y digwyddiad. Gall hyn fod yn ofynnol gyda rhai themâu i helpu gyda'r steilio a'r gosodiad."
 
 #: src/admin-views/tribe-options-display.php:192
 msgid "Add HTML after event content"
-msgstr "Pridať HTML za obsah udalosti"
+msgstr "Ychwanegu HTML ar ôl cynnwys digwyddiad "
 
 #: src/admin-views/tribe-options-display.php:193
 msgid "If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout."
-msgstr "Ak poznáte HTML, potom môžete pridať ďalší kód za šablónou udalosti. Niektoré témy môžu vyžadovať pre pomoc so štýlovaním alebo rozložením (layoutom)."
+msgstr "Os ydych chi'n gyfarwydd ag HTML, gallwch ychwanegu cod ychwanegol ar ôl templed y digwyddiad. Gall hyn fod yn ofynnol gyda rhai themâu i helpu gyda'r steilio a'r gosodiad."
 
 #: src/admin-views/tribe-options-general.php:12
 msgid "Finding & extending your calendar."
-msgstr "Vyhľadávanie & pridanie ďalších funkcií pre váš kalendár."
+msgstr "Canfod ac ymestyn eich calendr."
 
 #: src/admin-views/tribe-options-general.php:17
 msgid "Finding your calendar."
-msgstr "Vyhľadanie vášho kalendára."
+msgstr "Canfod eich calendr."
 
 #: src/admin-views/tribe-options-general.php:22
 msgid "Where's my calendar?"
-msgstr "Kde je môj kalendár?"
+msgstr "Ble mae fy nghalendr?"
 
 #: src/admin-views/tribe-options-general.php:22
 msgid "Right here"
-msgstr "Presne tu"
+msgstr "Yn fan hyn"
 
 #: common/src/admin-views/tribe-options-general.php:20
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:20
 msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
-msgstr "Hľadáte doplnkové funkcionality vrátane pravidelne sa opakujúcich udalosti, vlastné meta data, verejné udalosti, predaj lístkov a iné?"
+msgstr "Ydych chi'n chwilio am nodweddion ychwanegol gan gynnwys digwyddiadau ailadroddus, meta cyfaddas, digwyddiadau cymunedol, gwerthiannau tocynnau a mwy?"
 
 #: common/src/admin-views/tribe-options-general.php:20
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:20
 msgid "Check out the available add-ons"
-msgstr "Prezrieť si dostupné doplnky"
+msgstr "Ewch i weld pa ychwanegion sydd ar gael"
 
 #: common/src/admin-views/tribe-options-general.php:25
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:25
 msgid "We hope our plugin is helping you out."
-msgstr "Dúfame, že vám doplnok pomohol."
+msgstr "Gobeithio bod ein ategyn o gymorth i chi."
 
 #: common/src/admin-views/tribe-options-general.php:30
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:30
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
-msgstr "Myslíte si, že \"Wow, tento doplnok je úžasný. Mali by ste sa poďakovať Modern Tribe za ich tvrdú prácu.\" Najväčšie ďakujem bude, že dáte o nás vedieť. Stačí pridať malý textový odkaz do spodnej časti vášho kalendára na projekt Kalendár udalosti."
+msgstr "Ydych chi'n meddwl \"Waw, mae'r ategyn yma yn wych! Fe ddylwn i ddweud diolch wrth Modern Tribe am eu holl waith caled.\"? Y diolch mwyaf y gallwch ei roi i ni yw cydnabyddiaeth. Ychwanegwch ddolen fach testun yn unig ar waelod eich calendr sy'n pwyntio at brosiect The Events Calendar."
 
 #: common/src/admin-views/tribe-options-general.php:30
 #: common/src/admin-views/tribe-options-general.php:35
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:30
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:35
 msgid "See an example of the link"
-msgstr "Pozrite si príklad linku"
+msgstr "Gweld enghraifft o'r ddolen"
 
 #: common/src/admin-views/tribe-options-general.php:35
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:35
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project."
-msgstr "Myslíte si, že \"Wow, tento plugin je úžasný. Mali by ste sa poďakovať Modern Tribe za ich tvrdú prácu.\" Najväčšie ďakujem bude,  ak dáte o nás vedieť. Stačí pridať malý textový odkaz do spodnej časti vášho kalendára na projekt Kalendár udalosti."
+msgstr "Ydych chi'n meddwl \"Waw, mae'r ategyn yma yn wych! Fe ddylwn i ddweud diolch wrth Modern Tribe am eu holl waith caled.\"? Y diolch mwyaf y gallwch ei roi i ni yw cydnabyddiaeth. Ychwanegwch ddolen fach testun yn unig ar waelod eich calendr sy'n pwyntio at brosiect The Events Calendar."
 
 #: common/src/admin-views/tribe-options-general.php:40
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:40
 msgid "Show The Events Calendar link"
-msgstr "Ukázať link na Kalendár udalostí"
+msgstr "Dangos dolen The Events Calendar"
 
 #: common/src/admin-views/tribe-options-general.php:55
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:55
 msgid "General Settings"
-msgstr "Všeobecné nastavenia"
+msgstr "Gosodiadau Cyffredinol"
 
 #: src/admin-views/tribe-options-general.php:33
 msgid "Number of events to show per page"
-msgstr "Počet udalosti zobrazených na stránke"
+msgstr "Nifer y digwyddiadau i'w harddangos fesul tudalen"
 
 #: src/admin-views/tribe-options-general.php:40
 msgid "Use Javascript to control date filtering"
-msgstr "Povoliť Javscript pre filtrovanie podľa dátumu"
+msgstr "Defnyddio Javascript i reoli'r modd caiff dyddiadau eu hidlo"
 
 #: src/admin-views/tribe-options-general.php:41
 msgid "This option is disabled when \"Disable the Event Search Bar\" is checked on the Display settings tab."
-msgstr "Táto voľba nie je aktívna, ak \"Deaktivovať panel na hľadania udalosti\" je zaškrtnutá v záložke Nastavenia zobrazenia."
+msgstr "Mae'r opsiwn yma wedi'i analluogi pan fydd \"Analluogi'r Bar Chwilio am Ddigwyddiad\" wedi'i ddewis yn y tab gosodiadau Gwedd."
 
 #: src/admin-views/tribe-options-general.php:41
 msgid "Enable live ajax for datepicker on front end (User submit not required)."
-msgstr "Povoliť ajax pre datapicker na obrazovke (Nevyžaduje si potvrdenie od užívateľa)."
+msgstr "Galluogi ajax byw ar gyfer dewisydd dyddiad ar flaen eich gwefan (nid oes angen i'r defnyddiwr ei gyflwyno)."
 
 #: src/admin-views/tribe-options-general.php:49
 msgid "Show comments"
-msgstr "Ukázať komentáre"
+msgstr "Dangos sylwadau"
 
 #: src/admin-views/tribe-options-general.php:50
 msgid "Enable comments on event pages."
-msgstr "Povoliť komentáre na stránkach udalosti."
+msgstr "Galluogi sylwadau ar dudalennau digwyddiad."
 
 #: src/admin-views/tribe-options-general.php:56
 msgid "Include events in main blog loop"
-msgstr "Zahrnúť udalosti na hlavnej stránke článkov"
+msgstr "Cynnwys digwyddiadau ym mhrif ddolen blog"
 
 #: src/admin-views/tribe-options-general.php:57
 msgid "Show events with the site's other posts. When this box is checked, events will also continue to appear on the default events page."
-msgstr "Ukázať udalosti so stránkami ostatných článkov. Zaškrtnutím voľby, udalosť sa bude zobrazovať na predvolenej stránke udalosti."
+msgstr "Dangos digwyddiadau gyda chofnodion eraill y safle. Pan fydd y blwch yma wedi'i ddewis, bydd digwyddiadau hefyd yn parhau i ymddangos ar dudalen ddiofyn digwyddiadau."
 
 #: src/admin-views/tribe-options-general.php:63
 #: src/admin-views/tribe-options-general.php:69
 msgid "Events URL slug"
-msgstr "URL značka udalosti"
+msgstr "Bonyn URL Digwyddiadau"
 
 #: src/admin-views/tribe-options-general.php:64
 msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%1$s\">%2$s</a>. In order to edit the slug here, <a href=\"%3$soptions-permalink.php\">enable pretty permalinks</a>."
@@ -2642,32 +2645,32 @@ msgstr ""
 #: src/admin-views/tribe-options-general.php:76
 #: src/functions/template-tags/options.php:20
 msgid "The slug used for building the events URL."
-msgstr "Značka použitá pre tvorbu URL udalosti ."
+msgstr "Y bonyn a ddefnyddiwyd i adeiladu URL y digwyddiadau."
 
 #: src/admin-views/tribe-options-general.php:76
 msgid "Your current events URL is: %s"
-msgstr "Vaše súčasné URL udalosti je: %s"
+msgstr "Eich URL digwyddiadau cyfredol yw: %s"
 
 #: src/admin-views/tribe-options-general.php:81
 #: src/functions/template-tags/options.php:39
 msgid "Here is the iCal feed URL for your events:"
-msgstr "Tu je iCal feed URL pre vaše udalosti:"
+msgstr "Dyma URL porthydd iCal eich digwyddiadau:"
 
 #: src/admin-views/tribe-options-general.php:86
 msgid "Single event URL slug"
-msgstr "URL značka samotnej udalosti"
+msgstr "URL bonyn digwyddiad unigol"
 
 #: src/admin-views/tribe-options-general.php:93
 msgid "The above should ideally be plural, and this singular.<br />Your single event URL is: %s"
-msgstr "Ideálne je uviesť množné číslo, vyššie uvedené je jednotné.<br />URL vašej samotnej udalosti je : %s"
+msgstr "Yn ddelfrydol, dylai'r uchod fod yn lluosog, a hwn yn unigol.<br />Eich URL digwyddiad unigol yw: %s"
 
 #: src/admin-views/tribe-options-general.php:98
 msgid "End of day cutoff"
-msgstr "Hranica konca dňa"
+msgstr "Pryd ddaw'r diwrnod i ben"
 
 #: src/admin-views/tribe-options-general.php:119
 msgid "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar."
-msgstr "Máte udalosť, ktorá prekračuje polnoc? Vyberte čas pre ukončenie udalosti, aby ste sa vyhli zobrazovaniu udalosti v iný ďalší deň v kalendári."
+msgstr "Os oes digwyddiad sydd ymlaen ar ôl hanner nos, dewiswch amser ar ôl amser gorffen y digwyddiad er mwyn osgoi dangos y digwyddiad ar galendr y diwrnod wedyn."
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:18
 msgid "%s"
@@ -2675,7 +2678,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4237
 msgid "View Calendar"
-msgstr "Zobraziť kalendár"
+msgstr "Gweld y Calendr"
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:53
 msgid "Add %s"
@@ -2690,31 +2693,31 @@ msgstr "CSV"
 #: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4285
 #: vendor/tickets/common/src/Tribe/Settings.php:215
 msgid "Settings"
-msgstr "Nastavenia"
+msgstr "Gosodiadau"
 
 #: src/Tribe/Main.php:4286
 msgid "Calendar"
-msgstr "Kalendár"
+msgstr "Calendr"
 
 #: src/Tribe/Main.php:4342
 msgid "List"
-msgstr "Zoznam"
+msgstr "Rhestr"
 
 #: src/Tribe/Main.php:4360
 msgid "Month"
-msgstr "Mesiac"
+msgstr "Mis"
 
 #: src/Tribe/Main.php:4377
 msgid "Day"
-msgstr "Deň"
+msgstr "Diwrnod"
 
 #: src/Tribe/Main.php:4402 src/Tribe/Main.php:4403
 msgid "Search"
-msgstr "Vyhľadať"
+msgstr "Chwilio"
 
 #: src/Tribe/Main.php:4427 src/Tribe/Main.php:4443
 msgid "Date"
-msgstr "Dátum"
+msgstr "Dyddiad"
 
 #: src/Tribe/Main.php:4430
 msgid "%s In"
@@ -2726,7 +2729,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:4434
 msgid "Day Of"
-msgstr "Deň"
+msgstr "Dydd O"
 
 #: src/Tribe/Main.php:4507
 msgid "Once Every 30 Mins"
@@ -2734,22 +2737,22 @@ msgstr ""
 
 #: src/Tribe/Options_Exception.php:19 src/Tribe/Post_Exception.php:22
 msgid "Error"
-msgstr "Chyba"
+msgstr "Gwall"
 
 #: common/src/Tribe/PUE/Checker.php:308 src/Tribe/PUE/Checker.php:303
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:308
 msgid "License Key"
-msgstr "Licenčný kľúč"
+msgstr "Allwedd Trwydded"
 
 #: common/src/Tribe/PUE/Checker.php:309 src/Tribe/PUE/Checker.php:304
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:309
 msgid "A valid license key is required for support and updates"
-msgstr "Pre podporu a aktualizácie je požadovaný platný licenčný kľúč."
+msgstr "Mae angen allwedd trwydded ddilys i gael cymorth a diweddariadau"
 
 #: common/src/Tribe/PUE/Checker.php:380 src/Tribe/PUE/Checker.php:375
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:380
 msgid "License key(s) updated."
-msgstr "Licenčný kľúč(e) aktualizovaný."
+msgstr "Diweddarwyd eich allwedd(au) trwydded."
 
 #: common/src/Tribe/PUE/Checker.php:419 src/Tribe/PUE/Checker.php:414
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:419
@@ -2759,32 +2762,32 @@ msgstr ""
 #: common/src/Tribe/PUE/Checker.php:422 src/Tribe/PUE/Checker.php:417
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:422
 msgid "Sorry, key validation server is not available."
-msgstr "Ľutujeme, server pre validáciu kľúča je nedostupný."
+msgstr "Yn anffodus, nid yw'r gweinydd dilysu allweddau ar gael."
 
 #: common/src/Tribe/PUE/Checker.php:424 src/Tribe/PUE/Checker.php:419
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:424
 msgid "Sorry, this key is expired."
-msgstr "Ľutujeme, platnosť kľúča vypršala."
+msgstr "Yn anffodus, mae'r allwedd yma wedi dod i ben."
 
 #: common/src/Tribe/PUE/Checker.php:427 src/Tribe/PUE/Checker.php:422
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:427
 msgid "Sorry, this key is out of installs."
-msgstr "Ľutujeme, tento kľúč mimo inštalácie."
+msgstr "Does dim modd gosod rhagor gyda'r allwedd yma."
 
 #: common/src/Tribe/PUE/Checker.php:428 src/Tribe/PUE/Checker.php:423
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:428
 msgid "Why am I seeing this message?"
-msgstr "Prečo sa mi zobrazila táto správa?"
+msgstr "Pam ydw i'n gweld y neges yma?"
 
 #: common/src/Tribe/PUE/Checker.php:431 src/Tribe/PUE/Checker.php:426
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:431
 msgid "Sorry, this key is not valid."
-msgstr "Ľutujeme, tento kľúč nie je platný."
+msgstr "Nid yw'r allwedd yma yn ddilys."
 
 #: common/src/Tribe/PUE/Checker.php:435 src/Tribe/PUE/Checker.php:430
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:435
 msgid "Valid Key! Expires on %s"
-msgstr "Platný kľúč! Platnosť končí %s"
+msgstr "Allwedd Ddilys! Yn dod i ben ar %s"
 
 #: common/src/Tribe/PUE/Checker.php:448 src/Tribe/PUE/Checker.php:443
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:448
@@ -2795,70 +2798,71 @@ msgstr ""
 #: vendor/tickets/common/src/Tribe/Settings.php:214
 #: vendor/tickets/common/src/Tribe/Settings.php:235
 msgid "Events Settings"
-msgstr "Nastavenia udalostí"
+msgstr "Gosodiadau Digwyddiadau"
 
 #: common/src/Tribe/Settings.php:300
 #: vendor/tickets/common/src/Tribe/Settings.php:300
 msgid "%s Settings"
-msgstr "%s Nastavenia"
+msgstr "Gosodiadau %s"
 
 #: common/src/Tribe/Settings.php:314
 #: vendor/tickets/common/src/Tribe/Settings.php:314
 msgid "You've requested a non-existent tab."
-msgstr "Požadujete neexistujúcu záložku."
+msgstr "Rydych chi wedi gwneud cais am dab sydd ddim yn bodoli."
 
 #: common/src/Tribe/Settings.php:322
 #: vendor/tickets/common/src/Tribe/Settings.php:322
 msgid "Save Changes"
-msgstr ""
+msgstr "Cadw'r Newidiadau"
 
 #: common/src/Tribe/Settings.php:370
 #: vendor/tickets/common/src/Tribe/Settings.php:370
 msgid "You don't have permission to do that."
-msgstr "Nemáte práva pre vykonanie."
+msgstr "Nid oes caniatâd gyda chi i wneud hynny."
 
 #: common/src/Tribe/Settings.php:376
 #: vendor/tickets/common/src/Tribe/Settings.php:376
 msgid "The request was sent insecurely."
-msgstr "Požiadavka bola odoslaná nezabezpečene."
+msgstr "Cafodd y cais ei anfon yn anniogel."
 
 #: common/src/Tribe/Settings.php:382
 #: vendor/tickets/common/src/Tribe/Settings.php:382
 msgid "The request wasn't sent from this tab."
-msgstr "Požiadavka nebola odoslaná z tejto záložky."
+msgstr "Chafodd y cais ddim ei anfon o'r tab yma."
 
 #: common/src/Tribe/Settings.php:550
 #: vendor/tickets/common/src/Tribe/Settings.php:550
 msgid "Your form had the following errors:"
-msgstr "Váš formulár obsahuje nasledovné chyby:"
+msgstr "Roedd y gwallau canlynol ar eich ffurflen:"
 
 #: common/src/Tribe/Settings.php:560
 #: vendor/tickets/common/src/Tribe/Settings.php:560
 msgid "None of your settings were saved. Please try again."
-msgstr "Nastavenia neboli uložené. Skúste to znovu."
+msgstr "Chafodd dim o'ch gosodiadau eu cadw. Rhowch gynnig arall arni."
 
 #: common/src/Tribe/Settings.php:561
 #: vendor/tickets/common/src/Tribe/Settings.php:561
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
-msgstr[0] "Vyššie uvedené nastavenie nebolo uložené. Ostatné nastavenia boli úspešne uložené."
-msgstr[1] "Vyššie uvedené nastavenia neboli uložené. Ostatné nastavenia boli úspešne uložené."
-msgstr[2] ""
+msgstr[0] "Chafodd y gosodiadau uchod ddim eu cadw. Cafodd y gosodiadau eraill eu cadw'n llwyddiannus."
+msgstr[1] "Chafodd y gosodiadau uchod ddim eu cadw. Cafodd y gosodiadau eraill eu cadw'n llwyddiannus."
+msgstr[2] "Chafodd y gosodiadau uchod ddim eu cadw. Cafodd y gosodiadau eraill eu cadw'n llwyddiannus."
+msgstr[3] "Chafodd y gosodiadau uchod ddim eu cadw. Cafodd y gosodiadau eraill eu cadw'n llwyddiannus."
 
 #: common/src/Tribe/Settings_Tab.php:222
 #: vendor/tickets/common/src/Tribe/Settings_Tab.php:222
 msgid "There are no fields setup for this tab yet."
-msgstr "Zatiaľ neexistujú polia pre túto záložku."
+msgstr "Does dim meysydd wedi'u gosod ar gyfer y tab yma eto."
 
 #: common/src/admin-views/tribe-options-help.php:34
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:34
 msgid "System Information"
-msgstr "Systémové informácie"
+msgstr "Gwybodaeth am y System"
 
 #: common/src/Tribe/Support.php:137
 #: vendor/tickets/common/src/Tribe/Support.php:137
 msgid "Unknown or not set"
-msgstr "Neznáme alebo nenastavené"
+msgstr "Anhysbys neu ddim wedi'i osod"
 
 #: common/src/Tribe/Support.php:144
 #: vendor/tickets/common/src/Tribe/Support.php:144
@@ -2867,11 +2871,11 @@ msgstr ""
 
 #: src/Tribe/Template/Day.php:97 src/Tribe/Template/Day.php:113
 msgid "All Day"
-msgstr "Celý deň"
+msgstr "Drwy'r Dydd"
 
 #: src/Tribe/Template/Day.php:100 src/Tribe/Template/Day.php:116
 msgid "Ongoing"
-msgstr "Pokračujúce"
+msgstr "Parhaus"
 
 #: src/Tribe/Template/Day.php:134
 msgid "No matching %1$s listed under %2$s scheduled for %3$s. Please try another day."
@@ -2883,7 +2887,7 @@ msgstr ""
 
 #: src/Tribe/Template/Month.php:287 src/Tribe/Template_Factory.php:307
 msgid "There were no results found."
-msgstr "Nenašli sa žiadne výsledky."
+msgstr "Ni ddaethpwyd o hyd i ganlyniadau."
 
 #: src/Tribe/Template/Month.php:720
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
@@ -2907,133 +2911,133 @@ msgstr ""
 
 #: src/Tribe/Templates.php:606
 msgid "Template overrides should be moved to the correct subdirectory: %s"
-msgstr "Prepísaná šablóna by mala byť presunutá do správneho podadresára: : %s"
+msgstr "Dylid symud y camau diystyru templedi i'r is-gyfeiriadur cywir: %s"
 
 #: src/Tribe/Templates.php:648
 msgid "Template overrides should be moved to the correct subdirectory: tribe_get_template_part('%s')"
-msgstr "Prepísaná šablóna by mala byť presunutá do správneho podadresára: tribe_get_template_part('%s')"
+msgstr "Dylid symud y camau diystyru templedi i'r is-gyfeiriadur cywir: tribe_get_template_part('%s')"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:76
 msgid "Order #"
-msgstr "Objednávka #"
+msgstr "Rhif Archeb"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:77
 msgid "Order Status"
-msgstr "Stav objednávky"
+msgstr "Statws yr Archeb"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:78
 msgid "Ticket type"
-msgstr "Typ vstupenky"
+msgstr "Math o docyn"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:79
 #: vendor/tickets/src/views/tickets/email.php:332
 msgid "Ticket #"
-msgstr "Vstupenka #"
+msgstr "Rhif Tocyn"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:80
 #: vendor/tickets/src/views/tickets/email.php:344
 msgid "Security Code"
-msgstr "Bezpečnostný kód"
+msgstr "Cod Diogelwch"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:81
 #: vendor/tickets/src/Tribe/Attendees_Table.php:238
 #: vendor/tickets/src/Tribe/Attendees_Table.php:325
 msgid "Check in"
-msgstr "Zaškrtnúť"
+msgstr "Cofrestru"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:239
 #: vendor/tickets/src/Tribe/Attendees_Table.php:326
 msgid "Undo Check in"
-msgstr "Zrušiť zaškrtnutie"
+msgstr "Dad-Gofrestru"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:298
 msgid "Print"
-msgstr "Tlačiť"
+msgstr "Argraffu"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:299
 #: vendor/tickets/src/views/tickets/rsvp.php:116
 msgid "Email"
-msgstr "Email"
+msgstr "E-bostio"
 
 #: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:300
 msgid "Export"
-msgstr "Export"
+msgstr "Allforio"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:306
 msgid "Filter by purchaser name, ticket #, order # or security code"
-msgstr "Filtrovanie podľa názvu, vstupeniek #,  objednávok # alebo bezpečnostného kódu"
+msgstr "Hidlo yn ôl enw'r prynwr, rhif tocyn, rhif archeb neu god diogelwch"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:327
 #: vendor/tickets/src/admin-views/list.php:34
 msgid "Delete"
-msgstr "Vymazať"
+msgstr "Dileu"
 
 #: src/admin-views/admin-update-message.php:52
 #: vendor/tickets/src/Tribe/Admin/Ticket_Settings.php:22
 #: vendor/tickets/src/Tribe/Metabox.php:31
 msgid "Tickets"
-msgstr "Vstupenky"
+msgstr "Tocynnau"
 
 #: vendor/tickets/src/Tribe/Metabox.php:81
 msgid "Ticket header image"
-msgstr "Obrázok na hlavičke vstupenky"
+msgstr "Delwedd pennyn tocyn"
 
 #: vendor/tickets/src/Tribe/Metabox.php:82
 msgid "Set as ticket header"
-msgstr "Nastaviť hlavičku vstupenky"
+msgstr "Pennu fel pennyn tocyn"
 
 #: vendor/tickets/src/Tribe/Tickets.php:369
 msgid "Your ticket has been saved."
-msgstr "Vaša vstupenka bola uložená."
+msgstr "Mae eich tocyn wedi cael ei gadw."
 
 #: vendor/tickets/src/Tribe/Tickets.php:529
 msgid "Your ticket has been deleted."
-msgstr "Vaša vstupenka bola vymazaná."
+msgstr "Mae eich tocyn wedi cael ei ddileu."
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:84
 #: vendor/tickets/src/admin-views/list.php:71
 msgid "See who purchased tickets to this event"
-msgstr "Prezrieť, kto kúpil vstupenky na danú udalosť"
+msgstr "Gweld pwy sydd wedi prynu tocynnau i'r digwyddiad yma"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:84
 #: vendor/tickets/src/admin-views/attendees.php:24
 #: vendor/tickets/src/admin-views/list.php:73
 msgid "Attendees"
-msgstr "Účastníci"
+msgstr "Mynychwyr"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:121
 msgid "You need to select a user or type a valid email address"
-msgstr "Je potrebné vybrať užívateľa alebo napísať platnú emailovú adresu"
+msgstr "Mae angen i chi ddewis defnyddiwr neu deipio cyfeiriad e-bost dilys i mewn"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:122
 msgid "Sending..."
-msgstr "Odosielanie ..."
+msgstr "Wrthi'n anfon..."
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:148
 msgid "Columns"
-msgstr "Stĺpce"
+msgstr "Colofnau"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:148
 msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
-msgstr "Môžete použiť nastavenia obrazovky na výber stĺpcov, ktoré chcete vidieť. Výber stĺpcov funguje pre nižšie uvedenú tabuľku, v e-maili, pre tlač a pre export vo formáte CSV."
+msgstr "Gallwch chi ddefnyddio Opsiynau Sgrin i ddewis pa golofnau rydych chi am eu gweld. Mae'r dewis yn gweithio yn y tabl isod, yn yr e-bost, i'w argraffu ac ar gyfer allforio fel CSV."
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:271
 msgid "Yes"
-msgstr "Áno"
+msgstr "Ie"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:300
 msgid "attendees"
-msgstr "účastníci"
+msgstr "mynychwyr"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:392
 msgid "Attendee List for: %s"
-msgstr "Zoznam účastníkov pre: %s"
+msgstr "Rhestr Mynychwyr ar gyfer: %s"
 
 #: common/src/Tribe/Validate.php:76 common/src/Tribe/Validate.php:117
 #: vendor/tickets/common/src/Tribe/Validate.php:76
 #: vendor/tickets/common/src/Tribe/Validate.php:117
 msgid "Invalid or incomplete field passed"
-msgstr "Zadané neplatné alebo neúplné polia"
+msgstr "Pasiwyd maes annilys neu faes heb ei gwblhau"
 
 #: common/src/Tribe/Validate.php:77 common/src/Tribe/Validate.php:112
 #: common/src/Tribe/Validate.php:118
@@ -3041,45 +3045,45 @@ msgstr "Zadané neplatné alebo neúplné polia"
 #: vendor/tickets/common/src/Tribe/Validate.php:112
 #: vendor/tickets/common/src/Tribe/Validate.php:118
 msgid "Field ID:"
-msgstr "ID poľa:"
+msgstr "ID Maes:"
 
 #: common/src/Tribe/Validate.php:111
 #: vendor/tickets/common/src/Tribe/Validate.php:111
 msgid "Non-existant field validation function passed"
-msgstr "Zadaná neexistujúca validačná funkcia poľa"
+msgstr "Pasiwyd swyddogaeth ddilysu maes nad yw'n bodoli"
 
 #: common/src/Tribe/Validate.php:112
 #: vendor/tickets/common/src/Tribe/Validate.php:112
 msgctxt "non-existant function name passed for field validation"
 msgid "with function name:"
-msgstr "s menom funkcie:"
+msgstr "gyda'r enw swyddogaeth:"
 
 #: common/src/Tribe/Validate.php:135 common/src/Tribe/Validate.php:151
 #: vendor/tickets/common/src/Tribe/Validate.php:135
 #: vendor/tickets/common/src/Tribe/Validate.php:151
 msgid "%s must contain numbers and letters only"
-msgstr "%s musí obsahovať len číslice a písmena"
+msgstr "Rhaid i %s gynnwys rhifau a llythrennau yn unig"
 
 #: common/src/Tribe/Validate.php:167
 #: vendor/tickets/common/src/Tribe/Validate.php:167
 msgid "%s must contain numbers, letters and dots only"
-msgstr "%s musí obsahovať číslice, písmená a bodky."
+msgstr "Rhaid i %s gynnwys rhifau, llythrennau a dotiau yn unig"
 
 #: common/src/Tribe/Validate.php:181 common/src/Tribe/Validate.php:209
 #: vendor/tickets/common/src/Tribe/Validate.php:181
 #: vendor/tickets/common/src/Tribe/Validate.php:209
 msgid "%s must be a positive number."
-msgstr "%s musí byť kladné číslo."
+msgstr "Rhaid i %s fod yn rhif positif."
 
 #: common/src/Tribe/Validate.php:224
 #: vendor/tickets/common/src/Tribe/Validate.php:224
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
-msgstr "%s musí byť platnou URL značkou (číslice, písmená, pomĺčky a podčiarkovníky)."
+msgstr "Rhaid i %s fod yn fonyn dilys (rhif, llythyren, dash neu danlinellu)."
 
 #: common/src/Tribe/Validate.php:239
 #: vendor/tickets/common/src/Tribe/Validate.php:239
 msgid "%s must be a valid absolute URL."
-msgstr "%s musí byť platná absolútna adresa URL."
+msgstr "Rhaid i %s fod yn URL gwirioneddol dilys."
 
 #: common/src/Tribe/Validate.php:255 common/src/Tribe/Validate.php:272
 #: common/src/Tribe/Validate.php:294
@@ -3087,88 +3091,88 @@ msgstr "%s musí byť platná absolútna adresa URL."
 #: vendor/tickets/common/src/Tribe/Validate.php:272
 #: vendor/tickets/common/src/Tribe/Validate.php:294
 msgid "%s must have a value that's part of its options."
-msgstr "%s musí mať hodnotu, ktorá je súčasťou výberu."
+msgstr "Rhaid i %s gael gwerth sy'n rhan o'i opsiynau."
 
 #: common/src/Tribe/Validate.php:308
 #: vendor/tickets/common/src/Tribe/Validate.php:308
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
-msgstr "Validácia zlyhala, pretože nebola vložená žiadna porovnávaná hodnota do poľa %s"
+msgstr "Methodd y gymhariaeth ddilysu oherwydd ni chafodd gwerth cymharu ei ddarparu, ar gyfer maes %s"
 
 #: common/src/Tribe/Validate.php:315
 #: vendor/tickets/common/src/Tribe/Validate.php:315
 msgid "%s cannot be the same as %s."
-msgstr "%s nemôže byť také isté ako %s"
+msgstr "Ni all %s fod yr un peth â %s."
 
 #: common/src/Tribe/Validate.php:317
 #: vendor/tickets/common/src/Tribe/Validate.php:317
 msgid "%s cannot be a duplicate"
-msgstr "%s nemôže byť duplicitné"
+msgstr "Gall %s ddim bod yn ddyblygiad"
 
 #: common/src/Tribe/Validate.php:333
 #: vendor/tickets/common/src/Tribe/Validate.php:333
 msgid "%s must be a number or percentage."
-msgstr "%s musí byť číslo alebo percento."
+msgstr "Rhaid i %s fod yn rif neu'n ganran."
 
 #: common/src/Tribe/Validate.php:387
 #: vendor/tickets/common/src/Tribe/Validate.php:387
 msgid "%s must be a number between 0 and 21."
-msgstr "%s musí byť číslo medzi 0 a 21."
+msgstr "Rhaid i %s fod yn rif rhwng 0 a 21."
 
 #: common/src/Tribe/Validate.php:403
 #: vendor/tickets/common/src/Tribe/Validate.php:403
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
-msgstr "%s musí obsahovať len písmená, číslice, pomĺčky, apostrofy a medzery."
+msgstr "Rhaid i %s gynnwys llythrennau, rhifau, dashys, collnodau a bylchau yn unig."
 
 #: common/src/Tribe/Validate.php:419
 #: vendor/tickets/common/src/Tribe/Validate.php:419
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
-msgstr "%s musí obsahovať len písmená, medzery, apostrofy a pomĺčky."
+msgstr "Rhaid i %s gynnwys llythrennau, bylchau, collnodau a dashys."
 
 #: common/src/Tribe/Validate.php:433
 #: vendor/tickets/common/src/Tribe/Validate.php:433
 msgid "%s must consist of 5 numbers."
-msgstr "%s musí obsahovať 5 číslic."
+msgstr "Rhaid i %s gynnwys 5 rhif."
 
 #: common/src/Tribe/Validate.php:447
 #: vendor/tickets/common/src/Tribe/Validate.php:447
 msgid "%s must be a phone number."
-msgstr "%s musí byť telefónne číslo."
+msgstr "Rhaid i %s fod yn rif ffôn."
 
 #: common/src/Tribe/Validate.php:463
 #: vendor/tickets/common/src/Tribe/Validate.php:463
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
-msgstr "Zoznam krajín musí byť formátovaný ako jedna krajina na riadok vo formáte: <br>US, Spojené štáty americke <br> UK, Spojené kráľovstvo."
+msgstr "Rhaid i'r Rhestr o Wledydd gael ei fformadu ar ffurf un wlad i bob llinell, fel hyn: <br>UDA, Unol Daleithiau America <br> Y DU, Y Deyrnas Unedig."
 
 #: common/src/Tribe/View_Helpers.php:26 common/src/Tribe/View_Helpers.php:45
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:26
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:45
 msgid "Select a Country:"
-msgstr "Vybrať krajinu:"
+msgstr "Dewiswch Wlad:"
 
 #: common/src/Tribe/View_Helpers.php:47
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:47
 msgid "Afghanistan"
-msgstr "Afganistan"
+msgstr "Afghanistan"
 
 #: common/src/Tribe/View_Helpers.php:48
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:48
 msgid "Albania"
-msgstr "Albánsko"
+msgstr "Albania"
 
 #: common/src/Tribe/View_Helpers.php:49
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:49
 msgid "Algeria"
-msgstr "Alžírsko"
+msgstr "Algeria"
 
 #: common/src/Tribe/View_Helpers.php:50
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:50
 msgid "American Samoa"
-msgstr "Americká Samoa"
+msgstr "Samoa America"
 
 #: common/src/Tribe/View_Helpers.php:51
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:51
 msgid "Andorra"
-msgstr "Andora"
+msgstr "Andorra"
 
 #: common/src/Tribe/View_Helpers.php:52
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:52
@@ -3183,7 +3187,7 @@ msgstr "Anguilla"
 #: common/src/Tribe/View_Helpers.php:54
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:54
 msgid "Antarctica"
-msgstr "Antarktída"
+msgstr "Antarctica"
 
 #: common/src/Tribe/View_Helpers.php:55
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:55
@@ -3193,12 +3197,12 @@ msgstr "Antigua a Barbuda"
 #: common/src/Tribe/View_Helpers.php:56
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:56
 msgid "Argentina"
-msgstr "Argentína"
+msgstr "Ariannin"
 
 #: common/src/Tribe/View_Helpers.php:57
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:57
 msgid "Armenia"
-msgstr "Arménsko"
+msgstr "Armenia"
 
 #: common/src/Tribe/View_Helpers.php:58
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:58
@@ -3208,32 +3212,32 @@ msgstr "Aruba"
 #: common/src/Tribe/View_Helpers.php:59
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:59
 msgid "Australia"
-msgstr "Austrália"
+msgstr "Awstralia"
 
 #: common/src/Tribe/View_Helpers.php:60
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:60
 msgid "Austria"
-msgstr "Rakúsko"
+msgstr "Awstria"
 
 #: common/src/Tribe/View_Helpers.php:61
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:61
 msgid "Azerbaijan"
-msgstr "Azerbajdžan"
+msgstr "Azerbaijan"
 
 #: common/src/Tribe/View_Helpers.php:62
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:62
 msgid "Bahamas"
-msgstr "Bahamy"
+msgstr "Bahamas"
 
 #: common/src/Tribe/View_Helpers.php:63
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:63
 msgid "Bahrain"
-msgstr "Bahrajn"
+msgstr "Bahrain"
 
 #: common/src/Tribe/View_Helpers.php:64
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:64
 msgid "Bangladesh"
-msgstr "Bangladéš"
+msgstr "Bangladesh"
 
 #: common/src/Tribe/View_Helpers.php:65
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:65
@@ -3243,12 +3247,12 @@ msgstr "Barbados"
 #: common/src/Tribe/View_Helpers.php:66
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:66
 msgid "Belarus"
-msgstr "Bielorusko"
+msgstr "Belarus"
 
 #: common/src/Tribe/View_Helpers.php:67
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:67
 msgid "Belgium"
-msgstr "Belgicko"
+msgstr "Gwlad Belg"
 
 #: common/src/Tribe/View_Helpers.php:68
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:68
@@ -3268,17 +3272,17 @@ msgstr "Bermuda"
 #: common/src/Tribe/View_Helpers.php:71
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:71
 msgid "Bhutan"
-msgstr "Bhután"
+msgstr "Bhutan"
 
 #: common/src/Tribe/View_Helpers.php:72
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:72
 msgid "Bolivia"
-msgstr "Bolívia"
+msgstr "Bolivia"
 
 #: common/src/Tribe/View_Helpers.php:73
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:73
 msgid "Bosnia And Herzegowina"
-msgstr "Bosna a Hercegovina"
+msgstr "Bosna-Hercegovina"
 
 #: common/src/Tribe/View_Helpers.php:74
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:74
@@ -3288,27 +3292,27 @@ msgstr "Botswana"
 #: common/src/Tribe/View_Helpers.php:75
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:75
 msgid "Bouvet Island"
-msgstr "Bouvet Island"
+msgstr "Ynys Bouvet"
 
 #: common/src/Tribe/View_Helpers.php:76
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:76
 msgid "Brazil"
-msgstr "Brazília"
+msgstr "Brasil"
 
 #: common/src/Tribe/View_Helpers.php:77
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:77
 msgid "British Indian Ocean Territory"
-msgstr "Britské indickooceánske územie"
+msgstr "Tiriogaeth Cefnfor India Prydain"
 
 #: common/src/Tribe/View_Helpers.php:78
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:78
 msgid "Brunei Darussalam"
-msgstr "Brunej"
+msgstr "Brunei Darussalam"
 
 #: common/src/Tribe/View_Helpers.php:79
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:79
 msgid "Bulgaria"
-msgstr "Bulharsko"
+msgstr "Bwlgaria"
 
 #: common/src/Tribe/View_Helpers.php:80
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:80
@@ -3323,82 +3327,82 @@ msgstr "Burundi"
 #: common/src/Tribe/View_Helpers.php:82
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:82
 msgid "Cambodia"
-msgstr "Kambodža"
+msgstr "Cambodia"
 
 #: common/src/Tribe/View_Helpers.php:83
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:83
 msgid "Cameroon"
-msgstr "Kamerun"
+msgstr "Cameroon"
 
 #: common/src/Tribe/View_Helpers.php:84
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:84
 msgid "Canada"
-msgstr "Kanada"
+msgstr "Canada"
 
 #: common/src/Tribe/View_Helpers.php:85
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:85
 msgid "Cape Verde"
-msgstr "Cape Verde"
+msgstr "Cabo Verde"
 
 #: common/src/Tribe/View_Helpers.php:86
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:86
 msgid "Cayman Islands"
-msgstr "Kajmanské ostrovy"
+msgstr "Ynysoedd Cayman"
 
 #: common/src/Tribe/View_Helpers.php:87
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:87
 msgid "Central African Republic"
-msgstr "Stredoafrická republika"
+msgstr "Gweriniaeth Canol Affrica"
 
 #: common/src/Tribe/View_Helpers.php:88
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:88
 msgid "Chad"
-msgstr "Čad"
+msgstr "Tchad"
 
 #: common/src/Tribe/View_Helpers.php:89
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:89
 msgid "Chile"
-msgstr "Čile"
+msgstr "Chile"
 
 #: common/src/Tribe/View_Helpers.php:90
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:90
 msgid "China"
-msgstr "Čína"
+msgstr "Tsieina"
 
 #: common/src/Tribe/View_Helpers.php:91
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:91
 msgid "Christmas Island"
-msgstr "Vianočné ostrovy"
+msgstr "Ynys Chrisrmas"
 
 #: common/src/Tribe/View_Helpers.php:92
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:92
 msgid "Cocos (Keeling) Islands"
-msgstr "Kokosové ostrovy (Keeling)"
+msgstr "Ynysoedd Coco (Keeling)"
 
 #: common/src/Tribe/View_Helpers.php:93
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:93
 msgid "Colombia"
-msgstr "Kolumbia"
+msgstr "Colombia"
 
 #: common/src/Tribe/View_Helpers.php:94
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:94
 msgid "Comoros"
-msgstr "Komory"
+msgstr "Comoros"
 
 #: common/src/Tribe/View_Helpers.php:95
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:95
 msgid "Congo"
-msgstr "Kongo"
+msgstr "Congo"
 
 #: common/src/Tribe/View_Helpers.php:96
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:96
 msgid "Congo, The Democratic Republic Of The"
-msgstr "Kongo, demokratická republika"
+msgstr "Gweriniaeth Ddemocrataidd Congo"
 
 #: common/src/Tribe/View_Helpers.php:97
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:97
 msgid "Cook Islands"
-msgstr "Cookove ostrovy"
+msgstr "Ynysoedd Cook"
 
 #: common/src/Tribe/View_Helpers.php:98
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:98
@@ -3408,17 +3412,17 @@ msgstr "Costa Rica"
 #: common/src/Tribe/View_Helpers.php:99
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:99
 msgid "Cote D'Ivoire"
-msgstr "Cote D'Ivoire"
+msgstr "Côte d’Ivoire"
 
 #: common/src/Tribe/View_Helpers.php:100
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:100
 msgid "Croatia (Local Name: Hrvatska)"
-msgstr "Chorvátsko (Miestny názov: Hrvatska)"
+msgstr "Croatia (Enw Lleol: Hrvatska)"
 
 #: common/src/Tribe/View_Helpers.php:101
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:101
 msgid "Cuba"
-msgstr "Kuba"
+msgstr "Cuba"
 
 #: common/src/Tribe/View_Helpers.php:102
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:102
@@ -3428,52 +3432,52 @@ msgstr "Cyprus"
 #: common/src/Tribe/View_Helpers.php:103
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:103
 msgid "Czech Republic"
-msgstr "Česká republika"
+msgstr "Y Weriniaeth Tsiec"
 
 #: common/src/Tribe/View_Helpers.php:104
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:104
 msgid "Denmark"
-msgstr "Dánsko"
+msgstr "Denmarc"
 
 #: common/src/Tribe/View_Helpers.php:105
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:105
 msgid "Djibouti"
-msgstr "Džibutsko"
+msgstr "Djibouti"
 
 #: common/src/Tribe/View_Helpers.php:106
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:106
 msgid "Dominica"
-msgstr "Dominika"
+msgstr "Dominica"
 
 #: common/src/Tribe/View_Helpers.php:107
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:107
 msgid "Dominican Republic"
-msgstr "Dominikánska republika"
+msgstr "Gweriniaeth Dominica"
 
 #: common/src/Tribe/View_Helpers.php:108
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:108
 msgid "East Timor"
-msgstr "Južný Timor"
+msgstr "Dwyrain Timor"
 
 #: common/src/Tribe/View_Helpers.php:109
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:109
 msgid "Ecuador"
-msgstr "Ekvádor"
+msgstr "Ecuador"
 
 #: common/src/Tribe/View_Helpers.php:110
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:110
 msgid "Egypt"
-msgstr "Egypt"
+msgstr "Yr Aifft"
 
 #: common/src/Tribe/View_Helpers.php:111
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:111
 msgid "El Salvador"
-msgstr "Salvádor"
+msgstr "El Salvador"
 
 #: common/src/Tribe/View_Helpers.php:112
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:112
 msgid "Equatorial Guinea"
-msgstr "Rovníková Guinea"
+msgstr "Guinea Gyhydeddol"
 
 #: common/src/Tribe/View_Helpers.php:113
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:113
@@ -3483,57 +3487,57 @@ msgstr "Eritrea"
 #: common/src/Tribe/View_Helpers.php:114
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:114
 msgid "Estonia"
-msgstr "Estónsko"
+msgstr "Estonia"
 
 #: common/src/Tribe/View_Helpers.php:115
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:115
 msgid "Ethiopia"
-msgstr "Etiópia"
+msgstr "Ethiopia"
 
 #: common/src/Tribe/View_Helpers.php:116
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:116
 msgid "Falkland Islands (Malvinas)"
-msgstr "Falklandy"
+msgstr "Ynysoedd Falkland (Malvinas)"
 
 #: common/src/Tribe/View_Helpers.php:117
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:117
 msgid "Faroe Islands"
-msgstr "Faerské ostrovy"
+msgstr "Ynysoedd Føroyar"
 
 #: common/src/Tribe/View_Helpers.php:118
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:118
 msgid "Fiji"
-msgstr "Fidži"
+msgstr "Fiji"
 
 #: common/src/Tribe/View_Helpers.php:119
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:119
 msgid "Finland"
-msgstr "Fínsko"
+msgstr "Y Ffindir"
 
 #: common/src/Tribe/View_Helpers.php:120
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:120
 msgid "France"
-msgstr "Francúzsko"
+msgstr "Ffrainc"
 
 #: common/src/Tribe/View_Helpers.php:121
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:121
 msgid "France, Metropolitan"
-msgstr "Metropolitné Francúzsko"
+msgstr "Ffrainc Metropolitan"
 
 #: common/src/Tribe/View_Helpers.php:122
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:122
 msgid "French Guiana"
-msgstr "Francúzska Guyana"
+msgstr "Guyane Ffrengig"
 
 #: common/src/Tribe/View_Helpers.php:123
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:123
 msgid "French Polynesia"
-msgstr "Francúzska Polynézia"
+msgstr "Polynesia Ffrengig"
 
 #: common/src/Tribe/View_Helpers.php:124
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:124
 msgid "French Southern Territories"
-msgstr "Francúzske južné a antarktické územia"
+msgstr "Tiriogaeth Ddeheuol Ffrainc"
 
 #: common/src/Tribe/View_Helpers.php:125
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:125
@@ -3549,12 +3553,12 @@ msgstr "Gambia"
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:127
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:326
 msgid "Georgia"
-msgstr "Gruzínsko"
+msgstr "Georgia"
 
 #: common/src/Tribe/View_Helpers.php:128
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:128
 msgid "Germany"
-msgstr "Nemecko"
+msgstr "Yr Almaen"
 
 #: common/src/Tribe/View_Helpers.php:129
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:129
@@ -3564,17 +3568,17 @@ msgstr "Ghana"
 #: common/src/Tribe/View_Helpers.php:130
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:130
 msgid "Gibraltar"
-msgstr "Gibraltár"
+msgstr "Gibraltar"
 
 #: common/src/Tribe/View_Helpers.php:131
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:131
 msgid "Greece"
-msgstr "Grécko"
+msgstr "Groeg"
 
 #: common/src/Tribe/View_Helpers.php:132
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:132
 msgid "Greenland"
-msgstr "Grónsko"
+msgstr "Grønland"
 
 #: common/src/Tribe/View_Helpers.php:133
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:133
@@ -3599,12 +3603,12 @@ msgstr "Guatemala"
 #: common/src/Tribe/View_Helpers.php:137
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:137
 msgid "Guinea"
-msgstr "Guinea"
+msgstr "Guinée"
 
 #: common/src/Tribe/View_Helpers.php:138
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:138
 msgid "Guinea-Bissau"
-msgstr "Guinea-Bissau"
+msgstr "Guiné-Bissau"
 
 #: common/src/Tribe/View_Helpers.php:139
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:139
@@ -3619,12 +3623,12 @@ msgstr "Haiti"
 #: common/src/Tribe/View_Helpers.php:141
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:141
 msgid "Heard And Mc Donald Islands"
-msgstr "Heardov ostrov"
+msgstr "Ynysoedd Heard a McDonald"
 
 #: common/src/Tribe/View_Helpers.php:142
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:142
 msgid "Holy See (Vatican City State)"
-msgstr "Svätá stolica (Vatikán)"
+msgstr "Holy See (Gwladwriaeth Dinas y Fatican)"
 
 #: common/src/Tribe/View_Helpers.php:143
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:143
@@ -3639,12 +3643,12 @@ msgstr "Hong Kong"
 #: common/src/Tribe/View_Helpers.php:145
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:145
 msgid "Hungary"
-msgstr "Maďarsko"
+msgstr "Hwngari"
 
 #: common/src/Tribe/View_Helpers.php:146
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:146
 msgid "Iceland"
-msgstr "Island"
+msgstr "Gwlad yr Iâ"
 
 #: common/src/Tribe/View_Helpers.php:147
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:147
@@ -3654,57 +3658,57 @@ msgstr "India"
 #: common/src/Tribe/View_Helpers.php:148
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:148
 msgid "Indonesia"
-msgstr "Indonésia"
+msgstr "Indonesia"
 
 #: common/src/Tribe/View_Helpers.php:149
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:149
 msgid "Iran (Islamic Republic Of)"
-msgstr "Irán"
+msgstr "Iran (Gweriniaeth Islamaidd)"
 
 #: common/src/Tribe/View_Helpers.php:150
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:150
 msgid "Iraq"
-msgstr "Irak"
+msgstr "Iraq"
 
 #: common/src/Tribe/View_Helpers.php:151
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:151
 msgid "Ireland"
-msgstr "Írsko"
+msgstr "Iwerddon"
 
 #: common/src/Tribe/View_Helpers.php:152
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:152
 msgid "Israel"
-msgstr "Izrael"
+msgstr "Israel"
 
 #: common/src/Tribe/View_Helpers.php:153
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:153
 msgid "Italy"
-msgstr "Taliansko"
+msgstr "Yr Eidal"
 
 #: common/src/Tribe/View_Helpers.php:154
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:154
 msgid "Jamaica"
-msgstr "Jamajka"
+msgstr "Jamaica"
 
 #: common/src/Tribe/View_Helpers.php:155
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:155
 msgid "Japan"
-msgstr "Japonsko"
+msgstr "Japan"
 
 #: common/src/Tribe/View_Helpers.php:156
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:156
 msgid "Jordan"
-msgstr "Jordánsko"
+msgstr "Gwlad Iorddonen"
 
 #: common/src/Tribe/View_Helpers.php:157
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:157
 msgid "Kazakhstan"
-msgstr "Kazachstan"
+msgstr "Kazakstan"
 
 #: common/src/Tribe/View_Helpers.php:158
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:158
 msgid "Kenya"
-msgstr "Keňa"
+msgstr "Kenya"
 
 #: common/src/Tribe/View_Helpers.php:159
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:159
@@ -3714,37 +3718,37 @@ msgstr "Kiribati"
 #: common/src/Tribe/View_Helpers.php:160
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:160
 msgid "Korea, Democratic People's Republic Of"
-msgstr "Kórejská ľudovodemokratická republika"
+msgstr "Korea, Gweriniaeth Democrataidd Pobl"
 
 #: common/src/Tribe/View_Helpers.php:161
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:161
 msgid "Korea, Republic Of"
-msgstr "Kórejská republika"
+msgstr "Korea, Gweriniaeth"
 
 #: common/src/Tribe/View_Helpers.php:162
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:162
 msgid "Kuwait"
-msgstr "Kuwajt"
+msgstr "Kuwait"
 
 #: common/src/Tribe/View_Helpers.php:163
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:163
 msgid "Kyrgyzstan"
-msgstr "Kirgizsko"
+msgstr "Kyrgyzstan"
 
 #: common/src/Tribe/View_Helpers.php:164
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:164
 msgid "Lao People's Democratic Republic"
-msgstr "Laos"
+msgstr "Gweriniaeth Ddemocrataidd Pobl Lao"
 
 #: common/src/Tribe/View_Helpers.php:165
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:165
 msgid "Latvia"
-msgstr "Lotyšsko"
+msgstr "Latvia"
 
 #: common/src/Tribe/View_Helpers.php:166
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:166
 msgid "Lebanon"
-msgstr "Libanon"
+msgstr "Libanus"
 
 #: common/src/Tribe/View_Helpers.php:167
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:167
@@ -3754,27 +3758,27 @@ msgstr "Lesotho"
 #: common/src/Tribe/View_Helpers.php:168
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:168
 msgid "Liberia"
-msgstr "Libéria"
+msgstr "Liberia"
 
 #: common/src/Tribe/View_Helpers.php:169
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:169
 msgid "Libya"
-msgstr "Líbya"
+msgstr "Libya"
 
 #: common/src/Tribe/View_Helpers.php:170
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:170
 msgid "Liechtenstein"
-msgstr "Lichtenštajnsko"
+msgstr "Liechtenstein"
 
 #: common/src/Tribe/View_Helpers.php:171
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:171
 msgid "Lithuania"
-msgstr "Litva"
+msgstr "Lithuania"
 
 #: common/src/Tribe/View_Helpers.php:172
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:172
 msgid "Luxembourg"
-msgstr "Luxembursko"
+msgstr "Lwcsembwrg"
 
 #: common/src/Tribe/View_Helpers.php:173
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:173
@@ -3784,12 +3788,12 @@ msgstr "Macau"
 #: common/src/Tribe/View_Helpers.php:174
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:174
 msgid "Macedonia"
-msgstr "Macedónsko"
+msgstr "Macedonia"
 
 #: common/src/Tribe/View_Helpers.php:175
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:175
 msgid "Madagascar"
-msgstr "Madagaskar"
+msgstr "Madagascar"
 
 #: common/src/Tribe/View_Helpers.php:176
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:176
@@ -3799,12 +3803,12 @@ msgstr "Malawi"
 #: common/src/Tribe/View_Helpers.php:177
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:177
 msgid "Malaysia"
-msgstr "Malajsia"
+msgstr "Malaysia"
 
 #: common/src/Tribe/View_Helpers.php:178
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:178
 msgid "Maldives"
-msgstr "Maldivy"
+msgstr "Maldives"
 
 #: common/src/Tribe/View_Helpers.php:179
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:179
@@ -3819,22 +3823,22 @@ msgstr "Malta"
 #: common/src/Tribe/View_Helpers.php:181
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:181
 msgid "Marshall Islands"
-msgstr "Marshallove ostrovy"
+msgstr "Ynysoedd Marshall"
 
 #: common/src/Tribe/View_Helpers.php:182
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:182
 msgid "Martinique"
-msgstr "Martinik"
+msgstr "Martinique"
 
 #: common/src/Tribe/View_Helpers.php:183
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:183
 msgid "Mauritania"
-msgstr "Mauritánia"
+msgstr "Mauritania"
 
 #: common/src/Tribe/View_Helpers.php:184
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:184
 msgid "Mauritius"
-msgstr "Maurícius"
+msgstr "Mauritius"
 
 #: common/src/Tribe/View_Helpers.php:185
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:185
@@ -3844,32 +3848,32 @@ msgstr "Mayotte"
 #: common/src/Tribe/View_Helpers.php:186
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:186
 msgid "Mexico"
-msgstr "Mexico"
+msgstr "Mecsico"
 
 #: common/src/Tribe/View_Helpers.php:187
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:187
 msgid "Micronesia, Federated States Of"
-msgstr "Mikronézia"
+msgstr "Micronesia, Taleithiau Ffederal"
 
 #: common/src/Tribe/View_Helpers.php:188
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:188
 msgid "Moldova, Republic Of"
-msgstr "Moldavsko"
+msgstr "Moldova, Gweriniaeth"
 
 #: common/src/Tribe/View_Helpers.php:189
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:189
 msgid "Monaco"
-msgstr "Monako"
+msgstr "Monaco"
 
 #: common/src/Tribe/View_Helpers.php:190
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:190
 msgid "Mongolia"
-msgstr "Mongolsko"
+msgstr "Mongolia"
 
 #: common/src/Tribe/View_Helpers.php:191
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:191
 msgid "Montenegro"
-msgstr "Čierna Hora"
+msgstr "Montenegro"
 
 #: common/src/Tribe/View_Helpers.php:192
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:192
@@ -3879,22 +3883,22 @@ msgstr "Montserrat"
 #: common/src/Tribe/View_Helpers.php:193
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:193
 msgid "Morocco"
-msgstr "Maroko"
+msgstr "Moroco"
 
 #: common/src/Tribe/View_Helpers.php:194
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:194
 msgid "Mozambique"
-msgstr "Mozambik"
+msgstr "Moçambique"
 
 #: common/src/Tribe/View_Helpers.php:195
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:195
 msgid "Myanmar"
-msgstr "Mjanmarsko"
+msgstr "Myanmar"
 
 #: common/src/Tribe/View_Helpers.php:196
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:196
 msgid "Namibia"
-msgstr "Namíbia"
+msgstr "Namibia"
 
 #: common/src/Tribe/View_Helpers.php:197
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:197
@@ -3904,32 +3908,32 @@ msgstr "Nauru"
 #: common/src/Tribe/View_Helpers.php:198
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:198
 msgid "Nepal"
-msgstr "Nepál"
+msgstr "Nepal"
 
 #: common/src/Tribe/View_Helpers.php:199
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:199
 msgid "Netherlands"
-msgstr "Holandsko"
+msgstr "Yr Iseldiroedd"
 
 #: common/src/Tribe/View_Helpers.php:200
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:200
 msgid "Netherlands Antilles"
-msgstr "Holandské Antily"
+msgstr "Antilles yr Iseldiroedd"
 
 #: common/src/Tribe/View_Helpers.php:201
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:201
 msgid "New Caledonia"
-msgstr "Nová Kaledónia"
+msgstr "Caledonia Newydd"
 
 #: common/src/Tribe/View_Helpers.php:202
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:202
 msgid "New Zealand"
-msgstr "Nový Zéland"
+msgstr "Seland Newydd"
 
 #: common/src/Tribe/View_Helpers.php:203
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:203
 msgid "Nicaragua"
-msgstr "Nikaragua"
+msgstr "Nicaragua"
 
 #: common/src/Tribe/View_Helpers.php:204
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:204
@@ -3939,7 +3943,7 @@ msgstr "Niger"
 #: common/src/Tribe/View_Helpers.php:205
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:205
 msgid "Nigeria"
-msgstr "Nigéria"
+msgstr "Nigeria"
 
 #: common/src/Tribe/View_Helpers.php:206
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:206
@@ -3949,22 +3953,22 @@ msgstr "Niue"
 #: common/src/Tribe/View_Helpers.php:207
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:207
 msgid "Norfolk Island"
-msgstr "Norfolk"
+msgstr "Ynys Norfolk"
 
 #: common/src/Tribe/View_Helpers.php:208
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:208
 msgid "Northern Mariana Islands"
-msgstr "Severné Mariány"
+msgstr "Ynysoedd Gogledd Mariana"
 
 #: common/src/Tribe/View_Helpers.php:209
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:209
 msgid "Norway"
-msgstr "Nórsko"
+msgstr "Norwy"
 
 #: common/src/Tribe/View_Helpers.php:210
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:210
 msgid "Oman"
-msgstr "Omán"
+msgstr "Oman"
 
 #: common/src/Tribe/View_Helpers.php:211
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:211
@@ -3984,37 +3988,37 @@ msgstr "Panama"
 #: common/src/Tribe/View_Helpers.php:214
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:214
 msgid "Papua New Guinea"
-msgstr "Papua-Nová Guinea"
+msgstr "Papua Guinea Newydd"
 
 #: common/src/Tribe/View_Helpers.php:215
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:215
 msgid "Paraguay"
-msgstr "Paraguaj"
+msgstr "Paraguai"
 
 #: common/src/Tribe/View_Helpers.php:216
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:216
 msgid "Peru"
-msgstr "Peru"
+msgstr "Periw"
 
 #: common/src/Tribe/View_Helpers.php:217
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:217
 msgid "Philippines"
-msgstr "Filipíny"
+msgstr "Pilipinas"
 
 #: common/src/Tribe/View_Helpers.php:218
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:218
 msgid "Pitcairn"
-msgstr "Pitcairnove ostrovy"
+msgstr "Pitcairn"
 
 #: src/Tribe/API.php:450
 msgid "Unnamed Venue"
-msgstr "Nepomenované miesto udalosti"
+msgstr "Lleoliad heb ei Enwi"
 
 #: common/src/Tribe/View_Helpers.php:46 src/Tribe/API.php:532
 #: src/functions/template-tags/venue.php:265
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:46
 msgid "United States"
-msgstr "Spojené štáty americké"
+msgstr "Yr Unol Daleithiau"
 
 #: src/Tribe/Activation_Page.php:38
 msgid "Go to plugins page"
@@ -4034,11 +4038,11 @@ msgstr ""
 
 #: src/Tribe/Activation_Page.php:192
 msgid "Welcome to The Events Calendar"
-msgstr "Vitajte v Kalendári udalostí"
+msgstr "Croeso i The Events Calendar"
 
 #: src/Tribe/Activation_Page.php:212
 msgid "Thanks for Updating The Events Calendar"
-msgstr "Ďakujeme za aktualizáciu Kalendára udalosti"
+msgstr "Diolch am Ddiweddaru The Events Calendar"
 
 #: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:88
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:88
@@ -4058,14 +4062,14 @@ msgstr ""
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:93 src/Tribe/Main.php:1660
 #: src/Tribe/Main.php:1733
 msgid "Use Saved %s:"
-msgstr "Použiť uložené %s:"
+msgstr "Defnyddio %s sydd wedi'i Gadw:"
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:123 src/Tribe/Main.php:1470
 #: src/Tribe/Main.php:1488 src/Tribe/Main.php:1506 src/Tribe/Main.php:1669
 #: src/Tribe/Main.php:1735
 msgid "Edit %s"
-msgstr "Upraviť %s"
+msgstr "Golygu %s"
 
 #: src/Tribe/Admin/Timezone_Updater.php:77
 msgid "Please wait while timezone data is added to your events."
@@ -4089,43 +4093,43 @@ msgstr ""
 
 #: src/Tribe/Admin_List.php:252
 msgid "Start Date"
-msgstr "Dátum začiatku"
+msgstr "Dyddiad Cychwyn"
 
 #: src/Tribe/Admin_List.php:253
 msgid "End Date"
-msgstr "Dátum ukončenia"
+msgstr "Dyddiad Gorffen"
 
 #: src/Tribe/Admin_List.php:330 src/views/single-event.php:27
 msgid "All %s"
-msgstr "Všetky %s"
+msgstr "Pob %s"
 
 #: src/Tribe/Advanced_Functions/Register_Meta.php:37
 #: src/Tribe/Advanced_Functions/Register_Meta.php:69
 #: src/views/modules/meta/details.php:65 src/views/modules/meta/details.php:90
 msgid "Start:"
-msgstr "Začiatok:"
+msgstr "Cychwyn:"
 
 #: src/Tribe/Advanced_Functions/Register_Meta.php:46
 #: src/Tribe/Advanced_Functions/Register_Meta.php:78
 #: src/views/modules/meta/details.php:70 src/views/modules/meta/details.php:95
 msgid "End:"
-msgstr "Koniec:"
+msgstr "Gorffen:"
 
 #: src/Tribe/Advanced_Functions/Register_Meta.php:57
 #: src/Tribe/Advanced_Functions/Register_Meta.php:89
 #: src/views/modules/meta/details.php:80 src/views/modules/meta/details.php:105
 msgid "Date:"
-msgstr "Dátum:"
+msgstr "Dyddiad:"
 
 #: src/Tribe/Advanced_Functions/Register_Meta.php:100
 #: src/Tribe/Advanced_Functions/Register_Meta.php:111
 #: src/views/modules/meta/details.php:48
 msgid "Time:"
-msgstr "Čas:"
+msgstr "Amser:"
 
 #: src/Tribe/Amalgamator.php:253 src/admin-views/tribe-options-general.php:131
 msgid "Merge Duplicates"
-msgstr "Zlúčenie duplicít"
+msgstr "Uno Dyblygiadau"
 
 #: common/src/Tribe/App_Shop.php:67 common/src/Tribe/App_Shop.php:68
 #: common/src/Tribe/App_Shop.php:91
@@ -4133,7 +4137,7 @@ msgstr "Zlúčenie duplicít"
 #: vendor/tickets/common/src/Tribe/App_Shop.php:68
 #: vendor/tickets/common/src/Tribe/App_Shop.php:91
 msgid "Event Add-Ons"
-msgstr "Doplnky udalosti"
+msgstr "Ychwanegion Digwyddiadau"
 
 #: src/Tribe/Cost_Utils.php:157
 msgctxt "Cost range separator"
@@ -4142,46 +4146,46 @@ msgstr ""
 
 #: src/Tribe/Cost_Utils.php:174
 msgid "Free"
-msgstr "Zadarmo"
+msgstr "Am Ddim"
 
 #: common/src/Tribe/Credits.php:26
 #: vendor/tickets/common/src/Tribe/Credits.php:26
 msgid "This calendar is powered by The Events Calendar."
-msgstr "Kalendár je vytvorený pomocou Kalendára udalosti."
+msgstr "Pwerir y calendr yma gan The Events Calendar."
 
 #: common/src/Tribe/Field.php:209 vendor/tickets/common/src/Tribe/Field.php:209
 msgid "Invalid field type specified"
-msgstr "Uvedený typ poľa je neplatný"
+msgstr "Nodwyd math o faes annilys"
 
 #: common/src/Tribe/Field.php:466 vendor/tickets/common/src/Tribe/Field.php:466
 msgid "No radio options specified"
-msgstr "Nebola zvolená žiadna možnosť"
+msgstr "Nid oes opsiynau radio wedi'u nodi"
 
 #: common/src/Tribe/Field.php:502 vendor/tickets/common/src/Tribe/Field.php:502
 msgid "No checkbox options specified"
-msgstr "Nebola zvolená žiadna možnosť"
+msgstr "Nid oes opsiynau blychau ticio wedi'u nodi"
 
 #: common/src/Tribe/Field.php:558 vendor/tickets/common/src/Tribe/Field.php:558
 msgid "No select options specified"
-msgstr "Nebola zvolená žiadna možnosť"
+msgstr "Nid oes opsiynau dewis wedi'u nodi"
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:73
 #: src/Tribe/Importer/Admin_Page.php:68 src/Tribe/Importer/Admin_Page.php:69
 msgid "Import"
-msgstr "Import"
+msgstr "Mewnforio"
 
 #: src/Tribe/Importer/Admin_Page.php:149 src/Tribe/Importer/Admin_Page.php:303
 msgid "The file went away. Please try again."
-msgstr "Súbor nie je k  dispozícii. Pokúste sa znovu."
+msgstr "Fe wnaeth y ffeil ddianc. Rhowch gynnig arall arni."
 
 #: common/src/Tribe/Settings_Manager.php:55
 #: vendor/tickets/common/src/Tribe/Settings_Manager.php:55
 msgid "General"
-msgstr "Všeobecne"
+msgstr "Cyffredinol"
 
 #: src/Tribe/Importer/Admin_Page.php:269
 msgid "We were unable to process your request. Please try again."
-msgstr "Nie je možné spracovať vašu požiadavku. Pokúste sa znovu."
+msgstr "Nid oedden ni'n gallu prosesu eich cais. Rhowch gynnig arall arni."
 
 #: src/Tribe/Importer/Admin_Page.php:310
 msgid "The following fields are required for a successful import:"
@@ -4189,55 +4193,55 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:33
 msgid "Do Not Import"
-msgstr "Neimportovať"
+msgstr "Peidio â Mewnforio"
 
 #: src/Tribe/Importer/Column_Mapper.php:52
 msgid "Event Name"
-msgstr "Názov udalosti"
+msgstr "Enw'r Digwyddiad"
 
 #: src/Tribe/Importer/Column_Mapper.php:53
 msgid "Event Description"
-msgstr "Popis udalosti"
+msgstr "Disgrifiad o'r Digwyddiad"
 
 #: src/Tribe/Importer/Column_Mapper.php:54
 msgid "Event Start Date"
-msgstr "Dátum začiatku udalosti"
+msgstr "Dyddiad Dechrau'r Digwyddiad"
 
 #: src/Tribe/Importer/Column_Mapper.php:55
 msgid "Event Start Time"
-msgstr "Čas začiatku udalosti"
+msgstr "Amser Cychwyn y Digwyddiad"
 
 #: src/Tribe/Importer/Column_Mapper.php:56
 msgid "Event End Date"
-msgstr "Dátum ukončenia udalosti"
+msgstr "Dyddiad Gorffen y Digwyddiad"
 
 #: src/Tribe/Importer/Column_Mapper.php:57
 msgid "Event End Time"
-msgstr "Čas ukončenia udalosti"
+msgstr "Amser Gorffen y Digwyddiad"
 
 #: src/Tribe/Importer/Column_Mapper.php:58
 msgid "All Day Event"
-msgstr "Celodenná udalosť"
+msgstr "Digwyddiad Drwy'r Dydd"
 
 #: src/Tribe/Importer/Column_Mapper.php:59
 msgid "Event Venue Name"
-msgstr "Názov miesta udalosti"
+msgstr "Enw Lleoliad y Digwyddiad"
 
 #: src/Tribe/Importer/Column_Mapper.php:60
 msgid "Event Organizer Name"
-msgstr "Meno organizátora udalosti"
+msgstr "Enw Trefnydd y Digwyddiad"
 
 #: src/Tribe/Importer/Column_Mapper.php:61
 msgid "Event Show Map Link"
-msgstr "Ukázať odkaz udalosti na mape "
+msgstr "Dolen at Fap o'r Digwyddiad"
 
 #: src/Tribe/Importer/Column_Mapper.php:62
 msgid "Event Show Map"
-msgstr "Ukázať mapu udalosti"
+msgstr "Dangos Map o'r Digwyddiad"
 
 #: src/Tribe/Importer/Column_Mapper.php:63
 msgid "Event Cost"
-msgstr "Vstupné na udalosť"
+msgstr "Pris y Digwyddiad"
 
 #: src/Tribe/Importer/Column_Mapper.php:64
 msgid "Event Currency Symbol"
@@ -4249,7 +4253,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:66
 msgid "Event Category"
-msgstr "Kategória udalosti"
+msgstr "Categori'r Digwyddiad"
 
 #: src/Tribe/Importer/Column_Mapper.php:67
 msgid "Event Tags"
@@ -4257,39 +4261,39 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:68
 msgid "Event Website"
-msgstr "Stránka udalosti"
+msgstr "Gwefan y Digwyddiad"
 
 #: src/Tribe/Importer/Column_Mapper.php:75
 msgid "Venue Name"
-msgstr "Názov miesta udalosti"
+msgstr "Enw'r Lleoliad"
 
 #: src/Tribe/Importer/Column_Mapper.php:76
 msgid "Venue Country"
-msgstr "Krajina miesta udalosti"
+msgstr "Gwlad y Lleoliad"
 
 #: src/Tribe/Importer/Column_Mapper.php:77
 msgid "Venue Address"
-msgstr "Adresa miesta udalosti"
+msgstr "Cyfeiriad y Lleoliad"
 
 #: src/Tribe/Importer/Column_Mapper.php:78
 msgid "Venue Address 2"
-msgstr "Adresa miesta udalosti 2"
+msgstr "Cyfeiriad y Lleoliad 2"
 
 #: src/Tribe/Importer/Column_Mapper.php:79
 msgid "Venue City"
-msgstr "Mesto miesta konania"
+msgstr "Venue City"
 
 #: src/Tribe/Importer/Column_Mapper.php:80
 msgid "Venue State/Province"
-msgstr "Štát/Región miesta udalosti"
+msgstr "Gwladwriaeth/Talaith y Lleoliad"
 
 #: src/Tribe/Importer/Column_Mapper.php:81
 msgid "Venue Zip"
-msgstr "PSČ miesta udalosti"
+msgstr "Cod Post y Lleoliad"
 
 #: src/Tribe/Importer/Column_Mapper.php:82
 msgid "Venue Phone"
-msgstr "Telefón miesta udalosti"
+msgstr "Rhif Ffôn y Lleoliad"
 
 #: src/Tribe/Importer/Column_Mapper.php:83
 msgid "Venue Website"
@@ -4297,86 +4301,86 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:90
 msgid "Organizer Name"
-msgstr "Názov organizátora"
+msgstr "Enw'r Trefnydd"
 
 #: src/Tribe/Importer/Column_Mapper.php:91
 msgid "Organizer Email"
-msgstr "Email organizátora"
+msgstr "Cyfeiriad E-bost y Trefnydd"
 
 #: src/Tribe/Importer/Column_Mapper.php:92
 msgid "Organizer Website"
-msgstr "WWW stránka organizátora"
+msgstr "Gwefan y Trefnydd"
 
 #: src/Tribe/Importer/Column_Mapper.php:93
 msgid "Organizer Phone"
-msgstr "Telefón organizátora"
+msgstr "Rhif Ffôn y Trefnydd"
 
 #: src/Tribe/Importer/File_Importer.php:43
 msgid "No importer defined for %s"
-msgstr "Import nie je definovaný pre %s"
+msgstr "Nid oes mewnforiwr wedi'i ddiffinio ar gyfer %s"
 
 #: src/Tribe/Importer/File_Importer.php:117
 msgid "Missing required fields in row %d."
-msgstr "Chýbajú povinné polia v riadku %d."
+msgstr "Meysydd angenrheidiol ar goll yn rhes %d,"
 
 #: src/Tribe/Importer/File_Importer.php:128
 msgid "Failed to import record in row %d."
-msgstr "Zlyhal import záznamov v riadku %d."
+msgstr "Methwyd â mewnforio cofnod yn rhes %d."
 
 #: src/Tribe/Importer/File_Importer.php:139
 msgid "%s (post ID %d) updated."
-msgstr "%s (post ID %d) aktualizovaný."
+msgstr "Cafodd %s (ID cofnod %d) ei ddiweddaru."
 
 #: src/Tribe/Importer/File_Importer.php:143
 msgid "%s (post ID %d) created."
-msgstr "%s (post ID %d) vytvorený."
+msgstr "Cafodd %s (ID cofnod %d) ei greu."
 
 #: src/Tribe/Importer/File_Uploader.php:28
 msgid "Temporary file not found. Could not save %s."
-msgstr "Dočasný súbor nenájdený. Nie je možné uložiť %s."
+msgstr "Methwyd â dod o hyd i'r ffeil dros dro. Methwyd â chadw %s."
 
 #: src/Tribe/Importer/File_Uploader.php:36
 msgid "Could not save %s."
-msgstr "Nie je možné uložiť %s."
+msgstr "Methwyd â chadw %s."
 
 #: common/src/Tribe/Settings.php:583 src/Tribe/Importer/Options.php:53
 #: vendor/tickets/common/src/Tribe/Settings.php:583
 msgid "Settings saved."
-msgstr "Nastavenia boli uložené."
+msgstr "Gosodiadau wedi'u cadw."
 
 #: src/Tribe/List_Widget.php:30
 msgid "A widget that displays upcoming events."
-msgstr "Widget zobrazuje blížiace sa udalosti."
+msgstr "Teclyn sy'n dangos digwyddiadau sydd ar y gweill."
 
 #: src/Tribe/List_Widget.php:38
 msgid "Events List"
-msgstr "Zoznam udalosti"
+msgstr "Rhestr o Ddigwyddiadau"
 
 #: src/Tribe/List_Widget.php:186
 msgid "Upcoming Events"
-msgstr "Najbližšie udalosti"
+msgstr "Digwyddiadau sydd ar y Gweill"
 
 #: src/Tribe/Main.php:674 src/functions/template-tags/venue.php:52
 #: src/io/csv/admin-views/import.php:45
 msgid "Venues"
-msgstr "Miesto konania"
+msgstr "Lleoliadau"
 
 #: src/Tribe/Main.php:682
 #: src/functions/advanced-functions/meta_registration.php:126
 #: src/functions/template-tags/venue.php:41
 msgid "Venue"
-msgstr "Miesto udalosti"
+msgstr "Lleoliad"
 
 #: src/Tribe/Main.php:690 src/functions/template-tags/organizer.php:86
 #: src/io/csv/admin-views/import.php:46
 msgid "Organizers"
-msgstr "Organizátori"
+msgstr "Trefnwyr"
 
 #: src/Tribe/Main.php:698
 #: src/functions/advanced-functions/meta_registration.php:205
 #: src/functions/template-tags/organizer.php:75
 msgid "Organizer"
-msgstr "Organizátor"
+msgstr "Trefnydd"
 
 #: common/src/Tribe/Settings.php:148 common/src/Tribe/Settings.php:203
 #: common/src/Tribe/Settings.php:204 src/Tribe/Main.php:706
@@ -4386,11 +4390,11 @@ msgstr "Organizátor"
 #: vendor/tickets/common/src/Tribe/Settings.php:203
 #: vendor/tickets/common/src/Tribe/Settings.php:204
 msgid "Events"
-msgstr "Udalosti"
+msgstr "Digwyddiadau"
 
 #: src/Tribe/Main.php:714 src/functions/template-tags/general.php:58
 msgid "Event"
-msgstr "Udalosť"
+msgstr "Digwyddiad"
 
 #. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.0.1) 
 #. #-#-#-#-#
@@ -4399,39 +4403,39 @@ msgstr "Udalosť"
 #: src/Tribe/Main.php:777
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:48
 msgid "The Events Calendar"
-msgstr "Kalendár udalostí"
+msgstr "The Events Calendar"
 
 #: src/Tribe/Main.php:784
 msgid "month"
-msgstr "mesiac"
+msgstr "mis"
 
 #: src/Tribe/Main.php:785
 msgid "list"
-msgstr "zoznam"
+msgstr "rhestr"
 
 #: src/Tribe/Main.php:786
 msgid "upcoming"
-msgstr "čoskoro"
+msgstr "ar y gweill"
 
 #: src/Tribe/Main.php:787
 msgid "past"
-msgstr "uplynulo"
+msgstr "yn y gorffennol"
 
 #: src/Tribe/Main.php:788
 msgid "day"
-msgstr "deň"
+msgstr "diwrnod"
 
 #: src/Tribe/Main.php:789
 msgid "today"
-msgstr "dnes"
+msgstr "heddiw"
 
 #: src/Tribe/Main.php:816
 msgid "Initializing Tribe Events on %s"
-msgstr "Inicializácia Tribe udalosti na %s"
+msgstr "Dechrau Digwyddiadau Tribe ar %s"
 
 #: src/Tribe/Main.php:900
 msgid "Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s"
-msgstr "Vaša aktuálna verzia Kalendára udalostí nemá aktualizovaný jeden z doplnkov pre Kalendár udalostí. Prosím %s aktualizujte teraz.%s"
+msgstr "Nid yw eich fersiwn chi o The Events Calendar yn gyfredol gyda un o'ch ychwanegion The Events Calendar. Dylech %sddiweddaru yn awr.%s"
 
 #: src/Tribe/Main.php:912
 msgid "The following plugins are out of date: %1$s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %2$sLearn More%3$s."
@@ -4440,7 +4444,7 @@ msgstr ""
 #: common/src/Tribe/Settings_Manager.php:56
 #: vendor/tickets/common/src/Tribe/Settings_Manager.php:56
 msgid "Display"
-msgstr "Zobraziť"
+msgstr "Dangos"
 
 #: common/src/Tribe/Settings_Manager.php:62
 #: common/src/Tribe/Settings_Manager.php:289
@@ -4448,26 +4452,26 @@ msgstr "Zobraziť"
 #: vendor/tickets/common/src/Tribe/Settings_Manager.php:62
 #: vendor/tickets/common/src/Tribe/Settings_Manager.php:289
 msgid "Help"
-msgstr "Pomocník"
+msgstr "Cymorth"
 
 #: common/src/Tribe/Settings_Manager.php:263
 #: common/src/admin-views/tribe-options-licenses.php:46
 #: vendor/tickets/common/src/Tribe/Settings_Manager.php:263
 #: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:46
 msgid "Licenses"
-msgstr "Licencie"
+msgstr "Trwyddedau"
 
 #: src/Tribe/Main.php:1083
 msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
-msgstr "Ľutujeme, Kalendár udalostí požaduje Wordpress %s alebo vyššiu verziu. Prosím aktualizujte váš Wordpress."
+msgstr "Mae angen WordPress %s neu uwch ar The Events Calendar. Diweddarwch eich fersiwn o WordPress."
 
 #: src/Tribe/Main.php:1086
 msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
-msgstr "Ľutujeme, Kalendár udalostí požadupe PHP %s alebo vyššiu verziu. Kontaktujte poskytovateľa webhostingu kvôli migrácii na vyššiu verziu PHP."
+msgstr "Mae angen PHP %s neu uwch ar The Events Calendar. Cysylltwch â'ch gweinydd i drafod eich symud i fersiwn PHP mwy newydd."
 
 #: src/Tribe/Main.php:1399 src/Tribe/Main.php:2443
 msgid "category"
-msgstr "katogória"
+msgstr "categori"
 
 #: src/Tribe/Main.php:1435 src/Tribe/Main.php:2442
 msgid "tag"
@@ -4475,32 +4479,32 @@ msgstr "tag"
 
 #: src/Tribe/Main.php:1468 src/Tribe/Main.php:1486 src/Tribe/Main.php:1504
 msgid "Add New"
-msgstr "Pridať nový"
+msgstr "Ychwanegu'n Newydd"
 
 #: src/Tribe/Main.php:1469 src/Tribe/Main.php:1487 src/Tribe/Main.php:1505
 #: src/Tribe/Main.php:1636 src/Tribe/Main.php:1637
 msgid "Add New %s"
-msgstr "Pridať nový %s"
+msgstr "Ychwanegu %s Newydd"
 
 #: src/Tribe/Main.php:1471 src/Tribe/Main.php:1489 src/Tribe/Main.php:1507
 msgid "New %s"
-msgstr "Nový %s"
+msgstr "%s Newydd"
 
 #: src/Tribe/Main.php:1472 src/Tribe/Main.php:1490 src/Tribe/Main.php:1508
 msgid "View %s"
-msgstr "Zobraziť %s"
+msgstr "Gweld %s"
 
 #: src/Tribe/Main.php:1473 src/Tribe/Main.php:1491 src/Tribe/Main.php:1509
 msgid "Search %s"
-msgstr "Vyhľadať %s "
+msgstr "Chwilio %s"
 
 #: src/Tribe/Main.php:1474 src/Tribe/Main.php:1492 src/Tribe/Main.php:1510
 msgid "No %s found"
-msgstr "Nenašli sa žiadne %s"
+msgstr "Ni ddaethpwyd o hyd i %s"
 
 #: src/Tribe/Main.php:1475 src/Tribe/Main.php:1493 src/Tribe/Main.php:1511
 msgid "No %s found in Trash"
-msgstr "V koši sa nenašli žiadne %s "
+msgstr "Ni ddaethpwyd o hyd i %s yn y Bin Sbwriel"
 
 #: src/Tribe/Main.php:1521
 msgid "%s Category"
@@ -4540,16 +4544,16 @@ msgstr ""
 
 #: src/Tribe/Main.php:1551 src/Tribe/Main.php:1588 src/Tribe/Main.php:1608
 msgid "Custom field updated."
-msgstr "Vlastné pole aktualizované."
+msgstr "Diweddarwyd y maes cyfaddas."
 
 #: src/Tribe/Main.php:1552 src/Tribe/Main.php:1589 src/Tribe/Main.php:1609
 msgid "Custom field deleted."
-msgstr "Vlastné pole vymazané."
+msgstr "Dilëwyd y maes cyfaddas."
 
 #: src/Tribe/Main.php:1553 src/Tribe/Main.php:1587 src/Tribe/Main.php:1590
 #: src/Tribe/Main.php:1607 src/Tribe/Main.php:1610
 msgid "%s updated."
-msgstr "%s aktualizovaná."
+msgstr "Diweddarwyd %s."
 
 #. translators: %s: date and time of the revision
 #: src/Tribe/Main.php:1555 src/Tribe/Main.php:1592
@@ -4558,7 +4562,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1561 src/Tribe/Main.php:1594 src/Tribe/Main.php:1614
 msgid "%s saved."
-msgstr "%s uložené."
+msgstr "Cadwyd %s."
 
 #. translators: Publish box date format, see http://php.net/date
 #: src/Tribe/Main.php:1572 src/Tribe/Main.php:1600 src/Tribe/Main.php:1620
@@ -4568,57 +4572,57 @@ msgstr "M j, Y @ G:i"
 #. translators: %s: date and time of the revision
 #: src/Tribe/Main.php:1612
 msgid "%s restored to revision from %s"
-msgstr "%s je obnovené na verziu  z  %s"
+msgstr "Ailosodwyd %s i'r un diwygiedig o %s"
 
 #: src/Tribe/Main.php:1593 src/Tribe/Main.php:1613
 msgid "%s published."
-msgstr "%s publikované."
+msgstr "Cyhoeddwyd %s."
 
 #: src/Tribe/Main.php:1595 src/Tribe/Main.php:1615
 msgid "%s submitted."
-msgstr "%s odoslané."
+msgstr "Cyflwynwyd %s."
 
 #: src/Tribe/Main.php:1602 src/Tribe/Main.php:1622
 msgid "%s draft updated."
-msgstr "Koncept %s  aktualizovaný."
+msgstr "Diweddarwyd drafft %s."
 
 #: src/Tribe/Main.php:1806 src/Tribe/Main.php:1894
 msgid "Use New %s"
-msgstr "Použiť nové %s"
+msgstr "Defnyddio %s Newydd"
 
 #: src/Tribe/Main.php:1809 src/Tribe/Main.php:1898
 msgid "My %s"
-msgstr "Moje %s"
+msgstr "Fy %s"
 
 #: src/Tribe/Main.php:1814 src/Tribe/Main.php:1903
 msgid "Available %s"
-msgstr "Dostupné %s"
+msgstr "%s Ar Gael"
 
 #: src/Tribe/Main.php:1825 src/Tribe/Main.php:1914
 msgid "No saved %s exists."
-msgstr "Neexistujú uložené %s."
+msgstr "Nid oes %s sydd wedi'i gadw'n bodoli."
 
 #: src/Tribe/Main.php:2057
 msgid "Next"
-msgstr "Ďalší"
+msgstr "Nesaf"
 
 #: src/Tribe/Main.php:2058
 msgid "Prev"
-msgstr "Predchádzajúci"
+msgstr "Blaenorol"
 
 #: src/Tribe/Asset/Bootstrap_Datepicker.php:20 src/Tribe/Main.php:2059
 #: src/functions/template-tags/day.php:104
 msgid "Today"
-msgstr "Dnes"
+msgstr "Heddiw"
 
 #: src/Tribe/Main.php:2060
 msgid "Done"
-msgstr "Dokončené"
+msgstr "Gorffen"
 
 #: common/src/Tribe/Settings_Manager.php:229
 #: vendor/tickets/common/src/Tribe/Settings_Manager.php:229
 msgid "Network"
-msgstr "Sieť"
+msgstr "Rhwydwaith"
 
 #: src/Tribe/Main.php:2444
 msgid "page"
@@ -4640,7 +4644,7 @@ msgstr ""
 #: src/functions/template-tags/day.php:157
 #: src/functions/template-tags/day.php:178
 msgid "Date out of range."
-msgstr "Dátum mimo rozsah."
+msgstr "Dyddiad allan o'r ystod."
 
 #: src/Tribe/Main.php:3757
 msgid "%s Options"
@@ -4648,24 +4652,24 @@ msgstr ""
 
 #: src/Tribe/Main.php:3764 src/Tribe/Main.php:3775
 msgid "%s Information"
-msgstr "%s informácie"
+msgstr "Gwybodaeth am %s"
 
 #: src/Tribe/Main.php:4111
 msgid "Support"
-msgstr "Podpora"
+msgstr "Cymorth"
 
 #: src/Tribe/Main.php:4114
 msgid "View All Add-Ons"
-msgstr "Zobraziť všetky doplnky"
+msgstr "Gweld Pob Ychwanegyn"
 
 #: src/Tribe/Main.php:4134
 msgid "News from Modern Tribe"
-msgstr "Novinky z Modern Tribe"
+msgstr "Newyddion gan Modern Tribe"
 
 #: src/Tribe/Main.php:4179
 msgid "Additional Functionality"
-msgstr "Prídavné funkcionality"
+msgstr "Swyddogaethau Ychwanegol"
 
 #: src/Tribe/Main.php:4184
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
-msgstr "Hľadáte doplnkové funkcionality vrátane opakujúcich udalosti, vlastné meta data, verejné udalosti, predaj lístkov a iné?"
+msgstr "Ydych chi'n chwilio am swyddogaethau ychwanegol gan gynnwys digwyddiadau ailadroddus, gwerthiannau tocynnau, digwyddiadau a gyflwynwyd gan y cyhoedd, golygfeydd newydd a mwy?"
