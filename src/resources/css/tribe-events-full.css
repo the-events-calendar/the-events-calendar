@@ -1669,7 +1669,17 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	-webkit-background-size: 15px 10px;
 	        background-size: 15px 10px;
 }
+
+.tribe-select2-results-views span.tribe-icon-condensed-list,
+.tribe-bar-views-condensed-list span.tribe-icon-condensed-list,
+.tribe-bar-view-condensed-list span[class^='tribe-icon-'] {
+    background-image: url(../images/events-bar/icon-list.png);
+    -webkit-background-size: 15px 10px;
+    background-size: 15px 10px;
+}
+
 .tribe-bar-view-list a.tribe-icon-list,
+.tribe-bar-view-list a.tribe-icon-condensed-list,
 .tribe-bar-view-list a.tribe-icon-month {
 	background-position: 10px 50%;
 	padding-left: 30px;
@@ -1903,4 +1913,124 @@ body.tribe-theme-twentysixteen .datepicker table {
 	.tribe-bar-views-list span.tribe-icon-map {
 		background-image: url(../images/events-bar/icon-map@2x.png);
 	}
+}
+
+/* = List View Template Styles
+   @ Template: condensed-list.php
+=============================================*/
+
+.tribe-events-condensed-list .tribe-events-page-title {
+    margin: 0 0 1em 0;
+}
+
+.tribe-events-condensed-list .type-tribe_events {
+    border-bottom: 2px solid #eaeaea;
+}
+
+table.tribe-events-calendar-condensed-list {
+    border: none;
+    border-collapse: collapse;
+    clear: both;
+    font-size: 80%;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.tribe-events-calendar-condensed-list thead {
+    background-color: #F5F5F5;
+    text-transform: uppercase;
+}
+
+.tribe-events-calendar-condensed-list td {
+    border: none;
+    box-sizing: border-box;
+    padding: .5em;
+    vertical-align: top;
+}
+
+.tribe-events-calendar-condensed-list .date {
+    width: 15%;
+}
+
+.tribe-events-calendar-condensed-list .title {
+    width: 45%;
+}
+
+.tribe-events-condensed-list-event-title .tribe-event-url {
+    border-bottom: none; /* removes bottom border on twentyfifteen a link */
+    color: #007ACC;
+}
+
+.tribe-events-calendar-condensed-list .location {
+    width: 30%;
+}
+
+.tribe-events-calendar-condensed-list .cost {
+    width: 10%;
+}
+
+.tribe-events-calendar-condensed-list .tribe-events-read-more {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    word-wrap: normal !important; /* many screen reader and browser combinations announce broken words as they would appear visually */
+}
+
+.tribe-events-calendar-condensed-list .tribe-events-read-more a {
+    border-bottom: none; /* removes bottom border on twentyfifteen a:link */
+}
+
+.tribe-events-condensed-list-event-title {
+    font-weight: bold;
+}
+
+.tribe-events-nav-previous a,
+.tribe-events-nav-next a {
+    color: #007ACC;
+}
+
+@media (max-width: 414px) { /* 414px is the width of the iPhone 6 plus) */
+    table.tribe-events-calendar-condensed-list {
+        font-size: 100%;
+    }
+    .tribe-events-calendar-condensed-list .tribe-events-read-more {
+        background: #F1F2F2;
+        border: 1px solid #D1D3D4;
+        clip: auto;
+        display: block;
+        height: auto;
+        margin: .5em 0 0 0;
+        padding: .5em 0 .5em 0;
+        position: relative;
+        text-align: center;
+        width: 100%;
+    }
+    .tribe-events-condensed-list table,
+    .tribe-events-condensed-list thead,
+    .tribe-events-condensed-list tbody,
+    .tribe-events-condensed-list th,
+    .tribe-events-condensed-list td,
+    .tribe-events-condensed-list tr {
+        display: block;
+    }
+    .tribe-events-condensed-list thead tr {
+        left: -9999px;
+        position: absolute;
+        top: -9999px;
+    }
+    .tribe-events-condensed-list .type-tribe_events {
+        margin-bottom: 1em;
+        padding-bottom: 1em;
+    }
+    #tribe-events-content .tribe-events-condensed-list-event-title .tribe-event-url {
+        text-decoration: underline;
+    }
+    .tribe-events-calendar-condensed-list td {
+        padding: 0 0 .25em 0;
+    }
 }

@@ -148,6 +148,12 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				->archive( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
 				->archive( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%1' ) )
 				->archive( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
+
+				//new view
+				->archive( array( '{{ condensed-list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'condensed-list', 'paged' => '%1' ) )
+				->archive( array( '{{ condensed-list }}' ), array( 'eventDisplay' => 'condensed-list' ) )
+
+
 				->archive( array( '{{ today }}' ), array( 'eventDisplay' => 'day' ) )
 				->archive( array( '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%1' ) )
 				->archive( array( '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%1' ) )
@@ -158,9 +164,21 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 
 				// Taxonomy
 				->tax( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
+
+				// new view
+				->tax( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'condensed-list', 'paged' => '%2' ) )
+
 				->tax( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
 				->tax( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
+
+				// new view
+				->tax( array( '{{ condensed-list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'condensed-list', 'paged' => '%2' ) )
+
 				->tax( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
+
+				// new view
+				->tax( array( '{{ condensed-list }}' ), array( 'eventDisplay' => 'condensed-list' ) )
+
 				->tax( array( '{{ today }}' ), array( 'eventDisplay' => 'day' ) )
 				->tax( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
 				->tax( array( '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2' ) )
@@ -172,9 +190,21 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 
 				// Tag
 				->tag( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
+
+				// new view
+				->tag( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'condensed-list', 'paged' => '%2' ) )
+
 				->tag( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
 				->tag( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
+
+				// new view
+				->tag( array( '{{ condensed-list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'condensed-list', 'paged' => '%2' ) )
+
 				->tag( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
+
+				// new view
+				->tag( array( '{{ condensed-list }}' ), array( 'eventDisplay' => 'condensed-list' ) )
+
 				->tag( array( '{{ today }}' ), array( 'eventDisplay' => 'day' ) )
 				->tag( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
 				->tag( array( '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2' ) )
@@ -254,6 +284,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			$bases = apply_filters( 'tribe_events_rewrite_base_slugs', array(
 				'month' => array( 'month', $tec->monthSlug ),
 				'list' => array( 'list', $tec->listSlug ),
+				'condensed-list' => array( 'condensed-list', $tec->condensedListSlug ),
 				'today' => array( 'today', $tec->todaySlug ),
 				'day' => array( 'day', $tec->daySlug ),
 				'tag' => array( 'tag', $tec->tag_slug ),

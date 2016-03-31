@@ -126,6 +126,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		public $listSlug = 'list';
 		public $daySlug = 'day';
+		public $condensedListSlug = 'condensed-list';
 		public $todaySlug = 'today';
 		protected $postExceptionThrown = false;
 
@@ -453,6 +454,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			/* Setup Tribe Events Bar */
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_listview_in_bar' ), 1, 1 );
+			add_filter( 'tribe-events-bar-views', array( $this, 'setup_condensed_listview_in_bar' ), 3, 1 );
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_gridview_in_bar' ), 5, 1 );
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_dayview_in_bar' ), 15, 1 );
 
@@ -783,6 +785,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->tagRewriteSlug                             = $this->rewriteSlug . '/' . $this->tag_slug;
 			$this->monthSlug                                  = sanitize_title( __( 'month', 'the-events-calendar' ) );
 			$this->listSlug                               	  = sanitize_title( __( 'list', 'the-events-calendar' ) );
+			$this->condensedListSlug                          = sanitize_title( __( 'condensed-list', 'the-events-calendar' ) );
 			$this->upcomingSlug                               = sanitize_title( __( 'upcoming', 'the-events-calendar' ) );
 			$this->pastSlug                                   = sanitize_title( __( 'past', 'the-events-calendar' ) );
 			$this->daySlug                                    = sanitize_title( __( 'day', 'the-events-calendar' ) );
@@ -2686,6 +2689,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				case 'list':
 					$event_url = trailingslashit( esc_url_raw( $event_url . $this->listSlug ) );
 					break;
+				case 'condensed-list':
+					$event_url = trailingslashit( esc_url_raw( $event_url . $this->condensedListSlug ) );
+					break;
 				case 'upcoming':
 					$event_url = trailingslashit( esc_url_raw( $event_url . $this->listSlug ) );
 					break;
@@ -2760,6 +2766,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					}
 					break;
 				case 'list':
+				case 'condensed-list':
 				case 'past':
 				case 'upcoming':
 					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
@@ -4347,6 +4354,24 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Set up the condensed list view in the view selector in the tribe events bar.
+		 *
+		 * @param array $views The current views array.
+		 *
+		 * @return array The modified views array.
+		 */
+		public function setup_condensed_listview_in_bar( $views ) {
+			$views[] = array(
+				'displaying'     => 'condensed-list',
+				'event_bar_hook' => 'tribe_events_before_template',
+				'anchor'         => esc_html__( 'Condensed List', 'the-events-calendar' ),
+				'url'            => tribe_get_condensed_listview_link(),
+			);
+
+			return $views;
+		}
+
+		/**
 		 * Set up the calendar view in the view selector in the tribe events bar.
 		 *
 		 * @param array $views The current views array.
@@ -4430,6 +4455,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$caption = sprintf( esc_html__( '%s In', 'the-events-calendar' ), $this->plural_event_label );
 			} elseif ( tribe_is_list_view() ) {
 				$caption = sprintf( esc_html__( '%s From', 'the-events-calendar' ), $this->plural_event_label );
+			} elseif ( tribe_is_condensed_list_view() ) {
+					$caption = sprintf( esc_html__( '%s From', 'the-events-calendar' ), $this->plural_event_label );
 			} elseif ( tribe_is_day() ) {
 				$caption = esc_html__( 'Day Of', 'the-events-calendar' );
 				$value   = date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( $wp_query->query_vars['eventDate'] ) );
