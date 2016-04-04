@@ -225,6 +225,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.2] TBD =
+
+* Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files [36246]
+
 = [4.1] 2016-03-15 =
 
 * Feature - Added a new "Date" recurrence rule that allows you to set an event to recur on a single (or any number of) individually specified dates (hat-tip to @tonydemarco for the idea!)
