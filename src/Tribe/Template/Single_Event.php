@@ -107,7 +107,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 		 **/
 		public function set_notices() {
 			parent::set_notices();
-			$events_label_singular = tribe_get_event_label_singular();
+			$events_label_singular_lowercase = tribe_get_event_label_singular_lowercase();
 
 			global $post;
 
@@ -116,7 +116,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 			$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
 
 			if ( ! tribe_is_showing_all() && strtotime( tribe_get_end_date( $post, false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) {
-				Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), strtolower( $events_label_singular ) ) );
+				Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), $events_label_singular_lowercase ) );
 			}
 		}
 	}
