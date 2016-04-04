@@ -2299,7 +2299,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function loadTextDomain() {
-			load_plugin_textdomain( 'the-events-calendar', false, $this->plugin_dir . 'lang/' );
+			Tribe__Main::instance()->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
 
 			// Setup the l10n strings
 			$this->setup_l10n_strings();
@@ -2550,7 +2550,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					if ( 'default' === $domain ) {
 						load_default_textdomain();
 					} else {
-						load_plugin_textdomain( $domain, false, $file );
+						Tribe__Main::instance()->load_text_domain( $domain, $file );
 					}
 
 					// Loop on the strings the build the possible translations
@@ -2584,7 +2584,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					if ( 'default' === $domain ) {
 						load_default_textdomain();
 					} else {
-						load_plugin_textdomain( $domain, false, $file );
+						Tribe__Main::instance()->load_text_domain( $domain, $file );
 					}
 				}
 			}
