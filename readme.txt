@@ -312,6 +312,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.2] TBD =
 
 * Tweak - improved our JSON-LD output to ensure consistency (props: @garrettjohnson)
+* Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files [36246]
 
 = [4.1.0.1] 2016-03-17 =
 
