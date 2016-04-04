@@ -309,6 +309,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.1.2] TBD =
+
+* Fix - Resolved issue where events marked as "sticky" would not display as such in Month View [44863]
+
 = [4.1.1] 2016-03-30 =
 
 * Fix - Resolved bug where array notices were output on single event pages when venues were not set (props to zaxiscreative for reporting this issue!)
