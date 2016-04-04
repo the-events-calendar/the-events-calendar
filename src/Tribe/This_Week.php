@@ -246,7 +246,7 @@ class Tribe__Events__Pro__This_Week {
 		 *
 		 * @param array $this_week_widget_args Arguments for This Week Widget
 		 */
-		$this_week_widget_args = apply_filters( 'tribe_events_pro_min_calendar_widget_query_args', $this_week_widget_args );
+		$this_week_widget_args = apply_filters( 'tribe_events_pro_this_week_widget_query_args', $this_week_widget_args );
 
 		// Get all the upcoming events for this week
 		$events = tribe_get_events( $this_week_widget_args, true );

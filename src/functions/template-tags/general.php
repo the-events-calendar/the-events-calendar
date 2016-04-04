@@ -138,7 +138,7 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		if ( ! tribe_is_week() && ! tribe_is_month() ) {
 			echo '<span class="tribe-events-user-recurrence-toggle">';
 				echo '<label for="tribeHideRecurrence">';
-					echo '<input type="checkbox" name="tribeHideRecurrence" value="1" id="tribeHideRecurrence" ' . checked( $hide_recurrence, 1, false ) . '>' . sprintf( __( 'Show only the first upcoming instance of recurring %s', 'tribe-events-calendar-pro' ), strtolower( tribe_get_event_label_plural() ) );
+					echo '<input type="checkbox" name="tribeHideRecurrence" value="1" id="tribeHideRecurrence" ' . checked( $hide_recurrence, 1, false ) . '>' . sprintf( __( 'Show only the first upcoming instance of recurring %s', 'tribe-events-calendar-pro' ), tribe_get_event_label_plural_lowercase() );
 				echo '</label>';
 			echo '</span>';
 		}
@@ -522,10 +522,13 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			$date = is_null( $date ) ? $wp_query->get( 'start_date' ) : $date;
 		}
 
+		$timezone = Tribe__Timezones::wp_timezone_string();
+		$timezone = Tribe__Timezones::generate_timezone_string_from_utc_offset( $timezone );
+
 		try {
-			$date = new DateTime( $date );
+			$date = new DateTime( $date, new DateTimeZone( $timezone ) );
 		} catch ( exception $e ) {
-			$date = new DateTime();
+			$date = new DateTime( current_time( 'Y-m-d' ), new DateTimeZone( $timezone ) );
 		}
 
 		// Clone to avoid altering the original date

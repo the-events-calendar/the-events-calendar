@@ -103,7 +103,7 @@ final class Tribe__Events__Pro__Customizer__Section_Photo_View extends Tribe__Ev
 				$manager,
 				$customizer->get_setting_name( 'bg_color', $section ),
 				array(
-					'label'   => __( 'Photo Background Color' ),
+					'label'   => __( 'Photo Background Color', 'tribe-events-calendar-pro' ),
 					'section' => $section->id,
 				)
 			)
