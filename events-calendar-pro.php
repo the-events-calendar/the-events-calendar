@@ -63,7 +63,7 @@ add_action( 'plugins_loaded', 'Tribe_ECP_Load', 2 ); // high priority so that it
 function tribe_show_fail_message() {
 	if ( current_user_can( 'activate_plugins' ) ) {
 		$langpath = trailingslashit( basename( dirname( __FILE__ ) ) ) . 'lang/';
-		load_plugin_textdomain( 'tribe-events-calendar-pro', false, $langpath );
+		Tribe__Main::instance()->load_text_domain( 'tribe-events-calendar-pro', $langpath );
 		$url = 'plugin-install.php?tab=plugin-information&plugin=the-events-calendar&TB_iframe=true';
 		$title = __( 'The Events Calendar', 'tribe-events-calendar-pro' );
 		echo '<div class="error"><p>' . sprintf( __( 'To begin using Events Calendar PRO, please install the latest version of <a href="%s" class="thickbox" title="%s">The Events Calendar</a>.', 'tribe-events-calendar-pro' ), esc_url( $url ), $title ) . '</p></div>';

@@ -225,6 +225,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.2] TBD =
+
+* Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files [36246]
+
 = [4.1.1] 2016-03-30 =
 
 * Tweak - Change This Widget Widget query filter to a unique name
