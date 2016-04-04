@@ -1352,7 +1352,7 @@
 			 * @return void
 			 */
 			public function loadTextDomain() {
-				load_plugin_textdomain( 'tribe-events-calendar-pro', false, $this->pluginDir . 'lang/' );
+				Tribe__Main::instance()->load_text_domain( 'tribe-events-calendar-pro', $this->pluginDir . 'lang/' );
 			}
 
 			/**
