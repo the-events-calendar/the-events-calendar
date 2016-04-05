@@ -953,6 +953,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function handle_submit_bar_redirect( $postdata ) {
 			$url = $postdata['tribe-bar-view'];
+			$url_parts = parse_url( $url );
+			$safe_domains = $this->safe_redirect_domains();
+
+			// if the site isn't a safe domain, spoofing is probably being attempted. Bail
+			if ( ! in_array( $url_parts['host'], $safe_domains ) ) {
+				return;
+			}
 
 			foreach ( $postdata as $key => $value ) {
 				if ( 'submit-bar' === $key || 'tribe-bar-view' === $key ) {
@@ -965,6 +972,28 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			wp_redirect( esc_url_raw( $url ) );
 			die;
 		}//end handle_submit_bar_redirect
+
+		/**
+		 * Provides a list of URLs that are considered safe for redirecting
+		 */
+		public function safe_redirect_domains() {
+			$home      = home_url( '/' );
+			$site      = site_url( '/' );
+			$domains   = array();
+			$domains[] = parse_url( $home, PHP_URL_HOST );
+			$domains[] = parse_url( $site, PHP_URL_HOST );
+
+			/**
+			 * Filters the list of safe redirect domains
+			 *
+			 * @var array Array of domains that are safe to redirect to
+			 */
+			$domains = apply_filters( 'tribe_events_safe_redirect_domains', $domains );
+
+			$domains = array_unique( $domains );
+
+			return $domains;
+		}
 
 		/**
 		 * Create setting tabs
