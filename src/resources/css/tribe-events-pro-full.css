@@ -430,10 +430,12 @@
 
 /**
  * This prevents Isotope conflicting not showing events
+ * We need to use !important here because we have no control over how Isotope
+ * creates the opacity on their script, which requires the usage of !important.
  */
 .tribe-mobile #tribe-events-photo-events,
 .tribe-mobile #tribe-events-photo-events.photo-hidden {
-	opacity: 1!important;
+	opacity: 1 !important;
 }
 
 .photo-loader {
