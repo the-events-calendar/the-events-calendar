@@ -311,6 +311,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.1.2] TBD =
 
+* Security - Only allow the tribe bar to redirect to approved domain names (props to Paul Mynarsky for reporting this issue) [45473]
 * Fix - Resolved issue where events marked as "sticky" would not display as such in Month View [44863]
 
 = [4.1.1] 2016-03-30 =
