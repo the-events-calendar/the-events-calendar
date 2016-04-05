@@ -800,10 +800,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->singular_event_label_lowercase             = tribe_get_event_label_singular_lowercase();
 			$this->plural_event_label_lowercase               = tribe_get_event_label_plural_lowercase();
 
-			$this->postTypeArgs['rewrite']['slug']            = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE );
-			$this->postVenueTypeArgs['rewrite']['slug']       = $rewrite->prepare_slug( $this->singular_venue_label, self::VENUE_POST_TYPE );
+			$this->postTypeArgs['rewrite']['slug']            = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE, false );
+			$this->postVenueTypeArgs['rewrite']['slug']       = $rewrite->prepare_slug( $this->singular_venue_label, self::VENUE_POST_TYPE, false );
 			$this->postVenueTypeArgs['show_in_nav_menus']     = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
-			$this->postOrganizerTypeArgs['rewrite']['slug']   = $rewrite->prepare_slug( $this->singular_organizer_label, self::ORGANIZER_POST_TYPE );
+			$this->postOrganizerTypeArgs['rewrite']['slug']   = $rewrite->prepare_slug( $this->singular_organizer_label, self::ORGANIZER_POST_TYPE, false );
 			$this->postOrganizerTypeArgs['show_in_nav_menus'] = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
 			$this->postVenueTypeArgs['public']                = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
 			$this->postOrganizerTypeArgs['public']            = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
