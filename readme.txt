@@ -309,6 +309,12 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+=======
+= [4.1.1.1] 2016-04-07 =
+
+* Security - Tightened up security with post type link filtering (props to Nadal Soler for reporting this issue!)
+* Security - Tightened up security around tribe bar submissions (props to Paul Mynarsky for reporting this issue!)
+
 = [4.1.1] 2016-03-30 =
 
 * Fix - Resolved bug where array notices were output on single event pages when venues were not set (props to zaxiscreative for reporting this issue!)
