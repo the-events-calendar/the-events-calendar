@@ -13,7 +13,7 @@ $start_meridian_options = Tribe__View_Helpers::getMeridianOptions( null, true );
 				<input type="hidden" name="is_recurring[]" data-field="is_recurring" value="{{#if is_recurring}}true{{else}}false{{/if}}"/>
 				<select name="recurrence[rules][][type]" data-field="type" data-single="<?php esc_attr_e( 'event', 'tribe-events-calendar-pro' ) ?>" data-plural="<?php esc_attr_e( 'events', 'tribe-events-calendar-pro' ) ?>">
 					{{#tribe_recurrence_select type}}
-						<option value="None"><?php esc_html_e( 'Once', 'tribe-events-calendar-pro' ); ?></option>
+						<option value="None"><?php esc_html_e( 'None', 'tribe-events-calendar-pro' ); ?></option>
 						<option value="Date"><?php esc_html_e( 'Date', 'tribe-events-calendar-pro' ); ?></option>
 						<option value="Every Day"><?php esc_html_e( 'Every Day', 'tribe-events-calendar-pro' ); ?></option>
 						<option value="Every Week"><?php esc_html_e( 'Every Week', 'tribe-events-calendar-pro' ); ?></option>
