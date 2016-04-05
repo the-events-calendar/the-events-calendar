@@ -436,9 +436,10 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 *
 		 * @param  string $slug
 		 * @param  string $permastruct_name
+		 * @param  string $is_regular_exp
 		 * @return string
 		 */
-		public function prepare_slug( $slug, $permastruct_name ) {
+		public function prepare_slug( $slug, $permastruct_name, $is_regular_exp = true ) {
 			$needs_handling = false;
 			$sanitized_slug = sanitize_title( $slug );
 
@@ -479,7 +480,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			 * @var string $original_slug
 			 */
 			return apply_filters( 'tribe_events_rewrite_prepared_slug',
-				preg_quote( $sanitized_slug ),
+				$is_regular_exp ? preg_quote( $sanitized_slug ) : $sanitized_slug,
 				$permastruct_name,
 				$slug
 			);
