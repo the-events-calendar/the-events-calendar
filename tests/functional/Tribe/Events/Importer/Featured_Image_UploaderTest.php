@@ -10,6 +10,7 @@ class Featured_Image_UploaderTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 
 		// your set up methods here
+		Featured_Image_Uploader::reset_cache();
 	}
 
 	public function tearDown() {
@@ -133,5 +134,54 @@ class Featured_Image_UploaderTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $existing_attachment_id, $id );
 	}
 
+	/**
+	 * @test
+	 * it should return same ID when referencing a Media Library image by URL
+	 */
+	public function it_should_return_same_id_when_referencing_a_media_library_image_by_url() {
+		$image_url              = plugins_url( '_data/csv-import-test-files/featured-image/images/featured-image.jpg', codecept_data_dir() );
+		$existing_attachment_id = $this->factory()->attachment->create_upload_object( $image_url );
+		$attachment_post        = get_post( $existing_attachment_id );
+		$attachment_url         = $attachment_post->guid;
 
+		$sut_1 = new Featured_Image_Uploader( $attachment_url );
+		$id_1  = $sut_1->upload_and_get_attachment();
+
+		$sut_2 = new Featured_Image_Uploader( $attachment_url );
+		$id_2  = $sut_2->upload_and_get_attachment();
+
+		$this->assertEquals( $id_1, $id_2 );
+	}
+
+	/**
+	 * @test
+	 * it should return the same ID when referencing the same image by URL twice
+	 */
+	public function it_should_return_the_same_id_when_referencing_the_same_image_by_url_twice() {
+		$image_url              = plugins_url( '_data/csv-import-test-files/featured-image/images/featured-image.jpg', codecept_data_dir() );
+		$existing_attachment_id = $this->factory()->attachment->create_upload_object( $image_url );
+
+		$sut_1 = new Featured_Image_Uploader( $image_url );
+		$id_1  = $sut_1->upload_and_get_attachment();
+
+		$sut_2 = new Featured_Image_Uploader( $image_url );
+		$id_2  = $sut_2->upload_and_get_attachment();
+
+		$this->assertEquals( $id_1, $id_2 );
+	}
+
+	/**
+	 * @test
+	 * it should not insert same image twice in same run
+	 */
+	public function it_should_not_insert_same_image_twice_in_same_run() {
+		$image_url              = plugins_url( '_data/csv-import-test-files/featured-image/images/featured-image.jpg', codecept_data_dir() );
+		$existing_attachment_id = $this->factory()->attachment->create_upload_object( $image_url );
+
+		$sut  = new Featured_Image_Uploader( $image_url );
+		$id_1 = $sut->upload_and_get_attachment();
+		$id_2 = $sut->upload_and_get_attachment();
+
+		$this->assertEquals( $id_1, $id_2 );
+	}
 }

@@ -244,9 +244,17 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			}
 
 			// Additionally store datetimes in UTC
-			$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
-			$data['EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
-			$data['EventTimezoneAbbr'] = Tribe__Events__Timezones::abbr( $data['EventStartDate'], $data['EventTimezone'] );
+			if ( empty( $data['EventStartDateUTC'] ) ) {
+				$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
+			}
+
+			if ( empty( $data['EventEndDateUTC'] ) ) {
+				$data['EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
+			}
+
+			if ( empty( $data['EventTimezoneAbbr'] ) ) {
+				$data['EventTimezoneAbbr'] = Tribe__Events__Timezones::abbr( $data['EventStartDate'], $data['EventTimezone'] );
+			}
 
 			// sanity check that start date < end date
 			$start_timestamp = strtotime( $data['EventStartDate'] );

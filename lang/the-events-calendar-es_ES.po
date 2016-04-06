@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-12-22 13:56:02+0000\n"
+"PO-Revision-Date: 2016-03-18 11:59:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -215,7 +215,7 @@ msgstr ""
 
 #: vendor/tickets/src/views/tickets/rsvp.php:68
 msgid "Out of stock!"
-msgstr ""
+msgstr "¡Agotado!"
 
 #: vendor/tickets/src/views/tickets/rsvp.php:108
 msgid "Full Name"
@@ -223,7 +223,7 @@ msgstr ""
 
 #: vendor/tickets/src/views/tickets/rsvp.php:133
 msgid "Confirm RSVP"
-msgstr ""
+msgstr "Confirmar RSVP"
 
 #: vendor/tickets/src/Tribe/Main.php:301
 msgid "Looking for more immediate support? We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
@@ -4388,7 +4388,8 @@ msgstr "Eventos"
 msgid "Event"
 msgstr "Evento"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1)  #-#-#-#-#
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.0.1) 
+#. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:632
 #: src/Tribe/Main.php:777
