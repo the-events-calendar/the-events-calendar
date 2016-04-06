@@ -111,7 +111,7 @@ class Tribe__Events__Pro__Custom_Meta {
 			$tribe_ecp = Tribe__Events__Main::instance();
 		}
 
-		if ( ! current_user_can( 'edit_posts' ) ) {
+		if ( ! current_user_can( 'edit_tribe_events' ) ) {
 			exit;
 		}
 
