@@ -524,7 +524,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			global $wpdb;
 
 			// if it's a true event query then we to setup where conditions
-			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
+			// but only if we aren't grabbing a specific post
+			if (
+				(
+					$query->tribe_is_event
+					|| $query->tribe_is_event_category
+				)
+				&& empty( $query->query_vars['name'] )
+				&& empty( $query->query_vars['p'] )
+			) {
 
 				$postmeta_table = self::postmeta_table( $query );
 
