@@ -201,7 +201,9 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				return $permalink;
 			}
 
-			return add_query_arg( array( 'lang' => $_GET['lang'] ), $permalink );
+			$lang = esc_attr( wp_kses( $_GET['lang'], array() ) );
+
+			return add_query_arg( array( 'lang' => $lang ), $permalink );
 		}
 
 		/**
