@@ -514,7 +514,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'load-tribe_events_page_' . Tribe__Settings::$parent_slug, array( 'Tribe__Events__Amalgamator', 'listen_for_migration_button' ), 10, 0 );
 			add_action( 'tribe_settings_after_save', array( $this, 'flushRewriteRules' ) );
-			add_action( 'load-edit-tags.php', array( $this, 'prepare_to_fix_tagcloud_links' ), 10, 0 );
+
 			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
 
 			// Check for a page that might conflict with events archive (but we only need to do that
@@ -4335,8 +4335,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * When the edit-tags.php screen loads, setup filters
 		 * to fix the tagcloud links
 		 *
+		 * @deprecated 4.1.2
 		 */
 		public function prepare_to_fix_tagcloud_links() {
+			_deprecated_function( __METHOD__, '4.1.2' );
 			if ( Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
 				add_filter( 'get_edit_term_link', array( $this, 'add_post_type_to_edit_term_link' ), 10, 4 );
 			}
@@ -4348,6 +4350,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * in Events post type context, make sure we add that
 		 * arg to the edit tag link
 		 *
+		 * @deprecated 4.1.2
+		 *
 		 * @param string $link
 		 * @param int    $term_id
 		 * @param string $taxonomy
@@ -4356,6 +4360,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function add_post_type_to_edit_term_link( $link, $term_id, $taxonomy, $context ) {
+			_deprecated_function( __METHOD__, '4.1.2' );
 			if ( $taxonomy == 'post_tag' && empty( $context ) ) {
 				$link = add_query_arg( array( 'post_type' => self::POSTTYPE ), $link );
 			}
