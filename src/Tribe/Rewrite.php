@@ -201,7 +201,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				return $permalink;
 			}
 
-			$lang = esc_attr( wp_kses( $_GET['lang'], array() ) );
+			$lang = wp_strip_all_tags( $_GET['lang'] );
 
 			return add_query_arg( array( 'lang' => $lang ), $permalink );
 		}
@@ -222,7 +222,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @return Tribe__Events__Rewrite       The modified version of the class with the required variables in place
 		 */
 		public function setup( $wp_rewrite = null ) {
-			if ( ! $wp_rewrite instanceof WP_Rewrite ){
+			if ( ! $wp_rewrite instanceof WP_Rewrite ) {
 				global $wp_rewrite;
 			}
 			$this->rewrite = $wp_rewrite;
@@ -299,7 +299,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				$bases = $tec->get_i18n_strings( $bases, $languages, $domains, $current_locale );
 			}
 
-			if ( 'regex' === $method ){
+			if ( 'regex' === $method ) {
 				foreach ( $bases as $type => $base ) {
 					// Escape all the Bases
 					$base = array_map( 'preg_quote', $base );
