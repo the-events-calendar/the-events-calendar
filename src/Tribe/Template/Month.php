@@ -349,7 +349,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			} elseif ( is_string( $term_id ) ) {
 				// get the term by slug if it's a string
 				$term = get_term_by( 'slug', $term_id, Tribe__Events__Main::TAXONOMY );
-				if ( ! is_wp_error( $term ) ) {
+				if ( ! ( is_wp_error( $term ) || empty( $term ) ) ) {
 					$terms[0] = $term->term_id;
 				}
 			}
