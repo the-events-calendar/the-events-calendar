@@ -309,7 +309,6 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-=======
 = [4.1.1.1] 2016-04-07 =
 
 * Security - Tightened up security with post type link filtering (props to Nadal Soler for reporting this issue!)
