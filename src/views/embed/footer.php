@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 *
 		 * @since 4.4.0
 		 */
-		do_action( 'embed_content_meta');
+		do_action( 'embed_content_meta' );
 		?>
 	</div>
 </div>
