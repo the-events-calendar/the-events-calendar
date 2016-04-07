@@ -389,12 +389,15 @@
 
 #tribe-events-photo-events {
 	margin: 18px -4.5% 18px 0;
-	opacity: 0;
 	-webkit-transition-property: height, width;
 	   -moz-transition-property: height, width;
 	    -ms-transition-property: height, width;
 	     -o-transition-property: height, width;
 	        transition-property: height, width;
+}
+
+#tribe-events-photo-events.isotope {
+	opacity: 0;
 }
 
 #tribe-events-photo-events .isotope-item {
