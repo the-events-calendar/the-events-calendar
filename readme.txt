@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.4.2
-Stable tag: 4.1.1
+Stable tag: 4.1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -311,9 +311,13 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.1.2] TBD =
 
-* Security - Only allow the tribe bar to redirect to approved domain names (props to Paul Mynarsky for reporting this issue) [45473]
 * Tweak - Removed unneeded hook that attempted to add a query argument to event tag links that has been present on those links since at least WP 3.9 [45431]
 * Fix - Resolved issue where events marked as "sticky" would not display as such in Month View [44863]
+
+= [4.1.1.1] 2016-04-07 =
+
+* Security - Tightened up security with post type link filtering (props to Nadal Soler for reporting this issue!)
+* Security - Tightened up security around tribe bar submissions (props to Paul Mynarsky for reporting this issue!)
 
 = [4.1.1] 2016-03-30 =
 
