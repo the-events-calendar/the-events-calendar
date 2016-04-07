@@ -16,12 +16,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( tribe_get_cost() ) :
-	?>
-	<div class="tribe-events-event-cost">
-		<?php do_action( 'tribe_events_embed_before_the_cost_value' ); ?>
-		<span><?php echo tribe_get_cost( null, true ); ?></span>
-		<?php do_action( 'tribe_events_embed_after_the_cost_value' ); ?>
-	</div>
-	<?php
-endif;
+if ( ! tribe_get_cost() ) {
+	return;
+}
+?>
+<div class="tribe-events-event-cost">
+	<?php do_action( 'tribe_events_embed_before_the_cost_value' ); ?>
+	<span><?php echo tribe_get_cost( null, true ); ?></span>
+	<?php do_action( 'tribe_events_embed_after_the_cost_value' ); ?>
+</div>
