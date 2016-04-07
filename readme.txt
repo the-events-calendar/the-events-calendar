@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.4.2
-Stable tag: 4.1.1
+Stable tag: 4.1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -313,6 +313,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Tweak - improved our JSON-LD output to ensure consistency (props: @garrettjohnson)
 * Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files [36246]
+
+= [4.1.1.1] 2016-04-07 =
+
+* Security - Tightened up security with post type link filtering (props to Nadal Soler for reporting this issue!)
+* Security - Tightened up security around tribe bar submissions (props to Paul Mynarsky for reporting this issue!)
 
 = [4.1.1] 2016-03-30 =
 
