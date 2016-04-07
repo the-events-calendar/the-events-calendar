@@ -38,8 +38,9 @@ class Series_Rules_FactoryTest extends \Codeception\TestCase\WPTestCase {
 		$sut        = new Series_Rules_Factory();
 		$recurrence = [
 			'type'   => Custom_Types::CUSTOM_TYPE,
-			'custom' => [ 'type' => Custom_Types::DATE_CUSTOM_TYPE, 'date' => [ 'date' => 'today' ] ]
-		];
+			'custom' => [ 'type' => Custom_Types::DATE_CUSTOM_TYPE, 'date' => [ 'date' => 'today' ] ],
+		    'end' => 'today',
+		];;
 		/** @var \Tribe__Events__Pro__Date_Series_Rules__Date $out */
 		$out = $sut->build_from( $recurrence );
 		$this->assertInstanceOf( 'Tribe__Events__Pro__Date_Series_Rules__Date', $out );
