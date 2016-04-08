@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '4.1.1.1';
+		const VERSION           = '4.1.2';
 		const MIN_ADDON_VERSION = '4.1';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -4279,6 +4279,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function setInitialMenuMetaBoxes() {
 			global $current_screen;
+
 			if ( empty( $current_screen->id ) || 'nav-menus' !== $current_screen->id ) {
 				return;
 			}
