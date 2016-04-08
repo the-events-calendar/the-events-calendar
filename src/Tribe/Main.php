@@ -2390,10 +2390,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$this->displaying = 'admin';
 			} else {
 				global $wp_query;
-				if ( $wp_query && $wp_query->is_main_query() && ! empty( $wp_query->tribe_is_event_query ) ) {
+				if (
+					$wp_query
+					&& $wp_query->is_main_query()
+					&& ! empty( $wp_query->tribe_is_event_query )
+				) {
 					$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'list' );
 
-					if ( is_single() && $this->displaying != 'all' ) {
+					if ( ! empty( $wp_query->query_vars['embed'] ) ) {
+						$this->displaying = 'embed';
+					} elseif ( is_single() && $this->displaying != 'all' ) {
 						$this->displaying = 'single-event';
 					}
 				}
