@@ -313,6 +313,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Tweak - Removed unneeded hook that attempted to add a query argument to event tag links that has been present on those links since at least WP 3.9 [45431]
 * Fix - Resolved issue where events marked as "sticky" would not display as such in Month View [44863]
+* Fix - Using dashes on events archive no longer creates broken links on edit page
+* Fix - Notice for conflicting events archive is now dimissiable again
 
 = [4.1.1.1] 2016-04-07 =
 
