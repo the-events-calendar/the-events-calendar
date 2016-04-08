@@ -225,6 +225,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.1.2] unreleased =
+
+* Tweak - Change the terminology around recurence to be more clear to users about events not recurring
+
 = [4.1.1] 2016-03-30 =
 
 * Tweak - Change This Widget Widget query filter to a unique name
