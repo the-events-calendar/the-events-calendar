@@ -82,7 +82,7 @@ class Tribe__Events__Updater {
 			'2.0.6'  => array( $this, 'migrate_from_sp_options' ),
 			'3.10a4' => array( $this, 'set_enabled_views' ),
 			'3.10a5' => array( $this, 'remove_30_min_eod_cutoffs' ),
-			'4.1.1'  => array( $this, 'migrate_import_option' ),
+			'4.2'  => array( $this, 'migrate_import_option' ),
 		);
 	}
 
