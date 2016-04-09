@@ -227,7 +227,7 @@ Our Premium Plugins:
 
 = [4.1.2] unreleased =
 
-* Tweak - Change the terminology around recurence to be more clear to users about events not recurring
+* Tweak - Changed the word "Once" in an event's recurring settings because it was pretty confusing for everyone, including us
 
 = [4.1.1] 2016-03-30 =
 
