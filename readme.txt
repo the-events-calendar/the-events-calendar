@@ -225,7 +225,7 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.1.2] unreleased =
+= [4.1.2] 2016-04-11 =
 
 * Tweak - Change the terminology around recurence to be more clear to users about events not recurring
 
