@@ -228,6 +228,7 @@ Our Premium Plugins:
 = [4.1.2] 2016-04-11 =
 
 * Tweak - Changed the word "Once" in an event's recurring settings because it was pretty confusing for everyone, including us
+* Security - Tightened up security around AJAX calls (props to James Golovich for reporting the problem!)
 
 = [4.1.1] 2016-03-30 =
 
