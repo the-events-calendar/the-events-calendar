@@ -160,6 +160,16 @@ class Tribe__Events__Importer__Admin_Page {
 					}
 				}
 				$import_type = get_option( 'tribe_events_import_type' );
+	
+				$import_type_titles_map = array();
+				
+				/**
+				 * Allows filtering the import type titles to go from a slug to a pretty title.
+				 * 
+				 * @param array $import_type_titles_map
+				 */
+				$import_type_titles_map = apply_filters('tribe_events_import_type_titles_map', $import_type_titles_map);
+				$import_type_title = isset($import_type_titles_map[$import_type]) ? $import_type_titles_map[$import_type] : ucwords( $import_type );
 				$messages = $this->errors;
 				include Tribe__Events__Importer__Plugin::path( 'src/io/csv/admin-views/columns.php' );
 				break;
