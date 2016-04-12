@@ -3,7 +3,7 @@
 /**
  * Handles output of Google structured data markup
  */
-class Tribe__Events__Google_Data_Markup__Event extends Tribe__Events__Google_Data_Markup {
+class Tribe__Events__JSON_LD__Event extends Tribe__Events__Google_Data_Markup {
 
 	protected $filter = 'tribe_google_event_data';
 
