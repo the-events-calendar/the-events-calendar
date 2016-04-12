@@ -138,3 +138,50 @@ if ( ! function_exists( 'tribe_is_linked_post_type' ) ) {
 		return Tribe__Events__Linked_Posts::instance()->is_linked_post_type( $post_type );
 	}
 }
+
+if ( ! function_exists( 'tribe_link_post' ) ) {
+	/**
+	 * Links two posts together
+	 *
+	 * @since 4.2
+	 *
+	 * @param int $target_post_id Post ID of post to add linked post to
+	 * @param int $subject_post_id Post ID of post to add as a linked post to the target
+	 *
+	 * @return boolean
+	 */
+	function tribe_link_post( $target_post_id, $subject_post_id ) {
+		return Tribe__Events__Linked_Posts::instance()->link_post( $target_post_id, $subject_post_id );
+	}
+}
+
+if ( ! function_exists( 'tribe_unlink_post' ) ) {
+	/**
+	 * Unlinks two posts from eachother
+	 *
+	 * @since 4.2
+	 *
+	 * @param int $target_post_id Post ID of post to remove linked post from
+	 * @param int $subject_post_id Post ID of post to remove as a linked post from the target
+	 */
+	function tribe_unlink_post( $target_post_id, $subject_post_id ) {
+		return Tribe__Events__Linked_Posts::instance()->unlink_post( $target_post_id, $subject_post_id );
+	}
+}
+
+if ( ! function_exists( 'tribe_set_linked_post_add_form' ) ) {
+	/**
+	 * Sets the "add" form template and submission handler for the given post type
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $post_type Post Type
+	 * @param string $template Template path for the "add" form
+	 * @param string $handler Form parsing handler
+	 *
+	 * @return boolean
+	 */
+	function tribe_set_linked_post_add_form( $post_type, $template, $handler ) {
+		return Tribe__Events__Linked_Posts::instance()->set_add_form( $post_type, $template, $handler );
+	}
+}
