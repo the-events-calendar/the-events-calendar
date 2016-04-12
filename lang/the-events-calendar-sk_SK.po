@@ -38,7 +38,7 @@ msgstr ""
 msgid "Organizer Featured Image"
 msgstr ""
 
-#: src/Tribe/Main.php:2843
+#: src/Tribe/Main.php:2872
 msgid " (View Full %1$s Description Here: %2$s)"
 msgstr ""
 
@@ -360,39 +360,39 @@ msgstr ""
 msgid "If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
 msgstr ""
 
-#: src/Tribe/Main.php:1103
+#: src/Tribe/Main.php:1132
 msgid "It appears as if the tribe-common libraries cannot be found! The directory should be in the \"common/\" directory in the events calendar plugin."
 msgstr ""
 
-#: src/Tribe/Main.php:1551
+#: src/Tribe/Main.php:1580
 msgid "%1$s updated. %2$sView %3$s"
 msgstr ""
 
-#: src/Tribe/Main.php:1562
+#: src/Tribe/Main.php:1591
 msgid "Event published. %1$sView %2$s"
 msgstr ""
 
-#: src/Tribe/Main.php:1568
+#: src/Tribe/Main.php:1597
 msgid "%1$s submitted. %2$sPreview %3$s"
 msgstr ""
 
-#: src/Tribe/Main.php:1574
+#: src/Tribe/Main.php:1603
 msgid "%1$s scheduled for: %2$s. %3$sPreview %4$s"
 msgstr ""
 
-#: src/Tribe/Main.php:1583
+#: src/Tribe/Main.php:1612
 msgid "%1$s draft updated. %2$sPreview %3$s"
 msgstr ""
 
-#: src/Tribe/Main.php:1602 src/Tribe/Main.php:1622
+#: src/Tribe/Main.php:1631 src/Tribe/Main.php:1651
 msgid "%1$s scheduled for: %2$s."
 msgstr ""
 
-#: src/Tribe/Main.php:1711
+#: src/Tribe/Main.php:1740
 msgid "Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results."
 msgstr ""
 
-#: src/Tribe/Main.php:4190
+#: src/Tribe/Main.php:4219
 msgid "Check out the %savailable add-ons%s."
 msgstr ""
 
@@ -2681,7 +2681,7 @@ msgstr "Máte udalosť, ktorá prekračuje polnoc? Vyberte čas pre ukončenie u
 msgid "%s"
 msgstr ""
 
-#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4242
+#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4271
 msgid "View Calendar"
 msgstr "Zobraziť kalendár"
 
@@ -2695,48 +2695,48 @@ msgid "CSV"
 msgstr "CSV"
 
 #: common/src/Tribe/Settings.php:215
-#: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4290
+#: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4319
 #: vendor/tickets/common/src/Tribe/Settings.php:215
 msgid "Settings"
 msgstr "Nastavenia"
 
-#: src/Tribe/Main.php:4291
+#: src/Tribe/Main.php:4320
 msgid "Calendar"
 msgstr "Kalendár"
 
-#: src/Tribe/Main.php:4347
+#: src/Tribe/Main.php:4376
 msgid "List"
 msgstr "Zoznam"
 
-#: src/Tribe/Main.php:4365
+#: src/Tribe/Main.php:4394
 msgid "Month"
 msgstr "Mesiac"
 
-#: src/Tribe/Main.php:4382
+#: src/Tribe/Main.php:4411
 msgid "Day"
 msgstr "Deň"
 
-#: src/Tribe/Main.php:4407 src/Tribe/Main.php:4408
+#: src/Tribe/Main.php:4436 src/Tribe/Main.php:4437
 msgid "Search"
 msgstr "Vyhľadať"
 
-#: src/Tribe/Main.php:4432 src/Tribe/Main.php:4448
+#: src/Tribe/Main.php:4461 src/Tribe/Main.php:4477
 msgid "Date"
 msgstr "Dátum"
 
-#: src/Tribe/Main.php:4435
+#: src/Tribe/Main.php:4464
 msgid "%s In"
 msgstr ""
 
-#: src/Tribe/Main.php:4437
+#: src/Tribe/Main.php:4466
 msgid "%s From"
 msgstr ""
 
-#: src/Tribe/Main.php:4439
+#: src/Tribe/Main.php:4468
 msgid "Day Of"
 msgstr "Deň"
 
-#: src/Tribe/Main.php:4512
+#: src/Tribe/Main.php:4541
 msgid "Once Every 30 Mins"
 msgstr ""
 
@@ -4063,15 +4063,15 @@ msgstr ""
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:108 src/Tribe/Main.php:1665
-#: src/Tribe/Main.php:1738
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:108 src/Tribe/Main.php:1694
+#: src/Tribe/Main.php:1767
 msgid "Use Saved %s:"
 msgstr "Použiť uložené %s:"
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:138 src/Tribe/Main.php:1475
-#: src/Tribe/Main.php:1493 src/Tribe/Main.php:1511 src/Tribe/Main.php:1674
-#: src/Tribe/Main.php:1740
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:138 src/Tribe/Main.php:1504
+#: src/Tribe/Main.php:1522 src/Tribe/Main.php:1540 src/Tribe/Main.php:1703
+#: src/Tribe/Main.php:1769
 msgid "Edit %s"
 msgstr "Upraviť %s"
 
@@ -4091,7 +4091,7 @@ msgstr ""
 msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
 msgstr ""
 
-#: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1525
+#: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1554
 msgid "%s Categories"
 msgstr ""
 
@@ -4400,7 +4400,7 @@ msgstr "Udalosti"
 msgid "Event"
 msgstr "Udalosť"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.1) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.1.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:635
@@ -4465,161 +4465,161 @@ msgstr "Pomocník"
 msgid "Licenses"
 msgstr "Licencie"
 
-#: src/Tribe/Main.php:1088
+#: src/Tribe/Main.php:1117
 msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
 msgstr "Ľutujeme, Kalendár udalostí požaduje Wordpress %s alebo vyššiu verziu. Prosím aktualizujte váš Wordpress."
 
-#: src/Tribe/Main.php:1091
+#: src/Tribe/Main.php:1120
 msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
 msgstr "Ľutujeme, Kalendár udalostí požadupe PHP %s alebo vyššiu verziu. Kontaktujte poskytovateľa webhostingu kvôli migrácii na vyššiu verziu PHP."
 
-#: src/Tribe/Main.php:1404 src/Tribe/Main.php:2448
+#: src/Tribe/Main.php:1433 src/Tribe/Main.php:2477
 msgid "category"
 msgstr "katogória"
 
-#: src/Tribe/Main.php:1440 src/Tribe/Main.php:2447
+#: src/Tribe/Main.php:1469 src/Tribe/Main.php:2476
 msgid "tag"
 msgstr "tag"
 
-#: src/Tribe/Main.php:1473 src/Tribe/Main.php:1491 src/Tribe/Main.php:1509
+#: src/Tribe/Main.php:1502 src/Tribe/Main.php:1520 src/Tribe/Main.php:1538
 msgid "Add New"
 msgstr "Pridať nový"
 
-#: src/Tribe/Main.php:1474 src/Tribe/Main.php:1492 src/Tribe/Main.php:1510
-#: src/Tribe/Main.php:1641 src/Tribe/Main.php:1642
+#: src/Tribe/Main.php:1503 src/Tribe/Main.php:1521 src/Tribe/Main.php:1539
+#: src/Tribe/Main.php:1670 src/Tribe/Main.php:1671
 msgid "Add New %s"
 msgstr "Pridať nový %s"
 
-#: src/Tribe/Main.php:1476 src/Tribe/Main.php:1494 src/Tribe/Main.php:1512
+#: src/Tribe/Main.php:1505 src/Tribe/Main.php:1523 src/Tribe/Main.php:1541
 msgid "New %s"
 msgstr "Nový %s"
 
-#: src/Tribe/Main.php:1477 src/Tribe/Main.php:1495 src/Tribe/Main.php:1513
+#: src/Tribe/Main.php:1506 src/Tribe/Main.php:1524 src/Tribe/Main.php:1542
 msgid "View %s"
 msgstr "Zobraziť %s"
 
-#: src/Tribe/Main.php:1478 src/Tribe/Main.php:1496 src/Tribe/Main.php:1514
+#: src/Tribe/Main.php:1507 src/Tribe/Main.php:1525 src/Tribe/Main.php:1543
 msgid "Search %s"
 msgstr "Vyhľadať %s "
 
-#: src/Tribe/Main.php:1479 src/Tribe/Main.php:1497 src/Tribe/Main.php:1515
+#: src/Tribe/Main.php:1508 src/Tribe/Main.php:1526 src/Tribe/Main.php:1544
 msgid "No %s found"
 msgstr "Nenašli sa žiadne %s"
 
-#: src/Tribe/Main.php:1480 src/Tribe/Main.php:1498 src/Tribe/Main.php:1516
+#: src/Tribe/Main.php:1509 src/Tribe/Main.php:1527 src/Tribe/Main.php:1545
 msgid "No %s found in Trash"
 msgstr "V koši sa nenašli žiadne %s "
 
-#: src/Tribe/Main.php:1526
+#: src/Tribe/Main.php:1555
 msgid "%s Category"
 msgstr ""
 
-#: src/Tribe/Main.php:1527
+#: src/Tribe/Main.php:1556
 msgid "Search %s Categories"
 msgstr ""
 
-#: src/Tribe/Main.php:1528
+#: src/Tribe/Main.php:1557
 msgid "All %s Categories"
 msgstr ""
 
-#: src/Tribe/Main.php:1529
+#: src/Tribe/Main.php:1558
 msgid "Parent %s Category"
 msgstr ""
 
-#: src/Tribe/Main.php:1530
+#: src/Tribe/Main.php:1559
 msgid "Parent %s Category:"
 msgstr ""
 
-#: src/Tribe/Main.php:1531
+#: src/Tribe/Main.php:1560
 msgid "Edit %s Category"
 msgstr ""
 
-#: src/Tribe/Main.php:1532
+#: src/Tribe/Main.php:1561
 msgid "Update %s Category"
 msgstr ""
 
-#: src/Tribe/Main.php:1533
+#: src/Tribe/Main.php:1562
 msgid "Add New %s Category"
 msgstr ""
 
-#: src/Tribe/Main.php:1534
+#: src/Tribe/Main.php:1563
 msgid "New %s Category Name"
 msgstr ""
 
-#: src/Tribe/Main.php:1556 src/Tribe/Main.php:1593 src/Tribe/Main.php:1613
+#: src/Tribe/Main.php:1585 src/Tribe/Main.php:1622 src/Tribe/Main.php:1642
 msgid "Custom field updated."
 msgstr "Vlastné pole aktualizované."
 
-#: src/Tribe/Main.php:1557 src/Tribe/Main.php:1594 src/Tribe/Main.php:1614
+#: src/Tribe/Main.php:1586 src/Tribe/Main.php:1623 src/Tribe/Main.php:1643
 msgid "Custom field deleted."
 msgstr "Vlastné pole vymazané."
 
-#: src/Tribe/Main.php:1558 src/Tribe/Main.php:1592 src/Tribe/Main.php:1595
-#: src/Tribe/Main.php:1612 src/Tribe/Main.php:1615
+#: src/Tribe/Main.php:1587 src/Tribe/Main.php:1621 src/Tribe/Main.php:1624
+#: src/Tribe/Main.php:1641 src/Tribe/Main.php:1644
 msgid "%s updated."
 msgstr "%s aktualizovaná."
 
 #. translators: %s: date and time of the revision
-#: src/Tribe/Main.php:1560 src/Tribe/Main.php:1597
+#: src/Tribe/Main.php:1589 src/Tribe/Main.php:1626
 msgid "%1$s restored to revision from %2$s"
 msgstr ""
 
-#: src/Tribe/Main.php:1566 src/Tribe/Main.php:1599 src/Tribe/Main.php:1619
+#: src/Tribe/Main.php:1595 src/Tribe/Main.php:1628 src/Tribe/Main.php:1648
 msgid "%s saved."
 msgstr "%s uložené."
 
 #. translators: Publish box date format, see http://php.net/date
-#: src/Tribe/Main.php:1577 src/Tribe/Main.php:1605 src/Tribe/Main.php:1625
+#: src/Tribe/Main.php:1606 src/Tribe/Main.php:1634 src/Tribe/Main.php:1654
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
 #. translators: %s: date and time of the revision
-#: src/Tribe/Main.php:1617
+#: src/Tribe/Main.php:1646
 msgid "%s restored to revision from %s"
 msgstr "%s je obnovené na verziu  z  %s"
 
-#: src/Tribe/Main.php:1598 src/Tribe/Main.php:1618
+#: src/Tribe/Main.php:1627 src/Tribe/Main.php:1647
 msgid "%s published."
 msgstr "%s publikované."
 
-#: src/Tribe/Main.php:1600 src/Tribe/Main.php:1620
+#: src/Tribe/Main.php:1629 src/Tribe/Main.php:1649
 msgid "%s submitted."
 msgstr "%s odoslané."
 
-#: src/Tribe/Main.php:1607 src/Tribe/Main.php:1627
+#: src/Tribe/Main.php:1636 src/Tribe/Main.php:1656
 msgid "%s draft updated."
 msgstr "Koncept %s  aktualizovaný."
 
-#: src/Tribe/Main.php:1811 src/Tribe/Main.php:1899
+#: src/Tribe/Main.php:1840 src/Tribe/Main.php:1928
 msgid "Use New %s"
 msgstr "Použiť nové %s"
 
-#: src/Tribe/Main.php:1814 src/Tribe/Main.php:1903
+#: src/Tribe/Main.php:1843 src/Tribe/Main.php:1932
 msgid "My %s"
 msgstr "Moje %s"
 
-#: src/Tribe/Main.php:1819 src/Tribe/Main.php:1908
+#: src/Tribe/Main.php:1848 src/Tribe/Main.php:1937
 msgid "Available %s"
 msgstr "Dostupné %s"
 
-#: src/Tribe/Main.php:1830 src/Tribe/Main.php:1919
+#: src/Tribe/Main.php:1859 src/Tribe/Main.php:1948
 msgid "No saved %s exists."
 msgstr "Neexistujú uložené %s."
 
-#: src/Tribe/Main.php:2062
+#: src/Tribe/Main.php:2091
 msgid "Next"
 msgstr "Ďalší"
 
-#: src/Tribe/Main.php:2063
+#: src/Tribe/Main.php:2092
 msgid "Prev"
 msgstr "Predchádzajúci"
 
-#: src/Tribe/Asset/Bootstrap_Datepicker.php:20 src/Tribe/Main.php:2064
+#: src/Tribe/Asset/Bootstrap_Datepicker.php:20 src/Tribe/Main.php:2093
 #: src/functions/template-tags/day.php:104
 msgid "Today"
 msgstr "Dnes"
 
-#: src/Tribe/Main.php:2065
+#: src/Tribe/Main.php:2094
 msgid "Done"
 msgstr "Dokončené"
 
@@ -4628,52 +4628,52 @@ msgstr "Dokončené"
 msgid "Network"
 msgstr "Sieť"
 
-#: src/Tribe/Main.php:2449
+#: src/Tribe/Main.php:2478
 msgid "page"
 msgstr ""
 
-#: src/Tribe/Main.php:2450 src/functions/template-tags/general.php:69
+#: src/Tribe/Main.php:2479 src/functions/template-tags/general.php:69
 msgid "event"
 msgstr ""
 
-#: src/Tribe/Main.php:2451 src/functions/template-tags/general.php:91
+#: src/Tribe/Main.php:2480 src/functions/template-tags/general.php:91
 msgid "events"
 msgstr ""
 
-#: src/Tribe/Main.php:2452
+#: src/Tribe/Main.php:2481
 msgid "all"
 msgstr ""
 
-#: src/Tribe/Main.php:3692 src/Tribe/Main.php:3727
+#: src/Tribe/Main.php:3721 src/Tribe/Main.php:3756
 #: src/functions/template-tags/day.php:157
 #: src/functions/template-tags/day.php:178
 msgid "Date out of range."
 msgstr "Dátum mimo rozsah."
 
-#: src/Tribe/Main.php:3762
+#: src/Tribe/Main.php:3791
 msgid "%s Options"
 msgstr ""
 
-#: src/Tribe/Main.php:3769 src/Tribe/Main.php:3780
+#: src/Tribe/Main.php:3798 src/Tribe/Main.php:3809
 msgid "%s Information"
 msgstr "%s informácie"
 
-#: src/Tribe/Main.php:4116
+#: src/Tribe/Main.php:4145
 msgid "Support"
 msgstr "Podpora"
 
-#: src/Tribe/Main.php:4119
+#: src/Tribe/Main.php:4148
 msgid "View All Add-Ons"
 msgstr "Zobraziť všetky doplnky"
 
-#: src/Tribe/Main.php:4139
+#: src/Tribe/Main.php:4168
 msgid "News from Modern Tribe"
 msgstr "Novinky z Modern Tribe"
 
-#: src/Tribe/Main.php:4184
+#: src/Tribe/Main.php:4213
 msgid "Additional Functionality"
 msgstr "Prídavné funkcionality"
 
-#: src/Tribe/Main.php:4189
+#: src/Tribe/Main.php:4218
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
 msgstr "Hľadáte doplnkové funkcionality vrátane opakujúcich udalosti, vlastné meta data, verejné udalosti, predaj lístkov a iné?"

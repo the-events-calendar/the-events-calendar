@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.4.2
-Stable tag: 4.1.1.1
+Stable tag: 4.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -314,6 +314,13 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - Added an oembed template for events [43938]
 * Tweak - improved our JSON-LD output to ensure consistency (props: @garrettjohnson)
 * Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files [36246]
+
+= [4.1.2] 2016-04-11 =
+
+* Tweak - Removed an unneeded hook that attempted to add a query argument to event tag links
+* Fix - Resolved an issue where events marked as "sticky" would not display as such in Month View
+* Fix - Dashes, hyphens, or whatever you like to call them in the events archive slug no longer breaks the URL
+* Fix - The notice that pops up when a conflicting "events" page exists can now be dismissed
 
 = [4.1.1.1] 2016-04-07 =
 
