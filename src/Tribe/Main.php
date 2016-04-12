@@ -583,6 +583,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Setup Shortcodes
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Shortcode__Event_Details', 'hook' ) );
+
+			// Setup Linked Posts singleton
+			add_action( 'init', array( 'Tribe__Events__Linked_Posts', 'instance' ), 11 );
 		}
 
 		/**

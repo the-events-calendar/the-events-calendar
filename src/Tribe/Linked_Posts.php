@@ -45,8 +45,8 @@ class Tribe__Events__Linked_Posts {
 	 */
 	protected function register_default_linked_post_types() {
 		$default_post_types = array(
-			'tribe_venue',
-			'tribe_organizer',
+			Tribe__Events__Main::VENUE_POST_TYPE,
+			Tribe__Events__Main::ORGANIZER_POST_TYPE,
 		);
 
 		/**
@@ -66,6 +66,14 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Registers a post type as a linked post type for events
 	 *
+	 * Notable arguments that can be passed/filtered while registering linked post types:
+	 * - All of the fields returned by get_post_type_object()
+	 * - allow_multiple (default: true) specifies how many of the post type can be linked with an event
+   * - add_form (defalt: null) an array of information on the add form that will appear on the event
+   *     editor page. Elements are:
+   *       - template: path to the template to use as the "add" form
+   *       - handler: callable used to handle add form submissions
+	 *
 	 * @since 4.2
 	 *
 	 * @param string $post_type Post type slug
@@ -74,7 +82,7 @@ class Tribe__Events__Linked_Posts {
 	 * @return boolean
 	 */
 	public function register_linked_post_type( $post_type, $args = array() ) {
-		if ( ! empty( $this->linked_post_type[ $post_type ] ) ) {
+		if ( $this->is_linked_post_type( $post_type ) ) {
 			return false;
 		}
 
@@ -83,6 +91,10 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		$args = wp_parse_args( $args, tribe_object_to_array( $post_type_object ) );
+
+		// default to allowing multiple
+		$args['allow_multiple'] = true;
+		$args['add_form']       = null;
 
 		/**
 		 * Filters the post type arguments before adding them to the collection of linked post types
@@ -130,7 +142,7 @@ class Tribe__Events__Linked_Posts {
 	 * @return boolean
 	 */
 	public function deregister_linked_post_type( $post_type ) {
-		if ( empty( $this->linked_post_types[ $post_type ] ) ) {
+		if ( $this->is_linked_post_type( $post_type ) ) {
 			return false;
 		}
 
@@ -311,7 +323,7 @@ class Tribe__Events__Linked_Posts {
 	 * @return array
 	 */
 	public function get_linked_post_types() {
-		return $this->linked_post_types;
+		return (array) $this->linked_post_types;
 	}
 
 	/**
@@ -325,6 +337,20 @@ class Tribe__Events__Linked_Posts {
 	 */
 	public function is_linked_post_type( $post_type ) {
 		return ! empty( $this->linked_post_types[ $post_type ] );
+	}
+
+	/**
+	 * Returns whether or not the provided linked post type allows multiple posts of that type
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $post_type Post type
+	 *
+	 * @return boolean
+	 */
+	public function allow_multiple( $post_type ) {
+		return false;
+		return ! empty( $this->linked_post_types[ $post_type ]['allow_multiple'] );
 	}
 
 	/**
@@ -356,7 +382,7 @@ class Tribe__Events__Linked_Posts {
 			$subject_post_type = $temp_post_type;
 		}
 
-		if ( empty( $this->get_linked_post_types[ $subject_post_type ] ) ) {
+		if ( ! $this->is_linked_post_type( $subject_post_type ) ) {
 			return $linked_posts;
 		}
 
@@ -366,8 +392,16 @@ class Tribe__Events__Linked_Posts {
 
 		// if the subject isn't in the target's linked posts, add it
 		if ( ! in_array( $subject_post_id, $target_link_posts ) ) {
-			add_post_meta( $target_post_id, $subject_meta_key, $subject_post_id );
-			$linked_posts = true;
+			// if multiples are not allowed, make sure we remove all linked posts of that type before we
+			// link the new one
+			if ( ! $this->allow_multiple( $subject_post_type ) ) {
+				foreach ( $target_link_posts as $attached_post ) {
+					$this->unlink_post( $target_post_id, $attached_post );
+				}
+			}
+
+			// add the subject to the target
+			$linked_posts = add_post_meta( $target_post_id, $subject_meta_key, $subject_post_id );
 		}
 
 		if ( $linked_posts ) {
@@ -436,7 +470,7 @@ class Tribe__Events__Linked_Posts {
 	 * @return boolean
 	 */
 	public function set_add_form( $post_type, $template, $handler ) {
-		if ( empty( $this->linked_post_types[ $post_type ] ) ) {
+		if ( ! $this->is_linked_post_type( $post_type ) ) {
 			return false;
 		}
 
