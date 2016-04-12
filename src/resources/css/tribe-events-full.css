@@ -1188,7 +1188,7 @@ select.tribe-events-dropdown {
 	width: 100%;
 }
 #tribe-bar-form input[type=text]:focus {
-    border-bottom: none;
+	border-bottom: none;
 	outline: 1px dashed #b9b9b9;
 }
 
