@@ -1184,11 +1184,12 @@ select.tribe-events-dropdown {
 	font-weight: bold;
 	height: auto;
 	line-height: 1;
-	padding: 0 0 5px 0;
+	padding: 5px;
 	width: 100%;
 }
 #tribe-bar-form input[type=text]:focus {
-	outline: none;
+    border-bottom: none;
+	outline: 1px dashed #b9b9b9;
 }
 
 input[name*='tribe-bar-']::-webkit-input-placeholder {
