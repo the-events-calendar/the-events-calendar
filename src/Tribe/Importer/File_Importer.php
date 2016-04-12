@@ -126,7 +126,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 		$row    = $this->reader->get_last_line_number_read() + 1;
 		if ( ! $this->is_valid_record( $record ) ) {
 			if ( ! $throw ) {
-				$this->log[ $row ] =$this->get_skipped_row_message($row);
+				$this->log[ $row ] = $this->get_skipped_row_message( $row );
 				$this->skipped[]   = $row;
 
 				return false;
