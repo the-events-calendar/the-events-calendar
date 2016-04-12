@@ -323,6 +323,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'src/functions/advanced-functions/event.php';
 			require_once $this->plugin_path . 'src/functions/advanced-functions/venue.php';
 			require_once $this->plugin_path . 'src/functions/advanced-functions/organizer.php';
+			require_once $this->plugin_path . 'src/functions/advanced-functions/linked-posts.php';
 			require_once $this->plugin_path . 'src/functions/utils/array.php';
 
 			// Load Deprecated Template Tags

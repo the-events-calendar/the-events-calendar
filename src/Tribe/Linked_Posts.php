@@ -100,6 +100,27 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
+	 * Returns the meta key for the given post type
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $post_type Post Type
+	 *
+	 * @return string
+	 */
+	public function get_meta_key( $post_type ) {
+		if ( 'tribe_venue' === $post_type ) {
+			return '_EventVenueID';
+		}
+
+		if ( 'tribe_organizer' === $post_type ) {
+			return '_EventOrganizerID';
+		}
+
+		return self::META_KEY_PREFIX . $post_type;
+	}
+
+	/**
 	 * Deregisters a post type as a linked post type for events
 	 *
 	 * @since 4.2
@@ -142,14 +163,14 @@ class Tribe__Events__Linked_Posts {
 			// if the post type that we're looking at is an event, we'll need to find all linked post types
 			foreach ( $post_types as $post_type => $post_type_data ) {
 				$args['meta_query'][] = array(
-					'key'     => self::META_KEY_PREFIX . $post_type,
+					'key'     => $this->get_meta_Key( $post_type ),
 					'compare' => 'EXISTS',
 				);
 			}
 		} else {
 			// if the post type is NOT an event post type, we just want to find the associated event posts
 			$args['meta_query'][] = array(
-				'key'     => self::META_KEY_PREFIX . Tribe__Events__Main::POSTTYPE,
+				'key'     => $this->get_meta_key( Tribe__Events__Main::POSTTYPE ),
 				'compare' => 'EXISTS',
 			);
 		}
@@ -245,11 +266,13 @@ class Tribe__Events__Linked_Posts {
 	public function get_linked_posts_by_post_type( $post_id, $post_type ) {
 		$result = array();
 
-		if ( $linked_post_ids = get_post_meta( $post_id, self::META_KEY_PREFIX . $post_type ) ) {
+		if ( $linked_post_ids = get_post_meta( $post_id, $this->get_meta_key( $post_type ) ) ) {
 			$args = array(
-				'post_type' => $post_type,
-				'post__in' => $linked_post_ids,
+				'post_type'   => $post_type,
+				'post__in'    => $linked_post_ids,
 				'post_status' => 'publish',
+				'order'       => 'ASC',
+				'orderby'     => 'title',
 			);
 
 			$query = new WP_Query( $args );
@@ -270,17 +293,6 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
-	 * Returns the linked post types
-	 *
-	 * @since 4.2
-	 *
-	 * @return array
-	 */
-	public function get_linked_post_types() {
-		return $this->linked_post_types;
-	}
-
-	/**
 	 * Returns whether or not there are any linked post types
 	 *
 	 * @since 4.2
@@ -289,6 +301,17 @@ class Tribe__Events__Linked_Posts {
 	 */
 	public function has_linked_post_types() {
 		return ! empty( $this->linked_post_types );
+	}
+
+	/**
+	 * Returns the linked post types
+	 *
+	 * @since 4.2
+	 *
+	 * @return array
+	 */
+	public function get_linked_post_types() {
+		return $this->linked_post_types;
 	}
 
 	/**
@@ -304,21 +327,127 @@ class Tribe__Events__Linked_Posts {
 		return ! empty( $this->linked_post_types[ $post_type ] );
 	}
 
-	public function link_post( $post_id, $post_id_to_link ) {
-		$primary_post_type = get_post_type( $post_id );
-		$link_post_type = get_post_type( $post_id_to_link );
+	/**
+	 * Links two posts together
+	 *
+	 * @since 4.2
+	 *
+	 * @param int $target_post_id Post ID of post to add linked post to
+	 * @param int $subject_post_id Post ID of post to add as a linked post to the target
+	 *
+	 * @return boolean
+	 */
+	public function link_post( $target_post_id, $subject_post_id ) {
+		$linked_posts      = false;
+		$target_post_type  = get_post_type( $target_post_id );
+		$subject_post_type = get_post_type( $subject_post_id );
 
-		if ( empty( $this->get_linked_post_types[ $link_post_type ] ) ) {
+		if (
+			Tribe__Events__Main::POSTTYPE !== $target_post_type
+			&& Tribe__Events__Main::POSTTYPE === $subject_post_type
+		) {
+			// swap the post IDs and post types around so we are assigning in the correct direction
+			$temp_post_id    = $target_post_id;
+			$target_post_id  = $subject_post_id;
+			$subject_post_id = $temp_post_id;
+
+			$temp_post_type    = $target_post_type;
+			$target_post_type  = $subject_post_type;
+			$subject_post_type = $temp_post_type;
+		}
+
+		if ( empty( $this->get_linked_post_types[ $subject_post_type ] ) ) {
+			return $linked_posts;
+		}
+
+		$subject_meta_key   = $this->get_meta_key( $subject_post_type );
+
+		$target_link_posts  = get_post_meta( $target_post_id, $subject_meta_key );
+
+		// if the subject isn't in the target's linked posts, add it
+		if ( ! in_array( $subject_post_id, $target_link_posts ) ) {
+			add_post_meta( $target_post_id, $subject_meta_key, $subject_post_id );
+			$linked_posts = true;
+		}
+
+		if ( $linked_posts ) {
+			/**
+			 * Fired after two posts have been linked
+			 *
+			 * @var int Post ID of post to add linked post to
+			 * @var int Post ID of post to add as a linked post to the target
+			 */
+			do_action( 'tribe_events_link_post', $target_post_id, $subject_post_id );
+		}
+
+		return $linked_posts;
+	}
+
+	/**
+	 * Unlinks two posts from eachother
+	 *
+	 * @since 4.2
+	 *
+	 * @param int $target_post_id Post ID of post to remove linked post from
+	 * @param int $subject_post_id Post ID of post to remove as a linked post from the target
+	 */
+	public function unlink_post( $target_post_id, $subject_post_id ) {
+		$target_post_type  = get_post_type( $target_post_id );
+		$subject_post_type = get_post_type( $subject_post_id );
+
+		if (
+			Tribe__Events__Main::POSTTYPE !== $target_post_type
+			&& Tribe__Events__Main::POSTTYPE === $subject_post_type
+		) {
+			// swap the post IDs and post types around so we are assigning in the correct direction
+			$temp_post_id    = $target_post_id;
+			$target_post_id  = $subject_post_id;
+			$subject_post_id = $temp_post_id;
+
+			$temp_post_type    = $target_post_type;
+			$target_post_type  = $subject_post_type;
+			$subject_post_type = $temp_post_type;
+		}
+
+		$subject_meta_key  = $this->get_meta_key( $subject_post_type );
+
+		delete_post_meta( $target_post_id, $subject_meta_key, $subject_post_id );
+
+		/**
+		 * Fired after two posts have been unlinked
+		 *
+		 * @since 4.2
+		 *
+		 * @var int Post ID of post to add linked post to
+		 * @var int Post ID of post to add as a linked post to the target
+		 */
+		do_action( 'tribe_events_unlink_post', $target_post_id, $subject_post_id );
+	}
+
+	/**
+	 * Sets the "add" form template and submission handler for the given post type
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $post_type Post Type
+	 * @param string $template Template path for the "add" form
+	 * @param string $handler Form parsing handler
+	 *
+	 * @return boolean
+	 */
+	public function set_add_form( $post_type, $template, $handler ) {
+		if ( empty( $this->linked_post_types[ $post_type ] ) ) {
 			return false;
 		}
 
-		$meta_key = self::META_KEY_PREFIX . $link_post_type;
-
-		$linked_posts = get_post_meta( $post_id, $meta_key );
-
-		// if the post is already linked, don't re-link it
-		if ( in_array( $post_id_to_link, $linked_posts ) ) {
-			return true;
+		if ( ! is_callable( $handler ) ) {
+			return false;
 		}
+
+		$this->linked_post_types[ $post_type ]['add_form']             = array();
+		$this->linked_post_types[ $post_type ]['add_form']['template'] = $template;
+		$this->linked_post_types[ $post_type ]['add_form']['handler']  = $handler;
+
+		return true;
 	}
 }
