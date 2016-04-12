@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.4.2
-Stable tag: 4.1.1
+Stable tag: 4.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -228,6 +228,11 @@ Our Premium Plugins:
 = [4.2] TBD =
 
 * Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files [36246]
+
+= [4.1.2] 2016-04-11 =
+
+* Tweak - Changed the word "Once" in an event's recurring settings because it was pretty confusing for everyone, including us
+* Security - Tightened up security around AJAX calls (props to James Golovich for reporting the problem!)
 
 = [4.1.1] 2016-03-30 =
 

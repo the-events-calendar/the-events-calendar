@@ -389,7 +389,6 @@
 
 #tribe-events-photo-events {
 	margin: 18px -4.5% 18px 0;
-	opacity: 0;
 	-webkit-transition-property: height, width;
 	   -moz-transition-property: height, width;
 	    -ms-transition-property: height, width;
@@ -397,11 +396,8 @@
 	        transition-property: height, width;
 }
 
-/**
- * This prevents Isotope conflicting not showing events
- */
-.tribe-mobile #tribe-events-photo-events {
-	opacity: 1;
+#tribe-events-photo-events.isotope {
+	opacity: 0;
 }
 
 #tribe-events-photo-events .isotope-item {
@@ -433,6 +429,16 @@
 
 #tribe-events-photo-events.photo-hidden {
 	opacity: 0 !important;
+}
+
+/**
+ * This prevents Isotope conflicting not showing events
+ * We need to use !important here because we have no control over how Isotope
+ * creates the opacity on their script, which requires the usage of !important.
+ */
+.tribe-mobile #tribe-events-photo-events,
+.tribe-mobile #tribe-events-photo-events.photo-hidden {
+	opacity: 1 !important;
 }
 
 .photo-loader {
