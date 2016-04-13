@@ -39,29 +39,48 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	 * @param  array  $args
 	 * @return array
 	 */
-	public function get_data( $post = null, $args = array() ) {
-		$data = parent::get_data( $post, $args );
+	public function get_data( $posts = null, $args = array() ) {
+		$posts = (array) $posts;
+		$return = array();
 
-		// Fetch first key
-		$post_id = key( $data );
+		foreach ( $posts as $i => $post ) {
+			$data = parent::get_data( $post, $args );
 
-		// Fetch first Value
-		$data = reset( $data );
+			// Fetch first key
+			$post_id = key( $data );
 
-		$data->startDate = get_gmt_from_date( tribe_get_start_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), 'c' );
-		$data->endDate   = get_gmt_from_date( tribe_get_end_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), 'c' );
+			// Fetch first Value
+			$data = reset( $data );
 
-		if ( tribe_has_venue( $post_id ) ) {
-			$venue_data = Tribe__Events__JSON_LD__Venue::instance()->get_data( tribe_get_venue_id( $post_id ) );
-			$data->location = reset( $venue_data );
+			$data->startDate = get_gmt_from_date( tribe_get_start_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), 'c' );
+			$data->endDate   = get_gmt_from_date( tribe_get_end_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), 'c' );
+
+			if ( tribe_has_venue( $post_id ) ) {
+				$venue_data = Tribe__Events__JSON_LD__Venue::instance()->get_data( tribe_get_venue_id( $post_id ) );
+				$data->location = reset( $venue_data );
+			}
+
+			if ( tribe_has_organizer( $post_id ) ) {
+				$organizer_data = Tribe__Events__JSON_LD__Organizer::instance()->get_data( tribe_get_organizer_id( $post_id ) );
+				$data->organizer = reset( $organizer_data );
+			}
+
+			$price = tribe_get_cost( $post_id );
+			if ( ! empty( $price ) ) {
+				// Manually Include the Price for non Event Tickets
+				$data->offers = (object) array(
+					'@type' => 'Offer',
+					'price' => $price,
+
+					// Use the same url as the event
+					'url' => $data->url,
+				);
+			}
+
+			$return[ $post_id ] = $data;
 		}
 
-		if ( tribe_has_organizer( $post_id ) ) {
-			$organizer_data = Tribe__Events__JSON_LD__Organizer::instance()->get_data( tribe_get_organizer_id( $post_id ) );
-			$data->organizer = reset( $organizer_data );
-		}
-
-		return array( $post_id => $data );
+		return $return;
 	}
 
 }

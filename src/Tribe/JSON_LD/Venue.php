@@ -59,6 +59,15 @@ class Tribe__Events__JSON_LD__Venue extends Tribe__JSON_LD__Abstract {
 		// Filter empty entries and convert to object
 		$data->address = (object) array_filter( $data->address );
 
+		$geo = tribe_get_coordinates( $post_id );
+		if ( ! empty( $geo['lat'] ) && ! empty( $geo['lng'] ) ) {
+			$data->geo = (object) array(
+				'@type' => 'GeoCoordinates',
+				'latitude' => $geo['lat'],
+				'longitude' => $geo['lng'],
+			);
+		}
+
 		$data->telephone = tribe_get_phone( $post_id );
 		$data->sameAs = tribe_get_venue_website_url( $post_id );
 
