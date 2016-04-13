@@ -32,21 +32,9 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Single_Venue' ) ) {
 
 			add_filter( 'tribe_get_template_part_templates', array( $this, 'remove_list_navigation' ), 10, 3 );
 
-			// google data markup
-			add_action( 'wp_head', array( $this, 'google_data_markup' ) );
+			// Print JSON-LD markup on the `wp_head`
+			add_action( 'wp_head', array( Tribe__Events__JSON_LD__Venue::instance(), 'markup' ) );
 		}
-
-		/**
-		 * Output JSON-LD for schema.org markup
-		 *
-		 * @see 'wp_head'
-		 */
-		public function google_data_markup() {
-			$venue_markup = new Tribe__Events__Pro__Google_Data_Markup__Venue();
-			$html = apply_filters( 'tribe_google_data_markup_json', $venue_markup->script_block() );
-			echo $html;
-		}
-
 
 		/**
 		 * Setup meta display in this template

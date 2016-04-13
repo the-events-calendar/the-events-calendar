@@ -34,20 +34,8 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Single_Organizer' ) ) {
 
 			add_filter( 'tribe_get_template_part_templates', array( $this, 'remove_list_navigation' ), 10, 3 );
 
-			// google data markup
-			add_action( 'wp_head', array( $this, 'google_data_markup' ) );
-
-		}
-
-		/**
-		 * Output JSON-LD for schema.org markup
-		 *
-		 * @see 'wp_head'
-		 */
-		public function google_data_markup() {
-			$organizer_markup = new Tribe__Events__Pro__Google_Data_Markup__Organizer();
-			$html = apply_filters( 'tribe_google_data_markup_json', $organizer_markup->script_block() );
-			echo $html;
+			// Print JSON-LD markup on the `wp_head`
+			add_action( 'wp_head', array( Tribe__Events__JSON_LD__Organizer::instance(), 'markup' ) );
 		}
 
 		/**
