@@ -1,54 +1,67 @@
 <?php
 
-/**
- * Handles output of Google structured data markup
- */
-class Tribe__Events__JSON_LD__Event extends Tribe__Events__Google_Data_Markup {
+// Don't load directly
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
-	protected $filter = 'tribe_google_event_data';
+/**
+ * A JSON-LD class extended of the Abstract that lies on the Common Package
+ * Used for generating a Event JSON-LD markup
+ */
+class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 
 	/**
-	 * Compile the schema.org event data into an array
+	 * Which type of element this actually is
+	 *
+	 * @see https://developers.google.com/structured-data/rich-snippets/
+	 * @var string
 	 */
-	protected function build_data() {
-		global $post;
-		$id  = $post->ID;
+	public $type = 'Event';
 
-		$event_data = parent::build_data();
+	/**
+	 * On PHP 5.2 the child class doesn't get spawned on the Parent one, so we don't have
+	 * access to that information on the other side unless we pass it around as a param
+	 * so we throw __CLASS__ to the parent::instance() method to be able to spawn new instance
+	 * of this class and save on the parent::$instances variable.
+	 *
+	 * @param   $name DONT USE THIS PARAM, it's here for Abstract compatibility
+	 * @return Tribe__Events__JSON_LD__Event
+	 */
+	public static function instance( $name = null ) {
+		return parent::instance( __CLASS__ );
+	}
 
-		$event_data[ $id ]->{'@type'} = 'Event';
-		$event_data[ $id ]->startDate = get_gmt_from_date( tribe_get_start_date( $post, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), 'c' );
-		$event_data[ $id ]->endDate   = get_gmt_from_date( tribe_get_end_date( $post, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), 'c' );
-		if ( tribe_has_venue( $id ) ) {
-			$event_data[ $id ]->location            = new stdClass();
-			$event_data[ $id ]->location->{'@type'} = 'Place';
-			$event_data[ $id ]->location->name      = tribe_get_venue( $post->ID );
-			$event_data[ $id ]->location->address   = new stdClass();
+	/**
+	 * Fetches the JSON-LD data for this type of object
+	 *
+	 * @param  int|WP_Post|null $post The post/event
+	 * @param  array  $args
+	 * @return array
+	 */
+	public function get_data( $post = null, $args = array() ) {
+		$data = parent::get_data( $post, $args );
 
-			if ( tribe_get_address( $post->ID ) ) {
-				$event_data[ $id ]->location->address->streetAddress = tribe_get_address();
-			}
+		// Fetch first key
+		$post_id = key( $data );
 
-			if ( tribe_get_city( $post->ID ) ) {
-				$event_data[ $id ]->location->address->addressLocality = tribe_get_city();
-			}
+		// Fetch first Value
+		$data = reset( $data );
 
-			if ( tribe_get_region( $post->ID ) ) {
-				$event_data[ $id ]->location->address->addressRegion = tribe_get_region();
-			}
+		$data->startDate = get_gmt_from_date( tribe_get_start_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), 'c' );
+		$data->endDate   = get_gmt_from_date( tribe_get_end_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), 'c' );
 
-			if ( tribe_get_zip( $post->ID ) ) {
-				$event_data[ $id ]->location->address->postalCode = tribe_get_zip();
-			}
-
-			if ( tribe_get_country( $post->ID ) ) {
-				$event_data[ $id ]->location->address->addressCountry = tribe_get_country();
-			}
-
+		if ( tribe_has_venue( $post_id ) ) {
+			$venue_data = Tribe__Events__JSON_LD__Venue::instance()->get_data( tribe_get_venue_id( $post_id ) );
+			$data->location = reset( $venue_data );
 		}
 
-		return $event_data;
+		if ( tribe_has_organizer( $post_id ) ) {
+			$organizer_data = Tribe__Events__JSON_LD__Organizer::instance()->get_data( tribe_get_organizer_id( $post_id ) );
+			$data->organizer = reset( $organizer_data );
+		}
 
+		return array( $post_id => $data );
 	}
 
 }
