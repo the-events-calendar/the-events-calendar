@@ -504,7 +504,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$venue .= $separator . implode( $separator, $venue_address );
 			}
 
-			if ( $link ) {
+			if ( $link && $venue_url ) {
 				$attr_title = the_title_attribute( array( 'post' => $venue_id, 'echo' => false ) );
 
 				$venue = '<a href="' . esc_url( $venue_url ) . '" title="' . $attr_title . '">' . $venue . '</a>';

@@ -19,7 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 $event_id = get_the_ID();
 
 // Setup an array of venue details for use later in the template
-$venue = tribe_get_venue_single_line_address( $event_id );
+$venue_post_type = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE );
+$do_venue_link = empty( $venue_post_type->exclude_from_search );
+
+$venue = tribe_get_venue_single_line_address( $event_id, $do_venue_link );
 
 if ( ! $venue ) {
 	return;
