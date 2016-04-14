@@ -25,10 +25,9 @@ class Tribe__Events__JSON_LD__Organizer extends Tribe__JSON_LD__Abstract {
 	 * so we throw __CLASS__ to the parent::instance() method to be able to spawn new instance
 	 * of this class and save on the parent::$instances variable.
 	 *
-	 * @param   $name DONT USE THIS PARAM, it's here for Abstract compatibility
 	 * @return Tribe__Events__JSON_LD__Organizer
 	 */
-	public static function instance( $name = null ) {
+	public static function instance() {
 		return parent::instance( __CLASS__ );
 	}
 
