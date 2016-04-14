@@ -342,8 +342,8 @@ h2.tribe-events-page-title,
 
 .tribe-events-calendar td.tribe-events-past .tribe-events-month-event-title a,
 .tribe-events-calendar td.tribe-events-past .tribe-events-viewmore a {
-	opacity: .5;
-	filter:Alpha(opacity=50);
+	opacity: .2;
+	filter:Alpha(opacity=20);
 }
 
 /* Global Tooltips */
