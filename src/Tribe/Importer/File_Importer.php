@@ -40,7 +40,19 @@ abstract class Tribe__Events__Importer__File_Importer {
 			case 'organizers':
 				return new Tribe__Events__Importer__File_Importer_Organizers( $file_reader );
 			default:
-				throw new InvalidArgumentException( sprintf( esc_html__( 'No importer defined for %s', 'the-events-calendar' ), $type ) );
+				/**
+				 * Allows developers to return an importer instance to use for unsupported import types.
+				 *
+				 * @param bool|mixed An importer instance or `false` if not found or not supported.
+				 * @param Tribe__Events__Importer__File_Reader $file_reader
+				 */
+				$importer = apply_filters( "tribe_events_import_{$type}_importer", false, $file_reader );
+
+				if ( false === $importer ) {
+					throw new InvalidArgumentException( sprintf( esc_html__( 'No importer defined for %s', 'the-events-calendar' ), $type ) );
+				}
+
+				return $importer;
 		}
 	}
 
@@ -109,12 +121,16 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return $this->required_fields;
 	}
 
+	public function get_type() {
+		return $this->type;
+	}
+
 	public function import_next_row( $throw = false ) {
 		$record = $this->reader->read_next_row();
 		$row    = $this->reader->get_last_line_number_read() + 1;
 		if ( ! $this->is_valid_record( $record ) ) {
 			if ( ! $throw ) {
-				$this->log[ $row ] = sprintf( esc_html__( 'Missing required fields in row %d.', 'the-events-calendar', $row ) );
+				$this->log[ $row ] = $this->get_skipped_row_message( $row );
 				$this->skipped[]   = $row;
 
 				return false;
@@ -222,7 +238,15 @@ abstract class Tribe__Events__Importer__File_Importer {
 	 * @return Tribe__Events__Importer__Featured_Image_Uploader
 	 */
 	protected function featured_image_uploader( $featured_image ) {
-		return empty( $this->featured_image_uploader ) ? new Tribe__Events__Importer__Featured_Image_Uploader( $featured_image ) : $this->featured_image_uploader;
+		// Remove any leading/trailing whitespace (if the string is a URL, extra whitespace
+		// could result in URL validation fail)
+		if ( is_string( $featured_image ) ) {
+			$featured_image = trim( $featured_image );
+		}
+
+		return empty( $this->featured_image_uploader )
+			? new Tribe__Events__Importer__Featured_Image_Uploader( $featured_image )
+			: $this->featured_image_uploader;
 	}
 
 	/**
@@ -244,5 +268,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 		}
 
 		return is_null( $return_false_value ) ? $value : $return_false_value;
+	}
+
+	/**
+	 * @param $row
+	 *
+	 * @return string
+	 */
+	protected function get_skipped_row_message( $row ) {
+		return sprintf( esc_html__( 'Missing required fields in row %d.', 'the-events-calendar' ), $row );
 	}
 }

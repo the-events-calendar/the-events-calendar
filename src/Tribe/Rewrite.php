@@ -201,7 +201,9 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				return $permalink;
 			}
 
-			return add_query_arg( array( 'lang' => $_GET['lang'] ), $permalink );
+			$lang = wp_strip_all_tags( $_GET['lang'] );
+
+			return add_query_arg( array( 'lang' => $lang ), $permalink );
 		}
 
 		/**
@@ -220,7 +222,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @return Tribe__Events__Rewrite       The modified version of the class with the required variables in place
 		 */
 		public function setup( $wp_rewrite = null ) {
-			if ( ! $wp_rewrite instanceof WP_Rewrite ){
+			if ( ! $wp_rewrite instanceof WP_Rewrite ) {
 				global $wp_rewrite;
 			}
 			$this->rewrite = $wp_rewrite;
@@ -297,7 +299,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				$bases = $tec->get_i18n_strings( $bases, $languages, $domains, $current_locale );
 			}
 
-			if ( 'regex' === $method ){
+			if ( 'regex' === $method ) {
 				foreach ( $bases as $type => $base ) {
 					// Escape all the Bases
 					$base = array_map( 'preg_quote', $base );
@@ -436,9 +438,10 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 *
 		 * @param  string $slug
 		 * @param  string $permastruct_name
+		 * @param  string $is_regular_exp
 		 * @return string
 		 */
-		public function prepare_slug( $slug, $permastruct_name ) {
+		public function prepare_slug( $slug, $permastruct_name, $is_regular_exp = true ) {
 			$needs_handling = false;
 			$sanitized_slug = sanitize_title( $slug );
 
@@ -479,7 +482,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			 * @var string $original_slug
 			 */
 			return apply_filters( 'tribe_events_rewrite_prepared_slug',
-				preg_quote( $sanitized_slug ),
+				$is_regular_exp ? preg_quote( $sanitized_slug ) : $sanitized_slug,
 				$permastruct_name,
 				$slug
 			);

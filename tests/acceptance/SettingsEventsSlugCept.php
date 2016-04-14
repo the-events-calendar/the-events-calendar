@@ -6,8 +6,9 @@ $I->wantTo( 'verify change to TEC Events Slug Setting' );
 
 // arrange
 $I->activate_tec();
+$I->setTribeOption( 'eventsSlug', 'events' );
 $I->setPermalinkStructureAndFlush( '/%postname%/' );
-$current_slug = $I->getTribeOptionFromDatabase( 'eventsSlug', 'events' );
+$current_slug = 'events';
 
 // act
 $I->loginAsAdmin();
@@ -17,6 +18,8 @@ $I->fillField( 'eventsSlug', $new_slug );
 $I->click( '#tribeSaveSettings' );
 
 // assert
+$I->useTheme( 'twentyfifteen' );
+
 $I->amOnPage( '/' . $current_slug );
 $I->seeElement( 'body.error404' );
 $I->amOnPage( '/' . $new_slug );

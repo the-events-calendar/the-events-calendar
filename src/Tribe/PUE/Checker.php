@@ -133,6 +133,25 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		}
 
 		/**
+		 * Returns the domain name of this site.
+		 *
+		 * @return string
+		 */
+		private function get_domain() {
+			if ( is_multisite() ) {
+				$url = get_site_option( 'siteurl' );
+			} else {
+				$url = get_site_url();
+			}
+			$parts = parse_url( $url );
+			if ( isset( $parts['host'] ) ) {
+				return $parts['host'];
+			} elseif ( isset( $_SERVER['SERVER_NAME'] ) ) {
+				return $_SERVER['SERVER_NAME'];
+			}
+		}
+
+		/**
 		 * Get the plugin file path
 		 *
 		 * @return string
@@ -395,9 +414,8 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				global $wp_version;
 				$queryArgs['wp_version'] = $wp_version;
 
-				// For multisite, return the network-level siteurl ... in
-				// all other cases return the actual URL being serviced
-				$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : $_SERVER['SERVER_NAME'];
+				//include domain and multisite stats
+				$queryArgs['domain'] = $this->get_domain();
 
 				if ( is_multisite() ) {
 					$queryArgs['multisite']         = 1;
@@ -514,7 +532,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 			$queryArgs['wp_version'] = $wp_version;
 
 			//include domain and multisite stats
-			$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : $_SERVER['SERVER_NAME'];
+			$queryArgs['domain'] = $this->get_domain();
 
 			if ( is_multisite() ) {
 				$queryArgs['multisite']         = 1;
@@ -566,20 +584,6 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 			$plugin_info_cache[ $key ] = $pluginInfo;
 
 			return $pluginInfo;
-		}
-
-		/**
-		 * Returns the domain contained in the network's siteurl option (not the full URL).
-		 *
-		 * @return string
-		 */
-		public function get_network_domain() {
-			$site_url = parse_url( get_site_option( 'siteurl' ) );
-			if ( ! $site_url || ! isset( $site_url['host'] ) ) {
-				return '';
-			} else {
-				return strtolower( $site_url['host'] );
-			}
 		}
 
 		/**

@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.4.2
-Stable tag: 4.1.0.1
+Stable tag: 4.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -311,7 +311,30 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.2] TBD =
 
-* Tweak - improved our JSON-LD output to ensure consistency (props: @garrettjohnson)
+* Feature - Added an oembed template for events [43938]
+* Tweak - Improved our JSON-LD output to ensure consistency (props: @garrettjohnson) [43595]
+* Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files [36246]
+
+= [4.1.2] 2016-04-11 =
+
+* Tweak - Removed an unneeded hook that attempted to add a query argument to event tag links
+* Fix - Resolved an issue where events marked as "sticky" would not display as such in Month View
+* Fix - Dashes, hyphens, or whatever you like to call them in the events archive slug no longer breaks the URL
+* Fix - The notice that pops up when a conflicting "events" page exists can now be dismissed
+
+= [4.1.1.1] 2016-04-07 =
+
+* Security - Tightened up security with post type link filtering (props to Nadal Soler for reporting this issue!)
+* Security - Tightened up security around tribe bar submissions (props to Paul Mynarsky for reporting this issue!)
+
+= [4.1.1] 2016-03-30 =
+
+* Fix - Resolved bug where array notices were output on single event pages when venues were not set (props to zaxiscreative for reporting this issue!)
+* Fix - Resolved issue where the Month View in mobile sizes retained the long day-of-week names when the abbreviations should have been used (props to Lucy for the bug report!)
+* Fix - Fixed bug where a "0" was added to the default Venue name when creating a new event
+* Fix - Fixed notice that caused Ajax requests to fail (props to cgrymala on WP.org for reporting this!)
+* Fix - Removed quotes from around TZID-specified timezones in iCal feeds which causes problems with some parsers (props to factory44 for reporting the issue that lead to this fix)
+* Fix - Resolved various capitalization issues with German translations (props to oheinrich in our forums for pointing out this issue!)
 
 = [4.1.0.1] 2016-03-17 =
 

@@ -28,15 +28,23 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	 * @param null $event
 	 */
 	protected function get_event( $event = null ) {
-		global $post;
-
-		if ( $event === null ) {
-			$this->event = $post;
-		} elseif ( $event instanceof WP_Post ) {
-			$this->event = $event;
-		} else {
-			$this->event = new WP_Post( (object) array( 'ID' => 0 ) );
+		if ( is_null( $event ) ) {
+			$event = $GLOBALS['post'];
 		}
+
+		if ( is_numeric( $event ) ) {
+			$event = WP_Post::get_instance( $event );
+		}
+
+		if ( $event instanceof stdClass || is_array( $event ) ) {
+			$event = new WP_Post( (object) $event );
+		}
+
+		if ( ! $event instanceof WP_Post ) {
+			$event = new WP_Post( (object) array( 'ID' => 0 ) );
+		}
+
+		$this->event = $event;
 	}
 
 	/**
@@ -46,7 +54,13 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	public function render() {
 		$this->render_dropdowns();
 		$this->render_add_organizer_button();
-		include $this->tribe->pluginPath . 'src/admin-views/new-organizer-meta-section.php';
+
+		/**
+		 * Make this Template filterable, used for Community Facing templates
+		 *
+		 * @var string $file_path
+		 */
+		include apply_filters( 'tribe_events_multiple_organizer_template', $this->tribe->pluginPath . 'src/admin-views/new-organizer-meta-section.php' );
 	}
 
 	/**
@@ -57,6 +71,7 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	public function render_dropdowns() {
 		$post_id = $this->event->ID;
 		$current_organizers = get_post_meta( $post_id, '_EventOrganizerID', false );
+
 		if ( $this->use_default_organizer( $current_organizers ) ) {
 			$current_organizers = array( $this->tribe->defaults()->organizer_id() );
 		}
