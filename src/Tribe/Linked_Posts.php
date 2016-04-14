@@ -43,7 +43,7 @@ class Tribe__Events__Linked_Posts {
 	 *
 	 * @since 4.2
 	 */
-	protected function register_default_linked_post_types() {
+	public function register_default_linked_post_types() {
 		$default_post_types = array(
 			Tribe__Events__Main::VENUE_POST_TYPE,
 			Tribe__Events__Main::ORGANIZER_POST_TYPE,
@@ -483,5 +483,105 @@ class Tribe__Events__Linked_Posts {
 		$this->linked_post_types[ $post_type ]['add_form']['handler']  = $handler;
 
 		return true;
+	}
+
+	public function handle_submission( $post_id, $submission ) {
+		$post_types = $this->get_linked_post_types();
+
+		foreach ( $post_types as $post_type => $post_type_data ) {
+			/**
+			 * Filters the array element that contains the post type data in the $_POST object
+			 *
+			 * @var string Post type index
+			 * @var string Post type
+			 */
+			$post_type_container = apply_filters( 'tribe_events_linked_post_type_container', "linked_{$post_type}", $post_type );
+
+			$this->handle_submission_by_post_type( $post_id, $post_type, $submission[ $post_type_container ] );
+		}
+	}
+
+	public function handle_submission_by_post_type( $post_id, $post_type, $submission ) {
+		$linked_post_types = $this->get_linked_post_types();
+		$post_type_object = get_post_type_object( $post_type );
+
+		/**
+		 * Filters the array index that contains the post type ID in the $_POST object
+		 *
+		 * @var string Post type id index
+		 * @var string Post type
+		 */
+		$post_type_id_field = apply_filters( 'tribe_events_linked_post_id_field', 'id', $post_type );
+
+		$linked_posts = array();
+
+		do_action( 'debug_robot', "a" );
+		do_action( 'debug_robot', '$post_type_id_field :: ' . print_r( $post_type_id_field, TRUE ) );
+
+		if ( ! is_array( $submission ) ) {
+			return;
+		}
+		do_action( 'debug_robot', "b" );
+
+		$fields = array_keys( $submission );
+		do_action( 'debug_robot', '$fields :: ' . print_r( $fields, TRUE ) );
+
+		foreach ( $submission[ $post_type_id_field ] as $key => $id ) {
+			do_action( 'debug_robot', '$id :: ' . print_r( $id, TRUE ) );
+			if ( ! empty( $id ) ) {
+				$linked_posts[] = intval( $id );
+				continue;
+			}
+
+			// if the user doesn't have permission to create this type of post, don't allow for creation
+			if (
+				empty( $post_type_object->cap->create_posts )
+				|| ! current_user_can( $post_type_object->cap->create_posts )
+			) {
+				continue;
+			}
+
+			// if there isn't a callback declared for the "add" form, we can't successfully parse the data
+			if (
+				empty( $linked_post_types[ $post_type ]['add_form']['handler'] )
+				|| ! is_callable( $linked_post_types[ $post_type ]['add_form']['handler'] )
+			) {
+				continue;
+			}
+
+			do_action( 'debug_robot', "creating" );
+
+			$data = array();
+			foreach ( $fields as $field_name ) {
+				$data[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : null;
+			}
+			do_action( 'debug_robot', '$data :: ' . print_r( $data, TRUE ) );
+
+			$id = call_user_func_array( $linked_post_types[ $post_type ]['add_form']['handler'], array( $data ) );
+
+			if ( $id ) {
+				$linked_posts[] = $id;
+			}
+		}
+		do_action( 'debug_robot', "c" );
+
+		$currently_linked_posts = $this->get_linked_posts_by_post_type( $post_id, $post_type );
+		$currently_linked_posts = wp_list_pluck( $currently_linked_posts, 'ID' );
+
+		$posts_to_add = array_diff( $linked_posts, $currently_linked_posts );
+		$posts_to_remove = array_diff( $currently_linked_posts, $linked_posts );
+		do_action( 'debug_robot', '$posts_to_add :: ' . print_r( $posts_to_add, TRUE ) );
+		do_action( 'debug_robot', '$posts_to_remove :: ' . print_r( $posts_to_remove, TRUE ) );
+		do_action( 'debug_robot', "d" );
+
+		/*
+		foreach ( $posts_to_remove as $linked_post_id ) {
+			$this->unlink_post( $post_id, $linked_post_id );
+		}
+
+		foreach ( $posts_to_add as $linked_post_id ) {
+			$this->link_post( $post_id, $linked_post_id );
+		}
+		*/
 	}
 }

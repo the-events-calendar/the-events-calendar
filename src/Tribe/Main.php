@@ -584,8 +584,29 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Setup Shortcodes
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Shortcode__Event_Details', 'hook' ) );
 
-			// Setup Linked Posts singleton
-			add_action( 'init', array( 'Tribe__Events__Linked_Posts', 'instance' ), 11 );
+			add_filter( 'tribe_events_linked_post_id_field', function( $id, $post_type ) {
+				if ( 'tribe_venue' === $post_type ) {
+					return 'VenueID';
+				}
+
+				if ( 'tribe_organizer' === $post_type ) {
+					return 'OrganizerID';
+				}
+
+				return $id;
+			}, 10, 2 );
+
+			add_filter( 'tribe_events_linked_post_type_container', function( $container, $post_type ) {
+				if ( 'tribe_venue' === $post_type ) {
+					return 'venue';
+				}
+
+				if ( 'tribe_organizer' === $post_type ) {
+					return 'organizer';
+				}
+
+				return $container;
+			}, 10, 2 );
 		}
 
 		/**
@@ -1355,6 +1376,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			register_post_type( self::POSTTYPE, apply_filters( 'tribe_events_register_event_type_args', $this->postTypeArgs ) );
 			register_post_type( self::VENUE_POST_TYPE, apply_filters( 'tribe_events_register_venue_type_args', $this->postVenueTypeArgs ) );
 			register_post_type( self::ORGANIZER_POST_TYPE, apply_filters( 'tribe_events_register_organizer_type_args', $this->postOrganizerTypeArgs ) );
+
+			// Setup Linked Posts singleton after we've set up the post types that we care about
+			Tribe__Events__Linked_Posts::instance();
 
 			register_taxonomy(
 				self::TAXONOMY, self::POSTTYPE, array(
@@ -3267,6 +3291,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * When we have a VenueID/OrganizerID, we just save the ID, because we're not
 			 * editing the venue/organizer from within the event.
 			 */
+			/*
 			$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
 			if ( isset( $_POST['Venue']['VenueID'] ) && ! empty( $_POST['Venue']['VenueID'] ) ) {
 				$_POST['Venue'] = array( 'VenueID' => intval( $_POST['Venue']['VenueID'] ) );
@@ -3278,7 +3303,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$_POST['Organizer'] = $this->normalize_organizer_submission( $_POST['Organizer'] );
+			 */
 
+
+			Tribe__Events__Linked_Posts::instance()->handle_submission( $postId, $_POST );
 
 			Tribe__Events__API::saveEventMeta( $postId, $_POST, $post );
 
