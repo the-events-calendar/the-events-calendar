@@ -1,14 +1,4 @@
 /**
- * This CSS file was auto-generated via PostCSS
- *
- * Contributors should avoid editing this file, but instead edit the associated
- * src/resources/postcss/ file. For more information, check out our engineering
- * docs on how we handle CSS in our engineering docs.
- *
- * @see: http://moderntribe.github.io/products-engineering/css/
- */
-
-/**
  * The Events Calendar Tribe Theme Stylesheet
  *
  * To add your own custom styles, create a stylesheet with the name
@@ -25,7 +15,6 @@
 =============================================*/
 
 /* Tribe Theme Color */
-
 #tribe-events-content .tribe-events-tooltip h4,
 #tribe_events_filters_wrapper .tribe_events_slider_val,
 .single-tribe_events a.tribe-events-ical,
@@ -66,7 +55,6 @@
 }
 
 /* Important Link Styles */
-
 ul.tribe-events-sub-nav a,
 .tribe-events-back a,
 .tribe-events-list-widget .tribe-events-widget-link a,
@@ -76,13 +64,11 @@ ul.tribe-events-sub-nav a,
 }
 
 /* Calendar Add Buttons */
-
 .tribe-events-gcal {
 	margin-right: 1.25em;
 }
 
 /* Event Schedule Detail Styling */
-
 .tribe-events-divider {
 	display: none;
 }
@@ -92,14 +78,12 @@ ul.tribe-events-sub-nav a,
 }
 
 /* Featured Images */
-
 .tribe-events-event-image {
 	margin-bottom: 1.25em;
 	text-align: left;
 }
 
 /* General Template Headers */
-
 h2.tribe-events-page-title,
 #tribe-geo-results h2.tribe-events-page-title {
 	font-size: 30px;
@@ -107,16 +91,13 @@ h2.tribe-events-page-title,
 }
 
 /* General Template Header/Footer Nav */
-
 #tribe-events-header .tribe-events-sub-nav li,
 #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next a {
 	display: none;
 }
-
 #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next {
 	display: block;
 }
-
 .single-tribe_events #tribe-events-footer,
 .tribe-events-day #tribe-events-footer,
 .events-list #tribe-events-footer,
@@ -125,9 +106,7 @@ h2.tribe-events-page-title,
 	border-top: 1px solid #e5e5e5;
 	padding-top: 2em;
 }
-
 /* General Template Header/Footer Nav */
-
 .single-tribe_events #tribe-events-header {
 	display: none;
 }
@@ -135,7 +114,6 @@ h2.tribe-events-page-title,
 /* = Day Grid Template Styles
    @ Template: day.php
 =============================================*/
-
 .tribe-events-day .tribe-events-day-time-slot h5 {
 	font-size: 21px;
 	margin: 1.5em 0 .25em;
@@ -150,7 +128,6 @@ h2.tribe-events-page-title,
 /* = List View Template Styles
    @ Template: list.php
 =============================================*/
-
 .tribe-events-list .type-tribe_events {
 	border-bottom: 0;
 	padding: 1.75em 0;
@@ -162,7 +139,6 @@ h2.tribe-events-page-title,
 }
 
 /* Date Seperators */
-
 .tribe-events-list-separator-year {
 	font-size: 28px;
 	padding-top: 1.25em;
@@ -208,7 +184,6 @@ h2.tribe-events-page-title,
 }
 
 /* Meta */
-
 .tribe-events-loop .tribe-events-event-meta {
 	margin-bottom: 1em;
 	font-size: 13px;
@@ -238,9 +213,7 @@ h2.tribe-events-page-title,
 /* = List View & Single Venue (Pro Version) Template Styles
    @ Template: list.php & single-venue.php
 =============================================*/
-
 /* Loop */
-
 .events-list .tribe-events-loop,
 .tribe-events-day .tribe-events-loop,
 .single-tribe_venue .tribe-events-loop,
@@ -252,17 +225,14 @@ h2.tribe-events-page-title,
 /* = Single Event Template Styles
    @ Template: single-event.php
 =============================================*/
-
 .single-tribe_events h2.tribe-events-single-event-title {
 	font-size: 33px;
 }
 
 /* Date/Time */
-
 .tribe-events-schedule {
 	margin: 1em 0 1.5em;
 }
-
 .single-tribe_events .tribe-events-schedule .tribe-events-divider {
 	display: inline-block;
 	zoom: 1;
@@ -280,7 +250,6 @@ h2.tribe-events-page-title,
 }
 
 /* Cal Links */
-
 .single-tribe_events .tribe-events-cal-links {
 	margin-bottom: 1.75em;
 	display: block;
@@ -301,20 +270,17 @@ h2.tribe-events-page-title,
 }
 
 /* Featured Image */
-
 .single-tribe_events .tribe-events-event-image {
 	text-align: left;
 	margin-bottom: 1.25em;
 }
 
 /* Event Schedule Detail Styling */
-
 .tribe-events-event-schedule-details {
 	margin-right: .5em;
 }
 
 /* Event Meta */
-
 .tribe-events-meta-group .tribe-events-single-section-title {
 	font-size: 17px;
 }
@@ -326,19 +292,21 @@ h2.tribe-events-page-title,
 /* = Calendar Styles (includes styles for both large & small calendars)
    @ Template: month.php & widgets/calendar-widget.php
 =============================================*/
-
 /* Global Calendar Styles */
-
 #tribe-events-content .tribe-events-calendar td {
 	border: 1px solid #d2d2d2;
 	border-top: 0;
 	-webkit-transition: all .2s cubic-bezier(.550, .085, .680, .530);
+	   -moz-transition: all .2s cubic-bezier(.550, .085, .680, .530);
+	    -ms-transition: all .2s cubic-bezier(.550, .085, .680, .530);
+	     -o-transition: all .2s cubic-bezier(.550, .085, .680, .530);
 	        transition: all .2s cubic-bezier(.550, .085, .680, .530);
 }
 
 #tribe-events-content .tribe-events-calendar td:hover {
 	background: #f7f7f7;
-	box-shadow: rgba(0,0,0, .2) 0 0 10px;
+	-webkit-box-shadow: rgba(0,0,0, .2) 0 0 10px;
+	        box-shadow: rgba(0,0,0, .2) 0 0 10px;
 }
 
 #tribe-events-content .tribe-events-calendar td.tribe-events-othermonth {
@@ -346,14 +314,14 @@ h2.tribe-events-page-title,
 }
 
 #tribe-events-content .tribe-events-calendar .tribe-events-othermonth:hover {
-	box-shadow: none;
+	-webkit-box-shadow: none;
+	        box-shadow: none;
 }
 
 #tribe-events-content table.tribe-events-calendar {
 	border-bottom: 1px solid #d2d2d2;
 	border-top: 0;
 }
-
 .tribe-events-calendar div[id*='tribe-events-daynum-'],
 .tribe-events-calendar div[id*='tribe-events-daynum-'] a {
 	background-color: #b2b2b2;
@@ -379,7 +347,6 @@ h2.tribe-events-page-title,
 }
 
 /* Global Tooltips */
-
 .tribe-events-calendar .tribe-events-tooltip,
 .tribe-events-week .tribe-events-tooltip,
 .recurring-info-tooltip {
@@ -387,27 +354,26 @@ h2.tribe-events-page-title,
 	background-color: #fff;
 	color: #606060;
 	padding: .75em 1em 1.15em;
-	box-shadow: 3px 4px 21px rgba(0,0,0,.38);
+	-webkit-box-shadow: 3px 4px 21px rgba(0,0,0,.38);
+	   -moz-box-shadow: 3px 4px 21px rgba(0,0,0,.38);
+	        box-shadow: 3px 4px 21px rgba(0,0,0,.38);
 }
-
 .tribe-events-tooltip .tribe-events-arrow {
 	width: 20px;
 	height: 7px;
 	background-image: url(../images/tribe-theme/tribe-theme-tooltips.png);
-	background-size: 37px 20px;
+	-webkit-background-size: 37px 20px;
+	        background-size: 37px 20px;
 	bottom: -7px;
 }
 
 /* Large Calendar Specifics */
-
 .events-archive.events-gridview #tribe-events-content table .type-tribe_events {
 	border-bottom: 1px solid #e0e0e0;
 }
-
 .events-archive.events-gridview #tribe-events-content table .tribe-events-last {
 	border-bottom: 0;
 }
-
 .tribe-events-calendar thead th {
 	background-color: #666;
 	color: #fff;
@@ -417,13 +383,11 @@ h2.tribe-events-page-title,
 	border-left: 1px solid #666;
 	border-right: 1px solid #666;
 }
-
 .tribe-events-calendar td div[id*='tribe-events-daynum-'] {
 	padding: 4px 9px 6px;
 }
 
 /* Large Calendar Tooltip Specifics */
-
 #tribe-events-content .tribe-events-tooltip h4 {
 	margin: 0;
 	background-color: transparent;
@@ -432,23 +396,19 @@ h2.tribe-events-page-title,
 	letter-spacing: 0;
 	font-weight: bold;
 }
-
 .tribe-events-tooltip .tribe-events-event-body {
 	font-size: 11px;
 	padding: 0;
 }
-
 .tribe-events-tooltip .duration {
 	font-style: normal;
 	font-weight: bold;
 	margin: 0;
 	padding: .4em 0 .5em;
 }
-
 .tribe-events-tooltip .tribe-events-event-thumb {
 	padding: .85em 1em 0 0;
 }
-
 .tribe-events-tooltip p.entry-summary {
 	font-size: 13px;
 	padding-top: .5em;
@@ -509,10 +469,11 @@ h2.tribe-events-page-title,
 
 /* = Events Retina
 =============================================*/
-
 @media
-(min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2) {
-
+(min--moz-device-pixel-ratio: 2),
+(-o-min-device-pixel-ratio: 2/1),
+(-webkit-min-device-pixel-ratio: 2),
+(min-device-pixel-ratio: 2) {
 	.tribe-events-tooltip .tribe-events-arrow {
 		background-image: url(../images/tribe-theme/tribe-theme-tooltips@2x.png);
 	}

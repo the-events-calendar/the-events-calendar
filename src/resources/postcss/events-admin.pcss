@@ -1,13 +1,3 @@
-/**
- * This CSS file was auto-generated via PostCSS
- *
- * Contributors should avoid editing this file, but instead edit the associated
- * src/resources/postcss/ file. For more information, check out our engineering
- * docs on how we handle CSS in our engineering docs.
- *
- * @see: http://moderntribe.github.io/products-engineering/css/
- */
-
 /* = Post Type Listing
 =============================================*/
 .events-cal .tablenav select[name=m],
@@ -27,6 +17,7 @@
 #additional-field-table tbody tr {
 	height: 72px;
 }
+
 /* = Post Type Editing
 =============================================*/
 .eventForm {
@@ -99,26 +90,31 @@
 .eventForm .tribe_sectionheader {
 	padding-bottom: 5px !important;
 }
+
 .eventForm p {
 	margin: 0 0 10px 0!important;
 }
+
 .tribe-events-error {
 	display: none;
 }
 .tribe-events-multi-event-day {
 	color: #0f81bb;
 }
+
 .ui-front {
 	z-index: 1000000;
 }
 .events-cal .ui-widget-overlay.ui-front {
 	z-index: 90;
 }
+
 .edit-venue-link,
 .edit-organizer-link {
 	display: inline-block;
 	margin-left: 10px;
 }
+
 #event_organizer tbody + tbody tr.saved_organizer td,
 #event_organizer tbody + tfoot tr td {
 	margin-top: 1em;
@@ -139,6 +135,8 @@
 .delete-organizer-group:hover {
 	color: #a00;
 }
+
+
 .tribe_community_edit .edit-venue-link,
 .tribe_community_edit .edit-organizer-link {
 	display: none !important;
@@ -149,6 +147,7 @@ div.tribe-organizer-error.error {
 	margin-left: 5px;
 	padding: 5px 10px;
 }
+
 /* = Eventbrite
 =============================================*/
 .tribe-community-event-info small,
@@ -161,7 +160,9 @@ div.tribe-organizer-error.error {
 	margin: -11px 6px 0;
 	padding: 10px 15px;
 	border: 1px solid #e2e2e2;
-	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	        border-radius: 3px;
 	-webkit-border-top-left-radius: 0;
 	-moz-border-radius-topleft: 0;
 	-webkit-border-top-right-radius: 0;
@@ -179,6 +180,7 @@ div.tribe-organizer-error.error {
 table.eventForm {
 	width: 100%;
 }
+
 /* = Recurrence
 =============================================*/
 #custom-recurrence-weeks label {
@@ -215,6 +217,7 @@ table.eventForm {
 .recurrence-pattern-description-row {
 	display: none;
 }
+
 /* = Chosen
 =============================================*/
 .chosen,
@@ -233,6 +236,7 @@ table.eventForm {
 .multi-day-cutoff-dropdown {
 	width: 100px !important;
 }
+
 /* fix for widgets + chosen support */
 .widget-liquid-right .widget,
 .inactive-sidebar .widget,
