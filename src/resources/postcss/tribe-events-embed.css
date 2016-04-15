@@ -39,7 +39,6 @@
 }
 
 @media (min-width: 440px) {
-
 	.tribe-embed .wp-embed-featured-image.rectangle,
 	.tribe-embed .wp-embed-featured-image.square {
 		max-width: 35%;
@@ -52,7 +51,6 @@
 }
 
 @media (min-width: 800px) {
-
 	.tribe-embed .wp-embed-featured-image.rectangle,
 	.tribe-embed .wp-embed-featured-image.square {
 		max-width: 265px;
