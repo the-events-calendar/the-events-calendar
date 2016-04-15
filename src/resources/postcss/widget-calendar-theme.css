@@ -1,0 +1,93 @@
+/**
+ * The Events Calendar Widget Calendar Tribe Theme Stylesheet
+ *
+ * To add your own custom styles, create a stylesheet with the name
+ * widget-calendar.css in the tribe-events/pro/ directory of your theme.
+ * Your new stylesheet will be loaded after our own stylesheet.
+ *
+ * To replace our stylesheet altogether, you can use the 'tribe_events_pro_widget_calendar_stylesheet_url' filter.
+ *
+ * @package TribeEventsCalendarPro
+ *
+ */
+
+.tribe-mini-calendar td {
+	background: #b2b2b2;
+	border-color:#fff;
+	-webkit-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530); 
+  	   -moz-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530); 
+        -ms-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530); 
+         -o-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530); 
+	        transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530);	
+}
+
+.tribe-mini-calendar td:hover {	
+}
+
+.tribe-mini-calendar-no-event{
+	color:#fff;
+	padding:5px 0 15px 0;
+}
+
+.tribe-mini-calendar th{
+	color: #fff;
+	background:#666;
+	border-color:#666;
+	font-weight: bold;
+}
+
+.tribe-mini-calendar th:first{
+	border-left-color:#fff;
+}
+
+.tribe-mini-calendar-nav td{
+	background:#666;
+	border-color:#666;
+}
+
+.tribe-mini-calendar .tribe-events-othermonth{
+	background:#f7f7f7;
+}
+
+.tribe-mini-calendar .tribe-events-has-events a{
+	color:#fff;
+	padding:5px 0 15px 0;
+}
+
+.tribe-mini-calendar .tribe-events-has-events div[id*='daynum-'] a:before{
+	background: #fff;
+}
+
+.tribe-mini-calendar .tribe-events-past{
+	opacity: .35;
+}
+
+.tribe-mini-calendar td.tribe-events-has-events.tribe-events-present,
+.tribe-mini-calendar td.tribe-events-has-events.tribe-mini-calendar-today {
+	background-color: #21759b;
+}
+
+.tribe-mini-calendar .tribe-events-has-events.tribe-events-present a:hover,
+.tribe-mini-calendar td.tribe-events-has-events.tribe-mini-calendar-today a:hover {
+	background-color: #30799B;
+}
+
+.tribe-mini-calendar td.tribe-events-has-events {
+	background: #666;
+}
+
+.tribe-mini-calendar td.tribe-events-has-events a:hover {
+	background: #4B4A4A;
+}
+
+/* = Twenty Fifteen theme compatibility.
+=============================================*/
+.tribe-theme-twentyfifteen .tribe-mini-calendar-event {
+	margin-left: 0;
+	margin-right: 0;
+}
+.tribe-theme-twentyfifteen .tribe-mini-calendar-list-wrapper .type-tribe_events {
+	margin-left: 0;
+	margin-right: 0;
+	box-shadow: none;
+}
