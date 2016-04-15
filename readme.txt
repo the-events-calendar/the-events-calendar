@@ -316,7 +316,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files [36246]
 * Accessibility - Focus styles added for search fields [32936]
 * Accessibility - Add ARIA labels for Month/Day/List sub nav [32937]
-* Accessibility - Add ARIA label for events footer sub nav [32937]
+* Accessibility - Add ARIA label for events footer sub nav heading [32937]
 
 = [4.1.2] 2016-04-11 =
 
