@@ -23,7 +23,7 @@ $multiple_organizers = count( $organizer_ids ) > 1;
 <div class="tribe-mini-calendar-event event-<?php esc_attr_e( $mini_cal_event_atts['current_post'] ); ?> <?php esc_attr_e( $mini_cal_event_atts['class'] ); ?>">
 
 	<div class="list-date">
-		<?php if ( - 1 == $mini_cal_event_atts['current_post'] && date( 'm', $postDate ) != date( 'm', current_time( 'timestamp' ) ) ) { ?>
+		<?php if ( isset( $instance[ 'tribe_is_list_widget' ] ) && date( 'm', $postDate ) != date( 'm', current_time( 'timestamp' ) ) ) { ?>
 			<span
 				class="list-dayname"><?php echo apply_filters( 'tribe-mini_helper_tribe_events_ajax_list_dayname', date_i18n( 'M', $postDate ), $postDate, $mini_cal_event_atts['class'] ); ?></span>
 		<?php } else { ?>
