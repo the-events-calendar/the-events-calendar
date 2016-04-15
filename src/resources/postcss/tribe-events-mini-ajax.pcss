@@ -1,0 +1,72 @@
+/**
+ * The Events Calendar Pro Widget Stylesheet
+ * (Some of these styles may override your current theme's styles)
+ *
+ * You can customize this stylesheet by putting a stylesheet of the same name
+ * (tribe-events-mini-ajax.css) in the events/pro/ directory of your theme.
+ *
+ * @package TribeEventsCalendarPro
+ *
+ */
+
+/* = Events Calendar Widget Styles (Sidebar)
+   = Modified and new calendar widget code for the ajax version
+   @ Template: list-widget.php
+=============================================*/
+.tribe-events-calendar-widget h4.cal-header {
+	margin: 12px 0;
+}
+
+.tribe-events-widget-nav {
+	overflow: hidden;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 16px;
+    height: 22px;
+    color: #565656;
+    margin-top: 20px;
+    margin-bottom: 6px;
+}
+.tribe-events-widget-nav a {
+	position: absolute; 
+    top: 0;
+    display: block;
+    font-weight: normal;
+    text-decoration: none;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    background: url(images/mini-ajax-arrow-sprite.png) -16px -16px no-repeat;
+}
+.tribe-events-widget-nav a:hover {
+	text-decoration: none;
+}
+.tribe-events-widget-nav a.prev-month {        
+    left: 0;
+} 
+.tribe-events-widget-nav a.next-month {          
+    right: 0;
+	background-position: 0 -16px;
+}
+.tribe-events-widget-nav a:hover {
+    background-position: -16px 0;
+}
+.tribe-events-widget-nav a.next-month:hover {
+    background-position: 0 0;
+}
+.tribe-events-widget-nav a span {
+    text-indent: -9999px;
+    color: transparent; 
+    text-transform: capitalize;
+}
+#ajax-loading-mini {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -8px 0 0 -8px;
+    display: none;
+}
