@@ -11,17 +11,17 @@
 /* = Post Type Listing
 =============================================*/
 .events-cal .tablenav select[name=m],
-.events-cal #post-query-submit {
+	.events-cal #post-query-submit {
 	display: none;
 }
 .fixed .column-start-date,
-.fixed .column-end-date,
-.fixed .column-events-cats {
+	.fixed .column-end-date,
+	.fixed .column-events-cats {
 	width: 14%;
 }
 #additional-field-table input,
-#additional-field-table select,
-#additional-field-table textarea {
+	#additional-field-table select,
+	#additional-field-table textarea {
 	width: 200px;
 }
 #additional-field-table tbody tr {
@@ -47,8 +47,8 @@
 	margin-bottom: 20px;
 }
 .eventForm select,
-.eventForm input,
-.eventForm textarea {
+	.eventForm input,
+	.eventForm textarea {
 	font-size: 11px;
 }
 .eventForm textarea {
@@ -60,6 +60,12 @@
 }
 .eventForm h4.event-time {
 	margin-top: 0;
+}
+.eventForm .tribe_sectionheader {
+	padding-bottom: 5px !important;
+}
+.eventForm p {
+	margin: 0 0 10px 0!important;
 }
 .tribe-community-event-info {
 	width: 100%;
@@ -96,12 +102,6 @@
 	text-transform: uppercase;
 	border-bottom: 1px solid #e5e5e5;
 }
-.eventForm .tribe_sectionheader {
-	padding-bottom: 5px !important;
-}
-.eventForm p {
-	margin: 0 0 10px 0!important;
-}
 .tribe-events-error {
 	display: none;
 }
@@ -120,7 +120,7 @@
 	margin-left: 10px;
 }
 #event_organizer tbody + tbody tr.saved_organizer td,
-#event_organizer tbody + tfoot tr td {
+	#event_organizer tbody + tfoot tr td {
 	margin-top: 1em;
 	padding-top: 1em;
 	border-top: 1px solid #e5e5e5;
@@ -140,7 +140,7 @@
 	color: #a00;
 }
 .tribe_community_edit .edit-venue-link,
-.tribe_community_edit .edit-organizer-link {
+	.tribe_community_edit .edit-organizer-link {
 	display: none !important;
 }
 div.tribe-venue-error.error,
@@ -166,9 +166,9 @@ div.tribe-organizer-error.error {
 	-moz-border-radius-topleft: 0;
 	-webkit-border-top-right-radius: 0;
 	-moz-border-radius-topright: 0;
+	 -khtml-border-radius: 3px;
 	background: url(../images/bg_fade.png) repeat-x top left;
 	background-color: #fff;
-	 -khtml-border-radius: 3px;
 }
 #eventBriteTicketing h2 {
 	height: 80px;
