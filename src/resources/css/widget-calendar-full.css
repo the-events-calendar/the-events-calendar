@@ -16,6 +16,7 @@
 }
 
 /* calendar css */
+
 .tribe-mini-calendar-grid-wrapper {
 	margin-bottom: 10px;
 }
@@ -39,8 +40,6 @@
 .tribe-mini-calendar thead {
 	background: #666666;
 }
-
-
 
 .tribe-mini-calendar-dayofweek{
 	background: #ddd;
@@ -82,6 +81,7 @@
 	text-decoration: none;
 	padding: 5px 5px 15px 5px;
 }
+
 .tribe-mini-calendar .tribe-events-past {
 	opacity: .6;
 }
@@ -136,7 +136,6 @@
 	margin: 0 0 0 20px;
 }
 
-
 .tribe-mini-calendar-nav .tribe-mini-calendar-nav-link:hover {
 	color:#6fb7ff;
 }
@@ -165,7 +164,6 @@
 	background:#fff;
 }
 
-
 .tribe-mini-calendar-nav #ajax-loading-mini {
 	position: absolute;
 	top: 50%;
@@ -187,7 +185,6 @@
 }
 
 /* event list css */
-
 
 .tribe-mini-calendar-event {
 	overflow:hidden;
@@ -262,6 +259,7 @@
 	margin-top: 0;
 	margin-bottom: 10px;
 }
+
 .tribe-mini-calendar-event .list-info p {
 	margin:5px 0;
 	display:none;
@@ -283,6 +281,7 @@
 .tribe-mini-calendar-event .tribe-events-event-schedule-details {
 	display: inline-block;
 }
+
 .tribe-mini-calendar-event .tribe-events-event-schedule-details,
 .tribe-mini-calendar-event-venue {
 	margin: 5px 0 0;
@@ -300,18 +299,17 @@
 	text-align: center;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	-webkit-border-radius: 3px;
-			border-radius: 3px;
+	border-radius: 3px;
 	border: 0;
 	line-height: normal;
 	cursor: pointer;
-	-webkit-box-shadow: none;
-			box-shadow: none;
+	box-shadow: none;
 	text-decoration: none;
 }
 
 /* = Twenty Fifteen theme compatibility.
 =============================================*/
+
 .tribe-theme-twentyfifteen .tribe_mini_calendar_widget,
 .tribe-theme-twentyfifteen .tribe-events-adv-list-widget,
 .tribe-theme-twentyfifteen .tribe-events-countdown-widget {
@@ -322,15 +320,18 @@
 	margin-left: 0;
 	margin-right: 0;
 }
+
 .tribe-theme-twentyfifteen .tribe-mini-calendar-list-wrapper .type-tribe_events {
 	margin-left: 0;
 	margin-right: 0;
 	box-shadow: none;
 }
+
 .tribe-theme-twentyfifteen .tribe-mini-calendar-event .list-date {
 	width: 18%;
 	margin-right: 7%;
 }
+
 .tribe-theme-twentyfifteen .tribe-mini-calendar-event .list-info {
 	width: 75%;
 }

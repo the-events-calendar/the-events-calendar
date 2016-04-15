@@ -15,9 +15,6 @@
 	background: #b2b2b2;
 	border-color:#fff;
 	-webkit-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530); 
-  	   -moz-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530); 
-        -ms-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530); 
-         -o-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530); 
 	        transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530);	
 }
 
@@ -82,10 +79,12 @@
 
 /* = Twenty Fifteen theme compatibility.
 =============================================*/
+
 .tribe-theme-twentyfifteen .tribe-mini-calendar-event {
 	margin-left: 0;
 	margin-right: 0;
 }
+
 .tribe-theme-twentyfifteen .tribe-mini-calendar-list-wrapper .type-tribe_events {
 	margin-left: 0;
 	margin-right: 0;

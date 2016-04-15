@@ -17,10 +17,10 @@
 }
 
 /* calendar css */
+
 .tribe-mini-calendar-grid-wrapper {
 	margin-bottom: 10px;
 }
-
 
 .tribe-mini-calendar {
 	border-collapse: collapse;
@@ -35,8 +35,6 @@
 	vertical-align : top;
 	border         : 1px solid #d2d2d2;	
 }
-
-
 
 .tribe-mini-calendar-dayofweek{
 	font-weight: bold;
@@ -136,10 +134,12 @@
 
 /* = Twenty Fifteen theme compatibility.
 =============================================*/
+
 .tribe-theme-twentyfifteen .tribe-mini-calendar-event {
 	margin-left: 0;
 	margin-right: 0;
 }
+
 .tribe-theme-twentyfifteen .tribe-mini-calendar-list-wrapper .type-tribe_events {
 	margin-left: 0;
 	margin-right: 0;
