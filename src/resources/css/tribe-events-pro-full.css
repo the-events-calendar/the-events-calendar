@@ -58,33 +58,6 @@
 	box-sizing: border-box;
 }
 
-/* grid header */
-
-.tribe-grid-header {
-	background-color: #ddd;
-	border-bottom: 1px solid #bbb;
-}
-
-.tribe-grid-header .column {
-	letter-spacing: 1px;
-	padding: 1em 0;
-	text-align: center;
-	text-transform: uppercase;
-}
-
-.tribe-grid-header .column a {
-	color: #333;
-	font-weight: bold;
-}
-
-/* columns & structure */
-
-.tribe-week-grid-wrapper {
-	height: 500px;
-	overflow-y: scroll;
-	position: relative;
-}
-
 .tribe-events-grid .tribe-scroller {
 	height: 500px;
 	overflow: hidden;
@@ -110,10 +83,6 @@
 	display: none;
 }
 
-.tribe-events-grid .has-scrollbar > .scroller-content::-webkit-scrollbar {
-	display: block;
-}
-
 .tribe-events-grid .tribe-scroller > .scroller-pane {
 	background: rgba(0,0,0,.25);
 	border-radius: 5px;
@@ -123,10 +92,41 @@
 	right: 0;
 	top: 0;
 	-webkit-transition: .2s;
-	        transition: .2s;
-	visibility: hidden\9; /* Target only IE7 and IE8 with this hack */
+	transition: .2s;
+	visibility: hidden\9;/* Target only IE7 and IE8 with this hack */
 	width: 10px;
 	z-index: 1000 !important;
+}
+
+.tribe-events-grid .has-scrollbar > .scroller-content::-webkit-scrollbar {
+	display: block;
+}
+
+/* grid header */
+
+.tribe-grid-header {
+	background-color: #ddd;
+	border-bottom: 1px solid #bbb;
+}
+
+.tribe-grid-header .column {
+	letter-spacing: 1px;
+	padding: 1em 0;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.tribe-grid-header .column a {
+	color: #333;
+	font-weight: bold;
+}
+
+/* columns & structure */
+
+.tribe-week-grid-wrapper {
+	height: 500px;
+	overflow-y: scroll;
+	position: relative;
 }
 
 .tribe-events-grid .tribe-scroller > .scroller-pane > .scroller-slider {
