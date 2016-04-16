@@ -30,7 +30,7 @@
 	color: #fff;
 }
 
-.tribe-events-grid .tribe-events-grid .tribe-grid-header .tribe-week-today {
+.tribe-events-grid .tribe-grid-header .tribe-week-today {
 	background-color: #21759b;
 }
 
@@ -124,11 +124,11 @@
 
 /* Week view grid background */
 
-.tribe-week-grid-block div { 
+.tribe-week-grid-block div {
 	border-top-color: #d2d2d2;
 }
 
-/* = Map View Template Styles 
+/* = Map View Template Styles
    @ Template: Map.php
 =============================================*/
 
@@ -149,7 +149,6 @@
 .tribe-events-map #tribe-events-header li {
 	display: inline-block;
 	zoom: 1;
-	display: inline;
 }
 
 .tribe-events-map #tribe-events-header li a {
@@ -200,7 +199,7 @@
 	font-weight: normal;
 }
 
-/* = Photo View Template Styles 
+/* = Photo View Template Styles
    @ Template: Photo.php
 =============================================*/
 

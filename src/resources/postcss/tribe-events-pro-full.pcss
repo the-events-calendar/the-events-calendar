@@ -114,7 +114,6 @@
 	}
 
 	.tribe-grid-content-wrap .column {
-		*display: inline;
 		border-left: 1px solid #bbb;
 		display: inline-block;
 		float: left;
@@ -305,7 +304,6 @@
 
 			/* Truncated all day titles */
 			a.url {
-				*display: inline;
 				display: inline-block;
 				overflow: hidden;
 				padding: 8px 6px;
@@ -565,7 +563,9 @@
 	.date-divider {
 		padding: 0 5px;
 	}
+}
 
+.tribe-events-photo {
 	.tribe-events-ical {
 		clear: both;
 	}
@@ -800,7 +800,7 @@
 		margin: 0;
 		padding: 0;
 	}
-	
+
 	address {
 		font-style: normal;
 		font-weight: bold;
@@ -810,13 +810,17 @@
 
 
 .tribe-events-venue {
-	address.venue-address span {
-		line-height: 1;
-		margin: 5px 0;
+	address.venue-address {
+		display: block;
 
-		.tel,
-		.url {
-			display: block;
+		span {
+			line-height: 1;
+			margin: 5px 0;
+
+			&.tel,
+			&.url {
+				display: block;
+			}
 		}
 	}
 
@@ -1201,7 +1205,7 @@ div.tribe-countdown-text {
 		}
 	}
 
-	.tribe-theme-twentyfifteen.single-tribe_events #tribe-events .tribe-events-venue-meta {
+	&.single-tribe_events #tribe-events .tribe-events-venue-meta {
 		float: left;
 	}
 }

@@ -66,9 +66,12 @@
 	background: #444;
 }
 
+.tribe-mini-calendar .tribe-events-has-events:hover a:hover {
+	background: #999;
+}
+
 .tribe-mini-calendar .tribe-events-has-events:hover a,
 			.tribe-mini-calendar .tribe-events-has-events:hover a:hover {
-	background: #999;
 	color: #fff;
 	text-decoration: none;
 }
@@ -89,10 +92,6 @@
 	-webkit-border-radius: 7px;
 }
 
-.tribe-mini-calendar .tribe-events-has-events.tribe-events-present div[id*='daynum-'] a:before {
-	background: #fff;
-}
-
 .tribe-mini-calendar .tribe-events-has-events.tribe-mini-calendar-today:hover {
 	background: #666;
 }
@@ -101,16 +100,20 @@
 	color: #fff;
 }
 
-.tribe-mini-calendar .tribe-events-has-events.tribe-mini-calendar-today div[id*='daynum-'] a:before {
+.tribe-mini-calendar .tribe-events-has-events.tribe-mini-calendar-today div[id*='daynum-'] a::before {
 	background: #fff;
-}
-
-.tribe-mini-calendar .tribe-events-has-events div[id*='daynum-'] a:hover:before{
-	background:#fff;
 }
 
 .tribe-mini-calendar .tribe-events-past {
 	opacity: .6;
+}
+
+.tribe-events-has-events.tribe-events-present div[id*='daynum-'] a::before {
+	background: #fff;
+}
+
+.tribe-events-has-events div[id*='daynum-'] a:hover::before {
+	background:#fff;
 }
 
 .tribe-mini-calendar-dayofweek{

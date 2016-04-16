@@ -27,7 +27,7 @@
 /* Events Loop */
 
 
-.tribe-events-loop .type-tribe_events {
+.tribe-events-loop .tribe-events-loop .type-tribe_events {
 	margin: 0;
 }
 
@@ -188,7 +188,15 @@
 }
 
 
-.tribe-events-grid .tribe-scroller:hover > .scroller-pane, .tribe-events-grid .tribe-scroller .scroller-pane.active, .tribe-events-grid .tribe-scroller .scroller-pane.flashed {
+.tribe-events-grid .tribe-scroller:hover > .scroller-pane {
+	visibility : visible\9;
+	/* Target only IE7 and IE8 with this hack */
+	opacity : 0.99;
+}
+
+
+.tribe-events-grid .scroller-pane.active,
+	.tribe-events-grid .scroller-pane.flashed {
 	visibility : visible\9;
 	/* Target only IE7 and IE8 with this hack */
 	opacity : 0.99;
@@ -210,7 +218,6 @@
 .tribe-events-grid .tribe-grid-content-wrap .column {
 	display: inline-block;
 	zoom: 1;
-	*display: inline;
 	float: left;
 	vertical-align: top;
 	width: 14.2857%;
@@ -313,7 +320,6 @@
 	padding: 8px 6px;
 	display: inline-block;
 	zoom: 1;
-	display: inline;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -519,12 +525,12 @@
 }
 
 
-#tribe-events-photo-events .photo-two-col .type-tribe_events.tribe-events-photo-event {
+#tribe-events-photo-events.photo-two-col .type-tribe_events.tribe-events-photo-event {
 	width: 46%;
 }
 
 
-#tribe-events-photo-events .photo-hidden {
+#tribe-events-photo-events.photo-hidden {
 	opacity:0 !important;
 }
 
@@ -745,7 +751,7 @@
 }
 
 
-.tribe-geo-result-entry .h2 {
+.tribe-geo-result-entry h2 {
 	float: left;
 	width: 80%;
 }
@@ -915,20 +921,20 @@ h3.tribe-events-related-events-title {
 }
 
 
-.tribe-events-calendar-widget table.tribe-events-calendar {
-	width: 100%;
-	table-layout: fixed;
-	margin-top: 0;
-	border-collapse: collapse;
-}
-
-
-.tribe-events-calendar-widget table.tribe-events-calendar .tribe-events-tooltip {
+.tribe-events-calendar-widget .tribe-events-calendar .tribe-events-tooltip {
 	width: 100px;
 	left: 0;
 	text-align: left;
 	padding: 5px 10px;
 	margin-bottom: 1.625em;
+}
+
+
+.tribe-events-calendar-widget table.tribe-events-calendar {
+	width: 100%;
+	table-layout: fixed;
+	margin-top: 0;
+	border-collapse: collapse;
 }
 
 

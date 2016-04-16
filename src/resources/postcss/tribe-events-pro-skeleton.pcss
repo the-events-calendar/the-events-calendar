@@ -16,7 +16,7 @@
 
 /* Events Loop */
 .tribe-events-loop {
-	.type-tribe_events {
+	.tribe-events-loop .type-tribe_events {
 		margin: 0;
 	}
 
@@ -162,10 +162,16 @@
 			}
 		}
 
-		&:hover > .scroller-pane, .scroller-pane.active, .scroller-pane.flashed {
+		&:hover > .scroller-pane {
 			visibility : visible\9; /* Target only IE7 and IE8 with this hack */
 			opacity : 0.99;
 		}
+	}
+
+	.scroller-pane.active,
+	.scroller-pane.flashed {
+		visibility : visible\9; /* Target only IE7 and IE8 with this hack */
+		opacity : 0.99;
 	}
 
 	.has-scrollbar > .scroller-content::-webkit-scrollbar {
@@ -182,7 +188,6 @@
 .tribe-events-grid .tribe-grid-content-wrap .column {
 	display: inline-block;
 	zoom: 1;
-	*display: inline;
 	float: left;
 	vertical-align: top;
 	width: 14.2857%;
@@ -222,8 +227,7 @@
 .tribe-grid-allday .type-tribe_events > div,
 .tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single {
 	width: 100%;
-	-webkit-border-radius: 3px;
-			border-radius: 3px;
+	border-radius: 3px;
 	cursor: pointer;
 }
 
@@ -267,7 +271,6 @@
 			padding: 8px 6px;
 			display: inline-block;
 			zoom: 1;
-			*display: inline;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
@@ -446,11 +449,11 @@
 		border: 0;
 	}
 
-	.photo-two-col .type-tribe_events.tribe-events-photo-event {
+	&.photo-two-col .type-tribe_events.tribe-events-photo-event {
 		width: 46%;
 	}
 
-	.photo-hidden {
+	&.photo-hidden {
 		opacity:0 !important;
 	}
 }
@@ -646,7 +649,7 @@
 		font-size: 14px;
 	}
 
-	.h2 {
+	h2 {
 		float: left;
 		width: 80%;
 	}
@@ -790,12 +793,7 @@ h3.tribe-events-related-events-title {
 		width: 100%;
 	}
 
-	table.tribe-events-calendar {
-		width: 100%;
-		table-layout: fixed;
-		margin-top: 0;
-		border-collapse: collapse;
-
+	.tribe-events-calendar {
 		.tribe-events-tooltip {
 			width: 100px;
 			left: 0;
@@ -803,6 +801,13 @@ h3.tribe-events-related-events-title {
 			padding: 5px 10px;
 			margin-bottom: 1.625em;
 		}
+	}
+
+	table.tribe-events-calendar {
+		width: 100%;
+		table-layout: fixed;
+		margin-top: 0;
+		border-collapse: collapse;
 	}
 
 	table.tribe-events-calendar,
