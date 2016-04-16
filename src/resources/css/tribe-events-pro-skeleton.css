@@ -195,8 +195,7 @@
 }
 
 
-.tribe-events-grid .scroller-pane.active,
-	.tribe-events-grid .scroller-pane.flashed {
+.tribe-events-grid .scroller-pane.active {
 	visibility : visible\9;
 	/* Target only IE7 and IE8 with this hack */
 	opacity : 0.99;
@@ -205,6 +204,12 @@
 
 .tribe-events-grid .has-scrollbar > .scroller-content::-webkit-scrollbar {
 	display: block;
+}
+
+
+.scroller-pane.flashed {
+	visibility : visible\9; /* Target only IE7 and IE8 with this hack */
+	opacity : 0.99;
 }
 
 
@@ -964,15 +969,15 @@ h3.tribe-events-related-events-title {
 }
 
 
-.tribe-events-calendar-widget td div[id*="tribe-events-daynum-"],
-		.tribe-events-calendar-widget td .tribe-events-calendar-widget td a {
-	font-size: 10px;
-}
-
-
 .tribe-events-calendar-widget td a.tribe-events-day-has-event {
 	color: #06c;
 	cursor: default;
+}
+
+
+.tribe-events-calendar-widget div[id*="tribe-events-daynum-"],
+	.tribe-events-calendar-widget td a {
+	font-size: 10px;
 }
 
 

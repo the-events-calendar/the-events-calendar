@@ -168,8 +168,7 @@
 		}
 	}
 
-	.scroller-pane.active,
-	.scroller-pane.flashed {
+	.scroller-pane.active {
 		visibility : visible\9; /* Target only IE7 and IE8 with this hack */
 		opacity : 0.99;
 	}
@@ -177,6 +176,11 @@
 	.has-scrollbar > .scroller-content::-webkit-scrollbar {
 		display: block;
 	}
+}
+
+.scroller-pane.flashed {
+	visibility : visible\9; /* Target only IE7 and IE8 with this hack */
+	opacity : 0.99;
 }
 
 .tribe-grid-content-wrap {
@@ -831,15 +835,15 @@ h3.tribe-events-related-events-title {
 			background-color: #f9f9f9;
 		}
 
-		div[id*="tribe-events-daynum-"],
-		.tribe-events-calendar-widget td a {
-			font-size: 10px;
-		}
-
 		a.tribe-events-day-has-event {
 			color: #06c;
 			cursor: default;
 		}
+	}
+
+	div[id*="tribe-events-daynum-"],
+	td a {
+		font-size: 10px;
 	}
 
 	.tribe-events-tooltip .tribe-events-arrow {
