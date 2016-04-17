@@ -159,19 +159,19 @@
 	margin-bottom: 12px;
 }
 
-.tribe-events-organizer address .organizer-address {
+.tribe-events-organizer address.organizer-address {
 	margin: 10px 0 15px;
 }
 
-.tribe-events-organizer address .organizer-address span {
+.tribe-events-organizer address.organizer-address span {
 	display: block;
 }
 
-.tribe-events-organizer address .organizer-address span ~ span {
+.tribe-events-organizer address.organizer-address span ~ span {
 	margin-top: 4px;
 }
 
-.tribe-events-organizer address .organizer-address .tribe-events-divider {
+.tribe-events-organizer address.organizer-address .tribe-events-divider {
 	display: none;
 }
 
