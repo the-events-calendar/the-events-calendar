@@ -59,27 +59,27 @@
 	text-decoration: none;
 }
 
-.tribe-events-widget-nav a.prev-month {        
-    left: 0;
+.tribe-events-widget-nav a.prev-month {
+	left: 0;
 }
 
-.tribe-events-widget-nav a.next-month {          
-    right: 0;
+.tribe-events-widget-nav a.next-month {
+	right: 0;
 	background-position: 0 -16px;
 }
 
 .tribe-events-widget-nav a:hover {
-    background-position: -16px 0;
+	background-position: -16px 0;
 }
 
 .tribe-events-widget-nav a.next-month:hover {
-    background-position: 0 0;
+	background-position: 0 0;
 }
 
 .tribe-events-widget-nav a span {
-    text-indent: -9999px;
-    color: transparent; 
-    text-transform: capitalize;
+	text-indent: -9999px;
+	color: transparent;
+	text-transform: capitalize;
 }
 
 #ajax-loading-mini {

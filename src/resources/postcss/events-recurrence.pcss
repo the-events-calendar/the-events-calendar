@@ -16,52 +16,52 @@
 .tribe-event-recurrence {
 	border-top: 1px solid #dfdfdf;
 	padding: 10px 5px;
-}
 
-.tribe-event-recurrence:nth-child( 2n+2 ) {
-	background: #fdfdfd;
-}
+	&:nth-child( 2n+2 ) {
+		background: #fdfdfd;
+	}
 
-.tribe-event-recurrence:first-child {
-	border-top: 0;
-	padding-top: 0;
-}
+	&:first-child {
+		border-top: 0;
+		padding-top: 0;
+	}
 
-.tribe-event-recurrence .tribe-handle {
-	color: #a0a5aa;
-	cursor: pointer;
-	float: right;
-	height: 30px;
-	width: 27px;
-}
+	.tribe-handle {
+		color: #a0a5aa;
+		cursor: pointer;
+		float: right;
+		height: 30px;
+		width: 27px;
+	}
 
-.tribe-event-recurrence .tribe-handle:before {
-	content: '\f140';
-	display: inline-block;
-	font: 400 20px/1 dashicons;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	padding: 8px 10px;
-	position: relative;
-	right: 12px;
-	speak: none;
-	top: 0;
-}
+	.tribe-handle:before {
+		content: '\f140';
+		display: inline-block;
+		font: 400 20px/1 dashicons;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		padding: 8px 10px;
+		position: relative;
+		right: 12px;
+		speak: none;
+		top: 0;
+	}
 
-.tribe-event-recurrence.tribe-open .tribe-handle:before {
-	content: '\f142';
-}
+	&.tribe-open .tribe-handle:before {
+		content: '\f142';
+	}
 
-.tribe-event-recurrence .recurrence-rows {
-	display: none;
-}
+	.recurrence-rows {
+		display: none;
+	}
 
-.tribe-event-recurrence.tribe-open .recurrence-rows {
-	display: block;
-}
+	&.tribe-open .recurrence-rows {
+		display: block;
+	}
 
-.tribe-event-recurrence .recurrence-row {
-	padding-top: 10px;
+	.recurrence-row {
+		padding-top: 10px;
+	}
 }
 
 input[data-field="custom-interval"] {
