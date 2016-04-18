@@ -191,6 +191,20 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			if ( ! empty( $this->events_in_month ) ) {
 				add_filter( 'tribe_events_month_has_events', array( $this, 'has_events' ) );
 			}
+
+			// Print JSON-LD markup on the `wp_head`
+			add_action( 'wp_head', array( $this, 'json_ld_markup' ) );
+		}
+
+		/**
+		 * When dealing with a place that has multiple events, we need to pass all the events as the first param
+		 * to allow the class to echo the correct JSON-LD script
+		 *
+		 * @return void
+		 */
+		public function json_ld_markup() {
+			$events = wp_list_pluck( $this->events_in_month, 'ID' );
+			Tribe__Events__JSON_LD__Event::instance()->markup( $events );
 		}
 
 		/**
@@ -619,8 +633,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'update_post_term_cache' => false,
 					'update_post_meta_cache' => false,
 					'no_found_rows'          => false,
+					'do_not_inject_date'     => true,
 					'meta_key'               => '_EventStartDate',
-					'orderby'                => 'meta_value_date',
+					'orderby'                => array(
+						'menu_order'          => 'ASC',
+						'meta_value_datetime' => 'ASC',
+					),
 				), $this->args
 			);
 

@@ -82,6 +82,7 @@ class Tribe__Events__Updater {
 			'2.0.6'  => array( $this, 'migrate_from_sp_options' ),
 			'3.10a4' => array( $this, 'set_enabled_views' ),
 			'3.10a5' => array( $this, 'remove_30_min_eod_cutoffs' ),
+			'4.2'  => array( $this, 'migrate_import_option' ),
 		);
 	}
 
@@ -247,5 +248,20 @@ class Tribe__Events__Updater {
 			$eod_cutoff->modify( '+30 minutes' );
 			tribe_update_option( 'multiDayCutoff', $eod_cutoff->format( 'h:i' ) );
 		}
+	}
+
+	/**
+	 * Migrate the previous import mapping to the new naming and cleanup
+	 * the old.
+	 */
+	public function migrate_import_option() {
+		$legacy_option = get_option( 'tribe_events_import_column_mapping' );
+		$type = get_option( 'tribe_events_import_type' );
+		if ( empty( $legacy_option ) || empty( $type ) ) {
+			return;
+		}
+
+		update_option( 'tribe_events_import_column_mapping_' . $type, $legacy_option );
+		delete_option( 'tribe_events_import_column_mapping' );
 	}
 }

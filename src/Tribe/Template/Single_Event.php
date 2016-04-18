@@ -22,15 +22,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 		public function hooks() {
 			parent::hooks();
 
-			// google data markup
-			add_action( 'wp_head', array( $this, 'google_data_markup' ) );
+			// Print JSON-LD markup on the `wp_head`
+			add_action( 'wp_head', array( Tribe__Events__JSON_LD__Event::instance(), 'markup' ) );
 
-		}
-
-		public function google_data_markup() {
-			$event_markup = new Tribe__Events__Google_Data_Markup__Event();
-			$html = apply_filters( 'tribe_google_data_markup_json', $event_markup->script_block() );
-			echo $html;
 		}
 
 		/**
