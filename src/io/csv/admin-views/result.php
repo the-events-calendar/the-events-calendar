@@ -26,11 +26,11 @@ require_once 'header.php';
 <?php printf( esc_html__( '%1$s%2$s%3$sInserted:%4$s A new item was inserted successfully. %5$s%2$s%3$sUpdated:%4$s An item was found with the same name and/or start date. The existing item was updated with the new value from the file.%5$s%2$s%3$sSkipped:%4$s A row was found in the CSV file that could not be imported. Please see below for the invalid rows.%5$s%6$s', 'the-events-calendar' ), '<ol>', '<li>', '<strong>', '</strong>', '</li>', '</ol>' )?>
 
 <?php if ( ! empty( $skipped ) ) : ?>
-	<p><?php printf( esc_html__( 'Skipped row numbers: %s', 'the-events-calendar' ), implode( ', ', esc_html( $skipped ) ) ); ?></p>
+	<p><?php printf( esc_html__( 'Skipped row numbers: %s', 'the-events-calendar' ), esc_html( implode( ', ', $skipped ) ) ); ?></p>
 <?php endif; ?>
 
 <?php if ( ! empty( $encoded ) ) : ?>
-	<p><?php printf( esc_html__( 'Rows numbers with encoding changes: %s', 'the-events-calendar' ), implode( ', ', esc_html( $encoded ) ) ); ?></p>
+	<p><?php printf( esc_html__( 'Rows numbers with encoding changes: %s', 'the-events-calendar' ), esc_html( implode( ', ', $encoded ) ) ); ?></p>
 <?php endif; ?>
 
 <?php
