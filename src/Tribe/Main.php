@@ -69,16 +69,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Args for venue post type
 		 * @var array
 		 */
-		public $postVenueTypeArgs = array(
-			'public'              => false,
-			'rewrite'             => array( 'slug' => 'venue', 'with_front' => false ),
-			'show_ui'             => true,
-			'show_in_menu'        => 0,
-			'supports'            => array( 'title', 'editor' ),
-			'capability_type'     => array( 'tribe_venue', 'tribe_venues' ),
-			'map_meta_cap'        => true,
-			'exclude_from_search' => true,
-		);
+		public $postVenueTypeArgs = array();
 
 		protected $taxonomyLabels;
 
@@ -86,16 +77,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Args for organizer post type
 		 * @var array
 		 */
-		public $postOrganizerTypeArgs = array(
-			'public'              => false,
-			'rewrite'             => array( 'slug' => 'organizer', 'with_front' => false ),
-			'show_ui'             => true,
-			'show_in_menu'        => 0,
-			'supports'            => array( 'title', 'editor' ),
-			'capability_type'     => array( 'tribe_organizer', 'tribe_organizers' ),
-			'map_meta_cap'        => true,
-			'exclude_from_search' => true,
-		);
+		public $postOrganizerTypeArgs = array();
 
 		public static $tribeUrl = 'http://tri.be/';
 		public static $tecUrl = 'http://theeventscalendar.com/';
@@ -583,30 +565,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Setup Shortcodes
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Shortcode__Event_Details', 'hook' ) );
-
-			add_filter( 'tribe_events_linked_post_id_field', function( $id, $post_type ) {
-				if ( 'tribe_venue' === $post_type ) {
-					return 'VenueID';
-				}
-
-				if ( 'tribe_organizer' === $post_type ) {
-					return 'OrganizerID';
-				}
-
-				return $id;
-			}, 10, 2 );
-
-			add_filter( 'tribe_events_linked_post_type_container', function( $container, $post_type ) {
-				if ( 'tribe_venue' === $post_type ) {
-					return 'venue';
-				}
-
-				if ( 'tribe_organizer' === $post_type ) {
-					return 'organizer';
-				}
-
-				return $container;
-			}, 10, 2 );
 		}
 
 		/**
@@ -699,7 +657,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function get_venue_label_plural() {
-			return apply_filters( 'tribe_venue_label_plural', esc_html__( 'Venues', 'the-events-calendar' ) );
+			return Tribe__Events__Venue::instance()->get_venue_label_plural();
 		}
 
 		/**
@@ -707,7 +665,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function get_venue_label_singular() {
-			return apply_filters( 'tribe_venue_label_singular', esc_html__( 'Venue', 'the-events-calendar' ) );
+			return Tribe__Events__Venue::instance()->get_venue_label_singular();
 		}
 
 		/**
@@ -715,7 +673,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function get_organizer_label_plural() {
-			return apply_filters( 'tribe_organizer_label_plural', esc_html__( 'Organizers', 'the-events-calendar' ) );
+			return Tribe__Events__Organizer::instance()->get_organizer_label_plural();
 		}
 
 		/**
@@ -723,7 +681,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function get_organizer_label_singular() {
-			return apply_filters( 'tribe_organizer_label_singular', esc_html__( 'Organizer', 'the-events-calendar' ) );
+			return Tribe__Events__Organizer::instance()->get_organizer_label_singular();
 		}
 
 		/**
@@ -802,6 +760,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function init() {
 			$rewrite = Tribe__Events__Rewrite::instance();
 
+			$venue                       = Tribe__Events__Venue::instance();
+			$organizer                   = Tribe__Events__Organizer::instance();
+			$this->postVenueTypeArgs     = $venue->post_type_args;
+			$this->postOrganizerTypeArgs = $organizer->post_type_args;
+
 			$this->pluginName = $this->plugin_name            = esc_html__( 'The Events Calendar', 'the-events-calendar' );
 			$this->rewriteSlug                                = $this->getRewriteSlug();
 			$this->rewriteSlugSingular                        = $this->getRewriteSlugSingular();
@@ -826,12 +789,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->plural_event_label_lowercase               = tribe_get_event_label_plural_lowercase();
 
 			$this->postTypeArgs['rewrite']['slug']            = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE, false );
-			$this->postVenueTypeArgs['rewrite']['slug']       = $rewrite->prepare_slug( $this->singular_venue_label, self::VENUE_POST_TYPE, false );
-			$this->postVenueTypeArgs['show_in_nav_menus']     = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
-			$this->postOrganizerTypeArgs['rewrite']['slug']   = $rewrite->prepare_slug( $this->singular_organizer_label, self::ORGANIZER_POST_TYPE, false );
-			$this->postOrganizerTypeArgs['show_in_nav_menus'] = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
-			$this->postVenueTypeArgs['public']                = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
-			$this->postOrganizerTypeArgs['public']            = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
 			$this->currentDay                                 = '';
 			$this->errors                                     = '';
 
@@ -1374,8 +1331,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function registerPostType() {
 			$this->generatePostTypeLabels();
 			register_post_type( self::POSTTYPE, apply_filters( 'tribe_events_register_event_type_args', $this->postTypeArgs ) );
-			register_post_type( self::VENUE_POST_TYPE, apply_filters( 'tribe_events_register_venue_type_args', $this->postVenueTypeArgs ) );
-			register_post_type( self::ORGANIZER_POST_TYPE, apply_filters( 'tribe_events_register_organizer_type_args', $this->postOrganizerTypeArgs ) );
 
 			// Setup Linked Posts singleton after we've set up the post types that we care about
 			Tribe__Events__Linked_Posts::instance();
@@ -1503,7 +1458,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return array
 		 */
 		public function getVenuePostTypeArgs() {
-			return $this->postVenueTypeArgs;
+			return Tribe__Events__Venue::instance()->post_type_args;
 		}
 
 		/**
@@ -1512,7 +1467,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return array
 		 */
 		public function getOrganizerPostTypeArgs() {
-			return $this->postOrganizerTypeArgs;
+			return Tribe__Events__Organizer::instance()->post_type_args;
 		}
 
 		/**
@@ -1535,42 +1490,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_event_label ),
 				'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), $this->plural_event_label_lowercase ),
 				'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), $this->plural_event_label_lowercase ),
-			) );
-
-			/**
-			 * Provides an opportunity to modify the labels used for the venue post type.
-			 *
-			 * @var array
-			 */
-			$this->postVenueTypeArgs['labels'] = apply_filters( 'tribe_events_register_venue_post_type_labels', array(
-				'name'               => $this->plural_venue_label,
-				'singular_name'      => $this->singular_venue_label,
-				'add_new'            => esc_html__( 'Add New', 'the-events-calendar' ),
-				'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ),
-				'edit_item'          => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label ),
-				'new_item'           => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_venue_label ),
-				'view_item'          => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_venue_label ),
-				'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_venue_label ),
-				'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
-				'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
-			) );
-
-			/**
-			 * Provides an opportunity to modify the labels used for the organizer post type.
-			 *
-			 * @var array
-			 */
-			$this->postOrganizerTypeArgs['labels'] = apply_filters( 'tribe_events_register_organizer_post_type_labels', array(
-				'name'               => $this->plural_organizer_label,
-				'singular_name'      => $this->singular_organizer_label,
-				'add_new'            => esc_html__( 'Add New', 'the-events-calendar' ),
-				'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ),
-				'edit_item'          => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_organizer_label ),
-				'new_item'           => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_organizer_label ),
-				'view_item'          => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_organizer_label ),
-				'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_organizer_label ),
-				'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), strtolower( $this->plural_organizer_label ) ),
-				'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->plural_organizer_label ) ),
 			) );
 
 			/**
@@ -3280,33 +3199,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$_POST['Organizer'] = isset( $_POST['organizer'] ) ? stripslashes_deep( $_POST['organizer'] ) : null;
 			$_POST['Venue']     = isset( $_POST['venue'] ) ? stripslashes_deep( $_POST['venue'] ) : null;
 
-
 			/**
 			 * handle previewed venues and organizers
 			 */
 			$this->manage_preview_metapost( 'venue', $postId );
 			$this->manage_preview_metapost( 'organizer', $postId );
-
-			/**
-			 * When we have a VenueID/OrganizerID, we just save the ID, because we're not
-			 * editing the venue/organizer from within the event.
-			 */
-			/*
-			$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
-			if ( isset( $_POST['Venue']['VenueID'] ) && ! empty( $_POST['Venue']['VenueID'] ) ) {
-				$_POST['Venue'] = array( 'VenueID' => intval( $_POST['Venue']['VenueID'] ) );
-			} elseif (
-				empty( $venue_pto->cap->create_posts )
-				|| ! current_user_can( $venue_pto->cap->create_posts )
-			) {
-				$_POST['Venue'] = array();
-			}
-
-			$_POST['Organizer'] = $this->normalize_organizer_submission( $_POST['Organizer'] );
-			 */
-
-
-			Tribe__Events__Linked_Posts::instance()->handle_submission( $postId, $_POST );
 
 			Tribe__Events__API::saveEventMeta( $postId, $_POST, $post );
 

@@ -349,7 +349,6 @@ class Tribe__Events__Linked_Posts {
 	 * @return boolean
 	 */
 	public function allow_multiple( $post_type ) {
-		return false;
 		return ! empty( $this->linked_post_types[ $post_type ]['allow_multiple'] );
 	}
 
@@ -485,49 +484,79 @@ class Tribe__Events__Linked_Posts {
 		return true;
 	}
 
-	public function handle_submission( $post_id, $submission ) {
-		$post_types = $this->get_linked_post_types();
+	/**
+	 * Detects linked post type data within a form submission and executes the post type-specific handlers
+	 *
+	 * @since 4.2
+	 *
+	 * @param int $event_id Submitted Event ID
+	 * @param array $submission Submitted form data
+	 */
+	public function handle_submission( $event_id, $submission ) {
+		$linked_post_types = $this->get_linked_post_types();
 
-		foreach ( $post_types as $post_type => $post_type_data ) {
+		foreach ( $linked_post_types as $linked_post_type => $linked_post_type_data ) {
 			/**
 			 * Filters the array element that contains the post type data in the $_POST object
 			 *
 			 * @var string Post type index
 			 * @var string Post type
 			 */
-			$post_type_container = apply_filters( 'tribe_events_linked_post_type_container', "linked_{$post_type}", $post_type );
+			$linked_post_type_container = apply_filters( 'tribe_events_linked_post_type_container', "linked_{$linked_post_type}", $linked_post_type );
 
-			$this->handle_submission_by_post_type( $post_id, $post_type, $submission[ $post_type_container ] );
+			if ( ! isset( $submission[ $linked_post_type_container ] ) ) {
+				$submission[ $linked_post_type_container ] = array();
+			}
+
+			$this->handle_submission_by_post_type( $event_id, $linked_post_type, $submission[ $linked_post_type_container ] );
 		}
 	}
 
-	public function handle_submission_by_post_type( $post_id, $post_type, $submission ) {
+	/**
+	 * Handles the submission of linked post data
+	 *
+	 * @since 4.2
+	 *
+	 * @param int $event_id Submitted Event ID
+	 * @param int $post_type Post type of linked post
+	 * @param array $submission Submitted form data
+	 */
+	public function handle_submission_by_post_type( $event_id, $linked_post_type, $submission ) {
+		// if the submission isn't an array, bail
+		if ( ! is_array( $submission ) ) {
+			return;
+		}
+
 		$linked_post_types = $this->get_linked_post_types();
-		$post_type_object = get_post_type_object( $post_type );
+		$linked_post_type_object = get_post_type_object( $linked_post_type );
 
 		/**
 		 * Filters the array index that contains the post type ID in the $_POST object
 		 *
-		 * @var string Post type id index
-		 * @var string Post type
+		 * @param string $id Post type id index
+		 * @param string $linked_post_type Post type
 		 */
-		$post_type_id_field = apply_filters( 'tribe_events_linked_post_id_field', 'id', $post_type );
+		$linked_post_type_id_field = apply_filters( 'tribe_events_linked_post_id_field', 'id', $linked_post_type );
+		$linked_posts       = array();
+		$event_post_status  = get_post_status( $event_id );
 
-		$linked_posts = array();
-
-		do_action( 'debug_robot', "a" );
-		do_action( 'debug_robot', '$post_type_id_field :: ' . print_r( $post_type_id_field, TRUE ) );
-
-		if ( ! is_array( $submission ) ) {
-			return;
+		if ( ! isset( $submission[ $linked_post_type_id_field ] ) ) {
+			$submission[ $linked_post_type_id_field ] = array();
 		}
-		do_action( 'debug_robot', "b" );
+
+		// if multiple post types are not supported, ensure that the submission array is set up appropriately
+		if ( ! $this->allow_multiple( $linked_post_type ) && ! is_array( $submission[ $linked_post_type_id_field ] ) ) {
+			$temp_submission = $submission;
+			$submission = array();
+
+			foreach ( $temp_submission as $key => $value ) {
+				$submission[ $key ] = array( $value );
+			}
+		}
 
 		$fields = array_keys( $submission );
-		do_action( 'debug_robot', '$fields :: ' . print_r( $fields, TRUE ) );
 
-		foreach ( $submission[ $post_type_id_field ] as $key => $id ) {
-			do_action( 'debug_robot', '$id :: ' . print_r( $id, TRUE ) );
+		foreach ( $submission[ $linked_post_type_id_field ] as $key => $id ) {
 			if ( ! empty( $id ) ) {
 				$linked_posts[] = intval( $id );
 				continue;
@@ -535,53 +564,64 @@ class Tribe__Events__Linked_Posts {
 
 			// if the user doesn't have permission to create this type of post, don't allow for creation
 			if (
-				empty( $post_type_object->cap->create_posts )
-				|| ! current_user_can( $post_type_object->cap->create_posts )
+				empty( $linked_post_type_object->cap->create_posts )
+				|| ! current_user_can( $linked_post_type_object->cap->create_posts )
 			) {
 				continue;
 			}
-
-			// if there isn't a callback declared for the "add" form, we can't successfully parse the data
-			if (
-				empty( $linked_post_types[ $post_type ]['add_form']['handler'] )
-				|| ! is_callable( $linked_post_types[ $post_type ]['add_form']['handler'] )
-			) {
-				continue;
-			}
-
-			do_action( 'debug_robot', "creating" );
 
 			$data = array();
 			foreach ( $fields as $field_name ) {
-				$data[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : null;
+				$data[ $field_name ] = isset( $submission[ $field_name ][ $key ] ) ? $submission[ $field_name ][ $key ] : null;
 			}
-			do_action( 'debug_robot', '$data :: ' . print_r( $data, TRUE ) );
 
-			$id = call_user_func_array( $linked_post_types[ $post_type ]['add_form']['handler'], array( $data ) );
+			// set the post status to the event post status
+			$post_status = $event_post_status;
+
+			/**
+			 * Filters the ID (default null) for creating posts from the event edit page
+			 *
+			 * @param string $id Post type id index
+			 * @param array $data Data for submission
+			 * @param string $linked_post_type Post type
+			 * @param string $post_status Post status
+			 * @param int $event_id Post ID of the post the post type is attached to
+			 */
+			$id = apply_filters( 'tribe_events_linked_post_create_' . $linked_post_type, null, $data, $linked_post_type, $post_status, $event_id );
+
+			/**
+			 * Filters the ID (default null) for creating posts from the event edit page
+			 *
+			 * @param string $id Post type id index
+			 * @param array $data Data for submission
+			 * @param string $linked_post_type Post type
+			 * @param string $post_status Post status
+			 * @param int $event_id Post ID of the post the post type is attached to
+			 */
+			$id = apply_filters( 'tribe_events_linked_post_create', $id, $data, $linked_post_type, $post_status, $event_id );
 
 			if ( $id ) {
 				$linked_posts[] = $id;
 			}
 		}
-		do_action( 'debug_robot', "c" );
 
-		$currently_linked_posts = $this->get_linked_posts_by_post_type( $post_id, $post_type );
+		// if we don't allow multiples, make sure there's only 1
+		if ( ! $this->allow_multiple( $linked_post_type ) && count( $linked_posts ) > 1 ) {
+			$linked_posts = array( $linked_posts[0] );
+		}
+
+		$currently_linked_posts = $this->get_linked_posts_by_post_type( $event_id, $linked_post_type );
 		$currently_linked_posts = wp_list_pluck( $currently_linked_posts, 'ID' );
 
 		$posts_to_add = array_diff( $linked_posts, $currently_linked_posts );
 		$posts_to_remove = array_diff( $currently_linked_posts, $linked_posts );
-		do_action( 'debug_robot', '$posts_to_add :: ' . print_r( $posts_to_add, TRUE ) );
-		do_action( 'debug_robot', '$posts_to_remove :: ' . print_r( $posts_to_remove, TRUE ) );
-		do_action( 'debug_robot', "d" );
 
-		/*
 		foreach ( $posts_to_remove as $linked_post_id ) {
-			$this->unlink_post( $post_id, $linked_post_id );
+			$this->unlink_post( $event_id, $linked_post_id );
 		}
 
 		foreach ( $posts_to_add as $linked_post_id ) {
-			$this->link_post( $post_id, $linked_post_id );
+			$this->link_post( $event_id, $linked_post_id );
 		}
-		*/
 	}
 }
