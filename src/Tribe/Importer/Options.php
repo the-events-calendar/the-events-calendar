@@ -5,7 +5,8 @@
  */
 class Tribe__Events__Importer__Options {
 	public static $options = array(
-		'imported_post_status'
+		'imported_post_status',
+		'imported_encoding_status'
 	);
 
 	public static function process_general_form_submission() {
@@ -123,5 +124,31 @@ class Tribe__Events__Importer__Options {
 		);
 
 		return apply_filters( 'tribe_import_possible_stati', $stati );
+	}
+	public static function get_default_encoding_status( $type = 'csv' ) {
+
+		$options = self::getOption( 'imported_encoding_status', array( $type => 'encode' ) );
+
+		if ( ! isset( $options[ $type ] ) ) {
+			$options[ $type ] = 'encode';
+		}
+
+		if ( ! isset( $options[ $type ] ) ) {
+			$options[ $type ] = apply_filters( 'tribe_import_default_encode_status_non_saved', 'encode', $type );
+		}
+
+		/**
+		 * Allows users to filter
+		 */
+		return apply_filters( 'tribe_import_default_encode_status', $options[ $type ], $type );
+	}
+
+	public static function get_encoding_status() {
+		$status = array(
+			'encode' => __( 'Encode contents', 'the-events-calendar' ),
+			'none' => __( 'Do Not Encode Contents', 'the-events-calendar' ),
+		);
+
+		return apply_filters( 'tribe_import_encoding_status', $status );
 	}
 }

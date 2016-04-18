@@ -17,6 +17,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	private $updated = 0;
 	private $created = 0;
 	private $skipped = array();
+	private $encoding = array();
 	private $log = array();
 
 	/**
@@ -113,6 +114,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return $this->skipped;
 	}
 
+	public function get_encoding_changes_row_count() {
+		return count( $this->encoding );
+	}
+
+	public function get_encoding_changes_row_numbers() {
+		return $this->encoding;
+	}
+
 	public function get_log_messages() {
 		return $this->log;
 	}
@@ -128,6 +137,18 @@ abstract class Tribe__Events__Importer__File_Importer {
 	public function import_next_row( $throw = false ) {
 		$record = $this->reader->read_next_row();
 		$row    = $this->reader->get_last_line_number_read() + 1;
+
+		//Check if option to encode is active
+		$encoding_option = Tribe__Events__Importer__Options::getOption( 'imported_encoding_status', array( 'csv' => 'encode' ) );
+		if ( isset( $encoding_option['csv'] ) && 'encode' == $encoding_option['csv'] ) {
+			$encoded       = Tribe__Events__Importer__Encoding::toUTF8( $record );
+			$encoding_diff = array_diff( $encoded, $record );
+			if ( ! empty( $encoding_diff ) ) {
+				$this->encoding[] = $row;
+			}
+			$record = $encoded;
+		}
+
 		if ( ! $this->is_valid_record( $record ) ) {
 			if ( ! $throw ) {
 				$this->log[ $row ] = $this->get_skipped_row_message( $row );

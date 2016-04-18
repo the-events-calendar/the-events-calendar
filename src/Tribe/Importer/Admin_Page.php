@@ -75,22 +75,29 @@ class Tribe__Events__Importer__Admin_Page {
 
 	public function add_settings_fields( $fields = array() ) {
 		$newfields = array(
-			'csv-title' => array(
+			'csv-title'                     => array(
 				'type' => 'html',
 				'html' => '<h3>' . esc_html__( 'CSV Import Settings', 'the-events-calendar' ) . '</h3>',
 			),
-			'csv-form-content-start' => array(
+			'csv-form-content-start'        => array(
 				'type' => 'html',
 				'html' => '<div class="tribe-settings-form-wrap">',
 			),
-			'imported_post_status[csv]' => array(
-				'type' => 'dropdown',
-				'label' => __( 'Default status to use for imported events', 'the-events-calendar' ),
-				'options' => Tribe__Events__Importer__Options::get_possible_stati(),
+			'imported_post_status[csv]'     => array(
+				'type'            => 'dropdown',
+				'label'           => __( 'Default status to use for imported events', 'the-events-calendar' ),
+				'options'         => Tribe__Events__Importer__Options::get_possible_stati(),
 				'validation_type' => 'options',
-				'parent_option' => Tribe__Events__Main::OPTIONNAME,
+				'parent_option'   => Tribe__Events__Main::OPTIONNAME,
 			),
-			'csv-form-content-end' => array(
+			'imported_encoding_status[csv]' => array(
+				'type'            => 'dropdown',
+				'label'           => __( 'Default encoding for imported csv file', 'the-events-calendar' ),
+				'options'         => Tribe__Events__Importer__Options::get_encoding_status(),
+				'validation_type' => 'options',
+				'parent_option'   => Tribe__Events__Main::OPTIONNAME,
+			),
+			'csv-form-content-end'          => array(
 				'type' => 'html',
 				'html' => '</div>',
 			),
@@ -180,6 +187,7 @@ class Tribe__Events__Importer__Admin_Page {
 			case 'complete':
 				$log = get_option( 'tribe_events_import_log' );
 				$skipped = get_option( 'tribe_events_import_failed_rows', array() );
+				$encoded = get_option( 'tribe_events_import_encoded_rows', array() );
 				include Tribe__Events__Importer__Plugin::path( 'src/io/csv/admin-views/result.php' );
 				break;
 			default:
@@ -359,8 +367,9 @@ class Tribe__Events__Importer__Admin_Page {
 
 	private function reset_tracking_options() {
 		update_option( 'tribe_events_importer_offset', get_option( 'tribe_events_importer_has_header', 0 ) );
-		update_option( 'tribe_events_import_log', array( 'updated' => 0, 'created' => 0, 'skipped' => 0 ) );
+		update_option( 'tribe_events_import_log', array( 'updated' => 0, 'created' => 0, 'skipped' => 0, 'encoding' => 0 ) );
 		update_option( 'tribe_events_import_failed_rows', array() );
+		update_option( 'tribe_events_import_encoded_rows', array() );
 	}
 
 	private function continue_import() {
@@ -404,12 +413,18 @@ class Tribe__Events__Importer__Admin_Page {
 		$log['updated'] += $importer->get_updated_post_count();
 		$log['created'] += $importer->get_new_post_count();
 		$log['skipped'] += $importer->get_skipped_row_count();
+		$log['encoding'] += $importer->get_encoding_changes_row_count();
 		update_option( 'tribe_events_import_log', $log );
 
-		$skipped_rows = $importer->get_skipped_row_numbers();
+		$skipped_rows            = $importer->get_skipped_row_numbers();
 		$previously_skipped_rows = get_option( 'tribe_events_import_failed_rows', array() );
-		$skipped_rows = $previously_skipped_rows + $skipped_rows;
+		$skipped_rows            = $previously_skipped_rows + $skipped_rows;
 		update_option( 'tribe_events_import_failed_rows', $skipped_rows );
+
+		$encoded_rows            = $importer->get_encoding_changes_row_numbers();
+		$previously_encoded_rows = get_option( 'tribe_events_import_encoded_rows', array() );
+		$encoded_rows            = $previously_encoded_rows + $encoded_rows;
+		update_option( 'tribe_events_import_encoded_rows', $encoded_rows );
 	}
 
 	private function clean_up_after_import() {

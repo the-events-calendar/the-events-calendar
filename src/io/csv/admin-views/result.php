@@ -18,6 +18,7 @@ require_once 'header.php';
 	<li><?php printf( esc_html__( 'Inserted: %d', 'the-events-calendar' ), $log['created'] ); ?></li>
 	<li><?php printf( esc_html__( 'Updated: %d', 'the-events-calendar' ), $log['updated'] ); ?></li>
 	<li><?php printf( esc_html__( 'Skipped: %d', 'the-events-calendar' ), $log['skipped'] ); ?></li>
+	<li><?php printf( esc_html__( 'Encoding Changes: %d', 'the-events-calendar' ), $log['encoding'] ); ?></li>
 </ul>
 
 
@@ -26,6 +27,10 @@ require_once 'header.php';
 
 <?php if ( ! empty( $skipped ) ): ?>
 	<p><?php printf( esc_html__( 'Skipped row numbers: %s', 'the-events-calendar' ), implode( ', ', $skipped ) ); ?></p>
+<?php endif; ?>
+
+<?php if ( ! empty( $encoded ) ): ?>
+	<p><?php printf( esc_html__( 'Rows numbers with encoding changes: %s', 'the-events-calendar' ), implode( ', ', $encoded ) ); ?></p>
 <?php endif; ?>
 
 <?php
