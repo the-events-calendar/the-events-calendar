@@ -126,6 +126,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	}
 
 	public function import_next_row( $throw = false ) {
+		$post_id = null;
 		$record = $this->reader->read_next_row();
 		$row    = $this->reader->get_last_line_number_read() + 1;
 		if ( ! $this->is_valid_record( $record ) ) {
@@ -138,12 +139,12 @@ abstract class Tribe__Events__Importer__File_Importer {
 				throw new RuntimeException( sprintf( 'Missing required fields in row %d', $row ) );
 			}
 		}
-		try {
+		//try {
 			$post_id = $this->update_or_create_post( $record );
-		} catch ( Exception $e ) {
-			$this->log[ $row ] = sprintf( esc_html__( 'Failed to import record in row %d.', 'the-events-calendar' ), $row );
-			$this->skipped[] = $row;
-		}
+		//} catch ( Exception $e ) {
+		//	$this->log[ $row ] = sprintf( esc_html__( 'Failed to import record in row %d.', 'the-events-calendar' ), $row );
+		//	$this->skipped[] = $row;
+		//}
 
 		return $post_id;
 	}
@@ -208,7 +209,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 				return $name;
 			}
 		}
-		
+
 		$query_args = array(
 			'post_type'   => $post_type,
 			'post_status' => 'publish',
