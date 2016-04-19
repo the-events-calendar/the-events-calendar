@@ -27,7 +27,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	 *
 	 * @return Tribe__Events__JSON_LD__Event
 	 */
-	public static function instance() {
+	public static function instance( $name = null ) {
 		return parent::instance( __CLASS__ );
 	}
 
