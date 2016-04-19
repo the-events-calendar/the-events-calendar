@@ -80,17 +80,18 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 		$instance = parent::update( $new_instance, $old_instance );
 		$new_instance = $this->default_instance_args( $new_instance, true );
 
-		$instance['venue']     = $new_instance['venue'];
-		$instance['country']   = $new_instance['country'];
-		$instance['address']   = $new_instance['address'];
-		$instance['city']      = $new_instance['city'];
-		$instance['region']    = $new_instance['region'];
-		$instance['zip']       = $new_instance['zip'];
-		$instance['phone']     = $new_instance['phone'];
-		$instance['cost']      = $new_instance['cost'];
-		$instance['organizer'] = $new_instance['organizer'];
-		$instance['operand']   = strip_tags( $new_instance['operand'] );
-		$instance['filters']   = maybe_unserialize( $new_instance['filters'] );
+		$instance['venue']                = $new_instance['venue'];
+		$instance['country']              = $new_instance['country'];
+		$instance['address']              = $new_instance['address'];
+		$instance['city']                 = $new_instance['city'];
+		$instance['region']               = $new_instance['region'];
+		$instance['zip']                  = $new_instance['zip'];
+		$instance['phone']                = $new_instance['phone'];
+		$instance['cost']                 = $new_instance['cost'];
+		$instance['organizer']            = $new_instance['organizer'];
+		$instance['tribe_is_list_widget'] = $new_instance['tribe_is_list_widget'];
+		$instance['operand']              = strip_tags( $new_instance['operand'] );
+		$instance['filters']              = maybe_unserialize( $new_instance['filters'] );
 
 		// @todo remove after 3.7 (added for continuity when users transition from 3.5.x or earlier to this release)
 		if ( isset( $old_instance['category'] ) ) {
@@ -127,21 +128,22 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 	 */
 	protected function default_instance_args( array $instance, $empty_values = false ) {
 		$defaults = array(
-			'title'              => __( 'Upcoming Events', 'tribe-events-calendar-pro' ),
-			'limit'              => '5',
-			'no_upcoming_events' => false,
-			'venue'              => false,
-			'country'            => true,
-			'address'            => false,
-			'city'               => true,
-			'region'             => true,
-			'zip'                => false,
-			'phone'              => false,
-			'cost'               => false,
-			'organizer'          => false,
-			'operand'            => 'OR',
-			'filters'            => '',
-			'instance'           => &$this->instance,
+			'title'                => __( 'Upcoming Events', 'tribe-events-calendar-pro' ),
+			'limit'                => '5',
+			'no_upcoming_events'   => false,
+			'venue'                => false,
+			'country'              => true,
+			'address'              => false,
+			'city'                 => true,
+			'region'               => true,
+			'zip'                  => false,
+			'phone'                => false,
+			'cost'                 => false,
+			'organizer'            => false,
+			'tribe_is_list_widget' => true,
+			'operand'              => 'OR',
+			'filters'              => '',
+			'instance'             => &$this->instance,
 		);
 
 		if ( $empty_values ) {

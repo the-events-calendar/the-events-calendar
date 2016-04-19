@@ -227,6 +227,7 @@ Our Premium Plugins:
 
 = [4.2] TBD =
 
+* Tweak - Advanced List Widget shows the month instead of the day of the week in the date icon when the event is not in the current month [40527]
 * Tweak - Improved our JSON-LD output to ensure consistency (props: @garrettjohnson) [43595]
 * Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files [36246]
 
