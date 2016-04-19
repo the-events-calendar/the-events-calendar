@@ -1,4 +1,14 @@
 /**
+ * This CSS file was auto-generated via PostCSS
+ *
+ * Contributors should avoid editing this file, but instead edit the associated
+ * src/resources/postcss/ file. For more information, check out our engineering
+ * docs on how we handle CSS in our engineering docs.
+ *
+ * @see: http://moderntribe.github.io/products-engineering/css/
+ */
+
+/**
  * The Events Calendar Widget Calendar Full Stylesheet
  *
  * To add your own custom styles, create a stylesheet with the name
@@ -16,6 +26,7 @@
 }
 
 /* calendar css */
+
 .tribe-mini-calendar-grid-wrapper {
 	margin-bottom: 10px;
 }
@@ -28,7 +39,7 @@
 }
 
 .tribe-mini-calendar td,
-.tribe-mini-calendar th {
+	.tribe-mini-calendar th {
 	width: 14.2857142857%;
 	padding: 0;
 	text-align     : center;
@@ -38,16 +49,6 @@
 
 .tribe-mini-calendar thead {
 	background: #666666;
-}
-
-
-
-.tribe-mini-calendar-dayofweek{
-	background: #ddd;
-	color:#333;
-	font-weight:bold;
-	text-transform: uppercase;
-	padding:3px 0;
 }
 
 .tribe-mini-calendar div[id*='daynum-'] a {
@@ -70,20 +71,25 @@
 }
 
 .tribe-mini-calendar .tribe-events-has-events:hover a,
-.tribe-mini-calendar .tribe-events-has-events:hover a:hover {
+			.tribe-mini-calendar .tribe-events-has-events:hover a:hover {
 	color: #fff;
 	text-decoration: none;
 }
 
-.tribe-mini-calendar-no-event{
-	color: #999;
-	font-weight: bold;
+.tribe-mini-calendar .tribe-events-has-events div[id*='daynum-'] a:before {
+	content: '';
 	display: block;
-	text-decoration: none;
-	padding: 5px 5px 15px 5px;
-}
-.tribe-mini-calendar .tribe-events-past {
-	opacity: .6;
+	height: 7px;
+	width: 7px;
+	padding: 0;
+	background: #999;
+	margin: 5px auto 0 -4px;
+	position: absolute;
+	left: 50%;
+	bottom: 4px;
+	border-radius: 7px;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
 }
 
 .tribe-mini-calendar .tribe-events-has-events.tribe-mini-calendar-today:hover {
@@ -94,8 +100,36 @@
 	color: #fff;
 }
 
-.tribe-mini-calendar .tribe-events-has-events.tribe-mini-calendar-today div[id*='daynum-'] a:before {
+.tribe-mini-calendar .tribe-events-has-events.tribe-mini-calendar-today div[id*='daynum-'] a::before {
 	background: #fff;
+}
+
+.tribe-mini-calendar .tribe-events-past {
+	opacity: .6;
+}
+
+.tribe-events-has-events.tribe-events-present div[id*='daynum-'] a::before {
+	background: #fff;
+}
+
+.tribe-events-has-events div[id*='daynum-'] a:hover::before {
+	background:#fff;
+}
+
+.tribe-mini-calendar-dayofweek{
+	background: #ddd;
+	color:#333;
+	font-weight:bold;
+	text-transform: uppercase;
+	padding:3px 0;
+}
+
+.tribe-mini-calendar-no-event{
+	color: #999;
+	font-weight: bold;
+	display: block;
+	text-decoration: none;
+	padding: 5px 5px 15px 5px;
 }
 
 .tribe-mini-calendar-nav {
@@ -136,35 +170,9 @@
 	margin: 0 0 0 20px;
 }
 
-
 .tribe-mini-calendar-nav .tribe-mini-calendar-nav-link:hover {
 	color:#6fb7ff;
 }
-
-.tribe-mini-calendar .tribe-events-has-events  div[id*='daynum-'] a:before {
-	content: '';
-	display: block;
-	height: 7px;
-	width: 7px;
-	padding: 0;
-	background: #999;
-	margin: 5px auto 0 -4px;
-	position: absolute;
-	left: 50%;
-	bottom: 4px;
-	border-radius: 7px;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
-}
-
-.tribe-events-has-events.tribe-events-present div[id*='daynum-'] a:before {
-	background: #fff;
-}
-
-.tribe-events-has-events  div[id*='daynum-'] a:hover:before{
-	background:#fff;
-}
-
 
 .tribe-mini-calendar-nav #ajax-loading-mini {
 	position: absolute;
@@ -188,17 +196,12 @@
 
 /* event list css */
 
-
 .tribe-mini-calendar-event {
 	overflow:hidden;
 	width:100%;
 	padding-bottom : 5px;
 	margin-bottom  : 5px;
 	border-bottom  : 1px dotted #2f2f2f;
-}
-
-.tribe-mini-calendar-right .tribe-mini-calendar-event:last-child {
-	border:0;
 }
 
 .tribe-mini-calendar-event.first {
@@ -262,17 +265,14 @@
 	margin-top: 0;
 	margin-bottom: 10px;
 }
+
 .tribe-mini-calendar-event .list-info p {
+	display: none;
 	margin:5px 0;
-	display:none;
 }
 
 .tribe-mini-calendar-event.first .list-info p {
 	display:block;
-}
-
-.tribe-mini-calendar-event-cost {
-	font-weight: bold;
 }
 
 .tribe-mini-calendar-event .tribe-events-divider {
@@ -283,6 +283,15 @@
 .tribe-mini-calendar-event .tribe-events-event-schedule-details {
 	display: inline-block;
 }
+
+.tribe-mini-calendar-event-cost {
+	font-weight: bold;
+}
+
+.tribe-mini-calendar-right .tribe-mini-calendar-event:last-child {
+	border:0;
+}
+
 .tribe-mini-calendar-event .tribe-events-event-schedule-details,
 .tribe-mini-calendar-event-venue {
 	margin: 5px 0 0;
@@ -300,21 +309,20 @@
 	text-align: center;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	-webkit-border-radius: 3px;
-			border-radius: 3px;
+	border-radius: 3px;
 	border: 0;
 	line-height: normal;
 	cursor: pointer;
-	-webkit-box-shadow: none;
-			box-shadow: none;
+	box-shadow: none;
 	text-decoration: none;
 }
 
 /* = Twenty Fifteen theme compatibility.
 =============================================*/
+
 .tribe-theme-twentyfifteen .tribe_mini_calendar_widget,
-.tribe-theme-twentyfifteen .tribe-events-adv-list-widget,
-.tribe-theme-twentyfifteen .tribe-events-countdown-widget {
+	.tribe-theme-twentyfifteen .tribe-events-adv-list-widget,
+	.tribe-theme-twentyfifteen .tribe-events-countdown-widget {
 	word-wrap: normal;
 }
 
@@ -322,17 +330,20 @@
 	margin-left: 0;
 	margin-right: 0;
 }
-.tribe-theme-twentyfifteen .tribe-mini-calendar-list-wrapper .type-tribe_events {
-	margin-left: 0;
-	margin-right: 0;
-	box-shadow: none;
-}
+
 .tribe-theme-twentyfifteen .tribe-mini-calendar-event .list-date {
 	width: 18%;
 	margin-right: 7%;
 }
+
 .tribe-theme-twentyfifteen .tribe-mini-calendar-event .list-info {
 	width: 75%;
+}
+
+.tribe-theme-twentyfifteen .tribe-mini-calendar-list-wrapper .type-tribe_events {
+	margin-left: 0;
+	margin-right: 0;
+	box-shadow: none;
 }
 
 .tribe-theme-twentyfifteen .tribe-mini-calendar div[id*='daynum-'] a {

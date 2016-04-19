@@ -110,9 +110,15 @@ class Tribe__Events__Pro__Custom_Meta {
 		if ( ! isset( $tribe_ecp ) ) {
 			$tribe_ecp = Tribe__Events__Main::instance();
 		}
+
+		if ( ! current_user_can( 'edit_tribe_events' ) ) {
+			exit;
+		}
+
 		$options = Tribe__Settings_Manager::get_options();
 		array_splice( $options['custom-fields'], $_POST['field'] - 1, 1 );
 		Tribe__Settings_Manager::set_options( $options, false );
+
 		$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->postmeta WHERE meta_key=%s", '_ecp_custom_' . $_POST['field'] ) );
 		die();
 	}
@@ -183,7 +189,7 @@ class Tribe__Events__Pro__Custom_Meta {
 			if ( ! isset( $custom_field['name'] ) ) {
 				continue;
 			}
-			
+
 			$ordinary_field_name = wp_kses_data( $custom_field['name'] );
 			$searchable_field_name = '_' . $ordinary_field_name;
 
@@ -196,11 +202,11 @@ class Tribe__Events__Pro__Custom_Meta {
 			if ( is_array( $value ) ) {
 				$ordinary_record    = esc_attr( implode( '|', str_replace( '|', '', $value ) ) );
 				$searchable_records = $value;
-			} 
+			}
 			// If we have only a single value we may still need to record an extra entry if the type
 			// of field is multichoice in nature
 			else {
-				
+
 				$searchable_records[] = $ordinary_record = wp_kses(
 					$value,
 					array(
