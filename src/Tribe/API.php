@@ -328,34 +328,34 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		/**
 		 * Deletes an organizer
 		 *
-		 * @param int  $organizerId  The organizer ID to delete.
+		 * @param int  $organizer_id  The organizer ID to delete.
 		 * @param bool $force_delete Same as WP param.
 		 *
 		 */
-		public static function deleteOrganizer( $organizerId, $force_delete = false ) {
-			return Tribe__Events__Organizer::instance()->delete( $organizerId, $force_delete );
+		public static function deleteOrganizer( $organizer_id, $force_delete = false ) {
+			return Tribe__Events__Organizer::instance()->delete( $organizer_id, $force_delete );
 		}
 
 		/**
 		 * Updates an organizer
 		 *
-		 * @param int   $organizerId The organizer ID to update.
+		 * @param int   $organizer_id The organizer ID to update.
 		 * @param array $data        The organizer data.
 		 *
 		 */
-		public static function updateOrganizer( $organizerId, $data ) {
-			return Tribe__Events__Organizer::instance()->update( $organizerid, $data );
+		public static function updateOrganizer( $organizer_id, $data ) {
+			return Tribe__Events__Organizer::instance()->update( $organizer_id, $data );
 		}
 
 		/**
 		 * Saves organizer meta
 		 *
-		 * @param int   $organizerId The organizer ID.
+		 * @param int   $organizer_id The organizer ID.
 		 * @param array $data        The organizer data.
 		 *
 		 */
-		private static function saveOrganizerMeta( $organizerId, $data ) {
-			return Tribe__Events__Organizer::instance()->save_meta( $organizerid, $data );
+		private static function saveOrganizerMeta( $organizer_id, $data ) {
+			return Tribe__Events__Organizer::instance()->save_meta( $organizer_id, $data );
 		}
 
 		/**
@@ -384,7 +384,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		/**
 		 * Updates an venue
 		 *
-		 * @param int   $venueId The venue ID to update.
+		 * @param int   $venue_id The venue ID to update.
 		 * @param array $data    The venue data.
 		 *
 		 */
@@ -395,23 +395,23 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		/**
 		 * Deletes a venue
 		 *
-		 * @param int  $venueId      The venue ID to delete.
+		 * @param int  $venue_id      The venue ID to delete.
 		 * @param bool $force_delete Same as WP param.
 		 *
 		 */
-		public static function deleteVenue( $venueId, $force_delete = false ) {
+		public static function deleteVenue( $venue_id, $force_delete = false ) {
 			return Tribe__Events__Venue::instance()->delete( $venue_id, $force_delete );
 		}
 
 		/**
 		 * Saves venue meta
 		 *
-		 * @param int   $venueId The venue ID.
+		 * @param int   $venue_id The venue ID.
 		 * @param array $data    The venue data.
 		 *
 		 */
-		private static function saveVenueMeta( $venueId, $data ) {
-			return Tribe__Events__Venue::instance()->save_meta( $venueId, $data );
+		private static function saveVenueMeta( $venue_id, $data ) {
+			return Tribe__Events__Venue::instance()->save_meta( $venue_id, $data );
 		}
 	}
 }
