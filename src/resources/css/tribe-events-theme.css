@@ -378,10 +378,9 @@ h2.tribe-events-page-title,
 	filter: Alpha(opacity=50);
 }
 
-.tribe-events-calendar td.tribe-events-past .tribe-events-month-event-title span,
-.tribe-events-calendar td.tribe-events-past .tribe-events-viewmore span {
+.tribe-events-calendar td.tribe-events-past .tribe-events-month-event-title,
+.tribe-events-calendar td.tribe-events-past .tribe-events-viewmore {
 	text-decoration: line-through;
-
 }
 
 /* Global Tooltips */
