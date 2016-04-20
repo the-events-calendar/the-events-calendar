@@ -28,7 +28,7 @@ class Tribe__Events__JSON_LD__Venue extends Tribe__JSON_LD__Abstract {
 	 * @param  $name DONT USE THIS PARAM, it's here for Abstract compatibility
 	 * @return Tribe__Events__JSON_LD__Venue
 	 */
-	public static function instance() {
+	public static function instance( $name = null ) {
 		return parent::instance( __CLASS__ );
 	}
 
