@@ -318,6 +318,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Accessibility - Focus styles added for search fields [32936]
 * Accessibility - Add ARIA labels for Month/Day/List sub nav [32937]
 * Accessibility - Add ARIA label for events footer sub nav heading [32937]
+* Accessibility - Create better visual contrast between current and past events using strike-through on past event title. [32935]
 
 = [4.1.2] 2016-04-11 =
 
