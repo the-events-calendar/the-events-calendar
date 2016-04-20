@@ -14,6 +14,11 @@ class Tribe__Events__Linked_Posts {
 	public static $instance;
 
 	/**
+	 * @var Tribe__Events__Main Singleton
+	 */
+	public $main;
+
+	/**
 	 * @var array Collection of post types that can be linked with events
 	 */
 	public $linked_post_types;
@@ -35,7 +40,18 @@ class Tribe__Events__Linked_Posts {
 	 * Constructor!
 	 */
 	public function __construct() {
+		$this->main = Tribe__Events__Main::instance();
 		$this->register_default_linked_post_types();
+
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+	}
+
+	public function enqueue_scripts() {
+		$data = array(
+			'post_types' => array_keys( $this->linked_post_types ),
+		);
+		wp_localize_script( 'jquery', 'tribe_events_linked_posts', $data );
 	}
 
 	/**
@@ -130,6 +146,63 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		return self::META_KEY_PREFIX . $post_type;
+	}
+
+	/**
+	 * Returns the post type's form field container name
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $linked_post_type Linked post type
+	 *
+	 * @return string
+	 */
+	public function get_post_type_container( $linked_post_type ) {
+		/**
+		 * Filters the array element that contains the post type data in the $_POST object
+		 *
+		 * @var string Post type index
+		 * @var string Post type
+		 */
+		return apply_filters( 'tribe_events_linked_post_type_container', "linked_{$linked_post_type}", $linked_post_type );
+	}
+
+	/**
+	 * Returns the post type's ID field name
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $linked_post_type Linked post type
+	 *
+	 * @return string
+	 */
+	public function get_post_type_id_field_index( $linked_post_type ) {
+		/**
+		 * Filters the array index that contains the post type ID
+		 *
+		 * @param string $id Post type id index
+		 * @param string $linked_post_type Post type
+		 */
+		return apply_filters( 'tribe_events_linked_post_id_field_index', 'id', $linked_post_type );
+	}
+
+	/**
+	 * Returns the post type's name field
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $linked_post_type Linked post type
+	 *
+	 * @return string
+	 */
+	public function get_post_type_name_field_index( $linked_post_type ) {
+		/**
+		 * Filters the array index that contains the post name
+		 *
+		 * @param string $name Post type name index
+		 * @param string $linked_post_type Post type
+		 */
+		return apply_filters( 'tribe_events_linked_post_name_field_index', 'name', $linked_post_type );
 	}
 
 	/**
@@ -279,17 +352,7 @@ class Tribe__Events__Linked_Posts {
 		$result = array();
 
 		if ( $linked_post_ids = get_post_meta( $post_id, $this->get_meta_key( $post_type ) ) ) {
-			$args = array(
-				'post_type'   => $post_type,
-				'post__in'    => $linked_post_ids,
-				'post_status' => 'publish',
-				'order'       => 'ASC',
-				'orderby'     => 'title',
-			);
-
-			$query = new WP_Query( $args );
-
-			$result = $query->get_posts();
+			$result = $this->get_linked_post_info( $post_type );
 		}
 
 		/**
@@ -496,13 +559,7 @@ class Tribe__Events__Linked_Posts {
 		$linked_post_types = $this->get_linked_post_types();
 
 		foreach ( $linked_post_types as $linked_post_type => $linked_post_type_data ) {
-			/**
-			 * Filters the array element that contains the post type data in the $_POST object
-			 *
-			 * @var string Post type index
-			 * @var string Post type
-			 */
-			$linked_post_type_container = apply_filters( 'tribe_events_linked_post_type_container', "linked_{$linked_post_type}", $linked_post_type );
+			$linked_post_type_container = $this->get_post_type_container( $linked_post_type );
 
 			if ( ! isset( $submission[ $linked_post_type_container ] ) ) {
 				$submission[ $linked_post_type_container ] = array();
@@ -527,18 +584,11 @@ class Tribe__Events__Linked_Posts {
 			return;
 		}
 
-		$linked_post_types = $this->get_linked_post_types();
-		$linked_post_type_object = get_post_type_object( $linked_post_type );
-
-		/**
-		 * Filters the array index that contains the post type ID in the $_POST object
-		 *
-		 * @param string $id Post type id index
-		 * @param string $linked_post_type Post type
-		 */
-		$linked_post_type_id_field = apply_filters( 'tribe_events_linked_post_id_field', 'id', $linked_post_type );
-		$linked_posts       = array();
-		$event_post_status  = get_post_status( $event_id );
+		$linked_post_types         = $this->get_linked_post_types();
+		$linked_post_type_object   = get_post_type_object( $linked_post_type );
+		$linked_post_type_id_field = $this->get_post_type_id_field_index( $linked_post_type );
+		$linked_posts              = array();
+		$event_post_status         = get_post_status( $event_id );
 
 		if ( ! isset( $submission[ $linked_post_type_id_field ] ) ) {
 			$submission[ $linked_post_type_id_field ] = array();
@@ -622,6 +672,160 @@ class Tribe__Events__Linked_Posts {
 
 		foreach ( $posts_to_add as $linked_post_id ) {
 			$this->link_post( $event_id, $linked_post_id );
+		}
+	}
+
+	/**
+	 * Get Linked Post info
+	 *
+	 * @param string $linked_post_type Post type of linked post
+	 * @param array $args
+	 * @param int $linked_post_id post id
+	 *
+	 * @return WP_Query->posts || array()
+	 */
+	public function get_linked_post_info( $linked_post_type, $args = array(), $linked_post_id = null ) {
+		$defaults = array(
+			'p'                    => $linked_post_id,
+			'post_type'            => $linked_post_type,
+			'post_status'          => 'publish',
+			'orderby'              => 'title',
+			'order'                => 'ASC',
+			'ignore_sticky_posts ' => 1,
+			'nopaging'             => 1,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+		$result = new WP_Query( $args );
+		if ( $result->have_posts() ) {
+			return $result->posts;
+		}
+
+		return array();
+	}
+
+	/**
+	 * helper function for displaying the saved organizer dropdown
+	 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
+	 *
+	 * @param mixed  $current the current saved venue
+	 * @param string $name    the name value for the field
+	 */
+	public function saved_linked_post_dropdown( $post_type, $current = null ) {
+		$linked_post_type_container = $this->get_post_type_container( $post_type );
+		$linked_post_type_id_field  = $this->get_post_type_id_field_index( $post_type );
+		$name                       = "{$linked_post_type_container}[{$linked_post_type_id_field}][]";
+		$my_linked_post_ids         = array();
+		$current_user               = wp_get_current_user();
+		$my_linked_posts            = false;
+		$my_linked_post_options     = '';
+
+		if ( 0 != $current_user->ID ) {
+			$my_linked_posts = $this->get_linked_post_info(
+				$post_type,
+				array(
+					'post_status' => array(
+						'publish',
+						'draft',
+						'private',
+						'pending',
+					),
+					'author' => $current_user->ID,
+				)
+			);
+
+			if ( ! empty( $my_linked_posts ) ) {
+				foreach ( $my_linked_posts as $my_linked_post ) {
+					$my_linked_post_ids[] = $my_linked_post->ID;
+					$linked_post_title    = wp_kses( get_the_title( $my_linked_post->ID ), array() );
+					$my_linked_post_options .= '<option value="' . esc_attr( $my_linked_post->ID ) . '"';
+					$my_linked_post_options .= selected( $current, $my_linked_post->ID, false );
+					$my_linked_post_options .= '>' . $linked_post_title . '</option>';
+				}
+			}
+		}
+
+		if ( current_user_can( $this->linked_post_types[ $post_type ]['cap']['edit_others_posts'] ) ) {
+			$linked_posts = $this->get_linked_post_info(
+				$post_type,
+				array(
+					'post_status' => array(
+						'publish',
+						'draft',
+						'private',
+						'pending',
+					),
+					'post__not_in' => $my_linked_post_ids,
+				)
+			);
+		} else {
+			$linked_posts = $this->get_linked_post_info(
+				$post_type,
+				array(
+					'post_status'  => 'publish',
+					'post__not_in' => $my_linked_post_ids,
+				)
+			);
+		}
+
+		$plural_name = $this->linked_post_types[ $post_type ]['labels']['name'];
+		$singular_name = ! empty( $this->linked_post_types[ $post_type ]['labels']['singular_name'] ) ? $this->linked_post_types[ $post_type ]['labels']['singular_name'] : $plural_name;
+
+		if ( $linked_posts || $my_linked_posts ) {
+			$linked_post_pto = get_post_type_object( $post_type );
+			echo '<select class="chosen linked-post-dropdown" name="' . esc_attr( $name ) . '" id="saved_' . esc_attr( $post_type ) . '">';
+			if (
+				! empty( $linked_post_pto->cap->create_posts )
+				&& current_user_can( $linked_post_pto->cap->create_posts )
+			) {
+				echo '<option value="0">' . sprintf( esc_html__( 'Use New %s', 'the-events-calendar' ), $singular_name ) . '</option>';
+			}
+
+			if ( $my_linked_posts ) {
+				$my_optgroup_name = sprintf( esc_html__( 'My %s', 'the-events-calendar' ), $plural_name );
+
+				// backwards compatibility with old organizer filter
+				if ( Tribe__Events__Organizer::POSTTYPE === $post_type ) {
+					$my_optgroup_name = apply_filters( 'tribe_events_saved_organizers_dropdown_my_optgroup', $my_optgroup_name );
+				}
+
+				$my_optgroup_name = apply_filters( 'tribe_events_saved_linked_post_dropdown_my_optgroup', $my_optgroup_name, $post_type );
+
+				echo $linked_posts ? '<optgroup label="' . esc_attr( $my_optgroup_name ) . '">' : '';
+				echo $my_linked_post_options;
+				echo $linked_posts ? '</optgroup>' : '';
+			}
+
+			if ( $linked_posts ) {
+				$optgroup_name = sprintf( esc_html__( 'Available %s', 'the-events-calendar' ), $plural_name );
+
+				// backwards compatibility with old organizer filter
+				if ( Tribe__Events__Organizer::POSTTYPE === $post_type ) {
+					$optgroup_name = apply_filters( 'tribe_events_saved_organizers_dropdown_optgroup', $optgroup_name );
+				}
+
+				$optgroup_name = apply_filters( 'tribe_events_saved_linked_post_dropdown_optgroup', $optgroup_name, $post_type );
+
+				echo $my_linked_posts ? '<optgroup label="' . esc_attr( $optgroup_name ) . '">' : '';
+				foreach ( $linked_posts as $linked_post ) {
+					$linked_post_title = wp_kses( get_the_title( $linked_post->ID ), array() );
+					echo '<option value="' . esc_attr( $linked_post->ID ) . '"';
+					selected( $current == $linked_post->ID );
+					echo '>' . $linked_post_title . '</option>';
+				}
+				echo $my_linked_posts ? '</optgroup>' : '';
+			}
+			echo '</select>';
+		} else {
+			echo '<p class="nosaved">' . sprintf( esc_html__( 'No saved %s exists.', 'the-events-calendar' ), strtolower( $singular_name ) ) . '</p>';
+			printf( '<input type="hidden" name="%s" value="%d"/>', esc_attr( $name ), 0 );
+		}
+	}
+
+	public function render_meta_box_sections( $event ) {
+		foreach ( $this->linked_post_types as $linked_post_type => $linked_post_type_data ) {
+			$template = apply_filters( 'tribe_events_linked_post_meta_box_section', $this->main->plugin_path . 'src/admin-views/linked-post-section.php', $linked_post_type );
+			include $template;
 		}
 	}
 }

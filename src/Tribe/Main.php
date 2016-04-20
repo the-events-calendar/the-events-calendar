@@ -1811,90 +1811,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * helper function for displaying the saved organizer dropdown
 		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
 		 *
+		 * @deprecated 4.2
+		 *
 		 * @param mixed  $current the current saved venue
 		 * @param string $name    the name value for the field
 		 */
 		public function saved_organizers_dropdown( $current = null, $name = 'organizer[OrganizerID]' ) {
-			$my_organizer_ids      = array();
-			$current_user          = wp_get_current_user();
-			$my_organizers         = false;
-			$my_organizers_options = '';
-			if ( 0 != $current_user->ID ) {
-				$my_organizers = $this->get_organizer_info(
-					null,
-					array(
-						'post_status' => array(
-							'publish',
-							'draft',
-							'private',
-							'pending',
-						),
-						'author' => $current_user->ID,
-					)
-				);
-
-				if ( ! empty( $my_organizers ) ) {
-					foreach ( $my_organizers as $my_organizer ) {
-						$my_organizer_ids[] = $my_organizer->ID;
-						$organizer_title    = wp_kses( get_the_title( $my_organizer->ID ), array() );
-						$my_organizers_options .= '<option value="' . esc_attr( $my_organizer->ID ) . '"';
-						$my_organizers_options .= selected( $current, $my_organizer->ID, false );
-						$my_organizers_options .= '>' . $organizer_title . '</option>';
-					}
-				}
-			}
-
-
-			if ( current_user_can( 'edit_others_tribe_organizers' ) ) {
-				$organizers = $this->get_organizer_info(
-					null, array(
-						'post_status' => array(
-							'publish',
-							'draft',
-							'private',
-							'pending',
-						),
-						'post__not_in' => $my_organizer_ids,
-					)
-				);
-			} else {
-				$organizers = $this->get_organizer_info(
-					null, array(
-						'post_status'  => 'publish',
-						'post__not_in' => $my_organizer_ids,
-					)
-				);
-			}
-			if ( $organizers || $my_organizers ) {
-				$oganizer_pto = get_post_type_object( self::ORGANIZER_POST_TYPE );
-				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
-				if (
-					! empty( $oganizer_pto->cap->create_posts )
-					&& current_user_can( $oganizer_pto->cap->create_posts )
-				) {
-					echo '<option value="0">' . sprintf( esc_html__( 'Use New %s', 'the-events-calendar' ), $this->singular_organizer_label ) . '</option>';
-				}
-
-				if ( $my_organizers ) {
-					echo $organizers ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_organizers_dropdown_my_optgroup', sprintf( esc_html__( 'My %s', 'the-events-calendar' ), $this->plural_organizer_label ) ) ) . '">' : '';
-					echo $my_organizers_options;
-					echo $organizers ? '</optgroup>' : '';
-				}
-				if ( $organizers ) {
-					echo $my_organizers ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_organizers_dropdown_optgroup', sprintf( esc_html__( 'Available %s', 'the-events-calendar' ), $this->plural_organizer_label ) ) ) . '">' : '';
-					foreach ( $organizers as $organizer ) {
-						$organizer_title = wp_kses( get_the_title( $organizer->ID ), array() );
-						echo '<option value="' . esc_attr( $organizer->ID ) . '"';
-						selected( $current == $organizer->ID );
-						echo '>' . $organizer_title . '</option>';
-					}
-					echo $my_organizers ? '</optgroup>' : '';
-				}
-				echo '</select>';
-			} else {
-				echo '<p class="nosaved">' . sprintf( esc_html__( 'No saved %s exists.', 'the-events-calendar' ), strtolower( $this->singular_organizer_label ) ) . '</p>';
-				printf( '<input type="hidden" name="%s" value="%d"/>', esc_attr( $name ), 0 );
-			}
+			Tribe__Events__Linked_Posts::instance()->saved_linked_post_dropdown( Tribe__Events__Organizer::POSTTYPE, $current );
 		}
 
 		/**

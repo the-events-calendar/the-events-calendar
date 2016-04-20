@@ -185,3 +185,48 @@ if ( ! function_exists( 'tribe_set_linked_post_add_form' ) ) {
 		return Tribe__Events__Linked_Posts::instance()->set_add_form( $post_type, $template, $handler );
 	}
 }
+
+if ( ! function_exists( 'tribe_get_linked_post_container' ) ) {
+	/**
+	 * Returns the post type's form field container name
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $linked_post_type Linked post type
+	 *
+	 * @return string
+	 */
+	function tribe_get_linked_post_container( $post_type ) {
+		return Tribe__Events__Linked_Posts::instance()->get_post_type_container( $post_type );
+	}
+}
+
+if ( ! function_exists( 'tribe_get_linked_post_id_field_index' ) ) {
+	/**
+	 * Returns the post type's ID field name
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $linked_post_type Linked post type
+	 *
+	 * @return string
+	 */
+	function tribe_get_linked_post_id_field_index( $post_type ) {
+		return Tribe__Events__Linked_Posts::instance()->get_post_type_id_field_index( $post_type );
+	}
+}
+
+if ( ! function_exists( 'tribe_get_linked_post_name_field_index' ) ) {
+	/**
+	 * Returns the post type's name field
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $linked_post_type Linked post type
+	 *
+	 * @return string
+	 */
+	function tribe_get_linked_post_name_field_index( $post_type ) {
+		return Tribe__Events__Linked_Posts::instance()->get_post_type_name_field_index( $post_type );
+	}
+}

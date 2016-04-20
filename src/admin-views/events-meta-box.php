@@ -143,53 +143,8 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 			</td>
 		</tr>
 	</table>
-	<table id="event_venue" class="eventtable">
-		<tr>
-			<td colspan="2" class="tribe_sectionheader">
-				<h4><?php esc_html_e( 'Location', 'the-events-calendar' ); ?></h4></td>
-		</tr>
-		<?php
-		/**
-		 * Fires just after the "Location" header that appears above the venue entry form when creating & editing events in the admin
-		 * HTML outputted here should be wrapped in a table row (<tr>) that contains 2 cells (<td>s)
-		 *
-		 * @param int $event->ID the event currently being edited, will be 0 if creating a new event
-		 */
-		do_action( 'tribe_venue_table_top', $event->ID );
-		$venue_meta_box_template = apply_filters( 'tribe_events_venue_meta_box_template', $tribe->pluginPath . 'src/admin-views/venue-meta-box.php' );
-		if ( $venue_meta_box_template ) {
-			include $venue_meta_box_template;
-		}
-		?>
-	</table>
-	<?php
-	/**
-	 * Fires after the venue entry form when creating & editing events in the admin
-	 * HTML outputted here should be wrapped in a table row (<tr>) that contains 2 cells (<td>s)
-	 *
-	 * @param int $event->ID the event currently being edited, will be 0 if creating a new event
-	 */
-	do_action( 'tribe_after_location_details', $event->ID );
-	?>
-	<table id="event_organizer" class="eventtable">
-		<thead>
-			<tr>
-				<td colspan="2" class="tribe_sectionheader">
-					<h4><?php echo tribe_get_organizer_label_plural(); ?></h4></td>
-			</tr>
-			<?php
-			/**
-			 * Fires just after the header that appears above the organizer entry form when creating & editing events in the admin
-			 * HTML outputted here should be wrapped in a table row (<tr>) that contains 2 cells (<td>s)
-			 *
-			 * @param int $event->ID the event currently being edited, will be 0 if creating a new event
-			 */
-			do_action( 'tribe_organizer_table_top', $event->ID );
-			?>
-		</thead>
-		<?php $organizer_meta_box = new Tribe__Events__Admin__Organizer_Chooser_Meta_Box( $event ); ?>
-		<?php $organizer_meta_box->render(); ?>
-	</table>
+
+	<?php Tribe__Events__Linked_Posts::instance()->render_meta_box_sections( $event ); ?>
 
 	<table id="event_url" class="eventtable">
 		<tr>

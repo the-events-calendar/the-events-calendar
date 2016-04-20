@@ -76,9 +76,11 @@ class Tribe__Events__Organizer {
 
 		$this->register_post_type();
 
-		add_filter( 'tribe_events_linked_post_id_field', array( $this, 'linked_post_id_field' ), 10, 2 );
+		add_filter( 'tribe_events_linked_post_id_field_index', array( $this, 'linked_post_id_field_index' ), 10, 2 );
+		add_filter( 'tribe_events_linked_post_name_field_index', array( $this, 'linked_post_name_field_index' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_type_container', array( $this, 'linked_post_type_container' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 5 );
+		add_filter( 'tribe_events_linked_post_default', array( $this, 'linked_post_default' ), 10, 2 );
 	}
 
 	/**
@@ -116,12 +118,28 @@ class Tribe__Events__Organizer {
 	 * @param string $id_field Field name of the field that will hold the ID
 	 * @param string $post_type Post type of linked post
 	 */
-	public function linked_post_id_field( $id_field, $post_type ) {
+	public function linked_post_id_field_index( $id_field, $post_type ) {
 		if ( self::POSTTYPE === $post_type ) {
 			return 'OrganizerID';
 		}
 
 		return $id_field;
+	}
+
+	/**
+	 * Filters the linked post name field
+	 *
+	 * @sinze 4.2
+	 *
+	 * @param string $name_field Field name of the field that will hold the post name
+	 * @param string $post_type Post type of linked post
+	 */
+	public function linked_post_name_field_index( $name_field, $post_type ) {
+		if ( self::POSTTYPE === $post_type ) {
+			return 'Organizer';
+		}
+
+		return $name_field;
 	}
 
 	/**
@@ -260,5 +278,13 @@ class Tribe__Events__Organizer {
 	 */
 	public function delete( $id, $force_delete = false ) {
 		wp_delete_post( $id, $force_delete );
+	}
+
+	public function linked_post_default( $default, $post_type ) {
+		if ( self::POSTTYPE !== $post_type ) {
+			return $default;
+		}
+
+		return Tribe__Events__Main::instance()->defaults()->organizer_id();
 	}
 }

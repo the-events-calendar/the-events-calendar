@@ -83,9 +83,11 @@ class Tribe__Events__Venue {
 		$this->register_post_type();
 
 		add_filter( 'tribe_events_linked_post_type_args', array( $this, 'filter_linked_post_type_args' ), 10, 2 );
-		add_filter( 'tribe_events_linked_post_id_field', array( $this, 'linked_post_id_field' ), 10, 2 );
+		add_filter( 'tribe_events_linked_post_id_field_index', array( $this, 'linked_post_id_field_index' ), 10, 2 );
+		add_filter( 'tribe_events_linked_post_name_field_index', array( $this, 'linked_post_name_field_index' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_type_container', array( $this, 'linked_post_type_container' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 5 );
+		add_filter( 'tribe_events_linked_post_meta_box_title', array( $this, 'meta_box_title' ), 5, 2 );
 	}
 
 	/**
@@ -143,12 +145,36 @@ class Tribe__Events__Venue {
 	 * @param string $id_field Field name of the field that will hold the ID
 	 * @param string $post_type Post type of linked post
 	 */
-	public function linked_post_id_field( $id_field, $post_type ) {
+	public function linked_post_id_field_index( $id_field, $post_type ) {
 		if ( self::POSTTYPE === $post_type ) {
 			return 'VenueID';
 		}
 
 		return $id_field;
+	}
+
+	/**
+	 * Filters the linked post name field
+	 *
+	 * @sinze 4.2
+	 *
+	 * @param string $name_field Field name of the field that will hold the name
+	 * @param string $post_type Post type of linked post
+	 */
+	public function linked_post_name_field_index( $name_field, $post_type ) {
+		if ( self::POSTTYPE === $post_type ) {
+			return 'Venue';
+		}
+
+		return $name_field;
+	}
+
+	public function meta_box_title( $title, $post_type ) {
+		if ( self::POSTTYPE === $post_type ) {
+			return 'Location';
+		}
+
+		return $title;
 	}
 
 	/**
