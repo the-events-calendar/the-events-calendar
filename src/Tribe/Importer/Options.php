@@ -124,7 +124,7 @@ class Tribe__Events__Importer__Options {
 	}
 
 	/**
-	 *  Dropdown Options for Imported Event Status
+	 * Dropdown Options for Imported Event Status
 	 *
 	 * @return mixed|void
 	 */
@@ -139,7 +139,7 @@ class Tribe__Events__Importer__Options {
 	}
 
 	/**
-	 *  Return Encoding Status
+	 * Return Encoding Status
 	 *
 	 * @param string $type importer type
 	 *
@@ -150,15 +150,12 @@ class Tribe__Events__Importer__Options {
 		$options = self::getOption( 'imported_encoding_status', array( $type => 'encode' ) );
 
 		if ( ! isset( $options[ $type ] ) ) {
-			$options[ $type ] = 'encode';
-		}
-
-		if ( ! isset( $options[ $type ] ) ) {
 			/**
 			 * Filter Encode Status if none saved
 			 *
 			 * @since 4.2
 			 *
+			 * @param string encode status of encoding
 			 * @param string $type importer type
 			 */
 			$options[ $type ] = apply_filters( 'tribe_import_default_encode_status_non_saved', 'encode', $type );
@@ -169,13 +166,14 @@ class Tribe__Events__Importer__Options {
 		 *
 		 * @since 4.2
 		 *
+		 * @param array $options[ $type ] importer type option array
 		 * @param string $type importer type
 		 */
 		return apply_filters( 'tribe_import_default_encode_status', $options[ $type ], $type );
 	}
 
 	/**
-	 *  Dropdown Options for Encoding Status
+	 * Dropdown Options for Encoding Status
 	 *
 	 * @return mixed|void
 	 */
@@ -184,7 +182,13 @@ class Tribe__Events__Importer__Options {
 			'encode' => __( 'Encode contents', 'the-events-calendar' ),
 			'none' => __( 'Do Not Encode Contents', 'the-events-calendar' ),
 		);
-
+		/**
+		 * Filter Encoding Dropdown Options
+		 *
+		 * @since 4.2
+		 *
+		 * @param array $status an array of options for encoding status
+		 */
 		return apply_filters( 'tribe_import_encoding_status', $status );
 	}
 }
