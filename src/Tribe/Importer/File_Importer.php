@@ -139,7 +139,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 		$row    = $this->reader->get_last_line_number_read() + 1;
 
 		//Check if option to encode is active
-		$encoding_option = Tribe__Events__Importer__Options::getOption( 'imported_encoding_status', array( 'csv' => 'encode' ) );
+		$encoding_option = ForceUTF8__Encoding::getOption( 'imported_encoding_status', array( 'csv' => 'encode' ) );
 		if ( isset( $encoding_option['csv'] ) && 'encode' == $encoding_option['csv'] ) {
 			$encoded       = Tribe__Events__Importer__Encoding::toUTF8( $record );
 			$encoding_diff = array_diff( $encoded, $record );
