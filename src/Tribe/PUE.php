@@ -42,8 +42,8 @@ if ( ! class_exists( 'Tribe__Events__Pro__PUE' ) ) {
 		 * Load the Plugin Update Engine
 		 */
 		public function load_plugin_update_engine() {
-			if ( apply_filters( 'tribe_enable_pue', true, self::$pue_slug ) && class_exists( 'Tribe__Events__PUE__Checker' ) ) {
-				$this->pue_instance = new Tribe__Events__PUE__Checker( self::$update_url, self::$pue_slug, array(), plugin_basename( self::$plugin_file ) );
+			if ( apply_filters( 'tribe_enable_pue', true, self::$pue_slug ) && class_exists( 'Tribe__PUE__Checker' ) ) {
+				$this->pue_instance = new Tribe__PUE__Checker( self::$update_url, self::$pue_slug, array(), plugin_basename( self::$plugin_file ) );
 			}
 		}
 
