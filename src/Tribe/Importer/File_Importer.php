@@ -63,6 +63,11 @@ abstract class Tribe__Events__Importer__File_Importer {
 	public function __construct( Tribe__Events__Importer__File_Reader $file_reader, Tribe__Events__Importer__Featured_Image_Uploader $featured_image_uploader = null ) {
 		$this->reader = $file_reader;
 		$this->featured_image_uploader = $featured_image_uploader;
+
+		//Add Vendor Directory for Autoloading for Encoding Class
+		$autoloader = Tribe__Autoloader::instance();
+		$autoloader->register_prefix( 'Vendor__', Tribe__Events__Main::instance()->plugin_path . 'vendor' );
+		$autoloader->register_autoloader();
 	}
 
 	public function set_map( array $map_array ) {
@@ -139,9 +144,9 @@ abstract class Tribe__Events__Importer__File_Importer {
 		$row    = $this->reader->get_last_line_number_read() + 1;
 
 		//Check if option to encode is active
-		$encoding_option = ForceUTF8__Encoding::getOption( 'imported_encoding_status', array( 'csv' => 'encode' ) );
+		$encoding_option = Tribe__Events__Importer__Options::getOption( 'imported_encoding_status', array( 'csv' => 'encode' ) );
 		if ( isset( $encoding_option['csv'] ) && 'encode' == $encoding_option['csv'] ) {
-			$encoded       = Tribe__Events__Importer__Encoding::toUTF8( $record );
+			$encoded       = Vendor__ForceUTF8__Encoding::toUTF8( $record );
 			$encoding_diff = array_diff( $encoded, $record );
 			if ( ! empty( $encoding_diff ) ) {
 				$this->encoding[] = $row;
