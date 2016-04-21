@@ -1,12 +1,5 @@
 
 <?php
-//  The below is the Datepicker test.  There are a lot of commented lines to give examples of things
-// that I have tried but that did not work.  The problem appears to be getting a hold of and
-// manipulating the select box.  Any help/tips are greatly appreciated!
-//
-// Common errors are either "Element is not currently visible and so may not be interacted with"
-// Or, no error but values are not passed
-
 
 $I = new WpwebdriveracceptanceTester($scenario);
 $I->wantTo('Test the datepicker cases');
