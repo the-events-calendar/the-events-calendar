@@ -309,6 +309,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.1.3] 2016-04-27 =
+* Tweak - Add new event names for AJAX success to the List, Month, and Day views to help compatibility with our premium plugins [45081]
+
 = [4.1.2] 2016-04-11 =
 
 * Tweak - Removed an unneeded hook that attempted to add a query argument to event tag links
