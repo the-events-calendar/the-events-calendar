@@ -20,6 +20,7 @@ vendor
 !vendor/select2
 !vendor/tickets
 !vendor/tribe-common-libraries
+!vendor/ForceUTF8
 
 # Tests - local config files
 codeception.yml
