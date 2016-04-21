@@ -38,7 +38,7 @@ POSSIBILITY OF SUCH DAMAGE.
  */
 //namespace ForceUTF8;
 
-class Vendor__ForceUTF8__Encoding {
+class ForceUTF8__Encoding {
 
 	const ICONV_TRANSLIT = "TRANSLIT";
 	const ICONV_IGNORE   = "IGNORE";

@@ -4676,6 +4676,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		protected function init_autoloading() {
 			$prefixes = array(
 				'Tribe__Events__' => $this->plugin_path . 'src/Tribe',
+				'ForceUTF8__' => $this->plugin_path . 'vendor/ForceUTF8',
 			);
 
 			if ( ! class_exists( 'Tribe__Autoloader' ) ) {
