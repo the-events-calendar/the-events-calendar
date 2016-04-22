@@ -844,11 +844,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$post_id = get_the_ID();
 		}
 
-		$image_html     = get_the_post_thumbnail( $post_id, $size );
+		$image_html     = get_the_post_thumbnail( $post_id, apply_filters( 'tribe_event_featured_image_size', $size ) );
 		$featured_image = '';
 
 		//if link is not specifically excluded, then include <a>
-		if ( ! empty( $image_html ) && $link ) {
+		if ( ! empty( $image_html ) && apply_filters( 'tribe_event_featured_image_link', $link ) ) {
 			$featured_image .= '<div class="tribe-events-event-image"><a href="' . esc_url( tribe_get_event_link() ) . '">' . $image_html . '</a></div>';
 		} elseif ( ! empty( $image_html ) ) {
 			$featured_image .= '<div class="tribe-events-event-image">' . $image_html . '</div>';
