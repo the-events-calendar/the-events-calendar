@@ -169,23 +169,6 @@ if ( ! function_exists( 'tribe_unlink_post' ) ) {
 	}
 }
 
-if ( ! function_exists( 'tribe_set_linked_post_add_form' ) ) {
-	/**
-	 * Sets the "add" form template and submission handler for the given post type
-	 *
-	 * @since 4.2
-	 *
-	 * @param string $post_type Post Type
-	 * @param string $template Template path for the "add" form
-	 * @param string $handler Form parsing handler
-	 *
-	 * @return boolean
-	 */
-	function tribe_set_linked_post_add_form( $post_type, $template, $handler ) {
-		return Tribe__Events__Linked_Posts::instance()->set_add_form( $post_type, $template, $handler );
-	}
-}
-
 if ( ! function_exists( 'tribe_get_linked_post_container' ) ) {
 	/**
 	 * Returns the post type's form field container name
