@@ -86,10 +86,7 @@ class Tribe__Events__Linked_Posts {
 	 * Notable arguments that can be passed/filtered while registering linked post types:
 	 * - All of the fields returned by get_post_type_object()
 	 * - allow_multiple (default: true) specifies how many of the post type can be linked with an event
-   * - add_form (defalt: null) an array of information on the add form that will appear on the event
-   *     editor page. Elements are:
-   *       - template: path to the template to use as the "add" form
-   *       - handler: callable used to handle add form submissions
+	 * - allow_creation (default: false) specifies whether or not post creation should be allowed
 	 *
 	 * @since 4.2
 	 *
@@ -111,7 +108,7 @@ class Tribe__Events__Linked_Posts {
 
 		// default to allowing multiple
 		$args['allow_multiple'] = true;
-		$args['add_form']       = null;
+		$args['allow_creation'] = false;
 
 		/**
 		 * Filters the post type arguments before adding them to the collection of linked post types
@@ -561,33 +558,6 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
-	 * Sets the "add" form template and submission handler for the given post type
-	 *
-	 * @since 4.2
-	 *
-	 * @param string $post_type Post Type
-	 * @param string $template Template path for the "add" form
-	 * @param string $handler Form parsing handler
-	 *
-	 * @return boolean
-	 */
-	public function set_add_form( $post_type, $template, $handler ) {
-		if ( ! $this->is_linked_post_type( $post_type ) ) {
-			return false;
-		}
-
-		if ( ! is_callable( $handler ) ) {
-			return false;
-		}
-
-		$this->linked_post_types[ $post_type ]['add_form']             = array();
-		$this->linked_post_types[ $post_type ]['add_form']['template'] = $template;
-		$this->linked_post_types[ $post_type ]['add_form']['handler']  = $handler;
-
-		return true;
-	}
-
-	/**
 	 * Detects linked post type data within a form submission and executes the post type-specific handlers
 	 *
 	 * @since 4.2
@@ -788,6 +758,7 @@ class Tribe__Events__Linked_Posts {
 			if (
 				! empty( $linked_post_pto->cap->create_posts )
 				&& current_user_can( $linked_post_pto->cap->create_posts )
+				&& ! empty( $this->linked_post_types[ $post_type ]['allow_creation'] )
 			) {
 				echo '<option value="0">' . sprintf( esc_html__( 'Use New %s', 'the-events-calendar' ), $singular_name ) . '</option>';
 			}

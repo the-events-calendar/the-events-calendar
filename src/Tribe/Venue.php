@@ -117,6 +117,7 @@ class Tribe__Events__Venue {
 		}
 
 		$args['allow_multiple'] = false;
+		$args['allow_creation'] = true;
 
 		return $args;
 	}

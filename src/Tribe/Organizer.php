@@ -76,6 +76,7 @@ class Tribe__Events__Organizer {
 
 		$this->register_post_type();
 
+		add_filter( 'tribe_events_linked_post_type_args', array( $this, 'filter_linked_post_type_args' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_id_field_index', array( $this, 'linked_post_id_field_index' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_name_field_index', array( $this, 'linked_post_name_field_index' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_type_container', array( $this, 'linked_post_type_container' ), 10, 2 );
@@ -92,6 +93,26 @@ class Tribe__Events__Organizer {
 			self::POSTTYPE,
 			apply_filters( 'tribe_events_register_organizer_type_args', $this->post_type_args )
 		);
+	}
+
+	/**
+	 * Filters the post type args for the venue post type
+	 *
+	 * @since 4.2
+	 *
+	 * @param array $args Array of linked post type arguments
+	 * @param string $post_type Linked post type
+	 *
+	 * @return array
+	 */
+	public function filter_linked_post_type_args( $args, $post_type ) {
+		if ( self::POSTTYPE !== $post_type ) {
+			return $args;
+		}
+
+		$args['allow_creation'] = true;
+
+		return $args;
 	}
 
 	/**
