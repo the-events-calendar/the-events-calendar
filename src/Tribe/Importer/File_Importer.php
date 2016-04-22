@@ -139,12 +139,12 @@ abstract class Tribe__Events__Importer__File_Importer {
 				throw new RuntimeException( sprintf( 'Missing required fields in row %d', $row ) );
 			}
 		}
-		//try {
+		try {
 			$post_id = $this->update_or_create_post( $record );
-		//} catch ( Exception $e ) {
-		//	$this->log[ $row ] = sprintf( esc_html__( 'Failed to import record in row %d.', 'the-events-calendar' ), $row );
-		//	$this->skipped[] = $row;
-		//}
+		} catch ( Exception $e ) {
+			$this->log[ $row ] = sprintf( esc_html__( 'Failed to import record in row %d.', 'the-events-calendar' ), $row );
+			$this->skipped[] = $row;
+		}
 
 		return $post_id;
 	}
