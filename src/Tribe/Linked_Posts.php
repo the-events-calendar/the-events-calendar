@@ -114,8 +114,8 @@ class Tribe__Events__Linked_Posts {
 		 *
 		 * @since 4.2
 		 *
-		 * @var array Array of arguments for the post type
-		 * @var string Post type slug
+		 * @param array Array of arguments for the post type
+		 * @param string Post type slug
 		 */
 		$args = apply_filters( 'tribe_events_linked_post_type_args', $args, $post_type );
 
@@ -158,8 +158,8 @@ class Tribe__Events__Linked_Posts {
 		/**
 		 * Filters the array element that contains the post type data in the $_POST object
 		 *
-		 * @var string Post type index
-		 * @var string Post type
+		 * @param string Post type index
+		 * @param string Post type
 		 */
 		return apply_filters( 'tribe_events_linked_post_type_container', "linked_{$linked_post_type}", $linked_post_type );
 	}
@@ -264,8 +264,8 @@ class Tribe__Events__Linked_Posts {
 		/**
 		 * Filters the results of the query to determine whether or not there are linked posts
 		 *
-		 * @var boolean Whether or not there are linked posts
-		 * @var int Post ID of the post being looked at
+		 * @param boolean Whether or not there are linked posts
+		 * @param int Post ID of the post being looked at
 		 */
 		return apply_filters( 'tribe_events_has_linked_posts', $query->have_posts(), $post_id );
 	}
@@ -302,8 +302,8 @@ class Tribe__Events__Linked_Posts {
 		 *
 		 * @since 4.2
 		 *
-		 * @var array Collection of posts linked to the post id
-		 * @var int Post ID of the post being looked at
+		 * @param array Collection of posts linked to the post id
+		 * @param int Post ID of the post being looked at
 		 */
 		return apply_filters( 'tribe_events_get_linked_posts', $posts, $post_id );
 	}
@@ -326,9 +326,9 @@ class Tribe__Events__Linked_Posts {
 		 *
 		 * @since 4.2
 		 *
-		 * @var boolean Whether or not there are any linked posts for the given post by the given post type
-		 * @var int Post ID being looked at
-		 * @var string Post type of linked posts
+		 * @param boolean Whether or not there are any linked posts for the given post by the given post type
+		 * @param int Post ID being looked at
+		 * @param string Post type of linked posts
 		 */
 		$has_linked_posts = apply_filters( 'tribe_events_has_linked_posts_by_post_type', $has_linked_posts, $post_id, $post_type );
 
@@ -357,9 +357,9 @@ class Tribe__Events__Linked_Posts {
 		 *
 		 * @since 4.2
 		 *
-		 * @var array Linked posts for the given post by the given post type
-		 * @var int Post ID being looked at
-		 * @var string Post type of linked posts
+		 * @param array Linked posts for the given post by the given post type
+		 * @param int Post ID being looked at
+		 * @param string Post type of linked posts
 		 */
 		return apply_filters( 'tribe_events_get_linked_posts_by_post_type', $result, $post_id, $post_type );
 	}
@@ -506,8 +506,8 @@ class Tribe__Events__Linked_Posts {
 			/**
 			 * Fired after two posts have been linked
 			 *
-			 * @var int Post ID of post to add linked post to
-			 * @var int Post ID of post to add as a linked post to the target
+			 * @param int Post ID of post to add linked post to
+			 * @param int Post ID of post to add as a linked post to the target
 			 */
 			do_action( 'tribe_events_link_post', $target_post_id, $subject_post_id );
 		}
@@ -550,8 +550,8 @@ class Tribe__Events__Linked_Posts {
 		 *
 		 * @since 4.2
 		 *
-		 * @var int Post ID of post to add linked post to
-		 * @var int Post ID of post to add as a linked post to the target
+		 * @param int Post ID of post to add linked post to
+		 * @param int Post ID of post to add as a linked post to the target
 		 */
 		do_action( 'tribe_events_unlink_post', $target_post_id, $subject_post_id );
 	}
