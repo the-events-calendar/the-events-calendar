@@ -142,7 +142,7 @@ class Tribe__Events__Venue {
 	/**
 	 * Filters the linked post id field
 	 *
-	 * @sinze 4.2
+	 * @since 4.2
 	 *
 	 * @param string $id_field Field name of the field that will hold the ID
 	 * @param string $post_type Post type of linked post
@@ -158,7 +158,7 @@ class Tribe__Events__Venue {
 	/**
 	 * Filters the linked post name field
 	 *
-	 * @sinze 4.2
+	 * @since 4.2
 	 *
 	 * @param string $name_field Field name of the field that will hold the name
 	 * @param string $post_type Post type of linked post
@@ -182,7 +182,7 @@ class Tribe__Events__Venue {
 	/**
 	 * Filters the index that contains the linked post type data during form submission
 	 *
-	 * @sinze 4.2
+	 * @since 4.2
 	 *
 	 * @param string $container Container index that holds submitted data
 	 * @param string $post_type Post type of linked post
