@@ -3501,14 +3501,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function ajax_form_validate() {
-			if ( $_REQUEST['name'] && $_REQUEST['nonce'] && wp_verify_nonce( $_REQUEST['nonce'], 'tribe-validation-nonce' ) ) {
-				if ( $_REQUEST['type'] == 'venue' ) {
-					echo $this->verify_unique_name( $_REQUEST['name'], 'venue' );
-					exit;
-				} elseif ( $_REQUEST['type'] == 'organizer' ) {
-					echo $this->verify_unique_name( $_REQUEST['name'], 'organizer' );
-					exit;
-				}
+			if (
+				$_REQUEST['name']
+				&& $_REQUEST['nonce']
+				&& $_REQUEST['type']
+				&& wp_verify_nonce( $_REQUEST['nonce'], 'tribe-validation-nonce' )
+			) {
+				echo $this->verify_unique_name( $_REQUEST['name'], $_REQUEST['type'] );
+				die;
 			}
 		}
 
@@ -3543,21 +3543,23 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Verify that a venue or organizer is unique
 		 *
 		 * @param string $name - name of venue or organizer
-		 * @param string $type - post type (venue or organizer)
+		 * @param string $type - post type
 		 *
 		 * @return boolean
 		 */
-		public function verify_unique_name( $name, $type ) {
+		public function verify_unique_name( $name, $post_type ) {
 			global $wpdb;
 			$name = stripslashes( $name );
 			if ( '' == $name ) {
 				return 1;
 			}
-			if ( $type == 'venue' ) {
-				$post_type = self::VENUE_POST_TYPE;
-			} elseif ( $type == 'organizer' ) {
-				$post_type = self::ORGANIZER_POST_TYPE;
+
+			if ( 'venue' === $post_type ) {
+				$post_type = Tribe__Events__Venue::POSTTYPE;
+			} elseif ( 'organizer' === $post_type ) {
+				$post_type = Tribe__Events__Organizer::POSTTYPE;
 			}
+
 			// TODO update this verification to check all post_status <> 'trash'
 			$results = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$wpdb->posts} WHERE post_type = %s && post_title = %s && post_status = 'publish'", $post_type, $name ) );
 

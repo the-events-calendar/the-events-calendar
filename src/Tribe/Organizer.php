@@ -81,6 +81,7 @@ class Tribe__Events__Organizer {
 		add_filter( 'tribe_events_linked_post_type_container', array( $this, 'linked_post_type_container' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 5 );
 		add_filter( 'tribe_events_linked_post_default', array( $this, 'linked_post_default' ), 10, 2 );
+		add_action( 'tribe_events_linked_post_new_form', array( $this, 'linked_post_new_form' ) );
 	}
 
 	/**
@@ -286,5 +287,15 @@ class Tribe__Events__Organizer {
 		}
 
 		return Tribe__Events__Main::instance()->defaults()->organizer_id();
+	}
+
+	public function linked_post_new_form( $post_type ) {
+		if ( self::POSTTYPE !== $post_type ) {
+			return;
+		}
+
+		$template = Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/create-organizer-fields.php';
+
+		include apply_filters( 'tribe_events_tribe_organizer_new_form_fields', $template );
 	}
 }

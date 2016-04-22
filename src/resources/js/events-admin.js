@@ -202,11 +202,10 @@ jQuery( document ).ready( function( $ ) {
 
 
 	var setup_linked_post_fields = function( post_type ) {
-    console.info( post_type );
 		var saved_template = wp.template( 'tribe-select-' + post_type );
 		var create_template = wp.template( 'tribe-create-' + post_type );
 		var section = $( document.getElementById( 'event_' + post_type ) );
-		var rows = section.find( '.saved_linked_post' );
+		var rows = section.find( '.saved-linked-post' );
 
 		section.on( 'click', '.tribe-add-post', function(e) {
 			e.preventDefault();
@@ -227,11 +226,11 @@ jQuery( document ).ready( function( $ ) {
 		rows.each( function () {
 			var row = $( this );
 			var group = row.closest( 'tbody' );
-			var fields = $( create_template( {} ) ).find( '.' + post_type ); // we already have our tbody
+			var fields = $( create_template( {} ) ).find( 'tr' ); // we already have our tbody
 			var dropdown = row.find( '.linked-post-dropdown' );
 			if ( dropdown.length ) {
 				var value = dropdown.val();
-				if ( value != '0' ) {
+				if ( 0 !== parseInt( value, 10 ) ) {
 					fields.hide();
 				}
 			} else if ( row.find( '.nosaved' ).length ) {
@@ -271,10 +270,10 @@ jQuery( document ).ready( function( $ ) {
 		var edit_link_base_url = edit_link.attr( 'data-admin-url' );
 
 		if ( selected_id != '0' ) {
-			group.find( '.organizer' ).fadeOut().find( 'input' ).val( '' );
+			group.find( '.linked-post' ).fadeOut().find( 'input' ).val( '' );
 			edit_link.attr( 'href', edit_link_base_url + selected_id ).show();
 		} else {
-			group.find( '.organizer' ).fadeIn();
+			group.find( '.linked-post' ).fadeIn();
 			edit_link.hide();
 		}
 	};
@@ -438,6 +437,7 @@ jQuery( document ).ready( function( $ ) {
 			$end_month.change();
 		} );
 
+		/*
 		// hide unnecessary fields
 		var venueFields = $( ".venue" ),
 			savedVenue = $( "#saved_venue" );
@@ -467,6 +467,7 @@ jQuery( document ).ready( function( $ ) {
 				$('.edit-venue-link a').attr( 'href', current_edit_link + selected_venue_id );
 			}
 		} );
+		*/
 
 		for ( var i in tribe_events_linked_posts.post_types ) {
 			setup_linked_post_fields( tribe_events_linked_posts.post_types[ i ] );

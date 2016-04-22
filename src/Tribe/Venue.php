@@ -88,6 +88,7 @@ class Tribe__Events__Venue {
 		add_filter( 'tribe_events_linked_post_type_container', array( $this, 'linked_post_type_container' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 5 );
 		add_filter( 'tribe_events_linked_post_meta_box_title', array( $this, 'meta_box_title' ), 5, 2 );
+		add_action( 'tribe_events_linked_post_new_form', array( $this, 'linked_post_new_form' ) );
 	}
 
 	/**
@@ -352,5 +353,15 @@ class Tribe__Events__Venue {
 	 */
 	public function delete( $venue_id, $force_delete = false ) {
 		wp_delete_post( $venue_id, $force_delete );
+	}
+
+	public function linked_post_new_form( $post_type ) {
+		if ( self::POSTTYPE !== $post_type ) {
+			return;
+		}
+
+		$template = Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/create-venue-fields.php';
+
+		include apply_filters( 'tribe_events_tribe_venue_new_form_fields', $template );
 	}
 }

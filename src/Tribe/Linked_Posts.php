@@ -63,6 +63,7 @@ class Tribe__Events__Linked_Posts {
 		$default_post_types = array(
 			Tribe__Events__Main::VENUE_POST_TYPE,
 			Tribe__Events__Main::ORGANIZER_POST_TYPE,
+			'post'
 		);
 
 		/**
@@ -352,7 +353,7 @@ class Tribe__Events__Linked_Posts {
 		$result = array();
 
 		if ( $linked_post_ids = get_post_meta( $post_id, $this->get_meta_key( $post_type ) ) ) {
-			$result = $this->get_linked_post_info( $post_type );
+			$result = $this->get_linked_post_info( $post_type, array(), $linked_post_ids );
 		}
 
 		/**
@@ -387,6 +388,45 @@ class Tribe__Events__Linked_Posts {
 	 */
 	public function get_linked_post_types() {
 		return (array) $this->linked_post_types;
+	}
+
+	/**
+	 * Get Linked Post info
+	 *
+	 * @param string $linked_post_type Post type of linked post
+	 * @param array $args
+	 * @param int $linked_post_id post id
+	 *
+	 * @return WP_Query->posts || array()
+	 */
+	public function get_linked_post_info( $linked_post_type, $args = array(), $linked_post_ids = null ) {
+		$defaults = array(
+			'post_type'            => $linked_post_type,
+			'post_status'          => array(
+				'publish',
+				'draft',
+				'private',
+				'pending',
+			),
+			'orderby'              => 'title',
+			'order'                => 'ASC',
+			'ignore_sticky_posts ' => true,
+			'nopaging'             => true,
+		);
+
+		if ( is_array( $linked_post_ids ) ) {
+			$defaults['post__in'] = $linked_post_ids;
+		} else {
+			$defaults['p'] = $linked_post_ids;
+		}
+
+		$args = wp_parse_args( $args, $defaults );
+		$result = new WP_Query( $args );
+		if ( $result->have_posts() ) {
+			return $result->posts;
+		}
+
+		return array();
 	}
 
 	/**
@@ -673,35 +713,6 @@ class Tribe__Events__Linked_Posts {
 		foreach ( $posts_to_add as $linked_post_id ) {
 			$this->link_post( $event_id, $linked_post_id );
 		}
-	}
-
-	/**
-	 * Get Linked Post info
-	 *
-	 * @param string $linked_post_type Post type of linked post
-	 * @param array $args
-	 * @param int $linked_post_id post id
-	 *
-	 * @return WP_Query->posts || array()
-	 */
-	public function get_linked_post_info( $linked_post_type, $args = array(), $linked_post_id = null ) {
-		$defaults = array(
-			'p'                    => $linked_post_id,
-			'post_type'            => $linked_post_type,
-			'post_status'          => 'publish',
-			'orderby'              => 'title',
-			'order'                => 'ASC',
-			'ignore_sticky_posts ' => 1,
-			'nopaging'             => 1,
-		);
-
-		$args = wp_parse_args( $args, $defaults );
-		$result = new WP_Query( $args );
-		if ( $result->have_posts() ) {
-			return $result->posts;
-		}
-
-		return array();
 	}
 
 	/**
