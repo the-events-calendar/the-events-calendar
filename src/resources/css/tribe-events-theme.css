@@ -380,7 +380,7 @@ h2.tribe-events-page-title,
 
 .tribe-events-calendar td.tribe-events-past .tribe-events-month-event-title,
 .tribe-events-calendar td.tribe-events-past .tribe-events-viewmore {
-	text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 /* Global Tooltips */
