@@ -500,6 +500,7 @@
 							}
 
 							$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_monthView_ajaxSuccess' );
+							$( te ).trigger( 'ajax-success.tribe' ).trigger( 'tribe_ev_monthView_ajaxSuccess' );
 
 							// @ifdef DEBUG
 							dbug && debug.timeEnd( 'Month View Ajax Timer' );

@@ -310,6 +310,7 @@
 							tribe_day_add_classes();
 
 							$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_dayView_AjaxSuccess' );
+							$( te ).trigger( 'ajax-success.tribe' ).trigger( 'tribe_ev_dayView_AjaxSuccess' );
 
 							// @ifdef DEBUG
 							dbug && debug.timeEnd( 'Day View Ajax Timer' );

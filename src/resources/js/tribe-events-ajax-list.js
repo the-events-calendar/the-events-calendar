@@ -330,6 +330,7 @@
 							}
 
 							$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_listView_AjaxSuccess' );
+							$( te ).trigger( 'ajax-success.tribe' ).trigger( 'tribe_ev_listView_AjaxSuccess' );
 
 							// @ifdef DEBUG
 							dbug && debug.timeEnd( 'List View Ajax Timer' );
