@@ -1722,89 +1722,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * helper function for displaying the saved venue dropdown
 		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
 		 *
+		 * @deprecated 4.2
+		 *
 		 * @param mixed  $current the current saved venue
 		 * @param string $name    the name value for the field
 		 */
 		public function saved_venues_dropdown( $current = null, $name = 'venue[VenueID]' ) {
-			$my_venue_ids     = array();
-			$current_user     = wp_get_current_user();
-			$my_venues        = false;
-			$my_venue_options = '';
-			if ( 0 != $current_user->ID ) {
-				$my_venues = $this->get_venue_info(
-					null,
-					array(
-						'post_status' => array(
-							'publish',
-							'draft',
-							'private',
-							'pending',
-						),
-						'author' => $current_user->ID,
-					)
-				);
-
-				if ( ! empty( $my_venues ) ) {
-					foreach ( $my_venues as $my_venue ) {
-						$my_venue_ids[] = $my_venue->ID;
-						$venue_title    = wp_kses( get_the_title( $my_venue->ID ), array() );
-						$my_venue_options .= '<option data-address="' . esc_attr( $this->fullAddressString( $my_venue->ID ) ) . '" value="' . esc_attr( $my_venue->ID ) . '"';
-						$my_venue_options .= selected( $current, $my_venue->ID, false );
-						$my_venue_options .= '>' . $venue_title . '</option>';
-					}
-				}
-			}
-
-			if ( current_user_can( 'edit_others_tribe_venues' ) ) {
-				$venues = $this->get_venue_info(
-					null,
-					array(
-						'post_status'  => array(
-							'publish',
-							'draft',
-							'private',
-							'pending',
-						),
-						'post__not_in' => $my_venue_ids,
-					)
-				);
-			} else {
-				$venues = $this->get_venue_info(
-					null,
-					array(
-						'post_status'  => 'publish',
-						'post__not_in' => $my_venue_ids,
-					)
-				);
-			}
-			if ( $venues || $my_venues ) {
-				$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
-				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
-				if (
-					! empty( $venue_pto->cap->create_posts )
-					&& current_user_can( $venue_pto->cap->create_posts )
-				) {
-					echo '<option value="0">' . esc_html( sprintf( __( 'Use New %s', 'the-events-calendar' ), $this->singular_venue_label ) ) . '</option>';
-				}
-				if ( $my_venues ) {
-					echo $venues ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_venues_dropdown_my_optgroup', sprintf( esc_html__( 'My %s', 'the-events-calendar' ), $this->plural_venue_label ) ) ) . '">' : '';
-					echo $my_venue_options;
-					echo $venues ? '</optgroup>' : '';
-				}
-				if ( $venues ) {
-					echo $my_venues ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_venues_dropdown_optgroup', sprintf( esc_html__( 'Available %s', 'the-events-calendar' ), $this->plural_venue_label ) ) ) . '">' : '';
-					foreach ( $venues as $venue ) {
-						$venue_title = wp_kses( get_the_title( $venue->ID ), array() );
-						echo '<option data-address="' . esc_attr( $this->fullAddressString( $venue->ID ) ) . '" value="' . esc_attr( $venue->ID ) . '"';
-						selected( ( $current == $venue->ID ) );
-						echo '>' . $venue_title . '</option>';
-					}
-					echo $my_venues ? '</optgroup>' : '';
-				}
-				echo '</select>';
-			} else {
-				echo '<p class="nosaved">' . sprintf( esc_html__( 'No saved %s exists.', 'the-events-calendar' ), strtolower( $this->singular_venue_label ) ) . '</p>';
-			}
+			_deprecated_function( __METHOD__, '4.2', 'Tribe__Events__Linked_Posts::saved_linked_post_dropdown' );
+			Tribe__Events__Linked_Posts::instance()->saved_linked_post_dropdown( Tribe__Events__Venue::POSTTYPE, $current );
 		}
 
 		/**
@@ -1817,6 +1742,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string $name    the name value for the field
 		 */
 		public function saved_organizers_dropdown( $current = null, $name = 'organizer[OrganizerID]' ) {
+			_deprecated_function( __METHOD__, '4.2', 'Tribe__Events__Linked_Posts::saved_linked_post_dropdown' );
 			Tribe__Events__Linked_Posts::instance()->saved_linked_post_dropdown( Tribe__Events__Organizer::POSTTYPE, $current );
 		}
 
