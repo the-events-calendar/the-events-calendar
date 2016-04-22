@@ -14,10 +14,11 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		// Base query - only the meta query will be different
 		$query_args = array(
-			'post_type'      => Tribe__Events__Main::POSTTYPE,
-			'post_title'     => $this->get_value_by_key( $record, 'event_name' ),
-			'fields'         => 'ids',
-			'posts_per_page' => 1,
+			'post_type'        => Tribe__Events__Main::POSTTYPE,
+			'post_title'       => $this->get_value_by_key( $record, 'event_name' ),
+			'fields'           => 'ids',
+			'posts_per_page'   => 1,
+			'suppress_filters' => false,
 		);
 
 		// When trying to find matches for all day events, the comparison should only be against the date
@@ -57,7 +58,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		add_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
 		$matches = get_posts( $query_args );
-		remove_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
+		remove_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10 );
 
 		if ( empty( $matches ) ) {
 			return 0;
