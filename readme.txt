@@ -310,7 +310,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 == Changelog ==
 
 = [4.1.3] 2016-04-27 =
-* Fix - Fix compatiblitiy of CSV importer with WordPress 4.5 due to a change in the post_status filter [46286]
+* Fix - Month view single days are now ordered as follows, sticky events, ongoing multi day events, all day events, then by start time [46113]
+* Fix - Fix compatibility of CSV importer with WordPress 4.5 due to a change in the post_status filter [46286]
 * Tweak - Add new event names for AJAX success to the List, Month, and Day views to help compatibility with our premium plugins [45081]
 
 = [4.1.2] 2016-04-11 =
