@@ -609,7 +609,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			// this  will skip updating term and meta caches - those were already
 			// updated in $this->set_events_in_month()
-			//Order of Events Sticky Events, All Day Events, then Events by start time
+			// expected order of events: sticky events, ongoing multi day events, all day events, then by start time
 			$args   = wp_parse_args(
 				array(
 					'eventDisplay'           => 'month',
