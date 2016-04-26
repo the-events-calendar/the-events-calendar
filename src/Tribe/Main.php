@@ -582,6 +582,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Setup Shortcodes
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Shortcode__Event_Details', 'hook' ) );
+
+			// Google Maps API key setting
+			$google_maps_api_key = Tribe__Events__Google__Maps_API_Key::instance();
+			add_filter( 'tribe_addons_tab_fields', array( $google_maps_api_key, 'filter_tribe_addons_tab_fields' ) );
+			add_filter( 'tribe_events_google_maps_api', array( $google_maps_api_key, 'filter_tribe_events_google_maps_api' ) );
+			add_filter( 'tribe_events_pro_google_maps_api', array( $google_maps_api_key, 'filter_tribe_events_google_maps_api' ) );
 		}
 
 		/**
