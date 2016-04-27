@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 class Tribe__Events__Cost_Utils {
-	const UNCOSTED_EVENTS_TRANSIENT = '_tribe_events_have_uncosted_events';
+	const UNCOSTED_EVENTS_TRANSIENT = 'tribe_events_have_uncosted_events';
 
 	/**
 	 * @var string
