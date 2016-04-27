@@ -135,6 +135,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	}
 
 	public function import_next_row( $throw = false ) {
+		$post_id = null;
 		$record = $this->reader->read_next_row();
 		$row    = $this->reader->get_last_line_number_read() + 1;
 
@@ -229,7 +230,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 				return $name;
 			}
 		}
-		
+
 		$query_args = array(
 			'post_type'   => $post_type,
 			'post_status' => 'publish',

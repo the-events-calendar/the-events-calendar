@@ -150,11 +150,11 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		);
 
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {
-			$event['Organizer'] = is_array( $organizer_id ) ? $organizer_id : array( 'OrganizerID' => $organizer_id );
+			$event['organizer'] = is_array( $organizer_id ) ? $organizer_id : array( 'OrganizerID' => $organizer_id );
 		}
 
 		if ( $venue_id = $this->find_matching_venue_id( $record ) ) {
-			$event['Venue'] = array( 'VenueID' => $venue_id );
+			$event['venue'] = array( 'VenueID' => $venue_id );
 		}
 
 		if ( $cats = $this->get_value_by_key( $record, 'event_category' ) ) {
@@ -188,29 +188,43 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	private function find_matching_organizer_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_organizer_name' );
 
-		if ( strpos( $name, ' ' ) ) {
+		// if the organizers have a space and the items that are separated by spaces are numbers
+		if ( strpos( $name, ' ' ) && is_numeric( str_replace( ' ', '', $name ) ) ) {
 			$split = explode( ' ', $name );
 			$match = array();
 			foreach ( $split as $possible_id_match ) {
-				$match[] = $this->find_matching_post_id( $possible_id_match, Tribe__Events__Main::ORGANIZER_POST_TYPE );
+				$match[] = $this->find_matching_post_id( $possible_id_match, Tribe__Events__Organizer::POSTTYPE );
 			}
+
+			$match = array_unique( $match );
+
 			if ( count( array_filter( $match ) ) == count( $split ) ) {
-				$organizer_ids = array();
+				$organizer_ids = array(
+					'OrganizerID' => array(),
+				);
 				foreach ( $match as $m ) {
-					$organizer_ids[] = array( 'OrganizerID' => $m );
+					$organizer_ids['OrganizerID'][] = $m;
 				}
 
 				return $organizer_ids;
+			} else {
+				return array();
 			}
 		}
 
-		return $this->find_matching_post_id( $name, Tribe__Events__Main::ORGANIZER_POST_TYPE );
+		$matching_post_ids = $this->find_matching_post_id( $name, Tribe__Events__Organizer::POSTTYPE );
+
+		if ( ! is_array( $matching_post_ids ) ) {
+			$matching_post_ids = array( $matching_post_ids );
+		}
+
+		return array( 'OrganizerID' => $matching_post_ids );
 	}
 
 	private function find_matching_venue_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_venue_name' );
 
-		return $this->find_matching_post_id( $name, Tribe__Events__Main::VENUE_POST_TYPE );
+		return array( 'VenueID' => array( $this->find_matching_post_id( $name, Tribe__Events__Venue::POSTTYPE ) ) );
 	}
 
 	/**
@@ -247,7 +261,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	/**
 	 * Parses a timezone string candidate and returns a TEC supported timezone string.
-	 * 
+	 *
 	 * @param string $timezone_candidate
 	 *
 	 * @return bool|string Either the timezone string or `false` if the timezone candidate is invalid.
@@ -262,13 +276,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	/**
 	 * Returns the `post_excerpt` to use.
-	 * 
+	 *
 	 * Will return the existing one if present.
-	 * 
+	 *
 	 * @param int $event_id
 	 * @param string $import_excerpt
 	 *
-	 * @return string 
+	 * @return string
 	 */
 	private function get_post_excerpt( $event_id, $import_excerpt ) {
 		if ( $event_id ) {
