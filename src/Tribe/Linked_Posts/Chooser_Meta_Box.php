@@ -92,9 +92,21 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		$current_linked_posts = get_post_meta( $post_id, $this->linked_posts->get_meta_key( $this->post_type ), false );
 
 		if ( $this->use_default_post( $current_linked_posts ) ) {
+			/**
+			 * Filters the default selected post for the linked post
+			 *
+			 * @param array $default Default post array
+			 * @param string $post_type Linked post post type
+			 */
 			$current_linked_posts = apply_filters( 'tribe_events_linked_post_default', array(), $this->post_type );
 		}
 
+		/**
+		 * Filters the default selected post for the linked post
+		 *
+		 * @param array $current_linked_posts Array of currently linked posts
+		 * @param string $post_type Linked post post type
+		 */
 		$current_linked_posts = (array) apply_filters( 'tribe_display_event_linked_post_dropdown_id', $current_linked_posts, $this->post_type );
 
 		/* if the user can't create organizers, then remove any empty values
