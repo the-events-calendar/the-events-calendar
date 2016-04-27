@@ -33,7 +33,7 @@ class Tribe__Events__Organizer {
 	/**
 	 * Returns a singleton of this class
 	 *
-	 * @return Tribe__Events__Linked_Posts
+	 * @return Tribe__Events__Organizer
 	 */
 	public static function instance() {
 		if ( ! self::$instance ) {
@@ -46,7 +46,7 @@ class Tribe__Events__Organizer {
 	/**
 	 * Constructor!
 	 */
-	public function __construct() {
+	protected function __construct() {
 		$rewrite = Tribe__Events__Rewrite::instance();
 
 		$this->singular_organizer_label                = $this->get_organizer_label_singular();
@@ -59,7 +59,7 @@ class Tribe__Events__Organizer {
 		/**
 		 * Provides an opportunity to modify the labels used for the organizer post type.
 		 *
-		 * @var array
+		 * @param array
 		 */
 		$this->post_type_args['labels'] = apply_filters( 'tribe_events_register_organizer_post_type_labels', array(
 			'name'               => $this->plural_organizer_label,
@@ -89,10 +89,14 @@ class Tribe__Events__Organizer {
 	 * Registers the post type
 	 */
 	public function register_post_type() {
-		register_post_type(
-			self::POSTTYPE,
-			apply_filters( 'tribe_events_register_organizer_type_args', $this->post_type_args )
-		);
+		/**
+		 * Filters the post type arguments for the tribe_organizer post type
+		 *
+		 * @param array $post_type_args Post type arguments
+		 */
+		$post_type_args = apply_filters( 'tribe_events_register_organizer_type_args', $this->post_type_args );
+
+		register_post_type( self::POSTTYPE, $post_type_args );
 	}
 
 	/**
@@ -120,6 +124,11 @@ class Tribe__Events__Organizer {
 	 * @return string
 	 */
 	public function get_organizer_label_singular() {
+		/**
+		 * Filters the singular label of Organizer
+		 *
+		 * @param string $label Singular organizer label
+		 */
 		return apply_filters( 'tribe_organizer_label_singular', esc_html__( 'Organizer', 'the-events-calendar' ) );
 	}
 
@@ -129,6 +138,11 @@ class Tribe__Events__Organizer {
 	 * @return string
 	 */
 	public function get_organizer_label_plural() {
+		/**
+		 * Filters the plural label of Organizer
+		 *
+		 * @param string $label Plural organizer label
+		 */
 		return apply_filters( 'tribe_organizer_label_plural', esc_html__( 'Organizers', 'the-events-calendar' ) );
 	}
 
@@ -295,13 +309,21 @@ class Tribe__Events__Organizer {
 	 * Deletes an organizer
 	 *
 	 * @param int  $organizerId  The organizer ID to delete.
-	 * @param bool $force_delete Same as WP param.
+	 * @param bool $force_delete  Whether or not to bypass the trash when deleting the venue (see wp_delete_post's $force_delete param)
 	 *
 	 */
 	public function delete( $id, $force_delete = false ) {
 		wp_delete_post( $id, $force_delete );
 	}
 
+	/**
+	 * Returns the default organizers
+	 *
+	 * @since 4.2
+	 *
+	 * @param int $default Default organizer ID
+	 * @param string $post_type Post type of form being output
+	 */
 	public function linked_post_default( $default, $post_type ) {
 		if ( self::POSTTYPE !== $post_type ) {
 			return $default;
@@ -310,6 +332,13 @@ class Tribe__Events__Organizer {
 		return Tribe__Events__Main::instance()->defaults()->organizer_id();
 	}
 
+	/**
+	 * Outputs the Organizer form fields for creating new organizers
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $post_type Post type of form being output
+	 */
 	public function linked_post_new_form( $post_type ) {
 		if ( self::POSTTYPE !== $post_type ) {
 			return;
@@ -317,6 +346,11 @@ class Tribe__Events__Organizer {
 
 		$template = Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/create-organizer-fields.php';
 
+		/**
+		 * Filters the template path of the template that holds the organizer form fields
+		 *
+		 * @param string $template Template path
+		 */
 		include apply_filters( 'tribe_events_tribe_organizer_new_form_fields', $template );
 	}
 }

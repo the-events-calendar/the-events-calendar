@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<thead>
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
-				<h4><?php echo apply_filters( 'tribe_events_linked_post_meta_box_title', $linked_post_type_data['labels']['name'], $linked_post_type ); ?></h4>
+				<h4><?php echo apply_filters( 'tribe_events_linked_post_meta_box_title', $linked_post_type_data['name'], $linked_post_type ); ?></h4>
 			</td>
 		</tr>
 		<?php

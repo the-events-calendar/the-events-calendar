@@ -39,7 +39,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Constructor!
 	 */
-	public function __construct() {
+	protected function __construct() {
 		$this->main = Tribe__Events__Main::instance();
 		$this->register_default_linked_post_types();
 
@@ -83,7 +83,8 @@ class Tribe__Events__Linked_Posts {
 	 * Registers a post type as a linked post type for events
 	 *
 	 * Notable arguments that can be passed/filtered while registering linked post types:
-	 * - All of the fields returned by get_post_type_object()
+	 * - labels['name']
+	 * - labels['singular_name']
 	 * - allow_multiple (default: true) specifies how many of the post type can be linked with an event
 	 * - allow_creation (default: false) specifies whether or not post creation should be allowed
 	 *
@@ -103,11 +104,14 @@ class Tribe__Events__Linked_Posts {
 			return false;
 		}
 
-		$args = wp_parse_args( $args, tribe_object_to_array( $post_type_object ) );
+		$default_args = array(
+			'name'           => $post_type_object->labels->name,
+			'singular_name'  => $post_type_object->labels->singular_name,
+			'allow_multiple' => true,
+			'allow_creation' => false,
+		);
 
-		// default to allowing multiple
-		$args['allow_multiple'] = true;
-		$args['allow_creation'] = false;
+		$args = wp_parse_args( $args, $default_args );
 
 		/**
 		 * Filters the post type arguments before adding them to the collection of linked post types
@@ -245,7 +249,7 @@ class Tribe__Events__Linked_Posts {
 			// if the post type that we're looking at is an event, we'll need to find all linked post types
 			foreach ( $post_types as $post_type => $post_type_data ) {
 				$args['meta_query'][] = array(
-					'key'     => $this->get_meta_Key( $post_type ),
+					'key'     => $this->get_meta_key( $post_type ),
 					'compare' => 'EXISTS',
 				);
 			}
@@ -393,7 +397,7 @@ class Tribe__Events__Linked_Posts {
 	 * @param array $args
 	 * @param int $linked_post_id post id
 	 *
-	 * @return WP_Query->posts || array()
+	 * @return array
 	 */
 	public function get_linked_post_info( $linked_post_type, $args = array(), $linked_post_ids = null ) {
 		$defaults = array(
@@ -593,7 +597,6 @@ class Tribe__Events__Linked_Posts {
 			return;
 		}
 
-		$linked_post_types         = $this->get_linked_post_types();
 		$linked_post_type_object   = get_post_type_object( $linked_post_type );
 		$linked_post_type_id_field = $this->get_post_type_id_field_index( $linked_post_type );
 		$linked_posts              = array();
@@ -748,8 +751,8 @@ class Tribe__Events__Linked_Posts {
 			);
 		}
 
-		$plural_name = $this->linked_post_types[ $post_type ]['labels']['name'];
-		$singular_name = ! empty( $this->linked_post_types[ $post_type ]['labels']['singular_name'] ) ? $this->linked_post_types[ $post_type ]['labels']['singular_name'] : $plural_name;
+		$plural_name = $this->linked_post_types[ $post_type ]['name'];
+		$singular_name = ! empty( $this->linked_post_types[ $post_type ]['singular_name'] ) ? $this->linked_post_types[ $post_type ]['singular_name'] : $plural_name;
 
 		if ( $linked_posts || $my_linked_posts ) {
 			$linked_post_pto = get_post_type_object( $post_type );
@@ -767,9 +770,24 @@ class Tribe__Events__Linked_Posts {
 
 				// backwards compatibility with old organizer filter
 				if ( Tribe__Events__Organizer::POSTTYPE === $post_type ) {
+					/**
+					 * Filters the linked organizer dropdown optgroup label that holds organizers that have
+					 * been created by that user
+					 *
+					 * @deprecated 4.2
+					 *
+					 * @param string $my_optgroup_name Label of the optgroup for the "My Organizers" section
+					 */
 					$my_optgroup_name = apply_filters( 'tribe_events_saved_organizers_dropdown_my_optgroup', $my_optgroup_name );
 				}
 
+				/**
+				 * Filters the linked post dropdown optgroup label that holds organizers that have
+				 * been created by that user
+				 *
+				 * @param string $my_optgroup_name Label of the optgroup for the "My X" section
+				 * @param string $post_type Post type of the linked post
+				 */
 				$my_optgroup_name = apply_filters( 'tribe_events_saved_linked_post_dropdown_my_optgroup', $my_optgroup_name, $post_type );
 
 				echo $linked_posts ? '<optgroup label="' . esc_attr( $my_optgroup_name ) . '">' : '';
@@ -782,9 +800,22 @@ class Tribe__Events__Linked_Posts {
 
 				// backwards compatibility with old organizer filter
 				if ( Tribe__Events__Organizer::POSTTYPE === $post_type ) {
+					/**
+					 * Filters the linked organizer dropdown optgroup label for saved organizers
+					 *
+					 * @deprecated 4.2
+					 *
+					 * @param string $my_optgroup_name Label of the optgroup for the "Available Organizers" section
+					 */
 					$optgroup_name = apply_filters( 'tribe_events_saved_organizers_dropdown_optgroup', $optgroup_name );
 				}
 
+				/**
+				 * Filters the linked post dropdown optgroup label that holds all published posts of the given type
+				 *
+				 * @param string $my_optgroup_name Label of the optgroup for the "Available X" section
+				 * @param string $post_type Post type of the linked post
+				 */
 				$optgroup_name = apply_filters( 'tribe_events_saved_linked_post_dropdown_optgroup', $optgroup_name, $post_type );
 
 				echo $my_linked_posts ? '<optgroup label="' . esc_attr( $optgroup_name ) . '">' : '';

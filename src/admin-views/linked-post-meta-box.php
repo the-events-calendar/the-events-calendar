@@ -15,7 +15,7 @@ $linked_post_name_field = "{$linked_post_container}[{$linked_post_name}][]";
 <script type="text/template" id="tmpl-tribe-create-<?php echo esc_attr( $this->post_type ); ?>">
 <tbody class="new-<?php echo esc_attr( $this->post_type ); ?>">
 	<tr class="linked-post">
-		<td><?php printf( esc_html__( '%s Name:', 'the-events-calendar' ), $this->linked_posts->linked_post_types[ $this->post_type ]['labels']['singular_name'] ); ?></td>
+		<td><?php printf( esc_html__( '%s Name:', 'the-events-calendar' ), $this->linked_posts->linked_post_types[ $this->post_type ]['singular_name'] ); ?></td>
 		<td>
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='<?php echo esc_attr( $linked_post_name_field ); ?>' class='linked-post-name <?php echo esc_attr( $this->post_type ); ?>-name' size='25' value='' />
 		</td>
@@ -46,7 +46,7 @@ $linked_post_name_field = "{$linked_post_container}[{$linked_post_name}][]";
 						group.find('.tribe-<?php echo esc_js( $this->post_type ); ?>-error').remove();
 					} else {
 						group.find('.tribe-<?php echo esc_js( $this->post_type ); ?>-error').remove();
-						input.after('<div class="tribe-<?php echo esc_attr( $this->post_type ); ?>-error error form-invalid"><?php printf( esc_html__( '%s Name Already Exists', 'the-events-calendar' ), $this->linked_posts->linked_post_types[ $this->post_type ]['labels']['singular_name'] ); ?></div>');
+						input.after('<div class="tribe-<?php echo esc_attr( $this->post_type ); ?>-error error form-invalid"><?php printf( esc_html__( '%s Name Already Exists', 'the-events-calendar' ), $this->linked_posts->linked_post_types[ $this->post_type ]['singular_name'] ); ?></div>');
 					}
 				}
 			);

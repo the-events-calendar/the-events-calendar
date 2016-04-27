@@ -31,11 +31,11 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 */
 	protected $singular_name;
 
-	public function __construct( $event = null, $post_type = null ) {
+	protected function __construct( $event = null, $post_type = null ) {
 		$this->tribe        = Tribe__Events__Main::instance();
 		$this->linked_posts = Tribe__Events__Linked_Posts::instance();
 		$this->post_type = $post_type;
-		$this->singular_name = $this->linked_posts->linked_post_types[ $this->post_type ]['labels']['singular_name'];
+		$this->singular_name = $this->linked_posts->linked_post_types[ $this->post_type ]['singular_name'];
 		$this->get_event( $event );
 	}
 

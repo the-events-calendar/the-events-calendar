@@ -39,7 +39,7 @@ class Tribe__Events__Venue {
 	/**
 	 * Returns a singleton of this class
 	 *
-	 * @return Tribe__Events__Linked_Posts
+	 * @return Tribe__Events__Venue
 	 */
 	public static function instance() {
 		if ( ! self::$instance ) {
@@ -52,7 +52,7 @@ class Tribe__Events__Venue {
 	/**
 	 * Constructor!
 	 */
-	public function __construct() {
+	protected function __construct() {
 		$rewrite = Tribe__Events__Rewrite::instance();
 
 		$this->singular_venue_label                = $this->get_venue_label_singular();
@@ -65,7 +65,7 @@ class Tribe__Events__Venue {
 		/**
 		 * Provides an opportunity to modify the labels used for the venue post type.
 		 *
-		 * @var array
+		 * @param array $args Array of arguments for register_post_type labels
 		 */
 		$this->post_type_args['labels'] = apply_filters( 'tribe_events_register_venue_post_type_labels', array(
 			'name'               => $this->plural_venue_label,
@@ -162,6 +162,8 @@ class Tribe__Events__Venue {
 	 *
 	 * @param string $name_field Field name of the field that will hold the name
 	 * @param string $post_type Post type of linked post
+	 *
+	 * @return string
 	 */
 	public function linked_post_name_field_index( $name_field, $post_type ) {
 		if ( self::POSTTYPE === $post_type ) {
@@ -186,6 +188,8 @@ class Tribe__Events__Venue {
 	 *
 	 * @param string $container Container index that holds submitted data
 	 * @param string $post_type Post type of linked post
+	 *
+	 * @return string
 	 */
 	public function linked_post_type_container( $container, $post_type ) {
 		if ( self::POSTTYPE === $post_type ) {
@@ -278,7 +282,7 @@ class Tribe__Events__Venue {
 	 * @param array  $data        The venue data.
 	 * @param string $post_status the intended post status.
 	 *
-	 * @return mixed
+	 * @return int
 	 */
 	public function create( $data, $post_status = 'publish' ) {
 
@@ -349,7 +353,7 @@ class Tribe__Events__Venue {
 	 * Deletes a venue
 	 *
 	 * @param int  $venue_id      The venue ID to delete.
-	 * @param bool $force_delete Same as WP param.
+	 * @param bool $force_delete  Whether or not to bypass the trash when deleting the venue (see wp_delete_post's $force_delete param)
 	 *
 	 */
 	public function delete( $venue_id, $force_delete = false ) {
@@ -363,6 +367,11 @@ class Tribe__Events__Venue {
 
 		$template = Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/create-venue-fields.php';
 
+		/**
+		 * Filters the template path of the template that holds the venue form fields
+		 *
+		 * @param string $template Template path
+		 */
 		include apply_filters( 'tribe_events_tribe_venue_new_form_fields', $template );
 	}
 }
