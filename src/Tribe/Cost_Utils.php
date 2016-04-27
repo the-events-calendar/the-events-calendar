@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 class Tribe__Events__Cost_Utils {
+	const UNCOSTED_EVENTS_TRANSIENT = '_tribe_events_have_uncosted_events';
 
 	/**
 	 * @var string
@@ -274,8 +275,15 @@ class Tribe__Events__Cost_Utils {
 	public function has_uncosted_events() {
 		global $wpdb;
 
+		// Expect: false := not set/expired, 1 := have uncosted events, 0 := no uncosted events
+		$have_uncosted = get_transient( self::UNCOSTED_EVENTS_TRANSIENT );
+
+		if ( false !== $have_uncosted ) {
+			return (bool) $have_uncosted;
+		}
+
 		$uncosted = $wpdb->get_var( "
-			SELECT COUNT( * )
+			SELECT ID
 			FROM   {$wpdb->posts}
 
 			LEFT JOIN {$wpdb->postmeta}
@@ -287,6 +295,18 @@ class Tribe__Events__Cost_Utils {
 			LIMIT 1
 		" );
 
+		/**
+		 * Whether or not we currently have events without any costs is something we store
+		 * in a transient to avoid repeated queries: this filter controls how long in seconds
+		 * that transient is allowed to live for.
+		 *
+		 * @param int $expires_after
+		 */
+		$expire_after = apply_filters( 'tribe_events_cost_utils_uncosted_events_expiry', HOUR_IN_SECONDS );
+
+		// We cast to an int to avoid confusion when we next check the transient
+		// (since bool false will be returned when the transient is not set)
+		set_transient( self::UNCOSTED_EVENTS_TRANSIENT, (int) $uncosted, $expire_after );
 		return (bool) ( $uncosted > 0 );
 	}
 
