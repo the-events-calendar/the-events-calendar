@@ -844,16 +844,34 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$post_id = get_the_ID();
 		}
 
-		$image_html     = get_the_post_thumbnail( $post_id, $size );
+		/**
+		 * Provides an opportunity to modify the featured image size.
+		 *
+		 * @param string $size
+		 * @param int    $post_id
+		 */
+		$image_html     = get_the_post_thumbnail( $post_id, apply_filters( 'tribe_event_featured_image_size', $size, $post_id ) );
 		$featured_image = '';
 
-		//if link is not specifically excluded, then include <a>
-		if ( ! empty( $image_html ) && $link ) {
+		/**
+		 * Controls whether the featured image should be wrapped in a link
+		 * or not.
+		 *
+		 * @param bool $link
+		 */
+		if ( ! empty( $image_html ) && apply_filters( 'tribe_event_featured_image_link', $link ) ) {
 			$featured_image .= '<div class="tribe-events-event-image"><a href="' . esc_url( tribe_get_event_link() ) . '">' . $image_html . '</a></div>';
 		} elseif ( ! empty( $image_html ) ) {
 			$featured_image .= '<div class="tribe-events-event-image">' . $image_html . '</div>';
 		}
 
+		/**
+		 * Provides an opportunity to modify the featured image HTML.
+		 *
+		 * @param string $featured_image
+		 * @param int    $post_id
+		 * @param string $size
+		 */
 		return apply_filters( 'tribe_event_featured_image', $featured_image, $post_id, $size );
 	}
 
