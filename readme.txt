@@ -309,7 +309,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.1.3] 2016-04-27 =
+= [4.1.3] 2016-04-28 =
 
 * Fix - Month View single days are now ordered as follows: sticky events, ongoing multi-day events, all day events, then start time. In other words, all events should be ordered as you'd expect when viewing events in Month View.
 * Fix - Updated the compatibility of CSV importer with WordPress 4.5 due to a change in the `post_status` filter. This will help prevent some of the errors you may have seen when importing events using a CSV file.
