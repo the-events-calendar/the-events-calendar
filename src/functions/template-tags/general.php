@@ -1388,7 +1388,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// Remove "all" HTML based on what is allowed
 		$excerpt = wp_kses( $excerpt, $allowed_html );
 
-		return wpautop( $excerpt );
+		return apply_filters( 'tribe_events_get_the_excerpt', wpautop( $excerpt ) );
 	}
 
 	/**
