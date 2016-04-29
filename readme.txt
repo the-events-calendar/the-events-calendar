@@ -313,6 +313,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Feature - Added an oembed template for events [43938]
 * Feature - Improve performance of a query used to determine if there are free/uncosted events [46403]
+* Feature - Added support for attaching custom post types to events [43944]
 * Tweak - Improved filterability of the tribe_event_featured_image() function (props: @fabianmarz) [45603]
 * Tweak - Add an encoding class for the CSV importer to prevent non utf8 characters from preventing imports [23988]
 * Tweak - Improved our JSON-LD output to ensure consistency (props: @garrettjohnson) [43595]
