@@ -323,7 +323,8 @@ class Tribe__Events__Linked_Posts {
 	 * @return boolean
 	 */
 	public function has_linked_posts_by_post_type( $post_id, $post_type ) {
-		$has_linked_posts = ! empty( $this->get_linked_posts_by_post_type( $post_id, $post_type ) );
+		$linked_posts_by_post_type = $this->get_linked_posts_by_post_type( $post_id, $post_type );
+		$has_linked_posts = ! empty( $linked_posts_by_post_type );
 
 		/**
 		 * Filters whether or not a post has any linked posts of a given type
