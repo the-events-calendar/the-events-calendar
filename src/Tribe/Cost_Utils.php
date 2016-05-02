@@ -282,18 +282,21 @@ class Tribe__Events__Cost_Utils {
 			return (bool) $have_uncosted;
 		}
 
-		$uncosted = $wpdb->get_var( "
+		$uncosted = $wpdb->get_var( $wpdb->prepare( "
 			SELECT ID
 			FROM   {$wpdb->posts}
 
 			LEFT JOIN {$wpdb->postmeta}
 			          ON ( post_id = ID AND meta_key = '_EventCost' )
 
-			WHERE LENGTH( meta_value ) = 0
-			      OR meta_value IS NULL
-
+			WHERE post_type = %s 
+			      AND ( 
+			          LENGTH( meta_value ) = 0
+			          OR meta_value IS NULL
+			      )
+			      
 			LIMIT 1
-		" );
+		", Tribe__Events__Main::POSTTYPE ) );
 
 		/**
 		 * Whether or not we currently have events without any costs is something we store
