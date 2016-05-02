@@ -729,7 +729,9 @@ class Tribe__Events__Linked_Posts {
 			}
 		}
 
-		if ( current_user_can( $this->linked_post_types[ $post_type ]['cap']['edit_others_posts'] ) ) {
+		$post_type_object = get_post_type_object( $post_type );
+
+		if ( current_user_can( $post_type_object->cap->edit_others_posts ) ) {
 			$linked_posts = $this->get_linked_post_info(
 				$post_type,
 				array(
