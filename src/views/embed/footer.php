@@ -22,6 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="wp-embed-meta">
 		<?php
+		print_embed_comments_button();
+
 		/**
 		 * Print additional meta content in the embed template.
 		 *
