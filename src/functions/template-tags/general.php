@@ -824,4 +824,43 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		}
 	}
 
+	/**
+	 * Returns the next upcoming event in a recurring series from the /all/ URL
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $url URL of the recurring series
+	 *
+	 * @return int
+	 */
+	function tribe_get_upcoming_recurring_event_id_from_url( $url ) {
+		$path = @parse_url( $url );
+
+		if ( empty( $path ) ) {
+			return;
+		}
+
+		$path = trim( $path['path'], '/' );
+		$path = explode( '/', $path );
+
+		// grab the post name from the /all/ URL
+		$post_name = $path[ count( $path ) - 2 ];
+
+		// fetch the next event in the series
+		$query = new WP_Query( array(
+			'name'        => $post_name,
+			'post_type'   => Tribe__Events__Main::POSTTYPE,
+			'post_status' => 'publish',
+			'numberposts' => 1,
+		) );
+
+		// if there isn't a post, bail
+		if ( empty( $query->posts[0] ) ) {
+			return;
+		}
+
+		// a post was found. Let's return the post ID
+		return $query->posts[0]->ID;
+	}
+
 }
