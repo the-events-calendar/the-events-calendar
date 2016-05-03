@@ -80,7 +80,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $postOrganizerTypeArgs = array();
 
 		public static $tribeUrl = 'http://tri.be/';
-		public static $tecUrl = 'http://theeventscalendar.com/';
+		public static $tecUrl = 'https://theeventscalendar.com/';
 
 		public static $addOnPath = 'products/';
 

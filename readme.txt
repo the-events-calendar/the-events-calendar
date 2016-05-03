@@ -318,6 +318,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Add an encoding class for the CSV importer to prevent non utf8 characters from preventing imports [23988]
 * Tweak - Improved our JSON-LD output to ensure consistency (props: @garrettjohnson) [43595]
 * Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files [36246]
+* Tweak - Switch to HTTPS for the "Powered by The Events Calendar" link [46542]
 * Deprecated - Tribe__Events__PUE__Checker, Tribe__Events__PUE__Plugin_Info, and Tribe__Events__PUE__Utility classes are deprecated and are replaced by Tribe__PUE__Checker, Tribe__PUE__Plugin_Info, and Tribe__PUE__Utility classes [46188]
 * Accessibility - Focus styles added for search fields [32936]
 * Accessibility - Add ARIA labels for Month/Day/List sub nav [32937]
