@@ -28,6 +28,10 @@ if ( 'attachment' === get_post_type() && wp_attachment_is_image() ) {
 	$thumbnail_id = get_the_ID();
 }
 
+if ( ! $thumbnail_id ) {
+	return;
+}
+
 $aspect_ratio = 1;
 $measurements = array( 1, 1 );
 $image_size   = 'full'; // Fallback.
