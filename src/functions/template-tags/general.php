@@ -834,7 +834,12 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 	 * @return int
 	 */
 	function tribe_get_upcoming_recurring_event_id_from_url( $url ) {
-		$path = parse_url( $url );
+		$path = @parse_url( $url );
+
+		if ( empty( $path ) ) {
+			return;
+		}
+
 		$path = trim( $path['path'], '/' );
 		$path = explode( '/', $path );
 
