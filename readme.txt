@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.4.2
-Stable tag: 4.1.2
+Tested up to: 4.5.1
+Stable tag: 4.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -308,6 +308,12 @@ Patch = 1
 At no point during the 3.0 lifecycle will the major version change. But you can expect that either minor version and/or patch will change with each release.
 
 == Changelog ==
+
+= [4.1.3] 2016-04-28 =
+
+* Fix - Month View single days are now ordered as follows: sticky events, ongoing multi-day events, all day events, then start time. In other words, all events should be ordered as you'd expect when viewing events in Month View.
+* Fix - Updated the compatibility of CSV importer with WordPress 4.5 due to a change in the `post_status` filter. This will help prevent some of the errors you may have seen when importing events using a CSV file.
+* Tweak - Added new event names for AJAX success to the List, Month, and Day views to help The Events Calendar's compatibility with our other premium plugins.
 
 = [4.2] TBD =
 
