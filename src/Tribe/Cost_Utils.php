@@ -282,6 +282,7 @@ class Tribe__Events__Cost_Utils {
 			return (bool) $have_uncosted;
 		}
 
+		// @todo consider expanding our logic for improved handling of private posts etc
 		$uncosted = $wpdb->get_var( $wpdb->prepare( "
 			SELECT ID
 			FROM   {$wpdb->posts}
@@ -294,6 +295,7 @@ class Tribe__Events__Cost_Utils {
 			          LENGTH( meta_value ) = 0
 			          OR meta_value IS NULL
 			      )
+			      AND post_status NOT IN ( 'auto-draft', 'revision' )
 			      
 			LIMIT 1
 		", Tribe__Events__Main::POSTTYPE ) );
