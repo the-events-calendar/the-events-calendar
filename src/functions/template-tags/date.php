@@ -22,7 +22,7 @@ if ( ! function_exists( 'tribe_get_start_time' ) ) {
 	 *
 	 * @category Events
 	 * @see http://php.net/manual/en/function.date.php
-	 * 
+	 *
 	 * @param int    $event       (optional)
 	 * @param string $dateFormat  Allows date and time formating using standard php syntax
 	 * @param string $timezone    Timezone in which to present the date/time (or default behaviour if not set)
@@ -65,7 +65,7 @@ if ( ! function_exists( 'tribe_get_end_time' ) ) {
 	 *
 	 * @category Events
 	 * @see http://php.net/manual/en/function.date.php
-	 * 
+	 *
 	 * @param int    $event       (optional)
 	 * @param string $dateFormat  Allows date and time formating using standard php syntax
 	 * @param string $timezone    Timezone in which to present the date/time (or default behaviour if not set)
@@ -108,7 +108,7 @@ if ( ! function_exists( 'tribe_get_display_end_date' ) ) {
 	 *
 	 * @category Events
 	 * @see http://php.net/manual/en/function.date.php
-	 * 
+	 *
 	 * @param int    $event        (optional)
 	 * @param bool   $display_time If true shows date and time, if false only shows date
 	 * @param string $date_format  Allows date and time formating using standard php syntax
