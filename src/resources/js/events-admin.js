@@ -231,7 +231,7 @@ jQuery( document ).ready( function( $ ) {
 		 */
 		function add_sticky_organizer_data( fields ) {
 			// Bail if expected global array tribe_sticky_organizer_fields is not set
-			if ( ! $.isArray( tribe_sticky_organizer_fields ) ) {
+			if ( 'undefined' === typeof tribe_sticky_organizer_fields || ! $.isArray( tribe_sticky_organizer_fields ) ) {
 				return;
 			}
 
