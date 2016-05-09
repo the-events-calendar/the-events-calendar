@@ -225,6 +225,9 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.1.3] 2016-05-11 =
+* Tweak - restored section heading for Additional Fields [46530]
+
 = [4.1.2] 2016-04-11 =
 
 * Tweak - Changed the word "Once" in an event's recurring settings because it was pretty confusing for everyone, including us
