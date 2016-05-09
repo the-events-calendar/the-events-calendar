@@ -1357,7 +1357,16 @@
 			 * @return void
 			 */
 			public function loadTextDomain() {
-				Tribe__Main::instance()->load_text_domain( 'tribe-events-calendar-pro', $this->pluginDir . 'lang/' );
+				$mopath = $this->pluginDir . 'lang/';
+				$domain = 'tribe-events-calendar-pro';
+
+				// If we don't have Common classes load the old fashioned way
+				if ( ! class_exists( 'Tribe__Main' ) ) {
+					load_plugin_textdomain( $domain, false, $mopath )
+				} else {
+					// This will load `wp-content/languages/plugins` files first
+					Tribe__Main::instance()->load_text_domain( $domain, $mopath );
+				}
 			}
 
 			/**
