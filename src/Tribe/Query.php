@@ -45,6 +45,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$can_inject = false;
 			}
 
+			if ( isset( $query->query_vars['do_not_inject_date'] ) && $query->query_vars['do_not_inject_date'] ) {
+				$can_inject = false;
+			}
+
 			return apply_filters( 'tribe_query_can_inject_date_field', $can_inject );
 		}
 
@@ -524,7 +528,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			global $wpdb;
 
 			// if it's a true event query then we to setup where conditions
-			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
+			// but only if we aren't grabbing a specific post
+			if (
+				(
+					$query->tribe_is_event
+					|| $query->tribe_is_event_category
+				)
+				&& empty( $query->query_vars['name'] )
+				&& empty( $query->query_vars['p'] )
+			) {
 
 				$postmeta_table = self::postmeta_table( $query );
 

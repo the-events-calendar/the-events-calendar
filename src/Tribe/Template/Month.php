@@ -191,6 +191,20 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			if ( ! empty( $this->events_in_month ) ) {
 				add_filter( 'tribe_events_month_has_events', array( $this, 'has_events' ) );
 			}
+
+			// Print JSON-LD markup on the `wp_head`
+			add_action( 'wp_head', array( $this, 'json_ld_markup' ) );
+		}
+
+		/**
+		 * When dealing with a place that has multiple events, we need to pass all the events as the first param
+		 * to allow the class to echo the correct JSON-LD script
+		 *
+		 * @return void
+		 */
+		public function json_ld_markup() {
+			$events = wp_list_pluck( $this->events_in_month, 'ID' );
+			Tribe__Events__JSON_LD__Event::instance()->markup( $events );
 		}
 
 		/**
@@ -274,7 +288,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				return;
 			}
 
-			$events_label_plural = tribe_get_event_label_plural();
+			$events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
 			if ( ! empty( $search_term ) ) {
@@ -282,7 +296,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'<strong>"' . esc_html( $search_term ) . '"</strong>' ) );
 			} // if attempting to view a category archive.
 			elseif ( ! empty( $tax_term ) ) {
-				Tribe__Notices::set_notice( 'events-not-found', sprintf( esc_html__( 'No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events.', 'the-events-calendar' ), strtolower( $events_label_plural ), $tax_term ) );
+				Tribe__Notices::set_notice( 'events-not-found', sprintf( esc_html__( 'No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events.', 'the-events-calendar' ), $events_label_plural_lowercase, $tax_term ) );
 			} else {
 				Tribe__Notices::set_notice( 'event-search-no-results', esc_html__( 'There were no results found.', 'the-events-calendar' ) );
 			}
@@ -349,7 +363,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			} elseif ( is_string( $term_id ) ) {
 				// get the term by slug if it's a string
 				$term = get_term_by( 'slug', $term_id, Tribe__Events__Main::TAXONOMY );
-				if ( ! is_wp_error( $term ) ) {
+				if ( ! ( is_wp_error( $term ) || empty( $term ) ) ) {
 					$terms[0] = $term->term_id;
 				}
 			}
@@ -609,6 +623,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			// this  will skip updating term and meta caches - those were already
 			// updated in $this->set_events_in_month()
+			// expected order of events: sticky events, ongoing multi day events, all day events, then by start time
 			$args   = wp_parse_args(
 				array(
 					'eventDisplay'           => 'month',
@@ -619,8 +634,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'update_post_term_cache' => false,
 					'update_post_meta_cache' => false,
 					'no_found_rows'          => false,
+					'do_not_inject_date'     => true,
 					'meta_key'               => '_EventStartDate',
-					'orderby'                => 'meta_value_date',
+					'orderby'                => array(
+						'menu_order' => 'ASC',
+						'meta_value' => 'ASC',
+					),
 				), $this->args
 			);
 

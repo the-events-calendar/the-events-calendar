@@ -17,6 +17,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	private $updated = 0;
 	private $created = 0;
 	private $skipped = array();
+	private $encoding = array();
 	private $log = array();
 
 	/**
@@ -40,7 +41,19 @@ abstract class Tribe__Events__Importer__File_Importer {
 			case 'organizers':
 				return new Tribe__Events__Importer__File_Importer_Organizers( $file_reader );
 			default:
-				throw new InvalidArgumentException( sprintf( esc_html__( 'No importer defined for %s', 'the-events-calendar' ), $type ) );
+				/**
+				 * Allows developers to return an importer instance to use for unsupported import types.
+				 *
+				 * @param bool|mixed An importer instance or `false` if not found or not supported.
+				 * @param Tribe__Events__Importer__File_Reader $file_reader
+				 */
+				$importer = apply_filters( "tribe_events_import_{$type}_importer", false, $file_reader );
+
+				if ( false === $importer ) {
+					throw new InvalidArgumentException( sprintf( esc_html__( 'No importer defined for %s', 'the-events-calendar' ), $type ) );
+				}
+
+				return $importer;
 		}
 	}
 
@@ -101,6 +114,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return $this->skipped;
 	}
 
+	public function get_encoding_changes_row_count() {
+		return count( $this->encoding );
+	}
+
+	public function get_encoding_changes_row_numbers() {
+		return $this->encoding;
+	}
+
 	public function get_log_messages() {
 		return $this->log;
 	}
@@ -109,12 +130,29 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return $this->required_fields;
 	}
 
+	public function get_type() {
+		return $this->type;
+	}
+
 	public function import_next_row( $throw = false ) {
+		$post_id = null;
 		$record = $this->reader->read_next_row();
 		$row    = $this->reader->get_last_line_number_read() + 1;
+
+		//Check if option to encode is active
+		$encoding_option = Tribe__Events__Importer__Options::getOption( 'imported_encoding_status', array( 'csv' => 'encode' ) );
+		if ( isset( $encoding_option['csv'] ) && 'encode' == $encoding_option['csv'] ) {
+			$encoded       = ForceUTF8__Encoding::toUTF8( $record );
+			$encoding_diff = array_diff( $encoded, $record );
+			if ( ! empty( $encoding_diff ) ) {
+				$this->encoding[] = $row;
+			}
+			$record = $encoded;
+		}
+
 		if ( ! $this->is_valid_record( $record ) ) {
 			if ( ! $throw ) {
-				$this->log[ $row ] = sprintf( esc_html__( 'Missing required fields in row %d.', 'the-events-calendar', $row ) );
+				$this->log[ $row ] = $this->get_skipped_row_message( $row );
 				$this->skipped[]   = $row;
 
 				return false;
@@ -192,16 +230,17 @@ abstract class Tribe__Events__Importer__File_Importer {
 				return $name;
 			}
 		}
-		
+
 		$query_args = array(
-			'post_type'   => $post_type,
-			'post_status' => 'publish',
-			'post_title'  => $name,
-			'fields'      => 'ids',
+			'post_type'        => $post_type,
+			'post_status'      => 'publish',
+			'post_title'       => $name,
+			'fields'           => 'ids',
+			'suppress_filters' => false,
 		);
 		add_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
 		$ids = get_posts( $query_args );
-		remove_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
+		remove_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10 );
 
 		return empty( $ids ) ? 0 : reset( $ids );
 	}
@@ -222,7 +261,15 @@ abstract class Tribe__Events__Importer__File_Importer {
 	 * @return Tribe__Events__Importer__Featured_Image_Uploader
 	 */
 	protected function featured_image_uploader( $featured_image ) {
-		return empty( $this->featured_image_uploader ) ? new Tribe__Events__Importer__Featured_Image_Uploader( $featured_image ) : $this->featured_image_uploader;
+		// Remove any leading/trailing whitespace (if the string is a URL, extra whitespace
+		// could result in URL validation fail)
+		if ( is_string( $featured_image ) ) {
+			$featured_image = trim( $featured_image );
+		}
+
+		return empty( $this->featured_image_uploader )
+			? new Tribe__Events__Importer__Featured_Image_Uploader( $featured_image )
+			: $this->featured_image_uploader;
 	}
 
 	/**
@@ -244,5 +291,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 		}
 
 		return is_null( $return_false_value ) ? $value : $return_false_value;
+	}
+
+	/**
+	 * @param $row
+	 *
+	 * @return string
+	 */
+	protected function get_skipped_row_message( $row ) {
+		return sprintf( esc_html__( 'Missing required fields in row %d.', 'the-events-calendar' ), $row );
 	}
 }

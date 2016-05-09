@@ -264,8 +264,8 @@ class Tribe__Events__iCal {
 					? Tribe__Events__Timezones::get_event_timezone_string( $event_post->ID )
 					: Tribe__Events__Timezones::wp_timezone_string();
 
-				$item[] = 'DTSTART;TZID="'.$tz.'":' . $tzoned->start;
-				$item[] = 'DTEND;TZID="'.$tz.'":' . $tzoned->end;
+				$item[] = 'DTSTART;TZID=' . $tz . ':' . $tzoned->start;
+				$item[] = 'DTEND;TZID=' . $tz . ':' . $tzoned->end;
 			}
 
 			$item[] = 'DTSTAMP:' . date( $full_format, time() );

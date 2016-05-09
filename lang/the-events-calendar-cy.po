@@ -1,0 +1,4683 @@
+# Translation of Stable (latest release) in Welsh
+# This file is distributed under the same license as the Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2016-03-22 03:30:45+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;\n"
+"X-Generator: GlotPress/2.1.0-alpha\n"
+"Project-Id-Version: Stable (latest release)\n"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:255
+msgid "Customer Name"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:256
+msgid "Customer Email Address"
+msgstr ""
+
+#: vendor/tickets/src/views/tickets/rsvp.php:125
+msgid "Don't list me on the public attendee list"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:24
+msgid "If you are creating a recurring event, Tickets will only show up once per Event Series, meaning that the same ticket will apper across all events. Please configure your events accordingly."
+msgstr ""
+
+#: src/Tribe/Importer/Column_Mapper.php:69
+msgid "Event Featured Image"
+msgstr ""
+
+#: src/Tribe/Importer/Column_Mapper.php:84
+msgid "Venue Featured Image"
+msgstr ""
+
+#: src/Tribe/Importer/Column_Mapper.php:94
+msgid "Organizer Featured Image"
+msgstr ""
+
+#: src/Tribe/Main.php:2873
+msgid " (View Full %1$s Description Here: %2$s)"
+msgstr ""
+
+#: common/src/Tribe/Support/Template_Checker_Report.php:78
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:78
+msgid "No notable changes detected"
+msgstr ""
+
+#: common/src/Tribe/Support/Template_Checker_Report.php:82
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:82
+msgid "Templates introduced or updated with this release (%s):"
+msgstr ""
+
+#: common/src/Tribe/Support/Template_Checker_Report.php:92
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:92
+msgid "Existing theme overrides that may need revision:"
+msgstr ""
+
+#: common/src/Tribe/Support/Template_Checker_Report.php:96
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:96
+msgid "version data missing from override"
+msgstr ""
+
+#: common/src/Tribe/Support/Template_Checker_Report.php:97
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:97
+msgid "based on %s version"
+msgstr ""
+
+#: common/src/Tribe/Support/Template_Checker_Report.php:113
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:113
+msgid "No notable template changes detected."
+msgstr ""
+
+#: common/src/Tribe/Support/Template_Checker_Report.php:115
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:115
+msgid "Information about recent template changes and potentially impacted template overrides is provided below."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:37
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:37
+msgid "Recent Template Changes"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:171
+msgid "Reserved by:"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:171
+msgid "Purchased by:"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:235
+msgid "View order"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Metabox.php:87
+msgid "It looks like you have modified your global stock settings but have not saved or updated the post."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Tickets.php:830
+msgid "Use global stock"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Tickets.php:831
+msgid "Use global stock but cap sales"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Tickets.php:832
+msgid "Independent (do not use global stock)"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/attendees.php:98
+msgid "Deleted:"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/meta-box.php:69
+msgid "Enable global stock"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/meta-box.php:79
+msgid "Global stock level"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/meta-box.php:85
+msgid "(%s sold)"
+msgid_plural "(%s sold)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: vendor/tickets/src/template-tags/tickets.php:221
+msgid "global inventory"
+msgstr ""
+
+#: vendor/tickets/src/template-tags/tickets.php:231
+msgctxt "ticket stock message (cancelled stock)"
+msgid " cancelled: %1$d"
+msgstr ""
+
+#: vendor/tickets/src/template-tags/tickets.php:236
+msgid " pending: %1$d"
+msgstr ""
+
+#: vendor/tickets/src/template-tags/tickets.php:241
+msgid "Sold %1$d (units remaining: %2$s%3$s%4$s)"
+msgstr ""
+
+#: vendor/tickets/src/views/tickets/rsvp.php:31
+msgid "Please fill in the RSVP confirmation name and email fields."
+msgstr ""
+
+#: vendor/tickets/src/views/tickets/rsvp.php:96
+msgid "Send RSVP confirmation to:"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/attendees.php:44
+msgid "Post Type:"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/attendees.php:27
+msgid "Edit Event"
+msgstr "Golygu Digwyddiad"
+
+#: vendor/tickets/src/admin-views/attendees.php:28
+msgid "See Event Page"
+msgstr ""
+
+#: src/Tribe/Event_Tickets/Attendees_Report.php:64
+msgid "Edit Venue"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/attendees.php:59
+msgid "Sales by Ticket"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/attendees.php:65
+msgid "Edit Ticket"
+msgstr "Golygu Tocyn"
+
+#: vendor/tickets/src/admin-views/attendees.php:76
+msgid "Total Sold:"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/meta-box.php:208
+msgid "When will ticket sales occur?"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/meta-box.php:212
+msgid "If you don't set a start/end date for sales, tickets will be available from now until the event ends."
+msgstr ""
+
+#: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:2
+msgid "Stock:"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:6
+msgid "(Total available # of this ticket type. Once they're gone, ticket type is sold out.)"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:16
+msgid "Selling tickets for recurring events"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:22
+msgid "Currently, Tickets will only show up on the frontend once per full event. For PRO users this means the same ticket will appear across all events in the series. Please configure your events accordingly."
+msgstr ""
+
+#: vendor/tickets/src/admin-views/tribe-options-tickets.php:41
+msgid "Ticket Settings"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/tribe-options-tickets.php:45
+msgid "Post types that can have tickets"
+msgstr ""
+
+#: vendor/tickets/src/views/tickets/rsvp.php:17
+msgid "RSVP"
+msgstr "RSVP"
+
+#: vendor/tickets/src/views/tickets/rsvp.php:60
+msgid "%1$s out of %2$s available"
+msgstr ""
+
+#: vendor/tickets/src/views/tickets/rsvp.php:68
+msgid "Out of stock!"
+msgstr ""
+
+#: vendor/tickets/src/views/tickets/rsvp.php:108
+msgid "Full Name"
+msgstr ""
+
+#: vendor/tickets/src/views/tickets/rsvp.php:133
+msgid "Confirm RSVP"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Main.php:301
+msgid "Looking for more immediate support? We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Main.php:304
+msgid "Already have Events Tickets Plus? You can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:194
+msgctxt "Attendee number"
+msgid "Attendee %1$s"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:394
+msgid "Your tickets from %s"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:625
+msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:631
+msgid "You can't RSVP more than the total remaining tickets."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:636
+msgid "In order to RSVP, you must enter your name and a valid email address."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:757
+msgid "(deleted)"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:1010
+msgid "Return to the %1$sAttendees Report%2$s."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:1017
+msgid "Post updated. %1$s"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:1021
+msgid "Post published. %1$s"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:1024
+msgid "Post submitted."
+msgstr "Cyflwynwyd y cofnod."
+
+#: vendor/tickets/src/Tribe/RSVP.php:1025
+msgid "Post scheduled."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:1026
+msgid "Post draft updated."
+msgstr "Diweddarwyd drafft cofnod."
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:340
+msgid "Cheatin Huh?"
+msgstr "Twyllo, ai e?"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:346
+msgid "Invalid Event ID"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:352
+msgid "Empty user and email"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:364
+msgid "Invalid Email"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:370
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:386
+msgid "Invalid User ID"
+msgstr "Enw Defnyddiwr Annilys"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:407
+msgid "Error when sending the email"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:412
+msgid "Email sent successfully!"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/attendees-email.php:43
+msgid "Send Email"
+msgstr "Anfon E-bost"
+
+#: src/io/csv/admin-views/result.php:25
+msgid "%1$s%2$s%3$sInserted:%4$s A new item was inserted successfully. %5$s%2$s%3$sUpdated:%4$s An item was found with the same name and/or start date. The existing item was updated with the new value from the file.%5$s%2$s%3$sSkipped:%4$s A row was found in the CSV file that could not be imported. Please see below for the invalid rows.%5$s%6$s"
+msgstr ""
+
+#: src/views/list/nav.php:26
+msgid "Previous %s"
+msgstr ""
+
+#: src/views/list/nav.php:34
+msgid "Next %s"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Main.php:145
+msgid "When The Events Calendar and Event Tickets are both activated, The Events Calendar must be running version %1$s or greater. Please %2$supdate now.%3$s"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Main.php:254
+msgid "Support for Event Tickets"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Main.php:259
+msgid "Customizing Event Tickets"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Main.php:278
+msgid "We are committed to helping you sell tickets for your event. Check out our handy %s to get started."
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Main.php:300
+msgid "Events Tickets Plus"
+msgstr ""
+
+#: src/Tribe/Main.php:655 vendor/tickets/src/Tribe/Main.php:309
+msgid "If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
+msgstr ""
+
+#: src/Tribe/Main.php:1133
+msgid "It appears as if the tribe-common libraries cannot be found! The directory should be in the \"common/\" directory in the events calendar plugin."
+msgstr ""
+
+#: src/Tribe/Main.php:1581
+msgid "%1$s updated. %2$sView %3$s"
+msgstr ""
+
+#: src/Tribe/Main.php:1592
+msgid "Event published. %1$sView %2$s"
+msgstr ""
+
+#: src/Tribe/Main.php:1598
+msgid "%1$s submitted. %2$sPreview %3$s"
+msgstr ""
+
+#: src/Tribe/Main.php:1604
+msgid "%1$s scheduled for: %2$s. %3$sPreview %4$s"
+msgstr ""
+
+#: src/Tribe/Main.php:1613
+msgid "%1$s draft updated. %2$sPreview %3$s"
+msgstr ""
+
+#: src/Tribe/Main.php:1632 src/Tribe/Main.php:1652
+msgid "%1$s scheduled for: %2$s."
+msgstr ""
+
+#: src/Tribe/Main.php:1741
+msgid "Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results."
+msgstr ""
+
+#: src/Tribe/Main.php:4220
+msgid "Check out the %savailable add-ons%s."
+msgstr ""
+
+#: src/Tribe/Template/Day.php:136
+msgid "No %1$s scheduled for %2$s. Please try another day."
+msgstr ""
+
+#: src/Tribe/Template/Month.php:281
+msgid "There were no results found for %s this month. Try searching next month."
+msgstr ""
+
+#: src/Tribe/Template_Factory.php:294
+msgid "There were no results found for %s."
+msgstr ""
+
+#: src/Tribe/Template_Factory.php:296
+msgid "No results were found for %1$s in or near %2$s."
+msgstr ""
+
+#: src/admin-views/admin-update-message.php:32
+msgid "Keep the Core Plugin %sFREE%s!"
+msgstr ""
+
+#: src/admin-views/new-organizer-meta-section.php:41
+#: src/admin-views/organizer-meta-box.php:44
+msgid "You may want to consider %sobfuscating%s any e-mail address published on your site to best avoid it getting harvested by spammers."
+msgstr ""
+
+#: src/admin-views/tribe-options-addons-api.php:15
+#: src/admin-views/tribe-options-addons-api.php:55
+msgid "Add-Ons APIs"
+msgstr ""
+
+#: src/admin-views/tribe-options-addons-api.php:19
+msgid "<p>The event add-ons you have activated need to talk to some outside sources. Please follow the instructions below to configure your settings.</p>"
+msgstr ""
+
+#: src/admin-views/venue-meta-box.php:190
+msgid "%s Name can not be empty"
+msgstr ""
+
+#: src/admin-views/venue-meta-box.php:195
+msgid "%s Name already exists"
+msgstr ""
+
+#: src/functions/template-tags/day.php:106
+msgid "Previous Day"
+msgstr ""
+
+#: src/functions/template-tags/day.php:108
+msgid "Next Day"
+msgstr ""
+
+#: src/io/csv/admin-views/general.php:12
+msgid "The settings below will impact events imported from files and other websites. Be sure to save your changes before starting to import events."
+msgstr ""
+
+#: src/io/csv/admin-views/import.php:36
+msgid "Questions? %sWatch the video%s."
+msgstr ""
+
+#: src/io/csv/admin-views/import.php:59
+msgid "Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file is UTF-8 encoded? Make sure to specify the character encoding when you save the file, or pass it through a %sconversion tool%s."
+msgstr ""
+
+#: src/Tribe/Main.php:641
+msgid "<strong>Looking for more immediate support?</strong> We offer %s with the purchase of any of our premium plugins. Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays"
+msgstr ""
+
+#: src/Tribe/Main.php:645 vendor/tickets/src/Tribe/Main.php:296
+msgid "open-source forum on WordPress.org"
+msgstr ""
+
+#: src/Tribe/Main.php:646 vendor/tickets/src/Tribe/Main.php:297
+msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our %s. Our support staff monitors these forums once a week and would be happy to assist you there."
+msgstr ""
+
+#: src/Tribe/Main.php:650
+msgid "<strong>Looking for more immediate support?</strong> We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
+msgstr ""
+
+#: src/Tribe/Main.php:654 vendor/tickets/src/Tribe/Main.php:303
+#: vendor/tickets/src/Tribe/Main.php:308
+msgid "post a thread"
+msgstr ""
+
+#: src/Tribe/Main.php:616
+msgid "Themer’s Guide"
+msgstr ""
+
+#: src/Tribe/Main.php:618
+msgid "%s: An overview of the default templates and styles that are included in the plugin, as well as how to change them."
+msgstr ""
+
+#: src/Tribe/Main.php:618
+msgid "Using stylesheets and page templates"
+msgstr ""
+
+#: src/Tribe/Main.php:620
+msgid "%s: Do you see an issue with your calendar? Go here first to find where it’s coming from and how to fix it."
+msgstr ""
+
+#: src/Tribe/Main.php:620 vendor/tickets/src/Tribe/Main.php:258
+msgid "Troubleshooting common problems"
+msgstr ""
+
+#: src/Tribe/Main.php:622
+msgid "%s: Code and guides for customizing your calendar in useful and interesting ways."
+msgstr ""
+
+#: src/Tribe/Main.php:622
+msgid "Customizing the Events plugins"
+msgstr ""
+
+#: src/Tribe/Main.php:637
+msgid "Events Tickets"
+msgstr ""
+
+#: src/Tribe/Main.php:638
+msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our WordPress.org forums for %1$s or %2$s. Our support staff monitors these forums once a week and would be happy to assist you there. "
+msgstr ""
+
+#: src/Tribe/Main.php:640 src/Tribe/Main.php:648
+#: vendor/tickets/src/Tribe/Main.php:299
+msgid "premium support on our website"
+msgstr ""
+
+#: src/Tribe/Importer/Admin_Page.php:80
+msgid "CSV Import Settings"
+msgstr ""
+
+#: src/Tribe/Importer/Admin_Page.php:88
+msgid "Default status to use for imported events"
+msgstr ""
+
+#: src/Tribe/Importer/Admin_Page.php:123
+msgid "This Action has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: \"%s\" To: \"%s\""
+msgstr ""
+
+#: src/Tribe/Importer/Admin_Page.php:202 src/Tribe/Importer/Options.php:23
+#: src/Tribe/Importer/Options.php:83
+msgid "This Filter has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: \"%s\" To: \"%s\""
+msgstr ""
+
+#: src/Tribe/Main.php:596 vendor/tickets/src/Tribe/Main.php:276
+msgid "New User Primer"
+msgstr ""
+
+#: src/Tribe/Main.php:598
+msgid "We are committed to helping make your calendar spectacular and have a wealth of resources available, including a handy %s to get your calendar up and running."
+msgstr ""
+
+#: src/Tribe/Main.php:609
+msgid "Support for The Events Calendar"
+msgstr ""
+
+#: src/Tribe/Main.php:612
+msgid "%s: A thorough walkthrough of The Events Calendar and the settings that are available to you."
+msgstr ""
+
+#: src/Tribe/Main.php:612 vendor/tickets/src/Tribe/Main.php:256
+msgid "Settings overview"
+msgstr ""
+
+#: src/Tribe/Main.php:614
+msgid "%s: A complete look at the features you can expect to see right out of the box as well as how to use them."
+msgstr ""
+
+#: src/Tribe/Main.php:614 vendor/tickets/src/Tribe/Main.php:257
+msgid "Features overview"
+msgstr ""
+
+#: src/Tribe/Main.php:616
+msgid "%s: Our most comprehensive outline for customizing the calendar to suit your needs, including custom layouts and styles."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:35
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:35
+msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our premium forums, please copy and paste this information into the System Information field and it will help us help you faster!"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-licenses.php:27
+#: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:27
+msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
+msgstr ""
+
+#: src/Tribe/API.php:365
+msgid "Unnamed %s"
+msgstr ""
+
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:108
+msgid "Create New %s"
+msgstr ""
+
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:172
+msgid "Add another %s"
+msgstr ""
+
+#: src/Tribe/Asset/Bootstrap_Datepicker.php:19
+msgid "Clear"
+msgstr "Clirio"
+
+#: common/src/admin-views/tribe-options-help.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:30
+msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums 😄"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:31
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:31
+msgid "Read more about our support policy"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:26
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:26
+msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the forums is open only to paid customers, they are open for anyone to search and review."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:26
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:26
+msgid "Search our support forum"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:24
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:24
+msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:24
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:24
+msgid "Check our Knowledgebase"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:25
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:25
+msgid "%s. Testing for an existing conflict is the best start for in-depth troubleshooting. We will often ask you to follow these steps when opening a new thread, so doing this ahead of time will be super helpful."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:25
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:25
+msgid "Test for a theme or plugin conflict"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:15
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:15
+msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:15
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:15
+msgid "Knowledgebase"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:16
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:16
+msgid "<strong>Want to dive deeper?</strong> Check out our %s for developers."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:16
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:16
+msgid "list of available functions"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:19
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:19
+msgid "Getting More Help"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:20
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:20
+msgid "While the resources above help solve a majority of the issues we see, there are times you might be looking for extra support. If you need assistance using our plugins and would like us to take a look, please follow these steps:"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-general.php:15
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:15
+msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:11
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:11
+msgid "Thanks you for using %s! All of us at Modern Tribe sincerely appreciate your support and we’re excited to see you using our plugins."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:14
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:14
+msgid "Getting Support"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:812
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:812
+msgid "Install Plugin"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:835
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:835
+msgid "Active Users:"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:838
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:838
+msgid "Rating:"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:863
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:863
+msgid "Plugin Active"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:865
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:865
+msgid "Plugin Inactive"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:870
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:870
+msgid "Visit the Add-on Page"
+msgstr ""
+
+#: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:94
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:94
+msgid "<a href=\"%s\">edit Events settings</a>."
+msgstr ""
+
+#: common/src/Tribe/Credits.php:46
+#: vendor/tickets/common/src/Tribe/Credits.php:46
+msgid "Rate %3$sThe Events Calendar%4$s %1$s on %2$s to keep this plugin free.  Thanks from the friendly folks at Modern Tribe."
+msgstr ""
+
+#: common/src/Tribe/PUE/Checker.php:440 src/Tribe/PUE/Checker.php:435
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:440
+msgid "Thanks for setting up a valid key, it will expire on %s"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-display.php:31
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:31
+msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-general.php:10
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:10
+msgid "Thank you for using Event Tickets! All of us at Modern Tribe sincerely appreciate your support and we're excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started."
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:796
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:796
+msgid "Upgrade Plugin"
+msgstr "Diweddaru'r Ategyn"
+
+#: common/src/Tribe/Admin/Help_Page.php:812
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:812
+msgid "Install %s"
+msgstr "Gosod %s"
+
+#: common/src/Tribe/Admin/Help_Page.php:788
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:788
+msgid "Activate Plugin"
+msgstr "Cychwyn yr Ategyn"
+
+#: common/src/Tribe/Admin/Help_Page.php:52
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:52
+msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:64
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:64
+#: vendor/tickets/src/Tribe/Main.php:323
+msgid "Event Tickets"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:68
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:68
+msgid "Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events."
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:80
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:80
+msgid "Advanced Post Manager"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:84
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:84
+msgid "Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes."
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:159
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:159
+msgid " and "
+msgstr " a "
+
+#: common/src/Tribe/Admin/Help_Page.php:192
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:192
+msgid "Eventbrite Tickets"
+msgstr "Tocynnau Eventbrite"
+
+#: common/src/Tribe/Admin/Help_Page.php:208
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:208
+msgid "Facebook Events"
+msgstr "Digwyddiadau Facebook"
+
+#: common/src/Tribe/Admin/Help_Page.php:216
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:216
+msgid "Events Filter Bar"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:224
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:224
+msgid "Event Tickets Plus"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:233
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:233
+msgid "Community Tickets"
+msgstr ""
+
+#: common/src/Tribe/Admin/Help_Page.php:788
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:788
+msgid "Activate %s"
+msgstr "Gweithredu %s"
+
+#: src/views/month/single-day.php:42
+msgid "View %1$s %2$s"
+msgid_plural "View All %1$s %2$s"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: common/src/Tribe/Validate.php:195
+#: vendor/tickets/common/src/Tribe/Validate.php:195
+msgid "%s must be a positive number or percent."
+msgstr ""
+
+#: vendor/tickets/src/admin-views/meta-box.php:233
+msgid "Cancel"
+msgstr "Canslo"
+
+#: vendor/tickets/src/Tribe/Tickets.php:583
+msgid "Editing the ticket price is currently disallowed."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-general.php:59
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:59
+msgid "Default currency symbol"
+msgstr "Symbol arian diofyn"
+
+#: common/src/admin-views/tribe-options-general.php:60
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:60
+msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
+msgstr "Dewiswch symbol diofyn ar gyfer costau digwyddiad. Dim ond digwyddiadau yn y dyfodol fydd hyn yn effeithio arnyn nhw ac ni fydd newidiadau yn cael eu gwneud i hen ddigwyddiadau."
+
+#: common/src/admin-views/tribe-options-general.php:67
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:67
+msgid "Currency symbol follows value"
+msgstr "Symbol arian ar ôl y gwerth"
+
+#: common/src/admin-views/tribe-options-general.php:68
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:68
+msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
+msgstr "Fel arfer, mae'r symbol arian yn dod cyn y gwerth. Bydd galluogi'r opsiwn yma yn gosod y symbol ar ôl y gwerth."
+
+#: src/admin-views/tribe-options-general.php:143
+msgid "Map Settings"
+msgstr "Gosodiadau'r Map"
+
+#: src/admin-views/tribe-options-general.php:147
+msgid "Enable Google Maps"
+msgstr "Galluogi Google Map"
+
+#: src/admin-views/tribe-options-general.php:148
+msgid "Check to enable maps for events and venues."
+msgstr "Ticiwch er mwyn galluogi dangos mapiau ar gyfer digwyddiadau a lleoliadau."
+
+#: src/admin-views/tribe-options-general.php:155
+msgid "Google Maps default zoom level"
+msgstr "Lefel chwyddo diofyn Google Maps"
+
+#: src/admin-views/tribe-options-general.php:156
+msgid "0 = zoomed out; 21 = zoomed in."
+msgstr "0 = wedi chwyddo allan; 21 = wedi chwyddo i mewn."
+
+#: common/src/admin-views/tribe-options-general.php:74
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:74
+msgid "Miscellaneous Settings"
+msgstr "Gosodiadau Amrywiol"
+
+#: src/admin-views/tribe-options-general.php:131
+msgid "Duplicate Venues &amp; Organizers"
+msgstr "Dyblygu Lleoliadau a Threfnwyr"
+
+#: src/admin-views/tribe-options-general.php:131
+msgid "You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers."
+msgstr "Wrth ddiweddaru o fersiwn cyn fersiwn 3.0 o The Events Calendar, efallai y dewch chi o hyd i ddigwyddiadau a threfnwyr dyblyg. Cliciwch y botwm yma i uno lleoliadau a threfnwyr sydd yr un peth yn awtomatig."
+
+#: src/admin-views/tribe-options-general.php:171
+msgid "View Welcome Page"
+msgstr "Gweld y Dudalen Croesawu"
+
+#: src/admin-views/tribe-options-general.php:171
+msgid "View the page that displayed when you initially installed the plugin."
+msgstr "Gweld y dudalen a ymddangosodd ar ôl gosod yr ategyn i ddechrau."
+
+#: src/admin-views/tribe-options-general.php:175
+msgid "View Update Page"
+msgstr "Gweld y Dudalen Diweddaru"
+
+#: src/admin-views/tribe-options-general.php:175
+msgid "View the page that displayed when you updated the plugin."
+msgstr "Gweld y dudalen a ymddangosodd ar ôl diweddaru'r ategyn."
+
+#: common/src/admin-views/tribe-options-general.php:81
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:81
+msgid "Debug mode"
+msgstr "Modd Difa Cwilod"
+
+#: common/src/admin-views/tribe-options-general.php:87
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
+msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
+msgstr "Galluogwch yr opsiwn yma i logio gwybodaweth difa chwilod. Yn ddiofyn, bydd hwn yn logio i log gwallau PHP eich gweinydd. Os hoffech weld y negeseuon log yn eich porwr, rydyn ni'n argymell i chi osod %s a chwlio am tab \"Tribe\" yn yr allbwn difa chwilod."
+
+#: common/src/admin-views/tribe-options-general.php:87
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
+msgid "Debug Bar Plugin"
+msgstr "Ategyn Difa Chwilod Bar"
+
+#: common/src/Tribe/Admin/Help_Page.php:394
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:394
+msgctxt "not available"
+msgid "n/a"
+msgstr "Amh"
+
+#: common/src/Tribe/Admin/Help_Page.php:402
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:402
+msgid "You need to upgrade!"
+msgstr "Mae angen i chi ddiweddaru!"
+
+#: common/src/Tribe/Admin/Help_Page.php:402
+#: common/src/Tribe/Admin/Help_Page.php:798
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:402
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:798
+msgid "You are up to date!"
+msgstr "Rydych chi wedi diweddaru!"
+
+#: common/src/Tribe/Admin/Help_Page.php:183 src/Tribe/Main.php:649
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:183
+msgid "Events Calendar PRO"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-help.php:63
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:63
+msgid "More..."
+msgstr "Mwy..."
+
+#: common/src/Tribe/Admin/Help_Page.php:829
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:829
+msgid "Latest Version:"
+msgstr "Fersiwn Diweddaraf:"
+
+#: common/src/Tribe/Admin/Help_Page.php:832
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:832
+msgid "Requires:"
+msgstr "Gofynnol:"
+
+#: common/src/Tribe/Admin/Help_Page.php:833
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:833
+msgid "WordPress "
+msgstr "WordPress "
+
+#: common/src/Tribe/Admin/Help_Page.php:857
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:857
+msgid "Premium Add-Ons"
+msgstr "Ychwanegion Premiwm"
+
+#: common/src/admin-views/tribe-options-help.php:57
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:57
+msgid "News and Tutorials"
+msgstr "Newyddion a Thiwtorialau"
+
+#: common/src/admin-views/tribe-options-licenses.php:13
+#: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:13
+msgid "<p>The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
+msgstr ""
+
+#: common/src/admin-views/tribe-options-licenses.php:18
+#: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:18
+msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-network.php:15
+#: vendor/tickets/common/src/admin-views/tribe-options-network.php:15
+msgid "Network Settings"
+msgstr "Gosodiadau'r Rhwydwaith"
+
+#: common/src/admin-views/tribe-options-network.php:19
+#: vendor/tickets/common/src/admin-views/tribe-options-network.php:19
+msgid "This is where all of the global network settings for Modern Tribe's The Events Calendar can be modified."
+msgstr "Dyma lle mae'n bosibl addasu holl osodiadau rhwydwaith cyffredinol ar gyfer Events Calendar Modern Tribe."
+
+#: common/src/admin-views/tribe-options-network.php:27
+#: vendor/tickets/common/src/admin-views/tribe-options-network.php:27
+msgid "Hide the following settings tabs on every site:"
+msgstr "Cuddio'r tabiau gosodiadau canlynol ar bob safle:"
+
+#: src/admin-views/tribe-options-timezones.php:7
+msgid "Enable timezone support"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:9
+msgid "Update Timezone Data"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:10
+msgid "Click this button to update your database and take advantage of additional timezone capabilities. Please <a href=\"%s\" target=\"_blank\">configure WordPress</a> to use the correct timezone before clicking this button!"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:30
+msgid "Timezone Settings"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:38
+msgid "Timezone mode"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:42
+msgid "Use the local timezones for each event"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:43
+msgid "Use the sitewide timezone everywhere"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:48
+msgid "Show timezone"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:49
+msgid "Appends the timezone to the end of event scheduling information &ndash; this can be useful when you have events in numerous different timezones."
+msgstr ""
+
+#: src/admin-views/venue-meta-box.php:41
+msgid "City:"
+msgstr "Dinas:"
+
+#: src/admin-views/venue-meta-box.php:48
+msgid "Country:"
+msgstr "Gwlad:"
+
+#: src/admin-views/venue-meta-box.php:87
+msgid "State or Province:"
+msgstr "Gwladwriaeth neu Dalaith:"
+
+#: src/admin-views/venue-meta-box.php:91
+msgid "Select a State:"
+msgstr "Dewiswch Dalaith:"
+
+#: src/admin-views/venue-meta-box.php:104
+msgid "Postal Code:"
+msgstr "Cod Post:"
+
+#: src/admin-views/venue-meta-box.php:136
+#: src/admin-views/venue-meta-box.php:158
+msgid "Show Google Map:"
+msgstr "Dangos Google Map:"
+
+#: src/admin-views/venue-meta-box.php:146
+#: src/admin-views/venue-meta-box.php:168
+msgid "Show Google Maps Link:"
+msgstr "Dangos Dolen Google Maps:"
+
+#: src/admin-views/widget-admin-list.php:13
+msgid "Title:"
+msgstr "Teitl:"
+
+#: src/admin-views/widget-admin-list.php:18
+msgid "Show:"
+msgstr "Dangos:"
+
+#: src/admin-views/widget-admin-list.php:28
+msgid "Show widget only if there are upcoming events:"
+msgstr "Dangos y teclyn dim ond os oes digwyddiadau ar y gweill:"
+
+#: src/functions/advanced-functions/meta_registration.php:16
+#: src/views/modules/meta/details.php:55
+msgid "Details"
+msgstr "Manylion"
+
+#: src/functions/advanced-functions/meta_registration.php:80
+msgid "Event Tags:"
+msgstr "Tagiau'r Digwyddiad:"
+
+#: src/functions/advanced-functions/meta_registration.php:112
+msgid "Origin:"
+msgstr "Tarddiad:"
+
+#: src/functions/advanced-functions/meta_registration.php:286
+msgid "%s:"
+msgstr "%s:"
+
+#: src/functions/template-tags/date.php:145
+msgid "The function needs to be passed an $event or used in the loop."
+msgstr ""
+
+#: src/functions/template-tags/day.php:110
+msgid "Yesterday"
+msgstr "Ddoe"
+
+#: src/functions/template-tags/day.php:112
+msgid "Tomorrow"
+msgstr "Yfory"
+
+#: src/functions/template-tags/deprecated.php:1299
+msgid "Category"
+msgstr "Categori"
+
+#. translators: %s is the singular translation of "Event"
+#: src/functions/template-tags/general.php:379
+msgctxt "category list label"
+msgid "%s Category"
+msgid_plural "%s Categories"
+msgstr[0] "%s Categori"
+msgstr[1] "%s Categori"
+msgstr[2] "%s Categori"
+msgstr[3] "%s Categori"
+
+#: src/functions/template-tags/general.php:418
+msgid "Tags:"
+msgstr "Tagiau:"
+
+#: src/functions/template-tags/general.php:530
+msgid "Loading %s"
+msgstr ""
+
+#: src/functions/template-tags/general.php:1070
+msgid "Find out more »"
+msgstr "Dysgu rhagor »"
+
+#: src/functions/template-tags/general.php:1071
+msgid "%s for"
+msgstr ""
+
+#: src/functions/template-tags/general.php:1191
+msgid "Calendar powered by %sThe Events Calendar%s"
+msgstr "Pwerir y calendr gan %sThe Events Calendar%s"
+
+#: src/functions/template-tags/google-map.php:46
+msgid "Click to view a Google Map"
+msgstr "Cliciwch i weld Google Map"
+
+#: src/functions/template-tags/google-map.php:47
+msgid "+ Google Map"
+msgstr "+ Google Map"
+
+#: src/functions/template-tags/loop.php:131
+msgid "Upcoming %s"
+msgstr ""
+
+#: src/functions/template-tags/loop.php:145
+msgid "%1$s for %2$s - %3$s"
+msgstr ""
+
+#: src/functions/template-tags/loop.php:147
+msgid "Past %s"
+msgstr ""
+
+#: src/functions/template-tags/loop.php:152
+#: src/functions/template-tags/loop.php:161
+msgid "%1$s for %2$s"
+msgstr ""
+
+#: src/functions/template-tags/options.php:20
+msgid "Your current Events URL is %s"
+msgstr "Eich URL Digwyddiadau presennol yw %s"
+
+#: src/functions/template-tags/options.php:29
+msgid "You %1$scannot%2$s use the same slug as above. The above should ideally be plural, and this singular.%3$sYour single Event URL is like: %4$s"
+msgstr ""
+
+#: src/io/csv/admin-views/columns.php:22
+msgid "Column Mapping: %s"
+msgstr "Mapio Colofnau: %s"
+
+#: src/io/csv/admin-views/columns.php:27
+msgid "Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file."
+msgstr ""
+
+#: src/io/csv/admin-views/columns.php:32
+msgid "Column Headings"
+msgstr "Penawdau'r Colofnau"
+
+#: src/io/csv/admin-views/columns.php:33
+msgid "Event Fields"
+msgstr "Meysydd Digwyddiad"
+
+#: src/io/csv/admin-views/columns.php:44
+msgid "Perform Import"
+msgstr "Mewnforio"
+
+#: src/io/csv/admin-views/general.php:10
+msgid "Instructions"
+msgstr ""
+
+#: src/Tribe/Importer/Admin_Page.php:190
+msgid "Import Settings"
+msgstr ""
+
+#: src/Tribe/Importer/Options.php:120
+msgid "Published"
+msgstr ""
+
+#: src/Tribe/Importer/Options.php:121
+msgid "Pending"
+msgstr ""
+
+#: src/Tribe/Importer/Options.php:122
+msgid "Draft"
+msgstr "Drafft"
+
+#: src/io/csv/admin-views/general.php:50
+msgid "Save Settings"
+msgstr ""
+
+#: src/io/csv/admin-views/header.php:17
+msgid "Events Import"
+msgstr ""
+
+#: src/io/csv/admin-views/import.php:17
+msgid "Import Instructions"
+msgstr "Cyfarwyddiadau Mewnforio"
+
+#: src/io/csv/admin-views/import.php:20
+msgid "If your events have Organizers or Venues, please import those first."
+msgstr "Os oes gan eich digwyddiadau Drefnwyr neu Leoliadau, dylech eu mewnforio yn gyntaf."
+
+#: src/io/csv/admin-views/import.php:21
+msgid "To import organizers or venues:"
+msgstr "I fewnforio trefnwyr neu leoliadau:"
+
+#: src/io/csv/admin-views/import.php:23
+msgid "Select the appropriate import type."
+msgstr "Dewiswch y math priodol o fewnforio."
+
+#: src/io/csv/admin-views/import.php:24 src/io/csv/admin-views/import.php:30
+msgid "Upload a CSV file with one record on each line. The first line may contain column names (check the box below)."
+msgstr "Llwythwch ffeil CSV i fyny gan osod un cofnod ar bob llinell. Gall y llinell gyntaf gynnwys enwau'r colofnau (ticiwch y blwch isod)."
+
+#: src/io/csv/admin-views/import.php:25
+msgid "One column in your CSV should have the Organizer/Venue name. All other fields are optional."
+msgstr "Dylai un colofn yn eich ffeil CSV gynnwys enw Trefnydd/Lleoliad. Mae pob maes arall yn ddewisol."
+
+#: src/io/csv/admin-views/import.php:26 src/io/csv/admin-views/import.php:32
+msgid "After you upload your file, you'll have the opportunity to indicate how the columns in your CSV map to fields in The Events Calendar."
+msgstr "Ar ôl llwytho eich ffeil i fyny, bydd cyfle i nodi sut rydych chi am i'r colofnau yn eich ffeil CSV fapio i feysydd yn The Events Calendar."
+
+#: src/io/csv/admin-views/import.php:28
+msgid "After importing your Organizers and Venues, import your Events:"
+msgstr "Ar ôl i chi fewnforio eich Trefnwyr a Lleoliadau, gallwch fewnforio eich Digwyddiadau:"
+
+#: src/io/csv/admin-views/import.php:31
+msgid "One column in your CSV should have the Event title. Another should have the Event start date. All other fields are optional."
+msgstr "Dylai un colofn yn eich ffeil CSV gynnwys teitl y Digwyddiad. Dylai un arall gael dyddiad cychwyn y Digwyddiad. Mae pob maes arall yn ddewisol."
+
+#: src/io/csv/admin-views/import.php:43
+msgid "Import Type:"
+msgstr "Math o Fewnforio:"
+
+#: src/io/csv/admin-views/import.php:55
+msgid "CSV File:"
+msgstr "Ffeil CSV:"
+
+#: src/io/csv/admin-views/import.php:67
+msgid "This file has column names in the first row"
+msgstr "Mae gan y ffeil yma enwau colofn yn y rhes gyntaf "
+
+#: src/io/csv/admin-views/import.php:78
+msgid "Import CSV File"
+msgstr "Mewnforio Ffeil CSV"
+
+#: src/io/csv/admin-views/result.php:14
+msgid "Import Result"
+msgstr "Mewnforio Canlyniad"
+
+#: src/io/csv/admin-views/result.php:16
+msgid "Import complete!"
+msgstr "Mewnforio wedi gorffen!"
+
+#: src/io/csv/admin-views/result.php:18
+msgid "Inserted: %d"
+msgstr "Mewnosodwyd: %d"
+
+#: src/io/csv/admin-views/result.php:19
+msgid "Updated: %d"
+msgstr "Diweddarwyd: %d"
+
+#: src/io/csv/admin-views/result.php:20
+msgid "Skipped: %d"
+msgstr "Hepgorwyd: %d"
+
+#: src/io/csv/admin-views/result.php:24
+msgid "The import statistics above have the following meaning:"
+msgstr "Mae gan yr ystadegau mewnforio uchod yr ystyr canlynol:"
+
+#: src/io/csv/admin-views/result.php:28
+msgid "Skipped row numbers: %s"
+msgstr "Rhifau'r rhesi a hepgorwyd: %s"
+
+#: src/views/day/nav.php:16
+msgid "Day Navigation"
+msgstr "Llywiwr Dydd"
+
+#: src/views/day/single-event.php:66 src/views/list/single-event.php:70
+msgid "Find out more"
+msgstr "Dysgu rhagor"
+
+#: src/views/list/nav.php:20
+msgid "%s List Navigation"
+msgstr ""
+
+#: src/views/modules/bar.php:30 src/views/modules/bar.php:61
+msgid "Find %s"
+msgstr ""
+
+#: src/views/modules/bar.php:37
+msgid "Event Views Navigation"
+msgstr "Llywiwr Golwg Digwyddiadau"
+
+#: src/views/modules/bar.php:38
+msgid "View As"
+msgstr "Gweld Fel"
+
+#: src/views/modules/meta/details.php:142
+msgid "%s Tags:"
+msgstr ""
+
+#: src/views/month/nav.php:18
+msgid "Calendar Month Navigation"
+msgstr "Llywiwr Mis Calendr"
+
+#: src/views/single-event.php:46 src/views/single-event.php:79
+msgid "%s Navigation"
+msgstr ""
+
+#: vendor/tickets/src/views/tickets/attendees-email.php:24
+msgid "Attendee List"
+msgstr "Rhestr Mynychwyr"
+
+#: vendor/tickets/src/views/tickets/email.php:26
+msgid "Your tickets"
+msgstr "Eich tocyn"
+
+#: vendor/tickets/src/views/tickets/email.php:336
+msgid "Ticket Type"
+msgstr "Math o Docyn"
+
+#: vendor/tickets/src/views/tickets/email.php:340
+msgid "Purchaser"
+msgstr "Prynwr"
+
+#: src/views/widgets/list-widget.php:67
+msgid "View All %s"
+msgstr ""
+
+#: src/views/widgets/list-widget.php:73
+msgid "There are no upcoming %s at this time."
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Modern Tribe, Inc."
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://m.tri.be/1x"
+msgstr ""
+
+#: common/src/Tribe/View_Helpers.php:219
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:219
+msgid "Poland"
+msgstr "Gwlad Pwyl"
+
+#: common/src/Tribe/View_Helpers.php:220
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:220
+msgid "Portugal"
+msgstr "Portiwgal"
+
+#: common/src/Tribe/View_Helpers.php:221
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:221
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: common/src/Tribe/View_Helpers.php:222
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:222
+msgid "Qatar"
+msgstr "Qatar"
+
+#: common/src/Tribe/View_Helpers.php:223
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:223
+msgid "Reunion"
+msgstr "Réunion"
+
+#: common/src/Tribe/View_Helpers.php:224
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:224
+msgid "Romania"
+msgstr "România"
+
+#: common/src/Tribe/View_Helpers.php:225
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:225
+msgid "Russian Federation"
+msgstr "Ffederasiwn Rwsia"
+
+#: common/src/Tribe/View_Helpers.php:226
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:226
+msgid "Rwanda"
+msgstr "Rwanda"
+
+#: common/src/Tribe/View_Helpers.php:227
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:227
+msgid "Saint Kitts And Nevis"
+msgstr "Saint Kitts a Nevis"
+
+#: common/src/Tribe/View_Helpers.php:228
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:228
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+#: common/src/Tribe/View_Helpers.php:229
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:229
+msgid "Saint Vincent And The Grenadines"
+msgstr "Saint Vincent a'r Grenadines"
+
+#: common/src/Tribe/View_Helpers.php:230
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:230
+msgid "Samoa"
+msgstr "Samoa"
+
+#: common/src/Tribe/View_Helpers.php:231
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:231
+msgid "San Marino"
+msgstr "San Marino"
+
+#: common/src/Tribe/View_Helpers.php:232
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:232
+msgid "Sao Tome And Principe"
+msgstr "São Tomé a Príncipe"
+
+#: common/src/Tribe/View_Helpers.php:233
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:233
+msgid "Saudi Arabia"
+msgstr "Saudi Arabia"
+
+#: common/src/Tribe/View_Helpers.php:234
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:234
+msgid "Senegal"
+msgstr "Senegal"
+
+#: common/src/Tribe/View_Helpers.php:235
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:235
+msgid "Serbia"
+msgstr "Serbia"
+
+#: common/src/Tribe/View_Helpers.php:236
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:236
+msgid "Seychelles"
+msgstr "Seychelles"
+
+#: common/src/Tribe/View_Helpers.php:237
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:237
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+#: common/src/Tribe/View_Helpers.php:238
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:238
+msgid "Singapore"
+msgstr "Singapôr"
+
+#: common/src/Tribe/View_Helpers.php:239
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:239
+msgid "Slovakia (Slovak Republic)"
+msgstr "Slofacia (Gweriniaeth Slofacia)"
+
+#: common/src/Tribe/View_Helpers.php:240
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:240
+msgid "Slovenia"
+msgstr "Slofenia"
+
+#: common/src/Tribe/View_Helpers.php:241
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:241
+msgid "Solomon Islands"
+msgstr "Ynysoedd Solomon"
+
+#: common/src/Tribe/View_Helpers.php:242
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:242
+msgid "Somalia"
+msgstr "Somalia"
+
+#: common/src/Tribe/View_Helpers.php:243
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:243
+msgid "South Africa"
+msgstr "De Affrica"
+
+#: common/src/Tribe/View_Helpers.php:244
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:244
+msgid "South Georgia, South Sandwich Islands"
+msgstr "De Georgia, Ynysoedd Sandwich y De"
+
+#: common/src/Tribe/View_Helpers.php:245
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:245
+msgid "Spain"
+msgstr "Sbaen"
+
+#: common/src/Tribe/View_Helpers.php:246
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:246
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: common/src/Tribe/View_Helpers.php:247
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:247
+msgid "St. Helena"
+msgstr "Saint Helena"
+
+#: common/src/Tribe/View_Helpers.php:248
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:248
+msgid "St. Pierre And Miquelon"
+msgstr "Saint-Pierre-et-Miquelon"
+
+#: common/src/Tribe/View_Helpers.php:249
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:249
+msgid "Sudan"
+msgstr "Swdan"
+
+#: common/src/Tribe/View_Helpers.php:250
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:250
+msgid "Suriname"
+msgstr "Swrinam"
+
+#: common/src/Tribe/View_Helpers.php:251
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:251
+msgid "Svalbard And Jan Mayen Islands"
+msgstr "Ynysoedd Svalbard a Jan Mayen"
+
+#: common/src/Tribe/View_Helpers.php:252
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:252
+msgid "Swaziland"
+msgstr "Gwlad Swasi"
+
+#: common/src/Tribe/View_Helpers.php:253
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:253
+msgid "Sweden"
+msgstr "Sweden"
+
+#: common/src/Tribe/View_Helpers.php:254
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:254
+msgid "Switzerland"
+msgstr "Y Swistir"
+
+#: common/src/Tribe/View_Helpers.php:255
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:255
+msgid "Syrian Arab Republic"
+msgstr "Gweriniaeth Arabaidd Syria"
+
+#: common/src/Tribe/View_Helpers.php:256
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:256
+msgid "Taiwan"
+msgstr "Taiwan"
+
+#: common/src/Tribe/View_Helpers.php:257
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:257
+msgid "Tajikistan"
+msgstr "Tajicistan"
+
+#: common/src/Tribe/View_Helpers.php:258
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:258
+msgid "Tanzania, United Republic Of"
+msgstr "Gweriniaeth Unedig Tanzania"
+
+#: common/src/Tribe/View_Helpers.php:259
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:259
+msgid "Thailand"
+msgstr "Gwlad Thai"
+
+#: common/src/Tribe/View_Helpers.php:260
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:260
+msgid "Togo"
+msgstr "Togo"
+
+#: common/src/Tribe/View_Helpers.php:261
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:261
+msgid "Tokelau"
+msgstr "Tocelaw"
+
+#: common/src/Tribe/View_Helpers.php:262
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:262
+msgid "Tonga"
+msgstr "Tonga"
+
+#: common/src/Tribe/View_Helpers.php:263
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:263
+msgid "Trinidad And Tobago"
+msgstr "Trinidad a Thobago"
+
+#: common/src/Tribe/View_Helpers.php:264
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:264
+msgid "Tunisia"
+msgstr "Tiwnisia"
+
+#: common/src/Tribe/View_Helpers.php:265
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:265
+msgid "Turkey"
+msgstr "Twrci"
+
+#: common/src/Tribe/View_Helpers.php:266
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:266
+msgid "Turkmenistan"
+msgstr "Tyrcmenistan"
+
+#: common/src/Tribe/View_Helpers.php:267
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:267
+msgid "Turks And Caicos Islands"
+msgstr "Ynysoedd Turks a Caicos"
+
+#: common/src/Tribe/View_Helpers.php:268
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:268
+msgid "Tuvalu"
+msgstr "Twfalw"
+
+#: common/src/Tribe/View_Helpers.php:269
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:269
+msgid "Uganda"
+msgstr "Wganda"
+
+#: common/src/Tribe/View_Helpers.php:270
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:270
+msgid "Ukraine"
+msgstr "Wcráin"
+
+#: common/src/Tribe/View_Helpers.php:271
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:271
+msgid "United Arab Emirates"
+msgstr "Yr Emiradau Arabaidd Unedig"
+
+#: common/src/Tribe/View_Helpers.php:272
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:272
+msgid "United Kingdom"
+msgstr "Y Deyrnas Unedig"
+
+#: common/src/Tribe/View_Helpers.php:273
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:273
+msgid "United States Minor Outlying Islands"
+msgstr "Mân Ynysoedd Pellennig yr Unol Daleithiau"
+
+#: common/src/Tribe/View_Helpers.php:274
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:274
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: common/src/Tribe/View_Helpers.php:275
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:275
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+#: common/src/Tribe/View_Helpers.php:276
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:276
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: common/src/Tribe/View_Helpers.php:277
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:277
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: common/src/Tribe/View_Helpers.php:278
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:278
+msgid "Viet Nam"
+msgstr "Viet Nam"
+
+#: common/src/Tribe/View_Helpers.php:279
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:279
+msgid "Virgin Islands (British)"
+msgstr "Ynysoedd Morwynol (Prydain)"
+
+#: common/src/Tribe/View_Helpers.php:280
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:280
+msgid "Virgin Islands (U.S.)"
+msgstr "Ynysoedd Morwynol (Yr Unol Daleithiau)"
+
+#: common/src/Tribe/View_Helpers.php:281
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:281
+msgid "Wallis And Futuna Islands"
+msgstr "Ynysoedd Wallis a Futuna"
+
+#: common/src/Tribe/View_Helpers.php:282
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:282
+msgid "Western Sahara"
+msgstr "Gorllewin Sahara"
+
+#: common/src/Tribe/View_Helpers.php:283
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:283
+msgid "Yemen"
+msgstr "Yemen"
+
+#: common/src/Tribe/View_Helpers.php:284
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:284
+msgid "Zambia"
+msgstr "Zambia"
+
+#: common/src/Tribe/View_Helpers.php:285
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:285
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+#: common/src/Tribe/View_Helpers.php:316
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:316
+msgid "Alabama"
+msgstr "Alabama"
+
+#: common/src/Tribe/View_Helpers.php:317
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:317
+msgid "Alaska"
+msgstr "Alaska"
+
+#: common/src/Tribe/View_Helpers.php:318
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:318
+msgid "Arizona"
+msgstr "Arizona"
+
+#: common/src/Tribe/View_Helpers.php:319
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:319
+msgid "Arkansas"
+msgstr "Arkansas"
+
+#: common/src/Tribe/View_Helpers.php:320
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:320
+msgid "California"
+msgstr "California"
+
+#: common/src/Tribe/View_Helpers.php:321
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:321
+msgid "Colorado"
+msgstr "Colorado"
+
+#: common/src/Tribe/View_Helpers.php:322
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:322
+msgid "Connecticut"
+msgstr "Connecticut"
+
+#: common/src/Tribe/View_Helpers.php:323
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:323
+msgid "Delaware"
+msgstr "Delaware"
+
+#: common/src/Tribe/View_Helpers.php:324
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:324
+msgid "District of Columbia"
+msgstr "Ardal Columbia"
+
+#: common/src/Tribe/View_Helpers.php:325
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:325
+msgid "Florida"
+msgstr "Fflorida"
+
+#: common/src/Tribe/View_Helpers.php:327
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:327
+msgid "Hawaii"
+msgstr "Hawaii"
+
+#: common/src/Tribe/View_Helpers.php:328
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:328
+msgid "Idaho"
+msgstr "Idaho"
+
+#: common/src/Tribe/View_Helpers.php:329
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:329
+msgid "Illinois"
+msgstr "Illinois"
+
+#: common/src/Tribe/View_Helpers.php:330
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:330
+msgid "Indiana"
+msgstr "Indiana"
+
+#: common/src/Tribe/View_Helpers.php:331
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:331
+msgid "Iowa"
+msgstr "Iowa"
+
+#: common/src/Tribe/View_Helpers.php:332
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:332
+msgid "Kansas"
+msgstr "Kansas"
+
+#: common/src/Tribe/View_Helpers.php:333
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:333
+msgid "Kentucky"
+msgstr "Kentucky"
+
+#: common/src/Tribe/View_Helpers.php:334
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:334
+msgid "Louisiana"
+msgstr "Louisiana"
+
+#: common/src/Tribe/View_Helpers.php:335
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:335
+msgid "Maine"
+msgstr "Maine"
+
+#: common/src/Tribe/View_Helpers.php:336
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:336
+msgid "Maryland"
+msgstr "Maryland"
+
+#: common/src/Tribe/View_Helpers.php:337
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:337
+msgid "Massachusetts"
+msgstr "Massachusetts"
+
+#: common/src/Tribe/View_Helpers.php:338
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:338
+msgid "Michigan"
+msgstr "Michigan"
+
+#: common/src/Tribe/View_Helpers.php:339
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:339
+msgid "Minnesota"
+msgstr "Minnesota"
+
+#: common/src/Tribe/View_Helpers.php:340
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:340
+msgid "Mississippi"
+msgstr "Mississippi"
+
+#: common/src/Tribe/View_Helpers.php:341
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:341
+msgid "Missouri"
+msgstr "Missouri"
+
+#: common/src/Tribe/View_Helpers.php:342
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:342
+msgid "Montana"
+msgstr "Montana"
+
+#: common/src/Tribe/View_Helpers.php:343
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:343
+msgid "Nebraska"
+msgstr "Nebraska"
+
+#: common/src/Tribe/View_Helpers.php:344
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:344
+msgid "Nevada"
+msgstr "Nevada"
+
+#: common/src/Tribe/View_Helpers.php:345
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:345
+msgid "New Hampshire"
+msgstr "New Hampshire"
+
+#: common/src/Tribe/View_Helpers.php:346
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:346
+msgid "New Jersey"
+msgstr "New Jersey"
+
+#: common/src/Tribe/View_Helpers.php:347
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:347
+msgid "New Mexico"
+msgstr "Mecsico Newydd"
+
+#: common/src/Tribe/View_Helpers.php:348
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:348
+msgid "New York"
+msgstr "Efrog Newydd"
+
+#: common/src/Tribe/View_Helpers.php:349
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:349
+msgid "North Carolina"
+msgstr "Gogledd Carolina"
+
+#: common/src/Tribe/View_Helpers.php:350
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:350
+msgid "North Dakota"
+msgstr "Gogledd Dakota"
+
+#: common/src/Tribe/View_Helpers.php:351
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:351
+msgid "Ohio"
+msgstr "Ohio"
+
+#: common/src/Tribe/View_Helpers.php:352
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:352
+msgid "Oklahoma"
+msgstr "Oklahoma"
+
+#: common/src/Tribe/View_Helpers.php:353
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:353
+msgid "Oregon"
+msgstr "Oregon"
+
+#: common/src/Tribe/View_Helpers.php:354
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:354
+msgid "Pennsylvania"
+msgstr "Pennsylvania"
+
+#: common/src/Tribe/View_Helpers.php:355
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:355
+msgid "Rhode Island"
+msgstr "Rhode Island"
+
+#: common/src/Tribe/View_Helpers.php:356
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:356
+msgid "South Carolina"
+msgstr "De Carolina"
+
+#: common/src/Tribe/View_Helpers.php:357
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:357
+msgid "South Dakota"
+msgstr "De Dakota"
+
+#: common/src/Tribe/View_Helpers.php:358
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:358
+msgid "Tennessee"
+msgstr "Tennessee"
+
+#: common/src/Tribe/View_Helpers.php:359
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:359
+msgid "Texas"
+msgstr "Texas"
+
+#: common/src/Tribe/View_Helpers.php:360
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:360
+msgid "Utah"
+msgstr "Utah"
+
+#: common/src/Tribe/View_Helpers.php:361
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:361
+msgid "Vermont"
+msgstr "Vermont"
+
+#: common/src/Tribe/View_Helpers.php:362
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:362
+msgid "Virginia"
+msgstr "Virginia"
+
+#: common/src/Tribe/View_Helpers.php:363
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:363
+msgid "Washington"
+msgstr "Washington"
+
+#: common/src/Tribe/View_Helpers.php:364
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:364
+msgid "West Virginia"
+msgstr "Gorllewin Virginia"
+
+#: common/src/Tribe/View_Helpers.php:365
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:365
+msgid "Wisconsin"
+msgstr "Wisconsin"
+
+#: common/src/Tribe/View_Helpers.php:366
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:366
+msgid "Wyoming"
+msgstr "Wyoming"
+
+#: src/Tribe/iCal.php:28
+msgctxt "feed link"
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: src/Tribe/iCal.php:29
+msgid "%1$s %2$s iCal Feed"
+msgstr "%1$s %2$s Porthydd iCal"
+
+#: src/Tribe/iCal.php:76
+msgid "Add to Google Calendar"
+msgstr "Ychwanegu at Google Calendar"
+
+#: src/Tribe/iCal.php:76
+msgid "Google Calendar"
+msgstr "Google Calendar"
+
+#: src/Tribe/iCal.php:77
+msgid "Download .ics file"
+msgstr "Llwytho ffeil .ics i lawr"
+
+#: src/Tribe/iCal.php:77
+msgid "iCal Export"
+msgstr "Allforio i iCal"
+
+#: src/Tribe/iCal.php:107
+msgid "Month's %s"
+msgstr ""
+
+#: src/Tribe/iCal.php:110
+msgid "Week's %s"
+msgstr ""
+
+#: src/Tribe/iCal.php:113
+msgid "Day's %s"
+msgstr ""
+
+#: src/Tribe/iCal.php:116
+msgid "Listed %s"
+msgstr ""
+
+#: src/Tribe/iCal.php:121
+msgid "Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
+msgstr "Defnyddiwch hwn i rannu data calendr gyda Google Calendar, Apple iCal a rhaglennig cydnaws eraill"
+
+#: src/admin-views/admin-update-message.php:9
+#: src/admin-views/admin-welcome-message.php:11
+msgid "You are running Version %s and deserve a hug :-)"
+msgstr "Rydych chi'n rhedeg Fersiwn %s ac yn haeddu cwtsh mawr :-)"
+
+#: src/admin-views/admin-update-message.php:33
+msgid "Every time you rate %s5 stars%s, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice."
+msgstr ""
+
+#: src/admin-views/admin-update-message.php:34
+#: src/admin-views/admin-welcome-message.php:22
+msgid "Rate It"
+msgstr "Sgoriwch"
+
+#: src/admin-views/admin-update-message.php:37
+msgid "PSST... Want a Discount?"
+msgstr "PSST... Chwilio am Ostyngiad?"
+
+#: src/admin-views/admin-update-message.php:38
+msgid "We send out discounts to our core users via our newsletter."
+msgstr "Rydyn ni'n anfon gostyngiadau i'n defnyddwyr craidd yn ein cylchlythyr."
+
+#: src/admin-views/admin-update-message.php:43
+#: src/admin-views/admin-welcome-message.php:31
+msgid "Sign Up"
+msgstr "Cofrestru"
+
+#: src/admin-views/admin-update-message.php:49
+msgid "Looking for Something Special?"
+msgstr "Chwilio am Rywbeth Arbennig?"
+
+#: src/admin-views/admin-update-message.php:51
+msgid "Pro"
+msgstr "Pro"
+
+#: common/src/Tribe/Admin/Help_Page.php:200
+#: src/admin-views/admin-update-message.php:53
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:200
+msgid "Community Events"
+msgstr "Digwyddiadau Cymunedol"
+
+#: src/admin-views/admin-update-message.php:54
+msgid "Filters"
+msgstr "Hidlyddion"
+
+#: src/admin-views/admin-update-message.php:55
+msgid "Facebook"
+msgstr "Facebook"
+
+#: src/admin-views/admin-update-message.php:58
+#: src/admin-views/admin-welcome-message.php:53
+msgid "News For Events Users"
+msgstr "Newyddion ar gyfer Defnyddwyr Events"
+
+#: src/admin-views/admin-welcome-message.php:19
+msgid "Keep The Events Calendar Core FREE"
+msgstr "Cadw The Events Calendar Core YN RHAD AC AM DDIM"
+
+#: src/admin-views/admin-welcome-message.php:20
+msgid "5 star ratings help us bring TEC to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support."
+msgstr "Mae sgoriau 5 seren yn galluogi ni i gynnig TEC i ragor o ddefnyddwyr. Mae defnyddwyr mwy hapus yn golygu mwy o gymorth, mwy o nodweddion a mwy o bopeth rydych chi'n ei fwynhau am The Events Calendar. Heb eich cymorth chi, fyddai hyn ddim yn bosibl."
+
+#: src/admin-views/admin-welcome-message.php:21
+msgid "Rate it five stars today!"
+msgstr "Rhowch bump seren iddo heddiw!"
+
+#: src/admin-views/admin-welcome-message.php:25
+msgid "Newsletter Signup"
+msgstr "Cofrestru ar gyfer y Cylchlythyr"
+
+#: src/admin-views/admin-welcome-message.php:26
+msgid "Stay in touch with The Events Calendar Pro. We send out periodic updates, key developer notices, and even the occasional discount."
+msgstr "Cadwch mewn cysylltiad gyda The Events Calendar Pro. Rydyn ni'n anfon diweddariadau cyfnodol, hysbysiadau datblygwyr allweddol ac hyd yn oed gostyngiadau o dro i dro."
+
+#: src/admin-views/admin-welcome-message.php:40
+msgid "Getting Started"
+msgstr "Cychwyn"
+
+#: src/admin-views/admin-welcome-message.php:41
+msgid "Check out the New User Primer &amp; Tutorials"
+msgstr "Ewch i weld y Gwersi a Thiwtorialau i Ddefnyddwyr Newydd"
+
+#: src/admin-views/admin-welcome-message.php:43
+msgid "Looking for More Features?"
+msgstr "Edrych am Ragor o Nodweddion?"
+
+#: src/admin-views/admin-welcome-message.php:44
+msgid "Addons for Community, Tickets, Filters, Facebook and more."
+msgstr "Ychwanegion ar gyfer Cymuned, Tocynnau, Hidlyddion, Facebook a mwy."
+
+#: src/admin-views/admin-welcome-message.php:46
+msgid "Support Resources"
+msgstr "Adnoddau Cymorth"
+
+#: src/admin-views/admin-welcome-message.php:47
+msgid "FAQs, Documentation, Tutorials and Forums"
+msgstr "Cwestiynau Cyffredin, Dogfennaeth, Tiwtorialau a Fforymau"
+
+#: src/admin-views/admin-welcome-message.php:50
+msgid "Release Notes"
+msgstr "Nodiadau Ryddhau"
+
+#: src/admin-views/admin-welcome-message.php:51
+msgid "Get the Skinny on the Latest Updates"
+msgstr "Cael y Diweddariadau Diweddaraf"
+
+#: src/admin-views/admin-welcome-message.php:54
+msgid "Product Releases, Tutorials and Community Activity"
+msgstr "Cynnyrch Newydd, Tiwtorialau a Gweithgarwch y Gymuned"
+
+#: common/src/admin-views/app-shop.php:4
+#: vendor/tickets/common/src/admin-views/app-shop.php:4
+msgid "Tribe Event Add-Ons"
+msgstr "Ychwanegion Digwyddiad Tribe"
+
+#: common/src/admin-views/app-shop.php:54
+#: vendor/tickets/common/src/admin-views/app-shop.php:54
+msgid "Version"
+msgstr "Fersiwn"
+
+#: common/src/admin-views/app-shop.php:57
+#: vendor/tickets/common/src/admin-views/app-shop.php:57
+msgid "Last Update"
+msgstr "Diweddarwyd Ddiwethaf"
+
+#: src/admin-views/event-sidebar-options.php:13
+msgid "Hide From %s Listings"
+msgstr ""
+
+#: src/admin-views/event-sidebar-options.php:15
+msgid "Sticky in Month View"
+msgstr ""
+
+#: src/admin-views/event-sidebar-options.php:16
+msgid "When events are sticky in month view, they'll display first in the list of events shown within a given day block."
+msgstr ""
+
+#: src/admin-views/events-meta-box.php:62
+msgid "Time &amp; Date"
+msgstr ""
+
+#: src/admin-views/events-meta-box.php:69
+msgid "You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page."
+msgstr ""
+
+#: src/admin-views/events-meta-box.php:72
+msgid "All Day %s:"
+msgstr ""
+
+#: src/admin-views/events-meta-box.php:78
+msgid "Start Date &amp; Time:"
+msgstr "Dyddiad ac Amser Cychwyn:"
+
+#: src/admin-views/events-meta-box.php:82
+#: src/admin-views/events-meta-box.php:103
+msgid "YYYY-MM-DD"
+msgstr "BBBB-MM-DD"
+
+#: src/admin-views/events-meta-box.php:100
+msgid "End Date &amp; Time:"
+msgstr "Dyddiad ac Amser Gorffen:"
+
+#: src/admin-views/events-meta-box.php:123
+msgid "Timezone:"
+msgstr ""
+
+#: src/admin-views/events-meta-box.php:149
+msgid "Location"
+msgstr "Lleoliad"
+
+#: src/admin-views/events-meta-box.php:197
+msgid "%s Website"
+msgstr ""
+
+#: src/admin-views/events-meta-box.php:200
+msgid "URL:"
+msgstr "URL:"
+
+#: src/admin-views/events-meta-box.php:231
+msgid "%s Cost"
+msgstr ""
+
+#: src/admin-views/events-meta-box.php:234
+msgid "Currency Symbol:"
+msgstr "Symbol Arian:"
+
+#: src/admin-views/events-meta-box.php:249
+msgctxt "Currency symbol position"
+msgid "Before cost"
+msgstr "Cyn cost"
+
+#: src/admin-views/events-meta-box.php:252
+msgctxt "Currency symbol position"
+msgid "After cost"
+msgstr "Ar ôl cost"
+
+#: src/admin-views/events-meta-box.php:257
+#: src/functions/advanced-functions/meta_registration.php:48
+#: src/views/modules/meta/details.php:123
+msgid "Cost:"
+msgstr "Cost:"
+
+#: src/admin-views/events-meta-box.php:265
+msgid "Enter a 0 for %s that are free or leave blank to hide the field."
+msgstr ""
+
+#: src/admin-views/new-organizer-meta-section.php:17
+#: src/admin-views/organizer-meta-box.php:24
+#: src/admin-views/venue-meta-box.php:25
+msgid "%s Name:"
+msgstr "%s Enw:"
+
+#: src/Tribe/Event_Tickets/Attendees_Report.php:76
+#: src/admin-views/new-organizer-meta-section.php:23
+#: src/admin-views/organizer-meta-box.php:31
+#: src/admin-views/venue-meta-box.php:111
+#: src/functions/advanced-functions/meta_registration.php:159
+#: src/functions/advanced-functions/meta_registration.php:238
+#: src/views/modules/meta/organizer.php:42 src/views/modules/meta/venue.php:40
+msgid "Phone:"
+msgstr "Ffôn:"
+
+#: src/Tribe/Event_Tickets/Attendees_Report.php:85
+#: src/admin-views/new-organizer-meta-section.php:29
+#: src/admin-views/organizer-meta-box.php:37
+#: src/admin-views/venue-meta-box.php:118
+#: src/functions/advanced-functions/meta_registration.php:96
+#: src/functions/advanced-functions/meta_registration.php:191
+#: src/functions/advanced-functions/meta_registration.php:270
+#: src/views/modules/meta/details.php:148
+#: src/views/modules/meta/organizer.php:64 src/views/modules/meta/venue.php:45
+msgid "Website:"
+msgstr "Gwefan:"
+
+#: src/admin-views/new-organizer-meta-section.php:37
+#: src/admin-views/organizer-meta-box.php:43
+#: src/functions/advanced-functions/meta_registration.php:254
+#: src/views/modules/meta/organizer.php:53
+msgid "Email:"
+msgstr "E-bost:"
+
+#: src/admin-views/new-organizer-meta-section.php:77
+#: src/admin-views/organizer-meta-box.php:75
+msgid "%s Name Already Exists"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/attendees.php:31
+msgid "Event Details"
+msgstr "Manylion y Digwyddiad"
+
+#: src/Tribe/Event_Tickets/Attendees_Report.php:49
+msgid "Start Date / Time:"
+msgstr "Dyddiad / Amser Cychwyn:"
+
+#: src/Tribe/Event_Tickets/Attendees_Report.php:54
+msgid "End Date / Time:"
+msgstr "Dyddiad / Amser Gorffen:"
+
+#: src/Tribe/Event_Tickets/Attendees_Report.php:68
+#: src/admin-views/venue-meta-box.php:34
+#: src/functions/advanced-functions/meta_registration.php:176
+msgid "Address:"
+msgstr "Cyfeiriad:"
+
+#: vendor/tickets/src/admin-views/attendees.php:81
+msgid "Finalized:"
+msgstr "Terfynwyd:"
+
+#: vendor/tickets/src/admin-views/attendees.php:87
+msgid "Awaiting review:"
+msgstr "Aros am adolygiad:"
+
+#: vendor/tickets/src/admin-views/attendees.php:92
+msgid "Checked in:"
+msgstr "Cofrestrwyd:"
+
+#: vendor/tickets/src/admin-views/attendees-email.php:4
+msgid "Send the attendee list by email"
+msgstr "Anfon y rhestr o fynychwyr dros e-bost"
+
+#: vendor/tickets/src/admin-views/attendees-email.php:10
+msgid "Select a User:"
+msgstr "Dewis Defnyddiwr:"
+
+#: vendor/tickets/src/admin-views/attendees-email.php:15
+msgid "Select..."
+msgstr "Dewis..."
+
+#: vendor/tickets/src/admin-views/attendees-email.php:20
+msgid "or"
+msgstr "neu"
+
+#: vendor/tickets/src/admin-views/attendees-email.php:22
+msgid "Email Address:"
+msgstr "Cyfeiriad E-bost:"
+
+#: vendor/tickets/src/admin-views/list.php:33
+msgid "Edit"
+msgstr "Golygu"
+
+#: vendor/tickets/src/admin-views/list.php:42
+msgid "Edit in %s"
+msgstr "Golygu yn %s"
+
+#: vendor/tickets/src/admin-views/list.php:37
+msgid "View"
+msgstr "Gweld"
+
+#: vendor/tickets/src/template-tags/tickets.php:226
+msgid "Sold %d"
+msgstr "Gwerthwyd %d"
+
+#: vendor/tickets/src/admin-views/meta-box.php:31
+msgid "This event was created using Community Events. Are you sure you want to sell tickets for it?"
+msgstr "Cafodd y digwyddiad yma ei greu drwy ddefnyddio Digwyddiadau Cymunedol. Ydych chi'n siŵr eich bod am werthu tocynnau ar ei gyfer?"
+
+#: vendor/tickets/src/admin-views/meta-box.php:42
+msgid "Upload image for the ticket header"
+msgstr "Llwytho delwedd i fyny ar gyfer y pennyn y tocyn"
+
+#: vendor/tickets/src/admin-views/meta-box.php:43
+msgid "The maximum image size in the email will be 580px wide by any height, and then scaled for mobile. If you would like \"retina\" support use an image sized to 1160px wide."
+msgstr "Uchafswm maint y ddelwedd yn yr e-bost fydd 580px o led wrth unrhyw uchder, ac yna bydd y maint yn cael ei addasu ar gyfer ffonau symudol. Os hoffech gefnogi cynnyrch \"retina\", defnyddiwch ddelwedd sydd hyd at 1160px."
+
+#: vendor/tickets/src/admin-views/meta-box.php:46
+msgid "Select an Image"
+msgstr "Dewis Delwedd"
+
+#: vendor/tickets/src/admin-views/meta-box.php:54
+msgid "Remove"
+msgstr "Tynnu"
+
+#: vendor/tickets/src/admin-views/meta-box.php:112
+#: vendor/tickets/src/admin-views/meta-box.php:122
+msgid "Add new ticket"
+msgstr "Ychwanegu tocyn newydd"
+
+#: vendor/tickets/src/admin-views/meta-box.php:123
+msgid "Edit ticket"
+msgstr "Golygu tocyn"
+
+#: vendor/tickets/src/admin-views/meta-box.php:128
+msgid "Sell using:"
+msgstr "Gwerthu drwy ddefnyddio:"
+
+#: vendor/tickets/src/admin-views/meta-box.php:145
+msgid "Ticket Name:"
+msgstr "Enw Tocyn:"
+
+#: vendor/tickets/src/admin-views/meta-box.php:152
+msgid "Ticket Description:"
+msgstr "Disgrifiad Tocyn:"
+
+#: vendor/tickets/src/admin-views/legacy-ticket-fields.php:15
+msgid "Price:"
+msgstr "Pris:"
+
+#: vendor/tickets/src/admin-views/legacy-ticket-fields.php:19
+msgid "(0 or empty for free tickets)"
+msgstr "(0 neu gadewch yn wag ar gyfer tocynnau sydd am ddim)"
+
+#: vendor/tickets/src/admin-views/legacy-ticket-fields.php:24
+msgid "Sale Price:"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/legacy-ticket-fields.php:28
+msgid "(Current sale price - this can be managed via the product editor)"
+msgstr ""
+
+#: vendor/tickets/src/admin-views/meta-box.php:161
+msgid "Start sale:"
+msgstr "Cychwyn gwerthu:"
+
+#: vendor/tickets/src/admin-views/meta-box.php:185
+msgid "End sale:"
+msgstr "Gorffen gwerthu:"
+
+#: vendor/tickets/src/admin-views/meta-box.php:232
+msgid "Save this ticket"
+msgstr "Cadw'r tocyn yma"
+
+#: src/admin-views/tribe-options-display.php:6
+msgid "Default Events Template"
+msgstr "Templed Digwyddiadau Diofyn"
+
+#: src/admin-views/tribe-options-display.php:7
+msgid "Default Page Template"
+msgstr "Templed Tudalen Diofyn"
+
+#: src/admin-views/tribe-options-display.php:44
+msgid "Display Settings"
+msgstr "Gosodiadau Gwedd"
+
+#: src/admin-views/tribe-options-display.php:49
+msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
+msgstr "Mae'r gosodiadau isod yn rheoli gwedd eich calendr. Os nad yw pethau'n edrych yn iawn, ceisiwch newid rhwng y tair opsiwn neu dewiswch dempled tudalen o'ch thema.</p><p>Fe fydd sefyllfaoedd lle na fydd templed 'allan o'r bocs' yn berffaith bob amser. Mae cyfarwyddiadau ar sut i wneud addasiadau cyfaddas ar gael yn ein <a href=\"%s\">canllawiau ar themâu</a>."
+
+#: src/admin-views/tribe-options-display.php:104
+msgid "Basic Template Settings"
+msgstr "Gosodiadau Templed Syml"
+
+#: src/admin-views/tribe-options-display.php:108
+msgid "Default stylesheet used for events templates"
+msgstr "Dalen steil ddiofyn sy'n cael ei defnyddio ar gyfer templedi digwyddiadau"
+
+#: src/admin-views/tribe-options-display.php:111
+msgid "Skeleton Styles"
+msgstr "Steiliau Sgerbwd"
+
+#: src/admin-views/tribe-options-display.php:113
+msgid "Only includes enough css to achieve complex layouts like calendar and week view."
+msgstr "Yn cynnwys dim ond digon o css i gael cynlluniau cymhleth fel gwedd calendr a gwedd wythnos."
+
+#: src/admin-views/tribe-options-display.php:115
+msgid "Full Styles"
+msgstr "Steiliau Llawn"
+
+#: src/admin-views/tribe-options-display.php:117
+msgid "More detailed styling, tries to grab styles from your theme."
+msgstr "Steil â mwy o fanylder, sy'n ceisio bachu steiliau o'ch thema."
+
+#: src/admin-views/tribe-options-display.php:119
+msgid "Tribe Events Styles"
+msgstr "Steiliau Digwyddiadau Tribe"
+
+#: src/admin-views/tribe-options-display.php:121
+msgid "A fully designed and styled theme for your events pages."
+msgstr "Thema sydd wedi'i chynllunio a'i steilio'n llawn ar gyfer eich tudalennau digwyddiadau."
+
+#: src/admin-views/tribe-options-display.php:128
+msgid "Events template"
+msgstr "Templed Digwyddiadau"
+
+#: src/admin-views/tribe-options-display.php:129
+msgid "Choose a page template to control the appearance of your calendar and event content."
+msgstr "Dewiswch dempled tudalen i reoli ymddangosiad eich calendr a chynnwys eich digwyddiad."
+
+#: src/admin-views/tribe-options-display.php:137
+msgid "Enable event views"
+msgstr "Galluogi golwg digwyddiadau"
+
+#: src/admin-views/tribe-options-display.php:138
+msgid "You must select at least one view."
+msgstr "Mae'n rhaid i chi ddewis o leiaf un golwg."
+
+#: src/admin-views/tribe-options-display.php:145
+msgid "Default view"
+msgstr "Golwg ddiofyn"
+
+#: src/admin-views/tribe-options-display.php:153
+msgid "Disable the Event Search Bar"
+msgstr "Analluogi'r Bar Chwilio am Ddigwyddiad"
+
+#: src/admin-views/tribe-options-display.php:154
+msgid "Check this to use the classic header."
+msgstr "Ticiwch hwn i ddefnyddio'r pennawd clasurol."
+
+#: src/admin-views/tribe-options-display.php:160
+msgid "Month view events per day"
+msgstr "Golwg mis o ddigwyddiadau fesul diwrnod"
+
+#: src/admin-views/tribe-options-display.php:161
+msgid "Change the default 3 events per day in month view. Please note there may be performance issues if you set this too high. <a href=\"%s\">Read more</a>."
+msgstr ""
+
+#: src/admin-views/tribe-options-display.php:168
+msgid "Enable the Month View Cache"
+msgstr ""
+
+#: src/admin-views/tribe-options-display.php:169
+msgid "Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href=\"%s\">Read more</a>."
+msgstr ""
+
+#: common/src/admin-views/tribe-options-display.php:22
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:22
+msgid "Date Format Settings"
+msgstr "Gosodiadau Fformat y Dyddiad"
+
+#: common/src/admin-views/tribe-options-display.php:26
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:26
+msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
+msgstr "<p>Mae'r tri maes canlynol yn gallu derbyn yr opsiynau fformadu dyddiad sydd ar gael i'r swyddogaeth dyddiad() php. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Dysgwch sut i greu eich fformat dyddiad eich hunan</a>.</p>"
+
+#: common/src/admin-views/tribe-options-display.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:30
+msgid "Date with year"
+msgstr "Dyddiad gyda blwyddyn"
+
+#: src/admin-views/tribe-options-display.php:66
+msgid "Date without year"
+msgstr "Dyddiad heb y flwyddyn"
+
+#: src/admin-views/tribe-options-display.php:67
+msgid "Enter the format to use for displaying dates without a year. Used when showing an event from the current year."
+msgstr "Nodwch y fformat i'w ddefnyddio ar gyfer dangos dyddiadau heb y flwyddyn. Defnyddir hyn i ddangos digwyddiad o'r flwyddyn bresennol."
+
+#: src/admin-views/tribe-options-display.php:74
+msgid "Month and year format"
+msgstr "Fformat y mis a'r flwyddyn"
+
+#: src/admin-views/tribe-options-display.php:75
+msgid "Enter the format to use for dates that show a month and year only. Used on month view."
+msgstr "Nodwch y fformat i'w ddefnyddio ar gyfer dyddiadau sy'n dangos mis a blwyddyn yn unig. Defnyddir hyn gyda'r golwg mis."
+
+#: common/src/admin-views/tribe-options-display.php:38
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:38
+msgid "Date time separator"
+msgstr "Gwahanydd ar gyfer y dyddiad ac amser"
+
+#: common/src/admin-views/tribe-options-display.php:39
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:39
+msgid "Enter the separator that will be placed between the date and time, when both are shown."
+msgstr "Nodwch y gwahanydd a fydd yn cael ei osod rhwng y dyddiad a'r amser, pan fydd y ddau'n cael eu dangos."
+
+#: src/admin-views/tribe-options-display.php:89
+msgid "Time range separator"
+msgstr "Gwahanydd ar gyfer ystod yr amser"
+
+#: src/admin-views/tribe-options-display.php:90
+msgid "Enter the separator that will be used between the start and end time of an event."
+msgstr "Nodwch y gwahanydd a fydd yn cael ei ddefnyddio rhwng amser cychwyn a gorffen digwyddiad."
+
+#: common/src/admin-views/tribe-options-display.php:46
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:46
+msgid "Datepicker Date Format"
+msgstr "Fformat Dyddiad y Dewisydd Dyddiad"
+
+#: common/src/admin-views/tribe-options-display.php:47
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:47
+msgid "Select the date format to use in datepickers"
+msgstr "Dewiswch fformat y dyddiad i'w ddefnyddio gyda dewiswyr dyddiad"
+
+#: src/admin-views/tribe-options-display.php:182
+msgid "Advanced Template Settings"
+msgstr "Gosodiadau Templedi Uwch"
+
+#: src/admin-views/tribe-options-display.php:186
+msgid "Add HTML before event content"
+msgstr "Ychwanegu HTML cyn cynnwys digwyddiad"
+
+#: src/admin-views/tribe-options-display.php:187
+msgid "If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout."
+msgstr "Os ydych chi'n gyfarwydd ag HTML, gallwch ychwanegu cod ychwanegol cyn templed y digwyddiad. Gall hyn fod yn ofynnol gyda rhai themâu i helpu gyda'r steilio a'r gosodiad."
+
+#: src/admin-views/tribe-options-display.php:192
+msgid "Add HTML after event content"
+msgstr "Ychwanegu HTML ar ôl cynnwys digwyddiad "
+
+#: src/admin-views/tribe-options-display.php:193
+msgid "If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout."
+msgstr "Os ydych chi'n gyfarwydd ag HTML, gallwch ychwanegu cod ychwanegol ar ôl templed y digwyddiad. Gall hyn fod yn ofynnol gyda rhai themâu i helpu gyda'r steilio a'r gosodiad."
+
+#: src/admin-views/tribe-options-general.php:12
+msgid "Finding & extending your calendar."
+msgstr "Canfod ac ymestyn eich calendr."
+
+#: src/admin-views/tribe-options-general.php:17
+msgid "Finding your calendar."
+msgstr "Canfod eich calendr."
+
+#: src/admin-views/tribe-options-general.php:22
+msgid "Where's my calendar?"
+msgstr "Ble mae fy nghalendr?"
+
+#: src/admin-views/tribe-options-general.php:22
+msgid "Right here"
+msgstr "Yn fan hyn"
+
+#: common/src/admin-views/tribe-options-general.php:20
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:20
+msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
+msgstr "Ydych chi'n chwilio am nodweddion ychwanegol gan gynnwys digwyddiadau ailadroddus, meta cyfaddas, digwyddiadau cymunedol, gwerthiannau tocynnau a mwy?"
+
+#: common/src/admin-views/tribe-options-general.php:20
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:20
+msgid "Check out the available add-ons"
+msgstr "Ewch i weld pa ychwanegion sydd ar gael"
+
+#: common/src/admin-views/tribe-options-general.php:25
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:25
+msgid "We hope our plugin is helping you out."
+msgstr "Gobeithio bod ein ategyn o gymorth i chi."
+
+#: common/src/admin-views/tribe-options-general.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:30
+msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
+msgstr "Ydych chi'n meddwl \"Waw, mae'r ategyn yma yn wych! Fe ddylwn i ddweud diolch wrth Modern Tribe am eu holl waith caled.\"? Y diolch mwyaf y gallwch ei roi i ni yw cydnabyddiaeth. Ychwanegwch ddolen fach testun yn unig ar waelod eich calendr sy'n pwyntio at brosiect The Events Calendar."
+
+#: common/src/admin-views/tribe-options-general.php:30
+#: common/src/admin-views/tribe-options-general.php:35
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:35
+msgid "See an example of the link"
+msgstr "Gweld enghraifft o'r ddolen"
+
+#: common/src/admin-views/tribe-options-general.php:35
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:35
+msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project."
+msgstr "Ydych chi'n meddwl \"Waw, mae'r ategyn yma yn wych! Fe ddylwn i ddweud diolch wrth Modern Tribe am eu holl waith caled.\"? Y diolch mwyaf y gallwch ei roi i ni yw cydnabyddiaeth. Ychwanegwch ddolen fach testun yn unig ar waelod eich calendr sy'n pwyntio at brosiect The Events Calendar."
+
+#: common/src/admin-views/tribe-options-general.php:40
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:40
+msgid "Show The Events Calendar link"
+msgstr "Dangos dolen The Events Calendar"
+
+#: common/src/admin-views/tribe-options-general.php:55
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:55
+msgid "General Settings"
+msgstr "Gosodiadau Cyffredinol"
+
+#: src/admin-views/tribe-options-general.php:33
+msgid "Number of events to show per page"
+msgstr "Nifer y digwyddiadau i'w harddangos fesul tudalen"
+
+#: src/admin-views/tribe-options-general.php:40
+msgid "Use Javascript to control date filtering"
+msgstr "Defnyddio Javascript i reoli'r modd caiff dyddiadau eu hidlo"
+
+#: src/admin-views/tribe-options-general.php:41
+msgid "This option is disabled when \"Disable the Event Search Bar\" is checked on the Display settings tab."
+msgstr "Mae'r opsiwn yma wedi'i analluogi pan fydd \"Analluogi'r Bar Chwilio am Ddigwyddiad\" wedi'i ddewis yn y tab gosodiadau Gwedd."
+
+#: src/admin-views/tribe-options-general.php:41
+msgid "Enable live ajax for datepicker on front end (User submit not required)."
+msgstr "Galluogi ajax byw ar gyfer dewisydd dyddiad ar flaen eich gwefan (nid oes angen i'r defnyddiwr ei gyflwyno)."
+
+#: src/admin-views/tribe-options-general.php:49
+msgid "Show comments"
+msgstr "Dangos sylwadau"
+
+#: src/admin-views/tribe-options-general.php:50
+msgid "Enable comments on event pages."
+msgstr "Galluogi sylwadau ar dudalennau digwyddiad."
+
+#: src/admin-views/tribe-options-general.php:56
+msgid "Include events in main blog loop"
+msgstr "Cynnwys digwyddiadau ym mhrif ddolen blog"
+
+#: src/admin-views/tribe-options-general.php:57
+msgid "Show events with the site's other posts. When this box is checked, events will also continue to appear on the default events page."
+msgstr "Dangos digwyddiadau gyda chofnodion eraill y safle. Pan fydd y blwch yma wedi'i ddewis, bydd digwyddiadau hefyd yn parhau i ymddangos ar dudalen ddiofyn digwyddiadau."
+
+#: src/admin-views/tribe-options-general.php:63
+#: src/admin-views/tribe-options-general.php:69
+msgid "Events URL slug"
+msgstr "Bonyn URL Digwyddiadau"
+
+#: src/admin-views/tribe-options-general.php:64
+msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%1$s\">%2$s</a>. In order to edit the slug here, <a href=\"%3$soptions-permalink.php\">enable pretty permalinks</a>."
+msgstr ""
+
+#: src/admin-views/tribe-options-general.php:76
+#: src/functions/template-tags/options.php:20
+msgid "The slug used for building the events URL."
+msgstr "Y bonyn a ddefnyddiwyd i adeiladu URL y digwyddiadau."
+
+#: src/admin-views/tribe-options-general.php:76
+msgid "Your current events URL is: %s"
+msgstr "Eich URL digwyddiadau cyfredol yw: %s"
+
+#: src/admin-views/tribe-options-general.php:81
+#: src/functions/template-tags/options.php:39
+msgid "Here is the iCal feed URL for your events:"
+msgstr "Dyma URL porthydd iCal eich digwyddiadau:"
+
+#: src/admin-views/tribe-options-general.php:86
+msgid "Single event URL slug"
+msgstr "URL bonyn digwyddiad unigol"
+
+#: src/admin-views/tribe-options-general.php:93
+msgid "The above should ideally be plural, and this singular.<br />Your single event URL is: %s"
+msgstr "Yn ddelfrydol, dylai'r uchod fod yn lluosog, a hwn yn unigol.<br />Eich URL digwyddiad unigol yw: %s"
+
+#: src/admin-views/tribe-options-general.php:98
+msgid "End of day cutoff"
+msgstr "Pryd ddaw'r diwrnod i ben"
+
+#: src/admin-views/tribe-options-general.php:119
+msgid "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar."
+msgstr "Os oes digwyddiad sydd ymlaen ar ôl hanner nos, dewiswch amser ar ôl amser gorffen y digwyddiad er mwyn osgoi dangos y digwyddiad ar galendr y diwrnod wedyn."
+
+#: src/Tribe/Admin/Bar/Default_Configurator.php:18
+msgid "%s"
+msgstr ""
+
+#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4272
+msgid "View Calendar"
+msgstr "Gweld y Calendr"
+
+#: src/Tribe/Admin/Bar/Default_Configurator.php:53
+msgid "Add %s"
+msgstr ""
+
+#: src/Tribe/Admin/Bar/Default_Configurator.php:79
+#: src/Tribe/Importer/Admin_Page.php:191
+msgid "CSV"
+msgstr "CSV"
+
+#: common/src/Tribe/Settings.php:215
+#: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4321
+#: vendor/tickets/common/src/Tribe/Settings.php:215
+msgid "Settings"
+msgstr "Gosodiadau"
+
+#: src/Tribe/Main.php:4322
+msgid "Calendar"
+msgstr "Calendr"
+
+#: src/Tribe/Main.php:4383
+msgid "List"
+msgstr "Rhestr"
+
+#: src/Tribe/Main.php:4401
+msgid "Month"
+msgstr "Mis"
+
+#: src/Tribe/Main.php:4418
+msgid "Day"
+msgstr "Diwrnod"
+
+#: src/Tribe/Main.php:4443 src/Tribe/Main.php:4444
+msgid "Search"
+msgstr "Chwilio"
+
+#: src/Tribe/Main.php:4468 src/Tribe/Main.php:4484
+msgid "Date"
+msgstr "Dyddiad"
+
+#: src/Tribe/Main.php:4471
+msgid "%s In"
+msgstr ""
+
+#: src/Tribe/Main.php:4473
+msgid "%s From"
+msgstr ""
+
+#: src/Tribe/Main.php:4475
+msgid "Day Of"
+msgstr "Dydd O"
+
+#: src/Tribe/Main.php:4548
+msgid "Once Every 30 Mins"
+msgstr ""
+
+#: src/Tribe/Options_Exception.php:19 src/Tribe/Post_Exception.php:22
+msgid "Error"
+msgstr "Gwall"
+
+#: common/src/Tribe/PUE/Checker.php:308 src/Tribe/PUE/Checker.php:303
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:308
+msgid "License Key"
+msgstr "Allwedd Trwydded"
+
+#: common/src/Tribe/PUE/Checker.php:309 src/Tribe/PUE/Checker.php:304
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:309
+msgid "A valid license key is required for support and updates"
+msgstr "Mae angen allwedd trwydded ddilys i gael cymorth a diweddariadau"
+
+#: common/src/Tribe/PUE/Checker.php:380 src/Tribe/PUE/Checker.php:375
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:380
+msgid "License key(s) updated."
+msgstr "Diweddarwyd eich allwedd(au) trwydded."
+
+#: common/src/Tribe/PUE/Checker.php:419 src/Tribe/PUE/Checker.php:414
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:419
+msgid "unknown date"
+msgstr ""
+
+#: common/src/Tribe/PUE/Checker.php:422 src/Tribe/PUE/Checker.php:417
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:422
+msgid "Sorry, key validation server is not available."
+msgstr "Yn anffodus, nid yw'r gweinydd dilysu allweddau ar gael."
+
+#: common/src/Tribe/PUE/Checker.php:424 src/Tribe/PUE/Checker.php:419
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:424
+msgid "Sorry, this key is expired."
+msgstr "Yn anffodus, mae'r allwedd yma wedi dod i ben."
+
+#: common/src/Tribe/PUE/Checker.php:427 src/Tribe/PUE/Checker.php:422
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:427
+msgid "Sorry, this key is out of installs."
+msgstr "Does dim modd gosod rhagor gyda'r allwedd yma."
+
+#: common/src/Tribe/PUE/Checker.php:428 src/Tribe/PUE/Checker.php:423
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:428
+msgid "Why am I seeing this message?"
+msgstr "Pam ydw i'n gweld y neges yma?"
+
+#: common/src/Tribe/PUE/Checker.php:431 src/Tribe/PUE/Checker.php:426
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:431
+msgid "Sorry, this key is not valid."
+msgstr "Nid yw'r allwedd yma yn ddilys."
+
+#: common/src/Tribe/PUE/Checker.php:435 src/Tribe/PUE/Checker.php:430
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:435
+msgid "Valid Key! Expires on %s"
+msgstr "Allwedd Ddilys! Yn dod i ben ar %s"
+
+#: common/src/Tribe/PUE/Checker.php:448 src/Tribe/PUE/Checker.php:443
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:448
+msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
+msgstr ""
+
+#: common/src/Tribe/Settings.php:214 common/src/Tribe/Settings.php:235
+#: vendor/tickets/common/src/Tribe/Settings.php:214
+#: vendor/tickets/common/src/Tribe/Settings.php:235
+msgid "Events Settings"
+msgstr "Gosodiadau Digwyddiadau"
+
+#: common/src/Tribe/Settings.php:300
+#: vendor/tickets/common/src/Tribe/Settings.php:300
+msgid "%s Settings"
+msgstr "Gosodiadau %s"
+
+#: common/src/Tribe/Settings.php:314
+#: vendor/tickets/common/src/Tribe/Settings.php:314
+msgid "You've requested a non-existent tab."
+msgstr "Rydych chi wedi gwneud cais am dab sydd ddim yn bodoli."
+
+#: common/src/Tribe/Settings.php:322
+#: vendor/tickets/common/src/Tribe/Settings.php:322
+msgid "Save Changes"
+msgstr "Cadw'r Newidiadau"
+
+#: common/src/Tribe/Settings.php:370
+#: vendor/tickets/common/src/Tribe/Settings.php:370
+msgid "You don't have permission to do that."
+msgstr "Nid oes caniatâd gyda chi i wneud hynny."
+
+#: common/src/Tribe/Settings.php:376
+#: vendor/tickets/common/src/Tribe/Settings.php:376
+msgid "The request was sent insecurely."
+msgstr "Cafodd y cais ei anfon yn anniogel."
+
+#: common/src/Tribe/Settings.php:382
+#: vendor/tickets/common/src/Tribe/Settings.php:382
+msgid "The request wasn't sent from this tab."
+msgstr "Chafodd y cais ddim ei anfon o'r tab yma."
+
+#: common/src/Tribe/Settings.php:550
+#: vendor/tickets/common/src/Tribe/Settings.php:550
+msgid "Your form had the following errors:"
+msgstr "Roedd y gwallau canlynol ar eich ffurflen:"
+
+#: common/src/Tribe/Settings.php:560
+#: vendor/tickets/common/src/Tribe/Settings.php:560
+msgid "None of your settings were saved. Please try again."
+msgstr "Chafodd dim o'ch gosodiadau eu cadw. Rhowch gynnig arall arni."
+
+#: common/src/Tribe/Settings.php:561
+#: vendor/tickets/common/src/Tribe/Settings.php:561
+msgid "The above setting was not saved. Other settings were successfully saved."
+msgid_plural "The above settings were not saved. Other settings were successfully saved."
+msgstr[0] "Chafodd y gosodiadau uchod ddim eu cadw. Cafodd y gosodiadau eraill eu cadw'n llwyddiannus."
+msgstr[1] "Chafodd y gosodiadau uchod ddim eu cadw. Cafodd y gosodiadau eraill eu cadw'n llwyddiannus."
+msgstr[2] "Chafodd y gosodiadau uchod ddim eu cadw. Cafodd y gosodiadau eraill eu cadw'n llwyddiannus."
+msgstr[3] "Chafodd y gosodiadau uchod ddim eu cadw. Cafodd y gosodiadau eraill eu cadw'n llwyddiannus."
+
+#: common/src/Tribe/Settings_Tab.php:222
+#: vendor/tickets/common/src/Tribe/Settings_Tab.php:222
+msgid "There are no fields setup for this tab yet."
+msgstr "Does dim meysydd wedi'u gosod ar gyfer y tab yma eto."
+
+#: common/src/admin-views/tribe-options-help.php:34
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:34
+msgid "System Information"
+msgstr "Gwybodaeth am y System"
+
+#: common/src/Tribe/Support.php:137
+#: vendor/tickets/common/src/Tribe/Support.php:137
+msgid "Unknown or not set"
+msgstr "Anhysbys neu ddim wedi'i osod"
+
+#: common/src/Tribe/Support.php:144
+#: vendor/tickets/common/src/Tribe/Support.php:144
+msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
+msgstr ""
+
+#: src/Tribe/Template/Day.php:97 src/Tribe/Template/Day.php:113
+msgid "All Day"
+msgstr "Drwy'r Dydd"
+
+#: src/Tribe/Template/Day.php:100 src/Tribe/Template/Day.php:116
+msgid "Ongoing"
+msgstr "Parhaus"
+
+#: src/Tribe/Template/Day.php:134
+msgid "No matching %1$s listed under %2$s scheduled for %3$s. Please try another day."
+msgstr ""
+
+#: src/Tribe/Template/Month.php:285
+msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
+msgstr ""
+
+#: src/Tribe/Template/Month.php:287 src/Tribe/Template_Factory.php:307
+msgid "There were no results found."
+msgstr "Ni ddaethpwyd o hyd i ganlyniadau."
+
+#: src/Tribe/Template/Month.php:724
+msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
+msgstr ""
+
+#: src/Tribe/Template/Single_Event.php:119
+msgid "This %s has passed."
+msgstr ""
+
+#: src/Tribe/Template_Factory.php:298
+msgid "No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar."
+msgstr ""
+
+#: src/Tribe/Template_Factory.php:300 src/Tribe/Template_Factory.php:305
+msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s."
+msgstr ""
+
+#: src/Tribe/Template_Factory.php:302
+msgid "No previous %s "
+msgstr ""
+
+#: src/Tribe/Templates.php:606
+msgid "Template overrides should be moved to the correct subdirectory: %s"
+msgstr "Dylid symud y camau diystyru templedi i'r is-gyfeiriadur cywir: %s"
+
+#: src/Tribe/Templates.php:648
+msgid "Template overrides should be moved to the correct subdirectory: tribe_get_template_part('%s')"
+msgstr "Dylid symud y camau diystyru templedi i'r is-gyfeiriadur cywir: tribe_get_template_part('%s')"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:76
+msgid "Order #"
+msgstr "Rhif Archeb"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:77
+msgid "Order Status"
+msgstr "Statws yr Archeb"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:78
+msgid "Ticket type"
+msgstr "Math o docyn"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:79
+#: vendor/tickets/src/views/tickets/email.php:332
+msgid "Ticket #"
+msgstr "Rhif Tocyn"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:80
+#: vendor/tickets/src/views/tickets/email.php:344
+msgid "Security Code"
+msgstr "Cod Diogelwch"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:81
+#: vendor/tickets/src/Tribe/Attendees_Table.php:238
+#: vendor/tickets/src/Tribe/Attendees_Table.php:325
+msgid "Check in"
+msgstr "Cofrestru"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:239
+#: vendor/tickets/src/Tribe/Attendees_Table.php:326
+msgid "Undo Check in"
+msgstr "Dad-Gofrestru"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:298
+msgid "Print"
+msgstr "Argraffu"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:299
+#: vendor/tickets/src/views/tickets/rsvp.php:116
+msgid "Email"
+msgstr "E-bostio"
+
+#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:300
+msgid "Export"
+msgstr "Allforio"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:306
+msgid "Filter by purchaser name, ticket #, order # or security code"
+msgstr "Hidlo yn ôl enw'r prynwr, rhif tocyn, rhif archeb neu god diogelwch"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:327
+#: vendor/tickets/src/admin-views/list.php:34
+msgid "Delete"
+msgstr "Dileu"
+
+#: src/admin-views/admin-update-message.php:52
+#: vendor/tickets/src/Tribe/Admin/Ticket_Settings.php:22
+#: vendor/tickets/src/Tribe/Metabox.php:31
+msgid "Tickets"
+msgstr "Tocynnau"
+
+#: vendor/tickets/src/Tribe/Metabox.php:81
+msgid "Ticket header image"
+msgstr "Delwedd pennyn tocyn"
+
+#: vendor/tickets/src/Tribe/Metabox.php:82
+msgid "Set as ticket header"
+msgstr "Pennu fel pennyn tocyn"
+
+#: vendor/tickets/src/Tribe/Tickets.php:369
+msgid "Your ticket has been saved."
+msgstr "Mae eich tocyn wedi cael ei gadw."
+
+#: vendor/tickets/src/Tribe/Tickets.php:529
+msgid "Your ticket has been deleted."
+msgstr "Mae eich tocyn wedi cael ei ddileu."
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:84
+#: vendor/tickets/src/admin-views/list.php:71
+msgid "See who purchased tickets to this event"
+msgstr "Gweld pwy sydd wedi prynu tocynnau i'r digwyddiad yma"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:84
+#: vendor/tickets/src/admin-views/attendees.php:24
+#: vendor/tickets/src/admin-views/list.php:73
+msgid "Attendees"
+msgstr "Mynychwyr"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:121
+msgid "You need to select a user or type a valid email address"
+msgstr "Mae angen i chi ddewis defnyddiwr neu deipio cyfeiriad e-bost dilys i mewn"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:122
+msgid "Sending..."
+msgstr "Wrthi'n anfon..."
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:148
+msgid "Columns"
+msgstr "Colofnau"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:148
+msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
+msgstr "Gallwch chi ddefnyddio Opsiynau Sgrin i ddewis pa golofnau rydych chi am eu gweld. Mae'r dewis yn gweithio yn y tabl isod, yn yr e-bost, i'w argraffu ac ar gyfer allforio fel CSV."
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:285
+msgid "Yes"
+msgstr "Ie"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:314
+msgid "attendees"
+msgstr "mynychwyr"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:406
+msgid "Attendee List for: %s"
+msgstr "Rhestr Mynychwyr ar gyfer: %s"
+
+#: common/src/Tribe/Validate.php:76 common/src/Tribe/Validate.php:117
+#: vendor/tickets/common/src/Tribe/Validate.php:76
+#: vendor/tickets/common/src/Tribe/Validate.php:117
+msgid "Invalid or incomplete field passed"
+msgstr "Pasiwyd maes annilys neu faes heb ei gwblhau"
+
+#: common/src/Tribe/Validate.php:77 common/src/Tribe/Validate.php:112
+#: common/src/Tribe/Validate.php:118
+#: vendor/tickets/common/src/Tribe/Validate.php:77
+#: vendor/tickets/common/src/Tribe/Validate.php:112
+#: vendor/tickets/common/src/Tribe/Validate.php:118
+msgid "Field ID:"
+msgstr "ID Maes:"
+
+#: common/src/Tribe/Validate.php:111
+#: vendor/tickets/common/src/Tribe/Validate.php:111
+msgid "Non-existant field validation function passed"
+msgstr "Pasiwyd swyddogaeth ddilysu maes nad yw'n bodoli"
+
+#: common/src/Tribe/Validate.php:112
+#: vendor/tickets/common/src/Tribe/Validate.php:112
+msgctxt "non-existant function name passed for field validation"
+msgid "with function name:"
+msgstr "gyda'r enw swyddogaeth:"
+
+#: common/src/Tribe/Validate.php:135 common/src/Tribe/Validate.php:151
+#: vendor/tickets/common/src/Tribe/Validate.php:135
+#: vendor/tickets/common/src/Tribe/Validate.php:151
+msgid "%s must contain numbers and letters only"
+msgstr "Rhaid i %s gynnwys rhifau a llythrennau yn unig"
+
+#: common/src/Tribe/Validate.php:167
+#: vendor/tickets/common/src/Tribe/Validate.php:167
+msgid "%s must contain numbers, letters and dots only"
+msgstr "Rhaid i %s gynnwys rhifau, llythrennau a dotiau yn unig"
+
+#: common/src/Tribe/Validate.php:181 common/src/Tribe/Validate.php:209
+#: vendor/tickets/common/src/Tribe/Validate.php:181
+#: vendor/tickets/common/src/Tribe/Validate.php:209
+msgid "%s must be a positive number."
+msgstr "Rhaid i %s fod yn rhif positif."
+
+#: common/src/Tribe/Validate.php:224
+#: vendor/tickets/common/src/Tribe/Validate.php:224
+msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
+msgstr "Rhaid i %s fod yn fonyn dilys (rhif, llythyren, dash neu danlinellu)."
+
+#: common/src/Tribe/Validate.php:239
+#: vendor/tickets/common/src/Tribe/Validate.php:239
+msgid "%s must be a valid absolute URL."
+msgstr "Rhaid i %s fod yn URL gwirioneddol dilys."
+
+#: common/src/Tribe/Validate.php:255 common/src/Tribe/Validate.php:272
+#: common/src/Tribe/Validate.php:294
+#: vendor/tickets/common/src/Tribe/Validate.php:255
+#: vendor/tickets/common/src/Tribe/Validate.php:272
+#: vendor/tickets/common/src/Tribe/Validate.php:294
+msgid "%s must have a value that's part of its options."
+msgstr "Rhaid i %s gael gwerth sy'n rhan o'i opsiynau."
+
+#: common/src/Tribe/Validate.php:308
+#: vendor/tickets/common/src/Tribe/Validate.php:308
+msgid "Comparison validation failed because no comparison value was provided, for field %s"
+msgstr "Methodd y gymhariaeth ddilysu oherwydd ni chafodd gwerth cymharu ei ddarparu, ar gyfer maes %s"
+
+#: common/src/Tribe/Validate.php:315
+#: vendor/tickets/common/src/Tribe/Validate.php:315
+msgid "%s cannot be the same as %s."
+msgstr "Ni all %s fod yr un peth â %s."
+
+#: common/src/Tribe/Validate.php:317
+#: vendor/tickets/common/src/Tribe/Validate.php:317
+msgid "%s cannot be a duplicate"
+msgstr "Gall %s ddim bod yn ddyblygiad"
+
+#: common/src/Tribe/Validate.php:333
+#: vendor/tickets/common/src/Tribe/Validate.php:333
+msgid "%s must be a number or percentage."
+msgstr "Rhaid i %s fod yn rif neu'n ganran."
+
+#: common/src/Tribe/Validate.php:387
+#: vendor/tickets/common/src/Tribe/Validate.php:387
+msgid "%s must be a number between 0 and 21."
+msgstr "Rhaid i %s fod yn rif rhwng 0 a 21."
+
+#: common/src/Tribe/Validate.php:403
+#: vendor/tickets/common/src/Tribe/Validate.php:403
+msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
+msgstr "Rhaid i %s gynnwys llythrennau, rhifau, dashys, collnodau a bylchau yn unig."
+
+#: common/src/Tribe/Validate.php:419
+#: vendor/tickets/common/src/Tribe/Validate.php:419
+msgid "%s must consist of letters, spaces, apostrophes, and dashes."
+msgstr "Rhaid i %s gynnwys llythrennau, bylchau, collnodau a dashys."
+
+#: common/src/Tribe/Validate.php:433
+#: vendor/tickets/common/src/Tribe/Validate.php:433
+msgid "%s must consist of 5 numbers."
+msgstr "Rhaid i %s gynnwys 5 rhif."
+
+#: common/src/Tribe/Validate.php:447
+#: vendor/tickets/common/src/Tribe/Validate.php:447
+msgid "%s must be a phone number."
+msgstr "Rhaid i %s fod yn rif ffôn."
+
+#: common/src/Tribe/Validate.php:463
+#: vendor/tickets/common/src/Tribe/Validate.php:463
+msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
+msgstr "Rhaid i'r Rhestr o Wledydd gael ei fformadu ar ffurf un wlad i bob llinell, fel hyn: <br>UDA, Unol Daleithiau America <br> Y DU, Y Deyrnas Unedig."
+
+#: common/src/Tribe/View_Helpers.php:26 common/src/Tribe/View_Helpers.php:45
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:26
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:45
+msgid "Select a Country:"
+msgstr "Dewiswch Wlad:"
+
+#: common/src/Tribe/View_Helpers.php:47
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:47
+msgid "Afghanistan"
+msgstr "Afghanistan"
+
+#: common/src/Tribe/View_Helpers.php:48
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:48
+msgid "Albania"
+msgstr "Albania"
+
+#: common/src/Tribe/View_Helpers.php:49
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:49
+msgid "Algeria"
+msgstr "Algeria"
+
+#: common/src/Tribe/View_Helpers.php:50
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:50
+msgid "American Samoa"
+msgstr "Samoa America"
+
+#: common/src/Tribe/View_Helpers.php:51
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:51
+msgid "Andorra"
+msgstr "Andorra"
+
+#: common/src/Tribe/View_Helpers.php:52
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:52
+msgid "Angola"
+msgstr "Angola"
+
+#: common/src/Tribe/View_Helpers.php:53
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:53
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: common/src/Tribe/View_Helpers.php:54
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:54
+msgid "Antarctica"
+msgstr "Antarctica"
+
+#: common/src/Tribe/View_Helpers.php:55
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:55
+msgid "Antigua And Barbuda"
+msgstr "Antigua a Barbuda"
+
+#: common/src/Tribe/View_Helpers.php:56
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:56
+msgid "Argentina"
+msgstr "Ariannin"
+
+#: common/src/Tribe/View_Helpers.php:57
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:57
+msgid "Armenia"
+msgstr "Armenia"
+
+#: common/src/Tribe/View_Helpers.php:58
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:58
+msgid "Aruba"
+msgstr "Aruba"
+
+#: common/src/Tribe/View_Helpers.php:59
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:59
+msgid "Australia"
+msgstr "Awstralia"
+
+#: common/src/Tribe/View_Helpers.php:60
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:60
+msgid "Austria"
+msgstr "Awstria"
+
+#: common/src/Tribe/View_Helpers.php:61
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:61
+msgid "Azerbaijan"
+msgstr "Azerbaijan"
+
+#: common/src/Tribe/View_Helpers.php:62
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:62
+msgid "Bahamas"
+msgstr "Bahamas"
+
+#: common/src/Tribe/View_Helpers.php:63
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:63
+msgid "Bahrain"
+msgstr "Bahrain"
+
+#: common/src/Tribe/View_Helpers.php:64
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:64
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+#: common/src/Tribe/View_Helpers.php:65
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:65
+msgid "Barbados"
+msgstr "Barbados"
+
+#: common/src/Tribe/View_Helpers.php:66
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:66
+msgid "Belarus"
+msgstr "Belarus"
+
+#: common/src/Tribe/View_Helpers.php:67
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:67
+msgid "Belgium"
+msgstr "Gwlad Belg"
+
+#: common/src/Tribe/View_Helpers.php:68
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:68
+msgid "Belize"
+msgstr "Belize"
+
+#: common/src/Tribe/View_Helpers.php:69
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:69
+msgid "Benin"
+msgstr "Benin"
+
+#: common/src/Tribe/View_Helpers.php:70
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:70
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: common/src/Tribe/View_Helpers.php:71
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:71
+msgid "Bhutan"
+msgstr "Bhutan"
+
+#: common/src/Tribe/View_Helpers.php:72
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:72
+msgid "Bolivia"
+msgstr "Bolivia"
+
+#: common/src/Tribe/View_Helpers.php:73
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:73
+msgid "Bosnia And Herzegowina"
+msgstr "Bosna-Hercegovina"
+
+#: common/src/Tribe/View_Helpers.php:74
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:74
+msgid "Botswana"
+msgstr "Botswana"
+
+#: common/src/Tribe/View_Helpers.php:75
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:75
+msgid "Bouvet Island"
+msgstr "Ynys Bouvet"
+
+#: common/src/Tribe/View_Helpers.php:76
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:76
+msgid "Brazil"
+msgstr "Brasil"
+
+#: common/src/Tribe/View_Helpers.php:77
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:77
+msgid "British Indian Ocean Territory"
+msgstr "Tiriogaeth Cefnfor India Prydain"
+
+#: common/src/Tribe/View_Helpers.php:78
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:78
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+#: common/src/Tribe/View_Helpers.php:79
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:79
+msgid "Bulgaria"
+msgstr "Bwlgaria"
+
+#: common/src/Tribe/View_Helpers.php:80
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:80
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: common/src/Tribe/View_Helpers.php:81
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:81
+msgid "Burundi"
+msgstr "Burundi"
+
+#: common/src/Tribe/View_Helpers.php:82
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:82
+msgid "Cambodia"
+msgstr "Cambodia"
+
+#: common/src/Tribe/View_Helpers.php:83
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:83
+msgid "Cameroon"
+msgstr "Cameroon"
+
+#: common/src/Tribe/View_Helpers.php:84
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:84
+msgid "Canada"
+msgstr "Canada"
+
+#: common/src/Tribe/View_Helpers.php:85
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:85
+msgid "Cape Verde"
+msgstr "Cabo Verde"
+
+#: common/src/Tribe/View_Helpers.php:86
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:86
+msgid "Cayman Islands"
+msgstr "Ynysoedd Cayman"
+
+#: common/src/Tribe/View_Helpers.php:87
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:87
+msgid "Central African Republic"
+msgstr "Gweriniaeth Canol Affrica"
+
+#: common/src/Tribe/View_Helpers.php:88
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:88
+msgid "Chad"
+msgstr "Tchad"
+
+#: common/src/Tribe/View_Helpers.php:89
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:89
+msgid "Chile"
+msgstr "Chile"
+
+#: common/src/Tribe/View_Helpers.php:90
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:90
+msgid "China"
+msgstr "Tsieina"
+
+#: common/src/Tribe/View_Helpers.php:91
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:91
+msgid "Christmas Island"
+msgstr "Ynys Chrisrmas"
+
+#: common/src/Tribe/View_Helpers.php:92
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:92
+msgid "Cocos (Keeling) Islands"
+msgstr "Ynysoedd Coco (Keeling)"
+
+#: common/src/Tribe/View_Helpers.php:93
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:93
+msgid "Colombia"
+msgstr "Colombia"
+
+#: common/src/Tribe/View_Helpers.php:94
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:94
+msgid "Comoros"
+msgstr "Comoros"
+
+#: common/src/Tribe/View_Helpers.php:95
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:95
+msgid "Congo"
+msgstr "Congo"
+
+#: common/src/Tribe/View_Helpers.php:96
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:96
+msgid "Congo, The Democratic Republic Of The"
+msgstr "Gweriniaeth Ddemocrataidd Congo"
+
+#: common/src/Tribe/View_Helpers.php:97
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:97
+msgid "Cook Islands"
+msgstr "Ynysoedd Cook"
+
+#: common/src/Tribe/View_Helpers.php:98
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:98
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: common/src/Tribe/View_Helpers.php:99
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:99
+msgid "Cote D'Ivoire"
+msgstr "Côte d’Ivoire"
+
+#: common/src/Tribe/View_Helpers.php:100
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:100
+msgid "Croatia (Local Name: Hrvatska)"
+msgstr "Croatia (Enw Lleol: Hrvatska)"
+
+#: common/src/Tribe/View_Helpers.php:101
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:101
+msgid "Cuba"
+msgstr "Cuba"
+
+#: common/src/Tribe/View_Helpers.php:102
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:102
+msgid "Cyprus"
+msgstr "Cyprus"
+
+#: common/src/Tribe/View_Helpers.php:103
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:103
+msgid "Czech Republic"
+msgstr "Y Weriniaeth Tsiec"
+
+#: common/src/Tribe/View_Helpers.php:104
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:104
+msgid "Denmark"
+msgstr "Denmarc"
+
+#: common/src/Tribe/View_Helpers.php:105
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:105
+msgid "Djibouti"
+msgstr "Djibouti"
+
+#: common/src/Tribe/View_Helpers.php:106
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:106
+msgid "Dominica"
+msgstr "Dominica"
+
+#: common/src/Tribe/View_Helpers.php:107
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:107
+msgid "Dominican Republic"
+msgstr "Gweriniaeth Dominica"
+
+#: common/src/Tribe/View_Helpers.php:108
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:108
+msgid "East Timor"
+msgstr "Dwyrain Timor"
+
+#: common/src/Tribe/View_Helpers.php:109
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:109
+msgid "Ecuador"
+msgstr "Ecuador"
+
+#: common/src/Tribe/View_Helpers.php:110
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:110
+msgid "Egypt"
+msgstr "Yr Aifft"
+
+#: common/src/Tribe/View_Helpers.php:111
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:111
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: common/src/Tribe/View_Helpers.php:112
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:112
+msgid "Equatorial Guinea"
+msgstr "Guinea Gyhydeddol"
+
+#: common/src/Tribe/View_Helpers.php:113
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:113
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: common/src/Tribe/View_Helpers.php:114
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:114
+msgid "Estonia"
+msgstr "Estonia"
+
+#: common/src/Tribe/View_Helpers.php:115
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:115
+msgid "Ethiopia"
+msgstr "Ethiopia"
+
+#: common/src/Tribe/View_Helpers.php:116
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:116
+msgid "Falkland Islands (Malvinas)"
+msgstr "Ynysoedd Falkland (Malvinas)"
+
+#: common/src/Tribe/View_Helpers.php:117
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:117
+msgid "Faroe Islands"
+msgstr "Ynysoedd Føroyar"
+
+#: common/src/Tribe/View_Helpers.php:118
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:118
+msgid "Fiji"
+msgstr "Fiji"
+
+#: common/src/Tribe/View_Helpers.php:119
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:119
+msgid "Finland"
+msgstr "Y Ffindir"
+
+#: common/src/Tribe/View_Helpers.php:120
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:120
+msgid "France"
+msgstr "Ffrainc"
+
+#: common/src/Tribe/View_Helpers.php:121
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:121
+msgid "France, Metropolitan"
+msgstr "Ffrainc Metropolitan"
+
+#: common/src/Tribe/View_Helpers.php:122
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:122
+msgid "French Guiana"
+msgstr "Guyane Ffrengig"
+
+#: common/src/Tribe/View_Helpers.php:123
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:123
+msgid "French Polynesia"
+msgstr "Polynesia Ffrengig"
+
+#: common/src/Tribe/View_Helpers.php:124
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:124
+msgid "French Southern Territories"
+msgstr "Tiriogaeth Ddeheuol Ffrainc"
+
+#: common/src/Tribe/View_Helpers.php:125
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:125
+msgid "Gabon"
+msgstr "Gabon"
+
+#: common/src/Tribe/View_Helpers.php:126
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:126
+msgid "Gambia"
+msgstr "Gambia"
+
+#: common/src/Tribe/View_Helpers.php:127 common/src/Tribe/View_Helpers.php:326
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:127
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:326
+msgid "Georgia"
+msgstr "Georgia"
+
+#: common/src/Tribe/View_Helpers.php:128
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:128
+msgid "Germany"
+msgstr "Yr Almaen"
+
+#: common/src/Tribe/View_Helpers.php:129
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:129
+msgid "Ghana"
+msgstr "Ghana"
+
+#: common/src/Tribe/View_Helpers.php:130
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:130
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: common/src/Tribe/View_Helpers.php:131
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:131
+msgid "Greece"
+msgstr "Groeg"
+
+#: common/src/Tribe/View_Helpers.php:132
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:132
+msgid "Greenland"
+msgstr "Grønland"
+
+#: common/src/Tribe/View_Helpers.php:133
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:133
+msgid "Grenada"
+msgstr "Grenada"
+
+#: common/src/Tribe/View_Helpers.php:134
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:134
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+#: common/src/Tribe/View_Helpers.php:135
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:135
+msgid "Guam"
+msgstr "Guam"
+
+#: common/src/Tribe/View_Helpers.php:136
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:136
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: common/src/Tribe/View_Helpers.php:137
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:137
+msgid "Guinea"
+msgstr "Guinée"
+
+#: common/src/Tribe/View_Helpers.php:138
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:138
+msgid "Guinea-Bissau"
+msgstr "Guiné-Bissau"
+
+#: common/src/Tribe/View_Helpers.php:139
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:139
+msgid "Guyana"
+msgstr "Guyana"
+
+#: common/src/Tribe/View_Helpers.php:140
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:140
+msgid "Haiti"
+msgstr "Haiti"
+
+#: common/src/Tribe/View_Helpers.php:141
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:141
+msgid "Heard And Mc Donald Islands"
+msgstr "Ynysoedd Heard a McDonald"
+
+#: common/src/Tribe/View_Helpers.php:142
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:142
+msgid "Holy See (Vatican City State)"
+msgstr "Holy See (Gwladwriaeth Dinas y Fatican)"
+
+#: common/src/Tribe/View_Helpers.php:143
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:143
+msgid "Honduras"
+msgstr "Honduras"
+
+#: common/src/Tribe/View_Helpers.php:144
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:144
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: common/src/Tribe/View_Helpers.php:145
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:145
+msgid "Hungary"
+msgstr "Hwngari"
+
+#: common/src/Tribe/View_Helpers.php:146
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:146
+msgid "Iceland"
+msgstr "Gwlad yr Iâ"
+
+#: common/src/Tribe/View_Helpers.php:147
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:147
+msgid "India"
+msgstr "India"
+
+#: common/src/Tribe/View_Helpers.php:148
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:148
+msgid "Indonesia"
+msgstr "Indonesia"
+
+#: common/src/Tribe/View_Helpers.php:149
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:149
+msgid "Iran (Islamic Republic Of)"
+msgstr "Iran (Gweriniaeth Islamaidd)"
+
+#: common/src/Tribe/View_Helpers.php:150
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:150
+msgid "Iraq"
+msgstr "Iraq"
+
+#: common/src/Tribe/View_Helpers.php:151
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:151
+msgid "Ireland"
+msgstr "Iwerddon"
+
+#: common/src/Tribe/View_Helpers.php:152
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:152
+msgid "Israel"
+msgstr "Israel"
+
+#: common/src/Tribe/View_Helpers.php:153
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:153
+msgid "Italy"
+msgstr "Yr Eidal"
+
+#: common/src/Tribe/View_Helpers.php:154
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:154
+msgid "Jamaica"
+msgstr "Jamaica"
+
+#: common/src/Tribe/View_Helpers.php:155
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:155
+msgid "Japan"
+msgstr "Japan"
+
+#: common/src/Tribe/View_Helpers.php:156
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:156
+msgid "Jordan"
+msgstr "Gwlad Iorddonen"
+
+#: common/src/Tribe/View_Helpers.php:157
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:157
+msgid "Kazakhstan"
+msgstr "Kazakstan"
+
+#: common/src/Tribe/View_Helpers.php:158
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:158
+msgid "Kenya"
+msgstr "Kenya"
+
+#: common/src/Tribe/View_Helpers.php:159
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:159
+msgid "Kiribati"
+msgstr "Kiribati"
+
+#: common/src/Tribe/View_Helpers.php:160
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:160
+msgid "Korea, Democratic People's Republic Of"
+msgstr "Korea, Gweriniaeth Democrataidd Pobl"
+
+#: common/src/Tribe/View_Helpers.php:161
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:161
+msgid "Korea, Republic Of"
+msgstr "Korea, Gweriniaeth"
+
+#: common/src/Tribe/View_Helpers.php:162
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:162
+msgid "Kuwait"
+msgstr "Kuwait"
+
+#: common/src/Tribe/View_Helpers.php:163
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:163
+msgid "Kyrgyzstan"
+msgstr "Kyrgyzstan"
+
+#: common/src/Tribe/View_Helpers.php:164
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:164
+msgid "Lao People's Democratic Republic"
+msgstr "Gweriniaeth Ddemocrataidd Pobl Lao"
+
+#: common/src/Tribe/View_Helpers.php:165
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:165
+msgid "Latvia"
+msgstr "Latvia"
+
+#: common/src/Tribe/View_Helpers.php:166
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:166
+msgid "Lebanon"
+msgstr "Libanus"
+
+#: common/src/Tribe/View_Helpers.php:167
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:167
+msgid "Lesotho"
+msgstr "Lesotho"
+
+#: common/src/Tribe/View_Helpers.php:168
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:168
+msgid "Liberia"
+msgstr "Liberia"
+
+#: common/src/Tribe/View_Helpers.php:169
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:169
+msgid "Libya"
+msgstr "Libya"
+
+#: common/src/Tribe/View_Helpers.php:170
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:170
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: common/src/Tribe/View_Helpers.php:171
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:171
+msgid "Lithuania"
+msgstr "Lithuania"
+
+#: common/src/Tribe/View_Helpers.php:172
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:172
+msgid "Luxembourg"
+msgstr "Lwcsembwrg"
+
+#: common/src/Tribe/View_Helpers.php:173
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:173
+msgid "Macau"
+msgstr "Macau"
+
+#: common/src/Tribe/View_Helpers.php:174
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:174
+msgid "Macedonia"
+msgstr "Macedonia"
+
+#: common/src/Tribe/View_Helpers.php:175
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:175
+msgid "Madagascar"
+msgstr "Madagascar"
+
+#: common/src/Tribe/View_Helpers.php:176
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:176
+msgid "Malawi"
+msgstr "Malawi"
+
+#: common/src/Tribe/View_Helpers.php:177
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:177
+msgid "Malaysia"
+msgstr "Malaysia"
+
+#: common/src/Tribe/View_Helpers.php:178
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:178
+msgid "Maldives"
+msgstr "Maldives"
+
+#: common/src/Tribe/View_Helpers.php:179
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:179
+msgid "Mali"
+msgstr "Mali"
+
+#: common/src/Tribe/View_Helpers.php:180
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:180
+msgid "Malta"
+msgstr "Malta"
+
+#: common/src/Tribe/View_Helpers.php:181
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:181
+msgid "Marshall Islands"
+msgstr "Ynysoedd Marshall"
+
+#: common/src/Tribe/View_Helpers.php:182
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:182
+msgid "Martinique"
+msgstr "Martinique"
+
+#: common/src/Tribe/View_Helpers.php:183
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:183
+msgid "Mauritania"
+msgstr "Mauritania"
+
+#: common/src/Tribe/View_Helpers.php:184
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:184
+msgid "Mauritius"
+msgstr "Mauritius"
+
+#: common/src/Tribe/View_Helpers.php:185
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:185
+msgid "Mayotte"
+msgstr "Mayotte"
+
+#: common/src/Tribe/View_Helpers.php:186
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:186
+msgid "Mexico"
+msgstr "Mecsico"
+
+#: common/src/Tribe/View_Helpers.php:187
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:187
+msgid "Micronesia, Federated States Of"
+msgstr "Micronesia, Taleithiau Ffederal"
+
+#: common/src/Tribe/View_Helpers.php:188
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:188
+msgid "Moldova, Republic Of"
+msgstr "Moldova, Gweriniaeth"
+
+#: common/src/Tribe/View_Helpers.php:189
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:189
+msgid "Monaco"
+msgstr "Monaco"
+
+#: common/src/Tribe/View_Helpers.php:190
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:190
+msgid "Mongolia"
+msgstr "Mongolia"
+
+#: common/src/Tribe/View_Helpers.php:191
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:191
+msgid "Montenegro"
+msgstr "Montenegro"
+
+#: common/src/Tribe/View_Helpers.php:192
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:192
+msgid "Montserrat"
+msgstr "Montserrat"
+
+#: common/src/Tribe/View_Helpers.php:193
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:193
+msgid "Morocco"
+msgstr "Moroco"
+
+#: common/src/Tribe/View_Helpers.php:194
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:194
+msgid "Mozambique"
+msgstr "Moçambique"
+
+#: common/src/Tribe/View_Helpers.php:195
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:195
+msgid "Myanmar"
+msgstr "Myanmar"
+
+#: common/src/Tribe/View_Helpers.php:196
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:196
+msgid "Namibia"
+msgstr "Namibia"
+
+#: common/src/Tribe/View_Helpers.php:197
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:197
+msgid "Nauru"
+msgstr "Nauru"
+
+#: common/src/Tribe/View_Helpers.php:198
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:198
+msgid "Nepal"
+msgstr "Nepal"
+
+#: common/src/Tribe/View_Helpers.php:199
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:199
+msgid "Netherlands"
+msgstr "Yr Iseldiroedd"
+
+#: common/src/Tribe/View_Helpers.php:200
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:200
+msgid "Netherlands Antilles"
+msgstr "Antilles yr Iseldiroedd"
+
+#: common/src/Tribe/View_Helpers.php:201
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:201
+msgid "New Caledonia"
+msgstr "Caledonia Newydd"
+
+#: common/src/Tribe/View_Helpers.php:202
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:202
+msgid "New Zealand"
+msgstr "Seland Newydd"
+
+#: common/src/Tribe/View_Helpers.php:203
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:203
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+#: common/src/Tribe/View_Helpers.php:204
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:204
+msgid "Niger"
+msgstr "Niger"
+
+#: common/src/Tribe/View_Helpers.php:205
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:205
+msgid "Nigeria"
+msgstr "Nigeria"
+
+#: common/src/Tribe/View_Helpers.php:206
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:206
+msgid "Niue"
+msgstr "Niue"
+
+#: common/src/Tribe/View_Helpers.php:207
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:207
+msgid "Norfolk Island"
+msgstr "Ynys Norfolk"
+
+#: common/src/Tribe/View_Helpers.php:208
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:208
+msgid "Northern Mariana Islands"
+msgstr "Ynysoedd Gogledd Mariana"
+
+#: common/src/Tribe/View_Helpers.php:209
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:209
+msgid "Norway"
+msgstr "Norwy"
+
+#: common/src/Tribe/View_Helpers.php:210
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:210
+msgid "Oman"
+msgstr "Oman"
+
+#: common/src/Tribe/View_Helpers.php:211
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:211
+msgid "Pakistan"
+msgstr "Pakistan"
+
+#: common/src/Tribe/View_Helpers.php:212
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:212
+msgid "Palau"
+msgstr "Palau"
+
+#: common/src/Tribe/View_Helpers.php:213
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:213
+msgid "Panama"
+msgstr "Panama"
+
+#: common/src/Tribe/View_Helpers.php:214
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:214
+msgid "Papua New Guinea"
+msgstr "Papua Guinea Newydd"
+
+#: common/src/Tribe/View_Helpers.php:215
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:215
+msgid "Paraguay"
+msgstr "Paraguai"
+
+#: common/src/Tribe/View_Helpers.php:216
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:216
+msgid "Peru"
+msgstr "Periw"
+
+#: common/src/Tribe/View_Helpers.php:217
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:217
+msgid "Philippines"
+msgstr "Pilipinas"
+
+#: common/src/Tribe/View_Helpers.php:218
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:218
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+#: src/Tribe/API.php:458
+msgid "Unnamed Venue"
+msgstr "Lleoliad heb ei Enwi"
+
+#: common/src/Tribe/View_Helpers.php:46 src/Tribe/API.php:540
+#: src/functions/template-tags/venue.php:272
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:46
+msgid "United States"
+msgstr "Yr Unol Daleithiau"
+
+#: src/Tribe/Activation_Page.php:38
+msgid "Go to plugins page"
+msgstr ""
+
+#: src/Tribe/Activation_Page.php:38
+msgid "Return to Plugins page"
+msgstr ""
+
+#: src/Tribe/Activation_Page.php:46
+msgid "Go to WordPress Updates page"
+msgstr ""
+
+#: src/Tribe/Activation_Page.php:46
+msgid "Return to WordPress Updates"
+msgstr ""
+
+#: src/Tribe/Activation_Page.php:192
+msgid "Welcome to The Events Calendar"
+msgstr "Croeso i The Events Calendar"
+
+#: src/Tribe/Activation_Page.php:212
+msgid "Thanks for Updating The Events Calendar"
+msgstr "Diolch am Ddiweddaru The Events Calendar"
+
+#: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:88
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:88
+msgid "<a href=\"%s\">Edit the page slug</a>"
+msgstr ""
+
+#: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:89
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:89
+msgid "Ask the site administrator to edit the page slug"
+msgstr ""
+
+#: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:95
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:95
+msgid " ask the site administrator set a different Events URL slug."
+msgstr ""
+
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:108 src/Tribe/Main.php:1695
+#: src/Tribe/Main.php:1768
+msgid "Use Saved %s:"
+msgstr "Defnyddio %s sydd wedi'i Gadw:"
+
+#: src/Tribe/Admin/Bar/Default_Configurator.php:62
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:138 src/Tribe/Main.php:1505
+#: src/Tribe/Main.php:1523 src/Tribe/Main.php:1541 src/Tribe/Main.php:1704
+#: src/Tribe/Main.php:1770
+msgid "Edit %s"
+msgstr "Golygu %s"
+
+#: src/Tribe/Admin/Timezone_Updater.php:77
+msgid "Please wait while timezone data is added to your events."
+msgstr ""
+
+#: src/Tribe/Admin/Timezone_Updater.php:78
+msgid "Update complete: timezone data has been added to all events in the database."
+msgstr ""
+
+#: src/Tribe/Admin/Timezone_Updater.php:87
+msgid "%d%% complete"
+msgstr ""
+
+#: src/Tribe/Admin/Timezone_Updater.php:105
+msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
+msgstr ""
+
+#: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1555
+msgid "%s Categories"
+msgstr ""
+
+#: src/Tribe/Admin_List.php:252
+msgid "Start Date"
+msgstr "Dyddiad Cychwyn"
+
+#: src/Tribe/Admin_List.php:253
+msgid "End Date"
+msgstr "Dyddiad Gorffen"
+
+#: src/Tribe/Admin_List.php:330 src/views/single-event.php:27
+msgid "All %s"
+msgstr "Pob %s"
+
+#: src/Tribe/Advanced_Functions/Register_Meta.php:37
+#: src/Tribe/Advanced_Functions/Register_Meta.php:69
+#: src/views/modules/meta/details.php:65 src/views/modules/meta/details.php:90
+msgid "Start:"
+msgstr "Cychwyn:"
+
+#: src/Tribe/Advanced_Functions/Register_Meta.php:46
+#: src/Tribe/Advanced_Functions/Register_Meta.php:78
+#: src/views/modules/meta/details.php:70 src/views/modules/meta/details.php:95
+msgid "End:"
+msgstr "Gorffen:"
+
+#: src/Tribe/Advanced_Functions/Register_Meta.php:57
+#: src/Tribe/Advanced_Functions/Register_Meta.php:89
+#: src/views/modules/meta/details.php:80 src/views/modules/meta/details.php:105
+msgid "Date:"
+msgstr "Dyddiad:"
+
+#: src/Tribe/Advanced_Functions/Register_Meta.php:100
+#: src/Tribe/Advanced_Functions/Register_Meta.php:111
+#: src/views/modules/meta/details.php:48
+msgid "Time:"
+msgstr "Amser:"
+
+#: src/Tribe/Amalgamator.php:253 src/admin-views/tribe-options-general.php:131
+msgid "Merge Duplicates"
+msgstr "Uno Dyblygiadau"
+
+#: common/src/Tribe/App_Shop.php:67 common/src/Tribe/App_Shop.php:68
+#: common/src/Tribe/App_Shop.php:91
+#: vendor/tickets/common/src/Tribe/App_Shop.php:67
+#: vendor/tickets/common/src/Tribe/App_Shop.php:68
+#: vendor/tickets/common/src/Tribe/App_Shop.php:91
+msgid "Event Add-Ons"
+msgstr "Ychwanegion Digwyddiadau"
+
+#: src/Tribe/Cost_Utils.php:157
+msgctxt "Cost range separator"
+msgid " - "
+msgstr ""
+
+#: src/Tribe/Cost_Utils.php:174
+msgid "Free"
+msgstr "Am Ddim"
+
+#: common/src/Tribe/Credits.php:26
+#: vendor/tickets/common/src/Tribe/Credits.php:26
+msgid "This calendar is powered by The Events Calendar."
+msgstr "Pwerir y calendr yma gan The Events Calendar."
+
+#: common/src/Tribe/Field.php:209 vendor/tickets/common/src/Tribe/Field.php:209
+msgid "Invalid field type specified"
+msgstr "Nodwyd math o faes annilys"
+
+#: common/src/Tribe/Field.php:466 vendor/tickets/common/src/Tribe/Field.php:466
+msgid "No radio options specified"
+msgstr "Nid oes opsiynau radio wedi'u nodi"
+
+#: common/src/Tribe/Field.php:502 vendor/tickets/common/src/Tribe/Field.php:502
+msgid "No checkbox options specified"
+msgstr "Nid oes opsiynau blychau ticio wedi'u nodi"
+
+#: common/src/Tribe/Field.php:558 vendor/tickets/common/src/Tribe/Field.php:558
+msgid "No select options specified"
+msgstr "Nid oes opsiynau dewis wedi'u nodi"
+
+#: src/Tribe/Admin/Bar/Default_Configurator.php:73
+#: src/Tribe/Importer/Admin_Page.php:68 src/Tribe/Importer/Admin_Page.php:69
+msgid "Import"
+msgstr "Mewnforio"
+
+#: src/Tribe/Importer/Admin_Page.php:149 src/Tribe/Importer/Admin_Page.php:303
+msgid "The file went away. Please try again."
+msgstr "Fe wnaeth y ffeil ddianc. Rhowch gynnig arall arni."
+
+#: common/src/Tribe/Settings_Manager.php:55
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:55
+msgid "General"
+msgstr "Cyffredinol"
+
+#: src/Tribe/Importer/Admin_Page.php:269
+msgid "We were unable to process your request. Please try again."
+msgstr "Nid oedden ni'n gallu prosesu eich cais. Rhowch gynnig arall arni."
+
+#: src/Tribe/Importer/Admin_Page.php:310
+msgid "The following fields are required for a successful import:"
+msgstr ""
+
+#: src/Tribe/Importer/Column_Mapper.php:33
+msgid "Do Not Import"
+msgstr "Peidio â Mewnforio"
+
+#: src/Tribe/Importer/Column_Mapper.php:52
+msgid "Event Name"
+msgstr "Enw'r Digwyddiad"
+
+#: src/Tribe/Importer/Column_Mapper.php:53
+msgid "Event Description"
+msgstr "Disgrifiad o'r Digwyddiad"
+
+#: src/Tribe/Importer/Column_Mapper.php:54
+msgid "Event Start Date"
+msgstr "Dyddiad Dechrau'r Digwyddiad"
+
+#: src/Tribe/Importer/Column_Mapper.php:55
+msgid "Event Start Time"
+msgstr "Amser Cychwyn y Digwyddiad"
+
+#: src/Tribe/Importer/Column_Mapper.php:56
+msgid "Event End Date"
+msgstr "Dyddiad Gorffen y Digwyddiad"
+
+#: src/Tribe/Importer/Column_Mapper.php:57
+msgid "Event End Time"
+msgstr "Amser Gorffen y Digwyddiad"
+
+#: src/Tribe/Importer/Column_Mapper.php:58
+msgid "All Day Event"
+msgstr "Digwyddiad Drwy'r Dydd"
+
+#: src/Tribe/Importer/Column_Mapper.php:59
+msgid "Event Venue Name"
+msgstr "Enw Lleoliad y Digwyddiad"
+
+#: src/Tribe/Importer/Column_Mapper.php:60
+msgid "Event Organizer Name"
+msgstr "Enw Trefnydd y Digwyddiad"
+
+#: src/Tribe/Importer/Column_Mapper.php:61
+msgid "Event Show Map Link"
+msgstr "Dolen at Fap o'r Digwyddiad"
+
+#: src/Tribe/Importer/Column_Mapper.php:62
+msgid "Event Show Map"
+msgstr "Dangos Map o'r Digwyddiad"
+
+#: src/Tribe/Importer/Column_Mapper.php:63
+msgid "Event Cost"
+msgstr "Pris y Digwyddiad"
+
+#: src/Tribe/Importer/Column_Mapper.php:64
+msgid "Event Currency Symbol"
+msgstr ""
+
+#: src/Tribe/Importer/Column_Mapper.php:65
+msgid "Event Currency Position"
+msgstr ""
+
+#: src/Tribe/Importer/Column_Mapper.php:66
+msgid "Event Category"
+msgstr "Categori'r Digwyddiad"
+
+#: src/Tribe/Importer/Column_Mapper.php:67
+msgid "Event Tags"
+msgstr ""
+
+#: src/Tribe/Importer/Column_Mapper.php:68
+msgid "Event Website"
+msgstr "Gwefan y Digwyddiad"
+
+#: src/Tribe/Importer/Column_Mapper.php:75
+msgid "Venue Name"
+msgstr "Enw'r Lleoliad"
+
+#: src/Tribe/Importer/Column_Mapper.php:76
+msgid "Venue Country"
+msgstr "Gwlad y Lleoliad"
+
+#: src/Tribe/Importer/Column_Mapper.php:77
+msgid "Venue Address"
+msgstr "Cyfeiriad y Lleoliad"
+
+#: src/Tribe/Importer/Column_Mapper.php:78
+msgid "Venue Address 2"
+msgstr "Cyfeiriad y Lleoliad 2"
+
+#: src/Tribe/Importer/Column_Mapper.php:79
+msgid "Venue City"
+msgstr "Venue City"
+
+#: src/Tribe/Importer/Column_Mapper.php:80
+msgid "Venue State/Province"
+msgstr "Gwladwriaeth/Talaith y Lleoliad"
+
+#: src/Tribe/Importer/Column_Mapper.php:81
+msgid "Venue Zip"
+msgstr "Cod Post y Lleoliad"
+
+#: src/Tribe/Importer/Column_Mapper.php:82
+msgid "Venue Phone"
+msgstr "Rhif Ffôn y Lleoliad"
+
+#: src/Tribe/Importer/Column_Mapper.php:83
+msgid "Venue Website"
+msgstr ""
+
+#: src/Tribe/Importer/Column_Mapper.php:90
+msgid "Organizer Name"
+msgstr "Enw'r Trefnydd"
+
+#: src/Tribe/Importer/Column_Mapper.php:91
+msgid "Organizer Email"
+msgstr "Cyfeiriad E-bost y Trefnydd"
+
+#: src/Tribe/Importer/Column_Mapper.php:92
+msgid "Organizer Website"
+msgstr "Gwefan y Trefnydd"
+
+#: src/Tribe/Importer/Column_Mapper.php:93
+msgid "Organizer Phone"
+msgstr "Rhif Ffôn y Trefnydd"
+
+#: src/Tribe/Importer/File_Importer.php:43
+msgid "No importer defined for %s"
+msgstr "Nid oes mewnforiwr wedi'i ddiffinio ar gyfer %s"
+
+#: src/Tribe/Importer/File_Importer.php:117
+msgid "Missing required fields in row %d."
+msgstr "Meysydd angenrheidiol ar goll yn rhes %d,"
+
+#: src/Tribe/Importer/File_Importer.php:128
+msgid "Failed to import record in row %d."
+msgstr "Methwyd â mewnforio cofnod yn rhes %d."
+
+#: src/Tribe/Importer/File_Importer.php:139
+msgid "%s (post ID %d) updated."
+msgstr "Cafodd %s (ID cofnod %d) ei ddiweddaru."
+
+#: src/Tribe/Importer/File_Importer.php:143
+msgid "%s (post ID %d) created."
+msgstr "Cafodd %s (ID cofnod %d) ei greu."
+
+#: src/Tribe/Importer/File_Uploader.php:28
+msgid "Temporary file not found. Could not save %s."
+msgstr "Methwyd â dod o hyd i'r ffeil dros dro. Methwyd â chadw %s."
+
+#: src/Tribe/Importer/File_Uploader.php:36
+msgid "Could not save %s."
+msgstr "Methwyd â chadw %s."
+
+#: common/src/Tribe/Settings.php:583 src/Tribe/Importer/Options.php:53
+#: vendor/tickets/common/src/Tribe/Settings.php:583
+msgid "Settings saved."
+msgstr "Gosodiadau wedi'u cadw."
+
+#: src/Tribe/List_Widget.php:30
+msgid "A widget that displays upcoming events."
+msgstr "Teclyn sy'n dangos digwyddiadau sydd ar y gweill."
+
+#: src/Tribe/List_Widget.php:38
+msgid "Events List"
+msgstr "Rhestr o Ddigwyddiadau"
+
+#: src/Tribe/List_Widget.php:186
+msgid "Upcoming Events"
+msgstr "Digwyddiadau sydd ar y Gweill"
+
+#: src/Tribe/Main.php:678 src/functions/template-tags/venue.php:52
+#: src/io/csv/admin-views/import.php:45
+msgid "Venues"
+msgstr "Lleoliadau"
+
+#: src/Tribe/Main.php:686
+#: src/functions/advanced-functions/meta_registration.php:126
+#: src/functions/template-tags/venue.php:41
+msgid "Venue"
+msgstr "Lleoliad"
+
+#: src/Tribe/Main.php:694 src/functions/template-tags/organizer.php:86
+#: src/io/csv/admin-views/import.php:46
+msgid "Organizers"
+msgstr "Trefnwyr"
+
+#: src/Tribe/Main.php:702
+#: src/functions/advanced-functions/meta_registration.php:205
+#: src/functions/template-tags/organizer.php:75
+msgid "Organizer"
+msgstr "Trefnydd"
+
+#: common/src/Tribe/Settings.php:148 common/src/Tribe/Settings.php:203
+#: common/src/Tribe/Settings.php:204 src/Tribe/Main.php:710
+#: src/functions/template-tags/general.php:80
+#: src/io/csv/admin-views/import.php:47
+#: vendor/tickets/common/src/Tribe/Settings.php:148
+#: vendor/tickets/common/src/Tribe/Settings.php:203
+#: vendor/tickets/common/src/Tribe/Settings.php:204
+msgid "Events"
+msgstr "Digwyddiadau"
+
+#: src/Tribe/Main.php:718 src/functions/template-tags/general.php:58
+msgid "Event"
+msgstr "Digwyddiad"
+
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.2) 
+#. #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:636
+#: src/Tribe/Main.php:781
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:48
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: src/Tribe/Main.php:788
+msgid "month"
+msgstr "mis"
+
+#: src/Tribe/Main.php:789
+msgid "list"
+msgstr "rhestr"
+
+#: src/Tribe/Main.php:790
+msgid "upcoming"
+msgstr "ar y gweill"
+
+#: src/Tribe/Main.php:791
+msgid "past"
+msgstr "yn y gorffennol"
+
+#: src/Tribe/Main.php:792
+msgid "day"
+msgstr "diwrnod"
+
+#: src/Tribe/Main.php:793
+msgid "today"
+msgstr "heddiw"
+
+#: src/Tribe/Main.php:822
+msgid "Initializing Tribe Events on %s"
+msgstr "Dechrau Digwyddiadau Tribe ar %s"
+
+#: src/Tribe/Main.php:906
+msgid "Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s"
+msgstr "Nid yw eich fersiwn chi o The Events Calendar yn gyfredol gyda un o'ch ychwanegion The Events Calendar. Dylech %sddiweddaru yn awr.%s"
+
+#: src/Tribe/Main.php:918
+msgid "The following plugins are out of date: %1$s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %2$sLearn More%3$s."
+msgstr ""
+
+#: common/src/Tribe/Settings_Manager.php:56
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:56
+msgid "Display"
+msgstr "Dangos"
+
+#: common/src/Tribe/Settings_Manager.php:62
+#: common/src/Tribe/Settings_Manager.php:289
+#: src/Tribe/Admin/Bar/Default_Configurator.php:106
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:62
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:289
+msgid "Help"
+msgstr "Cymorth"
+
+#: common/src/Tribe/Settings_Manager.php:263
+#: common/src/admin-views/tribe-options-licenses.php:46
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:263
+#: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:46
+msgid "Licenses"
+msgstr "Trwyddedau"
+
+#: src/Tribe/Main.php:1118
+msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
+msgstr "Mae angen WordPress %s neu uwch ar The Events Calendar. Diweddarwch eich fersiwn o WordPress."
+
+#: src/Tribe/Main.php:1121
+msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
+msgstr "Mae angen PHP %s neu uwch ar The Events Calendar. Cysylltwch â'ch gweinydd i drafod eich symud i fersiwn PHP mwy newydd."
+
+#: src/Tribe/Main.php:1434 src/Tribe/Main.php:2478
+msgid "category"
+msgstr "categori"
+
+#: src/Tribe/Main.php:1470 src/Tribe/Main.php:2477
+msgid "tag"
+msgstr "tag"
+
+#: src/Tribe/Main.php:1503 src/Tribe/Main.php:1521 src/Tribe/Main.php:1539
+msgid "Add New"
+msgstr "Ychwanegu'n Newydd"
+
+#: src/Tribe/Main.php:1504 src/Tribe/Main.php:1522 src/Tribe/Main.php:1540
+#: src/Tribe/Main.php:1671 src/Tribe/Main.php:1672
+msgid "Add New %s"
+msgstr "Ychwanegu %s Newydd"
+
+#: src/Tribe/Main.php:1506 src/Tribe/Main.php:1524 src/Tribe/Main.php:1542
+msgid "New %s"
+msgstr "%s Newydd"
+
+#: src/Tribe/Main.php:1507 src/Tribe/Main.php:1525 src/Tribe/Main.php:1543
+msgid "View %s"
+msgstr "Gweld %s"
+
+#: src/Tribe/Main.php:1508 src/Tribe/Main.php:1526 src/Tribe/Main.php:1544
+msgid "Search %s"
+msgstr "Chwilio %s"
+
+#: src/Tribe/Main.php:1509 src/Tribe/Main.php:1527 src/Tribe/Main.php:1545
+msgid "No %s found"
+msgstr "Ni ddaethpwyd o hyd i %s"
+
+#: src/Tribe/Main.php:1510 src/Tribe/Main.php:1528 src/Tribe/Main.php:1546
+msgid "No %s found in Trash"
+msgstr "Ni ddaethpwyd o hyd i %s yn y Bin Sbwriel"
+
+#: src/Tribe/Main.php:1556
+msgid "%s Category"
+msgstr ""
+
+#: src/Tribe/Main.php:1557
+msgid "Search %s Categories"
+msgstr ""
+
+#: src/Tribe/Main.php:1558
+msgid "All %s Categories"
+msgstr ""
+
+#: src/Tribe/Main.php:1559
+msgid "Parent %s Category"
+msgstr ""
+
+#: src/Tribe/Main.php:1560
+msgid "Parent %s Category:"
+msgstr ""
+
+#: src/Tribe/Main.php:1561
+msgid "Edit %s Category"
+msgstr ""
+
+#: src/Tribe/Main.php:1562
+msgid "Update %s Category"
+msgstr ""
+
+#: src/Tribe/Main.php:1563
+msgid "Add New %s Category"
+msgstr ""
+
+#: src/Tribe/Main.php:1564
+msgid "New %s Category Name"
+msgstr ""
+
+#: src/Tribe/Main.php:1586 src/Tribe/Main.php:1623 src/Tribe/Main.php:1643
+msgid "Custom field updated."
+msgstr "Diweddarwyd y maes cyfaddas."
+
+#: src/Tribe/Main.php:1587 src/Tribe/Main.php:1624 src/Tribe/Main.php:1644
+msgid "Custom field deleted."
+msgstr "Dilëwyd y maes cyfaddas."
+
+#: src/Tribe/Main.php:1588 src/Tribe/Main.php:1622 src/Tribe/Main.php:1625
+#: src/Tribe/Main.php:1642 src/Tribe/Main.php:1645
+msgid "%s updated."
+msgstr "Diweddarwyd %s."
+
+#. translators: %s: date and time of the revision
+#: src/Tribe/Main.php:1590 src/Tribe/Main.php:1627
+msgid "%1$s restored to revision from %2$s"
+msgstr ""
+
+#: src/Tribe/Main.php:1596 src/Tribe/Main.php:1629 src/Tribe/Main.php:1649
+msgid "%s saved."
+msgstr "Cadwyd %s."
+
+#. translators: Publish box date format, see http://php.net/date
+#: src/Tribe/Main.php:1607 src/Tribe/Main.php:1635 src/Tribe/Main.php:1655
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G:i"
+
+#. translators: %s: date and time of the revision
+#: src/Tribe/Main.php:1647
+msgid "%s restored to revision from %s"
+msgstr "Ailosodwyd %s i'r un diwygiedig o %s"
+
+#: src/Tribe/Main.php:1628 src/Tribe/Main.php:1648
+msgid "%s published."
+msgstr "Cyhoeddwyd %s."
+
+#: src/Tribe/Main.php:1630 src/Tribe/Main.php:1650
+msgid "%s submitted."
+msgstr "Cyflwynwyd %s."
+
+#: src/Tribe/Main.php:1637 src/Tribe/Main.php:1657
+msgid "%s draft updated."
+msgstr "Diweddarwyd drafft %s."
+
+#: src/Tribe/Main.php:1841 src/Tribe/Main.php:1929
+msgid "Use New %s"
+msgstr "Defnyddio %s Newydd"
+
+#: src/Tribe/Main.php:1844 src/Tribe/Main.php:1933
+msgid "My %s"
+msgstr "Fy %s"
+
+#: src/Tribe/Main.php:1849 src/Tribe/Main.php:1938
+msgid "Available %s"
+msgstr "%s Ar Gael"
+
+#: src/Tribe/Main.php:1860 src/Tribe/Main.php:1949
+msgid "No saved %s exists."
+msgstr "Nid oes %s sydd wedi'i gadw'n bodoli."
+
+#: src/Tribe/Main.php:2092
+msgid "Next"
+msgstr "Nesaf"
+
+#: src/Tribe/Main.php:2093
+msgid "Prev"
+msgstr "Blaenorol"
+
+#: src/Tribe/Asset/Bootstrap_Datepicker.php:20 src/Tribe/Main.php:2094
+#: src/functions/template-tags/day.php:104
+msgid "Today"
+msgstr "Heddiw"
+
+#: src/Tribe/Main.php:2095
+msgid "Done"
+msgstr "Gorffen"
+
+#: common/src/Tribe/Settings_Manager.php:229
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:229
+msgid "Network"
+msgstr "Rhwydwaith"
+
+#: src/Tribe/Main.php:2479
+msgid "page"
+msgstr ""
+
+#: src/Tribe/Main.php:2480 src/functions/template-tags/general.php:69
+msgid "event"
+msgstr ""
+
+#: src/Tribe/Main.php:2481 src/functions/template-tags/general.php:91
+msgid "events"
+msgstr ""
+
+#: src/Tribe/Main.php:2482
+msgid "all"
+msgstr ""
+
+#: src/Tribe/Main.php:3722 src/Tribe/Main.php:3757
+#: src/functions/template-tags/day.php:157
+#: src/functions/template-tags/day.php:178
+msgid "Date out of range."
+msgstr "Dyddiad allan o'r ystod."
+
+#: src/Tribe/Main.php:3792
+msgid "%s Options"
+msgstr ""
+
+#: src/Tribe/Main.php:3799 src/Tribe/Main.php:3810
+msgid "%s Information"
+msgstr "Gwybodaeth am %s"
+
+#: src/Tribe/Main.php:4146
+msgid "Support"
+msgstr "Cymorth"
+
+#: src/Tribe/Main.php:4149
+msgid "View All Add-Ons"
+msgstr "Gweld Pob Ychwanegyn"
+
+#: src/Tribe/Main.php:4169
+msgid "News from Modern Tribe"
+msgstr "Newyddion gan Modern Tribe"
+
+#: src/Tribe/Main.php:4214
+msgid "Additional Functionality"
+msgstr "Swyddogaethau Ychwanegol"
+
+#: src/Tribe/Main.php:4219
+msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
+msgstr "Ydych chi'n chwilio am swyddogaethau ychwanegol gan gynnwys digwyddiadau ailadroddus, gwerthiannau tocynnau, digwyddiadau a gyflwynwyd gan y cyhoedd, golygfeydd newydd a mwy?"

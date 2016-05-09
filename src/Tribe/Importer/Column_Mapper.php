@@ -20,6 +20,16 @@ class Tribe__Events__Importer__Column_Mapper {
 			case 'organizers':
 				$this->column_names = $this->get_organizer_column_names();
 				break;
+			default:
+				$column_names = array();
+
+				/**
+				 * Filters the column names that will be available for a custom import type.
+				 *
+				 * @param array $column_names
+				 */
+				$this->column_names = apply_filters( "tribe_event_import_{$import_type}_column_names", $column_names );
+				break;
 		}
 	}
 
@@ -56,7 +66,7 @@ class Tribe__Events__Importer__Column_Mapper {
 			'event_start_time'        => esc_html__( 'Event Start Time', 'the-events-calendar' ),
 			'event_end_date'          => esc_html__( 'Event End Date', 'the-events-calendar' ),
 			'event_end_time'          => esc_html__( 'Event End Time', 'the-events-calendar' ),
-			'event_timezone'          => esc_html__( 'Event Time Zone', 'the-events-calendar' ),
+			'event_timezone'          => esc_html__( 'Event Timezone', 'the-events-calendar' ),
 			'event_all_day'           => esc_html__( 'All Day Event', 'the-events-calendar' ),
 			'event_hide'              => esc_html__( 'Hide Event From Event Listings', 'the-events-calendar' ),
 			'event_sticky'            => esc_html__( 'Event Sticky in Month View', 'the-events-calendar' ),

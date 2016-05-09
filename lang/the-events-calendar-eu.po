@@ -1,0 +1,4677 @@
+# Translation of Stable (latest release) in Basque
+# This file is distributed under the same license as the Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2016-04-14 08:30:39+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.1.0-alpha\n"
+"Project-Id-Version: Stable (latest release)\n"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:255
+msgid "Customer Name"
+msgstr "Bezeroaren izena"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:256
+msgid "Customer Email Address"
+msgstr "Bezeroaren posta elektroniko helbidea"
+
+#: vendor/tickets/src/views/tickets/rsvp.php:125
+msgid "Don't list me on the public attendee list"
+msgstr "Ez nazazu bertaratutakoen zerrenda publikoan zerrendatu"
+
+#: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:24
+msgid "If you are creating a recurring event, Tickets will only show up once per Event Series, meaning that the same ticket will apper across all events. Please configure your events accordingly."
+msgstr "Errepikatzen den ekitaldi bat sortzen ari bazara, ekitaldi multzoko behin bakarrik erakutsiko dira sarrerak. Hau da, sarrera berbera ekitaldi guztietan azalduko da. Ekitaldiak portaera horrekin bat egiteko konfiguratu, mesedez."
+
+#: src/Tribe/Importer/Column_Mapper.php:69
+msgid "Event Featured Image"
+msgstr "Ekitaldiaren irudi nabarmendua"
+
+#: src/Tribe/Importer/Column_Mapper.php:84
+msgid "Venue Featured Image"
+msgstr "Lekuaren irudi nabarmendua"
+
+#: src/Tribe/Importer/Column_Mapper.php:94
+msgid "Organizer Featured Image"
+msgstr "Antolatzailearen irudi nabarmendua"
+
+#: src/Tribe/Main.php:2873
+msgid " (View Full %1$s Description Here: %2$s)"
+msgstr "(%1$s ekitaldiaren deskribapen osoa ikusteko: %2$s)"
+
+#: common/src/Tribe/Support/Template_Checker_Report.php:78
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:78
+msgid "No notable changes detected"
+msgstr "Ez dira aldaketa aipagarririk antzeman"
+
+#: common/src/Tribe/Support/Template_Checker_Report.php:82
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:82
+msgid "Templates introduced or updated with this release (%s):"
+msgstr "Bertsio honekin barruratu edo eguneratu diren txantiloiak (%s):"
+
+#: common/src/Tribe/Support/Template_Checker_Report.php:92
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:92
+msgid "Existing theme overrides that may need revision:"
+msgstr "Baliteke ondoko itxura gainidazketek berrikuspena behar izatea:"
+
+#: common/src/Tribe/Support/Template_Checker_Report.php:96
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:96
+msgid "version data missing from override"
+msgstr "gainidazketan bertsio datuak falta dira"
+
+#: common/src/Tribe/Support/Template_Checker_Report.php:97
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:97
+msgid "based on %s version"
+msgstr "%s bertsioan oinarritua"
+
+#: common/src/Tribe/Support/Template_Checker_Report.php:113
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:113
+msgid "No notable template changes detected."
+msgstr "Ez dira txantiloi aldaketa aipagarririk antzeman."
+
+#: common/src/Tribe/Support/Template_Checker_Report.php:115
+#: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:115
+msgid "Information about recent template changes and potentially impacted template overrides is provided below."
+msgstr "Duela gutxiko txantiloi aldaketei eta potentzialki eraginpetutako txantiloi gainidazketei buruzko informazioa jarraian aurkitu daiteke."
+
+#: common/src/admin-views/tribe-options-help.php:37
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:37
+msgid "Recent Template Changes"
+msgstr "Duela gutxiko txantiloi aldaketak"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:171
+msgid "Reserved by:"
+msgstr "Nork erreserbatu du:"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:171
+msgid "Purchased by:"
+msgstr "Nork erosi du:"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:235
+msgid "View order"
+msgstr "Eskaria ikusi"
+
+#: vendor/tickets/src/Tribe/Metabox.php:87
+msgid "It looks like you have modified your global stock settings but have not saved or updated the post."
+msgstr "Zure stock orokorraren hobespenak aldatu dituzu baina ez duzu bidalketa gorde edo eguneratu."
+
+#: vendor/tickets/src/Tribe/Tickets.php:830
+msgid "Use global stock"
+msgstr "Stock orokorra erabili"
+
+#: vendor/tickets/src/Tribe/Tickets.php:831
+msgid "Use global stock but cap sales"
+msgstr "Stock orokorra erabili baina salmentak mugatu"
+
+#: vendor/tickets/src/Tribe/Tickets.php:832
+msgid "Independent (do not use global stock)"
+msgstr "Bereizia (stock orokorra ez erabili)"
+
+#: vendor/tickets/src/admin-views/attendees.php:98
+msgid "Deleted:"
+msgstr "Ezabatuta:"
+
+#: vendor/tickets/src/admin-views/meta-box.php:69
+msgid "Enable global stock"
+msgstr "Stock orokorra gaitu"
+
+#: vendor/tickets/src/admin-views/meta-box.php:79
+msgid "Global stock level"
+msgstr "Stock orokorraren maila"
+
+#: vendor/tickets/src/admin-views/meta-box.php:85
+msgid "(%s sold)"
+msgid_plural "(%s sold)"
+msgstr[0] "(%s saldu da)"
+msgstr[1] "(%s saldu dira)"
+
+#: vendor/tickets/src/template-tags/tickets.php:221
+msgid "global inventory"
+msgstr "inbentario orokorra"
+
+#: vendor/tickets/src/template-tags/tickets.php:231
+msgctxt "ticket stock message (cancelled stock)"
+msgid " cancelled: %1$d"
+msgstr "ezeztatuta: %1$d"
+
+#: vendor/tickets/src/template-tags/tickets.php:236
+msgid " pending: %1$d"
+msgstr "zain: %1$d"
+
+#: vendor/tickets/src/template-tags/tickets.php:241
+msgid "Sold %1$d (units remaining: %2$s%3$s%4$s)"
+msgstr "%1$d saldu dira (geratzen diren aleak: %2$s%3$s%4$s)"
+
+#: vendor/tickets/src/views/tickets/rsvp.php:31
+msgid "Please fill in the RSVP confirmation name and email fields."
+msgstr "\"Erantzun, mesedez\" berrespenaren izena eta posta elektronikoa eremuak bete, mesedez."
+
+#: vendor/tickets/src/views/tickets/rsvp.php:96
+msgid "Send RSVP confirmation to:"
+msgstr "\"Erantzun, mesedez\" berrespena nori bidali:"
+
+#: vendor/tickets/src/admin-views/attendees.php:44
+msgid "Post Type:"
+msgstr "Bidalketa Mota:"
+
+#: vendor/tickets/src/admin-views/attendees.php:27
+msgid "Edit Event"
+msgstr "Ekitaldia Editatu"
+
+#: vendor/tickets/src/admin-views/attendees.php:28
+msgid "See Event Page"
+msgstr "Ekitaldiaren Horria Ikusi"
+
+#: src/Tribe/Event_Tickets/Attendees_Report.php:64
+msgid "Edit Venue"
+msgstr "Lekua editatu"
+
+#: vendor/tickets/src/admin-views/attendees.php:59
+msgid "Sales by Ticket"
+msgstr "Salmentak sarreraren arabera"
+
+#: vendor/tickets/src/admin-views/attendees.php:65
+msgid "Edit Ticket"
+msgstr "Sarrera editatu"
+
+#: vendor/tickets/src/admin-views/attendees.php:76
+msgid "Total Sold:"
+msgstr "Guztira saldutakoa:"
+
+#: vendor/tickets/src/admin-views/meta-box.php:208
+msgid "When will ticket sales occur?"
+msgstr "Sarrerak noiz egongo dira salgai?"
+
+#: vendor/tickets/src/admin-views/meta-box.php:212
+msgid "If you don't set a start/end date for sales, tickets will be available from now until the event ends."
+msgstr "Sarrerak saltzeko hasiera/amaiera datarik zehazten ez baduzu, sarrerak une honetatik hasita eta ekitaldia amaitu arte eskuragarri egongo dira."
+
+#: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:2
+msgid "Stock:"
+msgstr "Stocka:"
+
+#: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:6
+msgid "(Total available # of this ticket type. Once they're gone, ticket type is sold out.)"
+msgstr "(Sarrera mota honetako zenbat ale dauden. Denak saltzen direnean, sarrera mota hau agortutzat emango da)."
+
+#: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:16
+msgid "Selling tickets for recurring events"
+msgstr "Errepikatzen diren ekitaldietarako sarrerak saltzen"
+
+#: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:22
+msgid "Currently, Tickets will only show up on the frontend once per full event. For PRO users this means the same ticket will appear across all events in the series. Please configure your events accordingly."
+msgstr "Orain, sarrerak webgunean behin bakarrik azalduko dira ekitaldi oso bakoitzeko. Honek PRO erabiltzaileentzat sarrera berdina multzoko ekitaldi guztietan azaltzea suposatzen du. Zure ekitaldiak portaera honekin adostu, mesedez."
+
+#: vendor/tickets/src/admin-views/tribe-options-tickets.php:41
+msgid "Ticket Settings"
+msgstr "Sarrera hobespenak"
+
+#: vendor/tickets/src/admin-views/tribe-options-tickets.php:45
+msgid "Post types that can have tickets"
+msgstr "Sarrerak izan ditzazketen bidalketa motak"
+
+#: vendor/tickets/src/views/tickets/rsvp.php:17
+msgid "RSVP"
+msgstr "\"Erantzun, mesedez\""
+
+#: vendor/tickets/src/views/tickets/rsvp.php:60
+msgid "%1$s out of %2$s available"
+msgstr "%2$s -(e)tik %1$s eskuragai"
+
+#: vendor/tickets/src/views/tickets/rsvp.php:68
+msgid "Out of stock!"
+msgstr "Agortuta!"
+
+#: vendor/tickets/src/views/tickets/rsvp.php:108
+msgid "Full Name"
+msgstr "Izen osoa"
+
+#: vendor/tickets/src/views/tickets/rsvp.php:133
+msgid "Confirm RSVP"
+msgstr "\"Erantzun, mesedez\" berretsi"
+
+#: vendor/tickets/src/Tribe/Main.php:301
+msgid "Looking for more immediate support? We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
+msgstr "Berehalako euskarria behar duzu? Gure ordainpeko edozein plugin erosterakoan  (esaterako, %2$s), %1$s eskaintzen dugu. Lizentzia bat eskuratu eta bertan zuzenean bidalketa bat egiteko aukera izango duzu. Bidalketa astean zehar egin ezkero, erantzuna 24-48 orduko epean jasoko duzu."
+
+#: vendor/tickets/src/Tribe/Main.php:304
+msgid "Already have Events Tickets Plus? You can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
+msgstr "Ekitaldi Sarrerak Plus (Events Tickets Plus) duzu? gure ordainpeko euskarri foroetan %s dezakezu. Gure euskarri taldeak foroak monitorizatzen ditu eta zure hariari 24-48 orduko  epean erantzungo diote (astegunetan)."
+
+#: vendor/tickets/src/Tribe/RSVP.php:194
+msgctxt "Attendee number"
+msgid "Attendee %1$s"
+msgstr "%1$s. partaidea"
+
+#: vendor/tickets/src/Tribe/RSVP.php:394
+msgid "Your tickets from %s"
+msgstr "Zure %s-(e)ko sarrerak"
+
+#: vendor/tickets/src/Tribe/RSVP.php:625
+msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
+msgstr "Zure \"Erantzun, mesedez\" jaso da! Zure posta elektronikoa konprobatu \"Erantzun, mesedez\" berrespena ikusteko."
+
+#: vendor/tickets/src/Tribe/RSVP.php:631
+msgid "You can't RSVP more than the total remaining tickets."
+msgstr "Geratzen den sarrera kopurua baino gehiagorekin ezin duzu \"Erantzun, mesedez\" egin."
+
+#: vendor/tickets/src/Tribe/RSVP.php:636
+msgid "In order to RSVP, you must enter your name and a valid email address."
+msgstr "\"Erantzun, mesedez\" egiteko, zure izena eta baliozko posta elektroniko helbide bat sartu behar dituzu."
+
+#: vendor/tickets/src/Tribe/RSVP.php:757
+msgid "(deleted)"
+msgstr "(ezabatuta)"
+
+#: vendor/tickets/src/Tribe/RSVP.php:1010
+msgid "Return to the %1$sAttendees Report%2$s."
+msgstr "%1$sBertaratutakoen txostenera%2$s itzuli."
+
+#: vendor/tickets/src/Tribe/RSVP.php:1017
+msgid "Post updated. %1$s"
+msgstr "Bidalketa eguneratu da. %1$s"
+
+#: vendor/tickets/src/Tribe/RSVP.php:1021
+msgid "Post published. %1$s"
+msgstr "Bidalketa argitaratu da. %1$s"
+
+#: vendor/tickets/src/Tribe/RSVP.php:1024
+msgid "Post submitted."
+msgstr "Bidalketa bidali da."
+
+#: vendor/tickets/src/Tribe/RSVP.php:1025
+msgid "Post scheduled."
+msgstr "Bidalketa programatu da."
+
+#: vendor/tickets/src/Tribe/RSVP.php:1026
+msgid "Post draft updated."
+msgstr "Bidalketaren zirriborroa eguneratu da."
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:340
+msgid "Cheatin Huh?"
+msgstr "Tranpetan ari?"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:346
+msgid "Invalid Event ID"
+msgstr "Ekitaldi ID baliaezina"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:352
+msgid "Empty user and email"
+msgstr "Erabiltzailea eta posta elektronikoa hutsik daude"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:364
+msgid "Invalid Email"
+msgstr "Posta elektroniko baliaezina"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:370
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:386
+msgid "Invalid User ID"
+msgstr "Erabiltzaile ID baliaezina"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:407
+msgid "Error when sending the email"
+msgstr "Errorea posta elektronikoa bidaltzean"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:412
+msgid "Email sent successfully!"
+msgstr "Posta elektronikoa ondo bidali da!"
+
+#: vendor/tickets/src/admin-views/attendees-email.php:43
+msgid "Send Email"
+msgstr "Posta elektronikoa bidali"
+
+#: src/io/csv/admin-views/result.php:25
+msgid "%1$s%2$s%3$sInserted:%4$s A new item was inserted successfully. %5$s%2$s%3$sUpdated:%4$s An item was found with the same name and/or start date. The existing item was updated with the new value from the file.%5$s%2$s%3$sSkipped:%4$s A row was found in the CSV file that could not be imported. Please see below for the invalid rows.%5$s%6$s"
+msgstr ""
+"%1$s%2$s%3$sTxertatu da:%4$s Elementu berri bat ondo txertatu da.\n"
+"%5$s%2$s%3$sEguneratu da:%4$s Izen eta/edo hasiera data bera duen elementu bat aurkitu da. Aldez aurretik zegoen elementua fitxategiko balio berriarekin eguneratu da.%5$s%2$s%3$sAlde batera utzi da:%4$s Inportatu ezin izan den errenkada bat aurkitu da CSV fitxategian. Errenkada baliaezinak azpian ikusi ditzakezu.%5$s%6$s"
+
+#: src/views/list/nav.php:26
+msgid "Previous %s"
+msgstr "Aurreko %s"
+
+#: src/views/list/nav.php:34
+msgid "Next %s"
+msgstr "Hurrengo %s"
+
+#: vendor/tickets/src/Tribe/Main.php:145
+msgid "When The Events Calendar and Event Tickets are both activated, The Events Calendar must be running version %1$s or greater. Please %2$supdate now.%3$s"
+msgstr "Ekitaldi Sarrerak eta Ekitaldi Egutegia batera aktibatuta daudenean, Ekitaldi Egutegiaren bertsioa %1$s edo berriagoa izan behar da. %2$sEguneratu%3$s, mesedez."
+
+#: vendor/tickets/src/Tribe/Main.php:254
+msgid "Support for Event Tickets"
+msgstr "Ekitaldi sarrerentzako euskarria"
+
+#: vendor/tickets/src/Tribe/Main.php:259
+msgid "Customizing Event Tickets"
+msgstr "Ekitaldi sarrerak pertsonalizatzen"
+
+#: vendor/tickets/src/Tribe/Main.php:278
+msgid "We are committed to helping you sell tickets for your event. Check out our handy %s to get started."
+msgstr "Zure ekitaldirako sarrerak saltzen lagundu nahi zaitugu. Hasteko, gure %s erabilgarriari begirada bat bota."
+
+#: vendor/tickets/src/Tribe/Main.php:300
+msgid "Events Tickets Plus"
+msgstr "Ekitaldi Sarrerak plus"
+
+#: src/Tribe/Main.php:655 vendor/tickets/src/Tribe/Main.php:309
+msgid "If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
+msgstr "Gure ordainpeko plugin batentzako baliozko lizentzia bat baduzu, gure ordainpeko euskarri foroetan %s dezakezu. Gure euskarri taldekideek foroak monitorizatzen dituzte eta zure hariari 24-48 orduko epean erantzuna emango diote (astean zehar)."
+
+#: src/Tribe/Main.php:1133
+msgid "It appears as if the tribe-common libraries cannot be found! The directory should be in the \"common/\" directory in the events calendar plugin."
+msgstr "tribe-common liburutegiak ezin dira aurkitu! Direktorioa ekitaldi egutegia plugineko \"common/\" direktorioan egon beharko luke."
+
+#: src/Tribe/Main.php:1581
+msgid "%1$s updated. %2$sView %3$s"
+msgstr "%1$s eguneratu da. %2$sIkusi%3$s"
+
+#: src/Tribe/Main.php:1592
+msgid "Event published. %1$sView %2$s"
+msgstr "Ekitaldia argitaratu da. %1$sIkusi%2$s"
+
+#: src/Tribe/Main.php:1598
+msgid "%1$s submitted. %2$sPreview %3$s"
+msgstr "%1$s bidali da. %2$sAurreikusi%3$s"
+
+#: src/Tribe/Main.php:1604
+msgid "%1$s scheduled for: %2$s. %3$sPreview %4$s"
+msgstr "%1$s data honetarako programatu da: %2$s. %3$sAurreikusi%4$s"
+
+#: src/Tribe/Main.php:1613
+msgid "%1$s draft updated. %2$sPreview %3$s"
+msgstr "%1$s zirriborroa eguneratu da. %2$sAurreikusi%3$s"
+
+#: src/Tribe/Main.php:1632 src/Tribe/Main.php:1652
+msgid "%1$s scheduled for: %2$s."
+msgstr "%1$s data honetarako programatu da: %2$s"
+
+#: src/Tribe/Main.php:1741
+msgid "Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results."
+msgstr "Kokapenik definitzen ez baduzu zure ekitaldiak ez du %sGoogle Rich Snippet%s-ik bistaratuko bilaketa emaitzetan."
+
+#: src/Tribe/Main.php:4220
+msgid "Check out the %savailable add-ons%s."
+msgstr "Bota begirada bat %sgehigarri erabilgarriei%s."
+
+#: src/Tribe/Template/Day.php:136
+msgid "No %1$s scheduled for %2$s. Please try another day."
+msgstr "%2$s datarako ez dago %1$s programaturik. Beste egun bat probatu, mesedez."
+
+#: src/Tribe/Template/Month.php:281
+msgid "There were no results found for %s this month. Try searching next month."
+msgstr "Hilabete honetan ez da %s-rako emaitzik aurkitu. Hurrengo hilabetean bilatzen saiatu."
+
+#: src/Tribe/Template_Factory.php:294
+msgid "There were no results found for %s."
+msgstr "%s-rako ez da emaitzarik aurkitu."
+
+#: src/Tribe/Template_Factory.php:296
+msgid "No results were found for %1$s in or near %2$s."
+msgstr "Ez da %2$sren barne edo gertu dagoen %1$srako emaitzarik aurkitu."
+
+#: src/admin-views/admin-update-message.php:32
+msgid "Keep the Core Plugin %sFREE%s!"
+msgstr "Oinarri plugina %sDOAN%s mantentzen lagundu!"
+
+#: src/admin-views/new-organizer-meta-section.php:41
+#: src/admin-views/organizer-meta-box.php:44
+msgid "You may want to consider %sobfuscating%s any e-mail address published on your site to best avoid it getting harvested by spammers."
+msgstr "Zure webgunean argitaratzen diren posta elektroniko helbideak %snahastu%s beharko zenituzke spam bilatzaileek harrapatu ez ditzaten."
+
+#: src/admin-views/tribe-options-addons-api.php:15
+#: src/admin-views/tribe-options-addons-api.php:55
+msgid "Add-Ons APIs"
+msgstr "Gehigarrientzako APIak"
+
+#: src/admin-views/tribe-options-addons-api.php:19
+msgid "<p>The event add-ons you have activated need to talk to some outside sources. Please follow the instructions below to configure your settings.</p>"
+msgstr "<p>Aktibatu dituzun ekitaldi gehigarriek kanpoko baliabide batzuekin komunikatzeko beharra dute. Zure hobespenak konfiguratzeko argibideak jarraitu, mesedez.</p> "
+
+#: src/admin-views/venue-meta-box.php:190
+msgid "%s Name can not be empty"
+msgstr "%s izena ezin da hutsa izan"
+
+#: src/admin-views/venue-meta-box.php:195
+msgid "%s Name already exists"
+msgstr "%s izena dagoeneko existitzen da"
+
+#: src/functions/template-tags/day.php:106
+msgid "Previous Day"
+msgstr "Aurreko eguna"
+
+#: src/functions/template-tags/day.php:108
+msgid "Next Day"
+msgstr "Hurrengo eguna"
+
+#: src/io/csv/admin-views/general.php:12
+msgid "The settings below will impact events imported from files and other websites. Be sure to save your changes before starting to import events."
+msgstr "Azpiko ezarpenek beste webguneetatik eta fitxategietatik inportatutako ekitaldien gain eragina edukiko dute. Ziurtatu zure aldaketak gorde dituzula ekitaldiak inportatzen hasi baino lehen."
+
+#: src/io/csv/admin-views/import.php:36
+msgid "Questions? %sWatch the video%s."
+msgstr "Galderarik? %sBideoa ikusi%s."
+
+#: src/io/csv/admin-views/import.php:59
+msgid "Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file is UTF-8 encoded? Make sure to specify the character encoding when you save the file, or pass it through a %sconversion tool%s."
+msgstr "Formatu egokia duen, UTF-8 kodeketa duen CSV fitxategi bat igo. Zure fitxategiak UTF-8 kodeketa duen ez dakizu? Fitxategia gordetzerakoan ziurtatu karaktere kodeketa adierazten duzula, edo bestela, %sbihurketa tresna%s batetik pasa ezazu."
+
+#: src/Tribe/Main.php:641
+msgid "<strong>Looking for more immediate support?</strong> We offer %s with the purchase of any of our premium plugins. Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays"
+msgstr "<strong>Berehalako euskarria behar duzu?</strong> Gure ordainpeko edozein plugin erosterakoan %s eskaintzen dugu. Lizentzia bat eskuratu eta bertan zuzenean bidalketa bat egiteko aukera izango duzu. Bidalketa astean zehar egin ezkero, erantzuna 24-48 orduko epean jasoko duzu."
+
+#: src/Tribe/Main.php:645 vendor/tickets/src/Tribe/Main.php:296
+msgid "open-source forum on WordPress.org"
+msgstr "kode-askeko foroa WordPress.org-en"
+
+#: src/Tribe/Main.php:646 vendor/tickets/src/Tribe/Main.php:297
+msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our %s. Our support staff monitors these forums once a week and would be happy to assist you there."
+msgstr "Goiko urratsak probatu ondoren oraindik arazorik baduzu, gure %s-ra gai berri bat bidali dezakezu. Gure euskarri taldekideek foro hauek astean behin monitorizatzen dituzte eta zu laguntzeko prest daude."
+
+#: src/Tribe/Main.php:650
+msgid "<strong>Looking for more immediate support?</strong> We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
+msgstr "<strong>Berehalako euskarria behar duzu?</strong> Gure ordainpeko edozein plugin erosterakoan  (esaterako, %2$s), %1$s eskaintzen dugu. Lizentzia bat eskuratu eta bertan zuzenean bidalketa bat egiteko aukera izango duzu. Bidalketa astean zehar egin ezkero, erantzuna 24-48 orduko epean jasoko duzu."
+
+#: src/Tribe/Main.php:654 vendor/tickets/src/Tribe/Main.php:303
+#: vendor/tickets/src/Tribe/Main.php:308
+msgid "post a thread"
+msgstr "mezu bat bidali"
+
+#: src/Tribe/Main.php:616
+msgid "Themer’s Guide"
+msgstr "Itxura garatzailearentzako gida"
+
+#: src/Tribe/Main.php:618
+msgid "%s: An overview of the default templates and styles that are included in the plugin, as well as how to change them."
+msgstr "%s: pluginarekin datozen txantiloi eta estilo lehenetsien gainbegirada bat, eta hauek nola aldatu."
+
+#: src/Tribe/Main.php:618
+msgid "Using stylesheets and page templates"
+msgstr "Estilo orriak eta orrialde txantiloiak erabiltzen"
+
+#: src/Tribe/Main.php:620
+msgid "%s: Do you see an issue with your calendar? Go here first to find where it’s coming from and how to fix it."
+msgstr "%s: Egutegiarekin arazoren bat eduki duzu? Hasteko hona joan arazoa nondik datorren eta nola zuzentzen den ikusteko."
+
+#: src/Tribe/Main.php:620 vendor/tickets/src/Tribe/Main.php:258
+msgid "Troubleshooting common problems"
+msgstr "Ohiko arazoak konpontzen"
+
+#: src/Tribe/Main.php:622
+msgid "%s: Code and guides for customizing your calendar in useful and interesting ways."
+msgstr "%s: Egutegia modu erabilgarri eta interesgarrian pertsonalizatzeko kodea eta gidak."
+
+#: src/Tribe/Main.php:622
+msgid "Customizing the Events plugins"
+msgstr "Ekitaldi pluginak pertsonalizatzen"
+
+#: src/Tribe/Main.php:637
+msgid "Events Tickets"
+msgstr "Ekitaldi sarrerak"
+
+#: src/Tribe/Main.php:638
+msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our WordPress.org forums for %1$s or %2$s. Our support staff monitors these forums once a week and would be happy to assist you there. "
+msgstr "Aurreko urrats guztiak probatu ondoren oraindik arazoak badituzu, gure %1$s edo %2$s-rako WordPress.org foroetara mezu bat bidali dezakezu. Gure laguntza taldeak foro hauek astean behin monitorizatzen ditu eta zu laguntzeko prest dago."
+
+#: src/Tribe/Main.php:640 src/Tribe/Main.php:648
+#: vendor/tickets/src/Tribe/Main.php:299
+msgid "premium support on our website"
+msgstr "gure webgunean ordainpeko euskarria"
+
+#: src/Tribe/Importer/Admin_Page.php:80
+msgid "CSV Import Settings"
+msgstr "CSV inportatze ezarpenak"
+
+#: src/Tribe/Importer/Admin_Page.php:88
+msgid "Default status to use for imported events"
+msgstr "Inportatutako ekitaldientzat erabiliko den egoera lehenetsia"
+
+#: src/Tribe/Importer/Admin_Page.php:123
+msgid "This Action has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: \"%s\" To: \"%s\""
+msgstr "Ekintza hau zaharkitu egin da, WordPress-eko estandarrak betetzeko orain Azpimarra (_) erabiltzen dugu Gidoitxoen (-) ordez. \"%s\"-tik \"%s\"-ra"
+
+#: src/Tribe/Importer/Admin_Page.php:202 src/Tribe/Importer/Options.php:23
+#: src/Tribe/Importer/Options.php:83
+msgid "This Filter has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: \"%s\" To: \"%s\""
+msgstr "Iragazki hau zaharkitu egin da, WordPress-eko estandarrak betetzeko orain Azpimarra (_) erabiltzen dugu Gidoitxoen (-) ordez. \"%s\"-tik \"%s\"-ra"
+
+#: src/Tribe/Main.php:596 vendor/tickets/src/Tribe/Main.php:276
+msgid "New User Primer"
+msgstr "Erabiltzaile berriarentzako gida"
+
+#: src/Tribe/Main.php:598
+msgid "We are committed to helping make your calendar spectacular and have a wealth of resources available, including a handy %s to get your calendar up and running."
+msgstr "Zure egutegiak itxura ezin hobea izan dezan lagundu nahi zaitugu. Horretarako baliabide pila ditugu, zure egutegia martxan jartzeko %s praktiko bat barne."
+
+#: src/Tribe/Main.php:609
+msgid "Support for The Events Calendar"
+msgstr "Ekitaldi egutegirako euskarria"
+
+#: src/Tribe/Main.php:612
+msgid "%s: A thorough walkthrough of The Events Calendar and the settings that are available to you."
+msgstr "%s: Ekitaldi egutegiaren eta eskura dituzun ezarpenen gida osoa."
+
+#: src/Tribe/Main.php:612 vendor/tickets/src/Tribe/Main.php:256
+msgid "Settings overview"
+msgstr "Ezarpenen bista orokorra"
+
+#: src/Tribe/Main.php:614
+msgid "%s: A complete look at the features you can expect to see right out of the box as well as how to use them."
+msgstr "%s: Besterik ezean eskura dituzun ezaugarriak eta hauen erabilpenari buruzko xehetasunak."
+
+#: src/Tribe/Main.php:614 vendor/tickets/src/Tribe/Main.php:257
+msgid "Features overview"
+msgstr "Ezaugarrien bista orokorra"
+
+#: src/Tribe/Main.php:616
+msgid "%s: Our most comprehensive outline for customizing the calendar to suit your needs, including custom layouts and styles."
+msgstr "%s: Egutegia zure beharretara moldatzeko gida osoa, estilo eta diseinu pertsonalizatuak barne."
+
+#: common/src/admin-views/tribe-options-help.php:35
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:35
+msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our premium forums, please copy and paste this information into the System Information field and it will help us help you faster!"
+msgstr "Arazo bat zuzentzen laguntzeko, zuk zeuk edo gure langileek askotan zure egutegi pluginaren eta hobespenen xehetasunak beharko dituzte. Euskarria eskatzen baduzu informazio hau partekatu dezazula eskatu dezakegu. Bidalketa gure ordainpeko foroetara egiten baduzu, informazio hau Sistemaren informazioa izeneko eremuan kopiatu eta itsatsi ezazu, horrela hobeto lagunduko dizugu."
+
+#: common/src/admin-views/tribe-options-licenses.php:27
+#: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:27
+msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
+msgstr "Pantaila honetan %1$ssare bitartez aktibatzen%2$s diren pluginen lizentzia eremuak bakarrik zerrendatuko dira."
+
+#: src/Tribe/API.php:365
+msgid "Unnamed %s"
+msgstr "Izendatu gabeko %s"
+
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:108
+msgid "Create New %s"
+msgstr "%s berria sortu"
+
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:172
+msgid "Add another %s"
+msgstr "Beste %s bat gehitu"
+
+#: src/Tribe/Asset/Bootstrap_Datepicker.php:19
+msgid "Clear"
+msgstr "Garbitu"
+
+#: common/src/admin-views/tribe-options-help.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:30
+msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums 😄"
+msgstr "Gure euskarria foroen bitartez ematen dugula gogoan izan. Posta elektroniko bat idatzi edo txio bat bidali diezakiguzu baina ziuraski foroetan galdetzea eskatuko dizugu 😄"
+
+#: common/src/admin-views/tribe-options-help.php:31
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:31
+msgid "Read more about our support policy"
+msgstr "Gure euskarri politikari buruz gehiago irakurri"
+
+#: common/src/admin-views/tribe-options-help.php:26
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:26
+msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the forums is open only to paid customers, they are open for anyone to search and review."
+msgstr "%s. Ikusi ez ditugun arazo oso gutxi daude eta litekeena da beste erabiltze batek galdera hori egin eta gure euskarri taldearen erantzun bat dagoeneko jaso izatea. Foroetan bidalketak egitea ordainpeko erabiltzaileei bakarrik baimentzen zaie, baina edukiak edonork bilatu eta berrikusi ditzake."
+
+#: common/src/admin-views/tribe-options-help.php:26
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:26
+msgid "Search our support forum"
+msgstr "Gure euskarri foroan bilatu"
+
+#: common/src/admin-views/tribe-options-help.php:24
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:24
+msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
+msgstr "%s. Askotan (eta ez hain maiz) ikusten ditugun galderen erantzunak bertan aurkitu ditzakezu. Askotan erantzun bat aurkitzeko biderik azkarrena da!"
+
+#: common/src/admin-views/tribe-options-help.php:24
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:24
+msgid "Check our Knowledgebase"
+msgstr "Gure ezagutza-baseari begirada bat bota"
+
+#: common/src/admin-views/tribe-options-help.php:25
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:25
+msgid "%s. Testing for an existing conflict is the best start for in-depth troubleshooting. We will often ask you to follow these steps when opening a new thread, so doing this ahead of time will be super helpful."
+msgstr "%s. Gatazkarik dagoen frogatzea arazo konponketarako abiapuntu hoberena da. Hari berri bat irekitzeko askotan urrats hauek jarraitzea eskatuko dizugu, beraz aldez aurretik eginda izatea ideia aparta da."
+
+#: common/src/admin-views/tribe-options-help.php:25
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:25
+msgid "Test for a theme or plugin conflict"
+msgstr "Itxura edo plugin gatazkarik dagoen frogatu"
+
+#: common/src/admin-views/tribe-options-help.php:15
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:15
+msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
+msgstr "Gure webguneko %s gure pluginak erabili eta pertsonalizatzeko aholkuak eta trikimailuak aurkitzeko leku ona da."
+
+#: common/src/admin-views/tribe-options-help.php:15
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:15
+msgid "Knowledgebase"
+msgstr "Ezagutza-basea"
+
+#: common/src/admin-views/tribe-options-help.php:16
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:16
+msgid "<strong>Want to dive deeper?</strong> Check out our %s for developers."
+msgstr "<strong>Sakonago joan nahi duzu?</strong>Gure garatzaileentzako %s-ri begirada bat bota."
+
+#: common/src/admin-views/tribe-options-help.php:16
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:16
+msgid "list of available functions"
+msgstr "funtzio erabilgarrien zerrenda"
+
+#: common/src/admin-views/tribe-options-help.php:19
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:19
+msgid "Getting More Help"
+msgstr "Laguntza gehiago lortzeko"
+
+#: common/src/admin-views/tribe-options-help.php:20
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:20
+msgid "While the resources above help solve a majority of the issues we see, there are times you might be looking for extra support. If you need assistance using our plugins and would like us to take a look, please follow these steps:"
+msgstr "Ikusten ditugun arazoen gehiengoa goiko baliabideekin konpondu daitezke, baina batzuetan euskarri gehigarria behar izatea gerta daiteke. Gure pluginak erabiltzeko laguntza behar baduzu eta gure langile batek zure arazoari begirada bat botatzea nahi baduzu, urrats hauek jarraitu, mesedez:"
+
+#: common/src/admin-views/tribe-options-general.php:15
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:15
+msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
+msgstr "Zure webguneko ekitaldi zerrendaketa gure doako egutegi plugina, %1$sEkitaldi Egutegia%2$s, erabilita optimizatu. Ekitaldi errepikakorrak, erabiltzaile-bidalketak, sarrera salmenta aurreratua eta antzerako funtzionalitate gehigarria behar duzu? Bota begirada bat gure %3$ssordainpeko gehigarriei%4$s."
+
+#: common/src/admin-views/tribe-options-help.php:11
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:11
+msgid "Thanks you for using %s! All of us at Modern Tribe sincerely appreciate your support and we’re excited to see you using our plugins."
+msgstr "Eskerrik asko %s erabiltzeagatik! Modern Tribe-eko kideok zure laguntza prezatzen dugu eta gure pluginak erabiltzen ari zarela ikusteak asko pozten gaitu."
+
+#: common/src/admin-views/tribe-options-help.php:14
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:14
+msgid "Getting Support"
+msgstr "Euskarria lortzeko"
+
+#: common/src/Tribe/Admin/Help_Page.php:812
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:812
+msgid "Install Plugin"
+msgstr "Plugina instalatu"
+
+#: common/src/Tribe/Admin/Help_Page.php:835
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:835
+msgid "Active Users:"
+msgstr "Erabiltzaile aktiboak:"
+
+#: common/src/Tribe/Admin/Help_Page.php:838
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:838
+msgid "Rating:"
+msgstr "Kalifikazioa:"
+
+#: common/src/Tribe/Admin/Help_Page.php:863
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:863
+msgid "Plugin Active"
+msgstr "Plugina aktibo"
+
+#: common/src/Tribe/Admin/Help_Page.php:865
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:865
+msgid "Plugin Inactive"
+msgstr "Plugina ez aktibo"
+
+#: common/src/Tribe/Admin/Help_Page.php:870
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:870
+msgid "Visit the Add-on Page"
+msgstr "Gehigarrien orrialdea bisitatu"
+
+#: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:94
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:94
+msgid "<a href=\"%s\">edit Events settings</a>."
+msgstr "<a href=\"%s\">ekidtaldien hobespenak editatu</a>."
+
+#: common/src/Tribe/Credits.php:46
+#: vendor/tickets/common/src/Tribe/Credits.php:46
+msgid "Rate %3$sThe Events Calendar%4$s %1$s on %2$s to keep this plugin free.  Thanks from the friendly folks at Modern Tribe."
+msgstr "Kalifikatu %3$sEkitaldi Egutegia%4$s %1$s batekin %2$s-n plugin hau libre/doan izaten jarraitzeko. Eskerrik asko Modern Tribe-eko kideen partez. "
+
+#: common/src/Tribe/PUE/Checker.php:440 src/Tribe/PUE/Checker.php:435
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:440
+msgid "Thanks for setting up a valid key, it will expire on %s"
+msgstr "Eskerrik asko baliozko gako bat zehazteagatik. %s-an iraungituko da."
+
+#: common/src/admin-views/tribe-options-display.php:31
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:31
+msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
+msgstr "Urtea duten datak bistaratzeko formatua sartu. Etorkizuneko urte bateko data bat bistaratzean erabiltzen da."
+
+#: common/src/admin-views/tribe-options-general.php:10
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:10
+msgid "Thank you for using Event Tickets! All of us at Modern Tribe sincerely appreciate your support and we're excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started."
+msgstr "Eskerrik asko Ekitaldi Sarrerak erabiltzeagatik! Modern Tribe-eko kideok zure laguntza prezatzen dugu eta gure pluginak erabiltzen ari zarela ikusteak asko pozten gaitu. Plugina erabiltzen hasteko, bota begirada bat gure %1$serabiltzaile berriaren oinarrizko eskuliburu%2$s erabilgarriari."
+
+#: common/src/Tribe/Admin/Help_Page.php:796
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:796
+msgid "Upgrade Plugin"
+msgstr "Plugina eguneratu"
+
+#: common/src/Tribe/Admin/Help_Page.php:812
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:812
+msgid "Install %s"
+msgstr "Instalatu %s"
+
+#: common/src/Tribe/Admin/Help_Page.php:788
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:788
+msgid "Activate Plugin"
+msgstr "Gaitu plugin-a"
+
+#: common/src/Tribe/Admin/Help_Page.php:52
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:52
+msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
+msgstr "Ekitaldi Egutegia zure ekitaldiak era errazean partekatzen uzten dizun tentuz eraikitako plugin hedagarri bat da."
+
+#: common/src/Tribe/Admin/Help_Page.php:64
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:64
+#: vendor/tickets/src/Tribe/Main.php:323
+msgid "Event Tickets"
+msgstr "Ekitaldi sarrerak"
+
+#: common/src/Tribe/Admin/Help_Page.php:68
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:68
+msgid "Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events."
+msgstr "Ekitaldi Sarrerak zure ekitaldietarako sarrerak era errazean saltzen uzten dizun tentuz eraikitako plugin hedagarri bat da."
+
+#: common/src/Tribe/Admin/Help_Page.php:80
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:80
+msgid "Advanced Post Manager"
+msgstr "Bidalketa kudeatzaile aurreratua"
+
+#: common/src/Tribe/Admin/Help_Page.php:84
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:84
+msgid "Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes."
+msgstr "Zure bidalketa kudeaketari turboa jarri edozein bidalketa mota pertsonalizatu, iragazki eta zutabe ordenagarriak, eta metakutxen erregistro automatikoa izateko."
+
+#: common/src/Tribe/Admin/Help_Page.php:159
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:159
+msgid " and "
+msgstr " eta "
+
+#: common/src/Tribe/Admin/Help_Page.php:192
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:192
+msgid "Eventbrite Tickets"
+msgstr "Eventbrite sarrerak"
+
+#: common/src/Tribe/Admin/Help_Page.php:208
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:208
+msgid "Facebook Events"
+msgstr "Facebook ekitaldiak"
+
+#: common/src/Tribe/Admin/Help_Page.php:216
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:216
+msgid "Events Filter Bar"
+msgstr "Ekitaldien iragazki barra"
+
+#: common/src/Tribe/Admin/Help_Page.php:224
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:224
+msgid "Event Tickets Plus"
+msgstr "Ekitaldi sarrerak plus"
+
+#: common/src/Tribe/Admin/Help_Page.php:233
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:233
+msgid "Community Tickets"
+msgstr "Komunitate sarrerak"
+
+#: common/src/Tribe/Admin/Help_Page.php:788
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:788
+msgid "Activate %s"
+msgstr "Aktibatu %s"
+
+#: src/views/month/single-day.php:42
+msgid "View %1$s %2$s"
+msgid_plural "View All %1$s %2$s"
+msgstr[0] "%1$s %2$s ikusi"
+msgstr[1] "%1$s %2$s guztiak ikusi"
+
+#: common/src/Tribe/Validate.php:195
+#: vendor/tickets/common/src/Tribe/Validate.php:195
+msgid "%s must be a positive number or percent."
+msgstr "%s zenbaki edo ehuneko positibo bat izan behar da."
+
+#: vendor/tickets/src/admin-views/meta-box.php:233
+msgid "Cancel"
+msgstr "Ezeztatu"
+
+#: vendor/tickets/src/Tribe/Tickets.php:583
+msgid "Editing the ticket price is currently disallowed."
+msgstr "Sarreraren prezioa une honetan editatzea debekatuta dago."
+
+#: common/src/admin-views/tribe-options-general.php:59
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:59
+msgid "Default currency symbol"
+msgstr "Lehenetsitako dibisa sinboloa"
+
+#: common/src/admin-views/tribe-options-general.php:60
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:60
+msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
+msgstr "Ekitaldi kostuetarako lehenetsitako dibisa sinboloa zehaztu. Kontutan hartu honek etorkizuneko ekitaldietan soilik eragingo duela, eta egindako aldaketak ez direla atzeraeraginez aplikatuko."
+
+#: common/src/admin-views/tribe-options-general.php:67
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:67
+msgid "Currency symbol follows value"
+msgstr "Dibisa sinboloa balioaren ondoren"
+
+#: common/src/admin-views/tribe-options-general.php:68
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:68
+msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
+msgstr "Normalean dibisa sinboloa balioaren aurretik jartzen da. Aukera hau gaitzen bada, sinboloa balioaren ondoren azalduko da."
+
+#: src/admin-views/tribe-options-general.php:143
+msgid "Map Settings"
+msgstr "Mapa ezarpenak"
+
+#: src/admin-views/tribe-options-general.php:147
+msgid "Enable Google Maps"
+msgstr "Google Maps gaitu"
+
+#: src/admin-views/tribe-options-general.php:148
+msgid "Check to enable maps for events and venues."
+msgstr "Markatu egoitzentzat eta ekitaldientzat mapak gaitzeko"
+
+#: src/admin-views/tribe-options-general.php:155
+msgid "Google Maps default zoom level"
+msgstr "Google Maps-en zoom maila lehenetsia"
+
+#: src/admin-views/tribe-options-general.php:156
+msgid "0 = zoomed out; 21 = zoomed in."
+msgstr "0 = zoomik ez; 21 = zoom asko."
+
+#: common/src/admin-views/tribe-options-general.php:74
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:74
+msgid "Miscellaneous Settings"
+msgstr "Askotariko hobespenak"
+
+#: src/admin-views/tribe-options-general.php:131
+msgid "Duplicate Venues &amp; Organizers"
+msgstr "Antolatzaileak eta egoitzak bikoiztu"
+
+#: src/admin-views/tribe-options-general.php:131
+msgid "You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers."
+msgstr "Ekitaldi Egutegia 3.0 bertsioa baino zaharragoa den bertsio batetik eguneratzerakoan bikoiztutako leku eta antolatzaileak aurkitu ditzakezu. Botoi honetan sakatu leku eta antolatzaile berberak automatikoki elkartzeko."
+
+#: src/admin-views/tribe-options-general.php:171
+msgid "View Welcome Page"
+msgstr "Ongietorri orrialdea ikusi"
+
+#: src/admin-views/tribe-options-general.php:171
+msgid "View the page that displayed when you initially installed the plugin."
+msgstr "Plugina instalatu zenuenean bistaratu zenuen orrialdea ikusi."
+
+#: src/admin-views/tribe-options-general.php:175
+msgid "View Update Page"
+msgstr "Eguneraketa orrialdea ikusi"
+
+#: src/admin-views/tribe-options-general.php:175
+msgid "View the page that displayed when you updated the plugin."
+msgstr "Plugina eguneratu zenuenean bistaratu zenuen orrialdea ikusi."
+
+#: common/src/admin-views/tribe-options-general.php:81
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:81
+msgid "Debug mode"
+msgstr "Arazketa modua"
+
+#: common/src/admin-views/tribe-options-general.php:87
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
+msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
+msgstr "Aukera hau gaitu arazketa informazioa logatzeko. Besterik adierazi ezean, datuak zure zerbitzariko PHP errore logan idatziko dira. Log mezuak zure arakatzailean ikusi nahi badituzu, %s instalatzea eta arazketa irteeran \"Tribe\" fitxa bilatzea gomendatzen dizugu."
+
+#: common/src/admin-views/tribe-options-general.php:87
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
+msgid "Debug Bar Plugin"
+msgstr "Arazketa barra plugina"
+
+#: common/src/Tribe/Admin/Help_Page.php:394
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:394
+msgctxt "not available"
+msgid "n/a"
+msgstr "e/e"
+
+#: common/src/Tribe/Admin/Help_Page.php:402
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:402
+msgid "You need to upgrade!"
+msgstr "Eguneraketa bat behar duzu!"
+
+#: common/src/Tribe/Admin/Help_Page.php:402
+#: common/src/Tribe/Admin/Help_Page.php:798
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:402
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:798
+msgid "You are up to date!"
+msgstr "Azkeneko bertsioa duzu!"
+
+#: common/src/Tribe/Admin/Help_Page.php:183 src/Tribe/Main.php:649
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:183
+msgid "Events Calendar PRO"
+msgstr "PRO Ekitaldi Egutegia"
+
+#: common/src/admin-views/tribe-options-help.php:63
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:63
+msgid "More..."
+msgstr "Gehiago..."
+
+#: common/src/Tribe/Admin/Help_Page.php:829
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:829
+msgid "Latest Version:"
+msgstr "Azkeneko bertsioa:"
+
+#: common/src/Tribe/Admin/Help_Page.php:832
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:832
+msgid "Requires:"
+msgstr "Betekizunak:"
+
+#: common/src/Tribe/Admin/Help_Page.php:833
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:833
+msgid "WordPress "
+msgstr "WordPress "
+
+#: common/src/Tribe/Admin/Help_Page.php:857
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:857
+msgid "Premium Add-Ons"
+msgstr "Ordainpeko Gehigarriak"
+
+#: common/src/admin-views/tribe-options-help.php:57
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:57
+msgid "News and Tutorials"
+msgstr "Berriak eta tutoretzak"
+
+#: common/src/admin-views/tribe-options-licenses.php:13
+#: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:13
+msgid "<p>The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
+msgstr "<p>%1$s-ren erosketa osatzean jaso zenuen lizentzia gakoak eguneraketak eta euskarria jasotzeko eskubidea emango dizu, iraungitu arte. Plugina funtzionatzeko gakoa azpian sartzea ez da beharrezkoa, baina eguneraketa automatikoak nahi badituzu idatzi beharko duzu.<strong>Zure lizentzia gakoak non aurkitu: <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Ordainpeko gehigarri bakoitzak bere gako bakar propioa dauka. Gakoa dagokion azpiko eremuan itsatsi eta hau egiaztatzeko momentu bat itxarotea besterik ez da egin behar. \"baliozkoa\" mezua eta kolore berdeko iraungitze data bat azaltzen badira, gakoa zuzena da.</p> <p>zure gakoa baliozkoa ez dela edo bere instalazio kopurua agortu dela esaten duen mezu gorri bat agertu ezkero, <a href=\"%4$s\" target=\"_blank\">%5$s</a> bisitatu zure instalazioak kudeatu edo zure lizentzia eraberritu/eguneratzeko.</p> <p>Eguneraketa bat espero duzu baina ez duzu ezer ikusten? WordPress-en <a href=\"%6$s\">Arbela > Eguneraketak</a> menura joan eta \"Berriz egiaztatu\" sakatu.</p>"
+
+#: common/src/admin-views/tribe-options-licenses.php:18
+#: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:18
+msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
+msgstr "%1$sGure pluginak webgune anitzeko sare batean erabiltzen ari zara?%2$s Kontutan izan zure lizentzia gakoa sare osoan aplikatuko da, ez bakarrik zure webgunean."
+
+#: common/src/admin-views/tribe-options-network.php:15
+#: vendor/tickets/common/src/admin-views/tribe-options-network.php:15
+msgid "Network Settings"
+msgstr "Sare hobespenak"
+
+#: common/src/admin-views/tribe-options-network.php:19
+#: vendor/tickets/common/src/admin-views/tribe-options-network.php:19
+msgid "This is where all of the global network settings for Modern Tribe's The Events Calendar can be modified."
+msgstr "Modern Tribe-ko Ekitaldi Egutegiko sare hobespen orokor guztiak hemen aldatu daitezke."
+
+#: common/src/admin-views/tribe-options-network.php:27
+#: vendor/tickets/common/src/admin-views/tribe-options-network.php:27
+msgid "Hide the following settings tabs on every site:"
+msgstr "Webgune guztietan hobespen fitxa hauek ezkutatu:"
+
+#: src/admin-views/tribe-options-timezones.php:7
+msgid "Enable timezone support"
+msgstr "Ordu-zona euskarria gaitu"
+
+#: src/admin-views/tribe-options-timezones.php:9
+msgid "Update Timezone Data"
+msgstr "Ordu-zona datuak eguneratu"
+
+#: src/admin-views/tribe-options-timezones.php:10
+msgid "Click this button to update your database and take advantage of additional timezone capabilities. Please <a href=\"%s\" target=\"_blank\">configure WordPress</a> to use the correct timezone before clicking this button!"
+msgstr "Zure datubasea eguneratu eta horrela ordu-zona gaitasun gehigarrietaz baliatzeko botoi hau sakatu. Botoi hau sakatu baino lehen, WordPress ordu-leku zuzena erabiltzeko<a href=\"%s\" target=\"_blank\">konfiguratu</a>, mesedez!"
+
+#: src/admin-views/tribe-options-timezones.php:30
+msgid "Timezone Settings"
+msgstr "Ordu-zona ezarpenak"
+
+#: src/admin-views/tribe-options-timezones.php:38
+msgid "Timezone mode"
+msgstr "Ordu-zona modua"
+
+#: src/admin-views/tribe-options-timezones.php:42
+msgid "Use the local timezones for each event"
+msgstr "Ekitaldi bakoitzari dagokion ordu-zona erabili"
+
+#: src/admin-views/tribe-options-timezones.php:43
+msgid "Use the sitewide timezone everywhere"
+msgstr "Webgune osoari dagokion ordu-zona erabili"
+
+#: src/admin-views/tribe-options-timezones.php:48
+msgid "Show timezone"
+msgstr "Ordu-zona erakutsi"
+
+#: src/admin-views/tribe-options-timezones.php:49
+msgid "Appends the timezone to the end of event scheduling information &ndash; this can be useful when you have events in numerous different timezones."
+msgstr "Ekitaldi antolakuntzaren amaieran ordu-zona gehitzen du &ndash; hau erabilgarria da ekitaldiak ordu-zona desberdinetan dituzunean."
+
+#: src/admin-views/venue-meta-box.php:41
+msgid "City:"
+msgstr "Hiria:"
+
+#: src/admin-views/venue-meta-box.php:48
+msgid "Country:"
+msgstr "Herrialdea:"
+
+#: src/admin-views/venue-meta-box.php:87
+msgid "State or Province:"
+msgstr "Estatu edo probintzia:"
+
+#: src/admin-views/venue-meta-box.php:91
+msgid "Select a State:"
+msgstr "Estatu bat aukeratu:"
+
+#: src/admin-views/venue-meta-box.php:104
+msgid "Postal Code:"
+msgstr "Posta-kodea:"
+
+#: src/admin-views/venue-meta-box.php:136
+#: src/admin-views/venue-meta-box.php:158
+msgid "Show Google Map:"
+msgstr "Google Map erakutsi:"
+
+#: src/admin-views/venue-meta-box.php:146
+#: src/admin-views/venue-meta-box.php:168
+msgid "Show Google Maps Link:"
+msgstr "Google Maps esteka erakutsi:"
+
+#: src/admin-views/widget-admin-list.php:13
+msgid "Title:"
+msgstr "Izenburua:"
+
+#: src/admin-views/widget-admin-list.php:18
+msgid "Show:"
+msgstr "Erakutsi:"
+
+#: src/admin-views/widget-admin-list.php:28
+msgid "Show widget only if there are upcoming events:"
+msgstr "Widget-a soilik datozen ekitaldiak badaude erakutsi:"
+
+#: src/functions/advanced-functions/meta_registration.php:16
+#: src/views/modules/meta/details.php:55
+msgid "Details"
+msgstr "Xehetasunak"
+
+#: src/functions/advanced-functions/meta_registration.php:80
+msgid "Event Tags:"
+msgstr "Ekitaldiaren etiketak:"
+
+#: src/functions/advanced-functions/meta_registration.php:112
+msgid "Origin:"
+msgstr "Jatorria:"
+
+#: src/functions/advanced-functions/meta_registration.php:286
+msgid "%s:"
+msgstr "%s:"
+
+#: src/functions/template-tags/date.php:145
+msgid "The function needs to be passed an $event or used in the loop."
+msgstr "Funtzioa begiztan erabili behar da edo $event bat pasa behar zaio."
+
+#: src/functions/template-tags/day.php:110
+msgid "Yesterday"
+msgstr "Atzo"
+
+#: src/functions/template-tags/day.php:112
+msgid "Tomorrow"
+msgstr "Bihar"
+
+#: src/functions/template-tags/deprecated.php:1299
+msgid "Category"
+msgstr "Kategoria"
+
+#. translators: %s is the singular translation of "Event"
+#: src/functions/template-tags/general.php:379
+msgctxt "category list label"
+msgid "%s Category"
+msgid_plural "%s Categories"
+msgstr[0] "Kategoria %s"
+msgstr[1] "%s kategoria"
+
+#: src/functions/template-tags/general.php:418
+msgid "Tags:"
+msgstr "Etiketak:"
+
+#: src/functions/template-tags/general.php:530
+msgid "Loading %s"
+msgstr "%s kargatzen"
+
+#: src/functions/template-tags/general.php:1070
+msgid "Find out more »"
+msgstr "Informazio gehiago »"
+
+#: src/functions/template-tags/general.php:1071
+msgid "%s for"
+msgstr "Data honetarako %s"
+
+#: src/functions/template-tags/general.php:1191
+msgid "Calendar powered by %sThe Events Calendar%s"
+msgstr "Egutegi honek %sEkitaldi Egutegia%s erabiltzen du"
+
+#: src/functions/template-tags/google-map.php:46
+msgid "Click to view a Google Map"
+msgstr "Egin klik Google Map bat ikusteko"
+
+#: src/functions/template-tags/google-map.php:47
+msgid "+ Google Map"
+msgstr "+ Google Map"
+
+#: src/functions/template-tags/loop.php:131
+msgid "Upcoming %s"
+msgstr "Datozen %s"
+
+#: src/functions/template-tags/loop.php:145
+msgid "%1$s for %2$s - %3$s"
+msgstr "%2$s - %3$s tarteko %1$s"
+
+#: src/functions/template-tags/loop.php:147
+msgid "Past %s"
+msgstr "Igarotako %s"
+
+#: src/functions/template-tags/loop.php:152
+#: src/functions/template-tags/loop.php:161
+msgid "%1$s for %2$s"
+msgstr "%2$sko %1$s"
+
+#: src/functions/template-tags/options.php:20
+msgid "Your current Events URL is %s"
+msgstr "Zure uneko ekitaldien URLa %s da"
+
+#: src/functions/template-tags/options.php:29
+msgid "You %1$scannot%2$s use the same slug as above. The above should ideally be plural, and this singular.%3$sYour single Event URL is like: %4$s"
+msgstr "Goiko slug berdina %1$sezin%2$s duzu erabili. Goikoa plurala izan beharko luke, eta hau singularra. %3$sZure ekitaldi baten URLaren itxura hau da: %4$s"
+
+#: src/io/csv/admin-views/columns.php:22
+msgid "Column Mapping: %s"
+msgstr "Zutabe mapatzea: %s"
+
+#: src/io/csv/admin-views/columns.php:27
+msgid "Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file."
+msgstr "Zutabeak zure azkeneko inportatzean oinarrituta mapatu dira. Zirutatu aukeratutako eremuak zure CSV fitxategiko zutabeekin bat datozela."
+
+#: src/io/csv/admin-views/columns.php:32
+msgid "Column Headings"
+msgstr "Zutabeen goiburuak"
+
+#: src/io/csv/admin-views/columns.php:33
+msgid "Event Fields"
+msgstr "Ekitaldi eremuak"
+
+#: src/io/csv/admin-views/columns.php:44
+msgid "Perform Import"
+msgstr "Inportatzea gauzatu"
+
+#: src/io/csv/admin-views/general.php:10
+msgid "Instructions"
+msgstr "Argibideak"
+
+#: src/Tribe/Importer/Admin_Page.php:190
+msgid "Import Settings"
+msgstr "Inportatze ezarpenak"
+
+#: src/Tribe/Importer/Options.php:120
+msgid "Published"
+msgstr "Argitaratuta"
+
+#: src/Tribe/Importer/Options.php:121
+msgid "Pending"
+msgstr "Egiteke"
+
+#: src/Tribe/Importer/Options.php:122
+msgid "Draft"
+msgstr "Zirriborroa"
+
+#: src/io/csv/admin-views/general.php:50
+msgid "Save Settings"
+msgstr "Ezarpenak gorde"
+
+#: src/io/csv/admin-views/header.php:17
+msgid "Events Import"
+msgstr "Ekitaldiak inportatu"
+
+#: src/io/csv/admin-views/import.php:17
+msgid "Import Instructions"
+msgstr "Argibideak inportatu"
+
+#: src/io/csv/admin-views/import.php:20
+msgid "If your events have Organizers or Venues, please import those first."
+msgstr "Zure ekitaldiek antolatzailerik edo egoitzarik badute, mesedez lehenengo horiek inportatu."
+
+#: src/io/csv/admin-views/import.php:21
+msgid "To import organizers or venues:"
+msgstr "Antolatzaileak edo egoitzak inportatzeko:"
+
+#: src/io/csv/admin-views/import.php:23
+msgid "Select the appropriate import type."
+msgstr "Inportatze mota egokia aukeratu."
+
+#: src/io/csv/admin-views/import.php:24 src/io/csv/admin-views/import.php:30
+msgid "Upload a CSV file with one record on each line. The first line may contain column names (check the box below)."
+msgstr "Lerro bakoitzean erregistro bat duen CSV fitxategi bat igo. Lehenengo lerroak zutabe izenak eduki ditzake (ikusi azpiko kutxa)."
+
+#: src/io/csv/admin-views/import.php:25
+msgid "One column in your CSV should have the Organizer/Venue name. All other fields are optional."
+msgstr "Zure CSVko zutabe batek antolatzailearen/egoitzaren izena eduki behar du. Gainontzeko eremuak aukerakoak dira."
+
+#: src/io/csv/admin-views/import.php:26 src/io/csv/admin-views/import.php:32
+msgid "After you upload your file, you'll have the opportunity to indicate how the columns in your CSV map to fields in The Events Calendar."
+msgstr "Fitxategia igo ondoren, zure CSVko zutabeak Ekitaldi Egutegiko eremuekin nola mapatzen diren adierazteko aukera izango duzu."
+
+#: src/io/csv/admin-views/import.php:28
+msgid "After importing your Organizers and Venues, import your Events:"
+msgstr "Zure antolatzaileak eta egoitzak inportatu ondoren, zure ekitaldiak inportatu:"
+
+#: src/io/csv/admin-views/import.php:31
+msgid "One column in your CSV should have the Event title. Another should have the Event start date. All other fields are optional."
+msgstr "Zure CSVko zutabe batek ekitaldiaren izenburua eduki behar du. Beste batek ekitaldiaren hasiera data eduki behar du. Gainontzeko eremuak aukerakoak dira."
+
+#: src/io/csv/admin-views/import.php:43
+msgid "Import Type:"
+msgstr "Inportatze mota:"
+
+#: src/io/csv/admin-views/import.php:55
+msgid "CSV File:"
+msgstr "CSV fitxategia:"
+
+#: src/io/csv/admin-views/import.php:67
+msgid "This file has column names in the first row"
+msgstr "Fitxategi honek zutabe izenak ditu lehenengo errenkadan"
+
+#: src/io/csv/admin-views/import.php:78
+msgid "Import CSV File"
+msgstr "CSV fitxategia inportatu"
+
+#: src/io/csv/admin-views/result.php:14
+msgid "Import Result"
+msgstr "Inportatze emaitza"
+
+#: src/io/csv/admin-views/result.php:16
+msgid "Import complete!"
+msgstr "Inportatzea osatu da!"
+
+#: src/io/csv/admin-views/result.php:18
+msgid "Inserted: %d"
+msgstr "Txertatuta: %d"
+
+#: src/io/csv/admin-views/result.php:19
+msgid "Updated: %d"
+msgstr "Eguneratuta: %d"
+
+#: src/io/csv/admin-views/result.php:20
+msgid "Skipped: %d"
+msgstr "Saltatuta: %d"
+
+#: src/io/csv/admin-views/result.php:24
+msgid "The import statistics above have the following meaning:"
+msgstr "Goiko inportatze estatistikek esanahi hau dute:"
+
+#: src/io/csv/admin-views/result.php:28
+msgid "Skipped row numbers: %s"
+msgstr "Saltatutako errenkada zenbakiak: %s"
+
+#: src/views/day/nav.php:16
+msgid "Day Navigation"
+msgstr "Egun nabigazioa"
+
+#: src/views/day/single-event.php:66 src/views/list/single-event.php:70
+msgid "Find out more"
+msgstr "Informazio gehiago"
+
+#: src/views/list/nav.php:20
+msgid "%s List Navigation"
+msgstr "%s zerrenda nabigazioa"
+
+#: src/views/modules/bar.php:30 src/views/modules/bar.php:61
+msgid "Find %s"
+msgstr "%s aurkitu"
+
+#: src/views/modules/bar.php:37
+msgid "Event Views Navigation"
+msgstr "Ekitaldi bisten nabigazioa"
+
+#: src/views/modules/bar.php:38
+msgid "View As"
+msgstr "Bistaratze modua"
+
+#: src/views/modules/meta/details.php:142
+msgid "%s Tags:"
+msgstr "%s etiketak:"
+
+#: src/views/month/nav.php:18
+msgid "Calendar Month Navigation"
+msgstr "Hilabete egutegi nabigazioa"
+
+#: src/views/single-event.php:46 src/views/single-event.php:79
+msgid "%s Navigation"
+msgstr "%s nabigazioa"
+
+#: vendor/tickets/src/views/tickets/attendees-email.php:24
+msgid "Attendee List"
+msgstr "Partaide zerrenda"
+
+#: vendor/tickets/src/views/tickets/email.php:26
+msgid "Your tickets"
+msgstr "Zure sarrerak"
+
+#: vendor/tickets/src/views/tickets/email.php:336
+msgid "Ticket Type"
+msgstr "Sarrera mota"
+
+#: vendor/tickets/src/views/tickets/email.php:340
+msgid "Purchaser"
+msgstr "Eroslea"
+
+#: src/views/widgets/list-widget.php:67
+msgid "View All %s"
+msgstr "%s guztiak ikusi"
+
+#: src/views/widgets/list-widget.php:73
+msgid "There are no upcoming %s at this time."
+msgstr "Une honetan ez dago datorren %s."
+
+#. Description of the plugin/theme
+msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
+msgstr "Ekitald Egutegia zure ekitaldiak era errazean partekatzen uzten dizun tentuz eraikitako plugin hedagarri bat da. Dotorea. Sendoa. Zoragarria."
+
+#. Author of the plugin/theme
+msgid "Modern Tribe, Inc."
+msgstr "Modern Tribe, Inc."
+
+#. Author URI of the plugin/theme
+msgid "http://m.tri.be/1x"
+msgstr "http://m.tri.be/1x"
+
+#: common/src/Tribe/View_Helpers.php:219
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:219
+msgid "Poland"
+msgstr "Polonia"
+
+#: common/src/Tribe/View_Helpers.php:220
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:220
+msgid "Portugal"
+msgstr "Portugal"
+
+#: common/src/Tribe/View_Helpers.php:221
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:221
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: common/src/Tribe/View_Helpers.php:222
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:222
+msgid "Qatar"
+msgstr "Qatar"
+
+#: common/src/Tribe/View_Helpers.php:223
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:223
+msgid "Reunion"
+msgstr "Réunion"
+
+#: common/src/Tribe/View_Helpers.php:224
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:224
+msgid "Romania"
+msgstr "Errumania"
+
+#: common/src/Tribe/View_Helpers.php:225
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:225
+msgid "Russian Federation"
+msgstr "Errusiar Federakundea"
+
+#: common/src/Tribe/View_Helpers.php:226
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:226
+msgid "Rwanda"
+msgstr "Ruanda"
+
+#: common/src/Tribe/View_Helpers.php:227
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:227
+msgid "Saint Kitts And Nevis"
+msgstr "Saint Kitts eta Nevis"
+
+#: common/src/Tribe/View_Helpers.php:228
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:228
+msgid "Saint Lucia"
+msgstr "Santa Luzia"
+
+#: common/src/Tribe/View_Helpers.php:229
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:229
+msgid "Saint Vincent And The Grenadines"
+msgstr "Saint Vincent eta Grenadinak"
+
+#: common/src/Tribe/View_Helpers.php:230
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:230
+msgid "Samoa"
+msgstr "Samoa"
+
+#: common/src/Tribe/View_Helpers.php:231
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:231
+msgid "San Marino"
+msgstr "San Marino"
+
+#: common/src/Tribe/View_Helpers.php:232
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:232
+msgid "Sao Tome And Principe"
+msgstr "São Tomé eta Príncipe"
+
+#: common/src/Tribe/View_Helpers.php:233
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:233
+msgid "Saudi Arabia"
+msgstr "Saudi Arabia"
+
+#: common/src/Tribe/View_Helpers.php:234
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:234
+msgid "Senegal"
+msgstr "Senegal"
+
+#: common/src/Tribe/View_Helpers.php:235
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:235
+msgid "Serbia"
+msgstr "Serbia"
+
+#: common/src/Tribe/View_Helpers.php:236
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:236
+msgid "Seychelles"
+msgstr "Seychelleak"
+
+#: common/src/Tribe/View_Helpers.php:237
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:237
+msgid "Sierra Leone"
+msgstr "Sierra Leona"
+
+#: common/src/Tribe/View_Helpers.php:238
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:238
+msgid "Singapore"
+msgstr "Singapur"
+
+#: common/src/Tribe/View_Helpers.php:239
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:239
+msgid "Slovakia (Slovak Republic)"
+msgstr "Eslovakia (Eslovakiar Errepublika)"
+
+#: common/src/Tribe/View_Helpers.php:240
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:240
+msgid "Slovenia"
+msgstr "Eslovenia"
+
+#: common/src/Tribe/View_Helpers.php:241
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:241
+msgid "Solomon Islands"
+msgstr "Salomon Uharteak"
+
+#: common/src/Tribe/View_Helpers.php:242
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:242
+msgid "Somalia"
+msgstr "Somalia"
+
+#: common/src/Tribe/View_Helpers.php:243
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:243
+msgid "South Africa"
+msgstr "Hegoafrika"
+
+#: common/src/Tribe/View_Helpers.php:244
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:244
+msgid "South Georgia, South Sandwich Islands"
+msgstr "Hegoaldeko Georgia eta Hegoaldeko Sandwich Uharteak"
+
+#: common/src/Tribe/View_Helpers.php:245
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:245
+msgid "Spain"
+msgstr "Espainia"
+
+#: common/src/Tribe/View_Helpers.php:246
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:246
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: common/src/Tribe/View_Helpers.php:247
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:247
+msgid "St. Helena"
+msgstr "Santa Helena"
+
+#: common/src/Tribe/View_Helpers.php:248
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:248
+msgid "St. Pierre And Miquelon"
+msgstr "Saint-Pierre eta Mikelune"
+
+#: common/src/Tribe/View_Helpers.php:249
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:249
+msgid "Sudan"
+msgstr "Sudan"
+
+#: common/src/Tribe/View_Helpers.php:250
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:250
+msgid "Suriname"
+msgstr "Surinam"
+
+#: common/src/Tribe/View_Helpers.php:251
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:251
+msgid "Svalbard And Jan Mayen Islands"
+msgstr "Svalbard eta Jan Mayen Uharteak"
+
+#: common/src/Tribe/View_Helpers.php:252
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:252
+msgid "Swaziland"
+msgstr "Swazilandia"
+
+#: common/src/Tribe/View_Helpers.php:253
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:253
+msgid "Sweden"
+msgstr "Suedia"
+
+#: common/src/Tribe/View_Helpers.php:254
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:254
+msgid "Switzerland"
+msgstr "Suitza"
+
+#: common/src/Tribe/View_Helpers.php:255
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:255
+msgid "Syrian Arab Republic"
+msgstr "Siriako Arabiar Errepublika"
+
+#: common/src/Tribe/View_Helpers.php:256
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:256
+msgid "Taiwan"
+msgstr "Taiwan"
+
+#: common/src/Tribe/View_Helpers.php:257
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:257
+msgid "Tajikistan"
+msgstr "Tajikistan"
+
+#: common/src/Tribe/View_Helpers.php:258
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:258
+msgid "Tanzania, United Republic Of"
+msgstr "Tanzania"
+
+#: common/src/Tribe/View_Helpers.php:259
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:259
+msgid "Thailand"
+msgstr "Tailandia"
+
+#: common/src/Tribe/View_Helpers.php:260
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:260
+msgid "Togo"
+msgstr "Togo"
+
+#: common/src/Tribe/View_Helpers.php:261
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:261
+msgid "Tokelau"
+msgstr "Tokelau"
+
+#: common/src/Tribe/View_Helpers.php:262
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:262
+msgid "Tonga"
+msgstr "Tonga"
+
+#: common/src/Tribe/View_Helpers.php:263
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:263
+msgid "Trinidad And Tobago"
+msgstr "Trinidad eta Tobago"
+
+#: common/src/Tribe/View_Helpers.php:264
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:264
+msgid "Tunisia"
+msgstr "Tunisia"
+
+#: common/src/Tribe/View_Helpers.php:265
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:265
+msgid "Turkey"
+msgstr "Turkia"
+
+#: common/src/Tribe/View_Helpers.php:266
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:266
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+#: common/src/Tribe/View_Helpers.php:267
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:267
+msgid "Turks And Caicos Islands"
+msgstr "Turks eta Caicos Uharteak"
+
+#: common/src/Tribe/View_Helpers.php:268
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:268
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: common/src/Tribe/View_Helpers.php:269
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:269
+msgid "Uganda"
+msgstr "Uganda"
+
+#: common/src/Tribe/View_Helpers.php:270
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:270
+msgid "Ukraine"
+msgstr "Ukrania"
+
+#: common/src/Tribe/View_Helpers.php:271
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:271
+msgid "United Arab Emirates"
+msgstr "Arabiar Emirerri Batuak"
+
+#: common/src/Tribe/View_Helpers.php:272
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:272
+msgid "United Kingdom"
+msgstr "Erresuma Batua"
+
+#: common/src/Tribe/View_Helpers.php:273
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:273
+msgid "United States Minor Outlying Islands"
+msgstr "Estatu Batuetako itsasoz haraindiko uharteak"
+
+#: common/src/Tribe/View_Helpers.php:274
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:274
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: common/src/Tribe/View_Helpers.php:275
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:275
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+#: common/src/Tribe/View_Helpers.php:276
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:276
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: common/src/Tribe/View_Helpers.php:277
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:277
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: common/src/Tribe/View_Helpers.php:278
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:278
+msgid "Viet Nam"
+msgstr "Viet Nam"
+
+#: common/src/Tribe/View_Helpers.php:279
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:279
+msgid "Virgin Islands (British)"
+msgstr "Birjina Uharteak (Britaniarrak)"
+
+#: common/src/Tribe/View_Helpers.php:280
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:280
+msgid "Virgin Islands (U.S.)"
+msgstr "Birjina Uharteak (Estatubatuarrak)"
+
+#: common/src/Tribe/View_Helpers.php:281
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:281
+msgid "Wallis And Futuna Islands"
+msgstr "Wallis eta Futuna Uharteak"
+
+#: common/src/Tribe/View_Helpers.php:282
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:282
+msgid "Western Sahara"
+msgstr "Mendebaldeko Sahara"
+
+#: common/src/Tribe/View_Helpers.php:283
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:283
+msgid "Yemen"
+msgstr "Yemen"
+
+#: common/src/Tribe/View_Helpers.php:284
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:284
+msgid "Zambia"
+msgstr "Zambia"
+
+#: common/src/Tribe/View_Helpers.php:285
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:285
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+#: common/src/Tribe/View_Helpers.php:316
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:316
+msgid "Alabama"
+msgstr "Alabama"
+
+#: common/src/Tribe/View_Helpers.php:317
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:317
+msgid "Alaska"
+msgstr "Alaska"
+
+#: common/src/Tribe/View_Helpers.php:318
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:318
+msgid "Arizona"
+msgstr "Arizona"
+
+#: common/src/Tribe/View_Helpers.php:319
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:319
+msgid "Arkansas"
+msgstr "Arkansas"
+
+#: common/src/Tribe/View_Helpers.php:320
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:320
+msgid "California"
+msgstr "California"
+
+#: common/src/Tribe/View_Helpers.php:321
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:321
+msgid "Colorado"
+msgstr "Colorado"
+
+#: common/src/Tribe/View_Helpers.php:322
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:322
+msgid "Connecticut"
+msgstr "Connecticut"
+
+#: common/src/Tribe/View_Helpers.php:323
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:323
+msgid "Delaware"
+msgstr "Delaware"
+
+#: common/src/Tribe/View_Helpers.php:324
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:324
+msgid "District of Columbia"
+msgstr "Columbiako Barrutia"
+
+#: common/src/Tribe/View_Helpers.php:325
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:325
+msgid "Florida"
+msgstr "Florida"
+
+#: common/src/Tribe/View_Helpers.php:327
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:327
+msgid "Hawaii"
+msgstr "Hawaii"
+
+#: common/src/Tribe/View_Helpers.php:328
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:328
+msgid "Idaho"
+msgstr "Idaho"
+
+#: common/src/Tribe/View_Helpers.php:329
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:329
+msgid "Illinois"
+msgstr "Illinois"
+
+#: common/src/Tribe/View_Helpers.php:330
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:330
+msgid "Indiana"
+msgstr "Indiana"
+
+#: common/src/Tribe/View_Helpers.php:331
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:331
+msgid "Iowa"
+msgstr "Iowa"
+
+#: common/src/Tribe/View_Helpers.php:332
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:332
+msgid "Kansas"
+msgstr "Kansas"
+
+#: common/src/Tribe/View_Helpers.php:333
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:333
+msgid "Kentucky"
+msgstr "Kentucky"
+
+#: common/src/Tribe/View_Helpers.php:334
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:334
+msgid "Louisiana"
+msgstr "Louisiana"
+
+#: common/src/Tribe/View_Helpers.php:335
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:335
+msgid "Maine"
+msgstr "Maine"
+
+#: common/src/Tribe/View_Helpers.php:336
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:336
+msgid "Maryland"
+msgstr "Maryland"
+
+#: common/src/Tribe/View_Helpers.php:337
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:337
+msgid "Massachusetts"
+msgstr "Massachusetts"
+
+#: common/src/Tribe/View_Helpers.php:338
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:338
+msgid "Michigan"
+msgstr "Michigan"
+
+#: common/src/Tribe/View_Helpers.php:339
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:339
+msgid "Minnesota"
+msgstr "Minnesota"
+
+#: common/src/Tribe/View_Helpers.php:340
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:340
+msgid "Mississippi"
+msgstr "Mississippi"
+
+#: common/src/Tribe/View_Helpers.php:341
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:341
+msgid "Missouri"
+msgstr "Missouri"
+
+#: common/src/Tribe/View_Helpers.php:342
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:342
+msgid "Montana"
+msgstr "Montana"
+
+#: common/src/Tribe/View_Helpers.php:343
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:343
+msgid "Nebraska"
+msgstr "Nebraska"
+
+#: common/src/Tribe/View_Helpers.php:344
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:344
+msgid "Nevada"
+msgstr "Nevada"
+
+#: common/src/Tribe/View_Helpers.php:345
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:345
+msgid "New Hampshire"
+msgstr "New Hampshire"
+
+#: common/src/Tribe/View_Helpers.php:346
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:346
+msgid "New Jersey"
+msgstr "New Jersey"
+
+#: common/src/Tribe/View_Helpers.php:347
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:347
+msgid "New Mexico"
+msgstr "New Mexico"
+
+#: common/src/Tribe/View_Helpers.php:348
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:348
+msgid "New York"
+msgstr "New York"
+
+#: common/src/Tribe/View_Helpers.php:349
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:349
+msgid "North Carolina"
+msgstr "Ipar Carolina"
+
+#: common/src/Tribe/View_Helpers.php:350
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:350
+msgid "North Dakota"
+msgstr "Ipar Dakota"
+
+#: common/src/Tribe/View_Helpers.php:351
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:351
+msgid "Ohio"
+msgstr "Ohio"
+
+#: common/src/Tribe/View_Helpers.php:352
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:352
+msgid "Oklahoma"
+msgstr "Oklahoma"
+
+#: common/src/Tribe/View_Helpers.php:353
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:353
+msgid "Oregon"
+msgstr "Oregon"
+
+#: common/src/Tribe/View_Helpers.php:354
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:354
+msgid "Pennsylvania"
+msgstr "Pennsylvania"
+
+#: common/src/Tribe/View_Helpers.php:355
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:355
+msgid "Rhode Island"
+msgstr "Rhode Island"
+
+#: common/src/Tribe/View_Helpers.php:356
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:356
+msgid "South Carolina"
+msgstr "Hego Carolina"
+
+#: common/src/Tribe/View_Helpers.php:357
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:357
+msgid "South Dakota"
+msgstr "Hego Dakota"
+
+#: common/src/Tribe/View_Helpers.php:358
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:358
+msgid "Tennessee"
+msgstr "Tennessee"
+
+#: common/src/Tribe/View_Helpers.php:359
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:359
+msgid "Texas"
+msgstr "Texas"
+
+#: common/src/Tribe/View_Helpers.php:360
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:360
+msgid "Utah"
+msgstr "Utah"
+
+#: common/src/Tribe/View_Helpers.php:361
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:361
+msgid "Vermont"
+msgstr "Vermont"
+
+#: common/src/Tribe/View_Helpers.php:362
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:362
+msgid "Virginia"
+msgstr "Virginia"
+
+#: common/src/Tribe/View_Helpers.php:363
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:363
+msgid "Washington"
+msgstr "Washington"
+
+#: common/src/Tribe/View_Helpers.php:364
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:364
+msgid "West Virginia"
+msgstr "Mendebaldeko Virginia"
+
+#: common/src/Tribe/View_Helpers.php:365
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:365
+msgid "Wisconsin"
+msgstr "Wisconsin"
+
+#: common/src/Tribe/View_Helpers.php:366
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:366
+msgid "Wyoming"
+msgstr "Wyoming"
+
+#: src/Tribe/iCal.php:28
+msgctxt "feed link"
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: src/Tribe/iCal.php:29
+msgid "%1$s %2$s iCal Feed"
+msgstr "%1$s %2$s iCal Jarioa"
+
+#: src/Tribe/iCal.php:76
+msgid "Add to Google Calendar"
+msgstr "Google Calendar-era gehitu"
+
+#: src/Tribe/iCal.php:76
+msgid "Google Calendar"
+msgstr "Google Calendar"
+
+#: src/Tribe/iCal.php:77
+msgid "Download .ics file"
+msgstr ".ics fitxategia jaitsi"
+
+#: src/Tribe/iCal.php:77
+msgid "iCal Export"
+msgstr "iCal-era esportatu"
+
+#: src/Tribe/iCal.php:107
+msgid "Month's %s"
+msgstr "Hilabeteko %s"
+
+#: src/Tribe/iCal.php:110
+msgid "Week's %s"
+msgstr "Asteko %s"
+
+#: src/Tribe/iCal.php:113
+msgid "Day's %s"
+msgstr "Eguneko %s"
+
+#: src/Tribe/iCal.php:116
+msgid "Listed %s"
+msgstr "Zerrendatutako %s"
+
+#: src/Tribe/iCal.php:121
+msgid "Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
+msgstr "Hau erabili egutegi datuak Google Calendar, Apple iCal eta beste aplikazio bateragarriekin partekatzeko."
+
+#: src/admin-views/admin-update-message.php:9
+#: src/admin-views/admin-welcome-message.php:11
+msgid "You are running Version %s and deserve a hug :-)"
+msgstr "%s bertsioa erabiltzen ari zara eta besarkada bat merezi duzu :-)"
+
+#: src/admin-views/admin-update-message.php:33
+msgid "Every time you rate %s5 stars%s, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice."
+msgstr "%s5 izarreko%s kalifikazioa ematen duzun bakoitzean, maitagarri bat jaiotzen da. Beno, agian ez, baina pozik dauden erabiltzaile gehiago egoteak foroetan laguntza gehiago eta ekarpen gehiago egotea suposatzen du. Komunitateak zure ahotsa BEHAR du."
+
+#: src/admin-views/admin-update-message.php:34
+#: src/admin-views/admin-welcome-message.php:22
+msgid "Rate It"
+msgstr "Kalifikatu"
+
+#: src/admin-views/admin-update-message.php:37
+msgid "PSST... Want a Discount?"
+msgstr "Aizu... deskontu bat nahi duzu?"
+
+#: src/admin-views/admin-update-message.php:38
+msgid "We send out discounts to our core users via our newsletter."
+msgstr "Gure erabiltzaile nagusiei gure berri buletinaren bitartez deskontuak bidaltzen dizkiegu."
+
+#: src/admin-views/admin-update-message.php:43
+#: src/admin-views/admin-welcome-message.php:31
+msgid "Sign Up"
+msgstr "Erregistratu"
+
+#: src/admin-views/admin-update-message.php:49
+msgid "Looking for Something Special?"
+msgstr "Zerbait berezia bilatzen ari zara?"
+
+#: src/admin-views/admin-update-message.php:51
+msgid "Pro"
+msgstr "Pro"
+
+#: common/src/Tribe/Admin/Help_Page.php:200
+#: src/admin-views/admin-update-message.php:53
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:200
+msgid "Community Events"
+msgstr "Komunitateko ekitaldiak"
+
+#: src/admin-views/admin-update-message.php:54
+msgid "Filters"
+msgstr "Iragazkiak"
+
+#: src/admin-views/admin-update-message.php:55
+msgid "Facebook"
+msgstr "Facebook"
+
+#: src/admin-views/admin-update-message.php:58
+#: src/admin-views/admin-welcome-message.php:53
+msgid "News For Events Users"
+msgstr "Ekitaldien erabiltzaileentzako berriak"
+
+#: src/admin-views/admin-welcome-message.php:19
+msgid "Keep The Events Calendar Core FREE"
+msgstr "Ekitaldi Egutegiaren nukleoa LIBRE/DOAN mantentzen lagundu"
+
+#: src/admin-views/admin-welcome-message.php:20
+msgid "5 star ratings help us bring TEC to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support."
+msgstr "5 izarreko kalifikazioekin EE erabiltzaile gehiagok ezagutuko dute. Pozik dauden erabiltzaile gehiago badaude, euskarri gehiago, ezaugarri gehiago eta orokorrean, Ekitaldi Egutegiaren inguruko garapen gehiago egin dezakegu. Azken finean, erabiltzaileen laguntza izango ez bagenu hau ez litzateke posible izango."
+
+#: src/admin-views/admin-welcome-message.php:21
+msgid "Rate it five stars today!"
+msgstr "Emaizkiozu bost izar oraintxe!"
+
+#: src/admin-views/admin-welcome-message.php:25
+msgid "Newsletter Signup"
+msgstr "Berri buletinera harpidetu"
+
+#: src/admin-views/admin-welcome-message.php:26
+msgid "Stay in touch with The Events Calendar Pro. We send out periodic updates, key developer notices, and even the occasional discount."
+msgstr "Ekitaldi Egutegi Pro-ri buruzko informazioa jaso. Eguneraketa puntualak, garatzaileentzako ohar garrantzitsuak eta noizean behin deskonturen bat ere bidaltzen dugu."
+
+#: src/admin-views/admin-welcome-message.php:40
+msgid "Getting Started"
+msgstr "Lehenengo urratsak"
+
+#: src/admin-views/admin-welcome-message.php:41
+msgid "Check out the New User Primer &amp; Tutorials"
+msgstr "Erabiltzaile berriaren oinarrizko eskuliburuari eta tutoretzei begirada bat bota"
+
+#: src/admin-views/admin-welcome-message.php:43
+msgid "Looking for More Features?"
+msgstr "Ezaugarri gehiagoren bila zabiltza?"
+
+#: src/admin-views/admin-welcome-message.php:44
+msgid "Addons for Community, Tickets, Filters, Facebook and more."
+msgstr "Facebook-erako, iragazkietarako, sarrerentzako, komunitaterako eta bestelakoetarako gehigarriak."
+
+#: src/admin-views/admin-welcome-message.php:46
+msgid "Support Resources"
+msgstr "Laguntza baliabideak"
+
+#: src/admin-views/admin-welcome-message.php:47
+msgid "FAQs, Documentation, Tutorials and Forums"
+msgstr "FAQ, dokumentazioa, tutorialak eta foroak"
+
+#: src/admin-views/admin-welcome-message.php:50
+msgid "Release Notes"
+msgstr "Argitalpen oharrak"
+
+#: src/admin-views/admin-welcome-message.php:51
+msgid "Get the Skinny on the Latest Updates"
+msgstr "Azkeneko eguneraketen laburpena lortu"
+
+#: src/admin-views/admin-welcome-message.php:54
+msgid "Product Releases, Tutorials and Community Activity"
+msgstr "Produktu argitalpenak, tutoretzak eta komunitatearen aktibitatea"
+
+#: common/src/admin-views/app-shop.php:4
+#: vendor/tickets/common/src/admin-views/app-shop.php:4
+msgid "Tribe Event Add-Ons"
+msgstr "Tribe ekitaldi gehigarriak"
+
+#: common/src/admin-views/app-shop.php:54
+#: vendor/tickets/common/src/admin-views/app-shop.php:54
+msgid "Version"
+msgstr "Bertsioa"
+
+#: common/src/admin-views/app-shop.php:57
+#: vendor/tickets/common/src/admin-views/app-shop.php:57
+msgid "Last Update"
+msgstr "Azkeneko eguneraketa"
+
+#: src/admin-views/event-sidebar-options.php:13
+msgid "Hide From %s Listings"
+msgstr "%s zerrendetatik ezkutatu"
+
+#: src/admin-views/event-sidebar-options.php:15
+msgid "Sticky in Month View"
+msgstr "Hilabete bistan itsaskor egin"
+
+#: src/admin-views/event-sidebar-options.php:16
+msgid "When events are sticky in month view, they'll display first in the list of events shown within a given day block."
+msgstr "Ekitaldiak hilabete bistan itsaskorrak direnean, egun konkretu baten blokeko zerrendan azaltzen den lehenengo gauza izango dira."
+
+#: src/admin-views/events-meta-box.php:62
+msgid "Time &amp; Date"
+msgstr "Ordua eta data"
+
+#: src/admin-views/events-meta-box.php:69
+msgid "You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page."
+msgstr "%1$s honen errepikapen arauak aldatu dituzu. %1$s gordetzean etorkizuneko %2$s guztiak eguneratuko dira. %2$s guztiak aldatzea nahi ez baduzu, orrialdea freskatu, mesedez."
+
+#: src/admin-views/events-meta-box.php:72
+msgid "All Day %s:"
+msgstr "Egun osoko %s:"
+
+#: src/admin-views/events-meta-box.php:78
+msgid "Start Date &amp; Time:"
+msgstr "Hasiera data eta ordua:"
+
+#: src/admin-views/events-meta-box.php:82
+#: src/admin-views/events-meta-box.php:103
+msgid "YYYY-MM-DD"
+msgstr "UUUU-HH-EE"
+
+#: src/admin-views/events-meta-box.php:100
+msgid "End Date &amp; Time:"
+msgstr "Amaiera data eta ordua:"
+
+#: src/admin-views/events-meta-box.php:123
+msgid "Timezone:"
+msgstr "Ordu-zona:"
+
+#: src/admin-views/events-meta-box.php:149
+msgid "Location"
+msgstr "Kokalekua"
+
+#: src/admin-views/events-meta-box.php:197
+msgid "%s Website"
+msgstr "%s webgunea"
+
+#: src/admin-views/events-meta-box.php:200
+msgid "URL:"
+msgstr "URLa:"
+
+#: src/admin-views/events-meta-box.php:231
+msgid "%s Cost"
+msgstr "%s prezioa"
+
+#: src/admin-views/events-meta-box.php:234
+msgid "Currency Symbol:"
+msgstr "Dibisa sinboloa:"
+
+#: src/admin-views/events-meta-box.php:249
+msgctxt "Currency symbol position"
+msgid "Before cost"
+msgstr "Prezioa baino lehen"
+
+#: src/admin-views/events-meta-box.php:252
+msgctxt "Currency symbol position"
+msgid "After cost"
+msgstr "Prezioaren ondoren"
+
+#: src/admin-views/events-meta-box.php:257
+#: src/functions/advanced-functions/meta_registration.php:48
+#: src/views/modules/meta/details.php:123
+msgid "Cost:"
+msgstr "Prezioa:"
+
+#: src/admin-views/events-meta-box.php:265
+msgid "Enter a 0 for %s that are free or leave blank to hide the field."
+msgstr "0 sartu doakoak diren %s-entzako edo hutsik utzi eremua ezkutatzeko."
+
+#: src/admin-views/new-organizer-meta-section.php:17
+#: src/admin-views/organizer-meta-box.php:24
+#: src/admin-views/venue-meta-box.php:25
+msgid "%s Name:"
+msgstr "%s izena:"
+
+#: src/Tribe/Event_Tickets/Attendees_Report.php:76
+#: src/admin-views/new-organizer-meta-section.php:23
+#: src/admin-views/organizer-meta-box.php:31
+#: src/admin-views/venue-meta-box.php:111
+#: src/functions/advanced-functions/meta_registration.php:159
+#: src/functions/advanced-functions/meta_registration.php:238
+#: src/views/modules/meta/organizer.php:42 src/views/modules/meta/venue.php:40
+msgid "Phone:"
+msgstr "Telefonoa:"
+
+#: src/Tribe/Event_Tickets/Attendees_Report.php:85
+#: src/admin-views/new-organizer-meta-section.php:29
+#: src/admin-views/organizer-meta-box.php:37
+#: src/admin-views/venue-meta-box.php:118
+#: src/functions/advanced-functions/meta_registration.php:96
+#: src/functions/advanced-functions/meta_registration.php:191
+#: src/functions/advanced-functions/meta_registration.php:270
+#: src/views/modules/meta/details.php:148
+#: src/views/modules/meta/organizer.php:64 src/views/modules/meta/venue.php:45
+msgid "Website:"
+msgstr "Webgunea:"
+
+#: src/admin-views/new-organizer-meta-section.php:37
+#: src/admin-views/organizer-meta-box.php:43
+#: src/functions/advanced-functions/meta_registration.php:254
+#: src/views/modules/meta/organizer.php:53
+msgid "Email:"
+msgstr "Posta elektronikoa:"
+
+#: src/admin-views/new-organizer-meta-section.php:77
+#: src/admin-views/organizer-meta-box.php:75
+msgid "%s Name Already Exists"
+msgstr "%s izena dagoeneko existitzen da"
+
+#: vendor/tickets/src/admin-views/attendees.php:31
+msgid "Event Details"
+msgstr "Ekitaldiaren xehetasunak"
+
+#: src/Tribe/Event_Tickets/Attendees_Report.php:49
+msgid "Start Date / Time:"
+msgstr "Hasiera Data / Ordua:"
+
+#: src/Tribe/Event_Tickets/Attendees_Report.php:54
+msgid "End Date / Time:"
+msgstr "Amaiera Data / Ordua:"
+
+#: src/Tribe/Event_Tickets/Attendees_Report.php:68
+#: src/admin-views/venue-meta-box.php:34
+#: src/functions/advanced-functions/meta_registration.php:176
+msgid "Address:"
+msgstr "Helbidea:"
+
+#: vendor/tickets/src/admin-views/attendees.php:81
+msgid "Finalized:"
+msgstr "Amaituta:"
+
+#: vendor/tickets/src/admin-views/attendees.php:87
+msgid "Awaiting review:"
+msgstr "Iritzi zain:"
+
+#: vendor/tickets/src/admin-views/attendees.php:92
+msgid "Checked in:"
+msgstr "Izen ematea noiz:"
+
+#: vendor/tickets/src/admin-views/attendees-email.php:4
+msgid "Send the attendee list by email"
+msgstr "Partaideen zerrenda posta elektronikoz bidali"
+
+#: vendor/tickets/src/admin-views/attendees-email.php:10
+msgid "Select a User:"
+msgstr "Erabiltzaile bat aukeratu:"
+
+#: vendor/tickets/src/admin-views/attendees-email.php:15
+msgid "Select..."
+msgstr "Aukeratu..."
+
+#: vendor/tickets/src/admin-views/attendees-email.php:20
+msgid "or"
+msgstr "edo"
+
+#: vendor/tickets/src/admin-views/attendees-email.php:22
+msgid "Email Address:"
+msgstr "Posta elektroniko helbidea:"
+
+#: vendor/tickets/src/admin-views/list.php:33
+msgid "Edit"
+msgstr "Editatu"
+
+#: vendor/tickets/src/admin-views/list.php:42
+msgid "Edit in %s"
+msgstr "%s-n editatu"
+
+#: vendor/tickets/src/admin-views/list.php:37
+msgid "View"
+msgstr "Ikusi"
+
+#: vendor/tickets/src/template-tags/tickets.php:226
+msgid "Sold %d"
+msgstr "%d saldu dira"
+
+#: vendor/tickets/src/admin-views/meta-box.php:31
+msgid "This event was created using Community Events. Are you sure you want to sell tickets for it?"
+msgstr "Ekitaldi hau komunitate ekitaldiak erabilita sortu zen. Ziur zaude ekitaldi honetarako sarrerak saldu nahi dituzula?"
+
+#: vendor/tickets/src/admin-views/meta-box.php:42
+msgid "Upload image for the ticket header"
+msgstr "Sarreraren goibururako irudi bat igo"
+
+#: vendor/tickets/src/admin-views/meta-box.php:43
+msgid "The maximum image size in the email will be 580px wide by any height, and then scaled for mobile. If you would like \"retina\" support use an image sized to 1160px wide."
+msgstr "Posta elektronikoko irudiaren tamaina maximoa 580px-ko zabalera eta edozein altuera edukiko du, eta mugikorrentzat berdimentsionatuko da. \"Retina\" bateragarritasuna nahi baduzu 1160px-ko zabalera duen irudi bat erabili."
+
+#: vendor/tickets/src/admin-views/meta-box.php:46
+msgid "Select an Image"
+msgstr "Irudi bat aukeratu"
+
+#: vendor/tickets/src/admin-views/meta-box.php:54
+msgid "Remove"
+msgstr "Kendu"
+
+#: vendor/tickets/src/admin-views/meta-box.php:112
+#: vendor/tickets/src/admin-views/meta-box.php:122
+msgid "Add new ticket"
+msgstr "Sarrera berria gehitu"
+
+#: vendor/tickets/src/admin-views/meta-box.php:123
+msgid "Edit ticket"
+msgstr "Sarrera editatu"
+
+#: vendor/tickets/src/admin-views/meta-box.php:128
+msgid "Sell using:"
+msgstr "Hau erabilita saldu:"
+
+#: vendor/tickets/src/admin-views/meta-box.php:145
+msgid "Ticket Name:"
+msgstr "Sarreraren izena:"
+
+#: vendor/tickets/src/admin-views/meta-box.php:152
+msgid "Ticket Description:"
+msgstr "Sarreraren deskribapena:"
+
+#: vendor/tickets/src/admin-views/legacy-ticket-fields.php:15
+msgid "Price:"
+msgstr "Prezioa:"
+
+#: vendor/tickets/src/admin-views/legacy-ticket-fields.php:19
+msgid "(0 or empty for free tickets)"
+msgstr "(0 edo hutsik doako sarrerentzat)"
+
+#: vendor/tickets/src/admin-views/legacy-ticket-fields.php:24
+msgid "Sale Price:"
+msgstr "Beherapen prezioa:"
+
+#: vendor/tickets/src/admin-views/legacy-ticket-fields.php:28
+msgid "(Current sale price - this can be managed via the product editor)"
+msgstr "(Uneko beherapen prezioa - produktu editorearekin kudeatu daiteke)"
+
+#: vendor/tickets/src/admin-views/meta-box.php:161
+msgid "Start sale:"
+msgstr "Merkealdiaren hasiera:"
+
+#: vendor/tickets/src/admin-views/meta-box.php:185
+msgid "End sale:"
+msgstr "Merkealdiaren amaiera:"
+
+#: vendor/tickets/src/admin-views/meta-box.php:232
+msgid "Save this ticket"
+msgstr "Sarrera hau gorde"
+
+#: src/admin-views/tribe-options-display.php:6
+msgid "Default Events Template"
+msgstr "Lehenetsitako ekitaldi txantiloia"
+
+#: src/admin-views/tribe-options-display.php:7
+msgid "Default Page Template"
+msgstr "Lehenetsitako orrialde txantiloia"
+
+#: src/admin-views/tribe-options-display.php:44
+msgid "Display Settings"
+msgstr "Bistaratze ezarpenak"
+
+#: src/admin-views/tribe-options-display.php:49
+msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
+msgstr "Azpiko hobespenek egutegiaren bistaratzea kontrolatzen dute. Gauzak behar bezala azaltzen ez badira, hiru estilo-orri aukerak aldatzea edo zure itxurarako orrialde txantiloi bat aukeratzea probatu.</p><p>&#37;100 perfektua den serieko txantilorik ez egotea gertatuko da batzuetan. Gure <a href=\"%s\">itxuragilearen gidari</a> begirada bat bota aldaketa pertsonalizatuak nola egiten diren jakiteko."
+
+#: src/admin-views/tribe-options-display.php:104
+msgid "Basic Template Settings"
+msgstr "Oinarrizko txantiloi ezarpenak"
+
+#: src/admin-views/tribe-options-display.php:108
+msgid "Default stylesheet used for events templates"
+msgstr "Ekitaldi txantiloietan erabiliko den estilo-orri lehenetsia"
+
+#: src/admin-views/tribe-options-display.php:111
+msgid "Skeleton Styles"
+msgstr "Funtsezko estiloak"
+
+#: src/admin-views/tribe-options-display.php:113
+msgid "Only includes enough css to achieve complex layouts like calendar and week view."
+msgstr "Egutegi eta aste bistak bezalako antolakuntza konplexuak lortzeko adina css bakarrik dakarte."
+
+#: src/admin-views/tribe-options-display.php:115
+msgid "Full Styles"
+msgstr "Estilo osoak"
+
+#: src/admin-views/tribe-options-display.php:117
+msgid "More detailed styling, tries to grab styles from your theme."
+msgstr "Xehetasun handiagoko estilotzea, estiloak zure itxuratik hartzen saiatzen da."
+
+#: src/admin-views/tribe-options-display.php:119
+msgid "Tribe Events Styles"
+msgstr "Tribe Events estiloak"
+
+#: src/admin-views/tribe-options-display.php:121
+msgid "A fully designed and styled theme for your events pages."
+msgstr "Zure ekitaldi orrialdeentzako erabat diseinatutako eta estilotutako itxura bat."
+
+#: src/admin-views/tribe-options-display.php:128
+msgid "Events template"
+msgstr "Ekitaldien txantiloia"
+
+#: src/admin-views/tribe-options-display.php:129
+msgid "Choose a page template to control the appearance of your calendar and event content."
+msgstr "Zure egutegiaren eta ekitaldi edukien itxura kontrolatzeko orrialde txantiloi bat aukeratu."
+
+#: src/admin-views/tribe-options-display.php:137
+msgid "Enable event views"
+msgstr "Ekitaldi bistak gaitu"
+
+#: src/admin-views/tribe-options-display.php:138
+msgid "You must select at least one view."
+msgstr "Gutxienez bista bat aukeratu behar duzu."
+
+#: src/admin-views/tribe-options-display.php:145
+msgid "Default view"
+msgstr "Bista lehenetsia"
+
+#: src/admin-views/tribe-options-display.php:153
+msgid "Disable the Event Search Bar"
+msgstr "Ekitaldi bilatze barra desgaitu"
+
+#: src/admin-views/tribe-options-display.php:154
+msgid "Check this to use the classic header."
+msgstr "Markatu hau goiburu klasikoa erabiltzeko."
+
+#: src/admin-views/tribe-options-display.php:160
+msgid "Month view events per day"
+msgstr "Hilabete bistako eguneko ekitaldi kopurua"
+
+#: src/admin-views/tribe-options-display.php:161
+msgid "Change the default 3 events per day in month view. Please note there may be performance issues if you set this too high. <a href=\"%s\">Read more</a>."
+msgstr "Hilabete bistako lehenetsitako eguneko 3 ekitaldi bistaratzea aldatu. Kontutan hartu balio hau asko handitu ezkero, errendimendu arazoak egon daitezkeela. <a href=\"%s\">Gehiago irakurri</a>."
+
+#: src/admin-views/tribe-options-display.php:168
+msgid "Enable the Month View Cache"
+msgstr "Hilabete bistaren katxea gaitu"
+
+#: src/admin-views/tribe-options-display.php:169
+msgid "Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href=\"%s\">Read more</a>."
+msgstr "Markatu hau zure hilabete bistako HTML iragankorretan katxeatzeko. Honek ekitaldi asko dituzten webguneetako egutegien kargatze abiadura hobetzeko baliagarria izan daiteke. <a href=\"%s\">Gehiago irakurri</a>."
+
+#: common/src/admin-views/tribe-options-display.php:22
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:22
+msgid "Date Format Settings"
+msgstr "Data formatu hobespenak"
+
+#: common/src/admin-views/tribe-options-display.php:26
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:26
+msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
+msgstr "<p>Ondoko hiru eremuek php-ko date() funtzioak onartzen dituen data formatu aukerak onartzen dituzte. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Zure berezko data formatu bat egiteko argibideak hemen aurkitu ditzakezu</a>.</p>"
+
+#: common/src/admin-views/tribe-options-display.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:30
+msgid "Date with year"
+msgstr "Data urtearekin"
+
+#: src/admin-views/tribe-options-display.php:66
+msgid "Date without year"
+msgstr "Data urterik gabe"
+
+#: src/admin-views/tribe-options-display.php:67
+msgid "Enter the format to use for displaying dates without a year. Used when showing an event from the current year."
+msgstr "Urtea erakusten ez duten datak bistaratzeko erabiliko den formatua sartu. Urte honetako ekitaldi bat erakustean erabiltzen da."
+
+#: src/admin-views/tribe-options-display.php:74
+msgid "Month and year format"
+msgstr "Urte eta hilabete formatua"
+
+#: src/admin-views/tribe-options-display.php:75
+msgid "Enter the format to use for dates that show a month and year only. Used on month view."
+msgstr "Hilabetea eta urtea bakarrik erakusten duten datak bistaratzeko formatua sartu. Hilabete bistan erabiltzen da."
+
+#: common/src/admin-views/tribe-options-display.php:38
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:38
+msgid "Date time separator"
+msgstr "Data eta ordu bereizlea"
+
+#: common/src/admin-views/tribe-options-display.php:39
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:39
+msgid "Enter the separator that will be placed between the date and time, when both are shown."
+msgstr "Data eta orduaren tartean (biak bistaratzen direnean) jarriko den bereizlea sartu."
+
+#: src/admin-views/tribe-options-display.php:89
+msgid "Time range separator"
+msgstr "Denbora tarte bereizlea"
+
+#: src/admin-views/tribe-options-display.php:90
+msgid "Enter the separator that will be used between the start and end time of an event."
+msgstr "Ekitaldi baten hasiera eta amaiera denboraren tartean erabiliko den bereizlea sartu."
+
+#: common/src/admin-views/tribe-options-display.php:46
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:46
+msgid "Datepicker Date Format"
+msgstr "Data aukeratzailearen data formatua"
+
+#: common/src/admin-views/tribe-options-display.php:47
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:47
+msgid "Select the date format to use in datepickers"
+msgstr "Data aukeratzailean erabiltzeko data formatua aukeratu"
+
+#: src/admin-views/tribe-options-display.php:182
+msgid "Advanced Template Settings"
+msgstr "Txantiloi ezarpen aurreratuak"
+
+#: src/admin-views/tribe-options-display.php:186
+msgid "Add HTML before event content"
+msgstr "Ekitaldiaren edukiaren aurretik HTML gehitu"
+
+#: src/admin-views/tribe-options-display.php:187
+msgid "If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout."
+msgstr "HTML ezagutzen baduzu, ekitaldi txantiloiaren aurretik kode gehigarria erantsi dezakezu. Itxura batzuek diseinu edo estiloarekin laguntzeko behar izan dezakete."
+
+#: src/admin-views/tribe-options-display.php:192
+msgid "Add HTML after event content"
+msgstr "Ekitaldiaren edukiaren ondoren HTML gehitu"
+
+#: src/admin-views/tribe-options-display.php:193
+msgid "If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout."
+msgstr "HTML ezagutzen baduzu, ekitaldi txantiloiaren ondoren kode gehigarria erantsi dezakezu. Itxura batzuek diseinu edo estiloarekin laguntzeko behar izan dezakete."
+
+#: src/admin-views/tribe-options-general.php:12
+msgid "Finding & extending your calendar."
+msgstr "Zure egutegia aurkitu eta zabaltzen."
+
+#: src/admin-views/tribe-options-general.php:17
+msgid "Finding your calendar."
+msgstr "Zure egutegia aurkitzen."
+
+#: src/admin-views/tribe-options-general.php:22
+msgid "Where's my calendar?"
+msgstr "Non dago nire egutegia?"
+
+#: src/admin-views/tribe-options-general.php:22
+msgid "Right here"
+msgstr "Hementxe"
+
+#: common/src/admin-views/tribe-options-general.php:20
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:20
+msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
+msgstr "Errepikatzen diren ekitaldiak, metadatu pertsonalizatuak, komunitate ekitaldiak, sarrera salmentak eta antzeko funtzionalitate gehigarriak bilatzen ari zara?"
+
+#: common/src/admin-views/tribe-options-general.php:20
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:20
+msgid "Check out the available add-ons"
+msgstr "Erabilgarri dauden gehigarriak ikusi"
+
+#: common/src/admin-views/tribe-options-general.php:25
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:25
+msgid "We hope our plugin is helping you out."
+msgstr "Gure plugina lagungarria izatea espero dugu."
+
+#: common/src/admin-views/tribe-options-general.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:30
+msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
+msgstr "\"Plugin hau zoragarria da! Modern Tribe-eko kideei egin duten lan ona eskertu beharko nieke.\" bezalako zerbait pentsatzen ari zara? eskatu dezakegun sari hoberena jendearen aintzatespena da. Gehitu ezazu zure egutegiaren behekaldean Ekitaldi Egutegi proiektuari erreferentzia egiten dion testu lauko esteka txiki bat."
+
+#: common/src/admin-views/tribe-options-general.php:30
+#: common/src/admin-views/tribe-options-general.php:35
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:35
+msgid "See an example of the link"
+msgstr "Esketaren adibide bat ikusi"
+
+#: common/src/admin-views/tribe-options-general.php:35
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:35
+msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project."
+msgstr "\"Plugin hau zoragarria da! Modern Tribe-eko kideei egin duten lan ona eskertu beharko nieke.\" bezalako zerbait pentsatzen ari zara? eskatu dezakegun sari hoberena jendearen aintzatespena da. Gehitu ezazu zure egutegiaren behekaldean Ekitaldi Egutegi proiektuari erreferentzia egiten dion testu lauko esteka txiki bat."
+
+#: common/src/admin-views/tribe-options-general.php:40
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:40
+msgid "Show The Events Calendar link"
+msgstr "Ekitaldi Egutegi esteka erakutsi"
+
+#: common/src/admin-views/tribe-options-general.php:55
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:55
+msgid "General Settings"
+msgstr "Hobespen orokorrak"
+
+#: src/admin-views/tribe-options-general.php:33
+msgid "Number of events to show per page"
+msgstr "Orrialde bakoitzeko erakutsi beharreko ekitaldi kopurua"
+
+#: src/admin-views/tribe-options-general.php:40
+msgid "Use Javascript to control date filtering"
+msgstr "Javascript erabili data iragazpena kontrolatzeko"
+
+#: src/admin-views/tribe-options-general.php:41
+msgid "This option is disabled when \"Disable the Event Search Bar\" is checked on the Display settings tab."
+msgstr "Bistaratze hobespen fitxan \"Ekitaldi bilaketa barra desgaitu\" markatuta dagoenean aukera hau desgaituta dago."
+
+#: src/admin-views/tribe-options-general.php:41
+msgid "Enable live ajax for datepicker on front end (User submit not required)."
+msgstr "Webgunean zuzeneko ajax gaitu data aukeratzailean (Erabiltzailearen bidali ez da derrigorrezkoa)."
+
+#: src/admin-views/tribe-options-general.php:49
+msgid "Show comments"
+msgstr "Iruzkinak erakutsi"
+
+#: src/admin-views/tribe-options-general.php:50
+msgid "Enable comments on event pages."
+msgstr "Ekitaldi orrialdeetan iruzkinak gaitu."
+
+#: src/admin-views/tribe-options-general.php:56
+msgid "Include events in main blog loop"
+msgstr "Blogeko begizta nagusian ekitaldiak barneratu"
+
+#: src/admin-views/tribe-options-general.php:57
+msgid "Show events with the site's other posts. When this box is checked, events will also continue to appear on the default events page."
+msgstr "Ekitaldiak webguneko beste bidalketekin erakutsi. Nahiz eta kutxa hau markatu, ekitaldiak lehenetsitako ekitaldi orrialdean azaltzen jarraituko dute."
+
+#: src/admin-views/tribe-options-general.php:63
+#: src/admin-views/tribe-options-general.php:69
+msgid "Events URL slug"
+msgstr "Ekitaldien URLrako slug-a"
+
+#: src/admin-views/tribe-options-general.php:64
+msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%1$s\">%2$s</a>. In order to edit the slug here, <a href=\"%3$soptions-permalink.php\">enable pretty permalinks</a>."
+msgstr "Esteka iraunkor politak gaituta ez dituzunez ezin duzu ekitaldi orrialdearen slug-a editatu. Zure ekitaldi orrialdearen uneko URLa <a href=\"%1$s\">%2$s</a> da. Bertako slug-a editatzeko, <a href=\"%3$soptions-permalink.php\">esteka iraunkor politak gaitu</a>."
+
+#: src/admin-views/tribe-options-general.php:76
+#: src/functions/template-tags/options.php:20
+msgid "The slug used for building the events URL."
+msgstr "Ekitaldien URLa eraikitzeko erabiliko den slug-a."
+
+#: src/admin-views/tribe-options-general.php:76
+msgid "Your current events URL is: %s"
+msgstr "Zure uneko ekitaldi URLa hau da: %s"
+
+#: src/admin-views/tribe-options-general.php:81
+#: src/functions/template-tags/options.php:39
+msgid "Here is the iCal feed URL for your events:"
+msgstr "Zure ekitaldientzako iCal jarioaren URLa:"
+
+#: src/admin-views/tribe-options-general.php:86
+msgid "Single event URL slug"
+msgstr "Ekitaldi bakarrerako URL slug-a"
+
+#: src/admin-views/tribe-options-general.php:93
+msgid "The above should ideally be plural, and this singular.<br />Your single event URL is: %s"
+msgstr "Goikoa plurala izan behar luke eta beste hau singularra.<br />Zure ekitaldi batetarako URLa hau da: %s"
+
+#: src/admin-views/tribe-options-general.php:98
+msgid "End of day cutoff"
+msgstr "Egun amaierako limitea"
+
+#: src/admin-views/tribe-options-general.php:119
+msgid "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar."
+msgstr "Gauerdiaren ondoren jarraitzen duen ekitaldi bat duzu? ekitaldi horren amaiera baina haratago dagoen ordu bat aukerau ekitaldia hurrengo eguneko egutegian azaltzea ekiditzeko."
+
+#: src/Tribe/Admin/Bar/Default_Configurator.php:18
+msgid "%s"
+msgstr "%s"
+
+#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4272
+msgid "View Calendar"
+msgstr "Egutegia ikusi"
+
+#: src/Tribe/Admin/Bar/Default_Configurator.php:53
+msgid "Add %s"
+msgstr "%s gehitu"
+
+#: src/Tribe/Admin/Bar/Default_Configurator.php:79
+#: src/Tribe/Importer/Admin_Page.php:191
+msgid "CSV"
+msgstr "CSV"
+
+#: common/src/Tribe/Settings.php:215
+#: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4321
+#: vendor/tickets/common/src/Tribe/Settings.php:215
+msgid "Settings"
+msgstr "Ezarpenak"
+
+#: src/Tribe/Main.php:4322
+msgid "Calendar"
+msgstr "Egutegia"
+
+#: src/Tribe/Main.php:4383
+msgid "List"
+msgstr "Zerrenda"
+
+#: src/Tribe/Main.php:4401
+msgid "Month"
+msgstr "Hilabetea"
+
+#: src/Tribe/Main.php:4418
+msgid "Day"
+msgstr "Eguna"
+
+#: src/Tribe/Main.php:4443 src/Tribe/Main.php:4444
+msgid "Search"
+msgstr "Bilatu"
+
+#: src/Tribe/Main.php:4468 src/Tribe/Main.php:4484
+msgid "Date"
+msgstr "Data"
+
+#: src/Tribe/Main.php:4471
+msgid "%s In"
+msgstr "Epe honetako %s"
+
+#: src/Tribe/Main.php:4473
+msgid "%s From"
+msgstr "Data honetatik aurrera dauden %s"
+
+#: src/Tribe/Main.php:4475
+msgid "Day Of"
+msgstr "Egun honetan"
+
+#: src/Tribe/Main.php:4548
+msgid "Once Every 30 Mins"
+msgstr "30 minututan behin"
+
+#: src/Tribe/Options_Exception.php:19 src/Tribe/Post_Exception.php:22
+msgid "Error"
+msgstr "Errorea"
+
+#: common/src/Tribe/PUE/Checker.php:308 src/Tribe/PUE/Checker.php:303
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:308
+msgid "License Key"
+msgstr "Lizentzia gakoa"
+
+#: common/src/Tribe/PUE/Checker.php:309 src/Tribe/PUE/Checker.php:304
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:309
+msgid "A valid license key is required for support and updates"
+msgstr "Eguneraketentzat eta euskarriarentzat baliozko gako bat beharrezkoa da."
+
+#: common/src/Tribe/PUE/Checker.php:380 src/Tribe/PUE/Checker.php:375
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:380
+msgid "License key(s) updated."
+msgstr "Lizentzia gakoa(k) eguneratu d(ir)a."
+
+#: common/src/Tribe/PUE/Checker.php:419 src/Tribe/PUE/Checker.php:414
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:419
+msgid "unknown date"
+msgstr "data ezezaguna"
+
+#: common/src/Tribe/PUE/Checker.php:422 src/Tribe/PUE/Checker.php:417
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:422
+msgid "Sorry, key validation server is not available."
+msgstr "Barkatu, gako egiaztatze zerbitzaria ez dago erabilgarri."
+
+#: common/src/Tribe/PUE/Checker.php:424 src/Tribe/PUE/Checker.php:419
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:424
+msgid "Sorry, this key is expired."
+msgstr "Barkatu, gakoa iraungituta dago."
+
+#: common/src/Tribe/PUE/Checker.php:427 src/Tribe/PUE/Checker.php:422
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:427
+msgid "Sorry, this key is out of installs."
+msgstr "Barkatu, gako honek ez du instalazio gehiago baimentzen"
+
+#: common/src/Tribe/PUE/Checker.php:428 src/Tribe/PUE/Checker.php:423
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:428
+msgid "Why am I seeing this message?"
+msgstr "Zergatik ari naiz mezu hau ikusten?"
+
+#: common/src/Tribe/PUE/Checker.php:431 src/Tribe/PUE/Checker.php:426
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:431
+msgid "Sorry, this key is not valid."
+msgstr "Barkatu, gako hau ez da baliozkoa."
+
+#: common/src/Tribe/PUE/Checker.php:435 src/Tribe/PUE/Checker.php:430
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:435
+msgid "Valid Key! Expires on %s"
+msgstr "Baliozko gakoa! %s-an iraungitzen da"
+
+#: common/src/Tribe/PUE/Checker.php:448 src/Tribe/PUE/Checker.php:443
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:448
+msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
+msgstr "Hara! Balidatzaile honek arazoren bat dauka. Mesedez %slaguntza-zerbitzuarekin%s harremanetan jarri."
+
+#: common/src/Tribe/Settings.php:214 common/src/Tribe/Settings.php:235
+#: vendor/tickets/common/src/Tribe/Settings.php:214
+#: vendor/tickets/common/src/Tribe/Settings.php:235
+msgid "Events Settings"
+msgstr "Ekitaldien hobespenak"
+
+#: common/src/Tribe/Settings.php:300
+#: vendor/tickets/common/src/Tribe/Settings.php:300
+msgid "%s Settings"
+msgstr "%s hobespenak"
+
+#: common/src/Tribe/Settings.php:314
+#: vendor/tickets/common/src/Tribe/Settings.php:314
+msgid "You've requested a non-existent tab."
+msgstr "Existitzen ez den fitxa bat eskatu duzu."
+
+#: common/src/Tribe/Settings.php:322
+#: vendor/tickets/common/src/Tribe/Settings.php:322
+msgid "Save Changes"
+msgstr "Aldaketak gorde"
+
+#: common/src/Tribe/Settings.php:370
+#: vendor/tickets/common/src/Tribe/Settings.php:370
+msgid "You don't have permission to do that."
+msgstr "Ez duzu hori egiteko baimenik."
+
+#: common/src/Tribe/Settings.php:376
+#: vendor/tickets/common/src/Tribe/Settings.php:376
+msgid "The request was sent insecurely."
+msgstr "Eskaera segurtasunik gabe bidali da."
+
+#: common/src/Tribe/Settings.php:382
+#: vendor/tickets/common/src/Tribe/Settings.php:382
+msgid "The request wasn't sent from this tab."
+msgstr "Eskaera ez da fitxa honetatik bidali."
+
+#: common/src/Tribe/Settings.php:550
+#: vendor/tickets/common/src/Tribe/Settings.php:550
+msgid "Your form had the following errors:"
+msgstr "Zure inprimakiak ondoko erroreak ditu:"
+
+#: common/src/Tribe/Settings.php:560
+#: vendor/tickets/common/src/Tribe/Settings.php:560
+msgid "None of your settings were saved. Please try again."
+msgstr "Zure hobespenak ez dira gorde. Saiatu berriz, mesedez."
+
+#: common/src/Tribe/Settings.php:561
+#: vendor/tickets/common/src/Tribe/Settings.php:561
+msgid "The above setting was not saved. Other settings were successfully saved."
+msgid_plural "The above settings were not saved. Other settings were successfully saved."
+msgstr[0] "Goiko hobespena ez da gorde. Gainontzeko hobespenak ondo gorde dira."
+msgstr[1] "Goiko hobespenak ez dira gorde. Gainontzeko hobespenak ondo gorde dira."
+
+#: common/src/Tribe/Settings_Tab.php:222
+#: vendor/tickets/common/src/Tribe/Settings_Tab.php:222
+msgid "There are no fields setup for this tab yet."
+msgstr "Fitxa honetarako eremurik oraindik ez da konfiguratu."
+
+#: common/src/admin-views/tribe-options-help.php:34
+#: vendor/tickets/common/src/admin-views/tribe-options-help.php:34
+msgid "System Information"
+msgstr "Sistemaren informazioa"
+
+#: common/src/Tribe/Support.php:137
+#: vendor/tickets/common/src/Tribe/Support.php:137
+msgid "Unknown or not set"
+msgstr "Ezezaguna edo zehaztugabea"
+
+#: common/src/Tribe/Support.php:144
+#: vendor/tickets/common/src/Tribe/Support.php:144
+msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
+msgstr "Berridazketa arauak laguntza orri hau kargatzean garbitu egin dira. Litekeena da plugin edo itxura batean berridazketa arau hustutze bat egotea."
+
+#: src/Tribe/Template/Day.php:97 src/Tribe/Template/Day.php:113
+msgid "All Day"
+msgstr "Egun osoa"
+
+#: src/Tribe/Template/Day.php:100 src/Tribe/Template/Day.php:116
+msgid "Ongoing"
+msgstr "Martxan"
+
+#: src/Tribe/Template/Day.php:134
+msgid "No matching %1$s listed under %2$s scheduled for %3$s. Please try another day."
+msgstr "%2$s pean ez da %3$s-rako programatutako bat datorren %1$s-rik aurkitu. Beste egun batekin saiatu, mesedez."
+
+#: src/Tribe/Template/Month.php:285
+msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
+msgstr "%2$s pean ez da bat datorren %1$s-rik aurkitu. Ekitaldien zerrenda osoa bistaratzeko egutegi osoa ikusten saiatu, mesedez."
+
+#: src/Tribe/Template/Month.php:287 src/Tribe/Template_Factory.php:307
+msgid "There were no results found."
+msgstr "Ez da emaitzarik aurkitu."
+
+#: src/Tribe/Template/Month.php:724
+msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
+msgstr "Eskatutako \"%s\" data ez da baliozkoa &ndash; bere ordez uneko hilabetea erakutsiko da"
+
+#: src/Tribe/Template/Single_Event.php:119
+msgid "This %s has passed."
+msgstr "%s hau amaitu da."
+
+#: src/Tribe/Template_Factory.php:298
+msgid "No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar."
+msgstr "%2$s azpian zerrendatuta dagoen datorren %1$s ez dago. Kategori honentzako datozen %3$s-ei begirada bat bota edo egutegi osoa ikusi."
+
+#: src/Tribe/Template_Factory.php:300 src/Tribe/Template_Factory.php:305
+msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s."
+msgstr "%2$s pean ez da bat datorren %1$s-rik aurkitu. %3$s zerrenda osoa bistaratzeko egutegi osoa ikusten saiatu, mesedez."
+
+#: src/Tribe/Template_Factory.php:302
+msgid "No previous %s "
+msgstr "Ez dago aurreko %s"
+
+#: src/Tribe/Templates.php:606
+msgid "Template overrides should be moved to the correct subdirectory: %s"
+msgstr "Txantiloi hobetsiak azpidirektorio egokira mugitu behar dira: %s"
+
+#: src/Tribe/Templates.php:648
+msgid "Template overrides should be moved to the correct subdirectory: tribe_get_template_part('%s')"
+msgstr "Txantiloi hobetsiak azpidirektorio egokira mugitu behar dira: tribe_get_template_part('%s')"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:76
+msgid "Order #"
+msgstr "Eskari zbkia"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:77
+msgid "Order Status"
+msgstr "Eskariaren egoera"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:78
+msgid "Ticket type"
+msgstr "Sarrera mota"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:79
+#: vendor/tickets/src/views/tickets/email.php:332
+msgid "Ticket #"
+msgstr "Sarrera zkbia."
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:80
+#: vendor/tickets/src/views/tickets/email.php:344
+msgid "Security Code"
+msgstr "Segurtasun kodea"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:81
+#: vendor/tickets/src/Tribe/Attendees_Table.php:238
+#: vendor/tickets/src/Tribe/Attendees_Table.php:325
+msgid "Check in"
+msgstr "Izen ematea"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:239
+#: vendor/tickets/src/Tribe/Attendees_Table.php:326
+msgid "Undo Check in"
+msgstr "Izen ematea desegin"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:298
+msgid "Print"
+msgstr "Inprimatu"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:299
+#: vendor/tickets/src/views/tickets/rsvp.php:116
+msgid "Email"
+msgstr "E-posta"
+
+#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:300
+msgid "Export"
+msgstr "Esportatu"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:306
+msgid "Filter by purchaser name, ticket #, order # or security code"
+msgstr "Erosle izenaren, sarrera zenbakiaren, eskari zenbakiaren edo segurtasun kodearen arabera iragazi"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:327
+#: vendor/tickets/src/admin-views/list.php:34
+msgid "Delete"
+msgstr "Ezabatu"
+
+#: src/admin-views/admin-update-message.php:52
+#: vendor/tickets/src/Tribe/Admin/Ticket_Settings.php:22
+#: vendor/tickets/src/Tribe/Metabox.php:31
+msgid "Tickets"
+msgstr "Sarrerak"
+
+#: vendor/tickets/src/Tribe/Metabox.php:81
+msgid "Ticket header image"
+msgstr "Sarreraren goiburuko irudia"
+
+#: vendor/tickets/src/Tribe/Metabox.php:82
+msgid "Set as ticket header"
+msgstr "Sarrerako goiburu bezala ezarri"
+
+#: vendor/tickets/src/Tribe/Tickets.php:369
+msgid "Your ticket has been saved."
+msgstr "Zure sarrera gorde egin da."
+
+#: vendor/tickets/src/Tribe/Tickets.php:529
+msgid "Your ticket has been deleted."
+msgstr "Zure sarrera ezabatu egin da."
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:84
+#: vendor/tickets/src/admin-views/list.php:71
+msgid "See who purchased tickets to this event"
+msgstr "Ekitaldi honetarako sarrerak nork erosi dituen ikusi"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:84
+#: vendor/tickets/src/admin-views/attendees.php:24
+#: vendor/tickets/src/admin-views/list.php:73
+msgid "Attendees"
+msgstr "Partaideak"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:121
+msgid "You need to select a user or type a valid email address"
+msgstr "Erabiltzaile bat aukeratu edo posta elektroniko elektroniko helbide zuzen bat idatzi behar duzu."
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:122
+msgid "Sending..."
+msgstr "Bidaltzen..."
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:148
+msgid "Columns"
+msgstr "Zutabeak"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:148
+msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
+msgstr "Pantaila aukerak erabili dezakezu zein zutabe ikusi nahi dituzun aukeratzeko. Egindako aukerak azpiko taulan, posta elektronikoan, inprimatzerakoan eta CSV esportatzean funtzionatzen du."
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:285
+msgid "Yes"
+msgstr "Bai"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:314
+msgid "attendees"
+msgstr "partaideak"
+
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:406
+msgid "Attendee List for: %s"
+msgstr "%s-rako partaide zerrenda"
+
+#: common/src/Tribe/Validate.php:76 common/src/Tribe/Validate.php:117
+#: vendor/tickets/common/src/Tribe/Validate.php:76
+#: vendor/tickets/common/src/Tribe/Validate.php:117
+msgid "Invalid or incomplete field passed"
+msgstr "Baliazina edo osatugabea dagoen eremu bat pasatu da"
+
+#: common/src/Tribe/Validate.php:77 common/src/Tribe/Validate.php:112
+#: common/src/Tribe/Validate.php:118
+#: vendor/tickets/common/src/Tribe/Validate.php:77
+#: vendor/tickets/common/src/Tribe/Validate.php:112
+#: vendor/tickets/common/src/Tribe/Validate.php:118
+msgid "Field ID:"
+msgstr "Eremu IDa:"
+
+#: common/src/Tribe/Validate.php:111
+#: vendor/tickets/common/src/Tribe/Validate.php:111
+msgid "Non-existant field validation function passed"
+msgstr "Existitzen ez den eremu balioztatze funtzio bat pasatu da"
+
+#: common/src/Tribe/Validate.php:112
+#: vendor/tickets/common/src/Tribe/Validate.php:112
+msgctxt "non-existant function name passed for field validation"
+msgid "with function name:"
+msgstr "funtzio izen honekin:"
+
+#: common/src/Tribe/Validate.php:135 common/src/Tribe/Validate.php:151
+#: vendor/tickets/common/src/Tribe/Validate.php:135
+#: vendor/tickets/common/src/Tribe/Validate.php:151
+msgid "%s must contain numbers and letters only"
+msgstr "%s zenbakiak eta letrak bakarrik eduki behar ditu"
+
+#: common/src/Tribe/Validate.php:167
+#: vendor/tickets/common/src/Tribe/Validate.php:167
+msgid "%s must contain numbers, letters and dots only"
+msgstr "%s zenbakiak, letrak eta puntuak bakarrik eduki behar ditu"
+
+#: common/src/Tribe/Validate.php:181 common/src/Tribe/Validate.php:209
+#: vendor/tickets/common/src/Tribe/Validate.php:181
+#: vendor/tickets/common/src/Tribe/Validate.php:209
+msgid "%s must be a positive number."
+msgstr "%s zenbaki positibo bat izan behar da."
+
+#: common/src/Tribe/Validate.php:224
+#: vendor/tickets/common/src/Tribe/Validate.php:224
+msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
+msgstr "%s slug baliagarri bat izan behar da (zenbakiak, letrak, gidoiak eta azpimarrak)."
+
+#: common/src/Tribe/Validate.php:239
+#: vendor/tickets/common/src/Tribe/Validate.php:239
+msgid "%s must be a valid absolute URL."
+msgstr "%s URL absolutu baliagarri bat izan behar da."
+
+#: common/src/Tribe/Validate.php:255 common/src/Tribe/Validate.php:272
+#: common/src/Tribe/Validate.php:294
+#: vendor/tickets/common/src/Tribe/Validate.php:255
+#: vendor/tickets/common/src/Tribe/Validate.php:272
+#: vendor/tickets/common/src/Tribe/Validate.php:294
+msgid "%s must have a value that's part of its options."
+msgstr "%s bere aukeretan dagoen balio bat eduki behar du."
+
+#: common/src/Tribe/Validate.php:308
+#: vendor/tickets/common/src/Tribe/Validate.php:308
+msgid "Comparison validation failed because no comparison value was provided, for field %s"
+msgstr "Alderaketa egiaztapenak huts egin du, %s eremurako alderaketa baliorik eman ez delako"
+
+#: common/src/Tribe/Validate.php:315
+#: vendor/tickets/common/src/Tribe/Validate.php:315
+msgid "%s cannot be the same as %s."
+msgstr "%s ezin da %s-ren berbera izan."
+
+#: common/src/Tribe/Validate.php:317
+#: vendor/tickets/common/src/Tribe/Validate.php:317
+msgid "%s cannot be a duplicate"
+msgstr "%s ezin da kopia bat izan"
+
+#: common/src/Tribe/Validate.php:333
+#: vendor/tickets/common/src/Tribe/Validate.php:333
+msgid "%s must be a number or percentage."
+msgstr "%s zenbaki bat edo ehuneko bat izan behar da."
+
+#: common/src/Tribe/Validate.php:387
+#: vendor/tickets/common/src/Tribe/Validate.php:387
+msgid "%s must be a number between 0 and 21."
+msgstr "%s 0 eta 21 tarteko zenbaki bat izan behar da."
+
+#: common/src/Tribe/Validate.php:403
+#: vendor/tickets/common/src/Tribe/Validate.php:403
+msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
+msgstr "%s letretaz, zenbakietaz, gidoietaz, apostrofetaz eta zuriunetaz soilik osatuta egon behar da."
+
+#: common/src/Tribe/Validate.php:419
+#: vendor/tickets/common/src/Tribe/Validate.php:419
+msgid "%s must consist of letters, spaces, apostrophes, and dashes."
+msgstr "%s letretaz, zuriunetaz, apostrofetaz eta gidoietaz soilik osatuta egon behar da."
+
+#: common/src/Tribe/Validate.php:433
+#: vendor/tickets/common/src/Tribe/Validate.php:433
+msgid "%s must consist of 5 numbers."
+msgstr "%s 5 zenbakiz osatuta egon behar da."
+
+#: common/src/Tribe/Validate.php:447
+#: vendor/tickets/common/src/Tribe/Validate.php:447
+msgid "%s must be a phone number."
+msgstr "%s telefono zenbaki bat izan behar da."
+
+#: common/src/Tribe/Validate.php:463
+#: vendor/tickets/common/src/Tribe/Validate.php:463
+msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
+msgstr "Herrialde zerrenda lerro bakoitzeko herrialde batekin formatatu behar da, ondoko formatua jarraituz: <br>US, Estatu Batuak<br>UK, Erresuma Batua."
+
+#: common/src/Tribe/View_Helpers.php:26 common/src/Tribe/View_Helpers.php:45
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:26
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:45
+msgid "Select a Country:"
+msgstr "Herrialde bat aukeratu:"
+
+#: common/src/Tribe/View_Helpers.php:47
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:47
+msgid "Afghanistan"
+msgstr "Afganistan"
+
+#: common/src/Tribe/View_Helpers.php:48
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:48
+msgid "Albania"
+msgstr "Albania"
+
+#: common/src/Tribe/View_Helpers.php:49
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:49
+msgid "Algeria"
+msgstr "Algeria"
+
+#: common/src/Tribe/View_Helpers.php:50
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:50
+msgid "American Samoa"
+msgstr "Amerikar Samoa"
+
+#: common/src/Tribe/View_Helpers.php:51
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:51
+msgid "Andorra"
+msgstr "Andorra"
+
+#: common/src/Tribe/View_Helpers.php:52
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:52
+msgid "Angola"
+msgstr "Angola"
+
+#: common/src/Tribe/View_Helpers.php:53
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:53
+msgid "Anguilla"
+msgstr "Angilla"
+
+#: common/src/Tribe/View_Helpers.php:54
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:54
+msgid "Antarctica"
+msgstr "Antartika"
+
+#: common/src/Tribe/View_Helpers.php:55
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:55
+msgid "Antigua And Barbuda"
+msgstr "Antigua eta Barbuda"
+
+#: common/src/Tribe/View_Helpers.php:56
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:56
+msgid "Argentina"
+msgstr "Argentina"
+
+#: common/src/Tribe/View_Helpers.php:57
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:57
+msgid "Armenia"
+msgstr "Armenia"
+
+#: common/src/Tribe/View_Helpers.php:58
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:58
+msgid "Aruba"
+msgstr "Aruba"
+
+#: common/src/Tribe/View_Helpers.php:59
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:59
+msgid "Australia"
+msgstr "Australia"
+
+#: common/src/Tribe/View_Helpers.php:60
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:60
+msgid "Austria"
+msgstr "Austria"
+
+#: common/src/Tribe/View_Helpers.php:61
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:61
+msgid "Azerbaijan"
+msgstr "Azerbaijan"
+
+#: common/src/Tribe/View_Helpers.php:62
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:62
+msgid "Bahamas"
+msgstr "Bahamas"
+
+#: common/src/Tribe/View_Helpers.php:63
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:63
+msgid "Bahrain"
+msgstr "Bahrain"
+
+#: common/src/Tribe/View_Helpers.php:64
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:64
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+#: common/src/Tribe/View_Helpers.php:65
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:65
+msgid "Barbados"
+msgstr "Barbados"
+
+#: common/src/Tribe/View_Helpers.php:66
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:66
+msgid "Belarus"
+msgstr "Bielorrusia"
+
+#: common/src/Tribe/View_Helpers.php:67
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:67
+msgid "Belgium"
+msgstr "Belgika"
+
+#: common/src/Tribe/View_Helpers.php:68
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:68
+msgid "Belize"
+msgstr "Belize"
+
+#: common/src/Tribe/View_Helpers.php:69
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:69
+msgid "Benin"
+msgstr "Benin"
+
+#: common/src/Tribe/View_Helpers.php:70
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:70
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: common/src/Tribe/View_Helpers.php:71
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:71
+msgid "Bhutan"
+msgstr "Butan"
+
+#: common/src/Tribe/View_Helpers.php:72
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:72
+msgid "Bolivia"
+msgstr "Bolivia"
+
+#: common/src/Tribe/View_Helpers.php:73
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:73
+msgid "Bosnia And Herzegowina"
+msgstr "Bosnia eta Herzegovina"
+
+#: common/src/Tribe/View_Helpers.php:74
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:74
+msgid "Botswana"
+msgstr "Botswana"
+
+#: common/src/Tribe/View_Helpers.php:75
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:75
+msgid "Bouvet Island"
+msgstr "Bouvet Uhartea"
+
+#: common/src/Tribe/View_Helpers.php:76
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:76
+msgid "Brazil"
+msgstr "Brasil"
+
+#: common/src/Tribe/View_Helpers.php:77
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:77
+msgid "British Indian Ocean Territory"
+msgstr "Indiako Ozeanoko Britainiar Lurraldea"
+
+#: common/src/Tribe/View_Helpers.php:78
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:78
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+#: common/src/Tribe/View_Helpers.php:79
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:79
+msgid "Bulgaria"
+msgstr "Bulgaria"
+
+#: common/src/Tribe/View_Helpers.php:80
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:80
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: common/src/Tribe/View_Helpers.php:81
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:81
+msgid "Burundi"
+msgstr "Burundi"
+
+#: common/src/Tribe/View_Helpers.php:82
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:82
+msgid "Cambodia"
+msgstr "Kanbodia"
+
+#: common/src/Tribe/View_Helpers.php:83
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:83
+msgid "Cameroon"
+msgstr "Kamerun"
+
+#: common/src/Tribe/View_Helpers.php:84
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:84
+msgid "Canada"
+msgstr "Canada"
+
+#: common/src/Tribe/View_Helpers.php:85
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:85
+msgid "Cape Verde"
+msgstr "Cabo Verde"
+
+#: common/src/Tribe/View_Helpers.php:86
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:86
+msgid "Cayman Islands"
+msgstr "Cayman Uharteak"
+
+#: common/src/Tribe/View_Helpers.php:87
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:87
+msgid "Central African Republic"
+msgstr "Afrika Erdiko Errepublika"
+
+#: common/src/Tribe/View_Helpers.php:88
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:88
+msgid "Chad"
+msgstr "Txad"
+
+#: common/src/Tribe/View_Helpers.php:89
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:89
+msgid "Chile"
+msgstr "Txile"
+
+#: common/src/Tribe/View_Helpers.php:90
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:90
+msgid "China"
+msgstr "Txina"
+
+#: common/src/Tribe/View_Helpers.php:91
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:91
+msgid "Christmas Island"
+msgstr "Christmas Uhartea"
+
+#: common/src/Tribe/View_Helpers.php:92
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:92
+msgid "Cocos (Keeling) Islands"
+msgstr "Cocos (Keeling) Uharteak"
+
+#: common/src/Tribe/View_Helpers.php:93
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:93
+msgid "Colombia"
+msgstr "Kolonbia"
+
+#: common/src/Tribe/View_Helpers.php:94
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:94
+msgid "Comoros"
+msgstr "Komoros"
+
+#: common/src/Tribe/View_Helpers.php:95
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:95
+msgid "Congo"
+msgstr "Kongo"
+
+#: common/src/Tribe/View_Helpers.php:96
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:96
+msgid "Congo, The Democratic Republic Of The"
+msgstr "Kongoko Errepublika Demokratikoa"
+
+#: common/src/Tribe/View_Helpers.php:97
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:97
+msgid "Cook Islands"
+msgstr "Cook Uharteak"
+
+#: common/src/Tribe/View_Helpers.php:98
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:98
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: common/src/Tribe/View_Helpers.php:99
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:99
+msgid "Cote D'Ivoire"
+msgstr "Cote D'Ivoire"
+
+#: common/src/Tribe/View_Helpers.php:100
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:100
+msgid "Croatia (Local Name: Hrvatska)"
+msgstr "Kroazia"
+
+#: common/src/Tribe/View_Helpers.php:101
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:101
+msgid "Cuba"
+msgstr "Kuba"
+
+#: common/src/Tribe/View_Helpers.php:102
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:102
+msgid "Cyprus"
+msgstr "Txipre"
+
+#: common/src/Tribe/View_Helpers.php:103
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:103
+msgid "Czech Republic"
+msgstr "Txekiar Errepublika"
+
+#: common/src/Tribe/View_Helpers.php:104
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:104
+msgid "Denmark"
+msgstr "Danimarka"
+
+#: common/src/Tribe/View_Helpers.php:105
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:105
+msgid "Djibouti"
+msgstr "Djibouti"
+
+#: common/src/Tribe/View_Helpers.php:106
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:106
+msgid "Dominica"
+msgstr "Dominica"
+
+#: common/src/Tribe/View_Helpers.php:107
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:107
+msgid "Dominican Republic"
+msgstr "Dominikar Errepublika"
+
+#: common/src/Tribe/View_Helpers.php:108
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:108
+msgid "East Timor"
+msgstr "Ekialdeko Timor"
+
+#: common/src/Tribe/View_Helpers.php:109
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:109
+msgid "Ecuador"
+msgstr "Ekuador"
+
+#: common/src/Tribe/View_Helpers.php:110
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:110
+msgid "Egypt"
+msgstr "Egipto"
+
+#: common/src/Tribe/View_Helpers.php:111
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:111
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: common/src/Tribe/View_Helpers.php:112
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:112
+msgid "Equatorial Guinea"
+msgstr "Ekuatore Ginea"
+
+#: common/src/Tribe/View_Helpers.php:113
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:113
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: common/src/Tribe/View_Helpers.php:114
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:114
+msgid "Estonia"
+msgstr "Estonia"
+
+#: common/src/Tribe/View_Helpers.php:115
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:115
+msgid "Ethiopia"
+msgstr "Etiopia"
+
+#: common/src/Tribe/View_Helpers.php:116
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:116
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falkland Uharteak (Malvinak)"
+
+#: common/src/Tribe/View_Helpers.php:117
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:117
+msgid "Faroe Islands"
+msgstr "Faroe Uharteak"
+
+#: common/src/Tribe/View_Helpers.php:118
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:118
+msgid "Fiji"
+msgstr "Fiji"
+
+#: common/src/Tribe/View_Helpers.php:119
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:119
+msgid "Finland"
+msgstr "Finlandia"
+
+#: common/src/Tribe/View_Helpers.php:120
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:120
+msgid "France"
+msgstr "Frantzia"
+
+#: common/src/Tribe/View_Helpers.php:121
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:121
+msgid "France, Metropolitan"
+msgstr "Frantzia, Metropolia"
+
+#: common/src/Tribe/View_Helpers.php:122
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:122
+msgid "French Guiana"
+msgstr "Frantziar Guiana"
+
+#: common/src/Tribe/View_Helpers.php:123
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:123
+msgid "French Polynesia"
+msgstr "Frantziar Polinesia"
+
+#: common/src/Tribe/View_Helpers.php:124
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:124
+msgid "French Southern Territories"
+msgstr "Frantziako Hegoaldeko Lurraldeak"
+
+#: common/src/Tribe/View_Helpers.php:125
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:125
+msgid "Gabon"
+msgstr "Gabon"
+
+#: common/src/Tribe/View_Helpers.php:126
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:126
+msgid "Gambia"
+msgstr "Gambia"
+
+#: common/src/Tribe/View_Helpers.php:127 common/src/Tribe/View_Helpers.php:326
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:127
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:326
+msgid "Georgia"
+msgstr "Georgia"
+
+#: common/src/Tribe/View_Helpers.php:128
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:128
+msgid "Germany"
+msgstr "Alemania"
+
+#: common/src/Tribe/View_Helpers.php:129
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:129
+msgid "Ghana"
+msgstr "Gana"
+
+#: common/src/Tribe/View_Helpers.php:130
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:130
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: common/src/Tribe/View_Helpers.php:131
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:131
+msgid "Greece"
+msgstr "Grezia"
+
+#: common/src/Tribe/View_Helpers.php:132
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:132
+msgid "Greenland"
+msgstr "Groenlandia"
+
+#: common/src/Tribe/View_Helpers.php:133
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:133
+msgid "Grenada"
+msgstr "Grenada"
+
+#: common/src/Tribe/View_Helpers.php:134
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:134
+msgid "Guadeloupe"
+msgstr "Guadalupe"
+
+#: common/src/Tribe/View_Helpers.php:135
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:135
+msgid "Guam"
+msgstr "Guam"
+
+#: common/src/Tribe/View_Helpers.php:136
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:136
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: common/src/Tribe/View_Helpers.php:137
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:137
+msgid "Guinea"
+msgstr "Ginea"
+
+#: common/src/Tribe/View_Helpers.php:138
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:138
+msgid "Guinea-Bissau"
+msgstr "Ginea-Bisau"
+
+#: common/src/Tribe/View_Helpers.php:139
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:139
+msgid "Guyana"
+msgstr "Guyana"
+
+#: common/src/Tribe/View_Helpers.php:140
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:140
+msgid "Haiti"
+msgstr "Haiti"
+
+#: common/src/Tribe/View_Helpers.php:141
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:141
+msgid "Heard And Mc Donald Islands"
+msgstr "Heard eta Mc Donald Uharteak"
+
+#: common/src/Tribe/View_Helpers.php:142
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:142
+msgid "Holy See (Vatican City State)"
+msgstr "Vatikano Hiria"
+
+#: common/src/Tribe/View_Helpers.php:143
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:143
+msgid "Honduras"
+msgstr "Honduras"
+
+#: common/src/Tribe/View_Helpers.php:144
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:144
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: common/src/Tribe/View_Helpers.php:145
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:145
+msgid "Hungary"
+msgstr "Hungaria"
+
+#: common/src/Tribe/View_Helpers.php:146
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:146
+msgid "Iceland"
+msgstr "Islandia"
+
+#: common/src/Tribe/View_Helpers.php:147
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:147
+msgid "India"
+msgstr "India"
+
+#: common/src/Tribe/View_Helpers.php:148
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:148
+msgid "Indonesia"
+msgstr "Indonesia"
+
+#: common/src/Tribe/View_Helpers.php:149
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:149
+msgid "Iran (Islamic Republic Of)"
+msgstr "Iran (Errepublika Islamikoa)"
+
+#: common/src/Tribe/View_Helpers.php:150
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:150
+msgid "Iraq"
+msgstr "Irak"
+
+#: common/src/Tribe/View_Helpers.php:151
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:151
+msgid "Ireland"
+msgstr "Irlanda"
+
+#: common/src/Tribe/View_Helpers.php:152
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:152
+msgid "Israel"
+msgstr "Israel"
+
+#: common/src/Tribe/View_Helpers.php:153
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:153
+msgid "Italy"
+msgstr "Italia"
+
+#: common/src/Tribe/View_Helpers.php:154
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:154
+msgid "Jamaica"
+msgstr "Jamaika"
+
+#: common/src/Tribe/View_Helpers.php:155
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:155
+msgid "Japan"
+msgstr "Japonia"
+
+#: common/src/Tribe/View_Helpers.php:156
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:156
+msgid "Jordan"
+msgstr "Jordania"
+
+#: common/src/Tribe/View_Helpers.php:157
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:157
+msgid "Kazakhstan"
+msgstr "Kazakhstan"
+
+#: common/src/Tribe/View_Helpers.php:158
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:158
+msgid "Kenya"
+msgstr "Kenia"
+
+#: common/src/Tribe/View_Helpers.php:159
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:159
+msgid "Kiribati"
+msgstr "Kiribati"
+
+#: common/src/Tribe/View_Helpers.php:160
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:160
+msgid "Korea, Democratic People's Republic Of"
+msgstr "Koreako Herri Errepublika Demokratikoa"
+
+#: common/src/Tribe/View_Helpers.php:161
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:161
+msgid "Korea, Republic Of"
+msgstr "Koreako Errepublika"
+
+#: common/src/Tribe/View_Helpers.php:162
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:162
+msgid "Kuwait"
+msgstr "Kuwait"
+
+#: common/src/Tribe/View_Helpers.php:163
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:163
+msgid "Kyrgyzstan"
+msgstr "Kyrgyzstan"
+
+#: common/src/Tribe/View_Helpers.php:164
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:164
+msgid "Lao People's Democratic Republic"
+msgstr "Laoko Herri Errepublika Demokratikoa"
+
+#: common/src/Tribe/View_Helpers.php:165
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:165
+msgid "Latvia"
+msgstr "Letonia"
+
+#: common/src/Tribe/View_Helpers.php:166
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:166
+msgid "Lebanon"
+msgstr "Libano"
+
+#: common/src/Tribe/View_Helpers.php:167
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:167
+msgid "Lesotho"
+msgstr "Lesoto"
+
+#: common/src/Tribe/View_Helpers.php:168
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:168
+msgid "Liberia"
+msgstr "Liberia"
+
+#: common/src/Tribe/View_Helpers.php:169
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:169
+msgid "Libya"
+msgstr "Libya"
+
+#: common/src/Tribe/View_Helpers.php:170
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:170
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: common/src/Tribe/View_Helpers.php:171
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:171
+msgid "Lithuania"
+msgstr "Lituania"
+
+#: common/src/Tribe/View_Helpers.php:172
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:172
+msgid "Luxembourg"
+msgstr "Luxemburgo"
+
+#: common/src/Tribe/View_Helpers.php:173
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:173
+msgid "Macau"
+msgstr "Macau"
+
+#: common/src/Tribe/View_Helpers.php:174
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:174
+msgid "Macedonia"
+msgstr "Mazedonia"
+
+#: common/src/Tribe/View_Helpers.php:175
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:175
+msgid "Madagascar"
+msgstr "Madagaskar"
+
+#: common/src/Tribe/View_Helpers.php:176
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:176
+msgid "Malawi"
+msgstr "Malawi"
+
+#: common/src/Tribe/View_Helpers.php:177
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:177
+msgid "Malaysia"
+msgstr "Malasia"
+
+#: common/src/Tribe/View_Helpers.php:178
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:178
+msgid "Maldives"
+msgstr "Maldivak"
+
+#: common/src/Tribe/View_Helpers.php:179
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:179
+msgid "Mali"
+msgstr "Mali"
+
+#: common/src/Tribe/View_Helpers.php:180
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:180
+msgid "Malta"
+msgstr "Malta"
+
+#: common/src/Tribe/View_Helpers.php:181
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:181
+msgid "Marshall Islands"
+msgstr "Marshall Uharteak"
+
+#: common/src/Tribe/View_Helpers.php:182
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:182
+msgid "Martinique"
+msgstr "Martinika"
+
+#: common/src/Tribe/View_Helpers.php:183
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:183
+msgid "Mauritania"
+msgstr "Mauritania"
+
+#: common/src/Tribe/View_Helpers.php:184
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:184
+msgid "Mauritius"
+msgstr "Maurizio"
+
+#: common/src/Tribe/View_Helpers.php:185
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:185
+msgid "Mayotte"
+msgstr "Mayotte"
+
+#: common/src/Tribe/View_Helpers.php:186
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:186
+msgid "Mexico"
+msgstr "Mexico"
+
+#: common/src/Tribe/View_Helpers.php:187
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:187
+msgid "Micronesia, Federated States Of"
+msgstr "Mikronesia"
+
+#: common/src/Tribe/View_Helpers.php:188
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:188
+msgid "Moldova, Republic Of"
+msgstr "Moldavia"
+
+#: common/src/Tribe/View_Helpers.php:189
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:189
+msgid "Monaco"
+msgstr "Monako"
+
+#: common/src/Tribe/View_Helpers.php:190
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:190
+msgid "Mongolia"
+msgstr "Mongolia"
+
+#: common/src/Tribe/View_Helpers.php:191
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:191
+msgid "Montenegro"
+msgstr "Montenegro"
+
+#: common/src/Tribe/View_Helpers.php:192
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:192
+msgid "Montserrat"
+msgstr "Montserrat"
+
+#: common/src/Tribe/View_Helpers.php:193
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:193
+msgid "Morocco"
+msgstr "Maroko"
+
+#: common/src/Tribe/View_Helpers.php:194
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:194
+msgid "Mozambique"
+msgstr "Mozambike"
+
+#: common/src/Tribe/View_Helpers.php:195
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:195
+msgid "Myanmar"
+msgstr "Myanmar"
+
+#: common/src/Tribe/View_Helpers.php:196
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:196
+msgid "Namibia"
+msgstr "Namibia"
+
+#: common/src/Tribe/View_Helpers.php:197
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:197
+msgid "Nauru"
+msgstr "Nauru"
+
+#: common/src/Tribe/View_Helpers.php:198
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:198
+msgid "Nepal"
+msgstr "Nepal"
+
+#: common/src/Tribe/View_Helpers.php:199
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:199
+msgid "Netherlands"
+msgstr "Herbehereak"
+
+#: common/src/Tribe/View_Helpers.php:200
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:200
+msgid "Netherlands Antilles"
+msgstr "Herbeheretako Antillak"
+
+#: common/src/Tribe/View_Helpers.php:201
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:201
+msgid "New Caledonia"
+msgstr "Kaledonia Berria"
+
+#: common/src/Tribe/View_Helpers.php:202
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:202
+msgid "New Zealand"
+msgstr "Zeelanda Berria"
+
+#: common/src/Tribe/View_Helpers.php:203
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:203
+msgid "Nicaragua"
+msgstr "Nikaragua"
+
+#: common/src/Tribe/View_Helpers.php:204
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:204
+msgid "Niger"
+msgstr "Niger"
+
+#: common/src/Tribe/View_Helpers.php:205
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:205
+msgid "Nigeria"
+msgstr "Nigeria"
+
+#: common/src/Tribe/View_Helpers.php:206
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:206
+msgid "Niue"
+msgstr "Niue"
+
+#: common/src/Tribe/View_Helpers.php:207
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:207
+msgid "Norfolk Island"
+msgstr "Norfolk Uhartea"
+
+#: common/src/Tribe/View_Helpers.php:208
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:208
+msgid "Northern Mariana Islands"
+msgstr "Iparraldeko Mariana Uharteak"
+
+#: common/src/Tribe/View_Helpers.php:209
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:209
+msgid "Norway"
+msgstr "Norbegia"
+
+#: common/src/Tribe/View_Helpers.php:210
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:210
+msgid "Oman"
+msgstr "Oman"
+
+#: common/src/Tribe/View_Helpers.php:211
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:211
+msgid "Pakistan"
+msgstr "Pakistan"
+
+#: common/src/Tribe/View_Helpers.php:212
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:212
+msgid "Palau"
+msgstr "Palau"
+
+#: common/src/Tribe/View_Helpers.php:213
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:213
+msgid "Panama"
+msgstr "Panama"
+
+#: common/src/Tribe/View_Helpers.php:214
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:214
+msgid "Papua New Guinea"
+msgstr "Papua Ginea Berria"
+
+#: common/src/Tribe/View_Helpers.php:215
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:215
+msgid "Paraguay"
+msgstr "Paraguay"
+
+#: common/src/Tribe/View_Helpers.php:216
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:216
+msgid "Peru"
+msgstr "Peru"
+
+#: common/src/Tribe/View_Helpers.php:217
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:217
+msgid "Philippines"
+msgstr "Filipinak"
+
+#: common/src/Tribe/View_Helpers.php:218
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:218
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+#: src/Tribe/API.php:458
+msgid "Unnamed Venue"
+msgstr "Izendatu gabeko egoitza"
+
+#: common/src/Tribe/View_Helpers.php:46 src/Tribe/API.php:540
+#: src/functions/template-tags/venue.php:272
+#: vendor/tickets/common/src/Tribe/View_Helpers.php:46
+msgid "United States"
+msgstr "Estatu Batuak"
+
+#: src/Tribe/Activation_Page.php:38
+msgid "Go to plugins page"
+msgstr "Pluginen orrialdera joan"
+
+#: src/Tribe/Activation_Page.php:38
+msgid "Return to Plugins page"
+msgstr "Pluginen orrialdera itzuli"
+
+#: src/Tribe/Activation_Page.php:46
+msgid "Go to WordPress Updates page"
+msgstr "WordPress Eguneraketa orrialdera joan"
+
+#: src/Tribe/Activation_Page.php:46
+msgid "Return to WordPress Updates"
+msgstr "WordPress Eguneraketa orrialdera itzuli"
+
+#: src/Tribe/Activation_Page.php:192
+msgid "Welcome to The Events Calendar"
+msgstr "Ongietorri Ekitaldi Egutegira"
+
+#: src/Tribe/Activation_Page.php:212
+msgid "Thanks for Updating The Events Calendar"
+msgstr "Eskerrik asko Ekitaldi Egutegia eguneratzeagatik"
+
+#: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:88
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:88
+msgid "<a href=\"%s\">Edit the page slug</a>"
+msgstr "<a href=\"%s\">Orrialdeko slug-a editatu</a>"
+
+#: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:89
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:89
+msgid "Ask the site administrator to edit the page slug"
+msgstr "Webguneko administratzaileari orrialdearen slug-a editatzea eskatu"
+
+#: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:95
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:95
+msgid " ask the site administrator set a different Events URL slug."
+msgstr "webguneko administratzaileari Ekitaldi URLentzako slug desberdin bat zehaztea eskatu."
+
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:108 src/Tribe/Main.php:1695
+#: src/Tribe/Main.php:1768
+msgid "Use Saved %s:"
+msgstr "Gordetako %s erabili:"
+
+#: src/Tribe/Admin/Bar/Default_Configurator.php:62
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:138 src/Tribe/Main.php:1505
+#: src/Tribe/Main.php:1523 src/Tribe/Main.php:1541 src/Tribe/Main.php:1704
+#: src/Tribe/Main.php:1770
+msgid "Edit %s"
+msgstr "%s editatu"
+
+#: src/Tribe/Admin/Timezone_Updater.php:77
+msgid "Please wait while timezone data is added to your events."
+msgstr "Mesedez itxaron ordu-zona datuak zure ekitaldietara gehitzen diren bitartean."
+
+#: src/Tribe/Admin/Timezone_Updater.php:78
+msgid "Update complete: timezone data has been added to all events in the database."
+msgstr "Eguneraketa osatu da: ordu-zona datuak datu-baseko ekitaldi guztietara gehitu dira."
+
+#: src/Tribe/Admin/Timezone_Updater.php:87
+msgid "%d%% complete"
+msgstr "%%%d osatuta"
+
+#: src/Tribe/Admin/Timezone_Updater.php:105
+msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
+msgstr "Arazo batek ordu-zona eguneraketa prozesua osatzea ekidin du. Mesedez freskatu eta berriz saiatu."
+
+#: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1555
+msgid "%s Categories"
+msgstr "%s kategoriak"
+
+#: src/Tribe/Admin_List.php:252
+msgid "Start Date"
+msgstr "Hasiera data"
+
+#: src/Tribe/Admin_List.php:253
+msgid "End Date"
+msgstr "Amaiera data"
+
+#: src/Tribe/Admin_List.php:330 src/views/single-event.php:27
+msgid "All %s"
+msgstr "%s guztiak"
+
+#: src/Tribe/Advanced_Functions/Register_Meta.php:37
+#: src/Tribe/Advanced_Functions/Register_Meta.php:69
+#: src/views/modules/meta/details.php:65 src/views/modules/meta/details.php:90
+msgid "Start:"
+msgstr "Hasiera:"
+
+#: src/Tribe/Advanced_Functions/Register_Meta.php:46
+#: src/Tribe/Advanced_Functions/Register_Meta.php:78
+#: src/views/modules/meta/details.php:70 src/views/modules/meta/details.php:95
+msgid "End:"
+msgstr "Amiera:"
+
+#: src/Tribe/Advanced_Functions/Register_Meta.php:57
+#: src/Tribe/Advanced_Functions/Register_Meta.php:89
+#: src/views/modules/meta/details.php:80 src/views/modules/meta/details.php:105
+msgid "Date:"
+msgstr "Data:"
+
+#: src/Tribe/Advanced_Functions/Register_Meta.php:100
+#: src/Tribe/Advanced_Functions/Register_Meta.php:111
+#: src/views/modules/meta/details.php:48
+msgid "Time:"
+msgstr "Ordua:"
+
+#: src/Tribe/Amalgamator.php:253 src/admin-views/tribe-options-general.php:131
+msgid "Merge Duplicates"
+msgstr "Bikoiztuak bateratu"
+
+#: common/src/Tribe/App_Shop.php:67 common/src/Tribe/App_Shop.php:68
+#: common/src/Tribe/App_Shop.php:91
+#: vendor/tickets/common/src/Tribe/App_Shop.php:67
+#: vendor/tickets/common/src/Tribe/App_Shop.php:68
+#: vendor/tickets/common/src/Tribe/App_Shop.php:91
+msgid "Event Add-Ons"
+msgstr "Ekitaldi gehigarriak"
+
+#: src/Tribe/Cost_Utils.php:157
+msgctxt "Cost range separator"
+msgid " - "
+msgstr " - "
+
+#: src/Tribe/Cost_Utils.php:174
+msgid "Free"
+msgstr "Doan"
+
+#: common/src/Tribe/Credits.php:26
+#: vendor/tickets/common/src/Tribe/Credits.php:26
+msgid "This calendar is powered by The Events Calendar."
+msgstr "Egutegi honek Ekitaldi Egutegia erabiltzen du."
+
+#: common/src/Tribe/Field.php:209 vendor/tickets/common/src/Tribe/Field.php:209
+msgid "Invalid field type specified"
+msgstr "Eremu mota baliaezina zehaztu da"
+
+#: common/src/Tribe/Field.php:466 vendor/tickets/common/src/Tribe/Field.php:466
+msgid "No radio options specified"
+msgstr "Ez da aukera-botoi aukerarik zehaztu"
+
+#: common/src/Tribe/Field.php:502 vendor/tickets/common/src/Tribe/Field.php:502
+msgid "No checkbox options specified"
+msgstr "Ez da kontrol-lauki aukerarik zehaztu"
+
+#: common/src/Tribe/Field.php:558 vendor/tickets/common/src/Tribe/Field.php:558
+msgid "No select options specified"
+msgstr "Ez da hautatu aukerarik zehaztu"
+
+#: src/Tribe/Admin/Bar/Default_Configurator.php:73
+#: src/Tribe/Importer/Admin_Page.php:68 src/Tribe/Importer/Admin_Page.php:69
+msgid "Import"
+msgstr "Inportatu"
+
+#: src/Tribe/Importer/Admin_Page.php:149 src/Tribe/Importer/Admin_Page.php:303
+msgid "The file went away. Please try again."
+msgstr "Fitxategia desagertu egin da. Mesedez berriz saiatu."
+
+#: common/src/Tribe/Settings_Manager.php:55
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:55
+msgid "General"
+msgstr "Orokorra"
+
+#: src/Tribe/Importer/Admin_Page.php:269
+msgid "We were unable to process your request. Please try again."
+msgstr "Ezin izan da zure eskaera prozesatu. Mesedez berriz saiatu."
+
+#: src/Tribe/Importer/Admin_Page.php:310
+msgid "The following fields are required for a successful import:"
+msgstr "Ondo inportatzeko eremu hauek behar dira:"
+
+#: src/Tribe/Importer/Column_Mapper.php:33
+msgid "Do Not Import"
+msgstr "Ez inportatu"
+
+#: src/Tribe/Importer/Column_Mapper.php:52
+msgid "Event Name"
+msgstr "Ekitaldiaren izena"
+
+#: src/Tribe/Importer/Column_Mapper.php:53
+msgid "Event Description"
+msgstr "Ekitaldiaren deskribapena"
+
+#: src/Tribe/Importer/Column_Mapper.php:54
+msgid "Event Start Date"
+msgstr "Ekitaldiaren hasiera data"
+
+#: src/Tribe/Importer/Column_Mapper.php:55
+msgid "Event Start Time"
+msgstr "Ekitaldiaren hasiera ordua"
+
+#: src/Tribe/Importer/Column_Mapper.php:56
+msgid "Event End Date"
+msgstr "Ekitaldiaren amaiera data"
+
+#: src/Tribe/Importer/Column_Mapper.php:57
+msgid "Event End Time"
+msgstr "Ekitaldiaren amaiera ordua"
+
+#: src/Tribe/Importer/Column_Mapper.php:58
+msgid "All Day Event"
+msgstr "Egun osoko ekitaldia"
+
+#: src/Tribe/Importer/Column_Mapper.php:59
+msgid "Event Venue Name"
+msgstr "Ekitaldiaren egoitza izena"
+
+#: src/Tribe/Importer/Column_Mapper.php:60
+msgid "Event Organizer Name"
+msgstr "Ekitaldiaren antolatzailearen izena"
+
+#: src/Tribe/Importer/Column_Mapper.php:61
+msgid "Event Show Map Link"
+msgstr "Ekitaldiaren Mapa Erakutsi esteka"
+
+#: src/Tribe/Importer/Column_Mapper.php:62
+msgid "Event Show Map"
+msgstr "Ekitaldiaren mapa erakutsi"
+
+#: src/Tribe/Importer/Column_Mapper.php:63
+msgid "Event Cost"
+msgstr "Ekitaldiaren prezioa"
+
+#: src/Tribe/Importer/Column_Mapper.php:64
+msgid "Event Currency Symbol"
+msgstr "Ekitaldiaren dibisa sinboloa"
+
+#: src/Tribe/Importer/Column_Mapper.php:65
+msgid "Event Currency Position"
+msgstr "Ekitaldiaren dibisa posizioa"
+
+#: src/Tribe/Importer/Column_Mapper.php:66
+msgid "Event Category"
+msgstr "Ekitaldiaren kategoria"
+
+#: src/Tribe/Importer/Column_Mapper.php:67
+msgid "Event Tags"
+msgstr "Ekitaldiaren etiketak"
+
+#: src/Tribe/Importer/Column_Mapper.php:68
+msgid "Event Website"
+msgstr "Ekitaldiaren webgunea"
+
+#: src/Tribe/Importer/Column_Mapper.php:75
+msgid "Venue Name"
+msgstr "Egoitzaren izena"
+
+#: src/Tribe/Importer/Column_Mapper.php:76
+msgid "Venue Country"
+msgstr "Egoitzaren herrialdea"
+
+#: src/Tribe/Importer/Column_Mapper.php:77
+msgid "Venue Address"
+msgstr "Egoitzaren helbidea"
+
+#: src/Tribe/Importer/Column_Mapper.php:78
+msgid "Venue Address 2"
+msgstr "Egoitzaren helbidea 2"
+
+#: src/Tribe/Importer/Column_Mapper.php:79
+msgid "Venue City"
+msgstr "Egoitzaren hiria"
+
+#: src/Tribe/Importer/Column_Mapper.php:80
+msgid "Venue State/Province"
+msgstr "Egoitzaren estatua/probintzia"
+
+#: src/Tribe/Importer/Column_Mapper.php:81
+msgid "Venue Zip"
+msgstr "Egoitzaren posta-kodea"
+
+#: src/Tribe/Importer/Column_Mapper.php:82
+msgid "Venue Phone"
+msgstr "Egoitzaren telefonoa"
+
+#: src/Tribe/Importer/Column_Mapper.php:83
+msgid "Venue Website"
+msgstr "Egoitzaren webgunea"
+
+#: src/Tribe/Importer/Column_Mapper.php:90
+msgid "Organizer Name"
+msgstr "Antolatzailearen izena"
+
+#: src/Tribe/Importer/Column_Mapper.php:91
+msgid "Organizer Email"
+msgstr "Antolatzailearen posta elektronikoa"
+
+#: src/Tribe/Importer/Column_Mapper.php:92
+msgid "Organizer Website"
+msgstr "Antolatzailearen webgunea"
+
+#: src/Tribe/Importer/Column_Mapper.php:93
+msgid "Organizer Phone"
+msgstr "Antolatzailearen telefonoa"
+
+#: src/Tribe/Importer/File_Importer.php:43
+msgid "No importer defined for %s"
+msgstr "Ez da %s-rako inportatzailerik definitu"
+
+#: src/Tribe/Importer/File_Importer.php:117
+msgid "Missing required fields in row %d."
+msgstr "Beharrezko eremuak falta dira %d. errenkadan."
+
+#: src/Tribe/Importer/File_Importer.php:128
+msgid "Failed to import record in row %d."
+msgstr "Erregistroa ezin izan da %d. errenkadan  inportatu."
+
+#: src/Tribe/Importer/File_Importer.php:139
+msgid "%s (post ID %d) updated."
+msgstr "%s (bidalketa IDa: %d) eguneratu da."
+
+#: src/Tribe/Importer/File_Importer.php:143
+msgid "%s (post ID %d) created."
+msgstr "%s (bidalketa IDa: %d) sortu da."
+
+#: src/Tribe/Importer/File_Uploader.php:28
+msgid "Temporary file not found. Could not save %s."
+msgstr "Aldi baterako fitxategia ez da aurkitu. Ezin izan da %s gorde."
+
+#: src/Tribe/Importer/File_Uploader.php:36
+msgid "Could not save %s."
+msgstr "Ezin izan da %s gorde."
+
+#: common/src/Tribe/Settings.php:583 src/Tribe/Importer/Options.php:53
+#: vendor/tickets/common/src/Tribe/Settings.php:583
+msgid "Settings saved."
+msgstr "Ezarpenak gorde dira."
+
+#: src/Tribe/List_Widget.php:30
+msgid "A widget that displays upcoming events."
+msgstr "Datozen ekitaldiak bistaratzen dituen widget bat."
+
+#: src/Tribe/List_Widget.php:38
+msgid "Events List"
+msgstr "Ekitaldien zerrenda"
+
+#: src/Tribe/List_Widget.php:186
+msgid "Upcoming Events"
+msgstr "Datozen ekitaldiak"
+
+#: src/Tribe/Main.php:678 src/functions/template-tags/venue.php:52
+#: src/io/csv/admin-views/import.php:45
+msgid "Venues"
+msgstr "Egoitzak"
+
+#: src/Tribe/Main.php:686
+#: src/functions/advanced-functions/meta_registration.php:126
+#: src/functions/template-tags/venue.php:41
+msgid "Venue"
+msgstr "Egoitza"
+
+#: src/Tribe/Main.php:694 src/functions/template-tags/organizer.php:86
+#: src/io/csv/admin-views/import.php:46
+msgid "Organizers"
+msgstr "Antolatzaileak"
+
+#: src/Tribe/Main.php:702
+#: src/functions/advanced-functions/meta_registration.php:205
+#: src/functions/template-tags/organizer.php:75
+msgid "Organizer"
+msgstr "Antolatzaile"
+
+#: common/src/Tribe/Settings.php:148 common/src/Tribe/Settings.php:203
+#: common/src/Tribe/Settings.php:204 src/Tribe/Main.php:710
+#: src/functions/template-tags/general.php:80
+#: src/io/csv/admin-views/import.php:47
+#: vendor/tickets/common/src/Tribe/Settings.php:148
+#: vendor/tickets/common/src/Tribe/Settings.php:203
+#: vendor/tickets/common/src/Tribe/Settings.php:204
+msgid "Events"
+msgstr "Ekitaldiak"
+
+#: src/Tribe/Main.php:718 src/functions/template-tags/general.php:58
+msgid "Event"
+msgstr "Ekitaldi"
+
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.2) 
+#. #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:636
+#: src/Tribe/Main.php:781
+#: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:48
+msgid "The Events Calendar"
+msgstr "Ekitaldien Egutegia"
+
+#: src/Tribe/Main.php:788
+msgid "month"
+msgstr "hilabetea"
+
+#: src/Tribe/Main.php:789
+msgid "list"
+msgstr "zerrenda"
+
+#: src/Tribe/Main.php:790
+msgid "upcoming"
+msgstr "datorrena"
+
+#: src/Tribe/Main.php:791
+msgid "past"
+msgstr "igarotakoa"
+
+#: src/Tribe/Main.php:792
+msgid "day"
+msgstr "eguna"
+
+#: src/Tribe/Main.php:793
+msgid "today"
+msgstr "gaur"
+
+#: src/Tribe/Main.php:822
+msgid "Initializing Tribe Events on %s"
+msgstr "%s-n Tribe ekitaldiak hasieratzen"
+
+#: src/Tribe/Main.php:906
+msgid "Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s"
+msgstr "Zure ekitaldi egutegia zaharkituta dago Ekitaldi egutegi gehigarri batentzako. %sEguneratu%s mesedez."
+
+#: src/Tribe/Main.php:918
+msgid "The following plugins are out of date: %1$s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %2$sLearn More%3$s."
+msgstr "Ondoko pluginak zaharkituta daude: %1$s. Gehigarri guztiek Ekitaldi Egutegiarekin mendekotasunak dituzte eta ez dute ondo funtzionatuko bertsio aproposarekin parekatzen ez badira. %2$sInformazio gehiago%3$s."
+
+#: common/src/Tribe/Settings_Manager.php:56
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:56
+msgid "Display"
+msgstr "Erakutsi"
+
+#: common/src/Tribe/Settings_Manager.php:62
+#: common/src/Tribe/Settings_Manager.php:289
+#: src/Tribe/Admin/Bar/Default_Configurator.php:106
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:62
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:289
+msgid "Help"
+msgstr "Laguntza"
+
+#: common/src/Tribe/Settings_Manager.php:263
+#: common/src/admin-views/tribe-options-licenses.php:46
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:263
+#: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:46
+msgid "Licenses"
+msgstr "Lizentziak"
+
+#: src/Tribe/Main.php:1118
+msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
+msgstr "Barkatu, Ekitaldi Egutegiak Wordpress %s edo berriagoa izatea eskatzen du. Zure Wordpress eguneratu, mesedez."
+
+#: src/Tribe/Main.php:1121
+msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
+msgstr "Barkatu, Ekitaldi Egutegiak PHP %s edo berriagoa izatea eskatzen du. Zure hostatu-emate zerbitzuarekin hitzegin PHP bertsio berriago bat eskuratzeko aukerak ezagutzeko."
+
+#: src/Tribe/Main.php:1434 src/Tribe/Main.php:2478
+msgid "category"
+msgstr "kategoria"
+
+#: src/Tribe/Main.php:1470 src/Tribe/Main.php:2477
+msgid "tag"
+msgstr "etiketa"
+
+#: src/Tribe/Main.php:1503 src/Tribe/Main.php:1521 src/Tribe/Main.php:1539
+msgid "Add New"
+msgstr "Berria gehitu"
+
+#: src/Tribe/Main.php:1504 src/Tribe/Main.php:1522 src/Tribe/Main.php:1540
+#: src/Tribe/Main.php:1671 src/Tribe/Main.php:1672
+msgid "Add New %s"
+msgstr "%s berria gehitu"
+
+#: src/Tribe/Main.php:1506 src/Tribe/Main.php:1524 src/Tribe/Main.php:1542
+msgid "New %s"
+msgstr "%s berria"
+
+#: src/Tribe/Main.php:1507 src/Tribe/Main.php:1525 src/Tribe/Main.php:1543
+msgid "View %s"
+msgstr "%s ikusi"
+
+#: src/Tribe/Main.php:1508 src/Tribe/Main.php:1526 src/Tribe/Main.php:1544
+msgid "Search %s"
+msgstr "%s bilatu"
+
+#: src/Tribe/Main.php:1509 src/Tribe/Main.php:1527 src/Tribe/Main.php:1545
+msgid "No %s found"
+msgstr "Ez da %s aurkitu"
+
+#: src/Tribe/Main.php:1510 src/Tribe/Main.php:1528 src/Tribe/Main.php:1546
+msgid "No %s found in Trash"
+msgstr "Zakarrontzian ez da %s aurkitu"
+
+#: src/Tribe/Main.php:1556
+msgid "%s Category"
+msgstr "%s kategoria"
+
+#: src/Tribe/Main.php:1557
+msgid "Search %s Categories"
+msgstr "%s kategorietan bilatu"
+
+#: src/Tribe/Main.php:1558
+msgid "All %s Categories"
+msgstr "%s kategoria guztiak"
+
+#: src/Tribe/Main.php:1559
+msgid "Parent %s Category"
+msgstr "%s kategoria gurasoa"
+
+#: src/Tribe/Main.php:1560
+msgid "Parent %s Category:"
+msgstr "%s kategoria gurasoa:"
+
+#: src/Tribe/Main.php:1561
+msgid "Edit %s Category"
+msgstr "%s kategoria editatu"
+
+#: src/Tribe/Main.php:1562
+msgid "Update %s Category"
+msgstr "%s kategoria eguneratu"
+
+#: src/Tribe/Main.php:1563
+msgid "Add New %s Category"
+msgstr "%s kategoria berria gehitu"
+
+#: src/Tribe/Main.php:1564
+msgid "New %s Category Name"
+msgstr "%s kategoria berriaren izena"
+
+#: src/Tribe/Main.php:1586 src/Tribe/Main.php:1623 src/Tribe/Main.php:1643
+msgid "Custom field updated."
+msgstr "Eremu pertsonalizatua eguneratu da."
+
+#: src/Tribe/Main.php:1587 src/Tribe/Main.php:1624 src/Tribe/Main.php:1644
+msgid "Custom field deleted."
+msgstr "Eremu pertsonalizatua ezabatu da."
+
+#: src/Tribe/Main.php:1588 src/Tribe/Main.php:1622 src/Tribe/Main.php:1625
+#: src/Tribe/Main.php:1642 src/Tribe/Main.php:1645
+msgid "%s updated."
+msgstr "%s eguneratu da."
+
+#. translators: %s: date and time of the revision
+#: src/Tribe/Main.php:1590 src/Tribe/Main.php:1627
+msgid "%1$s restored to revision from %2$s"
+msgstr "%1$s berrikuspenera leheneratu da %2$s-tik"
+
+#: src/Tribe/Main.php:1596 src/Tribe/Main.php:1629 src/Tribe/Main.php:1649
+msgid "%s saved."
+msgstr "%s gorde da."
+
+#. translators: Publish box date format, see http://php.net/date
+#: src/Tribe/Main.php:1607 src/Tribe/Main.php:1635 src/Tribe/Main.php:1655
+msgid "M j, Y @ G:i"
+msgstr "M j, Y &ndash; G:i"
+
+#. translators: %s: date and time of the revision
+#: src/Tribe/Main.php:1647
+msgid "%s restored to revision from %s"
+msgstr "%s berrikuspenera leheneratu da %s-tik"
+
+#: src/Tribe/Main.php:1628 src/Tribe/Main.php:1648
+msgid "%s published."
+msgstr "%s argitaratu da."
+
+#: src/Tribe/Main.php:1630 src/Tribe/Main.php:1650
+msgid "%s submitted."
+msgstr "%s bidali da."
+
+#: src/Tribe/Main.php:1637 src/Tribe/Main.php:1657
+msgid "%s draft updated."
+msgstr "%s zirriborroa eguneratu da."
+
+#: src/Tribe/Main.php:1841 src/Tribe/Main.php:1929
+msgid "Use New %s"
+msgstr "%s berria erabili"
+
+#: src/Tribe/Main.php:1844 src/Tribe/Main.php:1933
+msgid "My %s"
+msgstr "Nire %s"
+
+#: src/Tribe/Main.php:1849 src/Tribe/Main.php:1938
+msgid "Available %s"
+msgstr "%s erabilgarriak"
+
+#: src/Tribe/Main.php:1860 src/Tribe/Main.php:1949
+msgid "No saved %s exists."
+msgstr "Ez dago gordetako %s."
+
+#: src/Tribe/Main.php:2092
+msgid "Next"
+msgstr "Hurrengoa"
+
+#: src/Tribe/Main.php:2093
+msgid "Prev"
+msgstr "Aurrekoa"
+
+#: src/Tribe/Asset/Bootstrap_Datepicker.php:20 src/Tribe/Main.php:2094
+#: src/functions/template-tags/day.php:104
+msgid "Today"
+msgstr "Gaur"
+
+#: src/Tribe/Main.php:2095
+msgid "Done"
+msgstr "Eginda"
+
+#: common/src/Tribe/Settings_Manager.php:229
+#: vendor/tickets/common/src/Tribe/Settings_Manager.php:229
+msgid "Network"
+msgstr "Sarea"
+
+#: src/Tribe/Main.php:2479
+msgid "page"
+msgstr "orrialdea"
+
+#: src/Tribe/Main.php:2480 src/functions/template-tags/general.php:69
+msgid "event"
+msgstr "ekitaldia"
+
+#: src/Tribe/Main.php:2481 src/functions/template-tags/general.php:91
+msgid "events"
+msgstr "ekitaldiak"
+
+#: src/Tribe/Main.php:2482
+msgid "all"
+msgstr "guztiak"
+
+#: src/Tribe/Main.php:3722 src/Tribe/Main.php:3757
+#: src/functions/template-tags/day.php:157
+#: src/functions/template-tags/day.php:178
+msgid "Date out of range."
+msgstr "Data barrutitik kanpo dago."
+
+#: src/Tribe/Main.php:3792
+msgid "%s Options"
+msgstr "%s aukerak"
+
+#: src/Tribe/Main.php:3799 src/Tribe/Main.php:3810
+msgid "%s Information"
+msgstr "%s informazioa"
+
+#: src/Tribe/Main.php:4146
+msgid "Support"
+msgstr "Euskarria"
+
+#: src/Tribe/Main.php:4149
+msgid "View All Add-Ons"
+msgstr "Gehigarri guztiak ikusi"
+
+#: src/Tribe/Main.php:4169
+msgid "News from Modern Tribe"
+msgstr "Modern Tribe-ren berriak"
+
+#: src/Tribe/Main.php:4214
+msgid "Additional Functionality"
+msgstr "Funtzionalitate gehigarria"
+
+#: src/Tribe/Main.php:4219
+msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
+msgstr "Errepikatzen diren ekitaldiak, sarrera salmenta, publikoki bidalitako ekitaldiak, bista berriak eta antzerako funtzionalitate gehigarriak bilatzen ari zara?"

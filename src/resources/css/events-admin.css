@@ -1,95 +1,240 @@
+/**
+ * This CSS file was auto-generated via PostCSS
+ *
+ * Contributors should avoid editing this file, but instead edit the associated
+ * src/resources/postcss/ file. For more information, check out our engineering
+ * docs on how we handle CSS in our engineering docs.
+ *
+ * @see: http://moderntribe.github.io/products-engineering/css/
+ */
+
 /* = Post Type Listing
 =============================================*/
-.events-cal .tablenav select[name=m], .events-cal #post-query-submit {display:none;}
-.fixed .column-start-date, .fixed .column-end-date, .fixed .column-events-cats {width:14%;}
-#additional-field-table input, #additional-field-table select, #additional-field-table textarea { width: 200px; }
-#additional-field-table tbody tr { height: 72px; }
-
+.events-cal .tablenav select[name=m],
+	.events-cal #post-query-submit {
+	display: none;
+}
+.fixed .column-start-date,
+	.fixed .column-end-date,
+	.fixed .column-events-cats {
+	width: 14%;
+}
+#additional-field-table input,
+	#additional-field-table select,
+	#additional-field-table textarea {
+	width: 200px;
+}
+#additional-field-table tbody tr {
+	height: 72px;
+}
 /* = Post Type Editing
 =============================================*/
-.eventForm {margin-top: -20px;}
-.eventForm td {padding:0 6px 10px 0; font-size:12px; vertical-align:middle;}
-.eventForm #event-meta td { vertical-align: top; }
-.eventForm #event-meta td div { margin-bottom: 10px; }
-.eventForm #event-meta td div:last-child {margin-bottom: 20px;}
-.eventForm select, .eventForm input, .eventForm textarea { font-size:11px; }
-.eventForm textarea { width: 100% }
-.eventForm h4 {font-size:1.2em; margin:1em 0 1em;}
-.eventForm h4.event-time {margin-top: 0;}
-.tribe-community-event-info {margin: 10px; width:100%;}
-.eventtable, #EventInfo{margin:0; padding-top:0; width:100%; }
-#event_tickets,
-.eventtable.ticket_list.eventForm {table-layout: fixed; }
-#ticket_start_date,
-#ticket_end_date{width:100px;}
-.form-table form input {border:none;}
-#submitLabel {display: block;}
-#submitLabel input {display: block; padding: 0;}
-#EventBriteDetailDiv h4, .tribe-community-event-info h4, .eventForm .tribe_sectionheader h4 {text-transform: uppercase; border-bottom: 1px solid #e5e5e5; padding-bottom: 6px;}
-.eventForm .tribe_sectionheader {padding-bottom: 5px !important;}
-
-.eventForm p {margin: 0 0 10px 0!important;}
-
-.tribe-events-error {display:none;}
-.tribe-events-multi-event-day {color: #0F81BB;}
-
-.ui-front {z-index: 1000000;}
-.events-cal .ui-widget-overlay.ui-front {z-index: 90;
+.eventForm {
+	margin-top: -20px;
 }
-
-.edit-venue-link, .edit-organizer-link { display:inline-block; margin-left:10px;}
-
-#event_organizer tbody + tbody tr.saved_organizer td,
-#event_organizer tbody + tfoot tr td {
+.eventForm td {
+	font-size: 12px;
+	padding: 0 6px 10px 0;
+	vertical-align: middle;
+}
+.eventForm #event-meta td {
+	vertical-align: top;
+}
+.eventForm #event-meta td div {
+	margin-bottom: 10px;
+}
+.eventForm #event-meta td div:last-child {
+	margin-bottom: 20px;
+}
+.eventForm select,
+	.eventForm input,
+	.eventForm textarea {
+	font-size: 11px;
+}
+.eventForm textarea {
+	width: 100%;
+}
+.eventForm h4 {
+	font-size: 1.2em;
+	margin: 1em 0 1em;
+}
+.eventForm h4.event-time {
+	margin-top: 0;
+}
+.eventForm .tribe_sectionheader {
+	padding-bottom: 5px !important;
+}
+.eventForm p {
+	margin: 0 0 10px 0!important;
+}
+.tribe-community-event-info {
+	width: 100%;
+	margin: 10px;
+}
+.eventtable,
+#EventInfo {
+	width: 100%;
+	margin: 0;
+	padding-top: 0;
+}
+#event_tickets,
+.eventtable.ticket_list.eventForm {
+	table-layout: fixed;
+}
+#ticket_start_date,
+#ticket_end_date {
+	width: 100px;
+}
+.form-table form input {
+	border: none;
+}
+#submitLabel {
+	display: block;
+}
+#submitLabel input {
+	display: block;
+	padding: 0;
+}
+#EventBriteDetailDiv h4,
+.tribe-community-event-info h4,
+.eventForm .tribe_sectionheader h4 {
+	padding-bottom: 6px;
+	text-transform: uppercase;
+	border-bottom: 1px solid #e5e5e5;
+}
+.tribe-events-error {
+	display: none;
+}
+.tribe-events-multi-event-day {
+	color: #0f81bb;
+}
+.ui-front {
+	z-index: 1000000;
+}
+.events-cal .ui-widget-overlay.ui-front {
+	z-index: 90;
+}
+.edit-linked-post-link {
+	display: inline-block;
+	margin-left: 10px;
+}
+.linked-post-wrapper tbody + tbody tr.saved_linked-post td,
+	.linked-post-wrapper tbody + tfoot tr td {
 	margin-top: 1em;
 	padding-top: 1em;
 	border-top: 1px solid #e5e5e5;
 }
-#event_organizer .organizer td:first-child {
+.linked-post-wrapper .linked-post td:first-child {
 	padding-left: 30px;
 }
-.move-organizer-group {
+.move-linked-post-group {
+	padding-right: .5em;
 	cursor: move;
-	padding-right: 0.5em;
 }
-.delete-organizer-group {
-	color: #444444;
+.delete-linked-post-group {
 	float: right;
+	color: #444;
 }
-.delete-organizer-group:hover {
-	color: #aa0000;
+.delete-linked-post-group:hover {
+	color: #a00;
 }
-
-
-.tribe_community_edit .edit-venue-link, .tribe_community_edit .edit-organizer-link {
-	display:none !important;
+.tribe_community_edit .edit-linked-post-link,
+	.tribe_community_edit .edit-linked-post-link {
+	display: none !important;
 }
-div.tribe-venue-error.error, div.tribe-organizer-error.error { margin-left:5px; padding: 5px 10px; display:inline; }
-
+.tribe-linked-post-error.error {
+	display: inline;
+	margin-left: 5px;
+	padding: 5px 10px;
+}
 /* = Eventbrite
 =============================================*/
-.tribe-community-event-info small, #EventBriteDetailDiv small {color: #a3a3a3; font-size: 10px;}
-#eventBriteTicketing, #mainDonateRow {background: url(../images/bg_fade.png) repeat-x top left; background-color: #fff; padding: 10px 15px; border: 1px solid #e2e2e2; -moz-border-radius: 3px; -khtml-border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius-topleft: 0; -moz-border-radius-topright: 0; -webkit-border-top-left-radius: 0; -webkit-border-top-right-radius: 0; border-radius: 3px; margin: -11px 6px 0;}
-#eventBriteTicketing h2 {background: url(../images/eb_press_little.gif) no-repeat top right; height: 80px; margin: 0;}
-.tribe-community-event-info, table.eventForm {width: 100%;}
-
+.tribe-community-event-info small,
+#EventBriteDetailDiv small {
+	font-size: 10px;
+	color: #a3a3a3;
+}
+#eventBriteTicketing,
+#mainDonateRow {
+	margin: -11px 6px 0;
+	padding: 10px 15px;
+	border: 1px solid #e2e2e2;
+	border-radius: 3px;
+	-webkit-border-top-left-radius: 0;
+	-moz-border-radius-topleft: 0;
+	-webkit-border-top-right-radius: 0;
+	-moz-border-radius-topright: 0;
+	 -khtml-border-radius: 3px;
+	background: url(../images/bg_fade.png) repeat-x top left;
+	background-color: #fff;
+}
+#eventBriteTicketing h2 {
+	height: 80px;
+	margin: 0;
+	background: url(../images/eb_press_little.gif) no-repeat top right;
+}
+.tribe-community-event-info,
+table.eventForm {
+	width: 100%;
+}
 /* = Recurrence
 =============================================*/
-#custom-recurrence-weeks label { width: 45px; display: block; float: left; margin-bottom: 3px;}
-#custom-recurrence-frequency input { width: 30px; }
-#custom-recurrence-years label { width: 50px; display: block; float: left; margin-bottom: 3px;}
-#recurrence-changed-row { color: red; display: none; }
-#rec-end-error { color: red; }
-#rec-days-error { color: red; }
-.rec-error { display:none; }
-#recurrence-pattern-description { font-style: italic; }
-.recurrence-pattern-description-row { display: none; }
-
+#custom-recurrence-weeks label {
+	display: block;
+	float: left;
+	width: 45px;
+	margin-bottom: 3px;
+}
+#custom-recurrence-frequency input {
+	width: 30px;
+}
+#custom-recurrence-years label {
+	display: block;
+	float: left;
+	width: 50px;
+	margin-bottom: 3px;
+}
+#recurrence-changed-row {
+	display: none;
+	color: red;
+}
+#rec-end-error {
+	color: red;
+}
+#rec-days-error {
+	color: red;
+}
+.rec-error {
+	display: none;
+}
+#recurrence-pattern-description {
+	font-style: italic;
+}
+.recurrence-pattern-description-row {
+	display: none;
+}
 /* = Chosen
 =============================================*/
-.chosen, .tribe-chosen, .chzn-container {margin-right: 10px!important;}
-.venue-dropdown, .organizer-dropdown, .events-dropdown, #eventsDefaultState, #defaultCountry, #StateProvinceSelect {width: 220px !important;}
-.multi-day-cutoff-dropdown {width: 100px !important;}
-
+.chosen,
+.tribe-chosen,
+.chzn-container {
+	margin-right: 10px!important;
+}
+.linked-post-dropdown,
+.venue-dropdown,
+.organizer-dropdown,
+.events-dropdown,
+#eventsDefaultState,
+#defaultCountry,
+#StateProvinceSelect {
+	width: 220px !important;
+}
+.multi-day-cutoff-dropdown {
+	width: 100px !important;
+}
 /* fix for widgets + chosen support */
-.widget-liquid-right .widget, .inactive-sidebar .widget, .widget-liquid-right .sidebar-description {overflow: visible !important;}
+.widget-liquid-right .widget,
+.inactive-sidebar .widget,
+.widget-liquid-right .sidebar-description {
+	overflow: visible !important;
+}
