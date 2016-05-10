@@ -222,11 +222,48 @@ jQuery( document ).ready( function( $ ) {
 		});
 
 		organizer_section.on('change', '.organizer-dropdown', toggle_organizer_fields);
+
+		/**
+		 * Populates the organizer fields with previously submitted data to
+		 * give them sticky form qualities.
+		 *
+		 * @param fields
+		 */
+		function add_sticky_organizer_data( fields ) {
+			// Bail if expected global array tribe_sticky_organizer_fields is not set
+			if ( 'undefined' === typeof tribe_sticky_organizer_fields || ! $.isArray( tribe_sticky_organizer_fields ) ) {
+				return;
+			}
+
+			// The organizer fields also need sticky field behaviour: populate
+			// them if we've been provided with the necessary data to do so
+			var sticky_data = tribe_sticky_organizer_fields.shift();
+
+			if ( 'object' === typeof sticky_data ) {
+				for ( var key in sticky_data ) {
+					// Check to see if we have a field of this name
+					var $field = $( fields ).find( 'input[name="organizer[' + key + '][]"]' );
+
+					if ( ! $field.length ) {
+						continue;
+					}
+
+					// Set the value accordingly
+					$field.val( sticky_data[ key ] );
+				}
+			}
+		}
+
+		/**
+		 * Add the expected fields (organizer name, phone etc as per the
+		 * 'tribe-create-organizer' template to each row.
+		 */
 		organizer_rows.each( function () {
 			var row = $( this );
 			var group = row.closest( 'tbody' );
 			var fields = $( create_organizer_template( {} ) ).find( '.organizer' ); // we already have our tbody
 			var dropdown = row.find( '.organizer-dropdown' );
+
 			if ( dropdown.length ) {
 				var value = dropdown.val();
 				if ( value != '0' ) {
@@ -237,6 +274,9 @@ jQuery( document ).ready( function( $ ) {
 				label.text( label.data( 'l10n-create-organizer' ) );
 				row.find( '.nosaved' ).remove();
 			}
+
+			// Populate the fields with any sticky data then add them to the page
+			add_sticky_organizer_data( fields );
 			group.append( fields );
 		} );
 
