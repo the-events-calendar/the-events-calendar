@@ -148,7 +148,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_organizer_email( $postId = null ) {
 		$postId = Tribe__Events__Main::postIdHelper( $postId );
-		$output = esc_html( tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerEmail', true ) );
+		$output = esc_html( antispambot( tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerEmail', true ) ) );
 
 		return apply_filters( 'tribe_get_organizer_email', $output );
 	}
