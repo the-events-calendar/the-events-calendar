@@ -61,13 +61,24 @@ add_action( 'plugins_loaded', 'Tribe_ECP_Load', 2 ); // high priority so that it
  * Shows message if the plugin can't load due to TEC not being installed.
  */
 function tribe_show_fail_message() {
-	if ( current_user_can( 'activate_plugins' ) ) {
-		$langpath = trailingslashit( basename( dirname( __FILE__ ) ) ) . 'lang/';
-		Tribe__Main::instance()->load_text_domain( 'tribe-events-calendar-pro', $langpath );
-		$url = 'plugin-install.php?tab=plugin-information&plugin=the-events-calendar&TB_iframe=true';
-		$title = __( 'The Events Calendar', 'tribe-events-calendar-pro' );
-		echo '<div class="error"><p>' . sprintf( __( 'To begin using Events Calendar PRO, please install the latest version of <a href="%s" class="thickbox" title="%s">The Events Calendar</a>.', 'tribe-events-calendar-pro' ), esc_url( $url ), $title ) . '</p></div>';
+	if ( ! current_user_can( 'activate_plugins' ) ) {
+		return;
 	}
+
+	$mopath = trailingslashit( basename( dirname( __FILE__ ) ) ) . 'lang/';
+	$domain = 'tribe-events-calendar-pro';
+
+	// If we don't have Common classes load the old fashioned way
+	if ( ! class_exists( 'Tribe__Main' ) ) {
+		load_plugin_textdomain( $domain, false, $mopath );
+	} else {
+		// This will load `wp-content/languages/plugins` files first
+		Tribe__Main::instance()->load_text_domain( $domain, $mopath );
+	}
+
+	$url = 'plugin-install.php?tab=plugin-information&plugin=the-events-calendar&TB_iframe=true';
+	$title = __( 'The Events Calendar', 'tribe-events-calendar-pro' );
+	echo '<div class="error"><p>' . sprintf( __( 'To begin using Events Calendar PRO, please install the latest version of <a href="%s" class="thickbox" title="%s">The Events Calendar</a>.', 'tribe-events-calendar-pro' ), esc_url( $url ), $title ) . '</p></div>';
 }
 
 /**
