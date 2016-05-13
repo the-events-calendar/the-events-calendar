@@ -999,25 +999,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Registers the license key management tab in the Events > Settings screen,
-		 * only if premium addons are detected.
-		 */
-		protected function do_licenses_tab() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::do_licenses_tab' );
-			Tribe__Settings_Manager::instance()->do_licenses_tab();
-		}
-
-		/**
-		 * Tries to discover if licensable addons are activated on the same site.
-		 *
-		 * @return bool
-		 */
-		protected function have_addons() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::have_addons' );
-			return Tribe__Settings_Manager::instance()->have_addons();
-		}
-
-		/**
 		 * Create the help tab
 		 */
 		public function doHelpTab() {
