@@ -25,7 +25,7 @@ $general_tab_fields = Tribe__Main::array_insert_after_key(
 );
 
 $general_tab_fields = Tribe__Main::array_insert_before_key(
-	'defaultCurrencySymbol',
+	'tribeEventsDisplayThemeTitle',
 	$general_tab_fields,
 	array(
 		'postsPerPage'                  => array(
@@ -118,6 +118,25 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 			'type'        => 'html',
 			'html'        => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( esc_html__( "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar.", 'the-events-calendar' ) ) . '</p>',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
+		),
+		'defaultCurrencySymbol'         => array(
+			'type'            => 'text',
+			'label'           => esc_html__( 'Default currency symbol', 'tribe-common' ),
+			'tooltip'         => esc_html__( 'Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively.', 'tribe-common' ),
+			'validation_type' => 'textarea',
+			'size'            => 'small',
+			'default'         => '$',
+		),
+		'reverseCurrencyPosition'       => array(
+			'type'            => 'checkbox_bool',
+			'label'           => esc_html__( 'Currency symbol follows value', 'tribe-common' ),
+			'tooltip'         => esc_html__( 'The currency symbol normally precedes the value. Enabling this option positions the symbol after the value.', 'tribe-common' ),
+			'default'         => false,
+			'validation_type' => 'boolean',
+		),
+		'tribeEventsMiscellaneousTitle' => array(
+			'type' => 'html',
+			'html' => '<h3>' . esc_html__( 'Miscellaneous Settings', 'tribe-common' ) . '</h3>',
 		),
 	)
 );
