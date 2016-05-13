@@ -148,9 +148,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_organizer_email( $postId = null ) {
 		$postId = Tribe__Events__Main::postIdHelper( $postId );
-		$output = esc_html( antispambot( tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerEmail', true ) ) );
+		$email  = esc_html( tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerEmail', true ) );
 
-		return apply_filters( 'tribe_get_organizer_email', $output );
+		/**
+		 * Allows for the organizer email to be filtered.
+		 *
+		 * Please note that obfuscation of email is done in subsequent line using the `antispambot` function.
+		 *
+		 * @param string $email The organizer email.
+		 */
+		$filtered_email = apply_filters( 'tribe_get_organizer_email', $email );
+
+		return antispambot( $filtered_email );
 	}
 
 	/**
