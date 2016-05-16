@@ -325,6 +325,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Improved our JSON-LD output to ensure consistency (props: @garrettjohnson) [43595]
 * Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files [36246]
 * Tweak - Switch to HTTPS for the "Powered by The Events Calendar" link [46542]
+* Tweak - Category default view is now set to `default` in place of hardcoding the current default view in the category base rewrite rule [31907]
 * Deprecated - Tribe__Events__PUE__Checker, Tribe__Events__PUE__Plugin_Info, and Tribe__Events__PUE__Utility classes are deprecated and are replaced by Tribe__PUE__Checker, Tribe__PUE__Plugin_Info, and Tribe__PUE__Utility classes [46188]
 * Accessibility - Focus styles added for search fields [32936]
 * Accessibility - Add ARIA labels for Month/Day/List sub nav [32937]
