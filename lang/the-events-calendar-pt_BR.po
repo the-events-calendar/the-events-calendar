@@ -284,7 +284,7 @@ msgstr "Post enviado."
 
 #: vendor/tickets/src/Tribe/RSVP.php:1025
 msgid "Post scheduled."
-msgstr ""
+msgstr "Post agendado."
 
 #: vendor/tickets/src/Tribe/RSVP.php:1026
 msgid "Post draft updated."
@@ -329,11 +329,11 @@ msgstr ""
 
 #: src/views/list/nav.php:26
 msgid "Previous %s"
-msgstr ""
+msgstr "%s Anteriores"
 
 #: src/views/list/nav.php:34
 msgid "Next %s"
-msgstr ""
+msgstr "Próximos %s"
 
 #: vendor/tickets/src/Tribe/Main.php:145
 msgid "When The Events Calendar and Event Tickets are both activated, The Events Calendar must be running version %1$s or greater. Please %2$supdate now.%3$s"
@@ -365,27 +365,27 @@ msgstr ""
 
 #: src/Tribe/Main.php:1581
 msgid "%1$s updated. %2$sView %3$s"
-msgstr ""
+msgstr "%1$s atualizado. %2$sVer %3$s"
 
 #: src/Tribe/Main.php:1592
 msgid "Event published. %1$sView %2$s"
-msgstr ""
+msgstr "Evento publicado. %1$sVer %2$s"
 
 #: src/Tribe/Main.php:1598
 msgid "%1$s submitted. %2$sPreview %3$s"
-msgstr ""
+msgstr "%1$s enviado. %2$sPré-visualizar %3$s"
 
 #: src/Tribe/Main.php:1604
 msgid "%1$s scheduled for: %2$s. %3$sPreview %4$s"
-msgstr ""
+msgstr "%1$s agendado para: %2$s. %3$sPré-visualizar %4$s"
 
 #: src/Tribe/Main.php:1613
 msgid "%1$s draft updated. %2$sPreview %3$s"
-msgstr ""
+msgstr "%1$s rascunho atualizado. %2$sPré-visualizar %3$s"
 
 #: src/Tribe/Main.php:1632 src/Tribe/Main.php:1652
 msgid "%1$s scheduled for: %2$s."
-msgstr ""
+msgstr "%1$s agendado para: %2$s."
 
 #: src/Tribe/Main.php:1741
 msgid "Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results."
@@ -397,7 +397,7 @@ msgstr ""
 
 #: src/Tribe/Template/Day.php:136
 msgid "No %1$s scheduled for %2$s. Please try another day."
-msgstr ""
+msgstr "Nenhum %1$s agendado para %2$s. Por favor, tente outro dia."
 
 #: src/Tribe/Template/Month.php:281
 msgid "There were no results found for %s this month. Try searching next month."
@@ -584,11 +584,11 @@ msgstr ""
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:108
 msgid "Create New %s"
-msgstr ""
+msgstr "Criar Novo %s"
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:172
 msgid "Add another %s"
-msgstr ""
+msgstr "Adicionar outro %s"
 
 #: src/Tribe/Asset/Bootstrap_Datepicker.php:19
 msgid "Clear"
@@ -1148,7 +1148,7 @@ msgstr "%1$s de %2$s - %3$s"
 
 #: src/functions/template-tags/loop.php:147
 msgid "Past %s"
-msgstr " %s Anteriores"
+msgstr "%s Anteriores"
 
 #: src/functions/template-tags/loop.php:152
 #: src/functions/template-tags/loop.php:161
@@ -2203,7 +2203,7 @@ msgstr "Digite um 0 para %s que são grátis ou deixe em branco para esconder o 
 #: src/admin-views/organizer-meta-box.php:24
 #: src/admin-views/venue-meta-box.php:25
 msgid "%s Name:"
-msgstr "%s Nome:"
+msgstr "Nome do %s:"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:76
 #: src/admin-views/new-organizer-meta-section.php:23
@@ -4600,7 +4600,7 @@ msgstr "Disponível %s"
 
 #: src/Tribe/Main.php:1860 src/Tribe/Main.php:1949
 msgid "No saved %s exists."
-msgstr "Não existem %s salvos"
+msgstr "Não existe nenhum %s salvo."
 
 #: src/Tribe/Main.php:2092
 msgid "Next"
@@ -4626,15 +4626,15 @@ msgstr "Rede"
 
 #: src/Tribe/Main.php:2479
 msgid "page"
-msgstr ""
+msgstr "página"
 
 #: src/Tribe/Main.php:2480 src/functions/template-tags/general.php:69
 msgid "event"
-msgstr ""
+msgstr "evento"
 
 #: src/Tribe/Main.php:2481 src/functions/template-tags/general.php:91
 msgid "events"
-msgstr ""
+msgstr "eventos"
 
 #: src/Tribe/Main.php:2482
 msgid "all"
