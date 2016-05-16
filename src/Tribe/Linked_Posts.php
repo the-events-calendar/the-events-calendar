@@ -573,13 +573,8 @@ class Tribe__Events__Linked_Posts {
 		$linked_post_types = $this->get_linked_post_types();
 
 		foreach ( $linked_post_types as $linked_post_type => $linked_post_type_data ) {
-			$linked_post_type_container = $this->get_post_type_container( $linked_post_type );
-
-			if ( ! isset( $submission[ $linked_post_type_container ] ) ) {
-				$submission[ $linked_post_type_container ] = array();
-			}
-
-			$this->handle_submission_by_post_type( $event_id, $linked_post_type, $submission[ $linked_post_type_container ] );
+			$linked_post_type_data = $this->get_linked_post_type_data( $submission, $linked_post_type );
+			$this->handle_submission_by_post_type( $event_id, $linked_post_type, $linked_post_type_data );
 		}
 	}
 
@@ -842,5 +837,36 @@ class Tribe__Events__Linked_Posts {
 			$template = apply_filters( 'tribe_events_linked_post_meta_box_section', $this->main->plugin_path . 'src/admin-views/linked-post-section.php', $linked_post_type );
 			include $template;
 		}
+	}
+
+	/**
+	 * @param $submission
+	 * @param $linked_post_type
+	 *
+	 * @return array
+	 */
+	private function get_linked_post_type_data( $submission, $linked_post_type ) {
+		$linked_post_type_container = $this->get_post_type_container( $linked_post_type );
+
+		// Allow for the post type container to have first letter in uppercase form.
+		// e.g. `venue` and `Venue` should both be valid.
+		$linked_post_type_containers_candidates = array( $linked_post_type_container, ucfirst( $linked_post_type_container ) );
+
+		$post_type_container = false;
+
+		foreach ( $linked_post_type_containers_candidates as $candidate_post_type_container ) {
+			if ( isset( $submission[ $candidate_post_type_container ] ) ) {
+				$post_type_container = $candidate_post_type_container;
+				break;
+			}
+		}
+
+		if ( false === $post_type_container ) {
+			$data = array();
+		} else {
+			$data = $submission[ $post_type_container ];
+		}
+
+		return $data;
 	}
 }
