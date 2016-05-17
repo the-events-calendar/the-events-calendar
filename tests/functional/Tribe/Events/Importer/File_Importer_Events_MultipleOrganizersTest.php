@@ -155,4 +155,23 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 		$this->assertCount( 3, $stored_organizer_ids );
 		$this->assertEqualSets( $organizer_ids, $stored_organizer_ids );
 	}
+
+	/**
+	 * @test
+	 * it should import a tight comma separated list for organizer ids
+	 */
+	public function it_should_import_a_tight_comma_separated_list_for_organizer_ids() {
+		$organizer_ids = $this->factory()->post->create_many( 3, [ 'post_type' => Main::ORGANIZER_POST_TYPE ] );
+		$this->data    = [
+			'organizer_1' => '"' . implode( ',', $organizer_ids ) . '"',
+		];
+
+		$sut = $this->make_instance( 'multiple-organizers' );
+
+		$post_id = $sut->import_next_row();
+
+		$stored_organizer_ids = get_post_meta( $post_id, '_EventOrganizerID', false );
+		$this->assertCount( 3, $stored_organizer_ids );
+		$this->assertEqualSets( $organizer_ids, $stored_organizer_ids );
+	}
 }
