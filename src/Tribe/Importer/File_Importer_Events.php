@@ -188,10 +188,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	private function find_matching_organizer_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_organizer_name' );
-
-		// if the organizers have a space and the items that are separated by spaces are numbers
-		if ( strpos( $name, ' ' ) && is_numeric( str_replace( ' ', '', $name ) ) ) {
-			$split = explode( ' ', $name );
+		
+		// organizer name is a list of IDs either space or comma separated
+		if ( preg_match( '/[\\s,]+/', $name ) && is_numeric( preg_replace( '/[\\s,]+/', '', $name ) ) ) {
+			$split = preg_split( '/[\\s,]+/', $name );
 			$match = array();
 			foreach ( $split as $possible_id_match ) {
 				$match[] = $this->find_matching_post_id( $possible_id_match, Tribe__Events__Organizer::POSTTYPE );
