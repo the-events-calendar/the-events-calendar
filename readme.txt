@@ -273,10 +273,11 @@ But wait: there's more! We've got a whole stable of plugins available to help yo
 Our Free Plugins:
 
 * <a href="https://wordpress.org/support/plugin/event-tickets/" target="_blank">Event Tickets</a>
-* <a href="http://wordpress.org/extend/plugins/advanced-post-manager/" target="_blank">Advanced Post Manager</a>
-* <a href="http://wordpress.org/plugins/blog-copier/" target="_blank">Blog Copier</a>
-* <a href="http://wordpress.org/plugins/image-rotation-repair/" target="_blank">Image Rotation Widget</a>
-* <a href="http://wordpress.org/plugins/widget-builder/" target="_blank">Widget Builder</a>
+* <a href="https://wordpress.org/extend/plugins/advanced-post-manager/" target="_blank">Advanced Post Manager</a>
+* <a href="https://wordpress.org/plugins/blog-copier/" target="_blank">Blog Copier</a>
+* <a href="https://wordpress.org/plugins/gigpress/" target="_blank">GigPress</a>
+* <a href="https://wordpress.org/plugins/image-widget/" target="_blank">Image Widget</a>
+* <a href="https://wordpress.org/plugins/widget-builder/" target="_blank">Widget Builder</a>
 
 Our Premium Plugins:
 
