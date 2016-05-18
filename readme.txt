@@ -309,6 +309,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.1.4] TBD =
+
+* Fix - Improve accuracy of list view pagination after switching from month view [42704]
+
 = [4.1.3] 2016-04-28 =
 
 * Fix - Month View single days are now ordered as follows: sticky events, ongoing multi-day events, all day events, then start time. In other words, all events should be ordered as you'd expect when viewing events in Month View.
