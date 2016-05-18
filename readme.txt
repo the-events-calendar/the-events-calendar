@@ -316,6 +316,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Fix - Improve accuracy of list view pagination after switching from month view [42704]
 * Tweak - Give the multi-organizer form 'sticky' properties so values persist even if the submission is initially rejected [44457]
+* Tweak - Resolved minor CSS issues in the welcome page [44183]
 
 = [4.1.3] 2016-04-28 =
 
