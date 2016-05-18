@@ -6,7 +6,7 @@
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/list/nav.php
  *
  * @package TribeEventsCalendar
- * @version 4.1
+ * @version 4.2
  *
  */
 global $wp_query;
