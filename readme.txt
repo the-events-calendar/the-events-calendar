@@ -228,6 +228,7 @@ Our Premium Plugins:
 = [4.1.3] 2016-05-11 =
 
 * Tweak - restored section heading for Additional Fields [46530]
+* Fix - Resolved minor incompatibilities with the Safari browser [45118]
 * Fix - Fixed issue where legacy recurrence description fields were not migrated to the new recurrence data structure introduced in 3.12 (props to publiclife on the forums for reporting this!) [61158]
 
 = [4.1.2] 2016-04-11 =
