@@ -4,8 +4,8 @@ Contributors: ModernTribe, barry.hughes, bordoni, borkweb, brianjessee, brook-tr
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.4.2
-Stable tag: 4.1.2
+Tested up to: 4.5.2
+Stable tag: 4.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -225,11 +225,11 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.1.3] 2016-05-11 =
+= [4.1.3] 2016-05-18 =
 
-* Tweak - restored section heading for Additional Fields [46530]
-* Fix - Resolved minor incompatibilities with the Safari browser [45118]
-* Fix - Fixed issue where legacy recurrence description fields were not migrated to the new recurrence data structure introduced in 3.12 (props to publiclife on the forums for reporting this!) [61158]
+* Tweak - restored section heading for Additional Fields
+* Fix - Resolved minor incompatibilities with the Safari browser
+* Fix - Fixed issue where legacy recurrence description fields were not migrated to the new recurrence data structure introduced in 3.12 (props to publiclife on the forums for reporting this!)
 
 = [4.1.2] 2016-04-11 =
 
