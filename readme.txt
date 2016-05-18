@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.5.1
-Stable tag: 4.1.3
+Tested up to: 4.5.2
+Stable tag: 4.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -312,11 +312,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.1.4] TBD =
+= [4.1.4] 2016-05-18 =
 
-* Fix - Improve accuracy of list view pagination after switching from month view [42704]
-* Tweak - Give the multi-organizer form 'sticky' properties so values persist even if the submission is initially rejected [44457]
-* Tweak - Resolved minor CSS issues in the welcome page [44183]
+* Fix - Improve accuracy of list view pagination after switching from month view
+* Tweak - Give the multi-organizer form 'sticky' properties so values persist even if the submission is initially rejected
+* Tweak - Resolved minor CSS issues in the welcome page
 
 = [4.1.3] 2016-04-28 =
 
