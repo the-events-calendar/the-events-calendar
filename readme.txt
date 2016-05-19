@@ -312,7 +312,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.1.4] 2016-05-18 =
+= [4.1.4] 2016-05-19 =
 
 * Fix - Improve accuracy of list view pagination after switching from month view
 * Tweak - Give the multi-organizer form 'sticky' properties so values persist even if the submission is initially rejected
