@@ -225,7 +225,7 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.1.3] 2016-05-18 =
+= [4.1.3] 2016-05-19 =
 
 * Tweak - restored section heading for Additional Fields
 * Fix - Resolved minor incompatibilities with the Safari browser
