@@ -646,6 +646,10 @@ class Tribe__Events__Pro__Recurrence__Meta {
 					self::add_date_exclusion_to_recurrence( $recurrence_meta, $date );
 				}
 			}
+
+			if ( ! empty( $recurrence_data['recurrence-description'] ) ) {
+				$recurrence_meta['description'] = $recurrence_data['recurrence-description'];
+			}
 		}
 
 		return apply_filters( 'tribe_pro_legacy_recurrence_meta', $recurrence_meta );

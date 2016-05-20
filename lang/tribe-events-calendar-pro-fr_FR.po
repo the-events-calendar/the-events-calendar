@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-03-13 23:13:29+0000\n"
+"PO-Revision-Date: 2016-04-28 07:06:59+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,11 +12,11 @@ msgstr ""
 
 #: src/Tribe/APM_Filters/APM_Filters.php:161
 msgid "Download for free"
-msgstr ""
+msgstr "Télécharger gratuitement"
 
 #: src/Tribe/APM_Filters/APM_Filters.php:167
 msgid "Dismiss"
-msgstr ""
+msgstr "Ignorer"
 
 #: src/Tribe/APM_Filters/APM_Filters.php:171
 msgid "Pssst! Looking for the filters? They live in a separate plugin now | %s | %s"
@@ -24,15 +24,15 @@ msgstr ""
 
 #: src/Tribe/Geo_Loc.php:86
 msgid "map"
-msgstr ""
+msgstr "carte"
 
 #: src/Tribe/Geo_Loc.php:151
 msgid "Distance unit"
-msgstr ""
+msgstr "Unité de mesure pour la distance"
 
 #: src/Tribe/Geo_Loc.php:489
 msgid "The latitude and longitude for your venue could not be fetched. The Google Maps API daily query limit has been reached!"
-msgstr ""
+msgstr "La latitude et la longitude pour le lieu de votre événement n'ont pas pu être trouvés. La limite de l'API de Google Maps a été atteinte pour votre serveur."
 
 #: src/Tribe/Main.php:1672
 msgid "Events Calendar PRO"
@@ -44,7 +44,7 @@ msgstr ""
 
 #: src/Tribe/Recurrence/Strings.php:13
 msgid "Once on %1$s"
-msgstr ""
+msgstr "Une fois le %1$s"
 
 #: src/Tribe/Recurrence/Validator.php:41
 msgid "Not an event post."
@@ -56,7 +56,7 @@ msgstr ""
 
 #: src/admin-views/event-recurrence.php:37
 msgid "that will occur on"
-msgstr ""
+msgstr "qui aura lieu le"
 
 #: src/Tribe/Admin/Custom_Meta_Tools.php:95
 msgid "Some additional field data still needs to be updated (unfortunately, we were unable to continue to update things automatically)."
@@ -189,19 +189,19 @@ msgstr "Date du calendrier Color Bar"
 
 #: src/Tribe/Recurrence/Strings.php:14
 msgid "Daily until %1$s"
-msgstr "Tous les jours jusqu'à % 1 $ s"
+msgstr "Tous les jours jusqu'à %1$s"
 
 #: src/Tribe/Recurrence/Strings.php:15
 msgid "Weekly on the same day until %1$s"
-msgstr "Hebdomadaire sur le même jour jusqu'à % 1 $ s"
+msgstr "Hebdomadaire sur le même jour jusqu'à %1$s"
 
 #: src/Tribe/Recurrence/Strings.php:16
 msgid "Monthly on the same day until %1$s"
-msgstr "Mensuel sur la même journée jusqu'à % 1 $ s"
+msgstr "Mensuel sur la même journée jusqu'à %1$s"
 
 #: src/Tribe/Recurrence/Strings.php:17
 msgid "Yearly on the same date until %1$s"
-msgstr "Annuel sur la même date jusqu'à % 1 $ s"
+msgstr "Annuel sur la même date jusqu'à %1$s"
 
 #: src/Tribe/Recurrence/Strings.php:19 src/Tribe/Recurrence/Strings.php:23
 msgid "Weekly on the same day"
@@ -304,8 +304,8 @@ msgstr "et"
 #: src/views/pro/widgets/this-week/loop-grid-day.php:49
 msgid "View %1$s %2$s"
 msgid_plural "View All %1$s %2$s"
-msgstr[0] "Voir 1 % de l' $ % 2 $ s"
-msgstr[1] "Voir tous les % 1 $ de % 2 $ s les"
+msgstr[0] "Voir %1$s de l' %2$s"
+msgstr[1] "Voir tous les %1$s de %2$s les"
 
 #: src/views/pro/widgets/this-week/loop-grid-day.php:67
 msgid "No Events Today"

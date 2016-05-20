@@ -231,6 +231,12 @@ Our Premium Plugins:
 * Tweak - Improved our JSON-LD output to ensure consistency (props: @garrettjohnson) [43595]
 * Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files [36246]
 
+= [4.1.3] 2016-05-19 =
+
+* Tweak - restored section heading for Additional Fields
+* Fix - Resolved minor incompatibilities with the Safari browser
+* Fix - Fixed issue where legacy recurrence description fields were not migrated to the new recurrence data structure introduced in 3.12 (props to publiclife on the forums for reporting this!)
+
 = [4.1.2] 2016-04-11 =
 
 * Tweak - Changed the word "Once" in an event's recurring settings because it was pretty confusing for everyone, including us
