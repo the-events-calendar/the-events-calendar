@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-03-17 18:49:09+0000\n"
+"PO-Revision-Date: 2016-04-13 00:32:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1183,7 +1183,7 @@ msgstr "červen"
 
 #: src/Tribe/Recurrence/Meta.php:1032 src/Tribe/Recurrence/Meta.php:1525
 msgid "July"
-msgstr "červenec"
+msgstr "července"
 
 #: src/Tribe/Recurrence/Meta.php:1033 src/Tribe/Recurrence/Meta.php:1526
 msgid "August"

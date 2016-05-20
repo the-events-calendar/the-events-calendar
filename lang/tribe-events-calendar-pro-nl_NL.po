@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-04-09 13:45:49+0000\n"
+"PO-Revision-Date: 2016-04-23 20:34:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,11 +20,11 @@ msgstr ""
 
 #: src/Tribe/APM_Filters/APM_Filters.php:171
 msgid "Pssst! Looking for the filters? They live in a separate plugin now | %s | %s"
-msgstr ""
+msgstr "Pssst! Ben je op zoek naar de filters? Zij leven nu in een aparte plugin | %s | %s "
 
 #: src/Tribe/Geo_Loc.php:86
 msgid "map"
-msgstr ""
+msgstr "kaart"
 
 #: src/Tribe/Geo_Loc.php:151
 msgid "Distance unit"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: src/Tribe/Geo_Loc.php:489
 msgid "The latitude and longitude for your venue could not be fetched. The Google Maps API daily query limit has been reached!"
-msgstr ""
+msgstr "De breedtegraad en lengtegraad voor je Locatie kon niet opgehaald worden. Het dagelijkse query limiet van de Google Maps API is bereikt!"
 
 #: src/Tribe/Main.php:1672
 msgid "Events Calendar PRO"
@@ -48,15 +48,15 @@ msgstr "Eenmalig op %1$s"
 
 #: src/Tribe/Recurrence/Validator.php:41
 msgid "Not an event post."
-msgstr ""
+msgstr "Niet een evenementen-pagina."
 
 #: src/Tribe/Recurrence/Validator.php:136
 msgid "Recurrence meta should not be empty."
-msgstr ""
+msgstr "Meta voor terugkeerpatroon zou niet leeg moeten zijn."
 
 #: src/admin-views/event-recurrence.php:37
 msgid "that will occur on"
-msgstr ""
+msgstr "welke plaatsvindt op"
 
 #: src/Tribe/Admin/Custom_Meta_Tools.php:95
 msgid "Some additional field data still needs to be updated (unfortunately, we were unable to continue to update things automatically)."
