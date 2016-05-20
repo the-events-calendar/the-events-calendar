@@ -19,6 +19,7 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	public function __construct( $event = null ) {
 		$this->tribe = Tribe__Events__Main::instance();
 		$this->get_event( $event );
+		add_action( 'wp', array( $this, 'sticky_form_data' ), 50 ); // Later than events-admin.js itself is enqueued
 	}
 
 	/**
@@ -191,4 +192,34 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 		echo '<a class="dashicons dashicons-trash delete-organizer-group" href="#"></a>';
 	}
 
+	/**
+	 * Supply previously submitted organizer field values to the events-admin.js
+	 * script in order to provide them with sticky qualities.
+	 *
+	 * This *must* run later than the action:priority used to enqueue
+	 * events-admin.js.
+	 */
+	public function sticky_form_data() {
+		$submitted_data = array();
+
+		if ( empty( $_POST['organizer'] ) || ! is_array( $_POST['organizer'] ) ) {
+			return;
+		}
+
+		foreach ( $_POST['organizer'] as $field => $set_of_values ) {
+			if ( ! is_array( $set_of_values ) ) {
+				continue;
+			}
+
+			foreach ( $set_of_values as $index => $value ) {
+				if ( ! isset( $submitted_data[ $index ] ) ) {
+					$submitted_data[ $index ] = array();
+				}
+
+				$submitted_data[ $index ][ $field ] = esc_attr( $value );
+			}
+		}
+
+		wp_localize_script( 'tribe-events-admin', 'tribe_sticky_organizer_fields', $submitted_data );
+	}
 }

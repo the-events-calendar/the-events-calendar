@@ -2889,7 +2889,7 @@ msgstr ""
 msgid "There were no results found."
 msgstr "No s'ha trobat cap resultat."
 
-#: src/Tribe/Template/Month.php:724
+#: src/Tribe/Template/Month.php:725
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "La data sol·licitada \"%s\" no era vàlida &ndash; es mostra el mes actual en el seu lloc"
 
@@ -4396,7 +4396,7 @@ msgstr "Esdeveniments"
 msgid "Event"
 msgstr "Esdeveniment"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.2) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:636

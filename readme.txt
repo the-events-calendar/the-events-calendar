@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, MZAWeb, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, thatdudebutch
+Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, MZAWeb, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, thatdudebutch, aguseo, tribecari
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
@@ -13,13 +13,13 @@ The Events Calendar is a carefully crafted, extensible plugin that lets you easi
 
 == Description ==
 
+Create and manage your calendar of events with ease. Get professional-level quality and features backed by a team you can trust. The Events Calendar will help take your site to the next level.
+
+The Events Calendar is built and supported by WordPress artisans Modern Tribe. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more? <a href="http://m.tri.be/2a">Check out the available add-ons.</a>
+
 ><strong>A note about support:</strong> We’re here to help troubleshoot bugs, but should set expectations early that the support forums at WordPress.org are only checked once a week. Please read our <a href="http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?replies=3">sticky post</a> before creating a new thread.
 >
 > Users looking for more timely/in-depth support are encouraged to check out <a href="http://m.tri.be/mj" target="_blank" title="[new window]">Events Calendar PRO</a>.
-
-Create and manage events with ease. Get professional-level quality and features backed by a team you can trust. The Events Calendar will help take your site to the next level.
-
-The Events Calendar is built and supported by WordPress artisans Modern Tribe. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more? <a href="http://m.tri.be/2a">Check out the available add-ons.</a>
 
 = BUILT SOLID & SUPPORTED =
 
@@ -214,6 +214,8 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 <a href="https://profiles.wordpress.org/shane.pearlman">Shane Pearlman</a>
 <a href="https://profiles.wordpress.org/thatdudebutch">Wayne Stratton</a>
 <a href="https://profiles.wordpress.org/zbtirrell">Zachary Tirrell</a>
+<a href="https://profiles.wordpress.org/aguseo">Andras Guseo</a>
+<a href="https://profiles.wordpress.org/tribecari">Caroline Tucker</a>
 
 = Past Contributors =
 
@@ -271,10 +273,11 @@ But wait: there's more! We've got a whole stable of plugins available to help yo
 Our Free Plugins:
 
 * <a href="https://wordpress.org/support/plugin/event-tickets/" target="_blank">Event Tickets</a>
-* <a href="http://wordpress.org/extend/plugins/advanced-post-manager/" target="_blank">Advanced Post Manager</a>
-* <a href="http://wordpress.org/plugins/blog-copier/" target="_blank">Blog Copier</a>
-* <a href="http://wordpress.org/plugins/image-rotation-repair/" target="_blank">Image Rotation Widget</a>
-* <a href="http://wordpress.org/plugins/widget-builder/" target="_blank">Widget Builder</a>
+* <a href="https://wordpress.org/extend/plugins/advanced-post-manager/" target="_blank">Advanced Post Manager</a>
+* <a href="https://wordpress.org/plugins/blog-copier/" target="_blank">Blog Copier</a>
+* <a href="https://wordpress.org/plugins/gigpress/" target="_blank">GigPress</a>
+* <a href="https://wordpress.org/plugins/image-widget/" target="_blank">Image Widget</a>
+* <a href="https://wordpress.org/plugins/widget-builder/" target="_blank">Widget Builder</a>
 
 Our Premium Plugins:
 
@@ -309,12 +312,6 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.1.3] 2016-04-28 =
-
-* Fix - Month View single days are now ordered as follows: sticky events, ongoing multi-day events, all day events, then start time. In other words, all events should be ordered as you'd expect when viewing events in Month View.
-* Fix - Updated the compatibility of CSV importer with WordPress 4.5 due to a change in the `post_status` filter. This will help prevent some of the errors you may have seen when importing events using a CSV file.
-* Tweak - Added new event names for AJAX success to the List, Month, and Day views to help The Events Calendar's compatibility with our other premium plugins.
-
 = [4.2] TBD =
 
 * Feature - Added an oembed template for events [43938]
@@ -330,6 +327,18 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Accessibility - Add ARIA labels for Month/Day/List sub nav [32937]
 * Accessibility - Add ARIA label for events footer sub nav heading [32937]
 * Accessibility - Create better visual contrast between current and past events using strike-through on past event title. [32935]
+
+= [4.1.4] 2016-05-19 =
+
+* Fix - Improve accuracy of list view pagination after switching from month view
+* Tweak - Give the multi-organizer form 'sticky' properties so values persist even if the submission is initially rejected
+* Tweak - Resolved minor CSS issues in the welcome page
+
+= [4.1.3] 2016-04-28 =
+
+* Fix - Month View single days are now ordered as follows: sticky events, ongoing multi-day events, all day events, then start time. In other words, all events should be ordered as you'd expect when viewing events in Month View.
+* Fix - Updated the compatibility of CSV importer with WordPress 4.5 due to a change in the `post_status` filter. This will help prevent some of the errors you may have seen when importing events using a CSV file.
+* Tweak - Added new event names for AJAX success to the List, Month, and Day views to help The Events Calendar's compatibility with our other premium plugins.
 
 = [4.1.2] 2016-04-11 =
 
