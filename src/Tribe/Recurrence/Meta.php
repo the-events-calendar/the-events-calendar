@@ -1248,6 +1248,7 @@ class Tribe__Events__Pro__Recurrence__Meta {
 		$text = $recurrence_strings[ $key ];
 
 		switch ( $key ) {
+			case 'simple-date-on':
 			case 'simple-every-day-on':
 			case 'simple-every-week-on':
 			case 'simple-every-month-on':
