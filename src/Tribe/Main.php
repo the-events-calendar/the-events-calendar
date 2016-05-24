@@ -1628,7 +1628,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				<td style="width:170px"><?php printf( __( 'Use Saved %s:', 'the-events-calendar' ), $this->singular_venue_label ); ?></td>
 				<td>
 					<?php
-					$this->saved_venues_dropdown( $venue_id );
+					Tribe__Events__Linked_Posts::instance()->saved_linked_post_dropdown( Tribe__Events__Venue::POSTTYPE, $venue_id );
 					$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
 					if ( current_user_can( $venue_pto->cap->edit_posts ) ) {
 						?>
