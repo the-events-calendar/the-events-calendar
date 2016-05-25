@@ -604,9 +604,9 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-list .tribe-events-event-image {
+	display: inline-block;
 	float: left;
 	margin: 0 3% 0 0;
-	width: 30%;
 }
 
 .tribe-events-list .tribe-events-event-image img {
@@ -764,14 +764,14 @@ select.tribe-events-dropdown {
    @ Template: single-event.php
 =============================================*/
 
-.single-tribe_events h2.tribe-events-single-event-title {
+.single-tribe_events .tribe-events-single-event-title {
 	font-size: 1.7em;
 	line-height: 1;
 	margin: 0;
 	padding: 0;
 }
 
-#tribe-events-content .tribe-events-single-event-description  img.attachment-post-thumbnail {
+#tribe-events-content .tribe-events-single-event-description  .attachment-post-thumbnail {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
@@ -956,6 +956,24 @@ select.tribe-events-dropdown {
 
 .tribe-events-day .tribe-events-day-time-slot .type-tribe_events {
 	margin-left: 5%;
+}
+
+#tribe-events-day .type-tribe_events {
+	margin-left: 0;
+}
+
+#tribe-events-day .tribe-events-event-image {
+	display: inline-block;
+	float: left;
+	margin: 0 3% 0 0;
+	width: 30%;
+}
+
+#tribe-events-day .tribe-events-content {
+	display: inline-block;
+	float: right;
+	padding: 0;
+	width: 67%;
 }
 
 /* = Calendar Styles (includes styles for both large & small calendars)
