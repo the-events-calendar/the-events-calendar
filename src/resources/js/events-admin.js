@@ -228,23 +228,23 @@ jQuery( document ).ready( function( $ ) {
 		 * give them sticky form qualities.
 		 *
 		 * @todo consider retooling to work with all linked post types
-		 * 
+		 *
 		 * @param fields
 		 */
-		function add_sticky_organizer_data( fields ) {
+		function add_sticky_linked_post_data( post_type, container, fields ) {
 			// Bail if expected global array tribe_sticky_organizer_fields is not set
-			if ( 'undefined' === typeof tribe_sticky_organizer_fields || ! $.isArray( tribe_sticky_organizer_fields ) ) {
+			if ( 'undefined' === typeof window['tribe_sticky_' + post_type + '_fields'] || ! $.isArray( window['tribe_sticky_' + post_type + '_fields'] ) ) {
 				return;
 			}
 
 			// The organizer fields also need sticky field behaviour: populate
 			// them if we've been provided with the necessary data to do so
-			var sticky_data = tribe_sticky_organizer_fields.shift();
+			var sticky_data = window['tribe_sticky_' + post_type + '_fields'].shift();
 
 			if ( 'object' === typeof sticky_data ) {
 				for ( var key in sticky_data ) {
 					// Check to see if we have a field of this name
-					var $field = $( fields ).find( 'input[name="organizer[' + key + '][]"]' );
+					var $field = $( fields ).find( 'input[name="' + container + '[' + key + '][]"]' );
 
 					if ( ! $field.length ) {
 						continue;
@@ -273,7 +273,14 @@ jQuery( document ).ready( function( $ ) {
 			}
 
 			// Populate the fields with any sticky data then add them to the page
-			add_sticky_organizer_data( fields );
+			for ( var i in tribe_events_linked_posts.post_types ) {
+				if ( ! tribe_events_linked_posts.post_types.hasOwnProperty( i ) ) {
+					continue;
+				}
+
+				add_sticky_linked_post_data( i, tribe_events_linked_posts.post_types[ i ], fields );
+			}
+
 			group.append( fields );
 		} );
 
@@ -473,40 +480,12 @@ jQuery( document ).ready( function( $ ) {
 			$end_month.change();
 		} );
 
-		/*
-		 // hide unnecessary fields
-		 var venueFields = $( ".venue" ),
-		 savedVenue = $( "#saved_venue" );
-
-		 if ( savedVenue.length > 0 && savedVenue.val() != '0' ) {
-		 venueFields.hide();
-		 $( '[name="venue[Venue]"]' ).val( '' );
-		 }
-
-		 savedVenue.change( function() {
-		 var selected_venue_id = $(this).val(),
-		 current_edit_link = $('.edit-venue-link a').attr( 'data-admin-url' );
-
-		 if ( selected_venue_id == '0' ) {
-		 venueFields.fadeIn();
-		 $( "#EventCountry" ).val( 0 ).trigger( "chosen:updated" );
-		 $( "#StateProvinceSelect" ).val( 0 ).trigger( "chosen:updated" );
-		 tribeShowHideCorrectStateProvinceInput( '' );
-		 $('.edit-venue-link').hide();
-		 }
-		 else {
-		 venueFields.fadeOut();
-		 $('.edit-venue-link').show();
-
-		 // Change edit link
-
-		 $('.edit-venue-link a').attr( 'href', current_edit_link + selected_venue_id );
-		 }
-		 } );
-		 */
-
 		for ( var i in tribe_events_linked_posts.post_types ) {
-			setup_linked_post_fields( tribe_events_linked_posts.post_types[ i ] );
+			if ( ! tribe_events_linked_posts.post_types.hasOwnProperty( i ) ) {
+				continue;
+			}
+
+			setup_linked_post_fields( i );
 		}
 	}
 
