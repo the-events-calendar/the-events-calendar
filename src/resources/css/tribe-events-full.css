@@ -958,6 +958,10 @@ select.tribe-events-dropdown {
 	margin-left: 5%;
 }
 
+#tribe-events-day {
+	padding: 0 15px;
+}
+
 #tribe-events-day .type-tribe_events {
 	margin-left: 0;
 }
@@ -974,6 +978,11 @@ select.tribe-events-dropdown {
 	float: right;
 	padding: 0;
 	width: 67%;
+}
+
+// Twenty Sixteen specific media queries
+@media screen and (min-width: 44.375em) {
+
 }
 
 /* = Calendar Styles (includes styles for both large & small calendars)
@@ -1985,6 +1994,14 @@ body.tribe-theme-twentysixteen .datepicker table {
 
 /* = Events Retina
 =============================================*/
+
+@media screen and (min-width: 44.375em) {
+
+	#tribe-events-day .tribe-events-content {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
 
 @media screen {
 

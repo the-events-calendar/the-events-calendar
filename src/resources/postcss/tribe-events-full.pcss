@@ -935,6 +935,7 @@ select.tribe-events-dropdown {
 }
 
 #tribe-events-day {
+	padding: 0 15px;
 	.type-tribe_events {
 		margin-left: 0;
 	}
@@ -951,9 +952,18 @@ select.tribe-events-dropdown {
 		float: right;
 		padding: 0;
 		width: 67%;
+
+		@media screen and (min-width: 44.375em) {
+			margin-left: 0;
+			margin-right: 0;
+		}
 	}
 }
 
+// Twenty Sixteen specific media queries
+@media screen and (min-width: 44.375em) {
+
+}
 /* = Calendar Styles (includes styles for both large & small calendars)
    @ Template: month.php & widgets/calendar-widget.php
 =============================================*/
