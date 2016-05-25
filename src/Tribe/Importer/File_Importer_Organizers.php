@@ -38,6 +38,6 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 			'FeaturedImage' => $featured_image,
 		);
 
-		return $organizer;
+		return apply_filters( 'tribe_events_csv_import_organizer_fields', $organizer );
 	}
 }

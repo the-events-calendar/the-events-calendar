@@ -7,6 +7,7 @@ use Handlebars\Handlebars;
 use Handlebars\Loader\FilesystemLoader;
 use org\bovigo\vfs\vfsStream;
 use Tribe__Events__Main as Main;
+use Tribe__Events__Organizer as Organizer;
 
 class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTest {
 
@@ -16,7 +17,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 	 */
 	public function it_should_keep_importing_single_organizers_by_name() {
 		$organizer_name = 'John Doe';
-		$organizer_id   = $this->factory()->post->create( [ 'post_type' => Main::ORGANIZER_POST_TYPE, 'post_title' => $organizer_name ] );
+		$organizer_id   = $this->factory()->post->create( [ 'post_type' => Organizer::POSTTYPE, 'post_title' => $organizer_name ] );
 		$this->data     = [
 			'organizer_1' => $organizer_name,
 			'organizer_2' => $organizer_name,
@@ -40,7 +41,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 	 */
 	public function it_should_import_a_space_separated_list_of_organizers_a_the_name_of_a_single_organizer() {
 		$organizer_name = 'Zach Matt Gustavo';
-		$organizer_id   = $this->factory()->post->create( [ 'post_type' => Main::ORGANIZER_POST_TYPE, 'post_title' => $organizer_name ] );
+		$organizer_id   = $this->factory()->post->create( [ 'post_type' => Organizer::POSTTYPE, 'post_title' => $organizer_name ] );
 		$this->data     = [
 			'organizer_1' => $organizer_name,
 			'organizer_2' => $organizer_name,
@@ -67,7 +68,7 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 	 * it should import a single organizer ID
 	 */
 	public function it_should_import_a_single_organizer_id() {
-		$organizer_id = $this->factory()->post->create( [ 'post_type' => Main::ORGANIZER_POST_TYPE, 'post_title' => 'Someone' ] );
+		$organizer_id = $this->factory()->post->create( [ 'post_type' => Organizer::POSTTYPE, 'post_title' => 'Someone' ] );
 		$this->data   = [
 			'organizer_1' => $organizer_id,
 		];
@@ -134,5 +135,43 @@ class File_Importer_Events_MultipleOrganizersTest extends File_Importer_EventsTe
 
 		$this->assertCount( 1, get_post_meta( $post_id, '_EventOrganizerID', false ) );
 		$this->assertEquals( $organizer_id, get_post_meta( $post_id, '_EventOrganizerID', true ) );
+	}
+
+	/**
+	 * @test
+	 * it should import a comma separated list of organizer IDs
+	 */
+	public function it_should_import_a_comma_separated_list_of_organizer_i_ds() {
+		$organizer_ids = $this->factory()->post->create_many( 3, [ 'post_type' => Main::ORGANIZER_POST_TYPE ] );
+		$this->data    = [
+			'organizer_1' => '"' . implode( ', ', $organizer_ids ) . '"',
+		];
+
+		$sut = $this->make_instance( 'multiple-organizers' );
+
+		$post_id = $sut->import_next_row();
+
+		$stored_organizer_ids = get_post_meta( $post_id, '_EventOrganizerID', false );
+		$this->assertCount( 3, $stored_organizer_ids );
+		$this->assertEqualSets( $organizer_ids, $stored_organizer_ids );
+	}
+
+	/**
+	 * @test
+	 * it should import a tight comma separated list for organizer ids
+	 */
+	public function it_should_import_a_tight_comma_separated_list_for_organizer_ids() {
+		$organizer_ids = $this->factory()->post->create_many( 3, [ 'post_type' => Main::ORGANIZER_POST_TYPE ] );
+		$this->data    = [
+			'organizer_1' => '"' . implode( ',', $organizer_ids ) . '"',
+		];
+
+		$sut = $this->make_instance( 'multiple-organizers' );
+
+		$post_id = $sut->import_next_row();
+
+		$stored_organizer_ids = get_post_meta( $post_id, '_EventOrganizerID', false );
+		$this->assertCount( 3, $stored_organizer_ids );
+		$this->assertEqualSets( $organizer_ids, $stored_organizer_ids );
 	}
 }
