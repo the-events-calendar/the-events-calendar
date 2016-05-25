@@ -48,10 +48,23 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	public function enqueue_scripts() {
+		wp_localize_script( 'jquery', 'tribe_events_linked_posts', $this->get_post_type_container_data() );
+	}
+
+	/**
+	 * Generates post_type => container key value pairs of linked post types for use on the front end
+	 */
+	public function get_post_type_container_data() {
+		$post_types = array_keys( $this->linked_post_types );
 		$data = array(
-			'post_types' => array_keys( $this->linked_post_types ),
+			'post_types' => array(),
 		);
-		wp_localize_script( 'jquery', 'tribe_events_linked_posts', $data );
+
+		foreach ( $post_types as $post_type ) {
+			$data['post_types'][ $post_type ] = $this->get_post_type_container( $post_type );
+		}
+
+		return $data;
 	}
 
 	/**
