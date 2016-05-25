@@ -1125,6 +1125,7 @@ select.tribe-events-dropdown {
 
 .tribe-events-calendar td .tribe-events-viewmore a {
 	font-size: 100%;
+	white-space: nowrap;
 }
 
 .tribe-events-calendar td div[id*='tribe-events-daynum-'] {
