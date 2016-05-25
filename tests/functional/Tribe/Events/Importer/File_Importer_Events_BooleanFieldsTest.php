@@ -219,7 +219,7 @@ class File_Importer_Events_BooleanFieldsTest extends File_Importer_EventsTest {
 	 * @dataProvider truthy_boolean_values
 	 */
 	public function it_should_accept_various_valid_boolean_values_to_show_map( $truthy_boolean_value ) {
-		$this->data        = [
+		$this->data = [
 			'show_map_link' => $truthy_boolean_value,
 			'show_map' => $truthy_boolean_value,
 		];
@@ -239,7 +239,7 @@ class File_Importer_Events_BooleanFieldsTest extends File_Importer_EventsTest {
 	 * @dataProvider falsy_boolean_values
 	 */
 	public function it_should_accept_falsy_values_to_show_map( $falsy_boolean_value ) {
-		$this->data        = [
+		$this->data = [
 			'show_map_link' => $falsy_boolean_value,
 			'show_map' => $falsy_boolean_value,
 		];
