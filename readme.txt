@@ -108,18 +108,15 @@ That's it! Just configure your settings as you see fit, and you're on your way t
 
 1. Month View
 2. List View
-3. Single Event
-4. Event Category
+3. Day View
+4. Single Event
 5. Event Editor
 6. Events Admin Listing
 7. General Settings
-8. Map and Miscellaneous Settings
-9. Display Settings
-10. Event Menu Items
-11. Events Widget
-12. Month View with Classic Header
-13. Month View with Full Styles
-
+8. Display Settings
+9. Events List Widget
+10. Mobile Month View
+11. CSV Importer
 
 == Frequently Asked Questions ==
 

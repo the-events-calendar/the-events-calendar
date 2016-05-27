@@ -16,6 +16,7 @@
   "vendor/chosen/public/*.js",
   "vendor/chosen/public/*.css",
   "vendor/chosen/public/*.png",
+  "vendor/ForceUTF8/Encoding.php",
   "vendor/jquery/*.css",
   "vendor/jquery/*.js",
   "vendor/jquery/smoothness/*.css",
