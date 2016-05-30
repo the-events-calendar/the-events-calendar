@@ -225,7 +225,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	private function find_matching_venue_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_venue_name' );
 
-		return array( 'VenueID' => array( $this->find_matching_post_id( $name, Tribe__Events__Venue::POSTTYPE ) ) );
+		return $this->find_matching_post_id( $name, Tribe__Events__Venue::POSTTYPE );
 	}
 
 	/**
