@@ -238,30 +238,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 
 = Translations =
 
-* Bulgarian
-* Catalan
-* Czech
-* Danish
-* Dutch
-* Finnish
-* French (Canada)
-* French (France)
-* German
-* Greek
-* Hungarian
-* Icelandic
-* Italian
-* Lithuanian
-* Norwegian
-* Portuguese (Brazil)
-* Portuguese (Portugal)
-* Russian
-* Slovak
-* Spanish (Spain)
-* Swedish
-* Turkish
-
-Many thanks to all our translators!  You can grab the latest translations or contribute at http://translations.theeventscalendar.com
+The Events Calendar is translated by volunteers at https://translate.wordpress.org/projects/wp-plugins/the-events-calendar/stable. There you can find a list of available languages, download translation files, or help update the translations. Thank you to everyone who helps to maintain our translations!
 
 == Add-Ons ==
 
