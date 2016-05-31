@@ -301,16 +301,16 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 * 
 	 * @param array $record
 	 *
-	 * @return string Either `prefix` or `postfix`; will fall back on the first if the specified position is not
+	 * @return string Either `prefix` or `suffix`; will fall back on the first if the specified position is not
 	 *                a recognized alias.
 	 */
 	private function get_currency_position( array $record ) {
 		$currency_position = $this->get_value_by_key( $record, 'event_currency_position' );
-		$after_aliases     = [ 'postfix', 'after' ];
+		$after_aliases     = [ 'suffix', 'after' ];
 
 		foreach ( $after_aliases as $after_alias ) {
 			if ( preg_match( '/' . $after_alias . '/i', $currency_position ) ) {
-				return 'postfix';
+				return 'suffix';
 			}
 		}
 

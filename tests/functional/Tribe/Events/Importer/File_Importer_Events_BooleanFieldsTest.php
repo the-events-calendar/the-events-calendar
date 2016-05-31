@@ -257,15 +257,15 @@ class File_Importer_Events_BooleanFieldsTest extends File_Importer_EventsTest {
 			[ 'prefix', 'prefix' ],
 			[ 'prefix', 'Prefix' ],
 			[ 'prefix', 'PREFIX' ],
-			[ 'postfix', 'postfix' ],
-			[ 'postfix', 'Postfix' ],
-			[ 'postfix', 'POSTFIX' ],
+			[ 'suffix', 'suffix' ],
+			[ 'suffix', 'Suffix' ],
+			[ 'suffix', 'SUFFIX' ],
 			[ 'prefix', 'before' ],
 			[ 'prefix', 'Before' ],
 			[ 'prefix', 'BEFORE' ],
-			[ 'postfix', 'after' ],
-			[ 'postfix', 'After' ],
-			[ 'postfix', 'AFTER' ],
+			[ 'suffix', 'after' ],
+			[ 'suffix', 'After' ],
+			[ 'suffix', 'AFTER' ],
 		];
 	}
 
