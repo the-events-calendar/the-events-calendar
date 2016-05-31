@@ -520,13 +520,13 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * Custom SQL conditional for event duration meta field
 		 *
 		 * @param string   $where_sql
-		 * @param wp_query $query
+		 * @param WP_Query $query
 		 *
 		 * @return string
 		 */
 		public static function posts_where( $where_sql, $query ) {
 			global $wpdb;
-
+			
 			// if it's a true event query then we to setup where conditions
 			// but only if we aren't grabbing a specific post
 			if (
