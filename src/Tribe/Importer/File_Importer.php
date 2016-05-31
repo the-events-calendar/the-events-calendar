@@ -17,6 +17,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	private $updated = 0;
 	private $created = 0;
 	private $skipped = array();
+	private $encoding = array();
 	private $log = array();
 
 	/**
@@ -40,7 +41,19 @@ abstract class Tribe__Events__Importer__File_Importer {
 			case 'organizers':
 				return new Tribe__Events__Importer__File_Importer_Organizers( $file_reader );
 			default:
-				throw new InvalidArgumentException( sprintf( esc_html__( 'No importer defined for %s', 'the-events-calendar' ), $type ) );
+				/**
+				 * Allows developers to return an importer instance to use for unsupported import types.
+				 *
+				 * @param bool|mixed An importer instance or `false` if not found or not supported.
+				 * @param Tribe__Events__Importer__File_Reader $file_reader
+				 */
+				$importer = apply_filters( "tribe_events_import_{$type}_importer", false, $file_reader );
+
+				if ( false === $importer ) {
+					throw new InvalidArgumentException( sprintf( esc_html__( 'No importer defined for %s', 'the-events-calendar' ), $type ) );
+				}
+
+				return $importer;
 		}
 	}
 
@@ -101,6 +114,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return $this->skipped;
 	}
 
+	public function get_encoding_changes_row_count() {
+		return count( $this->encoding );
+	}
+
+	public function get_encoding_changes_row_numbers() {
+		return $this->encoding;
+	}
+
 	public function get_log_messages() {
 		return $this->log;
 	}
@@ -109,12 +130,29 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return $this->required_fields;
 	}
 
+	public function get_type() {
+		return $this->type;
+	}
+
 	public function import_next_row( $throw = false ) {
+		$post_id = null;
 		$record = $this->reader->read_next_row();
 		$row    = $this->reader->get_last_line_number_read() + 1;
+
+		//Check if option to encode is active
+		$encoding_option = Tribe__Events__Importer__Options::getOption( 'imported_encoding_status', array( 'csv' => 'encode' ) );
+		if ( isset( $encoding_option['csv'] ) && 'encode' == $encoding_option['csv'] ) {
+			$encoded       = ForceUTF8__Encoding::toUTF8( $record );
+			$encoding_diff = array_diff( $encoded, $record );
+			if ( ! empty( $encoding_diff ) ) {
+				$this->encoding[] = $row;
+			}
+			$record = $encoded;
+		}
+
 		if ( ! $this->is_valid_record( $record ) ) {
 			if ( ! $throw ) {
-				$this->log[ $row ] = sprintf( esc_html__( 'Missing required fields in row %d.', 'the-events-calendar', $row ) );
+				$this->log[ $row ] = $this->get_skipped_row_message( $row );
 				$this->skipped[]   = $row;
 
 				return false;
@@ -162,7 +200,15 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return true;
 	}
 
-	protected function get_value_by_key( array $record, $key ) {
+	/**
+	 * Retrieves a value from the record.
+	 *
+	 * @param array   $record
+	 * @param  string $key
+	 *
+	 * @return mixed|string Either the value or an empty string if the value was not found.
+	 */
+	public function get_value_by_key( array $record, $key ) {
 		if ( ! isset( $this->inverted_map[ $key ] ) ) {
 			return '';
 		}
@@ -177,6 +223,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 		if ( empty( $name ) ) {
 			return 0;
 		}
+
+		if ( is_numeric( $name ) && intval( $name ) == $name ) {
+			$found = get_post( $name );
+			if ( $found && $found->post_type == $post_type ) {
+				return $name;
+			}
+		}
+
 		$query_args = array(
 			'post_type'        => $post_type,
 			'post_status'      => 'publish',
@@ -216,5 +270,35 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return empty( $this->featured_image_uploader )
 			? new Tribe__Events__Importer__Featured_Image_Uploader( $featured_image )
 			: $this->featured_image_uploader;
+	}
+
+	/**
+	 * Returns a boolean value from the record.
+	 *
+	 * @param array  $record
+	 * @param string $key
+	 * @param string $return_true_value    The value to return if the value was found and is truthy.
+	 * @param string $return_false_value   The value to return if the value was not found or is not truthy;
+	 *                                     defaults to the original value.
+	 * @param array  $accepted_true_values An array of values considered truthy.
+	 *
+	 * @return string
+	 */
+	public function get_boolean_value_by_key( $record, $key, $return_true_value = '1', $return_false_value = null, $accepted_true_values = array( 'yes', 'true', '1' ) ) {
+		$value = strtolower( $this->get_value_by_key( $record, $key ) );
+		if ( in_array( $value, $accepted_true_values ) ) {
+			return $return_true_value;
+		}
+
+		return is_null( $return_false_value ) ? $value : $return_false_value;
+	}
+
+	/**
+	 * @param $row
+	 *
+	 * @return string
+	 */
+	protected function get_skipped_row_message( $row ) {
+		return sprintf( esc_html__( 'Missing required fields in row %d.', 'the-events-calendar' ), $row );
 	}
 }

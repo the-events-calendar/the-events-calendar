@@ -13,13 +13,13 @@ $mapper = new Tribe__Events__Importer__Column_Mapper( $import_type );
 if ( isset( $_POST['column_map'] ) ) {
 	$mapper->set_defaults( $_POST['column_map'] );
 } else {
-	$mapper->set_defaults( get_option( 'tribe_events_import_column_mapping', array() ) );
+	$mapper->set_defaults( get_option( 'tribe_events_import_column_mapping_' . $import_type, array() ) );
 }
 
 require_once 'header.php';
 ?>
 
-<h2><?php printf( esc_html__( 'Column Mapping: %s', 'the-events-calendar' ), ucwords( $import_type ) ) ?></h2>
+<h2><?php printf( esc_html__( 'Column Mapping: %s', 'the-events-calendar' ), $import_type_title ) ?></h2>
 <?php if ( ! empty( $messages ) ): ?>
 	<div class="error"><?php echo implode( '', $messages ); ?></div>
 <?php endif; ?>

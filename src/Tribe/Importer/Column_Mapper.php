@@ -20,6 +20,16 @@ class Tribe__Events__Importer__Column_Mapper {
 			case 'organizers':
 				$this->column_names = $this->get_organizer_column_names();
 				break;
+			default:
+				$column_names = array();
+
+				/**
+				 * Filters the column names that will be available for a custom import type.
+				 *
+				 * @param array $column_names
+				 */
+				$this->column_names = apply_filters( "tribe_event_import_{$import_type}_column_names", $column_names );
+				break;
 		}
 	}
 
@@ -48,16 +58,20 @@ class Tribe__Events__Importer__Column_Mapper {
 	}
 
 	private function get_event_column_names() {
-		return apply_filters( 'tribe_events_importer_event_column_names', array(
+		$column_names = array(
 			'event_name'              => esc_html__( 'Event Name', 'the-events-calendar' ),
 			'event_description'       => esc_html__( 'Event Description', 'the-events-calendar' ),
+			'event_excerpt'           => esc_html__( 'Event Excerpt', 'the-events-calendar' ),
 			'event_start_date'        => esc_html__( 'Event Start Date', 'the-events-calendar' ),
 			'event_start_time'        => esc_html__( 'Event Start Time', 'the-events-calendar' ),
 			'event_end_date'          => esc_html__( 'Event End Date', 'the-events-calendar' ),
 			'event_end_time'          => esc_html__( 'Event End Time', 'the-events-calendar' ),
+			'event_timezone'          => esc_html__( 'Event Timezone', 'the-events-calendar' ),
 			'event_all_day'           => esc_html__( 'All Day Event', 'the-events-calendar' ),
+			'event_hide'              => esc_html__( 'Hide Event From Event Listings', 'the-events-calendar' ),
+			'event_sticky'            => esc_html__( 'Event Sticky in Month View', 'the-events-calendar' ),
 			'event_venue_name'        => esc_html__( 'Event Venue Name', 'the-events-calendar' ),
-			'event_organizer_name'    => esc_html__( 'Event Organizer Name', 'the-events-calendar' ),
+			'event_organizer_name'    => esc_html__( 'Event Organizer Name(s) or ID(s)', 'the-events-calendar' ),
 			'event_show_map_link'     => esc_html__( 'Event Show Map Link', 'the-events-calendar' ),
 			'event_show_map'          => esc_html__( 'Event Show Map', 'the-events-calendar' ),
 			'event_cost'              => esc_html__( 'Event Cost', 'the-events-calendar' ),
@@ -67,31 +81,56 @@ class Tribe__Events__Importer__Column_Mapper {
 			'event_tags'              => esc_html__( 'Event Tags', 'the-events-calendar' ),
 			'event_website'           => esc_html__( 'Event Website', 'the-events-calendar' ),
 			'featured_image'          => esc_html__( 'Event Featured Image', 'the-events-calendar' ),
-		) );
+			'event_comment_status'    => esc_html__( 'Event Allow Comments', 'the-events-calendar' ),
+			'event_ping_status'       => esc_html__( 'Event Allow Trackbacks and Pingbacks', 'the-events-calendar' ),
+		);
+
+		/**
+		 * Filters the Event column names that will be shown to the user.
+		 *
+		 * @param array $column_names
+		 */
+		return apply_filters( 'tribe_events_importer_event_column_names', $column_names );
 	}
 
 	private function get_venue_column_names() {
-		return array(
-			'venue_name'     => esc_html__( 'Venue Name', 'the-events-calendar' ),
-			'venue_country'  => esc_html__( 'Venue Country', 'the-events-calendar' ),
-			'venue_address'  => esc_html__( 'Venue Address', 'the-events-calendar' ),
-			'venue_address2' => esc_html__( 'Venue Address 2', 'the-events-calendar' ),
-			'venue_city'     => esc_html__( 'Venue City', 'the-events-calendar' ),
-			'venue_state'    => esc_html__( 'Venue State/Province', 'the-events-calendar' ),
-			'venue_zip'      => esc_html__( 'Venue Zip', 'the-events-calendar' ),
-			'venue_phone'    => esc_html__( 'Venue Phone', 'the-events-calendar' ),
-			'venue_url'      => esc_html__( 'Venue Website', 'the-events-calendar' ),
-			'featured_image' => esc_html__( 'Venue Featured Image', 'the-events-calendar' ),
+		$column_names = array(
+			'venue_name'        => esc_html__( 'Venue Name', 'the-events-calendar' ),
+			'venue_description' => esc_html__( 'Venue Description', 'the-events-calendar' ),
+			'venue_country'     => esc_html__( 'Venue Country', 'the-events-calendar' ),
+			'venue_address'     => esc_html__( 'Venue Address', 'the-events-calendar' ),
+			'venue_address2'    => esc_html__( 'Venue Address 2', 'the-events-calendar' ),
+			'venue_city'        => esc_html__( 'Venue City', 'the-events-calendar' ),
+			'venue_state'       => esc_html__( 'Venue State/Province', 'the-events-calendar' ),
+			'venue_zip'         => esc_html__( 'Venue Zip', 'the-events-calendar' ),
+			'venue_phone'       => esc_html__( 'Venue Phone', 'the-events-calendar' ),
+			'venue_url'         => esc_html__( 'Venue Website', 'the-events-calendar' ),
+			'featured_image'    => esc_html__( 'Venue Featured Image', 'the-events-calendar' ),
 		);
+
+		/**
+		 * Filters the Venue column names that will be shown to the user.
+		 *
+		 * @param array $column_names
+		 */
+		return apply_filters( 'tribe_events_importer_venue_column_names', $column_names );
 	}
 
 	private function get_organizer_column_names() {
-		return array(
-			'organizer_name'    => esc_html__( 'Organizer Name', 'the-events-calendar' ),
-			'organizer_email'   => esc_html__( 'Organizer Email', 'the-events-calendar' ),
-			'organizer_website' => esc_html__( 'Organizer Website', 'the-events-calendar' ),
-			'organizer_phone'   => esc_html__( 'Organizer Phone', 'the-events-calendar' ),
-			'featured_image'    => esc_html__( 'Organizer Featured Image', 'the-events-calendar' ),
+		$column_names = array(
+			'organizer_name'        => esc_html__( 'Organizer Name', 'the-events-calendar' ),
+			'organizer_description' => esc_html__( 'Organizer Description', 'the-events-calendar' ),
+			'organizer_email'       => esc_html__( 'Organizer Email', 'the-events-calendar' ),
+			'organizer_website'     => esc_html__( 'Organizer Website', 'the-events-calendar' ),
+			'organizer_phone'       => esc_html__( 'Organizer Phone', 'the-events-calendar' ),
+			'featured_image'        => esc_html__( 'Organizer Featured Image', 'the-events-calendar' ),
 		);
+
+		/**
+		 * Filters the Organizer column names that will be shown to the user.
+		 *
+		 * @param array $column_names
+		 */
+		return apply_filters( 'tribe_events_importer_organizer_column_names', $column_names );
 	}
 }

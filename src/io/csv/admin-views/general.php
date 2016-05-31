@@ -27,7 +27,7 @@ require 'header.php';
 		$fields = apply_filters( 'tribe_import_general_settings', array() );
 
 		foreach ( $fields as $key => $field_args ) {
-			if ( strpos( $key, 'imported_post_status' ) === false ){
+			if ( false === strpos( $key, 'imported_post_status' ) && false === strpos( $key, 'imported_encoding_status' ) ) {
 				$value = Tribe__Settings_Manager::get_option( $key, null );
 			} else {
 				/**
@@ -38,7 +38,11 @@ require 'header.php';
 				} else {
 					$type = 'csv';
 				}
-				$value = Tribe__Events__Importer__Options::get_default_post_status( $type );
+				if ( strpos( $key, 'imported_encoding_status' ) === false ) {
+					$value = Tribe__Events__Importer__Options::get_default_post_status( $type );
+				} else {
+					$value = Tribe__Events__Importer__Options::get_default_encoding_status( $type );
+				}
 			}
 
 			new Tribe__Field( $key, $field_args, $value );

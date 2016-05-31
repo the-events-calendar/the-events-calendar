@@ -33,6 +33,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 		$featured_image        = $post_thumbnail_id ? $post_thumbnail_id : $this->featured_image_uploader( $featured_image_record )->upload_and_get_attachment();
 		$venue                 = array(
 			'Venue'         => $this->get_value_by_key( $record, 'venue_name' ),
+			'Description'   => $this->get_value_by_key( $record, 'venue_description' ),
 			'Address'       => $venue_address,
 			'City'          => $this->get_value_by_key( $record, 'venue_city' ),
 			'Country'       => $this->get_value_by_key( $record, 'venue_country' ),
@@ -45,9 +46,12 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 			'ShowMapLink'   => $venue_id ? get_post_meta( $venue_id, '_VenueShowMapLink', true ) : 'true',
 			'FeaturedImage' => $featured_image,
 		);
+		
 		if ( empty( $venue['Country'] ) ) {
 			$venue['Country'] = 'United States';
 		}
+
+		$venue = apply_filters( 'tribe_events_importer_venue_array', $venue, $record, $venue_id, $this );
 
 		return $venue;
 	}

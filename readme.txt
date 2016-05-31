@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.5.2
-Stable tag: 4.1.4
+Tested up to: 4.5.1
+Stable tag: 4.2RC1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -238,30 +238,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 
 = Translations =
 
-* Bulgarian
-* Catalan
-* Czech
-* Danish
-* Dutch
-* Finnish
-* French (Canada)
-* French (France)
-* German
-* Greek
-* Hungarian
-* Icelandic
-* Italian
-* Lithuanian
-* Norwegian
-* Portuguese (Brazil)
-* Portuguese (Portugal)
-* Russian
-* Slovak
-* Spanish (Spain)
-* Swedish
-* Turkish
-
-Many thanks to all our translators!  You can grab the latest translations or contribute at http://translations.theeventscalendar.com
+The Events Calendar is translated by volunteers at https://translate.wordpress.org/projects/wp-plugins/the-events-calendar/stable. There you can find a list of available languages, download translation files, or help update the translations. Thank you to everyone who helps to maintain our translations!
 
 == Add-Ons ==
 
@@ -308,6 +285,23 @@ Patch = 1
 At no point during the 3.0 lifecycle will the major version change. But you can expect that either minor version and/or patch will change with each release.
 
 == Changelog ==
+
+= [4.2] TBD =
+
+* Feature - Added an oembed template for events [43938]
+* Feature - Improve performance of a query used to determine if there are free/uncosted events [46403]
+* Feature - Added support for attaching custom post types to events [43944]
+* Tweak - Improved filterability of the tribe_event_featured_image() function (props: @fabianmarz) [45603]
+* Tweak - Add an encoding class for the CSV importer to prevent non utf8 characters from preventing imports [23988]
+* Tweak - Improved our JSON-LD output to ensure consistency (props: @garrettjohnson) [43595]
+* Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files [36246]
+* Tweak - Switch to HTTPS for the "Powered by The Events Calendar" link [46542]
+* Deprecated - Tribe__Events__PUE__Checker, Tribe__Events__PUE__Plugin_Info, and Tribe__Events__PUE__Utility classes are deprecated and are replaced by Tribe__PUE__Checker, Tribe__PUE__Plugin_Info, and Tribe__PUE__Utility classes [46188]
+* Fixed - Changed the use of have_posts() in the maybe iCal links for the main views that could cause an infinite loop [46320]
+* Accessibility - Focus styles added for search fields [32936]
+* Accessibility - Add ARIA labels for Month/Day/List sub nav [32937]
+* Accessibility - Add ARIA label for events footer sub nav heading [32937]
+* Accessibility - Create better visual contrast between current and past events using strike-through on past event title. [32935]
 
 = [4.1.4] 2016-05-19 =
 

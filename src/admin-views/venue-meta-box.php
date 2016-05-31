@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<tr class="venue">
 		<td class='tribe-table-field-label'><?php printf( esc_html__( '%s Name:', 'the-events-calendar' ), tribe_get_venue_label_singular() ); ?></td>
 		<td>
-			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='venue[Venue]' size='25' value='<?php if ( ! empty( $_VenueVenue ) ) {
+			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='venue[Venue]' size='25' value='<?php if ( isset( $_VenueVenue ) ) {
 				echo esc_attr( $_VenueVenue );
 			} ?>' />
 		</td>

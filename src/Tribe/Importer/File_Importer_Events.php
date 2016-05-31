@@ -55,6 +55,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		$query_args['meta_query'] = $meta_query;
+		$query_args['tribe_remove_date_filters'] = true;
 
 		add_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
 		$matches = get_posts( $query_args );
@@ -115,15 +116,6 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return $end_date;
 	}
 
-	private function get_boolean_value_by_key( $record, $key, $return_true_value = '1', $accepted_true_values = array( 'yes', 'true', '1' ) ) {
-		$value = strtolower( $this->get_value_by_key( $record, $key ) );
-		if ( in_array( $value, $accepted_true_values ) ) {
-			$value = $return_true_value;
-		}
-
-		return $value;
-	}
-
 	private function build_event_array( $event_id, array $record ) {
 		$start_date = strtotime( $this->get_event_start_date( $record ) );
 		$end_date   = strtotime( $this->get_event_end_date( $record ) );
@@ -135,6 +127,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'post_title'            => $this->get_value_by_key( $record, 'event_name' ),
 			'post_status'           => Tribe__Events__Importer__Options::get_default_post_status( 'csv' ),
 			'post_content'          => $this->get_value_by_key( $record, 'event_description' ),
+			'comment_status'        => $this->get_boolean_value_by_key( $record, 'event_comment_status', 'open', 'closed' ),
+			'ping_status'           => $this->get_boolean_value_by_key( $record, 'event_ping_status', 'open', 'closed' ),
+			'post_excerpt'          => $this->get_post_excerpt( $event_id, $this->get_value_by_key( $record, 'event_excerpt' ) ),
+			'menu_order'            => $this->get_boolean_value_by_key( $record, 'event_sticky', '-1', '0' ),
 			'EventStartDate'        => date( 'Y-m-d', $start_date ),
 			'EventStartHour'        => date( 'h', $start_date ),
 			'EventStartMinute'      => date( 'i', $start_date ),
@@ -143,23 +139,24 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventEndHour'          => date( 'h', $end_date ),
 			'EventEndMinute'        => date( 'i', $end_date ),
 			'EventEndMeridian'      => date( 'a', $end_date ),
-			'EventShowMapLink'      => $this->get_boolean_value_by_key( $record, 'event_show_map_link' ),
-			'EventShowMap'          => $this->get_boolean_value_by_key( $record, 'event_show_map' ),
+			'EventShowMapLink'      => $this->get_boolean_value_by_key( $record, 'event_show_map_link', '1', '' ),
+			'EventShowMap'          => $this->get_boolean_value_by_key( $record, 'event_show_map', '1', '' ),
 			'EventCost'             => $this->get_value_by_key( $record, 'event_cost' ),
 			'EventAllDay'           => $this->get_boolean_value_by_key( $record, 'event_all_day', 'yes' ),
-			'EventHideFromUpcoming' => $this->get_value_by_key( $record, 'event_hide' ),
+			'EventHideFromUpcoming' => $this->get_boolean_value_by_key( $record, 'event_hide', 'yes', '' ),
 			'EventURL'              => $this->get_value_by_key( $record, 'event_website' ),
 			'EventCurrencySymbol'   => $this->get_value_by_key( $record, 'event_currency_symbol' ),
-			'EventCurrencyPosition' => $this->get_value_by_key( $record, 'event_currency_position' ),
+			'EventCurrencyPosition' => $this->get_currency_position( $record ),
 			'FeaturedImage'         => $featured_image,
+			'EventTimezone'         => $this->get_timezone( $this->get_value_by_key( $record, 'event_timezone' ) ),
 		);
 
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {
-			$event['Organizer'] = array( 'OrganizerID' => $organizer_id );
+			$event['organizer'] = is_array( $organizer_id ) ? $organizer_id : array( 'OrganizerID' => $organizer_id );
 		}
-
+		
 		if ( $venue_id = $this->find_matching_venue_id( $record ) ) {
-			$event['Venue'] = array( 'VenueID' => $venue_id );
+			$event['venue'] = array( 'VenueID' => $venue_id );
 		}
 
 		if ( $cats = $this->get_value_by_key( $record, 'event_category' ) ) {
@@ -175,6 +172,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			unset( $event['EventHideFromUpcoming'] );
 		}
 
+		if ( $event['menu_order'] == '-1' ) {
+			$event['EventShowInCalendar'] = 'yes';
+		}
+
 		$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', array() );
 		if ( ! empty ( $additional_fields ) ) {
 			foreach ( $additional_fields as $key => $csv_column ) {
@@ -188,14 +189,44 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	private function find_matching_organizer_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_organizer_name' );
+		
+		// organizer name is a list of IDs either space or comma separated
+		if ( preg_match( '/[\\s,]+/', $name ) && is_numeric( preg_replace( '/[\\s,]+/', '', $name ) ) ) {
+			$split = preg_split( '/[\\s,]+/', $name );
+			$match = array();
+			foreach ( $split as $possible_id_match ) {
+				$match[] = $this->find_matching_post_id( $possible_id_match, Tribe__Events__Organizer::POSTTYPE );
+			}
 
-		return $this->find_matching_post_id( $name, Tribe__Events__Main::ORGANIZER_POST_TYPE );
+			$match = array_unique( $match );
+
+			if ( count( array_filter( $match ) ) == count( $split ) ) {
+				$organizer_ids = array(
+					'OrganizerID' => array(),
+				);
+				foreach ( $match as $m ) {
+					$organizer_ids['OrganizerID'][] = $m;
+				}
+
+				return $organizer_ids;
+			} else {
+				return array();
+			}
+		}
+
+		$matching_post_ids = $this->find_matching_post_id( $name, Tribe__Events__Organizer::POSTTYPE );
+
+		if ( ! is_array( $matching_post_ids ) ) {
+			$matching_post_ids = array( $matching_post_ids );
+		}
+
+		return array( 'OrganizerID' => $matching_post_ids );
 	}
 
 	private function find_matching_venue_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_venue_name' );
 
-		return $this->find_matching_post_id( $name, Tribe__Events__Main::VENUE_POST_TYPE );
+		return $this->find_matching_post_id( $name, Tribe__Events__Venue::POSTTYPE );
 	}
 
 	/**
@@ -228,6 +259,62 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		return $term_ids;
+	}
+
+	/**
+	 * Parses a timezone string candidate and returns a TEC supported timezone string.
+	 *
+	 * @param string $timezone_candidate
+	 *
+	 * @return bool|string Either the timezone string or `false` if the timezone candidate is invalid.
+	 */
+	private function get_timezone( $timezone_candidate ) {
+		if ( Tribe__Timezones::is_utc_offset( $timezone_candidate ) ) {
+			return $timezone_candidate;
+		}
+
+		return Tribe__Timezones::get_timezone( $timezone_candidate, false ) ? $timezone_candidate : false;
+	}
+
+	/**
+	 * Returns the `post_excerpt` to use.
+	 *
+	 * Will return the existing one if present.
+	 *
+	 * @param int $event_id
+	 * @param string $import_excerpt
+	 *
+	 * @return string
+	 */
+	private function get_post_excerpt( $event_id, $import_excerpt ) {
+		if ( $event_id ) {
+			$post_excerpt = get_post( $event_id )->post_excerpt;
+
+			return empty( $post_excerpt ) && ! empty( $import_excerpt ) ? $import_excerpt : $post_excerpt;
+		}
+
+		return $import_excerpt;
+	}
+
+	/**
+	 * Allows the user to specify the currency position using alias terms.
+	 * 
+	 * @param array $record
+	 *
+	 * @return string Either `prefix` or `suffix`; will fall back on the first if the specified position is not
+	 *                a recognized alias.
+	 */
+	private function get_currency_position( array $record ) {
+		$currency_position = $this->get_value_by_key( $record, 'event_currency_position' );
+		$after_aliases     = [ 'suffix', 'after' ];
+
+		foreach ( $after_aliases as $after_alias ) {
+			if ( preg_match( '/' . $after_alias . '/i', $currency_position ) ) {
+				return 'suffix';
+			}
+		}
+
+		return 'prefix';
 	}
 
 }

@@ -220,17 +220,22 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						case 'custom':
 							// if the eventDisplay is 'custom', all we're gonna do is make sure the start and end dates are formatted
 							$start_date = $query->get( 'start_date' );
+
 							if ( $start_date ) {
 								$start_date_string = $start_date instanceof DateTime
 									? $start_date->format( Tribe__Date_Utils::DBDATETIMEFORMAT )
 									: $start_date;
+
 								$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date_string ) ) );
 							}
+
 							$end_date = $query->get( 'end_date' );
+
 							if ( $end_date ) {
 								$end_date_string = $end_date instanceof DateTime
 									? $end_date->format( Tribe__Date_Utils::DBDATETIMEFORMAT )
 									: $end_date;
+
 								$query->set( 'end_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $end_date_string ) ) );
 							}
 							break;
@@ -402,9 +407,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 			// otherwise, let's remove the date filters if we're in the admin dashboard and the query is
 			// and event query on the tribe_events edit page
-			return is_admin()
-				&& $query->tribe_is_event_query
-				&& Tribe__Admin__Helpers::instance()->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE );
+			return ( is_admin()
+						&& $query->tribe_is_event_query
+						&& Tribe__Admin__Helpers::instance()->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE ) ) 
+			       || true === $query->get( 'tribe_remove_date_filters', false );
 		}
 
 		/**
@@ -515,15 +521,23 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * Custom SQL conditional for event duration meta field
 		 *
 		 * @param string   $where_sql
-		 * @param wp_query $query
+		 * @param WP_Query $query
 		 *
 		 * @return string
 		 */
 		public static function posts_where( $where_sql, $query ) {
 			global $wpdb;
-
+			
 			// if it's a true event query then we to setup where conditions
-			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
+			// but only if we aren't grabbing a specific post
+			if (
+				(
+					$query->tribe_is_event
+					|| $query->tribe_is_event_category
+				)
+				&& empty( $query->query_vars['name'] )
+				&& empty( $query->query_vars['p'] )
+			) {
 
 				$postmeta_table = self::postmeta_table( $query );
 
