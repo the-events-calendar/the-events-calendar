@@ -55,8 +55,6 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		$query_args['meta_query'] = $meta_query;
-		
-		// let's make sure the standard date filters are not applied
 		$query_args['tribe_remove_date_filters'] = true;
 
 		add_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
