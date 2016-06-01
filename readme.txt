@@ -205,10 +205,11 @@ Our Premium Plugins:
 
 = [4.2] TBD =
 
-* Tweak - Advanced List Widget shows the month instead of the day of the week in the date icon when the event is not in the current month [40527]
-* Tweak - Improved our JSON-LD output to ensure consistency (props: @garrettjohnson) [43595]
-* Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files [36246]
-* Fix - Tool tip not was not rendering properly for date recurrence [46469]
+* Tweak - Advanced List Widget shows the month instead of the day of the week in the date icon when the event is not in the current month
+* Tweak - Improved our JSON-LD output to ensure consistency (Propos to @garrettjohnson!)
+* Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files (Thank you to user aafhhl for bringing this to our attention!)
+* Tweak - Move plugin CSS to PostCSS
+* Fix - Tool tip not was not rendering properly for date recurrence (Thank you Maciej for reporting this issue!)
 
 = [4.1.3] 2016-05-19 =
 
