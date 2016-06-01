@@ -12,11 +12,11 @@ $fields = array_merge(
 		),
 		'addons-box-title' => array(
 			'type' => 'html',
-			'html' => '<h1>' . esc_html__( 'Add-Ons APIs', 'the-events-calendar' ) . '</h1>',
+			'html' => '<h1>' . esc_html__( 'APIs', 'the-events-calendar' ) . '</h1>',
 		),
 		'addons-box-description' => array(
 			'type' => 'html',
-			'html' => __( '<p>The event add-ons you have activated need to talk to some outside sources. Please follow the instructions below to configure your settings.</p>', 'the-events-calendar' ),
+			'html' => __( '<p>Certain features and add-ons require an API key in order for The Events Calendar to work with outside sources. Please follow the instructions below to configure your settings.</p>', 'the-events-calendar' ),
 		),
 		'addons-box-end' => array(
 			'type' => 'html',
@@ -52,5 +52,5 @@ $addons = apply_filters(
 
 // Only create the Add-ons Tab if there is any
 if ( ! empty( $internal ) ) {
-	new Tribe__Settings_Tab( 'addons', esc_html__( 'Add-Ons APIs', 'the-events-calendar' ), $addons );
+	new Tribe__Settings_Tab( 'addons', esc_html__( 'APIs', 'the-events-calendar' ), $addons );
 }
