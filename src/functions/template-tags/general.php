@@ -1388,7 +1388,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// Remove "all" HTML based on what is allowed
 		$excerpt = wp_kses( $excerpt, $allowed_html );
 
-		return apply_filters( 'tribe_events_get_the_excerpt', wpautop( $excerpt ) );
+		/**
+		 * Filter the event excerpt used in various views.
+		 *
+		 * @param string  $excerpt
+		 * @param WP_Post $post
+		 */
+		return apply_filters( 'tribe_events_get_the_excerpt', wpautop( $excerpt ), $post );
 	}
 
 	/**
