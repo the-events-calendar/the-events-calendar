@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-01-18 03:17:38+0000\n"
+"PO-Revision-Date: 2016-05-26 04:54:21+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,93 +10,101 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Events Calendar Pro\n"
 
+#: src/Tribe/CSV_Importer/Fields.php:25
+msgid "Venue Latitude"
+msgstr ""
+
+#: src/Tribe/CSV_Importer/Fields.php:26
+msgid "Venue Longitude"
+msgstr ""
+
 #: src/Tribe/APM_Filters/APM_Filters.php:161
 msgid "Download for free"
-msgstr ""
+msgstr "Lataa ilmaiseksi"
 
 #: src/Tribe/APM_Filters/APM_Filters.php:167
 msgid "Dismiss"
-msgstr ""
+msgstr "Ohita"
 
 #: src/Tribe/APM_Filters/APM_Filters.php:171
 msgid "Pssst! Looking for the filters? They live in a separate plugin now | %s | %s"
-msgstr ""
+msgstr "Etsitkö suodattimia? Suodattimet sisältyvät eri pluginiin nykyisin. | %s | %s"
 
 #: src/Tribe/Geo_Loc.php:86
 msgid "map"
-msgstr ""
+msgstr "kartta"
 
 #: src/Tribe/Geo_Loc.php:151
 msgid "Distance unit"
-msgstr ""
+msgstr "Etäisyyden yksikkö"
 
 #: src/Tribe/Geo_Loc.php:489
 msgid "The latitude and longitude for your venue could not be fetched. The Google Maps API daily query limit has been reached!"
-msgstr ""
+msgstr "Lat ja long -arvoja ei löytynyt paikallesi. Google Maps APIn päivittäinen ratelimitti on ylittynyt!"
 
-#: src/Tribe/Main.php:1672
+#: src/Tribe/Main.php:1688
 msgid "Events Calendar PRO"
-msgstr ""
+msgstr "Events Calendar PRO"
 
 #: src/Tribe/Recurrence/Single_Event_Overrides.php:82
 msgid "Times:"
-msgstr ""
+msgstr "Ajat:"
 
 #: src/Tribe/Recurrence/Strings.php:13
 msgid "Once on %1$s"
-msgstr ""
+msgstr "Kerran %1$s"
 
 #: src/Tribe/Recurrence/Validator.php:41
 msgid "Not an event post."
-msgstr ""
+msgstr "Ei tapahtuma-postaus."
 
 #: src/Tribe/Recurrence/Validator.php:136
 msgid "Recurrence meta should not be empty."
-msgstr ""
+msgstr "Toistuvuus-metakenttä ei saa olla tyhjä."
 
 #: src/admin-views/event-recurrence.php:37
 msgid "that will occur on"
-msgstr ""
+msgstr "toistuu"
 
 #: src/Tribe/Admin/Custom_Meta_Tools.php:95
 msgid "Some additional field data still needs to be updated (unfortunately, we were unable to continue to update things automatically)."
-msgstr ""
+msgstr "Jotkin kentän datat pitää yhä päivittää (valitettavasti, emme voineet jatkaa päivityksiä automaattisesti)."
 
 #: src/Tribe/Admin/Custom_Meta_Tools.php:96
 msgid "We need to update the additional field data for some of your events."
-msgstr ""
+msgstr "Joihinkin tapahtumiisi on päivitettävä lisäkenttien dataa."
 
 #: src/Tribe/Admin/Custom_Meta_Tools.php:100
 msgctxt "additional fields update trigger"
 msgid "Click here to run the updater."
-msgstr ""
+msgstr "Klikkaa tästä ajaaksesi päivittäjän."
 
 #: src/Tribe/Admin/Custom_Meta_Tools.php:113
 msgctxt "additional field update"
 msgid "All fields have been updated!"
-msgstr ""
+msgstr "Kaikki kentät on päivitetty!"
 
 #: src/Tribe/Admin/Custom_Meta_Tools.php:114
 msgctxt "additional field update"
 msgid "An unexpected error stopped the update from completing."
-msgstr ""
+msgstr "Odottamaton virhe esti päivityksen valmistumasta."
 
 #: src/Tribe/Admin/Custom_Meta_Tools.php:115
 msgctxt "additional field update"
 msgid "Working&hellip;"
-msgstr ""
+msgstr "Toimiva&hellip;"
 
 #: src/Tribe/Countdown_Widget.php:58 src/Tribe/Countdown_Widget.php:97
 msgid "Hooray!"
-msgstr ""
+msgstr "Jippii!"
 
 #: src/Tribe/Customizer/Main.php:348
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
-msgstr ""
+msgstr "Käytä seuraavaa paneelia Mukauttimessa muuttaaksesi kalenterisi tyyliä."
 
 #: src/Tribe/Customizer/Section_Day_List_View.php:72
 msgid "Day/List View"
-msgstr ""
+msgstr "Päivä/Listanäkymä"
 
 #: src/Tribe/Customizer/Section_Day_List_View.php:73
 #: src/Tribe/Customizer/Section_Month_Week_View.php:144
@@ -104,35 +112,35 @@ msgstr ""
 #: src/Tribe/Customizer/Section_Single_Event.php:79
 #: src/Tribe/Customizer/Section_Widget.php:37
 msgid "Options selected here will override what was selected in the \"General Theme\" and \"Global Elements\" sections"
-msgstr ""
+msgstr "Tässä valitut asetukset yliajavat ne jotka on valittu yleisissä teema-asetuksissa ja globaaleissa elementeissä."
 
 #: src/Tribe/Customizer/Section_Day_List_View.php:105
 msgid "Price Background Color"
-msgstr ""
+msgstr "Hinnan taustaväri"
 
 #: src/Tribe/Customizer/Section_General_Theme.php:77
 msgid "General Theme"
-msgstr ""
+msgstr "Yleiset teema-aasetukset"
 
 #: src/Tribe/Customizer/Section_General_Theme.php:78
 msgid "Global configurations for the styling of The Events Calendar"
-msgstr ""
+msgstr "Globaalit asetukset The Events Calendarin tyylittelyä varten"
 
 #: src/Tribe/Customizer/Section_General_Theme.php:109
 msgid "Accent Color"
-msgstr ""
+msgstr "Aksentin väri"
 
 #: src/Tribe/Customizer/Section_Global_Elements.php:119
 msgid "Global Elements"
-msgstr ""
+msgstr "Globaalit elementit"
 
 #: src/Tribe/Customizer/Section_Global_Elements.php:120
 msgid "Options selected here will override what was selected in the \"General Theme\" section"
-msgstr ""
+msgstr "Asetukset, joita valitaan tässä, tulevat yliajamaan asetukset jotka on valittu yleisissä teema-asetuksissa"
 
 #: src/Tribe/Customizer/Section_Global_Elements.php:151
 msgid "Link Color"
-msgstr ""
+msgstr "Linkin väri"
 
 #: src/Tribe/Customizer/Section_Global_Elements.php:173
 msgid "Filter Bar Color"
@@ -148,44 +156,44 @@ msgstr "Viikko/kuukausi näkymä"
 
 #: src/Tribe/Customizer/Section_Month_Week_View.php:175
 msgid "Calendar Table Color"
-msgstr ""
+msgstr "Kalenterin taulukon väri"
 
 #: src/Tribe/Customizer/Section_Month_Week_View.php:197
 msgid "Calendar Hightlight Color"
-msgstr ""
+msgstr "Kalenterin hilightin väri"
 
 #: src/Tribe/Customizer/Section_Photo_View.php:74
 msgid "Photo View"
-msgstr ""
+msgstr "Valokuvanäkymä"
 
 #: src/Tribe/Customizer/Section_Photo_View.php:106
 msgid "Photo Background Color"
-msgstr ""
+msgstr "Valokuvan taustaväri"
 
 #: src/Tribe/Customizer/Section_Single_Event.php:78
 #: src/admin-views/widget-admin-countdown.php:21
 msgid "Single Event"
-msgstr ""
+msgstr "Yksittäinen tapahtuma"
 
 #: src/Tribe/Customizer/Section_Single_Event.php:110
 msgid "Post Title Color"
-msgstr ""
+msgstr "Postauksen otsakkeen väri"
 
 #: src/Tribe/Customizer/Section_Single_Event.php:132
 msgid "Details Background Color"
-msgstr ""
+msgstr "Yksityiskohtien taustaväri"
 
 #: src/Tribe/Customizer/Section_Widget.php:36
 msgid "Widgets"
-msgstr ""
+msgstr "Vimpaimet"
 
 #: src/Tribe/Customizer/Section_Widget.php:68
 msgid "Calendar Header Color"
-msgstr ""
+msgstr "Kalenterin yläosan väri"
 
 #: src/Tribe/Customizer/Section_Widget.php:90
 msgid "Calendar Date Bar Color"
-msgstr ""
+msgstr "Kalenterin aikapalkin väri"
 
 #: src/Tribe/Recurrence/Strings.php:14
 msgid "Daily until %1$s"
@@ -193,7 +201,7 @@ msgstr "Päivittäin %1$s asti"
 
 #: src/Tribe/Recurrence/Strings.php:15
 msgid "Weekly on the same day until %1$s"
-msgstr ""
+msgstr "Viikoittain samana päivänä päivämäärään %1$s asti"
 
 #: src/Tribe/Recurrence/Strings.php:16
 msgid "Monthly on the same day until %1$s"
@@ -201,24 +209,24 @@ msgstr "Viikottain samana päivän %1$s asti"
 
 #: src/Tribe/Recurrence/Strings.php:17
 msgid "Yearly on the same date until %1$s"
-msgstr ""
+msgstr "Vuosittain samana päivänä päivämäärään %1$s asti"
 
 #: src/Tribe/Recurrence/Strings.php:19 src/Tribe/Recurrence/Strings.php:23
 msgid "Weekly on the same day"
-msgstr ""
+msgstr "Viikoittain samana päivänä"
 
 #: src/Tribe/Recurrence/Strings.php:20 src/Tribe/Recurrence/Strings.php:24
 msgid "Monthly on the same day"
-msgstr ""
+msgstr "Kuukausittain samana päivänä"
 
 #: src/Tribe/Recurrence/Strings.php:21 src/Tribe/Recurrence/Strings.php:25
 msgid "Yearly on the same date"
 msgstr "Vuosittain samana päivänä"
 
-#: src/Tribe/Recurrence/Meta.php:1079
+#: src/Tribe/Recurrence/Meta.php:1083
 msgctxt "An unspecified end date"
 msgid "an unspecified date"
-msgstr ""
+msgstr "määrittelemätön päivämäärä"
 
 #: src/Tribe/This_Week_Widget.php:19
 msgid "Displays events by day for the week."
@@ -230,7 +238,7 @@ msgstr "Tämä viikon tapahtumat."
 
 #: src/admin-views/event-recurrence.php:134
 msgid "Use this field if you want to override the auto-generated descriptions of event recurrence"
-msgstr ""
+msgstr "Käytä tätä kenttää, jos haluat yliajaa automaattisesti generoidut kuvaukset tapahtuman toistuvuudelle"
 
 #: src/admin-views/recurrence/time.php:23
 msgctxt "custom recurrence duration"
@@ -254,7 +262,7 @@ msgstr "minuutit"
 
 #: src/admin-views/tribe-options-defaults.php:213
 msgid "If fields are left empty when they're submitted, automatically fill them in with these values."
-msgstr ""
+msgstr "Jos kenttiä on jätetty tyhjäksi lähetettäessä, automaattisesti täydennä ne näillä arvoilla"
 
 #: src/admin-views/widget-admin-countdown.php:19
 msgid "Type:"
@@ -266,7 +274,7 @@ msgstr "Seuraava tapahtuma"
 
 #: src/admin-views/widget-admin-countdown.php:40
 msgid "On &#8220;Next Event&#8221; type of countdown, this text will only show when there are no events to show."
-msgstr ""
+msgstr "Seuraavan tapahtuman laskurissa, tämä teksti näkyy vain kun tapahtumia ei ole näytettävänä."
 
 #: src/admin-views/widget-admin-this-week.php:22
 msgid "Layout:"
@@ -274,19 +282,19 @@ msgstr "Ulkoasu:"
 
 #: src/admin-views/widget-admin-this-week.php:29
 msgid "Vertical Layout"
-msgstr ""
+msgstr "Pystysuora asettelu"
 
 #: src/admin-views/widget-admin-this-week.php:30
 msgid "Horizontal Layout"
-msgstr ""
+msgstr "Vaakasuuntainen asettelu"
 
 #: src/admin-views/widget-admin-this-week.php:36
 msgid "Highlight Color:"
-msgstr ""
+msgstr "Hailaitin väri:"
 
 #: src/admin-views/widget-admin-this-week.php:68
 msgid "Number of events to show per day:"
-msgstr ""
+msgstr "Kuinka monta tapahtumaa näytetään per päivä:"
 
 #: src/functions/template-tags/widgets.php:251
 msgid "<span>&laquo;</span> <span class=\"tribe-nav-label\">Previous</span>"
@@ -296,7 +304,7 @@ msgstr "<span>&laquo;</span> <span class=\"tribe-nav-label\">Edellinen</span>"
 msgid "<span class=\"tribe-nav-label\">Next</span> <span>&raquo;</span>"
 msgstr "<span class=\"tribe-nav-label\">Seuraava</span> <span>&raquo;</span>"
 
-#: src/views/pro/widgets/modules/single-event.php:92
+#: src/views/pro/widgets/modules/single-event.php:101
 msgctxt "list separator for final two elements"
 msgid "and"
 msgstr "ja"
@@ -315,329 +323,325 @@ msgstr "Ei tapahtumia tänään"
 msgid "This Week Navigation"
 msgstr "Tämän viikon navigaation"
 
-#: src/Tribe/Main.php:375
+#: src/Tribe/Main.php:382
 msgid "All %1$s for %2$s"
 msgstr "Kaikki %1$s ajalle %2$s"
 
-#: src/Tribe/Main.php:381
+#: src/Tribe/Main.php:388
 msgid "%1$s for week of %2$s"
-msgstr ""
+msgstr "%1$s viikolle %2$s"
 
 #: src/Tribe/Recurrence/Queue_Processor.php:184
 msgid "Could not process queue for event %1$d: %2$s"
-msgstr ""
+msgstr "Ei voitu prosessoida jonoa tapahtumalle %1$d: %2$s"
 
-#: src/Tribe/Recurrence/Meta.php:693 src/Tribe/Recurrence/Validator.php:100
+#: src/Tribe/Recurrence/Meta.php:697 src/Tribe/Recurrence/Validator.php:100
 msgid "Custom recurrences must have a type selected."
-msgstr ""
+msgstr "Custom-toistuvuuksilla täytyy olla tyyppi valittuna."
 
-#: src/Tribe/Recurrence/Meta.php:702 src/Tribe/Recurrence/Validator.php:109
+#: src/Tribe/Recurrence/Meta.php:706 src/Tribe/Recurrence/Validator.php:109
 msgid "Custom recurrences must have all data present."
-msgstr ""
+msgstr "Custom-toistuvuuksilla täytyy kaikilla olla dataa olemassa."
 
-#: src/Tribe/Recurrence/Meta.php:1006
+#: src/Tribe/Recurrence/Meta.php:1010
 msgctxt "Recurrence rule separator"
 msgid ",<br> and "
-msgstr ""
+msgstr ",<br> ja "
 
 #: src/Tribe/Recurrence/Strings.php:26
 msgid "An event every day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Tapahtuma joka päivä joka kestää %1$s päivää ja %2$s tuntia, joista viimeinen alkaa %3$s"
 
 #: src/Tribe/Recurrence/Strings.php:27
 msgid "An event every day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Tapahtuma joka päivä joka kestää %1$s päivää ja %2$s tuntia, mutta luo vain %3$s tapahtumaa"
 
 #: src/Tribe/Recurrence/Strings.php:28
 msgid "An event every day that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma joka päivä joka kestää %1$s päivää ja %2$s tuntia, mutta ilman päättymisajankohtaa"
 
 #: src/Tribe/Recurrence/Strings.php:29
 msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Tapahtuma joka viikko samana päivänä joka kestää %1$s päivää ja %2$s tuntia, joista viimeisin alkaa %3$s"
 
 #: src/Tribe/Recurrence/Strings.php:30
 msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Tapahtuma joka viikko samana päivänä joka kestää %1$s päivää ja %2$s tuntia, mutta luo vain %3$s tapahtumaa"
 
 #: src/Tribe/Recurrence/Strings.php:31
 msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma joka viikko samana päivänä joka kestää %1$s päivää ja %2$s tuntia, mutta ilman päättymisajankohtaa"
 
 #: src/Tribe/Recurrence/Strings.php:32
 msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Tapahtuma joka kuukausi samana päivänä joka kestää %1$s päivää ja %2$s tuntia, joista viimeisin alkaa %3$s"
 
 #: src/Tribe/Recurrence/Strings.php:33
 msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Tapahtuma joka kuukausi samana päivänä joka kestää %1$s päivää ja %2$s tuntia, mutta luo vain %3$s tapahtumaa"
 
 #: src/Tribe/Recurrence/Strings.php:34
 msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma joka kuukausi samana päivänä joka kestää %1$s päivää ja %2$s tuntia, mutta ilman päättymisajankohtaa"
 
 #: src/Tribe/Recurrence/Strings.php:35
 msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
-msgstr ""
+msgstr "Tapahtuma joka vuosi samana päivänä joka kestää %1$s päivää ja %2$s tuntia, joista viimeisin alkaa %3$s"
 
 #: src/Tribe/Recurrence/Strings.php:36
 msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
-msgstr ""
+msgstr "Tapahtuma joka vuosi samana päivänä joka kestää %1$s päivää ja %2$s tuntia, mutta luo vain %3$s tapahtumaa"
 
 #: src/Tribe/Recurrence/Strings.php:37
 msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma joka vuosi samana päivänä joka kestää %1$s päivää ja %2$s tuntia, mutta ilman päättymisajankohtaa"
 
 #: src/Tribe/Recurrence/Strings.php:38
 msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), the last of which will begin on %4$s"
-msgstr ""
+msgstr "Tapahtuma joka %1$s. päivä joka kestää %2$s päivää ja %3$s tuntia, joista viimeisin alkaa %4$s"
 
 #: src/Tribe/Recurrence/Strings.php:39
 msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), but only create %4$s event(s)"
-msgstr ""
+msgstr "Tapahtuma joka %1$s. päivä joka kestää %2$s päivää ja %3$s tuntia, mutta luo vain %4$s tapahtumaa"
 
 #: src/Tribe/Recurrence/Strings.php:40
 msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma joka %1$s. päivä joka kestää %2$s päivää ja %3$s tuntia, mutta ilman päättymisajankohtaa"
 
 #: src/Tribe/Recurrence/Strings.php:41
 msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
-msgstr ""
+msgstr "Tapahtuma joka %1$s päivälle joka alkaa %2$s ja kestää %3$s päivää ja %4$s tuntia, joista viimeisin alkaa %5$s"
 
 #: src/Tribe/Recurrence/Strings.php:42
 msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
-msgstr ""
+msgstr "Tapahtuma jokaiselle %1$s päivälle joka alkaa %2$s ja kestää %3$s päivää ja %4$s tuntia, mutta luo vain %5$s tapahtumaa"
 
 #: src/Tribe/Recurrence/Strings.php:43
 msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma jokaiselle %1$s päivälle joka alkaa %2$s ja kestää %3$s päivää ja %4$s tuntia ilman päättymisaikaa"
 
 #: src/Tribe/Recurrence/Strings.php:44
 msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
-msgstr ""
+msgstr "Tapahtuma joka %1$s viikolle %2$s joka kestää %3$s päivää ja %4$s tuntia, joista viimeisin alkaa %5$s"
 
 #: src/Tribe/Recurrence/Strings.php:45
 msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
-msgstr ""
+msgstr "Tapahtuma joka %1$s viikolle %2$s joka kestää %3$s päivää ja %4$s tuntia, mutta luo vain %5$s tapahtumaa"
 
 #: src/Tribe/Recurrence/Strings.php:46
 msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma joka %1$s viikolle %2$s joka kestää %3$s päivää ja %4$s tuntia ilman päättymisajankohtaa"
 
 #: src/Tribe/Recurrence/Strings.php:47
 msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
-msgstr ""
+msgstr "Tapahtuma joka %1$s viikolle %2$s joka alkaa %3$s ja kestää %4$s päivää ja %5$s tuntia, joista viimeisin alkaa %6$s"
 
 #: src/Tribe/Recurrence/Strings.php:48
 msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Tapahtuma joka %1$s viikolle %2$s joka alkaa %3$s ja kestää %4$s päivää ja %5$s tuntia, joista viimeisin alkaa %6$s"
 
 #: src/Tribe/Recurrence/Strings.php:49
 msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma joka %1$s viikolle %2$s joka alkaa %3$s ja kestää %4$s päivää ja %5$s tuntia ilman päättymisajankohtaa"
 
 #: src/Tribe/Recurrence/Strings.php:50
 msgid "An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
-msgstr ""
+msgstr "Tapahtuma joka %1$s kuukaudelle päivänä %2$s joka kestää %3$s päivää ja %4$s tuntia, joista viimeisin alkaa %5$s"
 
 #: src/Tribe/Recurrence/Strings.php:51
 msgid "An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
-msgstr ""
+msgstr "Tapahtuma joka %1$s kuukaudelle päivänä %2$s joka kestää %3$s päivää ja %4$s tuntia, mutta luo vain %5$s tapahtumaa"
 
 #: src/Tribe/Recurrence/Strings.php:52
 msgid "An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma joka %1$s kuukausi päivänä %2$s joka kestää %3$s päivää ja %4$s tuntia ilman päättymisajankohtaa"
 
 #: src/Tribe/Recurrence/Strings.php:53
 msgid "An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
-msgstr ""
+msgstr "Tapahtuma joka %1$s kuukaudelle päivänä %2$s joka alkaa %3$s ja kestää %4$s päivää ja %5$s tuntia, joista viimeisin alkaa %6$s"
 
 #: src/Tribe/Recurrence/Strings.php:54
 msgid "An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Tapahtuma joka %1$s kuuais päivänä %2$s joka alkaa %3$s ja kestää %4$s päivää ja %5$s tuntia, mutta luo vain %6$s tapahtumaa"
 
 #: src/Tribe/Recurrence/Strings.php:55
 msgid "An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma joka %1$s kuukausi päivänä %2$s joka alkaa %3$s ja kestää %4$s päivää ja %5$s tuntia ilman päättymisajankohtaa"
 
 #: src/Tribe/Recurrence/Strings.php:56
 msgid "An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
-msgstr ""
+msgstr "Tapahtuma joka %1$s kuukaudelle päivänä %2$s joka kestää %3$s päivää ja %4$s tuntia, joista viimeisin alkaa %5$s"
 
 #: src/Tribe/Recurrence/Strings.php:57
 msgid "An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
-msgstr ""
+msgstr "Tapahtuma joka %1$s kuukaudelle päivänä %2$s joka kestää %3$s päivää ja %4$s tuntia, mutta luo vain %5$s tapahtumaa"
 
 #: src/Tribe/Recurrence/Strings.php:58
 msgid "An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma joka %1$s kuukausi päivänä %2$s joka kestää %3$s päivää ja %4$s tuntia ilman päättymisajankohtaa"
 
 #: src/Tribe/Recurrence/Strings.php:59
 msgid "An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
-msgstr ""
+msgstr "Tapahtuma joka %1$s kuukaudelle päivänä %2$s joka alkaa %3$s ja kestää %4$s päivää ja %5$s tuntia, joista viimeisin alkaa %6$s"
 
 #: src/Tribe/Recurrence/Strings.php:60
 msgid "An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Tapahtuma joka %1$s kuukaudelle %2$s joka alkaa %3$s ja kestää %4$s päivää ja %5$s tuntia, mutta luo vain %6$s tapahtumaa"
 
 #: src/Tribe/Recurrence/Strings.php:61
 msgid "An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma joka %1$s kuukaudelle %2$s joka alkaa %3$s ja kestää %4$s päivää ja %5$s tuntia ilman päättymisajankohtaa"
 
 #: src/Tribe/Recurrence/Strings.php:62
 msgid "An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
-msgstr ""
+msgstr "Tapahtuma joka %1$s vuodelle %2$s joka alkaa %3$s ja kestää %4$s päivää ja %5$s tuntia, joista viimeisin alkaa %6$s"
 
 #: src/Tribe/Recurrence/Strings.php:63
 msgid "An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Tapahtuma joka %1$s vuodelle %2$s joka alkaa %3$s ja kestää %4$s päivää ja %5$s tuntia, mutta luo vain %6$s tapahtumaa"
 
 #: src/Tribe/Recurrence/Strings.php:64
 msgid "An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma joka %1$s vuoden %2$s päivänä %3$s joka kestää %4$s päivää ja %5$s tuntia ilman päättymisajankohtaa"
 
 #: src/Tribe/Recurrence/Strings.php:65
 msgid "An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), the last of which will begin on %7$s"
-msgstr ""
+msgstr "Tapahtuma joka %1$s vuoden %2$s päivänä %3$s joka alkaa %4$s ja kestää %5$s päivää ja %6$s tuntia, joista viimeisin alkaa %7$s"
 
 #: src/Tribe/Recurrence/Strings.php:66
 msgid "An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), but only create %7$s event(s)"
-msgstr ""
+msgstr "Tapahtuma joka %1$s vuoden %2$s päivänä %3$s joka alkaa %4$s ja kestää %5$s päivää ja %6$s tuntia, mutta luo vain %7$s tapahtumaa"
 
 #: src/Tribe/Recurrence/Strings.php:67
 msgid "An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma joka %1$s vuodelle %2$s päivänä %3$s joka alkaa %4$s ja kestää %5$s päivää ja %6$s tuntia, ilman päättymisajankohtaa"
 
 #: src/Tribe/Recurrence/Strings.php:68
 msgid "An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
-msgstr ""
+msgstr "Tapahtuma joka %1$s vuodelle ajankohtana %2$s %3$s joka kestää %4$s päivää ja %5$s tuntia, joista viimeisin alkaa %6$s"
 
 #: src/Tribe/Recurrence/Strings.php:69
 msgid "An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
-msgstr ""
+msgstr "Tapahtuma joka %1$s vuodelle ajankohtana %2$s %3$s joka kestää %4$s päivää ja %5$s tuntia, mutta luo vain %6$s tapahtumaa"
 
 #: src/Tribe/Recurrence/Strings.php:70
 msgid "An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma joka %1$s vuodelle ajankohtana %2$s %3$s joka kestää %4$s päivää ja %5$s tuntia, ilman päättymisajankohtaa"
 
 #: src/Tribe/Recurrence/Strings.php:71
 msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), the last of which will begin on %7$s"
-msgstr ""
+msgstr "Tapahtuma joka %1$s vuodelle ajankohtana %2$s, %3$s, joka alkaa %4$s ja kestää %5$s päivää ja %6$s tuntia, joista viimeisin alkaa %7$s"
 
 #: src/Tribe/Recurrence/Strings.php:72
 msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), but only create %7$s event(s)"
-msgstr ""
+msgstr "Tapahtuma joka %1$s vuodelle ajankohtana %2$s, %3$s, joka alkaa %4$s ja kestää %5$s päivää ja %6$s tuntia, mutta luo vain %7$s tapahtumaa"
 
 #: src/Tribe/Recurrence/Strings.php:73
 msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s) with no end date"
-msgstr ""
+msgstr "Tapahtuma joka %1$s vuodelle ajankohtana %2$s, %3$s, joka alkaa %4$s ja kestää %5$s päivää ja %6$s tuntia, ilman päättymisajankohtaa"
 
-#: src/Tribe/Recurrence/Meta.php:1039
+#: src/Tribe/Recurrence/Meta.php:1043
 msgctxt "Joins the last item in a list of items (i.e. the \"and\" in Monday, Tuesday, and Wednesday)"
 msgid "and"
 msgstr "ja"
 
-#: src/Tribe/Recurrence/Meta.php:1040
+#: src/Tribe/Recurrence/Meta.php:1044
 msgctxt "Placeholder text for a day of the week (or days of the week) before the user has selected any"
 msgid "[day]"
 msgstr "[päivä]"
 
-#: src/Tribe/Recurrence/Meta.php:1041
+#: src/Tribe/Recurrence/Meta.php:1045
 msgctxt "Placeholder text for a month (or months) before the user has selected any"
 msgid "[month]"
 msgstr "[kuukausi]"
 
-#: src/Tribe/Recurrence/Meta.php:1042
+#: src/Tribe/Recurrence/Meta.php:1046
 msgctxt "Describes a day of the month (e.g. \"day 5\" or \"day 27\")"
 msgid "day %1$s"
 msgstr "päivä %1$s"
 
-#: src/Tribe/Recurrence/Meta.php:1043
+#: src/Tribe/Recurrence/Meta.php:1047
 msgctxt "Used when displaying: \"the first Monday\" or \"the first day\""
 msgid "the first %1$s"
 msgstr "ensimmäinen %1$s"
 
-#: src/Tribe/Recurrence/Meta.php:1044
+#: src/Tribe/Recurrence/Meta.php:1048
 msgctxt "Used when displaying: \"the second Monday\" or \"the second day\""
 msgid "the second %1$s"
 msgstr "toinen %1$s"
 
-#: src/Tribe/Recurrence/Meta.php:1045
+#: src/Tribe/Recurrence/Meta.php:1049
 msgctxt "Used when displaying: \"the third Monday\" or \"the third day\""
 msgid "the third %1$s"
 msgstr "kolmas %1$s"
 
-#: src/Tribe/Recurrence/Meta.php:1046
+#: src/Tribe/Recurrence/Meta.php:1050
 msgctxt "Used when displaying: \"the fourth Monday\" or \"the fourth day\""
 msgid "the fourth %1$s"
-msgstr ""
+msgstr "neljäs %1$s"
 
-#: src/Tribe/Recurrence/Meta.php:1047
+#: src/Tribe/Recurrence/Meta.php:1051
 msgctxt "Used when displaying: \"the fifth Monday\" or \"the fifth day\""
 msgid "the fifth %1$s"
 msgstr "viides %1$s"
 
-#: src/Tribe/Recurrence/Meta.php:1048
+#: src/Tribe/Recurrence/Meta.php:1052
 msgctxt "Used when displaying: \"the last Monday\" or \"the last day\""
 msgid "the last %1$s"
-msgstr ""
+msgstr "viimeinen %1$s"
 
-#: src/Tribe/Recurrence/Meta.php:1049
+#: src/Tribe/Recurrence/Meta.php:1053
 msgctxt "Used when displaying the word \"day\" in \"the last day\" or \"the first day\""
 msgid "day"
-msgstr ""
+msgstr "päivä"
 
 #: src/admin-views/event-recurrence.php:7
 msgid "Recurrence Rules:"
-msgstr ""
-
-#: src/admin-views/event-recurrence.php:16
-msgid "Once"
-msgstr ""
+msgstr "Toistotavat:"
 
 #: src/admin-views/event-recurrence.php:67
 #: src/admin-views/recurrence/months.php:35
 #: src/admin-views/recurrence/weeks.php:35
 #: src/admin-views/recurrence/years.php:111
 msgid "Same time"
-msgstr ""
+msgstr "Samaan aikaan"
 
 #: src/admin-views/event-recurrence.php:82
 msgid "Add Another Rule"
-msgstr ""
+msgstr "Lisää uusi sääntö"
 
 #: src/admin-views/event-recurrence.php:86
 msgid "Exclusions:"
-msgstr ""
+msgstr "Poikkeukset:"
 
 #: src/admin-views/event-recurrence.php:17
 #: src/admin-views/event-recurrence.php:95
 msgid "Date"
-msgstr ""
+msgstr "Päivämäärä"
 
 #: src/admin-views/event-recurrence.php:103
 msgid "will not occur on"
-msgstr ""
+msgstr "ei toistu"
 
 #: src/admin-views/event-recurrence.php:107
 msgid "will not occur every"
-msgstr ""
+msgstr "ei toistu joka"
 
 #: src/admin-views/event-recurrence.php:126
 msgid "Add Exclusion"
-msgstr ""
+msgstr "Lisää poikkeus"
 
 #: src/views/pro/widgets/venue-widget.php:62
 msgid "View all %1$s at this %2$s"
-msgstr ""
+msgstr "Katso kaikki %1$s tästä %2$s"
 
 #. Plugin Name of the plugin/theme
 msgid "The Events Calendar PRO"
-msgstr ""
+msgstr "The Events Calendar PRO"
 
 #. Description of the plugin/theme
 msgid "The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features."
-msgstr ""
+msgstr "The Events Calendar PRO, premium-lisäosa avoimen lähdekoodin The Events Calendar -lisäosalle (vaaditaan), lisää toistuvat tapahtumat, custom-arvot, tapahtuman paikkatiedot, vimpaimet ja muita hienoja ominaisuuksia."
 
 #. Author of the plugin/theme
 msgid "Modern Tribe, Inc."
@@ -645,17 +649,17 @@ msgstr "Modern Tribe, Inc."
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/20"
-msgstr ""
+msgstr "http://m.tri.be/20"
 
-#: src/Tribe/Main.php:658
+#: src/Tribe/Main.php:665
 msgid "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we sincerely appreciate it. If you're looking for help with Events Calendar PRO, you've come to the right place. We are committed to helping make your calendar be spectacular... and hope the resources provided below will help get you there."
-msgstr ""
+msgstr "Kiitos kun olet ostanut Events Calendar PRO:n! Me täällä Modern Tribellä todela arvostamme hankintaasi. Jos kaipaat apua Events Calendar PRO:n kanssa, olet tullut oikeaan paikkaan. Olemme sitoutuneet auttamaan saamaan kalenterista mahtavan... ja toivomme että resurssit alla auttavat sinua eteenpäin."
 
 #: src/admin-views/event-meta-options.php:66
 msgid "tutorial that will walk you through the process"
-msgstr ""
+msgstr "ohje, joka auttaa sinut alkuun prosessissa (englanniksi)"
 
-#: src/Tribe/Main.php:601 src/admin-views/event-meta-options.php:3
+#: src/Tribe/Main.php:608 src/admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr "Lisäkentät"
 
@@ -663,7 +667,7 @@ msgstr "Lisäkentät"
 msgid "Country"
 msgstr "Maa"
 
-#: src/Tribe/Main.php:616
+#: src/Tribe/Main.php:623
 msgid "Hide related events"
 msgstr "Piilota liittyvät tapahtumat"
 
@@ -671,7 +675,7 @@ msgstr "Piilota liittyvät tapahtumat"
 msgid "Phone"
 msgstr "Puhelin"
 
-#: src/Tribe/Main.php:617
+#: src/Tribe/Main.php:624
 msgid "Remove related events from the single event view"
 msgstr "Poista vastaavat tapahtumat yksittäisen tapahtuman näkymästä"
 
@@ -679,7 +683,7 @@ msgstr "Poista vastaavat tapahtumat yksittäisen tapahtuman näkymästä"
 msgid "Price"
 msgstr "Hinta"
 
-#: src/Tribe/Main.php:627
+#: src/Tribe/Main.php:634
 msgid "Week Day Format"
 msgstr "Viikonpäivien muotoilu"
 
@@ -689,7 +693,7 @@ msgstr "Viikonpäivien muotoilu"
 msgid "Filters"
 msgstr "Suodattimet"
 
-#: src/Tribe/Main.php:628
+#: src/Tribe/Main.php:635
 msgid "Enter the format to use for week days. Used when showing days of the week in Week view."
 msgstr "Anna muotoilu käytettäväksi viikonpäiville. Käytetään kun näytetään viikon päivät kalenterin viikkonäkymässä."
 
@@ -699,7 +703,7 @@ msgstr "Anna muotoilu käytettäväksi viikonpäiville. Käytetään kun näytet
 msgid "remove"
 msgstr "poista"
 
-#: src/Tribe/Main.php:639
+#: src/Tribe/Main.php:646
 msgid "Hide weekends on Week View"
 msgstr "Piilota viikonloput viikkonäkymästä"
 
@@ -709,9 +713,9 @@ msgstr "Piilota viikonloput viikkonäkymästä"
 msgid "Match all"
 msgstr "Vaadi kaikki"
 
-#: src/Tribe/Main.php:640
+#: src/Tribe/Main.php:647
 msgid "Check this to only show weekdays on Week View"
-msgstr ""
+msgstr "Valitse tämä jos haluat näyttää vain viikonpäivät viikkonäkymässä"
 
 #: src/admin-views/widget-admin-advanced-list.php:105
 #: src/admin-views/widget-admin-this-week.php:140
@@ -725,7 +729,7 @@ msgstr "Vaadi yksi"
 msgid "Add a filter"
 msgstr "Lisää suodatin"
 
-#: src/Tribe/Main.php:670
+#: src/Tribe/Main.php:677
 msgid "If this is your first time using The Events Calendar Pro, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:"
 msgstr "Jos tämä on ensimmäinen kerta, kun käytät Events Calendar Pro:ta, olet hyvässä vauhdissa luomaan ensimmäistä tapahtumaasi. Tässä muutamia perusasioita, jotka olemme huomanneet hyödyllisiksi uusille käyttäjille:"
 
@@ -735,7 +739,7 @@ msgstr "Jos tämä on ensimmäinen kerta, kun käytät Events Calendar Pro:ta, o
 msgid "Select one..."
 msgstr "Valitse yksi..."
 
-#: src/Tribe/Main.php:673
+#: src/Tribe/Main.php:680
 msgid "%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time."
 msgstr "%sMeidän New User Primer%s on suunniteltu juuri kaltaisillesi käyttäjille. Mukana on sekä vaihe vaiheelta opastavia opetusvideoita, että kuvilla varustettuja oppaita, jotka auttavat sinut aloittelijasta vauhtiin alta aikayksikön."
 
@@ -744,7 +748,7 @@ msgstr "%sMeidän New User Primer%s on suunniteltu juuri kaltaisillesi käyttäj
 msgid "Hide this widget if there are no upcoming events:"
 msgstr "Piilota tämä vimpain, jos ei ole tulevia tapahtumia:"
 
-#: src/Tribe/Main.php:675
+#: src/Tribe/Main.php:682
 msgid "%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer."
 msgstr "%sInstallation/Setup FAQs%s tukisivuillamme saat yleiskuvan siitä, mitä lisäosalla voi ja ei voi tehdä. Tämä osa UKK:sta voi olla hyödyllinen, koska siinä pyritään vastaamaan kaikkiin asennuksen aikaisiin peruskysymyksiin, joita ei käsitellä New User Primer:ssa."
 
@@ -752,15 +756,15 @@ msgstr "%sInstallation/Setup FAQs%s tukisivuillamme saat yleiskuvan siitä, mit�
 msgid "Event:"
 msgstr "Tapahtuma:"
 
-#: src/Tribe/Main.php:677
+#: src/Tribe/Main.php:684
 msgid "Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. %sHere's how to find your license key%s, if you don't have it handy."
 msgstr "Huolehdi lisenssiavaimestasi. Vaikka et tarvitse sitä luodaksesi ensimmäistä tapahtumaasi, sinun kannattaa syöttää se niin pian kuin mahdollista taataksesi pääsyn tukeen ja päivityksiin. %sNäin löydät lisenssiavaimesi%s , jos sinulla ei ole sitä käsilläsi."
 
 #: src/admin-views/widget-admin-countdown.php:45
 msgid "Show seconds?"
-msgstr ""
+msgstr "Näytä sekunnit?"
 
-#: src/Tribe/Main.php:679
+#: src/Tribe/Main.php:686
 msgid "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event."
 msgstr "Muutoin, jos olet seikkailunhaluinen, voit jatkaa Tapahtumat-valikkoon ja luoda ensimmäisen tapahtumasi."
 
@@ -768,7 +772,7 @@ msgstr "Muutoin, jos olet seikkailunhaluinen, voit jatkaa Tapahtumat-valikkoon j
 msgid "Countdown Completed Text:"
 msgstr "Lähtölaskenta valmis teksti:"
 
-#: src/Tribe/Main.php:692
+#: src/Tribe/Main.php:699
 msgid "Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play."
 msgstr "Kirjoitettu dokumentaatio voi auttaa vain tietyn matkaa... joskus tarvitset oikean ihmisen apua. Tässä vaiheessa löydät apua meidän %stukifoorumeiltamme%s."
 
@@ -776,15 +780,15 @@ msgstr "Kirjoitettu dokumentaatio voi auttaa vain tietyn matkaa... joskus tarvit
 msgid "Venue:"
 msgstr "Tapahtumapaikka:"
 
-#: src/Tribe/Main.php:693
+#: src/Tribe/Main.php:700
 msgid "Users who have purchased an Events Calendar PRO license are granted total access to our %spremium support forums%s. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We're on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response."
 msgstr "Käyttäjillä, jotka ovat ostaneet Events Calendar PRO lisenssin, on täysi pääsy %spremium support foorumeille%s. Toisin kuin %sWordPress.org tukifoorumeilla%s, jossa osallistumisemme on rajoittunut bugien tunnistamiseen ja korjaamiseen, PRO käyttäjille on tarjolla oma erikoistunut asiakastuki. Olemme tavoitettavissa PRO foorumeilla arkipäivisin ja pyrimme vastaamaan 24 tunnin sisällä kysymyksiisi."
 
 #: src/functions/template-tags/general.php:141
 msgid "Show only the first upcoming instance of recurring %s"
-msgstr ""
+msgstr "Näytä ainoastaan tuleva instanssi toistuvasta %s"
 
-#: src/Tribe/Main.php:694
+#: src/Tribe/Main.php:701
 msgid "Our number one goal is helping you succeed, and to whatever extent possible, we'll help troubleshoot and guide your customizations or tweaks. While we won't build your site for you, and we can't guarantee we'll be able to get you 100% integrated with every theme or plugin out there, we'll do all we can to point you in the right direction and to make you -- and your client, as is often more importantly the case -- satisfied."
 msgstr "Meidän päätavoitteemme on auttaa sinua menestymään, ja siinä määrin kuin mahdollista, autamme sinua vianmäärityksessä, räätälöinnissä ja hienosäädöissä. Vaikka emme voi rakentaa koko sivustoa sinulle, ja emme voi taata, että pystymme integroimaan projektisi 100% jokaiseen teemaan tai lisäosaan, teemme kaikkemme johtaaksemme sinua oikeaan suuntaan ja tehdäksemme sinut - ja asiakkaasi - tyytyväisiksi."
 
@@ -800,7 +804,7 @@ msgstr "Meidän päätavoitteemme on auttaa sinua menestymään, ja siinä mää
 msgid "No default set"
 msgstr "Ei oletusta asetetettuna"
 
-#: src/Tribe/Main.php:695
+#: src/Tribe/Main.php:702
 msgid "Before posting a new thread, please do a search to make sure your issue hasn't already been addressed. When posting please make sure to provide as much detail about the problem as you can (with screenshots or screencasts if feasible), and make sure that you've identified whether a plugin / theme conflict could be at play in your initial message."
 msgstr "Ennen uuden viestiketjun avaamista, tee haku varmistaaksesi, ettei ongelmaasi ole jo käsitelty. Kun avaat viestiketjun, varmista että tarjoat niin paljon yksityiskohtia ongelmasta kuin voit (kuvakaappauksia tai kuvalähetyksiä jos mahdollista), ja varmista, että olet tunnistanut voiko lisäosa / teema -konflikteilla olla vaikutusta ongelmaasi."
 
@@ -808,23 +812,23 @@ msgstr "Ennen uuden viestiketjun avaamista, tee haku varmistaaksesi, ettei ongel
 msgid "The current default organizer is: %s"
 msgstr "Nykyinen oletusjärjestäjä on: %s"
 
-#: src/Tribe/Main.php:1165
+#: src/Tribe/Main.php:1172
 msgid "Event: "
-msgstr ""
+msgstr "Tapahtuma:"
 
 #: src/functions/template-tags/general.php:335
 msgid "The current default venue is: %s"
 msgstr "Nykyinen oletustapahtumapaikka on: %s"
 
-#: src/Tribe/Main.php:1166
+#: src/Tribe/Main.php:1173
 msgid "Address: "
-msgstr ""
+msgstr "Osoite: "
 
 #: src/functions/template-tags/general.php:350
 msgid "The current default address is: %s"
 msgstr "Nykyinen oletusosoite on: %s"
 
-#: src/Tribe/Main.php:1280
+#: src/Tribe/Main.php:1287
 msgid "Settings"
 msgstr "Asetukset"
 
@@ -832,7 +836,7 @@ msgstr "Asetukset"
 msgid "The current default city is: %s"
 msgstr "Nykyinen oletuskaupunki on: %s"
 
-#: src/Tribe/Main.php:1308
+#: src/Tribe/Main.php:1315
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr "Tapahtumapaikka päivitetty. <a href=\"%s\">Näytä tapahtumapaikka</a>"
 
@@ -841,7 +845,7 @@ msgid "The current default state is: %s"
 msgstr "Nykyinen oletusosavaltio on: %s"
 
 #. translators: %s: date and time of the revision
-#: src/Tribe/Main.php:1310
+#: src/Tribe/Main.php:1317
 msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr "Tapahtumapaikka julkaistu. <a href=\"%s\">Näytä tapahtumapaikka</a>"
 
@@ -849,7 +853,7 @@ msgstr "Tapahtumapaikka julkaistu. <a href=\"%s\">Näytä tapahtumapaikka</a>"
 msgid "The current default province is: %s"
 msgstr "Nykyinen oletusmaakunta on: %s"
 
-#: src/Tribe/Main.php:1311
+#: src/Tribe/Main.php:1318
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Tapahtumpaikka syötetty. <a target=\"_blank\" href=\"%s\">Esikatsele tapahtumapaikka</a>"
 
@@ -857,7 +861,7 @@ msgstr "Tapahtumpaikka syötetty. <a target=\"_blank\" href=\"%s\">Esikatsele ta
 msgid "The current default postal code/zip code is: %s"
 msgstr "Nykyinen oletuspostinumero on: %s"
 
-#: src/Tribe/Main.php:1313
+#: src/Tribe/Main.php:1320
 msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
 msgstr "Tapahtumapaikka ajoitettu: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Esikatsele tapahtumapaikkaa</a>"
 
@@ -866,7 +870,7 @@ msgid "The current default country is: %s"
 msgstr "Nykyinen oletusmaa on: %s"
 
 #. translators: Publish box date format, see http://php.net/date
-#: src/Tribe/Main.php:1315 src/Tribe/Main.php:1325
+#: src/Tribe/Main.php:1322 src/Tribe/Main.php:1332
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
@@ -874,7 +878,7 @@ msgstr "M j, Y @ G:i"
 msgid "The current default phone is: %s"
 msgstr "Nykyinen oletuspuhelin on: %s"
 
-#: src/Tribe/Main.php:1317
+#: src/Tribe/Main.php:1324
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Tapahtumapaikan luonnos päivitetty. <a target=\"_blank\" href=\"%s\">Esikatsele tapahtumapaikka</a>"
 
@@ -883,15 +887,15 @@ msgstr "Tapahtumapaikan luonnos päivitetty. <a target=\"_blank\" href=\"%s\">Es
 msgid "Date out of range."
 msgstr "Päivämäärä rajauksen ulkopuolella."
 
-#: src/Tribe/Main.php:1319
+#: src/Tribe/Main.php:1326
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
 msgstr "Järjestäjä päivitetty. <a href=\"%s\">Näytä järjestäjä</a>"
 
 #: src/functions/template-tags/general.php:747
 msgid "Recurring %s"
-msgstr ""
+msgstr "Toistuva %s"
 
-#: src/Tribe/Main.php:1320
+#: src/Tribe/Main.php:1327
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr "Järjestäjä julkaistu. <a href=\"%s\">Näytä järjestäjä</a>"
 
@@ -899,7 +903,7 @@ msgstr "Järjestäjä julkaistu. <a href=\"%s\">Näytä järjestäjä</a>"
 msgid "(See all)"
 msgstr "(Katso kaikki)"
 
-#: src/Tribe/Main.php:1321
+#: src/Tribe/Main.php:1328
 msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "Järjestäjä syötetty. <a target=\"_blank\" href=\"%s\">Esikatsele järjestäjä</a>"
 
@@ -907,7 +911,7 @@ msgstr "Järjestäjä syötetty. <a target=\"_blank\" href=\"%s\">Esikatsele jä
 msgid "<span>&laquo;</span> Previous Week"
 msgstr "<span>&laquo;</span> Edellinen viikko"
 
-#: src/Tribe/Main.php:1323
+#: src/Tribe/Main.php:1330
 msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
 msgstr "Järjestäjä ajastettu: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Esikatsele järjestäjä</a>"
 
@@ -915,31 +919,31 @@ msgstr "Järjestäjä ajastettu: <strong>%1$s</strong>. <a target=\"_blank\" hre
 msgid "Next Week <span>&raquo;</span>"
 msgstr "Seuraava viikko <span>&raquo;</span>"
 
-#: src/Tribe/Main.php:1327
+#: src/Tribe/Main.php:1334
 msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "Järjestäjän luonnos päivitetty. <a target=\"_blank\" href=\"%s\">Esikatsele järjestäjä</a>"
 
 #: src/views/pro/map/nav.php:20 src/views/pro/photo/nav.php:20
 msgid "%s List Navigation"
-msgstr ""
+msgstr "%s Lista-navigointi"
 
-#: src/Tribe/Main.php:1378
+#: src/Tribe/Main.php:1394
 msgid "Support"
 msgstr "Tuki"
 
 #: src/views/pro/map/nav.php:25 src/views/pro/photo/nav.php:25
 msgid "<span>&laquo;</span> Previous %s"
-msgstr ""
+msgstr "<span>&laquo;</span> Previous %s"
 
-#: src/Tribe/Main.php:1380
+#: src/Tribe/Main.php:1396
 msgid "View All Add-Ons"
 msgstr "Näytä kaikki lisäosat"
 
 #: src/views/pro/map/nav.php:32 src/views/pro/photo/nav.php:31
 msgid "Next %s <span>&raquo;</span>"
-msgstr ""
+msgstr "Seuraava %s <span>&raquo;</span>"
 
-#: src/Tribe/Main.php:1572
+#: src/Tribe/Main.php:1588
 msgid "Week"
 msgstr "Viikko"
 
@@ -947,21 +951,21 @@ msgstr "Viikko"
 msgid "Find out more"
 msgstr "Lue lisää"
 
-#: src/Tribe/Main.php:1590
+#: src/Tribe/Main.php:1606
 msgid "Photo"
 msgstr "Kuva"
 
 #: src/views/pro/related-events.php:26
 msgid "Related %s"
-msgstr ""
+msgstr "Aiheeseen liittyvät %s"
 
-#: src/Tribe/Main.php:1607
+#: src/Tribe/Main.php:1623
 msgid "Week Of"
 msgstr "Viikko"
 
 #: src/views/pro/single-organizer.php:32 src/views/pro/single-venue.php:32
 msgid "&larr; Back to %s"
-msgstr ""
+msgstr "&larr; Takaisin näkymään %s"
 
 #: src/Tribe/Mini_Calendar_Widget.php:8
 msgid "The events calendar mini calendar widget"
@@ -986,7 +990,7 @@ msgstr "Viikkonavigaatio"
 
 #: src/Tribe/Recurrence/Queue_Realtime.php:89
 msgid "Completed!"
-msgstr ""
+msgstr "Valmis!"
 
 #: src/views/pro/widgets/countdown-widget.php:20
 msgid "days"
@@ -996,7 +1000,7 @@ msgstr "päivää"
 #: src/Tribe/Recurrence/Queue_Realtime.php:114
 #: src/Tribe/Recurrence/Queue_Realtime.php:193
 msgid "%d%% complete"
-msgstr ""
+msgstr "%d%% valmis"
 
 #: src/views/pro/widgets/countdown-widget.php:24
 msgid "hours"
@@ -1004,7 +1008,7 @@ msgstr "tuntia"
 
 #: src/Tribe/Recurrence/Queue_Realtime.php:111
 msgid "Recurring event data is still being generated for this event. Don&#146;t worry, you can safely navigate away &ndash; the process will resume in a bit in the background."
-msgstr ""
+msgstr "Toistuvan tapahtuman dataa yhä generoidaan tälle tapahtumalle. Älä huoli, voit turvallisesti navigoida tästä pois - prosessi jatkuu taustalla."
 
 #: src/views/pro/widgets/countdown-widget.php:28
 msgid "min"
@@ -1012,7 +1016,7 @@ msgstr "minuuttia"
 
 #: src/Tribe/Recurrence/Queue_Realtime.php:176
 msgid "Unable to continue processing recurring event data. Please reload this page to continue/try again."
-msgstr ""
+msgstr "Ei voitu jatkaa toistuvan tapahtuman datan prosessointia. Päivitä sivu uudestaan jatkaaksesi/yrittääksesi uudelleen."
 
 #: src/views/pro/widgets/countdown-widget.php:33
 msgid "sec"
@@ -1032,7 +1036,7 @@ msgstr "Irrota sarjasta"
 
 #: src/views/pro/widgets/list-widget.php:67
 msgid "There are no upcoming %s at this time."
-msgstr ""
+msgstr "%s - ei tulevia tapahtumia."
 
 #: src/Tribe/Recurrence/Meta.php:162
 msgid "Edit Future Events"
@@ -1044,7 +1048,7 @@ msgstr "—"
 
 #: src/views/pro/widgets/venue-widget.php:39
 msgid "No upcoming %s."
-msgstr ""
+msgstr "%s - Ei tulevia tapahtumia."
 
 #: src/Tribe/Recurrence/Meta.php:213
 msgid "Break this event out of its series and edit it independently"
@@ -1094,161 +1098,161 @@ msgstr "Palauta kaikki tämän sarjan tapahtumat Roskakorista"
 msgid "Restore Series"
 msgstr "Palauta sarja"
 
-#: src/Tribe/Recurrence/Meta.php:713 src/Tribe/Recurrence/Validator.php:120
+#: src/Tribe/Recurrence/Meta.php:717 src/Tribe/Recurrence/Validator.php:120
 msgid "Monthly custom recurrences cannot have a dash set as the day to occur on."
 msgstr "Kuukausittaisessa mukautetussa toistossa päivä ei voi olla tyhjä."
 
-#: src/Tribe/Recurrence/Meta.php:722 src/Tribe/Recurrence/Validator.php:130
+#: src/Tribe/Recurrence/Meta.php:726 src/Tribe/Recurrence/Validator.php:130
 msgid "Yearly custom recurrences cannot have a dash set as the day to occur on."
 msgstr "Vuosittaisessa mukautetussa toistossa päivä ei voi olla tyhjä."
 
-#: src/Tribe/Recurrence/Meta.php:1017 src/Tribe/Recurrence/Meta.php:1484
+#: src/Tribe/Recurrence/Meta.php:1021 src/Tribe/Recurrence/Meta.php:1489
 #: src/admin-views/recurrence/months.php:19
 #: src/admin-views/recurrence/years.php:95
 msgid "Monday"
 msgstr "Maanantai"
 
-#: src/Tribe/Recurrence/Meta.php:1018 src/Tribe/Recurrence/Meta.php:1485
+#: src/Tribe/Recurrence/Meta.php:1022 src/Tribe/Recurrence/Meta.php:1490
 #: src/admin-views/recurrence/months.php:20
 #: src/admin-views/recurrence/years.php:96
 msgid "Tuesday"
 msgstr "Tiistai"
 
-#: src/Tribe/Recurrence/Meta.php:1019 src/Tribe/Recurrence/Meta.php:1486
+#: src/Tribe/Recurrence/Meta.php:1023 src/Tribe/Recurrence/Meta.php:1491
 #: src/admin-views/recurrence/months.php:21
 #: src/admin-views/recurrence/years.php:97
 msgid "Wednesday"
 msgstr "Keskiviikko"
 
-#: src/Tribe/Recurrence/Meta.php:1020 src/Tribe/Recurrence/Meta.php:1487
+#: src/Tribe/Recurrence/Meta.php:1024 src/Tribe/Recurrence/Meta.php:1492
 #: src/admin-views/recurrence/months.php:22
 #: src/admin-views/recurrence/years.php:98
 msgid "Thursday"
 msgstr "Torstai"
 
-#: src/Tribe/Recurrence/Meta.php:1021 src/Tribe/Recurrence/Meta.php:1488
+#: src/Tribe/Recurrence/Meta.php:1025 src/Tribe/Recurrence/Meta.php:1493
 #: src/admin-views/recurrence/months.php:23
 #: src/admin-views/recurrence/years.php:99
 msgid "Friday"
 msgstr "Perjantai"
 
-#: src/Tribe/Recurrence/Meta.php:1022 src/Tribe/Recurrence/Meta.php:1489
+#: src/Tribe/Recurrence/Meta.php:1026 src/Tribe/Recurrence/Meta.php:1494
 #: src/admin-views/recurrence/months.php:24
 #: src/admin-views/recurrence/years.php:100
 msgid "Saturday"
 msgstr "Lauantai"
 
-#: src/Tribe/Recurrence/Meta.php:1023 src/Tribe/Recurrence/Meta.php:1490
+#: src/Tribe/Recurrence/Meta.php:1027 src/Tribe/Recurrence/Meta.php:1495
 #: src/admin-views/recurrence/months.php:25
 #: src/admin-views/recurrence/years.php:101
 msgid "Sunday"
 msgstr "Sunnuntai"
 
-#: src/Tribe/Recurrence/Meta.php:1497
+#: src/Tribe/Recurrence/Meta.php:1502
 msgid ", and"
 msgstr ", ja"
 
-#: src/Tribe/Recurrence/Meta.php:1499
+#: src/Tribe/Recurrence/Meta.php:1504
 msgid "and"
 msgstr "ja"
 
-#: src/Tribe/Recurrence/Meta.php:1501
+#: src/Tribe/Recurrence/Meta.php:1506
 msgid ","
 msgstr ","
 
-#: src/Tribe/Recurrence/Meta.php:1026 src/Tribe/Recurrence/Meta.php:1519
+#: src/Tribe/Recurrence/Meta.php:1030 src/Tribe/Recurrence/Meta.php:1524
 msgid "January"
 msgstr "Tammikuu"
 
-#: src/Tribe/Recurrence/Meta.php:1027 src/Tribe/Recurrence/Meta.php:1520
+#: src/Tribe/Recurrence/Meta.php:1031 src/Tribe/Recurrence/Meta.php:1525
 msgid "February"
 msgstr "Helmikuu"
 
-#: src/Tribe/Recurrence/Meta.php:1028 src/Tribe/Recurrence/Meta.php:1521
+#: src/Tribe/Recurrence/Meta.php:1032 src/Tribe/Recurrence/Meta.php:1526
 msgid "March"
 msgstr "Maaliskuu"
 
-#: src/Tribe/Recurrence/Meta.php:1029 src/Tribe/Recurrence/Meta.php:1522
+#: src/Tribe/Recurrence/Meta.php:1033 src/Tribe/Recurrence/Meta.php:1527
 msgid "April"
 msgstr "Huhtikuu"
 
-#: src/Tribe/Recurrence/Meta.php:1030 src/Tribe/Recurrence/Meta.php:1523
+#: src/Tribe/Recurrence/Meta.php:1034 src/Tribe/Recurrence/Meta.php:1528
 msgid "May"
 msgstr "Toukokuu"
 
-#: src/Tribe/Recurrence/Meta.php:1031 src/Tribe/Recurrence/Meta.php:1524
+#: src/Tribe/Recurrence/Meta.php:1035 src/Tribe/Recurrence/Meta.php:1529
 msgid "June"
 msgstr "Kesäkuu"
 
-#: src/Tribe/Recurrence/Meta.php:1032 src/Tribe/Recurrence/Meta.php:1525
+#: src/Tribe/Recurrence/Meta.php:1036 src/Tribe/Recurrence/Meta.php:1530
 msgid "July"
 msgstr "Heinäkuu"
 
-#: src/Tribe/Recurrence/Meta.php:1033 src/Tribe/Recurrence/Meta.php:1526
+#: src/Tribe/Recurrence/Meta.php:1037 src/Tribe/Recurrence/Meta.php:1531
 msgid "August"
 msgstr "Elokuu"
 
-#: src/Tribe/Recurrence/Meta.php:1034 src/Tribe/Recurrence/Meta.php:1527
+#: src/Tribe/Recurrence/Meta.php:1038 src/Tribe/Recurrence/Meta.php:1532
 msgid "September"
 msgstr "Syyskuu"
 
-#: src/Tribe/Recurrence/Meta.php:1035 src/Tribe/Recurrence/Meta.php:1528
+#: src/Tribe/Recurrence/Meta.php:1039 src/Tribe/Recurrence/Meta.php:1533
 msgid "October"
 msgstr "Lokakuu"
 
-#: src/Tribe/Recurrence/Meta.php:1036 src/Tribe/Recurrence/Meta.php:1529
+#: src/Tribe/Recurrence/Meta.php:1040 src/Tribe/Recurrence/Meta.php:1534
 msgid "November"
 msgstr "Marraskuu"
 
-#: src/Tribe/Recurrence/Meta.php:1037 src/Tribe/Recurrence/Meta.php:1530
+#: src/Tribe/Recurrence/Meta.php:1041 src/Tribe/Recurrence/Meta.php:1535
 msgid "December"
 msgstr "Joulukuu"
 
-#: src/Tribe/Recurrence/Meta.php:1537
+#: src/Tribe/Recurrence/Meta.php:1542
 msgid ", and "
 msgstr ", ja "
 
-#: src/Tribe/Recurrence/Meta.php:1539
+#: src/Tribe/Recurrence/Meta.php:1544
 msgid " and "
 msgstr " ja "
 
-#: src/Tribe/Recurrence/Meta.php:1541
+#: src/Tribe/Recurrence/Meta.php:1546
 msgid ", "
 msgstr ", "
 
-#: src/Tribe/Recurrence/Meta.php:1567
+#: src/Tribe/Recurrence/Meta.php:1572
 msgid "Recurring event instances"
 msgstr "Toistuvan tapahtuman esiintymät"
 
-#: src/Tribe/Recurrence/Meta.php:1568
+#: src/Tribe/Recurrence/Meta.php:1573
 msgid "Show only the first instance of each recurring event (only affects list-style views)."
 msgstr "Näytä vain kunkin toistuvan tapahtuman ensimmäinen esiintymä (vaikuttaa vain lista-tyyppisiin näkymiin)."
 
-#: src/Tribe/Recurrence/Meta.php:1574
+#: src/Tribe/Recurrence/Meta.php:1579
 msgid "Front-end recurring event instances toggle"
 msgstr "Toistuvan tapahtuman näyttämisen käyttäjävalinta"
 
-#: src/Tribe/Recurrence/Meta.php:1575
+#: src/Tribe/Recurrence/Meta.php:1580
 msgid "Allow users to decide whether to show all instances of a recurring event."
 msgstr "Salli käyttäjien päättää haluavatko he nähdä kaikki toistuvan tapahtuman esiintymät."
 
-#: src/Tribe/Recurrence/Meta.php:1582
+#: src/Tribe/Recurrence/Meta.php:1587
 msgid "Clean up recurring events after"
 msgstr "Puhdista toistuvat tapahtumat jälkeen"
 
-#: src/Tribe/Recurrence/Meta.php:1583
+#: src/Tribe/Recurrence/Meta.php:1588
 msgid "Automatically remove recurring event instances older than this"
 msgstr "Poista automaattisesti toistuvan tapahtuman esiintymät, jotka ovat tätä vanhempia"
 
-#: src/Tribe/Recurrence/Meta.php:1590
+#: src/Tribe/Recurrence/Meta.php:1595
 msgid "Create recurring events in advance for"
 msgstr "Luo toistuvia tapahtumia etukäteen"
 
-#: src/Tribe/Recurrence/Meta.php:1591
+#: src/Tribe/Recurrence/Meta.php:1596
 msgid "Recurring events will be created this far in advance"
 msgstr "Toistuvat tapahtumat luodaan tähän saakka etukäteen"
 
-#: src/Tribe/Recurrence/Meta.php:1612
+#: src/Tribe/Recurrence/Meta.php:1617
 msgid " months"
 msgstr " kuukausia"
 
@@ -1290,7 +1294,7 @@ msgstr ""
 
 #: src/Tribe/Recurrence/Scripts.php:39
 msgid "Are you sure you want to trash all occurrences of these events?"
-msgstr ""
+msgstr "Oletko varma että haluat siirtää kaikki tapahtumien toistuvuudet roskakoriin?"
 
 #: src/Tribe/Single_Event_Meta.php:146
 #: src/views/pro/modules/meta/additional-fields.php:18
@@ -1359,7 +1363,7 @@ msgstr "Teksti - käyttäjä voi syöttää tekstiä"
 
 #: src/admin-views/event-meta-options.php:12
 msgid "Text Area - identical to a text field but providing a larger area for the user to input text"
-msgstr ""
+msgstr "Tekstikenttä - identtinen normaalille tekstikentälle, mutta antaa suuremman alueen käyttäjälle kirjoitettavaksi."
 
 #: src/admin-views/event-meta-options.php:13
 msgid "URL - for the user to input a URL"
@@ -1395,7 +1399,7 @@ msgstr "Teksti"
 
 #: src/admin-views/event-meta-options.php:49
 msgid "Text Area"
-msgstr ""
+msgstr "Tekstikenttä"
 
 #: src/admin-views/event-meta-options.php:50
 msgid "URL"
@@ -1433,10 +1437,6 @@ msgstr "Tämä valinta ei poista mukautetun kentän tietoja tai toimintoja, vaan
 msgid "Are you sure you wish to remove this field and its data from all events? Once you click OK this cannot be undone."
 msgstr "Oletko varma, että haluat poistaa tämän kentän ja sen tiedot kaikista tapahtumista? Kun klikkaat OK, toimintoa ei voi peruuttaa."
 
-#: src/admin-views/event-meta.php:13
-msgid "Additional %s Fields"
-msgstr ""
-
 #: src/admin-views/event-recurrence.php:14
 #: src/admin-views/event-recurrence.php:92
 msgid "event"
@@ -1448,6 +1448,7 @@ msgid "events"
 msgstr "tapahtumat"
 
 #: src/admin-views/event-meta.php:27 src/admin-views/event-meta.php:43
+#: src/admin-views/event-recurrence.php:16
 #: src/admin-views/event-recurrence.php:94
 msgid "None"
 msgstr "Ei mitään"
@@ -1491,7 +1492,7 @@ msgstr "Ei koskaan"
 #: src/admin-views/event-recurrence.php:42
 msgctxt "occurence count text"
 msgid "events"
-msgstr ""
+msgstr "tapahtumat"
 
 #: src/admin-views/event-recurrence.php:45
 msgid "You must select a recurrence end date"
@@ -1506,7 +1507,7 @@ msgstr "Toiston tiheys"
 msgid "Day(s)"
 msgstr "Päivä/päiviä"
 
-#: events-calendar-pro.php:68 src/Tribe/Customizer/Main.php:347
+#: events-calendar-pro.php:80 src/Tribe/Customizer/Main.php:347
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
@@ -1516,7 +1517,7 @@ msgstr "The Events Calendar"
 msgid "Daily"
 msgstr "Päivittäin"
 
-#: events-calendar-pro.php:69
+#: events-calendar-pro.php:81
 msgid "To begin using Events Calendar PRO, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
 msgstr "Asenna <a href =\"%s\"class =\"thickbox\"title =\"%s\">The Events Calendarin</a> uusin versio aloittaaksesi Events Calendar PRO:n käyttö."
 
@@ -1611,7 +1612,7 @@ msgstr "Ke"
 
 #: src/Tribe/APM_Filters/Date_Filter.php:13
 msgid "On and After"
-msgstr ""
+msgstr "Parhaillaan ja jälkeenpäin"
 
 #: src/admin-views/recurrence/weeks.php:16
 msgid "Th"
@@ -1619,7 +1620,7 @@ msgstr "To"
 
 #: src/Tribe/APM_Filters/Date_Filter.php:14
 msgid "On and Before"
-msgstr ""
+msgstr "Parhaillaan ja ennen"
 
 #: src/admin-views/recurrence/weeks.php:20
 msgid "F"
@@ -1668,7 +1669,7 @@ msgstr "Tapahtumalista"
 msgid "Third"
 msgstr "Kolmas"
 
-#: src/Tribe/Advanced_List_Widget.php:130
+#: src/Tribe/Advanced_List_Widget.php:131
 msgid "Upcoming Events"
 msgstr "Tulevat tapahtumat"
 
@@ -1679,7 +1680,7 @@ msgstr "Neljäs"
 
 #: src/Tribe/Community_Modifications.php:28
 msgid "Recurrence End Date"
-msgstr ""
+msgstr "Toistuvuuden päättymisajankohta"
 
 #: src/admin-views/recurrence/months.php:9
 msgid "Fifth"
@@ -1687,7 +1688,7 @@ msgstr "Viides"
 
 #: src/Tribe/Community_Modifications.php:31
 msgid "Recurrence Count"
-msgstr ""
+msgstr "Toistuvuuden määrä"
 
 #: src/admin-views/recurrence/months.php:10
 #: src/admin-views/recurrence/years.php:90
@@ -1711,11 +1712,11 @@ msgstr "Tapahtuman lähtölaskenta"
 msgid "On the:"
 msgstr "Päivä:"
 
-#: src/Tribe/Custom_Meta.php:137
+#: src/Tribe/Custom_Meta.php:143
 msgid "Add another"
 msgstr "Lisää toinen"
 
-#: src/Tribe/Custom_Meta.php:138
+#: src/Tribe/Custom_Meta.php:144
 msgid "Remove"
 msgstr "Poista"
 
@@ -1821,7 +1822,7 @@ msgstr "Osoite"
 
 #: src/Tribe/Geo_Loc.php:289
 msgid "Use latitude + longitude"
-msgstr ""
+msgstr "Käytä leveysaste + pituusaste -arvoja"
 
 #: src/admin-views/tribe-options-defaults.php:89
 msgid "You can use this setting to set specific, individual defaults for any new Venue you create (these will not be used for your default venue)."
@@ -1829,7 +1830,7 @@ msgstr "Voit käyttää tätä asetusta asettaaksesi erityisiä, yksittäisiä o
 
 #: src/Tribe/Geo_Loc.php:293
 msgid "Latitude"
-msgstr ""
+msgstr "Leveysaste"
 
 #: src/admin-views/tribe-options-defaults.php:93
 msgid "Default address"
@@ -1837,7 +1838,7 @@ msgstr "Oletusosoite"
 
 #: src/Tribe/Geo_Loc.php:294
 msgid "Longitude"
-msgstr ""
+msgstr "Pituusarvo"
 
 #: src/admin-views/tribe-options-defaults.php:106
 msgid "Default city"
@@ -1928,13 +1929,13 @@ msgstr "Kaupunki"
 
 #: src/functions/template-tags/widgets.php:234
 msgid "%s for week of %s"
-msgstr ""
+msgstr "%s viikolle kohteesta %s"
 
 #: src/admin-views/widget-admin-advanced-list.php:35
 msgid "State (US) Or Province (Int)"
 msgstr "Osavaltio (USA) tai maakunta"
 
-#: src/Tribe/Main.php:599 src/admin-views/tribe-options-defaults.php:35
+#: src/Tribe/Main.php:606 src/admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
 msgstr "Oletussisältö"
 
