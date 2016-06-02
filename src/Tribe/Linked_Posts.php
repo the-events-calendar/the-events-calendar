@@ -643,7 +643,14 @@ class Tribe__Events__Linked_Posts {
 
 			$data = array();
 			foreach ( $fields as $field_name ) {
-				$data[ $field_name ] = isset( $submission[ $field_name ][ $key ] ) ? $submission[ $field_name ][ $key ] : null;
+				// If allow_multiple := true then each submission field may be an array
+				if ( is_array( $submission[ $field_name ] ) ) {
+					$data[ $field_name ] = isset( $submission[ $field_name ][ $key ] ) ? $submission[ $field_name ][ $key ] : null;
+				}
+				// In other cases, such as if multiple := false each submission field will contain a single value
+				else {
+					$data[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : null;
+				}
 			}
 
 			// set the post status to the event post status
