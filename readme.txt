@@ -288,35 +288,34 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.2] TBD =
 
-* Feature - Added Google Maps API key field in the Settings tab to avoid map timeouts and errors on larger sites (Thanks to Yan for reporting this!) [44827*]
-* Feature - Added support for featured image, multiple organizers, excerpt and more custom fields in the .csv file import function for events (Thank you to Graphic Designer for posting on Uservoice!) [39038*]
-* Feature - Added support for featured image, description, map details and more custom fields in the .csv file import function for venues [39038*]
-* Feature - Added support for featured image and description in the .csv file import function for organizers (Thank you to Rebecca for posting on Uservoice!) [39038*]
-* Feature - Added an oembed template for events [43938*]
-* Feature - Improve performance of a query used to determine if there are free/uncosted events (Thank you @fabianmarz for the pull request!) [46403*]
-* Feature - Added support for attaching custom post types to events [43944*]
-* Tweak - Improved filterability of the tribe_event_featured_image() function (Cheers to @fabianmarz!) [45603*]
-* Tweak - Add an encoding class for the CSV importer to prevent non utf8 characters from preventing imports (Thanks to screenrage for the report!) [23988*]
-* Tweak - Improved our JSON-LD output to ensure consistency (Props to @garrettjohnson and Lars!) [43595*]
-* Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files (Thank you to user aafhhl for bringing this to our attention!) [36246*]
-* Tweak - Switch to HTTPS for the "Powered by The Events Calendar" link (Thank you Cynthia for reporting this!) [46542*]
-* Tweak - Improved filterability of calendar excerpts by introducing the new tribe_events_get_the_excerpt filter hook [46477*]
-* Tweak - Improved filterability of organizer details when importing by CSV (Props to @Geir for bringing this up!) [46476*]
-* Tweak - Adjustments for single event view in TwentyFifteen theme [61502*]
-* Tweak - Improved performance of query used to test for events without any cost [46403*]
-* Tweak - Added missing semicolon to a laquo (Props to mwender on GitHub for the fix!) [44556*]
-* Tweak - Improve the 'stickiness' of CSV import column mappings (Thank you @jamesgol!) [45676*]
-* Tweak - Consistency of JSON-LD markup improved (Cheers to @garrettjohnson for the help!) [44700*]
-* Tweak - Avoid notice-level errors when working with WP CLI on a site where The Events Calendar is also active (Thanks to @sun) [45601*]
-* Tweak - Corrected the spelling of timezone in the CSV Importer's event field. [46169*]
-* Tweak - Updated venue and organizer templates to use the new architecture for attaching custom post types to events [43944*]
-* Tweak - Move plugin CSS to PostCSS [39982*]
-* Tweak - Fix padding/spacing for rsvp form on single event page in TwentyFifteen [61611*]
-* Deprecated - Tribe__Events__PUE__Checker, Tribe__Events__PUE__Plugin_Info, and Tribe__Events__PUE__Utility classes are deprecated and are replaced by Tribe__PUE__Checker, Tribe__PUE__Plugin_Info, and Tribe__PUE__Utility classes [46188*]
-* Fixed - Changed the use of have_posts() in the maybe iCal links for the main views that could cause an infinite loop [46320*]
-* Accessibility - Focus styles added for search fields [32936*]
-* Accessibility - Add ARIA labels for Month/Day/List sub nav [32937*]
-* Accessibility - Add ARIA label for events footer sub nav heading [32937*]
+* Feature - Added Google Maps API key field in the Settings tab to avoid map timeouts and errors on larger sites (Thanks to Yan for reporting this!)
+* Feature - Added support for featured image, multiple organizers, excerpt and more custom fields in the .csv file import function for events (Thank you to Graphic Designer for posting on Uservoice!) 
+* Feature - Added support for featured image, description, map details and more custom fields in the .csv file import function for venues 
+* Feature - Added support for featured image and description in the .csv file import function for organizers (Thank you to Rebecca for posting on Uservoice!) 
+* Feature - Added an oembed template for events 
+* Feature - Improve performance of a query used to determine if there are free/uncosted events (Thank you @fabianmarz for the pull request!) 
+* Feature - Added support for attaching custom post types to events 
+* Tweak - Improved filterability of the tribe_event_featured_image() function (Cheers to @fabianmarz!)
+* Tweak - Add an encoding class for the CSV importer to prevent non utf8 characters from preventing imports (Thanks to screenrage for the report!)
+* Tweak - Improved our JSON-LD output to ensure consistency (Props to @garrettjohnson and Lars!)
+* Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files (Thank you to user aafhhl for bringing this to our attention!)
+* Tweak - Switch to HTTPS for the "Powered by The Events Calendar" link (Thank you Cynthia for reporting this!)
+* Tweak - Improved filterability of calendar excerpts by introducing the new tribe_events_get_the_excerpt filter hook
+* Tweak - Improved filterability of organizer details when importing by CSV (Props to @Geir for bringing this up!)
+* Tweak - Adjustments for single event view in TwentyFifteen theme
+* Tweak - Improved performance of query used to test for events without any cost
+* Tweak - Added missing semicolon to a laquo (Props to mwender on GitHub for the fix!)
+* Tweak - Improve the 'stickiness' of CSV import column mappings (Thank you @jamesgol!)
+* Tweak - Consistency of JSON-LD markup improved (Cheers to @garrettjohnson for the help!)
+* Tweak - Avoid notice-level errors when working with WP CLI on a site where The Events Calendar is also active (Thanks to @sun)
+* Tweak - Corrected the spelling of timezone in the CSV Importer's event field
+* Tweak - Updated venue and organizer templates to use the new architecture for attaching custom post types to events
+* Tweak - Move plugin CSS to PostCSS
+* Deprecated - Tribe__Events__PUE__Checker, Tribe__Events__PUE__Plugin_Info, and Tribe__Events__PUE__Utility classes are deprecated and are replaced by Tribe__PUE__Checker, Tribe__PUE__Plugin_Info, and Tribe__PUE__Utility classes
+* Fixed - Changed the use of have_posts() in the maybe iCal links for the main views that could cause an infinite loop
+* Accessibility - Focus styles added for search fields
+* Accessibility - Add ARIA labels for Month/Day/List sub nav
+* Accessibility - Add ARIA label for events footer sub nav heading
 
 = [4.1.4] 2016-05-19 =
 
