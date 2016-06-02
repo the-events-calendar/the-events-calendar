@@ -202,20 +202,29 @@ jQuery( document ).ready( function( $ ) {
 
 
 	var setup_linked_post_fields = function( post_type ) {
-		var saved_template = wp.template( 'tribe-select-' + post_type );
-		var create_template = wp.template( 'tribe-create-' + post_type );
+		var saved_template = $( document.getElementById( 'tmpl-tribe-select-' + post_type ) ).length ? wp.template( 'tribe-select-' + post_type ) : null;
+		var create_template = $( document.getElementById( 'tmpl-tribe-create-' + post_type ) ).length ? wp.template( 'tribe-create-' + post_type ) : null;
 		var section = $( document.getElementById( 'event_' + post_type ) );
 		var rows = section.find( '.saved-linked-post' );
 
 		section.on( 'click', '.tribe-add-post', function(e) {
 			e.preventDefault();
-			var dropdown = $( saved_template({}) );
+			var dropdown = $({}), fields = $({});
+
+			if ( saved_template ) {
+				dropdown = $( saved_template({}) );
+			}
+
 			if ( dropdown.find( '.nosaved' ).length ) {
 				var label = dropdown.find( 'label' );
 				label.text( label.data( 'l10n-create-' + post_type ) );
 				dropdown.find( '.nosaved' ).remove();
 			}
-			var fields = $( create_template({}) );
+
+			if ( create_template ) {
+				fields = $( create_template({}) );
+			}
+
 			section.find( 'tfoot' ).before( fields );
 			fields.prepend( dropdown );
 			fields.find( '.chosen' ).chosen().trigger( 'change' );
@@ -259,7 +268,14 @@ jQuery( document ).ready( function( $ ) {
 		rows.each( function () {
 			var row = $( this );
 			var group = row.closest( 'tbody' );
-			var fields = $( create_template( {} ) ).find( 'tr' ); // we already have our tbody
+			var fields;
+
+			if ( create_template ) {
+				fields = $( create_template( {} ) ).find( 'tr' ); // we already have our tbody
+			} else {
+				fields = group.find( 'tr' ).slice( 2 );
+			}
+
 			var dropdown = row.find( '.linked-post-dropdown' );
 			if ( dropdown.length ) {
 				var value = dropdown.val();

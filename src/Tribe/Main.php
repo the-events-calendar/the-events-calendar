@@ -1624,7 +1624,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$venue_id = apply_filters( 'tribe_display_event_venue_dropdown_id', $venue_id );
 			?>
-			<tr>
+			<tr class="saved-linked-post">
 				<td style="width:170px"><?php printf( __( 'Use Saved %s:', 'the-events-calendar' ), $this->singular_venue_label ); ?></td>
 				<td>
 					<?php
