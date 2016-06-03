@@ -2893,7 +2893,7 @@ msgstr "Nebyly nalezeny žádné %1$s v rubrice %2$s. Zkuste si prosím zobrazit
 msgid "There were no results found."
 msgstr "Nebyly nalezeny žádné záznamy."
 
-#: src/Tribe/Template/Month.php:724
+#: src/Tribe/Template/Month.php:725
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Požadované datum \"%s\" nebylo platné &ndash; místo toho se zobrazuje aktuální měsíc"
 
@@ -4400,7 +4400,7 @@ msgstr "Akce"
 msgid "Event"
 msgstr "Akce"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.2) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:636

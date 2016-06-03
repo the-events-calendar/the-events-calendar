@@ -2889,7 +2889,7 @@ msgstr "Ingen matchende %1$s listet under %2$s. Vennligst prøv å vise hele kal
 msgid "There were no results found."
 msgstr "Ingen resultater funnet."
 
-#: src/Tribe/Template/Month.php:724
+#: src/Tribe/Template/Month.php:725
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Den valgte dato \"%s\" var ikke gyldig &ndash; viser gjeldende måned istedet"
 
@@ -4396,7 +4396,7 @@ msgstr "Hendelser"
 msgid "Event"
 msgstr "Hendelse"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.2) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:636

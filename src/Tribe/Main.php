@@ -32,8 +32,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '4.2beta1';
-		const MIN_ADDON_VERSION = '4.2beta1';
+		const VERSION           = '4.2RC1';
+		const MIN_ADDON_VERSION = '4.2RC1';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
@@ -1624,11 +1624,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$venue_id = apply_filters( 'tribe_display_event_venue_dropdown_id', $venue_id );
 			?>
-			<tr>
+			<tr class="saved-linked-post">
 				<td style="width:170px"><?php printf( __( 'Use Saved %s:', 'the-events-calendar' ), $this->singular_venue_label ); ?></td>
 				<td>
 					<?php
-					$this->saved_venues_dropdown( $venue_id );
+					Tribe__Events__Linked_Posts::instance()->saved_linked_post_dropdown( Tribe__Events__Venue::POSTTYPE, $venue_id );
 					$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
 					if ( current_user_can( $venue_pto->cap->edit_posts ) ) {
 						?>

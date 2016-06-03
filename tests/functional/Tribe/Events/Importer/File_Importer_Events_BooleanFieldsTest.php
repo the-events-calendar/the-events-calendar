@@ -14,6 +14,8 @@ class File_Importer_Events_BooleanFieldsTest extends File_Importer_EventsTest {
 			[ 'event_allow_trackbacks' ],
 			[ 'event_hide_from_listsings' ],
 			[ 'event_sticky_in_month_view' ],
+			[ 'event_show_map' ],
+			[ 'event_show_map_link' ],
 		];
 
 	}
@@ -209,6 +211,81 @@ class File_Importer_Events_BooleanFieldsTest extends File_Importer_EventsTest {
 
 		$this->assertNotFalse( $post_id );
 		$this->assertEquals( 0, get_post( $post_id )->menu_order );
+	}
+
+	/**
+	 * @test
+	 * it should accept truthy values to show map
+	 * @dataProvider truthy_boolean_values
+	 */
+	public function it_should_accept_various_valid_boolean_values_to_show_map( $truthy_boolean_value ) {
+		$this->data = [
+			'show_map_link' => $truthy_boolean_value,
+			'show_map'      => $truthy_boolean_value,
+		];
+
+		$sut = $this->make_instance( 'show-map-settings' );
+
+		$post_id = $sut->import_next_row();
+
+		$this->assertNotFalse( $post_id );
+		$this->assertEquals( '1', get_post_meta( $post_id, '_EventShowMap', true ) );
+		$this->assertEquals( '1', get_post_meta( $post_id, '_EventShowMapLink', true ) );
+	}
+
+	/**
+	 * @test
+	 * it should accept falsy values to show map
+	 * @dataProvider falsy_boolean_values
+	 */
+	public function it_should_accept_falsy_values_to_show_map( $falsy_boolean_value ) {
+		$this->data = [
+			'show_map_link' => $falsy_boolean_value,
+			'show_map'      => $falsy_boolean_value,
+		];
+
+		$sut = $this->make_instance( 'show-map-settings' );
+
+		$post_id = $sut->import_next_row();
+
+		$this->assertNotFalse( $post_id );
+		$this->assertEquals( '', get_post_meta( $post_id, '_EventShowMapLink', true ) );
+	}
+
+	public function currency_positions() {
+		return [
+			[ 'prefix', 'prefix' ],
+			[ 'prefix', 'Prefix' ],
+			[ 'prefix', 'PREFIX' ],
+			[ 'suffix', 'suffix' ],
+			[ 'suffix', 'Suffix' ],
+			[ 'suffix', 'SUFFIX' ],
+			[ 'prefix', 'before' ],
+			[ 'prefix', 'Before' ],
+			[ 'prefix', 'BEFORE' ],
+			[ 'suffix', 'after' ],
+			[ 'suffix', 'After' ],
+			[ 'suffix', 'AFTER' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * it should accept varied values for currency position setting
+	 * @dataProvider currency_positions
+	 */
+	public function it_should_accept_varied_values_for_currency_position_setting( $expected_currency_position, $currency_position ) {
+		$this->data        = [
+			'value_1' => $currency_position,
+		];
+		$this->field_map[] = 'event_currency_position';
+
+		$sut = $this->make_instance( 'boolean-fields' );
+
+		$post_id = $sut->import_next_row();
+
+		$this->assertNotFalse( $post_id );
+		$this->assertEquals( $expected_currency_position, get_post_meta( $post_id, '_EventCurrencyPosition', true ) );
 	}
 
 }

@@ -2889,7 +2889,7 @@ msgstr "Keine passenden %1$s gefunden für %2$s. Bitte versuchen Sie alle Verans
 msgid "There were no results found."
 msgstr "Es wurden keine Ergebnisse gefunden."
 
-#: src/Tribe/Template/Month.php:724
+#: src/Tribe/Template/Month.php:725
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Das abgefragte Datum \"%s\" war  nicht g&uuml;ltig &ndash; der aktuelle Monat wird stattdessen angezeigt"
 
@@ -4396,7 +4396,7 @@ msgstr "Veranstaltungen"
 msgid "Event"
 msgstr "Veranstaltung"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.2) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:636
