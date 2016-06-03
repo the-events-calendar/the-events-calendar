@@ -25,20 +25,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @var [type]
 		 */
 		public static $instance;
-
-		/**
-		 * Static Singleton Factory Method
-		 *
-		 * @return Tribe__Events__Rewrite
-		 */
-		public static function instance( $wp_rewrite = null ) {
-			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self( $wp_rewrite );
-			}
-
-			return self::$instance;
-		}
-
+		
 		/**
 		 * WP_Rewrite Instance
 		 * @var WP_Rewrite
@@ -58,15 +45,33 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		public $bases = array();
 
 		/**
-		 * Just dont...
-		 */
-		private function __construct() {}
-
-		/**
 		 * After creating the Hooks on WordPress we lock the usage of the function
 		 * @var boolean
 		 */
 		private $hook_lock = false;
+
+		/**
+		 * Tribe__Events__Rewrite constructor.
+		 *
+		 * @param WP_Rewrite|null $wp_rewrite
+		 */
+		public function __construct(WP_Rewrite $wp_rewrite = null) {
+			$this->rewrite = $wp_rewrite;
+		}
+
+		/**
+		 * Static Singleton Factory Method
+		 *
+		 * @return Tribe__Events__Rewrite
+		 */
+		public static function instance( $wp_rewrite = null ) {
+			if ( ! isset( self::$instance ) ) {
+				self::$instance = new self( $wp_rewrite );
+			}
+
+			return self::$instance;
+		}
+
 
 		/**
 		 * Do not allow people to Hook methods twice by mistake
@@ -189,22 +194,31 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		/**
 		 * When WPML is active we need to return the language Query Arg
 		 *
-		 * @param  string $uri Permalink for the post
+		 * @param  string $permalink Permalink for the post
 		 * @param  WP_Post $post Post Object
 		 *
 		 * @return string      Permalink with the language
 		 */
 		public function filter_post_type_link( $permalink, $post ) {
-			// When creating the link we need to re-do the Percent Placeholder
-			$permalink = str_replace( self::PERCENT_PLACEHOLDER, '%', $permalink );
-
-			if ( ! $this->is_wpml_active() || empty( $_GET['lang'] ) ) {
+			$supported_post_types = array(
+				Tribe__Events__Main::POSTTYPE,
+				Tribe__Events__Main::VENUE_POST_TYPE,
+				Tribe__Events__Main::ORGANIZER_POST_TYPE,
+			);
+			
+			if (!in_array( $post->post_type, $supported_post_types )) {
 				return $permalink;
 			}
 
+			if (!$this->is_wpml_active() || empty($_GET['lang'])) {
+				return $permalink;
+			}
 			$lang = wp_strip_all_tags( $_GET['lang'] );
 
-			return add_query_arg( array( 'lang' => $lang ), $permalink );
+			/** @var SitePress $sitepress */
+			global $sitepress;
+
+			return $sitepress->convert_url( $permalink, $lang );
 		}
 
 		/**
