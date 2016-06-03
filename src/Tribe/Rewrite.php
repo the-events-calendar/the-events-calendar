@@ -192,7 +192,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		}
 
 		/**
-		 * When WPML is active we need to return the language Query Arg
+		 * Filters the post permalink to take 3rd party plugins into account.
 		 *
 		 * @param  string $permalink Permalink for the post
 		 * @param  WP_Post $post Post Object
@@ -209,16 +209,10 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			if (!in_array( $post->post_type, $supported_post_types )) {
 				return $permalink;
 			}
-
-			if (!$this->is_wpml_active() || empty($_GET['lang'])) {
-				return $permalink;
-			}
-			$lang = wp_strip_all_tags( $_GET['lang'] );
-
-			/** @var SitePress $sitepress */
-			global $sitepress;
-
-			return $sitepress->convert_url( $permalink, $lang );
+			
+			$permalink = $this->apply_wpml_permalink_filter( $permalink );
+			
+			return $permalink;
 		}
 
 		/**
@@ -539,6 +533,25 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			}
 
 			return false;
+		}
+
+		/**
+		 * If WPML is active let's convert the permalink to one supporting WPML url generation.
+		 * 
+		 * @param string $permalink
+		 *
+		 * @return bool|string
+		 */
+		public function apply_wpml_permalink_filter( $permalink ) {
+			if ( ! $this->is_wpml_active() || empty( $_GET['lang'] ) ) {
+				return $permalink;
+			}
+			$lang = wp_strip_all_tags( $_GET['lang'] );
+
+			/** @var SitePress $sitepress */
+			global $sitepress;
+
+			return $sitepress->convert_url( $permalink, $lang );
 		}
 
 	} // end Tribe__Events__Rewrite class
