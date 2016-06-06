@@ -702,11 +702,10 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
-	 * helper function for displaying the saved organizer dropdown
-	 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
+	 * Helper function for displaying dropdowns for linked post types
 	 *
-	 * @param mixed  $current the current saved venue
-	 * @param string $name    the name value for the field
+	 * @param string $post_type Post type to display dropdown for
+	 * @param mixed  $current the current saved linked post item
 	 */
 	public function saved_linked_post_dropdown( $post_type, $current = null ) {
 		$linked_post_type_container = $this->get_post_type_container( $post_type );
