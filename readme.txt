@@ -300,6 +300,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Improved our JSON-LD output to ensure consistency (Props to @garrettjohnson and Lars!)
 * Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files (Thank you to user aafhhl for bringing this to our attention!)
 * Tweak - Switch to HTTPS for the "Powered by The Events Calendar" link (Thank you Cynthia for reporting this!)
+* Tweak - Switch to using HTTPS by default for interactions with Google Maps API
 * Tweak - Improved filterability of calendar excerpts by introducing the new tribe_events_get_the_excerpt filter hook
 * Tweak - Improved filterability of organizer details when importing by CSV (Props to @Geir for bringing this up!)
 * Tweak - Adjustments for single event view in TwentyFifteen theme
