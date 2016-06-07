@@ -25,6 +25,6 @@ abstract class Tribe__Events__Google_Data_Markup {
 	 * @return string
 	 */
 	public function script_block() {
-		return Tribe__Events__JSON_LD__Event::instance()->get_markup
+		return Tribe__Events__JSON_LD__Event::instance()->get_markup();
 	}
 }
