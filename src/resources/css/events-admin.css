@@ -54,10 +54,6 @@
 	width: 3rem;
 }
 
-.recurrence-row.custom-recurrence-weeks label {
-	margin-right: 1em;
-}
-
 /* Prevent the featured venue widget's dropdown from breaking out of widget settings meta box */
 
 .tribe.widget-settings select.venue-dropdown {
