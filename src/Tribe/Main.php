@@ -500,12 +500,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
 
-			// Check for a page that might conflict with events archive (but we only need to do that
-			// on non-ajax requests
-			if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
-				add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_dismiss' ), 5 );
-				add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice' ) );
-			}
+			new Tribe__Admin__Notice__Archive_Slug_Conflict();
 
 			// add-on compatibility
 			if ( is_multisite() ) {
@@ -565,6 +560,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Setup Shortcodes
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Shortcode__Event_Details', 'hook' ) );
+
+			// Load Ignored Events
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Ignored_Events', 'instance' ) );
 
 			// Google Maps API key setting
 			$google_maps_api_key = Tribe__Events__Google__Maps_API_Key::instance();
@@ -1826,6 +1824,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 				// JS admin
 				Tribe__Events__Template_Factory::asset_package( 'admin' );
+
+				// Admin Legacy Migration
+				Tribe__Events__Template_Factory::asset_package( 'admin-migrate-legacy-ignored-events' );
 
 				// ecp placeholders
 				Tribe__Events__Template_Factory::asset_package( 'ecp-plugins' );
