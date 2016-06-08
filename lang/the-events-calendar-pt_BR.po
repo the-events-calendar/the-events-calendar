@@ -4652,14 +4652,4 @@ msgstr "Suporte"
 msgid "View All Add-Ons"
 msgstr "Ver todos os Add-Ons"
 
-#: src/Tribe/Main.php:4169
-msgid "News from Modern Tribe"
-msgstr "Notícias da Modern Tribe"
-
-#: src/Tribe/Main.php:4214
-msgid "Additional Functionality"
-msgstr "Funcionalidade Adicional"
-
-#: src/Tribe/Main.php:4219
-msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
-msgstr "Precisa de funcionalidades adicionais, como eventos recorrentes, venda de ingressos, eventos públicos, novos pontos de vista e mais?"
+#: src/Tribe/Main.php
