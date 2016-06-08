@@ -203,7 +203,7 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.2] 2016-06-07 =
+= [4.2] 2016-06-08 =
 
 * Tweak - Advanced List Widget shows the month instead of the day of the week in the date icon when the event is not in the current month
 * Tweak - Improved our JSON-LD output to ensure consistency (Props to @garrettjohnson!)
