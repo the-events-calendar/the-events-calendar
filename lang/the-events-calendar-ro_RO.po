@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-05-18 21:58:46+0000\n"
+"PO-Revision-Date: 2016-06-01 21:48:57+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,15 +10,15 @@ msgstr ""
 "X-Generator: GlotPress/2.1.0-alpha\n"
 "Project-Id-Version: Stable (latest release)\n"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:255
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:288
 msgid "Customer Name"
 msgstr "Nume client"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:256
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:289
 msgid "Customer Email Address"
 msgstr "Adresă email client"
 
-#: vendor/tickets/src/views/tickets/rsvp.php:125
+#: vendor/tickets/src/views/tickets/rsvp.php:126
 msgid "Don't list me on the public attendee list"
 msgstr "Nu mă pune pe lista publică a participanților"
 
@@ -82,15 +82,7 @@ msgstr ""
 msgid "Recent Template Changes"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:171
-msgid "Reserved by:"
-msgstr "Rezervat de:"
-
-#: vendor/tickets/src/Tribe/Attendees_Table.php:171
-msgid "Purchased by:"
-msgstr "Cumpărat de:"
-
-#: vendor/tickets/src/Tribe/Attendees_Table.php:235
+#: vendor/tickets/src/Tribe/Attendees_Table.php:232
 msgid "View order"
 msgstr "Vizualizare comandă"
 
@@ -98,19 +90,19 @@ msgstr "Vizualizare comandă"
 msgid "It looks like you have modified your global stock settings but have not saved or updated the post."
 msgstr "Se pare că ai modificat setările stocului global, dar n-ai salvat sau actualizat articolul."
 
-#: vendor/tickets/src/Tribe/Tickets.php:830
+#: vendor/tickets/src/Tribe/Tickets.php:825
 msgid "Use global stock"
 msgstr "Folosește stoc global"
 
-#: vendor/tickets/src/Tribe/Tickets.php:831
+#: vendor/tickets/src/Tribe/Tickets.php:826
 msgid "Use global stock but cap sales"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets.php:832
+#: vendor/tickets/src/Tribe/Tickets.php:827
 msgid "Independent (do not use global stock)"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:98
+#: vendor/tickets/src/admin-views/attendees.php:100
 msgid "Deleted:"
 msgstr "Șters:"
 
@@ -154,15 +146,15 @@ msgstr ""
 msgid "Send RSVP confirmation to:"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:44
+#: vendor/tickets/src/admin-views/attendees.php:46
 msgid "Post Type:"
 msgstr "Tip articol:"
 
-#: vendor/tickets/src/admin-views/attendees.php:27
+#: vendor/tickets/src/admin-views/attendees.php:29
 msgid "Edit Event"
 msgstr "Modifică evenimentul"
 
-#: vendor/tickets/src/admin-views/attendees.php:28
+#: vendor/tickets/src/admin-views/attendees.php:30
 msgid "See Event Page"
 msgstr "Vezi pagina evenimentului"
 
@@ -170,15 +162,15 @@ msgstr "Vezi pagina evenimentului"
 msgid "Edit Venue"
 msgstr "Editare loc de întâlnire"
 
-#: vendor/tickets/src/admin-views/attendees.php:59
+#: vendor/tickets/src/admin-views/attendees.php:61
 msgid "Sales by Ticket"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:65
+#: vendor/tickets/src/admin-views/attendees.php:67
 msgid "Edit Ticket"
 msgstr "Editare tichet"
 
-#: vendor/tickets/src/admin-views/attendees.php:76
+#: vendor/tickets/src/admin-views/attendees.php:78
 msgid "Total Sold:"
 msgstr ""
 
@@ -230,7 +222,7 @@ msgstr "Stoc epuizat!"
 msgid "Full Name"
 msgstr "Nume complet"
 
-#: vendor/tickets/src/views/tickets/rsvp.php:133
+#: vendor/tickets/src/views/tickets/rsvp.php:135
 msgid "Confirm RSVP"
 msgstr ""
 
@@ -251,74 +243,74 @@ msgstr "%1$s participanți"
 msgid "Your tickets from %s"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:625
+#: vendor/tickets/src/Tribe/RSVP.php:626
 msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:631
+#: vendor/tickets/src/Tribe/RSVP.php:632
 msgid "You can't RSVP more than the total remaining tickets."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:636
+#: vendor/tickets/src/Tribe/RSVP.php:637
 msgid "In order to RSVP, you must enter your name and a valid email address."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:757
+#: vendor/tickets/src/Tribe/RSVP.php:758
 msgid "(deleted)"
 msgstr "(șters)"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1010
+#: vendor/tickets/src/Tribe/RSVP.php:1011
 msgid "Return to the %1$sAttendees Report%2$s."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1017
+#: vendor/tickets/src/Tribe/RSVP.php:1018
 msgid "Post updated. %1$s"
 msgstr "Articol actualizat. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1021
+#: vendor/tickets/src/Tribe/RSVP.php:1022
 msgid "Post published. %1$s"
 msgstr "Articol publicat. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1024
+#: vendor/tickets/src/Tribe/RSVP.php:1025
 msgid "Post submitted."
 msgstr "Articol trimis."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1025
+#: vendor/tickets/src/Tribe/RSVP.php:1026
 msgid "Post scheduled."
 msgstr "Articol programat."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1026
+#: vendor/tickets/src/Tribe/RSVP.php:1027
 msgid "Post draft updated."
 msgstr "Ciornă articol actualizată."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:340
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:391
 msgid "Cheatin Huh?"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:346
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:374
 msgid "Invalid Event ID"
 msgstr "ID eveniment invalid"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:352
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:397
 msgid "Empty user and email"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:364
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:409
 msgid "Invalid Email"
-msgstr "Email Invalid"
+msgstr "Email invalid"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:370
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:386
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:415
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:431
 msgid "Invalid User ID"
 msgstr "ID utilizator invalid"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:407
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:452
 msgid "Error when sending the email"
 msgstr "Eroare la trimiterea emailului"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:412
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:457
 msgid "Email sent successfully!"
-msgstr "Emailul a fost trimis cu succes!"
+msgstr "Email trimis cu succes!"
 
 #: vendor/tickets/src/admin-views/attendees-email.php:43
 msgid "Send Email"
@@ -583,11 +575,11 @@ msgstr ""
 msgid "Unnamed %s"
 msgstr ""
 
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:108
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:109
 msgid "Create New %s"
 msgstr ""
 
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:172
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:173
 msgid "Add another %s"
 msgstr ""
 
@@ -725,8 +717,7 @@ msgstr ""
 msgid "Thanks for setting up a valid key, it will expire on %s"
 msgstr ""
 
-#: common/src/admin-views/tribe-options-display.php:31
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:31
+#: src/admin-views/tribe-options-display.php:68
 msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
 msgstr ""
 
@@ -827,91 +818,86 @@ msgstr ""
 msgid "Cancel"
 msgstr "Anulare"
 
-#: vendor/tickets/src/Tribe/Tickets.php:583
+#: vendor/tickets/src/Tribe/Tickets.php:578
 msgid "Editing the ticket price is currently disallowed."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-general.php:59
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:59
+#: src/admin-views/tribe-options-general.php:128
 msgid "Default currency symbol"
 msgstr "Simbol monetar implicit"
 
-#: common/src/admin-views/tribe-options-general.php:60
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:60
+#: src/admin-views/tribe-options-general.php:129
 msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
 msgstr "Stabiliţi simbolul monetar implicit pentru costurile evenimentului. Rețineți că acesta influenţează numai evenimentele viitoare, iar modificările făcute nu vor apare retroactiv."
 
-#: common/src/admin-views/tribe-options-general.php:67
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:67
+#: src/admin-views/tribe-options-general.php:136
 msgid "Currency symbol follows value"
 msgstr "Simbolul Monetar urmează valoarea"
 
-#: common/src/admin-views/tribe-options-general.php:68
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:68
+#: src/admin-views/tribe-options-general.php:137
 msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
 msgstr "Simbolul monetar precedă de obicei valoarea. Activarea acestei opțiuni poziționează simbolul după valoare."
 
-#: src/admin-views/tribe-options-general.php:143
+#: src/admin-views/tribe-options-general.php:175
 msgid "Map Settings"
 msgstr "Configurări Hartă"
 
-#: src/admin-views/tribe-options-general.php:147
+#: src/admin-views/tribe-options-general.php:179
 msgid "Enable Google Maps"
 msgstr "Activare Hărţi Google"
 
-#: src/admin-views/tribe-options-general.php:148
+#: src/admin-views/tribe-options-general.php:180
 msgid "Check to enable maps for events and venues."
 msgstr "Bifaţi pentru activarea hărţilor pentru evenimente şi locaţii."
 
-#: src/admin-views/tribe-options-general.php:155
+#: src/admin-views/tribe-options-general.php:187
 msgid "Google Maps default zoom level"
 msgstr "Nivel Implicit de Zoom pentru Hărţi Google"
 
-#: src/admin-views/tribe-options-general.php:156
+#: src/admin-views/tribe-options-general.php:188
 msgid "0 = zoomed out; 21 = zoomed in."
 msgstr "0 = depărtare; 21 = apropiere."
 
-#: common/src/admin-views/tribe-options-general.php:74
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:74
+#: src/admin-views/tribe-options-general.php:148
 msgid "Miscellaneous Settings"
 msgstr "Configurări Diverse"
 
-#: src/admin-views/tribe-options-general.php:131
+#: src/admin-views/tribe-options-general.php:143
 msgid "Duplicate Venues &amp; Organizers"
 msgstr "Duplicare Locaţii &amp; Organizatori"
 
-#: src/admin-views/tribe-options-general.php:131
+#: src/admin-views/tribe-options-general.php:143
 msgid "You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers."
 msgstr "Puteţi găsi duplicate ale locaţiilor şi ale organizatorilor, la actualizarea The Events Calendar din versiunile anterioare 3.0. Apăsaţi acest buton pentru a combina locaţiile şi organizatorii identici."
 
-#: src/admin-views/tribe-options-general.php:171
+#: src/admin-views/tribe-options-general.php:159
 msgid "View Welcome Page"
 msgstr "Vezi pagina de bun venit"
 
-#: src/admin-views/tribe-options-general.php:171
+#: src/admin-views/tribe-options-general.php:159
 msgid "View the page that displayed when you initially installed the plugin."
 msgstr "Vezi pagina care se afișează atunci când este instalat inițial modulul."
 
-#: src/admin-views/tribe-options-general.php:175
+#: src/admin-views/tribe-options-general.php:163
 msgid "View Update Page"
 msgstr "Vezi pagina actualizată"
 
-#: src/admin-views/tribe-options-general.php:175
+#: src/admin-views/tribe-options-general.php:163
 msgid "View the page that displayed when you updated the plugin."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-general.php:81
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:81
+#: common/src/admin-views/tribe-options-general.php:58
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:58
 msgid "Debug mode"
-msgstr "Modul de Depanare "
+msgstr "Mod depanare"
 
-#: common/src/admin-views/tribe-options-general.php:87
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
+#: common/src/admin-views/tribe-options-general.php:64
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:64
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
 msgstr "Activaţi această opţiune pentru a înregistra informaţiile de depanare. Implicit, aceasta va face înregistrarea în jurnalul de erori a serverului dvs. PHP. Dacă doriţi să vedeţi jurnalul de înregistrări în browserul dvs., atunci vă recomandăm instalarea  %sapoi căutaţi fila/tabul \"Tribe\" în juranlul generat."
 
-#: common/src/admin-views/tribe-options-general.php:87
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
+#: common/src/admin-views/tribe-options-general.php:64
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:64
 msgid "Debug Bar Plugin"
 msgstr "Modul Bară Depanare"
 
@@ -946,7 +932,7 @@ msgstr "Mai mult..."
 #: common/src/Tribe/Admin/Help_Page.php:829
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:829
 msgid "Latest Version:"
-msgstr "Ultima Versiune:"
+msgstr "Ultima versiune:"
 
 #: common/src/Tribe/Admin/Help_Page.php:832
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:832
@@ -981,7 +967,7 @@ msgstr ""
 #: common/src/admin-views/tribe-options-network.php:15
 #: vendor/tickets/common/src/admin-views/tribe-options-network.php:15
 msgid "Network Settings"
-msgstr "Configurări Reţea"
+msgstr "Setări de rețea"
 
 #: common/src/admin-views/tribe-options-network.php:19
 #: vendor/tickets/common/src/admin-views/tribe-options-network.php:19
@@ -1340,7 +1326,7 @@ msgstr "Biletele dvs."
 
 #: vendor/tickets/src/views/tickets/email.php:336
 msgid "Ticket Type"
-msgstr "Tip Bilet"
+msgstr "Tip de bilet"
 
 #: vendor/tickets/src/views/tickets/email.php:340
 msgid "Purchaser"
@@ -1409,17 +1395,17 @@ msgstr "Rwanda"
 #: common/src/Tribe/View_Helpers.php:227
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:227
 msgid "Saint Kitts And Nevis"
-msgstr "Saint Kitts Şi Nevis"
+msgstr "Sfântul Cristofor și Nevis"
 
 #: common/src/Tribe/View_Helpers.php:228
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:228
 msgid "Saint Lucia"
-msgstr "Saint Lucia"
+msgstr "Sfânta Lucia"
 
 #: common/src/Tribe/View_Helpers.php:229
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:229
 msgid "Saint Vincent And The Grenadines"
-msgstr "Saint Vincent Şi Grenadines"
+msgstr "Sfântul Vicențiu și Grenadinele"
 
 #: common/src/Tribe/View_Helpers.php:230
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:230
@@ -1434,7 +1420,7 @@ msgstr "San Marino"
 #: common/src/Tribe/View_Helpers.php:232
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:232
 msgid "Sao Tome And Principe"
-msgstr "Sao Tome Şi Principe"
+msgstr "São Tomé și Príncipe"
 
 #: common/src/Tribe/View_Helpers.php:233
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:233
@@ -1479,7 +1465,7 @@ msgstr "Slovenia"
 #: common/src/Tribe/View_Helpers.php:241
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:241
 msgid "Solomon Islands"
-msgstr "Solomon, Insulele"
+msgstr "Insulele Solomon"
 
 #: common/src/Tribe/View_Helpers.php:242
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:242
@@ -1544,7 +1530,7 @@ msgstr "Suedia"
 #: common/src/Tribe/View_Helpers.php:254
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:254
 msgid "Switzerland"
-msgstr "Elveţia"
+msgstr "Elveția"
 
 #: common/src/Tribe/View_Helpers.php:255
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:255
@@ -1559,7 +1545,7 @@ msgstr "Taiwan"
 #: common/src/Tribe/View_Helpers.php:257
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:257
 msgid "Tajikistan"
-msgstr "Tajikistan"
+msgstr "Tadjikistan"
 
 #: common/src/Tribe/View_Helpers.php:258
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:258
@@ -1569,7 +1555,7 @@ msgstr "Tanzania, Republica Unită"
 #: common/src/Tribe/View_Helpers.php:259
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:259
 msgid "Thailand"
-msgstr "Tailanda"
+msgstr "Thailanda"
 
 #: common/src/Tribe/View_Helpers.php:260
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:260
@@ -1589,7 +1575,7 @@ msgstr "Tonga"
 #: common/src/Tribe/View_Helpers.php:263
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:263
 msgid "Trinidad And Tobago"
-msgstr "Trinidad Şi Tobago"
+msgstr "Trinidad și Tobago"
 
 #: common/src/Tribe/View_Helpers.php:264
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:264
@@ -1609,7 +1595,7 @@ msgstr "Turkmenistan"
 #: common/src/Tribe/View_Helpers.php:267
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:267
 msgid "Turks And Caicos Islands"
-msgstr "Turks Şi Caicos, Insulele"
+msgstr "Insulele Turks și Caicos"
 
 #: common/src/Tribe/View_Helpers.php:268
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:268
@@ -1634,12 +1620,12 @@ msgstr "Emiratele Arabe Unite"
 #: common/src/Tribe/View_Helpers.php:272
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:272
 msgid "United Kingdom"
-msgstr "United Kingdom"
+msgstr "Marea Britanie"
 
 #: common/src/Tribe/View_Helpers.php:273
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:273
 msgid "United States Minor Outlying Islands"
-msgstr "United States Minor Outlying Islands"
+msgstr "Insulele Minore Îndepărtate ale Statelor Unite"
 
 #: common/src/Tribe/View_Helpers.php:274
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:274
@@ -1684,7 +1670,7 @@ msgstr "Wallis And Futuna Islands"
 #: common/src/Tribe/View_Helpers.php:282
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:282
 msgid "Western Sahara"
-msgstr "Sahara de Vest"
+msgstr "Sahara Occidentală"
 
 #: common/src/Tribe/View_Helpers.php:283
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:283
@@ -2119,7 +2105,7 @@ msgstr "Versiune"
 #: common/src/admin-views/app-shop.php:57
 #: vendor/tickets/common/src/admin-views/app-shop.php:57
 msgid "Last Update"
-msgstr "Ultima Actualizare"
+msgstr "Ultima actualizare"
 
 #: src/admin-views/event-sidebar-options.php:13
 msgid "Hide From %s Listings"
@@ -2242,9 +2228,9 @@ msgstr "Email:"
 msgid "%s Name Already Exists"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:31
+#: vendor/tickets/src/admin-views/attendees.php:33
 msgid "Event Details"
-msgstr "Detalii Eveniment"
+msgstr "Detalii eveniment"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:49
 msgid "Start Date / Time:"
@@ -2260,25 +2246,25 @@ msgstr "Data de Finalizare / Ora:"
 msgid "Address:"
 msgstr "Adresă:"
 
-#: vendor/tickets/src/admin-views/attendees.php:81
+#: vendor/tickets/src/admin-views/attendees.php:83
 msgid "Finalized:"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:87
+#: vendor/tickets/src/admin-views/attendees.php:89
 msgid "Awaiting review:"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:92
+#: vendor/tickets/src/admin-views/attendees.php:94
 msgid "Checked in:"
 msgstr "Rezervate:"
 
 #: vendor/tickets/src/admin-views/attendees-email.php:4
 msgid "Send the attendee list by email"
-msgstr "Trimiteţi lista participanţilor prin email"
+msgstr "Trimite lista participanților prin email"
 
 #: vendor/tickets/src/admin-views/attendees-email.php:10
 msgid "Select a User:"
-msgstr "Selectaţi un Utilizator:"
+msgstr "Selectează un utilizator:"
 
 #: vendor/tickets/src/admin-views/attendees-email.php:15
 msgid "Select..."
@@ -2290,17 +2276,17 @@ msgstr "sau"
 
 #: vendor/tickets/src/admin-views/attendees-email.php:22
 msgid "Email Address:"
-msgstr "Adresa de Email:"
+msgstr "Adresă email:"
 
 #: vendor/tickets/src/admin-views/list.php:33
 msgid "Edit"
 msgstr "Editare"
 
-#: vendor/tickets/src/admin-views/list.php:42
+#: vendor/tickets/src/admin-views/list.php:52
 msgid "Edit in %s"
 msgstr "Editat in %s"
 
-#: vendor/tickets/src/admin-views/list.php:37
+#: vendor/tickets/src/admin-views/list.php:47
 msgid "View"
 msgstr "Vizualizare"
 
@@ -2322,7 +2308,7 @@ msgstr "Dimensiunea maximă a imaginii în email, va fi de 580px lăţime şi or
 
 #: vendor/tickets/src/admin-views/meta-box.php:46
 msgid "Select an Image"
-msgstr "Selectaţi o imagine"
+msgstr "Selectează o imagine"
 
 #: vendor/tickets/src/admin-views/meta-box.php:54
 msgid "Remove"
@@ -2351,7 +2337,7 @@ msgstr "Descriere Bilet:"
 
 #: vendor/tickets/src/admin-views/legacy-ticket-fields.php:15
 msgid "Price:"
-msgstr "Preţ:"
+msgstr "Preț:"
 
 #: vendor/tickets/src/admin-views/legacy-ticket-fields.php:19
 msgid "(0 or empty for free tickets)"
@@ -2387,85 +2373,85 @@ msgstr "Şablon Implicit Pagină"
 
 #: src/admin-views/tribe-options-display.php:44
 msgid "Display Settings"
-msgstr "Configurări de Afişare"
+msgstr "Setări afișare"
 
 #: src/admin-views/tribe-options-display.php:49
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:104
+#: src/admin-views/tribe-options-display.php:128
 msgid "Basic Template Settings"
 msgstr "Configurări de Bază pentru Şablon"
 
-#: src/admin-views/tribe-options-display.php:108
+#: src/admin-views/tribe-options-display.php:132
 msgid "Default stylesheet used for events templates"
 msgstr "Foaia de Stil implicită folosită pentru şabloanele evenimentelor"
 
-#: src/admin-views/tribe-options-display.php:111
+#: src/admin-views/tribe-options-display.php:135
 msgid "Skeleton Styles"
 msgstr "Stiluri Carcasă"
 
-#: src/admin-views/tribe-options-display.php:113
+#: src/admin-views/tribe-options-display.php:137
 msgid "Only includes enough css to achieve complex layouts like calendar and week view."
 msgstr "Include CSS suficient doar pentru a obține afișări complexe, cum ar fi cele pentru calendar sau săptămână"
 
-#: src/admin-views/tribe-options-display.php:115
+#: src/admin-views/tribe-options-display.php:139
 msgid "Full Styles"
 msgstr "Stiluri complete"
 
-#: src/admin-views/tribe-options-display.php:117
+#: src/admin-views/tribe-options-display.php:141
 msgid "More detailed styling, tries to grab styles from your theme."
 msgstr "Stilizare mai detaliată, se încearcă obținerea stilurilor din tema dumneavoastră"
 
-#: src/admin-views/tribe-options-display.php:119
+#: src/admin-views/tribe-options-display.php:143
 msgid "Tribe Events Styles"
 msgstr "Stiluri Tribe Events"
 
-#: src/admin-views/tribe-options-display.php:121
+#: src/admin-views/tribe-options-display.php:145
 msgid "A fully designed and styled theme for your events pages."
 msgstr "O temă stilizată integral pentru paginile evenimentelor dumneavoastră"
 
-#: src/admin-views/tribe-options-display.php:128
+#: src/admin-views/tribe-options-display.php:152
 msgid "Events template"
 msgstr "Şablon Evenimente"
 
-#: src/admin-views/tribe-options-display.php:129
+#: src/admin-views/tribe-options-display.php:153
 msgid "Choose a page template to control the appearance of your calendar and event content."
 msgstr "Alegeţi o pagină de şablon pentru a controla modul de afisare a calendarului dvs. şi a conţinutului său."
 
-#: src/admin-views/tribe-options-display.php:137
+#: src/admin-views/tribe-options-display.php:161
 msgid "Enable event views"
 msgstr "Activați vizualizări eveniment"
 
-#: src/admin-views/tribe-options-display.php:138
+#: src/admin-views/tribe-options-display.php:162
 msgid "You must select at least one view."
 msgstr "Trebuie să selectaţi cel puţin o vizualizare."
 
-#: src/admin-views/tribe-options-display.php:145
+#: src/admin-views/tribe-options-display.php:169
 msgid "Default view"
 msgstr "Vizualizare implicită"
 
-#: src/admin-views/tribe-options-display.php:153
+#: src/admin-views/tribe-options-display.php:177
 msgid "Disable the Event Search Bar"
 msgstr "Folosiţi Bara de Căutare Evenimente"
 
-#: src/admin-views/tribe-options-display.php:154
+#: src/admin-views/tribe-options-display.php:178
 msgid "Check this to use the classic header."
 msgstr "Bifaţi pentru a folosi antetul clasic."
 
-#: src/admin-views/tribe-options-display.php:160
+#: src/admin-views/tribe-options-display.php:184
 msgid "Month view events per day"
 msgstr "Vizualizare lună evenimente pe zi"
 
-#: src/admin-views/tribe-options-display.php:161
+#: src/admin-views/tribe-options-display.php:185
 msgid "Change the default 3 events per day in month view. Please note there may be performance issues if you set this too high. <a href=\"%s\">Read more</a>."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:168
+#: src/admin-views/tribe-options-display.php:192
 msgid "Enable the Month View Cache"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:169
+#: src/admin-views/tribe-options-display.php:193
 msgid "Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href=\"%s\">Read more</a>."
 msgstr ""
 
@@ -2479,72 +2465,69 @@ msgstr ""
 msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
 msgstr ""
 
-#: common/src/admin-views/tribe-options-display.php:30
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:30
+#: src/admin-views/tribe-options-display.php:67
 msgid "Date with year"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:66
+#: src/admin-views/tribe-options-display.php:90
 msgid "Date without year"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:67
+#: src/admin-views/tribe-options-display.php:91
 msgid "Enter the format to use for displaying dates without a year. Used when showing an event from the current year."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:74
+#: src/admin-views/tribe-options-display.php:98
 msgid "Month and year format"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:75
+#: src/admin-views/tribe-options-display.php:99
 msgid "Enter the format to use for dates that show a month and year only. Used on month view."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-display.php:38
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:38
+#: src/admin-views/tribe-options-display.php:75
 msgid "Date time separator"
 msgstr ""
 
-#: common/src/admin-views/tribe-options-display.php:39
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:39
+#: src/admin-views/tribe-options-display.php:76
 msgid "Enter the separator that will be placed between the date and time, when both are shown."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:89
+#: src/admin-views/tribe-options-display.php:113
 msgid "Time range separator"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:90
+#: src/admin-views/tribe-options-display.php:114
 msgid "Enter the separator that will be used between the start and end time of an event."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-display.php:46
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:46
+#: common/src/admin-views/tribe-options-display.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:30
 msgid "Datepicker Date Format"
 msgstr ""
 
-#: common/src/admin-views/tribe-options-display.php:47
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:47
+#: common/src/admin-views/tribe-options-display.php:31
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:31
 msgid "Select the date format to use in datepickers"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:182
+#: src/admin-views/tribe-options-display.php:206
 msgid "Advanced Template Settings"
 msgstr "Configurări Avansate Şablon"
 
-#: src/admin-views/tribe-options-display.php:186
+#: src/admin-views/tribe-options-display.php:210
 msgid "Add HTML before event content"
 msgstr "Adăugaţi HTML înaintea conţinutului evenimentului"
 
-#: src/admin-views/tribe-options-display.php:187
+#: src/admin-views/tribe-options-display.php:211
 msgid "If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout."
 msgstr "Dacă sunteţi familiarizaţi cu HTML, puteţi adăuga un cod adiţional înaintea şablonului de eveniment. Anumite teme pot necesita acest lucru pentru a ajuta la stilizare sau aspect."
 
-#: src/admin-views/tribe-options-display.php:192
+#: src/admin-views/tribe-options-display.php:216
 msgid "Add HTML after event content"
 msgstr "Adăugaţi HTML după conţinut eveniment"
 
-#: src/admin-views/tribe-options-display.php:193
+#: src/admin-views/tribe-options-display.php:217
 msgid "If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout."
 msgstr "Dacă sunteţi familiarizaţi cu HTML, puteţi adăuga un cod adiţional după şablonul de eveniment. Anumite teme pot necesita acest lucru pentru a ajuta la stilizare sau aspect."
 
@@ -2601,79 +2584,78 @@ msgstr "Vă gândiţi că  \"Wow, acest supliment este extraordinar! Ar trebui s
 msgid "Show The Events Calendar link"
 msgstr "Afişare legătură The Events Calendar"
 
-#: common/src/admin-views/tribe-options-general.php:55
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:55
+#: src/admin-views/tribe-options-general.php:33
 msgid "General Settings"
 msgstr "Setări generale"
 
-#: src/admin-views/tribe-options-general.php:33
+#: src/admin-views/tribe-options-general.php:37
 msgid "Number of events to show per page"
 msgstr "Numărul de evenimnete afişate pe pagină"
 
-#: src/admin-views/tribe-options-general.php:40
+#: src/admin-views/tribe-options-general.php:44
 msgid "Use Javascript to control date filtering"
 msgstr "Folosiţi Javascript pentru a controla filtrarea datei"
 
-#: src/admin-views/tribe-options-general.php:41
+#: src/admin-views/tribe-options-general.php:45
 msgid "This option is disabled when \"Disable the Event Search Bar\" is checked on the Display settings tab."
 msgstr "Această opțiune este dezactivată atunci când  \"Dezactivează bara de căutare evenimente\" este bifat în setări."
 
-#: src/admin-views/tribe-options-general.php:41
+#: src/admin-views/tribe-options-general.php:45
 msgid "Enable live ajax for datepicker on front end (User submit not required)."
 msgstr "Permite ajax live pentru alegerea datei de către utilizatori (Trimiterea de către utilizator nu este obligatorie)."
 
-#: src/admin-views/tribe-options-general.php:49
+#: src/admin-views/tribe-options-general.php:53
 msgid "Show comments"
 msgstr "Arată comentarii"
 
-#: src/admin-views/tribe-options-general.php:50
+#: src/admin-views/tribe-options-general.php:54
 msgid "Enable comments on event pages."
 msgstr "Activarea comentarilor pe paginile evenimentelor."
 
-#: src/admin-views/tribe-options-general.php:56
+#: src/admin-views/tribe-options-general.php:60
 msgid "Include events in main blog loop"
 msgstr "Includerea evenimentelor în nodul principal al blogului"
 
-#: src/admin-views/tribe-options-general.php:57
+#: src/admin-views/tribe-options-general.php:61
 msgid "Show events with the site's other posts. When this box is checked, events will also continue to appear on the default events page."
 msgstr "Afişarea evenimentelor împreună cu alte articole ale sitului. Dacă această căsuţă va fi bifată, evenimentele vor continua deasemenea pe pagina implicită de evenimente."
 
-#: src/admin-views/tribe-options-general.php:63
-#: src/admin-views/tribe-options-general.php:69
+#: src/admin-views/tribe-options-general.php:67
+#: src/admin-views/tribe-options-general.php:73
 msgid "Events URL slug"
 msgstr "URL slug Evenimente"
 
-#: src/admin-views/tribe-options-general.php:64
+#: src/admin-views/tribe-options-general.php:68
 msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%1$s\">%2$s</a>. In order to edit the slug here, <a href=\"%3$soptions-permalink.php\">enable pretty permalinks</a>."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:76
+#: src/admin-views/tribe-options-general.php:80
 #: src/functions/template-tags/options.php:20
 msgid "The slug used for building the events URL."
 msgstr "Slug-ul folosit pentru construirea adreselor URL ale evenimentelor"
 
-#: src/admin-views/tribe-options-general.php:76
+#: src/admin-views/tribe-options-general.php:80
 msgid "Your current events URL is: %s"
 msgstr "Adresa URL curentă a evenimentelor dvs. este: %s"
 
-#: src/admin-views/tribe-options-general.php:81
+#: src/admin-views/tribe-options-general.php:85
 #: src/functions/template-tags/options.php:39
 msgid "Here is the iCal feed URL for your events:"
 msgstr "Aici este adresa URL a feed-ului iCal pentru evenimentele dvs.:"
 
-#: src/admin-views/tribe-options-general.php:86
+#: src/admin-views/tribe-options-general.php:90
 msgid "Single event URL slug"
 msgstr "URL Slug pentru eveniment unic"
 
-#: src/admin-views/tribe-options-general.php:93
+#: src/admin-views/tribe-options-general.php:97
 msgid "The above should ideally be plural, and this singular.<br />Your single event URL is: %s"
 msgstr "Mai sus, ideal ar trebui să fie la plural, şi acesta la singular.<br />Adresa URL pentru evenimentul dvs. unic este: %s"
 
-#: src/admin-views/tribe-options-general.php:98
+#: src/admin-views/tribe-options-general.php:102
 msgid "End of day cutoff"
 msgstr "Întrerupere pentru sfârşitul zilei"
 
-#: src/admin-views/tribe-options-general.php:119
+#: src/admin-views/tribe-options-general.php:123
 msgid "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar."
 msgstr "Aveţi evenimente ce se desfăşoară şi după miezul nopţii? Stabiliţi un timp după încheiera evenimentului evenimentului pentru a evita afișarea evenimentului în ziua următoare."
 
@@ -2694,9 +2676,9 @@ msgstr "Adaugă %s"
 msgid "CSV"
 msgstr ""
 
-#: common/src/Tribe/Settings.php:215
+#: common/src/Tribe/Settings.php:214
 #: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4321
-#: vendor/tickets/common/src/Tribe/Settings.php:215
+#: vendor/tickets/common/src/Tribe/Settings.php:214
 msgid "Settings"
 msgstr "Setări"
 
@@ -2710,7 +2692,7 @@ msgstr "Listă"
 
 #: src/Tribe/Main.php:4401
 msgid "Month"
-msgstr "Luna"
+msgstr "Lună"
 
 #: src/Tribe/Main.php:4418
 msgid "Day"
@@ -2799,54 +2781,54 @@ msgstr ""
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: common/src/Tribe/Settings.php:214 common/src/Tribe/Settings.php:235
-#: vendor/tickets/common/src/Tribe/Settings.php:214
-#: vendor/tickets/common/src/Tribe/Settings.php:235
+#: common/src/Tribe/Settings.php:213 common/src/Tribe/Settings.php:234
+#: vendor/tickets/common/src/Tribe/Settings.php:213
+#: vendor/tickets/common/src/Tribe/Settings.php:234
 msgid "Events Settings"
-msgstr "Configurări Evenimente"
+msgstr "Setări evenimente"
 
-#: common/src/Tribe/Settings.php:300
-#: vendor/tickets/common/src/Tribe/Settings.php:300
+#: common/src/Tribe/Settings.php:299
+#: vendor/tickets/common/src/Tribe/Settings.php:299
 msgid "%s Settings"
-msgstr "%s Configurări"
+msgstr "Setări %s"
 
-#: common/src/Tribe/Settings.php:314
-#: vendor/tickets/common/src/Tribe/Settings.php:314
+#: common/src/Tribe/Settings.php:313
+#: vendor/tickets/common/src/Tribe/Settings.php:313
 msgid "You've requested a non-existent tab."
-msgstr "Aţi solicitat o filă inexistentă."
+msgstr "Ai solicitat o filă inexistentă."
 
-#: common/src/Tribe/Settings.php:322
-#: vendor/tickets/common/src/Tribe/Settings.php:322
+#: common/src/Tribe/Settings.php:321
+#: vendor/tickets/common/src/Tribe/Settings.php:321
 msgid "Save Changes"
 msgstr "Salvare modificări"
 
-#: common/src/Tribe/Settings.php:370
-#: vendor/tickets/common/src/Tribe/Settings.php:370
+#: common/src/Tribe/Settings.php:369
+#: vendor/tickets/common/src/Tribe/Settings.php:369
 msgid "You don't have permission to do that."
-msgstr "Nu aveţi permisiunea pentru aceasta."
+msgstr "Nu ai permisiunea de a face acest lucru."
 
-#: common/src/Tribe/Settings.php:376
-#: vendor/tickets/common/src/Tribe/Settings.php:376
+#: common/src/Tribe/Settings.php:375
+#: vendor/tickets/common/src/Tribe/Settings.php:375
 msgid "The request was sent insecurely."
 msgstr "Cererea a fost trimisă nesigur."
 
-#: common/src/Tribe/Settings.php:382
-#: vendor/tickets/common/src/Tribe/Settings.php:382
+#: common/src/Tribe/Settings.php:381
+#: vendor/tickets/common/src/Tribe/Settings.php:381
 msgid "The request wasn't sent from this tab."
 msgstr "Cererea nu a fost trimisă din această filă."
 
-#: common/src/Tribe/Settings.php:550
-#: vendor/tickets/common/src/Tribe/Settings.php:550
+#: common/src/Tribe/Settings.php:549
+#: vendor/tickets/common/src/Tribe/Settings.php:549
 msgid "Your form had the following errors:"
 msgstr "Formularul dvs. a avut următoarele erori:"
 
+#: common/src/Tribe/Settings.php:559
+#: vendor/tickets/common/src/Tribe/Settings.php:559
+msgid "None of your settings were saved. Please try again."
+msgstr "Niciuna din setările tale nu a fost salvată. Te rog încearcă din nou."
+
 #: common/src/Tribe/Settings.php:560
 #: vendor/tickets/common/src/Tribe/Settings.php:560
-msgid "None of your settings were saved. Please try again."
-msgstr "Nici-una din configurări nu a fost salvată. Vă rugăm să reîncercaţi."
-
-#: common/src/Tribe/Settings.php:561
-#: vendor/tickets/common/src/Tribe/Settings.php:561
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
@@ -2927,54 +2909,62 @@ msgstr "Comanda #"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:77
 msgid "Order Status"
-msgstr "Status Comnadă"
+msgstr "Stare comandă"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:78
-msgid "Ticket type"
-msgstr "Tip Bilet"
+msgid "Purchaser name"
+msgstr "Nume cumpărător"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:79
+msgid "Purchaser email"
+msgstr "Email cumpărător"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:80
+msgid "Ticket type"
+msgstr "Tip de bilet"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:81
 #: vendor/tickets/src/views/tickets/email.php:332
 msgid "Ticket #"
 msgstr "Bilet #"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:80
+#: vendor/tickets/src/Tribe/Attendees_Table.php:82
 #: vendor/tickets/src/views/tickets/email.php:344
 msgid "Security Code"
 msgstr "Cod Securitate"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:81
-#: vendor/tickets/src/Tribe/Attendees_Table.php:238
-#: vendor/tickets/src/Tribe/Attendees_Table.php:325
+#: vendor/tickets/src/Tribe/Attendees_Table.php:83
+#: vendor/tickets/src/Tribe/Attendees_Table.php:235
+#: vendor/tickets/src/Tribe/Attendees_Table.php:329
 msgid "Check in"
 msgstr "Rezervare"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:239
-#: vendor/tickets/src/Tribe/Attendees_Table.php:326
+#: vendor/tickets/src/Tribe/Attendees_Table.php:236
+#: vendor/tickets/src/Tribe/Attendees_Table.php:330
 msgid "Undo Check in"
 msgstr "Anulare Rezervare"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:298
+#: vendor/tickets/src/Tribe/Attendees_Table.php:302
 msgid "Print"
-msgstr "Tipărire"
+msgstr "Imprimare"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:299
+#: vendor/tickets/src/Tribe/Attendees_Table.php:303
 #: vendor/tickets/src/views/tickets/rsvp.php:116
 msgid "Email"
 msgstr "Email"
 
-#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:300
+#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:304
 msgid "Export"
 msgstr "Export"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:306
+#: vendor/tickets/src/Tribe/Attendees_Table.php:310
 msgid "Filter by purchaser name, ticket #, order # or security code"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:327
-#: vendor/tickets/src/admin-views/list.php:34
+#: vendor/tickets/src/Tribe/Attendees_Table.php:331
+#: vendor/tickets/src/admin-views/list.php:43
 msgid "Delete"
-msgstr "Ştergere"
+msgstr "Șterge"
 
 #: src/admin-views/admin-update-message.php:52
 #: vendor/tickets/src/Tribe/Admin/Ticket_Settings.php:22
@@ -2990,50 +2980,50 @@ msgstr "Imagine Antet Bilet"
 msgid "Set as ticket header"
 msgstr "Stabilit ca antet bilet"
 
-#: vendor/tickets/src/Tribe/Tickets.php:369
+#: vendor/tickets/src/Tribe/Tickets.php:364
 msgid "Your ticket has been saved."
-msgstr "Biletul dvs. a fost salvat."
+msgstr "Tichetul tău a fost salvat."
 
-#: vendor/tickets/src/Tribe/Tickets.php:529
+#: vendor/tickets/src/Tribe/Tickets.php:524
 msgid "Your ticket has been deleted."
-msgstr "Biletul dvs. a fost şters."
+msgstr "Tichetul tău a fost șters."
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:84
-#: vendor/tickets/src/admin-views/list.php:71
+#: vendor/tickets/src/admin-views/list.php:81
 msgid "See who purchased tickets to this event"
 msgstr "Vedeţi cine a achiziţionat bilete la acest eveniment"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:84
-#: vendor/tickets/src/admin-views/attendees.php:24
-#: vendor/tickets/src/admin-views/list.php:73
+#: vendor/tickets/src/admin-views/attendees.php:26
+#: vendor/tickets/src/admin-views/list.php:83
 msgid "Attendees"
 msgstr "Participanți"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:121
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:138
 msgid "You need to select a user or type a valid email address"
 msgstr "Trebuie să selectaţi un utilizator sau să tastaţi o adresă validă de email"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:122
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:139
 msgid "Sending..."
 msgstr "Trimitere..."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:148
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:165
 msgid "Columns"
 msgstr "Coloane"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:148
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:165
 msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
 msgstr "Puteţi folosi Opţiunile de Ecran pentru a selecta coloanele pe care vreţi să le vedeţi. Selecţia funcţionează în tabelul de mai jos, în email, pentru tipărire sau pentru exportarea în CSV."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:285
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:318
 msgid "Yes"
 msgstr "Da"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:314
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:347
 msgid "attendees"
-msgstr "participanţi"
+msgstr "participanți"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:406
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:451
 msgid "Attendee List for: %s"
 msgstr "Listă participanţi pentru: %s"
 
@@ -3066,7 +3056,7 @@ msgstr ""
 #: vendor/tickets/common/src/Tribe/Validate.php:135
 #: vendor/tickets/common/src/Tribe/Validate.php:151
 msgid "%s must contain numbers and letters only"
-msgstr "%s trebuie să conţină doar numere şi litere"
+msgstr "%s trebuie să conțină numai numere și litere"
 
 #: common/src/Tribe/Validate.php:167
 #: vendor/tickets/common/src/Tribe/Validate.php:167
@@ -3151,12 +3141,12 @@ msgstr "Lista ţărilor trebuie formatată sub forma unei singure ţări pe lini
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:26
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:45
 msgid "Select a Country:"
-msgstr "Selectaţi Ţara:"
+msgstr "Selectează o țară:"
 
 #: common/src/Tribe/View_Helpers.php:47
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:47
 msgid "Afghanistan"
-msgstr "Afghanistan"
+msgstr "Afganistan"
 
 #: common/src/Tribe/View_Helpers.php:48
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:48
@@ -3171,7 +3161,7 @@ msgstr "Algeria"
 #: common/src/Tribe/View_Helpers.php:50
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:50
 msgid "American Samoa"
-msgstr "American Samoa"
+msgstr "Samoa Americană"
 
 #: common/src/Tribe/View_Helpers.php:51
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:51
@@ -3196,7 +3186,7 @@ msgstr "Antarctica"
 #: common/src/Tribe/View_Helpers.php:55
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:55
 msgid "Antigua And Barbuda"
-msgstr "Antigua Şi Barbuda"
+msgstr "Antigua și Barbuda"
 
 #: common/src/Tribe/View_Helpers.php:56
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:56
@@ -3226,7 +3216,7 @@ msgstr "Austria"
 #: common/src/Tribe/View_Helpers.php:61
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:61
 msgid "Azerbaijan"
-msgstr "Azerbaijan"
+msgstr "Azerbaidjan"
 
 #: common/src/Tribe/View_Helpers.php:62
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:62
@@ -3286,7 +3276,7 @@ msgstr "Bolivia"
 #: common/src/Tribe/View_Helpers.php:73
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:73
 msgid "Bosnia And Herzegowina"
-msgstr "Bosnia Şi Herzegowina"
+msgstr "Bosnia și Herțegovina"
 
 #: common/src/Tribe/View_Helpers.php:74
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:74
@@ -3296,7 +3286,7 @@ msgstr "Botswana"
 #: common/src/Tribe/View_Helpers.php:75
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:75
 msgid "Bouvet Island"
-msgstr "Bouvet Island"
+msgstr "Insula Bouvet"
 
 #: common/src/Tribe/View_Helpers.php:76
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:76
@@ -3306,7 +3296,7 @@ msgstr "Brazilia"
 #: common/src/Tribe/View_Helpers.php:77
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:77
 msgid "British Indian Ocean Territory"
-msgstr "British Indian Ocean Territory"
+msgstr "Teritoriul Britanic din Oceanul Indian"
 
 #: common/src/Tribe/View_Helpers.php:78
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:78
@@ -3336,7 +3326,7 @@ msgstr "Cambodgia"
 #: common/src/Tribe/View_Helpers.php:83
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:83
 msgid "Cameroon"
-msgstr "Cameroon"
+msgstr "Camerun"
 
 #: common/src/Tribe/View_Helpers.php:84
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:84
@@ -3346,17 +3336,17 @@ msgstr "Canada"
 #: common/src/Tribe/View_Helpers.php:85
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:85
 msgid "Cape Verde"
-msgstr "Cape Verde"
+msgstr "Republica Capului Verde"
 
 #: common/src/Tribe/View_Helpers.php:86
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:86
 msgid "Cayman Islands"
-msgstr "Cayman Islands"
+msgstr "Insulele Cayman"
 
 #: common/src/Tribe/View_Helpers.php:87
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:87
 msgid "Central African Republic"
-msgstr "Central African Republic"
+msgstr "Republica Centrafricană"
 
 #: common/src/Tribe/View_Helpers.php:88
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:88
@@ -3376,22 +3366,22 @@ msgstr "China"
 #: common/src/Tribe/View_Helpers.php:91
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:91
 msgid "Christmas Island"
-msgstr "Christmas Island"
+msgstr "Insula Crăciunului"
 
 #: common/src/Tribe/View_Helpers.php:92
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:92
 msgid "Cocos (Keeling) Islands"
-msgstr "Cocos (Keeling) Islands"
+msgstr "Insulele Cocos (Keeling)"
 
 #: common/src/Tribe/View_Helpers.php:93
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:93
 msgid "Colombia"
-msgstr "Colombia"
+msgstr "Columbia"
 
 #: common/src/Tribe/View_Helpers.php:94
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:94
 msgid "Comoros"
-msgstr "Comoros"
+msgstr "Comore"
 
 #: common/src/Tribe/View_Helpers.php:95
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:95
@@ -3401,12 +3391,12 @@ msgstr "Congo"
 #: common/src/Tribe/View_Helpers.php:96
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:96
 msgid "Congo, The Democratic Republic Of The"
-msgstr "Congo, Republica Democrată"
+msgstr "Republica Democrată Congo"
 
 #: common/src/Tribe/View_Helpers.php:97
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:97
 msgid "Cook Islands"
-msgstr "Cook Islands"
+msgstr "Insulele Cook"
 
 #: common/src/Tribe/View_Helpers.php:98
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:98
@@ -3416,7 +3406,7 @@ msgstr "Costa Rica"
 #: common/src/Tribe/View_Helpers.php:99
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:99
 msgid "Cote D'Ivoire"
-msgstr "Cote D'Ivoire"
+msgstr "Coasta de Fildeș"
 
 #: common/src/Tribe/View_Helpers.php:100
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:100
@@ -3456,7 +3446,7 @@ msgstr "Dominica"
 #: common/src/Tribe/View_Helpers.php:107
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:107
 msgid "Dominican Republic"
-msgstr "Dominican, Republica"
+msgstr "Republica Dominicană"
 
 #: common/src/Tribe/View_Helpers.php:108
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:108
@@ -3481,12 +3471,12 @@ msgstr "El Salvador"
 #: common/src/Tribe/View_Helpers.php:112
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:112
 msgid "Equatorial Guinea"
-msgstr "Guineaa Ecuatorială"
+msgstr "Guineea Ecuatorială"
 
 #: common/src/Tribe/View_Helpers.php:113
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:113
 msgid "Eritrea"
-msgstr "Eritrea"
+msgstr "Eritreea"
 
 #: common/src/Tribe/View_Helpers.php:114
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:114
@@ -3501,12 +3491,12 @@ msgstr "Etiopia"
 #: common/src/Tribe/View_Helpers.php:116
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:116
 msgid "Falkland Islands (Malvinas)"
-msgstr "Falkland, Insulele (Malvine)"
+msgstr "Insulele Falkland (Insulele Malvine)"
 
 #: common/src/Tribe/View_Helpers.php:117
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:117
 msgid "Faroe Islands"
-msgstr "Faroe, Insulele"
+msgstr "Insulele Feroe"
 
 #: common/src/Tribe/View_Helpers.php:118
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:118
@@ -3531,17 +3521,17 @@ msgstr "Franţa, Metropolitană"
 #: common/src/Tribe/View_Helpers.php:122
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:122
 msgid "French Guiana"
-msgstr "Franţa, Guiana"
+msgstr "Guyana Franceză"
 
 #: common/src/Tribe/View_Helpers.php:123
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:123
 msgid "French Polynesia"
-msgstr "Franţa, Polinezia"
+msgstr "Polinezia Franceză"
 
 #: common/src/Tribe/View_Helpers.php:124
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:124
 msgid "French Southern Territories"
-msgstr "Franţa, Teritoriile de Sud"
+msgstr "Teritoriile australe și antarctice franceze"
 
 #: common/src/Tribe/View_Helpers.php:125
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:125
@@ -3582,7 +3572,7 @@ msgstr "Grecia"
 #: common/src/Tribe/View_Helpers.php:132
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:132
 msgid "Greenland"
-msgstr "Groelanda"
+msgstr "Groenlanda"
 
 #: common/src/Tribe/View_Helpers.php:133
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:133
@@ -3592,7 +3582,7 @@ msgstr "Grenada"
 #: common/src/Tribe/View_Helpers.php:134
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:134
 msgid "Guadeloupe"
-msgstr "Guadeloupe"
+msgstr "Guadelupa"
 
 #: common/src/Tribe/View_Helpers.php:135
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:135
@@ -3607,12 +3597,12 @@ msgstr "Guatemala"
 #: common/src/Tribe/View_Helpers.php:137
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:137
 msgid "Guinea"
-msgstr "Guinea"
+msgstr "Guineea"
 
 #: common/src/Tribe/View_Helpers.php:138
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:138
 msgid "Guinea-Bissau"
-msgstr "Guinea-Bissau"
+msgstr "Guineea-Bissau"
 
 #: common/src/Tribe/View_Helpers.php:139
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:139
@@ -3627,7 +3617,7 @@ msgstr "Haiti"
 #: common/src/Tribe/View_Helpers.php:141
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:141
 msgid "Heard And Mc Donald Islands"
-msgstr "Heard Şi Mc Donald, Insulele"
+msgstr "Insula Heard și Insulele McDonald"
 
 #: common/src/Tribe/View_Helpers.php:142
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:142
@@ -3662,7 +3652,7 @@ msgstr "India"
 #: common/src/Tribe/View_Helpers.php:148
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:148
 msgid "Indonesia"
-msgstr "Indonesia"
+msgstr "Indonezia"
 
 #: common/src/Tribe/View_Helpers.php:149
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:149
@@ -3707,7 +3697,7 @@ msgstr "Iordania"
 #: common/src/Tribe/View_Helpers.php:157
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:157
 msgid "Kazakhstan"
-msgstr "Kazakhstan"
+msgstr "Kazahstan"
 
 #: common/src/Tribe/View_Helpers.php:158
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:158
@@ -3722,12 +3712,12 @@ msgstr "Kiribati"
 #: common/src/Tribe/View_Helpers.php:160
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:160
 msgid "Korea, Democratic People's Republic Of"
-msgstr "Coreea, Republica Democrată Populară"
+msgstr "Coreea de Nord"
 
 #: common/src/Tribe/View_Helpers.php:161
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:161
 msgid "Korea, Republic Of"
-msgstr "Coreea, Republica"
+msgstr "Coreea de Sud"
 
 #: common/src/Tribe/View_Helpers.php:162
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:162
@@ -3737,12 +3727,12 @@ msgstr "Kuweit"
 #: common/src/Tribe/View_Helpers.php:163
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:163
 msgid "Kyrgyzstan"
-msgstr "Kyrgyzstan"
+msgstr "Kârgâzstan"
 
 #: common/src/Tribe/View_Helpers.php:164
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:164
 msgid "Lao People's Democratic Republic"
-msgstr "Lao, Republica Democrată Populară"
+msgstr "Laos"
 
 #: common/src/Tribe/View_Helpers.php:165
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:165
@@ -3782,7 +3772,7 @@ msgstr "Lituania"
 #: common/src/Tribe/View_Helpers.php:172
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:172
 msgid "Luxembourg"
-msgstr "Luxembourg"
+msgstr "Luxemburg"
 
 #: common/src/Tribe/View_Helpers.php:173
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:173
@@ -3792,7 +3782,7 @@ msgstr "Macao"
 #: common/src/Tribe/View_Helpers.php:174
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:174
 msgid "Macedonia"
-msgstr "Macedonia"
+msgstr "Republica Macedonia"
 
 #: common/src/Tribe/View_Helpers.php:175
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:175
@@ -3807,7 +3797,7 @@ msgstr "Malawi"
 #: common/src/Tribe/View_Helpers.php:177
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:177
 msgid "Malaysia"
-msgstr "Malaysia"
+msgstr "Malaezia"
 
 #: common/src/Tribe/View_Helpers.php:178
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:178
@@ -3827,7 +3817,7 @@ msgstr "Malta"
 #: common/src/Tribe/View_Helpers.php:181
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:181
 msgid "Marshall Islands"
-msgstr "Marshall, Insulele"
+msgstr "Insulele Marshall"
 
 #: common/src/Tribe/View_Helpers.php:182
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:182
@@ -3922,7 +3912,7 @@ msgstr "Olanda"
 #: common/src/Tribe/View_Helpers.php:200
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:200
 msgid "Netherlands Antilles"
-msgstr "Olanda, Antilele Olandeze"
+msgstr "Antilele Olandeze"
 
 #: common/src/Tribe/View_Helpers.php:201
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:201
@@ -3932,7 +3922,7 @@ msgstr "Noua Caledonie"
 #: common/src/Tribe/View_Helpers.php:202
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:202
 msgid "New Zealand"
-msgstr "Noua Zeelanda"
+msgstr "Noua Zeelandă"
 
 #: common/src/Tribe/View_Helpers.php:203
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:203
@@ -3957,12 +3947,12 @@ msgstr "Niue"
 #: common/src/Tribe/View_Helpers.php:207
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:207
 msgid "Norfolk Island"
-msgstr "Norfolk, Insulele"
+msgstr "Insula Norfolk"
 
 #: common/src/Tribe/View_Helpers.php:208
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:208
 msgid "Northern Mariana Islands"
-msgstr "Marianei de Nord, Insulele"
+msgstr "Comunitatea Insulelor Mariane de Nord"
 
 #: common/src/Tribe/View_Helpers.php:209
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:209
@@ -4022,7 +4012,7 @@ msgstr "Locaţie Nedenumită"
 #: src/functions/template-tags/venue.php:272
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:46
 msgid "United States"
-msgstr "Statele Unite"
+msgstr "S.U.A."
 
 #: src/Tribe/Activation_Page.php:38
 msgid "Go to plugins page"
@@ -4063,13 +4053,13 @@ msgstr ""
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:108 src/Tribe/Main.php:1695
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:109 src/Tribe/Main.php:1695
 #: src/Tribe/Main.php:1768
 msgid "Use Saved %s:"
 msgstr ""
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:138 src/Tribe/Main.php:1505
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:139 src/Tribe/Main.php:1505
 #: src/Tribe/Main.php:1523 src/Tribe/Main.php:1541 src/Tribe/Main.php:1704
 #: src/Tribe/Main.php:1770
 msgid "Edit %s"
@@ -4097,11 +4087,11 @@ msgstr "Categorii %s"
 
 #: src/Tribe/Admin_List.php:252
 msgid "Start Date"
-msgstr "Dată Începere"
+msgstr "Dată de început"
 
 #: src/Tribe/Admin_List.php:253
 msgid "End Date"
-msgstr "Dată Finalizare"
+msgstr "Dată de încheiere"
 
 #: src/Tribe/Admin_List.php:330 src/views/single-event.php:27
 msgid "All %s"
@@ -4131,7 +4121,7 @@ msgstr "Data:"
 msgid "Time:"
 msgstr "Timp:"
 
-#: src/Tribe/Amalgamator.php:253 src/admin-views/tribe-options-general.php:131
+#: src/Tribe/Amalgamator.php:253 src/admin-views/tribe-options-general.php:143
 msgid "Merge Duplicates"
 msgstr "Combinaţi Duplicatele"
 
@@ -4347,8 +4337,8 @@ msgstr "Fișierul temporar nu a fost găsit. Nu s-a putut realiza salvarea %s."
 msgid "Could not save %s."
 msgstr "Nu s-a putut salva %s."
 
-#: common/src/Tribe/Settings.php:583 src/Tribe/Importer/Options.php:53
-#: vendor/tickets/common/src/Tribe/Settings.php:583
+#: common/src/Tribe/Settings.php:585 src/Tribe/Importer/Options.php:53
+#: vendor/tickets/common/src/Tribe/Settings.php:585
 msgid "Settings saved."
 msgstr "Setări salvate."
 
@@ -4386,13 +4376,13 @@ msgstr "Organizatori"
 msgid "Organizer"
 msgstr "Organizator"
 
-#: common/src/Tribe/Settings.php:148 common/src/Tribe/Settings.php:203
-#: common/src/Tribe/Settings.php:204 src/Tribe/Main.php:710
+#: common/src/Tribe/Settings.php:148 common/src/Tribe/Settings.php:202
+#: common/src/Tribe/Settings.php:203 src/Tribe/Main.php:710
 #: src/functions/template-tags/general.php:80
 #: src/io/csv/admin-views/import.php:47
 #: vendor/tickets/common/src/Tribe/Settings.php:148
+#: vendor/tickets/common/src/Tribe/Settings.php:202
 #: vendor/tickets/common/src/Tribe/Settings.php:203
-#: vendor/tickets/common/src/Tribe/Settings.php:204
 msgid "Events"
 msgstr "Evenimente"
 
@@ -4400,7 +4390,7 @@ msgstr "Evenimente"
 msgid "Event"
 msgstr "Eveniment"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.3) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.4) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:636
@@ -4411,7 +4401,7 @@ msgstr "The Events Calendar"
 
 #: src/Tribe/Main.php:788
 msgid "month"
-msgstr "luna"
+msgstr "lună"
 
 #: src/Tribe/Main.php:789
 msgid "list"
@@ -4463,7 +4453,7 @@ msgstr "Ajutor"
 #: vendor/tickets/common/src/Tribe/Settings_Manager.php:263
 #: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:46
 msgid "Licenses"
-msgstr "Licenţe"
+msgstr "Licențe"
 
 #: src/Tribe/Main.php:1118
 msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
@@ -4571,7 +4561,7 @@ msgstr ""
 #. translators: Publish box date format, see http://php.net/date
 #: src/Tribe/Main.php:1607 src/Tribe/Main.php:1635 src/Tribe/Main.php:1655
 msgid "M j, Y @ G:i"
-msgstr "M j, Y @ G:i"
+msgstr "j M Y @ G:i"
 
 #. translators: %s: date and time of the revision
 #: src/Tribe/Main.php:1647
@@ -4626,7 +4616,7 @@ msgstr "Realizat"
 #: common/src/Tribe/Settings_Manager.php:229
 #: vendor/tickets/common/src/Tribe/Settings_Manager.php:229
 msgid "Network"
-msgstr "Reţea"
+msgstr "Rețea"
 
 #: src/Tribe/Main.php:2479
 msgid "page"
