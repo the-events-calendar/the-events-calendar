@@ -47,7 +47,29 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 
 			add_action( 'wp_ajax_tribe_convert_legacy_ignored_events', array( $this, 'ajax_convert_legacy_ignored_events' ) );
 
-			new Tribe__Events__Admin__Notices__Legacy_Ignored_Events();
+			/**
+			 * Register Notices
+			 */
+			Tribe__Admin__Notices::instance()->register( 'legacy-ignored-events', array( $this, 'render_notice_legacy' ), 'dismiss=1&type=warning' );
+		}
+
+		public function render_notice_legacy() {
+			if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( Tribe__Events__Main::POSTTYPE ) ) {
+				return false;
+			}
+
+			if ( empty( $_GET['post_status'] ) || $_GET['post_status'] !== self::$ignored_status ) {
+				return false;
+			}
+
+			if ( ! $this->has_legacy_deleted_posts() ) {
+				return false;
+			}
+
+			$html = '<p>' . '@TODO: Include a Cool message about why you are seen this Notice!' . '</p>';
+			$html .= '<p style="display:inline-block;">' . get_submit_button( esc_html__( 'Migrate Legacy Ignored Events' ), 'secondary', 'tribe-migrate-legacy-events', false ) . '<span class="spinner"></span>' . '</p>';
+
+			return Tribe__Admin__Notices::instance()->render( 'legacy-ignored-events', $html );
 		}
 
 		public function maybe_restore_events( $screen ) {
@@ -322,6 +344,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				'internal'                  => false,
 			);
 			register_post_status( self::$ignored_status, $arguments );
+
+			// We need to register this to have the legacy work
+			register_post_type( self::$legacy_deleted_post, array(
+				'public' => false,
+			) );
 		}
 
 		public function pre_delete_event( $check, $post, $force_delete ) {
