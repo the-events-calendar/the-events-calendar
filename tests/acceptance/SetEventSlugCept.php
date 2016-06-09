@@ -2,7 +2,7 @@
 
 // @group: settings
 
-$I = new NojsacceptanceTester( $scenario );
+$I = new AcceptanceTester( $scenario );
 $I->am( 'administrator' );
 $I->wantTo( 'verify that TEC Single Event slug can be set' );
 
@@ -13,6 +13,7 @@ $event_id = $I->havePostInDatabase(['post_title' => $title , 'post_type' => 'tri
 // act
 $I->loginAsAdmin();
 $I->amOnAdminPage( '/post.php?post=' . $event_id . '&action=edit' );
+$nonce = 
 $I->click( '#edit-slug-buttons > button.edit-slug' );
 $new_slug = 'hopefully-totally-unrelated-slug';
 $I->fillField( '#new-post-slug', $new_slug );

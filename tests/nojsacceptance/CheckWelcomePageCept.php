@@ -1,7 +1,7 @@
 <?php
 
 // @group: settings
-$I = new AcceptanceTester( $scenario );
+$I = new NojsacceptanceTester( $scenario );
 
 $I->am( 'administrator' );
 $I->wantTo( "verify that the Welcome Page has the right content" );

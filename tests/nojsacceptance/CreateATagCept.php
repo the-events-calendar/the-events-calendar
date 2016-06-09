@@ -8,7 +8,7 @@ $I->wantTo( "verify that a tag can be created" );
 
 $term_slug = 'some-event-tag';
 
-$I->seeTermInDatabase( [ 'slug' => $term_slug, 'taxonomy' => 'post_tag' ] );
+$I->dontSeeTermInDatabase( [ 'slug' => $term_slug, 'taxonomy' => 'post_tag' ] );
 
 // act
 $I->loginAsAdmin();
