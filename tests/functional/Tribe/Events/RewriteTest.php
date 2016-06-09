@@ -98,6 +98,25 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 'wpml_permalink', $sut->apply_wpml_permalink_filter( 'foo' ) );
 	}
 
+	/**
+	 * @test
+	 * it should properly parse language global var
+	 * @env wpml
+	 */
+	public function it_should_properly_parse_language_global_var() {
+		$_GET['lang'] = 'it?lang=it';
+
+		$_sitepress = $this->prophesize( 'SitePress' );
+		$_sitepress->convert_url( 'foo', 'it' )->shouldBeCalled( 'wpml_permalink' );
+
+		global $sitepress;
+		$sitepress = $_sitepress->reveal();
+
+		$sut = $this->make_instance();
+
+		$sut->apply_wpml_permalink_filter( 'foo' );
+	}
+
 	private function make_instance() {
 		return new Rewrite( $this->wp_rewrite->reveal() );
 	}

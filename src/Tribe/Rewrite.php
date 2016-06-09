@@ -210,7 +210,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				return $permalink;
 			}
 			
-			$permalink = $this->apply_wpml_permalink_filter( $permalink );
+//			$permalink = $this->apply_wpml_permalink_filter( $permalink );
 			
 			return $permalink;
 		}
@@ -546,6 +546,11 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			if ( ! $this->is_wpml_active() || empty( $_GET['lang'] ) ) {
 				return $permalink;
 			}
+			
+			// successive triggers of the the filter might see a language var in the format "it?lang=it"
+			$lang_frags = explode( '?', wp_strip_all_tags( $_GET['lang'] ) );
+			$lang       = $lang_frags[0];	
+			
 			$lang = wp_strip_all_tags( $_GET['lang'] );
 
 			/** @var SitePress $sitepress */
