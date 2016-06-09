@@ -6,9 +6,6 @@ $I = new AcceptanceTester( $scenario );
 $I->am( 'administrator' );
 $I->wantTo( "verify that the Welcome Page has the right content" );
 
-// arrange
-$I->activate_tec();
-
 // act
 $I->loginAsAdmin();
 $I->amOnAdminPage( '/edit.php?post_type=tribe_events&page=tribe-common&tec-welcome-message=1' );

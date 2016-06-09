@@ -1,6 +1,6 @@
 <?php
 
-$I = new AcceptanceTester( $scenario );
+$I = new NojsacceptanceTester( $scenario );
 $I->am( 'administrator' );
 $I->wantTo( 'Test events CSV import' );
 
