@@ -7,7 +7,7 @@ namespace _generated;
 
 use Codeception\Module\Filesystem;
 use Codeception\Module\WPLoader;
-use Helper\Functional;
+use Helper\Integration;
 
 trait FunctionalTesterActions
 {
