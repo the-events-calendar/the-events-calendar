@@ -25,7 +25,16 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @var [type]
 		 */
 		public static $instance;
-		
+
+		/**
+		 * Prefixing this to a regex component in a rewrite rule will prevent the regex from being prefixed with a `/`.
+		 * 
+		 * @see self::add method
+		 * 
+		 * @var string
+		 */
+		public static $no_slash_regex_prefix = ':::';
+
 		/**
 		 * Static Singleton Factory Method
 		 *
@@ -337,7 +346,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @return Tribe__Events__Rewrite
 		 */
 		public function add( $regex, $args = array() ) {
-			$regex = (array) $regex;
+			$regex_parts = (array) $regex;
 
 			$default = array();
 			$args = array_filter( wp_parse_args( $args, $default ) );
@@ -345,10 +354,19 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			$url = add_query_arg( $args, 'index.php' );
 
 			// Optional Trailing Slash
-			$regex[] = '?$';
+			$regex_parts[] = '?$';
+			
+			$regex_parts = array_filter($regex_parts);
 
 			// Glue the pieces with slashes
-			$regex = implode( '/', array_filter( $regex ) );
+			$regex = '';
+			foreach ( $regex_parts as $regex_part ) {
+				$should_prefix_with_slash = 0 !== strpos( $regex_part, self::$no_slash_regex_prefix ) && '' !== $regex;
+				$part_prefix              = $should_prefix_with_slash ? '/' : '';
+				$regex_part               = $should_prefix_with_slash ? $regex_part : str_replace( self::$no_slash_regex_prefix, '', $regex_part );
+
+				$regex .= $part_prefix . $regex_part;
+			}
 
 			// Add the Bases to the regex
 			foreach ( $this->bases as $key => $value ) {
