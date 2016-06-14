@@ -576,28 +576,35 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		public function render_notice_archive_slug_conflict() {
 			$archive_slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
-			$page         = get_page_by_path( $archive_slug );
+			$conflict     = get_page_by_path( $archive_slug );
 
-			if ( ! $page || 'trash' === $page->post_status ) {
+			if ( ! $conflict || 'trash' === $conflict->post_status ) {
 				return false;
 			}
 
+			$post_type = get_post_type_object( $conflict->post_type );
+			$name      = empty( $post_type->labels->singular_name ) ? 'page' : $post_type->labels->singular_name;
+
 			// What's happening?
-			$page_title = apply_filters( 'the_title', $page->post_title, $page->ID );
-			$line_1     = __( sprintf( 'The page "%1$s" uses the "/%2$s" slug: the Events Calendar plugin will show its calendar in place of the page.', $page_title, $archive_slug ), 'tribe-common' );
+			$page_title = apply_filters( 'the_title', $conflict->post_title, $conflict->ID );
+			$line_1     = sprintf( __( 'The %3$s "%1$s" uses the "/%2$s" slug: the Events Calendar plugin will show its calendar in place of the page.', 'the-events-calendar' ), $page_title, $archive_slug, $name );
 
 			// What the user can do
-			$page_edit_link        = get_edit_post_link( $page->ID );
-			$can_edit_page_link    = sprintf( __( '<a href="%s">Edit the page slug</a>', 'tribe-common' ), $page_edit_link );
-			$page_edit_link_string = current_user_can( 'edit_pages' ) ? $can_edit_page_link : __( 'Ask the site administrator to edit the page slug', 'tribe-common' );
+			$edit_post_link = sprintf( __( 'Ask the site administrator to edit the %s slug', 'the-events-calendar' ), $name );
+			if ( isset( $post_type->cap->edit_posts ) && current_user_can( $post_type->cap->edit_posts ) ) {
+				$edit_post_link = sprintf( __( '<a href="%s">Edit the %s slug</a>', 'the-events-calendar' ), get_edit_post_link( $conflict->ID ), $name );
+			}
 
-			$settings_cap                = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
-			$admin_slug                  = apply_filters( 'tribe_settings_admin_slug', 'tribe-common' );
-			$setting_page_link           = apply_filters( 'tribe_settings_url', admin_url( 'edit.php?page=' . $admin_slug . '#tribe-field-eventsSlug' ) );
-			$can_edit_settings_link      = sprintf( __( '<a href="%s">edit Events settings</a>.', 'tribe-common' ), $setting_page_link );
-			$events_settings_link_string = current_user_can( $settings_cap ) ? $can_edit_settings_link : __( ' ask the site administrator set a different Events URL slug.', 'tribe-common' );
+			$settings_cap       = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
+			$edit_settings_link = __( ' ask the site administrator set a different Events URL slug.', 'the-events-calendar' );
 
-			$line_2 = __( sprintf( '%1$s or %2$s', $page_edit_link_string, $events_settings_link_string ), 'tribe-common' );
+			if ( current_user_can( $settings_cap ) ) {
+				$admin_slug         = apply_filters( 'tribe_settings_admin_slug', 'tribe-common' );
+				$setting_page_link  = apply_filters( 'tribe_settings_url', admin_url( 'edit.php?page=' . $admin_slug . '#tribe-field-eventsSlug' ) );
+				$edit_settings_link = sprintf( __( '<a href="%s">edit Events settings</a>.', 'the-events-calendar' ), $setting_page_link );
+			}
+
+			$line_2 = sprintf( __( '%1$s or %2$s', 'the-events-calendar' ), $edit_post_link, $edit_settings_link );
 
 			return Tribe__Admin__Notices::instance()->render( 'archive-slug-conflict', sprintf( '<p>%s</p><p>%s</p>', $line_1, $line_2 ) );
 		}
