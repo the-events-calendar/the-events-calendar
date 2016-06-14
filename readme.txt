@@ -290,16 +290,17 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.2.1] Unreleased =
 
 * Fix - replace bad return type to avoid notices in the error log [62376]
+* Fix - tribe_get_event_link() didn't work properly when passing second parameter as true [61891]
 
 = [4.2] 2016-06-08 =
 
 * Feature - Added Google Maps API key field in the Settings tab to avoid map timeouts and errors on larger sites (Thanks to Yan for reporting this!)
-* Feature - Added support for featured image, multiple organizers, excerpt and more custom fields in the .csv file import function for events (Thank you to Graphic Designer for posting on UserVoice!) 
-* Feature - Added support for featured image, description, map details and more custom fields in the .csv file import function for venues 
-* Feature - Added support for featured image and description in the .csv file import function for organizers (Thank you to Rebecca for posting on UserVoice!) 
-* Feature - Added an oEmbed template for events 
-* Feature - Improve performance of a query used to determine if there are free/uncosted events (Thank you @fabianmarz for the pull request!) 
-* Feature - Added support for attaching custom post types to events 
+* Feature - Added support for featured image, multiple organizers, excerpt and more custom fields in the .csv file import function for events (Thank you to Graphic Designer for posting on UserVoice!)
+* Feature - Added support for featured image, description, map details and more custom fields in the .csv file import function for venues
+* Feature - Added support for featured image and description in the .csv file import function for organizers (Thank you to Rebecca for posting on UserVoice!)
+* Feature - Added an oEmbed template for events
+* Feature - Improve performance of a query used to determine if there are free/uncosted events (Thank you @fabianmarz for the pull request!)
+* Feature - Added support for attaching custom post types to events
 * Tweak - Improved filtering of the `tribe_event_featured_image()` function (Cheers to @fabianmarz!)
 * Tweak - Add an encoding class for the CSV importer to prevent non utf8 characters from preventing imports (Thanks to screenrage for the report!)
 * Tweak - Improved our JSON-LD output to ensure consistency (Props to @garrettjohnson and Lars!)
