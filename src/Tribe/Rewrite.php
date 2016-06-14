@@ -25,6 +25,11 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @var [type]
 		 */
 		public static $instance;
+		
+		/**
+		 * @var WP_Rewrite
+		 */
+		private $wp_rewrite;
 
 		/**
 		 * Static Singleton Factory Method
@@ -60,7 +65,9 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		/**
 		 * Just dont...
 		 */
-		private function __construct() {}
+		public function __construct($wp_rewrite = null) {
+			$this->wp_rewrite = $wp_rewrite;
+		}
 
 		/**
 		 * After creating the Hooks on WordPress we lock the usage of the function
