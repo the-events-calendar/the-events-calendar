@@ -131,7 +131,11 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 *
 		 * @param Tribe__Events__Rewrite $rewrite
 		 */
-		public function generate_core_rules( Tribe__Events__Rewrite $rewrite ) {
+		public function generate_core_rules( Tribe__Events__Rewrite $rewrite = null ) {
+			if ( null === $rewrite ) {
+				$rewrite = $this;
+			}
+			
 			$options = array(
 				'default_view' => Tribe__Settings_Manager::get_option( 'viewOption', 'month' ),
 			);
