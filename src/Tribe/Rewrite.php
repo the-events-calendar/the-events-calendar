@@ -27,11 +27,6 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		public static $instance;
 		
 		/**
-		 * @var WP_Rewrite
-		 */
-		private $wp_rewrite;
-
-		/**
 		 * Static Singleton Factory Method
 		 *
 		 * @return Tribe__Events__Rewrite
@@ -48,7 +43,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * WP_Rewrite Instance
 		 * @var WP_Rewrite
 		 */
-		public $rewrite;
+		public $wp_rewrite;
 
 		/**
 		 * Rewrite rules Holder
@@ -230,10 +225,15 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @return Tribe__Events__Rewrite       The modified version of the class with the required variables in place
 		 */
 		public function setup( $wp_rewrite = null ) {
-			if ( ! $wp_rewrite instanceof WP_Rewrite ) {
-				global $wp_rewrite;
+			if ( ! $this->wp_rewrite instanceof WP_Rewrite ) {
+				if ( $wp_rewrite instanceof WP_Rewrite ) {
+					$this->wp_rewrite = $wp_rewrite;
+				} else {
+					global $wp_rewrite;
+					$this->wp_rewrite = $wp_rewrite;
+				}
 			}
-			$this->rewrite = $wp_rewrite;
+
 			$this->bases = $this->get_bases( 'regex' );
 
 			return $this;
@@ -354,7 +354,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			// Apply the Preg Indexes to the URL
 			preg_match_all( '/%([0-9])/', $url, $matches );
 			foreach ( end( $matches ) as $index ) {
-				$url = str_replace( '%' . $index, $this->rewrite->preg_index( $index ), $url );
+				$url = str_replace( '%' . $index, $this->wp_rewrite->preg_index( $index ), $url );
 			}
 
 			// Add the rule
