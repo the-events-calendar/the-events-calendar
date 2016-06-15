@@ -197,9 +197,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 * If the month view cache setting itself is not enabled (or not set) then this
 		 * method will always return false.
 		 *
-		 * In other cases, the default rules are to cache everything except for past
-		 * months and months more than 1yr in the future. This policy can be refined
-		 * or replaced via the 'tribe_events_enable_month_view_cache' filter hook.
+		 * In other cases, the default rules are to cache everything in the 2 months past
+		 * to 12 months in the future range. This policy can be refined or replaced via
+		 * the 'tribe_events_enable_month_view_cache' filter hook.
 		 *
 		 * @return bool
 		 */
@@ -220,7 +220,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			}
 
 			// If the requested month is in the past, do not cache
-			if ( $this->args[ 'eventDate' ] < date_i18n( 'Y-m' ) ) {
+			if ( $this->args[ 'eventDate' ] < date_i18n( 'Y-m', Tribe__Date_Utils::wp_strtotime( '-2 months' ) ) ){
 				return false;
 			}
 
