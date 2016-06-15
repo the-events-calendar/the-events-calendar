@@ -253,7 +253,9 @@ class Tribe__Events__Pro__Custom_Meta {
 	 */
 	private static function get_value_to_save( $name, $data ) {
 		$value = '';
-		if ( ! empty( $data ) && ! empty( $data[ $name ] ) ) {
+
+		// We make an exception for (str) '0' because PHP would otherwise deem it to be empty
+		if ( ! empty( $data ) && ( ! empty( $data[ $name ] ) || $data[ $name ] === '0' ) ) {
 			$value = $data[ $name ];
 		} elseif ( ! empty( $_POST[ $name ] ) ) {
 			$value = $_POST[ $name ];
