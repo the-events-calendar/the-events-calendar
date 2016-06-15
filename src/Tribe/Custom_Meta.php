@@ -257,9 +257,10 @@ class Tribe__Events__Pro__Custom_Meta {
 		// We make an exception for (str) '0' because PHP would otherwise deem it to be empty
 		if ( ! empty( $data ) && ( ! empty( $data[ $name ] ) || $data[ $name ] === '0' ) ) {
 			$value = $data[ $name ];
-		} elseif ( ! empty( $_POST[ $name ] ) ) {
+		} elseif ( ! empty( $_POST ) && ! empty( $_POST[ $name ] ) ) {
 			$value = $_POST[ $name ];
 		}
+
 		return $value;
 	}
 
