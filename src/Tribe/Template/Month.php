@@ -219,7 +219,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				return false;
 			}
 
-			// If the requested month is in the past, do not cache
+			// If the requested month is more than 2 months in the past, do not cache
 			if ( $this->args[ 'eventDate' ] < date_i18n( 'Y-m', Tribe__Date_Utils::wp_strtotime( '-2 months' ) ) ) {
 				return false;
 			}
