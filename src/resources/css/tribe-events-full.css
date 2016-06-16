@@ -568,6 +568,16 @@ select.tribe-events-dropdown {
 	margin-bottom: 60px;
 }
 
+.tribe-events-list .tribe-events-loop .tribe-events-image {
+	float: left;
+	margin: 0 3% 0 0;
+	width: 30%;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-events-content {
+	width: 100%;
+}
+
 .tribe-events-list h2.tribe-events-page-title {
 	margin-bottom: 15px;
 }
