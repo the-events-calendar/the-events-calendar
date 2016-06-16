@@ -1182,6 +1182,14 @@ div.tribe-countdown-text {
 	margin-left: 1.25em;
 }
 
+.tribe-theme-twentysixteen .tribe-events-list-photo-description {
+	width: 100%;
+}
+
+.tribe-events-list-photo-description {
+	width: 100%;
+}
+
 /* = Events Venue Widget
    @ Template: widgets/venue-widget.php
 =============================================*/
