@@ -291,6 +291,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Fix - replace bad return type to avoid notices in the error log [62376]
 * Fix - add missing styles for screen reader text [62500]
+* Tweak - adjust the month view caching rules [46581]
 * Fix - tribe_get_event_link() didn't work properly when passing second parameter as true [61891]
 
 = [4.2] 2016-06-08 =
