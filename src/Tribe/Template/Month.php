@@ -163,7 +163,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			 * @param array   $args
 			 */
 			$this->use_cache = apply_filters( 'tribe_events_enable_month_view_cache',
-				$this->enable_month_view_cache(),
+				$this->should_enable_month_view_cache(),
 				$this->args
 			);
 
@@ -203,7 +203,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 *
 		 * @return bool
 		 */
-		protected function enable_month_view_cache() {
+		protected function should_enable_month_view_cache() {
 			// Respect the month view caching setting
 			if ( ! tribe_get_option( 'enable_month_view_cache', false ) ) {
 				return false;
