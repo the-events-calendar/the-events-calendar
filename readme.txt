@@ -206,6 +206,7 @@ Our Premium Plugins:
 = [4.2.1] Unreleased =
 
 * Fix - Fix issue where width of content area in photo view was inheriting styles making it too narrow [62288]
+* Fix - allow '0' to be set as the value of additional fields [45674]
 
 = [4.2] 2016-06-08 =
 
