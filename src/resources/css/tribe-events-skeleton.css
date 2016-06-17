@@ -718,7 +718,7 @@ select.tribe-events-dropdown {
 
 .tribe-events-calendar td a {
 	font-size: 69.6%;
-	word-break: break-word;
+	word-wrap: break-word;
 }
 
 .tribe-events-calendar div[id*='tribe-events-event-'],
