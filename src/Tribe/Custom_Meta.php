@@ -253,11 +253,18 @@ class Tribe__Events__Pro__Custom_Meta {
 	 */
 	private static function get_value_to_save( $name, $data ) {
 		$value = '';
-		if ( ! empty( $data ) && ! empty( $data[ $name ] ) ) {
-			$value = $data[ $name ];
-		} elseif ( ! empty( $_POST[ $name ] ) ) {
-			$value = $_POST[ $name ];
+
+		// $data takes precedence over $_POST but we want to check both
+		if ( isset( $_POST ) ) {
+			$data = array_merge( $data, $_POST );
 		}
+
+		// Is the field set and non-empty? Note that we make an exception for (string) '0'
+		// which in this case we don't want to treat as being empty
+		if ( isset( $data[ $name ] ) && ( $data[ $name ] === '0' || ! empty( $data[ $name ] ) ) ) {
+			$value = $data[ $name ];
+		}
+
 		return $value;
 	}
 
