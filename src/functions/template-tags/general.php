@@ -173,7 +173,10 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 						apply_filters( 'tribe_get_event_website_link_label', $url_label )
 						);
 				}
-				if ( $meta ) {
+
+				// Display $meta if not empty - making a special exception for (string) '0'
+				// which in this context should be considered a valid, non-empty value
+				if ( $meta || '0' === $meta ) {
 					$data[ esc_html( $field['label'] ) ] = $meta; // $meta has been through wp_kses - links are allowed
 				}
 			}
