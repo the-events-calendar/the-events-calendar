@@ -27,7 +27,7 @@ class Tribe__Events__Pro__Recurrence__Series_Rules_Factory {
 	 * @param array $recurrence An event recurrence meta entry.
 	 * @param string $rule_type The rule type, defaults to `rules`.
 	 *
-	 * @return Tribe__Events__Pro__Date_Series_Rules__Rules_Interface A date series rule instance.
+	 * @return Tribe__Events__Pro__Date_Series_Rules__Rules_Interface|WP_Error A date series rule instance or a WP_Error on fail.
 	 */
 	public function build_from( array $recurrence, $rule_type = 'rules' ) {
 		if ( 'exclusions' === $rule_type ) {
@@ -97,6 +97,12 @@ class Tribe__Events__Pro__Recurrence__Series_Rules_Factory {
 		return 'invalid';
 	}
 
+	/**
+	 * @param string $type
+	 * @param array  $recurrence
+	 *
+	 * @return Tribe__Events__Pro__Date_Series_Rules__Date|Tribe__Events__Pro__Date_Series_Rules__Day|Tribe__Events__Pro__Date_Series_Rules__Month|Tribe__Events__Pro__Date_Series_Rules__Week|WP_Error
+	 */
 	private function build_rule_for_type( $type = Tribe__Events__Pro__Recurrence__Custom_Types::DATE_CUSTOM_TYPE, array $recurrence ) {
 		switch ( $type ) {
 			case Tribe__Events__Pro__Recurrence__Custom_Types::DATE_CUSTOM_TYPE:

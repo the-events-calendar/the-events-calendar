@@ -888,6 +888,12 @@ class Tribe__Events__Pro__Recurrence__Meta {
 			foreach ( $recurrence_meta[ $rule_type ] as &$recurrence ) {
 				$rule = Tribe__Events__Pro__Recurrence__Series_Rules_Factory::instance()->build_from( $recurrence, $rule_type );
 
+				// recurrence meta entry might be malformed
+				if ( is_wp_error( $rule ) ) {
+					// let's not process it and let's not try to fix it as it might be a third-party modification
+					continue;
+				}
+
 				$custom_type = 'none';
 				$start_time  = null;
 				$duration    = (int) get_post_meta( $event_id, '_EventDuration', true );
