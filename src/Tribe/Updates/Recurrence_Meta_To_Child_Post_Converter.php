@@ -29,18 +29,27 @@ class Tribe__Events__Pro__Updates__Recurrence_Meta_To_Child_Post_Converter {
 		if ( ! is_array( $start_dates ) ) {
 			return;
 		}
-		sort( $start_dates );
+
+
 		$original    = array_shift( $start_dates );
 		$start_dates = array_map( 'strtotime', $start_dates );
-		foreach ( $start_dates as $date ) {
+
+		$prepared_start_dates = array_map( array( $this, 'start_date_to_sequence' ), $start_dates );
+		$sequence             = new Tribe__Events__Pro__Recurrence__Sequence( $prepared_start_dates, $event_id );
+
+		foreach ( $sequence->get_sorted_sequence() as $date ) {
 			if ( ! empty( $date ) ) {
 				set_time_limit( 30 );
-				$instance = new Tribe__Events__Pro__Recurrence__Instance( $event_id, $date );
+				$instance = new Tribe__Events__Pro__Recurrence__Instance( $event_id, $date, 0, $date['sequence'] );
 				$instance->save();
 				delete_post_meta( $event_id, '_EventStartDate', date( 'Y-m-d H:i:s', $date ) );
 			}
 		}
 		delete_post_meta( $event_id, '_EventStartDate' );
 		update_post_meta( $event_id, '_EventStartDate', $original );
+	}
+
+	private function start_date_to_sequence( array $start_date ) {
+		return array( 'timestamp' => $start_date );
 	}
 }
