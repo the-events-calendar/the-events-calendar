@@ -48,10 +48,23 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	public function enqueue_scripts() {
+		wp_localize_script( 'jquery', 'tribe_events_linked_posts', $this->get_post_type_container_data() );
+	}
+
+	/**
+	 * Generates post_type => container key value pairs of linked post types for use on the front end
+	 */
+	public function get_post_type_container_data() {
+		$post_types = array_keys( $this->linked_post_types );
 		$data = array(
-			'post_types' => array_keys( $this->linked_post_types ),
+			'post_types' => array(),
 		);
-		wp_localize_script( 'jquery', 'tribe_events_linked_posts', $data );
+
+		foreach ( $post_types as $post_type ) {
+			$data['post_types'][ $post_type ] = $this->get_post_type_container( $post_type );
+		}
+
+		return $data;
 	}
 
 	/**
@@ -573,13 +586,8 @@ class Tribe__Events__Linked_Posts {
 		$linked_post_types = $this->get_linked_post_types();
 
 		foreach ( $linked_post_types as $linked_post_type => $linked_post_type_data ) {
-			$linked_post_type_container = $this->get_post_type_container( $linked_post_type );
-
-			if ( ! isset( $submission[ $linked_post_type_container ] ) ) {
-				$submission[ $linked_post_type_container ] = array();
-			}
-
-			$this->handle_submission_by_post_type( $event_id, $linked_post_type, $submission[ $linked_post_type_container ] );
+			$linked_post_type_data = $this->get_linked_post_type_data( $submission, $linked_post_type );
+			$this->handle_submission_by_post_type( $event_id, $linked_post_type, $linked_post_type_data );
 		}
 	}
 
@@ -604,17 +612,15 @@ class Tribe__Events__Linked_Posts {
 		$event_post_status         = get_post_status( $event_id );
 
 		if ( ! isset( $submission[ $linked_post_type_id_field ] ) ) {
-			$submission[ $linked_post_type_id_field ] = array();
+			$submission[ $linked_post_type_id_field ] = array( 0 );
 		}
 
-		// if multiple post types are not supported, ensure that the submission array is set up appropriately
-		if ( ! $this->allow_multiple( $linked_post_type ) && ! is_array( $submission[ $linked_post_type_id_field ] ) ) {
-			$temp_submission = $submission;
-			$submission = array();
+		$temp_submission = $submission;
+		$submission = array();
 
-			foreach ( $temp_submission as $key => $value ) {
-				$submission[ $key ] = array( $value );
-			}
+		// make sure all elements are arrays
+		foreach ( $temp_submission as $key => $value ) {
+			$submission[ $key ] = is_array( $value ) ? $value : array( $value );
 		}
 
 		$fields = array_keys( $submission );
@@ -635,7 +641,14 @@ class Tribe__Events__Linked_Posts {
 
 			$data = array();
 			foreach ( $fields as $field_name ) {
-				$data[ $field_name ] = isset( $submission[ $field_name ][ $key ] ) ? $submission[ $field_name ][ $key ] : null;
+				// If allow_multiple := true then each submission field may be an array
+				if ( is_array( $submission[ $field_name ] ) ) {
+					$data[ $field_name ] = isset( $submission[ $field_name ][ $key ] ) ? $submission[ $field_name ][ $key ] : null;
+				}
+				// In other cases, such as if multiple := false each submission field will contain a single value
+				else {
+					$data[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : null;
+				}
 			}
 
 			// set the post status to the event post status
@@ -689,11 +702,10 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
-	 * helper function for displaying the saved organizer dropdown
-	 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
+	 * Helper function for displaying dropdowns for linked post types
 	 *
-	 * @param mixed  $current the current saved venue
-	 * @param string $name    the name value for the field
+	 * @param string $post_type Post type to display dropdown for
+	 * @param mixed  $current the current saved linked post item
 	 */
 	public function saved_linked_post_dropdown( $post_type, $current = null ) {
 		$linked_post_type_container = $this->get_post_type_container( $post_type );
@@ -842,5 +854,36 @@ class Tribe__Events__Linked_Posts {
 			$template = apply_filters( 'tribe_events_linked_post_meta_box_section', $this->main->plugin_path . 'src/admin-views/linked-post-section.php', $linked_post_type );
 			include $template;
 		}
+	}
+
+	/**
+	 * @param $submission
+	 * @param $linked_post_type
+	 *
+	 * @return array
+	 */
+	private function get_linked_post_type_data( $submission, $linked_post_type ) {
+		$linked_post_type_container = $this->get_post_type_container( $linked_post_type );
+
+		// Allow for the post type container to have first letter in uppercase form.
+		// e.g. `venue` and `Venue` should both be valid.
+		$linked_post_type_containers_candidates = array( $linked_post_type_container, ucfirst( $linked_post_type_container ) );
+
+		$post_type_container = false;
+
+		foreach ( $linked_post_type_containers_candidates as $candidate_post_type_container ) {
+			if ( isset( $submission[ $candidate_post_type_container ] ) ) {
+				$post_type_container = $candidate_post_type_container;
+				break;
+			}
+		}
+
+		if ( false === $post_type_container ) {
+			$data = array();
+		} else {
+			$data = $submission[ $post_type_container ];
+		}
+
+		return $data;
 	}
 }
