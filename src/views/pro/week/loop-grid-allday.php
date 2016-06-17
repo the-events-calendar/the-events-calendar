@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="tribe-grid-allday clearfix">
 	<div class="column first">
-		<span><?php esc_html_e( 'All Day', 'tribe-events-calendar-pro' ); ?></span>
+		<?php esc_html_e( 'All Day', 'tribe-events-calendar-pro' ); ?>
 	</div>
 	<div class="tribe-grid-content-wrap">
 		<?php while ( tribe_events_week_have_days() ) : tribe_events_week_the_day(); ?>
