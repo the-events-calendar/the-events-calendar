@@ -130,10 +130,6 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @param Tribe__Events__Rewrite $rewrite
 		 */
 		public function generate_core_rules( Tribe__Events__Rewrite $rewrite ) {
-			$options = array(
-				'default_view' => Tribe__Settings_Manager::get_option( 'viewOption', 'month' ),
-			);
-
 			$rewrite
 				// Single
 				->single( array( '(\d{4}-\d{2}-\d{2})' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'eventDate' => '%2' ) )
@@ -169,7 +165,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				->tax( array( 'feed' ), array( 'eventDisplay' => 'list', 'feed' => 'rss2' ) )
 				->tax( array( 'ical' ), array( 'ical' => 1 ) )
 				->tax( array( 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'feed' => '%2' ) )
-				->tax( array(), array( 'eventDisplay' => $options['default_view'] ) )
+				->tax( array(), array( 'eventDisplay' => 'default' ) )
 
 				// Tag
 				->tag( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
@@ -183,7 +179,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				->tag( array( 'feed' ), array( 'eventDisplay' => 'list', 'feed' => 'rss2' ) )
 				->tag( array( 'ical' ), array( 'ical' => 1 ) )
 				->tag( array( 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'feed' => '%2' ) )
-				->tag( array(), array( 'eventDisplay' => $options['default_view'] ) );
+				->tag( array(), array( 'eventDisplay' => 'default' ) );
 		}
 
 		/**
