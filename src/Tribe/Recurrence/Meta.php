@@ -833,6 +833,8 @@ class Tribe__Events__Pro__Recurrence__Meta {
 		$latest_date = strtotime( self::$scheduler->get_latest_date() );
 
 		$recurrences = self::get_recurrence_for_event( $event_id );
+
+		/** @var Tribe__Events__Pro__Recurrence $recurrence */
 		foreach ( $recurrences['rules'] as &$recurrence ) {
 			$recurrence->setMinDate( strtotime( $next_pending ) );
 			$recurrence->setMaxDate( $latest_date );
