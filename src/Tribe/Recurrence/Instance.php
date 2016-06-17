@@ -83,6 +83,10 @@ class Tribe__Events__Pro__Recurrence__Instance {
 			add_post_meta( $this->post_id, '_EventEndDate',      $this->db_formatted_end_date() );
 			add_post_meta( $this->post_id, '_EventEndDateUTC',   $this->db_formatted_end_date_utc() );
 			add_post_meta( $this->post_id, '_EventDuration',     $this->duration );
+
+			if ( ! empty( $this->sequence_number ) && 1 !== $this->sequence_number ) {
+				add_post_meta( $this->post_id, '_EventSequence', $this->sequence_number );
+			}
 		}
 
 		$this->copy_meta(); // everything else
