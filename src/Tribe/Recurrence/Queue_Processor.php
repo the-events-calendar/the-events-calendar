@@ -229,6 +229,16 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 	protected function do_creations() {
 		$exclusions = $this->current_queue->instances_to_exclude();
 		$instances_to_create = $this->current_queue->instances_to_create();
+		
+		$last_inserted_instance_timestamp = false;
+		$sequence_number                  = 1;
+		
+		// determine the parent event timezone to use for same day comparison between events
+		$timezone = Tribe__Events__Timezones::get_event_timezone_string( $this->current_event_id );
+		$timezone = Tribe__Events__Timezones::generate_timezone_string_from_utc_offset($timezone);
+
+		// sort the dates to create by starting time
+		usort($instances_to_create,array($this, 'sort_by_start_date'));
 
 		foreach ( $instances_to_create as $key => $date_duration ) {
 			// Don't process more than the current batch size allows
@@ -244,11 +254,21 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 				continue;
 			}
 
-			$instance = new Tribe__Events__Pro__Recurrence__Instance( $this->current_event_id, $date_duration );
+			$same_start_date_and_time = $date_duration['timestamp'] === $last_inserted_instance_timestamp;
+			$is_part_of_sequence      = $same_start_date_and_time || $this->timestamps_are_in_same_day( $date_duration['timestamp'], $last_inserted_instance_timestamp, $timezone );
+			
+			if ( ! $is_part_of_sequence ) {
+				$sequence_number = 1;
+			} else {
+				++$sequence_number;
+			}
+			
+			$instance                   = new Tribe__Events__Pro__Recurrence__Instance( $this->current_event_id, $date_duration, 0, $sequence_number );
 			$instance->save();
 
 			unset( $instances_to_create[ $key ] );
 			$this->processed++;
+			$last_inserted_instance_timestamp = $date_duration['timestamp'];
 		}
 
 		$this->current_queue->instances_to_create( $instances_to_create );
@@ -265,5 +285,28 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 	 */
 	protected function batch_complete() {
 		return ( $this->processed >= $this->batch_size );
+	}
+
+	private function sort_by_start_date($a, $b) {
+		$a_timestamp = $a['timestamp'];
+		$b_timestamp = $b['timestamp'];
+		
+		if ($a_timestamp == $b_timestamp) {
+			return 0;
+		}
+		return ($a_timestamp < $b_timestamp) ? -1 : 1;
+	}
+
+	private function timestamps_are_in_same_day( $a_timestamp, $b_timestamp, $timezone_string ) {
+		if ( false === $a_timestamp || false === $b_timestamp ) {
+			return false;
+		}
+
+		$timezone     = new DateTimeZone( $timezone_string );
+		$format       = DateTime::COOKIE;
+		$a_start_date = new DateTime( date( $format, $a_timestamp ), $timezone );
+		$b_start_date = new DateTime( date( $format, $b_timestamp ), $timezone );
+
+		return $a_start_date->format( 'Y-d-m' ) === $b_start_date->format( 'Y-d-m' );
 	}
 }
