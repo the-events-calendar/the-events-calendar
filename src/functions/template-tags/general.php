@@ -1540,9 +1540,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @version 4.2.1
 	 */
 	global $wp_version;
-	if( version_compare( $wp_version, '4.4', '<' ) ) {
-	    if ( ! function_exists( 'is_embed' ) ) {
-	        function is_embed() { return false; }
-	    }
+	if ( version_compare( $wp_version, '4.4', '<' ) ) {
+		if ( ! function_exists( 'is_embed' ) ) {
+			function is_embed() {
+				return false;
+			}
+		}
 	}
 }

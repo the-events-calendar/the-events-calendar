@@ -291,6 +291,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Fix - replace bad return type to avoid notices in the error log [62376]
 * Fix - add missing styles for screen reader text [62500]
+* Fix - prevent fatal error of is_embed on WordPress 4.3 and lower [62577]
 
 = [4.2] 2016-06-08 =
 
