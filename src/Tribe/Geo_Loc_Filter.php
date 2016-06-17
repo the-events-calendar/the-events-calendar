@@ -59,7 +59,7 @@ class Tribe__Events__Pro__Geo_Loc_Filter extends Tribe__Events__Filterbar__Filte
 			)
 		);
 
-		return '<div class="tribe_events_active_filter_type_options">' . $field . '</div>';
+		return '<div class="tribe_events_active_filter_type_options">' . $field . '<p><em>Please note that this filter will only appear if the user has performed a Location Search. The distance will be calculated from the location entered.</em></p></div>';
 	}
 
 	protected function setup_query_filters() {
