@@ -37,6 +37,8 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		$this->post_type = $post_type;
 		$this->singular_name = $this->linked_posts->linked_post_types[ $this->post_type ]['singular_name'];
 		$this->get_event( $event );
+
+		add_action( 'wp', array( $this, 'sticky_form_data' ), 50 ); // Later than events-admin.js itself is enqueued
 	}
 
 	/**
@@ -235,4 +237,37 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		echo '<a class="dashicons dashicons-trash delete-linked-post-group" href="#"></a>';
 	}
 
+	/**
+	 * Supply previously submitted organizer field values to the events-admin.js
+	 * script in order to provide them with sticky qualities.
+	 *
+	 * This *must* run later than the action:priority used to enqueue
+	 * events-admin.js.
+	 */
+	public function sticky_form_data() {
+		$submitted_data = array();
+
+		$linked_posts = Tribe__Events__Linked_Posts::instance();
+		$container = $linked_posts->get_post_type_container( $this->post_type );
+
+		if ( empty( $_POST[ $container ] ) || ! is_array( $_POST[ $container ] ) ) {
+			return;
+		}
+
+		foreach ( $_POST[ $container ] as $field => $set_of_values ) {
+			if ( ! is_array( $set_of_values ) ) {
+				continue;
+			}
+
+			foreach ( $set_of_values as $index => $value ) {
+				if ( ! isset( $submitted_data[ $index ] ) ) {
+					$submitted_data[ $index ] = array();
+				}
+
+				$submitted_data[ $index ][ $field ] = esc_attr( $value );
+			}
+		}
+
+		wp_localize_script( 'tribe-events-admin', 'tribe_sticky_' . $this->post_type . '_fields', $submitted_data );
+	}
 }

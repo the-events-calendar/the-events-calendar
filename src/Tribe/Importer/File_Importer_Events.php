@@ -55,6 +55,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		$query_args['meta_query'] = $meta_query;
+		$query_args['tribe_remove_date_filters'] = true;
 
 		add_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
 		$matches = get_posts( $query_args );
@@ -138,14 +139,14 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventEndHour'          => date( 'h', $end_date ),
 			'EventEndMinute'        => date( 'i', $end_date ),
 			'EventEndMeridian'      => date( 'a', $end_date ),
-			'EventShowMapLink'      => $this->get_boolean_value_by_key( $record, 'event_show_map_link' ),
-			'EventShowMap'          => $this->get_boolean_value_by_key( $record, 'event_show_map' ),
+			'EventShowMapLink'      => $this->get_boolean_value_by_key( $record, 'event_show_map_link', '1', '' ),
+			'EventShowMap'          => $this->get_boolean_value_by_key( $record, 'event_show_map', '1', '' ),
 			'EventCost'             => $this->get_value_by_key( $record, 'event_cost' ),
 			'EventAllDay'           => $this->get_boolean_value_by_key( $record, 'event_all_day', 'yes' ),
 			'EventHideFromUpcoming' => $this->get_boolean_value_by_key( $record, 'event_hide', 'yes', '' ),
 			'EventURL'              => $this->get_value_by_key( $record, 'event_website' ),
 			'EventCurrencySymbol'   => $this->get_value_by_key( $record, 'event_currency_symbol' ),
-			'EventCurrencyPosition' => $this->get_value_by_key( $record, 'event_currency_position' ),
+			'EventCurrencyPosition' => $this->get_currency_position( $record ),
 			'FeaturedImage'         => $featured_image,
 			'EventTimezone'         => $this->get_timezone( $this->get_value_by_key( $record, 'event_timezone' ) ),
 		);
@@ -153,7 +154,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {
 			$event['organizer'] = is_array( $organizer_id ) ? $organizer_id : array( 'OrganizerID' => $organizer_id );
 		}
-
+		
 		if ( $venue_id = $this->find_matching_venue_id( $record ) ) {
 			$event['venue'] = array( 'VenueID' => $venue_id );
 		}
@@ -188,10 +189,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	private function find_matching_organizer_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_organizer_name' );
-
-		// if the organizers have a space and the items that are separated by spaces are numbers
-		if ( strpos( $name, ' ' ) && is_numeric( str_replace( ' ', '', $name ) ) ) {
-			$split = explode( ' ', $name );
+		
+		// organizer name is a list of IDs either space or comma separated
+		if ( preg_match( '/[\\s,]+/', $name ) && is_numeric( preg_replace( '/[\\s,]+/', '', $name ) ) ) {
+			$split = preg_split( '/[\\s,]+/', $name );
 			$match = array();
 			foreach ( $split as $possible_id_match ) {
 				$match[] = $this->find_matching_post_id( $possible_id_match, Tribe__Events__Organizer::POSTTYPE );
@@ -225,7 +226,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	private function find_matching_venue_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_venue_name' );
 
-		return array( 'VenueID' => array( $this->find_matching_post_id( $name, Tribe__Events__Venue::POSTTYPE ) ) );
+		return $this->find_matching_post_id( $name, Tribe__Events__Venue::POSTTYPE );
 	}
 
 	/**
@@ -293,6 +294,27 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		return $import_excerpt;
+	}
+
+	/**
+	 * Allows the user to specify the currency position using alias terms.
+	 * 
+	 * @param array $record
+	 *
+	 * @return string Either `prefix` or `suffix`; will fall back on the first if the specified position is not
+	 *                a recognized alias.
+	 */
+	private function get_currency_position( array $record ) {
+		$currency_position = $this->get_value_by_key( $record, 'event_currency_position' );
+		$after_aliases     = [ 'suffix', 'after' ];
+
+		foreach ( $after_aliases as $after_alias ) {
+			if ( preg_match( '/' . $after_alias . '/i', $currency_position ) ) {
+				return 'suffix';
+			}
+		}
+
+		return 'prefix';
 	}
 
 }

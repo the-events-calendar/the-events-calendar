@@ -202,20 +202,29 @@ jQuery( document ).ready( function( $ ) {
 
 
 	var setup_linked_post_fields = function( post_type ) {
-		var saved_template = wp.template( 'tribe-select-' + post_type );
-		var create_template = wp.template( 'tribe-create-' + post_type );
+		var saved_template = $( document.getElementById( 'tmpl-tribe-select-' + post_type ) ).length ? wp.template( 'tribe-select-' + post_type ) : null;
+		var create_template = $( document.getElementById( 'tmpl-tribe-create-' + post_type ) ).length ? wp.template( 'tribe-create-' + post_type ) : null;
 		var section = $( document.getElementById( 'event_' + post_type ) );
 		var rows = section.find( '.saved-linked-post' );
 
 		section.on( 'click', '.tribe-add-post', function(e) {
 			e.preventDefault();
-			var dropdown = $( saved_template({}) );
+			var dropdown = $({}), fields = $({});
+
+			if ( saved_template ) {
+				dropdown = $( saved_template({}) );
+			}
+
 			if ( dropdown.find( '.nosaved' ).length ) {
 				var label = dropdown.find( 'label' );
 				label.text( label.data( 'l10n-create-' + post_type ) );
 				dropdown.find( '.nosaved' ).remove();
 			}
-			var fields = $( create_template({}) );
+
+			if ( create_template ) {
+				fields = $( create_template({}) );
+			}
+
 			section.find( 'tfoot' ).before( fields );
 			fields.prepend( dropdown );
 			fields.find( '.chosen' ).chosen().trigger( 'change' );
@@ -223,10 +232,50 @@ jQuery( document ).ready( function( $ ) {
 
 		section.on( 'change', '.linked-post-dropdown', toggle_linked_post_fields );
 
+		/**
+		 * Populates the organizer fields with previously submitted data to
+		 * give them sticky form qualities.
+		 *
+		 * @todo consider retooling to work with all linked post types
+		 *
+		 * @param fields
+		 */
+		function add_sticky_linked_post_data( post_type, container, fields ) {
+			// Bail if expected global array tribe_sticky_organizer_fields is not set
+			if ( 'undefined' === typeof window['tribe_sticky_' + post_type + '_fields'] || ! $.isArray( window['tribe_sticky_' + post_type + '_fields'] ) ) {
+				return;
+			}
+
+			// The organizer fields also need sticky field behaviour: populate
+			// them if we've been provided with the necessary data to do so
+			var sticky_data = window['tribe_sticky_' + post_type + '_fields'].shift();
+
+			if ( 'object' === typeof sticky_data ) {
+				for ( var key in sticky_data ) {
+					// Check to see if we have a field of this name
+					var $field = $( fields ).find( 'input[name="' + container + '[' + key + '][]"]' );
+
+					if ( ! $field.length ) {
+						continue;
+					}
+
+					// Set the value accordingly
+					$field.val( sticky_data[ key ] );
+				}
+			}
+		}
+
 		rows.each( function () {
 			var row = $( this );
 			var group = row.closest( 'tbody' );
-			var fields = $( create_template( {} ) ).find( 'tr' ); // we already have our tbody
+			var fields;
+
+			if ( create_template ) {
+				fields = $( create_template( {} ) ).find( 'tr' ); // we already have our tbody
+			} else {
+				fields = group.find( 'tr' ).slice( 2 );
+			}
+
 			var dropdown = row.find( '.linked-post-dropdown' );
 			if ( dropdown.length ) {
 				var value = dropdown.val();
@@ -238,6 +287,16 @@ jQuery( document ).ready( function( $ ) {
 				label.text( label.data( 'l10n-create-' + post_type ) );
 				row.find( '.nosaved' ).remove();
 			}
+
+			// Populate the fields with any sticky data then add them to the page
+			for ( var i in tribe_events_linked_posts.post_types ) {
+				if ( ! tribe_events_linked_posts.post_types.hasOwnProperty( i ) ) {
+					continue;
+				}
+
+				add_sticky_linked_post_data( i, tribe_events_linked_posts.post_types[ i ], fields );
+			}
+
 			group.append( fields );
 		} );
 
@@ -437,40 +496,12 @@ jQuery( document ).ready( function( $ ) {
 			$end_month.change();
 		} );
 
-		/*
-		// hide unnecessary fields
-		var venueFields = $( ".venue" ),
-			savedVenue = $( "#saved_venue" );
-
-		if ( savedVenue.length > 0 && savedVenue.val() != '0' ) {
-			venueFields.hide();
-			$( '[name="venue[Venue]"]' ).val( '' );
-		}
-
-		savedVenue.change( function() {
-			var selected_venue_id = $(this).val(),
-				current_edit_link = $('.edit-venue-link a').attr( 'data-admin-url' );
-
-			if ( selected_venue_id == '0' ) {
-				venueFields.fadeIn();
-				$( "#EventCountry" ).val( 0 ).trigger( "chosen:updated" );
-				$( "#StateProvinceSelect" ).val( 0 ).trigger( "chosen:updated" );
-				tribeShowHideCorrectStateProvinceInput( '' );
-				$('.edit-venue-link').hide();
-			}
-			else {
-				venueFields.fadeOut();
-				$('.edit-venue-link').show();
-
-				// Change edit link
-
-				$('.edit-venue-link a').attr( 'href', current_edit_link + selected_venue_id );
-			}
-		} );
-		*/
-
 		for ( var i in tribe_events_linked_posts.post_types ) {
-			setup_linked_post_fields( tribe_events_linked_posts.post_types[ i ] );
+			if ( ! tribe_events_linked_posts.post_types.hasOwnProperty( i ) ) {
+				continue;
+			}
+
+			setup_linked_post_fields( i );
 		}
 	}
 

@@ -1,6 +1,8 @@
 <?php
 /**
  * Events post main metabox
+ *
+ * @version 4.2
  */
 
 // Don't load directly

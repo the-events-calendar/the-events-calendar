@@ -32,6 +32,7 @@ class File_Importer_Events_TimezoneTest extends File_Importer_EventsTest {
 			[ 'Pacific/Saipan', 'Pacific/Saipan' ],
 			[ 'Atlantic/Bermuda', 'Atlantic/Bermuda' ],
 			[ 'Atlantic/Reykjavik', 'Atlantic/Reykjavik' ],
+			[ 'America/Los_Angeles', 'America/Los_Angeles' ],
 			[ 'CST6CDT', 'CST6CDT' ],
 			[ 'EST', 'EST' ],
 			[ 'GMT', 'GMT' ],
