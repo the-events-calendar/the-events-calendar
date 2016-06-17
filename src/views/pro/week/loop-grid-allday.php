@@ -6,6 +6,7 @@
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/week/loop-grid-allday.php
  *
  * @package TribeEventsCalendar
+ * @version 4.2.1
  *
  */
 
@@ -15,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="tribe-grid-allday clearfix">
 	<div class="column first">
-		<?php esc_html_e( 'All Day', 'tribe-events-calendar-pro' ); ?>
+		<span><?php esc_html_e( 'All Day', 'tribe-events-calendar-pro' ); ?></span>
 	</div>
 	<div class="tribe-grid-content-wrap">
 		<?php while ( tribe_events_week_have_days() ) : tribe_events_week_the_day(); ?>

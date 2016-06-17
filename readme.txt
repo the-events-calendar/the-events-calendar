@@ -207,6 +207,7 @@ Our Premium Plugins:
 
 * Fix - Fix issue where width of content area in photo view was inheriting styles making it too narrow [62288]
 * Fix - allow '0' to be set as the value of additional fields [45674]
+* Fix - fixed an issue where 'All Day' label was displaying Wednesday rather than the time column
 
 = [4.2] 2016-06-08 =
 
