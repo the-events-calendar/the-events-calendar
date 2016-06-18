@@ -291,15 +291,6 @@
 	top: 0;
 }
 
-.tribe-grid-allday .column.first span {
-	left: 50%;
-	margin-left: -15px;
-	margin-top: -12px;
-	position: absolute;
-	top: 50%;
-	width: 30px;
-}
-
 .tribe-grid-allday .type-tribe_events {
 	margin: 0;
 	position: relative;
