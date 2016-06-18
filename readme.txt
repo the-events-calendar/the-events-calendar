@@ -1,6 +1,6 @@
 === The Events Calendar PRO ===
 
-Contributors: ModernTribe, barry.hughes, bordoni, borkweb, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, thatdudebutch, trishasalas,  zbtirrell
+Contributors: ModernTribe, barry.hughes, bordoni, borkweb, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, thatdudebutch,  zbtirrell
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
@@ -208,7 +208,7 @@ Our Premium Plugins:
 * Fix - Fix issue where width of content area in photo view was inheriting styles making it too narrow [62288]
 * Fix - allow '0' to be set as the value of additional fields [45674]
 * Fix - graciously handle malformed recurrence event meta information [44209]
-* Fix - fixed an issue where 'All Day' label was displaying Wednesday rather than the time column [62240]
+* Tweak - added helper text near Distance filter to add clarity for Filter Bar users [46726]
 
 = [4.2] 2016-06-08 =
 
