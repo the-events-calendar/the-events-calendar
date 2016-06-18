@@ -10,15 +10,15 @@ msgstr ""
 "X-Generator: GlotPress/2.1.0-alpha\n"
 "Project-Id-Version: Stable (latest release)\n"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:255
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:288
 msgid "Customer Name"
 msgstr "Имя заказчика"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:256
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:289
 msgid "Customer Email Address"
 msgstr ""
 
-#: vendor/tickets/src/views/tickets/rsvp.php:125
+#: vendor/tickets/src/views/tickets/rsvp.php:126
 msgid "Don't list me on the public attendee list"
 msgstr ""
 
@@ -82,15 +82,7 @@ msgstr ""
 msgid "Recent Template Changes"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:171
-msgid "Reserved by:"
-msgstr ""
-
-#: vendor/tickets/src/Tribe/Attendees_Table.php:171
-msgid "Purchased by:"
-msgstr ""
-
-#: vendor/tickets/src/Tribe/Attendees_Table.php:235
+#: vendor/tickets/src/Tribe/Attendees_Table.php:232
 msgid "View order"
 msgstr ""
 
@@ -98,19 +90,19 @@ msgstr ""
 msgid "It looks like you have modified your global stock settings but have not saved or updated the post."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets.php:830
+#: vendor/tickets/src/Tribe/Tickets.php:825
 msgid "Use global stock"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets.php:831
+#: vendor/tickets/src/Tribe/Tickets.php:826
 msgid "Use global stock but cap sales"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets.php:832
+#: vendor/tickets/src/Tribe/Tickets.php:827
 msgid "Independent (do not use global stock)"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:98
+#: vendor/tickets/src/admin-views/attendees.php:100
 msgid "Deleted:"
 msgstr ""
 
@@ -154,15 +146,15 @@ msgstr ""
 msgid "Send RSVP confirmation to:"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:44
+#: vendor/tickets/src/admin-views/attendees.php:46
 msgid "Post Type:"
 msgstr "Тип записей:"
 
-#: vendor/tickets/src/admin-views/attendees.php:27
+#: vendor/tickets/src/admin-views/attendees.php:29
 msgid "Edit Event"
 msgstr "Изменить событие"
 
-#: vendor/tickets/src/admin-views/attendees.php:28
+#: vendor/tickets/src/admin-views/attendees.php:30
 msgid "See Event Page"
 msgstr ""
 
@@ -170,15 +162,15 @@ msgstr ""
 msgid "Edit Venue"
 msgstr "Редактировать место события"
 
-#: vendor/tickets/src/admin-views/attendees.php:59
+#: vendor/tickets/src/admin-views/attendees.php:61
 msgid "Sales by Ticket"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:65
+#: vendor/tickets/src/admin-views/attendees.php:67
 msgid "Edit Ticket"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:76
+#: vendor/tickets/src/admin-views/attendees.php:78
 msgid "Total Sold:"
 msgstr ""
 
@@ -230,7 +222,7 @@ msgstr ""
 msgid "Full Name"
 msgstr ""
 
-#: vendor/tickets/src/views/tickets/rsvp.php:133
+#: vendor/tickets/src/views/tickets/rsvp.php:135
 msgid "Confirm RSVP"
 msgstr ""
 
@@ -251,72 +243,72 @@ msgstr ""
 msgid "Your tickets from %s"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:625
+#: vendor/tickets/src/Tribe/RSVP.php:626
 msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:631
+#: vendor/tickets/src/Tribe/RSVP.php:632
 msgid "You can't RSVP more than the total remaining tickets."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:636
+#: vendor/tickets/src/Tribe/RSVP.php:637
 msgid "In order to RSVP, you must enter your name and a valid email address."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:757
+#: vendor/tickets/src/Tribe/RSVP.php:758
 msgid "(deleted)"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1010
+#: vendor/tickets/src/Tribe/RSVP.php:1011
 msgid "Return to the %1$sAttendees Report%2$s."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1017
+#: vendor/tickets/src/Tribe/RSVP.php:1018
 msgid "Post updated. %1$s"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1021
+#: vendor/tickets/src/Tribe/RSVP.php:1022
 msgid "Post published. %1$s"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1024
+#: vendor/tickets/src/Tribe/RSVP.php:1025
 msgid "Post submitted."
 msgstr "Запись отправлена."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1025
+#: vendor/tickets/src/Tribe/RSVP.php:1026
 msgid "Post scheduled."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1026
+#: vendor/tickets/src/Tribe/RSVP.php:1027
 msgid "Post draft updated."
 msgstr "Черновик записи обновлён."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:340
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:391
 msgid "Cheatin Huh?"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:346
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:374
 msgid "Invalid Event ID"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:352
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:397
 msgid "Empty user and email"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:364
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:409
 msgid "Invalid Email"
 msgstr "Некорректный Email"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:370
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:386
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:415
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:431
 msgid "Invalid User ID"
 msgstr "Неверный ID пользователя"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:407
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:452
 msgid "Error when sending the email"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:412
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:457
 msgid "Email sent successfully!"
 msgstr ""
 
@@ -583,11 +575,11 @@ msgstr ""
 msgid "Unnamed %s"
 msgstr ""
 
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:108
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:109
 msgid "Create New %s"
 msgstr ""
 
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:172
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:173
 msgid "Add another %s"
 msgstr ""
 
@@ -725,8 +717,7 @@ msgstr ""
 msgid "Thanks for setting up a valid key, it will expire on %s"
 msgstr ""
 
-#: common/src/admin-views/tribe-options-display.php:31
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:31
+#: src/admin-views/tribe-options-display.php:68
 msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
 msgstr ""
 
@@ -827,91 +818,86 @@ msgstr ""
 msgid "Cancel"
 msgstr "Адмова"
 
-#: vendor/tickets/src/Tribe/Tickets.php:583
+#: vendor/tickets/src/Tribe/Tickets.php:578
 msgid "Editing the ticket price is currently disallowed."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-general.php:59
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:59
+#: src/admin-views/tribe-options-general.php:128
 msgid "Default currency symbol"
 msgstr "Символ валюты по умолчанию"
 
-#: common/src/admin-views/tribe-options-general.php:60
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:60
+#: src/admin-views/tribe-options-general.php:129
 msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
 msgstr "Установите символ валюты по умолчанию для стоимости мероприятия. Обратите внимание, что это влияет только на будущие мероприятия, и изменения не будут приняты для прошедших мероприятий."
 
-#: common/src/admin-views/tribe-options-general.php:67
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:67
+#: src/admin-views/tribe-options-general.php:136
 msgid "Currency symbol follows value"
 msgstr "Символ валюты находится после стоимости"
 
-#: common/src/admin-views/tribe-options-general.php:68
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:68
+#: src/admin-views/tribe-options-general.php:137
 msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
 msgstr "Символ валюты обычно находится перед стоимостью. При включении этого параметра, символ будет показан после стоимости."
 
-#: src/admin-views/tribe-options-general.php:143
+#: src/admin-views/tribe-options-general.php:175
 msgid "Map Settings"
 msgstr "Настройки карты"
 
-#: src/admin-views/tribe-options-general.php:147
+#: src/admin-views/tribe-options-general.php:179
 msgid "Enable Google Maps"
 msgstr "Включить Google Maps"
 
-#: src/admin-views/tribe-options-general.php:148
+#: src/admin-views/tribe-options-general.php:180
 msgid "Check to enable maps for events and venues."
 msgstr "Включить карты для места проведения мероприятий."
 
-#: src/admin-views/tribe-options-general.php:155
+#: src/admin-views/tribe-options-general.php:187
 msgid "Google Maps default zoom level"
 msgstr "Уровень масштаба Google Maps по умолчанию"
 
-#: src/admin-views/tribe-options-general.php:156
+#: src/admin-views/tribe-options-general.php:188
 msgid "0 = zoomed out; 21 = zoomed in."
 msgstr "0 = в маленьком масштабе; 21= в большом масштабе."
 
-#: common/src/admin-views/tribe-options-general.php:74
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:74
+#: src/admin-views/tribe-options-general.php:148
 msgid "Miscellaneous Settings"
 msgstr "Другие настройки"
 
-#: src/admin-views/tribe-options-general.php:131
+#: src/admin-views/tribe-options-general.php:143
 msgid "Duplicate Venues &amp; Organizers"
 msgstr "Повторяющиеся места проведения &amp; Организаторы"
 
-#: src/admin-views/tribe-options-general.php:131
+#: src/admin-views/tribe-options-general.php:143
 msgid "You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers."
 msgstr "Вы можете обнаружить копии мест проведения и организаторов, если обновите The Events Calendar с версии до 3.0. Нажмите на эту кнопку, чтобы автоматически объединить идентичные места проведения и организаторов."
 
-#: src/admin-views/tribe-options-general.php:171
+#: src/admin-views/tribe-options-general.php:159
 msgid "View Welcome Page"
 msgstr "Посмотреть страницу приветствия"
 
-#: src/admin-views/tribe-options-general.php:171
+#: src/admin-views/tribe-options-general.php:159
 msgid "View the page that displayed when you initially installed the plugin."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:175
+#: src/admin-views/tribe-options-general.php:163
 msgid "View Update Page"
 msgstr "Посмотреть обновленную страницу"
 
-#: src/admin-views/tribe-options-general.php:175
+#: src/admin-views/tribe-options-general.php:163
 msgid "View the page that displayed when you updated the plugin."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-general.php:81
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:81
+#: common/src/admin-views/tribe-options-general.php:58
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:58
 msgid "Debug mode"
 msgstr "Режим корректирования"
 
-#: common/src/admin-views/tribe-options-general.php:87
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
+#: common/src/admin-views/tribe-options-general.php:64
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:64
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
 msgstr "Включите этот параметр, чтобы вести журнал информации о коррекции. По умолчанию, записи будут осуществляться в вашем журнале ошибок сервера PHP. Если вы хотите увидеть записи журнала в вашем браузере, мы рекомендуем вам установить %s и искать вкладку \"Tribe\" в выходных данных коррекции."
 
-#: common/src/admin-views/tribe-options-general.php:87
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
+#: common/src/admin-views/tribe-options-general.php:64
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:64
 msgid "Debug Bar Plugin"
 msgstr "Плагин строки коррекции"
 
@@ -2242,7 +2228,7 @@ msgstr "Электронная почта:"
 msgid "%s Name Already Exists"
 msgstr "Имя %s  уже существует"
 
-#: vendor/tickets/src/admin-views/attendees.php:31
+#: vendor/tickets/src/admin-views/attendees.php:33
 msgid "Event Details"
 msgstr "Детали мероприятия"
 
@@ -2260,15 +2246,15 @@ msgstr "Дата/время окончания:"
 msgid "Address:"
 msgstr "Адрес:"
 
-#: vendor/tickets/src/admin-views/attendees.php:81
+#: vendor/tickets/src/admin-views/attendees.php:83
 msgid "Finalized:"
 msgstr "Завершено"
 
-#: vendor/tickets/src/admin-views/attendees.php:87
+#: vendor/tickets/src/admin-views/attendees.php:89
 msgid "Awaiting review:"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:92
+#: vendor/tickets/src/admin-views/attendees.php:94
 msgid "Checked in:"
 msgstr "Зарегистрировано:"
 
@@ -2296,11 +2282,11 @@ msgstr "Адрес электронной почты:"
 msgid "Edit"
 msgstr "Редактировать"
 
-#: vendor/tickets/src/admin-views/list.php:42
+#: vendor/tickets/src/admin-views/list.php:52
 msgid "Edit in %s"
 msgstr "Редактировать в %s"
 
-#: vendor/tickets/src/admin-views/list.php:37
+#: vendor/tickets/src/admin-views/list.php:47
 msgid "View"
 msgstr "Просмотр"
 
@@ -2393,79 +2379,79 @@ msgstr "Показать настройки"
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:104
+#: src/admin-views/tribe-options-display.php:128
 msgid "Basic Template Settings"
 msgstr "Базовые настройки шаблона"
 
-#: src/admin-views/tribe-options-display.php:108
+#: src/admin-views/tribe-options-display.php:132
 msgid "Default stylesheet used for events templates"
 msgstr "Стиль по умолчанию, который используется для шаблона мероприятий"
 
-#: src/admin-views/tribe-options-display.php:111
+#: src/admin-views/tribe-options-display.php:135
 msgid "Skeleton Styles"
 msgstr "Базовые стили"
 
-#: src/admin-views/tribe-options-display.php:113
+#: src/admin-views/tribe-options-display.php:137
 msgid "Only includes enough css to achieve complex layouts like calendar and week view."
 msgstr "Включает достаточно css, чтобы использовать сложные разметки вроде календаря и вида недели."
 
-#: src/admin-views/tribe-options-display.php:115
+#: src/admin-views/tribe-options-display.php:139
 msgid "Full Styles"
 msgstr "Полные стили"
 
-#: src/admin-views/tribe-options-display.php:117
+#: src/admin-views/tribe-options-display.php:141
 msgid "More detailed styling, tries to grab styles from your theme."
 msgstr "Более детальное стилизирование, будет пытаться брать стили из вашей темы"
 
-#: src/admin-views/tribe-options-display.php:119
+#: src/admin-views/tribe-options-display.php:143
 msgid "Tribe Events Styles"
 msgstr "Стили от Tribe Events"
 
-#: src/admin-views/tribe-options-display.php:121
+#: src/admin-views/tribe-options-display.php:145
 msgid "A fully designed and styled theme for your events pages."
 msgstr "Полностью оформленная и стилизированная тема для страниц ваших мероприятий."
 
-#: src/admin-views/tribe-options-display.php:128
+#: src/admin-views/tribe-options-display.php:152
 msgid "Events template"
 msgstr "Шаблон мероприятий"
 
-#: src/admin-views/tribe-options-display.php:129
+#: src/admin-views/tribe-options-display.php:153
 msgid "Choose a page template to control the appearance of your calendar and event content."
 msgstr "Выберите шаблон страницы, чтобы контролировать вид вашего календаря и содержимое мероприятия."
 
-#: src/admin-views/tribe-options-display.php:137
+#: src/admin-views/tribe-options-display.php:161
 msgid "Enable event views"
 msgstr "Включить виды мероприятия."
 
-#: src/admin-views/tribe-options-display.php:138
+#: src/admin-views/tribe-options-display.php:162
 msgid "You must select at least one view."
 msgstr "Вы должны выбрать хотя бы один вид."
 
-#: src/admin-views/tribe-options-display.php:145
+#: src/admin-views/tribe-options-display.php:169
 msgid "Default view"
 msgstr "Вид по умолчанию"
 
-#: src/admin-views/tribe-options-display.php:153
+#: src/admin-views/tribe-options-display.php:177
 msgid "Disable the Event Search Bar"
 msgstr "Отключить строку поиска мероприятий"
 
-#: src/admin-views/tribe-options-display.php:154
+#: src/admin-views/tribe-options-display.php:178
 msgid "Check this to use the classic header."
 msgstr "Нажмите здесь, чтобы использовать классический заголовок."
 
-#: src/admin-views/tribe-options-display.php:160
+#: src/admin-views/tribe-options-display.php:184
 msgid "Month view events per day"
 msgstr "Месячное представление мероприятий в день"
 
-#: src/admin-views/tribe-options-display.php:161
+#: src/admin-views/tribe-options-display.php:185
 msgid "Change the default 3 events per day in month view. Please note there may be performance issues if you set this too high. <a href=\"%s\">Read more</a>."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:168
+#: src/admin-views/tribe-options-display.php:192
 msgid "Enable the Month View Cache"
 msgstr "Включить кэш Отображения по месяцам"
 
-#: src/admin-views/tribe-options-display.php:169
+#: src/admin-views/tribe-options-display.php:193
 msgid "Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href=\"%s\">Read more</a>."
 msgstr ""
 
@@ -2479,72 +2465,69 @@ msgstr "Настройки формата даты"
 msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
 msgstr "<p> Следующие три поля приимать параметры формата даты, доступные функции даты() php. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Узнайте, как создать ваш собственный формат даты здесь</a>.</p>"
 
-#: common/src/admin-views/tribe-options-display.php:30
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:30
+#: src/admin-views/tribe-options-display.php:67
 msgid "Date with year"
 msgstr "Дата с годом"
 
-#: src/admin-views/tribe-options-display.php:66
+#: src/admin-views/tribe-options-display.php:90
 msgid "Date without year"
 msgstr "Дата без года"
 
-#: src/admin-views/tribe-options-display.php:67
+#: src/admin-views/tribe-options-display.php:91
 msgid "Enter the format to use for displaying dates without a year. Used when showing an event from the current year."
 msgstr "Введите формат, который будет использоваться для показа даты без года. Используется при показе мероприятия этого года."
 
-#: src/admin-views/tribe-options-display.php:74
+#: src/admin-views/tribe-options-display.php:98
 msgid "Month and year format"
 msgstr "Месячный и годовой формат"
 
-#: src/admin-views/tribe-options-display.php:75
+#: src/admin-views/tribe-options-display.php:99
 msgid "Enter the format to use for dates that show a month and year only. Used on month view."
 msgstr "Введите формат, который будет использоваться для дат только с месяцем и годом. Используется на месячном представлении."
 
-#: common/src/admin-views/tribe-options-display.php:38
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:38
+#: src/admin-views/tribe-options-display.php:75
 msgid "Date time separator"
 msgstr "Разделитель даты времени"
 
-#: common/src/admin-views/tribe-options-display.php:39
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:39
+#: src/admin-views/tribe-options-display.php:76
 msgid "Enter the separator that will be placed between the date and time, when both are shown."
 msgstr "Введите разделитель, который будет стоять между датой и временем при показе обоих элементов."
 
-#: src/admin-views/tribe-options-display.php:89
+#: src/admin-views/tribe-options-display.php:113
 msgid "Time range separator"
 msgstr "Разделитель диапазона времени"
 
-#: src/admin-views/tribe-options-display.php:90
+#: src/admin-views/tribe-options-display.php:114
 msgid "Enter the separator that will be used between the start and end time of an event."
 msgstr "Введите разделитель, который будет использоваться между временем начала и окончания мероприятия."
 
-#: common/src/admin-views/tribe-options-display.php:46
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:46
+#: common/src/admin-views/tribe-options-display.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:30
 msgid "Datepicker Date Format"
 msgstr "Формат даты Datepicker"
 
-#: common/src/admin-views/tribe-options-display.php:47
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:47
+#: common/src/admin-views/tribe-options-display.php:31
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:31
 msgid "Select the date format to use in datepickers"
 msgstr "Выберите формат даты, который будет исспользоваться в datepickers"
 
-#: src/admin-views/tribe-options-display.php:182
+#: src/admin-views/tribe-options-display.php:206
 msgid "Advanced Template Settings"
 msgstr "Расширенные настройки шаблона"
 
-#: src/admin-views/tribe-options-display.php:186
+#: src/admin-views/tribe-options-display.php:210
 msgid "Add HTML before event content"
 msgstr "Добавьте HTML перед содержимым мероприятия"
 
-#: src/admin-views/tribe-options-display.php:187
+#: src/admin-views/tribe-options-display.php:211
 msgid "If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout."
 msgstr "Если вы знакомы с HTML, вы можете добавить дополнительный код перед шаблоном мероприятия. В некоторых темах это может понадобиться для стиля или разметки."
 
-#: src/admin-views/tribe-options-display.php:192
+#: src/admin-views/tribe-options-display.php:216
 msgid "Add HTML after event content"
 msgstr "Добавьте HTML после сожержимого события"
 
-#: src/admin-views/tribe-options-display.php:193
+#: src/admin-views/tribe-options-display.php:217
 msgid "If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout."
 msgstr "Если вы знакомы с HTML, вы можете добавить дополнительный код после шаблона мероприятия. В некоторых темах это может понадобиться для стиля или разметки."
 
@@ -2601,79 +2584,78 @@ msgstr "Вы думаете \"Ух ты, этот плагин замечате�
 msgid "Show The Events Calendar link"
 msgstr "Показать ссылку на The Events Calendar"
 
-#: common/src/admin-views/tribe-options-general.php:55
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:55
+#: src/admin-views/tribe-options-general.php:33
 msgid "General Settings"
 msgstr "Общие настройки"
 
-#: src/admin-views/tribe-options-general.php:33
+#: src/admin-views/tribe-options-general.php:37
 msgid "Number of events to show per page"
 msgstr "Количество мероприятий на страницу"
 
-#: src/admin-views/tribe-options-general.php:40
+#: src/admin-views/tribe-options-general.php:44
 msgid "Use Javascript to control date filtering"
 msgstr "Используйте Javascript, чтобы управлять фильтром дат"
 
-#: src/admin-views/tribe-options-general.php:41
+#: src/admin-views/tribe-options-general.php:45
 msgid "This option is disabled when \"Disable the Event Search Bar\" is checked on the Display settings tab."
 msgstr "Этот параметр выключен, когда возле \"Выключить Поисковую строку мероприятий\" на вкладке Показать настройки стоит галочка."
 
-#: src/admin-views/tribe-options-general.php:41
+#: src/admin-views/tribe-options-general.php:45
 msgid "Enable live ajax for datepicker on front end (User submit not required)."
 msgstr "Включить live ajax для datepicker на внешнем интерфейсе (Подтверждение пользователя не требуется)"
 
-#: src/admin-views/tribe-options-general.php:49
+#: src/admin-views/tribe-options-general.php:53
 msgid "Show comments"
 msgstr "Показать комментарии"
 
-#: src/admin-views/tribe-options-general.php:50
+#: src/admin-views/tribe-options-general.php:54
 msgid "Enable comments on event pages."
 msgstr "Включить комментирование на страницах мероприятия."
 
-#: src/admin-views/tribe-options-general.php:56
+#: src/admin-views/tribe-options-general.php:60
 msgid "Include events in main blog loop"
 msgstr "Включить мероприятия в главный цикл блога"
 
-#: src/admin-views/tribe-options-general.php:57
+#: src/admin-views/tribe-options-general.php:61
 msgid "Show events with the site's other posts. When this box is checked, events will also continue to appear on the default events page."
 msgstr "Показать мероприятия с другими записями сайта. Когда здесь стоит галочка, мероприятия будут также появлятся на странице мероприятий по умолчанию."
 
-#: src/admin-views/tribe-options-general.php:63
-#: src/admin-views/tribe-options-general.php:69
+#: src/admin-views/tribe-options-general.php:67
+#: src/admin-views/tribe-options-general.php:73
 msgid "Events URL slug"
 msgstr "Ссылка на мероприятия"
 
-#: src/admin-views/tribe-options-general.php:64
+#: src/admin-views/tribe-options-general.php:68
 msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%1$s\">%2$s</a>. In order to edit the slug here, <a href=\"%3$soptions-permalink.php\">enable pretty permalinks</a>."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:76
+#: src/admin-views/tribe-options-general.php:80
 #: src/functions/template-tags/options.php:20
 msgid "The slug used for building the events URL."
 msgstr "Адрес, который используется для создания ссылки на мероприятия."
 
-#: src/admin-views/tribe-options-general.php:76
+#: src/admin-views/tribe-options-general.php:80
 msgid "Your current events URL is: %s"
 msgstr "Ваша текущая ссылка на мероприятия: %s"
 
-#: src/admin-views/tribe-options-general.php:81
+#: src/admin-views/tribe-options-general.php:85
 #: src/functions/template-tags/options.php:39
 msgid "Here is the iCal feed URL for your events:"
 msgstr "Вот ссылка на ленту iCal для ваших мероприятий:"
 
-#: src/admin-views/tribe-options-general.php:86
+#: src/admin-views/tribe-options-general.php:90
 msgid "Single event URL slug"
 msgstr "Ссылка для одного мероприятия"
 
-#: src/admin-views/tribe-options-general.php:93
+#: src/admin-views/tribe-options-general.php:97
 msgid "The above should ideally be plural, and this singular.<br />Your single event URL is: %s"
 msgstr "Вышеупомянутое в идеале должно быть в множественном числе, а это - в единственном.<br />Ссылка на одно мероприятие: %s"
 
-#: src/admin-views/tribe-options-general.php:98
+#: src/admin-views/tribe-options-general.php:102
 msgid "End of day cutoff"
 msgstr "Скрытие мероприятия в конце дня"
 
-#: src/admin-views/tribe-options-general.php:119
+#: src/admin-views/tribe-options-general.php:123
 msgid "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar."
 msgstr "У вас есть мероприятие, которое состоится после полуночи? Выберите время после окончания этого мероприятия, чтобы избежать показа этого события в календаре на следующий день."
 
@@ -2694,9 +2676,9 @@ msgstr "Добавить %s"
 msgid "CSV"
 msgstr "CSV"
 
-#: common/src/Tribe/Settings.php:215
+#: common/src/Tribe/Settings.php:214
 #: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4321
-#: vendor/tickets/common/src/Tribe/Settings.php:215
+#: vendor/tickets/common/src/Tribe/Settings.php:214
 msgid "Settings"
 msgstr "Параметры"
 
@@ -2799,54 +2781,54 @@ msgstr "Допустимый ключ! Срок действия заканчи�
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: common/src/Tribe/Settings.php:214 common/src/Tribe/Settings.php:235
-#: vendor/tickets/common/src/Tribe/Settings.php:214
-#: vendor/tickets/common/src/Tribe/Settings.php:235
+#: common/src/Tribe/Settings.php:213 common/src/Tribe/Settings.php:234
+#: vendor/tickets/common/src/Tribe/Settings.php:213
+#: vendor/tickets/common/src/Tribe/Settings.php:234
 msgid "Events Settings"
 msgstr "Настройки мероприятий"
 
-#: common/src/Tribe/Settings.php:300
-#: vendor/tickets/common/src/Tribe/Settings.php:300
+#: common/src/Tribe/Settings.php:299
+#: vendor/tickets/common/src/Tribe/Settings.php:299
 msgid "%s Settings"
 msgstr "Настройки %s"
 
-#: common/src/Tribe/Settings.php:314
-#: vendor/tickets/common/src/Tribe/Settings.php:314
+#: common/src/Tribe/Settings.php:313
+#: vendor/tickets/common/src/Tribe/Settings.php:313
 msgid "You've requested a non-existent tab."
 msgstr "Вы запросили несуществующую вкладку."
 
-#: common/src/Tribe/Settings.php:322
-#: vendor/tickets/common/src/Tribe/Settings.php:322
+#: common/src/Tribe/Settings.php:321
+#: vendor/tickets/common/src/Tribe/Settings.php:321
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: common/src/Tribe/Settings.php:370
-#: vendor/tickets/common/src/Tribe/Settings.php:370
+#: common/src/Tribe/Settings.php:369
+#: vendor/tickets/common/src/Tribe/Settings.php:369
 msgid "You don't have permission to do that."
 msgstr "У вас нет на это разрешения."
 
-#: common/src/Tribe/Settings.php:376
-#: vendor/tickets/common/src/Tribe/Settings.php:376
+#: common/src/Tribe/Settings.php:375
+#: vendor/tickets/common/src/Tribe/Settings.php:375
 msgid "The request was sent insecurely."
 msgstr "Запрос отправлен небезопасно."
 
-#: common/src/Tribe/Settings.php:382
-#: vendor/tickets/common/src/Tribe/Settings.php:382
+#: common/src/Tribe/Settings.php:381
+#: vendor/tickets/common/src/Tribe/Settings.php:381
 msgid "The request wasn't sent from this tab."
 msgstr "Запрос отправлен не с этой вкладки."
 
-#: common/src/Tribe/Settings.php:550
-#: vendor/tickets/common/src/Tribe/Settings.php:550
+#: common/src/Tribe/Settings.php:549
+#: vendor/tickets/common/src/Tribe/Settings.php:549
 msgid "Your form had the following errors:"
 msgstr "В вашей форме были следующие ошибки:"
 
-#: common/src/Tribe/Settings.php:560
-#: vendor/tickets/common/src/Tribe/Settings.php:560
+#: common/src/Tribe/Settings.php:559
+#: vendor/tickets/common/src/Tribe/Settings.php:559
 msgid "None of your settings were saved. Please try again."
 msgstr "Ни одна из ваших настроек не была сохранена. Пожалуйста, попробуйте снова."
 
-#: common/src/Tribe/Settings.php:561
-#: vendor/tickets/common/src/Tribe/Settings.php:561
+#: common/src/Tribe/Settings.php:560
+#: vendor/tickets/common/src/Tribe/Settings.php:560
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Вышеуказанная настройка не была сохранена. Остальные настройки сохранены успешно."
@@ -2930,49 +2912,57 @@ msgid "Order Status"
 msgstr "Статус заказа"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:78
+msgid "Purchaser name"
+msgstr "Имя покупателя"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:79
+msgid "Purchaser email"
+msgstr "Электронная почта покупателя"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:80
 msgid "Ticket type"
 msgstr "Вид билета"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:79
+#: vendor/tickets/src/Tribe/Attendees_Table.php:81
 #: vendor/tickets/src/views/tickets/email.php:332
 msgid "Ticket #"
 msgstr "№ билета"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:80
+#: vendor/tickets/src/Tribe/Attendees_Table.php:82
 #: vendor/tickets/src/views/tickets/email.php:344
 msgid "Security Code"
 msgstr "Код безопасности"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:81
-#: vendor/tickets/src/Tribe/Attendees_Table.php:238
-#: vendor/tickets/src/Tribe/Attendees_Table.php:325
+#: vendor/tickets/src/Tribe/Attendees_Table.php:83
+#: vendor/tickets/src/Tribe/Attendees_Table.php:235
+#: vendor/tickets/src/Tribe/Attendees_Table.php:329
 msgid "Check in"
 msgstr "Зарегистрироваться"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:239
-#: vendor/tickets/src/Tribe/Attendees_Table.php:326
+#: vendor/tickets/src/Tribe/Attendees_Table.php:236
+#: vendor/tickets/src/Tribe/Attendees_Table.php:330
 msgid "Undo Check in"
 msgstr "Отменить регистрацию"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:298
+#: vendor/tickets/src/Tribe/Attendees_Table.php:302
 msgid "Print"
 msgstr "Печать"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:299
+#: vendor/tickets/src/Tribe/Attendees_Table.php:303
 #: vendor/tickets/src/views/tickets/rsvp.php:116
 msgid "Email"
 msgstr "Электронная почта"
 
-#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:300
+#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:304
 msgid "Export"
 msgstr "Экспорт"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:306
+#: vendor/tickets/src/Tribe/Attendees_Table.php:310
 msgid "Filter by purchaser name, ticket #, order # or security code"
 msgstr "Фильтровать по Имени покупателя, номеру билета, номеру заказа или коду безопасности"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:327
-#: vendor/tickets/src/admin-views/list.php:34
+#: vendor/tickets/src/Tribe/Attendees_Table.php:331
+#: vendor/tickets/src/admin-views/list.php:43
 msgid "Delete"
 msgstr "Удалить"
 
@@ -2990,50 +2980,50 @@ msgstr "Изображение заголовка билета"
 msgid "Set as ticket header"
 msgstr "Установить как заголовок билета"
 
-#: vendor/tickets/src/Tribe/Tickets.php:369
+#: vendor/tickets/src/Tribe/Tickets.php:364
 msgid "Your ticket has been saved."
 msgstr "Ваш билет сохранен."
 
-#: vendor/tickets/src/Tribe/Tickets.php:529
+#: vendor/tickets/src/Tribe/Tickets.php:524
 msgid "Your ticket has been deleted."
 msgstr "Ваш билет удален."
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:84
-#: vendor/tickets/src/admin-views/list.php:71
+#: vendor/tickets/src/admin-views/list.php:81
 msgid "See who purchased tickets to this event"
 msgstr "Посмотреть, кто купил билеты на это мероприятие"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:84
-#: vendor/tickets/src/admin-views/attendees.php:24
-#: vendor/tickets/src/admin-views/list.php:73
+#: vendor/tickets/src/admin-views/attendees.php:26
+#: vendor/tickets/src/admin-views/list.php:83
 msgid "Attendees"
 msgstr "Учасники"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:121
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:138
 msgid "You need to select a user or type a valid email address"
 msgstr "Вам нужно выбрать пользователя или ввести действительный адрес электронной почты"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:122
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:139
 msgid "Sending..."
 msgstr "Отправка..."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:148
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:165
 msgid "Columns"
 msgstr "Колонки"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:148
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:165
 msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
 msgstr "Вы можете использовать Параметры экрана, чтобы выбрать, какие колонки вы хотите видеть. Выбор работает в таблице ниже, в электронном письме, для печати и для экспорта CSV."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:285
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:318
 msgid "Yes"
 msgstr "Да"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:314
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:347
 msgid "attendees"
 msgstr "посетители"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:406
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:451
 msgid "Attendee List for: %s"
 msgstr "Список посетителей для: %s"
 
@@ -4063,13 +4053,13 @@ msgstr ""
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:108 src/Tribe/Main.php:1695
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:109 src/Tribe/Main.php:1695
 #: src/Tribe/Main.php:1768
 msgid "Use Saved %s:"
 msgstr "Использовать сохранение %s:"
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:138 src/Tribe/Main.php:1505
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:139 src/Tribe/Main.php:1505
 #: src/Tribe/Main.php:1523 src/Tribe/Main.php:1541 src/Tribe/Main.php:1704
 #: src/Tribe/Main.php:1770
 msgid "Edit %s"
@@ -4131,7 +4121,7 @@ msgstr "Дата:"
 msgid "Time:"
 msgstr "Время:"
 
-#: src/Tribe/Amalgamator.php:253 src/admin-views/tribe-options-general.php:131
+#: src/Tribe/Amalgamator.php:253 src/admin-views/tribe-options-general.php:143
 msgid "Merge Duplicates"
 msgstr "Объединить копии"
 
@@ -4347,8 +4337,8 @@ msgstr "Временный файл не найден. Не удалось со�
 msgid "Could not save %s."
 msgstr "Не удалось сохранить %s."
 
-#: common/src/Tribe/Settings.php:583 src/Tribe/Importer/Options.php:53
-#: vendor/tickets/common/src/Tribe/Settings.php:583
+#: common/src/Tribe/Settings.php:585 src/Tribe/Importer/Options.php:53
+#: vendor/tickets/common/src/Tribe/Settings.php:585
 msgid "Settings saved."
 msgstr "Настройки сохранены."
 
@@ -4386,13 +4376,13 @@ msgstr "Организаторы"
 msgid "Organizer"
 msgstr "Организатор"
 
-#: common/src/Tribe/Settings.php:148 common/src/Tribe/Settings.php:203
-#: common/src/Tribe/Settings.php:204 src/Tribe/Main.php:710
+#: common/src/Tribe/Settings.php:148 common/src/Tribe/Settings.php:202
+#: common/src/Tribe/Settings.php:203 src/Tribe/Main.php:710
 #: src/functions/template-tags/general.php:80
 #: src/io/csv/admin-views/import.php:47
 #: vendor/tickets/common/src/Tribe/Settings.php:148
+#: vendor/tickets/common/src/Tribe/Settings.php:202
 #: vendor/tickets/common/src/Tribe/Settings.php:203
-#: vendor/tickets/common/src/Tribe/Settings.php:204
 msgid "Events"
 msgstr "Мероприятия"
 
@@ -4400,7 +4390,7 @@ msgstr "Мероприятия"
 msgid "Event"
 msgstr "Мероприятие"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.3) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.4) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:636

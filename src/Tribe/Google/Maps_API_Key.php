@@ -47,14 +47,15 @@ class Tribe__Events__Google__Maps_API_Key {
 
 			'gmaps-js-api-info-box' => array(
 				'type' => 'html',
-				'html' => '<p>' . esc_html__( 'You can optionally specify a Google Maps JavaScript API key The Events Calendar will use to make requests. This is strongly recommended to avoid reaching daily query limits.',
-						'the-events-calendar' ) . '</p>',
+				'html' => '<p>' . sprintf( __( 'We highly recommend that you specify a valid %s for The Events Calendar to use. Doing this will help prevent problems with maps, especially for sites that receive a lot of traffic.',
+						'the-events-calendar' ), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">' . __( 'Google Maps API key',
+							'the-events-calendar' ) . '</a>' ) . '</p>',
 			),
 
 			$this->api_key_option_name => array(
 				'type'            => 'text',
-				'label'           => esc_html__( 'Google Maps JavaScript API browser key', 'the-events-calendar' ),
-				'tooltip'         => sprintf( __( '<p>%s to view or create your Google Maps JavaScript API keys.', 'the-events-calendar' ),
+				'label'           => esc_html__( 'Google Maps API key', 'the-events-calendar' ),
+				'tooltip'         => sprintf( __( '<p>%s to create your Google Maps API key.', 'the-events-calendar' ),
 					'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"></p>' . __( 'Click here', 'the-events-calendar' ) . '</a>' ),
 				'size'            => 'medium',
 				'validation_type' => 'alpha_numeric_with_dashes_and_underscores',

@@ -55,6 +55,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		$query_args['meta_query'] = $meta_query;
+		$query_args['tribe_remove_date_filters'] = true;
 
 		add_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
 		$matches = get_posts( $query_args );
@@ -145,7 +146,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventHideFromUpcoming' => $this->get_boolean_value_by_key( $record, 'event_hide', 'yes', '' ),
 			'EventURL'              => $this->get_value_by_key( $record, 'event_website' ),
 			'EventCurrencySymbol'   => $this->get_value_by_key( $record, 'event_currency_symbol' ),
-			'EventCurrencyPosition' => $this->get_value_by_key( $record, 'event_currency_position' ),
+			'EventCurrencyPosition' => $this->get_currency_position( $record ),
 			'FeaturedImage'         => $featured_image,
 			'EventTimezone'         => $this->get_timezone( $this->get_value_by_key( $record, 'event_timezone' ) ),
 		);
@@ -153,7 +154,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {
 			$event['organizer'] = is_array( $organizer_id ) ? $organizer_id : array( 'OrganizerID' => $organizer_id );
 		}
-
+		
 		if ( $venue_id = $this->find_matching_venue_id( $record ) ) {
 			$event['venue'] = array( 'VenueID' => $venue_id );
 		}
@@ -225,7 +226,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	private function find_matching_venue_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_venue_name' );
 
-		return array( 'VenueID' => array( $this->find_matching_post_id( $name, Tribe__Events__Venue::POSTTYPE ) ) );
+		return $this->find_matching_post_id( $name, Tribe__Events__Venue::POSTTYPE );
 	}
 
 	/**
@@ -293,6 +294,27 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		return $import_excerpt;
+	}
+
+	/**
+	 * Allows the user to specify the currency position using alias terms.
+	 * 
+	 * @param array $record
+	 *
+	 * @return string Either `prefix` or `suffix`; will fall back on the first if the specified position is not
+	 *                a recognized alias.
+	 */
+	private function get_currency_position( array $record ) {
+		$currency_position = $this->get_value_by_key( $record, 'event_currency_position' );
+		$after_aliases     = [ 'suffix', 'after' ];
+
+		foreach ( $after_aliases as $after_alias ) {
+			if ( preg_match( '/' . $after_alias . '/i', $currency_position ) ) {
+				return 'suffix';
+			}
+		}
+
+		return 'prefix';
 	}
 
 }

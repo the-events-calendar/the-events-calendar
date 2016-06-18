@@ -38,6 +38,12 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 			'FeaturedImage' => $featured_image,
 		);
 
-		return apply_filters( 'tribe_events_csv_import_organizer_fields', $organizer );
+		/**
+		 * Provides an opportunity to modify organizer details during CSV imports.
+		 *
+		 * @param array $organizer
+		 * @param array $record
+		 */
+		return apply_filters( 'tribe_events_csv_import_organizer_fields', $organizer, $record );
 	}
 }
