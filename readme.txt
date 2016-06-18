@@ -293,7 +293,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - add missing styles for screen reader text [62500]
 * Tweak - adjust the month view caching rules [46581]
 * Fix - tribe_get_event_link() didn't work properly when passing second parameter as true [61891]
-* Fix - added styling to adjust list view description to 100% [62512]
+* Tweak - reduce font size of titles in month view for skeleton styles [41461]
 
 = [4.2] 2016-06-08 =
 
