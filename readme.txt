@@ -209,6 +209,7 @@ Our Premium Plugins:
 * Fix - allow '0' to be set as the value of additional fields [45674]
 * Fix - graciously handle malformed recurrence event meta information [44209]
 * Tweak - added helper text near Distance filter to add clarity for Filter Bar users [46726]
+* Fix - fixed an issue where 'All Day' label was displaying Wednesday rather than the time column [62240]
 
 = [4.2] 2016-06-08 =
 
