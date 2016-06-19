@@ -1532,19 +1532,4 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		return $url;
 	}
-
-	/**
-	 * Add a check for WordPress Version and Below at the is_embed function to prevent fatals
-	 * in this file the-events-calendar/src/Tribe/Templates.php
-	 *
-	 * @version 4.2.1
-	 */
-	global $wp_version;
-	if ( version_compare( $wp_version, '4.4', '<' ) ) {
-		if ( ! function_exists( 'is_embed' ) ) {
-			function is_embed() {
-				return false;
-			}
-		}
-	}
 }
