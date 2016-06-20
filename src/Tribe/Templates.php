@@ -145,7 +145,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			}
 
 			// if this is an oembed, override the wrapping template and use the embed template
-			if ( is_embed() ) {
+			if ( Tribe__Templates::is_embed() ) {
 				$template = self::getTemplateHierarchy( 'embed' );
 			}
 
@@ -405,7 +405,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 				$template = self::getTemplateHierarchy( 'day' );
 			}
 
-			if ( is_embed() ) {
+			if ( Tribe__Templates::is_embed() ) {
 				$template = self::getTemplateHierarchy( 'embed' );
 			}
 
@@ -413,7 +413,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			if (
 				is_singular( Tribe__Events__Main::POSTTYPE )
 				&& ! tribe_is_showing_all()
-				&& ! is_embed()
+				&& ! Tribe__Templates::is_embed()
 			) {
 				$template = self::getTemplateHierarchy( 'single-event', array( 'disable_view_check' => true ) );
 			}
@@ -445,7 +445,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			elseif ( tribe_is_day() || tribe_is_ajax_view_request( 'day' ) ) {
 				$class = 'Tribe__Events__Template__Day';
 			}
-			elseif ( is_embed() ) {
+			elseif ( Tribe__Templates::is_embed() ) {
 				$class = 'Tribe__Events__Template__Embed';
 			}
 			// single event view
