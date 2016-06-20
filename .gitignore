@@ -36,6 +36,3 @@ tests/_bootstrap.php
 tests/acceptance/_bootstrap.php
 tests/functional/_bootstrap.php
 tests/unit/_bootstrap.php
-
-# Tests - local data files
-tests/_data/dump.sql
