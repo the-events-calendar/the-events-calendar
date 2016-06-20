@@ -295,6 +295,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - tribe_get_event_link() didn't work properly when passing second parameter as true [61891]
 * Tweak - reduce font size of titles in month view for skeleton styles [41461]
 * Fix - added styling to adjust list view description to 100% [62512]
+* Fix - miscellaneous tweaks to css to improve layout in month and day views [61651]
 
 = [4.2] 2016-06-08 =
 
