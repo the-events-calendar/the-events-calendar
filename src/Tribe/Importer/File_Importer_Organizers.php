@@ -27,15 +27,13 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 	}
 
 	private function build_organizer_array( $organizer_id, array $record ) {
-		$featured_image_content = $this->get_value_by_key( $record, 'featured_image' );
-		$featured_image         = $organizer_id ? '' === get_post_meta( $organizer_id, '_wp_attached_file', true ) : $this->featured_image_uploader( $featured_image_content )->upload_and_get_attachment();
 		$organizer              = array(
 			'Organizer'     => $this->get_value_by_key( $record, 'organizer_name' ),
 			'Description'   => $this->get_value_by_key( $record, 'organizer_description' ),
 			'Email'         => $this->get_value_by_key( $record, 'organizer_email' ),
 			'Phone'         => $this->get_value_by_key( $record, 'organizer_phone' ),
 			'Website'       => $this->get_value_by_key( $record, 'organizer_website' ),
-			'FeaturedImage' => $featured_image,
+			'FeaturedImage' => $this->get_featured_image( $organizer_id, $record ),
 		);
 
 		/**
