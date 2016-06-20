@@ -13,7 +13,7 @@ modules:
         WPBrowser:
             url: 'http://tec.tri.be'
             adminUsername: admin
-            adminPassword: password
+            adminPassword: admin
             adminUrl: /wp-admin
         WPDb:
             dsn: 'mysql:host=localhost;dbname=tec-tests'
@@ -51,7 +51,7 @@ modules:
             restart: true
             wait: 0
             adminUsername: admin
-            adminPassword: password
+            adminPassword: admin
             adminUrl: /wp-admin
         WPBootstrapper:
             wpRootFolder: ~/www/wordpress
