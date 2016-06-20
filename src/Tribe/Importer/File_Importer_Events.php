@@ -120,8 +120,6 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$start_date = strtotime( $this->get_event_start_date( $record ) );
 		$end_date   = strtotime( $this->get_event_end_date( $record ) );
 
-		$featured_image_content = $this->get_value_by_key( $record, 'featured_image' );
-		$featured_image         = $event_id ? '' === get_post_meta( $event_id, '_wp_attached_file', true ) : $this->featured_image_uploader( $featured_image_content )->upload_and_get_attachment();
 		$event                  = array(
 			'post_type'             => Tribe__Events__Main::POSTTYPE,
 			'post_title'            => $this->get_value_by_key( $record, 'event_name' ),
@@ -147,7 +145,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventURL'              => $this->get_value_by_key( $record, 'event_website' ),
 			'EventCurrencySymbol'   => $this->get_value_by_key( $record, 'event_currency_symbol' ),
 			'EventCurrencyPosition' => $this->get_currency_position( $record ),
-			'FeaturedImage'         => $featured_image,
+			'FeaturedImage'         => $this->get_featured_image( $event_id, $record ),
 			'EventTimezone'         => $this->get_timezone( $this->get_value_by_key( $record, 'event_timezone' ) ),
 		);
 
@@ -316,5 +314,4 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		return 'prefix';
 	}
-
 }
