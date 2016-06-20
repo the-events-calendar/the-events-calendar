@@ -10,15 +10,15 @@ msgstr ""
 "X-Generator: GlotPress/2.1.0-alpha\n"
 "Project-Id-Version: Stable (latest release)\n"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:255
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:288
 msgid "Customer Name"
 msgstr "客戶名稱"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:256
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:289
 msgid "Customer Email Address"
 msgstr ""
 
-#: vendor/tickets/src/views/tickets/rsvp.php:125
+#: vendor/tickets/src/views/tickets/rsvp.php:126
 msgid "Don't list me on the public attendee list"
 msgstr ""
 
@@ -82,15 +82,7 @@ msgstr ""
 msgid "Recent Template Changes"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:171
-msgid "Reserved by:"
-msgstr ""
-
-#: vendor/tickets/src/Tribe/Attendees_Table.php:171
-msgid "Purchased by:"
-msgstr ""
-
-#: vendor/tickets/src/Tribe/Attendees_Table.php:235
+#: vendor/tickets/src/Tribe/Attendees_Table.php:232
 msgid "View order"
 msgstr ""
 
@@ -98,19 +90,19 @@ msgstr ""
 msgid "It looks like you have modified your global stock settings but have not saved or updated the post."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets.php:830
+#: vendor/tickets/src/Tribe/Tickets.php:825
 msgid "Use global stock"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets.php:831
+#: vendor/tickets/src/Tribe/Tickets.php:826
 msgid "Use global stock but cap sales"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets.php:832
+#: vendor/tickets/src/Tribe/Tickets.php:827
 msgid "Independent (do not use global stock)"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:98
+#: vendor/tickets/src/admin-views/attendees.php:100
 msgid "Deleted:"
 msgstr ""
 
@@ -152,15 +144,15 @@ msgstr ""
 msgid "Send RSVP confirmation to:"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:44
+#: vendor/tickets/src/admin-views/attendees.php:46
 msgid "Post Type:"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:27
+#: vendor/tickets/src/admin-views/attendees.php:29
 msgid "Edit Event"
 msgstr "編輯活動"
 
-#: vendor/tickets/src/admin-views/attendees.php:28
+#: vendor/tickets/src/admin-views/attendees.php:30
 msgid "See Event Page"
 msgstr ""
 
@@ -168,15 +160,15 @@ msgstr ""
 msgid "Edit Venue"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:59
+#: vendor/tickets/src/admin-views/attendees.php:61
 msgid "Sales by Ticket"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:65
+#: vendor/tickets/src/admin-views/attendees.php:67
 msgid "Edit Ticket"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:76
+#: vendor/tickets/src/admin-views/attendees.php:78
 msgid "Total Sold:"
 msgstr ""
 
@@ -228,7 +220,7 @@ msgstr ""
 msgid "Full Name"
 msgstr ""
 
-#: vendor/tickets/src/views/tickets/rsvp.php:133
+#: vendor/tickets/src/views/tickets/rsvp.php:135
 msgid "Confirm RSVP"
 msgstr ""
 
@@ -249,72 +241,72 @@ msgstr ""
 msgid "Your tickets from %s"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:625
+#: vendor/tickets/src/Tribe/RSVP.php:626
 msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:631
+#: vendor/tickets/src/Tribe/RSVP.php:632
 msgid "You can't RSVP more than the total remaining tickets."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:636
+#: vendor/tickets/src/Tribe/RSVP.php:637
 msgid "In order to RSVP, you must enter your name and a valid email address."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:757
+#: vendor/tickets/src/Tribe/RSVP.php:758
 msgid "(deleted)"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1010
+#: vendor/tickets/src/Tribe/RSVP.php:1011
 msgid "Return to the %1$sAttendees Report%2$s."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1017
+#: vendor/tickets/src/Tribe/RSVP.php:1018
 msgid "Post updated. %1$s"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1021
+#: vendor/tickets/src/Tribe/RSVP.php:1022
 msgid "Post published. %1$s"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1024
+#: vendor/tickets/src/Tribe/RSVP.php:1025
 msgid "Post submitted."
 msgstr "文章已提交。"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1025
+#: vendor/tickets/src/Tribe/RSVP.php:1026
 msgid "Post scheduled."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1026
+#: vendor/tickets/src/Tribe/RSVP.php:1027
 msgid "Post draft updated."
 msgstr "文章草稿已更新。"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:340
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:391
 msgid "Cheatin Huh?"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:346
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:374
 msgid "Invalid Event ID"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:352
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:397
 msgid "Empty user and email"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:364
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:409
 msgid "Invalid Email"
 msgstr "Email錯誤"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:370
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:386
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:415
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:431
 msgid "Invalid User ID"
 msgstr "不正確的使用者編號"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:407
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:452
 msgid "Error when sending the email"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:412
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:457
 msgid "Email sent successfully!"
 msgstr ""
 
@@ -581,11 +573,11 @@ msgstr ""
 msgid "Unnamed %s"
 msgstr ""
 
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:108
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:109
 msgid "Create New %s"
 msgstr ""
 
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:172
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:173
 msgid "Add another %s"
 msgstr ""
 
@@ -723,8 +715,7 @@ msgstr ""
 msgid "Thanks for setting up a valid key, it will expire on %s"
 msgstr ""
 
-#: common/src/admin-views/tribe-options-display.php:31
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:31
+#: src/admin-views/tribe-options-display.php:68
 msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
 msgstr ""
 
@@ -823,91 +814,86 @@ msgstr ""
 msgid "Cancel"
 msgstr "取消"
 
-#: vendor/tickets/src/Tribe/Tickets.php:583
+#: vendor/tickets/src/Tribe/Tickets.php:578
 msgid "Editing the ticket price is currently disallowed."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-general.php:59
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:59
+#: src/admin-views/tribe-options-general.php:128
 msgid "Default currency symbol"
 msgstr "預設貨幣符號"
 
-#: common/src/admin-views/tribe-options-general.php:60
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:60
+#: src/admin-views/tribe-options-general.php:129
 msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
 msgstr "設定活動費用的預設貨幣符號，請注意此項設定只會對未來的活動產生影響並不會追溯到以前。"
 
-#: common/src/admin-views/tribe-options-general.php:67
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:67
+#: src/admin-views/tribe-options-general.php:136
 msgid "Currency symbol follows value"
 msgstr "貨幣符號在數值之後"
 
-#: common/src/admin-views/tribe-options-general.php:68
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:68
+#: src/admin-views/tribe-options-general.php:137
 msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
 msgstr "貨幣符號通常會出現在數值之前，啟用此選項貨幣符號將會出現在數值 之後。"
 
-#: src/admin-views/tribe-options-general.php:143
+#: src/admin-views/tribe-options-general.php:175
 msgid "Map Settings"
 msgstr "地圖設定"
 
-#: src/admin-views/tribe-options-general.php:147
+#: src/admin-views/tribe-options-general.php:179
 msgid "Enable Google Maps"
 msgstr "啟用 Google 地圖"
 
-#: src/admin-views/tribe-options-general.php:148
+#: src/admin-views/tribe-options-general.php:180
 msgid "Check to enable maps for events and venues."
 msgstr "勾選以啟用活動及地點的地圖功能"
 
-#: src/admin-views/tribe-options-general.php:155
+#: src/admin-views/tribe-options-general.php:187
 msgid "Google Maps default zoom level"
 msgstr "Google 地圖預設縮放比率"
 
-#: src/admin-views/tribe-options-general.php:156
+#: src/admin-views/tribe-options-general.php:188
 msgid "0 = zoomed out; 21 = zoomed in."
 msgstr "0 = 縮小; 21 = 放大。"
 
-#: common/src/admin-views/tribe-options-general.php:74
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:74
+#: src/admin-views/tribe-options-general.php:148
 msgid "Miscellaneous Settings"
 msgstr "其他設定"
 
-#: src/admin-views/tribe-options-general.php:131
+#: src/admin-views/tribe-options-general.php:143
 msgid "Duplicate Venues &amp; Organizers"
 msgstr "複製地點 &amp; 主辦人"
 
-#: src/admin-views/tribe-options-general.php:131
+#: src/admin-views/tribe-options-general.php:143
 msgid "You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers."
 msgstr "當更新 The Events Calendar 到 3.0 預覽版後，你會發現新增的複製地點與主辦人功能，點擊此按鈕以自動合併完全相同的地點與主辦人。"
 
-#: src/admin-views/tribe-options-general.php:171
+#: src/admin-views/tribe-options-general.php:159
 msgid "View Welcome Page"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:171
+#: src/admin-views/tribe-options-general.php:159
 msgid "View the page that displayed when you initially installed the plugin."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:175
+#: src/admin-views/tribe-options-general.php:163
 msgid "View Update Page"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:175
+#: src/admin-views/tribe-options-general.php:163
 msgid "View the page that displayed when you updated the plugin."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-general.php:81
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:81
+#: common/src/admin-views/tribe-options-general.php:58
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:58
 msgid "Debug mode"
 msgstr "除錯模式"
 
-#: common/src/admin-views/tribe-options-general.php:87
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
+#: common/src/admin-views/tribe-options-general.php:64
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:64
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
 msgstr "啟用此選項以記錄除錯報告，預設將記錄你的伺服器 PHP 錯誤報告，如果你想於你的瀏覽器閱讀紀錄的訊息，我們推薦安裝 %s 並於除錯輸出中搜尋 \"Tribe\" 工具列標籤。"
 
-#: common/src/admin-views/tribe-options-general.php:87
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
+#: common/src/admin-views/tribe-options-general.php:64
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:64
 msgid "Debug Bar Plugin"
 msgstr "Debug Bar Plugin"
 
@@ -2236,7 +2222,7 @@ msgstr "電子郵件信箱"
 msgid "%s Name Already Exists"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:31
+#: vendor/tickets/src/admin-views/attendees.php:33
 msgid "Event Details"
 msgstr "活動詳述"
 
@@ -2254,15 +2240,15 @@ msgstr "結束日期／時間"
 msgid "Address:"
 msgstr "地址："
 
-#: vendor/tickets/src/admin-views/attendees.php:81
+#: vendor/tickets/src/admin-views/attendees.php:83
 msgid "Finalized:"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:87
+#: vendor/tickets/src/admin-views/attendees.php:89
 msgid "Awaiting review:"
 msgstr ""
 
-#: vendor/tickets/src/admin-views/attendees.php:92
+#: vendor/tickets/src/admin-views/attendees.php:94
 msgid "Checked in:"
 msgstr "報到："
 
@@ -2290,11 +2276,11 @@ msgstr "電子郵件地址："
 msgid "Edit"
 msgstr "編輯"
 
-#: vendor/tickets/src/admin-views/list.php:42
+#: vendor/tickets/src/admin-views/list.php:52
 msgid "Edit in %s"
 msgstr "編輯於 %s"
 
-#: vendor/tickets/src/admin-views/list.php:37
+#: vendor/tickets/src/admin-views/list.php:47
 msgid "View"
 msgstr "檢視"
 
@@ -2387,79 +2373,79 @@ msgstr "顯示設定"
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:104
+#: src/admin-views/tribe-options-display.php:128
 msgid "Basic Template Settings"
 msgstr "基本模板設定"
 
-#: src/admin-views/tribe-options-display.php:108
+#: src/admin-views/tribe-options-display.php:132
 msgid "Default stylesheet used for events templates"
 msgstr "預設樣式表使用於活動模板"
 
-#: src/admin-views/tribe-options-display.php:111
+#: src/admin-views/tribe-options-display.php:135
 msgid "Skeleton Styles"
 msgstr "骨架樣式"
 
-#: src/admin-views/tribe-options-display.php:113
+#: src/admin-views/tribe-options-display.php:137
 msgid "Only includes enough css to achieve complex layouts like calendar and week view."
 msgstr "只包含足夠的 css 來實現複雜的佈局設計，如行事曆及週檢視表。"
 
-#: src/admin-views/tribe-options-display.php:115
+#: src/admin-views/tribe-options-display.php:139
 msgid "Full Styles"
 msgstr "全樣式"
 
-#: src/admin-views/tribe-options-display.php:117
+#: src/admin-views/tribe-options-display.php:141
 msgid "More detailed styling, tries to grab styles from your theme."
 msgstr "更多的細部設計，嘗試從你的佈景主題中抓取樣式。"
 
-#: src/admin-views/tribe-options-display.php:119
+#: src/admin-views/tribe-options-display.php:143
 msgid "Tribe Events Styles"
 msgstr "Tribe 活動樣式"
 
-#: src/admin-views/tribe-options-display.php:121
+#: src/admin-views/tribe-options-display.php:145
 msgid "A fully designed and styled theme for your events pages."
 msgstr "給你的活動頁面一個完整設計和完全樣式的佈景主題。"
 
-#: src/admin-views/tribe-options-display.php:128
+#: src/admin-views/tribe-options-display.php:152
 msgid "Events template"
 msgstr "活動模板"
 
-#: src/admin-views/tribe-options-display.php:129
+#: src/admin-views/tribe-options-display.php:153
 msgid "Choose a page template to control the appearance of your calendar and event content."
 msgstr "選擇頁面模板以操控你的行事曆外觀和活動內容。"
 
-#: src/admin-views/tribe-options-display.php:137
+#: src/admin-views/tribe-options-display.php:161
 msgid "Enable event views"
 msgstr "啟用活動檢視表"
 
-#: src/admin-views/tribe-options-display.php:138
+#: src/admin-views/tribe-options-display.php:162
 msgid "You must select at least one view."
 msgstr "你至少必須選擇一種檢視表"
 
-#: src/admin-views/tribe-options-display.php:145
+#: src/admin-views/tribe-options-display.php:169
 msgid "Default view"
 msgstr "預設檢視表"
 
-#: src/admin-views/tribe-options-display.php:153
+#: src/admin-views/tribe-options-display.php:177
 msgid "Disable the Event Search Bar"
 msgstr "關閉活動搜尋工具列"
 
-#: src/admin-views/tribe-options-display.php:154
+#: src/admin-views/tribe-options-display.php:178
 msgid "Check this to use the classic header."
 msgstr "勾選此方格以使用經典表頭。"
 
-#: src/admin-views/tribe-options-display.php:160
+#: src/admin-views/tribe-options-display.php:184
 msgid "Month view events per day"
 msgstr "每日活動月檢視表"
 
-#: src/admin-views/tribe-options-display.php:161
+#: src/admin-views/tribe-options-display.php:185
 msgid "Change the default 3 events per day in month view. Please note there may be performance issues if you set this too high. <a href=\"%s\">Read more</a>."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:168
+#: src/admin-views/tribe-options-display.php:192
 msgid "Enable the Month View Cache"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:169
+#: src/admin-views/tribe-options-display.php:193
 msgid "Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href=\"%s\">Read more</a>."
 msgstr ""
 
@@ -2473,72 +2459,69 @@ msgstr "日期格式設定"
 msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
 msgstr "<p>以下 3 個欄位接受 php date() 功能內置的日期格式選項 <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">由此學習如何創建你自己的日期格式</a>。</p>"
 
-#: common/src/admin-views/tribe-options-display.php:30
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:30
+#: src/admin-views/tribe-options-display.php:67
 msgid "Date with year"
 msgstr "日期中包含年"
 
-#: src/admin-views/tribe-options-display.php:66
+#: src/admin-views/tribe-options-display.php:90
 msgid "Date without year"
 msgstr "日期中不包含年"
 
-#: src/admin-views/tribe-options-display.php:67
+#: src/admin-views/tribe-options-display.php:91
 msgid "Enter the format to use for displaying dates without a year. Used when showing an event from the current year."
 msgstr "輸入此格式讓日期的顯示中不包含年，用於顯示今年的活動。"
 
-#: src/admin-views/tribe-options-display.php:74
+#: src/admin-views/tribe-options-display.php:98
 msgid "Month and year format"
 msgstr "月和年的格式"
 
-#: src/admin-views/tribe-options-display.php:75
+#: src/admin-views/tribe-options-display.php:99
 msgid "Enter the format to use for dates that show a month and year only. Used on month view."
 msgstr "輸入此格式讓日期的顯示中只包含月和年，用於月檢視表。"
 
-#: common/src/admin-views/tribe-options-display.php:38
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:38
+#: src/admin-views/tribe-options-display.php:75
 msgid "Date time separator"
 msgstr "日期時間分隔符號"
 
-#: common/src/admin-views/tribe-options-display.php:39
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:39
+#: src/admin-views/tribe-options-display.php:76
 msgid "Enter the separator that will be placed between the date and time, when both are shown."
 msgstr "輸入分隔符號，當日期與時間同時顯示時，此符號將置於兩者之間作為區分。"
 
-#: src/admin-views/tribe-options-display.php:89
+#: src/admin-views/tribe-options-display.php:113
 msgid "Time range separator"
 msgstr "時間範圍分隔符號"
 
-#: src/admin-views/tribe-options-display.php:90
+#: src/admin-views/tribe-options-display.php:114
 msgid "Enter the separator that will be used between the start and end time of an event."
 msgstr "輸入分隔符號，此符號將用於活動的開始與結束時間之間作為區分。"
 
-#: common/src/admin-views/tribe-options-display.php:46
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:46
+#: common/src/admin-views/tribe-options-display.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:30
 msgid "Datepicker Date Format"
 msgstr "日期選擇器的日期格式"
 
-#: common/src/admin-views/tribe-options-display.php:47
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:47
+#: common/src/admin-views/tribe-options-display.php:31
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:31
 msgid "Select the date format to use in datepickers"
 msgstr "選擇用於日期選擇器中的日期格式"
 
-#: src/admin-views/tribe-options-display.php:182
+#: src/admin-views/tribe-options-display.php:206
 msgid "Advanced Template Settings"
 msgstr "進階模板設定"
 
-#: src/admin-views/tribe-options-display.php:186
+#: src/admin-views/tribe-options-display.php:210
 msgid "Add HTML before event content"
 msgstr "增加 HTML 於活動內容之前"
 
-#: src/admin-views/tribe-options-display.php:187
+#: src/admin-views/tribe-options-display.php:211
 msgid "If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout."
 msgstr "如果你熟悉 HTML，你可以增加額外的程式碼於活動模板之前，有些佈景主題可能需要如此來幫助完成設計或佈局。"
 
-#: src/admin-views/tribe-options-display.php:192
+#: src/admin-views/tribe-options-display.php:216
 msgid "Add HTML after event content"
 msgstr "增加 HTML 於活動內容之後"
 
-#: src/admin-views/tribe-options-display.php:193
+#: src/admin-views/tribe-options-display.php:217
 msgid "If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout."
 msgstr "如果你熟悉 HTML，你可以增加額外的程式碼於活動模板之後，有些佈景主題可能需要如此來幫助完成設計或佈局。"
 
@@ -2595,79 +2578,78 @@ msgstr "你正想著 \"哇，這個外掛產品太棒了！我們應該感謝 Mo
 msgid "Show The Events Calendar link"
 msgstr "顯示 The Events Calendar 連結"
 
-#: common/src/admin-views/tribe-options-general.php:55
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:55
+#: src/admin-views/tribe-options-general.php:33
 msgid "General Settings"
 msgstr "一般設定"
 
-#: src/admin-views/tribe-options-general.php:33
+#: src/admin-views/tribe-options-general.php:37
 msgid "Number of events to show per page"
 msgstr "每頁顯示的活動筆數"
 
-#: src/admin-views/tribe-options-general.php:40
+#: src/admin-views/tribe-options-general.php:44
 msgid "Use Javascript to control date filtering"
 msgstr "使用 Javascript 控制日期的篩選"
 
-#: src/admin-views/tribe-options-general.php:41
+#: src/admin-views/tribe-options-general.php:45
 msgid "This option is disabled when \"Disable the Event Search Bar\" is checked on the Display settings tab."
 msgstr "當顯示設定工具列中 \"關閉活動搜尋工具列\" 的方格被勾選時，此選項的功能將被關閉。"
 
-#: src/admin-views/tribe-options-general.php:41
+#: src/admin-views/tribe-options-general.php:45
 msgid "Enable live ajax for datepicker on front end (User submit not required)."
 msgstr "啟用即時 ajax 日期選擇器於前台 (使用者提交活動時為非必要)。"
 
-#: src/admin-views/tribe-options-general.php:49
+#: src/admin-views/tribe-options-general.php:53
 msgid "Show comments"
 msgstr "顯示評論"
 
-#: src/admin-views/tribe-options-general.php:50
+#: src/admin-views/tribe-options-general.php:54
 msgid "Enable comments on event pages."
 msgstr "啟用評論於活動頁面。"
 
-#: src/admin-views/tribe-options-general.php:56
+#: src/admin-views/tribe-options-general.php:60
 msgid "Include events in main blog loop"
 msgstr "主部落格迴圈中包含活動"
 
-#: src/admin-views/tribe-options-general.php:57
+#: src/admin-views/tribe-options-general.php:61
 msgid "Show events with the site's other posts. When this box is checked, events will also continue to appear on the default events page."
 msgstr "同時顯示活動與網站中其他文章。當此方格被勾選時，活動也將會同時持續出現在其預設的活動頁面中。"
 
-#: src/admin-views/tribe-options-general.php:63
-#: src/admin-views/tribe-options-general.php:69
+#: src/admin-views/tribe-options-general.php:67
+#: src/admin-views/tribe-options-general.php:73
 msgid "Events URL slug"
 msgstr "活動網址代稱 (slug)"
 
-#: src/admin-views/tribe-options-general.php:64
+#: src/admin-views/tribe-options-general.php:68
 msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%1$s\">%2$s</a>. In order to edit the slug here, <a href=\"%3$soptions-permalink.php\">enable pretty permalinks</a>."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:76
+#: src/admin-views/tribe-options-general.php:80
 #: src/functions/template-tags/options.php:20
 msgid "The slug used for building the events URL."
 msgstr "此代稱 (slug) 用於建立活動的網址"
 
-#: src/admin-views/tribe-options-general.php:76
+#: src/admin-views/tribe-options-general.php:80
 msgid "Your current events URL is: %s"
 msgstr "你目前的活動網址是：%s"
 
-#: src/admin-views/tribe-options-general.php:81
+#: src/admin-views/tribe-options-general.php:85
 #: src/functions/template-tags/options.php:39
 msgid "Here is the iCal feed URL for your events:"
 msgstr "此為你活動的 iCal 饋送網址"
 
-#: src/admin-views/tribe-options-general.php:86
+#: src/admin-views/tribe-options-general.php:90
 msgid "Single event URL slug"
 msgstr "單一活動網址代稱 (slug)"
 
-#: src/admin-views/tribe-options-general.php:93
+#: src/admin-views/tribe-options-general.php:97
 msgid "The above should ideally be plural, and this singular.<br />Your single event URL is: %s"
 msgstr " 以上最好是複數和此單數。<br />你的單一活動網址為：%s"
 
-#: src/admin-views/tribe-options-general.php:98
+#: src/admin-views/tribe-options-general.php:102
 msgid "End of day cutoff"
 msgstr "截止日"
 
-#: src/admin-views/tribe-options-general.php:119
+#: src/admin-views/tribe-options-general.php:123
 msgid "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar."
 msgstr "有超過午夜的活動嗎？請選擇此活動結束的時間以避免顯示此活動於次日的行事曆上。"
 
@@ -2688,9 +2670,9 @@ msgstr ""
 msgid "CSV"
 msgstr "CSV"
 
-#: common/src/Tribe/Settings.php:215
+#: common/src/Tribe/Settings.php:214
 #: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4321
-#: vendor/tickets/common/src/Tribe/Settings.php:215
+#: vendor/tickets/common/src/Tribe/Settings.php:214
 msgid "Settings"
 msgstr "設定"
 
@@ -2793,54 +2775,54 @@ msgstr "有效密鑰！到期日為 %s"
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: common/src/Tribe/Settings.php:214 common/src/Tribe/Settings.php:235
-#: vendor/tickets/common/src/Tribe/Settings.php:214
-#: vendor/tickets/common/src/Tribe/Settings.php:235
+#: common/src/Tribe/Settings.php:213 common/src/Tribe/Settings.php:234
+#: vendor/tickets/common/src/Tribe/Settings.php:213
+#: vendor/tickets/common/src/Tribe/Settings.php:234
 msgid "Events Settings"
 msgstr "活動設定"
 
-#: common/src/Tribe/Settings.php:300
-#: vendor/tickets/common/src/Tribe/Settings.php:300
+#: common/src/Tribe/Settings.php:299
+#: vendor/tickets/common/src/Tribe/Settings.php:299
 msgid "%s Settings"
 msgstr "%s 設定"
 
-#: common/src/Tribe/Settings.php:314
-#: vendor/tickets/common/src/Tribe/Settings.php:314
+#: common/src/Tribe/Settings.php:313
+#: vendor/tickets/common/src/Tribe/Settings.php:313
 msgid "You've requested a non-existent tab."
 msgstr "你要求的工具列標籤不存在。"
 
-#: common/src/Tribe/Settings.php:322
-#: vendor/tickets/common/src/Tribe/Settings.php:322
+#: common/src/Tribe/Settings.php:321
+#: vendor/tickets/common/src/Tribe/Settings.php:321
 msgid "Save Changes"
 msgstr ""
 
-#: common/src/Tribe/Settings.php:370
-#: vendor/tickets/common/src/Tribe/Settings.php:370
+#: common/src/Tribe/Settings.php:369
+#: vendor/tickets/common/src/Tribe/Settings.php:369
 msgid "You don't have permission to do that."
 msgstr "你的操作不被允許。"
 
-#: common/src/Tribe/Settings.php:376
-#: vendor/tickets/common/src/Tribe/Settings.php:376
+#: common/src/Tribe/Settings.php:375
+#: vendor/tickets/common/src/Tribe/Settings.php:375
 msgid "The request was sent insecurely."
 msgstr "以不安全的方式傳送要求。"
 
-#: common/src/Tribe/Settings.php:382
-#: vendor/tickets/common/src/Tribe/Settings.php:382
+#: common/src/Tribe/Settings.php:381
+#: vendor/tickets/common/src/Tribe/Settings.php:381
 msgid "The request wasn't sent from this tab."
 msgstr "請求未從此工具列標籤傳送。"
 
-#: common/src/Tribe/Settings.php:550
-#: vendor/tickets/common/src/Tribe/Settings.php:550
+#: common/src/Tribe/Settings.php:549
+#: vendor/tickets/common/src/Tribe/Settings.php:549
 msgid "Your form had the following errors:"
 msgstr "你的表格含有下列錯誤："
 
-#: common/src/Tribe/Settings.php:560
-#: vendor/tickets/common/src/Tribe/Settings.php:560
+#: common/src/Tribe/Settings.php:559
+#: vendor/tickets/common/src/Tribe/Settings.php:559
 msgid "None of your settings were saved. Please try again."
 msgstr "你的設定未儲存，請稍後重試。"
 
-#: common/src/Tribe/Settings.php:561
-#: vendor/tickets/common/src/Tribe/Settings.php:561
+#: common/src/Tribe/Settings.php:560
+#: vendor/tickets/common/src/Tribe/Settings.php:560
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "以上設定未儲存，其餘設定已成功儲存。"
@@ -2922,49 +2904,57 @@ msgid "Order Status"
 msgstr "訂單狀態"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:78
+msgid "Purchaser name"
+msgstr "購買人姓名"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:79
+msgid "Purchaser email"
+msgstr "購買人電子郵件信箱"
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:80
 msgid "Ticket type"
 msgstr "票券類型"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:79
+#: vendor/tickets/src/Tribe/Attendees_Table.php:81
 #: vendor/tickets/src/views/tickets/email.php:332
 msgid "Ticket #"
 msgstr "票券編號 #"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:80
+#: vendor/tickets/src/Tribe/Attendees_Table.php:82
 #: vendor/tickets/src/views/tickets/email.php:344
 msgid "Security Code"
 msgstr "安全密碼"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:81
-#: vendor/tickets/src/Tribe/Attendees_Table.php:238
-#: vendor/tickets/src/Tribe/Attendees_Table.php:325
+#: vendor/tickets/src/Tribe/Attendees_Table.php:83
+#: vendor/tickets/src/Tribe/Attendees_Table.php:235
+#: vendor/tickets/src/Tribe/Attendees_Table.php:329
 msgid "Check in"
 msgstr "報到"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:239
-#: vendor/tickets/src/Tribe/Attendees_Table.php:326
+#: vendor/tickets/src/Tribe/Attendees_Table.php:236
+#: vendor/tickets/src/Tribe/Attendees_Table.php:330
 msgid "Undo Check in"
 msgstr "取消報到"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:298
+#: vendor/tickets/src/Tribe/Attendees_Table.php:302
 msgid "Print"
 msgstr "列印"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:299
+#: vendor/tickets/src/Tribe/Attendees_Table.php:303
 #: vendor/tickets/src/views/tickets/rsvp.php:116
 msgid "Email"
 msgstr "電子郵件信箱"
 
-#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:300
+#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:304
 msgid "Export"
 msgstr "匯出"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:306
+#: vendor/tickets/src/Tribe/Attendees_Table.php:310
 msgid "Filter by purchaser name, ticket #, order # or security code"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:327
-#: vendor/tickets/src/admin-views/list.php:34
+#: vendor/tickets/src/Tribe/Attendees_Table.php:331
+#: vendor/tickets/src/admin-views/list.php:43
 msgid "Delete"
 msgstr "刪除"
 
@@ -2982,50 +2972,50 @@ msgstr "票券表頭圖片"
 msgid "Set as ticket header"
 msgstr "設為票券表頭"
 
-#: vendor/tickets/src/Tribe/Tickets.php:369
+#: vendor/tickets/src/Tribe/Tickets.php:364
 msgid "Your ticket has been saved."
 msgstr "你的票券已儲存。"
 
-#: vendor/tickets/src/Tribe/Tickets.php:529
+#: vendor/tickets/src/Tribe/Tickets.php:524
 msgid "Your ticket has been deleted."
 msgstr "你的票券已刪除。"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:84
-#: vendor/tickets/src/admin-views/list.php:71
+#: vendor/tickets/src/admin-views/list.php:81
 msgid "See who purchased tickets to this event"
 msgstr "查看有哪些人購買了此活動的票券"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:84
-#: vendor/tickets/src/admin-views/attendees.php:24
-#: vendor/tickets/src/admin-views/list.php:73
+#: vendor/tickets/src/admin-views/attendees.php:26
+#: vendor/tickets/src/admin-views/list.php:83
 msgid "Attendees"
 msgstr "出席者"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:121
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:138
 msgid "You need to select a user or type a valid email address"
 msgstr "你必須選擇使用者名稱或輸入有效的電子郵件地址"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:122
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:139
 msgid "Sending..."
 msgstr "傳送中..."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:148
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:165
 msgid "Columns"
 msgstr "欄"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:148
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:165
 msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
 msgstr "你可以使用螢幕選項選擇哪些欄是你想要看到的，此選項作用於表單下方與電子郵件信箱中，當列印及匯出 CSV 時。"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:285
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:318
 msgid "Yes"
 msgstr "是"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:314
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:347
 msgid "attendees"
 msgstr "出席者"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:406
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:451
 msgid "Attendee List for: %s"
 msgstr "出席者名單： %s"
 
@@ -4055,13 +4045,13 @@ msgstr ""
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:108 src/Tribe/Main.php:1695
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:109 src/Tribe/Main.php:1695
 #: src/Tribe/Main.php:1768
 msgid "Use Saved %s:"
 msgstr ""
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:138 src/Tribe/Main.php:1505
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:139 src/Tribe/Main.php:1505
 #: src/Tribe/Main.php:1523 src/Tribe/Main.php:1541 src/Tribe/Main.php:1704
 #: src/Tribe/Main.php:1770
 msgid "Edit %s"
@@ -4123,7 +4113,7 @@ msgstr "日期："
 msgid "Time:"
 msgstr "時間："
 
-#: src/Tribe/Amalgamator.php:253 src/admin-views/tribe-options-general.php:131
+#: src/Tribe/Amalgamator.php:253 src/admin-views/tribe-options-general.php:143
 msgid "Merge Duplicates"
 msgstr "合併複製"
 
@@ -4339,8 +4329,8 @@ msgstr "未發現模板檔案，無法儲存 %s。"
 msgid "Could not save %s."
 msgstr "無法儲存 %s。"
 
-#: common/src/Tribe/Settings.php:583 src/Tribe/Importer/Options.php:53
-#: vendor/tickets/common/src/Tribe/Settings.php:583
+#: common/src/Tribe/Settings.php:585 src/Tribe/Importer/Options.php:53
+#: vendor/tickets/common/src/Tribe/Settings.php:585
 msgid "Settings saved."
 msgstr "設定已儲存。"
 
@@ -4378,13 +4368,13 @@ msgstr "主辦人"
 msgid "Organizer"
 msgstr "主辦人"
 
-#: common/src/Tribe/Settings.php:148 common/src/Tribe/Settings.php:203
-#: common/src/Tribe/Settings.php:204 src/Tribe/Main.php:710
+#: common/src/Tribe/Settings.php:148 common/src/Tribe/Settings.php:202
+#: common/src/Tribe/Settings.php:203 src/Tribe/Main.php:710
 #: src/functions/template-tags/general.php:80
 #: src/io/csv/admin-views/import.php:47
 #: vendor/tickets/common/src/Tribe/Settings.php:148
+#: vendor/tickets/common/src/Tribe/Settings.php:202
 #: vendor/tickets/common/src/Tribe/Settings.php:203
-#: vendor/tickets/common/src/Tribe/Settings.php:204
 msgid "Events"
 msgstr "活動"
 
@@ -4392,7 +4382,7 @@ msgstr "活動"
 msgid "Event"
 msgstr "活動"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.3) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.4) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:636

@@ -10,15 +10,15 @@ msgstr ""
 "X-Generator: GlotPress/2.1.0-alpha\n"
 "Project-Id-Version: Stable (latest release)\n"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:255
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:288
 msgid "Customer Name"
 msgstr "Bezeroaren izena"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:256
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:289
 msgid "Customer Email Address"
 msgstr "Bezeroaren posta elektroniko helbidea"
 
-#: vendor/tickets/src/views/tickets/rsvp.php:125
+#: vendor/tickets/src/views/tickets/rsvp.php:126
 msgid "Don't list me on the public attendee list"
 msgstr "Ez nazazu bertaratutakoen zerrenda publikoan zerrendatu"
 
@@ -82,15 +82,7 @@ msgstr "Duela gutxiko txantiloi aldaketei eta potentzialki eraginpetutako txanti
 msgid "Recent Template Changes"
 msgstr "Duela gutxiko txantiloi aldaketak"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:171
-msgid "Reserved by:"
-msgstr "Nork erreserbatu du:"
-
-#: vendor/tickets/src/Tribe/Attendees_Table.php:171
-msgid "Purchased by:"
-msgstr "Nork erosi du:"
-
-#: vendor/tickets/src/Tribe/Attendees_Table.php:235
+#: vendor/tickets/src/Tribe/Attendees_Table.php:232
 msgid "View order"
 msgstr "Eskaria ikusi"
 
@@ -98,19 +90,19 @@ msgstr "Eskaria ikusi"
 msgid "It looks like you have modified your global stock settings but have not saved or updated the post."
 msgstr "Zure stock orokorraren hobespenak aldatu dituzu baina ez duzu bidalketa gorde edo eguneratu."
 
-#: vendor/tickets/src/Tribe/Tickets.php:830
+#: vendor/tickets/src/Tribe/Tickets.php:825
 msgid "Use global stock"
 msgstr "Stock orokorra erabili"
 
-#: vendor/tickets/src/Tribe/Tickets.php:831
+#: vendor/tickets/src/Tribe/Tickets.php:826
 msgid "Use global stock but cap sales"
 msgstr "Stock orokorra erabili baina salmentak mugatu"
 
-#: vendor/tickets/src/Tribe/Tickets.php:832
+#: vendor/tickets/src/Tribe/Tickets.php:827
 msgid "Independent (do not use global stock)"
 msgstr "Bereizia (stock orokorra ez erabili)"
 
-#: vendor/tickets/src/admin-views/attendees.php:98
+#: vendor/tickets/src/admin-views/attendees.php:100
 msgid "Deleted:"
 msgstr "Ezabatuta:"
 
@@ -153,15 +145,15 @@ msgstr "\"Erantzun, mesedez\" berrespenaren izena eta posta elektronikoa eremuak
 msgid "Send RSVP confirmation to:"
 msgstr "\"Erantzun, mesedez\" berrespena nori bidali:"
 
-#: vendor/tickets/src/admin-views/attendees.php:44
+#: vendor/tickets/src/admin-views/attendees.php:46
 msgid "Post Type:"
 msgstr "Bidalketa Mota:"
 
-#: vendor/tickets/src/admin-views/attendees.php:27
+#: vendor/tickets/src/admin-views/attendees.php:29
 msgid "Edit Event"
 msgstr "Ekitaldia Editatu"
 
-#: vendor/tickets/src/admin-views/attendees.php:28
+#: vendor/tickets/src/admin-views/attendees.php:30
 msgid "See Event Page"
 msgstr "Ekitaldiaren Horria Ikusi"
 
@@ -169,15 +161,15 @@ msgstr "Ekitaldiaren Horria Ikusi"
 msgid "Edit Venue"
 msgstr "Lekua editatu"
 
-#: vendor/tickets/src/admin-views/attendees.php:59
+#: vendor/tickets/src/admin-views/attendees.php:61
 msgid "Sales by Ticket"
 msgstr "Salmentak sarreraren arabera"
 
-#: vendor/tickets/src/admin-views/attendees.php:65
+#: vendor/tickets/src/admin-views/attendees.php:67
 msgid "Edit Ticket"
 msgstr "Sarrera editatu"
 
-#: vendor/tickets/src/admin-views/attendees.php:76
+#: vendor/tickets/src/admin-views/attendees.php:78
 msgid "Total Sold:"
 msgstr "Guztira saldutakoa:"
 
@@ -229,7 +221,7 @@ msgstr "Agortuta!"
 msgid "Full Name"
 msgstr "Izen osoa"
 
-#: vendor/tickets/src/views/tickets/rsvp.php:133
+#: vendor/tickets/src/views/tickets/rsvp.php:135
 msgid "Confirm RSVP"
 msgstr "\"Erantzun, mesedez\" berretsi"
 
@@ -250,72 +242,72 @@ msgstr "%1$s. partaidea"
 msgid "Your tickets from %s"
 msgstr "Zure %s-(e)ko sarrerak"
 
-#: vendor/tickets/src/Tribe/RSVP.php:625
+#: vendor/tickets/src/Tribe/RSVP.php:626
 msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
 msgstr "Zure \"Erantzun, mesedez\" jaso da! Zure posta elektronikoa konprobatu \"Erantzun, mesedez\" berrespena ikusteko."
 
-#: vendor/tickets/src/Tribe/RSVP.php:631
+#: vendor/tickets/src/Tribe/RSVP.php:632
 msgid "You can't RSVP more than the total remaining tickets."
 msgstr "Geratzen den sarrera kopurua baino gehiagorekin ezin duzu \"Erantzun, mesedez\" egin."
 
-#: vendor/tickets/src/Tribe/RSVP.php:636
+#: vendor/tickets/src/Tribe/RSVP.php:637
 msgid "In order to RSVP, you must enter your name and a valid email address."
 msgstr "\"Erantzun, mesedez\" egiteko, zure izena eta baliozko posta elektroniko helbide bat sartu behar dituzu."
 
-#: vendor/tickets/src/Tribe/RSVP.php:757
+#: vendor/tickets/src/Tribe/RSVP.php:758
 msgid "(deleted)"
 msgstr "(ezabatuta)"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1010
+#: vendor/tickets/src/Tribe/RSVP.php:1011
 msgid "Return to the %1$sAttendees Report%2$s."
 msgstr "%1$sBertaratutakoen txostenera%2$s itzuli."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1017
+#: vendor/tickets/src/Tribe/RSVP.php:1018
 msgid "Post updated. %1$s"
 msgstr "Bidalketa eguneratu da. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1021
+#: vendor/tickets/src/Tribe/RSVP.php:1022
 msgid "Post published. %1$s"
 msgstr "Bidalketa argitaratu da. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1024
+#: vendor/tickets/src/Tribe/RSVP.php:1025
 msgid "Post submitted."
 msgstr "Bidalketa bidali da."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1025
+#: vendor/tickets/src/Tribe/RSVP.php:1026
 msgid "Post scheduled."
 msgstr "Bidalketa programatu da."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1026
+#: vendor/tickets/src/Tribe/RSVP.php:1027
 msgid "Post draft updated."
 msgstr "Bidalketaren zirriborroa eguneratu da."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:340
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:391
 msgid "Cheatin Huh?"
 msgstr "Tranpetan ari?"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:346
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:374
 msgid "Invalid Event ID"
 msgstr "Ekitaldi ID baliaezina"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:352
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:397
 msgid "Empty user and email"
 msgstr "Erabiltzailea eta posta elektronikoa hutsik daude"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:364
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:409
 msgid "Invalid Email"
 msgstr "Posta elektroniko baliaezina"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:370
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:386
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:415
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:431
 msgid "Invalid User ID"
 msgstr "Erabiltzaile ID baliaezina"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:407
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:452
 msgid "Error when sending the email"
 msgstr "Errorea posta elektronikoa bidaltzean"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:412
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:457
 msgid "Email sent successfully!"
 msgstr "Posta elektronikoa ondo bidali da!"
 
@@ -584,11 +576,11 @@ msgstr "Pantaila honetan %1$ssare bitartez aktibatzen%2$s diren pluginen lizentz
 msgid "Unnamed %s"
 msgstr "Izendatu gabeko %s"
 
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:108
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:109
 msgid "Create New %s"
 msgstr "%s berria sortu"
 
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:172
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:173
 msgid "Add another %s"
 msgstr "Beste %s bat gehitu"
 
@@ -726,8 +718,7 @@ msgstr "Kalifikatu %3$sEkitaldi Egutegia%4$s %1$s batekin %2$s-n plugin hau libr
 msgid "Thanks for setting up a valid key, it will expire on %s"
 msgstr "Eskerrik asko baliozko gako bat zehazteagatik. %s-an iraungituko da."
 
-#: common/src/admin-views/tribe-options-display.php:31
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:31
+#: src/admin-views/tribe-options-display.php:68
 msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
 msgstr "Urtea duten datak bistaratzeko formatua sartu. Etorkizuneko urte bateko data bat bistaratzean erabiltzen da."
 
@@ -827,91 +818,86 @@ msgstr "%s zenbaki edo ehuneko positibo bat izan behar da."
 msgid "Cancel"
 msgstr "Ezeztatu"
 
-#: vendor/tickets/src/Tribe/Tickets.php:583
+#: vendor/tickets/src/Tribe/Tickets.php:578
 msgid "Editing the ticket price is currently disallowed."
 msgstr "Sarreraren prezioa une honetan editatzea debekatuta dago."
 
-#: common/src/admin-views/tribe-options-general.php:59
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:59
+#: src/admin-views/tribe-options-general.php:128
 msgid "Default currency symbol"
 msgstr "Lehenetsitako dibisa sinboloa"
 
-#: common/src/admin-views/tribe-options-general.php:60
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:60
+#: src/admin-views/tribe-options-general.php:129
 msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
 msgstr "Ekitaldi kostuetarako lehenetsitako dibisa sinboloa zehaztu. Kontutan hartu honek etorkizuneko ekitaldietan soilik eragingo duela, eta egindako aldaketak ez direla atzeraeraginez aplikatuko."
 
-#: common/src/admin-views/tribe-options-general.php:67
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:67
+#: src/admin-views/tribe-options-general.php:136
 msgid "Currency symbol follows value"
 msgstr "Dibisa sinboloa balioaren ondoren"
 
-#: common/src/admin-views/tribe-options-general.php:68
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:68
+#: src/admin-views/tribe-options-general.php:137
 msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
 msgstr "Normalean dibisa sinboloa balioaren aurretik jartzen da. Aukera hau gaitzen bada, sinboloa balioaren ondoren azalduko da."
 
-#: src/admin-views/tribe-options-general.php:143
+#: src/admin-views/tribe-options-general.php:175
 msgid "Map Settings"
 msgstr "Mapa ezarpenak"
 
-#: src/admin-views/tribe-options-general.php:147
+#: src/admin-views/tribe-options-general.php:179
 msgid "Enable Google Maps"
 msgstr "Google Maps gaitu"
 
-#: src/admin-views/tribe-options-general.php:148
+#: src/admin-views/tribe-options-general.php:180
 msgid "Check to enable maps for events and venues."
 msgstr "Markatu egoitzentzat eta ekitaldientzat mapak gaitzeko"
 
-#: src/admin-views/tribe-options-general.php:155
+#: src/admin-views/tribe-options-general.php:187
 msgid "Google Maps default zoom level"
 msgstr "Google Maps-en zoom maila lehenetsia"
 
-#: src/admin-views/tribe-options-general.php:156
+#: src/admin-views/tribe-options-general.php:188
 msgid "0 = zoomed out; 21 = zoomed in."
 msgstr "0 = zoomik ez; 21 = zoom asko."
 
-#: common/src/admin-views/tribe-options-general.php:74
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:74
+#: src/admin-views/tribe-options-general.php:148
 msgid "Miscellaneous Settings"
 msgstr "Askotariko hobespenak"
 
-#: src/admin-views/tribe-options-general.php:131
+#: src/admin-views/tribe-options-general.php:143
 msgid "Duplicate Venues &amp; Organizers"
 msgstr "Antolatzaileak eta egoitzak bikoiztu"
 
-#: src/admin-views/tribe-options-general.php:131
+#: src/admin-views/tribe-options-general.php:143
 msgid "You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers."
 msgstr "Ekitaldi Egutegia 3.0 bertsioa baino zaharragoa den bertsio batetik eguneratzerakoan bikoiztutako leku eta antolatzaileak aurkitu ditzakezu. Botoi honetan sakatu leku eta antolatzaile berberak automatikoki elkartzeko."
 
-#: src/admin-views/tribe-options-general.php:171
+#: src/admin-views/tribe-options-general.php:159
 msgid "View Welcome Page"
 msgstr "Ongietorri orrialdea ikusi"
 
-#: src/admin-views/tribe-options-general.php:171
+#: src/admin-views/tribe-options-general.php:159
 msgid "View the page that displayed when you initially installed the plugin."
 msgstr "Plugina instalatu zenuenean bistaratu zenuen orrialdea ikusi."
 
-#: src/admin-views/tribe-options-general.php:175
+#: src/admin-views/tribe-options-general.php:163
 msgid "View Update Page"
 msgstr "Eguneraketa orrialdea ikusi"
 
-#: src/admin-views/tribe-options-general.php:175
+#: src/admin-views/tribe-options-general.php:163
 msgid "View the page that displayed when you updated the plugin."
 msgstr "Plugina eguneratu zenuenean bistaratu zenuen orrialdea ikusi."
 
-#: common/src/admin-views/tribe-options-general.php:81
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:81
+#: common/src/admin-views/tribe-options-general.php:58
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:58
 msgid "Debug mode"
 msgstr "Arazketa modua"
 
-#: common/src/admin-views/tribe-options-general.php:87
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
+#: common/src/admin-views/tribe-options-general.php:64
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:64
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
 msgstr "Aukera hau gaitu arazketa informazioa logatzeko. Besterik adierazi ezean, datuak zure zerbitzariko PHP errore logan idatziko dira. Log mezuak zure arakatzailean ikusi nahi badituzu, %s instalatzea eta arazketa irteeran \"Tribe\" fitxa bilatzea gomendatzen dizugu."
 
-#: common/src/admin-views/tribe-options-general.php:87
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:87
+#: common/src/admin-views/tribe-options-general.php:64
+#: vendor/tickets/common/src/admin-views/tribe-options-general.php:64
 msgid "Debug Bar Plugin"
 msgstr "Arazketa barra plugina"
 
@@ -2241,7 +2227,7 @@ msgstr "Posta elektronikoa:"
 msgid "%s Name Already Exists"
 msgstr "%s izena dagoeneko existitzen da"
 
-#: vendor/tickets/src/admin-views/attendees.php:31
+#: vendor/tickets/src/admin-views/attendees.php:33
 msgid "Event Details"
 msgstr "Ekitaldiaren xehetasunak"
 
@@ -2259,15 +2245,15 @@ msgstr "Amaiera Data / Ordua:"
 msgid "Address:"
 msgstr "Helbidea:"
 
-#: vendor/tickets/src/admin-views/attendees.php:81
+#: vendor/tickets/src/admin-views/attendees.php:83
 msgid "Finalized:"
 msgstr "Amaituta:"
 
-#: vendor/tickets/src/admin-views/attendees.php:87
+#: vendor/tickets/src/admin-views/attendees.php:89
 msgid "Awaiting review:"
 msgstr "Iritzi zain:"
 
-#: vendor/tickets/src/admin-views/attendees.php:92
+#: vendor/tickets/src/admin-views/attendees.php:94
 msgid "Checked in:"
 msgstr "Izen ematea noiz:"
 
@@ -2295,11 +2281,11 @@ msgstr "Posta elektroniko helbidea:"
 msgid "Edit"
 msgstr "Editatu"
 
-#: vendor/tickets/src/admin-views/list.php:42
+#: vendor/tickets/src/admin-views/list.php:52
 msgid "Edit in %s"
 msgstr "%s-n editatu"
 
-#: vendor/tickets/src/admin-views/list.php:37
+#: vendor/tickets/src/admin-views/list.php:47
 msgid "View"
 msgstr "Ikusi"
 
@@ -2392,79 +2378,79 @@ msgstr "Bistaratze ezarpenak"
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
 msgstr "Azpiko hobespenek egutegiaren bistaratzea kontrolatzen dute. Gauzak behar bezala azaltzen ez badira, hiru estilo-orri aukerak aldatzea edo zure itxurarako orrialde txantiloi bat aukeratzea probatu.</p><p>&#37;100 perfektua den serieko txantilorik ez egotea gertatuko da batzuetan. Gure <a href=\"%s\">itxuragilearen gidari</a> begirada bat bota aldaketa pertsonalizatuak nola egiten diren jakiteko."
 
-#: src/admin-views/tribe-options-display.php:104
+#: src/admin-views/tribe-options-display.php:128
 msgid "Basic Template Settings"
 msgstr "Oinarrizko txantiloi ezarpenak"
 
-#: src/admin-views/tribe-options-display.php:108
+#: src/admin-views/tribe-options-display.php:132
 msgid "Default stylesheet used for events templates"
 msgstr "Ekitaldi txantiloietan erabiliko den estilo-orri lehenetsia"
 
-#: src/admin-views/tribe-options-display.php:111
+#: src/admin-views/tribe-options-display.php:135
 msgid "Skeleton Styles"
 msgstr "Funtsezko estiloak"
 
-#: src/admin-views/tribe-options-display.php:113
+#: src/admin-views/tribe-options-display.php:137
 msgid "Only includes enough css to achieve complex layouts like calendar and week view."
 msgstr "Egutegi eta aste bistak bezalako antolakuntza konplexuak lortzeko adina css bakarrik dakarte."
 
-#: src/admin-views/tribe-options-display.php:115
+#: src/admin-views/tribe-options-display.php:139
 msgid "Full Styles"
 msgstr "Estilo osoak"
 
-#: src/admin-views/tribe-options-display.php:117
+#: src/admin-views/tribe-options-display.php:141
 msgid "More detailed styling, tries to grab styles from your theme."
 msgstr "Xehetasun handiagoko estilotzea, estiloak zure itxuratik hartzen saiatzen da."
 
-#: src/admin-views/tribe-options-display.php:119
+#: src/admin-views/tribe-options-display.php:143
 msgid "Tribe Events Styles"
 msgstr "Tribe Events estiloak"
 
-#: src/admin-views/tribe-options-display.php:121
+#: src/admin-views/tribe-options-display.php:145
 msgid "A fully designed and styled theme for your events pages."
 msgstr "Zure ekitaldi orrialdeentzako erabat diseinatutako eta estilotutako itxura bat."
 
-#: src/admin-views/tribe-options-display.php:128
+#: src/admin-views/tribe-options-display.php:152
 msgid "Events template"
 msgstr "Ekitaldien txantiloia"
 
-#: src/admin-views/tribe-options-display.php:129
+#: src/admin-views/tribe-options-display.php:153
 msgid "Choose a page template to control the appearance of your calendar and event content."
 msgstr "Zure egutegiaren eta ekitaldi edukien itxura kontrolatzeko orrialde txantiloi bat aukeratu."
 
-#: src/admin-views/tribe-options-display.php:137
+#: src/admin-views/tribe-options-display.php:161
 msgid "Enable event views"
 msgstr "Ekitaldi bistak gaitu"
 
-#: src/admin-views/tribe-options-display.php:138
+#: src/admin-views/tribe-options-display.php:162
 msgid "You must select at least one view."
 msgstr "Gutxienez bista bat aukeratu behar duzu."
 
-#: src/admin-views/tribe-options-display.php:145
+#: src/admin-views/tribe-options-display.php:169
 msgid "Default view"
 msgstr "Bista lehenetsia"
 
-#: src/admin-views/tribe-options-display.php:153
+#: src/admin-views/tribe-options-display.php:177
 msgid "Disable the Event Search Bar"
 msgstr "Ekitaldi bilatze barra desgaitu"
 
-#: src/admin-views/tribe-options-display.php:154
+#: src/admin-views/tribe-options-display.php:178
 msgid "Check this to use the classic header."
 msgstr "Markatu hau goiburu klasikoa erabiltzeko."
 
-#: src/admin-views/tribe-options-display.php:160
+#: src/admin-views/tribe-options-display.php:184
 msgid "Month view events per day"
 msgstr "Hilabete bistako eguneko ekitaldi kopurua"
 
-#: src/admin-views/tribe-options-display.php:161
+#: src/admin-views/tribe-options-display.php:185
 msgid "Change the default 3 events per day in month view. Please note there may be performance issues if you set this too high. <a href=\"%s\">Read more</a>."
 msgstr "Hilabete bistako lehenetsitako eguneko 3 ekitaldi bistaratzea aldatu. Kontutan hartu balio hau asko handitu ezkero, errendimendu arazoak egon daitezkeela. <a href=\"%s\">Gehiago irakurri</a>."
 
-#: src/admin-views/tribe-options-display.php:168
+#: src/admin-views/tribe-options-display.php:192
 msgid "Enable the Month View Cache"
 msgstr "Hilabete bistaren katxea gaitu"
 
-#: src/admin-views/tribe-options-display.php:169
+#: src/admin-views/tribe-options-display.php:193
 msgid "Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href=\"%s\">Read more</a>."
 msgstr "Markatu hau zure hilabete bistako HTML iragankorretan katxeatzeko. Honek ekitaldi asko dituzten webguneetako egutegien kargatze abiadura hobetzeko baliagarria izan daiteke. <a href=\"%s\">Gehiago irakurri</a>."
 
@@ -2478,72 +2464,69 @@ msgstr "Data formatu hobespenak"
 msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
 msgstr "<p>Ondoko hiru eremuek php-ko date() funtzioak onartzen dituen data formatu aukerak onartzen dituzte. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Zure berezko data formatu bat egiteko argibideak hemen aurkitu ditzakezu</a>.</p>"
 
-#: common/src/admin-views/tribe-options-display.php:30
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:30
+#: src/admin-views/tribe-options-display.php:67
 msgid "Date with year"
 msgstr "Data urtearekin"
 
-#: src/admin-views/tribe-options-display.php:66
+#: src/admin-views/tribe-options-display.php:90
 msgid "Date without year"
 msgstr "Data urterik gabe"
 
-#: src/admin-views/tribe-options-display.php:67
+#: src/admin-views/tribe-options-display.php:91
 msgid "Enter the format to use for displaying dates without a year. Used when showing an event from the current year."
 msgstr "Urtea erakusten ez duten datak bistaratzeko erabiliko den formatua sartu. Urte honetako ekitaldi bat erakustean erabiltzen da."
 
-#: src/admin-views/tribe-options-display.php:74
+#: src/admin-views/tribe-options-display.php:98
 msgid "Month and year format"
 msgstr "Urte eta hilabete formatua"
 
-#: src/admin-views/tribe-options-display.php:75
+#: src/admin-views/tribe-options-display.php:99
 msgid "Enter the format to use for dates that show a month and year only. Used on month view."
 msgstr "Hilabetea eta urtea bakarrik erakusten duten datak bistaratzeko formatua sartu. Hilabete bistan erabiltzen da."
 
-#: common/src/admin-views/tribe-options-display.php:38
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:38
+#: src/admin-views/tribe-options-display.php:75
 msgid "Date time separator"
 msgstr "Data eta ordu bereizlea"
 
-#: common/src/admin-views/tribe-options-display.php:39
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:39
+#: src/admin-views/tribe-options-display.php:76
 msgid "Enter the separator that will be placed between the date and time, when both are shown."
 msgstr "Data eta orduaren tartean (biak bistaratzen direnean) jarriko den bereizlea sartu."
 
-#: src/admin-views/tribe-options-display.php:89
+#: src/admin-views/tribe-options-display.php:113
 msgid "Time range separator"
 msgstr "Denbora tarte bereizlea"
 
-#: src/admin-views/tribe-options-display.php:90
+#: src/admin-views/tribe-options-display.php:114
 msgid "Enter the separator that will be used between the start and end time of an event."
 msgstr "Ekitaldi baten hasiera eta amaiera denboraren tartean erabiliko den bereizlea sartu."
 
-#: common/src/admin-views/tribe-options-display.php:46
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:46
+#: common/src/admin-views/tribe-options-display.php:30
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:30
 msgid "Datepicker Date Format"
 msgstr "Data aukeratzailearen data formatua"
 
-#: common/src/admin-views/tribe-options-display.php:47
-#: vendor/tickets/common/src/admin-views/tribe-options-display.php:47
+#: common/src/admin-views/tribe-options-display.php:31
+#: vendor/tickets/common/src/admin-views/tribe-options-display.php:31
 msgid "Select the date format to use in datepickers"
 msgstr "Data aukeratzailean erabiltzeko data formatua aukeratu"
 
-#: src/admin-views/tribe-options-display.php:182
+#: src/admin-views/tribe-options-display.php:206
 msgid "Advanced Template Settings"
 msgstr "Txantiloi ezarpen aurreratuak"
 
-#: src/admin-views/tribe-options-display.php:186
+#: src/admin-views/tribe-options-display.php:210
 msgid "Add HTML before event content"
 msgstr "Ekitaldiaren edukiaren aurretik HTML gehitu"
 
-#: src/admin-views/tribe-options-display.php:187
+#: src/admin-views/tribe-options-display.php:211
 msgid "If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout."
 msgstr "HTML ezagutzen baduzu, ekitaldi txantiloiaren aurretik kode gehigarria erantsi dezakezu. Itxura batzuek diseinu edo estiloarekin laguntzeko behar izan dezakete."
 
-#: src/admin-views/tribe-options-display.php:192
+#: src/admin-views/tribe-options-display.php:216
 msgid "Add HTML after event content"
 msgstr "Ekitaldiaren edukiaren ondoren HTML gehitu"
 
-#: src/admin-views/tribe-options-display.php:193
+#: src/admin-views/tribe-options-display.php:217
 msgid "If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout."
 msgstr "HTML ezagutzen baduzu, ekitaldi txantiloiaren ondoren kode gehigarria erantsi dezakezu. Itxura batzuek diseinu edo estiloarekin laguntzeko behar izan dezakete."
 
@@ -2600,79 +2583,78 @@ msgstr "\"Plugin hau zoragarria da! Modern Tribe-eko kideei egin duten lan ona e
 msgid "Show The Events Calendar link"
 msgstr "Ekitaldi Egutegi esteka erakutsi"
 
-#: common/src/admin-views/tribe-options-general.php:55
-#: vendor/tickets/common/src/admin-views/tribe-options-general.php:55
+#: src/admin-views/tribe-options-general.php:33
 msgid "General Settings"
 msgstr "Hobespen orokorrak"
 
-#: src/admin-views/tribe-options-general.php:33
+#: src/admin-views/tribe-options-general.php:37
 msgid "Number of events to show per page"
 msgstr "Orrialde bakoitzeko erakutsi beharreko ekitaldi kopurua"
 
-#: src/admin-views/tribe-options-general.php:40
+#: src/admin-views/tribe-options-general.php:44
 msgid "Use Javascript to control date filtering"
 msgstr "Javascript erabili data iragazpena kontrolatzeko"
 
-#: src/admin-views/tribe-options-general.php:41
+#: src/admin-views/tribe-options-general.php:45
 msgid "This option is disabled when \"Disable the Event Search Bar\" is checked on the Display settings tab."
 msgstr "Bistaratze hobespen fitxan \"Ekitaldi bilaketa barra desgaitu\" markatuta dagoenean aukera hau desgaituta dago."
 
-#: src/admin-views/tribe-options-general.php:41
+#: src/admin-views/tribe-options-general.php:45
 msgid "Enable live ajax for datepicker on front end (User submit not required)."
 msgstr "Webgunean zuzeneko ajax gaitu data aukeratzailean (Erabiltzailearen bidali ez da derrigorrezkoa)."
 
-#: src/admin-views/tribe-options-general.php:49
+#: src/admin-views/tribe-options-general.php:53
 msgid "Show comments"
 msgstr "Iruzkinak erakutsi"
 
-#: src/admin-views/tribe-options-general.php:50
+#: src/admin-views/tribe-options-general.php:54
 msgid "Enable comments on event pages."
 msgstr "Ekitaldi orrialdeetan iruzkinak gaitu."
 
-#: src/admin-views/tribe-options-general.php:56
+#: src/admin-views/tribe-options-general.php:60
 msgid "Include events in main blog loop"
 msgstr "Blogeko begizta nagusian ekitaldiak barneratu"
 
-#: src/admin-views/tribe-options-general.php:57
+#: src/admin-views/tribe-options-general.php:61
 msgid "Show events with the site's other posts. When this box is checked, events will also continue to appear on the default events page."
 msgstr "Ekitaldiak webguneko beste bidalketekin erakutsi. Nahiz eta kutxa hau markatu, ekitaldiak lehenetsitako ekitaldi orrialdean azaltzen jarraituko dute."
 
-#: src/admin-views/tribe-options-general.php:63
-#: src/admin-views/tribe-options-general.php:69
+#: src/admin-views/tribe-options-general.php:67
+#: src/admin-views/tribe-options-general.php:73
 msgid "Events URL slug"
 msgstr "Ekitaldien URLrako slug-a"
 
-#: src/admin-views/tribe-options-general.php:64
+#: src/admin-views/tribe-options-general.php:68
 msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%1$s\">%2$s</a>. In order to edit the slug here, <a href=\"%3$soptions-permalink.php\">enable pretty permalinks</a>."
 msgstr "Esteka iraunkor politak gaituta ez dituzunez ezin duzu ekitaldi orrialdearen slug-a editatu. Zure ekitaldi orrialdearen uneko URLa <a href=\"%1$s\">%2$s</a> da. Bertako slug-a editatzeko, <a href=\"%3$soptions-permalink.php\">esteka iraunkor politak gaitu</a>."
 
-#: src/admin-views/tribe-options-general.php:76
+#: src/admin-views/tribe-options-general.php:80
 #: src/functions/template-tags/options.php:20
 msgid "The slug used for building the events URL."
 msgstr "Ekitaldien URLa eraikitzeko erabiliko den slug-a."
 
-#: src/admin-views/tribe-options-general.php:76
+#: src/admin-views/tribe-options-general.php:80
 msgid "Your current events URL is: %s"
 msgstr "Zure uneko ekitaldi URLa hau da: %s"
 
-#: src/admin-views/tribe-options-general.php:81
+#: src/admin-views/tribe-options-general.php:85
 #: src/functions/template-tags/options.php:39
 msgid "Here is the iCal feed URL for your events:"
 msgstr "Zure ekitaldientzako iCal jarioaren URLa:"
 
-#: src/admin-views/tribe-options-general.php:86
+#: src/admin-views/tribe-options-general.php:90
 msgid "Single event URL slug"
 msgstr "Ekitaldi bakarrerako URL slug-a"
 
-#: src/admin-views/tribe-options-general.php:93
+#: src/admin-views/tribe-options-general.php:97
 msgid "The above should ideally be plural, and this singular.<br />Your single event URL is: %s"
 msgstr "Goikoa plurala izan behar luke eta beste hau singularra.<br />Zure ekitaldi batetarako URLa hau da: %s"
 
-#: src/admin-views/tribe-options-general.php:98
+#: src/admin-views/tribe-options-general.php:102
 msgid "End of day cutoff"
 msgstr "Egun amaierako limitea"
 
-#: src/admin-views/tribe-options-general.php:119
+#: src/admin-views/tribe-options-general.php:123
 msgid "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar."
 msgstr "Gauerdiaren ondoren jarraitzen duen ekitaldi bat duzu? ekitaldi horren amaiera baina haratago dagoen ordu bat aukerau ekitaldia hurrengo eguneko egutegian azaltzea ekiditzeko."
 
@@ -2693,9 +2675,9 @@ msgstr "%s gehitu"
 msgid "CSV"
 msgstr "CSV"
 
-#: common/src/Tribe/Settings.php:215
+#: common/src/Tribe/Settings.php:214
 #: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4321
-#: vendor/tickets/common/src/Tribe/Settings.php:215
+#: vendor/tickets/common/src/Tribe/Settings.php:214
 msgid "Settings"
 msgstr "Ezarpenak"
 
@@ -2798,54 +2780,54 @@ msgstr "Baliozko gakoa! %s-an iraungitzen da"
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "Hara! Balidatzaile honek arazoren bat dauka. Mesedez %slaguntza-zerbitzuarekin%s harremanetan jarri."
 
-#: common/src/Tribe/Settings.php:214 common/src/Tribe/Settings.php:235
-#: vendor/tickets/common/src/Tribe/Settings.php:214
-#: vendor/tickets/common/src/Tribe/Settings.php:235
+#: common/src/Tribe/Settings.php:213 common/src/Tribe/Settings.php:234
+#: vendor/tickets/common/src/Tribe/Settings.php:213
+#: vendor/tickets/common/src/Tribe/Settings.php:234
 msgid "Events Settings"
 msgstr "Ekitaldien hobespenak"
 
-#: common/src/Tribe/Settings.php:300
-#: vendor/tickets/common/src/Tribe/Settings.php:300
+#: common/src/Tribe/Settings.php:299
+#: vendor/tickets/common/src/Tribe/Settings.php:299
 msgid "%s Settings"
 msgstr "%s hobespenak"
 
-#: common/src/Tribe/Settings.php:314
-#: vendor/tickets/common/src/Tribe/Settings.php:314
+#: common/src/Tribe/Settings.php:313
+#: vendor/tickets/common/src/Tribe/Settings.php:313
 msgid "You've requested a non-existent tab."
 msgstr "Existitzen ez den fitxa bat eskatu duzu."
 
-#: common/src/Tribe/Settings.php:322
-#: vendor/tickets/common/src/Tribe/Settings.php:322
+#: common/src/Tribe/Settings.php:321
+#: vendor/tickets/common/src/Tribe/Settings.php:321
 msgid "Save Changes"
 msgstr "Aldaketak gorde"
 
-#: common/src/Tribe/Settings.php:370
-#: vendor/tickets/common/src/Tribe/Settings.php:370
+#: common/src/Tribe/Settings.php:369
+#: vendor/tickets/common/src/Tribe/Settings.php:369
 msgid "You don't have permission to do that."
 msgstr "Ez duzu hori egiteko baimenik."
 
-#: common/src/Tribe/Settings.php:376
-#: vendor/tickets/common/src/Tribe/Settings.php:376
+#: common/src/Tribe/Settings.php:375
+#: vendor/tickets/common/src/Tribe/Settings.php:375
 msgid "The request was sent insecurely."
 msgstr "Eskaera segurtasunik gabe bidali da."
 
-#: common/src/Tribe/Settings.php:382
-#: vendor/tickets/common/src/Tribe/Settings.php:382
+#: common/src/Tribe/Settings.php:381
+#: vendor/tickets/common/src/Tribe/Settings.php:381
 msgid "The request wasn't sent from this tab."
 msgstr "Eskaera ez da fitxa honetatik bidali."
 
-#: common/src/Tribe/Settings.php:550
-#: vendor/tickets/common/src/Tribe/Settings.php:550
+#: common/src/Tribe/Settings.php:549
+#: vendor/tickets/common/src/Tribe/Settings.php:549
 msgid "Your form had the following errors:"
 msgstr "Zure inprimakiak ondoko erroreak ditu:"
 
-#: common/src/Tribe/Settings.php:560
-#: vendor/tickets/common/src/Tribe/Settings.php:560
+#: common/src/Tribe/Settings.php:559
+#: vendor/tickets/common/src/Tribe/Settings.php:559
 msgid "None of your settings were saved. Please try again."
 msgstr "Zure hobespenak ez dira gorde. Saiatu berriz, mesedez."
 
-#: common/src/Tribe/Settings.php:561
-#: vendor/tickets/common/src/Tribe/Settings.php:561
+#: common/src/Tribe/Settings.php:560
+#: vendor/tickets/common/src/Tribe/Settings.php:560
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Goiko hobespena ez da gorde. Gainontzeko hobespenak ondo gorde dira."
@@ -2928,49 +2910,57 @@ msgid "Order Status"
 msgstr "Eskariaren egoera"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:78
+msgid "Purchaser name"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:79
+msgid "Purchaser email"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/Attendees_Table.php:80
 msgid "Ticket type"
 msgstr "Sarrera mota"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:79
+#: vendor/tickets/src/Tribe/Attendees_Table.php:81
 #: vendor/tickets/src/views/tickets/email.php:332
 msgid "Ticket #"
 msgstr "Sarrera zkbia."
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:80
+#: vendor/tickets/src/Tribe/Attendees_Table.php:82
 #: vendor/tickets/src/views/tickets/email.php:344
 msgid "Security Code"
 msgstr "Segurtasun kodea"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:81
-#: vendor/tickets/src/Tribe/Attendees_Table.php:238
-#: vendor/tickets/src/Tribe/Attendees_Table.php:325
+#: vendor/tickets/src/Tribe/Attendees_Table.php:83
+#: vendor/tickets/src/Tribe/Attendees_Table.php:235
+#: vendor/tickets/src/Tribe/Attendees_Table.php:329
 msgid "Check in"
 msgstr "Izen ematea"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:239
-#: vendor/tickets/src/Tribe/Attendees_Table.php:326
+#: vendor/tickets/src/Tribe/Attendees_Table.php:236
+#: vendor/tickets/src/Tribe/Attendees_Table.php:330
 msgid "Undo Check in"
 msgstr "Izen ematea desegin"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:298
+#: vendor/tickets/src/Tribe/Attendees_Table.php:302
 msgid "Print"
 msgstr "Inprimatu"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:299
+#: vendor/tickets/src/Tribe/Attendees_Table.php:303
 #: vendor/tickets/src/views/tickets/rsvp.php:116
 msgid "Email"
 msgstr "E-posta"
 
-#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:300
+#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:304
 msgid "Export"
 msgstr "Esportatu"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:306
+#: vendor/tickets/src/Tribe/Attendees_Table.php:310
 msgid "Filter by purchaser name, ticket #, order # or security code"
 msgstr "Erosle izenaren, sarrera zenbakiaren, eskari zenbakiaren edo segurtasun kodearen arabera iragazi"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:327
-#: vendor/tickets/src/admin-views/list.php:34
+#: vendor/tickets/src/Tribe/Attendees_Table.php:331
+#: vendor/tickets/src/admin-views/list.php:43
 msgid "Delete"
 msgstr "Ezabatu"
 
@@ -2988,50 +2978,50 @@ msgstr "Sarreraren goiburuko irudia"
 msgid "Set as ticket header"
 msgstr "Sarrerako goiburu bezala ezarri"
 
-#: vendor/tickets/src/Tribe/Tickets.php:369
+#: vendor/tickets/src/Tribe/Tickets.php:364
 msgid "Your ticket has been saved."
 msgstr "Zure sarrera gorde egin da."
 
-#: vendor/tickets/src/Tribe/Tickets.php:529
+#: vendor/tickets/src/Tribe/Tickets.php:524
 msgid "Your ticket has been deleted."
 msgstr "Zure sarrera ezabatu egin da."
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:84
-#: vendor/tickets/src/admin-views/list.php:71
+#: vendor/tickets/src/admin-views/list.php:81
 msgid "See who purchased tickets to this event"
 msgstr "Ekitaldi honetarako sarrerak nork erosi dituen ikusi"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:84
-#: vendor/tickets/src/admin-views/attendees.php:24
-#: vendor/tickets/src/admin-views/list.php:73
+#: vendor/tickets/src/admin-views/attendees.php:26
+#: vendor/tickets/src/admin-views/list.php:83
 msgid "Attendees"
 msgstr "Partaideak"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:121
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:138
 msgid "You need to select a user or type a valid email address"
 msgstr "Erabiltzaile bat aukeratu edo posta elektroniko elektroniko helbide zuzen bat idatzi behar duzu."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:122
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:139
 msgid "Sending..."
 msgstr "Bidaltzen..."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:148
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:165
 msgid "Columns"
 msgstr "Zutabeak"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:148
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:165
 msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
 msgstr "Pantaila aukerak erabili dezakezu zein zutabe ikusi nahi dituzun aukeratzeko. Egindako aukerak azpiko taulan, posta elektronikoan, inprimatzerakoan eta CSV esportatzean funtzionatzen du."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:285
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:318
 msgid "Yes"
 msgstr "Bai"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:314
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:347
 msgid "attendees"
 msgstr "partaideak"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:406
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:451
 msgid "Attendee List for: %s"
 msgstr "%s-rako partaide zerrenda"
 
@@ -4061,13 +4051,13 @@ msgstr "Webguneko administratzaileari orrialdearen slug-a editatzea eskatu"
 msgid " ask the site administrator set a different Events URL slug."
 msgstr "webguneko administratzaileari Ekitaldi URLentzako slug desberdin bat zehaztea eskatu."
 
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:108 src/Tribe/Main.php:1695
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:109 src/Tribe/Main.php:1695
 #: src/Tribe/Main.php:1768
 msgid "Use Saved %s:"
 msgstr "Gordetako %s erabili:"
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
-#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:138 src/Tribe/Main.php:1505
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:139 src/Tribe/Main.php:1505
 #: src/Tribe/Main.php:1523 src/Tribe/Main.php:1541 src/Tribe/Main.php:1704
 #: src/Tribe/Main.php:1770
 msgid "Edit %s"
@@ -4129,7 +4119,7 @@ msgstr "Data:"
 msgid "Time:"
 msgstr "Ordua:"
 
-#: src/Tribe/Amalgamator.php:253 src/admin-views/tribe-options-general.php:131
+#: src/Tribe/Amalgamator.php:253 src/admin-views/tribe-options-general.php:143
 msgid "Merge Duplicates"
 msgstr "Bikoiztuak bateratu"
 
@@ -4345,8 +4335,8 @@ msgstr "Aldi baterako fitxategia ez da aurkitu. Ezin izan da %s gorde."
 msgid "Could not save %s."
 msgstr "Ezin izan da %s gorde."
 
-#: common/src/Tribe/Settings.php:583 src/Tribe/Importer/Options.php:53
-#: vendor/tickets/common/src/Tribe/Settings.php:583
+#: common/src/Tribe/Settings.php:585 src/Tribe/Importer/Options.php:53
+#: vendor/tickets/common/src/Tribe/Settings.php:585
 msgid "Settings saved."
 msgstr "Ezarpenak gorde dira."
 
@@ -4384,13 +4374,13 @@ msgstr "Antolatzaileak"
 msgid "Organizer"
 msgstr "Antolatzaile"
 
-#: common/src/Tribe/Settings.php:148 common/src/Tribe/Settings.php:203
-#: common/src/Tribe/Settings.php:204 src/Tribe/Main.php:710
+#: common/src/Tribe/Settings.php:148 common/src/Tribe/Settings.php:202
+#: common/src/Tribe/Settings.php:203 src/Tribe/Main.php:710
 #: src/functions/template-tags/general.php:80
 #: src/io/csv/admin-views/import.php:47
 #: vendor/tickets/common/src/Tribe/Settings.php:148
+#: vendor/tickets/common/src/Tribe/Settings.php:202
 #: vendor/tickets/common/src/Tribe/Settings.php:203
-#: vendor/tickets/common/src/Tribe/Settings.php:204
 msgid "Events"
 msgstr "Ekitaldiak"
 
@@ -4398,7 +4388,7 @@ msgstr "Ekitaldiak"
 msgid "Event"
 msgstr "Ekitaldi"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.3) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.1.4) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:636
