@@ -6,18 +6,6 @@ class Issue_38042_Dropping_CategoryCest {
 	protected $term_slug = 'probably-not-in-database';
 
 	public function _before( AcceptanceTester $I ) {
-		$I->haveOptionInDatabase( 'active_plugins', [ 'the-events-calendar/the-events-calendar.php' ] );
-
-		$I->bootstrapWp();
-
-		// set the permalinks structure and flush rewrite rules
-		$found_term = get_term_by( 'slug', $this->term_slug, 'tribe_events_cats' );
-		if ( empty( $found_term ) ) {
-			wp_insert_term( $this->term_slug, 'tribe_events_cat', [ 'slug' => $this->term_slug ] );
-		}
-
-		$I->setPermalinkStructureAndFlush( '/%postname%/' );
-
 		// use the default events template and set the view to month
 		$I->setTribeOption( 'tribeEventsTemplate', '' );
 		$I->setTribeOption( 'viewOption', 'month' );
@@ -25,8 +13,7 @@ class Issue_38042_Dropping_CategoryCest {
 		// let's resize the window not to incur in mobile breakpoints
 		$I->resizeWindow( 1200, 1000 );
 
-		$events_slug = $I->getTribeOptionFromDatabase( 'eventsSlug', 'events' );
-		$I->amOnPage( "/{$events_slug}/category/{$this->term_slug}" );
+		$I->amOnPage( "/events/category/{$this->term_slug}" );
 
 		// Why not inserting some posts and categories too?
 		//This issue *should* be independent of posts and categories in the database.
