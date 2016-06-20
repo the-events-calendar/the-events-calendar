@@ -57,6 +57,25 @@ class File_Importer_Events_ReimportBehaviourTest extends File_Importer_EventsTes
 		'featured_image',
 	];
 
+	/**
+	 * These fields will not be used by the importer to uniquely identify the event.
+	 *
+	 * @var array
+	 */
+	protected $secondary_fields = [
+		'venue_name',
+		'organizer_name',
+		'end_date',
+		'end_time',
+		'categories',
+		'cost',
+		'website',
+		'show_map',
+		'show_map_link',
+		'description',
+		'featured_image',
+	];
+
 	public function setUp() {
 		parent::setUp();
 		$this->featured_image_url     = plugins_url( '_data/csv-import-test-files/featured-image/images/featured-image.jpg', codecept_data_dir() );
@@ -74,8 +93,8 @@ class File_Importer_Events_ReimportBehaviourTest extends File_Importer_EventsTes
 
 		$sut = $this->make_instance( 'reimport-behaviour' );
 
-		$first_post_id            = $sut->import_next_row();
-		
+		$first_post_id = $sut->import_next_row();
+
 		$first_featured_image_id  = get_post_thumbnail_id( $first_post_id );
 		$first_featured_image_url = wp_get_attachment_url( $first_featured_image_id );
 
@@ -84,8 +103,97 @@ class File_Importer_Events_ReimportBehaviourTest extends File_Importer_EventsTes
 
 		$sut = $this->make_instance( 'reimport-behaviour' );
 
-		$second_post_id            = $sut->import_next_row();
-		
+		$second_post_id = $sut->import_next_row();
+
+		$second_featured_image_id  = get_post_thumbnail_id( $second_post_id );
+		$second_featured_image_url = wp_get_attachment_url( $second_featured_image_id );
+
+		$this->assertEquals( $first_post_id, $second_post_id );
+		$this->assertEquals( $first_featured_image_id, $second_featured_image_id );
+		$this->assertEquals( $first_featured_image_url, $second_featured_image_url );
+	}
+
+	public function single_secondary_field() {
+		return array_map( function ( $field ) {
+			return [ $field ];
+		}, $this->secondary_fields );
+	}
+
+	/**
+	 * @test
+	 * it should not modify the featured image when re-importing file with empty secondary fields
+	 * @dataProvider single_secondary_field
+	 */
+	public function it_should_not_modify_the_featured_image_when_re_importing_file_with_empty_secondary_fields( $field ) {
+		$image_url     = plugins_url( '_data/csv-import-test-files/featured-image/images/featured-image.jpg', codecept_data_dir() );
+		$attachment_id = $this->factory()->attachment->create_upload_object( $image_url );
+		$this->featured_image_uploader->upload_and_get_attachment()->willReturn( $attachment_id );
+
+		$sut = $this->make_instance( 'reimport-behaviour' );
+
+		$first_post_id = $sut->import_next_row();
+
+		$first_featured_image_id  = get_post_thumbnail_id( $first_post_id );
+		$first_featured_image_url = wp_get_attachment_url( $first_featured_image_id );
+
+		clean_post_cache( $first_post_id );
+		clean_attachment_cache( $first_featured_image_id );
+
+		$this->data[ $field ] = '';
+
+		$sut = $this->make_instance( 'reimport-behaviour' );
+
+		$second_post_id = $sut->import_next_row();
+
+		$second_featured_image_id  = get_post_thumbnail_id( $second_post_id );
+		$second_featured_image_url = wp_get_attachment_url( $second_featured_image_id );
+
+		$this->assertEquals( $first_post_id, $second_post_id );
+		$this->assertEquals( $first_featured_image_id, $second_featured_image_id );
+		$this->assertEquals( $first_featured_image_url, $second_featured_image_url );
+	}
+
+	public function modified_secondary_fields() {
+		return [
+			[ 'venue_name', 'Another Venue' ],
+			[ 'organizer_name', 'Another Organizer' ],
+			[ 'end_date', 'apr 21, 2016' ],
+			[ 'end_time', '16:30' ],
+			[ 'categories', 'gathering' ],
+			[ 'cost', '2' ],
+			[ 'website', 'http://some-example.com' ],
+			[ 'show_map', 'false' ],
+			[ 'show_map_link', 'false' ],
+			[ 'description', 'Another event description' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * it should not modify the featured image when re-importing file with modified secondary fields
+	 * @dataProvider modified_secondary_fields
+	 */
+	public function it_should_not_modify_the_featured_image_when_re_importing_file_with_modified_secondary_fields( $field, $modified_value ) {
+		$image_url     = plugins_url( '_data/csv-import-test-files/featured-image/images/featured-image.jpg', codecept_data_dir() );
+		$attachment_id = $this->factory()->attachment->create_upload_object( $image_url );
+		$this->featured_image_uploader->upload_and_get_attachment()->willReturn( $attachment_id );
+
+		$sut = $this->make_instance( 'reimport-behaviour' );
+
+		$first_post_id = $sut->import_next_row();
+
+		$first_featured_image_id  = get_post_thumbnail_id( $first_post_id );
+		$first_featured_image_url = wp_get_attachment_url( $first_featured_image_id );
+
+		clean_post_cache( $first_post_id );
+		clean_attachment_cache( $first_featured_image_id );
+
+		$this->data[ $field ] = $modified_value;
+
+		$sut = $this->make_instance( 'reimport-behaviour' );
+
+		$second_post_id = $sut->import_next_row();
+
 		$second_featured_image_id  = get_post_thumbnail_id( $second_post_id );
 		$second_featured_image_url = wp_get_attachment_url( $second_featured_image_id );
 
