@@ -20,4 +20,6 @@ modules:
             port: 4444
             restart: true
             wait: 2
-            window_size: 1200x1000
+            window_size: 1024x768
+            adminUsername: admin
+            adminPassword: admin
