@@ -318,6 +318,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Corrected the spelling of timezone in the CSV Importer's event field
 * Tweak - Updated venue and organizer templates to use the new architecture for attaching custom post types to events
 * Tweak - Move plugin CSS to PostCSS
+* Tweak - Category default view is now set to `default` in place of hardcoding the current default view in the category base rewrite rule [31907]
 * Deprecated - `Tribe__Events__PUE__Checker`, `Tribe__Events__PUE__Plugin_Info`, and `Tribe__Events__PUE__Utility` classes are deprecated and are replaced by `Tribe__PUE__Checker`, `Tribe__PUE__Plugin_Info`, and `Tribe__PUE__Utility` classes
 * Fixed - Changed the use of `have_posts()` in the maybe iCal links for the main views that could cause an infinite loop
 * Accessibility - Focus styles added for search fields
