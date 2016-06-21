@@ -41,8 +41,8 @@ do_action( 'tribe_events_organizer_before_metabox', $post );
 </tr>
 <tr class="organizer">
 	<td><?php esc_html_e( 'Email:', 'the-events-calendar' ); ?>
-		<small><?php printf( esc_html__( 'You may want to consider %sobfuscating%s any e-mail address published on your site to best avoid it getting harvested by spammers.', 'the-events-calendar' ), '<a href="http://wordpress.org/plugins/tags/obfuscate">', '</a>' ); ?></small>
 	</td>
+	<small><?php esc_html_e( 'The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.', 'the-events-calendar' ); ?></small>
 	<td class="organizer-email">
 		<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='OrganizerEmail' name='organizer[Email]' size='25' value='<?php echo isset( $_OrganizerEmail ) ? esc_attr( $_OrganizerEmail ) : ''; ?>' />
 	</td>
