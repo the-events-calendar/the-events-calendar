@@ -296,6 +296,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - reduce font size of titles in month view for skeleton styles [41461]
 * Fix - added styling to adjust list view description to 100% [62512]
 * Fix - miscellaneous tweaks to css to improve layout in month and day views [61651]
+* Fix - Fix shorthand array that was causing errors in PHP 5.2 and 5.3 on Event Import
 
 = [4.2] 2016-06-08 =
 
