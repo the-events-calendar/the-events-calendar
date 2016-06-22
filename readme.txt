@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.5.2
-Stable tag: 4.2
+Stable tag: 4.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -287,15 +287,15 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.2.1] Unreleased =
+= [4.2.1] 2016-06-22 =
 
-* Tweak - Adjust the caching rules for Month View for faster loading [46581]
-* Fix - Replace a bad return type to avoid unneccesary notices in the error log [62376]
-* Fix - Add missing styles for correctly hide screen reader text [62500]
-* Fix - Fixes `tribe_get_event_link()` which wasn't working when passing second parameter as `true` [61891]
-* Tweak - Reduce the ginormous font size of Month View titles in skeleton styles [41461]
-* Fix - Add styling to adjust List View description to full width [62512]
-* Fix - Miscellaneous tweaks to improve the Month and Day views [61651]
+* Tweak - Adjust the caching rules for Month View for faster loading
+* Fix - Replace a bad return type to avoid unneccesary notices in the error log
+* Fix - Add missing styles for correctly hide screen reader text
+* Fix - Fixes `tribe_get_event_link()` which wasn't working when passing second parameter as `true'
+* Tweak - Reduce the ginormous font size of Month View titles in skeleton styles
+* Fix - Add styling to adjust List View description to full width
+* Fix - Miscellaneous tweaks to improve the Month and Day views
 * Fix - Fix a shorthand array that was causing errors in PHP 5.2 and 5.3 when importing events
 
 = [4.2] 2016-06-08 =
