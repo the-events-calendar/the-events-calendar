@@ -14,7 +14,7 @@
  *
  * @SuppressWarnings(PHPMD)
  */
-class FunctionalTester extends \Codeception\Actor {
+class IntegrationTester extends \Codeception\Actor {
 
 	use \_generated\FunctionalTesterActions;
 

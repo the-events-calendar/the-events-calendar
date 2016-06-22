@@ -31,7 +31,6 @@ class DatePickerFrontEndCest {
 	protected $today_date = '';
 
 	public function _before( AcceptanceTester $I ) {
-		$I->activate_tec();
 		$I->setTribeOption( 'eventsSlug', 'events' );
 		$this->today_date = $this->today_date();
 	}
