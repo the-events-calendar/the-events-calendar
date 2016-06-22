@@ -289,14 +289,14 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.2.1] Unreleased =
 
-* Fix - replace bad return type to avoid notices in the error log [62376]
-* Fix - add missing styles for screen reader text [62500]
-* Tweak - adjust the month view caching rules [46581]
-* Fix - tribe_get_event_link() didn't work properly when passing second parameter as true [61891]
-* Tweak - reduce font size of titles in month view for skeleton styles [41461]
-* Fix - added styling to adjust list view description to 100% [62512]
-* Fix - miscellaneous tweaks to css to improve layout in month and day views [61651]
-* Fix - Fix shorthand array that was causing errors in PHP 5.2 and 5.3 on Event Import
+* Tweak - Adjust the caching rules for Month View for faster loading [46581]
+* Fix - Replace a bad return type to avoid unneccesary notices in the error log [62376]
+* Fix - Add missing styles for correctly hide screen reader text [62500]
+* Fix - Fixes `tribe_get_event_link()` which wasn't working when passing second parameter as `true` [61891]
+* Tweak - Reduce the ginormous font size of Month View titles in skeleton styles [41461]
+* Fix - Add styling to adjust List View description to full width [62512]
+* Fix - Miscellaneous tweaks to improve the Month and Day views [61651]
+* Fix - Fix a shorthand array that was causing errors in PHP 5.2 and 5.3 when importing events
 
 = [4.2] 2016-06-08 =
 
