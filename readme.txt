@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.5.2
-Stable tag: 4.2
+Stable tag: 4.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -203,7 +203,7 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.2.1] Unreleased =
+= [4.2.1] 2016-06-22 =
 
 * Fix - Fix issue where width of content area in photo view was inheriting styles making it too narrow [62288]
 * Fix - allow '0' to be set as the value of additional fields [45674]
