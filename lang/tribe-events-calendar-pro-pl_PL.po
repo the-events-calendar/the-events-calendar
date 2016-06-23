@@ -223,7 +223,7 @@ msgstr ""
 msgid "Yearly on the same date"
 msgstr ""
 
-#: src/Tribe/Recurrence/Meta.php:1083
+#: src/Tribe/Recurrence/Meta.php:1089
 msgctxt "An unspecified end date"
 msgid "an unspecified date"
 msgstr ""
@@ -344,7 +344,7 @@ msgstr ""
 msgid "Custom recurrences must have all data present."
 msgstr ""
 
-#: src/Tribe/Recurrence/Meta.php:1010
+#: src/Tribe/Recurrence/Meta.php:1016
 msgctxt "Recurrence rule separator"
 msgid ",<br> and "
 msgstr ""
@@ -541,57 +541,57 @@ msgstr ""
 msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s) with no end date"
 msgstr ""
 
-#: src/Tribe/Recurrence/Meta.php:1043
+#: src/Tribe/Recurrence/Meta.php:1049
 msgctxt "Joins the last item in a list of items (i.e. the \"and\" in Monday, Tuesday, and Wednesday)"
 msgid "and"
 msgstr ""
 
-#: src/Tribe/Recurrence/Meta.php:1044
+#: src/Tribe/Recurrence/Meta.php:1050
 msgctxt "Placeholder text for a day of the week (or days of the week) before the user has selected any"
 msgid "[day]"
 msgstr ""
 
-#: src/Tribe/Recurrence/Meta.php:1045
+#: src/Tribe/Recurrence/Meta.php:1051
 msgctxt "Placeholder text for a month (or months) before the user has selected any"
 msgid "[month]"
 msgstr ""
 
-#: src/Tribe/Recurrence/Meta.php:1046
+#: src/Tribe/Recurrence/Meta.php:1052
 msgctxt "Describes a day of the month (e.g. \"day 5\" or \"day 27\")"
 msgid "day %1$s"
 msgstr ""
 
-#: src/Tribe/Recurrence/Meta.php:1047
+#: src/Tribe/Recurrence/Meta.php:1053
 msgctxt "Used when displaying: \"the first Monday\" or \"the first day\""
 msgid "the first %1$s"
 msgstr ""
 
-#: src/Tribe/Recurrence/Meta.php:1048
+#: src/Tribe/Recurrence/Meta.php:1054
 msgctxt "Used when displaying: \"the second Monday\" or \"the second day\""
 msgid "the second %1$s"
 msgstr ""
 
-#: src/Tribe/Recurrence/Meta.php:1049
+#: src/Tribe/Recurrence/Meta.php:1055
 msgctxt "Used when displaying: \"the third Monday\" or \"the third day\""
 msgid "the third %1$s"
 msgstr ""
 
-#: src/Tribe/Recurrence/Meta.php:1050
+#: src/Tribe/Recurrence/Meta.php:1056
 msgctxt "Used when displaying: \"the fourth Monday\" or \"the fourth day\""
 msgid "the fourth %1$s"
 msgstr ""
 
-#: src/Tribe/Recurrence/Meta.php:1051
+#: src/Tribe/Recurrence/Meta.php:1057
 msgctxt "Used when displaying: \"the fifth Monday\" or \"the fifth day\""
 msgid "the fifth %1$s"
 msgstr ""
 
-#: src/Tribe/Recurrence/Meta.php:1052
+#: src/Tribe/Recurrence/Meta.php:1058
 msgctxt "Used when displaying: \"the last Monday\" or \"the last day\""
 msgid "the last %1$s"
 msgstr ""
 
-#: src/Tribe/Recurrence/Meta.php:1053
+#: src/Tribe/Recurrence/Meta.php:1059
 msgctxt "Used when displaying the word \"day\" in \"the last day\" or \"the first day\""
 msgid "day"
 msgstr ""
@@ -793,15 +793,15 @@ msgstr "Pokaż tylko pierwsze nadchodzące wystąpienie cyklicznych %s"
 msgid "Our number one goal is helping you succeed, and to whatever extent possible, we'll help troubleshoot and guide your customizations or tweaks. While we won't build your site for you, and we can't guarantee we'll be able to get you 100% integrated with every theme or plugin out there, we'll do all we can to point you in the right direction and to make you -- and your client, as is often more importantly the case -- satisfied."
 msgstr "Naszym celem numer jeden jest pomóc Ci osiągnąć sukces, i do jakiego stopnia możliwe, pomożemy rozwiązać problemy i poprowadzi dostosowań lub poprawek. O ile nie będziemy budować witryny dla Ciebie, i nie możemy zagwarantować, że będziemy w stanie Ci 100% zintegrowane z każdym tematem lub plugin tam, zrobimy wszystko, aby punkt, który w dobrym kierunku i aby ci - i klient, jak to często ważniejsze sprawy - zadowolony."
 
-#: src/functions/template-tags/general.php:318
-#: src/functions/template-tags/general.php:333
-#: src/functions/template-tags/general.php:348
-#: src/functions/template-tags/general.php:363
-#: src/functions/template-tags/general.php:378
-#: src/functions/template-tags/general.php:393
-#: src/functions/template-tags/general.php:408
-#: src/functions/template-tags/general.php:423
-#: src/functions/template-tags/general.php:438
+#: src/functions/template-tags/general.php:321
+#: src/functions/template-tags/general.php:336
+#: src/functions/template-tags/general.php:351
+#: src/functions/template-tags/general.php:366
+#: src/functions/template-tags/general.php:381
+#: src/functions/template-tags/general.php:396
+#: src/functions/template-tags/general.php:411
+#: src/functions/template-tags/general.php:426
+#: src/functions/template-tags/general.php:441
 msgid "No default set"
 msgstr "Brak domyślnych ustawień"
 
@@ -809,7 +809,7 @@ msgstr "Brak domyślnych ustawień"
 msgid "Before posting a new thread, please do a search to make sure your issue hasn't already been addressed. When posting please make sure to provide as much detail about the problem as you can (with screenshots or screencasts if feasible), and make sure that you've identified whether a plugin / theme conflict could be at play in your initial message."
 msgstr "Przed wysłaniem nowego wątku, proszę poszukaj, aby upewnić się, że problem nie jest już zaadresowany. Zamieszczając pytanie upewnij się, aby zapewnić jak najwięcej szczegółów na temat problemu, jak można (screeny lub screencasts jeżeli możliwe), i upewnij się, że sprawdziłeś czy wystąpił konflikt plugin / theme."
 
-#: src/functions/template-tags/general.php:320
+#: src/functions/template-tags/general.php:323
 msgid "The current default organizer is: %s"
 msgstr "Obecny domyślny organizator to: %s"
 
@@ -817,7 +817,7 @@ msgstr "Obecny domyślny organizator to: %s"
 msgid "Event: "
 msgstr "Wydarzenie:"
 
-#: src/functions/template-tags/general.php:335
+#: src/functions/template-tags/general.php:338
 msgid "The current default venue is: %s"
 msgstr "Obecne domyślne miejsce to: %s"
 
@@ -825,7 +825,7 @@ msgstr "Obecne domyślne miejsce to: %s"
 msgid "Address: "
 msgstr "Adres:"
 
-#: src/functions/template-tags/general.php:350
+#: src/functions/template-tags/general.php:353
 msgid "The current default address is: %s"
 msgstr "Obecny domyślny adres to: %s"
 
@@ -833,7 +833,7 @@ msgstr "Obecny domyślny adres to: %s"
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: src/functions/template-tags/general.php:365
+#: src/functions/template-tags/general.php:368
 msgid "The current default city is: %s"
 msgstr "Obecne domyślne miasto to: %s"
 
@@ -841,7 +841,7 @@ msgstr "Obecne domyślne miasto to: %s"
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr "Miejsce zaktualizowane. <a href=\"%s\">Obejrzyj miejsce</a>"
 
-#: src/functions/template-tags/general.php:380
+#: src/functions/template-tags/general.php:383
 msgid "The current default state is: %s"
 msgstr "Obecny domyślny stan to: %s"
 
@@ -850,7 +850,7 @@ msgstr "Obecny domyślny stan to: %s"
 msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr "Miejsce opublikowane. <a href=\"%s\">Obejrzyj miejsce</a>"
 
-#: src/functions/template-tags/general.php:395
+#: src/functions/template-tags/general.php:398
 msgid "The current default province is: %s"
 msgstr "Obecne domyślne województwo to: %s"
 
@@ -858,7 +858,7 @@ msgstr "Obecne domyślne województwo to: %s"
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Miejsce wprowadzone. <a target=\"_blank\" href=\"%s\">Podejrzyj miejsce</a>"
 
-#: src/functions/template-tags/general.php:410
+#: src/functions/template-tags/general.php:413
 msgid "The current default postal code/zip code is: %s"
 msgstr "Obecny domyślny kod pocztowy to: %s"
 
@@ -866,7 +866,7 @@ msgstr "Obecny domyślny kod pocztowy to: %s"
 msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
 msgstr "Miejsce zaplanowane na: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Podejrzyj miejsce</a>"
 
-#: src/functions/template-tags/general.php:425
+#: src/functions/template-tags/general.php:428
 msgid "The current default country is: %s"
 msgstr "Obecny domyślny kraj to: %s"
 
@@ -875,7 +875,7 @@ msgstr "Obecny domyślny kraj to: %s"
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
-#: src/functions/template-tags/general.php:440
+#: src/functions/template-tags/general.php:443
 msgid "The current default phone is: %s"
 msgstr "Obecny domyślny telefon to: %s"
 
@@ -883,8 +883,8 @@ msgstr "Obecny domyślny telefon to: %s"
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Szkic miejsca zaktualizowany. <a target=\"_blank\" href=\"%s\">Podejrzyj miejsce</a>"
 
-#: src/functions/template-tags/general.php:603
-#: src/functions/template-tags/general.php:626
+#: src/functions/template-tags/general.php:606
+#: src/functions/template-tags/general.php:629
 msgid "Date out of range."
 msgstr "Data spoza zakresu"
 
@@ -892,7 +892,7 @@ msgstr "Data spoza zakresu"
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
 msgstr "Organizator zaktualizowany. <a href=\"%s\">Obejrzyj organizatora</a>"
 
-#: src/functions/template-tags/general.php:747
+#: src/functions/template-tags/general.php:750
 msgid "Recurring %s"
 msgstr "Powtarzające się %s"
 
@@ -900,7 +900,7 @@ msgstr "Powtarzające się %s"
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr "Organizator opublikowany. <a href=\"%s\">Obejrzyj organizatora</a>"
 
-#: src/functions/template-tags/general.php:750
+#: src/functions/template-tags/general.php:753
 msgid "(See all)"
 msgstr "(Zobacz wszystkie)"
 
@@ -1107,153 +1107,153 @@ msgstr "Comiesięczne, powtarzające się wydarzenia, nie mogą mieć kreski, ja
 msgid "Yearly custom recurrences cannot have a dash set as the day to occur on."
 msgstr "Coroczne, powtarzające się wydarzenia, nie mogą mieć kreski, jako daty wystąpienia."
 
-#: src/Tribe/Recurrence/Meta.php:1021 src/Tribe/Recurrence/Meta.php:1489
+#: src/Tribe/Recurrence/Meta.php:1027 src/Tribe/Recurrence/Meta.php:1495
 #: src/admin-views/recurrence/months.php:19
 #: src/admin-views/recurrence/years.php:95
 msgid "Monday"
 msgstr "Poniedziałek"
 
-#: src/Tribe/Recurrence/Meta.php:1022 src/Tribe/Recurrence/Meta.php:1490
+#: src/Tribe/Recurrence/Meta.php:1028 src/Tribe/Recurrence/Meta.php:1496
 #: src/admin-views/recurrence/months.php:20
 #: src/admin-views/recurrence/years.php:96
 msgid "Tuesday"
 msgstr "Wtorek"
 
-#: src/Tribe/Recurrence/Meta.php:1023 src/Tribe/Recurrence/Meta.php:1491
+#: src/Tribe/Recurrence/Meta.php:1029 src/Tribe/Recurrence/Meta.php:1497
 #: src/admin-views/recurrence/months.php:21
 #: src/admin-views/recurrence/years.php:97
 msgid "Wednesday"
 msgstr "Środa"
 
-#: src/Tribe/Recurrence/Meta.php:1024 src/Tribe/Recurrence/Meta.php:1492
+#: src/Tribe/Recurrence/Meta.php:1030 src/Tribe/Recurrence/Meta.php:1498
 #: src/admin-views/recurrence/months.php:22
 #: src/admin-views/recurrence/years.php:98
 msgid "Thursday"
 msgstr "Czwartek"
 
-#: src/Tribe/Recurrence/Meta.php:1025 src/Tribe/Recurrence/Meta.php:1493
+#: src/Tribe/Recurrence/Meta.php:1031 src/Tribe/Recurrence/Meta.php:1499
 #: src/admin-views/recurrence/months.php:23
 #: src/admin-views/recurrence/years.php:99
 msgid "Friday"
 msgstr "Piątek"
 
-#: src/Tribe/Recurrence/Meta.php:1026 src/Tribe/Recurrence/Meta.php:1494
+#: src/Tribe/Recurrence/Meta.php:1032 src/Tribe/Recurrence/Meta.php:1500
 #: src/admin-views/recurrence/months.php:24
 #: src/admin-views/recurrence/years.php:100
 msgid "Saturday"
 msgstr "Sobota"
 
-#: src/Tribe/Recurrence/Meta.php:1027 src/Tribe/Recurrence/Meta.php:1495
+#: src/Tribe/Recurrence/Meta.php:1033 src/Tribe/Recurrence/Meta.php:1501
 #: src/admin-views/recurrence/months.php:25
 #: src/admin-views/recurrence/years.php:101
 msgid "Sunday"
 msgstr "Niedziela"
 
-#: src/Tribe/Recurrence/Meta.php:1502
+#: src/Tribe/Recurrence/Meta.php:1508
 msgid ", and"
 msgstr ", i"
 
-#: src/Tribe/Recurrence/Meta.php:1504
+#: src/Tribe/Recurrence/Meta.php:1510
 msgid "and"
 msgstr "i"
 
-#: src/Tribe/Recurrence/Meta.php:1506
+#: src/Tribe/Recurrence/Meta.php:1512
 msgid ","
 msgstr ","
 
-#: src/Tribe/Recurrence/Meta.php:1030 src/Tribe/Recurrence/Meta.php:1524
+#: src/Tribe/Recurrence/Meta.php:1036 src/Tribe/Recurrence/Meta.php:1530
 msgid "January"
 msgstr "Styczeń"
 
-#: src/Tribe/Recurrence/Meta.php:1031 src/Tribe/Recurrence/Meta.php:1525
+#: src/Tribe/Recurrence/Meta.php:1037 src/Tribe/Recurrence/Meta.php:1531
 msgid "February"
 msgstr "Luty"
 
-#: src/Tribe/Recurrence/Meta.php:1032 src/Tribe/Recurrence/Meta.php:1526
+#: src/Tribe/Recurrence/Meta.php:1038 src/Tribe/Recurrence/Meta.php:1532
 msgid "March"
 msgstr "Marzec"
 
-#: src/Tribe/Recurrence/Meta.php:1033 src/Tribe/Recurrence/Meta.php:1527
+#: src/Tribe/Recurrence/Meta.php:1039 src/Tribe/Recurrence/Meta.php:1533
 msgid "April"
 msgstr "Kwiecień"
 
-#: src/Tribe/Recurrence/Meta.php:1034 src/Tribe/Recurrence/Meta.php:1528
+#: src/Tribe/Recurrence/Meta.php:1040 src/Tribe/Recurrence/Meta.php:1534
 msgid "May"
 msgstr "Maj"
 
-#: src/Tribe/Recurrence/Meta.php:1035 src/Tribe/Recurrence/Meta.php:1529
+#: src/Tribe/Recurrence/Meta.php:1041 src/Tribe/Recurrence/Meta.php:1535
 msgid "June"
 msgstr "Czerwiec"
 
-#: src/Tribe/Recurrence/Meta.php:1036 src/Tribe/Recurrence/Meta.php:1530
+#: src/Tribe/Recurrence/Meta.php:1042 src/Tribe/Recurrence/Meta.php:1536
 msgid "July"
 msgstr "Lipiec"
 
-#: src/Tribe/Recurrence/Meta.php:1037 src/Tribe/Recurrence/Meta.php:1531
+#: src/Tribe/Recurrence/Meta.php:1043 src/Tribe/Recurrence/Meta.php:1537
 msgid "August"
 msgstr "Sierpień"
 
-#: src/Tribe/Recurrence/Meta.php:1038 src/Tribe/Recurrence/Meta.php:1532
+#: src/Tribe/Recurrence/Meta.php:1044 src/Tribe/Recurrence/Meta.php:1538
 msgid "September"
 msgstr "Wrzesień"
 
-#: src/Tribe/Recurrence/Meta.php:1039 src/Tribe/Recurrence/Meta.php:1533
+#: src/Tribe/Recurrence/Meta.php:1045 src/Tribe/Recurrence/Meta.php:1539
 msgid "October"
 msgstr "Październik"
 
-#: src/Tribe/Recurrence/Meta.php:1040 src/Tribe/Recurrence/Meta.php:1534
+#: src/Tribe/Recurrence/Meta.php:1046 src/Tribe/Recurrence/Meta.php:1540
 msgid "November"
 msgstr "Listopad"
 
-#: src/Tribe/Recurrence/Meta.php:1041 src/Tribe/Recurrence/Meta.php:1535
+#: src/Tribe/Recurrence/Meta.php:1047 src/Tribe/Recurrence/Meta.php:1541
 msgid "December"
 msgstr "Grudzień"
 
-#: src/Tribe/Recurrence/Meta.php:1542
+#: src/Tribe/Recurrence/Meta.php:1548
 msgid ", and "
 msgstr ", i"
 
-#: src/Tribe/Recurrence/Meta.php:1544
+#: src/Tribe/Recurrence/Meta.php:1550
 msgid " and "
 msgstr "i"
 
-#: src/Tribe/Recurrence/Meta.php:1546
+#: src/Tribe/Recurrence/Meta.php:1552
 msgid ", "
 msgstr ","
 
-#: src/Tribe/Recurrence/Meta.php:1572
+#: src/Tribe/Recurrence/Meta.php:1578
 msgid "Recurring event instances"
 msgstr "Instancje wydarzenia powtarzającego się"
 
-#: src/Tribe/Recurrence/Meta.php:1573
+#: src/Tribe/Recurrence/Meta.php:1579
 msgid "Show only the first instance of each recurring event (only affects list-style views)."
 msgstr "Pokaż tylko pierwsze wystąpienie każdego wydarzenia powtarzającego się (dot. tylko widoków listy)"
 
-#: src/Tribe/Recurrence/Meta.php:1579
+#: src/Tribe/Recurrence/Meta.php:1585
 msgid "Front-end recurring event instances toggle"
 msgstr "Front-end powtarzających się instancji wydarzenia przełącznik"
 
-#: src/Tribe/Recurrence/Meta.php:1580
+#: src/Tribe/Recurrence/Meta.php:1586
 msgid "Allow users to decide whether to show all instances of a recurring event."
 msgstr "Pozwól użytkownikom zdecydować, czy pokazać wszystkie wystąpienia wydarzenia."
 
-#: src/Tribe/Recurrence/Meta.php:1587
+#: src/Tribe/Recurrence/Meta.php:1593
 msgid "Clean up recurring events after"
 msgstr "Wyczyść powtarzające się wydarzenia po"
 
-#: src/Tribe/Recurrence/Meta.php:1588
+#: src/Tribe/Recurrence/Meta.php:1594
 msgid "Automatically remove recurring event instances older than this"
 msgstr "Automatycznie usuń powtarzające się instancje wydarzenia starsze niż to"
 
-#: src/Tribe/Recurrence/Meta.php:1595
+#: src/Tribe/Recurrence/Meta.php:1601
 msgid "Create recurring events in advance for"
 msgstr "Stwórz powtarzające się wydarzenia z wyprzedzeniem dla"
 
-#: src/Tribe/Recurrence/Meta.php:1596
+#: src/Tribe/Recurrence/Meta.php:1602
 msgid "Recurring events will be created this far in advance"
 msgstr "Potwórzenia wydarzenia będą stworzone do tego momentu z góry"
 
-#: src/Tribe/Recurrence/Meta.php:1617
+#: src/Tribe/Recurrence/Meta.php:1623
 msgid " months"
 msgstr "miesięcy"
 
