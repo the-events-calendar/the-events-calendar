@@ -50,6 +50,7 @@ class Tribe__Events__Organizer {
 		$rewrite = Tribe__Events__Rewrite::instance();
 
 		$this->singular_organizer_label                = $this->get_organizer_label_singular();
+		$this->singular_organizer_label_lowercase      = $this->get_organizer_label_singular_lowercase();
 		$this->plural_organizer_label                  = $this->get_organizer_label_plural();
 
 		$this->post_type_args['rewrite']['slug']   = $rewrite->prepare_slug( $this->singular_organizer_label, self::POSTTYPE, false );
@@ -64,6 +65,7 @@ class Tribe__Events__Organizer {
 		$this->post_type_args['labels'] = apply_filters( 'tribe_events_register_organizer_post_type_labels', array(
 			'name'               => $this->plural_organizer_label,
 			'singular_name'      => $this->singular_organizer_label,
+			'singular_name_lowercase' => $this->singular_organizer_label_lowercase,
 			'add_new'            => esc_html__( 'Add New', 'the-events-calendar' ),
 			'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ),
 			'edit_item'          => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_organizer_label ),
@@ -144,6 +146,33 @@ class Tribe__Events__Organizer {
 		 * @param string $label Plural organizer label
 		 */
 		return apply_filters( 'tribe_organizer_label_plural', esc_html__( 'Organizers', 'the-events-calendar' ) );
+	}
+
+	/**
+	 * Allow users to specify their own lowercase singular label for Organizers
+	 * @return string
+	 */
+	public function get_organizer_label_singular_lowercase() {
+		/**
+		 * Filters the lowercase singular label of Organizer
+		 *
+		 * @param string $label Singular lowercase organizer label
+		 */
+		return apply_filters( 'tribe_organizer_label_singular_lowercase', esc_html__( 'organizer', 'the-events-calendar' ) );
+	}
+
+	/**
+	 * Allow users to specify their own plural label for Organizers
+	 *
+	 * @return string
+	 */
+	public function get_organizer_label_plural_lowercase() {
+		/**
+		 * Filters the lowercase plural label of Organizer
+		 *
+		 * @param string $label Plural lowercase organizer label
+		 */
+		return apply_filters( 'tribe_organizer_label_plural_lowercase', esc_html__( 'organizers', 'the-events-calendar' ) );
 	}
 
 	/**
