@@ -45,9 +45,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 				),
 				'localize' => (object) array(
 					'name' => 'tribe_l10n_ea_fields',
-					'data' => array(
-
-					),
+					'data' => array(),
 				),
 			)
 		);

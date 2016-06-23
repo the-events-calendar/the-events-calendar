@@ -61,7 +61,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 	public function ajax_csv_content_type() {
 		$response = (object) array(
-			'results' => array()
+			'results' => array(),
 		);
 
 		// Fetch the Objects from Post Types
@@ -80,7 +80,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 	public function ajax_csv_files() {
 		$response = (object) array(
-			'results' => array()
+			'results' => array(),
 		);
 
 		$query = new WP_Query( array(
@@ -89,7 +89,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			'post_mime_type' => 'text/csv',
 		) );
 
-		if ( ! $query->have_posts() ){
+		if ( ! $query->have_posts() ) {
 			return wp_send_json( $response );
 		}
 
@@ -99,7 +99,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		$response->results = $query->posts;
 
-		if ( $query->max_num_pages >= $request->query['paged'] ){
+		if ( $query->max_num_pages >= $request->query['paged'] ) {
 			$response->more = false;
 		}
 
