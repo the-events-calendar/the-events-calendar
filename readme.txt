@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.5.2
+Tested up to: 4.5.3
 Stable tag: 4.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -290,7 +290,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.2.1] 2016-06-22 =
 
 * Tweak - Adjust the caching rules for Month View for faster loading
-* Fix - Replace a bad return type to avoid unneccesary notices in the error log
+* Fix - Replace a bad return type to avoid unnecessary notices in the error log
 * Fix - Add missing styles for correctly hide screen reader text
 * Fix - Fixes `tribe_get_event_link()` which wasn't working when passing second parameter as `true'
 * Tweak - Reduce the ginormous font size of Month View titles in skeleton styles
