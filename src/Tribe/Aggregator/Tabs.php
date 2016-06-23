@@ -5,6 +5,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Tribe__Events__Aggregator__Tabs {
+
+	/**
+	 * A list of all the tabs
+	 * @var array
+	 */
+	private $items = array();
+
 	/**
 	 * Static Singleton Holder
 	 *
@@ -60,9 +67,13 @@ class Tribe__Events__Aggregator__Tabs {
 
 	public function action_active_tab( $screen ) {
 
-
 	}
 
+	/**
+	 * Fetches the current active tab
+	 *
+	 * @return object An instance of the Class used to create the Tab
+	 */
 	public function get_active() {
 		/**
 		 * Allow Developers to change the default tab
@@ -76,8 +87,12 @@ class Tribe__Events__Aggregator__Tabs {
 		return $this->get( $tab );
 	}
 
-	private $items = array();
-
+	/**
+	 * Register a new tab on the Aggregator page
+	 *
+	 * @param  string|object   $tab  A list of
+	 * @return object|boolean        The instance of the tab or false if we couldn't register
+	 */
 	public function register( $tab ) {
 		// If Obj is a string, check if it's existing class, then get an instance of it
 		if ( is_string( $tab ) && class_exists( $tab ) && method_exists( $tab, 'instance' ) ) {
@@ -96,6 +111,13 @@ class Tribe__Events__Aggregator__Tabs {
 		return $tab;
 	}
 
+	/**
+	 * Checks if a given Tab (slug) is active
+	 *
+	 * @param  string  $slug The Slug of the Tab
+	 *
+	 * @return boolean       Is this tab active?
+	 */
 	public function is_active( $slug ) {
 		if ( ! Tribe__Events__Aggregator__Page::instance()->is_screen() ) {
 			return false;
@@ -108,6 +130,13 @@ class Tribe__Events__Aggregator__Tabs {
 		return $slug === $tab->get_slug();
 	}
 
+	/**
+	 * Removes a tab from the queue items
+	 *
+	 * @param  string  $slug The Slug of the Tab
+	 *
+	 * @return boolean
+	 */
 	public function remove( $slug ) {
 		if ( ! $this->exists( $slug ) ) {
 			return false;
@@ -117,6 +146,13 @@ class Tribe__Events__Aggregator__Tabs {
 		return true;
 	}
 
+	/**
+	 * Fetches the Instance of the Tab or all the tabs
+	 *
+	 * @param  string  $slug (optional) The Slug of the Tab
+	 *
+	 * @return null|array|object        If we couldn't find the tab it will be null, if the slug is null will return all tabs
+	 */
 	public function get( $slug = null ) {
 		// Sort Tabs by priority
 		uasort( $this->items, array( $this, '_sort_by_priority' ) );
@@ -135,11 +171,28 @@ class Tribe__Events__Aggregator__Tabs {
 		return null;
 	}
 
+	/**
+	 * Checks if a given Tab (slug) exits
+	 *
+	 * @param  string  $slug The Slug of the Tab
+	 *
+	 * @return boolean
+	 */
 	public function exists( $slug ) {
 		return is_object( $this->get( $slug ) ) ? true : false;
 	}
 
 
+	/**
+	 * A method to sort tabs by priority
+	 *
+	 * @access private
+	 *
+	 * @param  object  $a First tab to compare
+	 * @param  object  $b Second tab to compare
+	 *
+	 * @return int
+	 */
 	public function _sort_by_priority( $a, $b ) {
 		if ( $a->priority == $b->priority ) {
 			return 0;

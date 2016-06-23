@@ -30,7 +30,7 @@ class Tribe__Events__Aggregator__Page {
 	 * It will add the methods and setup any dependecies
 	 */
 	private function __construct() {
-		add_action( 'admin_menu', array( $this, 'register' ) );
+		add_action( 'admin_menu', array( $this, 'register_menu_item' ) );
 
 		// Setup Tabs Instance
 		$this->tabs = Tribe__Events__Aggregator__Tabs::instance();
@@ -98,15 +98,30 @@ class Tribe__Events__Aggregator__Page {
 		return esc_url( $url );
 	}
 
+	/**
+	 * Gets the Menu label for the Aggregator
+	 *
+	 * @return string
+	 */
 	public function get_menu_label() {
 		return esc_html__( 'Aggregator', 'the-events-calendar' );
 	}
 
+	/**
+	 * Gets the Page title for the Aggegator
+	 *
+	 * @return string
+	 */
 	public function get_page_title() {
 		return esc_html__( 'Events Aggregator', 'the-events-calendar' );
 	}
 
-	public function register() {
+	/**
+	 * Register the Sub Menu item for this page
+	 *
+	 * @return string Page ID on WordPress
+	 */
+	public function register_menu_item() {
 		$cpt = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 		$this->ID = add_submenu_page(
 			$this->get_url( array( 'page' => null ), true ),
@@ -116,8 +131,18 @@ class Tribe__Events__Aggregator__Page {
 			self::$slug,
 			array( $this, 'render' )
 		);
+
+		return $this->ID;
 	}
 
+	/**
+	 * A very simple method to include a Aggregator Template, allowing filtering and additions using hooks.
+	 *
+	 * @param  string  $name Which file we are talking about including
+	 * @param  array   $data Any context data you need to expose to this file
+	 * @param  boolean $echo If we should also print the Template
+	 * @return string        Final Content HTML
+	 */
 	public function template( $name, $data = array(), $echo = true ) {
 		// Clean this Variable
 		$name = array_map( 'sanitize_title_with_dashes', (array) explode( '/', $name ) );
@@ -182,7 +207,12 @@ class Tribe__Events__Aggregator__Page {
 		return $html;
 	}
 
+	/**
+	 * A simple shortcut to render the Template for the page
+	 *
+	 * @return string
+	 */
 	public function render() {
-		$this->template( 'page' );
+		return $this->template( 'page' );
 	}
 }

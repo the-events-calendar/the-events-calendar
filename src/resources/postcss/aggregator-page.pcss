@@ -5,13 +5,25 @@
 		margin-top: 20px;
 		border: 1px solid #ccc;
 		background-color: #fff;
+
+		.form-table {
+			tr {
+				position: relative;
+			}
+		}
+	}
+
+	.tribe-ea-table-container {
+		background-color: #FAFAFA;
+		border: 1px solid #E7E7E7;
 	}
 
 	.tribe-ea-help {
 		padding: 4px;
 		cursor: pointer;
 
-		&:hover {
+		&:hover,
+		&.tribe-active {
 			color: #0073aa;
 		}
 	}
@@ -20,9 +32,34 @@
 		display: none;
 	}
 
-	.bumpdown {
-		font-size: 12px;
-		font-style: italic;
+	.tribe-ea-size-small {
+		width: 100px;
+	}
+
+	.tribe-ea-size-medium {
+		width: 150px;
+	}
+
+	.tribe-ea-size-large {
+		width: 200px;
+	}
+
+	.tribe-ea-dependent {
+		display: none;
+
+		&.tribe-ea-active {
+			display: inline-block;
+		}
+	}
+
+	div.tribe-ea-dependent.tribe-ea-active {
+		display: block;
+	}
+	td.tribe-ea-dependent.tribe-ea-active {
+		display: table-cell;
+	}
+	tr.tribe-ea-dependent.tribe-ea-active {
+		display: table-row;
 	}
 
 }
