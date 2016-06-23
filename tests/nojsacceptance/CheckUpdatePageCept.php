@@ -1,13 +1,10 @@
 <?php
 
 // @group: settings
-$I = new AcceptanceTester($scenario);
+$I = new NojsacceptanceTester($scenario);
 
 $I->am('administrator');
 $I->wantTo("verify that the Update Page has the right content");
-
-// arrange
-$I->activate_tec();
 
 // act
 $I->loginAsAdmin();
