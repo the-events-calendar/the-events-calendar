@@ -102,8 +102,7 @@ class Tribe__Events__Aggregator__Page {
 		 */
 		$url = apply_filters( 'tribe_aggregator_admin_page', $url, $args );
 
-		// Escape after the filter
-		return esc_url( $url );
+		return $url;
 	}
 
 	/**
@@ -112,7 +111,7 @@ class Tribe__Events__Aggregator__Page {
 	 * @return string
 	 */
 	public function get_menu_label() {
-		return esc_html__( 'Aggregator', 'the-events-calendar' );
+		return __( 'Aggregator', 'the-events-calendar' );
 	}
 
 	/**
@@ -121,7 +120,7 @@ class Tribe__Events__Aggregator__Page {
 	 * @return string
 	 */
 	public function get_page_title() {
-		return esc_html__( 'Events Aggregator', 'the-events-calendar' );
+		return __( 'Events Aggregator', 'the-events-calendar' );
 	}
 
 	/**
@@ -133,8 +132,8 @@ class Tribe__Events__Aggregator__Page {
 		$cpt = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 		$this->ID = add_submenu_page(
 			$this->get_url( array( 'page' => null ), true ),
-			$this->get_page_title(),
-			$this->get_menu_label(),
+			esc_html( $this->get_page_title() ),
+			esc_html( $this->get_menu_label() ),
 			$cpt->cap->publish_posts,
 			self::$slug,
 			array( $this, 'render' )

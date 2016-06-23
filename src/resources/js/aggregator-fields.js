@@ -3,7 +3,7 @@ var tribe_ea = tribe_ea || {};
 // Setup the global Variable
 tribe_ea.fields = {
 	// Store the Required Selectors
-	slct: {
+	selector: {
 		container: '.tribe-ea',
 		help: '.tribe-ea-help',
 		dependent: '.tribe-ea-dependent',
@@ -35,14 +35,14 @@ tribe_ea.fields = {
 	 * @return void
 	 */
 	my.init = function() {
-		my.$.container = $( my.slct.container );
+		my.$.container = $( my.selector.container );
 
 		// Fetch All the Help Icons
-		my.$.help = my.$.container.find( my.slct.help );
+		my.$.help = my.$.container.find( my.selector.help );
 		my.$.help.bumpdown();
 
 		// Update what fields we currently have to setup
-		my.$.fields = my.$.container.find( my.slct.fields );
+		my.$.fields = my.$.container.find( my.selector.fields );
 
 		// Setup each type of field
 		$.each( my.construct, function( key, callback ){
@@ -59,25 +59,27 @@ tribe_ea.fields = {
 				return;
 			}
 
+			/**
+			 * @todo  move Dependency elements to a jQuery.fn File on Common
+			 */
 			// Fetch dependent elements
-			var $dependents = my.$.container.find( my.slct.dependent ).filter( '[data-depends="' + ID + '"]' );
-
+			var $dependents = my.$.container.find( my.selector.dependent ).filter( '[data-depends="' + ID + '"]' );
 			$dependents.each( function( k, dependent ) {
 				var $dependent = $( dependent ),
-					condition = $dependent.data( 'condition' ),
-					isNotEmpty = $dependent.data( 'conditionNotEmpty' ) || $dependent.is( '[data-condition-not-empty]' ),
-					isEmpty = $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' );
+					condition = $dependent.data( 'conditiselectoron' ),
+					is_not_empty = $dependent.data( 'conditionNotEmpty' ) || $dependent.is( '[data-condition-not-empty]' ),
+					is_empty = $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' );
 
-				if ( isEmpty && '' == value ) {
-					$dependent.addClass( my.slct.active.replace( '.', '' ) );
-				} else if ( isNotEmpty && '' != value ) {
-					$dependent.addClass( my.slct.active.replace( '.', '' ) );
+				if ( is_empty && '' == value ) {
+					$dependent.addClass( my.selector.active.replace( '.', '' ) );
+				} else if ( is_not_empty && '' != value ) {
+					$dependent.addClass( my.selector.active.replace( '.', '' ) );
 				} else if ( _.isArray( condition ) && -1 !== _.findIndex( condition, value ) ) {
-					$dependent.addClass( my.slct.active.replace( '.', '' ) );
+					$dependent.addClass( my.selector.active.replace( '.', '' ) );
 				} else if ( value == condition ) {
-					$dependent.addClass( my.slct.active.replace( '.', '' ) );
+					$dependent.addClass( my.selector.active.replace( '.', '' ) );
 				} else {
-					$dependent.removeClass( my.slct.active.replace( '.', '' ) );
+					$dependent.removeClass( my.selector.active.replace( '.', '' ) );
 				}
 			} );
 		} ).trigger( 'change' );
@@ -89,7 +91,7 @@ tribe_ea.fields = {
 	 * @param  {object|string} e Searched object or the actual ID
 	 * @return {string}   ID of the object
 	 */
-	my.searchId = function ( e ) {
+	my.search_id = function ( e ) {
 		var id = null;
 
 		if ( 'undefined' !== typeof e.id ){
@@ -110,14 +112,14 @@ tribe_ea.fields = {
 	 * @return {jQuery}         Affected fields
 	 */
 	my.construct.dropdown = function( $fields ) {
-		var $elements = $fields.filter( my.slct.dropdown ).not( '.select2-offscreen, .select2-container' );
+		var $elements = $fields.filter( my.selector.dropdown ).not( '.select2-offscreen, .select2-container' );
 
 		$elements.each(function(){
 			var $select = $(this),
 				args = {};
 
 			// Better Method for finding the ID
-			args.id = my.searchId;
+			args.id = my.search_id;
 
 			// By default we allow The field to be cleared
 			args.allowClear = true;
@@ -181,7 +183,7 @@ tribe_ea.fields = {
 				if ( ! result && 'undefined' !== typeof args.tags ){
 					var possible = _.where( args.tags, { text: text } );
 					if ( args.tags.length > 0  && _.isObject( possible ) ){
-						var test_value = my.searchId( possible[0] );
+						var test_value = my.search_id( possible[0] );
 						result = test_value.toUpperCase().indexOf( term.toUpperCase() ) == 0;
 					}
 				}
@@ -302,7 +304,7 @@ tribe_ea.fields = {
 	 * @return {jQuery}         Affected fields
 	 */
 	my.construct.media_button = function( $fields ) {
-		var $elements = $fields.filter( my.slct.media_button );
+		var $elements = $fields.filter( my.selector.media_button );
 
 		if ( typeof wp === 'undefined' || ! wp.media || ! wp.media.editor ) {
 			return $elements;
@@ -344,7 +346,7 @@ tribe_ea.fields = {
 				$( '.media-router .media-menu-item' ).first().trigger('click')
 			} );
 
-			my.$.container.on( 'click', my.slct.media_button, function(e) {
+			my.$.container.on( 'click', my.selector.media_button, function(e) {
 				e.preventDefault();
 				media.open( $( this ) );
 				return false;

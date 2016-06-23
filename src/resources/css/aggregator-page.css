@@ -17,6 +17,10 @@
 .tribe-ea .tribe-ea-tab .form-table tr {
     position: relative;
 }
+.tribe-ea .tribe-ea-table-container {
+    background-color: #FAFAFA;
+    border: 1px solid #E7E7E7;
+}
 .tribe-ea .tribe-ea-help {
     padding: 4px;
     cursor: pointer;
