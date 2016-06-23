@@ -13,6 +13,27 @@ class Tribe__Events__Aggregator__Page {
 	private static $instance;
 
 	/**
+	 * The page slug
+	 * @var string
+	 */
+	public static $slug = 'aggregator';
+
+	/**
+	 * Stores the Registred ID from `add_submenu_page`
+	 *
+	 * @var string
+	 */
+	public $ID;
+
+
+	/**
+	 * Stores the Tabs Manager class
+	 *
+	 * @var null|Tribe__Events__Aggregator__Tabs
+	 */
+	public $tabs;
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return self
@@ -35,19 +56,6 @@ class Tribe__Events__Aggregator__Page {
 		// Setup Tabs Instance
 		$this->tabs = Tribe__Events__Aggregator__Tabs::instance();
 	}
-
-	/**
-	 * The page slug
-	 * @var string
-	 */
-	public static $slug = 'aggregator';
-
-	/**
-	 * Stores the Registred ID from `add_submenu_page`
-	 *
-	 * @var string
-	 */
-	public $ID;
 
 	/**
 	 * Checks if we are in the correct screen

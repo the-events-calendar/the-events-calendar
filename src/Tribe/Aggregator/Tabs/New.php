@@ -32,6 +32,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		// Configure this tab ajax calls
 		add_action( 'wp_ajax_tribe_ea_dropdown_csv_content_type', array( $this, 'ajax_csv_content_type' ) );
 		add_action( 'wp_ajax_tribe_ea_dropdown_csv_files', array( $this, 'ajax_csv_files' ) );
+		add_action( 'wp_ajax_tribe_ea_dropdown_origins', array( $this, 'ajax_origins' ) );
 
 		// We need to enqueue Media scripts like this
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_media' ) );

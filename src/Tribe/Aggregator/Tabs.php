@@ -65,7 +65,6 @@ class Tribe__Events__Aggregator__Tabs {
 	}
 
 	public function action_active_tab( $screen ) {
-
 	}
 
 	/**

@@ -11,7 +11,7 @@ tribe_ea.fields = {
 		fields: '.tribe-ea-field',
 		dropdown: '.tribe-ea-dropdown',
 		media_button: '.tribe-ea-media_button',
-		datepicker: '.tribe-ea-datepicker',
+		datepicker: '.tribe-ea-datepicker'
 	},
 
 	media: {},
@@ -131,20 +131,20 @@ tribe_ea.fields = {
 			}
 
 			// Prevents the Search box to show
-			if ( $select.data( 'hideSearch' ) ) {
+			if ( $select.is( '[data-hide-search]' ) ) {
 				args.minimumResultsForSearch = Infinity;
 			}
 
-			if ( $select.is( '[multiple]' ) ){
+			if ( $select.is( '[multiple]' ) ) {
 				args.multiple = true;
 
-				if ( ! $select.is( '[data-tags]' ) ){
+				if ( ! $select.is( '[data-tags]' ) ) {
 					args.data = function(){
 						return { 'results': $select.data( 'options' ) };
 					};
 				}
 
-				if ( ! _.isArray( $select.data( 'separator' ) ) ){
+				if ( ! _.isArray( $select.data( 'separator' ) ) ) {
 					args.tokenSeparators = [ $select.data( 'separator' ) ];
 				} else {
 					args.tokenSeparators = $select.data( 'separator' );
@@ -154,7 +154,7 @@ tribe_ea.fields = {
 				// Define the regular Exp based on
 				args.regexSeparatorElements = [ '^(' ];
 				args.regexSplitElements = [ '(?:' ];
-				$.each( args.tokenSeparators, function ( i, token ){
+				$.each( args.tokenSeparators, function ( i, token ) {
 					args.regexSeparatorElements.push( '[^' + token + ']+' );
 					args.regexSplitElements.push( '[' + token + ']' );
 				} );
@@ -197,7 +197,7 @@ tribe_ea.fields = {
 					var data = [];
 					$( element.val().split( args.regexSplit ) ).each( function () {
 						var obj = { id: this, text: this };
-						if ( args.tags.length > 0  && _.isObject( args.tags[0] ) ){
+						if ( args.tags.length > 0  && _.isObject( args.tags[0] ) ) {
 							var _obj = _.where( args.tags, { value: this } );
 							if ( _obj.length > 0 ){
 								obj = _obj[0];
@@ -215,7 +215,7 @@ tribe_ea.fields = {
 				};
 
 				args.createSearchChoice = function(term, data) {
-					if ( term.match( args.regexToken ) ){
+					if ( term.match( args.regexToken ) ) {
 						return { id: term, text: term };
 					}
 				};
@@ -228,7 +228,7 @@ tribe_ea.fields = {
 			}
 
 			// When we have a source, we do an AJAX call
-			if ( $select.is( '[data-source]' ) ){
+			if ( $select.is( '[data-source]' ) ) {
 				var source = $select.data( 'source' );
 
 				// For AJAX we reset the data
