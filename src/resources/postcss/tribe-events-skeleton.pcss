@@ -621,10 +621,12 @@ select.tribe-events-dropdown {
 	padding: 6px 9px;
 	line-height: 1.2;
 }
+
 .tribe-events-calendar td a {
-	font-size: 91.7%;
-	word-break: break-all;
+	font-size: 69.6%;
+	word-wrap: break-word;
 }
+
 .tribe-events-calendar div[id*='tribe-events-event-'],
 .tribe-events-calendar div[id*='tribe-events-daynum-'] {
 	position: relative;
@@ -828,4 +830,14 @@ select.tribe-events-dropdown {
 
 .tribe-theme-twentysixteen table.tribe-events-calendar {
 	table-layout: auto;
+}
+
+/* Utility Classes */
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	height: 1px;
+	overflow: hidden;
+	position: absolute !important;
+	width: 1px;
+	word-wrap: normal !important;
 }
