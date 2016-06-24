@@ -205,7 +205,7 @@ tribe_ea.fields = {
 					type: 'POST',
 					url: window.ajaxurl,
 					results: function ( data ) { // parse the results into the format expected by Select2.
-						return data;
+						return data.data;
 					}
 				};
 

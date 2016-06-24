@@ -76,7 +76,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			);
 		}
 
-		return wp_send_json( $response );
+		return wp_send_json_success( $response );
 	}
 
 	public function ajax_csv_files() {
@@ -91,7 +91,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		) );
 
 		if ( ! $query->have_posts() ) {
-			return wp_send_json( $response );
+			return wp_send_json_error( $response );
 		}
 
 		foreach ( $query->posts as $k => $post ) {
@@ -104,6 +104,6 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			$response->more = false;
 		}
 
-		return wp_send_json( $response );
+		return wp_send_json_success( $response );
 	}
 }
