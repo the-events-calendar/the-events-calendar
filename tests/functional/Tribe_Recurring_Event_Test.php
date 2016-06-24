@@ -880,7 +880,7 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 					'end-type'  => 'On',
 					'end'       => date( 'Y-m-d', strtotime( '+1 week' ) ),
 					'end-count' => null,
-				] ],
+			] ],
 		] );
 
 		// Simulate the /all/ events URL for this sequence
