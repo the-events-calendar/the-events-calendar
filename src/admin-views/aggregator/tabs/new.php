@@ -7,24 +7,25 @@
 		$field->label = esc_html__( 'Import Origin', 'the-events-calendar' );
 		$field->placeholder = esc_attr__( 'Select Origin', 'the-events-calendar' );
 		$field->help = esc_attr__( 'Specify the type of data you wish to import', 'the-events-calendar' );
-		$field->options = array(
-			array(
-				'id' => 'csv',
-				'text' => esc_html__( 'CSV File', 'the-events-calendar' ),
-			),
-			array(
-				'id' => 'ics',
-				'text' => esc_html__( 'ICS File', 'the-events-calendar' ),
-			),
-			array(
-				'id' => 'facebook',
-				'text' => esc_html__( 'Facebook', 'the-events-calendar' ),
-			),
-			array(
-				'id' => 'meetup',
-				'text' => esc_html__( 'Meetup', 'the-events-calendar' ),
-			),
-		);
+		$field->options = Tribe__Events__Aggregator::instance()->get_origins();
+		//$field->options = array(
+			//array(
+				//'id' => 'csv',
+				//'text' => esc_html__( 'CSV File', 'the-events-calendar' ),
+			//),
+			//array(
+				//'id' => 'ics',
+				//'text' => esc_html__( 'ICS File', 'the-events-calendar' ),
+			//),
+			//array(
+				//'id' => 'facebook',
+				//'text' => esc_html__( 'Facebook', 'the-events-calendar' ),
+			//),
+			//array(
+				//'id' => 'meetup',
+				//'text' => esc_html__( 'Meetup', 'the-events-calendar' ),
+			//),
+		//);
 		?>
 		<tr>
 			<th scope="row">
