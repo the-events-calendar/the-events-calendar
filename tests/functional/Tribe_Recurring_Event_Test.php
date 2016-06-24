@@ -869,4 +869,67 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $recurrence_date, date( 'Y-m-d', strtotime( $original_dates[1] ) ), 'Verifies that the second date is indeed 5 days after the first date' );
 	}
 
+	/**
+	 * @see tribe_get_upcoming_recurring_event_id_from_url()
+	 */
+	public function test_can_find_upcoming_recurring_event_id_from_url() {
+		// Sequence starting *yesterday* and with one future instance a week from now
+		$post_id = $this->build_simple_recurring_event( __FUNCTION__, date( 'Y-m-d', strtotime( 'yesterday' ) ), [
+			'rules' => [ [
+					'type'      => 'Date',
+					'end-type'  => 'On',
+					'end'       => date( 'Y-m-d', strtotime( '+1 week' ) ),
+					'end-count' => null,
+				] ],
+		] );
+
+		// Simulate the /all/ events URL for this sequence
+		$test_url = 'http://any.domain/event/' . sanitize_title( __FUNCTION__ ) . '/all/';
+		$upcoming_id = tribe_get_upcoming_recurring_event_id_from_url( $test_url );
+
+		// We hope to get back the post ID of a future event
+		$this->assertTrue( is_numeric( $upcoming_id ) && (int) $upcoming_id > 0, 'Result is a positive integer (post ID)' );
+		$this->assertNotEquals( (int) $post_id, (int) $upcoming_id, 'The parent post ID (which is in the past) was not returned' );
+		$this->assertGreaterThan( date_i18n( 'Y-m-d' ), tribe_get_start_date( $upcoming_id, false, 'Y-m-d' ) );
+
+		// Ensure it doesn't return false positives for /all/ URLs where the event does not exist/was deleted
+		$test_url = 'http://any.domain/event/this-slug-does-not-exist-so-i-expect-a-null-result/all';
+		$should_be_null = tribe_get_upcoming_recurring_event_id_from_url( $test_url );
+		$this->assertNull( $should_be_null, 'Does not return false positives' );
+
+		// Ensure it doesn't return false positives for URLs not matching the /all/ URL pattern
+		$test_url = 'http://some.url?null=should_be_the_result';
+		$should_be_null = tribe_get_upcoming_recurring_event_id_from_url( $test_url );
+		$this->assertNull( $should_be_null, 'Does not return false positives' );
+	}
+
+	/**
+	 * Creates a simple recurring event (and automatically processes the queue).
+	 *
+	 * @param string $name
+	 * @param string $start_date
+	 * @param array  $recurrence (should contain 'rules' and optionally 'exceptions' keys)
+	 *
+	 * @return int
+	 */
+	protected function build_simple_recurring_event( $name, $start_date, array $recurrence ) {
+		$post_id = Tribe__Events__API::createEvent( [
+			'post_type' => Tribe__Events__Main::POSTTYPE,
+			'post_title' => $name,
+			'post_content' => __CLASS__ . ' ' . $name,
+			'post_status' => 'publish',
+			'EventStartDate' => $start_date,
+			'EventEndDate' => $start_date,
+			'EventStartHour' => 16,
+			'EventEndHour' => 17,
+			'EventStartMinute' => 0,
+			'EventEndMinute' => 0,
+			'recurrence' => $recurrence
+		] );
+
+		$queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+		$queue_processor->process_queue( $post_id );
+
+		return $post_id;
+	}
 }

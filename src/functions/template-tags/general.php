@@ -829,41 +829,68 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 
 	/**
 	 * Returns the next upcoming event in a recurring series from the /all/ URL
+	 * if one can be found, else returns null.
 	 *
 	 * @since 4.2
 	 *
 	 * @param string $url URL of the recurring series
 	 *
-	 * @return int
+	 * @return int|null
 	 */
 	function tribe_get_upcoming_recurring_event_id_from_url( $url ) {
 		$path = @parse_url( $url );
 
-		if ( empty( $path ) ) {
-			return;
+		// Ensure we were able to parse the URL and have an actual path to look at (could be just a scheme, host and query etc)
+		if ( empty( $path ) || ! isset( $path[ 'path' ] ) ) {
+			return null;
 		}
 
 		$path = trim( $path['path'], '/' );
 		$path = explode( '/', $path );
 
-		// grab the post name from the /all/ URL
-		$post_name = $path[ count( $path ) - 2 ];
-
-		// fetch the next event in the series
-		$query = new WP_Query( array(
-			'name'        => $post_name,
-			'post_type'   => Tribe__Events__Main::POSTTYPE,
-			'post_status' => 'publish',
-			'numberposts' => 1,
-		) );
-
-		// if there isn't a post, bail
-		if ( empty( $query->posts[0] ) ) {
-			return;
+		// We expect $path to contain at least 3 elements (could be more, for subdir installations etc)
+		if ( count( $path ) < 3 ) {
+			return null;
 		}
 
-		// a post was found. Let's return the post ID
-		return $query->posts[0]->ID;
+		// Grab the post name from the /all/ URL
+		$post_name = $path[ count( $path ) - 2 ];
+
+		// Fetch the parent (even if it is in the past, hence 'custom')
+		$sequence_parent = tribe_get_events( array(
+			'name'           => $post_name,
+			'post_status'    => 'publish',
+			'posts_per_page' => 1,
+			'eventDisplay'   => 'custom',
+		) );
+
+		if ( empty( $sequence_parent ) ) {
+			return null;
+		}
+
+		$parent = current( $sequence_parent );
+
+		// Ensure we are indeed looking at an actual recurring event
+		if ( ! tribe_is_recurring_event( $parent->ID ) ) {
+			return null;
+		}
+
+		// Is the parent itself the next upcoming instance? If so, we can return its ID
+		if ( $parent->_EventEndDateUTC >= current_time( 'mysql' ) ) {
+			return $parent->ID;
+		}
+
+		// Otherwise look for upcoming children of this event
+		$upcoming_child = tribe_get_events( array(
+			'post_parent'    => $parent->ID,
+			'posts_per_page' => 1,
+		) );
+
+		if ( empty( $upcoming_child ) ) {
+			return null;
+		}
+
+		return current( $upcoming_child )->ID;
 	}
 
 }
