@@ -76,6 +76,11 @@ class Tribe__Events__Aggregator__Service {
 			),
 		);
 
+		// if the user doesn't have a license key, don't bother hitting the service
+		if ( ! $key = $this->aggregator->get_license_key() ) {
+			return $origins;
+		}
+
 		$response = $this->get( $this->build_url( 'origin' ) );
 
 		if ( $response && 'success' === $response->status ) {
