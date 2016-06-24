@@ -37,6 +37,11 @@ class Tribe__Events__Aggregator__Service {
 	protected $api_root = 'wp-json/event-aggregator/';
 
 	/**
+	 * @var string Event Aggregator API key
+	 */
+	protected $api_key;
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return Tribe__Events__Aggregator__Service
@@ -55,6 +60,7 @@ class Tribe__Events__Aggregator__Service {
 	 */
 	public function __construct( $aggregator ) {
 		$this->aggregator = $aggregator;
+		$this->api_key = $this->aggregator->get_license_key();
 
 		if ( defined( 'EVENT_AGGREGATOR_API_BASE_URL' ) ) {
 			$this->api_base_url = EVENT_AGGREGATOR_API_BASE_URL;
@@ -77,11 +83,11 @@ class Tribe__Events__Aggregator__Service {
 		);
 
 		// if the user doesn't have a license key, don't bother hitting the service
-		if ( ! $key = $this->aggregator->get_license_key() ) {
+		if ( ! $this->api_key ) {
 			return $origins;
 		}
 
-		$response = $this->get( $this->build_url( 'origin' ) );
+		$response = $this->get( 'origin' );
 
 		if ( $response && 'success' === $response->status ) {
 			$origins = array_merge( $origins, $response->data->origin );
@@ -98,7 +104,8 @@ class Tribe__Events__Aggregator__Service {
 	 *
 	 * @return stdClass
 	 */
-	public function get( $url, $data = array() ) {
+	public function get( $endpoint, $data = array() ) {
+		$url = $this->build_url( $endpoint );
 		$url = esc_url_raw( add_query_arg( $data, $url ) );
 
 		$response = wp_remote_get( $url );
@@ -115,10 +122,8 @@ class Tribe__Events__Aggregator__Service {
 	 * @return string
 	 */
 	public function build_url( $endpoint ) {
-		$key = $this->aggregator->get_license_key();
-
 		$url = "{$this->api_base_url}{$this->api_root}{$this->api_version}/{$endpoint}";
-		$url = add_query_arg( 'key', $key, $url );
+		$url = add_query_arg( 'key', $this->api_key, $url );
 
 		return $url;
 	}

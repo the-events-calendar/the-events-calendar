@@ -58,8 +58,7 @@ class Tribe__Events__Aggregator {
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
-			$className      = __CLASS__;
-			self::$instance = new $className;
+			self::$instance = new self;
 		}
 
 		return self::$instance;
