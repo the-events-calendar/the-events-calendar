@@ -72,7 +72,6 @@ class Tribe__Events__Aggregator {
 		$this->service = Tribe__Events__Aggregator__Service::instance( $this );
 
 		$this->hooks();
-		$this->service();
 		$this->register_with_pue();
 	}
 
