@@ -78,7 +78,7 @@ class Tribe__Events__Aggregator__Service {
 
 		$response = $this->get( $this->build_url( 'origin' ) );
 
-		if ( 'success' === $response->status ) {
+		if ( $response && 'success' === $response->status ) {
 			$origins = array_merge( $origins, $response->data->origin );
 		}
 
