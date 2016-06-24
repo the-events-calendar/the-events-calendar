@@ -19,12 +19,12 @@ class Tribe__Events__Aggregator {
 	/**
 	 * @var Tribe__Events__Aggregator__Page Event Aggregator page root object
 	 */
-	protected $page;
+	public $page;
 
 	/**
 	 * @var Tribe__Events__Aggregator__Service Event Aggregator service object
 	 */
-	protected $service;
+	public $service;
 
 	/**
 	 * @var string slug used for the plugin update engine
@@ -69,7 +69,9 @@ class Tribe__Events__Aggregator {
 	 * Constructor!
 	 */
 	public function __construct() {
-		$this->page();
+		$this->page    = Tribe__Events__Aggregator__Page::instance();
+		$this->service = Tribe__Events__Aggregator__Service::instance( $this );
+
 		$this->hooks();
 		$this->service();
 		$this->register_with_pue();
@@ -79,32 +81,6 @@ class Tribe__Events__Aggregator {
 	 * Set up hooks
 	 */
 	protected function hooks() {
-	}
-
-	/**
-	 * Object accessor method for Tribe__Events__Aggregator__Page
-	 *
-	 * @return Tribe__Events__Aggregator__Page
-	 */
-	public function page() {
-		if ( ! $this->page ) {
-			$this->page = Tribe__Events__Aggregator__Page::instance();
-		}
-
-		return $this->page;
-	}
-
-	/**
-	 * Object accessor method for Tribe__Events__Aggregator__Service
-	 *
-	 * @return Tribe__Events__Aggregator__Service
-	 */
-	public function service() {
-		if ( ! $this->service ) {
-			$this->service = Tribe__Events__Aggregator__Service::instance( $this );
-		}
-
-		return $this->service;
 	}
 
 	/**
@@ -132,7 +108,7 @@ class Tribe__Events__Aggregator {
 		if ( $cached_origins = get_transient( "{$this->cache_group}_origins" ) ) {
 			$origins = $cached_origins;
 		} else {
-			$origins = $this->service()->fetch_origins();
+			$origins = $this->service->fetch_origins();
 
 			set_transient( "{$this->cache_group}_origins", $origins, 6 * HOUR_IN_SECONDS );
 		}
