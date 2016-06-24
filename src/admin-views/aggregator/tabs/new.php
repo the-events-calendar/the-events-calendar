@@ -39,7 +39,7 @@
 					placeholder="<?php echo $field->placeholder; ?>"
 					data-hide-search
 					data-options="<?php echo esc_attr( json_encode( $field->options ) ); ?>">
-				<span class="tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo $field->help; ?>"></span>
+				<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo $field->help; ?>"></span>
 			</td>
 		</tr>
 

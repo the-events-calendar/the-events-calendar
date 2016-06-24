@@ -35,8 +35,8 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 		// Only Load if this Is active
 		tribe_assets( $plugin,
 			array(
-				array( 'tribe-ea-fields', 'aggregator-fields.js', array( 'jquery', 'underscore', 'tribe-inline-bumpdown', 'tribe-events-select2' ) ),
-				array( 'tribe-ea-page', 'aggregator-page.css' ),
+				array( 'tribe-ea-fields', 'aggregator-fields.js', array( 'jquery', 'underscore', 'tribe-bumpdown', 'tribe-dependency', 'tribe-events-select2' ) ),
+				array( 'tribe-ea-page', 'aggregator-page.css', ),
 			),
 			'admin_enqueue_scripts',
 			array(

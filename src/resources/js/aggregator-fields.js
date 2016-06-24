@@ -6,8 +6,6 @@ tribe_ea.fields = {
 	selector: {
 		container: '.tribe-ea',
 		help: '.tribe-ea-help',
-		dependent: '.tribe-ea-dependent',
-		active: '.tribe-ea-active',
 		fields: '.tribe-ea-field',
 		dropdown: '.tribe-ea-dropdown',
 		media_button: '.tribe-ea-media_button',
@@ -37,10 +35,6 @@ tribe_ea.fields = {
 	my.init = function() {
 		my.$.container = $( my.selector.container );
 
-		// Fetch All the Help Icons
-		my.$.help = my.$.container.find( my.selector.help );
-		my.$.help.bumpdown();
-
 		// Update what fields we currently have to setup
 		my.$.fields = my.$.container.find( my.selector.fields );
 
@@ -48,41 +42,6 @@ tribe_ea.fields = {
 		$.each( my.construct, function( key, callback ){
 			callback( my.$.fields );
 		} );
-
-		my.$.fields.on( 'change', function( e ) {
-			var $field = $( this ),
-				ID = $field.attr( 'id' ),
-				value = $field.val();
-
-			// We need an ID to make something depend on this
-			if ( ! ID ) {
-				return;
-			}
-
-			/**
-			 * @todo  move Dependency elements to a jQuery.fn File on Common
-			 */
-			// Fetch dependent elements
-			var $dependents = my.$.container.find( my.selector.dependent ).filter( '[data-depends="' + ID + '"]' );
-			$dependents.each( function( k, dependent ) {
-				var $dependent = $( dependent ),
-					condition = $dependent.data( 'conditiselectoron' ),
-					is_not_empty = $dependent.data( 'conditionNotEmpty' ) || $dependent.is( '[data-condition-not-empty]' ),
-					is_empty = $dependent.data( 'conditionEmpty' ) || $dependent.is( '[data-condition-empty]' );
-
-				if ( is_empty && '' == value ) {
-					$dependent.addClass( my.selector.active.replace( '.', '' ) );
-				} else if ( is_not_empty && '' != value ) {
-					$dependent.addClass( my.selector.active.replace( '.', '' ) );
-				} else if ( _.isArray( condition ) && -1 !== _.findIndex( condition, value ) ) {
-					$dependent.addClass( my.selector.active.replace( '.', '' ) );
-				} else if ( value == condition ) {
-					$dependent.addClass( my.selector.active.replace( '.', '' ) );
-				} else {
-					$dependent.removeClass( my.selector.active.replace( '.', '' ) );
-				}
-			} );
-		} ).trigger( 'change' );
 	};
 
 	/**
@@ -166,8 +125,8 @@ tribe_ea.fields = {
 				args.regexSeparatorString = args.regexSeparatorElements.join( '' )
 				args.regexSplitString = args.regexSplitElements.join( '' )
 
-				args.regexToken = new RegExp( args.regexSeparatorString, 'ig');
-				args.regexSplit = new RegExp( args.regexSplitString, 'ig');
+				args.regexToken = new RegExp( args.regexSeparatorString, 'ig' );
+				args.regexSplit = new RegExp( args.regexSplitString, 'ig' );
 			}
 
 			/**

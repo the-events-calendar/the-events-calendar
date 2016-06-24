@@ -5,7 +5,7 @@ $field->placeholder = __( 'Select Content Type', 'the-events-calendar' );
 $field->help        = __( 'For better results, import venue and organizer files before importing event files', 'the-events-calendar' );
 $field->source      = 'csv_content_type';
 ?>
-<tr class="tribe-ea-dependent" data-depends="tribe-ea-field-origin" data-condition="csv">
+<tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="csv">
 	<th scope="row">
 		<label for="tribe-ea-field-content_type"><?php echo esc_html( $field->label ); ?></label>
 	</th>
@@ -19,7 +19,7 @@ $field->source      = 'csv_content_type';
 			data-hide-search=1
 			data-source="<?php echo esc_attr( $field->source ); ?>"
 		>
-		<span class="tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
+		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
 	</td>
 </tr>
 
@@ -32,7 +32,7 @@ $field->source      = 'csv_files';
 $field->button      = __( 'Upload new File', 'the-events-calendar' );
 $field->media_title = __( 'Upload a CSV File', 'the-events-calendar' );
 ?>
-<tr class="tribe-ea-dependent" data-depends="tribe-ea-field-csv_content_type" data-condition-not-empty>
+<tr class="tribe-dependent" data-depends="#tribe-ea-field-csv_content_type" data-condition-not-empty>
 	<th scope="row">
 		<label for="tribe-ea-field-file"><?php echo esc_html( $field->label ); ?></label>
 	</th>
@@ -55,11 +55,11 @@ $field->media_title = __( 'Upload a CSV File', 'the-events-calendar' );
 		>
 			<?php echo esc_html( $field->button ); ?>
 		</button>
-		<span class="tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
+		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
 	</td>
 </tr>
 
-<tr class="tribe-ea-dependent" data-depends="tribe-ea-field-csv_file" data-condition-not-empty>
+<tr class="tribe-dependent" data-depends="tribe-ea-field-csv_file" data-condition-not-empty>
 	<td colspan="2">
 		<div class="tribe-ea-table-container">
 			<span class='spinner tribe-ea-active'></span>
