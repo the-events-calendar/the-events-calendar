@@ -41,18 +41,3 @@
 .tribe-ea .tribe-ea-size-large {
     width: 200px;
 }
-.tribe-ea .tribe-ea-dependent {
-    display: none;
-}
-.tribe-ea .tribe-ea-dependent.tribe-ea-active {
-    display: inline-block;
-}
-.tribe-ea div.tribe-ea-dependent.tribe-ea-active {
-    display: block;
-}
-.tribe-ea td.tribe-ea-dependent.tribe-ea-active {
-    display: table-cell;
-}
-.tribe-ea tr.tribe-ea-dependent.tribe-ea-active {
-    display: table-row;
-}
