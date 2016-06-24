@@ -876,10 +876,10 @@ class Tribe_Recurring_Event_Test extends \Codeception\TestCase\WPTestCase {
 		// Sequence starting *yesterday* and with one future instance a week from now
 		$post_id = $this->build_simple_recurring_event( __FUNCTION__, date( 'Y-m-d', strtotime( 'yesterday' ) ), [
 			'rules' => [ [
-					'type'      => 'Date',
-					'end-type'  => 'On',
-					'end'       => date( 'Y-m-d', strtotime( '+1 week' ) ),
-					'end-count' => null,
+				'type'      => 'Date',
+				'end-type'  => 'On',
+				'end'       => date( 'Y-m-d', strtotime( '+1 week' ) ),
+				'end-count' => null,
 			] ],
 		] );
 
