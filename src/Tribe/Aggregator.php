@@ -106,7 +106,7 @@ class Tribe__Events__Aggregator {
 		if ( $cached_origins = get_transient( "{$this->cache_group}_origins" ) ) {
 			$origins = $cached_origins;
 		} else {
-			$origins = $this->service->fetch_origins();
+			$origins = $this->service->get_origins();
 
 			set_transient( "{$this->cache_group}_origins", $origins, 6 * HOUR_IN_SECONDS );
 		}

@@ -70,30 +70,17 @@ class Tribe__Events__Aggregator__Service {
 	}
 
 	/**
-	 * Fetch origins from service
+	 * Builds an endpoint URL
 	 *
-	 * @return array
+	 * @param string $endpoint Endpoint for the Event Aggregator service
+	 *
+	 * @return string
 	 */
-	public function fetch_origins() {
-		$origins = array(
-			(object) array(
-				'id' => 'csv',
-				'name' => __( 'CSV File', 'the-events-calendar' ),
-			),
-		);
+	public function build_url( $endpoint ) {
+		$url = "{$this->api_base_url}{$this->api_root}{$this->api_version}/{$endpoint}";
+		$url = add_query_arg( 'key', $this->api_key, $url );
 
-		// if the user doesn't have a license key, don't bother hitting the service
-		if ( ! $this->api_key ) {
-			return $origins;
-		}
-
-		$response = $this->get( 'origin' );
-
-		if ( $response && 'success' === $response->status ) {
-			$origins = array_merge( $origins, $response->data->origin );
-		}
-
-		return $origins;
+		return $url;
 	}
 
 	/**
@@ -115,16 +102,46 @@ class Tribe__Events__Aggregator__Service {
 	}
 
 	/**
-	 * Builds an endpoint URL
+	 * Performs a POST request against the Event Aggregator service
 	 *
-	 * @param string $endpoint Endpoint for the Event Aggregator service
+	 * @param string $url Endpoint URL
+	 * @param array $data Array of parameters to send to the endpoint
 	 *
-	 * @return string
+	 * @return stdClass
 	 */
-	public function build_url( $endpoint ) {
-		$url = "{$this->api_base_url}{$this->api_root}{$this->api_version}/{$endpoint}";
-		$url = add_query_arg( 'key', $this->api_key, $url );
+	public function post( $endpoint, $data = array() ) {
+		$url = $this->build_url( $endpoint );
 
-		return $url;
+		$response = wp_remote_post( $url, array( 'body' => $args ) );
+		$response = json_decode( wp_remote_retrieve_body( $response ) );
+
+		return $response;
+	}
+
+	/**
+	 * Fetch origins from service
+	 *
+	 * @return array
+	 */
+	public function get_origins() {
+		$origins = array(
+			(object) array(
+				'id' => 'csv',
+				'name' => __( 'CSV File', 'the-events-calendar' ),
+			),
+		);
+
+		// if the user doesn't have a license key, don't bother hitting the service
+		if ( ! $this->api_key ) {
+			return $origins;
+		}
+
+		$response = $this->get( 'origin' );
+
+		if ( $response && 'success' === $response->status ) {
+			$origins = array_merge( $origins, $response->data->origin );
+		}
+
+		return $origins;
 	}
 }
