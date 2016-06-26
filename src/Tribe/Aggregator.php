@@ -88,4 +88,94 @@ class Tribe__Events__Aggregator {
 
 		return apply_filters( 'tribe_ea_origins', $origins );
 	}
+
+	/**
+	 * Fetches an image from the service and saves it to the filesystem if needed
+	 *
+	 * @param string $image_id EA Image ID
+	 */
+	public function get_image( $image_id ) {
+		$response = $this->service->get_image( $image_id );
+
+		// if the reponse isn't an image then we need to bail
+		if ( ! preg_match( '/image/', $response['headers']['content-type'] ) ) {
+			return $response;
+		}
+
+		$tribe_ea_meta_key = 'tribe_ea_image_filename';
+
+		$extension = str_replace( 'image/', '', $response['headers']['content-type'] );
+		preg_match( '/filename="([^"]+)"/', $response['headers']['content-disposition'], $matches );
+
+		if (
+			preg_match( '/filename="([^"]+)"/', $response['headers']['content-disposition'], $matches )
+			&& ! empty( $matches[1] )
+		) {
+			$filename = $matches[1];
+		} else {
+			$filename = md5( $results['body'] ) . '.' . $extension;
+		}
+
+		$filename = sanitize_file_name( $filename );
+
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+
+		$query = new WP_Query( array(
+			'post_type'   => 'attachment',
+			'post_status' => 'any',
+			'meta_key'    => $tribe_ea_meta_key,
+			'meta_value'  => $filename,
+		) );
+
+		$upload_dir = wp_upload_dir();
+		$file_info = new stdClass;
+
+		// if the file has already been added to the filesystem, don't create a duplicate...re-use it
+		if ( $query->have_posts() ) {
+			$attachment = reset( $query->posts );
+			$attachment_meta = wp_get_attachment_meta( $attachment->ID );
+
+			$file_info->post_id   = $attachment->ID;
+			$file_info->filename  = $filename;
+			$file_info->path      = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $attachment_meta['file'];
+			$file_info->extension = $extension;
+
+			return $file_info;
+		}
+
+		// The file hasn't been uploaded yet. Save it!
+		$filepath = $upload_dir['path'] . DIRECTORY_SEPARATOR . $filename;
+
+		// get the file type
+		$filetype = wp_check_filetype( basename( $filepath ), null );
+
+		// save the file to the filesystem in the upload directory somewhere
+		file_put_contents( $filepath, $results['body'] );
+
+		// create attachment args
+		$attachment = array(
+			'guid' => $upload_dir['url'] . '/' . $filename,
+			'post_title' => preg_replace( '/\.[^.]+$/', '', $filename ),
+			'post_content' => '',
+			'post_status' => 'inherit',
+			'post_mime_type' => $filetype,
+		);
+
+		// insert the attachment
+		$attachment_id = wp_insert_attachment( $attachment, $filepath );
+
+		// Generate attachment metadata
+		$attachment_meta = wp_generate_attachment_metadata( $attachment_id, $filepath );
+		wp_update_attachment_metadata( $attachment_id, $attachment_meta );
+
+		// add our own custom meta field so the image is findable
+		update_post_meta( $attachment_id, $tribe_ea_meta_key, $filename );
+
+		$file_info->post_id   = $attachment_id;
+		$file_info->filename  = $filename;
+		$file_info->path      = $filepath;
+		$file_info->extension = $extension;
+
+		return $file_info;
+	}
 }

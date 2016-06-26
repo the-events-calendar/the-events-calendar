@@ -95,28 +95,9 @@ class Tribe__Events__Aggregator__Service {
 		$url = esc_url_raw( add_query_arg( $data, $url ) );
 
 		$response = wp_remote_get( $url );
-		if ( preg_match( '/image/', $response['headers']['content-type'] ) ) {
-			preg_match( '/filename="([^"]+)"/', $response['headers']['content-disposition'], $matches );
 
-			if (
-				preg_match( '/filename="([^"]+)"/', $response['headers']['content-disposition'], $matches )
-				&& ! empty( $matches[1] )
-			) {
-				$filename = $matches[1];
-			} else {
-				$extension = str_replace( 'image/', '', $results['headers']['content-type'] );
-				$filename = md5( $results['body'] ) . '.' . $extension;
-			}
-
-			$filename = sanitize_file_name( $filename );
-
-			$upload_dir = wp_upload_dir();
-			$filepath = $upload_dir['path'] . DIRECTORY_SEPARATOR . $filename;
-
-			file_put_contents( $filepath, $results['body'] );
-
-			return $filepath;
-		} else {
+		// if the response is not an image, let's json decode the body
+		if ( ! preg_match( '/image/', $response['headers']['content-type'] ) ) {
 			$response = json_decode( wp_remote_retrieve_body( $response ) );
 		}
 
