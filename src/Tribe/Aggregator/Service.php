@@ -65,7 +65,7 @@ class Tribe__Events__Aggregator__Service {
 			$this->api_base_url = EVENT_AGGREGATOR_API_BASE_URL;
 		}
 
-		$this->fetch_origins();
+		$this->get_origins();
 	}
 
 	/**
@@ -95,7 +95,30 @@ class Tribe__Events__Aggregator__Service {
 		$url = esc_url_raw( add_query_arg( $data, $url ) );
 
 		$response = wp_remote_get( $url );
-		$response = json_decode( wp_remote_retrieve_body( $response ) );
+		if ( preg_match( '/image/', $response['headers']['content-type'] ) ) {
+			preg_match( '/filename="([^"]+)"/', $response['headers']['content-disposition'], $matches );
+
+			if (
+				preg_match( '/filename="([^"]+)"/', $response['headers']['content-disposition'], $matches )
+				&& ! empty( $matches[1] )
+			) {
+				$filename = $matches[1];
+			} else {
+				$extension = str_replace( 'image/', '', $results['headers']['content-type'] );
+				$filename = md5( $results['body'] ) . '.' . $extension;
+			}
+
+			$filename = sanitize_file_name( $filename );
+
+			$upload_dir = wp_upload_dir();
+			$filepath = $upload_dir['path'] . DIRECTORY_SEPARATOR . $filename;
+
+			file_put_contents( $filepath, $results['body'] );
+
+			return $filepath;
+		} else {
+			$response = json_decode( wp_remote_retrieve_body( $response ) );
+		}
 
 		return $response;
 	}
@@ -167,7 +190,7 @@ class Tribe__Events__Aggregator__Service {
 	}
 
 	/**
-	 * Creates and import
+	 * Creates an import
 	 *
 	 * @param array $args {
 	 *     Array of arguments. See REST docs for details. 1 excpetion listed below:
@@ -222,5 +245,21 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		$response = $this->post( 'import', $args );
+	}
+
+	/**
+	 * Fetches an image from the Event Aggregator service
+	 *
+	 * @param string $image_id Image ID to fetch
+	 */
+	public function get_image( $image_id ) {
+		// if the user doesn't have a license key, don't bother hitting the service
+		if ( ! $this->api_key ) {
+			return new WP_Error( 'invalid-ea-license', __( 'You must enter an Event Aggregator license key in Events > Settings > Licenses', 'the-events-calendar' ) );
+		}
+
+		$response = $this->get( 'image/' . $image_id );
+
+		return $response;
 	}
 }
