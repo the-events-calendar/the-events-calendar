@@ -27,24 +27,9 @@ class Tribe__Events__Aggregator {
 	public $service;
 
 	/**
-	 * @var string slug used for the plugin update engine
-	 **/
-	public $pue_slug = 'event-aggregator';
-
-	/**
-	 * @var string PUE update URL
-	 **/
-	public $pue_url = 'http://tri.be/';
-
-	/**
 	 * @var Tribe__PUE__Checker PUE Checker object
 	 */
 	public $pue_checker;
-
-	/**
-	 * @var string License key site option meta key
-	 */
-	public $license_meta_key = 'pue_install_key_event_aggregator';
 
 	/**
 	 * @var string Event Aggregator cache key prefix
@@ -68,24 +53,9 @@ class Tribe__Events__Aggregator {
 	 * Constructor!
 	 */
 	public function __construct() {
-		$this->page    = Tribe__Events__Aggregator__Page::instance();
-		$this->service = Tribe__Events__Aggregator__Service::instance( $this );
-
-		$this->hooks();
-		$this->register_with_pue();
-	}
-
-	/**
-	 * Set up hooks
-	 */
-	protected function hooks() {
-	}
-
-	/**
-	 * Registers Event Aggregator with PUE so the license field shows up
-	 */
-	protected function register_with_pue() {
-		$this->pue_checker = new Tribe__PUE__Checker( $this->pue_url, $this->pue_slug, array(), '' );
+		$this->page        = Tribe__Events__Aggregator__Page::instance();
+		$this->service     = Tribe__Events__Aggregator__Service::instance( $this );
+		$this->pue_checker = new Tribe__PUE__Checker( 'http://tri.be/', 'event-aggregator' );
 	}
 
 	/**
@@ -94,7 +64,7 @@ class Tribe__Events__Aggregator {
 	 * @return string
 	 */
 	public function get_license_key() {
-		return get_option( $this->license_meta_key );
+		return get_option( 'pue_install_key_event_aggregator' );
 	}
 
 	/**

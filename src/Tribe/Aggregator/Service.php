@@ -47,9 +47,8 @@ class Tribe__Events__Aggregator__Service {
 	 * @return Tribe__Events__Aggregator__Service
 	 */
 	public static function instance( Tribe__Events__Aggregator $aggregator ) {
-		if ( ! isset( self::$instance ) ) {
-			$className      = __CLASS__;
-			self::$instance = new $className( $aggregator );
+		if ( ! self::$instance ) {
+			self::$instance = new self( $aggregator );
 		}
 
 		return self::$instance;
@@ -112,7 +111,13 @@ class Tribe__Events__Aggregator__Service {
 	public function post( $endpoint, $data = array() ) {
 		$url = $this->build_url( $endpoint );
 
-		$response = wp_remote_post( $url, array( 'body' => $args ) );
+		if ( empty( $data['body'] ) ) {
+			$args = array( 'body' => $data );
+		} else {
+			$args = $data;
+		}
+
+		$response = wp_remote_post( $url, $args );
 		$response = json_decode( wp_remote_retrieve_body( $response ) );
 
 		return $response;
@@ -143,5 +148,83 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		return $origins;
+	}
+
+	/**
+	 * Fetch import data from service
+	 *
+	 * @return array
+	 */
+	public function get_import( $import_id ) {
+		// if the user doesn't have a license key, don't bother hitting the service
+		if ( ! $this->api_key ) {
+			return new WP_Error( 'invalid-ea-license', __( 'You must enter an Event Aggregator license key in Events > Settings > Licenses', 'the-events-calendar' ) );
+		}
+
+		$response = $this->get( 'import/' . $import_id );
+
+		return $response;
+	}
+
+	/**
+	 * Creates and import
+	 *
+	 * @param array $args {
+	 *     Array of arguments. See REST docs for details. 1 excpetion listed below:
+	 *
+	 *     @type array $source_file Source file array using the $_FILES array values
+	 * }
+	 *
+	 * @return string
+	 */
+	public function post_import( $args ) {
+		// if the user doesn't have a license key, don't bother hitting the service
+		if ( ! $this->api_key ) {
+			return new WP_Error( 'invalid-ea-license', __( 'You must enter an Event Aggregator license key in Events > Settings > Licenses', 'the-events-calendar' ) );
+		}
+
+		$request_args = array(
+			'body' => $args,
+		);
+
+		if ( isset( $args['source_file'] ) ) {
+			$boundary = wp_generate_password( 24 );
+			$headers = array(
+				'content-type' => 'multipart/form-data; boundary=' . $boundary,
+			);
+
+			$payload = '';
+			foreach ( $args as $name => $value ) {
+				if ( 'source_file' === $name ) {
+					continue;
+				}
+
+				if ( 'source' === $name ) {
+					continue;
+				}
+
+				$payload .= '--' . $boundary;
+				$payload .= "\r\n";
+				$payload .= 'Content-Disposition: form-data; name="' . $name . '"'. "\r\n\r\n";
+				$payload .= $value;
+				$payload .= "\r\n";
+			}
+
+			$payload .= '--' . $boundary;
+			$payload .= "\r\n";
+			$payload .= 'Content-Disposition: form-data; name="source"; filename="' . basename( $args['source_file']['name'] ) . '"' . "\r\n\r\n";
+			$payload .= file_get_contents( $args['source_file']['tmp_name'] );
+			$payload .= "\r\n";
+			$payload .= '--' . $boundary . '--';
+
+			$args = array(
+				'headers' => $headers,
+				'body' => $payload,
+			);
+		} else {
+			$args = $request_args;
+		}
+
+		$response = $this->post( 'import', $args );
 	}
 }
