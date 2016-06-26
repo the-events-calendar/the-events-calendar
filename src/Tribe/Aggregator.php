@@ -95,28 +95,7 @@ class Tribe__Events__Aggregator {
 	 * @param string $image_id EA Image ID
 	 */
 	public function get_image( $image_id ) {
-		$response = $this->service->get_image( $image_id );
-
-		// if the reponse isn't an image then we need to bail
-		if ( ! preg_match( '/image/', $response['headers']['content-type'] ) ) {
-			return $response;
-		}
-
-		$tribe_ea_meta_key = 'tribe_ea_image_filename';
-
-		$extension = str_replace( 'image/', '', $response['headers']['content-type'] );
-		preg_match( '/filename="([^"]+)"/', $response['headers']['content-disposition'], $matches );
-
-		if (
-			preg_match( '/filename="([^"]+)"/', $response['headers']['content-disposition'], $matches )
-			&& ! empty( $matches[1] )
-		) {
-			$filename = $matches[1];
-		} else {
-			$filename = md5( $results['body'] ) . '.' . $extension;
-		}
-
-		$filename = sanitize_file_name( $filename );
+		$tribe_ea_meta_key = 'tribe_ea_image_id';
 
 		require_once ABSPATH . 'wp-admin/includes/image.php';
 
@@ -124,7 +103,7 @@ class Tribe__Events__Aggregator {
 			'post_type'   => 'attachment',
 			'post_status' => 'any',
 			'meta_key'    => $tribe_ea_meta_key,
-			'meta_value'  => $filename,
+			'meta_value'  => $image_id,
 		) );
 
 		$upload_dir = wp_upload_dir();
@@ -136,12 +115,35 @@ class Tribe__Events__Aggregator {
 			$attachment_meta = wp_get_attachment_meta( $attachment->ID );
 
 			$file_info->post_id   = $attachment->ID;
-			$file_info->filename  = $filename;
+			$file_info->filename  = basename( $attachment_meta['file'] );
 			$file_info->path      = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $attachment_meta['file'];
-			$file_info->extension = $extension;
+
+			$filetype = wp_check_filetype( $file_info->filename, null );
+			$file_info->extension = $filetype['ext'];
 
 			return $file_info;
 		}
+
+		// fetch an image
+		$response = $this->service->get_image( $image_id );
+
+		// if the reponse isn't an image then we need to bail
+		if ( ! preg_match( '/image/', $response['headers']['content-type'] ) ) {
+			return $response;
+		}
+
+		$extension = str_replace( 'image/', '', $response['headers']['content-type'] );
+
+		if (
+			preg_match( '/filename="([^"]+)"/', $response['headers']['content-disposition'], $matches )
+			&& ! empty( $matches[1] )
+		) {
+			$filename = $matches[1];
+		} else {
+			$filename = md5( $results['body'] ) . '.' . $extension;
+		}
+
+		$filename = sanitize_file_name( $filename );
 
 		// The file hasn't been uploaded yet. Save it!
 		$filepath = $upload_dir['path'] . DIRECTORY_SEPARATOR . $filename;
