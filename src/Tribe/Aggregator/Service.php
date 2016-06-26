@@ -193,7 +193,7 @@ class Tribe__Events__Aggregator__Service {
 				'content-type' => 'multipart/form-data; boundary=' . $boundary,
 			);
 
-			$payload = '';
+			$payload = array();
 			foreach ( $args as $name => $value ) {
 				if ( 'source_file' === $name ) {
 					continue;
@@ -203,23 +203,19 @@ class Tribe__Events__Aggregator__Service {
 					continue;
 				}
 
-				$payload .= '--' . $boundary;
-				$payload .= "\r\n";
-				$payload .= 'Content-Disposition: form-data; name="' . $name . '"'. "\r\n\r\n";
-				$payload .= $value;
-				$payload .= "\r\n";
+				$payload[] = '--' . $boundary;
+				$payload[] = 'Content-Disposition: form-data; name="' . $name . '"'. "\r\n";
+				$payload[] = $value;
 			}
 
-			$payload .= '--' . $boundary;
-			$payload .= "\r\n";
-			$payload .= 'Content-Disposition: form-data; name="source"; filename="' . basename( $args['source_file']['name'] ) . '"' . "\r\n\r\n";
-			$payload .= file_get_contents( $args['source_file']['tmp_name'] );
-			$payload .= "\r\n";
-			$payload .= '--' . $boundary . '--';
+			$payload[] = '--' . $boundary;
+			$payload[] = 'Content-Disposition: form-data; name="source"; filename="' . basename( $args['source_file']['name'] ) . '"' . "\r\n";
+			$payload[] = file_get_contents( $args['source_file']['tmp_name'] );
+			$payload[] = '--' . $boundary . '--';
 
 			$args = array(
 				'headers' => $headers,
-				'body' => $payload,
+				'body' => implode( "\r\n", $payload ),
 			);
 		} else {
 			$args = $request_args;
