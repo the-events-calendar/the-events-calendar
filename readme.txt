@@ -287,6 +287,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.2.2] TDB =
+
+* Fix - When using the filter tribe_events_excerpt_allow_shortcode shortcodes will now be processes in event excerpts in the list views [42289]
+
 = [4.2.1] 2016-06-22 =
 
 * Tweak - Adjust the caching rules for Month View for faster loading

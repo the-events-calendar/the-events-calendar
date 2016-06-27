@@ -1380,8 +1380,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$excerpt = wp_trim_words( $excerpt, $excerpt_length, $excerpt_more );
 		}
 
-		// Remove all shortcode Content before removing HTML
-		if ( ! $allow_shortcode ) {
+		// If Shortcodes enable Process them
+		if ( $allow_shortcode ) {
+			$excerpt = do_shortcode( $excerpt );
+		} else {
+			// Remove all shortcode Content before removing HTML
 			$excerpt = preg_replace( '#\[.+\]#U', '', $excerpt );
 		}
 
