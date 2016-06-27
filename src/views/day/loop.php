@@ -21,7 +21,7 @@ $current_timeslot = null;
 
 ?>
 
-<div class="tribe-events-loop">
+<div id="tribe-events-day" class="tribe-events-loop">
 	<div class="tribe-events-day-time-slot">
 
 	<?php while ( have_posts() ) : the_post(); ?>

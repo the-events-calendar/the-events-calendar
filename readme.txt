@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.5.2
-Stable tag: 4.2
+Tested up to: 4.5.3
+Stable tag: 4.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -287,15 +287,26 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.2.1] 2016-06-22 =
+
+* Tweak - Adjust the caching rules for Month View for faster loading
+* Fix - Replace a bad return type to avoid unnecessary notices in the error log
+* Fix - Add missing styles for correctly hide screen reader text
+* Fix - Fixes `tribe_get_event_link()` which wasn't working when passing second parameter as `true'
+* Tweak - Reduce the ginormous font size of Month View titles in skeleton styles
+* Fix - Add styling to adjust List View description to full width
+* Fix - Miscellaneous tweaks to improve the Month and Day views
+* Fix - Fix a shorthand array that was causing errors in PHP 5.2 and 5.3 when importing events
+
 = [4.2] 2016-06-08 =
 
 * Feature - Added Google Maps API key field in the Settings tab to avoid map timeouts and errors on larger sites (Thanks to Yan for reporting this!)
-* Feature - Added support for featured image, multiple organizers, excerpt and more custom fields in the .csv file import function for events (Thank you to Graphic Designer for posting on UserVoice!) 
-* Feature - Added support for featured image, description, map details and more custom fields in the .csv file import function for venues 
-* Feature - Added support for featured image and description in the .csv file import function for organizers (Thank you to Rebecca for posting on UserVoice!) 
-* Feature - Added an oEmbed template for events 
-* Feature - Improve performance of a query used to determine if there are free/uncosted events (Thank you @fabianmarz for the pull request!) 
-* Feature - Added support for attaching custom post types to events 
+* Feature - Added support for featured image, multiple organizers, excerpt and more custom fields in the .csv file import function for events (Thank you to Graphic Designer for posting on UserVoice!)
+* Feature - Added support for featured image, description, map details and more custom fields in the .csv file import function for venues
+* Feature - Added support for featured image and description in the .csv file import function for organizers (Thank you to Rebecca for posting on UserVoice!)
+* Feature - Added an oEmbed template for events
+* Feature - Improve performance of a query used to determine if there are free/uncosted events (Thank you @fabianmarz for the pull request!)
+* Feature - Added support for attaching custom post types to events
 * Tweak - Improved filtering of the `tribe_event_featured_image()` function (Cheers to @fabianmarz!)
 * Tweak - Add an encoding class for the CSV importer to prevent non utf8 characters from preventing imports (Thanks to screenrage for the report!)
 * Tweak - Improved our JSON-LD output to ensure consistency (Props to @garrettjohnson and Lars!)
