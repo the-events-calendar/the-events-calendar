@@ -64,7 +64,6 @@ class Tribe__Events__Aggregator__Service {
 		if ( defined( 'EVENT_AGGREGATOR_API_BASE_URL' ) ) {
 			$this->api_base_url = EVENT_AGGREGATOR_API_BASE_URL;
 		}
-		$this->api_base_url = 'http://laksjdflkasjdf';
 
 		$this->get_origins();
 	}
