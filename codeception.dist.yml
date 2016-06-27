@@ -10,12 +10,6 @@ settings:
     memory_limit: 1024M
 modules:
     config:
-        Db:
-            dsn: 'mysql:host=localhost;dbname=tec-tests'
-            user: root
-            password: password
-            dump: tests/_data/wordpress.sql
-            reconnect: true
         WPBrowser:
             url: 'http://tec.tri.be'
             adminUsername: admin

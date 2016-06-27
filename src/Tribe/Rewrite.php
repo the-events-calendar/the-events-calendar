@@ -27,6 +27,15 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		public static $instance;
 
 		/**
+		 * Prefixing this to a regex component in a rewrite rule will prevent the regex from being prefixed with a `/`.
+		 * 
+		 * @see self::add method
+		 * 
+		 * @var string
+		 */
+		public static $no_slash_regex_prefix = ':::';
+
+		/**
 		 * Static Singleton Factory Method
 		 *
 		 * @return Tribe__Events__Rewrite
@@ -43,7 +52,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * WP_Rewrite Instance
 		 * @var WP_Rewrite
 		 */
-		public $rewrite;
+		public $wp_rewrite;
 
 		/**
 		 * Rewrite rules Holder
@@ -60,7 +69,9 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		/**
 		 * Just dont...
 		 */
-		private function __construct() {}
+		public function __construct($wp_rewrite = null) {
+			$this->wp_rewrite = $wp_rewrite;
+		}
 
 		/**
 		 * After creating the Hooks on WordPress we lock the usage of the function
@@ -129,13 +140,18 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 *
 		 * @param Tribe__Events__Rewrite $rewrite
 		 */
-		public function generate_core_rules( Tribe__Events__Rewrite $rewrite ) {
+		public function generate_core_rules( Tribe__Events__Rewrite $rewrite = null ) {
+			if ( null === $rewrite ) {
+				$rewrite = $this;
+			}
+			
 			$options = array(
 				'default_view' => Tribe__Settings_Manager::get_option( 'viewOption', 'month' ),
 			);
 
 			$rewrite
 				// Single
+				->single( array( '(\d{4}-\d{2}-\d{2})', '(\d+)' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'eventDate' => '%2', 'eventSequence' => '%3' ) )
 				->single( array( '(\d{4}-\d{2}-\d{2})' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'eventDate' => '%2' ) )
 				->single( array( '(\d{4}-\d{2}-\d{2})', 'embed' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'eventDate' => '%2', 'embed' => 1 ) )
 				->single( array( '{{ all }}' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'post_type' => Tribe__Events__Main::POSTTYPE, 'eventDisplay' => 'all' ) )
@@ -223,10 +239,15 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @return Tribe__Events__Rewrite       The modified version of the class with the required variables in place
 		 */
 		public function setup( $wp_rewrite = null ) {
-			if ( ! $wp_rewrite instanceof WP_Rewrite ) {
-				global $wp_rewrite;
+			if ( ! $this->wp_rewrite instanceof WP_Rewrite ) {
+				if ( $wp_rewrite instanceof WP_Rewrite ) {
+					$this->wp_rewrite = $wp_rewrite;
+				} else {
+					global $wp_rewrite;
+					$this->wp_rewrite = $wp_rewrite;
+				}
 			}
-			$this->rewrite = $wp_rewrite;
+
 			$this->bases = $this->get_bases( 'regex' );
 
 			return $this;
@@ -326,7 +347,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @return Tribe__Events__Rewrite
 		 */
 		public function add( $regex, $args = array() ) {
-			$regex = (array) $regex;
+			$regex_parts = (array) $regex;
 
 			$default = array();
 			$args = array_filter( wp_parse_args( $args, $default ) );
@@ -334,10 +355,19 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			$url = add_query_arg( $args, 'index.php' );
 
 			// Optional Trailing Slash
-			$regex[] = '?$';
+			$regex_parts[] = '?$';
+			
+			$regex_parts = array_filter($regex_parts);
 
 			// Glue the pieces with slashes
-			$regex = implode( '/', array_filter( $regex ) );
+			$regex = '';
+			foreach ( $regex_parts as $regex_part ) {
+				$should_prefix_with_slash = 0 !== strpos( $regex_part, self::$no_slash_regex_prefix ) && '' !== $regex;
+				$part_prefix              = $should_prefix_with_slash ? '/' : '';
+				$regex_part               = $should_prefix_with_slash ? $regex_part : str_replace( self::$no_slash_regex_prefix, '', $regex_part );
+
+				$regex .= $part_prefix . $regex_part;
+			}
 
 			// Add the Bases to the regex
 			foreach ( $this->bases as $key => $value ) {
@@ -347,7 +377,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			// Apply the Preg Indexes to the URL
 			preg_match_all( '/%([0-9])/', $url, $matches );
 			foreach ( end( $matches ) as $index ) {
-				$url = str_replace( '%' . $index, $this->rewrite->preg_index( $index ), $url );
+				$url = str_replace( '%' . $index, $this->wp_rewrite->preg_index( $index ), $url );
 			}
 
 			// Add the rule
