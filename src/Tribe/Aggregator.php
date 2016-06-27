@@ -78,6 +78,10 @@ class Tribe__Events__Aggregator {
 		} else {
 			$origins = $this->service->get_origins();
 
+			if ( is_wp_error( $origins ) ) {
+				return $origins;
+			}
+
 			set_transient( "{$this->cache_group}_origins", $origins, 6 * HOUR_IN_SECONDS );
 		}
 
@@ -127,6 +131,10 @@ class Tribe__Events__Aggregator {
 		// fetch an image
 		$response = $this->service->get_image( $image_id );
 
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
 		// if the reponse isn't an image then we need to bail
 		if ( ! preg_match( '/image/', $response['headers']['content-type'] ) ) {
 			return $response;
@@ -161,7 +169,13 @@ class Tribe__Events__Aggregator {
 		);
 
 		// insert the attachment
-		$attachment_id = wp_insert_attachment( $attachment, $upload_results['file'] );
+		if ( ! $attachment_id = wp_insert_attachment( $attachment, $upload_results['file'] ) ) {
+			return new WP_Error( 'tribe-ea-attachment-error', __( 'Unable to create an attachment post for the imported Event Aggregator image', 'the-events-calendar' ) );
+		}
+
+		if ( is_wp_error( $attachment_id ) ) {
+			return $attachment_id;
+		}
 
 		// Generate attachment metadata
 		$attachment_meta = wp_generate_attachment_metadata( $attachment_id, $upload_results['file'] );

@@ -64,6 +64,7 @@ class Tribe__Events__Aggregator__Service {
 		if ( defined( 'EVENT_AGGREGATOR_API_BASE_URL' ) ) {
 			$this->api_base_url = EVENT_AGGREGATOR_API_BASE_URL;
 		}
+		$this->api_base_url = 'http://laksjdflkasjdf';
 
 		$this->get_origins();
 	}
@@ -96,6 +97,10 @@ class Tribe__Events__Aggregator__Service {
 
 		$response = wp_remote_get( $url );
 
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
 		// if the response is not an image, let's json decode the body
 		if ( ! preg_match( '/image/', $response['headers']['content-type'] ) ) {
 			$response = json_decode( wp_remote_retrieve_body( $response ) );
@@ -122,6 +127,11 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		$response = wp_remote_post( $url, $args );
+
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
 		$response = json_decode( wp_remote_retrieve_body( $response ) );
 
 		return $response;
@@ -174,7 +184,7 @@ class Tribe__Events__Aggregator__Service {
 	 * Creates an import
 	 *
 	 * @param array $args {
-	 *     Array of arguments. See REST docs for details. 1 excpetion listed below:
+	 *     Array of arguments. See REST docs for details. 1 exception listed below:
 	 *
 	 *     @type array $source_file Source file array using the $_FILES array values
 	 * }
