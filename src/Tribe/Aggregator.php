@@ -145,14 +145,11 @@ class Tribe__Events__Aggregator {
 
 		$filename = sanitize_file_name( $filename );
 
-		// The file hasn't been uploaded yet. Save it!
-		$filepath = $upload_dir['path'] . DIRECTORY_SEPARATOR . $filename;
-
 		// get the file type
 		$filetype = wp_check_filetype( basename( $filepath ), null );
 
 		// save the file to the filesystem in the upload directory somewhere
-		file_put_contents( $filepath, $results['body'] );
+		$upload_results = wp_upload_bits( $filename, null, $results['body'] );
 
 		// create attachment args
 		$attachment = array(
@@ -164,10 +161,10 @@ class Tribe__Events__Aggregator {
 		);
 
 		// insert the attachment
-		$attachment_id = wp_insert_attachment( $attachment, $filepath );
+		$attachment_id = wp_insert_attachment( $attachment, $upload_results['file'] );
 
 		// Generate attachment metadata
-		$attachment_meta = wp_generate_attachment_metadata( $attachment_id, $filepath );
+		$attachment_meta = wp_generate_attachment_metadata( $attachment_id, $upload_results['file'] );
 		wp_update_attachment_metadata( $attachment_id, $attachment_meta );
 
 		// add our own custom meta field so the image is findable
@@ -175,7 +172,7 @@ class Tribe__Events__Aggregator {
 
 		$file_info->post_id   = $attachment_id;
 		$file_info->filename  = $filename;
-		$file_info->path      = $filepath;
+		$file_info->path      = $upload_results['file'];
 		$file_info->extension = $extension;
 
 		return $file_info;
