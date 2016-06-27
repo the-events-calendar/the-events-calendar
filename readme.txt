@@ -287,6 +287,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.2.2] TDB =
+
+* Tweak - Only add the events custom post type to the tag archive queries and not custom queries with tags [45635]
+
+
 = [4.2.1] 2016-06-22 =
 
 * Tweak - Adjust the caching rules for Month View for faster loading
