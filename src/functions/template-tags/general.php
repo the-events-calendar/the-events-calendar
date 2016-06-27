@@ -1380,7 +1380,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$excerpt = wp_trim_words( $excerpt, $excerpt_length, $excerpt_more );
 		}
 
-		// If Shortcodes enable Process them
+		// If shortcode filter is enabled lets process them
 		if ( $allow_shortcode ) {
 			$excerpt = do_shortcode( $excerpt );
 		} else {
