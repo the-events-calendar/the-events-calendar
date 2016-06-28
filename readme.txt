@@ -287,9 +287,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.2.2] TDB =
+= [4.2.2] unreleased =
 
-* Fix - When using the filter tribe_events_excerpt_allow_shortcode shortcodes will now be processes in event excerpts in the list views [42289]
+* Fix - Add a check to avoid being unable to switch view when Filter Bar plugin is active and at least one field is set to auto-complete mode
 
 = [4.2.1] 2016-06-22 =
 
