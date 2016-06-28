@@ -1,13 +1,11 @@
 <?php
-$I = new AcceptanceTester( $scenario );
+$I = new NojsacceptanceTester( $scenario );
 
 $I->am( 'administrator' );
 $I->wantTo( 'verify change to TEC Events Slug Setting' );
 
 // arrange
-$I->activate_tec();
 $I->setTribeOption( 'eventsSlug', 'events' );
-$I->setPermalinkStructureAndFlush( '/%postname%/' );
 $current_slug = 'events';
 
 // act

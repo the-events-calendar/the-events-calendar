@@ -306,7 +306,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 */
 	private function get_currency_position( array $record ) {
 		$currency_position = $this->get_value_by_key( $record, 'event_currency_position' );
-		$after_aliases     = [ 'suffix', 'after' ];
+		$after_aliases     = array( 'suffix', 'after' );
 
 		foreach ( $after_aliases as $after_alias ) {
 			if ( preg_match( '/' . $after_alias . '/i', $currency_position ) ) {

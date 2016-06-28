@@ -287,10 +287,16 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.2.1] Unreleased =
+= [4.2.1] 2016-06-22 =
 
-* Fix - replace bad return type to avoid notices in the error log [62376]
-* Fix - tribe_get_event_link() didn't work properly when passing second parameter as true [61891]
+* Tweak - Adjust the caching rules for Month View for faster loading
+* Fix - Replace a bad return type to avoid unnecessary notices in the error log
+* Fix - Add missing styles for correctly hide screen reader text
+* Fix - Fixes `tribe_get_event_link()` which wasn't working when passing second parameter as `true'
+* Tweak - Reduce the ginormous font size of Month View titles in skeleton styles
+* Fix - Add styling to adjust List View description to full width
+* Fix - Miscellaneous tweaks to improve the Month and Day views
+* Fix - Fix a shorthand array that was causing errors in PHP 5.2 and 5.3 when importing events
 
 = [4.2] 2016-06-08 =
 

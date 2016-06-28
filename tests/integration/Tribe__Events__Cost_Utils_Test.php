@@ -97,6 +97,8 @@ class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 			wp_delete_post( $event_id, true );
 			unset( $this->test_events[ $event_id ] );
 		}
+		
+		delete_transient(Tribe__Events__Cost_Utils::UNCOSTED_EVENTS_TRANSIENT);
 	}
 
 	/**

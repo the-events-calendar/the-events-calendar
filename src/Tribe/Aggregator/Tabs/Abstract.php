@@ -54,13 +54,6 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 	}
 
 	/**
-	 * Enforces the usage of the singleton logic for Tabs
-	 *
-	 * @return self
-	 */
-	abstract public static function instance();
-
-	/**
 	 * Enforces a method to display the tab or not
 	 *
 	 * @return boolean

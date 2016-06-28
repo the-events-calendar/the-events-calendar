@@ -4,9 +4,6 @@ $I = new AcceptanceTester( $scenario );
 $I->am( 'administrator' );
 $I->wantTo( 'Test events CSV import' );
 
-// arrange
-$I->activate_tec();
-
 // act
 $I->loginAsAdmin();
 $I->amOnAdminPage( '/edit.php?post_type=tribe_events&page=events-importer&tab=csv-importer' );

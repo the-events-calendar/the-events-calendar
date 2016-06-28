@@ -46,11 +46,11 @@ $field->media_title = __( 'Upload a CSV File', 'the-events-calendar' );
 			data-source="<?php echo esc_attr( $field->source ); ?>"
 		>
 		<button
-			class="tribe-ea-field tribe-ea-media_button tribe-ea-dependent button button-secondary"
+			class="tribe-ea-field tribe-ea-media_button tribe-dependent button button-secondary"
 			data-input="tribe-ea-field-csv_file"
 			data-media-title="<?php echo esc_attr( $field->media_title ); ?>"
 			data-mime-type="text/csv"
-			data-depends="tribe-ea-field-csv_file"
+			data-depends="#tribe-ea-field-csv_file"
 			data-condition-empty
 		>
 			<?php echo esc_html( $field->button ); ?>

@@ -689,7 +689,52 @@ Date.prototype.format = function( mask, utc ) {
 			} else {
 				$body.removeClass( 'tribe-mobile' );
 			}
+
 		},
+
+		/**
+		 * @function tribe_ev.fn.mobile_view_redirect
+		 * @desc tribe_ev.fn.mobile_view_redirect Will redirect mobile users to the correct default view, this will only work if used after events-bar is loaded
+		 */
+		maybe_default_view_change   : function() {
+			// if we don't these we can't do anything
+			if (
+				// There is no default View set
+				! tribe_ev.data.default_view ||
+
+				// There is no default mobile View set
+				! tribe_ev.data.default_mobile_view ||
+
+				// The mobile and normal default views are the same
+				tribe_ev.data.default_view == tribe_ev.data.default_mobile_view ||
+
+				// There is no View set
+				! tribe_ev.state.view ||
+
+				// We are on the default mobile view
+				tribe_ev.data.default_mobile_view == tribe_ev.state.view ||
+
+				// We are with an defined view
+				tribe_ev.data.cur_url == tribe_ev.data.base_url
+			) {
+				return false;
+			}
+
+			var $body = $( 'body' );
+
+			// Not a Mobile Call
+			if ( ! $body.hasClass( 'tribe-mobile' ) ) {
+				return false;
+			}
+
+			var $views = $( '.tribe-bar-views-option' ),
+				view_class_filter = '.tribe-bar-views-option-' + tribe_ev.data.default_mobile_view,
+				$default_view_link = $views.filter( view_class_filter );
+
+			// Actually do the Changing View
+			$default_view_link.trigger( 'click' );
+		},
+
 		/**
 		 * @function tribe_ev.fn.parse_string
 		 * @desc tribe_ev.fn.parse_string converts a string to an object.
@@ -1081,21 +1126,23 @@ Date.prototype.format = function( mask, utc ) {
 	 */
 
 	tribe_ev.data = {
-		ajax_response     : {},
-		base_url          : '',
-		cur_url           : tribe_ev.fn.url_path( document.URL ),
-		cur_date          : tribe_ev.fn.current_date(),
-		datepicker_formats: {
+		ajax_response       : {},
+		base_url            : '',
+		cur_url             : tribe_ev.fn.url_path( document.URL ),
+		cur_date            : tribe_ev.fn.current_date(),
+		datepicker_formats  : {
 			'main' : ['yyyy-mm-dd', 'm/d/yyyy', 'mm/dd/yyyy', 'd/m/yyyy', 'dd/mm/yyyy', 'm-d-yyyy', 'mm-dd-yyyy', 'd-m-yyyy', 'dd-mm-yyyy'],
 			'month': ['yyyy-mm', 'm/yyyy', 'mm/yyyy', 'm/yyyy', 'mm/yyyy', 'm-yyyy', 'mm-yyyy', 'm-yyyy', 'mm-yyyy']
 		},
-		datepicker_opts   : {},
-		default_permalinks: (!config.permalink_settings.length),
-		initial_url       : tribe_ev.fn.url_path( document.URL ),
-		mobile_break      : 768,
-		params            : tribe_ev.fn.get_params(),
-		v_height          : 0,
-		v_width           : 0
+		datepicker_opts     : {},
+		default_permalinks  : (!config.permalink_settings.length),
+		initial_url         : tribe_ev.fn.url_path( document.URL ),
+		mobile_break        : 768,
+		default_mobile_view : null,
+		default_view        : null,
+		params              : tribe_ev.fn.get_params(),
+		v_height            : 0,
+		v_width             : 0
 	};
 
 	/**
@@ -1189,7 +1236,7 @@ Date.prototype.format = function( mask, utc ) {
 
 		/**
 		 *
-		 * Themers can override the mobile break with an override in function.php
+		 * Themers can override the mobile break with an override in functions.php
 		 *
 		 *************************************************************************
 
@@ -1213,6 +1260,23 @@ Date.prototype.format = function( mask, utc ) {
 
 			if ( $breakpoint_holder.length ) {
 				td.mobile_break = parseInt( $breakpoint_holder.data( 'mobilebreak' ), 10 );
+			}
+
+			/**
+			 * Deal with the Mobile View when we have a breakpoint
+			 */
+			var $mobile_view_holder = $tribe_events.tribe_has_attr( 'data-default-mobile-view' );
+
+			if ( false === $mobile_view_holder ) {
+				$mobile_view_holder = $tribe_events.find( '[data-default-mobile-view]' ).eq( 0 );
+			} else {
+				$mobile_view_holder = $tribe_events;
+			}
+
+			if ( $mobile_view_holder.length ) {
+				// Remember, when using jQuery.data and dash separated variables they become CamelCase separated
+				td.default_mobile_view = $mobile_view_holder.data( 'defaultMobileView' );
+				td.default_view = $mobile_view_holder.data( 'defaultView' );
 			}
 		}
 

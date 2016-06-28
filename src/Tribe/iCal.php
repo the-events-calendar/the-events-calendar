@@ -236,8 +236,8 @@ class Tribe__Events__iCal {
 			$time = (object) array(
 				'start' => tribe_get_start_date( $event_post->ID, false, 'U' ),
 				'end' => tribe_get_end_date( $event_post->ID, false, 'U' ),
-				'modified' => self::wp_strtotime( $event_post->post_modified ),
-				'created' => self::wp_strtotime( $event_post->post_date ),
+				'modified' => Tribe__Date_Utils::wp_strtotime( $event_post->post_modified ),
+				'created' => Tribe__Date_Utils::wp_strtotime( $event_post->post_date ),
 			);
 
 			if ( 'yes' == get_post_meta( $event_post->ID, '_EventAllDay', true ) ) {
@@ -363,47 +363,4 @@ class Tribe__Events__iCal {
 		exit;
 
 	}
-
-	/**
-	 * Converts a locally-formatted date to a unix timestamp. This is a drop-in
-	 * replacement for `strtotime()`, except that where strtotime assumes GMT, this
-	 * assumes local time (as described below). If a timezone is specified, this
-	 * function defers to strtotime().
-	 *
-	 * If there is a timezone_string available, the date is assumed to be in that
-	 * timezone, otherwise it simply subtracts the value of the 'gmt_offset'
-	 * option.
-	 *
-	 * @see strtotime()
-	 * @uses get_option() to retrieve the value of 'gmt_offset'.
-	 * @param string $string A date/time string. See `strtotime` for valid formats.
-	 * @return int UNIX timestamp.
-	 */
-	private static function wp_strtotime( $string ) {
-		// If there's a timezone specified, we shouldn't convert it
-		try {
-			$test_date = new DateTime( $string );
-			if ( 'UTC' != $test_date->getTimezone()->getName() ) {
-				return strtotime( $string );
-			}
-		} catch ( Exception $e ) {
-			return strtotime( $string );
-		}
-
-		$tz = get_option( 'timezone_string' );
-		if ( ! empty( $tz ) ) {
-			$date = date_create( $string, new DateTimeZone( $tz ) );
-			if ( ! $date ) {
-				return strtotime( $string );
-			}
-			$date->setTimezone( new DateTimeZone( 'UTC' ) );
-			return $date->format( 'U' );
-		} else {
-			$offset = (float) get_option( 'gmt_offset' );
-			$seconds = intval( $offset * HOUR_IN_SECONDS );
-			$timestamp = strtotime( $string ) - $seconds;
-			return $timestamp;
-		}
-	}
-
 }
