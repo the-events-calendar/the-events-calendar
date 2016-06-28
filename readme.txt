@@ -287,6 +287,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.2.2] unreleased =
+
+* Fix - Add a check to avoid being unable to switch view when Filter Bar plugin is active and at least one field is set to auto-complete mode
+
 = [4.2.2] TDB =
 
 * Tweak - Only add the events custom post type to the tag archive queries and not custom queries with tags [45635]
