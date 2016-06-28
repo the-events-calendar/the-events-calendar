@@ -28,6 +28,7 @@ msgid "Default (uses temporary files)"
 msgstr "Standard (nutzt temporäre Dateien)"
 
 #: common/src/Tribe/Log/Null_Logger.php:26
+#: vendor/tickets/common/src/Tribe/Log/Null_Logger.php:26
 msgid "Null logger (will log nothing)"
 msgstr "Keine Protokollierung"
 
@@ -296,15 +297,15 @@ msgstr "Reserviert von %1$s (%2$s)"
 msgid " on %s"
 msgstr "am %s"
 
-#: vendor/tickets/src/views/tickets/orders-rsvp.php:58
+#: vendor/tickets/src/views/tickets/orders-rsvp.php:63
 msgid "Attendee %d"
 msgstr "Teilnehmer %d"
 
-#: vendor/tickets/src/views/tickets/orders-rsvp.php:63
+#: vendor/tickets/src/views/tickets/orders-rsvp.php:68
 msgid "RSVP: "
 msgstr "RSVP:"
 
-#: vendor/tickets/src/views/tickets/orders.php:51
+#: vendor/tickets/src/views/tickets/orders.php:57
 msgid "Update %s"
 msgstr "%s aktualisieren"
 
@@ -312,15 +313,14 @@ msgstr "%s aktualisieren"
 msgid "Login to RSVP"
 msgstr "Anmelden für RSVP"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:281
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:292
 msgid "Customer Name"
 msgstr "Name Kunde"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:282
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:293
 msgid "Customer Email Address"
 msgstr "Kunden E-Mail Adresse"
 
-#: vendor/tickets/src/views/tickets/orders-rsvp.php:51
 #: vendor/tickets/src/views/tickets/rsvp.php:138
 msgid "Don't list me on the public attendee list"
 msgstr "Zeigen Sie mich nicht auf der öffentlichen Teilnehmerliste an"
@@ -548,72 +548,72 @@ msgstr "Teilnehmer %1$s"
 msgid "Your tickets from %s"
 msgstr "Deine Karten von %s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:719
+#: vendor/tickets/src/Tribe/RSVP.php:720
 msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
 msgstr "Ihr RSVP ist angekommen! Prüfen Sie Ihre Mails auf Ihre RSVP Bestätigung."
 
-#: vendor/tickets/src/Tribe/RSVP.php:725
+#: vendor/tickets/src/Tribe/RSVP.php:726
 msgid "You can't RSVP more than the total remaining tickets."
 msgstr "Sie können nicht mehr auswählen als die gesamt verbliebenen Restkarten."
 
-#: vendor/tickets/src/Tribe/RSVP.php:730
+#: vendor/tickets/src/Tribe/RSVP.php:731
 msgid "In order to RSVP, you must enter your name and a valid email address."
 msgstr "Um sich anmelden zu können, müssen Sie Ihren Namen und eine gültige E-Mail-Adresse eingeben."
 
-#: vendor/tickets/src/Tribe/RSVP.php:869
+#: vendor/tickets/src/Tribe/RSVP.php:870
 msgid "(deleted)"
 msgstr "(gelöscht)"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1126
+#: vendor/tickets/src/Tribe/RSVP.php:1127
 msgid "Return to the %1$sAttendees Report%2$s."
 msgstr "Zurück zum %1$sTeilnehmerbericht%2$s."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1133
+#: vendor/tickets/src/Tribe/RSVP.php:1134
 msgid "Post updated. %1$s"
 msgstr "Beitrag aktualisiert. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1137
+#: vendor/tickets/src/Tribe/RSVP.php:1138
 msgid "Post published. %1$s"
 msgstr "Beitrag veröffentlicht. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1140
+#: vendor/tickets/src/Tribe/RSVP.php:1141
 msgid "Post submitted."
 msgstr "Beitrag abgeschickt."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1141
+#: vendor/tickets/src/Tribe/RSVP.php:1142
 msgid "Post scheduled."
 msgstr "Beitrag eingeplant."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1142
+#: vendor/tickets/src/Tribe/RSVP.php:1143
 msgid "Post draft updated."
 msgstr "Beitragsentwurf aktualisiert."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:384
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:404
 msgid "Cheatin Huh?"
 msgstr "Unerwarteter Zugriff!"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:367
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:387
 msgid "Invalid Event ID"
 msgstr "Ungültige Veranstaltungsnummer"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:390
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:410
 msgid "Empty user and email"
 msgstr "Leerer Nutzer und E-Mail"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:402
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:422
 msgid "Invalid Email"
 msgstr "Falsche Email-Adresse"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:408
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:424
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:428
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:444
 msgid "Invalid User ID"
 msgstr "Ungültige Benutzer-ID"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:445
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:465
 msgid "Error when sending the email"
 msgstr "Fehler beim Senden der Mail"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:450
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:470
 msgid "Email sent successfully!"
 msgstr "Mail erfolgreich versandt!"
 
@@ -697,7 +697,7 @@ msgstr "Schauen Sie sich die %sverfügbaren Add-Ons%s an."
 msgid "No %1$s scheduled for %2$s. Please try another day."
 msgstr "Es sind keine %1$s für den %2$s geplant. Bitte einen anderen Tag wählen."
 
-#: src/Tribe/Template/Month.php:295
+#: src/Tribe/Template/Month.php:350
 msgid "There were no results found for %s this month. Try searching next month."
 msgstr "Es gibt keine Ergebnisse für %s für diesen Monat. Bitte den nächsten Monat durchsuchen."
 
@@ -2982,9 +2982,9 @@ msgstr "%s hinzufügen"
 msgid "CSV"
 msgstr "CSV"
 
-#: common/src/Tribe/Settings.php:214
+#: common/src/Tribe/Settings.php:215
 #: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4093
-#: vendor/tickets/common/src/Tribe/Settings.php:214
+#: vendor/tickets/common/src/Tribe/Settings.php:215
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -3067,54 +3067,54 @@ msgstr "Gültiger Schlüssel! Erlischt am %s"
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "Hmmm... irgendetwas stimmt mit diesem Validator nicht. Bitte kontaktieren Sie den %sSupport%s."
 
-#: common/src/Tribe/Settings.php:213 common/src/Tribe/Settings.php:234
-#: vendor/tickets/common/src/Tribe/Settings.php:213
-#: vendor/tickets/common/src/Tribe/Settings.php:234
+#: common/src/Tribe/Settings.php:214 common/src/Tribe/Settings.php:235
+#: vendor/tickets/common/src/Tribe/Settings.php:214
+#: vendor/tickets/common/src/Tribe/Settings.php:235
 msgid "Events Settings"
 msgstr "Veranstaltungseinstellungen"
 
-#: common/src/Tribe/Settings.php:299
-#: vendor/tickets/common/src/Tribe/Settings.php:299
+#: common/src/Tribe/Settings.php:300
+#: vendor/tickets/common/src/Tribe/Settings.php:300
 msgid "%s Settings"
 msgstr "%s Einstellungen"
 
-#: common/src/Tribe/Settings.php:313
-#: vendor/tickets/common/src/Tribe/Settings.php:313
+#: common/src/Tribe/Settings.php:314
+#: vendor/tickets/common/src/Tribe/Settings.php:314
 msgid "You've requested a non-existent tab."
 msgstr "Sie wollen einen nicht vorhandenen Reiter anzeigen."
 
-#: common/src/Tribe/Settings.php:321
-#: vendor/tickets/common/src/Tribe/Settings.php:321
+#: common/src/Tribe/Settings.php:322
+#: vendor/tickets/common/src/Tribe/Settings.php:322
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
-#: common/src/Tribe/Settings.php:369
-#: vendor/tickets/common/src/Tribe/Settings.php:369
+#: common/src/Tribe/Settings.php:370
+#: vendor/tickets/common/src/Tribe/Settings.php:370
 msgid "You don't have permission to do that."
 msgstr "Sie besitzen nicht die nötigen Rechte dafür."
 
-#: common/src/Tribe/Settings.php:375
-#: vendor/tickets/common/src/Tribe/Settings.php:375
+#: common/src/Tribe/Settings.php:376
+#: vendor/tickets/common/src/Tribe/Settings.php:376
 msgid "The request was sent insecurely."
 msgstr "Die Anfrage wurde unverschlüsselt gesendet."
 
-#: common/src/Tribe/Settings.php:381
-#: vendor/tickets/common/src/Tribe/Settings.php:381
+#: common/src/Tribe/Settings.php:382
+#: vendor/tickets/common/src/Tribe/Settings.php:382
 msgid "The request wasn't sent from this tab."
 msgstr "Die Anfrage wurde nicht von diesem Reiter gesendet."
 
-#: common/src/Tribe/Settings.php:549
-#: vendor/tickets/common/src/Tribe/Settings.php:549
+#: common/src/Tribe/Settings.php:550
+#: vendor/tickets/common/src/Tribe/Settings.php:550
 msgid "Your form had the following errors:"
 msgstr "Ihr Formular hat folgende Fehler:"
 
-#: common/src/Tribe/Settings.php:559
-#: vendor/tickets/common/src/Tribe/Settings.php:559
+#: common/src/Tribe/Settings.php:560
+#: vendor/tickets/common/src/Tribe/Settings.php:560
 msgid "None of your settings were saved. Please try again."
 msgstr "Die Eintellungen konnten gespeichert werden. Versuchen Sie es erneut."
 
-#: common/src/Tribe/Settings.php:560
-#: vendor/tickets/common/src/Tribe/Settings.php:560
+#: common/src/Tribe/Settings.php:561
+#: vendor/tickets/common/src/Tribe/Settings.php:561
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Die obige Einstellung wurde nicht gespeichert. Andere Einstellungen wurden erfolgreich gespeichert."
@@ -3152,15 +3152,15 @@ msgstr "laufend"
 msgid "No matching %1$s listed under %2$s scheduled for %3$s. Please try another day."
 msgstr "Keine passenden %1$s gefunden am %2$s für %3$s. Wählen Sie bitte einen anderen Tag."
 
-#: src/Tribe/Template/Month.php:299
+#: src/Tribe/Template/Month.php:354
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
 msgstr "Keine passenden %1$s gefunden für %2$s. Bitte versuchen Sie alle Veranstaltungen anzuzeigen (Filter aufheben)."
 
-#: src/Tribe/Template/Month.php:301 src/Tribe/Template_Factory.php:307
+#: src/Tribe/Template/Month.php:356 src/Tribe/Template_Factory.php:307
 msgid "There were no results found."
 msgstr "Es wurden keine Ergebnisse gefunden."
 
-#: src/Tribe/Template/Month.php:739
+#: src/Tribe/Template/Month.php:794
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Das abgefragte Datum \"%s\" war  nicht g&uuml;ltig &ndash; der aktuelle Monat wird stattdessen angezeigt"
 
@@ -3220,33 +3220,33 @@ msgstr "Sicherheitscode"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:83
 #: vendor/tickets/src/Tribe/Attendees_Table.php:263
-#: vendor/tickets/src/Tribe/Attendees_Table.php:355
+#: vendor/tickets/src/Tribe/Attendees_Table.php:356
 msgid "Check in"
 msgstr "einchecken"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:264
-#: vendor/tickets/src/Tribe/Attendees_Table.php:356
+#: vendor/tickets/src/Tribe/Attendees_Table.php:357
 msgid "Undo Check in"
 msgstr "einchecken rückgängig machen"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:328
+#: vendor/tickets/src/Tribe/Attendees_Table.php:329
 msgid "Print"
 msgstr "Drucken"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:329
+#: vendor/tickets/src/Tribe/Attendees_Table.php:330
 #: vendor/tickets/src/views/tickets/rsvp.php:118
 msgid "Email"
 msgstr "E-Mail"
 
-#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:330
+#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:331
 msgid "Export"
 msgstr "Exportiere"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:336
+#: vendor/tickets/src/Tribe/Attendees_Table.php:337
 msgid "Filter by purchaser name, ticket #, order # or security code"
 msgstr "Filtern Sie über Käufername, Ticketnummer, Auftragsnummer oder den Sicherheitscode"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:357
+#: vendor/tickets/src/Tribe/Attendees_Table.php:358
 #: vendor/tickets/src/admin-views/list.php:43
 msgid "Delete"
 msgstr "Löschen"
@@ -3301,15 +3301,15 @@ msgstr "Spalten"
 msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
 msgstr "Verwenden Sie die Bildschirmoptionen, um auszuwählen, welche Spalten angezeigt werden sollen. Die Auswahl kann in der Tabelle unten für eMail, Druck oder CSV-Export genutzt werden."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:311
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:322
 msgid "Yes"
 msgstr "Ja"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:340
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:360
 msgid "attendees"
 msgstr "Teilnehmer"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:444
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:464
 msgid "Attendee List for: %s"
 msgstr "Teilnehmer Liste für: %s"
 
@@ -4619,8 +4619,8 @@ msgstr "Temporäre Datei nicht gefunden. Konnte %s nicht speichern."
 msgid "Could not save %s."
 msgstr "Konnte %s nicht speichern."
 
-#: common/src/Tribe/Settings.php:585 src/Tribe/Importer/Options.php:54
-#: vendor/tickets/common/src/Tribe/Settings.php:585
+#: common/src/Tribe/Settings.php:583 src/Tribe/Importer/Options.php:54
+#: vendor/tickets/common/src/Tribe/Settings.php:583
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert.."
 
@@ -4671,7 +4671,8 @@ msgstr "Veranstaltungen"
 msgid "Event"
 msgstr "Veranstaltung"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2)  #-#-#-#-#
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.1) 
+#. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:624
 #: src/Tribe/Main.php:774

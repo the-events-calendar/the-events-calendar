@@ -28,6 +28,7 @@ msgid "Default (uses temporary files)"
 msgstr ""
 
 #: common/src/Tribe/Log/Null_Logger.php:26
+#: vendor/tickets/common/src/Tribe/Log/Null_Logger.php:26
 msgid "Null logger (will log nothing)"
 msgstr ""
 
@@ -296,15 +297,15 @@ msgstr ""
 msgid " on %s"
 msgstr ""
 
-#: vendor/tickets/src/views/tickets/orders-rsvp.php:58
+#: vendor/tickets/src/views/tickets/orders-rsvp.php:63
 msgid "Attendee %d"
 msgstr ""
 
-#: vendor/tickets/src/views/tickets/orders-rsvp.php:63
+#: vendor/tickets/src/views/tickets/orders-rsvp.php:68
 msgid "RSVP: "
 msgstr ""
 
-#: vendor/tickets/src/views/tickets/orders.php:51
+#: vendor/tickets/src/views/tickets/orders.php:57
 msgid "Update %s"
 msgstr ""
 
@@ -312,15 +313,14 @@ msgstr ""
 msgid "Login to RSVP"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:281
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:292
 msgid "Customer Name"
 msgstr "Bezeroaren izena"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:282
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:293
 msgid "Customer Email Address"
 msgstr "Bezeroaren posta elektroniko helbidea"
 
-#: vendor/tickets/src/views/tickets/orders-rsvp.php:51
 #: vendor/tickets/src/views/tickets/rsvp.php:138
 msgid "Don't list me on the public attendee list"
 msgstr "Ez nazazu bertaratutakoen zerrenda publikoan zerrendatu"
@@ -548,72 +548,72 @@ msgstr "%1$s. partaidea"
 msgid "Your tickets from %s"
 msgstr "Zure %s-(e)ko sarrerak"
 
-#: vendor/tickets/src/Tribe/RSVP.php:719
+#: vendor/tickets/src/Tribe/RSVP.php:720
 msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
 msgstr "Zure \"Erantzun, mesedez\" jaso da! Zure posta elektronikoa konprobatu \"Erantzun, mesedez\" berrespena ikusteko."
 
-#: vendor/tickets/src/Tribe/RSVP.php:725
+#: vendor/tickets/src/Tribe/RSVP.php:726
 msgid "You can't RSVP more than the total remaining tickets."
 msgstr "Geratzen den sarrera kopurua baino gehiagorekin ezin duzu \"Erantzun, mesedez\" egin."
 
-#: vendor/tickets/src/Tribe/RSVP.php:730
+#: vendor/tickets/src/Tribe/RSVP.php:731
 msgid "In order to RSVP, you must enter your name and a valid email address."
 msgstr "\"Erantzun, mesedez\" egiteko, zure izena eta baliozko posta elektroniko helbide bat sartu behar dituzu."
 
-#: vendor/tickets/src/Tribe/RSVP.php:869
+#: vendor/tickets/src/Tribe/RSVP.php:870
 msgid "(deleted)"
 msgstr "(ezabatuta)"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1126
+#: vendor/tickets/src/Tribe/RSVP.php:1127
 msgid "Return to the %1$sAttendees Report%2$s."
 msgstr "%1$sBertaratutakoen txostenera%2$s itzuli."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1133
+#: vendor/tickets/src/Tribe/RSVP.php:1134
 msgid "Post updated. %1$s"
 msgstr "Bidalketa eguneratu da. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1137
+#: vendor/tickets/src/Tribe/RSVP.php:1138
 msgid "Post published. %1$s"
 msgstr "Bidalketa argitaratu da. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1140
+#: vendor/tickets/src/Tribe/RSVP.php:1141
 msgid "Post submitted."
 msgstr "Bidalketa bidali da."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1141
+#: vendor/tickets/src/Tribe/RSVP.php:1142
 msgid "Post scheduled."
 msgstr "Bidalketa programatu da."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1142
+#: vendor/tickets/src/Tribe/RSVP.php:1143
 msgid "Post draft updated."
 msgstr "Bidalketaren zirriborroa eguneratu da."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:384
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:404
 msgid "Cheatin Huh?"
 msgstr "Tranpetan ari?"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:367
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:387
 msgid "Invalid Event ID"
 msgstr "Ekitaldi ID baliaezina"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:390
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:410
 msgid "Empty user and email"
 msgstr "Erabiltzailea eta posta elektronikoa hutsik daude"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:402
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:422
 msgid "Invalid Email"
 msgstr "Posta elektroniko baliaezina"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:408
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:424
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:428
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:444
 msgid "Invalid User ID"
 msgstr "Erabiltzaile ID baliaezina"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:445
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:465
 msgid "Error when sending the email"
 msgstr "Errorea posta elektronikoa bidaltzean"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:450
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:470
 msgid "Email sent successfully!"
 msgstr "Posta elektronikoa ondo bidali da!"
 
@@ -699,7 +699,7 @@ msgstr "Bota begirada bat %sgehigarri erabilgarriei%s."
 msgid "No %1$s scheduled for %2$s. Please try another day."
 msgstr "%2$s datarako ez dago %1$s programaturik. Beste egun bat probatu, mesedez."
 
-#: src/Tribe/Template/Month.php:295
+#: src/Tribe/Template/Month.php:350
 msgid "There were no results found for %s this month. Try searching next month."
 msgstr "Hilabete honetan ez da %s-rako emaitzik aurkitu. Hurrengo hilabetean bilatzen saiatu."
 
@@ -2984,9 +2984,9 @@ msgstr "%s gehitu"
 msgid "CSV"
 msgstr "CSV"
 
-#: common/src/Tribe/Settings.php:214
+#: common/src/Tribe/Settings.php:215
 #: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4093
-#: vendor/tickets/common/src/Tribe/Settings.php:214
+#: vendor/tickets/common/src/Tribe/Settings.php:215
 msgid "Settings"
 msgstr "Ezarpenak"
 
@@ -3069,54 +3069,54 @@ msgstr "Baliozko gakoa! %s-an iraungitzen da"
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "Hara! Balidatzaile honek arazoren bat dauka. Mesedez %slaguntza-zerbitzuarekin%s harremanetan jarri."
 
-#: common/src/Tribe/Settings.php:213 common/src/Tribe/Settings.php:234
-#: vendor/tickets/common/src/Tribe/Settings.php:213
-#: vendor/tickets/common/src/Tribe/Settings.php:234
+#: common/src/Tribe/Settings.php:214 common/src/Tribe/Settings.php:235
+#: vendor/tickets/common/src/Tribe/Settings.php:214
+#: vendor/tickets/common/src/Tribe/Settings.php:235
 msgid "Events Settings"
 msgstr "Ekitaldien hobespenak"
 
-#: common/src/Tribe/Settings.php:299
-#: vendor/tickets/common/src/Tribe/Settings.php:299
+#: common/src/Tribe/Settings.php:300
+#: vendor/tickets/common/src/Tribe/Settings.php:300
 msgid "%s Settings"
 msgstr "%s hobespenak"
 
-#: common/src/Tribe/Settings.php:313
-#: vendor/tickets/common/src/Tribe/Settings.php:313
+#: common/src/Tribe/Settings.php:314
+#: vendor/tickets/common/src/Tribe/Settings.php:314
 msgid "You've requested a non-existent tab."
 msgstr "Existitzen ez den fitxa bat eskatu duzu."
 
-#: common/src/Tribe/Settings.php:321
-#: vendor/tickets/common/src/Tribe/Settings.php:321
+#: common/src/Tribe/Settings.php:322
+#: vendor/tickets/common/src/Tribe/Settings.php:322
 msgid "Save Changes"
 msgstr "Aldaketak gorde"
 
-#: common/src/Tribe/Settings.php:369
-#: vendor/tickets/common/src/Tribe/Settings.php:369
+#: common/src/Tribe/Settings.php:370
+#: vendor/tickets/common/src/Tribe/Settings.php:370
 msgid "You don't have permission to do that."
 msgstr "Ez duzu hori egiteko baimenik."
 
-#: common/src/Tribe/Settings.php:375
-#: vendor/tickets/common/src/Tribe/Settings.php:375
+#: common/src/Tribe/Settings.php:376
+#: vendor/tickets/common/src/Tribe/Settings.php:376
 msgid "The request was sent insecurely."
 msgstr "Eskaera segurtasunik gabe bidali da."
 
-#: common/src/Tribe/Settings.php:381
-#: vendor/tickets/common/src/Tribe/Settings.php:381
+#: common/src/Tribe/Settings.php:382
+#: vendor/tickets/common/src/Tribe/Settings.php:382
 msgid "The request wasn't sent from this tab."
 msgstr "Eskaera ez da fitxa honetatik bidali."
 
-#: common/src/Tribe/Settings.php:549
-#: vendor/tickets/common/src/Tribe/Settings.php:549
+#: common/src/Tribe/Settings.php:550
+#: vendor/tickets/common/src/Tribe/Settings.php:550
 msgid "Your form had the following errors:"
 msgstr "Zure inprimakiak ondoko erroreak ditu:"
 
-#: common/src/Tribe/Settings.php:559
-#: vendor/tickets/common/src/Tribe/Settings.php:559
+#: common/src/Tribe/Settings.php:560
+#: vendor/tickets/common/src/Tribe/Settings.php:560
 msgid "None of your settings were saved. Please try again."
 msgstr "Zure hobespenak ez dira gorde. Saiatu berriz, mesedez."
 
-#: common/src/Tribe/Settings.php:560
-#: vendor/tickets/common/src/Tribe/Settings.php:560
+#: common/src/Tribe/Settings.php:561
+#: vendor/tickets/common/src/Tribe/Settings.php:561
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Goiko hobespena ez da gorde. Gainontzeko hobespenak ondo gorde dira."
@@ -3154,15 +3154,15 @@ msgstr "Martxan"
 msgid "No matching %1$s listed under %2$s scheduled for %3$s. Please try another day."
 msgstr "%2$s pean ez da %3$s-rako programatutako bat datorren %1$s-rik aurkitu. Beste egun batekin saiatu, mesedez."
 
-#: src/Tribe/Template/Month.php:299
+#: src/Tribe/Template/Month.php:354
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
 msgstr "%2$s pean ez da bat datorren %1$s-rik aurkitu. Ekitaldien zerrenda osoa bistaratzeko egutegi osoa ikusten saiatu, mesedez."
 
-#: src/Tribe/Template/Month.php:301 src/Tribe/Template_Factory.php:307
+#: src/Tribe/Template/Month.php:356 src/Tribe/Template_Factory.php:307
 msgid "There were no results found."
 msgstr "Ez da emaitzarik aurkitu."
 
-#: src/Tribe/Template/Month.php:739
+#: src/Tribe/Template/Month.php:794
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Eskatutako \"%s\" data ez da baliozkoa &ndash; bere ordez uneko hilabetea erakutsiko da"
 
@@ -3222,33 +3222,33 @@ msgstr "Segurtasun kodea"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:83
 #: vendor/tickets/src/Tribe/Attendees_Table.php:263
-#: vendor/tickets/src/Tribe/Attendees_Table.php:355
+#: vendor/tickets/src/Tribe/Attendees_Table.php:356
 msgid "Check in"
 msgstr "Izen ematea"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:264
-#: vendor/tickets/src/Tribe/Attendees_Table.php:356
+#: vendor/tickets/src/Tribe/Attendees_Table.php:357
 msgid "Undo Check in"
 msgstr "Izen ematea desegin"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:328
+#: vendor/tickets/src/Tribe/Attendees_Table.php:329
 msgid "Print"
 msgstr "Inprimatu"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:329
+#: vendor/tickets/src/Tribe/Attendees_Table.php:330
 #: vendor/tickets/src/views/tickets/rsvp.php:118
 msgid "Email"
 msgstr "E-posta"
 
-#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:330
+#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:331
 msgid "Export"
 msgstr "Esportatu"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:336
+#: vendor/tickets/src/Tribe/Attendees_Table.php:337
 msgid "Filter by purchaser name, ticket #, order # or security code"
 msgstr "Erosle izenaren, sarrera zenbakiaren, eskari zenbakiaren edo segurtasun kodearen arabera iragazi"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:357
+#: vendor/tickets/src/Tribe/Attendees_Table.php:358
 #: vendor/tickets/src/admin-views/list.php:43
 msgid "Delete"
 msgstr "Ezabatu"
@@ -3303,15 +3303,15 @@ msgstr "Zutabeak"
 msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
 msgstr "Pantaila aukerak erabili dezakezu zein zutabe ikusi nahi dituzun aukeratzeko. Egindako aukerak azpiko taulan, posta elektronikoan, inprimatzerakoan eta CSV esportatzean funtzionatzen du."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:311
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:322
 msgid "Yes"
 msgstr "Bai"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:340
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:360
 msgid "attendees"
 msgstr "partaideak"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:444
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:464
 msgid "Attendee List for: %s"
 msgstr "%s-rako partaide zerrenda"
 
@@ -4621,8 +4621,8 @@ msgstr "Aldi baterako fitxategia ez da aurkitu. Ezin izan da %s gorde."
 msgid "Could not save %s."
 msgstr "Ezin izan da %s gorde."
 
-#: common/src/Tribe/Settings.php:585 src/Tribe/Importer/Options.php:54
-#: vendor/tickets/common/src/Tribe/Settings.php:585
+#: common/src/Tribe/Settings.php:583 src/Tribe/Importer/Options.php:54
+#: vendor/tickets/common/src/Tribe/Settings.php:583
 msgid "Settings saved."
 msgstr "Ezarpenak gorde dira."
 
@@ -4673,7 +4673,8 @@ msgstr "Ekitaldiak"
 msgid "Event"
 msgstr "Ekitaldi"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2)  #-#-#-#-#
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.1) 
+#. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:624
 #: src/Tribe/Main.php:774
