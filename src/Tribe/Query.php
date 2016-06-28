@@ -64,15 +64,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$query->set( 'paged', $_REQUEST['tribe_paged'] );
 			}
 
-			// Add tribe events post type to tag queries
+			// Add tribe events post type to tag queries only in tag archives
 			if ( $query->is_tag && (array) $query->get( 'post_type' ) != array( Tribe__Events__Main::POSTTYPE ) ) {
 				$types = $query->get( 'post_type' );
 				if ( empty( $types ) ) {
 					$types = array( 'post' );
 				}
-				if ( is_array( $types ) ) {
+				if ( is_array( $types ) && $query->is_main_query() ) {
 					$types[] = Tribe__Events__Main::POSTTYPE;
-				} else {
+				} elseif ( $query->is_main_query() ) {
 					if ( is_string( $types ) ) {
 						$types = array( $types, Tribe__Events__Main::POSTTYPE );
 					} else {
