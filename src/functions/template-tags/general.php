@@ -1383,10 +1383,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// If shortcode filter is enabled lets process them
 		if ( $allow_shortcode ) {
 			$excerpt = do_shortcode( $excerpt );
-		} else {
-			// Remove all shortcode Content before removing HTML
-			$excerpt = preg_replace( '#\[.+\]#U', '', $excerpt );
 		}
+
+		// Remove all shortcode Content before removing HTML
+		$excerpt = preg_replace( '#\[.+\]#U', '', $excerpt );
+
 
 		// Remove "all" HTML based on what is allowed
 		$excerpt = wp_kses( $excerpt, $allowed_html );
