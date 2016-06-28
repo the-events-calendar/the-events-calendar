@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-04-01 08:26:20+0000\n"
+"PO-Revision-Date: 2016-06-26 13:19:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,6 +28,7 @@ msgid "Default (uses temporary files)"
 msgstr ""
 
 #: common/src/Tribe/Log/Null_Logger.php:26
+#: vendor/tickets/common/src/Tribe/Log/Null_Logger.php:26
 msgid "Null logger (will log nothing)"
 msgstr ""
 
@@ -296,15 +297,15 @@ msgstr ""
 msgid " on %s"
 msgstr ""
 
-#: vendor/tickets/src/views/tickets/orders-rsvp.php:58
+#: vendor/tickets/src/views/tickets/orders-rsvp.php:63
 msgid "Attendee %d"
 msgstr ""
 
-#: vendor/tickets/src/views/tickets/orders-rsvp.php:63
+#: vendor/tickets/src/views/tickets/orders-rsvp.php:68
 msgid "RSVP: "
 msgstr ""
 
-#: vendor/tickets/src/views/tickets/orders.php:51
+#: vendor/tickets/src/views/tickets/orders.php:57
 msgid "Update %s"
 msgstr ""
 
@@ -312,18 +313,17 @@ msgstr ""
 msgid "Login to RSVP"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:281
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:292
 msgid "Customer Name"
 msgstr "Asiakkaan nimi"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:282
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:293
 msgid "Customer Email Address"
-msgstr ""
+msgstr "Asiakkaan sähköpostiosoite"
 
-#: vendor/tickets/src/views/tickets/orders-rsvp.php:51
 #: vendor/tickets/src/views/tickets/rsvp.php:138
 msgid "Don't list me on the public attendee list"
-msgstr ""
+msgstr "Älä näytä minua julkisella osallistujalistalla"
 
 #: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:24
 msgid "If you are creating a recurring event, Tickets will only show up once per Event Series, meaning that the same ticket will apper across all events. Please configure your events accordingly."
@@ -368,7 +368,7 @@ msgstr ""
 #: common/src/Tribe/Support/Template_Checker_Report.php:97
 #: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:97
 msgid "based on %s version"
-msgstr ""
+msgstr "perustuu versioon %s"
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:113
 #: vendor/tickets/common/src/Tribe/Support/Template_Checker_Report.php:113
@@ -548,72 +548,72 @@ msgstr "Osallistuja %1$s"
 msgid "Your tickets from %s"
 msgstr "Lippusi - %s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:719
+#: vendor/tickets/src/Tribe/RSVP.php:720
 msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
 msgstr "Osallistumisilmoituksesi on vastaanotettu! Vahvistus on lähetetty sinulle sähköpostitse."
 
-#: vendor/tickets/src/Tribe/RSVP.php:725
+#: vendor/tickets/src/Tribe/RSVP.php:726
 msgid "You can't RSVP more than the total remaining tickets."
 msgstr "Et voi varata enempää lippuja kuin mitä niitä on jäljellä."
 
-#: vendor/tickets/src/Tribe/RSVP.php:730
+#: vendor/tickets/src/Tribe/RSVP.php:731
 msgid "In order to RSVP, you must enter your name and a valid email address."
 msgstr "Varataksesi lipun sinun on annettava nimesi sekä toimiva sähköpostiosoite."
 
-#: vendor/tickets/src/Tribe/RSVP.php:869
+#: vendor/tickets/src/Tribe/RSVP.php:870
 msgid "(deleted)"
 msgstr "(poistettu)"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1126
+#: vendor/tickets/src/Tribe/RSVP.php:1127
 msgid "Return to the %1$sAttendees Report%2$s."
 msgstr "Palaa %1$sosallistujaraporttiin%2$s."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1133
+#: vendor/tickets/src/Tribe/RSVP.php:1134
 msgid "Post updated. %1$s"
 msgstr "Artikkeli päivitetty. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1137
+#: vendor/tickets/src/Tribe/RSVP.php:1138
 msgid "Post published. %1$s"
 msgstr "Artikkeli julkaistu. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1140
+#: vendor/tickets/src/Tribe/RSVP.php:1141
 msgid "Post submitted."
 msgstr "Artikkeli lähetetty."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1141
+#: vendor/tickets/src/Tribe/RSVP.php:1142
 msgid "Post scheduled."
 msgstr "Artikkeli ajastettu."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1142
+#: vendor/tickets/src/Tribe/RSVP.php:1143
 msgid "Post draft updated."
 msgstr "Artikkelin luonnos päivitetty."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:384
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:404
 msgid "Cheatin Huh?"
 msgstr "Yritätkö huijata?"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:367
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:387
 msgid "Invalid Event ID"
 msgstr "Virheellinen tapahtumatunnus"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:390
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:410
 msgid "Empty user and email"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:402
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:422
 msgid "Invalid Email"
 msgstr "Sähköpostiosoite ei kelpaa"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:408
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:424
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:428
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:444
 msgid "Invalid User ID"
 msgstr "Käyttäjän tunnus ei kelpaa"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:445
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:465
 msgid "Error when sending the email"
 msgstr "Virhe lähetettäessä sähköpostia"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:450
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:470
 msgid "Email sent successfully!"
 msgstr "Sähköposti lähetetty onnistuneesti!"
 
@@ -697,7 +697,7 @@ msgstr ""
 msgid "No %1$s scheduled for %2$s. Please try another day."
 msgstr ""
 
-#: src/Tribe/Template/Month.php:295
+#: src/Tribe/Template/Month.php:350
 msgid "There were no results found for %s this month. Try searching next month."
 msgstr ""
 
@@ -2982,9 +2982,9 @@ msgstr "Lisää %s"
 msgid "CSV"
 msgstr "CSV"
 
-#: common/src/Tribe/Settings.php:214
+#: common/src/Tribe/Settings.php:215
 #: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4093
-#: vendor/tickets/common/src/Tribe/Settings.php:214
+#: vendor/tickets/common/src/Tribe/Settings.php:215
 msgid "Settings"
 msgstr "Asetukset"
 
@@ -3067,54 +3067,54 @@ msgstr "Lisenssiavain kelvollinen! Erääntyy %s"
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "Hmmm... jokin on pielessä tämän validaattorin kanssa. Ota yhteyttä %stukeen%s."
 
-#: common/src/Tribe/Settings.php:213 common/src/Tribe/Settings.php:234
-#: vendor/tickets/common/src/Tribe/Settings.php:213
-#: vendor/tickets/common/src/Tribe/Settings.php:234
+#: common/src/Tribe/Settings.php:214 common/src/Tribe/Settings.php:235
+#: vendor/tickets/common/src/Tribe/Settings.php:214
+#: vendor/tickets/common/src/Tribe/Settings.php:235
 msgid "Events Settings"
 msgstr "Tapahtumien asetukset"
 
-#: common/src/Tribe/Settings.php:299
-#: vendor/tickets/common/src/Tribe/Settings.php:299
+#: common/src/Tribe/Settings.php:300
+#: vendor/tickets/common/src/Tribe/Settings.php:300
 msgid "%s Settings"
 msgstr "%s asetukset"
 
-#: common/src/Tribe/Settings.php:313
-#: vendor/tickets/common/src/Tribe/Settings.php:313
+#: common/src/Tribe/Settings.php:314
+#: vendor/tickets/common/src/Tribe/Settings.php:314
 msgid "You've requested a non-existent tab."
 msgstr "Välilehteä ei ole olemassa."
 
-#: common/src/Tribe/Settings.php:321
-#: vendor/tickets/common/src/Tribe/Settings.php:321
+#: common/src/Tribe/Settings.php:322
+#: vendor/tickets/common/src/Tribe/Settings.php:322
 msgid "Save Changes"
 msgstr "Tallenna muutokset"
 
-#: common/src/Tribe/Settings.php:369
-#: vendor/tickets/common/src/Tribe/Settings.php:369
+#: common/src/Tribe/Settings.php:370
+#: vendor/tickets/common/src/Tribe/Settings.php:370
 msgid "You don't have permission to do that."
 msgstr "Sinulla ei ole lupaa tehdä tätä."
 
-#: common/src/Tribe/Settings.php:375
-#: vendor/tickets/common/src/Tribe/Settings.php:375
+#: common/src/Tribe/Settings.php:376
+#: vendor/tickets/common/src/Tribe/Settings.php:376
 msgid "The request was sent insecurely."
 msgstr "Pyyntö lähetettiin suojaamattomana."
 
-#: common/src/Tribe/Settings.php:381
-#: vendor/tickets/common/src/Tribe/Settings.php:381
+#: common/src/Tribe/Settings.php:382
+#: vendor/tickets/common/src/Tribe/Settings.php:382
 msgid "The request wasn't sent from this tab."
 msgstr "Pyyntöä ei lähetetty tältä välilehdeltä."
 
-#: common/src/Tribe/Settings.php:549
-#: vendor/tickets/common/src/Tribe/Settings.php:549
+#: common/src/Tribe/Settings.php:550
+#: vendor/tickets/common/src/Tribe/Settings.php:550
 msgid "Your form had the following errors:"
 msgstr "Lomakkeessa oli seuraavat virheet:"
 
-#: common/src/Tribe/Settings.php:559
-#: vendor/tickets/common/src/Tribe/Settings.php:559
+#: common/src/Tribe/Settings.php:560
+#: vendor/tickets/common/src/Tribe/Settings.php:560
 msgid "None of your settings were saved. Please try again."
 msgstr "Asetuksia ei tallennettu. Ole hyvä ja yritä uudelleen."
 
-#: common/src/Tribe/Settings.php:560
-#: vendor/tickets/common/src/Tribe/Settings.php:560
+#: common/src/Tribe/Settings.php:561
+#: vendor/tickets/common/src/Tribe/Settings.php:561
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Edellä olevaa asetusta ei tallennettu. Muiden asetusten tallennus onnistui."
@@ -3152,15 +3152,15 @@ msgstr "Käynnissä oleva"
 msgid "No matching %1$s listed under %2$s scheduled for %3$s. Please try another day."
 msgstr ""
 
-#: src/Tribe/Template/Month.php:299
+#: src/Tribe/Template/Month.php:354
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
 msgstr ""
 
-#: src/Tribe/Template/Month.php:301 src/Tribe/Template_Factory.php:307
+#: src/Tribe/Template/Month.php:356 src/Tribe/Template_Factory.php:307
 msgid "There were no results found."
 msgstr "Ei tuloksia."
 
-#: src/Tribe/Template/Month.php:739
+#: src/Tribe/Template/Month.php:794
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Pyydetty päivämäärä \"%s\" ei ole oikea &ndash; näytetään sen sijaan nykyinen kuukausi"
 
@@ -3220,33 +3220,33 @@ msgstr "Turvakoodi"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:83
 #: vendor/tickets/src/Tribe/Attendees_Table.php:263
-#: vendor/tickets/src/Tribe/Attendees_Table.php:355
+#: vendor/tickets/src/Tribe/Attendees_Table.php:356
 msgid "Check in"
 msgstr "Kirjaudu sisään"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:264
-#: vendor/tickets/src/Tribe/Attendees_Table.php:356
+#: vendor/tickets/src/Tribe/Attendees_Table.php:357
 msgid "Undo Check in"
 msgstr "Kumoa sisäänkirjaus"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:328
+#: vendor/tickets/src/Tribe/Attendees_Table.php:329
 msgid "Print"
 msgstr "Tulosta"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:329
+#: vendor/tickets/src/Tribe/Attendees_Table.php:330
 #: vendor/tickets/src/views/tickets/rsvp.php:118
 msgid "Email"
 msgstr "Sähköposti"
 
-#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:330
+#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:331
 msgid "Export"
 msgstr "Vie"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:336
+#: vendor/tickets/src/Tribe/Attendees_Table.php:337
 msgid "Filter by purchaser name, ticket #, order # or security code"
 msgstr "Suodata ostajan nimen, lippu #, tilaus # tai turvakoodin mukaan"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:357
+#: vendor/tickets/src/Tribe/Attendees_Table.php:358
 #: vendor/tickets/src/admin-views/list.php:43
 msgid "Delete"
 msgstr "Poista"
@@ -3301,15 +3301,15 @@ msgstr "Sarakkeet"
 msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
 msgstr "Voit käyttää Näyttövaihtoehtoja valitaksesi, mitkä sarakkeet haluat nähdä. Valinta toimii alla olevassa taulukossa, sähköpostissa, tulostuksessa ja CSV-viennissä."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:311
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:322
 msgid "Yes"
 msgstr "Kyllä"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:340
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:360
 msgid "attendees"
 msgstr "osallistujat"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:444
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:464
 msgid "Attendee List for: %s"
 msgstr "Osallistujalista: %s"
 
@@ -4452,7 +4452,7 @@ msgstr "Ei monivalinnan asetuksia määritettynä"
 #: src/Tribe/Admin/Bar/Default_Configurator.php:73
 #: src/Tribe/Importer/Admin_Page.php:68 src/Tribe/Importer/Admin_Page.php:69
 msgid "Import"
-msgstr "Vie"
+msgstr "Tuo"
 
 #: src/Tribe/Importer/Admin_Page.php:156 src/Tribe/Importer/Admin_Page.php:342
 msgid "The file went away. Please try again."
@@ -4619,8 +4619,8 @@ msgstr "Väliaikaistiedostoa ei löydetty. Ei voitu tallentaa %s."
 msgid "Could not save %s."
 msgstr "Ei voitu tallentaa %s."
 
-#: common/src/Tribe/Settings.php:585 src/Tribe/Importer/Options.php:54
-#: vendor/tickets/common/src/Tribe/Settings.php:585
+#: common/src/Tribe/Settings.php:583 src/Tribe/Importer/Options.php:54
+#: vendor/tickets/common/src/Tribe/Settings.php:583
 msgid "Settings saved."
 msgstr "Asetukset tallennettu."
 
@@ -4671,7 +4671,8 @@ msgstr "Tapahtumat"
 msgid "Event"
 msgstr "Tapahtuma"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2)  #-#-#-#-#
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.1) 
+#. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:624
 #: src/Tribe/Main.php:774

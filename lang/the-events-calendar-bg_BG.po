@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-06-11 09:08:05+0000\n"
+"PO-Revision-Date: 2016-06-26 10:02:51+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,6 +28,7 @@ msgid "Default (uses temporary files)"
 msgstr ""
 
 #: common/src/Tribe/Log/Null_Logger.php:26
+#: vendor/tickets/common/src/Tribe/Log/Null_Logger.php:26
 msgid "Null logger (will log nothing)"
 msgstr ""
 
@@ -296,15 +297,15 @@ msgstr ""
 msgid " on %s"
 msgstr ""
 
-#: vendor/tickets/src/views/tickets/orders-rsvp.php:58
+#: vendor/tickets/src/views/tickets/orders-rsvp.php:63
 msgid "Attendee %d"
 msgstr ""
 
-#: vendor/tickets/src/views/tickets/orders-rsvp.php:63
+#: vendor/tickets/src/views/tickets/orders-rsvp.php:68
 msgid "RSVP: "
 msgstr ""
 
-#: vendor/tickets/src/views/tickets/orders.php:51
+#: vendor/tickets/src/views/tickets/orders.php:57
 msgid "Update %s"
 msgstr ""
 
@@ -312,15 +313,14 @@ msgstr ""
 msgid "Login to RSVP"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:281
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:292
 msgid "Customer Name"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:282
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:293
 msgid "Customer Email Address"
 msgstr ""
 
-#: vendor/tickets/src/views/tickets/orders-rsvp.php:51
 #: vendor/tickets/src/views/tickets/rsvp.php:138
 msgid "Don't list me on the public attendee list"
 msgstr ""
@@ -450,7 +450,7 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/attendees.php:46
 msgid "Post Type:"
-msgstr ""
+msgstr "Тип съдържание:"
 
 #: vendor/tickets/src/admin-views/attendees.php:29
 msgid "Edit Event"
@@ -474,7 +474,7 @@ msgstr "Редактиране на билет"
 
 #: vendor/tickets/src/admin-views/attendees.php:78
 msgid "Total Sold:"
-msgstr ""
+msgstr "Общо продажби:"
 
 #: vendor/tickets/src/admin-views/meta-box.php:208
 msgid "When will ticket sales occur?"
@@ -502,11 +502,11 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/tribe-options-tickets.php:51
 msgid "Ticket Settings"
-msgstr ""
+msgstr "Настройки на билет"
 
 #: vendor/tickets/src/admin-views/tribe-options-tickets.php:55
 msgid "Post types that can have tickets"
-msgstr ""
+msgstr "Видове публикации, които могат да имат билети"
 
 #: vendor/tickets/src/Tribe/Main.php:528
 #: vendor/tickets/src/Tribe/Tickets_View.php:604
@@ -525,11 +525,11 @@ msgstr ""
 
 #: vendor/tickets/src/views/tickets/rsvp.php:110
 msgid "Full Name"
-msgstr ""
+msgstr "Три имена"
 
 #: vendor/tickets/src/views/tickets/rsvp.php:151
 msgid "Confirm RSVP"
-msgstr ""
+msgstr "Потвърдете вашето присъствие"
 
 #: vendor/tickets/src/Tribe/Main.php:349
 msgid "Looking for more immediate support? We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
@@ -542,78 +542,78 @@ msgstr ""
 #: vendor/tickets/src/Tribe/RSVP.php:211
 msgctxt "Attendee number"
 msgid "Attendee %1$s"
-msgstr ""
+msgstr "Присъстващ № %1$s"
 
 #: vendor/tickets/src/Tribe/RSVP.php:489
 msgid "Your tickets from %s"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:719
+#: vendor/tickets/src/Tribe/RSVP.php:720
 msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:725
+#: vendor/tickets/src/Tribe/RSVP.php:726
 msgid "You can't RSVP more than the total remaining tickets."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:730
+#: vendor/tickets/src/Tribe/RSVP.php:731
 msgid "In order to RSVP, you must enter your name and a valid email address."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:869
+#: vendor/tickets/src/Tribe/RSVP.php:870
 msgid "(deleted)"
 msgstr "(изтрито)"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1126
+#: vendor/tickets/src/Tribe/RSVP.php:1127
 msgid "Return to the %1$sAttendees Report%2$s."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1133
+#: vendor/tickets/src/Tribe/RSVP.php:1134
 msgid "Post updated. %1$s"
-msgstr ""
+msgstr "Публикацията е обновена. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1137
+#: vendor/tickets/src/Tribe/RSVP.php:1138
 msgid "Post published. %1$s"
-msgstr ""
+msgstr "Публикацията е публикувана. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1140
+#: vendor/tickets/src/Tribe/RSVP.php:1141
 msgid "Post submitted."
 msgstr "Публикацията е изпратена."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1141
-msgid "Post scheduled."
-msgstr ""
-
 #: vendor/tickets/src/Tribe/RSVP.php:1142
+msgid "Post scheduled."
+msgstr "Публикацията е планирана."
+
+#: vendor/tickets/src/Tribe/RSVP.php:1143
 msgid "Post draft updated."
 msgstr "Черновата на публикацията е актуализирана."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:384
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:404
 msgid "Cheatin Huh?"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:367
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:387
 msgid "Invalid Event ID"
 msgstr "Невалиден ID на събитие"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:390
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:410
 msgid "Empty user and email"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:402
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:422
 msgid "Invalid Email"
 msgstr "Невалиден имейл"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:408
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:424
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:428
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:444
 msgid "Invalid User ID"
 msgstr "Невалидно ID на потребител"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:445
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:465
 msgid "Error when sending the email"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:450
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:470
 msgid "Email sent successfully!"
 msgstr "Имейлът бе изпратен успешно!"
 
@@ -663,7 +663,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1514
 msgid "%1$s updated. %2$sView %3$s"
-msgstr ""
+msgstr "%1$s е обновено. %2$sПреглед %3$s"
 
 #: src/Tribe/Main.php:1525
 msgid "Event published. %1$sView %2$s"
@@ -671,19 +671,19 @@ msgstr "Събитието е публикувано. %1$sПреглед %2$s"
 
 #: src/Tribe/Main.php:1531
 msgid "%1$s submitted. %2$sPreview %3$s"
-msgstr ""
+msgstr "%1$s е изпратено. %2$sПреглед %3$s"
 
 #: src/Tribe/Main.php:1537
 msgid "%1$s scheduled for: %2$s. %3$sPreview %4$s"
-msgstr ""
+msgstr "%1$s е планирано за: %2$s. %3$sПреглед %4$s"
 
 #: src/Tribe/Main.php:1546
 msgid "%1$s draft updated. %2$sPreview %3$s"
-msgstr ""
+msgstr "Черновата на %1$s е обновена. %2$sПреглед %3$s"
 
 #: src/Tribe/Main.php:1565 src/Tribe/Main.php:1585
 msgid "%1$s scheduled for: %2$s."
-msgstr ""
+msgstr "%1$s е планирано за: %2$s."
 
 #: src/Tribe/Main.php:1674
 msgid "Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results."
@@ -697,13 +697,13 @@ msgstr ""
 msgid "No %1$s scheduled for %2$s. Please try another day."
 msgstr ""
 
-#: src/Tribe/Template/Month.php:295
+#: src/Tribe/Template/Month.php:350
 msgid "There were no results found for %s this month. Try searching next month."
-msgstr ""
+msgstr "Не са намерени резултати за %s този месец. Моля опитайте със следващия месец."
 
 #: src/Tribe/Template_Factory.php:294
 msgid "There were no results found for %s."
-msgstr ""
+msgstr "Не са намерени резултати за %s."
 
 #: src/Tribe/Template_Factory.php:296
 msgid "No results were found for %1$s in or near %2$s."
@@ -728,7 +728,7 @@ msgstr "%s Името вече съществува"
 
 #: src/functions/template-tags/day.php:106
 msgid "Previous Day"
-msgstr ""
+msgstr "Предишен ден"
 
 #: src/functions/template-tags/day.php:108
 msgid "Next Day"
@@ -765,11 +765,11 @@ msgstr ""
 #: src/Tribe/Main.php:642 vendor/tickets/src/Tribe/Main.php:351
 #: vendor/tickets/src/Tribe/Main.php:356
 msgid "post a thread"
-msgstr ""
+msgstr "публикуване на тема"
 
 #: src/Tribe/Main.php:604
 msgid "Themer’s Guide"
-msgstr ""
+msgstr "Напътствия за разработчици на теми"
 
 #: src/Tribe/Main.php:606
 msgid "%s: An overview of the default templates and styles that are included in the plugin, as well as how to change them."
@@ -785,7 +785,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:608 vendor/tickets/src/Tribe/Main.php:307
 msgid "Troubleshooting common problems"
-msgstr ""
+msgstr "Отстраняване на често срещани проблеми"
 
 #: src/Tribe/Main.php:610
 msgid "%s: Code and guides for customizing your calendar in useful and interesting ways."
@@ -881,7 +881,7 @@ msgstr "Добавяне на друг %s"
 
 #: src/Tribe/Asset/Bootstrap_Datepicker.php:19
 msgid "Clear"
-msgstr "Ясно"
+msgstr "Изчистване"
 
 #: common/src/admin-views/tribe-options-help.php:30
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:30
@@ -891,7 +891,7 @@ msgstr ""
 #: common/src/admin-views/tribe-options-help.php:31
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:31
 msgid "Read more about our support policy"
-msgstr ""
+msgstr "Прочетете повече за нашите правила за техническа поддръжка"
 
 #: common/src/admin-views/tribe-options-help.php:26
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:26
@@ -911,7 +911,7 @@ msgstr ""
 #: common/src/admin-views/tribe-options-help.php:24
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:24
 msgid "Check our Knowledgebase"
-msgstr ""
+msgstr "Проверете нашата база от знания"
 
 #: common/src/admin-views/tribe-options-help.php:25
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:25
@@ -931,7 +931,7 @@ msgstr ""
 #: common/src/admin-views/tribe-options-help.php:15
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:15
 msgid "Knowledgebase"
-msgstr ""
+msgstr "База от знания"
 
 #: common/src/admin-views/tribe-options-help.php:16
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:16
@@ -966,12 +966,12 @@ msgstr ""
 #: common/src/admin-views/tribe-options-help.php:14
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:14
 msgid "Getting Support"
-msgstr ""
+msgstr "Получаване на техническа помощ"
 
 #: common/src/Tribe/Admin/Help_Page.php:791
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:791
 msgid "Install Plugin"
-msgstr ""
+msgstr "Инсталиране на разширение"
 
 #: common/src/Tribe/Admin/Help_Page.php:814
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:814
@@ -981,7 +981,7 @@ msgstr "Активни потребители:"
 #: common/src/Tribe/Admin/Help_Page.php:817
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:817
 msgid "Rating:"
-msgstr ""
+msgstr "Оценка:"
 
 #: common/src/Tribe/Admin/Help_Page.php:842
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:842
@@ -2982,9 +2982,9 @@ msgstr "Добави %s"
 msgid "CSV"
 msgstr "CSV"
 
-#: common/src/Tribe/Settings.php:214
+#: common/src/Tribe/Settings.php:215
 #: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4093
-#: vendor/tickets/common/src/Tribe/Settings.php:214
+#: vendor/tickets/common/src/Tribe/Settings.php:215
 msgid "Settings"
 msgstr "Настройки"
 
@@ -3067,54 +3067,54 @@ msgstr "Валиден сериен номер. Изтича на %s"
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: common/src/Tribe/Settings.php:213 common/src/Tribe/Settings.php:234
-#: vendor/tickets/common/src/Tribe/Settings.php:213
-#: vendor/tickets/common/src/Tribe/Settings.php:234
+#: common/src/Tribe/Settings.php:214 common/src/Tribe/Settings.php:235
+#: vendor/tickets/common/src/Tribe/Settings.php:214
+#: vendor/tickets/common/src/Tribe/Settings.php:235
 msgid "Events Settings"
 msgstr "Настройки на събития"
 
-#: common/src/Tribe/Settings.php:299
-#: vendor/tickets/common/src/Tribe/Settings.php:299
+#: common/src/Tribe/Settings.php:300
+#: vendor/tickets/common/src/Tribe/Settings.php:300
 msgid "%s Settings"
 msgstr "%s Настройки"
 
-#: common/src/Tribe/Settings.php:313
-#: vendor/tickets/common/src/Tribe/Settings.php:313
+#: common/src/Tribe/Settings.php:314
+#: vendor/tickets/common/src/Tribe/Settings.php:314
 msgid "You've requested a non-existent tab."
 msgstr "Търсите несъществуващ таб."
 
-#: common/src/Tribe/Settings.php:321
-#: vendor/tickets/common/src/Tribe/Settings.php:321
+#: common/src/Tribe/Settings.php:322
+#: vendor/tickets/common/src/Tribe/Settings.php:322
 msgid "Save Changes"
 msgstr "Запис на промените"
 
-#: common/src/Tribe/Settings.php:369
-#: vendor/tickets/common/src/Tribe/Settings.php:369
+#: common/src/Tribe/Settings.php:370
+#: vendor/tickets/common/src/Tribe/Settings.php:370
 msgid "You don't have permission to do that."
 msgstr "Нямате достъп."
 
-#: common/src/Tribe/Settings.php:375
-#: vendor/tickets/common/src/Tribe/Settings.php:375
+#: common/src/Tribe/Settings.php:376
+#: vendor/tickets/common/src/Tribe/Settings.php:376
 msgid "The request was sent insecurely."
 msgstr "Заявката не е изпратена криптирано."
 
-#: common/src/Tribe/Settings.php:381
-#: vendor/tickets/common/src/Tribe/Settings.php:381
+#: common/src/Tribe/Settings.php:382
+#: vendor/tickets/common/src/Tribe/Settings.php:382
 msgid "The request wasn't sent from this tab."
 msgstr "Заявката не е изпратена от този таб."
 
-#: common/src/Tribe/Settings.php:549
-#: vendor/tickets/common/src/Tribe/Settings.php:549
+#: common/src/Tribe/Settings.php:550
+#: vendor/tickets/common/src/Tribe/Settings.php:550
 msgid "Your form had the following errors:"
 msgstr "Формуляра Ви има следните грешки:"
 
-#: common/src/Tribe/Settings.php:559
-#: vendor/tickets/common/src/Tribe/Settings.php:559
+#: common/src/Tribe/Settings.php:560
+#: vendor/tickets/common/src/Tribe/Settings.php:560
 msgid "None of your settings were saved. Please try again."
 msgstr "Вашите настройки не бяха запаметени. Моля опитайте отново."
 
-#: common/src/Tribe/Settings.php:560
-#: vendor/tickets/common/src/Tribe/Settings.php:560
+#: common/src/Tribe/Settings.php:561
+#: vendor/tickets/common/src/Tribe/Settings.php:561
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Настройката по-горе не са запаметена. Другите настройки са успешно запаметени."
@@ -3152,15 +3152,15 @@ msgstr "В момента"
 msgid "No matching %1$s listed under %2$s scheduled for %3$s. Please try another day."
 msgstr ""
 
-#: src/Tribe/Template/Month.php:299
+#: src/Tribe/Template/Month.php:354
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
 msgstr ""
 
-#: src/Tribe/Template/Month.php:301 src/Tribe/Template_Factory.php:307
+#: src/Tribe/Template/Month.php:356 src/Tribe/Template_Factory.php:307
 msgid "There were no results found."
 msgstr "Не са открити събития."
 
-#: src/Tribe/Template/Month.php:739
+#: src/Tribe/Template/Month.php:794
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Заявената дата \"%s\" е невалидна &ndash; вместо това показваме текущия месец"
 
@@ -3220,33 +3220,33 @@ msgstr "Код за сигурност"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:83
 #: vendor/tickets/src/Tribe/Attendees_Table.php:263
-#: vendor/tickets/src/Tribe/Attendees_Table.php:355
+#: vendor/tickets/src/Tribe/Attendees_Table.php:356
 msgid "Check in"
 msgstr "Записване"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:264
-#: vendor/tickets/src/Tribe/Attendees_Table.php:356
+#: vendor/tickets/src/Tribe/Attendees_Table.php:357
 msgid "Undo Check in"
 msgstr "Отмяна на записването"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:328
+#: vendor/tickets/src/Tribe/Attendees_Table.php:329
 msgid "Print"
 msgstr "Print"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:329
+#: vendor/tickets/src/Tribe/Attendees_Table.php:330
 #: vendor/tickets/src/views/tickets/rsvp.php:118
 msgid "Email"
 msgstr "Email"
 
-#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:330
+#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:331
 msgid "Export"
 msgstr "Експорт"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:336
+#: vendor/tickets/src/Tribe/Attendees_Table.php:337
 msgid "Filter by purchaser name, ticket #, order # or security code"
 msgstr "Филтриране по дата на поръчка, номер на билет, номер на поръчка или код за сигурност "
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:357
+#: vendor/tickets/src/Tribe/Attendees_Table.php:358
 #: vendor/tickets/src/admin-views/list.php:43
 msgid "Delete"
 msgstr "Изтриване"
@@ -3301,15 +3301,15 @@ msgstr "Колони"
 msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
 msgstr "Можете да използвате Опции за екрана, за да изберете кои колони желаете да виждате. Избора е валиден за таблицата по-долу, в имейл, при принтиране и при CSV експортиране."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:311
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:322
 msgid "Yes"
 msgstr "Да"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:340
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:360
 msgid "attendees"
 msgstr "attendees"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:444
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:464
 msgid "Attendee List for: %s"
 msgstr "Лист с потвърдилите присъствие на: %s"
 
@@ -4337,7 +4337,7 @@ msgstr ""
 #: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:95
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:95
 msgid " ask the site administrator set a different Events URL slug."
-msgstr ""
+msgstr "поискайте от администратора на сайта да промени URL адреса за събития."
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:148 src/Tribe/Main.php:1628
 #: src/Tribe/Main.php:1701
@@ -4361,7 +4361,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Timezone_Updater.php:87
 msgid "%d%% complete"
-msgstr ""
+msgstr "%d%% завършено"
 
 #: src/Tribe/Admin/Timezone_Updater.php:105
 msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
@@ -4619,8 +4619,8 @@ msgstr "Временния файл не е открит. %s не може да 
 msgid "Could not save %s."
 msgstr "Не можа да запази %s."
 
-#: common/src/Tribe/Settings.php:585 src/Tribe/Importer/Options.php:54
-#: vendor/tickets/common/src/Tribe/Settings.php:585
+#: common/src/Tribe/Settings.php:583 src/Tribe/Importer/Options.php:54
+#: vendor/tickets/common/src/Tribe/Settings.php:583
 msgid "Settings saved."
 msgstr "Настройките са записани."
 
@@ -4671,7 +4671,8 @@ msgstr "Събития"
 msgid "Event"
 msgstr "Събитие"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2)  #-#-#-#-#
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.1) 
+#. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:624
 #: src/Tribe/Main.php:774
