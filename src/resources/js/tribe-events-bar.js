@@ -327,7 +327,7 @@ var tribe_events_bar_action;
 
 			$inputs.each( function() {
 				var $this = $( this );
-				if ( $this.val().length && !$this.hasClass( 'tribe-no-param' ) ) {
+				if ( $this.val() && $this.val().length && !$this.hasClass( 'tribe-no-param' ) ) {
 					if ( ts.view !== 'month' && '0' !== ts.datepicker_format && $this.is( $tribedate ) ) {
 
 						ts.url_params[ $this.attr( 'name' ) ] = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery' );

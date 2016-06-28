@@ -120,6 +120,7 @@ class Tribe__Events__Linked_Posts {
 		$default_args = array(
 			'name'           => $post_type_object->labels->name,
 			'singular_name'  => $post_type_object->labels->singular_name,
+			'singular_name_lowercase' => $post_type_object->labels->singular_name_lowercase,
 			'allow_multiple' => true,
 			'allow_creation' => false,
 		);
@@ -768,6 +769,7 @@ class Tribe__Events__Linked_Posts {
 
 		$plural_name = $this->linked_post_types[ $post_type ]['name'];
 		$singular_name = ! empty( $this->linked_post_types[ $post_type ]['singular_name'] ) ? $this->linked_post_types[ $post_type ]['singular_name'] : $plural_name;
+		$singular_name_lowercase = ! empty( $this->linked_post_types[ $post_type ]['singular_name_lowercase'] ) ? $this->linked_post_types[ $post_type ]['singular_name_lowercase'] : $singular_name;
 
 		if ( $linked_posts || $my_linked_posts ) {
 			$linked_post_pto = get_post_type_object( $post_type );
@@ -844,7 +846,7 @@ class Tribe__Events__Linked_Posts {
 			}
 			echo '</select>';
 		} else {
-			echo '<p class="nosaved">' . sprintf( esc_html__( 'No saved %s exists.', 'the-events-calendar' ), strtolower( $singular_name ) ) . '</p>';
+			echo '<p class="nosaved">' . sprintf( esc_html__( 'No saved %s exists.', 'the-events-calendar' ), $singular_name_lowercase ) . '</p>';
 			printf( '<input type="hidden" name="%s" value="%d"/>', esc_attr( $name ), 0 );
 		}
 	}
