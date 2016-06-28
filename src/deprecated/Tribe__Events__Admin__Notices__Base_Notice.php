@@ -1,5 +1,5 @@
 <?php
-
+_deprecated_file( __FILE__, '4.3', 'Tribe__Admin__Notices' );
 
 class Tribe__Events__Admin__Notices__Base_Notice implements Tribe__Events__Admin__Notices__Notice_Interface {
 
