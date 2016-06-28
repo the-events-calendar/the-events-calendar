@@ -70,9 +70,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				if ( empty( $types ) ) {
 					$types = array( 'post' );
 				}
-				if ( is_array( $types ) && is_tag() ) {
+				if ( is_array( $types ) && $query->is_main_query() ) {
 					$types[] = Tribe__Events__Main::POSTTYPE;
-				} elseif ( is_tag() ) {
+				} elseif ( $query->is_main_query() ) {
 					if ( is_string( $types ) ) {
 						$types = array( $types, Tribe__Events__Main::POSTTYPE );
 					} else {
