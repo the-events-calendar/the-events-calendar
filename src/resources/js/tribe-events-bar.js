@@ -201,6 +201,9 @@ var tribe_events_bar_action;
 			}
 		} );
 
+		// Trigger Mobile Change
+		tf.maybe_default_view_change();
+
 		// change views with select (for skeleton styles)
 		$tribebar.on( 'change', '.tribe-bar-views-select', function( e ) {
 			e.preventDefault();
