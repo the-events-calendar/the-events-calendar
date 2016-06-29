@@ -88,7 +88,7 @@ class Tribe__Events__Aggregator__Service {
 	 * Builds an endpoint URL
 	 *
 	 * @param string $endpoint  Endpoint for the Event Aggregator service
-	 * @param array  $data      Parameters to send to the endpoint
+	 * @param array  $data      Parameters to add to the URL
 	 *
 	 * @return string|WP_Error
 	 */
@@ -115,8 +115,8 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Performs a GET request against the Event Aggregator service
 	 *
-	 * @param string $url    Endpoint URL
-	 * @param array  $data   Parameters to send to the endpoint
+	 * @param string $endpoint   Endpoint for the Event Aggregator service
+	 * @param array  $data       Parameters to send to the endpoint
 	 *
 	 * @return stdClass|WP_Error
 	 */
@@ -145,8 +145,8 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Performs a POST request against the Event Aggregator service
 	 *
-	 * @param string $url Endpoint URL
-	 * @param array $data Array of parameters to send to the endpoint
+	 * @param string $endpoint   Endpoint for the Event Aggregator service
+	 * @param array  $data       Parameters to send to the endpoint
 	 *
 	 * @return stdClass|WP_Error
 	 */
