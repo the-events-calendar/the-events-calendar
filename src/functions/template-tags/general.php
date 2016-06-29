@@ -1358,6 +1358,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Filter to stop removal of shortcode markup in the Excerpt
 		 * This will remove all text that resembles a shortcode [shortcode 5]
+		 *
 		 * @var bool
 		 */
 		$remove_shortcodes = apply_filters( 'tribe_events_excerpt_shortcode_removal', true );
