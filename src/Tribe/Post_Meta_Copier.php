@@ -16,7 +16,7 @@ class Tribe__Events__Pro__Post_Meta_Copier {
 		if ( empty( $post_meta_keys ) ) {
 			return;
 		}
-		$meta_blacklist = $this->get_meta_key_blacklist( $original_post );
+		$meta_blacklist = $this->get_meta_key_whitelist( $original_post );
 		$meta_keys      = array_diff( $post_meta_keys, $meta_blacklist );
 
 		foreach ( $meta_keys as $meta_key ) {
@@ -30,14 +30,14 @@ class Tribe__Events__Pro__Post_Meta_Copier {
 
 	private function clear_meta( $post_id ) {
 		$post_meta_keys = get_post_custom_keys( $post_id );
-		$blacklist      = $this->get_meta_key_blacklist( $post_id );
+		$blacklist      = $this->get_meta_key_whitelist( $post_id );
 		$post_meta_keys = array_diff( $post_meta_keys, $blacklist );
 		foreach ( $post_meta_keys as $key ) {
 			delete_post_meta( $post_id, $key );
 		}
 	}
 
-	private function get_meta_key_blacklist( $post_id ) {
+	private function get_meta_key_whitelist( $post_id ) {
 		$list = array(
 			'_edit_lock',
 			'_edit_last',
@@ -46,9 +46,24 @@ class Tribe__Events__Pro__Post_Meta_Copier {
 			'_EventStartDateUTC',
 			'_EventEndDateUTC',
 			'_EventDuration',
+			'_EventSequence',
 		);
 
-		return apply_filters( 'tribe_events_meta_copier_blacklist', $list );
+		/**
+		 * Allows filtering the list of meta keys that should be copied over to children events.
+		 * 
+		 * @deprecated 4.2.2
+		 *             
+		 * @param array $list A list of meta keys that should be copied to the child events.
+		 */
+		$list = apply_filters( 'tribe_events_meta_copier_blacklist', $list );
+
+		/**
+		 * Allows filtering the list of meta keys that should be copied over to children events.
+		 *
+		 * @param array $list A list of meta keys that should be copied to the child events.
+		 */
+		return apply_filters( 'tribe_events_meta_copier_whitelist', $list );
 	}
 }
 

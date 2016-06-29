@@ -203,6 +203,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.2.2] unreleased =
+
+* Fix - recurring event instances happening on the same day are now assigned different post names and guids
+
 = [4.2.1] 2016-06-22 =
 
 * Fix - Fix issue where width of content area in photo view was inheriting styles making it too narrow

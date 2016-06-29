@@ -833,6 +833,8 @@ class Tribe__Events__Pro__Recurrence__Meta {
 		$latest_date = strtotime( self::$scheduler->get_latest_date() );
 
 		$recurrences = self::get_recurrence_for_event( $event_id );
+
+		/** @var Tribe__Events__Pro__Recurrence $recurrence */
 		foreach ( $recurrences['rules'] as &$recurrence ) {
 			$recurrence->setMinDate( strtotime( $next_pending ) );
 			$recurrence->setMaxDate( $latest_date );
@@ -841,16 +843,19 @@ class Tribe__Events__Pro__Recurrence__Meta {
 			if ( empty( $dates ) ) {
 				return; // nothing to add right now. try again later
 			}
+			
+			$sequence = new Tribe__Events__Pro__Recurrence__Sequence( $dates, $event_id );
 
 			delete_post_meta( $event_id, '_EventNextPendingRecurrence' );
+			
 			if ( $recurrence->constrainedByMaxDate() !== false ) {
 				update_post_meta( $event_id, '_EventNextPendingRecurrence', date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $recurrence->constrainedByMaxDate() ) );
 			}
 
 			$excluded = array_map( 'strtotime', self::get_excluded_dates( $event_id ) );
-			foreach ( $dates as $date_duration ) {
+			foreach ( $sequence->get_sorted_sequence() as $date_duration ) {
 				if ( ! in_array( $date_duration, $excluded ) ) {
-					$instance = new Tribe__Events__Pro__Recurrence__Instance( $event_id, $date_duration );
+					$instance = new Tribe__Events__Pro__Recurrence__Instance( $event_id, $date_duration, 0, $date_duration['sequence'] );
 					$instance->save();
 				}
 			}

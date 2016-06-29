@@ -947,12 +947,15 @@
 					$post_id = $parent_id;
 				} else {
 					/* Look for child posts taking place on the requested date (but not
-					 * necessarily at the same time as the parent event). This does not
-					 * cater to scenarios where multiple children take place on the same
-					 * date but at different times - which is a known limitation to be
-					 * addressed in a future release.
+					 * necessarily at the same time as the parent event); take sequence into
+					 * account to distinguish between recurring event instances happening on the same
+					 * day.
 					 */
-					$child_sql = "
+					$sequence_number     = $query->get( 'eventSequence' );
+					$should_use_sequence = ! empty( $sequence_number ) && is_numeric( $sequence_number ) && intval( $sequence_number ) > 1;
+					$sequence_number     = intval( $sequence_number );
+					if ( ! $should_use_sequence ) {
+						$child_sql = "
 						SELECT     ID
 						FROM       {$wpdb->posts} p
 						INNER JOIN {$wpdb->postmeta} m ON m.post_id=p.ID AND m.meta_key='_EventStartDate'
@@ -960,7 +963,20 @@
 						  AND      p.post_type=%s
 						  AND      LEFT( m.meta_value, 10 ) = %s
 					";
-					$child_sql = $wpdb->prepare( $child_sql, $parent_id, Tribe__Events__Main::POSTTYPE, $date );
+						$child_sql = $wpdb->prepare( $child_sql, $parent_id, Tribe__Events__Main::POSTTYPE, $date );
+					} else {
+						$child_sql = "
+						SELECT     ID
+						FROM       {$wpdb->posts} p
+						INNER JOIN {$wpdb->postmeta} m ON m.post_id=p.ID AND m.meta_key='_EventStartDate'
+						INNER JOIN {$wpdb->postmeta} seqm ON seqm.post_id=p.ID AND seqm.meta_key='_EventSequence'
+						WHERE      p.post_parent=%d
+						  AND      p.post_type=%s
+						  AND      LEFT( m.meta_value, 10 ) = %s
+						  AND      LEFT( seqm.meta_value, 10 ) = %s
+					";
+						$child_sql = $wpdb->prepare( $child_sql, $parent_id, Tribe__Events__Main::POSTTYPE, $date, $sequence_number );
+					}
 					$post_id = $wpdb->get_var( $child_sql );
 				}
 
