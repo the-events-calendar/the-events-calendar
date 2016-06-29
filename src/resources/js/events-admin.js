@@ -236,8 +236,6 @@ jQuery( document ).ready( function( $ ) {
 		 * Populates the organizer fields with previously submitted data to
 		 * give them sticky form qualities.
 		 *
-		 * @todo consider retooling to work with all linked post types
-		 *
 		 * @param fields
 		 */
 		function add_sticky_linked_post_data( post_type, container, fields ) {
