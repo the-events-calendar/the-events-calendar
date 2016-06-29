@@ -3,7 +3,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 	const SCHEDULED_TASK = 'tribe_events_pro_process_recurring_events';
 
 	/**
-	 * Number of event instances to be processed in a single batch.
+	 *Number of event instances to be processed in a single batch.
 	 *
 	 * @var int
 	 */
@@ -230,7 +230,14 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 		$exclusions = $this->current_queue->instances_to_exclude();
 		$instances_to_create = $this->current_queue->instances_to_create();
 
-		$sequence = new Tribe__Events__Pro__Recurrence__Sequence( $instances_to_create, $this->current_event_id );
+		try {
+			$sequence = new Tribe__Events__Pro__Recurrence__Sequence( $instances_to_create, $this->current_event_id );
+		} catch ( Exception $e ) {
+			$exception = new Tribe__Exception( $e );
+			$exception->handle();
+
+			return;
+		}
 
 		foreach ( $sequence->get_sorted_sequence() as $key => $date_duration ) {
 			// Don't process more than the current batch size allows
