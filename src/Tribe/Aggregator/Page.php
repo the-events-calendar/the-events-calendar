@@ -63,7 +63,7 @@ class Tribe__Events__Aggregator__Page {
 	 * @return boolean
 	 */
 	public function is_screen() {
-		return Tribe__Admin__Helpers::is_screen( $this->ID );
+		return Tribe__Admin__Helpers::instance()->is_screen( $this->ID );
 	}
 
 	/**
