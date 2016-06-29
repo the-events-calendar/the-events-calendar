@@ -244,6 +244,13 @@ jQuery( document ).ready( function( $ ) {
 				return;
 			}
 
+			var $fields = $( fields );
+
+			// bail if the fields are not about this container
+			if ( $fields.filter( 'tr.linked-post.' + container ).length === 0 ) {
+				return;
+			}
+
 			// The linked post type fields also need sticky field behaviour: populate
 			// them if we've been provided with the necessary data to do so
 			var sticky_data = window['tribe_sticky_' + post_type + '_fields'].shift();
