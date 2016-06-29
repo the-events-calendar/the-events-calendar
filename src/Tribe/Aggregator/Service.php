@@ -22,33 +22,30 @@ class Tribe__Events__Aggregator__Service {
 	protected $aggregator;
 
 	/**
-	 * @var string Event Aggregator API version
+	 * API varibles stored in a single Object
+	 *
+	 * @var array $api {
+	 *     @type string     $key         License key for the API (PUE)
+	 *     @type string     $version     Which version of we are dealing with
+	 *     @type string     $domain      Domain in which the API lies
+	 *     @type string     $path        Path of the API on the domain above
+	 * }
 	 */
-	protected $api_version = 'v1';
-
-	/**
-	 * @var string Event Aggregator URL
-	 */
-	protected $api_base_url = 'http://api.tri.be/';
-
-	/**
-	 * @var string Event Aggregator API root
-	 */
-	protected $api_root = 'wp-json/event-aggregator/';
-
-	/**
-	 * @var string Event Aggregator API key
-	 */
-	protected $api_key;
+	protected $api = array(
+		'key' => null,
+		'version' => 'v1',
+		'domain' => 'http://api.tri.be/',
+		'path' => 'wp-json/event-aggregator/',
+	);
 
 	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return Tribe__Events__Aggregator__Service
 	 */
-	public static function instance( Tribe__Events__Aggregator $aggregator ) {
+	public static function instance() {
 		if ( ! self::$instance ) {
-			self::$instance = new self( $aggregator );
+			self::$instance = new self;
 		}
 
 		return self::$instance;
@@ -57,27 +54,60 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Constructor
 	 */
-	public function __construct( $aggregator ) {
-		$this->aggregator = $aggregator;
-		$this->api_key = $this->aggregator->get_license_key();
+	public function __construct() {
+	}
 
-		if ( defined( 'EVENT_AGGREGATOR_API_BASE_URL' ) ) {
-			$this->api_base_url = EVENT_AGGREGATOR_API_BASE_URL;
+
+	/**
+	 * Create a clean way of fetching API variables
+	 *
+	 * @return stdClass|WP_Error
+	 */
+	public function api() {
+		// Make it an Object
+		$api = (object) $this->api;
+
+		// Since we don't need to fetch this key elsewhere
+		$api->key = get_option( 'pue_install_key_event_aggregator' );
+
+		/**
+		 * Creates a clean way to filter and redirect to another API domain/path
+		 * @var stdClass
+		 */
+		$api = (object) apply_filters( 'tribe_ea_api', $api );
+
+		// The user doesn't have a license key
+		if ( ! $api->key ) {
+			return new WP_Error( 'invalid-ea-license', __( 'You must enter an Event Aggregator license key in Events > Settings > Licenses', 'the-events-calendar' ) );
 		}
 
-		$this->get_origins();
+		return $api;
 	}
 
 	/**
 	 * Builds an endpoint URL
 	 *
-	 * @param string $endpoint Endpoint for the Event Aggregator service
+	 * @param string $endpoint  Endpoint for the Event Aggregator service
+	 * @param array  $data      Parameters to send to the endpoint
 	 *
-	 * @return string
+	 * @return string|WP_Error
 	 */
-	public function build_url( $endpoint ) {
-		$url = "{$this->api_base_url}{$this->api_root}{$this->api_version}/{$endpoint}";
-		$url = add_query_arg( 'key', $this->api_key, $url );
+	public function build_url( $endpoint, $data = array() ) {
+		$api = $this->api();
+
+		// If we have an WP_Error we return it here
+		if ( is_wp_error( $api ) ) {
+			return $api;
+		}
+
+		// Build the URL
+		$url = "{$api->domain}{$api->path}{$api->version}/{$endpoint}";
+
+		// Enforce Key on the Query Data
+		$data['key'] = $api->key;
+
+		// If we have data we add it
+		$url = add_query_arg( $data, $url );
 
 		return $url;
 	}
@@ -85,16 +115,20 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Performs a GET request against the Event Aggregator service
 	 *
-	 * @param string $url Endpoint URL
-	 * @param array $data Array of parameters to send to the endpoint
+	 * @param string $url    Endpoint URL
+	 * @param array  $data   Parameters to send to the endpoint
 	 *
-	 * @return stdClass
+	 * @return stdClass|WP_Error
 	 */
 	public function get( $endpoint, $data = array() ) {
-		$url = $this->build_url( $endpoint );
-		$url = esc_url_raw( add_query_arg( $data, $url ) );
+		$url = $this->build_url( $endpoint, $data );
 
-		$response = wp_remote_get( $url );
+		// If we have an WP_Error we return it here
+		if ( is_wp_error( $url ) ) {
+			return $url;
+		}
+
+		$response = wp_remote_get( esc_url_raw( $url ) );
 
 		if ( is_wp_error( $response ) ) {
 			return $response;
@@ -114,10 +148,15 @@ class Tribe__Events__Aggregator__Service {
 	 * @param string $url Endpoint URL
 	 * @param array $data Array of parameters to send to the endpoint
 	 *
-	 * @return stdClass
+	 * @return stdClass|WP_Error
 	 */
 	public function post( $endpoint, $data = array() ) {
 		$url = $this->build_url( $endpoint );
+
+		// If we have an WP_Error we return it here
+		if ( is_wp_error( $url ) ) {
+			return $url;
+		}
 
 		if ( empty( $data['body'] ) ) {
 			$args = array( 'body' => $data );
@@ -125,7 +164,7 @@ class Tribe__Events__Aggregator__Service {
 			$args = $data;
 		}
 
-		$response = wp_remote_post( $url, $args );
+		$response = wp_remote_post( esc_url_raw( $url ), $args );
 
 		if ( is_wp_error( $response ) ) {
 			return $response;
@@ -149,12 +188,12 @@ class Tribe__Events__Aggregator__Service {
 			),
 		);
 
-		// if the user doesn't have a license key, don't bother hitting the service
-		if ( ! $this->api_key ) {
+		$response = $this->get( 'origin' );
+
+		// If we have an WP_Error we return only CSV
+		if ( is_wp_error( $response ) ) {
 			return $origins;
 		}
-
-		$response = $this->get( 'origin' );
 
 		if ( $response && 'success' === $response->status ) {
 			$origins = array_merge( $origins, $response->data->origin );
@@ -166,14 +205,9 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Fetch import data from service
 	 *
-	 * @return array
+	 * @return stdClass|WP_Error
 	 */
 	public function get_import( $import_id ) {
-		// if the user doesn't have a license key, don't bother hitting the service
-		if ( ! $this->api_key ) {
-			return new WP_Error( 'invalid-ea-license', __( 'You must enter an Event Aggregator license key in Events > Settings > Licenses', 'the-events-calendar' ) );
-		}
-
 		$response = $this->get( 'import/' . $import_id );
 
 		return $response;
@@ -191,9 +225,11 @@ class Tribe__Events__Aggregator__Service {
 	 * @return string
 	 */
 	public function post_import( $args ) {
+		$api = $this->api();
+
 		// if the user doesn't have a license key, don't bother hitting the service
-		if ( ! $this->api_key ) {
-			return new WP_Error( 'invalid-ea-license', __( 'You must enter an Event Aggregator license key in Events > Settings > Licenses', 'the-events-calendar' ) );
+		if ( is_wp_error( $api ) ) {
+			return $api;
 		}
 
 		$request_args = array(
@@ -241,13 +277,10 @@ class Tribe__Events__Aggregator__Service {
 	 * Fetches an image from the Event Aggregator service
 	 *
 	 * @param string $image_id Image ID to fetch
+	 *
+	 * @return stdClass|WP_Error
 	 */
 	public function get_image( $image_id ) {
-		// if the user doesn't have a license key, don't bother hitting the service
-		if ( ! $this->api_key ) {
-			return new WP_Error( 'invalid-ea-license', __( 'You must enter an Event Aggregator license key in Events > Settings > Licenses', 'the-events-calendar' ) );
-		}
-
 		$response = $this->get( 'image/' . $image_id );
 
 		return $response;
