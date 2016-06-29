@@ -205,6 +205,8 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Fetch import data from service
 	 *
+	 * @param string   $import_id   ID of the Import Record
+	 *
 	 * @return stdClass|WP_Error
 	 */
 	public function get_import( $import_id ) {
