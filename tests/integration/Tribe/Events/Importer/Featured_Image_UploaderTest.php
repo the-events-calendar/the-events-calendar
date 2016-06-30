@@ -1,6 +1,8 @@
 <?php
 namespace Tribe\Events\Importer;
 
+require_once 'functions.php';
+
 use Tribe__Events__Importer__Featured_Image_Uploader as Featured_Image_Uploader;
 
 class Featured_Image_UploaderTest extends \Codeception\TestCase\WPTestCase {
@@ -84,7 +86,7 @@ class Featured_Image_UploaderTest extends \Codeception\TestCase\WPTestCase {
 	 * it should return false when trying to upload non supported file type
 	 */
 	public function it_should_return_false_when_trying_to_upload_non_supported_file_type() {
-		$image_url = $this->get_image_url( 'raw' );
+		$image_url = get_image_url( 'raw' );
 
 		$sut = new Featured_Image_Uploader( $image_url );
 		$id  = $sut->upload_and_get_attachment();
@@ -108,7 +110,7 @@ class Featured_Image_UploaderTest extends \Codeception\TestCase\WPTestCase {
 	 * it should return attachment ID when uploading existing image URL
 	 */
 	public function it_should_return_attachment_id_when_uploading_existing_image_url() {
-		$image_url = $this->get_image_url();
+		$image_url = get_image_url();
 
 		$sut = new Featured_Image_Uploader( $image_url );
 		$id  = $sut->upload_and_get_attachment();
@@ -122,7 +124,7 @@ class Featured_Image_UploaderTest extends \Codeception\TestCase\WPTestCase {
 	 * it should return attachment ID when uploading existing attachment ID
 	 */
 	public function it_should_return_attachment_id_when_uploading_existing_attachment_id() {
-		$image_path             = $this->get_image_path();
+		$image_path             = get_image_path();
 		$existing_attachment_id = $this->factory()->attachment->create_upload_object( $image_path );
 
 		$sut = new Featured_Image_Uploader( $existing_attachment_id );
@@ -137,7 +139,7 @@ class Featured_Image_UploaderTest extends \Codeception\TestCase\WPTestCase {
 	 * it should return same ID when referencing a Media Library image by URL
 	 */
 	public function it_should_return_same_id_when_referencing_a_media_library_image_by_url() {
-		$image_path             = $this->get_image_path();
+		$image_path             = get_image_path();
 		$existing_attachment_id = $this->factory()->attachment->create_upload_object( $image_path );
 		$attachment_post        = get_post( $existing_attachment_id );
 		$attachment_url         = $attachment_post->guid;
@@ -156,7 +158,7 @@ class Featured_Image_UploaderTest extends \Codeception\TestCase\WPTestCase {
 	 * it should return the same ID when referencing the same image by URL twice
 	 */
 	public function it_should_return_the_same_id_when_referencing_the_same_image_by_url_twice() {
-		$image_url              = $this->get_image_url();
+		$image_url              = get_image_url();
 
 		$sut_1 = new Featured_Image_Uploader( $image_url );
 		$id_1  = $sut_1->upload_and_get_attachment();
@@ -172,23 +174,12 @@ class Featured_Image_UploaderTest extends \Codeception\TestCase\WPTestCase {
 	 * it should not insert same image twice in same run
 	 */
 	public function it_should_not_insert_same_image_twice_in_same_run() {
-		$image_path             = $this->get_image_url();
+		$image_path             = get_image_url();
 
 		$sut  = new Featured_Image_Uploader( $image_path );
 		$id_1 = $sut->upload_and_get_attachment();
 		$id_2 = $sut->upload_and_get_attachment();
 
 		$this->assertEquals( $id_1, $id_2 );
-	}
-
-	/**
-	 * @return mixed
-	 */
-	private function get_image_url( $extension = 'jpg' ) {
-		return plugins_url( 'tests/_data/csv-import-test-files/featured-image/images/featured-image.' . $extension, codecept_root_dir( 'the-events-calendar.php' ) );
-	}
-
-	private function get_image_path( $extension = 'jpg' ) {
-		return codecept_data_dir( 'csv-import-test-files/featured-image/images/featured-image.' . $extension );
 	}
 }
