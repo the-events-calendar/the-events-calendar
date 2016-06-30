@@ -122,7 +122,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 
 		?><script type="text/template" id="tmpl-tribe-select-<?php echo esc_attr( $this->post_type ); ?>"><?php $this->single_post_dropdown( 0 ); ?></script><?php
 		
-		// @todo: add more check here for the context: when/where should we do this?
 		$current_linked_posts = $this->maybe_parse_candidate_linked_posts( $current_linked_posts );
 
 		$i = 0;
