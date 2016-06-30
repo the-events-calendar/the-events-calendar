@@ -3,7 +3,7 @@
 namespace Tribe\Events\Importer;
 require_once 'File_Importer_VenuesTest.php';
 
-class Filter_Importer_Venues_FeaturedImageTest extends File_Importer_VenuesTest{
+class File_Importer_Venues_FeaturedImageTest extends File_Importer_VenuesTest{
 
 	/**
 	 * @test
