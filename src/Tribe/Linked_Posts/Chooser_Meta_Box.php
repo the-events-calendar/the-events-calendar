@@ -121,7 +121,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		}
 
 		?><script type="text/template" id="tmpl-tribe-select-<?php echo esc_attr( $this->post_type ); ?>"><?php $this->single_post_dropdown( 0 ); ?></script><?php
-		
+
 		$current_linked_posts = $this->maybe_parse_candidate_linked_posts( $current_linked_posts );
 
 		$i = 0;
@@ -279,16 +279,19 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 *
 	 * @return mixed
 	 */
-	private function maybe_parse_candidate_linked_posts( array  $current_linked_posts = array() ) {
-		$linked_post_type_container = $this->linked_posts->get_post_type_container($this->post_type);
-		
-		$has_no_current_linked_posts = empty( array_filter( $current_linked_posts ) );
+	private function maybe_parse_candidate_linked_posts( array $current_linked_posts = array() ) {
+		$linked_post_type_container = $this->linked_posts->get_post_type_container( $this->post_type );
+
+		// filter out any non-truthy values
+		$current_linked_posts = array_filter( $current_linked_posts );
+
+		$has_no_current_linked_posts = empty( $current_linked_posts );
 		$submitted_data_contains_candidate_linked_posts = ! empty( $_POST[ $linked_post_type_container ] );
-		
+
 		if ( $has_no_current_linked_posts && $submitted_data_contains_candidate_linked_posts ) {
 			$candidate_linked_posts    = $_POST[ $linked_post_type_container ];
 			$linked_post_type_id_field = $this->linked_posts->get_post_type_id_field_index( $this->post_type );
-			
+
 			if ( ! empty( $candidate_linked_posts[ $linked_post_type_id_field ] ) ) {
 				$candidate_linked_posts = $candidate_linked_posts[ $linked_post_type_id_field ];
 
