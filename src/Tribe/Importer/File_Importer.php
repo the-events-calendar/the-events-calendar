@@ -301,4 +301,30 @@ abstract class Tribe__Events__Importer__File_Importer {
 	protected function get_skipped_row_message( $row ) {
 		return sprintf( esc_html__( 'Missing required fields in row %d.', 'the-events-calendar' ), $row );
 	}
+
+	/**
+	 * @param       $event_id
+	 * @param array $record
+	 *
+	 * @return bool|int|mixed|null
+	 */
+	protected function get_featured_image( $event_id, array $record ) {
+		$featured_image_content = $this->get_value_by_key( $record, 'featured_image' );
+		$featured_image         = null;
+		if ( ! empty( $event_id ) ) {
+			$featured_image = get_post_meta( $event_id, '_wp_attached_file', true );
+			if ( empty( $featured_image ) ) {
+				$featured_image = $this->featured_image_uploader( $featured_image_content )->upload_and_get_attachment();
+
+				return $featured_image;
+			}
+
+			return $featured_image;
+		} else {
+			$featured_image = $this->featured_image_uploader( $featured_image_content )->upload_and_get_attachment();
+
+			return $featured_image;
+
+		}
+	}
 }
