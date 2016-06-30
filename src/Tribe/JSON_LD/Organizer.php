@@ -43,7 +43,7 @@ class Tribe__Events__JSON_LD__Organizer extends Tribe__JSON_LD__Abstract {
 
 		// If we have an Empty data we just skip
 		if ( empty( $data ) ) {
-			return $data;
+			return array();
 		}
 
 		// Fetch first key
