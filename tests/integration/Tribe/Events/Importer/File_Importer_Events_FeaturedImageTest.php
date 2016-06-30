@@ -1,11 +1,8 @@
 <?php
 namespace Tribe\Events\Importer;
 
+require_once 'functions.php';
 require_once 'File_Importer_EventsTest.php';
-
-use Handlebars\Handlebars;
-use Handlebars\Loader\FilesystemLoader;
-use org\bovigo\vfs\vfsStream;
 
 class File_Importer_Events_FeaturedImageTest extends File_Importer_EventsTest {
 
@@ -26,7 +23,7 @@ class File_Importer_Events_FeaturedImageTest extends File_Importer_EventsTest {
 	 * it should import and attach featured image if featured image is ok
 	 */
 	public function it_should_import_and_attach_featured_image_if_featured_image_is_ok() {
-		$image_url     = plugins_url( '_data/csv-import-test-files/featured-image/images/featured-image.jpg', codecept_data_dir() );
+		$image_url     = get_image_url();
 		$attachment_id = $this->factory()->attachment->create_upload_object( $image_url );
 		$this->featured_image_uploader->upload_and_get_attachment()->willReturn( $attachment_id );
 
