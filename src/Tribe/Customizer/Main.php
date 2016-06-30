@@ -113,7 +113,7 @@ final class Tribe__Events__Pro__Customizer__Main {
 		add_action( 'customize_register', array( $this, 'register' ), 15 );
 
 		// Only enqueue the styles if we are previewing the page in the customizer
-		if ( ! empty( $_POST['wp_customize'] ) && $_POST['wp_customize'] === 'on' ) {
+		if ( ! empty( $_POST['wp_customize'] ) && 'on' === $_POST['wp_customize'] ) {
 			add_action( 'wp_print_footer_scripts', array( $this, 'print_css_template' ), 15 );
 		}
 
