@@ -33,7 +33,7 @@ final class Tribe__Events__Pro__Customizer__Main {
 	 */
 	public static function instance() {
 		// This also prevents double instancing the class
-		if ( ! isset( self::$instance ) ) {
+		if ( ! self::$instance ) {
 			self::$instance = new self;
 		}
 
@@ -96,6 +96,10 @@ final class Tribe__Events__Pro__Customizer__Main {
 	 * @return void
 	 */
 	private function __construct() {
+		if ( ! $this->is_active() ) {
+			return;
+		}
+
 		// The Panel ID
 		$this->ID = apply_filters( 'tribe_events_pro_customizer_panel_id', 'tribe_events_pro_customizer', $this );
 
@@ -112,11 +116,22 @@ final class Tribe__Events__Pro__Customizer__Main {
 		// Hook the Registering methods
 		add_action( 'customize_register', array( $this, 'register' ), 15 );
 
-		// Only enqueue the styles if we are previewing the page in the customizer
-		if ( ! empty( $_POST['wp_customize'] ) && 'on' === $_POST['wp_customize'] ) {
-			add_action( 'wp_print_footer_scripts', array( $this, 'print_css_template' ), 15 );
-		}
+		add_action( 'wp_print_footer_scripts', array( $this, 'print_css_template' ), 15 );
+	}
 
+	/**
+	 * A easy way to check if customize is active
+	 *
+	 * @since  4.2.2
+	 *
+	 * @return boolean
+	 */
+	public function is_active() {
+		/**
+		 * Allows Developers to completely deactivate Events Calendar Customizer
+		 * @param boolean $is_active
+		 */
+		return apply_filters( 'tribe_events_pro_customizer_is_active', true );
 	}
 
 	/**
@@ -235,7 +250,13 @@ final class Tribe__Events__Pro__Customizer__Main {
 		 *
 		 * @var string
 		 */
-		$css_template = apply_filters( 'tribe_events_pro_customizer_css_template', '' );
+		$css_template = trim( apply_filters( 'tribe_events_pro_customizer_css_template', '' ) );
+
+		// If we don't have anything on the customizer don't print empty styles
+		// On Customize Page, we don't care we need this
+		if ( ! is_customize_preview() && empty( $css_template ) ) {
+			return false;
+		}
 
 		// All sections should use this action to print their template
 		echo '<script type="text/css" id="tmpl-tribe_events_pro_customizer_css">';
