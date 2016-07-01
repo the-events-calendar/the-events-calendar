@@ -4497,7 +4497,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$autoloader->register_prefixes( $prefixes );
 
 			// deprecated classes are registered in a class to path fashion
-			foreach ( glob( $this->plugin_path . '{common/src,src}/deprecated/*.php', GLOB_BRACE ) as $file ) {
+			foreach ( array_merge( glob( $this->plugin_path . 'common/src/deprecated/*.php' ), glob( $this->plugin_path . 'src/deprecated/*.php' ) ) as $file ) {
 				$class_name = str_replace( '.php', '', basename( $file ) );
 				$autoloader->register_class( $class_name, $file );
 			}
