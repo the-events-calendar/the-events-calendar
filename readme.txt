@@ -287,6 +287,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.3] unreleased =
+
+* Fix - Cease using GLOB_BRACE for including deprecated files due to limited server support [63172]
+
 = [4.2.1.1] 2016-06-28 =
 
 * Fix - Ensure translations load as expected with all supported versions of WordPress (thanks to @JacobALund for originally reporting this on .org forums)
