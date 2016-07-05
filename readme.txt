@@ -106,17 +106,18 @@ That's it! Just configure your settings as you see fit, and you're on your way t
 
 == Screenshots ==
 
-1. Month View
-2. List View
-3. Day View
-4. Single Event
-5. Event Editor
-6. Events Admin Listing
-7. General Settings
-8. Display Settings
-9. Events List Widget
-10. Mobile Month View
-11. CSV Importer
+1. Month View with Hover
+2. Month View
+3. List View
+4. Day View
+5. Single Event
+6. Event Editor
+7. Events Admin Listing
+8. General Settings
+9. Display Settings
+10. Events List Widget
+11. Mobile Month View
+12. CSV Importer
 
 == Frequently Asked Questions ==
 
