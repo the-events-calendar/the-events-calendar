@@ -48,8 +48,8 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 		'longitude'             => 'Lng',
 	);
 
-	public function __construct( Tribe__Events__Aggregator__Service $service ) {
-		parent::__construct( $service );
+	public function __construct() {
+		parent::__construct();
 
 		// @TODO: migrate the ical settings to the-events-calendar
 		$this->google_maps_enabled = tribe_get_option( 'ical_import_enable_GoogleMaps', false );

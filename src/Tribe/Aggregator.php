@@ -76,14 +76,14 @@ class Tribe__Events__Aggregator {
 	 *
 	 * @param string $api Which API to provide
 	 *
-	 * @return Tribe__Events__Aggregator__API__Origins|Tribe__Events__Aggregator__API__Import|Tribe__Events__Aggregator__API__Image|object
+	 * @return Tribe__Events__Aggregator__API__Abstract|stdClass|null
 	 */
 	public function api( $api = null ) {
 		if ( ! $this->api ) {
 			$this->api = (object) array(
-				'origins' => new Tribe__Events__Aggregator__API__Origins( $this->service ),
-				'import'  => new Tribe__Events__Aggregator__API__Import( $this->service ),
-				'image'   => new Tribe__Events__Aggregator__API__Image( $this->service ),
+				'origins' => new Tribe__Events__Aggregator__API__Origins,
+				'import'  => new Tribe__Events__Aggregator__API__Import,
+				'image'   => new Tribe__Events__Aggregator__API__Image,
 			);
 		}
 

@@ -6,7 +6,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 	 *
 	 * @param string $image_id EA Image ID
 	 *
-	 * @return stdClass {
+	 * @return WP_Error|stdClass {
 	 *     @type int        $post_id      Attachment ID on WP
 	 *     @type string     $filename     Name of the image file
 	 *     @type string     $path         Absolute path of the image
@@ -62,7 +62,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 
 		// if the reponse isn't an image then we need to bail
 		if ( ! preg_match( '/image/', $response['headers']['content-type'] ) ) {
-			return $response;
+			return new WP_Error( 'invalid-image', $response['body'] );
 		}
 
 		// Fetch the Extension (it's safe because it comes from our service)
