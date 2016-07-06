@@ -203,7 +203,7 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.2.2] unreleased =
+= [4.2.2] 2016-07-06 =
 
 * Fix - Recurring event instances happening on the same day are now assigned different post names and guids
 * Tweak - Avoid loading customizer preview scripts when not previewing site in Theme Customizer
