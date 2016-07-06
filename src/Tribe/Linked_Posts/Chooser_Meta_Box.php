@@ -36,6 +36,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		$this->linked_posts = Tribe__Events__Linked_Posts::instance();
 		$this->post_type = $post_type;
 		$this->singular_name = $this->linked_posts->linked_post_types[ $this->post_type ]['singular_name'];
+		$this->singular_name_lowercase = $this->linked_posts->linked_post_types[ $this->post_type ]['singular_name_lowercase'];
 		$this->get_event( $event );
 
 		add_action( 'wp', array( $this, 'sticky_form_data' ), 50 ); // Later than events-admin.js itself is enqueued
@@ -120,6 +121,8 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		}
 
 		?><script type="text/template" id="tmpl-tribe-select-<?php echo esc_attr( $this->post_type ); ?>"><?php $this->single_post_dropdown( 0 ); ?></script><?php
+
+		$current_linked_posts = $this->maybe_parse_candidate_linked_posts( $current_linked_posts );
 
 		$i = 0;
 		$num_records = count( $current_linked_posts );
@@ -215,7 +218,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		?>
 		<tfoot>
 			<tr>
-				<td colspan="2"><a class="tribe-add-post" href="#"><?php echo esc_html( sprintf( __( 'Add another %s', 'the-events-calendar' ), strtolower( $this->singular_name ) ) ); ?></a></td>
+				<td colspan="2"><a class="tribe-add-post" href="#"><?php echo esc_html( sprintf( __( 'Add another %s', 'the-events-calendar' ), $this->singular_name_lowercase ) ); ?></a></td>
 			</tr>
 		</tfoot>
 		<?php
@@ -269,5 +272,35 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		}
 
 		wp_localize_script( 'tribe-events-admin', 'tribe_sticky_' . $this->post_type . '_fields', $submitted_data );
+	}
+
+	/**
+	 * @param $current_linked_posts
+	 *
+	 * @return mixed
+	 */
+	private function maybe_parse_candidate_linked_posts( array $current_linked_posts = array() ) {
+		$linked_post_type_container = $this->linked_posts->get_post_type_container( $this->post_type );
+
+		// filter out any non-truthy values
+		$current_linked_posts = array_filter( $current_linked_posts );
+
+		$has_no_current_linked_posts = empty( $current_linked_posts );
+		$submitted_data_contains_candidate_linked_posts = ! empty( $_POST[ $linked_post_type_container ] );
+
+		if ( $has_no_current_linked_posts && $submitted_data_contains_candidate_linked_posts ) {
+			$candidate_linked_posts    = $_POST[ $linked_post_type_container ];
+			$linked_post_type_id_field = $this->linked_posts->get_post_type_id_field_index( $this->post_type );
+
+			if ( ! empty( $candidate_linked_posts[ $linked_post_type_id_field ] ) ) {
+				$candidate_linked_posts = $candidate_linked_posts[ $linked_post_type_id_field ];
+
+				return $candidate_linked_posts;
+			}
+
+			return $current_linked_posts;
+		}
+
+		return $current_linked_posts;
 	}
 }
