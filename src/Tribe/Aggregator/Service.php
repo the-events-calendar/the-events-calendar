@@ -57,7 +57,6 @@ class Tribe__Events__Aggregator__Service {
 	public function __construct() {
 	}
 
-
 	/**
 	 * Create a clean way of fetching API variables
 	 *
@@ -66,6 +65,10 @@ class Tribe__Events__Aggregator__Service {
 	public function api() {
 		// Make it an Object
 		$api = (object) $this->api;
+
+		if ( defined( 'EVENT_AGGREGATOR_API_BASE_URL' ) ) {
+			$api->domain = EVENT_AGGREGATOR_API_BASE_URL;
+		}
 
 		// Since we don't need to fetch this key elsewhere
 		$api->key = get_option( 'pue_install_key_event_aggregator' );
@@ -271,8 +274,10 @@ class Tribe__Events__Aggregator__Service {
 		} else {
 			$args = $request_args;
 		}
+		do_action( 'debug_robot', '$args :: ' . print_r( $args, TRUE ) );
 
 		$response = $this->post( 'import', $args );
+		do_action( 'debug_robot', '$response :: ' . print_r( $response, TRUE ) );
 	}
 
 	/**
