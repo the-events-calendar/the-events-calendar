@@ -290,7 +290,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.2.2] unreleased =
+= [4.2.2] 2016-07-06 =
 
 * Add - Add the filter tribe_events_excerpt_prevent_shortcode_removal to prevent removal of shortcode markup in the excerpt [42289]
 * Fix - Fixed the issue that would make multiple organizers details disappear when trying to submit invalid event data using Community
