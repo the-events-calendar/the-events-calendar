@@ -32,8 +32,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '4.2.1.1';
-		const MIN_ADDON_VERSION = '4.2';
+		const VERSION           = '4.2.2';
+		const MIN_ADDON_VERSION = '4.2.2';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
@@ -2328,6 +2328,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function eventQueryVars( $qvars ) {
 			$qvars[] = 'eventDisplay';
 			$qvars[] = 'eventDate';
+			$qvars[] = 'eventSequence';
 			$qvars[] = 'ical';
 			$qvars[] = 'start_date';
 			$qvars[] = 'end_date';
