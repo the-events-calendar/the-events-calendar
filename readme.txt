@@ -292,7 +292,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.2.2] 2016-07-06 =
 
-* Add - Add the filter tribe_events_excerpt_prevent_shortcode_removal to prevent removal of shortcode markup in the excerpt [42289]
+* Fix - Small CSS Issue on Welcome Page
+* Fix - Month view on mobile device width doesn't have links to prev/next months
+* Fix - Reimport of updated CSV removes featured image (Bug #46149)
 * Fix - Fixed the issue that would make multiple organizers details disappear when trying to submit invalid event data using Community
 * Fix - Add a check to avoid being unable to switch view when Filter Bar plugin is active and at least one field is set to auto-complete mode
 * Fix - Only add the events custom post type to the tag archive queries and not custom queries with tags [45635]
