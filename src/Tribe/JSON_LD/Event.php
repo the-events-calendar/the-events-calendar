@@ -45,6 +45,11 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 		foreach ( $posts as $i => $post ) {
 			$data = parent::get_data( $post, $args );
 
+			// If we have an Empty data we just skip
+			if ( empty( $data ) ) {
+				continue;
+			}
+
 			// Fetch first key
 			$post_id = key( $data );
 

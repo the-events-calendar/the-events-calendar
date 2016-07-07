@@ -42,6 +42,11 @@ class Tribe__Events__JSON_LD__Venue extends Tribe__JSON_LD__Abstract {
 	public function get_data( $post = null, $args = array( 'context' => false ) ) {
 		$data = parent::get_data( $post, $args );
 
+		// If we have an Empty data we just skip
+		if ( empty( $data ) ) {
+			return array();
+		}
+
 		// Fetch first key
 		$post_id = key( $data );
 

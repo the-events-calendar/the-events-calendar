@@ -21,8 +21,6 @@ class Tribe__Events__Aggregator__Record {
 		'scheduled' => 'tribe-ea-scheduled',
 	);
 
-	public static $cron_action = 'tribe_ea_cron';
-
 	/**
 	 * Static Singleton Holder
 	 *
@@ -54,29 +52,17 @@ class Tribe__Events__Aggregator__Record {
 			self::$status = (object) self::$status;
 		}
 
-		// Register the base cron schedule
-		add_action( 'init', array( $this, 'action_register_cron' ) );
-
 		// Register the Custom Post Type
 		add_action( 'init', array( $this, 'get_post_type' ) );
 
 		// Register the Custom Post Statuses
 		add_action( 'init', array( $this, 'get_status' ) );
 
-		// Register the Required Cron Schedules
-		add_filter( 'cron_schedules', array( $this, 'filter_add_cron_schedules' ) );
-
 		// Setup the magical methods to fetch important meta
 		add_filter( 'get_post_metadata', array( $this, 'filter_get_post_meta' ), 10, 4 );
 
-		// Setup cron job to schedule import
-		add_action( 'wp_insert_post', array( $this, 'action_schedule_cron' ), 10, 3 );
-
 		// Will allow us to prevent incomplete posts to be inserted
 		add_filter( 'wp_insert_post_empty_content', array( $this, 'filter_maybe_empty_content' ), 10, 2 );
-
-		// Check for imports on cron action
-		add_action( self::$cron_action, array( $this, 'action_check_scheduled_imports' ) );
 
 		add_action( 'tribe_ea_endpoint_insert', array( $this, 'action_do_import' ) );
 	}
@@ -137,75 +123,6 @@ class Tribe__Events__Aggregator__Record {
 		return $registered;
 	}
 
-	/**
-	 * Frequencies in which a Scheduled import can Happen
-	 *
-	 * @param  array  $search  Search on existing schedules with `array_intersect_assoc`
-	 *
-	 * @return array|stdClass
-	 */
-	public function get_frequency( $search = array() ) {
-		$search = wp_parse_args( $search, array() );
-
-		$schedules = array(
-			(object) array(
-				'name'     => 'hourly',
-				'interval' => HOUR_IN_SECONDS,
-				'display'  => esc_html_x( 'Hourly', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-			(object) array(
-				'name'     => 'daily',
-				'interval' => DAY_IN_SECONDS,
-				'display'  => esc_html_x( 'Daily', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-			(object) array(
-				'name'     => 'weekly',
-				'interval' => WEEK_IN_SECONDS,
-				'display'  => esc_html_x( 'Weekly', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-			(object) array(
-				'name'     => 'monthly',
-				'interval' => DAY_IN_SECONDS * 30,
-				'display'  => esc_html_x( 'Monthly', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-		);
-
-		/**
-		 * Allow developers to filter to add or remove schedules
-		 * @param array $schedules
-		 */
-		$schedules = array_merge( array(
-			(object) array(
-				'name'     => 'every15mins',
-				'interval' => MINUTE_IN_SECONDS * 15,
-				'display'  => esc_html_x( 'Every 15 minutes', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-			(object) array(
-				'name'     => 'every30mins',
-				'interval' => MINUTE_IN_SECONDS * 30,
-				'display'  => esc_html_x( 'Every 30 minutes', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-		), apply_filters( 'tribe_ea_record_frequency', $schedules ) );
-
-		$found = $schedules;
-
-		if ( ! empty( $search ) ){
-			$found = array();
-
-			foreach ( $schedules as $i => $schedule ) {
-				// Check if the search matches this schedule
-				$intersect = array_intersect_assoc( $search, (array) $schedule );
-
-				// Modify the found array if something was discovered
-				if ( ! empty( $intersect ) ) {
-					$found[] = $schedule;
-				}
-			}
-		}
-
-		// If there is only return the only one
-		return count( $found ) === 1 ? reset( $found ) : $found;
-	}
 
 	/**
 	 * Register and return the Aggregator Record Custom Post Type
@@ -252,71 +169,6 @@ class Tribe__Events__Aggregator__Record {
 		);
 
 		return register_post_type( self::$post_type, $args );
-	}
-
-	/**
-	 * Register the base frequency on WP cron system
-	 *
-	 * @return void
-	 */
-	public function action_register_cron() {
-		// If we have an cron scheduled we bail
-		if ( wp_next_scheduled( self::$cron_action ) ) {
-			return;
-		}
-
-		// Fetch the initial Date and Hour
-		$date = date( 'Y-m-d H' );
-
-		// Based on the Minutes construct a Cron
-		$minutes = (int) date( 'i' );
-		if ( $minutes < 15 ) {
-			$date .= ':00';
-		} elseif ( $minutes >= 15 && $minutes < 30 ) {
-			$date .= ':15';
-		}elseif ( $minutes >= 30 && $minutes < 45 ) {
-			$date .= ':30';
-		} else {
-			$date .= ':45';
-		}
-		$date .= ':00';
-
-		// Fetch the last half hour as a timestamp
-		$start_timestamp = strtotime( $date );
-
-		// Now add an action twice hourly
-		wp_schedule_event( $start_timestamp, 'every15mins', self::$cron_action );
-	}
-
-	/**
-	 * Adds the Frequency to WP cron schedules
-	 * Instead of having cron be scheduled to specific times, we will check every 30 minutes
-	 * to make sure we can insert without having to expire cache.
-	 *
-	 * @param  array $schedules
-	 *
-	 * @return array
-	 */
-	public function filter_add_cron_schedules( array $schedules ) {
-		// Fetch the 15mins frequency
-		$frequency = $this->get_frequency( 'name=every15mins' );
-
-		// Adds the Min frequency to WordPress cron schedules
-		$schedules[ $frequency->name ] = (array) $frequency;
-
-		return (array) $schedules;
-	}
-
-	public function action_check_scheduled_imports( $post_ID, $post, $update ) {
-		// If we are not in the correct Post Type we bail
-		if ( $post->post_type !== self::$post_type ) {
-			return;
-		}
-
-		// If we are not dealing with a Schedule we don't care about the cron
-		if ( $post->post_status !== self::$status->schedule ) {
-			return;
-		}
 	}
 
 	public function action_do_import() {

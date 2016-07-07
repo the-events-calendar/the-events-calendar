@@ -15,9 +15,11 @@ The Events Calendar is a carefully crafted, extensible plugin that lets you easi
 
 Create and manage your calendar of events with ease. Get professional-level quality and features backed by a team you can trust. The Events Calendar will help take your site to the next level.
 
-The Events Calendar is built and supported by WordPress artisans Modern Tribe. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more? <a href="http://m.tri.be/2a">Check out the available add-ons.</a>
+The Events Calendar is built and supported by Modern Tribe's WordPress artisans. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more?
 
-><strong>A note about support:</strong> We’re here to help troubleshoot bugs, but should set expectations early that the support forums at WordPress.org are only checked once a week. Please read our <a href="http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?replies=3">sticky post</a> before creating a new thread.
+<strong><a href="http://m.tri.be/2a">Check out the available add-ons.</a></strong>
+
+><strong>A note about support:</strong> We’re here to help troubleshoot bugs, but we check the support forums at WordPress.org once a week. Please read our <a href="https://wordpress.org/support/topic/read-this-first-welcome-to-the-events-calendar-support-forum">sticky post</a> before creating a new thread.
 >
 > Users looking for more timely/in-depth support are encouraged to check out <a href="http://m.tri.be/mj" target="_blank" title="[new window]">Events Calendar PRO</a>.
 
@@ -106,17 +108,18 @@ That's it! Just configure your settings as you see fit, and you're on your way t
 
 == Screenshots ==
 
-1. Month View
-2. List View
-3. Day View
-4. Single Event
-5. Event Editor
-6. Events Admin Listing
-7. General Settings
-8. Display Settings
-9. Events List Widget
-10. Mobile Month View
-11. CSV Importer
+1. Month View with Hover
+2. Month View
+3. List View
+4. Day View
+5. Single Event
+6. Event Editor
+7. Events Admin Listing
+8. General Settings
+9. Display Settings
+10. Events List Widget
+11. Mobile Month View
+12. CSV Importer
 
 == Frequently Asked Questions ==
 
@@ -290,6 +293,16 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.3] unreleased =
 
 * Fix - Cease using GLOB_BRACE for including deprecated files due to limited server support [63172]
+
+= [4.2.2] 2016-07-06 =
+
+* Fix - Small CSS Issue on Welcome Page
+* Fix - Month view on mobile device width doesn't have links to prev/next months
+* Fix - Reimport of updated CSV removes featured image (Bug #46149)
+* Fix - Fixed the issue that would make multiple organizers details disappear when trying to submit invalid event data using Community
+* Fix - Add a check to avoid being unable to switch view when Filter Bar plugin is active and at least one field is set to auto-complete mode
+* Fix - Only add the events custom post type to the tag archive queries and not custom queries with tags [45635]
+* Fix - When using the filter tribe_events_excerpt_allow_shortcode shortcodes will be maybe be processed in event excerpts in the list views [42289]
 
 = [4.2.1.1] 2016-06-28 =
 

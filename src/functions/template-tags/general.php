@@ -1353,7 +1353,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @var bool
 		 */
-		$allow_shortcode = apply_filters( 'tribe_events_excerpt_allow_shortcode', false );
+		$allow_shortcodes = apply_filters( 'tribe_events_excerpt_allow_shortcode', false );
+
+		/**
+		 * Filter to stop removal of shortcode markup in the Excerpt
+		 * This will remove all text that resembles a shortcode [shortcode 5]
+		 *
+		 * @var bool
+		 */
+		$remove_shortcodes = apply_filters( 'tribe_events_excerpt_shortcode_removal', true );
 
 		// Get the Excerpt or content based on what is available
 		if ( has_excerpt( $post->ID ) ) {
@@ -1380,8 +1388,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$excerpt = wp_trim_words( $excerpt, $excerpt_length, $excerpt_more );
 		}
 
+		// If shortcode filter is enabled lets process them
+		if ( $allow_shortcodes ) {
+			$excerpt = do_shortcode( $excerpt );
+		}
+
 		// Remove all shortcode Content before removing HTML
-		if ( ! $allow_shortcode ) {
+		if ( $remove_shortcodes ) {
 			$excerpt = preg_replace( '#\[.+\]#U', '', $excerpt );
 		}
 
