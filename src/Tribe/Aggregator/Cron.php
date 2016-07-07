@@ -42,7 +42,7 @@ class Tribe__Events__Aggregator__Cron {
 		add_filter( 'cron_schedules', array( $this, 'filter_add_cron_schedules' ) );
 
 		// Check for imports on cron action
-		add_action( self::$cron_action, array( $this, 'action_check_scheduled_imports' ) );
+		add_action( self::$action, array( $this, 'action_check_scheduled_imports' ) );
 	}
 
 	/**
@@ -55,47 +55,37 @@ class Tribe__Events__Aggregator__Cron {
 	public function get_frequency( $search = array() ) {
 		$search = wp_parse_args( $search, array() );
 
-		$schedules = array(
-			(object) array(
-				'name'     => 'hourly',
-				'interval' => HOUR_IN_SECONDS,
-				'display'  => esc_html_x( 'Hourly', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-			(object) array(
-				'name'     => 'daily',
-				'interval' => DAY_IN_SECONDS,
-				'display'  => esc_html_x( 'Daily', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-			(object) array(
-				'name'     => 'weekly',
-				'interval' => WEEK_IN_SECONDS,
-				'display'  => esc_html_x( 'Weekly', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-			(object) array(
-				'name'     => 'monthly',
-				'interval' => DAY_IN_SECONDS * 30,
-				'display'  => esc_html_x( 'Monthly', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-		);
-
 		/**
 		 * Allow developers to filter to add or remove schedules
 		 * @param array $schedules
 		 */
-		$schedules = array_merge( array(
+		$found = $schedules = apply_filters( 'tribe_ea_record_frequency', array(
 			(object) array(
-				'name'     => 'every15mins',
-				'interval' => MINUTE_IN_SECONDS * 15,
-				'display'  => esc_html_x( 'Every 15 minutes', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-			(object) array(
-				'name'     => 'every30mins',
+				'id'     => 'every30mins',
 				'interval' => MINUTE_IN_SECONDS * 30,
-				'display'  => esc_html_x( 'Every 30 minutes', 'aggregator schedule frequency', 'the-events-calendar' ),
+				'text'  => esc_html_x( 'Every 30 minutes', 'aggregator schedule frequency', 'the-events-calendar' ),
 			),
-		), apply_filters( 'tribe_ea_record_frequency', $schedules ) );
-
-		$found = $schedules;
+			(object) array(
+				'id'     => 'hourly',
+				'interval' => HOUR_IN_SECONDS,
+				'text'  => esc_html_x( 'Hourly', 'aggregator schedule frequency', 'the-events-calendar' ),
+			),
+			(object) array(
+				'id'     => 'daily',
+				'interval' => DAY_IN_SECONDS,
+				'text'  => esc_html_x( 'Daily', 'aggregator schedule frequency', 'the-events-calendar' ),
+			),
+			(object) array(
+				'id'     => 'weekly',
+				'interval' => WEEK_IN_SECONDS,
+				'text'  => esc_html_x( 'Weekly', 'aggregator schedule frequency', 'the-events-calendar' ),
+			),
+			(object) array(
+				'id'     => 'monthly',
+				'interval' => DAY_IN_SECONDS * 30,
+				'text'  => esc_html_x( 'Monthly', 'aggregator schedule frequency', 'the-events-calendar' ),
+			),
+		) );
 
 		if ( ! empty( $search ) ){
 			$found = array();
@@ -122,7 +112,7 @@ class Tribe__Events__Aggregator__Cron {
 	 */
 	public function action_register_cron() {
 		// If we have an cron scheduled we bail
-		if ( wp_next_scheduled( self::$cron_action ) ) {
+		if ( wp_next_scheduled( self::$action ) ) {
 			return;
 		}
 
@@ -146,7 +136,7 @@ class Tribe__Events__Aggregator__Cron {
 		$start_timestamp = strtotime( $date );
 
 		// Now add an action twice hourly
-		wp_schedule_event( $start_timestamp, 'every15mins', self::$cron_action );
+		wp_schedule_event( $start_timestamp, 'tribe-every15mins', self::$action );
 	}
 
 	/**
@@ -159,11 +149,11 @@ class Tribe__Events__Aggregator__Cron {
 	 * @return array
 	 */
 	public function filter_add_cron_schedules( array $schedules ) {
-		// Fetch the 15mins frequency
-		$frequency = $this->get_frequency( 'name=every15mins' );
-
 		// Adds the Min frequency to WordPress cron schedules
-		$schedules[ $frequency->name ] = (array) $frequency;
+		$schedules['tribe-every15mins'] = array(
+			'interval' => MINUTE_IN_SECONDS * 15,
+			'display'  => esc_html_x( 'Every 15 minutes', 'aggregator schedule frequency', 'the-events-calendar' ),
+		);
 
 		return (array) $schedules;
 	}
