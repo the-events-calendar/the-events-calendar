@@ -621,9 +621,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$archive_slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
 			$conflict     = get_page_by_path( $archive_slug );
 
-			var_dump( $conflict );
-			// exit;
-
 			if ( ! $conflict || 'publish' !== $conflict->post_status ) {
 				return false;
 			}
