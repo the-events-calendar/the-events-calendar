@@ -64,6 +64,7 @@ class Tribe__Events__Aggregator__Record {
 		// Will allow us to prevent incomplete posts to be inserted
 		add_filter( 'wp_insert_post_empty_content', array( $this, 'filter_maybe_empty_content' ), 10, 2 );
 
+		// Run the Import when Hitting the Event Aggregator Endpoint
 		add_action( 'tribe_ea_endpoint_insert', array( $this, 'action_do_import' ) );
 	}
 
@@ -123,7 +124,6 @@ class Tribe__Events__Aggregator__Record {
 		return $registered;
 	}
 
-
 	/**
 	 * Register and return the Aggregator Record Custom Post Type
 	 * Instead of having a method for returning and another registering
@@ -172,14 +172,26 @@ class Tribe__Events__Aggregator__Record {
 	}
 
 	public function action_do_import() {
-		/**
-		 * @todo actually run the import records
-		 */
-
 		return wp_send_json_success();
 	}
 
 	public function filter_maybe_empty_content( $maybe_empty = false, $postarr = array() ) {
+
+	}
+
+	public function action_check_scheduled_imports( $post_ID, $post, $update ) {
+		var_dump( $post, $post_ID );
+		exit;
+
+		// If we are not in the correct Post Type we bail
+		if ( $post->post_type !== self::$post_type ) {
+			return;
+		}
+
+		// If we are not dealing with a Schedule we don't care about the cron
+		if ( $post->post_status !== self::$status->schedule ) {
+			return;
+		}
 
 	}
 

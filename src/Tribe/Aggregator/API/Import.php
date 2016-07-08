@@ -94,7 +94,6 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 	 */
 	public function create( $args ) {
 		$response = $this->service->post_import( $args );
-
 		// @TODO: create import record
 		//        store import_id on the import record
 		//        set the import record status
