@@ -574,13 +574,54 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * Register Notices
 			 */
 			Tribe__Admin__Notices::instance()->register( 'archive-slug-conflict', array( $this, 'render_notice_archive_slug_conflict' ), 'dismiss=1&type=error' );
+
+			/**
+			 * Expire notices
+			 */
+			add_action( 'transition_post_status', array( $this, 'action_expire_archive_slug_conflict_notice' ), 10, 3 );
 		}
 
+		/**
+		 * When a post transitions from a post_status to another, we remove the archive-slug-conflict notice
+		 *
+		 * @param  string $new_status New Status on Post
+		 * @param  string $old_status Old Status on Post
+		 * @param  int|WP_Post $post  A Post ID or Post Object
+		 *
+		 * @return bool
+		 */
+		public function action_expire_archive_slug_conflict_notice( $new_status, $old_status, $post ) {
+			// If there is no change we bail
+			if ( $new_status === $old_status ) {
+				return false;
+			}
+
+			$post = get_post( $post );
+			$archive_slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
+
+			// is it a real post?
+			if ( ! $post instanceof WP_Post ) {
+				return false;
+			}
+
+			// Is it a conflict?
+			if ( $archive_slug !== $post->post_name ) {
+				return false;
+			}
+
+			return Tribe__Admin__Notices::instance()->undismiss( 'archive-slug-conflict' );
+		}
+
+		/**
+		 * Displays the Archive confict notice using Tribe__Admin__Notices code
+		 *
+		 * @return string
+		 */
 		public function render_notice_archive_slug_conflict() {
 			$archive_slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
 			$conflict     = get_page_by_path( $archive_slug );
 
-			if ( ! $conflict || 'trash' === $conflict->post_status ) {
+			if ( ! $conflict || 'publish' !== $conflict->post_status ) {
 				return false;
 			}
 
