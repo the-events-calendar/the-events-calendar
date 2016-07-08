@@ -407,6 +407,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return;
 			}
 
+			// If we are not in the Event CPT we don't care either
+			if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
+				return null;
+			}
+
 			$origin = get_post_meta( $event->ID, '_EventOrigin', true );
 			/**
 			 * @todo  Include new EA Origin Check on the conditional below
