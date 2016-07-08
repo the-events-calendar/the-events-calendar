@@ -284,6 +284,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return false;
 			}
 
+			// If we are not in the Event CPT we don't care either
+			if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
+				return null;
+			}
+
 			// Update only what we need
 			$arguments = array(
 				'ID' => $event->ID,
@@ -361,6 +366,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 
 			// If we don't have a post (weird) we also leave
 			if ( ! $event instanceof WP_Post ) {
+				return null;
+			}
+
+			// If we are not in the Event CPT we don't care either
+			if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
 				return null;
 			}
 
