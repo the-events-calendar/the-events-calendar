@@ -205,7 +205,7 @@ Our Premium Plugins:
 
 = [4.2.2.1] unreleased =
 
-* Fix - Issue that could lead to the generation of infinite recurring events
+* Fix - Issue that could lead to the generation of infinite recurring events (props to hydeaway and many others)
 
 = [4.2.2] 2016-07-06 =
 
