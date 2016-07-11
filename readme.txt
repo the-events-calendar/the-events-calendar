@@ -203,6 +203,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.2.2.1] unreleased =
+
+* Fix - Issue that could lead to the generation of infinite recurring events
+
 = [4.2.2] 2016-07-06 =
 
 * Fix - Broken oembedding of content

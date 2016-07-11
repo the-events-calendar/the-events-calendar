@@ -228,7 +228,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 
 	protected function do_creations() {
 		$exclusions = $this->current_queue->instances_to_exclude();
-		$instances_to_create = $this->current_queue->instances_to_create();
+		$instances_to_create = array_values( $this->current_queue->instances_to_create() );
 
 		try {
 			$sequence = new Tribe__Events__Pro__Recurrence__Sequence( $instances_to_create, $this->current_event_id );
