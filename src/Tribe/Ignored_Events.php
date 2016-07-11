@@ -284,6 +284,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return false;
 			}
 
+			// If we are not in the Event CPT we don't care either
+			if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
+				return null;
+			}
+
 			// Update only what we need
 			$arguments = array(
 				'ID' => $event->ID,
@@ -364,6 +369,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return null;
 			}
 
+			// If we are not in the Event CPT we don't care either
+			if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
+				return null;
+			}
+
 			$origin = get_post_meta( $event->ID, '_EventOrigin', true );
 			/**
 			 * @todo  Include new EA Origin Check on the conditional below
@@ -395,6 +405,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			// If we don't have a post (weird) we leave
 			if ( ! $event instanceof WP_Post ) {
 				return;
+			}
+
+			// If we are not in the Event CPT we don't care either
+			if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
+				return null;
 			}
 
 			$origin = get_post_meta( $event->ID, '_EventOrigin', true );
