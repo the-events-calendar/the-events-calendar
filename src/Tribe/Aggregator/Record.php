@@ -21,6 +21,12 @@ class Tribe__Events__Aggregator__Record {
 		'scheduled' => 'tribe-ea-scheduled',
 	);
 
+
+	public static $key = array(
+		'source' => '_tribe_ea_source',
+		'origin' => '_tribe_ea_origin',
+	);
+
 	/**
 	 * Static Singleton Holder
 	 *
@@ -50,6 +56,10 @@ class Tribe__Events__Aggregator__Record {
 		// Make it an object for easier usage
 		if ( ! is_object( self::$status ) ) {
 			self::$status = (object) self::$status;
+		}
+		// Make it an object for easier usage
+		if ( ! is_object( self::$key ) ) {
+			self::$key = (object) self::$key;
 		}
 
 		// Register the Custom Post Type
@@ -169,6 +179,39 @@ class Tribe__Events__Aggregator__Record {
 		);
 
 		return register_post_type( self::$post_type, $args );
+	}
+
+	public function create( $origin = false, $type = 'import', $args = array() ) {
+		$defaults = array(
+			'frequency' => null,
+		);
+		$args = wp_parse_args( $args, $defaults );
+
+		$post = array(
+			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
+			'post_title' => wp_generate_password( 32, true, true ),
+			'post_date'  => current_time( 'mysql' ),
+
+			'meta_input' => array(
+
+			),
+		);
+
+		if ( 'schedule' === $type ) {
+			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( 'id=' . $args->frequency );
+			if ( ! $frequency ) {
+				return new WP_Error( 'invalid-frequency', __( 'An Invalid frequency was used to try to setup a scheduled import', 'the-events-calendar' ), $args );
+			}
+
+			// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
+			$post['post_content'] = $frequency->id;
+
+			// When the next scheduled import should happen
+			// @todo
+			// $post['post_content_filtered'] =
+		}
+
+		// wp_insert_post(  );
 	}
 
 	public function action_do_import() {
