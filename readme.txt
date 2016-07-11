@@ -203,7 +203,7 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.2.3] unreleased =
+= [4.2.2.1] unreleased =
 
 * Fix - Issue that could lead to the generation of infinite recurring events
 
