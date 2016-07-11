@@ -792,8 +792,8 @@
 =============================================*/
 
 
-#tribe-geo-loading/*,
-#tribe-photo-loading*/ {
+#tribe-geo-loading /*,
+#tribe-photo-loading*/{
 	display: none;
 	position: absolute;
 	width: 100%;
