@@ -203,7 +203,7 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.2.2.1] unreleased =
+= [4.2.2.1] 2016-07-11 =
 
 * Fix - Issue that could lead to the generation of infinite recurring events (props to hydeaway and many others)
 
