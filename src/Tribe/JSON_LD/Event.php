@@ -20,11 +20,6 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	public    $type = 'Event';
 
 	/**
-	 * @var int
-	 */
-	protected $current_post_id;
-
-	/**
 	 * On PHP 5.2 the child class doesn't get spawned on the Parent one, so we don't have
 	 * access to that information on the other side unless we pass it around as a param
 	 * so we throw __CLASS__ to the parent::instance() method to be able to spawn new instance
