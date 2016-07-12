@@ -17,7 +17,12 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	 * @see https://developers.google.com/structured-data/rich-snippets/
 	 * @var string
 	 */
-	public $type = 'Event';
+	public    $type = 'Event';
+
+	/**
+	 * @var int
+	 */
+	protected $current_post_id;
 
 	/**
 	 * On PHP 5.2 the child class doesn't get spawned on the Parent one, so we don't have
@@ -51,13 +56,17 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			}
 
 			// Fetch first key
-			$post_id = key( $data );
+			$post_id = $this->current_post_id = key( $data );
 
 			// Fetch first Value
 			$data = reset( $data );
 
+			add_filter( 'pre_option_timezone_string', array( $this, '_filter_timezone_string' ), 10, 1 );
+
 			$data->startDate = get_gmt_from_date( tribe_get_start_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), 'c' );
 			$data->endDate   = get_gmt_from_date( tribe_get_end_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), 'c' );
+
+			remove_filter( 'pre_option_timezone_string', array( $this, '_filter_timezone_string' ), 10 );
 
 			if ( tribe_has_venue( $post_id ) ) {
 				$venue_data = Tribe__Events__JSON_LD__Venue::instance()->get_data( tribe_get_venue_id( $post_id ) );
@@ -87,4 +96,17 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 		return $return;
 	}
 
+	/**
+	 * Filters the timezone string returning the one assigned to the event if any.
+	 * 
+	 * The function has a `public` visibility for implementation reasons and should not be
+	 * relied upon for third-party implementations.
+	 *
+	 * @return string|bool Either the timezone string assigned to the event or `false`.
+	 */
+	public function _filter_timezone_string() {
+		$event_timezone = get_post_meta( $this->current_post_id, '_EventTimezone', true );
+
+		return ! empty( $event_timezone ) ? $event_timezone : false;
+	}
 }
