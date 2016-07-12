@@ -290,6 +290,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.2.3] TBD =
+
+* Fix - Incorrect JSON-LD event start and end times [62523]
+
 = [4.2.2] 2016-07-06 =
 
 * Fix - Small CSS Issue on Welcome Page
