@@ -272,7 +272,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		if ( $full_link ) {
 			$title_args = array( 'post' => $postId, 'echo' => false );
-			$name = the_title( $title_args );
+			$name = get_the_title( $postId );
 			$attr_title = the_title_attribute( $title_args );
 			$link = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '" title="'.$attr_title.'"">' . $name . '</a>' : false;
 		} else {

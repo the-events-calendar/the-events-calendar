@@ -120,6 +120,7 @@ class Tribe__Events__Linked_Posts {
 		$default_args = array(
 			'name'           => $post_type_object->labels->name,
 			'singular_name'  => $post_type_object->labels->singular_name,
+			'singular_name_lowercase' => $post_type_object->labels->singular_name_lowercase,
 			'allow_multiple' => true,
 			'allow_creation' => false,
 		);
@@ -612,17 +613,15 @@ class Tribe__Events__Linked_Posts {
 		$event_post_status         = get_post_status( $event_id );
 
 		if ( ! isset( $submission[ $linked_post_type_id_field ] ) ) {
-			$submission[ $linked_post_type_id_field ] = array();
+			$submission[ $linked_post_type_id_field ] = array( 0 );
 		}
 
-		// if multiple post types are not supported, ensure that the submission array is set up appropriately
-		if ( ! $this->allow_multiple( $linked_post_type ) && ! is_array( $submission[ $linked_post_type_id_field ] ) ) {
-			$temp_submission = $submission;
-			$submission = array();
+		$temp_submission = $submission;
+		$submission = array();
 
-			foreach ( $temp_submission as $key => $value ) {
-				$submission[ $key ] = array( $value );
-			}
+		// make sure all elements are arrays
+		foreach ( $temp_submission as $key => $value ) {
+			$submission[ $key ] = is_array( $value ) ? $value : array( $value );
 		}
 
 		$fields = array_keys( $submission );
@@ -704,11 +703,10 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
-	 * helper function for displaying the saved organizer dropdown
-	 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
+	 * Helper function for displaying dropdowns for linked post types
 	 *
-	 * @param mixed  $current the current saved venue
-	 * @param string $name    the name value for the field
+	 * @param string $post_type Post type to display dropdown for
+	 * @param mixed  $current the current saved linked post item
 	 */
 	public function saved_linked_post_dropdown( $post_type, $current = null ) {
 		$linked_post_type_container = $this->get_post_type_container( $post_type );
@@ -771,6 +769,7 @@ class Tribe__Events__Linked_Posts {
 
 		$plural_name = $this->linked_post_types[ $post_type ]['name'];
 		$singular_name = ! empty( $this->linked_post_types[ $post_type ]['singular_name'] ) ? $this->linked_post_types[ $post_type ]['singular_name'] : $plural_name;
+		$singular_name_lowercase = ! empty( $this->linked_post_types[ $post_type ]['singular_name_lowercase'] ) ? $this->linked_post_types[ $post_type ]['singular_name_lowercase'] : $singular_name;
 
 		if ( $linked_posts || $my_linked_posts ) {
 			$linked_post_pto = get_post_type_object( $post_type );
@@ -847,7 +846,7 @@ class Tribe__Events__Linked_Posts {
 			}
 			echo '</select>';
 		} else {
-			echo '<p class="nosaved">' . sprintf( esc_html__( 'No saved %s exists.', 'the-events-calendar' ), strtolower( $singular_name ) ) . '</p>';
+			echo '<p class="nosaved">' . sprintf( esc_html__( 'No saved %s exists.', 'the-events-calendar' ), $singular_name_lowercase ) . '</p>';
 			printf( '<input type="hidden" name="%s" value="%d"/>', esc_attr( $name ), 0 );
 		}
 	}

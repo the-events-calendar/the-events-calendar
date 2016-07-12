@@ -32,8 +32,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '4.2RC1';
-		const MIN_ADDON_VERSION = '4.2RC1';
+		const VERSION           = '4.3dev';
+		const MIN_ADDON_VERSION = '4.3dev';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
@@ -500,13 +500,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
 
-			// Check for a page that might conflict with events archive (but we only need to do that
-			// on non-ajax requests
-			if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
-				add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_dismiss' ), 5 );
-				add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice' ) );
-			}
-
 			// add-on compatibility
 			if ( is_multisite() ) {
 				add_action( 'network_admin_notices', array( $this, 'checkAddOnCompatibility' ) );
@@ -563,14 +556,100 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_support_content' ) );
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_extra_content' ) );
 
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Aggregator', 'instance' ) );
+
 			// Setup Shortcodes
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Shortcode__Event_Details', 'hook' ) );
+
+			// Load Ignored Events
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Ignored_Events', 'instance' ) );
 
 			// Google Maps API key setting
 			$google_maps_api_key = Tribe__Events__Google__Maps_API_Key::instance();
 			add_filter( 'tribe_addons_tab_fields', array( $google_maps_api_key, 'filter_tribe_addons_tab_fields' ) );
 			add_filter( 'tribe_events_google_maps_api', array( $google_maps_api_key, 'filter_tribe_events_google_maps_api' ) );
 			add_filter( 'tribe_events_pro_google_maps_api', array( $google_maps_api_key, 'filter_tribe_events_google_maps_api' ) );
+
+			/**
+			 * Register Notices
+			 */
+			Tribe__Admin__Notices::instance()->register( 'archive-slug-conflict', array( $this, 'render_notice_archive_slug_conflict' ), 'dismiss=1&type=error' );
+
+			/**
+			 * Expire notices
+			 */
+			add_action( 'transition_post_status', array( $this, 'action_expire_archive_slug_conflict_notice' ), 10, 3 );
+		}
+
+		/**
+		 * When a post transitions from a post_status to another, we remove the archive-slug-conflict notice
+		 *
+		 * @param  string $new_status New Status on Post
+		 * @param  string $old_status Old Status on Post
+		 * @param  int|WP_Post $post  A Post ID or Post Object
+		 *
+		 * @return bool
+		 */
+		public function action_expire_archive_slug_conflict_notice( $new_status, $old_status, $post ) {
+			// If there is no change we bail
+			if ( $new_status === $old_status ) {
+				return false;
+			}
+
+			$post = get_post( $post );
+			$archive_slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
+
+			// is it a real post?
+			if ( ! $post instanceof WP_Post ) {
+				return false;
+			}
+
+			// Is it a conflict?
+			if ( $archive_slug !== $post->post_name ) {
+				return false;
+			}
+
+			return Tribe__Admin__Notices::instance()->undismiss( 'archive-slug-conflict' );
+		}
+
+		/**
+		 * Displays the Archive confict notice using Tribe__Admin__Notices code
+		 *
+		 * @return string
+		 */
+		public function render_notice_archive_slug_conflict() {
+			$archive_slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
+			$conflict     = get_page_by_path( $archive_slug );
+
+			if ( ! $conflict || 'publish' !== $conflict->post_status ) {
+				return false;
+			}
+
+			$post_type = get_post_type_object( $conflict->post_type );
+			$name      = empty( $post_type->labels->singular_name ) ? 'page' : $post_type->labels->singular_name;
+
+			// What's happening?
+			$page_title = apply_filters( 'the_title', $conflict->post_title, $conflict->ID );
+			$line_1     = sprintf( __( 'The %3$s "%1$s" uses the "/%2$s" slug: the Events Calendar plugin will show its calendar in place of the page.', 'the-events-calendar' ), $page_title, $archive_slug, $name );
+
+			// What the user can do
+			$edit_post_link = sprintf( __( 'Ask the site administrator to edit the %s slug', 'the-events-calendar' ), $name );
+			if ( isset( $post_type->cap->edit_posts ) && current_user_can( $post_type->cap->edit_posts ) ) {
+				$edit_post_link = sprintf( __( '<a href="%s">Edit the %s slug</a>', 'the-events-calendar' ), get_edit_post_link( $conflict->ID ), $name );
+			}
+
+			$settings_cap       = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
+			$edit_settings_link = __( ' ask the site administrator set a different Events URL slug.', 'the-events-calendar' );
+
+			if ( current_user_can( $settings_cap ) ) {
+				$admin_slug         = apply_filters( 'tribe_settings_admin_slug', 'tribe-common' );
+				$setting_page_link  = apply_filters( 'tribe_settings_url', admin_url( 'edit.php?page=' . $admin_slug . '#tribe-field-eventsSlug' ) );
+				$edit_settings_link = sprintf( __( '<a href="%s">edit Events settings</a>.', 'the-events-calendar' ), $setting_page_link );
+			}
+
+			$line_2 = sprintf( __( '%1$s or %2$s', 'the-events-calendar' ), $edit_post_link, $edit_settings_link );
+
+			return Tribe__Admin__Notices::instance()->render( 'archive-slug-conflict', sprintf( '<p>%s</p><p>%s</p>', $line_1, $line_2 ) );
 		}
 
 		/**
@@ -1827,6 +1906,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				// JS admin
 				Tribe__Events__Template_Factory::asset_package( 'admin' );
 
+				// Admin Legacy Migration
+				Tribe__Events__Template_Factory::asset_package( 'admin-migrate-legacy-ignored-events' );
+
 				// ecp placeholders
 				Tribe__Events__Template_Factory::asset_package( 'ecp-plugins' );
 
@@ -2328,6 +2410,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function eventQueryVars( $qvars ) {
 			$qvars[] = 'eventDisplay';
 			$qvars[] = 'eventDate';
+			$qvars[] = 'eventSequence';
 			$qvars[] = 'ical';
 			$qvars[] = 'start_date';
 			$qvars[] = 'end_date';
@@ -4456,7 +4539,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$autoloader->register_prefixes( $prefixes );
 
 			// deprecated classes are registered in a class to path fashion
-			foreach ( glob( $this->plugin_path . '{common/src,src}/deprecated/*.php', GLOB_BRACE ) as $file ) {
+			foreach ( array_merge( glob( $this->plugin_path . 'common/src/deprecated/*.php' ), glob( $this->plugin_path . 'src/deprecated/*.php' ) ) as $file ) {
 				$class_name = str_replace( '.php', '', basename( $file ) );
 				$autoloader->register_class( $class_name, $file );
 			}

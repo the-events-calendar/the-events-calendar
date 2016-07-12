@@ -538,6 +538,19 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-list {
+	.tribe-events-loop {
+		.tribe-events-image {
+			float: left;
+			margin: 0 3% 0 0;
+			width: 30%;
+		}
+		.tribe-events-content {
+			width: 100%;
+		}
+	}
+}
+
+.tribe-events-list {
 	h2 {
 		&.tribe-events-page-title {
 			margin-bottom: 15px;
@@ -558,6 +571,7 @@ select.tribe-events-dropdown {
 			display: inline;
 			float: none;
 		}
+
 	}
 
 	.type-tribe_events {
@@ -576,9 +590,9 @@ select.tribe-events-dropdown {
 	}
 
 	.tribe-events-event-image {
+		display: inline-block;
 		float: left;
 		margin: 0 3% 0 0;
-		width: 30%;
 
 		img {
 			height: auto;
@@ -733,14 +747,14 @@ select.tribe-events-dropdown {
 /* = Single Event Template Styles
    @ Template: single-event.php
 =============================================*/
-.single-tribe_events h2.tribe-events-single-event-title {
+.single-tribe_events .tribe-events-single-event-title {
 	font-size: 1.7em;
 	line-height: 1;
 	margin: 0;
 	padding: 0;
 }
 
-#tribe-events-content .tribe-events-single-event-description  img.attachment-post-thumbnail {
+#tribe-events-content .tribe-events-single-event-description  .attachment-post-thumbnail {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
@@ -934,6 +948,32 @@ select.tribe-events-dropdown {
 	}
 }
 
+#tribe-events-day {
+	padding: 0 15px;
+	.type-tribe_events {
+		margin-left: 0;
+	}
+
+	.tribe-events-event-image {
+		display: inline-block;
+		float: left;
+		margin: 0 3% 0 0;
+		width: 30%;
+	}
+
+	.tribe-events-content {
+		display: inline-block;
+		float: right;
+		padding: 0;
+		width: 67%;
+
+		@media screen and (min-width: 44.375em) {
+			margin-left: 0;
+			margin-right: 0;
+		}
+	}
+}
+
 /* = Calendar Styles (includes styles for both large & small calendars)
    @ Template: month.php & widgets/calendar-widget.php
 =============================================*/
@@ -1094,7 +1134,8 @@ select.tribe-events-dropdown {
 .tribe-events-calendar {
 	td {
 		.tribe-events-viewmore a {
-			font-size: 100%;
+			font-size: 90%;
+			white-space: nowrap;
 		}
 
 		div[id*='tribe-events-daynum-'] {
@@ -2070,4 +2111,14 @@ body.tribe-theme-twentysixteen {
 			background-image: url(../images/events-bar/icon-map@2x.png);
 		}
 	}
+}
+
+/* Utility Classes */
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	height: 1px;
+	overflow: hidden;
+	position: absolute !important;
+	width: 1px;
+	word-wrap: normal !important;
 }
