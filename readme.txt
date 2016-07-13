@@ -293,6 +293,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.2.3] TBD =
 
 * Fix - Incorrect JSON-LD event start and end times [62523]
+* Fix - Fix Show Google Map and Link checkbox so they show when editing an event [62399]
 
 = [4.2.2] 2016-07-06 =
 
