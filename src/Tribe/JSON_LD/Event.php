@@ -51,7 +51,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			}
 
 			// Fetch first key
-			$post_id = $this->current_post_id = key( $data );
+			$post_id = key( $data );
 
 			// Fetch first Value
 			$data = reset( $data );
