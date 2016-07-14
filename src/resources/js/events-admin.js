@@ -286,7 +286,7 @@ jQuery( document ).ready( function( $ ) {
 				var value = dropdown.val();
 				if ( 0 !== parseInt( value, 10 ) ) {
 					//hide all fields, but those with not-linked class i.e. Google Map Settings
-					fields.not('.not-linked').hide();
+					fields.not( '.not-linked' ).hide();
 				}
 			} else if ( row.find( '.nosaved' ).length ) {
 				var label = row.find( 'label' );
