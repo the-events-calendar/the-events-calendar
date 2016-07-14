@@ -70,7 +70,8 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			}
 
 			$price = tribe_get_cost( $post_id );
-			if ( ! empty( $price ) ) {
+			$price = $this->normalize_price( $price );
+			if ( '' !== $price ) {
 				// Manually Include the Price for non Event Tickets
 				$data->offers = (object) array(
 					'@type' => 'Offer',
@@ -85,6 +86,27 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 		}
 
 		return $return;
+	}
+
+	/**
+	 * Normalizes the price entry to make it compatible with JSON-LD guidelines.
+	 *
+	 * @param string|int $price
+	 *
+	 * @return string
+	 */
+	protected function normalize_price( $price ) {
+		$map = array(
+			'/^\\s*free\\s*$/i' => '0',
+		);
+
+		foreach ( $map as $normalization_regex => $normalized_price ) {
+			if ( preg_match( $normalization_regex, '' .$price ) ) {
+				return $normalized_price;
+			}
+		}
+
+		return $price;
 	}
 
 }
