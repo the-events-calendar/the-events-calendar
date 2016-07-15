@@ -39,7 +39,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	 * @return array
 	 */
 	public function get_data( $posts = null, $args = array() ) {
-		$posts = (array) $posts;
+		$posts = ( $posts instanceof WP_Post ) ? array( $posts ) : (array) $posts;
 		$return = array();
 
 		foreach ( $posts as $i => $post ) {
