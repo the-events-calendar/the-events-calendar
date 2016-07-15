@@ -12,6 +12,28 @@ $frequency->source      = 'facebook_import_frequency';
 
 $cron = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
+
+if ( true ) : //! Tribe__Settings_Manager::get_option( 'fb_api_key' ) || ! Tribe__Settings_Manager::get_option( 'fb_api_secret' ) ) :
+	?>
+	<tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">
+		<td colspan="2">
+			<div class="">
+				<span class="dashicons dashicons-warning"></span>
+				<?php
+				printf(
+					esc_html__(
+						'Enter your Facebook Application information to use Facebook import. You only need to do this once, it will be saved under %1$sEvents &gt; Settings%2$s',
+						'the-events-calendar'
+					),
+					'<a href="">',
+					'</a>'
+				);
+				?>
+			</div>
+		</td>
+	</tr>
+	<?php
+endif;
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">
 	<th scope="row">
