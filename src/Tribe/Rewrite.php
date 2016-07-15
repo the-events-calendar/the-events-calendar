@@ -207,7 +207,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				return $permalink;
 			}
 			
-//			$permalink = $this->apply_wpml_permalink_filter( $permalink );
+			$permalink = $this->apply_wpml_permalink_filter( $permalink, $post );
 			
 			return $permalink;
 		}
@@ -536,24 +536,16 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * If WPML is active let's convert the permalink to one supporting WPML url generation.
 		 * 
 		 * @param string $permalink
+		 * @param  WP_Post $post Post Object
 		 *
 		 * @return bool|string
 		 */
-		public function apply_wpml_permalink_filter( $permalink ) {
-			if ( ! $this->is_wpml_active() || empty( $_GET['lang'] ) ) {
+		public function apply_wpml_permalink_filter( $permalink, $post ) {
+			if ( ! $this->is_wpml_active() ) {
 				return $permalink;
 			}
-			
-			// successive triggers of the the filter might see a language var in the format "it?lang=it"
-			$lang_frags = explode( '?', wp_strip_all_tags( $_GET['lang'] ) );
-			$lang       = $lang_frags[0];	
-			
-			$lang = wp_strip_all_tags( $_GET['lang'] );
 
-			/** @var SitePress $sitepress */
-			global $sitepress;
-
-			return $sitepress->convert_url( $permalink, $lang );
+			return apply_filters( 'wpml_filter_link', $permalink, $post );
 		}
 
 	} // end Tribe__Events__Rewrite class
