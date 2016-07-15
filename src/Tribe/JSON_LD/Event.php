@@ -60,12 +60,14 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			$data->endDate   = get_gmt_from_date( tribe_get_end_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), 'c' );
 
 			if ( tribe_has_venue( $post_id ) ) {
-				$venue_data = Tribe__Events__JSON_LD__Venue::instance()->get_data( tribe_get_venue_id( $post_id ) );
+				$venue_id       = tribe_get_venue_id( $post_id );
+				$venue_data     = Tribe__Events__JSON_LD__Venue::instance()->get_data( $venue_id, [ 'skip_duplicates' => false ] );
 				$data->location = reset( $venue_data );
 			}
 
 			if ( tribe_has_organizer( $post_id ) ) {
-				$organizer_data = Tribe__Events__JSON_LD__Organizer::instance()->get_data( tribe_get_organizer_id( $post_id ) );
+				$organizer_id    = tribe_get_organizer_id( $post_id );
+				$organizer_data  = Tribe__Events__JSON_LD__Organizer::instance()->get_data( $organizer_id, [ 'skip_duplicates' => false ] );
 				$data->organizer = reset( $organizer_data );
 			}
 
