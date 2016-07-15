@@ -132,7 +132,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		echo $after_widget;
 		wp_reset_query();
 
-		$this->print_jsonld_markup_for(self::$posts);
+		$this->print_jsonld_markup_for( self::$posts );
 
 		// Reinstate the tribe bar params
 		if ( ! empty( $hold_tribe_bar_args ) ) {
@@ -196,6 +196,6 @@ class Tribe__Events__List_Widget extends WP_Widget {
 			return;
 		}
 
-		Tribe__Events__JSON_LD__Event::instance()->markup(self::$posts);
+		Tribe__Events__JSON_LD__Event::instance()->markup( self::$posts );
 	}
 }
