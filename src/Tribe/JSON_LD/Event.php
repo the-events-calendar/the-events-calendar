@@ -103,12 +103,16 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 		);
 
 		foreach ( $map as $normalization_regex => $normalized_price ) {
-			if ( preg_match( $normalization_regex, '' .$price ) ) {
-				return $normalized_price;
+			if ( preg_match( $normalization_regex, '' . $price ) ) {
+				$price = $normalized_price;
 			}
 		}
 
-		return $price;
+		// normalize the decimal separator
+		$price = str_replace( ',', '.', $price );
+
+		// remove thousands separator and formatting quirks
+		return preg_replace( '/[^\\d\\.]/i', '', $price );
 	}
 
 }
