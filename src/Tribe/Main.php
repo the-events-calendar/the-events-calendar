@@ -3085,14 +3085,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function addEventMeta( $postId, $post ) {
-			
 			static $avoid_recursion = false;
-			
+
 			// Avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
 			if ( $avoid_recursion ) {
 				return;
 			}
-			
+
 			$avoid_recursion = true;
 
 			// only continue if it's an event post
@@ -3132,7 +3131,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			Tribe__Events__API::saveEventMeta( $postId, $_POST, $post );
 
-			// Add this hook back in
+			// Allow this callback to run
 			$avoid_recursion = false;
 		}
 
