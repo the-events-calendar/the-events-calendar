@@ -1631,9 +1631,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					Tribe__Events__Linked_Posts::instance()->saved_linked_post_dropdown( Tribe__Events__Venue::POSTTYPE, $venue_id );
 					$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
 					if ( current_user_can( $venue_pto->cap->edit_posts ) ) {
+						//Use Admin Link Unless on Community Events Editor then use Front End Link to Edit
+						$edit_link = admin_url( sprintf( 'post.php?action=edit&post=%s', $venue_id ) );
+						if ( tribe_is_community_edit_event_page() ) {
+							$edit_link = Tribe__Events__Community__Main::instance()->getUrl( 'edit', $venue_id, null, self::VENUE_POST_TYPE );
+						}
 						?>
 						<div class="edit-venue-link" <?php if ( empty( $venue_id ) ) { ?>style="display:none;"<?php } ?>>
-							<a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $venue_id ) ) ); ?>" target="_blank">
+							<a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( $edit_link ); ?>" target="_blank">
 								<?php echo esc_html( sprintf( __( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label ) ); ?>
 							</a>
 						</div>
