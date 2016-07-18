@@ -110,6 +110,10 @@
 	margin: 0 0 20px 0;
 }
 
+.events-list .tribe-events-back.tribe-events-loop {
+	margin: 0 auto 20px;
+}
+
 /* Links */
 
 #tribe-events-content a,
