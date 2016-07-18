@@ -3085,6 +3085,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function addEventMeta( $postId, $post ) {
+			
+			static $avoid_recursion = false;
+			
+			// Avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
+			if ( $avoid_recursion ) {
+				return;
+			}
+			
+			$avoid_recursion = true;
 
 			// only continue if it's an event post
 			if ( $post->post_type !== self::POSTTYPE || defined( 'DOING_AJAX' ) ) {
@@ -3112,9 +3121,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			// Remove this hook to avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
-			remove_action( 'save_post', array( $this, 'addEventMeta' ), 15 );
-
 			$_POST['Organizer'] = isset( $_POST['organizer'] ) ? stripslashes_deep( $_POST['organizer'] ) : null;
 			$_POST['Venue']     = isset( $_POST['venue'] ) ? stripslashes_deep( $_POST['venue'] ) : null;
 
@@ -3127,7 +3133,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Events__API::saveEventMeta( $postId, $_POST, $post );
 
 			// Add this hook back in
-			add_action( 'save_post_' . self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
+			$avoid_recursion = false;
 		}
 
 		public function normalize_organizer_submission( $submission ) {
