@@ -1634,7 +1634,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						//Use Admin Link Unless on Community Events Editor then use Front End Link to Edit
 						$edit_link = admin_url( sprintf( 'post.php?action=edit&post=%s', $venue_id ) );
 						if ( tribe_is_community_edit_event_page() ) {
-							$edit_link = Tribe__Events__Community__Main::instance()->getUrl( 'edit', $venue_id, null, Tribe__Events__Main::VENUE_POST_TYPE );
+							$edit_link = Tribe__Events__Community__Main::instance()->getUrl( 'edit', $venue_id, null, self::VENUE_POST_TYPE );
 						}
 						?>
 						<div class="edit-venue-link " <?php if ( empty( $venue_id ) ) { ?>style="display:none;"<?php } ?>>
