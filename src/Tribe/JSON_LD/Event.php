@@ -108,13 +108,33 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			}
 		}
 
-		$locale_conv          = localeconv();
+		$locale_conv = localeconv();
+
+		/**
+		 * Allows filtering the monetary decimal point used in the site.
+		 *
+		 * @param string $mon_decimal_point The monetary decimal pointer; defaults to the one
+		 *                                  returned by PHP `localeconv` function.
+		 *
+		 * @see localeconv()
+		 */
+		$mon_decimal_point = apply_filters( 'tribe_events_jsonld_mon_decimal_point', $locale_conv['mon_decimal_point'] );
 
 		// normalize the decimal separator
-		$price                = str_replace( $locale_conv['mon_decimal_point'], '.', $price );
+		$price = str_replace( $mon_decimal_point, '.', $price );
 
-		// remove thousands separator and formatting quirks
-		return preg_replace( '/[^\\d\\' . $locale_conv['mon_thousands_sep'] . ']/i', '', $price );
+		/**
+		 * Allows filtering the monetary thousands separator used in the site.
+		 *
+		 * @param string $mon_decimal_point The monetary thousands separator; defaults to the one
+		 *                                  returned by PHP `localeconv` function.
+		 *
+		 * @see localeconv()
+		 */
+		$mon_thousands_sep = apply_filters( 'tribe_events_jsonld_thousands_separator', $locale_conv['mon_thousands_sep'] );
+
+		// remove thousands separator
+		return preg_replace( '/[^\\d\\' . preg_quote( $mon_thousands_sep ) . ']/i', '', $price );
 	}
 
 }
