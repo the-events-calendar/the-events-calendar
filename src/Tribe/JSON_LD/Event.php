@@ -108,11 +108,13 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			}
 		}
 
+		$locale_conv          = localeconv();
+
 		// normalize the decimal separator
-		$price = str_replace( ',', '.', $price );
+		$price                = str_replace( $locale_conv['mon_decimal_point'], '.', $price );
 
 		// remove thousands separator and formatting quirks
-		return preg_replace( '/[^\\d\\.]/i', '', $price );
+		return preg_replace( '/[^\\d\\' . $locale_conv['mon_thousands_sep'] . ']/i', '', $price );
 	}
 
 }
