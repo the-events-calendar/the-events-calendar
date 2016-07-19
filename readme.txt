@@ -294,6 +294,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Fix - Cease using GLOB_BRACE for including deprecated files due to limited server support [63172]
 * Fix - Avoid problems that can occur when hooking and unhooking actions (props @Chouby) [63474]
+* Tweak - Use an earlier hook for iCal feed generation (props @jlambe) [64141]
 
 = [4.2.2] 2016-07-06 =
 
