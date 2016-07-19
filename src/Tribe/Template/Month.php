@@ -234,6 +234,19 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		}
 
 		/**
+		 * Returns an array containing the post IDs of the events in the month.
+		 *
+		 * @return array An array of post IDs.
+		 */
+		public function get_events_in_month_ids() {
+			if ( empty( $this->events_in_month ) ) {
+				return array();
+			}
+
+			return wp_list_pluck( $this->events_in_month, 'ID' );
+		}
+
+		/**
 		 * Add any special hooks for this view
 		 *
 		 */
