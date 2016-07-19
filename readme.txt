@@ -293,9 +293,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.2.3] TBD =
 
 * Fix - In month view, be sure to unhook JSON-LD output when calling unhook function
-* Fix - Incorrect JSON-LD event start and end times [62523]
-* Fix - Show Google Map and Link checkbox so they show when editing an event [62399]
-* Fix - Use Community Events Venue Edit Link when on Community Events Forms instead of Admin [62399]
+* Fix - Incorrect JSON-LD event start and end times (thank you @jjbte for reporting on .org forums)
+* Fix - Show Google Map and Link checkbox so they show when editing an event (Reported originally by Michael of @NailedIT in the .org forum)
+* Fix - Use Community Events Venue Edit Link when on Community Events Forms instead of Admin (also as a result of the report abve from @NailedIT. Thanks again.)
 
 = [4.2.2] 2016-07-06 =
 
