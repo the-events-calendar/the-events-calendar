@@ -202,11 +202,11 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				Tribe__Events__Main::VENUE_POST_TYPE,
 				Tribe__Events__Main::ORGANIZER_POST_TYPE,
 			);
-			
-			if (!in_array( $post->post_type, $supported_post_types )) {
+
+			if ( ! in_array( $post->post_type, $supported_post_types ) ) {
 				return $permalink;
 			}
-			
+
 			$permalink = $this->apply_wpml_permalink_filter( $permalink, $post );
 			
 			return $permalink;
