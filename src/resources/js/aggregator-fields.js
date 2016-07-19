@@ -42,6 +42,21 @@ tribe_ea.fields = {
 		$.each( my.construct, function( key, callback ){
 			callback( my.$.fields );
 		} );
+
+		$( document ).on( 'click', '.enter-credentials .tribe-save', function() {
+			var $container = $( this ).closest( '.enter-credentials' );
+			var data = $( this ).closest( '.tribe-fieldset' ).find( 'input' ).serialize();
+
+			var url = ajaxurl + '?action=tribe_save_credentials&which=facebook';
+
+			var jqxhr = $.post( url, data );
+			jqxhr.done( function( response ) {
+				if ( response.success ) {
+					$container.addClass( 'credentials-entered' );
+					$container.find( '#tribe-has-credentials' ).val( 1 ).change();
+				}
+			} );
+		} );
 	};
 
 	/**

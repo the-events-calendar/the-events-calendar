@@ -13,11 +13,18 @@ $frequency->source      = 'facebook_import_frequency';
 $cron = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
 
-if ( true ) : //! Tribe__Settings_Manager::get_option( 'fb_api_key' ) || ! Tribe__Settings_Manager::get_option( 'fb_api_secret' ) ) :
-	?>
-	<tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">
-		<td colspan="2">
-			<div class="">
+$fb_api_key = Tribe__Settings_Manager::get_option( 'fb_api_key' );
+$fb_api_secret = Tribe__Settings_Manager::get_option( 'fb_api_secret' );
+$missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
+
+?>
+<tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">
+	<td colspan="2" class="<?php echo esc_attr( $missing_fb_credentials ? 'enter-credentials' : 'has-credentials' ); ?>">
+		<?php
+		if ( $missing_fb_credentials ) :
+			?>
+			<input type="hidden" name="has-credentials" id="tribe-has-credentials" value="0">
+			<div class="tribe-message tribe-credentials-prompt">
 				<span class="dashicons dashicons-warning"></span>
 				<?php
 				printf(
@@ -25,21 +32,46 @@ if ( true ) : //! Tribe__Settings_Manager::get_option( 'fb_api_key' ) || ! Tribe
 						'Enter your Facebook Application information to use Facebook import. You only need to do this once, it will be saved under %1$sEvents &gt; Settings%2$s',
 						'the-events-calendar'
 					),
-					'<a href="">',
+					'<a href="' . esc_url( admin_url( 'edit.php?post_type=tribe_events&page=aggregator' ) ) . '">',
 					'</a>'
 				);
 				?>
 			</div>
-		</td>
-	</tr>
-	<?php
-endif;
-?>
+			<div class="tribe-message tribe-credentials-success">
+				<span class="dashicons dashicons-yes"></span>
+				<?php
+				printf(
+					esc_html__(
+						'Your Facebook Application information has been saved to %1$sEvents &gt; Settings%2$s',
+						'the-events-calendar'
+					),
+					'<a href="' . esc_url( admin_url( 'edit.php?post_type=tribe_events&page=aggregator' ) ) . '">',
+					'</a>'
+				);
+				?>
+			</div>
+			<div class="tribe-fieldset">
+				<?php wp_nonce_field( 'tribe-save-credentials' ); ?>
+				<label for="facebook_app_id"><?php esc_html_e( 'App ID:', 'the-events-calendar' ); ?></label>
+				<input type="text" name="fb_api_key" id="facebook_api_key" value="<?php echo esc_attr( $fb_api_key ); ?>">
+				<label for="facebook_app_secret"><?php esc_html_e( 'App Secret:', 'the-events-calendar' ); ?></label>
+				<input type="text" name="fb_api_secret" id="facebook_api_secret" value="<?php echo esc_attr( $fb_api_secret ); ?>">
+				<button type="button" class="button tribe-save"><?php esc_html_e( 'Save', 'the-events-calendar' ); ?></button>
+			</div>
+			<?php
+		else:
+			?>
+			<input type="hidden" name="has-credentials" id="tribe-has-credentials" value="1">
+			<?php
+		endif;
+		?>
+	</td>
+</tr>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">
-	<th scope="row">
+	<th scope="row" class="tribe-dependent" data-depends="#tribe-has-credentials" data-condition="1">
 		<label for="tribe-ea-field-import_type"><?php echo esc_html( $field->label ); ?></label>
 	</th>
-	<td>
+	<td class="tribe-dependent" data-depends="#tribe-has-credentials" data-condition="1">
 		<select
 			name="aggregator[facebook][import_type]"
 			id="tribe-ea-field-facebook_import_type"
@@ -102,11 +134,21 @@ $field->help        = __( 'Enter the url for a Facebook group, page, or individu
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
 	</td>
 </tr>
-
-<tr class="tribe-dependent" data-depends="tribe-ea-field-facebook_import_type" data-condition-not-empty>
-	<td colspan="2">
-		<div class="tribe-ea-table-container">
-			<span class='spinner tribe-ea-active'></span>
-		</div>
+<tr class="tribe-dependent" data-depends="#tribe-ea-field-facebook_import_type" data-condition="manual">
+	<td colspan="2" class="tribe-button-row">
+		<button type="submit" class="button button-primary">
+			<?php
+			esc_html_e( 'Import', 'the-events-calendar' );
+			?>
+		</button>
+	</td>
+</tr>
+<tr class="tribe-dependent" data-depends="#tribe-ea-field-facebook_import_type" data-condition="auto">
+	<td colspan="2" class="tribe-button-row">
+		<button type="submit" class="button button-primary">
+			<?php
+			esc_html_e( 'Save Scheduled Import', 'the-events-calendar' );
+			?>
+		</button>
 	</td>
 </tr>
