@@ -43,4 +43,63 @@
 	.tribe-ea-size-large {
 		width: 200px;
 	}
+
+	.has-credentials {
+		padding: 0;
+	}
+
+	.tribe-button-row {
+		padding-left: 0;
+	}
+
+	.enter-credentials {
+		background-color: #f8eceb;
+		padding: 1rem;
+
+		&.credentials-entered {
+			background-color: #ebf2eb;
+
+			.tribe-credentials-prompt,
+			.tribe-fieldset {
+				display: none;
+			}
+
+			.tribe-credentials-success {
+				display: block;
+				margin-bottom: 0;
+			}
+		}
+
+		input {
+			max-width: 250px;
+			width: 75%;
+		}
+
+		.dashicons {
+			font-size: 1.5rem;
+			line-height: 1.2rem;
+			margin-right: .5rem;
+		}
+
+		.dashicons-warning {
+			color: #d54e21;
+		}
+
+		.dashicons-yes {
+			color: #41a341;
+			font-size: 2rem;
+		}
+
+		#facebook_api_key {
+			margin-right: 1.5rem;
+		}
+
+		.tribe-message {
+			margin-bottom: 1rem;
+		}
+
+		.tribe-credentials-success {
+			display: none;
+		}
+	}
 }

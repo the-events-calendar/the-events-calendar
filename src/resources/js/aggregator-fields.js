@@ -42,6 +42,21 @@ tribe_ea.fields = {
 		$.each( my.construct, function( key, callback ){
 			callback( my.$.fields );
 		} );
+
+		$( document ).on( 'click', '.enter-credentials .tribe-save', function() {
+			var $container = $( this ).closest( '.enter-credentials' );
+			var data = $( this ).closest( '.tribe-fieldset' ).find( 'input' ).serialize();
+
+			var url = ajaxurl + '?action=tribe_save_credentials&which=facebook';
+
+			var jqxhr = $.post( url, data );
+			jqxhr.done( function( response ) {
+				if ( response.success ) {
+					$container.addClass( 'credentials-entered' );
+					$container.find( '#tribe-has-credentials' ).val( 1 ).change();
+				}
+			} );
+		} );
 	};
 
 	/**
@@ -77,8 +92,10 @@ tribe_ea.fields = {
 			var $select = $(this),
 				args = {};
 
-			// Better Method for finding the ID
-			args.id = my.search_id;
+			if ( ! $select.is( 'select' ) ) {
+				// Better Method for finding the ID
+				args.id = my.search_id;
+			}
 
 			// By default we allow The field to be cleared
 			args.allowClear = true;
@@ -122,8 +139,8 @@ tribe_ea.fields = {
 				args.regexSeparatorElements.push( ')$' );
 				args.regexSplitElements.push( ')' );
 
-				args.regexSeparatorString = args.regexSeparatorElements.join( '' )
-				args.regexSplitString = args.regexSplitElements.join( '' )
+				args.regexSeparatorString = args.regexSeparatorElements.join( '' );
+				args.regexSplitString = args.regexSplitElements.join( '' );
 
 				args.regexToken = new RegExp( args.regexSeparatorString, 'ig' );
 				args.regexSplit = new RegExp( args.regexSplitString, 'ig' );
@@ -214,11 +231,10 @@ tribe_ea.fields = {
 					return {
 						action: 'tribe_ea_dropdown_' + source,
 					};
-				}
+				};
 
 				// If you want to create a diferent type of data for your AJAX call based on the source
 				if ( 'Source Name' === source ){
-
 				}
 			}
 
@@ -274,17 +290,14 @@ tribe_ea.fields = {
 				input = $button.data( 'input' ),
 				$field = $( '#' + input );
 
-			if ( my.media[ input ] ) {
-				my.media[ input ].open();
-				return;
-			}
-
 			// Setup the WP Media for this slug
-			var media = my.media[ input ] = wp.media({
-				title:$button.data( 'mediaTitle' ),
-				library: { type: $button.data( 'mimeType' ) },
+			var media = my.media[ input ] = wp.media( {
+				title: $button.data( 'mediaTitle' ),
+				library: {
+					type: $button.data( 'mimeType' )
+				},
 				multiple: false
-			});
+			} );
 
 			// On select send to Select2
 			media.on( 'select', function (){
@@ -301,19 +314,20 @@ tribe_ea.fields = {
 			} );
 
 			// We don't need the Media Library button
-			media.on( 'open', function (){
-				$( '.media-router .media-menu-item' ).first().trigger('click')
-			} );
-
-			my.$.container.on( 'click', my.selector.media_button, function(e) {
-				e.preventDefault();
-				media.open( $( this ) );
-				return false;
+			media.on( 'open', function () {
+				$( '.media-router .media-menu-item' ).first().trigger( 'click' );
 			} );
 		} );
 
+		my.$.container.on( 'click', my.selector.media_button, function( e ) {
+			e.preventDefault();
+			my.media[ input ].open( $( this ).data( 'input' ) );
+			return false;
+		} );
+
 		return $elements;
-	}
+	};
+
 	// Run Init on Document Ready
 	$( document ).ready( my.init );
 } )( jQuery, _, tribe_ea.fields );

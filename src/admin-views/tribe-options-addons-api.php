@@ -3,7 +3,42 @@
  * Create a easy way to hook to the Add-ons Tab Fields
  * @var array
  */
-$internal = apply_filters( 'tribe_addons_tab_fields', array() );
+$internal = array();
+
+// if there's an Event Aggregator license key, add the Facebook API fields
+if ( get_option( 'pue_install_key_event_aggregator' ) ) {
+	$internal = array(
+		'fb-start' => array(
+			'type' => 'html',
+			'html' => '<h3>' . esc_html__( 'Facebook', 'the-events-calendar' ) . '</h3>',
+		),
+		'fb-info-box' => array(
+			'type' => 'html',
+			'html' => '<p>' . esc_html__( 'You need a Facebook App ID and App Secret to access data via the Facebook Graph API to import your events from Facebook.', 'the-events-calendar' ) . '</p>',
+		),
+		'fb_api_key' => array(
+			'type' => 'text',
+			'label' => esc_html__( 'Facebook App ID', 'the-events-calendar' ),
+			'tooltip' => sprintf( __( '<p>%s to view or create your Facebook Apps', 'the-events-calendar' ), '<a href="https://developers.facebook.com/apps" target="_blank"></p>' . __( 'Click here', 'the-events-calendar' ) . '</a>' ),
+			'size' => 'medium',
+			'validation_type' => 'alpha_numeric',
+			'can_be_empty' => true,
+			'parent_option' => Tribe__Events__Main::OPTIONNAME,
+		),
+		'fb_api_secret' => array(
+			'type' => 'text',
+			'label' => esc_html__( 'Facebook App secret', 'the-events-calendar' ),
+			'tooltip' => sprintf( __( '<p>%s to view or create your App Secret', 'the-events-calendar' ), '<a href="https://developers.facebook.com/apps" target="_blank"></p>' . __( 'Click here', 'the-events-calendar' ) . '</a>' ),
+			'size' => 'medium',
+			'validation_type' => 'alpha_numeric',
+			'can_be_empty' => true,
+			'parent_option' => Tribe__Events__Main::OPTIONNAME,
+		),
+	);
+}
+
+$internal = apply_filters( 'tribe_addons_tab_fields', $internal );
+
 $fields = array_merge(
 	array(
 		'addons-box-start' => array(
