@@ -321,7 +321,8 @@ tribe_ea.fields = {
 
 		my.$.container.on( 'click', my.selector.media_button, function( e ) {
 			e.preventDefault();
-			my.media[ input ].open( $( this ).data( 'input' ) );
+			var input = $( this ).data( 'input' );
+			my.media[ input ].open( input );
 			return false;
 		} );
 
