@@ -55,8 +55,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$_REQUEST[ $key ] = $value;
 			}
 		}
-
-		return $month_class->get_events_in_month_ids();
 	}
 
 	/**
