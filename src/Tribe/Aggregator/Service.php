@@ -5,11 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-// bail if already defined
-if ( class_exists( 'Tribe__Events__Aggregator__Service' ) ) {
-	return;
-}
-
 class Tribe__Events__Aggregator__Service {
 	/**
 	 * @var Tribe__Events__Aggregator__Service Event Aggregator Service class

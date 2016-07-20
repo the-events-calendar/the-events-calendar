@@ -25,7 +25,7 @@ class Tribe__Events__Aggregator__Tabs {
 	 * @return self
 	 */
 	public static function instance() {
-		if ( empty( self::$instance ) ) {
+		if ( ! self::$instance ) {
 			self::$instance = new self;
 		}
 
