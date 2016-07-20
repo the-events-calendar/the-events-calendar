@@ -1,16 +1,9 @@
 <?php
-/**
- * Rewrite Configuration Class
- */
-
 // Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
-
-if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
+defined( 'WPINC' ) or die;
 
 	/**
+ * Rewrite Configuration Class
 	 * Permalinks magic Happens over here!
 	 */
 	class Tribe__Events__Rewrite {
@@ -22,7 +15,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 
 		/**
 		 * Static singleton variable
-		 * @var [type]
+	 * @var self
 		 */
 		public static $instance;
 		
@@ -137,7 +130,6 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		public function generate_core_rules( Tribe__Events__Rewrite $rewrite ) {
 			$rewrite
 				// Single
-				->single( array( '(\d{4}-\d{2}-\d{2})', '(\d+)' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'eventDate' => '%2', 'eventSequence' => '%3' ) )
 				->single( array( '(\d{4}-\d{2}-\d{2})' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'eventDate' => '%2' ) )
 				->single( array( '(\d{4}-\d{2}-\d{2})', 'embed' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'eventDate' => '%2', 'embed' => 1 ) )
 				->single( array( '{{ all }}' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'post_type' => Tribe__Events__Main::POSTTYPE, 'eventDisplay' => 'all' ) )
@@ -206,6 +198,8 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			if ( ! in_array( $post->post_type, $supported_post_types ) ) {
 				return $permalink;
 			}
+
+			$permalink = str_replace( self::PERCENT_PLACEHOLDER, '%', $permalink );
 
 			$permalink = $this->apply_wpml_permalink_filter( $permalink, $post );
 			
@@ -547,7 +541,4 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 
 			return apply_filters( 'wpml_filter_link', $permalink, $post );
 		}
-
-	} // end Tribe__Events__Rewrite class
-
-} // end if !class_exists Tribe__Events__Rewrite
+	}

@@ -13,7 +13,7 @@ class Tribe__Events__iCal {
 	public static function init() {
 		add_action( 'tribe_events_after_footer', array( __CLASS__, 'maybe_add_link' ), 10, 1 );
 		add_action( 'tribe_events_single_event_after_the_content', array( __CLASS__, 'single_event_links' ) );
-		add_action( 'tribe_tec_template_chooser', array( __CLASS__, 'do_ical_template' ) );
+		add_action( 'template_redirect', array( __CLASS__, 'do_ical_template' ) );
 		add_filter( 'tribe_get_ical_link', array( __CLASS__, 'day_view_ical_link' ), 20, 1 );
 		add_action( 'wp_head', array( __CLASS__, 'set_feed_link' ), 2, 0 );
 	}
