@@ -134,7 +134,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 		$mon_thousands_sep = apply_filters( 'tribe_events_jsonld_thousands_separator', $locale_conv['mon_thousands_sep'] );
 
 		// remove thousands separator
-		return preg_replace( '/[^\\d\\' . preg_quote( $mon_thousands_sep ) . ']/i', '', $price );
+		return str_replace( $mon_thousands_sep, '', $price );
 	}
 
 }
