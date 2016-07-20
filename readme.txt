@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.5.3
-Stable tag: 4.2.2
+Stable tag: 4.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -290,7 +290,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.2.3] TBD =
+= [4.2.3] 2016-07-20 =
 
 * Fix - In month view, be sure to unhook JSON-LD output when calling unhook function
 * Fix - Incorrect JSON-LD event start and end times (thank you @jjbte for reporting on .org forums)
