@@ -81,7 +81,7 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 		>
 			<option value=""></option>
 			<option value="manual">One-Time Import</option>
-			<option value="auto">Scheduled Import</option>
+			<option value="schedule">Scheduled Import</option>
 		</select>
 		<select
 			name="aggregator[facebook][import_frequency]"
@@ -90,7 +90,7 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 			placeholder="<?php echo esc_attr( $frequency->placeholder ); ?>"
 			data-hide-search
 			data-depends="#tribe-ea-field-facebook_import_type"
-			data-condition="auto"
+			data-condition="schedule"
 		>
 			<option value=""></option>
 			<?php foreach ( $frequencies as $frequency_object ) : ?>
@@ -101,14 +101,14 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo esc_attr( $field->help ); ?>"
 			data-depends="#tribe-ea-field-facebook_import_type"
-			data-condition-not="auto"
+			data-condition-not="schedule"
 			data-condition-empty
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo esc_attr( $frequency->help ); ?>"
 			data-depends="#tribe-ea-field-facebook_import_type"
-			data-condition="auto"
+			data-condition="schedule"
 		></span>
 	</td>
 </tr>
@@ -143,7 +143,7 @@ $field->help        = __( 'Enter the url for a Facebook group, page, or individu
 		</button>
 	</td>
 </tr>
-<tr class="tribe-dependent" data-depends="#tribe-ea-field-facebook_import_type" data-condition="auto">
+<tr class="tribe-dependent" data-depends="#tribe-ea-field-facebook_import_type" data-condition="schedule">
 	<td colspan="2" class="tribe-button-row">
 		<button type="submit" class="button button-primary">
 			<?php
