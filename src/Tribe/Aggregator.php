@@ -70,6 +70,12 @@ class Tribe__Events__Aggregator {
 
 		// Add endpoint query vars
 		add_filter( 'query_vars', array( $this, 'add_endpoint_query_vars' ) );
+
+		// Register the Custom Post Type for Import Records
+		add_action( 'init', array( $this, 'register_import_record_post_type' ) );
+
+		// Register the Custom Post Statuses
+		add_action( 'init', array( $this, 'register_import_record_statuses' ) );
 	}
 
 	public function register_endpoint( $rewrite ) {
@@ -149,5 +155,80 @@ class Tribe__Events__Aggregator {
 		}
 
 		return $this->api->$api;
+	}
+
+	/**
+	 * Register the Aggregator Record Custom Post Type
+	 *
+	 * @return stdClass|WP_Error
+	 */
+	public function register_import_record_post_type() {
+		$args = array(
+			'description'        => esc_html__( 'Events Aggregator Record', 'the-events-calendar' ),
+			'public'             => true,
+			'publicly_queryable' => false,
+			'show_ui'            => false,
+			'show_in_menu'       => false,
+			'query_var'          => false,
+			'rewrite'            => false,
+			'capability_type'    => array( 'ea-record', 'ea-records' ),
+			'has_archive'        => false,
+			'hierarchical'       => false,
+			'menu_position'      => null,
+			'supports'           => array(),
+		);
+
+		$args['labels'] = array(
+			'name'               => esc_html_x( 'Aggregator Records', 'post type general name', 'the-events-calendar' ),
+			'singular_name'      => esc_html_x( 'Aggregator Record', 'post type singular name', 'the-events-calendar' ),
+			'menu_name'          => esc_html_x( 'Aggregator Records', 'admin menu', 'the-events-calendar' ),
+			'name_admin_bar'     => esc_html_x( 'Aggregator Record', 'add new on admin bar', 'the-events-calendar' ),
+			'add_new'            => esc_html_x( 'Add New', 'record', 'the-events-calendar' ),
+			'add_new_item'       => esc_html__( 'Add New Aggregator Record', 'the-events-calendar' ),
+			'new_item'           => esc_html__( 'New Aggregator Record', 'the-events-calendar' ),
+			'edit_item'          => esc_html__( 'Edit Aggregator Record', 'the-events-calendar' ),
+			'view_item'          => esc_html__( 'View Aggregator Record', 'the-events-calendar' ),
+			'all_items'          => esc_html__( 'All Aggregator Records', 'the-events-calendar' ),
+			'search_items'       => esc_html__( 'Search Aggregator Records', 'the-events-calendar' ),
+			'parent_item_colon'  => esc_html__( 'Parent Aggregator Record:', 'the-events-calendar' ),
+			'not_found'          => esc_html__( 'No Aggregator Records found.', 'the-events-calendar' ),
+			'not_found_in_trash' => esc_html__( 'No Aggregator Records found in Trash.', 'the-events-calendar' ),
+		);
+
+		return register_post_type( Tribe__Events__Aggregator__Record::$post_type, $args );
+	}
+
+	/**
+	 * Register the Aggregator Record Custom Post Status
+	 *
+	 * @return stdClass|WP_Error|array
+	 */
+	public function register_import_record_statuses() {
+		// Register the Success post status
+		$args = array(
+			'label'              => esc_html_x( 'Imported', 'event aggregator status', 'the-events-calendar' ),
+			'label_count'        => _nx_noop( 'Imported <span class="count">(%s)</span>', 'Imported <span class="count">(%s)</span>', 'event aggregator status', 'the-events-calendar' ),
+			'public'             => true,
+			'publicly_queryable' => true,
+		);
+		register_post_status( Tribe__Events__Aggregator__Record::$status->success, $args );
+
+		// Register the Failed post status
+		$args = array(
+			'label'              => esc_html_x( 'Failed', 'event aggregator status', 'the-events-calendar' ),
+			'label_count'        => _nx_noop( 'Failed <span class="count">(%s)</span>', 'Failed <span class="count">(%s)</span>', 'event aggregator status', 'the-events-calendar' ),
+			'public'             => true,
+			'publicly_queryable' => true,
+		);
+		register_post_status( Tribe__Events__Aggregator__Record::$status->failed, $args );
+
+		// Register the Scheduled post status
+		$args = array(
+			'label'              => esc_html_x( 'Scheduled', 'event aggregator status', 'the-events-calendar' ),
+			'label_count'        => _nx_noop( 'Scheduled <span class="count">(%s)</span>', 'Scheduled <span class="count">(%s)</span>', 'event aggregator status', 'the-events-calendar' ),
+			'public'             => true,
+			'publicly_queryable' => true,
+		);
+		register_post_status( Tribe__Events__Aggregator__Record::$status->scheduled, $args );
 	}
 }
