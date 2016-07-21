@@ -235,6 +235,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 		/**
 		 * Add any special hooks for this view
+		 * any actions added here should also be removed in the unhook function
 		 *
 		 */
 		protected function hooks() {
@@ -273,6 +274,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			if ( ! empty( $this->events_in_month ) ) {
 				remove_filter( 'tribe_events_month_has_events', array( $this, 'has_events' ) );
 			}
+
+			remove_action( 'wp_head', array( $this, 'json_ld_markup' ) );
 		}
 
 		/**
