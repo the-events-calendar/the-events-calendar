@@ -4,13 +4,6 @@ defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Record {
 	/**
-	 * Slug of the Post Type used for Event Aggregator Records
-	 *
-	 * @var string
-	 */
-	public static $post_type = 'tribe-ea-record';
-
-	/**
 	 * Meta key prefix for ea-record data
 	 *
 	 * @var string
@@ -77,7 +70,7 @@ class Tribe__Events__Aggregator__Record {
 		$post = array(
 			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
 			'post_title'  => wp_generate_password( 32, true, true ),
-			'post_type'   => Tribe__Events__Aggregator__Record_Post_Type::$post_type,
+			'post_type'   => Tribe__Events__Aggregator__Record__Post_Type::$post_type,
 			'post_date'   => current_time( 'mysql' ),
 			'post_status' => 'pending',
 			'meta_input'  => array(),
@@ -98,7 +91,7 @@ class Tribe__Events__Aggregator__Record {
 
 			// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
 			$post['post_content'] = $frequency->id;
-			$post['post_status']  = Tribe__Events__Aggregator__Record_Post_Type::$status->scheduled;
+			$post['post_status']  = Tribe__Events__Aggregator__Record__Post_Type::$status->scheduled;
 
 			// When the next scheduled import should happen
 			// @todo

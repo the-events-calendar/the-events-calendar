@@ -2,7 +2,7 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
-class Tribe__Events__Aggregator__Record_Post_Type {
+class Tribe__Events__Aggregator__Record__Post_Type {
 	/**
 	 * Slug of the Post Type used for Event Aggregator Records
 	 *
