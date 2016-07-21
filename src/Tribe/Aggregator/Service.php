@@ -269,10 +269,8 @@ class Tribe__Events__Aggregator__Service {
 		} else {
 			$args = $request_args;
 		}
-		do_action( 'debug_robot', '$args :: ' . print_r( $args, TRUE ) );
 
 		$response = $this->post( 'import', $args );
-		do_action( 'debug_robot', '$response :: ' . print_r( $response, TRUE ) );
 	}
 
 	/**

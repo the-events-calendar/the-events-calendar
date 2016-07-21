@@ -1,6 +1,6 @@
 <?php
 
-class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggregator__Record {
+class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggregator__Record__Abstract {
 	public static $origin = 'facebook';
 
 	/**
@@ -20,5 +20,23 @@ class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggrega
 		$args = wp_parse_args( $args, $defaults );
 
 		return parent::create( $origin, $type, $args );
+	}
+
+	/**
+	 * Queues the import on the Aggregator service
+	 */
+	public function queue_import() {
+		$fb_api_key    = Tribe__Settings_Manager::get_option( 'fb_api_key' );
+		$fb_api_secret = Tribe__Settings_Manager::get_option( 'fb_api_secret' );
+
+		$args = array(
+			'type'            => $this->meta['type'],
+			'origin'          => $this->meta['origin'],
+			'source'          => $this->meta['source'],
+			'facebook_app_id' => $fb_api_key,
+			'facebook_secret' => $fb_api_secret,
+		);
+
+		return parent::queue_import( $args );
 	}
 }

@@ -29,6 +29,13 @@ class Tribe__Events__Aggregator {
 	protected $api;
 
 	/**
+	 * People who modify this value are not nice people.
+	 *
+	 * @var int Maximum number of import requests per day
+	 */
+	private $daily_limit = 100;
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return Tribe__Events__Aggregator
@@ -149,5 +156,65 @@ class Tribe__Events__Aggregator {
 		}
 
 		return $this->api->$api;
+	}
+
+	/**
+	 * Returns the daily import limit
+	 *
+	 * @return int
+	 */
+	public function daily_limit() {
+		return $this->daily_limit;
+	}
+
+	/**
+	 * Returns the available daily limit of import requests
+	 *
+	 * @return int
+	 */
+	public function daily_limit_available() {
+		$available = get_transient( $this->daily_limit_transient_key() );
+
+		$daily_limit = $this->daily_limit();
+
+		if ( false === $available ) {
+			return $daily_limit;
+		}
+
+		return (int) $available < $daily_limit ? $available : $daily_limit;
+	}
+
+	/**
+	 * Reduces the daily limit by the provided amount
+	 *
+	 * @param int $amount Amount to reduce the daily limit by
+	 *
+	 * @return bool
+	 */
+	public function reduce_daily_limit( $amount = 1 ) {
+		if ( ! is_numeric( $amount ) ) {
+			return new WP_Error( 'invalid-integer', esc_html__( 'The daily limits reduction amount must be an integer' ) );
+		}
+
+		if ( $amount < 0 ) {
+			return true;
+		}
+
+		$available = $this->daily_limit_available();
+
+		$available -= $amount;
+
+		if ( $available < 0 ) {
+			$available = 0;
+		}
+
+		return set_transient( $this->daily_limit_transient_key(), $available, DAY_IN_SECONDS );
+	}
+
+	/**
+	 * Generates the current daily transient key
+	 */
+	private function daily_limit_transient_key() {
+		return 'tribe-aggregator-limit-used_' . date( 'Y-m-d' );
 	}
 }
