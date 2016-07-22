@@ -253,14 +253,11 @@ class Tribe__Events__Aggregator__Page {
 
 		$post = $record->create( $meta['origin'], $meta['type'], $meta );
 
-		do_action( 'debug_robot', '$post :: ' . print_r( $post, TRUE ) );
-
 		if ( is_wp_error( $post ) ) {
 			return $post;
 		}
 
 		$result = $record->queue_import();
-		do_action( 'debug_robot', '$result :: ' . print_r( $result, TRUE ) );
 
 		return $result;
 	}

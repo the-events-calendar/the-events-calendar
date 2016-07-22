@@ -202,7 +202,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( $error && is_wp_error( $error ) ) {
 			$this->log_error( $error );
 		}
-		do_action( 'debug_robot', '$error :: ' . print_r( $error, TRUE ) );
 
 		return $this->set_status( Tribe__Events__Aggregator__Record__Post_Type::$status->failed );
 	}
