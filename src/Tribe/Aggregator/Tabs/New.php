@@ -12,6 +12,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 */
 	private static $instance;
 
+	public $priority = 10;
+
 	/**
 	 * Static Singleton Factory Method
 	 *
@@ -46,8 +48,6 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		wp_enqueue_media();
 	}
-
-	public $priority = 10;
 
 	public function is_visible() {
 		return true;
@@ -134,8 +134,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 				wp_send_json_error( $data );
 			}
 
-			Tribe__Settings_Manager::set_option( 'fb_api_key', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $_POST['fb_api_key'] ) ) );
-			Tribe__Settings_Manager::set_option( 'fb_api_secret', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $_POST['fb_api_secret'] ) ) );
+			tribe_update_option( 'fb_api_key', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $_POST['fb_api_key'] ) ) );
+			tribe_update_option( 'fb_api_secret', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $_POST['fb_api_secret'] ) ) );
 
 			$data = array(
 				'message' => __( 'Credentials have been saved', 'the-events-calendar' ),

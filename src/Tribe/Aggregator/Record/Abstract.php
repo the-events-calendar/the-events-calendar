@@ -17,6 +17,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	public $id;
 	public $post;
+	public $meta;
 
 	/**
 	 * Setup all the hooks and filters
@@ -56,7 +57,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function setup_meta( $meta ) {
 		foreach ( $meta as $key => $value ) {
 			$key = preg_replace( '/^' . self::$meta_key_prefix . '/', '', $key );
-			$this->meta[ $key ] = reset( $value );
+			$this->meta[ $key ] = $value;
 		}
 	}
 
@@ -72,7 +73,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function create( $origin = false, $type = 'manual', $args = array() ) {
 		$defaults = array(
 			'frequency' => null,
-			'type' => $type,
+			'type'      => $type,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -110,6 +111,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$this->id = wp_insert_post( $post );
 		$this->post = get_post( $this->id );
+		$this->setup_meta( (array) $args );
 
 		return $this->post;
 	}
@@ -122,11 +124,22 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$error = null;
 
-		if ( $aggregator->daily_limit_available() > 0 ) {
+		// if the daily limit for import requests has been reached, error out
+		if ( 0 >= $aggregator->daily_limit_available() ) {
 			$error = $this->log_limit_reached_error();
 			return $this->set_status_as_failed( $error );
 		}
 
+		$defaults = array(
+			'type'     => $this->meta['type'],
+			'origin'   => $this->meta['origin'],
+			'source'   => $this->meta['source'],
+			'callback' => '',
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		// create the import on the Event Aggregator service
 		$response = $aggregator->api( 'import' )->create( $args );
 
 		// if the Aggregator API returns a WP_Error, set this record as failed
@@ -142,7 +155,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		// if the Import creation was unsuccessful, set this record as failed
-		if ( 'success_create-import' != $response->message_code ) {
+		if (
+			'success_create-import' != $response->message_code
+			&& 'queued' != $response->message_code
+		) {
 			$error = new WP_Error( $response->message_code, esc_html__( $response->message, 'the-events-calendar' ) );
 			return $this->set_status_as_failed( $error );
 		}
@@ -186,6 +202,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( $error && is_wp_error( $error ) ) {
 			$this->log_error( $error );
 		}
+		do_action( 'debug_robot', '$error :: ' . print_r( $error, TRUE ) );
 
 		return $this->set_status( Tribe__Events__Aggregator__Record__Post_Type::$status->failed );
 	}
@@ -235,7 +252,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'comment_content' => $error->get_error_message(),
 		);
 
-		return wp_new_comment( $args );
+		return wp_insert_comment( $args );
 	}
 
 	/**
@@ -244,6 +261,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return WP_Error
 	 */
 	public function log_limit_reached_error() {
+		$aggregator = Tribe__Events__Aggregator::instance();
+
 		$error = new WP_Error(
 			'aggregator-limit-reached',
 			sprintf(

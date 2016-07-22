@@ -80,7 +80,10 @@ class Tribe__Events__Aggregator {
 	}
 
 	public function register_endpoint( $rewrite ) {
-		$rewrite->add( array( 'event-aggregator', '(insert)' ), array( 'tribe-aggregator' => 1, 'tribe-action' => '%1' ) );
+		$rewrite->add(
+			array( 'event-aggregator', '(insert)' ),
+			array( 'tribe-aggregator' => 1, 'tribe-action' => '%1' )
+		);
 	}
 
 	public function add_endpoint_query_vars( $query_vars = array() ) {
@@ -207,6 +210,7 @@ class Tribe__Events__Aggregator {
 		if ( $available < 0 ) {
 			$available = 0;
 		}
+		do_action( 'debug_robot', '$available :: ' . print_r( $available, TRUE ) );
 
 		return set_transient( $this->daily_limit_transient_key(), $available, DAY_IN_SECONDS );
 	}

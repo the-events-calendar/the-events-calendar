@@ -13,8 +13,8 @@ $frequency->source      = 'facebook_import_frequency';
 $cron = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
 
-$fb_api_key = Tribe__Settings_Manager::get_option( 'fb_api_key' );
-$fb_api_secret = Tribe__Settings_Manager::get_option( 'fb_api_secret' );
+$fb_api_key = tribe_get_option( 'fb_api_key' );
+$fb_api_secret = tribe_get_option( 'fb_api_secret' );
 $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 
 ?>

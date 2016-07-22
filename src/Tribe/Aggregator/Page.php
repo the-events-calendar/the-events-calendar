@@ -185,7 +185,7 @@ class Tribe__Events__Aggregator__Page {
 			extract( $data );
 		}
 
-		include( $file );
+		include $file;
 
 		/**
 		 * Fires an Action After including the template file
@@ -220,6 +220,48 @@ class Tribe__Events__Aggregator__Page {
 	 * @return string
 	 */
 	public function render() {
+		$this->handle_submit();
+
 		return $this->template( 'page' );
+	}
+
+	public function handle_submit() {
+		if ( 'POST' !== $_SERVER['REQUEST_METHOD'] ) {
+			return;
+		}
+
+		if ( empty( $_POST['aggregator'] ) ) {
+			return;
+		}
+
+		$post_data = $_POST['aggregator'];
+
+		if ( empty( $post_data['origin'] ) || empty( $post_data[ $post_data['origin'] ] ) ) {
+			return;
+		}
+
+		$data = $post_data[ $post_data['origin'] ];
+
+		$record = Tribe__Events__Aggregator__Record__Factory::get_by_origin( $post_data['origin'] );
+
+		$meta = array(
+			'origin'    => $post_data['origin'],
+			'type'      => empty( $data['import_type'] ) ? 'manual' : $data['import_type'],
+			'frequency' => empty( $data['import_frequency'] ) ? null : $data['import_frequency'],
+			'source'    => empty( $data['source'] ) ? null : $data['source'],
+		);
+
+		$post = $record->create( $meta['origin'], $meta['type'], $meta );
+
+		do_action( 'debug_robot', '$post :: ' . print_r( $post, TRUE ) );
+
+		if ( is_wp_error( $post ) ) {
+			return $post;
+		}
+
+		$result = $record->queue_import();
+		do_action( 'debug_robot', '$result :: ' . print_r( $result, TRUE ) );
+
+		return $result;
 	}
 }
