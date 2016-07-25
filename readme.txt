@@ -290,18 +290,19 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.3] unreleased =
+* Add - A button to copy the system infomation on the help tab [43709]
+* Add - An option for users to opt into automatic system infomation so our support system can grab the system information found on the help tab automatically [31645]
+* Fix - Cease using GLOB_BRACE for including deprecated files due to limited server support [63172]
+* Fix - Avoid problems that can occur when hooking and unhooking actions (props @Chouby) [63474]
+* Tweak - Use an earlier hook for iCal feed generation (props @jlambe) [64141]
+
 = [4.2.3] 2016-07-20 =
 
 * Fix - In month view, be sure to unhook JSON-LD output when calling unhook function
 * Fix - Incorrect JSON-LD event start and end times (thank you @jjbte for reporting on .org forums)
 * Fix - Show Google Map and Link checkbox so they show when editing an event (Reported originally by Michael of @NailedIT in the .org forum)
 * Fix - Use Community Events Venue Edit Link when on Community Events Forms instead of Admin (also as a result of the report abve from @NailedIT. Thanks again.)
-
-= [4.3] unreleased =
-
-* Fix - Cease using GLOB_BRACE for including deprecated files due to limited server support [63172]
-* Fix - Avoid problems that can occur when hooking and unhooking actions (props @Chouby) [63474]
-* Tweak - Use an earlier hook for iCal feed generation (props @jlambe) [64141]
 
 = [4.2.2] 2016-07-06 =
 
