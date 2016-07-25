@@ -113,6 +113,8 @@ class Tribe__Events__Aggregator {
 			return;
 		}
 
+		// @TODO: do something with the submission of events. $_POST['data']
+
 		/**
 		 * Allow developers to hook on Event Aggregator endpoint
 		 * We will always exit with a JSON answer error

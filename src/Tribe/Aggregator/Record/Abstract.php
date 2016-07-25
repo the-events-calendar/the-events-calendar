@@ -109,7 +109,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			// $post['post_content_filtered'] =
 		}
 
-		$this->id = wp_insert_post( $post );
+		$this->id   = wp_insert_post( $post );
 		$this->post = get_post( $this->id );
 		$this->setup_meta( (array) $args );
 
@@ -134,7 +134,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'type'     => $this->meta['type'],
 			'origin'   => $this->meta['origin'],
 			'source'   => $this->meta['source'],
-			'callback' => '',
+			'callback' => site_url( '/event-aggregator/insert/?key=' . urlencode( $this->post->post_title ) ),
 		);
 
 		$args = wp_parse_args( $args, $defaults );
