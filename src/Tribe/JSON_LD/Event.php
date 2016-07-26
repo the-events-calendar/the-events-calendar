@@ -56,18 +56,21 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			// Fetch first Value
 			$data = reset( $data );
 
-			$data->startDate = get_gmt_from_date( tribe_get_start_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), 'c' );
-			$data->endDate   = get_gmt_from_date( tribe_get_end_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), 'c' );
+			$event_tz_string = get_post_meta( $post_id, '_EventTimezone', true );
+			$tz_mode         = tribe_get_option( 'tribe_events_timezone_mode', 'event' );
+			$tz_string       = $event_tz_string && $tz_mode === 'event' ? $event_tz_string : Tribe__Events__Timezones::wp_timezone_string();
+			$data->startDate = Tribe__Events__Timezones::to_utc( tribe_get_start_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' );
+			$data->endDate   = Tribe__Events__Timezones::to_utc( tribe_get_end_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' );
 
 			if ( tribe_has_venue( $post_id ) ) {
 				$venue_id       = tribe_get_venue_id( $post_id );
-				$venue_data     = Tribe__Events__JSON_LD__Venue::instance()->get_data( $venue_id, [ 'skip_duplicates' => false ] );
+				$venue_data     = Tribe__Events__JSON_LD__Venue::instance()->get_data( $venue_id );
 				$data->location = reset( $venue_data );
 			}
 
 			if ( tribe_has_organizer( $post_id ) ) {
 				$organizer_id    = tribe_get_organizer_id( $post_id );
-				$organizer_data  = Tribe__Events__JSON_LD__Organizer::instance()->get_data( $organizer_id, [ 'skip_duplicates' => false ] );
+				$organizer_data  = Tribe__Events__JSON_LD__Organizer::instance()->get_data( $organizer_id );
 				$data->organizer = reset( $organizer_data );
 			}
 
@@ -118,7 +121,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 		 *
 		 * @see localeconv()
 		 */
-		$mon_decimal_point = apply_filters( 'tribe_events_jsonld_mon_decimal_point', $locale_conv['mon_decimal_point'] );
+		$mon_decimal_point = apply_filters( 'tribe_events_json_ld_price_decimal_point', $locale_conv['mon_decimal_point'] );
 
 		// normalize the decimal separator
 		$price = str_replace( $mon_decimal_point, '.', $price );
@@ -131,7 +134,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 		 *
 		 * @see localeconv()
 		 */
-		$mon_thousands_sep = apply_filters( 'tribe_events_jsonld_thousands_separator', $locale_conv['mon_thousands_sep'] );
+		$mon_thousands_sep = apply_filters( 'tribe_events_json_ld_price_thousands_separator', $locale_conv['mon_thousands_sep'] );
 
 		// remove thousands separator
 		return str_replace( $mon_thousands_sep, '', $price );

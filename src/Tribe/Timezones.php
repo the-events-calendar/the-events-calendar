@@ -153,10 +153,12 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 	 *
 	 * @param string $datetime
 	 * @param string $tzstring
+	 * @param string $format The optional format of the resulting date, defaults to 
+	 *                      `Tribe__Date_Utils::DBDATETIMEFORMAT`.
 	 *
 	 * @return string
 	 */
-	public static function to_utc( $datetime, $tzstring ) {
+	public static function to_utc( $datetime, $tzstring, $format = null ) {
 		if ( self::is_utc_offset( $tzstring ) ) {
 			return self::apply_offset( $datetime, $tzstring, true );
 		}
@@ -167,7 +169,9 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 		$new_datetime = date_create( $datetime, $local );
 
 		if ( $new_datetime && $new_datetime->setTimezone( $utc ) ) {
-			return $new_datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+			$format = ! empty( $format ) ? $format : Tribe__Date_Utils::DBDATETIMEFORMAT;
+
+			return $new_datetime->format( $format );
 		}
 
 		// Fallback to the unmodified datetime if there was a failure during conversion

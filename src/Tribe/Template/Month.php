@@ -234,20 +234,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		}
 
 		/**
-		 * Returns an array containing the post IDs of the events in the month.
-		 *
-		 * @return array An array of post IDs.
-		 */
-		public function get_events_in_month_ids() {
-			if ( empty( $this->events_in_month ) ) {
-				return array();
-			}
-
-			return wp_list_pluck( $this->events_in_month, 'ID' );
-		}
-
-		/**
 		 * Add any special hooks for this view
+		 * any actions added here should also be removed in the unhook function
 		 *
 		 */
 		protected function hooks() {
@@ -286,6 +274,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			if ( ! empty( $this->events_in_month ) ) {
 				remove_filter( 'tribe_events_month_has_events', array( $this, 'has_events' ) );
 			}
+
+			remove_action( 'wp_head', array( $this, 'json_ld_markup' ) );
 		}
 
 		/**

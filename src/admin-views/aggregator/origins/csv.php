@@ -41,9 +41,8 @@ $field->media_title = __( 'Upload a CSV File', 'the-events-calendar' );
 			name="aggregator[csv][file]"
 			type="hidden"
 			id="tribe-ea-field-csv_file"
-			class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
+			class="tribe-ea-field tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
-			data-source="<?php echo esc_attr( $field->source ); ?>"
 		>
 		<button
 			class="tribe-ea-field tribe-ea-media_button tribe-dependent button button-secondary"
