@@ -12,6 +12,9 @@ class Tribe__Events__Aggregator__Record__Factory {
 		$record = null;
 
 		switch ( $origin ) {
+			case 'ical':
+				$record = new Tribe__Events__Aggregator__Record__iCal;
+				break;
 			case 'facebook':
 				$record = new Tribe__Events__Aggregator__Record__Facebook;
 				break;
@@ -44,6 +47,12 @@ class Tribe__Events__Aggregator__Record__Factory {
 		$record = null;
 
 		switch ( $meta[ "{$meta_prefix}origin" ] ) {
+			case 'ical':
+				$record = new Tribe__Events__Aggregator__Record__iCal;
+				$record->id = $post_id;
+				$record->post = $post;
+				$record->setup_meta( $meta );
+				break;
 			case 'facebook':
 				$record = new Tribe__Events__Aggregator__Record__Facebook;
 				$record->id = $post_id;

@@ -34,6 +34,7 @@
 
 		$this->template( 'origins/csv' );
 		$this->template( 'origins/ics' );
+		$this->template( 'origins/ical' );
 		$this->template( 'origins/facebook' );
 		$this->template( 'origins/meetup' );
 		?>
