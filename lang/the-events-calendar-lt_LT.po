@@ -10,6 +10,30 @@ msgstr ""
 "X-Generator: GlotPress/2.1.0-alpha\n"
 "Project-Id-Version: Stable (latest release)\n"
 
+#: src/Tribe/Venue.php:149
+msgid "venue"
+msgstr ""
+
+#: src/Tribe/Venue.php:158
+msgid "venues"
+msgstr ""
+
+#: vendor/tickets/src/Tribe/RSVP.php:603
+msgid "You confirmed you will not be attending %s"
+msgstr ""
+
+#: vendor/tickets/src/views/tickets/email-non-attendance.php:248
+msgid "Thank you for confirming that you will not be attending the above event."
+msgstr ""
+
+#: vendor/tickets/src/views/tickets/orders-rsvp.php:71
+msgid "Type: "
+msgstr ""
+
+#: src/Tribe/Organizer.php:161
+msgid "organizer"
+msgstr ""
+
 #: common/src/Tribe/Log/Admin.php:132
 #: vendor/tickets/common/src/Tribe/Log/Admin.php:132
 msgctxt "log selector"
@@ -217,15 +241,15 @@ msgstr ""
 msgid "Buy"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets.php:1281
+#: vendor/tickets/src/Tribe/Tickets.php:1285
 msgid "Tickets are not yet available."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets.php:1283
+#: vendor/tickets/src/Tribe/Tickets.php:1287
 msgid "Tickets are no longer available."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets.php:1285
+#: vendor/tickets/src/Tribe/Tickets.php:1289
 msgid "There are no tickets available at this time."
 msgstr ""
 
@@ -343,7 +367,7 @@ msgstr ""
 msgid "Organizer Featured Image"
 msgstr ""
 
-#: src/Tribe/Main.php:2661
+#: src/Tribe/Main.php:2662
 msgid " (View Full %1$s Description Here: %2$s)"
 msgstr ""
 
@@ -395,15 +419,15 @@ msgstr ""
 msgid "It looks like you have modified your global stock settings but have not saved or updated the post."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets.php:840
+#: vendor/tickets/src/Tribe/Tickets.php:844
 msgid "Use global stock"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets.php:841
+#: vendor/tickets/src/Tribe/Tickets.php:845
 msgid "Use global stock but cap sales"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/Tickets.php:842
+#: vendor/tickets/src/Tribe/Tickets.php:846
 msgid "Independent (do not use global stock)"
 msgstr ""
 
@@ -542,52 +566,52 @@ msgstr ""
 msgid "Already have Events Tickets Plus? You can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:211
+#: vendor/tickets/src/Tribe/RSVP.php:221
 msgctxt "Attendee number"
 msgid "Attendee %1$s"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:489
+#: vendor/tickets/src/Tribe/RSVP.php:573
 msgid "Your tickets from %s"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:720
+#: vendor/tickets/src/Tribe/RSVP.php:841
 msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:726
+#: vendor/tickets/src/Tribe/RSVP.php:847
 msgid "You can't RSVP more than the total remaining tickets."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:731
+#: vendor/tickets/src/Tribe/RSVP.php:852
 msgid "In order to RSVP, you must enter your name and a valid email address."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:870
+#: vendor/tickets/src/Tribe/RSVP.php:991
 msgid "(deleted)"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1127
+#: vendor/tickets/src/Tribe/RSVP.php:1259
 msgid "Return to the %1$sAttendees Report%2$s."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1134
+#: vendor/tickets/src/Tribe/RSVP.php:1266
 msgid "Post updated. %1$s"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1138
+#: vendor/tickets/src/Tribe/RSVP.php:1270
 msgid "Post published. %1$s"
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1141
+#: vendor/tickets/src/Tribe/RSVP.php:1273
 msgid "Post submitted."
 msgstr "Įrašas nusiųstas."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1142
+#: vendor/tickets/src/Tribe/RSVP.php:1274
 msgid "Post scheduled."
 msgstr ""
 
-#: vendor/tickets/src/Tribe/RSVP.php:1143
+#: vendor/tickets/src/Tribe/RSVP.php:1275
 msgid "Post draft updated."
 msgstr "Įrašo juodraštis atnaujintas."
 
@@ -692,7 +716,7 @@ msgstr ""
 msgid "Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results."
 msgstr ""
 
-#: src/Tribe/Main.php:3992
+#: src/Tribe/Main.php:3993
 msgid "Check out the %savailable add-ons%s."
 msgstr ""
 
@@ -870,15 +894,15 @@ msgstr ""
 msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
 msgstr ""
 
-#: src/Tribe/Organizer.php:270
+#: src/Tribe/Organizer.php:299
 msgid "Unnamed %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:148
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:151
 msgid "Create New %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:218
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:221
 msgid "Add another %s"
 msgstr ""
 
@@ -1103,6 +1127,10 @@ msgstr ""
 msgid "Activate %s"
 msgstr "Aktyvuoti %s"
 
+#: src/Tribe/Organizer.php:175
+msgid "organizers"
+msgstr ""
+
 #: src/views/month/single-day.php:42
 msgid "View %1$s %2$s"
 msgid_plural "View All %1$s %2$s"
@@ -1119,7 +1147,7 @@ msgstr ""
 msgid "Cancel"
 msgstr "Atcelt"
 
-#: vendor/tickets/src/Tribe/Tickets.php:593
+#: vendor/tickets/src/Tribe/Tickets.php:597
 msgid "Editing the ticket price is currently disallowed."
 msgstr ""
 
@@ -1630,6 +1658,7 @@ msgstr "%s navigacija"
 msgid "Attendee List"
 msgstr "Dalyvių sąrašas"
 
+#: vendor/tickets/src/views/tickets/email-non-attendance.php:24
 #: vendor/tickets/src/views/tickets/email.php:26
 msgid "Your tickets"
 msgstr "Jūsų bilietai"
@@ -2610,8 +2639,8 @@ msgid "This event was created using Community Events. Are you sure you want to s
 msgstr "Šis renginys buvo sukurtas naudojantis Bendrijos Renginiai. Ar tikrai norite pardavinėti bilietus į renginį?"
 
 #: vendor/tickets/src/admin-views/meta-box.php:42
-msgid "Upload image for the ticket header"
-msgstr "Įkelkite paveikslėlį bilieto antraštei"
+msgid "Upload image for the ticket header."
+msgstr ""
 
 #: vendor/tickets/src/admin-views/meta-box.php:43
 msgid "The maximum image size in the email will be 580px wide by any height, and then scaled for mobile. If you would like \"retina\" support use an image sized to 1160px wide."
@@ -2974,7 +3003,7 @@ msgstr "Turite renginį, veikianti po vidurnakčio? Pasirinkite laiką, po to į
 msgid "%s"
 msgstr "%s"
 
-#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4044
+#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4045
 msgid "View Calendar"
 msgstr "Peržiūrėti kalendorių"
 
@@ -2988,48 +3017,48 @@ msgid "CSV"
 msgstr "CSV"
 
 #: common/src/Tribe/Settings.php:215
-#: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4093
+#: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4094
 #: vendor/tickets/common/src/Tribe/Settings.php:215
 msgid "Settings"
 msgstr "Nustatymai"
 
-#: src/Tribe/Main.php:4094
+#: src/Tribe/Main.php:4095
 msgid "Calendar"
 msgstr "Kalendorius"
 
-#: src/Tribe/Main.php:4155
+#: src/Tribe/Main.php:4156
 msgid "List"
 msgstr "Sąrašas"
 
-#: src/Tribe/Main.php:4173
+#: src/Tribe/Main.php:4174
 msgid "Month"
 msgstr "Mėnesis"
 
-#: src/Tribe/Main.php:4190
+#: src/Tribe/Main.php:4191
 msgid "Day"
 msgstr "Diena"
 
-#: src/Tribe/Main.php:4215 src/Tribe/Main.php:4216
+#: src/Tribe/Main.php:4216 src/Tribe/Main.php:4217
 msgid "Search"
 msgstr "Paieška"
 
-#: src/Tribe/Main.php:4240 src/Tribe/Main.php:4256
+#: src/Tribe/Main.php:4241 src/Tribe/Main.php:4257
 msgid "Date"
 msgstr "Data"
 
-#: src/Tribe/Main.php:4243
+#: src/Tribe/Main.php:4244
 msgid "%s In"
 msgstr "%s kalendoriuje"
 
-#: src/Tribe/Main.php:4245
+#: src/Tribe/Main.php:4246
 msgid "%s From"
 msgstr "%s nuo"
 
-#: src/Tribe/Main.php:4247
+#: src/Tribe/Main.php:4248
 msgid "Day Of"
 msgstr "Išeiginė"
 
-#: src/Tribe/Main.php:4320
+#: src/Tribe/Main.php:4321
 msgid "Once Every 30 Mins"
 msgstr "Kartą per 30 minučių"
 
@@ -3226,33 +3255,35 @@ msgstr "Saugos kodas"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:83
 #: vendor/tickets/src/Tribe/Attendees_Table.php:263
-#: vendor/tickets/src/Tribe/Attendees_Table.php:356
+#: vendor/tickets/src/Tribe/Attendees_Table.php:267
+#: vendor/tickets/src/Tribe/Attendees_Table.php:361
 msgid "Check in"
 msgstr "Prisiregistruoti"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:264
-#: vendor/tickets/src/Tribe/Attendees_Table.php:357
+#: vendor/tickets/src/Tribe/Attendees_Table.php:268
+#: vendor/tickets/src/Tribe/Attendees_Table.php:362
 msgid "Undo Check in"
 msgstr "Atšaukti registraciją"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:329
+#: vendor/tickets/src/Tribe/Attendees_Table.php:334
 msgid "Print"
 msgstr "Spausdinti"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:330
+#: vendor/tickets/src/Tribe/Attendees_Table.php:335
 #: vendor/tickets/src/views/tickets/rsvp.php:118
 msgid "Email"
 msgstr "El.paštas"
 
-#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:331
+#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:336
 msgid "Export"
 msgstr "Eksportuoti"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:337
+#: vendor/tickets/src/Tribe/Attendees_Table.php:342
 msgid "Filter by purchaser name, ticket #, order # or security code"
 msgstr "Filtruoti pagal pirkėjo vardą, bilieto nr., užsakymo nr., ar apsaugos kodą"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:358
+#: vendor/tickets/src/Tribe/Attendees_Table.php:363
 #: vendor/tickets/src/admin-views/list.php:43
 msgid "Delete"
 msgstr "Ištrinti"
@@ -3276,7 +3307,7 @@ msgstr "Nustatyti kaip bilieto antraštę"
 msgid "Your ticket has been saved."
 msgstr "Jūsų bilietas buvo išsaugotas."
 
-#: vendor/tickets/src/Tribe/Tickets.php:539
+#: vendor/tickets/src/Tribe/Tickets.php:543
 msgid "Your ticket has been deleted."
 msgstr "Jūsų bilietas buvo panaikintas."
 
@@ -4296,11 +4327,11 @@ msgstr "Filipinai"
 msgid "Pitcairn"
 msgstr "Pitkernas"
 
-#: src/Tribe/Venue.php:290
+#: src/Tribe/Venue.php:310
 msgid "Unnamed Venue"
 msgstr "Vieta be pavadinimo"
 
-#: common/src/Tribe/View_Helpers.php:46 src/Tribe/Venue.php:251
+#: common/src/Tribe/View_Helpers.php:46 src/Tribe/Venue.php:271
 #: src/functions/template-tags/venue.php:272
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:46
 msgid "United States"
@@ -4345,15 +4376,15 @@ msgstr ""
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:148 src/Tribe/Main.php:1628
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:151 src/Tribe/Main.php:1628
 #: src/Tribe/Main.php:1701
 msgid "Use Saved %s:"
 msgstr "Naudoti išsaugotą %s:"
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:180 src/Tribe/Main.php:1474
-#: src/Tribe/Main.php:1637 src/Tribe/Main.php:1703 src/Tribe/Organizer.php:69
-#: src/Tribe/Venue.php:75
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:183 src/Tribe/Main.php:1474
+#: src/Tribe/Main.php:1637 src/Tribe/Main.php:1703 src/Tribe/Organizer.php:71
+#: src/Tribe/Venue.php:77
 msgid "Edit %s"
 msgstr "Koreguoti %s"
 
@@ -4642,23 +4673,23 @@ msgstr "Renginių sąrašas"
 msgid "Upcoming Events"
 msgstr "Artimiausi renginiai"
 
-#: src/Tribe/Importer/Admin_Page.php:196 src/Tribe/Venue.php:139
+#: src/Tribe/Importer/Admin_Page.php:196 src/Tribe/Venue.php:141
 #: src/functions/template-tags/venue.php:52
 msgid "Venues"
 msgstr "Vietos"
 
-#: src/Tribe/Venue.php:130
+#: src/Tribe/Venue.php:132
 #: src/functions/advanced-functions/meta_registration.php:126
 #: src/functions/template-tags/venue.php:41
 msgid "Venue"
 msgstr "Vieta"
 
-#: src/Tribe/Importer/Admin_Page.php:197 src/Tribe/Organizer.php:146
+#: src/Tribe/Importer/Admin_Page.php:197 src/Tribe/Organizer.php:148
 #: src/functions/template-tags/organizer.php:86
 msgid "Organizers"
 msgstr "Organizatoriai"
 
-#: src/Tribe/Organizer.php:132
+#: src/Tribe/Organizer.php:134
 #: src/functions/advanced-functions/meta_registration.php:205
 #: src/functions/template-tags/organizer.php:75
 msgid "Organizer"
@@ -4677,7 +4708,7 @@ msgstr "Renginiai"
 msgid "Event"
 msgstr "Renginys"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.1) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.2) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:624
@@ -4758,33 +4789,33 @@ msgstr "kategorija"
 msgid "tag"
 msgstr "žymė"
 
-#: src/Tribe/Main.php:1472 src/Tribe/Organizer.php:67 src/Tribe/Venue.php:73
+#: src/Tribe/Main.php:1472 src/Tribe/Organizer.php:69 src/Tribe/Venue.php:75
 msgid "Add New"
 msgstr "Pridėti naują"
 
 #: src/Tribe/Main.php:1473 src/Tribe/Main.php:1604 src/Tribe/Main.php:1605
-#: src/Tribe/Organizer.php:68 src/Tribe/Venue.php:74
+#: src/Tribe/Organizer.php:70 src/Tribe/Venue.php:76
 msgid "Add New %s"
 msgstr "Pridėti naują %s"
 
-#: src/Tribe/Main.php:1475 src/Tribe/Organizer.php:70 src/Tribe/Venue.php:76
+#: src/Tribe/Main.php:1475 src/Tribe/Organizer.php:72 src/Tribe/Venue.php:78
 msgid "New %s"
 msgstr "Naujas %s"
 
-#: src/Tribe/Main.php:1476 src/Tribe/Organizer.php:71 src/Tribe/Venue.php:77
+#: src/Tribe/Main.php:1476 src/Tribe/Organizer.php:73 src/Tribe/Venue.php:79
 #: vendor/tickets/src/views/tickets/orders.php:26
 msgid "View %s"
 msgstr "Peržiūrėti %s"
 
-#: src/Tribe/Main.php:1477 src/Tribe/Organizer.php:72 src/Tribe/Venue.php:78
+#: src/Tribe/Main.php:1477 src/Tribe/Organizer.php:74 src/Tribe/Venue.php:80
 msgid "Search %s"
 msgstr "Ieškoti %s"
 
-#: src/Tribe/Main.php:1478 src/Tribe/Organizer.php:73 src/Tribe/Venue.php:79
+#: src/Tribe/Main.php:1478 src/Tribe/Organizer.php:75 src/Tribe/Venue.php:81
 msgid "No %s found"
 msgstr "Jokių %s nerasta"
 
-#: src/Tribe/Main.php:1479 src/Tribe/Organizer.php:74 src/Tribe/Venue.php:80
+#: src/Tribe/Main.php:1479 src/Tribe/Organizer.php:76 src/Tribe/Venue.php:82
 msgid "No %s found in Trash"
 msgstr "Jokių %s šiukšliadėžėje nerasta"
 
@@ -4868,19 +4899,19 @@ msgstr "%s pateikta."
 msgid "%s draft updated."
 msgstr "%s juodraštis atnaujintas."
 
-#: src/Tribe/Linked_Posts.php:780
+#: src/Tribe/Linked_Posts.php:782
 msgid "Use New %s"
 msgstr "Naudoti naują %s"
 
-#: src/Tribe/Linked_Posts.php:784
+#: src/Tribe/Linked_Posts.php:786
 msgid "My %s"
 msgstr "Mano %s"
 
-#: src/Tribe/Linked_Posts.php:814
+#: src/Tribe/Linked_Posts.php:816
 msgid "Available %s"
 msgstr "Galimas %s"
 
-#: src/Tribe/Linked_Posts.php:847
+#: src/Tribe/Linked_Posts.php:849
 msgid "No saved %s exists."
 msgstr "Išsaugotų %s neegzistuoja."
 
@@ -4922,36 +4953,36 @@ msgstr ""
 msgid "all"
 msgstr ""
 
-#: src/Tribe/Main.php:3494 src/Tribe/Main.php:3529
+#: src/Tribe/Main.php:3495 src/Tribe/Main.php:3530
 #: src/functions/template-tags/day.php:157
 #: src/functions/template-tags/day.php:178
 msgid "Date out of range."
 msgstr "Data nepatenka į diapazoną."
 
-#: src/Tribe/Main.php:3564
+#: src/Tribe/Main.php:3565
 msgid "%s Options"
 msgstr "%s parinktys"
 
-#: src/Tribe/Main.php:3571 src/Tribe/Main.php:3582
+#: src/Tribe/Main.php:3572 src/Tribe/Main.php:3583
 msgid "%s Information"
 msgstr "%s informacija"
 
-#: src/Tribe/Main.php:3918
+#: src/Tribe/Main.php:3919
 msgid "Support"
 msgstr "Pagalba"
 
-#: src/Tribe/Main.php:3921
+#: src/Tribe/Main.php:3922
 msgid "View All Add-Ons"
 msgstr "Peržiūrėti visus papildinius"
 
-#: src/Tribe/Main.php:3941
+#: src/Tribe/Main.php:3942
 msgid "News from Modern Tribe"
 msgstr "Naujienos iš Modern Triba"
 
-#: src/Tribe/Main.php:3986
+#: src/Tribe/Main.php:3987
 msgid "Additional Functionality"
 msgstr "Papildomos funkcijos"
 
-#: src/Tribe/Main.php:3991
+#: src/Tribe/Main.php:3992
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
 msgstr "Ieškote papildomų funkcijų, įskaitant besikartojančių renginių, bilietų pardavimo, viešai pateikiamų renginių, naujų atvaizdavimų ir daugiau?"
