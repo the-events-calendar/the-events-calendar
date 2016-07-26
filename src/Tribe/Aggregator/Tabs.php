@@ -44,7 +44,7 @@ class Tribe__Events__Aggregator__Tabs {
 		$this->register( 'Tribe__Events__Aggregator__Tabs__New' );
 		$this->register( 'Tribe__Events__Aggregator__Tabs__Scheduled' );
 		$this->register( 'Tribe__Events__Aggregator__Tabs__Past' );
-		$this->register( 'Tribe__Events__Aggregator__Tabs__Favorite' );
+		//$this->register( 'Tribe__Events__Aggregator__Tabs__Favorite' );
 	}
 
 	/**
