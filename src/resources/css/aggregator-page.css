@@ -32,6 +32,16 @@
 .tribe-ea .tribe-ea-hidden {
     display: none;
 }
+.tribe-ea .tribe-ea-file-name {
+    display: inline-block;
+    font-style: italic;
+    line-height: 26px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 200px;
+}
 .tribe-ea .tribe-ea-size-small {
     width: 100px;
 }

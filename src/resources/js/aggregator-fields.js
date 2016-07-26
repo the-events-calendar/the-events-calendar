@@ -288,7 +288,8 @@ tribe_ea.fields = {
 		$elements.each( function(){
 			var $button = $( this ),
 				input = $button.data( 'input' ),
-				$field = $( '#' + input );
+				$field = $( '#' + input ),
+				$name = $( '#' + input + '_name' );
 
 			// Setup the WP Media for this slug
 			var media = my.media[ input ] = wp.media( {
@@ -309,7 +310,10 @@ tribe_ea.fields = {
 				}
 
 				selection.each( function( attachment ) {
-					$field.select2( 'data', { id: attachment.attributes.id, text: attachment.attributes.title } );
+					$field.data( { id: attachment.attributes.id, text: attachment.attributes.title } );
+					$field.val( attachment.attributes.id );
+					$name.html( attachment.attributes.title );
+					$name.attr( 'title', attachment.attributes.title );
 				} );
 			} );
 
