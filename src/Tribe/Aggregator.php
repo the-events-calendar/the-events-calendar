@@ -52,11 +52,11 @@ class Tribe__Events__Aggregator {
 	 * Constructor!
 	 */
 	public function __construct() {
-		$this->page             = Tribe__Events__Aggregator__Page::instance();
-		$this->service          = Tribe__Events__Aggregator__Service::instance();
-		$this->record_post_type = Tribe__Events__Aggregator__Record__Post_Type::instance();
-		$this->cron             = Tribe__Events__Aggregator__Cron::instance();
-		$this->pue_checker      = new Tribe__PUE__Checker( 'http://tri.be/', 'event-aggregator' );
+		$this->page        = Tribe__Events__Aggregator__Page::instance();
+		$this->service     = Tribe__Events__Aggregator__Service::instance();
+		$this->records     = Tribe__Events__Aggregator__Records::instance();
+		$this->cron        = Tribe__Events__Aggregator__Cron::instance();
+		$this->pue_checker = new Tribe__PUE__Checker( 'http://tri.be/', 'event-aggregator' );
 		$this->api();
 
 		// Register the Aggregator Endpoint
