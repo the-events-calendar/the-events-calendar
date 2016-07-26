@@ -23,7 +23,7 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 		<?php
 		if ( $missing_fb_credentials ) :
 			?>
-			<input type="hidden" name="has-credentials" id="tribe-has-credentials" value="0">
+			<input type="hidden" name="has-credentials" id="tribe-has-facebook-credentials" value="0">
 			<div class="tribe-message tribe-credentials-prompt">
 				<span class="dashicons dashicons-warning"></span>
 				<?php
@@ -61,17 +61,17 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 			<?php
 		else:
 			?>
-			<input type="hidden" name="has-credentials" id="tribe-has-credentials" value="1">
+			<input type="hidden" name="has-credentials" id="tribe-has-facebook-credentials" value="1">
 			<?php
 		endif;
 		?>
 	</td>
 </tr>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">
-	<th scope="row" class="tribe-dependent" data-depends="#tribe-has-credentials" data-condition="1">
+	<th scope="row" class="tribe-dependent" data-depends="#tribe-has-facebook-credentials" data-condition="1">
 		<label for="tribe-ea-field-import_type"><?php echo esc_html( $field->label ); ?></label>
 	</th>
-	<td class="tribe-dependent" data-depends="#tribe-has-credentials" data-condition="1">
+	<td class="tribe-dependent" data-depends="#tribe-has-facebook-credentials" data-condition="1">
 		<select
 			name="aggregator[facebook][import_type]"
 			id="tribe-ea-field-facebook_import_type"

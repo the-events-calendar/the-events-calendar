@@ -59,16 +59,6 @@ class Tribe__Events__Aggregator {
 		$this->pue_checker      = new Tribe__PUE__Checker( 'http://tri.be/', 'event-aggregator' );
 		$this->api();
 
-		// $this->api( 'import' )->create( array(
-		// 	'type' => 'manual',
-		// 	'origin' => 'facebook',
-		// 	'source' => '453553174769258',
-		// 	'facebook_app_id' => '',
-		// 	'facebook_secret' => '',
-		// ) );
-
-		// $this->api( 'import' )->get( 'd1885e7b2ed7dab8e3d908cecec8780daf55a0ac55e421ed10dadf89f7f51bd1' );
-
 		// Register the Aggregator Endpoint
 		add_action( 'tribe_events_pre_rewrite', array( $this, 'register_endpoint' ) );
 
@@ -77,6 +67,9 @@ class Tribe__Events__Aggregator {
 
 		// Add endpoint query vars
 		add_filter( 'query_vars', array( $this, 'add_endpoint_query_vars' ) );
+
+		// filter the "plugin name" for Event Aggregator
+		add_filter( 'pue_get_plugin_name', array( $this, 'pue_plugin_name' ), 10, 2 );
 	}
 
 	public function register_endpoint( $rewrite ) {
@@ -222,5 +215,21 @@ class Tribe__Events__Aggregator {
 	 */
 	private function daily_limit_transient_key() {
 		return 'tribe-aggregator-limit-used_' . date( 'Y-m-d' );
+	}
+
+	/**
+	 * Handles the filtering of the PUE "plugin name" for event aggregator which...isn't a plugin
+	 *
+	 * @param string $plugin_name Plugin name to filter
+	 * @param string $plugin_slug Plugin slug
+	 *
+	 * @return string
+	 */
+	public function pue_plugin_name( $plugin_name, $plugin_slug ) {
+		if ( 'event-aggregator' !== $plugin_slug ) {
+			return $plugin_name;
+		}
+
+		return __( 'Event Aggregator', 'the-events-calendar' );
 	}
 }

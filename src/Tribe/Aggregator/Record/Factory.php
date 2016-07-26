@@ -18,6 +18,9 @@ class Tribe__Events__Aggregator__Record__Factory {
 			case 'facebook':
 				$record = new Tribe__Events__Aggregator__Record__Facebook;
 				break;
+			case 'meetup':
+				$record = new Tribe__Events__Aggregator__Record__Meetup;
+				break;
 		}
 
 		return $record;
@@ -44,22 +47,10 @@ class Tribe__Events__Aggregator__Record__Factory {
 			return null;
 		}
 
-		$record = null;
-
-		switch ( $meta[ "{$meta_prefix}origin" ] ) {
-			case 'ical':
-				$record = new Tribe__Events__Aggregator__Record__iCal;
-				$record->id = $post_id;
-				$record->post = $post;
-				$record->setup_meta( $meta );
-				break;
-			case 'facebook':
-				$record = new Tribe__Events__Aggregator__Record__Facebook;
-				$record->id = $post_id;
-				$record->post = $post;
-				$record->setup_meta( $meta );
-				break;
-		}
+		$record       = $this->get_by_origin( $meta[ "{$meta_prefix}origin" ] );
+		$record->id   = $post_id;
+		$record->post = $post;
+		$record->setup_meta( $meta );
 
 		return $record;
 	}
