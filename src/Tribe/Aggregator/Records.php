@@ -8,7 +8,7 @@ class Tribe__Events__Aggregator__Records {
 	 *
 	 * @var string
 	 */
-	public static $post_type = 'aggregator-record';
+	public static $post_type = 'tribe-ea-record';
 
 	/**
 	 * Base slugs for all the EA Record Post Statuses
@@ -16,11 +16,11 @@ class Tribe__Events__Aggregator__Records {
 	 * @var stdClass
 	 */
 	public static $status = array(
-		'success'   => 'tribe-aggregator-success',
-		'failed'    => 'tribe-aggregator-failed',
-		'scheduled' => 'tribe-aggregator-scheduled',
-		'pending'   => 'tribe-aggregator-pending',
-		'draft'     => 'tribe-aggregator-draft',
+		'success'   => 'tribe-ea-success',
+		'failed'    => 'tribe-ea-failed',
+		'scheduled' => 'tribe-ea-scheduled',
+		'pending'   => 'tribe-ea-pending',
+		'draft'     => 'tribe-ea-draft',
 	);
 
 	/**
@@ -210,18 +210,21 @@ class Tribe__Events__Aggregator__Records {
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Abstract|null
 	 */
-	public function get_by_origin( $origin ) {
+	public function get_by_origin( $origin, $post = null ) {
 		$record = null;
 
 		switch ( $origin ) {
 			case 'ical':
-				$record = new Tribe__Events__Aggregator__Record__iCal;
+				$record = new Tribe__Events__Aggregator__Record__iCal( $post );
+				break;
+			case 'ics':
+				$record = new Tribe__Events__Aggregator__Record__ICS( $post );
 				break;
 			case 'facebook':
-				$record = new Tribe__Events__Aggregator__Record__Facebook;
+				$record = new Tribe__Events__Aggregator__Record__Facebook( $post );
 				break;
 			case 'meetup':
-				$record = new Tribe__Events__Aggregator__Record__Meetup;
+				$record = new Tribe__Events__Aggregator__Record__Meetup( $post );
 				break;
 		}
 
@@ -235,27 +238,18 @@ class Tribe__Events__Aggregator__Records {
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Abstract|null
 	 */
-	public function get_by_post_id( $post_id ) {
-		$post = get_post( $post_id );
+	public function get_by_post_id( $post ) {
+		$post = get_post( $post );
 
 		if ( is_wp_error( $post ) ) {
-			return null;
+			return $post;
 		}
 
-		$meta = get_post_meta( $post_id );
-		$meta_prefix = Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix;
-		$origin = reset( $meta[ "{$meta_prefix}origin" ] );
-
-		if ( empty( $origin ) ) {
+		if ( empty( $post->post_mime_type ) ) {
 			return new WP_Error( 'tribe-invalid-import-record', __( 'The Import Record is missing the origin meta key', 'the-events-calendar' ) );
 		}
 
-		$record       = self::get_by_origin( $origin );
-		$record->id   = $post_id;
-		$record->post = $post;
-		$record->setup_meta( $meta );
-
-		return $record;
+		return $this->get_by_origin( $post->post_mime_type, $post );
 	}
 
 	/**
@@ -273,7 +267,7 @@ class Tribe__Events__Aggregator__Records {
 			'meta_key' => $meta_prefix . 'import_id',
 			'meta_value' => $import_id,
 			'post_status' => array(
-				'pending',
+				self::$status->pending,
 				self::$status->success,
 			),
 		);
@@ -285,21 +279,12 @@ class Tribe__Events__Aggregator__Records {
 		}
 
 		$post = $query->post;
-		$post_id = $post->ID;
-
-		$meta = get_post_meta( $post_id );
-		$origin = reset( $meta[ "{$meta_prefix}origin" ] );
-
-		if ( empty( $origin ) ) {
+		if ( empty( $post->post_mime_type ) ) {
 			return new WP_Error( 'tribe-invalid-import-record', __( 'The Import Record is missing the origin meta key', 'the-events-calendar' ) );
 		}
 
-		$record       = $this->get_by_origin( $origin );
-		$record->id   = $post_id;
-		$record->post = $post;
-		$record->setup_meta( $meta );
+		return $this->get_by_origin( $post->post_mime_type, $post );
 
-		return $record;
 	}
 
 	public function action_do_import() {

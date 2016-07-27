@@ -266,7 +266,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			case 'tribe-ea-pending':
 				$classes[] = 'dashicons-image-rotate';
 				break;
-			case 'draft':
+			case 'tribe-ea-draft':
 				$classes[] = 'dashicons-welcome-write-blog';
 				break;
 		}
@@ -319,8 +319,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 	public function column_frequency( $post ) {
 		if ( 'scheduled' === $post->ping_status ) {
-			$frequency = get_post_meta( $post->ID, '_tribe_aggregator_frequency', true );
-			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $frequency ) );
+			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $post->post_content ) );
 			if ( ! empty( $frequency->text ) ) {
 				$html[] = $frequency->text;
 			} else {

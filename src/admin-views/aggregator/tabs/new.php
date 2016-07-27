@@ -4,7 +4,7 @@
 		<?php
 		$field = (object) array();
 		$field->source = 'origins';
-		$field->label = esc_html__( 'Import Origin', 'the-events-calendar' );
+		$field->label = esc_html__( 'Import Origin:', 'the-events-calendar' );
 		$field->placeholder = esc_attr__( 'Select Origin', 'the-events-calendar' );
 		$field->help = esc_attr__( 'Specify the type of data you wish to import', 'the-events-calendar' );
 		$field->options = Tribe__Events__Aggregator::instance()->api( 'origins' )->get();
@@ -49,7 +49,7 @@
 		<table class="wp-list-table widefat fixed striped">
 			<thead>
 				<tr>
-					<# if ( 'manual' === jQuery( '#' + jQuery( '[id$="import_type"]:visible' ).first().attr( 'id' ).replace( 's2id_', '' ) ).val() ) { #>
+					<# if ( data.display_checkboxes ) { #>
 						<th scope="col" class="manage-column column-cb check-column">
 							<label class="screen-reader-text" for="cb-select-all-1"><?php esc_html_e( 'Select All', 'the-events-calendar' ); ?></label>
 							<input type="checkbox">
@@ -63,7 +63,7 @@
 			<tbody>
 				<# _.each( data.events, function( event ) { #>
 					<tr>
-						<# if ( 'manual' === jQuery( '#' + jQuery( '[id$="import_type"]:visible' ).first().attr( 'id' ).replace( 's2id_', '' ) ).val() ) { #>
+						<# if ( data.display_checkboxes ) { #>
 							<th scope="row" class="check-column"><input type="checkbox"></th>
 						<# } #>
 						<td>{{ event.start_date }}</td>
@@ -74,7 +74,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<# if ( 'manual' === jQuery( '#' + jQuery( '[id$="import_type"]:visible' ).first().attr( 'id' ).replace( 's2id_', '' ) ).val() ) { #>
+					<# if ( data.display_checkboxes ) { #>
 						<th scope="col" class="manage-column column-cb check-column">
 							<label class="screen-reader-text" for="cb-select-all-1"><?php esc_html_e( 'Select All', 'the-events-calendar' ); ?></label>
 							<input type="checkbox">

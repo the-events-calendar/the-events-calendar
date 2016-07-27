@@ -100,11 +100,7 @@ class Tribe__Events__Aggregator__Page {
 				$type = $types[ array_rand( $types ) ];
 				$record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $origin );
 
-				$meta = array(
-					'origin'    => $origin,
-					'source'    => empty( $data['source'] ) ? null : $data['source'],
-				);
-
+				$meta = array();
 				if ( 'scheduled' === $type ) {
 					$meta['frequency'] = $frequencies[ array_rand( $frequencies ) ]->id;
 				}

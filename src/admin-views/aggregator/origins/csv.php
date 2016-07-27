@@ -1,6 +1,7 @@
 <?php
+$origin_slug        = 'csv';
 $field              = (object) array();
-$field->label       = __( 'Content Type', 'the-events-calendar' );
+$field->label       = __( 'Content Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Content Type', 'the-events-calendar' );
 $field->help        = __( 'For better results, import venue and organizer files before importing event files', 'the-events-calendar' );
 $field->source      = 'csv_content_type';
@@ -25,7 +26,7 @@ $field->source      = 'csv_content_type';
 
 <?php
 $field              = (object) array();
-$field->label       = __( 'Choose File', 'the-events-calendar' );
+$field->label       = __( 'Choose File:', 'the-events-calendar' );
 $field->placeholder = __( 'Choose a CSV file', 'the-events-calendar' );
 $field->help        = __( 'Select your .CSV file from the WordPress media library. You may need to first upload the file from your computer to the library.', 'the-events-calendar' );
 $field->source      = 'csv_files';

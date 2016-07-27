@@ -1,6 +1,7 @@
 <?php
+$origin_slug        = 'ics';
 $field              = (object) array();
-$field->label       = __( 'Choose File', 'the-events-calendar' );
+$field->label       = __( 'Choose File:', 'the-events-calendar' );
 $field->placeholder = __( 'Choose File', 'the-events-calendar' );
 $field->help        = __( 'Select your ICS file from the WordPress media library. You may need to first upload the file from your computer to the library.', 'the-events-calendar' );
 $field->source      = 'ics_files';
@@ -33,6 +34,8 @@ $field->media_title = __( 'Upload an ICS File', 'the-events-calendar' );
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
 	</td>
 </tr>
+
+<?php include dirname( __FILE__ ) . '/refine.php'; ?>
 
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-ics_file" data-condition-not-empty>
 	<td colspan="2" class="tribe-button-row">

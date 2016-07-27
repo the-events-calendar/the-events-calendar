@@ -22,9 +22,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return void
 	 */
-	public function __construct( $id = null ) {
-		// If we have an ID we try to Setup
-		$this->load( $id );
+	public function __construct( $post = null ) {
+		// If we have an Post we try to Setup
+		$this->load( $post );
 	}
 
 	/**
@@ -48,7 +48,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$this->type = $this->post->ping_status;
 
 		if ( 'scheduled' === $this->type ) {
-			$this->frequency = $this->post_content;
+			$this->frequency = $this->post->post_content;
 		}
 
 		$this->setup_meta( get_post_meta( $this->id ) );
@@ -83,7 +83,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$defaults = array(
 			'frequency' => null,
-			'parent'    =>
+			'parent'    => 0,
 		);
 		$args = (object) wp_parse_args( $args, $defaults );
 
@@ -99,6 +99,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'post_mime_type' => $this->origin,
 			'post_date'      => current_time( 'mysql' ),
 			'post_status'    => Tribe__Events__Aggregator__Records::$status->draft,
+			'post_parent'    => $args->parent,
 			'meta_input'     => array(),
 		);
 
@@ -110,7 +111,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$args = (object) $args;
 
 		if ( 'scheduled' === $type ) {
-			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( 'id=' . $args->frequency );
+			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $args->frequency ) );
 			if ( ! $frequency ) {
 				return new WP_Error( 'invalid-frequency', __( 'An Invalid frequency was used to try to setup a scheduled import', 'the-events-calendar' ), $args );
 			}
@@ -124,7 +125,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			// $post['post_content_filtered'] =
 		}
 
-		// After Creating the Post Load and return
+		// // After Creating the Post Load and return
 		return $this->load( wp_insert_post( $post ) );
 	}
 
@@ -151,6 +152,26 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		if ( ! empty( $this->meta['frequency'] ) ) {
 			$defaults['frequency'] = $this->meta['frequency'];
+		}
+
+		if ( ! empty( $this->meta['file'] ) ) {
+			$defaults['file'] = $this->meta['file'];
+		}
+
+		if ( ! empty( $this->meta['keywords'] ) ) {
+			$defaults['keywords'] = $this->meta['keywords'];
+		}
+
+		if ( ! empty( $this->meta['location'] ) ) {
+			$defaults['location'] = $this->meta['location'];
+		}
+
+		if ( ! empty( $this->meta['start_date'] ) ) {
+			$defaults['start_date'] = $this->meta['start_date'];
+		}
+
+		if ( ! empty( $this->meta['radius'] ) ) {
+			$defaults['radius'] = $this->meta['radius'];
 		}
 
 		$args = wp_parse_args( $args, $defaults );
