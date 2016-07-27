@@ -10,6 +10,8 @@
   "common/vendor/datatables/extensions/FixedHeader/js/dataTables*.js",
   "common/vendor/datatables/extensions/Responsive/css/responsive.dataTables*.css",
   "common/vendor/datatables/extensions/Responsive/js/dataTables*.js",
+  "common/vendor/datatables/extensions/Select/css/select.dataTables*.css",
+  "common/vendor/datatables/extensions/Select/js/dataTables*.js",
   "common/vendor/datatables/extensions/Scroller/css/scroller.dataTables*.css",
   "common/vendor/datatables/extensions/Scroller/js/dataTables*.js",
   "common/vendor/datatables/media/css/jquery.dataTables*.css",
