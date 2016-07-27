@@ -42,10 +42,17 @@
 		<span class='spinner tribe-ea-active'></span>
 	</div>
 	<script type="text/template" id="tmpl-preview">
+		<p class="tribe-preview-message">
+			<?php esc_html_e( 'Preview', 'the-events-calendar' ); ?>
+		</p>
 		<table class="wp-list-table widefat fixed striped">
 			<thead>
 				<tr>
-					<th scope="col"><?php esc_html_e( 'Start Date', 'the-events-calendar' ); ?></th>
+					<th scope="col" class="manage-column column-cb check-column">
+						<label class="screen-reader-text" for="cb-select-all-1"><?php esc_html_e( 'Select All', 'the-events-calendar' ); ?></label>
+						<input type="checkbox">
+					</th>
+					<th scope="col" class="column-primary"><?php esc_html_e( 'Start Date', 'the-events-calendar' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'End Date', 'the-events-calendar' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'Event', 'the-events-calendar' ); ?></th>
 				</tr>
@@ -53,6 +60,7 @@
 			<tbody>
 				<# _.each( data.events, function( event ) { #>
 					<tr>
+						<th scope="row" class="check-column"><input type="checkbox"></th>
 						<td>{{ event.start_date }}</td>
 						<td>{{ event.end_date }}</td>
 						<td>{{ event.title }}</td>
@@ -61,6 +69,10 @@
 			</tbody>
 			<tfoot>
 				<tr>
+					<th scope="col" class="manage-column column-cb check-column">
+						<label class="screen-reader-text" for="cb-select-all-1"><?php esc_html_e( 'Select All', 'the-events-calendar' ); ?></label>
+						<input type="checkbox">
+					</th>
 					<th scope="col"><?php esc_html_e( 'Start Date', 'the-events-calendar' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'End Date', 'the-events-calendar' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'Event', 'the-events-calendar' ); ?></th>
