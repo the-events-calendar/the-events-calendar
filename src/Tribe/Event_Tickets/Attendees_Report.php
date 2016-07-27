@@ -20,34 +20,7 @@ class Tribe__Events__Event_Tickets__Attendees_Report {
 	 * @since 4.0.1
 	 */
 	public function add_hooks() {
-		add_action( 'tribe_tickets_attendees_do_event_action_links', array( $this, 'event_action_links' ) );
 		add_action( 'tribe_tickets_attendees_event_details_list_top', array( $this, 'event_details_top' ) );
-	}
-
-	/**
-	 * Injects action links into the attendee screen.
-	 *
-	 * @param $event_id
-	 */
-	public function event_action_links( $event_id ) {
-		$action_links = array(
-			'<a href="' . esc_url( get_edit_post_link( $event_id ) ) . '" title="' . esc_attr_x( 'Edit', 'attendee event actions', 'event-tickets' ) . '">' . esc_html_x( 'Edit', 'attendee event actions', 'event-tickets' ) . '</a>',
-			'<a href="' . esc_url( get_permalink( $event_id ) ) . '" title="' . esc_attr_x( 'View', 'attendee event actions', 'event-tickets' ) . '">' . esc_html_x( 'View', 'attendee event actions', 'event-tickets' ) . '</a>',
-		);
-
-		/**
-		 * Provides an opportunity to add and remove action links from the
-		 * attendee screen summary box.
-		 *
-		 * @param array $action_links
-		 */
-		$action_links = (array) apply_filters( 'tribe_tickets_attendees_event_action_links', $action_links );
-
-		if ( empty( $action_links ) ) {
-			return;
-		}
-
-		echo '<div class="event-actions">' . join( ' | ', $action_links ) . '</div>';
 	}
 
 	/**
