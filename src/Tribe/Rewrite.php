@@ -3,7 +3,7 @@
 defined( 'WPINC' ) or die;
 
 	/**
- * Rewrite Configuration Class
+	 * Rewrite Configuration Class
 	 * Permalinks magic Happens over here!
 	 */
 	class Tribe__Events__Rewrite {
