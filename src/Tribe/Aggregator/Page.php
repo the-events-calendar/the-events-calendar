@@ -51,10 +51,32 @@ class Tribe__Events__Aggregator__Page {
 	 * It will add the methods and setup any dependecies
 	 */
 	private function __construct() {
+		$plugin = Tribe__Events__Main::instance();
+
 		add_action( 'admin_menu', array( $this, 'register_menu_item' ) );
 
 		// Setup Tabs Instance
 		$this->tabs = Tribe__Events__Aggregator__Tabs::instance();
+
+		// Load these on all the pages
+		tribe_assets( $plugin,
+			array(
+				array( 'tribe-ea-fields', 'aggregator-fields.js', array( 'jquery', 'underscore', 'tribe-bumpdown', 'tribe-dependency', 'tribe-events-select2' ) ),
+				array( 'tribe-ea-page', 'aggregator-page.css', ),
+			),
+			'admin_enqueue_scripts',
+			array(
+				'conditionals' => array(
+					array( $this, 'is_screen' )
+				),
+				'localize' => (object) array(
+					'name' => 'tribe_l10n_ea_fields',
+					'data' => array(
+						'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
+					),
+				),
+			)
+		);
 	}
 
 	/**
@@ -226,6 +248,33 @@ class Tribe__Events__Aggregator__Page {
 	}
 
 	public function handle_submit() {
+		if ( isset( $_GET['dummy'] ) ) {
+			$origins = array( 'facebook', 'meetup', 'ical' );
+			$frequencies = Tribe__Events__Aggregator__Cron::instance()->get_frequency();
+			$types = array( 'manual', 'scheduled' );
+
+
+			for ( $i=0; $i < 15; $i++ ) {
+				$origin = $origins[ array_rand( $origins ) ];
+				$type = $types[ array_rand( $types ) ];
+
+				$record = Tribe__Events__Aggregator__Record__Factory::get_by_origin( $origin );
+
+				$meta = array(
+					'origin'    => $origin,
+					'source'    => empty( $data['source'] ) ? null : $data['source'],
+				);
+
+				if ( 'scheduled' === $type ) {
+					$meta['frequency'] = $frequencies[ array_rand( $frequencies ) ]->id;
+				}
+
+				$records[] = $record->create( $type, $meta );
+			}
+
+			var_dump( $records );
+		}
+
 		if ( 'POST' !== $_SERVER['REQUEST_METHOD'] ) {
 			return;
 		}
@@ -251,7 +300,7 @@ class Tribe__Events__Aggregator__Page {
 			'source'    => empty( $data['source'] ) ? null : $data['source'],
 		);
 
-		$post = $record->create( $meta['origin'], $meta['type'], $meta );
+		$post = $record->create( $meta['type'], $meta );
 
 		if ( is_wp_error( $post ) ) {
 			return $post;

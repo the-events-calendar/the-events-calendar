@@ -116,13 +116,24 @@ class Tribe__Events__Aggregator__Tabs {
 	 *
 	 * @return boolean       Is this tab active?
 	 */
-	public function is_active( $slug ) {
+	public function is_active( $slug = null ) {
 		if ( ! Tribe__Events__Aggregator__Page::instance()->is_screen() ) {
 			return false;
 		}
 
+		/**
+		 * Allow Developers to change the default tab
+		 * @param string $slug
+		 */
+		$default = apply_filters( 'tribe_aggregator_default_tab', 'new' );
+
+		if ( is_null( $slug ) ) {
+			// Set the slug
+			$slug = ! empty( $_GET['tab'] ) && $this->exists( $_GET['tab'] ) ? $_GET['tab'] : $default;
+		}
+
 		// Fetch the Active Tab
-		$tab = $this->get_active( $slug );
+		$tab = $this->get_active();
 
 		// Compare
 		return $slug === $tab->get_slug();

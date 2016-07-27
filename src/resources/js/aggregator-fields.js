@@ -116,12 +116,6 @@ tribe_ea.fields = {
 			if ( $select.is( '[multiple]' ) ) {
 				args.multiple = true;
 
-				if ( ! $select.is( '[data-tags]' ) ) {
-					args.data = function(){
-						return { 'results': $select.data( 'options' ) };
-					};
-				}
-
 				if ( ! _.isArray( $select.data( 'separator' ) ) ) {
 					args.tokenSeparators = [ $select.data( 'separator' ) ];
 				} else {
@@ -238,6 +232,7 @@ tribe_ea.fields = {
 				}
 			}
 
+			console.log( args );
 			$select.select2( args );
 		})
 		.on( 'change', function( event ) {

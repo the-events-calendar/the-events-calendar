@@ -8,12 +8,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @var string
 	 */
-	public static $meta_key_prefix    = 'ea_';
-
-	public static $key = array(
-		'source' => '_tribe_ea_source',
-		'origin' => '_tribe_ea_origin',
-	);
+	public static $meta_key_prefix = '_tribe_ea_';
 
 	public $id;
 	public $post;
@@ -25,11 +20,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return void
 	 */
 	public function __construct( $id = null ) {
-		// Make it an object for easier usage
-		if ( ! is_object( self::$key ) ) {
-			self::$key = (object) self::$key;
-		}
-
 		if ( ! empty( $id ) && is_numeric( $id ) ) {
 			$this->id = $id;
 		}
@@ -64,27 +54,27 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Creates an import record
 	 *
-	 * @param string $origin EA origin
 	 * @param string $type Type of record to create - manual or schedule
 	 * @param array $args Post type args
 	 *
 	 * @return WP_Post|WP_Error
 	 */
-	public function create( $origin = false, $type = 'manual', $args = array() ) {
+	public function create( $type = 'manual', $args = array() ) {
 		$defaults = array(
 			'frequency' => null,
-			'type'      => $type,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
 
 		$post = array(
 			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
-			'post_title'  => wp_generate_password( 32, true, true ),
-			'post_type'   => Tribe__Events__Aggregator__Record__Post_Type::$post_type,
-			'post_date'   => current_time( 'mysql' ),
-			'post_status' => 'draft',
-			'meta_input'  => array(),
+			'post_title'     => wp_generate_password( 32, true, true ),
+			'post_type'      => Tribe__Events__Aggregator__Records::$post_type,
+			'ping_status'    => $type,
+			'post_mime_type' => $this->origin,
+			'post_date'      => current_time( 'mysql' ),
+			'post_status'    => 'draft',
+			'meta_input'     => array(),
 		);
 
 		// prefix all keys
@@ -102,7 +92,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
 			$post['post_content'] = $frequency->id;
-			$post['post_status']  = Tribe__Events__Aggregator__Record__Post_Type::$status->scheduled;
+			$post['post_status']  = Tribe__Events__Aggregator__Records::$status->scheduled;
 
 			// When the next scheduled import should happen
 			// @todo
@@ -203,7 +193,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$this->log_error( $error );
 		}
 
-		return $this->set_status( Tribe__Events__Aggregator__Record__Post_Type::$status->failed );
+		return $this->set_status( Tribe__Events__Aggregator__Records::$status->failed );
 	}
 
 	/**
@@ -221,7 +211,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return int
 	 */
 	public function set_status_as_success() {
-		return $this->set_status( Tribe__Events__Aggregator__Record__Post_Type::$status->success );
+		return $this->set_status( Tribe__Events__Aggregator__Records::$status->success );
 	}
 
 	/**

@@ -19,6 +19,7 @@ class Tribe__Events__Aggregator__Records {
 		'success'   => 'tribe-ea-success',
 		'failed'    => 'tribe-ea-failed',
 		'scheduled' => 'tribe-ea-scheduled',
+		'pending'   => 'tribe-ea-pending',
 	);
 
 	/**
@@ -173,6 +174,16 @@ class Tribe__Events__Aggregator__Records {
 		);
 		$object = register_post_status( self::$status->scheduled, $args );
 		$registered_by_key->scheduled = $registered_by_name->{'tribe-ea-scheduled'} = $object;
+
+		// Register the Pending post status
+		$args = array(
+			'label'              => esc_html_x( 'Pending', 'event aggregator status', 'the-events-calendar' ),
+			'label_count'        => _nx_noop( 'Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>', 'event aggregator status', 'the-events-calendar' ),
+			'public'             => true,
+			'publicly_queryable' => true,
+		);
+		$object = register_post_status( self::$status->pending, $args );
+		$registered_by_key->pending = $registered_by_name->{'tribe-ea-pending'} = $object;
 
 		// Check if we already have the Status registered
 		if ( isset( $registered_by_key->{ $status } ) && is_object( $registered_by_key->{ $status } ) ) {
