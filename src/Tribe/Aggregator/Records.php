@@ -2,7 +2,7 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
-class Tribe__Events__Aggregator__Record__Post_Type {
+class Tribe__Events__Aggregator__Records {
 	/**
 	 * Slug of the Post Type used for Event Aggregator Records
 	 *
@@ -125,19 +125,23 @@ class Tribe__Events__Aggregator__Record__Post_Type {
 	 * @return stdClass|WP_Error|array
 	 */
 	public function get_status( $status = null ) {
-		static $registered = null;
+		$registered_by_key = (object) array();
+		$registered_by_name = (object) array();
 
-		if ( ! $registered ) {
-			$registered = (object) array(
-				'success'   => get_post_status_object( self::$status->success ),
-				'failed'    => get_post_status_object( self::$status->failed ),
-				'scheduled' => get_post_status_object( self::$status->scheduled ),
-			);
+		foreach ( self::$status as $key => $name ) {
+			$object = get_post_status_object( $name );
+			$registered_by_key->{ $key } = $object;
+			$registered_by_name->{ $name } = $object;
 		}
 
 		// Check if we already have the Status registered
-		if ( isset( $registered->{ $status } ) && is_object( $registered->{ $status } ) ) {
-			return $registered->{ $status };
+		if ( isset( $registered_by_key->{ $status } ) && is_object( $registered_by_key->{ $status } ) ) {
+			return $registered_by_key->{ $status };
+		}
+
+		// Check if we already have the Status registered
+		if ( isset( $registered_by_name->{ $status } ) && is_object( $registered_by_name->{ $status } ) ) {
+			return $registered_by_name->{ $status };
 		}
 
 		// Register the Success post status
@@ -147,7 +151,8 @@ class Tribe__Events__Aggregator__Record__Post_Type {
 			'public'             => true,
 			'publicly_queryable' => true,
 		);
-		$registered->success = register_post_status( self::$status->success, $args );
+		$object = register_post_status( self::$status->success, $args );
+		$registered_by_key->success = $registered_by_name->{'tribe-ea-success'} = $object;
 
 		// Register the Failed post status
 		$args = array(
@@ -156,7 +161,8 @@ class Tribe__Events__Aggregator__Record__Post_Type {
 			'public'             => true,
 			'publicly_queryable' => true,
 		);
-		$registered->failed = register_post_status( self::$status->failed, $args );
+		$object = register_post_status( self::$status->failed, $args );
+		$registered_by_key->failed = $registered_by_name->{'tribe-ea-failed'} = $object;
 
 		// Register the Scheduled post status
 		$args = array(
@@ -165,14 +171,20 @@ class Tribe__Events__Aggregator__Record__Post_Type {
 			'public'             => true,
 			'publicly_queryable' => true,
 		);
-		$registered->scheduled = register_post_status( self::$status->scheduled, $args );
+		$object = register_post_status( self::$status->scheduled, $args );
+		$registered_by_key->scheduled = $registered_by_name->{'tribe-ea-scheduled'} = $object;
 
-		// Re-check if we have the status registered
-		if ( isset( $registered->{ $status } ) && is_object( $registered->{ $status } ) ) {
-			return $registered->{ $status };
+		// Check if we already have the Status registered
+		if ( isset( $registered_by_key->{ $status } ) && is_object( $registered_by_key->{ $status } ) ) {
+			return $registered_by_key->{ $status };
 		}
 
-		return $registered;
+		// Check if we already have the Status registered
+		if ( isset( $registered_by_name->{ $status } ) && is_object( $registered_by_name->{ $status } ) ) {
+			return $registered_by_name->{ $status };
+		}
+
+		return $registered_by_key;
 	}
 
 	public function filter_maybe_empty_content( $maybe_empty = false, $postarr = array() ) {
