@@ -35,14 +35,8 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 		// Only Load if this Is active
 		tribe_assets( $plugin,
 			array(
-				array( 'datatables', 'vendor/datatables/media/js/jquery.dataTables.js', array( 'jquery' ) ),
-				array( 'datatables-css', 'vendor/datatables/media/css/jquery.dataTables.css' ),
-				array( 'datatables-scroller', 'vendor/datatables/extensions/Scroller/js/dataTables.scroller.js', array( 'jquery', 'datatables' ) ),
-				array( 'datatables-scroller-css', 'vendor/datatables/extensions/Scroller/css/scroller.dataTables.css' ),
-				array( 'datatables-fixedheader', 'vendor/datatables/extensions/FixedHeader/js/dataTables.fixedHeader.js', array( 'jquery', 'datatables' ) ),
-				array( 'datatables-fixedheader-css', 'vendor/datatables/extensions/FixedHeader/css/fixedHeader.dataTables.css' ),
-				array( 'tribe-ea-fields', 'aggregator-fields.js', array( 'jquery', 'datatables-scroller', 'datatables-fixedheader', 'underscore', 'tribe-bumpdown', 'tribe-dependency', 'tribe-events-select2' ) ),
-				array( 'tribe-ea-page', 'aggregator-page.css', ),
+				array( 'tribe-ea-fields', 'aggregator-fields.js', array( 'jquery', 'datatables', 'underscore', 'tribe-bumpdown', 'tribe-dependency', 'tribe-events-select2' ) ),
+				array( 'tribe-ea-page', 'aggregator-page.css', array( 'datatables-css' ) ),
 			),
 			'admin_enqueue_scripts',
 			array(
