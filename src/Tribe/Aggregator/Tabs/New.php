@@ -203,6 +203,14 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	public function ajax_fetch_import() {
 		$import_id = $_GET['import_id'];
 
+		$record = Tribe__Events__Aggregator__Record__Factory::get_by_import_id( $import_id );
+
+		if ( is_wp_error( $record ) ) {
+			wp_send_json_error( $record );
+		}
+
+		$result = $record->get_import_data();
+
 		wp_send_json_success( $result );
 	}
 }

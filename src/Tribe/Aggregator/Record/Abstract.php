@@ -57,7 +57,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function setup_meta( $meta ) {
 		foreach ( $meta as $key => $value ) {
 			$key = preg_replace( '/^' . self::$meta_key_prefix . '/', '', $key );
-			$this->meta[ $key ] = $value;
+			$this->meta[ $key ] = is_array( $value ) ? reset( $value ) : $value;
 		}
 	}
 
@@ -81,7 +81,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$post = array(
 			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
 			'post_title'  => wp_generate_password( 32, true, true ),
-			'post_type'   => Tribe__Events__Aggregator__Record__Post_Type::$post_type,
+			'post_type'   => Tribe__Events__Aggregator__Records::$post_type,
 			'post_date'   => current_time( 'mysql' ),
 			'post_status' => 'draft',
 			'meta_input'  => array(),
@@ -102,7 +102,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
 			$post['post_content'] = $frequency->id;
-			$post['post_status']  = Tribe__Events__Aggregator__Record__Post_Type::$status->scheduled;
+			$post['post_status']  = Tribe__Events__Aggregator__Records::$status->scheduled;
 
 			// When the next scheduled import should happen
 			// @todo
@@ -182,6 +182,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	public function get_import_data() {
+		$aggregator = Tribe__Events__Aggregator::instance();
+		return $aggregator->api( 'import' )->get( $this->meta['import_id'] );
 	}
 
 	/**
@@ -206,7 +208,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$this->log_error( $error );
 		}
 
-		return $this->set_status( Tribe__Events__Aggregator__Record__Post_Type::$status->failed );
+		return $this->set_status( Tribe__Events__Aggregator__Records::$status->failed );
 	}
 
 	/**
@@ -224,7 +226,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return int
 	 */
 	public function set_status_as_success() {
-		return $this->set_status( Tribe__Events__Aggregator__Record__Post_Type::$status->success );
+		return $this->set_status( Tribe__Events__Aggregator__Records::$status->success );
 	}
 
 	/**

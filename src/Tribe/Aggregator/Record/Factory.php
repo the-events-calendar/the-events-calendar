@@ -42,12 +42,13 @@ class Tribe__Events__Aggregator__Record__Factory {
 
 		$meta = get_post_meta( $post_id );
 		$meta_prefix = Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix;
+		$origin = reset( $meta[ "{$meta_prefix}origin" ] );
 
-		if ( empty( $meta[ "{$meta_prefix}origin" ] ) ) {
-			return null;
+		if ( empty( $origin ) ) {
+			return new WP_Error( 'tribe-invalid-import-record', __( 'The Import Record is missing the origin meta key', 'the-events-calendar' ) );
 		}
 
-		$record       = $this->get_by_origin( $meta[ "{$meta_prefix}origin" ] );
+		$record       = self::get_by_origin( $origin );
 		$record->id   = $post_id;
 		$record->post = $post;
 		$record->setup_meta( $meta );
@@ -63,23 +64,35 @@ class Tribe__Events__Aggregator__Record__Factory {
 	 * @return Tribe__Events__Aggregator__Record__Abstract|null
 	 */
 	public static function get_by_import_id( $import_id ) {
+		$meta_prefix = Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix;
+
 		$args = array(
+			'post_type' => Tribe__Events__Aggregator__Records::$post_type,
+			'meta_key' => $meta_prefix . 'import_id',
+			'meta_value' => $import_id,
+			'post_status' => array(
+				'pending',
+				Tribe__Events__Aggregator__Records::$status->success,
+			),
 		);
 
 		$query = new WP_Query( $args );
 
-		if ( is_wp_error( $post ) ) {
-			return null;
+		if ( empty( $query->post ) ) {
+			return new WP_Error( 'tribe-invalid-import-id', sprintf( __( 'Unable to find an Import Record with the import_id of %s', 'the-events-calendar' ), $import_id ) );
 		}
+
+		$post = $query->post;
+		$post_id = $post->ID;
 
 		$meta = get_post_meta( $post_id );
-		$meta_prefix = Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix;
+		$origin = reset( $meta[ "{$meta_prefix}origin" ] );
 
-		if ( empty( $meta[ "{$meta_prefix}origin" ] ) ) {
-			return null;
+		if ( empty( $origin ) ) {
+			return new WP_Error( 'tribe-invalid-import-record', __( 'The Import Record is missing the origin meta key', 'the-events-calendar' ) );
 		}
 
-		$record       = $this->get_by_origin( $meta[ "{$meta_prefix}origin" ] );
+		$record       = self::get_by_origin( $origin );
 		$record->id   = $post_id;
 		$record->post = $post;
 		$record->setup_meta( $meta );

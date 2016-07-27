@@ -34,15 +34,38 @@
 		$this->template( 'origins/meetup' );
 		?>
 
-		<tr class="tribe-preview-container">
-			<td colspan="2">
-				<div class="tribe-ea-table-container">
-					<div class="spinner-container">
-						<span class='spinner tribe-ea-active'></span>
-					</div>
-				</div>
-			</td>
-		</tr>
-
 	</tbody>
 </table>
+
+<div class="tribe-ea-table-container tribe-preview-container">
+	<div class="spinner-container">
+		<span class='spinner tribe-ea-active'></span>
+	</div>
+	<script type="text/template" id="tmpl-preview">
+		<table class="wp-list-table widefat fixed striped">
+			<thead>
+				<tr>
+					<th scope="col"><?php esc_html_e( 'Start Date', 'the-events-calendar' ); ?></th>
+					<th scope="col"><?php esc_html_e( 'End Date', 'the-events-calendar' ); ?></th>
+					<th scope="col"><?php esc_html_e( 'Event', 'the-events-calendar' ); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<# _.each( data.events, function( event ) { #>
+					<tr>
+						<td>{{ event.start_date }}</td>
+						<td>{{ event.end_date }}</td>
+						<td>{{ event.title }}</td>
+					</tr>
+				<# }); #>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th scope="col"><?php esc_html_e( 'Start Date', 'the-events-calendar' ); ?></th>
+					<th scope="col"><?php esc_html_e( 'End Date', 'the-events-calendar' ); ?></th>
+					<th scope="col"><?php esc_html_e( 'Event', 'the-events-calendar' ); ?></th>
+				</tr>
+			</tfoot>
+		</table>
+	</script>
+</div>

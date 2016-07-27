@@ -69,6 +69,8 @@ tribe_ea.fields = {
 			var $preview_container = $( '.tribe-preview-container' );
 			$preview_container.addClass( 'tribe-fetching' );
 
+			$preview.prop( 'disabled', true );
+
 			var jqxhr = $.ajax( {
 				type: 'POST',
 				url: ajaxurl + '?action=tribe_create_import',
@@ -77,8 +79,41 @@ tribe_ea.fields = {
 			} );
 
 			jqxhr.done( function( response ) {
-				console.log( response );
+				if ( ! response.success ) {
+					// @todo: output error
+					return;
+				}
+
+				my.import_id = response.data.data.import_id;
+
+				setTimeout( my.poll_for_results, 300 );
 			} );
+		} );
+	};
+
+	my.poll_for_results = function() {
+		var jqxhr = $.ajax( {
+			type: 'GET',
+			url: ajaxurl + '?action=tribe_fetch_import&import_id=' + my.import_id,
+			dataType: 'json'
+		} );
+
+		jqxhr.done( function( response ) {
+			if ( ! response.success ) {
+				// @todo: output error
+				return;
+			}
+
+			if ( 'success' !== response.data.status ) {
+				setTimeout( my.poll_for_results, 300 );
+			} else {
+				var template = wp.template( 'preview' );
+				$( '.tribe-ea-table-container' ).append( template( response.data.data ) );
+				$( '.tribe-ea-table-container table').DataTable();
+
+				var $preview_container = $( '.tribe-preview-container' );
+				$preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetched' );
+			}
 		} );
 	};
 
