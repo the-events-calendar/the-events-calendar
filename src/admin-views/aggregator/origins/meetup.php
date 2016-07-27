@@ -1,6 +1,7 @@
 <?php
+$origin_slug        = 'meetup';
 $field              = (object) array();
-$field->label       = __( 'Import Type', 'the-events-calendar' );
+$field->label       = __( 'Import Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Import Type', 'the-events-calendar' );
 $field->help        = __( 'One-time imports include all currently listed events, while scheduled imports automatically grab new events and updates from Meetup on a set schedule. Single events can be added via a one-time import.', 'the-events-calendar' );
 $field->source      = 'meetup_import_type';
@@ -112,7 +113,7 @@ $missing_meetup_credentials = ! $meetup_api_key;
 
 <?php
 $field              = (object) array();
-$field->label       = __( 'URL', 'the-events-calendar' );
+$field->label       = __( 'URL:', 'the-events-calendar' );
 $field->placeholder = __( 'meetup.com/example', 'the-events-calendar' );
 $field->help        = __( 'Enter the url for a Meetup group, page, or individual. Or, enter the url of a single Meetup event.', 'the-events-calendar' );
 ?>

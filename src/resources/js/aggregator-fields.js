@@ -43,6 +43,10 @@ tribe_ea.fields = {
 			callback( my.$.fields );
 		} );
 
+		$( document ).on( 'keypress', my.selector.fields, function() {
+			$( this ).change();
+		} );
+
 		$( document ).on( 'click', '.enter-credentials .tribe-save', function() {
 			var $container = $( this ).closest( '.enter-credentials' );
 			var data = $( this ).closest( '.tribe-fieldset' ).find( 'input' ).serialize();
@@ -121,7 +125,15 @@ tribe_ea.fields = {
 				setTimeout( my.poll_for_results, 300 );
 			} else {
 				var template = wp.template( 'preview' );
-				$( '.tribe-ea-table-container' ).append( template( response.data.data ) );
+				var template_data = response.data.data;
+				template_data.display_checkboxes = false;
+
+				var $import_type = $( '[id$="import_type"]:visible' );
+				if ( ! $import_type.length || 'manual' === $( '#' + $import_type.first().attr( 'id' ).replace( 's2id_', '' ) ).val() ) {
+					template_data.display_checkboxes = true;
+				}
+
+				$( '.tribe-ea-table-container' ).append( template( template_data ) );
 				$( '.tribe-ea-table-container table').tribeDataTable( {
 					lengthMenu: [
 						[5, 10, 25, 50, -1],
@@ -397,6 +409,7 @@ tribe_ea.fields = {
 				selection.each( function( attachment ) {
 					$field.data( { id: attachment.attributes.id, text: attachment.attributes.title } );
 					$field.val( attachment.attributes.id );
+					$field.change();
 					$name.html( attachment.attributes.title );
 					$name.attr( 'title', attachment.attributes.title );
 				} );

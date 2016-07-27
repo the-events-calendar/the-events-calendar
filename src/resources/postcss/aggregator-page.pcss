@@ -7,6 +7,10 @@
 		background-color: #fff;
 
 		.form-table {
+			th[scope="row"] {
+				width: 100px;
+			}
+
 			tr {
 				position: relative;
 			}
@@ -15,12 +19,8 @@
 
 	.tribe-ea-help {
 		padding: 4px;
+		color: #0073aa;
 		cursor: pointer;
-
-		&:hover,
-		&.tribe-active {
-			color: #0073aa;
-		}
 	}
 
 	.tribe-ea-hidden {
@@ -31,11 +31,11 @@
 		display: inline-block;
 		font-style: italic;
 		line-height: 26px;
-		max-width: 100%;
+		max-width: 200px;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		width: 200px;
+		width: auto;
 	}
 
 	.tribe-ea-size-small {

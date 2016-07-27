@@ -87,10 +87,15 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$record = Tribe__Events__Aggregator__Record__Factory::get_by_origin( $post_data['origin'] );
 
 		$meta = array(
-			'origin'    => $post_data['origin'],
-			'type'      => empty( $data['import_type'] ) ? 'manual' : $data['import_type'],
-			'frequency' => empty( $data['import_frequency'] ) ? null : $data['import_frequency'],
-			'source'    => empty( $data['source'] ) ? null : $data['source'],
+			'origin'     => $post_data['origin'],
+			'type'       => empty( $data['import_type'] )      ? 'manual' : $data['import_type'],
+			'frequency'  => empty( $data['import_frequency'] ) ? null     : $data['import_frequency'],
+			'file'       => empty( $data['file'] )             ? null     : $data['file'],
+			'keywords'   => empty( $data['keywords'] )         ? null     : $data['keywords'],
+			'location'   => empty( $data['location'] )         ? null     : $data['location'],
+			'start_date' => empty( $data['start_date'] )       ? null     : $data['start_date'],
+			'radius'     => empty( $data['radius'] )           ? null     : $data['radius'],
+			'source'     => empty( $data['source'] )           ? null     : $data['source'],
 		);
 
 		$post = $record->create( $meta['origin'], $meta['type'], $meta );

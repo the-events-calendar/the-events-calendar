@@ -1,6 +1,7 @@
 <?php
+$origin_slug        = 'ical';
 $field              = (object) array();
-$field->label       = __( 'Import Type', 'the-events-calendar' );
+$field->label       = __( 'Import Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Import Type', 'the-events-calendar' );
 $field->help        = __( 'One-time imports include all currently listed events, while scheduled imports automatically grab new events and updates from the feed on a set schedule. Single events can be added via a one-time import.', 'the-events-calendar' );
 $field->source      = 'ical_import_type';
@@ -60,7 +61,7 @@ $frequencies = $cron->get_frequency();
 </tr>
 <?php
 $field              = (object) array();
-$field->label       = __( 'URL', 'the-events-calendar' );
+$field->label       = __( 'URL:', 'the-events-calendar' );
 $field->placeholder = __( 'example.com/url.ics', 'the-events-calendar' );
 $field->help        = __( 'Enter the url for the iCalendar feed you wish to import, e.g. https://central.wordcamp.org/calendar.ics', 'the-events-calendar' );
 ?>
@@ -79,6 +80,9 @@ $field->help        = __( 'Enter the url for the iCalendar feed you wish to impo
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
 	</td>
 </tr>
+
+<?php include dirname( __FILE__ ) . '/refine.php'; ?>
+
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-ical_import_type" data-condition-not-empty>
 	<td colspan="2" class="tribe-button-row">
 		<button type="submit" class="button button-primary tribe-preview">

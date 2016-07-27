@@ -15,6 +15,9 @@ class Tribe__Events__Aggregator__Record__Factory {
 			case 'ical':
 				$record = new Tribe__Events__Aggregator__Record__iCal;
 				break;
+			case 'ics':
+				$record = new Tribe__Events__Aggregator__Record__ICS;
+				break;
 			case 'facebook':
 				$record = new Tribe__Events__Aggregator__Record__Facebook;
 				break;

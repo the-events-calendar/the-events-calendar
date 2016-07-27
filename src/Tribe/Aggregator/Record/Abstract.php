@@ -141,6 +141,26 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$defaults['frequency'] = $this->meta['frequency'];
 		}
 
+		if ( ! empty( $this->meta['file'] ) ) {
+			$defaults['file'] = $this->meta['file'];
+		}
+
+		if ( ! empty( $this->meta['keywords'] ) ) {
+			$defaults['keywords'] = $this->meta['keywords'];
+		}
+
+		if ( ! empty( $this->meta['location'] ) ) {
+			$defaults['location'] = $this->meta['location'];
+		}
+
+		if ( ! empty( $this->meta['start_date'] ) ) {
+			$defaults['start_date'] = $this->meta['start_date'];
+		}
+
+		if ( ! empty( $this->meta['radius'] ) ) {
+			$defaults['radius'] = $this->meta['radius'];
+		}
+
 		$args = wp_parse_args( $args, $defaults );
 
 		// create the import on the Event Aggregator service
