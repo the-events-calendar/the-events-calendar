@@ -52,10 +52,11 @@ class Tribe__Events__Event_Tickets__Attendees_Report {
 
 	/**
 	 * Injects event meta data into the Attendees report
+	 *
+	 * @param int $event_id
 	 */
 	public function event_details_top( $event_id ) {
 		$post_type = get_post_type( $event_id );
-		$post_type_object = get_post_type_object( $post_type );
 
 		if ( Tribe__Events__Main::POSTTYPE === $post_type ) {
 			echo '
