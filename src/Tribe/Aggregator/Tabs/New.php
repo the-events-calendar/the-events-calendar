@@ -36,9 +36,13 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		add_action( 'wp_ajax_tribe_ea_dropdown_csv_files', array( $this, 'ajax_csv_files' ) );
 		add_action( 'wp_ajax_tribe_ea_dropdown_origins', array( $this, 'ajax_origins' ) );
 		add_action( 'wp_ajax_tribe_save_credentials', array( $this, 'ajax_save_credentials' ) );
+		add_action( 'wp_ajax_tribe_create_import', array( $this, 'ajax_create_import' ) );
+		add_action( 'wp_ajax_tribe_fetch_import', array( $this, 'ajax_fetch_import' ) );
 
 		// We need to enqueue Media scripts like this
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_media' ) );
+
+		add_action( 'tribe_aggregator_page_submit', array( $this, 'handle_submit' ) );
 	}
 
 	public function enqueue_media() {
@@ -59,6 +63,45 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 	public function get_label() {
 		return esc_html__( 'New Import', 'the-events-calendar' );
+	}
+
+	public function handle_submit() {
+		if ( 'POST' !== $_SERVER['REQUEST_METHOD'] ) {
+			return;
+		}
+
+		if ( empty( $_POST['aggregator'] ) ) {
+			return;
+		}
+
+		// @todo: validate nonce
+
+		$post_data = $_POST['aggregator'];
+
+		if ( empty( $post_data['origin'] ) || empty( $post_data[ $post_data['origin'] ] ) ) {
+			return;
+		}
+
+		$data = $post_data[ $post_data['origin'] ];
+
+		$record = Tribe__Events__Aggregator__Record__Factory::get_by_origin( $post_data['origin'] );
+
+		$meta = array(
+			'origin'    => $post_data['origin'],
+			'type'      => empty( $data['import_type'] ) ? 'manual' : $data['import_type'],
+			'frequency' => empty( $data['import_frequency'] ) ? null : $data['import_frequency'],
+			'source'    => empty( $data['source'] ) ? null : $data['source'],
+		);
+
+		$post = $record->create( $meta['origin'], $meta['type'], $meta );
+
+		if ( is_wp_error( $post ) ) {
+			return $post;
+		}
+
+		$result = $record->queue_import();
+
+		return $result;
 	}
 
 	public function ajax_csv_content_type() {
@@ -149,5 +192,17 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		);
 
 		wp_send_json_error( $data );
+	}
+
+	public function ajax_create_import() {
+		$result = $this->handle_submit();
+
+		wp_send_json_success( $result );
+	}
+
+	public function ajax_fetch_import() {
+		$import_id = $_GET['import_id'];
+
+		wp_send_json_success( $result );
 	}
 }

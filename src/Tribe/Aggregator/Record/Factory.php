@@ -54,4 +54,36 @@ class Tribe__Events__Aggregator__Record__Factory {
 
 		return $record;
 	}
+
+	/**
+	 * Returns an appropriate Record object for the given import id
+	 *
+	 * @param int $import_id Aggregator import id
+	 *
+	 * @return Tribe__Events__Aggregator__Record__Abstract|null
+	 */
+	public static function get_by_import_id( $import_id ) {
+		$args = array(
+		);
+
+		$query = new WP_Query( $args );
+
+		if ( is_wp_error( $post ) ) {
+			return null;
+		}
+
+		$meta = get_post_meta( $post_id );
+		$meta_prefix = Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix;
+
+		if ( empty( $meta[ "{$meta_prefix}origin" ] ) ) {
+			return null;
+		}
+
+		$record       = $this->get_by_origin( $meta[ "{$meta_prefix}origin" ] );
+		$record->id   = $post_id;
+		$record->post = $post;
+		$record->setup_meta( $meta );
+
+		return $record;
+	}
 }

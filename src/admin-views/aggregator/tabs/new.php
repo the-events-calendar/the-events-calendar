@@ -26,18 +26,23 @@
 			</td>
 		</tr>
 
-
 		<?php
-		/**
-		 * @todo  Create a way to fetch these based on the Availble origins
-		 */
-
 		$this->template( 'origins/csv' );
 		$this->template( 'origins/ics' );
 		$this->template( 'origins/ical' );
 		$this->template( 'origins/facebook' );
 		$this->template( 'origins/meetup' );
 		?>
+
+		<tr class="tribe-preview-container">
+			<td colspan="2">
+				<div class="tribe-ea-table-container">
+					<div class="spinner-container">
+						<span class='spinner tribe-ea-active'></span>
+					</div>
+				</div>
+			</td>
+		</tr>
 
 	</tbody>
 </table>

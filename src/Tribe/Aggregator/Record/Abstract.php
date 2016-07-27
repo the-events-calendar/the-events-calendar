@@ -181,6 +181,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $response;
 	}
 
+	public function get_import_data() {
+	}
+
 	/**
 	 * Sets a status on the record
 	 *

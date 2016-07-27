@@ -57,6 +57,29 @@ tribe_ea.fields = {
 				}
 			} );
 		} );
+
+		$( document ).on( 'submit', '.tribe-ea-tab-new', function( e ) {
+			e.preventDefault();
+		} );
+
+		$( document ).on( 'click', '.tribe-preview', function( e ) {
+			var $preview = $( this );
+			var $form = $preview.closest( 'form' );
+			var data = $form.serialize();
+			var $preview_container = $( '.tribe-preview-container' );
+			$preview_container.addClass( 'tribe-fetching' );
+
+			var jqxhr = $.ajax( {
+				type: 'POST',
+				url: ajaxurl + '?action=tribe_create_import',
+				data: data,
+				dataType: 'json'
+			} );
+
+			jqxhr.done( function( response ) {
+				console.log( response );
+			} );
+		} );
 	};
 
 	/**

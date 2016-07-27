@@ -16,6 +16,8 @@
 	.tribe-ea-table-container {
 		background-color: #FAFAFA;
 		border: 1px solid #E7E7E7;
+		min-height: 25px;
+		padding: .5rem;
 	}
 
 	.tribe-ea-help {
@@ -111,6 +113,35 @@
 
 		.tribe-credentials-success {
 			display: none;
+		}
+	}
+
+	.tribe-preview-container {
+		display: none;
+
+		&.tribe-fetching {
+			display: table-row;
+
+			.spinner-container {
+				display: block;
+				text-align: center;
+			}
+		}
+
+		> td {
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		.spinner-container {
+			display: none;
+		}
+
+		.spinner {
+			float: none;
+			margin-left: auto;
+			margin-right: auto;
+			visibility: visible;
 		}
 	}
 }

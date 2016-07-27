@@ -20,6 +20,9 @@
 .tribe-ea .tribe-ea-table-container {
     background-color: #FAFAFA;
     border: 1px solid #E7E7E7;
+    min-height: 25px;
+    padding: 8px;
+    padding: .5rem;
 }
 .tribe-ea .tribe-ea-help {
     padding: 4px;
@@ -103,4 +106,27 @@
 }
 .tribe-ea .enter-credentials .tribe-credentials-success {
     display: none;
+}
+.tribe-ea .tribe-preview-container {
+    display: none;
+}
+.tribe-ea .tribe-preview-container.tribe-fetching {
+    display: table-row;
+}
+.tribe-ea .tribe-preview-container.tribe-fetching .spinner-container {
+    display: block;
+    text-align: center;
+}
+.tribe-ea .tribe-preview-container > td {
+    padding-left: 0;
+    padding-right: 0;
+}
+.tribe-ea .tribe-preview-container .spinner-container {
+    display: none;
+}
+.tribe-ea .tribe-preview-container .spinner {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    visibility: visible;
 }
