@@ -1,7 +1,7 @@
-var tribe_ea = tribe_ea || {};
+var tribe_aggregator = tribe_aggregator || {};
 
 // Setup the global Variable
-tribe_ea.fields = {
+tribe_aggregator.fields = {
 	// Store the Required Selectors
 	selector: {
 		container: '.tribe-ea',
@@ -21,7 +21,7 @@ tribe_ea.fields = {
 	construct: {},
 
 	// Store L10N strings
-	l10n: window.tribe_l10n_ea_fields
+	l10n: window.tribe_l10n_aggregator_fields
 };
 
 ( function( $, _, my ) {
@@ -47,7 +47,7 @@ tribe_ea.fields = {
 			var $container = $( this ).closest( '.enter-credentials' );
 			var data = $( this ).closest( '.tribe-fieldset' ).find( 'input' ).serialize();
 
-			var url = ajaxurl + '?action=tribe_save_credentials&which=facebook';
+			var url = ajaxurl + '?action=tribe_aggregator_save_credentials&which=facebook';
 
 			var jqxhr = $.post( url, data );
 			jqxhr.done( function( response ) {
@@ -56,6 +56,91 @@ tribe_ea.fields = {
 					$container.find( '#tribe-has-credentials' ).val( 1 ).change();
 				}
 			} );
+		} );
+
+		$( document ).on( 'submit', '.tribe-ea-tab-new', function( e ) {
+			e.preventDefault();
+		} );
+
+		$( document ).on( 'click', '.tribe-preview', function( e ) {
+			var $preview = $( this );
+			var $form = $preview.closest( 'form' );
+			var data = $form.serialize();
+			var $preview_container = $( '.tribe-preview-container' );
+			$preview_container.addClass( 'tribe-fetching' ).removeClass( 'tribe-fetch-error' );
+
+			$preview.prop( 'disabled', true );
+
+			var jqxhr = $.ajax( {
+				type: 'POST',
+				url: ajaxurl + '?action=tribe_aggregator_create_import',
+				data: data,
+				dataType: 'json'
+			} );
+
+			jqxhr.done( function( response ) {
+				if ( ! response.success ) {
+					$preview_container.removeClass( 'tribe-fetching').addClass( 'tribe-fetch-error' );
+					$( '.tribe-fetch-error-message' ).html(
+						[
+							'<div class="notice notice-error">',
+								'<p>',
+									'<b>',
+										tribe_l10n_aggregator_fields.preview_fetch_error_prefix,
+									'</b>',
+									' ' + response.data.message,
+								'</p>',
+							'</div>'
+						].join( '' )
+					);
+					$preview.prop( 'disabled', false );
+					return;
+				}
+
+				my.import_id = response.data.data.import_id;
+
+				setTimeout( my.poll_for_results, 300 );
+			} );
+		} );
+	};
+
+	my.poll_for_results = function() {
+		var jqxhr = $.ajax( {
+			type: 'GET',
+			url: ajaxurl + '?action=tribe_aggregator_fetch_import&import_id=' + my.import_id,
+			dataType: 'json'
+		} );
+
+		jqxhr.done( function( response ) {
+			if ( ! response.success ) {
+				// @todo: output error
+				return;
+			}
+
+			if ( 'success' !== response.data.status ) {
+				setTimeout( my.poll_for_results, 300 );
+			} else {
+				var template = wp.template( 'preview' );
+				$( '.tribe-ea-table-container' ).append( template( response.data.data ) );
+				$( '.tribe-ea-table-container table').tribeDataTable( {
+					lengthMenu: [
+						[5, 10, 25, 50, -1],
+						[5, 10, 25, 50, tribe_l10n_datatables.pagination.all ]
+					],
+					order: [
+						[ 1, 'asc' ]
+					],
+					columnDefs: [
+						{
+							orderable: false,
+							targets: 0
+						}
+					]
+				} );
+
+				var $preview_container = $( '.tribe-preview-container' );
+				$preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetched' );
+			}
 		} );
 	};
 
@@ -223,7 +308,7 @@ tribe_ea.fields = {
 				// By default only sent the source
 				args.ajax.data = function( search, page ) {
 					return {
-						action: 'tribe_ea_dropdown_' + source,
+						action: 'tribe_aggregator_dropdown_' + source,
 					};
 				};
 
@@ -330,4 +415,4 @@ tribe_ea.fields = {
 
 	// Run Init on Document Ready
 	$( document ).ready( my.init );
-} )( jQuery, _, tribe_ea.fields );
+} )( jQuery, _, tribe_aggregator.fields );

@@ -24,6 +24,6 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 			$origin->text = __( $origin->name, 'the-events-calendar' );
 		}
 
-		return apply_filters( 'tribe_ea_origins', $origins );
+		return apply_filters( 'tribe_aggregator_origins', $origins );
 	}
 }

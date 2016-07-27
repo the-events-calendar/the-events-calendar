@@ -79,20 +79,11 @@ $field->help        = __( 'Enter the url for the iCalendar feed you wish to impo
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
 	</td>
 </tr>
-<tr class="tribe-dependent" data-depends="#tribe-ea-field-ical_import_type" data-condition="manual">
+<tr class="tribe-dependent" data-depends="#tribe-ea-field-ical_import_type" data-condition-not-empty>
 	<td colspan="2" class="tribe-button-row">
-		<button type="submit" class="button button-primary">
+		<button type="submit" class="button button-primary tribe-preview">
 			<?php
-			esc_html_e( 'Import', 'the-events-calendar' );
-			?>
-		</button>
-	</td>
-</tr>
-<tr class="tribe-dependent" data-depends="#tribe-ea-field-ical_import_type" data-condition="schedule">
-	<td colspan="2" class="tribe-button-row">
-		<button type="submit" class="button button-primary">
-			<?php
-			esc_html_e( 'Save Scheduled Import', 'the-events-calendar' );
+			esc_html_e( 'Preview', 'the-events-calendar' );
 			?>
 		</button>
 	</td>

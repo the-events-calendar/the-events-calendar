@@ -8,11 +8,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @var string
 	 */
-	public static $meta_key_prefix = '_tribe_ea_';
+	public static $meta_key_prefix = '_tribe_aggregator_';
 
 	public $id;
 	public $post;
 	public $meta;
+
+	public $type;
+	public $frequency;
 
 	/**
 	 * Setup all the hooks and filters
@@ -20,23 +23,37 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return void
 	 */
 	public function __construct( $id = null ) {
-		if ( ! empty( $id ) && is_numeric( $id ) ) {
-			$this->id = $id;
-		}
-
-		if ( $this->id ) {
-			$this->load();
-		}
+		// If we have an ID we try to Setup
+		$this->load( $id );
 	}
 
 	/**
 	 * Loads the WP_Post associated with this record
 	 */
-	public function load() {
-		$this->post = get_post( $this->id );
-		$meta       = get_post_meta( $this->id );
+	public function load( $post = null ) {
+		if ( is_numeric( $post ) ) {
+			$post = get_post( $post );
+		}
 
-		$this->setup_meta( $meta );
+		if ( ! $post instanceof WP_Post ) {
+			return false;
+		}
+
+		$this->id = $post->ID;
+
+		// Get WP_Post object
+		$this->post = $post;
+
+		// Map `ping_status` as the `type`
+		$this->type = $this->post->ping_status;
+
+		if ( 'scheduled' === $this->type ) {
+			$this->frequency = $this->post_content;
+		}
+
+		$this->setup_meta( get_post_meta( $this->id ) );
+
+		return $this;
 	}
 
 	/**
@@ -47,7 +64,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function setup_meta( $meta ) {
 		foreach ( $meta as $key => $value ) {
 			$key = preg_replace( '/^' . self::$meta_key_prefix . '/', '', $key );
-			$this->meta[ $key ] = $value;
+			$this->meta[ $key ] = is_array( $value ) ? reset( $value ) : $value;
 		}
 	}
 
@@ -59,12 +76,20 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return WP_Post|WP_Error
 	 */
-	public function create( $type = 'manual', $args = array() ) {
+	public function create( $type = 'manual', $args = array(), $meta = array() ) {
+		if ( ! in_array( $type, array( 'manual', 'scheduled' ) ) ) {
+			return new WP_Error( 'invalid-type', __( 'An invalid Type was used to setup this Record', 'the-events-calendar' ), $type );
+		}
+
 		$defaults = array(
 			'frequency' => null,
+			'parent'    =>
 		);
+		$args = (object) wp_parse_args( $args, $defaults );
 
-		$args = wp_parse_args( $args, $defaults );
+		$defaults = array(
+		);
+		$meta = wp_parse_args( $meta, $defaults );
 
 		$post = array(
 			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
@@ -73,18 +98,18 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'ping_status'    => $type,
 			'post_mime_type' => $this->origin,
 			'post_date'      => current_time( 'mysql' ),
-			'post_status'    => 'draft',
+			'post_status'    => Tribe__Events__Aggregator__Records::$status->draft,
 			'meta_input'     => array(),
 		);
 
 		// prefix all keys
-		foreach ( $args as $key => $value ) {
+		foreach ( $meta as $key => $value ) {
 			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
 		}
 
 		$args = (object) $args;
 
-		if ( 'schedule' === $type ) {
+		if ( 'scheduled' === $type ) {
 			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( 'id=' . $args->frequency );
 			if ( ! $frequency ) {
 				return new WP_Error( 'invalid-frequency', __( 'An Invalid frequency was used to try to setup a scheduled import', 'the-events-calendar' ), $args );
@@ -99,11 +124,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			// $post['post_content_filtered'] =
 		}
 
-		$this->id   = wp_insert_post( $post );
-		$this->post = get_post( $this->id );
-		$this->setup_meta( (array) $args );
-
-		return $this->post;
+		// After Creating the Post Load and return
+		return $this->load( wp_insert_post( $post ) );
 	}
 
 	/**
@@ -127,6 +149,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'callback' => site_url( '/event-aggregator/insert/?key=' . urlencode( $this->post->post_title ) ),
 		);
 
+		if ( ! empty( $this->meta['frequency'] ) ) {
+			$defaults['frequency'] = $this->meta['frequency'];
+		}
+
 		$args = wp_parse_args( $args, $defaults );
 
 		// create the import on the Event Aggregator service
@@ -146,7 +172,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// if the Import creation was unsuccessful, set this record as failed
 		if (
-			'success_create-import' != $response->message_code
+			'success:create-import' != $response->message_code
 			&& 'queued' != $response->message_code
 		) {
 			$error = new WP_Error( $response->message_code, esc_html__( $response->message, 'the-events-calendar' ) );
@@ -171,15 +197,24 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $response;
 	}
 
+	public function get_import_data() {
+		$aggregator = Tribe__Events__Aggregator::instance();
+		return $aggregator->api( 'import' )->get( $this->meta['import_id'] );
+	}
+
 	/**
 	 * Sets a status on the record
 	 *
 	 * @return int
 	 */
 	public function set_status( $status ) {
+		if ( ! isset( Tribe__Events__Aggregator__Records::$status->{ $status } ) ) {
+			return false;
+		}
+
 		return wp_update_post( array(
 			'ID' => $this->id,
-			'post_status' => $status,
+			'post_status' => Tribe__Events__Aggregator__Records::$status->{ $status },
 		) );
 	}
 
@@ -193,7 +228,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$this->log_error( $error );
 		}
 
-		return $this->set_status( Tribe__Events__Aggregator__Records::$status->failed );
+		$this->set_status( 'failed' );
+
+		return $error;
 	}
 
 	/**
@@ -211,7 +248,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return int
 	 */
 	public function set_status_as_success() {
-		return $this->set_status( Tribe__Events__Aggregator__Records::$status->success );
+		return $this->set_status( 'success' );
 	}
 
 	/**

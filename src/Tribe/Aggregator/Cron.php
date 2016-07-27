@@ -7,7 +7,7 @@ class Tribe__Events__Aggregator__Cron {
 	 * Action where the cron will run
 	 * @var string
 	 */
-	public static $action = 'tribe_ea_cron';
+	public static $action = 'tribe_aggregator_cron';
 
 	/**
 	 * Static Singleton Holder
@@ -59,7 +59,7 @@ class Tribe__Events__Aggregator__Cron {
 		 * Allow developers to filter to add or remove schedules
 		 * @param array $schedules
 		 */
-		$found = $schedules = apply_filters( 'tribe_ea_record_frequency', array(
+		$found = $schedules = apply_filters( 'tribe_aggregator_record_frequency', array(
 			(object) array(
 				'id'     => 'every30mins',
 				'interval' => MINUTE_IN_SECONDS * 30,

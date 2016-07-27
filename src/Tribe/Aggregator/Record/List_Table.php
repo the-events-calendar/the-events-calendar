@@ -242,7 +242,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		 *
 		 * @param array $post_columns An array of column names.
 		 */
-		return apply_filters( 'tribe_ea_manage_record_columns', $columns );
+		return apply_filters( 'tribe_aggregator_manage_record_columns', $columns );
 	}
 
 	private function get_status_icon( $post ) {
@@ -319,7 +319,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 	public function column_frequency( $post ) {
 		if ( 'scheduled' === $post->ping_status ) {
-			$frequency = get_post_meta( $post->ID, '_tribe_ea_frequency', true );
+			$frequency = get_post_meta( $post->ID, '_tribe_aggregator_frequency', true );
 			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $frequency ) );
 			if ( ! empty( $frequency->text ) ) {
 				$html[] = $frequency->text;

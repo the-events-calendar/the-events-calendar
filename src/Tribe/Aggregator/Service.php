@@ -72,7 +72,7 @@ class Tribe__Events__Aggregator__Service {
 		 * Creates a clean way to filter and redirect to another API domain/path
 		 * @var stdClass
 		 */
-		$api = (object) apply_filters( 'tribe_ea_api', $api );
+		$api = (object) apply_filters( 'tribe_aggregator_api', $api );
 
 		// The user doesn't have a license key
 		if ( ! $api->key ) {

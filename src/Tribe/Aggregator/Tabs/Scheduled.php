@@ -1,8 +1,6 @@
 <?php
 // Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
+defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregator__Tabs__Abstract {
 	/**

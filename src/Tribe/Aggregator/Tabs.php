@@ -1,8 +1,6 @@
 <?php
 // Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
+defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Tabs {
 
@@ -38,13 +36,11 @@ class Tribe__Events__Aggregator__Tabs {
 	 */
 	private function __construct() {
 		add_filter( 'admin_title', array( $this, 'filter_admin_title' ), 10, 2 );
-		add_action( 'current_screen', array( $this, 'action_active_tab' ) );
 
 		// Configure the Base Tabs
 		$this->register( 'Tribe__Events__Aggregator__Tabs__New' );
 		$this->register( 'Tribe__Events__Aggregator__Tabs__Scheduled' );
 		$this->register( 'Tribe__Events__Aggregator__Tabs__Past' );
-		//$this->register( 'Tribe__Events__Aggregator__Tabs__Favorite' );
 	}
 
 	/**
@@ -62,9 +58,6 @@ class Tribe__Events__Aggregator__Tabs {
 
 		$tab = $this->get_active();
 		return $tab->get_label() . ' &ndash; ' . $admin_title;
-	}
-
-	public function action_active_tab( $screen ) {
 	}
 
 	/**

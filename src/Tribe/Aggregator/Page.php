@@ -1,8 +1,6 @@
 <?php
 // Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
+defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Page {
 	/**
@@ -54,6 +52,7 @@ class Tribe__Events__Aggregator__Page {
 		$plugin = Tribe__Events__Main::instance();
 
 		add_action( 'admin_menu', array( $this, 'register_menu_item' ) );
+		add_action( 'current_screen', array( $this, 'action_request' ) );
 
 		// Setup Tabs Instance
 		$this->tabs = Tribe__Events__Aggregator__Tabs::instance();
@@ -70,13 +69,55 @@ class Tribe__Events__Aggregator__Page {
 					array( $this, 'is_screen' )
 				),
 				'localize' => (object) array(
-					'name' => 'tribe_l10n_ea_fields',
+					'name' => 'tribe_l10n_aggregator_fields',
 					'data' => array(
 						'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
 					),
 				),
 			)
 		);
+	}
+
+	/**
+	 * Hooked to `current_screen` allow tabs and other parts of the plugin to hook to aggregator before rendering any headers
+	 *
+	 * @param  WP_Screen $screen Variable from `current_screen`
+	 *
+	 * @return bool
+	 */
+	public function action_request( $screen ) {
+		if ( ! $this->is_screen() ) {
+			return false;
+		}
+
+		if ( isset( $_GET['dummy'] ) ) {
+			$origins = array( 'facebook', 'meetup', 'ical' );
+			$frequencies = Tribe__Events__Aggregator__Cron::instance()->get_frequency();
+			$types = array( 'manual', 'scheduled' );
+
+			for ( $i=0; $i < 15; $i++ ) {
+				$origin = $origins[ array_rand( $origins ) ];
+				$type = $types[ array_rand( $types ) ];
+				$record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $origin );
+
+				$meta = array(
+					'origin'    => $origin,
+					'source'    => empty( $data['source'] ) ? null : $data['source'],
+				);
+
+				if ( 'scheduled' === $type ) {
+					$meta['frequency'] = $frequencies[ array_rand( $frequencies ) ]->id;
+				}
+
+				$records[] = $record->create( $type, $meta );
+			}
+			var_dump( $records );
+		}
+
+		/**
+		 * Fires an Action to allow Form actions to be hooked to
+		 */
+		return do_action( 'tribe_aggregator_page_request' );
 	}
 
 	/**
@@ -242,72 +283,6 @@ class Tribe__Events__Aggregator__Page {
 	 * @return string
 	 */
 	public function render() {
-		$this->handle_submit();
-
 		return $this->template( 'page' );
-	}
-
-	public function handle_submit() {
-		if ( isset( $_GET['dummy'] ) ) {
-			$origins = array( 'facebook', 'meetup', 'ical' );
-			$frequencies = Tribe__Events__Aggregator__Cron::instance()->get_frequency();
-			$types = array( 'manual', 'scheduled' );
-
-
-			for ( $i=0; $i < 15; $i++ ) {
-				$origin = $origins[ array_rand( $origins ) ];
-				$type = $types[ array_rand( $types ) ];
-
-				$record = Tribe__Events__Aggregator__Record__Factory::get_by_origin( $origin );
-
-				$meta = array(
-					'origin'    => $origin,
-					'source'    => empty( $data['source'] ) ? null : $data['source'],
-				);
-
-				if ( 'scheduled' === $type ) {
-					$meta['frequency'] = $frequencies[ array_rand( $frequencies ) ]->id;
-				}
-
-				$records[] = $record->create( $type, $meta );
-			}
-
-			var_dump( $records );
-		}
-
-		if ( 'POST' !== $_SERVER['REQUEST_METHOD'] ) {
-			return;
-		}
-
-		if ( empty( $_POST['aggregator'] ) ) {
-			return;
-		}
-
-		$post_data = $_POST['aggregator'];
-
-		if ( empty( $post_data['origin'] ) || empty( $post_data[ $post_data['origin'] ] ) ) {
-			return;
-		}
-
-		$data = $post_data[ $post_data['origin'] ];
-
-		$record = Tribe__Events__Aggregator__Record__Factory::get_by_origin( $post_data['origin'] );
-
-		$meta = array(
-			'origin'    => $post_data['origin'],
-			'type'      => empty( $data['import_type'] ) ? 'manual' : $data['import_type'],
-			'frequency' => empty( $data['import_frequency'] ) ? null : $data['import_frequency'],
-			'source'    => empty( $data['source'] ) ? null : $data['source'],
-		);
-
-		$post = $record->create( $meta['type'], $meta );
-
-		if ( is_wp_error( $post ) ) {
-			return $post;
-		}
-
-		$result = $record->queue_import();
-
-		return $result;
 	}
 }
