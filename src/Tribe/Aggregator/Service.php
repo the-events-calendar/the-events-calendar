@@ -271,7 +271,6 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		$response = $this->post( 'import', $args );
-		do_action( 'debug_robot', '$response :: ' . print_r( $response, TRUE ) );
 		return $response;
 	}
 

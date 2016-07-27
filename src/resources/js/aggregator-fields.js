@@ -67,7 +67,7 @@ tribe_ea.fields = {
 			var $form = $preview.closest( 'form' );
 			var data = $form.serialize();
 			var $preview_container = $( '.tribe-preview-container' );
-			$preview_container.addClass( 'tribe-fetching' );
+			$preview_container.addClass( 'tribe-fetching' ).removeClass( 'tribe-fetch-error' );
 
 			$preview.prop( 'disabled', true );
 
@@ -80,7 +80,20 @@ tribe_ea.fields = {
 
 			jqxhr.done( function( response ) {
 				if ( ! response.success ) {
-					// @todo: output error
+					$preview_container.removeClass( 'tribe-fetching').addClass( 'tribe-fetch-error' );
+					$( '.tribe-fetch-error-message' ).html(
+						[
+							'<div class="notice notice-error">',
+								'<p>',
+									'<b>',
+										tribe_l10n_ea_fields.preview_fetch_error_prefix,
+									'</b>',
+									' ' + response.data.message,
+								'</p>',
+							'</div>'
+						].join( '' )
+					);
+					$preview.prop( 'disabled', false );
 					return;
 				}
 

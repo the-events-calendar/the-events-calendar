@@ -120,6 +120,7 @@
 .tribe-preview-container {
 	display: none;
 
+	&.tribe-fetch-error,
 	&.tribe-fetched {
 		display: block;
 	}
@@ -133,11 +134,23 @@
 		}
 	}
 
+	&.tribe-fetch-error {
+		.tribe-fetch-error-message {
+			display: block;
+		}
+	}
+
 	> td {
 		padding-left: 0;
 		padding-right: 0;
 	}
 
+	.tribe-column-start-date,
+	.tribe-column-end-date {
+		width: 8em;
+	}
+
+	.tribe-fetch-error-message,
 	.spinner-container {
 		display: none;
 	}

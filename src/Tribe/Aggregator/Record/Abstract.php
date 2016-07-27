@@ -137,6 +137,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'callback' => site_url( '/event-aggregator/insert/?key=' . urlencode( $this->post->post_title ) ),
 		);
 
+		if ( ! empty( $this->meta['frequency'] ) ) {
+			$defaults['frequency'] = $this->meta['frequency'];
+		}
+
 		$args = wp_parse_args( $args, $defaults );
 
 		// create the import on the Event Aggregator service
@@ -156,7 +160,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// if the Import creation was unsuccessful, set this record as failed
 		if (
-			'success_create-import' != $response->message_code
+			'success:create-import' != $response->message_code
 			&& 'queued' != $response->message_code
 		) {
 			$error = new WP_Error( $response->message_code, esc_html__( $response->message, 'the-events-calendar' ) );
@@ -208,7 +212,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$this->log_error( $error );
 		}
 
-		return $this->set_status( Tribe__Events__Aggregator__Records::$status->failed );
+		$this->set_status( Tribe__Events__Aggregator__Records::$status->failed );
+
+		return $error;
 	}
 
 	/**

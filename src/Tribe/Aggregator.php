@@ -205,7 +205,6 @@ class Tribe__Events__Aggregator {
 		if ( $available < 0 ) {
 			$available = 0;
 		}
-		do_action( 'debug_robot', '$available :: ' . print_r( $available, TRUE ) );
 
 		return set_transient( $this->daily_limit_transient_key(), $available, DAY_IN_SECONDS );
 	}

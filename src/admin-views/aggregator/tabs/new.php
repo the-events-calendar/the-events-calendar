@@ -38,6 +38,7 @@
 </table>
 
 <div class="tribe-ea-table-container tribe-preview-container">
+	<div class="tribe-fetch-error-message"></div>
 	<div class="spinner-container">
 		<span class='spinner tribe-ea-active'></span>
 	</div>
@@ -48,19 +49,23 @@
 		<table class="wp-list-table widefat fixed striped">
 			<thead>
 				<tr>
-					<th scope="col" class="manage-column column-cb check-column">
-						<label class="screen-reader-text" for="cb-select-all-1"><?php esc_html_e( 'Select All', 'the-events-calendar' ); ?></label>
-						<input type="checkbox">
-					</th>
-					<th scope="col" class="column-primary"><?php esc_html_e( 'Start Date', 'the-events-calendar' ); ?></th>
-					<th scope="col"><?php esc_html_e( 'End Date', 'the-events-calendar' ); ?></th>
-					<th scope="col"><?php esc_html_e( 'Event', 'the-events-calendar' ); ?></th>
+					<# if ( 'manual' === jQuery( '#' + jQuery( '[id$="import_type"]:visible' ).first().attr( 'id' ).replace( 's2id_', '' ) ).val() ) { #>
+						<th scope="col" class="manage-column column-cb check-column">
+							<label class="screen-reader-text" for="cb-select-all-1"><?php esc_html_e( 'Select All', 'the-events-calendar' ); ?></label>
+							<input type="checkbox">
+						</th>
+					<# } #>
+					<th scope="col" class="tribe-column-start-date column-primary"><?php esc_html_e( 'Start Date', 'the-events-calendar' ); ?></th>
+					<th scope="col" class="tribe-column-end-date"><?php esc_html_e( 'End Date', 'the-events-calendar' ); ?></th>
+					<th scope="col" class="tribe-column-event"><?php esc_html_e( 'Event', 'the-events-calendar' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
 				<# _.each( data.events, function( event ) { #>
 					<tr>
-						<th scope="row" class="check-column"><input type="checkbox"></th>
+						<# if ( 'manual' === jQuery( '#' + jQuery( '[id$="import_type"]:visible' ).first().attr( 'id' ).replace( 's2id_', '' ) ).val() ) { #>
+							<th scope="row" class="check-column"><input type="checkbox"></th>
+						<# } #>
 						<td>{{ event.start_date }}</td>
 						<td>{{ event.end_date }}</td>
 						<td>{{ event.title }}</td>
@@ -69,10 +74,12 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<th scope="col" class="manage-column column-cb check-column">
-						<label class="screen-reader-text" for="cb-select-all-1"><?php esc_html_e( 'Select All', 'the-events-calendar' ); ?></label>
-						<input type="checkbox">
-					</th>
+					<# if ( 'manual' === jQuery( '#' + jQuery( '[id$="import_type"]:visible' ).first().attr( 'id' ).replace( 's2id_', '' ) ).val() ) { #>
+						<th scope="col" class="manage-column column-cb check-column">
+							<label class="screen-reader-text" for="cb-select-all-1"><?php esc_html_e( 'Select All', 'the-events-calendar' ); ?></label>
+							<input type="checkbox">
+						</th>
+					<# } #>
 					<th scope="col"><?php esc_html_e( 'Start Date', 'the-events-calendar' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'End Date', 'the-events-calendar' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'Event', 'the-events-calendar' ); ?></th>

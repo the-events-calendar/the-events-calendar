@@ -197,6 +197,14 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	public function ajax_create_import() {
 		$result = $this->handle_submit();
 
+		if ( is_wp_error( $result ) ) {
+			$result = (object) array(
+				'message_code' => $result->get_error_code(),
+				'message' => $result->get_error_message(),
+			);
+			wp_send_json_error( $result );
+		}
+
 		wp_send_json_success( $result );
 	}
 

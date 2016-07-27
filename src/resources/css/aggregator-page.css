@@ -134,7 +134,8 @@
 	display: none;
 }
 
-.tribe-preview-container.tribe-fetched {
+.tribe-preview-container.tribe-fetch-error,
+	.tribe-preview-container.tribe-fetched {
 	display: block;
 }
 
@@ -147,12 +148,22 @@
 	text-align: center;
 }
 
+.tribe-preview-container.tribe-fetch-error .tribe-fetch-error-message {
+	display: block;
+}
+
 .tribe-preview-container > td {
 	padding-left: 0;
 	padding-right: 0;
 }
 
-.tribe-preview-container .spinner-container {
+.tribe-preview-container .tribe-column-start-date,
+	.tribe-preview-container .tribe-column-end-date {
+	width: 8em;
+}
+
+.tribe-preview-container .tribe-fetch-error-message,
+	.tribe-preview-container .spinner-container {
 	display: none;
 }
 
