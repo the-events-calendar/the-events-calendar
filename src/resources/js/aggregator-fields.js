@@ -109,27 +109,10 @@ tribe_ea.fields = {
 			} else {
 				var template = wp.template( 'preview' );
 				$( '.tribe-ea-table-container' ).append( template( response.data.data ) );
-				$( '.tribe-ea-table-container table').DataTable( {
-					language: {
-						lengthMenu   : tribe_l10n_ea_fields.length_menu,
-						emptyTable   : tribe_l10n_ea_fields.emptyTable,
-						info         : tribe_l10n_ea_fields.info,
-						infoEmpty    : tribe_l10n_ea_fields.info_empty,
-						infoFiltered : tribe_l10n_ea_fields.info_filtered,
-						zeroRecords  : tribe_l10n_ea_fields.zero_records,
-						search       : tribe_l10n_ea_fields.search,
-						paginate     : {
-							next     : tribe_l10n_ea_fields.pagination.next,
-							previous : tribe_l10n_ea_fields.pagination.previous,
-						},
-						aria         : {
-							sortAscending  : tribe_l10n_ea_fields.aria.sort_ascending,
-							sortDescending : tribe_l10n_ea_fields.aria.sort_descending
-						}
-					},
+				$( '.tribe-ea-table-container table').tribeDataTable( {
 					lengthMenu: [
 						[5, 10, 25, 50, -1],
-						[5, 10, 25, 50, tribe_l10n_ea_fields.pagination.all ]
+						[5, 10, 25, 50, tribe_l10n_datatables.pagination.all ]
 					],
 					order: [
 						[ 1, 'asc' ]

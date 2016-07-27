@@ -35,33 +35,17 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 		// Only Load if this Is active
 		tribe_assets( $plugin,
 			array(
-				array( 'tribe-ea-fields', 'aggregator-fields.js', array( 'jquery', 'datatables', 'datatables-select', 'underscore', 'tribe-bumpdown', 'tribe-dependency', 'tribe-events-select2' ) ),
-				array( 'tribe-ea-page', 'aggregator-page.css', array( 'datatables-css', 'datatables-select-css' ) ),
+				array( 'tribe-ea-fields', 'aggregator-fields.js', array( 'jquery', 'tribe-datatables', 'underscore', 'tribe-bumpdown', 'tribe-dependency', 'tribe-events-select2' ) ),
+				array( 'tribe-ea-page', 'aggregator-page.css', array( 'datatables-css' ) ),
 			),
 			'admin_enqueue_scripts',
 			array(
 				'conditionals' => array(
-					array( $this, 'is_active' )
+					array( $this, 'is_active' ),
 				),
 				'localize' => (object) array(
 					'name' => 'tribe_l10n_ea_fields',
 					'data' => array(
-						'aria' => array(
-							'sort_ascending' => __( ': activate to sort column ascending', 'the-events-calendar' ),
-							'sort_descending' => __( ': activate to sort column descending', 'the-events-calendar' ),
-						),
-						'length_menu'   => __( 'Show _MENU_ entries', 'the-events-calendar' ),
-						'empty_table'   => __( 'No data available in table', 'the-events-calendar' ),
-						'info'          => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'the-events-calendar' ),
-						'info_empty'    => __( 'Showing 0 to 0 of 0 entries', 'the-events-calendar' ),
-						'info_filtered' => __( '(filtered from _MAX_ total entries)', 'the-events-calendar' ),
-						'zero_records'  => __( 'No matching records found', 'the-events-calendar' ),
-						'search'        => __( 'Search:', 'the-events-calendar' ),
-						'pagination' => array(
-							'all' => __( 'All', 'the-events-calendar' ),
-							'next' => __( 'Next', 'the-events-calendar' ),
-							'previous' => __( 'Previous', 'the-events-calendar' ),
-						),
 						'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
 					),
 				),
