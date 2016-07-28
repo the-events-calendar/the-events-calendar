@@ -140,6 +140,16 @@
 		}
 	}
 
+	&.show-data {
+		.data-container {
+			display: block;
+		}
+	}
+
+	.data-container {
+		display: none;
+	}
+
 	> td {
 		padding-left: 0;
 		padding-right: 0;
@@ -160,5 +170,23 @@
 		margin-left: auto;
 		margin-right: auto;
 		visibility: visible;
+	}
+
+	.dataTable {
+		.column-cb,
+		.check-column {
+			input {
+				display: none;
+			}
+		}
+	}
+
+	.display-checkboxes {
+		.column-cb,
+		.check-column {
+			input {
+				display: inline-block;
+			}
+		}
 	}
 }

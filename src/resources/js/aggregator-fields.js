@@ -71,9 +71,19 @@ tribe_ea.fields = {
 			var $form = $preview.closest( 'form' );
 			var data = $form.serialize();
 			var $preview_container = $( '.tribe-preview-container' );
-			$preview_container.addClass( 'tribe-fetching' ).removeClass( 'tribe-fetch-error' );
+			$preview_container
+				.addClass( 'tribe-fetching' )
+				.removeClass( 'tribe-fetch-error' )
+				.removeClass( 'show-data' );
 
 			$preview.prop( 'disabled', true );
+
+			var table = $( '.dataTable' ).data( 'table' );
+			if ( 'undefined' !== typeof table ) {
+				table.clear().draw();
+			}
+
+			//$( '#tmpl-preview' ).nextAll().hide();
 
 			var jqxhr = $.ajax( {
 				type: 'POST',
@@ -124,17 +134,36 @@ tribe_ea.fields = {
 			if ( 'success' !== response.data.status ) {
 				setTimeout( my.poll_for_results, 300 );
 			} else {
-				var template = wp.template( 'preview' );
-				var template_data = response.data.data;
-				template_data.display_checkboxes = false;
+				var display_checkboxes = false;
 
 				var $import_type = $( '[id$="import_type"]:visible' );
+
 				if ( ! $import_type.length || 'manual' === $( '#' + $import_type.first().attr( 'id' ).replace( 's2id_', '' ) ).val() ) {
-					template_data.display_checkboxes = true;
+					display_checkboxes = true;
 				}
 
-				$( '.tribe-ea-table-container' ).append( template( template_data ) );
-				$( '.tribe-ea-table-container table').tribeDataTable( {
+				var $container = $( '.tribe-preview-container' );
+				var $table = $container.find( '.data-container table' );
+
+				var data = [];
+				for ( var i in response.data.data.events ) {
+					var item = [
+						display_checkboxes ? '<input type="checkbox">' : '',
+						response.data.data.events[ i ].start_date,
+						response.data.data.events[ i ].end_date,
+						response.data.data.events[ i ].title
+					];
+					data.push( item );
+				}
+
+				if ( display_checkboxes ) {
+					$table.addClass( 'display-checkboxes' );
+				} else {
+					$table.removeClass( 'display-checkboxes' );
+				}
+
+				$container.addClass( 'show-data' );
+				$table.tribeDataTable( {
 					lengthMenu: [
 						[5, 10, 25, 50, -1],
 						[5, 10, 25, 50, tribe_l10n_datatables.pagination.all ]
@@ -144,14 +173,17 @@ tribe_ea.fields = {
 					],
 					columnDefs: [
 						{
+							cellType: 'th',
+							className: 'check-column',
 							orderable: false,
 							targets: 0
 						}
-					]
+					],
+					data: data
 				} );
 
-				var $preview_container = $( '.tribe-preview-container' );
-				$preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetched' );
+				$container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetched' );
+				$( '.tribe-preview:visible' ).prop( 'disabled', false );
 			}
 		} );
 	};
