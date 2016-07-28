@@ -105,6 +105,7 @@ tribe_ea.fields = {
 		obj.$.fields.val( '' ).trigger( 'change' );
 		$( '.tribe-ea-dropdown' ).select2( 'data', null );
 		$( '[id$="import_frequency"]' ).val( 'daily' ).trigger( 'change' );
+		obj.$.preview_container.removeClass( 'show-data' );
 	};
 
 	/**
