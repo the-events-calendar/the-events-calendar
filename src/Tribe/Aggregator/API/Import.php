@@ -82,7 +82,6 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 
 		// @TODO: do something with the events - determine if they need to be inserted
 		//        disable pseudo cron for polling for updates
-		do_action( 'debug_robot', '$events :: ' . print_r( $events, TRUE ) );
 	}
 
 	/**

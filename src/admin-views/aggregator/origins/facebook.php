@@ -1,6 +1,7 @@
 <?php
+$origin_slug        = 'facebook';
 $field              = (object) array();
-$field->label       = __( 'Import Type', 'the-events-calendar' );
+$field->label       = __( 'Import Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Import Type', 'the-events-calendar' );
 $field->help        = __( 'One-time imports include all currently listed events, while scheduled imports automatically grab new events and updates from Facebook on a set schedule. Single events can be added via a one-time import.', 'the-events-calendar' );
 $field->source      = 'facebook_import_type';
@@ -13,8 +14,8 @@ $frequency->source      = 'facebook_import_frequency';
 $cron = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
 
-$fb_api_key = Tribe__Settings_Manager::get_option( 'fb_api_key' );
-$fb_api_secret = Tribe__Settings_Manager::get_option( 'fb_api_secret' );
+$fb_api_key = tribe_get_option( 'fb_api_key' );
+$fb_api_secret = tribe_get_option( 'fb_api_secret' );
 $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 
 ?>
@@ -23,7 +24,7 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 		<?php
 		if ( $missing_fb_credentials ) :
 			?>
-			<input type="hidden" name="has-credentials" id="tribe-has-credentials" value="0">
+			<input type="hidden" name="has-credentials" id="tribe-has-facebook-credentials" value="0">
 			<div class="tribe-message tribe-credentials-prompt">
 				<span class="dashicons dashicons-warning"></span>
 				<?php
@@ -61,17 +62,17 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 			<?php
 		else:
 			?>
-			<input type="hidden" name="has-credentials" id="tribe-has-credentials" value="1">
+			<input type="hidden" name="has-credentials" id="tribe-has-facebook-credentials" value="1">
 			<?php
 		endif;
 		?>
 	</td>
 </tr>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">
-	<th scope="row" class="tribe-dependent" data-depends="#tribe-has-credentials" data-condition="1">
+	<th scope="row" class="tribe-dependent" data-depends="#tribe-has-facebook-credentials" data-condition="1">
 		<label for="tribe-ea-field-import_type"><?php echo esc_html( $field->label ); ?></label>
 	</th>
-	<td class="tribe-dependent" data-depends="#tribe-has-credentials" data-condition="1">
+	<td class="tribe-dependent" data-depends="#tribe-has-facebook-credentials" data-condition="1">
 		<select
 			name="aggregator[facebook][import_type]"
 			id="tribe-ea-field-facebook_import_type"
@@ -81,7 +82,7 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 		>
 			<option value=""></option>
 			<option value="manual">One-Time Import</option>
-			<option value="auto">Scheduled Import</option>
+			<option value="schedule">Scheduled Import</option>
 		</select>
 		<select
 			name="aggregator[facebook][import_frequency]"
@@ -90,7 +91,7 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 			placeholder="<?php echo esc_attr( $frequency->placeholder ); ?>"
 			data-hide-search
 			data-depends="#tribe-ea-field-facebook_import_type"
-			data-condition="auto"
+			data-condition="schedule"
 		>
 			<option value=""></option>
 			<?php foreach ( $frequencies as $frequency_object ) : ?>
@@ -101,21 +102,21 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo esc_attr( $field->help ); ?>"
 			data-depends="#tribe-ea-field-facebook_import_type"
-			data-condition-not="auto"
+			data-condition-not="schedule"
 			data-condition-empty
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo esc_attr( $frequency->help ); ?>"
 			data-depends="#tribe-ea-field-facebook_import_type"
-			data-condition="auto"
+			data-condition="schedule"
 		></span>
 	</td>
 </tr>
 
 <?php
 $field              = (object) array();
-$field->label       = __( 'URL', 'the-events-calendar' );
+$field->label       = __( 'URL:', 'the-events-calendar' );
 $field->placeholder = __( 'facebook.com/example', 'the-events-calendar' );
 $field->help        = __( 'Enter the url for a Facebook group, page, or individual. Or, enter the url of a single Facebook event.', 'the-events-calendar' );
 ?>
@@ -134,20 +135,11 @@ $field->help        = __( 'Enter the url for a Facebook group, page, or individu
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
 	</td>
 </tr>
-<tr class="tribe-dependent" data-depends="#tribe-ea-field-facebook_import_type" data-condition="manual">
+<tr class="tribe-dependent" data-depends="#tribe-ea-field-facebook_import_type" data-condition-not-empty>
 	<td colspan="2" class="tribe-button-row">
-		<button type="submit" class="button button-primary">
+		<button type="submit" class="button button-primary tribe-preview">
 			<?php
-			esc_html_e( 'Import', 'the-events-calendar' );
-			?>
-		</button>
-	</td>
-</tr>
-<tr class="tribe-dependent" data-depends="#tribe-ea-field-facebook_import_type" data-condition="auto">
-	<td colspan="2" class="tribe-button-row">
-		<button type="submit" class="button button-primary">
-			<?php
-			esc_html_e( 'Save Scheduled Import', 'the-events-calendar' );
+			esc_html_e( 'Preview', 'the-events-calendar' );
 			?>
 		</button>
 	</td>

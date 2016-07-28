@@ -29,6 +29,13 @@ class Tribe__Events__Aggregator {
 	protected $api;
 
 	/**
+	 * People who modify this value are not nice people.
+	 *
+	 * @var int Maximum number of import requests per day
+	 */
+	private $daily_limit = 100;
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return Tribe__Events__Aggregator
@@ -47,20 +54,10 @@ class Tribe__Events__Aggregator {
 	public function __construct() {
 		$this->page        = Tribe__Events__Aggregator__Page::instance();
 		$this->service     = Tribe__Events__Aggregator__Service::instance();
-		$this->record      = Tribe__Events__Aggregator__Record::instance();
+		$this->records     = Tribe__Events__Aggregator__Records::instance();
 		$this->cron        = Tribe__Events__Aggregator__Cron::instance();
 		$this->pue_checker = new Tribe__PUE__Checker( 'http://tri.be/', 'event-aggregator' );
 		$this->api();
-
-		// $this->api( 'import' )->create( array(
-		// 	'type' => 'manual',
-		// 	'origin' => 'facebook',
-		// 	'source' => '453553174769258',
-		// 	'facebook_app_id' => '',
-		// 	'facebook_secret' => '',
-		// ) );
-
-		// $this->api( 'import' )->get( 'd1885e7b2ed7dab8e3d908cecec8780daf55a0ac55e421ed10dadf89f7f51bd1' );
 
 		// Register the Aggregator Endpoint
 		add_action( 'tribe_events_pre_rewrite', array( $this, 'register_endpoint' ) );
@@ -70,10 +67,16 @@ class Tribe__Events__Aggregator {
 
 		// Add endpoint query vars
 		add_filter( 'query_vars', array( $this, 'add_endpoint_query_vars' ) );
+
+		// filter the "plugin name" for Event Aggregator
+		add_filter( 'pue_get_plugin_name', array( $this, 'pue_plugin_name' ), 10, 2 );
 	}
 
 	public function register_endpoint( $rewrite ) {
-		$rewrite->add( array( 'event-aggregator', '(insert)' ), array( 'tribe-aggregator' => 1, 'tribe-action' => '%1' ) );
+		$rewrite->add(
+			array( 'event-aggregator', '(insert)' ),
+			array( 'tribe-aggregator' => 1, 'tribe-action' => '%1' )
+		);
 	}
 
 	public function add_endpoint_query_vars( $query_vars = array() ) {
@@ -103,6 +106,8 @@ class Tribe__Events__Aggregator {
 			return;
 		}
 
+		// @TODO: do something with the submission of events. $_POST['data']
+
 		/**
 		 * Allow developers to hook on Event Aggregator endpoint
 		 * We will always exit with a JSON answer error
@@ -110,7 +115,7 @@ class Tribe__Events__Aggregator {
 		 * @param string  $action  Which action was requested
 		 * @param WP      $wp      The WordPress Request object
 		 */
-		do_action( 'tribe_ea_endpoint', $action, $wp );
+		do_action( 'tribe_aggregator_endpoint', $action, $wp );
 
 		/**
 		 * Allow developers to hook to a specific Event Aggregator endpoint
@@ -118,7 +123,7 @@ class Tribe__Events__Aggregator {
 		 *
 		 * @param WP      $wp      The WordPress Request object
 		 */
-		do_action( "tribe_ea_endpoint_{$action}", $wp );
+		do_action( "tribe_aggregator_endpoint_{$action}", $wp );
 
 		// If we reached this point this endpoint call was invalid
 		return wp_send_json_error();
@@ -149,5 +154,81 @@ class Tribe__Events__Aggregator {
 		}
 
 		return $this->api->$api;
+	}
+
+	/**
+	 * Returns the daily import limit
+	 *
+	 * @return int
+	 */
+	public function daily_limit() {
+		return $this->daily_limit;
+	}
+
+	/**
+	 * Returns the available daily limit of import requests
+	 *
+	 * @return int
+	 */
+	public function daily_limit_available() {
+		$available = get_transient( $this->daily_limit_transient_key() );
+
+		$daily_limit = $this->daily_limit();
+
+		if ( false === $available ) {
+			return $daily_limit;
+		}
+
+		return (int) $available < $daily_limit ? $available : $daily_limit;
+	}
+
+	/**
+	 * Reduces the daily limit by the provided amount
+	 *
+	 * @param int $amount Amount to reduce the daily limit by
+	 *
+	 * @return bool
+	 */
+	public function reduce_daily_limit( $amount = 1 ) {
+		if ( ! is_numeric( $amount ) ) {
+			return new WP_Error( 'invalid-integer', esc_html__( 'The daily limits reduction amount must be an integer' ) );
+		}
+
+		if ( $amount < 0 ) {
+			return true;
+		}
+
+		$available = $this->daily_limit_available();
+
+		$available -= $amount;
+
+		if ( $available < 0 ) {
+			$available = 0;
+		}
+
+		return set_transient( $this->daily_limit_transient_key(), $available, DAY_IN_SECONDS );
+	}
+
+	/**
+	 * Generates the current daily transient key
+	 */
+	private function daily_limit_transient_key() {
+		return 'tribe-aggregator-limit-used_' . date( 'Y-m-d' );
+	}
+
+	/**
+	 * Handles the filtering of the PUE "plugin name" for event aggregator which...isn't a plugin
+	 *
+	 * @param string $plugin_name Plugin name to filter
+	 * @param string $plugin_slug Plugin slug
+	 *
+	 * @return string
+	 */
+	public function pue_plugin_name( $plugin_name, $plugin_slug ) {
+		if ( 'event-aggregator' !== $plugin_slug ) {
+			return $plugin_name;
+		}
+
+		return __( 'Event Aggregator', 'the-events-calendar' );
 	}
 }

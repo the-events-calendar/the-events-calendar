@@ -7,29 +7,35 @@
 		background-color: #fff;
 
 		.form-table {
+			th[scope="row"] {
+				width: 100px;
+			}
+
 			tr {
 				position: relative;
 			}
 		}
 	}
 
-	.tribe-ea-table-container {
-		background-color: #FAFAFA;
-		border: 1px solid #E7E7E7;
-	}
-
 	.tribe-ea-help {
 		padding: 4px;
+		color: #0073aa;
 		cursor: pointer;
-
-		&:hover,
-		&.tribe-active {
-			color: #0073aa;
-		}
 	}
 
 	.tribe-ea-hidden {
 		display: none;
+	}
+
+	.tribe-ea-file-name {
+		display: inline-block;
+		font-style: italic;
+		line-height: 26px;
+		max-width: 200px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: auto;
 	}
 
 	.tribe-ea-size-small {
@@ -101,5 +107,113 @@
 		.tribe-credentials-success {
 			display: none;
 		}
+	}
+
+	.manage-column {
+		&.column-frequency {
+			width: 15%;
+		}
+
+		&.column-imported {
+			width: 15%;
+		}
+
+		&.column-total {
+			width: 15%;
+		}
+	}
+
+	td.column-source {
+		padding-left: 50px;
+		position: relative;
+	}
+
+	.tribe-ea-report-status {
+		position: absolute;
+		width: 45px;
+		bottom: 0;
+		top: 0;
+		left: 0;
+		font-size: 25px;
+
+		> .dashicons {
+			width: 100%;
+			padding-top: 10px;
+			font-size: inherit;
+		}
+
+		.tribe-ea-status-success {
+			color: #46b450;
+		}
+
+		.tribe-ea-status-scheduled {
+			color: #00a0d2;
+		}
+
+		.tribe-ea-status-failed {
+			color: #dc3232;
+		}
+
+		.tribe-ea-status-pending {
+			color: #ffb900;
+			font-size: 0.8em;
+		}
+	}
+
+	.select2-container-multi .select2-choices .select2-search-field input {
+		height: 25px;
+	}
+}
+
+.tribe-ea-table-container {
+	background-color: #FAFAFA;
+	border: 1px solid #E7E7E7;
+	min-height: 25px;
+	padding: .5rem;
+}
+
+.tribe-preview-container {
+	display: none;
+
+	&.tribe-fetch-error,
+	&.tribe-fetched {
+		display: block;
+	}
+
+	&.tribe-fetching {
+		display: block;
+
+		.spinner-container {
+			display: block;
+			text-align: center;
+		}
+	}
+
+	&.tribe-fetch-error {
+		.tribe-fetch-error-message {
+			display: block;
+		}
+	}
+
+	> td {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.tribe-column-start-date,
+	.tribe-column-end-date {
+		width: 8em;
+	}
+
+	.tribe-fetch-error-message,
+	.spinner-container {
+		display: none;
+	}
+
+	.spinner {
+		float: none;
+		margin-left: auto;
+		margin-right: auto;
+		visibility: visible;
 	}
 }

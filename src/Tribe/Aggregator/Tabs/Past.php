@@ -1,14 +1,12 @@
 <?php
 // Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
+defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Tabs__Past extends Tribe__Events__Aggregator__Tabs__Abstract {
 	/**
 	 * Static Singleton Holder
 	 *
-	 * @var self|null
+	 * @var self
 	 */
 	private static $instance;
 
@@ -18,7 +16,7 @@ class Tribe__Events__Aggregator__Tabs__Past extends Tribe__Events__Aggregator__T
 	 * @return self
 	 */
 	public static function instance() {
-		if ( empty( self::$instance ) ) {
+		if ( ! self::$instance ) {
 			self::$instance = new self;
 		}
 

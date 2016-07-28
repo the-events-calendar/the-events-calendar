@@ -1,0 +1,293 @@
+<?php
+// Don't load directly
+defined( 'WPINC' ) or die;
+
+class Tribe__Events__Aggregator__Records {
+	/**
+	 * Slug of the Post Type used for Event Aggregator Records
+	 *
+	 * @var string
+	 */
+	public static $post_type = 'tribe-ea-record';
+
+	/**
+	 * Base slugs for all the EA Record Post Statuses
+	 *
+	 * @var stdClass
+	 */
+	public static $status = array(
+		'success'   => 'tribe-ea-success',
+		'failed'    => 'tribe-ea-failed',
+		'scheduled' => 'tribe-ea-scheduled',
+		'pending'   => 'tribe-ea-pending',
+		'draft'     => 'tribe-ea-draft',
+	);
+
+	/**
+	 * Static Singleton Holder
+	 *
+	 * @var self
+	 */
+	private static $instance;
+
+	/**
+	 * Static Singleton Factory Method
+	 *
+	 * @return self
+	 */
+	public static function instance() {
+		if ( ! self::$instance ) {
+			self::$instance = new self;
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * Setup all the hooks and filters
+	 *
+	 * @return void
+	 */
+	private function __construct() {
+		// Make it an object for easier usage
+		if ( ! is_object( self::$status ) ) {
+			self::$status = (object) self::$status;
+		}
+
+		// Register the Custom Post Type
+		add_action( 'init', array( $this, 'get_post_type' ) );
+
+		// Register the Custom Post Statuses
+		add_action( 'init', array( $this, 'get_status' ) );
+
+		// Run the Import when Hitting the Event Aggregator Endpoint
+		add_action( 'tribe_aggregator_endpoint_insert', array( $this, 'action_do_import' ) );
+	}
+
+	/**
+	 * Register and return the Aggregator Record Custom Post Type
+	 * Instead of having a method for returning and another registering
+	 * we do it all in one single method depending if it exists or not
+	 *
+	 * @return stdClass|WP_Error
+	 */
+	public function get_post_type() {
+		if ( post_type_exists( self::$post_type ) ) {
+			return get_post_type_object( self::$post_type );
+		}
+
+		$args = array(
+			'description'        => esc_html__( 'Events Aggregator Record', 'the-events-calendar' ),
+			'public'             => true,
+			'publicly_queryable' => false,
+			'show_ui'            => false,
+			'show_in_menu'       => false,
+			'query_var'          => false,
+			'rewrite'            => false,
+			'capability_type'    => array( 'aggregator-record', 'aggregator-records' ),
+			'has_archive'        => false,
+			'hierarchical'       => false,
+			'menu_position'      => null,
+			'supports'           => array(),
+		);
+
+		$args['labels'] = array(
+			'name'               => esc_html_x( 'Aggregator Records', 'post type general name', 'the-events-calendar' ),
+			'singular_name'      => esc_html_x( 'Aggregator Record', 'post type singular name', 'the-events-calendar' ),
+			'menu_name'          => esc_html_x( 'Aggregator Records', 'admin menu', 'the-events-calendar' ),
+			'name_admin_bar'     => esc_html_x( 'Aggregator Record', 'add new on admin bar', 'the-events-calendar' ),
+			'add_new'            => esc_html_x( 'Add New', 'record', 'the-events-calendar' ),
+			'add_new_item'       => esc_html__( 'Add New Aggregator Record', 'the-events-calendar' ),
+			'new_item'           => esc_html__( 'New Aggregator Record', 'the-events-calendar' ),
+			'edit_item'          => esc_html__( 'Edit Aggregator Record', 'the-events-calendar' ),
+			'view_item'          => esc_html__( 'View Aggregator Record', 'the-events-calendar' ),
+			'all_items'          => esc_html__( 'All Aggregator Records', 'the-events-calendar' ),
+			'search_items'       => esc_html__( 'Search Aggregator Records', 'the-events-calendar' ),
+			'parent_item_colon'  => esc_html__( 'Parent Aggregator Record:', 'the-events-calendar' ),
+			'not_found'          => esc_html__( 'No Aggregator Records found.', 'the-events-calendar' ),
+			'not_found_in_trash' => esc_html__( 'No Aggregator Records found in Trash.', 'the-events-calendar' ),
+		);
+
+		return register_post_type( self::$post_type, $args );
+	}
+
+	/**
+	 * Register and return the Aggregator Record Custom Post Status
+	 * Instead of having a method for returning and another registering
+	 * we do it all in one single method depending if it exists or not
+	 *
+	 * @param  string $status Which status object you are looking for
+	 *
+	 * @return stdClass|WP_Error|array
+	 */
+	public function get_status( $status = null ) {
+		$registered_by_key = (object) array();
+		$registered_by_name = (object) array();
+
+		foreach ( self::$status as $key => $name ) {
+			$object = get_post_status_object( $name );
+			$registered_by_key->{ $key } = $object;
+			$registered_by_name->{ $name } = $object;
+		}
+
+		// Check if we already have the Status registered
+		if ( isset( $registered_by_key->{ $status } ) && is_object( $registered_by_key->{ $status } ) ) {
+			return $registered_by_key->{ $status };
+		}
+
+		// Check if we already have the Status registered
+		if ( isset( $registered_by_name->{ $status } ) && is_object( $registered_by_name->{ $status } ) ) {
+			return $registered_by_name->{ $status };
+		}
+
+		// Register the Success post status
+		$args = array(
+			'label'              => esc_html_x( 'Imported', 'event aggregator status', 'the-events-calendar' ),
+			'label_count'        => _nx_noop( 'Imported <span class="count">(%s)</span>', 'Imported <span class="count">(%s)</span>', 'event aggregator status', 'the-events-calendar' ),
+			'public'             => true,
+			'publicly_queryable' => true,
+		);
+		$object = register_post_status( self::$status->success, $args );
+		$registered_by_key->success = $registered_by_name->{'tribe-aggregator-success'} = $object;
+
+		// Register the Failed post status
+		$args = array(
+			'label'              => esc_html_x( 'Failed', 'event aggregator status', 'the-events-calendar' ),
+			'label_count'        => _nx_noop( 'Failed <span class="count">(%s)</span>', 'Failed <span class="count">(%s)</span>', 'event aggregator status', 'the-events-calendar' ),
+			'public'             => true,
+			'publicly_queryable' => true,
+		);
+		$object = register_post_status( self::$status->failed, $args );
+		$registered_by_key->failed = $registered_by_name->{'tribe-aggregator-failed'} = $object;
+
+		// Register the Scheduled post status
+		$args = array(
+			'label'              => esc_html_x( 'Scheduled', 'event aggregator status', 'the-events-calendar' ),
+			'label_count'        => _nx_noop( 'Scheduled <span class="count">(%s)</span>', 'Scheduled <span class="count">(%s)</span>', 'event aggregator status', 'the-events-calendar' ),
+			'public'             => true,
+			'publicly_queryable' => true,
+		);
+		$object = register_post_status( self::$status->scheduled, $args );
+		$registered_by_key->scheduled = $registered_by_name->{'tribe-aggregator-scheduled'} = $object;
+
+		// Register the Pending post status
+		$args = array(
+			'label'              => esc_html_x( 'Pending', 'event aggregator status', 'the-events-calendar' ),
+			'label_count'        => _nx_noop( 'Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>', 'event aggregator status', 'the-events-calendar' ),
+			'public'             => true,
+			'publicly_queryable' => true,
+		);
+		$object = register_post_status( self::$status->pending, $args );
+		$registered_by_key->pending = $registered_by_name->{'tribe-aggregator-pending'} = $object;
+
+		// Register the Pending post status
+		$args = array(
+			'label'              => esc_html_x( 'Draft', 'event aggregator status', 'the-events-calendar' ),
+			'label_count'        => _nx_noop( 'Draft <span class="count">(%s)</span>', 'Draft <span class="count">(%s)</span>', 'event aggregator status', 'the-events-calendar' ),
+			'public'             => true,
+			'publicly_queryable' => true,
+		);
+		$object = register_post_status( self::$status->pending, $args );
+		$registered_by_key->draft = $registered_by_name->{'tribe-aggregator-draft'} = $object;
+
+		// Check if we already have the Status registered
+		if ( isset( $registered_by_key->{ $status } ) && is_object( $registered_by_key->{ $status } ) ) {
+			return $registered_by_key->{ $status };
+		}
+
+		// Check if we already have the Status registered
+		if ( isset( $registered_by_name->{ $status } ) && is_object( $registered_by_name->{ $status } ) ) {
+			return $registered_by_name->{ $status };
+		}
+
+		return $registered_by_key;
+	}
+
+	/**
+	 * Returns an appropriate Record object for the given origin
+	 *
+	 * @param string $origin Import origin
+	 *
+	 * @return Tribe__Events__Aggregator__Record__Abstract|null
+	 */
+	public function get_by_origin( $origin, $post = null ) {
+		$record = null;
+
+		switch ( $origin ) {
+			case 'ical':
+				$record = new Tribe__Events__Aggregator__Record__iCal( $post );
+				break;
+			case 'ics':
+				$record = new Tribe__Events__Aggregator__Record__ICS( $post );
+				break;
+			case 'facebook':
+				$record = new Tribe__Events__Aggregator__Record__Facebook( $post );
+				break;
+			case 'meetup':
+				$record = new Tribe__Events__Aggregator__Record__Meetup( $post );
+				break;
+		}
+
+		return $record;
+	}
+
+	/**
+	 * Returns an appropriate Record object for the given post id
+	 *
+	 * @param int $post_id WP Post ID of record
+	 *
+	 * @return Tribe__Events__Aggregator__Record__Abstract|null
+	 */
+	public function get_by_post_id( $post ) {
+		$post = get_post( $post );
+
+		if ( is_wp_error( $post ) ) {
+			return $post;
+		}
+
+		if ( empty( $post->post_mime_type ) ) {
+			return new WP_Error( 'tribe-invalid-import-record', __( 'The Import Record is missing the origin meta key', 'the-events-calendar' ) );
+		}
+
+		return $this->get_by_origin( $post->post_mime_type, $post );
+	}
+
+	/**
+	 * Returns an appropriate Record object for the given import id
+	 *
+	 * @param int $import_id Aggregator import id
+	 *
+	 * @return Tribe__Events__Aggregator__Record__Abstract|null
+	 */
+	public function get_by_import_id( $import_id ) {
+		$meta_prefix = Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix;
+
+		$args = array(
+			'post_type' => self::$post_type,
+			'meta_key' => $meta_prefix . 'import_id',
+			'meta_value' => $import_id,
+			'post_status' => array(
+				self::$status->pending,
+				self::$status->success,
+			),
+		);
+
+		$query = new WP_Query( $args );
+
+		if ( empty( $query->post ) ) {
+			return new WP_Error( 'tribe-invalid-import-id', sprintf( __( 'Unable to find an Import Record with the import_id of %s', 'the-events-calendar' ), $import_id ) );
+		}
+
+		$post = $query->post;
+		if ( empty( $post->post_mime_type ) ) {
+			return new WP_Error( 'tribe-invalid-import-record', __( 'The Import Record is missing the origin meta key', 'the-events-calendar' ) );
+		}
+
+		return $this->get_by_origin( $post->post_mime_type, $post );
+
+	}
+
+	public function action_do_import() {
+		return wp_send_json_success();
+	}
+}

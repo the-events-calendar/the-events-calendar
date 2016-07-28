@@ -1,8 +1,6 @@
 <?php
 // Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
+defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Page {
 	/**
@@ -51,10 +49,71 @@ class Tribe__Events__Aggregator__Page {
 	 * It will add the methods and setup any dependecies
 	 */
 	private function __construct() {
+		$plugin = Tribe__Events__Main::instance();
+
 		add_action( 'admin_menu', array( $this, 'register_menu_item' ) );
+		add_action( 'current_screen', array( $this, 'action_request' ) );
 
 		// Setup Tabs Instance
 		$this->tabs = Tribe__Events__Aggregator__Tabs::instance();
+
+		// Load these on all the pages
+		tribe_assets( $plugin,
+			array(
+				array( 'tribe-ea-fields', 'aggregator-fields.js', array( 'jquery', 'underscore', 'tribe-bumpdown', 'tribe-dependency', 'tribe-events-select2' ) ),
+				array( 'tribe-ea-page', 'aggregator-page.css', ),
+			),
+			'admin_enqueue_scripts',
+			array(
+				'conditionals' => array(
+					array( $this, 'is_screen' )
+				),
+				'localize' => (object) array(
+					'name' => 'tribe_l10n_aggregator_fields',
+					'data' => array(
+						'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
+					),
+				),
+			)
+		);
+	}
+
+	/**
+	 * Hooked to `current_screen` allow tabs and other parts of the plugin to hook to aggregator before rendering any headers
+	 *
+	 * @param  WP_Screen $screen Variable from `current_screen`
+	 *
+	 * @return bool
+	 */
+	public function action_request( $screen ) {
+		if ( ! $this->is_screen() ) {
+			return false;
+		}
+
+		if ( isset( $_GET['dummy'] ) ) {
+			$origins = array( 'facebook', 'meetup', 'ical' );
+			$frequencies = Tribe__Events__Aggregator__Cron::instance()->get_frequency();
+			$types = array( 'manual', 'scheduled' );
+
+			for ( $i=0; $i < 15; $i++ ) {
+				$origin = $origins[ array_rand( $origins ) ];
+				$type = $types[ array_rand( $types ) ];
+				$record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $origin );
+
+				$meta = array();
+				if ( 'scheduled' === $type ) {
+					$meta['frequency'] = $frequencies[ array_rand( $frequencies ) ]->id;
+				}
+
+				$records[] = $record->create( $type, $meta );
+			}
+			var_dump( $records );
+		}
+
+		/**
+		 * Fires an Action to allow Form actions to be hooked to
+		 */
+		return do_action( 'tribe_aggregator_page_request' );
 	}
 
 	/**
@@ -185,7 +244,7 @@ class Tribe__Events__Aggregator__Page {
 			extract( $data );
 		}
 
-		include( $file );
+		include $file;
 
 		/**
 		 * Fires an Action After including the template file

@@ -1,8 +1,6 @@
 <?php
 // Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
+defined( 'WPINC' ) or die;
 
 abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 
@@ -30,27 +28,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 	 * If you need an action to be hook to any Tab, use this.
 	 */
 	public function __construct() {
-		$plugin = Tribe__Events__Main::instance();
 
-		// Only Load if this Is active
-		tribe_assets( $plugin,
-			array(
-				array( 'tribe-ea-fields', 'aggregator-fields.js', array( 'jquery', 'underscore', 'tribe-bumpdown', 'tribe-dependency', 'tribe-events-select2' ) ),
-				array( 'tribe-ea-page', 'aggregator-page.css', ),
-			),
-			'admin_enqueue_scripts',
-			array(
-				'conditionals' => array(
-					array( $this, 'is_active' )
-				),
-				'localize' => (object) array(
-					'name' => 'tribe_l10n_ea_fields',
-					'data' => array(
-						'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
-					),
-				),
-			)
-		);
 	}
 
 	/**

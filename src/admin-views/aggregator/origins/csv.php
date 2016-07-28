@@ -1,6 +1,7 @@
 <?php
+$origin_slug        = 'csv';
 $field              = (object) array();
-$field->label       = __( 'Content Type', 'the-events-calendar' );
+$field->label       = __( 'Content Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Content Type', 'the-events-calendar' );
 $field->help        = __( 'For better results, import venue and organizer files before importing event files', 'the-events-calendar' );
 $field->source      = 'csv_content_type';
@@ -25,7 +26,7 @@ $field->source      = 'csv_content_type';
 
 <?php
 $field              = (object) array();
-$field->label       = __( 'Choose File', 'the-events-calendar' );
+$field->label       = __( 'Choose File:', 'the-events-calendar' );
 $field->placeholder = __( 'Choose a CSV file', 'the-events-calendar' );
 $field->help        = __( 'Select your .CSV file from the WordPress media library. You may need to first upload the file from your computer to the library.', 'the-events-calendar' );
 $field->source      = 'csv_files';
@@ -54,6 +55,7 @@ $field->media_title = __( 'Upload a CSV File', 'the-events-calendar' );
 		>
 			<?php echo esc_html( $field->button ); ?>
 		</button>
+		<span class="tribe-ea-field tribe-ea-file-name" id="tribe-ea-field-csv_file_name"><?php echo esc_html__( 'No file chosen', 'the-events-calendar' ); ?></span>
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
 	</td>
 </tr>
