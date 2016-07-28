@@ -14,7 +14,7 @@ if ( 'ics' === $origin_slug ) {
 	$depends = "#tribe-ea-field-{$origin_slug}_source";
 }
 ?>
-<tr class="tribe-dependent" data-depends="<?php echo esc_attr( $depends ); ?>" data-condition-not-empty>
+<tr class="tribe-dependent tribe-refine-filters" data-depends="<?php echo esc_attr( $depends ); ?>" data-condition-not-empty>
 	<th scope="row">
 		<label for="tribe-ea-field-refine_keywords"><?php echo __( 'Refine:', 'the-events-calendar' ); ?></label>
 	</th>
@@ -34,9 +34,9 @@ if ( 'ics' === $origin_slug ) {
 			placeholder="<?php echo esc_attr( $location->placeholder ); ?>"
 		>
 		<input
-			name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][start_date]"
+			name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][start]"
 			type="text"
-			id="tribe-ea-field-ics_start_date"
+			id="tribe-ea-field-ics_start"
 			class="tribe-ea-field tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $start_date->placeholder ); ?>"
 		>

@@ -153,8 +153,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$defaults['location'] = $this->meta['location'];
 		}
 
-		if ( ! empty( $this->meta['start_date'] ) ) {
-			$defaults['start_date'] = $this->meta['start_date'];
+		if ( ! empty( $this->meta['start'] ) ) {
+			$defaults['start'] = $this->meta['start'];
 		}
 
 		if ( ! empty( $this->meta['radius'] ) ) {

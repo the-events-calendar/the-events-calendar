@@ -93,7 +93,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			'file'       => empty( $data['file'] )             ? null     : $data['file'],
 			'keywords'   => empty( $data['keywords'] )         ? null     : $data['keywords'],
 			'location'   => empty( $data['location'] )         ? null     : $data['location'],
-			'start_date' => empty( $data['start_date'] )       ? null     : $data['start_date'],
+			'start'      => empty( $data['start'] )            ? null     : $data['start'],
 			'radius'     => empty( $data['radius'] )           ? null     : $data['radius'],
 			'source'     => empty( $data['source'] )           ? null     : $data['source'],
 		);

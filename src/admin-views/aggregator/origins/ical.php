@@ -90,5 +90,10 @@ $field->help        = __( 'Enter the url for the iCalendar feed you wish to impo
 			esc_html_e( 'Preview', 'the-events-calendar' );
 			?>
 		</button>
+		<button type="button" class="button tribe-clear-filters">
+			<?php
+			esc_html_e( 'Clear Filters', 'the-events-calendar' );
+			?>
+		</button>
 	</td>
 </tr>

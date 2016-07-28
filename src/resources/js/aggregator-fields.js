@@ -5,11 +5,17 @@ tribe_ea.fields = {
 	// Store the Required Selectors
 	selector: {
 		container: '.tribe-ea',
+		form: '.tribe-ea-form',
 		help: '.tribe-ea-help',
 		fields: '.tribe-ea-field',
 		dropdown: '.tribe-ea-dropdown',
 		media_button: '.tribe-ea-media_button',
-		datepicker: '.tribe-ea-datepicker'
+		datepicker: '.tribe-ea-datepicker',
+		save_credentials_button: '.enter-credentials .tribe-save',
+		preview_container: '.tribe-preview-container',
+		preview_button: '.tribe-preview:visible',
+		refine_filters: '.tribe-refine-filters',
+		clear_filters_button: '.tribe-clear-filters'
 	},
 
 	media: {},
@@ -20,11 +26,26 @@ tribe_ea.fields = {
 	// Store the methods for creating the fields
 	construct: {},
 
+	// Store the methods that will act as event handlers
+	events: {},
+
 	// Store L10N strings
-	l10n: window.tribe_l10n_ea_fields
+	l10n: window.tribe_l10n_ea_fields,
+
+	// store the current import_id
+	import_id: null,
+
+	// track how many result fetches have been executed via polling
+	result_fetch_count: 0,
+
+	// the maximum number of result fetches that can be done before erroring out
+	max_result_fetch_count: 20,
+
+	// frequency at which we will poll for results
+	polling_frequency: 500
 };
 
-( function( $, _, my ) {
+( function( $, _, obj ) {
 	'use strict';
 
 	/**
@@ -32,158 +53,225 @@ tribe_ea.fields = {
 	 *
 	 * @return void
 	 */
-	my.init = function() {
-		my.$.container = $( my.selector.container );
+	obj.init = function() {
+		obj.$.container = $( obj.selector.container );
 
 		// Update what fields we currently have to setup
-		my.$.fields = my.$.container.find( my.selector.fields );
+		obj.$.fields = obj.$.container.find( obj.selector.fields );
+
+		// Setup the preview container
+		obj.$.preview_container = $( obj.selector.preview_container );
 
 		// Setup each type of field
-		$.each( my.construct, function( key, callback ){
-			callback( my.$.fields );
+		$.each( obj.construct, function( key, callback ){
+			callback( obj.$.fields );
 		} );
 
-		$( document ).on( 'keypress', my.selector.fields, function() {
-			$( this ).change();
-		} );
-
-		$( document ).on( 'click', '.enter-credentials .tribe-save', function() {
-			var $container = $( this ).closest( '.enter-credentials' );
-			var data = $( this ).closest( '.tribe-fieldset' ).find( 'input' ).serialize();
-
-			var url = ajaxurl + '?action=tribe_save_credentials&which=facebook';
-
-			var jqxhr = $.post( url, data );
-			jqxhr.done( function( response ) {
-				if ( response.success ) {
-					$container.addClass( 'credentials-entered' );
-					$container.find( '#tribe-has-credentials' ).val( 1 ).change();
-				}
-			} );
-		} );
-
-		$( document ).on( 'submit', '.tribe-ea-tab-new', function( e ) {
-			e.preventDefault();
-		} );
-
-		$( document ).on( 'click', '.tribe-preview', function( e ) {
-			var $preview = $( this );
-			var $form = $preview.closest( 'form' );
-			var data = $form.serialize();
-			var $preview_container = $( '.tribe-preview-container' );
-			$preview_container
-				.addClass( 'tribe-fetching' )
-				.removeClass( 'tribe-fetch-error' )
-				.removeClass( 'show-data' );
-
-			$preview.prop( 'disabled', true );
-
-			var table = $( '.dataTable' ).data( 'table' );
-			if ( 'undefined' !== typeof table ) {
-				table.clear().draw();
-			}
-
-			//$( '#tmpl-preview' ).nextAll().hide();
-
-			var jqxhr = $.ajax( {
-				type: 'POST',
-				url: ajaxurl + '?action=tribe_create_import',
-				data: data,
-				dataType: 'json'
-			} );
-
-			jqxhr.done( function( response ) {
-				if ( ! response.success ) {
-					$preview_container.removeClass( 'tribe-fetching').addClass( 'tribe-fetch-error' );
-					$( '.tribe-fetch-error-message' ).html(
-						[
-							'<div class="notice notice-error">',
-								'<p>',
-									'<b>',
-										tribe_l10n_ea_fields.preview_fetch_error_prefix,
-									'</b>',
-									' ' + response.data.message,
-								'</p>',
-							'</div>'
-						].join( '' )
-					);
-					$preview.prop( 'disabled', false );
-					return;
-				}
-
-				my.import_id = response.data.data.import_id;
-
-				setTimeout( my.poll_for_results, 300 );
-			} );
-		} );
+		$( document )
+			.on( 'keypress' , obj.selector.fields                  , obj.events.trigger_field_change )
+			.on( 'click'    , obj.selector.save_credentials_button , obj.events.trigger_save_credentials )
+			.on( 'click'    , obj.selector.clear_filters_button    , obj.clear_filters )
+			.on( 'click'    , '.tribe-preview'                     , obj.preview_import )
+			.on( 'submit'   , '.tribe-ea-tab-new'                  , obj.events.suppress_submission );
 	};
 
-	my.poll_for_results = function() {
+	/**
+	 * Send an Ajax request to preview the import
+	 */
+	obj.preview_import = function() {
+		var $preview = $( obj.selector.preview_button );
+		var $form = $preview.closest( 'form' );
+		var data = $form.serialize();
+		obj.$.preview_container
+			.addClass( 'tribe-fetching' )
+			.removeClass( 'tribe-fetch-error' )
+			.removeClass( 'show-data' );
+
+		$preview.prop( 'disabled', true );
+
+		var table = $( '.dataTable' ).data( 'table' );
+		if ( 'undefined' !== typeof table ) {
+			table.clear().draw();
+		}
+
+		// create the import
+		obj.create_import( data );
+	};
+
+	/**
+	 * Clears the refine filters
+	 */
+	obj.reset_form = function() {
+		obj.$.fields.val( '' ).trigger( 'change' );
+		$( '.tribe-ea-dropdown' ).select2( 'data', null );
+		$( '[id$="import_frequency"]' ).val( 'daily' ).trigger( 'change' );
+	};
+
+	/**
+	 * Clears the refine filters
+	 */
+	obj.clear_filters = function() {
+		$( obj.selector.refine_filters )
+			.find( 'input, select' )
+			.val( '' )
+			.trigger( 'change' );
+	};
+
+	/**
+	 * Creates an import and polls for results
+	 *
+	 * @param object data Form data for the import
+	 */
+	obj.create_import = function( data ) {
 		var jqxhr = $.ajax( {
-			type: 'GET',
-			url: ajaxurl + '?action=tribe_fetch_import&import_id=' + my.import_id,
+			type: 'POST',
+			url: ajaxurl + '?action=tribe_create_import',
+			data: data,
 			dataType: 'json'
 		} );
 
 		jqxhr.done( function( response ) {
 			if ( ! response.success ) {
-				// @todo: output error
+				obj.display_fetch_error( [
+					'<b>',
+						tribe_l10n_ea_fields.preview_fetch_error_prefix,
+					'</b>',
+					' ' + response.data.message
+				].join( ' ' ) );
+				return;
+			}
+
+			// set the import id of the page
+			obj.import_id = response.data.data.import_id;
+
+			setTimeout( obj.poll_for_results, obj.polling_frequency );
+		} );
+	};
+
+	/**
+	 * Poll for results from an import
+	 */
+	obj.poll_for_results = function() {
+		obj.result_fetch_count++;
+
+		var jqxhr = $.ajax( {
+			type: 'GET',
+			url: ajaxurl + '?action=tribe_fetch_import&import_id=' + obj.import_id,
+			dataType: 'json'
+		} );
+
+		jqxhr.done( function( response ) {
+			if ( ! response.success ) {
+				obj.display_fetch_error( [
+					'<b>',
+						tribe_l10n_ea_fields.preview_fetch_error_prefix,
+					'</b>',
+					' ' + response.data.message
+				].join( ' ' ) );
 				return;
 			}
 
 			if ( 'success' !== response.data.status ) {
-				setTimeout( my.poll_for_results, 300 );
-			} else {
-				var display_checkboxes = false;
-
-				var $import_type = $( '[id$="import_type"]:visible' );
-
-				if ( ! $import_type.length || 'manual' === $( '#' + $import_type.first().attr( 'id' ).replace( 's2id_', '' ) ).val() ) {
-					display_checkboxes = true;
-				}
-
-				var $container = $( '.tribe-preview-container' );
-				var $table = $container.find( '.data-container table' );
-
-				var data = [];
-				for ( var i in response.data.data.events ) {
-					var item = [
-						display_checkboxes ? '<input type="checkbox">' : '',
-						response.data.data.events[ i ].start_date,
-						response.data.data.events[ i ].end_date,
-						response.data.data.events[ i ].title
-					];
-					data.push( item );
-				}
-
-				if ( display_checkboxes ) {
-					$table.addClass( 'display-checkboxes' );
+				if ( obj.result_fetch_count > obj.max_result_fetch_count ) {
+					obj.display_fetch_error( [
+						'The preview is taking longer than expected. Please try again in a moment.'
+					].join( '' ) );
 				} else {
-					$table.removeClass( 'display-checkboxes' );
+					setTimeout( obj.poll_for_results, obj.polling_frequency );
 				}
+			} else {
+				obj.init_datatable( response.data.data.events );
+				obj.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetched' );
+				$( obj.selector.preview_button ).prop( 'disabled', false );
+			}
+		} );
+	};
 
-				$container.addClass( 'show-data' );
-				$table.tribeDataTable( {
-					lengthMenu: [
-						[5, 10, 25, 50, -1],
-						[5, 10, 25, 50, tribe_l10n_datatables.pagination.all ]
-					],
-					order: [
-						[ 1, 'asc' ]
-					],
-					columnDefs: [
-						{
-							cellType: 'th',
-							className: 'check-column',
-							orderable: false,
-							targets: 0
-						}
-					],
-					data: data
-				} );
+	/**
+	 * Initializes the datatable
+	 *
+	 * @param array data Array of events to display in the table
+	 */
+	obj.init_datatable = function( data ) {
+		var display_checkboxes = false;
 
-				$container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetched' );
-				$( '.tribe-preview:visible' ).prop( 'disabled', false );
+		var $import_type = $( '[id$="import_type"]:visible' );
+
+		if ( ! $import_type.length || 'manual' === $( '#' + $import_type.first().attr( 'id' ).replace( 's2id_', '' ) ).val() ) {
+			display_checkboxes = true;
+		}
+
+		var $table = obj.$.preview_container.find( '.data-container table' );
+
+		var rows = [];
+		for ( var i in data ) {
+			var row = [
+				display_checkboxes ? '<input type="checkbox">' : '',
+				data[ i ].start_date,
+				data[ i ].end_date,
+				data[ i ].title
+			];
+			rows.push( row );
+		}
+
+		if ( display_checkboxes ) {
+			$table.addClass( 'display-checkboxes' );
+		} else {
+			$table.removeClass( 'display-checkboxes' );
+		}
+
+		obj.$.preview_container.addClass( 'show-data' );
+		$table.tribeDataTable( {
+			lengthMenu: [
+				[5, 10, 25, 50, -1],
+				[5, 10, 25, 50, tribe_l10n_datatables.pagination.all ]
+			],
+			order: [
+				[ 1, 'asc' ]
+			],
+			columnDefs: [
+				{
+					cellType: 'th',
+					className: 'check-column',
+					orderable: false,
+					targets: 0
+				}
+			],
+			data: rows
+		} );
+	};
+
+	/**
+	 * Displays a fetch error
+	 */
+	obj.display_fetch_error = function( message ) {
+		obj.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetch-error' );
+		$( '.tribe-fetch-error-message' ).html(
+			[
+				'<div class="notice notice-error">',
+					'<p>',
+						message,
+					'</p>',
+				'</div>'
+			].join( '' )
+		);
+
+		$( obj.selector.preview_button ).prop( 'disabled', false );
+	};
+
+	/**
+	 * Saves credential form
+	 */
+	obj.save_credentials = function( $credentials_form ) {
+		var data = $( this ).closest( '.tribe-fieldset' ).find( 'input' ).serialize();
+
+		var url = ajaxurl + '?action=tribe_save_credentials&which=facebook';
+
+		var jqxhr = $.post( url, data );
+		jqxhr.done( function( response ) {
+			if ( response.success ) {
+				$credentials_form.addClass( 'credentials-entered' );
+				$credentials_form.find( '#tribe-has-credentials' ).val( 1 ).change();
 			}
 		} );
 	};
@@ -194,7 +282,7 @@ tribe_ea.fields = {
 	 * @param  {object|string} e Searched object or the actual ID
 	 * @return {string}   ID of the object
 	 */
-	my.search_id = function ( e ) {
+	obj.search_id = function ( e ) {
 		var id = null;
 
 		if ( 'undefined' !== typeof e.id ){
@@ -214,8 +302,8 @@ tribe_ea.fields = {
 	 *
 	 * @return {jQuery}         Affected fields
 	 */
-	my.construct.dropdown = function( $fields ) {
-		var $elements = $fields.filter( my.selector.dropdown ).not( '.select2-offscreen, .select2-container' );
+	obj.construct.dropdown = function( $fields ) {
+		var $elements = $fields.filter( obj.selector.dropdown ).not( '.select2-offscreen, .select2-container' );
 
 		$elements.each(function(){
 			var $select = $(this),
@@ -223,7 +311,7 @@ tribe_ea.fields = {
 
 			if ( ! $select.is( 'select' ) ) {
 				// Better Method for finding the ID
-				args.id = my.search_id;
+				args.id = obj.search_id;
 			}
 
 			// By default we allow The field to be cleared
@@ -288,7 +376,7 @@ tribe_ea.fields = {
 				if ( ! result && 'undefined' !== typeof args.tags ){
 					var possible = _.where( args.tags, { text: text } );
 					if ( args.tags.length > 0  && _.isObject( possible ) ){
-						var test_value = my.search_id( possible[0] );
+						var test_value = obj.search_id( possible[0] );
 						result = test_value.toUpperCase().indexOf( term.toUpperCase() ) == 0;
 					}
 				}
@@ -407,8 +495,8 @@ tribe_ea.fields = {
 	 *
 	 * @return {jQuery}         Affected fields
 	 */
-	my.construct.media_button = function( $fields ) {
-		var $elements = $fields.filter( my.selector.media_button );
+	obj.construct.media_button = function( $fields ) {
+		var $elements = $fields.filter( obj.selector.media_button );
 
 		if ( typeof wp === 'undefined' || ! wp.media || ! wp.media.editor ) {
 			return $elements;
@@ -421,7 +509,7 @@ tribe_ea.fields = {
 				$name = $( '#' + input + '_name' );
 
 			// Setup the WP Media for this slug
-			var media = my.media[ input ] = wp.media( {
+			var media = obj.media[ input ] = wp.media( {
 				title: $button.data( 'mediaTitle' ),
 				library: {
 					type: $button.data( 'mimeType' )
@@ -453,16 +541,37 @@ tribe_ea.fields = {
 			} );
 		} );
 
-		my.$.container.on( 'click', my.selector.media_button, function( e ) {
+		obj.$.container.on( 'click', obj.selector.media_button, function( e ) {
 			e.preventDefault();
 			var input = $( this ).data( 'input' );
-			my.media[ input ].open( input );
+			obj.media[ input ].open( input );
 			return false;
 		} );
 
 		return $elements;
 	};
 
+	/**
+	 * Triggers a change event on the given field
+	 */
+	obj.events.trigger_field_change = function() {
+		$( this ).change();
+	};
+
+	/**
+	 * Triggers the saving of credentials
+	 */
+	obj.events.trigger_save_credentials = function() {
+		obj.save_credentials( $( this ).closest( '.enter-credentials' ) );
+	};
+
+	/**
+	 * Suppress form submissions
+	 */
+	obj.events.suppress_submission = function( e ) {
+		e.preventDefault();
+	};
+
 	// Run Init on Document Ready
-	$( document ).ready( my.init );
+	$( document ).ready( obj.init );
 } )( jQuery, _, tribe_ea.fields );
