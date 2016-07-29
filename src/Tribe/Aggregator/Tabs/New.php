@@ -84,7 +84,12 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		$data = $post_data[ $post_data['origin'] ];
 
-		$record = Tribe__Events__Aggregator__Record__Factory::get_by_origin( $post_data['origin'] );
+		if ( ! empty( $post_data['import_id'] ) ) {
+			$this->handle_import_finalize( $post_data );
+			return;
+		}
+
+		$record = Tribe__Events__Aggregator__Records::get_by_origin( $post_data['origin'] );
 
 		$meta = array(
 			'origin'     => $post_data['origin'],
@@ -107,6 +112,15 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$result = $record->queue_import();
 
 		return $result;
+	}
+
+	public function handle_import_finalize( $data ) {
+		$record = Tribe__Events__Aggregator__Records::get_by_import_id( $post_data['import_id'] );
+
+		do_action( 'debug_robot', '$data :: ' . print_r( $data, TRUE ) );
+		do_action( 'debug_robot', '$record :: ' . print_r( $record, TRUE ) );
+
+		// @TODO do somethign with the events
 	}
 
 	public function ajax_csv_content_type() {

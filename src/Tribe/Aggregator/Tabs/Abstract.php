@@ -49,6 +49,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 						'preview_fetch_error_prefix' => __( 'There was an error fetching the results from your import:', 'the-events-calendar' ),
 						'import_all' => __( 'Import All (%d)', 'the-events-calendar' ),
 						'import_checked' => __( 'Import Checked (%d)', 'the-events-calendar' ),
+						'events_required_for_manual_submit' => __( 'Your import must include at least one event', 'the-events-calendar' ),
 						'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
 					),
 				),

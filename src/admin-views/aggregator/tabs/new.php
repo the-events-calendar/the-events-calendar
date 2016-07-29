@@ -12,6 +12,7 @@ $category_dropdown = wp_dropdown_categories( array(
 ) );
 $category_dropdown = preg_replace( '!\<select!', '<select data-hide-search', $category_dropdown );
 ?>
+<input type="hidden" name="aggregator[import_id]" id="tribe-import_id">
 <table class="form-table">
 	<tbody>
 
@@ -105,6 +106,7 @@ $default_settings->help = esc_html__( 'Choose a status for the event(s) to be im
 			<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo $default_settings->help; ?>"></span>
 		</div>
 	</div>
+	<textarea style="display:none;" name="aggregator[selected_rows]" id="tribe-selected-rows"></textarea>
 </div>
 <div class="tribe-finalize-container">
 	<button type="submit" class="button button-primary tribe-finalize">

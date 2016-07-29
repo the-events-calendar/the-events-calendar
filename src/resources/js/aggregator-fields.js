@@ -57,6 +57,8 @@ tribe_ea.fields = {
 	obj.init = function() {
 		obj.$.container = $( obj.selector.container );
 
+		obj.$.form = $( obj.selector.form );
+
 		// Update what fields we currently have to setup
 		obj.$.fields = obj.$.container.find( obj.selector.fields );
 
@@ -72,22 +74,9 @@ tribe_ea.fields = {
 			.on( 'keypress'   , obj.selector.fields                  , obj.events.trigger_field_change )
 			.on( 'click'      , obj.selector.save_credentials_button , obj.events.trigger_save_credentials )
 			.on( 'click'      , obj.selector.clear_filters_button    , obj.clear_filters )
-			.on( 'click'      , obj.selector.finalize_button         , obj.finalize_import )
+			.on( 'click'      , obj.selector.finalize_button         , obj.finalize_manual_import )
 			.on( 'click'      , '.tribe-preview'                     , obj.preview_import )
 			.on( 'submit'     , '.tribe-ea-tab-new'                  , obj.events.suppress_submission );
-	};
-
-	obj.twiddle_finalize_button_text = function( e, dt ) {
-		var selected_rows = dt.rows({ selected: true })[0].length;
-		var text = tribe_l10n_ea_fields.import_checked;
-
-		if ( ! selected_rows ) {
-			text = tribe_l10n_ea_fields.import_all;
-			selected_rows = dt.rows()[0].length;
-		}
-
-		text = text.replace( '%d', selected_rows );
-		$( obj.selector.finalize_button ).html( text );
 	};
 
 	/**
@@ -159,6 +148,7 @@ tribe_ea.fields = {
 
 			// set the import id of the page
 			obj.import_id = response.data.data.import_id;
+			$( '#tribe-import_id' ).val( obj.import_id );
 
 			setTimeout( obj.poll_for_results, obj.polling_frequency );
 		} );
@@ -259,8 +249,8 @@ tribe_ea.fields = {
 		} );
 
 		$table
-			.on( 'select.dt'  , obj.twiddle_finalize_button_text )
-			.on( 'deselect.dt', obj.twiddle_finalize_button_text );
+			.on( 'select.dt'  , obj.events.twiddle_finalize_button_text )
+			.on( 'deselect.dt', obj.events.twiddle_finalize_button_text );
 
 		var text = tribe_l10n_ea_fields.import_all.replace( '%d', rows.length );
 		$( obj.selector.finalize_button ).html( text );
@@ -271,7 +261,15 @@ tribe_ea.fields = {
 	 */
 	obj.display_fetch_error = function( message ) {
 		obj.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetch-error' );
-		$( '.tribe-fetch-error-message' ).html(
+		obj.display_error( $( '.tribe-fetch-error-message' ), message );
+		$( obj.selector.preview_button ).prop( 'disabled', false );
+	};
+
+	/**
+	 * displays an error to a container on the page
+	 */
+	obj.display_error = function( $container, message ) {
+		$container.prepend(
 			[
 				'<div class="notice notice-error">',
 					'<p>',
@@ -280,8 +278,6 @@ tribe_ea.fields = {
 				'</div>'
 			].join( '' )
 		);
-
-		$( obj.selector.preview_button ).prop( 'disabled', false );
 	};
 
 	/**
@@ -299,6 +295,44 @@ tribe_ea.fields = {
 				$credentials_form.find( '#tribe-has-credentials' ).val( 1 ).change();
 			}
 		} );
+	};
+
+	/**
+	 * Submits the final version of the import for saving events
+	 */
+	obj.finalize_manual_import = function() {
+		var $table = $( '.dataTable' );
+		var table = $table.data( 'table' );
+
+		var row_selection = table.rows( { selected: true } );
+		if ( ! row_selection[0].length ) {
+			row_selection = table.rows();
+		}
+
+		if ( ! row_selection[0].length ) {
+			obj.display_error( $( '.tribe-finalize-container' ), tribe_l10n_ea_fields.events_required_for_manual_submit );
+			return;
+		}
+
+		var data = row_selection.data();
+		var items = [];
+
+		for ( var i in data ) {
+			if ( isNaN( i ) ) {
+				continue;
+			}
+
+			if ( 'undefined' !== typeof data[ i ].checkbox ) {
+				delete data[ i ].checkbox;
+			}
+
+			items.push( data[ i ] );
+		}
+
+
+		$( '#tribe-selected-rows' ).text( JSON.stringify( items ) );
+
+		obj.$.form.submit();
 	};
 
 	/**
@@ -594,7 +628,27 @@ tribe_ea.fields = {
 	 * Suppress form submissions
 	 */
 	obj.events.suppress_submission = function( e ) {
+		if ( $( '#tribe-selected-rows' ).val().length ) {
+			return true;
+		}
+
 		e.preventDefault();
+	};
+
+	/**
+	 * Adjusts the "Import" button to have contextual text based on selected records to import
+	 */
+	obj.events.twiddle_finalize_button_text = function( e, dt ) {
+		var selected_rows = dt.rows({ selected: true })[0].length;
+		var text = tribe_l10n_ea_fields.import_checked;
+
+		if ( ! selected_rows ) {
+			text = tribe_l10n_ea_fields.import_all;
+			selected_rows = dt.rows()[0].length;
+		}
+
+		text = text.replace( '%d', selected_rows );
+		$( obj.selector.finalize_button ).html( text );
 	};
 
 	// Run Init on Document Ready
