@@ -290,6 +290,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.2.4] Unreleased =
+
+* Tweak - Changed "Event Add-Ons" to load faster [64286]
+
 = [4.2.3] 2016-07-20 =
 
 * Fix - In month view, be sure to unhook JSON-LD output when calling unhook function
