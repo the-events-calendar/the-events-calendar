@@ -47,6 +47,8 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 					'name' => 'tribe_l10n_ea_fields',
 					'data' => array(
 						'preview_fetch_error_prefix' => __( 'There was an error fetching the results from your import:', 'the-events-calendar' ),
+						'import_all' => __( 'Import All (%d)', 'the-events-calendar' ),
+						'import_checked' => __( 'Import Checked (%d)', 'the-events-calendar' ),
 						'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
 					),
 				),

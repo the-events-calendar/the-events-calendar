@@ -15,7 +15,8 @@ tribe_ea.fields = {
 		preview_container: '.tribe-preview-container',
 		preview_button: '.tribe-preview:visible',
 		refine_filters: '.tribe-refine-filters',
-		clear_filters_button: '.tribe-clear-filters'
+		clear_filters_button: '.tribe-clear-filters',
+		finalize_button: '.tribe-finalize'
 	},
 
 	media: {},
@@ -68,11 +69,25 @@ tribe_ea.fields = {
 		} );
 
 		$( document )
-			.on( 'keypress' , obj.selector.fields                  , obj.events.trigger_field_change )
-			.on( 'click'    , obj.selector.save_credentials_button , obj.events.trigger_save_credentials )
-			.on( 'click'    , obj.selector.clear_filters_button    , obj.clear_filters )
-			.on( 'click'    , '.tribe-preview'                     , obj.preview_import )
-			.on( 'submit'   , '.tribe-ea-tab-new'                  , obj.events.suppress_submission );
+			.on( 'keypress'   , obj.selector.fields                  , obj.events.trigger_field_change )
+			.on( 'click'      , obj.selector.save_credentials_button , obj.events.trigger_save_credentials )
+			.on( 'click'      , obj.selector.clear_filters_button    , obj.clear_filters )
+			.on( 'click'      , obj.selector.finalize_button         , obj.finalize_import )
+			.on( 'click'      , '.tribe-preview'                     , obj.preview_import )
+			.on( 'submit'     , '.tribe-ea-tab-new'                  , obj.events.suppress_submission );
+	};
+
+	obj.twiddle_finalize_button_text = function( e, dt ) {
+		var selected_rows = dt.rows({ selected: true })[0].length;
+		var text = tribe_l10n_ea_fields.import_checked;
+
+		if ( ! selected_rows ) {
+			text = tribe_l10n_ea_fields.import_all;
+			selected_rows = dt.rows()[0].length;
+		}
+
+		text = text.replace( '%d', selected_rows );
+		$( obj.selector.finalize_button ).html( text );
 	};
 
 	/**
@@ -206,12 +221,8 @@ tribe_ea.fields = {
 
 		var rows = [];
 		for ( var i in data ) {
-			var row = [
-				display_checkboxes ? '<input type="checkbox">' : '',
-				data[ i ].start_date,
-				data[ i ].end_date,
-				data[ i ].title
-			];
+			var row = data[ i ];
+			row.checkbox = display_checkboxes ? '<input type="checkbox">' : '';
 			rows.push( row );
 		}
 
@@ -238,8 +249,21 @@ tribe_ea.fields = {
 					targets: 0
 				}
 			],
+			columns: [
+				{ data: 'checkbox' },
+				{ data: 'start_date' },
+				{ data: 'end_date' },
+				{ data: 'title' }
+			],
 			data: rows
 		} );
+
+		$table
+			.on( 'select.dt'  , obj.twiddle_finalize_button_text )
+			.on( 'deselect.dt', obj.twiddle_finalize_button_text );
+
+		var text = tribe_l10n_ea_fields.import_all.replace( '%d', rows.length );
+		$( obj.selector.finalize_button ).html( text );
 	};
 
 	/**

@@ -119,6 +119,9 @@
 
 .tribe-preview-container {
 	display: none;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	margin-top: .5rem;
 
 	&.tribe-fetch-error,
 	&.tribe-fetched {
@@ -188,5 +191,37 @@
 				display: inline-block;
 			}
 		}
+	}
+
+	.tribe-preview-message {
+		font-weight: bold;
+	}
+
+	.tribe-default-settings {
+		padding-bottom: 1rem;
+		padding-top: 1rem;
+
+		label {
+			display: inline-block;
+			line-height: 26px;
+		}
+	}
+
+	#tribe-ea-field-post_status + label {
+		margin-left: 1rem;
+	}
+}
+
+.tribe-preview-container.show-data + .tribe-finalize-container {
+	display: block;
+}
+
+.tribe-finalize-container {
+	display: none;
+	padding-top: 1.5rem;
+
+	.tribe-timezone-message {
+		font-style: italic;
+		padding-top: .5rem;
 	}
 }
