@@ -508,7 +508,6 @@ tribe_aggregator.fields = {
 				}
 			}
 
-			console.log( args );
 			$select.select2( args );
 		})
 		.on( 'change', function( event ) {
