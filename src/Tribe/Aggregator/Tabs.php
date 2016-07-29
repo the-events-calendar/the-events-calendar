@@ -1,8 +1,6 @@
 <?php
 // Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
+defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Tabs {
 
@@ -38,13 +36,11 @@ class Tribe__Events__Aggregator__Tabs {
 	 */
 	private function __construct() {
 		add_filter( 'admin_title', array( $this, 'filter_admin_title' ), 10, 2 );
-		add_action( 'current_screen', array( $this, 'action_active_tab' ), 5 );
 
 		// Configure the Base Tabs
 		$this->register( 'Tribe__Events__Aggregator__Tabs__New' );
 		$this->register( 'Tribe__Events__Aggregator__Tabs__Scheduled' );
 		$this->register( 'Tribe__Events__Aggregator__Tabs__Past' );
-		//$this->register( 'Tribe__Events__Aggregator__Tabs__Favorite' );
 	}
 
 	/**
@@ -62,9 +58,6 @@ class Tribe__Events__Aggregator__Tabs {
 
 		$tab = $this->get_active();
 		return $tab->get_label() . ' &ndash; ' . $admin_title;
-	}
-
-	public function action_active_tab( $screen ) {
 	}
 
 	/**
@@ -116,13 +109,24 @@ class Tribe__Events__Aggregator__Tabs {
 	 *
 	 * @return boolean       Is this tab active?
 	 */
-	public function is_active( $slug ) {
+	public function is_active( $slug = null ) {
 		if ( ! Tribe__Events__Aggregator__Page::instance()->is_screen() ) {
 			return false;
 		}
 
+		/**
+		 * Allow Developers to change the default tab
+		 * @param string $slug
+		 */
+		$default = apply_filters( 'tribe_aggregator_default_tab', 'new' );
+
+		if ( is_null( $slug ) ) {
+			// Set the slug
+			$slug = ! empty( $_GET['tab'] ) && $this->exists( $_GET['tab'] ) ? $_GET['tab'] : $default;
+		}
+
 		// Fetch the Active Tab
-		$tab = $this->get_active( $slug );
+		$tab = $this->get_active();
 
 		// Compare
 		return $slug === $tab->get_slug();
@@ -179,7 +183,6 @@ class Tribe__Events__Aggregator__Tabs {
 	public function exists( $slug ) {
 		return is_object( $this->get( $slug ) ) ? true : false;
 	}
-
 
 	/**
 	 * A method to sort tabs by priority

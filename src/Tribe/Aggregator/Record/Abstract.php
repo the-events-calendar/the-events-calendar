@@ -8,45 +8,52 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @var string
 	 */
-	public static $meta_key_prefix    = 'ea_';
-
-	public static $key = array(
-		'source' => '_tribe_ea_source',
-		'origin' => '_tribe_ea_origin',
-	);
+	public static $meta_key_prefix = '_tribe_aggregator_';
 
 	public $id;
 	public $post;
 	public $meta;
+
+	public $type;
+	public $frequency;
 
 	/**
 	 * Setup all the hooks and filters
 	 *
 	 * @return void
 	 */
-	public function __construct( $id = null ) {
-		// Make it an object for easier usage
-		if ( ! is_object( self::$key ) ) {
-			self::$key = (object) self::$key;
-		}
-
-		if ( ! empty( $id ) && is_numeric( $id ) ) {
-			$this->id = $id;
-		}
-
-		if ( $this->id ) {
-			$this->load();
-		}
+	public function __construct( $post = null ) {
+		// If we have an Post we try to Setup
+		$this->load( $post );
 	}
 
 	/**
 	 * Loads the WP_Post associated with this record
 	 */
-	public function load() {
-		$this->post = get_post( $this->id );
-		$meta       = get_post_meta( $this->id );
+	public function load( $post = null ) {
+		if ( is_numeric( $post ) ) {
+			$post = get_post( $post );
+		}
 
-		$this->setup_meta( $meta );
+		if ( ! $post instanceof WP_Post ) {
+			return false;
+		}
+
+		$this->id = $post->ID;
+
+		// Get WP_Post object
+		$this->post = $post;
+
+		// Map `ping_status` as the `type`
+		$this->type = $this->post->ping_status;
+
+		if ( 'schedule' === $this->type ) {
+			$this->frequency = $this->post->post_content;
+		}
+
+		$this->setup_meta( get_post_meta( $this->id ) );
+
+		return $this;
 	}
 
 	/**
@@ -64,56 +71,62 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Creates an import record
 	 *
-	 * @param string $origin EA origin
 	 * @param string $type Type of record to create - manual or schedule
 	 * @param array $args Post type args
 	 *
 	 * @return WP_Post|WP_Error
 	 */
-	public function create( $origin = false, $type = 'manual', $args = array() ) {
+	public function create( $type = 'manual', $args = array(), $meta = array() ) {
+		if ( ! in_array( $type, array( 'manual', 'schedule' ) ) ) {
+			return new WP_Error( 'invalid-type', __( 'An invalid Type was used to setup this Record', 'the-events-calendar' ), $type );
+		}
+
 		$defaults = array(
 			'frequency' => null,
-			'type'      => $type,
+			'parent'    => 0,
 		);
+		$args = (object) wp_parse_args( $args, $defaults );
 
-		$args = wp_parse_args( $args, $defaults );
+		$defaults = array(
+		);
+		$meta = wp_parse_args( $meta, $defaults );
 
 		$post = array(
 			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
-			'post_title'  => wp_generate_password( 32, true, true ),
-			'post_type'   => Tribe__Events__Aggregator__Records::$post_type,
-			'post_date'   => current_time( 'mysql' ),
-			'post_status' => 'draft',
-			'meta_input'  => array(),
+			'post_title'     => wp_generate_password( 32, true, true ),
+			'post_type'      => Tribe__Events__Aggregator__Records::$post_type,
+			'ping_status'    => $type,
+			'post_mime_type' => $this->origin,
+			'post_date'      => current_time( 'mysql' ),
+			'post_status'    => Tribe__Events__Aggregator__Records::$status->draft,
+			'post_parent'    => $args->parent,
+			'meta_input'     => array(),
 		);
 
 		// prefix all keys
-		foreach ( $args as $key => $value ) {
+		foreach ( $meta as $key => $value ) {
 			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
 		}
 
 		$args = (object) $args;
 
 		if ( 'schedule' === $type ) {
-			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( 'id=' . $args->frequency );
+			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $args->frequency ) );
 			if ( ! $frequency ) {
 				return new WP_Error( 'invalid-frequency', __( 'An Invalid frequency was used to try to setup a scheduled import', 'the-events-calendar' ), $args );
 			}
 
 			// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
 			$post['post_content'] = $frequency->id;
-			$post['post_status']  = Tribe__Events__Aggregator__Records::$status->scheduled;
+			$post['post_status']  = Tribe__Events__Aggregator__Records::$status->schedule;
 
 			// When the next scheduled import should happen
 			// @todo
 			// $post['post_content_filtered'] =
 		}
 
-		$this->id   = wp_insert_post( $post );
-		$this->post = get_post( $this->id );
-		$this->setup_meta( (array) $args );
-
-		return $this->post;
+		// // After Creating the Post Load and return
+		return $this->load( wp_insert_post( $post ) );
 	}
 
 	/**
@@ -216,9 +229,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return int
 	 */
 	public function set_status( $status ) {
+		if ( ! isset( Tribe__Events__Aggregator__Records::$status->{ $status } ) ) {
+			return false;
+		}
+
 		return wp_update_post( array(
 			'ID' => $this->id,
-			'post_status' => $status,
+			'post_status' => Tribe__Events__Aggregator__Records::$status->{ $status },
 		) );
 	}
 
@@ -232,7 +249,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$this->log_error( $error );
 		}
 
-		$this->set_status( Tribe__Events__Aggregator__Records::$status->failed );
+		$this->set_status( 'failed' );
 
 		return $error;
 	}
@@ -252,7 +269,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return int
 	 */
 	public function set_status_as_success() {
-		return $this->set_status( Tribe__Events__Aggregator__Records::$status->success );
+		return $this->set_status( 'success' );
 	}
 
 	/**

@@ -14,7 +14,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 	 * }
 	 */
 	public function get( $image_id ) {
-		$tribe_ea_meta_key = 'tribe_ea_image_id';
+		$tribe_aggregator_meta_key = 'tribe_aggregator_image_id';
 
 		// Prevent Possible duplicated includes
 		if ( ! function_exists( 'wp_upload_dir' ) ) {
@@ -30,7 +30,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 
 			// We only need the ID
 			'fields'         => 'ids',
-			'meta_key'       => $tribe_ea_meta_key,
+			'meta_key'       => $tribe_aggregator_meta_key,
 			'meta_value'     => $image_id,
 		) );
 
@@ -109,7 +109,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		wp_update_attachment_metadata( $attachment_id, $attachment_meta );
 
 		// add our own custom meta field so the image is findable
-		update_post_meta( $attachment_id, $tribe_ea_meta_key, $filename );
+		update_post_meta( $attachment_id, $tribe_aggregator_meta_key, $filename );
 
 		$file->post_id   = (int) $attachment_id;
 		$file->filename  = $filename;

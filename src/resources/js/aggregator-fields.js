@@ -1,7 +1,7 @@
-var tribe_ea = tribe_ea || {};
+var tribe_aggregator = tribe_aggregator || {};
 
 // Setup the global Variable
-tribe_ea.fields = {
+tribe_aggregator.fields = {
 	// Store the Required Selectors
 	selector: {
 		container: '.tribe-ea',
@@ -31,7 +31,7 @@ tribe_ea.fields = {
 	events: {},
 
 	// Store L10N strings
-	l10n: window.tribe_l10n_ea_fields,
+	l10n: window.tribe_l10n_aggregator_fields,
 
 	// store the current import_id
 	import_id: null,
@@ -130,7 +130,7 @@ tribe_ea.fields = {
 	obj.create_import = function( data ) {
 		var jqxhr = $.ajax( {
 			type: 'POST',
-			url: ajaxurl + '?action=tribe_create_import',
+			url: ajaxurl + '?action=tribe_aggregator_create_import',
 			data: data,
 			dataType: 'json'
 		} );
@@ -139,7 +139,7 @@ tribe_ea.fields = {
 			if ( ! response.success ) {
 				obj.display_fetch_error( [
 					'<b>',
-						tribe_l10n_ea_fields.preview_fetch_error_prefix,
+						obj.l10n.preview_fetch_error_prefix,
 					'</b>',
 					' ' + response.data.message
 				].join( ' ' ) );
@@ -162,7 +162,7 @@ tribe_ea.fields = {
 
 		var jqxhr = $.ajax( {
 			type: 'GET',
-			url: ajaxurl + '?action=tribe_fetch_import&import_id=' + obj.import_id,
+			url: ajaxurl + '?action=tribe_aggregator_fetch_import&import_id=' + obj.import_id,
 			dataType: 'json'
 		} );
 
@@ -170,7 +170,7 @@ tribe_ea.fields = {
 			if ( ! response.success ) {
 				obj.display_fetch_error( [
 					'<b>',
-						tribe_l10n_ea_fields.preview_fetch_error_prefix,
+						obj.l10n.preview_fetch_error_prefix,
 					'</b>',
 					' ' + response.data.message
 				].join( ' ' ) );
@@ -252,7 +252,7 @@ tribe_ea.fields = {
 			.on( 'select.dt'  , obj.events.twiddle_finalize_button_text )
 			.on( 'deselect.dt', obj.events.twiddle_finalize_button_text );
 
-		var text = tribe_l10n_ea_fields.import_all.replace( '%d', rows.length );
+		var text = obj.l10n.import_all.replace( '%d', rows.length );
 		$( obj.selector.finalize_button ).html( text );
 	};
 
@@ -286,7 +286,7 @@ tribe_ea.fields = {
 	obj.save_credentials = function( $credentials_form ) {
 		var data = $( this ).closest( '.tribe-fieldset' ).find( 'input' ).serialize();
 
-		var url = ajaxurl + '?action=tribe_save_credentials&which=facebook';
+		var url = ajaxurl + '?action=tribe_aggregator_save_credentials&which=facebook';
 
 		var jqxhr = $.post( url, data );
 		jqxhr.done( function( response ) {
@@ -310,7 +310,7 @@ tribe_ea.fields = {
 		}
 
 		if ( ! row_selection[0].length ) {
-			obj.display_error( $( '.tribe-finalize-container' ), tribe_l10n_ea_fields.events_required_for_manual_submit );
+			obj.display_error( $( '.tribe-finalize-container' ), obj.l10n.events_required_for_manual_submit );
 			return;
 		}
 
@@ -391,12 +391,6 @@ tribe_ea.fields = {
 
 			if ( $select.is( '[multiple]' ) ) {
 				args.multiple = true;
-
-				if ( ! $select.is( '[data-tags]' ) ) {
-					args.data = function(){
-						return { 'results': $select.data( 'options' ) };
-					};
-				}
 
 				if ( ! _.isArray( $select.data( 'separator' ) ) ) {
 					args.tokenSeparators = [ $select.data( 'separator' ) ];
@@ -505,7 +499,7 @@ tribe_ea.fields = {
 				// By default only sent the source
 				args.ajax.data = function( search, page ) {
 					return {
-						action: 'tribe_ea_dropdown_' + source,
+						action: 'tribe_aggregator_dropdown_' + source,
 					};
 				};
 
@@ -514,6 +508,7 @@ tribe_ea.fields = {
 				}
 			}
 
+			console.log( args );
 			$select.select2( args );
 		})
 		.on( 'change', function( event ) {
@@ -640,10 +635,10 @@ tribe_ea.fields = {
 	 */
 	obj.events.twiddle_finalize_button_text = function( e, dt ) {
 		var selected_rows = dt.rows({ selected: true })[0].length;
-		var text = tribe_l10n_ea_fields.import_checked;
+		var text = obj.l10n.import_checked;
 
 		if ( ! selected_rows ) {
-			text = tribe_l10n_ea_fields.import_all;
+			text = obj.l10n.import_all;
 			selected_rows = dt.rows()[0].length;
 		}
 
@@ -653,4 +648,4 @@ tribe_ea.fields = {
 
 	// Run Init on Document Ready
 	$( document ).ready( obj.init );
-} )( jQuery, _, tribe_ea.fields );
+} )( jQuery, _, tribe_aggregator.fields );

@@ -115,7 +115,7 @@ class Tribe__Events__Aggregator {
 		 * @param string  $action  Which action was requested
 		 * @param WP      $wp      The WordPress Request object
 		 */
-		do_action( 'tribe_ea_endpoint', $action, $wp );
+		do_action( 'tribe_aggregator_endpoint', $action, $wp );
 
 		/**
 		 * Allow developers to hook to a specific Event Aggregator endpoint
@@ -123,7 +123,7 @@ class Tribe__Events__Aggregator {
 		 *
 		 * @param WP      $wp      The WordPress Request object
 		 */
-		do_action( "tribe_ea_endpoint_{$action}", $wp );
+		do_action( "tribe_aggregator_endpoint_{$action}", $wp );
 
 		// If we reached this point this endpoint call was invalid
 		return wp_send_json_error();
