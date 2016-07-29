@@ -28,7 +28,6 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 	 * If you need an action to be hook to any Tab, use this.
 	 */
 	public function __construct() {
-
 	}
 
 	/**

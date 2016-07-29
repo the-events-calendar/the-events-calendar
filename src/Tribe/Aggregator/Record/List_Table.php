@@ -58,8 +58,8 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$status = Tribe__Events__Aggregator__Records::$status;
 
 		switch ( $this->tab->get_slug() ) {
-			case 'scheduled':
-				$args['ping_status'] = 'scheduled';
+			case 'schedule':
+				$args['ping_status'] = 'schedule';
 				break;
 
 			case 'past':
@@ -127,7 +127,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				data-options="<?php echo esc_attr( json_encode( $field->options ) ); ?>">
 		<?php
 
-		if ( 'scheduled' === $this->tab->get_slug() ) {
+		if ( 'schedule' === $this->tab->get_slug() ) {
 			$field = (object) array();
 			$field->label = esc_html__( 'Filter By Frequency', 'the-events-calendar' );
 			$field->placeholder = esc_attr__( 'Filter By Frequency', 'the-events-calendar' );
@@ -223,7 +223,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$columns['source'] = esc_html_x( 'Source', 'column name', 'the-events-calendar' );
 
 		switch ( $this->tab->get_slug() ) {
-			case 'scheduled':
+			case 'schedule':
 				$columns['frequency'] = esc_html_x( 'Frequency', 'column name', 'the-events-calendar' );
 				$columns['imported'] = esc_html_x( 'Last Import', 'column name', 'the-events-calendar' );
 				break;
@@ -260,7 +260,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			case 'tribe-ea-failed':
 				$classes[] = 'dashicons-warning';
 				break;
-			case 'tribe-ea-scheduled':
+			case 'tribe-ea-schedule':
 				$classes[] = 'dashicons-backup';
 				break;
 			case 'tribe-ea-pending':
@@ -318,7 +318,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	public function column_frequency( $post ) {
-		if ( 'scheduled' === $post->ping_status ) {
+		if ( 'schedule' === $post->ping_status ) {
 			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $post->post_content ) );
 			if ( ! empty( $frequency->text ) ) {
 				$html[] = $frequency->text;
