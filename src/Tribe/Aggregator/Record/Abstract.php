@@ -125,7 +125,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$error = null;
 
 		// if the daily limit for import requests has been reached, error out
-		if ( 0 >= $aggregator->daily_limit_available() ) {
+		if ( 0 >= $aggregator->get_daily_limit_available() ) {
 			$error = $this->log_limit_reached_error();
 			return $this->set_status_as_failed( $error );
 		}
@@ -297,7 +297,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'aggregator-limit-reached',
 			sprintf(
 				esc_html__( 'The Aggregator import limit of %1$d for the day has already been reached.' ),
-				$aggregator->daily_limit()
+				$aggregator->get_daily_limit()
 			)
 		);
 

@@ -1,4 +1,5 @@
 <?php
+$has_license_key = ! empty( Tribe__Events__Aggregator__Service::instance()->api()->key );
 $post_statuses = get_post_statuses( array() );
 $category_dropdown = array();
 $category_dropdown = wp_dropdown_categories( array(
@@ -11,6 +12,7 @@ $category_dropdown = wp_dropdown_categories( array(
 	'taxonomy'   => Tribe__Events__Main::TAXONOMY,
 ) );
 $category_dropdown = preg_replace( '!\<select!', '<select data-hide-search', $category_dropdown );
+
 ?>
 <input type="hidden" name="aggregator[import_id]" id="tribe-import_id">
 <table class="form-table">

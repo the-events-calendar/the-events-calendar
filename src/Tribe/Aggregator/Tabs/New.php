@@ -43,6 +43,41 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_media' ) );
 
 		add_action( 'tribe_aggregator_page_submit', array( $this, 'handle_submit' ) );
+
+		// hooked at priority 9 to ensure that notices are injected before notices get hooked in Tribe__Admin__Notices
+		add_action( 'current_screen', array( $this, 'maybe_display_notices' ), 9 );
+	}
+
+	public function maybe_display_notices() {
+		if ( ! $this->is_active() ) {
+			return;
+		}
+
+		$has_license_key = ! empty( Tribe__Events__Aggregator__Service::instance()->api()->key );
+		$license_info = get_option( 'external_updates-event-aggregator' );
+
+		if ( ! $has_license_key || ( isset( $license_info->update->api_invalid ) && $license_info->update->api_invalid ) ) {
+			Tribe__Admin__Notices::instance()->register(
+				'tribe-missing-aggregator-license',
+				array( $this, 'render_notice_missing_aggregator_license' ),
+				array(
+					'type' => 'warning',
+				)
+			);
+
+			return;
+		}
+
+		$license_info = get_option( 'external_updates-event-aggregator' );
+		if ( isset( $license_info->update->api_expired ) && $license_info->update->api_expired ) {
+			Tribe__Admin__Notices::instance()->register(
+				'tribe-expired-aggregator-license',
+				array( $this, 'render_notice_expired_aggregator_license' ),
+				array(
+					'type' => 'warning',
+				)
+			);
+		}
 	}
 
 	public function enqueue_media() {
@@ -239,5 +274,69 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$result = $record->get_import_data();
 
 		wp_send_json_success( $result );
+	}
+
+	/**
+	 * Renders the "Missing Aggregator License" notice
+	 *
+	 * @return string
+	 */
+	public function render_notice_missing_aggregator_license() {
+		ob_start();
+		?>
+		<p>
+			<?php
+			esc_html_e(
+				"
+					Need to import events from other sources? Buy an Event Aggregator license and you'll
+					be able to import events from Facebook, iCalendar, Google, and Meetup.com! Import
+					individual events or set up saved auto imports to fill your calendar regularly. Use
+					filters to get just the events you want.
+				",
+				'the-events-calendar'
+			);
+			?>
+		</p>
+		<p>
+			<a href="" class="tribe-license-link"><?php esc_html_e( 'Buy your Event Aggregator license today!', 'the-events-calendar' ); ?></a>
+		</p>
+		<?php
+
+		$html = ob_get_clean();
+
+		return Tribe__Admin__Notices::instance()->render( 'tribe-missing-aggregator-license', $html );
+	}
+
+	/**
+	 * Renders the "Expired Aggregator License" notice
+	 *
+	 * @return string
+	 */
+	public function render_notice_expired_aggregator_license() {
+		ob_start();
+		?>
+		<p>
+			<?php
+			echo sprintf(
+				esc_html__(
+					'
+						%1$sYour Event Aggregator license is expired.%2$s Renew your license in order to import
+						events from Facebook, iCalendar, Google, or Meetup.com.
+					',
+					'the-events-calendar'
+				),
+				'<b>',
+				'</b>'
+			);
+			?>
+		</p>
+		<p>
+			<a href="" class="tribe-license-link"><?php esc_html_e( 'Renew your Event Aggregator license', 'the-events-calendar' ); ?></a>
+		</p>
+		<?php
+
+		$html = ob_get_clean();
+
+		return Tribe__Admin__Notices::instance()->render( 'tribe-expired-aggregator-license', $html );
 	}
 }

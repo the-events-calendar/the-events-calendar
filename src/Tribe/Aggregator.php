@@ -161,7 +161,7 @@ class Tribe__Events__Aggregator {
 	 *
 	 * @return int
 	 */
-	public function daily_limit() {
+	public function get_daily_limit() {
 		return $this->daily_limit;
 	}
 
@@ -170,10 +170,10 @@ class Tribe__Events__Aggregator {
 	 *
 	 * @return int
 	 */
-	public function daily_limit_available() {
+	public function get_daily_limit_available() {
 		$available = get_transient( $this->daily_limit_transient_key() );
 
-		$daily_limit = $this->daily_limit();
+		$daily_limit = $this->get_daily_limit();
 
 		if ( false === $available ) {
 			return $daily_limit;
@@ -198,7 +198,7 @@ class Tribe__Events__Aggregator {
 			return true;
 		}
 
-		$available = $this->daily_limit_available();
+		$available = $this->get_daily_limit_available();
 
 		$available -= $amount;
 

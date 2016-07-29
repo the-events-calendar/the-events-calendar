@@ -232,3 +232,7 @@
 	padding-top: 8px;
 	padding-top: .5rem;
 }
+
+.tribe-message-loader {
+	display: none;
+}

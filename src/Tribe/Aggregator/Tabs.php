@@ -38,7 +38,7 @@ class Tribe__Events__Aggregator__Tabs {
 	 */
 	private function __construct() {
 		add_filter( 'admin_title', array( $this, 'filter_admin_title' ), 10, 2 );
-		add_action( 'current_screen', array( $this, 'action_active_tab' ) );
+		add_action( 'current_screen', array( $this, 'action_active_tab' ), 5 );
 
 		// Configure the Base Tabs
 		$this->register( 'Tribe__Events__Aggregator__Tabs__New' );
