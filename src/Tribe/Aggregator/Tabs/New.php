@@ -89,7 +89,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return;
 		}
 
-		$record = Tribe__Events__Aggregator__Records::get_by_origin( $post_data['origin'] );
+		$record = Tribe__Events__Aggregator__Record__Factory::get_by_origin( $post_data['origin'] );
 
 		$meta = array(
 			'origin'     => $post_data['origin'],
@@ -115,7 +115,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_import_finalize( $data ) {
-		$record = Tribe__Events__Aggregator__Records::get_by_import_id( $post_data['import_id'] );
+		$record = Tribe__Events__Aggregator__Record__Factory::get_by_import_id( $post_data['import_id'] );
 
 		do_action( 'debug_robot', '$data :: ' . print_r( $data, TRUE ) );
 		do_action( 'debug_robot', '$record :: ' . print_r( $record, TRUE ) );
