@@ -135,9 +135,7 @@ $field->help        = __( 'Enter the url for a Meetup group, page, or individual
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-meetup_import_type" data-condition-not-empty>
 	<td colspan="2" class="tribe-button-row">
 		<button type="submit" class="button button-primary tribe-preview">
-			<?php
-			esc_html_e( 'Preview', 'the-events-calendar' );
-			?>
+			<?php esc_html_e( 'Preview', 'the-events-calendar' ); ?>
 		</button>
 	</td>
 </tr>
