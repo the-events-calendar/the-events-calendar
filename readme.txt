@@ -293,6 +293,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.2.4] Unreleased =
 
 * Tweak - Changed "Event Add-Ons" to load faster [64286]
+* Fix - Fixed default venue setting [64628]
 
 = [4.2.3] 2016-07-20 =
 
