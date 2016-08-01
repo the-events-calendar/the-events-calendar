@@ -34,7 +34,7 @@ class Tribe__Events__Event_Tickets__Attendees_Report {
 		if ( Tribe__Events__Main::POSTTYPE === $post_type ) {
 			echo '
 				<li>
-					<strong>' . esc_html__( 'Start Date:', 'event-tickets' ) . '</strong>
+					<strong>' . esc_html__( 'Start Date:', 'the-events-calendar' ) . '</strong>
 					' . tribe_get_start_date( $event_id, false, tribe_get_date_format( true ) ) . ' 
 				</li>
 			';
