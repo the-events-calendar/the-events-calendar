@@ -133,6 +133,29 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Queues the import on the Aggregator service
 	 */
 	public function queue_import( $args = array() ) {
+		// we don't hit the API for CSV imports. Let's just do the import
+		if ( 'csv' === $this->origin ) {
+			$data = $this->get_csv_data();
+			$result = array(
+				'message_code' => 'success',
+				'data' => array(
+					'import_id' => $this->id,
+					'items' => $data,
+				),
+			);
+
+			$first_row = reset( $data );
+			$columns = array_keys( $first_row );
+
+			$result['data']['columns'] = $columns;
+			do_action( 'debug_robot', '$result :: ' . print_r( $result, TRUE ) );
+
+			// store the import id
+			update_post_meta( $this->id, self::$meta_key_prefix . 'import_id', $this->id );
+
+			return $result;
+		}
+
 		$aggregator = Tribe__Events__Aggregator::instance();
 
 		$error = null;
@@ -221,6 +244,37 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function get_import_data() {
 		$aggregator = Tribe__Events__Aggregator::instance();
 		return $aggregator->api( 'import' )->get( $this->meta['import_id'] );
+	}
+
+	public function get_csv_data() {
+		if (
+			empty( $this->meta['file'] )
+			|| ! is_numeric( $this->meta['file'] )
+		) {
+			$error = new WP_Error( 'invalid-file', esc_html__( 'You must provide a valid CSV file in order to do CSV imports.', 'the-events-calendar' ) );
+			return $this->set_status_as_failed( $error );
+		}
+
+		$content_type = str_replace( 'tribe_', '', $this->meta['content_type'] );
+
+		$file_path = get_attached_file( absint( $this->meta['file'] ) );
+		$file_reader = new Tribe__Events__Importer__File_Reader( $file_path );
+		$importer = Tribe__Events__Importer__File_Importer::get_importer( $content_type, $file_reader );
+
+		$rows = $importer->do_import_preview();
+		$headers = array_shift( $rows );
+		$data = array();
+
+		foreach( $rows as $row ) {
+			$item = array();
+			foreach ( $headers as $key => $header ) {
+				$item[ $header ] = $row[ $key ];
+			}
+
+			$data[] = $item;
+		}
+
+		return $data;
 	}
 
 	/**

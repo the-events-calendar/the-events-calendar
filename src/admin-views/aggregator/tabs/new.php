@@ -39,7 +39,7 @@ $category_dropdown = preg_replace( '!\<select!', '<select data-hide-search', $ca
 					placeholder="<?php echo $field->placeholder; ?>"
 					data-hide-search
 					data-options="<?php echo esc_attr( json_encode( $field->options ) ); ?>">
-				<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo $field->help; ?>"></span>
+				<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
 			</td>
 		</tr>
 
@@ -57,6 +57,7 @@ $category_dropdown = preg_replace( '!\<select!', '<select data-hide-search', $ca
 <?php
 $default_settings = new stdClass;
 $default_settings->help = esc_html__( 'Choose a status for the event(s) to be imported with and/or define an Event Category to automatically assign.', 'the-events-calendar' );
+$csv_help = esc_html__( 'Select the Event Field that best matches your CSV file column. The contents of that column will then be mapped to the specified event field when the event is created.', 'the-events-calendar' );
 ?>
 <div class="tribe-ea-table-container tribe-preview-container">
 	<div class="tribe-fetch-error-message"></div>
@@ -64,8 +65,13 @@ $default_settings->help = esc_html__( 'Choose a status for the event(s) to be im
 		<span class='spinner tribe-ea-active'></span>
 	</div>
 	<div class="data-container">
-		<p class="tribe-preview-message">
+		<p class="tribe-preview-message" id="tribe-remove-preview-message">
 			<?php esc_html_e( 'This is a preview of the type of content you will be getting in during the import based on what is on the calendar now.', 'the-events-calendar' ); ?>
+		</p>
+		<p class="tribe-preview-message" id="tribe-csv-preview-message">
+			<?php esc_html_e( 'Column Mapping:', 'the-events-calendar' ); ?>
+			<span class="tribe-csv-filename"></span>
+			<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $csv_help ); ?>"></span>
 		</p>
 		<table class="wp-list-table widefat fixed striped">
 			<thead>
@@ -118,3 +124,21 @@ $default_settings->help = esc_html__( 'Choose a status for the event(s) to be im
 		<?php esc_html_e( 'Events will be imported with the timezone defined by the source. You can make use of The Event Calendar\'s timezone settings to change how the actual time is displayed on your calendar.', 'the-events-calendar' ); ?>
 	</p>
 </div>
+<script id="tribe-csv-column-map-events" type="text/html">
+	<?php
+	$event_mapper = new Tribe__Events__Importer__Column_Mapper( 'events' );
+	echo $event_mapper->make_select_box( '' );
+	?>
+</script>
+<script id="tribe-csv-column-map-organizers" type="text/html">
+	<?php
+	$organizers_mapper = new Tribe__Events__Importer__Column_Mapper( 'organizers' );
+	echo $organizers_mapper->make_select_box( '' );
+	?>
+</script>
+<script id="tribe-csv-column-map-events" type="text/html">
+	<?php
+	$venues_mapper = new Tribe__Events__Importer__Column_Mapper( 'venues' );
+	echo $venues_mapper->make_select_box( '' );
+	?>
+</script>

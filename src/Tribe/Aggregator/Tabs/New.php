@@ -30,8 +30,6 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		parent::__construct();
 
 		// Configure this tab ajax calls
-		add_action( 'wp_ajax_tribe_aggregator_dropdown_csv_content_type', array( $this, 'ajax_csv_content_type' ) );
-		add_action( 'wp_ajax_tribe_aggregator_dropdown_csv_files', array( $this, 'ajax_csv_files' ) );
 		add_action( 'wp_ajax_tribe_aggregator_dropdown_origins', array( $this, 'ajax_origins' ) );
 		add_action( 'wp_ajax_tribe_aggregator_save_credentials', array( $this, 'ajax_save_credentials' ) );
 		add_action( 'wp_ajax_tribe_aggregator_create_import', array( $this, 'ajax_create_import' ) );
@@ -129,15 +127,16 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $post_data['origin'] );
 
 		$meta = array(
-			'origin'     => $post_data['origin'],
-			'type'       => empty( $data['import_type'] )      ? 'manual' : $data['import_type'],
-			'frequency'  => empty( $data['import_frequency'] ) ? null     : $data['import_frequency'],
-			'file'       => empty( $data['file'] )             ? null     : $data['file'],
-			'keywords'   => empty( $data['keywords'] )         ? null     : $data['keywords'],
-			'location'   => empty( $data['location'] )         ? null     : $data['location'],
-			'start'      => empty( $data['start'] )            ? null     : $data['start'],
-			'radius'     => empty( $data['radius'] )           ? null     : $data['radius'],
-			'source'     => empty( $data['source'] )           ? null     : $data['source'],
+			'origin'       => $post_data['origin'],
+			'type'         => empty( $data['import_type'] )      ? 'manual' : $data['import_type'],
+			'frequency'    => empty( $data['import_frequency'] ) ? null     : $data['import_frequency'],
+			'file'         => empty( $data['file'] )             ? null     : $data['file'],
+			'keywords'     => empty( $data['keywords'] )         ? null     : $data['keywords'],
+			'location'     => empty( $data['location'] )         ? null     : $data['location'],
+			'start'        => empty( $data['start'] )            ? null     : $data['start'],
+			'radius'       => empty( $data['radius'] )           ? null     : $data['radius'],
+			'source'       => empty( $data['source'] )           ? null     : $data['source'],
+			'content_type' => empty( $data['content_type'] )     ? null     : $data['content_type'],
 		);
 
 		$post = $record->create( $meta['type'], array(), $meta );
@@ -152,59 +151,12 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_import_finalize( $data ) {
-		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $post_data['import_id'] );
+		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $data['import_id'] );
 
 		do_action( 'debug_robot', '$data :: ' . print_r( $data, TRUE ) );
 		do_action( 'debug_robot', '$record :: ' . print_r( $record, TRUE ) );
 
 		// @TODO do somethign with the events
-	}
-
-	public function ajax_csv_content_type() {
-		$response = (object) array(
-			'results' => array(),
-		);
-
-		// Fetch the Objects from Post Types
-		$post_types = array_map( 'get_post_type_object', Tribe__Main::get_post_types() );
-
-		// Building the Response for Select2
-		foreach ( $post_types as $post_type ) {
-			$response->results[] = array(
-				'id' => $post_type->name,
-				'text' => $post_type->labels->name,
-			);
-		}
-
-		return wp_send_json_success( $response );
-	}
-
-	public function ajax_csv_files() {
-		$response = (object) array(
-			'results' => array(),
-		);
-
-		$query = new WP_Query( array(
-			'post_type'      => 'attachment',
-			'post_status'    => 'inherit',
-			'post_mime_type' => 'text/csv',
-		) );
-
-		if ( ! $query->have_posts() ) {
-			return wp_send_json_error( $response );
-		}
-
-		foreach ( $query->posts as $k => $post ) {
-			$query->posts[ $k ]->text = $post->post_title;
-		}
-
-		$response->results = $query->posts;
-
-		if ( $query->max_num_pages >= $request->query['paged'] ) {
-			$response->more = false;
-		}
-
-		return wp_send_json_success( $response );
 	}
 
 	public function ajax_save_credentials() {

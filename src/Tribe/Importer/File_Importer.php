@@ -90,6 +90,18 @@ abstract class Tribe__Events__Importer__File_Importer {
 		}
 	}
 
+	public function do_import_preview() {
+		$rows = array();
+
+		$this->reader->set_row( $this->offset );
+		for ( $i = 0; $i < $this->limit && ! $this->import_complete(); $i ++ ) {
+			set_time_limit( 30 );
+			$rows[] = $this->import_next_row( false, true );
+		}
+
+		return $rows;
+	}
+
 	public function get_last_completed_row() {
 		return $this->reader->get_last_line_number_read() + 1;
 	}
@@ -134,7 +146,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return $this->type;
 	}
 
-	public function import_next_row( $throw = false ) {
+	public function import_next_row( $throw = false, $preview = false ) {
 		$post_id = null;
 		$record = $this->reader->read_next_row();
 		$row    = $this->reader->get_last_line_number_read() + 1;
@@ -150,6 +162,10 @@ abstract class Tribe__Events__Importer__File_Importer {
 			$record = $encoded;
 		}
 
+		if ( $preview ) {
+			return $record;
+		}
+
 		if ( ! $this->is_valid_record( $record ) ) {
 			if ( ! $throw ) {
 				$this->log[ $row ] = $this->get_skipped_row_message( $row );
@@ -160,6 +176,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 				throw new RuntimeException( sprintf( 'Missing required fields in row %d', $row ) );
 			}
 		}
+
 		try {
 			$post_id = $this->update_or_create_post( $record );
 		} catch ( Exception $e ) {
