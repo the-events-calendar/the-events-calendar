@@ -280,7 +280,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$columns = array();
 
 		switch ( $this->tab->get_slug() ) {
-			case 'schedule':
+			case 'scheduled':
 				$columns['cb'] = '<input type="checkbox" />';
 				$columns['source'] = esc_html_x( 'Source', 'column name', 'the-events-calendar' );
 				$columns['frequency'] = esc_html_x( 'Frequency', 'column name', 'the-events-calendar' );
