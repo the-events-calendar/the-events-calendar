@@ -30,9 +30,6 @@ tribe_aggregator.fields = {
 	// Store the methods that will act as event handlers
 	events: {},
 
-	// Store L10N strings
-	l10n: window.tribe_l10n_aggregator_fields,
-
 	// store the current import_id
 	import_id: null,
 
@@ -46,7 +43,7 @@ tribe_aggregator.fields = {
 	polling_frequency: 500
 };
 
-( function( $, _, obj ) {
+( function( $, _, obj, ea ) {
 	'use strict';
 
 	/**
@@ -139,7 +136,7 @@ tribe_aggregator.fields = {
 			if ( ! response.success ) {
 				obj.display_fetch_error( [
 					'<b>',
-						obj.l10n.preview_fetch_error_prefix,
+						ea.l10n.preview_fetch_error_prefix,
 					'</b>',
 					' ' + response.data.message
 				].join( ' ' ) );
@@ -149,6 +146,12 @@ tribe_aggregator.fields = {
 			// set the import id of the page
 			obj.import_id = response.data.data.import_id;
 			$( '#tribe-import_id' ).val( obj.import_id );
+
+			if ( 'undefined' !== typeof response.data.data.items ) {
+				obj.init_datatable( response.data.data );
+				obj.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetched' );
+				return;
+			}
 
 			setTimeout( obj.poll_for_results, obj.polling_frequency );
 		} );
@@ -170,7 +173,7 @@ tribe_aggregator.fields = {
 			if ( ! response.success ) {
 				obj.display_fetch_error( [
 					'<b>',
-						obj.l10n.preview_fetch_error_prefix,
+						ea.l10n.preview_fetch_error_prefix,
 					'</b>',
 					' ' + response.data.message
 				].join( ' ' ) );
@@ -186,7 +189,8 @@ tribe_aggregator.fields = {
 					setTimeout( obj.poll_for_results, obj.polling_frequency );
 				}
 			} else {
-				obj.init_datatable( response.data.data.events );
+				response.data.data.items = response.data.data.events;
+				obj.init_datatable( response.data.data );
 				obj.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetched' );
 				$( obj.selector.preview_button ).prop( 'disabled', false );
 			}
@@ -201,6 +205,8 @@ tribe_aggregator.fields = {
 	obj.init_datatable = function( data ) {
 		var display_checkboxes = false;
 
+		var is_csv = 'csv' === $( '#tribe-ea-field-origin' ).val();
+
 		var $import_type = $( '[id$="import_type"]:visible' );
 
 		if ( ! $import_type.length || 'manual' === $( '#' + $import_type.first().attr( 'id' ).replace( 's2id_', '' ) ).val() ) {
@@ -210,20 +216,21 @@ tribe_aggregator.fields = {
 		var $table = obj.$.preview_container.find( '.data-container table' );
 
 		var rows = [];
-		for ( var i in data ) {
-			var row = data[ i ];
+		for ( var i in data.items ) {
+			var row = data.items[ i ];
 			row.checkbox = display_checkboxes ? '<input type="checkbox">' : '';
 			rows.push( row );
 		}
 
-		if ( display_checkboxes ) {
+		if ( display_checkboxes && ! is_csv ) {
 			$table.addClass( 'display-checkboxes' );
 		} else {
 			$table.removeClass( 'display-checkboxes' );
 		}
 
 		obj.$.preview_container.addClass( 'show-data' );
-		$table.tribeDataTable( {
+
+		var args = {
 			lengthMenu: [
 				[5, 10, 25, 50, -1],
 				[5, 10, 25, 50, tribe_l10n_datatables.pagination.all ]
@@ -239,21 +246,86 @@ tribe_aggregator.fields = {
 					targets: 0
 				}
 			],
-			columns: [
+			data: rows
+		};
+
+		if ( 'undefined' !== typeof data.columns ) {
+			args.columns = [
+				{ data: 'checkbox' }
+			];
+
+			var $head = $table.find( 'thead tr' );
+			var $foot = $table.find( 'tfoot tr' );
+			var $map_row = $({});
+			var column_map = '';
+			var content_type = '';
+			$head.find( 'th:first' ).nextAll().remove();
+			$foot.find( 'th:first' ).nextAll().remove();
+
+			if ( is_csv ) {
+				var $data_container = $table.closest( '.data-container' );
+				$table.closest( '.data-container' ).addClass( 'csv-data' );
+
+				$data_container.find( '.tribe-preview-message .tribe-csv-filename' ).html( $( '#tribe-ea-field-csv_file_name' ).text() );
+				$head.closest( 'thead' ).prepend( '<tr class="tribe-column-map"><th scope="row" class="check-column column-cb"></th></tr>' );
+				$map_row = $( '.tribe-column-map' );
+				content_type = $( '#tribe-ea-field-csv_content_type' ).val();
+				content_type = content_type.replace( 'tribe_', '' );
+
+				var $mapper_template = $( '#tribe-csv-column-map-' + content_type );
+				column_map = $mapper_template.html();
+			}
+
+			var column = 0;
+			for ( i in data.columns ) {
+				args.columns.push( { data: data.columns[ i ] } );
+				$head.append( '<th scope="col">' + data.columns[ i ] + '</th>' );
+				$foot.append( '<th scope="col">' + data.columns[ i ] + '</th>' );
+
+				// if this is a CSV import, add the column map headers and default-select where possible
+				if ( is_csv ) {
+					var column_slug = data.columns[ i ].toLowerCase().replace( ' ', '_' ).replace( /[^a-z0-9_]/, '' );
+					$map_row.append( '<th scope="col">' + column_map.replace( 'name="column_map[]"', 'name="aggregator[column_map][' + column + ']" id="column-' + column + '"' ) + '</th>' );
+
+					var $map_select = $map_row.find( '#column-' + column );
+
+					if ( 'undefined' !== typeof ea.csv_column_mapping[ content_type ][ column ] ) {
+						column_slug = ea.csv_column_mapping[ content_type ][ column ];
+					}
+
+					$map_select.find( 'option[value="' + column_slug + '"]' ).prop( 'selected', true );
+				}
+
+				column++;
+			}
+
+			args.scrollX = true;
+		} else {
+			args.columns = [
 				{ data: 'checkbox' },
 				{ data: 'start_date' },
 				{ data: 'end_date' },
 				{ data: 'title' }
-			],
-			data: rows
-		} );
+			];
+		}
+
+		$table.tribeDataTable( args );
+		obj.wrap_cell_content();
 
 		$table
 			.on( 'select.dt'  , obj.events.twiddle_finalize_button_text )
-			.on( 'deselect.dt', obj.events.twiddle_finalize_button_text );
+			.on( 'deselect.dt', obj.events.twiddle_finalize_button_text )
+			.on( 'draw.dt', obj.wrap_cell_content );
 
-		var text = obj.l10n.import_all.replace( '%d', rows.length );
+		var text = ea.l10n.import_all.replace( '%d', rows.length );
 		$( obj.selector.finalize_button ).html( text );
+	};
+
+	obj.wrap_cell_content = function() {
+		$( '.dataTable' ).find( 'tbody td' ).each( function() {
+			var $cell = $( this );
+			$cell.html( '<div class="tribe-td-height-limit">' + $cell.html() + '</div>' );
+		} );
 	};
 
 	/**
@@ -302,35 +374,41 @@ tribe_aggregator.fields = {
 	 */
 	obj.finalize_manual_import = function() {
 		var $table = $( '.dataTable' );
-		var table = $table.data( 'table' );
+		var table = window.tribe_data_table;
 
-		var row_selection = table.rows( { selected: true } );
-		if ( ! row_selection[0].length ) {
-			row_selection = table.rows();
-		}
-
-		if ( ! row_selection[0].length ) {
-			obj.display_error( $( '.tribe-finalize-container' ), obj.l10n.events_required_for_manual_submit );
-			return;
-		}
-
-		var data = row_selection.data();
-		var items = [];
-
-		for ( var i in data ) {
-			if ( isNaN( i ) ) {
-				continue;
+		if ( $table.hasClass( 'display-checkboxes' ) ) {
+			var row_selection = table.rows( { selected: true } );
+			if ( ! row_selection[0].length ) {
+				row_selection = table.rows();
 			}
 
-			if ( 'undefined' !== typeof data[ i ].checkbox ) {
-				delete data[ i ].checkbox;
+			if ( ! row_selection[0].length ) {
+				obj.display_error( $( '.tribe-finalize-container' ), ea.l10n.events_required_for_manual_submit );
+				return;
 			}
 
-			items.push( data[ i ] );
+			var data = row_selection.data();
+			var items = [];
+
+			for ( var i in data ) {
+				if ( isNaN( i ) ) {
+					continue;
+				}
+
+				if ( 'undefined' !== typeof data[ i ].checkbox ) {
+					delete data[ i ].checkbox;
+				}
+
+				items.push( data[ i ] );
+			}
+
+
+			$( '#tribe-selected-rows' ).text( JSON.stringify( items ) );
+		} else {
+			$( '#tribe-selected-rows' ).text( 'all' );
 		}
 
-
-		$( '#tribe-selected-rows' ).text( JSON.stringify( items ) );
+		$( '.dataTables_scrollBody' ).find( '[name^="aggregator[column_map]"]' ).remove();
 
 		obj.$.form.submit();
 	};
@@ -634,10 +712,10 @@ tribe_aggregator.fields = {
 	 */
 	obj.events.twiddle_finalize_button_text = function( e, dt ) {
 		var selected_rows = dt.rows({ selected: true })[0].length;
-		var text = obj.l10n.import_checked;
+		var text = ea.l10n.import_checked;
 
 		if ( ! selected_rows ) {
-			text = obj.l10n.import_all;
+			text = ea.l10n.import_all;
 			selected_rows = dt.rows()[0].length;
 		}
 
@@ -647,4 +725,4 @@ tribe_aggregator.fields = {
 
 	// Run Init on Document Ready
 	$( document ).ready( obj.init );
-} )( jQuery, _, tribe_aggregator.fields );
+} )( jQuery, _, tribe_aggregator.fields, tribe_aggregator );

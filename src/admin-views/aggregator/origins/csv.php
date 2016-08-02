@@ -5,21 +5,26 @@ $field->label       = __( 'Content Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Content Type', 'the-events-calendar' );
 $field->help        = __( 'For better results, import venue and organizer files before importing event files', 'the-events-calendar' );
 $field->source      = 'csv_content_type';
+
+$post_types = array_map( 'get_post_type_object', Tribe__Main::get_post_types() );
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="csv">
 	<th scope="row">
 		<label for="tribe-ea-field-content_type"><?php echo esc_html( $field->label ); ?></label>
 	</th>
 	<td>
-		<input
+		<select
 			name="aggregator[csv][content_type]"
-			type="hidden"
 			id="tribe-ea-field-csv_content_type"
 			class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 			data-hide-search=1
-			data-source="<?php echo esc_attr( $field->source ); ?>"
 		>
+			<option value=""></option>
+			<?php foreach ( $post_types as $post_type ) : ?>
+				<option value="<?php echo esc_attr( $post_type->name ); ?>"><?php echo esc_html( $post_type->labels->name ); ?></option>
+			<?php endforeach; ?>
+		</select>
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
 	</td>
 </tr>
@@ -29,7 +34,6 @@ $field              = (object) array();
 $field->label       = __( 'Choose File:', 'the-events-calendar' );
 $field->placeholder = __( 'Choose a CSV file', 'the-events-calendar' );
 $field->help        = __( 'Select your .CSV file from the WordPress media library. You may need to first upload the file from your computer to the library.', 'the-events-calendar' );
-$field->source      = 'csv_files';
 $field->button      = __( 'Upload new File', 'the-events-calendar' );
 $field->media_title = __( 'Upload a CSV File', 'the-events-calendar' );
 ?>
@@ -60,10 +64,10 @@ $field->media_title = __( 'Upload a CSV File', 'the-events-calendar' );
 	</td>
 </tr>
 
-<tr class="tribe-dependent" data-depends="tribe-ea-field-csv_file" data-condition-not-empty>
-	<td colspan="2">
-		<div class="tribe-ea-table-container">
-			<span class='spinner tribe-ea-active'></span>
-		</div>
+<tr class="tribe-dependent" data-depends="#tribe-ea-field-csv_file" data-condition-not-empty>
+	<td colspan="2" class="tribe-button-row">
+		<button type="submit" class="button button-primary tribe-preview">
+			<?php esc_html_e( 'Preview', 'the-events-calendar' ); ?>
+		</button>
 	</td>
 </tr>

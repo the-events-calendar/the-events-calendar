@@ -80,13 +80,20 @@ class Tribe__Events__Aggregator__Page {
 					array( $this, 'is_screen' ),
 				),
 				'localize' => (object) array(
-					'name' => 'tribe_l10n_aggregator_fields',
+					'name' => 'tribe_aggregator',
 					'data' => array(
-						'preview_fetch_error_prefix' => __( 'There was an error fetching the results from your import:', 'the-events-calendar' ),
-						'import_all' => __( 'Import All (%d)', 'the-events-calendar' ),
-						'import_checked' => __( 'Import Checked (%d)', 'the-events-calendar' ),
-						'events_required_for_manual_submit' => __( 'Your import must include at least one event', 'the-events-calendar' ),
-						'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
+						'csv_column_mapping' => array(
+							'events' => get_option( 'tribe_events_import_column_mapping_events', array() ),
+							'organizers' => get_option( 'tribe_events_import_column_mapping_organizers', array() ),
+							'venues' => get_option( 'tribe_events_import_column_mapping_venues', array() ),
+						),
+						'l10n' => array(
+							'preview_fetch_error_prefix' => __( 'There was an error fetching the results from your import:', 'the-events-calendar' ),
+							'import_all' => __( 'Import All (%d)', 'the-events-calendar' ),
+							'import_checked' => __( 'Import Checked (%d)', 'the-events-calendar' ),
+							'events_required_for_manual_submit' => __( 'Your import must include at least one event', 'the-events-calendar' ),
+							'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
+						),
 					),
 				),
 			)

@@ -219,6 +219,18 @@
 	display: none;
 }
 
+.tribe-preview-container .data-container.csv-data #tribe-csv-preview-message {
+	display: block;
+}
+
+.tribe-preview-container .data-container.csv-data #tribe-remote-preview-message {
+	display: none;
+}
+
+.tribe-preview-container .data-container #tribe-remote-preview-message {
+	display: block;
+}
+
 .tribe-preview-container > td {
 	padding-left: 0;
 	padding-right: 0;
@@ -245,12 +257,30 @@
 	display: none;
 }
 
+.tribe-preview-container .dataTable thead th, .tribe-preview-container .dataTable tfoot th {
+	padding-right: 20px;
+	white-space: nowrap;
+}
+
+.tribe-preview-container .dataTable thead tr + tr th {
+	background: #f3f3f3;
+	border-bottom: 0;
+	font-weight: bold;
+}
+
+.tribe-preview-container .tribe-td-height-limit {
+	max-height: 50px;
+	overflow: hidden;
+}
+
 .tribe-preview-container .display-checkboxes .column-cb input, .tribe-preview-container .display-checkboxes .check-column input {
 	display: inline-block;
 }
 
 .tribe-preview-container .tribe-preview-message {
+	display: none;
 	font-weight: bold;
+	line-height: 26px;
 }
 
 .tribe-preview-container .tribe-default-settings {
