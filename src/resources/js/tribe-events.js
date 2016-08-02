@@ -578,6 +578,7 @@ Date.prototype.format = function( mask, utc ) {
 				$event_header = $( '#tribe-events-header' );
 			if ( $event_header.length ) {
 				base_url = $event_header.data( 'baseurl' );
+				console.log($event_header);
 			}
 			return base_url;
 		},

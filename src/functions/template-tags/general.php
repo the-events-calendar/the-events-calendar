@@ -626,7 +626,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		} else {
 			$attrs['data-title'] = wp_title( '|', false, 'right' );
 		}
-
 		switch ( $current_view ) {
 			case 'month.php' :
 				$attrs['data-view']    = 'month';
@@ -650,6 +649,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		if ( has_filter( 'tribe_events_mobile_breakpoint' ) ) {
 			$attrs['data-mobilebreak'] = tribe_get_mobile_breakpoint();
+		}
+
+		if ( has_filter( 'tribe_events_pro_tribe_events_shortcode_output' ) ) {
+			$attrs['data-baseurl'] = get_permalink();
 		}
 
 		$attrs = apply_filters( 'tribe_events_header_attributes', $attrs, $current_view );

@@ -141,8 +141,7 @@
 
 							var data = $this.data( 'tribejson' );
 
-							$target
-								.append( tribe_tmpl( 'tribe_tmpl_month_mobile', data ) );
+							$target.append( tribe_tmpl( 'tribe_tmpl_month_mobile', data ) );
 						}
 
 					} );
