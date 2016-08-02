@@ -134,6 +134,10 @@
 	width: 15%;
 }
 
+.tribe-ea .tribe-ea-tab-scheduled td.column-source {
+	padding-left: 10px;
+}
+
 .tribe-ea td.column-source {
 	padding-left: 50px;
 	position: relative;

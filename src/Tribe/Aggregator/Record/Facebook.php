@@ -1,4 +1,6 @@
 <?php
+// Don't load directly
+defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggregator__Record__Abstract {
 	public $origin = 'facebook';
@@ -18,5 +20,14 @@ class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggrega
 		$args = wp_parse_args( $args, $defaults );
 
 		return parent::queue_import( $args );
+	}
+
+	/**
+	 * Public facing Label for this Origin
+	 *
+	 * @return string
+	 */
+	public function get_label() {
+		return __( 'Facebook', 'the-events-calendar' );
 	}
 }
