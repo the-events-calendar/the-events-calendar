@@ -212,6 +212,20 @@
 
 	.data-container {
 		display: none;
+
+		&.csv-data {
+			#tribe-csv-preview-message {
+				display: block;
+			}
+
+			#tribe-remote-preview-message {
+				display: none;
+			}
+		}
+
+		#tribe-remote-preview-message {
+			display: block;
+		}
 	}
 
 	> td {
@@ -243,6 +257,29 @@
 				display: none;
 			}
 		}
+
+		thead,
+		tfoot {
+			th {
+				padding-right: 20px;
+				white-space: nowrap;
+			}
+		}
+
+		thead {
+			tr + tr {
+				th {
+					background: #f3f3f3;
+					border-bottom: 0;
+					font-weight: bold;
+				}
+			}
+		}
+	}
+
+	.tribe-td-height-limit {
+		max-height: 50px;
+		overflow: hidden;
 	}
 
 	.display-checkboxes {
@@ -255,7 +292,9 @@
 	}
 
 	.tribe-preview-message {
+		display: none;
 		font-weight: bold;
+		line-height: 26px;
 	}
 
 	.tribe-default-settings {

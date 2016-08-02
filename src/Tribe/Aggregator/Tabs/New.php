@@ -30,8 +30,6 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		parent::__construct();
 
 		// Configure this tab ajax calls
-		add_action( 'wp_ajax_tribe_aggregator_dropdown_csv_content_type', array( $this, 'ajax_csv_content_type' ) );
-		add_action( 'wp_ajax_tribe_aggregator_dropdown_csv_files', array( $this, 'ajax_csv_files' ) );
 		add_action( 'wp_ajax_tribe_aggregator_dropdown_origins', array( $this, 'ajax_origins' ) );
 		add_action( 'wp_ajax_tribe_aggregator_save_credentials', array( $this, 'ajax_save_credentials' ) );
 		add_action( 'wp_ajax_tribe_aggregator_create_import', array( $this, 'ajax_create_import' ) );
@@ -129,15 +127,16 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $post_data['origin'] );
 
 		$meta = array(
-			'origin'     => $post_data['origin'],
-			'type'       => empty( $data['import_type'] )      ? 'manual' : $data['import_type'],
-			'frequency'  => empty( $data['import_frequency'] ) ? null     : $data['import_frequency'],
-			'file'       => empty( $data['file'] )             ? null     : $data['file'],
-			'keywords'   => empty( $data['keywords'] )         ? null     : $data['keywords'],
-			'location'   => empty( $data['location'] )         ? null     : $data['location'],
-			'start'      => empty( $data['start'] )            ? null     : $data['start'],
-			'radius'     => empty( $data['radius'] )           ? null     : $data['radius'],
-			'source'     => empty( $data['source'] )           ? null     : $data['source'],
+			'origin'       => $post_data['origin'],
+			'type'         => empty( $data['import_type'] )      ? 'manual' : $data['import_type'],
+			'frequency'    => empty( $data['import_frequency'] ) ? null     : $data['import_frequency'],
+			'file'         => empty( $data['file'] )             ? null     : $data['file'],
+			'keywords'     => empty( $data['keywords'] )         ? null     : $data['keywords'],
+			'location'     => empty( $data['location'] )         ? null     : $data['location'],
+			'start'        => empty( $data['start'] )            ? null     : $data['start'],
+			'radius'       => empty( $data['radius'] )           ? null     : $data['radius'],
+			'source'       => empty( $data['source'] )           ? null     : $data['source'],
+			'content_type' => empty( $data['content_type'] )     ? null     : $data['content_type'],
 		);
 
 		$post = $record->create( $meta['type'], array(), $meta );
@@ -152,59 +151,68 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_import_finalize( $data ) {
-		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $post_data['import_id'] );
+		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $data['import_id'] );
+		$this->messages = array(
+			'error',
+			'success',
+			'warning',
+		);
 
-		do_action( 'debug_robot', '$data :: ' . print_r( $data, TRUE ) );
-		do_action( 'debug_robot', '$record :: ' . print_r( $record, TRUE ) );
+		if ( 'csv' === $data['origin'] ) {
+			$result = $record->csv_insert_posts( $data );
+
+			if ( is_wp_error( $result ) ) {
+				$this->messages[ 'error' ][] = $result->get_error_message();
+
+				Tribe__Admin__Notices::instance()->register(
+					'tribe-aggregator-import-failed',
+					array( $this, 'render_notice_import_failed' ),
+					array(
+						'type' => 'error',
+					)
+				);
+				return $result;
+			}
+
+			if ( isset( $result['updated'] ) ) {
+				if ( ! empty( $result['updated'] ) ) {
+					$this->messages['success'][] = sprintf(
+						_n( '%1$d event has been updated.', '%1$d events have been updated.', $result['updated'], 'the-events-calendar' ),
+						$result['updated']
+					);
+				}
+
+				if ( ! empty( $result['created'] ) ) {
+					$this->messages['success'][] = sprintf(
+						_n( '%1$d event has been successfully added.', '%1$d events have been successfully added.', $result['created'], 'the-events-calendar' ),
+						$result['created']
+					);
+				}
+
+				if ( ! empty( $result['skipped'] ) ) {
+					$this->messages['success'][] = sprintf(
+						_n( '%1$d event has been skipped.', '%1$d events have been skipped.', $result['skipped'], 'the-events-calendar' ),
+						$result['skipped']
+					);
+				}
+
+				if ( ! $this->messages ) {
+					$this->messages['success'][] = __( '0 events have been added.', 'the-events-calendar' );
+				}
+
+				Tribe__Admin__Notices::instance()->register(
+					'tribe-aggregator-import-complete',
+					array( $this, 'render_notice_import_complete' ),
+					array(
+						'type' => 'success',
+					)
+				);
+
+			}
+			return $result;
+		}
 
 		// @TODO do somethign with the events
-	}
-
-	public function ajax_csv_content_type() {
-		$response = (object) array(
-			'results' => array(),
-		);
-
-		// Fetch the Objects from Post Types
-		$post_types = array_map( 'get_post_type_object', Tribe__Main::get_post_types() );
-
-		// Building the Response for Select2
-		foreach ( $post_types as $post_type ) {
-			$response->results[] = array(
-				'id' => $post_type->name,
-				'text' => $post_type->labels->name,
-			);
-		}
-
-		return wp_send_json_success( $response );
-	}
-
-	public function ajax_csv_files() {
-		$response = (object) array(
-			'results' => array(),
-		);
-
-		$query = new WP_Query( array(
-			'post_type'      => 'attachment',
-			'post_status'    => 'inherit',
-			'post_mime_type' => 'text/csv',
-		) );
-
-		if ( ! $query->have_posts() ) {
-			return wp_send_json_error( $response );
-		}
-
-		foreach ( $query->posts as $k => $post ) {
-			$query->posts[ $k ]->text = $post->post_title;
-		}
-
-		$response->results = $query->posts;
-
-		if ( $query->max_num_pages >= $request->query['paged'] ) {
-			$response->more = false;
-		}
-
-		return wp_send_json_success( $response );
 	}
 
 	public function ajax_save_credentials() {
@@ -340,5 +348,38 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$html = ob_get_clean();
 
 		return Tribe__Admin__Notices::instance()->render( 'tribe-expired-aggregator-license', $html );
+	}
+
+	/**
+	 * Renders any of the "import complete" messages
+	 */
+	public function render_notice_import_complete() {
+		ob_start();
+		?>
+		<p>
+			<?php echo implode( ' ', $this->messages['success'] ); ?>
+			<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE ) ); ?>" ><?php esc_html_e( 'View All Events', 'the-events-calendar' ); ?></a>
+		</p>
+		<?php
+
+		$html = ob_get_clean();
+
+		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-import-complete', $html );
+	}
+
+	/**
+	 * Renders failed import messages
+	 */
+	public function render_notice_import_failed() {
+		ob_start();
+		?>
+		<p>
+			<?php echo implode( ' ', $this->messages['error'] ); ?>
+		</p>
+		<?php
+
+		$html = ob_get_clean();
+
+		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-import-failed', $html );
 	}
 }
