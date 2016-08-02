@@ -17,6 +17,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public $type;
 	public $frequency;
 
+	public $is_scheduled = false;
+	public $is_manual = false;
+
 	/**
 	 * Setup all the hooks and filters
 	 *
@@ -26,6 +29,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// If we have an Post we try to Setup
 		$this->load( $post );
 	}
+
+	/**
+	 * Public facing Label for this Origin
+	 *
+	 * @return string
+	 */
+	abstract public function get_label();
 
 	/**
 	 * Loads the WP_Post associated with this record
@@ -49,6 +59,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		if ( 'scheduled' === $this->type ) {
 			$this->frequency = $this->post->post_content;
+
+			// Boolean Flag for Scheduled records
+			$this->is_scheduled = true;
+		} else {
+			// Everything that is not a Scheduled Record is set as Manual
+			$this->is_manual = true;
 		}
 
 		$this->setup_meta( get_post_meta( $this->id ) );
@@ -96,7 +112,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'post_title'     => wp_generate_password( 32, true, true ),
 			'post_type'      => Tribe__Events__Aggregator__Records::$post_type,
 			'ping_status'    => $type,
-			'post_mime_type' => $this->origin,
+			// The Mime Type needs to be on a %/% format to work on WordPress
+			'post_mime_type' => 'ea/' . $this->origin,
 			'post_date'      => current_time( 'mysql' ),
 			'post_status'    => Tribe__Events__Aggregator__Records::$status->draft,
 			'post_parent'    => $args->parent,
@@ -270,6 +287,45 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function set_status_as_success() {
 		return $this->set_status( 'success' );
+	}
+
+	public function query_child_records( $args = array() ) {
+		$statuses = Tribe__Events__Aggregator__Records::$status;
+		$defaults = array(
+			'post_status' => array( $statuses->success, $statuses->failed, $statuses->pending ),
+			'post_parent' => $this->id,
+			'orderby'     => 'modified',
+			'order'       => 'DESC',
+		);
+		$args = (object) wp_parse_args( $args, $defaults );
+
+		// Enforce the Post Type
+		$args->post_type = Tribe__Events__Aggregator__Records::$post_type;
+
+		// Do the actual Query
+		$query = new WP_Query( $args );
+
+		return $query;
+	}
+
+	public function get_child_record_by_status( $status = 'success', $qty = -1 ){
+		$statuses = Tribe__Events__Aggregator__Records::$status;
+
+		if ( ! isset( $statuses->{ $status } ) ) {
+			return false;
+		}
+
+		$args = array(
+			'post_status'    => $statuses->{ $status },
+			'posts_per_page' => $qty,
+		);
+		$query = $this->query_child_records( $args );
+		if ( ! $query->have_posts() ) {
+			return false;
+		}
+
+		// Return the First Post when it exists
+		return $query;
 	}
 
 	/**

@@ -18,8 +18,12 @@ class Tribe__Events__Aggregator__Records {
 	public static $status = array(
 		'success'   => 'tribe-ea-success',
 		'failed'    => 'tribe-ea-failed',
-		'scheduled' => 'tribe-ea-scheduled',
 		'pending'   => 'tribe-ea-pending',
+
+		// Used to mark which are the Orginal Scheduled Import
+		'scheduled' => 'tribe-ea-scheduled',
+
+		// Currently Not Displayed
 		'draft'     => 'tribe-ea-draft',
 	);
 
@@ -203,6 +207,53 @@ class Tribe__Events__Aggregator__Records {
 		return $registered_by_key;
 	}
 
+	public function count_by_origin( $type = array( 'scheduled', 'manual' ), $raw_statuses = '' ) {
+		global $wpdb;
+
+		$where = array(
+			'post_type = %s',
+			'AND post_status NOT IN ( \'' . Tribe__Events__Aggregator__Records::$status->draft . '\' )',
+		);
+
+		$statuses = array();
+
+		// Make it an Array
+		$raw_statuses = (array) $raw_statuses;
+		foreach ( $raw_statuses as $status ) {
+			if ( ! isset( Tribe__Events__Aggregator__Records::$status->{ $status } ) ) {
+				continue;
+			}
+
+			// Get the Actual Status for the Database
+			$statuses[] = Tribe__Events__Aggregator__Records::$status->{ $status };
+		}
+
+		if ( ! empty( $type ) ) {
+			$where[] = 'AND ping_status IN ( \'' . implode( '\', \'', (array) $type ) . '\' )';
+		}
+
+		if ( ! empty( $statuses ) ) {
+			$where[] = 'AND post_status IN ( \'' . implode( '\', \'', $statuses ) . '\' )';
+		}
+
+		$where = implode( ' ', $where );
+		$sql = $wpdb->prepare( "SELECT post_mime_type as origin, COUNT(*) as count
+		FROM $wpdb->posts
+		WHERE {$where}
+		GROUP BY post_mime_type;", self::$post_type );
+
+		$results = $wpdb->get_results( $sql );
+		$origins = wp_list_pluck( $results, 'origin' );
+		$counts = wp_list_pluck( $results, 'count' );
+
+		// Remove ea/ from the `post_mime_type`
+		foreach ( $origins as &$origin ) {
+			$origin = str_replace( 'ea/', '', $origin );
+		}
+
+		return array_combine( $origins, $counts );
+	}
+
 	/**
 	 * Returns an appropriate Record object for the given origin
 	 *
@@ -215,15 +266,19 @@ class Tribe__Events__Aggregator__Records {
 
 		switch ( $origin ) {
 			case 'ical':
+			case 'ea/ical':
 				$record = new Tribe__Events__Aggregator__Record__iCal( $post );
 				break;
 			case 'ics':
+			case 'ea/ics':
 				$record = new Tribe__Events__Aggregator__Record__ICS( $post );
 				break;
 			case 'facebook':
+			case 'ea/facebook':
 				$record = new Tribe__Events__Aggregator__Record__Facebook( $post );
 				break;
 			case 'meetup':
+			case 'ea/meetup':
 				$record = new Tribe__Events__Aggregator__Record__Meetup( $post );
 				break;
 		}

@@ -1,4 +1,6 @@
 <?php
+// Don't load directly
+defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Record__ICS extends Tribe__Events__Aggregator__Record__Abstract {
 	public static $origin = 'ics';
@@ -21,5 +23,14 @@ class Tribe__Events__Aggregator__Record__ICS extends Tribe__Events__Aggregator__
 		$args = wp_parse_args( $args, $defaults );
 
 		return parent::create( $origin, $type, $args );
+	}
+
+	/**
+	 * Public facing Label for this Origin
+	 *
+	 * @return string
+	 */
+	public function get_label() {
+		return __( 'ICS', 'the-events-calendar' );
 	}
 }

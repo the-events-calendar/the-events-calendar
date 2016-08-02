@@ -1,4 +1,6 @@
 <?php
+// Don't load directly
+defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Record__Meetup extends Tribe__Events__Aggregator__Record__Abstract {
 	public $origin = 'meetup';
@@ -16,5 +18,14 @@ class Tribe__Events__Aggregator__Record__Meetup extends Tribe__Events__Aggregato
 		$args = wp_parse_args( $args, $defaults );
 
 		return parent::queue_import( $args );
+	}
+
+	/**
+	 * Public facing Label for this Origin
+	 *
+	 * @return string
+	 */
+	public function get_label() {
+		return __( 'Meetup', 'the-events-calendar' );
 	}
 }
