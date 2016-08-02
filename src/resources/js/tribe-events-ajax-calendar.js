@@ -16,27 +16,14 @@
 	 * dbug = tribe_debug
 	 */
 
-	var $body,
-	    $wrappers;
+	$( document ).ready( function() {
 
-	/**
-	 * Setup calendar handling for each calendar view on the page.
-	 */
-	function setup() {
-		$body = $( 'body' );
-		$wrappers = $( '#tribe-events, .tribe-events-view-wrapper' );
-		$wrappers.each( ajax_calendar );
-	}
-
-	/**
-	 * Implements frontend calendar (month view) functionality.
-	 */
-	function ajax_calendar() {
-		var $wrapper = $( this ),
-		    $nav_link = $wrapper.find( '[class^="tribe-events-nav-"] a' ),
-		    initial_date = tf.get_url_param( 'tribe-bar-date' ),
-		    $tribedate = $wrapper.find( '#tribe-bar-date' ),
-		    date_mod = false;
+		var $body = $( 'body' ),
+			$nav_link = $( '[class^="tribe-events-nav-"] a' ),
+			initial_date = tf.get_url_param( 'tribe-bar-date' ),
+			$wrapper = $( '#tribe-events' ),
+			$tribedate = $( '#tribe-bar-date' ),
+			date_mod = false;
 
 		var base_url = '/';
 
@@ -536,8 +523,6 @@
 		dbug && debug.info( 'TEC Debug: tribe-events-ajax-calendar.js successfully loaded, Tribe Events Init finished' );
 		dbug && debug.timeEnd( 'Tribe JS Init Timer' );
 		// @endif
-	}
-
-	$( document ).ready( setup );
+	} );
 
 })( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_js_config, tribe_debug );
