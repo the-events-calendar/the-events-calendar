@@ -558,7 +558,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			);
 			/**
 			 * @var string $namespace
-			 * @var string $pluginpath
+			 * @var string $plugin_path
 			 * @var bool   $disable_view_check
 			 */
 			extract( $args );
@@ -569,9 +569,6 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			if ( substr( $template, - 4 ) != '.php' ) {
 				$template .= '.php';
 			}
-
-			// setup the meta definitions
-			require_once( $tec->pluginPath . 'src/functions/advanced-functions/meta_registration.php' );
 
 			// Allow base path for templates to be filtered
 			$template_base_paths = apply_filters( 'tribe_events_template_paths', ( array ) Tribe__Events__Main::instance()->pluginPath );

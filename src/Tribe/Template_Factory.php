@@ -81,9 +81,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 		// Remove the comments template entirely if needed
 		add_filter( 'tribe_get_option', array( $this, 'comments_off' ), 10, 2 );
 
-		// set up meta used in this view
-		add_action( 'tribe_events_before_view', array( $this, 'setup_meta' ) );
-
 		// cleanup after view (reset query, etc)
 		add_action( 'tribe_events_after_view', array( $this, 'shutdown_view' ) );
 
@@ -209,8 +206,10 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	/**
 	 * Setup meta display in this template
 	 *
+	 * @deprecated 4.3
 	 **/
 	public function setup_meta() {
+		_deprecated_function( __METHOD__, '4.3' );
 
 		// customize meta items
 		tribe_set_the_meta_template( 'tribe_event_venue_name', array(
