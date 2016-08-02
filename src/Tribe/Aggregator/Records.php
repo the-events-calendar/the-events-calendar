@@ -240,9 +240,15 @@ class Tribe__Events__Aggregator__Records {
 		$sql = $wpdb->prepare( "SELECT post_mime_type as origin, COUNT(*) as count
 		FROM $wpdb->posts
 		WHERE {$where}
-		GROUP BY post_mime_type;", self::$post_type );
+		GROUP BY origin;", self::$post_type );
 
 		$results = $wpdb->get_results( $sql );
+
+		// Prevents Warnings With `array_combine`
+		if ( empty( $results ) ) {
+			return array();
+		}
+
 		$origins = wp_list_pluck( $results, 'origin' );
 		$counts = wp_list_pluck( $results, 'count' );
 
