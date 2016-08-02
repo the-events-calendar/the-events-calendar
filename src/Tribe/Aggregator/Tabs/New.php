@@ -218,7 +218,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function ajax_save_credentials() {
-		if ( empty( $_GET['which'] ) ) {
+		if ( empty( $_POST['tribe_credentials_which'] ) ) {
 			$data = array(
 				'message' => __( 'Invalid credential save request', 'the-events-calendar' ),
 			);
@@ -226,7 +226,9 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			wp_send_json_error( $data );
 		}
 
-		if ( empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'tribe-save-credentials' ) ) {
+		$which = $_POST['tribe_credentials_which'];
+
+		if ( empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], "tribe-save-{$which}-credentials" ) ) {
 			$data = array(
 				'message' => __( 'Invalid credential save nonce', 'the-events-calendar' ),
 			);
@@ -234,7 +236,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			wp_send_json_error( $data );
 		}
 
-		if ( 'facebook' === $_GET['which'] ) {
+		if ( 'facebook' === $which ) {
 			if ( empty( $_POST['fb_api_key'] ) || empty( $_POST['fb_api_secret'] ) ) {
 				$data = array(
 					'message' => __( 'The Facebook API key and API secret are both required.', 'the-events-calendar' ),
@@ -245,6 +247,22 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 			tribe_update_option( 'fb_api_key', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $_POST['fb_api_key'] ) ) );
 			tribe_update_option( 'fb_api_secret', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $_POST['fb_api_secret'] ) ) );
+
+			$data = array(
+				'message' => __( 'Credentials have been saved', 'the-events-calendar' ),
+			);
+
+			wp_send_json_success( $data );
+		} elseif ( 'meetup' === $which ) {
+			if ( empty( $_POST['meetup_api_key'] ) ) {
+				$data = array(
+					'message' => __( 'The Meetup API key is required.', 'the-events-calendar' ),
+				);
+
+				wp_send_json_error( $data );
+			}
+
+			tribe_update_option( 'meetup_api_key', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $_POST['meetup_api_key'] ) ) );
 
 			$data = array(
 				'message' => __( 'Credentials have been saved', 'the-events-calendar' ),

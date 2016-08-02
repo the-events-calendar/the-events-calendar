@@ -368,9 +368,9 @@ tribe_aggregator.fields = {
 	 * Saves credential form
 	 */
 	obj.save_credentials = function( $credentials_form ) {
-		var data = $( this ).closest( '.tribe-fieldset' ).find( 'input' ).serialize();
+		var data = $credentials_form.find( '.tribe-fieldset' ).find( 'input' ).serialize();
 
-		var url = ajaxurl + '?action=tribe_aggregator_save_credentials&which=facebook';
+		var url = ajaxurl + '?action=tribe_aggregator_save_credentials';
 
 		var jqxhr = $.post( url, data );
 		jqxhr.done( function( response ) {
