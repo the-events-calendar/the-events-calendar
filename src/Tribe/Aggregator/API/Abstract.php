@@ -1,4 +1,6 @@
 <?php
+// Don't load directly
+defined( 'WPINC' ) or die;
 
 abstract class Tribe__Events__Aggregator__API__Abstract {
 	public $service;

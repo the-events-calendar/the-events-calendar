@@ -1,4 +1,5 @@
 <?php
+_deprecated_file( __FILE__, '4.3' );
 
 if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 
@@ -6,15 +7,21 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 	 * Event Meta Register
 	 *
 	 * Handle retrieval of event meta.
+	 *
+	 * @deprecated 4.3
 	 */
 	class Tribe__Events__Advanced_Functions__Register_Meta {
 
 		/**
 		 * The the title
 		 *
+		 * @deprecated 4.3
+		 *
 		 * @return string title
 		 */
 		public static function the_title() {
+			_deprecated_function( __METHOD__, '4.3' );
+
 			return get_the_title( get_the_ID() );
 		}
 
@@ -22,11 +29,15 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 		/**
 		 * Get the event date
 		 *
+		 * @deprecated 4.3
+		 *
 		 * @param int $meta_id
 		 *
 		 * @return string
 		 */
 		public static function event_date( $meta_id ) {
+			_deprecated_function( __METHOD__, '4.3' );
+
 			$time_format = get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT );
 			$start_time  = tribe_get_start_date( null, false, $time_format );
 			$end_time    = tribe_get_end_date( null, false, $time_format );
@@ -126,11 +137,15 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 		/**
 		 * Get event categories
 		 *
+		 * @deprecated 4.3
+		 *
 		 * @param int $meta_id
 		 *
 		 * @return array
 		 */
 		public static function event_category( $meta_id ) {
+			_deprecated_function( __METHOD__, '4.3' );
+
 			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
 
@@ -156,11 +171,15 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 		/**
 		 * Get event tags
 		 *
+		 * @deprecated 4.3
+		 *
 		 * @param int $meta_id
 		 *
 		 * @return array
 		 */
 		public static function event_tag( $meta_id ) {
+			_deprecated_function( __METHOD__, '4.3' );
+
 			global $_tribe_meta_factory;
 
 			return apply_filters( 'tribe_event_meta_event_tag', tribe_meta_event_tags( $_tribe_meta_factory->meta[ $meta_id ]['label'], ', ', false ) );
@@ -170,11 +189,15 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 		/**
 		 * Get the event link
 		 *
+		 * @deprecated 4.3
+		 *
 		 * @param int $meta_id
 		 *
 		 * @return string
 		 */
 		public static function event_website( $meta_id ) {
+			_deprecated_function( __METHOD__, '4.3' );
+
 			global $_tribe_meta_factory;
 			$link         = tribe_get_event_website_link();
 			$website_link = empty( $link ) ? '' : Tribe__Events__Meta_Factory::template(
@@ -189,11 +212,15 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 		/**
 		 * Get event origin
 		 *
+		 * @deprecated 4.3
+		 *
 		 * @param int $meta_id
 		 *
 		 * @return string
 		 */
 		public static function event_origin( $meta_id ) {
+			_deprecated_function( __METHOD__, '4.3' );
+
 			global $_tribe_meta_factory;
 			$origin_to_display = apply_filters( 'tribe_events_display_event_origin', '', get_the_ID() );
 			$origin            = empty( $link ) ? '' : Tribe__Events__Meta_Factory::template(
@@ -209,11 +236,15 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 		/**
 		 * Get organizer name
 		 *
+		 * @deprecated 4.3
+		 *
 		 * @param int $meta_id
 		 *
 		 * @return string
 		 */
 		public static function organizer_name( $meta_id ) {
+			_deprecated_function( __METHOD__, '4.3' );
+
 			global $_tribe_meta_factory;
 			$post_id        = get_the_ID();
 			$name           = tribe_get_organizer( $post_id );
@@ -230,11 +261,15 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 		/**
 		 * Get organizer email
 		 *
+		 * @deprecated 4.3
+		 *
 		 * @param int $meta_id
 		 *
 		 * @return string
 		 */
 		public static function organizer_email( $meta_id ) {
+			_deprecated_function( __METHOD__, '4.3' );
+
 			global $_tribe_meta_factory;
 			$email           = tribe_get_organizer_email();
 			$organizer_email = empty( $email ) ? '' : Tribe__Events__Meta_Factory::template(
@@ -249,11 +284,15 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 		/**
 		 * Get the venue name
 		 *
+		 * @deprecated 4.3
+		 *
 		 * @param int $meta_id
 		 *
 		 * @return string
 		 */
 		public static function venue_name( $meta_id ) {
+			_deprecated_function( __METHOD__, '4.3' );
+
 			global $_tribe_meta_factory;
 			$post_id    = get_the_ID();
 			$name       = tribe_get_venue( $post_id );
@@ -269,11 +308,15 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 		/**
 		 * Get the venue address
 		 *
+		 * @deprecated 4.3
+		 *
 		 * @param int $meta_id
 		 *
 		 * @return string
 		 */
 		public static function venue_address( $meta_id ) {
+			_deprecated_function( __METHOD__, '4.3' );
+
 			global $_tribe_meta_factory;
 
 			$address = tribe_address_exists( get_the_ID() ) ? '<address class="tribe-events-address">' . tribe_get_full_address( get_the_ID() ) . '</address>' : '';
@@ -294,11 +337,15 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 		/**
 		 * Get the venue map
 		 *
+		 * @deprecated 4.3
+		 *
 		 * @param int $meta_id
 		 *
 		 * @return string
 		 */
 		public static function venue_map( $meta_id ) {
+			_deprecated_function( __METHOD__, '4.3' );
+
 			global $_tribe_meta_factory;
 			$post_id   = get_the_ID();
 			$map       = tribe_get_embedded_map( $post_id );
