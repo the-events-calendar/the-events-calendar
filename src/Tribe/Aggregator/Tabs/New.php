@@ -152,9 +152,65 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 	public function handle_import_finalize( $data ) {
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $data['import_id'] );
+		$this->messages = array(
+			'error',
+			'success',
+			'warning',
+		);
 
-		do_action( 'debug_robot', '$data :: ' . print_r( $data, TRUE ) );
-		do_action( 'debug_robot', '$record :: ' . print_r( $record, TRUE ) );
+		if ( 'csv' === $data['origin'] ) {
+			$result = $record->csv_insert_posts( $data );
+
+			if ( is_wp_error( $result ) ) {
+				$this->messages[ 'error' ][] = $result->get_error_message();
+
+				Tribe__Admin__Notices::instance()->register(
+					'tribe-aggregator-import-failed',
+					array( $this, 'render_notice_import_failed' ),
+					array(
+						'type' => 'error',
+					)
+				);
+				return $result;
+			}
+
+			if ( isset( $result['updated'] ) ) {
+				if ( ! empty( $result['updated'] ) ) {
+					$this->messages['success'][] = sprintf(
+						_n( '%1$d event has been updated.', '%1$d events have been updated.', $result['updated'], 'the-events-calendar' ),
+						$result['updated']
+					);
+				}
+
+				if ( ! empty( $result['created'] ) ) {
+					$this->messages['success'][] = sprintf(
+						_n( '%1$d event has been successfully added.', '%1$d events have been successfully added.', $result['created'], 'the-events-calendar' ),
+						$result['created']
+					);
+				}
+
+				if ( ! empty( $result['skipped'] ) ) {
+					$this->messages['success'][] = sprintf(
+						_n( '%1$d event has been skipped.', '%1$d events have been skipped.', $result['skipped'], 'the-events-calendar' ),
+						$result['skipped']
+					);
+				}
+
+				if ( ! $this->messages ) {
+					$this->messages['success'][] = __( '0 events have been added.', 'the-events-calendar' );
+				}
+
+				Tribe__Admin__Notices::instance()->register(
+					'tribe-aggregator-import-complete',
+					array( $this, 'render_notice_import_complete' ),
+					array(
+						'type' => 'success',
+					)
+				);
+
+			}
+			return $result;
+		}
 
 		// @TODO do somethign with the events
 	}
@@ -292,5 +348,38 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$html = ob_get_clean();
 
 		return Tribe__Admin__Notices::instance()->render( 'tribe-expired-aggregator-license', $html );
+	}
+
+	/**
+	 * Renders any of the "import complete" messages
+	 */
+	public function render_notice_import_complete() {
+		ob_start();
+		?>
+		<p>
+			<?php echo implode( ' ', $this->messages['success'] ); ?>
+			<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE ) ); ?>" ><?php esc_html_e( 'View All Events', 'the-events-calendar' ); ?></a>
+		</p>
+		<?php
+
+		$html = ob_get_clean();
+
+		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-import-complete', $html );
+	}
+
+	/**
+	 * Renders failed import messages
+	 */
+	public function render_notice_import_failed() {
+		ob_start();
+		?>
+		<p>
+			<?php echo implode( ' ', $this->messages['error'] ); ?>
+		</p>
+		<?php
+
+		$html = ob_get_clean();
+
+		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-import-failed', $html );
 	}
 }

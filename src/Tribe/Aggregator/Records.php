@@ -274,6 +274,7 @@ class Tribe__Events__Aggregator__Records {
 				self::$status->success,
 			),
 		);
+		do_action( 'debug_robot', '$args :: ' . print_r( $args, TRUE ) );
 
 		$query = new WP_Query( $args );
 

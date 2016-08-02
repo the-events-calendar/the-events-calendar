@@ -30,9 +30,6 @@ tribe_aggregator.fields = {
 	// Store the methods that will act as event handlers
 	events: {},
 
-	// Store L10N strings
-	l10n: window.tribe_l10n_aggregator_fields,
-
 	// store the current import_id
 	import_id: null,
 
@@ -46,7 +43,7 @@ tribe_aggregator.fields = {
 	polling_frequency: 500
 };
 
-( function( $, _, obj ) {
+( function( $, _, obj, ea ) {
 	'use strict';
 
 	/**
@@ -139,7 +136,7 @@ tribe_aggregator.fields = {
 			if ( ! response.success ) {
 				obj.display_fetch_error( [
 					'<b>',
-						obj.l10n.preview_fetch_error_prefix,
+						ea.l10n.preview_fetch_error_prefix,
 					'</b>',
 					' ' + response.data.message
 				].join( ' ' ) );
@@ -176,7 +173,7 @@ tribe_aggregator.fields = {
 			if ( ! response.success ) {
 				obj.display_fetch_error( [
 					'<b>',
-						obj.l10n.preview_fetch_error_prefix,
+						ea.l10n.preview_fetch_error_prefix,
 					'</b>',
 					' ' + response.data.message
 				].join( ' ' ) );
@@ -261,6 +258,7 @@ tribe_aggregator.fields = {
 			var $foot = $table.find( 'tfoot tr' );
 			var $map_row = $({});
 			var column_map = '';
+			var content_type = '';
 			$head.find( 'th:first' ).nextAll().remove();
 			$foot.find( 'th:first' ).nextAll().remove();
 
@@ -271,7 +269,7 @@ tribe_aggregator.fields = {
 				$data_container.find( '.tribe-preview-message .tribe-csv-filename' ).html( $( '#tribe-ea-field-csv_file_name' ).text() );
 				$head.closest( 'thead' ).prepend( '<tr class="tribe-column-map"><th scope="row" class="check-column column-cb"></th></tr>' );
 				$map_row = $( '.tribe-column-map' );
-				var content_type = $( '#tribe-ea-field-csv_content_type' ).val();
+				content_type = $( '#tribe-ea-field-csv_content_type' ).val();
 				content_type = content_type.replace( 'tribe_', '' );
 
 				var $mapper_template = $( '#tribe-csv-column-map-' + content_type );
@@ -290,6 +288,11 @@ tribe_aggregator.fields = {
 					$map_row.append( '<th scope="col">' + column_map.replace( 'name="column_map[]"', 'name="aggregator[column_map][' + column + ']" id="column-' + column + '"' ) + '</th>' );
 
 					var $map_select = $map_row.find( '#column-' + column );
+
+					if ( 'undefined' !== typeof ea.csv_column_mapping[ content_type ][ column ] ) {
+						column_slug = ea.csv_column_mapping[ content_type ][ column ];
+					}
+
 					$map_select.find( 'option[value="' + column_slug + '"]' ).prop( 'selected', true );
 				}
 
@@ -314,7 +317,7 @@ tribe_aggregator.fields = {
 			.on( 'deselect.dt', obj.events.twiddle_finalize_button_text )
 			.on( 'draw.dt', obj.wrap_cell_content );
 
-		var text = obj.l10n.import_all.replace( '%d', rows.length );
+		var text = ea.l10n.import_all.replace( '%d', rows.length );
 		$( obj.selector.finalize_button ).html( text );
 	};
 
@@ -380,7 +383,7 @@ tribe_aggregator.fields = {
 			}
 
 			if ( ! row_selection[0].length ) {
-				obj.display_error( $( '.tribe-finalize-container' ), obj.l10n.events_required_for_manual_submit );
+				obj.display_error( $( '.tribe-finalize-container' ), ea.l10n.events_required_for_manual_submit );
 				return;
 			}
 
@@ -404,6 +407,8 @@ tribe_aggregator.fields = {
 		} else {
 			$( '#tribe-selected-rows' ).text( 'all' );
 		}
+
+		$( '.dataTables_scrollBody' ).find( '[name^="aggregator[column_map]"]' ).remove();
 
 		obj.$.form.submit();
 	};
@@ -707,10 +712,10 @@ tribe_aggregator.fields = {
 	 */
 	obj.events.twiddle_finalize_button_text = function( e, dt ) {
 		var selected_rows = dt.rows({ selected: true })[0].length;
-		var text = obj.l10n.import_checked;
+		var text = ea.l10n.import_checked;
 
 		if ( ! selected_rows ) {
-			text = obj.l10n.import_all;
+			text = ea.l10n.import_all;
 			selected_rows = dt.rows()[0].length;
 		}
 
@@ -720,4 +725,4 @@ tribe_aggregator.fields = {
 
 	// Run Init on Document Ready
 	$( document ).ready( obj.init );
-} )( jQuery, _, tribe_aggregator.fields );
+} )( jQuery, _, tribe_aggregator.fields, tribe_aggregator );
