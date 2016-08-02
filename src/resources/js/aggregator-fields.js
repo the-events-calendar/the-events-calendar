@@ -205,7 +205,7 @@ tribe_aggregator.fields = {
 	obj.init_datatable = function( data ) {
 		var display_checkboxes = false;
 
-		var is_csv = 'csv' === $( '#tribe-ea-field-origin').val();
+		var is_csv = 'csv' === $( '#tribe-ea-field-origin' ).val();
 
 		var $import_type = $( '[id$="import_type"]:visible' );
 
