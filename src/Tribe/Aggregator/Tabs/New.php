@@ -109,7 +109,14 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return;
 		}
 
-		// @todo: validate nonce
+		// validate nonce
+		if ( empty( $_POST['tribe_aggregator_nonce'] ) || ! wp_verify_nonce( $_POST['tribe_aggregator_nonce'], 'tribe-aggregator-save-import' ) ) {
+			$data = array(
+				'message' => __( 'There was a problem processing your import. Please try again.', 'the-events-calendar' ),
+			);
+
+			wp_send_json_error( $data );
+		}
 
 		$post_data = $_POST['aggregator'];
 
