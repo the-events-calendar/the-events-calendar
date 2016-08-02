@@ -33,7 +33,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 		 * @deprecated 4.3
 		 **/
 		public function setup_meta() {
-			_deprecated_function( __FUNCTION__, '4.3' );
+			_deprecated_function( __METHOD__, '4.3' );
 
 			parent::setup_meta();
 
