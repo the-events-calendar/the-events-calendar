@@ -17,7 +17,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public $type;
 	public $frequency;
 
-	public $is_scheduled = false;
+	public $is_schedule = false;
 	public $is_manual = false;
 
 	/**
@@ -57,11 +57,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// Map `ping_status` as the `type`
 		$this->type = $this->post->ping_status;
 
-		if ( 'scheduled' === $this->type ) {
+		if ( 'schedule' === $this->type ) {
 			$this->frequency = $this->post->post_content;
 
 			// Boolean Flag for Scheduled records
-			$this->is_scheduled = true;
+			$this->is_schedule = true;
 		} else {
 			// Everything that is not a Scheduled Record is set as Manual
 			$this->is_manual = true;
@@ -93,7 +93,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return WP_Post|WP_Error
 	 */
 	public function create( $type = 'manual', $args = array(), $meta = array() ) {
-		if ( ! in_array( $type, array( 'manual', 'scheduled' ) ) ) {
+		if ( ! in_array( $type, array( 'manual', 'schedule' ) ) ) {
 			return new WP_Error( 'invalid-type', __( 'An invalid Type was used to setup this Record', 'the-events-calendar' ), $type );
 		}
 
@@ -127,7 +127,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$args = (object) $args;
 
-		if ( 'scheduled' === $type ) {
+		if ( 'schedule' === $type ) {
 			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $args->frequency ) );
 			if ( ! $frequency ) {
 				return new WP_Error( 'invalid-frequency', __( 'An Invalid frequency was used to try to setup a scheduled import', 'the-events-calendar' ), $args );
@@ -135,7 +135,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
 			$post['post_content'] = $frequency->id;
-			$post['post_status']  = Tribe__Events__Aggregator__Records::$status->scheduled;
+			$post['post_status']  = Tribe__Events__Aggregator__Records::$status->schedule;
 
 			// When the next scheduled import should happen
 			// @todo
@@ -155,7 +155,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$error = null;
 
 		// if the daily limit for import requests has been reached, error out
-		if ( 0 >= $aggregator->daily_limit_available() ) {
+		if ( 0 >= $aggregator->get_daily_limit_available() ) {
 			$error = $this->log_limit_reached_error();
 			return $this->set_status_as_failed( $error );
 		}
@@ -183,8 +183,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$defaults['location'] = $this->meta['location'];
 		}
 
-		if ( ! empty( $this->meta['start_date'] ) ) {
-			$defaults['start_date'] = $this->meta['start_date'];
+		if ( ! empty( $this->meta['start'] ) ) {
+			$defaults['start'] = $this->meta['start'];
 		}
 
 		if ( ! empty( $this->meta['radius'] ) ) {
@@ -370,7 +370,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'aggregator-limit-reached',
 			sprintf(
 				esc_html__( 'The Aggregator import limit of %1$d for the day has already been reached.' ),
-				$aggregator->daily_limit()
+				$aggregator->get_daily_limit()
 			)
 		);
 

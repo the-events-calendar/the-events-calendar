@@ -60,17 +60,32 @@ class Tribe__Events__Aggregator__Page {
 		// Load these on all the pages
 		tribe_assets( $plugin,
 			array(
-				array( 'tribe-ea-fields', 'aggregator-fields.js', array( 'jquery', 'underscore', 'tribe-bumpdown', 'tribe-dependency', 'tribe-events-select2' ) ),
-				array( 'tribe-ea-page', 'aggregator-page.css', ),
+				array(
+					'tribe-ea-fields',
+					'aggregator-fields.js',
+					array(
+						'jquery',
+						'tribe-datatables',
+						'underscore',
+						'tribe-bumpdown',
+						'tribe-dependency',
+						'tribe-events-select2',
+					),
+				),
+				array( 'tribe-ea-page', 'aggregator-page.css', array( 'datatables-css' ) ),
 			),
 			'admin_enqueue_scripts',
 			array(
 				'conditionals' => array(
-					array( $this, 'is_screen' )
+					array( $this, 'is_screen' ),
 				),
 				'localize' => (object) array(
 					'name' => 'tribe_l10n_aggregator_fields',
 					'data' => array(
+						'preview_fetch_error_prefix' => __( 'There was an error fetching the results from your import:', 'the-events-calendar' ),
+						'import_all' => __( 'Import All (%d)', 'the-events-calendar' ),
+						'import_checked' => __( 'Import Checked (%d)', 'the-events-calendar' ),
+						'events_required_for_manual_submit' => __( 'Your import must include at least one event', 'the-events-calendar' ),
 						'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
 					),
 				),
@@ -93,7 +108,7 @@ class Tribe__Events__Aggregator__Page {
 		if ( isset( $_GET['dummy'] ) ) {
 			$origins = array( 'facebook', 'meetup', 'ical' );
 			$frequencies = Tribe__Events__Aggregator__Cron::instance()->get_frequency();
-			$types = array( 'manual', 'scheduled' );
+			$types = array( 'manual', 'schedule' );
 
 			for ( $i=0; $i < 15; $i++ ) {
 				$origin = $origins[ array_rand( $origins ) ];
@@ -101,7 +116,7 @@ class Tribe__Events__Aggregator__Page {
 				$record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $origin );
 
 				$meta = array();
-				if ( 'scheduled' === $type ) {
+				if ( 'schedule' === $type ) {
 					$meta['frequency'] = $frequencies[ array_rand( $frequencies ) ]->id;
 				}
 

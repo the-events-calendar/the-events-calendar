@@ -184,7 +184,6 @@ class Tribe__Events__Aggregator__Tabs {
 		return is_object( $this->get( $slug ) ) ? true : false;
 	}
 
-
 	/**
 	 * A method to sort tabs by priority
 	 *

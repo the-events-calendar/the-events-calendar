@@ -3,7 +3,7 @@
 defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Record__ICS extends Tribe__Events__Aggregator__Record__Abstract {
-	public static $origin = 'ics';
+	public $origin = 'ics';
 
 	/**
 	 * Creates an import record
@@ -14,15 +14,14 @@ class Tribe__Events__Aggregator__Record__ICS extends Tribe__Events__Aggregator__
 	 *
 	 * @return WP_Post|WP_Error
 	 */
-	public function create( $origin = false, $type = 'import', $args = array() ) {
+	public function create( $type = 'manual', $args = array(), $meta = array() ) {
 		$defaults = array(
-			'origin' => self::$origin,
 			'file'   => empty( $this->meta['file'] ) ? null : $this->meta['file'],
 		);
 
-		$args = wp_parse_args( $args, $defaults );
+		$meta = wp_parse_args( $meta, $defaults );
 
-		return parent::create( $origin, $type, $args );
+		return parent::create( $type, $args, $meta );
 	}
 
 	/**

@@ -189,6 +189,12 @@
 
 .tribe-preview-container {
 	display: none;
+	padding-left: 16px;
+	padding-left: 1rem;
+	padding-right: 16px;
+	padding-right: 1rem;
+	margin-top: 8px;
+	margin-top: .5rem;
 }
 
 .tribe-preview-container.tribe-fetch-error,
@@ -207,6 +213,14 @@
 
 .tribe-preview-container.tribe-fetch-error .tribe-fetch-error-message {
 	display: block;
+}
+
+.tribe-preview-container.show-data .data-container {
+	display: block;
+}
+
+.tribe-preview-container .data-container {
+	display: none;
 }
 
 .tribe-preview-container > td {
@@ -229,4 +243,53 @@
 	margin-left: auto;
 	margin-right: auto;
 	visibility: visible;
+}
+
+.tribe-preview-container .dataTable .column-cb input, .tribe-preview-container .dataTable .check-column input {
+	display: none;
+}
+
+.tribe-preview-container .display-checkboxes .column-cb input, .tribe-preview-container .display-checkboxes .check-column input {
+	display: inline-block;
+}
+
+.tribe-preview-container .tribe-preview-message {
+	font-weight: bold;
+}
+
+.tribe-preview-container .tribe-default-settings {
+	padding-bottom: 16px;
+	padding-bottom: 1rem;
+	padding-top: 16px;
+	padding-top: 1rem;
+}
+
+.tribe-preview-container .tribe-default-settings label {
+	display: inline-block;
+	line-height: 26px;
+}
+
+.tribe-preview-container #tribe-ea-field-post_status + label {
+	margin-left: 16px;
+	margin-left: 1rem;
+}
+
+.tribe-preview-container.show-data + .tribe-finalize-container {
+	display: block;
+}
+
+.tribe-finalize-container {
+	display: none;
+	padding-top: 24px;
+	padding-top: 1.5rem;
+}
+
+.tribe-finalize-container .tribe-timezone-message {
+	font-style: italic;
+	padding-top: 8px;
+	padding-top: .5rem;
+}
+
+.tribe-message-loader {
+	display: none;
 }

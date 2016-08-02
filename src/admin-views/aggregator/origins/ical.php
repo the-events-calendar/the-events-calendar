@@ -86,9 +86,10 @@ $field->help        = __( 'Enter the url for the iCalendar feed you wish to impo
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-ical_import_type" data-condition-not-empty>
 	<td colspan="2" class="tribe-button-row">
 		<button type="submit" class="button button-primary tribe-preview">
-			<?php
-			esc_html_e( 'Preview', 'the-events-calendar' );
-			?>
+			<?php esc_html_e( 'Preview', 'the-events-calendar' ); ?>
+		</button>
+		<button type="button" class="button tribe-clear-filters">
+			<?php esc_html_e( 'Clear Filters', 'the-events-calendar' ); ?>
 		</button>
 	</td>
 </tr>

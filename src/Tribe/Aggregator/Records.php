@@ -21,7 +21,7 @@ class Tribe__Events__Aggregator__Records {
 		'pending'   => 'tribe-ea-pending',
 
 		// Used to mark which are the Orginal Scheduled Import
-		'scheduled' => 'tribe-ea-scheduled',
+		'schedule' => 'tribe-ea-schedule',
 
 		// Currently Not Displayed
 		'draft'     => 'tribe-ea-draft',
@@ -164,15 +164,15 @@ class Tribe__Events__Aggregator__Records {
 		$object = register_post_status( self::$status->failed, $args );
 		$registered_by_key->failed = $registered_by_name->{'tribe-aggregator-failed'} = $object;
 
-		// Register the Scheduled post status
+		// Register the Schedule post status
 		$args = array(
-			'label'              => esc_html_x( 'Scheduled', 'event aggregator status', 'the-events-calendar' ),
-			'label_count'        => _nx_noop( 'Scheduled <span class="count">(%s)</span>', 'Scheduled <span class="count">(%s)</span>', 'event aggregator status', 'the-events-calendar' ),
+			'label'              => esc_html_x( 'Schedule', 'event aggregator status', 'the-events-calendar' ),
+			'label_count'        => _nx_noop( 'Schedule <span class="count">(%s)</span>', 'Schedule <span class="count">(%s)</span>', 'event aggregator status', 'the-events-calendar' ),
 			'public'             => true,
 			'publicly_queryable' => true,
 		);
-		$object = register_post_status( self::$status->scheduled, $args );
-		$registered_by_key->scheduled = $registered_by_name->{'tribe-aggregator-scheduled'} = $object;
+		$object = register_post_status( self::$status->schedule, $args );
+		$registered_by_key->schedule = $registered_by_name->{'tribe-aggregator-schedule'} = $object;
 
 		// Register the Pending post status
 		$args = array(
@@ -207,7 +207,7 @@ class Tribe__Events__Aggregator__Records {
 		return $registered_by_key;
 	}
 
-	public function count_by_origin( $type = array( 'scheduled', 'manual' ), $raw_statuses = '' ) {
+	public function count_by_origin( $type = array( 'schedule', 'manual' ), $raw_statuses = '' ) {
 		global $wpdb;
 
 		$where = array(
