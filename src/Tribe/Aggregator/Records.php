@@ -266,6 +266,7 @@ class Tribe__Events__Aggregator__Records {
 
 		switch ( $origin ) {
 			case 'csv':
+			case 'ea/csv':
 				$record = new Tribe__Events__Aggregator__Record__CSV( $post );
 				break;
 			case 'ical':

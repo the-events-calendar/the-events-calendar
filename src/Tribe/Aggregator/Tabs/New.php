@@ -158,61 +158,63 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			'warning',
 		);
 
-		if ( 'csv' === $data['origin'] ) {
-			$result = $record->csv_insert_posts( $data );
+		$result = $record->insert_posts( $data );
 
-			if ( is_wp_error( $result ) ) {
-				$this->messages[ 'error' ][] = $result->get_error_message();
+		if ( is_wp_error( $result ) ) {
+			$this->messages[ 'error' ][] = $result->get_error_message();
 
-				Tribe__Admin__Notices::instance()->register(
-					'tribe-aggregator-import-failed',
-					array( $this, 'render_notice_import_failed' ),
-					array(
-						'type' => 'error',
-					)
-				);
-				return $result;
-			}
-
-			if ( isset( $result['updated'] ) ) {
-				if ( ! empty( $result['updated'] ) ) {
-					$this->messages['success'][] = sprintf(
-						_n( '%1$d event has been updated.', '%1$d events have been updated.', $result['updated'], 'the-events-calendar' ),
-						$result['updated']
-					);
-				}
-
-				if ( ! empty( $result['created'] ) ) {
-					$this->messages['success'][] = sprintf(
-						_n( '%1$d event has been successfully added.', '%1$d events have been successfully added.', $result['created'], 'the-events-calendar' ),
-						$result['created']
-					);
-				}
-
-				if ( ! empty( $result['skipped'] ) ) {
-					$this->messages['success'][] = sprintf(
-						_n( '%1$d event has been skipped.', '%1$d events have been skipped.', $result['skipped'], 'the-events-calendar' ),
-						$result['skipped']
-					);
-				}
-
-				if ( ! $this->messages ) {
-					$this->messages['success'][] = __( '0 events have been added.', 'the-events-calendar' );
-				}
-
-				Tribe__Admin__Notices::instance()->register(
-					'tribe-aggregator-import-complete',
-					array( $this, 'render_notice_import_complete' ),
-					array(
-						'type' => 'success',
-					)
-				);
-
-			}
+			Tribe__Admin__Notices::instance()->register(
+				'tribe-aggregator-import-failed',
+				array( $this, 'render_notice_import_failed' ),
+				array(
+					'type' => 'error',
+				)
+			);
 			return $result;
 		}
 
-		// @TODO do somethign with the events
+		if ( 'schedule' === $record->meta['frequency'] ) {
+			$this->messages['success'][] = __( '1 schedule import successfully added.', 'the-events-calendar' );
+		}
+
+		if ( ! empty( $result['updated'] ) ) {
+			$this->messages['success'][] = sprintf(
+				_n( '%1$d event has been updated.', '%1$d events have been updated.', $result['updated'], 'the-events-calendar' ),
+				$result['updated']
+			);
+		}
+
+		if ( ! empty( $result['created'] ) ) {
+			$this->messages['success'][] = sprintf(
+				_n( '%1$d event has been successfully added.', '%1$d events have been successfully added.', $result['created'], 'the-events-calendar' ),
+				$result['created']
+			);
+		}
+
+		if ( ! empty( $result['skipped'] ) ) {
+			$this->messages['success'][] = sprintf(
+				_n( '%1$d event has been skipped.', '%1$d events have been skipped.', $result['skipped'], 'the-events-calendar' ),
+				$result['skipped']
+			);
+		}
+
+		if ( $result && ! $this->messages ) {
+			$this->messages['success'][] = __( '0 events have been added.', 'the-events-calendar' );
+		}
+
+		if (
+			! empty( $this->messages['error'] )
+			|| ! empty( $this->messages['success'] )
+			|| ! empty( $this->messages['warning'] )
+		) {
+			Tribe__Admin__Notices::instance()->register(
+				'tribe-aggregator-import-complete',
+				array( $this, 'render_notice_import_complete' ),
+				array(
+					'type' => 'success',
+				)
+			);
+		}
 	}
 
 	public function ajax_save_credentials() {

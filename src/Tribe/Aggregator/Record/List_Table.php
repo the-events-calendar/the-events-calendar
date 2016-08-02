@@ -90,8 +90,6 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		) );
 	}
 
-
-
 	/**
 	 * Get a list of sortable columns. The format is:
 	 * 'internal-name' => 'orderby'
