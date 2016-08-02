@@ -1545,4 +1545,19 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		return $url;
 	}
+
+	/**
+	 * Utility function to compile separated lists.
+	 *
+	 * @param string $body
+	 * @param string $separator
+	 * @param string $field
+	 *
+	 * @return string
+	 */
+	function tribe_separated_field( $body, $separator, $field ) {
+		$body_and_separator = $body ? $body . $separator : $body;
+
+		return $field ? $body_and_separator . $field : $body;
+	}
 }

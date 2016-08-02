@@ -299,7 +299,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/link.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/widgets.php';
-			require_once $this->plugin_path . 'src/functions/template-tags/meta.php';
+			require_once $this->plugin_path . 'src/deprecated/functions.php';
 
 			// Load Advanced Functions
 			require_once $this->plugin_path . 'src/functions/advanced-functions/event.php';
@@ -469,7 +469,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', array( 'Tribe__Cache_Listener', 'instance' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Cache', 'setup' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Support', 'getInstance' ) );
-			add_action( 'plugins_loaded', array( $this, 'set_meta_factory_global' ) );
 
 			if ( ! Tribe__Main::instance()->doing_ajax() ) {
 				add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
@@ -4566,8 +4565,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Sets the globally shared `$_tribe_meta_factory` object
+		 *
+		 * @deprecated 4.3
 		 */
 		public function set_meta_factory_global() {
+			_deprecated_function( __METHOD__, '4.3' );
 			global $_tribe_meta_factory;
 			$_tribe_meta_factory = new Tribe__Events__Meta_Factory();
 		}
