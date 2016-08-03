@@ -401,21 +401,34 @@ tribe_aggregator.fields = {
 
 			var data = row_selection.data();
 			var items = [];
+			var origin = $( '#tribe-ea-field-origin' ).val();
+			var unique_id_field = null;
 
-			for ( var i in data ) {
-				if ( isNaN( i ) ) {
-					continue;
-				}
-
-				if ( 'undefined' !== typeof data[ i ].checkbox ) {
-					delete data[ i ].checkbox;
-				}
-
-				items.push( data[ i ] );
+			if ( 'facebook' === origin ) {
+				unique_id_field = 'facebook_id';
+			} else if ( 'meetup' === origin ) {
+				unique_id_field = 'meetup_id';
+			} else if ( 'ical' === origin || 'ics' === origin ) {
+				unique_id_field = '_uid';
 			}
 
+			if ( null !== unique_id_field ) {
+				for ( var i in data ) {
+					if ( isNaN( i ) ) {
+						continue;
+					}
 
-			$( '#tribe-selected-rows' ).text( JSON.stringify( items ) );
+					if ( 'undefined' === typeof data[ i ][ unique_id_field ] ) {
+						continue;
+					}
+
+					items.push( data[ i ][ unique_id_field ] );
+				}
+
+				$( '#tribe-selected-rows' ).text( JSON.stringify( items ) );
+			} else {
+				$( '#tribe-selected-rows' ).text( 'all' );
+			}
 		} else {
 			$( '#tribe-selected-rows' ).text( 'all' );
 		}

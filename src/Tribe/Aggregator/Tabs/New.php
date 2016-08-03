@@ -153,7 +153,12 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			'warning',
 		);
 
-		$result = $record->insert_posts( $data );
+		$record->update_meta( 'post_status', empty( $data['post_status'] ) ? 'draft' : $data['post_status'] );
+		$record->update_meta( 'category', empty( $data['category'] ) ? null : $data['post_status'] );
+		$record->update_meta( 'ids_to_import', empty( $data['selected_rows'] ) ? 'all' : stripslashes( $data['selected_rows'] ) );
+		$record->finalize();
+
+		$result = $record->insert_posts();
 
 		if ( is_wp_error( $result ) ) {
 			$this->messages[ 'error' ][] = $result->get_error_message();

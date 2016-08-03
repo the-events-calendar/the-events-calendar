@@ -100,6 +100,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	/**
+	 * Updates import record meta
+	 *
+	 * @param string $key Meta key
+	 * @param mixed $value Meta value
+	 */
+	public function update_meta( $key, $value ) {
+		$this->meta[ $key ] = $value;
+		return update_post_meta( $this->post->ID, self::$meta_key_prefix . $key, $value );
+	}
+
+	/**
 	 * Creates an import record
 	 *
 	 * @param string $type Type of record to create - manual or schedule
@@ -455,8 +466,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $error;
 	}
 
-	public function insert_posts( $post_data ) {
+	public function insert_posts() {
 		$import_data = $this->get_import_data();
+
+		if ( empty( $this->meta['finalized'] ) ) {
+			return new WP_Error(
+				'tribe-aggregator-record-not-finalized',
+				__( 'Posts cannot be inserted from an unfinalized import record', 'the-events-calendar' )
+			);
+		}
 
 		$results = array(
 			'updated' => 0,
@@ -465,7 +483,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		);
 
 		$args = array(
-			'post_status' => $post_data['post_status'],
+			'post_status' => $this->meta['post_status'],
 			'recurring_overwrite' => false,
 		);
 
@@ -474,8 +492,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$overwrite = $args['recurring_overwrite'];
 
 		$unique_field = $this->get_unique_field();
-		$existing_ids = $this->get_existing_ids_from_import_data( $import_data->data->events, $post_data );
-		do_action( 'debug_robot', '$existing_ids :: ' . print_r( $existing_ids, TRUE ) );
+		$existing_ids = $this->get_existing_ids_from_import_data( $import_data->data->events );
 
 		$count_scanned_events = 0;
 
@@ -620,20 +637,20 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return array
 	 */
-	protected function get_existing_ids_from_import_data( $import_data, $post_data ) {
+	protected function get_existing_ids_from_import_data( $import_data ) {
 		$unique_field = $this->get_unique_field();
 
 		if ( ! $unique_field ) {
 			return array();
 		}
 
-		if ( 'all' !== $post_data['selected_rows'] ) {
-			$post_data['selected_rows'] = stripslashes( $post_data['selected_rows'] );
-			$selected_rows = json_decode( $post_data['selected_rows'] );
-			$selected_ids = wp_list_pluck( $selected_rows, $unique_field['source'] );
+		if ( 'all' !== $this->meta['ids_to_import'] ) {
+			do_action( 'debug_robot', '$this->meta["ids_to_import"] :: ' . print_r( $this->meta["ids_to_import"], TRUE ) );
+			$selected_ids = json_decode( $this->meta['ids_to_import'] );
 		} else {
 			$selected_ids = wp_list_pluck( $import_data, $unique_field['source'] );
 		}
+		do_action( 'debug_robot', '$selected_ids :: ' . print_r( $selected_ids, TRUE ) );
 
 		$event_object = new Tribe__Events__Aggregator__Event;
 		$existing_ids_function = "get_existing_{$this->meta['origin']}_ids";
@@ -648,5 +665,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		return $this->unique_id_fields[ $this->meta['origin'] ];
+	}
+
+	/**
+	 * Finalizes the import record for insert
+	 */
+	public function finalize() {
+		$this->update_meta( 'finalized', true );
 	}
 }
