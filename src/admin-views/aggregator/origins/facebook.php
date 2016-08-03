@@ -52,7 +52,8 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 				?>
 			</div>
 			<div class="tribe-fieldset">
-				<?php wp_nonce_field( 'tribe-save-credentials' ); ?>
+				<?php wp_nonce_field( 'tribe-save-facebook-credentials' ); ?>
+				<input type="hidden" name="tribe_credentials_which" value="facebook">
 				<label for="facebook_app_id"><?php esc_html_e( 'App ID:', 'the-events-calendar' ); ?></label>
 				<input type="text" name="fb_api_key" id="facebook_api_key" value="<?php echo esc_attr( $fb_api_key ); ?>">
 				<label for="facebook_app_secret"><?php esc_html_e( 'App Secret:', 'the-events-calendar' ); ?></label>

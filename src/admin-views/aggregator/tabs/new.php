@@ -13,6 +13,7 @@ $category_dropdown = wp_dropdown_categories( array(
 ) );
 $category_dropdown = preg_replace( '!\<select!', '<select data-hide-search', $category_dropdown );
 
+wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 ?>
 <input type="hidden" name="aggregator[import_id]" id="tribe-import_id">
 <table class="form-table">

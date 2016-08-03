@@ -208,8 +208,13 @@ tribe_aggregator.fields = {
 		var is_csv = 'csv' === $( '#tribe-ea-field-origin' ).val();
 
 		var $import_type = $( '[id$="import_type"]:visible' );
+		var import_type = 'manual';
 
-		if ( ! $import_type.length || 'manual' === $( '#' + $import_type.first().attr( 'id' ).replace( 's2id_', '' ) ).val() ) {
+		if ( $import_type.length ) {
+			import_type = $( '#' + $import_type.first().attr( 'id' ).replace( 's2id_', '' ) ).val();
+		}
+
+		if ( ! $import_type.length || 'manual' === import_type ) {
 			display_checkboxes = true;
 		}
 
@@ -317,7 +322,14 @@ tribe_aggregator.fields = {
 			.on( 'deselect.dt', obj.events.twiddle_finalize_button_text )
 			.on( 'draw.dt', obj.wrap_cell_content );
 
-		var text = ea.l10n.import_all.replace( '%d', rows.length );
+		var text;
+
+		if ( 'manual' === import_type ) {
+			text = ea.l10n.import_all.replace( '%d', rows.length );
+		} else {
+			text = ea.l10n.create_schedule;
+		}
+
 		$( obj.selector.finalize_button ).html( text );
 	};
 
@@ -356,9 +368,9 @@ tribe_aggregator.fields = {
 	 * Saves credential form
 	 */
 	obj.save_credentials = function( $credentials_form ) {
-		var data = $( this ).closest( '.tribe-fieldset' ).find( 'input' ).serialize();
+		var data = $credentials_form.find( '.tribe-fieldset' ).find( 'input' ).serialize();
 
-		var url = ajaxurl + '?action=tribe_aggregator_save_credentials&which=facebook';
+		var url = ajaxurl + '?action=tribe_aggregator_save_credentials';
 
 		var jqxhr = $.post( url, data );
 		jqxhr.done( function( response ) {

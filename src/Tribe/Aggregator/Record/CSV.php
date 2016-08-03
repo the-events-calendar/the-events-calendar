@@ -53,6 +53,15 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		return $result;
 	}
 
+	/**
+	 * Public facing Label for this Origin
+	 *
+	 * @return string
+	 */
+	public function get_label() {
+		return __( 'CSV', 'the-events-calendar' );
+	}
+
 	public function get_csv_data() {
 		if (
 			empty( $this->meta['file'] )
@@ -84,7 +93,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		return $data;
 	}
 
-	public function csv_insert_posts( $data ) {
+	public function insert_posts( $data ) {
 		if (
 			'csv' !== $data['origin']
 			|| empty( $data['csv']['content_type'] )

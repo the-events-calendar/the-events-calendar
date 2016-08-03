@@ -51,8 +51,9 @@ $missing_meetup_credentials = ! $meetup_api_key;
 				?>
 			</div>
 			<div class="tribe-fieldset">
-				<?php wp_nonce_field( 'tribe-save-credentials' ); ?>
-				<label for="meetup_app_id"><?php esc_html_e( 'Meetup API Key:', 'the-events-calendar' ); ?></label>
+				<?php wp_nonce_field( 'tribe-save-meetup-credentials' ); ?>
+				<input type="hidden" name="tribe_credentials_which" value="meetup">
+				<label for="meetup_api_key"><?php esc_html_e( 'Meetup API Key:', 'the-events-calendar' ); ?></label>
 				<input type="text" name="meetup_api_key" id="meetup_api_key" value="<?php echo esc_attr( $meetup_api_key ); ?>">
 				<button type="button" class="button tribe-save"><?php esc_html_e( 'Save', 'the-events-calendar' ); ?></button>
 			</div>
