@@ -116,8 +116,7 @@ var tribe_events_bar_action;
 					autoclose: true
 				};
 
-				$tribedate
-					.bootstrapDatepicker( td.datepicker_opts );
+				$tribedate.bootstrapDatepicker( td.datepicker_opts );
 			}
 		}
 
