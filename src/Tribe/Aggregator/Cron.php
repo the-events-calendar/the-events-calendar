@@ -87,7 +87,7 @@ class Tribe__Events__Aggregator__Cron {
 			),
 		) );
 
-		if ( ! empty( $search ) ){
+		if ( ! empty( $search ) ) {
 			$found = array();
 
 			foreach ( $schedules as $i => $schedule ) {

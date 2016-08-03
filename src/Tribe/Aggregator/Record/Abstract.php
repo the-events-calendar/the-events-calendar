@@ -137,15 +137,74 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
 			$post['post_content'] = $frequency->id;
-			$post['post_status']  = Tribe__Events__Aggregator__Records::$status->schedule;
-
-			// When the next scheduled import should happen
-			// @todo
-			// $post['post_content_filtered'] =
 		}
 
 		// // After Creating the Post Load and return
 		return $this->load( wp_insert_post( $post ) );
+	}
+
+	/**
+	 * Creates a schedule record based on the import record
+	 *
+	 * @return boolean|WP_Error
+	 */
+	public function create_schedule_record() {
+		$post = array(
+			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
+			'post_title'     => $this->post->post_title,
+			'post_type'      => $this->post->post_type,
+			'ping_status'    => $this->post->ping_status,
+			'post_mime_type' => $this->post->post_mime_type,
+			'post_date'      => $this->post->post_date,
+			'post_status'    => Tribe__Events__Aggregator__Records::$status->schedule,
+			'post_parent'    => 0,
+			'meta_input'     => array(),
+		);
+
+		foreach ( $this->meta as $key => $value ) {
+			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
+		}
+
+		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
+		if ( ! $frequency ) {
+			return new WP_Error(
+				'invalid-frequency',
+				__( 'An Invalid frequency was used to try to setup a scheduled import', 'the-events-calendar' ),
+				$meta
+			);
+		}
+
+		// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
+		$post['post_content'] = $frequency->id;
+
+		// create schedule post
+		$schedule_id = wp_insert_post( $post );
+
+		// if the schedule creation failed, bail
+		if ( is_wp_error( $schedule_id ) ) {
+			return new WP_Error(
+				'tribe-aggregator-save-schedule-failed',
+				__( 'Unable to save schedule. Please try again.', 'the-events-calendar' )
+			);
+		}
+
+		$update_args = array(
+			'ID' => $this->post->ID,
+			'post_parent' => $schedule_id,
+		);
+
+		// update the parent of the import we are creating the schedule for. If that fails, delete the
+		// corresponding schedule and bail
+		if ( ! wp_update_post( $update_args ) ) {
+			wp_delete_post( $schedule_id, true );
+
+			return new WP_Error(
+				'tribe-aggregator-save-schedule-failed',
+				__( 'Unable to save schedule. Please try again.', 'the-events-calendar' )
+			);
+		}
+
+		return true;
 	}
 
 	/**
@@ -410,7 +469,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	public function insert_posts( $data ) {
 		$records = $this->get_import_data();
-		do_action( 'debug_robot', '$data :: ' . print_r( $data, TRUE ) );
 
 		$results = array(
 			'updated' => 0,
@@ -527,7 +585,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
 				$results['updated']++;
 			} else {
-				do_action( 'debug_robot', '$event :: ' . print_r( $event, TRUE ) );
 				$event['ID'] = tribe_create_event( $event );
 				$results['created']++;
 			}
@@ -571,6 +628,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			//'created' => count( $records->data->events ),
 			//'skipped' => 0,
 		//);
+		$this->set_status_as_success();
 
 		return $results;
 	}
