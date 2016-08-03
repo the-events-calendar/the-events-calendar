@@ -53,26 +53,14 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$license_info = get_option( 'external_updates-event-aggregator' );
 
 		if ( ! $has_license_key || ( isset( $license_info->update->api_invalid ) && $license_info->update->api_invalid ) ) {
-			Tribe__Admin__Notices::instance()->register(
-				'tribe-missing-aggregator-license',
-				array( $this, 'render_notice_missing_aggregator_license' ),
-				array(
-					'type' => 'warning',
-				)
-			);
+			Tribe__Admin__Notices::instance()->register( 'tribe-missing-aggregator-license', array( $this, 'render_notice_missing_aggregator_license' ), 'type=warning' );
 
 			return;
 		}
 
 		$license_info = get_option( 'external_updates-event-aggregator' );
 		if ( isset( $license_info->update->api_expired ) && $license_info->update->api_expired ) {
-			Tribe__Admin__Notices::instance()->register(
-				'tribe-expired-aggregator-license',
-				array( $this, 'render_notice_expired_aggregator_license' ),
-				array(
-					'type' => 'warning',
-				)
-			);
+			Tribe__Admin__Notices::instance()->register( 'tribe-expired-aggregator-license', array( $this, 'render_notice_expired_aggregator_license' ), 'type=warning' );
 		}
 	}
 
@@ -170,13 +158,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		if ( is_wp_error( $result ) ) {
 			$this->messages[ 'error' ][] = $result->get_error_message();
 
-			Tribe__Admin__Notices::instance()->register(
-				'tribe-aggregator-import-failed',
-				array( $this, 'render_notice_import_failed' ),
-				array(
-					'type' => 'error',
-				)
-			);
+			Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
+
 			$record->set_status_as_failed( $result );
 			return $result;
 		}
@@ -188,13 +171,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			if ( is_wp_error( $create_schedule_result ) ) {
 				$this->messages[ 'error' ][] = $create_schedule_result->get_error_message();
 
-				Tribe__Admin__Notices::instance()->register(
-					'tribe-aggregator-import-failed',
-					array( $this, 'render_notice_import_failed' ),
-					array(
-						'type' => 'error',
-					)
-				);
+				Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
 
 				$record->set_status_as_failed( $create_schedule_result );
 				return $create_schedule_result;
@@ -231,13 +208,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			|| ! empty( $this->messages['success'] )
 			|| ! empty( $this->messages['warning'] )
 		) {
-			Tribe__Admin__Notices::instance()->register(
-				'tribe-aggregator-import-complete',
-				array( $this, 'render_notice_import_complete' ),
-				array(
-					'type' => 'success',
-				)
-			);
+			Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-import-complete', array( $this, 'render_notice_import_complete' ), 'type=success' );
 		}
 	}
 
