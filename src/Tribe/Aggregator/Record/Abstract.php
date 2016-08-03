@@ -98,13 +98,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$defaults = array(
-			'frequency' => null,
 			'parent'    => 0,
 		);
 		$args = (object) wp_parse_args( $args, $defaults );
 
 		$defaults = array(
+			'frequency' => null,
 		);
+
 		$meta = wp_parse_args( $meta, $defaults );
 
 		$post = array(
@@ -126,24 +127,84 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$args = (object) $args;
+		$meta = (object) $meta;
 
 		if ( 'schedule' === $type ) {
-			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $args->frequency ) );
+			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $meta->frequency ) );
 			if ( ! $frequency ) {
-				return new WP_Error( 'invalid-frequency', __( 'An Invalid frequency was used to try to setup a scheduled import', 'the-events-calendar' ), $args );
+				return new WP_Error( 'invalid-frequency', __( 'An Invalid frequency was used to try to setup a scheduled import', 'the-events-calendar' ), $meta );
 			}
 
 			// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
 			$post['post_content'] = $frequency->id;
-			$post['post_status']  = Tribe__Events__Aggregator__Records::$status->schedule;
-
-			// When the next scheduled import should happen
-			// @todo
-			// $post['post_content_filtered'] =
 		}
 
 		// // After Creating the Post Load and return
 		return $this->load( wp_insert_post( $post ) );
+	}
+
+	/**
+	 * Creates a schedule record based on the import record
+	 *
+	 * @return boolean|WP_Error
+	 */
+	public function create_schedule_record() {
+		$post = array(
+			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
+			'post_title'     => $this->post->post_title,
+			'post_type'      => $this->post->post_type,
+			'ping_status'    => $this->post->ping_status,
+			'post_mime_type' => $this->post->post_mime_type,
+			'post_date'      => $this->post->post_date,
+			'post_status'    => Tribe__Events__Aggregator__Records::$status->schedule,
+			'post_parent'    => 0,
+			'meta_input'     => array(),
+		);
+
+		foreach ( $this->meta as $key => $value ) {
+			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
+		}
+
+		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
+		if ( ! $frequency ) {
+			return new WP_Error(
+				'invalid-frequency',
+				__( 'An Invalid frequency was used to try to setup a scheduled import', 'the-events-calendar' ),
+				$meta
+			);
+		}
+
+		// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
+		$post['post_content'] = $frequency->id;
+
+		// create schedule post
+		$schedule_id = wp_insert_post( $post );
+
+		// if the schedule creation failed, bail
+		if ( is_wp_error( $schedule_id ) ) {
+			return new WP_Error(
+				'tribe-aggregator-save-schedule-failed',
+				__( 'Unable to save schedule. Please try again.', 'the-events-calendar' )
+			);
+		}
+
+		$update_args = array(
+			'ID' => $this->post->ID,
+			'post_parent' => $schedule_id,
+		);
+
+		// update the parent of the import we are creating the schedule for. If that fails, delete the
+		// corresponding schedule and bail
+		if ( ! wp_update_post( $update_args ) ) {
+			wp_delete_post( $schedule_id, true );
+
+			return new WP_Error(
+				'tribe-aggregator-save-schedule-failed',
+				__( 'Unable to save schedule. Please try again.', 'the-events-calendar' )
+			);
+		}
+
+		return true;
 	}
 
 	/**
@@ -377,5 +438,198 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$this->log_error( $error );
 
 		return $error;
+	}
+
+	public function translate_event( $item ) {
+		$event = array();
+		$item = (array) $item;
+
+		if ( ! empty( $item['venue'] ) ) {
+			$event['venue'] = (array) $item['venue'];
+		}
+
+		if ( ! empty( $item['organizer'] ) ) {
+			$event['organizer'] = (array) $item['organizer'];
+		}
+
+		$event['post_title']         = $item['title'];
+		$event['post_content']       = $item['description'];
+		$event['EventStartDate']     = $item['start_date'];
+		$event['EventStartHour']     = $item['start_hour'];
+		$event['EventStartMinute']   = $item['start_minute'];
+		$event['EventStartMeridian'] = $item['start_meridian'];
+		$event['EventEndDate']       = $item['end_date'];
+		$event['EventEndHour']       = $item['end_hour'];
+		$event['EventEndMinute']     = $item['end_minute'];
+		$event['EventEndMeridian']   = $item['end_meridian'];
+		$event['EventTimezone']      = $item['timezone'];
+
+		return $event;
+	}
+
+	public function insert_posts( $data ) {
+		$records = $this->get_import_data();
+
+		$results = array(
+			'updated' => 0,
+			'created' => 0,
+			'skipped' => 0,
+		);
+
+		$args = array();
+		$selected = array();
+		$has_row_selection = false;
+
+		$args['post_status'] = $data['post_status'];
+
+		if ( 'all' !== $data['selected_rows'] ) {
+			$has_row_selection = true;
+			$data['selected_rows'] = stripslashes( $data['selected_rows'] );
+			$selected_rows = json_decode( $data['selected_rows'] );
+
+			$selected['facebook_ids'] = wp_list_pluck( $selected_rows, 'facebook_id' );
+			$selected['meetup_ids']   = wp_list_pluck( $selected_rows, 'meetup_id' );
+			$selected['_uids']        = wp_list_pluck( $selected_rows, '_uid' );
+		}
+
+		$count_scanned_events = 0;
+
+		//if we have no non recurring events the message may be different
+		$non_recurring = false;
+
+		foreach ( $records->data->events as $item ) {
+			$event = $this->translate_event( $item );
+			$count_scanned_events++;
+
+			if ( $has_row_selection ) {
+				if ( isset( $event['facebook_id'] ) && ! in_array( $event['facebook_id'], $selected['facebook_ids'] ) ) {
+					continue;
+				}
+
+				if ( isset( $event['meetup_id'] ) && ! in_array( $event['meetup_id'], $selected['meetup_ids'] ) ) {
+					continue;
+				}
+
+				if ( isset( $event['_uids'] ) && ! in_array( $event['_uid'], $selected['_uids'] ) ) {
+					continue;
+				}
+			}
+
+			/**
+			 * Should events that have previously been imported be overwritten?
+			 *
+			 * By default this is turned off (since it would reset the post status, description
+			 * and any other fields that have subsequently been edited) but it can be enabled
+			 * by returning true on this filter.
+			 *
+			 * @var bool $overwrite
+			 * @var int  $event_id
+			 */
+			if ( ! empty( $event['id'] ) && ! apply_filters( 'tribe_aggregator_overwrite_existing_events', $overwrite, $event['id'] ) ) {
+				continue;
+			}
+
+			if ( empty( $event[ 'recurrence' ] ) ) {
+				$non_recurring = true;
+			}
+
+			if ( empty( $event['post_status'] ) ) {
+				$event['post_status'] = $args['post_status'];
+			}
+
+			//set the parent
+			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
+				if ( ! empty( $event[ 'ID' ] ) && ( $id = wp_get_post_parent_id( $event[ 'ID' ] ) ) ) {
+					$event['post_parent'] = $id;
+				} elseif ( ! empty( $event['parent_uid'] ) && ( $k = array_search( $event['parent_uid'], $possible_parents ) ) ) {
+					$event['post_parent'] = $k;
+				}
+				//PRO version will already be set to parent of an existing series during check for duplicate
+			} elseif ( ! empty( $event['parent_uid'] ) ) {
+				if ( $k = array_search( $event['parent_uid'], $possible_parents ) ) {
+					$event['post_parent'] = $k;
+				}
+			}
+
+			//if we should create a venue or use existing
+			if ( ! empty( $event['venue']['venue'] ) ) {
+				$v_id = array_search( $event['venue']['venue'], $found_venues );
+				if ( $v_id !== false ) {
+					$event['EventVenueID'] = $v_id;
+				} elseif ( $venue = get_page_by_title( $event['venue']['venue'], 'OBJECT', Tribe__Events__Main::VENUE_POST_TYPE ) ) {
+					$found_venues[ $venue->ID ] = $event['venue']['venue'];
+					$event['EventVenueID']      = $venue->ID;
+				} else {
+					$event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['venue'], $args['post_status'] );
+				}
+				unset( $event['Venue'] );
+			}
+
+			//if we should create an organizer or use existing
+			if ( ! empty( $event['organizer']['organizer'] ) ) {
+				$o_id = array_search( $event['organizer']['organizer'], $found_organizers );
+				if ( $o_id !== false ) {
+					$event['EventOrganizerID'] = $o_id;
+				} elseif ( $organizer = get_page_by_title( $event['organizer']['organizer'], 'OBJECT', Tribe__Events__Main::ORGANIZER_POST_TYPE ) ) {
+					$found_organizers[ $organizer->ID ] = $event['organizer']['organizer'];
+					$event['EventOrganizerID']          = $organizer->ID;
+				} else {
+					$event['EventOrganizerID'] = Tribe__Events__Organizer::instance()->create( $event['organizer'], $args['post_status'] );
+				}
+				unset( $event['Organizer'] );
+			}
+
+			$event['post_type'] = Tribe__Events__Main::POSTTYPE;
+
+			if ( ! empty( $event['ID'] ) ) {
+				$event['ID'] = tribe_update_event( $event['ID'], $event );
+				$results['updated']++;
+			} else {
+				$event['ID'] = tribe_create_event( $event );
+				$results['created']++;
+			}
+
+			//add post parent possibility
+			if ( empty( $event['parent_uid'] ) ) {
+				$possible_parents[ $event['ID'] ] = $event['_uid'];
+			}
+
+			update_post_meta( $event['ID'], '_uid', $event['_uid'] );
+
+			//Save the meta data in case of updating to pro later on
+			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
+				if ( ! empty( $event['recurrence'] ) ) {
+					update_post_meta( $event['ID'], '_EventRecurrenceRRULE', $event['recurrence'] );
+				}
+			}
+
+			$terms = array();
+			if ( ! empty( $event['categories'] ) ) {
+				foreach ( $event['categories'] as $cat ) {
+					if ( ! $term = term_exists( $cat, Tribe__Events__Main::TAXONOMY ) ) {
+						$term = wp_insert_term( $cat, Tribe__Events__Main::TAXONOMY );
+						$terms[] = (int) $term['term_id'];
+					} else {
+						$terms[] = (int) $term['term_id'];
+					}
+				}
+			}
+
+			//if we are setting all events to a category specified in saved import
+			if ( ! empty( $args['import_category'] ) ) {
+				$terms[] = (int) $args['import_category'];
+			}
+
+			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );
+		}
+
+		//$results = array(
+			//'updated' => 0,
+			//'created' => count( $records->data->events ),
+			//'skipped' => 0,
+		//);
+		$this->set_status_as_success();
+
+		return $results;
 	}
 }

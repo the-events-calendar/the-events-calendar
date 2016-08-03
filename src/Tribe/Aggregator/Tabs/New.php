@@ -53,26 +53,14 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$license_info = get_option( 'external_updates-event-aggregator' );
 
 		if ( ! $has_license_key || ( isset( $license_info->update->api_invalid ) && $license_info->update->api_invalid ) ) {
-			Tribe__Admin__Notices::instance()->register(
-				'tribe-missing-aggregator-license',
-				array( $this, 'render_notice_missing_aggregator_license' ),
-				array(
-					'type' => 'warning',
-				)
-			);
+			Tribe__Admin__Notices::instance()->register( 'tribe-missing-aggregator-license', array( $this, 'render_notice_missing_aggregator_license' ), 'type=warning' );
 
 			return;
 		}
 
 		$license_info = get_option( 'external_updates-event-aggregator' );
 		if ( isset( $license_info->update->api_expired ) && $license_info->update->api_expired ) {
-			Tribe__Admin__Notices::instance()->register(
-				'tribe-expired-aggregator-license',
-				array( $this, 'render_notice_expired_aggregator_license' ),
-				array(
-					'type' => 'warning',
-				)
-			);
+			Tribe__Admin__Notices::instance()->register( 'tribe-expired-aggregator-license', array( $this, 'render_notice_expired_aggregator_license' ), 'type=warning' );
 		}
 	}
 
@@ -109,7 +97,14 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return;
 		}
 
-		// @todo: validate nonce
+		// validate nonce
+		if ( empty( $_POST['tribe_aggregator_nonce'] ) || ! wp_verify_nonce( $_POST['tribe_aggregator_nonce'], 'tribe-aggregator-save-import' ) ) {
+			$data = array(
+				'message' => __( 'There was a problem processing your import. Please try again.', 'the-events-calendar' ),
+			);
+
+			wp_send_json_error( $data );
+		}
 
 		$post_data = $_POST['aggregator'];
 
@@ -158,65 +153,67 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			'warning',
 		);
 
-		if ( 'csv' === $data['origin'] ) {
-			$result = $record->csv_insert_posts( $data );
+		$result = $record->insert_posts( $data );
 
-			if ( is_wp_error( $result ) ) {
-				$this->messages[ 'error' ][] = $result->get_error_message();
+		if ( is_wp_error( $result ) ) {
+			$this->messages[ 'error' ][] = $result->get_error_message();
 
-				Tribe__Admin__Notices::instance()->register(
-					'tribe-aggregator-import-failed',
-					array( $this, 'render_notice_import_failed' ),
-					array(
-						'type' => 'error',
-					)
-				);
-				return $result;
-			}
+			Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
 
-			if ( isset( $result['updated'] ) ) {
-				if ( ! empty( $result['updated'] ) ) {
-					$this->messages['success'][] = sprintf(
-						_n( '%1$d event has been updated.', '%1$d events have been updated.', $result['updated'], 'the-events-calendar' ),
-						$result['updated']
-					);
-				}
-
-				if ( ! empty( $result['created'] ) ) {
-					$this->messages['success'][] = sprintf(
-						_n( '%1$d event has been successfully added.', '%1$d events have been successfully added.', $result['created'], 'the-events-calendar' ),
-						$result['created']
-					);
-				}
-
-				if ( ! empty( $result['skipped'] ) ) {
-					$this->messages['success'][] = sprintf(
-						_n( '%1$d event has been skipped.', '%1$d events have been skipped.', $result['skipped'], 'the-events-calendar' ),
-						$result['skipped']
-					);
-				}
-
-				if ( ! $this->messages ) {
-					$this->messages['success'][] = __( '0 events have been added.', 'the-events-calendar' );
-				}
-
-				Tribe__Admin__Notices::instance()->register(
-					'tribe-aggregator-import-complete',
-					array( $this, 'render_notice_import_complete' ),
-					array(
-						'type' => 'success',
-					)
-				);
-
-			}
+			$record->set_status_as_failed( $result );
 			return $result;
 		}
 
-		// @TODO do somethign with the events
+		if ( 'schedule' === $record->meta['type'] ) {
+			$this->messages['success'][] = __( '1 schedule import successfully added.', 'the-events-calendar' );
+			$create_schedule_result = $record->create_schedule_record();
+
+			if ( is_wp_error( $create_schedule_result ) ) {
+				$this->messages[ 'error' ][] = $create_schedule_result->get_error_message();
+
+				Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
+
+				$record->set_status_as_failed( $create_schedule_result );
+				return $create_schedule_result;
+			}
+		}
+
+		if ( ! empty( $result['updated'] ) ) {
+			$this->messages['success'][] = sprintf(
+				_n( '%1$d event has been updated.', '%1$d events have been updated.', $result['updated'], 'the-events-calendar' ),
+				$result['updated']
+			);
+		}
+
+		if ( ! empty( $result['created'] ) ) {
+			$this->messages['success'][] = sprintf(
+				_n( '%1$d event has been successfully added.', '%1$d events have been successfully added.', $result['created'], 'the-events-calendar' ),
+				$result['created']
+			);
+		}
+
+		if ( ! empty( $result['skipped'] ) ) {
+			$this->messages['success'][] = sprintf(
+				_n( '%1$d event has been skipped.', '%1$d events have been skipped.', $result['skipped'], 'the-events-calendar' ),
+				$result['skipped']
+			);
+		}
+
+		if ( $result && ! $this->messages ) {
+			$this->messages['success'][] = __( '0 events have been added.', 'the-events-calendar' );
+		}
+
+		if (
+			! empty( $this->messages['error'] )
+			|| ! empty( $this->messages['success'] )
+			|| ! empty( $this->messages['warning'] )
+		) {
+			Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-import-complete', array( $this, 'render_notice_import_complete' ), 'type=success' );
+		}
 	}
 
 	public function ajax_save_credentials() {
-		if ( empty( $_GET['which'] ) ) {
+		if ( empty( $_POST['tribe_credentials_which'] ) ) {
 			$data = array(
 				'message' => __( 'Invalid credential save request', 'the-events-calendar' ),
 			);
@@ -224,7 +221,9 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			wp_send_json_error( $data );
 		}
 
-		if ( empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'tribe-save-credentials' ) ) {
+		$which = $_POST['tribe_credentials_which'];
+
+		if ( empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], "tribe-save-{$which}-credentials" ) ) {
 			$data = array(
 				'message' => __( 'Invalid credential save nonce', 'the-events-calendar' ),
 			);
@@ -232,7 +231,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			wp_send_json_error( $data );
 		}
 
-		if ( 'facebook' === $_GET['which'] ) {
+		if ( 'facebook' === $which ) {
 			if ( empty( $_POST['fb_api_key'] ) || empty( $_POST['fb_api_secret'] ) ) {
 				$data = array(
 					'message' => __( 'The Facebook API key and API secret are both required.', 'the-events-calendar' ),
@@ -243,6 +242,22 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 			tribe_update_option( 'fb_api_key', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $_POST['fb_api_key'] ) ) );
 			tribe_update_option( 'fb_api_secret', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $_POST['fb_api_secret'] ) ) );
+
+			$data = array(
+				'message' => __( 'Credentials have been saved', 'the-events-calendar' ),
+			);
+
+			wp_send_json_success( $data );
+		} elseif ( 'meetup' === $which ) {
+			if ( empty( $_POST['meetup_api_key'] ) ) {
+				$data = array(
+					'message' => __( 'The Meetup API key is required.', 'the-events-calendar' ),
+				);
+
+				wp_send_json_error( $data );
+			}
+
+			tribe_update_option( 'meetup_api_key', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $_POST['meetup_api_key'] ) ) );
 
 			$data = array(
 				'message' => __( 'Credentials have been saved', 'the-events-calendar' ),
