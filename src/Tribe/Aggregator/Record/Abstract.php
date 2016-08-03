@@ -478,18 +478,18 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$args = array();
 		$selected = array();
-    $has_row_selection = false;
+		$has_row_selection = false;
 
 		$args['post_status'] = $data['post_status'];
 
 		if ( 'all' !== $data['selected_rows'] ) {
-      $has_row_selection = true;
+			$has_row_selection = true;
 			$data['selected_rows'] = stripslashes( $data['selected_rows'] );
 			$selected_rows = json_decode( $data['selected_rows'] );
 
-      $selected['facebook_ids'] = wp_list_pluck( $selected_rows, 'facebook_id' );
-      $selected['meetup_ids']   = wp_list_pluck( $selected_rows, 'meetup_id' );
-      $selected['_uids']        = wp_list_pluck( $selected_rows, '_uid' );
+			$selected['facebook_ids'] = wp_list_pluck( $selected_rows, 'facebook_id' );
+			$selected['meetup_ids']   = wp_list_pluck( $selected_rows, 'meetup_id' );
+			$selected['_uids']        = wp_list_pluck( $selected_rows, '_uid' );
 		}
 
 		$count_scanned_events = 0;
@@ -501,18 +501,18 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$event = $this->translate_event( $item );
 			$count_scanned_events++;
 
-      if ( $has_row_selection ) {
-        if ( isset( $event['facebook_id'] ) && ! in_array( $event['facebook_id'], $selected['facebook_ids'] ) ) {
-          continue;
-        }
+			if ( $has_row_selection ) {
+				if ( isset( $event['facebook_id'] ) && ! in_array( $event['facebook_id'], $selected['facebook_ids'] ) ) {
+					continue;
+				}
 
-        if ( isset( $event['meetup_id'] ) && ! in_array( $event['meetup_id'], $selected['meetup_ids'] ) ) {
-          continue;
-        }
+				if ( isset( $event['meetup_id'] ) && ! in_array( $event['meetup_id'], $selected['meetup_ids'] ) ) {
+					continue;
+				}
 
-        if ( isset( $event['_uids'] ) && ! in_array( $event['_uid'], $selected['_uids'] ) ) {
-          continue;
-        }
+				if ( isset( $event['_uids'] ) && ! in_array( $event['_uid'], $selected['_uids'] ) ) {
+					continue;
+				}
 			}
 
 			/**
