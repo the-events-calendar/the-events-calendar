@@ -20,6 +20,21 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public $is_schedule = false;
 	public $is_manual = false;
 
+	public $unique_id_fields = array(
+		'facebook' => array(
+			'source' => 'facebook_id',
+			'target' => 'EventFacebookID',
+		),
+		'meetup' => array(
+			'source' => 'meetup_id',
+			'target' => 'EventMeetupID',
+		),
+		'ical' => array(
+			'source' => '_uid',
+			'target' => 'uid',
+		),
+	);
+
 	/**
 	 * Setup all the hooks and filters
 	 *
@@ -440,35 +455,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $error;
 	}
 
-	public function translate_event( $item ) {
-		$event = array();
-		$item = (array) $item;
-
-		if ( ! empty( $item['venue'] ) ) {
-			$event['venue'] = (array) $item['venue'];
-		}
-
-		if ( ! empty( $item['organizer'] ) ) {
-			$event['organizer'] = (array) $item['organizer'];
-		}
-
-		$event['post_title']         = $item['title'];
-		$event['post_content']       = $item['description'];
-		$event['EventStartDate']     = $item['start_date'];
-		$event['EventStartHour']     = $item['start_hour'];
-		$event['EventStartMinute']   = $item['start_minute'];
-		$event['EventStartMeridian'] = $item['start_meridian'];
-		$event['EventEndDate']       = $item['end_date'];
-		$event['EventEndHour']       = $item['end_hour'];
-		$event['EventEndMinute']     = $item['end_minute'];
-		$event['EventEndMeridian']   = $item['end_meridian'];
-		$event['EventTimezone']      = $item['timezone'];
-
-		return $event;
-	}
-
-	public function insert_posts( $data ) {
-		$records = $this->get_import_data();
+	public function insert_posts( $post_data ) {
+		$import_data = $this->get_import_data();
 
 		$results = array(
 			'updated' => 0,
@@ -476,44 +464,38 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'skipped' => 0,
 		);
 
-		$args = array();
-		$selected = array();
-		$has_row_selection = false;
+		$args = array(
+			'post_status' => $post_data['post_status'],
+			'recurring_overwrite' => false,
+		);
 
-		$args['post_status'] = $data['post_status'];
+		// @todo set args[recurring_overwrite] using the change authority setting
 
-		if ( 'all' !== $data['selected_rows'] ) {
-			$has_row_selection = true;
-			$data['selected_rows'] = stripslashes( $data['selected_rows'] );
-			$selected_rows = json_decode( $data['selected_rows'] );
+		$overwrite = $args['recurring_overwrite'];
 
-			$selected['facebook_ids'] = wp_list_pluck( $selected_rows, 'facebook_id' );
-			$selected['meetup_ids']   = wp_list_pluck( $selected_rows, 'meetup_id' );
-			$selected['_uids']        = wp_list_pluck( $selected_rows, '_uid' );
-		}
+		$unique_field = $this->get_unique_field();
+		$existing_ids = $this->get_existing_ids_from_import_data( $import_data->data->events, $post_data );
+		do_action( 'debug_robot', '$existing_ids :: ' . print_r( $existing_ids, TRUE ) );
 
 		$count_scanned_events = 0;
 
 		//if we have no non recurring events the message may be different
 		$non_recurring = false;
 
-		foreach ( $records->data->events as $item ) {
-			$event = $this->translate_event( $item );
+		foreach ( $import_data->data->events as $item ) {
 			$count_scanned_events++;
+			$event = Tribe__Events__Aggregator__Event::translate_service_data( $item );
 
-			if ( $has_row_selection ) {
-				if ( isset( $event['facebook_id'] ) && ! in_array( $event['facebook_id'], $selected['facebook_ids'] ) ) {
-					continue;
-				}
-
-				if ( isset( $event['meetup_id'] ) && ! in_array( $event['meetup_id'], $selected['meetup_ids'] ) ) {
-					continue;
-				}
-
-				if ( isset( $event['_uids'] ) && ! in_array( $event['_uid'], $selected['_uids'] ) ) {
-					continue;
-				}
+			// set the event ID if it can be set
+			if (
+				$unique_field
+				&& isset( $event[ $unique_field['target'] ] )
+				&& isset( $existing_ids[ $event[ $unique_field['target'] ] ] )
+			) {
+				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ];
 			}
+
+			$event['post_status'] = $args['post_status'];
 
 			/**
 			 * Should events that have previously been imported be overwritten?
@@ -525,16 +507,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			 * @var bool $overwrite
 			 * @var int  $event_id
 			 */
-			if ( ! empty( $event['id'] ) && ! apply_filters( 'tribe_aggregator_overwrite_existing_events', $overwrite, $event['id'] ) ) {
+			if (
+				! empty( $event['ID'] )
+				&& ! apply_filters( 'tribe_aggregator_overwrite_existing_events', $overwrite, $event['ID'] )
+			) {
+				$results['skipped']++;
 				continue;
 			}
 
 			if ( empty( $event[ 'recurrence' ] ) ) {
 				$non_recurring = true;
-			}
-
-			if ( empty( $event['post_status'] ) ) {
-				$event['post_status'] = $args['post_status'];
 			}
 
 			//set the parent
@@ -594,7 +576,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$possible_parents[ $event['ID'] ] = $event['_uid'];
 			}
 
-			update_post_meta( $event['ID'], '_uid', $event['_uid'] );
+			if ( ! empty( $event[ $unique_field['target'] ] ) ) {
+				update_post_meta( $event['ID'], "_{$unique_field['target']}", $event[ $unique_field['target'] ] );
+			}
 
 			//Save the meta data in case of updating to pro later on
 			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
@@ -623,13 +607,46 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );
 		}
 
-		//$results = array(
-			//'updated' => 0,
-			//'created' => count( $records->data->events ),
-			//'skipped' => 0,
-		//);
 		$this->set_status_as_success();
 
 		return $results;
+	}
+
+	/**
+	 * Gets all ids that already exist in the post meta table from the provided records
+	 *
+	 * @param array $records Array of records
+	 * @param array $data Submitted data
+	 *
+	 * @return array
+	 */
+	protected function get_existing_ids_from_import_data( $import_data, $post_data ) {
+		$unique_field = $this->get_unique_field();
+
+		if ( ! $unique_field ) {
+			return array();
+		}
+
+		if ( 'all' !== $post_data['selected_rows'] ) {
+			$post_data['selected_rows'] = stripslashes( $post_data['selected_rows'] );
+			$selected_rows = json_decode( $post_data['selected_rows'] );
+			$selected_ids = wp_list_pluck( $selected_rows, $unique_field['source'] );
+		} else {
+			$selected_ids = wp_list_pluck( $import_data, $unique_field['source'] );
+		}
+
+		$event_object = new Tribe__Events__Aggregator__Event;
+		$existing_ids_function = "get_existing_{$this->meta['origin']}_ids";
+		$existing_ids = $event_object->$existing_ids_function( $selected_ids );
+
+		return $existing_ids;
+	}
+
+	protected function get_unique_field() {
+		if ( ! isset( $this->unique_id_fields[ $this->meta['origin'] ] ) ) {
+			return null;
+		}
+
+		return $this->unique_id_fields[ $this->meta['origin'] ];
 	}
 }
