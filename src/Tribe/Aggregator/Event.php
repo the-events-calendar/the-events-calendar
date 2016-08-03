@@ -35,6 +35,25 @@ class Tribe__Events__Aggregator__Event {
 			'_uid' => 'uid',
 		);
 
+		$venue_field_map = array(
+			'venue' => 'Venue',
+			'address' => 'Address',
+			'city' => 'City',
+			'province' => 'Province',
+			'state' => 'State',
+			'stateprovince' => 'StateProvince',
+			'province' => 'Province',
+			'zip' => 'Zip',
+			'phone' => 'Phone',
+		);
+
+		$organizer_field_map = array(
+			'organizer' => 'Organizer',
+			'phone' => 'Phone',
+			'email' => 'Email',
+			'website' => 'Website',
+		);
+
 		foreach ( $field_map as $origin_field => $target_field ) {
 			if ( ! isset( $item->$origin_field ) ) {
 				continue;
@@ -45,11 +64,24 @@ class Tribe__Events__Aggregator__Event {
 
 		if ( ! empty( $item->venue ) ) {
 			$event['Venue'] = array();
-			$event['Venue'] = (array) $item->venue;
+			foreach ( $venue_field_map as $origin_field => $target_field ) {
+				if ( ! isset( $item->venue->$origin_field ) ) {
+					continue;
+				}
+
+				$event['Venue'][ $target_field ] = $item->venue->$origin_field;
+			}
 		}
 
 		if ( ! empty( $item->organizer ) ) {
-			$event['organizer'] = (array) $item->organizer;
+			$event['Organizer'] = array();
+			foreach ( $organizer_field_map as $origin_field => $target_field ) {
+				if ( ! isset( $item->organizer->$origin_field ) ) {
+					continue;
+				}
+
+				$event['Organizer'][ $target_field ] = $item->organizer->$origin_field;
+			}
 		}
 
 		return $event;

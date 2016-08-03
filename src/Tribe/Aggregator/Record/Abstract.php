@@ -551,29 +551,29 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			//if we should create a venue or use existing
-			if ( ! empty( $event['venue']['venue'] ) ) {
-				$v_id = array_search( $event['venue']['venue'], $found_venues );
+			if ( ! empty( $event['Venue']['Venue'] ) ) {
+				$v_id = array_search( $event['Venue']['Venue'], $found_venues );
 				if ( $v_id !== false ) {
 					$event['EventVenueID'] = $v_id;
-				} elseif ( $venue = get_page_by_title( $event['venue']['venue'], 'OBJECT', Tribe__Events__Main::VENUE_POST_TYPE ) ) {
-					$found_venues[ $venue->ID ] = $event['venue']['venue'];
+				} elseif ( $venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Main::VENUE_POST_TYPE ) ) {
+					$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
 					$event['EventVenueID']      = $venue->ID;
 				} else {
-					$event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['venue'], $args['post_status'] );
+					$event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $this->meta['post_status'] );
 				}
 				unset( $event['Venue'] );
 			}
 
 			//if we should create an organizer or use existing
-			if ( ! empty( $event['organizer']['organizer'] ) ) {
-				$o_id = array_search( $event['organizer']['organizer'], $found_organizers );
+			if ( ! empty( $event['Organizer']['Organizer'] ) ) {
+				$o_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
 				if ( $o_id !== false ) {
 					$event['EventOrganizerID'] = $o_id;
-				} elseif ( $organizer = get_page_by_title( $event['organizer']['organizer'], 'OBJECT', Tribe__Events__Main::ORGANIZER_POST_TYPE ) ) {
-					$found_organizers[ $organizer->ID ] = $event['organizer']['organizer'];
+				} elseif ( $organizer = get_page_by_title( $event['Organizer']['Organizer'], 'OBJECT', Tribe__Events__Main::ORGANIZER_POST_TYPE ) ) {
+					$found_organizers[ $organizer->ID ] = $event['Organizer']['Organizer'];
 					$event['EventOrganizerID']          = $organizer->ID;
 				} else {
-					$event['EventOrganizerID'] = Tribe__Events__Organizer::instance()->create( $event['organizer'], $args['post_status'] );
+					$event['EventOrganizerID'] = Tribe__Events__Organizer::instance()->create( $event['Organizer'], $this->meta['post_status'] );
 				}
 				unset( $event['Organizer'] );
 			}
