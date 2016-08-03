@@ -13,6 +13,7 @@ if ( ! class_exists( 'WP_Posts_List_Table' ) ) {
 class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 	public $tab;
+	public $page;
 
 	public function __construct( $args = array() ) {
 		$screen = WP_Screen::get( Tribe__Events__Aggregator__Records::$post_type );
@@ -25,8 +26,11 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		parent::__construct( $args );
 
-		// Set Curret Tab
+		// Set Current Tab
 		$this->tab = $args['tab'];
+
+		// Set page Instance
+		$this->page = Tribe__Events__Aggregator__Page::instance();
 	}
 
 	/**
@@ -60,12 +64,20 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		switch ( $this->tab->get_slug() ) {
 			case 'schedule':
 				$args['ping_status'] = 'schedule';
+				$args['post_status'] = $status->schedule;
 				break;
 
-			case 'past':
-				$args['post_status'] = 'any';
-				$args['post_parent'] = 0;
+			case 'history':
+				$args['post_status'] = array(
+					$status->success,
+					$status->failed,
+					$status->pending,
+				);
 				break;
+		}
+
+		if ( isset( $_GET['origin'] ) ) {
+			$args['post_mime_type'] = 'ea/' . $_GET['origin'];
 		}
 
 		$query = new WP_Query( $args );
@@ -88,9 +100,6 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 *
 	 * The second format will make the initial sorting order be descending
 	 *
-	 * @since 3.1.0
-	 * @access protected
-	 *
 	 * @return array
 	 */
 	protected function get_sortable_columns() {
@@ -103,6 +112,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 * @param string $which
 	 */
 	protected function extra_tablenav( $which ) {
+		// Skip it early because we are not doing filters on MVP
+		return false;
+
 		if ( 'bottom' === $which ) {
 			return false;
 		}
@@ -156,8 +168,6 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 * Get an associative array ( option_name => option_title ) with the list
 	 * of bulk actions available on this table.
 	 *
-	 * @since 3.1.0
-	 * @access protected
 	 *
 	 * @return array
 	 */
@@ -167,23 +177,25 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				'id' => 'delete',
 				'text' => 'Delete',
 			),
-			array(
-				'id' => 'import',
-				'text' => 'Import Now',
-			),
+			// array(
+			// 	'id' => 'import',
+			// 	'text' => 'Import Now',
+			// ),
 		);
 	}
 
 	/**
 	 * Display the bulk actions dropdown.
 	 *
-	 * @since 3.1.0
-	 * @access protected
-	 *
 	 * @param string $which The location of the bulk actions: 'top' or 'bottom'.
 	 *                      This is designated as optional for backwards-compatibility.
 	 */
 	protected function bulk_actions( $which = '' ) {
+		// On History Tab there is no Bulk Actions
+		if ( 'history' === $this->tab->get_slug() ) {
+			return false;
+		}
+
 		if ( 'bottom' === $which ) {
 			return false;
 		}
@@ -210,6 +222,55 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	/**
+	 * Get an associative array ( id => link ) with the list
+	 * of views available on this table.
+	 *
+	 * @return array
+	 */
+	protected function get_views() {
+		$views = array();
+		$given_origin = isset( $_GET['origin'] ) ? $_GET['origin'] : false;
+
+		$type = array( 'schedule' );
+		if ( 'history' === $this->tab->get_slug() ) {
+			$type[] = 'manual';
+		}
+
+		$status = array();
+		if ( 'history' === $this->tab->get_slug() ) {
+			$status[] = 'success';
+			$status[] = 'failed';
+			$status[] = 'pending';
+		} else {
+			$status[] = 'schedule';
+		}
+
+		$origins = Tribe__Events__Aggregator__Records::instance()->count_by_origin( $type, $status );
+
+		$total = array_sum( $origins );
+		$link = $this->page->get_url( array( 'tab' => $this->tab->get_slug() ) );
+		$text = sprintf(
+			_nx(
+				'All <span class="count">(%s)</span>',
+				'All <span class="count">(%s)</span>',
+				$total,
+				'records'
+			),
+			number_format_i18n( $total )
+		);
+		$views['all'] = ( $given_origin ? sprintf( '<a href="%s">%s</a>', $link, $text ) : $text );
+
+		foreach ( $origins as $origin => $count ) {
+			$origin_instance = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $origin );
+			$link = $this->page->get_url( array( 'tab' => $this->tab->get_slug(), 'origin' => $origin ) );
+			$text = $origin_instance->get_label() . sprintf( ' <span class="count">(%s)</span>', number_format_i18n( $count ) );
+			$views[ $origin ] = ( $given_origin !== $origin ? sprintf( '<a href="%s">%s</a>', $link, $text ) : $text );
+		}
+
+		return $views;
+	}
+
+	/**
 	 *
 	 * @return array
 	 */
@@ -218,19 +279,18 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		$columns = array();
 
-		// $columns['cb'] = '<input type="checkbox" />';
-
-		$columns['source'] = esc_html_x( 'Source', 'column name', 'the-events-calendar' );
-
 		switch ( $this->tab->get_slug() ) {
-			case 'schedule':
+			case 'scheduled':
+				$columns['cb'] = '<input type="checkbox" />';
+				$columns['source'] = esc_html_x( 'Source', 'column name', 'the-events-calendar' );
 				$columns['frequency'] = esc_html_x( 'Frequency', 'column name', 'the-events-calendar' );
 				$columns['imported'] = esc_html_x( 'Last Import', 'column name', 'the-events-calendar' );
 				break;
 
-			case 'past':
+			case 'history':
+				$columns['source'] = esc_html_x( 'Source', 'column name', 'the-events-calendar' );
 				$columns['frequency'] = esc_html_x( 'Type', 'column name', 'the-events-calendar' );
-				$columns['imported'] = esc_html_x( 'Imported', 'column name', 'the-events-calendar' );
+				$columns['imported'] = esc_html_x( 'When', 'column name', 'the-events-calendar' );
 				break;
 		}
 		$columns['total'] = esc_html_x( '# Imported', 'column name', 'the-events-calendar' );
@@ -255,7 +315,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		switch ( $post->post_status ) {
 			case 'tribe-ea-success':
-				$classes[] = 'dashicons-marker';
+				$classes[] = 'dashicons-yes';
 				break;
 			case 'tribe-ea-failed':
 				$classes[] = 'dashicons-warning';
@@ -264,7 +324,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				$classes[] = 'dashicons-backup';
 				break;
 			case 'tribe-ea-pending':
-				$classes[] = 'dashicons-image-rotate';
+				$classes[] = 'dashicons-clock';
 				break;
 			case 'tribe-ea-draft':
 				$classes[] = 'dashicons-welcome-write-blog';
@@ -288,8 +348,13 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	public function column_source( $post ) {
-		$html[] = $this->get_status_icon( $post );
-		$html[] = '<p><strong>' . $post->post_mime_type . '</strong></p>';
+		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+
+		if ( 'scheduled' !== $this->tab->get_slug() ) {
+			$html[] = $this->get_status_icon( $post );
+		}
+
+		$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $record->get_label() . '</strong></p>';
 		$html[] = '<p>' . esc_html__( 'Hash:', 'the-events-calendar' ) . ' <code>' . esc_html( $post->post_title ) . '</code></p>';
 
 		return $this->render( $html );
@@ -333,7 +398,33 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	public function column_total( $post ) {
-		return $post->comment_count;
+		$html[] = esc_html__( 'All Time: ', 'the-events-calendar' ) . $post->comment_count;
+
+		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+		$last_imported = $record->get_child_record_by_status( 'success', 1 );
+		if ( $last_imported && $last_imported->have_posts() ) {
+			$html[] = esc_html__( 'Last Import: ', 'the-events-calendar' ) . $last_imported->post->comment_count;
+		}
+
+		return $this->render( $html, '<br>' );
+	}
+
+	/**
+	 * Handles the checkbox column output.
+	 *
+	 * @since 4.3.0
+	 * @access public
+	 *
+	 * @param WP_Post $post The current WP_Post object.
+	 */
+	public function column_cb( $post ) {
+		?>
+			<label class="screen-reader-text" for="cb-select-<?php the_ID(); ?>"><?php
+				printf( __( 'Select %s' ), _draft_or_post_title() );
+			?></label>
+			<input id="cb-select-<?php the_ID(); ?>" type="checkbox" name="post[]" value="<?php the_ID(); ?>" />
+			<div class="locked-indicator"></div>
+		<?php
 	}
 
 }

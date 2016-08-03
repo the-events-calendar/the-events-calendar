@@ -2,7 +2,7 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
-class Tribe__Events__Aggregator__Tabs__Past extends Tribe__Events__Aggregator__Tabs__Abstract {
+class Tribe__Events__Aggregator__Tabs__History extends Tribe__Events__Aggregator__Tabs__Abstract {
 	/**
 	 * Static Singleton Holder
 	 *
@@ -30,11 +30,11 @@ class Tribe__Events__Aggregator__Tabs__Past extends Tribe__Events__Aggregator__T
 	}
 
 	public function get_slug() {
-		return 'past';
+		return 'history';
 	}
 
 	public function get_label() {
-		return esc_html__( 'Past Imports', 'the-events-calendar' );
+		return esc_html__( 'History', 'the-events-calendar' );
 	}
 
 }

@@ -299,6 +299,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Use an earlier hook for iCal feed generation (props @jlambe) [64141]
 * Tweak - Revise and simplify integration with Event Tickets attendee screen [61992]
 * Tweak - Added context to a set of strings to make translation easier (props @pedro-mendonca) [64586]
+* Tweak - Deprecated various disused functions and classes relating to the Meta Factory [39905]
 
 = [4.2.3] 2016-07-20 =
 
