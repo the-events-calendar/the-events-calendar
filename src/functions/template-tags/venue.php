@@ -445,21 +445,26 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	* Gets venue details for use in some single-event templates.
-	*
-	* @param null $post_id
-	*
-	* @return array The venue name and venue address.
-	*/
-	function tribe_get_venue_details() {
+	 * Gets venue details for use in some single-event templates.
+	 *
+	 * @param null $post_id
+	 *
+	 * @return array The venue name and venue address.
+	 */
+	function tribe_get_venue_details( $post_id = null ) {
+		$post_id = Tribe__Main::post_id_helper( $post_id );
+
+		if ( ! $post_id ) {
+			return array();
+		}
 
 		$venue_details = array();
 
-		if ( $venue_name = tribe_get_meta( 'tribe_event_venue_name' ) ) {
+		if ( $venue_name = tribe_get_venue( $post_id ) ) {
 			$venue_details['name'] = $venue_name;
 		}
 
-		if ( $venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
+		if ( $venue_address = tribe_get_address( $post_id ) ) {
 			$venue_details['address'] = $venue_address;
 		}
 
