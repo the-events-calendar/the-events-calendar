@@ -127,11 +127,9 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$data = $post_data[ $post_data['origin'] ];
 
 		if ( ! empty( $post_data['import_id'] ) ) {
-			do_action( 'debug_robot', "finalizing" );
 			$this->handle_import_finalize( $post_data );
 			return;
 		}
-		do_action( 'debug_robot', "creating" );
 
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $post_data['origin'] );
 

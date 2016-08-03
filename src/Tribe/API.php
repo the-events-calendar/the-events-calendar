@@ -39,7 +39,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		public static function createEvent( $args ) {
 
 			$args['post_type'] = Tribe__Events__Main::POSTTYPE;
-			do_action( 'debug_robot', '$args :: ' . print_r( $args, TRUE ) );
 			$eventId           = wp_insert_post( $args, true );
 
 			if ( ! is_wp_error( $eventId ) ) {
