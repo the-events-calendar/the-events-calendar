@@ -70,6 +70,8 @@ class Tribe__Events__Aggregator {
 
 		// filter the "plugin name" for Event Aggregator
 		add_filter( 'pue_get_plugin_name', array( $this, 'pue_plugin_name' ), 10, 2 );
+
+		add_action( 'updated_option', array( $this, 'clear_aggregator_transients' ) );
 	}
 
 	public function register_endpoint( $rewrite ) {
@@ -230,5 +232,20 @@ class Tribe__Events__Aggregator {
 		}
 
 		return __( 'Event Aggregator', 'the-events-calendar' );
+	}
+
+	/**
+	 * Purges the aggregator transients that are tied to the event-aggregator license
+	 *
+	 * @param string $option Option key
+	 */
+	public function clear_aggregator_transients( $option ) {
+		if ( 'pue_install_key_event_aggregator' !== $option ) {
+			return;
+		}
+
+		$cache_group = $this->api( 'origins' )->cache_group;
+
+		delete_transient( "{$cache_group}_origins" );
 	}
 }
