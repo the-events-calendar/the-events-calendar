@@ -481,13 +481,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @param int $quantity Amount to adjust the event count by
 	 * @param int $post_id Post ID to fetch from
 	 */
-	public function adjust_event_count( $quantity, $post_id = null ) {
-		if ( ! $post_id ) {
-			$post_id = $this->post->ID;
+	public function adjust_event_count( $quantity, $post = null ) {
+		if ( ! $post ) {
+			$post = get_post( $this->post->ID );
 		}
-
-		// make sure we have the latest data for the post
-		$post = get_post( $post_id );
 
 		$event_count = $post->comment_count;
 
@@ -509,7 +506,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @param array $results Array of results (created, updated, and skipped) from an insert
 	 */
-	protected function complete_import( $results ) {
+	public function complete_import( $results ) {
 		$args = array(
 			'ID' => $this->post->ID,
 			'post_modified' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, current_time( 'timestamp' ) ),
@@ -520,10 +517,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// update the comment counts
 		if ( ! empty( $results['created'] ) ) {
-			$this->adjust_event_count( (int) $results['created'], $this->post->ID );
+			// make sure we have the latest data for the post
+			$post = get_post( $this->post->ID );
 
-			if ( ! empty( $this->post->post_parent ) ) {
-				$this->adjust_event_count( (int) $results['created'], $this->post->post_parent );
+			$this->adjust_event_count( (int) $results['created'], $post );
+
+			if ( ! empty( $post->post_parent ) ) {
+				$this->adjust_event_count( (int) $results['created'], get_post( $post->post_parent ) );
 			}
 		}
 	}
