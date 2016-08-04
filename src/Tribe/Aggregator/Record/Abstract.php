@@ -35,6 +35,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		),
 	);
 
+	/**
+	 * Holds the event count temporarily while event counts (comment_count) is being updated
+	 *
+	 * @var int
+	 */
 	private $temp_event_count = 0;
 
 	/**
@@ -523,6 +528,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 	}
 
+	/**
+	 * Filters the comment count before updating the comment count on an import record
+	 *
+	 * @return int
+	 */
 	public function event_count_filter() {
 		$event_count = $this->temp_event_count;
 		$this->temp_event_count = 0;
