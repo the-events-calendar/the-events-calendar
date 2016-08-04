@@ -20,6 +20,21 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public $is_schedule = false;
 	public $is_manual = false;
 
+	public static $unique_id_fields = array(
+		'facebook' => array(
+			'source' => 'facebook_id',
+			'target' => 'EventFacebookID',
+		),
+		'meetup' => array(
+			'source' => 'meetup_id',
+			'target' => 'EventMeetupID',
+		),
+		'ical' => array(
+			'source' => '_uid',
+			'target' => 'uid',
+		),
+	);
+
 	/**
 	 * Setup all the hooks and filters
 	 *
@@ -82,6 +97,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$key = preg_replace( '/^' . self::$meta_key_prefix . '/', '', $key );
 			$this->meta[ $key ] = is_array( $value ) ? reset( $value ) : $value;
 		}
+	}
+
+	/**
+	 * Updates import record meta
+	 *
+	 * @param string $key Meta key
+	 * @param mixed $value Meta value
+	 */
+	public function update_meta( $key, $value ) {
+		$this->meta[ $key ] = $value;
+		return update_post_meta( $this->post->ID, self::$meta_key_prefix . $key, $value );
 	}
 
 	/**
@@ -369,7 +395,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $query;
 	}
 
-	public function get_child_record_by_status( $status = 'success', $qty = -1 ){
+	public function get_child_record_by_status( $status = 'success', $qty = -1 ) {
 		$statuses = Tribe__Events__Aggregator__Records::$status;
 
 		if ( ! isset( $statuses->{ $status } ) ) {
@@ -440,35 +466,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $error;
 	}
 
-	public function translate_event( $item ) {
-		$event = array();
-		$item = (array) $item;
+	public function insert_posts() {
+		$import_data = $this->get_import_data();
 
-		if ( ! empty( $item['venue'] ) ) {
-			$event['venue'] = (array) $item['venue'];
+		if ( empty( $this->meta['finalized'] ) ) {
+			return new WP_Error(
+				'tribe-aggregator-record-not-finalized',
+				__( 'Posts cannot be inserted from an unfinalized import record', 'the-events-calendar' )
+			);
 		}
-
-		if ( ! empty( $item['organizer'] ) ) {
-			$event['organizer'] = (array) $item['organizer'];
-		}
-
-		$event['post_title']         = $item['title'];
-		$event['post_content']       = $item['description'];
-		$event['EventStartDate']     = $item['start_date'];
-		$event['EventStartHour']     = $item['start_hour'];
-		$event['EventStartMinute']   = $item['start_minute'];
-		$event['EventStartMeridian'] = $item['start_meridian'];
-		$event['EventEndDate']       = $item['end_date'];
-		$event['EventEndHour']       = $item['end_hour'];
-		$event['EventEndMinute']     = $item['end_minute'];
-		$event['EventEndMeridian']   = $item['end_meridian'];
-		$event['EventTimezone']      = $item['timezone'];
-
-		return $event;
-	}
-
-	public function insert_posts( $data ) {
-		$records = $this->get_import_data();
 
 		$results = array(
 			'updated' => 0,
@@ -476,44 +482,42 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'skipped' => 0,
 		);
 
-		$args = array();
-		$selected = array();
-		$has_row_selection = false;
+		$args = array(
+			'post_status' => $this->meta['post_status'],
+			'recurring_overwrite' => false,
+		);
 
-		$args['post_status'] = $data['post_status'];
+		// @todo set args[recurring_overwrite] using the change authority setting
 
-		if ( 'all' !== $data['selected_rows'] ) {
-			$has_row_selection = true;
-			$data['selected_rows'] = stripslashes( $data['selected_rows'] );
-			$selected_rows = json_decode( $data['selected_rows'] );
+		$overwrite = $args['recurring_overwrite'];
 
-			$selected['facebook_ids'] = wp_list_pluck( $selected_rows, 'facebook_id' );
-			$selected['meetup_ids']   = wp_list_pluck( $selected_rows, 'meetup_id' );
-			$selected['_uids']        = wp_list_pluck( $selected_rows, '_uid' );
-		}
+		$unique_field = $this->get_unique_field();
+		$existing_ids = $this->get_existing_ids_from_import_data( $import_data->data->events );
 
 		$count_scanned_events = 0;
+
+		//cache
+		$possible_parents = array();
+		$found_organizers = array();
+		$found_venues     = array();
 
 		//if we have no non recurring events the message may be different
 		$non_recurring = false;
 
-		foreach ( $records->data->events as $item ) {
-			$event = $this->translate_event( $item );
+		foreach ( $import_data->data->events as $item ) {
 			$count_scanned_events++;
+			$event = Tribe__Events__Aggregator__Event::translate_service_data( $item );
 
-			if ( $has_row_selection ) {
-				if ( isset( $event['facebook_id'] ) && ! in_array( $event['facebook_id'], $selected['facebook_ids'] ) ) {
-					continue;
-				}
-
-				if ( isset( $event['meetup_id'] ) && ! in_array( $event['meetup_id'], $selected['meetup_ids'] ) ) {
-					continue;
-				}
-
-				if ( isset( $event['_uids'] ) && ! in_array( $event['_uid'], $selected['_uids'] ) ) {
-					continue;
-				}
+			// set the event ID if it can be set
+			if (
+				$unique_field
+				&& isset( $event[ $unique_field['target'] ] )
+				&& isset( $existing_ids[ $event[ $unique_field['target'] ] ] )
+			) {
+				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ];
 			}
+
+			$event['post_status'] = $args['post_status'];
 
 			/**
 			 * Should events that have previously been imported be overwritten?
@@ -525,16 +529,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			 * @var bool $overwrite
 			 * @var int  $event_id
 			 */
-			if ( ! empty( $event['id'] ) && ! apply_filters( 'tribe_aggregator_overwrite_existing_events', $overwrite, $event['id'] ) ) {
+			if (
+				! empty( $event['ID'] )
+				&& ! apply_filters( 'tribe_aggregator_overwrite_existing_events', $overwrite, $event['ID'] )
+			) {
+				$results['skipped']++;
 				continue;
 			}
 
 			if ( empty( $event[ 'recurrence' ] ) ) {
 				$non_recurring = true;
-			}
-
-			if ( empty( $event['post_status'] ) ) {
-				$event['post_status'] = $args['post_status'];
 			}
 
 			//set the parent
@@ -552,29 +556,29 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			//if we should create a venue or use existing
-			if ( ! empty( $event['venue']['venue'] ) ) {
-				$v_id = array_search( $event['venue']['venue'], $found_venues );
-				if ( $v_id !== false ) {
+			if ( ! empty( $event['Venue']['Venue'] ) ) {
+				$v_id = array_search( $event['Venue']['Venue'], $found_venues );
+				if ( false !== $v_id ) {
 					$event['EventVenueID'] = $v_id;
-				} elseif ( $venue = get_page_by_title( $event['venue']['venue'], 'OBJECT', Tribe__Events__Main::VENUE_POST_TYPE ) ) {
-					$found_venues[ $venue->ID ] = $event['venue']['venue'];
+				} elseif ( $venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Main::VENUE_POST_TYPE ) ) {
+					$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
 					$event['EventVenueID']      = $venue->ID;
 				} else {
-					$event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['venue'], $args['post_status'] );
+					$event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $this->meta['post_status'] );
 				}
 				unset( $event['Venue'] );
 			}
 
 			//if we should create an organizer or use existing
-			if ( ! empty( $event['organizer']['organizer'] ) ) {
-				$o_id = array_search( $event['organizer']['organizer'], $found_organizers );
-				if ( $o_id !== false ) {
+			if ( ! empty( $event['Organizer']['Organizer'] ) ) {
+				$o_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
+				if ( false !== $o_id ) {
 					$event['EventOrganizerID'] = $o_id;
-				} elseif ( $organizer = get_page_by_title( $event['organizer']['organizer'], 'OBJECT', Tribe__Events__Main::ORGANIZER_POST_TYPE ) ) {
-					$found_organizers[ $organizer->ID ] = $event['organizer']['organizer'];
+				} elseif ( $organizer = get_page_by_title( $event['Organizer']['Organizer'], 'OBJECT', Tribe__Events__Main::ORGANIZER_POST_TYPE ) ) {
+					$found_organizers[ $organizer->ID ] = $event['Organizer']['Organizer'];
 					$event['EventOrganizerID']          = $organizer->ID;
 				} else {
-					$event['EventOrganizerID'] = Tribe__Events__Organizer::instance()->create( $event['organizer'], $args['post_status'] );
+					$event['EventOrganizerID'] = Tribe__Events__Organizer::instance()->create( $event['Organizer'], $this->meta['post_status'] );
 				}
 				unset( $event['Organizer'] );
 			}
@@ -594,7 +598,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$possible_parents[ $event['ID'] ] = $event['_uid'];
 			}
 
-			update_post_meta( $event['ID'], '_uid', $event['_uid'] );
+			if ( ! empty( $event[ $unique_field['target'] ] ) ) {
+				update_post_meta( $event['ID'], "_{$unique_field['target']}", $event[ $unique_field['target'] ] );
+			}
 
 			//Save the meta data in case of updating to pro later on
 			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
@@ -623,13 +629,50 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );
 		}
 
-		//$results = array(
-			//'updated' => 0,
-			//'created' => count( $records->data->events ),
-			//'skipped' => 0,
-		//);
 		$this->set_status_as_success();
 
 		return $results;
+	}
+
+	/**
+	 * Gets all ids that already exist in the post meta table from the provided records
+	 *
+	 * @param array $records Array of records
+	 * @param array $data Submitted data
+	 *
+	 * @return array
+	 */
+	protected function get_existing_ids_from_import_data( $import_data ) {
+		$unique_field = $this->get_unique_field();
+
+		if ( ! $unique_field ) {
+			return array();
+		}
+
+		if ( 'all' !== $this->meta['ids_to_import'] ) {
+			$selected_ids = json_decode( $this->meta['ids_to_import'] );
+		} else {
+			$selected_ids = wp_list_pluck( $import_data, $unique_field['source'] );
+		}
+
+		$event_object = new Tribe__Events__Aggregator__Event;
+		$existing_ids = $event_object->get_existing_ids( $this->meta['origin'], $selected_ids );
+
+		return $existing_ids;
+	}
+
+	protected function get_unique_field() {
+		if ( ! isset( self::$unique_id_fields[ $this->meta['origin'] ] ) ) {
+			return null;
+		}
+
+		return self::$unique_id_fields[ $this->meta['origin'] ];
+	}
+
+	/**
+	 * Finalizes the import record for insert
+	 */
+	public function finalize() {
+		$this->update_meta( 'finalized', true );
 	}
 }
