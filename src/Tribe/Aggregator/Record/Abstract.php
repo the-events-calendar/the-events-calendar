@@ -35,6 +35,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		),
 	);
 
+	private $temp_event_count = 0;
+
 	/**
 	 * Setup all the hooks and filters
 	 *
@@ -466,6 +468,72 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $error;
 	}
 
+	/**
+	 * Adjust the event count for the record
+	 *
+	 * Note: event count is stored in the comment count field
+	 *
+	 * @param int $quantity Amount to adjust the event count by
+	 * @param int $post_id Post ID to fetch from
+	 */
+	public function adjust_event_count( $quantity, $post_id = null ) {
+		if ( ! $post_id ) {
+			$post_id = $this->post->ID;
+		}
+
+		// make sure we have the latest data for the post
+		$post = get_post( $post_id );
+
+		$event_count = $post->comment_count;
+
+		$event_count += (int) $quantity;
+		if ( $event_count < 0 ) {
+			$event_count = 0;
+		}
+
+		$this->temp_event_count = $event_count;
+		add_filter( 'pre_wp_update_comment_count_now', array( $this, 'event_count_filter' ) );
+		wp_update_comment_count_now( $post->ID );
+		remove_filter( 'pre_wp_update_comment_count_now', array( $this, 'event_count_filter' ) );
+	}
+
+	/**
+	 * Completes the import process for a record
+	 *
+	 * This occurs after the successful insertion of data
+	 *
+	 * @param array $results Array of results (created, updated, and skipped) from an insert
+	 */
+	protected function complete_import( $results ) {
+		$args = array(
+			'ID' => $this->post->ID,
+			'post_modified' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, current_time( 'timestamp' ) ),
+			'post_status' => Tribe__Events__Aggregator__Records::$status->success,
+		);
+
+		wp_update_post( $args );
+
+		// update the comment counts
+		if ( ! empty( $results['created'] ) ) {
+			$this->adjust_event_count( (int) $results['created'], $this->post->ID );
+
+			if ( ! empty( $this->post->post_parent ) ) {
+				$this->adjust_event_count( (int) $results['created'], $this->post->post_parent );
+			}
+		}
+	}
+
+	public function event_count_filter() {
+		$event_count = $this->temp_event_count;
+		$this->temp_event_count = 0;
+		return $event_count;
+	}
+
+	/**
+	 * Inserts events, venues, and organizers for the Import Record
+	 *
+	 * @return array|WP_Error
+	 */
 	public function insert_posts() {
 		$import_data = $this->get_import_data();
 
@@ -629,7 +697,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );
 		}
 
-		$this->set_status_as_success();
+		$this->complete_import( $results );
 
 		return $results;
 	}
