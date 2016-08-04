@@ -395,7 +395,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $query;
 	}
 
-	public function get_child_record_by_status( $status = 'success', $qty = -1 ){
+	public function get_child_record_by_status( $status = 'success', $qty = -1 ) {
 		$statuses = Tribe__Events__Aggregator__Records::$status;
 
 		if ( ! isset( $statuses->{ $status } ) ) {
@@ -496,6 +496,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$count_scanned_events = 0;
 
+		//cache
+		$possible_parents = array();
+		$found_organizers = array();
+		$found_venues     = array();
+
 		//if we have no non recurring events the message may be different
 		$non_recurring = false;
 
@@ -553,7 +558,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			//if we should create a venue or use existing
 			if ( ! empty( $event['Venue']['Venue'] ) ) {
 				$v_id = array_search( $event['Venue']['Venue'], $found_venues );
-				if ( $v_id !== false ) {
+				if ( false !== $v_id ) {
 					$event['EventVenueID'] = $v_id;
 				} elseif ( $venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Main::VENUE_POST_TYPE ) ) {
 					$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
@@ -567,7 +572,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			//if we should create an organizer or use existing
 			if ( ! empty( $event['Organizer']['Organizer'] ) ) {
 				$o_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
-				if ( $o_id !== false ) {
+				if ( false !== $o_id ) {
 					$event['EventOrganizerID'] = $o_id;
 				} elseif ( $organizer = get_page_by_title( $event['Organizer']['Organizer'], 'OBJECT', Tribe__Events__Main::ORGANIZER_POST_TYPE ) ) {
 					$found_organizers[ $organizer->ID ] = $event['Organizer']['Organizer'];
@@ -645,12 +650,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( 'all' !== $this->meta['ids_to_import'] ) {
-			do_action( 'debug_robot', '$this->meta["ids_to_import"] :: ' . print_r( $this->meta["ids_to_import"], TRUE ) );
 			$selected_ids = json_decode( $this->meta['ids_to_import'] );
 		} else {
 			$selected_ids = wp_list_pluck( $import_data, $unique_field['source'] );
 		}
-		do_action( 'debug_robot', '$selected_ids :: ' . print_r( $selected_ids, TRUE ) );
 
 		$event_object = new Tribe__Events__Aggregator__Event;
 		$existing_ids_function = "get_existing_{$this->meta['origin']}_ids";
