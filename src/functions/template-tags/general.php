@@ -651,10 +651,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$attrs['data-mobilebreak'] = tribe_get_mobile_breakpoint();
 		}
 
-		if ( has_filter( 'tribe_events_pro_tribe_events_shortcode_output' ) ) {
-			$attrs['data-baseurl'] = get_permalink();
-		}
-
 		$attrs = apply_filters( 'tribe_events_header_attributes', $attrs, $current_view );
 		foreach ( $attrs as $attr => $value ) {
 			echo " $attr=" . '"' . esc_attr( $value ) . '"';
