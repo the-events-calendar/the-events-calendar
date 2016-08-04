@@ -95,8 +95,16 @@ class Tribe__Events__Aggregator__Event {
 	 *
 	 * @return array
 	 */
-	private function get_existing_ids( $key, $values ) {
+	public function get_existing_ids( $origin, $values ) {
 		global $wpdb;
+
+		$fields = Tribe__Events__Aggregator__Record__Abstract::$unique_id_fields;
+
+		if ( empty( $fields[ $origin ] ) ) {
+			return array();
+		}
+
+		$key = "_{$fields[ $origin ]['target']}";
 
 		// sanitize values
 		foreach ( $values as &$value ) {
@@ -108,57 +116,12 @@ class Tribe__Events__Aggregator__Event {
 				meta_value,
 				post_id
 			FROM
-				{$wpdb->prefix}postmeta
+				{$wpdb->postmeta}
 			WHERE
 				meta_key = %s
 				AND meta_value IN ('" . implode( "','", $values ) ."')
 		";
 
 		return $wpdb->get_results( $wpdb->prepare( $sql, $key ), OBJECT_K );
-	}
-
-	/**
-	 * Fetch all existing unique facebook IDs from the provided list that exist in meta
-	 *
-	 * @param array $ids Array of facebook ids
-	 *
-	 * @return array
-	 */
-	public function get_existing_facebook_ids( $ids = array() ) {
-		if ( ! $ids ) {
-			return array();
-		}
-
-		return $this->get_existing_ids( '_EventFacebookID', $ids );
-	}
-
-	/**
-	 * Fetch all existing unique meetup IDs from the provided list that exist in meta
-	 *
-	 * @param array $ids Array of meetup ids
-	 *
-	 * @return array
-	 */
-	public function get_existing_meetup_ids( $ids = array() ) {
-		if ( ! $ids ) {
-			return array();
-		}
-
-		return $this->get_existing_ids( '_EventMeetupID', $ids );
-	}
-
-	/**
-	 * Fetch all existing unique ical IDs from the provided list that exist in meta
-	 *
-	 * @param array $ids Array of ical ids
-	 *
-	 * @return array
-	 */
-	public function get_existing_ical_ids( $ids = array() ) {
-		if ( ! $ids ) {
-			return array();
-		}
-
-		return $this->get_existing_ids( '_uid', $ids );
 	}
 }

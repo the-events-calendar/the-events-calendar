@@ -20,7 +20,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public $is_schedule = false;
 	public $is_manual = false;
 
-	public $unique_id_fields = array(
+	public static $unique_id_fields = array(
 		'facebook' => array(
 			'source' => 'facebook_id',
 			'target' => 'EventFacebookID',
@@ -656,18 +656,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$event_object = new Tribe__Events__Aggregator__Event;
-		$existing_ids_function = "get_existing_{$this->meta['origin']}_ids";
-		$existing_ids = $event_object->$existing_ids_function( $selected_ids );
+		$existing_ids = $event_object->get_existing_ids( $this->meta['origin'], $selected_ids );
 
 		return $existing_ids;
 	}
 
 	protected function get_unique_field() {
-		if ( ! isset( $this->unique_id_fields[ $this->meta['origin'] ] ) ) {
+		if ( ! isset( self::$unique_id_fields[ $this->meta['origin'] ] ) ) {
 			return null;
 		}
 
-		return $this->unique_id_fields[ $this->meta['origin'] ];
+		return self::$unique_id_fields[ $this->meta['origin'] ];
 	}
 
 	/**
