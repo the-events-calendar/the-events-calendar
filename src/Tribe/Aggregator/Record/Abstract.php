@@ -30,7 +30,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'target' => 'EventMeetupID',
 		),
 		'ical' => array(
-			'source' => '_uid',
+			'source' => 'uid',
+			'target' => 'uid',
+		),
+		'ics' => array(
+			'source' => 'uid',
 			'target' => 'uid',
 		),
 	);
@@ -562,15 +566,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$args = array(
 			'post_status' => $this->meta['post_status'],
-			'recurring_overwrite' => false,
 		);
 
-		// @todo set args[recurring_overwrite] using the change authority setting
-
-		$overwrite = $args['recurring_overwrite'];
+		$items = $this->filter_data_by_selected( $import_data->data->events );
 
 		$unique_field = $this->get_unique_field();
-		$existing_ids = $this->get_existing_ids_from_import_data( $import_data->data->events );
+		$existing_ids = $this->get_existing_ids_from_import_data( $items );
 
 		$count_scanned_events = 0;
 
@@ -585,7 +586,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( $this->meta['origin'] );
 		$update_authority_setting = Tribe__Events__Aggregator__Settings::instance()->default_update_authority( $this->meta['origin'] );
 
-		foreach ( $import_data->data->events as $item ) {
+		$unique_inserted = array();
+
+		foreach ( $items as $item ) {
 			$count_scanned_events++;
 			$event = Tribe__Events__Aggregator__Event::translate_service_data( $item );
 
@@ -619,18 +622,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$non_recurring = true;
 			}
 
-			//set the parent
-			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
-				if ( ! empty( $event[ 'ID' ] ) && ( $id = wp_get_post_parent_id( $event[ 'ID' ] ) ) ) {
-					$event['post_parent'] = $id;
-				} elseif ( ! empty( $event['parent_uid'] ) && ( $k = array_search( $event['parent_uid'], $possible_parents ) ) ) {
-					$event['post_parent'] = $k;
-				}
-				//PRO version will already be set to parent of an existing series during check for duplicate
-			} elseif ( ! empty( $event['parent_uid'] ) ) {
-				if ( $k = array_search( $event['parent_uid'], $possible_parents ) ) {
-					$event['post_parent'] = $k;
-				}
+			// set the parent
+			if ( ! empty( $event[ 'ID' ] ) && ( $id = wp_get_post_parent_id( $event[ 'ID' ] ) ) ) {
+				$event['post_parent'] = $id;
+			} elseif ( ! empty( $event['parent_uid'] ) && ( $k = array_search( $event['parent_uid'], $possible_parents ) ) ) {
+				$event['post_parent'] = $k;
 			}
 
 			//if we should create a venue or use existing
@@ -665,16 +661,40 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			$event['post_type'] = Tribe__Events__Main::POSTTYPE;
 
+			/**
+			 * Filters the event data before any sort of saving of the event
+			 *
+			 * @param array $event Event data to save
+			 * @param Tribe__Events__Aggregator__Record__Abstract Importer record
+			 */
+			$event = apply_filters( 'tribe_aggregator_before_save_event', $event, $record );
+
 			if ( ! empty( $event['ID'] ) ) {
 				if ( 'preserve_changes' === $update_authority_setting ) {
 					$event = Tribe__Events__Aggregator__Event::preserve_changed_fields( $event );
 				}
 
 				add_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
+
+				/**
+				 * Filters the event data before updating event
+				 *
+				 * @param array $event Event data to save
+				 * @param Tribe__Events__Aggregator__Record__Abstract Importer record
+				 */
+				$event = apply_filters( 'tribe_aggregator_before_update_event', $event, $record );
+
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
 				remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 				$results['updated']++;
 			} else {
+				/**
+				 * Filters the event data before inserting event
+				 *
+				 * @param array $event Event data to save
+				 * @param Tribe__Events__Aggregator__Record__Abstract Importer record
+				 */
+				$event = apply_filters( 'tribe_aggregator_before_insert_event', $event, $record );
 				$event['ID'] = tribe_create_event( $event );
 				$results['created']++;
 			}
@@ -689,10 +709,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			//Save the meta data in case of updating to pro later on
-			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
-				if ( ! empty( $event['recurrence'] ) ) {
-					update_post_meta( $event['ID'], '_EventRecurrenceRRULE', $event['recurrence'] );
-				}
+			if ( ! empty( $event['EventRecurrenceRRULE'] ) ) {
+				update_post_meta( $event['ID'], '_EventRecurrenceRRULE', $event['EventRecurrenceRRULE'] );
 			}
 
 			$terms = array();
@@ -735,6 +753,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return array();
 		}
 
+		$parent_selected_ids = array();
+
 		if ( 'all' !== $this->meta['ids_to_import'] ) {
 			$selected_ids = json_decode( $this->meta['ids_to_import'] );
 		} else {
@@ -745,6 +765,32 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$existing_ids = $event_object->get_existing_ids( $this->meta['origin'], $selected_ids );
 
 		return $existing_ids;
+	}
+
+	protected function filter_data_by_selected( $import_data ) {
+		$unique_field = $this->get_unique_field();
+
+		if ( ! $unique_field ) {
+			return $import_data;
+		}
+
+		if ( 'all' === $this->meta['ids_to_import'] ) {
+			return $import_data;
+		}
+
+		$selected_ids = $this->meta['ids_to_import'];
+
+		$selected = array();
+
+		foreach ( $import_data as $data ) {
+			if ( ! in_array( $data->{$unique_field['source']}, $selected_ids ) ) {
+				continue;
+			}
+
+			$selected[] = $data;
+		}
+
+		return $selected;
 	}
 
 	protected function get_unique_field() {

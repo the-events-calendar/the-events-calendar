@@ -34,7 +34,10 @@ class Tribe__Events__Aggregator__Event {
 			'all_day' => 'EventAllDay',
 			'facebook_id' => 'EventFacebookID',
 			'meetup_id' => 'EventMeetupID',
-			'_uid' => 'uid',
+			'uid' => 'uid',
+			'parent_uid' => 'parent_uid',
+			'recurrence' => 'recurrence',
+			'categories' => 'categories',
 		);
 
 		$venue_field_map = array(

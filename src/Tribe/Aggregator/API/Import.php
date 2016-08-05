@@ -18,7 +18,7 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 		'end_meridian'   => 'EventEndMeridian',
 		'url'            => 'EventURL',
 		'parent_id'      => 'parent_id',
-		'_uid'           => '_uid',
+		'uid'            => 'uid',
 		'facebook_id'    => 'facebook_id',
 		'dev_start'      => 'dev_start',
 		'dev_end'        => 'dev_end',
