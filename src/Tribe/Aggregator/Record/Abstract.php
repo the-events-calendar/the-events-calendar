@@ -535,7 +535,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	public function insert_posts( $import_data = null ) {
-		if ( is_null( $import_data ) ){
+		if ( is_null( $import_data ) ) {
 			$import_data = $this->get_import_data();
 		}
 
