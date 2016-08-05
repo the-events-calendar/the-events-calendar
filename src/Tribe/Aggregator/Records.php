@@ -371,6 +371,25 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	public function action_do_import() {
-		return wp_send_json_success();
+		 // First we convert the array to a json string
+		$json = json_encode( $_POST );
+
+		// The we convert the json string to a stdClass()
+		$request = json_decode( $json );
+
+		if ( empty( $request->data->import_id ) ) {
+			return wp_send_json_error();
+		}
+
+		$import_id = $request->data->import_id;
+		$record = $this->get_by_import_id( $import_id );
+
+		if ( is_wp_error( $record ) ) {
+			return wp_send_json_error();
+		}
+
+		$record->insert_posts( $request );
+
+		return wp_send_json_success( $response );
 	}
 }

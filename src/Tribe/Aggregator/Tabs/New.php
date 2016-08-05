@@ -134,6 +134,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			'content_type' => empty( $data['content_type'] )     ? null     : $data['content_type'],
 		);
 
+		// Prevents Accidents
+		if ( 'manual' === $meta['type'] ) {
+			$meta['frequency'] = null;
+		}
+
 		$post = $record->create( $meta['type'], array(), $meta );
 
 		if ( is_wp_error( $post ) ) {

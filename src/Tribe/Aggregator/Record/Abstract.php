@@ -131,13 +131,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$defaults = array(
 			'frequency' => null,
+			'hash'      => wp_generate_password( 32, true, true ),
 		);
 
 		$meta = wp_parse_args( $meta, $defaults );
 
 		$post = array(
-			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
-			'post_title'     => wp_generate_password( 32, true, true ),
+			'post_title'     => $this->generate_title( $type, $this->origin, $meta['frequency'], $args->parent ),
 			'post_type'      => Tribe__Events__Aggregator__Records::$post_type,
 			'ping_status'    => $type,
 			// The Mime Type needs to be on a %/% format to work on WordPress
@@ -170,6 +170,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $this->load( wp_insert_post( $post ) );
 	}
 
+	public function generate_title() {
+		$parts = func_get_args();
+		return __( 'Record: ', 'the-events-calendar' ) . implode( ' ', array_filter( $parts ) );
+	}
+
 	/**
 	 * Creates a schedule record based on the import record
 	 *
@@ -177,8 +182,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function create_schedule_record() {
 		$post = array(
-			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
-			'post_title'     => $this->post->post_title,
+			'post_title'     => $this->generate_title( $this->type, $this->origin, $this->meta['frequency'] ),
 			'post_type'      => $this->post->post_type,
 			'ping_status'    => $this->post->ping_status,
 			'post_mime_type' => $this->post->post_mime_type,
@@ -231,7 +235,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			);
 		}
 
-		return $schedule_id;
+		return Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $schedule_id );
 	}
 
 	/**
@@ -242,7 +246,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function create_child_record() {
 		$post = array(
 			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
-			'post_title'     => $this->post->post_title,
+			'post_title'     => $this->generate_title( $this->type, $this->origin, $this->meta['frequency'], $this->post ),
 			'post_type'      => $this->post->post_type,
 			'ping_status'    => $this->post->ping_status,
 			'post_mime_type' => $this->post->post_mime_type,
@@ -279,7 +283,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			);
 		}
 
-		return $child_id;
+		return Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $child_id );
 	}
 
 	/**
@@ -300,7 +304,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'type'     => $this->meta['type'],
 			'origin'   => $this->meta['origin'],
 			'source'   => $this->meta['source'],
-			'callback' => site_url( '/event-aggregator/insert/?key=' . urlencode( $this->post->post_title ) ),
+			'callback' => site_url( '/event-aggregator/insert/?key=' . urlencode( $this->meta['hash'] ) ),
 		);
 
 		if ( ! empty( $this->meta['frequency'] ) ) {
@@ -530,8 +534,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return true;
 	}
 
-	public function insert_posts() {
-		$import_data = $this->get_import_data();
+	public function insert_posts( $import_data = null ) {
+		if ( is_null( $import_data ) ){
+			$import_data = $this->get_import_data();
+		}
 
 		if ( empty( $this->meta['finalized'] ) ) {
 			return new WP_Error(

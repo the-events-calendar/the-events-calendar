@@ -270,7 +270,8 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
-			$record->create_child_record();
+			$child = $record->create_child_record();
+			$child->queue_import();
 		}
 	}
 
