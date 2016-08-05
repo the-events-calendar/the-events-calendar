@@ -162,6 +162,17 @@ $internal = array(
 		'type' => 'html',
 		'html' => '<h3>' . esc_html__( 'Facebook Import Settings', 'the-events-calendar' ) . '</h3>',
 	),
+	'facebook-defaults-info' => array(
+		'type' => 'html',
+		'html' => '<p>' . sprintf(
+			esc_html__(
+				'To import Facebook events, please be sure to add your Facebook API key and secret on %1$sEvents > Settings > APIs%2$s',
+				'the-events-calendar'
+			),
+			'<a href="' . admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=addons' ) . '">',
+			'</a>'
+		). '</p>',
+	),
 	'tribe_aggregator_default_facebook_post_status' => array(
 		'type' => 'dropdown',
 		'label' => esc_html__( 'Default Status', 'the-events-calendar' ),
@@ -198,6 +209,17 @@ $internal = array(
 	'meetup-defaults' => array(
 		'type' => 'html',
 		'html' => '<h3>' . esc_html__( 'Meetup Import Settings', 'the-events-calendar' ) . '</h3>',
+	),
+	'meetup-defaults-info' => array(
+		'type' => 'html',
+		'html' => '<p>' . sprintf(
+			esc_html__(
+				'To import Meetup events, please be sure to add your Meetup API key on %1$sEvents > Settings > APIs%2$s',
+				'the-events-calendar'
+			),
+			'<a href="' . admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=addons' ) . '">',
+			'</a>'
+		). '</p>',
 	),
 	'tribe_aggregator_default_meetup_post_status' => array(
 		'type' => 'dropdown',
