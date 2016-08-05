@@ -448,6 +448,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
+			add_action( 'post_updated', array( $this, 'track_event_post_field_changes' ), 10, 3 );
 
 			/* Registers the list widget */
 			add_action( 'widgets_init', array( $this, 'register_list_widget' ), 90 );
@@ -3138,6 +3139,50 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Allow this callback to run
 			$avoid_recursion = false;
+		}
+
+		/**
+		 * Tracks fields that are changed when an event is updated
+		 *
+		 * @param int $post_id Post ID
+		 * @param WP_Post $post_after New post object
+		 * @param WP_Post $post_before Old post object
+		 */
+		public function track_event_post_field_changes( $post_id, $post_after, $post_before ) {
+			if ( self::POSTTYPE !== $post_after->post_type ) {
+				return;
+			}
+
+			// bail if we shouldn't be tracking modifications
+			if ( apply_filters( 'tribe_aggregator_track_modified_fields', true ) ) {
+				return;
+			}
+
+			$now = current_time( 'timestamp' );
+
+			if ( ! $modified = get_post_meta( $post_id, Tribe__Events__API::$modified_field_key, true ) ) {
+				$modified = array();
+			}
+
+			$fields_to_check_for_changes = array(
+				'post_title',
+				'post_content',
+				'post_status',
+				'post_type',
+				'post_parent',
+			);
+
+			foreach ( $fields_to_check_for_changes as $field ) {
+				if ( ! Tribe__Events__API::is_post_value_changed( $field, $post_after, $post_before ) ) {
+					continue;
+				}
+
+				$modified[ $field ] = $now;
+			}
+
+			if ( $modified ) {
+				update_post_meta( $post_id, Tribe__Events__API::$modified_field_key, $modified );
+			}
 		}
 
 		public function normalize_organizer_submission( $submission ) {

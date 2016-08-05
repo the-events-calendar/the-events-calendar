@@ -666,7 +666,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$event['post_type'] = Tribe__Events__Main::POSTTYPE;
 
 			if ( ! empty( $event['ID'] ) ) {
+				do_action( 'debug_robot', '$event :: ' . print_r( $event, true ) );
+				if ( 'preserve' === $update_authority_setting ) {
+					$event = Tribe__Events__Aggregator__Event::preserve_changed_fields( $event );
+				}
+				do_action( 'debug_robot', '$event after preservation :: ' . print_r( $event, true ) );
+
+				add_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
+				remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 				$results['updated']++;
 			} else {
 				$event['ID'] = tribe_create_event( $event );
@@ -675,7 +683,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			//add post parent possibility
 			if ( empty( $event['parent_uid'] ) ) {
-				$possible_parents[ $event['ID'] ] = $event['_uid'];
+				$possible_parents[ $event['ID'] ] = $event[ $unique_field['target'] ];
 			}
 
 			if ( ! empty( $event[ $unique_field['target'] ] ) ) {

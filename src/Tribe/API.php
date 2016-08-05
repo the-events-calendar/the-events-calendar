@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'Tribe__Events__API' ) ) {
 	class Tribe__Events__API {
+		public static $modified_field_key = '_tribe_modified_fields';
+
 		public static $valid_venue_keys = array(
 			'Venue',
 			'Address',
@@ -56,15 +58,16 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 * @return false|int The event ID.
 		 */
-		public static function updateEvent( $eventId, $args ) {
-			$args['ID'] = $eventId;
+		public static function updateEvent( $event_id, $args ) {
+			$args['ID'] = $event_id;
 			$args['post_type'] = Tribe__Events__Main::POSTTYPE;
 
 			if ( wp_update_post( $args ) ) {
-				self::saveEventMeta( $eventId, $args, get_post( $eventId ) );
+				do_action( 'debug_robot', "succesfully updated the post" );
+				self::saveEventMeta( $event_id, $args, $post );
 			}
 
-			return $eventId;
+			return $event_id;
 		}
 
 		/**
@@ -92,6 +95,21 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			$data = self::prepare_event_date_meta( $event_id, $data );
 
+			$now = current_time( 'timestamp' );
+
+			$post_meta = self::get_and_flatten_event_meta( $event_id );
+
+			if ( empty( $post_meta[ self::$modified_field_key ] ) ) {
+				$modified = array();
+			} else {
+				$modified = $post_meta[ self::$modified_field_key ];
+			}
+
+			$fields_to_check_for_changes = array(
+				'_EventShowInCalendar',
+				'_thumbnail_id',
+			);
+
 			if ( empty( $data['EventHideFromUpcoming'] ) ) {
 				delete_post_meta( $event_id, '_EventHideFromUpcoming' );
 			}
@@ -118,6 +136,10 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				unset( $data['FeaturedImage'] );
 			}
 
+			if ( isset( $data['EventAllDay'] ) && 'yes' === $data['EventAllDay'] ) {
+				$data['EventDuration'] = null;
+			}
+
 			do_action( 'tribe_events_event_save', $event_id );
 
 			//update meta fields
@@ -137,6 +159,10 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 					// Fields with a single value per key
 					else {
 						update_post_meta( $event_id, $tag, $data[ $htmlElement ] );
+					}
+
+					if ( self::is_meta_value_changed( $tag, $data, $post_meta ) ) {
+						$modified[ $tag ] = $now;
 					}
 				}
 			}
@@ -158,7 +184,89 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				}
 			}
 
+			foreach ( $fields_to_check_for_changes as $field ) {
+				if ( ! self::is_meta_value_changed( $field, $data, $post_meta ) ) {
+					continue;
+				}
+
+				$modified[ $field ] = $now;
+			}
+
+			if ( $modified ) {
+				update_post_meta( $event_id, self::$modified_field_key, $modified );
+			}
+
 			do_action( 'tribe_events_update_meta', $event_id, $data );
+		}
+
+		/**
+		 * Determines if a meta value has been changed
+		 *
+		 * @param string $field Field to compare against
+		 * @param array $new New data
+		 * @param array $old Old post data
+		 *
+		 * @return boolean
+		 */
+		public static function is_meta_value_changed( $field, $new, $old ) {
+			if ( 0 === strpos( $field, '_' ) ) {
+				$field = ltrim( $field, '_' );
+			}
+
+			$prefixed_field = "_{$field}";
+
+			if ( isset( $new[ $field ] ) && ! isset( $old[ $prefixed_field ] ) && ! empty( $new[ $field ] ) ) {
+				return true;
+			}
+
+			if ( ! isset( $new[ $field ] ) && isset( $old[ $prefixed_field ] ) ) {
+				return true;
+			}
+
+			$data_value = $new[ $field ];
+
+			if ( is_array( $data_value ) && ! count( $data_value ) ) {
+				$data_value = null;
+			}
+
+			if ( $data_value !== $old[ $prefixed_field ] ) {
+				return true;
+			}
+
+			return false;
+		}
+
+		/**
+		 * Determines if a post value has been changed
+		 *
+		 * @param string $field Field to compare against
+		 * @param array $new New data
+		 * @param array $old WP_Post pre-update
+		 *
+		 * @return boolean
+		 */
+		public static function is_post_value_changed( $field, $new, $old ) {
+			if ( ! is_object( $new ) ) {
+				$new = (object) $new;
+			}
+
+			if ( ! is_object( $old ) ) {
+				$old = (object) $old;
+			}
+
+			if ( ! isset( $new->$field ) ) {
+				return false;
+			}
+
+			if ( isset( $new->$field ) && ! isset( $old->$field ) ) {
+				return true;
+			}
+
+			if ( $new->$field !== $old->$field ) {
+				return true;
+			}
+
+			return false;
 		}
 
 		/**
@@ -412,6 +520,27 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 */
 		private static function saveVenueMeta( $venue_id, $data ) {
 			return Tribe__Events__Venue::instance()->save_meta( $venue_id, $data );
+		}
+
+		/**
+		 * Gets all post meta and flattens it out a bit
+		 *
+		 * @param int $event_id Post ID for event
+		 *
+		 * @return array
+		 */
+		public static function get_and_flatten_event_meta( $event_id ) {
+			$temp_post_meta = get_post_meta( $event_id );
+			$post_meta = array();
+			foreach ( (array) $temp_post_meta as $key => $value ) {
+				if ( 1 === count( $value ) ) {
+					$post_meta[ $key ] = maybe_unserialize( reset( $value ) );
+				} else {
+					$post_meta[ $key ] = maybe_unserialize( $value );
+				}
+			}
+
+			return $post_meta;
 		}
 	}
 }
