@@ -377,19 +377,27 @@ class Tribe__Events__Aggregator__Records {
 		// The we convert the json string to a stdClass()
 		$request = json_decode( $json );
 
-		if ( empty( $request->data->import_id ) ) {
+		// Empty Required Variables
+		if ( empty( $request->data->import_id ) || empty( $_GET['key'] ) ) {
 			return wp_send_json_error();
 		}
 
 		$import_id = $request->data->import_id;
 		$record = $this->get_by_import_id( $import_id );
 
+		// We received an Invalid Import ID
 		if ( is_wp_error( $record ) ) {
 			return wp_send_json_error();
 		}
 
+		// Verify if Hash matches sent Key
+		if ( ! isset( $record->meta['hash'] ) || $record->meta['hash'] !== $_GET['key'] ) {
+			return wp_send_json_error();
+		}
+
+		// Actually import things
 		$record->insert_posts( $request );
 
-		return wp_send_json_success( $response );
+		return wp_send_json_success();
 	}
 }
