@@ -582,6 +582,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		//if we have no non recurring events the message may be different
 		$non_recurring = false;
 
+		$show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( $this->meta['origin'] );
+		$update_authority_setting = Tribe__Events__Aggregator__Settings::instance()->default_update_authority( $this->meta['origin'] );
+
 		foreach ( $import_data->data->events as $item ) {
 			$count_scanned_events++;
 			$event = Tribe__Events__Aggregator__Event::translate_service_data( $item );
@@ -607,10 +610,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			 * @var bool $overwrite
 			 * @var int  $event_id
 			 */
-			if (
-				! empty( $event['ID'] )
-				&& ! apply_filters( 'tribe_aggregator_overwrite_existing_events', $overwrite, $event['ID'] )
-			) {
+			if ( ! empty( $event['ID'] ) && 'retain' === $update_authority_setting ) {
 				$results['skipped']++;
 				continue;
 			}
@@ -642,6 +642,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
 					$event['EventVenueID']      = $venue->ID;
 				} else {
+					$event['Venue']['ShowMap']     = $show_map_setting;
+					$event['Venue']['ShowMapLink'] = $show_map_setting;
 					$event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $this->meta['post_status'] );
 				}
 				unset( $event['Venue'] );
