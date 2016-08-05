@@ -582,6 +582,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		//if we have no non recurring events the message may be different
 		$non_recurring = false;
 
+		$show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( $this->meta['origin'] );
+		$update_authority_setting = Tribe__Events__Aggregator__Settings::instance()->default_update_authority( $this->meta['origin'] );
+
 		foreach ( $import_data->data->events as $item ) {
 			$count_scanned_events++;
 			$event = Tribe__Events__Aggregator__Event::translate_service_data( $item );
@@ -592,7 +595,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				&& isset( $event[ $unique_field['target'] ] )
 				&& isset( $existing_ids[ $event[ $unique_field['target'] ] ] )
 			) {
-				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ];
+				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
 			}
 
 			$event['post_status'] = $args['post_status'];
@@ -607,10 +610,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			 * @var bool $overwrite
 			 * @var int  $event_id
 			 */
-			if (
-				! empty( $event['ID'] )
-				&& ! apply_filters( 'tribe_aggregator_overwrite_existing_events', $overwrite, $event['ID'] )
-			) {
+			if ( ! empty( $event['ID'] ) && 'retain' === $update_authority_setting ) {
 				$results['skipped']++;
 				continue;
 			}
@@ -642,6 +642,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
 					$event['EventVenueID']      = $venue->ID;
 				} else {
+					$event['Venue']['ShowMap']     = $show_map_setting;
+					$event['Venue']['ShowMapLink'] = $show_map_setting;
 					$event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $this->meta['post_status'] );
 				}
 				unset( $event['Venue'] );
@@ -664,7 +666,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$event['post_type'] = Tribe__Events__Main::POSTTYPE;
 
 			if ( ! empty( $event['ID'] ) ) {
+				if ( 'preserve_changes' === $update_authority_setting ) {
+					$event = Tribe__Events__Aggregator__Event::preserve_changed_fields( $event );
+				}
+
+				add_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
+				remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 				$results['updated']++;
 			} else {
 				$event['ID'] = tribe_create_event( $event );
@@ -673,7 +681,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			//add post parent possibility
 			if ( empty( $event['parent_uid'] ) ) {
-				$possible_parents[ $event['ID'] ] = $event['_uid'];
+				$possible_parents[ $event['ID'] ] = $event[ $unique_field['target'] ];
 			}
 
 			if ( ! empty( $event[ $unique_field['target'] ] ) ) {

@@ -120,10 +120,16 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$start_date = strtotime( $this->get_event_start_date( $record ) );
 		$end_date   = strtotime( $this->get_event_end_date( $record ) );
 
+		if ( empty( $this->is_aggregator ) ) {
+			$post_status_setting = Tribe__Events__Importer__Options::get_default_post_status( 'csv' );
+		} else {
+			$post_status_setting = Tribe__Events__Aggregator__Settings::instance()->default_post_status( 'csv' );
+		}
+
 		$event                  = array(
 			'post_type'             => Tribe__Events__Main::POSTTYPE,
 			'post_title'            => $this->get_value_by_key( $record, 'event_name' ),
-			'post_status'           => Tribe__Events__Importer__Options::get_default_post_status( 'csv' ),
+			'post_status'           => $post_status_setting,
 			'post_content'          => $this->get_value_by_key( $record, 'event_description' ),
 			'comment_status'        => $this->get_boolean_value_by_key( $record, 'event_comment_status', 'open', 'closed' ),
 			'ping_status'           => $this->get_boolean_value_by_key( $record, 'event_ping_status', 'open', 'closed' ),
@@ -152,12 +158,17 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {
 			$event['organizer'] = is_array( $organizer_id ) ? $organizer_id : array( 'OrganizerID' => $organizer_id );
 		}
-		
+
 		if ( $venue_id = $this->find_matching_venue_id( $record ) ) {
 			$event['venue'] = array( 'VenueID' => $venue_id );
 		}
 
-		if ( $cats = $this->get_value_by_key( $record, 'event_category' ) ) {
+		$cats = $this->get_value_by_key( $record, 'event_category' );
+		if ( $category_setting = Tribe__Events__Aggregator__Settings::instance()->default_category( 'csv' ) ) {
+			$cats = $cats ? $cats . ',' . $category_setting : $category_setting;
+		}
+
+		if ( $cats ) {
 			$event['tax_input'][ Tribe__Events__Main::TAXONOMY ] = $this->translate_terms_to_ids( explode( ',', $cats ) );
 		}
 
@@ -187,7 +198,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	private function find_matching_organizer_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_organizer_name' );
-		
+
 		// organizer name is a list of IDs either space or comma separated
 		if ( preg_match( '/[\\s,]+/', $name ) && is_numeric( preg_replace( '/[\\s,]+/', '', $name ) ) ) {
 			$split = preg_split( '/[\\s,]+/', $name );
@@ -296,7 +307,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	/**
 	 * Allows the user to specify the currency position using alias terms.
-	 * 
+	 *
 	 * @param array $record
 	 *
 	 * @return string Either `prefix` or `suffix`; will fall back on the first if the specified position is not
