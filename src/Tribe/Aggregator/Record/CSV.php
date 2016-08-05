@@ -144,7 +144,15 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 
 		update_option( 'tribe_events_import_column_mapping_' . $content_type, $data['column_map'] );
 
-		return $this->begin_import();
+		$results = $this->begin_import();
+
+		if ( is_wp_error( $results ) ) {
+			$this->set_status_as_failed( $results );
+		} else {
+			$this->complete_import( $results );
+		}
+
+		return $results;
 	}
 
 	public function get_importer() {
