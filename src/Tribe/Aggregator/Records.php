@@ -212,7 +212,7 @@ class Tribe__Events__Aggregator__Records {
 
 		$where = array(
 			'post_type = %s',
-			'AND post_status NOT IN ( \'' . Tribe__Events__Aggregator__Records::$status->draft . '\' )',
+			'AND post_status NOT IN ( \'' . self::$status->draft . '\' )',
 		);
 
 		$statuses = array();
@@ -220,12 +220,12 @@ class Tribe__Events__Aggregator__Records {
 		// Make it an Array
 		$raw_statuses = (array) $raw_statuses;
 		foreach ( $raw_statuses as $status ) {
-			if ( ! isset( Tribe__Events__Aggregator__Records::$status->{ $status } ) ) {
+			if ( ! isset( self::$status->{ $status } ) ) {
 				continue;
 			}
 
 			// Get the Actual Status for the Database
-			$statuses[] = Tribe__Events__Aggregator__Records::$status->{ $status };
+			$statuses[] = self::$status->{ $status };
 		}
 
 		if ( ! empty( $type ) ) {
@@ -350,6 +350,24 @@ class Tribe__Events__Aggregator__Records {
 
 		return $this->get_by_origin( $post->post_mime_type, $post );
 
+	}
+
+	public function query( $args = array() ) {
+		$statuses = Tribe__Events__Aggregator__Records::$status;
+		$defaults = array(
+			'post_status' => array( $statuses->success, $statuses->failed, $statuses->pending ),
+			'orderby'     => 'modified',
+			'order'       => 'DESC',
+		);
+		$args = (object) wp_parse_args( $args, $defaults );
+
+		// Enforce the Post Type
+		$args->post_type = Tribe__Events__Aggregator__Records::$post_type;
+
+		// Do the actual Query
+		$query = new WP_Query( $args );
+
+		return $query;
 	}
 
 	public function action_do_import() {

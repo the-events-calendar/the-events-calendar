@@ -4,10 +4,28 @@ defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Cron {
 	/**
-	 * Action where the cron will run
+	 * Action where the cron will run, on schedule
 	 * @var string
 	 */
 	public static $action = 'tribe_aggregator_cron';
+
+	/**
+	 * Action where the cron will run, if enqueued manually
+	 * @var string
+	 */
+	public static $single_action = 'tribe_aggregator_single_cron';
+
+	/**
+	 * Limit of Requests to our servers
+	 * @var int
+	 */
+	private $limit = 5;
+
+	/**
+	 * A Boolean holding if this Cron is Running
+	 * @var boolean
+	 */
+	private $is_running = false;
 
 	/**
 	 * Static Singleton Holder
@@ -42,7 +60,15 @@ class Tribe__Events__Aggregator__Cron {
 		add_filter( 'cron_schedules', array( $this, 'filter_add_cron_schedules' ) );
 
 		// Check for imports on cron action
-		add_action( self::$action, array( $this, 'action_check_scheduled_imports' ) );
+		add_action( self::$action, array( $this, 'run' ) );
+		add_action( self::$single_action, array( $this, 'run' ) );
+
+		// Decreases limit after each Request, runs late for security
+		add_filter( 'pre_http_request', array( $this, 'filter_check_http_limit' ), 25, 3 );
+
+		// Add the Actual Process to run on the Action
+		add_action( 'tribe_aggregator_cron_run', array( $this, 'verify_child_record_creation' ), 5 );
+		add_action( 'tribe_aggregator_cron_run', array( $this, 'verify_fetching_from_service' ), 15 );
 	}
 
 	/**
@@ -158,5 +184,111 @@ class Tribe__Events__Aggregator__Cron {
 		return (array) $schedules;
 	}
 
+	/**
+	 * Allows us to Prevent too many of our Requests to be fired at on single Cron Job
+	 *
+	 * @param  boolean  $run     Shouldn't trigger the call
+	 * @param  array    $request The Request that was made
+	 * @param  string   $url     To which URL
+	 *
+	 * @return boolean|array|object
+	 */
+	public function filter_check_http_limit( $run = false, $request, $url ) {
+		// We bail if it's not a CRON job
+		if ( ! defined( 'DOING_CRON' ) || ! DOING_CRON ) {
+			return $run;
+		}
 
+		// If someone changed this already we bail, it's not going to be fired
+		if ( false !== $run ) {
+			return $run;
+		}
+
+		// Bail if it wasn't done inside of the Actual Cron task
+		if ( true !== $this->is_running ) {
+			return $run;
+		}
+
+		$service = Tribe__Events__Aggregator__Service::instance();
+
+		// If the Domain is not we just keep the same answer
+		if ( 0 !== strpos( $url, $service->api()->domain ) ) {
+			return $run;
+		}
+
+		// If we already reached 0 we throw an error
+		if ( $this->limit <= 0 ) {
+			// Schedule an Cron Event to happen ASAP, and flag it for searching and we need to make it unique
+			// By default WordPress won't allow more than one Action to happen twice in 10 minutes
+			wp_schedule_single_event( time(), self::$single_action );
+
+			return new WP_Error( 'tribe-http_request-limit', __( 'The Limit of HTTP requests per Cron has been Reached', 'the-events-calendar' ), array( 'request' => $request, 'url' => $url ) );
+		}
+
+		// Lower the Limit
+		$this->limit--;
+
+		// Return false to make the Actual Request Run
+		return $run;
+	}
+
+	/**
+	 * A Wrapper method to run the Cron Tasks here
+	 *
+	 * @return void
+	 */
+	public function run() {
+		// Flag that we are running the Task
+		$this->is_running = true;
+
+		/**
+		 * Have a hook be Fired, to allow Priorities to be changed and other methods to be hooked
+		 */
+		do_action( 'tribe_aggregator_cron_run' );
+
+		// Flag that we stopped running the Cron Task
+		$this->is_running = false;
+	}
+
+	public function verify_child_record_creation() {
+		$records = Tribe__Events__Aggregator__Records::instance();
+		/**
+		 * @todo Upon creation or modification of the schedule record, we need to store when should be the next
+		 */
+		$query = $records->query( array(
+			'post_status' => Tribe__Events__Aggregator__Records::$status->schedule,
+			'posts_per_page' => -1,
+		) );
+
+		if ( ! $query->have_posts() ) {
+			return false;
+		}
+
+		foreach ( $query->posts as $post ) {
+			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+			if ( ! $record->is_schedule_time() ) {
+				continue;
+			}
+
+			$record->create_child_record();
+		}
+	}
+
+	public function verify_fetching_from_service() {
+		$records = Tribe__Events__Aggregator__Records::instance();
+
+		$query = $records->query( array(
+			'post_status' => Tribe__Events__Aggregator__Records::$status->pending,
+			'posts_per_page' => -1,
+		) );
+
+		if ( ! $query->have_posts() ) {
+			return false;
+		}
+
+		foreach ( $query->posts as $post ) {
+			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+			$record->insert_posts();
+		}
+	}
 }

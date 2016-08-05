@@ -58,7 +58,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$this->type = $this->post->ping_status;
 
 		if ( 'schedule' === $this->type ) {
-			$this->frequency = $this->post->post_content;
+			// Fetches the Frequency Object
+			$this->frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->post->post_content ) );
 
 			// Boolean Flag for Scheduled records
 			$this->is_schedule = true;
@@ -155,7 +156,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'post_type'      => $this->post->post_type,
 			'ping_status'    => $this->post->ping_status,
 			'post_mime_type' => $this->post->post_mime_type,
-			'post_date'      => $this->post->post_date,
+			'post_date'      => current_time( 'mysql' ),
 			'post_status'    => Tribe__Events__Aggregator__Records::$status->schedule,
 			'post_parent'    => 0,
 			'meta_input'     => array(),
@@ -204,7 +205,55 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			);
 		}
 
-		return true;
+		return $schedule_id;
+	}
+
+	/**
+	 * Creates a child record based on the import record
+	 *
+	 * @return boolean|WP_Error
+	 */
+	public function create_child_record() {
+		$post = array(
+			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
+			'post_title'     => $this->post->post_title,
+			'post_type'      => $this->post->post_type,
+			'ping_status'    => $this->post->ping_status,
+			'post_mime_type' => $this->post->post_mime_type,
+			'post_date'      => current_time( 'mysql' ),
+			'post_status'    => Tribe__Events__Aggregator__Records::$status->draft,
+			'post_parent'    => $this->id,
+			'meta_input'     => array(),
+		);
+
+		foreach ( $this->meta as $key => $value ) {
+			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
+		}
+
+		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
+		if ( ! $frequency ) {
+			return new WP_Error(
+				'invalid-frequency',
+				__( 'An Invalid frequency was used to try to setup a scheduled import', 'the-events-calendar' ),
+				$meta
+			);
+		}
+
+		// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
+		$post['post_content'] = $frequency->id;
+
+		// create schedule post
+		$child_id = wp_insert_post( $post );
+
+		// if the schedule creation failed, bail
+		if ( is_wp_error( $child_id ) ) {
+			return new WP_Error(
+				'tribe-aggregator-save-child-failed',
+				__( 'Unable to save schedule. Please try again.', 'the-events-calendar' )
+			);
+		}
+
+		return $child_id;
 	}
 
 	/**
@@ -351,22 +400,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	public function query_child_records( $args = array() ) {
-		$statuses = Tribe__Events__Aggregator__Records::$status;
 		$defaults = array(
-			'post_status' => array( $statuses->success, $statuses->failed, $statuses->pending ),
-			'post_parent' => $this->id,
-			'orderby'     => 'modified',
-			'order'       => 'DESC',
+
 		);
 		$args = (object) wp_parse_args( $args, $defaults );
 
-		// Enforce the Post Type
-		$args->post_type = Tribe__Events__Aggregator__Records::$post_type;
+		// Force the parent
+		$args->post_parent = $this->id;
 
-		// Do the actual Query
-		$query = new WP_Query( $args );
-
-		return $query;
+		return Tribe__Events__Aggregator__Records::instance()->query( $args );
 	}
 
 	public function get_child_record_by_status( $status = 'success', $qty = -1 ){
@@ -438,6 +480,28 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$this->log_error( $error );
 
 		return $error;
+	}
+
+	public function is_schedule_time() {
+		// If we are not on a Schedule Type
+		if ( ! $this->is_schedule ) {
+			return false;
+		}
+
+		// If we are not dealing with the Record Schedule
+		if ( $this->post->post_status !== Tribe__Events__Aggregator__Records::$status->schedule ) {
+			return false;
+		}
+
+		$current  = time();
+		$modified = strtotime( $this->post->post_modified );
+		$next     = $modified + $this->frequency->interval;
+
+		if ( $current < $next ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	public function translate_event( $item ) {
