@@ -368,7 +368,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$last_import = null;
 		$original = $post->post_modified;
 		$time = strtotime( $original );
-		$now = time();
+		$now = current_time( 'timestamp' );
 
 		$html[] = '<span title="' . esc_attr( $original ) . '">';
 		if ( ( $now - $time ) <= DAY_IN_SECONDS ) {

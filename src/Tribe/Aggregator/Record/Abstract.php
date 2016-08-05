@@ -36,6 +36,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	);
 
 	/**
+	 * Holds the event count temporarily while event counts (comment_count) is being updated
+	 *
+	 * @var int
+	 */
+	private $temp_event_count = 0;
+
+	/**
 	 * Setup all the hooks and filters
 	 *
 	 * @return void
@@ -512,6 +519,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $error;
 	}
 
+	/**
+	 * Verifies if this
+	 *  Schedule Record can create a new Child Record
+	 * @return boolean
+	 */
 	public function is_schedule_time() {
 		// If we are not on a Schedule Type
 		if ( ! $this->is_schedule ) {
@@ -534,10 +546,79 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return true;
 	}
 
-	public function insert_posts( $import_data = null ) {
-		if ( is_null( $import_data ) ) {
-			$import_data = $this->get_import_data();
+	/**
+	 * Adjust the event count for the record
+	 *
+	 * Note: event count is stored in the comment count field
+	 *
+	 * @param int $quantity Amount to adjust the event count by
+	 * @param int $post_id Post ID to fetch from
+	 */
+	public function adjust_event_count( $quantity, $post = null ) {
+		if ( ! $post ) {
+			$post = get_post( $this->post->ID );
 		}
+
+		$event_count = $post->comment_count;
+
+		$event_count += (int) $quantity;
+		if ( $event_count < 0 ) {
+			$event_count = 0;
+		}
+
+		$this->temp_event_count = $event_count;
+		add_filter( 'pre_wp_update_comment_count_now', array( $this, 'event_count_filter' ) );
+		wp_update_comment_count_now( $post->ID );
+		remove_filter( 'pre_wp_update_comment_count_now', array( $this, 'event_count_filter' ) );
+	}
+
+	/**
+	 * Completes the import process for a record
+	 *
+	 * This occurs after the successful insertion of data
+	 *
+	 * @param array $results Array of results (created, updated, and skipped) from an insert
+	 */
+	public function complete_import( $results ) {
+		$args = array(
+			'ID' => $this->post->ID,
+			'post_modified' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, current_time( 'timestamp' ) ),
+			'post_status' => Tribe__Events__Aggregator__Records::$status->success,
+		);
+
+		wp_update_post( $args );
+
+		// update the comment counts
+		if ( ! empty( $results['created'] ) ) {
+			// make sure we have the latest data for the post
+			$post = get_post( $this->post->ID );
+
+			$this->adjust_event_count( (int) $results['created'], $post );
+
+			if ( ! empty( $post->post_parent ) ) {
+				$this->adjust_event_count( (int) $results['created'], get_post( $post->post_parent ) );
+			}
+		}
+	}
+
+	/**
+	 * Filters the comment count before updating the comment count on an import record
+	 *
+	 * @return int
+	 */
+	public function event_count_filter() {
+		$event_count = $this->temp_event_count;
+		$this->temp_event_count = 0;
+		return $event_count;
+	}
+
+	/**
+	 * Inserts events, venues, and organizers for the Import Record
+	 *
+	 * @return array|WP_Error
+	 */
+	public function insert_posts() {
+		$import_data = $this->get_import_data();
 
 		if ( empty( $this->meta['finalized'] ) ) {
 			return new WP_Error(
@@ -574,6 +655,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		//if we have no non recurring events the message may be different
 		$non_recurring = false;
 
+		$show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( $this->meta['origin'] );
+		$update_authority_setting = Tribe__Events__Aggregator__Settings::instance()->default_update_authority( $this->meta['origin'] );
+
 		foreach ( $import_data->data->events as $item ) {
 			$count_scanned_events++;
 			$event = Tribe__Events__Aggregator__Event::translate_service_data( $item );
@@ -584,7 +668,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				&& isset( $event[ $unique_field['target'] ] )
 				&& isset( $existing_ids[ $event[ $unique_field['target'] ] ] )
 			) {
-				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ];
+				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
 			}
 
 			$event['post_status'] = $args['post_status'];
@@ -599,10 +683,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			 * @var bool $overwrite
 			 * @var int  $event_id
 			 */
-			if (
-				! empty( $event['ID'] )
-				&& ! apply_filters( 'tribe_aggregator_overwrite_existing_events', $overwrite, $event['ID'] )
-			) {
+			if ( ! empty( $event['ID'] ) && 'retain' === $update_authority_setting ) {
 				$results['skipped']++;
 				continue;
 			}
@@ -634,6 +715,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
 					$event['EventVenueID']      = $venue->ID;
 				} else {
+					$event['Venue']['ShowMap']     = $show_map_setting;
+					$event['Venue']['ShowMapLink'] = $show_map_setting;
 					$event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $this->meta['post_status'] );
 				}
 				unset( $event['Venue'] );
@@ -656,7 +739,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$event['post_type'] = Tribe__Events__Main::POSTTYPE;
 
 			if ( ! empty( $event['ID'] ) ) {
+				if ( 'preserve_changes' === $update_authority_setting ) {
+					$event = Tribe__Events__Aggregator__Event::preserve_changed_fields( $event );
+				}
+
+				add_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
+				remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 				$results['updated']++;
 			} else {
 				$event['ID'] = tribe_create_event( $event );
@@ -665,7 +754,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			//add post parent possibility
 			if ( empty( $event['parent_uid'] ) ) {
-				$possible_parents[ $event['ID'] ] = $event['_uid'];
+				$possible_parents[ $event['ID'] ] = $event[ $unique_field['target'] ];
 			}
 
 			if ( ! empty( $event[ $unique_field['target'] ] ) ) {
@@ -699,7 +788,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );
 		}
 
-		$this->set_status_as_success();
+		$this->complete_import( $results );
 
 		return $results;
 	}

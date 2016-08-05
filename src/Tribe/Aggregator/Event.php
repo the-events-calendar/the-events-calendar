@@ -1,4 +1,6 @@
 <?php
+// Don't load directly
+defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Event {
 	public $data;
@@ -123,5 +125,73 @@ class Tribe__Events__Aggregator__Event {
 		";
 
 		return $wpdb->get_results( $wpdb->prepare( $sql, $key ), OBJECT_K );
+	}
+
+	/**
+	 * Preserves changed fields by resetting array indexes back to the stored post/meta values
+	 *
+	 * @param array $event Event array to reset
+	 *
+	 * @return array
+	 */
+	public static function preserve_changed_fields( $event ) {
+		if ( empty( $event['ID'] ) ) {
+			return $event;
+		}
+
+		$post = get_post( $event['ID'] );
+		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $event['ID'] );
+
+		if ( empty( $post_meta[ Tribe__Events__API::$modified_field_key ] ) ) {
+			$modified = array();
+		} else {
+			$modified = $post_meta[ Tribe__Events__API::$modified_field_key ];
+		}
+
+		$post_fields_to_reset = array(
+			'post_title',
+			'post_content',
+			'post_status',
+		);
+
+		// reset any modified post fields
+		foreach ( $post_fields_to_reset as $field ) {
+			// don't bother resetting if the field hasn't been modified
+			if ( ! isset( $modified[ $field ] ) ) {
+				continue;
+			}
+
+			// don't bother resetting if we aren't trying to update the field
+			if ( ! isset( $event[ $field ] ) ) {
+				continue;
+			}
+
+			// don't bother resetting if we don't have a field to reset to
+			if ( ! isset( $post->$field ) ) {
+				continue;
+			}
+
+			$event[ $field ] = $post->$field;
+		}
+
+		$tec = Tribe__Events__Main::instance();
+
+		// reset any modified meta fields
+		foreach ( $tec->metaTags as $field ) {
+			// don't bother resetting if the field hasn't been modified
+			if ( ! isset( $modified[ $field ] ) ) {
+				continue;
+			}
+
+			// if we don't have a field to reset to, let's unset the event meta field
+			if ( ! isset( $post_meta[ $field ] ) ) {
+				unset( $event[ $field ] );
+				continue;
+			}
+
+			$event[ $field ] = $post_meta[ $field ];
+		}
+
+		return $event;
 	}
 }

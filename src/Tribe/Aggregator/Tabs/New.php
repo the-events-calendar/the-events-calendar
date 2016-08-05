@@ -163,17 +163,6 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$record->update_meta( 'ids_to_import', empty( $data['selected_rows'] ) ? 'all' : stripslashes( $data['selected_rows'] ) );
 		$record->finalize();
 
-		$result = $record->insert_posts();
-
-		if ( is_wp_error( $result ) ) {
-			$this->messages[ 'error' ][] = $result->get_error_message();
-
-			Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
-
-			$record->set_status_as_failed( $result );
-			return $result;
-		}
-
 		if ( 'schedule' === $record->meta['type'] ) {
 			$this->messages['success'][] = __( '1 schedule import successfully added.', 'the-events-calendar' );
 			$create_schedule_result = $record->create_schedule_record();
@@ -186,6 +175,17 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 				$record->set_status_as_failed( $create_schedule_result );
 				return $create_schedule_result;
 			}
+		}
+
+		$result = $record->insert_posts();
+
+		if ( is_wp_error( $result ) ) {
+			$this->messages[ 'error' ][] = $result->get_error_message();
+
+			Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
+
+			$record->set_status_as_failed( $result );
+			return $result;
 		}
 
 		if ( ! empty( $result['updated'] ) ) {

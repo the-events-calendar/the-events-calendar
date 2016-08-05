@@ -205,10 +205,22 @@ tribe_aggregator.fields = {
 	obj.init_datatable = function( data ) {
 		var display_checkboxes = false;
 
-		var is_csv = 'csv' === $( '#tribe-ea-field-origin' ).val();
+		var origin = $( '#tribe-ea-field-origin' ).val();
+		var is_csv = 'csv' === origin;
 
 		var $import_type = $( '[id$="import_type"]:visible' );
 		var import_type = 'manual';
+
+		// set the default settings
+		if ( 'undefined' !== typeof ea.default_settings[ origin ] ) {
+			for ( var settings_key in ea.default_settings[ origin ] ) {
+				if ( ! ea.default_settings[ origin ].hasOwnProperty( settings_key ) ) {
+					continue;
+				}
+
+				$( '#tribe-ea-field-' + settings_key ).val( ea.default_settings[ origin ][ settings_key ] ).change();
+			}
+		}
 
 		if ( $import_type.length ) {
 			import_type = $( '#' + $import_type.first().attr( 'id' ).replace( 's2id_', '' ) ).val();
