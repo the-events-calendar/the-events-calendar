@@ -27,7 +27,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 		 *
 		 * @var string
 		 */
-		public $view_path = 'day';
+		public $view_path = 'day/content';
 
 
 		/**

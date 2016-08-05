@@ -30,7 +30,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 		 *
 		 * @var string
 		 */
-		public $view_path = 'list';
+		public $view_path = 'list/content';
 
 		protected function hooks() {
 			parent::hooks();

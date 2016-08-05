@@ -36,7 +36,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 *
 		 * @var string
 		 */
-		public $view_path = 'month';
+		public $view_path = 'month/content';
 
 		/**
 		 * Number of events per day
