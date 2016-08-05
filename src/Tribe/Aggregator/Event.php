@@ -140,10 +140,10 @@ class Tribe__Events__Aggregator__Event {
 		$post = get_post( $event['ID'] );
 		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $event['ID'] );
 
-		if ( empty( $post_meta[ self::$modified_field_key ] ) ) {
+		if ( empty( $post_meta[ Tribe__Events__API::$modified_field_key ] ) ) {
 			$modified = array();
 		} else {
-			$modified = $post_meta[ self::$modified_field_key ];
+			$modified = $post_meta[ Tribe__Events__API::$modified_field_key ];
 		}
 
 		$post_fields_to_reset = array(

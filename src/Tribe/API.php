@@ -63,7 +63,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$args['post_type'] = Tribe__Events__Main::POSTTYPE;
 
 			if ( wp_update_post( $args ) ) {
-				do_action( 'debug_robot', "succesfully updated the post" );
 				self::saveEventMeta( $event_id, $args, $post );
 			}
 

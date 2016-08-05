@@ -3154,7 +3154,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// bail if we shouldn't be tracking modifications
-			if ( apply_filters( 'tribe_aggregator_track_modified_fields', true ) ) {
+			if ( ! apply_filters( 'tribe_aggregator_track_modified_fields', true ) ) {
 				return;
 			}
 

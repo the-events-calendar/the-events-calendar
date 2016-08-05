@@ -595,7 +595,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				&& isset( $event[ $unique_field['target'] ] )
 				&& isset( $existing_ids[ $event[ $unique_field['target'] ] ] )
 			) {
-				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ];
+				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
 			}
 
 			$event['post_status'] = $args['post_status'];
@@ -666,11 +666,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$event['post_type'] = Tribe__Events__Main::POSTTYPE;
 
 			if ( ! empty( $event['ID'] ) ) {
-				do_action( 'debug_robot', '$event :: ' . print_r( $event, true ) );
-				if ( 'preserve' === $update_authority_setting ) {
+				if ( 'preserve_changes' === $update_authority_setting ) {
 					$event = Tribe__Events__Aggregator__Event::preserve_changed_fields( $event );
 				}
-				do_action( 'debug_robot', '$event after preservation :: ' . print_r( $event, true ) );
 
 				add_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
