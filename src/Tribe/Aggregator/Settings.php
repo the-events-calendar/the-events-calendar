@@ -1,4 +1,6 @@
 <?php
+// Don't load directly
+defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Settings {
 	/** * @var Tribe__Events__Aggregator__Settings Event Aggregator settings bootstrap class
