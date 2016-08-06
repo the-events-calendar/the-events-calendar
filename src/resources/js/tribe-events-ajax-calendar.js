@@ -25,24 +25,25 @@
 			$tribedate = $( '#tribe-bar-date' ),
 			date_mod = false;
 
-		var base_url = '/';
+		var base_url = $( '#tribe-events-header' ).data( 'baseurl' );
 
-		if ( 'undefined' !== typeof config.events_base ) {
-			base_url = config.events_base;
-		} else if ( $nav_link.length ) {
-			base_url = $nav_link.first().attr( 'href' ).slice( 0, -8 );
-		}
-
-		if ( td.default_permalinks ) {
-			base_url = base_url.split("?")[0];
-		}
-
-		if ( $( '.tribe-events-calendar' ).length && $( '#tribe-events-bar' ).length ) {
-			if ( initial_date && initial_date.length > 7 ) {
-				$( '#tribe-bar-date-day' ).val( initial_date.slice( -3 ) );
-				$tribedate.val( initial_date.substring( 0, 7 ) );
-			}
-		}
+		// if ( 'undefined' !== typeof config.events_base ) {
+		// 	base_url =  $( '#tribe-events-header' ).data( 'baseurl' );
+		// } else if ( $nav_link.length ) {
+		// 	base_url = $nav_link.first().attr( 'href' ).slice( 0, -8 );
+		// }
+		//
+		// if ( td.default_permalinks ) {
+		// 	base_url = base_url.split("?")[0];
+		// }
+		//
+		// if ( $( '.tribe-events-calendar' ).length && $( '#tribe-events-bar' ).length ) {
+		// 	if ( initial_date && initial_date.length > 7 ) {
+		// 		$( '#tribe-bar-date-day' ).val( initial_date.slice( -3 ) );
+		// 		$tribedate.val( initial_date.substring( 0, 7 ) );
+		// 	}
+		// }
+		// console.log(base_url);
 
 		// begin display date formatting
 
@@ -89,6 +90,7 @@
 				date_mod = true;
 
 				ts.date = year + '-' + month;
+				console.log(ts.date);
 
 				if ( tt.no_bar() || tt.live_ajax() && tt.pushstate ) {
 					if ( ts.ajax_running || ts.updating_picker ) {
@@ -231,6 +233,7 @@
 			if ( td.params.length ) {
 				params = params + '&' + td.params;
 			}
+			console.log(params);
 
 			if ( ts.category ) {
 				params = params + '&tribe_event_category=' + ts.category;
@@ -283,6 +286,9 @@
 				if ( td.default_permalinks ) {
 					td.cur_url = td.cur_url.split("?")[0];
 				}
+				console.log(td.cur_url);
+
+
 				ts.popping = false;
 				tf.pre_ajax( function() {
 					tribe_events_calendar_ajax_post();
@@ -375,7 +381,6 @@
 			}
 			ts.popping = false;
 		} );
-
 		/**
 		 * @function tribe_events_calendar_ajax_post
 		 * @desc The ajax handler for month view.
@@ -421,6 +426,10 @@
 
 				ts.params = $.param( ts.params );
 				ts.url_params = $.param( ts.url_params );
+// console.log(ts.params);
+// console.log(ts.url_params);
+// console.log(tribe_ev.events);
+				console.log(config);
 
 				$( te ).trigger( 'tribe_ev_collectParams' );
 
