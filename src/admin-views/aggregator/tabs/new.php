@@ -1,5 +1,7 @@
 <?php
 $has_license_key = ! empty( Tribe__Events__Aggregator__Service::instance()->api()->key );
+$default_post_status = tribe_get_option( 'tribe_aggregator_default_post_status', 'draft' );
+$default_category = tribe_get_option( 'tribe_aggregator_default_category', '' );
 $post_statuses = get_post_statuses( array() );
 $category_dropdown = array();
 $category_dropdown = wp_dropdown_categories( array(
@@ -10,6 +12,7 @@ $category_dropdown = wp_dropdown_categories( array(
 	'class'      => 'tribe-ea-field tribe-ea-dropdown tribe-ea-size-large',
 	'orderby'    => 'post_title',
 	'taxonomy'   => Tribe__Events__Main::TAXONOMY,
+	'selected'   => $default_category,
 ) );
 $category_dropdown = preg_replace( '!\<select!', '<select data-hide-search', $category_dropdown );
 
@@ -107,7 +110,7 @@ $csv_help = esc_html__( 'Select the Event Field that best matches your CSV file 
 				data-hide-search
 			>
 				<?php foreach ( $post_statuses as $slug => $post_status ) : ?>
-					<option value="<?php echo esc_attr( $slug ); ?>" <?php selected( 'draft', $slug ); ?>><?php echo esc_html( $post_status ); ?></option>
+					<option value="<?php echo esc_attr( $slug ); ?>" <?php selected( $default_post_status, $slug ); ?>><?php echo esc_html( $post_status ); ?></option>
 				<?php endforeach; ?>
 			</select>
 			<label for="tribe-ea-field-category"><?php esc_html_e( 'Category:', 'the-events-calendar' ); ?></label>

@@ -212,7 +212,7 @@ class Tribe__Events__Aggregator__Records {
 
 		$where = array(
 			'post_type = %s',
-			'AND post_status NOT IN ( \'' . Tribe__Events__Aggregator__Records::$status->draft . '\' )',
+			'AND post_status NOT IN ( \'' . self::$status->draft . '\' )',
 		);
 
 		$statuses = array();
@@ -220,12 +220,12 @@ class Tribe__Events__Aggregator__Records {
 		// Make it an Array
 		$raw_statuses = (array) $raw_statuses;
 		foreach ( $raw_statuses as $status ) {
-			if ( ! isset( Tribe__Events__Aggregator__Records::$status->{ $status } ) ) {
+			if ( ! isset( self::$status->{ $status } ) ) {
 				continue;
 			}
 
 			// Get the Actual Status for the Database
-			$statuses[] = Tribe__Events__Aggregator__Records::$status->{ $status };
+			$statuses[] = self::$status->{ $status };
 		}
 
 		if ( ! empty( $type ) ) {
@@ -352,7 +352,52 @@ class Tribe__Events__Aggregator__Records {
 
 	}
 
+	public function query( $args = array() ) {
+		$statuses = Tribe__Events__Aggregator__Records::$status;
+		$defaults = array(
+			'post_status' => array( $statuses->success, $statuses->failed, $statuses->pending ),
+			'orderby'     => 'modified',
+			'order'       => 'DESC',
+		);
+		$args = (object) wp_parse_args( $args, $defaults );
+
+		// Enforce the Post Type
+		$args->post_type = Tribe__Events__Aggregator__Records::$post_type;
+
+		// Do the actual Query
+		$query = new WP_Query( $args );
+
+		return $query;
+	}
+
 	public function action_do_import() {
+		 // First we convert the array to a json string
+		$json = json_encode( $_POST );
+
+		// The we convert the json string to a stdClass()
+		$request = json_decode( $json );
+
+		// Empty Required Variables
+		if ( empty( $request->data->import_id ) || empty( $_GET['key'] ) ) {
+			return wp_send_json_error();
+		}
+
+		$import_id = $request->data->import_id;
+		$record = $this->get_by_import_id( $import_id );
+
+		// We received an Invalid Import ID
+		if ( is_wp_error( $record ) ) {
+			return wp_send_json_error();
+		}
+
+		// Verify if Hash matches sent Key
+		if ( ! isset( $record->meta['hash'] ) || $record->meta['hash'] !== $_GET['key'] ) {
+			return wp_send_json_error();
+		}
+
+		// Actually import things
+		$record->insert_posts( $request );
+
 		return wp_send_json_success();
 	}
 }

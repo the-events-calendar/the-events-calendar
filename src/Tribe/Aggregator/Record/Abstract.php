@@ -30,10 +30,21 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'target' => 'EventMeetupID',
 		),
 		'ical' => array(
-			'source' => '_uid',
+			'source' => 'uid',
+			'target' => 'uid',
+		),
+		'ics' => array(
+			'source' => 'uid',
 			'target' => 'uid',
 		),
 	);
+
+	/**
+	 * Holds the event count temporarily while event counts (comment_count) is being updated
+	 *
+	 * @var int
+	 */
+	private $temp_event_count = 0;
 
 	/**
 	 * Setup all the hooks and filters
@@ -73,7 +84,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$this->type = $this->post->ping_status;
 
 		if ( 'schedule' === $this->type ) {
-			$this->frequency = $this->post->post_content;
+			// Fetches the Frequency Object
+			$this->frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->post->post_content ) );
 
 			// Boolean Flag for Scheduled records
 			$this->is_schedule = true;
@@ -130,13 +142,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$defaults = array(
 			'frequency' => null,
+			'hash'      => wp_generate_password( 32, true, true ),
 		);
 
 		$meta = wp_parse_args( $meta, $defaults );
 
 		$post = array(
-			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
-			'post_title'     => wp_generate_password( 32, true, true ),
+			'post_title'     => $this->generate_title( $type, $this->origin, $meta['frequency'], $args->parent ),
 			'post_type'      => Tribe__Events__Aggregator__Records::$post_type,
 			'ping_status'    => $type,
 			// The Mime Type needs to be on a %/% format to work on WordPress
@@ -169,6 +181,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $this->load( wp_insert_post( $post ) );
 	}
 
+	public function generate_title() {
+		$parts = func_get_args();
+		return __( 'Record: ', 'the-events-calendar' ) . implode( ' ', array_filter( $parts ) );
+	}
+
 	/**
 	 * Creates a schedule record based on the import record
 	 *
@@ -176,12 +193,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function create_schedule_record() {
 		$post = array(
-			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
-			'post_title'     => $this->post->post_title,
+			'post_title'     => $this->generate_title( $this->type, $this->origin, $this->meta['frequency'] ),
 			'post_type'      => $this->post->post_type,
 			'ping_status'    => $this->post->ping_status,
 			'post_mime_type' => $this->post->post_mime_type,
-			'post_date'      => $this->post->post_date,
+			'post_date'      => current_time( 'mysql' ),
 			'post_status'    => Tribe__Events__Aggregator__Records::$status->schedule,
 			'post_parent'    => 0,
 			'meta_input'     => array(),
@@ -230,7 +246,55 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			);
 		}
 
-		return true;
+		return Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $schedule_id );
+	}
+
+	/**
+	 * Creates a child record based on the import record
+	 *
+	 * @return boolean|WP_Error
+	 */
+	public function create_child_record() {
+		$post = array(
+			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
+			'post_title'     => $this->generate_title( $this->type, $this->origin, $this->meta['frequency'], $this->post ),
+			'post_type'      => $this->post->post_type,
+			'ping_status'    => $this->post->ping_status,
+			'post_mime_type' => $this->post->post_mime_type,
+			'post_date'      => current_time( 'mysql' ),
+			'post_status'    => Tribe__Events__Aggregator__Records::$status->draft,
+			'post_parent'    => $this->id,
+			'meta_input'     => array(),
+		);
+
+		foreach ( $this->meta as $key => $value ) {
+			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
+		}
+
+		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
+		if ( ! $frequency ) {
+			return new WP_Error(
+				'invalid-frequency',
+				__( 'An Invalid frequency was used to try to setup a scheduled import', 'the-events-calendar' ),
+				$meta
+			);
+		}
+
+		// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
+		$post['post_content'] = $frequency->id;
+
+		// create schedule post
+		$child_id = wp_insert_post( $post );
+
+		// if the schedule creation failed, bail
+		if ( is_wp_error( $child_id ) ) {
+			return new WP_Error(
+				'tribe-aggregator-save-child-failed',
+				__( 'Unable to save schedule. Please try again.', 'the-events-calendar' )
+			);
+		}
+
+		return Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $child_id );
 	}
 
 	/**
@@ -251,7 +315,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'type'     => $this->meta['type'],
 			'origin'   => $this->meta['origin'],
 			'source'   => $this->meta['source'],
-			'callback' => site_url( '/event-aggregator/insert/?key=' . urlencode( $this->post->post_title ) ),
+			'callback' => site_url( '/event-aggregator/insert/?key=' . urlencode( $this->meta['hash'] ) ),
 		);
 
 		if ( ! empty( $this->meta['frequency'] ) ) {
@@ -377,22 +441,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	public function query_child_records( $args = array() ) {
-		$statuses = Tribe__Events__Aggregator__Records::$status;
 		$defaults = array(
-			'post_status' => array( $statuses->success, $statuses->failed, $statuses->pending ),
-			'post_parent' => $this->id,
-			'orderby'     => 'modified',
-			'order'       => 'DESC',
+
 		);
 		$args = (object) wp_parse_args( $args, $defaults );
 
-		// Enforce the Post Type
-		$args->post_type = Tribe__Events__Aggregator__Records::$post_type;
+		// Force the parent
+		$args->post_parent = $this->id;
 
-		// Do the actual Query
-		$query = new WP_Query( $args );
-
-		return $query;
+		return Tribe__Events__Aggregator__Records::instance()->query( $args );
 	}
 
 	public function get_child_record_by_status( $status = 'success', $qty = -1 ) {
@@ -466,6 +523,104 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $error;
 	}
 
+	/**
+	 * Verifies if this
+	 *  Schedule Record can create a new Child Record
+	 * @return boolean
+	 */
+	public function is_schedule_time() {
+		// If we are not on a Schedule Type
+		if ( ! $this->is_schedule ) {
+			return false;
+		}
+
+		// If we are not dealing with the Record Schedule
+		if ( $this->post->post_status !== Tribe__Events__Aggregator__Records::$status->schedule ) {
+			return false;
+		}
+
+		$current  = time();
+		$modified = strtotime( $this->post->post_modified );
+		$next     = $modified + $this->frequency->interval;
+
+		if ( $current < $next ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Adjust the event count for the record
+	 *
+	 * Note: event count is stored in the comment count field
+	 *
+	 * @param int $quantity Amount to adjust the event count by
+	 * @param int $post_id Post ID to fetch from
+	 */
+	public function adjust_event_count( $quantity, $post = null ) {
+		if ( ! $post ) {
+			$post = get_post( $this->post->ID );
+		}
+
+		$event_count = $post->comment_count;
+
+		$event_count += (int) $quantity;
+		if ( $event_count < 0 ) {
+			$event_count = 0;
+		}
+
+		$this->temp_event_count = $event_count;
+		add_filter( 'pre_wp_update_comment_count_now', array( $this, 'event_count_filter' ) );
+		wp_update_comment_count_now( $post->ID );
+		remove_filter( 'pre_wp_update_comment_count_now', array( $this, 'event_count_filter' ) );
+	}
+
+	/**
+	 * Completes the import process for a record
+	 *
+	 * This occurs after the successful insertion of data
+	 *
+	 * @param array $results Array of results (created, updated, and skipped) from an insert
+	 */
+	public function complete_import( $results ) {
+		$args = array(
+			'ID' => $this->post->ID,
+			'post_modified' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, current_time( 'timestamp' ) ),
+			'post_status' => Tribe__Events__Aggregator__Records::$status->success,
+		);
+
+		wp_update_post( $args );
+
+		// update the comment counts
+		if ( ! empty( $results['created'] ) ) {
+			// make sure we have the latest data for the post
+			$post = get_post( $this->post->ID );
+
+			$this->adjust_event_count( (int) $results['created'], $post );
+
+			if ( ! empty( $post->post_parent ) ) {
+				$this->adjust_event_count( (int) $results['created'], get_post( $post->post_parent ) );
+			}
+		}
+	}
+
+	/**
+	 * Filters the comment count before updating the comment count on an import record
+	 *
+	 * @return int
+	 */
+	public function event_count_filter() {
+		$event_count = $this->temp_event_count;
+		$this->temp_event_count = 0;
+		return $event_count;
+	}
+
+	/**
+	 * Inserts events, venues, and organizers for the Import Record
+	 *
+	 * @return array|WP_Error
+	 */
 	public function insert_posts() {
 		$import_data = $this->get_import_data();
 
@@ -484,15 +639,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$args = array(
 			'post_status' => $this->meta['post_status'],
-			'recurring_overwrite' => false,
 		);
 
-		// @todo set args[recurring_overwrite] using the change authority setting
-
-		$overwrite = $args['recurring_overwrite'];
+		$items = $this->filter_data_by_selected( $import_data->data->events );
 
 		$unique_field = $this->get_unique_field();
-		$existing_ids = $this->get_existing_ids_from_import_data( $import_data->data->events );
+		$existing_ids = $this->get_existing_ids_from_import_data( $items );
 
 		$count_scanned_events = 0;
 
@@ -504,7 +656,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		//if we have no non recurring events the message may be different
 		$non_recurring = false;
 
-		foreach ( $import_data->data->events as $item ) {
+		$show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( $this->meta['origin'] );
+		$update_authority_setting = Tribe__Events__Aggregator__Settings::instance()->default_update_authority( $this->meta['origin'] );
+
+		$unique_inserted = array();
+
+		foreach ( $items as $item ) {
 			$count_scanned_events++;
 			$event = Tribe__Events__Aggregator__Event::translate_service_data( $item );
 
@@ -514,7 +671,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				&& isset( $event[ $unique_field['target'] ] )
 				&& isset( $existing_ids[ $event[ $unique_field['target'] ] ] )
 			) {
-				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ];
+				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
 			}
 
 			$event['post_status'] = $args['post_status'];
@@ -529,10 +686,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			 * @var bool $overwrite
 			 * @var int  $event_id
 			 */
-			if (
-				! empty( $event['ID'] )
-				&& ! apply_filters( 'tribe_aggregator_overwrite_existing_events', $overwrite, $event['ID'] )
-			) {
+			if ( ! empty( $event['ID'] ) && 'retain' === $update_authority_setting ) {
 				$results['skipped']++;
 				continue;
 			}
@@ -541,18 +695,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$non_recurring = true;
 			}
 
-			//set the parent
-			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
-				if ( ! empty( $event[ 'ID' ] ) && ( $id = wp_get_post_parent_id( $event[ 'ID' ] ) ) ) {
-					$event['post_parent'] = $id;
-				} elseif ( ! empty( $event['parent_uid'] ) && ( $k = array_search( $event['parent_uid'], $possible_parents ) ) ) {
-					$event['post_parent'] = $k;
-				}
-				//PRO version will already be set to parent of an existing series during check for duplicate
-			} elseif ( ! empty( $event['parent_uid'] ) ) {
-				if ( $k = array_search( $event['parent_uid'], $possible_parents ) ) {
-					$event['post_parent'] = $k;
-				}
+			// set the parent
+			if ( ! empty( $event[ 'ID' ] ) && ( $id = wp_get_post_parent_id( $event[ 'ID' ] ) ) ) {
+				$event['post_parent'] = $id;
+			} elseif ( ! empty( $event['parent_uid'] ) && ( $k = array_search( $event['parent_uid'], $possible_parents ) ) ) {
+				$event['post_parent'] = $k;
 			}
 
 			//if we should create a venue or use existing
@@ -564,6 +711,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
 					$event['EventVenueID']      = $venue->ID;
 				} else {
+					$event['Venue']['ShowMap']     = $show_map_setting;
+					$event['Venue']['ShowMapLink'] = $show_map_setting;
 					$event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $this->meta['post_status'] );
 				}
 				unset( $event['Venue'] );
@@ -585,17 +734,47 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			$event['post_type'] = Tribe__Events__Main::POSTTYPE;
 
+			/**
+			 * Filters the event data before any sort of saving of the event
+			 *
+			 * @param array $event Event data to save
+			 * @param Tribe__Events__Aggregator__Record__Abstract Importer record
+			 */
+			$event = apply_filters( 'tribe_aggregator_before_save_event', $event, $record );
+
 			if ( ! empty( $event['ID'] ) ) {
+				if ( 'preserve_changes' === $update_authority_setting ) {
+					$event = Tribe__Events__Aggregator__Event::preserve_changed_fields( $event );
+				}
+
+				add_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
+
+				/**
+				 * Filters the event data before updating event
+				 *
+				 * @param array $event Event data to save
+				 * @param Tribe__Events__Aggregator__Record__Abstract Importer record
+				 */
+				$event = apply_filters( 'tribe_aggregator_before_update_event', $event, $record );
+
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
+				remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 				$results['updated']++;
 			} else {
+				/**
+				 * Filters the event data before inserting event
+				 *
+				 * @param array $event Event data to save
+				 * @param Tribe__Events__Aggregator__Record__Abstract Importer record
+				 */
+				$event = apply_filters( 'tribe_aggregator_before_insert_event', $event, $record );
 				$event['ID'] = tribe_create_event( $event );
 				$results['created']++;
 			}
 
 			//add post parent possibility
 			if ( empty( $event['parent_uid'] ) ) {
-				$possible_parents[ $event['ID'] ] = $event['_uid'];
+				$possible_parents[ $event['ID'] ] = $event[ $unique_field['target'] ];
 			}
 
 			if ( ! empty( $event[ $unique_field['target'] ] ) ) {
@@ -603,10 +782,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			//Save the meta data in case of updating to pro later on
-			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
-				if ( ! empty( $event['recurrence'] ) ) {
-					update_post_meta( $event['ID'], '_EventRecurrenceRRULE', $event['recurrence'] );
-				}
+			if ( ! empty( $event['EventRecurrenceRRULE'] ) ) {
+				update_post_meta( $event['ID'], '_EventRecurrenceRRULE', $event['EventRecurrenceRRULE'] );
 			}
 
 			$terms = array();
@@ -629,7 +806,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );
 		}
 
-		$this->set_status_as_success();
+		$this->complete_import( $results );
 
 		return $results;
 	}
@@ -649,6 +826,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return array();
 		}
 
+		$parent_selected_ids = array();
+
 		if ( 'all' !== $this->meta['ids_to_import'] ) {
 			$selected_ids = json_decode( $this->meta['ids_to_import'] );
 		} else {
@@ -659,6 +838,32 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$existing_ids = $event_object->get_existing_ids( $this->meta['origin'], $selected_ids );
 
 		return $existing_ids;
+	}
+
+	protected function filter_data_by_selected( $import_data ) {
+		$unique_field = $this->get_unique_field();
+
+		if ( ! $unique_field ) {
+			return $import_data;
+		}
+
+		if ( 'all' === $this->meta['ids_to_import'] ) {
+			return $import_data;
+		}
+
+		$selected_ids = $this->meta['ids_to_import'];
+
+		$selected = array();
+
+		foreach ( $import_data as $data ) {
+			if ( ! in_array( $data->{$unique_field['source']}, $selected_ids ) ) {
+				continue;
+			}
+
+			$selected[] = $data;
+		}
+
+		return $selected;
 	}
 
 	protected function get_unique_field() {

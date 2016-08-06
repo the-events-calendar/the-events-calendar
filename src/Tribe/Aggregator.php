@@ -19,6 +19,11 @@ class Tribe__Events__Aggregator {
 	public $service;
 
 	/**
+	 * @var Tribe__Events__Aggregator__Settings Event Aggregator settings object
+	 */
+	public $settings;
+
+	/**
 	 * @var Tribe__PUE__Checker PUE Checker object
 	 */
 	public $pue_checker;
@@ -54,6 +59,7 @@ class Tribe__Events__Aggregator {
 	public function __construct() {
 		$this->page        = Tribe__Events__Aggregator__Page::instance();
 		$this->service     = Tribe__Events__Aggregator__Service::instance();
+		$this->settings    = Tribe__Events__Aggregator__Settings::instance();
 		$this->records     = Tribe__Events__Aggregator__Records::instance();
 		$this->cron        = Tribe__Events__Aggregator__Cron::instance();
 		$this->pue_checker = new Tribe__PUE__Checker( 'http://tri.be/', 'event-aggregator' );

@@ -95,6 +95,7 @@ class Tribe__Events__Aggregator__Page {
 							'events_required_for_manual_submit' => __( 'Your import must include at least one event', 'the-events-calendar' ),
 							'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
 						),
+						'default_settings' => Tribe__Events__Aggregator__Settings::instance()->get_all_default_settings(),
 					),
 				),
 			)

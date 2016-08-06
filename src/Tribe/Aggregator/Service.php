@@ -23,7 +23,7 @@ class Tribe__Events__Aggregator__Service {
 	 *     @type string     $path        Path of the API on the domain above
 	 * }
 	 */
-	protected $api = array(
+	public $api = array(
 		'key' => null,
 		'version' => 'v1',
 		'domain' => 'http://api.tri.be/',
@@ -41,12 +41,6 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		return self::$instance;
-	}
-
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
 	}
 
 	/**

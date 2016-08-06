@@ -36,11 +36,18 @@ tribe_aggregator.fields = {
 	// track how many result fetches have been executed via polling
 	result_fetch_count: 0,
 
-	// the maximum number of result fetches that can be done before erroring out
-	max_result_fetch_count: 20,
+	// the maximum number of result fetches that can be done per frequency before erroring out
+	max_result_fetch_count: 5,
 
 	// frequency at which we will poll for results
-	polling_frequency: 500
+	polling_frequency_index: 0,
+
+	polling_frequencies: [
+		500,
+		1000,
+		5000,
+		20000
+	]
 };
 
 ( function( $, _, obj, ea ) {
@@ -153,7 +160,7 @@ tribe_aggregator.fields = {
 				return;
 			}
 
-			setTimeout( obj.poll_for_results, obj.polling_frequency );
+			setTimeout( obj.poll_for_results, obj.polling_frequencies[ obj.polling_frequency_index ] );
 		} );
 	};
 
@@ -182,11 +189,16 @@ tribe_aggregator.fields = {
 
 			if ( 'success' !== response.data.status ) {
 				if ( obj.result_fetch_count > obj.max_result_fetch_count ) {
+					obj.polling_frequency_index++;
+					obj.result_fetch_count = 0;
+				}
+
+				if ( 'undefined' === typeof obj.polling_frequencies[ obj.polling_frequency_index ] ) {
 					obj.display_fetch_error( [
 						'The preview is taking longer than expected. Please try again in a moment.'
 					].join( '' ) );
 				} else {
-					setTimeout( obj.poll_for_results, obj.polling_frequency );
+					setTimeout( obj.poll_for_results, obj.polling_frequencies[ obj.polling_frequency_index ] );
 				}
 			} else {
 				response.data.data.items = response.data.data.events;
@@ -205,10 +217,22 @@ tribe_aggregator.fields = {
 	obj.init_datatable = function( data ) {
 		var display_checkboxes = false;
 
-		var is_csv = 'csv' === $( '#tribe-ea-field-origin' ).val();
+		var origin = $( '#tribe-ea-field-origin' ).val();
+		var is_csv = 'csv' === origin;
 
 		var $import_type = $( '[id$="import_type"]:visible' );
 		var import_type = 'manual';
+
+		// set the default settings
+		if ( 'undefined' !== typeof ea.default_settings[ origin ] ) {
+			for ( var settings_key in ea.default_settings[ origin ] ) {
+				if ( ! ea.default_settings[ origin ].hasOwnProperty( settings_key ) ) {
+					continue;
+				}
+
+				$( '#tribe-ea-field-' + settings_key ).val( ea.default_settings[ origin ][ settings_key ] ).change();
+			}
+		}
 
 		if ( $import_type.length ) {
 			import_type = $( '#' + $import_type.first().attr( 'id' ).replace( 's2id_', '' ) ).val();
@@ -409,7 +433,7 @@ tribe_aggregator.fields = {
 			} else if ( 'meetup' === origin ) {
 				unique_id_field = 'meetup_id';
 			} else if ( 'ical' === origin || 'ics' === origin ) {
-				unique_id_field = '_uid';
+				unique_id_field = 'uid';
 			}
 
 			if ( null !== unique_id_field ) {
