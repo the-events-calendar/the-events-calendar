@@ -20,10 +20,18 @@ class Tribe__Events__Aggregator__Settings {
 		return self::$instance;
 	}
 
-	public function __construct() {
-		if ( Tribe__Events__Aggregator__Service::instance()->api()->key ) {
-			add_action( 'tribe_settings_do_tabs', array( $this, 'do_import_settings_tab' ) );
+	/**
+	 * A private method to prevent it to be created twice.
+	 * It will add the methods and setup any dependecies
+	 *
+	 * Note: This should load on `plugins_loaded@P10`
+	 */
+	private function __construct() {
+		if ( ! Tribe__Events__Aggregator::is_service_active() ) {
+			return false;
 		}
+
+		add_action( 'tribe_settings_do_tabs', array( $this, 'do_import_settings_tab' ) );
 	}
 
 	public function do_import_settings_tab() {

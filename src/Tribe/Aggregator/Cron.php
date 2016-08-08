@@ -250,6 +250,11 @@ class Tribe__Events__Aggregator__Cron {
 		$this->is_running = false;
 	}
 
+	/**
+	 * Checks if any Child Record needs to be created, this will run on the Cron every 15m
+	 *
+	 * @return void
+	 */
 	public function verify_child_record_creation() {
 		$records = Tribe__Events__Aggregator__Records::instance();
 		/**
@@ -275,6 +280,11 @@ class Tribe__Events__Aggregator__Cron {
 		}
 	}
 
+	/**
+	 * Checks if any record data needs to be fetched fromthe service, this will run on the Cron every 15m
+	 *
+	 * @return void
+	 */
 	public function verify_fetching_from_service() {
 		$records = Tribe__Events__Aggregator__Records::instance();
 
