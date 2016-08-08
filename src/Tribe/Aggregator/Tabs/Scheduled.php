@@ -83,7 +83,23 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 	}
 
 	private function handle_get() {
+		if ( ! isset( $_GET['action'] ) ) {
+			return false;
+		}
 
+		$action = $_GET['action'];
+
+		if ( ! in_array( $action, array( 'tribe-run-now', 'tribe-delete', 'tribe-edit' ) ) ) {
+			return false;
+		}
+
+		if ( ! isset( $_GET['nonce'] ) || ! wp_verify_nonce( $_GET['nonce'], 'aggregator_' . $this->get_slug() . '_request' ) ) {
+			return false;
+		}
+
+		if ( 'delete' === $action && ! empty( $_GET['item'] ) ) {
+			$this->action_delete_records( $_GET['item'] );
+		}
 	}
 
 	private function action_delete_records( $records = array() ) {

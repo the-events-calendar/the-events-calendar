@@ -66,6 +66,34 @@ class Tribe__Events__Aggregator__Records {
 
 		// Run the Import when Hitting the Event Aggregator Endpoint
 		add_action( 'tribe_aggregator_endpoint_insert', array( $this, 'action_do_import' ) );
+
+		// Delete Link Filter
+		add_filter( 'get_delete_post_link', array( $this, 'filter_delete_link' ), 15, 3 );
+
+		// Edit Link Filter
+		add_filter( 'get_edit_post_link', array( $this, 'filter_edit_link' ), 15, 3 );
+	}
+
+	public function filter_edit_link( $link, $post, $context ) {
+		$args = array(
+			'tab'    => Tribe__Events__Aggregator__Tabs__Scheduled::instance()->get_slug(),
+			'item'   => absint( $post ),
+			'action' => 'tribe-edit',
+		);
+
+		return Tribe__Events__Aggregator__Page::instance()->get_url( $args );
+	}
+
+	public function filter_delete_link( $link, $post, $context ) {
+		$tab = Tribe__Events__Aggregator__Tabs__Scheduled::instance();
+		$args = array(
+			'tab'    => $tab->get_slug(),
+			'action' => 'tribe-delete',
+			'item'   => absint( $post ),
+			'nonce'  => wp_create_nonce( 'aggregator_' . $tab->get_slug() . '_request' ),
+		);
+
+		return Tribe__Events__Aggregator__Page::instance()->get_url( $args );
 	}
 
 	/**

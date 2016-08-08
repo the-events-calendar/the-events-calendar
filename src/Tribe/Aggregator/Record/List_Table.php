@@ -327,7 +327,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				__( 'Edit', 'the-events-calendar' )
 			);
 
-			$actions['run_now'] = sprintf(
+			$actions['run-now'] = sprintf(
 				'<a href="%s">%s</a>',
 				get_edit_post_link( $post->ID ),
 				__( 'Run Import', 'the-events-calendar' )
