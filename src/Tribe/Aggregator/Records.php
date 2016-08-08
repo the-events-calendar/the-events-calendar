@@ -89,6 +89,7 @@ class Tribe__Events__Aggregator__Records {
 			'query_var'          => false,
 			'rewrite'            => false,
 			'capability_type'    => array( 'aggregator-record', 'aggregator-records' ),
+			'map_meta_cap'       => true,
 			'has_archive'        => false,
 			'hierarchical'       => false,
 			'menu_position'      => null,

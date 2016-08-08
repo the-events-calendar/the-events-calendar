@@ -109,6 +109,7 @@ class Tribe__Events__Capabilities {
 			$this->register_post_type_caps( Tribe__Events__Main::POSTTYPE, $role );
 			$this->register_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );
 			$this->register_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
+			$this->register_post_type_caps( Tribe__Events__Aggregator__Records::$post_type, $role );
 		}
 	}
 
@@ -122,6 +123,7 @@ class Tribe__Events__Capabilities {
 			$this->remove_post_type_caps( Tribe__Events__Main::POSTTYPE, $role );
 			$this->remove_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );
 			$this->remove_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
+			$this->remove_post_type_caps( Tribe__Events__Aggregator__Records::$post_type, $role );
 		}
 	}
 }
