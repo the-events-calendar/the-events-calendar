@@ -735,3 +735,28 @@ jQuery( document ).ready( function( $ ) {
 		return false;
 	} );
 } );
+
+/**
+ * Ignored Events JS
+ */
+( function( $ ){
+	"use strict";
+	// Verify that all WP variables exists
+	if ( -1 !== [ typeof pagenow, typeof typenow, typeof adminpage ].indexOf( 'undefined' ) ) {
+		return false;
+	}
+
+	// We are not on the correct Page
+	if ( 'tribe_events' !== pagenow || 'tribe_events' !== typenow || 'post-php' !== adminpage ) {
+		return false;
+	}
+
+	// Verify Variables in regards to Ignored Events
+	if ( 'undefined' === typeof tribe_events_admin.ignored_events ) {
+		return false;
+	}
+
+	$( document ).ready( function(){
+		$( '.submitdelete' ).attr( 'title', tribe_events_admin.ignored_events.link_title ).html( tribe_events_admin.ignored_events.link_text );
+	} );
+}( jQuery ) );

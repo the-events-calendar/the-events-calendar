@@ -181,6 +181,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $this->load( wp_insert_post( $post ) );
 	}
 
+	/**
+	 * A simple method to create a Title for the Records
+	 *
+	 * @param mixed $Nparams This method accepts any number of params, they must be string compatible
+	 *
+	 * @return string
+	 */
 	public function generate_title() {
 		$parts = func_get_args();
 		return __( 'Record: ', 'the-events-calendar' ) . implode( ' ', array_filter( $parts ) );
@@ -299,6 +306,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	/**
 	 * Queues the import on the Aggregator service
+	 *
+	 * @return mixed
 	 */
 	public function queue_import( $args = array() ) {
 		$aggregator = Tribe__Events__Aggregator::instance();
@@ -440,6 +449,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $this->set_status( 'success' );
 	}
 
+	/**
+	 * A quick method to fetch the Child Records to the current on this class
+	 *
+	 * @param  array  $args WP_Query Arguments
+	 *
+	 * @return WP_Query|WP_Error
+	 */
 	public function query_child_records( $args = array() ) {
 		$defaults = array(
 
@@ -452,10 +468,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return Tribe__Events__Aggregator__Records::instance()->query( $args );
 	}
 
+	/**
+	 * A quick method to fetch the Child Records by Status
+	 *
+	 * @param string $status Which status, must be a valid EA status
+	 *
+	 * @return WP_Query|WP_Error|bool
+	 */
 	public function get_child_record_by_status( $status = 'success', $qty = -1 ) {
 		$statuses = Tribe__Events__Aggregator__Records::$status;
 
-		if ( ! isset( $statuses->{ $status } ) ) {
+		if ( ! isset( $statuses->{ $status } ) || 'trash' !== $status ) {
 			return false;
 		}
 
@@ -622,6 +645,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return array|WP_Error
 	 */
 	public function insert_posts() {
+		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 		$import_data = $this->get_import_data();
 
 		if ( empty( $this->meta['finalized'] ) ) {
@@ -759,6 +783,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
 				remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
+
+				// Count it as a updated Event
 				$results['updated']++;
 			} else {
 				/**
@@ -769,8 +795,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				 */
 				$event = apply_filters( 'tribe_aggregator_before_insert_event', $event, $record );
 				$event['ID'] = tribe_create_event( $event );
+
+				// Count it as a created Event
 				$results['created']++;
 			}
+
+			// Add the Aggregator Origin
+			update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$origin_key, $this->origin );
+
+			// Add the Aggregator Record
+			update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$record_key, $this->id );
+
 
 			//add post parent possibility
 			if ( empty( $event['parent_uid'] ) ) {
@@ -807,6 +842,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$this->complete_import( $results );
+
+		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
 		return $results;
 	}
