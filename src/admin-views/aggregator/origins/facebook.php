@@ -82,8 +82,8 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 			data-hide-search
 		>
 			<option value=""></option>
-			<option value="manual">One-Time Import</option>
-			<option value="schedule">Scheduled Import</option>
+			<option value="manual" <?php selected( 'manual', empty( $record->type ) ? '' : $record->type ); ?>>One-Time Import</option>
+			<option value="schedule" <?php selected( 'schedule', empty( $record->type ) ? '' : $record->type ); ?>>Scheduled Import</option>
 		</select>
 		<select
 			name="aggregator[facebook][import_frequency]"
@@ -96,7 +96,7 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 		>
 			<option value=""></option>
 			<?php foreach ( $frequencies as $frequency_object ) : ?>
-				<option value="<?php echo esc_attr( $frequency_object->id ); ?>" <?php selected( 'daily', $frequency_object->id ); ?>><?php echo esc_html( $frequency_object->text ); ?></option>
+				<option value="<?php echo esc_attr( $frequency_object->id ); ?>" <?php selected( empty( $record->meta['frequency'] ) ? 'daily' : $record->meta['frequency'], $frequency_object->id ); ?>><?php echo esc_html( $frequency_object->text ); ?></option>
 			<?php endforeach; ?>
 		</select>
 		<span
@@ -132,6 +132,7 @@ $field->help        = __( 'Enter the url for a Facebook group, page, or individu
 			id="tribe-ea-field-facebook_source"
 			class="tribe-ea-field tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
+			value="<?php echo esc_attr( empty( $record->meta['source'] ) ? '' : $record->meta['source'] ); ?>"
 		>
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
 	</td>
