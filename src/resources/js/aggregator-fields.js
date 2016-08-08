@@ -85,6 +85,8 @@ tribe_aggregator.fields = {
 			.on( 'click'      , '.tribe-preview'                     , obj.preview_import )
 			.on( 'submit'     , '.tribe-ea-tab-new'                  , obj.events.suppress_submission );
 
+		$( '.tribe-dependency' ).change();
+
 		if ( 'edit' === obj.$.action.val() ) {
 			obj.$.form.addClass( 'edit-form' );
 			$( obj.selector.finalize_button ).html( ea.l10n.edit_save );
@@ -551,7 +553,7 @@ tribe_aggregator.fields = {
 
 			// By default we allow The field to be cleared
 			args.allowClear = true;
-			if ( $select.data( 'preventClear' ) ) {
+			if ( $select.is( '[data-prevent-clear]' ) ) {
 				args.allowClear = false;
 			}
 

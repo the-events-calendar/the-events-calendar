@@ -80,9 +80,14 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 			class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 			data-hide-search
+			<?php if ( 'edit' === $aggregator_action ) : ?>
+				data-prevent-clear
+			<?php endif; ?>
 		>
-			<option value=""></option>
-			<option value="manual" <?php selected( 'manual', empty( $record->type ) ? '' : $record->type ); ?>>One-Time Import</option>
+			<?php if ( 'edit' !== $aggregator_action ) : ?>
+				<option value=""></option>
+				<option value="manual" <?php selected( 'manual', empty( $record->type ) ? '' : $record->type ); ?>><?php echo esc_html__( 'One-Time Import', 'the-events-calendar' ); ?></option>
+			<?php endif; ?>
 			<option value="schedule" <?php selected( 'schedule', empty( $record->type ) ? '' : $record->type ); ?>>Scheduled Import</option>
 		</select>
 		<select

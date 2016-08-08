@@ -44,32 +44,61 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 				<label for="tribe-ea-field-origin"><?php echo $field->label; ?></label>
 			</th>
 			<td>
-				<select
-					name="aggregator[origin]"
-					id="tribe-ea-field-origin"
-					class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-medium"
-					placeholder="<?php echo $field->placeholder; ?>"
-					data-hide-search
-				>
-					<option value=""></option>
-					<?php
-					foreach ( $field->options as $option ) {
-						?>
-						<option value="<?php echo esc_attr( $option->id ); ?>" <?php selected( $option->id, empty( $record->meta['origin'] ) ? '' : $record->meta['origin'] ); ?>><?php esc_html_e( $option->text ); ?></option>
+				<?php if ( 'edit' === $aggregator_action ) : ?>
+					<input
+						type="hidden"
+						name="aggregator[origin]"
+						id="tribe-ea-field-origin"
+						class="tribe-ea-field"
+						value="<?php echo esc_attr( $record->meta['origin'] ); ?>"
+					>
+					<select
+						name="aggregator[dummy_origin]"
+						id="tribe-ea-field-dummy_origin"
+						class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-medium"
+						placeholder="<?php echo $field->placeholder; ?>"
+						data-hide-search
+						data-prevent-clear
+						disabled
+					>
+						<option value=""></option>
 						<?php
-					}
-					?>
-				</select>
+						foreach ( $field->options as $option ) {
+							?>
+							<option value="<?php echo esc_attr( $option->id ); ?>" <?php selected( $option->id, empty( $record->meta['origin'] ) ? '' : $record->meta['origin'] ); ?>><?php esc_html_e( $option->text ); ?></option>
+							<?php
+						}
+						?>
+					</select>
+				<?php else: ?>
+					<select
+						name="aggregator[origin]"
+						id="tribe-ea-field-origin"
+						class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-medium"
+						placeholder="<?php echo $field->placeholder; ?>"
+						data-hide-search
+						<?php echo ( 'edit' === $aggregator_action ) ? 'data-prevent-clear' : ''; ?>
+					>
+						<option value=""></option>
+						<?php
+						foreach ( $field->options as $option ) {
+							?>
+							<option value="<?php echo esc_attr( $option->id ); ?>" <?php selected( $option->id, empty( $record->meta['origin'] ) ? '' : $record->meta['origin'] ); ?>><?php esc_html_e( $option->text ); ?></option>
+							<?php
+						}
+						?>
+					</select>
+				<?php endif; ?>
 				<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
 			</td>
 		</tr>
 
 		<?php
-		$this->template( 'origins/csv', array( 'record' => $record ) );
-		$this->template( 'origins/ics', array( 'record' => $record ) );
-		$this->template( 'origins/ical', array( 'record' => $record ) );
-		$this->template( 'origins/facebook', array( 'record' => $record ) );
-		$this->template( 'origins/meetup', array( 'record' => $record ) );
+		$this->template( 'origins/csv', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+		$this->template( 'origins/ics', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+		$this->template( 'origins/ical', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+		$this->template( 'origins/facebook', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+		$this->template( 'origins/meetup', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 		?>
 
 	</tbody>
