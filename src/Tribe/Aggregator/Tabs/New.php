@@ -85,54 +85,24 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_submit() {
-		if ( ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && ! $this->is_active() ) {
+		if ( empty( $_POST['aggregator']['action'] ) || 'new' !== $_POST['aggregator']['action'] ) {
 			return;
 		}
 
-		if ( 'POST' !== $_SERVER['REQUEST_METHOD'] ) {
+		$submission = parent::handle_submit();
+
+		if ( empty( $submission['record'] ) || empty( $submission['post_data'] ) || empty( $submission['meta'] ) ) {
 			return;
 		}
 
-		if ( empty( $_POST['aggregator'] ) ) {
-			return;
-		}
-
-		// validate nonce
-		if ( empty( $_POST['tribe_aggregator_nonce'] ) || ! wp_verify_nonce( $_POST['tribe_aggregator_nonce'], 'tribe-aggregator-save-import' ) ) {
-			$data = array(
-				'message' => __( 'There was a problem processing your import. Please try again.', 'the-events-calendar' ),
-			);
-
-			wp_send_json_error( $data );
-		}
-
-		$post_data = $_POST['aggregator'];
-
-		if ( empty( $post_data['origin'] ) || empty( $post_data[ $post_data['origin'] ] ) ) {
-			return;
-		}
-
-		$data = $post_data[ $post_data['origin'] ];
+		$record    = $submission['record'];
+		$post_data = $submission['post_data'];
+		$meta      = $submission['meta'];
 
 		if ( ! empty( $post_data['import_id'] ) ) {
 			$this->handle_import_finalize( $post_data );
 			return;
 		}
-
-		$record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $post_data['origin'] );
-
-		$meta = array(
-			'origin'       => $post_data['origin'],
-			'type'         => empty( $data['import_type'] )      ? 'manual' : $data['import_type'],
-			'frequency'    => empty( $data['import_frequency'] ) ? null     : $data['import_frequency'],
-			'file'         => empty( $data['file'] )             ? null     : $data['file'],
-			'keywords'     => empty( $data['keywords'] )         ? null     : $data['keywords'],
-			'location'     => empty( $data['location'] )         ? null     : $data['location'],
-			'start'        => empty( $data['start'] )            ? null     : $data['start'],
-			'radius'       => empty( $data['radius'] )           ? null     : $data['radius'],
-			'source'       => empty( $data['source'] )           ? null     : $data['source'],
-			'content_type' => empty( $data['content_type'] )     ? null     : $data['content_type'],
-		);
 
 		// Prevents Accidents
 		if ( 'manual' === $meta['type'] ) {
@@ -159,7 +129,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		);
 
 		$record->update_meta( 'post_status', empty( $data['post_status'] ) ? 'draft' : $data['post_status'] );
-		$record->update_meta( 'category', empty( $data['category'] ) ? null : $data['post_status'] );
+		$record->update_meta( 'category', empty( $data['category'] ) ? null : $data['category'] );
 		$record->update_meta( 'ids_to_import', empty( $data['selected_rows'] ) ? 'all' : json_decode( stripslashes( $data['selected_rows'] ) ) );
 		$record->finalize();
 
@@ -177,7 +147,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 		}
 
-		$result = $record->insert_posts();
+		if ( 'csv' === $data['origin'] ) {
+			$result = $record->insert_posts( $data );
+		} else {
+			$result = $record->insert_posts();
+		}
 
 		if ( is_wp_error( $result ) ) {
 			$this->messages[ 'error' ][] = $result->get_error_message();

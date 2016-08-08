@@ -92,6 +92,7 @@ class Tribe__Events__Aggregator__Page {
 							'import_all' => __( 'Import All (%d)', 'the-events-calendar' ),
 							'import_checked' => __( 'Import Checked (%d)', 'the-events-calendar' ),
 							'create_schedule' => __( 'Save Scheduled Import', 'the-events-calendar' ),
+							'edit_save' => __( 'Save Changes', 'the-events-calendar' ),
 							'events_required_for_manual_submit' => __( 'Your import must include at least one event', 'the-events-calendar' ),
 							'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
 						),
