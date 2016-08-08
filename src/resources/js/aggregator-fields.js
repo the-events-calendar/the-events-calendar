@@ -17,6 +17,7 @@ tribe_aggregator.fields = {
 		refine_filters: '.tribe-refine-filters',
 		clear_filters_button: '.tribe-clear-filters',
 		finalize_button: '.tribe-finalize',
+		cancel_button: '.tribe-cancel',
 		action: '#tribe-action'
 	},
 
@@ -83,6 +84,7 @@ tribe_aggregator.fields = {
 			.on( 'click'      , obj.selector.clear_filters_button    , obj.clear_filters )
 			.on( 'click'      , obj.selector.finalize_button         , obj.finalize_manual_import )
 			.on( 'click'      , '.tribe-preview'                     , obj.preview_import )
+			.on( 'click'      , '.tribe-cancel'                      , obj.events.cancel_edit )
 			.on( 'submit'     , '.tribe-ea-tab-new'                  , obj.events.suppress_submission );
 
 		$( '.tribe-dependency' ).change();
@@ -825,6 +827,14 @@ tribe_aggregator.fields = {
 
 		text = text.replace( '%d', selected_rows );
 		$( obj.selector.finalize_button ).html( text );
+	};
+
+	obj.events.cancel_edit = function( e ) {
+		e.preventDefault();
+		var url = window.location.href;
+		url = url.replace( 'tab=edit', 'tab=scheduled' );
+		url = url.replace( /id=\d+/, '' );
+		window.location.href = url;
 	};
 
 	// Run Init on Document Ready
