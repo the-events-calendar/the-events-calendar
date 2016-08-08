@@ -67,6 +67,9 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 							?>
 							<option value="<?php echo esc_attr( $option->id ); ?>" <?php selected( $option->id, empty( $record->meta['origin'] ) ? '' : $record->meta['origin'] ); ?>><?php esc_html_e( $option->text ); ?></option>
 							<?php
+							if ( $option->id === $record->meta['origin'] ) {
+								break;
+							}
 						}
 						?>
 					</select>
