@@ -177,7 +177,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 		}
 
-		$result = $record->insert_posts();
+		if ( 'csv' === $data['origin'] ) {
+			$result = $record->insert_posts( $data );
+		} else {
+			$result = $record->insert_posts();
+		}
 
 		if ( is_wp_error( $result ) ) {
 			$this->messages[ 'error' ][] = $result->get_error_message();
