@@ -867,8 +867,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			//if we are setting all events to a category specified in saved import
-			if ( ! empty( $args['import_category'] ) ) {
-				$terms[] = (int) $args['import_category'];
+			if ( ! empty( $this->meta['category'] ) ) {
+				$terms[] = (int) $this->meta['category'];
 			}
 
 			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );

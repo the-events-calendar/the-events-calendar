@@ -19,10 +19,10 @@ $category_dropdown = wp_dropdown_categories( array(
 	'class'      => 'tribe-ea-field tribe-ea-dropdown tribe-ea-size-large',
 	'orderby'    => 'post_title',
 	'taxonomy'   => Tribe__Events__Main::TAXONOMY,
-	'selected'   => $default_category,
 ) );
 $category_dropdown = preg_replace( '!\<select!', '<select data-hide-search', $category_dropdown );
-$category_dropdown = preg_replace( '!(\<select[^\>]*\>)!', '$1<option value=""></option>', $category_dropdown );
+$category_dropdown = preg_replace( '!(\<select[^\>]*\>)!', '$1<option value="">' . __( 'No Additional Categories', 'the-events-calendar' ) . '</option>', $category_dropdown );
+$category_dropdown = preg_replace( '!(value="' . $default_category . '")!', '$1 selected', $category_dropdown );
 
 wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 ?>
