@@ -400,4 +400,8 @@ class Tribe__Events__Aggregator__Records {
 
 		return wp_send_json_success();
 	}
+
+	public function filter_post_origin() {
+		return Tribe__Events__Aggregator__Event::$event_origin;
+	}
 }

@@ -257,18 +257,61 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		public function ignore_event( $event ) {
 			$event = get_post( $event );
 
-			if ( ! $event instanceof WP_Post ) {
+			if ( ! $this->can_ignore( $event ) ) {
 				return false;
 			}
 
 			// Update only what we need
 			$arguments = array(
 				'ID' => $event->ID,
+				'post_type' => Tribe__Events__Main::POSTTYPE,
 				'post_status' => self::$ignored_status,
 			);
 
+			// Set the Required Meta to flag it to the Legacy Posts
+			if ( self::$legacy_deleted_post === $event->post_type ) {
+				update_post_meta( $event->ID, '_tribe_legacy_ignored_event', 1 );
+			}
+
 			// Try to update back to the Event CPT
 			return wp_update_post( $arguments );
+		}
+
+		public function can_ignore( $post ) {
+			$event = get_post( $post );
+
+			// If we don't have a post (weird) we also leave
+			if ( ! $event instanceof WP_Post ) {
+				return false;
+			}
+
+			// Verify if it's a Legacy Ignore or Tribe Event
+			if ( ! in_array( $event->post_type, array( Tribe__Events__Main::POSTTYPE, self::$legacy_deleted_post ) ) ) {
+				return false;
+			}
+
+			$ignored_origins = array(
+				Tribe__Events__Aggregator__Event::$event_origin,
+				'facebook-importer',
+				'ical-importer',
+			);
+			$origin = get_post_meta( $event->ID, '_EventOrigin', true );
+
+			// Verify the Origin
+			if ( ! in_array( $origin, $ignored_origins ) ) {
+				return false;
+			}
+
+			if ( Tribe__Events__Aggregator__Event::$event_origin === $origin ) {
+				$aggregator_origin = get_post_meta( $event->ID, Tribe__Events__Aggregator__Event::$origin_key, true );
+
+				// You cannot Ignore CSV
+				if ( 'csv' === $aggregator_origin ) {
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 		/**
@@ -300,41 +343,6 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		}
 
 		/**
-		 * Try to convert a legacy Post back on an Event
-		 *
-		 * @param  int|WP_Post       $event Which event try to convert
-		 * @return bool|int|WP_Error
-		 */
-		public function maybe_convert_legacy_post( $event ) {
-			$event = get_post( $event );
-
-			if ( ! $event instanceof WP_Post ) {
-				return false;
-			}
-
-			// If it's not a Legacy CPT we don't care
-			if ( self::$legacy_deleted_post !== $event->post_type ) {
-				return false;
-			}
-
-			// Update only what we need
-			$arguments = array(
-				'ID' => $event->ID,
-				'post_type' => Tribe__Events__Main::POSTTYPE,
-				'post_status' => self::$ignored_status,
-			);
-
-			// Try to update back to the Event CPT
-			$updated = wp_update_post( $arguments );
-
-			// Set the Required Meta to flag it to the Legacy Posts
-			update_post_meta( $event->ID, '_tribe_legacy_ignored_event', 1 );
-
-			// Return if it was updated
-			return $updated;
-		}
-
-		/**
 		 * Register the Ignored Post Status
 		 *
 		 * @return void
@@ -362,78 +370,17 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return null;
 			}
 
-			$event = get_post( $post );
-
-			// If we don't have a post (weird) we also leave
-			if ( ! $event instanceof WP_Post ) {
-				return null;
-			}
-
-			// If we are not in the Event CPT we don't care either
-			if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
-				return null;
-			}
-
-			$origin = get_post_meta( $event->ID, '_EventOrigin', true );
-			/**
-			 * @todo  Include new EA Origin Check on the conditional below
-			 */
-
-			// If it's not legacy origin leave
-			if ( $event->post_type !== self::$legacy_deleted_post && true !== true ) {
-				return null;
-			}
-
-			if ( $event->post_type === self::$legacy_deleted_post ) {
-				$status = $this->maybe_convert_legacy_post( $event );
-			} else {
-				$status = $this->ignore_event( $event );
-			}
-
-			// We got a Error, then go trash it
-			if ( is_wp_error( $status ) ) {
-				return null;
-			}
+			$status = $this->ignore_event( $post );
 
 			// If we couldn't convert we actually trash it
-			return $status ? $status : null;
+			return ! is_wp_error( $status ) ? $status : null;
 		}
 
 		public function from_trash_to_ignored( $post ) {
-			$event = get_post( $post );
+			$status = $this->ignore_event( $post );
 
-			// If we don't have a post (weird) we leave
-			if ( ! $event instanceof WP_Post ) {
-				return;
-			}
-
-			// If we are not in the Event CPT we don't care either
-			if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
-				return null;
-			}
-
-			$origin = get_post_meta( $event->ID, '_EventOrigin', true );
-			/**
-			 * @todo  Include new EA Origin Check on the conditional below
-			 */
-
-			// If it's not legacy origin leave
-			if ( $event->post_type !== self::$legacy_deleted_post && true !== true ) {
-				return;
-			}
-
-			if ( $event->post_type === self::$legacy_deleted_post ) {
-				$status = $this->maybe_convert_legacy_post( $event );
-			} else {
-				$status = $this->ignore_event( $event );
-			}
-
-			// We got a Error, then go trash it
-			if ( is_wp_error( $status ) ) {
-				return;
-			}
-
-			return $status;
+			// If we couldn't convert we actually trash it
+			return ! is_wp_error( $status ) ? $status : null;
 		}
 
 		public function ajax_convert_legacy_ignored_events() {
@@ -465,7 +412,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			$query = new WP_Query( $args );
 
 			foreach ( $query->posts as $event ) {
-				$status = $this->maybe_convert_legacy_post( $event );
+				$status = $this->ignore_event( $event );
 				if ( is_wp_error( $status ) ) {
 					$response->error[ $event->ID ] = $status->get_error_message();
 				} else {
