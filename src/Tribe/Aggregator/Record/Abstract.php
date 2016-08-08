@@ -622,6 +622,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return array|WP_Error
 	 */
 	public function insert_posts() {
+		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 		$import_data = $this->get_import_data();
 
 		if ( empty( $this->meta['finalized'] ) ) {
@@ -759,6 +760,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
 				remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
+
+				// Count it as a updated Event
 				$results['updated']++;
 			} else {
 				/**
@@ -769,8 +772,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				 */
 				$event = apply_filters( 'tribe_aggregator_before_insert_event', $event, $record );
 				$event['ID'] = tribe_create_event( $event );
+
+				// Count it as a created Event
 				$results['created']++;
 			}
+
+			// Add the Aggregator Origin
+			update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$origin_key, $this->origin );
+
+			// Add the Aggregator Record
+			update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$record_key, $this->id );
+
 
 			//add post parent possibility
 			if ( empty( $event['parent_uid'] ) ) {
@@ -807,6 +819,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$this->complete_import( $results );
+
+		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
 		return $results;
 	}
