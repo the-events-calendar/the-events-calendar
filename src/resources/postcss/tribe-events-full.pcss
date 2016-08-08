@@ -1176,14 +1176,12 @@ select.tribe-events-dropdown {
 #tribe-events-content {
 	.tribe-events-calendar div[id*='tribe-events-event-'] h3.tribe-events-month-event-title {
 		font-family: sans-serif;
-		font-size: 13px;
-		font-weight: bold;
+		font-size: 98%;
 		font-weight: normal;
-		letter-spacing: 0;
 		line-height: 1.25;
 		margin: 0;
 		overflow: hidden;
-		padding: 0;
+		padding: 3%;
 		text-transform: none;
 	}
 
@@ -2025,8 +2023,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 /* Twenty Sixteen
 ========================================================================== */
-
-body.tribe-theme-twentysixteen {
+.tribe-theme-twentysixteen {
 	table.tribe-events-calendar {
 		table-layout: auto;
 	}
@@ -2049,6 +2046,12 @@ body.tribe-theme-twentysixteen {
 	.datepicker table {
 		border: 0;
 		width: auto;
+	}
+
+	.entry-content {
+		a {
+			box-shadow: none;
+		}
 	}
 }
 
