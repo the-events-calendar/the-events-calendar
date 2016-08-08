@@ -125,6 +125,10 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			);
 		}
 
+		if ( ! empty( $this->data['category'] ) ) {
+			$importer->default_category = (int) $this->data['category'];
+		}
+
 		$required_fields = $importer->get_required_fields();
 		$missing = array_diff( $required_fields, $data['column_map'] );
 
