@@ -1,5 +1,5 @@
 <?php
-$has_license_key = ! empty( Tribe__Events__Aggregator__Service::instance()->api()->key );
+$has_license_key = Tribe__Events__Aggregator::is_service_active();
 
 if ( 'edit' === $aggregator_action ) {
 	$default_post_status = get_post_meta( $record->post->ID, Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'post_status', true );
