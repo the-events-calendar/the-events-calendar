@@ -251,7 +251,7 @@ class Tribe__Events__Aggregator {
 		}
 
 		if ( true === $service ) {
-			return $this->is_service_active();
+			return self::is_service_active();
 		}
 
 		return true;
@@ -262,7 +262,7 @@ class Tribe__Events__Aggregator {
 	 *
 	 * @return boolean
 	 */
-	public function is_service_active() {
+	public static function is_service_active() {
 		return ! is_wp_error( Tribe__Events__Aggregator__Service::instance()->api() );
 	}
 

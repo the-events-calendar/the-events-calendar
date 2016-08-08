@@ -27,7 +27,7 @@ class Tribe__Events__Aggregator__Settings {
 	 * Note: This should load on `plugins_loaded@P10`
 	 */
 	private function __construct() {
-		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( ! Tribe__Events__Aggregator::is_service_active() ) {
 			return false;
 		}
 
