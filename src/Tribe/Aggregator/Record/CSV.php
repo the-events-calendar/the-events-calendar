@@ -93,7 +93,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		return $data;
 	}
 
-	public function insert_posts( $data ) {
+	public function insert_posts( $data = array() ) {
 		if (
 			'csv' !== $data['origin']
 			|| empty( $data['csv']['content_type'] )
@@ -123,6 +123,10 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 				'missing-file',
 				__( 'The file went away. Please try again.', 'the-events-calendar' )
 			);
+		}
+
+		if ( ! empty( $this->data['category'] ) ) {
+			$importer->default_category = (int) $this->data['category'];
 		}
 
 		$required_fields = $importer->get_required_fields();

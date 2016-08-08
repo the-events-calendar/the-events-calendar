@@ -25,10 +25,15 @@ $frequencies = $cron->get_frequency();
 			class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 			data-hide-search
+			<?php if ( 'edit' === $aggregator_action ) : ?>
+				data-prevent-clear
+			<?php endif; ?>
 		>
-			<option value=""></option>
-			<option value="manual">One-Time Import</option>
-			<option value="schedule">Scheduled Import</option>
+			<?php if ( 'edit' !== $aggregator_action ) : ?>
+				<option value=""></option>
+				<option value="manual" <?php selected( 'manual', empty( $record->type ) ? '' : $record->type ); ?>><?php echo esc_html__( 'One-Time Import', 'the-events-calendar' ); ?></option>
+			<?php endif; ?>
+			<option value="schedule" <?php selected( 'schedule', empty( $record->type ) ? '' : $record->type ); ?>><?php echo esc_html__( 'Scheduled Import', 'the-events-calendar' ); ?></option>
 		</select>
 		<select
 			name="aggregator[ical][import_frequency]"
@@ -41,7 +46,7 @@ $frequencies = $cron->get_frequency();
 		>
 			<option value=""></option>
 			<?php foreach ( $frequencies as $frequency_object ) : ?>
-				<option value="<?php echo esc_attr( $frequency_object->id ); ?>" <?php selected( 'daily', $frequency_object->id ); ?>><?php echo esc_html( $frequency_object->text ); ?></option>
+				<option value="<?php echo esc_attr( $frequency_object->id ); ?>" <?php selected( empty( $record->meta['frequency'] ) ? 'daily' : $record->meta['frequency'], $frequency_object->id ); ?>><?php echo esc_html( $frequency_object->text ); ?></option>
 			<?php endforeach; ?>
 		</select>
 		<span
@@ -76,6 +81,7 @@ $field->help        = __( 'Enter the url for the iCalendar feed you wish to impo
 			id="tribe-ea-field-ical_source"
 			class="tribe-ea-field tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
+			value="<?php echo esc_attr( empty( $record->meta['source'] ) ? '' : $record->meta['source'] ); ?>"
 		>
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
 	</td>

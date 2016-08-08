@@ -79,4 +79,56 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 	public function is_active() {
 		return Tribe__Events__Aggregator__Tabs::instance()->is_active( $this->get_slug() );
 	}
+
+	public function handle_submit() {
+		$data = array(
+			'message' => __( 'There was a problem processing your import. Please try again.', 'the-events-calendar' ),
+		);
+
+		if ( ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && ! $this->is_active() ) {
+			return;
+		}
+
+		if ( 'POST' !== $_SERVER['REQUEST_METHOD'] ) {
+			return;
+		}
+
+		if ( empty( $_POST['aggregator'] ) ) {
+			return;
+		}
+
+		// validate nonce
+		if ( empty( $_POST['tribe_aggregator_nonce'] ) || ! wp_verify_nonce( $_POST['tribe_aggregator_nonce'], 'tribe-aggregator-save-import' ) ) {
+			wp_send_json_error( $data );
+		}
+
+		$post_data = $_POST['aggregator'];
+
+		if ( empty( $post_data['origin'] ) || empty( $post_data[ $post_data['origin'] ] ) ) {
+			wp_send_json_error( $data );
+		}
+
+		$data = $post_data[ $post_data['origin'] ];
+
+		$record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $post_data['origin'] );
+
+		$meta = array(
+			'origin'       => $post_data['origin'],
+			'type'         => empty( $data['import_type'] )      ? 'manual' : $data['import_type'],
+			'frequency'    => empty( $data['import_frequency'] ) ? null     : $data['import_frequency'],
+			'file'         => empty( $data['file'] )             ? null     : $data['file'],
+			'keywords'     => empty( $data['keywords'] )         ? null     : $data['keywords'],
+			'location'     => empty( $data['location'] )         ? null     : $data['location'],
+			'start'        => empty( $data['start'] )            ? null     : $data['start'],
+			'radius'       => empty( $data['radius'] )           ? null     : $data['radius'],
+			'source'       => empty( $data['source'] )           ? null     : $data['source'],
+			'content_type' => empty( $data['content_type'] )     ? null     : $data['content_type'],
+		);
+
+		return array(
+			'record' => $record,
+			'post_data' => $post_data,
+			'meta' => $meta,
+		);
+	}
 }
