@@ -352,6 +352,30 @@ class Tribe__Events__Aggregator__Records {
 
 	}
 
+	/**
+	 * Returns an appropriate Record object for the given event id
+	 *
+	 * @param  int $event_id   Post ID for the Event
+	 *
+	 * @return Tribe__Events__Aggregator__Record__Abstract|null
+	 */
+	public function get_by_event_id( $event_id ) {
+		$event = get_post( $event_id );
+
+		if ( ! $event instanceof WP_Post ) {
+			return new WP_Error( 'tribe-invalid-event-id', sprintf( __( 'Invalid Event: %s', 'the-events-calendar' ), $event_id ) );
+		}
+
+		$record_id = get_post_meta( $event->ID, Tribe__Events__Aggregator__Event::$record_key, true );
+
+		if ( empty( $record_id ) ) {
+			return new WP_Error( 'tribe-invalid-import-id', sprintf( __( 'Unable to find an Import Record for: %s', 'the-events-calendar' ), $event_id ) );
+		}
+
+		return $this->get_by_post_id( $record_id );
+
+	}
+
 	public function query( $args = array() ) {
 		$statuses = Tribe__Events__Aggregator__Records::$status;
 		$defaults = array(

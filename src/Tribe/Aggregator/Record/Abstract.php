@@ -753,12 +753,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			} else {
 				$event['ID'] = tribe_create_event( $event );
 
-				// Only when the Event is Created add the Aggregator Origin
-				add_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$origin_key, $this->origin );
-
 				// Count it as a created Event
 				$results['created']++;
 			}
+
+			// Add the Aggregator Origin
+			update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$origin_key, $this->origin );
+
+			// Add the Aggregator Record
+			update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$record_key, $this->id );
+
 
 			//add post parent possibility
 			if ( empty( $event['parent_uid'] ) ) {

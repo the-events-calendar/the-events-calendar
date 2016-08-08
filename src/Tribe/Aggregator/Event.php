@@ -18,6 +18,13 @@ class Tribe__Events__Aggregator__Event {
 	 */
 	public static $origin_key = '_tribe_aggregator_origin';
 
+	/**
+	 * Key of the Meta to store the Record that imported this Event
+	 *
+	 * @var string
+	 */
+	public static $record_key = '_tribe_aggregator_record';
+
 	public $data;
 
 	public function __construct( $data = array() ) {
