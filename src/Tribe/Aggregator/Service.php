@@ -66,8 +66,8 @@ class Tribe__Events__Aggregator__Service {
 		$api = (object) apply_filters( 'tribe_aggregator_api', $api );
 
 		// The user doesn't have a license key
-		if ( ! $api->key ) {
-			return new WP_Error( 'invalid-ea-license', __( 'You must enter an Event Aggregator license key in Events > Settings > Licenses', 'the-events-calendar' ) );
+		if ( empty( $api->key ) ) {
+			return new WP_Error( 'tribe-invalid-ea-license', __( 'You must enter an Event Aggregator license key in Events > Settings > Licenses', 'the-events-calendar' ) );
 		}
 
 		return $api;
@@ -206,6 +206,9 @@ class Tribe__Events__Aggregator__Service {
 
 	/**
 	 * Creates an import
+	 *
+	 * Note: This method exists because WordPress by default doesn't allow multipart/form-data
+	 *       with boundaries to happen
 	 *
 	 * @param array $args {
 	 *     Array of arguments. See REST docs for details. 1 exception listed below:
