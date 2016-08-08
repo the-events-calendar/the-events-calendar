@@ -181,6 +181,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $this->load( wp_insert_post( $post ) );
 	}
 
+	/**
+	 * A simple method to create a Title for the Records
+	 *
+	 * @param mixed $Nparams This method accepts any number of params, they must be string compatible
+	 *
+	 * @return string
+	 */
 	public function generate_title() {
 		$parts = func_get_args();
 		return __( 'Record: ', 'the-events-calendar' ) . implode( ' ', array_filter( $parts ) );
@@ -299,6 +306,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	/**
 	 * Queues the import on the Aggregator service
+	 *
+	 * @return mixed
 	 */
 	public function queue_import( $args = array() ) {
 		$aggregator = Tribe__Events__Aggregator::instance();
@@ -440,6 +449,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $this->set_status( 'success' );
 	}
 
+	/**
+	 * A quick method to fetch the Child Records to the current on this class
+	 *
+	 * @param  array  $args WP_Query Arguments
+	 *
+	 * @return WP_Query|WP_Error
+	 */
 	public function query_child_records( $args = array() ) {
 		$defaults = array(
 
@@ -452,10 +468,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return Tribe__Events__Aggregator__Records::instance()->query( $args );
 	}
 
+	/**
+	 * A quick method to fetch the Child Records by Status
+	 *
+	 * @param string $status Which status, must be a valid EA status
+	 *
+	 * @return WP_Query|WP_Error|bool
+	 */
 	public function get_child_record_by_status( $status = 'success', $qty = -1 ) {
 		$statuses = Tribe__Events__Aggregator__Records::$status;
 
-		if ( ! isset( $statuses->{ $status } ) ) {
+		if ( ! isset( $statuses->{ $status } ) || 'trash' !== $status ) {
 			return false;
 		}
 
