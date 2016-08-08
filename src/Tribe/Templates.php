@@ -621,6 +621,8 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 					if ( $file ) {
 						_deprecated_function( sprintf( esc_html__( 'Template overrides should be moved to the correct subdirectory: %s', 'the-events-calendar' ), str_replace( get_stylesheet_directory() . '/tribe-events/', '', $file ) ), '3.2', $template );
 					}
+				} else {
+					$file = apply_filters( 'tribe_events_template', $file, $template );
 				}
 			}
 
