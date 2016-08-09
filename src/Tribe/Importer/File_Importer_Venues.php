@@ -20,13 +20,16 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 	}
 
 	protected function create_post( array $record ) {
+		$post_status_setting = Tribe__Events__Aggregator__Settings::instance()->default_post_status( 'csv' );
 		$venue = $this->build_venue_array( false, $record );
-		$id    = Tribe__Events__API::createVenue( $venue );
+		$id    = Tribe__Events__API::createVenue( $venue, $post_status_setting );
 
 		return $id;
 	}
 
 	private function build_venue_array( $venue_id, array $record ) {
+		$show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( 'csv' );
+
 		$venue_address         = trim( $this->get_value_by_key( $record, 'venue_address' ) . ' ' . $this->get_value_by_key( $record, 'venue_address2' ) );
 		$venue                 = array(
 			'Venue'         => $this->get_value_by_key( $record, 'venue_name' ),
@@ -39,11 +42,11 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 			'Zip'           => $this->get_value_by_key( $record, 'venue_zip' ),
 			'Phone'         => $this->get_value_by_key( $record, 'venue_phone' ),
 			'URL'           => $this->get_value_by_key( $record, 'venue_url' ),
-			'ShowMap'       => $venue_id ? get_post_meta( $venue_id, '_VenueShowMap', true ) : 'true',
-			'ShowMapLink'   => $venue_id ? get_post_meta( $venue_id, '_VenueShowMapLink', true ) : 'true',
+			'ShowMap'       => $venue_id ? get_post_meta( $venue_id, '_VenueShowMap', true ) : $show_map_setting,
+			'ShowMapLink'   => $venue_id ? get_post_meta( $venue_id, '_VenueShowMapLink', true ) : $show_map_setting,
 			'FeaturedImage' => $this->get_featured_image( $venue_id, $record ),
 		);
-		
+
 		if ( empty( $venue['Country'] ) ) {
 			$venue['Country'] = 'United States';
 		}

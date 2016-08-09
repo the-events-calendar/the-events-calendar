@@ -16,7 +16,9 @@ tribe_aggregator.fields = {
 		preview_button: '.tribe-preview:visible',
 		refine_filters: '.tribe-refine-filters',
 		clear_filters_button: '.tribe-clear-filters',
-		finalize_button: '.tribe-finalize'
+		finalize_button: '.tribe-finalize',
+		cancel_button: '.tribe-cancel',
+		action: '#tribe-action'
 	},
 
 	media: {},
@@ -36,11 +38,18 @@ tribe_aggregator.fields = {
 	// track how many result fetches have been executed via polling
 	result_fetch_count: 0,
 
-	// the maximum number of result fetches that can be done before erroring out
-	max_result_fetch_count: 20,
+	// the maximum number of result fetches that can be done per frequency before erroring out
+	max_result_fetch_count: 5,
 
 	// frequency at which we will poll for results
-	polling_frequency: 500
+	polling_frequency_index: 0,
+
+	polling_frequencies: [
+		500,
+		1000,
+		5000,
+		20000
+	]
 };
 
 ( function( $, _, obj, ea ) {
@@ -55,6 +64,8 @@ tribe_aggregator.fields = {
 		obj.$.container = $( obj.selector.container );
 
 		obj.$.form = $( obj.selector.form );
+
+		obj.$.action = $( obj.selector.action );
 
 		// Update what fields we currently have to setup
 		obj.$.fields = obj.$.container.find( obj.selector.fields );
@@ -73,20 +84,43 @@ tribe_aggregator.fields = {
 			.on( 'click'      , obj.selector.clear_filters_button    , obj.clear_filters )
 			.on( 'click'      , obj.selector.finalize_button         , obj.finalize_manual_import )
 			.on( 'click'      , '.tribe-preview'                     , obj.preview_import )
+			.on( 'click'      , '.tribe-cancel'                      , obj.events.cancel_edit )
 			.on( 'submit'     , '.tribe-ea-tab-new'                  , obj.events.suppress_submission );
+
+		$( '.tribe-dependency' ).change();
+
+		if ( 'edit' === obj.$.action.val() ) {
+			obj.$.form.addClass( 'edit-form' );
+			$( obj.selector.finalize_button ).html( ea.l10n.edit_save );
+		}
 	};
 
 	/**
 	 * Send an Ajax request to preview the import
 	 */
 	obj.preview_import = function() {
+		// when generating data for previews, temporarily remove the post ID and import ID values from their fields
+		var $post_id = $( '#tribe-post_id' );
+		$post_id.data( 'value', $post_id.val() );
+		$post_id.val( '' );
+
+		var $import_id = $( '#tribe-import_id' );
+		$import_id.data( 'value', $import_id.val() );
+		$import_id.val( '' );
+
 		var $preview = $( obj.selector.preview_button );
 		var $form = $preview.closest( 'form' );
 		var data = $form.serialize();
+
+		// add the post_id value back into the field now that we've generated the serialized form data
+		$post_id.val( $post_id.data( 'value' ) );
+		$import_id.val( $post_id.data( 'value' ) );
+
 		obj.$.preview_container
 			.addClass( 'tribe-fetching' )
-			.removeClass( 'tribe-fetch-error' )
-			.removeClass( 'show-data' );
+			.removeClass( 'tribe-fetch-error' );
+
+		obj.$.form.removeClass( 'show-data' );
 
 		$preview.prop( 'disabled', true );
 
@@ -95,8 +129,13 @@ tribe_aggregator.fields = {
 			table.clear().draw();
 		}
 
-		// create the import
-		obj.create_import( data );
+		if ( 'edit' === obj.$.action.val() ) {
+			// preview the import
+			obj.preview_save_import( data );
+		} else {
+			// create the import
+			obj.create_import( data );
+		}
 	};
 
 	/**
@@ -106,7 +145,7 @@ tribe_aggregator.fields = {
 		obj.$.fields.val( '' ).trigger( 'change' );
 		$( '.tribe-ea-dropdown' ).select2( 'data', null );
 		$( '[id$="import_frequency"]' ).val( 'daily' ).trigger( 'change' );
-		obj.$.preview_container.removeClass( 'show-data' );
+		obj.$.form.removeClass( 'show-data' );
 	};
 
 	/**
@@ -117,6 +156,20 @@ tribe_aggregator.fields = {
 			.find( 'input, select' )
 			.val( '' )
 			.trigger( 'change' );
+	};
+
+	/**
+	 * Edits an import and polls for results
+	 */
+	obj.preview_save_import = function( data ) {
+		var jqxhr = $.ajax( {
+			type: 'POST',
+			url: ajaxurl + '?action=tribe_aggregator_preview_import',
+			data: data,
+			dataType: 'json'
+		} );
+
+		jqxhr.done( obj.handle_preview_create_results );
 	};
 
 	/**
@@ -132,29 +185,34 @@ tribe_aggregator.fields = {
 			dataType: 'json'
 		} );
 
-		jqxhr.done( function( response ) {
-			if ( ! response.success ) {
-				obj.display_fetch_error( [
-					'<b>',
-						ea.l10n.preview_fetch_error_prefix,
-					'</b>',
-					' ' + response.data.message
-				].join( ' ' ) );
-				return;
-			}
+		jqxhr.done( obj.handle_preview_create_results );
+	};
 
-			// set the import id of the page
-			obj.import_id = response.data.data.import_id;
-			$( '#tribe-import_id' ).val( obj.import_id );
+	/**
+	 * Handles the create/edit results
+	 */
+	obj.handle_preview_create_results = function( response ) {
+		if ( ! response.success ) {
+			obj.display_fetch_error( [
+				'<b>',
+					ea.l10n.preview_fetch_error_prefix,
+				'</b>',
+				' ' + response.data.message
+			].join( ' ' ) );
+			return;
+		}
 
-			if ( 'undefined' !== typeof response.data.data.items ) {
-				obj.init_datatable( response.data.data );
-				obj.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetched' );
-				return;
-			}
+		// set the import id of the page
+		obj.import_id = response.data.data.import_id;
+		$( '#tribe-import_id' ).val( obj.import_id );
 
-			setTimeout( obj.poll_for_results, obj.polling_frequency );
-		} );
+		if ( 'undefined' !== typeof response.data.data.items ) {
+			obj.init_datatable( response.data.data );
+			obj.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetched' );
+			return;
+		}
+
+		setTimeout( obj.poll_for_results, obj.polling_frequencies[ obj.polling_frequency_index ] );
 	};
 
 	/**
@@ -182,11 +240,16 @@ tribe_aggregator.fields = {
 
 			if ( 'success' !== response.data.status ) {
 				if ( obj.result_fetch_count > obj.max_result_fetch_count ) {
+					obj.polling_frequency_index++;
+					obj.result_fetch_count = 0;
+				}
+
+				if ( 'undefined' === typeof obj.polling_frequencies[ obj.polling_frequency_index ] ) {
 					obj.display_fetch_error( [
 						'The preview is taking longer than expected. Please try again in a moment.'
 					].join( '' ) );
 				} else {
-					setTimeout( obj.poll_for_results, obj.polling_frequency );
+					setTimeout( obj.poll_for_results, obj.polling_frequencies[ obj.polling_frequency_index ] );
 				}
 			} else {
 				response.data.data.items = response.data.data.events;
@@ -205,10 +268,22 @@ tribe_aggregator.fields = {
 	obj.init_datatable = function( data ) {
 		var display_checkboxes = false;
 
-		var is_csv = 'csv' === $( '#tribe-ea-field-origin' ).val();
+		var origin = $( '#tribe-ea-field-origin' ).val();
+		var is_csv = 'csv' === origin;
 
 		var $import_type = $( '[id$="import_type"]:visible' );
 		var import_type = 'manual';
+
+		// set the default settings
+		if ( 'undefined' !== typeof ea.default_settings[ origin ] ) {
+			for ( var settings_key in ea.default_settings[ origin ] ) {
+				if ( ! ea.default_settings[ origin ].hasOwnProperty( settings_key ) ) {
+					continue;
+				}
+
+				$( '#tribe-ea-field-' + settings_key ).val( ea.default_settings[ origin ][ settings_key ] ).change();
+			}
+		}
 
 		if ( $import_type.length ) {
 			import_type = $( '#' + $import_type.first().attr( 'id' ).replace( 's2id_', '' ) ).val();
@@ -233,7 +308,7 @@ tribe_aggregator.fields = {
 			$table.removeClass( 'display-checkboxes' );
 		}
 
-		obj.$.preview_container.addClass( 'show-data' );
+		obj.$.form.addClass( 'show-data' );
 
 		var args = {
 			lengthMenu: [
@@ -324,10 +399,12 @@ tribe_aggregator.fields = {
 
 		var text;
 
-		if ( 'manual' === import_type ) {
-			text = ea.l10n.import_all.replace( '%d', rows.length );
-		} else {
-			text = ea.l10n.create_schedule;
+		if ( 'new' === obj.$.action.val() ) {
+			if ( 'manual' === import_type ) {
+				text = ea.l10n.import_all.replace( '%d', rows.length );
+			} else {
+				text = ea.l10n.create_schedule;
+			}
 		}
 
 		$( obj.selector.finalize_button ).html( text );
@@ -409,7 +486,7 @@ tribe_aggregator.fields = {
 			} else if ( 'meetup' === origin ) {
 				unique_id_field = 'meetup_id';
 			} else if ( 'ical' === origin || 'ics' === origin ) {
-				unique_id_field = '_uid';
+				unique_id_field = 'uid';
 			}
 
 			if ( null !== unique_id_field ) {
@@ -478,7 +555,7 @@ tribe_aggregator.fields = {
 
 			// By default we allow The field to be cleared
 			args.allowClear = true;
-			if ( $select.data( 'preventClear' ) ) {
+			if ( $select.is( '[data-prevent-clear]' ) ) {
 				args.allowClear = false;
 			}
 
@@ -609,7 +686,7 @@ tribe_aggregator.fields = {
 				// If you want to create a diferent type of data for your AJAX call based on the source
 				if ( 'Source Name' === source ){
 				}
-			}
+			};
 
 			$select.select2( args );
 		})
@@ -736,6 +813,10 @@ tribe_aggregator.fields = {
 	 * Adjusts the "Import" button to have contextual text based on selected records to import
 	 */
 	obj.events.twiddle_finalize_button_text = function( e, dt ) {
+		if ( 'new' !== obj.$.action.val() ) {
+			return;
+		}
+
 		var selected_rows = dt.rows({ selected: true })[0].length;
 		var text = ea.l10n.import_checked;
 
@@ -746,6 +827,14 @@ tribe_aggregator.fields = {
 
 		text = text.replace( '%d', selected_rows );
 		$( obj.selector.finalize_button ).html( text );
+	};
+
+	obj.events.cancel_edit = function( e ) {
+		e.preventDefault();
+		var url = window.location.href;
+		url = url.replace( 'tab=edit', 'tab=scheduled' );
+		url = url.replace( /id=\d+/, '' );
+		window.location.href = url;
 	};
 
 	// Run Init on Document Ready

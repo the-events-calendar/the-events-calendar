@@ -348,6 +348,11 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	public function column_source( $post ) {
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
+		$actions = array(
+			'edit' => '<a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=edit&id=' . $record->post->ID ) . '">' . __( 'Edit', 'the-events-calendar' ) . '</a>',
+			'delete' => '<a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=edit&id=' . $record->post->ID ) . '&action=delete">' . __( 'Delete', 'the-events-calendar' ) . '</a>',
+		);
+
 		if ( 'scheduled' !== $this->tab->get_slug() ) {
 			$html[] = $this->get_status_icon( $post );
 		}
@@ -361,6 +366,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$html[] = '<p>' . esc_html__( 'Source:', 'the-events-calendar' ) . ' <code>' . esc_html( $record->meta['source'] ) . '</code></p>';
 		}
 
+		if ( 'scheduled' === $this->tab->get_slug() ) {
+			$html[] = $this->row_actions( $actions );
+		}
+
 		return $this->render( $html );
 	}
 
@@ -368,7 +377,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$last_import = null;
 		$original = $post->post_modified;
 		$time = strtotime( $original );
-		$now = time();
+		$now = current_time( 'timestamp' );
 
 		$html[] = '<span title="' . esc_attr( $original ) . '">';
 		if ( ( $now - $time ) <= DAY_IN_SECONDS ) {

@@ -45,6 +45,9 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			add_filter( 'views_edit-' . Tribe__Events__Main::POSTTYPE, array( $this, 'add_ignored_view' ) );
 			add_filter( 'post_row_actions', array( $this, 'filter_actions' ), 10, 2 );
 
+			add_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array( $this, 'filter_columns' ), 100 );
+			add_action( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_custom_column', array( $this, 'action_column_contents' ), 100, 2 );
+
 			add_action( 'wp_ajax_tribe_convert_legacy_ignored_events', array( $this, 'ajax_convert_legacy_ignored_events' ) );
 
 			/**
@@ -117,6 +120,64 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			exit;
 		}
 
+		public function filter_columns( $columns ) {
+			if ( empty( $_GET['post_status'] ) || $_GET['post_status'] !== self::$ignored_status ) {
+				return $columns;
+			}
+
+			// Remove unwanted Columns
+			unset( $columns['author'], $columns['events-cats'], $columns['tags'], $columns['comments'], $columns['recurring'] );
+
+			// Add New Columns backwards
+			$columns = Tribe__Main::array_insert_after_key( 'title', $columns, array( 'source' => esc_html__( 'Source', 'the-events-calendar' ) ) );
+
+			$info = ' <span class="dashicons dashicons-editor-help" title="' . esc_attr__( 'The last time this event was imported and/or updated via import.', 'the-events-calendar' ) . '"></span>';
+			$columns = Tribe__Main::array_insert_after_key( 'title', $columns, array( 'last-import' => esc_html__( 'Last Import', 'the-events-calendar' ) . $info ) );
+
+			return $columns;
+		}
+
+		public function action_column_contents( $column, $post ) {
+			$record = Tribe__Events__Aggregator__Records::instance()->get_by_event_id( $post );
+
+			if ( is_wp_error( $record ) ) {
+				return false;
+			}
+
+			$html = array();
+			if ( 'source' === $column ) {
+				$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $record->get_label() . '</strong></p>';
+				if ( 'ea/ics' === $record->post->post_mime_type || 'ea/csv' === $record->post->post_mime_type ) {
+					$file_path = get_attached_file( absint( $record->meta['file'] ) );
+					$filename = basename( $file_path );
+					$html[] = '<p>' . esc_html__( 'Source:', 'the-events-calendar' ) . ' <code>' . esc_html( $filename ) . '</code></p>';
+				} else {
+					$html[] = '<p>' . esc_html__( 'Source:', 'the-events-calendar' ) . ' <code>' . esc_html( $record->meta['source'] ) . '</code></p>';
+				}
+			} elseif ( 'last-import' === $column ) {
+				$last_import = null;
+				$original = $record->post->post_modified;
+				$time = strtotime( $original );
+				$now = current_time( 'timestamp' );
+
+				$html[] = '<span title="' . esc_attr( $original ) . '">';
+				if ( ( $now - $time ) <= DAY_IN_SECONDS ) {
+					$diff = human_time_diff( $time, $now );
+					if ( ( $now - $time ) > 0 ) {
+						$html[] = sprintf( esc_html_x( 'about %s ago', 'human readable time ago', 'the-events-calendar' ), $diff );
+					} else {
+						$html[] = sprintf( esc_html_x( 'in about %s', 'in human readable time', 'the-events-calendar' ), $diff );
+					}
+				} else {
+					$html[] = date( Tribe__Date_Utils::DATEONLYFORMAT, $time ) . '<br>' . date( Tribe__Date_Utils::TIMEFORMAT, $time );
+				}
+
+				$html[] = '</span>';
+			}
+
+			echo implode( "\r\n", (array) $html );
+		}
+
 		public function filter_actions( $actions, $post ) {
 			$event = get_post( $post );
 
@@ -127,8 +188,20 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
 				return $actions;
 			}
+			$title = _draft_or_post_title();
 
 			if ( self::$ignored_status !== $event->post_status ) {
+				// Modify when it can be ignored
+				if ( $this->can_ignore( $event ) ) {
+					$actions['trash'] = sprintf(
+						'<a href="%s" class="submitdelete" aria-label="%s">%s</a>',
+						get_delete_post_link( $event->ID ),
+						/* translators: %s: post title */
+						esc_attr( sprintf( __( 'Move &#8220;%s&#8221; to the Trash', 'the-events-calendar' ), $title ) ),
+						__( 'Hide & Ignore', 'the-events-calendar' )
+					);
+				}
+
 				return $actions;
 			}
 
@@ -147,7 +220,6 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			}
 
 			$post_type_object = get_post_type_object( $event->post_type );
-			$title = _draft_or_post_title();
 
 			if ( current_user_can( 'delete_post', $event->ID ) ) {
 				$actions['restore'] = sprintf(
@@ -257,18 +329,61 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		public function ignore_event( $event ) {
 			$event = get_post( $event );
 
-			if ( ! $event instanceof WP_Post ) {
+			if ( ! $this->can_ignore( $event ) ) {
 				return false;
 			}
 
 			// Update only what we need
 			$arguments = array(
 				'ID' => $event->ID,
+				'post_type' => Tribe__Events__Main::POSTTYPE,
 				'post_status' => self::$ignored_status,
 			);
 
+			// Set the Required Meta to flag it to the Legacy Posts
+			if ( self::$legacy_deleted_post === $event->post_type ) {
+				update_post_meta( $event->ID, '_tribe_legacy_ignored_event', 1 );
+			}
+
 			// Try to update back to the Event CPT
 			return wp_update_post( $arguments );
+		}
+
+		public function can_ignore( $post ) {
+			$event = get_post( $post );
+
+			// If we don't have a post (weird) we also leave
+			if ( ! $event instanceof WP_Post ) {
+				return false;
+			}
+
+			// Verify if it's a Legacy Ignore or Tribe Event
+			if ( ! in_array( $event->post_type, array( Tribe__Events__Main::POSTTYPE, self::$legacy_deleted_post ) ) ) {
+				return false;
+			}
+
+			$ignored_origins = array(
+				Tribe__Events__Aggregator__Event::$event_origin,
+				'facebook-importer',
+				'ical-importer',
+			);
+			$origin = get_post_meta( $event->ID, '_EventOrigin', true );
+
+			// Verify the Origin
+			if ( ! in_array( $origin, $ignored_origins ) ) {
+				return false;
+			}
+
+			if ( Tribe__Events__Aggregator__Event::$event_origin === $origin ) {
+				$aggregator_origin = get_post_meta( $event->ID, Tribe__Events__Aggregator__Event::$origin_key, true );
+
+				// You cannot Ignore CSV
+				if ( 'csv' === $aggregator_origin ) {
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 		/**
@@ -300,41 +415,6 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		}
 
 		/**
-		 * Try to convert a legacy Post back on an Event
-		 *
-		 * @param  int|WP_Post       $event Which event try to convert
-		 * @return bool|int|WP_Error
-		 */
-		public function maybe_convert_legacy_post( $event ) {
-			$event = get_post( $event );
-
-			if ( ! $event instanceof WP_Post ) {
-				return false;
-			}
-
-			// If it's not a Legacy CPT we don't care
-			if ( self::$legacy_deleted_post !== $event->post_type ) {
-				return false;
-			}
-
-			// Update only what we need
-			$arguments = array(
-				'ID' => $event->ID,
-				'post_type' => Tribe__Events__Main::POSTTYPE,
-				'post_status' => self::$ignored_status,
-			);
-
-			// Try to update back to the Event CPT
-			$updated = wp_update_post( $arguments );
-
-			// Set the Required Meta to flag it to the Legacy Posts
-			update_post_meta( $event->ID, '_tribe_legacy_ignored_event', 1 );
-
-			// Return if it was updated
-			return $updated;
-		}
-
-		/**
 		 * Register the Ignored Post Status
 		 *
 		 * @return void
@@ -362,78 +442,17 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return null;
 			}
 
-			$event = get_post( $post );
-
-			// If we don't have a post (weird) we also leave
-			if ( ! $event instanceof WP_Post ) {
-				return null;
-			}
-
-			// If we are not in the Event CPT we don't care either
-			if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
-				return null;
-			}
-
-			$origin = get_post_meta( $event->ID, '_EventOrigin', true );
-			/**
-			 * @todo  Include new EA Origin Check on the conditional below
-			 */
-
-			// If it's not legacy origin leave
-			if ( $event->post_type !== self::$legacy_deleted_post && true !== true ) {
-				return null;
-			}
-
-			if ( $event->post_type === self::$legacy_deleted_post ) {
-				$status = $this->maybe_convert_legacy_post( $event );
-			} else {
-				$status = $this->ignore_event( $event );
-			}
-
-			// We got a Error, then go trash it
-			if ( is_wp_error( $status ) ) {
-				return null;
-			}
+			$status = $this->ignore_event( $post );
 
 			// If we couldn't convert we actually trash it
-			return $status ? $status : null;
+			return ! is_wp_error( $status ) ? $status : null;
 		}
 
 		public function from_trash_to_ignored( $post ) {
-			$event = get_post( $post );
+			$status = $this->ignore_event( $post );
 
-			// If we don't have a post (weird) we leave
-			if ( ! $event instanceof WP_Post ) {
-				return;
-			}
-
-			// If we are not in the Event CPT we don't care either
-			if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
-				return null;
-			}
-
-			$origin = get_post_meta( $event->ID, '_EventOrigin', true );
-			/**
-			 * @todo  Include new EA Origin Check on the conditional below
-			 */
-
-			// If it's not legacy origin leave
-			if ( $event->post_type !== self::$legacy_deleted_post && true !== true ) {
-				return;
-			}
-
-			if ( $event->post_type === self::$legacy_deleted_post ) {
-				$status = $this->maybe_convert_legacy_post( $event );
-			} else {
-				$status = $this->ignore_event( $event );
-			}
-
-			// We got a Error, then go trash it
-			if ( is_wp_error( $status ) ) {
-				return;
-			}
-
-			return $status;
+			// If we couldn't convert we actually trash it
+			return ! is_wp_error( $status ) ? $status : null;
 		}
 
 		public function ajax_convert_legacy_ignored_events() {
@@ -465,7 +484,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			$query = new WP_Query( $args );
 
 			foreach ( $query->posts as $event ) {
-				$status = $this->maybe_convert_legacy_post( $event );
+				$status = $this->ignore_event( $event );
 				if ( is_wp_error( $status ) ) {
 					$response->error[ $event->ID ] = $status->get_error_message();
 				} else {

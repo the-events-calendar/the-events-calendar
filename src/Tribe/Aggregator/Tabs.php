@@ -41,6 +41,10 @@ class Tribe__Events__Aggregator__Tabs {
 		$this->register( 'Tribe__Events__Aggregator__Tabs__New' );
 		$this->register( 'Tribe__Events__Aggregator__Tabs__Scheduled' );
 		$this->register( 'Tribe__Events__Aggregator__Tabs__History' );
+
+		if ( ! empty( $_GET['id'] ) ) {
+			$this->register( 'Tribe__Events__Aggregator__Tabs__Edit' );
+		}
 	}
 
 	/**

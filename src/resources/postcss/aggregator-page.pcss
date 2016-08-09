@@ -184,6 +184,8 @@
 	padding-right: 1rem;
 	margin-top: .5rem;
 
+	.edit-form &,
+	.show-data &,
 	&.tribe-fetch-error,
 	&.tribe-fetched {
 		display: block;
@@ -200,12 +202,6 @@
 
 	&.tribe-fetch-error {
 		.tribe-fetch-error-message {
-			display: block;
-		}
-	}
-
-	&.show-data {
-		.data-container {
 			display: block;
 		}
 	}
@@ -297,23 +293,46 @@
 		line-height: 26px;
 	}
 
-	.tribe-default-settings {
-		padding-bottom: 1rem;
-		padding-top: 1rem;
-
-		label {
-			display: inline-block;
-			line-height: 26px;
-		}
-	}
-
 	#tribe-ea-field-post_status + label {
 		margin-left: 1rem;
 	}
 }
 
-.tribe-preview-container.show-data + .tribe-finalize-container {
-	display: block;
+.tribe-default-settings {
+	display: none;
+	padding-bottom: 1rem;
+	padding-top: 1rem;
+
+	label {
+		display: inline-block;
+		line-height: 26px;
+	}
+}
+
+.show-data {
+	.tribe-default-settings,
+	.data-container {
+		display: block;
+	}
+
+	.tribe-finalize-container {
+		display: block;
+	}
+}
+
+.edit-form {
+	.tribe-default-settings,
+	.tribe-finalize-container {
+		display: block;
+	}
+
+	.tribe-cancel {
+		display: inline-block;
+	}
+}
+
+.tribe-cancel {
+	display: none;
 }
 
 .tribe-finalize-container {

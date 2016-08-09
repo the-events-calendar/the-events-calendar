@@ -197,7 +197,9 @@
 	margin-top: .5rem;
 }
 
-.tribe-preview-container.tribe-fetch-error,
+.edit-form .tribe-preview-container,
+	.show-data .tribe-preview-container,
+	.tribe-preview-container.tribe-fetch-error,
 	.tribe-preview-container.tribe-fetched {
 	display: block;
 }
@@ -212,10 +214,6 @@
 }
 
 .tribe-preview-container.tribe-fetch-error .tribe-fetch-error-message {
-	display: block;
-}
-
-.tribe-preview-container.show-data .data-container {
 	display: block;
 }
 
@@ -287,25 +285,44 @@
 	line-height: 26px;
 }
 
-.tribe-preview-container .tribe-default-settings {
+.tribe-preview-container #tribe-ea-field-post_status + label {
+	margin-left: 16px;
+	margin-left: 1rem;
+}
+
+.tribe-default-settings {
+	display: none;
 	padding-bottom: 16px;
 	padding-bottom: 1rem;
 	padding-top: 16px;
 	padding-top: 1rem;
 }
 
-.tribe-preview-container .tribe-default-settings label {
+.tribe-default-settings label {
 	display: inline-block;
 	line-height: 26px;
 }
 
-.tribe-preview-container #tribe-ea-field-post_status + label {
-	margin-left: 16px;
-	margin-left: 1rem;
+.show-data .tribe-default-settings,
+	.show-data .data-container {
+	display: block;
 }
 
-.tribe-preview-container.show-data + .tribe-finalize-container {
+.show-data .tribe-finalize-container {
 	display: block;
+}
+
+.edit-form .tribe-default-settings,
+	.edit-form .tribe-finalize-container {
+	display: block;
+}
+
+.edit-form .tribe-cancel {
+	display: inline-block;
+}
+
+.tribe-cancel {
+	display: none;
 }
 
 .tribe-finalize-container {
