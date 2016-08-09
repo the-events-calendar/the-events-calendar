@@ -58,6 +58,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'thumbnail',
 				'custom-fields',
 				'comments',
+				'revisions',
 			),
 			'taxonomies'      => array( 'post_tag' ),
 			'capability_type' => array( 'tribe_event', 'tribe_events' ),
@@ -3009,10 +3010,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function addEventMeta( $postId, $post ) {
 
-			// only continue if it's an event post
+			$original_post = wp_is_post_revision($post);
+			$is_event_revision = $original_post && tribe_is_event($original_post);
+			if ( $is_event_revision ) {
+				$revision = Tribe__Events__Revisions__Post::new_from_post($post);
+				$revision->save();
+
+				return;
+			}
+
+			// only continue if it's an event post and it's not an AJAX action handling
 			if ( $post->post_type !== self::POSTTYPE || defined( 'DOING_AJAX' ) ) {
 				return;
 			}
+
 			// don't do anything on autosave or auto-draft either or massupdates
 			if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' || isset( $_GET['bulk_edit'] ) || ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'inline-save' ) ) {
 				return;

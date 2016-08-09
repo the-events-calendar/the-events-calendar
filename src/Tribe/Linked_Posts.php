@@ -518,7 +518,7 @@ class Tribe__Events__Linked_Posts {
 			}
 
 			// add the subject to the target
-			$linked_posts = add_post_meta( $target_post_id, $subject_meta_key, $subject_post_id );
+			$linked_posts = add_metadata('post', $target_post_id, $subject_meta_key, $subject_post_id );
 		}
 
 		if ( $linked_posts ) {
@@ -562,7 +562,7 @@ class Tribe__Events__Linked_Posts {
 
 		$subject_meta_key  = $this->get_meta_key( $subject_post_type );
 
-		delete_post_meta( $target_post_id, $subject_meta_key, $subject_post_id );
+		delete_metadata( 'post', $target_post_id, $subject_meta_key, $subject_post_id );
 
 		/**
 		 * Fired after two posts have been unlinked
