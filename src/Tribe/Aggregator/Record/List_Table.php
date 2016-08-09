@@ -90,6 +90,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		) );
 	}
 
+	public function nonce() {
+		wp_nonce_field( 'aggregator_' . $this->tab->get_slug() . '_request' , 'aggregator[nonce]' );
+	}
+
 	/**
 	 * Get a list of sortable columns. The format is:
 	 * 'internal-name' => 'orderby'
@@ -204,11 +208,11 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$field->options = $this->get_bulk_actions();
 
 		?>
-			<label class="screen-reader-text" for="tribe-ea-field-origin"><?php echo $field->label; ?></label>
+			<label class="screen-reader-text" for="tribe-ea-field-action"><?php echo $field->label; ?></label>
 			<input
-				name="aggregator[origin]"
+				name="aggregator[action]"
 				type="hidden"
-				id="tribe-ea-field-origin"
+				id="tribe-ea-field-action"
 				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-medium"
 				placeholder="<?php echo $field->placeholder; ?>"
 				data-hide-search
@@ -301,6 +305,50 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		 * @param array $post_columns An array of column names.
 		 */
 		return apply_filters( 'tribe_aggregator_manage_record_columns', $columns );
+	}
+
+	protected function handle_row_actions( $post, $column_name, $primary ) {
+		if ( $primary !== $column_name ) {
+			return '';
+		}
+
+		// if ( 'scheduled' !== $this->tab->get_slug() ) {
+		// 	return '';
+		// }
+
+		$post_type_object = get_post_type_object( $post->post_type );
+		$actions = array();
+		$title = _draft_or_post_title();
+
+		if ( current_user_can( $post_type_object->cap->edit_post, $post->ID ) ) {
+			$actions['edit'] = sprintf(
+				'<a href="%s">%s</a>',
+				get_edit_post_link( $post->ID ),
+				__( 'Edit', 'the-events-calendar' )
+			);
+
+			$args = array(
+				'tab'    => $this->tab->get_slug(),
+				'action' => 'tribe-run-now',
+				'item'   => absint( $post->ID ),
+				'nonce'  => wp_create_nonce( 'aggregator_' . $this->tab->get_slug() . '_request' ),
+			);
+			$actions['run-now'] = sprintf(
+				'<a href="%s">%s</a>',
+				Tribe__Events__Aggregator__Page::instance()->get_url( $args ),
+				__( 'Run Import', 'the-events-calendar' )
+			);
+		}
+
+		if ( current_user_can( $post_type_object->cap->delete_post, $post->ID ) ) {
+			$actions['delete'] = sprintf(
+				'<a href="%s" class="submitdelete">%s</a>',
+				get_delete_post_link( $post->ID, '', true ),
+				__( 'Delete Permanently', 'the-events-calendar' )
+			);
+		}
+
+		return $this->row_actions( $actions );
 	}
 
 	private function get_status_icon( $post ) {
@@ -432,10 +480,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 */
 	public function column_cb( $post ) {
 		?>
-			<label class="screen-reader-text" for="cb-select-<?php the_ID(); ?>"><?php
+			<label class="screen-reader-text" for="cb-select-<?php echo esc_attr( $post->ID ); ?>"><?php
 				printf( __( 'Select %s' ), _draft_or_post_title() );
 			?></label>
-			<input id="cb-select-<?php the_ID(); ?>" type="checkbox" name="post[]" value="<?php the_ID(); ?>" />
+			<input id="cb-select-<?php the_ID(); ?>" type="checkbox" name="aggregator[records][]" value="<?php echo esc_attr( $post->ID ); ?>" />
 			<div class="locked-indicator"></div>
 		<?php
 	}

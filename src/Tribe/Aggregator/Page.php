@@ -115,26 +115,6 @@ class Tribe__Events__Aggregator__Page {
 			return false;
 		}
 
-		if ( isset( $_GET['dummy'] ) ) {
-			$origins = array( 'facebook', 'meetup', 'ical' );
-			$frequencies = Tribe__Events__Aggregator__Cron::instance()->get_frequency();
-			$types = array( 'manual', 'schedule' );
-
-			for ( $i=0; $i < 15; $i++ ) {
-				$origin = $origins[ array_rand( $origins ) ];
-				$type = $types[ array_rand( $types ) ];
-				$record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $origin );
-
-				$meta = array();
-				if ( 'schedule' === $type ) {
-					$meta['frequency'] = $frequencies[ array_rand( $frequencies ) ]->id;
-				}
-
-				$records[] = $record->create( $type, $meta );
-			}
-			var_dump( $records );
-		}
-
 		/**
 		 * Fires an Action to allow Form actions to be hooked to
 		 */
