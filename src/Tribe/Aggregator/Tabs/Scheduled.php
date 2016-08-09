@@ -78,7 +78,8 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		}
 
 		if ( 'delete' === $data->action && ! empty( $data->records ) ) {
-			$this->action_delete_records( $data->records );
+			$statuses = $this->action_delete_records( $data->records );
+			$message = $this->get_delete_notice( $statuses );
 		}
 	}
 
@@ -97,13 +98,51 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 			return false;
 		}
 
-		if ( 'delete' === $action && ! empty( $_GET['item'] ) ) {
-			$this->action_delete_records( $_GET['item'] );
+		if ( 'tribe-delete' === $action && ! empty( $_GET['item'] ) ) {
+			$status = $this->action_delete_records( $_GET['item'] );
+			$this->delete_notice( $status );
 		}
 	}
 
+	/**
+	 * @todo Talk to Leah an Get the Error and success messages for Delete
+	 *
+	 * @param  array   $statuses  Which status occured
+	 * @return string
+	 */
+	private function delete_notice( $statuses = array() ) {
+		$errors   = array();
+		$success  = 0;
+		$count    = count( $statuses );
+		$message  = array();
+
+		foreach ( $statuses as $status ) {
+			if ( is_wp_error( $status ) ){
+				$errors[] = $status->get_error_message();
+			} else {
+				$success++;
+			}
+		}
+
+		if ( 0 !== $success && count( $errors ) > 0 ) {
+			$args['type'] = 'warning';
+		} elseif (  0 !== $success ) {
+			$args['type'] = 'success';
+		} else {
+			$args['type'] = 'error';
+		}
+
+		if ( ! empty( $errors ) ) {
+			$message[] = implode( '<br/>', $errors );
+		} else {
+			$message[] = 'Success';
+		}
+
+		Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-delete-records', '<p>' . implode( "\r\n", $message ) . '</p>', $args );
+	}
+
 	private function action_delete_records( $records = array() ) {
-		$records = (array) array_filter( $records, 'is_numeric' );
+		$records = array_filter( (array) $records, 'is_numeric' );
 		$status = array();
 		$record_obj = Tribe__Events__Aggregator__Records::instance()->get_post_type();
 
@@ -122,5 +161,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 
 			$status[] = $record->delete( true );
 		}
+
+		return $status;
 	}
 }

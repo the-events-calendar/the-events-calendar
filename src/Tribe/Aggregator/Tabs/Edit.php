@@ -51,6 +51,7 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 	public function get_label() {
 		return esc_html__( 'Edit Import', 'the-events-calendar' );
 	}
+
 	public function handle_submit() {
 		$this->messages = array(
 			'error',
@@ -113,20 +114,19 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 		if ( is_wp_error( $result ) ) {
 			$this->messages[ 'error' ][] = $result->get_error_message();
 
-			Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-schedule-edit-failed', array( $this, 'render_notice_schedule_edit_failed' ), 'type=error' );
+			ob_start();
+			?>
+			<p>
+				<?php echo implode( ' ', $this->messages['error'] ); ?>
+			</p>
+			<?php
+
+			$html = ob_get_clean();
+
+			Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-schedule-edit-failed', $html, 'type=error' );
 			return $result;
 		}
 
-		$this->messages['success'][] = __( 'Your Scheduled Import has been updated!', 'the-events-calendar' );
-		Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-schedule-edit-complete', array( $this, 'render_notice_schedule_edit_complete' ), 'type=success' );
-
-		return $result;
-	}
-
-	/**
-	 * Renders any of the "schedule updated" messages
-	 */
-	public function render_notice_schedule_edit_complete() {
 		ob_start();
 		?>
 		<p>
@@ -137,24 +137,12 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 
 		$html = ob_get_clean();
 
-		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-schedule-edit-complete', $html );
+		$this->messages['success'][] = __( 'Your Scheduled Import has been updated!', 'the-events-calendar' );
+		Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-schedule-edit-complete', $html, 'type=success' );
+
+		return $result;
 	}
 
-	/**
-	 * Renders failed schedule edit messages
-	 */
-	public function render_notice_schedule_edit_failed() {
-		ob_start();
-		?>
-		<p>
-			<?php echo implode( ' ', $this->messages['error'] ); ?>
-		</p>
-		<?php
-
-		$html = ob_get_clean();
-
-		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-schedule-edit-failed', $html );
-	}
 
 	/**
 	 * Handles the previewing of a scheduled import edit
