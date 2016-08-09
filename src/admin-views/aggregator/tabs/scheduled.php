@@ -4,7 +4,7 @@ $table->prepare_items();
 ?>
 
 <?php $table->views(); ?>
-
 <form id="posts-filter" method="get">
+<?php $table->nonce(); ?>
 <?php $table->display(); ?>
 </form>
