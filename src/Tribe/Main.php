@@ -2551,6 +2551,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return esc_url_raw( $this->uglyLink( $type, $secondary ) );
 			}
 
+			// if this is an ajax request where the baseurl is provided, use that as the base url and use semi-ugly links
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX && ! empty( $_POST['baseurl'] ) ) {
+				$event_url = trailingslashit( $_POST['baseurl'] );
+				return esc_url_raw( $this->uglyLink( $type, $secondary ) );
+			}
+
 			// account for semi-pretty permalinks
 			if ( false !== strpos( get_option( 'permalink_structure' ), 'index.php' ) ) {
 				$event_url = home_url( '/index.php/' );
@@ -2569,11 +2575,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Append Events structure
 			$event_url .= trailingslashit( sanitize_title( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ) ) );
-
-			// if this is an ajax request where the baseurl is provided, use that as the base url
-			if ( defined( 'DOING_AJAX' ) && DOING_AJAX && ! empty( $_POST['baseurl'] ) ) {
-				$event_url = trailingslashit( $_POST['baseurl'] );
-			}
 
 			// if we're on an Event Cat, show the cat link, except for home and days.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) && $term !== false && ! is_numeric( $term ) ) {
@@ -2653,6 +2654,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function uglyLink( $type = 'home', $secondary = false ) {
 
 			$eventUrl = add_query_arg( 'post_type', self::POSTTYPE, home_url() );
+
+			// if this is an ajax request where the baseurl is provided, use that as the base url
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX && ! empty( $_POST['baseurl'] ) ) {
+				$eventUrl = trailingslashit( $_POST['baseurl'] );
+			}
 
 			// if we're on an Event Cat, show the cat link, except for home.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) ) {
