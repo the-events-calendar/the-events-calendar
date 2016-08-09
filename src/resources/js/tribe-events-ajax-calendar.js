@@ -402,7 +402,7 @@
 				};
 
 				ts.url_params = {
-					action   : '', // not sure what to use here
+					action   : 'tribe_calendar',
 					eventDate: ts.date,
 					origin_url: window.location.href
 				};
