@@ -573,7 +573,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Register Notices
 			 */
-			Tribe__Admin__Notices::instance()->register( 'archive-slug-conflict', array( $this, 'render_notice_archive_slug_conflict' ), 'dismiss=1&type=error' );
+			tribe_notice( 'archive-slug-conflict', array( $this, 'render_notice_archive_slug_conflict' ), 'dismiss=1&type=error' );
 
 			/**
 			 * Expire notices
