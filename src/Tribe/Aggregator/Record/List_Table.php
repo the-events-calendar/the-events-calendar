@@ -312,9 +312,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			return '';
 		}
 
-		if ( 'scheduled' !== $this->tab->get_slug() ) {
-			return '';
-		}
+		// if ( 'scheduled' !== $this->tab->get_slug() ) {
+		// 	return '';
+		// }
 
 		$post_type_object = get_post_type_object( $post->post_type );
 		$actions = array();
@@ -327,9 +327,15 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				__( 'Edit', 'the-events-calendar' )
 			);
 
+			$args = array(
+				'tab'    => $this->tab->get_slug(),
+				'action' => 'tribe-run-now',
+				'item'   => absint( $post->ID ),
+				'nonce'  => wp_create_nonce( 'aggregator_' . $this->tab->get_slug() . '_request' ),
+			);
 			$actions['run-now'] = sprintf(
 				'<a href="%s">%s</a>',
-				get_edit_post_link( $post->ID ),
+				Tribe__Events__Aggregator__Page::instance()->get_url( $args ),
 				__( 'Run Import', 'the-events-calendar' )
 			);
 		}

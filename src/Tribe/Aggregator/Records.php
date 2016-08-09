@@ -76,9 +76,8 @@ class Tribe__Events__Aggregator__Records {
 
 	public function filter_edit_link( $link, $post, $context ) {
 		$args = array(
-			'tab'    => Tribe__Events__Aggregator__Tabs__Scheduled::instance()->get_slug(),
-			'item'   => absint( $post ),
-			'action' => 'tribe-edit',
+			'tab'    => Tribe__Events__Aggregator__Tabs__Edit::instance()->get_slug(),
+			'id'   => absint( $post ),
 		);
 
 		return Tribe__Events__Aggregator__Page::instance()->get_url( $args );

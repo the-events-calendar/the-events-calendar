@@ -89,7 +89,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 
 		$action = $_GET['action'];
 
-		if ( ! in_array( $action, array( 'tribe-run-now', 'tribe-delete', 'tribe-edit' ) ) ) {
+		if ( ! in_array( $action, array( 'tribe-run-now', 'tribe-delete' ) ) ) {
 			return false;
 		}
 
