@@ -401,12 +401,7 @@
 					eventDate: ts.date
 				};
 
-				ts.url_params = {
-					action   : 'tribe_calendar',
-					eventDate: ts.date,
-					origin_url: window.location.href
-				};
-				console.log(ts.url_params);
+				ts.url_params = {};
 
 				if ( ts.category ) {
 					ts.params.tribe_event_category = ts.category;

@@ -1054,7 +1054,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 				Tribe__Events__Query::init();
 
-
 				Tribe__Events__Main::instance()->displaying = 'month';
 
 				global $wp_query;
