@@ -123,7 +123,7 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 
 			$html = ob_get_clean();
 
-			Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-schedule-edit-failed', $html, 'type=error' );
+			tribe_notice( 'tribe-aggregator-schedule-edit-failed', $html, 'type=error' );
 			return $result;
 		}
 
@@ -138,7 +138,7 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 		$html = ob_get_clean();
 
 		$this->messages['success'][] = __( 'Your Scheduled Import has been updated!', 'the-events-calendar' );
-		Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-schedule-edit-complete', $html, 'type=success' );
+		tribe_notice( 'tribe-aggregator-schedule-edit-complete', $html, 'type=success' );
 
 		return $result;
 	}
