@@ -9,12 +9,6 @@ class Tribe__Events__Updater_Test extends Tribe__Events__WP_UnitTestCase {
 		$current_version = Tribe__Events__Main::VERSION;
 		$updater = Tribe__Events__Main::instance()->updater();
 
-		$update_required = $updater->update_required();
-		$this->assertTrue( $update_required, "Checking that initial version in database is less than $current_version" );
-
-		$version_in_db = $updater->get_version_from_db();
-		$this->assertEmpty( $version_in_db, 'Checking that the initial version is an empty string' );
-
 		// set the existing version to be "old"
 		$updater->update_version_option( '3.12' );
 
