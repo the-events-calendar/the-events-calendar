@@ -117,7 +117,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		$message  = array();
 
 		foreach ( $statuses as $status ) {
-			if ( is_wp_error( $status ) ){
+			if ( is_wp_error( $status ) ) {
 				$errors[] = $status->get_error_message();
 			} else {
 				$success++;
