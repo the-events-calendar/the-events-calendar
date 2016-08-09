@@ -28,7 +28,7 @@
 		var base_url = '/';
 
 		if ( 'undefined' !== typeof config.events_base ) {
-			base_url = config.events_base;
+			base_url =  $( '#tribe-events-header' ).data( 'baseurl' );
 		} else if ( $nav_link.length ) {
 			base_url = $nav_link.first().attr( 'href' ).slice( 0, -8 );
 		}
@@ -283,6 +283,7 @@
 				if ( td.default_permalinks ) {
 					td.cur_url = td.cur_url.split("?")[0];
 				}
+
 				ts.popping = false;
 				tf.pre_ajax( function() {
 					tribe_events_calendar_ajax_post();
@@ -375,7 +376,6 @@
 			}
 			ts.popping = false;
 		} );
-
 		/**
 		 * @function tribe_events_calendar_ajax_post
 		 * @desc The ajax handler for month view.
@@ -401,7 +401,12 @@
 					eventDate: ts.date
 				};
 
-				ts.url_params = {};
+				ts.url_params = {
+					action   : 'tribe_calendar',
+					eventDate: ts.date,
+					origin_url: window.location.href
+				};
+				console.log(ts.url_params);
 
 				if ( ts.category ) {
 					ts.params.tribe_event_category = ts.category;
