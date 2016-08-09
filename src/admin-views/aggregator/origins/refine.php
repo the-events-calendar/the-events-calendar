@@ -25,6 +25,7 @@ if ( 'ics' === $origin_slug ) {
 			id="tribe-ea-field-ics_keywords"
 			class="tribe-ea-field tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $keywords->placeholder ); ?>"
+			value="<?php echo esc_attr( empty( $record->meta['keywords'] ) ? '' : $record->meta['keywords'] ); ?>"
 		>
 		<input
 			name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][location]"
@@ -32,6 +33,7 @@ if ( 'ics' === $origin_slug ) {
 			id="tribe-ea-field-ics_location"
 			class="tribe-ea-field tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $location->placeholder ); ?>"
+			value="<?php echo esc_attr( empty( $record->meta['location'] ) ? '' : $record->meta['location'] ); ?>"
 		>
 		<input
 			name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][start]"
@@ -39,6 +41,7 @@ if ( 'ics' === $origin_slug ) {
 			id="tribe-ea-field-ics_start"
 			class="tribe-ea-field tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $start_date->placeholder ); ?>"
+			value="<?php echo esc_attr( empty( $record->meta['start'] ) ? '' : $record->meta['start'] ); ?>"
 		>
 		<select
 			name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][radius]"
@@ -50,7 +53,9 @@ if ( 'ics' === $origin_slug ) {
 			<option value=""></option>
 			<?php
 			foreach ( Tribe__Events__Utils__Radius::get_radii() as $name => $value ) {
-				echo '<option value="' . esc_attr( $value ) . '">' . esc_html( $name ) . '</option>';
+				?>
+				<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $value, empty( $record->meta['radius'] ) ? '' : $record->meta['radius'] ); ?>><?php esc_html_e( $name ); ?></option>
+				<?php
 			}
 			?>
 		</select>

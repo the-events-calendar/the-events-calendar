@@ -3,6 +3,28 @@
 defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Event {
+
+	/**
+	 * Slug used to mark Event Orgin on `_EventOrigin` meta
+	 *
+	 * @var string
+	 */
+	public static $event_origin = 'event-aggregator';
+
+	/**
+	 * Key of the Meta to store the Event origin inside of Aggregator
+	 *
+	 * @var string
+	 */
+	public static $origin_key = '_tribe_aggregator_origin';
+
+	/**
+	 * Key of the Meta to store the Record that imported this Event
+	 *
+	 * @var string
+	 */
+	public static $record_key = '_tribe_aggregator_record';
+
 	public $data;
 
 	public function __construct( $data = array() ) {

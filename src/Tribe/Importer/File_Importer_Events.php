@@ -164,7 +164,9 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		$cats = $this->get_value_by_key( $record, 'event_category' );
-		if ( $category_setting = Tribe__Events__Aggregator__Settings::instance()->default_category( 'csv' ) ) {
+		if ( $this->is_aggregator && ! empty( $this->default_category ) ) {
+			$cats = $cats ? $cats . ',' . $this->default_category : $this->default_category;
+		} elseif ( $category_setting = Tribe__Events__Aggregator__Settings::instance()->default_category( 'csv' ) ) {
 			$cats = $cats ? $cats . ',' . $category_setting : $category_setting;
 		}
 

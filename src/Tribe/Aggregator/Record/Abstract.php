@@ -127,6 +127,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @param string $type Type of record to create - manual or schedule
 	 * @param array $args Post type args
+	 * @param array $meta Post meta
 	 *
 	 * @return WP_Post|WP_Error
 	 */
@@ -147,6 +148,72 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$meta = wp_parse_args( $meta, $defaults );
 
+		$post = $this->prep_post_args( $type, $args, $meta );
+
+		$result = wp_insert_post( $post );
+
+		// meta_input was introduced in 4.4. Deal with old versions
+		if ( -1 === version_compare( WP_VERSION, '4.4' ) && ! is_wp_error( $result ) ) {
+			foreach ( $post['meta_input'] as $key => $value ) {
+				update_post_meta( $result, $key, $value );
+			}
+		}
+
+		// After Creating the Post Load and return
+		return $this->load( $result );
+	}
+
+	/**
+	 * Edits an import record
+	 *
+	 * @param array $args Post type args
+	 * @param array $meta Post meta
+	 *
+	 * @return WP_Post|WP_Error
+	 */
+	public function save( $post_id, $args = array(), $meta = array() ) {
+		if ( ! isset( $meta['type'] ) || 'schedule' !== $meta['type'] ) {
+			return new WP_Error( 'invalid-type', __( 'Editing can only be done to scheduled import records.', 'the-events-calendar' ), $type );
+		}
+
+		$defaults = array(
+			'parent'    => 0,
+		);
+		$args = (object) wp_parse_args( $args, $defaults );
+
+		$defaults = array(
+			'frequency' => null,
+		);
+
+		$meta = wp_parse_args( $meta, $defaults );
+
+		$post = $this->prep_post_args( $meta['type'], $args, $meta );
+		$post['ID'] = absint( $post_id );
+		$post['post_status'] = Tribe__Events__Aggregator__Records::$status->schedule;
+
+		$result = wp_update_post( $post );
+
+		// meta_input was introduced in 4.4. Deal with old versions
+		if ( -1 === version_compare( WP_VERSION, '4.4' ) && ! is_wp_error( $result ) ) {
+			foreach ( $post['meta_input'] as $key => $value ) {
+				update_post_meta( $result, $key, $value );
+			}
+		}
+
+		// After Creating the Post Load and return
+		return $this->load( $result );
+	}
+
+	/**
+	 * Preps post arguments for create/save
+	 *
+	 * @param string $type Type of record to create - manual or schedule
+	 * @param array $args Post type args
+	 * @param array $meta Post meta
+	 *
+	 * @return array
+	 */
+	public function prep_post_args( $type, $args, $meta = array() ) {
 		$post = array(
 			'post_title'     => $this->generate_title( $type, $this->origin, $meta['frequency'], $args->parent ),
 			'post_type'      => Tribe__Events__Aggregator__Records::$post_type,
@@ -177,10 +244,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$post['post_content'] = $frequency->id;
 		}
 
-		// // After Creating the Post Load and return
-		return $this->load( wp_insert_post( $post ) );
+		return $post;
 	}
 
+	/**
+	 * A simple method to create a Title for the Records
+	 *
+	 * @param mixed $Nparams This method accepts any number of params, they must be string compatible
+	 *
+	 * @return string
+	 */
 	public function generate_title() {
 		$parts = func_get_args();
 		return __( 'Record: ', 'the-events-calendar' ) . implode( ' ', array_filter( $parts ) );
@@ -299,6 +372,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	/**
 	 * Queues the import on the Aggregator service
+	 *
+	 * @return mixed
 	 */
 	public function queue_import( $args = array() ) {
 		$aggregator = Tribe__Events__Aggregator::instance();
@@ -448,10 +523,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $this->set_status( 'success' );
 	}
 
+	/**
+	 * A quick method to fetch the Child Records to the current on this class
+	 *
+	 * @param  array  $args WP_Query Arguments
+	 *
+	 * @return WP_Query|WP_Error
+	 */
 	public function query_child_records( $args = array() ) {
-		$defaults = array(
-
-		);
+		$defaults = array();
 		$args = (object) wp_parse_args( $args, $defaults );
 
 		// Force the parent
@@ -460,10 +540,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return Tribe__Events__Aggregator__Records::instance()->query( $args );
 	}
 
+	/**
+	 * A quick method to fetch the Child Records by Status
+	 *
+	 * @param string $status Which status, must be a valid EA status
+	 *
+	 * @return WP_Query|WP_Error|bool
+	 */
 	public function get_child_record_by_status( $status = 'success', $qty = -1 ) {
 		$statuses = Tribe__Events__Aggregator__Records::$status;
 
-		if ( ! isset( $statuses->{ $status } ) ) {
+		if ( ! isset( $statuses->{ $status } ) || 'trash' !== $status ) {
 			return false;
 		}
 
@@ -627,9 +714,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Inserts events, venues, and organizers for the Import Record
 	 *
+	 * @param array $data Dummy data var to allow children to optionally react to passed in data
+	 *
 	 * @return array|WP_Error
 	 */
-	public function insert_posts() {
+	public function insert_posts( $data = array() ) {
+		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
+
 		$import_data = $this->get_import_data();
 
 		if ( empty( $this->meta['finalized'] ) ) {
@@ -767,6 +858,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
 				remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
+
+				// Count it as a updated Event
 				$results['updated']++;
 			} else {
 				/**
@@ -777,8 +870,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				 */
 				$event = apply_filters( 'tribe_aggregator_before_insert_event', $event, $record );
 				$event['ID'] = tribe_create_event( $event );
+
+				// Count it as a created Event
 				$results['created']++;
 			}
+
+			// Add the Aggregator Origin
+			update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$origin_key, $this->origin );
+
+			// Add the Aggregator Record
+			update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$record_key, $this->id );
+
 
 			//add post parent possibility
 			if ( empty( $event['parent_uid'] ) ) {
@@ -807,14 +909,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			//if we are setting all events to a category specified in saved import
-			if ( ! empty( $args['import_category'] ) ) {
-				$terms[] = (int) $args['import_category'];
+			if ( ! empty( $this->meta['category'] ) ) {
+				$terms[] = (int) $this->meta['category'];
 			}
 
 			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );
 		}
 
 		$this->complete_import( $results );
+
+		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
 		return $results;
 	}
