@@ -1,6 +1,13 @@
 <?php
 
 
+/**
+ * Class Tribe__Events__Meta__Save
+ *
+ * Conditionally saves an event meta to the database.
+ *
+ * @since 4.2.5
+ */
 class Tribe__Events__Meta__Save {
 
 	/**
@@ -84,6 +91,11 @@ class Tribe__Events__Meta__Save {
 		}
 	}
 
+	/**
+	 * Save the meta for the event if the user has the capability to.
+	 *
+	 * @return bool `true` if event meta was updated, `false` otherwise.
+	 */
 	public function save() {
 		if ( ! $this->context->has_nonce() ) {
 			return false;
@@ -117,6 +129,13 @@ class Tribe__Events__Meta__Save {
 		return true;
 	}
 
+	/**
+	 * Conditionally save the meta.
+	 *
+	 * Will save if the context is the expected one; will call `save` method.
+	 *
+	 * @return bool `true` if event meta was updated, `false` otherwise.
+	 */
 	public function maybe_save() {
 		// only continue if it's an event post
 		if ( ! $this->is_event() ) {

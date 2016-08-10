@@ -1,6 +1,13 @@
 <?php
 
 
+/**
+ * Class Tribe__Events__Meta__Context
+ *
+ * Abstracts a post save operation context.
+ *
+ * @since 4.2.5
+ */
 class Tribe__Events__Meta__Context {
 
 	/**

@@ -4,6 +4,8 @@
 /**
  * Class Tribe__Events__Revisions__Post
  *
+ * Handles the saving operations of a generic post revision.
+ *
  * @since 4.2.5
  */
 class Tribe__Events__Revisions__Post {
