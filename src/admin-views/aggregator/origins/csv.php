@@ -3,7 +3,10 @@ $origin_slug        = 'csv';
 $field              = (object) array();
 $field->label       = __( 'Content Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Content Type', 'the-events-calendar' );
-$field->help        = __( 'For better results, import venue and organizer files before importing event files', 'the-events-calendar' );
+$field->help        = __( 'Specify the type of content you wish to import, e.g. events.', 'the-events-calendar' );
+$field->help        .= '<br/>';
+$field->help        .= __( 'For the best results, import venue and organizer files before importing event files.', 'the-events-calendar' );
+
 $field->source      = 'csv_content_type';
 
 $post_types = array_map( 'get_post_type_object', Tribe__Main::get_post_types() );

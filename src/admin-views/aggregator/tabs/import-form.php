@@ -36,7 +36,7 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 		$field->source = 'origins';
 		$field->label = esc_html__( 'Import Origin:', 'the-events-calendar' );
 		$field->placeholder = esc_attr__( 'Select Origin', 'the-events-calendar' );
-		$field->help = esc_attr__( 'Specify the type of data you wish to import', 'the-events-calendar' );
+		$field->help = esc_attr__( 'Choose where you are importing from.', 'the-events-calendar' );
 		$field->options = Tribe__Events__Aggregator::instance()->api( 'origins' )->get();
 		?>
 		<tr>
@@ -178,7 +178,7 @@ $csv_help = esc_html__( 'Select the Event Field that best matches your CSV file 
 		<?php esc_html_e( 'Cancel', 'the-events-calendar' ); ?>
 	</button>
 	<p class="tribe-timezone-message">
-		<?php esc_html_e( 'Events will be imported with the timezone defined by the source. You can make use of The Event Calendar\'s timezone settings to change how the actual time is displayed on your calendar.', 'the-events-calendar' ); ?>
+		<?php echo sprintf( esc_html__( 'Events will be imported with the timezone defined by the source. You can make use of The Events Calendar\'s %1$stimezone settings%2$s to change how the actual time is displayed on your calendar.', 'the-events-calendar' ), '<a href="' . esc_url( Tribe__Settings::instance()->get_url() ) . '#tribe-field-tribe_events_timezone_mode">', '</a>' ); ?>
 	</p>
 </div>
 <script id="tribe-csv-column-map-events" type="text/html">
