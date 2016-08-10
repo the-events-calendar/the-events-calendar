@@ -30,10 +30,12 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 				<?php
 				printf(
 					esc_html__(
-						'Enter your Facebook Application information to use Facebook import. You only need to do this once, it will be saved under %1$sEvents &gt; Settings%2$s',
+						'Enter your Facebook App ID and secret to use Facebook import. %1$sClick here to view or create you Facebook Apps%2$s. You only need to do this once, it will be saved under %3$sEvents &gt; Settings &gt; APIs%4$s',
 						'the-events-calendar'
 					),
-					'<a href="' . esc_url( admin_url( 'edit.php?post_type=tribe_events&page=aggregator' ) ) . '">',
+					'<a href="https://developers.facebook.com/apps">',
+					'</a>',
+					'<a href="' . esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) ) ) . '">',
 					'</a>'
 				);
 				?>
@@ -43,10 +45,10 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 				<?php
 				printf(
 					esc_html__(
-						'Your Facebook Application information has been saved to %1$sEvents &gt; Settings%2$s',
+						'Your Facebook App ID and secret have been saved to %1$sEvents &gt; Settings &gt; APIs%2$s',
 						'the-events-calendar'
 					),
-					'<a href="' . esc_url( admin_url( 'edit.php?post_type=tribe_events&page=aggregator' ) ) . '">',
+					'<a href="' . esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) ) ) . '">',
 					'</a>'
 				);
 				?>
