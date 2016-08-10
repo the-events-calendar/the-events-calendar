@@ -75,6 +75,12 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	public function filter_edit_link( $link, $post, $context ) {
+		$post = get_post( $post );
+
+		if ( $post->post_type !== self::$post_type ) {
+			return $link;
+		}
+
 		$args = array(
 			'tab'    => Tribe__Events__Aggregator__Tabs__Edit::instance()->get_slug(),
 			'id'   => absint( $post ),
@@ -84,6 +90,12 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	public function filter_delete_link( $link, $post, $context ) {
+		$post = get_post( $post );
+
+		if ( $post->post_type !== self::$post_type ) {
+			return $link;
+		}
+
 		$tab = Tribe__Events__Aggregator__Tabs__Scheduled::instance();
 		$args = array(
 			'tab'    => $tab->get_slug(),
