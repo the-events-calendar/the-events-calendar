@@ -2551,9 +2551,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return esc_url_raw( $this->uglyLink( $type, $secondary ) );
 			}
 
+			if ( apply_filters( 'tribe_events_force_ugly_link', false ) ) {
+				return esc_url_raw( $this->uglyLink( $type, $secondary ) );
+			}
+
 			// if this is an ajax request where the baseurl is provided, use that as the base url and use semi-ugly links
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX && ! empty( $_POST['baseurl'] ) ) {
-				$event_url = trailingslashit( $_POST['baseurl'] );
 				return esc_url_raw( $this->uglyLink( $type, $secondary ) );
 			}
 
@@ -2654,6 +2657,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function uglyLink( $type = 'home', $secondary = false ) {
 
 			$eventUrl = add_query_arg( 'post_type', self::POSTTYPE, home_url() );
+
+			// if we need a specific base url, use that
+			$eventUrl = apply_filters( 'tribe_events_ugly_link_baseurl', $eventUrl );
 
 			// if this is an ajax request where the baseurl is provided, use that as the base url
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX && ! empty( $_POST['baseurl'] ) ) {

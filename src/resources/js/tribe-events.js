@@ -1234,13 +1234,19 @@ Date.prototype.format = function( mask, utc ) {
 		ts.view && dbug && debug.time( 'Tribe JS Init Timer' );
 		// @endif
 
-		$( te ).on( 'tribe_ev_serializeBar', function() {
+		$( te ).on( 'tribe_ev_collectParams', function() {
 			// maybe add a baseurl to the Ajax request if we are attempting to navigate events. This helps with
 			// our shortcode pagination
 			if (
 				'undefined' === typeof tribe_ev.state
 				|| 'undefined' === typeof tribe_ev.state.params
-				|| 'undefined' === typeof tribe_ev.state.params.eventDate
+			) {
+				return;
+			}
+
+			if (
+				-1 === tribe_ev.fn.in_params( tribe_ev.state.params, 'eventdate' )
+				&& -1 === tribe_ev.fn.in_params( tribe_ev.state.params, 'tribe_event_display' )
 			) {
 				return;
 			}
@@ -1250,13 +1256,13 @@ Date.prototype.format = function( mask, utc ) {
 
 			if ( $canonical.length ) {
 				// use the canonical URL if it is available (it should be)
-				tribe_ev.state.params.baseurl = $canonical.attr( 'href' );
+				tribe_ev.state.params += '&baseurl=' + $canonical.attr( 'href' );
 			} else if ( $header.length ) {
 				// failover to the baseurl of the event header
-				tribe_ev.state.params.baseurl = $header.data( 'baseurl' );
+				tribe_ev.state.params += '&baseurl=' + $header.data( 'baseurl' );
 			} else {
 				// use the current URL as a last ditch effort
-				tribe_ev.state.params.baseurl = window.location.origin + window.location.path;
+				tribe_ev.state.params += '&baseurl=' + window.location.origin + window.location.path;
 			}
 
 		} );
