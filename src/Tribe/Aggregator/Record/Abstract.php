@@ -466,6 +466,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $aggregator->api( 'import' )->get( $this->meta['import_id'] );
 	}
 
+	public function delete( $force = false ) {
+		if ( $this->is_manual ) {
+			return new WP_Error( 'tribe-aggregator-delete-record-failed', sprintf( __( 'You cannot delete a History Record. ID: "%d"', 'the-events-calendar' ), $this->id ), array( 'record' => $this ) );
+		}
+
+		return wp_delete_post( $this->id, $force );
+	}
+
 	/**
 	 * Sets a status on the record
 	 *
