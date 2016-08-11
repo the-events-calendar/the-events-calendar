@@ -137,7 +137,7 @@ $field->help        = __( 'Enter the url for a Facebook group, page, or individu
 			name="aggregator[facebook][source]"
 			type="text"
 			id="tribe-ea-field-facebook_source"
-			class="tribe-ea-field tribe-ea-size-large"
+			class="tribe-ea-field tribe-ea-size-xlarge"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 			value="<?php echo esc_attr( empty( $record->meta['source'] ) ? '' : $record->meta['source'] ); ?>"
 		>

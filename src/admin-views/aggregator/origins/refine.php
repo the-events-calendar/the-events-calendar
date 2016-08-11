@@ -29,20 +29,20 @@ if ( 'ics' === $origin_slug ) {
 			value="<?php echo esc_attr( empty( $record->meta['keywords'] ) ? '' : $record->meta['keywords'] ); ?>"
 		>
 		<input
-			name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][location]"
-			type="text"
-			id="tribe-ea-field-ics_location"
-			class="tribe-ea-field tribe-ea-size-large"
-			placeholder="<?php echo esc_attr( $location->placeholder ); ?>"
-			value="<?php echo esc_attr( empty( $record->meta['location'] ) ? '' : $record->meta['location'] ); ?>"
-		>
-		<input
 			name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][start]"
 			type="text"
 			id="tribe-ea-field-ics_start"
 			class="tribe-ea-field tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $start_date->placeholder ); ?>"
 			value="<?php echo esc_attr( empty( $record->meta['start'] ) ? '' : $record->meta['start'] ); ?>"
+		>
+		<input
+			name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][location]"
+			type="text"
+			id="tribe-ea-field-ics_location"
+			class="tribe-ea-field tribe-ea-size-large"
+			placeholder="<?php echo esc_attr( $location->placeholder ); ?>"
+			value="<?php echo esc_attr( empty( $record->meta['location'] ) ? '' : $record->meta['location'] ); ?>"
 		>
 		<select
 			name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][radius]"
