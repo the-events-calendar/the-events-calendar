@@ -41,6 +41,7 @@ class Tribe__Events__Aggregator__Settings {
 	public function get_all_default_settings() {
 		$origins = array(
 			'csv',
+			'gcal',
 			'ical',
 			'facebook',
 			'meetup',
