@@ -80,7 +80,7 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 						class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-medium"
 						placeholder="<?php echo $field->placeholder; ?>"
 						data-hide-search
-						<?php echo ( 'edit' === $aggregator_action ) ? 'data-prevent-clear' : ''; ?>
+						data-prevent-clear
 					>
 						<option value=""></option>
 						<?php

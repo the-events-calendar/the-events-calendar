@@ -25,9 +25,7 @@ $frequencies = $cron->get_frequency();
 			class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 			data-hide-search
-			<?php if ( 'edit' === $aggregator_action ) : ?>
-				data-prevent-clear
-			<?php endif; ?>
+			data-prevent-clear
 		>
 			<?php if ( 'edit' !== $aggregator_action ) : ?>
 				<option value=""></option>
@@ -43,6 +41,7 @@ $frequencies = $cron->get_frequency();
 			data-hide-search
 			data-depends="#tribe-ea-field-ical_import_type"
 			data-condition="schedule"
+			data-prevent-clear
 		>
 			<option value=""></option>
 			<?php foreach ( $frequencies as $frequency_object ) : ?>

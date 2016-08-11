@@ -82,9 +82,7 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 			class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 			data-hide-search
-			<?php if ( 'edit' === $aggregator_action ) : ?>
-				data-prevent-clear
-			<?php endif; ?>
+			data-prevent-clear
 		>
 			<?php if ( 'edit' !== $aggregator_action ) : ?>
 				<option value=""></option>
@@ -100,6 +98,7 @@ $missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
 			data-hide-search
 			data-depends="#tribe-ea-field-facebook_import_type"
 			data-condition="schedule"
+			data-prevent-clear
 		>
 			<option value=""></option>
 			<?php foreach ( $frequencies as $frequency_object ) : ?>
