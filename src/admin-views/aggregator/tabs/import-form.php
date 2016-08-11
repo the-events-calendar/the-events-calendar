@@ -174,7 +174,7 @@ $csv_help = esc_html__( 'Select the Event Field that best matches your CSV file 
 	<button type="submit" class="button button-primary tribe-finalize">
 		<?php esc_html_e( 'Import', 'the-events-calendar' ); ?>
 	</button>
-	<button type="cancel" class="button tribe-cancel">
+	<button type="button" class="button tribe-cancel">
 		<?php esc_html_e( 'Cancel', 'the-events-calendar' ); ?>
 	</button>
 	<p class="tribe-timezone-message">
