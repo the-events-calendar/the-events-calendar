@@ -125,6 +125,19 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 			'content_type' => empty( $data['content_type'] )     ? null     : $data['content_type'],
 		);
 
+		// make sure there's data
+		if ( empty( $meta['file'] ) && empty( $meta['source'] ) ) {
+			if ( 'csv' === $meta['origin'] || 'ics' === $meta['origin'] ) {
+				wp_send_json_error( array(
+					'message' => __( 'Please provide the file that you wish to import.', 'the-events-calendar' ),
+				) );
+			} else {
+				wp_send_json_error( array(
+					'message' => __( 'Please provide the URL that you wish to import.', 'the-events-calendar' ),
+				) );
+			}
+		}
+
 		return array(
 			'record' => $record,
 			'post_data' => $post_data,
