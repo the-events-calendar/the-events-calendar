@@ -2658,11 +2658,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$eventUrl = add_query_arg( 'post_type', self::POSTTYPE, home_url() );
 
-			// if we need a specific base url, use that
+			/**
+			 * If we need a specific base url, use that.
+			 *
+			 * @return string The base url.
+			 */
 			$eventUrl = apply_filters( 'tribe_events_ugly_link_baseurl', $eventUrl );
 
-			// if this is an ajax request where the baseurl is provided, use that as the base url
-			if ( defined( 'DOING_AJAX' ) && DOING_AJAX && ! empty( $_POST['baseurl'] ) ) {
+
+			/**
+			 * if this is an ajax request where the baseurl is provided, use that as the base url.
+			 *
+			 * @return string The AJAX provided base url.
+			 */
+			if ( Tribe__Main::instance()->doing_ajax() && ! empty( $_POST['baseurl'] ) ) {
 				$eventUrl = trailingslashit( $_POST['baseurl'] );
 			}
 
