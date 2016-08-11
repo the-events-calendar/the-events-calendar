@@ -12,7 +12,7 @@ $radius->help            = __( 'Use the filters to narrow down which events are 
 if ( 'ics' === $origin_slug ) {
 	$depends = "#tribe-ea-field-{$origin_slug}_file";
 } else {
-	$depends = "#tribe-ea-field-{$origin_slug}_source";
+	$depends = "#tribe-ea-field-{$origin_slug}_import_type";
 }
 ?>
 <tr class="tribe-dependent tribe-refine-filters" data-depends="<?php echo esc_attr( $depends ); ?>" data-condition-not-empty>
