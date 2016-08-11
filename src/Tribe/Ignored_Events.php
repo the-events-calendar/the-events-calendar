@@ -53,7 +53,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			/**
 			 * Register Notices
 			 */
-			Tribe__Admin__Notices::instance()->register( 'legacy-ignored-events', array( $this, 'render_notice_legacy' ), 'dismiss=1&type=warning' );
+			tribe_notice( 'legacy-ignored-events', array( $this, 'render_notice_legacy' ), 'dismiss=1&type=warning' );
 		}
 
 		public function render_notice_legacy() {

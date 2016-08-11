@@ -138,7 +138,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 			$message[] = 'Success';
 		}
 
-		Tribe__Admin__Notices::instance()->register( 'tribe-aggregator-delete-records', '<p>' . implode( "\r\n", $message ) . '</p>', $args );
+		tribe_notice( 'tribe-aggregator-delete-records', '<p>' . implode( "\r\n", $message ) . '</p>', $args );
 	}
 
 	private function action_delete_records( $records = array() ) {
