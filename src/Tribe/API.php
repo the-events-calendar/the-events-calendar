@@ -93,11 +93,11 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$data = self::prepare_event_date_meta( $event_id, $data );
 
 			if ( empty( $data['EventHideFromUpcoming'] ) ) {
-				delete_post_meta( $event_id, '_EventHideFromUpcoming' );
+				delete_metadata( 'post', $event_id, '_EventHideFromUpcoming' );
 			}
 
-			update_post_meta( $event_id, '_EventShowMapLink', isset( $data['venue']['EventShowMapLink'] ) );
-			update_post_meta( $event_id, '_EventShowMap', isset( $data['venue']['EventShowMap'] ) );
+			update_metadata( 'post', $event_id, '_EventShowMapLink', isset( $data['venue']['EventShowMapLink'] ) );
+			update_metadata( 'post', $event_id, '_EventShowMap', isset( $data['venue']['EventShowMap'] ) );
 
 			if ( isset( $data['post_status'] ) ) {
 				$post_status = $data['post_status'];
@@ -114,7 +114,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$data['EventCost'] = (array) apply_filters( 'tribe_events_event_costs', $event_cost, $event_id );
 
 			if ( isset( $data['FeaturedImage'] ) && ! empty( $data['FeaturedImage'] ) ) {
-				update_post_meta( $event_id, '_thumbnail_id', $data['FeaturedImage'] );
+				update_metadata( 'post', $event_id, '_thumbnail_id', $data['FeaturedImage'] );
 				unset( $data['FeaturedImage'] );
 			}
 
@@ -129,14 +129,14 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 					}
 					// Fields with multiple values per key
 					if ( is_array( $data[ $htmlElement ] ) ) {
-						delete_post_meta( $event_id, $tag );
+						delete_metadata( 'post', $event_id, $tag );
 						foreach ( $data[ $htmlElement ] as $value ) {
-							add_post_meta( $event_id, $tag, $value );
+							add_metadata( 'post', $event_id, $tag, $value );
 						}
 					}
 					// Fields with a single value per key
 					else {
-						update_post_meta( $event_id, $tag, $data[ $htmlElement ] );
+						update_metadata( 'post', $event_id, $tag, $data[ $htmlElement ] );
 					}
 				}
 			}
