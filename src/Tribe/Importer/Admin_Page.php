@@ -65,8 +65,8 @@ class Tribe__Events__Importer__Admin_Page {
 	public function register_admin_page() {
 		add_submenu_page(
 			$this->admin_page_url,
-			esc_html__( 'Import', 'the-events-calendar' ),
-			esc_html__( 'Import', 'the-events-calendar' ),
+			esc_html__( 'Legacy Import', 'the-events-calendar' ),
+			esc_html__( 'Legacy Import', 'the-events-calendar' ),
 			'import',
 			$this->admin_page_slug,
 			array( $this, 'render_admin_page_contents' )
