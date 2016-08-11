@@ -191,6 +191,15 @@
 	margin-left: 0;
 }
 
+.tribe-ea .tribe-refine {
+	margin-bottom: 4px;
+	margin-bottom: .25rem;
+}
+
+.tribe-ea .tribe-refine:last-child {
+	margin-bottom: 0;
+}
+
 .tribe-ea-table-container {
 	background-color: #FAFAFA;
 	border: 1px solid #E7E7E7;
