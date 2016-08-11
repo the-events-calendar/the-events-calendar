@@ -421,8 +421,13 @@ tribe_aggregator.fields = {
 	 * Displays a fetch error
 	 */
 	obj.display_fetch_error = function( message ) {
+		var $message_container = $( '.tribe-fetch-error-message' );
 		obj.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetch-error' );
-		obj.display_error( $( '.tribe-fetch-error-message' ), message );
+
+		// clear out the error message area
+		$message_container.html('');
+
+		obj.display_error( $message_container, message );
 		$( obj.selector.preview_button ).prop( 'disabled', false );
 	};
 
