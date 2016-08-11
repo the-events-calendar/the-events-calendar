@@ -42,8 +42,8 @@ $field->media_title = __( 'Upload an ICS File', 'the-events-calendar' );
 		<button type="submit" class="button button-primary tribe-preview">
 			<?php esc_html_e( 'Preview', 'the-events-calendar' ); ?>
 		</button>
-		<button type="button" class="button tribe-clear-filters">
-			<?php esc_html_e( 'Clear Filters', 'the-events-calendar' ); ?>
+		<button type="cancel" class="button tribe-cancel">
+			<?php esc_html_e( 'Cancel', 'the-events-calendar' ); ?>
 		</button>
 	</td>
 </tr>
