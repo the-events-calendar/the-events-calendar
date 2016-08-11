@@ -175,7 +175,7 @@ class Tribe__Events__Aggregator__Page {
 	 * @return string
 	 */
 	public function get_menu_label() {
-		return __( 'Aggregator', 'the-events-calendar' );
+		return __( 'Import', 'the-events-calendar' );
 	}
 
 	/**
@@ -184,7 +184,7 @@ class Tribe__Events__Aggregator__Page {
 	 * @return string
 	 */
 	public function get_page_title() {
-		return __( 'Events Aggregator', 'the-events-calendar' );
+		return __( 'Events Import', 'the-events-calendar' );
 	}
 
 	/**
