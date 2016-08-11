@@ -109,7 +109,7 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 
 <?php
 $default_settings = new stdClass;
-$default_settings->help = esc_html__( 'Choose a status for the event(s) to be imported with and/or define an Event Category to automatically assign.', 'the-events-calendar' );
+$default_settings->help = esc_html__( 'Choose a status for the event(s) to be imported with and/or define an Event Category to automatically assign. An assigned category will be added to the event in addition to any Event Categories from the import source.', 'the-events-calendar' );
 $default_settings->help_scheduled = $default_settings->help . ' ' . esc_html__( 'These settings will also apply to events imported in the future via this scheduled import.', 'the-events-calendar' );
 
 $csv_help = esc_html__( 'Select the Event Field that best matches your CSV file column. The contents of that column will then be mapped to the specified event field when the event is created.', 'the-events-calendar' );
