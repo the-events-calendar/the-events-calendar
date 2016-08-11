@@ -37,7 +37,7 @@ $field              = (object) array();
 $field->label       = __( 'Choose File:', 'the-events-calendar' );
 $field->placeholder = __( 'Choose a CSV file', 'the-events-calendar' );
 $field->help        = __( 'Select your .CSV file from the WordPress media library. You may need to first upload the file from your computer to the library.', 'the-events-calendar' );
-$field->button      = __( 'Upload new File', 'the-events-calendar' );
+$field->button      = __( 'Upload', 'the-events-calendar' );
 $field->media_title = __( 'Upload a CSV File', 'the-events-calendar' );
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-csv_content_type" data-condition-not-empty>

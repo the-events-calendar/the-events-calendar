@@ -5,7 +5,7 @@ $field->label       = __( 'Choose File:', 'the-events-calendar' );
 $field->placeholder = __( 'Choose File', 'the-events-calendar' );
 $field->help        = __( 'Select your ICS file from the WordPress media library. You may need to first upload the file from your computer to the library.', 'the-events-calendar' );
 $field->source      = 'ics_files';
-$field->button      = __( 'Upload new File', 'the-events-calendar' );
+$field->button      = __( 'Upload', 'the-events-calendar' );
 $field->media_title = __( 'Upload an ICS File', 'the-events-calendar' );
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="ics">
