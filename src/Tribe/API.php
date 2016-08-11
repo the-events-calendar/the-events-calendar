@@ -118,11 +118,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				unset( $data['FeaturedImage'] );
 			}
 
-			$is_preview = !empty($_POST['wp-preview']) && $_POST['wp-preview'] === 'dopreview';
-			if ( $is_preview ) {
-				// unhook recurring instances generation!
-			}
-
 			do_action( 'tribe_events_event_save', $event_id );
 
 			//update meta fields
