@@ -22,6 +22,7 @@ $post_types = array_map( 'get_post_type_object', Tribe__Main::get_post_types() )
 			class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 			data-hide-search=1
+			data-prevent-clear
 		>
 			<option value=""></option>
 			<?php foreach ( $post_types as $post_type ) : ?>

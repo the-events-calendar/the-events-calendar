@@ -50,6 +50,7 @@ if ( 'ics' === $origin_slug ) {
 			class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $radius->placeholder ); ?>"
 			data-hide-search
+			data-prevent-clear
 		>
 			<option value=""></option>
 			<?php
