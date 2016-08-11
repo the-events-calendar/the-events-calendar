@@ -79,7 +79,7 @@ $field->help        = __( 'Enter the url for the iCalendar feed you wish to impo
 			name="aggregator[ical][source]"
 			type="text"
 			id="tribe-ea-field-ical_source"
-			class="tribe-ea-field tribe-ea-size-large"
+			class="tribe-ea-field tribe-ea-size-xlarge"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 			value="<?php echo esc_attr( empty( $record->meta['source'] ) ? '' : $record->meta['source'] ); ?>"
 		>
