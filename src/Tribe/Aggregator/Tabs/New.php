@@ -282,6 +282,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		$result = $record->get_import_data();
 
+		// if we've received a source name, let's set that in the record as soon as possible
+		if ( ! empty( $result->data->source_name ) ) {
+			$record->update_meta( 'source_name', $result->data->source_name );
+		}
+
 		wp_send_json_success( $result );
 	}
 
