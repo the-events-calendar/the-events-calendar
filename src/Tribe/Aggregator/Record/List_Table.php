@@ -405,14 +405,13 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$html[] = $this->get_status_icon( $post );
 		}
 
-		$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $record->get_label() . '</strong></p>';
 		if ( 'ea/ics' === $post->post_mime_type || 'ea/csv' === $post->post_mime_type ) {
-			$file_path = get_attached_file( absint( $record->meta['file'] ) );
-			$filename = basename( $file_path );
-			$html[] = '<p>' . esc_html__( 'Source:', 'the-events-calendar' ) . ' <code>' . esc_html( $filename ) . '</code></p>';
+			$html[] = '<p><b>' . esc_html( $record->meta['source_name'] ) . '</b></p>';
 		} else {
-			$html[] = '<p>' . esc_html__( 'Source:', 'the-events-calendar' ) . ' <code>' . esc_html( $record->meta['source'] ) . '</code></p>';
+			$html[] = '<p><b><a href="' . esc_url( $record->meta['source'] ) . '">' . esc_html( $record->meta['source_name'] ) . '</a></b></p>';
 		}
+
+		$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $record->get_label() . '</strong></p>';
 
 		if ( 'scheduled' === $this->tab->get_slug() ) {
 			$html[] = $this->row_actions( $actions );

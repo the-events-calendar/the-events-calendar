@@ -238,3 +238,18 @@ table.eventForm {
 .widget-liquid-right .sidebar-description {
 	overflow: visible !important;
 }
+.tribe-aggregator-import-details {
+	overflow: hidden;
+}
+.tribe-aggregator-import-details dt {
+	clear: left;
+	float: left;
+	margin-right: 4px;
+	margin-right: .25rem;
+}
+.tribe-aggregator-import-details dd {
+	margin-left: 0;
+}
+.tribe-aggregator-import-details .tribe-value {
+	font-weight: bold;
+}

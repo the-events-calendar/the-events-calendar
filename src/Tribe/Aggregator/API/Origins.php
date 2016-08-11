@@ -3,6 +3,15 @@
 defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator__API__Abstract {
+	public $origin_names = array(
+		'csv' => 'CSV File',
+		'facebook' => 'Facebook',
+		'gcal' => 'Google Calendar',
+		'ical' => 'iCalendar',
+		'ics' => 'ICS File',
+		'meetup' => 'Meetup',
+	);
+
 	/**
 	 * Get event-aggregator origins
 	 *

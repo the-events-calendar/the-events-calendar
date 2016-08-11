@@ -77,11 +77,13 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		$file_reader = new Tribe__Events__Importer__File_Reader( $file_path );
 		$importer = Tribe__Events__Importer__File_Importer::get_importer( $content_type, $file_reader );
 
+		$this->update_meta( 'source_name', basename( $file_path ) );
+
 		$rows = $importer->do_import_preview();
 		$headers = array_shift( $rows );
 		$data = array();
 
-		foreach( $rows as $row ) {
+		foreach ( $rows as $row ) {
 			$item = array();
 			foreach ( $headers as $key => $header ) {
 				$item[ $header ] = $row[ $key ];

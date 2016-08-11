@@ -839,7 +839,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			 * @param array $event Event data to save
 			 * @param Tribe__Events__Aggregator__Record__Abstract Importer record
 			 */
-			$event = apply_filters( 'tribe_aggregator_before_save_event', $event, $record );
+			$event = apply_filters( 'tribe_aggregator_before_save_event', $event, $this );
 
 			if ( ! empty( $event['ID'] ) ) {
 				if ( 'preserve_changes' === $update_authority_setting ) {
@@ -868,7 +868,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				 * @param array $event Event data to save
 				 * @param Tribe__Events__Aggregator__Record__Abstract Importer record
 				 */
-				$event = apply_filters( 'tribe_aggregator_before_insert_event', $event, $record );
+				$event = apply_filters( 'tribe_aggregator_before_insert_event', $event, $this );
 				$event['ID'] = tribe_create_event( $event );
 
 				// Count it as a created Event
@@ -880,7 +880,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// Add the Aggregator Record
 			update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$record_key, $this->id );
-
 
 			//add post parent possibility
 			if ( empty( $event['parent_uid'] ) ) {
@@ -941,7 +940,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$parent_selected_ids = array();
 
 		if ( 'all' !== $this->meta['ids_to_import'] ) {
-			$selected_ids = json_decode( $this->meta['ids_to_import'] );
+			if ( is_array( $this->meta['ids_to_import'] ) ) {
+				$selected_ids = $this->meta['ids_to_import'];
+			} else {
+				$selected_ids = json_decode( $this->meta['ids_to_import'] );
+			}
 		} else {
 			$selected_ids = wp_list_pluck( $import_data, $unique_field['source'] );
 		}

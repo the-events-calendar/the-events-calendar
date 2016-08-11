@@ -9,6 +9,11 @@ class Tribe__Events__Aggregator {
 	protected static $instance;
 
 	/**
+	 * @var Tribe__Events__Aggregator__Meta_Box Event Aggregator Meta Box object
+	 */
+	public $meta_box;
+
+	/**
 	 * @var Tribe__Events__Aggregator__Page Event Aggregator page root object
 	 */
 	public $page;
@@ -78,6 +83,7 @@ class Tribe__Events__Aggregator {
 		}
 
 		// Loads the Required Classes and saves then as proprieties
+		$this->meta_box    = Tribe__Events__Aggregator__Meta_Box::instance();
 		$this->page        = Tribe__Events__Aggregator__Page::instance();
 		$this->service     = Tribe__Events__Aggregator__Service::instance();
 		$this->settings    = Tribe__Events__Aggregator__Settings::instance();
