@@ -110,6 +110,8 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 <?php
 $default_settings = new stdClass;
 $default_settings->help = esc_html__( 'Choose a status for the event(s) to be imported with and/or define an Event Category to automatically assign.', 'the-events-calendar' );
+$default_settings->help_scheduled = $default_settings->help . ' ' . esc_html__( 'These settings will also apply to events imported in the future via this scheduled import.', 'the-events-calendar' );
+
 $csv_help = esc_html__( 'Select the Event Field that best matches your CSV file column. The contents of that column will then be mapped to the specified event field when the event is created.', 'the-events-calendar' );
 
 $scheduled_save_help = esc_html__( 'Click Import to import the events above and save this scheduled import.', 'the-events-calendar' );
@@ -168,7 +170,45 @@ $scheduled_save_help = esc_html__( 'Click Import to import the events above and 
 		</select>
 		<label for="tribe-ea-field-category"><?php esc_html_e( 'Category:', 'the-events-calendar' ); ?></label>
 		<?php echo $category_dropdown; ?>
-		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo $default_settings->help; ?>"></span>
+		<span
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			data-bumpdown="<?php echo $default_settings->help; ?>"
+			data-depends="#tribe-ea-field-ical_import_type"
+			data-condition-not="schedule"
+			data-condition-empty
+		></span>
+		<span
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			data-bumpdown="<?php echo $default_settings->help; ?>"
+			data-depends="#tribe-ea-field-meetup_import_type"
+			data-condition-not="schedule"
+			data-condition-empty
+		></span>
+		<span
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			data-bumpdown="<?php echo $default_settings->help; ?>"
+			data-depends="#tribe-ea-field-facebook_import_type"
+			data-condition-not="schedule"
+			data-condition-empty
+		></span>
+		<span
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			data-bumpdown="<?php echo $default_settings->help_scheduled; ?>"
+			data-depends="#tribe-ea-field-ical_import_type"
+			data-condition="schedule"
+		></span>
+		<span
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			data-bumpdown="<?php echo $default_settings->help_scheduled; ?>"
+			data-depends="#tribe-ea-field-meetup_import_type"
+			data-condition="schedule"
+		></span>
+		<span
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			data-bumpdown="<?php echo $default_settings->help_scheduled; ?>"
+			data-depends="#tribe-ea-field-facebook_import_type"
+			data-condition="schedule"
+		></span>
 	</div>
 	<textarea style="display:none;" name="aggregator[selected_rows]" id="tribe-selected-rows"></textarea>
 </div>
