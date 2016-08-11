@@ -7,6 +7,7 @@ $start_date              = new stdClass;
 $start_date->placeholder = __( 'Start Date', 'the-events-calendar' );
 $radius                  = new stdClass;
 $radius->placeholder     = sprintf( _x( 'Radius (%s)', 'Radius with abbreviation', 'the-events-calendar' ), Tribe__Events__Utils__Radius::get_abbreviation() );
+$radius->help            = __( 'Use the filters to narrow down which events are fetched from your ICS file.', 'the-events-calendar' );
 
 if ( 'ics' === $origin_slug ) {
 	$depends = "#tribe-ea-field-{$origin_slug}_file";
@@ -59,5 +60,6 @@ if ( 'ics' === $origin_slug ) {
 			}
 			?>
 		</select>
+		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $radius->help ); ?>"></span>
 	</td>
 </tr>

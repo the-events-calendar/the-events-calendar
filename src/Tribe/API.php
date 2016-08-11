@@ -220,6 +220,9 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			if ( ! isset( $new[ $field ] ) && isset( $old[ $prefixed_field ] ) ) {
 				return true;
+			} elseif ( ! isset( $new[ $field ] ) ) {
+				// if the new field isn't set and the old field isn't set, there's no change
+				return false;
 			}
 
 			$data_value = $new[ $field ];

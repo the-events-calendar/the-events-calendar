@@ -626,7 +626,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		} else {
 			$attrs['data-title'] = wp_title( '|', false, 'right' );
 		}
-
 		switch ( $current_view ) {
 			case 'month.php' :
 				$attrs['data-view']    = 'month';

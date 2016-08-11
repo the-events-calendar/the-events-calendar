@@ -29,10 +29,12 @@ $missing_meetup_credentials = ! $meetup_api_key;
 				<?php
 				printf(
 					esc_html__(
-						'Enter your Meetup Application information to use Meetup import. You only need to do this once, it will be saved under %1$sEvents &gt; Settings%2$s',
+						'Enter your Meetup API key to import Meetup events. %1$sClick here to get your Meetup API key%2$s. You only need to do this once, it will be saved under %3$sEvents &gt; Settings &gt; APIs%4$s',
 						'the-events-calendar'
 					),
-					'<a href="' . esc_url( admin_url( 'edit.php?post_type=tribe_events&page=aggregator' ) ) . '">',
+					'<a href="https://secure.meetup.com/meetup_api/key/">',
+					'</a>',
+					'<a href="' . esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) ) ) . '">',
 					'</a>'
 				);
 				?>
@@ -42,10 +44,10 @@ $missing_meetup_credentials = ! $meetup_api_key;
 				<?php
 				printf(
 					esc_html__(
-						'Your Meetup Application information has been saved to %1$sEvents &gt; Settings%2$s',
+						'Your Meetup API key has been saved to %1$sEvents &gt; Settings &gt; APIs%2$s',
 						'the-events-calendar'
 					),
-					'<a href="' . esc_url( admin_url( 'edit.php?post_type=tribe_events&page=aggregator' ) ) . '">',
+					'<a href="' . esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) ) ) . '">',
 					'</a>'
 				);
 				?>
@@ -121,7 +123,7 @@ $missing_meetup_credentials = ! $meetup_api_key;
 $field              = (object) array();
 $field->label       = __( 'URL:', 'the-events-calendar' );
 $field->placeholder = __( 'meetup.com/example', 'the-events-calendar' );
-$field->help        = __( 'Enter the url for a Meetup group, page, or individual. Or, enter the url of a single Meetup event.', 'the-events-calendar' );
+$field->help        = __( 'Enter the url for a Meetup group, page, or individual. You can also enter the url of a single Meetup event.', 'the-events-calendar' );
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-meetup_import_type" data-condition-not-empty>
 	<th scope="row">

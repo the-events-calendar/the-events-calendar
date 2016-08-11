@@ -292,14 +292,15 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.3] unreleased =
 
-* Add - A button to copy the system infomation on the help tab [43709]
-* Add - An option for users to opt into automatic system infomation so our support system can grab the system information found on the help tab automatically [31645]
-* Fix - Cease using GLOB_BRACE for including deprecated files due to limited server support [63172]
-* Fix - Avoid problems that can occur when hooking and unhooking actions (props @Chouby) [63474]
+* Tweak - Adjusted some view logic to support the new Event Views shortcode in Pro [44800]
+* Tweak - Added a button to copy the system infomation on the help tab [43709]
+* Tweak - Added an option for users to opt into automatic system infomation so our support system can grab the system information found on the help tab automatically [31645]
 * Tweak - Use an earlier hook for iCal feed generation (props @jlambe) [64141]
 * Tweak - Revise and simplify integration with Event Tickets attendee screen [61992]
 * Tweak - Added context to a set of strings to make translation easier (props @pedro-mendonca) [64586]
 * Tweak - Deprecated various disused functions and classes relating to the Meta Factory [39905]
+* Fix - Cease using GLOB_BRACE for including deprecated files due to limited server support [63172]
+* Fix - Avoid problems that can occur when hooking and unhooking actions (props @Chouby) [63474]
 
 = [4.2.3] 2016-07-20 =
 
