@@ -30,7 +30,7 @@
 		case 'retain':
 		default:
 			$message = __(
-				'This event will not be re-imported nor will it be updated from the source.',
+				'This event will not be re-imported and changes made locally will be preserved.',
 				'the-events-calendar'
 			);
 			break;
