@@ -290,6 +290,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.2.5] unreleased =
+
+* Fix - Fixed inconsistent template filtering logic for single event template [62525]
+
 = [4.2.4] 2016-08-03 =
 
 * Tweak - Changed "Event Add-Ons" to load faster [64286]
