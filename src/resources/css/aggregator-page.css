@@ -56,6 +56,10 @@
 	width: 200px;
 }
 
+.tribe-ea .tribe-ea-size-xlarge {
+	width: 405px;
+}
+
 .tribe-ea .has-credentials {
 	padding: 0;
 }
@@ -177,6 +181,14 @@
 
 .tribe-ea .select2-container-multi .select2-choices .select2-search-field input {
 	height: 25px;
+}
+
+.tribe-ea .select2-container {
+	margin: 0 1px 0 0;
+}
+
+.tribe-ea input, .tribe-ea select {
+	margin-left: 0;
 }
 
 .tribe-ea-table-container {

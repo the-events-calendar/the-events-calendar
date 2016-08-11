@@ -79,7 +79,7 @@ $field->help        = __( 'Enter the url for the iCalendar feed you wish to impo
 			name="aggregator[ical][source]"
 			type="text"
 			id="tribe-ea-field-ical_source"
-			class="tribe-ea-field tribe-ea-size-large"
+			class="tribe-ea-field tribe-ea-size-xlarge"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 			value="<?php echo esc_attr( empty( $record->meta['source'] ) ? '' : $record->meta['source'] ); ?>"
 		>
@@ -94,8 +94,8 @@ $field->help        = __( 'Enter the url for the iCalendar feed you wish to impo
 		<button type="submit" class="button button-primary tribe-preview">
 			<?php esc_html_e( 'Preview', 'the-events-calendar' ); ?>
 		</button>
-		<button type="button" class="button tribe-clear-filters">
-			<?php esc_html_e( 'Clear Filters', 'the-events-calendar' ); ?>
+		<button type="button" class="button tribe-cancel">
+			<?php esc_html_e( 'Cancel', 'the-events-calendar' ); ?>
 		</button>
 	</td>
 </tr>

@@ -134,7 +134,7 @@ $field->help        = __( 'Enter the url for a Meetup group, page, or individual
 			name="aggregator[meetup][source]"
 			type="text"
 			id="tribe-ea-field-meetup_source"
-			class="tribe-ea-field tribe-ea-size-large"
+			class="tribe-ea-field tribe-ea-size-xlarge"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 			value="<?php echo esc_attr( empty( $record->meta['source'] ) ? '' : $record->meta['source'] ); ?>"
 		>
