@@ -111,6 +111,8 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 $default_settings = new stdClass;
 $default_settings->help = esc_html__( 'Choose a status for the event(s) to be imported with and/or define an Event Category to automatically assign.', 'the-events-calendar' );
 $csv_help = esc_html__( 'Select the Event Field that best matches your CSV file column. The contents of that column will then be mapped to the specified event field when the event is created.', 'the-events-calendar' );
+
+$scheduled_save_help = esc_html__( 'Click Import to import the events above and save this scheduled import.', 'the-events-calendar' );
 ?>
 <div class="tribe-ea-table-container tribe-preview-container">
 	<div class="tribe-fetch-error-message"></div>
@@ -177,6 +179,25 @@ $csv_help = esc_html__( 'Select the Event Field that best matches your CSV file 
 	<button type="button" class="button tribe-cancel">
 		<?php esc_html_e( 'Cancel', 'the-events-calendar' ); ?>
 	</button>
+	<span
+		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+		data-bumpdown="<?php echo $scheduled_save_help; ?>"
+		data-depends="#tribe-ea-field-ical_import_type"
+		data-condition="schedule"
+	></span>
+	<span
+		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+		data-bumpdown="<?php echo $scheduled_save_help; ?>"
+		data-depends="#tribe-ea-field-meetup_import_type"
+		data-condition="schedule"
+	></span>
+	<span
+		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+		data-bumpdown="<?php echo $scheduled_save_help; ?>"
+		data-depends="#tribe-ea-field-facebook_import_type"
+		data-condition="schedule"
+	></span>
+
 	<p class="tribe-timezone-message">
 		<?php echo sprintf( esc_html__( 'Events will be imported with the timezone defined by the source. You can make use of The Events Calendar\'s %1$stimezone settings%2$s to change how the actual time is displayed on your calendar.', 'the-events-calendar' ), '<a href="' . esc_url( Tribe__Settings::instance()->get_url() ) . '#tribe-field-tribe_events_timezone_mode">', '</a>' ); ?>
 	</p>
