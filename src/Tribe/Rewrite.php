@@ -112,12 +112,6 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			 * @var Tribe__Events__Rewrite $rewrite
 			 */
 			do_action( 'tribe_events_pre_rewrite', $this );
-
-			/**
-			 * Backwards Compatibility filter, this filters the WP Rewrite Rules.
-			 * @todo  Check if is worth deprecating this hook
-			 */
-			$wp_rewrite->rules = apply_filters( 'tribe_events_rewrite_rules', $this->rules + $wp_rewrite->rules, $this );
 		}
 
 		/**
