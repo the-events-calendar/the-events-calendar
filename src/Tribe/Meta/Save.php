@@ -110,7 +110,7 @@ class Tribe__Events__Meta__Save {
 		}
 
 		// Remove this hook to avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
-		remove_action( 'save_post', array( 'Tribe__Events__Main', 'addEventMeta' ), 15 );
+		remove_action( 'save_post', array( Tribe__Events__Main::instance(), 'addEventMeta' ), 15 );
 
 		$_POST['Organizer'] = isset( $_POST['organizer'] ) ? stripslashes_deep( $_POST['organizer'] ) : null;
 		$_POST['Venue']     = isset( $_POST['venue'] ) ? stripslashes_deep( $_POST['venue'] ) : null;
@@ -124,7 +124,7 @@ class Tribe__Events__Meta__Save {
 		Tribe__Events__API::saveEventMeta( $this->post_id, $_POST, $this->post );
 
 		// Add this hook back in
-		add_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
+		add_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, array( Tribe__Events__Main::instance(), 'addEventMeta' ), 15, 2 );
 
 		return true;
 	}
