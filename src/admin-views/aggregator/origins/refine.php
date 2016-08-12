@@ -36,7 +36,7 @@ if ( 'ics' === $origin_slug ) {
 				name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][start]"
 				type="text"
 				id="tribe-ea-field-ics_start"
-				class="tribe-ea-field tribe-ea-size-medium"
+				class="tribe-ea-field tribe-ea-size-medium tribe-datepicker"
 				placeholder="<?php echo esc_attr( $start_date->placeholder ); ?>"
 				value="<?php echo esc_attr( empty( $record->meta['start'] ) ? '' : $record->meta['start'] ); ?>"
 			>
