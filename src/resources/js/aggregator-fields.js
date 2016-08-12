@@ -78,6 +78,11 @@ tribe_aggregator.fields = {
 			callback( obj.$.fields );
 		} );
 
+		var $tribe_events = $( document.getElementById( 'eventDetails' ) );
+		if ( $tribe_events.data( 'datepicker_format' ) ) {
+			tribe_ev.state.datepicker_format = $tribe_events.data( 'datepicker_format' );
+		}
+
 		$( document )
 			.on( 'keypress'   , obj.selector.fields                  , obj.events.trigger_field_change )
 			.on( 'click'      , obj.selector.save_credentials_button , obj.events.trigger_save_credentials )
