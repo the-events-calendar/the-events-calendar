@@ -181,6 +181,13 @@ $scheduled_save_help = esc_html__( 'Click Import to import the events above and 
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo $default_settings->help; ?>"
+			data-depends="#tribe-ea-field-gcal_import_type"
+			data-condition-not="schedule"
+			data-condition-empty
+		></span>
+		<span
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			data-bumpdown="<?php echo $default_settings->help; ?>"
 			data-depends="#tribe-ea-field-meetup_import_type"
 			data-condition-not="schedule"
 			data-condition-empty
@@ -196,6 +203,12 @@ $scheduled_save_help = esc_html__( 'Click Import to import the events above and 
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo $default_settings->help_scheduled; ?>"
 			data-depends="#tribe-ea-field-ical_import_type"
+			data-condition="schedule"
+		></span>
+		<span
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			data-bumpdown="<?php echo $default_settings->help_scheduled; ?>"
+			data-depends="#tribe-ea-field-gcal_import_type"
 			data-condition="schedule"
 		></span>
 		<span
@@ -224,6 +237,12 @@ $scheduled_save_help = esc_html__( 'Click Import to import the events above and 
 		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 		data-bumpdown="<?php echo $scheduled_save_help; ?>"
 		data-depends="#tribe-ea-field-ical_import_type"
+		data-condition="schedule"
+	></span>
+	<span
+		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+		data-bumpdown="<?php echo $scheduled_save_help; ?>"
+		data-depends="#tribe-ea-field-gcal_import_type"
 		data-condition="schedule"
 	></span>
 	<span

@@ -3,7 +3,7 @@ $origin_slug        = 'gcal';
 $field              = (object) array();
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Import Type', 'the-events-calendar' );
-$field->help        = __( 'One-time imports include all currently listed events, while scheduled imports automatically grab new events and updates from the feed on a set schedule. Single events can be added via a one-time import.', 'the-events-calendar' );
+$field->help        = __( 'One-time imports include all events in the current feed, while scheduled imports automatically grab new events and updates from the feed on a set schedule.', 'the-events-calendar' );
 $field->source      = 'gcal_import_type';
 
 $frequency              = (object) array();
@@ -68,7 +68,9 @@ $frequencies = $cron->get_frequency();
 $field              = (object) array();
 $field->label       = __( 'URL:', 'the-events-calendar' );
 $field->placeholder = __( 'https://calendar.google.com/calendar/ical/example/basic.ics', 'the-events-calendar' );
-$field->help        = __( 'Enter the url for the Google Calendar feed you wish to import, e.g. https://calendar.google.com/calendar/ical/example/basic.ics', 'the-events-calendar' );
+$field->help        = __( 'Enter the url for the Google Calendar feed you wish to import.', 'the-events-calendar' );
+$field->help       .= '<br/>';
+$field->help       .= __( 'You can find the url you need in your Google Calendar settings. Go to Settings &gt; Calendars and select the calendar you wish to import. Scroll down to Calendar Address and click the iCal button. Copy the provided url into this field to import the events into your WordPress site.', 'the-events-calendar' );
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-gcal_import_type" data-condition-not-empty>
 	<th scope="row">

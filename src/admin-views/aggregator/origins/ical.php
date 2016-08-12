@@ -3,7 +3,7 @@ $origin_slug        = 'ical';
 $field              = (object) array();
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Import Type', 'the-events-calendar' );
-$field->help        = __( 'One-time imports include all currently listed events, while scheduled imports automatically grab new events and updates from the feed on a set schedule. Single events can be added via a one-time import.', 'the-events-calendar' );
+$field->help        = __( 'One-time imports include all events in the current feed, while scheduled imports automatically grab new events and updates from the feed on a set schedule.', 'the-events-calendar' );
 $field->source      = 'ical_import_type';
 
 $frequency              = (object) array();
