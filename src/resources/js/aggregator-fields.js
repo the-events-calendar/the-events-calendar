@@ -9,6 +9,7 @@ tribe_aggregator.fields = {
 		help: '.tribe-ea-help',
 		fields: '.tribe-ea-field',
 		dropdown: '.tribe-ea-dropdown',
+		origin_field: '#tribe-ea-field-origin',
 		media_button: '.tribe-ea-media_button',
 		datepicker: '.tribe-ea-datepicker',
 		save_credentials_button: '.enter-credentials .tribe-save',
@@ -85,6 +86,10 @@ tribe_aggregator.fields = {
 			.on( 'click'      , obj.selector.finalize_button         , obj.finalize_manual_import )
 			.on( 'click'      , '.tribe-preview'                     , obj.preview_import )
 			.on( 'click'      , '.tribe-cancel'                      , obj.events.cancel_edit )
+			.on( 'change'     , obj.selector.origin_field            , function() {
+				obj.$.form.removeClass( 'show-data' );
+				$( '.tribe-fetched, .tribe-fetching, .tribe-fetch-error' ).removeClass( 'tribe-fetched tribe-fetching tribe-fetch-error' );
+			} )
 			.on( 'submit'     , '.tribe-ea-tab-new'                  , obj.events.suppress_submission );
 
 		$( '.tribe-dependency' ).change();
@@ -268,7 +273,7 @@ tribe_aggregator.fields = {
 	obj.init_datatable = function( data ) {
 		var display_checkboxes = false;
 
-		var origin = $( '#tribe-ea-field-origin' ).val();
+		var origin = $( obj.selector.origin_field ).val();
 		var is_csv = 'csv' === origin;
 
 		var $import_type = $( '[id$="import_type"]:visible' );
