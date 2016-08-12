@@ -7,12 +7,21 @@ $start_date              = new stdClass;
 $start_date->placeholder = __( 'Start Date', 'the-events-calendar' );
 $radius                  = new stdClass;
 $radius->placeholder     = sprintf( _x( 'Radius (%s)', 'Radius with abbreviation', 'the-events-calendar' ), Tribe__Events__Utils__Radius::get_abbreviation() );
-$radius->help            = __( 'Use the filters to narrow down which events are fetched from your ICS file.', 'the-events-calendar' );
 
-if ( 'ics' === $origin_slug ) {
-	$depends = "#tribe-ea-field-{$origin_slug}_file";
-} else {
-	$depends = "#tribe-ea-field-{$origin_slug}_import_type";
+switch ( $origin_slug ) {
+	case 'ics':
+		$depends = "#tribe-ea-field-{$origin_slug}_file";
+		$radius->help = __( 'Use the filters to narrow down which events are fetched from your ICS file.', 'the-events-calendar' );
+		break;
+	case 'gcal':
+		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
+		$radius->help = __( 'Use the filters to narrow down which events are fetched from this Google Calendar.', 'the-events-calendar' );
+		break;
+	case 'ical':
+	default:
+		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
+		$radius->help = __( 'Use the filters to narrow down which events are fetched from this iCalendar feed.', 'the-events-calendar' );
+		break;
 }
 ?>
 <tr class="tribe-dependent tribe-refine-filters" data-depends="<?php echo esc_attr( $depends ); ?>" data-condition-not-empty>

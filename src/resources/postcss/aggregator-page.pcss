@@ -368,3 +368,33 @@
 .tribe-message-loader {
 	display: none;
 }
+
+@media screen and (max-width: 782px) {
+	.tribe-ea {
+		/**
+		 * override default WordPress responsive styles so the helper icon has space
+		 */
+		.form-table td {
+			padding-right: 0;
+
+			input[type=text] {
+				width: 92%;
+				display: inline-block;
+			}
+		}
+
+		/**
+		 * override dependency styling, impacts Meetup import type
+		 */
+		td.tribe-dependent.tribe-active {
+			display: block;
+		}
+
+		/**
+		 * Vertically center the helper text icon next to taller input fields
+		 */
+		input + .tribe-ea-help {
+			line-height: 30px;
+		}
+	}
+}
