@@ -200,6 +200,10 @@
 	margin-bottom: 0;
 }
 
+.tribe-ea .tribe-notice-tribe-missing-aggregator-license {
+	background: #f7fcfe;
+}
+
 .tribe-ea-table-container {
 	background-color: #FAFAFA;
 	border: 1px solid #E7E7E7;
