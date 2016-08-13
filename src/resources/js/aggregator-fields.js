@@ -458,7 +458,7 @@ tribe_aggregator.fields = {
 		jqxhr.done( function( response ) {
 			if ( response.success ) {
 				$credentials_form.addClass( 'credentials-entered' );
-				$credentials_form.find( '#tribe-has-credentials' ).val( 1 ).change();
+				$credentials_form.find( '[name="has-credentials"]' ).val( 1 ).change();
 			}
 		} );
 	};
