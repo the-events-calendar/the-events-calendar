@@ -231,7 +231,7 @@ class Tribe__Events__Aggregator__Records {
 			'public'             => true,
 			'publicly_queryable' => true,
 		);
-		$object = register_post_status( self::$status->pending, $args );
+		$object = register_post_status( self::$status->draft, $args );
 		$registered_by_key->draft = $registered_by_name->{'tribe-aggregator-draft'} = $object;
 
 		// Check if we already have the Status registered
@@ -376,6 +376,7 @@ class Tribe__Events__Aggregator__Records {
 			'meta_key' => $meta_prefix . 'import_id',
 			'meta_value' => $import_id,
 			'post_status' => array(
+				self::$status->draft,
 				self::$status->pending,
 				self::$status->success,
 			),

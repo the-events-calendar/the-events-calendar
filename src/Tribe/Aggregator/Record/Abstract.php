@@ -449,8 +449,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return $this->set_status_as_failed( $error );
 		}
 
-		// if we get here, we're good! Set the status to pending
-		$this->set_status_as_pending();
+		// only set as pending if we aren't previewing the record
+		if (
+			empty( $_GET['action'] )
+			|| ! (
+				'tribe_aggregator_create_import' === $_GET['action']
+				|| 'tribe_aggregator_preview_import' === $_GET['action']
+			)
+		) {
+			// if we get here, we're good! Set the status to pending
+			$this->set_status_as_pending();
+		}
 
 		// store the import id
 		update_post_meta( $this->id, self::$meta_key_prefix . 'import_id', $response->data->import_id );
