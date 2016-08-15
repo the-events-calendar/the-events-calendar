@@ -741,6 +741,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			);
 		}
 
+		if ( is_wp_error( $import_data ) ) {
+			return $import_data;
+		}
+
 		$results = array(
 			'updated' => 0,
 			'created' => 0,
@@ -924,6 +928,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );
+
+			if ( ! empty( $event['image'] ) ) {
+				$this->import_event_image( $event['ID'], $event );
+			}
 		}
 
 		$this->complete_import( $results );
@@ -931,6 +939,33 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
 		return $results;
+	}
+
+	/**
+	 * Attempts to pull in the event image, if there is one, and attach it to the
+	 * specified event post.
+	 *
+	 * @param $event_id
+	 * @param $facebook_event
+	 */
+	protected function import_event_image( $event_id, $import_data ) {
+		// Attempt to grab the event image
+		/**
+		 * Filters the returned event image url
+		 *
+		 * @param array|bool $image
+		 * @param int $event_id Event ID
+		 * @param array $import_data Event data
+		 */
+		$image = apply_filters( 'tribe_aggregator_event_image', Tribe__Events__Aggregator::instance()->api( 'image' )->get( $import_data['image']->id ), $event_id, $import_data );
+
+		// If there was a problem bail out
+		if ( false === $image ) {
+			return;
+		}
+
+		// Set as featured image
+		return set_post_thumbnail( $event_id, $image->post_id );
 	}
 
 	/**

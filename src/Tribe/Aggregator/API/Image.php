@@ -94,7 +94,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 			'post_title'     => preg_replace( '/\.[^.]+$/', '', $filename ),
 			'post_content'   => '',
 			'post_status'    => 'inherit',
-			'post_mime_type' => $filetype,
+			'post_mime_type' => $filetype['type'],
 		);
 
 		// insert the attachment

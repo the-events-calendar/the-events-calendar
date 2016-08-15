@@ -54,6 +54,7 @@ class Tribe__Events__Aggregator__Event {
 			'timezone' => 'EventTimezone',
 			'url' => 'EventURL',
 			'all_day' => 'EventAllDay',
+			'image' => 'image',
 			'facebook_id' => 'EventFacebookID',
 			'meetup_id' => 'EventMeetupID',
 			'uid' => 'uid',

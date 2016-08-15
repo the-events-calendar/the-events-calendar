@@ -53,8 +53,6 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$license_info = get_option( 'external_updates-event-aggregator' );
 
 		if ( ! $has_license_key || ( isset( $license_info->update->api_invalid ) && $license_info->update->api_invalid ) ) {
-			tribe_notice( 'tribe-missing-aggregator-license', array( $this, 'render_notice_missing_aggregator_license' ), 'type=warning' );
-
 			return;
 		}
 
@@ -302,27 +300,23 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	public function render_notice_missing_aggregator_license() {
 		ob_start();
 		?>
-		<p>
-			<?php
-			esc_html_e(
-				"
-					Need to import events from other sources? Buy an Event Aggregator license and you'll
-					be able to import events from Facebook, iCalendar, Google, and Meetup.com! Import
-					individual events or set up saved auto imports to fill your calendar regularly. Use
-					filters to get just the events you want.
-				",
-				'the-events-calendar'
-			);
-			?>
-		</p>
-		<p>
-			<a href="" class="tribe-license-link"><?php esc_html_e( 'Buy your Event Aggregator license today!', 'the-events-calendar' ); ?></a>
-		</p>
+		<div class="notice inline notice-info tribe-notice-tribe-missing-aggregator-license" data-ref="tribe-missing-aggregator-license">
+			<p>
+				<?php esc_html_e( 'Upgrade to Event Aggregator to unlock access to multiple import sources.', 'the-events-calendar' ); ?></p>
+			<p>
+				<?php echo sprintf(
+						esc_html__( 'With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup.com in a jiffy. Head over to %1$sTheEventsCalendar.com%2$s to purchase instant access, including a year of premium support, updates, and upgrades.', 'the-events-calendar' ),
+						'<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importpage&utm_medium=plugin-tec&utm_campaign=in-app">',
+						'</a>'
+					); ?>
+			</p>
+			<p>
+				<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importpage&utm_medium=plugin-tec&utm_campaign=in-app" class="tribe-license-link button button-primary"><?php esc_html_e( 'Buy Event Aggregator Now', 'the-events-calendar' ); ?></a>
+			</p>
+		</div>
 		<?php
 
-		$html = ob_get_clean();
-
-		return Tribe__Admin__Notices::instance()->render( 'tribe-missing-aggregator-license', $html );
+		return ob_get_clean();
 	}
 
 	/**

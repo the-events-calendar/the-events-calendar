@@ -92,10 +92,14 @@ class Tribe__Events__Aggregator__Settings {
 	public function default_post_status( $origin = null ) {
 		$origin = $this->origin_translation( $origin );
 
-		$setting = tribe_get_option( 'tribe_aggregator_default_post_status', 'publish' );
+		$global_setting = $setting = tribe_get_option( 'tribe_aggregator_default_post_status', 'publish' );
 
 		if ( $origin ) {
 			$setting = tribe_get_option( "tribe_aggregator_default_{$origin}_post_status", $setting );
+		}
+
+		if ( ! $setting ) {
+			$setting = $global_setting;
 		}
 
 		return $setting;
@@ -113,7 +117,7 @@ class Tribe__Events__Aggregator__Settings {
 	public function default_category( $origin = null ) {
 		$origin = $this->origin_translation( $origin );
 
-		$setting = tribe_get_option( 'tribe_aggregator_default_category', 'draft' );
+		$setting = tribe_get_option( 'tribe_aggregator_default_category', null );
 
 		if ( $origin ) {
 			$setting = tribe_get_option( "tribe_aggregator_default_{$origin}_category", $setting );
