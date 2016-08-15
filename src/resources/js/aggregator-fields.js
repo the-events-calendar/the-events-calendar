@@ -281,7 +281,12 @@ tribe_aggregator.fields = {
 					continue;
 				}
 
-				$( '#tribe-ea-field-' + settings_key ).val( ea.default_settings[ origin ][ settings_key ] ).change();
+				var $setting_field = $( '#tribe-ea-field-' + settings_key );
+
+				$setting_field
+					.val( ea.default_settings[ origin ][ settings_key ] )
+					.select2( 'val', ea.default_settings[ origin ][ settings_key ] )
+					.trigger( 'change' );
 			}
 		}
 
