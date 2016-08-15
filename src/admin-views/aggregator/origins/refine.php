@@ -33,7 +33,7 @@ switch ( $origin_slug ) {
 			<input
 				name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][keywords]"
 				type="text"
-				id="tribe-ea-field-ics_keywords"
+				id="tribe-ea-field-<?php echo esc_attr( $origin_slug ); ?>_keywords"
 				class="tribe-ea-field tribe-ea-size-xlarge"
 				placeholder="<?php echo esc_attr( $keywords->placeholder ); ?>"
 				value="<?php echo esc_attr( empty( $record->meta['keywords'] ) ? '' : $record->meta['keywords'] ); ?>"
@@ -44,8 +44,8 @@ switch ( $origin_slug ) {
 			<input
 				name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][start]"
 				type="text"
-				id="tribe-ea-field-ics_start"
-				class="tribe-ea-field tribe-ea-size-medium"
+				id="tribe-ea-field-<?php echo esc_attr( $origin_slug ); ?>_start"
+				class="tribe-ea-field tribe-ea-size-medium tribe-datepicker"
 				placeholder="<?php echo esc_attr( $start_date->placeholder ); ?>"
 				value="<?php echo esc_attr( empty( $record->meta['start'] ) ? '' : $record->meta['start'] ); ?>"
 			>
@@ -54,14 +54,14 @@ switch ( $origin_slug ) {
 			<input
 				name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][location]"
 				type="text"
-				id="tribe-ea-field-ics_location"
+				id="tribe-ea-field-<?php echo esc_attr( $origin_slug ); ?>_location"
 				class="tribe-ea-field tribe-ea-size-large"
 				placeholder="<?php echo esc_attr( $location->placeholder ); ?>"
 				value="<?php echo esc_attr( empty( $record->meta['location'] ) ? '' : $record->meta['location'] ); ?>"
 			>
 			<select
 				name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][radius]"
-				id="tribe-ea-field-ics_radius"
+				id="tribe-ea-field-<?php echo esc_attr( $origin_slug ); ?>_radius"
 				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-medium"
 				placeholder="<?php echo esc_attr( $radius->placeholder ); ?>"
 				data-hide-search
