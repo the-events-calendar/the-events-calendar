@@ -286,7 +286,12 @@ tribe_aggregator.fields = {
 					continue;
 				}
 
-				$( '#tribe-ea-field-' + settings_key ).val( ea.default_settings[ origin ][ settings_key ] ).change();
+				var $setting_field = $( '#tribe-ea-field-' + settings_key );
+
+				$setting_field
+					.val( ea.default_settings[ origin ][ settings_key ] )
+					.select2( 'val', ea.default_settings[ origin ][ settings_key ] )
+					.trigger( 'change' );
 			}
 		}
 
@@ -463,7 +468,7 @@ tribe_aggregator.fields = {
 		jqxhr.done( function( response ) {
 			if ( response.success ) {
 				$credentials_form.addClass( 'credentials-entered' );
-				$credentials_form.find( '#tribe-has-credentials' ).val( 1 ).change();
+				$credentials_form.find( '[name="has-credentials"]' ).val( 1 ).change();
 			}
 		} );
 	};
