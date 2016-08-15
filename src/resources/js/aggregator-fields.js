@@ -234,11 +234,19 @@ tribe_aggregator.fields = {
 
 		jqxhr.done( function( response ) {
 			if ( ! response.success ) {
+				var message;
+
+				if ( 'undefined' !== typeof response.data.message ) {
+					message = response.data.message;
+				} else if ( 'undefined' !== typeof response.data[0].message ) {
+					message = response.data[0].message;
+				}
+
 				obj.display_fetch_error( [
 					'<b>',
 						ea.l10n.preview_fetch_error_prefix,
 					'</b>',
-					' ' + response.data.message
+					' ' + message
 				].join( ' ' ) );
 				return;
 			}

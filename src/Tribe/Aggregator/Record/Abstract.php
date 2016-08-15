@@ -378,6 +378,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function queue_import( $args = array() ) {
 		$aggregator = Tribe__Events__Aggregator::instance();
 
+		$is_previewing = (
+			! empty( $_GET['action'] )
+			&& (
+				'tribe_aggregator_create_import' === $_GET['action']
+				|| 'tribe_aggregator_preview_import' === $_GET['action']
+			)
+		);
+
 		$error = null;
 
 		// if the daily limit for import requests has been reached, error out
@@ -390,7 +398,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'type'     => $this->meta['type'],
 			'origin'   => $this->meta['origin'],
 			'source'   => $this->meta['source'],
-			'callback' => site_url( '/event-aggregator/insert/?key=' . urlencode( $this->meta['hash'] ) ),
+			'callback' => $is_previewing ? null : site_url( '/event-aggregator/insert/?key=' . urlencode( $this->meta['hash'] ) ),
 		);
 
 		if ( ! empty( $this->meta['frequency'] ) ) {
@@ -449,8 +457,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return $this->set_status_as_failed( $error );
 		}
 
-		// if we get here, we're good! Set the status to pending
-		$this->set_status_as_pending();
+		// only set as pending if we aren't previewing the record
+		if ( ! $is_previewing ) {
+			// if we get here, we're good! Set the status to pending
+			$this->set_status_as_pending();
+		}
 
 		// store the import id
 		update_post_meta( $this->id, self::$meta_key_prefix . 'import_id', $response->data->import_id );
