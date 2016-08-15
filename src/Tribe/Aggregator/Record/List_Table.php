@@ -359,26 +359,33 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$classes[] = 'tribe-ea-status-' . $post->post_status;
 		}
 
+		$helper_text = '';
+
 		switch ( $post->post_status ) {
 			case 'tribe-ea-success':
 				$classes[] = 'dashicons-yes';
+				$helper_text = __( 'Import completed', 'the-events-calendar' );
 				break;
 			case 'tribe-ea-failed':
 				$classes[] = 'dashicons-warning';
+				$helper_text = __( 'Import failed', 'the-events-calendar' );
 				break;
 			case 'tribe-ea-schedule':
 				$classes[] = 'dashicons-backup';
+				$helper_text = __( 'Import schedule', 'the-events-calendar' );
 				break;
 			case 'tribe-ea-pending':
 				$classes[] = 'dashicons-clock';
+				$helper_text = __( 'Import pending', 'the-events-calendar' );
 				break;
 			case 'tribe-ea-draft':
 				$classes[] = 'dashicons-welcome-write-blog';
+				$helper_text = __( 'Import preview', 'the-events-calendar' );
 				break;
 		}
 
 		$html[] = '<div class="tribe-ea-report-status">';
-		$html[] = '<span class="' . implode( ' ', $classes ) . '"></span>';
+		$html[] = '<span class="' . implode( ' ', $classes ) . '" title="' . esc_attr( $helper_text ) . '"></span>';
 		$html[] = '</div>';
 
 		return $this->render( $html );
