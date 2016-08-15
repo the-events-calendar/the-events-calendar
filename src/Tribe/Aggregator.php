@@ -83,6 +83,7 @@ class Tribe__Events__Aggregator {
 		$this->settings    = Tribe__Events__Aggregator__Settings::instance();
 		$this->records     = Tribe__Events__Aggregator__Records::instance();
 		$this->cron        = Tribe__Events__Aggregator__Cron::instance();
+		$this->errors      = Tribe__Events__Aggregator__Errors::instance();
 		$this->pue_checker = new Tribe__PUE__Checker( 'http://tri.be/', 'event-aggregator' );
 
 		// Intializes the Classes related to the API

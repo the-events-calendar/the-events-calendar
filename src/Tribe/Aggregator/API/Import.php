@@ -128,7 +128,7 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 			|| empty( $json->end_hour )
 			|| empty( $json->end_minute )
 		) {
-			return new WP_Error( 'invalid-event-json', __( 'Could not convert event JSON to an event array because it is missing required fields', 'the-events-calendar' ) );
+			return tribe_error( 'core:aggregator:invalid-event-json' );
 		}
 
 		$event = array();
