@@ -204,6 +204,17 @@
 	background: #f7fcfe;
 }
 
+.tribe-ea .dataTables_length,
+	.tribe-ea .dataTables_filter {
+	line-height: 28px;
+	margin-bottom: 8px;
+	margin-bottom: .5rem;
+}
+
+.tribe-ea .dataTables_length select, .tribe-ea .dataTables_filter select {
+	margin-top: -2px;
+}
+
 .tribe-ea-table-container {
 	background-color: #FAFAFA;
 	border: 1px solid #E7E7E7;
