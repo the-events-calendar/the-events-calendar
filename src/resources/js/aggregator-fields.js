@@ -779,13 +779,20 @@ tribe_aggregator.fields = {
 			} );
 
 			// We don't need the Media Library button
+			/*
 			media.on( 'open', function () {
 				$( '.media-router .media-menu-item' ).first().trigger( 'click' );
 			} );
+			*/
 		} );
 
 		obj.$.container.on( 'click', obj.selector.media_button, function( e ) {
 			e.preventDefault();
+
+			if ( ! $( this ).is( ':visible' ) ) {
+				return;
+			}
+
 			var input = $( this ).data( 'input' );
 			obj.media[ input ].open( input );
 			return false;
