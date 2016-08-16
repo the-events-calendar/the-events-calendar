@@ -78,6 +78,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$event = $this->build_event_array( false, $record );
 		$id    = Tribe__Events__API::createEvent( $event );
 
+		if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
+			Tribe__Events__Aggregator__Record__Abstract::add_record_to_event( $id, $this->aggregator_record->id, 'csv' );
+		}
+
 		return $id;
 	}
 

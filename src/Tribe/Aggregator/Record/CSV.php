@@ -191,6 +191,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 	protected function continue_import() {
 		$importer = $this->get_importer();
 		$importer->is_aggregator = true;
+		$importer->aggregator_record = $this;
 		$offset = get_option( 'tribe_events_importer_offset' );
 		if ( $offset == -1 ) {
 			$this->state = 'complete';

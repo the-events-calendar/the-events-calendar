@@ -863,11 +863,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$results['created']++;
 			}
 
-			// Add the Aggregator Origin
-			update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$origin_key, $this->origin );
-
-			// Add the Aggregator Record
-			update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$record_key, $this->id );
+			self::add_record_to_event( $event['ID'], $this->id, $this->origin );
 
 			//add post parent possibility
 			if ( empty( $event['parent_uid'] ) ) {
@@ -912,6 +908,21 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
 		return $results;
+	}
+
+	/**
+	 * Adds the import record and origin to the imported event
+	 *
+	 * @param int $id Event ID
+	 * @param int $record_id Import Record ID
+	 * @param string $origin Import Origin
+	 */
+	public static function add_record_to_event( $id, $record_id, $origin ) {
+		// Add the Aggregator Origin
+		update_post_meta( $id, Tribe__Events__Aggregator__Event::$origin_key, $origin );
+
+		// Add the Aggregator Record
+		update_post_meta( $id, Tribe__Events__Aggregator__Event::$record_key, $record_id );
 	}
 
 	/**
