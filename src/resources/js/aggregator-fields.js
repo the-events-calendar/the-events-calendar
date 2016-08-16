@@ -256,16 +256,16 @@ tribe_aggregator.fields = {
 				return;
 			}
 
-			if ( 'success' !== response.data.status ) {
+			if ( 'error' === response.data.status ) {
+				obj.display_fetch_error( response.data.message );
+			} else if ( 'success' !== response.data.status ) {
 				if ( obj.result_fetch_count > obj.max_result_fetch_count ) {
 					obj.polling_frequency_index++;
 					obj.result_fetch_count = 0;
 				}
 
 				if ( 'undefined' === typeof obj.polling_frequencies[ obj.polling_frequency_index ] ) {
-					obj.display_fetch_error( [
-						'The preview is taking longer than expected. Please try again in a moment.'
-					].join( '' ) );
+					obj.display_fetch_error( ea.l10n.preview_timeout );
 				} else {
 					setTimeout( obj.poll_for_results, obj.polling_frequencies[ obj.polling_frequency_index ] );
 				}

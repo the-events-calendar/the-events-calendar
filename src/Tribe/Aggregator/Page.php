@@ -88,6 +88,7 @@ class Tribe__Events__Aggregator__Page {
 							'venues' => get_option( 'tribe_events_import_column_mapping_venues', array() ),
 						),
 						'l10n' => array(
+							'preview_timeout' => __( 'The preview is taking longer than expected. Please try again in a moment.', 'the-events-calendar' ),
 							'preview_fetch_error_prefix' => __( 'There was an error fetching the results from your import:', 'the-events-calendar' ),
 							'import_all' => __( 'Import All (%d)', 'the-events-calendar' ),
 							'import_checked' => __( 'Import Checked (%d)', 'the-events-calendar' ),
