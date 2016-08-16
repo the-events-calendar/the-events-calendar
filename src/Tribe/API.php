@@ -231,7 +231,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$data_value = null;
 			}
 
-			if ( $data_value !== $old[ $prefixed_field ] ) {
+			if ( ! isset( $old[ $prefixed_field ] ) || $data_value !== $old[ $prefixed_field ] ) {
 				return true;
 			}
 
