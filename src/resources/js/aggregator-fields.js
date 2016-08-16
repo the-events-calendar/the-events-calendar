@@ -415,6 +415,7 @@ tribe_aggregator.fields = {
 				{ data: 'end_date' },
 				{ data: 'title' }
 			];
+			args.autoWidth = false;
 		}
 
 		$table.tribeDataTable( args );
