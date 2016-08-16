@@ -409,7 +409,7 @@ class Tribe__Events__Aggregator__Records {
 		$record_id = get_post_meta( $event->ID, Tribe__Events__Aggregator__Event::$record_key, true );
 
 		if ( empty( $record_id ) ) {
-			return tribe_error( 'core:aggregator:invalid-import-id', array(), array( $import_id ) );
+			return tribe_error( 'core:aggregator:invalid-import-id', array(), array( $record_id ) );
 		}
 
 		return $this->get_by_post_id( $record_id );
