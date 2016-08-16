@@ -256,16 +256,16 @@ tribe_aggregator.fields = {
 				return;
 			}
 
-			if ( 'success' !== response.data.status ) {
+			if ( 'error' === response.data.status ) {
+				obj.display_fetch_error( response.data.message );
+			} else if ( 'success' !== response.data.status ) {
 				if ( obj.result_fetch_count > obj.max_result_fetch_count ) {
 					obj.polling_frequency_index++;
 					obj.result_fetch_count = 0;
 				}
 
 				if ( 'undefined' === typeof obj.polling_frequencies[ obj.polling_frequency_index ] ) {
-					obj.display_fetch_error( [
-						'The preview is taking longer than expected. Please try again in a moment.'
-					].join( '' ) );
+					obj.display_fetch_error( ea.l10n.preview_timeout );
 				} else {
 					setTimeout( obj.poll_for_results, obj.polling_frequencies[ obj.polling_frequency_index ] );
 				}
@@ -312,6 +312,11 @@ tribe_aggregator.fields = {
 			import_type = $( '#' + $import_type.first().attr( 'id' ).replace( 's2id_', '' ) ).val();
 		}
 
+		if ( 'manual' === import_type && ! data.items.length ) {
+			obj.display_fetch_error( ea.l10n.no_results );
+			return;
+		}
+
 		if ( ! $import_type.length || 'manual' === import_type ) {
 			display_checkboxes = true;
 		}
@@ -335,8 +340,8 @@ tribe_aggregator.fields = {
 
 		var args = {
 			lengthMenu: [
-				[5, 10, 25, 50, -1],
-				[5, 10, 25, 50, tribe_l10n_datatables.pagination.all ]
+				[ 5, 10, 25, 50, -1 ],
+				[ 5, 10, 25, 50, tribe_l10n_datatables.pagination.all ]
 			],
 			order: [
 				[ 1, 'asc' ]
@@ -710,11 +715,7 @@ tribe_aggregator.fields = {
 						action: 'tribe_aggregator_dropdown_' + source,
 					};
 				};
-
-				// If you want to create a diferent type of data for your AJAX call based on the source
-				if ( 'Source Name' === source ){
-				}
-			};
+			}
 
 			$select.select2( args );
 		})

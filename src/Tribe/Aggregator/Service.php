@@ -67,7 +67,7 @@ class Tribe__Events__Aggregator__Service {
 
 		// The user doesn't have a license key
 		if ( empty( $api->key ) ) {
-			return new WP_Error( 'tribe-invalid-ea-license', __( 'You must enter an Event Aggregator license key in Events > Settings > Licenses', 'the-events-calendar' ) );
+			return tribe_error( 'core:aggregator:invalid-service-key' );
 		}
 
 		return $api;
