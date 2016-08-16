@@ -32,6 +32,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 	public function queue_import( $args = array() ) {
 		$data = $this->get_csv_data();
 		$result = array(
+			'status' => 'success',
 			'message_code' => 'success',
 			'data' => array(
 				'import_id' => $this->id,
