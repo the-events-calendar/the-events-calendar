@@ -94,6 +94,7 @@ class Tribe__Events__Aggregator__Page {
 							'create_schedule' => __( 'Save Scheduled Import', 'the-events-calendar' ),
 							'edit_save' => __( 'Save Changes', 'the-events-calendar' ),
 							'events_required_for_manual_submit' => __( 'Your import must include at least one event', 'the-events-calendar' ),
+							'no_results' => __( 'Your preview doesn\'t have any records to import.', 'the-events-calendar' ),
 							'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
 						),
 						'default_settings' => Tribe__Events__Aggregator__Settings::instance()->get_all_default_settings(),
