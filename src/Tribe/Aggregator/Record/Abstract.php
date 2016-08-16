@@ -133,7 +133,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function create( $type = 'manual', $args = array(), $meta = array() ) {
 		if ( ! in_array( $type, array( 'manual', 'schedule' ) ) ) {
-			return new WP_Error( 'invalid-type', __( 'An invalid Type was used to setup this Record', 'the-events-calendar' ), $type );
+			return tribe_error( 'core:aggregator:invalid-create-record-type', $type );
 		}
 
 		$defaults = array(
@@ -173,7 +173,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function save( $post_id, $args = array(), $meta = array() ) {
 		if ( ! isset( $meta['type'] ) || 'schedule' !== $meta['type'] ) {
-			return new WP_Error( 'invalid-type', __( 'Editing can only be done to scheduled import records.', 'the-events-calendar' ), $type );
+			return tribe_error( 'core:aggregator:invalid-edit-record-type', $type );
 		}
 
 		$defaults = array(
@@ -237,7 +237,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( 'schedule' === $type ) {
 			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $meta->frequency ) );
 			if ( ! $frequency ) {
-				return new WP_Error( 'invalid-frequency', __( 'An Invalid frequency was used to try to setup a scheduled import', 'the-events-calendar' ), $meta );
+				return tribe_error( 'core:aggregator:invalid-record-frequency', $meta );
 			}
 
 			// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
@@ -282,11 +282,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
 		if ( ! $frequency ) {
-			return new WP_Error(
-				'invalid-frequency',
-				__( 'An Invalid frequency was used to try to setup a scheduled import', 'the-events-calendar' ),
-				$meta
-			);
+			return tribe_error( 'core:aggregator:invalid-record-frequency', $meta );
 		}
 
 		// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
@@ -297,10 +293,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// if the schedule creation failed, bail
 		if ( is_wp_error( $schedule_id ) ) {
-			return new WP_Error(
-				'tribe-aggregator-save-schedule-failed',
-				__( 'Unable to save schedule. Please try again.', 'the-events-calendar' )
-			);
+			return tribe_error( 'core:aggregator:save-schedule-failed' );
 		}
 
 		$update_args = array(
@@ -313,10 +306,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( ! wp_update_post( $update_args ) ) {
 			wp_delete_post( $schedule_id, true );
 
-			return new WP_Error(
-				'tribe-aggregator-save-schedule-failed',
-				__( 'Unable to save schedule. Please try again.', 'the-events-calendar' )
-			);
+			return tribe_error( 'core:aggregator:save-schedule-failed' );
 		}
 
 		return Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $schedule_id );
@@ -346,11 +336,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
 		if ( ! $frequency ) {
-			return new WP_Error(
-				'invalid-frequency',
-				__( 'An Invalid frequency was used to try to setup a scheduled import', 'the-events-calendar' ),
-				$meta
-			);
+			return tribe_error( 'core:aggregator:invalid-record-frequency', $meta );
 		}
 
 		// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
@@ -361,10 +347,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// if the schedule creation failed, bail
 		if ( is_wp_error( $child_id ) ) {
-			return new WP_Error(
-				'tribe-aggregator-save-child-failed',
-				__( 'Unable to save schedule. Please try again.', 'the-events-calendar' )
-			);
+			return tribe_error( 'core:aggregator:save-child-failed' );
 		}
 
 		return Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $child_id );
@@ -438,8 +421,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// if the Aggregator response has an unexpected format, set this record as failed
 		if ( empty( $response->message_code ) ) {
-			$error = new WP_Error( 'invalid-response', esc_html__( 'An unexpected response was received from the Event Aggregator service', 'the-events-calendar' ) );
-			return $this->set_status_as_failed( $error );
+			return $this->set_status_as_failed( tribe_error( 'core:aggregator:invalid-service-response' ) );
 		}
 
 		// if the Import creation was unsuccessful, set this record as failed
@@ -447,14 +429,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'success:create-import' != $response->message_code
 			&& 'queued' != $response->message_code
 		) {
+			/**
+			 * @todo Allow overwritting the message
+			 */
 			$error = new WP_Error( $response->message_code, esc_html__( $response->message, 'the-events-calendar' ) );
 			return $this->set_status_as_failed( $error );
 		}
 
 		// if the Import creation didn't provide an import id, the response was invalid so mark as failed
 		if ( empty( $response->data->import_id ) ) {
-			$error = new WP_Error( 'invalid-response', esc_html__( 'An unexpected response was received from the Event Aggregator service', 'the-events-calendar' ) );
-			return $this->set_status_as_failed( $error );
+			return $this->set_status_as_failed( tribe_error( 'core:aggregator:invalid-service-response' ) );
 		}
 
 		// only set as pending if we aren't previewing the record
@@ -479,7 +463,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	public function delete( $force = false ) {
 		if ( $this->is_manual ) {
-			return new WP_Error( 'tribe-aggregator-delete-record-failed', sprintf( __( 'You cannot delete a History Record. ID: "%d"', 'the-events-calendar' ), $this->id ), array( 'record' => $this ) );
+			return tribe_error( 'core:aggregator:delete-record-failed', array( 'record' => $this ), array( $this->id ) );
 		}
 
 		return wp_delete_post( $this->id, $force );
@@ -616,15 +600,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function log_limit_reached_error() {
 		$aggregator = Tribe__Events__Aggregator::instance();
 
-		$error = new WP_Error(
-			'aggregator-limit-reached',
-			sprintf(
-				esc_html__( 'The Aggregator import limit of %1$d for the day has already been reached.' ),
-				$aggregator->get_daily_limit()
-			)
-		);
-
-		$this->log_error( $error );
+		$this->log_error( tribe_error( 'core:aggregator:daily-limit-reached', array(), array( $aggregator->get_daily_limit() ) ) );
 
 		return $error;
 	}
@@ -735,10 +711,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$import_data = $this->get_import_data();
 
 		if ( empty( $this->meta['finalized'] ) ) {
-			return new WP_Error(
-				'tribe-aggregator-record-not-finalized',
-				__( 'Posts cannot be inserted from an unfinalized import record', 'the-events-calendar' )
-			);
+			return tribe_error( 'core:aggregator:record-not-finalized' );
 		}
 
 		if ( is_wp_error( $import_data ) ) {

@@ -355,7 +355,7 @@ class Tribe__Events__Aggregator__Records {
 		}
 
 		if ( empty( $post->post_mime_type ) ) {
-			return new WP_Error( 'tribe-invalid-import-record', __( 'The Import Record is missing the origin meta key', 'the-events-calendar' ) );
+			return tribe_error( 'core:aggregator:invalid-record-origin' );
 		}
 
 		return $this->get_by_origin( $post->post_mime_type, $post );
@@ -385,12 +385,12 @@ class Tribe__Events__Aggregator__Records {
 		$query = new WP_Query( $args );
 
 		if ( empty( $query->post ) ) {
-			return new WP_Error( 'tribe-invalid-import-id', sprintf( __( 'Unable to find an Import Record with the import_id of %s', 'the-events-calendar' ), $import_id ) );
+			return tribe_error( 'core:aggregator:invalid-import-id', array(), array( $import_id ) );
 		}
 
 		$post = $query->post;
 		if ( empty( $post->post_mime_type ) ) {
-			return new WP_Error( 'tribe-invalid-import-record', __( 'The Import Record is missing the origin meta key', 'the-events-calendar' ) );
+			return tribe_error( 'core:aggregator:invalid-record-origin' );
 		}
 
 		return $this->get_by_origin( $post->post_mime_type, $post );
@@ -408,13 +408,13 @@ class Tribe__Events__Aggregator__Records {
 		$event = get_post( $event_id );
 
 		if ( ! $event instanceof WP_Post ) {
-			return new WP_Error( 'tribe-invalid-event-id', sprintf( __( 'Invalid Event: %s', 'the-events-calendar' ), $event_id ) );
+			return tribe_error( 'core:aggregator:invalid-event-id', array(), array( $event_id ) );
 		}
 
 		$record_id = get_post_meta( $event->ID, Tribe__Events__Aggregator__Event::$record_key, true );
 
 		if ( empty( $record_id ) ) {
-			return new WP_Error( 'tribe-invalid-import-id', sprintf( __( 'Unable to find an Import Record for: %s', 'the-events-calendar' ), $event_id ) );
+			return tribe_error( 'core:aggregator:invalid-import-id', array(), array( $record_id ) );
 		}
 
 		return $this->get_by_post_id( $record_id );

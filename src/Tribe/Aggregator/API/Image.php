@@ -64,6 +64,9 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 
 		// if the reponse isn't an image then we need to bail
 		if ( ! preg_match( '/image/', $response['headers']['content-type'] ) ) {
+			/**
+			 * @todo  See a way for Tribe__Errors to handle overwriting
+			 */
 			return new WP_Error( 'invalid-image', $response['body'] );
 		}
 
@@ -99,7 +102,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 
 		// insert the attachment
 		if ( ! $attachment_id = wp_insert_attachment( $attachment, $upload_results['file'] ) ) {
-			return new WP_Error( 'tribe-ea-attachment-error', __( 'Unable to create an attachment post for the imported Event Aggregator image', 'the-events-calendar' ) );
+			return tribe_error( 'core:aggregator:attachment-error' );
 		}
 
 		if ( is_wp_error( $attachment_id ) ) {

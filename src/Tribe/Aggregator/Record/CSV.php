@@ -67,8 +67,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			empty( $this->meta['file'] )
 			|| ! is_numeric( $this->meta['file'] )
 		) {
-			$error = new WP_Error( 'invalid-file', esc_html__( 'You must provide a valid CSV file in order to do CSV imports.', 'the-events-calendar' ) );
-			return $this->set_status_as_failed( $error );
+			return $this->set_status_as_failed( tribe_error( 'core:aggregator:invalid-csv-file' ) );
 		}
 
 		$content_type = str_replace( 'tribe_', '', $this->meta['content_type'] );
@@ -100,19 +99,13 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			'csv' !== $data['origin']
 			|| empty( $data['csv']['content_type'] )
 		) {
-			return new WP_Error(
-				'invalid-csv-parameters',
-				__( 'Invalid data provided for CSV imports.', 'the-events-calendar' )
-			);
+			return tribe_error( 'core:aggregator:invalid-csv-parameters' );
 		}
 
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $data['import_id'] );
 
 		if ( empty( $data['column_map'] ) ) {
-			return new WP_Error(
-				'missing-column-map',
-				__( 'CSV imports must map columns for import', 'the-events-calendar' )
-			);
+			return tribe_error( 'core:aggregator:missing-csv-column-map' );
 		}
 
 		$content_type = $this->get_content_type();
@@ -121,10 +114,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		try {
 			$importer = $this->get_importer();
 		} catch ( RuntimeException $e ) {
-			return new WP_Error(
-				'missing-file',
-				__( 'The file went away. Please try again.', 'the-events-calendar' )
-			);
+			return tribe_error( 'core:aggregator:missing-csv-file' );
 		}
 
 		if ( ! empty( $this->data['category'] ) ) {
@@ -136,6 +126,10 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 
 		if ( ! empty( $missing ) ) {
 			$mapper = new Tribe__Events__Importer__Column_Mapper( $this->get_content_type() );
+
+			/**
+			 * @todo  allow to overwrite the default message
+			 */
 			$message = '<p>' . esc_html__( 'The following fields are required for a successful import:', 'the-events-calendar' ) . '</p>';
 			$message .= '<ul style="list-style-type: disc; margin-left: 1.5em;">';
 			foreach ( $missing as $key ) {

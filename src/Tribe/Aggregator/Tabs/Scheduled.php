@@ -155,7 +155,8 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 			}
 
 			if ( ! current_user_can( $record_obj->cap->delete_post, $record->id ) ) {
-				$status[] = new WP_Error( 'tribe-aggregator-cant-delete', __( 'You do not have pessimions for deleting this Record.' ), $record );
+
+				$status[] = tribe_error( 'core:aggregator:delete-record-permissions', array( 'record' => $record ) );
 				continue;
 			}
 
