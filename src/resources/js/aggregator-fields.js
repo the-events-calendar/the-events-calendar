@@ -312,7 +312,7 @@ tribe_aggregator.fields = {
 			import_type = $( '#' + $import_type.first().attr( 'id' ).replace( 's2id_', '' ) ).val();
 		}
 
-		if ( 'manual' === import_type ) {
+		if ( 'manual' === import_type && ! data.items.length ) {
 			obj.display_fetch_error( ea.l10n.no_results );
 			return;
 		}

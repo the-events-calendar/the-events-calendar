@@ -131,7 +131,7 @@ $scheduled_save_help = esc_html__( 'Click Import to import the events above and 
 			<span class="tribe-csv-filename"></span>
 			<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $csv_help ); ?>"></span>
 		</p>
-		<table class="wp-list-table widefat fixed striped" width="100%">
+		<table class="wp-list-table widefat fixed striped">
 			<thead>
 				<tr>
 					<th scope="col" class="manage-column column-cb check-column">
