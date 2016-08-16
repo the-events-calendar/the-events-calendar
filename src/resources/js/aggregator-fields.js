@@ -792,8 +792,8 @@ tribe_aggregator.fields = {
 					$field.data( { id: attachment.attributes.id, text: attachment.attributes.title } );
 					$field.val( attachment.attributes.id );
 					$field.change();
-					$name.html( attachment.attributes.title );
-					$name.attr( 'title', attachment.attributes.title );
+					$name.html( attachment.attributes.filename );
+					$name.attr( 'title', attachment.attributes.filename );
 				} );
 			} );
 

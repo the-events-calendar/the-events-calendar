@@ -262,7 +262,7 @@ $scheduled_save_help = esc_html__( 'Click Import to import the events above and 
 		<?php echo sprintf( esc_html__( 'Events will be imported with the timezone defined by the source. You can make use of The Events Calendar\'s %1$stimezone settings%2$s to change how the actual time is displayed on your calendar.', 'the-events-calendar' ), '<a href="' . esc_url( Tribe__Settings::instance()->get_url() ) . '#tribe-field-tribe_events_timezone_mode">', '</a>' ); ?>
 	</p>
 </div>
-<?php echo Tribe__Events__Aggregator__Tabs__New::instance()->render_notice_missing_aggregator_license(); ?>
+<?php echo Tribe__Events__Aggregator__Tabs__New::instance()->maybe_display_aggregator_upsell(); ?>
 <script id="tribe-csv-column-map-events" type="text/html">
 	<?php
 	$event_mapper = new Tribe__Events__Importer__Column_Mapper( 'events' );

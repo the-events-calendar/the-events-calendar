@@ -49,13 +49,6 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return;
 		}
 
-		$has_license_key = ! empty( Tribe__Events__Aggregator__Service::instance()->api()->key );
-		$license_info = get_option( 'external_updates-event-aggregator' );
-
-		if ( ! $has_license_key || ( isset( $license_info->update->api_invalid ) && $license_info->update->api_invalid ) ) {
-			return;
-		}
-
 		$license_info = get_option( 'external_updates-event-aggregator' );
 		if ( isset( $license_info->update->api_expired ) && $license_info->update->api_expired ) {
 			tribe_notice( 'tribe-expired-aggregator-license', array( $this, 'render_notice_expired_aggregator_license' ), 'type=warning' );
@@ -297,7 +290,15 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 *
 	 * @return string
 	 */
-	public function render_notice_missing_aggregator_license() {
+	public function maybe_display_aggregator_upsell() {
+
+		$has_license_key = ! empty( Tribe__Events__Aggregator__Service::instance()->api()->key );
+		$license_info = get_option( 'external_updates-event-aggregator' );
+
+		if ( $has_license_key && empty( $license_info->update->api_invalid ) ) {
+			return;
+		}
+
 		ob_start();
 		?>
 		<div class="notice inline notice-info tribe-notice-tribe-missing-aggregator-license" data-ref="tribe-missing-aggregator-license">

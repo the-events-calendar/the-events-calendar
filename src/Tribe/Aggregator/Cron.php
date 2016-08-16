@@ -222,7 +222,7 @@ class Tribe__Events__Aggregator__Cron {
 			// By default WordPress won't allow more than one Action to happen twice in 10 minutes
 			wp_schedule_single_event( time(), self::$single_action );
 
-			return new WP_Error( 'tribe-http_request-limit', __( 'The Limit of HTTP requests per Cron has been Reached', 'the-events-calendar' ), array( 'request' => $request, 'url' => $url ) );
+			return tribe_error( 'core:aggregator:http_request-limit', array( 'request' => $request, 'url' => $url ) );
 		}
 
 		// Lower the Limit
