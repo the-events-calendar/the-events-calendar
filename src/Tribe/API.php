@@ -159,7 +159,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 					else {
 						update_post_meta( $event_id, $tag, $data[ $htmlElement ] );
 					}
-	//here
+
 					if ( self::is_meta_value_changed( $tag, $data, $post_meta ) ) {
 						$modified[ $tag ] = $now;
 					}
