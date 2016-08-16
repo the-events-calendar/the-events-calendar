@@ -138,6 +138,17 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 			}
 		}
 
+		// validate that the URLs are accurate for the relevant origin
+		if ( 'facebook' === $meta['origin'] && ! preg_match( '!(https?://)?(www\.)?facebook\.com!', $meta['source'] ) ) {
+			wp_send_json_error( array(
+				'message' => __( 'Please provide a Facebook URL when importing from Facebook.', 'the-events-calendar' ),
+			) );
+		} elseif ( 'meetup' === $meta['origin'] && ! preg_match( '!(https?://)?(www\.)?meetup\.com!', $meta['source'] ) ) {
+			wp_send_json_error( array(
+				'message' => __( 'Please provide a Meetup URL when importing from Meetup.', 'the-events-calendar' ),
+			) );
+		}
+
 		return array(
 			'record' => $record,
 			'post_data' => $post_data,
