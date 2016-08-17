@@ -177,7 +177,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			}
 
 
-			if ( function_exists( 'wp_get_referer' ) )
+			if ( ! function_exists( 'wp_get_referer' ) )
 				if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
 					$sendback = $_SERVER['REQUEST_URI'];
 				} elseif ( ! empty( $_REQUEST['_wp_http_referer'] ) ) {
@@ -241,13 +241,13 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			$restored = array();
 
 			foreach ( $ids as $id ) {
-				if ( ! current_user_can( 'delete_post', $id ) ){
+				if ( ! current_user_can( 'delete_post', $id ) ) {
 					wp_die( __( 'You are not allowed to restore this item from the Ignored Events.', 'the-events-calendar' ) );
 				}
 
 				$restore = $this->restore_event( $id );
 
-				if ( ! $restore ){
+				if ( ! $restore ) {
 					wp_die( __( 'Error in restoring from Ignored Events.' ) );
 				}
 
