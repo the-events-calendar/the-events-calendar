@@ -863,11 +863,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$results['created']++;
 			}
 
-			// Add the Aggregator Origin
-			update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$origin_key, $this->origin );
-
-			// Add the Aggregator Record
-			update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$record_key, $this->id );
+			Tribe__Events__Aggregator__Records::instance()->add_record_to_event( $event['ID'], $this->id, $this->origin );
 
 			//add post parent possibility
 			if ( empty( $event['parent_uid'] ) ) {

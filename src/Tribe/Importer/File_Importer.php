@@ -21,6 +21,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	private $log = array();
 
 	public $is_aggregator = false;
+	public $aggregator_record;
 	public $default_category;
 
 	/**
