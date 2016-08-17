@@ -83,7 +83,7 @@ class Tribe__Events__Aggregator__Records {
 
 		$args = array(
 			'tab'    => Tribe__Events__Aggregator__Tabs__Edit::instance()->get_slug(),
-			'id'   => absint( $post ),
+			'id'   => absint( $post->ID ),
 		);
 
 		return Tribe__Events__Aggregator__Page::instance()->get_url( $args );
@@ -100,7 +100,7 @@ class Tribe__Events__Aggregator__Records {
 		$args = array(
 			'tab'    => $tab->get_slug(),
 			'action' => 'tribe-delete',
-			'item'   => absint( $post ),
+			'item'   => absint( $post->ID ),
 			'nonce'  => wp_create_nonce( 'aggregator_' . $tab->get_slug() . '_request' ),
 		);
 
