@@ -27,6 +27,9 @@
 #additional-field-table tbody tr {
 	height: 72px;
 }
+.tribe-restore-link + a {
+	display: none;
+}
 /* = Post Type Editing
 =============================================*/
 .eventForm {
