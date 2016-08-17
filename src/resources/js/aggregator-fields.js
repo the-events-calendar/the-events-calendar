@@ -110,6 +110,8 @@ tribe_aggregator.fields = {
 	 * Send an Ajax request to preview the import
 	 */
 	obj.preview_import = function() {
+		obj.reset_polling_counter();
+
 		// when generating data for previews, temporarily remove the post ID and import ID values from their fields
 		var $post_id = $( '#tribe-post_id' );
 		$post_id.data( 'value', $post_id.val() );
@@ -147,6 +149,11 @@ tribe_aggregator.fields = {
 			// create the import
 			obj.create_import( data );
 		}
+	};
+
+	obj.reset_polling_counter = function() {
+		obj.polling_frequency_index = 0;
+		obj.result_fetch_count = 0;
 	};
 
 	/**
