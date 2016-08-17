@@ -413,7 +413,13 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		}
 
 		if ( in_array( $record->origin, array( 'ics', 'csv' ) ) ) {
-			$html[] = '<p><b>' . esc_html( $record->meta['source_name'] ) . '</b></p>';
+			if ( empty( $record->meta['source_name'] ) ) {
+				$file = get_post( $record->meta['file'] );
+				$title = $file instanceof WP_Post ? $file->post_title : sprintf( esc_html__( 'Deleted Attachment: %d', 'the-events-calendar' ), $record->meta['file'] );
+				$html[] = '<p><span class="dashicons dashicons-media-document" title="' . sprintf( esc_attr__( 'Attachment: %d', 'the-events-calendar' ), $record->meta['file'] ) . '"></span> <b>' . $title . '</b></p>';
+			} else {
+				$html[] = '<p><b>' . esc_html( $record->meta['source_name'] ) . '</b></p>';
+			}
 		} else {
 			$html[] = '<p><b><a href="' . esc_url( $record->meta['source'] ) . '" target="_blank">' . esc_html( $record->meta['source_name'] ) . '<span class="screen-reader-text">' . __( ' (opens in a new window)', 'the-events-calendar' ) . '</span></a></b></p>';
 		}
