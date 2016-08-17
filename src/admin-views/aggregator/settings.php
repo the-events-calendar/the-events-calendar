@@ -36,7 +36,7 @@ $origin_show_map_options = array( '' => $use_global_settings_phrase ) + $show_ma
 
 $change_authority = array(
 	'overwrite' => __( 'Overwrite my event with any changes from the original source', 'the-events-calendar' ),
-	'retain' => __( 'Keep changes I have made to the event on my site and disregard any changes from the original source', 'the-events-calendar' ),
+	'retain' => __( 'Do not re-import events. Changes made locally will be preserved.', 'the-events-calendar' ),
 	'preserve_changes' => __( 'Preserve the most recent change in each event field, whether that change occurred on my site or at the original source', 'the-events-calendar' ),
 );
 
@@ -303,7 +303,7 @@ $fields = array_merge(
 		),
 		'import-box-title' => array(
 			'type' => 'html',
-			'html' => '<h1>' . esc_html__( 'Event Aggregator', 'the-events-calendar' ) . '</h1>',
+			'html' => '<h2>' . esc_html__( 'Imports', 'the-events-calendar' ) . '</h2>',
 		),
 		'import-box-description' => array(
 			'type' => 'html',

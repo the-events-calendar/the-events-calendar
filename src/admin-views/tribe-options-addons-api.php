@@ -64,7 +64,7 @@ $fields = array_merge(
 		),
 		'addons-box-title' => array(
 			'type' => 'html',
-			'html' => '<h1>' . esc_html__( 'APIs', 'the-events-calendar' ) . '</h1>',
+			'html' => '<h2>' . esc_html__( 'APIs', 'the-events-calendar' ) . '</h2>',
 		),
 		'addons-box-description' => array(
 			'type' => 'html',
