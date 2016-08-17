@@ -218,7 +218,7 @@ class Tribe__Events__Aggregator__Cron {
 
 		// If we already reached 0 we throw an error
 		if ( $this->limit <= 0 ) {
-			// Schedule an Cron Event to happen ASAP, and flag it for searching and we need to make it unique
+			// Schedule a Cron Event to happen ASAP, and flag it for searching and we need to make it unique
 			// By default WordPress won't allow more than one Action to happen twice in 10 minutes
 			wp_schedule_single_event( time(), self::$single_action );
 

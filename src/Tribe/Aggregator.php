@@ -46,7 +46,7 @@ class Tribe__Events__Aggregator {
 	private $daily_limit = 100;
 
 	/**
-	 * A variable holder if Aggreator is loaded
+	 * A variable holder if Aggregator is loaded
 	 * @var boolean
 	 */
 	private $is_loaded = false;
@@ -92,7 +92,7 @@ class Tribe__Events__Aggregator {
 		$this->errors      = Tribe__Events__Aggregator__Errors::instance();
 		$this->pue_checker = new Tribe__PUE__Checker( 'http://tri.be/', 'event-aggregator' );
 
-		// Intializes the Classes related to the API
+		// Initializes the Classes related to the API
 		$this->api();
 
 		// Flags that the Aggregator has been fully loaded
@@ -110,7 +110,7 @@ class Tribe__Events__Aggregator {
 		// Filter the "plugin name" for Event Aggregator
 		add_filter( 'pue_get_plugin_name', array( $this, 'filter_pue_plugin_name' ), 10, 2 );
 
-		// To make sure that meaninful cache is purged when settings are changed
+		// To make sure that meaningful cache is purged when settings are changed
 		add_action( 'updated_option', array( $this, 'action_purge_transients' ) );
 	}
 
