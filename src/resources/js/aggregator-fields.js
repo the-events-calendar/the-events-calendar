@@ -526,7 +526,7 @@ tribe_aggregator.fields = {
 				unique_id_field = 'facebook_id';
 			} else if ( 'meetup' === origin ) {
 				unique_id_field = 'meetup_id';
-			} else if ( 'ical' === origin || 'ics' === origin ) {
+			} else if ( 'ical' === origin || 'ics' === origin || 'gcal' === origin ) {
 				unique_id_field = 'uid';
 			}
 
