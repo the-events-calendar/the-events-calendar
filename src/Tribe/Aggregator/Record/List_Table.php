@@ -412,10 +412,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$html[] = $this->get_status_icon( $post );
 		}
 
-		if ( 'ea/ics' === $post->post_mime_type || 'ea/csv' === $post->post_mime_type ) {
+		if ( in_array( $record->origin, array( 'ics', 'csv' ) ) ) {
 			$html[] = '<p><b>' . esc_html( $record->meta['source_name'] ) . '</b></p>';
 		} else {
-			$html[] = '<p><b><a href="' . esc_url( $record->meta['source'] ) . '">' . esc_html( $record->meta['source_name'] ) . '</a></b></p>';
+			$html[] = '<p><b><a href="' . esc_url( $record->meta['source'] ) . '" target="_blank">' . esc_html( $record->meta['source_name'] ) . '<span class="screen-reader-text">' . __( ' (opens in a new window)', 'the-events-calendar' ) . '</span></a></b></p>';
 		}
 
 		$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $record->get_label() . '</strong></p>';
@@ -465,12 +465,16 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	public function column_total( $post ) {
-		$html[] = esc_html__( 'All Time: ', 'the-events-calendar' ) . $post->comment_count;
-
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 		$last_imported = $record->get_child_record_by_status( 'success', 1 );
 		if ( $last_imported && $last_imported->have_posts() ) {
 			$html[] = esc_html__( 'Last Import: ', 'the-events-calendar' ) . $last_imported->post->comment_count;
+		}
+
+		if ( 'schedule' === $record->type ) {
+			$html[] = esc_html__( 'All Time: ', 'the-events-calendar' ) . '<b>' . $post->comment_count . '</b>';
+		} else {
+			$html[] = '<b>' . $post->comment_count . '</b>';
 		}
 
 		return $this->render( $html, '<br>' );

@@ -136,6 +136,7 @@
 
 .tribe-ea .manage-column.column-total {
 	width: 15%;
+	text-align: center;
 }
 
 .tribe-ea .tribe-ea-tab-scheduled td.column-source {
@@ -145,6 +146,10 @@
 .tribe-ea td.column-source {
 	padding-left: 50px;
 	position: relative;
+}
+
+.tribe-ea td.column-total {
+	text-align: center;
 }
 
 .tribe-ea .tribe-ea-report-status {
