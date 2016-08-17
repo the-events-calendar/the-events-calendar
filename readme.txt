@@ -293,6 +293,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [4.2.5] unreleased =
 
 * Fix - Fixed inconsistent template filtering logic for single event template [62525]
+* Tweak - Restored preview for published events [64874]
 
 = [4.2.4] 2016-08-03 =
 
