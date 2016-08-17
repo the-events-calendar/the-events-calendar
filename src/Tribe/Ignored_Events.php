@@ -38,6 +38,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		private function __construct() {
 			add_action( 'init', array( $this, 'register_ignored_post_status' ) );
 			add_action( 'current_screen', array( $this, 'maybe_restore_events' ) );
+			add_action( 'current_screen', array( $this, 'action_restore_ignored' ) );
 
 			add_filter( 'pre_delete_post', array( $this, 'pre_delete_event' ), 10, 3 );
 			add_action( 'trashed_post', array( $this, 'from_trash_to_ignored' ) );
@@ -50,11 +51,112 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 
 			add_action( 'wp_ajax_tribe_convert_legacy_ignored_events', array( $this, 'ajax_convert_legacy_ignored_events' ) );
 
+			// Modify Success messages
+			add_filter( 'bulk_post_updated_messages', array( $this, 'filter_updated_messages' ), 10, 2 );
+
 			/**
 			 * Register Notices
 			 */
 			tribe_notice( 'legacy-ignored-events', array( $this, 'render_notice_legacy' ), 'dismiss=1&type=warning' );
 		}
+
+		public function action_restore_ignored() {
+			if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( Tribe__Events__Main::POSTTYPE ) ) {
+				return false;
+			}
+
+			if ( ! isset( $_GET['ids'] ) ) {
+				return false;
+			}
+
+			if ( ! isset( $_GET['tribe-action'] ) || 'tribe-restore' !== $_GET['tribe-action'] ) {
+				return false;
+			}
+
+			if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'tribe-restore' ) ) {
+				return false;
+			}
+
+			$ids = (array) explode( ',', $_GET['ids'] );
+			$restored = array();
+
+			foreach ( $ids as $id ) {
+				$restored[] = wp_update_post( array( 'ID' => $id, 'post_status' => 'publish' ) );
+			}
+
+			$count_restored = count( $restored );
+
+			$message = '<p>' . sprintf( _n( '%s Event restored.', '%s Events restored.', $count_restored, 'the-events-calendar' ), $count_restored ) . '</p>';
+
+			if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
+				$_SERVER['REQUEST_URI'] = remove_query_arg( array( 'tribe-action', '_wpnonce' ), $_SERVER['REQUEST_URI'] );
+			} elseif ( ! empty( $_REQUEST['_wp_http_referer'] ) ) {
+				$_REQUEST['_wp_http_referer'] = remove_query_arg( array( 'tribe-action', '_wpnonce' ), $_REQUEST['_wp_http_referer'] );
+			} elseif ( ! empty( $_SERVER['HTTP_REFERER'] ) ) {
+				$_SERVER['HTTP_REFERER'] =  remove_query_arg( array( 'tribe-action', '_wpnonce' ), $_SERVER['HTTP_REFERER'] );
+			}
+
+			tribe_notice( 'restored-events', $message, 'dismiss=1&type=success' );
+		}
+
+		public function filter_updated_messages( $messages, $counts ) {
+			if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( Tribe__Events__Main::POSTTYPE ) ) {
+				return $messages;
+			}
+
+			if ( ! isset( $_GET['ids'] ) ) {
+				return $messages;
+			}
+
+			$check_counts = array_filter( $counts );
+			if ( empty( $check_counts ) ) {
+				return $messages;
+			}
+
+			if ( ! isset( $counts['trashed'] ) || 0 === $counts['trashed'] ) {
+				return $messages;
+			}
+
+			$ids           = (array) explode( ',', $_GET['ids'] );
+			$ignored       = array_filter( $ids, array( $this, 'can_ignore' ) );
+			$count_ignored = count( $ignored );
+
+			if ( 0 >= $count_ignored ) {
+				return $messages;
+			}
+
+			$messages[ Tribe__Events__Main::POSTTYPE ] = array(
+				'updated'   => _n( '%s Event updated.', '%s Events updated.', $counts['updated'], 'the-events-calendar' ),
+				'locked'    => _n( '%s Event not updated, somebody is editing it.', '%s Events not updated, somebody is editing them.', $counts['locked'], 'the-events-calendar' ),
+				'deleted'   => _n( '%s Event permanently deleted.', '%s Events permanently deleted.', $counts['deleted'], 'the-events-calendar' ),
+				'trashed'   => _n( '%s Event moved to the Trash', '%s Events moved to the Trash', $counts['trashed'], 'the-events-calendar' ),
+				'untrashed' => _n( '%s Event restored from the Trash.', '%s Events restored from the Trash.', $counts['untrashed'], 'the-events-calendar' ),
+			);
+
+			$counts['trashed'] -= $count_ignored;
+
+			// Resets the Variable used to count Trashed
+			$GLOBALS['bulk_counts'] = $counts;
+
+			if ( 0 < $counts['trashed'] ) {
+				$messages[ Tribe__Events__Main::POSTTYPE ]['trashed'] .= __( ' and ', 'the-events-calendar' );
+			}
+
+			$messages[ Tribe__Events__Main::POSTTYPE ]['trashed'] .= sprintf( _n( '%d Event was Ignored.', '%d Events were Ignored.', $count_ignored, 'the-events-calendar' ), $count_ignored );
+
+			$args = array(
+				'ids'       => preg_replace( '/[^0-9,]/', '', $_REQUEST['ids'] ),
+				'tribe-action'    => 'tribe-restore',
+				'post_type' => Tribe__Events__Main::POSTTYPE,
+			);
+			$url = wp_nonce_url( add_query_arg( $args, 'edit.php' ), 'tribe-restore' );
+
+			// Cant `esc_url` this URL because it will make sprintf throw a warning on WP code
+			$messages[ Tribe__Events__Main::POSTTYPE ]['trashed'] .= ' <a href="' . urldecode( $url ) . '" class="tribe-restore-link">' . __( 'Undo', 'the-events-calendar' ) . '</a>';
+
+			return $messages;
+		}
+
 
 		public function render_notice_legacy() {
 			if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( Tribe__Events__Main::POSTTYPE ) ) {
