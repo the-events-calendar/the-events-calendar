@@ -177,7 +177,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			}
 
 
-			if ( ! function_exists( 'wp_get_referer' ) )
+			if ( ! function_exists( 'wp_get_referer' ) ) {
 				if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
 					$sendback = $_SERVER['REQUEST_URI'];
 				} elseif ( ! empty( $_REQUEST['_wp_http_referer'] ) ) {
