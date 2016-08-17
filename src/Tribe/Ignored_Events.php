@@ -43,7 +43,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			add_filter( 'pre_delete_post', array( $this, 'action_pre_delete_event' ), 10, 3 );
 			add_action( 'trashed_post', array( $this, 'action_from_trash_to_ignored' ) );
 
-			add_filter( 'views_edit-' . Tribe__Events__Main::POSTTYPE, array( $this, 'add_ignored_view' ) );
+			add_filter( 'views_edit-' . Tribe__Events__Main::POSTTYPE, array( $this, 'filter_views' ) );
 			add_filter( 'post_row_actions', array( $this, 'filter_actions' ), 10, 2 );
 
 			add_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array( $this, 'filter_columns' ), 100 );
@@ -422,7 +422,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @return array $views After adding the new Link
 		 */
-		public function add_ignored_view( $views = array() ) {
+		public function filter_views( $views = array() ) {
 			// Get the Old ones
 			$counter = $this->count_legacy_deleted_posts();
 			if ( 0 >= $counter ) {
