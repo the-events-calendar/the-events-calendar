@@ -157,7 +157,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$result = wp_insert_post( $post );
 
 		// meta_input was introduced in 4.4. Deal with old versions
-		if ( -1 === version_compare( WP_VERSION, '4.4' ) && ! is_wp_error( $result ) ) {
+		if ( -1 === version_compare( get_bloginfo( 'version' ), '4.4' ) && ! is_wp_error( $result ) ) {
 			foreach ( $post['meta_input'] as $key => $value ) {
 				update_post_meta( $result, $key, $value );
 			}
@@ -716,12 +716,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$import_data = $this->get_import_data();
 
 		// if we've received a source name, let's set that in the record as soon as possible
-		if ( ! empty( $this->meta['source_name'] ) ) {
-			$this->update_meta( 'source_name', $this->meta['source_name'] );
+		if ( ! empty( $import_data->data->source_name ) ) {
+			$this->update_meta( 'source_name', $import_data->data->source_name );
 
 			if ( ! empty( $this->post->post_parent ) ) {
 				$parent_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->post->post_parent );
-				$parent_record->update_meta( 'source_name', $this->meta['source_name'] );
+				$parent_record->update_meta( 'source_name', $import_data->data->source_name );
 			}
 		}
 
@@ -992,7 +992,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return $import_data;
 		}
 
-		if ( 'all' === $this->meta['ids_to_import'] ) {
+		if (
+			'all' === $this->meta['ids_to_import']
+			|| null === $this->meta['ids_to_import']
+		) {
 			return $import_data;
 		}
 
