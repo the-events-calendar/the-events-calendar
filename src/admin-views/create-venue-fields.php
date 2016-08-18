@@ -52,8 +52,8 @@ global $post;
 	<?php if ( ! isset( $_VenueStateProvince ) || $_VenueStateProvince == '' ) {
 		$_VenueStateProvince = - 1;
 	};
-	$currentState = ( $_VenueStateProvince == - 1 ) ? tribe_get_default_value( 'state' ) : $_VenueStateProvince;
-	$currentProvince = empty( $_VenueProvince ) ? tribe_get_default_value( 'province' ) : $_VenueProvince;
+	$currentState = ( $_VenueStateProvince == - 1 ) ? '' : $_VenueStateProvince;
+	$currentProvince = empty( $_VenueProvince ) ? '' : $_VenueProvince;
 	?>
 	<td class='tribe-table-field-label'><?php esc_html_e( 'State or Province:', 'the-events-calendar' ); ?></td>
 	<td>

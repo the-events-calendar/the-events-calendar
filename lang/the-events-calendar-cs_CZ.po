@@ -2,13 +2,33 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-07-18 00:20:47+0000\n"
+"PO-Revision-Date: 2016-07-21 23:09:24+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: GlotPress/2.1.0-alpha\n"
 "Project-Id-Version: Stable (latest release)\n"
+
+#: common/src/Tribe/Credits.php:31
+#: vendor/tickets/common/src/Tribe/Credits.php:31
+msgid "This calendar is powered by %1$s."
+msgstr "Tento kalendář používá plugin %1$s."
+
+#: common/src/Tribe/Credits.php:55
+#: vendor/tickets/common/src/Tribe/Credits.php:55
+msgid "Rate %1$sThe Events Calendar%2$s %3$s"
+msgstr "Dejte pluginu %1$sThe Events Calendar%2$s hodnocení %3$s"
+
+#: common/src/Tribe/Credits.php:64
+#: vendor/tickets/common/src/Tribe/Credits.php:64
+msgid "Rate %1$sEvent Tickets%2$s %3$s"
+msgstr "Dejte pluginu %1$sEvent Tickets%2$s hodnocení %3$s"
+
+#: common/src/admin-views/app-shop.php:23
+#: vendor/tickets/common/src/admin-views/app-shop.php:23
+msgid "Get Add-Ons"
+msgstr "Získat doplňky"
 
 #: src/Tribe/Venue.php:149
 msgid "venue"
@@ -237,7 +257,7 @@ msgstr "Vstupenky na opakující se akce nejsou podporovány. (akce: %d)"
 msgid "RSVPs"
 msgstr "Rezervace"
 
-#: vendor/tickets/src/Tribe/Main.php:528
+#: vendor/tickets/src/Tribe/Main.php:530
 msgid "Buy"
 msgstr "Koupit"
 
@@ -367,7 +387,7 @@ msgstr "Náhledový obrázek místa konání"
 msgid "Organizer Featured Image"
 msgstr "Náhledový obrázek pořadatele"
 
-#: src/Tribe/Main.php:2662
+#: src/Tribe/Main.php:2667
 msgid " (View Full %1$s Description Here: %2$s)"
 msgstr " (úplný popis %1$s najdete zde: %2$s)"
 
@@ -535,7 +555,7 @@ msgstr "Nastavení pro vstupenky"
 msgid "Post types that can have tickets"
 msgstr "Typy příspěvků, které mohou mít vstupenky"
 
-#: vendor/tickets/src/Tribe/Main.php:528
+#: vendor/tickets/src/Tribe/Main.php:530
 #: vendor/tickets/src/Tribe/Tickets_View.php:604
 #: vendor/tickets/src/views/tickets/rsvp.php:19
 #: vendor/tickets/src/views/tickets/rsvp.php:127
@@ -712,11 +732,11 @@ msgstr "Koncept %1$s byl uložen. %2$sZobrazit náhled %3$s"
 msgid "%1$s scheduled for: %2$s."
 msgstr "%1$s – bude automaticky publikováno: %2$s."
 
-#: src/Tribe/Main.php:1674
+#: src/Tribe/Main.php:1679
 msgid "Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results."
 msgstr "Pokud nezadáte žádné místo, vaše akce se zobrazí ve výsledcích vyhledávání bez doplňujících údajů %sGoogle Rich Snippet%s."
 
-#: src/Tribe/Main.php:3993
+#: src/Tribe/Main.php:3998
 msgid "Check out the %savailable add-ons%s."
 msgstr "Podívejte se na %sdostupné doplňky%s."
 
@@ -724,7 +744,7 @@ msgstr "Podívejte se na %sdostupné doplňky%s."
 msgid "No %1$s scheduled for %2$s. Please try another day."
 msgstr "Nebyly nalezeny žádné %1$s naplánované na %2$s. Zkuste prosím zvolit jiný den."
 
-#: src/Tribe/Template/Month.php:350
+#: src/Tribe/Template/Month.php:353
 msgid "There were no results found for %s this month. Try searching next month."
 msgstr "Nebyly nalezeny žádné záznamy pro %s v tomto měsíci. Zkuste hledat v dalším měsíci."
 
@@ -1029,11 +1049,6 @@ msgstr "Navštívit webovou stránku doplňku"
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:94
 msgid "<a href=\"%s\">edit Events settings</a>."
 msgstr "<a href=\"%s\">změňte nastavení akcí</a>."
-
-#: common/src/Tribe/Credits.php:46
-#: vendor/tickets/common/src/Tribe/Credits.php:46
-msgid "Rate %3$sThe Events Calendar%4$s %1$s on %2$s to keep this plugin free.  Thanks from the friendly folks at Modern Tribe."
-msgstr "Ohodnocením pluginu %3$sThe Events Calendar%4$s %1$s na webu %2$s ho pomůžete zachovat i nadále bezplatným. Vřelé díky od lidiček v Modern Tribe."
 
 #: common/src/Tribe/PUE/Checker.php:437
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:437
@@ -3003,7 +3018,7 @@ msgstr "Máte akci, která trvá i po půlnoci? Zde si můžete nastavit čas kd
 msgid "%s"
 msgstr "%s"
 
-#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4045
+#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4050
 msgid "View Calendar"
 msgstr "Zobrazit kalendář"
 
@@ -3016,49 +3031,49 @@ msgstr "Vytvořit (%s)"
 msgid "CSV"
 msgstr "CSV"
 
-#: common/src/Tribe/Settings.php:215
-#: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4094
-#: vendor/tickets/common/src/Tribe/Settings.php:215
+#: common/src/Tribe/Settings.php:217
+#: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4099
+#: vendor/tickets/common/src/Tribe/Settings.php:217
 msgid "Settings"
 msgstr "Nastavení"
 
-#: src/Tribe/Main.php:4095
+#: src/Tribe/Main.php:4100
 msgid "Calendar"
 msgstr "Kalendář"
 
-#: src/Tribe/Main.php:4156
+#: src/Tribe/Main.php:4161
 msgid "List"
 msgstr "Seznam"
 
-#: src/Tribe/Main.php:4174
+#: src/Tribe/Main.php:4179
 msgid "Month"
 msgstr "Měsíc"
 
-#: src/Tribe/Main.php:4191
+#: src/Tribe/Main.php:4196
 msgid "Day"
 msgstr "Den"
 
-#: src/Tribe/Main.php:4216 src/Tribe/Main.php:4217
+#: src/Tribe/Main.php:4221 src/Tribe/Main.php:4222
 msgid "Search"
 msgstr "Hledat"
 
-#: src/Tribe/Main.php:4241 src/Tribe/Main.php:4257
+#: src/Tribe/Main.php:4246 src/Tribe/Main.php:4262
 msgid "Date"
 msgstr "Datum"
 
-#: src/Tribe/Main.php:4244
+#: src/Tribe/Main.php:4249
 msgid "%s In"
 msgstr "%s v"
 
-#: src/Tribe/Main.php:4246
+#: src/Tribe/Main.php:4251
 msgid "%s From"
 msgstr "%s od"
 
-#: src/Tribe/Main.php:4248
+#: src/Tribe/Main.php:4253
 msgid "Day Of"
 msgstr "Dne"
 
-#: src/Tribe/Main.php:4321
+#: src/Tribe/Main.php:4326
 msgid "Once Every 30 Mins"
 msgstr "Jednou za 30 minut"
 
@@ -3101,39 +3116,39 @@ msgstr "Platný klíč! Platnost tohoto klíče skončí %s"
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "Hmmm... něco je špatně s tímto validátorem. Kontaktujte prosím %spodporu%s."
 
-#: common/src/Tribe/Settings.php:214 common/src/Tribe/Settings.php:235
-#: vendor/tickets/common/src/Tribe/Settings.php:214
-#: vendor/tickets/common/src/Tribe/Settings.php:235
+#: common/src/Tribe/Settings.php:216 common/src/Tribe/Settings.php:236
+#: vendor/tickets/common/src/Tribe/Settings.php:216
+#: vendor/tickets/common/src/Tribe/Settings.php:236
 msgid "Events Settings"
 msgstr "Nastavení akcí"
 
-#: common/src/Tribe/Settings.php:300
-#: vendor/tickets/common/src/Tribe/Settings.php:300
+#: common/src/Tribe/Settings.php:301
+#: vendor/tickets/common/src/Tribe/Settings.php:301
 msgid "%s Settings"
 msgstr "Nastavení %s"
 
-#: common/src/Tribe/Settings.php:314
-#: vendor/tickets/common/src/Tribe/Settings.php:314
+#: common/src/Tribe/Settings.php:315
+#: vendor/tickets/common/src/Tribe/Settings.php:315
 msgid "You've requested a non-existent tab."
 msgstr "Požadovaný panel neexistuje."
 
-#: common/src/Tribe/Settings.php:322
-#: vendor/tickets/common/src/Tribe/Settings.php:322
+#: common/src/Tribe/Settings.php:323
+#: vendor/tickets/common/src/Tribe/Settings.php:323
 msgid "Save Changes"
 msgstr "Uložit změny"
 
-#: common/src/Tribe/Settings.php:370
-#: vendor/tickets/common/src/Tribe/Settings.php:370
+#: common/src/Tribe/Settings.php:371
+#: vendor/tickets/common/src/Tribe/Settings.php:371
 msgid "You don't have permission to do that."
 msgstr "Nemáte dostatečné oprávnění pro tuto činnost."
 
-#: common/src/Tribe/Settings.php:376
-#: vendor/tickets/common/src/Tribe/Settings.php:376
+#: common/src/Tribe/Settings.php:377
+#: vendor/tickets/common/src/Tribe/Settings.php:377
 msgid "The request was sent insecurely."
 msgstr "Požadavek byl odeslán nezabezpečený."
 
-#: common/src/Tribe/Settings.php:382
-#: vendor/tickets/common/src/Tribe/Settings.php:382
+#: common/src/Tribe/Settings.php:383
+#: vendor/tickets/common/src/Tribe/Settings.php:383
 msgid "The request wasn't sent from this tab."
 msgstr "Požadavek nebyl odeslán z tohoto panelu."
 
@@ -3187,15 +3202,15 @@ msgstr "Právě probíhající"
 msgid "No matching %1$s listed under %2$s scheduled for %3$s. Please try another day."
 msgstr "Nebyly nalezeny žádné %1$s v rubrice %2$s naplánované na %3$s. Zkuste prosím zvolit jiný den."
 
-#: src/Tribe/Template/Month.php:354
+#: src/Tribe/Template/Month.php:357
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
 msgstr "Nebyly nalezeny žádné %1$s v rubrice %2$s. Zkuste si prosím zobrazit úplný kalendář se seznamem všech akcí."
 
-#: src/Tribe/Template/Month.php:356 src/Tribe/Template_Factory.php:307
+#: src/Tribe/Template/Month.php:359 src/Tribe/Template_Factory.php:307
 msgid "There were no results found."
 msgstr "Nebyly nalezeny žádné záznamy."
 
-#: src/Tribe/Template/Month.php:794
+#: src/Tribe/Template/Month.php:797
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Požadované datum \"%s\" nebylo platné &ndash; místo toho se zobrazuje aktuální měsíc"
 
@@ -4377,13 +4392,13 @@ msgid " ask the site administrator set a different Events URL slug."
 msgstr "požádejte administrátora webu aby změnil název v URL u akcí."
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:151 src/Tribe/Main.php:1628
-#: src/Tribe/Main.php:1701
+#: src/Tribe/Main.php:1706
 msgid "Use Saved %s:"
 msgstr "Použít dřívější hodnoty"
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:183 src/Tribe/Main.php:1474
-#: src/Tribe/Main.php:1637 src/Tribe/Main.php:1703 src/Tribe/Organizer.php:71
+#: src/Tribe/Main.php:1642 src/Tribe/Main.php:1708 src/Tribe/Organizer.php:71
 #: src/Tribe/Venue.php:77
 msgid "Edit %s"
 msgstr "Upravit (%s)"
@@ -4464,11 +4479,6 @@ msgstr " – "
 #: src/Tribe/Cost_Utils.php:175 vendor/tickets/src/Tribe/JSON_LD/Order.php:106
 msgid "Free"
 msgstr "Zdarma"
-
-#: common/src/Tribe/Credits.php:26
-#: vendor/tickets/common/src/Tribe/Credits.php:26
-msgid "This calendar is powered by The Events Calendar."
-msgstr "Tento kalendář používá plugin The Events Calendar."
 
 #: common/src/Tribe/Field.php:209 vendor/tickets/common/src/Tribe/Field.php:209
 msgid "Invalid field type specified"
@@ -4695,12 +4705,12 @@ msgstr "Pořadatelé"
 msgid "Organizer"
 msgstr "Pořadatel"
 
-#: common/src/Tribe/Settings.php:148 common/src/Tribe/Settings.php:202
-#: common/src/Tribe/Settings.php:203 src/Tribe/Importer/Admin_Page.php:198
+#: common/src/Tribe/Settings.php:148 common/src/Tribe/Settings.php:204
+#: common/src/Tribe/Settings.php:205 src/Tribe/Importer/Admin_Page.php:198
 #: src/Tribe/Main.php:698 src/functions/template-tags/general.php:80
 #: vendor/tickets/common/src/Tribe/Settings.php:148
-#: vendor/tickets/common/src/Tribe/Settings.php:202
-#: vendor/tickets/common/src/Tribe/Settings.php:203
+#: vendor/tickets/common/src/Tribe/Settings.php:204
+#: vendor/tickets/common/src/Tribe/Settings.php:205
 msgid "Events"
 msgstr "Akce"
 
@@ -4708,7 +4718,7 @@ msgstr "Akce"
 msgid "Event"
 msgstr "Akce"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.2) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:624
@@ -4781,11 +4791,11 @@ msgstr "Omlouváme se, ale plugin The Events Calendar vyžaduje alespoň WordPre
 msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
 msgstr "Omlouváme se, ale plugin The Events Calendar vyžaduje alespoň PHP %s. Požádejte svého poskytovatele webhostingu o přechod na novější verzi PHP."
 
-#: src/Tribe/Main.php:1403 src/Tribe/Main.php:2266
+#: src/Tribe/Main.php:1403 src/Tribe/Main.php:2271
 msgid "category"
 msgstr "rubrika"
 
-#: src/Tribe/Main.php:1439 src/Tribe/Main.php:2265
+#: src/Tribe/Main.php:1439 src/Tribe/Main.php:2270
 msgid "tag"
 msgstr "stitek"
 
@@ -4915,20 +4925,20 @@ msgstr "%s k dispozici"
 msgid "No saved %s exists."
 msgstr "Zatím nebyl uložen žádný záznam."
 
-#: src/Tribe/Main.php:1874
+#: src/Tribe/Main.php:1879
 msgid "Next"
 msgstr "Další"
 
-#: src/Tribe/Main.php:1875
+#: src/Tribe/Main.php:1880
 msgid "Prev"
 msgstr "Předchozí"
 
-#: src/Tribe/Asset/Bootstrap_Datepicker.php:20 src/Tribe/Main.php:1876
+#: src/Tribe/Asset/Bootstrap_Datepicker.php:20 src/Tribe/Main.php:1881
 #: src/functions/template-tags/day.php:104
 msgid "Today"
 msgstr "Dnes"
 
-#: src/Tribe/Main.php:1877
+#: src/Tribe/Main.php:1882
 msgid "Done"
 msgstr "Hotovo"
 
@@ -4937,52 +4947,52 @@ msgstr "Hotovo"
 msgid "Network"
 msgstr "Síť webů"
 
-#: src/Tribe/Main.php:2267
+#: src/Tribe/Main.php:2272
 msgid "page"
 msgstr "strana"
 
-#: src/Tribe/Main.php:2268 src/functions/template-tags/general.php:69
+#: src/Tribe/Main.php:2273 src/functions/template-tags/general.php:69
 msgid "event"
 msgstr "akce"
 
-#: src/Tribe/Main.php:2269 src/functions/template-tags/general.php:91
+#: src/Tribe/Main.php:2274 src/functions/template-tags/general.php:91
 msgid "events"
 msgstr "kalendar-akci"
 
-#: src/Tribe/Main.php:2270
+#: src/Tribe/Main.php:2275
 msgid "all"
 msgstr "vse"
 
-#: src/Tribe/Main.php:3495 src/Tribe/Main.php:3530
+#: src/Tribe/Main.php:3500 src/Tribe/Main.php:3535
 #: src/functions/template-tags/day.php:157
 #: src/functions/template-tags/day.php:178
 msgid "Date out of range."
 msgstr "Datum je mimo platný rozsah."
 
-#: src/Tribe/Main.php:3565
+#: src/Tribe/Main.php:3570
 msgid "%s Options"
 msgstr "Nastavení %s"
 
-#: src/Tribe/Main.php:3572 src/Tribe/Main.php:3583
+#: src/Tribe/Main.php:3577 src/Tribe/Main.php:3588
 msgid "%s Information"
 msgstr "%s – údaje"
 
-#: src/Tribe/Main.php:3919
+#: src/Tribe/Main.php:3924
 msgid "Support"
 msgstr "Podpora"
 
-#: src/Tribe/Main.php:3922
+#: src/Tribe/Main.php:3927
 msgid "View All Add-Ons"
 msgstr "Prohlédnout všechny doplňky"
 
-#: src/Tribe/Main.php:3942
+#: src/Tribe/Main.php:3947
 msgid "News from Modern Tribe"
 msgstr "Novinky od Modern Tribe"
 
-#: src/Tribe/Main.php:3987
+#: src/Tribe/Main.php:3992
 msgid "Additional Functionality"
 msgstr "Další funkce"
 
-#: src/Tribe/Main.php:3992
+#: src/Tribe/Main.php:3997
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
 msgstr "Hledáte další funkce, včetně opakujících se akcí, prodeje vstupenek, veřejně přidávaných akcí, nových způsobů zobrazení a další?"

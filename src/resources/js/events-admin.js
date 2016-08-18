@@ -514,21 +514,27 @@ jQuery( document ).ready( function( $ ) {
 	//show state/province input based on first option in countries list, or based on user input of country
 
 	var $state_prov_chzn = $( "#StateProvinceSelect_chosen" ),
+		$state_prov_select = $( "#StateProvinceSelect" ),
 		$state_prov_text = $( "#StateProvinceText" );
 
 
 	function tribeShowHideCorrectStateProvinceInput( country ) {
 		if ( country == 'US' || country == 'United States' ) {
 			$state_prov_chzn.show();
+			if ( $state_prov_chzn.length < 1 ) {
+				$state_prov_select.show();
+			}
 			$state_prov_text.hide();
 		}
 		else if ( country != '' ) {
 			$state_prov_text.show();
 			$state_prov_chzn.hide();
+			$state_prov_select.hide();
 		}
 		else {
-			$state_prov_text.hide();
+			$state_prov_text.show();
 			$state_prov_chzn.hide();
+			$state_prov_select.hide();
 		}
 	}
 

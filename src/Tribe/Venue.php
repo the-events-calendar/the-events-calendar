@@ -90,6 +90,7 @@ class Tribe__Events__Venue {
 		add_filter( 'tribe_events_linked_post_type_container', array( $this, 'linked_post_type_container' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 5 );
 		add_filter( 'tribe_events_linked_post_meta_box_title', array( $this, 'meta_box_title' ), 5, 2 );
+		add_filter( 'tribe_events_linked_post_default', array( $this, 'linked_post_default' ), 10, 2 );
 		add_action( 'tribe_events_linked_post_new_form', array( $this, 'linked_post_new_form' ) );
 	}
 
@@ -378,6 +379,22 @@ class Tribe__Events__Venue {
 	 */
 	public function delete( $venue_id, $force_delete = false ) {
 		wp_delete_post( $venue_id, $force_delete );
+	}
+
+	/**
+	 * Returns the default venue
+	 *
+	 * @since 4.2.4
+	 *
+	 * @param int $default Default venue ID
+	 * @param string $post_type Post type of form being output
+	 */
+	public function linked_post_default( $default, $post_type ) {
+		if ( self::POSTTYPE !== $post_type ) {
+			return $default;
+		}
+
+		return Tribe__Events__Main::instance()->defaults()->venue_id();
 	}
 
 	public function linked_post_new_form( $post_type ) {
