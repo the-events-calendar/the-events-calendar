@@ -9,7 +9,8 @@ $field->help        .= __( 'For the best results, import venue and organizer fil
 
 $field->source      = 'csv_content_type';
 
-$post_types = array_map( 'get_post_type_object', Tribe__Main::get_post_types() );
+$csv_record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( 'csv' );
+$post_types = $csv_record->get_import_post_types();
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="csv">
 	<th scope="row">
