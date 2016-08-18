@@ -32,7 +32,7 @@ class Tribe__Events__Aggregator__Tabs {
 
 	/**
 	 * A private method to prevent it to be created twice.
-	 * It will add the methods and setup any dependecies
+	 * It will add the methods and setup any dependencies
 	 */
 	private function __construct() {
 		add_filter( 'admin_title', array( $this, 'filter_admin_title' ), 10, 2 );

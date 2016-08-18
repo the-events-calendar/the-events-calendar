@@ -192,11 +192,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			$restored = 0;
 			foreach ( (array) $post_ids as $post_id ) {
 				if ( ! current_user_can( 'delete_post', $post_id ) ){
-					wp_die( esc_html__( 'You are not allowed to restore this item from the Ignored Events.', 'the-events-calendar' ) );
+					wp_die( esc_html__( 'You do not have permission to restore this post.', 'the-events-calendar' ) );
 				}
 
 				if ( ! $this->restore_event( $post_id ) ){
-					wp_die( esc_html__( 'Error in restoring from Ignored Events.', 'the-events-calendar' ) );
+					wp_die( esc_html__( 'Error restoring from Ignored Events.', 'the-events-calendar' ) );
 				}
 
 				$restored++;
@@ -208,7 +208,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		}
 
 		/**
-		 * Allows Bulk Actions to Work it's magic (more Complex that it needs to be)
+		 * Allows Bulk Actions to Work it's magic (more Complex than it needs to be)
 		 *
 		 * @return void|false
 		 */
@@ -234,13 +234,13 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 
 			foreach ( $ids as $id ) {
 				if ( ! current_user_can( 'delete_post', $id ) ) {
-					wp_die( esc_html__( 'You are not allowed to restore this item from the Ignored Events.', 'the-events-calendar' ) );
+					wp_die( esc_html__( 'You do not have permission to restore this post.', 'the-events-calendar' ) );
 				}
 
 				$restore = $this->restore_event( $id );
 
 				if ( ! $restore ) {
-					wp_die( esc_html__( 'Error in restoring from Ignored Events.', 'the-events-calendar' ) );
+					wp_die( esc_html__( 'Error restoring from Ignored Events.', 'the-events-calendar' ) );
 				}
 
 				$restored[] = $restore;
@@ -248,7 +248,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 
 			$count_restored = count( $restored );
 
-			$message = '<p>' . sprintf( _n( '%s Event restored.', '%s Events restored.', $count_restored, 'the-events-calendar' ), $count_restored ) . '</p>';
+			$message = '<p>' . sprintf( _n( '%s post restored.', '%s posts restored.', $count_restored, 'the-events-calendar' ), $count_restored ) . '</p>';
 
 			if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
 				$_SERVER['REQUEST_URI'] = remove_query_arg( array( 'tribe-action', '_wpnonce' ), $_SERVER['REQUEST_URI'] );

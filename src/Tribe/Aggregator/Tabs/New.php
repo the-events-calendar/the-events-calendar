@@ -129,7 +129,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$record->finalize();
 
 		if ( 'schedule' === $record->meta['type'] ) {
-			$this->messages['success'][] = __( '1 schedule import successfully added.', 'the-events-calendar' );
+			$this->messages['success'][] = __( '1 scheduled import successfully added.', 'the-events-calendar' );
 			$create_schedule_result = $record->create_schedule_record();
 
 			if ( is_wp_error( $create_schedule_result ) ) {
