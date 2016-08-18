@@ -98,10 +98,9 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			$messages[ Tribe__Events__Main::POSTTYPE ] = $messages['post'];
 
 			// we are going to continue to use the language "posts" as that's what WordPress uses for custom post types in this messaging.
-			if ( 0 == $counts['trashed'] ) {
+			if ( 0 === $counts['trashed'] ) {
 				$messages[ Tribe__Events__Main::POSTTYPE ]['trashed'] = '%s ' . _n( 'post moved to Ignored.', 'posts moved to Ignored.', $count_ignored, 'the-events-calendar' );
-			}
-			else {
+			} else {
 				$GLOBALS['bulk_counts'] = $counts;
 				$messages[ Tribe__Events__Main::POSTTYPE ]['trashed'] = _n( '%s post moved to the Trash', '%s posts moved to the Trash', $counts['trashed'], 'the-events-calendar' ) . ' ';
 				$messages[ Tribe__Events__Main::POSTTYPE ]['trashed'] .= sprintf( _n( 'and %s post moved to Ignored.', 'and %s posts moved to Ignored.', $count_ignored, 'the-events-calendar' ), $count_ignored );
@@ -151,7 +150,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @return void|Redirect
 		 */
-		public function action_restore_events( $unused_screen ) {
+		public function action_restore_events() {
 			if ( ! isset( $_GET['action'] ) || 'tribe-restore' !== $_GET['action'] ) {
 				return;
 			}
