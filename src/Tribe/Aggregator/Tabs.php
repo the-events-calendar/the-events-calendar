@@ -42,7 +42,7 @@ class Tribe__Events__Aggregator__Tabs {
 		$this->register( 'Tribe__Events__Aggregator__Tabs__Scheduled' );
 		$this->register( 'Tribe__Events__Aggregator__Tabs__History' );
 
-		if ( ! empty( $_GET['id'] ) ) {
+		if ( ! empty( $_GET['id'] ) || Tribe__Main::instance()->doing_ajax() ) {
 			$this->register( 'Tribe__Events__Aggregator__Tabs__Edit' );
 		}
 	}
