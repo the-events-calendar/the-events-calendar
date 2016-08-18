@@ -315,6 +315,10 @@ class Tribe__Events__Aggregator__Records {
 			case 'ea/csv':
 				$record = new Tribe__Events__Aggregator__Record__CSV( $post );
 				break;
+			case 'eventbrite':
+			case 'ea/eventbrite':
+				$record = new Tribe__Events__Aggregator__Record__Eventbrite( $post );
+				break;
 			case 'gcal':
 			case 'ea/gcal':
 				$record = new Tribe__Events__Aggregator__Record__gCal( $post );

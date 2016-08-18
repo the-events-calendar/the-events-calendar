@@ -93,6 +93,7 @@ tribe_aggregator.fields = {
 			.on( 'click'      , '.tribe-cancel'                      , obj.events.cancel_edit )
 			.on( 'change'     , obj.selector.origin_field            , function() {
 				obj.$.form.removeClass( 'show-data' );
+				obj.$.form.attr( 'data-origin', $( this ).val() );
 				$( '.tribe-fetched, .tribe-fetching, .tribe-fetch-error' ).removeClass( 'tribe-fetched tribe-fetching tribe-fetch-error' );
 			} )
 			.on( 'submit'     , '.tribe-ea-tab-new'                  , obj.events.suppress_submission );
@@ -503,8 +504,14 @@ tribe_aggregator.fields = {
 	 * Submits the final version of the import for saving events
 	 */
 	obj.finalize_manual_import = function() {
+		var origin = $( '#tribe-ea-field-origin' ).val();
 		var $table = $( '.dataTable' );
 		var table = window.tribe_data_table;
+
+		if ( 'eventbrite' === origin ) {
+			obj.$.form.submit();
+			return;
+		}
 
 		if ( $table.hasClass( 'display-checkboxes' ) ) {
 			var row_selection = table.rows( { selected: true } );
@@ -519,7 +526,6 @@ tribe_aggregator.fields = {
 
 			var data = row_selection.data();
 			var items = [];
-			var origin = $( '#tribe-ea-field-origin' ).val();
 			var unique_id_field = null;
 
 			if ( 'facebook' === origin ) {
@@ -846,7 +852,9 @@ tribe_aggregator.fields = {
 	 * Suppress form submissions
 	 */
 	obj.events.suppress_submission = function( e ) {
-		if ( $( '#tribe-selected-rows' ).val().length ) {
+		var origin = $( '#tribe-ea-field-origin' ).val();
+
+		if ( $( '#tribe-selected-rows' ).val().length || 'eventbrite' === origin ) {
 			return true;
 		}
 
