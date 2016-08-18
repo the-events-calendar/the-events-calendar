@@ -9,7 +9,15 @@ $field->help        .= __( 'For the best results, import venue and organizer fil
 
 $field->source      = 'csv_content_type';
 
-$post_types = array_map( 'get_post_type_object', Tribe__Main::get_post_types() );
+$post_types = array_unique( Tribe__Main::get_post_types() );
+$post_types = array_map( 'get_post_type_object', $post_types );
+
+/**
+ * Filters the available CSV post types for the event aggregator form
+ *
+ * @param array $post_types Array of post type objects
+ */
+$post_types = apply_filters( 'tribe_aggregator_csv_post_types', $post_types );
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="csv">
 	<th scope="row">
