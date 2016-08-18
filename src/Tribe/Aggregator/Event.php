@@ -134,11 +134,6 @@ class Tribe__Events__Aggregator__Event {
 
 		$key = "_{$fields[ $origin ]['target']}";
 
-		// sanitize values
-		foreach ( $values as &$value ) {
-			$value = preg_replace( '/[^a-zA-Z0-9]/', '', $value );
-		}
-
 		$sql = "
 			SELECT
 				meta_value,
