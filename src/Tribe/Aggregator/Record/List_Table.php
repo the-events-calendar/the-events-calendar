@@ -91,7 +91,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	public function nonce() {
-		wp_nonce_field( 'aggregator_' . $this->tab->get_slug() . '_request' , 'aggregator[nonce]' );
+		wp_nonce_field( 'aggregator_' . $this->tab->get_slug() . '_request', 'aggregator[nonce]' );
 	}
 
 	/**
@@ -497,11 +497,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	public function column_cb( $post ) {
 		?>
 			<label class="screen-reader-text" for="cb-select-<?php echo esc_attr( $post->ID ); ?>"><?php
-				printf( __( 'Select %s' ), _draft_or_post_title() );
+				printf( __( 'Select %s', 'the-events-calendar' ), _draft_or_post_title() );
 			?></label>
 			<input id="cb-select-<?php the_ID(); ?>" type="checkbox" name="aggregator[records][]" value="<?php echo esc_attr( $post->ID ); ?>" />
 			<div class="locked-indicator"></div>
 		<?php
 	}
-
 }

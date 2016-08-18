@@ -48,7 +48,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 			$file->filename  = basename( $attachment_meta['file'] );
 			$file->path      = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $attachment_meta['file'];
 
-			// Fetch teh Extension for this filename
+			// Fetch the Extension for this filename
 			$filetype = wp_check_filetype( $file->filename, null );
 			$file->extension = $filetype['ext'];
 
@@ -62,7 +62,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 			return $response;
 		}
 
-		// if the reponse isn't an image then we need to bail
+		// if the response isn't an image then we need to bail
 		if ( ! preg_match( '/image/', $response['headers']['content-type'] ) ) {
 			/**
 			 * @todo  See a way for Tribe__Errors to handle overwriting
