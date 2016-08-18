@@ -416,7 +416,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			if ( empty( $record->meta['source_name'] ) ) {
 				$file = get_post( $record->meta['file'] );
 				$title = $file instanceof WP_Post ? $file->post_title : sprintf( esc_html__( 'Deleted Attachment: %d', 'the-events-calendar' ), $record->meta['file'] );
-				$html[] = '<p><span class="dashicons dashicons-media-document" title="' . sprintf( esc_attr__( 'Attachment: %d', 'the-events-calendar' ), $record->meta['file'] ) . '"></span> <b>' . $title . '</b></p>';
+				$html[] = '<p><b>' . $title . '</b></p>';
 			} else {
 				$html[] = '<p><b>' . esc_html( $record->meta['source_name'] ) . '</b></p>';
 			}
