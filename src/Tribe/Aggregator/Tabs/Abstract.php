@@ -45,7 +45,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 	abstract public function get_slug();
 
 	/**
-	 * Enforces a method to return the Label of the Lab
+	 * Enforces a method to return the Label of the Tab
 	 *
 	 * @return string
 	 */
@@ -72,7 +72,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 	}
 
 	/**
-	 * Determines if this Tab is currently been displayed
+	 * Determines if this Tab is currently displayed
 	 *
 	 * @return boolean
 	 */

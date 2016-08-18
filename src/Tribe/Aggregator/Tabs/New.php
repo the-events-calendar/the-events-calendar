@@ -157,23 +157,24 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return $result;
 		}
 
-		if ( ! empty( $result['updated'] ) ) {
+		if ( ! empty( $result['created'] ) ) {
 			$this->messages['success'][] = sprintf(
-				_n( '%1$d event has been updated.', '%1$d events have been updated.', $result['updated'], 'the-events-calendar' ),
-				$result['updated']
+				_n( '%1$d event has been successfully added.', '%1$d new events were imported.', $result['created'], 'the-events-calendar' ),
+				$result['created']
 			);
 		}
 
-		if ( ! empty( $result['created'] ) ) {
+		if ( ! empty( $result['updated'] ) ) {
+			// @todo: include a part of sentence like: ", including %1$d %2$signored event%3$s.", <a href="/wp-admin/edit.php?post_status=tribe-ignored&post_type=tribe_events">, </a>
 			$this->messages['success'][] = sprintf(
-				_n( '%1$d event has been successfully added.', '%1$d events have been successfully added.', $result['created'], 'the-events-calendar' ),
-				$result['created']
+				_n( '%1$d event has been updated.', '%1$d existing events were updated.', $result['updated'], 'the-events-calendar' ),
+				$result['updated']
 			);
 		}
 
 		if ( ! empty( $result['skipped'] ) ) {
 			$this->messages['success'][] = sprintf(
-				_n( '%1$d event has been skipped.', '%1$d events have been skipped.', $result['skipped'], 'the-events-calendar' ),
+				_n( '%1$d event has been skipped.', '%1$d already-imported events were skipped.', $result['skipped'], 'the-events-calendar' ),
 				$result['skipped']
 			);
 		}
@@ -187,6 +188,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			|| ! empty( $this->messages['success'] )
 			|| ! empty( $this->messages['warning'] )
 		) {
+			array_unshift( $this->messages['success'], __( 'Import complete!<br/>', 'the-events-calendar' ) );
 			tribe_notice( 'tribe-aggregator-import-complete', array( $this, 'render_notice_import_complete' ), 'type=success' );
 		}
 	}

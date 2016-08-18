@@ -66,7 +66,7 @@ class Tribe__Events__Aggregator {
 
 	/**
 	 * A private method to prevent it to be created twice.
-	 * It will add the methods and setup any dependecies
+	 * It will add the methods and setup any dependencies
 	 *
 	 * Note: This should load on `plugins_loaded@P10`
 	 */
@@ -82,7 +82,7 @@ class Tribe__Events__Aggregator {
 			return;
 		}
 
-		// Loads the Required Classes and saves then as proprieties
+		// Loads the Required Classes and saves them as proprieties
 		$this->meta_box    = Tribe__Events__Aggregator__Meta_Box::instance();
 		$this->page        = Tribe__Events__Aggregator__Page::instance();
 		$this->service     = Tribe__Events__Aggregator__Service::instance();
@@ -308,7 +308,7 @@ class Tribe__Events__Aggregator {
 	 */
 	public function reduce_daily_limit( $amount = 1 ) {
 		if ( ! is_numeric( $amount ) ) {
-			return new WP_Error( 'tribe-invalid-integer', esc_html__( 'The daily limits reduction amount must be an integer' ) );
+			return new WP_Error( 'tribe-invalid-integer', esc_html__( 'The daily limits reduction amount must be an integer', 'the-events-calendar' ) );
 		}
 
 		if ( $amount < 0 ) {
