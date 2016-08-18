@@ -142,8 +142,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 		}
 
-		$content_type = Tribe__Events__Main::instance()->get_event_label_singular_lowercase();
-		$content_type_plural = Tribe__Events__Main::instance()->get_event_label_plural_lowercase();
+		$content_type = tribe_get_event_label_singular_lowercase();
+		$content_type_plural = tribe_get_event_label_plural_lowercase();
 
 		if ( 'csv' === $data['origin'] ) {
 			$content_type_object = get_post_type_object( $record->meta['content_type'] );
