@@ -33,6 +33,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'source' => 'uid',
 			'target' => 'uid',
 		),
+		'gcal' => array(
+			'source' => 'uid',
+			'target' => 'uid',
+		),
 		'ics' => array(
 			'source' => 'uid',
 			'target' => 'uid',
