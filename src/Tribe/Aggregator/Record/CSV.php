@@ -176,6 +176,23 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		return str_replace( 'tribe_', '', $this->meta['content_type'] );
 	}
 
+	/**
+	 * Gets the available post types for importing
+	 *
+	 * @return array Array of Post Type Objects
+	 */
+	public function get_import_post_types() {
+		$post_types = array_unique( Tribe__Main::get_post_types() );
+		$post_types = array_map( 'get_post_type_object', $post_types );
+
+		/**
+		 * Filters the available CSV post types for the event aggregator form
+		 *
+		 * @param array $post_types Array of post type objects
+		 */
+		return apply_filters( 'tribe_aggregator_csv_post_types', $post_types );
+	}
+
 	private function begin_import() {
 		$this->reset_tracking_options();
 		return $this->continue_import();
