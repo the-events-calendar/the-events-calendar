@@ -313,6 +313,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return tribe_error( 'core:aggregator:save-schedule-failed' );
 		}
 
+		$this->post->post_parent = $schedule_id;
+
 		return Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $schedule_id );
 	}
 
@@ -713,6 +715,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
 		$import_data = $this->get_import_data();
+
+		// if we've received a source name, let's set that in the record as soon as possible
+		if ( ! empty( $this->meta['source_name'] ) ) {
+			$this->update_meta( 'source_name', $this->meta['source_name'] );
+
+			if ( ! empty( $this->post->post_parent ) ) {
+				$parent_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->post->post_parent );
+				$parent_record->update_meta( 'source_name', $this->meta['source_name'] );
+			}
+		}
 
 		if ( empty( $this->meta['finalized'] ) ) {
 			return tribe_error( 'core:aggregator:record-not-finalized' );

@@ -405,6 +405,8 @@ tribe_aggregator.fields = {
 
 					var $map_select = $map_row.find( '#column-' + column );
 
+					console.log( content_type );
+					console.log( ea.csv_column_mapping );
 					if ( 'undefined' !== typeof ea.csv_column_mapping[ content_type ][ column ] ) {
 						column_slug = ea.csv_column_mapping[ content_type ][ column ];
 					}

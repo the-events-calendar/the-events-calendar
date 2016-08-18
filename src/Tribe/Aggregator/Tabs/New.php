@@ -142,7 +142,13 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 		}
 
+		$content_type = __( 'event', 'the-event-calendar' );
+		$content_type_plural = __( 'events', 'the-event-calendar' );
+
 		if ( 'csv' === $data['origin'] ) {
+			$content_type_object = get_post_type_object( $record->meta['content_type'] );
+			$content_type = $content_type_object->labels->singular_name_lowercase;
+			$content_type_plural = $content_type_object->labels->plural_name_lowercase;
 			$result = $record->insert_posts( $data );
 		} else {
 			$result = $record->insert_posts();
@@ -158,28 +164,40 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		}
 
 		if ( ! empty( $result['updated'] ) ) {
+			$content_label = 1 === $result['updated'] ? $content_type : $content_type_plural;
+
 			$this->messages['success'][] = sprintf(
-				_n( '%1$d event has been updated.', '%1$d events have been updated.', $result['updated'], 'the-events-calendar' ),
-				$result['updated']
+				_n( '%1$d %2$s has been updated.', '%1$d %2$s have been updated.', $result['updated'], 'the-events-calendar' ),
+				$result['updated'],
+				$content_label
 			);
 		}
 
 		if ( ! empty( $result['created'] ) ) {
+			$content_label = 1 === $result['created'] ? $content_type : $content_type_plural;
+
 			$this->messages['success'][] = sprintf(
-				_n( '%1$d event has been successfully added.', '%1$d events have been successfully added.', $result['created'], 'the-events-calendar' ),
-				$result['created']
+				_n( '%1$d %2$s has been successfully added.', '%1$d %2$s have been successfully added.', $result['created'], 'the-events-calendar' ),
+				$result['created'],
+				$content_label
 			);
 		}
 
 		if ( ! empty( $result['skipped'] ) ) {
+			$content_label = 1 === $result['skipped'] ? $content_type : $content_type_plural;
+
 			$this->messages['success'][] = sprintf(
-				_n( '%1$d event has been skipped.', '%1$d events have been skipped.', $result['skipped'], 'the-events-calendar' ),
-				$result['skipped']
+				_n( '%1$d %2$s has been skipped.', '%1$d %2$s have been skipped.', $result['skipped'], 'the-events-calendar' ),
+				$result['skipped'],
+				$content_label
 			);
 		}
 
 		if ( $result && ! $this->messages ) {
-			$this->messages['success'][] = __( '0 events have been added.', 'the-events-calendar' );
+			$this->messages['success'][] = sprintf(
+				__( '0 %1$s have been added.', 'the-events-calendar' ),
+				$content_type_plural
+			);
 		}
 
 		if (
@@ -280,6 +298,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		// if we've received a source name, let's set that in the record as soon as possible
 		if ( ! empty( $result->data->source_name ) ) {
 			$record->update_meta( 'source_name', $result->data->source_name );
+
+			if ( ! empty( $record->post->post_parent ) ) {
+				$parent_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record->post->post_parent );
+				$parent_record->update_meta( 'source_name', $result->data->source_name );
+			}
 		}
 
 		wp_send_json_success( $result );
