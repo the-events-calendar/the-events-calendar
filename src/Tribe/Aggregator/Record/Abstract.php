@@ -244,7 +244,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				return tribe_error( 'core:aggregator:invalid-record-frequency', $meta );
 			}
 
-			// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
+			// Setup the post_content as the Frequency (makes it easy to fetch by frequency)
 			$post['post_content'] = $frequency->id;
 		}
 
@@ -345,7 +345,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return tribe_error( 'core:aggregator:invalid-record-frequency', $meta );
 		}
 
-		// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
+		// Setup the post_content as the Frequency (makes it easy to fetch by frequency)
 		$post['post_content'] = $frequency->id;
 
 		// create schedule post
@@ -436,7 +436,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			&& 'queued' != $response->message_code
 		) {
 			/**
-			 * @todo Allow overwritting the message
+			 * @todo Allow overwriting the message
 			 */
 			$error = new WP_Error( $response->message_code, esc_html__( $response->message, 'the-events-calendar' ) );
 			return $this->set_status_as_failed( $error );
@@ -612,8 +612,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	/**
-	 * Verifies if this
-	 *  Schedule Record can create a new Child Record
+	 * Verifies if this Schedule Record can create a new Child Record
 	 * @return boolean
 	 */
 	public function is_schedule_time() {

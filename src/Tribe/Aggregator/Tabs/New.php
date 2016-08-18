@@ -163,22 +163,23 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return $result;
 		}
 
-		if ( ! empty( $result['updated'] ) ) {
-			$content_label = 1 === $result['updated'] ? $content_type : $content_type_plural;
-
-			$this->messages['success'][] = sprintf(
-				_n( '%1$d %2$s has been updated.', '%1$d %2$s have been updated.', $result['updated'], 'the-events-calendar' ),
-				$result['updated'],
-				$content_label
-			);
-		}
-
 		if ( ! empty( $result['created'] ) ) {
 			$content_label = 1 === $result['created'] ? $content_type : $content_type_plural;
 
 			$this->messages['success'][] = sprintf(
-				_n( '%1$d %2$s has been successfully added.', '%1$d %2$s have been successfully added.', $result['created'], 'the-events-calendar' ),
+				_n( '%1$d %2$s has been successfully added.', '%1$d new %2$s were imported.', $result['created'], 'the-events-calendar' ),
 				$result['created'],
+				$content_label
+			);
+		}
+
+		if ( ! empty( $result['updated'] ) ) {
+			$content_label = 1 === $result['updated'] ? $content_type : $content_type_plural;
+
+			// @todo: include a part of sentence like: ", including %1$d %2$signored event%3$s.", <a href="/wp-admin/edit.php?post_status=tribe-ignored&post_type=tribe_events">, </a>
+			$this->messages['success'][] = sprintf(
+				_n( '%1$d %2$s has been updated.', '%1$d existing %2$s were updated.', $result['updated'], 'the-events-calendar' ),
+				$result['updated'],
 				$content_label
 			);
 		}
@@ -187,7 +188,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			$content_label = 1 === $result['skipped'] ? $content_type : $content_type_plural;
 
 			$this->messages['success'][] = sprintf(
-				_n( '%1$d %2$s has been skipped.', '%1$d %2$s have been skipped.', $result['skipped'], 'the-events-calendar' ),
+				_n( '%1$d %2$s has been skipped.', '%1$d already-imported %2$s were skipped.', $result['skipped'], 'the-events-calendar' ),
 				$result['skipped'],
 				$content_label
 			);
@@ -205,6 +206,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			|| ! empty( $this->messages['success'] )
 			|| ! empty( $this->messages['warning'] )
 		) {
+			array_unshift( $this->messages['success'], __( 'Import complete!<br/>', 'the-events-calendar' ) );
 			tribe_notice( 'tribe-aggregator-import-complete', array( $this, 'render_notice_import_complete' ), 'type=success' );
 		}
 	}

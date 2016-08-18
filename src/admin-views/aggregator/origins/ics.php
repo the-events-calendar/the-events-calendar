@@ -30,6 +30,7 @@ $field->media_title = __( 'Upload an ICS File', 'the-events-calendar' );
 		>
 			<?php echo esc_html( $field->button ); ?>
 		</button>
+		<span class="tribe-ea-fileicon dashicons dashicons-media-document"></span>
 		<span class="tribe-ea-field tribe-ea-file-name" id="tribe-ea-field-ics_file_name"><?php echo esc_html__( 'No file chosen', 'the-events-calendar' ); ?></span>
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
 	</td>

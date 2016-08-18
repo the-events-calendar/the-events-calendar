@@ -91,7 +91,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	public function nonce() {
-		wp_nonce_field( 'aggregator_' . $this->tab->get_slug() . '_request' , 'aggregator[nonce]' );
+		wp_nonce_field( 'aggregator_' . $this->tab->get_slug() . '_request', 'aggregator[nonce]' );
 	}
 
 	/**
@@ -416,7 +416,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			if ( empty( $record->meta['source_name'] ) ) {
 				$file = get_post( $record->meta['file'] );
 				$title = $file instanceof WP_Post ? $file->post_title : sprintf( esc_html__( 'Deleted Attachment: %d', 'the-events-calendar' ), $record->meta['file'] );
-				$html[] = '<p><span class="dashicons dashicons-media-document" title="' . sprintf( esc_attr__( 'Attachment: %d', 'the-events-calendar' ), $record->meta['file'] ) . '"></span> <b>' . $title . '</b></p>';
+				$html[] = '<p><b>' . $title . '</b></p>';
 			} else {
 				$html[] = '<p><b>' . esc_html( $record->meta['source_name'] ) . '</b></p>';
 			}
@@ -497,11 +497,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	public function column_cb( $post ) {
 		?>
 			<label class="screen-reader-text" for="cb-select-<?php echo esc_attr( $post->ID ); ?>"><?php
-				printf( __( 'Select %s' ), _draft_or_post_title() );
+				printf( __( 'Select %s', 'the-events-calendar' ), _draft_or_post_title() );
 			?></label>
 			<input id="cb-select-<?php the_ID(); ?>" type="checkbox" name="aggregator[records][]" value="<?php echo esc_attr( $post->ID ); ?>" />
 			<div class="locked-indicator"></div>
 		<?php
 	}
-
 }
