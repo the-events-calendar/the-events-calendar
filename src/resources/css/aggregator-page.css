@@ -68,6 +68,10 @@
 	padding-left: 0;
 }
 
+.tribe-ea .tribe-ea-fileicon {
+	padding: 3px;
+}
+
 .tribe-ea .enter-credentials {
 	background-color: #f8eceb;
 	padding: 16px;
