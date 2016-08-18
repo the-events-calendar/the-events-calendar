@@ -270,13 +270,13 @@ $scheduled_save_help = esc_html__( 'Click Import to import the events above and 
 	echo $event_mapper->make_select_box( '' );
 	?>
 </script>
-<script id="tribe-csv-column-map-organizers" type="text/html">
+<script id="tribe-csv-column-map-organizer" type="text/html">
 	<?php
 	$organizers_mapper = new Tribe__Events__Importer__Column_Mapper( 'organizers' );
 	echo $organizers_mapper->make_select_box( '' );
 	?>
 </script>
-<script id="tribe-csv-column-map-events" type="text/html">
+<script id="tribe-csv-column-map-venue" type="text/html">
 	<?php
 	$venues_mapper = new Tribe__Events__Importer__Column_Mapper( 'venues' );
 	echo $venues_mapper->make_select_box( '' );
