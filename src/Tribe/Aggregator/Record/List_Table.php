@@ -312,9 +312,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			return '';
 		}
 
-		// if ( 'scheduled' !== $this->tab->get_slug() ) {
-		// 	return '';
-		// }
+		if ( 'scheduled' !== $this->tab->get_slug() ) {
+			return '';
+		}
 
 		$post_type_object = get_post_type_object( $post->post_type );
 		$actions = array();
@@ -329,8 +329,8 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 			$args = array(
 				'tab'    => $this->tab->get_slug(),
-				'action' => 'tribe-run-now',
-				'item'   => absint( $post->ID ),
+				'action' => 'run-import',
+				'id'   => absint( $post->ID ),
 				'nonce'  => wp_create_nonce( 'aggregator_' . $this->tab->get_slug() . '_request' ),
 			);
 			$actions['run-now'] = sprintf(
@@ -344,7 +344,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$actions['delete'] = sprintf(
 				'<a href="%s" class="submitdelete">%s</a>',
 				get_delete_post_link( $post->ID, '', true ),
-				__( 'Delete Permanently', 'the-events-calendar' )
+				__( 'Delete', 'the-events-calendar' )
 			);
 		}
 
@@ -403,11 +403,6 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	public function column_source( $post ) {
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
-		$actions = array(
-			'edit' => '<a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=edit&id=' . $record->post->ID ) . '">' . __( 'Edit', 'the-events-calendar' ) . '</a>',
-			'delete' => '<a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=edit&id=' . $record->post->ID ) . '&action=delete">' . __( 'Delete', 'the-events-calendar' ) . '</a>',
-		);
-
 		if ( 'scheduled' !== $this->tab->get_slug() ) {
 			$html[] = $this->get_status_icon( $post );
 		}
@@ -431,10 +426,6 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		}
 
 		$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $record->get_label() . '</strong></p>';
-
-		if ( 'scheduled' === $this->tab->get_slug() ) {
-			$html[] = $this->row_actions( $actions );
-		}
 
 		return $this->render( $html );
 	}

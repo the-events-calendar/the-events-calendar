@@ -83,7 +83,7 @@ class Tribe__Events__Aggregator__Records {
 
 		$args = array(
 			'tab'    => Tribe__Events__Aggregator__Tabs__Edit::instance()->get_slug(),
-			'id'   => absint( $post->ID ),
+			'ids'   => absint( $post->ID ),
 		);
 
 		return Tribe__Events__Aggregator__Page::instance()->get_url( $args );
@@ -99,8 +99,8 @@ class Tribe__Events__Aggregator__Records {
 		$tab = Tribe__Events__Aggregator__Tabs__Scheduled::instance();
 		$args = array(
 			'tab'    => $tab->get_slug(),
-			'action' => 'tribe-delete',
-			'item'   => absint( $post->ID ),
+			'action' => 'delete',
+			'ids'   => absint( $post->ID ),
 			'nonce'  => wp_create_nonce( 'aggregator_' . $tab->get_slug() . '_request' ),
 		);
 
@@ -358,8 +358,16 @@ class Tribe__Events__Aggregator__Records {
 			return $post;
 		}
 
+		if ( ! $post instanceof WP_Post ) {
+			return tribe_error( 'core:aggregator:invalid-record-object', array(), array( $post ) );
+		}
+
+		if ( $post->post_type !== self::$post_type ) {
+			return tribe_error( 'core:aggregator:invalid-record-post_type', array(), array( $post ) );
+		}
+
 		if ( empty( $post->post_mime_type ) ) {
-			return tribe_error( 'core:aggregator:invalid-record-origin' );
+			return tribe_error( 'core:aggregator:invalid-record-origin', array(), array( $post ) );
 		}
 
 		return $this->get_by_origin( $post->post_mime_type, $post );
@@ -394,7 +402,7 @@ class Tribe__Events__Aggregator__Records {
 
 		$post = $query->post;
 		if ( empty( $post->post_mime_type ) ) {
-			return tribe_error( 'core:aggregator:invalid-record-origin' );
+			return tribe_error( 'core:aggregator:invalid-record-origin', array(), array( $post ) );
 		}
 
 		return $this->get_by_origin( $post->post_mime_type, $post );

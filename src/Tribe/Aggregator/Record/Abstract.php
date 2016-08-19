@@ -76,7 +76,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( ! $post instanceof WP_Post ) {
-			return false;
+			return tribe_error( 'core:aggregator:invalid-record-object', array(), array( $post ) );
+		}
+
+		if ( $post->post_type !== Tribe__Events__Aggregator__Records::$post_type ) {
+			return tribe_error( 'core:aggregator:invalid-record-post_type', array(), array( $post ) );
 		}
 
 		$this->id = $post->ID;
@@ -979,6 +983,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$selected_ids = wp_list_pluck( $import_data, $unique_field['source'] );
 		}
 
+		if ( empty( $selected_ids ) ) {
+			return array();
+		}
+
 		$event_object = new Tribe__Events__Aggregator__Event;
 		$existing_ids = $event_object->get_existing_ids( $this->meta['origin'], $selected_ids );
 
@@ -992,10 +1000,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return $import_data;
 		}
 
-		if (
-			'all' === $this->meta['ids_to_import']
-			|| null === $this->meta['ids_to_import']
-		) {
+		// It's safer to use Empty to check here, prevents notices
+		if ( empty( $this->meta['ids_to_import'] ) ) {
+			return $import_data;
+		}
+
+		if ( 'all' === $this->meta['ids_to_import'] ) {
 			return $import_data;
 		}
 
