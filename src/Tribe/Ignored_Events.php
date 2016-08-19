@@ -595,7 +595,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			$arguments = array(
 				'label'                     => esc_html__( 'Ignored', 'the-events-calendar' ),
 				'label_count'               => _n_noop( 'Ignored <span class="count">(%s)</span>', 'Ignored <span class="count">(%s)</span>', 'the-events-calendar' ),
-				'show_in_admin_all_list'    => true,
+				'show_in_admin_all_list'    => false,
 				'show_in_admin_status_list' => true,
 				'public'                    => false,
 				'internal'                  => false,
