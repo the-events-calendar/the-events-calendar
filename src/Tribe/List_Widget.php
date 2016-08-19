@@ -132,7 +132,26 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		echo $after_widget;
 		wp_reset_query();
 
-		Tribe__Events__JSON_LD__Event::instance()->markup( self::$posts );
+		$enable_jsonld = isset($enable_jsonld)  ? $enable_jsonld : true;
+
+		/**
+		 * Filters whether JSON LD information should be printed to the page or not for this widget type.
+		 *
+		 * @param bool $enable_jsonld Whether JSON-LD should be printed to the page or not; default `true`.
+		 */
+		$enable_jsonld = apply_filters( 'tribe_events_list_widget_jsonld_enabled', $enable_jsonld );
+
+
+		/**
+		 * Filters whether JSON LD information should be printed to the page for any widget type.
+		 *
+		 * @param bool $enable_jsonld Whether JSON-LD should be printed to the page or not; default `true`.
+		 */
+		$enable_jsonld = apply_filters( 'tribe_events_widge_jsonld_enabled', $enable_jsonld );
+
+		if ( $enable_jsonld ) {
+			Tribe__Events__JSON_LD__Event::instance()->markup( self::$posts );
+		}
 
 		// Reinstate the tribe bar params
 		if ( ! empty( $hold_tribe_bar_args ) ) {
@@ -158,6 +177,11 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$instance['title']              = strip_tags( $new_instance['title'] );
 		$instance['limit']              = $new_instance['limit'];
 		$instance['no_upcoming_events'] = $new_instance['no_upcoming_events'];
+		if ( isset( $new_instance['jsonld_enable'] ) && $new_instance['jsonld_enable'] == true ) {
+			$instance['jsonld_enable'] = '1';
+		} else {
+			$instance['jsonld_enable'] = '0';
+		}
 
 		return $instance;
 	}
