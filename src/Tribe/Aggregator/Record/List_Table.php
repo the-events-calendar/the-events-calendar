@@ -454,7 +454,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				$html[] = sprintf( esc_html_x( 'in about %s', 'in human readable time', 'the-events-calendar' ), $diff );
 			}
 		} else {
-			$html[] = date( Tribe__Date_Utils::DATEONLYFORMAT, $time ) . '<br>' . date( Tribe__Date_Utils::TIMEFORMAT, $time );
+			$html[] = date( tribe_get_date_format( true ), $time ) . '<br>' . date( Tribe__Date_Utils::TIMEFORMAT, $time );
 		}
 
 		$html[] = '</span>';
