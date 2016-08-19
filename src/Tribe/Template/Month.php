@@ -244,6 +244,15 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		}
 
 		/**
+		 * Returns an array containing the IDs of all the events in the month.
+		 *
+		 * @return array
+		 */
+		public function get_events_in_month_ids() {
+			return $this->has_events() ? wp_list_pluck( $this->events_in_month, 'ID' ) : array();
+		}
+
+		/**
 		 * Add any special hooks for this view
 		 * any actions added here should also be removed in the unhook function
 		 *
