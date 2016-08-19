@@ -177,6 +177,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$instance['title']              = strip_tags( $new_instance['title'] );
 		$instance['limit']              = $new_instance['limit'];
 		$instance['no_upcoming_events'] = $new_instance['no_upcoming_events'];
+
 		if ( isset( $new_instance['jsonld_enable'] ) && $new_instance['jsonld_enable'] == true ) {
 			$instance['jsonld_enable'] = '1';
 		} else {
