@@ -132,24 +132,24 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		echo $after_widget;
 		wp_reset_query();
 
-		$enable_jsonld = isset($enable_jsonld)  ? $enable_jsonld : true;
+		$jsonld_enable = isset( $jsonld_enable ) ? $jsonld_enable : true;
 
 		/**
 		 * Filters whether JSON LD information should be printed to the page or not for this widget type.
 		 *
-		 * @param bool $enable_jsonld Whether JSON-LD should be printed to the page or not; default `true`.
+		 * @param bool $jsonld_enable Whether JSON-LD should be printed to the page or not; default `true`.
 		 */
-		$enable_jsonld = apply_filters( 'tribe_events_list_widget_jsonld_enabled', $enable_jsonld );
+		$jsonld_enable = apply_filters( 'tribe_events_list_widget_jsonld_enabled', $jsonld_enable );
 
 
 		/**
 		 * Filters whether JSON LD information should be printed to the page for any widget type.
 		 *
-		 * @param bool $enable_jsonld Whether JSON-LD should be printed to the page or not; default `true`.
+		 * @param bool $jsonld_enable Whether JSON-LD should be printed to the page or not; default `true`.
 		 */
-		$enable_jsonld = apply_filters( 'tribe_events_widge_jsonld_enabled', $enable_jsonld );
+		$jsonld_enable = apply_filters( 'tribe_events_widget_jsonld_enabled', $jsonld_enable );
 
-		if ( $enable_jsonld ) {
+		if ( $jsonld_enable ) {
 			Tribe__Events__JSON_LD__Event::instance()->markup( self::$posts );
 		}
 
