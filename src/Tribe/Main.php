@@ -622,15 +622,27 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function render_notice_archive_slug_conflict() {
-			$archive_slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
-			$conflict     = get_page_by_path( $archive_slug );
+			$archive_slug   = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
+			$conflict_query = new WP_Query( array(
+				'name'                   => $archive_slug,
+				'post_type'              => 'any',
+				'post_status'            => array( 'publish', 'private', 'inherit' ),
+				'no_found_rows'          => true,
+				'update_post_meta_cache' => false,
+				'update_post_term_cache' => false,
+				'posts_per_page'         => 1,
+			) );
 
-			if ( ! $conflict || 'publish' !== $conflict->post_status ) {
+			if ( ! $conflict_query->have_posts() ) {
 				return false;
 			}
 
+			// Set the Conflicted Post
+			$conflict = $conflict_query->post;
+
+			// Fetch the Post Type and Post Name
 			$post_type = get_post_type_object( $conflict->post_type );
-			$name      = empty( $post_type->labels->singular_name ) ? 'page' : $post_type->labels->singular_name;
+			$name      = empty( $post_type->labels->singular_name ) ? ucfirst( $conflict->post_type ) : $post_type->labels->singular_name;
 
 			// What's happening?
 			$page_title = apply_filters( 'the_title', $conflict->post_title, $conflict->ID );
