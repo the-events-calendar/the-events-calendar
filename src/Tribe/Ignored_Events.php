@@ -40,6 +40,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			add_action( 'current_screen', array( $this, 'action_restore_events' ) );
 			add_action( 'current_screen', array( $this, 'action_restore_ignored' ) );
 
+
+			/**
+			 * `pre_delete_post` only exists after WP 4.4
+			 * @see https://core.trac.wordpress.org/ticket/12706
+			 */
 			add_filter( 'pre_delete_post', array( $this, 'action_pre_delete_event' ), 10, 3 );
 			add_action( 'trashed_post', array( $this, 'action_from_trash_to_ignored' ) );
 
@@ -733,23 +738,5 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 
 			wp_send_json( $response );
 		}
-
-		/**
-		 * @todo review, resolve, and remove notes below
-		 * Notes:
-		 *
-		 * Working on this I notice that because `pre_delete_post` only exists after WP 4.4 we have a problem in terms of preventing that post from been deleted.
-		 * My workout for this is to hook on `admin_init` of that page, change the `$_REQUEST` variable holding the IDs to remove any posts that fit the `ignored`
-		 *
-		 * On another problem, I realized that not WordPress still not ready to display custom status on the Admin, how should I display if we have a custom status
-		 *
-		 * E.g.: http://d.pr/i/17mZY
-		 * Trac: https://core.trac.wordpress.org/ticket/12706
-		 *
-		 * Last problem, the old deleted methods are a little bit problematic, they don't have all the info from the Original Event.
-		 *
-		 * Review this Ticket: https://central.tri.be/issues/61726
-		 */
-
 	}
 }
