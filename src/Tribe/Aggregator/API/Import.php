@@ -3,8 +3,6 @@
 defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__API__Abstract {
-	public $google_maps_enabled;
-
 	public $event_field_map = array(
 		'title'          => 'post_title',
 		'description'    => 'post_content',
@@ -52,9 +50,6 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 
 	public function __construct() {
 		parent::__construct();
-
-		// @TODO: migrate the ical settings to the-events-calendar
-		$this->google_maps_enabled = tribe_get_option( 'ical_import_enable_GoogleMaps', false );
 	}
 
 	/**
@@ -72,7 +67,6 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 		}
 
 		if ( 'success_import-complete' !== $response->message_code ) {
-			// @TODO: maybe update the import record with the current status
 			return $response;
 		}
 
@@ -81,9 +75,6 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 		foreach ( $response->data->events as $event ) {
 			$events[] = $this->translate_json_to_event( $event );
 		}
-
-		// @TODO: do something with the events - determine if they need to be inserted
-		//        disable pseudo cron for polling for updates
 	}
 
 	/**
@@ -95,21 +86,8 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 	 */
 	public function create( $args ) {
 		$response = $this->service->post_import( $args );
-		// @TODO: create import record
-		//        store import_id on the import record
-		//        set the import record status
-		//        create pseudo cron to check status of import
 
 		return $response;
-	}
-
-	/**
-	 * Creates an import record post based on data from the Event Aggregator service
-	 *
-	 * @param object $data Event data
-	 */
-	public function create_record( $data ) {
-		// @todo: something?
 	}
 
 	/**
@@ -136,8 +114,7 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 
 		$event['post_type'] = Tribe__Events__Main::POSTTYPE;
 
-		// @TODO: get the desired post status for the import
-		$event['post_status'] = 'publish';
+		$event['post_status'] = Tribe__Events__Aggregator__Settings::instance()->default_post_status( $json->origin );
 
 		// translate json key/value pairs to event array key/value pairs
 		foreach ( get_object_vars( $json ) as $key => $value ) {
@@ -205,8 +182,10 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 			}
 		}
 
-		$event['EventShowMap']     = $this->google_maps_enabled;
-		$event['EventShowMapLink'] = $this->google_maps_enabled;
+		$show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( $json->origin );
+
+		$event['EventShowMap']     = $show_map_setting;
+		$event['EventShowMapLink'] = $show_map_setting;
 
 		return $event;
 	}
