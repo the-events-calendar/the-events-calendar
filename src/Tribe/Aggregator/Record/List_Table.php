@@ -416,7 +416,13 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				$html[] = '<p><b>' . esc_html( $record->meta['source_name'] ) . '</b></p>';
 			}
 		} else {
-			$html[] = '<p><b><a href="' . esc_url( $record->meta['source'] ) . '" target="_blank">' . esc_html( $record->meta['source_name'] ) . '<span class="screen-reader-text">' . __( ' (opens in a new window)', 'the-events-calendar' ) . '</span></a></b></p>';
+			if ( empty( $record->meta['source_name'] ) ) {
+				$source = $record->meta['source'];
+			} else {
+				$source = $record->meta['source_name'];
+			}
+
+			$html[] = '<p><b><a href="' . esc_url( $record->meta['source'] ) . '" target="_blank">' . esc_html( $source ) . '<span class="screen-reader-text">' . __( ' (opens in a new window)', 'the-events-calendar' ) . '</span></a></b></p>';
 		}
 
 		$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $record->get_label() . '</strong></p>';

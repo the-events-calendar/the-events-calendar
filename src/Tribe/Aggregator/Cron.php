@@ -281,7 +281,7 @@ class Tribe__Events__Aggregator__Cron {
 	}
 
 	/**
-	 * Checks if any record data needs to be fetched fromthe service, this will run on the Cron every 15m
+	 * Checks if any record data needs to be fetched from the service, this will run on the Cron every 15m
 	 *
 	 * @return void
 	 */

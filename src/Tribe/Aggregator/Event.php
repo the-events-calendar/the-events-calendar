@@ -28,7 +28,7 @@ class Tribe__Events__Aggregator__Event {
 	public $data;
 
 	public function __construct( $data = array() ) {
-		// maybe translate service data to and Event array
+		// maybe translate service data to an Event array
 		if ( is_object( $data ) && ! empty( $item->title ) ) {
 			$data = self::translate_service_data( $data );
 		}
@@ -129,6 +129,10 @@ class Tribe__Events__Aggregator__Event {
 		$fields = Tribe__Events__Aggregator__Record__Abstract::$unique_id_fields;
 
 		if ( empty( $fields[ $origin ] ) ) {
+			return array();
+		}
+
+		if ( empty( $values ) ) {
 			return array();
 		}
 

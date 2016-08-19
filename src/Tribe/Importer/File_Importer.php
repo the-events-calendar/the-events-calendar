@@ -38,10 +38,13 @@ abstract class Tribe__Events__Importer__File_Importer {
 	 */
 	public static function get_importer( $type, Tribe__Events__Importer__File_Reader $file_reader ) {
 		switch ( $type ) {
+			case 'event':
 			case 'events':
 				return new Tribe__Events__Importer__File_Importer_Events( $file_reader );
+			case 'venue':
 			case 'venues':
 				return new Tribe__Events__Importer__File_Importer_Venues( $file_reader );
+			case 'organizer':
 			case 'organizers':
 				return new Tribe__Events__Importer__File_Importer_Organizers( $file_reader );
 			default:

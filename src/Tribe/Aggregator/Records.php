@@ -20,7 +20,7 @@ class Tribe__Events__Aggregator__Records {
 		'failed'    => 'tribe-ea-failed',
 		'pending'   => 'tribe-ea-pending',
 
-		// Used to mark which are the Orginal Scheduled Import
+		// Used to mark which are the Original Scheduled Import
 		'schedule' => 'tribe-ea-schedule',
 
 		// Currently Not Displayed
