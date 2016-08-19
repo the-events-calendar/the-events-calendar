@@ -114,7 +114,8 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 
 		$sendback = Tribe__Events__Aggregator__Page::instance()->get_url( $args );
 
-		exit( wp_redirect( $sendback ) );
+		wp_redirect( $sendback );
+		die;
 	}
 
 	public function get_errors_transient_name( $nonce ) {
@@ -126,10 +127,15 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 			return false;
 		}
 
-		$action = $_GET['action'];
-
-		if ( ! in_array( $action, array( 'run-import', 'delete' ) ) ) {
-			return false;
+		switch ( $_GET['action'] ) {
+			case 'run-import';
+				$action = __( 'run', 'the-events-calendar' );
+			break;
+			case 'delete';
+				$action = __( 'delete', 'the-events-calendar' );
+			break;
+			default:
+				return false;
 		}
 
 		if ( empty( $_GET['ids'] ) ) {
@@ -145,9 +151,10 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 	}
 
 	/**
-	 * @todo Talk to Leah an Get the Error and success messages for Delete
+	 * Error and success messages for delete
 	 *
-	 * @param  array   $statuses  Which status occured
+ 	 * @param  string  $action  saved, deleted
+	 * @param  array   $statuses  Which status occurred
 	 * @return string
 	 */
 	private function action_notice( $action, $ids = array(), $error = null ) {
@@ -169,7 +176,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		);
 
 		if ( ! empty( $errors ) ) {
-			$message->error[] = sprintf( esc_html__( 'Errors to %s %d Records:', 'the-events-calendar' ), $action, count( $errors ) );
+			$message->error[] = sprintf( esc_html__( 'Error: %d scheduled import was not %s.', 'the-events-calendar' ), $action, count( $errors ) );
 			foreach ( $errors as $post_id => $error ) {
 				$message->error[] = implode( '<br/>', sprintf( '%d: %s', $post_id, $error->get_error_message() ) );
 			}
@@ -177,7 +184,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		}
 
 		if ( 0 < $success ) {
-			$message->success[] = sprintf( esc_html__( 'Successfully %s %d Records', 'the-events-calendar' ), $action, $success );
+			$message->success[] = sprintf( esc_html__( 'Successfully %s %d scheduled import', 'the-events-calendar' ), $action, $success );
 			tribe_notice( 'tribe-aggregator-action-records-success', '<p>' . implode( "\r\n", $message->success ) . '</p>', 'type=success' );
 		}
 	}
