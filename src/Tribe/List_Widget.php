@@ -139,7 +139,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		 *
 		 * @param bool $jsonld_enable Whether JSON-LD should be printed to the page or not; default `true`.
 		 */
-		$jsonld_enable = apply_filters( 'tribe_events_list_widget_jsonld_enabled', $jsonld_enable );
+		$jsonld_enable = apply_filters( 'tribe_events_' . $this->id_base . '_jsonld_enabled', $jsonld_enable );
 
 
 		/**
