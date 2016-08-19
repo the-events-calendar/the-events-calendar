@@ -83,7 +83,7 @@ class Tribe__Events__Aggregator__Records {
 
 		$args = array(
 			'tab'    => Tribe__Events__Aggregator__Tabs__Edit::instance()->get_slug(),
-			'ids'   => absint( $post->ID ),
+			'id'   => absint( $post->ID ),
 		);
 
 		return Tribe__Events__Aggregator__Page::instance()->get_url( $args );
