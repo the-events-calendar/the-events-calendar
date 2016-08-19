@@ -132,6 +132,10 @@ class Tribe__Events__Aggregator__Event {
 			return array();
 		}
 
+		if ( empty( $values ) ) {
+			return array();
+		}
+
 		$key = "_{$fields[ $origin ]['target']}";
 
 		$sql = "

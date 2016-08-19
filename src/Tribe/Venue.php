@@ -58,6 +58,7 @@ class Tribe__Events__Venue {
 		$this->singular_venue_label                = $this->get_venue_label_singular();
 		$this->singular_venue_label_lowercase      = $this->get_venue_label_singular_lowercase();
 		$this->plural_venue_label                  = $this->get_venue_label_plural();
+		$this->plural_venue_label_lowercase        = $this->get_venue_label_plural_lowercase();
 
 		$this->post_type_args['rewrite']['slug']   = $rewrite->prepare_slug( $this->singular_venue_label, self::POSTTYPE, false );
 		$this->post_type_args['show_in_nav_menus'] = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
@@ -69,17 +70,18 @@ class Tribe__Events__Venue {
 		 * @param array $args Array of arguments for register_post_type labels
 		 */
 		$this->post_type_args['labels'] = apply_filters( 'tribe_events_register_venue_post_type_labels', array(
-			'name'               => $this->plural_venue_label,
-			'singular_name'      => $this->singular_venue_label,
+			'name'                    => $this->plural_venue_label,
+			'singular_name'           => $this->singular_venue_label,
 			'singular_name_lowercase' => $this->singular_venue_label_lowercase,
-			'add_new'            => esc_html__( 'Add New', 'the-events-calendar' ),
-			'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ),
-			'edit_item'          => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label ),
-			'new_item'           => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_venue_label ),
-			'view_item'          => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_venue_label ),
-			'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_venue_label ),
-			'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
-			'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
+			'plural_name_lowercase'   => $this->plural_venue_label_lowercase,
+			'add_new'                 => esc_html__( 'Add New', 'the-events-calendar' ),
+			'add_new_item'            => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ),
+			'edit_item'               => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label ),
+			'new_item'                => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_venue_label ),
+			'view_item'               => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_venue_label ),
+			'search_items'            => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_venue_label ),
+			'not_found'               => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
+			'not_found_in_trash'      => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
 		) );
 
 		$this->register_post_type();

@@ -84,8 +84,8 @@ class Tribe__Events__Aggregator__Page {
 					'data' => array(
 						'csv_column_mapping' => array(
 							'events' => get_option( 'tribe_events_import_column_mapping_events', array() ),
-							'organizers' => get_option( 'tribe_events_import_column_mapping_organizers', array() ),
-							'venues' => get_option( 'tribe_events_import_column_mapping_venues', array() ),
+							'organizer' => get_option( 'tribe_events_import_column_mapping_organizers', array() ),
+							'venue' => get_option( 'tribe_events_import_column_mapping_venues', array() ),
 						),
 						'l10n' => array(
 							'preview_timeout' => __( 'The preview is taking longer than expected. Please try again in a moment.', 'the-events-calendar' ),
