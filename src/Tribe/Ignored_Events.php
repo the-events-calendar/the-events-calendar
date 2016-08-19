@@ -623,6 +623,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return null;
 			}
 
+			// Important to note that this needs to return null for any invalid ignoring
+			if ( ! $this->can_ignore( $post ) ) {
+				return null;
+			}
+
 			$status = $this->ignore_event( $post );
 
 			// If we couldn't convert we actually trash it
@@ -637,6 +642,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return bool|null
 		 */
 		public function action_from_trash_to_ignored( $post ) {
+			// Important to note that this needs to return null for any invalid ignoring
+			if ( ! $this->can_ignore( $post ) ) {
+				return null;
+			}
+
 			$status = $this->ignore_event( $post );
 
 			// If we couldn't convert we actually trash it
