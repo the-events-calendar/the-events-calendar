@@ -46,7 +46,7 @@ class Tribe__Events__Aggregator__Page {
 
 	/**
 	 * A private method to prevent it to be created twice.
-	 * It will add the methods and setup any dependecies
+	 * It will add the methods and setup any dependencies
 	 */
 	private function __construct() {
 		$plugin = Tribe__Events__Main::instance();

@@ -38,5 +38,5 @@
 
 	echo esc_html( $message );
 	?>
-	<a href="<?php echo esc_url( $settings_link ); ?>"><?php echo esc_html__( 'Update Change Authority setting.', 'the-events-calendar' ); ?></a>
+	<a href="<?php echo esc_url( $settings_link ); ?>"><?php echo esc_html__( 'Change Event Update Authority', 'the-events-calendar' ); ?></a>
 </p>

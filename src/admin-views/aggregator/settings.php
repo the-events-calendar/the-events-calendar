@@ -307,7 +307,7 @@ $fields = array_merge(
 		),
 		'import-box-description' => array(
 			'type' => 'html',
-			'html' => __( '<p>Please follow the instructions below to configure your settings.</p>', 'the-events-calendar' ),
+			'html' => '<p>' . __( 'Please follow the instructions below to configure your settings.', 'the-events-calendar' ) . '</p>',
 		),
 		'import-box-end' => array(
 			'type' => 'html',
