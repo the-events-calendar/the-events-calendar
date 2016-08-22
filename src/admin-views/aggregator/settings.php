@@ -35,9 +35,9 @@ $show_map_options = array(
 $origin_show_map_options = array( '' => $use_global_settings_phrase ) + $show_map_options;
 
 $change_authority = array(
-	'overwrite' => __( 'Overwrite my event with any changes from the original source', 'the-events-calendar' ),
+	'overwrite' => __( 'Overwrite my event with any changes from the original source.', 'the-events-calendar' ),
 	'retain' => __( 'Do not re-import events. Changes made locally will be preserved.', 'the-events-calendar' ),
-	'preserve_changes' => __( 'Preserve the most recent change in each event field, whether that change occurred on my site or at the original source', 'the-events-calendar' ),
+	'preserve_changes' => __( 'Preserve the most recent change in each event field, whether that change occurred on my site or at the original source.', 'the-events-calendar' ),
 );
 
 // if there's an Event Aggregator license key, add the Facebook API fields
