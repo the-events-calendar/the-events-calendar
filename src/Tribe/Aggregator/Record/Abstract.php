@@ -330,7 +330,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function create_child_record() {
 		$post = array(
 			// Stores the Key under `post_title` which is a very forgiving type of column on `wp_post`
-			'post_title'     => $this->generate_title( $this->type, $this->origin, $this->meta['frequency'], $this->post ),
+			'post_title'     => $this->generate_title( $this->type, $this->origin, $this->meta['frequency'], $this->post->ID ),
 			'post_type'      => $this->post->post_type,
 			'ping_status'    => $this->post->ping_status,
 			'post_mime_type' => $this->post->post_mime_type,
@@ -489,10 +489,20 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
-		return wp_update_post( array(
+
+		$status = wp_update_post( array(
 			'ID' => $this->id,
 			'post_status' => Tribe__Events__Aggregator__Records::$status->{ $status },
 		) );
+
+		if ( ! is_wp_error( $status ) && ! empty( $this->post->post_parent ) ) {
+			wp_update_post( array(
+				'ID' => $this->post->post_parent,
+				'post_modified' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, current_time( 'timestamp' ) ),
+			) );
+		}
+
+		return $status;
 	}
 
 	/**
@@ -555,7 +565,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function get_child_record_by_status( $status = 'success', $qty = -1 ) {
 		$statuses = Tribe__Events__Aggregator__Records::$status;
 
-		if ( ! isset( $statuses->{ $status } ) || 'trash' !== $status ) {
+		if ( ! isset( $statuses->{ $status } ) && 'trash' !== $status ) {
 			return false;
 		}
 
@@ -564,6 +574,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'posts_per_page' => $qty,
 		);
 		$query = $this->query_child_records( $args );
+
 		if ( ! $query->have_posts() ) {
 			return false;
 		}
@@ -610,7 +621,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function log_limit_reached_error() {
 		$aggregator = Tribe__Events__Aggregator::instance();
 
-		$this->log_error( tribe_error( 'core:aggregator:daily-limit-reached', array(), array( $aggregator->get_daily_limit() ) ) );
+		$error = $this->log_error( tribe_error( 'core:aggregator:daily-limit-reached', array(), array( $aggregator->get_daily_limit() ) ) );
 
 		return $error;
 	}
@@ -735,6 +746,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		if ( is_wp_error( $import_data ) ) {
 			return $import_data;
+		}
+
+		if ( empty( $import_data->data->events ) ) {
+			return tribe_error( 'core:aggregator:record-not-finalized' );
 		}
 
 		$results = array(

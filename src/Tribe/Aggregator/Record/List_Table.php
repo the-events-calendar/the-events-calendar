@@ -330,7 +330,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$args = array(
 				'tab'    => $this->tab->get_slug(),
 				'action' => 'run-import',
-				'id'   => absint( $post->ID ),
+				'ids'   => absint( $post->ID ),
 				'nonce'  => wp_create_nonce( 'aggregator_' . $this->tab->get_slug() . '_request' ),
 			);
 			$actions['run-now'] = sprintf(

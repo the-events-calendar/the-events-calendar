@@ -129,7 +129,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 
 		switch ( $_GET['action'] ) {
 			case 'run-import';
-				$action = __( 'run', 'the-events-calendar' );
+				$action = __( 'queued', 'the-events-calendar' );
 			break;
 			case 'delete';
 				$action = __( 'delete', 'the-events-calendar' );
@@ -235,7 +235,8 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 				continue;
 			}
 
-			$status = $record->insert_posts();
+			$child = $record->create_child_record();
+			$status = $child->queue_import();
 
 			if ( is_wp_error( $status ) ) {
 				$errors[ $record->id ] = $status;
