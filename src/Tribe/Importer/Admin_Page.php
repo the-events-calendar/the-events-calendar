@@ -63,6 +63,13 @@ class Tribe__Events__Importer__Admin_Page {
 	}
 
 	public function register_admin_page() {
+		// only add this if they have Eventbrite, iCal, or Facebook
+		if ( ! class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' )
+		  && ! class_exists( 'Tribe__Events__Facebook__Importer' )
+		  && ! class_exists( 'Tribe__Events__Ical_Importer__Main' ) ) {
+			return;
+		}
+
 		add_submenu_page(
 			$this->admin_page_url,
 			esc_html__( 'Legacy Import', 'the-events-calendar' ),
