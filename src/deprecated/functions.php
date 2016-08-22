@@ -205,7 +205,7 @@ function tribe_get_meta_template_part( $meta_id, $template_key, $type = 'meta' )
  * @param bool   $status
  * @param string $type
  */
-function tribe_set_the_mea_visibility( $meta_id, $status = true, $type = 'meta' ) {
+function tribe_set_the_meta_visibility( $meta_id, $status = true, $type = 'meta' ) {
 	_deprecated_function( __FUNCTION__, '4.3' );
 
 	Tribe__Events__Meta_Factory::set_visibility( $meta_id, $type, $status );
