@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $venue_details = tribe_get_venue_details();
 
 // Venue
-$has_venue_address = ( ! empty( $venue_details[ 'address' ] ) ) ? ' location' : '';
+$has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : '';
 
 // Organizer
 $organizer = tribe_get_organizer();
