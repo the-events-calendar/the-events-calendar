@@ -876,7 +876,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				 * @param array $event Event data to save
 				 * @param Tribe__Events__Aggregator__Record__Abstract Importer record
 				 */
-				$event = apply_filters( 'tribe_aggregator_before_update_event', $event, $record );
+				$event = apply_filters( 'tribe_aggregator_before_update_event', $event, $this );
 
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
 				remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
