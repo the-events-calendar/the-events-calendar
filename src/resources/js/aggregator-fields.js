@@ -95,9 +95,6 @@ tribe_aggregator.fields = {
 				obj.$.form.removeClass( 'show-data' );
 				obj.$.form.attr( 'data-origin', $( this ).val() );
 				$( '.tribe-fetched, .tribe-fetching, .tribe-fetch-error' ).removeClass( 'tribe-fetched tribe-fetching tribe-fetch-error' );
-				if ( '' !== $( this ).val() ) {
-					$( '.tribe-notice-tribe-missing-aggregator-license' ).hide();
-				}
 			} )
 			.on( 'submit'     , '.tribe-ea-tab-new'                  , obj.events.suppress_submission );
 
