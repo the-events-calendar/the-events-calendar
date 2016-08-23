@@ -300,6 +300,10 @@
 	visibility: visible;
 }
 
+.tribe-preview-container .dataTable {
+	float: left;
+}
+
 .tribe-preview-container .dataTable .column-cb input, .tribe-preview-container .dataTable .check-column input {
 	display: none;
 }
