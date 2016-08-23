@@ -428,8 +428,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		if ( $record->is_schedule ) {
 			$html[] = '<p><b><a href="' . get_edit_post_link( $post->ID ) . '">' . esc_html( $title ) . '</a></b></p>';
-		}
-		else {
+		} else {
 			$html[] = '<p><b>' . esc_html( $title ) . '</b></p>';
 		}
 
