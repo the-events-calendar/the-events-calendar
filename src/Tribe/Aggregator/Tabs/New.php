@@ -336,7 +336,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		?>
 		<div class="notice inline notice-info tribe-dependent tribe-notice-tribe-missing-aggregator-license" data-ref="tribe-missing-aggregator-license" data-depends="#tribe-ea-field-origin" data-condition-empty>
 			<p>
-				<strong<?php esc_html_e( 'Upgrade to Event Aggregator to unlock access to multiple import sources.', 'the-events-calendar' ); ?><strong></p>
+				<strong><?php esc_html_e( 'Upgrade to Event Aggregator to unlock access to multiple import sources.', 'the-events-calendar' ); ?><strong></p>
 			<p>
 				<?php echo sprintf(
 						esc_html__( 'With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup.com in a jiffy. Head over to %1$sTheEventsCalendar.com%2$s to purchase instant access, including a year of premium support, updates, and upgrades.', 'the-events-calendar' ),
