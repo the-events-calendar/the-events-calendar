@@ -475,9 +475,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		}
 
 		if ( 'schedule' === $record->type ) {
-			$html[] = esc_html__( 'All Time: ', 'the-events-calendar' ) . '<b>' . $post->comment_count . '</b>';
+			$html[] = esc_html__( 'All Time: ', 'the-events-calendar' ) . intval( $post->comment_count );
 		} else {
-			$html[] = '<b>' . $post->comment_count . '</b>';
+			$html[] = intval( $post->comment_count );
 		}
 
 		return $this->render( $html, '<br>' );
