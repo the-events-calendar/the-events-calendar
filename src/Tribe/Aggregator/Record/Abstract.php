@@ -422,6 +422,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// create the import on the Event Aggregator service
 		$response = $aggregator->api( 'import' )->create( $args );
+		do_action( 'debug_robot', '$response :: ' . print_r( $response, true ) );
 
 		// if the Aggregator API returns a WP_Error, set this record as failed
 		if ( is_wp_error( $response ) ) {
@@ -719,16 +720,20 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	/**
-	 * Inserts events, venues, and organizers for the Import Record
+	 * Queues events, venues, and organizers for insertion
 	 *
 	 * @param array $data Dummy data var to allow children to optionally react to passed in data
 	 *
 	 * @return array|WP_Error
 	 */
-	public function insert_posts( $data = array() ) {
+	public function process_posts( $data = array() ) {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
-		$import_data = $this->get_import_data();
+		if ( $data ) {
+			$import_data = $data;
+		} else {
+			$import_data = $this->get_import_data();
+		}
 
 		// if we've received a source name, let's set that in the record as soon as possible
 		if ( ! empty( $import_data->data->source_name ) ) {
@@ -752,6 +757,22 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return tribe_error( 'core:aggregator:record-not-finalized' );
 		}
 
+		$items = empty( $import_data->data->items ) ? $import_data->data->events : $import_data->data->items;
+
+		$queue = new Tribe__Events__Aggregator__Record__Queue( $this->post->ID, $items );
+		$queue->process();
+	}
+
+	/**
+	 * Inserts events, venues, and organizers for the Import Record
+	 *
+	 * @param array $data Dummy data var to allow children to optionally react to passed in data
+	 *
+	 * @return array|WP_Error
+	 */
+	public function insert_posts( $import_data = array() ) {
+		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
+
 		$results = array(
 			'updated' => 0,
 			'created' => 0,
@@ -762,7 +783,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'post_status' => $this->meta['post_status'],
 		);
 
-		$items = $this->filter_data_by_selected( $import_data->data->events );
+		$items = $this->filter_data_by_selected( $import_data );
 
 		$unique_field = $this->get_unique_field();
 		$existing_ids = $this->get_existing_ids_from_import_data( $items );
@@ -944,6 +965,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $results;
 	}
 
+	public function insert_post( $item ) {
+	}
+
 	/**
 	 * Attempts to pull in the event image, if there is one, and attach it to the
 	 * specified event post.
@@ -1024,7 +1048,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return $import_data;
 		}
 
-		$selected_ids = $this->meta['ids_to_import'];
+		$selected_ids = maybe_unserialize( $this->meta['ids_to_import'] );
 
 		$selected = array();
 

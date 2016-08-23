@@ -303,7 +303,7 @@ class Tribe__Events__Aggregator__Cron {
 
 		foreach ( $query->posts as $post ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
-			$record->insert_posts();
+			$record->process_posts();
 		}
 	}
 }

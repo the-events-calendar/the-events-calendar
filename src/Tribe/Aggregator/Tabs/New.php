@@ -151,10 +151,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			$content_type_plural = $content_type_object->labels->plural_name_lowercase;
 			$content_post_type = $content_type_object->name;
 
-			$result = $record->insert_posts( $data );
+			$result = $record->process_posts( $data );
 		} else {
 			$content_post_type = Tribe__Events__Main::POSTTYPE;
-			$result = $record->insert_posts();
+			$result = $record->process_posts();
 		}
 
 		if ( is_wp_error( $result ) ) {

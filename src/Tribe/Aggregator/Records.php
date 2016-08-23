@@ -477,7 +477,7 @@ class Tribe__Events__Aggregator__Records {
 		}
 
 		// Actually import things
-		$record->insert_posts( $request );
+		$record->process_posts( $request );
 
 		return wp_send_json_success();
 	}

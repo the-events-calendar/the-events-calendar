@@ -95,7 +95,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		return $data;
 	}
 
-	public function insert_posts( $data = array() ) {
+	public function process_posts( $data = array() ) {
 		if (
 			'csv' !== $data['origin']
 			|| empty( $data['csv']['content_type'] )
