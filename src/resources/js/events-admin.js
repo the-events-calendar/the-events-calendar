@@ -764,5 +764,10 @@ jQuery( document ).ready( function( $ ) {
 
 	$( document ).ready( function(){
 		$( '.submitdelete' ).attr( 'title', tribe_events_admin.ignored_events.link_title ).html( tribe_events_admin.ignored_events.link_text );
+		if ( 'undefined' !== typeof tribe_events_admin.ignored_events.link_nonce ) {
+			$( '#post_status' ).append( $( '<option>', {'value': 'ignored', 'text' : tribe_events_admin.ignored_events.link_status } ).prop( 'selected', true ) );
+			$( '#post-status-display' ).html( tribe_events_admin.ignored_events.link_status );
+			$( '.submitdelete' ).attr( 'href', 'post.php?action=delete&post=' + tribe_events_admin.ignored_events.link_post + '&_wpnonce=' + tribe_events_admin.ignored_events.link_nonce );
+		}
 	} );
 }( jQuery ) );
