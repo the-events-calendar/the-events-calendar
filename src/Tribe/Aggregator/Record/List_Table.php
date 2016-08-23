@@ -411,21 +411,29 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			if ( empty( $record->meta['source_name'] ) ) {
 				$file = get_post( $record->meta['file'] );
 				$title = $file instanceof WP_Post ? $file->post_title : sprintf( esc_html__( 'Deleted Attachment: %d', 'the-events-calendar' ), $record->meta['file'] );
-				$html[] = '<p><b>' . $title . '</b></p>';
 			} else {
-				$html[] = '<p><b>' . esc_html( $record->meta['source_name'] ) . '</b></p>';
+				$title = $record->meta['source_name'];
 			}
+
+			$via = $record->get_label();
 		} else {
 			if ( empty( $record->meta['source_name'] ) ) {
-				$source = $record->meta['source'];
+				$title = $record->meta['source'];
 			} else {
-				$source = $record->meta['source_name'];
+				$title = $record->meta['source_name'];
 			}
 
-			$html[] = '<p><b><a href="' . esc_url( $record->meta['source'] ) . '" target="_blank">' . esc_html( $source ) . '<span class="screen-reader-text">' . __( ' (opens in a new window)', 'the-events-calendar' ) . '</span></a></b></p>';
+			$via = '<a href="' . esc_url( $record->meta['source'] ) . '" target="_blank">' . $record->get_label() . '<span class="screen-reader-text">' . __( ' (opens in a new window)', 'the-events-calendar' ) . '</span></a>';
 		}
 
-		$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $record->get_label() . '</strong></p>';
+		if ( $record->is_schedule ) {
+			$html[] = '<p><b><a href="' . get_edit_post_link( $post->ID ) . '">' . esc_html( $title ) . '</a></b></p>';
+		}
+		else {
+			$html[] = '<p><b>' . esc_html( $title ) . '</b></p>';
+		}
+
+		$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $via  . '</strong></p>';
 
 		return $this->render( $html );
 	}
