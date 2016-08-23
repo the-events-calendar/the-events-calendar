@@ -423,7 +423,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				$title = $record->meta['source_name'];
 			}
 
-			$via = '<a href="' . esc_url( $record->meta['source'] ) . '" target="_blank">' . $record->get_label() . '<span class="screen-reader-text">' . __( ' (opens in a new window)', 'the-events-calendar' ) . '</span></a>';
+			$via = $record->get_label();
+			if ( in_array( $record->origin, array( 'facebook', 'meetup' ) ) ) {
+				$via = '<a href="' . esc_url( $record->meta['source'] ) . '" target="_blank">' . esc_html( $via ) . '<span class="screen-reader-text">' . __( ' (opens in a new window)', 'the-events-calendar' ) . '</span></a>';
+			}
 		}
 
 		if ( $record->is_schedule ) {
