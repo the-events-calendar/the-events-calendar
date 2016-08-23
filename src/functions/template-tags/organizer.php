@@ -102,6 +102,49 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Returns a summary of key information for the specified organizer.
+	 *
+	 * Typically this is a pipe separated format containing the organizer's telephone
+	 * number, email address and website where available.
+	 *
+	 * @param int $post_id
+	 *
+	 * @return string
+	 */
+	function tribe_get_organizer_details( $post_id = null ) {
+		$post_id = Tribe__Events__Main::postIdHelper( $post_id );
+		$organizer_id = (int) tribe_get_organizer_id( $post_id );
+		$details = array();
+
+		if ( $organizer_id && $tel = tribe_get_organizer_phone() ) {
+			$details[] = '<span class="tel">' . $tel . '</span>';
+		}
+
+		if ( $organizer_id && $email = tribe_get_organizer_email() ) {
+			$details[] = '<span class="email"> <a href="mailto:' . esc_attr( $email ) . '">' . $email . '</a> </span>';
+		}
+
+		if ( $organizer_id && $link = tribe_get_organizer_website_link() ) {
+			$details[] = '<span class="link"> <a href="' . esc_attr( $link ) . '">' . $link . '</a> </span>';
+		}
+
+		$html = join( '<span class="tribe-events-divider">|</span>', $details );
+
+		if ( ! empty( $html ) ) {
+			$html = '<address class="organizer-address">' . $html . '</address>';
+		}
+
+		/**
+		 * Provides an opportunity to modify the organizer details HTML.
+		 *
+		 * @param string $html
+		 * @param int    $post_id
+		 * @param int    $organizer_id
+		 */
+		return apply_filters( 'tribe_get_organizer_details', $html, $post_id, $organizer_id );
+	}
+
+	/**
 	 * Get Organizer
 	 *
 	 * Returns the name of the Organizer

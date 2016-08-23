@@ -149,9 +149,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			$content_type_object = get_post_type_object( $record->meta['content_type'] );
 			$content_type = $content_type_object->labels->singular_name_lowercase;
 			$content_type_plural = $content_type_object->labels->plural_name_lowercase;
+			$content_post_type = $content_type_object->name;
 
 			$result = $record->insert_posts( $data );
 		} else {
+			$content_post_type = Tribe__Events__Main::POSTTYPE;
 			$result = $record->insert_posts();
 		}
 
@@ -208,6 +210,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			|| ! empty( $this->messages['warning'] )
 		) {
 			array_unshift( $this->messages['success'], __( 'Import complete!<br/>', 'the-events-calendar' ) );
+
+			$url = admin_url( 'edit.php?post_type=' . $content_post_type );
+			$link_text = sprintf( __( 'View all %s', 'the-events-calendar' ), $content_type_plural );
+			$this->messages['success'][ count( $this->messages['success'] ) - 1 ] .= ' <a href="' . esc_url( $url ) . '" >' . esc_html( $link_text ) . '</a>';
+
 			tribe_notice( 'tribe-aggregator-import-complete', array( $this, 'render_notice_import_complete' ), 'type=success' );
 		}
 	}
@@ -327,9 +334,9 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		ob_start();
 		?>
-		<div class="notice inline notice-info tribe-notice-tribe-missing-aggregator-license" data-ref="tribe-missing-aggregator-license">
+		<div class="notice inline notice-info tribe-dependent tribe-notice-tribe-missing-aggregator-license" data-ref="tribe-missing-aggregator-license" data-depends="#tribe-ea-field-origin" data-condition-empty>
 			<p>
-				<?php esc_html_e( 'Upgrade to Event Aggregator to unlock access to multiple import sources.', 'the-events-calendar' ); ?></p>
+				<strong><?php esc_html_e( 'Upgrade to Event Aggregator to unlock access to multiple import sources.', 'the-events-calendar' ); ?></strong></p>
 			<p>
 				<?php echo sprintf(
 						esc_html__( 'With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup.com in a jiffy. Head over to %1$sTheEventsCalendar.com%2$s to purchase instant access, including a year of premium support, updates, and upgrades.', 'the-events-calendar' ),
@@ -370,7 +377,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			?>
 		</p>
 		<p>
-			<a href="" class="tribe-license-link"><?php esc_html_e( 'Renew your Event Aggregator license', 'the-events-calendar' ); ?></a>
+			<a href="https://theeventscalendar.com/license-keys/?utm_campaign=in-app&utm_source=renewlink&utm_medium=event-aggregator" class="tribe-license-link"><?php esc_html_e( 'Renew your Event Aggregator license', 'the-events-calendar' ); ?></a>
 		</p>
 		<?php
 
@@ -383,16 +390,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 * Renders any of the "import complete" messages
 	 */
 	public function render_notice_import_complete() {
-		ob_start();
-		?>
-		<p>
-			<?php echo implode( ' ', $this->messages['success'] ); ?>
-			<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE ) ); ?>" ><?php esc_html_e( 'View All Events', 'the-events-calendar' ); ?></a>
-		</p>
-		<?php
-
-		$html = ob_get_clean();
-
+		$html = '<p>' . implode( ' ', $this->messages['success'] ) . '</p>';
 		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-import-complete', $html );
 	}
 

@@ -62,12 +62,17 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		}
 	}
 
-	private function handle_post() {
-		if ( ! isset( $_POST['aggregator'] ) ) {
-			return false;
+	private function handle_post( $data = null ) {
+		if ( is_null( $data ) ) {
+			if ( ! isset( $_POST['aggregator'] ) ) {
+				return false;
+			}
+
+			$data = $_POST['aggregator'];
 		}
 
-		$data = (object) $_POST['aggregator'];
+		// Ensure it's an Object
+		$data = (object) $data;
 
 		if ( ! isset( $data->action ) ) {
 			return false;
@@ -77,10 +82,44 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 			return false;
 		}
 
-		if ( 'delete' === $data->action && ! empty( $data->records ) ) {
-			$statuses = $this->action_delete_records( $data->records );
-			$message = $this->get_delete_notice( $statuses );
+		if ( empty( $data->records ) ) {
+			if ( empty( $data->ids ) ) {
+				return false;
+			}
+
+			$data->records = explode( ',', $data->ids );
 		}
+
+		// Ensures Records is an Array
+		$data->records = (array) $data->records;
+
+		if ( 'delete' === $data->action ) {
+			list( $success, $errors ) = $this->action_delete_record( $data->records );
+		} elseif ( 'run-import' === $data->action ) {
+			list( $success, $errors ) = $this->action_run_import( $data->records );
+		}
+
+		$args = array(
+			'tab'    => $this->get_slug(),
+			'action' => $data->action,
+			'ids'     => implode( ',', array_keys( $success ) ),
+		);
+
+		if ( ! empty( $errors ) ) {
+			$args['error'] = $data->nonce;
+
+			// Set the errors
+			set_transient( $this->get_errors_transient_name( $data->nonce ), $errors, 5 * MINUTE_IN_SECONDS );
+		}
+
+		$sendback = Tribe__Events__Aggregator__Page::instance()->get_url( $args );
+
+		wp_redirect( $sendback );
+		die;
+	}
+
+	public function get_errors_transient_name( $nonce ) {
+		return 'tribe-ea-' . $this->get_slug() . '-action-' . $nonce;
 	}
 
 	private function handle_get() {
@@ -88,81 +127,125 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 			return false;
 		}
 
-		$action = $_GET['action'];
+		switch ( $_GET['action'] ) {
+			case 'run-import';
+				$action = __( 'queued', 'the-events-calendar' );
+			break;
+			case 'delete';
+				$action = __( 'delete', 'the-events-calendar' );
+			break;
+			default:
+				return false;
+		}
 
-		if ( ! in_array( $action, array( 'tribe-run-now', 'tribe-delete' ) ) ) {
+		if ( empty( $_GET['ids'] ) ) {
 			return false;
 		}
 
-		if ( ! isset( $_GET['nonce'] ) || ! wp_verify_nonce( $_GET['nonce'], 'aggregator_' . $this->get_slug() . '_request' ) ) {
-			return false;
+		// If it has a Nonce we do a GET2POST request
+		if ( isset( $_GET['nonce'] ) ) {
+			return $this->handle_post( $_GET );
 		}
 
-		if ( 'tribe-delete' === $action && ! empty( $_GET['item'] ) ) {
-			$status = $this->action_delete_records( $_GET['item'] );
-			$this->delete_notice( $status );
-		}
+		$this->action_notice( $action, $_GET['ids'], isset( $_GET['error'] ) ? $_GET['error'] : null );
 	}
 
 	/**
-	 * @todo Talk to Leah an Get the Error and success messages for Delete
+	 * Error and success messages for delete
 	 *
-	 * @param  array   $statuses  Which status occured
+ 	 * @param  string  $action  saved, deleted
+	 * @param  array   $statuses  Which status occurred
 	 * @return string
 	 */
-	private function delete_notice( $statuses = array() ) {
-		$errors   = array();
-		$success  = 0;
-		$count    = count( $statuses );
-		$message  = array();
+	private function action_notice( $action, $ids = array(), $error = null ) {
+		$ids    = explode( ',', $ids );
+		$errors = array();
 
-		foreach ( $statuses as $status ) {
-			if ( is_wp_error( $status ) ) {
-				$errors[] = $status->get_error_message();
-			} else {
-				$success++;
-			}
+		if ( is_string( $error ) ) {
+			$transient = $this->get_errors_transient_name( $error );
+			$errors = get_transient( $transient );
+
+			// After getting delete
+			delete_transient( $transient );
 		}
 
-		if ( 0 !== $success && count( $errors ) > 0 ) {
-			$args['type'] = 'warning';
-		} elseif (  0 !== $success ) {
-			$args['type'] = 'success';
-		} else {
-			$args['type'] = 'error';
-		}
+		$success = count( $ids );
+		$message = (object) array(
+			'success' => array(),
+			'error' => array(),
+		);
 
 		if ( ! empty( $errors ) ) {
-			$message[] = implode( '<br/>', $errors );
-		} else {
-			$message[] = 'Success';
+			$message->error[] = sprintf( esc_html__( 'Error: %d scheduled import was not %s.', 'the-events-calendar' ), $action, count( $errors ) );
+			foreach ( $errors as $post_id => $error ) {
+				$message->error[] = implode( '<br/>', sprintf( '%d: %s', $post_id, $error->get_error_message() ) );
+			}
+			tribe_notice( 'tribe-aggregator-action-records-error', '<p>' . implode( '<br/>', $message->error ) . '</p>', 'type=error' );
 		}
 
-		tribe_notice( 'tribe-aggregator-delete-records', '<p>' . implode( "\r\n", $message ) . '</p>', $args );
+		if ( 0 < $success ) {
+			$message->success[] = sprintf( esc_html__( 'Successfully %s %d scheduled import', 'the-events-calendar' ), $action, $success );
+			tribe_notice( 'tribe-aggregator-action-records-success', '<p>' . implode( "\r\n", $message->success ) . '</p>', 'type=success' );
+		}
 	}
 
-	private function action_delete_records( $records = array() ) {
-		$records = array_filter( (array) $records, 'is_numeric' );
-		$status = array();
+	private function action_delete_record( $records = array() ) {
 		$record_obj = Tribe__Events__Aggregator__Records::instance()->get_post_type();
+		$records = array_filter( (array) $records, 'is_numeric' );
+		$success = array();
+		$errors = array();
 
-		foreach ( $records as $record ) {
-			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
+		foreach ( $records as $record_id ) {
+			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record_id );
 
 			if ( is_wp_error( $record ) ) {
-				$status[] = $record;
+				$errors[ $record_id ] = $record;
 				continue;
 			}
 
 			if ( ! current_user_can( $record_obj->cap->delete_post, $record->id ) ) {
-
-				$status[] = tribe_error( 'core:aggregator:delete-record-permissions', array( 'record' => $record ) );
+				$errors[ $record->id ] = tribe_error( 'core:aggregator:delete-record-permissions', array( 'record' => $record ) );
 				continue;
 			}
 
-			$status[] = $record->delete( true );
+			$status = $record->delete( true );
+
+			if ( is_wp_error( $status ) ) {
+				$errors[ $record->id ] = $status;
+				continue;
+			}
+
+			$success[ $record->id ] = true;
 		}
 
-		return $status;
+		return array( $success, $errors );
+	}
+
+	private function action_run_import( $records = array() ) {
+		$record_obj = Tribe__Events__Aggregator__Records::instance()->get_post_type();
+		$records = array_filter( (array) $records, 'is_numeric' );
+		$success = array();
+		$errors = array();
+
+		foreach ( $records as $record_id ) {
+			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record_id );
+
+			if ( is_wp_error( $record ) ) {
+				$errors[ $record_id ] = $record;
+				continue;
+			}
+
+			$child = $record->create_child_record();
+			$status = $child->queue_import();
+
+			if ( is_wp_error( $status ) ) {
+				$errors[ $record->id ] = $status;
+				continue;
+			}
+
+			$success[ $record->id ] = $status;
+		}
+
+		return array( $success, $errors );
 	}
 }

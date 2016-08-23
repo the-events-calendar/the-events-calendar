@@ -275,6 +275,10 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
+			if ( $record->get_child_record_by_status( 'pending' ) ) {
+				continue;
+			}
+
 			$child = $record->create_child_record();
 			$child->queue_import();
 		}

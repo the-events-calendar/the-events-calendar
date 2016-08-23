@@ -312,9 +312,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			return '';
 		}
 
-		// if ( 'scheduled' !== $this->tab->get_slug() ) {
-		// 	return '';
-		// }
+		if ( 'scheduled' !== $this->tab->get_slug() ) {
+			return '';
+		}
 
 		$post_type_object = get_post_type_object( $post->post_type );
 		$actions = array();
@@ -329,8 +329,8 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 			$args = array(
 				'tab'    => $this->tab->get_slug(),
-				'action' => 'tribe-run-now',
-				'item'   => absint( $post->ID ),
+				'action' => 'run-import',
+				'ids'   => absint( $post->ID ),
 				'nonce'  => wp_create_nonce( 'aggregator_' . $this->tab->get_slug() . '_request' ),
 			);
 			$actions['run-now'] = sprintf(
@@ -344,7 +344,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$actions['delete'] = sprintf(
 				'<a href="%s" class="submitdelete">%s</a>',
 				get_delete_post_link( $post->ID, '', true ),
-				__( 'Delete Permanently', 'the-events-calendar' )
+				__( 'Delete', 'the-events-calendar' )
 			);
 		}
 
@@ -403,11 +403,6 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	public function column_source( $post ) {
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
-		$actions = array(
-			'edit' => '<a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=edit&id=' . $record->post->ID ) . '">' . __( 'Edit', 'the-events-calendar' ) . '</a>',
-			'delete' => '<a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=edit&id=' . $record->post->ID ) . '&action=delete">' . __( 'Delete', 'the-events-calendar' ) . '</a>',
-		);
-
 		if ( 'scheduled' !== $this->tab->get_slug() ) {
 			$html[] = $this->get_status_icon( $post );
 		}
@@ -416,25 +411,28 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			if ( empty( $record->meta['source_name'] ) ) {
 				$file = get_post( $record->meta['file'] );
 				$title = $file instanceof WP_Post ? $file->post_title : sprintf( esc_html__( 'Deleted Attachment: %d', 'the-events-calendar' ), $record->meta['file'] );
-				$html[] = '<p><b>' . $title . '</b></p>';
 			} else {
-				$html[] = '<p><b>' . esc_html( $record->meta['source_name'] ) . '</b></p>';
+				$title = $record->meta['source_name'];
 			}
+
+			$via = $record->get_label();
 		} else {
 			if ( empty( $record->meta['source_name'] ) ) {
-				$source = $record->meta['source'];
+				$title = $record->meta['source'];
 			} else {
-				$source = $record->meta['source_name'];
+				$title = $record->meta['source_name'];
 			}
 
-			$html[] = '<p><b><a href="' . esc_url( $record->meta['source'] ) . '" target="_blank">' . esc_html( $source ) . '<span class="screen-reader-text">' . __( ' (opens in a new window)', 'the-events-calendar' ) . '</span></a></b></p>';
+			$via = '<a href="' . esc_url( $record->meta['source'] ) . '" target="_blank">' . $record->get_label() . '<span class="screen-reader-text">' . __( ' (opens in a new window)', 'the-events-calendar' ) . '</span></a>';
 		}
 
-		$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $record->get_label() . '</strong></p>';
-
-		if ( 'scheduled' === $this->tab->get_slug() ) {
-			$html[] = $this->row_actions( $actions );
+		if ( $record->is_schedule ) {
+			$html[] = '<p><b><a href="' . get_edit_post_link( $post->ID ) . '">' . esc_html( $title ) . '</a></b></p>';
+		} else {
+			$html[] = '<p><b>' . esc_html( $title ) . '</b></p>';
 		}
+
+		$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $via  . '</strong></p>';
 
 		return $this->render( $html );
 	}
@@ -454,7 +452,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				$html[] = sprintf( esc_html_x( 'in about %s', 'in human readable time', 'the-events-calendar' ), $diff );
 			}
 		} else {
-			$html[] = date( Tribe__Date_Utils::DATEONLYFORMAT, $time ) . '<br>' . date( Tribe__Date_Utils::TIMEFORMAT, $time );
+			$html[] = date( tribe_get_date_format( true ), $time ) . '<br>' . date( Tribe__Date_Utils::TIMEFORMAT, $time );
 		}
 
 		$html[] = '</span>';
@@ -484,9 +482,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		}
 
 		if ( 'schedule' === $record->type ) {
-			$html[] = esc_html__( 'All Time: ', 'the-events-calendar' ) . '<b>' . $post->comment_count . '</b>';
+			$html[] = esc_html__( 'All Time: ', 'the-events-calendar' ) . intval( $post->comment_count );
 		} else {
-			$html[] = '<b>' . $post->comment_count . '</b>';
+			$html[] = intval( $post->comment_count );
 		}
 
 		return $this->render( $html, '<br>' );
