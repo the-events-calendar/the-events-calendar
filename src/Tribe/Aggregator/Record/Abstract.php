@@ -189,6 +189,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return WP_Post|WP_Error
 	 */
 	public function save( $post_id, $args = array(), $meta = array() ) {
+		global $wp_version;
+
 		if ( ! isset( $meta['type'] ) || 'schedule' !== $meta['type'] ) {
 			return tribe_error( 'core:aggregator:invalid-edit-record-type', $type );
 		}
@@ -208,10 +210,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$post['ID'] = absint( $post_id );
 		$post['post_status'] = Tribe__Events__Aggregator__Records::$status->schedule;
 
+		add_filter( 'wp_insert_post_data', array( $this, 'dont_change_post_modified' ), 10, 2 );
 		$result = wp_update_post( $post );
+		remove_filter( 'wp_insert_post_data', array( $this, 'dont_change_post_modified' ) );
 
 		// meta_input was introduced in 4.4. Deal with old versions
-		if ( -1 === version_compare( WP_VERSION, '4.4' ) && ! is_wp_error( $result ) ) {
+		if ( -1 === version_compare( $wp_version, '4.4' ) && ! is_wp_error( $result ) ) {
 			foreach ( $post['meta_input'] as $key => $value ) {
 				update_post_meta( $result, $key, $value );
 			}
@@ -219,6 +223,23 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// After Creating the Post Load and return
 		return $this->load( $result );
+	}
+
+	/**
+	 * Filter the post_modified dates to be unchanged
+	 * conditionally hooked to wp_insert_post_data and then unhooked after wp_update_post
+	 *
+	 * @param array $data new data to be used in the update
+	 * @param array $postarr existing post data
+	 *
+	 * @return array
+	 */
+	public function dont_change_post_modified( $data, $postarr ) {
+		$post = get_post( $postarr['ID'] );
+		$data['post_modified'] = $postarr['post_modified'];
+		$data['post_modified_gmt'] = $postarr['post_modified_gmt'];
+
+		return $data;
 	}
 
 	/**

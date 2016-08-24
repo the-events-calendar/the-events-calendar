@@ -66,6 +66,14 @@
 		padding: 3px;
 	}
 
+	.tribe-ea-field-readonly {
+		line-height: 30px;
+	}
+
+	.tribe-ea-field-readonly + .tribe-ea-field {
+		margin-left: 10px;
+	}
+
 	.enter-credentials {
 		background-color: #f8eceb;
 		padding: 1rem;
@@ -290,6 +298,8 @@
 	}
 
 	.dataTable {
+		float: left;
+
 		.column-cb,
 		.check-column {
 			input {
@@ -462,6 +472,12 @@
 			}
 		}
 	}
+}
+
+.select2-disabled {
+	margin-bottom: 0;
+	color: gray;
+	cursor: default;
 }
 
 @media screen and (max-width: 782px) {

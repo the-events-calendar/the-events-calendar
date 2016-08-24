@@ -102,9 +102,9 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 	 */
 	public function finalize_schedule_edit( $record, $post_data, $meta ) {
 		$this->messages = array(
-			'error',
-			'success',
-			'warning',
+			'error' => array(),
+			'success' => array(),
+			'warning' => array(),
 		);
 
 		$meta[ 'post_status' ] = empty( $post_data['post_status'] ) ? 'draft' : $post_data['post_status'];
@@ -112,7 +112,7 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 		$result = $record->save( $post_data['post_id'], array(), $meta );
 
 		if ( is_wp_error( $result ) ) {
-			$this->messages[ 'error' ][] = $result->get_error_message();
+			$this->messages['error'][] = $result->get_error_message();
 
 			ob_start();
 			?>
@@ -126,6 +126,8 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 			tribe_notice( 'tribe-aggregator-schedule-edit-failed', $html, 'type=error' );
 			return $result;
 		}
+
+		$this->messages['success'][] = esc_html__( 'Scheduled import was successfully updated.' );
 
 		ob_start();
 		?>

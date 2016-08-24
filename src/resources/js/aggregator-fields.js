@@ -97,6 +97,10 @@ tribe_aggregator.fields = {
 				obj.$.form.removeClass( 'show-data' );
 				obj.$.form.attr( 'data-origin', $( this ).val() );
 				$( '.tribe-fetched, .tribe-fetching, .tribe-fetch-error' ).removeClass( 'tribe-fetched tribe-fetching tribe-fetch-error' );
+				if ( 'redirect' === $( this ).val() ) {
+					window.open( 'https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importoptions&utm_medium=plugin-tec&utm_campaign=in-app','_blank' );
+					location.reload();
+				}
 			} )
 			.on( 'submit'     , '.tribe-ea-tab-new'                  , obj.events.suppress_submission );
 
