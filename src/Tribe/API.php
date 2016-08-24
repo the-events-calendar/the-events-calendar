@@ -59,6 +59,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @return false|int The event ID.
 		 */
 		public static function updateEvent( $event_id, $args ) {
+			$post = get_post( $event_id );
 			$args['ID'] = $event_id;
 			$args['post_type'] = Tribe__Events__Main::POSTTYPE;
 

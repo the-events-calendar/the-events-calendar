@@ -50,7 +50,9 @@ tribe_aggregator.fields = {
 		1000,
 		5000,
 		20000
-	]
+	],
+
+	progress: {}
 };
 
 ( function( $, _, obj, ea ) {
@@ -107,6 +109,10 @@ tribe_aggregator.fields = {
 		if ( 'edit' === obj.$.action.val() ) {
 			obj.$.form.addClass( 'edit-form' );
 			$( obj.selector.finalize_button ).html( ea.l10n.edit_save );
+		}
+
+		if ( 'object' === typeof tribe_aggregator_save ) {
+			obj.progress.init();
 		}
 	};
 
@@ -479,6 +485,21 @@ tribe_aggregator.fields = {
 		$container.prepend(
 			[
 				'<div class="notice notice-error">',
+					'<p>',
+						message,
+					'</p>',
+				'</div>'
+			].join( '' )
+		);
+	};
+
+	/**
+	 * displays a success message to a container on the page
+	 */
+	obj.display_success = function( $container, message ) {
+		$container.prepend(
+			[
+				'<div class="notice notice-success">',
 					'<p>',
 						message,
 					'</p>',
@@ -891,6 +912,106 @@ tribe_aggregator.fields = {
 		url = url.replace( 'tab=edit', 'tab=scheduled' );
 		url = url.replace( /id=\d+/, '' );
 		window.location.href = url;
+	};
+
+	obj.progress.init = function() {
+		obj.progress.data = {};
+		obj.progress.$ = {};
+		obj.progress.$.notice    = $( '.tribe-notice-aggregator-update-msg' );
+		obj.progress.$.spinner   = obj.progress.$.notice.find( 'img' );
+		obj.progress.$.progress  = obj.progress.$.notice.find( '.progress' );
+		obj.progress.$.tracker   = obj.progress.$.notice.find( '.tracker' );
+		obj.progress.$.created   = obj.progress.$.tracker.find( '.track-created .value' );
+		obj.progress.$.updated   = obj.progress.$.tracker.find( '.track-updated .value' );
+		obj.progress.$.skipped   = obj.progress.$.tracker.find( '.track-skipped .value' );
+		obj.progress.$.remaining = obj.progress.$.tracker.find( '.track-remaining .value' );
+		obj.progress.$.bar       = obj.progress.$.notice.find( '.bar' );
+		obj.progress.data.time   = Date.now();
+
+		setTimeout( obj.progress.start );
+	};
+
+	obj.progress.start = function() {
+		obj.progress.send_request();
+		obj.progress.update( tribe_aggregator_save.progress, tribe_aggregator_save.progressText );
+	};
+
+	obj.progress.handle_response = function( data ) {
+		var now     = Date.now();
+		var elapsed = now - obj.progress.data.time;
+
+		if ( data.html ) {
+			obj.progress.data.notice.html( data.html );
+		}
+		if ( data.progress ) {
+			obj.progress.update( data );
+		}
+
+		if ( data.continue ) {
+			// If multiple editors are open for the same event we don't want to hammer the server
+			// and so a min delay of 1/2 sec is introduced between update requests
+			if ( elapsed < 500 ) {
+				setTimeout( obj.progress.send_request, 500 - elapsed  );
+			} else {
+				obj.progress.send_request();
+			}
+		}
+
+		if ( data.complete ) {
+			obj.progress.$.notice.find( '.tribe-message' ).html( data.complete_text );
+			obj.progress.$.tracker.remove();
+			obj.progress.$.notice.find( '.progress-container' ).remove();
+			obj.progress.$.notice.removeClass( 'warning' ).addClass( 'completed' );
+		}
+	};
+
+	obj.progress.send_request = function() {
+		var payload = {
+			record:  tribe_aggregator_save.record_id,
+			check:  tribe_aggregator_save.check,
+			action: 'tribe_aggregator_realtime_update'
+		};
+		$.post( ajaxurl, payload, obj.progress.handle_response, 'json' );
+	};
+
+	obj.progress.update = function( data ) {
+		var percentage = parseInt( data.progress, 10 );
+
+		// The percentage should never be out of bounds, but let's handle such a thing gracefully if it arises
+		if ( percentage < 0 || percentage > 100 ) {
+			return;
+		}
+
+		if ( 'undefined' === typeof data.counts ) {
+			return;
+		}
+
+		var types = [ 'created', 'updated', 'skipped' ];
+		for ( var i in types ) {
+			if ( ! data.counts[ types[ i ] ] ) {
+				continue;
+			}
+
+			obj.progress.$[ types[ i ] ].html( data.counts[ types[ i ] ] );
+
+			if ( ! obj.progress.$.tracker.hasClass( 'has-' + types[ i ] ) ) {
+				obj.progress.$.tracker.addClass( 'has-' + types[ i ] );
+			}
+		}
+
+		obj.progress.$.bar.css( 'width', percentage + '%' );
+		obj.progress.$.progress.attr( 'title', data.progress_text );
+	};
+
+	obj.progress.remove_notice = function() {
+		var effect = {
+			opacity: 0,
+			height:  'toggle'
+		};
+
+		obj.progress.$.notice.animate( effect, 1000, function() {
+			obj.progress.$.notice.remove();
+		} );
 	};
 
 	// Run Init on Document Ready

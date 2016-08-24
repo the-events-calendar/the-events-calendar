@@ -70,6 +70,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	public function __construct( Tribe__Events__Importer__File_Reader $file_reader, Tribe__Events__Importer__Featured_Image_Uploader $featured_image_uploader = null ) {
 		$this->reader = $file_reader;
 		$this->featured_image_uploader = $featured_image_uploader;
+		$this->limit = apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size );
 	}
 
 	public function set_map( array $map_array ) {
@@ -115,6 +116,10 @@ abstract class Tribe__Events__Importer__File_Importer {
 
 	public function import_complete() {
 		return $this->reader->at_end_of_file();
+	}
+
+	public function get_line_count() {
+		return $this->reader->lines;
 	}
 
 	public function get_updated_post_count() {

@@ -19,7 +19,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		$tribe_aggregator_meta_key = 'tribe_aggregator_image_id';
 
 		// Prevent Possible duplicated includes
-		if ( ! function_exists( 'wp_upload_dir' ) ) {
+		if ( ! function_exists( 'wp_upload_dir' ) || ! function_exists( 'wp_generate_attachment_metadata' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/image.php';
 		}
 
