@@ -308,6 +308,12 @@
 	visibility: visible;
 }
 
+.tribe-preview-container .spinner-message {
+	display: block;
+	margin-top: 4px;
+	margin-top: .25rem;
+}
+
 .tribe-preview-container .dataTable {
 	float: left;
 }

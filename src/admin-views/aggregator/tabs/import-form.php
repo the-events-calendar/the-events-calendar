@@ -113,7 +113,8 @@ $scheduled_save_help = esc_html__( 'Click Import to import the events above and 
 <div class="tribe-ea-table-container tribe-preview-container">
 	<div class="tribe-fetch-error-message"></div>
 	<div class="spinner-container">
-		<span class='spinner tribe-ea-active'></span>
+		<span class="spinner tribe-ea-active"></span>
+		<span class="spinner-message"></span>
 	</div>
 	<div class="data-container">
 		<p class="tribe-preview-message" id="tribe-remove-preview-message">

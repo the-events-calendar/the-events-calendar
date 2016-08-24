@@ -240,6 +240,7 @@ tribe_aggregator.fields = {
 			return;
 		}
 
+		obj.$.container.find( '.spinner-message' ).html( ea.l10n.preview_polling[0] );
 		setTimeout( obj.poll_for_results, obj.polling_frequencies[ obj.polling_frequency_index ] );
 	};
 
@@ -279,6 +280,7 @@ tribe_aggregator.fields = {
 			} else if ( 'success' !== response.data.status ) {
 				if ( obj.result_fetch_count > obj.max_result_fetch_count ) {
 					obj.polling_frequency_index++;
+					obj.$.container.find( '.spinner-message' ).html( ea.l10n.preview_polling[ obj.polling_frequency_index ] );
 					obj.result_fetch_count = 0;
 				}
 
