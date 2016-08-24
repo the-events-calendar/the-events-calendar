@@ -147,6 +147,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 		}
 
+		$record->update_meta( 'interactive', true );
+
 		if ( 'csv' === $data['origin'] ) {
 			$result = $record->process_posts( $data );
 		} else {

@@ -63,7 +63,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		}
 
 		$processor = Tribe__Events__Aggregator::instance()->queue_processor;
-		if ( ! $this->record_id = $processor->next_waiting_record() ) {
+		if ( ! $this->record_id = $processor->next_waiting_record( true ) ) {
 			return false;
 		}
 
