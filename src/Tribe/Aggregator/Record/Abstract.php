@@ -824,11 +824,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$this->update_source_name( empty( $import_data->data->source_name ) ? null : $import_data->data->source_name );
 
-		if (
-			empty( $this->meta['finalized'] )
-			|| ! isset( $import_data->data->events )
-		) {
+		if ( empty( $this->meta['finalized'] ) ) {
 			return tribe_error( 'core:aggregator:record-not-finalized' );
+		}
+
+		if ( ! isset( $import_data->data->events ) ) {
+			return 'fetch';
 		}
 
 		$items = $this->filter_data_by_selected( $import_data->data->events );
@@ -1078,7 +1079,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$parent_selected_ids = array();
 
-		if ( 'all' !== $this->meta['ids_to_import'] ) {
+		if ( ! empty( $this->meta['ids_to_import'] ) && 'all' !== $this->meta['ids_to_import'] ) {
 			if ( is_array( $this->meta['ids_to_import'] ) ) {
 				$selected_ids = $this->meta['ids_to_import'];
 			} else {
