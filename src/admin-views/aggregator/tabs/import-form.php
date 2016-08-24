@@ -52,41 +52,29 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 						class="tribe-ea-field"
 						value="<?php echo esc_attr( $record->meta['origin'] ); ?>"
 					>
-					<select
-						name="aggregator[dummy_origin]"
-						id="tribe-ea-field-dummy_origin"
-						class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-medium"
-						placeholder="<?php echo $field->placeholder; ?>"
-						data-hide-search
-						data-prevent-clear
-						disabled
-					>
-						<option value=""></option>
-						<?php
-						foreach ( $field->options as $option ) {
-							?>
-							<option value="<?php echo esc_attr( $option->id ); ?>" <?php selected( $option->id, empty( $record->meta['origin'] ) ? '' : $record->meta['origin'] ); ?>><?php esc_html_e( $option->text ); ?></option>
-							<?php
-							if ( $option->id === $record->meta['origin'] ) {
-								break;
-							}
-						}
-						?>
-					</select>
+					<strong class="tribe-ea-field-readonly"><?php esc_html_e( Tribe__Events__Aggregator::instance()->api( 'origins' )->get_name( $record->meta['origin'] ) ); ?></strong>
 				<?php else: ?>
 					<select
 						name="aggregator[origin]"
 						id="tribe-ea-field-origin"
-						class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-medium"
-						placeholder="<?php echo $field->placeholder; ?>"
+						class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
+						placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 						data-hide-search
 						data-prevent-clear
 					>
 						<option value=""></option>
 						<?php
+						$upsell = false || defined( 'TRIBE_HIDE_UPSELL' );
 						foreach ( $field->options as $option ) {
+							if ( ! $upsell && $option->disabled ) {
+								$upsell = true;
+								?><option value="redirect"><?php esc_html_e( 'Buy Event Aggregator for more event sources and automatic imports!', 'the-events-calendar' ); ?></option><?php
+							}
 							?>
-							<option value="<?php echo esc_attr( $option->id ); ?>" <?php selected( $option->id, empty( $record->meta['origin'] ) ? '' : $record->meta['origin'] ); ?>><?php esc_html_e( $option->text ); ?></option>
+							<option
+								value="<?php echo esc_attr( $option->id ); ?>"
+								<?php disabled( $option->disabled ); ?>
+								><?php esc_html_e( $option->name ); ?></option>
 							<?php
 						}
 						?>
@@ -97,13 +85,17 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 		</tr>
 
 		<?php
-		$this->template( 'origins/csv', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
-		$this->template( 'origins/ics', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
-		$this->template( 'origins/ical', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
-		$this->template( 'origins/gcal', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
-		$this->template( 'origins/facebook', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
-		$this->template( 'origins/meetup', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
-		$this->template( 'origins/eventbrite', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+		if ( 'edit' === $aggregator_action ) {
+			$this->template( 'origins/' . $record->meta['origin'], array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+		} else {
+			$this->template( 'origins/csv', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+			$this->template( 'origins/ics', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+			$this->template( 'origins/ical', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+			$this->template( 'origins/gcal', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+			$this->template( 'origins/facebook', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+			$this->template( 'origins/meetup', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+			$this->template( 'origins/eventbrite', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+		}
 		?>
 
 	</tbody>
@@ -174,53 +166,53 @@ $scheduled_save_help = esc_html__( 'Click Import to import the events above and 
 		<?php echo $category_dropdown; ?>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo $default_settings->help; ?>"
+			data-bumpdown="<?php echo esc_attr( $default_settings->help ); ?>"
 			data-depends="#tribe-ea-field-ical_import_type"
 			data-condition-not="schedule"
 			data-condition-empty
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo $default_settings->help; ?>"
+			data-bumpdown="<?php echo esc_attr( $default_settings->help ); ?>"
 			data-depends="#tribe-ea-field-gcal_import_type"
 			data-condition-not="schedule"
 			data-condition-empty
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo $default_settings->help; ?>"
+			data-bumpdown="<?php echo esc_attr( $default_settings->help ); ?>"
 			data-depends="#tribe-ea-field-meetup_import_type"
 			data-condition-not="schedule"
 			data-condition-empty
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo $default_settings->help; ?>"
+			data-bumpdown="<?php echo esc_attr( $default_settings->help ); ?>"
 			data-depends="#tribe-ea-field-facebook_import_type"
 			data-condition-not="schedule"
 			data-condition-empty
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo $default_settings->help_scheduled; ?>"
+			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
 			data-depends="#tribe-ea-field-ical_import_type"
 			data-condition="schedule"
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo $default_settings->help_scheduled; ?>"
+			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
 			data-depends="#tribe-ea-field-gcal_import_type"
 			data-condition="schedule"
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo $default_settings->help_scheduled; ?>"
+			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
 			data-depends="#tribe-ea-field-meetup_import_type"
 			data-condition="schedule"
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo $default_settings->help_scheduled; ?>"
+			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
 			data-depends="#tribe-ea-field-facebook_import_type"
 			data-condition="schedule"
 		></span>
@@ -236,25 +228,25 @@ $scheduled_save_help = esc_html__( 'Click Import to import the events above and 
 	</button>
 	<span
 		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-		data-bumpdown="<?php echo $scheduled_save_help; ?>"
+		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
 		data-depends="#tribe-ea-field-ical_import_type"
 		data-condition="schedule"
 	></span>
 	<span
 		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-		data-bumpdown="<?php echo $scheduled_save_help; ?>"
+		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
 		data-depends="#tribe-ea-field-gcal_import_type"
 		data-condition="schedule"
 	></span>
 	<span
 		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-		data-bumpdown="<?php echo $scheduled_save_help; ?>"
+		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
 		data-depends="#tribe-ea-field-meetup_import_type"
 		data-condition="schedule"
 	></span>
 	<span
 		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-		data-bumpdown="<?php echo $scheduled_save_help; ?>"
+		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
 		data-depends="#tribe-ea-field-facebook_import_type"
 		data-condition="schedule"
 	></span>

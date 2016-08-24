@@ -14,7 +14,7 @@ $post_types = $csv_record->get_import_post_types();
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="csv">
 	<th scope="row">
-		<label for="tribe-ea-field-content_type"><?php echo esc_html( $field->label ); ?></label>
+		<label for="tribe-ea-field-csv_content_type"><?php echo esc_html( $field->label ); ?></label>
 	</th>
 	<td>
 		<select
@@ -22,7 +22,7 @@ $post_types = $csv_record->get_import_post_types();
 			id="tribe-ea-field-csv_content_type"
 			class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
-			data-hide-search=1
+			data-hide-search
 			data-prevent-clear
 		>
 			<option value=""></option>

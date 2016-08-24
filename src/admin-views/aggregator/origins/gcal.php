@@ -19,22 +19,23 @@ $frequencies = $cron->get_frequency();
 		<label for="tribe-ea-field-import_type"><?php echo esc_html( $field->label ); ?></label>
 	</th>
 	<td>
-		<select
-			name="aggregator[gcal][import_type]"
-			id="tribe-ea-field-gcal_import_type"
-			class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
-			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
-			data-hide-search
-			<?php if ( 'edit' === $aggregator_action ) : ?>
+		<?php if ( 'edit' === $aggregator_action ) : ?>
+			<input type="hidden" name="aggregator[gcal][import_type]" id="tribe-ea-field-gcal_import_type" value="schedule" />
+			<strong class="tribe-ea-field-readonly"><?php echo esc_html__( 'Scheduled Import', 'the-events-calendar' ); ?></strong>
+		<?php else : ?>
+			<select
+				name="aggregator[gcal][import_type]"
+				id="tribe-ea-field-gcal_import_type"
+				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
+				placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
+				data-hide-search
 				data-prevent-clear
-			<?php endif; ?>
-		>
-			<?php if ( 'edit' !== $aggregator_action ) : ?>
+			>
 				<option value=""></option>
-				<option value="manual" <?php selected( 'manual', empty( $record->type ) ? '' : $record->type ); ?>><?php echo esc_html__( 'One-Time Import', 'the-events-calendar' ); ?></option>
-			<?php endif; ?>
-			<option value="schedule" <?php selected( 'schedule', empty( $record->type ) ? '' : $record->type ); ?>><?php echo esc_html__( 'Scheduled Import', 'the-events-calendar' ); ?></option>
-		</select>
+				<option value="manual"><?php echo esc_html__( 'One-Time Import', 'the-events-calendar' ); ?></option>
+				<option value="schedule"><?php echo esc_html__( 'Scheduled Import', 'the-events-calendar' ); ?></option>
+			</select>
+		<?php endif; ?>
 		<select
 			name="aggregator[gcal][import_frequency]"
 			id="tribe-ea-field-gcal_import_frequency"
@@ -43,6 +44,7 @@ $frequencies = $cron->get_frequency();
 			data-hide-search
 			data-depends="#tribe-ea-field-gcal_import_type"
 			data-condition="schedule"
+			data-prevent-clear
 		>
 			<option value=""></option>
 			<?php foreach ( $frequencies as $frequency_object ) : ?>
