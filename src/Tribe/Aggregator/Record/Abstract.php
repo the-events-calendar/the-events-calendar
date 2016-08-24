@@ -740,6 +740,37 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	/**
+	 * Get info about the source, via and title
+	 *
+	 * @return array
+	 */
+	public function get_source_info() {
+		if ( in_array( $this->origin, array( 'ics', 'csv' ) ) ) {
+			if ( empty( $this->meta['source_name'] ) ) {
+				$file = get_post( $this->meta['file'] );
+				$title = $file instanceof WP_Post ? $file->post_title : sprintf( esc_html__( 'Deleted Attachment: %d', 'the-events-calendar' ), $this->meta['file'] );
+			} else {
+				$title = $this->meta['source_name'];
+			}
+
+			$via = $this->get_label();
+		} else {
+			if ( empty( $this->meta['source_name'] ) ) {
+				$title = $this->meta['source'];
+			} else {
+				$title = $this->meta['source_name'];
+			}
+
+			$via = $this->get_label();
+			if ( in_array( $this->origin, array( 'facebook', 'meetup' ) ) ) {
+				$via = '<a href="' . esc_url( $this->meta['source'] ) . '" target="_blank">' . esc_html( $via ) . '<span class="screen-reader-text">' . __( ' (opens in a new window)', 'the-events-calendar' ) . '</span></a>';
+			}
+		}
+
+		return array( 'title' => $title, 'via' => $via );
+	}
+
+	/**
 	 * Inserts events, venues, and organizers for the Import Record
 	 *
 	 * @param array $data Dummy data var to allow children to optionally react to passed in data
