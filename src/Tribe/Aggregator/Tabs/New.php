@@ -324,6 +324,9 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 * @return string
 	 */
 	public function maybe_display_aggregator_upsell() {
+		if ( defined( 'TRIBE_HIDE_UPSELL' ) ) {
+			return;
+		}
 
 		$has_license_key = ! empty( Tribe__Events__Aggregator__Service::instance()->api()->key );
 		$license_info = get_option( 'external_updates-event-aggregator' );

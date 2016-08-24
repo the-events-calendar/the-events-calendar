@@ -47,7 +47,7 @@ class Tribe__Events__Aggregator__Meta_Box {
 
 		$event_id = get_the_ID();
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_event_id( $event_id );
-		$origin = empty( $aggregator->api( 'origins' )->origin_names[ $record->origin ] ) ? __( 'Event Aggregator', 'the-events-calendar' ) : $aggregator->api( 'origins' )->origin_names[ $record->origin ];
+		$origin = $aggregator->api( 'origins' )->get_name( $record->origin );
 		$source_info = $record->get_source_info();
 		$source = $source_info['title'];
 
