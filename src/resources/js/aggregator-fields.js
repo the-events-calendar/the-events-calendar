@@ -230,8 +230,6 @@ tribe_aggregator.fields = {
 			return;
 		}
 
-		console.log( response );
-
 		// set the import id of the page
 		obj.import_id = response.data.data.import_id;
 		$( '#tribe-import_id' ).val( obj.import_id );
@@ -919,16 +917,16 @@ tribe_aggregator.fields = {
 	obj.progress.init = function() {
 		obj.progress.data = {};
 		obj.progress.$ = {};
-		obj.progress.$.notice   = $( 'div.tribe-aggregator-update-msg' );
-		obj.progress.$.spinner  = obj.progress.$.notice.find( 'img' );
-		obj.progress.$.progress = obj.progress.$.notice.find( '.progress' );
-		obj.progress.$.tracker  = obj.progress.$.notice.find( '.tracker' );
-		obj.progress.$.created  = obj.progress.$.tracker.find( '.track-created .value' );
-		obj.progress.$.updated  = obj.progress.$.tracker.find( '.track-updated .value' );
-		obj.progress.$.skipped  = obj.progress.$.tracker.find( '.track-skipped .value' );
-		obj.progress.$.remaining  = obj.progress.$.tracker.find( '.track-remaining .value' );
-		obj.progress.$.bar      = obj.progress.$.notice.find( '.bar' );
-		obj.progress.data.time  = Date.now();
+		obj.progress.$.notice    = $( 'div.tribe-aggregator-update-msg' );
+		obj.progress.$.spinner   = obj.progress.$.notice.find( 'img' );
+		obj.progress.$.progress  = obj.progress.$.notice.find( '.progress' );
+		obj.progress.$.tracker   = obj.progress.$.notice.find( '.tracker' );
+		obj.progress.$.created   = obj.progress.$.tracker.find( '.track-created .value' );
+		obj.progress.$.updated   = obj.progress.$.tracker.find( '.track-updated .value' );
+		obj.progress.$.skipped   = obj.progress.$.tracker.find( '.track-skipped .value' );
+		obj.progress.$.remaining = obj.progress.$.tracker.find( '.track-remaining .value' );
+		obj.progress.$.bar       = obj.progress.$.notice.find( '.bar' );
+		obj.progress.data.time   = Date.now();
 
 		setTimeout( obj.progress.start );
 	};

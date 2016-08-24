@@ -770,10 +770,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$this->update_meta( 'source_name', $source_name );
 
-		if ( ! empty( $this->post->post_parent ) ) {
-			$parent_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->post->post_parent );
-			$parent_record->update_meta( 'source_name', $source_name );
+		if ( empty( $this->post->post_parent ) ) {
+			return;
 		}
+
+		$parent_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->post->post_parent );
+		$parent_record->update_meta( 'source_name', $source_name );
 	}
 
 	/**

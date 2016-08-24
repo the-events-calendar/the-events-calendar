@@ -29,14 +29,8 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	 * @param Tribe__Events__Aggregator__Record__Queue_Processor|null $queue_processor An optional Queue_Processor instance.
 	 */
 	public function __construct( Tribe__Events__Aggregator__Record__Queue $queue = null, Tribe__Events__Ajax__Operations $ajax_operations = null, Tribe__Events__Aggregator__Record__Queue_Processor $queue_processor = null ) {
-		add_action( 'admin_notices', array(
-			$this,
-			'add_notice',
-		) );
-		add_action( 'wp_ajax_tribe_aggregator_realtime_update', array(
-			$this,
-			'ajax',
-		) );
+		add_action( 'admin_notices', array( $this, 'add_notice' ) );
+		add_action( 'wp_ajax_tribe_aggregator_realtime_update', array( $this, 'ajax' ) );
 		$this->queue           = $queue;
 		$this->ajax_operations = $ajax_operations ? $ajax_operations : new Tribe__Events__Ajax__Operations;
 		$this->queue_processor = $queue_processor ? $queue_processor : Tribe__Events__Aggregator::instance()->queue_processor;
@@ -177,18 +171,18 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	 */
 	public function get_progress_message_data( $queue, $percentage, $done ) {
 		$data = array(
-			'html'         => false,
-			'counts' => array(
+			'html'          => false,
+			'progress'      => $percentage,
+			'progress_text' => sprintf( __( '%d%% complete', 'the-events-calendar' ), $percentage ),
+			'continue'      => ! $done,
+			'complete'      => $done,
+			'counts'        => array(
 				'total'     => $queue->total(),
 				'created'   => $queue->created(),
 				'updated'   => $queue->updated(),
 				'skipped'   => $queue->skipped(),
 				'remaining' => $queue->count(),
 			),
-			'progress'     => $percentage,
-			'progress_text' => sprintf( __( '%d%% complete', 'the-events-calendar' ), $percentage ),
-			'continue'     => ! $done,
-			'complete'     => $done,
 		);
 
 		if ( $done ) {
