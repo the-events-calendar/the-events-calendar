@@ -917,7 +917,7 @@ tribe_aggregator.fields = {
 	obj.progress.init = function() {
 		obj.progress.data = {};
 		obj.progress.$ = {};
-		obj.progress.$.notice    = $( 'div.tribe-aggregator-update-msg' );
+		obj.progress.$.notice    = $( '.tribe-notice-aggregator-update-msg' );
 		obj.progress.$.spinner   = obj.progress.$.notice.find( 'img' );
 		obj.progress.$.progress  = obj.progress.$.notice.find( '.progress' );
 		obj.progress.$.tracker   = obj.progress.$.notice.find( '.tracker' );
@@ -961,7 +961,7 @@ tribe_aggregator.fields = {
 			obj.progress.$.notice.find( '.tribe-message' ).html( data.complete_text );
 			obj.progress.$.tracker.remove();
 			obj.progress.$.notice.find( '.progress-container' ).remove();
-			obj.progress.$.notice.removeClass( 'updating' ).addClass( 'completed' );
+			obj.progress.$.notice.removeClass( 'warning' ).addClass( 'completed' );
 		}
 	};
 
