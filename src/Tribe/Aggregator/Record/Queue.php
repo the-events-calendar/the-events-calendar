@@ -56,7 +56,12 @@ class Tribe__Events__Aggregator__Record__Queue {
 	public function load_queue() {
 		$activity = empty( $this->record->meta[ self::$activity_key ] ) ? array() : $this->record->meta[ self::$activity_key ];
 		$queue = empty( $this->record->meta[ self::$queue_key ] ) ? array() : $this->record->meta[ self::$queue_key ];
-		$queue = (array) $queue;
+
+		if ( 'fetch' === $queue ) {
+			$this->fetching = true;
+		} else {
+			$queue = (array) $queue;
+		}
 
 		$this->total     = empty( $activity['total'] ) ? 0 : $activity['total'];
 		$this->updated   = empty( $activity['updated'] ) ? 0 : $activity['updated'];
@@ -158,7 +163,11 @@ class Tribe__Events__Aggregator__Record__Queue {
 		if ( $this->fetching ) {
 			$data = $this->record->prep_import_data();
 
-			if ( is_wp_error( $data ) ) {
+			if (
+				'fetch' === $data
+				|| ! is_array( $data )
+				|| is_wp_error( $data )
+			) {
 				$activity = $this->activity();
 				$activity['batch_process'] = 0;
 				return $activity;
