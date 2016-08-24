@@ -748,10 +748,20 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $event_count;
 	}
 
+	/**
+	 * Returns whether or not the record has a queue
+	 *
+	 * @return bool
+	 */
 	public function has_queue() {
 		return ! empty( $this->meta['queue'] );
 	}
 
+	/**
+	 * Updates the source name on the import record and its parent (if the parent exists)
+	 *
+	 * @param string $source_name Source name to set on the import record
+	 */
 	public function update_source_name( $source_name ) {
 		// if we haven't received a source name, bail
 		if ( empty( $source_name ) ) {
@@ -769,7 +779,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Queues events, venues, and organizers for insertion
 	 *
-	 * @param array $data Dummy data var to allow children to optionally react to passed in data
+	 * @param array $data Import data
 	 *
 	 * @return array|WP_Error
 	 */
@@ -791,6 +801,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $queue->process();
 	}
 
+	/**
+	 * Handles import data before queuing
+	 *
+	 * Ensures the import record source name is accurate, checks for errors, and limits import items
+	 * based on selection
+	 *
+	 * @param array $data Import data
+	 *
+	 * @return array|WP_Error
+	 */
 	public function prep_import_data( $data = array() ) {
 		if ( $data ) {
 			$import_data = $data;

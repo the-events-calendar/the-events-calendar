@@ -24,7 +24,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	/**
 	 * The Queue_Realtime constructor method.
 	 *
-	 * @param Tribe__Events__Aggregator__Record__Queue|null           $queue An optional Recurrence Queue instance.
+	 * @param Tribe__Events__Aggregator__Record__Queue|null           $queue An optional Queue instance.
 	 * @param Tribe__Events__Ajax__Operations|null                 $ajax_operations An optional Ajax Operations instance.
 	 * @param Tribe__Events__Aggregator__Record__Queue_Processor|null $queue_processor An optional Queue_Processor instance.
 	 */
@@ -62,6 +62,9 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		return $data;
 	}
 
+	/**
+	 * Adds a queuing notice to the page if appropriate
+	 */
 	public function add_notice() {
 		if ( ! Tribe__Events__Aggregator__Page::instance()->is_screen() ) {
 			return;
@@ -98,6 +101,9 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		return "$notice $tracker $indicator";
 	}
 
+	/**
+	 * Handle queue ajax requests
+	 */
 	public function ajax() {
 		$this->record_id = (int) $_POST['record'];
 

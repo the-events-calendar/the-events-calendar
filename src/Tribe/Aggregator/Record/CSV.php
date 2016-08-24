@@ -95,6 +95,13 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		return $data;
 	}
 
+	/**
+	 * Queues events, venues, and organizers for insertion
+	 *
+	 * @param array $data Import data
+	 *
+	 * @return array|WP_Error
+	 */
 	public function process_posts( $data = array() ) {
 		if (
 			'csv' !== $data['origin']

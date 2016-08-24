@@ -33,6 +33,11 @@ class Tribe__Events__Aggregator__Record__Queue {
 		}
 	}
 
+	/**
+	 * Initializes the queue vars and computes initial counts
+	 *
+	 * @param array $items Items to add to the queue
+	 */
 	public function init_queue( $items ) {
 		if ( 'csv' === $this->record->origin ) {
 			$this->record->reset_tracking_options();
@@ -45,6 +50,9 @@ class Tribe__Events__Aggregator__Record__Queue {
 		}
 	}
 
+	/**
+	 * Fetches queue data and assigns it into class properties
+	 */
 	public function load_queue() {
 		$activity = empty( $this->record->meta[ self::$activity_key ] ) ? array() : $this->record->meta[ self::$activity_key ];
 		$queue = empty( $this->record->meta[ self::$queue_key ] ) ? array() : $this->record->meta[ self::$queue_key ];
@@ -57,40 +65,65 @@ class Tribe__Events__Aggregator__Record__Queue {
 		$this->remaining = empty( $queue ) ? array() : $queue;
 	}
 
-	public function defaults() {
-		return array(
-			'total' => $this->total,
-			'updated' => $this->updated,
-			'created' => $this->created,
-			'skipped' => $this->skipped,
-			'remaining' => $this->remaining,
-		);
-	}
-
+	/**
+	 * Returns whether or not the queue is empty
+	 *
+	 * @return bool
+	 */
 	public function is_empty() {
 		return empty( $this->remaining );
 	}
 
+	/**
+	 * Returns the quantity of items remaining in the queue
+	 *
+	 * @return int
+	 */
 	public function count() {
 		return count( $this->remaining );
 	}
 
+	/**
+	 * Returns the total number of items that have been and will be processed in the queue
+	 *
+	 * @return int
+	 */
 	public function total() {
 		return $this->total;
 	}
 
+	/**
+	 * Returns the number of items that have been updated
+	 *
+	 * @return int
+	 */
 	public function updated() {
 		return $this->updated;
 	}
 
+	/**
+	 * Returns the number of items that have been created
+	 *
+	 * @return int
+	 */
 	public function created() {
 		return $this->created;
 	}
 
+	/**
+	 * Returns the number of items that have been skipped
+	 *
+	 * @return int
+	 */
 	public function skipped() {
 		return $this->skipped;
 	}
 
+	/**
+	 * Returns relevant class properties as an activity array
+	 *
+	 * @return array
+	 */
 	public function activity() {
 		return array(
 			'total'     => $this->total,
@@ -101,6 +134,9 @@ class Tribe__Events__Aggregator__Record__Queue {
 		);
 	}
 
+	/**
+	 * Saves queue data to relevant meta keys on the post
+	 */
 	public function save() {
 		$activity = $this->activity();
 
@@ -113,6 +149,11 @@ class Tribe__Events__Aggregator__Record__Queue {
 		}
 	}
 
+	/**
+	 * Processes a batch for the queue
+	 *
+	 * @return array|WP_Error
+	 */
 	public function process( $batch_size = null ) {
 		if ( $this->fetching ) {
 			$data = $this->record->prep_import_data();
