@@ -408,15 +408,7 @@
 	display: none;
 }
 
-.tribe-aggregator-update-msg {
-	&.updating {
-		border-color: #ffba00;
-	}
-
-	& > div {
-		padding-bottom: 0.5rem;
-	}
-
+.tribe-notice-aggregator-update-msg {
 	.progress {
 		border: 1px solid #ccc;
 		float: left;
@@ -431,8 +423,12 @@
 		}
 	}
 
-	&.completed .progress .bar {
-		background: #7ad03a;
+	&.completed {
+		border-left-color: #46b450;
+
+		.progress .bar {
+			background: #7ad03a;
+		}
 	}
 
 	.tracker {

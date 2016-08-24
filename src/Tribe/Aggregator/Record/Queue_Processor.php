@@ -57,20 +57,22 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 */
 	public function register_scheduled_task() {
 		$schedules = wp_get_schedules();
-		if ( ! wp_next_scheduled( self::$scheduled_key ) ) {
-			/**
-			 * Filter the interval at which to process import records.
-			 *
-			 * By default a custom interval of ever 30mins is specified, however
-			 * other intervals such as "hourly", "twicedaily" and "daily" can
-			 * normally be substituted.
-			 *
-			 * @see wp_schedule_event()
-			 * @see 'cron_schedules'
-			 */
-			$interval = apply_filters( 'tribe_aggregator_record_processor_interval', 'tribe-every15mins' );
-			wp_schedule_event( time(), $interval, self::$scheduled_key );
+		if ( wp_next_scheduled( self::$scheduled_key ) ) {
+			return;
 		}
+
+		/**
+		 * Filter the interval at which to process import records.
+		 *
+		 * By default a custom interval of ever 30mins is specified, however
+		 * other intervals such as "hourly", "twicedaily" and "daily" can
+		 * normally be substituted.
+		 *
+		 * @see wp_schedule_event()
+		 * @see 'cron_schedules'
+		 */
+		$interval = apply_filters( 'tribe_aggregator_record_processor_interval', 'tribe-every15mins' );
+		wp_schedule_event( time(), $interval, self::$scheduled_key );
 	}
 
 	/**

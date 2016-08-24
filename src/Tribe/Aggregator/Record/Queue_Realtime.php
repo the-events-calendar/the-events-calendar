@@ -29,14 +29,9 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	 * @param Tribe__Events__Aggregator__Record__Queue_Processor|null $queue_processor An optional Queue_Processor instance.
 	 */
 	public function __construct( Tribe__Events__Aggregator__Record__Queue $queue = null, Tribe__Events__Ajax__Operations $ajax_operations = null, Tribe__Events__Aggregator__Record__Queue_Processor $queue_processor = null ) {
-		add_action( 'admin_notices', array(
-			$this,
-			'add_notice',
-		) );
-		add_action( 'wp_ajax_tribe_aggregator_realtime_update', array(
-			$this,
-			'ajax',
-		) );
+		tribe_notice( 'aggregator-update-msg', array( $this, 'render_update_message' ), 'type=warning&dismiss=0' );
+
+		add_action( 'wp_ajax_tribe_aggregator_realtime_update', array( $this, 'ajax' ) );
 		$this->queue           = $queue;
 		$this->ajax_operations = $ajax_operations ? $ajax_operations : new Tribe__Events__Ajax__Operations;
 		$this->queue_processor = $queue_processor ? $queue_processor : Tribe__Events__Aggregator::instance()->queue_processor;
@@ -62,10 +57,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		return $data;
 	}
 
-	/**
-	 * Adds a queuing notice to the page if appropriate
-	 */
-	public function add_notice() {
+	public function render_update_message() {
 		if ( ! Tribe__Events__Aggregator__Page::instance()->is_screen() ) {
 			return;
 		}
@@ -83,22 +75,31 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 
 		$this->update_loop_vars();
 
-		$update = $this->user_update();
-		echo '<div class="tribe-aggregator-update-msg updated updating">' . $update . '</div>';
-	}
-
-	public function user_update() {
-		$notice    = '<div class="tribe-message"><p>' . __( 'Importing data is still occurring. Don&#146;t worry, you can safely navigate away &ndash; the process will resume in a bit in the background.', 'the-events-calendar' ) . '</p></div>';
-		$tracker   = '<ul class="tracker">';
-		$tracker   .= '<li class="tracked-item track-created"><strong>' . __( 'Created:', 'the-events-calendar' ) . '</strong> <span class="value"></span></li>';
-		$tracker   .= '<li class="tracked-item track-updated"><strong>' . __( 'Updated:', 'the-events-calendar' ) . '</strong> <span class="value"></span></li>';
-		$tracker   .= '<li class="tracked-item track-skipped"><strong>' . __( 'Skipped:', 'the-events-calendar' ) . '</strong> <span class="value"></span></li>';
-		$tracker   .= '</ul>';
+		ob_start();
 		$percent   = $this->sanitize_progress( $this->queue->progress_percentage() );
 		$spinner   = '<img src="' . get_admin_url( null, '/images/spinner.gif' ) . '">';
-		$indicator = '<div class="progress-container"> <div class="progress" title="' . sprintf( __( '%d%% complete', 'the-events-calendar' ), $percent ) . '"> <div class="bar"></div> </div>' . $spinner . '</div>';
+		?>
+		<div class="tribe-message">
+			<p>
+				<?php esc_html_e( 'Importing data is still occurring. Don&#146;t worry, you can safely navigate away &ndash; the process will resume in a bit in the background.', 'the-events-calendar' ); ?>
+			</p>
+		</div>
+		<ul class="tracker">
+			<li class="tracked-item track-created"><strong><?php esc_html_e( 'Created:', 'the-events-calendar' ); ?></strong> <span class="value"></span></li>
+			<li class="tracked-item track-updated"><strong><?php esc_html_e( 'Updated:', 'the-events-calendar' ); ?></strong> <span class="value"></span></li>
+			<li class="tracked-item track-skipped"><strong><?php esc_html_e( 'Skipped:', 'the-events-calendar' ); ?></strong> <span class="value"></span></li>
+		</ul>
+		<div class="progress-container">
+			<div class="progress" title="<?php echo esc_html( sprintf( __( '%d%% complete', 'the-events-calendar' ), $percent ) ); ?>">
+				<div class="bar"></div>
+			</div>
+			<img src="<?php echo esc_url( get_admin_url( null, '/images/spinner.gif' ) ); ?>">
+		</div>
+		<?php
 
-		return "$notice $tracker $indicator";
+		$html = ob_get_clean();
+
+		return Tribe__Admin__Notices::instance()->render( 'aggregator-update-msg', $html );
 	}
 
 	/**
@@ -177,18 +178,18 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	 */
 	public function get_progress_message_data( $queue, $percentage, $done ) {
 		$data = array(
-			'html'         => false,
-			'counts' => array(
+			'html'          => false,
+			'progress'      => $percentage,
+			'progress_text' => sprintf( __( '%d%% complete', 'the-events-calendar' ), $percentage ),
+			'continue'      => ! $done,
+			'complete'      => $done,
+			'counts'        => array(
 				'total'     => $queue->total(),
 				'created'   => $queue->created(),
 				'updated'   => $queue->updated(),
 				'skipped'   => $queue->skipped(),
 				'remaining' => $queue->count(),
 			),
-			'progress'     => $percentage,
-			'progress_text' => sprintf( __( '%d%% complete', 'the-events-calendar' ), $percentage ),
-			'continue'     => ! $done,
-			'complete'     => $done,
 		);
 
 		if ( $done ) {
