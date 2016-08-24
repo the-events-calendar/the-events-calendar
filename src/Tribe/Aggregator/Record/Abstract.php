@@ -651,7 +651,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function log_limit_reached_error() {
 		$aggregator = Tribe__Events__Aggregator::instance();
 
-		$error = $this->log_error( tribe_error( 'core:aggregator:daily-limit-reached', array(), array( $aggregator->get_daily_limit() ) ) );
+		$error = tribe_error( 'core:aggregator:daily-limit-reached', array(), array( $aggregator->get_daily_limit() ) );
+
+		$this->log_error( $error );
 
 		return $error;
 	}
