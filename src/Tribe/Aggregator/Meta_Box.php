@@ -47,7 +47,7 @@ class Tribe__Events__Aggregator__Meta_Box {
 
 		$event_id = get_the_ID();
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_event_id( $event_id );
-		$origin = empty( $aggregator->api( 'origins' )->origin_names[ $record->origin ] ) ? __( 'Event Aggregator', 'the-events-calendar' ) : $aggregator->api( 'origins' )->origin_names[ $record->origin ];
+		$origin = $aggregator->api( 'origins' )->get_name( $record->origin );
 		$source = $record->meta['source_name'];
 		$last_import = tribe_format_date( $record->post->post_modified );
 		$settings_link = Tribe__Settings::instance()->get_url( array( 'tab' => 'imports' ) );
