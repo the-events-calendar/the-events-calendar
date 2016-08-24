@@ -117,7 +117,15 @@ class Tribe__Events__Aggregator__Service {
 			return $url;
 		}
 
-		$response = wp_remote_get( esc_url_raw( $url ) );
+		/**
+		 * Length of time to wait when initially connecting to Event Aggregator before abandoning the attempt.
+		 * default is 60 seconds. We set this high so large files can be transfered on slow connections
+		 *
+		 * @var int $timeout_in_seconds
+		 */
+		$timeout_in_seconds = (int) apply_filters( 'tribe_aggregator_connection_timeout', 60 );
+
+		$response = wp_remote_get( esc_url_raw( $url ), array( 'timeout' => $timeout_in_seconds ) );
 
 		if ( is_wp_error( $response ) ) {
 			return $response;
