@@ -143,16 +143,29 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 *
 	 * If no records in need of further processing can be found it will return bool false.
 	 *
+	 * @param boolean $interactive_only Whether or not we should look for imports that were kicked off interactively
+	 *
 	 * @return boolean
 	 */
-	public function next_waiting_record() {
+	public function next_waiting_record( $interactive_only = false ) {
 		$args = array(
 			'post_type'      => Tribe__Events__Aggregator__Records::$post_type,
-			'meta_key'       => Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . Tribe__Events__Aggregator__Record__Queue::$queue_key,
 			'post_status'    => 'any',
 			'posts_per_page' => 1,
+			'meta_query'     => array(
+				array(
+					'key' => Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . Tribe__Events__Aggregator__Record__Queue::$queue_key,
+					'compare' => 'EXISTS',
+				),
+			),
 		);
-		$query = new WP_Query( $args );
+
+		if ( $interactive_only ) {
+			$args['meta_query'][] = array(
+				'key' => Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'interactive',
+				'compare' => 'EXISTS',
+			);
+		}
 
 		$waiting_records = get_posts( $args );
 

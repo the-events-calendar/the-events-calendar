@@ -296,9 +296,11 @@ class Tribe__Events__Aggregator__Cron {
 			'post_status' => Tribe__Events__Aggregator__Records::$status->pending,
 			'posts_per_page' => -1,
 			'meta_query' => array(
-				'key' => '_tribe_aggregator_origin',
-				'value' => 'csv',
-				'compare' => '!=',
+				array(
+					'key' => '_tribe_aggregator_origin',
+					'value' => 'csv',
+					'compare' => '!=',
+				),
 			),
 		) );
 
