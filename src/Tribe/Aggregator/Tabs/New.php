@@ -12,6 +12,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 	public $priority = 10;
 
+	protected $content_type;
+	protected $content_type_plural;
+	protected $content_type_object;
+	protected $content_post_type;
+
 	/**
 	 * Static Singleton Factory Method
 	 *
@@ -142,23 +147,40 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 		}
 
+		if ( 'csv' === $data['origin'] ) {
+			$result = $record->process_posts( $data );
+		} else {
+			$result = $record->process_posts();
+		}
+
+		$this->messages = $this->get_result_messages( $record, $result );
+
+		if (
+			! empty( $this->messages['error'] )
+			|| ! empty( $this->messages['success'] )
+			|| ! empty( $this->messages['warning'] )
+		) {
+			tribe_notice( 'tribe-aggregator-import-complete', array( $this, 'render_notice_import_complete' ), 'type=success' );
+		}
+	}
+
+	public function get_result_messages( $record, $result ) {
+		$messages = array();
+		$is_queued = ! empty( $result['remaining'] );
+
 		$content_type = tribe_get_event_label_singular_lowercase();
 		$content_type_plural = tribe_get_event_label_plural_lowercase();
+		$content_post_type = Tribe__Events__Main::POSTTYPE;
 
-		if ( 'csv' === $data['origin'] ) {
+		if ( 'csv' === $record->meta['origin'] && 'tribe_events' !== $record->meta['content_type'] ) {
 			$content_type_object = get_post_type_object( $record->meta['content_type'] );
 			$content_type = $content_type_object->labels->singular_name_lowercase;
 			$content_type_plural = $content_type_object->labels->plural_name_lowercase;
 			$content_post_type = $content_type_object->name;
-
-			$result = $record->process_posts( $data );
-		} else {
-			$content_post_type = Tribe__Events__Main::POSTTYPE;
-			$result = $record->process_posts();
 		}
 
 		if ( is_wp_error( $result ) ) {
-			$this->messages[ 'error' ][] = $result->get_error_message();
+			$messages[ 'error' ][] = $result->get_error_message();
 
 			tribe_notice( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
 
@@ -166,57 +188,57 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return $result;
 		}
 
-		if ( ! empty( $result['created'] ) ) {
+		if ( ! $is_queued && ! empty( $result['created'] ) ) {
 			$content_label = 1 === $result['created'] ? $content_type : $content_type_plural;
 
-			$this->messages['success'][] = sprintf(
+			$messages['success'][] = sprintf(
 				_n( '%1$d new %2$s was imported.', '%1$d new %2$s were imported.', $result['created'], 'the-events-calendar' ),
 				$result['created'],
 				$content_label
 			);
 		}
 
-		if ( ! empty( $result['updated'] ) ) {
+		if ( ! $is_queued && ! empty( $result['updated'] ) ) {
 			$content_label = 1 === $result['updated'] ? $content_type : $content_type_plural;
 
 			// @todo: include a part of sentence like: ", including %1$d %2$signored event%3$s.", <a href="/wp-admin/edit.php?post_status=tribe-ignored&post_type=tribe_events">, </a>
-			$this->messages['success'][] = sprintf(
+			$messages['success'][] = sprintf(
 				_n( '%1$d existing %2$s was updated.', '%1$d existing %2$s were updated.', $result['updated'], 'the-events-calendar' ),
 				$result['updated'],
 				$content_label
 			);
 		}
 
-		if ( ! empty( $result['skipped'] ) ) {
+		if ( ! $is_queued && ! empty( $result['skipped'] ) ) {
 			$content_label = 1 === $result['skipped'] ? $content_type : $content_type_plural;
 
-			$this->messages['success'][] = sprintf(
+			$messages['success'][] = sprintf(
 				_n( '%1$d already-imported %2$s was skipped.', '%1$d already-imported %2$s were skipped.', $result['skipped'], 'the-events-calendar' ),
 				$result['skipped'],
 				$content_label
 			);
 		}
 
-		if ( $result && ! $this->messages ) {
-			$this->messages['success'][] = sprintf(
+		if ( ! $is_queued && $result && ! $messages ) {
+			$messages['success'][] = sprintf(
 				__( '0 new %1$s were imported.', 'the-events-calendar' ),
 				$content_type_plural
 			);
 		}
 
 		if (
-			! empty( $this->messages['error'] )
-			|| ! empty( $this->messages['success'] )
-			|| ! empty( $this->messages['warning'] )
+			! empty( $messages['error'] )
+			|| ! empty( $messages['success'] )
+			|| ! empty( $messages['warning'] )
 		) {
-			array_unshift( $this->messages['success'], __( 'Import complete!<br/>', 'the-events-calendar' ) );
+			array_unshift( $messages['success'], __( 'Import complete!<br/>', 'the-events-calendar' ) );
 
 			$url = admin_url( 'edit.php?post_type=' . $content_post_type );
 			$link_text = sprintf( __( 'View all %s', 'the-events-calendar' ), $content_type_plural );
-			$this->messages['success'][ count( $this->messages['success'] ) - 1 ] .= ' <a href="' . esc_url( $url ) . '" >' . esc_html( $link_text ) . '</a>';
-
-			tribe_notice( 'tribe-aggregator-import-complete', array( $this, 'render_notice_import_complete' ), 'type=success' );
+			$messages['success'][ count( $messages['success'] ) - 1 ] .= ' <a href="' . esc_url( $url ) . '" >' . esc_html( $link_text ) . '</a>';
 		}
+
+		return $messages;
 	}
 
 	public function ajax_save_credentials() {

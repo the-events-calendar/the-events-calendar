@@ -103,6 +103,11 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			return tribe_error( 'core:aggregator:invalid-csv-parameters' );
 		}
 
+		if ( $this->has_queue() ) {
+			$queue = new Tribe__Events__Aggregator__Record__Queue( $this->post->ID );
+			return $queue->process();
+		}
+
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $data['import_id'] );
 
 		if ( empty( $data['column_map'] ) ) {
@@ -145,15 +150,8 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 
 		update_option( 'tribe_events_import_column_mapping_' . $content_type, $data['column_map'] );
 
-		$results = $this->begin_import();
-
-		if ( is_wp_error( $results ) ) {
-			$this->set_status_as_failed( $results );
-		} else {
-			$this->complete_import( $results );
-		}
-
-		return $results;
+		$queue = new Tribe__Events__Aggregator__Record__Queue( $this->post->ID, $importer );
+		return $queue->process();
 	}
 
 	public function get_importer() {
@@ -165,7 +163,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			$this->importer = Tribe__Events__Importer__File_Importer::get_importer( $content_type, $file_reader );
 			$this->importer->set_map( get_option( 'tribe_events_import_column_mapping_' . $content_type, array() ) );
 			$this->importer->set_type( $content_type );
-			$this->importer->set_limit( absint( apply_filters( 'tribe_events_csv_batch_size', 100 ) ) );
+			$this->importer->set_limit( absint( apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size ) ) );
 			$this->importer->set_offset( get_option( 'tribe_events_importer_has_header', 0 ) );
 		}
 
@@ -198,19 +196,19 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		return $this->continue_import();
 	}
 
-	protected function reset_tracking_options() {
+	public function reset_tracking_options() {
 		update_option( 'tribe_events_importer_offset', get_option( 'tribe_events_importer_has_header', 0 ) );
 		update_option( 'tribe_events_import_log', array( 'updated' => 0, 'created' => 0, 'skipped' => 0, 'encoding' => 0 ) );
 		update_option( 'tribe_events_import_failed_rows', array() );
 		update_option( 'tribe_events_import_encoded_rows', array() );
 	}
 
-	protected function continue_import() {
+	public function continue_import() {
 		$importer = $this->get_importer();
 		$importer->is_aggregator = true;
 		$importer->aggregator_record = $this;
-		$offset = get_option( 'tribe_events_importer_offset' );
-		if ( $offset == -1 ) {
+		$offset = get_option( 'tribe_events_importer_offset', get_option( 'tribe_events_importer_has_header', 0 ) );
+		if ( -1 === $offset ) {
 			$this->state = 'complete';
 			$this->clean_up_after_import();
 		} else {

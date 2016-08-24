@@ -2,10 +2,13 @@
 
 class Tribe__Events__Aggregator__Record__Queue {
 	public static $in_progress_key = 'tribe_aggregator_queue_';
-	public static $queue_key = '_tribe_aggregator_queue';
+	public static $queue_key = 'queue';
+	public static $activity_key = 'activity_log';
 	public $record_id;
 	public $record;
 
+	protected $fetching = false;
+	protected $importer;
 	protected $total = 0;
 	protected $updated = 0;
 	protected $created = 0;
@@ -17,22 +20,41 @@ class Tribe__Events__Aggregator__Record__Queue {
 		$this->record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->record_id );
 
 		if ( ! empty( $items ) ) {
-			$this->remaining = $items;
-			$this->total = count( $this->remaining );
+			if ( 'fetch' === $items ) {
+				$this->fetching = true;
+				$this->remaining = 'fetch';
+			} else {
+				$this->init_queue( $items );
+			}
+
 			$this->save();
 		} else {
 			$this->load_queue();
 		}
 	}
 
-	public function load_queue() {
-		$queue = (array) get_post_meta( $this->record->post->ID, self::$queue_key, true );
+	public function init_queue( $items ) {
+		if ( 'csv' === $this->record->origin ) {
+			$this->record->reset_tracking_options();
+			$this->importer = $items;
+			$this->total = $this->importer->get_line_count();
+			$this->remaining = array_fill( 0, $this->total, true );
+		} else {
+			$this->remaining = $items;
+			$this->total = count( $this->remaining );
+		}
+	}
 
-		$this->total     = empty( $queue['total'] ) ? 0 : $queue['total'];
-		$this->updated   = empty( $queue['updated'] ) ? 0 : $queue['updated'];
-		$this->created   = empty( $queue['created'] ) ? 0 : $queue['created'];
-		$this->skipped   = empty( $queue['skipped'] ) ? 0 : $queue['skipped'];
-		$this->remaining = empty( $queue['remaining'] ) ? array() : $queue['remaining'];
+	public function load_queue() {
+		$activity = empty( $this->record->meta[ self::$activity_key ] ) ? array() : $this->record->meta[ self::$activity_key ];
+		$queue = empty( $this->record->meta[ self::$queue_key ] ) ? array() : $this->record->meta[ self::$queue_key ];
+		$queue = (array) $queue;
+
+		$this->total     = empty( $activity['total'] ) ? 0 : $activity['total'];
+		$this->updated   = empty( $activity['updated'] ) ? 0 : $activity['updated'];
+		$this->created   = empty( $activity['created'] ) ? 0 : $activity['created'];
+		$this->skipped   = empty( $activity['skipped'] ) ? 0 : $activity['skipped'];
+		$this->remaining = empty( $queue ) ? array() : $queue;
 	}
 
 	public function defaults() {
@@ -53,23 +75,58 @@ class Tribe__Events__Aggregator__Record__Queue {
 		return count( $this->remaining );
 	}
 
-	public function save() {
-		if ( empty( $this->remaining ) ) {
-			delete_post_meta( $this->record->post->ID, self::$queue_key );
-		} else {
-			$data = array(
-				'total'     => $this->total,
-				'updated'   => $this->updated,
-				'created'   => $this->created,
-				'skipped'   => $this->skipped,
-				'remaining' => $this->remaining,
-			);
+	public function total() {
+		return $this->total;
+	}
 
-			update_post_meta( $this->record->post->ID, self::$queue_key, $data );
+	public function updated() {
+		return $this->updated;
+	}
+
+	public function created() {
+		return $this->created;
+	}
+
+	public function skipped() {
+		return $this->skipped;
+	}
+
+	public function activity() {
+		return array(
+			'total'     => $this->total,
+			'updated'   => $this->updated,
+			'created'   => $this->created,
+			'skipped'   => $this->skipped,
+			'remaining' => count( $this->remaining ),
+		);
+	}
+
+	public function save() {
+		$activity = $this->activity();
+
+		$this->record->update_meta( self::$activity_key, $activity );
+
+		if ( empty( $this->remaining ) ) {
+			$this->record->delete_meta( self::$queue_key );
+		} else {
+			$this->record->update_meta( self::$queue_key, $this->remaining );
 		}
 	}
 
 	public function process( $batch_size = null ) {
+		if ( $this->fetching ) {
+			$data = $this->record->prep_import_data();
+
+			if ( is_wp_error( $data ) ) {
+				$activity = $this->activity();
+				$activity['batch_process'] = 0;
+				return $activity;
+			}
+
+			$this->init_queue( $data );
+			$this->save();
+		}
+
 		$items = array();
 
 		if ( ! $batch_size ) {
@@ -84,20 +141,41 @@ class Tribe__Events__Aggregator__Record__Queue {
 			$items[] = array_shift( $this->remaining );
 		}
 
-		$results = $this->record->insert_posts( $items );
+		if ( 'csv' === $this->record->origin ) {
+			$this->record->continue_import();
+			$results = get_option( 'tribe_events_import_log' );
+		} else {
+			$results = $this->record->insert_posts( $items );
+		}
 
+		// grab the results from THIS batch
 		$updated = empty( $results['updated'] ) ? 0 : $results['updated'];
 		$created = empty( $results['created'] ) ? 0 : $results['created'];
 		$skipped = empty( $results['skipped'] ) ? 0 : $results['skipped'];
 
-		$this->updated += $updated;
-		$this->created += $created;
-		$this->skipped += $skipped;
+		if ( 'csv' === $this->record->origin ) {
+			// update the running total across all batches
+			$this->updated = $updated;
+			$this->created = $created;
+			$this->skipped = $skipped;
+		} else {
+			// update the running total across all batches
+			$this->updated += $updated;
+			$this->created += $created;
+			$this->skipped += $skipped;
+		}
 
 		$this->save();
 
-		// return the amount of records processed
-		return $updated + $created + $skipped;
+		$activity = $this->activity();
+
+		$activity['batch_process'] = $activity['updated'] + $activity['created'] + $activity['skipped'];
+
+		if ( empty( $this->remaining ) ) {
+			$this->record->complete_import( $activity );
+		}
+
+		return $activity;
 	}
 
 	/**

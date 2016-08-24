@@ -115,7 +115,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function setup_meta( $meta ) {
 		foreach ( $meta as $key => $value ) {
 			$key = preg_replace( '/^' . self::$meta_key_prefix . '/', '', $key );
-			$this->meta[ $key ] = is_array( $value ) ? reset( $value ) : $value;
+			$this->meta[ $key ] = maybe_unserialize( is_array( $value ) ? reset( $value ) : $value );
 		}
 	}
 
@@ -128,6 +128,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function update_meta( $key, $value ) {
 		$this->meta[ $key ] = $value;
 		return update_post_meta( $this->post->ID, self::$meta_key_prefix . $key, $value );
+	}
+
+	/**
+	 * Deletes import record meta
+	 *
+	 * @param string $key Meta key
+	 */
+	public function delete_meta( $key ) {
+		return delete_post_meta( $this->post->ID, self::$meta_key_prefix . $key );
 	}
 
 	/**
@@ -422,7 +431,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// create the import on the Event Aggregator service
 		$response = $aggregator->api( 'import' )->create( $args );
-		do_action( 'debug_robot', '$response :: ' . print_r( $response, true ) );
 
 		// if the Aggregator API returns a WP_Error, set this record as failed
 		if ( is_wp_error( $response ) ) {
@@ -719,6 +727,24 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $event_count;
 	}
 
+	public function has_queue() {
+		return ! empty( $this->meta['queue'] );
+	}
+
+	public function update_source_name( $source_name ) {
+		// if we haven't received a source name, bail
+		if ( empty( $source_name ) ) {
+			return;
+		}
+
+		$this->update_meta( 'source_name', $source_name );
+
+		if ( ! empty( $this->post->post_parent ) ) {
+			$parent_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->post->post_parent );
+			$parent_record->update_meta( 'source_name', $source_name );
+		}
+	}
+
 	/**
 	 * Queues events, venues, and organizers for insertion
 	 *
@@ -729,38 +755,44 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function process_posts( $data = array() ) {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
+		if ( $this->has_queue() ) {
+			$queue = new Tribe__Events__Aggregator__Record__Queue( $this->post->ID );
+			return $queue->process();
+		}
+
+		$items = $this->prep_import_data( $data );
+
+		if ( is_wp_error( $items ) ) {
+			return $items;
+		}
+
+		$queue = new Tribe__Events__Aggregator__Record__Queue( $this->post->ID, $items );
+		return $queue->process();
+	}
+
+	public function prep_import_data( $data = array() ) {
 		if ( $data ) {
 			$import_data = $data;
 		} else {
 			$import_data = $this->get_import_data();
 		}
 
-		// if we've received a source name, let's set that in the record as soon as possible
-		if ( ! empty( $import_data->data->source_name ) ) {
-			$this->update_meta( 'source_name', $import_data->data->source_name );
-
-			if ( ! empty( $this->post->post_parent ) ) {
-				$parent_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->post->post_parent );
-				$parent_record->update_meta( 'source_name', $import_data->data->source_name );
-			}
-		}
-
-		if ( empty( $this->meta['finalized'] ) ) {
-			return tribe_error( 'core:aggregator:record-not-finalized' );
-		}
-
 		if ( is_wp_error( $import_data ) ) {
 			return $import_data;
 		}
 
-		if ( empty( $import_data->data->events ) ) {
+		$this->update_source_name( empty( $import_data->data->source_name ) ? null : $import_data->data->source_name );
+
+		if (
+			empty( $this->meta['finalized'] )
+			|| ! isset( $import_data->data->events )
+		) {
 			return tribe_error( 'core:aggregator:record-not-finalized' );
 		}
 
-		$items = empty( $import_data->data->items ) ? $import_data->data->events : $import_data->data->items;
+		$items = $this->filter_data_by_selected( $import_data->data->events );
 
-		$queue = new Tribe__Events__Aggregator__Record__Queue( $this->post->ID, $items );
-		$queue->process();
+		return $items;
 	}
 
 	/**
@@ -770,7 +802,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return array|WP_Error
 	 */
-	public function insert_posts( $import_data = array() ) {
+	public function insert_posts( $items = array() ) {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
 		$results = array(
@@ -782,8 +814,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$args = array(
 			'post_status' => $this->meta['post_status'],
 		);
-
-		$items = $this->filter_data_by_selected( $import_data );
 
 		$unique_field = $this->get_unique_field();
 		$existing_ids = $this->get_existing_ids_from_import_data( $items );
@@ -897,7 +927,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				 * @param array $event Event data to save
 				 * @param Tribe__Events__Aggregator__Record__Abstract Importer record
 				 */
-				$event = apply_filters( 'tribe_aggregator_before_update_event', $event, $record );
+				$event = apply_filters( 'tribe_aggregator_before_update_event', $event, $this );
 
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
 				remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
@@ -958,14 +988,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 		}
 
-		$this->complete_import( $results );
-
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
 		return $results;
-	}
-
-	public function insert_post( $item ) {
 	}
 
 	/**

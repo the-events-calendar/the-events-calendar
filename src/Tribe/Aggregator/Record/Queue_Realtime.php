@@ -80,22 +80,22 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 
 		$this->update_loop_vars();
 
-		if ( $this->queue->is_empty() ) {
-			return false;
-		}
-		do_action( 'debug_robot', '$this-> :: ' . print_r( $this->queue, true ) );
-
 		$update = $this->user_update();
 		echo '<div class="tribe-aggregator-update-msg updated updating">' . $update . '</div>';
 	}
 
 	public function user_update() {
-		$notice    = __( 'Importing data is still occurring. Don&#146;t worry, you can safely navigate away &ndash; the process will resume in a bit in the background.', 'the-events-calendar' );
+		$notice    = '<div class="tribe-message"><p>' . __( 'Importing data is still occurring. Don&#146;t worry, you can safely navigate away &ndash; the process will resume in a bit in the background.', 'the-events-calendar' ) . '</p></div>';
+		$tracker   = '<ul class="tracker">';
+		$tracker   .= '<li class="tracked-item track-created"><strong>' . __( 'Created:', 'the-events-calendar' ) . '</strong> <span class="value"></span></li>';
+		$tracker   .= '<li class="tracked-item track-updated"><strong>' . __( 'Updated:', 'the-events-calendar' ) . '</strong> <span class="value"></span></li>';
+		$tracker   .= '<li class="tracked-item track-skipped"><strong>' . __( 'Skipped:', 'the-events-calendar' ) . '</strong> <span class="value"></span></li>';
+		$tracker   .= '</ul>';
 		$percent   = $this->sanitize_progress( $this->queue->progress_percentage() );
 		$spinner   = '<img src="' . get_admin_url( null, '/images/spinner.gif' ) . '">';
-		$indicator = '<div> <div class="progress" title="' . sprintf( __( '%d%% complete', 'the-events-calendar' ), $percent ) . '"> <div class="bar"></div> </div>' . $spinner . '</div>';
+		$indicator = '<div class="progress-container"> <div class="progress" title="' . sprintf( __( '%d%% complete', 'the-events-calendar' ), $percent ) . '"> <div class="bar"></div> </div>' . $spinner . '</div>';
 
-		return "<p> $notice </p> $indicator";
+		return "$notice $tracker $indicator";
 	}
 
 	public function ajax() {
@@ -108,13 +108,14 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		$queue = $this->queue ? $this->queue : new Tribe__Events__Aggregator__Record__Queue( $this->record_id );
 
 		if ( ! $queue->is_empty() ) {
+			$this->queue_processor->set_current_queue( $queue );
 			$this->queue_processor->process_batch( $this->record_id );
 		}
 
 		$done       = $queue->is_empty();
 		$percentage = $queue->progress_percentage();
 
-		$this->ajax_operations->exit_data( $this->get_progress_message_data( $percentage, $done ) );
+		$this->ajax_operations->exit_data( $this->get_progress_message_data( $queue, $percentage, $done ) );
 	}
 
 	/**
@@ -168,13 +169,27 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	 *
 	 * @return mixed|string|void
 	 */
-	public function get_progress_message_data( $percentage, $done ) {
-		return json_encode( array(
+	public function get_progress_message_data( $queue, $percentage, $done ) {
+		$data = array(
 			'html'         => false,
+			'counts' => array(
+				'total'     => $queue->total(),
+				'created'   => $queue->created(),
+				'updated'   => $queue->updated(),
+				'skipped'   => $queue->skipped(),
+				'remaining' => $queue->count(),
+			),
 			'progress'     => $percentage,
-			'progressText' => sprintf( __( '%d%% complete', 'the-events-calendar' ), $percentage ),
+			'progress_text' => sprintf( __( '%d%% complete', 'the-events-calendar' ), $percentage ),
 			'continue'     => ! $done,
 			'complete'     => $done,
-		) );
+		);
+
+		if ( $done ) {
+			$messages = Tribe__Events__Aggregator__Tabs__New::instance()->get_result_messages( $queue->record, $queue->activity() );
+			$data['complete_text'] = '<p>' . implode( ' ', $messages['success'] ) . '</p>';
+		}
+
+		return json_encode( $data );
 	}
 }

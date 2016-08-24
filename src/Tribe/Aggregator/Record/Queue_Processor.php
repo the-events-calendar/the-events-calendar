@@ -14,7 +14,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 *
 	 * @var int
 	 */
-	public static $small_batch_size = 2;
+	public static $small_batch_size = 5;
 
 	/**
 	 * Number of items in the current batch processed so far.
@@ -131,6 +131,10 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		}
 	}
 
+	public function set_current_queue( Tribe__Events__Aggregator__Record__Queue $queue ) {
+		$this->current_queue = $queue;
+	}
+
 	/**
 	 * Obtains the post ID of the next record which has a queue of items in need
 	 * of processing.
@@ -142,10 +146,11 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	public function next_waiting_record() {
 		$args = array(
 			'post_type'      => Tribe__Events__Aggregator__Records::$post_type,
-			'meta_key'       => Tribe__Events__Aggregator__Record__Queue::$queue_key,
+			'meta_key'       => Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . Tribe__Events__Aggregator__Record__Queue::$queue_key,
 			'post_status'    => 'any',
 			'posts_per_page' => 1,
 		);
+		$query = new WP_Query( $args );
 
 		$waiting_records = get_posts( $args );
 
@@ -166,13 +171,12 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		// Bail out if the batch limit has been exceeded, if nothing is waiting in the queue
 		// or the queue is actively being processed by a concurrent request/scheduled task
 		if ( $this->batch_complete() || ! $this->get_current_queue() || $this->current_queue->is_in_progress() ) {
-			do_action( 'debug_robot', '$this-> :: ' . print_r( $this->current_queue->is_in_progress(), true ) );
 			return false;
 		}
 
 		$this->current_queue->set_in_progress_flag();
 		$processed = $this->current_queue->process( self::$batch_size );
-		$this->processed += $processed;
+		$this->processed += $processed['batch_process'];
 		$this->current_queue->clear_in_progress_flag();
 
 		return true;

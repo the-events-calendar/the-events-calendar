@@ -492,6 +492,21 @@ tribe_aggregator.fields = {
 	};
 
 	/**
+	 * displays a success message to a container on the page
+	 */
+	obj.display_success = function( $container, message ) {
+		$container.prepend(
+			[
+				'<div class="notice notice-success">',
+					'<p>',
+						message,
+					'</p>',
+				'</div>'
+			].join( '' )
+		);
+	};
+
+	/**
 	 * Saves credential form
 	 */
 	obj.save_credentials = function( $credentials_form ) {
@@ -900,10 +915,15 @@ tribe_aggregator.fields = {
 	obj.progress.init = function() {
 		obj.progress.data = {};
 		obj.progress.$ = {};
-		obj.progress.$.notice   = $( 'div.tribe-events-recurring-update-msg' );
+		obj.progress.$.notice   = $( 'div.tribe-aggregator-update-msg' );
 		obj.progress.$.spinner  = obj.progress.$.notice.find( 'img' );
-		obj.progress.$.progress = obj.progress.$.notice.find( 'div.progress' );
-		obj.progress.$.bar      = obj.progress.$.notice.find( 'div.bar' );
+		obj.progress.$.progress = obj.progress.$.notice.find( '.progress' );
+		obj.progress.$.tracker  = obj.progress.$.notice.find( '.tracker' );
+		obj.progress.$.created  = obj.progress.$.tracker.find( '.track-created .value' );
+		obj.progress.$.updated  = obj.progress.$.tracker.find( '.track-updated .value' );
+		obj.progress.$.skipped  = obj.progress.$.tracker.find( '.track-skipped .value' );
+		obj.progress.$.remaining  = obj.progress.$.tracker.find( '.track-remaining .value' );
+		obj.progress.$.bar      = obj.progress.$.notice.find( '.bar' );
 		obj.progress.data.time  = Date.now();
 
 		setTimeout( obj.progress.start );
@@ -922,7 +942,7 @@ tribe_aggregator.fields = {
 			obj.progress.data.notice.html( data.html );
 		}
 		if ( data.progress ) {
-			obj.progress.update( data.progress, data.progressText );
+			obj.progress.update( data );
 		}
 
 		if ( data.continue ) {
@@ -934,10 +954,12 @@ tribe_aggregator.fields = {
 				obj.progress.send_request();
 			}
 		}
+
 		if ( data.complete ) {
-			obj.progress.$.spinner.replaceWith( tribe_aggregator_save.completeMsg );
+			obj.progress.$.notice.find( '.tribe-message' ).html( data.complete_text );
+			obj.progress.$.tracker.remove();
+			obj.progress.$.notice.find( '.progress-container' ).remove();
 			obj.progress.$.notice.removeClass( 'updating' ).addClass( 'completed' );
-			setTimeout( obj.progress.remove_notice, 1000 );
 		}
 	};
 
@@ -950,16 +972,33 @@ tribe_aggregator.fields = {
 		$.post( ajaxurl, payload, obj.progress.handle_response, 'json' );
 	};
 
-	obj.progress.update = function( percentage, text ) {
-		percentage = parseInt( percentage, 10 );
+	obj.progress.update = function( data ) {
+		var percentage = parseInt( data.progress, 10 );
 
 		// The percentage should never be out of bounds, but let's handle such a thing gracefully if it arises
 		if ( percentage < 0 || percentage > 100 ) {
 			return;
 		}
 
+		if ( 'undefined' === typeof data.counts ) {
+			return;
+		}
+
+		var types = [ 'created', 'updated', 'skipped' ];
+		for ( var i in types ) {
+			if ( ! data.counts[ types[ i ] ] ) {
+				continue;
+			}
+
+			obj.progress.$[ types[ i ] ].html( data.counts[ types[ i ] ] );
+
+			if ( ! obj.progress.$.tracker.hasClass( 'has-' + types[ i ] ) ) {
+				obj.progress.$.tracker.addClass( 'has-' + types[ i ] );
+			}
+		}
+
 		obj.progress.$.bar.css( 'width', percentage + '%' );
-		obj.progress.$.progress.attr( 'title', text );
+		obj.progress.$.progress.attr( 'title', data.progress_text );
 	};
 
 	obj.progress.remove_notice = function() {
