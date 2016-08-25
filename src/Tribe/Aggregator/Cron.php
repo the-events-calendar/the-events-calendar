@@ -281,6 +281,7 @@ class Tribe__Events__Aggregator__Cron {
 
 			$child = $record->create_child_record();
 			$child->queue_import();
+			$child->process_posts();
 		}
 	}
 
