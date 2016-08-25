@@ -55,7 +55,6 @@ tribe_aggregator.fields = {
 
 ( function( $, _, obj, ea ) {
 	'use strict';
-
 	/**
 	 * Sets up the fields for EA pages
 	 *

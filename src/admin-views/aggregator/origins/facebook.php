@@ -14,105 +14,27 @@ $frequency->source      = 'facebook_import_frequency';
 $cron = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
 
-$fb_api_key = tribe_get_option( 'fb_api_key' );
-$fb_api_secret = tribe_get_option( 'fb_api_secret' );
-$missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
-
+$fb_token = tribe_get_option( 'fb_token' );
+$fb_token_expires = tribe_get_option( 'fb_token_expires' );
+$fb_token_scopes = tribe_get_option( 'fb_token_scopes' );
+$missing_fb_credentials = ! $fb_token || ! $fb_token_scopes || ! $fb_token_expires || $fb_token_expires <= time();
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">
-	<td colspan="2" class="enter-credentials">
-		<script>
-		  // This is called with the results from from FB.getLoginStatus().
-		  function statusChangeCallback(response) {
-		    console.log('statusChangeCallback');
-		    console.log(response);
-		    // The response object is returned with a status field that lets the
-		    // app know the current login status of the person.
-		    // Full docs on the response object can be found in the documentation
-		    // for FB.getLoginStatus().
-		    if (response.status === 'connected') {
-		      // Logged into your app and Facebook.
-		      testAPI();
-		    } else if (response.status === 'not_authorized') {
-		      // The person is logged into Facebook, but not your app.
-		      document.getElementById('status').innerHTML = 'Please log ' +
-		        'into this app.';
-		    } else {
-		      // The person is not logged into Facebook, so we're not sure if
-		      // they are logged into this app or not.
-		      document.getElementById('status').innerHTML = 'Please log ' +
-		        'into Facebook.';
-		    }
-		  }
+	<td colspan="2" class="<?php echo esc_attr( $missing_fb_credentials ? 'enter-credentials' : 'has-credentials' ); ?>">
+	<?php if ( $missing_fb_credentials ) : ?>
+		<div class="tribe-message tribe-credentials-prompt">
+			<span class="dashicons dashicons-warning"></span>
+			<?php wp_nonce_field( 'tribe-save-facebook-credentials' ); ?>
+			<input id="tribe-has-facebook-credentials" type="hidden" value="0" />
 
-		  // This function is called when someone finishes with the Login
-		  // Button.  See the onlogin handler attached to it in the sample
-		  // code below.
-		  function checkLoginState() {
-		    FB.getLoginStatus(function(response) {
-		      statusChangeCallback(response);
-		    });
-		  }
-
-		  window.fbAsyncInit = function() {
-		  FB.init({
-		    appId      : '1783429791900457',
-		    cookie     : true,  // enable cookies to allow the server to access
-		                        // the session
-		    xfbml      : true,  // parse social plugins on this page
-		    version    : 'v2.7' // use graph api version 2.5
-		  });
-
-		  // Now that we've initialized the JavaScript SDK, we call
-		  // FB.getLoginStatus().  This function gets the state of the
-		  // person visiting this page and can return one of three states to
-		  // the callback you provide.  They can be:
-		  //
-		  // 1. Logged into your app ('connected')
-		  // 2. Logged into Facebook, but not your app ('not_authorized')
-		  // 3. Not logged into Facebook and can't tell if they are logged into
-		  //    your app or not.
-		  //
-		  // These three cases are handled in the callback function.
-
-		  FB.getLoginStatus(function(response) {
-		    statusChangeCallback(response);
-		  });
-
-		  };
-
-		  // Load the SDK asynchronously
-		  (function(d, s, id) {
-		    var js, fjs = d.getElementsByTagName(s)[0];
-		    if (d.getElementById(id)) return;
-		    js = d.createElement(s); js.id = id;
-		    js.src = "//connect.facebook.net/en_US/sdk.js";
-		    fjs.parentNode.insertBefore(js, fjs);
-		  }(document, 'script', 'facebook-jssdk'));
-
-		  // Here we run a very simple test of the Graph API after login is
-		  // successful.  See statusChangeCallback() for when this call is made.
-		  function testAPI() {
-		    console.log('Welcome!  Fetching your information.... ');
-		    FB.api('/me', function(response) {
-		      console.log('Successful login for: ' + response.name);
-		      document.getElementById('status').innerHTML =
-		        'Thanks for logging in, ' + response.name + '!';
-		    });
-		  }
-		</script>
-
-		<!--
-		  Below we include the Login Button social plugin. This button uses
-		  the JavaScript SDK to present a graphical Login button that triggers
-		  the FB.login() function when clicked.
-		-->
-
-		<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-		</fb:login-button>
-
-		<div id="status">
+			<div class="tribe-ea-facebook-login">
+				<iframe id="facebook-login" src="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_iframe_url() ); ?>" width="80" height="30"></iframe>
+				<div class="tribe-ea-status" data-error-message="<?php esc_attr_e( '@todo:error-fb-message', 'the-events-calendar' ); ?>"></div>
+			</div>
 		</div>
+	<?php else: ?>
+		<input id="tribe-has-facebook-credentials" type="hidden" value="1" />
+	<?php endif; ?>
 	</td>
 </tr>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">
