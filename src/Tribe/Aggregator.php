@@ -24,6 +24,16 @@ class Tribe__Events__Aggregator {
 	public $service;
 
 	/**
+	 * @var Tribe__Events__Aggregator__Record__Queue_Processor Event Aggregator record queue processor
+	 */
+	public $queue_processor;
+
+	/**
+	 * @var Tribe__Events__Aggregator__Record__Queue_Realtime Event Aggregator record queue processor in realtime
+	 */
+	public $queue_realtime;
+
+	/**
 	 * @var Tribe__Events__Aggregator__Settings Event Aggregator settings object
 	 */
 	public $settings;
@@ -83,14 +93,16 @@ class Tribe__Events__Aggregator {
 		}
 
 		// Loads the Required Classes and saves them as proprieties
-		$this->meta_box    = Tribe__Events__Aggregator__Meta_Box::instance();
-		$this->page        = Tribe__Events__Aggregator__Page::instance();
-		$this->service     = Tribe__Events__Aggregator__Service::instance();
-		$this->settings    = Tribe__Events__Aggregator__Settings::instance();
-		$this->records     = Tribe__Events__Aggregator__Records::instance();
-		$this->cron        = Tribe__Events__Aggregator__Cron::instance();
-		$this->errors      = Tribe__Events__Aggregator__Errors::instance();
-		$this->pue_checker = new Tribe__PUE__Checker( 'http://tri.be/', 'event-aggregator' );
+		$this->meta_box        = Tribe__Events__Aggregator__Meta_Box::instance();
+		$this->page            = Tribe__Events__Aggregator__Page::instance();
+		$this->service         = Tribe__Events__Aggregator__Service::instance();
+		$this->settings        = Tribe__Events__Aggregator__Settings::instance();
+		$this->records         = Tribe__Events__Aggregator__Records::instance();
+		$this->cron            = Tribe__Events__Aggregator__Cron::instance();
+		$this->queue_processor = new Tribe__Events__Aggregator__Record__Queue_Processor;
+		$this->queue_realtime  = new Tribe__Events__Aggregator__Record__Queue_Realtime( null, null, $this->queue_processor );
+		$this->errors          = Tribe__Events__Aggregator__Errors::instance();
+		$this->pue_checker     = new Tribe__PUE__Checker( 'http://tri.be/', 'event-aggregator' );
 
 		// Initializes the Classes related to the API
 		$this->api();

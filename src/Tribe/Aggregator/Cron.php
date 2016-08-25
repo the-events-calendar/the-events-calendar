@@ -281,6 +281,7 @@ class Tribe__Events__Aggregator__Cron {
 
 			$child = $record->create_child_record();
 			$child->queue_import();
+			$child->process_posts();
 		}
 	}
 
@@ -295,6 +296,13 @@ class Tribe__Events__Aggregator__Cron {
 		$query = $records->query( array(
 			'post_status' => Tribe__Events__Aggregator__Records::$status->pending,
 			'posts_per_page' => -1,
+			'meta_query' => array(
+				array(
+					'key' => '_tribe_aggregator_origin',
+					'value' => 'csv',
+					'compare' => '!=',
+				),
+			),
 		) );
 
 		if ( ! $query->have_posts() ) {
@@ -303,7 +311,11 @@ class Tribe__Events__Aggregator__Cron {
 
 		foreach ( $query->posts as $post ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
-			$record->insert_posts();
+			if ( 'csv' === $record->origin ) {
+				continue;
+			}
+
+			$record->process_posts();
 		}
 	}
 }

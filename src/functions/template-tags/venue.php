@@ -460,8 +460,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$venue_details = array();
 
-		if ( $venue_name = tribe_get_venue( $post_id ) ) {
-			$venue_details['name'] = $venue_name;
+		if ( $venue_link = tribe_get_venue_link( $post_id ) ) {
+			$venue_details['linked_name'] = $venue_link;
 		}
 
 		if ( $venue_address = tribe_get_full_address( $post_id ) ) {

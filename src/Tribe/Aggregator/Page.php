@@ -97,6 +97,12 @@ class Tribe__Events__Aggregator__Page {
 							'edit_save' => __( 'Save Changes', 'the-events-calendar' ),
 							'events_required_for_manual_submit' => __( 'Your import must include at least one event', 'the-events-calendar' ),
 							'no_results' => __( 'Your preview doesn\'t have any records to import.', 'the-events-calendar' ),
+							'preview_polling' => array(
+								__( 'Please wait while your preview is being fetched.', 'the-events-calendar' ),
+								__( 'Please continue to wait while your preview is being generated.', 'the-events-calendar' ),
+								__( 'If all goes according to plan, you will have your preview in a few moments.', 'the-events-calendar' ),
+								__( 'Your preview is taking a bit longer than expected, but it <i>is</i> still being generated.', 'the-events-calendar' ),
+							),
 							'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
 						),
 						'default_settings' => Tribe__Events__Aggregator__Settings::instance()->get_all_default_settings(),

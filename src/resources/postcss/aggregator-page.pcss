@@ -79,6 +79,14 @@
 		padding: 3px;
 	}
 
+	.tribe-ea-field-readonly {
+		line-height: 30px;
+	}
+
+	.tribe-ea-field-readonly + .tribe-ea-field {
+		margin-left: 10px;
+	}
+
 	.enter-credentials {
 		background-color: #f8eceb;
 		padding: 1rem;
@@ -302,6 +310,11 @@
 		visibility: visible;
 	}
 
+	.spinner-message {
+		display: block;
+		margin-top: .25rem;
+	}
+
 	.dataTable {
 		float: left;
 
@@ -411,6 +424,74 @@
 
 .tribe-message-loader {
 	display: none;
+}
+
+.tribe-notice-aggregator-update-msg {
+	.progress {
+		border: 1px solid #ccc;
+		float: left;
+		margin-right: 1rem;
+		padding: 1px;
+		width: 18rem;
+
+		.bar {
+			background: #ffba00;
+			height: 1rem;
+			width: 1%;
+		}
+	}
+
+	&.completed {
+		border-left-color: #46b450;
+
+		.progress .bar {
+			background: #7ad03a;
+		}
+	}
+
+	.tracker {
+		margin: 0;
+		padding: 0;
+
+		.tracked-item {
+			display: none;
+			margin: .25rem 0;
+		}
+
+		&.has-created,
+		&.has-updated,
+		&.has-skipped {
+			padding-bottom: .25rem;
+
+			.track-remaining {
+				display: block;
+			}
+		}
+
+		&.has-created {
+			.track-created {
+				display: block;
+			}
+		}
+
+		&.has-updated {
+			.track-updated {
+				display: block;
+			}
+		}
+
+		&.has-skipped {
+			.track-skipped {
+				display: block;
+			}
+		}
+	}
+}
+
+.select2-disabled {
+	margin-bottom: 0;
+	color: gray;
+	cursor: default;
 }
 
 @media screen and (max-width: 782px) {

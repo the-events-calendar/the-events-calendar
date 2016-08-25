@@ -237,13 +237,14 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 
 			$child = $record->create_child_record();
 			$status = $child->queue_import();
+			$child->update_meta( 'interactive', true );
+			$child->finalize();
+			$child->process_posts();
 
 			if ( is_wp_error( $status ) ) {
 				$errors[ $record->id ] = $status;
 				continue;
 			}
-
-			$success[ $record->id ] = $status;
 		}
 
 		return array( $success, $errors );
