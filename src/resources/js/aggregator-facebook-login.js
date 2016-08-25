@@ -2,7 +2,9 @@ var tribe_aggregator = tribe_aggregator || {};
 ( function( $, _, ea ) {
 	'use strict';
 
-	ea.receive_message = function( event ) {
+	ea.facebook = {};
+
+	ea.facebook.receive_message = function( event ) {
 		var response = event.data;
 
 		if ( 'resize' === response.success ) {
@@ -38,6 +40,6 @@ var tribe_aggregator = tribe_aggregator || {};
 
 	// Listen to message from child window
 	var listen = window[ ( window.addEventListener ? 'addEventListener' : 'attachEvent' ) ];
-	listen( ( window.addEventListener ? "message" : "onmessage" ), ea.receive_message, false );
+	listen( ( window.addEventListener ? "message" : "onmessage" ), ea.facebook.receive_message, false );
 
 } )( jQuery, _, tribe_aggregator );
