@@ -74,7 +74,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 
 			if ( ! empty( $_GET['post'] ) && Tribe__Events__Ignored_Events::instance()->can_ignore( $_GET['post'] ) ) {
 				$post = get_post( $_GET['post'] );
-				if ( 'tribe-ignored' === $post->post_status ) {
+				if ( self::$ignored_status === $post->post_status ) {
 					$localize['single'] = array(
 						'link_text'   => esc_html__( 'Delete Permanently', 'the-events-calendar' ),
 						'link_title'  => esc_attr__( 'Ignored events that are deleted will be removed permanently. They can be recreated via import.', 'the-events-calendar' ),
