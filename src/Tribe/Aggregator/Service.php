@@ -128,6 +128,9 @@ class Tribe__Events__Aggregator__Service {
 		$response = wp_remote_get( esc_url_raw( $url ), array( 'timeout' => $timeout_in_seconds ) );
 
 		if ( is_wp_error( $response ) ) {
+			if ( isset( $response->errors['http_request_failed'] ) ) {
+				$response->errors['http_request_failed'][0] = __( 'Connection timed out while transferring the feed. If you are dealing with large feeds you may need to customize the tribe_aggregator_connection_timeout filter.', 'the-events-calendar' );
+			}
 			return $response;
 		}
 

@@ -253,7 +253,7 @@ $scheduled_save_help = esc_html__( 'Click Import to import the events above and 
 	></span>
 
 	<p class="tribe-timezone-message">
-		<?php echo sprintf( esc_html__( 'Events will be imported with the timezone defined by the source. You can make use of The Events Calendar\'s %1$stimezone settings%2$s to change how the actual time is displayed on your calendar.', 'the-events-calendar' ), '<a href="' . esc_url( Tribe__Settings::instance()->get_url() ) . '#tribe-field-tribe_events_timezone_mode">', '</a>' ); ?>
+		<?php esc_html_e( 'Events will be imported with the timezone defined by the source. If no time zone is specified, events will be assigned your site\'s default timezone (see Settings > General).', 'the-events-calendar' ); ?>
 	</p>
 </div>
 <?php echo Tribe__Events__Aggregator__Tabs__New::instance()->maybe_display_aggregator_upsell(); ?>
