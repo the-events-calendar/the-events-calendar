@@ -303,6 +303,7 @@
 }
 
 .tribe-preview-container .tribe-column-start-date,
+	.tribe-preview-container .tribe-column-start-time,
 	.tribe-preview-container .tribe-column-end-date {
 	width: 8em;
 }

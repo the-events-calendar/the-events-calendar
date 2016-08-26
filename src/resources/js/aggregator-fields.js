@@ -346,6 +346,24 @@ tribe_aggregator.fields = {
 		for ( var i in data.items ) {
 			var row = data.items[ i ];
 			row.checkbox = display_checkboxes ? '<input type="checkbox">' : '';
+			if ( row.all_day ) {
+				row.start_time = ea.l10n.all_day;
+			} else {
+				if ( 'undefined' === typeof row.start_meridian || ! row.start_meridian ) {
+					if ( parseInt( row.start_hour, 10 ) > 11 ) {
+						row.start_meridian = ea.l10n.pm;
+					} else {
+						row.start_meridian = ea.l10n.am;
+					}
+				}
+
+				if ( row.start_hour > 12 ) {
+					row.start_hour = row.start_hour - 12;
+				}
+
+				row.start_time = ( 0 === parseInt( row.start_hour, 10 ) ? 12 : row.start_hour ) + ':' + ( '00' + row.start_minute ).slice( -2 );
+				row.start_time += ' ' + row.start_meridian;
+			}
 			rows.push( row );
 		}
 
@@ -431,6 +449,7 @@ tribe_aggregator.fields = {
 			args.columns = [
 				{ data: 'checkbox' },
 				{ data: 'start_date' },
+				{ data: 'start_time' },
 				{ data: 'end_date' },
 				{ data: 'title' }
 			];
