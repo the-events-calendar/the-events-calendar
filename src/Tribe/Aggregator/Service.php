@@ -131,6 +131,10 @@ class Tribe__Events__Aggregator__Service {
 			return $response;
 		}
 
+		if ( isset( $response->data ) && isset( $response->data->status ) && '404' === $response->data->status ) {
+			return new WP_Error( 'core:aggregator:daily-limit-reached', esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' ) );
+		}
+
 		// if the response is not an image, let's json decode the body
 		if ( ! preg_match( '/image/', $response['headers']['content-type'] ) ) {
 			$response = json_decode( wp_remote_retrieve_body( $response ) );
