@@ -4,8 +4,6 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 	"use strict";
 	var $document = $( document );
 
-	console.log( pagenow, typenow, adminpage, data );
-
 	/**
 	 * Migration for Lagacy Ignored Event
 	 */
