@@ -40,7 +40,6 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			add_action( 'current_screen', array( $this, 'action_restore_events' ) );
 			add_action( 'current_screen', array( $this, 'action_restore_ignored' ) );
 
-
 			/**
 			 * `pre_delete_post` only exists after WP 4.4
 			 * @see https://core.trac.wordpress.org/ticket/12706
@@ -49,6 +48,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			add_action( 'trashed_post', array( $this, 'action_from_trash_to_ignored' ) );
 
 			add_filter( 'views_edit-' . Tribe__Events__Main::POSTTYPE, array( $this, 'filter_views' ) );
+			add_filter( 'bulk_actions-edit-' . Tribe__Events__Main::POSTTYPE, array( $this, 'filter_bulk_actions' ), 15 );
 			add_filter( 'post_row_actions', array( $this, 'filter_actions' ), 10, 2 );
 
 			add_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array( $this, 'filter_columns' ), 100 );
@@ -59,10 +59,68 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			// Modify Success messages
 			add_filter( 'bulk_post_updated_messages', array( $this, 'filter_updated_messages' ), 10, 2 );
 
+			// Register assets
+			add_action( 'init', array( $this, 'action_assets' ) );
+
 			/**
 			 * Register Notices
 			 */
 			tribe_notice( 'legacy-ignored-events', array( $this, 'render_notice_legacy' ), 'dismiss=1&type=warning' );
+		}
+
+		public function action_assets() {
+			$plugin = Tribe__Events__Main::instance();
+			$localize = array();
+
+			if ( ! empty( $_GET['post'] ) && Tribe__Events__Ignored_Events::instance()->can_ignore( $_GET['post'] ) ) {
+				$post = get_post( $_GET['post'] );
+				if ( self::$ignored_status === $post->post_status ) {
+					$localize['single'] = array(
+						'link_text'   => esc_html__( 'Delete Permanently', 'the-events-calendar' ),
+						'link_title'  => esc_attr__( 'Ignored events that are deleted will be removed permanently. They can be recreated via import.', 'the-events-calendar' ),
+						'link_nonce'  => wp_create_nonce( 'delete-post_' . $post->ID ),
+						'link_post'   => $post->ID,
+						'link_status' => esc_html__( 'Ignored', 'the-events-calendar' ),
+					);
+				} else {
+					$localize['single'] = array(
+						'link_text'  => esc_html__( 'Hide & Ignore', 'the-events-calendar' ),
+						'link_title' => esc_attr__( 'Ignored events do not show on the calendar but can be updated with future imports', 'the-events-calendar' ),
+					);
+				}
+			}
+
+			if ( isset( $_GET['post_status'] ) && self::$ignored_status === $_GET['post_status'] ) {
+				$localize['archive'] = array(
+					'delete_label' => esc_html__( 'Delete Permanently', 'the-events-calendar' ),
+				);
+			}
+
+			$args = array(
+				'localize' => array(
+					'name' => 'tribe_ignore_events',
+					'data' => $localize,
+				),
+			);
+
+			tribe_asset( $plugin, 'tribe-ignored-events', 'admin-ignored-events.js', array( 'jquery' ), 'admin_enqueue_scripts', $args );
+		}
+
+		/**
+		 * Filter the displayed bulk actions on the Ignored Events status
+		 *
+		 * @param   array $actions List of bulk actions
+		 *
+		 * @return  array
+		 */
+		public function filter_bulk_actions( $actions ) {
+			$post_type_obj = get_post_type_object( Tribe__Events__Main::POSTTYPE );
+
+			if ( isset( $actions['trash'] ) ) {
+				unset( $actions['trash'] );
+			}
+
+			return $actions;
 		}
 
 		/**
@@ -721,6 +779,12 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return null;
 			}
 
+			$post = get_post( $post );
+
+			if ( self::$ignored_status === $post->post_status ) {
+				return wp_delete_post( $post->ID, true );
+			}
+
 			// Important to note that this needs to return null for any invalid ignoring
 			if ( ! $this->can_ignore( $post ) ) {
 				return null;
@@ -740,6 +804,12 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return bool|null
 		 */
 		public function action_from_trash_to_ignored( $post ) {
+			$post = get_post( $post );
+
+			if ( self::$ignored_status === $post->post_status ) {
+				return wp_delete_post( $post->ID, true );
+			}
+
 			// Important to note that this needs to return null for any invalid ignoring
 			if ( ! $this->can_ignore( $post ) ) {
 				return null;
