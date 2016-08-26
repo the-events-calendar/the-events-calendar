@@ -894,7 +894,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$unique_field = $this->get_unique_field();
 		$existing_ids = $this->get_existing_ids_from_import_data( $items );
-		$ignored_ids  = Tribe__Events__Ignored_Events::instance()->get_ignored_posts_by_id( array( 'fields' => 'ids' ), $existing_ids );
 
 		$count_scanned_events = 0;
 
@@ -924,8 +923,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
 			}
 
-			// only update the post status if the ID is not set OR the event is NOT an ignored event
-			if ( empty( $event['ID'] ) || ! in_array( $event['ID'], $ignored_ids ) ) {
+			// only set the post status if there isn't an ID
+			if ( empty( $event['ID'] ) ) {
 				$event['post_status'] = $args['post_status'];
 			}
 
