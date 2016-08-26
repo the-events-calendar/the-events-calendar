@@ -481,7 +481,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return true;
 			}
 
-			$query = $this->get_ignored_posts_query( array( 'fields' => 'ids' ) );
+			$query = $this->get_query( array( 'fields' => 'ids' ) );
 
 			return $query->have_posts();
 		}
@@ -493,8 +493,8 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @return array
 		 */
-		public function get_ignored_posts( $args = array() ) {
-			$query = $this->get_ignored_posts_query( $args );
+		public function get( $args = array() ) {
+			$query = $this->get_query( $args );
 
 			return $query->posts;
 		}
@@ -506,7 +506,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function get_ignored_posts_query( $args = array() ) {
+		protected function get_query( $args = array() ) {
 			$defaults = array(
 				'post_type' => Tribe__Events__Main::POSTTYPE,
 				'post_status' => self::$ignored_status,
@@ -521,10 +521,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * Gets all ids for events that have been ignored
 		 *
 		 * @param null|array $data Array of event IDs/objects/data to check
+		 * @param array $args WP_Query args
 		 *
 		 * @return array
 		 */
-		public function get_ignored_posts_by_id( $args = array(), $data = array() ) {
+		public function get_by_id( $data = array(), $args = array() ) {
 			// if there isn't any data, there won't be any results. Bail
 			if ( empty( $data ) ) {
 				return array();
@@ -575,7 +576,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 
 			$args['post__in'] = $ids;
 
-			return $this->get_ignored_posts( $args );
+			return $this->get( $args );
 		}
 
 		/**
