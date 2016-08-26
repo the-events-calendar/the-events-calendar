@@ -53,6 +53,10 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 			return false;
 		}
 
+		if ( 'undefined' === typeof data.archive ) {
+			return false;
+		}
+
 		var $selects = $( '#bulk-action-selector-top, #bulk-action-selector-bottom' );
 
 		$selects.each( function() {
