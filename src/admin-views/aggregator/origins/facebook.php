@@ -14,61 +14,27 @@ $frequency->source      = 'facebook_import_frequency';
 $cron = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
 
-$fb_api_key = tribe_get_option( 'fb_api_key' );
-$fb_api_secret = tribe_get_option( 'fb_api_secret' );
-$missing_fb_credentials = ! $fb_api_key || ! $fb_api_secret;
-
+$fb_token = tribe_get_option( 'fb_token' );
+$fb_token_expires = tribe_get_option( 'fb_token_expires' );
+$fb_token_scopes = tribe_get_option( 'fb_token_scopes' );
+$missing_fb_credentials = ! $fb_token || ! $fb_token_scopes || ! $fb_token_expires || $fb_token_expires <= time();
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">
 	<td colspan="2" class="<?php echo esc_attr( $missing_fb_credentials ? 'enter-credentials' : 'has-credentials' ); ?>">
-		<?php
-		if ( $missing_fb_credentials ) :
-			?>
-			<input type="hidden" name="has-credentials" id="tribe-has-facebook-credentials" value="0">
-			<div class="tribe-message tribe-credentials-prompt">
-				<span class="dashicons dashicons-warning"></span>
-				<?php
-				printf(
-					esc_html__(
-						'Enter your Facebook App ID and secret to use Facebook import. %1$sClick here to view or create you Facebook Apps%2$s. You only need to do this once, it will be saved under %3$sEvents &gt; Settings &gt; APIs%4$s',
-						'the-events-calendar'
-					),
-					'<a href="https://developers.facebook.com/apps">',
-					'</a>',
-					'<a href="' . esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) ) ) . '">',
-					'</a>'
-				);
-				?>
+	<?php if ( $missing_fb_credentials ) : ?>
+		<div class="tribe-message tribe-credentials-prompt">
+			<span class="dashicons dashicons-warning"></span>
+			<?php wp_nonce_field( 'tribe-save-facebook-credentials' ); ?>
+			<input id="tribe-has-facebook-credentials" type="hidden" value="0" />
+
+			<div class="tribe-ea-facebook-login">
+				<iframe id="facebook-login" src="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_iframe_url() ); ?>" width="80" height="30"></iframe>
+				<div class="tribe-ea-status" data-error-message="<?php esc_attr_e( '@todo:error-fb-message', 'the-events-calendar' ); ?>"></div>
 			</div>
-			<div class="tribe-message tribe-credentials-success">
-				<span class="dashicons dashicons-yes"></span>
-				<?php
-				printf(
-					esc_html__(
-						'Your Facebook App ID and secret have been saved to %1$sEvents &gt; Settings &gt; APIs%2$s',
-						'the-events-calendar'
-					),
-					'<a href="' . esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) ) ) . '">',
-					'</a>'
-				);
-				?>
-			</div>
-			<div class="tribe-fieldset">
-				<?php wp_nonce_field( 'tribe-save-facebook-credentials' ); ?>
-				<input type="hidden" name="tribe_credentials_which" value="facebook">
-				<label for="facebook_app_id"><?php esc_html_e( 'App ID:', 'the-events-calendar' ); ?></label>
-				<input type="text" name="fb_api_key" id="facebook_api_key" value="<?php echo esc_attr( $fb_api_key ); ?>">
-				<label for="facebook_app_secret"><?php esc_html_e( 'App Secret:', 'the-events-calendar' ); ?></label>
-				<input type="text" name="fb_api_secret" id="facebook_api_secret" value="<?php echo esc_attr( $fb_api_secret ); ?>">
-				<button type="button" class="button tribe-save"><?php esc_html_e( 'Save', 'the-events-calendar' ); ?></button>
-			</div>
-			<?php
-		else:
-			?>
-			<input type="hidden" name="has-credentials" id="tribe-has-facebook-credentials" value="1">
-			<?php
-		endif;
-		?>
+		</div>
+	<?php else: ?>
+		<input id="tribe-has-facebook-credentials" type="hidden" value="1" />
+	<?php endif; ?>
 	</td>
 </tr>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">

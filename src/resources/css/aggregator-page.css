@@ -23,6 +23,17 @@
 	position: relative;
 }
 
+.tribe-ea .tribe-ea-facebook-login {
+	display: block;
+	clear:both;
+}
+
+.tribe-ea .tribe-ea-facebook-login iframe,
+		.tribe-ea .tribe-ea-facebook-login .tribe-ea-status {
+	display: block;
+	float: left;
+}
+
 .tribe-ea .tribe-ea-help {
 	padding: 4px;
 	color: #0073aa;
