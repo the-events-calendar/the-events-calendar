@@ -114,6 +114,10 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return  array
 		 */
 		public function filter_bulk_actions( $actions ) {
+			if ( ! isset( $_GET['post_status'] ) || self::$ignored_status !== $_GET['post_status'] ) {
+				return $actions;
+			}
+
 			$post_type_obj = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 
 			if ( isset( $actions['trash'] ) ) {
