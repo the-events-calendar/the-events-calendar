@@ -133,6 +133,7 @@ $scheduled_save_help = esc_html__( 'Click Import to import the events above and 
 						<input type="checkbox">
 					</th>
 					<th scope="col" class="tribe-column-start-date column-primary"><?php esc_html_e( 'Start Date', 'the-events-calendar' ); ?></th>
+					<th scope="col" class="tribe-column-start-time column-primary"><?php esc_html_e( 'Start Time', 'the-events-calendar' ); ?></th>
 					<th scope="col" class="tribe-column-end-date"><?php esc_html_e( 'End Date', 'the-events-calendar' ); ?></th>
 					<th scope="col" class="tribe-column-event"><?php esc_html_e( 'Event', 'the-events-calendar' ); ?></th>
 				</tr>
@@ -144,6 +145,7 @@ $scheduled_save_help = esc_html__( 'Click Import to import the events above and 
 						<input type="checkbox">
 					</th>
 					<th scope="col"><?php esc_html_e( 'Start Date', 'the-events-calendar' ); ?></th>
+					<th scope="col"><?php esc_html_e( 'Start Time', 'the-events-calendar' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'End Date', 'the-events-calendar' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'Event', 'the-events-calendar' ); ?></th>
 				</tr>
