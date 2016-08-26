@@ -81,7 +81,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		?>
 		<div class="tribe-message">
 			<p>
-				<?php esc_html_e( 'Importing data is still occurring. Don&#146;t worry, you can safely navigate away &ndash; the process will resume in a bit in the background.', 'the-events-calendar' ); ?>
+				<?php esc_html_e( 'Your import is currently in progress. Don\'t worry, you can safely navigate away&ndash;the import will continue in the background.', 'the-events-calendar' ); ?>
 			</p>
 		</div>
 		<ul class="tracker">

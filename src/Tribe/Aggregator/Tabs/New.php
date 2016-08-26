@@ -263,7 +263,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		}
 
 		if ( 'facebook' === $which ) {
-			if ( empty( $_POST['fb_api_key'] ) || empty( $_POST['fb_api_secret'] ) ) {
+			if ( empty( $_POST['token'] ) || empty( $_POST['expires'] ) || empty( $_POST['scopes'] ) ) {
 				$data = array(
 					'message' => __( 'The Facebook API key and API secret are both required.', 'the-events-calendar' ),
 				);
@@ -271,8 +271,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 				wp_send_json_error( $data );
 			}
 
-			tribe_update_option( 'fb_api_key', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $_POST['fb_api_key'] ) ) );
-			tribe_update_option( 'fb_api_secret', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $_POST['fb_api_secret'] ) ) );
+			$expires = absint( trim( preg_replace( '/[^0-9]/', '', $_POST['expires'] ) ) );
+			$expires += time();
+			tribe_update_option( 'fb_token', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $_POST['token'] ) ) );
+			tribe_update_option( 'fb_token_expires', $expires );
+			tribe_update_option( 'fb_token_scopes', trim( preg_replace( '/[^a-zA-Z0-9\,_-]/', '', $_POST['scopes'] ) ) );
 
 			$data = array(
 				'message' => __( 'Credentials have been saved', 'the-events-calendar' ),
@@ -370,7 +373,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 				<strong><?php esc_html_e( 'Upgrade to Event Aggregator to unlock access to multiple import sources.', 'the-events-calendar' ); ?></strong></p>
 			<p>
 				<?php echo sprintf(
-						esc_html__( 'With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup.com in a jiffy. Head over to %1$sTheEventsCalendar.com%2$s to purchase instant access, including a year of premium support, updates, and upgrades.', 'the-events-calendar' ),
+						esc_html__( 'With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup in a jiffy. Head over to %1$sTheEventsCalendar.com%2$s to purchase instant access, including a year of premium support, updates, and upgrades.', 'the-events-calendar' ),
 						'<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importpage&utm_medium=plugin-tec&utm_campaign=in-app">',
 						'</a>'
 					); ?>
@@ -396,10 +399,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			<?php
 			echo sprintf(
 				esc_html__(
-					'
-						%1$sYour Event Aggregator license is expired.%2$s Renew your license in order to import
-						events from Facebook, iCalendar, Google, or Meetup.com.
-					',
+					'%1$sYour Event Aggregator license is expired.%2$s Renew your license in order to import events from Facebook, iCalendar, Google, or Meetup.',
 					'the-events-calendar'
 				),
 				'<b>',

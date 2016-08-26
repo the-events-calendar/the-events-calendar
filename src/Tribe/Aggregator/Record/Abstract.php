@@ -923,7 +923,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
 			}
 
-			$event['post_status'] = $args['post_status'];
+			// only set the post status if there isn't an ID
+			if ( empty( $event['ID'] ) ) {
+				$event['post_status'] = $args['post_status'];
+			}
 
 			/**
 			 * Should events that have previously been imported be overwritten?

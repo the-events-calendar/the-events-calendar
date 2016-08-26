@@ -504,13 +504,106 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return true;
 			}
 
-			$query = new WP_Query( array(
-				'fields' => 'ids',
-				'post_type' => Tribe__Events__Main::POSTTYPE,
-				'post_status' => self::$ignored_status,
-			) );
+			$query = $this->get_query( array( 'fields' => 'ids' ) );
 
 			return $query->have_posts();
+		}
+
+		/**
+		 * Gets all ids for events that have been ignored
+		 *
+		 * @param null|array $data Array of event IDs/objects/data to check
+		 *
+		 * @return array
+		 */
+		public function get( $args = array() ) {
+			$query = $this->get_query( $args );
+
+			return $query->posts;
+		}
+
+		/**
+		 * Gets all ids for events that have been ignored
+		 *
+		 * @param null|array $data Array of event IDs/objects/data to check
+		 *
+		 * @return WP_Query
+		 */
+		public function get_query( $args = array() ) {
+			$defaults = array(
+				'post_type' => Tribe__Events__Main::POSTTYPE,
+				'post_status' => self::$ignored_status,
+			);
+
+			$args = wp_parse_args( $args, $defaults );
+
+			return new WP_Query( $args );
+		}
+
+		/**
+		 * Gets all ids for events that have been ignored
+		 *
+		 * @param null|array $data Array of event IDs/objects/data to check
+		 * @param array $args WP_Query args
+		 *
+		 * @return array
+		 */
+		public function get_by_id( $data = array(), $args = array() ) {
+			// if there isn't any data, there won't be any results. Bail
+			if ( empty( $data ) ) {
+				return array();
+			}
+
+			// fields we'll look for in objects/arrays
+			$search = array(
+				'ID',
+				'id',
+				'post_id',
+			);
+
+			$ids = array();
+
+			// if the passed in data is not an array, turn it into one
+			if ( ! is_array( $data ) ) {
+				$data = array( $data );
+			}
+
+			$first = reset( $data );
+
+			if ( is_scalar( $first ) ) {
+				$ids = $data;
+			} else {
+				$id_field  = null;
+				$first = (object) $first;
+
+				// look through the object for one of the possible ID fields and bail when/if we find it
+				foreach ( $search as $field ) {
+					if ( empty( $first->$field ) ) {
+						continue;
+					}
+
+					$id_field = $field;
+					break;
+				}
+
+				// if we've found an ID field, let's generate an array of those IDs
+				if ( $id_field ) {
+					$ids = wp_list_pluck( $data, $id_field );
+				}
+			}
+
+			// if there aren't any IDs, let's make sure we don't get any results
+			if ( empty( $ids ) ) {
+				return array();
+			}
+
+			if ( isset( $args['post__in'] ) ) {
+				$args['post__in'] = array_merge( $args['post__in'], $ids );
+			} else {
+				$args['post__in'] = $ids;
+			}
+
+			return $this->get( $args );
 		}
 
 		/**
