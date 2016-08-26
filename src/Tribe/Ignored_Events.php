@@ -504,7 +504,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @param null|array $data Array of event IDs/objects/data to check
 		 *
-		 * @return array
+		 * @return WP_Query
 		 */
 		public function get_query( $args = array() ) {
 			$defaults = array(
@@ -574,7 +574,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return array();
 			}
 
-			$args['post__in'] = $ids;
+			if ( isset( $args['post__in'] ) ) {
+				$args['post__in'] = array_merge( $args['post__in'], $ids );
+			} else {
+				$args['post__in'] = $ids;
+			}
 
 			return $this->get( $args );
 		}
