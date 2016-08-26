@@ -661,6 +661,20 @@ tribe_aggregator.fields = {
 				args.minimumResultsForSearch = Infinity;
 			}
 
+			args.upsellFormatter = function( option ) {
+				if ( 'redirect' == option.id ) {
+					var parts = option.text.split( '|' );
+					option.text = parts[0] + '<br><span class="tribe-upsell-subtitle">' + parts[1] + '</span>';
+				}
+				return option.text;
+			}
+
+			if ( 'tribe-ea-field-origin' === $select.attr( 'id' ) ) {
+				args.formatResult = args.upsellFormatter,
+    			args.formatSelection = args.upsellFormatter,
+    			args.escapeMarkup = function(m) { return m; };
+			}
+
 			if ( $select.is( '[multiple]' ) ) {
 				args.multiple = true;
 
@@ -709,7 +723,7 @@ tribe_aggregator.fields = {
 				return result;
 			};
 
-			// Select also allows Tags, se we go with that too
+			// Select also allows Tags, so we go with that too
 			if ( $select.is( '[data-tags]' ) ){
 				args.tags = $select.data( 'options' );
 
@@ -768,7 +782,7 @@ tribe_aggregator.fields = {
 					}
 				};
 
-				// By default only sent the source
+				// By default only send the source
 				args.ajax.data = function( search, page ) {
 					return {
 						action: 'tribe_aggregator_dropdown_' + source,
