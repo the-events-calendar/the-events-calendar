@@ -506,7 +506,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function get_query( $args = array() ) {
+		public function get_query( $args = array() ) {
 			$defaults = array(
 				'post_type' => Tribe__Events__Main::POSTTYPE,
 				'post_status' => self::$ignored_status,
