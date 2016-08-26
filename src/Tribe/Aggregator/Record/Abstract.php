@@ -894,6 +894,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$unique_field = $this->get_unique_field();
 		$existing_ids = $this->get_existing_ids_from_import_data( $items );
+		$ignored_ids  = $this->get_ignored_ids( $existing_ids );
 
 		$count_scanned_events = 0;
 
@@ -923,7 +924,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
 			}
 
-			$event['post_status'] = $args['post_status'];
+			// only update the post status if the ID is not set OR the event is NOT an ignored event
+			if ( empty( $event['ID'] ) || ! in_array( $event['ID'], $ignored_ids ) ) {
+				$event['post_status'] = $args['post_status'];
+			}
 
 			/**
 			 * Should events that have previously been imported be overwritten?
@@ -1132,6 +1136,36 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$existing_ids = $event_object->get_existing_ids( $this->meta['origin'], $selected_ids );
 
 		return $existing_ids;
+	}
+
+	/**
+	 * Gets all ids for events that have been ignored
+	 *
+	 * @param array $check Array of event IDs to check
+	 *
+	 * @return array
+	 */
+	protected function get_ignored_ids( $check ) {
+		if ( empty( $check ) ) {
+			return array();
+		}
+
+		$first = reset( $check );
+
+		if ( ! is_numeric( $first ) ) {
+			$check = wp_list_pluck( $check, 'post_id' );
+		}
+
+		$args = array(
+			'fields' => 'ids',
+			'post_type' => Tribe__Events__Main::POSTTYPE,
+			'post_status' => Tribe__Events__Ignored_Events::$ignored_status,
+			'post__in' => $check,
+		);
+
+		$query = new WP_Query( $args );
+
+		return $query->posts;
 	}
 
 	protected function filter_data_by_selected( $import_data ) {
