@@ -40,7 +40,6 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			add_action( 'current_screen', array( $this, 'action_restore_events' ) );
 			add_action( 'current_screen', array( $this, 'action_restore_ignored' ) );
 
-
 			/**
 			 * `pre_delete_post` only exists after WP 4.4
 			 * @see https://core.trac.wordpress.org/ticket/12706
@@ -49,6 +48,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			add_action( 'trashed_post', array( $this, 'action_from_trash_to_ignored' ) );
 
 			add_filter( 'views_edit-' . Tribe__Events__Main::POSTTYPE, array( $this, 'filter_views' ) );
+			add_filter( 'bulk_actions-edit-' . Tribe__Events__Main::POSTTYPE, array( $this, 'filter_bulk_actions' ) );
 			add_filter( 'post_row_actions', array( $this, 'filter_actions' ), 10, 2 );
 
 			add_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array( $this, 'filter_columns' ), 100 );
@@ -63,6 +63,29 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			 * Register Notices
 			 */
 			tribe_notice( 'legacy-ignored-events', array( $this, 'render_notice_legacy' ), 'dismiss=1&type=warning' );
+		}
+
+		/**
+		 * Filter the displayed bulk actions on the Ignored Events status
+		 *
+		 * @param   array $actions List of bulk actions
+		 *
+		 * @return  array
+		 */
+		public function filter_bulk_actions( $actions ) {
+			$post_type_obj = get_post_type_object( Tribe__Events__Main::POSTTYPE );
+
+			if ( isset( $actions['trash'] ) ) {
+				unset( $actions['trash'] );
+			}
+
+			var_dump( current_user_can( $post_type_obj->cap->delete_posts ) );
+
+			if ( current_user_can( $post_type_obj->cap->delete_posts ) ) {
+				$actions['delete'] = __( 'Delete Permanently', 'the-events-calendar' );
+			}
+
+			return $actions;
 		}
 
 		/**
