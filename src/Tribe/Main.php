@@ -3134,6 +3134,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$revision = Tribe__Events__Revisions__Post::new_from_post( $post );
 				$revision->save();
 
+				$avoid_recursion = false;
+
 				return;
 			}
 
