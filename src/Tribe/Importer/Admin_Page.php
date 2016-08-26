@@ -63,10 +63,18 @@ class Tribe__Events__Importer__Admin_Page {
 	}
 
 	public function register_admin_page() {
+		// only add this if they have Eventbrite, iCal, or Facebook
+		if ( apply_filters( 'tribe_events_hide_legacy_imports', '__return_true' )
+		  && ! class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' )
+		  && ! class_exists( 'Tribe__Events__Facebook__Importer' )
+		  && ! class_exists( 'Tribe__Events__Ical_Importer__Main' ) ) {
+			return;
+		}
+
 		add_submenu_page(
 			$this->admin_page_url,
-			esc_html__( 'Import', 'the-events-calendar' ),
-			esc_html__( 'Import', 'the-events-calendar' ),
+			esc_html__( 'Legacy Import', 'the-events-calendar' ),
+			esc_html__( 'Legacy Import', 'the-events-calendar' ),
 			'import',
 			$this->admin_page_slug,
 			array( $this, 'render_admin_page_contents' )

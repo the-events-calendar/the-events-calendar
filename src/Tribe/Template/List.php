@@ -22,6 +22,16 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 		const AJAX_HOOK = 'tribe_list';
 
+		/**
+		 * The path to the template file used for the view.
+		 * This value is used in Shortcodes/Tribe_Events.php to
+		 * locate the correct template file for each shortcode
+		 * view.
+		 *
+		 * @var string
+		 */
+		public $view_path = 'list/content';
+
 		protected function hooks() {
 			parent::hooks();
 			if ( tribe_is_showing_all() ) {

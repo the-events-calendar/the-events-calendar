@@ -81,6 +81,8 @@ class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 
 		// Let's remove any uncosted test events and ensure the test works in reverse
 		$this->remove_uncosted_events();
+		delete_transient(Tribe__Events__Cost_Utils::UNCOSTED_EVENTS_TRANSIENT);
+
 		$this->assertFalse( tribe_has_uncosted_events(),
 			'We do not expect to find events without a cost after they have been removed'
 		);

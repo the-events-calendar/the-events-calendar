@@ -239,11 +239,6 @@ a.tribe-events-gcal {
 	display: inline;
 }
 
-.tribe-events-divider {
-	font-weight: bold;
-	padding: 0 10px;
-}
-
 /* 2011 Theme Extra Calendar Room */
 
 .events-archive .entry-content,
@@ -1174,14 +1169,12 @@ select.tribe-events-dropdown {
 
 #tribe-events-content .tribe-events-calendar div[id*='tribe-events-event-'] h3.tribe-events-month-event-title {
 	font-family: sans-serif;
-	font-size: 13px;
-	font-weight: bold;
+	font-size: 98%;
 	font-weight: normal;
-	letter-spacing: 0;
 	line-height: 1.25;
 	margin: 0;
 	overflow: hidden;
-	padding: 0;
+	padding: 3%;
 	text-transform: none;
 }
 
@@ -1978,28 +1971,32 @@ input[name*='tribe-bar-']:-moz-placeholder {
 /* Twenty Sixteen
 ========================================================================== */
 
-body.tribe-theme-twentysixteen table.tribe-events-calendar {
+.tribe-theme-twentysixteen table.tribe-events-calendar {
 	table-layout: auto;
 }
 
-body.tribe-theme-twentysixteen .tribe-events-single-section-title:first-child {
+.tribe-theme-twentysixteen .tribe-events-single-section-title:first-child {
 	margin-top: 20px;
 }
 
-body.tribe-theme-twentysixteen .tribe-events-content.entry-summary {
+.tribe-theme-twentysixteen .tribe-events-content.entry-summary {
 	font-size: inherit;
 	margin-bottom: 0;
 	margin-top: 5px;
 }
 
-body.tribe-theme-twentysixteen.events-archive .entry-content,
-	body.tribe-theme-twentysixteen.events-archive .entry-header {
+.tribe-theme-twentysixteen.events-archive .entry-content,
+	.tribe-theme-twentysixteen.events-archive .entry-header {
 	width: auto;
 }
 
-body.tribe-theme-twentysixteen .datepicker table {
+.tribe-theme-twentysixteen .datepicker table {
 	border: 0;
 	width: auto;
+}
+
+.tribe-theme-twentysixteen .entry-content a {
+	box-shadow: none;
 }
 
 /* = Events Retina

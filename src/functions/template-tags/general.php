@@ -626,7 +626,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		} else {
 			$attrs['data-title'] = wp_title( '|', false, 'right' );
 		}
-
 		switch ( $current_view ) {
 			case 'month.php' :
 				$attrs['data-view']    = 'month';
@@ -1535,7 +1534,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$url  = plugins_url( Tribe__Events__Main::instance()->plugin_dir . $path );
 
 		/**
-		 * Deprected the tribe_events_resource_url filter in 4.0 in favor of tribe_resource_url. Remove in 5.0
+		 * Deprecated the tribe_events_resource_url filter in 4.0 in favor of tribe_resource_url. Remove in 5.0
 		 */
 		$url = apply_filters( 'tribe_events_resource_url', $url, $resource );
 
@@ -1544,5 +1543,20 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		return $url;
+	}
+
+	/**
+	 * Utility function to compile separated lists.
+	 *
+	 * @param string $body
+	 * @param string $separator
+	 * @param string $field
+	 *
+	 * @return string
+	 */
+	function tribe_separated_field( $body, $separator, $field ) {
+		$body_and_separator = $body ? $body . $separator : $body;
+
+		return $field ? $body_and_separator . $field : $body;
 	}
 }

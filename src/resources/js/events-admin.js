@@ -514,21 +514,27 @@ jQuery( document ).ready( function( $ ) {
 	//show state/province input based on first option in countries list, or based on user input of country
 
 	var $state_prov_chzn = $( "#StateProvinceSelect_chosen" ),
+		$state_prov_select = $( "#StateProvinceSelect" ),
 		$state_prov_text = $( "#StateProvinceText" );
 
 
 	function tribeShowHideCorrectStateProvinceInput( country ) {
 		if ( country == 'US' || country == 'United States' ) {
 			$state_prov_chzn.show();
+			if ( $state_prov_chzn.length < 1 ) {
+				$state_prov_select.show();
+			}
 			$state_prov_text.hide();
 		}
 		else if ( country != '' ) {
 			$state_prov_text.show();
 			$state_prov_chzn.hide();
+			$state_prov_select.hide();
 		}
 		else {
-			$state_prov_text.hide();
+			$state_prov_text.show();
 			$state_prov_chzn.hide();
+			$state_prov_select.hide();
 		}
 	}
 
@@ -735,3 +741,33 @@ jQuery( document ).ready( function( $ ) {
 		return false;
 	} );
 } );
+
+/**
+ * Ignored Events JS
+ */
+( function( $ ){
+	"use strict";
+	// Verify that all WP variables exists
+	if ( -1 !== [ typeof pagenow, typeof typenow, typeof adminpage ].indexOf( 'undefined' ) ) {
+		return false;
+	}
+
+	// We are not on the correct Page
+	if ( 'tribe_events' !== pagenow || 'tribe_events' !== typenow || 'post-php' !== adminpage ) {
+		return false;
+	}
+
+	// Verify Variables in regards to Ignored Events
+	if ( 'undefined' === typeof tribe_events_admin.ignored_events ) {
+		return false;
+	}
+
+	$( document ).ready( function(){
+		$( '.submitdelete' ).attr( 'title', tribe_events_admin.ignored_events.link_title ).html( tribe_events_admin.ignored_events.link_text );
+		if ( 'undefined' !== typeof tribe_events_admin.ignored_events.link_nonce ) {
+			$( '#post_status' ).append( $( '<option>', {'value': 'ignored', 'text' : tribe_events_admin.ignored_events.link_status } ).prop( 'selected', true ) );
+			$( '#post-status-display' ).html( tribe_events_admin.ignored_events.link_status );
+			$( '.submitdelete' ).attr( 'href', 'post.php?action=delete&post=' + tribe_events_admin.ignored_events.link_post + '&_wpnonce=' + tribe_events_admin.ignored_events.link_nonce );
+		}
+	} );
+}( jQuery ) );

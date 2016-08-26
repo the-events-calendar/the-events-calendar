@@ -17,6 +17,16 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 	 */
 	class Tribe__Events__Template__Single_Event extends Tribe__Events__Template_Factory {
 
+		/**
+		 * The path to the template file used for the view.
+		 * This value is used in Shortcodes/Tribe_Events.php to
+		 * locate the correct template file for each shortcode
+		 * view.
+		 *
+		 * @var string
+		 */
+		public $view_path = 'single-event';
+
 		protected $body_class = 'events-single';
 
 		public function hooks() {
@@ -30,8 +40,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 		/**
 		 * Setup meta display in this template
 		 *
+		 * @deprecated 4.3
 		 **/
 		public function setup_meta() {
+			_deprecated_function( __METHOD__, '4.3' );
 
 			parent::setup_meta();
 

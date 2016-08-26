@@ -1,9 +1,6 @@
 <?php
-
 // Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
+defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Service {
 	/**
@@ -26,10 +23,10 @@ class Tribe__Events__Aggregator__Service {
 	 *     @type string     $path        Path of the API on the domain above
 	 * }
 	 */
-	protected $api = array(
+	public $api = array(
 		'key' => null,
 		'version' => 'v1',
-		'domain' => 'http://api.tri.be/',
+		'domain' => 'http://ea.theeventscalendar.com/',
 		'path' => 'wp-json/event-aggregator/',
 	);
 
@@ -44,12 +41,6 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		return self::$instance;
-	}
-
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
 	}
 
 	/**
@@ -72,11 +63,11 @@ class Tribe__Events__Aggregator__Service {
 		 * Creates a clean way to filter and redirect to another API domain/path
 		 * @var stdClass
 		 */
-		$api = (object) apply_filters( 'tribe_ea_api', $api );
+		$api = (object) apply_filters( 'tribe_aggregator_api', $api );
 
 		// The user doesn't have a license key
-		if ( ! $api->key ) {
-			return new WP_Error( 'invalid-ea-license', __( 'You must enter an Event Aggregator license key in Events > Settings > Licenses', 'the-events-calendar' ) );
+		if ( empty( $api->key ) ) {
+			return tribe_error( 'core:aggregator:invalid-service-key' );
 		}
 
 		return $api;
@@ -126,10 +117,25 @@ class Tribe__Events__Aggregator__Service {
 			return $url;
 		}
 
-		$response = wp_remote_get( esc_url_raw( $url ) );
+		/**
+		 * Length of time to wait when initially connecting to Event Aggregator before abandoning the attempt.
+		 * default is 60 seconds. We set this high so large files can be transfered on slow connections
+		 *
+		 * @var int $timeout_in_seconds
+		 */
+		$timeout_in_seconds = (int) apply_filters( 'tribe_aggregator_connection_timeout', 60 );
+
+		$response = wp_remote_get( esc_url_raw( $url ), array( 'timeout' => $timeout_in_seconds ) );
 
 		if ( is_wp_error( $response ) ) {
+			if ( isset( $response->errors['http_request_failed'] ) ) {
+				$response->errors['http_request_failed'][0] = __( 'Connection timed out while transferring the feed. If you are dealing with large feeds you may need to customize the tribe_aggregator_connection_timeout filter.', 'the-events-calendar' );
+			}
 			return $response;
+		}
+
+		if ( isset( $response->data ) && isset( $response->data->status ) && '404' === $response->data->status ) {
+			return new WP_Error( 'core:aggregator:daily-limit-reached', esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' ) );
 		}
 
 		// if the response is not an image, let's json decode the body
@@ -216,6 +222,9 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Creates an import
 	 *
+	 * Note: This method exists because WordPress by default doesn't allow multipart/form-data
+	 *       with boundaries to happen
+	 *
 	 * @param array $args {
 	 *     Array of arguments. See REST docs for details. 1 exception listed below:
 	 *
@@ -236,7 +245,7 @@ class Tribe__Events__Aggregator__Service {
 			'body' => $args,
 		);
 
-		if ( isset( $args['source_file'] ) ) {
+		if ( isset( $args['file'] ) ) {
 			$boundary = wp_generate_password( 24 );
 			$headers = array(
 				'content-type' => 'multipart/form-data; boundary=' . $boundary,
@@ -244,7 +253,7 @@ class Tribe__Events__Aggregator__Service {
 
 			$payload = array();
 			foreach ( $args as $name => $value ) {
-				if ( 'source_file' === $name ) {
+				if ( 'file' === $name ) {
 					continue;
 				}
 
@@ -257,10 +266,31 @@ class Tribe__Events__Aggregator__Service {
 				$payload[] = $value;
 			}
 
-			$payload[] = '--' . $boundary;
-			$payload[] = 'Content-Disposition: form-data; name="source"; filename="' . basename( $args['source_file']['name'] ) . '"' . "\r\n";
-			$payload[] = file_get_contents( $args['source_file']['tmp_name'] );
-			$payload[] = '--' . $boundary . '--';
+			$file_path = null;
+			$file_name = null;
+
+			if ( is_numeric( $args['file'] ) ) {
+				$file_id = absint( $args['file'] );
+				$file_path = get_attached_file( $file_id );
+
+				if ( ! file_exists( $file_path ) ) {
+					$file_path = null;
+				} else {
+					$file_name = basename( $file_path );
+				}
+			} elseif ( ! empty( $args['file']['tmp_name'] ) && ! empty( $args['file']['name'] ) ) {
+				if ( file_exists( $args['file']['tmp_name'] ) ) {
+					$file_path = $args['file']['tmp_name'];
+					$file_name = basename( $args['file']['name'] );
+				}
+			}
+
+			if ( $file_path && $file_name ) {
+				$payload[] = '--' . $boundary;
+				$payload[] = 'Content-Disposition: form-data; name="source"; filename="' . $file_name . '"' . "\r\n";
+				$payload[] = file_get_contents( $file_path );
+				$payload[] = '--' . $boundary . '--';
+			}
 
 			$args = array(
 				'headers' => $headers,
@@ -269,10 +299,9 @@ class Tribe__Events__Aggregator__Service {
 		} else {
 			$args = $request_args;
 		}
-		do_action( 'debug_robot', '$args :: ' . print_r( $args, TRUE ) );
 
 		$response = $this->post( 'import', $args );
-		do_action( 'debug_robot', '$response :: ' . print_r( $response, TRUE ) );
+		return $response;
 	}
 
 	/**

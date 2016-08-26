@@ -20,6 +20,10 @@ abstract class Tribe__Events__Importer__File_Importer {
 	private $encoding = array();
 	private $log = array();
 
+	public $is_aggregator = false;
+	public $aggregator_record;
+	public $default_category;
+
 	/**
 	 * @var Tribe__Events__Importer__Featured_Image_Uploader
 	 */
@@ -34,10 +38,13 @@ abstract class Tribe__Events__Importer__File_Importer {
 	 */
 	public static function get_importer( $type, Tribe__Events__Importer__File_Reader $file_reader ) {
 		switch ( $type ) {
+			case 'event':
 			case 'events':
 				return new Tribe__Events__Importer__File_Importer_Events( $file_reader );
+			case 'venue':
 			case 'venues':
 				return new Tribe__Events__Importer__File_Importer_Venues( $file_reader );
+			case 'organizer':
 			case 'organizers':
 				return new Tribe__Events__Importer__File_Importer_Organizers( $file_reader );
 			default:
@@ -63,6 +70,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	public function __construct( Tribe__Events__Importer__File_Reader $file_reader, Tribe__Events__Importer__Featured_Image_Uploader $featured_image_uploader = null ) {
 		$this->reader = $file_reader;
 		$this->featured_image_uploader = $featured_image_uploader;
+		$this->limit = apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size );
 	}
 
 	public function set_map( array $map_array ) {
@@ -90,12 +98,28 @@ abstract class Tribe__Events__Importer__File_Importer {
 		}
 	}
 
+	public function do_import_preview() {
+		$rows = array();
+
+		$this->reader->set_row( $this->offset );
+		for ( $i = 0; $i < $this->limit && ! $this->import_complete(); $i ++ ) {
+			set_time_limit( 30 );
+			$rows[] = $this->import_next_row( false, true );
+		}
+
+		return $rows;
+	}
+
 	public function get_last_completed_row() {
 		return $this->reader->get_last_line_number_read() + 1;
 	}
 
 	public function import_complete() {
 		return $this->reader->at_end_of_file();
+	}
+
+	public function get_line_count() {
+		return $this->reader->lines;
 	}
 
 	public function get_updated_post_count() {
@@ -134,7 +158,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return $this->type;
 	}
 
-	public function import_next_row( $throw = false ) {
+	public function import_next_row( $throw = false, $preview = false ) {
 		$post_id = null;
 		$record = $this->reader->read_next_row();
 		$row    = $this->reader->get_last_line_number_read() + 1;
@@ -150,6 +174,10 @@ abstract class Tribe__Events__Importer__File_Importer {
 			$record = $encoded;
 		}
 
+		if ( $preview ) {
+			return $record;
+		}
+
 		if ( ! $this->is_valid_record( $record ) ) {
 			if ( ! $throw ) {
 				$this->log[ $row ] = $this->get_skipped_row_message( $row );
@@ -160,6 +188,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 				throw new RuntimeException( sprintf( 'Missing required fields in row %d', $row ) );
 			}
 		}
+
 		try {
 			$post_id = $this->update_or_create_post( $record );
 		} catch ( Exception $e ) {

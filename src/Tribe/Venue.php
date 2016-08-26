@@ -58,6 +58,7 @@ class Tribe__Events__Venue {
 		$this->singular_venue_label                = $this->get_venue_label_singular();
 		$this->singular_venue_label_lowercase      = $this->get_venue_label_singular_lowercase();
 		$this->plural_venue_label                  = $this->get_venue_label_plural();
+		$this->plural_venue_label_lowercase        = $this->get_venue_label_plural_lowercase();
 
 		$this->post_type_args['rewrite']['slug']   = $rewrite->prepare_slug( $this->singular_venue_label, self::POSTTYPE, false );
 		$this->post_type_args['show_in_nav_menus'] = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
@@ -69,17 +70,18 @@ class Tribe__Events__Venue {
 		 * @param array $args Array of arguments for register_post_type labels
 		 */
 		$this->post_type_args['labels'] = apply_filters( 'tribe_events_register_venue_post_type_labels', array(
-			'name'               => $this->plural_venue_label,
-			'singular_name'      => $this->singular_venue_label,
+			'name'                    => $this->plural_venue_label,
+			'singular_name'           => $this->singular_venue_label,
 			'singular_name_lowercase' => $this->singular_venue_label_lowercase,
-			'add_new'            => esc_html__( 'Add New', 'the-events-calendar' ),
-			'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ),
-			'edit_item'          => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label ),
-			'new_item'           => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_venue_label ),
-			'view_item'          => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_venue_label ),
-			'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_venue_label ),
-			'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
-			'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
+			'plural_name_lowercase'   => $this->plural_venue_label_lowercase,
+			'add_new'                 => esc_html__( 'Add New', 'the-events-calendar' ),
+			'add_new_item'            => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ),
+			'edit_item'               => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label ),
+			'new_item'                => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_venue_label ),
+			'view_item'               => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_venue_label ),
+			'search_items'            => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_venue_label ),
+			'not_found'               => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
+			'not_found_in_trash'      => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
 		) );
 
 		$this->register_post_type();
@@ -90,6 +92,7 @@ class Tribe__Events__Venue {
 		add_filter( 'tribe_events_linked_post_type_container', array( $this, 'linked_post_type_container' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 5 );
 		add_filter( 'tribe_events_linked_post_meta_box_title', array( $this, 'meta_box_title' ), 5, 2 );
+		add_filter( 'tribe_events_linked_post_default', array( $this, 'linked_post_default' ), 10, 2 );
 		add_action( 'tribe_events_linked_post_new_form', array( $this, 'linked_post_new_form' ) );
 	}
 
@@ -378,6 +381,22 @@ class Tribe__Events__Venue {
 	 */
 	public function delete( $venue_id, $force_delete = false ) {
 		wp_delete_post( $venue_id, $force_delete );
+	}
+
+	/**
+	 * Returns the default venue
+	 *
+	 * @since 4.2.4
+	 *
+	 * @param int $default Default venue ID
+	 * @param string $post_type Post type of form being output
+	 */
+	public function linked_post_default( $default, $post_type ) {
+		if ( self::POSTTYPE !== $post_type ) {
+			return $default;
+		}
+
+		return Tribe__Events__Main::instance()->defaults()->venue_id();
 	}
 
 	public function linked_post_new_form( $post_type ) {

@@ -28,7 +28,7 @@
 		var base_url = '/';
 
 		if ( 'undefined' !== typeof config.events_base ) {
-			base_url = config.events_base;
+			base_url =  $( '#tribe-events-header' ).data( 'baseurl' );
 		} else if ( $nav_link.length ) {
 			base_url = $nav_link.first().attr( 'href' ).slice( 0, -8 );
 		}
@@ -128,8 +128,7 @@
 
 							var data = $this.data( 'tribejson' );
 
-							$target
-								.append( tribe_tmpl( 'tribe_tmpl_month_mobile', data ) );
+							$target.append( tribe_tmpl( 'tribe_tmpl_month_mobile', data ) );
 						}
 
 					} );
@@ -284,6 +283,7 @@
 				if ( td.default_permalinks ) {
 					td.cur_url = td.cur_url.split("?")[0];
 				}
+
 				ts.popping = false;
 				tf.pre_ajax( function() {
 					tribe_events_calendar_ajax_post();
@@ -376,7 +376,6 @@
 			}
 			ts.popping = false;
 		} );
-
 		/**
 		 * @function tribe_events_calendar_ajax_post
 		 * @desc The ajax handler for month view.

@@ -1,4 +1,6 @@
 <?php
+// Don't load directly
+defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__API__Abstract {
 	/**
@@ -14,10 +16,10 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 	 * }
 	 */
 	public function get( $image_id ) {
-		$tribe_ea_meta_key = 'tribe_ea_image_id';
+		$tribe_aggregator_meta_key = 'tribe_aggregator_image_id';
 
 		// Prevent Possible duplicated includes
-		if ( ! function_exists( 'wp_upload_dir' ) ) {
+		if ( ! function_exists( 'wp_upload_dir' ) || ! function_exists( 'wp_generate_attachment_metadata' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/image.php';
 		}
 
@@ -30,7 +32,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 
 			// We only need the ID
 			'fields'         => 'ids',
-			'meta_key'       => $tribe_ea_meta_key,
+			'meta_key'       => $tribe_aggregator_meta_key,
 			'meta_value'     => $image_id,
 		) );
 
@@ -46,7 +48,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 			$file->filename  = basename( $attachment_meta['file'] );
 			$file->path      = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $attachment_meta['file'];
 
-			// Fetch teh Extension for this filename
+			// Fetch the Extension for this filename
 			$filetype = wp_check_filetype( $file->filename, null );
 			$file->extension = $filetype['ext'];
 
@@ -60,8 +62,11 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 			return $response;
 		}
 
-		// if the reponse isn't an image then we need to bail
+		// if the response isn't an image then we need to bail
 		if ( ! preg_match( '/image/', $response['headers']['content-type'] ) ) {
+			/**
+			 * @todo  See a way for Tribe__Errors to handle overwriting
+			 */
 			return new WP_Error( 'invalid-image', $response['body'] );
 		}
 
@@ -92,12 +97,12 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 			'post_title'     => preg_replace( '/\.[^.]+$/', '', $filename ),
 			'post_content'   => '',
 			'post_status'    => 'inherit',
-			'post_mime_type' => $filetype,
+			'post_mime_type' => $filetype['type'],
 		);
 
 		// insert the attachment
 		if ( ! $attachment_id = wp_insert_attachment( $attachment, $upload_results['file'] ) ) {
-			return new WP_Error( 'tribe-ea-attachment-error', __( 'Unable to create an attachment post for the imported Event Aggregator image', 'the-events-calendar' ) );
+			return tribe_error( 'core:aggregator:attachment-error' );
 		}
 
 		if ( is_wp_error( $attachment_id ) ) {
@@ -109,7 +114,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		wp_update_attachment_metadata( $attachment_id, $attachment_meta );
 
 		// add our own custom meta field so the image is findable
-		update_post_meta( $attachment_id, $tribe_ea_meta_key, $filename );
+		update_post_meta( $attachment_id, $tribe_aggregator_meta_key, $filename );
 
 		$file->post_id   = (int) $attachment_id;
 		$file->filename  = $filename;

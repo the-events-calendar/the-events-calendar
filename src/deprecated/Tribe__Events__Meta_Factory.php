@@ -7,7 +7,10 @@
  * Widget Factory which allows for registration, sorting, assignment, templating and
  * deregistration of meta items within a Tribe Meta container (similar to "sidebar")
  *
+ * @deprecated 4.3
  */
+
+_deprecated_file( __FILE__, '4.3' );
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -23,6 +26,8 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 
 		/**
 		 * register meta or meta_groups
+		 *
+		 * @deprecated 4.3
 		 *
 		 * @param  string $meta
 		 * @param  array  $args
@@ -103,6 +108,8 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 		/**
 		 * check to see if meta item has been defined
 		 *
+		 * @deprecated 4.3
+		 *
 		 * @param  string $meta_id
 		 * @param  string $type
 		 *
@@ -117,6 +124,8 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 
 		/**
 		 * get meta arguments
+		 *
+		 * @deprecated 4.3
 		 *
 		 * @param  string $meta_id
 		 * @param  string $type

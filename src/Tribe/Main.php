@@ -58,6 +58,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'thumbnail',
 				'custom-fields',
 				'comments',
+				'revisions',
 			),
 			'taxonomies'      => array( 'post_tag' ),
 			'capability_type' => array( 'tribe_event', 'tribe_events' ),
@@ -299,7 +300,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/link.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/widgets.php';
-			require_once $this->plugin_path . 'src/functions/template-tags/meta.php';
+			require_once $this->plugin_path . 'src/deprecated/functions.php';
 
 			// Load Advanced Functions
 			require_once $this->plugin_path . 'src/functions/advanced-functions/event.php';
@@ -448,6 +449,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
+			add_action( 'post_updated', array( $this, 'track_event_post_field_changes' ), 10, 3 );
 
 			/* Registers the list widget */
 			add_action( 'widgets_init', array( $this, 'register_list_widget' ), 90 );
@@ -469,7 +471,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', array( 'Tribe__Cache_Listener', 'instance' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Cache', 'setup' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Support', 'getInstance' ) );
-			add_action( 'plugins_loaded', array( $this, 'set_meta_factory_global' ) );
 
 			if ( ! Tribe__Main::instance()->doing_ajax() ) {
 				add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
@@ -570,10 +571,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_events_google_maps_api', array( $google_maps_api_key, 'filter_tribe_events_google_maps_api' ) );
 			add_filter( 'tribe_events_pro_google_maps_api', array( $google_maps_api_key, 'filter_tribe_events_google_maps_api' ) );
 
+			// Preview handling
+			add_action( 'template_redirect', array( Tribe__Events__Revisions__Preview::instance(), 'hook' ) );
+
 			/**
 			 * Register Notices
 			 */
-			Tribe__Admin__Notices::instance()->register( 'archive-slug-conflict', array( $this, 'render_notice_archive_slug_conflict' ), 'dismiss=1&type=error' );
+			tribe_notice( 'archive-slug-conflict', array( $this, 'render_notice_archive_slug_conflict' ), 'dismiss=1&type=error' );
 
 			/**
 			 * Expire notices
@@ -618,15 +622,27 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function render_notice_archive_slug_conflict() {
-			$archive_slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
-			$conflict     = get_page_by_path( $archive_slug );
+			$archive_slug   = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
+			$conflict_query = new WP_Query( array(
+				'name'                   => $archive_slug,
+				'post_type'              => 'any',
+				'post_status'            => array( 'publish', 'private', 'inherit' ),
+				'no_found_rows'          => true,
+				'update_post_meta_cache' => false,
+				'update_post_term_cache' => false,
+				'posts_per_page'         => 1,
+			) );
 
-			if ( ! $conflict || 'publish' !== $conflict->post_status ) {
+			if ( ! $conflict_query->have_posts() ) {
 				return false;
 			}
 
+			// Set the Conflicted Post
+			$conflict = $conflict_query->post;
+
+			// Fetch the Post Type and Post Name
 			$post_type = get_post_type_object( $conflict->post_type );
-			$name      = empty( $post_type->labels->singular_name ) ? 'page' : $post_type->labels->singular_name;
+			$name      = empty( $post_type->labels->singular_name ) ? ucfirst( $conflict->post_type ) : $post_type->labels->singular_name;
 
 			// What's happening?
 			$page_title = apply_filters( 'the_title', $conflict->post_title, $conflict->ID );
@@ -2551,6 +2567,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return esc_url_raw( $this->uglyLink( $type, $secondary ) );
 			}
 
+			if ( apply_filters( 'tribe_events_force_ugly_link', false ) ) {
+				return esc_url_raw( $this->uglyLink( $type, $secondary ) );
+			}
+
+			// if this is an ajax request where the baseurl is provided, use that as the base url and use semi-ugly links
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX && ! empty( $_POST['baseurl'] ) ) {
+				return esc_url_raw( $this->uglyLink( $type, $secondary ) );
+			}
+
 			// account for semi-pretty permalinks
 			if ( false !== strpos( get_option( 'permalink_structure' ), 'index.php' ) ) {
 				$event_url = home_url( '/index.php/' );
@@ -2648,6 +2673,23 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function uglyLink( $type = 'home', $secondary = false ) {
 
 			$eventUrl = add_query_arg( 'post_type', self::POSTTYPE, home_url() );
+
+			/**
+			 * If we need a specific base url, use that.
+			 *
+			 * @return string The base url.
+			 */
+			$eventUrl = apply_filters( 'tribe_events_ugly_link_baseurl', $eventUrl );
+
+
+			/**
+			 * if this is an ajax request where the baseurl is provided, use that as the base url.
+			 *
+			 * @return string The AJAX provided base url.
+			 */
+			if ( Tribe__Main::instance()->doing_ajax() && ! empty( $_POST['baseurl'] ) ) {
+				$eventUrl = trailingslashit( $_POST['baseurl'] );
+			}
 
 			// if we're on an Event Cat, show the cat link, except for home.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) ) {
@@ -3054,33 +3096,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					// we're previewing
 					if ( $preview_post_id && $preview_post_id == $valid_post_id( $preview_post_id ) ) {
 						// a preview post has been created and is valid, update that
-						wp_update_post(
-							array(
-								'ID'         => $preview_post_id,
-								'post_title' => $_POST[ $posttype ][ $posttype ],
-							)
-						);
+						wp_update_post( array(
+							'ID'         => $preview_post_id,
+							'post_title' => $_POST[ $posttype ][ $posttype ],
+						) );
 					} else {
 						// a preview post has not been created yet, or is not valid - create one and save the ID
 						$preview_post_id = Tribe__Events__API::$create( $_POST[ $posttype ], 'draft' );
 						update_post_meta( $event_id, $meta_key, $preview_post_id );
 					}
 				}
-
-				if ( $preview_post_id ) {
-					// set the preview post id as the event metapost id in the $_POST array
-					// so Tribe__Events__API::saveEventVenue() doesn't make a new post
-					$_POST[ $posttype ][ $posttype_id ] = (int) $preview_post_id;
-				}
-			} else {
-				// we're using a saved metapost, discard any preview post
-				if ( $preview_post_id ) {
-					wp_delete_post( $preview_post_id );
-					global $wpdb;
-					$wpdb->query( "DELETE FROM $wpdb->postmeta WHERE `meta_key` = '$meta_key' AND `meta_value` = $preview_post_id" );
-				}
 			}
 		}
+
 
 		/**
 		 * Adds / removes the event details as meta tags to the post.
@@ -3099,45 +3127,65 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$avoid_recursion = true;
 
-			// only continue if it's an event post
-			if ( $post->post_type !== self::POSTTYPE || defined( 'DOING_AJAX' ) ) {
-				return;
-			}
-			// don't do anything on autosave or auto-draft either or massupdates
-			if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' || isset( $_GET['bulk_edit'] ) || ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'inline-save' ) ) {
-				return;
-			}
+			$original_post     = wp_is_post_revision( $post );
+			$is_event_revision = $original_post && tribe_is_event( $original_post );
 
-			// don't do anything on other wp_insert_post calls
-			if ( isset( $_POST['post_ID'] ) && $postId != $_POST['post_ID'] ) {
+			if ( $is_event_revision ) {
+				$revision = Tribe__Events__Revisions__Post::new_from_post( $post );
+				$revision->save();
+
 				return;
 			}
 
-			if ( ! isset( $_POST['ecp_nonce'] ) ) {
-				return;
-			}
-
-			if ( ! wp_verify_nonce( $_POST['ecp_nonce'], self::POSTTYPE ) ) {
-				return;
-			}
-
-			if ( ! current_user_can( 'edit_tribe_events' ) ) {
-				return;
-			}
-
-			$_POST['Organizer'] = isset( $_POST['organizer'] ) ? stripslashes_deep( $_POST['organizer'] ) : null;
-			$_POST['Venue']     = isset( $_POST['venue'] ) ? stripslashes_deep( $_POST['venue'] ) : null;
-
-			/**
-			 * handle previewed venues and organizers
-			 */
-			$this->manage_preview_metapost( 'venue', $postId );
-			$this->manage_preview_metapost( 'organizer', $postId );
-
-			Tribe__Events__API::saveEventMeta( $postId, $_POST, $post );
+			$event_meta = new Tribe__Events__Meta__Save( $postId, $post );
+			$event_meta->maybe_save();
 
 			// Allow this callback to run
 			$avoid_recursion = false;
+		}
+
+		/**
+		 * Tracks fields that are changed when an event is updated
+		 *
+		 * @param int $post_id Post ID
+		 * @param WP_Post $post_after New post object
+		 * @param WP_Post $post_before Old post object
+		 */
+		public function track_event_post_field_changes( $post_id, $post_after, $post_before ) {
+			if ( self::POSTTYPE !== $post_after->post_type ) {
+				return;
+			}
+
+			// bail if we shouldn't be tracking modifications
+			if ( ! apply_filters( 'tribe_aggregator_track_modified_fields', true ) ) {
+				return;
+			}
+
+			$now = current_time( 'timestamp' );
+
+			if ( ! $modified = get_post_meta( $post_id, Tribe__Events__API::$modified_field_key, true ) ) {
+				$modified = array();
+			}
+
+			$fields_to_check_for_changes = array(
+				'post_title',
+				'post_content',
+				'post_status',
+				'post_type',
+				'post_parent',
+			);
+
+			foreach ( $fields_to_check_for_changes as $field ) {
+				if ( ! Tribe__Events__API::is_post_value_changed( $field, $post_after, $post_before ) ) {
+					continue;
+				}
+
+				$modified[ $field ] = $now;
+			}
+
+			if ( $modified ) {
+				update_post_meta( $post_id, Tribe__Events__API::$modified_field_key, $modified );
+			}
 		}
 
 		public function normalize_organizer_submission( $submission ) {
@@ -4566,8 +4614,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Sets the globally shared `$_tribe_meta_factory` object
+		 *
+		 * @deprecated 4.3
 		 */
 		public function set_meta_factory_global() {
+			_deprecated_function( __METHOD__, '4.3' );
 			global $_tribe_meta_factory;
 			$_tribe_meta_factory = new Tribe__Events__Meta_Factory();
 		}

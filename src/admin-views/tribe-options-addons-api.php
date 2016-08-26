@@ -34,6 +34,23 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 		),
+		'meetup-start' => array(
+			'type' => 'html',
+			'html' => '<h3>' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</h3>',
+		),
+		'meetup-info-box' => array(
+			'type' => 'html',
+			'html' => '<p>' . esc_html__( 'You need a Meetup API Key to access data via the Meetup API to import your events from Meetup.', 'the-events-calendar' ) . '</p>',
+		),
+		'meetup_api_key' => array(
+			'type' => 'text',
+			'label' => esc_html__( 'Meetup API Key', 'the-events-calendar' ),
+			'tooltip' => sprintf( __( '<p>%s to view your Meetup API Key', 'the-events-calendar' ), '<a href="https://secure.meetup.com/meetup_api/key/" target="_blank"></p>' . __( 'Click here', 'the-events-calendar' ) . '</a>' ),
+			'size' => 'medium',
+			'validation_type' => 'alpha_numeric',
+			'can_be_empty' => true,
+			'parent_option' => Tribe__Events__Main::OPTIONNAME,
+		),
 	);
 }
 
@@ -47,7 +64,7 @@ $fields = array_merge(
 		),
 		'addons-box-title' => array(
 			'type' => 'html',
-			'html' => '<h1>' . esc_html__( 'APIs', 'the-events-calendar' ) . '</h1>',
+			'html' => '<h2>' . esc_html__( 'APIs', 'the-events-calendar' ) . '</h2>',
 		),
 		'addons-box-description' => array(
 			'type' => 'html',

@@ -27,6 +27,10 @@
 	}
 }
 
+.tribe-restore-link + a {
+	display: none;
+}
+
 /* = Post Type Editing
 =============================================*/
 .eventForm {
@@ -292,4 +296,22 @@ table.eventForm {
 .inactive-sidebar .widget,
 .widget-liquid-right .sidebar-description {
 	overflow: visible !important;
+}
+
+.tribe-aggregator-import-details {
+	overflow: hidden;
+
+	dt {
+		clear: left;
+		float: left;
+		margin-right: .25rem;
+	}
+
+	dd {
+		margin-left: 0;
+	}
+
+	.tribe-value {
+		font-weight: bold;
+	}
 }
