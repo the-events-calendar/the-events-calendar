@@ -334,9 +334,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				'nonce'  => wp_create_nonce( 'aggregator_' . $this->tab->get_slug() . '_request' ),
 			);
 			$actions['run-now'] = sprintf(
-				'<a href="%s">%s</a>',
+				'<a href="%1$s" title="%2$s">%3$s</a>',
 				Tribe__Events__Aggregator__Page::instance()->get_url( $args ),
-				__( 'Run Import', 'the-events-calendar' )
+				esc_attr__( 'Start an import from this source now, regardless of schedule. Check the import status in History. Doing a manual import will not impact your scheduled imports.', 'the-events-calendar' ),
+				esc_html__( 'Run Import', 'the-events-calendar' )
 			);
 		}
 
