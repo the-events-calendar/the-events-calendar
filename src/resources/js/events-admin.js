@@ -399,11 +399,16 @@ jQuery( document ).ready( function( $ ) {
 						.datepicker( 'option', option, endDate )
 						.datepicker( 'setDate', endDate );
 				} else {
+
 					dates
 						.not( this )
 						.not( '.tribe-no-end-date-update' )
 						.datepicker( 'option', option, date );
 				}
+
+				// fire the change and blur handlers on the field
+				$( this ).change();
+				$( this ).blur();
 			}
 		};
 
