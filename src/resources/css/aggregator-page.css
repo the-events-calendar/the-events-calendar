@@ -485,6 +485,15 @@
 	cursor: default;
 }
 
+.tribe-upsell-subtitle {
+	font-size: 11px;
+	color: gray;
+}
+
+.select2-highlighted .tribe-upsell-subtitle {
+	color: white;
+}
+
 @media screen and (max-width: 782px) {
 	/**
 		 * override default WordPress responsive styles so the helper icon has space
