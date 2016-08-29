@@ -288,7 +288,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Detect if an Event Is Past
+	 * Detect if an Event is Past
 	 *
 	 * Returns true if the current time is past the event end time
 	 *
