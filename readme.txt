@@ -290,6 +290,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.2.6] TDB =
+* Add - tribe_is_event_past() conditional to detect if event end time is past current time [62303]
+
 = [4.2.5] 2016-08-17 =
 
 * Fix - Fixed inconsistent template filtering logic for single event template [62525]
