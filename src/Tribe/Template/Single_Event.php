@@ -103,7 +103,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 			parent::set_notices();
 			$events_label_singular_lowercase = tribe_get_event_label_singular_lowercase();
 
-			if ( tribe_is_past_event() ) {
+			if ( ! tribe_is_showing_all() && tribe_is_past_event() ) {
 				Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), $events_label_singular_lowercase ) );
 			}
 		}
