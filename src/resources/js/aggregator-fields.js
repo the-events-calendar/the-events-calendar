@@ -11,7 +11,7 @@ tribe_aggregator.fields = {
 		dropdown                : '.tribe-ea-dropdown',
 		origin_field            : '#tribe-ea-field-origin',
 		media_button            : '.tribe-ea-media_button',
-		datepicker              : '.tribe-ea-datepicker',
+		datepicker              : '.tribe-datepicker',
 		save_credentials_button : '.enter-credentials .tribe-save',
 		preview_container       : '.tribe-preview-container',
 		preview_button          : '.tribe-preview:visible',
@@ -95,6 +95,7 @@ tribe_aggregator.fields = {
 			.on( 'click'      , obj.selector.preview_button            , obj.preview_import )
 			.on( 'click'      , obj.selector.cancel_button             , obj.events.cancel_edit )
 			.on( 'click'      , obj.selector.schedule_delete_link      , obj.events.verify_schedule_delete )
+			.on( 'blur'       , obj.selector.datepicker                , obj.date_helper )
 			.on( 'submit'     , obj.selector.tab_new                   , obj.events.suppress_submission )
 			.on( 'change'     , obj.selector.origin_field              , function() {
 				obj.$.form.removeClass( 'show-data' );
@@ -1053,6 +1054,32 @@ tribe_aggregator.fields = {
 		obj.progress.$.notice.animate( effect, 1000, function() {
 			obj.progress.$.notice.remove();
 		} );
+	};
+
+	/**
+	 * helper text for date select
+	 */
+	obj.date_helper = function() {
+		var $picker;
+
+		$picker = $( this );
+
+		if ( ! $picker.hasClass( 'tribe-datepicker' ) ) {
+			return;
+		}
+
+		var selected_date = $picker.val();
+		if ( '' === selected_date || null === selected_date ) {
+			return;
+		}
+
+		var tmp = $picker.attr( 'id' ).match( 'tribe-ea-field-(.*)_start' );
+		var origin = tmp[1];
+		if ( '' === origin || null === origin ) {
+			return;
+		}
+
+		jQuery( '#tribe-date-helper-date-' + origin ).html( selected_date );
 	};
 
 	// Run Init on Document Ready

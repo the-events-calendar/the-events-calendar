@@ -228,6 +228,10 @@
 	margin-bottom: 0;
 }
 
+.tribe-ea .tribe-date-helper {
+	color: gray;
+}
+
 .tribe-ea .tribe-notice-tribe-missing-aggregator-license {
 	background: #f7fcfe;
 }
