@@ -685,29 +685,47 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	/**
+	 * Get event updated/created counts
+	 *
+	 * @param null|string $type Type of count to fetch
+	 *
+	 * @return int
+	 */
+	public function get_event_count( $type = null ) {
+		$updated = empty( $this->meta['num_updated'] ) ? 0 : $this->meta['num_updated'];
+		$created = empty( $this->meta['num_created'] ) ? 0 : $this->meta['num_created'];
+		$total = $updated + $created;
+
+		if ( 'updated' === $type ) {
+			return $updated;
+		} elseif ( 'created' === $type ) {
+			return $created;
+		}
+
+		return $total;
+	}
+
+	/**
 	 * Adjust the event count for the record
 	 *
-	 * Note: event count is stored in the comment count field
-	 *
+	 * @param string $type Type of count to adjust (updated or created)
 	 * @param int $quantity Amount to adjust the event count by
 	 * @param int $post_id Post ID to fetch from
 	 */
-	public function adjust_event_count( $quantity, $post = null ) {
+	public function adjust_event_count( $type, $quantity, $post = null ) {
 		if ( ! $post ) {
 			$post = get_post( $this->post->ID );
 		}
 
-		$event_count = $post->comment_count;
+		$count = $this->get_event_count( $type );
 
-		$event_count += (int) $quantity;
-		if ( $event_count < 0 ) {
-			$event_count = 0;
+		$count += (int) $quantity;
+		if ( $count < 0 ) {
+			$count = 0;
 		}
 
-		$this->temp_event_count = $event_count;
-		add_filter( 'pre_wp_update_comment_count_now', array( $this, 'event_count_filter' ) );
-		wp_update_comment_count_now( $post->ID );
-		remove_filter( 'pre_wp_update_comment_count_now', array( $this, 'event_count_filter' ) );
+		$this->meta[ 'num_' . $type ] = $count;
+		$this->update_meta( 'num_' . $type, $count );
 	}
 
 	/**
@@ -726,28 +744,26 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		wp_update_post( $args );
 
-		// update the comment counts
-		if ( ! empty( $results['created'] ) ) {
-			// make sure we have the latest data for the post
-			$post = get_post( $this->post->ID );
+		// make sure we have the latest data for the post
+		$post = get_post( $this->post->ID );
 
-			$this->adjust_event_count( (int) $results['created'], $post );
+		// update the created count
+		if ( ! empty( $results['created'] ) ) {
+			$this->adjust_event_count( 'created', (int) $results['created'], $post );
 
 			if ( ! empty( $post->post_parent ) ) {
-				$this->adjust_event_count( (int) $results['created'], get_post( $post->post_parent ) );
+				$this->adjust_event_count( 'created', (int) $results['created'], get_post( $post->post_parent ) );
 			}
 		}
-	}
 
-	/**
-	 * Filters the comment count before updating the comment count on an import record
-	 *
-	 * @return int
-	 */
-	public function event_count_filter() {
-		$event_count = $this->temp_event_count;
-		$this->temp_event_count = 0;
-		return $event_count;
+		// update the updated count
+		if ( ! empty( $results['updated'] ) ) {
+			$this->adjust_event_count( 'updated', (int) $results['updated'], $post );
+
+			if ( ! empty( $post->post_parent ) ) {
+				$this->adjust_event_count( 'updated', (int) $results['updated'], get_post( $post->post_parent ) );
+			}
+		}
 	}
 
 	/**

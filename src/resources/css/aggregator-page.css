@@ -159,7 +159,7 @@
 
 .tribe-ea .manage-column.column-total {
 	width: 15%;
-	text-align: center;
+	text-align: left;
 }
 
 .tribe-ea .tribe-ea-tab-scheduled td.column-source {
@@ -172,7 +172,7 @@
 }
 
 .tribe-ea td.column-total {
-	text-align: center;
+	text-align: left;
 }
 
 .tribe-ea .tribe-ea-report-status {

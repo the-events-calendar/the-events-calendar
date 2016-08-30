@@ -460,16 +460,30 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	public function column_total( $post ) {
+		$html = array();
+
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 		$last_imported = $record->get_child_record_by_status( 'success', 1 );
 		if ( $last_imported && $last_imported->have_posts() ) {
-			$html[] = esc_html__( 'Last Import: ', 'the-events-calendar' ) . $last_imported->post->comment_count;
+			if ( $created = $last_imported->get_event_count( 'created' ) ) {
+				$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . $created;
+			}
+
+			if ( $updated = $last_imported->get_event_count( 'updated' ) ) {
+				$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;
+			}
 		}
 
 		if ( 'schedule' === $record->type ) {
-			$html[] = esc_html__( 'All Time: ', 'the-events-calendar' ) . intval( $post->comment_count );
+			$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . intval( $record->get_event_count() );
 		} else {
-			$html[] = intval( $post->comment_count );
+			if ( $created = $record->get_event_count( 'created' ) ) {
+				$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . $created;
+			}
+
+			if ( $updated = $record->get_event_count( 'updated' ) ) {
+				$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;
+			}
 		}
 
 		return $this->render( $html, '<br>' );
