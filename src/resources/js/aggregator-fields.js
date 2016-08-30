@@ -21,7 +21,8 @@ tribe_aggregator.fields = {
 		cancel_button           : '.tribe-cancel',
 		schedule_delete_link    : '.tribe-ea-tab-scheduled a.submitdelete',
 		tab_new                 : '.tribe-ea-tab-new',
-		action                  : '#tribe-action'
+		action                  : '#tribe-action',
+		view_filters            : '.tribe-view-filters'
 	},
 
 	media: {},
@@ -95,6 +96,7 @@ tribe_aggregator.fields = {
 			.on( 'click'      , obj.selector.preview_button            , obj.preview_import )
 			.on( 'click'      , obj.selector.cancel_button             , obj.events.cancel_edit )
 			.on( 'click'      , obj.selector.schedule_delete_link      , obj.events.verify_schedule_delete )
+			.on( 'click'      , obj.selector.view_filters              , obj.events.toggle_view_filters )
 			.on( 'blur'       , obj.selector.datepicker                , obj.date_helper )
 			.on( 'submit'     , obj.selector.tab_new                   , obj.events.suppress_submission )
 			.on( 'change'     , obj.selector.origin_field              , function() {
@@ -954,6 +956,21 @@ tribe_aggregator.fields = {
 
 	obj.events.verify_schedule_delete = function() {
 		return confirm( ea.l10n.verify_schedule_delete );
+	};
+
+	/**
+	 * Toggles the View Filters link on the Scheduled Imports/History page
+	 */
+	obj.events.toggle_view_filters = function( e ) {
+		e.preventDefault();
+		var $el = $( this );
+
+		$el.toggleClass( 'tribe-active' );
+		if ( $el.is( '.tribe-active' ) ) {
+			$el.html( ea.l10n.hide_filters );
+		} else {
+			$el.html( ea.l10n.view_filters );
+		}
 	};
 
 	obj.progress.init = function() {

@@ -247,6 +247,41 @@
 	margin-top: -2px;
 }
 
+.tribe-ea .tribe-view-filters.tribe-active + .tribe-filters {
+	display: block;
+}
+
+.tribe-ea dl.tribe-filters {
+	display: none;
+	margin-left: 8px;
+	margin-left: .5rem;
+	margin-top: 0;
+}
+
+.tribe-ea dl.tribe-filters dt {
+	clear: left;
+	display: inline-block;
+	font-weight: bold;
+	margin-right: 4px;
+	margin-right: .25rem;
+}
+
+.tribe-ea dl.tribe-filters dd {
+	display: inline;
+	margin-left: 0;
+}
+
+.tribe-ea dl.tribe-filters dd:after {
+	content: '';
+	display: block;
+	margin-bottom: 4px;
+	margin-bottom: .25rem;
+}
+
+.tribe-ea .widefat td p {
+	margin-bottom: .25em;
+}
+
 .tribe-ea-table-container {
 	background-color: #FAFAFA;
 	border: 1px solid #E7E7E7;
