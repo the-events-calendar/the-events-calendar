@@ -10,6 +10,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public static $meta_key_prefix = '_tribe_aggregator_';
 
+	/**
+	 * Comment Type for EA errors
+	 *
+	 * @var string
+	 */
+	public static $error_comment_type = 'tribe-ea-error';
+
 	public $id;
 	public $post;
 	public $meta;
@@ -638,6 +645,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'comment_post_ID' => $this->id,
 			'comment_author'  => $error->get_error_code(),
 			'comment_content' => $error->get_error_message(),
+			'comment_type'    => self::$error_comment_type,
 		);
 
 		return wp_insert_comment( $args );
