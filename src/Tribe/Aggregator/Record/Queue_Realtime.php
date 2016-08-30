@@ -188,6 +188,10 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 				'created'   => $queue->created(),
 				'updated'   => $queue->updated(),
 				'skipped'   => $queue->skipped(),
+				'category'  => $queue->category(),
+				'images'    => $queue->images(),
+				'venues'    => $queue->venues(),
+				'organizers' => $queue->organizers(),
 				'remaining' => $queue->count(),
 			),
 		);
