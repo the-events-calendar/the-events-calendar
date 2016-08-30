@@ -100,6 +100,7 @@ class Tribe__Events__Aggregator__Page {
 							'edit_save' => __( 'Save Changes', 'the-events-calendar' ),
 							'events_required_for_manual_submit' => __( 'Your import must include at least one event', 'the-events-calendar' ),
 							'no_results' => __( 'Your preview doesn\'t have any records to import.', 'the-events-calendar' ),
+							'verify_schedule_delete' => __( 'Removing this scheduled import will stop automatic imports from the source. No events will be deleted.', 'the-events-calendar' ),
 							'preview_polling' => array(
 								__( 'Please wait while your preview is being fetched.', 'the-events-calendar' ),
 								__( 'Please continue to wait while your preview is being generated.', 'the-events-calendar' ),
