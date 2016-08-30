@@ -230,14 +230,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 
 			if ( $result && ! $messages ) {
-				if ( 'manual' == $record->type ) {
-					$messages['success'][] = sprintf(
-						__( '0 new %1$s were imported.', 'the-events-calendar' ),
-						$content_type_plural
-					);
-				} else {
-
-				}
+				__( 'No events were imported or updated.', 'the-events-calendar' );
 			}
 
 			// append a URL to view all records for the given post type
