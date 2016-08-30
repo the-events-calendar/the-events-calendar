@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.6
-Stable tag: 4.2.6dev
+Stable tag: 4.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -290,8 +290,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.2.6] TDB =
-* Add - tribe_is_event_past() conditional to detect if event end time is past current time [62303] (Reported by @Jonathan in our support forums - thanks Jonathan.)
+= [4.2.6] 2016-08-31 =
+
+* Add - tribe_is_event_past() conditional to detect if event end time is past current time (Reported by @Jonathan in our support forums - thanks Jonathan.)
 
 = [4.2.5] 2016-08-17 =
 
