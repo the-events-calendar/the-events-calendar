@@ -886,6 +886,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'updated' => 0,
 			'created' => 0,
 			'skipped' => 0,
+			'images' => 0,
+			'venues' => 0,
+			'organizers' => 0,
+			'category' => 0,
 		);
 
 		$args = array(
@@ -943,12 +947,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				continue;
 			}
 
-			if ( empty( $event[ 'recurrence' ] ) ) {
+			if ( empty( $event['recurrence'] ) ) {
 				$non_recurring = true;
 			}
 
 			// set the parent
-			if ( ! empty( $event[ 'ID' ] ) && ( $id = wp_get_post_parent_id( $event[ 'ID' ] ) ) ) {
+			if ( ! empty( $event['ID'] ) && ( $id = wp_get_post_parent_id( $event['ID'] ) ) ) {
 				$event['post_parent'] = $id;
 			} elseif ( ! empty( $event['parent_uid'] ) && ( $k = array_search( $event['parent_uid'], $possible_parents ) ) ) {
 				$event['post_parent'] = $k;
@@ -966,6 +970,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					$event['Venue']['ShowMap']     = $show_map_setting;
 					$event['Venue']['ShowMapLink'] = $show_map_setting;
 					$event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $this->meta['post_status'] );
+					$results['venues']++;
 				}
 				unset( $event['Venue'] );
 			}
@@ -980,6 +985,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					$event['EventOrganizerID']          = $organizer->ID;
 				} else {
 					$event['EventOrganizerID'] = Tribe__Events__Organizer::instance()->create( $event['Organizer'], $this->meta['post_status'] );
+					$results['organizers']++;
 				}
 				unset( $event['Organizer'] );
 			}
@@ -1050,6 +1056,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					if ( ! $term = term_exists( $cat, Tribe__Events__Main::TAXONOMY ) ) {
 						$term = wp_insert_term( $cat, Tribe__Events__Main::TAXONOMY );
 						$terms[] = (int) $term['term_id'];
+						$results['category']++;
 					} else {
 						$terms[] = (int) $term['term_id'];
 					}
@@ -1065,6 +1072,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			if ( ! empty( $event['image'] ) ) {
 				$this->import_event_image( $event['ID'], $event );
+				$results['images']++;
 			}
 		}
 
