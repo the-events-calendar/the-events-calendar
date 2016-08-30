@@ -66,14 +66,19 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 						<?php
 						$upsell = false || defined( 'TRIBE_HIDE_UPSELL' );
 						foreach ( $field->options as $option ) {
-							if ( ! $upsell && $option->disabled ) {
+							$disabled = ( isset( $option->disabled ) ? $option->disabled : null );
+							if ( ! $upsell && $disabled ) {
 								$upsell = true;
-								?><option value="redirect"><?php esc_html_e( 'Buy Event Aggregator for more event sources and automatic imports!', 'the-events-calendar' ); ?></option><?php
+								?><option value="redirect"><?php
+									esc_html_e( 'Buy Event Aggregator', 'the-events-calendar' );
+									echo '|';
+									esc_html_e( 'Access more event sources and automatic imports!', 'the-events-calendar' );
+								?></option><?php
 							}
 							?>
 							<option
 								value="<?php echo esc_attr( $option->id ); ?>"
-								<?php disabled( $option->disabled ); ?>
+								<?php disabled( $disabled ); ?>
 								><?php esc_html_e( $option->name ); ?></option>
 							<?php
 						}
@@ -133,6 +138,7 @@ $scheduled_save_help = esc_html__( 'Click Import to import the events above and 
 						<input type="checkbox">
 					</th>
 					<th scope="col" class="tribe-column-start-date column-primary"><?php esc_html_e( 'Start Date', 'the-events-calendar' ); ?></th>
+					<th scope="col" class="tribe-column-start-time column-primary"><?php esc_html_e( 'Start Time', 'the-events-calendar' ); ?></th>
 					<th scope="col" class="tribe-column-end-date"><?php esc_html_e( 'End Date', 'the-events-calendar' ); ?></th>
 					<th scope="col" class="tribe-column-event"><?php esc_html_e( 'Event', 'the-events-calendar' ); ?></th>
 				</tr>
@@ -144,6 +150,7 @@ $scheduled_save_help = esc_html__( 'Click Import to import the events above and 
 						<input type="checkbox">
 					</th>
 					<th scope="col"><?php esc_html_e( 'Start Date', 'the-events-calendar' ); ?></th>
+					<th scope="col"><?php esc_html_e( 'Start Time', 'the-events-calendar' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'End Date', 'the-events-calendar' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'Event', 'the-events-calendar' ); ?></th>
 				</tr>

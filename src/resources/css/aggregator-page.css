@@ -23,6 +23,17 @@
 	position: relative;
 }
 
+.tribe-ea .tribe-ea-facebook-login {
+	display: block;
+	clear:both;
+}
+
+.tribe-ea .tribe-ea-facebook-login iframe,
+		.tribe-ea .tribe-ea-facebook-login .tribe-ea-status {
+	display: block;
+	float: left;
+}
+
 .tribe-ea .tribe-ea-help {
 	padding: 4px;
 	color: #0073aa;
@@ -217,6 +228,10 @@
 	margin-bottom: 0;
 }
 
+.tribe-ea .tribe-date-helper {
+	color: gray;
+}
+
 .tribe-ea .tribe-notice-tribe-missing-aggregator-license {
 	background: #f7fcfe;
 }
@@ -292,6 +307,7 @@
 }
 
 .tribe-preview-container .tribe-column-start-date,
+	.tribe-preview-container .tribe-column-start-time,
 	.tribe-preview-container .tribe-column-end-date {
 	width: 8em;
 }
@@ -471,6 +487,15 @@
 	margin-bottom: 0;
 	color: gray;
 	cursor: default;
+}
+
+.tribe-upsell-subtitle {
+	font-size: 11px;
+	color: gray;
+}
+
+.select2-highlighted .tribe-upsell-subtitle {
+	color: white;
 }
 
 @media screen and (max-width: 782px) {

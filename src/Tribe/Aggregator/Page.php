@@ -70,6 +70,7 @@ class Tribe__Events__Aggregator__Page {
 						'tribe-bumpdown',
 						'tribe-dependency',
 						'tribe-events-select2',
+						'tribe-ea-facebook-login',
 					),
 				),
 				array( 'tribe-ea-page', 'aggregator-page.css', array( 'datatables-css' ) ),
@@ -88,6 +89,9 @@ class Tribe__Events__Aggregator__Page {
 							'venue' => get_option( 'tribe_events_import_column_mapping_venues', array() ),
 						),
 						'l10n' => array(
+							'all_day' => __( 'All Day', 'the-events-calendar' ),
+							'am' => _x( 'AM', 'Meridian: am', 'the-events-calendar' ),
+							'pm' => _x( 'PM', 'Meridian: pm', 'the-events-calendar' ),
 							'preview_timeout' => __( 'The preview is taking longer than expected. Please try again in a moment.', 'the-events-calendar' ),
 							'preview_fetch_error_prefix' => __( 'There was an error fetching the results from your import:', 'the-events-calendar' ),
 							'import_all' => __( 'Import All (%d)', 'the-events-calendar' ),
@@ -96,6 +100,7 @@ class Tribe__Events__Aggregator__Page {
 							'edit_save' => __( 'Save Changes', 'the-events-calendar' ),
 							'events_required_for_manual_submit' => __( 'Your import must include at least one event', 'the-events-calendar' ),
 							'no_results' => __( 'Your preview doesn\'t have any records to import.', 'the-events-calendar' ),
+							'verify_schedule_delete' => __( 'Removing this scheduled import will stop automatic imports from the source. No events will be deleted.', 'the-events-calendar' ),
 							'preview_polling' => array(
 								__( 'Please wait while your preview is being fetched.', 'the-events-calendar' ),
 								__( 'Please continue to wait while your preview is being generated.', 'the-events-calendar' ),
@@ -109,6 +114,9 @@ class Tribe__Events__Aggregator__Page {
 				),
 			)
 		);
+
+		tribe_asset( $plugin, 'tribe-ea-facebook-login', 'aggregator-facebook-login.js', array( 'jquery', 'underscore', 'tribe-dependency' ), 'admin_enqueue_scripts' );
+
 	}
 
 	/**

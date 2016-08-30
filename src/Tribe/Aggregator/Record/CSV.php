@@ -187,8 +187,11 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 	 * @return array Array of Post Type Objects
 	 */
 	public function get_import_post_types() {
-		$post_types = array_unique( Tribe__Main::get_post_types() );
-		$post_types = array_map( 'get_post_type_object', $post_types );
+		$post_types = array(
+			get_post_type_object( Tribe__Events__Main::POSTTYPE ),
+			get_post_type_object( Tribe__Events__Organizer::POSTTYPE ),
+			get_post_type_object( Tribe__Events__Venue::POSTTYPE ),
+		);
 
 		/**
 		 * Filters the available CSV post types for the event aggregator form

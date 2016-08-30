@@ -399,11 +399,16 @@ jQuery( document ).ready( function( $ ) {
 						.datepicker( 'option', option, endDate )
 						.datepicker( 'setDate', endDate );
 				} else {
+
 					dates
 						.not( this )
 						.not( '.tribe-no-end-date-update' )
 						.datepicker( 'option', option, date );
 				}
+
+				// fire the change and blur handlers on the field
+				$( this ).change();
+				$( this ).blur();
 			}
 		};
 
@@ -741,33 +746,3 @@ jQuery( document ).ready( function( $ ) {
 		return false;
 	} );
 } );
-
-/**
- * Ignored Events JS
- */
-( function( $ ){
-	"use strict";
-	// Verify that all WP variables exists
-	if ( -1 !== [ typeof pagenow, typeof typenow, typeof adminpage ].indexOf( 'undefined' ) ) {
-		return false;
-	}
-
-	// We are not on the correct Page
-	if ( 'tribe_events' !== pagenow || 'tribe_events' !== typenow || 'post-php' !== adminpage ) {
-		return false;
-	}
-
-	// Verify Variables in regards to Ignored Events
-	if ( 'undefined' === typeof tribe_events_admin.ignored_events ) {
-		return false;
-	}
-
-	$( document ).ready( function(){
-		$( '.submitdelete' ).attr( 'title', tribe_events_admin.ignored_events.link_title ).html( tribe_events_admin.ignored_events.link_text );
-		if ( 'undefined' !== typeof tribe_events_admin.ignored_events.link_nonce ) {
-			$( '#post_status' ).append( $( '<option>', {'value': 'ignored', 'text' : tribe_events_admin.ignored_events.link_status } ).prop( 'selected', true ) );
-			$( '#post-status-display' ).html( tribe_events_admin.ignored_events.link_status );
-			$( '.submitdelete' ).attr( 'href', 'post.php?action=delete&post=' + tribe_events_admin.ignored_events.link_post + '&_wpnonce=' + tribe_events_admin.ignored_events.link_nonce );
-		}
-	} );
-}( jQuery ) );
