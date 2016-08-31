@@ -504,7 +504,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		}
 
 		if ( 'schedule' === $record->type ) {
-			$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . intval( $record->get_event_count() );
+			$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . intval( $record->get_event_count( 'created' ) );
 		} else {
 			if ( $created = $record->get_event_count( 'created' ) ) {
 				$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . $created;
