@@ -13,35 +13,26 @@ $frequency->source      = 'facebook_import_frequency';
 
 $cron = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
-
-$fb_token = tribe_get_option( 'fb_token' );
-$fb_token_expires = tribe_get_option( 'fb_token_expires' );
-$fb_token_scopes = tribe_get_option( 'fb_token_scopes' );
-$missing_fb_credentials = ! $fb_token || ! $fb_token_scopes || ! $fb_token_expires || $fb_token_expires <= time();
 ?>
+<?php if ( ! Tribe__Events__Aggregator__Settings::instance()->is_fb_credentials_valid() ) : ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">
-	<td colspan="2" class="<?php echo esc_attr( $missing_fb_credentials ? 'enter-credentials' : 'has-credentials' ); ?>">
-	<?php if ( $missing_fb_credentials ) : ?>
-		<div class="tribe-message tribe-credentials-prompt">
-			<span class="dashicons dashicons-warning"></span>
-			<?php wp_nonce_field( 'tribe-save-facebook-credentials' ); ?>
-			<input id="tribe-has-facebook-credentials" type="hidden" value="0" />
-
-			<div class="tribe-ea-facebook-login">
-				<iframe id="facebook-login" src="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_iframe_url() ); ?>" width="80" height="30"></iframe>
-				<div class="tribe-ea-status" data-error-message="<?php esc_attr_e( '@todo:error-fb-message', 'the-events-calendar' ); ?>"></div>
-			</div>
-		</div>
-	<?php else: ?>
-		<input id="tribe-has-facebook-credentials" type="hidden" value="1" />
-	<?php endif; ?>
+	<th scope="row">
+		<label for="tribe-ea-field-fb_credentials"><?php esc_html_e( 'Extra Credentials:', 'the-events-calendar' ); ?></label>
+	</th>
+	<td>
+		<a target="_blank" style="line-height: 28px;" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url() ); ?>">Login with Facebook</a>
+		<span
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help"
+			data-bumpdown="<?php esc_attr_e( 'Currently your Event Aggregator does not have a Facebook Login associated with it, to perform more accurate queries to Facebook you will need to login.', 'the-events-calendar' ); ?>"
+		></span>
 	</td>
 </tr>
+<?php endif; ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">
-	<th scope="row" class="tribe-dependent" data-depends="#tribe-has-facebook-credentials" data-condition="1">
+	<th scope="row">
 		<label for="tribe-ea-field-import_type"><?php echo esc_html( $field->label ); ?></label>
 	</th>
-	<td class="tribe-dependent" data-depends="#tribe-has-facebook-credentials" data-condition="1">
+	<td>
 		<?php if ( 'edit' === $aggregator_action ) : ?>
 			<input type="hidden" name="aggregator[facebook][import_type]" id="tribe-ea-field-facebook_import_type" value="schedule" />
 			<strong class="tribe-ea-field-readonly"><?php echo esc_html__( 'Scheduled Import', 'the-events-calendar' ); ?></strong>
