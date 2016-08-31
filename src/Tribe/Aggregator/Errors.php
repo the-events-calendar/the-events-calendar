@@ -37,6 +37,7 @@ class Tribe__Events__Aggregator__Errors {
 
 		tribe_register_error( 'core:aggregator:invalid-create-record-type', __( 'An invalid import type was used when trying to create this import record.', 'the-events-calendar' ) );
 		tribe_register_error( 'core:aggregator:invalid-csv-file', __( 'You must provide a valid CSV file to perform a CSV import.', 'the-events-calendar' ) );
+		tribe_register_error( 'core:aggregator:invalid-facebook-token', __( 'We received an Invalid Facebook Token from the Servive.', 'the-events-calendar' ) );
 		tribe_register_error( 'core:aggregator:invalid-csv-parameters', __( 'Invalid data provided for CSV import.', 'the-events-calendar' ) );
 		tribe_register_error( 'core:aggregator:invalid-edit-record-type', __( 'Only scheduled import records can be edited.', 'the-events-calendar' ) );
 		tribe_register_error( 'core:aggregator:invalid-event-id', __( 'Unable to find an event with the ID of %s.', 'the-events-calendar' ) );
