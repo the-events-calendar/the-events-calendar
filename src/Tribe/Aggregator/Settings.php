@@ -30,6 +30,36 @@ class Tribe__Events__Aggregator__Settings {
 		add_action( 'tribe_settings_do_tabs', array( $this, 'do_import_settings_tab' ) );
 	}
 
+	public function get_fb_credentials() {
+		$args = array(
+			'token'   => tribe_get_option( 'fb_token' ),
+			'expires' => tribe_get_option( 'fb_token_expires' ),
+			'scopes'  => tribe_get_option( 'fb_token_scopes' ),
+		);
+
+		return (object) $args;
+	}
+
+	public function has_fb_credentials() {
+		$credentials = $this->get_fb_credentials();
+		return ! empty( $credentials->token ) && ! empty( $credentials->expires ) && ! empty( $credentials->scopes );
+	}
+
+	public function is_fb_credentials_valid( $time = null ) {
+		if ( ! $this->has_fb_credentials() ) {
+			return false;
+		}
+
+		$credentials = $this->get_fb_credentials();
+
+		// Allow passing comparing time
+		if ( is_null( $time ) ) {
+			$time = time();
+		}
+
+		return $credentials->expires > $time;
+	}
+
 	public function do_import_settings_tab() {
 		include_once Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/aggregator/settings.php';
 	}

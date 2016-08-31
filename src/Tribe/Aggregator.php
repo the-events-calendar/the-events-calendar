@@ -130,6 +130,7 @@ class Tribe__Events__Aggregator {
 
 		// Notice users about exipring Facebook Token
 		tribe_notice( 'tribe-aggregator-facebook-token-expired', array( $this, 'notice_facebook_token_expired' ), 'type=error' );
+		tribe_notice( 'tribe-aggregator-facebook-oauth-feedback', array( $this, 'notice_facebook_oauth_feedback' ), 'type=success' );
 	}
 
 	/**
@@ -366,6 +367,16 @@ class Tribe__Events__Aggregator {
 		return 'tribe-aggregator-limit-used_' . date( 'Y-m-d' );
 	}
 
+	public function notice_facebook_oauth_feedback() {
+		if ( empty( $_GET['ea-auth'] ) || 'facebook' !== $_GET['ea-auth'] ) {
+			return false;
+		}
+
+		$html = '<p>' . esc_html__( 'Successfuly saved Event Aggregator Facebook Token', 'the-events-calendar' ) . '</p>';
+
+		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-facebook-oauth-feedback', $html );
+	}
+
 	public function notice_facebook_token_expired() {
 		if ( ! Tribe__Admin__Helpers::instance()->is_screen() ) {
 			return false;
@@ -423,6 +434,5 @@ class Tribe__Events__Aggregator {
 		$html = ob_get_clean();
 
 		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-facebook-token-expired', $html );
-
 	}
 }

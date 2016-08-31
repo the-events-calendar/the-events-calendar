@@ -43,8 +43,6 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	<fieldset id="tribe-field-facebook_token" class="tribe-field tribe-field-text tribe-size-medium">
 		<legend class="tribe-field-label"><?php esc_html_e( 'Facebook Token', 'the-events-calendar' ) ?></legend>
 		<div class="tribe-field-wrap">
-			<?php wp_nonce_field( 'tribe-save-facebook-credentials' ); ?>
-			<p>
 			<?php
 			if ( $missing_fb_credentials ) {
 				esc_html_e( 'You need to enter a Facebook Token for Event Aggregator to work properly' );
@@ -56,11 +54,8 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 				}
 			}
 			?>
-			</p>
-			<div class="tribe-ea-facebook-login">
-				<iframe id="facebook-login" src="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_iframe_url() ); ?>" width="80" height="30"></iframe>
-				<div class="tribe-ea-status" data-error-message="<?php esc_attr_e( '@todo:error-fb-message', 'the-events-calendar' ); ?>"></div>
-			</div>
+			<br>
+			<a target="_blank" style="line-height: 28px;" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url( array( 'back' => 'settings' ) ) ); ?>"<?php esc_html_e( '>Refresh your Facebook Token', 'the-events-calendar' ); ?></a>
 		</div>
 	</fieldset>
 

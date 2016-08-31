@@ -81,6 +81,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_submit() {
+		if ( ! empty( $_POST['ea-facebook-credentials'] ) ) {
+			return $this->handle_facebook_credentials();
+		}
+
 		if ( empty( $_POST['aggregator']['action'] ) || 'new' !== $_POST['aggregator']['action'] ) {
 			return;
 		}
@@ -114,6 +118,33 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$result = $record->queue_import();
 
 		return $result;
+	}
+
+	public function handle_facebook_credentials() {
+		if ( empty( $_POST['aggregator'] ) ) {
+			return false;
+		}
+		$data = (object) $_POST['aggregator'];
+		$api = Tribe__Events__Aggregator__Service::instance()->api();
+
+		if ( empty( $data->license ) || $api->key !== $data->license ) {
+			return false;
+		}
+
+		$expires = absint( trim( preg_replace( '/[^0-9]/', '', $data->expires ) ) );
+		$expires += time();
+		tribe_update_option( 'fb_token', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $data->token ) ) );
+		tribe_update_option( 'fb_token_expires', $expires );
+		tribe_update_option( 'fb_token_scopes', trim( preg_replace( '/[^a-zA-Z0-9\,_-]/', '', $data->scopes ) ) );
+
+		if ( 'new' === $data->back ) {
+			$url = Tribe__Events__Aggregator__Page::instance()->get_url( array( 'tab' => $this->get_slug(), 'ea-auth' => 'facebook' ) );
+		} elseif ( 'settings' === $data->back ) {
+			$url = Tribe__Settings::instance()->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) );
+		}
+
+		wp_redirect( $url );
+		exit;
 	}
 
 	public function handle_import_finalize( $data ) {
@@ -322,27 +353,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			wp_send_json_error( $data );
 		}
 
-		if ( 'facebook' === $which ) {
-			if ( empty( $_POST['token'] ) || empty( $_POST['expires'] ) || empty( $_POST['scopes'] ) ) {
-				$data = array(
-					'message' => __( 'The Facebook API key and API secret are both required.', 'the-events-calendar' ),
-				);
-
-				wp_send_json_error( $data );
-			}
-
-			$expires = absint( trim( preg_replace( '/[^0-9]/', '', $_POST['expires'] ) ) );
-			$expires += time();
-			tribe_update_option( 'fb_token', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $_POST['token'] ) ) );
-			tribe_update_option( 'fb_token_expires', $expires );
-			tribe_update_option( 'fb_token_scopes', trim( preg_replace( '/[^a-zA-Z0-9\,_-]/', '', $_POST['scopes'] ) ) );
-
-			$data = array(
-				'message' => __( 'Credentials have been saved', 'the-events-calendar' ),
-			);
-
-			wp_send_json_success( $data );
-		} elseif ( 'meetup' === $which ) {
+		if ( 'meetup' === $which ) {
 			if ( empty( $_POST['meetup_api_key'] ) ) {
 				$data = array(
 					'message' => __( 'The Meetup API key is required.', 'the-events-calendar' ),
