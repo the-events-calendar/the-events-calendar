@@ -97,7 +97,7 @@ class Tribe__Events__Aggregator__Settings {
 	public function default_update_authority( $origin = null ) {
 		$origin = $this->origin_translation( $origin );
 
-		$setting = tribe_get_option( 'tribe_aggregator_default_update_authority', 'retain' );
+		$setting = tribe_get_option( 'tribe_aggregator_default_update_authority', 'overwrite' );
 
 		if ( $origin ) {
 			$setting = tribe_get_option( "tribe_aggregator_default_{$origin}_update_authority", $setting );
