@@ -29,7 +29,6 @@
 
 	}
 
-
 	.tribe-ea-help {
 		padding: 4px;
 		color: #0073aa;
@@ -149,7 +148,7 @@
 
 		&.column-total {
 			width: 15%;
-			text-align: center;
+			text-align: left;
 		}
 	}
 
@@ -165,7 +164,7 @@
 	}
 
 	td.column-total {
-		text-align: center;
+		text-align: left;
 	}
 
 	.tribe-ea-report-status {
@@ -220,6 +219,10 @@
 		}
 	}
 
+	.tribe-date-helper {
+		color: gray;
+	}
+
 	.tribe-notice-tribe-missing-aggregator-license {
 		background: #f7fcfe;
 	}
@@ -232,6 +235,38 @@
 		select {
 			margin-top: -2px;
 		}
+	}
+
+	.tribe-view-filters.tribe-active + .tribe-filters {
+		display: block;
+	}
+
+	dl.tribe-filters {
+		display: none;
+		margin-left: .5rem;
+		margin-top: 0;
+
+		dt {
+			clear: left;
+			display: inline-block;
+			font-weight: bold;
+			margin-right: .25rem;
+		}
+
+		dd {
+			display: inline;
+			margin-left: 0;
+
+			&:after {
+				content: '';
+				display: block;
+				margin-bottom: .25rem;
+			}
+		}
+	}
+
+	.widefat td p {
+		margin-bottom: .25em;
 	}
 }
 
@@ -493,6 +528,15 @@
 	margin-bottom: 0;
 	color: gray;
 	cursor: default;
+}
+
+.tribe-upsell-subtitle {
+	font-size: 11px;
+	color: gray;
+}
+
+.select2-highlighted .tribe-upsell-subtitle {
+	color: white;
 }
 
 @media screen and (max-width: 782px) {

@@ -13,6 +13,10 @@ class Tribe__Events__Aggregator__Record__Queue {
 	protected $updated = 0;
 	protected $created = 0;
 	protected $skipped = 0;
+	protected $category = 0;
+	protected $images = 0;
+	protected $venues = 0;
+	protected $organizers = 0;
 	protected $remaining = array();
 
 	public function __construct( $record_id, $items = array() ) {
@@ -67,6 +71,10 @@ class Tribe__Events__Aggregator__Record__Queue {
 		$this->updated   = empty( $activity['updated'] ) ? 0 : $activity['updated'];
 		$this->created   = empty( $activity['created'] ) ? 0 : $activity['created'];
 		$this->skipped   = empty( $activity['skipped'] ) ? 0 : $activity['skipped'];
+		$this->category    = empty( $activity['category'] ) ? 0 : $activity['category'];
+		$this->images    = empty( $activity['images'] ) ? 0 : $activity['images'];
+		$this->venues    = empty( $activity['venues'] ) ? 0 : $activity['venues'];
+		$this->organizers = empty( $activity['organizers'] ) ? 0 : $activity['organizers'];
 		$this->remaining = empty( $queue ) ? array() : $queue;
 	}
 
@@ -125,6 +133,42 @@ class Tribe__Events__Aggregator__Record__Queue {
 	}
 
 	/**
+	 * Returns the number of categories imported along with events
+	 *
+	 * @return int
+	 */
+	public function category() {
+		return $this->category;
+	}
+
+	/**
+	 * Returns the number of images imported along with events
+	 *
+	 * @return int
+	 */
+	public function images() {
+		return $this->images;
+	}
+
+	/**
+	 * Returns the number of venues imported along with events
+	 *
+	 * @return int
+	 */
+	public function venues() {
+		return $this->venues;
+	}
+
+	/**
+	 * Returns the number of organizers imported along with events
+	 *
+	 * @return int
+	 */
+	public function organizers() {
+		return $this->organizers;
+	}
+
+	/**
 	 * Returns relevant class properties as an activity array
 	 *
 	 * @return array
@@ -135,6 +179,10 @@ class Tribe__Events__Aggregator__Record__Queue {
 			'updated'   => $this->updated,
 			'created'   => $this->created,
 			'skipped'   => $this->skipped,
+			'category'  => $this->category,
+			'images'    => $this->images,
+			'venues'    => $this->venues,
+			'organizers' => $this->organizers,
 			'remaining' => count( $this->remaining ),
 		);
 	}
@@ -202,17 +250,30 @@ class Tribe__Events__Aggregator__Record__Queue {
 		$updated = empty( $results['updated'] ) ? 0 : $results['updated'];
 		$created = empty( $results['created'] ) ? 0 : $results['created'];
 		$skipped = empty( $results['skipped'] ) ? 0 : $results['skipped'];
+		$category = empty( $results['category'] ) ? 0 : $results['category'];
+		$images = empty( $results['images'] ) ? 0 : $results['images'];
+		$venues = empty( $results['venues'] ) ? 0 : $results['venues'];
+		$organizers = empty( $results['organizers'] ) ? 0 : $results['organizers'];
 
 		if ( 'csv' === $this->record->origin ) {
 			// update the running total across all batches
 			$this->updated = $updated;
 			$this->created = $created;
 			$this->skipped = $skipped;
+			$this->category = $category;
+			$this->images = $images;
+			// note: organizers and venues are imported differently for CSV
+			$this->venues = $venues;
+			$this->organizers = $organizers;
 		} else {
 			// update the running total across all batches
 			$this->updated += $updated;
 			$this->created += $created;
 			$this->skipped += $skipped;
+			$this->category += $category;
+			$this->images += $images;
+			$this->venues += $venues;
+			$this->organizers += $organizers;
 		}
 
 		$this->save();

@@ -6,7 +6,7 @@
 	url = https://github.com/mathiasbynens/jquery-placeholder.git
 [submodule "vendor/select2"]
 	path = vendor/select2
-	url = git://github.com/ivaynberg/select2.git
+	url = git://github.com/select2/select2.git
 [submodule "common"]
 	path = common
 	url = git@github.com:moderntribe/tribe-common.git

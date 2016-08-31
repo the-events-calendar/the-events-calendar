@@ -69,7 +69,11 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 							$disabled = ( isset( $option->disabled ) ? $option->disabled : null );
 							if ( ! $upsell && $disabled ) {
 								$upsell = true;
-								?><option value="redirect"><?php esc_html_e( 'Buy Event Aggregator for more event sources and automatic imports!', 'the-events-calendar' ); ?></option><?php
+								?><option value="redirect"><?php
+									esc_html_e( 'Buy Event Aggregator', 'the-events-calendar' );
+									echo '|';
+									esc_html_e( 'Access more event sources and automatic imports!', 'the-events-calendar' );
+								?></option><?php
 							}
 
 							$is_selected = false;

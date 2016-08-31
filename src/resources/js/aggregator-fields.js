@@ -4,22 +4,25 @@ var tribe_aggregator = tribe_aggregator || {};
 tribe_aggregator.fields = {
 	// Store the Required Selectors
 	selector: {
-		container: '.tribe-ea',
-		form: '.tribe-ea-form',
-		help: '.tribe-ea-help',
-		fields: '.tribe-ea-field',
-		dropdown: '.tribe-ea-dropdown',
-		origin_field: '#tribe-ea-field-origin',
-		media_button: '.tribe-ea-media_button',
-		datepicker: '.tribe-ea-datepicker',
-		save_credentials_button: '.enter-credentials .tribe-save',
-		preview_container: '.tribe-preview-container',
-		preview_button: '.tribe-preview:visible',
-		refine_filters: '.tribe-refine-filters',
-		clear_filters_button: '.tribe-clear-filters',
-		finalize_button: '.tribe-finalize',
-		cancel_button: '.tribe-cancel',
-		action: '#tribe-action'
+		container               : '.tribe-ea',
+		form                    : '.tribe-ea-form',
+		help                    : '.tribe-ea-help',
+		fields                  : '.tribe-ea-field',
+		dropdown                : '.tribe-ea-dropdown',
+		origin_field            : '#tribe-ea-field-origin',
+		media_button            : '.tribe-ea-media_button',
+		datepicker              : '.tribe-datepicker',
+		save_credentials_button : '.enter-credentials .tribe-save',
+		preview_container       : '.tribe-preview-container',
+		preview_button          : '.tribe-preview:visible',
+		refine_filters          : '.tribe-refine-filters',
+		clear_filters_button    : '.tribe-clear-filters',
+		finalize_button         : '.tribe-finalize',
+		cancel_button           : '.tribe-cancel',
+		schedule_delete_link    : '.tribe-ea-tab-scheduled a.submitdelete',
+		tab_new                 : '.tribe-ea-tab-new',
+		action                  : '#tribe-action',
+		view_filters            : '.tribe-view-filters'
 	},
 
 	media: {},
@@ -86,13 +89,17 @@ tribe_aggregator.fields = {
 		}
 
 		$( document )
-			.on( 'keypress'   , obj.selector.fields                  , obj.events.trigger_field_change )
-			.on( 'click'      , obj.selector.save_credentials_button , obj.events.trigger_save_credentials )
-			.on( 'click'      , obj.selector.clear_filters_button    , obj.clear_filters )
-			.on( 'click'      , obj.selector.finalize_button         , obj.finalize_manual_import )
-			.on( 'click'      , '.tribe-preview'                     , obj.preview_import )
-			.on( 'click'      , '.tribe-cancel'                      , obj.events.cancel_edit )
-			.on( 'change'     , obj.selector.origin_field            , function() {
+			.on( 'keypress'   , obj.selector.fields                    , obj.events.trigger_field_change )
+			.on( 'click'      , obj.selector.save_credentials_button   , obj.events.trigger_save_credentials )
+			.on( 'click'      , obj.selector.clear_filters_button      , obj.clear_filters )
+			.on( 'click'      , obj.selector.finalize_button           , obj.finalize_manual_import )
+			.on( 'click'      , obj.selector.preview_button            , obj.preview_import )
+			.on( 'click'      , obj.selector.cancel_button             , obj.events.cancel_edit )
+			.on( 'click'      , obj.selector.schedule_delete_link      , obj.events.verify_schedule_delete )
+			.on( 'click'      , obj.selector.view_filters              , obj.events.toggle_view_filters )
+			.on( 'blur'       , obj.selector.datepicker                , obj.date_helper )
+			.on( 'submit'     , obj.selector.tab_new                   , obj.events.suppress_submission )
+			.on( 'change'     , obj.selector.origin_field              , function() {
 				obj.$.form.removeClass( 'show-data' );
 				obj.$.form.attr( 'data-origin', $( this ).val() );
 				$( '.tribe-fetched, .tribe-fetching, .tribe-fetch-error' ).removeClass( 'tribe-fetched tribe-fetching tribe-fetch-error' );
@@ -100,8 +107,7 @@ tribe_aggregator.fields = {
 					window.open( 'https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importoptions&utm_medium=plugin-tec&utm_campaign=in-app','_blank' );
 					location.reload();
 				}
-			} )
-			.on( 'submit'     , '.tribe-ea-tab-new'                  , obj.events.suppress_submission );
+			} );
 
 		$( '.tribe-dependency' ).change();
 
@@ -661,6 +667,20 @@ tribe_aggregator.fields = {
 				args.minimumResultsForSearch = Infinity;
 			}
 
+			args.upsellFormatter = function( option ) {
+				if ( 'redirect' == option.id ) {
+					var parts = option.text.split( '|' );
+					option.text = parts[0] + '<br><span class="tribe-upsell-subtitle">' + parts[1] + '</span>';
+				}
+				return option.text;
+			}
+
+			if ( 'tribe-ea-field-origin' === $select.attr( 'id' ) ) {
+				args.formatResult = args.upsellFormatter,
+    			args.formatSelection = args.upsellFormatter,
+    			args.escapeMarkup = function(m) { return m; };
+			}
+
 			if ( $select.is( '[multiple]' ) ) {
 				args.multiple = true;
 
@@ -709,7 +729,7 @@ tribe_aggregator.fields = {
 				return result;
 			};
 
-			// Select also allows Tags, se we go with that too
+			// Select also allows Tags, so we go with that too
 			if ( $select.is( '[data-tags]' ) ){
 				args.tags = $select.data( 'options' );
 
@@ -768,7 +788,7 @@ tribe_aggregator.fields = {
 					}
 				};
 
-				// By default only sent the source
+				// By default only send the source
 				args.ajax.data = function( search, page ) {
 					return {
 						action: 'tribe_aggregator_dropdown_' + source,
@@ -934,6 +954,25 @@ tribe_aggregator.fields = {
 		window.location.href = url;
 	};
 
+	obj.events.verify_schedule_delete = function() {
+		return confirm( ea.l10n.verify_schedule_delete );
+	};
+
+	/**
+	 * Toggles the View Filters link on the Scheduled Imports/History page
+	 */
+	obj.events.toggle_view_filters = function( e ) {
+		e.preventDefault();
+		var $el = $( this );
+
+		$el.toggleClass( 'tribe-active' );
+		if ( $el.is( '.tribe-active' ) ) {
+			$el.html( ea.l10n.hide_filters );
+		} else {
+			$el.html( ea.l10n.view_filters );
+		}
+	};
+
 	obj.progress.init = function() {
 		obj.progress.data = {};
 		obj.progress.$ = {};
@@ -1032,6 +1071,32 @@ tribe_aggregator.fields = {
 		obj.progress.$.notice.animate( effect, 1000, function() {
 			obj.progress.$.notice.remove();
 		} );
+	};
+
+	/**
+	 * helper text for date select
+	 */
+	obj.date_helper = function() {
+		var $picker;
+
+		$picker = $( this );
+
+		if ( ! $picker.hasClass( 'tribe-datepicker' ) ) {
+			return;
+		}
+
+		var selected_date = $picker.val();
+		if ( '' === selected_date || null === selected_date ) {
+			return;
+		}
+
+		var tmp = $picker.attr( 'id' ).match( 'tribe-ea-field-(.*)_start' );
+		var origin = tmp[1];
+		if ( '' === origin || null === origin ) {
+			return;
+		}
+
+		jQuery( '#tribe-date-helper-date-' + origin ).html( selected_date );
 	};
 
 	// Run Init on Document Ready

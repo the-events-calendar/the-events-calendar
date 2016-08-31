@@ -159,7 +159,7 @@
 
 .tribe-ea .manage-column.column-total {
 	width: 15%;
-	text-align: center;
+	text-align: left;
 }
 
 .tribe-ea .tribe-ea-tab-scheduled td.column-source {
@@ -172,7 +172,7 @@
 }
 
 .tribe-ea td.column-total {
-	text-align: center;
+	text-align: left;
 }
 
 .tribe-ea .tribe-ea-report-status {
@@ -228,6 +228,10 @@
 	margin-bottom: 0;
 }
 
+.tribe-ea .tribe-date-helper {
+	color: gray;
+}
+
 .tribe-ea .tribe-notice-tribe-missing-aggregator-license {
 	background: #f7fcfe;
 }
@@ -241,6 +245,41 @@
 
 .tribe-ea .dataTables_length select, .tribe-ea .dataTables_filter select {
 	margin-top: -2px;
+}
+
+.tribe-ea .tribe-view-filters.tribe-active + .tribe-filters {
+	display: block;
+}
+
+.tribe-ea dl.tribe-filters {
+	display: none;
+	margin-left: 8px;
+	margin-left: .5rem;
+	margin-top: 0;
+}
+
+.tribe-ea dl.tribe-filters dt {
+	clear: left;
+	display: inline-block;
+	font-weight: bold;
+	margin-right: 4px;
+	margin-right: .25rem;
+}
+
+.tribe-ea dl.tribe-filters dd {
+	display: inline;
+	margin-left: 0;
+}
+
+.tribe-ea dl.tribe-filters dd:after {
+	content: '';
+	display: block;
+	margin-bottom: 4px;
+	margin-bottom: .25rem;
+}
+
+.tribe-ea .widefat td p {
+	margin-bottom: .25em;
 }
 
 .tribe-ea-table-container {
@@ -483,6 +522,15 @@
 	margin-bottom: 0;
 	color: gray;
 	cursor: default;
+}
+
+.tribe-upsell-subtitle {
+	font-size: 11px;
+	color: gray;
+}
+
+.select2-highlighted .tribe-upsell-subtitle {
+	color: white;
 }
 
 @media screen and (max-width: 782px) {

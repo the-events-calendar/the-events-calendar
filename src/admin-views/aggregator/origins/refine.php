@@ -4,7 +4,7 @@ $keywords->placeholder   = __( 'Keyword(s)', 'the-events-calendar' );
 $location                = new stdClass;
 $location->placeholder   = __( 'Location', 'the-events-calendar' );
 $start_date              = new stdClass;
-$start_date->placeholder = __( 'Start Date', 'the-events-calendar' );
+$start_date->placeholder = __( 'Date', 'the-events-calendar' );
 $radius                  = new stdClass;
 $radius->placeholder     = sprintf( _x( 'Radius (%s)', 'Radius with abbreviation', 'the-events-calendar' ), Tribe__Events__Utils__Radius::get_abbreviation() );
 
@@ -49,6 +49,7 @@ switch ( $origin_slug ) {
 				placeholder="<?php echo esc_attr( $start_date->placeholder ); ?>"
 				value="<?php echo esc_attr( empty( $record->meta['start'] ) ? '' : $record->meta['start'] ); ?>"
 			>
+			<span class="tribe-dependent tribe-date-helper" data-depends="#tribe-ea-field-<?php echo esc_attr( $origin_slug ); ?>_start" data-condition-not-empty><?php esc_html_e( 'Events on or after', 'the-events-calendar' ); ?> <span id="tribe-date-helper-date-<?php echo esc_attr( $origin_slug ); ?>"><?php echo esc_attr( empty( $record->meta['start'] ) ? '' : $record->meta['start'] ); ?></span></span>
 		</div>
 		<div class="tribe-refine">
 			<input
