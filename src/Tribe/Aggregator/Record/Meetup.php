@@ -28,4 +28,26 @@ class Tribe__Events__Aggregator__Record__Meetup extends Tribe__Events__Aggregato
 	public function get_label() {
 		return __( 'Meetup', 'the-events-calendar' );
 	}
+
+	/**
+	 * Filters the event to ensure that a proper URL is in the EventURL
+	 *
+	 * @param array $event Event data
+	 * @param Tribe__Events__Aggregator__Record__Abstract $record Aggregator Import Record
+	 *
+	 * @return array
+	 */
+	public static function filter_event_to_force_url( $event, $record ) {
+		if ( 'meetup' !== $record->origin ) {
+			return $event;
+		}
+
+		if ( ! empty( $event['EventURL'] ) ) {
+			return $event;
+		}
+
+		$event['EventURL'] = $record->meta['source'];
+
+		return $event;
+	}
 }

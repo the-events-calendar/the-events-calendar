@@ -44,4 +44,26 @@ class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggrega
 	public function get_label() {
 		return __( 'Facebook', 'the-events-calendar' );
 	}
+
+	/**
+	 * Filters the event to ensure that a proper URL is in the EventURL
+	 *
+	 * @param array $event Event data
+	 * @param Tribe__Events__Aggregator__Record__Abstract $record Aggregator Import Record
+	 *
+	 * @return array
+	 */
+	public static function filter_event_to_force_url( $event, $record ) {
+		if ( 'facebook' !== $record->origin ) {
+			return $event;
+		}
+
+		if ( ! empty( $event['EventURL'] ) ) {
+			return $event;
+		}
+
+		$event['EventURL'] = $record->meta['source'];
+
+		return $event;
+	}
 }
