@@ -57,7 +57,7 @@ class Tribe__Events__Aggregator__Settings {
 			$time = time();
 		}
 
-		return $credentials->expires > $time;
+		return $credentials->expires <= $time;
 	}
 
 	public function do_import_settings_tab() {
