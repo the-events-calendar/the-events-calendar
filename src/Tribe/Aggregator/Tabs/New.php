@@ -430,10 +430,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return;
 		}
 
-		$has_license_key = ! empty( Tribe__Events__Aggregator__Service::instance()->api()->key );
-		$license_info = get_option( 'external_updates-event-aggregator' );
-
-		if ( $has_license_key && empty( $license_info->update->api_invalid ) ) {
+		if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
 			return;
 		}
 
