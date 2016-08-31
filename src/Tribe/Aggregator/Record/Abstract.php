@@ -1130,7 +1130,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$image = apply_filters( 'tribe_aggregator_event_image', Tribe__Events__Aggregator::instance()->api( 'image' )->get( $import_data['image']->id ), $event_id, $import_data );
 
 		// If there was a problem bail out
-		if ( false === $image ) {
+		if ( false === $image || is_wp_error( $image ) ) {
 			return;
 		}
 
