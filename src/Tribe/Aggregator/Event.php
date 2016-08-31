@@ -112,6 +112,14 @@ class Tribe__Events__Aggregator__Event {
 			}
 		}
 
+		/**
+		 * Filter the translation of service data to Event data
+		 *
+		 * @param array $event EA Service data converted to Event API fields
+		 * @param object $item EA Service item being being translated
+		 */
+		$event = apply_filters( 'tribe_aggregator_translate_service_data', $event, $item );
+
 		return $event;
 	}
 
