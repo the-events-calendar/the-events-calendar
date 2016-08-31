@@ -20,7 +20,7 @@ $frequencies = $cron->get_frequency();
 		<label for="tribe-ea-field-fb_credentials"><?php esc_html_e( 'Extra Credentials:', 'the-events-calendar' ); ?></label>
 	</th>
 	<td>
-		<a target="_blank" style="line-height: 28px;" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url() ); ?>">Login with Facebook</a>
+		<a target="_blank" style="line-height: 28px;" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url() ); ?>"><?php esc_html_e( 'Login with Facebook', 'the-events-calendar' ); ?></a>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help"
 			data-bumpdown="<?php esc_attr_e( 'Currently your Event Aggregator does not have a Facebook Login associated with it, to perform more accurate queries to Facebook you will need to login.', 'the-events-calendar' ); ?>"
