@@ -23,12 +23,10 @@ class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggrega
 	public static function get_auth_url( $args = array() ) {
 		$service = Tribe__Events__Aggregator__Service::instance();
 		$url = $service->api()->domain . 'facebook/' . $service->api()->key;
-		$site = (object) parse_url( home_url() );
-
 		$defaults = array(
-			'domain' => $site->host,
-			'back'   => 'new',
-			'lang'   => get_bloginfo( 'language' ),
+			'home' => urlencode( home_url() ),
+			'back' => 'new',
+			'lang' => get_bloginfo( 'language' ),
 		);
 
 		$args = wp_parse_args( $args, $defaults );
