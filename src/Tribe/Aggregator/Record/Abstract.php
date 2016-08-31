@@ -732,8 +732,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$count = 0;
 		}
 
-		$this->meta[ 'num_' . $type ] = $count;
-		$this->update_meta( 'num_' . $type, $count );
+		if ( $post->ID !== $this->post->ID ) {
+			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post->ID );
+		} else {
+			$record = $this;
+		}
+
+		$record->meta[ 'num_' . $type ] = $count;
+		$record->update_meta( 'num_' . $type, $count );
 	}
 
 	/**
