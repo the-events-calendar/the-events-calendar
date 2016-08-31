@@ -91,6 +91,11 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		// save the file to the filesystem in the upload directory somewhere
 		$upload_results = wp_upload_bits( $filename, null, $response['body'] );
 
+		// if the file path isn't set, all hope is lost
+		if ( empty( $upload_results['file'] ) ) {
+			return tribe_error( 'core:aggregator:invalid-image-path' );
+		}
+
 		// create attachment args
 		$attachment = array(
 			'guid'           => $upload_dir['url'] . '/' . $filename,
