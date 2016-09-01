@@ -1,0 +1,150 @@
+<?php
+
+
+/**
+ * Class Tribe__Events__Integrations__WPML__Defaults
+ *
+ * Handles sensible defaults for to The Events Calendar in WPML.
+ */
+class Tribe__Events__Integrations__WPML__Defaults {
+
+	/**
+	 * @var string The name of the sub-option that will store the first run flag.
+	 */
+	public $defaults_option_name = 'wpml_did_set_defaults';
+
+	/**
+	 * @var Tribe__Events__Integrations__WPML__Defaults
+	 */
+	protected static $instance;
+
+	/**
+	 * @var SitePress
+	 */
+	protected $sitepress;
+
+	/**
+	 * @var Tribe__Settings_Manager
+	 */
+	protected $settings_manager;
+
+	/**
+	 * Tribe__Events__Integrations__WPML__Defaults constructor.
+	 *
+	 * @param SitePress|null               $sitepress
+	 * @param Tribe__Settings_Manager|null $settings_manager
+	 */
+	public function __construct( SitePress $sitepress = null, Tribe__Settings_Manager $settings_manager = null ) {
+		if ( empty( $sitepress ) ) {
+			global /** @var SitePress $sitepress */
+			$sitepress;
+		}
+		$this->sitepress        = $sitepress;
+		$this->settings_manager = $settings_manager ? $settings_manager : Tribe__Settings_Manager::instance();
+	}
+
+	/**
+	 * The class singleton constructor
+	 *
+	 * @return Tribe__Events__Integrations__WPML__Defaults
+	 */
+	public static function instance() {
+		if ( empty( self::$instance ) ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * Conditionally set some default values for event related custom fields translation.
+	 *
+	 * @return bool `false` if defaults were already set, `true` otherwise.
+	 */
+	public function set_defaults() {
+		// make this check again has the action is triggered many times in a request lifecycle
+		if ( $this->has_set_defaults() ) {
+			return false;
+		}
+
+		$fields = $this->get_default_copy_fields();
+		foreach ( $fields as $field ) {
+			$this->sitepress->core_tm()->settings['custom_fields_translation'][ $field ] = WPML_COPY_CUSTOM_FIELD;
+		}
+
+		// remove the method to avoid infinite loops
+		remove_action( 'icl_save_settings', array( $this, 'set_defaults' ) );
+
+		$this->sitepress->core_tm()->save_settings();
+
+
+		Tribe__Settings_Manager::set_option( $this->defaults_option_name, true );
+
+		return true;
+	}
+
+	/**
+	 * Checks whether default custom field translation option values have been for the current installation.
+	 *
+	 * @return bool Whether defaaults have been set already or not.
+	 */
+	public function has_set_defaults() {
+		return false !== Tribe__Settings_Manager::get_option( $this->defaults_option_name, false );
+	}
+
+	/**
+	 * Returns a list of The Events Calendar related fields that should be copied in translation by default.
+	 *
+	 * This is not a per-event setting but a per-site setting.
+	 *
+	 * @return array
+	 */
+	protected function get_default_copy_fields() {
+		$default_copy_fields = array(
+			'_EventCost',
+			'_EventCurrencyPosition',
+			'_EventCurrencySymbol',
+			'_EventDuration',
+			'_EventEndDate',
+			'_EventEndDateUTC',
+			'_EventOrganizerID',
+			'_EventOrigin',
+			'_EventShowMap',
+			'_EventShowMapLink',
+			'_EventStartDate',
+			'_EventStartDateUTC',
+			'_EventTimezone',
+			'_EventTimezoneAbbr',
+			'_EventURL',
+			'_EventVenueID',
+			'_OrganizerEmail',
+			'_OrganizerOrganizer',
+			'_OrganizerOrganizerID',
+			'_OrganizerOrigin',
+			'_OrganizerPhone',
+			'_OrganizerWebsite',
+			'_VenueAddress',
+			'_VenueCity',
+			'_VenueCountry',
+			'_VenueGeoAddress',
+			'_VenueLat',
+			'_VenueLng',
+			'_VenueOrigin',
+			'_VenueOverwriteCoords',
+			'_VenuePhone',
+			'_VenueProvince',
+			'_VenueShowMap',
+			'_VenueShowMapLink',
+			'_VenueState',
+			'_VenueStateProvince',
+			'_VenueURL',
+			'_VenueVenue',
+			'_VenueZip',
+		);
+
+		// The reason this array is not filtered is that each plugin should act independently in setting
+		// its own specific defaults, plus this array will be parse once per site and concurrency cannot be
+		// granted.
+		return $default_copy_fields;
+	}
+}
