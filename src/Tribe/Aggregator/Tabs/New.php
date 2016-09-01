@@ -121,6 +121,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_facebook_credentials() {
+		/**
+		 * @todo  include a way to handle errors on the Send back URL
+		 */
+
 		if ( empty( $_POST['aggregator'] ) ) {
 			return false;
 		}
@@ -133,6 +137,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		}
 
 		if ( empty( $response->data ) ) {
+			return false;
+		}
+
+		if ( empty( $response->data->expires ) ||  empty( $response->data->token ) || empty( $response->data->scopes ) ) {
 			return false;
 		}
 
