@@ -38,7 +38,9 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 	}
 
 	public function is_visible() {
-		return true;
+		$records = Tribe__Events__Aggregator__Records::instance();
+
+		return $records->has_scheduled();
 	}
 
 	public function get_slug() {
