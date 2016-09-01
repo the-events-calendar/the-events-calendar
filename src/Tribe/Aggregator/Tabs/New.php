@@ -161,12 +161,18 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_import_finalize( $data ) {
-		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $data['import_id'] );
 		$this->messages = array(
 			'error',
 			'success',
 			'warning',
 		);
+
+		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $data['import_id'] );
+
+		if ( is_wp_error( $record ) ) {
+			$this->messages['error'][] = $record->get_error_message();
+			return $this->messages;
+		}
 
 		$record->update_meta( 'post_status', empty( $data['post_status'] ) ? 'draft' : $data['post_status'] );
 		$record->update_meta( 'category', empty( $data['category'] ) ? null : $data['category'] );
@@ -212,6 +218,16 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 	public function get_result_messages( $record, $result ) {
 		$messages = array();
+
+		if ( is_wp_error( $result ) ) {
+			$messages[ 'error' ][] = $result->get_error_message();
+
+			tribe_notice( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
+
+			$record->set_status_as_failed( $result );
+			return $messages;
+		}
+
 		$is_queued = ! empty( $result['remaining'] );
 
 		$content_type = tribe_get_event_label_singular_lowercase();
@@ -223,15 +239,6 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			$content_type = $content_type_object->labels->singular_name_lowercase;
 			$content_type_plural = $content_type_object->labels->plural_name_lowercase;
 			$content_post_type = $content_type_object->name;
-		}
-
-		if ( is_wp_error( $result ) ) {
-			$messages[ 'error' ][] = $result->get_error_message();
-
-			tribe_notice( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
-
-			$record->set_status_as_failed( $result );
-			return $result;
 		}
 
 		if ( ! $is_queued ) {
