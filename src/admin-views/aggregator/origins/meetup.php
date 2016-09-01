@@ -81,7 +81,7 @@ $missing_meetup_credentials = ! $meetup_api_key;
 			<select
 				name="aggregator[meetup][import_type]"
 				id="tribe-ea-field-meetup_import_type"
-				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
+				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large tribe-import-type"
 				placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 				data-hide-search
 				data-prevent-clear
