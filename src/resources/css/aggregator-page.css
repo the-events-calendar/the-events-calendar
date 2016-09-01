@@ -23,6 +23,18 @@
 	position: relative;
 }
 
+.tribe-ea .tribe-ea-tab .subsubsub li {
+	font-weight: bold;
+}
+
+.tribe-ea .tribe-ea-tab .subsubsub .count {
+	font-weight: normal;
+}
+
+.tribe-ea .tribe-ea-tab .subsubsub a {
+	font-weight: normal;
+}
+
 .tribe-ea .tribe-ea-facebook-login {
 	display: block;
 	clear:both;
