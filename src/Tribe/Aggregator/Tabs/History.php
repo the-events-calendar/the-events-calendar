@@ -26,7 +26,9 @@ class Tribe__Events__Aggregator__Tabs__History extends Tribe__Events__Aggregator
 	public $priority = 30;
 
 	public function is_visible() {
-		return true;
+		$records = Tribe__Events__Aggregator__Records::instance();
+
+		return $records->has_scheduled() || $records->has_history();
 	}
 
 	public function get_slug() {
