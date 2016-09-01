@@ -290,6 +290,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.2.6] 2016-08-31 =
+
+* Add - tribe_is_event_past() conditional to detect if event end time is past current time (Reported by @Jonathan in our support forums - thanks Jonathan.)
+
 = [4.3] unreleased =
 
 * Tweak - Adjusted some view logic to support the new Event Views shortcode in Pro [44800]

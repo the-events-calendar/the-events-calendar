@@ -75,10 +75,16 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 									esc_html_e( 'Access more event sources and automatic imports!', 'the-events-calendar' );
 								?></option><?php
 							}
+
+							$is_selected = false;
+							if ( ! empty( $_GET['ea-auth'] ) && $option->id === $_GET['ea-auth'] ) {
+								$is_selected = true;
+							}
 							?>
 							<option
 								value="<?php echo esc_attr( $option->id ); ?>"
 								<?php disabled( $disabled ); ?>
+								<?php selected( $is_selected ); ?>
 								><?php esc_html_e( $option->name ); ?></option>
 							<?php
 						}

@@ -36,24 +36,24 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 * @param array $args The post args.
 		 *
-		 * @return int The created event ID.
+		 * @return int|WP_Error The created event ID or a WP_Error object if it fails.
 		 */
 		public static function createEvent( $args ) {
 
 			$args['post_type'] = Tribe__Events__Main::POSTTYPE;
-			$eventId           = wp_insert_post( $args, true );
+			$event_id          = wp_insert_post( $args, true );
 
-			if ( ! is_wp_error( $eventId ) ) {
-				self::saveEventMeta( $eventId, $args, get_post( $eventId ) );
-
-				return $eventId;
+			if ( ! is_wp_error( $event_id ) ) {
+				self::saveEventMeta( $event_id, $args, get_post( $event_id ) );
 			}
+
+			return $event_id;
 		}
 
 		/**
 		 * Update an existing event
 		 *
-		 * @param int   $eventId The event ID to update.
+		 * @param int   $event_id The event ID to update.
 		 * @param array $args    The post args.
 		 *
 		 * @return false|int The event ID.

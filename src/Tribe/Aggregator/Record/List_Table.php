@@ -419,6 +419,35 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $source_info['via']  . '</strong></p>';
 
+		if (
+			! empty( $record->meta['keywords'] )
+			|| ! empty( $record->meta['start'] )
+			|| ! empty( $record->meta['location'] )
+			|| ! empty( $record->meta['radius'] )
+		) {
+			$html[] = '<div class="tribe-view-filters-container">';
+			$html[] = '<a href="" class="tribe-view-filters">' . esc_html__( 'View Filters', 'the-events-calendar' ) . '</a>';
+			$html[] = '<dl class="tribe-filters">';
+
+			if ( ! empty( $record->meta['keywords'] ) ) {
+				$html[] = '<dt>' . __( 'Keywords:', 'the-events-calendar' ) . '</dt><dd>' . esc_html( $record->meta['keywords'] ) . '</dd>';
+			}
+
+			if ( ! empty( $record->meta['start'] ) ) {
+				$html[] = '<dt>' . __( 'Start:', 'the-events-calendar' ) . '</dt><dd>' . esc_html( $record->meta['start'] ) . '</dd>';
+			}
+
+			if ( ! empty( $record->meta['location'] ) ) {
+				$html[] = '<dt>' . __( 'Location:', 'the-events-calendar' ) . '</dt><dd>' . esc_html( $record->meta['location'] ) . '</dd>';
+			}
+
+			if ( ! empty( $record->meta['radius'] ) ) {
+				$html[] = '<dt>' . __( 'Radius:', 'the-events-calendar' ) . '</dt><dd>' . esc_html( $record->meta['radius'] ) . '</dd>';
+			}
+
+			$html[] = '</dl></div>';
+		}
+
 		return $this->render( $html );
 	}
 
@@ -460,16 +489,30 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	public function column_total( $post ) {
+		$html = array();
+
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 		$last_imported = $record->get_child_record_by_status( 'success', 1 );
 		if ( $last_imported && $last_imported->have_posts() ) {
-			$html[] = esc_html__( 'Last Import: ', 'the-events-calendar' ) . $last_imported->post->comment_count;
+			if ( $created = $last_imported->get_event_count( 'created' ) ) {
+				$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . $created;
+			}
+
+			if ( $updated = $last_imported->get_event_count( 'updated' ) ) {
+				$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;
+			}
 		}
 
 		if ( 'schedule' === $record->type ) {
-			$html[] = esc_html__( 'All Time: ', 'the-events-calendar' ) . intval( $post->comment_count );
+			$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . intval( $record->get_event_count( 'created' ) );
 		} else {
-			$html[] = intval( $post->comment_count );
+			if ( $created = $record->get_event_count( 'created' ) ) {
+				$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . $created;
+			}
+
+			if ( $updated = $record->get_event_count( 'updated' ) ) {
+				$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;
+			}
 		}
 
 		return $this->render( $html, '<br>' );

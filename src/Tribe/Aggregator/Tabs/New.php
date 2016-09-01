@@ -81,6 +81,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_submit() {
+		if ( ! empty( $_POST['ea-facebook-credentials'] ) ) {
+			return $this->handle_facebook_credentials();
+		}
+
 		if ( empty( $_POST['aggregator']['action'] ) || 'new' !== $_POST['aggregator']['action'] ) {
 			return;
 		}
@@ -114,6 +118,46 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$result = $record->queue_import();
 
 		return $result;
+	}
+
+	public function handle_facebook_credentials() {
+		/**
+		 * @todo  include a way to handle errors on the Send back URL
+		 */
+
+		if ( empty( $_POST['aggregator'] ) ) {
+			return false;
+		}
+		$data = (object) $_POST['aggregator'];
+		$api = Tribe__Events__Aggregator__Service::instance()->api();
+
+		$response = Tribe__Events__Aggregator__Service::instance()->get_facebook_token();
+		if ( is_wp_error( $response ) ) {
+			return false;
+		}
+
+		if ( empty( $response->data ) ) {
+			return false;
+		}
+
+		if ( empty( $response->data->expires ) ||  empty( $response->data->token ) || empty( $response->data->scopes ) ) {
+			return false;
+		}
+
+		$expires = absint( trim( preg_replace( '/[^0-9]/', '', $response->data->expires ) ) );
+		$expires += time();
+		tribe_update_option( 'fb_token', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $response->data->token ) ) );
+		tribe_update_option( 'fb_token_expires', $expires );
+		tribe_update_option( 'fb_token_scopes', trim( preg_replace( '/[^a-zA-Z0-9\,_-]/', '', $response->data->scopes ) ) );
+
+		if ( 'new' === $data->type ) {
+			$url = Tribe__Events__Aggregator__Page::instance()->get_url( array( 'tab' => $this->get_slug(), 'ea-auth' => 'facebook' ) );
+		} elseif ( 'settings' === $data->type ) {
+			$url = Tribe__Settings::instance()->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) );
+		}
+
+		wp_redirect( $url );
+		exit;
 	}
 
 	public function handle_import_finalize( $data ) {
@@ -190,42 +234,88 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return $result;
 		}
 
-		if ( ! $is_queued && ! empty( $result['created'] ) ) {
-			$content_label = 1 === $result['created'] ? $content_type : $content_type_plural;
+		if ( ! $is_queued ) {
+			if ( ! empty( $result['created'] ) ) {
+				$content_label = 1 === $result['created'] ? $content_type : $content_type_plural;
 
-			$messages['success'][] = sprintf(
-				_n( '%1$d new %2$s was imported.', '%1$d new %2$s were imported.', $result['created'], 'the-events-calendar' ),
-				$result['created'],
-				$content_label
-			);
+				$messages['success'][] = sprintf(
+					_n( '%1$d new %2$s was imported.', '%1$d new %2$s were imported.', $result['created'], 'the-events-calendar' ),
+					$result['created'],
+					$content_label
+				);
+			}
+
+			if ( ! empty( $result['updated'] ) ) {
+				$content_label = 1 === $result['updated'] ? $content_type : $content_type_plural;
+
+				// @todo: include a part of sentence like: ", including %1$d %2$signored event%3$s.", <a href="/wp-admin/edit.php?post_status=tribe-ignored&post_type=tribe_events">, </a>
+				$messages['success'][] = sprintf(
+					_n( '%1$d existing %2$s was updated.', '%1$d existing %2$s were updated.', $result['updated'], 'the-events-calendar' ),
+					$result['updated'],
+					$content_label
+				);
+			}
+
+			if ( ! empty( $result['skipped'] ) ) {
+				$content_label = 1 === $result['skipped'] ? $content_type : $content_type_plural;
+
+				$messages['success'][] = sprintf(
+					_n( '%1$d already-imported %2$s was skipped.', '%1$d already-imported %2$s were skipped.', $result['skipped'], 'the-events-calendar' ),
+					$result['skipped'],
+					$content_label
+				);
+			}
+
+			if ( ! empty( $result['images'] ) ) {
+				$messages['success'][] = sprintf(
+					_n( '%1$d new image imported.', '%1$d new images imported.', $result['images'], 'the-events-calendar' ),
+					$result['images']
+				);
+			}
+
+			if ( $result && ! $messages ) {
+				__( 'No events were imported or updated.', 'the-events-calendar' );
+			}
+
+			// append a URL to view all records for the given post type
+			$url = admin_url( 'edit.php?post_type=' . $content_post_type );
+			$link_text = sprintf( __( 'View all %s', 'the-events-calendar' ), $content_type_plural );
+			$messages['success'][ count( $messages['success'] ) - 1 ] .= ' <a href="' . esc_url( $url ) . '" >' . esc_html( $link_text ) . '</a>';
+
+			// if not CSV, pull counts for venues and organizers that were auto-created
+			if ( 'csv' !== $record->meta['origin'] ) {
+				if ( ! empty( $result['venues'] ) ) {
+					$messages['success'][] = '<br/>' . sprintf(
+						_n( '%1$d new venue imported.', '%1$d new venues imported.', $result['venues'], 'the-events-calendar' ),
+						$result['venues']
+					) .
+					' <a href="' . admin_url( 'edit.php?post_type=tribe_venue' ) . '">' .
+					__( 'View your event venues', 'the-events-calendar' ) .
+					'</a>';
+				}
+
+				if ( ! empty( $result['organizers'] ) ) {
+					$messages['success'][] = '<br/>' . sprintf(
+						_n( '%1$d new organizer imported.', '%1$d new organizers imported.', $result['organizers'], 'the-events-calendar' ),
+						$result['organizers']
+					) .
+					' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
+					__( 'View your event organizers', 'the-events-calendar' ) .
+					'</a>';
+					;
+				}
+			}
 		}
 
-		if ( ! $is_queued && ! empty( $result['updated'] ) ) {
-			$content_label = 1 === $result['updated'] ? $content_type : $content_type_plural;
-
-			// @todo: include a part of sentence like: ", including %1$d %2$signored event%3$s.", <a href="/wp-admin/edit.php?post_status=tribe-ignored&post_type=tribe_events">, </a>
-			$messages['success'][] = sprintf(
-				_n( '%1$d existing %2$s was updated.', '%1$d existing %2$s were updated.', $result['updated'], 'the-events-calendar' ),
-				$result['updated'],
-				$content_label
-			);
-		}
-
-		if ( ! $is_queued && ! empty( $result['skipped'] ) ) {
-			$content_label = 1 === $result['skipped'] ? $content_type : $content_type_plural;
-
-			$messages['success'][] = sprintf(
-				_n( '%1$d already-imported %2$s was skipped.', '%1$d already-imported %2$s were skipped.', $result['skipped'], 'the-events-calendar' ),
-				$result['skipped'],
-				$content_label
-			);
-		}
-
-		if ( ! $is_queued && $result && ! $messages ) {
-			$messages['success'][] = sprintf(
-				__( '0 new %1$s were imported.', 'the-events-calendar' ),
-				$content_type_plural
-			);
+		if ( ! empty( $result['category'] ) ) {
+			$messages['success'][] = '<br/>' . sprintf(
+				_n( '%1$d new event category was created.', '%1$d new event categories were created.', $result['category'], 'the-events-calendar' ),
+				$result['category']
+			) .
+			' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
+			__( 'View your event categories', 'the-events-calendar' ) .
+			'</a>';
+			;
 		}
 
 		if (
@@ -233,11 +323,25 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			|| ! empty( $messages['success'] )
 			|| ! empty( $messages['warning'] )
 		) {
-			array_unshift( $messages['success'], __( 'Import complete!<br/>', 'the-events-calendar' ) );
+			if ( 'manual' == $record->type ) {
+				array_unshift( $messages['success'], __( 'Import complete!', 'the-events-calendar' ) . '<br/>' );
+			} else {
+				array_unshift( $messages['success'], __( 'Your scheduled import was saved and the first import is complete!', 'the-events-calendar' ) . '<br/>' );
 
-			$url = admin_url( 'edit.php?post_type=' . $content_post_type );
-			$link_text = sprintf( __( 'View all %s', 'the-events-calendar' ), $content_type_plural );
-			$messages['success'][ count( $messages['success'] ) - 1 ] .= ' <a href="' . esc_url( $url ) . '" >' . esc_html( $link_text ) . '</a>';
+				$scheduled_time = strtotime( $record->post->post_modified ) + $record->frequency->interval;
+				$scheduled_time_string = date( get_option( 'date_format' ), $scheduled_time ) .
+					_x( ' at ', 'separator between date and time', 'the-events-calendar' ) .
+					date( get_option( 'time_format' ), $scheduled_time );
+
+				$messages['success'][] = '<br/>' .
+					sprintf(
+						__( 'The next import is scheduled for %1$s.', 'the-events-calendar' ),
+						esc_html( $scheduled_time_string )
+					) .
+					' <a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=scheduled' ) . '">' .
+					__( 'View your scheduled imports.', 'the-events-calendar' ) .
+					'</a>';
+			}
 		}
 
 		return $messages;
@@ -262,27 +366,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			wp_send_json_error( $data );
 		}
 
-		if ( 'facebook' === $which ) {
-			if ( empty( $_POST['token'] ) || empty( $_POST['expires'] ) || empty( $_POST['scopes'] ) ) {
-				$data = array(
-					'message' => __( 'The Facebook API key and API secret are both required.', 'the-events-calendar' ),
-				);
-
-				wp_send_json_error( $data );
-			}
-
-			$expires = absint( trim( preg_replace( '/[^0-9]/', '', $_POST['expires'] ) ) );
-			$expires += time();
-			tribe_update_option( 'fb_token', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $_POST['token'] ) ) );
-			tribe_update_option( 'fb_token_expires', $expires );
-			tribe_update_option( 'fb_token_scopes', trim( preg_replace( '/[^a-zA-Z0-9\,_-]/', '', $_POST['scopes'] ) ) );
-
-			$data = array(
-				'message' => __( 'Credentials have been saved', 'the-events-calendar' ),
-			);
-
-			wp_send_json_success( $data );
-		} elseif ( 'meetup' === $which ) {
+		if ( 'meetup' === $which ) {
 			if ( empty( $_POST['meetup_api_key'] ) ) {
 				$data = array(
 					'message' => __( 'The Meetup API key is required.', 'the-events-calendar' ),
@@ -359,10 +443,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return;
 		}
 
-		$has_license_key = ! empty( Tribe__Events__Aggregator__Service::instance()->api()->key );
-		$license_info = get_option( 'external_updates-event-aggregator' );
-
-		if ( $has_license_key && empty( $license_info->update->api_invalid ) ) {
+		if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
 			return;
 		}
 

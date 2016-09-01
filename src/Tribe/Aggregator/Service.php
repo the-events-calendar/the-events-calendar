@@ -27,7 +27,7 @@ class Tribe__Events__Aggregator__Service {
 		'key' => null,
 		'version' => 'v1',
 		'domain' => 'http://ea.theeventscalendar.com/',
-		'path' => 'wp-json/event-aggregator/',
+		'path' => 'api/aggregator/',
 	);
 
 	/**
@@ -204,6 +204,25 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		return $origins;
+	}
+
+	/**
+	 * Fetch Facebook Extended Token from the Service
+	 *
+	 * @return array
+	 */
+	public function get_facebook_token() {
+		$args = array(
+			'referral' => urlencode( home_url() ),
+		);
+		$response = $this->get( 'facebook/token', $args );
+
+		// If we have an WP_Error we return only CSV
+		if ( is_wp_error( $response ) ) {
+			return tribe_error( 'core:aggregator:invalid-facebook-token', array(), array( 'response' => $response ) );
+		}
+
+		return $response;
 	}
 
 	/**

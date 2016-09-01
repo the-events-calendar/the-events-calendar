@@ -125,8 +125,12 @@ class Tribe__Events__Aggregator {
 		// To make sure that meaningful cache is purged when settings are changed
 		add_action( 'updated_option', array( $this, 'action_purge_transients' ) );
 
+		// Remove aggregator records from ET
+		add_filter( 'tribe_tickets_settings_post_types', array( $this, 'filter_remove_record_post_type' ) );
+
 		// Notice users about exipring Facebook Token
 		tribe_notice( 'tribe-aggregator-facebook-token-expired', array( $this, 'notice_facebook_token_expired' ), 'type=error' );
+		tribe_notice( 'tribe-aggregator-facebook-oauth-feedback', array( $this, 'notice_facebook_oauth_feedback' ), 'type=success' );
 	}
 
 	/**
@@ -243,6 +247,21 @@ class Tribe__Events__Aggregator {
 	}
 
 	/**
+	 * Filters the list of post types for Event Tickets to remove Import Records
+	 *
+	 * @param array $post_types Post Types
+	 *
+	 * @return array
+	 */
+	public function filter_remove_record_post_type( $post_types ) {
+		if ( isset( $post_types[ Tribe__Events__Aggregator__Records::$post_type ] ) ) {
+			unset( $post_types[ Tribe__Events__Aggregator__Records::$post_type ] );
+		}
+
+		return $post_types;
+	}
+
+	/**
 	 * Purges the aggregator transients that are tied to the event-aggregator license
 	 *
 	 * @param string $option Option key
@@ -348,6 +367,16 @@ class Tribe__Events__Aggregator {
 		return 'tribe-aggregator-limit-used_' . date( 'Y-m-d' );
 	}
 
+	public function notice_facebook_oauth_feedback() {
+		if ( empty( $_GET['ea-auth'] ) || 'facebook' !== $_GET['ea-auth'] ) {
+			return false;
+		}
+
+		$html = '<p>' . esc_html__( 'Successfuly saved Event Aggregator Facebook Token', 'the-events-calendar' ) . '</p>';
+
+		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-facebook-oauth-feedback', $html );
+	}
+
 	public function notice_facebook_token_expired() {
 		if ( ! Tribe__Admin__Helpers::instance()->is_screen() ) {
 			return false;
@@ -405,6 +434,5 @@ class Tribe__Events__Aggregator {
 		$html = ob_get_clean();
 
 		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-facebook-token-expired', $html );
-
 	}
 }

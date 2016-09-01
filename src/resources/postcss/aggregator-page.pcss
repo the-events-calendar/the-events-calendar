@@ -8,7 +8,7 @@
 
 		.form-table {
 			th[scope="row"] {
-				width: 120px;
+				width: 140px;
 			}
 
 			tr {
@@ -148,7 +148,7 @@
 
 		&.column-total {
 			width: 15%;
-			text-align: center;
+			text-align: left;
 		}
 	}
 
@@ -164,7 +164,7 @@
 	}
 
 	td.column-total {
-		text-align: center;
+		text-align: left;
 	}
 
 	.tribe-ea-report-status {
@@ -235,6 +235,38 @@
 		select {
 			margin-top: -2px;
 		}
+	}
+
+	.tribe-view-filters.tribe-active + .tribe-filters {
+		display: block;
+	}
+
+	dl.tribe-filters {
+		display: none;
+		margin-left: .5rem;
+		margin-top: 0;
+
+		dt {
+			clear: left;
+			display: inline-block;
+			font-weight: bold;
+			margin-right: .25rem;
+		}
+
+		dd {
+			display: inline;
+			margin-left: 0;
+
+			&:after {
+				content: '';
+				display: block;
+				margin-bottom: .25rem;
+			}
+		}
+	}
+
+	.widefat td p {
+		margin-bottom: .25em;
 	}
 }
 

@@ -288,6 +288,33 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Detect if an Event is Past
+	 *
+	 * Returns true if the current time is past the event end time
+	 *
+	 * @param null $event
+	 *
+	 * @return bool
+	 */
+	function tribe_is_past_event( $event = null ) {
+
+		if ( is_null( $event ) ) {
+			global $post;
+			$event = $post;
+		}
+		// Check if event has passed
+		$gmt_offset = ( get_option( 'gmt_offset' ) >= '0' ) ? ' +' . get_option( 'gmt_offset' ) : ' ' . get_option( 'gmt_offset' );
+		$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
+
+		if ( strtotime( tribe_get_end_date( $event, false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) {
+			return true;
+		}
+
+		return false;
+
+	}
+
+	/**
 	 * Event Category ID's
 	 *
 	 * Display the event category ID as a class for events wrapper

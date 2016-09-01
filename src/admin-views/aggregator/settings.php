@@ -137,7 +137,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'tribe_aggregator_default_ical_post_status' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Default Status', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'The default post status for events imported via iCal, Google Calendar, and .ics files', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'The default post status for events imported via iCal and .ics files', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => '',
