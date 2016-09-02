@@ -72,7 +72,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			$plugin = Tribe__Events__Main::instance();
 			$localize = array();
 
-			if ( ! empty( $_GET['post'] ) && Tribe__Events__Ignored_Events::instance()->can_ignore( $_GET['post'] ) ) {
+			if ( ! empty( $_GET['post'] ) && self::instance()->can_ignore( $_GET['post'] ) ) {
 				$post = get_post( $_GET['post'] );
 				if ( self::$ignored_status === $post->post_status ) {
 					$localize['single'] = array(
@@ -204,7 +204,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return false;
 			}
 
-			$html = '<p>' . '@TODO: Include a Cool message about why you are seen this Notice!' . '</p>';
+			$html = '<p>' . esc_html__( 'Event Aggregator includes a new, better system for removing unwanted imported events from your calendar. Click the button below to transition previously deleted events. This process will remove unwanted records from your database and include recent or upcoming trashed events in your Ignored archive. Read more about Ignored Events.', 'the-events-calendar' ) . '</p>';
 			$html .= '<p style="display:inline-block;">' . get_submit_button( esc_html__( 'Migrate Legacy Ignored Events' ), 'secondary', 'tribe-migrate-legacy-events', false ) . '<span class="spinner"></span></p>';
 
 			return Tribe__Admin__Notices::instance()->render( 'legacy-ignored-events', $html );
