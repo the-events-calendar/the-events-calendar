@@ -305,6 +305,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Deprecated various disused functions and classes relating to the Meta Factory [39905]
 * Fix - Cease using GLOB_BRACE for including deprecated files due to limited server support [63172]
 * Fix - Avoid problems that can occur when hooking and unhooking actions (props @Chouby) [63474]
+* Fix - Correct the datetime formatting issues within the iCal feed (props @henryk) [65968]
 
 = [4.2.5] 2016-08-17 =
 
