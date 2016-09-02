@@ -205,19 +205,19 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			$content_type = $this->get_content_type();
 		}
 
-		switch ( $content_type ) {
-			case 'event':
-			case 'events':
-				$content_type = 'events';
-				break;
-			case 'organizer':
-			case 'organizers':
-				$content_type = 'organizers';
-				break;
-			case 'venue':
-			case 'venues':
-				$content_type = 'venues';
-				break;
+		$lowercase_content_type = strtolower( $content_type );
+
+		$map = array(
+			'event'      => 'events',
+			'events'     => 'events',
+			'organizer'  => 'organizers',
+			'organizers' => 'organizers',
+			'venue'      => 'venues',
+			'venues'     => 'venues',
+		);
+
+		if ( isset( $map[ $lowercase_content_type ] ) ) {
+			return $map[ $lowercase_content_type ];
 		}
 
 		return $content_type;
