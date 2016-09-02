@@ -182,7 +182,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			$this->importer->set_map( get_option( 'tribe_events_import_column_mapping_' . $content_type, array() ) );
 			$this->importer->set_type( $content_type );
 			$this->importer->set_limit( absint( apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size ) ) );
-			$this->importer->set_offset( get_option( 'tribe_events_importer_has_header', 0 ) );
+			$this->importer->set_offset( 1 );
 		}
 
 		return $this->importer;
@@ -249,7 +249,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 	}
 
 	public function reset_tracking_options() {
-		update_option( 'tribe_events_importer_offset', get_option( 'tribe_events_importer_has_header', 0 ) );
+		update_option( 'tribe_events_importer_offset', 1 );
 		update_option( 'tribe_events_import_log', array( 'updated' => 0, 'created' => 0, 'skipped' => 0, 'encoding' => 0 ) );
 		update_option( 'tribe_events_import_failed_rows', array() );
 		update_option( 'tribe_events_import_encoded_rows', array() );
@@ -259,7 +259,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		$importer = $this->get_importer();
 		$importer->is_aggregator = true;
 		$importer->aggregator_record = $this;
-		$offset = get_option( 'tribe_events_importer_offset', get_option( 'tribe_events_importer_has_header', 0 ) );
+		$offset = get_option( 'tribe_events_importer_offset', 1 );
 		if ( -1 === $offset ) {
 			$this->state = 'complete';
 			$this->clean_up_after_import();
