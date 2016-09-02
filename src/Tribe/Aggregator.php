@@ -128,7 +128,7 @@ class Tribe__Events__Aggregator {
 		// Remove aggregator records from ET
 		add_filter( 'tribe_tickets_settings_post_types', array( $this, 'filter_remove_record_post_type' ) );
 
-		// Notice users about exipring Facebook Token
+		// Notice users about expiring Facebook Token
 		tribe_notice( 'tribe-aggregator-facebook-token-expired', array( $this, 'notice_facebook_token_expired' ), 'type=error' );
 		tribe_notice( 'tribe-aggregator-facebook-oauth-feedback', array( $this, 'notice_facebook_oauth_feedback' ), 'type=success' );
 	}
