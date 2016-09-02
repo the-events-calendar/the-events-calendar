@@ -69,8 +69,23 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	}
 
 	protected function update_post( $post_id, array $record ) {
+		$update_authority_setting = Tribe__Events__Aggregator__Settings::instance()->default_update_authority( 'csv' );
+
 		$event = $this->build_event_array( $post_id, $record );
+
+		if ( 'retain' === $update_authority_setting ) {
+			$this->skipped[] = $event;
+			return false;
+		}
+
+		if ( 'preserve_changes' === $update_authority_setting ) {
+			$event['ID'] = $post_id;
+			$event = Tribe__Events__Aggregator__Event::preserve_changed_fields( $event );
+		}
+
+		add_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 		Tribe__Events__API::updateEvent( $post_id, $event );
+		remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 	}
 
 
