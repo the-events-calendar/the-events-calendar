@@ -497,14 +497,27 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			// always show created
 			$created = $last_imported->get_event_count( 'created' );
 
-			$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 );
-
-			if ( $updated = $last_imported->get_event_count( 'updated' ) ) {
-				$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;
-			}
+			$html[] = esc_html__( 'Latest Import: ', 'the-events-calendar' ) . ( $created ? $created : 0 );
 		}
 
+		// is this schedule record (or a child of schedule record?)
 		if ( 'schedule' === $record->type ) {
+			// if there's a post parent, then we are looking at a child record where we'll show
+			// new, updated, AND total
+			if ( ! empty( $record->post->post_parent ) ) {
+				$created = $record->get_event_count( 'created' );
+
+				$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 );
+
+				if ( ! empty( $record->post->post_parent ) && $updated = $record->get_event_count( 'updated' ) ) {
+					$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;
+				}
+
+				// let's change the record to the post parent so when we fetch that count, we're getting the grand total
+				$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record->post->post_parent );
+			}
+
+			// this will get the total event for the parent schedule record
 			$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . intval( $record->get_event_count( 'created' ) );
 		} else {
 			$created = $record->get_event_count( 'created' );
