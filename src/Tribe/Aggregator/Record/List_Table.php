@@ -497,14 +497,20 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			// always show created
 			$created = $last_imported->get_event_count( 'created' );
 
-			$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 );
-
-			if ( $updated = $last_imported->get_event_count( 'updated' ) ) {
-				$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;
-			}
+			$html[] = esc_html__( 'Latest Import: ', 'the-events-calendar' ) . ( $created ? $created : 0 );
 		}
 
 		if ( 'schedule' === $record->type ) {
+			if ( ! empty( $record->post->post_parent ) ) {
+				$created = $record->get_event_count( 'created' );
+
+				$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 );
+
+				if ( ! empty( $record->post->post_parent ) && $updated = $record->get_event_count( 'updated' ) ) {
+					$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;
+				}
+			}
+
 			$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . intval( $record->get_event_count( 'created' ) );
 		} else {
 			$created = $record->get_event_count( 'created' );
