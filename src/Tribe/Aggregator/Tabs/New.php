@@ -268,7 +268,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 			if ( ! empty( $result['images'] ) ) {
 				$messages['success'][] = sprintf(
-					_n( '%1$d new image imported.', '%1$d new images imported.', $result['images'], 'the-events-calendar' ),
+					_n( '%1$d new image was imported.', '%1$d new were images imported.', $result['images'], 'the-events-calendar' ),
 					$result['images']
 				);
 			}
@@ -286,7 +286,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			if ( 'csv' !== $record->meta['origin'] ) {
 				if ( ! empty( $result['venues'] ) ) {
 					$messages['success'][] = '<br/>' . sprintf(
-						_n( '%1$d new venue imported.', '%1$d new venues imported.', $result['venues'], 'the-events-calendar' ),
+						_n( '%1$d new venue was imported.', '%1$d new venues were imported.', $result['venues'], 'the-events-calendar' ),
 						$result['venues']
 					) .
 					' <a href="' . admin_url( 'edit.php?post_type=tribe_venue' ) . '">' .
@@ -296,7 +296,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 				if ( ! empty( $result['organizers'] ) ) {
 					$messages['success'][] = '<br/>' . sprintf(
-						_n( '%1$d new organizer imported.', '%1$d new organizers imported.', $result['organizers'], 'the-events-calendar' ),
+						_n( '%1$d new organizer was imported.', '%1$d new organizers were imported.', $result['organizers'], 'the-events-calendar' ),
 						$result['organizers']
 					) .
 					' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
