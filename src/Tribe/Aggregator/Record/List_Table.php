@@ -494,9 +494,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 		$last_imported = $record->get_child_record_by_status( 'success', 1 );
 		if ( $last_imported && $last_imported->have_posts() ) {
-			if ( $created = $last_imported->get_event_count( 'created' ) ) {
-				$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . $created;
-			}
+			// always show created
+			$created = $last_imported->get_event_count( 'created' );
+
+			$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 );
 
 			if ( $updated = $last_imported->get_event_count( 'updated' ) ) {
 				$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;
@@ -506,9 +507,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		if ( 'schedule' === $record->type ) {
 			$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . intval( $record->get_event_count( 'created' ) );
 		} else {
-			if ( $created = $record->get_event_count( 'created' ) ) {
-				$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . $created;
-			}
+			$created = $record->get_event_count( 'created' );
+
+			$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 );
 
 			if ( $updated = $record->get_event_count( 'updated' ) ) {
 				$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;
