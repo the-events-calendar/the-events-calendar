@@ -132,7 +132,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			return tribe_error( 'core:aggregator:missing-csv-column-map' );
 		}
 
-		$content_type = $this->get_content_type();
+		$content_type = $this->get_csv_content_type();
 		update_option( 'tribe_events_import_column_mapping_' . $content_type, $data['column_map'] );
 
 		try {
@@ -149,7 +149,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		$missing = array_diff( $required_fields, $data['column_map'] );
 
 		if ( ! empty( $missing ) ) {
-			$mapper = new Tribe__Events__Importer__Column_Mapper( $this->get_content_type() );
+			$mapper = new Tribe__Events__Importer__Column_Mapper( $content_type );
 
 			/**
 			 * @todo  allow to overwrite the default message
@@ -174,7 +174,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 
 	public function get_importer() {
 		if ( ! $this->importer ) {
-			$content_type = $this->get_content_type();
+			$content_type = $this->get_csv_content_type();
 
 			$file_path = get_attached_file( absint( $this->meta['file'] ) );
 			$file_reader = new Tribe__Events__Importer__File_Reader( $file_path );
@@ -190,6 +190,37 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 
 	public function get_content_type() {
 		return str_replace( 'tribe_', '', $this->meta['content_type'] );
+	}
+
+	/**
+	 * Translates the posttype-driven content types to content types that the CSV importer knows
+	 *
+	 * @param string $content_type Content Type
+	 *
+	 * @return string CSV Importer compatible content type
+	 */
+	public function get_csv_content_type( $content_type = null ) {
+
+		if ( ! $content_type ) {
+			$content_type = $this->get_content_type();
+		}
+
+		$lowercase_content_type = strtolower( $content_type );
+
+		$map = array(
+			'event'      => 'events',
+			'events'     => 'events',
+			'organizer'  => 'organizers',
+			'organizers' => 'organizers',
+			'venue'      => 'venues',
+			'venues'     => 'venues',
+		);
+
+		if ( isset( $map[ $lowercase_content_type ] ) ) {
+			return $map[ $lowercase_content_type ];
+		}
+
+		return $content_type;
 	}
 
 	/**
