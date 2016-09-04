@@ -281,13 +281,15 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 
 			if ( $result && ! $messages ) {
-				__( 'No events were imported or updated.', 'the-events-calendar' );
+				$messages['success'][] = __( 'No events were imported or updated.', 'the-events-calendar' );
 			}
 
-			// append a URL to view all records for the given post type
-			$url = admin_url( 'edit.php?post_type=' . $content_post_type );
-			$link_text = sprintf( __( 'View all %s', 'the-events-calendar' ), $content_type_plural );
-			$messages['success'][ count( $messages['success'] ) - 1 ] .= ' <a href="' . esc_url( $url ) . '" >' . esc_html( $link_text ) . '</a>';
+			if ( ! empty( $messages['success'] ) ) {
+				// append a URL to view all records for the given post type
+				$url = admin_url( 'edit.php?post_type=' . $content_post_type );
+				$link_text = sprintf( __( 'View all %s', 'the-events-calendar' ), $content_type_plural );
+				$messages['success'][ count( $messages['success'] ) - 1 ] .= ' <a href="' . esc_url( $url ) . '" >' . esc_html( $link_text ) . '</a>';
+			}
 
 			// if not CSV, pull counts for venues and organizers that were auto-created
 			if ( 'csv' !== $record->meta['origin'] ) {
