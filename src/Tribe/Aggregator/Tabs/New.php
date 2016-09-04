@@ -281,7 +281,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 
 			if ( $result && ! $messages ) {
-				$messages['error'][] = __( 'No events were imported or updated.', 'the-events-calendar' );
+				$messages['success'][] = __( 'No events were imported or updated.', 'the-events-calendar' );
 			}
 
 			if ( ! empty( $messages['success'] ) ) {
