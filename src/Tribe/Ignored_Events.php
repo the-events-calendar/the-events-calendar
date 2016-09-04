@@ -651,10 +651,10 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @param  int|WP_Post       $event Which event try to convert
 		 * @return bool|int|WP_Error
 		 */
-		public function ignore_event( $event ) {
+		public function ignore_event( $event, $force = false ) {
 			$event = get_post( $event );
 
-			if ( ! $this->can_ignore( $event ) ) {
+			if ( ! $force && ! $this->can_ignore( $event ) ) {
 				return false;
 			}
 
@@ -860,7 +860,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			$query = new WP_Query( $args );
 
 			foreach ( $query->posts as $event ) {
-				$status = $this->ignore_event( $event );
+				$status = $this->ignore_event( $event, true );
 				if ( is_wp_error( $status ) ) {
 					$response->error[ $event->ID ] = $status->get_error_message();
 				} else {
