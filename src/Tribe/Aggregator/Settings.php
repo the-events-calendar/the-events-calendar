@@ -46,6 +46,11 @@ class Tribe__Events__Aggregator__Settings {
 	}
 
 	public function is_fb_credentials_valid( $time = null ) {
+		/**
+		 * @todo  fb-reviewed-reactivation
+		 */
+		return true;
+
 		if ( ! $this->has_fb_credentials() ) {
 			return false;
 		}
