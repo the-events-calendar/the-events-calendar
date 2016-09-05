@@ -903,6 +903,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
+
+			// Start the integrations manager
+			Tribe__Events__Integrations__Manager::instance()->load_integrations();
 		}
 
 		/**
