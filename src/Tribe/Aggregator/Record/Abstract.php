@@ -682,14 +682,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$current  = time();
-		$modified = strtotime( $this->post->post_modified );
+		$modified = strtotime( $this->post->post_modified_gmt );
 		$next     = $modified + $this->frequency->interval;
 
-		if ( $current < $next ) {
-			return false;
-		}
-
-		return true;
+		return $current > $next;
 	}
 
 	/**

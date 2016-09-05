@@ -517,8 +517,11 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record->post->post_parent );
 			}
 
-			// this will get the total event for the parent schedule record
-			$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . intval( $record->get_event_count( 'created' ) );
+			// We check if the Parent actually exists
+			if ( ! is_wp_error( $record ) ) {
+				// this will get the total event for the parent schedule record
+				$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . intval( $record->get_event_count( 'created' ) );
+			}
 		} else {
 			$created = $record->get_event_count( 'created' );
 
