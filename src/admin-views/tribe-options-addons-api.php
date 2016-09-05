@@ -93,6 +93,12 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 		),
 	);
+
+	/**
+	 * @todo  fb-reviewed-reactivation
+	 */
+	unset( $internal['fb-start'], $internal['fb-info-box'], $internal['fb_token_button'] );
+
 }
 
 $internal = apply_filters( 'tribe_addons_tab_fields', $internal );
