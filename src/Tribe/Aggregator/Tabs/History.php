@@ -49,7 +49,7 @@ class Tribe__Events__Aggregator__Tabs__History extends Tribe__Events__Aggregator
 		$args = array(
 			'label'   => esc_html__( 'Records per page', 'the-events-calendar' ),
 			'default' => 10,
-			'option'  => 'tribe_records_history_per_page'
+			'option'  => 'tribe_records_history_per_page',
 		);
 
 		// We need to Add on both because of a WP Limitation on WP_Screen

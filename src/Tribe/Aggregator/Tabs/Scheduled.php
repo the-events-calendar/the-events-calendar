@@ -51,7 +51,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		$args = array(
 			'label'   => esc_html__( 'Records per page', 'the-events-calendar' ),
 			'default' => 10,
-			'option'  => 'tribe_records_scheduled_per_page'
+			'option'  => 'tribe_records_scheduled_per_page',
 		);
 
 		$record_screen->add_option( 'per_page', $args );
