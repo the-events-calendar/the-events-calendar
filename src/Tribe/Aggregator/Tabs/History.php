@@ -39,6 +39,11 @@ class Tribe__Events__Aggregator__Tabs__History extends Tribe__Events__Aggregator
 		add_filter( 'set-screen-option', array( $this, 'filter_save_screen_options' ), 10, 3 );
 	}
 
+	/**
+	 * Adds Screen Options for This Tab
+	 *
+	 * @return void
+	 */
 	public function action_screen_options( $screen ) {
 		if ( ! $this->is_active() ) {
 			return;
@@ -57,6 +62,15 @@ class Tribe__Events__Aggregator__Tabs__History extends Tribe__Events__Aggregator
 		$screen->add_option( 'per_page', $args );
 	}
 
+	/**
+	 * Allows the saving for our created Page option
+	 *
+	 * @param mixed  $status Which value should be saved, if false will not save
+	 * @param string $option Name of the option
+	 * @param mixed  $value  Which value was saved
+	 *
+	 * @return mixed
+	 */
 	public function filter_save_screen_options( $status, $option, $value ) {
 		if ( 'tribe_records_history_per_page' === $option ) {
 			return $value;
