@@ -275,7 +275,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 			if ( ! empty( $result['images'] ) ) {
 				$messages['success'][] = sprintf(
-					_n( '%1$d new image was imported.', '%1$d new were images imported.', $result['images'], 'the-events-calendar' ),
+					_n( '%1$d new image was imported.', '%1$d new images were imported.', $result['images'], 'the-events-calendar' ),
 					$result['images']
 				);
 			}
