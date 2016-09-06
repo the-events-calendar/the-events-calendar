@@ -35,6 +35,35 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 
 		// Handle Requests to the Tab
 		add_action( 'tribe_aggregator_page_request', array( $this, 'handle_request' ) );
+
+		// Handle Screen Options
+		add_action( 'current_screen', array( $this, 'action_screen_options' ) );
+		add_filter( 'set-screen-option', array( $this, 'filter_save_screen_options' ), 10, 3 );
+	}
+
+	public function action_screen_options() {
+		if ( ! $this->is_active() ) {
+			return;
+		}
+
+		$record_screen = WP_Screen::get( Tribe__Events__Aggregator__Records::$post_type );
+
+		$args = array(
+			'label'   => esc_html__( 'Records per page', 'the-events-calendar' ),
+			'default' => 10,
+			'option'  => 'tribe_records_scheduled_per_page'
+		);
+
+		$record_screen->add_option( 'per_page', $args );
+		$screen->add_option( 'per_page', $args );
+	}
+
+	public function filter_save_screen_options( $status, $option, $value ) {
+		if ( 'tribe_records_scheduled_per_page' === $option ) {
+			return $value;
+		}
+
+		return $status; // or return false;
 	}
 
 	public function is_visible() {
