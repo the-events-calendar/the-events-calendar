@@ -71,8 +71,13 @@ $field              = (object) array();
 $field->label       = __( 'URL:', 'the-events-calendar' );
 $field->placeholder = __( 'https://calendar.google.com/calendar/ical/example/basic.ics', 'the-events-calendar' );
 $field->help        = __( 'Enter the url for the Google Calendar feed you wish to import.', 'the-events-calendar' );
-$field->help       .= '<br/>';
-$field->help       .= __( 'You can find the url you need in your Google Calendar settings. Go to Settings &gt; Calendars and select the calendar you wish to import. Scroll down to Calendar Address and click the iCal button. Copy the provided url into this field to import the events into your WordPress site.', 'the-events-calendar' );
+$field->help       .= '<br/><br/>';
+$field->help       .= __( 'You can find the url you need in your Google Calendar settings.', 'the-events-calendar' );
+$field->help       .= '<ol>';
+$field->help       .= '<li>' . __( 'Go to Settings &gt; Calendars and select the calendar you wish to import.', 'the-events-calendar' ) . '</li>';
+$field->help       .= '<li>' . __( 'Scroll down to Calendar Address and click the iCal button.', 'the-events-calendar' ) . '</li>';
+$field->help       .= '<li>' . __( 'Copy the provided url into this field to import the events into your WordPress site.', 'the-events-calendar' ) . '</li>';
+$field->help       .= '</ol>';
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-gcal_import_type" data-condition-not-empty>
 	<th scope="row">
