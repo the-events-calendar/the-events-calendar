@@ -46,7 +46,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 	 *
 	 * @return void
 	 */
-	public function action_screen_options() {
+	public function action_screen_options( $screen ) {
 		if ( ! $this->is_active() ) {
 			return;
 		}
