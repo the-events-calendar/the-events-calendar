@@ -14,6 +14,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 	public $tab;
 	public $page;
+	public $user;
 
 	public function __construct( $args = array() ) {
 		$screen = WP_Screen::get( Tribe__Events__Aggregator__Records::$post_type );
@@ -31,6 +32,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		// Set page Instance
 		$this->page = Tribe__Events__Aggregator__Page::instance();
+
+		// Set current user
+		$this->user = wp_get_current_user();
 	}
 
 	/**
@@ -79,6 +83,19 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		if ( isset( $_GET['origin'] ) ) {
 			$args['post_mime_type'] = 'ea/' . $_GET['origin'];
 		}
+
+		// retrieve the "per_page" option
+		$screen_option = $this->screen->get_option( 'per_page', 'option' );
+
+		// retrieve the value of the option stored for the current user
+		$per_page = get_user_meta( $this->user->ID, $screen_option, true );
+
+		if ( empty ( $per_page ) || $per_page < 1 ) {
+			// get the default value if none is set
+			$per_page = $this->screen->get_option( 'per_page', 'default' );
+		}
+
+		$args['posts_per_page'] = $per_page;
 
 		$query = new WP_Query( $args );
 
