@@ -41,6 +41,7 @@ $organizer = tribe_get_organizer();
 <?php do_action( 'tribe_events_after_the_event_title' ) ?>
 
 <!-- Event Available Tickets -->
+<?php
 $event_id = get_the_ID();
 
 $woo_tickets = Tribe__Tickets_Plus__Commerce__WooCommerce__Main::get_instance();
@@ -70,7 +71,7 @@ if ( $tickets_left == 0 ) {
 	if ( $stock_count - $sold_count == 0 ) {
 	      echo '<strong><em>Sold out!</em></strong><br>';
 	}
-}
+}?>
 
 <!-- Event Meta -->
 <?php do_action( 'tribe_events_before_the_meta' ) ?>
