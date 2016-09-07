@@ -53,7 +53,7 @@ class Tribe__Events__Aggregator__Meta_Box {
 
 		$last_import = tribe_format_date( $record->post->post_modified );
 		$settings_link = Tribe__Settings::instance()->get_url( array( 'tab' => 'imports' ) );
-		$import_setting = tribe_get_option( 'tribe_aggregator_default_update_authority', 'retain' );
+		$import_setting = tribe_get_option( 'tribe_aggregator_default_update_authority', Tribe__Events__Aggregator__Settings::$default_change_authority );
 
 		include Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/aggregator/meta-box.php';
 	}
