@@ -18,7 +18,7 @@ $meetup_api_key = tribe_get_option( 'meetup_api_key' );
 $missing_meetup_credentials = ! $meetup_api_key;
 
 ?>
-<tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="meetup">
+<tr class="tribe-dependent tribe-credential-row" data-depends="#tribe-ea-field-origin" data-condition="meetup">
 	<td colspan="2" class="<?php echo esc_attr( $missing_meetup_credentials ? 'enter-credentials' : 'has-credentials' ); ?>">
 		<?php
 		if ( $missing_meetup_credentials ) :
