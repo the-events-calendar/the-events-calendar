@@ -145,6 +145,10 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			$importer = $this->maybe_set_default_category( $importer );
 		}
 
+		if ( ! empty( $data['post_status'] ) ) {
+			$importer = $this->maybe_set_default_post_status( $importer );
+		}
+
 		$required_fields = $importer->get_required_fields();
 		$missing = array_diff( $required_fields, $data['column_map'] );
 
@@ -260,6 +264,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		$importer->is_aggregator = true;
 		$importer->aggregator_record = $this;
 		$importer = $this->maybe_set_default_category( $importer );
+		$importer = $this->maybe_set_default_post_status( $importer );
 		$offset = get_option( 'tribe_events_importer_offset', 1 );
 		if ( -1 === $offset ) {
 			$this->state = 'complete';
@@ -274,9 +279,31 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		return get_option( 'tribe_events_import_log', array( 'updated' => 0, 'created' => 0, 'skipped' => 0, 'encoding' => 0 ) );
 	}
 
+	/**
+	 * If a custom category has been specified, set it in the importer
+	 *
+	 * @param Tribe__Events__Importer__File_Importer $importer Importer object
+	 *
+	 * @return Tribe__Events__Importer__File_Importer
+	 */
 	public function maybe_set_default_category( $importer ) {
 		if ( ! empty( $this->meta['category'] ) ) {
 			$importer->default_category = (int) $this->meta['category'];
+		}
+
+		return $importer;
+	}
+
+	/**
+	 * If a custom post_status has been specified, set it in the importer
+	 *
+	 * @param Tribe__Events__Importer__File_Importer $importer Importer object
+	 *
+	 * @return Tribe__Events__Importer__File_Importer
+	 */
+	public function maybe_set_default_post_status( $importer ) {
+		if ( ! empty( $this->meta['post_status'] ) ) {
+			$importer->default_post_status = $this->meta['post_status'];
 		}
 
 		return $importer;

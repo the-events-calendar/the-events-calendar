@@ -140,6 +140,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		if ( empty( $this->is_aggregator ) ) {
 			$post_status_setting = Tribe__Events__Importer__Options::get_default_post_status( 'csv' );
+		} elseif ( $this->default_post_status ) {
+			$post_status_setting = $this->default_post_status;
 		} else {
 			$post_status_setting = Tribe__Events__Aggregator__Settings::instance()->default_post_status( 'csv' );
 		}

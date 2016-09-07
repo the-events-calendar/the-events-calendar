@@ -174,8 +174,16 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return $this->messages;
 		}
 
-		$record->update_meta( 'post_status', empty( $data['post_status'] ) ? 'draft' : $data['post_status'] );
-		$record->update_meta( 'category', empty( $data['category'] ) ? null : $data['category'] );
+		if ( empty( $data['post_status'] ) ) {
+			$data['post_status'] = Tribe__Events__Aggregator__Settings::instance()->default_post_status( $data['origin'] );
+		}
+
+		if ( empty( $data['category'] ) ) {
+			$data['category'] = Tribe__Events__Aggregator__Settings::instance()->default_category( $data['origin'] );
+		}
+
+		$record->update_meta( 'post_status', $data['post_status'] );
+		$record->update_meta( 'category', $data['category'] );
 		$record->update_meta( 'ids_to_import', empty( $data['selected_rows'] ) ? 'all' : json_decode( stripslashes( $data['selected_rows'] ) ) );
 
 		// if we get here, we're good! Set the status to pending
