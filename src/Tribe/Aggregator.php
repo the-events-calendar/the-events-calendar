@@ -439,4 +439,22 @@ class Tribe__Events__Aggregator {
 
 		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-facebook-token-expired', $html );
 	}
+
+	/**
+	 * Tells whether the legacy ical plugin is active
+	 *
+	 * @return boolean
+	 */
+	public function is_legacy_ical_active() {
+		return class_exists( 'Tribe__Events__Ical_Importer__Main' );
+	}
+
+	/**
+	 * Tells whether the legacy facebook plugin is active
+	 *
+	 * @return boolean
+	 */
+	public function is_legacy_facebook_active() {
+		return class_exists( 'Tribe__Events__Facebook__Importer' );
+	}
 }
