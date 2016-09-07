@@ -327,18 +327,18 @@ class Tribe__Events__Aggregator__Page {
 		$active = array();
 
 		if ( $facebook_active ) {
-			$active[] = '<b>' . __( 'Facebook Events', 'the-events-calendar' ) . '</b>';
+			$active[] = '<b>' . esc_html__( 'Facebook Events', 'the-events-calendar' ) . '</b>';
 		}
 
 		if ( $ical_active ) {
-			$active[] = '<b>' . __( 'iCal Importer', 'the-events-calendar' ) . '</b>';
+			$active[] = '<b>' . esc_html__( 'iCal Importer', 'the-events-calendar' ) . '</b>';
 		}
 
 		ob_start();
 		?>
 		<p>
 			<?php
-			echo sprintf(
+			printf(
 				esc_html(
 					_n(
 						'It looks like the %1$s plugin is active, which can cause unexpected results with Event Aggregator. Deactivating that plugin will ensure that your events are created and maintained accurately!',
