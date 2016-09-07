@@ -1,7 +1,7 @@
 <?php
 
 /**
- *    Class that implements the export to iCal functionality
+ *  Class that implements the export to iCal functionality
  *  both for list and single events
  */
 class Tribe__Events__iCal {
