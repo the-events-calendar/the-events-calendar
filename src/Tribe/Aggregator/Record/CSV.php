@@ -141,8 +141,8 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			return tribe_error( 'core:aggregator:missing-csv-file' );
 		}
 
-		if ( ! empty( $this->data['category'] ) ) {
-			$importer->default_category = (int) $this->data['category'];
+		if ( ! empty( $data['category'] ) ) {
+			$importer = $this->maybe_set_default_category( $importer );
 		}
 
 		$required_fields = $importer->get_required_fields();
@@ -259,6 +259,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		$importer = $this->get_importer();
 		$importer->is_aggregator = true;
 		$importer->aggregator_record = $this;
+		$importer = $this->maybe_set_default_category( $importer );
 		$offset = get_option( 'tribe_events_importer_offset', 1 );
 		if ( -1 === $offset ) {
 			$this->state = 'complete';
@@ -271,6 +272,14 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		}
 
 		return get_option( 'tribe_events_import_log', array( 'updated' => 0, 'created' => 0, 'skipped' => 0, 'encoding' => 0 ) );
+	}
+
+	public function maybe_set_default_category( $importer ) {
+		if ( ! empty( $this->meta['category'] ) ) {
+			$importer->default_category = (int) $this->meta['category'];
+		}
+
+		return $importer;
 	}
 
 	protected function do_import( Tribe__Events__Importer__File_Importer $importer ) {
