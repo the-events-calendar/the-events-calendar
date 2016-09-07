@@ -353,7 +353,7 @@ class Tribe__Events__Aggregator__Page {
 			?>
 		</p>
 		<p>
-			<a href="<?php echo esc_url( admin_url( 'plugins.php?plugin_status=active' ) ); ?>"><?php echo esc_html_e( 'Manage Active Plugins', 'the-events-calendar' ); ?></a>
+			<a href="<?php echo esc_url( admin_url( 'plugins.php?plugin_status=active' ) ); ?>"><?php esc_html_e( 'Manage Active Plugins', 'the-events-calendar' ); ?></a>
 		</p>
 		<?php
 		$html = ob_get_clean();
