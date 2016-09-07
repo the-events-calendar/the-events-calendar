@@ -103,6 +103,10 @@
 	margin-left: 10px;
 }
 
+.tribe-ea .tribe-credential-row {
+	border-top: 15px solid white;
+}
+
 .tribe-ea .enter-credentials {
 	background-color: #f8eceb;
 	padding: 16px;
