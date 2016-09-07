@@ -1,7 +1,7 @@
 <?php
 
 /**
- *    Class that implements the export to iCal functionality
+ *  Class that implements the export to iCal functionality
  *  both for list and single events
  */
 class Tribe__Events__iCal {
@@ -318,7 +318,7 @@ class Tribe__Events__iCal {
 			}
 
 			// add organizer if available
-			$organizer_email = tribe_get_organizer_email( $event_post->ID );
+			$organizer_email = tribe_get_organizer_email( $event_post->ID, false );
 			if ( $organizer_email ) {
 				$organizer_id = tribe_get_organizer_id( $event_post->ID );
 				$organizer = get_post( $organizer_id );
