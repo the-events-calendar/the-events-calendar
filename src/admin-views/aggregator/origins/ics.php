@@ -49,7 +49,7 @@ $field->media_title = __( 'Upload an ICS File', 'the-events-calendar' );
 	</td>
 </tr>
 
-<tr class="tribe-dependent" data-depends="tribe-ea-field-ical_file" data-condition-not-empty>
+<tr class="tribe-dependent" data-depends="#tribe-ea-field-ical_file" data-condition-not-empty>
 	<td colspan="2">
 		<div class="tribe-ea-table-container">
 			<span class='spinner tribe-ea-active'></span>
