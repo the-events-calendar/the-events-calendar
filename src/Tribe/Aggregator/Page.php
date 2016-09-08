@@ -341,8 +341,8 @@ class Tribe__Events__Aggregator__Page {
 			printf(
 				esc_html(
 					_n(
-						'It looks like the %1$s plugin is active, which can cause unexpected results with Event Aggregator. Deactivating that plugin will ensure that your events are created and maintained accurately!',
-						'It looks like the %1$s and %2$s plugins are active, which can cause unexpected results with Event Aggregator. Deactivating those plugins will ensure that your events are created and maintained accurately!',
+						'It looks like you are using our legacy plugin, %1$s, along with our new Event Aggregator service. Event Aggregator includes all the features of the legacy plugin plus enhanced functionality. For best results, please deactivate %1$s.',
+						'It looks like you are using our legacy plugins, %1$s and %2$s, along with our new Event Aggregator service. Event Aggregator includes all the features of the legacy plugins plus enhanced functionality. For best results, please deactivate %1$s and %2$s.',
 						count( $active ),
 						'the-events-calendar'
 					)
