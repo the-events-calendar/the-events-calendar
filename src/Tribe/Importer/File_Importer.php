@@ -23,6 +23,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	public $is_aggregator = false;
 	public $aggregator_record;
 	public $default_category;
+	public $default_post_status;
 
 	/**
 	 * @var Tribe__Events__Importer__Featured_Image_Uploader

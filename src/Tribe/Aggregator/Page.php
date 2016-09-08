@@ -119,6 +119,7 @@ class Tribe__Events__Aggregator__Page {
 
 		tribe_asset( $plugin, 'tribe-ea-facebook-login', 'aggregator-facebook-login.js', array( 'jquery', 'underscore', 'tribe-dependency' ), 'admin_enqueue_scripts' );
 
+		tribe_notice( 'tribe-aggregator-legacy-import-plugins-active', array( $this, 'notice_legacy_plugins' ), 'type=warning' );
 	}
 
 	/**
@@ -303,5 +304,60 @@ class Tribe__Events__Aggregator__Page {
 	 */
 	public function render() {
 		return $this->template( 'page' );
+	}
+
+	public function notice_legacy_plugins() {
+		if ( ! Tribe__Admin__Helpers::instance()->is_screen() ) {
+			return false;
+		}
+
+		$aggregator = Tribe__Events__Aggregator::instance();
+
+		if ( ! $aggregator->is_service_active() ) {
+			return false;
+		}
+
+		$ical_active     = $aggregator->is_legacy_ical_active();
+		$facebook_active = $aggregator->is_legacy_facebook_active();
+
+		if ( ! $ical_active && ! $facebook_active ) {
+			return false;
+		}
+
+		$active = array();
+
+		if ( $facebook_active ) {
+			$active[] = '<b>' . esc_html__( 'Facebook Events', 'the-events-calendar' ) . '</b>';
+		}
+
+		if ( $ical_active ) {
+			$active[] = '<b>' . esc_html__( 'iCal Importer', 'the-events-calendar' ) . '</b>';
+		}
+
+		ob_start();
+		?>
+		<p>
+			<?php
+			printf(
+				esc_html(
+					_n(
+						'It looks like the %1$s plugin is active, which can cause unexpected results with Event Aggregator. Deactivating that plugin will ensure that your events are created and maintained accurately!',
+						'It looks like the %1$s and %2$s plugins are active, which can cause unexpected results with Event Aggregator. Deactivating those plugins will ensure that your events are created and maintained accurately!',
+						count( $active ),
+						'the-events-calendar'
+					)
+				),
+				$active[0],
+				isset( $active[1] ) ? $active[1] : ''
+			);
+			?>
+		</p>
+		<p>
+			<a href="<?php echo esc_url( admin_url( 'plugins.php?plugin_status=active' ) ); ?>"><?php esc_html_e( 'Manage Active Plugins', 'the-events-calendar' ); ?></a>
+		</p>
+		<?php
+		$html = ob_get_clean();
+
+		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-legacy-import-plugins-active', $html );
 	}
 }

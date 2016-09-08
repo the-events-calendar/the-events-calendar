@@ -88,7 +88,6 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 	}
 
-
 	protected function create_post( array $record ) {
 		$event = $this->build_event_array( false, $record );
 		$id    = Tribe__Events__API::createEvent( $event );
@@ -141,6 +140,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		if ( empty( $this->is_aggregator ) ) {
 			$post_status_setting = Tribe__Events__Importer__Options::get_default_post_status( 'csv' );
+		} elseif ( $this->default_post_status ) {
+			$post_status_setting = $this->default_post_status;
 		} else {
 			$post_status_setting = Tribe__Events__Aggregator__Settings::instance()->default_post_status( 'csv' );
 		}
@@ -275,16 +276,24 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 				continue;
 			}
 
-			if ( ! $term_info = term_exists( $term, Tribe__Events__Main::TAXONOMY ) ) {
+			if ( is_numeric( $term ) ) {
+				$term = absint( $term );
+			}
+
+			$term_info = get_term( $term, Tribe__Events__Main::TAXONOMY, ARRAY_A );
+
+			if ( ! $term_info ) {
 				// Skip if a non-existent term ID is passed.
-				if ( is_int( $term ) ) {
+				if ( is_numeric( $term ) ) {
 					continue;
 				}
 				$term_info = wp_insert_term( $term, Tribe__Events__Main::TAXONOMY );
 			}
+
 			if ( is_wp_error( $term_info ) ) {
 				continue;
 			}
+
 			$term_ids[] = $term_info['term_id'];
 		}
 
