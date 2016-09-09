@@ -174,9 +174,9 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			}
 
 			$args = array(
-				'ids'       => preg_replace( '/[^0-9,]/', '', $_REQUEST['ids'] ),
-				'tribe-action'    => 'tribe-restore',
-				'post_type' => Tribe__Events__Main::POSTTYPE,
+				'ids'          => preg_replace( '/[^0-9,]/', '', $_REQUEST['ids'] ),
+				'tribe-action' => 'tribe-restore',
+				'post_type'    => Tribe__Events__Main::POSTTYPE,
 			);
 			$url = wp_nonce_url( add_query_arg( $args, 'edit.php' ), 'tribe-restore' );
 
@@ -259,11 +259,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 
 			$restored = 0;
 			foreach ( (array) $post_ids as $post_id ) {
-				if ( ! current_user_can( 'delete_post', $post_id ) ){
+				if ( ! current_user_can( 'delete_post', $post_id ) ) {
 					wp_die( esc_html__( 'You do not have permission to restore this post.', 'the-events-calendar' ) );
 				}
 
-				if ( ! $this->restore_event( $post_id ) ){
+				if ( ! $this->restore_event( $post_id ) ) {
 					wp_die( esc_html__( 'Error restoring from Ignored Events.', 'the-events-calendar' ) );
 				}
 
@@ -614,7 +614,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			if ( is_scalar( $first ) ) {
 				$ids = $data;
 			} else {
-				$id_field  = null;
+				$id_field = null;
 				$first = (object) $first;
 
 				// look through the object for one of the possible ID fields and bail when/if we find it
@@ -800,7 +800,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		/**
 		 * Used to get an Trashed event and move it to the `post_status` of Ignored
 		 *
-		 * @param  int $post    ID of the Post
+		 * @param  int $post ID of the Post
 		 *
 		 * @return bool|null
 		 */
@@ -870,8 +870,8 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 					$response->status = false;
 					$response->text = sprintf(
 						_n(
-							'Migration: %d Legacy Ignored Post was migrated but %d failed.',
-							'Migration: %d Legacy Ignored Posts were migrated but %d failed.',
+							'Migration: %d Legacy Ignored Post was migrated but %d failed. To see the migrated event you will first need to refresh this screen.',
+							'Migration: %d Legacy Ignored Posts were migrated but %d failed. To see the migrated events you will first need to refresh this screen.',
 							count( $response->migrated ),
 							'the-events-calendar'
 						),
@@ -901,8 +901,8 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				$response->status = true;
 				$response->text = sprintf(
 					_n(
-						'Migration: %d Legacy Ignored Post was migrated sucessfully.',
-						'Migration: %d Legacy Ignored Posts were migrated sucessfully.',
+						'Migration: %d Legacy Ignored Post was migrated sucessfully. To see the migrated event you will first need to refresh this screen.',
+						'Migration: %d Legacy Ignored Posts were migrated sucessfully. To see the migrated events you will first need to refresh this screen.',
 						count( $response->migrated ),
 						'the-events-calendar'
 					),
