@@ -578,6 +578,9 @@ class Tribe__Events__Aggregator__Records {
 	 * @param string $origin Import Origin
 	 */
 	public function add_record_to_event( $id, $record_id, $origin ) {
+		// Set the event origin
+		update_post_meta( $id, '_EventOrigin', Tribe__Events__Aggregator__Event::$event_origin );
+
 		// Add the Aggregator Origin
 		update_post_meta( $id, Tribe__Events__Aggregator__Event::$origin_key, $origin );
 
