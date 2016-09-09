@@ -709,11 +709,6 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 
 			if ( Tribe__Events__Aggregator__Event::$event_origin === $origin ) {
 				$aggregator_origin = get_post_meta( $event->ID, Tribe__Events__Aggregator__Event::$origin_key, true );
-
-				// You cannot Ignore CSV
-				if ( 'csv' === $aggregator_origin ) {
-					return false;
-				}
 			}
 
 			return true;
