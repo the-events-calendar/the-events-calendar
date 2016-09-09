@@ -105,11 +105,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$modified = $post_meta[ self::$modified_field_key ];
 			}
 
-			$fields_to_check_for_changes = array(
-				'_EventShowInCalendar',
-				'_thumbnail_id',
-			);
-
 			if ( empty( $data['EventHideFromUpcoming'] ) ) {
 				delete_metadata( 'post', $event_id, '_EventHideFromUpcoming' );
 			}
@@ -183,6 +178,11 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 					wp_update_post( $update_event );
 				}
 			}
+
+			$fields_to_check_for_changes = array(
+				'_EventShowInCalendar',
+				'_thumbnail_id',
+			);
 
 			foreach ( $fields_to_check_for_changes as $field ) {
 				if ( ! self::is_meta_value_changed( $field, $data, $post_meta ) ) {
