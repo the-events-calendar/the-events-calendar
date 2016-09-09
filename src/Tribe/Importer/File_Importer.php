@@ -16,9 +16,10 @@ abstract class Tribe__Events__Importer__File_Importer {
 	private $errors = array();
 	private $updated = 0;
 	private $created = 0;
-	private $skipped = array();
 	private $encoding = array();
 	private $log = array();
+
+	protected $skipped = array();
 
 	public $is_aggregator = false;
 	public $aggregator_record;
