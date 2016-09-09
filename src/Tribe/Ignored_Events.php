@@ -482,25 +482,26 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return array $views After adding the new Link
 		 */
 		public function filter_views( $views = array() ) {
-			// Get the Old ones
+			// This will prevent having the Ignored link twice on the Edit Page
+			if ( $this->has_ignored_posts( false ) ) {
+				return $views;
+			}
+
+			// Are there any legacy deleted posts?
 			$counter = $this->count_legacy_deleted_posts();
 			if ( 0 >= $counter ) {
 				return $views;
 			}
 
-			// This Will prevent having the Ignored twice on the Edit Page
-			if ( $this->has_ignored_posts( false ) ) {
-				return $views;
-			}
-
 			$args = array(
 				'post_type' => Tribe__Events__Main::POSTTYPE,
-				'ignored_events' => 1,
+				'post_status' => self::$ignored_status,
 			);
+
 			$url = add_query_arg( $args, 'edit.php' );
 
-			$views['import-deleted'] = '<a class="' . ( isset( $_GET['ignored_events'] ) ? 'current' : '' ) . '" href="' . esc_url( $url ) . '">' . esc_html__( 'Ignored', 'the-events-calendar' );
-			$views['import-deleted'] .= sprintf( ' <span class="count">(%d)</span></a>', $counter );
+			$views['import-deleted'] = '<a class="' . ( isset( $_GET['ignored_events'] ) ? 'current' : '' ) . '" href="' . esc_url( $url ) . '">' . esc_html__( 'Ignored', 'the-events-calendar' )
+				. sprintf( ' <span class="count">(%d)</span></a>', $counter );
 
 			return $views;
 		}
