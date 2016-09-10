@@ -689,94 +689,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	/**
-	 * Get event updated/created counts
-	 *
-	 * @param null|string $type Type of count to fetch
-	 *
-	 * @return int
-	 */
-	public function get_event_count( $type = null ) {
-		$updated = empty( $this->meta['num_updated'] ) ? 0 : $this->meta['num_updated'];
-		$created = empty( $this->meta['num_created'] ) ? 0 : $this->meta['num_created'];
-		$total = $updated + $created;
-
-		if ( 'updated' === $type ) {
-			return $updated;
-		} elseif ( 'created' === $type ) {
-			return $created;
-		}
-
-		return $total;
-	}
-
-	/**
-	 * Adjust the event count for the record
-	 *
-	 * @param string $type Type of count to adjust (updated or created)
-	 * @param int $quantity Amount to adjust the event count by
-	 * @param int $post_id Post ID to fetch from
-	 */
-	public function adjust_event_count( $type, $quantity, $post = null ) {
-		if ( ! $post ) {
-			$post = get_post( $this->post->ID );
-		}
-
-		$count = $this->get_event_count( $type );
-
-		$count += (int) $quantity;
-		if ( $count < 0 ) {
-			$count = 0;
-		}
-
-		if ( $post->ID !== $this->post->ID ) {
-			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post->ID );
-		} else {
-			$record = $this;
-		}
-
-		$record->meta[ 'num_' . $type ] = $count;
-		$record->update_meta( 'num_' . $type, $count );
-	}
-
-	/**
-	 * Completes the import process for a record
-	 *
-	 * This occurs after the successful insertion of data
-	 *
-	 * @param array $results Array of results (created, updated, and skipped) from an insert
-	 */
-	public function complete_import( $results ) {
-		$args = array(
-			'ID' => $this->post->ID,
-			'post_modified' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, current_time( 'timestamp' ) ),
-			'post_status' => Tribe__Events__Aggregator__Records::$status->success,
-		);
-
-		wp_update_post( $args );
-
-		// make sure we have the latest data for the post
-		$post = get_post( $this->post->ID );
-
-		// update the created count
-		if ( ! empty( $results['created'] ) ) {
-			$this->adjust_event_count( 'created', (int) $results['created'], $post );
-
-			if ( ! empty( $post->post_parent ) ) {
-				$this->adjust_event_count( 'created', (int) $results['created'], get_post( $post->post_parent ) );
-			}
-		}
-
-		// update the updated count
-		if ( ! empty( $results['updated'] ) ) {
-			$this->adjust_event_count( 'updated', (int) $results['updated'], $post );
-
-			if ( ! empty( $post->post_parent ) ) {
-				$this->adjust_event_count( 'updated', (int) $results['updated'], get_post( $post->post_parent ) );
-			}
-		}
-	}
-
-	/**
 	 * Get info about the source, via and title
 	 *
 	 * @return array
@@ -805,15 +717,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		return array( 'title' => $title, 'via' => $via );
-	}
-
-	/**
-	 * Returns whether or not the record has a queue
-	 *
-	 * @return bool
-	 */
-	public function has_queue() {
-		return ! empty( $this->meta['queue'] );
 	}
 
 	/**
@@ -853,13 +756,39 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$items = $this->prep_import_data( $data );
-
 		if ( is_wp_error( $items ) ) {
 			return $items;
 		}
 
 		$queue = new Tribe__Events__Aggregator__Record__Queue( $this->post->ID, $items );
 		return $queue->process();
+	}
+
+	/**
+	 * Returns whether or not the record has a queue
+	 *
+	 * @return bool
+	 */
+	public function has_queue() {
+		return ! empty( $this->meta['queue'] );
+	}
+
+	public function get_event_count( $type = null ) {
+		if ( is_null( $type ) ) {
+			return 0;
+		}
+
+		if ( empty( $this->meta['activity'] ) || ! $this->meta['activity'] instanceof Tribe__Events__Aggregator__Record__Activity ) {
+			return 0;
+		}
+
+		$activity = $this->meta['activity']->get( 'event' );
+
+		if ( empty( $activity->{ $type } ) ) {
+			return 0;
+		}
+
+		return count( $activity->{ $type } );
 	}
 
 	/**
@@ -890,7 +819,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( ! isset( $import_data->data->events ) ) {
-			return 'fetch';
+			return array();
 		}
 
 		$items = $this->filter_data_by_selected( $import_data->data->events );
@@ -908,15 +837,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function insert_posts( $items = array() ) {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
-		$results = array(
-			'updated' => 0,
-			'created' => 0,
-			'skipped' => 0,
-			'images' => 0,
-			'venues' => 0,
-			'organizers' => 0,
-			'category' => 0,
-		);
+		// Creates an Activity to log what Happened
+		$activity = new Tribe__Events__Aggregator__Record__Activity();
 
 		$args = array(
 			'post_status' => $this->meta['post_status'],
@@ -924,8 +846,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$unique_field = $this->get_unique_field();
 		$existing_ids = $this->get_existing_ids_from_import_data( $items );
-
-		$count_scanned_events = 0;
 
 		//cache
 		$possible_parents = array();
@@ -941,7 +861,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$unique_inserted = array();
 
 		foreach ( $items as $item ) {
-			$count_scanned_events++;
 			$event = Tribe__Events__Aggregator__Event::translate_service_data( $item );
 
 			// set the event ID if it can be set
@@ -969,7 +888,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			 * @var int  $event_id
 			 */
 			if ( ! empty( $event['ID'] ) && 'retain' === $update_authority_setting ) {
-				$results['skipped']++;
+				// Log this Event was Skipped
+				$activity->add( 'event', 'skipped', $event['ID'] );
 				continue;
 			}
 
@@ -996,8 +916,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					$event['Venue']['ShowMap']     = $show_map_setting;
 					$event['Venue']['ShowMapLink'] = $show_map_setting;
 					$event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $this->meta['post_status'] );
-					$results['venues']++;
+
+					// Log this Venue was created
+					$activity->add( 'venue', 'created', $event['EventVenueID'] );
 				}
+
+				// Remove the Venue to avoid duplicates
 				unset( $event['Venue'] );
 			}
 
@@ -1011,8 +935,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					$event['EventOrganizerID']          = $organizer->ID;
 				} else {
 					$event['EventOrganizerID'] = Tribe__Events__Organizer::instance()->create( $event['Organizer'], $this->meta['post_status'] );
-					$results['organizers']++;
+
+					// Log this Organizer was created
+					$activity->add( 'organizer', 'created', $event['EventOrganizerID'] );
 				}
+
+				// Remove the Organizer to avoid duplicates
 				unset( $event['Organizer'] );
 			}
 
@@ -1044,8 +972,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
 				remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 
-				// Count it as a updated Event
-				$results['updated']++;
+				// Log that this event was updated
+				$activity->add( 'event', 'updated', $event['ID'] );
 			} else {
 				/**
 				 * Filters the event data before inserting event
@@ -1056,8 +984,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event = apply_filters( 'tribe_aggregator_before_insert_event', $event, $this );
 				$event['ID'] = tribe_create_event( $event );
 
-				// Count it as a created Event
-				$results['created']++;
+				// Log this event was created
+				$activity->add( 'event', 'created', $event['ID'] );
 			}
 
 			Tribe__Events__Aggregator__Records::instance()->add_record_to_event( $event['ID'], $this->id, $this->origin );
@@ -1081,8 +1009,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				foreach ( $event['categories'] as $cat ) {
 					if ( ! $term = term_exists( $cat, Tribe__Events__Main::TAXONOMY ) ) {
 						$term = wp_insert_term( $cat, Tribe__Events__Main::TAXONOMY );
-						$terms[] = (int) $term['term_id'];
-						$results['category']++;
+						if ( ! is_wp_error( $term ) ) {
+							$terms[] = (int) $term['term_id'];
+
+							// Track that we created a Term
+							$activity->add( 'cat', 'created', $term['term_id'] );
+						}
 					} else {
 						$terms[] = (int) $term['term_id'];
 					}
@@ -1097,14 +1029,19 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );
 
 			if ( ! empty( $event['image'] ) ) {
-				$this->import_event_image( $event['ID'], $event );
-				$results['images']++;
+				$attachment = $this->import_event_image( $event['ID'], $event );
+
+				if ( $attachment ) {
+					// Log this attachment was created
+					$activity->add( 'attachment', 'created', $attachment );
+				}
+
 			}
 		}
 
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
-		return $results;
+		return $activity;
 	}
 
 	/**

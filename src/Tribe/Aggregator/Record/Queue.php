@@ -1,205 +1,104 @@
 <?php
+// Don't load directly
+defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Record__Queue {
 	public static $in_progress_key = 'tribe_aggregator_queue_';
 	public static $queue_key = 'queue';
-	public static $activity_key = 'activity_log';
-	public $record_id;
+	public static $activity_key = 'activity';
+
 	public $record;
 
 	protected $fetching = false;
 	protected $importer;
+
+	/**
+	 * Holds a Log of what has been done on This Queue
+	 * @var Tribe__Events__Aggregator__Record__Activity
+	 */
+	protected $activity = null;
+
+	/**
+	 * Holds the Items that will be processed
+	 * @var array
+	 */
+	protected $items = array();
+
+	/**
+	 * How many items are going to be processed
+	 * @var int
+	 */
 	protected $total = 0;
-	protected $updated = 0;
-	protected $created = 0;
-	protected $skipped = 0;
-	protected $category = 0;
-	protected $images = 0;
-	protected $venues = 0;
-	protected $organizers = 0;
-	protected $remaining = array();
 
-	public function __construct( $record_id, $items = array() ) {
-		$this->record_id = $record_id;
-		$this->record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->record_id );
+	public function __construct( $record, $items = array() ) {
+		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
 
-		if ( ! empty( $items ) ) {
-			if ( 'fetch' === $items ) {
-				$this->fetching = true;
-				$this->remaining = 'fetch';
-			} else {
-				$this->init_queue( $items );
-			}
-
-			$this->save();
-		} else {
-			$this->load_queue();
-		}
-	}
-
-	/**
-	 * Initializes the queue vars and computes initial counts
-	 *
-	 * @param array $items Items to add to the queue
-	 */
-	public function init_queue( $items ) {
-		if ( 'csv' === $this->record->origin ) {
-			$this->record->reset_tracking_options();
-			$this->importer = $items;
-			$this->total = $this->importer->get_line_count();
-			$this->remaining = array_fill( 0, $this->total, true );
-		} else {
-			$this->remaining = $items;
-			$this->total = count( $this->remaining );
-		}
-	}
-
-	/**
-	 * Fetches queue data and assigns it into class properties
-	 */
-	public function load_queue() {
-		$activity = empty( $this->record->meta[ self::$activity_key ] ) ? array() : $this->record->meta[ self::$activity_key ];
-		$queue = empty( $this->record->meta[ self::$queue_key ] ) ? array() : $this->record->meta[ self::$queue_key ];
-
-		if ( 'fetch' === $queue ) {
-			$this->fetching = true;
-		} else {
-			$queue = (array) $queue;
+		// Prevent it going any further
+		if ( is_wp_error( $record ) ) {
+			return $record;
 		}
 
-		$this->total     = empty( $activity['total'] ) ? 0 : $activity['total'];
-		$this->updated   = empty( $activity['updated'] ) ? 0 : $activity['updated'];
-		$this->created   = empty( $activity['created'] ) ? 0 : $activity['created'];
-		$this->skipped   = empty( $activity['skipped'] ) ? 0 : $activity['skipped'];
-		$this->category    = empty( $activity['category'] ) ? 0 : $activity['category'];
-		$this->images    = empty( $activity['images'] ) ? 0 : $activity['images'];
-		$this->venues    = empty( $activity['venues'] ) ? 0 : $activity['venues'];
-		$this->organizers = empty( $activity['organizers'] ) ? 0 : $activity['organizers'];
-		$this->remaining = empty( $queue ) ? array() : $queue;
-	}
+		$this->record = $record;
 
-	/**
-	 * Returns whether or not the queue is empty
-	 *
-	 * @return bool
-	 */
-	public function is_empty() {
-		return empty( $this->remaining );
-	}
+		if (
+			empty( $this->record->meta[ self::$activity_key ] ) ||
+			! $this->record->meta[ self::$activity_key ] instanceof Tribe__Events__Aggregator__Record__Activity
+		) {
+			$this->activity = new Tribe__Events__Aggregator__Record__Activity();
+		} else {
+			$this->activity = $this->record->meta[ self::$activity_key ];
+		}
 
-	/**
-	 * Returns the quantity of items remaining in the queue
-	 *
-	 * @return int
-	 */
-	public function count() {
-		return count( $this->remaining );
-	}
+		if ( empty( $this->record->meta[ self::$queue_key ] ) ) {
+			$items = $this->record->prep_import_data( $items );
+		} else {
+			$items = $this->record->meta[ self::$queue_key ];
+		}
 
-	/**
-	 * Returns the total number of items that have been and will be processed in the queue
-	 *
-	 * @return int
-	 */
-	public function total() {
-		return $this->total;
-	}
+		// Prevent it going any further
+		if ( is_wp_error( $items ) ) {
+			return $items;
+		}
 
-	/**
-	 * Returns the number of items that have been updated
-	 *
-	 * @return int
-	 */
-	public function updated() {
-		return $this->updated;
-	}
-
-	/**
-	 * Returns the number of items that have been created
-	 *
-	 * @return int
-	 */
-	public function created() {
-		return $this->created;
-	}
-
-	/**
-	 * Returns the number of items that have been skipped
-	 *
-	 * @return int
-	 */
-	public function skipped() {
-		return $this->skipped;
-	}
-
-	/**
-	 * Returns the number of categories imported along with events
-	 *
-	 * @return int
-	 */
-	public function category() {
-		return $this->category;
-	}
-
-	/**
-	 * Returns the number of images imported along with events
-	 *
-	 * @return int
-	 */
-	public function images() {
-		return $this->images;
-	}
-
-	/**
-	 * Returns the number of venues imported along with events
-	 *
-	 * @return int
-	 */
-	public function venues() {
-		return $this->venues;
-	}
-
-	/**
-	 * Returns the number of organizers imported along with events
-	 *
-	 * @return int
-	 */
-	public function organizers() {
-		return $this->organizers;
-	}
-
-	/**
-	 * Returns relevant class properties as an activity array
-	 *
-	 * @return array
-	 */
-	public function activity() {
-		return array(
-			'total'     => $this->total,
-			'updated'   => $this->updated,
-			'created'   => $this->created,
-			'skipped'   => $this->skipped,
-			'category'  => $this->category,
-			'images'    => $this->images,
-			'venues'    => $this->venues,
-			'organizers' => $this->organizers,
-			'remaining' => count( $this->remaining ),
-		);
+		$this->items = $items;
 	}
 
 	/**
 	 * Saves queue data to relevant meta keys on the post
 	 */
 	public function save() {
-		$activity = $this->activity();
+		$this->record->update_meta( self::$activity_key, $this->activity );
 
-		$this->record->update_meta( self::$activity_key, $activity );
-
-		if ( empty( $this->remaining ) ) {
+		if ( empty( $this->items ) ) {
 			$this->record->delete_meta( self::$queue_key );
 		} else {
-			$this->record->update_meta( self::$queue_key, $this->remaining );
+			$this->record->update_meta( self::$queue_key, $this->items );
 		}
+
+		// If we have a parent also update that
+		if ( ! empty( $this->post->post_parent ) ) {
+			$parent = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->post->post_parent );
+			$activity = $parent->meta[ self::$activity_key ];
+
+			if ( $activity instanceof Tribe__Events__Aggregator__Record__Activity ) {
+				$activity->merge( $this->activity );
+				$this->record->update_meta( self::$activity_key, $this->activity );
+			}
+		}
+
+		// Updates the Modified time for the Record Log
+		$args = array(
+			'ID' => $this->record->post->ID,
+			'post_modified' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, current_time( 'timestamp' ) ),
+		);
+
+		if ( empty( $this->items ) ) {
+			$args['post_status'] = Tribe__Events__Aggregator__Records::$status->success;
+		}
+
+		wp_update_post( $args );
+
+		return $this;
 	}
 
 	/**
@@ -208,85 +107,28 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * @return array|WP_Error
 	 */
 	public function process( $batch_size = null ) {
-		if ( $this->fetching ) {
-			$data = $this->record->prep_import_data();
-
-			if (
-				'fetch' === $data
-				|| ! is_array( $data )
-				|| is_wp_error( $data )
-			) {
-				$activity = $this->activity();
-				$activity['batch_process'] = 0;
-				return $activity;
-			}
-
-			$this->init_queue( $data );
-			$this->save();
-		}
-
-		$items = array();
-
 		if ( ! $batch_size ) {
 			$batch_size = apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size );
 		}
+		$items = array();
 
 		for ( $i = 0; $i < $batch_size; $i++ ) {
-			if ( empty( $this->remaining ) ) {
+			if ( 0 === count( $this->items ) ) {
 				break;
 			}
-
-			$items[] = array_shift( $this->remaining );
+			$items[] = array_shift( $this->items );
 		}
 
 		if ( 'csv' === $this->record->origin ) {
 			$this->record->continue_import();
-			$results = get_option( 'tribe_events_import_log' );
+			$activity = get_option( 'tribe_events_import_log' );
 		} else {
-			$results = $this->record->insert_posts( $items );
+			$activity = $this->record->insert_posts( $items );
 		}
 
-		// grab the results from THIS batch
-		$updated = empty( $results['updated'] ) ? 0 : $results['updated'];
-		$created = empty( $results['created'] ) ? 0 : $results['created'];
-		$skipped = empty( $results['skipped'] ) ? 0 : $results['skipped'];
-		$category = empty( $results['category'] ) ? 0 : $results['category'];
-		$images = empty( $results['images'] ) ? 0 : $results['images'];
-		$venues = empty( $results['venues'] ) ? 0 : $results['venues'];
-		$organizers = empty( $results['organizers'] ) ? 0 : $results['organizers'];
+		$this->activity->merge( $activity );
 
-		if ( 'csv' === $this->record->origin ) {
-			// update the running total across all batches
-			$this->updated = $updated;
-			$this->created = $created;
-			$this->skipped = $skipped;
-			$this->category = $category;
-			$this->images = $images;
-			// note: organizers and venues are imported differently for CSV
-			$this->venues = $venues;
-			$this->organizers = $organizers;
-		} else {
-			// update the running total across all batches
-			$this->updated += $updated;
-			$this->created += $created;
-			$this->skipped += $skipped;
-			$this->category += $category;
-			$this->images += $images;
-			$this->venues += $venues;
-			$this->organizers += $organizers;
-		}
-
-		$this->save();
-
-		$activity = $this->activity();
-
-		$activity['batch_process'] = $activity['updated'] + $activity['created'] + $activity['skipped'];
-
-		if ( empty( $this->remaining ) ) {
-			$this->record->complete_import( $activity );
-		}
-
-		return $activity;
+		return $this->save();
 	}
 
 	/**

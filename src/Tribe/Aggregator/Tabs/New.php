@@ -228,7 +228,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return $messages;
 		}
 
-		$is_queued = ! empty( $result['remaining'] );
+		return '@todo';
+		$is_queued = ! empty( $result->items );
 
 		$content_type = tribe_get_event_label_singular_lowercase();
 		$content_type_plural = tribe_get_event_label_plural_lowercase();
