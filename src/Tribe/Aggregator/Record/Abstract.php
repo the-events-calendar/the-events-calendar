@@ -772,13 +772,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return 0;
 		}
 
-		$activity = $this->meta['activity']->get( 'event' );
-
-		if ( empty( $activity->{ $type } ) ) {
-			return 0;
-		}
-
-		return count( $activity->{ $type } );
+		return $this->meta['activity']->count( 'event', $type );
 	}
 
 	/**

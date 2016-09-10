@@ -52,12 +52,12 @@ class Tribe__Events__Aggregator__Record__Activity {
 	}
 
 	public function register( $slug, $map = array() ) {
-		if ( $this->exists( $slug ) ) {
-			return false;
+		if ( empty( $this->items[ $slug ] ) ) {
+			// Clone the Default action values
+			$this->items[ $slug ] = (object) self::$actions;
+		} else {
+			$this->items[ $slug ] = (object) array_merge( (array) self::$actions, (array) $this->items[ $slug ] );
 		}
-
-		// Clone the Default action values
-		$this->items[ $slug ] = (object) self::$actions;
 
 		// Add the base mapping
 		$this->map[ $slug ] = $slug;
@@ -201,6 +201,18 @@ class Tribe__Events__Aggregator__Record__Activity {
 	 * @return boolean
 	 */
 	public function exists( $slug ) {
-		return is_object( $this->get( $slug ) ) ? true : false;
+		if ( is_null( $slug ) ) {
+			return false;
+		}
+
+		if ( ! isset( $this->map[ $slug ] ) ) {
+			return false;
+		}
+
+		// Map the Slug
+		$slug = $this->map[ $slug ];
+
+		// Check if it actually exists
+		return empty( $this->items[ $slug ] ) ;
 	}
 }
