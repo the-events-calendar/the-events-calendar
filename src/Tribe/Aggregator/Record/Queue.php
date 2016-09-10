@@ -16,22 +16,28 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * Holds a Log of what has been done on This Queue
 	 * @var Tribe__Events__Aggregator__Record__Activity
 	 */
-	protected $activity = null;
+	public $activity = null;
 
 	/**
 	 * Holds the Items that will be processed
 	 * @var array
 	 */
-	protected $items = array();
+	public $items = array();
 
 	/**
 	 * How many items are going to be processed
 	 * @var int
 	 */
-	protected $total = 0;
+	public $total = 0;
 
 	public function __construct( $record, $items = array() ) {
-		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
+		if ( is_numeric( $record ) ) {
+			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
+		}
+
+		if ( ! in_array( 'Tribe__Events__Aggregator__Record__Abstract', class_parents( $record ) ) ){
+			return false;
+		}
 
 		// Prevent it going any further
 		if ( is_wp_error( $record ) ) {
@@ -49,7 +55,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 			$this->activity = $this->record->meta[ self::$activity_key ];
 		}
 
-		if ( empty( $this->record->meta[ self::$queue_key ] ) ) {
+		if ( ! $this->record->has_queue() ) {
 			$items = $this->record->prep_import_data( $items );
 		} else {
 			$items = $this->record->meta[ self::$queue_key ];
@@ -61,6 +67,8 @@ class Tribe__Events__Aggregator__Record__Queue {
 		}
 
 		$this->items = $items;
+
+		$this->total = count( $items );
 	}
 
 	/**
@@ -81,7 +89,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 			$activity = $parent->meta[ self::$activity_key ];
 
 			if ( $activity instanceof Tribe__Events__Aggregator__Record__Activity ) {
-				$activity->merge( $this->activity );
+				$this->activity = $activity->merge( $this->activity );
 				$this->record->update_meta( self::$activity_key, $this->activity );
 			}
 		}
@@ -116,6 +124,8 @@ class Tribe__Events__Aggregator__Record__Queue {
 			if ( 0 === count( $this->items ) ) {
 				break;
 			}
+
+			// Remove the Event from the Items remaining
 			$items[] = array_shift( $this->items );
 		}
 
@@ -126,7 +136,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 			$activity = $this->record->insert_posts( $items );
 		}
 
-		$this->activity->merge( $activity );
+		$this->activity = $this->activity->merge( $activity );
 
 		return $this->save();
 	}

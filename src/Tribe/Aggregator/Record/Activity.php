@@ -26,6 +26,11 @@ class Tribe__Events__Aggregator__Record__Activity {
 	);
 
 	public function __construct() {
+		// The items are registred on the wakeup to avoid saving uncessary data
+		$this->__wakeup();
+	}
+
+	public function __wakeup() {
 		// Entry for Events CPT
 		$this->register( Tribe__Events__Main::POSTTYPE, array( 'event', 'events' ) );
 
@@ -40,6 +45,10 @@ class Tribe__Events__Aggregator__Record__Activity {
 
 		// Entry for Attachment
 		$this->register( 'attachment', array( 'attachments', 'image', 'images' ) );
+	}
+
+	public function __sleep() {
+		return array( 'items' );
 	}
 
 	public function register( $slug, $map = array() ) {
@@ -138,7 +147,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 	 *
 	 * @return null|array|object        If we couldn't find the tab it will be null, if the slug is null will return all tabs
 	 */
-	public function get( $slug = null ) {
+	public function get( $slug = null, $action = null ) {
 		if ( is_null( $slug ) ) {
 			return $this->items;
 		}
@@ -151,11 +160,37 @@ class Tribe__Events__Aggregator__Record__Activity {
 		$slug = $this->map[ $slug ];
 
 		// Check if it actually exists
-		if ( ! empty( $this->items[ $slug ] ) ) {
-			return $this->items[ $slug ];
+		if ( empty( $this->items[ $slug ] ) ) {
+			return null;
 		}
 
-		return null;
+		$actions = $this->items[ $slug ];
+
+		// If we trying to get a specific action and
+		if ( is_null( $action ) ) {
+			return $this->items[ $slug ];
+		} elseif ( ! empty( $actions->{ $action } ) ) {
+			return $actions->{ $action };
+		} else {
+			return null;
+		}
+	}
+
+	public function count( $slug, $action = null ) {
+		$actions = $this->get( $slug );
+
+		if ( empty( $actions ) ) {
+			return 0;
+		}
+
+		// Sum all of the Actions
+		if ( is_null( $action ) ) {
+			return array_sum( array_map( 'count', (array) $actions ) );
+		} elseif ( ! empty( $actions->{ $action } ) ) {
+			return count( $actions->{ $action } );
+		} else {
+			return 0;
+		}
 	}
 
 	/**

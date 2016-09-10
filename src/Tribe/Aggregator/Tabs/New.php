@@ -205,7 +205,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			$result = $record->process_posts();
 		}
 
-		$this->messages = $this->get_result_messages( $record, $result );
+		$this->messages = $this->get_result_messages( $result );
 
 		if (
 			! empty( $this->messages['error'] )
@@ -216,7 +216,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		}
 	}
 
-	public function get_result_messages( $record, $result ) {
+	public function get_result_messages( $result ) {
 		$messages = array();
 
 		if ( is_wp_error( $result ) ) {
@@ -224,60 +224,59 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 			tribe_notice( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
 
-			$record->set_status_as_failed( $result );
+			$result->record->set_status_as_failed( $result );
 			return $messages;
 		}
 
-		return '@todo';
 		$is_queued = ! empty( $result->items );
 
 		$content_type = tribe_get_event_label_singular_lowercase();
 		$content_type_plural = tribe_get_event_label_plural_lowercase();
 		$content_post_type = Tribe__Events__Main::POSTTYPE;
 
-		if ( 'csv' === $record->meta['origin'] && 'tribe_events' !== $record->meta['content_type'] ) {
-			$content_type_object = get_post_type_object( $record->meta['content_type'] );
+		if ( 'csv' === $result->record->meta['origin'] && 'tribe_events' !== $result->record->meta['content_type'] ) {
+			$content_type_object = get_post_type_object( $result->record->meta['content_type'] );
 			$content_type = $content_type_object->labels->singular_name_lowercase;
 			$content_type_plural = $content_type_object->labels->plural_name_lowercase;
 			$content_post_type = $content_type_object->name;
 		}
 
 		if ( ! $is_queued ) {
-			if ( ! empty( $result['created'] ) ) {
-				$content_label = 1 === $result['created'] ? $content_type : $content_type_plural;
+			if ( ! empty( $result->activity->get( 'event', 'created' ) ) ) {
+				$content_label = 1 === $result->activity->count( 'event', 'created' ) ? $content_type : $content_type_plural;
 
 				$messages['success'][] = sprintf(
-					_n( '%1$d new %2$s was imported.', '%1$d new %2$s were imported.', $result['created'], 'the-events-calendar' ),
-					$result['created'],
+					_n( '%1$d new %2$s was imported.', '%1$d new %2$s were imported.', $result->activity->count( 'event', 'created' ), 'the-events-calendar' ),
+					$result->activity->count( 'event', 'created' ),
 					$content_label
 				);
 			}
 
-			if ( ! empty( $result['updated'] ) ) {
-				$content_label = 1 === $result['updated'] ? $content_type : $content_type_plural;
+			if ( ! empty( $result->activity->get( 'event', 'updated' ) ) ) {
+				$content_label = 1 === $result->activity->count( 'event', 'updated' ) ? $content_type : $content_type_plural;
 
 				// @todo: include a part of sentence like: ", including %1$d %2$signored event%3$s.", <a href="/wp-admin/edit.php?post_status=tribe-ignored&post_type=tribe_events">, </a>
 				$messages['success'][] = sprintf(
-					_n( '%1$d existing %2$s was updated.', '%1$d existing %2$s were updated.', $result['updated'], 'the-events-calendar' ),
-					$result['updated'],
+					_n( '%1$d existing %2$s was updated.', '%1$d existing %2$s were updated.', $result->activity->count( 'event', 'updated' ), 'the-events-calendar' ),
+					$result->activity->count( 'event', 'updated' ),
 					$content_label
 				);
 			}
 
-			if ( ! empty( $result['skipped'] ) ) {
-				$content_label = 1 === $result['skipped'] ? $content_type : $content_type_plural;
+			if ( ! empty( $result->activity->get( 'event', 'skipped' ) ) ) {
+				$content_label = 1 === $result->activity->count( 'event', 'skipped' ) ? $content_type : $content_type_plural;
 
 				$messages['success'][] = sprintf(
-					_n( '%1$d already-imported %2$s was skipped.', '%1$d already-imported %2$s were skipped.', $result['skipped'], 'the-events-calendar' ),
-					$result['skipped'],
+					_n( '%1$d already-imported %2$s was skipped.', '%1$d already-imported %2$s were skipped.', $result->activity->count( 'event', 'skipped' ), 'the-events-calendar' ),
+					$result->activity->count( 'event', 'skipped' ),
 					$content_label
 				);
 			}
 
-			if ( ! empty( $result['images'] ) ) {
+			if ( ! empty( $result->activity->get( 'images', 'created' ) ) ) {
 				$messages['success'][] = sprintf(
-					_n( '%1$d new image was imported.', '%1$d new images were imported.', $result['images'], 'the-events-calendar' ),
-					$result['images']
+					_n( '%1$d new image was imported.', '%1$d new images were imported.', $result->activity->count( 'images', 'created' ), 'the-events-calendar' ),
+					$result->activity->count( 'images', 'created' )
 				);
 			}
 
@@ -293,21 +292,21 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 
 			// if not CSV, pull counts for venues and organizers that were auto-created
-			if ( 'csv' !== $record->meta['origin'] ) {
-				if ( ! empty( $result['venues'] ) ) {
+			if ( 'csv' !== $result->record->meta['origin'] ) {
+				if ( ! empty( $result->activity->get( 'venue', 'created' ) ) ) {
 					$messages['success'][] = '<br/>' . sprintf(
-						_n( '%1$d new venue was imported.', '%1$d new venues were imported.', $result['venues'], 'the-events-calendar' ),
-						$result['venues']
+						_n( '%1$d new venue was imported.', '%1$d new venues were imported.', $result->activity->count( 'venue', 'created' ), 'the-events-calendar' ),
+						$result->activity->count( 'venue', 'created' )
 					) .
 					' <a href="' . admin_url( 'edit.php?post_type=tribe_venue' ) . '">' .
 					__( 'View your event venues', 'the-events-calendar' ) .
 					'</a>';
 				}
 
-				if ( ! empty( $result['organizers'] ) ) {
+				if ( ! empty( $result->activity->get( 'organizer', 'created' ) ) ) {
 					$messages['success'][] = '<br/>' . sprintf(
-						_n( '%1$d new organizer was imported.', '%1$d new organizers were imported.', $result['organizers'], 'the-events-calendar' ),
-						$result['organizers']
+						_n( '%1$d new organizer was imported.', '%1$d new organizers were imported.', $result->activity->count( 'organizer', 'created' ), 'the-events-calendar' ),
+						$result->activity->count( 'organizer', 'created' )
 					) .
 					' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
 					__( 'View your event organizers', 'the-events-calendar' ) .
@@ -317,10 +316,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 		}
 
-		if ( ! empty( $result['category'] ) ) {
+		if ( ! empty( $result->activity->get( 'category', 'created' ) ) ) {
 			$messages['success'][] = '<br/>' . sprintf(
-				_n( '%1$d new event category was created.', '%1$d new event categories were created.', $result['category'], 'the-events-calendar' ),
-				$result['category']
+				_n( '%1$d new event category was created.', '%1$d new event categories were created.', $result->activity->count( 'category', 'created' ), 'the-events-calendar' ),
+				$result->activity->count( 'category', 'created' )
 			) .
 			' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
 			__( 'View your event categories', 'the-events-calendar' ) .
@@ -333,12 +332,12 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			|| ! empty( $messages['success'] )
 			|| ! empty( $messages['warning'] )
 		) {
-			if ( 'manual' == $record->type ) {
+			if ( 'manual' == $result->record->type ) {
 				array_unshift( $messages['success'], __( 'Import complete!', 'the-events-calendar' ) . '<br/>' );
 			} else {
 				array_unshift( $messages['success'], __( 'Your scheduled import was saved and the first import is complete!', 'the-events-calendar' ) . '<br/>' );
 
-				$scheduled_time = strtotime( $record->post->post_modified ) + $record->frequency->interval;
+				$scheduled_time = strtotime( $result->record->post->post_modified ) + $result->record->frequency->interval;
 				$scheduled_time_string = date( get_option( 'date_format' ), $scheduled_time ) .
 					_x( ' at ', 'separator between date and time', 'the-events-calendar' ) .
 					date( get_option( 'time_format' ), $scheduled_time );

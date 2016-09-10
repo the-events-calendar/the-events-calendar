@@ -750,17 +750,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function process_posts( $data = array() ) {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
-		if ( $this->has_queue() ) {
-			$queue = new Tribe__Events__Aggregator__Record__Queue( $this->post->ID );
-			return $queue->process();
-		}
-
-		$items = $this->prep_import_data( $data );
-		if ( is_wp_error( $items ) ) {
-			return $items;
-		}
-
-		$queue = new Tribe__Events__Aggregator__Record__Queue( $this->post->ID, $items );
+		$queue = new Tribe__Events__Aggregator__Record__Queue( $this, $data );
 		return $queue->process();
 	}
 
@@ -770,7 +760,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return bool
 	 */
 	public function has_queue() {
-		return ! empty( $this->meta['queue'] );
+		return ! empty( $this->meta[ Tribe__Events__Aggregator__Record__Queue::$queue_key ] );
 	}
 
 	public function get_event_count( $type = null ) {
@@ -802,27 +792,25 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return array|WP_Error
 	 */
 	public function prep_import_data( $data = array() ) {
-		if ( $data ) {
-			$import_data = $data;
-		} else {
-			$import_data = $this->get_import_data();
+		if ( empty( $data ) ) {
+			$data = $this->get_import_data();
 		}
 
-		if ( is_wp_error( $import_data ) ) {
-			return $import_data;
+		if ( is_wp_error( $data ) ) {
+			return $data;
 		}
 
-		$this->update_source_name( empty( $import_data->data->source_name ) ? null : $import_data->data->source_name );
+		$this->update_source_name( empty( $data->data->source_name ) ? null : $data->data->source_name );
 
 		if ( empty( $this->meta['finalized'] ) ) {
 			return tribe_error( 'core:aggregator:record-not-finalized' );
 		}
 
-		if ( ! isset( $import_data->data->events ) ) {
+		if ( ! isset( $data->data->events ) ) {
 			return array();
 		}
 
-		$items = $this->filter_data_by_selected( $import_data->data->events );
+		$items = $this->filter_data_by_selected( $data->data->events );
 
 		return $items;
 	}
@@ -1035,7 +1023,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					// Log this attachment was created
 					$activity->add( 'attachment', 'created', $attachment );
 				}
-
 			}
 		}
 
