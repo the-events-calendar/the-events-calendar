@@ -123,10 +123,10 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 			$this->queue_processor->process_batch( $this->record_id );
 		}
 
-		$done       = $queue->is_empty();
-		$percentage = $queue->progress_percentage();
+		$done       = $this->queue_processor->current_queue->is_empty();
+		$percentage = $this->queue_processor->current_queue->progress_percentage();
 
-		$this->ajax_operations->exit_data( $this->get_progress_message_data( $queue, $percentage, $done ) );
+		$this->ajax_operations->exit_data( $this->get_progress_message_data( $this->queue_processor->current_queue, $percentage, $done ) );
 	}
 
 	/**
@@ -188,20 +188,20 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 			'continue'      => ! $done,
 			'complete'      => $done,
 			'counts'        => array(
-				'total'     => $queue->total(),
-				'created'   => $queue->created(),
-				'updated'   => $queue->updated(),
-				'skipped'   => $queue->skipped(),
-				'category'  => $queue->category(),
-				'images'    => $queue->images(),
-				'venues'    => $queue->venues(),
-				'organizers' => $queue->organizers(),
+				'total'     => $queue->activity->count( 'event' ),
+				'created'   => $queue->activity->count( 'event', 'created' ),
+				'updated'   => $queue->activity->count( 'event', 'updated' ),
+				'skipped'   => $queue->activity->count( 'event', 'skipped' ),
+				'category'  => $queue->activity->count( 'category', 'created' ),
+				'images'    => $queue->activity->count( 'images', 'created' ),
+				'venues'    => $queue->activity->count( 'venues', 'created' ),
+				'organizers' => $queue->activity->count( 'organizer', 'created' ),
 				'remaining' => $queue->count(),
 			),
 		);
 
 		if ( $done ) {
-			$messages = Tribe__Events__Aggregator__Tabs__New::instance()->get_result_messages( $queue->record, $queue->activity() );
+			$messages = Tribe__Events__Aggregator__Tabs__New::instance()->get_result_messages( $queue );
 			$data['complete_text'] = '<p>' . implode( ' ', $messages['success'] ) . '</p>';
 		}
 

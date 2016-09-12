@@ -25,6 +25,12 @@ class Tribe__Events__Aggregator__Record__Queue {
 	public $items = array();
 
 	/**
+	 * Holds the Items that will be processed next
+	 * @var array
+	 */
+	public $next = array();
+
+	/**
 	 * How many items are going to be processed
 	 * @var int
 	 */
@@ -69,11 +75,15 @@ class Tribe__Events__Aggregator__Record__Queue {
 		$this->items = $items;
 
 		// Count the Total of items now and stores as the total
-		$this->total = $this->count();
+		$this->total = count( $this->items );
 	}
 
 	public function count() {
-		return count( $this->items );
+		return count( $this->next );
+	}
+
+	public function is_empty() {
+		return 0 === count( $this->items );
 	}
 
 	/**
@@ -91,11 +101,13 @@ class Tribe__Events__Aggregator__Record__Queue {
 		// If we have a parent also update that
 		if ( ! empty( $this->post->post_parent ) ) {
 			$parent = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->post->post_parent );
-			$activity = $parent->meta[ self::$activity_key ];
+			if ( isset( $parent->meta[ self::$activity_key ] ) ) {
+				$activity = $parent->meta[ self::$activity_key ];
 
-			if ( $activity instanceof Tribe__Events__Aggregator__Record__Activity ) {
-				$this->activity = $activity->merge( $this->activity );
-				$this->record->update_meta( self::$activity_key, $this->activity );
+				if ( $activity instanceof Tribe__Events__Aggregator__Record__Activity ) {
+					$parent->activity = $activity->merge( $this->activity );
+					$parent->record->update_meta( self::$activity_key, $parent->activity );
+				}
 			}
 		}
 
@@ -120,10 +132,12 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * @return array|WP_Error
 	 */
 	public function process( $batch_size = null ) {
+		// Every time we are about to process we reset the next var
+		$this->next = array();
+
 		if ( ! $batch_size ) {
 			$batch_size = apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size );
 		}
-		$items = array();
 
 		for ( $i = 0; $i < $batch_size; $i++ ) {
 			if ( 0 === count( $this->items ) ) {
@@ -131,14 +145,14 @@ class Tribe__Events__Aggregator__Record__Queue {
 			}
 
 			// Remove the Event from the Items remaining
-			$items[] = array_shift( $this->items );
+			$this->next[] = array_shift( $this->items );
 		}
 
 		if ( 'csv' === $this->record->origin ) {
 			$this->record->continue_import();
 			$activity = get_option( 'tribe_events_import_log' );
 		} else {
-			$activity = $this->record->insert_posts( $items );
+			$activity = $this->record->insert_posts( $this->next );
 		}
 
 		$this->activity = $this->activity->merge( $activity );
@@ -152,12 +166,11 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * @return int
 	 */
 	public function progress_percentage() {
-		if ( 0 === $this->total ) {
+		if ( 0 === $this->count() ) {
 			return 0;
 		}
 
-		$complete = $this->total - $this->count();
-		$percent = ( $complete / $this->total ) * 100;
+		$percent = ( $this->count() / $this->total ) * 100;
 		return (int) $percent;
 	}
 
@@ -170,14 +183,14 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * execution hangs half way through the processing of a batch.
 	 */
 	public function set_in_progress_flag() {
-		Tribe__Post_Transient::instance()->set( $this->record->ID, self::$in_progress_key, true, HOUR_IN_SECONDS );
+		Tribe__Post_Transient::instance()->set( $this->record->id, self::$in_progress_key, true, HOUR_IN_SECONDS );
 	}
 
 	/**
 	 * Clears the in progress flag.
 	 */
 	public function clear_in_progress_flag() {
-		Tribe__Post_Transient::instance()->delete( $this->record->ID, self::$in_progress_key );
+		Tribe__Post_Transient::instance()->delete( $this->record->id, self::$in_progress_key );
 	}
 
 	/**
@@ -186,7 +199,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * @return bool
 	 */
 	public function is_in_progress() {
-		Tribe__Post_Transient::instance()->get( $this->record->ID, self::$in_progress_key );
+		Tribe__Post_Transient::instance()->get( $this->record->id, self::$in_progress_key );
 	}
 
 }

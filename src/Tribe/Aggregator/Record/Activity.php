@@ -213,6 +213,6 @@ class Tribe__Events__Aggregator__Record__Activity {
 		$slug = $this->map[ $slug ];
 
 		// Check if it actually exists
-		return empty( $this->items[ $slug ] ) ;
+		return ! empty( $this->items[ $slug ] ) ;
 	}
 }
