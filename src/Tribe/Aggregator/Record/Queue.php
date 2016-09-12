@@ -68,7 +68,12 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 		$this->items = $items;
 
-		$this->total = count( $items );
+		// Count the Total of items now and stores as the total
+		$this->total = $this->count();
+	}
+
+	public function count() {
+		return count( $this->items );
 	}
 
 	/**
@@ -165,14 +170,14 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * execution hangs half way through the processing of a batch.
 	 */
 	public function set_in_progress_flag() {
-		set_transient( self::$in_progress_key . $this->record_id, true, HOUR_IN_SECONDS );
+		Tribe__Post_Transient::instance()->set( $this->record->ID, self::$in_progress_key, true, HOUR_IN_SECONDS );
 	}
 
 	/**
 	 * Clears the in progress flag.
 	 */
 	public function clear_in_progress_flag() {
-		delete_transient( self::$in_progress_key . $this->record_id );
+		Tribe__Post_Transient::instance()->delete( $this->record->ID, self::$in_progress_key );
 	}
 
 	/**
@@ -181,7 +186,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * @return bool
 	 */
 	public function is_in_progress() {
-		return (bool) get_transient( self::$in_progress_key . $this->record_id );
+		Tribe__Post_Transient::instance()->get( $this->record->ID, self::$in_progress_key );
 	}
 
 }
