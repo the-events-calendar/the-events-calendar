@@ -30,6 +30,9 @@ class Tribe__Events__Aggregator__Record__Activity {
 		$this->__wakeup();
 	}
 
+	/**
+	 * Register the Activities Tracked
+	 */
 	public function __wakeup() {
 		// Entry for Events CPT
 		$this->register( Tribe__Events__Main::POSTTYPE, array( 'event', 'events' ) );
@@ -47,10 +50,22 @@ class Tribe__Events__Aggregator__Record__Activity {
 		$this->register( 'attachment', array( 'attachments', 'image', 'images' ) );
 	}
 
+	/**
+	 * Prevents Mapping to be saved on the DB object
+	 * @return array
+	 */
 	public function __sleep() {
 		return array( 'items' );
 	}
 
+	/**
+	 * Register a Specific Activity and it's mappings
+	 *
+	 * @param  string $slug Name of this Activity
+	 * @param  array  $map  (optional) Other names in which you can access this activity
+	 *
+	 * @return boolean       [description]
+	 */
 	public function register( $slug, $map = array() ) {
 		if ( empty( $this->items[ $slug ] ) ) {
 			// Clone the Default action values
@@ -70,6 +85,15 @@ class Tribe__Events__Aggregator__Record__Activity {
 		return true;
 	}
 
+	/**
+	 * Logs an Acivity
+	 *
+	 * @param string       $slug Name of this Activity
+	 * @param string|array $items Type of activity
+	 * @param array        $ids   items inside of the action
+	 *
+	 * @return boolean
+	 */
 	public function add( $slug, $items, $ids = array() ) {
 		if ( ! $this->exists( $slug ) ) {
 			return false;
@@ -106,6 +130,13 @@ class Tribe__Events__Aggregator__Record__Activity {
 		return true;
 	}
 
+	/**
+	 * Retuns the merged version of two Activities classes
+	 *
+	 * @param  self   $activity Which activity should be merged here
+	 *
+	 * @return self
+	 */
 	public function merge( self $activity ) {
 		$items = $activity->get();
 
@@ -117,9 +148,9 @@ class Tribe__Events__Aggregator__Record__Activity {
 	}
 
 	/**
-	 * Removes a tab from the queue items
+	 * Removes a activity from the Registred ones
 	 *
-	 * @param  string  $slug The Slug of the Tab
+	 * @param  string  $slug   The Slug of the Activity
 	 *
 	 * @return boolean
 	 */
@@ -141,11 +172,12 @@ class Tribe__Events__Aggregator__Record__Activity {
 	}
 
 	/**
-	 * Fetches the Instance of the Tab or all the tabs
+	 * Fetches a registred Activity
 	 *
-	 * @param  string  $slug (optional) The Slug of the Tab
+	 * @param  string  $slug   (optional) The Slug of the Activity
+	 * @param  string  $action (optional) Which action
 	 *
-	 * @return null|array|object        If we couldn't find the tab it will be null, if the slug is null will return all tabs
+	 * @return null|array|object
 	 */
 	public function get( $slug = null, $action = null ) {
 		if ( is_null( $slug ) ) {
@@ -176,6 +208,14 @@ class Tribe__Events__Aggregator__Record__Activity {
 		}
 	}
 
+	/**
+	 * Fetches a registred Activity counter
+	 *
+	 * @param  string  $slug   The Slug of the Activity
+	 * @param  string  $action (optional) Which action
+	 *
+	 * @return null|array|object
+	 */
 	public function count( $slug, $action = null ) {
 		$actions = $this->get( $slug );
 
@@ -194,7 +234,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 	}
 
 	/**
-	 * Checks if a given Tab (slug) exits
+	 * Checks if a given Activity type exists
 	 *
 	 * @param  string  $slug The Slug of the Tab
 	 *
