@@ -346,8 +346,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 				$scheduled_time = strtotime( $record->post->post_modified ) + $record->frequency->interval;
 				$scheduled_time_string = date( get_option( 'date_format' ), $scheduled_time ) .
-				                         _x( ' at ', 'separator between date and time', 'the-events-calendar' ) .
-				                         date( get_option( 'time_format' ), $scheduled_time );
+						_x( ' at ', 'separator between date and time', 'the-events-calendar' ) .
+				        date( get_option( 'time_format' ), $scheduled_time );
 
 				$messages['success'][] = '<br/>' .
 				                         sprintf(
