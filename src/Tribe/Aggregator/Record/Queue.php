@@ -78,16 +78,26 @@ class Tribe__Events__Aggregator__Record__Queue {
 		$this->total = count( $this->items );
 	}
 
+	/**
+	 * Shortcut to check how many items are going to be processed next
+	 * @return int
+	 */
 	public function count() {
 		return count( $this->next );
 	}
 
+	/**
+	 * Shortcut to check if this queue is empty
+	 * @return boolean
+	 */
 	public function is_empty() {
 		return 0 === count( $this->items );
 	}
 
 	/**
 	 * Saves queue data to relevant meta keys on the post
+	 *
+	 * @return self
 	 */
 	public function save() {
 		$this->record->update_meta( self::$activity_key, $this->activity );
@@ -129,7 +139,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 	/**
 	 * Processes a batch for the queue
 	 *
-	 * @return array|WP_Error
+	 * @return self
 	 */
 	public function process( $batch_size = null ) {
 		// Every time we are about to process we reset the next var
