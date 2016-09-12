@@ -249,7 +249,57 @@
 }
 
 .tribe-ea .tribe-notice-tribe-missing-aggregator-license {
-	background: #f7fcfe;
+	background: url(../images/aggregator/ea-upsell-bkg.svg) transparent no-repeat;
+	background-size: cover;
+	border: none;
+	padding: 60px 0;
+	text-align: center;
+}
+
+.tribe-ea .tribe-notice-tribe-missing-aggregator-license .upsell-banner {
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 30px;
+}
+
+.tribe-ea .tribe-notice-tribe-missing-aggregator-license h3 {
+	color: white;
+	font-size: 22px;
+	font-weight: normal;
+	letter-spacing: 1.5px;
+}
+
+.tribe-ea .tribe-notice-tribe-missing-aggregator-license p {
+	color: white;
+	font-size: 16px;
+	font-weight: 300;
+	letter-spacing: 1px;
+	margin: 0 auto 30px auto;
+	width: 50%;
+}
+
+.tribe-ea .tribe-button {
+	border: 1px solid;
+	border-radius: 3px;
+	color: white;
+	display: inline-block;
+	font-weight: 300;
+	letter-spacing: 1.5px;
+	padding: 15px 30px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.tribe-ea .tribe-button-primary {
+	background: black;
+	border-color: black;
+	margin-right: 5px;
+}
+
+.tribe-ea .tribe-button-secondary {
+	background: transparent;
+	border-color: white;
+	margin-left: 10px;
 }
 
 .tribe-ea .dataTables_length,
