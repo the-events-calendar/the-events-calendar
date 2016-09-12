@@ -186,13 +186,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Returns the Organizer's Email
 	 *
 	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
+	 * @param bool $antispambot Whether the email should pass through the `antispambot` function or not.
 	 *
 	 * @return string Organizer's Email
 	 */
-	function tribe_get_organizer_email( $postId = null ) {
+	function tribe_get_organizer_email( $postId = null, $antispambot = true ) {
 		$postId = Tribe__Events__Main::postIdHelper( $postId );
 		$unfiltered_email  = esc_html( tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerEmail', true ) );
-		$filtered_email = antispambot( $unfiltered_email );
+		$filtered_email = $antispambot ? antispambot( $unfiltered_email ) : $unfiltered_email;
 
 		/**
 		 * Allows for the organizer email to be filtered.
