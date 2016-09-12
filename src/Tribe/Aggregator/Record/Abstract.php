@@ -124,6 +124,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$key = preg_replace( '/^' . self::$meta_key_prefix . '/', '', $key );
 			$this->meta[ $key ] = maybe_unserialize( is_array( $value ) ? reset( $value ) : $value );
 		}
+
+		// This prevents lots of isset checks for no reason
+		if ( empty( $this->meta['activity'] ) ) {
+			$this->meta['activity'] = new Tribe__Events__Aggregator__Record__Activity();
+		}
 	}
 
 	/**

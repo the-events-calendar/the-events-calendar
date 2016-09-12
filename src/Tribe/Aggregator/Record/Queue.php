@@ -159,8 +159,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 		}
 
 		if ( 'csv' === $this->record->origin ) {
-			$this->record->continue_import();
-			$activity = get_option( 'tribe_events_import_log' );
+			$activity = $this->record->continue_import();
 		} else {
 			$activity = $this->record->insert_posts( $this->next );
 		}

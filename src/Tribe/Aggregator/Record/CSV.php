@@ -259,7 +259,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		$importer = $this->get_importer();
 		$importer->is_aggregator = true;
 		$importer->aggregator_record = $this;
-		$offset = get_option( 'tribe_events_importer_offset', 1 );
+		$offset = (int) get_option( 'tribe_events_importer_offset', 1 );
 		if ( -1 === $offset ) {
 			$this->state = 'complete';
 			$this->clean_up_after_import();
@@ -270,7 +270,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			$this->log_import_results( $importer );
 		}
 
-		return get_option( 'tribe_events_import_log', array( 'updated' => 0, 'created' => 0, 'skipped' => 0, 'encoding' => 0 ) );
+		return $this->meta['activity'];
 	}
 
 	protected function do_import( Tribe__Events__Importer__File_Importer $importer ) {
@@ -281,11 +281,17 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		$new_offset = $importer->import_complete() ? -1 : $importer->get_last_completed_row();
 		update_option( 'tribe_events_importer_offset', $new_offset );
 
-		if ( -1 === $new_offset ) do_action( 'tribe_events_csv_import_complete' );
+		if ( -1 === $new_offset ){
+			do_action( 'tribe_events_csv_import_complete' );
+		}
 	}
 
 	protected function log_import_results( Tribe__Events__Importer__File_Importer $importer ) {
 		$log = get_option( 'tribe_events_import_log' );
+		if ( empty( $log['encoding'] ) ) {
+			$log['encoding'] = 0;
+		}
+
 		$log['updated'] += $importer->get_updated_post_count();
 		$log['created'] += $importer->get_new_post_count();
 		$log['skipped'] += $importer->get_skipped_row_count();
