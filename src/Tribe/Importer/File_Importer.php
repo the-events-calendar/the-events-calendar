@@ -201,7 +201,6 @@ abstract class Tribe__Events__Importer__File_Importer {
 
 	protected function update_or_create_post( array $record ) {
 		if ( $id = $this->match_existing_post( $record ) ) {
-
 			if ( false !== $this->update_post( $id, $record ) ) {
 				$this->updated ++;
 				$this->log[ $this->reader->get_last_line_number_read() + 1 ] = sprintf( esc_html__( '%s (post ID %d) updated.', 'the-events-calendar' ), get_the_title( $id ), $id );
