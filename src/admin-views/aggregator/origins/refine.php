@@ -66,7 +66,6 @@ switch ( $origin_slug ) {
 				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-medium"
 				placeholder="<?php echo esc_attr( $radius->placeholder ); ?>"
 				data-hide-search
-				data-prevent-clear
 			>
 				<option value=""></option>
 				<?php
