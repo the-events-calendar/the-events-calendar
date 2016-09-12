@@ -75,6 +75,11 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		if ( 'retain' === $update_authority_setting ) {
 			$this->skipped[] = $event;
+
+			if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
+				$this->aggregator_record->meta['activity']->add( 'event', 'skipped', $post_id );
+			}
+
 			return false;
 		}
 
@@ -85,6 +90,11 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		add_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 		Tribe__Events__API::updateEvent( $post_id, $event );
+
+		if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
+			$this->aggregator_record->meta['activity']->add( 'event', 'updated', $post_id );
+		}
+
 		remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 	}
 
@@ -94,6 +104,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
 			Tribe__Events__Aggregator__Records::instance()->add_record_to_event( $id, $this->aggregator_record->id, 'csv' );
+			$this->aggregator_record->meta['activity']->add( 'event', 'created', $id );
 		}
 
 		return $id;
@@ -293,6 +304,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 			if ( is_wp_error( $term_info ) ) {
 				continue;
+			}
+
+			if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
+				$this->aggregator_record->meta['activity']->add( 'category', 'created', $term_info['term_id'] );
 			}
 
 			$term_ids[] = $term_info['term_id'];

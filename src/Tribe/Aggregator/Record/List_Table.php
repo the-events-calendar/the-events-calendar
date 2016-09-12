@@ -537,7 +537,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			// We check if the Parent actually exists
 			if ( ! is_wp_error( $record ) ) {
 				// this will get the total event for the parent schedule record
-				$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . intval( $record->get_event_count( 'created' ) );
+				$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . $record->get_event_count( 'created' );
 			}
 		} else {
 			$created = $record->get_event_count( 'created' );

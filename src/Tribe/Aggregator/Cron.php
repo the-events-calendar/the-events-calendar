@@ -271,6 +271,7 @@ class Tribe__Events__Aggregator__Cron {
 
 		foreach ( $query->posts as $post ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+
 			if ( ! $record->is_schedule_time() ) {
 				continue;
 			}
@@ -278,7 +279,6 @@ class Tribe__Events__Aggregator__Cron {
 			if ( $record->get_child_record_by_status( 'pending' ) ) {
 				continue;
 			}
-
 			$child = $record->create_child_record();
 			$child->queue_import();
 			$child->process_posts();
