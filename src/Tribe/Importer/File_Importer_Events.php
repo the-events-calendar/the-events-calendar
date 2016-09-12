@@ -278,9 +278,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 			if ( is_numeric( $term ) ) {
 				$term = absint( $term );
+				$term_info = get_term( $term, Tribe__Events__Main::TAXONOMY, ARRAY_A );
+			} else {
+				$term_info = term_exists( $term, Tribe__Events__Main::TAXONOMY );
 			}
-
-			$term_info = get_term( $term, Tribe__Events__Main::TAXONOMY, ARRAY_A );
 
 			if ( ! $term_info ) {
 				// Skip if a non-existent term ID is passed.
