@@ -367,7 +367,10 @@ class Tribe__Events__Aggregator__Cron {
 	 * @return void
 	 */
 	public function log( $type = 'colorize', $message = '' ) {
-		// Only do something When in WP_CLI
+		// Log on our Structure
+		Tribe__Main::instance()->log()->log_debug( $message, 'aggregator' );
+
+		// Only go further if we have WP_CLI
 		if ( ! class_exists( 'WP_CLI' ) ) {
 			return false;
 		}
