@@ -777,7 +777,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return 0;
 		}
 
-		return $this->meta['activity']->count( 'event', $type );
+		switch ( $type ) {
+			case 'total':
+				return $this->meta['activity']->count( 'event', 'created' ) + $this->meta['activity']->count( 'event', 'updated' );
+				break;
+
+			default:
+				return $this->meta['activity']->count( 'event', $type );
+				break;
+		}
 	}
 
 	/**
