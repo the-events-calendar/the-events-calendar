@@ -517,7 +517,14 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			// always show created
 			$created = $last_imported->get_event_count( 'created' );
 
-			$html[] = esc_html__( 'Latest Import: ', 'the-events-calendar' ) . ( $created ? $created : 0 );
+			$html[] = esc_html__( 'Latest Import:', 'the-events-calendar' );
+			$html[] = '<ul class="tribe-ea-raw-list">';
+			$html[] = '<li>' . esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 ) . '</li>';
+			if ( $last_imported_updated = $last_imported->get_event_count( 'updated' ) ) {
+				$html[] = '<li>' . esc_html__( 'Updated: ', 'the-events-calendar' ) . $last_imported_updated . '</li>';
+			}
+			$html[] = '</ul>';
+
 		}
 
 		// is this schedule record (or a child of schedule record?)
@@ -527,10 +534,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			if ( ! empty( $record->post->post_parent ) ) {
 				$created = $record->get_event_count( 'created' );
 
-				$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 );
+				$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 ) . '<br>';
 
 				if ( ! empty( $record->post->post_parent ) && $updated = $record->get_event_count( 'updated' ) ) {
-					$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;
+					$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated . '<br>';
 				}
 
 				// let's change the record to the post parent so when we fetch that count, we're getting the grand total
@@ -540,19 +547,19 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			// We check if the Parent actually exists
 			if ( ! is_wp_error( $record ) ) {
 				// this will get the total event for the parent schedule record
-				$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . $record->get_event_count( 'total' );
+				$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . $record->get_event_count( 'created' );
 			}
 		} else {
 			$created = $record->get_event_count( 'created' );
 
-			$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 );
+			$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 ) . '<br>';
 
 			if ( $updated = $record->get_event_count( 'updated' ) ) {
 				$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;
 			}
 		}
 
-		return $this->render( $html, '<br>' );
+		return $this->render( $html, "\n" );
 	}
 
 	/**

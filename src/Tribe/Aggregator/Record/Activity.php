@@ -124,6 +124,11 @@ class Tribe__Events__Aggregator__Record__Activity {
 		}
 
 		foreach ( $items as $action => $ids ) {
+			// Skip Empty ids
+			if ( empty( $ids ) ) {
+				continue;
+			}
+
 			$this->items[ $slug ]->{ $action } = array_unique( array_filter( array_merge( $this->items[ $slug ]->{ $action }, (array) $ids ) ) );
 		}
 

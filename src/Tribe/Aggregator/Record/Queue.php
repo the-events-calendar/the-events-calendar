@@ -14,24 +14,28 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 	/**
 	 * Holds a Log of what has been done on This Queue
+	 *
 	 * @var Tribe__Events__Aggregator__Record__Activity
 	 */
 	public $activity = null;
 
 	/**
 	 * Holds the Items that will be processed
+	 *
 	 * @var array
 	 */
 	public $items = array();
 
 	/**
 	 * Holds the Items that will be processed next
+	 *
 	 * @var array
 	 */
 	public $next = array();
 
 	/**
 	 * How many items are going to be processed
+	 *
 	 * @var int
 	 */
 	public $total = 0;
@@ -84,6 +88,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 	/**
 	 * Allows us to chech if the Events Data has still pending
+	 *
 	 * @return boolean
 	 */
 	public function is_fetching() {
@@ -92,6 +97,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 	/**
 	 * Shortcut to check how many items are going to be processed next
+	 *
 	 * @return int
 	 */
 	public function count() {
@@ -100,6 +106,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 	/**
 	 * Shortcut to check if this queue is empty
+	 *
 	 * @return boolean
 	 */
 	public function is_empty() {
