@@ -75,12 +75,19 @@ class Tribe__Events__Integrations__WPML__Defaults {
 		// remove the method to avoid infinite loops
 		remove_action( 'icl_save_settings', array( $this, 'set_defaults' ) );
 
-		$this->sitepress->core_tm()->save_settings();
+		// the Translation Management plugin might not be active on this
+		// installation, save this option only if Translation Management is active.
+		$translation_management = $this->sitepress->core_tm();
+		$tm_is_active           = ! empty( $translation_management )
+		                          && is_a( $translation_management, 'TranslationManagement' );
+		if ( $tm_is_active ) {
+			$translation_management->save_settings();
+			Tribe__Settings_Manager::set_option( $this->defaults_option_name, true );
 
+			return true;
+		}
 
-		Tribe__Settings_Manager::set_option( $this->defaults_option_name, true );
-
-		return true;
+		return false;
 	}
 
 	/**
