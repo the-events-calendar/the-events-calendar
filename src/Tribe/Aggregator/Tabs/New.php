@@ -328,7 +328,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 				_n( '%1$d new event category was created.', '%1$d new event categories were created.', $queue->activity->count( 'category', 'created' ), 'the-events-calendar' ),
 				$queue->activity->count( 'category', 'created' )
 			) .
-			' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
+			' <a href="' . admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) . '">' .
 			__( 'View your event categories', 'the-events-calendar' ) .
 			'</a>';
 			;
