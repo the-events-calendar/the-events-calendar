@@ -271,15 +271,15 @@ class Tribe__Events__Aggregator__Cron {
 		foreach ( $query->posts as $post ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
-			// if ( ! $record->is_schedule_time() ) {
-			// 	$this->log( 'debug', sprintf( 'Record (%d) skipped, not scheduled time', $record->id ) );
-			// 	continue;
-			// }
+			if ( ! $record->is_schedule_time() ) {
+				$this->log( 'debug', sprintf( 'Record (%d) skipped, not scheduled time', $record->id ) );
+				continue;
+			}
 
-			// if ( $record->get_child_record_by_status( 'pending' ) ) {
-			// 	$this->log( 'debug', sprintf( 'Record (%d) skipped, has pending childs', $record->id ) );
-			// 	continue;
-			// }
+			if ( $record->get_child_record_by_status( 'pending' ) ) {
+				$this->log( 'debug', sprintf( 'Record (%d) skipped, has pending childs', $record->id ) );
+				continue;
+			}
 
 			// Creating the child records based on this Parent
 			$child = $record->create_child_record();

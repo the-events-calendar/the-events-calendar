@@ -511,6 +511,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 		$last_imported = $record->get_child_record_by_status( 'success', 1 );
 		if ( $last_imported && $last_imported->have_posts() ) {
+			// Fetches the Record Object
+			$last_imported = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $last_imported->post->ID );
+
 			// always show created
 			$created = $last_imported->get_event_count( 'created' );
 
