@@ -302,22 +302,22 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			if ( 'csv' !== $record->meta['origin'] ) {
 				if ( ! empty( $result['venues'] ) ) {
 					$messages['success'][] = '<br/>' . sprintf(
-							_n( '%1$d new venue was imported.', '%1$d new venues were imported.', $result['venues'], 'the-events-calendar' ),
-							$result['venues']
+						_n( '%1$d new venue was imported.', '%1$d new venues were imported.', $result['venues'], 'the-events-calendar' ),
+						$result['venues']
 						) .
-					                         ' <a href="' . admin_url( 'edit.php?post_type=tribe_venue' ) . '">' .
-					                         __( 'View your event venues', 'the-events-calendar' ) .
-					                         '</a>';
+					' <a href="' . admin_url( 'edit.php?post_type=tribe_venue' ) . '">' .
+					__( 'View your event venues', 'the-events-calendar' ) .
+					'</a>';
 				}
 
 				if ( ! empty( $result['organizers'] ) ) {
 					$messages['success'][] = '<br/>' . sprintf(
-							_n( '%1$d new organizer was imported.', '%1$d new organizers were imported.', $result['organizers'], 'the-events-calendar' ),
-							$result['organizers']
+						_n( '%1$d new organizer was imported.', '%1$d new organizers were imported.', $result['organizers'], 'the-events-calendar' ),
+						$result['organizers']
 						) .
-					                         ' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
-					                         __( 'View your event organizers', 'the-events-calendar' ) .
-					                         '</a>';
+					' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
+					__( 'View your event organizers', 'the-events-calendar' ) .
+					'</a>';
 					;
 				}
 			}
@@ -325,13 +325,12 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		if ( ! empty( $result['category'] ) ) {
 			$messages['success'][] = '<br/>' . sprintf(
-					_n( '%1$d new event category was created.', '%1$d new event categories were created.', $result['category'], 'the-events-calendar' ),
-					$result['category']
+				_n( '%1$d new event category was created.', '%1$d new event categories were created.', $result['category'], 'the-events-calendar' ),
+				$result['category']
 				) .
-			                         ' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
-			                         __( 'View your event categories', 'the-events-calendar' ) .
-			                         '</a>';
-			;
+			' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
+			__( 'View your event categories', 'the-events-calendar' ) .
+			'</a>';
 		}
 
 		if (
