@@ -54,6 +54,9 @@ class Tribe__Events__Aggregator__Page {
 		add_action( 'admin_menu', array( $this, 'register_menu_item' ) );
 		add_action( 'current_screen', array( $this, 'action_request' ) );
 
+		// filter the plupload default settings to remove mime type restrictions
+		add_filter( 'plupload_default_settings', array( $this, 'filter_plupload_default_settings' ) );
+
 		// Setup Tabs Instance
 		$this->tabs = Tribe__Events__Aggregator__Tabs::instance();
 
@@ -120,6 +123,25 @@ class Tribe__Events__Aggregator__Page {
 		tribe_asset( $plugin, 'tribe-ea-facebook-login', 'aggregator-facebook-login.js', array( 'jquery', 'underscore', 'tribe-dependency' ), 'admin_enqueue_scripts' );
 
 		tribe_notice( 'tribe-aggregator-legacy-import-plugins-active', array( $this, 'notice_legacy_plugins' ), 'type=warning' );
+	}
+
+	/**
+	 * Filter the plupload media settings to remove mime_type restrictions
+	 *
+	 * Even though .ics is in the default extension list for supported mime types,
+	 * Safari ignores that fact. Let's not restrict the extensions (much like the
+	 * Dashboard's Add New Media page)
+	 *
+	 * @param array $settings Plupload settings
+	 *
+	 * @return array
+	 */
+	public function filter_plupload_default_settings( $settings ) {
+		if ( ! empty( $settings['filters']['mime_types'] ) ) {
+			unset( $settings['filters']['mime_types'] );
+		}
+
+		return $settings;
 	}
 
 	/**
