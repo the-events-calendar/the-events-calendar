@@ -466,18 +466,22 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		ob_start();
 		?>
 		<div class="notice inline notice-info tribe-dependent tribe-notice-tribe-missing-aggregator-license" data-ref="tribe-missing-aggregator-license" data-depends="#tribe-ea-field-origin" data-condition-empty>
-			<p>
-				<strong><?php esc_html_e( 'Upgrade to Event Aggregator to unlock access to multiple import sources and automatic imports!', 'the-events-calendar' ); ?></strong></p>
-			<p>
-				<?php echo sprintf(
-						esc_html__( 'With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup in a jiffy. Head over to %1$sTheEventsCalendar.com%2$s to purchase instant access, including a year of premium support, updates, and upgrades.', 'the-events-calendar' ),
-						'<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importpage&utm_medium=plugin-tec&utm_campaign=in-app">',
-						'</a>'
-					); ?>
-			</p>
-			<p>
-				<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importpage&utm_medium=plugin-tec&utm_campaign=in-app" class="tribe-license-link button button-primary"><?php esc_html_e( 'Buy Event Aggregator Now', 'the-events-calendar' ); ?></a>
-			</p>
+			
+			<div class="upsell-banner">
+				<img src="<?php echo esc_url( Tribe__Events__Main::instance()->plugin_url . '/src/resources/images/aggregator/upsell-banner.png' ) ;?>">
+			</div>
+			
+			<h3><?php esc_html_e( 'Import Using Event Aggregator', 'the-events-calendar' ); ?></h3>
+
+			<p><?php esc_html_e( 'With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup.com in a jiffy.', 'the-events-calendar' ); ?></p>
+
+			<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importpage&utm_medium=plugin-tec&utm_campaign=in-app" class="tribe-license-link tribe-button tribe-button-primary">
+				<?php esc_html_e( 'Buy It Now', 'the-events-calendar' );?>
+			</a>
+
+			<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importpage&utm_medium=plugin-tec&utm_campaign=in-app" class="tribe-license-link tribe-button tribe-button-secondary">
+				<?php esc_html_e( 'Learn More', 'the-events-calendar' ); ?>
+			</a>
 		</div>
 		<?php
 
