@@ -137,6 +137,10 @@ class Tribe__Events__Aggregator__Page {
 	 * @return array
 	 */
 	public function filter_plupload_default_settings( $settings ) {
+		if ( ! $this->is_screen() ) {
+			return $settings;
+		}
+
 		if ( ! empty( $settings['filters']['mime_types'] ) ) {
 			unset( $settings['filters']['mime_types'] );
 		}
