@@ -128,13 +128,20 @@ class Tribe__Events__Aggregator {
 		// Remove aggregator records from ET
 		add_filter( 'tribe_tickets_settings_post_types', array( $this, 'filter_remove_record_post_type' ) );
 
-		// Notice users about expiring Facebook Token
+		// Notice users about expiring Facebook Token if oauth is enabled
+		add_action( 'plugins_loaded', array( $this, 'setup_notices' ), 11 );
+	}
 
-		/**
-		 * @todo  fb-reviewed-reactivation
-		 */
-		// tribe_notice( 'tribe-aggregator-facebook-token-expired', array( $this, 'notice_facebook_token_expired' ), 'type=error' );
-		// tribe_notice( 'tribe-aggregator-facebook-oauth-feedback', array( $this, 'notice_facebook_oauth_feedback' ), 'type=success' );
+	/**
+	 * Maybe show notices to users about expiring Facebook Tokens if oauth is enabled
+	 */
+	public function setup_notices() {
+		if ( ! Tribe__Events__Aggregator::instance()->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
+			return;
+		}
+
+		tribe_notice( 'tribe-aggregator-facebook-token-expired', array( $this, 'notice_facebook_token_expired' ), 'type=error' );
+		tribe_notice( 'tribe-aggregator-facebook-oauth-feedback', array( $this, 'notice_facebook_oauth_feedback' ), 'type=success' );
 	}
 
 	/**
@@ -317,7 +324,8 @@ class Tribe__Events__Aggregator {
 	 * @return int
 	 */
 	public function get_daily_limit() {
-		return $this->daily_limit;
+		$import_daily_limit = Tribe__Events__Aggregator::instance()->api( 'origins' )->get_limit( 'import' );
+		return $import_daily_limit ? $import_daily_limit : $this->daily_limit;
 	}
 
 	/**
