@@ -14,9 +14,11 @@ class Tribe__Events__Importer__Column_Mapper {
 			case 'events':
 				$this->column_names = $this->get_event_column_names();
 				break;
+			case 'venue':
 			case 'venues':
 				$this->column_names = $this->get_venue_column_names();
 				break;
+			case 'organizer':
 			case 'organizers':
 				$this->column_names = $this->get_organizer_column_names();
 				break;

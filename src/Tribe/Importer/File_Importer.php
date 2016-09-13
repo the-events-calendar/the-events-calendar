@@ -16,13 +16,15 @@ abstract class Tribe__Events__Importer__File_Importer {
 	private $errors = array();
 	private $updated = 0;
 	private $created = 0;
-	private $skipped = array();
 	private $encoding = array();
 	private $log = array();
+
+	protected $skipped = array();
 
 	public $is_aggregator = false;
 	public $aggregator_record;
 	public $default_category;
+	public $default_post_status;
 
 	/**
 	 * @var Tribe__Events__Importer__Featured_Image_Uploader
@@ -201,9 +203,10 @@ abstract class Tribe__Events__Importer__File_Importer {
 
 	protected function update_or_create_post( array $record ) {
 		if ( $id = $this->match_existing_post( $record ) ) {
-			$this->update_post( $id, $record );
-			$this->updated ++;
-			$this->log[ $this->reader->get_last_line_number_read() + 1 ] = sprintf( esc_html__( '%s (post ID %d) updated.', 'the-events-calendar' ), get_the_title( $id ), $id );
+			if ( false !== $this->update_post( $id, $record ) ) {
+				$this->updated ++;
+				$this->log[ $this->reader->get_last_line_number_read() + 1 ] = sprintf( esc_html__( '%s (post ID %d) updated.', 'the-events-calendar' ), get_the_title( $id ), $id );
+			}
 		} else {
 			$id = $this->create_post( $record );
 			$this->created ++;

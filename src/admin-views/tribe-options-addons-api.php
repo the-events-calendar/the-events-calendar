@@ -55,7 +55,7 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 			}
 			?>
 			<br>
-			<a target="_blank" style="line-height: 28px;" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url( array( 'back' => 'settings' ) ) ); ?>"<?php esc_html_e( '>Refresh your Facebook Token', 'the-events-calendar' ); ?></a>
+			<a target="_blank" style="line-height: 28px;" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url( array( 'back' => 'settings' ) ) ); ?>"><?php esc_html_e( 'Refresh your Facebook Token', 'the-events-calendar' ); ?></a>
 		</div>
 	</fieldset>
 
@@ -93,6 +93,12 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 		),
 	);
+
+	/**
+	 * @todo  fb-reviewed-reactivation
+	 */
+	unset( $internal['fb-start'], $internal['fb-info-box'], $internal['fb_token_button'] );
+
 }
 
 $internal = apply_filters( 'tribe_addons_tab_fields', $internal );

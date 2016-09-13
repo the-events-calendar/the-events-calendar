@@ -449,12 +449,90 @@ class Tribe__Events__Aggregator__Records {
 		$args = (object) wp_parse_args( $args, $defaults );
 
 		// Enforce the Post Type
-		$args->post_type = Tribe__Events__Aggregator__Records::$post_type;
+		$args->post_type = self::$post_type;
 
 		// Do the actual Query
 		$query = new WP_Query( $args );
 
 		return $query;
+	}
+
+	/**
+	 * Returns whether or not there are any scheduled imports
+	 *
+	 * @return boolean
+	 */
+	public function has_scheduled() {
+		static $has_scheduled = null;
+
+		if ( null === $has_scheduled ) {
+			$args = array(
+				'fields' => 'ids',
+				'post_status' => $this->get_status( 'schedule' )->name,
+				'posts_per_page' => 1,
+			);
+
+			$scheduled = $this->query( $args );
+			$has_scheduled = ! empty( $scheduled->posts );
+		}
+
+		return $has_scheduled;
+	}
+
+	/**
+	 * Returns whether or not there have been any import requests
+	 *
+	 * @return boolean
+	 */
+	public function has_history() {
+		static $has_history = null;
+
+		if ( null === $has_history ) {
+			$args = array(
+				'fields' => 'ids',
+				'posts_per_page' => 1,
+			);
+
+			$history = $this->query( $args );
+			$has_history = ! empty( $history->posts );
+		}
+
+		return $has_history;
+	}
+
+	/**
+	 * Filter the Admin page tile and add Tab Name
+	 *
+	 * @param  string $admin_title Full Admin Title
+	 * @param  string $title       Original Title from the Page
+	 *
+	 * @return string
+	 */
+	public function filter_admin_title( $admin_title, $title ) {
+		if ( ! Tribe__Events__Aggregator__Page::instance()->is_screen() ) {
+			return $admin_title;
+		}
+
+		$tab = $this->get_active();
+		return $tab->get_label() . ' &ndash; ' . $admin_title;
+	}
+
+	/**
+	 * Fetches the current active tab
+	 *
+	 * @return object An instance of the Class used to create the Tab
+	 */
+	public function get_active() {
+		/**
+		 * Allow Developers to change the default tab
+		 * @param string $slug
+		 */
+		$default = apply_filters( 'tribe_aggregator_default_tab', 'new' );
+
+		$tab = ! empty( $_GET['tab'] ) && $this->exists( $_GET['tab'] ) ? $_GET['tab'] : $default;
+
+		// Return the active tab or the default one
+		return $this->get( $tab );
 	}
 
 	public function action_do_import() {
@@ -500,6 +578,9 @@ class Tribe__Events__Aggregator__Records {
 	 * @param string $origin Import Origin
 	 */
 	public function add_record_to_event( $id, $record_id, $origin ) {
+		// Set the event origin
+		update_post_meta( $id, '_EventOrigin', Tribe__Events__Aggregator__Event::$event_origin );
+
 		// Add the Aggregator Origin
 		update_post_meta( $id, Tribe__Events__Aggregator__Event::$origin_key, $origin );
 

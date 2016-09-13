@@ -15,7 +15,7 @@ $cron = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
 ?>
 <?php if ( ! Tribe__Events__Aggregator__Settings::instance()->is_fb_credentials_valid() ) : ?>
-<tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">
+<tr class="tribe-dependent tribe-credential-row" data-depends="#tribe-ea-field-origin" data-condition="facebook">
 	<th scope="row">
 		<label for="tribe-ea-field-fb_credentials"><?php esc_html_e( 'Extra Credentials:', 'the-events-calendar' ); ?></label>
 	</th>
@@ -40,7 +40,7 @@ $frequencies = $cron->get_frequency();
 			<select
 				name="aggregator[facebook][import_type]"
 				id="tribe-ea-field-facebook_import_type"
-				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
+				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large tribe-import-type"
 				placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 				data-hide-search
 				data-prevent-clear

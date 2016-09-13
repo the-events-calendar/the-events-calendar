@@ -25,10 +25,14 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	 * The Queue_Realtime constructor method.
 	 *
 	 * @param Tribe__Events__Aggregator__Record__Queue|null           $queue An optional Queue instance.
-	 * @param Tribe__Events__Ajax__Operations|null                 $ajax_operations An optional Ajax Operations instance.
+	 * @param Tribe__Events__Ajax__Operations|null                    $ajax_operations An optional Ajax Operations instance.
 	 * @param Tribe__Events__Aggregator__Record__Queue_Processor|null $queue_processor An optional Queue_Processor instance.
 	 */
-	public function __construct( Tribe__Events__Aggregator__Record__Queue $queue = null, Tribe__Events__Ajax__Operations $ajax_operations = null, Tribe__Events__Aggregator__Record__Queue_Processor $queue_processor = null ) {
+	public function __construct(
+		Tribe__Events__Aggregator__Record__Queue $queue = null,
+		Tribe__Events__Ajax__Operations $ajax_operations = null,
+		Tribe__Events__Aggregator__Record__Queue_Processor $queue_processor = null
+	) {
 		tribe_notice( 'aggregator-update-msg', array( $this, 'render_update_message' ), 'type=warning&dismiss=0' );
 
 		add_action( 'wp_ajax_tribe_aggregator_realtime_update', array( $this, 'ajax' ) );
@@ -119,10 +123,10 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 			$this->queue_processor->process_batch( $this->record_id );
 		}
 
-		$done       = $queue->is_empty();
-		$percentage = $queue->progress_percentage();
+		$done       = $this->queue_processor->current_queue->is_empty();
+		$percentage = $this->queue_processor->current_queue->progress_percentage();
 
-		$this->ajax_operations->exit_data( $this->get_progress_message_data( $queue, $percentage, $done ) );
+		$this->ajax_operations->exit_data( $this->get_progress_message_data( $this->queue_processor->current_queue, $percentage, $done ) );
 	}
 
 	/**
@@ -184,20 +188,20 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 			'continue'      => ! $done,
 			'complete'      => $done,
 			'counts'        => array(
-				'total'     => $queue->total(),
-				'created'   => $queue->created(),
-				'updated'   => $queue->updated(),
-				'skipped'   => $queue->skipped(),
-				'category'  => $queue->category(),
-				'images'    => $queue->images(),
-				'venues'    => $queue->venues(),
-				'organizers' => $queue->organizers(),
+				'total'     => $queue->activity->count( 'event' ),
+				'created'   => $queue->activity->count( 'event', 'created' ),
+				'updated'   => $queue->activity->count( 'event', 'updated' ),
+				'skipped'   => $queue->activity->count( 'event', 'skipped' ),
+				'category'  => $queue->activity->count( 'category', 'created' ),
+				'images'    => $queue->activity->count( 'images', 'created' ),
+				'venues'    => $queue->activity->count( 'venues', 'created' ),
+				'organizers' => $queue->activity->count( 'organizer', 'created' ),
 				'remaining' => $queue->count(),
 			),
 		);
 
 		if ( $done ) {
-			$messages = Tribe__Events__Aggregator__Tabs__New::instance()->get_result_messages( $queue->record, $queue->activity() );
+			$messages = Tribe__Events__Aggregator__Tabs__New::instance()->get_result_messages( $queue );
 			$data['complete_text'] = '<p>' . implode( ' ', $messages['success'] ) . '</p>';
 		}
 

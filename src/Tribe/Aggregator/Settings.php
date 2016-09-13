@@ -8,6 +8,13 @@ class Tribe__Events__Aggregator__Settings {
 	protected static $instance;
 
 	/**
+	 * Default update authority setting
+	 *
+	 * @var string
+	 */
+	public static $default_update_authority = 'overwrite';
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return Tribe__Events__Aggregator
@@ -46,6 +53,11 @@ class Tribe__Events__Aggregator__Settings {
 	}
 
 	public function is_fb_credentials_valid( $time = null ) {
+		/**
+		 * @todo  fb-reviewed-reactivation
+		 */
+		return true;
+
 		if ( ! $this->has_fb_credentials() ) {
 			return false;
 		}
@@ -97,7 +109,7 @@ class Tribe__Events__Aggregator__Settings {
 	public function default_update_authority( $origin = null ) {
 		$origin = $this->origin_translation( $origin );
 
-		$setting = tribe_get_option( 'tribe_aggregator_default_update_authority', 'overwrite' );
+		$setting = tribe_get_option( 'tribe_aggregator_default_update_authority', self::$default_update_authority );
 
 		if ( $origin ) {
 			$setting = tribe_get_option( "tribe_aggregator_default_{$origin}_update_authority", $setting );

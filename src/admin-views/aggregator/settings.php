@@ -47,7 +47,7 @@ $change_authority = array(
 		'type' => 'radio',
 		'label' => esc_html__( 'Event Update Authority', 'the-events-calendar' ),
 		'validation_type' => 'options',
-		'default' => 'retain',
+		'default' => Tribe__Events__Aggregator__Settings::$default_update_authority,
 		'parent_option' => Tribe__Events__Main::OPTIONNAME,
 		'options' => array(
 			'overwrite' => __( 'Overwrite my event with any changes from the original source.', 'the-events-calendar' ),
@@ -173,17 +173,6 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'facebook-defaults' => array(
 			'type' => 'html',
 			'html' => '<h3>' . esc_html__( 'Facebook Import Settings', 'the-events-calendar' ) . '</h3>',
-		),
-		'facebook-defaults-info' => array(
-			'type' => 'html',
-			'html' => '<p>' . sprintf(
-				esc_html__(
-					'To import Facebook events, please be sure to add your Facebook API key and secret on %1$sEvents > Settings > APIs%2$s',
-					'the-events-calendar'
-				),
-				'<a href="' . admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=addons' ) . '">',
-				'</a>'
-			). '</p>',
 		),
 		'tribe_aggregator_default_facebook_post_status' => array(
 			'type' => 'dropdown',

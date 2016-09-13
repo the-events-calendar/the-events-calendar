@@ -128,9 +128,13 @@ class Tribe__Events__Aggregator {
 		// Remove aggregator records from ET
 		add_filter( 'tribe_tickets_settings_post_types', array( $this, 'filter_remove_record_post_type' ) );
 
-		// Notice users about exipring Facebook Token
-		tribe_notice( 'tribe-aggregator-facebook-token-expired', array( $this, 'notice_facebook_token_expired' ), 'type=error' );
-		tribe_notice( 'tribe-aggregator-facebook-oauth-feedback', array( $this, 'notice_facebook_oauth_feedback' ), 'type=success' );
+		// Notice users about expiring Facebook Token
+
+		/**
+		 * @todo  fb-reviewed-reactivation
+		 */
+		// tribe_notice( 'tribe-aggregator-facebook-token-expired', array( $this, 'notice_facebook_token_expired' ), 'type=error' );
+		// tribe_notice( 'tribe-aggregator-facebook-oauth-feedback', array( $this, 'notice_facebook_oauth_feedback' ), 'type=success' );
 	}
 
 	/**
@@ -434,5 +438,23 @@ class Tribe__Events__Aggregator {
 		$html = ob_get_clean();
 
 		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-facebook-token-expired', $html );
+	}
+
+	/**
+	 * Tells whether the legacy ical plugin is active
+	 *
+	 * @return boolean
+	 */
+	public function is_legacy_ical_active() {
+		return class_exists( 'Tribe__Events__Ical_Importer__Main' );
+	}
+
+	/**
+	 * Tells whether the legacy facebook plugin is active
+	 *
+	 * @return boolean
+	 */
+	public function is_legacy_facebook_active() {
+		return class_exists( 'Tribe__Events__Facebook__Importer' );
 	}
 }

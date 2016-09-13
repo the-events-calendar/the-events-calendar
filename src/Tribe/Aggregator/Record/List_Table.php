@@ -14,6 +14,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 	public $tab;
 	public $page;
+	public $user;
 
 	public function __construct( $args = array() ) {
 		$screen = WP_Screen::get( Tribe__Events__Aggregator__Records::$post_type );
@@ -31,6 +32,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		// Set page Instance
 		$this->page = Tribe__Events__Aggregator__Page::instance();
+
+		// Set current user
+		$this->user = wp_get_current_user();
 	}
 
 	/**
@@ -79,6 +83,19 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		if ( isset( $_GET['origin'] ) ) {
 			$args['post_mime_type'] = 'ea/' . $_GET['origin'];
 		}
+
+		// retrieve the "per_page" option
+		$screen_option = $this->screen->get_option( 'per_page', 'option' );
+
+		// retrieve the value of the option stored for the current user
+		$per_page = get_user_meta( $this->user->ID, $screen_option, true );
+
+		if ( empty ( $per_page ) || $per_page < 1 ) {
+			// get the default value if none is set
+			$per_page = $this->screen->get_option( 'per_page', 'default' );
+		}
+
+		$args['posts_per_page'] = $per_page;
 
 		$query = new WP_Query( $args );
 
@@ -494,21 +511,38 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 		$last_imported = $record->get_child_record_by_status( 'success', 1 );
 		if ( $last_imported && $last_imported->have_posts() ) {
-			if ( $created = $last_imported->get_event_count( 'created' ) ) {
-				$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . $created;
-			}
+			// always show created
+			$created = $last_imported->get_event_count( 'created' );
 
-			if ( $updated = $last_imported->get_event_count( 'updated' ) ) {
-				$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;
-			}
+			$html[] = esc_html__( 'Latest Import: ', 'the-events-calendar' ) . ( $created ? $created : 0 );
 		}
 
+		// is this schedule record (or a child of schedule record?)
 		if ( 'schedule' === $record->type ) {
-			$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . intval( $record->get_event_count( 'created' ) );
-		} else {
-			if ( $created = $record->get_event_count( 'created' ) ) {
-				$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . $created;
+			// if there's a post parent, then we are looking at a child record where we'll show
+			// new, updated, AND total
+			if ( ! empty( $record->post->post_parent ) ) {
+				$created = $record->get_event_count( 'created' );
+
+				$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 );
+
+				if ( ! empty( $record->post->post_parent ) && $updated = $record->get_event_count( 'updated' ) ) {
+					$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;
+				}
+
+				// let's change the record to the post parent so when we fetch that count, we're getting the grand total
+				$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record->post->post_parent );
 			}
+
+			// We check if the Parent actually exists
+			if ( ! is_wp_error( $record ) ) {
+				// this will get the total event for the parent schedule record
+				$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . $record->get_event_count( 'created' );
+			}
+		} else {
+			$created = $record->get_event_count( 'created' );
+
+			$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 );
 
 			if ( $updated = $record->get_event_count( 'updated' ) ) {
 				$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;

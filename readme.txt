@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.6
-Stable tag: 4.3dev
+Stable tag: 4.3rc2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -305,6 +305,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Deprecated various disused functions and classes relating to the Meta Factory [39905]
 * Fix - Cease using GLOB_BRACE for including deprecated files due to limited server support [63172]
 * Fix - Avoid problems that can occur when hooking and unhooking actions (props @Chouby) [63474]
+* Fix - Correct the datetime formatting issues within the iCal feed (props @henryk) [65968]
 
 = [4.2.5] 2016-08-17 =
 

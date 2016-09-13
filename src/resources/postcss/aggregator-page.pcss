@@ -15,6 +15,20 @@
 				position: relative;
 			}
 		}
+
+		.subsubsub {
+			li {
+				font-weight: bold;
+			}
+
+			.count {
+				font-weight: normal;
+			}
+
+			a {
+				font-weight: normal;
+			}
+		}
 	}
 
 	.tribe-ea-facebook-login {
@@ -84,6 +98,10 @@
 
 	.tribe-ea-field-readonly + .tribe-ea-field {
 		margin-left: 10px;
+	}
+
+	.tribe-credential-row {
+		border-top: 15px solid white;
 	}
 
 	.enter-credentials {
@@ -522,6 +540,11 @@
 			}
 		}
 	}
+}
+
+/* hide all the helper bumpdowns on the edit page */
+.tribe-ea-tab-edit .tribe-bumpdown-trigger.tribe-ea-help {
+	display: none;
 }
 
 .select2-disabled {

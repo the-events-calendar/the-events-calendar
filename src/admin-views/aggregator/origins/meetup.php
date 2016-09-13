@@ -18,7 +18,7 @@ $meetup_api_key = tribe_get_option( 'meetup_api_key' );
 $missing_meetup_credentials = ! $meetup_api_key;
 
 ?>
-<tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="meetup">
+<tr class="tribe-dependent tribe-credential-row" data-depends="#tribe-ea-field-origin" data-condition="meetup">
 	<td colspan="2" class="<?php echo esc_attr( $missing_meetup_credentials ? 'enter-credentials' : 'has-credentials' ); ?>">
 		<?php
 		if ( $missing_meetup_credentials ) :
@@ -81,7 +81,7 @@ $missing_meetup_credentials = ! $meetup_api_key;
 			<select
 				name="aggregator[meetup][import_type]"
 				id="tribe-ea-field-meetup_import_type"
-				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
+				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large tribe-import-type"
 				placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 				data-hide-search
 				data-prevent-clear

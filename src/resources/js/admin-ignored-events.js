@@ -68,7 +68,7 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 	/**
 	 * Modify Single page elements
 	 */
-	$document.ready( function(){
+	$document.ready( function() {
 		// Verify that all WP variables exists
 		if ( -1 !== [ typeof pagenow, typeof typenow, typeof adminpage ].indexOf( 'undefined' ) ) {
 			return false;
@@ -76,6 +76,12 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 
 		// We are not on the correct Page
 		if ( 'tribe_events' !== pagenow || 'tribe_events' !== typenow || 'post-php' !== adminpage ) {
+			return false;
+		}
+
+		// We don't expect tribe_ignore_events.single to have been defined on every page load
+		// @see Tribe__Events__Ignored_Events::action_assets()
+		if ( 'undefined' === typeof data.single ) {
 			return false;
 		}
 

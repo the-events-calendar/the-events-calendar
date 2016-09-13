@@ -161,15 +161,28 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_import_finalize( $data ) {
-		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $data['import_id'] );
 		$this->messages = array(
 			'error',
 			'success',
 			'warning',
 		);
 
-		$record->update_meta( 'post_status', empty( $data['post_status'] ) ? 'draft' : $data['post_status'] );
+		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $data['import_id'] );
+
+		if ( is_wp_error( $record ) ) {
+			$this->messages['error'][] = $record->get_error_message();
+			return $this->messages;
+		}
+
+		// Make sure we have a post status set no matter what
+		if ( empty( $data['post_status'] ) ) {
+			$data['post_status'] = Tribe__Events__Aggregator__Settings::instance()->default_post_status( $data['origin'] );
+		}
+
+		// If the submitted category is null, that means the user intended to de-select the default
+		// category if there is one, so setting it to null is ok here
 		$record->update_meta( 'category', empty( $data['category'] ) ? null : $data['category'] );
+		$record->update_meta( 'post_status', $data['post_status'] );
 		$record->update_meta( 'ids_to_import', empty( $data['selected_rows'] ) ? 'all' : json_decode( stripslashes( $data['selected_rows'] ) ) );
 
 		// if we get here, we're good! Set the status to pending
@@ -199,7 +212,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			$result = $record->process_posts();
 		}
 
-		$this->messages = $this->get_result_messages( $record, $result );
+		$this->messages = $this->get_result_messages( $result );
 
 		if (
 			! empty( $this->messages['error'] )
@@ -210,94 +223,97 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		}
 	}
 
-	public function get_result_messages( $record, $result ) {
+	public function get_result_messages( $queue ) {
 		$messages = array();
-		$is_queued = ! empty( $result['remaining'] );
+
+		if ( is_wp_error( $queue ) ) {
+			$messages[ 'error' ][] = $queue->get_error_message();
+
+			tribe_notice( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
+
+			$queue->record->set_status_as_failed( $queue );
+			return $messages;
+		}
+
+		$is_queued = ! empty( $queue->items );
 
 		$content_type = tribe_get_event_label_singular_lowercase();
 		$content_type_plural = tribe_get_event_label_plural_lowercase();
 		$content_post_type = Tribe__Events__Main::POSTTYPE;
 
-		if ( 'csv' === $record->meta['origin'] && 'tribe_events' !== $record->meta['content_type'] ) {
-			$content_type_object = get_post_type_object( $record->meta['content_type'] );
+		if ( 'csv' === $queue->record->meta['origin'] && 'tribe_events' !== $queue->record->meta['content_type'] ) {
+			$content_type_object = get_post_type_object( $queue->record->meta['content_type'] );
 			$content_type = $content_type_object->labels->singular_name_lowercase;
 			$content_type_plural = $content_type_object->labels->plural_name_lowercase;
 			$content_post_type = $content_type_object->name;
 		}
 
-		if ( is_wp_error( $result ) ) {
-			$messages[ 'error' ][] = $result->get_error_message();
-
-			tribe_notice( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
-
-			$record->set_status_as_failed( $result );
-			return $result;
-		}
-
 		if ( ! $is_queued ) {
-			if ( ! empty( $result['created'] ) ) {
-				$content_label = 1 === $result['created'] ? $content_type : $content_type_plural;
+			if ( ! empty( $queue->activity->get( 'event', 'created' ) ) ) {
+				$content_label = 1 === $queue->activity->count( 'event', 'created' ) ? $content_type : $content_type_plural;
 
 				$messages['success'][] = sprintf(
-					_n( '%1$d new %2$s was imported.', '%1$d new %2$s were imported.', $result['created'], 'the-events-calendar' ),
-					$result['created'],
+					_n( '%1$d new %2$s was imported.', '%1$d new %2$s were imported.', $queue->activity->count( 'event', 'created' ), 'the-events-calendar' ),
+					$queue->activity->count( 'event', 'created' ),
 					$content_label
 				);
 			}
 
-			if ( ! empty( $result['updated'] ) ) {
-				$content_label = 1 === $result['updated'] ? $content_type : $content_type_plural;
+			if ( ! empty( $queue->activity->get( 'event', 'updated' ) ) ) {
+				$content_label = 1 === $queue->activity->count( 'event', 'updated' ) ? $content_type : $content_type_plural;
 
 				// @todo: include a part of sentence like: ", including %1$d %2$signored event%3$s.", <a href="/wp-admin/edit.php?post_status=tribe-ignored&post_type=tribe_events">, </a>
 				$messages['success'][] = sprintf(
-					_n( '%1$d existing %2$s was updated.', '%1$d existing %2$s were updated.', $result['updated'], 'the-events-calendar' ),
-					$result['updated'],
+					_n( '%1$d existing %2$s was updated.', '%1$d existing %2$s were updated.', $queue->activity->count( 'event', 'updated' ), 'the-events-calendar' ),
+					$queue->activity->count( 'event', 'updated' ),
 					$content_label
 				);
 			}
 
-			if ( ! empty( $result['skipped'] ) ) {
-				$content_label = 1 === $result['skipped'] ? $content_type : $content_type_plural;
+			if ( ! empty( $queue->activity->get( 'event', 'skipped' ) ) ) {
+				$content_label = 1 === $queue->activity->count( 'event', 'skipped' ) ? $content_type : $content_type_plural;
 
 				$messages['success'][] = sprintf(
-					_n( '%1$d already-imported %2$s was skipped.', '%1$d already-imported %2$s were skipped.', $result['skipped'], 'the-events-calendar' ),
-					$result['skipped'],
+					_n( '%1$d already-imported %2$s was skipped.', '%1$d already-imported %2$s were skipped.', $queue->activity->count( 'event', 'skipped' ), 'the-events-calendar' ),
+					$queue->activity->count( 'event', 'skipped' ),
 					$content_label
 				);
 			}
 
-			if ( ! empty( $result['images'] ) ) {
+			if ( ! empty( $queue->activity->get( 'images', 'created' ) ) ) {
 				$messages['success'][] = sprintf(
-					_n( '%1$d new image imported.', '%1$d new images imported.', $result['images'], 'the-events-calendar' ),
-					$result['images']
+					_n( '%1$d new image was imported.', '%1$d new images were imported.', $queue->activity->count( 'images', 'created' ), 'the-events-calendar' ),
+					$queue->activity->count( 'images', 'created' )
 				);
 			}
 
-			if ( $result && ! $messages ) {
-				__( 'No events were imported or updated.', 'the-events-calendar' );
+			if ( $queue && ! $messages ) {
+				$messages['success'][] = __( 'No events were imported or updated.', 'the-events-calendar' );
 			}
 
-			// append a URL to view all records for the given post type
-			$url = admin_url( 'edit.php?post_type=' . $content_post_type );
-			$link_text = sprintf( __( 'View all %s', 'the-events-calendar' ), $content_type_plural );
-			$messages['success'][ count( $messages['success'] ) - 1 ] .= ' <a href="' . esc_url( $url ) . '" >' . esc_html( $link_text ) . '</a>';
+			if ( ! empty( $messages['success'] ) ) {
+				// append a URL to view all records for the given post type
+				$url = admin_url( 'edit.php?post_type=' . $content_post_type );
+				$link_text = sprintf( __( 'View all %s', 'the-events-calendar' ), $content_type_plural );
+				$messages['success'][ count( $messages['success'] ) - 1 ] .= ' <a href="' . esc_url( $url ) . '" >' . esc_html( $link_text ) . '</a>';
+			}
 
 			// if not CSV, pull counts for venues and organizers that were auto-created
-			if ( 'csv' !== $record->meta['origin'] ) {
-				if ( ! empty( $result['venues'] ) ) {
+			if ( 'csv' !== $queue->record->meta['origin'] ) {
+				if ( ! empty( $queue->activity->get( 'venue', 'created' ) ) ) {
 					$messages['success'][] = '<br/>' . sprintf(
-						_n( '%1$d new venue imported.', '%1$d new venues imported.', $result['venues'], 'the-events-calendar' ),
-						$result['venues']
+						_n( '%1$d new venue was imported.', '%1$d new venues were imported.', $queue->activity->count( 'venue', 'created' ), 'the-events-calendar' ),
+						$queue->activity->count( 'venue', 'created' )
 					) .
 					' <a href="' . admin_url( 'edit.php?post_type=tribe_venue' ) . '">' .
 					__( 'View your event venues', 'the-events-calendar' ) .
 					'</a>';
 				}
 
-				if ( ! empty( $result['organizers'] ) ) {
+				if ( ! empty( $queue->activity->get( 'organizer', 'created' ) ) ) {
 					$messages['success'][] = '<br/>' . sprintf(
-						_n( '%1$d new organizer imported.', '%1$d new organizers imported.', $result['organizers'], 'the-events-calendar' ),
-						$result['organizers']
+						_n( '%1$d new organizer was imported.', '%1$d new organizers were imported.', $queue->activity->count( 'organizer', 'created' ), 'the-events-calendar' ),
+						$queue->activity->count( 'organizer', 'created' )
 					) .
 					' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
 					__( 'View your event organizers', 'the-events-calendar' ) .
@@ -307,10 +323,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 		}
 
-		if ( ! empty( $result['category'] ) ) {
+		if ( ! empty( $queue->activity->get( 'category', 'created' ) ) ) {
 			$messages['success'][] = '<br/>' . sprintf(
-				_n( '%1$d new event category was created.', '%1$d new event categories were created.', $result['category'], 'the-events-calendar' ),
-				$result['category']
+				_n( '%1$d new event category was created.', '%1$d new event categories were created.', $queue->activity->count( 'category', 'created' ), 'the-events-calendar' ),
+				$queue->activity->count( 'category', 'created' )
 			) .
 			' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
 			__( 'View your event categories', 'the-events-calendar' ) .
@@ -323,12 +339,12 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			|| ! empty( $messages['success'] )
 			|| ! empty( $messages['warning'] )
 		) {
-			if ( 'manual' == $record->type ) {
+			if ( 'manual' == $queue->record->type ) {
 				array_unshift( $messages['success'], __( 'Import complete!', 'the-events-calendar' ) . '<br/>' );
 			} else {
 				array_unshift( $messages['success'], __( 'Your scheduled import was saved and the first import is complete!', 'the-events-calendar' ) . '<br/>' );
 
-				$scheduled_time = strtotime( $record->post->post_modified ) + $record->frequency->interval;
+				$scheduled_time = strtotime( $queue->record->post->post_modified ) + $queue->record->frequency->interval;
 				$scheduled_time_string = date( get_option( 'date_format' ), $scheduled_time ) .
 					_x( ' at ', 'separator between date and time', 'the-events-calendar' ) .
 					date( get_option( 'time_format' ), $scheduled_time );
@@ -451,7 +467,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		?>
 		<div class="notice inline notice-info tribe-dependent tribe-notice-tribe-missing-aggregator-license" data-ref="tribe-missing-aggregator-license" data-depends="#tribe-ea-field-origin" data-condition-empty>
 			<p>
-				<strong><?php esc_html_e( 'Upgrade to Event Aggregator to unlock access to multiple import sources.', 'the-events-calendar' ); ?></strong></p>
+				<strong><?php esc_html_e( 'Upgrade to Event Aggregator to unlock access to multiple import sources and automatic imports!', 'the-events-calendar' ); ?></strong></p>
 			<p>
 				<?php echo sprintf(
 						esc_html__( 'With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup in a jiffy. Head over to %1$sTheEventsCalendar.com%2$s to purchase instant access, including a year of premium support, updates, and upgrades.', 'the-events-calendar' ),

@@ -17,12 +17,18 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 	protected function update_post( $post_id, array $record ) {
 		$venue = $this->build_venue_array( $post_id, $record );
 		Tribe__Events__API::updateVenue( $post_id, $venue );
+		if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
+			$this->aggregator_record->meta['activity']->add( 'venue', 'updated', $post_id );
+		}
 	}
 
 	protected function create_post( array $record ) {
 		$post_status_setting = Tribe__Events__Aggregator__Settings::instance()->default_post_status( 'csv' );
 		$venue = $this->build_venue_array( false, $record );
 		$id    = Tribe__Events__API::createVenue( $venue, $post_status_setting );
+		if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
+			$this->aggregator_record->meta['activity']->add( 'venue', 'created', $id );
+		}
 
 		return $id;
 	}

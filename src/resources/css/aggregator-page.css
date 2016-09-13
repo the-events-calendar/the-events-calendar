@@ -23,6 +23,18 @@
 	position: relative;
 }
 
+.tribe-ea .tribe-ea-tab .subsubsub li {
+	font-weight: bold;
+}
+
+.tribe-ea .tribe-ea-tab .subsubsub .count {
+	font-weight: normal;
+}
+
+.tribe-ea .tribe-ea-tab .subsubsub a {
+	font-weight: normal;
+}
+
 .tribe-ea .tribe-ea-facebook-login {
 	display: block;
 	clear:both;
@@ -89,6 +101,10 @@
 
 .tribe-ea .tribe-ea-field-readonly + .tribe-ea-field {
 	margin-left: 10px;
+}
+
+.tribe-ea .tribe-credential-row {
+	border-top: 15px solid white;
 }
 
 .tribe-ea .enter-credentials {
@@ -518,6 +534,12 @@
 	display: block;
 }
 
+/* hide all the helper bumpdowns on the edit page */
+
+.tribe-ea-tab-edit .tribe-bumpdown-trigger.tribe-ea-help {
+	display: none;
+}
+
 .select2-disabled {
 	margin-bottom: 0;
 	color: gray;
@@ -534,6 +556,7 @@
 }
 
 @media screen and (max-width: 782px) {
+
 	/**
 		 * override default WordPress responsive styles so the helper icon has space
 		 */
@@ -546,6 +569,7 @@
 		width: 92%;
 		display: inline-block;
 	}
+
 	/**
 		 * override dependency styling, impacts Meetup import type
 		 */
@@ -553,6 +577,7 @@
 	.tribe-ea td.tribe-dependent.tribe-active {
 		display: block;
 	}
+
 	/**
 		 * Vertically center the helper text icon next to taller input fields
 		 */
