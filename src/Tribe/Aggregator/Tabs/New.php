@@ -466,7 +466,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		ob_start();
 		?>
 		<div class="notice inline notice-info tribe-dependent tribe-notice-tribe-missing-aggregator-license" data-ref="tribe-missing-aggregator-license" data-depends="#tribe-ea-field-origin" data-condition-empty>
-			
+
 			<div class="upsell-banner">
 				<img src="<?php echo esc_url( Tribe__Events__Main::instance()->plugin_url . '/src/resources/images/aggregator/upsell-banner.png' ) ;?>">
 			</div>
