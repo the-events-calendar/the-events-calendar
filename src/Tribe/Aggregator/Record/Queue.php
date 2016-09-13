@@ -9,7 +9,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 	public $record;
 
-	protected $fetching = false;
+	protected $is_fetching = true;
 	protected $importer;
 
 	/**
@@ -69,13 +69,25 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 		// Prevent it going any further
 		if ( is_wp_error( $items ) ) {
-			return $items;
+			return $this;
 		}
 
+		// If we got Here it means we have items
+		$this->is_fetching = false;
+
+		// Store the items retrieved
 		$this->items = $items;
 
 		// Count the Total of items now and stores as the total
 		$this->total = count( $this->items );
+	}
+
+	/**
+	 * Allows us to chech if the Events Data has still pending
+	 * @return boolean
+	 */
+	public function is_fetching() {
+		return $this->is_fetching;
 	}
 
 	/**
@@ -142,6 +154,10 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * @return self
 	 */
 	public function process( $batch_size = null ) {
+		if ( $this->is_fetching() ) {
+			return tribe_error( 'core:aggregator:queue-pending-events' );
+		}
+
 		// Every time we are about to process we reset the next var
 		$this->next = array();
 
