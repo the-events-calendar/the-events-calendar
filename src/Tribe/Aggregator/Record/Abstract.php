@@ -631,6 +631,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function get_errors( $args = array() ) {
 		$defaults = array(
 			'post_id' => $this->id,
+			'type'    => self::$error_comment_type,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
