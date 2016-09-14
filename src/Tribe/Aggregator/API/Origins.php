@@ -49,15 +49,10 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 */
 	public function get() {
 		if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
-			$this->initialize_origin_data();
+			$this->enable_service_origins();
 		}
 
 		return apply_filters( 'tribe_aggregator_origins', $this->origins );
-	}
-
-	private function initialize_origin_data() {
-		$this->fetch_origin_data();
-		$this->enable_service_origins();
 	}
 
 	/**
