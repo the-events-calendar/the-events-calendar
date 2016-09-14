@@ -32,8 +32,12 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 
 			// We only need the ID
 			'fields'         => 'ids',
-			'meta_key'       => $tribe_aggregator_meta_key,
-			'meta_value'     => $image_id,
+			'meta_query'     => array(
+				array(
+					'key'   => $tribe_aggregator_meta_key,
+					'value' => $image_id,
+				),
+			),
 		) );
 
 		$upload_dir = wp_upload_dir();
@@ -42,7 +46,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		// if the file has already been added to the filesystem, don't create a duplicate...re-use it
 		if ( $query->have_posts() ) {
 			$attachment = reset( $query->posts );
-			$attachment_meta = wp_get_attachment_meta( $attachment );
+			$attachment_meta = wp_get_attachment_metadata( $attachment );
 
 			$file->post_id   = (int) $attachment;
 			$file->filename  = basename( $attachment_meta['file'] );
@@ -120,7 +124,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		wp_update_attachment_metadata( $attachment_id, $attachment_meta );
 
 		// add our own custom meta field so the image is findable
-		update_post_meta( $attachment_id, $tribe_aggregator_meta_key, $filename );
+		update_post_meta( $attachment_id, $tribe_aggregator_meta_key, $image_id );
 
 		$file->post_id   = (int) $attachment_id;
 		$file->filename  = $filename;
