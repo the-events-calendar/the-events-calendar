@@ -102,7 +102,11 @@ class Tribe__Events__Aggregator {
 		$this->queue_processor = new Tribe__Events__Aggregator__Record__Queue_Processor;
 		$this->queue_realtime  = new Tribe__Events__Aggregator__Record__Queue_Realtime( null, null, $this->queue_processor );
 		$this->errors          = Tribe__Events__Aggregator__Errors::instance();
-		$this->pue_checker     = new Tribe__PUE__Checker( 'http://tri.be/', 'event-aggregator' );
+		$this->pue_checker     = new Tribe__PUE__Checker(
+			'http://tri.be/',
+			'event-aggregator',
+			array( 'context' => 'service' )
+		);
 
 		// Initializes the Classes related to the API
 		$this->api();
