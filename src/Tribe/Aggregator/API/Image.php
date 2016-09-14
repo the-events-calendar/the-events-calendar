@@ -78,11 +78,22 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		// Fetch the Extension (it's safe because it comes from our service)
 		$extension = str_replace( 'image/', '', $response['headers']['content-type'] );
 
+		// Removed Query String
+		if ( false !== strpos( $extension, '?' ) ) {
+			$parts = explode( '?', $extension );
+			$extension = reset( $parts );
+		}
+
 		if (
 			preg_match( '/filename="([^"]+)"/', $response['headers']['content-disposition'], $matches )
 			&& ! empty( $matches[1] )
 		) {
 			$filename = $matches[1];
+			// Removed Query String
+			if ( false !== strpos( $filename, '?' ) ) {
+				$parts = explode( '?', $filename );
+				$filename = reset( $parts );
+			}
 		} else {
 			$filename = md5( $response['body'] ) . '.' . $extension;
 		}
