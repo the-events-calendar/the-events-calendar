@@ -51,6 +51,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 			// Fetch the Extension for this filename
 			$filetype = wp_check_filetype( $file->filename, null );
 			$file->extension = $filetype['ext'];
+			$file->status    = 'skipped';
 
 			return $file;
 		}
@@ -125,6 +126,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		$file->filename  = $filename;
 		$file->path      = $upload_results['file'];
 		$file->extension = $extension;
+		$file->status    = 'created';
 
 		return $file;
 	}
