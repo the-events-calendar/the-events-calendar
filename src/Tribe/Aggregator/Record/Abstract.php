@@ -1025,7 +1025,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			// If we have a Image Field from Service
 			if ( ! empty( $event['image'] ) ) {
 				// Attempt to grab the event image
-				$image_import = Tribe__Events__Aggregator::instance()->api( 'image' )->get( $import_data['image']->id );
+				$image_import = Tribe__Events__Aggregator::instance()->api( 'image' )->get( $event['image']->id );
 
 				/**
 				 * Filters the returned event image url
