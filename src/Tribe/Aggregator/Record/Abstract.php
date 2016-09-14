@@ -1036,7 +1036,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$image = apply_filters( 'tribe_aggregator_event_image', $image_import, $event );
 
 				// If there was a problem bail out
-				if ( false === $image ) ) {
+				if ( false === $image ) {
 					continue;
 				}
 
