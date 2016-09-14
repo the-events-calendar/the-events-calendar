@@ -10,21 +10,17 @@ msgstr ""
 "X-Generator: GlotPress/2.1.0-alpha\n"
 "Project-Id-Version: Stable (latest release)\n"
 
-#: src/admin-views/aggregator/origins/eventbrite.php:3
-msgid "Select an Event"
+#: common/src/Tribe/Support.php:159
+#: vendor/tickets/common/src/Tribe/Support.php:159
+msgid "English"
 msgstr ""
 
-#: src/admin-views/aggregator/origins/eventbrite.php:4
-msgid "Select from your existing Eventbrite events"
+#: vendor/tickets/src/Tribe/Metabox.php:100
+msgid "Please enter in without thousand separators and currency symbols."
 msgstr ""
 
-#: src/admin-views/aggregator/origins/eventbrite.php:24
-#: src/admin-views/aggregator/origins/eventbrite.php:25
-msgid "Eventbrite Event ID"
-msgstr ""
-
-#: src/admin-views/aggregator/origins/eventbrite.php:26
-msgid "When filled out, this field will be used instead of the selected event above."
+#: vendor/tickets/src/Tribe/Tickets.php:1288
+msgid "Tickets are not available as this %s has passed."
 msgstr ""
 
 #: common/src/Tribe/App_Shop.php:160
@@ -329,15 +325,15 @@ msgstr "Подтверждения"
 msgid "Buy"
 msgstr "Купить"
 
-#: vendor/tickets/src/Tribe/Tickets.php:1285
+#: vendor/tickets/src/Tribe/Tickets.php:1290
 msgid "Tickets are not yet available."
 msgstr "Билеты пока не доступны."
 
-#: vendor/tickets/src/Tribe/Tickets.php:1287
+#: vendor/tickets/src/Tribe/Tickets.php:1292
 msgid "Tickets are no longer available."
 msgstr "Билеты больше не доступны."
 
-#: vendor/tickets/src/Tribe/Tickets.php:1289
+#: vendor/tickets/src/Tribe/Tickets.php:1294
 msgid "There are no tickets available at this time."
 msgstr "Сейчас билеты не доступны."
 
@@ -1520,7 +1516,7 @@ msgid "Category"
 msgstr "Рубрика"
 
 #. translators: %s is the singular translation of "Event"
-#: src/functions/template-tags/general.php:379
+#: src/functions/template-tags/general.php:406
 msgctxt "category list label"
 msgid "%s Category"
 msgid_plural "%s Categories"
@@ -1528,23 +1524,23 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/functions/template-tags/general.php:418
+#: src/functions/template-tags/general.php:445
 msgid "Tags:"
 msgstr "Тэги:"
 
-#: src/functions/template-tags/general.php:530
+#: src/functions/template-tags/general.php:557
 msgid "Loading %s"
 msgstr "Загрузка %s"
 
-#: src/functions/template-tags/general.php:1088
+#: src/functions/template-tags/general.php:1115
 msgid "Find out more »"
 msgstr "Найти другое"
 
-#: src/functions/template-tags/general.php:1089
+#: src/functions/template-tags/general.php:1116
 msgid "%s for"
 msgstr "%s для"
 
-#: src/functions/template-tags/general.php:1209
+#: src/functions/template-tags/general.php:1236
 msgid "Calendar powered by %sThe Events Calendar%s"
 msgstr "Календарь на платформе %sThe Events Calendar%s"
 
@@ -3247,13 +3243,14 @@ msgstr "Для этой вкладки пока не установлены по
 msgid "System Information"
 msgstr "Информация о системе"
 
-#: common/src/Tribe/Support.php:137
-#: vendor/tickets/common/src/Tribe/Support.php:137
+#: common/src/Tribe/Support.php:176 common/src/Tribe/Support.php:177
+#: vendor/tickets/common/src/Tribe/Support.php:176
+#: vendor/tickets/common/src/Tribe/Support.php:177
 msgid "Unknown or not set"
 msgstr "Неизвестный или не установленный"
 
-#: common/src/Tribe/Support.php:144
-#: vendor/tickets/common/src/Tribe/Support.php:144
+#: common/src/Tribe/Support.php:187
+#: vendor/tickets/common/src/Tribe/Support.php:187
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr ""
 
@@ -3281,7 +3278,7 @@ msgstr "Результаты не найдены."
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr ""
 
-#: src/Tribe/Template/Embed.php:59 src/Tribe/Template/Single_Event.php:113
+#: src/Tribe/Template/Embed.php:59 src/Tribe/Template/Single_Event.php:107
 msgid "This %s has passed."
 msgstr "Это  %s прошло."
 
@@ -4785,7 +4782,7 @@ msgstr "Мероприятия"
 msgid "Event"
 msgstr "Мероприятие"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.5) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.6) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:628
