@@ -128,12 +128,12 @@ class Tribe__Events__Aggregator {
 		// Remove aggregator records from ET
 		add_filter( 'tribe_tickets_settings_post_types', array( $this, 'filter_remove_record_post_type' ) );
 
-		// Notice users about expiring Facebook Token if oauth is enabled
+		// Notify users about expiring Facebook Token if oauth is enabled
 		add_action( 'plugins_loaded', array( $this, 'setup_notices' ), 11 );
 	}
 
 	/**
-	 * Maybe show notices to users about expiring Facebook Tokens if oauth is enabled
+	 * Set up any necessary notices
 	 */
 	public function setup_notices() {
 		if ( ! Tribe__Events__Aggregator::instance()->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
