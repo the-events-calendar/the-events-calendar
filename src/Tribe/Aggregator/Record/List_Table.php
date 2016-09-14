@@ -470,9 +470,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 	public function column_imported( $post ) {
 		$last_import = null;
-		$original = $post->post_modified;
+		$original = $post->post_modified_gmt;
 		$time = strtotime( $original );
-		$now = current_time( 'timestamp' );
+		$now = current_time( 'timestamp', true );
 
 		$html[] = '<span title="' . esc_attr( $original ) . '">';
 		if ( ( $now - $time ) <= DAY_IN_SECONDS ) {
