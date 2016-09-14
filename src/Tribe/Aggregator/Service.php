@@ -197,7 +197,7 @@ class Tribe__Events__Aggregator__Service {
 		$response = $this->get( 'origin' );
 
 		// If we have an WP_Error we return only CSV
-		if ( is_wp_error( $response ) || ! property_exists( $response, 'status' ) ) {
+		if ( is_wp_error( $response ) || ! empty( $response->status ) ) {
 			return $origins;
 		}
 
