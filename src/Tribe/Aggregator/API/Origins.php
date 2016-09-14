@@ -123,6 +123,10 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 * @return boolean
 	 */
 	public function is_oauth_enabled( $origin ) {
+		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+			return false;
+		}
+
 		$cached_oauth_settings = get_transient( "{$this->cache_group}_origin_oauth" );
 		if ( $cached_oauth_settings && isset( $cached_oauth_settings->$origin ) ) {
 			return (bool) $cached_oauth_settings->$origin;
