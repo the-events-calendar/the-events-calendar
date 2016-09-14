@@ -753,8 +753,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return array|WP_Error
 	 */
 	public function process_posts( $data = array() ) {
-		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
-
 		$queue = new Tribe__Events__Aggregator__Record__Queue( $this, $data );
 		return $queue->process();
 	}
@@ -777,7 +775,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return 0;
 		}
 
-		return $this->meta['activity']->count( 'event', $type );
+		switch ( $type ) {
+			case 'total':
+				return $this->meta['activity']->count( 'event', 'created' ) + $this->meta['activity']->count( 'event', 'updated' );
+				break;
+
+			default:
+				return $this->meta['activity']->count( 'event', $type );
+				break;
+		}
 	}
 
 	/**
@@ -806,7 +812,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( ! isset( $data->data->events ) ) {
-			return array();
+			return tribe_error( 'core:aggregator:record-not-finalized' );
 		}
 
 		$items = $this->filter_data_by_selected( $data->data->events );

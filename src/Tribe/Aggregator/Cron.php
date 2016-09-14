@@ -257,15 +257,14 @@ class Tribe__Events__Aggregator__Cron {
 	 */
 	public function verify_child_record_creation() {
 		$records = Tribe__Events__Aggregator__Records::instance();
-		/**
-		 * @todo Upon creation or modification of the schedule record, we need to store when should be the next
-		 */
+
 		$query = $records->query( array(
 			'post_status' => Tribe__Events__Aggregator__Records::$status->schedule,
 			'posts_per_page' => -1,
 		) );
 
 		if ( ! $query->have_posts() ) {
+			$this->log( 'debug', 'No Records Scheduled, skipped creating childs' );
 			return false;
 		}
 
@@ -273,15 +272,32 @@ class Tribe__Events__Aggregator__Cron {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
 			if ( ! $record->is_schedule_time() ) {
+				$this->log( 'debug', sprintf( 'Record (%d) skipped, not scheduled time', $record->id ) );
 				continue;
 			}
 
 			if ( $record->get_child_record_by_status( 'pending' ) ) {
+				$this->log( 'debug', sprintf( 'Record (%d) skipped, has pending childs', $record->id ) );
 				continue;
 			}
+
+			// Creating the child records based on this Parent
 			$child = $record->create_child_record();
-			$child->queue_import();
-			$child->process_posts();
+
+			if ( ! is_wp_error( $child ) ) {
+				$this->log( 'debug', sprintf( 'Record (%d), was created as a child', $child->id ) );
+
+				// Creates on the Service a Queue to Fetch the events
+				$response = $child->queue_import();
+
+				if ( ! empty( $response->status ) ) {
+					$this->log( 'debug', sprintf( '%s — %s (%s)', $response->status, $response->message, $response->data->import_id ) );
+				} else {
+					$this->log( 'debug', 'Could not create Queue on Service' );
+				}
+			} else {
+				$this->log( 'debug', $child->get_error_message() );
+			}
 		}
 	}
 
@@ -296,6 +312,7 @@ class Tribe__Events__Aggregator__Cron {
 		$query = $records->query( array(
 			'post_status' => Tribe__Events__Aggregator__Records::$status->pending,
 			'posts_per_page' => -1,
+			'order' => 'ASC',
 			'meta_query' => array(
 				array(
 					'key' => '_tribe_aggregator_origin',
@@ -306,16 +323,76 @@ class Tribe__Events__Aggregator__Cron {
 		) );
 
 		if ( ! $query->have_posts() ) {
+			$this->log( 'debug', 'No Records Pending, skipped Fetching from service' );
 			return false;
 		}
 
 		foreach ( $query->posts as $post ) {
-			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+			$record = $records->get_by_post_id( $post );
+
+			// Just double Check for CSV
 			if ( 'csv' === $record->origin ) {
+				$this->log( 'debug', sprintf( 'Record (%d) skipped, has CSV origin', $record->id ) );
 				continue;
 			}
 
-			$record->process_posts();
+			// Open a Queue to try to process the posts
+			$queue = $record->process_posts();
+
+			if ( ! is_wp_error( $queue ) ) {
+				$this->log( 'debug', sprintf( 'Record (%d) has processed queue ', $queue->record->id ) );
+				$activity = $queue->activity->get();
+				foreach ( $activity as $key => $actions ) {
+					foreach ( $actions as $action => $ids ) {
+						if ( empty( $ids ) ) {
+							continue;
+						}
+						$this->log( 'debug', sprintf( "\t" . '%s — %s: %s', $key, $action, implode( ', ', $ids ) ) );
+					}
+				}
+			} else {
+				$this->log( 'debug', sprintf( 'Record (%d) — %s', $record->id, $queue->get_error_message() ) );
+			}
+		}
+	}
+
+	/**
+	 * Allows us to log if we are using WP_CLI to fire this cron task
+	 *
+	 * @see    http://wp-cli.org/docs/internal-api/#output
+	 *
+	 * @param  string $type    What kind of log is this
+	 * @param  string $message message displayed
+	 *
+	 * @return void
+	 */
+	public function log( $type = 'colorize', $message = '' ) {
+		// Log on our Structure
+		Tribe__Main::instance()->log()->log_debug( $message, 'aggregator' );
+
+		// Only go further if we have WP_CLI
+		if ( ! class_exists( 'WP_CLI' ) ) {
+			return false;
+		}
+
+		switch ( $type ) {
+			case 'error':
+				WP_CLI::error( $message );
+				break;
+			case 'warning':
+				WP_CLI::warning( $message );
+				break;
+			case 'success':
+				WP_CLI::success( $message );
+				break;
+			case 'debug':
+				WP_CLI::debug( $message, 'aggregator' );
+				break;
+
+			case 'colorize':
+			default:
+				WP_CLI::log( WP_CLI::colorize( $message ) );
+				break;
 		}
 	}
 }
