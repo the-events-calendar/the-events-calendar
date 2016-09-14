@@ -136,7 +136,7 @@ class Tribe__Events__Aggregator {
 	 * Set up any necessary notices
 	 */
 	public function setup_notices() {
-		if ( ! Tribe__Events__Aggregator::instance()->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
+		if ( ! $this->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
 			return;
 		}
 
@@ -324,7 +324,7 @@ class Tribe__Events__Aggregator {
 	 * @return int
 	 */
 	public function get_daily_limit() {
-		$import_daily_limit = Tribe__Events__Aggregator::instance()->api( 'origins' )->get_limit( 'import' );
+		$import_daily_limit = $this->api( 'origins' )->get_limit( 'import' );
 		return $import_daily_limit ? $import_daily_limit : $this->daily_limit;
 	}
 
