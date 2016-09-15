@@ -510,52 +510,46 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 		$last_imported = $record->get_child_record_by_status( 'success', 1 );
+
+		// is this the scheduled import page?
 		if ( $last_imported && $last_imported->have_posts() ) {
 			// Fetches the Record Object
 			$last_imported = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $last_imported->post->ID );
 
-			// always show created
-			$created = $last_imported->get_event_count( 'created' );
+			$html[] = '<div class="tribe-ea-total">' . number_format_i18n( $record->get_event_count( 'created' ) ) . ' ' . esc_html__( 'all time', 'the-events-calendar' ) . '</div>';
 
-			$html[] = esc_html__( 'Latest Import:', 'the-events-calendar' );
+			$html[] = '<label>' . esc_html__( 'Latest Import:', 'the-events-calendar' ) . '</label>';
 			$html[] = '<ul class="tribe-ea-raw-list">';
-			$html[] = '<li>' . esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 ) . '</li>';
+			$created = $last_imported->get_event_count( 'created' );
+			$html[] = '<li>' . number_format_i18n( $created ? $created : 0 ) . ' ' . esc_html__( 'new', 'the-events-calendar' ) . '</li>';
 			if ( $last_imported_updated = $last_imported->get_event_count( 'updated' ) ) {
-				$html[] = '<li>' . esc_html__( 'Updated: ', 'the-events-calendar' ) . $last_imported_updated . '</li>';
+				$html[] = '<li>' . number_format_i18n( $last_imported_updated ) . ' ' . esc_html__( 'updated', 'the-events-calendar' ) . '</li>';
 			}
 			$html[] = '</ul>';
+		} elseif ( 'schedule' === $record->type && ! empty( $record->post->post_parent ) ) { // is this a child of a schedule record on History page
 
-		}
+			$created = $record->get_event_count( 'created' );
+			$html[] = number_format_i18n( $created ? $created : 0 ) . ' ' . esc_html__( 'new', 'the-events-calendar' ) . '<br>';
 
-		// is this schedule record (or a child of schedule record?)
-		if ( 'schedule' === $record->type ) {
-			// if there's a post parent, then we are looking at a child record where we'll show
-			// new, updated, AND total
-			if ( ! empty( $record->post->post_parent ) ) {
-				$created = $record->get_event_count( 'created' );
-
-				$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 ) . '<br>';
-
-				if ( ! empty( $record->post->post_parent ) && $updated = $record->get_event_count( 'updated' ) ) {
-					$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated . '<br>';
-				}
-
-				// let's change the record to the post parent so when we fetch that count, we're getting the grand total
-				$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record->post->post_parent );
+			if ( ! empty( $record->post->post_parent ) && $updated = $record->get_event_count( 'updated' ) ) {
+				$html[] = number_format_i18n( $updated ) . ' ' . esc_html__( 'updated', 'the-events-calendar' ) . '<br>';
 			}
+
+			// let's change the record to the post parent so when we fetch that count, we're getting the grand total
+			$parent_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record->post->post_parent );
 
 			// We check if the Parent actually exists
 			if ( ! is_wp_error( $record ) ) {
 				// this will get the total event for the parent schedule record
-				$html[] = esc_html__( 'Total Events: ', 'the-events-calendar' ) . $record->get_event_count( 'created' );
+				$html[] = $parent_record->get_event_count( 'created' ) . ' ' . esc_html__( 'all time', 'the-events-calendar' );
 			}
-		} else {
+		} else { // manual on History page
 			$created = $record->get_event_count( 'created' );
 
-			$html[] = esc_html__( 'New: ', 'the-events-calendar' ) . ( $created ? $created : 0 ) . '<br>';
+			$html[] = number_format_i18n( $created ? $created : 0 ) . ' ' . esc_html__( 'new', 'the-events-calendar' ) . '<br>';
 
 			if ( $updated = $record->get_event_count( 'updated' ) ) {
-				$html[] = esc_html__( 'Updated: ', 'the-events-calendar' ) . $updated;
+				$html[] = number_format_i18n( $updated ) . ' ' . esc_html__( 'updated', 'the-events-calendar' ) . '<br>';
 			}
 		}
 
