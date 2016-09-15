@@ -105,8 +105,8 @@ tribe_aggregator.fields = {
 				obj.reset_preview()
 
 				// Every time you change Type of import we reset the frequency field
-				var	$this = $( this ),
-					$frequency = $( this ).next( obj.selector.fields );
+				var $this = $( this ),
+				    $frequency = $( this ).next( obj.selector.fields );
 
 				$frequency.select2( 'val', ( 'schedule' === $this.val() ? 'daily' : '' ) ).change();
 			} )
