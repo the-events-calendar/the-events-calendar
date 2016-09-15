@@ -383,6 +383,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		);
 
 		foreach ( $this->meta as $key => $value ) {
+			if ( 'activity' === $key ) {
+				// don't copy the parent activity into the child record
+				continue;
+			}
 			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
 		}
 

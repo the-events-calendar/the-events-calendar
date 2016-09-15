@@ -68,14 +68,19 @@
 }
 
 .tribe-ea .tribe-ea-raw-list {
-	margin-top: 3px;
+	line-height: 1.25em;
+	list-style: square;
+	margin-top: 0;
 	margin-left: 22px;
 	margin-bottom: 6px;
-	list-style: square;
 }
 
 .tribe-ea .tribe-ea-raw-list > li {
 	margin-bottom: 2px;
+}
+
+.tribe-ea .tribe-ea-total {
+	font-weight: 600;
 }
 
 .tribe-ea .tribe-ea-size-small {

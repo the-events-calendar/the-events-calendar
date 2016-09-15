@@ -75,7 +75,7 @@ $field->help       .= '<br/><br/>';
 $field->help       .= __( 'You can find the url you need in your Google Calendar settings.', 'the-events-calendar' );
 $field->help       .= '<ol>';
 $field->help       .= '<li>' . __( 'Go to Settings &gt; Calendars and select the calendar you wish to import.', 'the-events-calendar' ) . '</li>';
-$field->help       .= '<li>' . __( 'Scroll down to Calendar Address and click the iCal button.', 'the-events-calendar' ) . '</li>';
+$field->help       .= '<li>' . __( 'Scroll down to Calendar Address and click the iCal button (note: if your calendar is private, you\'ll need to click the iCal button next to the Private Address header instead).', 'the-events-calendar' ) . '</li>';
 $field->help       .= '<li>' . __( 'Copy the provided url into this field to import the events into your WordPress site.', 'the-events-calendar' ) . '</li>';
 $field->help       .= '</ol>';
 ?>

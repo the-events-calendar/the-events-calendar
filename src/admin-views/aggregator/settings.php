@@ -132,12 +132,12 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 	$ical = array(
 		'ical-defaults' => array(
 			'type' => 'html',
-			'html' => '<h3>' . esc_html__( 'iCal Import Settings', 'the-events-calendar' ) . '</h3>',
+			'html' => '<h3>' . esc_html__( 'iCalendar Import Settings', 'the-events-calendar' ) . '</h3>',
 		),
 		'tribe_aggregator_default_ical_post_status' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Default Status', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'The default post status for events imported via iCal', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'The default post status for events imported via iCalendar', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => '',
@@ -148,7 +148,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'tribe_aggregator_default_ical_category' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Default Event Category', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'The default event category for events imported via iCal', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'The default event category for events imported via iCalendar', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => '',
