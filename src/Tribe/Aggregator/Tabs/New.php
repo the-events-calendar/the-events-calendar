@@ -249,7 +249,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		}
 
 		if ( ! $is_queued ) {
-			if ( ! empty( $queue->activity->get( 'event', 'created' ) ) ) {
+			$event_created = $queue->activity->get( 'event', 'created' );
+			if ( ! empty( $event_created ) ) {
 				$content_label = 1 === $queue->activity->count( 'event', 'created' ) ? $content_type : $content_type_plural;
 
 				$messages['success'][] = sprintf(
@@ -259,7 +260,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 				);
 			}
 
-			if ( ! empty( $queue->activity->get( 'event', 'updated' ) ) ) {
+			$event_updated = $queue->activity->get( 'event', 'updated' );
+			if ( ! empty( $event_updated ) ) {
 				$content_label = 1 === $queue->activity->count( 'event', 'updated' ) ? $content_type : $content_type_plural;
 
 				// @todo: include a part of sentence like: ", including %1$d %2$signored event%3$s.", <a href="/wp-admin/edit.php?post_status=tribe-ignored&post_type=tribe_events">, </a>
@@ -270,7 +272,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 				);
 			}
 
-			if ( ! empty( $queue->activity->get( 'event', 'skipped' ) ) ) {
+			$event_skipped = $queue->activity->get( 'event', 'skipped' );
+			if ( ! empty( $event_skipped ) ) {
 				$content_label = 1 === $queue->activity->count( 'event', 'skipped' ) ? $content_type : $content_type_plural;
 
 				$messages['success'][] = sprintf(
@@ -280,7 +283,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 				);
 			}
 
-			if ( ! empty( $queue->activity->get( 'images', 'created' ) ) ) {
+			$images_created = $queue->activity->get( 'images', 'created' );
+			if ( ! empty( $images_created ) ) {
 				$messages['success'][] = sprintf(
 					_n( '%1$d new image was imported.', '%1$d new images were imported.', $queue->activity->count( 'images', 'created' ), 'the-events-calendar' ),
 					$queue->activity->count( 'images', 'created' )
@@ -300,7 +304,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 			// if not CSV, pull counts for venues and organizers that were auto-created
 			if ( 'csv' !== $queue->record->meta['origin'] ) {
-				if ( ! empty( $queue->activity->get( 'venue', 'created' ) ) ) {
+				$venue_created = $queue->activity->get( 'venue', 'created' );
+				if ( ! empty( $venue_created ) ) {
 					$messages['success'][] = '<br/>' . sprintf(
 						_n( '%1$d new venue was imported.', '%1$d new venues were imported.', $queue->activity->count( 'venue', 'created' ), 'the-events-calendar' ),
 						$queue->activity->count( 'venue', 'created' )
@@ -310,7 +315,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 					'</a>';
 				}
 
-				if ( ! empty( $queue->activity->get( 'organizer', 'created' ) ) ) {
+				$organizer_created = $queue->activity->get( 'organizer', 'created' );
+				if ( ! empty( $organizer_created ) ) {
 					$messages['success'][] = '<br/>' . sprintf(
 						_n( '%1$d new organizer was imported.', '%1$d new organizers were imported.', $queue->activity->count( 'organizer', 'created' ), 'the-events-calendar' ),
 						$queue->activity->count( 'organizer', 'created' )
@@ -323,12 +329,13 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 		}
 
-		if ( ! empty( $queue->activity->get( 'category', 'created' ) ) ) {
+		$category_created = $queue->activity->get( 'category', 'created' );
+		if ( ! empty( $category_created ) ) {
 			$messages['success'][] = '<br/>' . sprintf(
 				_n( '%1$d new event category was created.', '%1$d new event categories were created.', $queue->activity->count( 'category', 'created' ), 'the-events-calendar' ),
 				$queue->activity->count( 'category', 'created' )
 			) .
-			' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
+			' <a href="' . admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) . '">' .
 			__( 'View your event categories', 'the-events-calendar' ) .
 			'</a>';
 			;

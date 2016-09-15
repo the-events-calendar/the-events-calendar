@@ -53,10 +53,10 @@ class Tribe__Events__Aggregator__Settings {
 	}
 
 	public function is_fb_credentials_valid( $time = null ) {
-		/**
-		 * @todo  fb-reviewed-reactivation
-		 */
-		return true;
+		// if the service hasn't enabled oauth for facebook, always assume it is valid
+		if ( ! Tribe__Events__Aggregator::instance()->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
+			return true;
+		}
 
 		if ( ! $this->has_fb_credentials() ) {
 			return false;
@@ -107,8 +107,6 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return string
 	 */
 	public function default_update_authority( $origin = null ) {
-		$origin = $this->origin_translation( $origin );
-
 		$setting = tribe_get_option( 'tribe_aggregator_default_update_authority', self::$default_update_authority );
 
 		if ( $origin ) {
@@ -128,8 +126,6 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return string
 	 */
 	public function default_post_status( $origin = null ) {
-		$origin = $this->origin_translation( $origin );
-
 		$global_setting = $setting = tribe_get_option( 'tribe_aggregator_default_post_status', 'publish' );
 
 		if ( $origin ) {
@@ -153,8 +149,6 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return string
 	 */
 	public function default_category( $origin = null ) {
-		$origin = $this->origin_translation( $origin );
-
 		$setting = tribe_get_option( 'tribe_aggregator_default_category', null );
 
 		if ( $origin ) {
@@ -174,8 +168,6 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return string
 	 */
 	public function default_map( $origin = null ) {
-		$origin = $this->origin_translation( $origin );
-
 		$setting = tribe_get_option( 'tribe_aggregator_default_map', 'no' );
 
 		if ( $origin ) {
@@ -183,22 +175,5 @@ class Tribe__Events__Aggregator__Settings {
 		}
 
 		return $setting;
-	}
-
-	/**
-	 * Translates origins to origins used for settings
-	 *
-	 * Why? Because some origins are just aliases.
-	 *
-	 * @param string $origin Origin value
-	 *
-	 * @return string|null
-	 */
-	private function origin_translation( $origin ) {
-		if ( 'ics' === $origin ) {
-			$origin = 'ical';
-		}
-
-		return $origin;
 	}
 }

@@ -67,6 +67,17 @@
 	width: auto;
 }
 
+.tribe-ea .tribe-ea-raw-list {
+	margin-top: 3px;
+	margin-left: 22px;
+	margin-bottom: 6px;
+	list-style: square;
+}
+
+.tribe-ea .tribe-ea-raw-list > li {
+	margin-bottom: 2px;
+}
+
 .tribe-ea .tribe-ea-size-small {
 	width: 100px;
 }

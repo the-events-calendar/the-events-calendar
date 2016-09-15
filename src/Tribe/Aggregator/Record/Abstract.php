@@ -631,6 +631,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function get_errors( $args = array() ) {
 		$defaults = array(
 			'post_id' => $this->id,
+			'type'    => self::$error_comment_type,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -753,8 +754,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return array|WP_Error
 	 */
 	public function process_posts( $data = array() ) {
-		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
-
 		$queue = new Tribe__Events__Aggregator__Record__Queue( $this, $data );
 		return $queue->process();
 	}
@@ -777,7 +776,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return 0;
 		}
 
-		return $this->meta['activity']->count( 'event', $type );
+		switch ( $type ) {
+			case 'total':
+				return $this->meta['activity']->count( 'event', 'created' ) + $this->meta['activity']->count( 'event', 'updated' );
+				break;
+
+			default:
+				return $this->meta['activity']->count( 'event', $type );
+				break;
+		}
 	}
 
 	/**
@@ -806,7 +813,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( ! isset( $data->data->events ) ) {
-			return array();
+			return tribe_error( 'core:aggregator:record-not-finalized' );
 		}
 
 		$items = $this->filter_data_by_selected( $data->data->events );
@@ -1008,19 +1015,44 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				}
 			}
 
-			//if we are setting all events to a category specified in saved import
+			// if we are setting all events to a category specified in saved import
 			if ( ! empty( $this->meta['category'] ) ) {
 				$terms[] = (int) $this->meta['category'];
 			}
 
 			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );
 
+			// If we have a Image Field from Service
 			if ( ! empty( $event['image'] ) ) {
-				$attachment = $this->import_event_image( $event['ID'], $event );
+				// Attempt to grab the event image
+				$image_import = Tribe__Events__Aggregator::instance()->api( 'image' )->get( $event['image']->id );
 
-				if ( $attachment ) {
-					// Log this attachment was created
-					$activity->add( 'attachment', 'created', $attachment );
+				/**
+				 * Filters the returned event image url
+				 *
+				 * @param array|bool $image       Attachment information
+				 * @param array      $event       Event array
+				 */
+				$image = apply_filters( 'tribe_aggregator_event_image', $image_import, $event );
+
+				// If there was a problem bail out
+				if ( false === $image ) {
+					continue;
+				}
+
+				// Verify for more Complex Errors
+				if ( is_wp_error( $image ) ) {
+					continue;
+				}
+
+				if ( isset( $image->status ) && 'created' === $image->status ) {
+					// Set as featured image
+					$featured_status = set_post_thumbnail( $event['ID'], $image->post_id );
+
+					if ( $featured_status ) {
+						// Log this attachment was created
+						$activity->add( 'attachment', 'created', $image->post_id );
+					}
 				}
 			}
 		}
@@ -1028,33 +1060,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
 		return $activity;
-	}
-
-	/**
-	 * Attempts to pull in the event image, if there is one, and attach it to the
-	 * specified event post.
-	 *
-	 * @param $event_id
-	 * @param $facebook_event
-	 */
-	protected function import_event_image( $event_id, $import_data ) {
-		// Attempt to grab the event image
-		/**
-		 * Filters the returned event image url
-		 *
-		 * @param array|bool $image
-		 * @param int $event_id Event ID
-		 * @param array $import_data Event data
-		 */
-		$image = apply_filters( 'tribe_aggregator_event_image', Tribe__Events__Aggregator::instance()->api( 'image' )->get( $import_data['image']->id ), $event_id, $import_data );
-
-		// If there was a problem bail out
-		if ( false === $image || is_wp_error( $image ) ) {
-			return;
-		}
-
-		// Set as featured image
-		return set_post_thumbnail( $event_id, $image->post_id );
 	}
 
 	/**

@@ -186,21 +186,23 @@ class Tribe__Events__Aggregator__Service {
 	 */
 	public function get_origins() {
 		$origins = array(
-			(object) array(
-				'id' => 'csv',
-				'name' => __( 'CSV File', 'the-events-calendar' ),
+			'origin' => array(
+				(object) array(
+					'id' => 'csv',
+					'name' => __( 'CSV File', 'the-events-calendar' ),
+				),
 			),
 		);
 
 		$response = $this->get( 'origin' );
 
 		// If we have an WP_Error we return only CSV
-		if ( is_wp_error( $response ) ) {
+		if ( is_wp_error( $response ) || empty( $response->status ) ) {
 			return $origins;
 		}
 
 		if ( $response && 'success' === $response->status ) {
-			$origins = array_merge( $origins, $response->data->origin );
+			$origins = array_merge( $origins, (array) $response->data );
 		}
 
 		return $origins;

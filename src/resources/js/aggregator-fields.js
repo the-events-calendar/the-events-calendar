@@ -105,6 +105,10 @@ tribe_aggregator.fields = {
 				obj.$.form.attr( 'data-origin', $( this ).val() );
 				obj.reset_preview();
 
+				// reset all bumpdowns
+				$( '.tribe-bumpdown-active' ).removeClass( 'tribe-bumpdown-active' );
+				$( '.tribe-bumpdown:visible' ).hide();
+
 				// reset all the select2 fields other than the origin
 				$( '.tribe-ea-tab-new .tribe-ea-dropdown:not([id$="tribe-ea-field-origin"])' ).select2( 'val', '' ).change();
 
