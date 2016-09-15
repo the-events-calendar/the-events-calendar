@@ -534,15 +534,6 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			if ( ! empty( $record->post->post_parent ) && $updated = $record->get_event_count( 'updated' ) ) {
 				$html[] = number_format_i18n( $updated ) . ' ' . esc_html__( 'updated', 'the-events-calendar' ) . '<br>';
 			}
-
-			// let's change the record to the post parent so when we fetch that count, we're getting the grand total
-			$parent_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record->post->post_parent );
-
-			// We check if the Parent actually exists
-			if ( ! is_wp_error( $record ) ) {
-				// this will get the total event for the parent schedule record
-				$html[] = $parent_record->get_event_count( 'created' ) . ' ' . esc_html__( 'all time', 'the-events-calendar' );
-			}
 		} else { // manual on History page
 			$created = $record->get_event_count( 'created' );
 
