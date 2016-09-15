@@ -132,12 +132,12 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 	$ical = array(
 		'ical-defaults' => array(
 			'type' => 'html',
-			'html' => '<h3>' . esc_html__( 'iCal and .ics File Import Settings', 'the-events-calendar' ) . '</h3>',
+			'html' => '<h3>' . esc_html__( 'iCal Import Settings', 'the-events-calendar' ) . '</h3>',
 		),
 		'tribe_aggregator_default_ical_post_status' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Default Status', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'The default post status for events imported via iCal and .ics files', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'The default post status for events imported via iCal', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => '',
@@ -148,7 +148,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'tribe_aggregator_default_ical_category' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Default Event Category', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'The default event category for events imported via iCal, Google Calendar, and .ics files', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'The default event category for events imported via iCal', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => '',
@@ -157,6 +157,46 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'options' => $origin_categories,
 		),
 		'tribe_aggregator_default_ical_show_map' => array(
+			'type' => 'dropdown',
+			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'Show Google Map by default on imported venues', 'the-events-calendar' ),
+			'size' => 'medium',
+			'validation_type' => 'options',
+			'default' => 'no',
+			'can_be_empty' => true,
+			'parent_option' => Tribe__Events__Main::OPTIONNAME,
+			'options' => $origin_show_map_options,
+		),
+	);
+
+	$ics = array(
+		'ics-defaults' => array(
+			'type' => 'html',
+			'html' => '<h3>' . esc_html__( 'ICS File Import Settings', 'the-events-calendar' ) . '</h3>',
+		),
+		'tribe_aggregator_default_ics_post_status' => array(
+			'type' => 'dropdown',
+			'label' => esc_html__( 'Default Status', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'The default post status for events imported via .ics files', 'the-events-calendar' ),
+			'size' => 'medium',
+			'validation_type' => 'options',
+			'default' => '',
+			'can_be_empty' => true,
+			'parent_option' => Tribe__Events__Main::OPTIONNAME,
+			'options' => $origin_post_statuses,
+		),
+		'tribe_aggregator_default_ics_category' => array(
+			'type' => 'dropdown',
+			'label' => esc_html__( 'Default Event Category', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'The default event category for events imported via .ics files', 'the-events-calendar' ),
+			'size' => 'medium',
+			'validation_type' => 'options',
+			'default' => '',
+			'can_be_empty' => true,
+			'parent_option' => Tribe__Events__Main::OPTIONNAME,
+			'options' => $origin_categories,
+		),
+		'tribe_aggregator_default_ics_show_map' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
 			'tooltip' => esc_html__( 'Show Google Map by default on imported venues', 'the-events-calendar' ),
@@ -306,6 +346,7 @@ $internal = array_merge(
 	$global,
 	$csv,
 	$ical,
+	$ics,
 	$facebook,
 	$gcal,
 	$meetup
