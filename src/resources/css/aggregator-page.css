@@ -274,7 +274,7 @@
 }
 
 .tribe-ea .tribe-notice-tribe-missing-aggregator-license h3 {
-	color: white;
+	color: #fff;
 	font-size: 22px;
 	font-weight: normal;
 	letter-spacing: 1.5px;
@@ -285,14 +285,14 @@
 	font-size: 16px;
 	font-weight: 300;
 	letter-spacing: 1px;
-	margin: 0 auto 30px auto;
+	margin: 0 auto 30px;
 	width: 50%;
 }
 
 .tribe-ea .tribe-button {
 	border: 1px solid;
 	border-radius: 3px;
-	color: white;
+	color: #fff;
 	display: inline-block;
 	font-weight: 300;
 	letter-spacing: 1.5px;
@@ -302,14 +302,14 @@
 }
 
 .tribe-ea .tribe-button-primary {
-	background: black;
-	border-color: black;
+	background: #000;
+	border-color: #000;
 	margin-right: 5px;
 }
 
 .tribe-ea .tribe-button-secondary {
 	background: transparent;
-	border-color: white;
+	border-color: #fff;
 	margin-left: 10px;
 }
 
