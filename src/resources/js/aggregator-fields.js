@@ -11,6 +11,7 @@ tribe_aggregator.fields = {
 		dropdown                : '.tribe-ea-dropdown',
 		origin_field            : '#tribe-ea-field-origin',
 		import_type_field       : '.tribe-import-type',
+		import_type_field       : '.tribe-import-type',
 		media_button            : '.tribe-ea-media_button',
 		datepicker              : '.tribe-datepicker',
 		save_credentials_button : '.enter-credentials .tribe-save',
@@ -100,7 +101,16 @@ tribe_aggregator.fields = {
 			.on( 'click'      , obj.selector.view_filters              , obj.events.toggle_view_filters )
 			.on( 'blur'       , obj.selector.datepicker                , obj.date_helper )
 			.on( 'submit'     , obj.selector.tab_new                   , obj.events.suppress_submission )
-			.on( 'change'     , obj.selector.import_type_field         , obj.reset_preview )
+			.on( 'change'     , obj.selector.import_type_field         , function() {
+				// Resets the Preview
+				obj.reset_preview()
+
+				// Every time you change Type of import we reset the frequency field
+				var $this = $( this ),
+					$frequency = $( this ).next( obj.selector.fields );
+
+				$frequency.select2( 'val', ( 'schedule' === $this.val() ? 'daily' : '' ) ).change();
+			} )
 			.on( 'change'     , obj.selector.origin_field              , function() {
 				obj.$.form.attr( 'data-origin', $( this ).val() );
 				obj.reset_preview();
