@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-08-09 14:02:20+0000\n"
+"PO-Revision-Date: 2016-09-06 10:33:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,32 +10,28 @@ msgstr ""
 "X-Generator: GlotPress/2.1.0-alpha\n"
 "Project-Id-Version: Stable (latest release)\n"
 
-#: src/admin-views/aggregator/origins/eventbrite.php:3
-msgid "Select an Event"
-msgstr ""
+#: common/src/Tribe/Support.php:159
+#: vendor/tickets/common/src/Tribe/Support.php:159
+msgid "English"
+msgstr "Englisch"
 
-#: src/admin-views/aggregator/origins/eventbrite.php:4
-msgid "Select from your existing Eventbrite events"
-msgstr ""
+#: vendor/tickets/src/Tribe/Metabox.php:100
+msgid "Please enter in without thousand separators and currency symbols."
+msgstr "Bitte ohne 1000er Trennzeichen und Währungssymbol eingeben."
 
-#: src/admin-views/aggregator/origins/eventbrite.php:24
-#: src/admin-views/aggregator/origins/eventbrite.php:25
-msgid "Eventbrite Event ID"
-msgstr ""
-
-#: src/admin-views/aggregator/origins/eventbrite.php:26
-msgid "When filled out, this field will be used instead of the selected event above."
-msgstr ""
+#: vendor/tickets/src/Tribe/Tickets.php:1288
+msgid "Tickets are not available as this %s has passed."
+msgstr "Karten sind nicht verfügbar, da diese %s schon vorbei ist."
 
 #: common/src/Tribe/App_Shop.php:160
 #: vendor/tickets/common/src/Tribe/App_Shop.php:160
 msgid "The iCal Importer helps you keep your events calendar full of interesting events! You can import events from any website that publishes an iCal (aka ICS) feed and add them to your listings. The recurring import feature lets you keep your calendar brimming without manual oversight (though you can review every imported event if you like). Add filtering by keyword or geographic region and you can be sure that the kinds of events you get are the kinds you want."
-msgstr ""
+msgstr "Der iCal Importer hilft Ihren Veranstaltungskalender mit vielen interessanten Events zu füllen. Sie können Veranstaltungen von jeder Website importieren, welche einen iCal (ICS Datei) zur Verfügung stellt. Das Importieren von Serienterminen lässt Ihren Kalender füllen ohne manuell aktiv werden zu müssen (Sie können die importierten Events aber jederzeit überprüfen). Fügen Sie zusätzlich  Filter nach Suchbegriffen oder geografischen Regionen hinzu, um nur die von Ihnen gewünschten Veranstaltungen zu importieren."
 
 #: common/src/Tribe/App_Shop.php:154
 #: vendor/tickets/common/src/Tribe/App_Shop.php:154
 msgid "With the Facebook Events add-on, imported events are manually or automagically created as entries in The Events Calendar. Basic event data along with venue and organizer are populated appropriately. No more entering information in two places, or having to recreate someone else's listing for a public event you want to include on your WordPress calendar."
-msgstr ""
+msgstr "Mit dem Facebook Events Add-on werden Ereignisse manuell importiert oder automatisch als Einträge im Veranstaltungskalender erstellt. Basisdaten der Veranstaltung zusammen mit Veranstaltungsort und Veranstalter sind auch vorausgefüllt. Es ist nicht mehr nötig die Daten an mehreren Stellen einzugeben oder die Veranstaltungen von jemandem anderen für eine öffentliche Veranstaltung zu erstellen, um Sie in Ihren Wordpress Kalender aufzunehmen."
 
 #: common/src/Tribe/App_Shop.php:158
 #: vendor/tickets/common/src/Tribe/App_Shop.php:158
@@ -55,7 +51,7 @@ msgstr ""
 #: common/src/Tribe/App_Shop.php:127
 #: vendor/tickets/common/src/Tribe/App_Shop.php:127
 msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
-msgstr ""
+msgstr "Aktivieren Sie Community Events Tickets, um Karten für ihre Veranstaltungen zu verkaufen. Sie können flexible Zahlungs und Gebührenoptionen verwenden. Sie können sogar die Teilnehmer zu ihren Veranstaltungen einchecken! Dies ist alles vom Front-End Ihrer Website möglich, ohne jemandem Admin Zugang zu Ihrer Website zu gewähren."
 
 #: common/src/Tribe/App_Shop.php:128
 #: vendor/tickets/common/src/Tribe/App_Shop.php:128
@@ -66,12 +62,12 @@ msgstr "Event Tickets Plus and Community Events"
 #: common/src/Tribe/App_Shop.php:121
 #: vendor/tickets/common/src/Tribe/App_Shop.php:121
 msgid "Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go."
-msgstr ""
+msgstr "Ermöglichen Sie Ihren Benutzern Veranstaltungen in Ihrem Kalender mit dem Community Events Plugin hinzuzufügen und zu verwalten. Benutzer können Events anonym oder mit einem Benutzerkonto hinzufügen. Sie möchten sicherstellen, dass keine unerwünschten Veranstaltungen veröffentlicht werden? Schalten Sie einfach die Moderation ein entscheiden Sie, ob Benutzer Veranstaltungen bearbeiten oder einfach einreichen können. Das Plugin hat ein einfach Setup. Nur aktivieren, Optionen konfigurieren und schon kann es losgehen."
 
 #: common/src/Tribe/App_Shop.php:112
 #: vendor/tickets/common/src/Tribe/App_Shop.php:112
 msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
-msgstr ""
+msgstr "Der Events Calendar PRO ist ein kostenpflichtiges Add-On für unser Open Source WordPress plugin %1$sThe Events Calendar%2$s. PRO bietet vielfältige Funktionen inklusive Serienterminen, individuelle Felder, abspeichern und Wiederverwenden von Veranstaltern und Veranstaltungsorten, extra Seiten für Veranstaltungsorte, erweiterte Administrationsmöglichkeiten der Events und vieles mehr."
 
 #: common/src/Tribe/App_Shop.php:105
 #: vendor/tickets/common/src/Tribe/App_Shop.php:105
@@ -329,15 +325,15 @@ msgstr "RSVPs"
 msgid "Buy"
 msgstr "Kaufen"
 
-#: vendor/tickets/src/Tribe/Tickets.php:1285
+#: vendor/tickets/src/Tribe/Tickets.php:1290
 msgid "Tickets are not yet available."
 msgstr "Karten sind noch nicht verfügbar"
 
-#: vendor/tickets/src/Tribe/Tickets.php:1287
+#: vendor/tickets/src/Tribe/Tickets.php:1292
 msgid "Tickets are no longer available."
 msgstr "Karten sind nicht länger verfügbar"
 
-#: vendor/tickets/src/Tribe/Tickets.php:1289
+#: vendor/tickets/src/Tribe/Tickets.php:1294
 msgid "There are no tickets available at this time."
 msgstr "Derzeit sind keine Karten verfügbar."
 
@@ -1516,30 +1512,30 @@ msgid "Category"
 msgstr "Kategorie"
 
 #. translators: %s is the singular translation of "Event"
-#: src/functions/template-tags/general.php:379
+#: src/functions/template-tags/general.php:406
 msgctxt "category list label"
 msgid "%s Category"
 msgid_plural "%s Categories"
 msgstr[0] "%sskategorie"
 msgstr[1] "%sskategorien"
 
-#: src/functions/template-tags/general.php:418
+#: src/functions/template-tags/general.php:445
 msgid "Tags:"
 msgstr "Schlagworte:"
 
-#: src/functions/template-tags/general.php:530
+#: src/functions/template-tags/general.php:557
 msgid "Loading %s"
 msgstr "Lade %s "
 
-#: src/functions/template-tags/general.php:1088
+#: src/functions/template-tags/general.php:1115
 msgid "Find out more »"
 msgstr "Mehr Infos anzeigen »"
 
-#: src/functions/template-tags/general.php:1089
+#: src/functions/template-tags/general.php:1116
 msgid "%s for"
 msgstr "%s für"
 
-#: src/functions/template-tags/general.php:1209
+#: src/functions/template-tags/general.php:1236
 msgid "Calendar powered by %sThe Events Calendar%s"
 msgstr "Kalender powered by %sThe Events Calendar%s"
 
@@ -3241,13 +3237,14 @@ msgstr "Es sind noch keine Felder für diesen Reiter definiert."
 msgid "System Information"
 msgstr "Systeminformationen"
 
-#: common/src/Tribe/Support.php:137
-#: vendor/tickets/common/src/Tribe/Support.php:137
+#: common/src/Tribe/Support.php:176 common/src/Tribe/Support.php:177
+#: vendor/tickets/common/src/Tribe/Support.php:176
+#: vendor/tickets/common/src/Tribe/Support.php:177
 msgid "Unknown or not set"
 msgstr "Unbekannt oder nicht gesetzt"
 
-#: common/src/Tribe/Support.php:144
-#: vendor/tickets/common/src/Tribe/Support.php:144
+#: common/src/Tribe/Support.php:187
+#: vendor/tickets/common/src/Tribe/Support.php:187
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr "Die Überschreiben Regeln wurden beim Laden dieser Hilfe Seite bereinigt. Es besteht die Chance, dass eine Überschreiben Regeln auf ein Plugin oder Theme angewendet wurde."
 
@@ -3275,7 +3272,7 @@ msgstr "Es wurden keine Ergebnisse gefunden."
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Das abgefragte Datum \"%s\" war  nicht g&uuml;ltig &ndash; der aktuelle Monat wird stattdessen angezeigt"
 
-#: src/Tribe/Template/Embed.php:59 src/Tribe/Template/Single_Event.php:113
+#: src/Tribe/Template/Embed.php:59 src/Tribe/Template/Single_Event.php:107
 msgid "This %s has passed."
 msgstr "Diese %s hat bereits stattgefunden."
 
@@ -4779,7 +4776,7 @@ msgstr "Veranstaltungen"
 msgid "Event"
 msgstr "Veranstaltung"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.5) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.6) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:628
