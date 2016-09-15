@@ -45,7 +45,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
 		}
 
-		if ( ! in_array( 'Tribe__Events__Aggregator__Record__Abstract', class_parents( $record ) ) ){
+		if ( ! in_array( 'Tribe__Events__Aggregator__Record__Abstract', class_parents( $record ) ) ) {
 			return false;
 		}
 
@@ -87,7 +87,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 	}
 
 	/**
-	 * Allows us to chech if the Events Data has still pending
+	 * Allows us to check if the Events Data has still pending
 	 *
 	 * @return boolean
 	 */
