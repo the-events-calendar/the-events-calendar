@@ -307,23 +307,23 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 				$venue_created = $queue->activity->get( 'venue', 'created' );
 				if ( ! empty( $venue_created ) ) {
 					$messages['success'][] = '<br/>' . sprintf(
-						_n( '%1$d new venue was imported.', '%1$d new venues were imported.', $queue->activity->count( 'venue', 'created' ), 'the-events-calendar' ),
-						$queue->activity->count( 'venue', 'created' )
-					) .
-					' <a href="' . admin_url( 'edit.php?post_type=tribe_venue' ) . '">' .
-					__( 'View your event venues', 'the-events-calendar' ) .
-					'</a>';
+							_n( '%1$d new venue was imported.', '%1$d new venues were imported.', $queue->activity->count( 'venue', 'created' ), 'the-events-calendar' ),
+							$queue->activity->count( 'venue', 'created' )
+						) .
+											 ' <a href="' . admin_url( 'edit.php?post_type=tribe_venue' ) . '">' .
+											 __( 'View your event venues', 'the-events-calendar' ) .
+											 '</a>';
 				}
 
 				$organizer_created = $queue->activity->get( 'organizer', 'created' );
 				if ( ! empty( $organizer_created ) ) {
 					$messages['success'][] = '<br/>' . sprintf(
-						_n( '%1$d new organizer was imported.', '%1$d new organizers were imported.', $queue->activity->count( 'organizer', 'created' ), 'the-events-calendar' ),
-						$queue->activity->count( 'organizer', 'created' )
-					) .
-					' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
-					__( 'View your event organizers', 'the-events-calendar' ) .
-					'</a>';
+							_n( '%1$d new organizer was imported.', '%1$d new organizers were imported.', $queue->activity->count( 'organizer', 'created' ), 'the-events-calendar' ),
+							$queue->activity->count( 'organizer', 'created' )
+						) .
+											 ' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
+											 __( 'View your event organizers', 'the-events-calendar' ) .
+											 '</a>';
 					;
 				}
 			}
@@ -332,12 +332,12 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$category_created = $queue->activity->get( 'category', 'created' );
 		if ( ! empty( $category_created ) ) {
 			$messages['success'][] = '<br/>' . sprintf(
-				_n( '%1$d new event category was created.', '%1$d new event categories were created.', $queue->activity->count( 'category', 'created' ), 'the-events-calendar' ),
-				$queue->activity->count( 'category', 'created' )
-			) .
-			' <a href="' . admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) . '">' .
-			__( 'View your event categories', 'the-events-calendar' ) .
-			'</a>';
+					_n( '%1$d new event category was created.', '%1$d new event categories were created.', $queue->activity->count( 'category', 'created' ), 'the-events-calendar' ),
+					$queue->activity->count( 'category', 'created' )
+				) .
+									 ' <a href="' . admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) . '">' .
+									 __( 'View your event categories', 'the-events-calendar' ) .
+									 '</a>';
 			;
 		}
 
@@ -353,17 +353,17 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 				$scheduled_time = strtotime( $queue->record->post->post_modified ) + $queue->record->frequency->interval;
 				$scheduled_time_string = date( get_option( 'date_format' ), $scheduled_time ) .
-					_x( ' at ', 'separator between date and time', 'the-events-calendar' ) .
-					date( get_option( 'time_format' ), $scheduled_time );
+										 _x( ' at ', 'separator between date and time', 'the-events-calendar' ) .
+										 date( get_option( 'time_format' ), $scheduled_time );
 
 				$messages['success'][] = '<br/>' .
-					sprintf(
-						__( 'The next import is scheduled for %1$s.', 'the-events-calendar' ),
-						esc_html( $scheduled_time_string )
-					) .
-					' <a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=scheduled' ) . '">' .
-					__( 'View your scheduled imports.', 'the-events-calendar' ) .
-					'</a>';
+										 sprintf(
+											 __( 'The next import is scheduled for %1$s.', 'the-events-calendar' ),
+											 esc_html( $scheduled_time_string )
+										 ) .
+										 ' <a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=scheduled' ) . '">' .
+										 __( 'View your scheduled imports.', 'the-events-calendar' ) .
+										 '</a>';
 			}
 		}
 
@@ -473,18 +473,28 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		ob_start();
 		?>
 		<div class="notice inline notice-info tribe-dependent tribe-notice-tribe-missing-aggregator-license" data-ref="tribe-missing-aggregator-license" data-depends="#tribe-ea-field-origin" data-condition-empty>
-			<p>
-				<strong><?php esc_html_e( 'Upgrade to Event Aggregator to unlock access to multiple import sources and automatic imports!', 'the-events-calendar' ); ?></strong></p>
-			<p>
-				<?php echo sprintf(
-						esc_html__( 'With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup in a jiffy. Head over to %1$sTheEventsCalendar.com%2$s to purchase instant access, including a year of premium support, updates, and upgrades.', 'the-events-calendar' ),
-						'<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importpage&utm_medium=plugin-tec&utm_campaign=in-app">',
-						'</a>'
-					); ?>
-			</p>
-			<p>
-				<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importpage&utm_medium=plugin-tec&utm_campaign=in-app" class="tribe-license-link button button-primary"><?php esc_html_e( 'Buy Event Aggregator Now', 'the-events-calendar' ); ?></a>
-			</p>
+
+			<div class="upsell-banner">
+				<img src="<?php echo esc_url( tribe_resource_url( 'images/aggregator/upsell-banner.png' ) ) ; ?>">
+			</div>
+
+			<h3><?php esc_html_e( 'Import Using Event Aggregator', 'the-events-calendar' ); ?></h3>
+
+			<p><?php esc_html_e( 'With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup.com in a jiffy.', 'the-events-calendar' ); ?></p>
+
+			<a href="http://m.tri.be/196y" class="tribe-license-link tribe-button tribe-button-primary" target="_blank">
+				<?php esc_html_e( 'Buy It Now', 'the-events-calendar' );?>
+				<span class="screen-reader-text">
+					<?php esc_html_e( 'opens in a new window', 'the-events-calendar' );?>
+				</span>
+			</a>
+
+			<a href="http://m.tri.be/196z" class="tribe-license-link tribe-button tribe-button-secondary" target="_blank">
+				<?php esc_html_e( 'Learn More', 'the-events-calendar' ); ?>
+				<span class="screen-reader-text">
+					<?php esc_html_e( 'opens in a new window', 'the-events-calendar' );?>
+				</span>
+			</a>
 		</div>
 		<?php
 
