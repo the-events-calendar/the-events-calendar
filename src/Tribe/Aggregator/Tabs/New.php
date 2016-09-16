@@ -81,7 +81,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_submit() {
-		if ( ! empty( $_POST['ea-facebook-credentials'] ) ) {
+		/**
+		 *
+		 */
+		if ( isset( $_GET['ea-fb-token'] ) ) {
 			return $this->handle_facebook_credentials();
 		}
 
@@ -121,17 +124,17 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_facebook_credentials() {
+		if ( ! isset( $_GET['ea-fb-token'] ) ) {
+			return false;
+		}
+
 		/**
 		 * @todo  include a way to handle errors on the Send back URL
 		 */
-
-		if ( empty( $_POST['aggregator'] ) ) {
-			return false;
-		}
-		$data = (object) $_POST['aggregator'];
-		$api = Tribe__Events__Aggregator__Service::instance()->api();
-
+		$api      = Tribe__Events__Aggregator__Service::instance()->api();
 		$response = Tribe__Events__Aggregator__Service::instance()->get_facebook_token();
+		$type     = $_GET['ea-fb-token'];
+
 		if ( is_wp_error( $response ) ) {
 			return false;
 		}
@@ -144,19 +147,26 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return false;
 		}
 
+		$url_map = array(
+			'new'      => Tribe__Events__Aggregator__Page::instance()->get_url( array( 'tab' => $this->get_slug(), 'ea-auth' => 'facebook' ) ),
+			'settings' => Tribe__Settings::instance()->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) ),
+		);
+
+		if ( ! isset( $url_map[ $type ] ) ) {
+			return false;
+		}
+
+		// Calculate when will this Token Expire
 		$expires = absint( trim( preg_replace( '/[^0-9]/', '', $response->data->expires ) ) );
 		$expires += time();
+
+		// Save the Options
 		tribe_update_option( 'fb_token', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $response->data->token ) ) );
 		tribe_update_option( 'fb_token_expires', $expires );
 		tribe_update_option( 'fb_token_scopes', trim( preg_replace( '/[^a-zA-Z0-9\,_-]/', '', $response->data->scopes ) ) );
 
-		if ( 'new' === $data->type ) {
-			$url = Tribe__Events__Aggregator__Page::instance()->get_url( array( 'tab' => $this->get_slug(), 'ea-auth' => 'facebook' ) );
-		} elseif ( 'settings' === $data->type ) {
-			$url = Tribe__Settings::instance()->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) );
-		}
-
-		wp_redirect( $url );
+		// Send it back to the Given Url
+		wp_redirect( $url_map[ $type ] );
 		exit;
 	}
 
