@@ -30,7 +30,7 @@ $post_types = $csv_record->get_import_post_types();
 				<option value="<?php echo esc_attr( $post_type->name ); ?>"><?php echo esc_html( $post_type->labels->name ); ?></option>
 			<?php endforeach; ?>
 		</select>
-		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
+		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
 	</td>
 </tr>
 
@@ -66,7 +66,7 @@ $field->media_title = __( 'Upload a CSV File', 'the-events-calendar' );
 		</button>
 		<span class="tribe-ea-fileicon dashicons dashicons-media-document"></span>
 		<span class="tribe-ea-field tribe-ea-file-name" id="tribe-ea-field-csv_file_name"><?php echo esc_html__( 'No file chosen', 'the-events-calendar' ); ?></span>
-		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
+		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
 	</td>
 </tr>
 

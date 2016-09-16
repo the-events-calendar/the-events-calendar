@@ -29,6 +29,6 @@ $field->placeholder = __( 'Select from your existing Eventbrite events', 'the-ev
 			class="tribe-ea-field tribe-ea-size-xlarge"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 		>
-		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
+		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
 	</td>
 </tr>

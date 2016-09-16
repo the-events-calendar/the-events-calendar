@@ -52,17 +52,19 @@ $frequencies = $cron->get_frequency();
 			<?php endforeach; ?>
 		</select>
 		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo esc_attr( $field->help ); ?>"
 			data-depends="#tribe-ea-field-gcal_import_type"
 			data-condition-not="schedule"
 			data-condition-empty
+			data-width-rule="all-triggers"
 		></span>
 		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo esc_attr( $frequency->help ); ?>"
 			data-depends="#tribe-ea-field-gcal_import_type"
 			data-condition="schedule"
+			data-width-rule="all-triggers"
 		></span>
 	</td>
 </tr>
@@ -92,7 +94,7 @@ $field->help       .= '</ol>';
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 			value="<?php echo esc_attr( empty( $record->meta['source'] ) ? '' : $record->meta['source'] ); ?>"
 		>
-		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
+		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
 	</td>
 </tr>
 
