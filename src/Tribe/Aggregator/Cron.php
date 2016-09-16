@@ -137,6 +137,11 @@ class Tribe__Events__Aggregator__Cron {
 	 * @return void
 	 */
 	public function action_register_cron() {
+		// if the service isn't active, don't do anything
+		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+			return;
+		}
+
 		// If we have an cron scheduled we bail
 		if ( wp_next_scheduled( self::$action ) ) {
 			return;
@@ -238,6 +243,11 @@ class Tribe__Events__Aggregator__Cron {
 	 * @return void
 	 */
 	public function run() {
+		// if the service isn't active, don't do anything
+		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+			return;
+		}
+
 		// Flag that we are running the Task
 		$this->is_running = true;
 
@@ -256,6 +266,11 @@ class Tribe__Events__Aggregator__Cron {
 	 * @return void
 	 */
 	public function verify_child_record_creation() {
+		// if the service isn't active, don't do anything
+		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+			return;
+		}
+
 		$records = Tribe__Events__Aggregator__Records::instance();
 
 		$query = $records->query( array(
@@ -307,6 +322,11 @@ class Tribe__Events__Aggregator__Cron {
 	 * @return void
 	 */
 	public function verify_fetching_from_service() {
+		// if the service isn't active, don't do anything
+		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+			return;
+		}
+
 		$records = Tribe__Events__Aggregator__Records::instance();
 
 		$query = $records->query( array(

@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.6
+Tested up to: 4.6.1
 Stable tag: 4.3rc2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -290,10 +290,6 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.2.6] 2016-08-31 =
-
-* Add - tribe_is_event_past() conditional to detect if event end time is past current time (Reported by @Jonathan in our support forums - thanks Jonathan.)
-
 = [4.3] unreleased =
 
 * Tweak - Adjusted some view logic to support the new Event Views shortcode in Pro [44800]
@@ -306,6 +302,14 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - Cease using GLOB_BRACE for including deprecated files due to limited server support [63172]
 * Fix - Avoid problems that can occur when hooking and unhooking actions (props @Chouby) [63474]
 * Fix - Correct the datetime formatting issues within the iCal feed (props @henryk) [65968]
+
+= [4.2.7] 2016-09-15 =
+
+* Tweak - Additional support for plugin extensions
+
+= [4.2.6] 2016-08-31 =
+
+* Add - tribe_is_event_past() conditional to detect if event end time is past current time (Reported by @Jonathan in our support forums - thanks Jonathan.)
 
 = [4.2.5] 2016-08-17 =
 

@@ -621,6 +621,12 @@
 	color: white;
 }
 
+.tribe-aggregator-inactive .tribe-ea-tab-scheduled .widefat p,
+			.tribe-aggregator-inactive .tribe-ea-tab-scheduled .widefat td,
+			.tribe-aggregator-inactive .tribe-ea-tab-scheduled .widefat ul {
+	color: #ccc;
+}
+
 @media screen and (max-width: 782px) {
 
 	/**
