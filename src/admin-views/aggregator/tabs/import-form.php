@@ -184,6 +184,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 			data-depends="#tribe-ea-field-ical_import_type"
 			data-condition-not="schedule"
 			data-condition-empty
+			data-width-rule="all-triggers"
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
@@ -191,6 +192,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 			data-depends="#tribe-ea-field-gcal_import_type"
 			data-condition-not="schedule"
 			data-condition-empty
+			data-width-rule="all-triggers"
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
@@ -198,6 +200,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 			data-depends="#tribe-ea-field-meetup_import_type"
 			data-condition-not="schedule"
 			data-condition-empty
+			data-width-rule="all-triggers"
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
@@ -205,30 +208,35 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 			data-depends="#tribe-ea-field-facebook_import_type"
 			data-condition-not="schedule"
 			data-condition-empty
+			data-width-rule="all-triggers"
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
 			data-depends="#tribe-ea-field-ical_import_type"
 			data-condition="schedule"
+			data-width-rule="all-triggers"
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
 			data-depends="#tribe-ea-field-gcal_import_type"
 			data-condition="schedule"
+			data-width-rule="all-triggers"
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
 			data-depends="#tribe-ea-field-meetup_import_type"
 			data-condition="schedule"
+			data-width-rule="all-triggers"
 		></span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
 			data-depends="#tribe-ea-field-facebook_import_type"
 			data-condition="schedule"
+			data-width-rule="all-triggers"
 		></span>
 	</div>
 	<textarea style="display:none;" name="aggregator[selected_rows]" id="tribe-selected-rows"></textarea>
@@ -245,24 +253,28 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
 		data-depends="#tribe-ea-field-ical_import_type"
 		data-condition="schedule"
+		data-width-rule="all-triggers"
 	></span>
 	<span
 		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
 		data-depends="#tribe-ea-field-gcal_import_type"
 		data-condition="schedule"
+		data-width-rule="all-triggers"
 	></span>
 	<span
 		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
 		data-depends="#tribe-ea-field-meetup_import_type"
 		data-condition="schedule"
+		data-width-rule="all-triggers"
 	></span>
 	<span
 		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
 		data-depends="#tribe-ea-field-facebook_import_type"
 		data-condition="schedule"
+		data-width-rule="all-triggers"
 	></span>
 
 	<p class="tribe-timezone-message">
