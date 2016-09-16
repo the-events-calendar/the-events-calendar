@@ -294,4 +294,39 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 
 		return array( $success, $errors );
 	}
+
+	/**
+	 * Renders the "Missing Aggregator License" notice
+	 *
+	 * @return string
+	 */
+	public function maybe_display_aggregator_missing_license_key_message() {
+		if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
+			return;
+		}
+
+		ob_start();
+		?>
+		<div class="notice inline notice-info tribe-notice-tribe-missing-aggregator-license" data-ref="tribe-missing-aggregator-license">
+			<p>
+				<strong>
+					<?php esc_html_e( 'All scheduled imports are currently suspended, and no events will be imported.', 'the-events-calendar' ); ?>
+				</strong>
+			</p>
+			<p>
+				<?php printf(
+						esc_html__( 'To continue using scheduled imports, please enter a valid Event Aggregator license key under %1$sEvents > Settings > Licenses%2$s.', 'the-events-calendar' ),
+						'<a href="' . esc_url( admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=licenses' ) ) . '">',
+						'</a>'
+					); ?>
+			</p>
+			<p>
+				<a href="<?php echo esc_url( admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=licenses' ) ); ?>" class="tribe-license-link button button-primary"><?php esc_html_e( 'Enter Event Aggregator License', 'the-events-calendar' ); ?></a>
+			</p>
+		</div>
+		<?php
+
+		return ob_get_clean();
+	}
+
 }
