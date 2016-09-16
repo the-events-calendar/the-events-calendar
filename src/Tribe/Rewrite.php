@@ -296,7 +296,10 @@ defined( 'WPINC' ) or die;
 				$current_locale = $sitepress->get_locale( $sitepress->get_current_language() );
 
 				// Get the strings on multiple Domains and Languages
+				// WPML filter is unhooked to avoid the locale bein set to the default one
+				remove_filter( 'locale', array( $sitepress, 'locale' ) );
 				$bases = $tec->get_i18n_strings( $bases, $languages, $domains, $current_locale );
+				add_filter( 'locale', array( $sitepress, 'locale' ) );
 			}
 
 			if ( 'regex' === $method ) {
