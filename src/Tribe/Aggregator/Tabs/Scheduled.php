@@ -314,7 +314,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 				</strong>
 			</p>
 			<p>
-				<?php echo sprintf(
+				<?php printf(
 						esc_html__( 'To continue using scheduled imports, please enter a valid Event Aggregator license key under %1$sEvents > Settings > Licenses%2$s.', 'the-events-calendar' ),
 						'<a href="' . esc_url( admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=licenses' ) ) . '">',
 						'</a>'
