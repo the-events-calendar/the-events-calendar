@@ -26,7 +26,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 	);
 
 	public function __construct() {
-		// The items are registred on the wakeup to avoid saving uncessary data
+		// The items are registered on the wakeup to avoid saving unnecessary data
 		$this->__wakeup();
 	}
 
@@ -86,7 +86,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 	}
 
 	/**
-	 * Logs an Acivity
+	 * Logs an Activity
 	 *
 	 * @param string       $slug Name of this Activity
 	 * @param string|array $items Type of activity
@@ -107,7 +107,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 		$slug = $this->map[ $slug ];
 
 		if ( is_scalar( $items ) ) {
-			// If it's a scalar and it's not one of the registred actions we skip it
+			// If it's a scalar and it's not one of the registered actions we skip it
 			if ( ! isset( self::$actions[ $items ] ) ) {
 				return false;
 			}
@@ -124,6 +124,11 @@ class Tribe__Events__Aggregator__Record__Activity {
 		}
 
 		foreach ( $items as $action => $ids ) {
+			// Skip Empty ids
+			if ( empty( $ids ) ) {
+				continue;
+			}
+
 			$this->items[ $slug ]->{ $action } = array_unique( array_filter( array_merge( $this->items[ $slug ]->{ $action }, (array) $ids ) ) );
 		}
 
@@ -131,7 +136,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 	}
 
 	/**
-	 * Retuns the merged version of two Activities classes
+	 * Returns the merged version of two Activities classes
 	 *
 	 * @param  self   $activity Which activity should be merged here
 	 *
@@ -148,7 +153,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 	}
 
 	/**
-	 * Removes a activity from the Registred ones
+	 * Removes a activity from the Registered ones
 	 *
 	 * @param  string  $slug   The Slug of the Activity
 	 *
@@ -172,7 +177,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 	}
 
 	/**
-	 * Fetches a registred Activity
+	 * Fetches a registered Activity
 	 *
 	 * @param  string  $slug   (optional) The Slug of the Activity
 	 * @param  string  $action (optional) Which action
@@ -209,7 +214,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 	}
 
 	/**
-	 * Fetches a registred Activity counter
+	 * Fetches a registered Activity counter
 	 *
 	 * @param  string  $slug   The Slug of the Activity
 	 * @param  string  $action (optional) Which action

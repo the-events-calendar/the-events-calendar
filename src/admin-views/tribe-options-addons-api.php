@@ -94,10 +94,9 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 		),
 	);
 
-	/**
-	 * @todo  fb-reviewed-reactivation
-	 */
-	unset( $internal['fb-start'], $internal['fb-info-box'], $internal['fb_token_button'] );
+	if ( ! Tribe__Events__Aggregator::instance()->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
+		unset( $internal['fb-start'], $internal['fb-info-box'], $internal['fb_token_button'] );
+	}
 
 }
 

@@ -51,7 +51,8 @@ class Tribe__Events__Aggregator__Meta_Box {
 		$source_info = $record->get_source_info();
 		$source = $source_info['title'];
 
-		$last_import = tribe_format_date( $record->post->post_modified );
+		$datepicker_format = Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+		$last_import = tribe_format_date( $record->post->post_modified, true, $datepicker_format . ' h:i a' );
 		$settings_link = Tribe__Settings::instance()->get_url( array( 'tab' => 'imports' ) );
 		$import_setting = tribe_get_option( 'tribe_aggregator_default_update_authority', Tribe__Events__Aggregator__Settings::$default_update_authority );
 

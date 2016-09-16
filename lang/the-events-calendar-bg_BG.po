@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-08-16 18:39:34+0000\n"
+"PO-Revision-Date: 2016-09-04 15:04:39+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,21 +10,17 @@ msgstr ""
 "X-Generator: GlotPress/2.1.0-alpha\n"
 "Project-Id-Version: Stable (latest release)\n"
 
-#: src/admin-views/aggregator/origins/eventbrite.php:3
-msgid "Select an Event"
+#: common/src/Tribe/Support.php:159
+#: vendor/tickets/common/src/Tribe/Support.php:159
+msgid "English"
 msgstr ""
 
-#: src/admin-views/aggregator/origins/eventbrite.php:4
-msgid "Select from your existing Eventbrite events"
+#: vendor/tickets/src/Tribe/Metabox.php:100
+msgid "Please enter in without thousand separators and currency symbols."
 msgstr ""
 
-#: src/admin-views/aggregator/origins/eventbrite.php:24
-#: src/admin-views/aggregator/origins/eventbrite.php:25
-msgid "Eventbrite Event ID"
-msgstr ""
-
-#: src/admin-views/aggregator/origins/eventbrite.php:26
-msgid "When filled out, this field will be used instead of the selected event above."
+#: vendor/tickets/src/Tribe/Tickets.php:1288
+msgid "Tickets are not available as this %s has passed."
 msgstr ""
 
 #: common/src/Tribe/App_Shop.php:160
@@ -329,15 +325,15 @@ msgstr ""
 msgid "Buy"
 msgstr "Купуване"
 
-#: vendor/tickets/src/Tribe/Tickets.php:1285
+#: vendor/tickets/src/Tribe/Tickets.php:1290
 msgid "Tickets are not yet available."
 msgstr "Билетите не са достъпни все още."
 
-#: vendor/tickets/src/Tribe/Tickets.php:1287
+#: vendor/tickets/src/Tribe/Tickets.php:1292
 msgid "Tickets are no longer available."
 msgstr "Билетите вече не са достъпни."
 
-#: vendor/tickets/src/Tribe/Tickets.php:1289
+#: vendor/tickets/src/Tribe/Tickets.php:1294
 msgid "There are no tickets available at this time."
 msgstr "Няма достъпни билети към този момент."
 
@@ -386,12 +382,12 @@ msgstr[1] ""
 #: vendor/tickets/src/views/tickets/orders-link.php:37
 msgid "%d Ticket"
 msgid_plural "%d Tickets"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d Билет"
+msgstr[1] "%d Билети"
 
 #: vendor/tickets/src/views/tickets/orders-link.php:45
 msgid "You have %s for this %s."
-msgstr ""
+msgstr "Имате %s за този %s."
 
 #: vendor/tickets/src/views/tickets/orders-link.php:46
 msgid "View your %s"
@@ -403,7 +399,7 @@ msgstr ""
 
 #: vendor/tickets/src/views/tickets/orders-rsvp.php:38
 msgid "Reserved by %1$s (%2$s)"
-msgstr ""
+msgstr "Запазен от %1$s (%2$s)"
 
 #: vendor/tickets/src/views/tickets/orders-rsvp.php:44
 msgid " on %s"
@@ -495,11 +491,11 @@ msgstr ""
 #: common/src/admin-views/tribe-options-help.php:37
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:37
 msgid "Recent Template Changes"
-msgstr ""
+msgstr "Промени по текущият темплейт"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:260
 msgid "View order"
-msgstr ""
+msgstr "Преглед на поръчката"
 
 #: vendor/tickets/src/Tribe/Metabox.php:87
 msgid "It looks like you have modified your global stock settings but have not saved or updated the post."
@@ -519,7 +515,7 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/attendees.php:100
 msgid "Deleted:"
-msgstr ""
+msgstr "Изтрит:"
 
 #: vendor/tickets/src/admin-views/meta-box.php:69
 msgid "Enable global stock"
@@ -570,7 +566,7 @@ msgstr "Редактиране на събитие"
 
 #: vendor/tickets/src/admin-views/attendees.php:30
 msgid "See Event Page"
-msgstr ""
+msgstr "Преглед на страница на събитие"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:64
 msgid "Edit Venue"
@@ -578,7 +574,7 @@ msgstr "Редактиране на местоположение"
 
 #: vendor/tickets/src/admin-views/attendees.php:61
 msgid "Sales by Ticket"
-msgstr ""
+msgstr "Продажби по билети"
 
 #: vendor/tickets/src/admin-views/attendees.php:67
 msgid "Edit Ticket"
@@ -594,23 +590,23 @@ msgstr "Кога ще започне продажбата на билети?"
 
 #: vendor/tickets/src/admin-views/meta-box.php:212
 msgid "If you don't set a start/end date for sales, tickets will be available from now until the event ends."
-msgstr ""
+msgstr "Ако не въведете начална/крайна дата за продажбите, билетите ще са налични от този момент до края на събитието."
 
 #: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:2
 msgid "Stock:"
-msgstr ""
+msgstr "В наличност:"
 
 #: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:6
 msgid "(Total available # of this ticket type. Once they're gone, ticket type is sold out.)"
-msgstr ""
+msgstr "(Общо налични # от този вид. Когато се изчерпат, категорията ще бъде разпродадена.)"
 
 #: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:16
 msgid "Selling tickets for recurring events"
-msgstr ""
+msgstr "Продажба на билети за повтарящи се събития"
 
 #: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:22
 msgid "Currently, Tickets will only show up on the frontend once per full event. For PRO users this means the same ticket will appear across all events in the series. Please configure your events accordingly."
-msgstr ""
+msgstr "В момента ще се показват едни и същи билети за всички повтарящи се събития. Pro потребителите трябва да имат това в предвид."
 
 #: vendor/tickets/src/admin-views/tribe-options-tickets.php:51
 msgid "Ticket Settings"
@@ -625,7 +621,7 @@ msgstr "Видове публикации, които могат да имат �
 #: vendor/tickets/src/views/tickets/rsvp.php:19
 #: vendor/tickets/src/views/tickets/rsvp.php:127
 msgid "RSVP"
-msgstr ""
+msgstr "Ще присъствам"
 
 #: vendor/tickets/src/views/tickets/rsvp.php:61
 msgid "%1$s out of %2$s available"
@@ -633,7 +629,7 @@ msgstr "%1$s от %2$s са налични"
 
 #: vendor/tickets/src/views/tickets/rsvp.php:69
 msgid "Out of stock!"
-msgstr ""
+msgstr "Няма наличност!"
 
 #: vendor/tickets/src/views/tickets/rsvp.php:110
 msgid "Full Name"
@@ -645,11 +641,11 @@ msgstr "Потвърдете вашето присъствие"
 
 #: vendor/tickets/src/Tribe/Main.php:349
 msgid "Looking for more immediate support? We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
-msgstr ""
+msgstr "Имате нужда от незабавна техническа помощ? Предлагаме %1$s с всяка поръчка на наша ПРЕМИУМ добавка (като напр. %2$s). Купете лиценз и ще можете да пишете във форума за поддръжка с гарантиран отговор от 24 до 48 часа в работни дни."
 
 #: vendor/tickets/src/Tribe/Main.php:352
 msgid "Already have Events Tickets Plus? You can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
-msgstr ""
+msgstr "Имате Events Tickets Plus? Можете да %s в нашият премиум форум за поддръжка. Нашият екип по поддръжка преглежда форумите и отговаря на зададените въпроси в срок от 24 до 48 часа (в работни дни)."
 
 #: vendor/tickets/src/Tribe/RSVP.php:221
 msgctxt "Attendee number"
@@ -658,19 +654,19 @@ msgstr "Присъстващ № %1$s"
 
 #: vendor/tickets/src/Tribe/RSVP.php:573
 msgid "Your tickets from %s"
-msgstr ""
+msgstr "Вашите билети от %s"
 
 #: vendor/tickets/src/Tribe/RSVP.php:841
 msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
-msgstr ""
+msgstr "Вашето желание да присъствате е отбелязано! Потвърждението е изпратено на вашия имейл адрес."
 
 #: vendor/tickets/src/Tribe/RSVP.php:847
 msgid "You can't RSVP more than the total remaining tickets."
-msgstr ""
+msgstr "Не можете да получите повече покани от оставащия брой билети."
 
 #: vendor/tickets/src/Tribe/RSVP.php:852
 msgid "In order to RSVP, you must enter your name and a valid email address."
-msgstr ""
+msgstr "За да заявите участие, трябва да въведете име и валиден имейл адрес."
 
 #: vendor/tickets/src/Tribe/RSVP.php:991
 msgid "(deleted)"
@@ -678,7 +674,7 @@ msgstr "(изтрито)"
 
 #: vendor/tickets/src/Tribe/RSVP.php:1259
 msgid "Return to the %1$sAttendees Report%2$s."
-msgstr ""
+msgstr "Връщане към %1$sсправката за посетителите%2$s."
 
 #: vendor/tickets/src/Tribe/RSVP.php:1266
 msgid "Post updated. %1$s"
@@ -702,7 +698,7 @@ msgstr "Черновата на публикацията е актуализир
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:407
 msgid "Cheatin Huh?"
-msgstr ""
+msgstr "Cheatin Huh?"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:390
 msgid "Invalid Event ID"
@@ -710,7 +706,7 @@ msgstr "Невалиден ID на събитие"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:413
 msgid "Empty user and email"
-msgstr ""
+msgstr "Не са въведени потребителско име и имейл адрес"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:425
 msgid "Invalid Email"
@@ -723,7 +719,7 @@ msgstr "Невалидно ID на потребител"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:468
 msgid "Error when sending the email"
-msgstr ""
+msgstr "Грешка при изпращането на писмото"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:473
 msgid "Email sent successfully!"
@@ -731,47 +727,47 @@ msgstr "Имейлът бе изпратен успешно!"
 
 #: vendor/tickets/src/admin-views/attendees-email.php:43
 msgid "Send Email"
-msgstr ""
+msgstr "Изпращане на имейл"
 
 #: src/io/csv/admin-views/result.php:26
 msgid "%1$s%2$s%3$sInserted:%4$s A new item was inserted successfully. %5$s%2$s%3$sUpdated:%4$s An item was found with the same name and/or start date. The existing item was updated with the new value from the file.%5$s%2$s%3$sSkipped:%4$s A row was found in the CSV file that could not be imported. Please see below for the invalid rows.%5$s%6$s"
-msgstr ""
+msgstr "%1$s%2$s%3$sВъведени:%4$s Новият запис беше въведен успешно. %5$s%2$s%3$sОбновени:%4$s Намерен е запис със същото име и/или дата, който беше обновен с новите данни от файла.%5$s%2$s%3$sПропуднати:%4$s CSV файлът беше намерен ред, който не може да се импортира. Моля, прегледайте невалидните редове по-долу. %5$s%6$s"
 
 #: src/views/list/nav.php:26
 msgid "Previous %s"
-msgstr ""
+msgstr "Предишни %s"
 
 #: src/views/list/nav.php:34
 msgid "Next %s"
-msgstr ""
+msgstr "Следващи %s"
 
 #: vendor/tickets/src/Tribe/Main.php:165
 msgid "When The Events Calendar and Event Tickets are both activated, The Events Calendar must be running version %1$s or greater. Please %2$supdate now.%3$s"
-msgstr ""
+msgstr "Когато The Events Calendar и Event Tickets се активирани едновременно, The Events Calendar трябва да е с версия %1$s или по-нова. Моля, %2$sобновете сега.%3$s"
 
 #: vendor/tickets/src/Tribe/Main.php:303
 msgid "Support for Event Tickets"
-msgstr ""
+msgstr "Поддръжка за Event Tickets"
 
 #: vendor/tickets/src/Tribe/Main.php:308
 msgid "Customizing Event Tickets"
-msgstr ""
+msgstr "Персонализиране на Event Tickets"
 
 #: vendor/tickets/src/Tribe/Main.php:327
 msgid "We are committed to helping you sell tickets for your event. Check out our handy %s to get started."
-msgstr ""
+msgstr "Ние сме отдадени на това, да ви помогнем да продавате билети за събитието си. Проверете нашият удобен %s, преди да започнете."
 
 #: vendor/tickets/src/Tribe/Main.php:348
 msgid "Events Tickets Plus"
-msgstr ""
+msgstr "Events Tickets Plus"
 
 #: src/Tribe/Main.php:647 vendor/tickets/src/Tribe/Main.php:357
 msgid "If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
-msgstr ""
+msgstr "Ако имате валиден лиценз за някоя от нашите Премиум добавки, можете да %s в премиум форумът за поддръжка. Екипът ни преглежда форумите и отговаря на зададените въпроси в рамките на 24-48 часа (в работни дни)."
 
 #: src/Tribe/Main.php:1105
 msgid "It appears as if the tribe-common libraries cannot be found! The directory should be in the \"common/\" directory in the events calendar plugin."
-msgstr ""
+msgstr "За съжаление tribe-common библиотеките не могат да бъдат открити! Папката трябва да бъде в директория \"common/\" на The Events Calendar."
 
 #: src/Tribe/Main.php:1518
 msgid "%1$s updated. %2$sView %3$s"
@@ -799,15 +795,15 @@ msgstr "%1$s е планирано за: %2$s."
 
 #: src/Tribe/Main.php:1683
 msgid "Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results."
-msgstr ""
+msgstr "Без зададено местоположение, вашето събитие няма да показва %sGoogle Rich Snippet%s в резултатите от търсенето."
 
 #: src/Tribe/Main.php:3916
 msgid "Check out the %savailable add-ons%s."
-msgstr ""
+msgstr "Проверете %sналичните добавки%s."
 
 #: src/Tribe/Template/Day.php:136
 msgid "No %1$s scheduled for %2$s. Please try another day."
-msgstr ""
+msgstr "Няма %1$s планирано за %2$s. Моля, опитайте с друг ден."
 
 #: src/Tribe/Template/Month.php:353
 msgid "There were no results found for %s this month. Try searching next month."
@@ -819,16 +815,16 @@ msgstr "Не са намерени резултати за %s."
 
 #: src/Tribe/Template_Factory.php:296
 msgid "No results were found for %1$s in or near %2$s."
-msgstr ""
+msgstr "Не са намерени резултати за %1$s в или близо до %2$s."
 
 #: src/admin-views/admin-update-message.php:32
 msgid "Keep the Core Plugin %sFREE%s!"
-msgstr ""
+msgstr "Запазете основното разширение %sБЕЗПЛАТНО%s!"
 
 #: src/admin-views/create-organizer-fields.php:20
 #: src/admin-views/organizer-meta-box.php:44
 msgid "You may want to consider %sobfuscating%s any e-mail address published on your site to best avoid it getting harvested by spammers."
-msgstr ""
+msgstr "Може би е редно да обмислите %sскриване%s на всеки имейл адрес, публикуван на сайта ви, за по-добра защита от спам."
 
 #: src/admin-views/venue-meta-box.php:190
 msgid "%s Name can not be empty"
@@ -844,35 +840,35 @@ msgstr "Предишен ден"
 
 #: src/functions/template-tags/day.php:108
 msgid "Next Day"
-msgstr ""
+msgstr "Следващ ден"
 
 #: src/io/csv/admin-views/general.php:12
 msgid "The settings below will impact events imported from files and other websites. Be sure to save your changes before starting to import events."
-msgstr ""
+msgstr "Настройките по-долу ще повлияят на събитията импортирани от файл или друг сайт. Уверете се, че промените са записани преди да започнете импортиране на събития."
 
 #: src/io/csv/admin-views/import.php:36
 msgid "Questions? %sWatch the video%s."
-msgstr ""
+msgstr "Имате въпроси? %sГледайте видеото%s."
 
 #: src/io/csv/admin-views/import.php:59
 msgid "Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file is UTF-8 encoded? Make sure to specify the character encoding when you save the file, or pass it through a %sconversion tool%s."
-msgstr ""
+msgstr "Качете правилно форматиран, кодиран в UTF-8 CSV файл. Не сте сигурни дали файлът ви е кодиран в UTF-8? Изберете правилната кодировка когато записвате файлът или го конвертирайте с %sтози инструмент%s."
 
 #: src/Tribe/Main.php:633
 msgid "<strong>Looking for more immediate support?</strong> We offer %s with the purchase of any of our premium plugins. Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays"
-msgstr ""
+msgstr "<strong>Нуждаете се от по-бърза техническа поддръжка?</strong> Предлагаме %s с поръчката на което и да е от нашите премиум разширения. Изберете лиценз и можете да пишете там, а ние гарантираме отговор в рамките на 24-48 часа (в работни дни)"
 
 #: src/Tribe/Main.php:637 vendor/tickets/src/Tribe/Main.php:344
 msgid "open-source forum on WordPress.org"
-msgstr ""
+msgstr "свободен форум на WordPress.org"
 
 #: src/Tribe/Main.php:638 vendor/tickets/src/Tribe/Main.php:345
 msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our %s. Our support staff monitors these forums once a week and would be happy to assist you there."
-msgstr ""
+msgstr "Ако сте опитали стъпките по-горе и все още имате проблем, можете да публикувате нова тема в нашият %s. Екипът ни преглежда тези форуми веднъж седмично и с радост ще ви помогне."
 
 #: src/Tribe/Main.php:642
 msgid "<strong>Looking for more immediate support?</strong> We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
-msgstr ""
+msgstr "<strong>Нуждаете се от по-бърза техническа поддръжка?</strong> Предлагаме %1$s с поръчката на което и да е от нашите премиум разширения (напр. %2$s). Изберете лиценз и можете да пишете там, а ние гарантираме отговор в рамките на 24-48 часа (в работни дни)."
 
 #: src/Tribe/Main.php:646 vendor/tickets/src/Tribe/Main.php:351
 #: vendor/tickets/src/Tribe/Main.php:356
@@ -885,15 +881,15 @@ msgstr "Напътствия за разработчици на теми"
 
 #: src/Tribe/Main.php:610
 msgid "%s: An overview of the default templates and styles that are included in the plugin, as well as how to change them."
-msgstr ""
+msgstr "%s: Преглед на шаблоните и стиловете по подразбиране, които са включени в разширението, както и информация как да ги промените."
 
 #: src/Tribe/Main.php:610
 msgid "Using stylesheets and page templates"
-msgstr ""
+msgstr "Използване на стилове и шаблони за страници"
 
 #: src/Tribe/Main.php:612
 msgid "%s: Do you see an issue with your calendar? Go here first to find where it’s coming from and how to fix it."
-msgstr ""
+msgstr "%s: Виждате проблем с календара си? Проверете тук от къде идва проблема и как да го решите."
 
 #: src/Tribe/Main.php:612 vendor/tickets/src/Tribe/Main.php:307
 msgid "Troubleshooting common problems"
@@ -901,57 +897,57 @@ msgstr "Отстраняване на често срещани проблеми
 
 #: src/Tribe/Main.php:614
 msgid "%s: Code and guides for customizing your calendar in useful and interesting ways."
-msgstr ""
+msgstr "%s: Код и напътствия за персонализиране на вашият календар, представени по удобен и интересен начин."
 
 #: src/Tribe/Main.php:614
 msgid "Customizing the Events plugins"
-msgstr ""
+msgstr "Персонализиране на разширенията за събития"
 
 #: src/Tribe/Main.php:629
 msgid "Events Tickets"
-msgstr ""
+msgstr "Events Tickets"
 
 #: src/Tribe/Main.php:630
 msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our WordPress.org forums for %1$s or %2$s. Our support staff monitors these forums once a week and would be happy to assist you there. "
-msgstr ""
+msgstr "Ако сте опитали стъпките по-горе и проблемът ви все още не е решен, можете да публикувате тема в нашите WordPress.org форуми за %1$s или %2$s. Нашият екип по поддръжката преглежда тези форуми веднъж в седмицата и с удоволствие ще ви асистира."
 
 #: src/Tribe/Main.php:632 src/Tribe/Main.php:640
 #: vendor/tickets/src/Tribe/Main.php:347
 msgid "premium support on our website"
-msgstr ""
+msgstr "премиум поддръжка на нашият сайт"
 
 #: src/Tribe/Importer/Admin_Page.php:80
 msgid "CSV Import Settings"
-msgstr ""
+msgstr "Настройки за CSV импорт"
 
 #: src/Tribe/Importer/Admin_Page.php:88
 msgid "Default status to use for imported events"
-msgstr ""
+msgstr "Статус по подразбиране, които да се използва за импортирани събития"
 
 #: src/Tribe/Importer/Admin_Page.php:130
 msgid "This Action has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: \"%s\" To: \"%s\""
-msgstr ""
+msgstr "Този Action вече не се поддържа, за да сме в съответствие със стандартите на WordPress, вече използваме Долни тирета (_) вместо тирета (-). От \"%s\" До: \"%s\""
 
 #: src/Tribe/Importer/Admin_Page.php:241 src/Tribe/Importer/Options.php:24
 #: src/Tribe/Importer/Options.php:84
 msgid "This Filter has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: \"%s\" To: \"%s\""
-msgstr ""
+msgstr "Това поле вече не се поддържа, сцел да сме в съответствие със стандартите на WordPress, вече използваме Долни тирета (_) вместо тирета (-). От \"%s\" До: \"%s\""
 
 #: src/Tribe/Main.php:588 vendor/tickets/src/Tribe/Main.php:325
 msgid "New User Primer"
-msgstr ""
+msgstr "Нов Наръчник за начинаещи"
 
 #: src/Tribe/Main.php:590
 msgid "We are committed to helping make your calendar spectacular and have a wealth of resources available, including a handy %s to get your calendar up and running."
-msgstr ""
+msgstr "Ние сме отдадени на това, да ви помогнем да направите своя календар неповторим и по тази причина предоставяме голямо количество ресурси, включително полезен %s, за да можете по-лесно да подготвите календара си."
 
 #: src/Tribe/Main.php:601
 msgid "Support for The Events Calendar"
-msgstr ""
+msgstr "Поддръжка на The Events Calendar"
 
 #: src/Tribe/Main.php:604
 msgid "%s: A thorough walkthrough of The Events Calendar and the settings that are available to you."
-msgstr ""
+msgstr "%s: Обстоен преклед на The Events Calendar и на наличните настройки."
 
 #: src/Tribe/Main.php:604 vendor/tickets/src/Tribe/Main.php:305
 msgid "Settings overview"
@@ -959,33 +955,33 @@ msgstr "Преглед на настройките"
 
 #: src/Tribe/Main.php:606
 msgid "%s: A complete look at the features you can expect to see right out of the box as well as how to use them."
-msgstr ""
+msgstr "%s: Пълен преглед на функциите, които да очаквате и информация как да ги използвате."
 
 #: src/Tribe/Main.php:606 vendor/tickets/src/Tribe/Main.php:306
 msgid "Features overview"
-msgstr ""
+msgstr "Преглед на функциите"
 
 #: src/Tribe/Main.php:608
 msgid "%s: Our most comprehensive outline for customizing the calendar to suit your needs, including custom layouts and styles."
-msgstr ""
+msgstr "%s: Нашето най-изчерпателно изложение на възможностите за персонализиране на календара, включително индивидуални шаблони и стилове."
 
 #: common/src/admin-views/tribe-options-help.php:35
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:35
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our premium forums, please copy and paste this information into the System Information field and it will help us help you faster!"
-msgstr ""
+msgstr "Детайлите около вашият календар и настройките му често са необходими на екипът ни, за да ви помогне с разрешаването на възникнал проблем. По тази причина може да ви поискаме тази информация. Ако пишете в един от нашите премиум форуми за поддръжка, моля копирайте и поставете тези данни в поле Системна информация. Това ще ни помогне да ви помогнем по-бързо."
 
 #: common/src/admin-views/tribe-options-licenses.php:27
 #: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:27
 msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
-msgstr ""
+msgstr "Само лицензионни полета за %1$sактивирани по мрежата%2$s разширения ще се показват в този списък."
 
 #: src/Tribe/Organizer.php:299
 msgid "Unnamed %s"
-msgstr ""
+msgstr "Неозаглавен %s"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:151
 msgid "Create New %s"
-msgstr ""
+msgstr "Създаване на нов %s"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:221
 msgid "Add another %s"
@@ -998,7 +994,7 @@ msgstr "Изчистване"
 #: common/src/admin-views/tribe-options-help.php:30
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:30
 msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums 😄"
-msgstr ""
+msgstr "Имате в предвид, че техническата поддръжка се изпълнява само чрез форума. Можете да ни пишете по email или в Twitter, но... вероятно отново ще ви помолим да се обърнете към форумите 😄"
 
 #: common/src/admin-views/tribe-options-help.php:31
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:31
@@ -1008,17 +1004,17 @@ msgstr "Прочетете повече за нашите правила за т
 #: common/src/admin-views/tribe-options-help.php:26
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:26
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the forums is open only to paid customers, they are open for anyone to search and review."
-msgstr ""
+msgstr "%s. Има твърде малко проблеми, с които да не сме запознати и е много вероятно друг потребител, които се е сблъскал с проблем, подобен на вашият, да е получил отговор от екипа ни. Писането във форумите е позволено само за потребители, притежаващи платен лиценз, но те са отворени за четене и търсене от всеки посетител."
 
 #: common/src/admin-views/tribe-options-help.php:26
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:26
 msgid "Search our support forum"
-msgstr ""
+msgstr "Търсене в нашият форум за поддръжка"
 
 #: common/src/admin-views/tribe-options-help.php:24
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:24
 msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
-msgstr ""
+msgstr "%s. Всички общи (и не толкова общи) отговори на въпроси са поместени тук. Това често е най-бързия начин да намерите търсения отговор!"
 
 #: common/src/admin-views/tribe-options-help.php:24
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:24
@@ -1028,17 +1024,17 @@ msgstr "Проверете нашата база от знания"
 #: common/src/admin-views/tribe-options-help.php:25
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:25
 msgid "%s. Testing for an existing conflict is the best start for in-depth troubleshooting. We will often ask you to follow these steps when opening a new thread, so doing this ahead of time will be super helpful."
-msgstr ""
+msgstr "%s. Тестването за наличие на конфликт е най-добрия начин да започнете отстраняването на възникнал проблем, Най-вероятно ще ви помолим да следвате тези стъпки при отварянето на нова тема, поради тази причина ще сме ви благодарни ако ги направите предварително."
 
 #: common/src/admin-views/tribe-options-help.php:25
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:25
 msgid "Test for a theme or plugin conflict"
-msgstr ""
+msgstr "Тест за конфликт с тема или разширение"
 
 #: common/src/admin-views/tribe-options-help.php:15
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:15
 msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
-msgstr ""
+msgstr "%s на нашия сайт е правилното място ако търсите съвети и трикове за използването и персонализирането на нашите разширения."
 
 #: common/src/admin-views/tribe-options-help.php:15
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:15
@@ -1048,32 +1044,32 @@ msgstr "База от знания"
 #: common/src/admin-views/tribe-options-help.php:16
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:16
 msgid "<strong>Want to dive deeper?</strong> Check out our %s for developers."
-msgstr ""
+msgstr "<strong>Искате да се гмурнете по-дълбоко?</strong> Проверете нашият %s за разработчици."
 
 #: common/src/admin-views/tribe-options-help.php:16
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:16
 msgid "list of available functions"
-msgstr ""
+msgstr "списък с всички налични функции"
 
 #: common/src/admin-views/tribe-options-help.php:19
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:19
 msgid "Getting More Help"
-msgstr ""
+msgstr "Получете повече помощ"
 
 #: common/src/admin-views/tribe-options-help.php:20
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:20
 msgid "While the resources above help solve a majority of the issues we see, there are times you might be looking for extra support. If you need assistance using our plugins and would like us to take a look, please follow these steps:"
-msgstr ""
+msgstr "Ресурсите по-горе ви помагат да разрешите по-голямата част от проблемите, с които може да се сблъскате, но има случаи, когато ще ви е необходима допълнителна помощ. Ако имате нужда от помощ при използването на нашите разширения и искате да разследваме вашият случай, моля да следвате тези стъпки:"
 
 #: common/src/admin-views/tribe-options-general.php:15
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:15
 msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
-msgstr ""
+msgstr "Оптимизирайте списъка със събития на вашият сайт с %1$sThe Events Calendar%2$s, нашето безплатно разширениеour. Ако търсите допълнителни функции, като напр. повтарящи се събития, регистрация на потребители, продажба на билети и други? Разгледайте нашите %3$sпремиум добавки%4$s."
 
 #: common/src/admin-views/tribe-options-help.php:11
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:11
 msgid "Thanks you for using %s! All of us at Modern Tribe sincerely appreciate your support and we’re excited to see you using our plugins."
-msgstr ""
+msgstr "Благодарим ви, че използвате %s! Всички в екипа на Modern Tribe приветстваме решението ви да използвате нашите разширения."
 
 #: common/src/admin-views/tribe-options-help.php:14
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:14
@@ -1108,26 +1104,26 @@ msgstr "Разширението не е активно"
 #: common/src/Tribe/Admin/Help_Page.php:849
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:849
 msgid "Visit the Add-on Page"
-msgstr ""
+msgstr "Посетете страницата с добавките"
 
 #: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:94
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:94
 msgid "<a href=\"%s\">edit Events settings</a>."
-msgstr ""
+msgstr "<a href=\"%s\">редакция на настройките за събития</a>."
 
 #: common/src/Tribe/PUE/Checker.php:437
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:437
 msgid "Thanks for setting up a valid key, it will expire on %s"
-msgstr ""
+msgstr "Благодарим ви, че въведохте валиден лиценз, той ще изтече на %s"
 
 #: src/admin-views/tribe-options-display.php:68
 msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
-msgstr ""
+msgstr "Въведете формата на дата и часа. Използва се при показване на дата в следваща година."
 
 #: common/src/admin-views/tribe-options-general.php:10
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:10
 msgid "Thank you for using Event Tickets! All of us at Modern Tribe sincerely appreciate your support and we're excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started."
-msgstr ""
+msgstr "Благодарим ви, че използвате Event Tickets! Целият екип на Modern Tribe приветства подкрепата ви и се вълнува да ви види на борда. Разгледайте нашият полезен %1$sНаръчник за новобранци%2$s преди да започнете."
 
 #: common/src/Tribe/Admin/Help_Page.php:775
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:775
@@ -1147,28 +1143,28 @@ msgstr "Включване на разширението"
 #: common/src/Tribe/Admin/Help_Page.php:52
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:52
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
-msgstr ""
+msgstr "The Events Calendar е създаден с внимание към детайла и възможност за добавяне на функции. С него можете лесно да споделяте събитията си."
 
 #: common/src/Tribe/Admin/Help_Page.php:64
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:64
 #: vendor/tickets/src/Tribe/Main.php:371
 msgid "Event Tickets"
-msgstr ""
+msgstr "Event Tickets"
 
 #: common/src/Tribe/Admin/Help_Page.php:68
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:68
 msgid "Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events."
-msgstr ""
+msgstr "Events Tickets е създаден с внимание към детайла и възможност за добавяне на функции. С него можете лесно да продавате билети за събитията си."
 
 #: common/src/Tribe/Admin/Help_Page.php:80
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:80
 msgid "Advanced Post Manager"
-msgstr ""
+msgstr "Advanced Post Manager"
 
 #: common/src/Tribe/Admin/Help_Page.php:84
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:84
 msgid "Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes."
-msgstr ""
+msgstr "Заредете се с допълнителни възможности за филтриране на публикации, добавяне или премахване на колони в таблицата със записите и др."
 
 #: common/src/Tribe/Admin/Help_Page.php:159
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:159
@@ -1181,30 +1177,30 @@ msgstr " и "
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:192
 #: vendor/tickets/common/src/Tribe/App_Shop.php:142
 msgid "Eventbrite Tickets"
-msgstr ""
+msgstr "Eventbrite билети"
 
 #: common/src/Tribe/Admin/Help_Page.php:208 common/src/Tribe/App_Shop.php:152
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:208
 #: vendor/tickets/common/src/Tribe/App_Shop.php:152
 msgid "Facebook Events"
-msgstr ""
+msgstr "Facebook събития"
 
 #: common/src/Tribe/Admin/Help_Page.php:216
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:216
 msgid "Events Filter Bar"
-msgstr ""
+msgstr "Лента с филтри за събития"
 
 #: common/src/Tribe/Admin/Help_Page.php:224 common/src/Tribe/App_Shop.php:132
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:224
 #: vendor/tickets/common/src/Tribe/App_Shop.php:132
 msgid "Event Tickets Plus"
-msgstr ""
+msgstr "Event Tickets Plus"
 
 #: common/src/Tribe/Admin/Help_Page.php:233 common/src/Tribe/App_Shop.php:125
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:233
 #: vendor/tickets/common/src/Tribe/App_Shop.php:125
 msgid "Community Tickets"
-msgstr ""
+msgstr "Community Tickets"
 
 #: common/src/Tribe/Admin/Help_Page.php:767
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:767
@@ -1213,7 +1209,7 @@ msgstr "Активирай %s"
 
 #: src/Tribe/Organizer.php:175
 msgid "organizers"
-msgstr ""
+msgstr "организатори"
 
 #: src/views/month/single-day.php:42
 msgid "View %1$s %2$s"
@@ -1336,7 +1332,7 @@ msgstr "Разполагате с най-новата версия!"
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:183
 #: vendor/tickets/common/src/Tribe/App_Shop.php:109
 msgid "Events Calendar PRO"
-msgstr ""
+msgstr "The Events Calendar PRO"
 
 #: common/src/admin-views/tribe-options-help.php:63
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:63
@@ -1373,12 +1369,12 @@ msgstr "Новини и упътвания"
 #: common/src/admin-views/tribe-options-licenses.php:13
 #: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:13
 msgid "<p>The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
-msgstr ""
+msgstr "<p>Лидензионния ключ, които сте получи при завършване на поръчката от %1$s ви дава достъп до техническа поддръжка и обновления до изтичането си. Не е необходимо да въвеждате ключа, за да работят разширенията ви, но ще трябва да го направите ако искате да получавате обновления автоматично. <strong>Ще откриете своите лицензионни ключове на <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Всяка платена добавка има свои уникален лицензионен ключ. Просто го поставете в съответното поле по-долу и изчакайте да бъде валидиран. Когато всичко е готово, ще видите датата на валидност, оцветена в зелено, заедно със съобщение \"валидно\".</p> <p>Ако виждате червено съобщение, което ви казва, че ключа не е валиден, посетете <a href=\"%4$s\" target=\"_blank\">%5$s</a> където можете да управлявате и подновявате лицензите си.</p><p>Не виждате налични обновления, но очаквате такива? В WordPress отидете в <a href=\"%6$s\">Табло > Обновления</a> и кликнете на \"Провери отново\".</p>"
 
 #: common/src/admin-views/tribe-options-licenses.php:18
 #: vendor/tickets/common/src/admin-views/tribe-options-licenses.php:18
 msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
-msgstr ""
+msgstr "%1$s Използвате нашите плъгини в мрежа от мулти-сайтове? %2$s Искаме да ви обърнем внимание, че вашия сериен номер ще бъде активиран за всички уебсайтове, не само за настоящия."
 
 #: common/src/admin-views/tribe-options-network.php:15
 #: vendor/tickets/common/src/admin-views/tribe-options-network.php:15
@@ -1397,15 +1393,15 @@ msgstr "Скрии тези табове с настройки на всяка �
 
 #: src/admin-views/tribe-options-timezones.php:7
 msgid "Enable timezone support"
-msgstr ""
+msgstr "Включване на поддръжката на часова зона"
 
 #: src/admin-views/tribe-options-timezones.php:9
 msgid "Update Timezone Data"
-msgstr ""
+msgstr "Обновяване на данните за часовата зона"
 
 #: src/admin-views/tribe-options-timezones.php:10
 msgid "Click this button to update your database and take advantage of additional timezone capabilities. Please <a href=\"%s\" target=\"_blank\">configure WordPress</a> to use the correct timezone before clicking this button!"
-msgstr ""
+msgstr "Кликнете на бутона, за да обновите базата с данни и да се възползвате от допълнителните възможности за часова зона. Моля, преди да натиснете бутона, <a href=\"%s\" target=\"_blank\">конфигурирайте WordPress</a> така, че да използва правилната часова зона."
 
 #: src/admin-views/tribe-options-timezones.php:30
 msgid "Timezone Settings"
@@ -1413,7 +1409,7 @@ msgstr "Настройки на часовата зона"
 
 #: src/admin-views/tribe-options-timezones.php:38
 msgid "Timezone mode"
-msgstr ""
+msgstr "Режим на часовата зона"
 
 #: src/admin-views/tribe-options-timezones.php:42
 msgid "Use the local timezones for each event"
@@ -1425,11 +1421,11 @@ msgstr "Навсякъде да се използва часовата зона 
 
 #: src/admin-views/tribe-options-timezones.php:48
 msgid "Show timezone"
-msgstr ""
+msgstr "Показване на часовата зона"
 
 #: src/admin-views/tribe-options-timezones.php:49
 msgid "Appends the timezone to the end of event scheduling information &ndash; this can be useful when you have events in numerous different timezones."
-msgstr ""
+msgstr "Добавя часовата зона в края на полето за избор на дата и час &ndash; това може да е полезно, когато имате събития в различни часови зони."
 
 #: src/admin-views/create-venue-fields.php:12
 #: src/admin-views/venue-meta-box.php:41
@@ -1516,30 +1512,30 @@ msgid "Category"
 msgstr "Категория"
 
 #. translators: %s is the singular translation of "Event"
-#: src/functions/template-tags/general.php:379
+#: src/functions/template-tags/general.php:406
 msgctxt "category list label"
 msgid "%s Category"
 msgid_plural "%s Categories"
 msgstr[0] "Категория за %s"
 msgstr[1] "Категории за %s"
 
-#: src/functions/template-tags/general.php:418
+#: src/functions/template-tags/general.php:445
 msgid "Tags:"
 msgstr "Етикети:"
 
-#: src/functions/template-tags/general.php:530
+#: src/functions/template-tags/general.php:557
 msgid "Loading %s"
 msgstr "Зарежда %s"
 
-#: src/functions/template-tags/general.php:1088
+#: src/functions/template-tags/general.php:1115
 msgid "Find out more »"
 msgstr "Вижте повече..."
 
-#: src/functions/template-tags/general.php:1089
+#: src/functions/template-tags/general.php:1116
 msgid "%s for"
 msgstr "%s за"
 
-#: src/functions/template-tags/general.php:1209
+#: src/functions/template-tags/general.php:1236
 msgid "Calendar powered by %sThe Events Calendar%s"
 msgstr "Календара използва %sThe Events Calendar%s"
 
@@ -1574,7 +1570,7 @@ msgstr "В момента адреса на календара е %s"
 
 #: src/functions/template-tags/options.php:29
 msgid "You %1$scannot%2$s use the same slug as above. The above should ideally be plural, and this singular.%3$sYour single Event URL is like: %4$s"
-msgstr ""
+msgstr "%1$sНе можете%2$s да използвате същия адрес като горния. Обикновено горния е в множествено число, а този в единствено.%3$sURL адреса на отделно събитие е: %4$s"
 
 #: src/io/csv/admin-views/columns.php:22
 msgid "Column Mapping: %s"
@@ -1767,7 +1763,7 @@ msgstr "Няма предстоящи %s за момента."
 
 #. Description of the plugin/theme
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
-msgstr ""
+msgstr "The Events Calendar е разширение създадено с внимание към детайла и с възможност за добавяне на нови функции, което ви позволява лесно да споделяте събитията си. Красив. Стабилен. Страхотен."
 
 #. Author of the plugin/theme
 msgid "Modern Tribe, Inc."
@@ -2414,7 +2410,7 @@ msgstr "Използвате версия %s и заслужавате прег�
 
 #: src/admin-views/admin-update-message.php:33
 msgid "Every time you rate %s5 stars%s, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice."
-msgstr ""
+msgstr "Всеки път, когато давате оценка %s5 звезди%s, се ражда приказка. Е, може би не съвсем, но колкото повече потребители имаме, толкова повече помощни материали във форума. Общността има нужда от вашия глас."
 
 #: src/admin-views/admin-update-message.php:34
 #: src/admin-views/admin-welcome-message.php:22
@@ -2967,7 +2963,7 @@ msgstr "Точно тук"
 #: common/src/admin-views/tribe-options-general.php:20
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:20
 msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
-msgstr "Нуждаете се от допълнителна функционалност, като например повтарящи се събития, персонализирана metadata, продажба на билети и др.?"
+msgstr "Нуждаете се от допълнителна функционалност, като например повтарящи се събития, персонализирани метаданни, продажба на билети и др.?"
 
 #: common/src/admin-views/tribe-options-general.php:20
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:20
@@ -2982,7 +2978,7 @@ msgstr "Надяваме се, че нашият плъгин ви е в пом�
 #: common/src/admin-views/tribe-options-general.php:30
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:30
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
-msgstr "Мислите ли си \"Уха, този plugin е невероятен! Трябва да благодаря на Modern Tribe за усърдната им работа.\"? Най-добрия начин да ни благодарите е да поставите малък текстов линк под календара, който води към страницата на проекта."
+msgstr "Мислите ли си \"Уау, това разширение е невероятно! Трябва да благодаря на Modern Tribe за усърдната им работа!\"? Най-добрия начин да ни благодарите е да поставите малък текстов линк под календара, който води към страницата на проекта."
 
 #: common/src/admin-views/tribe-options-general.php:30
 #: common/src/admin-views/tribe-options-general.php:35
@@ -2994,7 +2990,7 @@ msgstr "Преглед на примерен линк"
 #: common/src/admin-views/tribe-options-general.php:35
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:35
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project."
-msgstr "Мислите ли си \"Уха, този plugin е невероятен! Трябва да благодаря на Modern Tribe за усърдната им работа.\"? Най-добрия начин да ни благодарите е да поставите малък текстов линк под календара, който води към страницата на проекта."
+msgstr "Мислите ли си \"Уау, това разширение е невероятно, трябва да благодаря на Modern Tribe за усърдната им работа!\"? Най-добрия начин да ни благодарите е да поставите малък текстов линк под календара, който води към страницата на проекта."
 
 #: common/src/admin-views/tribe-options-general.php:40
 #: vendor/tickets/common/src/admin-views/tribe-options-general.php:40
@@ -3044,7 +3040,7 @@ msgstr "URL за събития"
 
 #: src/admin-views/tribe-options-general.php:68
 msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%1$s\">%2$s</a>. In order to edit the slug here, <a href=\"%3$soptions-permalink.php\">enable pretty permalinks</a>."
-msgstr ""
+msgstr "Не можете да промените пътя към своята страница със събития, тъй като не сте активирали функцията \"pretty permalinks\". В момента адреса на вашата страница със събития е <a href=\"%1$s\">%2$s</a>. За да промените пътя тук, <a href=\"%3$soptions-permalink.php\">включете \"pretty permalinks\"</a>."
 
 #: src/admin-views/tribe-options-general.php:80
 #: src/functions/template-tags/options.php:20
@@ -3176,7 +3172,7 @@ msgstr "Валиден сериен номер. Изтича на %s"
 #: common/src/Tribe/PUE/Checker.php:445
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:445
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
-msgstr ""
+msgstr "Хмм... нещо с този валидатор се обърка. Моля, свържете се с %sподдръжката%s."
 
 #: common/src/Tribe/Settings.php:216 common/src/Tribe/Settings.php:236
 #: vendor/tickets/common/src/Tribe/Settings.php:216
@@ -3241,13 +3237,14 @@ msgstr "Все още няма настройка на полета за тоз�
 msgid "System Information"
 msgstr "Системна информация"
 
-#: common/src/Tribe/Support.php:137
-#: vendor/tickets/common/src/Tribe/Support.php:137
+#: common/src/Tribe/Support.php:176 common/src/Tribe/Support.php:177
+#: vendor/tickets/common/src/Tribe/Support.php:176
+#: vendor/tickets/common/src/Tribe/Support.php:177
 msgid "Unknown or not set"
 msgstr "Неизвестно или не е зададено"
 
-#: common/src/Tribe/Support.php:144
-#: vendor/tickets/common/src/Tribe/Support.php:144
+#: common/src/Tribe/Support.php:187
+#: vendor/tickets/common/src/Tribe/Support.php:187
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr "Правилата за пренаписване бяха изчистени при зареждането на тази помощна страница. Съществува вероятност за нулиране на правилата за пренаписване при плъгини или теми."
 
@@ -3261,11 +3258,11 @@ msgstr "В момента"
 
 #: src/Tribe/Template/Day.php:134
 msgid "No matching %1$s listed under %2$s scheduled for %3$s. Please try another day."
-msgstr ""
+msgstr "Няма съвпадащи %1$s в %2$s планирани за %3$s. Моля, опитайте с друг ден."
 
 #: src/Tribe/Template/Month.php:357
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
-msgstr ""
+msgstr "Няма съвпадащи %1$s в %2$s. Моля, прегледайте канедара за пълен списък със събития."
 
 #: src/Tribe/Template/Month.php:359 src/Tribe/Template_Factory.php:307
 msgid "There were no results found."
@@ -3275,17 +3272,17 @@ msgstr "Не са открити събития."
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Заявената дата \"%s\" е невалидна &ndash; вместо това показваме текущия месец"
 
-#: src/Tribe/Template/Embed.php:59 src/Tribe/Template/Single_Event.php:113
+#: src/Tribe/Template/Embed.php:59 src/Tribe/Template/Single_Event.php:107
 msgid "This %s has passed."
-msgstr "Това %s е минало."
+msgstr "Това %s е минало събитие."
 
 #: src/Tribe/Template_Factory.php:298
 msgid "No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar."
-msgstr ""
+msgstr "Няма предстиящо %1$s в %2$s. Проверете предстоящите %3$s в тази категория или прегледайте пълния календар."
 
 #: src/Tribe/Template_Factory.php:300 src/Tribe/Template_Factory.php:305
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s."
-msgstr ""
+msgstr "Няма съвпадащо %1$s в %2$s. Моля, прегледайте календара за пълен списък с/със %3$s."
 
 #: src/Tribe/Template_Factory.php:302
 msgid "No previous %s "
@@ -4440,12 +4437,12 @@ msgstr "Благодарим, че актуализирахте The Events Calen
 #: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:88
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:88
 msgid "<a href=\"%s\">Edit the page slug</a>"
-msgstr ""
+msgstr "<a href=\"%s\">Редактиране на адреса на страницата</a>"
 
 #: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:89
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:89
 msgid "Ask the site administrator to edit the page slug"
-msgstr ""
+msgstr "Помолете администратора на сайта да промени адреса на страницата"
 
 #: common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:95
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:95
@@ -4466,11 +4463,11 @@ msgstr "Редактиране на %s"
 
 #: src/Tribe/Admin/Timezone_Updater.php:77
 msgid "Please wait while timezone data is added to your events."
-msgstr ""
+msgstr "Моля изчакайте часовата зона бъде добавена в събитията ви."
 
 #: src/Tribe/Admin/Timezone_Updater.php:78
 msgid "Update complete: timezone data has been added to all events in the database."
-msgstr ""
+msgstr "Обновяването приключи: в базата данни е добацена информация за часовата зона на всички събития."
 
 #: src/Tribe/Admin/Timezone_Updater.php:87
 msgid "%d%% complete"
@@ -4478,7 +4475,7 @@ msgstr "%d%% завършено"
 
 #: src/Tribe/Admin/Timezone_Updater.php:105
 msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
-msgstr ""
+msgstr "Проблем прекрати процеса по добавяне на часовата зона. Моля, презаредете страницата и опитайте отново."
 
 #: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1492
 msgid "%s Categories"
@@ -4577,7 +4574,7 @@ msgstr "Операцията НЕ бе успешна. Моля, опитайт�
 
 #: src/Tribe/Importer/Admin_Page.php:349
 msgid "The following fields are required for a successful import:"
-msgstr ""
+msgstr "Следните полета са задължителни за успешен импорт:"
 
 #: src/Tribe/Importer/Column_Mapper.php:43
 msgid "Do Not Import"
@@ -4629,11 +4626,11 @@ msgstr "Стойност на събитието"
 
 #: src/Tribe/Importer/Column_Mapper.php:78
 msgid "Event Currency Symbol"
-msgstr ""
+msgstr "Символ за валута на събитие"
 
 #: src/Tribe/Importer/Column_Mapper.php:79
 msgid "Event Currency Position"
-msgstr ""
+msgstr "Позиция на символа за валута"
 
 #: src/Tribe/Importer/Column_Mapper.php:80
 msgid "Event Category"
@@ -4779,7 +4776,7 @@ msgstr "Събития"
 msgid "Event"
 msgstr "Събитие"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.5) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.6) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:628
@@ -4822,7 +4819,7 @@ msgstr "Версията на вашия The Events Calendar е по-стара 
 
 #: src/Tribe/Main.php:909
 msgid "The following plugins are out of date: %1$s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %2$sLearn More%3$s."
-msgstr ""
+msgstr "Следните plugin-и са стари версии: %1$s. Всички добавки съдържат зависимости от The Events Calendar и няма да функционират изправно освен ако не са в комбинация с подходящата версия. %2$sНаучете повече%3$s."
 
 #: common/src/Tribe/Settings_Manager.php:56
 #: vendor/tickets/common/src/Tribe/Settings_Manager.php:56

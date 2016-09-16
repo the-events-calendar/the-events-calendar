@@ -100,10 +100,23 @@ tribe_aggregator.fields = {
 			.on( 'click'      , obj.selector.view_filters              , obj.events.toggle_view_filters )
 			.on( 'blur'       , obj.selector.datepicker                , obj.date_helper )
 			.on( 'submit'     , obj.selector.tab_new                   , obj.events.suppress_submission )
-			.on( 'change'     , obj.selector.import_type_field         , obj.reset_preview )
+			.on( 'change'     , obj.selector.import_type_field         , function() {
+				// Resets the Preview
+				obj.reset_preview()
+
+				// Every time you change Type of import we reset the frequency field
+				var $this = $( this ),
+				    $frequency = $( this ).next( obj.selector.fields );
+
+				$frequency.select2( 'val', ( 'schedule' === $this.val() ? 'daily' : '' ) ).change();
+			} )
 			.on( 'change'     , obj.selector.origin_field              , function() {
 				obj.$.form.attr( 'data-origin', $( this ).val() );
 				obj.reset_preview();
+
+				// reset all bumpdowns
+				$( '.tribe-bumpdown-active' ).removeClass( 'tribe-bumpdown-active' );
+				$( '.tribe-bumpdown:visible' ).hide();
 
 				// reset all the select2 fields other than the origin
 				$( '.tribe-ea-tab-new .tribe-ea-dropdown:not([id$="tribe-ea-field-origin"])' ).select2( 'val', '' ).change();

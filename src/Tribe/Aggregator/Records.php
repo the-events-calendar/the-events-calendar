@@ -137,6 +137,7 @@ class Tribe__Events__Aggregator__Records {
 			'map_meta_cap'       => true,
 			'has_archive'        => false,
 			'hierarchical'       => false,
+			'show_in_nav_menus'  => false,
 			'menu_position'      => null,
 			'supports'           => array(),
 		);

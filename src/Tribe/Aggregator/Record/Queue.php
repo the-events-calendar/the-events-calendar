@@ -9,29 +9,33 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 	public $record;
 
-	protected $fetching = false;
+	protected $is_fetching = true;
 	protected $importer;
 
 	/**
 	 * Holds a Log of what has been done on This Queue
+	 *
 	 * @var Tribe__Events__Aggregator__Record__Activity
 	 */
 	public $activity = null;
 
 	/**
 	 * Holds the Items that will be processed
+	 *
 	 * @var array
 	 */
 	public $items = array();
 
 	/**
 	 * Holds the Items that will be processed next
+	 *
 	 * @var array
 	 */
 	public $next = array();
 
 	/**
 	 * How many items are going to be processed
+	 *
 	 * @var int
 	 */
 	public $total = 0;
@@ -41,7 +45,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
 		}
 
-		if ( ! in_array( 'Tribe__Events__Aggregator__Record__Abstract', class_parents( $record ) ) ){
+		if ( ! in_array( 'Tribe__Events__Aggregator__Record__Abstract', class_parents( $record ) ) ) {
 			return false;
 		}
 
@@ -69,9 +73,13 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 		// Prevent it going any further
 		if ( is_wp_error( $items ) ) {
-			return $items;
+			return $this;
 		}
 
+		// If we got Here it means we have items
+		$this->is_fetching = false;
+
+		// Store the items retrieved
 		$this->items = $items;
 
 		// Count the Total of items now and stores as the total
@@ -79,7 +87,17 @@ class Tribe__Events__Aggregator__Record__Queue {
 	}
 
 	/**
+	 * Allows us to check if the Events Data has still pending
+	 *
+	 * @return boolean
+	 */
+	public function is_fetching() {
+		return $this->is_fetching;
+	}
+
+	/**
 	 * Shortcut to check how many items are going to be processed next
+	 *
 	 * @return int
 	 */
 	public function count() {
@@ -88,6 +106,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 	/**
 	 * Shortcut to check if this queue is empty
+	 *
 	 * @return boolean
 	 */
 	public function is_empty() {
@@ -109,14 +128,13 @@ class Tribe__Events__Aggregator__Record__Queue {
 		}
 
 		// If we have a parent also update that
-		if ( ! empty( $this->post->post_parent ) ) {
-			$parent = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->post->post_parent );
+		if ( ! empty( $this->record->post->post_parent ) ) {
+			$parent = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->record->post->post_parent );
 			if ( isset( $parent->meta[ self::$activity_key ] ) ) {
 				$activity = $parent->meta[ self::$activity_key ];
 
 				if ( $activity instanceof Tribe__Events__Aggregator__Record__Activity ) {
-					$parent->activity = $activity->merge( $this->activity );
-					$parent->record->update_meta( self::$activity_key, $parent->activity );
+					$parent->update_meta( self::$activity_key, $activity->merge( $this->activity ) );
 				}
 			}
 		}
@@ -142,6 +160,10 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * @return self
 	 */
 	public function process( $batch_size = null ) {
+		if ( $this->is_fetching() ) {
+			return tribe_error( 'core:aggregator:queue-pending-events' );
+		}
+
 		// Every time we are about to process we reset the next var
 		$this->next = array();
 
