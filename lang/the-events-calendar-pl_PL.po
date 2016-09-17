@@ -150,11 +150,11 @@ msgstr ""
 
 #: common/src/Tribe/Log.php:310 vendor/tickets/common/src/Tribe/Log.php:310
 msgid "Only errors"
-msgstr ""
+msgstr "Tylko błędy"
 
 #: common/src/Tribe/Log.php:311 vendor/tickets/common/src/Tribe/Log.php:311
 msgid "Warnings and errors"
-msgstr ""
+msgstr "Ostrzeżenia i błędy"
 
 #: common/src/Tribe/Log.php:312 vendor/tickets/common/src/Tribe/Log.php:312
 msgid "Full debug (all events)"
@@ -208,7 +208,7 @@ msgstr ""
 
 #: src/Tribe/Google/Maps_API_Key.php:59
 msgid "Click here"
-msgstr ""
+msgstr "Kliknij tutaj"
 
 #: src/Tribe/Importer/Admin_Page.php:95
 msgid "Default encoding for imported csv file"
@@ -220,7 +220,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:69
 msgid "Event Timezone"
-msgstr ""
+msgstr "Strefa czasowa wydarzenia"
 
 #: src/Tribe/Importer/Column_Mapper.php:71
 msgid "Hide Event From Event Listings"
@@ -429,7 +429,7 @@ msgstr "Nazwa klienta"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:293
 msgid "Customer Email Address"
-msgstr ""
+msgstr "Adres e-mail klienta"
 
 #: vendor/tickets/src/views/tickets/rsvp.php:138
 msgid "Don't list me on the public attendee list"
@@ -839,11 +839,11 @@ msgstr ""
 
 #: src/functions/template-tags/day.php:106
 msgid "Previous Day"
-msgstr ""
+msgstr "Poprzedni dzień"
 
 #: src/functions/template-tags/day.php:108
 msgid "Next Day"
-msgstr ""
+msgstr "Następny dzień"
 
 #: src/io/csv/admin-views/general.php:12
 msgid "The settings below will impact events imported from files and other websites. Be sure to save your changes before starting to import events."
