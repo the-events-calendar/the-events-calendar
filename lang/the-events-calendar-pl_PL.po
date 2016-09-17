@@ -13,7 +13,7 @@ msgstr ""
 #: common/src/Tribe/Support.php:159
 #: vendor/tickets/common/src/Tribe/Support.php:159
 msgid "English"
-msgstr ""
+msgstr "Angielski"
 
 #: vendor/tickets/src/Tribe/Metabox.php:100
 msgid "Please enter in without thousand separators and currency symbols."
@@ -150,11 +150,11 @@ msgstr ""
 
 #: common/src/Tribe/Log.php:310 vendor/tickets/common/src/Tribe/Log.php:310
 msgid "Only errors"
-msgstr ""
+msgstr "Tylko błędy"
 
 #: common/src/Tribe/Log.php:311 vendor/tickets/common/src/Tribe/Log.php:311
 msgid "Warnings and errors"
-msgstr ""
+msgstr "Ostrzeżenia i błędy"
 
 #: common/src/Tribe/Log.php:312 vendor/tickets/common/src/Tribe/Log.php:312
 msgid "Full debug (all events)"
@@ -208,7 +208,7 @@ msgstr ""
 
 #: src/Tribe/Google/Maps_API_Key.php:59
 msgid "Click here"
-msgstr ""
+msgstr "Kliknij tutaj"
 
 #: src/Tribe/Importer/Admin_Page.php:95
 msgid "Default encoding for imported csv file"
@@ -220,7 +220,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:69
 msgid "Event Timezone"
-msgstr ""
+msgstr "Strefa czasowa wydarzenia"
 
 #: src/Tribe/Importer/Column_Mapper.php:71
 msgid "Hide Event From Event Listings"
@@ -429,7 +429,7 @@ msgstr "Nazwa klienta"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:293
 msgid "Customer Email Address"
-msgstr ""
+msgstr "Adres e-mail klienta"
 
 #: vendor/tickets/src/views/tickets/rsvp.php:138
 msgid "Don't list me on the public attendee list"
@@ -839,11 +839,11 @@ msgstr ""
 
 #: src/functions/template-tags/day.php:106
 msgid "Previous Day"
-msgstr ""
+msgstr "Poprzedni dzień"
 
 #: src/functions/template-tags/day.php:108
 msgid "Next Day"
-msgstr ""
+msgstr "Następny dzień"
 
 #: src/io/csv/admin-views/general.php:12
 msgid "The settings below will impact events imported from files and other websites. Be sure to save your changes before starting to import events."
@@ -3548,12 +3548,12 @@ msgstr "Wybierz kraj:"
 #: common/src/Tribe/View_Helpers.php:47
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:47
 msgid "Afghanistan"
-msgstr ""
+msgstr "Afganistan"
 
 #: common/src/Tribe/View_Helpers.php:48
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:48
 msgid "Albania"
-msgstr ""
+msgstr "Albania"
 
 #: common/src/Tribe/View_Helpers.php:49
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:49
@@ -3593,7 +3593,7 @@ msgstr ""
 #: common/src/Tribe/View_Helpers.php:56
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:56
 msgid "Argentina"
-msgstr ""
+msgstr "Argentyna"
 
 #: common/src/Tribe/View_Helpers.php:57
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:57
@@ -3608,7 +3608,7 @@ msgstr ""
 #: common/src/Tribe/View_Helpers.php:59
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:59
 msgid "Australia"
-msgstr ""
+msgstr "Australia"
 
 #: common/src/Tribe/View_Helpers.php:60
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:60
@@ -3643,12 +3643,12 @@ msgstr ""
 #: common/src/Tribe/View_Helpers.php:66
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:66
 msgid "Belarus"
-msgstr ""
+msgstr "Białoruś"
 
 #: common/src/Tribe/View_Helpers.php:67
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:67
 msgid "Belgium"
-msgstr ""
+msgstr "Belgia"
 
 #: common/src/Tribe/View_Helpers.php:68
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:68
@@ -3673,7 +3673,7 @@ msgstr ""
 #: common/src/Tribe/View_Helpers.php:72
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:72
 msgid "Bolivia"
-msgstr ""
+msgstr "Boliwia"
 
 #: common/src/Tribe/View_Helpers.php:73
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:73
@@ -3693,7 +3693,7 @@ msgstr ""
 #: common/src/Tribe/View_Helpers.php:76
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:76
 msgid "Brazil"
-msgstr ""
+msgstr "Brazylia"
 
 #: common/src/Tribe/View_Helpers.php:77
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:77
@@ -3708,7 +3708,7 @@ msgstr ""
 #: common/src/Tribe/View_Helpers.php:79
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:79
 msgid "Bulgaria"
-msgstr ""
+msgstr "Bułgaria"
 
 #: common/src/Tribe/View_Helpers.php:80
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:80
@@ -3733,7 +3733,7 @@ msgstr ""
 #: common/src/Tribe/View_Helpers.php:84
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:84
 msgid "Canada"
-msgstr ""
+msgstr "Kanada"
 
 #: common/src/Tribe/View_Helpers.php:85
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:85
@@ -3748,22 +3748,22 @@ msgstr ""
 #: common/src/Tribe/View_Helpers.php:87
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:87
 msgid "Central African Republic"
-msgstr ""
+msgstr "Republika Środkowoafrykańska"
 
 #: common/src/Tribe/View_Helpers.php:88
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:88
 msgid "Chad"
-msgstr ""
+msgstr "Czad"
 
 #: common/src/Tribe/View_Helpers.php:89
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:89
 msgid "Chile"
-msgstr ""
+msgstr "Chile"
 
 #: common/src/Tribe/View_Helpers.php:90
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:90
 msgid "China"
-msgstr ""
+msgstr "Chiny"
 
 #: common/src/Tribe/View_Helpers.php:91
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:91
@@ -3778,7 +3778,7 @@ msgstr ""
 #: common/src/Tribe/View_Helpers.php:93
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:93
 msgid "Colombia"
-msgstr ""
+msgstr "Kolumbia"
 
 #: common/src/Tribe/View_Helpers.php:94
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:94
@@ -3818,22 +3818,22 @@ msgstr ""
 #: common/src/Tribe/View_Helpers.php:101
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:101
 msgid "Cuba"
-msgstr ""
+msgstr "Kuba"
 
 #: common/src/Tribe/View_Helpers.php:102
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:102
 msgid "Cyprus"
-msgstr ""
+msgstr "Cypr"
 
 #: common/src/Tribe/View_Helpers.php:103
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:103
 msgid "Czech Republic"
-msgstr ""
+msgstr "Czechy"
 
 #: common/src/Tribe/View_Helpers.php:104
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:104
 msgid "Denmark"
-msgstr ""
+msgstr "Dania"
 
 #: common/src/Tribe/View_Helpers.php:105
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:105
@@ -3883,7 +3883,7 @@ msgstr ""
 #: common/src/Tribe/View_Helpers.php:114
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:114
 msgid "Estonia"
-msgstr ""
+msgstr "Estonia"
 
 #: common/src/Tribe/View_Helpers.php:115
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:115
@@ -3908,7 +3908,7 @@ msgstr ""
 #: common/src/Tribe/View_Helpers.php:119
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:119
 msgid "Finland"
-msgstr ""
+msgstr "Finlandia"
 
 #: common/src/Tribe/View_Helpers.php:120
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:120
@@ -4465,7 +4465,7 @@ msgstr ""
 #: src/Tribe/Main.php:1646 src/Tribe/Main.php:1712 src/Tribe/Organizer.php:71
 #: src/Tribe/Venue.php:77
 msgid "Edit %s"
-msgstr ""
+msgstr "Edytuj %s"
 
 #: src/Tribe/Admin/Timezone_Updater.php:77
 msgid "Please wait while timezone data is added to your events."
@@ -4473,7 +4473,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Timezone_Updater.php:78
 msgid "Update complete: timezone data has been added to all events in the database."
-msgstr ""
+msgstr "Aktualizacja zakończona: dane strefy czasowej zostały dodane do wszystkich wydarzeń w bazie danych"
 
 #: src/Tribe/Admin/Timezone_Updater.php:87
 msgid "%d%% complete"
@@ -4628,7 +4628,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:77
 msgid "Event Cost"
-msgstr ""
+msgstr "Koszt wydarzenia"
 
 #: src/Tribe/Importer/Column_Mapper.php:78
 msgid "Event Currency Symbol"
@@ -4644,11 +4644,11 @@ msgstr "Kategoria wydarzenia"
 
 #: src/Tribe/Importer/Column_Mapper.php:81
 msgid "Event Tags"
-msgstr ""
+msgstr "Tagi wydarzenia"
 
 #: src/Tribe/Importer/Column_Mapper.php:82
 msgid "Event Website"
-msgstr ""
+msgstr "Strona internetowa wydarzenia"
 
 #: src/Tribe/Importer/Column_Mapper.php:98
 msgid "Venue Name"
@@ -4692,15 +4692,15 @@ msgstr "Nazwa organizatora"
 
 #: src/Tribe/Importer/Column_Mapper.php:123
 msgid "Organizer Email"
-msgstr ""
+msgstr "E-mail organizatora"
 
 #: src/Tribe/Importer/Column_Mapper.php:124
 msgid "Organizer Website"
-msgstr ""
+msgstr "Strona internetowa organizatora"
 
 #: src/Tribe/Importer/Column_Mapper.php:125
 msgid "Organizer Phone"
-msgstr ""
+msgstr "Telefon organizatora"
 
 #: src/Tribe/Importer/File_Importer.php:53
 msgid "No importer defined for %s"
@@ -4741,7 +4741,7 @@ msgstr "Widget wyświetla nadchodzące wydarzenia."
 
 #: src/Tribe/List_Widget.php:38
 msgid "Events List"
-msgstr ""
+msgstr "Lista wydarzeń"
 
 #: src/Tribe/List_Widget.php:186
 msgid "Upcoming Events"
@@ -4903,7 +4903,7 @@ msgstr "Wyszukaj %s kategorie"
 
 #: src/Tribe/Main.php:1495
 msgid "All %s Categories"
-msgstr ""
+msgstr "Wszystkie %s kategorie"
 
 #: src/Tribe/Main.php:1496
 msgid "Parent %s Category"
@@ -4915,15 +4915,15 @@ msgstr ""
 
 #: src/Tribe/Main.php:1498
 msgid "Edit %s Category"
-msgstr ""
+msgstr "Edytuj kategorię %s"
 
 #: src/Tribe/Main.php:1499
 msgid "Update %s Category"
-msgstr ""
+msgstr "Zaktualizuj kategorię %s"
 
 #: src/Tribe/Main.php:1500
 msgid "Add New %s Category"
-msgstr ""
+msgstr "Dodaj nową kategorię %s"
 
 #: src/Tribe/Main.php:1501
 msgid "New %s Category Name"
@@ -5013,19 +5013,19 @@ msgstr "Sieć"
 
 #: src/Tribe/Main.php:2276
 msgid "page"
-msgstr ""
+msgstr "strona"
 
 #: src/Tribe/Main.php:2277 src/functions/template-tags/general.php:69
 msgid "event"
-msgstr ""
+msgstr "wydarzenie"
 
 #: src/Tribe/Main.php:2278 src/functions/template-tags/general.php:91
 msgid "events"
-msgstr ""
+msgstr "wydarzenia"
 
 #: src/Tribe/Main.php:2279
 msgid "all"
-msgstr ""
+msgstr "wszystkie"
 
 #: src/Tribe/Main.php:3418 src/Tribe/Main.php:3453
 #: src/functions/template-tags/day.php:157
