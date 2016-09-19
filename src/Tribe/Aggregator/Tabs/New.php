@@ -44,6 +44,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_media' ) );
 
 		add_action( 'tribe_aggregator_page_request', array( $this, 'handle_submit' ) );
+		add_action( 'tribe_aggregator_page_request', array( $this, 'handle_facebook_credentials' ) );
 
 		// hooked at priority 9 to ensure that notices are injected before notices get hooked in Tribe__Admin__Notices
 		add_action( 'current_screen', array( $this, 'maybe_display_notices' ), 9 );
@@ -81,13 +82,6 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_submit() {
-		/**
-		 *
-		 */
-		if ( isset( $_GET['ea-fb-token'] ) ) {
-			return $this->handle_facebook_credentials();
-		}
-
 		if ( empty( $_POST['aggregator']['action'] ) || 'new' !== $_POST['aggregator']['action'] ) {
 			return;
 		}
@@ -124,6 +118,9 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_facebook_credentials() {
+		/**
+		 * Verify that we are dealing with a FB token Request
+		 */
 		if ( ! isset( $_GET['ea-fb-token'] ) ) {
 			return false;
 		}
