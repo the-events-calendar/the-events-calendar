@@ -44,6 +44,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_media' ) );
 
 		add_action( 'tribe_aggregator_page_request', array( $this, 'handle_submit' ) );
+		add_action( 'tribe_aggregator_page_request', array( $this, 'handle_facebook_credentials' ) );
 
 		// hooked at priority 9 to ensure that notices are injected before notices get hooked in Tribe__Admin__Notices
 		add_action( 'current_screen', array( $this, 'maybe_display_notices' ), 9 );
@@ -81,10 +82,6 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_submit() {
-		if ( ! empty( $_POST['ea-facebook-credentials'] ) ) {
-			return $this->handle_facebook_credentials();
-		}
-
 		if ( empty( $_POST['aggregator']['action'] ) || 'new' !== $_POST['aggregator']['action'] ) {
 			return;
 		}
@@ -122,16 +119,19 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 	public function handle_facebook_credentials() {
 		/**
-		 * @todo  include a way to handle errors on the Send back URL
+		 * Verify that we are dealing with a FB token Request
 		 */
-
-		if ( empty( $_POST['aggregator'] ) ) {
+		if ( ! isset( $_GET['ea-fb-token'] ) ) {
 			return false;
 		}
-		$data = (object) $_POST['aggregator'];
-		$api = Tribe__Events__Aggregator__Service::instance()->api();
 
+		/**
+		 * @todo  include a way to handle errors on the Send back URL
+		 */
+		$api      = Tribe__Events__Aggregator__Service::instance()->api();
 		$response = Tribe__Events__Aggregator__Service::instance()->get_facebook_token();
+		$type     = $_GET['ea-fb-token'];
+
 		if ( is_wp_error( $response ) ) {
 			return false;
 		}
@@ -144,19 +144,26 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return false;
 		}
 
+		$url_map = array(
+			'new'      => Tribe__Events__Aggregator__Page::instance()->get_url( array( 'tab' => $this->get_slug(), 'ea-auth' => 'facebook' ) ),
+			'settings' => Tribe__Settings::instance()->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) ),
+		);
+
+		if ( ! isset( $url_map[ $type ] ) ) {
+			return false;
+		}
+
+		// Calculate when will this Token Expire
 		$expires = absint( trim( preg_replace( '/[^0-9]/', '', $response->data->expires ) ) );
 		$expires += time();
+
+		// Save the Options
 		tribe_update_option( 'fb_token', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $response->data->token ) ) );
 		tribe_update_option( 'fb_token_expires', $expires );
 		tribe_update_option( 'fb_token_scopes', trim( preg_replace( '/[^a-zA-Z0-9\,_-]/', '', $response->data->scopes ) ) );
 
-		if ( 'new' === $data->type ) {
-			$url = Tribe__Events__Aggregator__Page::instance()->get_url( array( 'tab' => $this->get_slug(), 'ea-auth' => 'facebook' ) );
-		} elseif ( 'settings' === $data->type ) {
-			$url = Tribe__Settings::instance()->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) );
-		}
-
-		wp_redirect( $url );
+		// Send it back to the Given Url
+		wp_redirect( $url_map[ $type ] );
 		exit;
 	}
 
