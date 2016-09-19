@@ -354,7 +354,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$this->activation_page = new Tribe__Admin__Activation_Page( array(
 					'slug'                  => 'the-events-calendar',
 					'version'               => self::VERSION,
-					'plugin_path'           => self::instance()->pluginDir . 'the-events-calendar.php',
+					'plugin_path'           => $this->pluginDir . 'the-events-calendar.php',
 					'version_history_slug'  => 'previous_ecp_versions',
 					'update_page_title'     => __( 'Thanks for Updating The Events Calendar', 'the-events-calendar' ),
 					'update_page_template'  => trailingslashit( self::instance()->pluginPath ) . 'src/admin-views/admin-update-message.php',
