@@ -353,13 +353,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( empty( $this->activation_page ) ) {
 				$this->activation_page = new Tribe__Admin__Activation_Page( array(
 					'slug'                  => 'the-events-calendar',
-					'version'               => Tribe__Events__Main::VERSION,
-					'plugin_path'           => Tribe__Events__Main::instance()->pluginDir . 'the-events-calendar.php',
+					'version'               => self::VERSION,
+					'plugin_path'           => self::instance()->pluginDir . 'the-events-calendar.php',
 					'version_history_slug'  => 'previous_ecp_versions',
 					'update_page_title'     => __( 'Thanks for Updating The Events Calendar', 'the-events-calendar' ),
-					'update_page_template'  => trailingslashit( Tribe__Events__Main::instance()->pluginPath ) . 'src/admin-views/admin-update-message.php',
+					'update_page_template'  => trailingslashit( self::instance()->pluginPath ) . 'src/admin-views/admin-update-message.php',
 					'welcome_page_title'    => __( 'Welcome to The Events Calendar', 'the-events-calendar' ),
-					'welcome_page_template' => trailingslashit( Tribe__Events__Main::instance()->pluginPath ) . 'src/admin-views/admin-welcome-message.php',
+					'welcome_page_template' => trailingslashit( self::instance()->pluginPath ) . 'src/admin-views/admin-welcome-message.php',
 				) );
 			}
 
