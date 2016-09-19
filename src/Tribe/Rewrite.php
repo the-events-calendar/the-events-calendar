@@ -112,6 +112,10 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			 * @var Tribe__Events__Rewrite $rewrite
 			 */
 			do_action( 'tribe_events_pre_rewrite', $this );
+			
+			$this->rules = apply_filters( 'tribe_events_rewrite_rules_custom', $this->rules, $this );
+			
+			$wp_rewrite->rules = $this->rules + $wp_rewrite->rules;
 		}
 
 		/**
