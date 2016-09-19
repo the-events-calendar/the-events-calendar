@@ -70,6 +70,17 @@ class Tribe__Events__Aggregator__Service {
 			return tribe_error( 'core:aggregator:invalid-service-key' );
 		}
 
+		$aggregator = Tribe__Events__Aggregator::instance();
+		$plugin_name = $aggregator->filter_pue_plugin_name( '', 'event-aggregator' );
+
+		$pue_notices = Tribe__Main::instance()->pue_notices();
+		$has_notice = $pue_notices->has_notice( $plugin_name );
+
+		// The user doesn't have a valid license key
+		if ( empty( $api->key ) || $has_notice ) {
+			return tribe_error( 'core:aggregator:invalid-service-key' );
+		}
+
 		return $api;
 	}
 
