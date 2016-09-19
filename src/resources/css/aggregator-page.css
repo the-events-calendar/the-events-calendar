@@ -521,6 +521,13 @@
 	display: block;
 }
 
+.tribe-ea-form[data-origin="csv"] .dataTables_length,
+		.tribe-ea-form[data-origin="csv"] .dataTables_info,
+		.tribe-ea-form[data-origin="csv"] .dataTables_paginate,
+		.tribe-ea-form[data-origin="csv"] .dataTables_filter {
+	display: none;
+}
+
 .tribe-cancel {
 	display: none;
 }
