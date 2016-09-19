@@ -103,6 +103,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/** @var Tribe__Events__Admin__Timezone_Settings */
 		public $timezone_settings;
 
+		/** @var Tribe__Admin__Activation_Page */
+		protected $activation_page;
+
 		// @todo remove in 4.0
 		public $upcomingSlug = 'upcoming';
 		public $pastSlug = 'past';
@@ -283,6 +286,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		protected function loadLibraries() {
 			// initialize the common libraries
 			$this->common();
+			$this->activation_page();
 
 			// Tribe common resources
 			require_once $this->plugin_path . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
@@ -340,6 +344,26 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			return $updater;
+		}
+
+		/**
+		 * @return Tribe__Admin__Activation_Page
+		 */
+		public function activation_page() {
+			if ( empty( $this->activation_page ) ) {
+				$this->activation_page = new Tribe__Admin__Activation_Page( array(
+					'slug'                  => 'the-events-calendar',
+					'version'               => Tribe__Events__Main::VERSION,
+					'plugin_path'           => Tribe__Events__Main::instance()->pluginDir . 'the-events-calendar.php',
+					'version_history_slug'  => 'previous_ecp_versions',
+					'update_page_title'     => __( 'Thanks for Updating The Events Calendar', 'the-events-calendar' ),
+					'update_page_template'  => trailingslashit( Tribe__Events__Main::instance()->pluginPath ) . 'src/admin-views/admin-update-message.php',
+					'welcome_page_title'    => __( 'Welcome to The Events Calendar', 'the-events-calendar' ),
+					'welcome_page_template' => trailingslashit( Tribe__Events__Main::instance()->pluginPath ) . 'src/admin-views/admin-welcome-message.php',
+				) );
+			}
+
+			return $this->activation_page;
 		}
 
 		/**
@@ -493,9 +517,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_action( 'wp_dashboard_setup', array( $this, 'dashboardWidget' ) );
 				add_action( 'tribe_events_cost_table', array( $this, 'maybeShowMetaUpsell' ) );
 			}
-			// option pages
-			add_action( '_network_admin_menu', array( $this, 'initOptions' ) );
-			add_action( '_admin_menu', array( $this, 'initOptions' ) );
 
 			add_action( 'load-tribe_events_page_' . Tribe__Settings::$parent_slug, array( 'Tribe__Events__Amalgamator', 'listen_for_migration_button' ), 10, 0 );
 			add_action( 'tribe_settings_after_save', array( $this, 'flushRewriteRules' ) );
@@ -1008,10 +1029,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Init the settings API and add a hook to add your own setting tabs
+		 * Init the settings API and add a hook to add your own setting tabs (disused since 4.3,
+		 * does nothing when called).
+		 *
+		 * @deprecated 4.3
 		 */
 		public function initOptions() {
-			Tribe__Events__Activation_Page::init();
+			_deprecated_function( __METHOD__, 4.3 );
 		}
 
 		/**
