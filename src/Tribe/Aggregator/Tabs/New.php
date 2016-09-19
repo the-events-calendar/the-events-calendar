@@ -222,7 +222,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$this->messages = $this->get_result_messages( $result );
 
 		if (
-			! empty( $this->messages['error'] )
+			empty( $this->messages['error'] )
 			|| ! empty( $this->messages['success'] )
 			|| ! empty( $this->messages['warning'] )
 		) {
@@ -238,7 +238,6 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 			tribe_notice( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
 
-			$queue->record->set_status_as_failed( $queue );
 			return $messages;
 		}
 
