@@ -772,16 +772,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	/**
-	 * Returns the previously saved frequency or null if this information is not
-	 * available.
-	 *
-	 * @return string|null
-	 */
-	public function previous_frequency() {
-		return ! empty( $this->meta['prev_frequency'] ) ? $this->meta['prev_frequency'] : null;
-	}
-
-	/**
 	 * Get info about the source, via and title
 	 *
 	 * @return array
