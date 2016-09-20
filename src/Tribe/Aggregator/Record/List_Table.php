@@ -483,6 +483,15 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	public function column_imported( $post ) {
+		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+		if ( 'scheduled' === $this->tab->get_slug() ) {
+			$has_child_record = $record->get_child_record_by_status( 'success', 1 );
+
+			if ( ! $has_child_record ) {
+				return $this->render( esc_html__( 'Never', 'the-events-calendar' ) );
+			}
+		}
+
 		$last_import = null;
 		$original = $post->post_modified_gmt;
 		$time = strtotime( $original );
