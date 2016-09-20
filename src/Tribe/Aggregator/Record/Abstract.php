@@ -195,8 +195,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Edits an import record
 	 *
-	 * @param array $args Post type args
-	 * @param array $meta Post meta
+	 * @param int   $post_id
+	 * @param array $args    Post type args
+	 * @param array $meta    Post meta
 	 *
 	 * @return WP_Post|WP_Error
 	 */
@@ -217,6 +218,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		);
 
 		$meta = wp_parse_args( $meta, $defaults );
+
+		// Record the previous frequency setting for this record
+		$previous_frequency = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post_id )->frequency;
+
+		if ( is_object( $previous_frequency ) && isset( $previous_frequency->id ) ) {
+			$meta['prev_frequency'] = $previous_frequency->id;
+		}
 
 		$post = $this->prep_post_args( $meta['type'], $args, $meta );
 		$post['ID'] = absint( $post_id );
@@ -691,11 +699,86 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
+		// In some cases the scheduled import may be inactive and should not run during cron
+		if ( false === $this->frequency ) {
+			return false;
+		}
+
 		$current  = time();
 		$modified = strtotime( $this->post->post_modified_gmt );
 		$next     = $modified + $this->frequency->interval;
 
 		return $current > $next;
+	}
+
+	/**
+	 * Sets the import frequence to inactive and stores the previous frequency value.
+	 *
+	 * @return bool
+	 */
+	public function deactivate() {
+		$current_interval = is_object( $this->frequency ) ? $this->frequency->id : null;
+
+		if ( 'inactive' === $current_interval ) {
+			return false;
+		}
+
+		$this->update_meta( 'frequency', 'inactive' );
+		$this->update_meta( 'prev_frequency', $current_interval );
+
+		// post_content is also used to store the frequency
+		wp_update_post( array(
+			'ID'           => $this->id,
+			'post_content' => 'inactive',
+		) );
+
+		return true;
+	}
+
+	/**
+	 * Reactivates automated imports for a record. If the previous frequency is not known it
+	 * will default to a 'daily' interval.
+	 */
+	public function reactivate() {
+		$current_interval  = is_object( $this->frequency ) ? $this->frequency->id : null;
+		$previous_interval = ! empty( $this->meta['prev_frequency'] ) ? $this->meta['prev_frequency'] : 'daily';
+
+		if ( 'inactive' !== $current_interval ) {
+			return false;
+		}
+
+		if ( 'inactive' === $previous_interval ) {
+			return false;
+		}
+
+		$this->update_meta( 'prev_frequency', 'inactive' );
+		$this->update_meta( 'frequency', $previous_interval );
+
+		// post_content is also used to store the frequency
+		wp_update_post( array(
+			'ID'           => $this->id,
+			'post_content' => $previous_interval,
+		) );
+
+		return true;
+
+	}
+
+	/**
+	 * Indicates if the record is configured to not import automatically (during cron).
+	 */
+	public function is_inactive() {
+		return ( is_object( $this->frequency ) && false === $this->frequency->interval );
+	}
+
+	/**
+	 * Returns the previously saved frequency or null if this information is not
+	 * available.
+	 *
+	 * @return string|null
+	 */
+	public function previous_frequency() {
+		return ! empty( $this->meta['prev_frequency'] ) ? $this->meta['prev_frequency'] : null;
 	}
 
 	/**
