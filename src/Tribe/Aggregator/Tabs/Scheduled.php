@@ -194,11 +194,11 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 				break;
 
 			case 'reactivate':
-				$action = __( 'activate', 'the-events-calendar' );
+				$action = __( 'reactivated', 'the-events-calendar' );
 				break;
 
 			case 'deactivate':
-				$action = __( 'reactivate', 'the-events-calendar' );
+				$action = __( 'deactivated', 'the-events-calendar' );
 				break;
 
 			default:
@@ -331,6 +331,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 			}
 
 			$record->deactivate();
+			$success[ $record_id ] = true;
 		}
 
 		return array( $success, $errors );
@@ -350,6 +351,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 			}
 
 			$record->reactivate();
+			$success[ $record_id ] = true;
 		}
 
 		return array( $success, $errors );
