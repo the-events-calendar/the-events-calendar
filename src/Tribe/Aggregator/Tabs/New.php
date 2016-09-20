@@ -542,7 +542,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 * Renders any of the "import complete" messages
 	 */
 	public function render_notice_import_complete() {
-		if ( ! empty( $this->messages['success'] ) ) {
+		if ( empty( $this->messages['success'] ) ) {
 			return null;
 		}
 
