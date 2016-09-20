@@ -312,39 +312,40 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			if ( 'csv' !== $queue->record->meta['origin'] ) {
 				$venue_created = $queue->activity->get( 'venue', 'created' );
 				if ( ! empty( $venue_created ) ) {
-					$messages['success'][] = '<br/>' . sprintf(
-							_n( '%1$d new venue was imported.', '%1$d new venues were imported.', $queue->activity->count( 'venue', 'created' ), 'the-events-calendar' ),
-							$queue->activity->count( 'venue', 'created' )
-						) .
-											 ' <a href="' . admin_url( 'edit.php?post_type=tribe_venue' ) . '">' .
-											 __( 'View your event venues', 'the-events-calendar' ) .
-											 '</a>';
+					$messages['success'][] = '<br/>' .
+					sprintf(
+						_n( '%1$d new venue was imported.', '%1$d new venues were imported.', $queue->activity->count( 'venue', 'created' ), 'the-events-calendar' ),
+						$queue->activity->count( 'venue', 'created' )
+					) .
+					' <a href="' . admin_url( 'edit.php?post_type=tribe_venue' ) . '">' .
+					__( 'View your event venues', 'the-events-calendar' ) .
+					'</a>';
 				}
 
 				$organizer_created = $queue->activity->get( 'organizer', 'created' );
 				if ( ! empty( $organizer_created ) ) {
-					$messages['success'][] = '<br/>' . sprintf(
-							_n( '%1$d new organizer was imported.', '%1$d new organizers were imported.', $queue->activity->count( 'organizer', 'created' ), 'the-events-calendar' ),
-							$queue->activity->count( 'organizer', 'created' )
-						) .
-											 ' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
-											 __( 'View your event organizers', 'the-events-calendar' ) .
-											 '</a>';
-					;
+					$messages['success'][] = '<br/>' .
+					sprintf(
+						_n( '%1$d new organizer was imported.', '%1$d new organizers were imported.', $queue->activity->count( 'organizer', 'created' ), 'the-events-calendar' ),
+						$queue->activity->count( 'organizer', 'created' )
+					) .
+					' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
+					__( 'View your event organizers', 'the-events-calendar' ) .
+					'</a>';
 				}
 			}
 		}
 
 		$category_created = $queue->activity->get( 'category', 'created' );
 		if ( ! empty( $category_created ) ) {
-			$messages['success'][] = '<br/>' . sprintf(
+			$messages['success'][] = '<br/>' .
+				sprintf(
 					_n( '%1$d new event category was created.', '%1$d new event categories were created.', $queue->activity->count( 'category', 'created' ), 'the-events-calendar' ),
 					$queue->activity->count( 'category', 'created' )
 				) .
-									 ' <a href="' . admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) . '">' .
-									 __( 'View your event categories', 'the-events-calendar' ) .
-									 '</a>';
-			;
+				' <a href="' . admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) . '">' .
+				__( 'View your event categories', 'the-events-calendar' ) .
+				'</a>';
 		}
 
 		if (
