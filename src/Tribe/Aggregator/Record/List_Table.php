@@ -348,7 +348,6 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		}
 
 		$post_type_object = get_post_type_object( $post->post_type );
-		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post->ID );
 		$actions = array();
 
 		if ( current_user_can( $post_type_object->cap->edit_post, $post->ID ) ) {
@@ -370,27 +369,6 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				esc_attr__( 'Start an import from this source now, regardless of schedule. Check the import status in History. Doing a manual import will not impact your scheduled imports.', 'the-events-calendar' ),
 				esc_html__( 'Run Import', 'the-events-calendar' )
 			);
-
-			// Add a reactivation link for sources which were previously disabled
-			if ( $record->is_inactive() ) {
-				$args['action'] = 'reactivate';
-				$actions['reactivate'] = sprintf(
-					'<a href="%1$s" title="%2$s">%3$s</a>',
-					Tribe__Events__Aggregator__Page::instance()->get_url( $args ),
-					esc_attr__( 'Restore automatic imports for this source.', 'the-events-calendar' ),
-					esc_html__( 'Reactivate', 'the-events-calendar' )
-				);
-			}
-			// Add a deactivation link to let site admins disable automated imports without actually deleting them
-			else {
-				$args['action'] = 'deactivate';
-				$actions['deactivate'] = sprintf(
-					'<a href="%1$s" title="%2$s">%3$s</a>',
-					Tribe__Events__Aggregator__Page::instance()->get_url( $args ),
-					esc_attr__( 'Turn off automatic imports from this source. The source will not be deleted and you will still be able to manually trigger imports.', 'the-events-calendar' ),
-					esc_html__( 'Deactivate', 'the-events-calendar' )
-				);
-			}
 		}
 
 		if ( current_user_can( $post_type_object->cap->delete_post, $post->ID ) ) {
