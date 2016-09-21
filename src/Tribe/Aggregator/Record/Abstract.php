@@ -723,15 +723,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
-		$this->update_meta( 'frequency', 'inactive' );
-		$this->update_meta( 'prev_frequency', $current_interval );
-
-		// post_content is also used to store the frequency
-		wp_update_post( array(
-			'ID'           => $this->id,
-			'post_content' => 'inactive',
-		) );
-
+		$this->update_interval( 'inactive', $current_interval );
 		return true;
 	}
 
@@ -751,17 +743,37 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
-		$this->update_meta( 'prev_frequency', 'inactive' );
-		$this->update_meta( 'frequency', $previous_interval );
-
-		// post_content is also used to store the frequency
-		wp_update_post( array(
-			'ID'           => $this->id,
-			'post_content' => $previous_interval,
-		) );
-
+		$this->update_interval( $previous_interval, 'inactive' );
 		return true;
 
+	}
+
+	/**
+	 * Updates the schedule interval only, storing the previously set interval if provided.
+	 *
+	 * @param string $new_interval
+	 * @param string $previous_interval (optional)
+	 */
+	private function update_interval( $new_interval, $previous_interval = null ) {
+		global $wpdb;
+
+		// We update via a direct update query, rather than via wp_update_post(), to avoid changing
+		// post_modified_gmt (used to store the datetime of the last import option)
+		$wpdb->update(
+			$wpdb->posts,
+			array( 'post_content' => $new_interval ),
+			array( 'ID' => $this->id ),
+			'%s',
+			'%s'
+		);
+
+		clean_post_cache( $this->id );
+
+		$this->update_meta( 'frequency', $new_interval );
+
+		if ( $previous_interval ) {
+			$this->update_meta( 'prev_frequency', $previous_interval );
+		}
 	}
 
 	/**
