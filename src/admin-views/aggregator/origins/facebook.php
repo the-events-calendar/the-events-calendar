@@ -15,12 +15,16 @@ $cron = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
 
 $missing_facebook_credentials = ! Tribe__Events__Aggregator__Settings::instance()->is_fb_credentials_valid();
+$data_depends = '#tribe-ea-field-origin';
+$data_condition = 'facebook';
+
 if ( $missing_facebook_credentials ) :
+	$data_depends = '#tribe-has-facebook-credentials';
+	$data_condition = '1';
 	?>
 	<tr class="tribe-dependent tribe-credential-row" data-depends="#tribe-ea-field-origin" data-condition="facebook">
 		<td colspan="2" class="<?php echo esc_attr( $missing_facebook_credentials ? 'enter-credentials' : 'has-credentials' ); ?>">
 			<div class="tribe-message tribe-credentials-prompt">
-				<input type="hidden" name="has-credentials" id="tribe-has-facebook-credentials" value="0">
 				<p>
 					<span class="dashicons dashicons-warning"></span>
 					<?php
@@ -34,14 +38,13 @@ if ( $missing_facebook_credentials ) :
 			</div>
 		</td>
 	</tr>
-<?php else : ?>
-	<input type="hidden" name="has-credentials" id="tribe-has-facebook-credentials" value="1">
 <?php endif; ?>
-<tr class="tribe-dependent" data-depends="#tribe-has-facebook-credentials" data-condition="1">
+<tr class="tribe-dependent" data-depends="<?php echo esc_attr( $data_depends ); ?>" data-condition="<?php echo esc_attr( $data_condition ); ?>">
 	<th scope="row">
 		<label for="tribe-ea-field-import_type"><?php echo esc_html( $field->label ); ?></label>
 	</th>
 	<td>
+		<input type="hidden" name="has-credentials" id="tribe-has-facebook-credentials" value="<?php echo absint( ! $missing_facebook_credentials ); ?>">
 		<?php if ( 'edit' === $aggregator_action ) : ?>
 			<input type="hidden" name="aggregator[facebook][import_type]" id="tribe-ea-field-facebook_import_type" value="schedule" />
 			<strong class="tribe-ea-field-readonly"><?php echo esc_html__( 'Scheduled Import', 'the-events-calendar' ); ?></strong>
