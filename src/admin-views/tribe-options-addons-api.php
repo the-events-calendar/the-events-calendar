@@ -43,21 +43,22 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	<fieldset id="tribe-field-facebook_token" class="tribe-field tribe-field-text tribe-size-medium">
 		<legend class="tribe-field-label"><?php esc_html_e( 'Facebook Token', 'the-events-calendar' ) ?></legend>
 		<div class="tribe-field-wrap">
-			<?php
-			if ( $missing_fb_credentials ) {
-				esc_html_e( 'You need to connect to Facebook for Event Aggregator to work properly' );
-				$facebook_button_label = __( 'Connect to Facebook', 'the-events-calendar' );
-			} else {
-				if ( $passed > 0 ) {
-					echo sprintf( __( 'Your Event Aggregator Facebook connection has expired %s.', 'the-events-calendar' ), $time );
+			<p>
+				<?php
+				if ( $missing_fb_credentials ) {
+					esc_html_e( 'You need to connect to Facebook for Event Aggregator to work properly' );
+					$facebook_button_label = __( 'Connect to Facebook', 'the-events-calendar' );
 				} else {
-					echo sprintf( __( 'Your Event Aggregator Facebook connection will expire %s.', 'the-events-calendar' ), $time );
+					if ( $passed > 0 ) {
+						echo sprintf( __( 'Your Event Aggregator Facebook connection has expired %s.', 'the-events-calendar' ), $time );
+					} else {
+						echo sprintf( __( 'Your Event Aggregator Facebook connection will expire %s.', 'the-events-calendar' ), $time );
+					}
+					$facebook_button_label = __( 'Refresh your connection to Facebook', 'the-events-calendar' );
 				}
-				$facebook_button_label = __( 'Refresh your connection to Facebook', 'the-events-calendar' );
-			}
-			?>
-			<br>
-			<a target="_blank" style="line-height: 28px;" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url( array( 'back' => 'settings' ) ) ); ?>"><?php esc_html_e( $facebook_button_label ); ?></a>
+				?>
+			</p>
+			<a target="_blank" class="tribe-ea-facebook-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url( array( 'back' => 'settings' ) ) ); ?>"><?php esc_html_e( $facebook_button_label ); ?></a>
 		</div>
 	</fieldset>
 
