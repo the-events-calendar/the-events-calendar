@@ -341,67 +341,14 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 	);
 }
 
-$ea_active = Tribe__Events__Aggregator::instance()->is_service_active() ? 'active' : 'inactive';
-$cron_status = ( defined( 'DISABLE_WP_CRON' ) && true === DISABLE_WP_CRON ) ? 'disabled' : 'enabled';
-$ea_server = Tribe__Events__Aggregator__Service::instance()->api()->domain;
-$facebook_oauth = Tribe__Events__Aggregator::instance()->api( 'origins' )->is_oauth_enabled( 'facebook' ) ? 'enabled' : 'disabled';
-$facebook_oauth_valid_credentials = Tribe__Events__Aggregator__Settings::instance()->is_fb_credentials_valid() ? 'valid' : 'invalid';
-$i = 0;
+$status_html = include_once dirname( __FILE__ ) . '/status.php';
+
 $status = array(
-		'status-title' => array(
-			'type' => 'html',
-			'html' => '<h3>' . esc_html__( 'Event Aggregator Server Status', 'the-events-calendar' ) . '</h3>',
-		),
-		'status-html-start' => array(
-			'type' => 'html',
-			'html' => '<fieldset><div>',
-		),
-		'status-ea-server' => array(
-			'type' => 'html',
-			'label' => esc_html__( 'Server', 'the-events-calendar' ),
-			'html' => esc_html( $ea_server ),
-		),
-		'status-html-' . ++$i => array(
-			'type' => 'html',
-			'html' => '</div><div>',
-		),
-		'status-service' => array(
-			'type' => 'html',
-			'label' => esc_html__( 'EA Service', 'the-events-calendar' ),
-			'html' => esc_html( $cron_status ),
-		),
-		'status-html-' . ++$i => array(
-			'type' => 'html',
-			'html' => '</div><div>',
-		),
-		'status-cron' => array(
-			'type' => 'html',
-			'label' => esc_html__( 'WP Cron', 'the-events-calendar' ),
-			'html' => esc_html( $cron_status ),
-		),
-		'status-html-' . ++$i => array(
-			'type' => 'html',
-			'html' => '</div><div>',
-		),
-		'status-facebook' => array(
-			'type' => 'html',
-			'label' => esc_html__( 'Facebook oAuth', 'the-events-calendar' ),
-			'html' => esc_html( $facebook_oauth ),
-		),
-		'status-html-' . ++$i => array(
-			'type' => 'html',
-			'html' => '</div><div>',
-		),
-		'status-facebook-cred' => array(
-			'type' => 'html',
-			'label' => esc_html__( 'Facebook oAuth Credential', 'the-events-calendar' ),
-			'html' => esc_html( $facebook_oauth_valid_credentials ),
-		),
-		'status-html-end' => array(
-			'type' => 'html',
-			'html' => '</div></fieldset>',
-		),
-	);
+	'status' => array(
+		'type' => 'html',
+		'html' => $status_html,
+	),
+);
 
 $internal = array_merge(
 	$status,
