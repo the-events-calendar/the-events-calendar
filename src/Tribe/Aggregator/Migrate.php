@@ -270,7 +270,7 @@ class Tribe__Events__Aggregator__Migrate {
 			$meta = array(
 				'origin'       => $origin,
 				'type'         => 'schedule',
-				'frequency'    => $this->convert_ical_frequency( $settings->frequency ),
+				'frequency'    => $this->convert_facebook_frequency( $settings->frequency ),
 				'file'         => null,
 				'keywords'     => null,
 				'location'     => null,
@@ -394,7 +394,7 @@ class Tribe__Events__Aggregator__Migrate {
 	private function convert_ical_frequency( $frequency ) {
 		$results = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $frequency ) );
 
-		// Return to the Default
+		// Return to the closest frequency
 		if ( empty( $results ) ) {
 			return 'every30mins';
 		}
@@ -411,7 +411,7 @@ class Tribe__Events__Aggregator__Migrate {
 	private function convert_facebook_frequency( $frequency ) {
 		$results = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $frequency ) );
 
-		// Return to the Default
+		// Return to the closest frequency
 		if ( empty( $results ) ) {
 			return 'daily';
 		}
