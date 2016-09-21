@@ -22,8 +22,9 @@ $frequencies = $cron->get_frequency();
 	<td>
 		<a target="_blank" style="line-height: 28px;" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url() ); ?>"><?php esc_html_e( 'Login with Facebook', 'the-events-calendar' ); ?></a>
 		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help"
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help"
 			data-bumpdown="<?php esc_attr_e( 'Currently your Event Aggregator does not have a Facebook Login associated with it, to perform more accurate queries to Facebook you will need to login.', 'the-events-calendar' ); ?>"
+			data-width-rule="all-triggers"
 		></span>
 	</td>
 </tr>
@@ -67,17 +68,19 @@ $frequencies = $cron->get_frequency();
 			<?php endforeach; ?>
 		</select>
 		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo esc_attr( $field->help ); ?>"
 			data-depends="#tribe-ea-field-facebook_import_type"
 			data-condition-not="schedule"
 			data-condition-empty
+			data-width-rule="all-triggers"
 		></span>
 		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo esc_attr( $frequency->help ); ?>"
 			data-depends="#tribe-ea-field-facebook_import_type"
 			data-condition="schedule"
+			data-width-rule="all-triggers"
 		></span>
 	</td>
 </tr>
@@ -101,7 +104,7 @@ $field->help        = __( 'Enter the url for a Facebook group, page, or individu
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 			value="<?php echo esc_attr( empty( $record->meta['source'] ) ? '' : $record->meta['source'] ); ?>"
 		>
-		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
+		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
 	</td>
 </tr>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-facebook_import_type" data-condition-not-empty>

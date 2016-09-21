@@ -258,7 +258,57 @@
 	}
 
 	.tribe-notice-tribe-missing-aggregator-license {
-		background: #f7fcfe;
+		background: url(../images/aggregator/ea-upsell-bkg.svg) transparent no-repeat;
+		background-size: cover;
+		border: none;
+		padding: 60px 0;
+		text-align: center;
+
+		.upsell-banner {
+			margin-bottom: 30px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		h3 {
+			color: #fff;
+			font-size: 22px;
+			font-weight: normal;
+			letter-spacing: 1.5px;
+		}
+
+		p {
+			color: #fff;
+			font-size: 16px;
+			font-weight: 300;
+			letter-spacing: 1px;
+			margin: 0 auto 30px;
+			width: 50%;
+		}
+	}
+
+	.tribe-button {
+		border: 1px solid;
+		border-radius: 3px;
+		color: #fff;
+		display: inline-block;
+		font-weight: 300;
+		letter-spacing: 1.5px;
+		padding: 15px 30px;
+		text-decoration: none;
+		text-transform: uppercase;
+	}
+
+	.tribe-button-primary {
+		background: #000;
+		border-color: #000;
+		margin-right: 5px;
+	}
+
+	.tribe-button-secondary {
+		background: transparent;
+		border-color: #fff;
+		margin-left: 10px;
 	}
 
 	.dataTables_length,
@@ -604,6 +654,18 @@
 		 */
 		input + .tribe-ea-help {
 			line-height: 30px;
+		}
+	}
+}
+
+.tribe-aggregator-inactive {
+	.tribe-ea-tab-scheduled {
+		.widefat {
+			p,
+			td,
+			ul {
+				color: #ccc;
+			}
 		}
 	}
 }

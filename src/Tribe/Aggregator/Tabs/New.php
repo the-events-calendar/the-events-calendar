@@ -44,6 +44,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_media' ) );
 
 		add_action( 'tribe_aggregator_page_request', array( $this, 'handle_submit' ) );
+		add_action( 'tribe_aggregator_page_request', array( $this, 'handle_facebook_credentials' ) );
 
 		// hooked at priority 9 to ensure that notices are injected before notices get hooked in Tribe__Admin__Notices
 		add_action( 'current_screen', array( $this, 'maybe_display_notices' ), 9 );
@@ -81,10 +82,6 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_submit() {
-		if ( ! empty( $_POST['ea-facebook-credentials'] ) ) {
-			return $this->handle_facebook_credentials();
-		}
-
 		if ( empty( $_POST['aggregator']['action'] ) || 'new' !== $_POST['aggregator']['action'] ) {
 			return;
 		}
@@ -122,16 +119,19 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 	public function handle_facebook_credentials() {
 		/**
-		 * @todo  include a way to handle errors on the Send back URL
+		 * Verify that we are dealing with a FB token Request
 		 */
-
-		if ( empty( $_POST['aggregator'] ) ) {
+		if ( ! isset( $_GET['ea-fb-token'] ) ) {
 			return false;
 		}
-		$data = (object) $_POST['aggregator'];
-		$api = Tribe__Events__Aggregator__Service::instance()->api();
 
+		/**
+		 * @todo  include a way to handle errors on the Send back URL
+		 */
+		$api      = Tribe__Events__Aggregator__Service::instance()->api();
 		$response = Tribe__Events__Aggregator__Service::instance()->get_facebook_token();
+		$type     = $_GET['ea-fb-token'];
+
 		if ( is_wp_error( $response ) ) {
 			return false;
 		}
@@ -144,19 +144,26 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return false;
 		}
 
+		$url_map = array(
+			'new'      => Tribe__Events__Aggregator__Page::instance()->get_url( array( 'tab' => $this->get_slug(), 'ea-auth' => 'facebook' ) ),
+			'settings' => Tribe__Settings::instance()->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) ),
+		);
+
+		if ( ! isset( $url_map[ $type ] ) ) {
+			return false;
+		}
+
+		// Calculate when will this Token Expire
 		$expires = absint( trim( preg_replace( '/[^0-9]/', '', $response->data->expires ) ) );
 		$expires += time();
+
+		// Save the Options
 		tribe_update_option( 'fb_token', trim( preg_replace( '/[^a-zA-Z0-9]/', '', $response->data->token ) ) );
 		tribe_update_option( 'fb_token_expires', $expires );
 		tribe_update_option( 'fb_token_scopes', trim( preg_replace( '/[^a-zA-Z0-9\,_-]/', '', $response->data->scopes ) ) );
 
-		if ( 'new' === $data->type ) {
-			$url = Tribe__Events__Aggregator__Page::instance()->get_url( array( 'tab' => $this->get_slug(), 'ea-auth' => 'facebook' ) );
-		} elseif ( 'settings' === $data->type ) {
-			$url = Tribe__Settings::instance()->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) );
-		}
-
-		wp_redirect( $url );
+		// Send it back to the Given Url
+		wp_redirect( $url_map[ $type ] );
 		exit;
 	}
 
@@ -215,7 +222,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		$this->messages = $this->get_result_messages( $result );
 
 		if (
-			! empty( $this->messages['error'] )
+			empty( $this->messages['error'] )
 			|| ! empty( $this->messages['success'] )
 			|| ! empty( $this->messages['warning'] )
 		) {
@@ -231,7 +238,6 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 			tribe_notice( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
 
-			$queue->record->set_status_as_failed( $queue );
 			return $messages;
 		}
 
@@ -253,7 +259,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			if ( ! empty( $event_created ) ) {
 				$content_label = 1 === $queue->activity->count( 'event', 'created' ) ? $content_type : $content_type_plural;
 
-				$messages['success'][] = sprintf(
+				$messages['success'][] = sprintf( // add created event count
 					_n( '%1$d new %2$s was imported.', '%1$d new %2$s were imported.', $queue->activity->count( 'event', 'created' ), 'the-events-calendar' ),
 					$queue->activity->count( 'event', 'created' ),
 					$content_label
@@ -265,7 +271,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 				$content_label = 1 === $queue->activity->count( 'event', 'updated' ) ? $content_type : $content_type_plural;
 
 				// @todo: include a part of sentence like: ", including %1$d %2$signored event%3$s.", <a href="/wp-admin/edit.php?post_status=tribe-ignored&post_type=tribe_events">, </a>
-				$messages['success'][] = sprintf(
+				$messages['success'][] = sprintf( // add updated event count
 					_n( '%1$d existing %2$s was updated.', '%1$d existing %2$s were updated.', $queue->activity->count( 'event', 'updated' ), 'the-events-calendar' ),
 					$queue->activity->count( 'event', 'updated' ),
 					$content_label
@@ -276,7 +282,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			if ( ! empty( $event_skipped ) ) {
 				$content_label = 1 === $queue->activity->count( 'event', 'skipped' ) ? $content_type : $content_type_plural;
 
-				$messages['success'][] = sprintf(
+				$messages['success'][] = sprintf( // add skipped event count
 					_n( '%1$d already-imported %2$s was skipped.', '%1$d already-imported %2$s were skipped.', $queue->activity->count( 'event', 'skipped' ), 'the-events-calendar' ),
 					$queue->activity->count( 'event', 'skipped' ),
 					$content_label
@@ -285,7 +291,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 			$images_created = $queue->activity->get( 'images', 'created' );
 			if ( ! empty( $images_created ) ) {
-				$messages['success'][] = sprintf(
+				$messages['success'][] = sprintf( // add image import count
 					_n( '%1$d new image was imported.', '%1$d new images were imported.', $queue->activity->count( 'images', 'created' ), 'the-events-calendar' ),
 					$queue->activity->count( 'images', 'created' )
 				);
@@ -306,7 +312,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			if ( 'csv' !== $queue->record->meta['origin'] ) {
 				$venue_created = $queue->activity->get( 'venue', 'created' );
 				if ( ! empty( $venue_created ) ) {
-					$messages['success'][] = '<br/>' . sprintf(
+					$messages['success'][] = '<br/>' .
+					sprintf( // add activity count
 						_n( '%1$d new venue was imported.', '%1$d new venues were imported.', $queue->activity->count( 'venue', 'created' ), 'the-events-calendar' ),
 						$queue->activity->count( 'venue', 'created' )
 					) .
@@ -317,28 +324,28 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 				$organizer_created = $queue->activity->get( 'organizer', 'created' );
 				if ( ! empty( $organizer_created ) ) {
-					$messages['success'][] = '<br/>' . sprintf(
+					$messages['success'][] = '<br/>' .
+					sprintf( // add organizer count
 						_n( '%1$d new organizer was imported.', '%1$d new organizers were imported.', $queue->activity->count( 'organizer', 'created' ), 'the-events-calendar' ),
 						$queue->activity->count( 'organizer', 'created' )
 					) .
 					' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
 					__( 'View your event organizers', 'the-events-calendar' ) .
 					'</a>';
-					;
 				}
 			}
 		}
 
 		$category_created = $queue->activity->get( 'category', 'created' );
 		if ( ! empty( $category_created ) ) {
-			$messages['success'][] = '<br/>' . sprintf(
-				_n( '%1$d new event category was created.', '%1$d new event categories were created.', $queue->activity->count( 'category', 'created' ), 'the-events-calendar' ),
-				$queue->activity->count( 'category', 'created' )
-			) .
-			' <a href="' . admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) . '">' .
-			__( 'View your event categories', 'the-events-calendar' ) .
-			'</a>';
-			;
+			$messages['success'][] = '<br/>' .
+				sprintf( // add category count
+					_n( '%1$d new event category was created.', '%1$d new event categories were created.', $queue->activity->count( 'category', 'created' ), 'the-events-calendar' ),
+					$queue->activity->count( 'category', 'created' )
+				) .
+				' <a href="' . admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) . '">' .
+				__( 'View your event categories', 'the-events-calendar' ) .
+				'</a>';
 		}
 
 		if (
@@ -353,17 +360,17 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 				$scheduled_time = strtotime( $queue->record->post->post_modified ) + $queue->record->frequency->interval;
 				$scheduled_time_string = date( get_option( 'date_format' ), $scheduled_time ) .
-					_x( ' at ', 'separator between date and time', 'the-events-calendar' ) .
-					date( get_option( 'time_format' ), $scheduled_time );
+										 _x( ' at ', 'separator between date and time', 'the-events-calendar' ) .
+										 date( get_option( 'time_format' ), $scheduled_time );
 
 				$messages['success'][] = '<br/>' .
-					sprintf(
-						__( 'The next import is scheduled for %1$s.', 'the-events-calendar' ),
-						esc_html( $scheduled_time_string )
-					) .
-					' <a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=scheduled' ) . '">' .
-					__( 'View your scheduled imports.', 'the-events-calendar' ) .
-					'</a>';
+										 sprintf( // add in timing
+											 __( 'The next import is scheduled for %1$s.', 'the-events-calendar' ),
+											 esc_html( $scheduled_time_string )
+										 ) .
+										 ' <a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=scheduled' ) . '">' .
+										 __( 'View your scheduled imports.', 'the-events-calendar' ) .
+										 '</a>';
 			}
 		}
 
@@ -473,18 +480,28 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		ob_start();
 		?>
 		<div class="notice inline notice-info tribe-dependent tribe-notice-tribe-missing-aggregator-license" data-ref="tribe-missing-aggregator-license" data-depends="#tribe-ea-field-origin" data-condition-empty>
-			<p>
-				<strong><?php esc_html_e( 'Upgrade to Event Aggregator to unlock access to multiple import sources and automatic imports!', 'the-events-calendar' ); ?></strong></p>
-			<p>
-				<?php echo sprintf(
-						esc_html__( 'With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup in a jiffy. Head over to %1$sTheEventsCalendar.com%2$s to purchase instant access, including a year of premium support, updates, and upgrades.', 'the-events-calendar' ),
-						'<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importpage&utm_medium=plugin-tec&utm_campaign=in-app">',
-						'</a>'
-					); ?>
-			</p>
-			<p>
-				<a href="https://theeventscalendar.com/wordpress-event-aggregator/?utm_source=importpage&utm_medium=plugin-tec&utm_campaign=in-app" class="tribe-license-link button button-primary"><?php esc_html_e( 'Buy Event Aggregator Now', 'the-events-calendar' ); ?></a>
-			</p>
+
+			<div class="upsell-banner">
+				<img src="<?php echo esc_url( tribe_resource_url( 'images/aggregator/upsell-banner.png' ) ) ; ?>">
+			</div>
+
+			<h3><?php esc_html_e( 'Import Using Event Aggregator', 'the-events-calendar' ); ?></h3>
+
+			<p><?php esc_html_e( 'With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup.com in a jiffy.', 'the-events-calendar' ); ?></p>
+
+			<a href="http://m.tri.be/196y" class="tribe-license-link tribe-button tribe-button-primary" target="_blank">
+				<?php esc_html_e( 'Buy It Now', 'the-events-calendar' );?>
+				<span class="screen-reader-text">
+					<?php esc_html_e( 'opens in a new window', 'the-events-calendar' );?>
+				</span>
+			</a>
+
+			<a href="http://m.tri.be/196z" class="tribe-license-link tribe-button tribe-button-secondary" target="_blank">
+				<?php esc_html_e( 'Learn More', 'the-events-calendar' ); ?>
+				<span class="screen-reader-text">
+					<?php esc_html_e( 'opens in a new window', 'the-events-calendar' );?>
+				</span>
+			</a>
 		</div>
 		<?php
 
@@ -500,16 +517,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		ob_start();
 		?>
 		<p>
-			<?php
-			echo sprintf(
-				esc_html__(
-					'%1$sYour Event Aggregator license is expired.%2$s Renew your license in order to import events from Facebook, iCalendar, Google, or Meetup.',
-					'the-events-calendar'
-				),
-				'<b>',
-				'</b>'
-			);
-			?>
+			<b><?php esc_html_e( 'Your Event Aggregator license is expired.', 'the-events-calendar' ); ?></b>
+			<?php esc_html_e( 'Renew your license in order to import events from Facebook, iCalendar, Google, or Meetup.', 'the-events-calendar' ); ?>
 		</p>
 		<p>
 			<a href="https://theeventscalendar.com/license-keys/?utm_campaign=in-app&utm_source=renewlink&utm_medium=event-aggregator" class="tribe-license-link"><?php esc_html_e( 'Renew your Event Aggregator license', 'the-events-calendar' ); ?></a>
