@@ -16,6 +16,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	protected $content_type_plural;
 	protected $content_type_object;
 	protected $content_post_type;
+	protected $messages;
 
 	/**
 	 * Static Singleton Factory Method
@@ -169,9 +170,9 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 	public function handle_import_finalize( $data ) {
 		$this->messages = array(
-			'error',
-			'success',
-			'warning',
+			'error'   => array(),
+			'success' => array(),
+			'warning' => array(),
 		);
 
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $data['import_id'] );
@@ -534,7 +535,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 * Renders any of the "import complete" messages
 	 */
 	public function render_notice_import_complete() {
-		$html = '<p>' . implode( ' ', $this->messages['success'] ) . '</p>';
+		if ( empty( $this->messages['success'] ) ) {
+			return null;
+		}
+
+		$html = '<p>' . implode( ' ', $this->messages[ 'success' ] ) . '</p>';
 		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-import-complete', $html );
 	}
 
@@ -542,15 +547,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 * Renders failed import messages
 	 */
 	public function render_notice_import_failed() {
-		ob_start();
-		?>
-		<p>
-			<?php echo implode( ' ', $this->messages['error'] ); ?>
-		</p>
-		<?php
+		if ( empty( $this->messages['error'] ) ) {
+			return null;
+		}
 
-		$html = ob_get_clean();
-
+		$html = '<p>' . implode( ' ', $this->messages['error'] ) . '</p>';
 		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-import-failed', $html );
 	}
 }
