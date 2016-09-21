@@ -163,7 +163,6 @@
 		}
 
 		.tribe-message {
-			margin-bottom: 1rem;
 		}
 
 		.tribe-credentials-success {
@@ -352,6 +351,11 @@
 	.widefat td p {
 		margin-bottom: .25em;
 	}
+
+	.tribe-ea-facebook-button {
+		margin-left: 2rem;
+		margin-top: 1rem;
+	}
 }
 
 .tribe-ea-table-container {
@@ -522,9 +526,37 @@
 	}
 }
 
-.tribe-ea-form[data-origin="eventbrite"] {
-	.tribe-finalize-container {
-		display: block;
+.tribe-ea-form {
+	&[data-origin="eventbrite"] {
+		.tribe-finalize-container {
+			display: block;
+		}
+	}
+
+	&[data-origin="csv"] {
+		.dataTables_length,
+		.dataTables_info,
+		.dataTables_paginate,
+		.dataTables_filter {
+			display: none;
+		}
+	}
+
+	.tribe-bumpdown-manual,
+	.tribe-bumpdown-scheduled {
+		display: none;
+	}
+
+	&[data-type="manual"] {
+		.tribe-bumpdown-manual {
+			display: inline-block;
+		}
+	}
+
+	&[data-type="schedule"] {
+		.tribe-bumpdown-scheduled {
+			display: inline-block;
+		}
 	}
 }
 

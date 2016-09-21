@@ -126,6 +126,37 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			return $queue->process();
 		}
 
+		$importer = $this->prep_import_data( $data );
+
+		$queue = new Tribe__Events__Aggregator__Record__Queue( $this->post->ID, $importer );
+		return $queue->process();
+	}
+
+	/**
+	 * Handles import data before queuing
+	 *
+	 * Ensures the import record source name is accurate, checks for errors, and limits import items
+	 * based on selection
+	 *
+	 * @param array $data Import data
+	 *
+	 * @return array|WP_Error
+	 */
+	public function prep_import_data( $data = array() ) {
+		if ( empty( $this->meta['finalized'] ) ) {
+			return tribe_error( 'core:aggregator:record-not-finalized' );
+		}
+
+		// if $data is an object already, don't attempt to manipulate it into an importer object
+		if ( is_object( $data ) ) {
+			return $data;
+		}
+
+		// if $data is empty, grab the data from meta
+		if ( empty( $data ) ) {
+			$data = $this->meta;
+		}
+
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $data['import_id'] );
 
 		if ( empty( $data['column_map'] ) ) {
@@ -172,8 +203,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 
 		update_option( 'tribe_events_import_column_mapping_' . $content_type, $data['column_map'] );
 
-		$queue = new Tribe__Events__Aggregator__Record__Queue( $this->post->ID, $importer );
-		return $queue->process();
+		return $importer;
 	}
 
 	public function get_importer() {
@@ -328,9 +358,17 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			$log['encoding'] = 0;
 		}
 
-		$log['updated'] += $importer->get_updated_post_count();
-		$log['created'] += $importer->get_new_post_count();
-		$log['skipped'] += $importer->get_skipped_row_count();
+		$updated = $importer->get_updated_post_count();
+		$created = $importer->get_new_post_count();
+		$skipped = $importer->get_skipped_row_count();
+
+		$this->meta['activity']->add( 'updated', $this->meta['content_type'], array_fill( 0, $updated, 1 ) );
+		$this->meta['activity']->add( 'created', $this->meta['content_type'], array_fill( 0, $created, 1 ) );
+		$this->meta['activity']->add( 'skipped', $this->meta['content_type'], array_fill( 0, $skipped, 1 ) );
+
+		$log['updated']  += $updated;
+		$log['created']  += $created;
+		$log['skipped']  += $skipped;
 		$log['encoding'] += $importer->get_encoding_changes_row_count();
 		update_option( 'tribe_events_import_log', $log );
 

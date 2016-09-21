@@ -195,8 +195,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Edits an import record
 	 *
-	 * @param array $args Post type args
-	 * @param array $meta Post meta
+	 * @param int   $post_id
+	 * @param array $args    Post type args
+	 * @param array $meta    Post meta
 	 *
 	 * @return WP_Post|WP_Error
 	 */
@@ -691,6 +692,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
+		// In some cases the scheduled import may be inactive and should not run during cron
+		if ( false === $this->frequency ) {
+			return false;
+		}
+
 		$current  = time();
 		$modified = strtotime( $this->post->post_modified_gmt );
 		$next     = $modified + $this->frequency->interval;
@@ -758,7 +764,18 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return array|WP_Error
 	 */
 	public function process_posts( $data = array() ) {
-		$queue = new Tribe__Events__Aggregator__Record__Queue( $this, $data );
+		if ( $this->has_queue() ) {
+			$queue = new Tribe__Events__Aggregator__Record__Queue( $this );
+			return $queue->process();
+		}
+
+		$items = $this->prep_import_data( $data );
+
+		if ( is_wp_error( $items ) ) {
+			return $items;
+		}
+
+		$queue = new Tribe__Events__Aggregator__Record__Queue( $this, $items );
 		return $queue->process();
 	}
 
@@ -817,7 +834,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( ! isset( $data->data->events ) ) {
-			return tribe_error( 'core:aggregator:record-not-finalized' );
+			return 'fetch';
 		}
 
 		$items = $this->filter_data_by_selected( $data->data->events );

@@ -138,10 +138,14 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		// Ensures Records is an Array
 		$data->records = (array) $data->records;
 
-		if ( 'delete' === $data->action ) {
-			list( $success, $errors ) = $this->action_delete_record( $data->records );
-		} elseif ( 'run-import' === $data->action ) {
-			list( $success, $errors ) = $this->action_run_import( $data->records );
+		switch ( $data->action ) {
+			case 'delete':
+				list( $success, $errors ) = $this->action_delete_record( $data->records );
+				break;
+
+			case 'run-import':
+				list( $success, $errors ) = $this->action_run_import( $data->records );
+				break;
 		}
 
 		$args = array(
@@ -175,10 +179,20 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		switch ( $_GET['action'] ) {
 			case 'run-import';
 				$action = __( 'queued', 'the-events-calendar' );
-			break;
+				break;
+
 			case 'delete';
 				$action = __( 'delete', 'the-events-calendar' );
-			break;
+				break;
+
+			case 'reactivate':
+				$action = __( 'reactivated', 'the-events-calendar' );
+				break;
+
+			case 'deactivate':
+				$action = __( 'deactivated', 'the-events-calendar' );
+				break;
+
 			default:
 				return false;
 		}

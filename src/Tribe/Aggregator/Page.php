@@ -98,6 +98,7 @@ class Tribe__Events__Aggregator__Page {
 							'preview_timeout' => __( 'The preview is taking longer than expected. Please try again in a moment.', 'the-events-calendar' ),
 							'preview_fetch_error_prefix' => __( 'There was an error fetching the results from your import:', 'the-events-calendar' ),
 							'import_all' => __( 'Import All (%d)', 'the-events-calendar' ),
+							'import_all_no_number' => __( 'Import All', 'the-events-calendar' ),
 							'import_checked' => __( 'Import Checked (%d)', 'the-events-calendar' ),
 							'create_schedule' => __( 'Save Scheduled Import', 'the-events-calendar' ),
 							'edit_save' => __( 'Save Changes', 'the-events-calendar' ),
@@ -107,8 +108,8 @@ class Tribe__Events__Aggregator__Page {
 							'view_filters' => __( 'View Filters', 'the-events-calendar' ),
 							'hide_filters' => __( 'Hide Filters', 'the-events-calendar' ),
 							'preview_polling' => array(
-								__( 'Please wait while your preview is being fetched.', 'the-events-calendar' ),
-								__( 'Please continue to wait while your preview is being generated.', 'the-events-calendar' ),
+								__( 'Please wait while your preview is fetched.', 'the-events-calendar' ),
+								__( 'Please continue to wait while your preview is generated.', 'the-events-calendar' ),
 								__( 'If all goes according to plan, you will have your preview in a few moments.', 'the-events-calendar' ),
 								__( 'Your preview is taking a bit longer than expected, but it <i>is</i> still being generated.', 'the-events-calendar' ),
 							),
