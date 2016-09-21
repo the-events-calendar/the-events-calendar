@@ -6,6 +6,8 @@ $indicator_icons = array(
 	'warning' => 'warning',
 	'bad' => 'dismiss',
 );
+
+// @todo: move these styles to the stylesheet
 ?>
 <style type="text/css">
 	.event-aggregator-status {
@@ -143,7 +145,7 @@ $indicator_icons = array(
 		$notes = '&nbsp;';
 
 		$ea_server = Tribe__Events__Aggregator__Service::instance()->api()->domain;
-		$up = Tribe__Events__Aggregator__Service::instance()->get( 'check/up' );
+		$up = Tribe__Events__Aggregator__Service::instance()->get( 'status/up' );
 
 		if ( ! $up || is_wp_error( $up ) ) {
 			$indicator = 'bad';
@@ -181,10 +183,19 @@ $indicator_icons = array(
 		<?php
 		$indicator = 'good';
 		$notes = '&nbsp;';
-		$facebook_oauth = Tribe__Events__Aggregator::instance()->api( 'origins' )->is_oauth_enabled( 'facebook' ) ? 'enabled' : 'disabled';
-		$facebook_oauth_valid_credentials = Tribe__Events__Aggregator__Settings::instance()->is_fb_credentials_valid() ? 'valid' : 'invalid';
-		// @todo something better here
-		$text = $facebook_oauth_valid_credentials . ' ' . $facebook_oauth;
+		$text = '&nbsp;';
+		if ( Tribe__Events__Aggregator::instance()->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
+			if ( ! Tribe__Events__Aggregator__Settings::instance()->is_fb_credentials_valid() ) {
+				$indicator = 'warning';
+				$text = __( 'You have not connected Event Aggregator to Facebook', 'the-events-calendar' );
+				$facebook_auth_url = Tribe__Events__Aggregator__Record__Facebook::get_auth_url( array( 'back' => 'settings' ) );
+				$notes = '<a href="' . esc_url( $facebook_auth_url ). '">' . _x( 'Connect to Facebook', 'link for connecting facebook', 'the-events-calendar' ) . '</a>';
+			}
+		} else {
+			$indicator = 'warning';
+			$text = __( 'Facebook oAuth is currently disabled', 'the-events-calendar' );
+			$notes = __( 'Some types of Facebook events may not be importing correctly (ex: private, group, 18+)', 'the-events-calendar' );
+		}
 
 		// @todo: re-size and smush the Facebook icon
 
@@ -195,13 +206,23 @@ $indicator_icons = array(
 				<span><?php esc_html_e( 'Facebook', 'the-events-calendar' ); ?></span>
 			</td>
 			<td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
+			<td><?php echo esc_html( $text ); ?></td>
 			<td><?php echo $notes; ?></td>
 		</tr>
 		<?php
 		$indicator = 'good';
 		$notes = '&nbsp;';
 		$text = '&nbsp;';
-		// @todo check the Meetup API setup
+		$meetup_api_key = tribe_get_option( 'meetup_api_key' );
+		if ( ! $meetup_api_key ) {
+			$indicator = 'warning';
+			$text = __( 'You have not set your Meetup API key.', 'the-events-calendar' );
+			$notes = sprintf( // add link to API tab
+				__( 'Add your API key on the %1$sSettings &gt; APIs%2$s page', 'the-events-calendar'),
+				'<a href="' . esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) ) ) . '">',
+				'</a>'
+			);
+		}
 
 		// @todo: re-size and smush the Meetup icon
 		?>
@@ -229,9 +250,14 @@ $indicator_icons = array(
 		$indicator = 'good';
 		$notes = '&nbsp;';
 
-		// @todo something useful here
-		$cron_status = ( defined( 'DISABLE_WP_CRON' ) && true === DISABLE_WP_CRON ) ? 'disabled' : 'enabled';
-		$text = $cron_status;
+		// @todo add API request for pingback check
+		if ( defined( 'DISABLE_WP_CRON' ) && true === DISABLE_WP_CRON ) {
+			$text = __( 'WP Cron is enable', 'the-events-calendar' );
+		} else {
+			$indicator = 'warning';
+			$text = __( 'WP Cron is not enabled', 'the-events-calendar' );
+			$notes = __( 'Scheduled imports may not run reliably without WP Cron enabled', 'the-events-calendar' );
+		}
 
 		?>
 		<tr>
