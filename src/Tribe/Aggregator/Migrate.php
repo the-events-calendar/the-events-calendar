@@ -323,7 +323,7 @@ class Tribe__Events__Aggregator__Migrate {
 
 		if ( empty( $post_type->cap->edit_posts ) || ! current_user_can( $post_type->cap->edit_posts ) ) {
 			$response->status = false;
-			$response->text = esc_html__( 'You do not have permission to migrate the iCal Facebook Settings to Event Aggregator', 'the-events-calendar' );
+			$response->text = esc_html__( 'You do not have permission to migrate the iCal Settings to Event Aggregator', 'the-events-calendar' );
 
 			wp_send_json( $response );
 		}
