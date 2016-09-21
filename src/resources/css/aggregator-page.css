@@ -528,6 +528,19 @@
 	display: none;
 }
 
+.tribe-ea-form .tribe-bumpdown-manual,
+	.tribe-ea-form .tribe-bumpdown-scheduled {
+	display: none;
+}
+
+.tribe-ea-form[data-type="manual"] .tribe-bumpdown-manual {
+	display: inline-block;
+}
+
+.tribe-ea-form[data-type="schedule"] .tribe-bumpdown-scheduled {
+	display: inline-block;
+}
+
 .tribe-cancel {
 	display: none;
 }

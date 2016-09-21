@@ -187,63 +187,13 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 		<label for="tribe-ea-field-category"><?php esc_html_e( 'Category:', 'the-events-calendar' ); ?></label>
 		<?php echo $category_dropdown; ?>
 		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-bumpdown-manual"
 			data-bumpdown="<?php echo esc_attr( $default_settings->help ); ?>"
-			data-depends="#tribe-ea-field-ical_import_type"
-			data-condition-not="schedule"
-			data-condition-empty
 			data-width-rule="all-triggers"
 		></span>
 		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo esc_attr( $default_settings->help ); ?>"
-			data-depends="#tribe-ea-field-gcal_import_type"
-			data-condition-not="schedule"
-			data-condition-empty
-			data-width-rule="all-triggers"
-		></span>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo esc_attr( $default_settings->help ); ?>"
-			data-depends="#tribe-ea-field-meetup_import_type"
-			data-condition-not="schedule"
-			data-condition-empty
-			data-width-rule="all-triggers"
-		></span>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo esc_attr( $default_settings->help ); ?>"
-			data-depends="#tribe-ea-field-facebook_import_type"
-			data-condition-not="schedule"
-			data-condition-empty
-			data-width-rule="all-triggers"
-		></span>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-bumpdown-scheduled"
 			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
-			data-depends="#tribe-ea-field-ical_import_type"
-			data-condition="schedule"
-			data-width-rule="all-triggers"
-		></span>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
-			data-depends="#tribe-ea-field-gcal_import_type"
-			data-condition="schedule"
-			data-width-rule="all-triggers"
-		></span>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
-			data-depends="#tribe-ea-field-meetup_import_type"
-			data-condition="schedule"
-			data-width-rule="all-triggers"
-		></span>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
-			data-depends="#tribe-ea-field-facebook_import_type"
-			data-condition="schedule"
 			data-width-rule="all-triggers"
 		></span>
 	</div>

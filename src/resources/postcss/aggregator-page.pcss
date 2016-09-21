@@ -537,6 +537,23 @@
 			display: none;
 		}
 	}
+
+	.tribe-bumpdown-manual,
+	.tribe-bumpdown-scheduled {
+		display: none;
+	}
+
+	&[data-type="manual"] {
+		.tribe-bumpdown-manual {
+			display: inline-block;
+		}
+	}
+
+	&[data-type="schedule"] {
+		.tribe-bumpdown-scheduled {
+			display: inline-block;
+		}
+	}
 }
 
 .tribe-cancel {
