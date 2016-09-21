@@ -94,6 +94,7 @@ class Tribe__Events__Aggregator {
 
 		// Loads the Required Classes and saves them as proprieties
 		$this->meta_box        = Tribe__Events__Aggregator__Meta_Box::instance();
+		$this->migrate         = Tribe__Events__Aggregator__Migrate::instance();
 		$this->page            = Tribe__Events__Aggregator__Page::instance();
 		$this->service         = Tribe__Events__Aggregator__Service::instance();
 		$this->settings        = Tribe__Events__Aggregator__Settings::instance();
