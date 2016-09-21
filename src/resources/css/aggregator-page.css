@@ -361,23 +361,11 @@
 	margin-bottom: .25em;
 }
 
-.tribe-ea-facebook-button {
-	background: #0073aa;
-	border-radius: 3px;
-	color: #fff;
-	display: inline-block;
-	margin-top: 16px;
-	margin-top: 1rem;
+.tribe-ea .tribe-ea-facebook-button {
 	margin-left: 32px;
 	margin-left: 2rem;
-	padding: 8px 24px;
-	padding: .5rem 1.5rem;
-	text-decoration: none;
-}
-
-.tribe-ea-facebook-button:hover {
-	background: #005b87;
-	cursor: pointer;
+	margin-top: 16px;
+	margin-top: 1rem;
 }
 
 .tribe-ea-table-container {

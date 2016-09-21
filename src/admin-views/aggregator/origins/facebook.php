@@ -21,14 +21,15 @@ $missing_facebook_credentials = ! Tribe__Events__Aggregator__Settings::instance(
 		<?php if ( $missing_facebook_credentials ) : ?>
 			<div class="tribe-message tribe-credentials-prompt">
 				<input type="hidden" name="has-credentials" id="tribe-has-facebook-credentials" value="0">
-				<span class="dashicons dashicons-warning"></span>
-				<?php
-				esc_html_e(
-					'Please login to enable event imports from Facebook.',
-					'the-events-calendar'
-				);
-				?>
-				<br>
+				<p>
+					<span class="dashicons dashicons-warning"></span>
+					<?php
+					esc_html_e(
+						'Please login to enable event imports from Facebook.',
+						'the-events-calendar'
+					);
+					?>
+				</p>
 				<a class="tribe-ea-facebook-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url() ); ?>"><?php esc_html_e( 'Login with Facebook', 'the-events-calendar' ); ?></a>
 			</div>
 		<?php else : ?>

@@ -256,3 +256,17 @@ table.eventForm {
 .tribe-aggregator-import-details .tribe-value {
 	font-weight: bold;
 }
+.tribe-ea-facebook-button {
+	background: #0073aa;
+	border-radius: 3px;
+	color: #fff;
+	display: inline-block;
+	padding: 8px 24px;
+	padding: .5rem 1.5rem;
+	text-decoration: none;
+}
+.tribe-ea-facebook-button:hover {
+	background: #005b87;
+	color: #fff;
+	cursor: pointer;
+}
