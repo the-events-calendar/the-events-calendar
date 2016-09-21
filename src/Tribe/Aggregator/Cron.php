@@ -89,12 +89,12 @@ class Tribe__Events__Aggregator__Cron {
 			(object) array(
 				'id'       => 'on_demand',
 				'interval' => false,
-				'text'     => esc_html_x( 'On demand', 'aggregator schedule frequency', 'the-events-calendar' ),
+				'text'     => esc_html_x( 'On Demand', 'aggregator schedule frequency', 'the-events-calendar' ),
 			),
 			(object) array(
 				'id'       => 'every30mins',
 				'interval' => MINUTE_IN_SECONDS * 30,
-				'text'     => esc_html_x( 'Every 30 minutes', 'aggregator schedule frequency', 'the-events-calendar' ),
+				'text'     => esc_html_x( 'Every 30 Minutes', 'aggregator schedule frequency', 'the-events-calendar' ),
 			),
 			(object) array(
 				'id'       => 'hourly',
