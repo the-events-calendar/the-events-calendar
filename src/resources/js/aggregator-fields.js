@@ -109,6 +109,9 @@ tribe_aggregator.fields = {
 				    $frequency = $( this ).next( obj.selector.fields );
 
 				$frequency.select2( 'val', ( 'schedule' === $this.val() ? 'daily' : '' ) ).change();
+
+				// set a data attribute on the form indicating the schedule type
+				obj.$.form.attr( 'data-type', $this.val() );
 			} )
 			.on( 'change'     , obj.selector.origin_field              , function() {
 				obj.$.form.attr( 'data-origin', $( this ).val() );
