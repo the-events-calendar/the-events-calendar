@@ -16,6 +16,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	protected $content_type_plural;
 	protected $content_type_object;
 	protected $content_post_type;
+	protected $messages;
 
 	/**
 	 * Static Singleton Factory Method
@@ -169,9 +170,9 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 	public function handle_import_finalize( $data ) {
 		$this->messages = array(
-			'error',
-			'success',
-			'warning',
+			'error'   => array(),
+			'success' => array(),
+			'warning' => array(),
 		);
 
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $data['import_id'] );
@@ -260,7 +261,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			if ( ! empty( $item_created ) ) {
 				$content_label = 1 === $queue->activity->count( $content_post_type, 'created' ) ? $content_type : $content_type_plural;
 
-				$messages['success'][] = sprintf(
+				$messages['success'][] = sprintf( // add created event count
 					_n( '%1$d new %2$s was imported.', '%1$d new %2$s were imported.', $queue->activity->count( $content_post_type, 'created' ), 'the-events-calendar' ),
 					$queue->activity->count( $content_post_type, 'created' ),
 					$content_label
@@ -272,7 +273,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 				$content_label = 1 === $queue->activity->count( $content_post_type, 'updated' ) ? $content_type : $content_type_plural;
 
 				// @todo: include a part of sentence like: ", including %1$d %2$signored event%3$s.", <a href="/wp-admin/edit.php?post_status=tribe-ignored&post_type=tribe_events">, </a>
-				$messages['success'][] = sprintf(
+				$messages['success'][] = sprintf( // add updated event count
 					_n( '%1$d existing %2$s was updated.', '%1$d existing %2$s were updated.', $queue->activity->count( $content_post_type, 'updated' ), 'the-events-calendar' ),
 					$queue->activity->count( $content_post_type, 'updated' ),
 					$content_label
@@ -283,7 +284,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			if ( ! empty( $item_skipped ) ) {
 				$content_label = 1 === $queue->activity->count( $content_post_type, 'skipped' ) ? $content_type : $content_type_plural;
 
-				$messages['success'][] = sprintf(
+				$messages['success'][] = sprintf( // add skipped event count
 					_n( '%1$d already-imported %2$s was skipped.', '%1$d already-imported %2$s were skipped.', $queue->activity->count( $content_post_type, 'skipped' ), 'the-events-calendar' ),
 					$queue->activity->count( $content_post_type, 'skipped' ),
 					$content_label
@@ -292,7 +293,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 			$images_created = $queue->activity->get( 'images', 'created' );
 			if ( ! empty( $images_created ) ) {
-				$messages['success'][] = sprintf(
+				$messages['success'][] = sprintf( // add image import count
 					_n( '%1$d new image was imported.', '%1$d new images were imported.', $queue->activity->count( 'images', 'created' ), 'the-events-calendar' ),
 					$queue->activity->count( 'images', 'created' )
 				);
@@ -313,38 +314,39 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			if ( 'csv' !== $queue->record->meta['origin'] ) {
 				$venue_created = $queue->activity->get( 'venue', 'created' );
 				if ( ! empty( $venue_created ) ) {
-					$messages['success'][] = '<br/>' . sprintf(
-							_n( '%1$d new venue was imported.', '%1$d new venues were imported.', $queue->activity->count( 'venue', 'created' ), 'the-events-calendar' ),
-							$queue->activity->count( 'venue', 'created' )
-						) .
-						' <a href="' . admin_url( 'edit.php?post_type=tribe_venue' ) . '">' .
-						__( 'View your event venues', 'the-events-calendar' ) .
-						'</a>';
+					$messages['success'][] = '<br/>' .
+					sprintf( // add activity count
+						_n( '%1$d new venue was imported.', '%1$d new venues were imported.', $queue->activity->count( 'venue', 'created' ), 'the-events-calendar' ),
+						$queue->activity->count( 'venue', 'created' )
+					) .
+					' <a href="' . admin_url( 'edit.php?post_type=tribe_venue' ) . '">' .
+					__( 'View your event venues', 'the-events-calendar' ) .
+					'</a>';
 				}
 
 				$organizer_created = $queue->activity->get( 'organizer', 'created' );
 				if ( ! empty( $organizer_created ) ) {
-					$messages['success'][] = '<br/>' . sprintf(
-							_n( '%1$d new organizer was imported.', '%1$d new organizers were imported.', $queue->activity->count( 'organizer', 'created' ), 'the-events-calendar' ),
-							$queue->activity->count( 'organizer', 'created' )
-						) .
-						' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
-						__( 'View your event organizers', 'the-events-calendar' ) .
-						'</a>';
-					;
+					$messages['success'][] = '<br/>' .
+					sprintf( // add organizer count
+						_n( '%1$d new organizer was imported.', '%1$d new organizers were imported.', $queue->activity->count( 'organizer', 'created' ), 'the-events-calendar' ),
+						$queue->activity->count( 'organizer', 'created' )
+					) .
+					' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
+					__( 'View your event organizers', 'the-events-calendar' ) .
+					'</a>';
 				}
 			}
 
 			$category_created = $queue->activity->get( 'category', 'created' );
 			if ( ! empty( $category_created ) ) {
-				$messages['success'][] = '<br/>' . sprintf(
+				$messages['success'][] = '<br/>' .
+					sprintf( // add category count
 						_n( '%1$d new event category was created.', '%1$d new event categories were created.', $queue->activity->count( 'category', 'created' ), 'the-events-calendar' ),
 						$queue->activity->count( 'category', 'created' )
 					) .
 					' <a href="' . admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) . '">' .
 					__( 'View your event categories', 'the-events-calendar' ) .
 					'</a>';
-				;
 			}
 		}
 
@@ -364,7 +366,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 										 date( get_option( 'time_format' ), $scheduled_time );
 
 				$messages['success'][] = '<br/>' .
-										 sprintf(
+										 sprintf( // add in timing
 											 __( 'The next import is scheduled for %1$s.', 'the-events-calendar' ),
 											 esc_html( $scheduled_time_string )
 										 ) .
@@ -517,16 +519,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		ob_start();
 		?>
 		<p>
-			<?php
-			echo sprintf(
-				esc_html__(
-					'%1$sYour Event Aggregator license is expired.%2$s Renew your license in order to import events from Facebook, iCalendar, Google, or Meetup.',
-					'the-events-calendar'
-				),
-				'<b>',
-				'</b>'
-			);
-			?>
+			<b><?php esc_html_e( 'Your Event Aggregator license is expired.', 'the-events-calendar' ); ?></b>
+			<?php esc_html_e( 'Renew your license in order to import events from Facebook, iCalendar, Google, or Meetup.', 'the-events-calendar' ); ?>
 		</p>
 		<p>
 			<a href="https://theeventscalendar.com/license-keys/?utm_campaign=in-app&utm_source=renewlink&utm_medium=event-aggregator" class="tribe-license-link"><?php esc_html_e( 'Renew your Event Aggregator license', 'the-events-calendar' ); ?></a>
@@ -543,10 +537,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 */
 	public function render_notice_import_complete() {
 		if ( empty( $this->messages['success'] ) ) {
-			return;
+			return null;
 		}
 
-		$html = '<p>' . implode( ' ', $this->messages['success'] ) . '</p>';
+		$html = '<p>' . implode( ' ', $this->messages[ 'success' ] ) . '</p>';
 		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-import-complete', $html );
 	}
 
@@ -554,15 +548,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 * Renders failed import messages
 	 */
 	public function render_notice_import_failed() {
-		ob_start();
-		?>
-		<p>
-			<?php echo implode( ' ', $this->messages['error'] ); ?>
-		</p>
-		<?php
+		if ( empty( $this->messages['error'] ) ) {
+			return null;
+		}
 
-		$html = ob_get_clean();
-
+		$html = '<p>' . implode( ' ', $this->messages['error'] ) . '</p>';
 		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-import-failed', $html );
 	}
 }

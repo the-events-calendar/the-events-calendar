@@ -87,29 +87,34 @@ class Tribe__Events__Aggregator__Cron {
 		 */
 		$found = $schedules = apply_filters( 'tribe_aggregator_record_frequency', array(
 			(object) array(
-				'id'     => 'every30mins',
+				'id'       => 'inactive',
+				'interval' => false,
+				'text'     => esc_html_x( 'Inactive (manual/on demand)', 'aggregator schedule frequency', 'the-events-calendar' ),
+			),
+			(object) array(
+				'id'       => 'every30mins',
 				'interval' => MINUTE_IN_SECONDS * 30,
-				'text'  => esc_html_x( 'Every 30 minutes', 'aggregator schedule frequency', 'the-events-calendar' ),
+				'text'     => esc_html_x( 'Every 30 minutes', 'aggregator schedule frequency', 'the-events-calendar' ),
 			),
 			(object) array(
-				'id'     => 'hourly',
+				'id'       => 'hourly',
 				'interval' => HOUR_IN_SECONDS,
-				'text'  => esc_html_x( 'Hourly', 'aggregator schedule frequency', 'the-events-calendar' ),
+				'text'     => esc_html_x( 'Hourly', 'aggregator schedule frequency', 'the-events-calendar' ),
 			),
 			(object) array(
-				'id'     => 'daily',
+				'id'       => 'daily',
 				'interval' => DAY_IN_SECONDS,
-				'text'  => esc_html_x( 'Daily', 'aggregator schedule frequency', 'the-events-calendar' ),
+				'text'     => esc_html_x( 'Daily', 'aggregator schedule frequency', 'the-events-calendar' ),
 			),
 			(object) array(
-				'id'     => 'weekly',
+				'id'       => 'weekly',
 				'interval' => WEEK_IN_SECONDS,
-				'text'  => esc_html_x( 'Weekly', 'aggregator schedule frequency', 'the-events-calendar' ),
+				'text'     => esc_html_x( 'Weekly', 'aggregator schedule frequency', 'the-events-calendar' ),
 			),
 			(object) array(
-				'id'     => 'monthly',
+				'id'       => 'monthly',
 				'interval' => DAY_IN_SECONDS * 30,
-				'text'  => esc_html_x( 'Monthly', 'aggregator schedule frequency', 'the-events-calendar' ),
+				'text'     => esc_html_x( 'Monthly', 'aggregator schedule frequency', 'the-events-calendar' ),
 			),
 		) );
 
