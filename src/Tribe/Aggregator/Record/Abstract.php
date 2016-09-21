@@ -173,6 +173,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$defaults = array(
 			'frequency' => null,
 			'hash'      => wp_generate_password( 32, true, true ),
+			'preview'   => false,
 		);
 
 		$meta = wp_parse_args( $meta, $defaults );
@@ -463,6 +464,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		if ( ! empty( $this->meta['radius'] ) ) {
 			$defaults['radius'] = $this->meta['radius'];
+		}
+
+		if ( ! empty( $this->meta['preview'] ) ) {
+			$defaults['preview'] = $this->meta['preview'];
 		}
 
 		$args = wp_parse_args( $args, $defaults );
