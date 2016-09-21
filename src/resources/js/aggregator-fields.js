@@ -502,7 +502,9 @@ tribe_aggregator.fields = {
 		var text;
 
 		if ( 'new' === obj.$.action.val() ) {
-			if ( 'manual' === import_type ) {
+			if ( 'manual' === import_type && is_csv ) {
+				text = ea.l10n.import_all_no_number;
+			} else if ( 'manual' === import_type ) {
 				text = ea.l10n.import_all.replace( '%d', rows.length );
 			} else {
 				text = ea.l10n.create_schedule;

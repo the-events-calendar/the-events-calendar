@@ -134,7 +134,15 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 		<p class="tribe-preview-message" id="tribe-csv-preview-message">
 			<?php esc_html_e( 'Column Mapping:', 'the-events-calendar' ); ?>
 			<span class="tribe-csv-filename"></span>
-			<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $csv_help ); ?>"></span>
+			<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $csv_help ); ?>" data-width-rule="all-triggers"></span>
+		</p>
+		<p class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="csv">
+			<?php
+			esc_html_e(
+				'The following preview does not necessarily contain all of the data from your CSV file. The data displayed below is meant as a guide to help you map your CSV file\'s columns to the appropriate Event fields.',
+				'the-events-calendar'
+			);
+			?>
 		</p>
 		<table class="wp-list-table widefat fixed striped">
 			<thead>

@@ -522,9 +522,20 @@
 	}
 }
 
-.tribe-ea-form[data-origin="eventbrite"] {
-	.tribe-finalize-container {
-		display: block;
+.tribe-ea-form {
+	&[data-origin="eventbrite"] {
+		.tribe-finalize-container {
+			display: block;
+		}
+	}
+
+	&[data-origin="csv"] {
+		.dataTables_length,
+		.dataTables_info,
+		.dataTables_paginate,
+		.dataTables_filter {
+			display: none;
+		}
 	}
 }
 
