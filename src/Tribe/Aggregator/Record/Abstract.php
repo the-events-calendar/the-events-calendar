@@ -758,7 +758,18 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return array|WP_Error
 	 */
 	public function process_posts( $data = array() ) {
-		$queue = new Tribe__Events__Aggregator__Record__Queue( $this, $data );
+		if ( $this->has_queue() ) {
+			$queue = new Tribe__Events__Aggregator__Record__Queue( $this );
+			return $queue->process();
+		}
+
+		$items = $this->prep_import_data( $data );
+
+		if ( is_wp_error( $items ) ) {
+			return $items;
+		}
+
+		$queue = new Tribe__Events__Aggregator__Record__Queue( $this, $items );
 		return $queue->process();
 	}
 
@@ -817,7 +828,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( ! isset( $data->data->events ) ) {
-			return tribe_error( 'core:aggregator:record-not-finalized' );
+			return 'fetch';
 		}
 
 		$items = $this->filter_data_by_selected( $data->data->events );

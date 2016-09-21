@@ -15,6 +15,8 @@ class Tribe__Events__Aggregator__Record__Activity {
 	 */
 	private $map = array();
 
+	public $total = 0;
+
 	/**
 	 * Creates an easy way to test valid Actions
 	 * @var array

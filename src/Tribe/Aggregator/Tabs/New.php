@@ -241,8 +241,9 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return $messages;
 		}
 
-		$is_queued = ! empty( $queue->items );
+		$is_queued = $queue->count();
 
+		$content_post_type = $queue->record->meta['content_type'];
 		$content_type = tribe_get_event_label_singular_lowercase();
 		$content_type_plural = tribe_get_event_label_plural_lowercase();
 		$content_post_type = Tribe__Events__Main::POSTTYPE;
@@ -255,36 +256,36 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		}
 
 		if ( ! $is_queued ) {
-			$event_created = $queue->activity->get( 'event', 'created' );
-			if ( ! empty( $event_created ) ) {
-				$content_label = 1 === $queue->activity->count( 'event', 'created' ) ? $content_type : $content_type_plural;
+			$item_created = $queue->activity->get( $content_post_type, 'created' );
+			if ( ! empty( $item_created ) ) {
+				$content_label = 1 === $queue->activity->count( $content_post_type, 'created' ) ? $content_type : $content_type_plural;
 
 				$messages['success'][] = sprintf(
-					_n( '%1$d new %2$s was imported.', '%1$d new %2$s were imported.', $queue->activity->count( 'event', 'created' ), 'the-events-calendar' ),
-					$queue->activity->count( 'event', 'created' ),
+					_n( '%1$d new %2$s was imported.', '%1$d new %2$s were imported.', $queue->activity->count( $content_post_type, 'created' ), 'the-events-calendar' ),
+					$queue->activity->count( $content_post_type, 'created' ),
 					$content_label
 				);
 			}
 
-			$event_updated = $queue->activity->get( 'event', 'updated' );
-			if ( ! empty( $event_updated ) ) {
-				$content_label = 1 === $queue->activity->count( 'event', 'updated' ) ? $content_type : $content_type_plural;
+			$item_updated = $queue->activity->get( $content_post_type, 'updated' );
+			if ( ! empty( $item_updated ) ) {
+				$content_label = 1 === $queue->activity->count( $content_post_type, 'updated' ) ? $content_type : $content_type_plural;
 
 				// @todo: include a part of sentence like: ", including %1$d %2$signored event%3$s.", <a href="/wp-admin/edit.php?post_status=tribe-ignored&post_type=tribe_events">, </a>
 				$messages['success'][] = sprintf(
-					_n( '%1$d existing %2$s was updated.', '%1$d existing %2$s were updated.', $queue->activity->count( 'event', 'updated' ), 'the-events-calendar' ),
-					$queue->activity->count( 'event', 'updated' ),
+					_n( '%1$d existing %2$s was updated.', '%1$d existing %2$s were updated.', $queue->activity->count( $content_post_type, 'updated' ), 'the-events-calendar' ),
+					$queue->activity->count( $content_post_type, 'updated' ),
 					$content_label
 				);
 			}
 
-			$event_skipped = $queue->activity->get( 'event', 'skipped' );
-			if ( ! empty( $event_skipped ) ) {
-				$content_label = 1 === $queue->activity->count( 'event', 'skipped' ) ? $content_type : $content_type_plural;
+			$item_skipped = $queue->activity->get( $content_post_type, 'skipped' );
+			if ( ! empty( $item_skipped ) ) {
+				$content_label = 1 === $queue->activity->count( $content_post_type, 'skipped' ) ? $content_type : $content_type_plural;
 
 				$messages['success'][] = sprintf(
-					_n( '%1$d already-imported %2$s was skipped.', '%1$d already-imported %2$s were skipped.', $queue->activity->count( 'event', 'skipped' ), 'the-events-calendar' ),
-					$queue->activity->count( 'event', 'skipped' ),
+					_n( '%1$d already-imported %2$s was skipped.', '%1$d already-imported %2$s were skipped.', $queue->activity->count( $content_post_type, 'skipped' ), 'the-events-calendar' ),
+					$queue->activity->count( $content_post_type, 'skipped' ),
 					$content_label
 				);
 			}
@@ -316,9 +317,9 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 							_n( '%1$d new venue was imported.', '%1$d new venues were imported.', $queue->activity->count( 'venue', 'created' ), 'the-events-calendar' ),
 							$queue->activity->count( 'venue', 'created' )
 						) .
-											 ' <a href="' . admin_url( 'edit.php?post_type=tribe_venue' ) . '">' .
-											 __( 'View your event venues', 'the-events-calendar' ) .
-											 '</a>';
+						' <a href="' . admin_url( 'edit.php?post_type=tribe_venue' ) . '">' .
+						__( 'View your event venues', 'the-events-calendar' ) .
+						'</a>';
 				}
 
 				$organizer_created = $queue->activity->get( 'organizer', 'created' );
@@ -327,24 +328,24 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 							_n( '%1$d new organizer was imported.', '%1$d new organizers were imported.', $queue->activity->count( 'organizer', 'created' ), 'the-events-calendar' ),
 							$queue->activity->count( 'organizer', 'created' )
 						) .
-											 ' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
-											 __( 'View your event organizers', 'the-events-calendar' ) .
-											 '</a>';
+						' <a href="' . admin_url( 'edit.php?post_type=tribe_organizer' ) . '">' .
+						__( 'View your event organizers', 'the-events-calendar' ) .
+						'</a>';
 					;
 				}
 			}
-		}
 
-		$category_created = $queue->activity->get( 'category', 'created' );
-		if ( ! empty( $category_created ) ) {
-			$messages['success'][] = '<br/>' . sprintf(
-					_n( '%1$d new event category was created.', '%1$d new event categories were created.', $queue->activity->count( 'category', 'created' ), 'the-events-calendar' ),
-					$queue->activity->count( 'category', 'created' )
-				) .
-									 ' <a href="' . admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) . '">' .
-									 __( 'View your event categories', 'the-events-calendar' ) .
-									 '</a>';
-			;
+			$category_created = $queue->activity->get( 'category', 'created' );
+			if ( ! empty( $category_created ) ) {
+				$messages['success'][] = '<br/>' . sprintf(
+						_n( '%1$d new event category was created.', '%1$d new event categories were created.', $queue->activity->count( 'category', 'created' ), 'the-events-calendar' ),
+						$queue->activity->count( 'category', 'created' )
+					) .
+					' <a href="' . admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) . '">' .
+					__( 'View your event categories', 'the-events-calendar' ) .
+					'</a>';
+				;
+			}
 		}
 
 		if (
@@ -541,6 +542,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 * Renders any of the "import complete" messages
 	 */
 	public function render_notice_import_complete() {
+		if ( empty( $this->messages['success'] ) ) {
+			return;
+		}
+
 		$html = '<p>' . implode( ' ', $this->messages['success'] ) . '</p>';
 		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-import-complete', $html );
 	}

@@ -181,6 +181,11 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	 * @return mixed|string|void
 	 */
 	public function get_progress_message_data( $queue, $percentage, $done ) {
+		$queue_type = $queue->get_queue_type();
+
+		$is_event_queue = $queue_type === Tribe__Events__Main::POSTTYPE;
+		$activity = $queue->activity();
+
 		$data = array(
 			'html'          => false,
 			'progress'      => $percentage,
@@ -188,15 +193,15 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 			'continue'      => ! $done,
 			'complete'      => $done,
 			'counts'        => array(
-				'total'     => $queue->activity->count( 'event' ),
-				'created'   => $queue->activity->count( 'event', 'created' ),
-				'updated'   => $queue->activity->count( 'event', 'updated' ),
-				'skipped'   => $queue->activity->count( 'event', 'skipped' ),
-				'category'  => $queue->activity->count( 'category', 'created' ),
-				'images'    => $queue->activity->count( 'images', 'created' ),
-				'venues'    => $queue->activity->count( 'venues', 'created' ),
-				'organizers' => $queue->activity->count( 'organizer', 'created' ),
-				'remaining' => $queue->count(),
+				'total'      => $activity->count( $queue_type ),
+				'created'    => $activity->count( $queue_type, 'created' ),
+				'updated'    => $activity->count( $queue_type, 'updated' ),
+				'skipped'    => $activity->count( $queue_type, 'skipped' ),
+				'category'   => $activity->count( 'category', 'created' ),
+				'images'     => $activity->count( 'images', 'created' ),
+				'venues'     => $is_event_queue ? $activity->count( 'venues', 'created' ) : 0,
+				'organizers' => $is_event_queue ? $activity->count( 'organizer', 'created' ) : 0,
+				'remaining'  => $queue->count(),
 			),
 		);
 
