@@ -108,8 +108,8 @@ class Tribe__Events__Aggregator__Page {
 							'view_filters' => __( 'View Filters', 'the-events-calendar' ),
 							'hide_filters' => __( 'Hide Filters', 'the-events-calendar' ),
 							'preview_polling' => array(
-								__( 'Please wait while your preview is being fetched.', 'the-events-calendar' ),
-								__( 'Please continue to wait while your preview is being generated.', 'the-events-calendar' ),
+								__( 'Please wait while your preview is fetched.', 'the-events-calendar' ),
+								__( 'Please continue to wait while your preview is generated.', 'the-events-calendar' ),
 								__( 'If all goes according to plan, you will have your preview in a few moments.', 'the-events-calendar' ),
 								__( 'Your preview is taking a bit longer than expected, but it <i>is</i> still being generated.', 'the-events-calendar' ),
 							),
