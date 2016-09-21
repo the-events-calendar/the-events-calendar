@@ -220,7 +220,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$meta = wp_parse_args( $meta, $defaults );
 
 		// Record the previous frequency setting for this record
-		$previous_frequency = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post_id )->frequency;
+		$previous_frequency = get_post_field( 'post_content' );
 
 		if ( is_object( $previous_frequency ) && isset( $previous_frequency->id ) ) {
 			$meta['prev_frequency'] = $previous_frequency->id;
