@@ -146,13 +146,21 @@ class Tribe__Events__Aggregator__Migrate {
 	 * @return bool
 	 */
 	public function is_facebook_migrated() {
+		$records = Tribe__Events__Aggregator__Records::instance();
+
 		$args = array(
-			'post_status' => Tribe__Events__Aggregator__Records::$status->schedule,
+			'post_status'    => Tribe__Events__Aggregator__Records::$status->schedule,
 			'posts_per_page' => 1,
 			'post_mime_type' => 'ea/facebook',
+			'meta_query'     => array(
+				array(
+					'key'     => $records->prefix_meta( 'is_legacy' ),
+					'compare' => 'EXISTS',
+				)
+			),
 		);
 
-		return Tribe__Events__Aggregator__Records::instance()->query( $args )->have_posts();
+		return $records->query( $args )->have_posts();
 	}
 
 	/**
@@ -163,7 +171,19 @@ class Tribe__Events__Aggregator__Migrate {
 	 * @return mixed
 	 */
 	public function get_ical_setting() {
-		return (object) array();
+		$data = (object) array(
+			'post_status' => null,
+			'imports' => array(),
+		);
+
+		$post_status = tribe_get_option( 'imported_post_status', $data->post_status );
+		if ( ! empty( $post_status['ical'] ) ) {
+			$data->post_status = $post_status['ical'];
+		}
+
+		$data->imports = get_option( 'tribe-events-importexport-ical-importer-saved-imports', $data->imports );
+
+		return $data;
 	}
 
 	/**
@@ -187,13 +207,21 @@ class Tribe__Events__Aggregator__Migrate {
 	 * @return bool
 	 */
 	public function is_ical_migrated() {
+		$records = Tribe__Events__Aggregator__Records::instance();
+
 		$args = array(
-			'post_status' => Tribe__Events__Aggregator__Records::$status->schedule,
+			'post_status'    => Tribe__Events__Aggregator__Records::$status->schedule,
 			'posts_per_page' => 1,
 			'post_mime_type' => 'ea/ical',
+			'meta_query'     => array(
+				array(
+					'key'     => $records->prefix_meta( 'is_legacy' ),
+					'compare' => 'EXISTS',
+				)
+			),
 		);
 
-		return Tribe__Events__Aggregator__Records::instance()->query( $args )->have_posts();
+		return $records->query( $args )->have_posts();
 	}
 
 	/**
@@ -242,7 +270,7 @@ class Tribe__Events__Aggregator__Migrate {
 			$meta = array(
 				'origin'       => $origin,
 				'type'         => 'schedule',
-				'frequency'    => $settings->frequency,
+				'frequency'    => $this->convert_ical_frequency( $settings->frequency ),
 				'file'         => null,
 				'keywords'     => null,
 				'location'     => null,
@@ -252,7 +280,7 @@ class Tribe__Events__Aggregator__Migrate {
 				'content_type' => null,
 				'is_legacy'    => true,
 				'import_id'    => null,
-				'post_status' => $settings->post_status,
+				'post_status'  => $settings->post_status,
 			);
 
 			$post = $record->create( 'schedule', array(), $meta );
@@ -269,6 +297,9 @@ class Tribe__Events__Aggregator__Migrate {
 			}
 		}
 
+		/**
+		 * @todo Create a real Logic for Messaging what happened
+		 */
 		$response->status = true;
 		$response->text = esc_html__( 'Succesfully imported the Facebook Settings into Aggregator Records.', 'the-events-calendar' );
 		$response->statuses = $status;
@@ -297,7 +328,95 @@ class Tribe__Events__Aggregator__Migrate {
 			wp_send_json( $response );
 		}
 
+		$settings = $this->get_ical_setting();
+
+		$status = (object) array(
+			'error' => array(),
+			'success' => array(),
+		);
+
+		$origin = 'ical';
+
+		foreach ( $settings->imports as $time => $import ) {
+			$import = (object) $import;
+			$record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $origin );
+
+			/**
+			 * @todo Include the Deactivated logic
+			 */
+			$meta = array(
+				'origin'       => $origin,
+				'type'         => 'schedule',
+				'frequency'    => $this->convert_ical_frequency( $import->schedule ),
+				'file'         => null,
+				'keywords'     => $import->keywords,
+				'location'     => $import->location,
+				'start'        => $import->start,
+				'radius'       => $import->radius,
+				'source'       => $import->url,
+				'content_type' => null,
+				'is_legacy'    => true,
+				'import_id'    => null,
+				'post_status'  => $import->post_status,
+				'category'     => $import->import_category,
+			);
+
+			$post = $record->create( 'schedule', array(), $meta );
+
+			if ( is_wp_error( $post ) ) {
+				$status->error[] = $post;
+			} else {
+				$status->success[] = $post->id;
+
+				// Update status from Draft to Schedule
+				$args['ID'] = absint( $post->id );
+				$args['post_status'] = Tribe__Events__Aggregator__Records::$status->schedule;
+				wp_update_post( $args );
+			}
+		}
+
+		/**
+		 * @todo Create a real Logic for Messaging what happened
+		 */
+		$response->status = true;
+		$response->text = esc_html__( 'Succesfully imported the iCal Settings into Aggregator Records.', 'the-events-calendar' );
+		$response->statuses = $status;
+
 		wp_send_json( $response );
+	}
+
+	/**
+	 * Get the iCal frequency and convert to EA
+	 *
+	 * @param  string $frequency iCal Frequency
+	 * @return string            EA Frequency
+	 */
+	private function convert_ical_frequency( $frequency ) {
+		$results = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $frequency ) );
+
+		// Return to the Default
+		if ( empty( $results ) ) {
+			return 'every30mins';
+		}
+
+		return $frequency;
+	}
+
+	/**
+	 * Get the Facebook frequency and convert to EA
+	 *
+	 * @param  string $frequency Facebook Frequency
+	 * @return string            EA Frequency
+	 */
+	private function convert_facebook_frequency( $frequency ) {
+		$results = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $frequency ) );
+
+		// Return to the Default
+		if ( empty( $results ) ) {
+			return 'daily';
+		}
+
+		return $frequency;
 	}
 
 	/**
