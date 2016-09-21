@@ -61,11 +61,11 @@ class Tribe__Events__Aggregator__Migrate {
 		$html = '<p>' . esc_html__( 'Seems like you have old settings from before the Event Aggregator existed, the buttons bellow will allow you to migrate these legacy settings to Aggregator Records', 'the-events-calendar' );
 
 		if ( ! $this->is_facebook_migrated() && $this->has_facebook_setting() ) {
-			$html .= '<p style="display:inline-block;">' . get_submit_button( esc_html__( 'Migrate Facebook settings' ), 'secondary', 'tribe-migrate-facebook-settings', false ) . '<span class="spinner"></span></p>';
+			$html .= '<p style="display:inline-block;">' . get_submit_button( esc_html__( 'Migrate Facebook settings', 'the-events-calendar' ), 'secondary', 'tribe-migrate-facebook-settings', false ) . '<span class="spinner"></span></p>';
 		}
 
 		if ( ! $this->is_ical_migrated() && $this->has_ical_setting() ) {
-			$html .= '<p style="display:inline-block;">' . get_submit_button( esc_html__( 'Migrate iCal Settings' ), 'secondary', 'tribe-migrate-ical-settings', false ) . '<span class="spinner"></span></p>';
+			$html .= '<p style="display:inline-block;">' . get_submit_button( esc_html__( 'Migrate iCal Settings', 'the-events-calendar' ), 'secondary', 'tribe-migrate-ical-settings', false ) . '<span class="spinner"></span></p>';
 		}
 
 		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-migrate-legacy-settings', $html );
@@ -156,7 +156,7 @@ class Tribe__Events__Aggregator__Migrate {
 				array(
 					'key'     => $records->prefix_meta( 'is_legacy' ),
 					'compare' => 'EXISTS',
-				)
+				),
 			),
 		);
 
@@ -217,7 +217,7 @@ class Tribe__Events__Aggregator__Migrate {
 				array(
 					'key'     => $records->prefix_meta( 'is_legacy' ),
 					'compare' => 'EXISTS',
-				)
+				),
 			),
 		);
 
