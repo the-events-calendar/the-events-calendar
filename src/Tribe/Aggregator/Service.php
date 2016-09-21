@@ -26,7 +26,7 @@ class Tribe__Events__Aggregator__Service {
 	public $api = array(
 		'key' => null,
 		'version' => 'v1',
-		'domain' => 'http://ea.theeventscalendar.com/',
+		'domain' => 'https://ea.theeventscalendar.com/',
 		'path' => 'api/aggregator/',
 	);
 
