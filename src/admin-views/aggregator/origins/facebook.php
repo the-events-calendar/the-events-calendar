@@ -25,12 +25,12 @@ if ( $missing_facebook_credentials ) :
 					<span class="dashicons dashicons-warning"></span>
 					<?php
 					esc_html_e(
-						'Please login to enable event imports from Facebook.',
+						'Please log in to enable event imports from Facebook.',
 						'the-events-calendar'
 					);
 					?>
 				</p>
-				<a class="tribe-ea-facebook-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url() ); ?>"><?php esc_html_e( 'Login with Facebook', 'the-events-calendar' ); ?></a>
+				<a class="tribe-ea-facebook-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url() ); ?>"><?php esc_html_e( 'Log into Facebook', 'the-events-calendar' ); ?></a>
 			</div>
 		</td>
 	</tr>
