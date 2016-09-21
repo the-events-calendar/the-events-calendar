@@ -45,7 +45,7 @@ class Tribe__Events__Aggregator__Migrate {
 	 * @return string
 	 */
 	public function notice() {
-		if ( ! Tribe__Admin__Helpers::instance()->is_screen() ) {
+		if ( ! Tribe__Events__Aggregator__Page::instance()->is_screen() ) {
 			return false;
 		}
 
@@ -58,7 +58,7 @@ class Tribe__Events__Aggregator__Migrate {
 
 		$aggregator = Tribe__Events__Aggregator::instance();
 
-		$html = '<p>' . esc_html__( 'Seems like you have old settings from before the Event Aggregator existed, the buttons bellow will allow you to migrate these legacy settings to Aggregator Records', 'the-events-calendar' );
+		$html = '<p>' . esc_html__( 'You have some settings from our legacy plugins that you may wish to migrate to Event Aggregator. The buttons bellow will help you do that!', 'the-events-calendar' );
 
 		if ( ! $this->is_facebook_migrated() && $this->has_facebook_setting() ) {
 			$html .= '<p style="display:inline-block;">' . get_submit_button( esc_html__( 'Migrate Facebook settings', 'the-events-calendar' ), 'secondary', 'tribe-migrate-facebook-settings', false ) . '<span class="spinner"></span></p>';
