@@ -146,14 +146,6 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 			case 'run-import':
 				list( $success, $errors ) = $this->action_run_import( $data->records );
 				break;
-
-			case 'deactivate':
-				list( $success, $errors ) = $this->action_deactivate( $data->records );
-				break;
-
-			case 'reactivate':
-				list( $success, $errors ) = $this->action_reactivate( $data->records );
-				break;
 		}
 
 		$args = array(
@@ -312,46 +304,6 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 				$errors[ $record->id ] = $status;
 				continue;
 			}
-		}
-
-		return array( $success, $errors );
-	}
-
-	private function action_deactivate( $records = array() ) {
-		$records = array_filter( (array) $records, 'is_numeric' );
-		$success = array();
-		$errors = array();
-
-		foreach ( $records as $record_id ) {
-			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record_id );
-
-			if ( is_wp_error( $record ) ) {
-				$errors[ $record_id ] = $record;
-				continue;
-			}
-
-			$record->deactivate();
-			$success[ $record_id ] = true;
-		}
-
-		return array( $success, $errors );
-	}
-
-	private function action_reactivate( $records = array() ) {
-		$records = array_filter( (array) $records, 'is_numeric' );
-		$success = array();
-		$errors = array();
-
-		foreach ( $records as $record_id ) {
-			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record_id );
-
-			if ( is_wp_error( $record ) ) {
-				$errors[ $record_id ] = $record;
-				continue;
-			}
-
-			$record->reactivate();
-			$success[ $record_id ] = true;
 		}
 
 		return array( $success, $errors );

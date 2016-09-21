@@ -87,9 +87,9 @@ class Tribe__Events__Aggregator__Cron {
 		 */
 		$found = $schedules = apply_filters( 'tribe_aggregator_record_frequency', array(
 			(object) array(
-				'id'       => 'inactive',
+				'id'       => 'on_demand',
 				'interval' => false,
-				'text'     => esc_html_x( 'Inactive (manual/on demand)', 'aggregator schedule frequency', 'the-events-calendar' ),
+				'text'     => esc_html_x( 'On demand', 'aggregator schedule frequency', 'the-events-calendar' ),
 			),
 			(object) array(
 				'id'       => 'every30mins',

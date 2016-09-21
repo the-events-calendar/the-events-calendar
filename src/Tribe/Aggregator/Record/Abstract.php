@@ -219,13 +219,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$meta = wp_parse_args( $meta, $defaults );
 
-		// Record the previous frequency setting for this record
-		$previous_frequency = get_post_field( 'post_content' );
-
-		if ( ! empty( $previous_frequency ) ) {
-			$meta['prev_frequency'] = $previous_frequency;
-		}
-
 		$post = $this->prep_post_args( $meta['type'], $args, $meta );
 		$post['ID'] = absint( $post_id );
 		$post['post_status'] = Tribe__Events__Aggregator__Records::$status->schedule;
@@ -709,78 +702,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$next     = $modified + $this->frequency->interval;
 
 		return $current > $next;
-	}
-
-	/**
-	 * Sets the import frequence to inactive and stores the previous frequency value.
-	 *
-	 * @return bool
-	 */
-	public function deactivate() {
-		$current_interval = is_object( $this->frequency ) ? $this->frequency->id : null;
-
-		if ( 'inactive' === $current_interval ) {
-			return false;
-		}
-
-		$this->update_interval( 'inactive', $current_interval );
-		return true;
-	}
-
-	/**
-	 * Reactivates automated imports for a record. If the previous frequency is not known it
-	 * will default to a 'daily' interval.
-	 */
-	public function reactivate() {
-		$current_interval  = is_object( $this->frequency ) ? $this->frequency->id : null;
-		$previous_interval = ! empty( $this->meta['prev_frequency'] ) ? $this->meta['prev_frequency'] : 'daily';
-
-		if ( 'inactive' !== $current_interval ) {
-			return false;
-		}
-
-		if ( 'inactive' === $previous_interval ) {
-			return false;
-		}
-
-		$this->update_interval( $previous_interval, 'inactive' );
-		return true;
-
-	}
-
-	/**
-	 * Updates the schedule interval only, storing the previously set interval if provided.
-	 *
-	 * @param string $new_interval
-	 * @param string $previous_interval (optional)
-	 */
-	private function update_interval( $new_interval, $previous_interval = null ) {
-		global $wpdb;
-
-		// We update via a direct update query, rather than via wp_update_post(), to avoid changing
-		// post_modified_gmt (used to store the datetime of the last import option)
-		$wpdb->update(
-			$wpdb->posts,
-			array( 'post_content' => $new_interval ),
-			array( 'ID' => $this->id ),
-			'%s',
-			'%s'
-		);
-
-		clean_post_cache( $this->id );
-
-		$this->update_meta( 'frequency', $new_interval );
-
-		if ( $previous_interval ) {
-			$this->update_meta( 'prev_frequency', $previous_interval );
-		}
-	}
-
-	/**
-	 * Indicates if the record is configured to not import automatically (during cron).
-	 */
-	public function is_inactive() {
-		return ( is_object( $this->frequency ) && false === $this->frequency->interval );
 	}
 
 	/**
