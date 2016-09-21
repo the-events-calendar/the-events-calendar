@@ -57,7 +57,7 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 			}
 			?>
 			<br>
-			<a target="_blank" style="line-height: 28px;" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url( array( 'back' => 'settings' ) ) ); ?>"><?php esc_html_e( $facebook_button_label ); ?></a>
+			<a target="_blank" class="tribe-ea-facebook-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url( array( 'back' => 'settings' ) ) ); ?>"><?php esc_html_e( $facebook_button_label ); ?></a>
 		</div>
 	</fieldset>
 

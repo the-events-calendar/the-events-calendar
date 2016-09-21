@@ -172,10 +172,7 @@
 	margin-right: 1.5rem;
 }
 
-.tribe-ea .enter-credentials .tribe-message {
-	margin-bottom: 16px;
-	margin-bottom: 1rem;
-}
+.tribe-ea .enter-credentials .tribe-message {}
 
 .tribe-ea .enter-credentials .tribe-credentials-success {
 	display: none;
@@ -362,6 +359,25 @@
 
 .tribe-ea .widefat td p {
 	margin-bottom: .25em;
+}
+
+.tribe-ea-facebook-button {
+	background: #0073aa;
+	border-radius: 3px;
+	color: #fff;
+	display: inline-block;
+	margin-top: 16px;
+	margin-top: 1rem;
+	margin-left: 32px;
+	margin-left: 2rem;
+	padding: 8px 24px;
+	padding: .5rem 1.5rem;
+	text-decoration: none;
+}
+
+.tribe-ea-facebook-button:hover {
+	background: #005b87;
+	cursor: pointer;
 }
 
 .tribe-ea-table-container {

@@ -13,23 +13,30 @@ $frequency->source      = 'facebook_import_frequency';
 
 $cron = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
+
+$missing_facebook_credentials = ! Tribe__Events__Aggregator__Settings::instance()->is_fb_credentials_valid();
 ?>
-<?php if ( ! Tribe__Events__Aggregator__Settings::instance()->is_fb_credentials_valid() ) : ?>
 <tr class="tribe-dependent tribe-credential-row" data-depends="#tribe-ea-field-origin" data-condition="facebook">
-	<th scope="row">
-		<label for="tribe-ea-field-fb_credentials"><?php esc_html_e( 'Extra Credentials:', 'the-events-calendar' ); ?></label>
-	</th>
-	<td>
-		<a target="_blank" style="line-height: 28px;" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url() ); ?>"><?php esc_html_e( 'Login with Facebook', 'the-events-calendar' ); ?></a>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help"
-			data-bumpdown="<?php esc_attr_e( 'Currently your Event Aggregator does not have a Facebook Login associated with it, to perform more accurate queries to Facebook you will need to login.', 'the-events-calendar' ); ?>"
-			data-width-rule="all-triggers"
-		></span>
+	<td colspan="2" class="<?php echo esc_attr( $missing_facebook_credentials ? 'enter-credentials' : 'has-credentials' ); ?>">
+		<?php if ( $missing_facebook_credentials ) : ?>
+			<div class="tribe-message tribe-credentials-prompt">
+				<input type="hidden" name="has-credentials" id="tribe-has-facebook-credentials" value="0">
+				<span class="dashicons dashicons-warning"></span>
+				<?php
+				esc_html_e(
+					'Please login to enable event imports from Facebook.',
+					'the-events-calendar'
+				);
+				?>
+				<br>
+				<a class="tribe-ea-facebook-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url() ); ?>"><?php esc_html_e( 'Login with Facebook', 'the-events-calendar' ); ?></a>
+			</div>
+		<?php else : ?>
+			<input type="hidden" name="has-credentials" id="tribe-has-facebook-credentials" value="1">
+		<?php endif; ?>
 	</td>
 </tr>
-<?php endif; ?>
-<tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">
+<tr class="tribe-dependent" data-depends="#tribe-has-facebook-credentials" data-condition="1">
 	<th scope="row">
 		<label for="tribe-ea-field-import_type"><?php echo esc_html( $field->label ); ?></label>
 	</th>
