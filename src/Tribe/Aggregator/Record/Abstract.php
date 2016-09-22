@@ -329,6 +329,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		);
 
 		foreach ( $this->meta as $key => $value ) {
+			// don't propagate these meta keys to the scheduled record
+			if (
+				'preview' === $key
+				|| 'activity' === $key
+				|| 'ids_to_import' === $key
+			) {
+				continue;
+			}
+
 			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
 		}
 
@@ -466,8 +475,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$defaults['radius'] = $this->meta['radius'];
 		}
 
-		if ( ! empty( $this->meta['preview'] ) ) {
-			$defaults['preview'] = $this->meta['preview'];
+		if ( $is_previewing ) {
+			$defaults['preview'] = true;
 		}
 
 		$args = wp_parse_args( $args, $defaults );
@@ -777,6 +786,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$items = $this->prep_import_data( $data );
 
 		if ( is_wp_error( $items ) ) {
+			$this->set_status_as_failed( $items );
 			return $items;
 		}
 
