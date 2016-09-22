@@ -256,6 +256,16 @@ table.eventForm {
 .tribe-aggregator-import-details .tribe-value {
 	font-weight: bold;
 }
+.tribe-ea-facebook-disconnect {
+	color: #a00;
+	display: inline-block;
+	margin-left: 16px;
+	margin-left: 1rem;
+}
+.tribe-ea-facebook-disconnect:active,
+	.tribe-ea-facebook-disconnect:hover {
+	color: #f00;
+}
 .tribe-ea-facebook-button {
 	background: #3d599b;
 	border-radius: 3px;
