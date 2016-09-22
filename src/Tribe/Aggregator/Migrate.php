@@ -11,6 +11,18 @@ class Tribe__Events__Aggregator__Migrate {
 	protected static $instance;
 
 	/**
+	 * Option key for tracking that legacy facebook migration has completed
+	 * @var string
+	 */
+	protected static $migrated_facebook_key = 'tribe-aggregator-legacy-facebook-migrated';
+
+	/**
+	 * Option key for tracking that legacy ical migration has completed
+	 * @var string
+	 */
+	protected static $migrated_ical_key = 'tribe-aggregator-legacy-ical-migrated';
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return self
@@ -50,8 +62,8 @@ class Tribe__Events__Aggregator__Migrate {
 		}
 
 		if (
-			( $this->is_facebook_migrated() || ! $this->has_facebook_setting() ) &&
-			( $this->is_ical_migrated() || ! $this->has_ical_setting() )
+			( $this->is_facebook_migrated() || ! $this->has_facebook_setting() )
+			&& ( $this->is_ical_migrated() || ! $this->has_ical_setting() )
 		) {
 			return false;
 		}
@@ -148,6 +160,10 @@ class Tribe__Events__Aggregator__Migrate {
 	public function is_facebook_migrated() {
 		$records = Tribe__Events__Aggregator__Records::instance();
 
+		if ( get_option( self::$migrated_facebook_key, false ) ) {
+			return true;
+		}
+
 		$args = array(
 			'post_status'    => Tribe__Events__Aggregator__Records::$status->schedule,
 			'posts_per_page' => 1,
@@ -208,6 +224,10 @@ class Tribe__Events__Aggregator__Migrate {
 	 */
 	public function is_ical_migrated() {
 		$records = Tribe__Events__Aggregator__Records::instance();
+
+		if ( get_option( self::$migrated_ical_key, false ) ) {
+			return true;
+		}
 
 		$args = array(
 			'post_status'    => Tribe__Events__Aggregator__Records::$status->schedule,
@@ -304,6 +324,8 @@ class Tribe__Events__Aggregator__Migrate {
 		$response->text = esc_html__( 'Succesfully imported the Facebook Settings into Aggregator Records.', 'the-events-calendar' );
 		$response->statuses = $status;
 
+		update_option( self::$migrated_facebook_key, true );
+
 		wp_send_json( $response );
 	}
 
@@ -381,6 +403,8 @@ class Tribe__Events__Aggregator__Migrate {
 		$response->status = true;
 		$response->text = esc_html__( 'Succesfully imported the iCal Settings into Aggregator Records.', 'the-events-calendar' );
 		$response->statuses = $status;
+
+		update_option( self::$migrated_ical_key, true );
 
 		wp_send_json( $response );
 	}
