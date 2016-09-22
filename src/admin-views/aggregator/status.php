@@ -90,8 +90,8 @@ $indicator_icons = array(
 
 		if ( ! $up || is_wp_error( $up ) ) {
 			$indicator = 'bad';
-			$notes = __( 'The Event Aggregator server is currently not responding', 'the-events-calendar' );
-		} elseif ( is_object( $up ) && is_object( $up->data ) && isset( $up->data->status ) && 404 == $up->data->status ) {
+			$notes = __( 'The Event Aggregator server is not currently responding', 'the-events-calendar' );
+		} elseif ( is_object( $up ) && is_object( $up->data ) && isset( $up->data->status ) && 400 >= $up->data->status ) {
 			// this is a rare condition that should never happen
 			// An example case: the route is not defined on the EA server
 			$indicator = 'warning';
@@ -189,11 +189,11 @@ $indicator_icons = array(
 
 		// @todo add API request for pingback check
 		if ( defined( 'DISABLE_WP_CRON' ) && true === DISABLE_WP_CRON ) {
-			$text = __( 'WP Cron is enable', 'the-events-calendar' );
-		} else {
 			$indicator = 'warning';
 			$text = __( 'WP Cron is not enabled', 'the-events-calendar' );
 			$notes = __( 'Scheduled imports may not run reliably without WP Cron enabled', 'the-events-calendar' );
+		} else {
+			$text = __( 'WP Cron is enabled', 'the-events-calendar' );
 		}
 
 		?>
