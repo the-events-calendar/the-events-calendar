@@ -503,7 +503,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			/**
 			 * @todo Allow overwriting the message
 			 */
-			$error = new WP_Error( $response->message_code, esc_html__( $response->message, 'the-events-calendar' ) );
+			$error = new WP_Error(
+				$response->message_code,
+				Tribe__Events__Aggregator__Errors::build(
+					esc_html__( $response->message, 'the-events-calendar' ),
+					empty( $response->data->message_args ) ? [] : $response->data->message_args
+				)
+			);
 			return $this->set_status_as_failed( $error );
 		}
 

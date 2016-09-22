@@ -58,4 +58,16 @@ class Tribe__Events__Aggregator__Errors {
 		tribe_register_error( 'core:aggregator:save-schedule-failed', __( 'Unable to save scheduled import. Please try again.', 'the-events-calendar' ) );
 		tribe_register_error( 'core:aggregator:queue-pending-events', __( 'The records you were attempting to import were still not available when this queue was processed. Please try again.', 'the-events-calendar' ) );
 	}
+
+	/**
+	 * Maybe build message from args
+	 *
+	 * @param string $message
+	 * @param array $args Message args
+	 *
+	 * @return string
+	 */
+	public static function build( $message, $args = array() ) {
+		return vsprintf( $message, $args );
+	}
 }
