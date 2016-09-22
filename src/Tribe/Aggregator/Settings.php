@@ -35,6 +35,40 @@ class Tribe__Events__Aggregator__Settings {
 	 */
 	private function __construct() {
 		add_action( 'tribe_settings_do_tabs', array( $this, 'do_import_settings_tab' ) );
+		add_action( 'current_screen', array( $this, 'maybe_clear_fb_credentials' ) );
+	}
+
+	/**
+	 * Hooked to current_screen, this method identifies whether or not fb credentials should be cleared
+	 *
+	 * @param WP_Screen $screen
+	 */
+	public function maybe_clear_fb_credentials( $screen ) {
+		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
+			return;
+		}
+
+		if ( ! isset( $_GET['tab'] ) || 'addons' !== $_GET['tab'] ) {
+			return;
+		}
+
+		if (
+			! (
+				isset( $_GET['action'] )
+				&& isset( $_GET['_wpnonce'] )
+				&& 'disconnect-facebook' === $_GET['action']
+				&& wp_verify_nonce( $_GET['_wpnonce'], 'disconnect-facebook' )
+			)
+		) {
+			return;
+		}
+
+		$this->clear_fb_credentials();
+
+		wp_redirect(
+			Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) )
+		);
+		die;
 	}
 
 	public function get_fb_credentials() {
@@ -56,34 +90,6 @@ class Tribe__Events__Aggregator__Settings {
 		tribe_update_option( 'fb_token', null );
 		tribe_update_option( 'fb_token_expires', null );
 		tribe_update_option( 'fb_token_scopes', null );
-	}
-
-	/**
-	 * Handle clearing of facebook credentials
-	 *
-	 * @param array $data parameters to verify if clearing credentials should happen
-	 * @param string|null $redirect Redirect URL
-	 */
-	public function handle_clear_fb_credential_submit( $data, $redirect = null ) {
-		if (
-			! (
-				isset( $data['action'] )
-				&& isset( $data['_wpnonce'] )
-				&& 'disconnect-facebook' === $data['action']
-				&& wp_verify_nonce( $data['_wpnonce'], 'disconnect-facebook' )
-			)
-		) {
-			return;
-		}
-
-		$this->clear_fb_credentials();
-
-		if ( ! $redirect ) {
-			return;
-		}
-
-		wp_redirect( $redirect );
-		die;
 	}
 
 	/**

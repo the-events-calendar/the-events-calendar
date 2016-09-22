@@ -7,8 +7,6 @@ $internal = array();
 
 $current_url = Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) );
 
-Tribe__Events__Aggregator__Settings::instance()->handle_clear_fb_credential_submit( $_GET, $current_url );
-
 // if there's an Event Aggregator license key, add the Facebook API fields
 if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	$fb_token = tribe_get_option( 'fb_token' );
