@@ -218,7 +218,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 	 */
 	private function action_notice( $action, $ids = array(), $error = null ) {
 		if ( $ids && ! is_array( $ids ) ) {
-			$ids    = explode( ',', $ids );
+			$ids = explode( ',', $ids );
 		}
 
 		$errors = array();
