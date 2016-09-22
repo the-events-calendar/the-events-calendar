@@ -270,3 +270,44 @@ table.eventForm {
 	color: #fff;
 	cursor: pointer;
 }
+/* = Event Aggregator Status
+=============================================*/
+.event-aggregator-status {
+	background-color: #fff;
+	width: 100%;
+	border: 2px solid #e4e5e6;
+	border-spacing: 0;
+	margin-bottom: 16px;
+}
+.event-aggregator-status tbody tr:nth-child(even) td {
+	background-color: #f9f9f9;
+}
+.event-aggregator-status th {
+	text-align: left;
+	border-bottom: 1px solid #e4e5e6;
+}
+.event-aggregator-status th, .event-aggregator-status td {
+	padding: 8px 12px;
+	background-color: #fff;
+}
+.event-aggregator-status td.label {
+	width: 220px;/* @todo: responsive breakpoint? */
+}
+.event-aggregator-status td.label img {
+	width: 18px;
+	height: 18px;
+	margin-right: 6px;
+	float: left;
+}
+.event-aggregator-status td.indicator {
+	width: 20px;
+}
+.event-aggregator-status td.indicator.good {
+	color: #38b042;
+}
+.event-aggregator-status td.indicator.bad {
+	color: #ed5047;
+}
+.event-aggregator-status td.indicator.warning {
+	color: #f3ae46;
+}

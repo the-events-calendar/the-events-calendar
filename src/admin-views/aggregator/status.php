@@ -6,65 +6,7 @@ $indicator_icons = array(
 	'warning' => 'warning',
 	'bad' => 'dismiss',
 );
-
-// @todo: move these styles to the stylesheet
 ?>
-<style type="text/css">
-	.event-aggregator-status {
-		background-color: #fff;
-		width: 100%;
-		border: 2px solid #e4e5e6;
-		border-spacing: 0;
-		margin-bottom: 16px;
-	}
-
-	.event-aggregator-status tbody tr:nth-child(even) td {
-		background-color: #f9f9f9;
-	}
-
-	.event-aggregator-status th {
-		text-align: left;
-		border-bottom: 1px solid #e4e5e6;
-	}
-
-	.event-aggregator-status th, .event-aggregator-status td {
-		padding: 8px 12px;
-		background-color: #fff;
-	}
-
-	.event-aggregator-status td.label {
-		width: 220px;
-		/* @todo: responsive breakpoint? */
-	}
-
-	.event-aggregator-status td.label img {
-		width: 18px;
-		height: 18px;
-		margin-right: 6px;
-		float: left;
-	}
-
-	.event-aggregator-status td.indicator {
-		width: 20px;
-	}
-
-	.event-aggregator-status td.indicator.good {
-		color: #38b042;
-	}
-
-	.event-aggregator-status td.indicator.bad {
-		color: #ed5047;
-	}
-
-	.event-aggregator-status td.indicator.warning {
-		color: #f3ae46;
-	}
-
-	.row-stripe {
-		/* @todo: row striping */
-		background: #fbfcfd;
-	}
-</style>
 
 <h3><?php esc_html_e( 'Event Aggregator System Status', 'the-events-calendar' ); ?></h3>
 
@@ -103,7 +45,6 @@ $indicator_icons = array(
 		$import_limit = Tribe__Events__Aggregator::instance()->get_daily_limit();
 		$import_available = Tribe__Events__Aggregator::instance()->get_daily_limit_available();
 		$import_count = $import_limit - $import_available;
-
 
 		$indicator = 'good';
 		$notes = '&nbsp;';
@@ -160,9 +101,8 @@ $indicator_icons = array(
 			$notes .= '</pre>';
 		}
 
-		// @todo - eventually this should link to the status page on the EA site
+		// @todo - eventually this should link to the status page
 		$text = $ea_server;
-
 		?>
 		<tr>
 			<td class="label"><?php esc_html_e( 'Server URL', 'the-events-calendar' ); ?></td>
@@ -181,6 +121,7 @@ $indicator_icons = array(
 	</thead>
 	<tbody>
 		<?php
+		// Facebook status section
 		$indicator = 'good';
 		$notes = '&nbsp;';
 		$text = '&nbsp;';
@@ -196,9 +137,6 @@ $indicator_icons = array(
 			$text = __( 'Facebook oAuth is currently disabled', 'the-events-calendar' );
 			$notes = __( 'Some types of Facebook events may not be importing correctly (ex: private, group, 18+)', 'the-events-calendar' );
 		}
-
-		// @todo: re-size and smush the Facebook icon
-
 		?>
 		<tr>
 			<td class="label">
@@ -210,6 +148,7 @@ $indicator_icons = array(
 			<td><?php echo $notes; ?></td>
 		</tr>
 		<?php
+		// Meetup status section
 		$indicator = 'good';
 		$notes = '&nbsp;';
 		$text = '&nbsp;';
@@ -218,13 +157,11 @@ $indicator_icons = array(
 			$indicator = 'warning';
 			$text = __( 'You have not set your Meetup API key.', 'the-events-calendar' );
 			$notes = sprintf( // add link to API tab
-				__( 'Add your API key on the %1$sSettings &gt; APIs%2$s page', 'the-events-calendar'),
+				__( 'Add your API key on the %1$sSettings &gt; APIs%2$s page', 'the-events-calendar' ),
 				'<a href="' . esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) ) ) . '">',
 				'</a>'
 			);
 		}
-
-		// @todo: re-size and smush the Meetup icon
 		?>
 		<tr>
 			<td class="label">
