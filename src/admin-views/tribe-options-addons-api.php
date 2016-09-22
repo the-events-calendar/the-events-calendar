@@ -5,25 +5,9 @@
  */
 $internal = array();
 
-$current_url = add_query_arg(
-	array(
-		'page' => 'tribe-common',
-		'tab' => 'addons',
-		'post_type' => Tribe__Events__Main::POSTTYPE,
-	),
-	admin_url( 'edit.php' )
-);
+$current_url = Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) );
 
-if (
-	isset( $_GET['action'] )
-	&& isset( $_GET['_wpnonce'] )
-	&& 'disconnect-facebook' === $_GET['action']
-	&& wp_verify_nonce( $_GET['_wpnonce'], 'disconnect-facebook' )
-) {
-	tribe_update_option( 'fb_token', '' );
-	wp_redirect( $current_url );
-	die;
-}
+Tribe__Events__Aggregator__Settings::instance()->handle_clear_fb_credential_submit( $_GET, $current_url );
 
 // if there's an Event Aggregator license key, add the Facebook API fields
 if ( get_option( 'pue_install_key_event_aggregator' ) ) {
@@ -76,13 +60,13 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 					}
 					$facebook_button_label = __( 'Refresh your connection to Facebook', 'the-events-calendar' );
 					$facebook_disconnect_label = __( 'Disconnect', 'the-events-calendar' );
-					$facebook_disconnect_url = add_query_arg( 'action', 'disconnect-facebook', $current_url );
+					$facebook_disconnect_url = Tribe__Events__Aggregator__Settings::instance()->build_disconnect_facebook_url( $current_url );
 				}
 				?>
 			</p>
 			<a target="_blank" class="tribe-ea-facebook-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url( array( 'back' => 'settings' ) ) ); ?>"><?php esc_html_e( $facebook_button_label ); ?></a>
 			<?php if ( ! $missing_fb_credentials ) : ?>
-				<a href="<?php echo esc_url( wp_nonce_url( $facebook_disconnect_url, 'disconnect-facebook' ) ); ?>" class="tribe-ea-facebook-disconnect"><?php echo esc_html( $facebook_disconnect_label ); ?></a>
+				<a href="<?php echo esc_url( $facebook_disconnect_url ); ?>" class="tribe-ea-facebook-disconnect"><?php echo esc_html( $facebook_disconnect_label ); ?></a>
 			<?php endif; ?>
 		</div>
 	</fieldset>

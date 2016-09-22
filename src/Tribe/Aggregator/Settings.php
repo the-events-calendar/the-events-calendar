@@ -52,6 +52,58 @@ class Tribe__Events__Aggregator__Settings {
 		return ! empty( $credentials->token ) && ! empty( $credentials->expires ) && ! empty( $credentials->scopes );
 	}
 
+	public function clear_fb_credentials() {
+		tribe_update_option( 'fb_token', null );
+		tribe_update_option( 'fb_token_expires', null );
+		tribe_update_option( 'fb_token_scopes', null );
+	}
+
+	/**
+	 * Handle clearing of facebook credentials
+	 *
+	 * @param array $data parameters to verify if clearing credentials should happen
+	 * @param string|null $redirect Redirect URL
+	 */
+	public function handle_clear_fb_credential_submit( $data, $redirect = null ) {
+		if (
+			! (
+				isset( $data['action'] )
+				&& isset( $data['_wpnonce'] )
+				&& 'disconnect-facebook' === $data['action']
+				&& wp_verify_nonce( $data['_wpnonce'], 'disconnect-facebook' )
+			)
+		) {
+			return;
+		}
+
+		$this->clear_fb_credentials();
+
+		if ( ! $redirect ) {
+			return;
+		}
+
+		wp_redirect( $redirect );
+		die;
+	}
+
+	/**
+	 * Given a URL, tack on the parts of the URL that gets used to disconnect Facebook
+	 *
+	 * @param string $url
+	 *
+	 * @return string
+	 */
+	public function build_disconnect_facebook_url( $url ) {
+		return wp_nonce_url(
+			add_query_arg(
+				'action',
+				'disconnect-facebook',
+				$url
+			),
+			'disconnect-facebook'
+		);
+	}
+
 	public function is_fb_credentials_valid( $time = null ) {
 		// if the service hasn't enabled oauth for facebook, always assume it is valid
 		if ( ! Tribe__Events__Aggregator::instance()->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
