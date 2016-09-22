@@ -11,6 +11,18 @@ class Tribe__Events__Aggregator__Migrate {
 	protected static $instance;
 
 	/**
+	 * Option key for tracking that legacy facebook migration has completed
+	 * @var string
+	 */
+	protected static $migrated_facebook_key = 'tribe-aggregator-legacy-facebook-migrated';
+
+	/**
+	 * Option key for tracking that legacy ical migration has completed
+	 * @var string
+	 */
+	protected static $migrated_ical_key = 'tribe-aggregator-legacy-ical-migrated';
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return self
@@ -45,20 +57,20 @@ class Tribe__Events__Aggregator__Migrate {
 	 * @return string
 	 */
 	public function notice() {
-		if ( ! Tribe__Admin__Helpers::instance()->is_screen() ) {
+		if ( ! Tribe__Events__Aggregator__Page::instance()->is_screen() ) {
 			return false;
 		}
 
 		if (
-			( $this->is_facebook_migrated() || ! $this->has_facebook_setting() ) &&
-			( $this->is_ical_migrated() || ! $this->has_ical_setting() )
+			( $this->is_facebook_migrated() || ! $this->has_facebook_setting() )
+			&& ( $this->is_ical_migrated() || ! $this->has_ical_setting() )
 		) {
 			return false;
 		}
 
 		$aggregator = Tribe__Events__Aggregator::instance();
 
-		$html = '<p>' . esc_html__( 'Seems like you have old settings from before the Event Aggregator existed, the buttons bellow will allow you to migrate these legacy settings to Aggregator Records', 'the-events-calendar' );
+		$html = '<p>' . esc_html__( 'You have some settings from our legacy plugins that you may wish to migrate to Event Aggregator. The buttons bellow will help you do that!', 'the-events-calendar' );
 
 		if ( ! $this->is_facebook_migrated() && $this->has_facebook_setting() ) {
 			$html .= '<p style="display:inline-block;">' . get_submit_button( esc_html__( 'Migrate Facebook settings', 'the-events-calendar' ), 'secondary', 'tribe-migrate-facebook-settings', false ) . '<span class="spinner"></span></p>';
@@ -148,6 +160,10 @@ class Tribe__Events__Aggregator__Migrate {
 	public function is_facebook_migrated() {
 		$records = Tribe__Events__Aggregator__Records::instance();
 
+		if ( get_option( self::$migrated_facebook_key, false ) ) {
+			return true;
+		}
+
 		$args = array(
 			'post_status'    => Tribe__Events__Aggregator__Records::$status->schedule,
 			'posts_per_page' => 1,
@@ -208,6 +224,10 @@ class Tribe__Events__Aggregator__Migrate {
 	 */
 	public function is_ical_migrated() {
 		$records = Tribe__Events__Aggregator__Records::instance();
+
+		if ( get_option( self::$migrated_ical_key, false ) ) {
+			return true;
+		}
 
 		$args = array(
 			'post_status'    => Tribe__Events__Aggregator__Records::$status->schedule,
@@ -304,6 +324,8 @@ class Tribe__Events__Aggregator__Migrate {
 		$response->text = esc_html__( 'Succesfully imported the Facebook Settings into Aggregator Records.', 'the-events-calendar' );
 		$response->statuses = $status;
 
+		update_option( self::$migrated_facebook_key, true );
+
 		wp_send_json( $response );
 	}
 
@@ -381,6 +403,8 @@ class Tribe__Events__Aggregator__Migrate {
 		$response->status = true;
 		$response->text = esc_html__( 'Succesfully imported the iCal Settings into Aggregator Records.', 'the-events-calendar' );
 		$response->statuses = $status;
+
+		update_option( self::$migrated_ical_key, true );
 
 		wp_send_json( $response );
 	}
