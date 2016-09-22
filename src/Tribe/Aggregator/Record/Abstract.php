@@ -507,7 +507,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$response->message_code,
 				Tribe__Events__Aggregator__Errors::build(
 					esc_html__( $response->message, 'the-events-calendar' ),
-					empty( $response->data->message_args ) ? [] : $response->data->message_args
+					empty( $response->data->message_args ) ? array() : $response->data->message_args
 				)
 			);
 			return $this->set_status_as_failed( $error );
