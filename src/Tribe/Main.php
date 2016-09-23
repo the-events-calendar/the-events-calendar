@@ -924,6 +924,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
+
+			// Start the integrations manager
+			Tribe__Events__Integrations__Manager::instance()->load_integrations();
 		}
 
 		/**
@@ -2485,16 +2488,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			) );
 
 			foreach ( $languages as $language ) {
+				$this->_locale = $language;
 				foreach ( (array) $domains as $domain => $file ) {
 					// Configure the language
-					$this->_locale = $language;
 					add_filter( 'locale', array( $this, '_set_locale' ) );
 
 					// Reload it with the correct language
 					unload_textdomain( $domain );
 
 					if ( 'default' === $domain ) {
-						load_default_textdomain();
+						load_default_textdomain(  );
 					} else {
 						Tribe__Main::instance()->load_text_domain( $domain, $file );
 					}
