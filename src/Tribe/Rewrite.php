@@ -37,11 +37,6 @@ defined( 'WPINC' ) or die;
 		 */
 		public $bases = array();
 
-	/**
-	 * Just dont...
-	 */
-	private function __construct() {}
-
 		/**
 		 * After creating the Hooks on WordPress we lock the usage of the function
 		 * @var boolean
