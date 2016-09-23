@@ -145,8 +145,8 @@ class Tribe__Events__Aggregator__Migrate {
 	 * @return bool
 	 */
 	public function has_facebook_setting( $index = null ) {
-		// Fetches the Settings, and remove the empty Ones
-		$values = array_filter( (array) $this->get_facebook_setting( $index ), array( $this, 'is_empty' ) );
+		$original_values = (array) $this->get_facebook_setting( $index );
+		$values = $this->filter_out_unwanted_values( $original_values );
 
 		// if it's empty means we have empty legacy settings
 		return ! empty( $values );
@@ -210,8 +210,8 @@ class Tribe__Events__Aggregator__Migrate {
 	 * @return bool
 	 */
 	public function has_ical_setting( $index = null ) {
-		// Fetches the Settings, and remove the empty Ones
-		$values = array_filter( (array) $this->get_ical_setting( $index ), array( $this, 'is_empty' ) );
+		$original_values = (array) $this->get_ical_setting( $index );
+		$values = $this->filter_out_unwanted_values( $original_values );
 
 		// if it's empty means we have empty legacy settings
 		return ! empty( $values );
@@ -242,6 +242,30 @@ class Tribe__Events__Aggregator__Migrate {
 		);
 
 		return $records->query( $args )->have_posts();
+	}
+
+	/**
+	 * Filters out empty values
+	 *
+	 * NOTE: we aren't using array_filter because EVEN with an empty() alias, the results are
+	 * unpredictable
+	 *
+	 * @param array $original_values
+	 *
+	 * @return array
+	 */
+	public function filter_out_unwanted_values( $original_values ) {
+		$values = array();
+
+		foreach ( $original_values as $key => $value ) {
+			if ( empty( $value ) ) {
+				continue;
+			}
+
+			$values[ $key ] = $value;
+		}
+
+		return $values;
 	}
 
 	/**
@@ -442,17 +466,4 @@ class Tribe__Events__Aggregator__Migrate {
 
 		return $frequency;
 	}
-
-	/**
-	 * Due to `empty()` been a Invalid callback for `array_filter` because it is a language
-	 * constructor, we create a alias for it.
-	 *
-	 * @param  mixed $value Which variable will be tested
-	 *
-	 * @return bool
-	 */
-	public function is_empty( $value ) {
-		return empty( $value );
-	}
-
 }
