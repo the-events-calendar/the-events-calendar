@@ -343,3 +343,56 @@ table.eventForm {
 		cursor: pointer;
 	}
 }
+
+/* = Event Aggregator Status
+=============================================*/
+
+.event-aggregator-status {
+	background-color: #fff;
+	width: 100%;
+	border: 2px solid #e4e5e6;
+	border-spacing: 0;
+	margin-bottom: 16px;
+
+	tbody tr:nth-child(even) td {
+		background-color: #f9f9f9;
+	}
+
+	th {
+		text-align: left;
+		border-bottom: 1px solid #e4e5e6;
+	}
+
+	th, td {
+		padding: 8px 12px;
+		background-color: #fff;
+	}
+
+	td.label {
+		width: 220px;
+		/* @todo: responsive breakpoint? */
+	}
+
+	td.label img {
+		width: 18px;
+		height: 18px;
+		margin-right: 6px;
+		float: left;
+	}
+
+	td.indicator {
+		width: 20px;
+	}
+
+	td.indicator.good {
+		color: #38b042;
+	}
+
+	td.indicator.bad {
+		color: #ed5047;
+	}
+
+	td.indicator.warning {
+		color: #f3ae46;
+	}
+}

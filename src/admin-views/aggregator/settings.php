@@ -341,7 +341,17 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 	);
 }
 
+$status_html = include_once dirname( __FILE__ ) . '/status.php';
+
+$status = array(
+	'status' => array(
+		'type' => 'html',
+		'html' => $status_html,
+	),
+);
+
 $internal = array_merge(
+	$status,
 	$change_authority,
 	$global,
 	$csv,
@@ -387,7 +397,7 @@ $fields = array_merge(
 );
 
 /**
- * Allow developer to fully filter the Addons Tab contents
+ * Allow developer to fully filter the Imports Tab contents
  * Following the structure of the arguments for a Tribe__Settings_Tab instance
  *
  * @var array
