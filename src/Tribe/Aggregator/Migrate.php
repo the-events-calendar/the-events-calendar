@@ -61,9 +61,6 @@ class Tribe__Events__Aggregator__Migrate {
 			return false;
 		}
 
-		do_action( 'debug_robot', '$this->is_ical_migrated() :: ' . print_r( $this->is_ical_migrated(), true ) );
-		do_action( 'debug_robot', '$this->has_ical_setting() :: ' . print_r( $this->has_ical_setting(), true ) );
-
 		if (
 			( $this->is_facebook_migrated() || ! $this->has_facebook_setting() )
 			&& ( $this->is_ical_migrated() || ! $this->has_ical_setting() )
