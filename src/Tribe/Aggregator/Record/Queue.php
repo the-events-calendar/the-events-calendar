@@ -234,7 +234,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 			$activity = $this->record->insert_posts( $this->next );
 		}
 
-		$this->activity = $this->activity->merge( $activity );
+		$this->activity = $this->activity()->merge( $activity );
 
 		return $this->save();
 	}
