@@ -135,6 +135,11 @@ class Tribe__Events__Aggregator {
 
 		// Notify users about expiring Facebook Token if oauth is enabled
 		add_action( 'plugins_loaded', array( $this, 'setup_notices' ), 11 );
+
+		// Let's prevent events-importer-ical from DESTROYING its saved recurring imports when it gets deactivated
+		if ( class_exists( 'Tribe__Events__Ical_Importer__Main' ) ) {
+			remove_action( 'deactivate_' . plugin_basename( Tribe__Events__Ical_Importer__Main::$plugin_path . 'the-events-calendar-ical-importer.php' ), 'tribe_events_ical_deactivate' );
+		}
 	}
 
 	/**
