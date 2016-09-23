@@ -91,7 +91,7 @@ $indicator_icons = array(
 		if ( ! $up || is_wp_error( $up ) ) {
 			$indicator = 'bad';
 			$notes = __( 'The Event Aggregator server is not currently responding', 'the-events-calendar' );
-		} elseif ( is_object( $up ) && is_object( $up->data ) && isset( $up->data->status ) && 400 >= $up->data->status ) {
+		} elseif ( is_object( $up ) && is_object( $up->data ) && isset( $up->data->status ) && 400 <= $up->data->status ) {
 			// this is a rare condition that should never happen
 			// An example case: the route is not defined on the EA server
 			$indicator = 'warning';
