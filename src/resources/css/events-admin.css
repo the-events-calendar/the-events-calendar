@@ -256,3 +256,71 @@ table.eventForm {
 .tribe-aggregator-import-details .tribe-value {
 	font-weight: bold;
 }
+.tribe-ea-facebook-disconnect {
+	color: #a00;
+	display: inline-block;
+	margin-left: 16px;
+	margin-left: 1rem;
+}
+.tribe-ea-facebook-disconnect:active,
+	.tribe-ea-facebook-disconnect:hover {
+	color: #f00;
+}
+.tribe-ea-facebook-button {
+	background: #3d599b;
+	border-radius: 3px;
+	color: #fff;
+	display: inline-block;
+	padding: 8px 24px;
+	padding: .5rem 1.5rem;
+	text-decoration: none;
+	-webkit-transition: background-color 0.5s ease;
+	transition: background-color 0.5s ease;
+}
+.tribe-ea-facebook-button:active,
+	.tribe-ea-facebook-button:hover {
+	background: #32497e;
+	color: #fff;
+	cursor: pointer;
+}
+/* = Event Aggregator Status
+=============================================*/
+.event-aggregator-status {
+	background-color: #fff;
+	width: 100%;
+	border: 2px solid #e4e5e6;
+	border-spacing: 0;
+	margin-bottom: 16px;
+}
+.event-aggregator-status tbody tr:nth-child(even) td {
+	background-color: #f9f9f9;
+}
+.event-aggregator-status th {
+	text-align: left;
+	border-bottom: 1px solid #e4e5e6;
+}
+.event-aggregator-status th, .event-aggregator-status td {
+	padding: 8px 12px;
+	background-color: #fff;
+}
+.event-aggregator-status td.label {
+	width: 220px;/* @todo: responsive breakpoint? */
+}
+.event-aggregator-status td.label img {
+	width: 18px;
+	height: 18px;
+	margin-right: 6px;
+	float: left;
+}
+.event-aggregator-status td.indicator {
+	width: 20px;
+}
+.event-aggregator-status td.indicator.good {
+	color: #38b042;
+}
+.event-aggregator-status td.indicator.bad {
+	color: #ed5047;
+}
+.event-aggregator-status td.indicator.warning {
+	color: #f3ae46;
+}

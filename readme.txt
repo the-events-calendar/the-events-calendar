@@ -292,6 +292,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.3] unreleased =
 
+* Feature - Added Event Aggregator to enable service-based event imports from iCal feeds, Facebook, and Meetup
+* Feature - Revamped the CSV import screens to work within the new Event Aggregator pages
 * Tweak - Adjusted some view logic to support the new Event Views shortcode in Pro [44800]
 * Tweak - Added a button to copy the system infomation on the help tab [43709]
 * Tweak - Added an option for users to opt into automatic system infomation so our support system can grab the system information found on the help tab automatically [31645]
@@ -301,6 +303,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Deprecated various disused functions and classes relating to the Meta Factory [39905]
 * Fix - Cease using GLOB_BRACE for including deprecated files due to limited server support [63172]
 * Fix - Avoid problems that can occur when hooking and unhooking actions (props @Chouby) [63474]
+* Fix - Resolves an issue where we were duplicating a core WordPress hook but with a different set of parameters (props @Chouby) [66455]
 * Fix - Correct the datetime formatting issues within the iCal feed (props @henryk) [65968]
 
 = [4.2.7] 2016-09-15 =

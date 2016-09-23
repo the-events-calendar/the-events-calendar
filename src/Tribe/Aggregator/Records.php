@@ -388,11 +388,9 @@ class Tribe__Events__Aggregator__Records {
 	 * @return Tribe__Events__Aggregator__Record__Abstract|null
 	 */
 	public function get_by_import_id( $import_id ) {
-		$meta_prefix = Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix;
-
 		$args = array(
 			'post_type' => self::$post_type,
-			'meta_key' => $meta_prefix . 'import_id',
+			'meta_key' => $this->prefix_meta( 'import_id' ),
 			'meta_value' => $import_id,
 			'post_status' => array(
 				self::$status->draft,
@@ -587,5 +585,9 @@ class Tribe__Events__Aggregator__Records {
 
 		// Add the Aggregator Record
 		update_post_meta( $id, Tribe__Events__Aggregator__Event::$record_key, $record_id );
+	}
+
+	public function prefix_meta( $str = null ) {
+		return Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . $str;
 	}
 }

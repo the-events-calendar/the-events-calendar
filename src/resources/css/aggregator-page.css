@@ -172,10 +172,7 @@
 	margin-right: 1.5rem;
 }
 
-.tribe-ea .enter-credentials .tribe-message {
-	margin-bottom: 16px;
-	margin-bottom: 1rem;
-}
+.tribe-ea .enter-credentials .tribe-message {}
 
 .tribe-ea .enter-credentials .tribe-credentials-success {
 	display: none;
@@ -265,7 +262,57 @@
 }
 
 .tribe-ea .tribe-notice-tribe-missing-aggregator-license {
-	background: #f7fcfe;
+	background: url(../images/aggregator/ea-upsell-bkg.svg) transparent no-repeat;
+	background-size: cover;
+	border: none;
+	padding: 60px 0;
+	text-align: center;
+}
+
+.tribe-ea .tribe-notice-tribe-missing-aggregator-license .upsell-banner {
+	margin-bottom: 30px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.tribe-ea .tribe-notice-tribe-missing-aggregator-license h3 {
+	color: #fff;
+	font-size: 22px;
+	font-weight: normal;
+	letter-spacing: 1.5px;
+}
+
+.tribe-ea .tribe-notice-tribe-missing-aggregator-license p {
+	color: #fff;
+	font-size: 16px;
+	font-weight: 300;
+	letter-spacing: 1px;
+	margin: 0 auto 30px;
+	width: 50%;
+}
+
+.tribe-ea .tribe-button {
+	border: 1px solid;
+	border-radius: 3px;
+	color: #fff;
+	display: inline-block;
+	font-weight: 300;
+	letter-spacing: 1.5px;
+	padding: 15px 30px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.tribe-ea .tribe-button-primary {
+	background: #000;
+	border-color: #000;
+	margin-right: 5px;
+}
+
+.tribe-ea .tribe-button-secondary {
+	background: transparent;
+	border-color: #fff;
+	margin-left: 10px;
 }
 
 .tribe-ea .dataTables_length,
@@ -312,6 +359,13 @@
 
 .tribe-ea .widefat td p {
 	margin-bottom: .25em;
+}
+
+.tribe-ea .tribe-ea-facebook-button {
+	margin-left: 32px;
+	margin-left: 2rem;
+	margin-top: 16px;
+	margin-top: 1rem;
 }
 
 .tribe-ea-table-container {
@@ -471,6 +525,26 @@
 	display: block;
 }
 
+.tribe-ea-form[data-origin="csv"] .dataTables_length,
+		.tribe-ea-form[data-origin="csv"] .dataTables_info,
+		.tribe-ea-form[data-origin="csv"] .dataTables_paginate,
+		.tribe-ea-form[data-origin="csv"] .dataTables_filter {
+	display: none;
+}
+
+.tribe-ea-form .tribe-bumpdown-manual,
+	.tribe-ea-form .tribe-bumpdown-scheduled {
+	display: none;
+}
+
+.tribe-ea-form[data-type="manual"] .tribe-bumpdown-manual {
+	display: inline-block;
+}
+
+.tribe-ea-form[data-type="schedule"] .tribe-bumpdown-scheduled {
+	display: inline-block;
+}
+
 .tribe-cancel {
 	display: none;
 }
@@ -569,6 +643,12 @@
 
 .select2-highlighted .tribe-upsell-subtitle {
 	color: white;
+}
+
+.tribe-aggregator-inactive .tribe-ea-tab-scheduled .widefat p,
+			.tribe-aggregator-inactive .tribe-ea-tab-scheduled .widefat td,
+			.tribe-aggregator-inactive .tribe-ea-tab-scheduled .widefat ul {
+	color: #ccc;
 }
 
 @media screen and (max-width: 782px) {

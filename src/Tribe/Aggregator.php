@@ -94,6 +94,7 @@ class Tribe__Events__Aggregator {
 
 		// Loads the Required Classes and saves them as proprieties
 		$this->meta_box        = Tribe__Events__Aggregator__Meta_Box::instance();
+		$this->migrate         = Tribe__Events__Aggregator__Migrate::instance();
 		$this->page            = Tribe__Events__Aggregator__Page::instance();
 		$this->service         = Tribe__Events__Aggregator__Service::instance();
 		$this->settings        = Tribe__Events__Aggregator__Settings::instance();
@@ -358,7 +359,7 @@ class Tribe__Events__Aggregator {
 	 */
 	public function reduce_daily_limit( $amount = 1 ) {
 		if ( ! is_numeric( $amount ) ) {
-			return new WP_Error( 'tribe-invalid-integer', esc_html__( 'The daily limits reduction amount must be an integer', 'the-events-calendar' ) );
+			return new WP_Error( 'tribe-invalid-integer', esc_html__( 'You must use an integer to reduce the daily import limit', 'the-events-calendar' ) );
 		}
 
 		if ( $amount < 0 ) {
@@ -388,7 +389,7 @@ class Tribe__Events__Aggregator {
 			return false;
 		}
 
-		$html = '<p>' . esc_html__( 'Successfuly saved Event Aggregator Facebook Token', 'the-events-calendar' ) . '</p>';
+		$html = '<p>' . esc_html__( 'Successfully connected Event Aggregator to Facebook', 'the-events-calendar' ) . '</p>';
 
 		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-facebook-oauth-feedback', $html );
 	}

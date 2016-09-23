@@ -56,6 +56,18 @@ class Tribe__Events__Aggregator__Errors {
 		tribe_register_error( 'core:aggregator:record-not-finalized', __( 'Import records must be finalized before posts can be inserted.', 'the-events-calendar' ) );
 		tribe_register_error( 'core:aggregator:save-child-failed', __( 'Unable to save scheduled import instance. Please try again.', 'the-events-calendar' ) );
 		tribe_register_error( 'core:aggregator:save-schedule-failed', __( 'Unable to save scheduled import. Please try again.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:queue-pending-events', __( 'The Events were still not available when this Queue was processed. Please try again.', 'the-events-calendar' ) );
+		tribe_register_error( 'core:aggregator:queue-pending-events', __( 'The records you were attempting to import were still not available when this queue was processed. Please try again.', 'the-events-calendar' ) );
+	}
+
+	/**
+	 * Maybe build message from args
+	 *
+	 * @param string $message
+	 * @param array $args Message args
+	 *
+	 * @return string
+	 */
+	public static function build( $message, $args = array() ) {
+		return vsprintf( $message, $args );
 	}
 }

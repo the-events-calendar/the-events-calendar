@@ -91,7 +91,7 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 						?>
 					</select>
 				<?php endif; ?>
-				<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>"></span>
+				<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
 			</td>
 		</tr>
 
@@ -134,7 +134,15 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 		<p class="tribe-preview-message" id="tribe-csv-preview-message">
 			<?php esc_html_e( 'Column Mapping:', 'the-events-calendar' ); ?>
 			<span class="tribe-csv-filename"></span>
-			<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $csv_help ); ?>"></span>
+			<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $csv_help ); ?>" data-width-rule="all-triggers"></span>
+		</p>
+		<p class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="csv">
+			<?php
+			esc_html_e(
+				'The following preview does not necessarily contain all of the data from your CSV file. The data displayed below is meant as a guide to help you map your CSV file\'s columns to the appropriate Event fields.',
+				'the-events-calendar'
+			);
+			?>
 		</p>
 		<table class="wp-list-table widefat fixed striped">
 			<thead>
@@ -179,56 +187,14 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 		<label for="tribe-ea-field-category"><?php esc_html_e( 'Category:', 'the-events-calendar' ); ?></label>
 		<?php echo $category_dropdown; ?>
 		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-bumpdown-manual"
 			data-bumpdown="<?php echo esc_attr( $default_settings->help ); ?>"
-			data-depends="#tribe-ea-field-ical_import_type"
-			data-condition-not="schedule"
-			data-condition-empty
+			data-width-rule="all-triggers"
 		></span>
 		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo esc_attr( $default_settings->help ); ?>"
-			data-depends="#tribe-ea-field-gcal_import_type"
-			data-condition-not="schedule"
-			data-condition-empty
-		></span>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo esc_attr( $default_settings->help ); ?>"
-			data-depends="#tribe-ea-field-meetup_import_type"
-			data-condition-not="schedule"
-			data-condition-empty
-		></span>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo esc_attr( $default_settings->help ); ?>"
-			data-depends="#tribe-ea-field-facebook_import_type"
-			data-condition-not="schedule"
-			data-condition-empty
-		></span>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-bumpdown-scheduled"
 			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
-			data-depends="#tribe-ea-field-ical_import_type"
-			data-condition="schedule"
-		></span>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
-			data-depends="#tribe-ea-field-gcal_import_type"
-			data-condition="schedule"
-		></span>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
-			data-depends="#tribe-ea-field-meetup_import_type"
-			data-condition="schedule"
-		></span>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo esc_attr( $default_settings->help_scheduled ); ?>"
-			data-depends="#tribe-ea-field-facebook_import_type"
-			data-condition="schedule"
+			data-width-rule="all-triggers"
 		></span>
 	</div>
 	<textarea style="display:none;" name="aggregator[selected_rows]" id="tribe-selected-rows"></textarea>
@@ -241,28 +207,32 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 		<?php esc_html_e( 'Cancel', 'the-events-calendar' ); ?>
 	</button>
 	<span
-		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
 		data-depends="#tribe-ea-field-ical_import_type"
 		data-condition="schedule"
+		data-width-rule="all-triggers"
 	></span>
 	<span
-		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
 		data-depends="#tribe-ea-field-gcal_import_type"
 		data-condition="schedule"
+		data-width-rule="all-triggers"
 	></span>
 	<span
-		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
 		data-depends="#tribe-ea-field-meetup_import_type"
 		data-condition="schedule"
+		data-width-rule="all-triggers"
 	></span>
 	<span
-		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+		class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 		data-bumpdown="<?php echo esc_attr( $scheduled_save_help ); ?>"
 		data-depends="#tribe-ea-field-facebook_import_type"
 		data-condition="schedule"
+		data-width-rule="all-triggers"
 	></span>
 
 	<p class="tribe-timezone-message">

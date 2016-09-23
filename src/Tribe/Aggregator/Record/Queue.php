@@ -9,7 +9,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 	public $record;
 
-	protected $is_fetching = true;
+	public $is_fetching = false;
 	protected $importer;
 
 	/**
@@ -56,34 +56,62 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 		$this->record = $record;
 
-		if (
-			empty( $this->record->meta[ self::$activity_key ] ) ||
-			! $this->record->meta[ self::$activity_key ] instanceof Tribe__Events__Aggregator__Record__Activity
-		) {
-			$this->activity = new Tribe__Events__Aggregator__Record__Activity();
-		} else {
-			$this->activity = $this->record->meta[ self::$activity_key ];
-		}
-
-		if ( ! $this->record->has_queue() ) {
-			$items = $this->record->prep_import_data( $items );
-		} else {
-			$items = $this->record->meta[ self::$queue_key ];
-		}
-
 		// Prevent it going any further
 		if ( is_wp_error( $items ) ) {
 			return $this;
 		}
 
-		// If we got Here it means we have items
-		$this->is_fetching = false;
+		$this->activity();
 
-		// Store the items retrieved
-		$this->items = $items;
+		if ( ! empty( $items ) ) {
+			if ( 'fetch' === $items ) {
+				$this->is_fetching = true;
+				$this->items = 'fetch';
+			} else {
+				$this->init_queue( $items );
+			}
 
-		// Count the Total of items now and stores as the total
-		$this->total = count( $this->items );
+			$this->save();
+		} else {
+			$this->load_queue();
+		}
+	}
+
+	public function init_queue( $items ) {
+		if ( 'csv' === $this->record->origin ) {
+			$this->record->reset_tracking_options();
+			$this->importer = $items;
+			$this->total = $this->importer->get_line_count();
+			$this->items = array_fill( 0, $this->total, true );
+		} else {
+			$this->items = $items;
+
+			// Count the Total of items now and stores as the total
+			$this->total = count( $this->items );
+		}
+	}
+
+	public function load_queue() {
+		$this->items = $this->record->meta[ self::$queue_key ];
+
+		if ( 'fetch' === $this->items ) {
+			$this->is_fetching = true;
+		}
+	}
+
+	public function activity() {
+		if ( ! $this->activity ) {
+			if (
+				empty( $this->record->meta[ self::$activity_key ] )
+				|| ! $this->record->meta[ self::$activity_key ] instanceof Tribe__Events__Aggregator__Record__Activity
+			) {
+				$this->activity = new Tribe__Events__Aggregator__Record__Activity;
+			} else {
+				$this->activity = $this->record->meta[ self::$activity_key ];
+			}
+		}
+
+		return $this->activity;
 	}
 
 	/**
@@ -101,7 +129,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * @return int
 	 */
 	public function count() {
-		return count( $this->next );
+		return count( $this->items );
 	}
 
 	/**
@@ -110,7 +138,16 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * @return boolean
 	 */
 	public function is_empty() {
-		return 0 === count( $this->items );
+		return 0 === $this->count();
+	}
+
+	/**
+	 * Gets the queue's total
+	 *
+	 * @return int
+	 */
+	public function get_total() {
+		return $this->count() + $this->activity->count( $this->get_queue_type() );
 	}
 
 	/**
@@ -161,7 +198,18 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 */
 	public function process( $batch_size = null ) {
 		if ( $this->is_fetching() ) {
-			return tribe_error( 'core:aggregator:queue-pending-events' );
+			$data = $this->record->prep_import_data();
+
+			if (
+				'fetch' === $data
+				|| ! is_array( $data )
+				|| is_wp_error( $data )
+			) {
+				return $this->activity();
+			}
+
+			$this->init_queue( $data );
+			$this->save();
 		}
 
 		// Every time we are about to process we reset the next var
@@ -201,7 +249,9 @@ class Tribe__Events__Aggregator__Record__Queue {
 			return 0;
 		}
 
-		$percent = ( $this->count() / $this->total ) * 100;
+		$total     = $this->get_total();
+		$processed = $total - $this->count();
+		$percent   = ( $processed / $total ) * 100;
 		return (int) $percent;
 	}
 
@@ -233,4 +283,18 @@ class Tribe__Events__Aggregator__Record__Queue {
 		Tribe__Post_Transient::instance()->get( $this->record->id, self::$in_progress_key );
 	}
 
+	/**
+	 * Returns the primary post type the queue is processing
+	 *
+	 * @return string
+	 */
+	public function get_queue_type() {
+		$item_type = Tribe__Events__Main::POSTTYPE;
+
+		if ( 'csv' === $this->record->origin ) {
+			$item_type = $this->record->meta['content_type'];
+		}
+
+		return $item_type;
+	}
 }

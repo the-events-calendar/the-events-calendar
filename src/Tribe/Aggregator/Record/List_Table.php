@@ -219,6 +219,11 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			return false;
 		}
 
+		// disable bulk actions if the Aggregator service is inactive
+		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+			return '';
+		}
+
 		$field = (object) array();
 		$field->label = esc_html__( 'Bulk Actions', 'the-events-calendar' );
 		$field->placeholder = esc_attr__( 'Bulk Actions', 'the-events-calendar' );
@@ -300,7 +305,11 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		switch ( $this->tab->get_slug() ) {
 			case 'scheduled':
-				$columns['cb'] = '<input type="checkbox" />';
+				// We only need the checkbox when the EA service is active because there aren't any bulk
+				// actions when EA is disabled
+				if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
+					$columns['cb'] = '<input type="checkbox" />';
+				}
 				$columns['source'] = esc_html_x( 'Source', 'column name', 'the-events-calendar' );
 				$columns['frequency'] = esc_html_x( 'Frequency', 'column name', 'the-events-calendar' );
 				$columns['imported'] = esc_html_x( 'Last Import', 'column name', 'the-events-calendar' );
@@ -333,9 +342,13 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			return '';
 		}
 
+		// disable row actions if the Aggregator service is inactive
+		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+			return '';
+		}
+
 		$post_type_object = get_post_type_object( $post->post_type );
 		$actions = array();
-		$title = _draft_or_post_title();
 
 		if ( current_user_can( $post_type_object->cap->edit_post, $post->ID ) ) {
 			$actions['edit'] = sprintf(
@@ -369,7 +382,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		return $this->row_actions( $actions );
 	}
 
-	private function get_status_icon( $post ) {
+	private function get_status_icon( $record ) {
+		$post = $record->post;
+
 		$classes[] = 'dashicons';
 		if ( false !== strpos( $post->post_status, 'tribe-ea-' ) ) {
 			$classes[] = str_replace( 'tribe-ea-', 'tribe-ea-status-', $post->post_status );
@@ -387,6 +402,14 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			case 'tribe-ea-failed':
 				$classes[] = 'dashicons-warning';
 				$helper_text = __( 'Import failed', 'the-events-calendar' );
+				if ( $errors = $record->get_errors() ) {
+					$error_messages = array();
+					foreach ( $errors as $error ) {
+						$error_messages[] = $error->comment_content;
+					}
+
+					$helper_text .= ': ' . implode( '; ', $error_messages );
+				}
 				break;
 			case 'tribe-ea-schedule':
 				$classes[] = 'dashicons-backup';
@@ -422,13 +445,13 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
 		if ( 'scheduled' !== $this->tab->get_slug() ) {
-			$html[] = $this->get_status_icon( $post );
+			$html[] = $this->get_status_icon( $record );
 		}
 
 		$source_info = $record->get_source_info();
 		$source_info['title'] = $source_info['title'];
 
-		if ( $record->is_schedule ) {
+		if ( $record->is_schedule && Tribe__Events__Aggregator::instance()->is_service_active() ) {
 			$html[] = '<p><b><a href="' . get_edit_post_link( $post->ID ) . '">' . esc_html( $source_info['title'] ) . '</a></b></p>';
 		} else {
 			$html[] = '<p><b>' . esc_html( $source_info['title'] ) . '</b></p>';
@@ -469,6 +492,15 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	public function column_imported( $post ) {
+		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+		if ( 'scheduled' === $this->tab->get_slug() ) {
+			$has_child_record = $record->get_child_record_by_status( 'success', 1 );
+
+			if ( ! $has_child_record ) {
+				return $this->render( esc_html__( 'On Demand', 'the-events-calendar' ) );
+			}
+		}
+
 		$last_import = null;
 		$original = $post->post_modified_gmt;
 		$time = strtotime( $original );

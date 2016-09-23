@@ -37,6 +37,11 @@ defined( 'WPINC' ) or die;
 		 */
 		public $bases = array();
 
+	/**
+	 * Just dont...
+	 */
+	private function __construct() {}
+
 		/**
 		 * After creating the Hooks on WordPress we lock the usage of the function
 		 * @var boolean
@@ -112,10 +117,15 @@ defined( 'WPINC' ) or die;
 			do_action( 'tribe_events_pre_rewrite', $this );
 
 			/**
-			 * Backwards Compatibility filter, this filters the WP Rewrite Rules.
-			 * @todo  Check if is worth deprecating this hook
+		 * Provides an opportunity to modify The Events Calendar's rewrite rules before they
+		 * are merged in to WP's own rewrite rules.
+		 *
+		 * @param array $events_rewrite_rules
+		 * @param Tribe__Events__Rewrite $tribe_rewrite
 			 */
-			$wp_rewrite->rules = apply_filters( 'tribe_events_rewrite_rules', $this->rules + $wp_rewrite->rules, $this );
+		$this->rules = apply_filters( 'tribe_events_rewrite_rules_custom', $this->rules, $this );
+
+		$wp_rewrite->rules = $this->rules + $wp_rewrite->rules;
 		}
 
 		/**

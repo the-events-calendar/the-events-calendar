@@ -1,7 +1,10 @@
 <?php
+_deprecated_file( __FILE__, '4.3', 'Tribe__Events__Activation_Page' );
 
 /**
  * Shows a welcome or update message after the plugin is installed/updated
+ *
+ * @deprecated 4.3
  */
 class Tribe__Events__Activation_Page {
 	/** @var self */
@@ -238,6 +241,4 @@ class Tribe__Events__Activation_Page {
 		}
 		return self::$instance;
 	}
-
-
 }

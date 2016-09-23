@@ -68,22 +68,16 @@ class Tribe__Events__Admin__Bar__Default_Configurator implements Tribe__Events__
 		if ( current_user_can( 'publish_tribe_events' ) ) {
 			$import_node = $wp_admin_bar->get_node( 'tribe-events-import' );
 			if ( ! is_object( $import_node ) ) {
-				$wp_admin_bar->add_menu( array(
+				$wp_admin_bar->add_node( array(
 					'id'     => 'tribe-events-import',
 					'title'  => esc_html__( 'Import', 'the-events-calendar' ),
 					'parent' => 'tribe-events-import-group',
+					'href'   => esc_url( add_query_arg( array(
+						'post_type' => Tribe__Events__Main::POSTTYPE,
+						'page'      => 'aggregator',
+					), admin_url( 'edit.php' ) ) ),
 				) );
 			}
-			$wp_admin_bar->add_menu( array(
-				'id'     => 'tribe-csv-import',
-				'title'  => esc_html__( 'CSV', 'the-events-calendar' ),
-				'href'   => esc_url( add_query_arg( array(
-					'post_type' => Tribe__Events__Main::POSTTYPE,
-					'page'      => 'events-importer',
-					'tab'       => 'csv-importer',
-				), admin_url( 'edit.php' ) ) ),
-				'parent' => 'tribe-events-import',
-			) );
 		}
 
 		if ( current_user_can( 'manage_options' ) ) {

@@ -38,7 +38,7 @@ switch ( $origin_slug ) {
 				placeholder="<?php echo esc_attr( $keywords->placeholder ); ?>"
 				value="<?php echo esc_attr( empty( $record->meta['keywords'] ) ? '' : $record->meta['keywords'] ); ?>"
 			>
-			<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $radius->help ); ?>"></span>
+			<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $radius->help ); ?>" data-width-rule="all-triggers"></span>
 		</div>
 		<div class="tribe-refine">
 			<input
