@@ -152,6 +152,27 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	/**
+	 * Returns the Activity object for the record
+	 *
+	 * @return Tribe__Events__Aggregator__Record__Activity
+	 */
+	public function activity() {
+		if ( empty( $this->meta['activity'] ) ) {
+			$activity = new Tribe__Events__Aggregator__Record__Activity;
+			$this->update_meta( 'activity', $activity );
+		}
+
+		return $this->meta['activity'];
+	}
+
+	/**
+	 * Saves activity data on a record
+	 */
+	public function save_activity() {
+		$this->update_meta( 'activity', $this->activity() );
+	}
+
+	/**
 	 * Creates an import record
 	 *
 	 * @param string $type Type of record to create - manual or schedule
