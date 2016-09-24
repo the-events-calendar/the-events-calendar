@@ -123,7 +123,7 @@ $fields = array_merge(
 		),
 		'addons-box-description' => array(
 			'type' => 'html',
-			'html' => '<p>' . __( 'Some features and add-ons require you to enter an API key or login into a third-party website so that The Events Calendar can communicate with an outside source.', 'the-events-calendar' ) . '</p>',
+			'html' => '<p>' . __( 'Some features and add-ons require you to enter an API key or log into a third-party website so that The Events Calendar can communicate with an outside source.', 'the-events-calendar' ) . '</p>',
 		),
 		'addons-box-end' => array(
 			'type' => 'html',
