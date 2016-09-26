@@ -364,37 +364,31 @@ $internal = array_merge(
 
 $internal = apply_filters( 'tribe_aggregator_fields', $internal );
 
-// fix this shit
-
-
-
 if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
-	$import_instructions = __( 'Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options.', 'the-events-calendar' );
-	$import_instructions .= '<br><br>';
-	$import_instructions .= '<a href="#tribe-import-aggregator-status">' . esc_html__( 'System Status', 'the-events-calendar' ) . '</a>';
-	$import_instructions .= ' | ';
-	$import_instructions .= '<a href="#tribe-import-update-authority">' . esc_html__( 'Update Authority', 'the-events-calendar' ) . '</a>';
-	$import_instructions .= ' | ';
-	$import_instructions .= '<a href="#tribe-import-global-settings">' . esc_html__( 'Global', 'the-events-calendar' ) . '</a>';
-	$import_instructions .= ' | ';
-	$import_instructions .= '<a href="#tribe-import-csv-settings">' . esc_html__( 'CSV', 'the-events-calendar' ) . '</a>';
-	$import_instructions .= ' | ';
-	$import_instructions .= '<a href="#tribe-import-ical-settings">' . esc_html__( 'iCalendar', 'the-events-calendar' ) . '</a>';
-	$import_instructions .= ' | ';
-	$import_instructions .= '<a href="#tribe-import-ics-settings">' . esc_html__( 'ICS File', 'the-events-calendar' ) . '</a>';
-	$import_instructions .= ' | ';
-	$import_instructions .= '<a href="#tribe-import-facebook-settings">' . esc_html__( 'Facebook', 'the-events-calendar' ) . '</a>';
-	$import_instructions .= ' | ';
-	$import_instructions .= '<a href="#tribe-import-google-settings">' . esc_html__( 'Google Calendar', 'the-events-calendar' ) . '</a>';
-	$import_instructions .= ' | ';
-	$import_instructions .= '<a href="#tribe-import-meetup-settings">' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</a>';
-} else{
-	$import_instructions = esc_html__( 'Use the options below to configure your imports. Looking for more ways to import events from other websites?', 'the-events-calendar' );
-	$import_instructions .= '<br/>';
-	$import_instructions .= '<a href="http://m.tri.be/196z">' . esc_html__( 'Check out Event Aggregator.', 'the-events-calendar' ) . '</a>';
+	ob_start();
+	?>
+	<p><?php esc_html_e( 'Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options.', 'the-events-calendar' );?></p>
+	<div>
+		<a href="#tribe-import-aggregator-status"><?php esc_html_e( 'System Status', 'the-events-calendar' ); ?></a> |
+		<a href="#tribe-import-update-authority"><?php esc_html_e( 'Update Authority', 'the-events-calendar' ); ?></a> |
+		<a href="#tribe-import-global-settings"><?php esc_html_e( 'Global', 'the-events-calendar' ); ?></a> |
+		<a href="#tribe-import-csv-settings"><?php esc_html_e( 'CSV', 'the-events-calendar' ); ?></a> |
+		<a href="#tribe-import-ical-settings"><?php esc_html_e( 'iCalendar', 'the-events-calendar' ); ?></a> |
+		<a href="#tribe-import-ics-settings"><?php esc_html_e( 'ICS File', 'the-events-calendar' ); ?></a> |
+		<a href="#tribe-import-facebook-settings"><?php esc_html_e( 'Facebook', 'the-events-calendar' ); ?></a> |
+		<a href="#tribe-import-google-settings"><?php esc_html_e( 'Google Calendar', 'the-events-calendar' ); ?></a> |
+		<a href="#tribe-import-meetup-settings"><?php esc_html_e( 'Meetup', 'the-events-calendar' ); ?></a>
+	</div>
+	<?php
+	$import_instructions = ob_get_clean();
+} else {
+	ob_start();
+	?>
+	<p><?php esc_html_e( 'Use the options below to configure your imports. Looking for more ways to import events from other websites?', 'the-events-calendar' ); ?></p>
+	<a href="http://m.tri.be/196z"><?php esc_html_e( 'Check out Event Aggregator.', 'the-events-calendar' ); ?></a>
+	<?php
+	$import_instructions = ob_get_clean();
 }
-
-
 
 $fields = array_merge(
 	array(
