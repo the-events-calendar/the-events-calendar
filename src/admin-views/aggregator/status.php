@@ -1,14 +1,10 @@
 <?php
-ob_start();
-
 $indicator_icons = array(
 	'good' => 'marker',
 	'warning' => 'warning',
 	'bad' => 'dismiss',
 );
 ?>
-
-<h3 id="tribe-import-aggregator-status"><?php esc_html_e( 'Event Aggregator System Status', 'the-events-calendar' ); ?></h3>
 
 <table class="event-aggregator-status">
 	<thead>
@@ -178,8 +174,7 @@ $indicator_icons = array(
 		?>
 		<tr>
 			<td class="label">
-				<img src="<?php echo tribe_events_resource_url( 'images/aggregator/facebook.png' ); ?>" />
-				<span><?php esc_html_e( 'Facebook', 'the-events-calendar' ); ?></span>
+				<img src="<?php echo tribe_events_resource_url( 'images/aggregator/facebook.png' ); ?>" /><span><?php esc_html_e( 'Facebook', 'the-events-calendar' ); ?></span>
 			</td>
 			<td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
 			<td><?php echo esc_html( $text ); ?></td>
@@ -201,8 +196,7 @@ $indicator_icons = array(
 		?>
 		<tr>
 			<td class="label">
-				<img src="<?php echo tribe_events_resource_url( 'images/aggregator/meetup.png' ); ?>" />
-				<span><?php esc_html_e( 'Meetup', 'the-events-calendar' ); ?></span>
+				<img src="<?php echo tribe_events_resource_url( 'images/aggregator/meetup.png' ); ?>" /><span><?php esc_html_e( 'Meetup', 'the-events-calendar' ); ?></span>
 			</td>
 			<td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
 			<td><?php echo esc_html( $text ); ?></td>
@@ -210,6 +204,3 @@ $indicator_icons = array(
 		</tr>
 	</tbody>
 </table>
-
-<?php
-return ob_get_clean();
