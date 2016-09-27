@@ -70,14 +70,14 @@ class Tribe__Events__Aggregator__Migrate {
 
 		$aggregator = Tribe__Events__Aggregator::instance();
 
-		$html = '<p>' . esc_html__( 'You have some settings from our legacy plugins that you may wish to migrate to Event Aggregator. The buttons bellow will help you do that!', 'the-events-calendar' );
+		$html = '<p>' . esc_html__( 'Thanks for activating Event Aggregator! It looks like you have some settings and imports configured on our legacy importer plugins. To complete your transition, we need to transfer those options to our new system.', 'the-events-calendar' );
 
 		if ( ! $this->is_facebook_migrated() && $this->has_facebook_setting() ) {
-			$html .= '<p style="display:inline-block;">' . get_submit_button( esc_html__( 'Migrate Facebook settings', 'the-events-calendar' ), 'secondary', 'tribe-migrate-facebook-settings', false ) . '<span class="spinner"></span></p>';
+			$html .= '<p style="display:inline-block;">' . get_submit_button( esc_html__( 'Migrate Facebook Events settings', 'the-events-calendar' ), 'secondary', 'tribe-migrate-facebook-settings', false ) . '<span class="spinner"></span></p>';
 		}
 
 		if ( ! $this->is_ical_migrated() && $this->has_ical_setting() ) {
-			$html .= '<p style="display:inline-block;">' . get_submit_button( esc_html__( 'Migrate iCal Settings', 'the-events-calendar' ), 'secondary', 'tribe-migrate-ical-settings', false ) . '<span class="spinner"></span></p>';
+			$html .= '<p style="display:inline-block;">' . get_submit_button( esc_html__( 'Migrate iCal Importer settings', 'the-events-calendar' ), 'secondary', 'tribe-migrate-ical-settings', false ) . '<span class="spinner"></span></p>';
 		}
 
 		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-migrate-legacy-settings', $html );
@@ -277,21 +277,21 @@ class Tribe__Events__Aggregator__Migrate {
 	public function ajax_convert_facebook_settings() {
 		$response = (object) array(
 			'status' => false,
-			'text' => esc_html__( 'Error, a unknown bug happened and it was impossible to migrate the old Facebook Settings to Event Aggregator, try again later.', 'the-events-calendar' ),
+			'text' => esc_html__( 'Error: we were not able to migrate your Facebook Events settings to Event Aggregator. Please try again later.', 'the-events-calendar' ),
 		);
 
 		$post_type = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 
 		if ( empty( $post_type->cap->edit_posts ) || ! current_user_can( $post_type->cap->edit_posts ) ) {
 			$response->status = false;
-			$response->text = esc_html__( 'You do not have permission to migrate the old Facebook Settings to Event Aggregator', 'the-events-calendar' );
+			$response->text = esc_html__( 'You do not have permission to migrate Facebook Events settings to Event Aggregator', 'the-events-calendar' );
 
 			wp_send_json( $response );
 		}
 
 		if ( ! $this->has_facebook_setting() ) {
 			$response->status = false;
-			$response->text = esc_html__( 'It does not seem like there are any Legacy Facebook settings to be imported', 'the-events-calendar' );
+			$response->text = esc_html__( 'We did not find any Facebook Events settings to migrate.', 'the-events-calendar' );
 
 			wp_send_json( $response );
 		}
@@ -345,7 +345,7 @@ class Tribe__Events__Aggregator__Migrate {
 		 * @todo Create a real Logic for Messaging what happened
 		 */
 		$response->status = true;
-		$response->text = esc_html__( 'Succesfully imported the Facebook Settings into Aggregator Records.', 'the-events-calendar' );
+		$response->text = esc_html__( 'Success! The settings from Facebook Events have been migrated to Event Aggregator. You can view your migrated imports on the Scheduled Imports tab.', 'the-events-calendar' );
 		$response->statuses = $status;
 
 		update_option( self::$migrated_facebook_key, true );
@@ -362,14 +362,21 @@ class Tribe__Events__Aggregator__Migrate {
 	public function ajax_convert_ical_settings() {
 		$response = (object) array(
 			'status' => false,
-			'text' => esc_html__( 'Error, a unknown bug happened and it was impossible to migrate the old iCal Settings to Event Aggregator, try again later.', 'the-events-calendar' ),
+			'text' => esc_html__( 'Error: we were not able to migrate your iCal Importer settings to Event Aggregator. Please try again later.', 'the-events-calendar' ),
 		);
 
 		$post_type = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 
 		if ( empty( $post_type->cap->edit_posts ) || ! current_user_can( $post_type->cap->edit_posts ) ) {
 			$response->status = false;
-			$response->text = esc_html__( 'You do not have permission to migrate the iCal Settings to Event Aggregator', 'the-events-calendar' );
+			$response->text = esc_html__( 'You do not have permission to migrate iCal Importer settings to Event Aggregator', 'the-events-calendar' );
+
+			wp_send_json( $response );
+		}
+
+		if ( ! $this->has_ical_setting() ) {
+			$response->status = false;
+			$response->text = esc_html__( 'We did not find any iCal Importer settings to migrate.', 'the-events-calendar' );
 
 			wp_send_json( $response );
 		}
@@ -425,7 +432,7 @@ class Tribe__Events__Aggregator__Migrate {
 		 * @todo Create a real Logic for Messaging what happened
 		 */
 		$response->status = true;
-		$response->text = esc_html__( 'Succesfully imported the iCal Settings into Aggregator Records.', 'the-events-calendar' );
+		$response->text = esc_html__( 'Success! The settings from iCal Importer have been migrated to Event Aggregator. You can view your migrated imports on the Scheduled Imports tab.', 'the-events-calendar' );
 		$response->statuses = $status;
 
 		update_option( self::$migrated_ical_key, true );
