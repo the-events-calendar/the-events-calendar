@@ -341,17 +341,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 	);
 }
 
-$status_html = include_once dirname( __FILE__ ) . '/status.php';
-
-$status = array(
-	'status' => array(
-		'type' => 'html',
-		'html' => $status_html,
-	),
-);
-
 $internal = array_merge(
-	$status,
 	$change_authority,
 	$global,
 	$csv,
@@ -369,7 +359,6 @@ if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
 	?>
 	<p><?php esc_html_e( 'Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options.', 'the-events-calendar' );?></p>
 	<div>
-		<a href="#tribe-import-aggregator-status"><?php esc_html_e( 'System Status', 'the-events-calendar' ); ?></a> |
 		<a href="#tribe-import-update-authority"><?php esc_html_e( 'Update Authority', 'the-events-calendar' ); ?></a> |
 		<a href="#tribe-import-global-settings"><?php esc_html_e( 'Global', 'the-events-calendar' ); ?></a> |
 		<a href="#tribe-import-csv-settings"><?php esc_html_e( 'CSV', 'the-events-calendar' ); ?></a> |

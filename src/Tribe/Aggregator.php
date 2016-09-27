@@ -140,6 +140,29 @@ class Tribe__Events__Aggregator {
 		if ( class_exists( 'Tribe__Events__Ical_Importer__Main' ) ) {
 			remove_action( 'deactivate_' . plugin_basename( Tribe__Events__Ical_Importer__Main::$plugin_path . 'the-events-calendar-ical-importer.php' ), 'tribe_events_ical_deactivate' );
 		}
+
+		$this->add_status_to_help();
+	}
+
+	/**
+	 * Add Event Aggregator System Status to the Help page
+	 */
+	public function add_status_to_help() {
+		$help = Tribe__Admin__Help_Page::instance();
+		$help->add_section(
+			'tribe-aggregator-status',
+			__( 'Event Aggregator System Status', 'the-events-calendar' ),
+			60
+		);
+
+		ob_start();
+		include_once Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/aggregator/status.php';
+		$status_html = ob_get_clean();
+
+		$help->add_section_content(
+			'tribe-aggregator-status',
+			$status_html
+		);
 	}
 
 	/**
