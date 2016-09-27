@@ -119,7 +119,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'tribe_aggregator_default_show_map' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'Show Google Map by default on imported venues', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => 'no',
@@ -159,7 +159,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'tribe_aggregator_default_ical_show_map' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'Show Google Map by default on imported venues', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => 'no',
@@ -199,7 +199,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'tribe_aggregator_default_ics_show_map' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'Show Google Map by default on imported venues', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => 'no',
@@ -239,7 +239,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'tribe_aggregator_default_facebook_show_map' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'Show Google Map by default on imported venues', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => 'no',
@@ -279,7 +279,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'tribe_aggregator_default_gcal_show_map' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'Show Google Map by default on imported venues', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => 'no',
@@ -330,7 +330,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'tribe_aggregator_default_meetup_show_map' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'Show Google Map by default on imported venues', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => 'no',
