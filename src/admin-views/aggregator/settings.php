@@ -357,7 +357,18 @@ $internal = apply_filters( 'tribe_aggregator_fields', $internal );
 if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
 	ob_start();
 	?>
-	<p><?php esc_html_e( 'Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options.', 'the-events-calendar' );?></p>
+	<p>
+		<?php
+		printf(
+			esc_html__(
+				'Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options. Check your Event Aggregator Service Status on the %1$sHelp page%2$s.',
+				'the-events-calendar'
+			),
+			'<a href="' . Tribe__Settings::instance()->get_url( array( 'page' => 'tribe-help' ) ) . '#tribe-tribe-aggregator-status">',
+			'</a>'
+		);
+		?>
+	</p>
 	<div>
 		<a href="#tribe-import-update-authority"><?php esc_html_e( 'Update Authority', 'the-events-calendar' ); ?></a> |
 		<a href="#tribe-import-global-settings"><?php esc_html_e( 'Global', 'the-events-calendar' ); ?></a> |
