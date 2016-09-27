@@ -347,7 +347,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 					); ?>
 			</p>
 			<p>
-				<a href="<?php echo esc_url( admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=licenses' ) ); ?>" class="tribe-license-link button button-primary"><?php esc_html_e( 'Enter Event Aggregator License', 'the-events-calendar' ); ?></a>
+				<a href="<?php echo esc_url( admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=licenses' ) ); ?>" class="tribe-license-link tribe-button tribe-button-primary"><?php esc_html_e( 'Enter Event Aggregator License', 'the-events-calendar' ); ?></a>
 			</p>
 		</div>
 		<?php
