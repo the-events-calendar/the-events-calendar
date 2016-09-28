@@ -24,6 +24,7 @@ if ( $missing_facebook_credentials ) :
 	?>
 	<tr class="tribe-dependent tribe-credential-row" data-depends="#tribe-ea-field-origin" data-condition="facebook">
 		<td colspan="2" class="<?php echo esc_attr( $missing_facebook_credentials ? 'enter-credentials' : 'has-credentials' ); ?>">
+			<input type="hidden" name="has-credentials" id="tribe-has-facebook-credentials" value="0">
 			<div class="tribe-message tribe-credentials-prompt">
 				<p>
 					<span class="dashicons dashicons-warning"></span>
