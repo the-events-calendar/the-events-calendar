@@ -950,6 +950,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				continue;
 			}
 
+			if ( $show_map_setting ) {
+				$event['EventShowMap']     = $show_map_setting;
+				$event['EventShowMapLink'] = $show_map_setting;
+			}
+
 			if ( empty( $event['recurrence'] ) ) {
 				$non_recurring = true;
 			}
@@ -1027,6 +1032,29 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event = apply_filters( 'tribe_aggregator_before_update_event', $event, $this );
 
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
+
+				// since the Event API only supports the _setting_ of these meta fields, we need to manually
+				// delete them rather than relying on Tribe__Events__API::saveEventMeta()
+				if (
+					isset( $event['EventShowMap'] )
+					&& (
+						empty( $event['EventShowMap'] )
+						|| 'no' === $event['EventShowMap']
+					)
+				) {
+					delete_post_meta( $event['ID'], '_EventShowMap' );
+				}
+
+				if (
+					isset( $event['EventShowMapLink'] )
+					&& (
+						empty( $event['EventShowMapLink'] )
+						|| 'no' === $event['EventShowMapLink']
+					)
+				) {
+					delete_post_meta( $event['ID'], '_EventShowMapLink' );
+				}
+
 				remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 
 				// Log that this event was updated

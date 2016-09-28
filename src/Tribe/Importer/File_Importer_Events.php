@@ -201,6 +201,21 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			$cats = $cats ? $cats . ',' . $category_setting : $category_setting;
 		}
 
+		if ( $this->is_aggregator ) {
+			if ( $show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( 'csv' ) ) {
+				$event['EventShowMap']     = $show_map_setting;
+				$event['EventShowMapLink'] = $show_map_setting;
+			} else {
+				if ( isset( $event['EventShowMap'] ) ) {
+					unset( $event['EventShowMap'] );
+				}
+
+				if ( isset( $event['EventShowMapLink'] ) ) {
+					unset( $event['EventShowMapLink'] );
+				}
+			}
+		}
+
 		if ( $cats ) {
 			$event['tax_input'][ Tribe__Events__Main::TAXONOMY ] = $this->translate_terms_to_ids( explode( ',', $cats ) );
 		}

@@ -184,14 +184,14 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return string
 	 */
 	public function default_post_status( $origin = null ) {
-		$global_setting = $setting = tribe_get_option( 'tribe_aggregator_default_post_status', 'publish' );
+		$setting = $setting = tribe_get_option( 'tribe_aggregator_default_post_status', 'publish' );
 
 		if ( $origin ) {
-			$setting = tribe_get_option( "tribe_aggregator_default_{$origin}_post_status", $setting );
-		}
+			$origin_setting = tribe_get_option( "tribe_aggregator_default_{$origin}_post_status", $setting );
 
-		if ( ! $setting ) {
-			$setting = $global_setting;
+			if ( ! empty( $origin_setting ) ) {
+				$setting = $origin_setting;
+			}
 		}
 
 		return $setting;
@@ -210,7 +210,11 @@ class Tribe__Events__Aggregator__Settings {
 		$setting = tribe_get_option( 'tribe_aggregator_default_category', null );
 
 		if ( $origin ) {
-			$setting = tribe_get_option( "tribe_aggregator_default_{$origin}_category", $setting );
+			$origin_setting = tribe_get_option( "tribe_aggregator_default_{$origin}_category", $setting );
+
+			if ( ! empty( $origin_setting ) ) {
+				$setting = $origin_setting;
+			}
 		}
 
 		return $setting;
@@ -226,10 +230,14 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return string
 	 */
 	public function default_map( $origin = null ) {
-		$setting = tribe_get_option( 'tribe_aggregator_default_map', 'no' );
+		$setting = tribe_get_option( 'tribe_aggregator_default_show_map', 'no' );
 
 		if ( $origin ) {
-			$setting = tribe_get_option( "tribe_aggregator_default_{$origin}_map", $setting );
+			$origin_setting = tribe_get_option( "tribe_aggregator_default_{$origin}_show_map", $setting );
+
+			if ( ! empty( $origin_setting ) ) {
+				$setting = $origin_setting;
+			}
 		}
 
 		return $setting;
