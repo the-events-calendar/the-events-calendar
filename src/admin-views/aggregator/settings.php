@@ -361,11 +361,10 @@ if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
 		<?php
 		printf(
 			esc_html__(
-				'Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options. Check your Event Aggregator Service Status on the %1$sHelp page%2$s.',
+				'Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options. Check your Event Aggregator Service Status on the %1$s.',
 				'the-events-calendar'
 			),
-			'<a href="' . Tribe__Settings::instance()->get_url( array( 'page' => 'tribe-help' ) ) . '#tribe-tribe-aggregator-status">',
-			'</a>'
+			'<a href="' . Tribe__Settings::instance()->get_url( array( 'page' => 'tribe-help' ) ) . '#tribe-tribe-aggregator-status">' . esc_html__( 'Help page', 'the-events-calendar' ) . '</a>'
 		);
 		?>
 	</p>
