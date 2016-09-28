@@ -141,13 +141,19 @@ class Tribe__Events__Aggregator {
 			remove_action( 'deactivate_' . plugin_basename( Tribe__Events__Ical_Importer__Main::$plugin_path . 'the-events-calendar-ical-importer.php' ), 'tribe_events_ical_deactivate' );
 		}
 
-		$this->add_status_to_help();
+		add_action( 'admin_init', array( $this, 'add_status_to_help' ) );
 	}
 
 	/**
 	 * Add Event Aggregator System Status to the Help page
 	 */
 	public function add_status_to_help() {
+		global $plugin_page;
+
+		if ( 'tribe-help' !== $plugin_page ) {
+			return;
+		}
+
 		$help = Tribe__Admin__Help_Page::instance();
 		$help->add_section(
 			'tribe-aggregator-status',
