@@ -365,8 +365,10 @@ class Tribe__Events__Aggregator__Cron {
 			$queue = $record->process_posts();
 
 			if ( ! is_wp_error( $queue ) ) {
+				/** @var Tribe__Events__Aggregator__Record__Queue $queue */
 				$this->log( 'debug', sprintf( 'Record (%d) has processed queue ', $queue->record->id ) );
-				$activity = $queue->activity->get();
+				$activity = $queue->activity()->get();
+
 				foreach ( $activity as $key => $actions ) {
 					foreach ( $actions as $action => $ids ) {
 						if ( empty( $ids ) ) {
