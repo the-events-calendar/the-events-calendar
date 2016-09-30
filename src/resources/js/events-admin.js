@@ -710,16 +710,55 @@ jQuery( document ).ready( function( $ ) {
 
 });
 
+( function ( $ ) {
+	'use script';
 
-/**
- * Re-initialize chosen on widgets when moved
- * credits: http://www.johngadbois.com/adding-your-own-callbacks-to-wordpress-ajax-requests/
- */
-jQuery( document ).ajaxSuccess( function( e, xhr, settings ) {
-	if ( typeof settings !== 'undefined' && typeof settings.data !== 'undefined' && settings.data.search( 'action=save-widget' ) != - 1 ) {
-		jQuery( "#widgets-right .chosen" ).chosen();
-	}
-} );
+	// Track when the Widget Opens
+	$( document.body ).on( 'click.widgets-toggle', function( e ) {
+		var target = $( e.target ),
+			widget, inside;
+
+		console.log( target );
+
+		// Prevent weird non avaiable widgets to go any further
+		if ( ! target.parents('.widget-top').length || target.parents('#available-widgets').length ) {
+			return;
+		}
+
+		widget = target.closest( 'div.widget' );
+		inside = widget.children( '.widget-inside' );
+
+
+		// If we are not dealing with Mini Calendar bail
+		if ( ! widget.is( '[id*="tribe-events-adv-list"]' ) ) {
+			return;
+		}
+
+		// Bail when it was not off screen
+		if ( ! widget.find( '.select2-container' ).hasClass( 'select2-offscreen' ) ) {
+			return;
+		}
+
+		widget.find( 'select.calendar-widget-add-filter' ).removeClass( 'select2-offscreen' ).select2();
+		calendar_toggle_all();
+	} );
+
+	// When Updated Re-Structure the Select2
+	$( document ).on( 'widget-updated', function ( e, widget ) {
+		// If we are not dealing with Mini Calendar bail
+		if ( ! widget.is( '[id*="tribe-events-adv-list"]' ) ) {
+			return;
+		}
+
+		// Bail when it was not off screen
+		if ( ! widget.find( '.select2-container' ).hasClass( 'select2-offscreen' ) ) {
+			return;
+		}
+
+		widget.find( 'select.calendar-widget-add-filter' ).removeClass( 'select2-offscreen' ).select2();
+		calendar_toggle_all();
+	} );
+}( jQuery ) );
 
 /**
  * Manage the timezone selector user interface.
