@@ -301,10 +301,10 @@ defined( 'WPINC' ) or die;
 				$current_locale = $sitepress->get_locale( $sitepress->get_current_language() );
 
 				// Get the strings on multiple Domains and Languages
-				// WPML filter is unhooked to avoid the locale bein set to the default one
-				remove_filter( 'locale', array( $sitepress, 'locale' ) );
+				// WPML filter is unhooked to avoid the locale being set to the default one
+				remove_filter( 'locale', array( $sitepress, 'locale_filter' ) );
 				$bases = $tec->get_i18n_strings( $bases, $languages, $domains, $current_locale );
-				add_filter( 'locale', array( $sitepress, 'locale' ) );
+				add_filter( 'locale', array( $sitepress, 'locale_filter' ) );
 			}
 
 			if ( 'regex' === $method ) {
