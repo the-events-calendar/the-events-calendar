@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // the main plugin class
 require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';
 
-Tribe__Events__Main::instance();
+Tribe__Events__Main::instance()->set_plugin_path( __FILE__ );
 
 register_activation_hook( __FILE__, array( 'Tribe__Events__Main', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'Tribe__Events__Main', 'deactivate' ) );
