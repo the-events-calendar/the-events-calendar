@@ -713,50 +713,42 @@ jQuery( document ).ready( function( $ ) {
 ( function ( $ ) {
 	'use strict';
 
-	// Track when the Widget Opens
-	$( document.body ).on( 'click.widgets-toggle', function( e ) {
-		var $target = $( e.target ),
-			$widget, $inside;
+	var widget_update = function ( e, $widget ) {
+		if ( 'undefined' === typeof $widget ) {
+			var $target = $( e.target ),
+				$widget;
 
-		// Prevent weird non avaiable widgets to go any further
-		if ( ! $target.parents('.widget-top').length || $target.parents('#available-widgets').length ) {
-			return;
+			// Prevent weird non avaiable widgets to go any further
+			if ( ! $target.parents('.widget-top').length || $target.parents('#available-widgets').length ) {
+				return;
+			}
+
+			$widget = $target.closest( 'div.widget' );
 		}
 
-		$widget = $target.closest( 'div.widget' );
-		$inside = $widget.children( '.widget-inside' );
-
-
-		// If we are not dealing with Mini Calendar bail
-		if ( ! $widget.is( '[id*="tribe-events-adv-list"]' ) ) {
+		// If we are not dealing with one of the Tribe Widgets
+		if (
+			! $widget.is( '[id*="tribe-events-adv-list"]' ) &&
+			! $widget.is( '[id*="tribe-mini-calendar"]' ) &&
+			! $widget.is( '[id*="tribe-this-week-events"]' )
+		) {
 			return;
 		}
 
 		// Bail when it was not off screen
-		if ( ! $widget.find( '.select2-container' ).hasClass( 'select2-offscreen' ) ) {
+		if ( $widget.find( '.select2-container' ).length !== 0 && ! $widget.find( '.select2-container' ).hasClass( 'select2-offscreen' ) ) {
 			return;
 		}
 
 		$widget.find( 'select.calendar-widget-add-filter' ).removeClass( 'select2-offscreen' ).select2();
-		calendar_toggle_all();
-	} );
+	};
+
+	// Open the Widget
+	$( document.body ).on( 'click.widgets-toggle', widget_update );
 
 	// When Updated Re-Structure the Select2
-	$( document ).on( 'widget-updated', function ( e, $widget ) {
-		// If we are not dealing with Mini Calendar bail
-		if ( ! $widget.is( '[id*="tribe-events-adv-list"]' ) ) {
-			return;
-		}
-
-		// Bail when it was not off screen
-		if ( ! $widget.find( '.select2-container' ).hasClass( 'select2-offscreen' ) ) {
-			return;
-		}
-
-		$widget.find( 'select.calendar-widget-add-filter' ).removeClass( 'select2-offscreen' ).select2();
-		calendar_toggle_all();
-	} );
-}( jQuery ) );
+	$( document ).on( 'widget-updated', widget_update );
+} )( jQuery );
 
 /**
  * Manage the timezone selector user interface.

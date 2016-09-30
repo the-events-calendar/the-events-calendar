@@ -1931,6 +1931,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( $admin_helpers->is_screen( 'widgets' ) ) {
 				Tribe__Events__Template_Factory::asset_package( 'select2' );
+				Tribe__Events__Template_Factory::asset_package( 'chosen' );
 				Tribe__Events__Template_Factory::asset_package( 'admin' );
 			}
 
