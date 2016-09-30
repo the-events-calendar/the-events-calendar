@@ -711,49 +711,49 @@ jQuery( document ).ready( function( $ ) {
 });
 
 ( function ( $ ) {
-	'use script';
+	'use strict';
 
 	// Track when the Widget Opens
 	$( document.body ).on( 'click.widgets-toggle', function( e ) {
-		var target = $( e.target ),
-			widget, inside;
+		var $target = $( e.target ),
+			$widget, $inside;
 
 		// Prevent weird non avaiable widgets to go any further
-		if ( ! target.parents('.widget-top').length || target.parents('#available-widgets').length ) {
+		if ( ! $target.parents('.widget-top').length || $target.parents('#available-widgets').length ) {
 			return;
 		}
 
-		widget = target.closest( 'div.widget' );
-		inside = widget.children( '.widget-inside' );
+		$widget = $target.closest( 'div.widget' );
+		$inside = $widget.children( '.widget-inside' );
 
 
 		// If we are not dealing with Mini Calendar bail
-		if ( ! widget.is( '[id*="tribe-events-adv-list"]' ) ) {
+		if ( ! $widget.is( '[id*="tribe-events-adv-list"]' ) ) {
 			return;
 		}
 
 		// Bail when it was not off screen
-		if ( ! widget.find( '.select2-container' ).hasClass( 'select2-offscreen' ) ) {
+		if ( ! $widget.find( '.select2-container' ).hasClass( 'select2-offscreen' ) ) {
 			return;
 		}
 
-		widget.find( 'select.calendar-widget-add-filter' ).removeClass( 'select2-offscreen' ).select2();
+		$widget.find( 'select.calendar-widget-add-filter' ).removeClass( 'select2-offscreen' ).select2();
 		calendar_toggle_all();
 	} );
 
 	// When Updated Re-Structure the Select2
-	$( document ).on( 'widget-updated', function ( e, widget ) {
+	$( document ).on( 'widget-updated', function ( e, $widget ) {
 		// If we are not dealing with Mini Calendar bail
-		if ( ! widget.is( '[id*="tribe-events-adv-list"]' ) ) {
+		if ( ! $widget.is( '[id*="tribe-events-adv-list"]' ) ) {
 			return;
 		}
 
 		// Bail when it was not off screen
-		if ( ! widget.find( '.select2-container' ).hasClass( 'select2-offscreen' ) ) {
+		if ( ! $widget.find( '.select2-container' ).hasClass( 'select2-offscreen' ) ) {
 			return;
 		}
 
-		widget.find( 'select.calendar-widget-add-filter' ).removeClass( 'select2-offscreen' ).select2();
+		$widget.find( 'select.calendar-widget-add-filter' ).removeClass( 'select2-offscreen' ).select2();
 		calendar_toggle_all();
 	} );
 }( jQuery ) );
