@@ -718,8 +718,6 @@ jQuery( document ).ready( function( $ ) {
 		var target = $( e.target ),
 			widget, inside;
 
-		console.log( target );
-
 		// Prevent weird non avaiable widgets to go any further
 		if ( ! target.parents('.widget-top').length || target.parents('#available-widgets').length ) {
 			return;
