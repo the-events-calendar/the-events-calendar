@@ -27,11 +27,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+define( 'THE_EVENTS_CALENDAR_DIR', dirname( __FILE__ ) );
+define( 'THE_EVENTS_CALENDAR_FILE', __FILE__ );
 
-// the main plugin class
-require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';
-
-Tribe__Events__Main::instance()->set_plugin_path( __FILE__ );
-
-register_activation_hook( __FILE__, array( 'Tribe__Events__Main', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'Tribe__Events__Main', 'deactivate' ) );
+include THE_EVENTS_CALENDAR_DIR . '/src/Tribe/Main.php';
+if ( class_exists( 'Tribe__Events__Main' ) ) {
+	Tribe__Events__Main::instance();
+}

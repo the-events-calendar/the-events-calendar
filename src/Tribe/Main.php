@@ -229,32 +229,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Initializes plugin variables and sets up WordPress hooks/actions.
 		 */
 		protected function __construct() {
-			$this->set_plugin_path();
+			$this->plugin_file = THE_EVENTS_CALENDAR_FILE;
+			$this->pluginPath  = $this->plugin_path = trailingslashit( THE_EVENTS_CALENDAR_DIR );
+			$this->pluginDir   = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
+			$this->pluginUrl   = $this->plugin_url = plugins_url( $this->plugin_dir );
+
 			$this->maybe_set_common_lib_info();
 
 			// let's initialize tec silly-early to avoid fatals with upgrades from 3.x to 4.x
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
+
+			register_activation_hook( THE_EVENTS_CALENDAR_FILE, array( $this, 'activate' ) );
+			register_deactivation_hook( THE_EVENTS_CALENDAR_FILE, array( $this, 'deactivate' ) );
 		}
 
-		/**
-		 * Sets plugin path variables
-		 *
-		 * @param string $plugin_file The main plugin __FILE__ which contains the plugin header
-		 */
-		public function set_plugin_path( $plugin_file = null ) {
-
-			// Assume file is ../../../{plugin_dir}.php
-			if ( $plugin_file === null ) {
-				$plugin_file = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
-				$plugin_file = $plugin_file . basename( $plugin_file ) . '.php';
-			}
-
-			$this->plugin_file = $plugin_file;
-			$this->pluginPath  = $this->plugin_path = trailingslashit( dirname( $this->plugin_file ) );
-			$this->pluginDir   = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
-			$this->pluginUrl   = $this->plugin_url = plugins_url( $this->plugin_dir );
-
-		}
 
 		public function plugins_loaded() {
 			// include the autoloader class
@@ -299,18 +287,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 		}
 
+
 		/**
 		 * Registers this plugin as being active for other tribe plugins and extensions
+		 *
+		 * @return bool Indicates if Tribe Common wants the plugin to run
 		 */
-		protected function register_active_plugin() {
-			if ( class_exists( 'Tribe__Dependency' ) ) {
-				Tribe__Dependency::instance()->add_active_plugin(
-					__CLASS__,
-					self::VERSION,
-					$this->plugin_file
-				);
+		public function register_active_plugin() {
+			if ( ! function_exists( 'tribe_register_plugin' ) ) {
+				return true;
 			}
+
+			return tribe_register_plugin( THE_EVENTS_CALENDAR_FILE, __CLASS__, self::VERSION );
 		}
+
 
 		/**
 		 * Load all the required library files.
