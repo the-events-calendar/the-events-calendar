@@ -283,29 +283,17 @@ defined( 'WPINC' ) or die;
 				'the-events-calendar' => $tec->plugin_dir . 'lang/',
 			) );
 
-			// If WPML exists we treat the multiple languages
-			if ( $this->is_wpml_active() ) {
-				global $sitepress;
-
-				// Grab all languages
-				$langs = $sitepress->get_active_languages();
-
-				foreach ( $langs as $lang ) {
-					$languages[] = $sitepress->get_locale( $lang['code'] );
-				}
-
-				// Prevent Duplicates and Empty langs
-				$languages = array_filter( array_unique( $languages ) );
-
-				// Query the Current Language
-				$current_locale = $sitepress->get_locale( $sitepress->get_current_language() );
-
-				// Get the strings on multiple Domains and Languages
-				// WPML filter is unhooked to avoid the locale being set to the default one
-				remove_filter( 'locale', array( $sitepress, 'locale_filter' ) );
-				$bases = $tec->get_i18n_strings( $bases, $languages, $domains, $current_locale );
-				add_filter( 'locale', array( $sitepress, 'locale_filter' ) );
-			}
+			/**
+			 * Use `tribe_events_rewrite_i18n_slugs_raw` to modify the raw version of the l10n slugs bases.
+			 *
+			 * This is useful to modify the bases before the method is taken into account.
+			 *
+			 * @param array  $bases   An array of rewrite bases that have been generated.
+			 * @param string $method  The method that's being used to generate the bases; defaults to `regex`.
+			 * @param array  $domains An associative array of language domains to use; these would be plugin or themes language
+			 *                        domains with a `'plugin-slug' => '/absolute/path/to/lang/dir'`
+			 */
+			$bases = apply_filters( 'tribe_events_rewrite_i18n_slugs_raw', $bases, $method, $domains );
 
 			if ( 'regex' === $method ) {
 				foreach ( $bases as $type => $base ) {
@@ -320,8 +308,16 @@ defined( 'WPINC' ) or die;
 
 			/**
 			 * Use `tribe_events_rewrite_i18n_slugs` to modify the final version of the l10n slugs bases
+			 *
+			 * At this stage the method has been applied already and this filter will work with the
+			 * finalized version of the bases.
+			 *
+			 * @param array  $bases   An array of rewrite bases that have been generated.
+			 * @param string $method  The method that's being used to generate the bases; defaults to `regex`.
+			 * @param array  $domains An associative array of language domains to use; these would be plugin or themes language
+			 *                        domains with a `'plugin-slug' => '/absolute/path/to/lang/dir'`
 			 */
-			return (object) apply_filters( 'tribe_events_rewrite_i18n_slugs', $bases, $method );
+			return (object) apply_filters( 'tribe_events_rewrite_i18n_slugs', $bases, $method, $domains );
 		}
 
 		/**
