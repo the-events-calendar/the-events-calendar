@@ -604,6 +604,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * Expire notices
 			 */
 			add_action( 'transition_post_status', array( $this, 'action_expire_archive_slug_conflict_notice' ), 10, 3 );
+
+
+			// Fire up the Customizer Sections
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__General_Theme', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Global_Elements', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Month_Week_View', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Day_List_View', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Single_Event', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Widget', 'instance' ) );
 		}
 
 		/**
