@@ -18,7 +18,7 @@ defined( 'WPINC' ) or die;
 	 * @var self
 		 */
 		public static $instance;
-		
+
 		/**
 		 * WP_Rewrite Instance
 		 * @var WP_Rewrite
@@ -207,7 +207,7 @@ defined( 'WPINC' ) or die;
 			$permalink = str_replace( self::PERCENT_PLACEHOLDER, '%', $permalink );
 
 			$permalink = $this->apply_wpml_permalink_filter( $permalink, $post );
-			
+
 			return $permalink;
 		}
 
@@ -536,7 +536,7 @@ defined( 'WPINC' ) or die;
 
 		/**
 		 * If WPML is active let's convert the permalink to one supporting WPML url generation.
-		 * 
+		 *
 		 * @param string $permalink
 		 * @param  WP_Post $post Post Object
 		 *
