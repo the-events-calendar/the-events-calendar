@@ -29,6 +29,7 @@ class Tribe__Events__Integrations__WPML__Filters {
 	 * @return array An array of bases each with its (optional) WPML managed translations set.
 	 */
 	public function filter_tribe_events_rewrite_i18n_slugs_raw( $bases, $method, $domains ) {
+		/** @var SitePress $sitepress */
 		global $sitepress;
 
 		$tec = Tribe__Events__Main::instance();
