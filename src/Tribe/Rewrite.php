@@ -280,7 +280,7 @@ defined( 'WPINC' ) or die;
 			// By default we load the Default and our plugin domains
 			$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
 				'default' => true, // Default doesn't need file path
-				'the-events-calendar' => $tec->pluginDir . 'lang/',
+				'the-events-calendar' => $tec->plugin_dir . 'lang/',
 			) );
 
 			// If WPML exists we treat the multiple languages
