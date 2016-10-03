@@ -305,7 +305,6 @@ defined( 'WPINC' ) or die;
 				}
 			}
 
-
 			/**
 			 * Use `tribe_events_rewrite_i18n_slugs` to modify the final version of the l10n slugs bases
 			 *
