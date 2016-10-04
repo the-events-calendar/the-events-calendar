@@ -19,7 +19,16 @@ class Tribe__Events__Integrations__WPML__Utils {
 	 * @return array
 	 */
 	public static function get_wpml_i18n_strings( array $strings, $locale = null, array $domains = null ) {
-		// @todo: cache here!
+		array_multisort($strings);
+		$cache = new Tribe__Cache();
+		$cache_key = 'wpml-i18n-strings_' . serialize($strings);
+
+		$cached_translations = $cache->get_transient( $cache_key, 'wpml_updates' );
+
+		if (!empty( $cached_translations)) {
+			return $cached_translations;
+		}
+
 		$tec = Tribe__Events__Main::instance();
 
 		$domains = apply_filters (
@@ -51,6 +60,9 @@ class Tribe__Events__Integrations__WPML__Utils {
 		remove_filter( 'locale', array( $sitepress, 'locale_filter' ) );
 		$translations = $tec->get_i18n_strings_for_domains( $strings, $languages, $domains, $current_locale );
 		add_filter( 'locale', array( $sitepress, 'locale_filter' ) );
+
+		// once an option is updated this cache is deprecated
+		$cache->set_transient( $cache_key, $translations, 0, 'wpml_updates' );
 
 		return $translations;
 	}
