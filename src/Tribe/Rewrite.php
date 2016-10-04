@@ -18,7 +18,7 @@ defined( 'WPINC' ) or die;
 	 * @var self
 		 */
 		public static $instance;
-		
+
 		/**
 		 * WP_Rewrite Instance
 		 * @var WP_Rewrite
@@ -526,5 +526,4 @@ defined( 'WPINC' ) or die;
 
 			return false;
 		}
-
 	}
