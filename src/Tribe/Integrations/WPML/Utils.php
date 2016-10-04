@@ -17,9 +17,9 @@ class Tribe__Events__Integrations__WPML__Utils {
 	 */
 	public static function get_wpml_i18n_strings( array $strings ) {
 		$tec = Tribe__Events__Main::instance();
-
 		$domains = apply_filters (
-			'tribe_events_rewrite_i18n_domains', array(
+			'tribe_events_rewrite_i18n_domains',
+			array(
 				'default'             => true, // Default doesn't need file path
 				'the-events-calendar' => $tec->pluginDir . 'lang/',
 			)
