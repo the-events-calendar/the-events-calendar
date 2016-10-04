@@ -2474,8 +2474,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * WARNING: This function is slow because it deals with files, so don't overuse it!
 		 *
-		 * @todo Include support for the `load_theme_textdomain` + `load_muplugin_textdomain`
-		 *
 		 * @param  array  $strings          An array of strings (required)
 		 * @param  array  $languages        Which l10n to fetch the string (required)
 		 * @param  array  $domains          Possible Domains to re-load
@@ -2489,63 +2487,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'the-events-calendar' => $this->plugin_dir . 'lang/',
 			) );
 
-			foreach ( $languages as $language ) {
-				$this->_locale = $language;
-				foreach ( (array) $domains as $domain => $file ) {
-					// Configure the language
-					add_filter( 'locale', array( $this, '_set_locale' ) );
-
-					// Reload it with the correct language
-					unload_textdomain( $domain );
-
-					if ( 'default' === $domain ) {
-						load_default_textdomain(  );
-					} else {
-						Tribe__Main::instance()->load_text_domain( $domain, $file );
-					}
-
-					// Loop on the strings the build the possible translations
-					foreach ( $strings as $key => $value ) {
-						$value = is_array( $value ) ? reset( $value ) : $value;
-						if ( ! is_string( $value ) ) {
-							continue;
-						}
-
-						// Make sure we have an Array
-						$strings[ $key ] = (array) $strings[ $key ];
-
-						// Grab the possible strings for Default and Any other domain
-						if ( 'default' === $domain ) {
-							$strings[ $key ][] = __( $value );
-							$strings[ $key ][] = __( strtolower( $value ) );
-							$strings[ $key ][] = __( ucfirst( $value ) );
-						} else {
-							$strings[ $key ][] = __( $value, $domain );
-							$strings[ $key ][] = __( strtolower( $value ), $domain );
-							$strings[ $key ][] = __( ucfirst( $value ), $domain );
-						}
-					}
-
-					// Set back to the default language
-					remove_filter( 'locale', array( $this, '_set_locale' ) );
-
-					// Reload it with the correct language
-					unload_textdomain( $domain );
-
-					if ( 'default' === $domain ) {
-						load_default_textdomain();
-					} else {
-						Tribe__Main::instance()->load_text_domain( $domain, $file );
-					}
-				}
-			}
-
-			// Prevent Empty Strings and Duplicates
-			foreach ( $strings as $key => $value ) {
-				$strings[ $key ] = array_filter( array_unique( array_map( 'sanitize_title_with_dashes', $value ) ) );
-			}
-
-			return $strings;
+			return $this->get_i18n_strings_for_domains( $strings, $languages, $domains );
 		}
 
 		/**
@@ -3094,6 +3036,80 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$value = apply_filters( 'tribe_get_meta_default_value_' . $filter, $value, $id, $meta, $single );
 			}
 			return $value;
+		}
+
+		/**
+		 * Get all possible translations for a String based on the given Languages and Domains
+		 *
+		 * WARNING: This function is slow because it deals with files, so don't overuse it!
+         * Differently from the `get_i18n_strings` method this will not use any domain that's not specified.
+		 *
+		 * @todo Include support for the `load_theme_textdomain` + `load_muplugin_textdomain`
+		 *
+		 * @param  array  $strings          An array of strings (required)
+		 * @param  array  $languages        Which l10n to fetch the string (required)
+		 * @param  array  $domains          Possible Domains to re-load
+		 *
+		 * @return array                    A multi level array with the possible translations for the given strings
+		 */
+		public function get_i18n_strings_for_domains( $strings, $languages, $domains = array( 'default' ) ) {
+			foreach ( $languages as $language ) {
+				$this->_locale = $language;
+				foreach ( (array) $domains as $domain => $file ) {
+					// Configure the language
+					add_filter( 'locale', array( $this, '_set_locale' ) );
+
+					// Reload it with the correct language
+					unload_textdomain( $domain );
+
+					if ( 'default' === $domain ) {
+						load_default_textdomain();
+					} else {
+						Tribe__Main::instance()->load_text_domain( $domain, $file );
+					}
+
+					// Loop on the strings the build the possible translations
+					foreach ( $strings as $key => $value ) {
+						$value = is_array( $value ) ? reset( $value ) : $value;
+						if ( ! is_string( $value ) ) {
+							continue;
+						}
+
+						// Make sure we have an Array
+						$strings[ $key ] = (array) $strings[ $key ];
+
+						// Grab the possible strings for Default and Any other domain
+						if ( 'default' === $domain ) {
+							$strings[ $key ][] = __( $value );
+							$strings[ $key ][] = __( strtolower( $value ) );
+							$strings[ $key ][] = __( ucfirst( $value ) );
+						} else {
+							$strings[ $key ][] = __( $value, $domain );
+							$strings[ $key ][] = __( strtolower( $value ), $domain );
+							$strings[ $key ][] = __( ucfirst( $value ), $domain );
+						}
+					}
+
+					// Set back to the default language
+					remove_filter( 'locale', array( $this, '_set_locale' ) );
+
+					// Reload it with the correct language
+					unload_textdomain( $domain );
+
+					if ( 'default' === $domain ) {
+						load_default_textdomain();
+					} else {
+						Tribe__Main::instance()->load_text_domain( $domain, $file );
+					}
+				}
+			}
+
+			// Prevent Empty Strings and Duplicates
+			foreach ( $strings as $key => $value ) {
+				$strings[ $key ] = array_filter( array_unique( array_map( 'sanitize_title_with_dashes', $value ) ) );
+			}
+
+			return $strings;
 		}
 
 		/**
