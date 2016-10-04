@@ -2563,7 +2563,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$event_url = str_replace( '?' . $url_query, '', $event_url );
 			}
 
-			// @todo @luca: allow filtering here to translate
 			// Append Events structure
 			$event_url .= trailingslashit( sanitize_title( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ) ) );
 
