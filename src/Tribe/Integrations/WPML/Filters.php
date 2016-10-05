@@ -32,10 +32,18 @@ class Tribe__Events__Integrations__WPML__Filters {
 		/** @var SitePress $sitepress */
 		global $sitepress, $sitepress_settings;
 
+		if ( empty( $sitepress ) || ! is_a( $sitepress, 'SitePress' ) ) {
+			return $bases;
+		}
+
 		$tec = Tribe__Events__Main::instance();
 
 		// Grab all languages
 		$langs = $sitepress->get_active_languages();
+
+		if ( empty( $langs ) ) {
+			return $bases;
+		}
 
 		foreach ( $langs as $lang ) {
 			$languages[] = $sitepress->get_locale( $lang['code'] );

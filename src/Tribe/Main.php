@@ -3106,7 +3106,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Prevent Empty Strings and Duplicates
 			foreach ( $strings as $key => $value ) {
-				$strings[ $key ] = array_filter( array_unique( array_map( 'sanitize_title_with_dashes', $value ) ) );
+				$strings[ $key ] = array_filter( array_unique( array_map( 'sanitize_title_with_dashes', (array) $value ) ) );
 			}
 
 			return $strings;

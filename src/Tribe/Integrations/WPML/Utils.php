@@ -38,10 +38,14 @@ class Tribe__Events__Integrations__WPML__Utils {
 			)
 		);
 
+		/** @var SitePress $sitepress */
 		global $sitepress;
 
 		if ( null === $locale ) { // Grab all languages
 			$langs = $sitepress->get_active_languages();
+
+			$languages = array();
+
 			foreach ( $langs as $lang ) {
 				$languages[] = $sitepress->get_locale( $lang['code'] );
 			}
