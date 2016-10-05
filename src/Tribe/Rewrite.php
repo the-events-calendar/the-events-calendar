@@ -35,7 +35,7 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 		 * After creating the Hooks on WordPress we lock the usage of the function
 		 * @var boolean
 		 */
-		private $hook_lock = false;
+		protected $hook_lock = false;
 
 		/**
 		 * Tribe__Events__Rewrite constructor.
@@ -58,12 +58,6 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 
 		return self::$instance;
 	}
-
-
-	/**
-	 * Just dont...
-	 */
-	private function __construct() {}
 
 	/**
 	 * Generate the Rewrite Rules
@@ -282,12 +276,6 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 			 *                        domains with a `'plugin-slug' => '/absolute/path/to/lang/dir'`
 			 */
 			return (object) apply_filters( 'tribe_events_rewrite_i18n_slugs', $bases, $method, $domains );
-		}
-
-		/**
-		 * Use `tribe_events_rewrite_i18n_slugs` to modify the final version of the l10n slugs bases
-		 */
-		return (object) apply_filters( 'tribe_events_rewrite_i18n_slugs', $bases, $method );
 	}
 
 
