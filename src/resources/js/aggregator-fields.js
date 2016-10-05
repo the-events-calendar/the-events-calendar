@@ -109,6 +109,9 @@ tribe_aggregator.fields = {
 				    $frequency = $( this ).next( obj.selector.fields );
 
 				$frequency.select2( 'val', ( 'schedule' === $this.val() ? 'daily' : '' ) ).change();
+
+				// set a data attribute on the form indicating the schedule type
+				obj.$.form.attr( 'data-type', $this.val() );
 			} )
 			.on( 'change'     , obj.selector.origin_field              , function() {
 				obj.$.form.attr( 'data-origin', $( this ).val() );
@@ -502,7 +505,9 @@ tribe_aggregator.fields = {
 		var text;
 
 		if ( 'new' === obj.$.action.val() ) {
-			if ( 'manual' === import_type ) {
+			if ( 'manual' === import_type && is_csv ) {
+				text = ea.l10n.import_all_no_number;
+			} else if ( 'manual' === import_type ) {
 				text = ea.l10n.import_all.replace( '%d', rows.length );
 			} else {
 				text = ea.l10n.create_schedule;

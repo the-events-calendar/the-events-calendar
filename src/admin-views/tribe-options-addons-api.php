@@ -5,6 +5,8 @@
  */
 $internal = array();
 
+$current_url = Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) );
+
 // if there's an Event Aggregator license key, add the Facebook API fields
 if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	$fb_token = tribe_get_option( 'fb_token' );
@@ -43,19 +45,27 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	<fieldset id="tribe-field-facebook_token" class="tribe-field tribe-field-text tribe-size-medium">
 		<legend class="tribe-field-label"><?php esc_html_e( 'Facebook Token', 'the-events-calendar' ) ?></legend>
 		<div class="tribe-field-wrap">
-			<?php
-			if ( $missing_fb_credentials ) {
-				esc_html_e( 'You need to enter a Facebook Token for Event Aggregator to work properly' );
-			} else {
-				if ( $passed > 0 ) {
-					echo sprintf( __( 'Your Event Aggregator Facebook token has expired %s.', 'the-events-calendar' ), $time );
+			<p>
+				<?php
+				if ( $missing_fb_credentials ) {
+					esc_html_e( 'You need to connect to Facebook for Event Aggregator to work properly' );
+					$facebook_button_label = __( 'Connect to Facebook', 'the-events-calendar' );
 				} else {
-					echo sprintf( __( 'Your Event Aggregator Facebook token will expire %s.', 'the-events-calendar' ), $time );
+					if ( $passed > 0 ) {
+						echo sprintf( __( 'Your Event Aggregator Facebook connection has expired %s.', 'the-events-calendar' ), $time );
+					} else {
+						echo sprintf( __( 'Your Event Aggregator Facebook connection will expire %s.', 'the-events-calendar' ), $time );
+					}
+					$facebook_button_label = __( 'Refresh your connection to Facebook', 'the-events-calendar' );
+					$facebook_disconnect_label = __( 'Disconnect', 'the-events-calendar' );
+					$facebook_disconnect_url = Tribe__Events__Aggregator__Settings::instance()->build_disconnect_facebook_url( $current_url );
 				}
-			}
-			?>
-			<br>
-			<a target="_blank" style="line-height: 28px;" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url( array( 'back' => 'settings' ) ) ); ?>"><?php esc_html_e( 'Refresh your Facebook Token', 'the-events-calendar' ); ?></a>
+				?>
+			</p>
+			<a target="_blank" class="tribe-ea-facebook-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url( array( 'back' => 'settings' ) ) ); ?>"><?php esc_html_e( $facebook_button_label ); ?></a>
+			<?php if ( ! $missing_fb_credentials ) : ?>
+				<a href="<?php echo esc_url( $facebook_disconnect_url ); ?>" class="tribe-ea-facebook-disconnect"><?php echo esc_html( $facebook_disconnect_label ); ?></a>
+			<?php endif; ?>
 		</div>
 	</fieldset>
 
@@ -69,7 +79,7 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 		),
 		'fb-info-box' => array(
 			'type' => 'html',
-			'html' => '<p>' . esc_html__( 'You need a Facebook Token to access data via the Facebook Graph API to import your events from Facebook.', 'the-events-calendar' ) . '</p>',
+			'html' => '<p>' . esc_html__( 'You need to connect Event Aggregator to Facebook to import your events from Facebook.', 'the-events-calendar' ) . '</p>',
 		),
 		'fb_token_button' => array(
 			'type' => 'html',
@@ -81,12 +91,12 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 		),
 		'meetup-info-box' => array(
 			'type' => 'html',
-			'html' => '<p>' . esc_html__( 'You need a Meetup API Key to access data via the Meetup API to import your events from Meetup.', 'the-events-calendar' ) . '</p>',
+			'html' => '<p>' . esc_html__( 'You need a Meetup API Key to import your events from Meetup.', 'the-events-calendar' ) . '</p>',
 		),
 		'meetup_api_key' => array(
 			'type' => 'text',
 			'label' => esc_html__( 'Meetup API Key', 'the-events-calendar' ),
-			'tooltip' => sprintf( __( '<p>%s to view your Meetup API Key', 'the-events-calendar' ), '<a href="https://secure.meetup.com/meetup_api/key/" target="_blank"></p>' . __( 'Click here', 'the-events-calendar' ) . '</a>' ),
+			'tooltip' => sprintf( __( '%s to view your Meetup API Key', 'the-events-calendar' ), '<a href="https://secure.meetup.com/meetup_api/key/" target="_blank">' . __( 'Click here', 'the-events-calendar' ) . '</a>' ),
 			'size' => 'medium',
 			'validation_type' => 'alpha_numeric',
 			'can_be_empty' => true,
@@ -97,7 +107,6 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	if ( ! Tribe__Events__Aggregator::instance()->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
 		unset( $internal['fb-start'], $internal['fb-info-box'], $internal['fb_token_button'] );
 	}
-
 }
 
 $internal = apply_filters( 'tribe_addons_tab_fields', $internal );
@@ -114,7 +123,7 @@ $fields = array_merge(
 		),
 		'addons-box-description' => array(
 			'type' => 'html',
-			'html' => __( '<p>Certain features and add-ons require an API key in order for The Events Calendar to work with outside sources. Please follow the instructions below to configure your settings.</p>', 'the-events-calendar' ),
+			'html' => '<p>' . __( 'Some features and add-ons require you to enter an API key or log into a third-party website so that The Events Calendar can communicate with an outside source.', 'the-events-calendar' ) . '</p>',
 		),
 		'addons-box-end' => array(
 			'type' => 'html',

@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.6.1
-Stable tag: 4.3rc2
+Stable tag: 4.3rc4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,13 +72,31 @@ Just getting started? Definitely watch and read through the <a href="http://m.tr
 * Caching Support
 * Debug Mode for Developers
 
-Looking for something else?
+Looking for something else? We’ve got add-ons available to take your calendar to the next level.
 
-* <a href="http://m.tri.be/2c">Events Calendar PRO</a>: recurring events, a whole range of new views ( week / map / photo / venue / organizer) & widgets (calendar / featured venue / week / event countdown), custom event attributes, default content, location search and a lot more.
-* Sell tickets, collect sales, and manage attendees all from within your WordPress dashboard! Combine our <a href="http://m.tri.be/18wg">Event Tickets Plus add-on</a> with your favorite ecommerce plugin (WooCommerce, Shopp, Easy Digital Downloads, or WP E-commerce).
-* <a href="http://m.tri.be/2h">Import events from Facebook</a> or let your <a href="http://m.tri.be/2g">users submit events</a> from right on your website!
-* Have so many amazing events that your users get overwhelmed? Drop some filters on them with the <a href="http://m.tri.be/52" target="_blank">Filter Bar plugin</a>.
-* Connect with your Eventbrite.com account! Import/export between The Events Calendar and Eventbrite, plus ticket sales. Check out the <a href="http://m.tri.be/18wf">Eventbrite Tickets</a> add-on!
+= PRO Features =
+
+Add recurring events, a whole recurring events, a whole range of new views ( week / map / photo / venue / organizer) & widgets (calendar / featured venue / week / event countdown), custom event attributes, default content, location search, much more with <a href="http://m.tri.be/2c">Events Calendar PRO</a>
+
+= Event Ticketing =
+
+Collect free RSVPs with Event Tickets or add paid ticketing features with <a href="http://m.tri.be/18wg">Event Tickets Plus</a>, including the ability to sell tickets, collect sales, and manage attendees all from within your WordPress dashboard!  Works with your favorite eCommerce plugin (WooCommerce, Shopp, Easy Digital Downloads, or WP E-Commerce).
+
+= Bulk Event Import =
+
+Fill your calendar with events from your favorite sources, including Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Event Aggregator provides a convenient dashboard to manage scheduled imports, manual imports, filters, one-way sync, import history, and more.
+
+= User-Submitted Events =
+
+Running a community calendar? <a href="http://m.tri.be/2g">Community Events</a> lets users add events directly to your calendar without needing access to your admin.
+
+= Advanced User Search & Filters =
+
+Have so many amazing events that your users get overwhelmed? <a href="http://m.tri.be/52" target="_blank">Filter Bar</a> adds a configurable set of filters to your event pages so users can view and search for the exact events that interest them.
+
+= Integrate With Eventbrite =
+
+Connect your calendar with your Eventbrite.com account! <a href="http://m.tri.be/18wf">Eventbrite Tickets</a> allows you to import/export between The Events Calendar and Eventbrite, and incorporate ticket sales.
 
 <a href="https://www.facebook.com/theeventscalendar/" target="_blank">Join us on Facebook</a> to be part of our active community, check us out <a href="https://twitter.com/TheEventsCal" target="_blank">on Twitter</a>, and <a href="http://m.tri.be/rm">sign up for our newsletter</a> for release announcements and discounts.
 
@@ -292,6 +310,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [4.3] unreleased =
 
+* Feature - Added Event Aggregator to enable service-based event imports from iCal feeds, Facebook, and Meetup
+* Feature - Revamped the CSV import screens to work within the new Event Aggregator pages
 * Tweak - Adjusted some view logic to support the new Event Views shortcode in Pro [44800]
 * Tweak - Added a button to copy the system infomation on the help tab [43709]
 * Tweak - Added an option for users to opt into automatic system infomation so our support system can grab the system information found on the help tab automatically [31645]
@@ -301,6 +321,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Deprecated various disused functions and classes relating to the Meta Factory [39905]
 * Fix - Cease using GLOB_BRACE for including deprecated files due to limited server support [63172]
 * Fix - Avoid problems that can occur when hooking and unhooking actions (props @Chouby) [63474]
+* Fix - Resolves an issue where we were duplicating a core WordPress hook but with a different set of parameters (props @Chouby) [66455]
 * Fix - Correct the datetime formatting issues within the iCal feed (props @henryk) [65968]
 
 = [4.2.7] 2016-09-15 =

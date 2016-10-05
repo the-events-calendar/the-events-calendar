@@ -152,6 +152,27 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	/**
+	 * Returns the Activity object for the record
+	 *
+	 * @return Tribe__Events__Aggregator__Record__Activity
+	 */
+	public function activity() {
+		if ( empty( $this->meta['activity'] ) ) {
+			$activity = new Tribe__Events__Aggregator__Record__Activity;
+			$this->update_meta( 'activity', $activity );
+		}
+
+		return $this->meta['activity'];
+	}
+
+	/**
+	 * Saves activity data on a record
+	 */
+	public function save_activity() {
+		$this->update_meta( 'activity', $this->activity() );
+	}
+
+	/**
 	 * Creates an import record
 	 *
 	 * @param string $type Type of record to create - manual or schedule
@@ -173,6 +194,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$defaults = array(
 			'frequency' => null,
 			'hash'      => wp_generate_password( 32, true, true ),
+			'preview'   => false,
 		);
 
 		$meta = wp_parse_args( $meta, $defaults );
@@ -195,8 +217,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Edits an import record
 	 *
-	 * @param array $args Post type args
-	 * @param array $meta Post meta
+	 * @param int   $post_id
+	 * @param array $args    Post type args
+	 * @param array $meta    Post meta
 	 *
 	 * @return WP_Post|WP_Error
 	 */
@@ -327,6 +350,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		);
 
 		foreach ( $this->meta as $key => $value ) {
+			// don't propagate these meta keys to the scheduled record
+			if (
+				'preview' === $key
+				|| 'activity' === $key
+				|| 'ids_to_import' === $key
+			) {
+				continue;
+			}
+
 			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
 		}
 
@@ -464,6 +496,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$defaults['radius'] = $this->meta['radius'];
 		}
 
+		if ( $is_previewing ) {
+			$defaults['preview'] = true;
+		}
+
 		$args = wp_parse_args( $args, $defaults );
 
 		// create the import on the Event Aggregator service
@@ -488,7 +524,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			/**
 			 * @todo Allow overwriting the message
 			 */
-			$error = new WP_Error( $response->message_code, esc_html__( $response->message, 'the-events-calendar' ) );
+			$error = new WP_Error(
+				$response->message_code,
+				Tribe__Events__Aggregator__Errors::build(
+					esc_html__( $response->message, 'the-events-calendar' ),
+					empty( $response->data->message_args ) ? array() : $response->data->message_args
+				)
+			);
 			return $this->set_status_as_failed( $error );
 		}
 
@@ -691,6 +733,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
+		// In some cases the scheduled import may be inactive and should not run during cron
+		if ( false === $this->frequency ) {
+			return false;
+		}
+
 		$current  = time();
 		$modified = strtotime( $this->post->post_modified_gmt );
 		$next     = $modified + $this->frequency->interval;
@@ -758,7 +805,19 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return array|WP_Error
 	 */
 	public function process_posts( $data = array() ) {
-		$queue = new Tribe__Events__Aggregator__Record__Queue( $this, $data );
+		if ( $this->has_queue() ) {
+			$queue = new Tribe__Events__Aggregator__Record__Queue( $this );
+			return $queue->process();
+		}
+
+		$items = $this->prep_import_data( $data );
+
+		if ( is_wp_error( $items ) ) {
+			$this->set_status_as_failed( $items );
+			return $items;
+		}
+
+		$queue = new Tribe__Events__Aggregator__Record__Queue( $this, $items );
 		return $queue->process();
 	}
 
@@ -817,7 +876,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( ! isset( $data->data->events ) ) {
-			return tribe_error( 'core:aggregator:record-not-finalized' );
+			return 'fetch';
 		}
 
 		$items = $this->filter_data_by_selected( $data->data->events );
@@ -889,6 +948,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				// Log this Event was Skipped
 				$activity->add( 'event', 'skipped', $event['ID'] );
 				continue;
+			}
+
+			if ( $show_map_setting ) {
+				$event['EventShowMap']     = $show_map_setting;
+				$event['EventShowMapLink'] = $show_map_setting;
 			}
 
 			if ( empty( $event['recurrence'] ) ) {
@@ -968,6 +1032,29 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event = apply_filters( 'tribe_aggregator_before_update_event', $event, $this );
 
 				$event['ID'] = tribe_update_event( $event['ID'], $event );
+
+				// since the Event API only supports the _setting_ of these meta fields, we need to manually
+				// delete them rather than relying on Tribe__Events__API::saveEventMeta()
+				if (
+					isset( $event['EventShowMap'] )
+					&& (
+						empty( $event['EventShowMap'] )
+						|| 'no' === $event['EventShowMap']
+					)
+				) {
+					delete_post_meta( $event['ID'], '_EventShowMap' );
+				}
+
+				if (
+					isset( $event['EventShowMapLink'] )
+					&& (
+						empty( $event['EventShowMapLink'] )
+						|| 'no' === $event['EventShowMapLink']
+					)
+				) {
+					delete_post_meta( $event['ID'], '_EventShowMapLink' );
+				}
+
 				remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
 
 				// Log that this event was updated

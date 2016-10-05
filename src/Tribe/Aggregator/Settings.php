@@ -35,6 +35,40 @@ class Tribe__Events__Aggregator__Settings {
 	 */
 	private function __construct() {
 		add_action( 'tribe_settings_do_tabs', array( $this, 'do_import_settings_tab' ) );
+		add_action( 'current_screen', array( $this, 'maybe_clear_fb_credentials' ) );
+	}
+
+	/**
+	 * Hooked to current_screen, this method identifies whether or not fb credentials should be cleared
+	 *
+	 * @param WP_Screen $screen
+	 */
+	public function maybe_clear_fb_credentials( $screen ) {
+		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
+			return;
+		}
+
+		if ( ! isset( $_GET['tab'] ) || 'addons' !== $_GET['tab'] ) {
+			return;
+		}
+
+		if (
+			! (
+				isset( $_GET['action'] )
+				&& isset( $_GET['_wpnonce'] )
+				&& 'disconnect-facebook' === $_GET['action']
+				&& wp_verify_nonce( $_GET['_wpnonce'], 'disconnect-facebook' )
+			)
+		) {
+			return;
+		}
+
+		$this->clear_fb_credentials();
+
+		wp_redirect(
+			Tribe__Settings::instance()->get_url( array( 'tab' => 'addons' ) )
+		);
+		die;
 	}
 
 	public function get_fb_credentials() {
@@ -50,6 +84,30 @@ class Tribe__Events__Aggregator__Settings {
 	public function has_fb_credentials() {
 		$credentials = $this->get_fb_credentials();
 		return ! empty( $credentials->token ) && ! empty( $credentials->expires ) && ! empty( $credentials->scopes );
+	}
+
+	public function clear_fb_credentials() {
+		tribe_update_option( 'fb_token', null );
+		tribe_update_option( 'fb_token_expires', null );
+		tribe_update_option( 'fb_token_scopes', null );
+	}
+
+	/**
+	 * Given a URL, tack on the parts of the URL that gets used to disconnect Facebook
+	 *
+	 * @param string $url
+	 *
+	 * @return string
+	 */
+	public function build_disconnect_facebook_url( $url ) {
+		return wp_nonce_url(
+			add_query_arg(
+				'action',
+				'disconnect-facebook',
+				$url
+			),
+			'disconnect-facebook'
+		);
 	}
 
 	public function is_fb_credentials_valid( $time = null ) {
@@ -126,14 +184,14 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return string
 	 */
 	public function default_post_status( $origin = null ) {
-		$global_setting = $setting = tribe_get_option( 'tribe_aggregator_default_post_status', 'publish' );
+		$setting = $setting = tribe_get_option( 'tribe_aggregator_default_post_status', 'publish' );
 
 		if ( $origin ) {
-			$setting = tribe_get_option( "tribe_aggregator_default_{$origin}_post_status", $setting );
-		}
+			$origin_setting = tribe_get_option( "tribe_aggregator_default_{$origin}_post_status", $setting );
 
-		if ( ! $setting ) {
-			$setting = $global_setting;
+			if ( ! empty( $origin_setting ) ) {
+				$setting = $origin_setting;
+			}
 		}
 
 		return $setting;
@@ -152,7 +210,11 @@ class Tribe__Events__Aggregator__Settings {
 		$setting = tribe_get_option( 'tribe_aggregator_default_category', null );
 
 		if ( $origin ) {
-			$setting = tribe_get_option( "tribe_aggregator_default_{$origin}_category", $setting );
+			$origin_setting = tribe_get_option( "tribe_aggregator_default_{$origin}_category", $setting );
+
+			if ( ! empty( $origin_setting ) ) {
+				$setting = $origin_setting;
+			}
 		}
 
 		return $setting;
@@ -168,10 +230,14 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return string
 	 */
 	public function default_map( $origin = null ) {
-		$setting = tribe_get_option( 'tribe_aggregator_default_map', 'no' );
+		$setting = tribe_get_option( 'tribe_aggregator_default_show_map', 'no' );
 
 		if ( $origin ) {
-			$setting = tribe_get_option( "tribe_aggregator_default_{$origin}_map", $setting );
+			$origin_setting = tribe_get_option( "tribe_aggregator_default_{$origin}_show_map", $setting );
+
+			if ( ! empty( $origin_setting ) ) {
+				$setting = $origin_setting;
+			}
 		}
 
 		return $setting;

@@ -32,8 +32,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '4.3rc2';
-		const MIN_ADDON_VERSION = '4.3rc2';
+		const VERSION           = '4.3rc4';
+		const MIN_ADDON_VERSION = '4.3rc4';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
@@ -102,6 +102,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/** @var Tribe__Events__Admin__Timezone_Settings */
 		public $timezone_settings;
+
+		/** @var Tribe__Admin__Activation_Page */
+		protected $activation_page;
 
 		// @todo remove in 4.0
 		public $upcomingSlug = 'upcoming';
@@ -283,6 +286,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		protected function loadLibraries() {
 			// initialize the common libraries
 			$this->common();
+			$this->activation_page();
 
 			// Tribe common resources
 			require_once $this->plugin_path . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
@@ -340,6 +344,25 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			return $updater;
+		}
+
+		/**
+		 * @return Tribe__Admin__Activation_Page
+		 */
+		public function activation_page() {
+			if ( empty( $this->activation_page ) ) {
+				$this->activation_page = new Tribe__Admin__Activation_Page( array(
+					'slug'                  => 'the-events-calendar',
+					'activation_transient'  => '_tribe_events_activation_redirect',
+					'version'               => self::VERSION,
+					'plugin_path'           => $this->plugin_dir . 'the-events-calendar.php',
+					'version_history_slug'  => 'previous_ecp_versions',
+					'welcome_page_title'    => __( 'Welcome to The Events Calendar', 'the-events-calendar' ),
+					'welcome_page_template' => $this->plugin_path . 'src/admin-views/admin-welcome-message.php',
+				) );
+			}
+
+			return $this->activation_page;
 		}
 
 		/**
@@ -493,9 +516,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_action( 'wp_dashboard_setup', array( $this, 'dashboardWidget' ) );
 				add_action( 'tribe_events_cost_table', array( $this, 'maybeShowMetaUpsell' ) );
 			}
-			// option pages
-			add_action( '_network_admin_menu', array( $this, 'initOptions' ) );
-			add_action( '_admin_menu', array( $this, 'initOptions' ) );
 
 			add_action( 'load-tribe_events_page_' . Tribe__Settings::$parent_slug, array( 'Tribe__Events__Amalgamator', 'listen_for_migration_button' ), 10, 0 );
 			add_action( 'tribe_settings_after_save', array( $this, 'flushRewriteRules' ) );
@@ -904,6 +924,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
+
+			// Start the integrations manager
+			Tribe__Events__Integrations__Manager::instance()->load_integrations();
 		}
 
 		/**
@@ -1008,10 +1031,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Init the settings API and add a hook to add your own setting tabs
+		 * Init the settings API and add a hook to add your own setting tabs (disused since 4.3,
+		 * does nothing when called).
+		 *
+		 * @deprecated 4.3
 		 */
 		public function initOptions() {
-			Tribe__Events__Activation_Page::init();
+			_deprecated_function( __METHOD__, 4.3 );
 		}
 
 		/**
@@ -1904,7 +1930,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( $admin_helpers->is_screen( 'widgets' ) ) {
+				Tribe__Events__Template_Factory::asset_package( 'select2' );
 				Tribe__Events__Template_Factory::asset_package( 'chosen' );
+				Tribe__Events__Template_Factory::asset_package( 'admin' );
 			}
 
 			// events, organizer, or venue editing
@@ -2446,8 +2474,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * WARNING: This function is slow because it deals with files, so don't overuse it!
 		 *
-		 * @todo Include support for the `load_theme_textdomain` + `load_muplugin_textdomain`
-		 *
 		 * @param  array  $strings          An array of strings (required)
 		 * @param  array  $languages        Which l10n to fetch the string (required)
 		 * @param  array  $domains          Possible Domains to re-load
@@ -2461,63 +2487,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'the-events-calendar' => $this->plugin_dir . 'lang/',
 			) );
 
-			foreach ( $languages as $language ) {
-				foreach ( (array) $domains as $domain => $file ) {
-					// Configure the language
-					$this->_locale = $language;
-					add_filter( 'locale', array( $this, '_set_locale' ) );
-
-					// Reload it with the correct language
-					unload_textdomain( $domain );
-
-					if ( 'default' === $domain ) {
-						load_default_textdomain();
-					} else {
-						Tribe__Main::instance()->load_text_domain( $domain, $file );
-					}
-
-					// Loop on the strings the build the possible translations
-					foreach ( $strings as $key => $value ) {
-						$value = is_array( $value ) ? reset( $value ) : $value;
-						if ( ! is_string( $value ) ) {
-							continue;
-						}
-
-						// Make sure we have an Array
-						$strings[ $key ] = (array) $strings[ $key ];
-
-						// Grab the possible strings for Default and Any other domain
-						if ( 'default' === $domain ) {
-							$strings[ $key ][] = __( $value );
-							$strings[ $key ][] = __( strtolower( $value ) );
-							$strings[ $key ][] = __( ucfirst( $value ) );
-						} else {
-							$strings[ $key ][] = __( $value, $domain );
-							$strings[ $key ][] = __( strtolower( $value ), $domain );
-							$strings[ $key ][] = __( ucfirst( $value ), $domain );
-						}
-					}
-
-					// Set back to the default language
-					remove_filter( 'locale', array( $this, '_set_locale' ) );
-
-					// Reload it with the correct language
-					unload_textdomain( $domain );
-
-					if ( 'default' === $domain ) {
-						load_default_textdomain();
-					} else {
-						Tribe__Main::instance()->load_text_domain( $domain, $file );
-					}
-				}
-			}
-
-			// Prevent Empty Strings and Duplicates
-			foreach ( $strings as $key => $value ) {
-				$strings[ $key ] = array_filter( array_unique( array_map( 'sanitize_title_with_dashes', $value ) ) );
-			}
-
-			return $strings;
+			return $this->get_i18n_strings_for_domains( $strings, $languages, $domains );
 		}
 
 		/**
@@ -3066,6 +3036,80 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$value = apply_filters( 'tribe_get_meta_default_value_' . $filter, $value, $id, $meta, $single );
 			}
 			return $value;
+		}
+
+		/**
+		 * Get all possible translations for a String based on the given Languages and Domains
+		 *
+		 * WARNING: This function is slow because it deals with files, so don't overuse it!
+         * Differently from the `get_i18n_strings` method this will not use any domain that's not specified.
+		 *
+		 * @todo Include support for the `load_theme_textdomain` + `load_muplugin_textdomain`
+		 *
+		 * @param  array  $strings          An array of strings (required)
+		 * @param  array  $languages        Which l10n to fetch the string (required)
+		 * @param  array  $domains          Possible Domains to re-load
+		 *
+		 * @return array                    A multi level array with the possible translations for the given strings
+		 */
+		public function get_i18n_strings_for_domains( $strings, $languages, $domains = array( 'default' ) ) {
+			foreach ( $languages as $language ) {
+				$this->_locale = $language;
+				foreach ( (array) $domains as $domain => $file ) {
+					// Configure the language
+					add_filter( 'locale', array( $this, '_set_locale' ) );
+
+					// Reload it with the correct language
+					unload_textdomain( $domain );
+
+					if ( 'default' === $domain ) {
+						load_default_textdomain();
+					} else {
+						Tribe__Main::instance()->load_text_domain( $domain, $file );
+					}
+
+					// Loop on the strings the build the possible translations
+					foreach ( $strings as $key => $value ) {
+						$value = is_array( $value ) ? reset( $value ) : $value;
+						if ( ! is_string( $value ) ) {
+							continue;
+						}
+
+						// Make sure we have an Array
+						$strings[ $key ] = (array) $strings[ $key ];
+
+						// Grab the possible strings for Default and Any other domain
+						if ( 'default' === $domain ) {
+							$strings[ $key ][] = __( $value );
+							$strings[ $key ][] = __( strtolower( $value ) );
+							$strings[ $key ][] = __( ucfirst( $value ) );
+						} else {
+							$strings[ $key ][] = __( $value, $domain );
+							$strings[ $key ][] = __( strtolower( $value ), $domain );
+							$strings[ $key ][] = __( ucfirst( $value ), $domain );
+						}
+					}
+
+					// Set back to the default language
+					remove_filter( 'locale', array( $this, '_set_locale' ) );
+
+					// Reload it with the correct language
+					unload_textdomain( $domain );
+
+					if ( 'default' === $domain ) {
+						load_default_textdomain();
+					} else {
+						Tribe__Main::instance()->load_text_domain( $domain, $file );
+					}
+				}
+			}
+
+			// Prevent Empty Strings and Duplicates
+			foreach ( $strings as $key => $value ) {
+				$strings[ $key ] = array_filter( array_unique( array_map( 'sanitize_title_with_dashes', (array) $value ) ) );
+			}
+
+			return $strings;
 		}
 
 		/**
@@ -4600,7 +4644,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$autoloader->register_prefixes( $prefixes );
 
 			// deprecated classes are registered in a class to path fashion
-			foreach ( array_merge( glob( $this->plugin_path . 'common/src/deprecated/*.php' ), glob( $this->plugin_path . 'src/deprecated/*.php' ) ) as $file ) {
+			foreach ( glob( $this->plugin_path . 'src/deprecated/*.php' ) as $file ) {
 				$class_name = str_replace( '.php', '', basename( $file ) );
 				$autoloader->register_class( $class_name, $file );
 			}

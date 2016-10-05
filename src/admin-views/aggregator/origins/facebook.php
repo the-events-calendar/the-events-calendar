@@ -13,27 +13,39 @@ $frequency->source      = 'facebook_import_frequency';
 
 $cron = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
-?>
-<?php if ( ! Tribe__Events__Aggregator__Settings::instance()->is_fb_credentials_valid() ) : ?>
-<tr class="tribe-dependent tribe-credential-row" data-depends="#tribe-ea-field-origin" data-condition="facebook">
-	<th scope="row">
-		<label for="tribe-ea-field-fb_credentials"><?php esc_html_e( 'Extra Credentials:', 'the-events-calendar' ); ?></label>
-	</th>
-	<td>
-		<a target="_blank" style="line-height: 28px;" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url() ); ?>"><?php esc_html_e( 'Login with Facebook', 'the-events-calendar' ); ?></a>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help"
-			data-bumpdown="<?php esc_attr_e( 'Currently your Event Aggregator does not have a Facebook Login associated with it, to perform more accurate queries to Facebook you will need to login.', 'the-events-calendar' ); ?>"
-			data-width-rule="all-triggers"
-		></span>
-	</td>
-</tr>
+
+$missing_facebook_credentials = ! Tribe__Events__Aggregator__Settings::instance()->is_fb_credentials_valid();
+$data_depends = '#tribe-ea-field-origin';
+$data_condition = 'facebook';
+
+if ( $missing_facebook_credentials ) :
+	$data_depends = '#tribe-has-facebook-credentials';
+	$data_condition = '1';
+	?>
+	<tr class="tribe-dependent tribe-credential-row" data-depends="#tribe-ea-field-origin" data-condition="facebook">
+		<td colspan="2" class="<?php echo esc_attr( $missing_facebook_credentials ? 'enter-credentials' : 'has-credentials' ); ?>">
+			<input type="hidden" name="has-credentials" id="tribe-has-facebook-credentials" value="0">
+			<div class="tribe-message tribe-credentials-prompt">
+				<p>
+					<span class="dashicons dashicons-warning"></span>
+					<?php
+					esc_html_e(
+						'Please log in to enable event imports from Facebook.',
+						'the-events-calendar'
+					);
+					?>
+				</p>
+				<a class="tribe-ea-facebook-button" href="<?php echo esc_url( Tribe__Events__Aggregator__Record__Facebook::get_auth_url() ); ?>"><?php esc_html_e( 'Log into Facebook', 'the-events-calendar' ); ?></a>
+			</div>
+		</td>
+	</tr>
 <?php endif; ?>
-<tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="facebook">
+<tr class="tribe-dependent" data-depends="<?php echo esc_attr( $data_depends ); ?>" data-condition="<?php echo esc_attr( $data_condition ); ?>">
 	<th scope="row">
 		<label for="tribe-ea-field-import_type"><?php echo esc_html( $field->label ); ?></label>
 	</th>
 	<td>
+		<input type="hidden" name="has-credentials" id="tribe-has-facebook-credentials" value="<?php echo absint( ! $missing_facebook_credentials ); ?>">
 		<?php if ( 'edit' === $aggregator_action ) : ?>
 			<input type="hidden" name="aggregator[facebook][import_type]" id="tribe-ea-field-facebook_import_type" value="schedule" />
 			<strong class="tribe-ea-field-readonly"><?php echo esc_html__( 'Scheduled Import', 'the-events-calendar' ); ?></strong>

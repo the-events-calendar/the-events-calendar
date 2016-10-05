@@ -191,7 +191,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 
 		$this->current_queue->set_in_progress_flag();
 		$processed = $this->current_queue->process( self::$batch_size );
-		$this->processed += $processed->activity->count( 'event' );
+		$this->processed += $processed->activity->count( $this->current_queue->get_queue_type() );
 		$this->current_queue->clear_in_progress_flag();
 
 		return true;

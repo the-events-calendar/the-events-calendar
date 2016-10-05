@@ -94,6 +94,7 @@ class Tribe__Events__Aggregator {
 
 		// Loads the Required Classes and saves them as proprieties
 		$this->meta_box        = Tribe__Events__Aggregator__Meta_Box::instance();
+		$this->migrate         = Tribe__Events__Aggregator__Migrate::instance();
 		$this->page            = Tribe__Events__Aggregator__Page::instance();
 		$this->service         = Tribe__Events__Aggregator__Service::instance();
 		$this->settings        = Tribe__Events__Aggregator__Settings::instance();
@@ -134,6 +135,40 @@ class Tribe__Events__Aggregator {
 
 		// Notify users about expiring Facebook Token if oauth is enabled
 		add_action( 'plugins_loaded', array( $this, 'setup_notices' ), 11 );
+
+		// Let's prevent events-importer-ical from DESTROYING its saved recurring imports when it gets deactivated
+		if ( class_exists( 'Tribe__Events__Ical_Importer__Main' ) ) {
+			remove_action( 'deactivate_' . plugin_basename( Tribe__Events__Ical_Importer__Main::$plugin_path . 'the-events-calendar-ical-importer.php' ), 'tribe_events_ical_deactivate' );
+		}
+
+		add_action( 'admin_init', array( $this, 'add_status_to_help' ) );
+	}
+
+	/**
+	 * Add Event Aggregator System Status to the Help page
+	 */
+	public function add_status_to_help() {
+		global $plugin_page;
+
+		if ( 'tribe-help' !== $plugin_page ) {
+			return;
+		}
+
+		$help = Tribe__Admin__Help_Page::instance();
+		$help->add_section(
+			'tribe-aggregator-status',
+			__( 'Event Aggregator System Status', 'the-events-calendar' ),
+			60
+		);
+
+		ob_start();
+		include_once Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/aggregator/status.php';
+		$status_html = ob_get_clean();
+
+		$help->add_section_content(
+			'tribe-aggregator-status',
+			$status_html
+		);
 	}
 
 	/**
@@ -358,7 +393,7 @@ class Tribe__Events__Aggregator {
 	 */
 	public function reduce_daily_limit( $amount = 1 ) {
 		if ( ! is_numeric( $amount ) ) {
-			return new WP_Error( 'tribe-invalid-integer', esc_html__( 'The daily limits reduction amount must be an integer', 'the-events-calendar' ) );
+			return new WP_Error( 'tribe-invalid-integer', esc_html__( 'You must use an integer to reduce the daily import limit', 'the-events-calendar' ) );
 		}
 
 		if ( $amount < 0 ) {
@@ -388,7 +423,7 @@ class Tribe__Events__Aggregator {
 			return false;
 		}
 
-		$html = '<p>' . esc_html__( 'Successfuly saved Event Aggregator Facebook Token', 'the-events-calendar' ) . '</p>';
+		$html = '<p>' . esc_html__( 'Successfully connected Event Aggregator to Facebook', 'the-events-calendar' ) . '</p>';
 
 		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-facebook-oauth-feedback', $html );
 	}

@@ -138,10 +138,14 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		// Ensures Records is an Array
 		$data->records = (array) $data->records;
 
-		if ( 'delete' === $data->action ) {
-			list( $success, $errors ) = $this->action_delete_record( $data->records );
-		} elseif ( 'run-import' === $data->action ) {
-			list( $success, $errors ) = $this->action_run_import( $data->records );
+		switch ( $data->action ) {
+			case 'delete':
+				list( $success, $errors ) = $this->action_delete_record( $data->records );
+				break;
+
+			case 'run-import':
+				list( $success, $errors ) = $this->action_run_import( $data->records );
+				break;
 		}
 
 		$args = array(
@@ -151,7 +155,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		);
 
 		if ( ! empty( $errors ) ) {
-			$args['error'] = $data->nonce;
+			$args['errors'] = $data->nonce;
 
 			// Set the errors
 			set_transient( $this->get_errors_transient_name( $data->nonce ), $errors, 5 * MINUTE_IN_SECONDS );
@@ -175,15 +179,25 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		switch ( $_GET['action'] ) {
 			case 'run-import';
 				$action = __( 'queued', 'the-events-calendar' );
-			break;
+				break;
+
 			case 'delete';
 				$action = __( 'delete', 'the-events-calendar' );
-			break;
+				break;
+
+			case 'reactivate':
+				$action = __( 'reactivated', 'the-events-calendar' );
+				break;
+
+			case 'deactivate':
+				$action = __( 'deactivated', 'the-events-calendar' );
+				break;
+
 			default:
 				return false;
 		}
 
-		if ( empty( $_GET['ids'] ) ) {
+		if ( empty( $_GET['ids'] ) && empty( $_GET['errors'] ) ) {
 			return false;
 		}
 
@@ -192,7 +206,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 			return $this->handle_post( $_GET );
 		}
 
-		$this->action_notice( $action, $_GET['ids'], isset( $_GET['error'] ) ? $_GET['error'] : null );
+		$this->action_notice( $action, empty( $_GET['ids'] ) ? array() : $_GET['ids'], isset( $_GET['errors'] ) ? $_GET['errors'] : null );
 	}
 
 	/**
@@ -203,7 +217,10 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 	 * @return string
 	 */
 	private function action_notice( $action, $ids = array(), $error = null ) {
-		$ids    = explode( ',', $ids );
+		if ( $ids && ! is_array( $ids ) ) {
+			$ids = explode( ',', $ids );
+		}
+
 		$errors = array();
 
 		if ( is_string( $error ) ) {
@@ -221,10 +238,17 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		);
 
 		if ( ! empty( $errors ) ) {
-			$message->error[] = sprintf( esc_html__( 'Error: %d scheduled import was not %s.', 'the-events-calendar' ), $action, count( $errors ) );
-			foreach ( $errors as $post_id => $error ) {
-				$message->error[] = implode( '<br/>', sprintf( '%d: %s', $post_id, $error->get_error_message() ) );
+			if ( 'run-import' === $_GET['action'] ) {
+				foreach ( $errors as $post_id => $error ) {
+					$message->error[] = $error->get_error_message();
+				}
+			} else {
+				$message->error[] = sprintf( esc_html__( 'Error: %d scheduled import was not %s.', 'the-events-calendar' ), $action, count( $errors ) );
+				foreach ( $errors as $post_id => $error ) {
+					$message->error[] = implode( '<br/>', sprintf( '%d: %s', $post_id, $error->get_error_message() ) );
+				}
 			}
+
 			tribe_notice( 'tribe-aggregator-action-records-error', '<p>' . implode( '<br/>', $message->error ) . '</p>', 'type=error' );
 		}
 
@@ -281,15 +305,17 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 			}
 
 			$child = $record->create_child_record();
-			$status = $child->queue_import();
 			$child->update_meta( 'interactive', true );
-			$child->finalize();
-			$child->process_posts();
+			$status = $child->queue_import();
 
 			if ( is_wp_error( $status ) ) {
 				$errors[ $record->id ] = $status;
 				continue;
 			}
+
+			$child->finalize();
+			$child->process_posts();
+			$success[ $record->id ] = $record;
 		}
 
 		return array( $success, $errors );
@@ -321,7 +347,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 					); ?>
 			</p>
 			<p>
-				<a href="<?php echo esc_url( admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=licenses' ) ); ?>" class="tribe-license-link button button-primary"><?php esc_html_e( 'Enter Event Aggregator License', 'the-events-calendar' ); ?></a>
+				<a href="<?php echo esc_url( admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=licenses' ) ); ?>" class="tribe-license-link tribe-button tribe-button-primary"><?php esc_html_e( 'Enter Event Aggregator License', 'the-events-calendar' ); ?></a>
 			</p>
 		</div>
 		<?php
