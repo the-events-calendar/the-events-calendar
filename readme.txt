@@ -308,7 +308,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [4.3] unreleased =
+= [4.3] 2016-10-12 =
 
 * Feature - Added Event Aggregator to enable service-based event imports from iCal feeds, Facebook, and Meetup
 * Feature - Revamped the CSV import screens to work within the new Event Aggregator pages
