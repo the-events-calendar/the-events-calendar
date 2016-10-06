@@ -1,4 +1,6 @@
 <?php
+
+
 /**
  * Class Tribe__Events__Integrations__WPML__Linked_Posts
  *
@@ -72,6 +74,11 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 */
 	public function filter_tribe_events_linked_posts_query( $results = null, array $args = array() ) {
 		if ( isset( $args['post__not_in'] ) ) {
+			return $results;
+		}
+
+		// some other function is already filtering this, let's bail
+		if ( null !== $results ) {
 			return $results;
 		}
 
