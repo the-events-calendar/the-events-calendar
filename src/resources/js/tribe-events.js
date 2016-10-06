@@ -575,10 +575,20 @@ Date.prototype.format = function( mask, utc ) {
 		 */
 		get_base_url          : function() {
 			var base_url = '',
-				$event_header = $( '#tribe-events-header' );
-			if ( $event_header.length ) {
-				base_url = $event_header.data( 'baseurl' );
+				$event_header = $( '#tribe-events-header' ),
+				$canonical = $( 'link[rel="canonical"]' );
+
+			if ( $canonical.length ) {
+				// use the canonical URL if it is available (it should be)
+				base_url = $canonical.attr( 'href' );
+			} else if ( $header.length ) {
+				// failover to the baseurl of the event header
+				base_url = $header.data( 'baseurl' );
+			} else {
+				// use the current URL as a last ditch effort
+				base_url = window.location.origin + window.location.path;
 			}
+
 			return base_url;
 		},
 		/**
