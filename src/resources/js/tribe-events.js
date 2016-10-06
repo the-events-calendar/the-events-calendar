@@ -1284,7 +1284,7 @@ Date.prototype.format = function( mask, utc ) {
 						tribe_ev.state.params += '&tribe_event_category=' + cat;
 					}
 
-					if ( ! tribe_ev.state.url_params.match( cat_regexp ) ) {
+					if ( 'string' === typeof tribe_ev.state.url_params && ! tribe_ev.state.url_params.match( cat_regexp ) ) {
 						tribe_ev.state.url_params += '&tribe_event_category=' + cat;
 					}
 				}
