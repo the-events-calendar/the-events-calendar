@@ -448,9 +448,9 @@ class Tribe__Events__Linked_Posts {
 		 * @param array $args         An array of query arguments in the same format used to provide arguments to WP_Query.
 		 *
 		 */
-		$linked_posts = apply_filters('tribe_events_linked_posts_query', null, $args);
+		$linked_posts = apply_filters( 'tribe_events_linked_posts_query', null, $args );
 
-		if (null !== $linked_posts) {
+		if ( null !== $linked_posts ) {
 			return $linked_posts;
 		}
 
