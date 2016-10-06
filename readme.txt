@@ -323,6 +323,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix - Avoid problems that can occur when hooking and unhooking actions (props @Chouby) [63474]
 * Fix - Resolves an issue where we were duplicating a core WordPress hook but with a different set of parameters (props @Chouby) [66455]
 * Fix - Correct the datetime formatting issues within the iCal feed (props @henryk) [65968]
+* Deprecated - `Tribe__Events__Main::initOptions()` has been deprecated with no replacement
+* Deprecated - `Tribe__Events__Main::set_meta_factory_global()` has been deprecated in favor of using the `Tribe__Events__Meta_Factory` class
+* Deprecated - The `setup_meta()` method in both the `Tribe__Events__Template__Single_Event` and `Tribe__Events__Template_Factory` classes has been deprecated
+* Deprecated - The `the_title()`, `event_date()`, `event_category()`, `event_tag()`, `event_website()`, `event_origin()`, `organizer_name()`, `organizer_email()`, `venue_name()`, `venue_address()`, and `venue_map()` methods have been deprecated in the `Tribe__Events__Advanced_Functions__Register_Meta` class
+* Deprecated - The `register()`, `check_exists()`, and `get_args()` methods have been deprecated in the `Tribe__Events__Meta_Factory` class
 
 = [4.2.7] 2016-09-15 =
 
