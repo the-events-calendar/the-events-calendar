@@ -1251,7 +1251,7 @@ Date.prototype.format = function( mask, utc ) {
 				return;
 			}
 
-			// only manipulate shortcode params
+			// We only want to manipulate shortcode params. Bail otherwise
 			if ( ! $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' ) ) {
 				return;
 			}
