@@ -581,9 +581,9 @@ Date.prototype.format = function( mask, utc ) {
 			if ( $canonical.length ) {
 				// use the canonical URL if it is available (it should be)
 				base_url = $canonical.attr( 'href' );
-			} else if ( $header.length ) {
+			} else if ( $event_header.length ) {
 				// failover to the baseurl of the event header
-				base_url = $header.data( 'baseurl' );
+				base_url = $event_header.data( 'baseurl' );
 			} else {
 				// use the current URL as a last ditch effort
 				base_url = window.location.origin + window.location.path;
