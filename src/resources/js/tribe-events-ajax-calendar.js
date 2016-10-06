@@ -483,8 +483,22 @@
 							ts.page_title = $( '#tribe-events-header' ).data( 'title' );
 							document.title = ts.page_title;
 
-							if ( ts.do_string ) {
+							// Ensure that the base URL is, in fact, the URL we want
+							td.cur_url = tf.get_base_url();
+
+							// we only want to add query args for Shortcodes and ugly URL sites
+							if (
+									$( '#tribe-events.tribe-events-shortcode' ).length
+									|| ts.do_string
+							) {
+								if ( -1 !== td.cur_url.indexOf( '?' ) ) {
+									td.cur_url = td.cur_url.split( '?' )[0];
+								}
+
 								td.cur_url = td.cur_url + '?' + ts.url_params;
+							}
+
+							if ( ts.do_string ) {
 								history.pushState( {
 									"tribe_date"  : ts.date,
 									"tribe_params": ts.params
