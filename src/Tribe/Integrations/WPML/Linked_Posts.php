@@ -1,6 +1,4 @@
 <?php
-
-
 /**
  * Class Tribe__Events__Integrations__WPML__Linked_Posts
  *
@@ -9,7 +7,7 @@
 class Tribe__Events__Integrations__WPML__Linked_Posts {
 
 	/**
-	 * @var static
+	 * @var Tribe__Events__Integrations__WPML__Linked_Posts
 	 */
 	protected static $instance;
 
@@ -24,6 +22,22 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		return self::$instance;
 	}
 
+	/**
+	 * Assign linked posts managed by The Events Calendar a language.
+	 *
+	 * We use the filter as an action to assign linked posts a language.
+	 * WPML will not "see" posts that have not a language assigned: here we make sure that linked posts like
+	 * venues and organizers will be assigned the language of the event they are being linked to.
+	 *
+	 * @param int    $id               The linked post ID; this would be `null` by default but we know TEC is inserting
+	 *                                 the post at priority 10.
+	 * @param array  $data             An array of data representing the linked post submission.
+	 * @param string $linked_post_type The linked post type, e.g. `tribe_venue` or `tribe_organizer`.
+	 * @param string $post_status      The linked post type post status.
+	 * @param int    $event_id         The post ID of the event this post is linked to; this will be null for newly created events.
+	 *
+	 * @return int The untouched linked post ID.
+	 */
 	public function filter_tribe_events_linked_post_create( $id, $data, $linked_post_type, $post_status, $event_id ) {
 		if ( empty( $id ) || empty( $event_id ) ) {
 			return $id;
@@ -31,9 +45,8 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 
 		$event_language_info = wpml_get_language_information( $event_id );
 
-		$language_code = ! empty( $event_language_info['language_code'] ) ?
-			$event_language_info['language_code']
-			: ICL_LANGUAGE_CODE;
+		$language_code = ! empty( $event_language_info['language_code'] ) ? $event_language_info['language_code'] :
+			ICL_LANGUAGE_CODE;
 
 		$added = wpml_add_translatable_content( 'post_' . $linked_post_type, $id, $language_code );
 
@@ -47,6 +60,9 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	}
 
 	/**
+	 * Filters the query for linked posts to return an array that will contain the translated version of linked
+	 * posts or the original one if a translation is missing.
+	 *
 	 * @param array $results  An array of linked post types results; comes `null` from the filter but other plugins
 	 *                        might set it differently.
 	 * @param array $args     An array of WP_Query args

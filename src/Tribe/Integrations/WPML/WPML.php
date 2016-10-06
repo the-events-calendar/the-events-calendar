@@ -59,7 +59,6 @@ class Tribe__Events__Integrations__WPML__WPML {
 
 		$linked_posts = Tribe__Events__Integrations__WPML__Linked_Posts::instance();
 		add_filter( 'tribe_events_linked_posts_query', array( $linked_posts, 'filter_tribe_events_linked_posts_query' ), 10, 2 );
-//		$id = apply_filters( 'tribe_events_linked_post_create', $id, $data, $linked_post_type, $post_status, $event_id );
 		add_filter( 'tribe_events_linked_post_create', array( $linked_posts, 'filter_tribe_events_linked_post_create' ), 20, 5 );
 	}
 
