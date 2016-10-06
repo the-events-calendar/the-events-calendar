@@ -2669,16 +2669,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			switch ( $type ) {
 				case 'day':
-					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
+					$eventUrl = add_query_arg( array( 'tribe_event_display' => $type ), $eventUrl );
 					if ( $secondary ) {
-						$eventUrl = add_query_arg( array( 'eventDate' => $secondary ), $eventUrl );
+						$eventUrl = add_query_arg( array( 'date' => $secondary ), $eventUrl );
 					}
 					break;
 				case 'week':
 				case 'month':
-					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
+					$eventUrl = add_query_arg( array( 'tribe_event_display' => $type ), $eventUrl );
 					if ( is_string( $secondary ) ) {
-						$eventUrl = add_query_arg( array( 'eventDate' => $secondary ), $eventUrl );
+						$eventUrl = add_query_arg( array( 'date' => $secondary ), $eventUrl );
 					} elseif ( is_array( $secondary ) ) {
 						$eventUrl = add_query_arg( $secondary, $eventUrl );
 					}
@@ -2686,10 +2686,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				case 'list':
 				case 'past':
 				case 'upcoming':
-					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
+					$eventUrl = add_query_arg( array( 'tribe_event_display' => $type ), $eventUrl );
 					break;
 				case 'dropdown':
-					$dropdown = add_query_arg( array( 'eventDisplay' => 'month', 'eventDate' => ' ' ), $eventUrl );
+					$dropdown = add_query_arg( array( 'tribe_event_display' => 'month', 'eventDate' => ' ' ), $eventUrl );
 					$eventUrl = rtrim( $dropdown ); // tricksy
 					break;
 				case 'single':
