@@ -72,18 +72,18 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 */
 	public function filter_tribe_events_linked_posts_query( $results = null, array $args = array() ) {
 		if ( isset( $args['post__not_in'] ) ) {
-			return null;
+			return $results;
 		}
 
 		/** @var SitePress $sitepress */
 		global $sitepress;
 
 		if ( empty( $sitepress ) || ! is_a( $sitepress, 'SitePress' ) ) {
-			return null;
+			return $results;
 		}
 
 		if ( $sitepress->get_default_language() === ICL_LANGUAGE_CODE ) {
-			return null;
+			return $results;
 		}
 
 		// IDs only and drop the order to avoid wasting time on something we'll account for later
