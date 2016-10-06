@@ -31,9 +31,9 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 *
 	 * @param int    $id               The linked post ID; this would be `null` by default but we know TEC is inserting
 	 *                                 the post at priority 10.
-	 * @param array  $data             An array of data representing the linked post submission.
+	 * @param array  $data             Unused, an array of data representing the linked post submission.
 	 * @param string $linked_post_type The linked post type, e.g. `tribe_venue` or `tribe_organizer`.
-	 * @param string $post_status      The linked post type post status.
+	 * @param string $post_status      Unused, the linked post type post status.
 	 * @param int    $event_id         The post ID of the event this post is linked to; this will be null for newly created events.
 	 *
 	 * @return int The untouched linked post ID.
