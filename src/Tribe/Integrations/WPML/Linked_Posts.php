@@ -24,6 +24,28 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		return self::$instance;
 	}
 
+	public function filter_tribe_events_linked_post_create( $id, $data, $linked_post_type, $post_status, $event_id ) {
+		if ( empty( $id ) || empty( $event_id ) ) {
+			return $id;
+		}
+
+		$event_language_info = wpml_get_language_information( $event_id );
+
+		$language_code = ! empty( $event_language_info['language_code'] ) ?
+			$event_language_info['language_code']
+			: ICL_LANGUAGE_CODE;
+
+		$added = wpml_add_translatable_content( 'post_' . $linked_post_type, $id, $language_code );
+
+		if ( WPML_API_ERROR === $added ) {
+			$log   = new Tribe__Log();
+			$entry = "Could not set language for linked post type '{$linked_post_type}' with id '{$id}' to '{$language_code}'";
+			$log->log_error( $entry, __CLASS__ );
+		}
+
+		return $id;
+	}
+
 	/**
 	 * @param array $results  An array of linked post types results; comes `null` from the filter but other plugins
 	 *                        might set it differently.

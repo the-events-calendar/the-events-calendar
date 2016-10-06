@@ -40,7 +40,7 @@ class Tribe__Events__Integrations__WPML__WPML {
 		$this->hook_filters();
 	}
 
-	protected function hook_actions(  ) {
+	protected function hook_actions() {
 		$defaults = Tribe__Events__Integrations__WPML__Defaults::instance();
 
 		if ( ! $defaults->has_set_defaults() ) {
@@ -54,10 +54,13 @@ class Tribe__Events__Integrations__WPML__WPML {
 		$filters = Tribe__Events__Integrations__WPML__Filters::instance();
 
 		add_filter( 'tribe_events_post_type_permalink', 'wpml_permalink_filter' );
-		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', array( $filters, 'filter_tribe_events_rewrite_i18n_slugs_raw' ), 10, 3 );
+		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', array( $filters, 'filter_tribe_events_rewrite_i18n_slugs_raw' ), 10,
+			3 );
 
 		$linked_posts = Tribe__Events__Integrations__WPML__Linked_Posts::instance();
 		add_filter( 'tribe_events_linked_posts_query', array( $linked_posts, 'filter_tribe_events_linked_posts_query' ), 10, 2 );
+//		$id = apply_filters( 'tribe_events_linked_post_create', $id, $data, $linked_post_type, $post_status, $event_id );
+		add_filter( 'tribe_events_linked_post_create', array( $linked_posts, 'filter_tribe_events_linked_post_create' ), 20, 5 );
 	}
 
 	protected function setup_cache_expiration_triggers() {
