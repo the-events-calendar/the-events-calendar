@@ -1251,6 +1251,11 @@ Date.prototype.format = function( mask, utc ) {
 				return;
 			}
 
+			// We only want to manipulate shortcode params. Bail otherwise
+			if ( ! $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' ) ) {
+				return;
+			}
+
 			var $header = $( '#tribe-events-header' );
 			var $canonical = $( 'link[rel="canonical"]' );
 			var url = null;
