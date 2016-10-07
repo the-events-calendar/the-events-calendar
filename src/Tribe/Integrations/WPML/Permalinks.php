@@ -25,8 +25,8 @@ class Tribe__Events__Integrations__WPML__Permalinks {
 	 */
 	public function __construct( array $supported_post_types = null ) {
 		$this->supported_post_types = null !== $supported_post_types ? $supported_post_types : array(
-			Tribe__Events__Main::ORGANIZER_POST_TYPE,
-			Tribe__Events__Main::VENUE_POST_TYPE,
+			Tribe__Events__Organizer::POSTTYPE,
+			Tribe__Events__Venue::POSTTYPE,
 		);
 	}
 
