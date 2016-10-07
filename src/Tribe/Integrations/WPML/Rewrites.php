@@ -61,12 +61,14 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	}
 
 	protected function prepare_venue_slug_translations() {
-		$candidate_slug_translations   = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( array( $this->venue_slug ) )[0];
+		$wpml_i18n_strings             = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( array( $this->venue_slug ) );
+		$candidate_slug_translations   = $wpml_i18n_strings[0];
 		$this->venue_slug_translations = array_map( 'esc_attr', $candidate_slug_translations );
 	}
 
 	protected function prepare_organizer_slug_translations() {
-		$candidate_slug_translations       = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( array( $this->organizer_slug ) )[0];
+		$wpml_i18n_strings                 = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( array( $this->organizer_slug ) );
+		$candidate_slug_translations       = $wpml_i18n_strings[0];
 		$this->organizer_slug_translations = array_map( 'esc_attr', $candidate_slug_translations );
 	}
 
