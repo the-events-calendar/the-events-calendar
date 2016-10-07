@@ -60,6 +60,9 @@ class Tribe__Events__Integrations__WPML__WPML {
 		$linked_posts = Tribe__Events__Integrations__WPML__Linked_Posts::instance();
 		add_filter( 'tribe_events_linked_posts_query', array( $linked_posts, 'filter_tribe_events_linked_posts_query' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_create', array( $linked_posts, 'filter_tribe_events_linked_post_create' ), 20, 5 );
+
+		$rewrites = Tribe__Events__Integrations__WPML__Rewrites::instance();
+		add_filter( 'rewrite_rules_array', array( $rewrites, 'filter_rewrite_rules_array' ), 20, 1 );
 	}
 
 	protected function setup_cache_expiration_triggers() {
