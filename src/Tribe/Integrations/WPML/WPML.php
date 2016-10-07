@@ -63,6 +63,9 @@ class Tribe__Events__Integrations__WPML__WPML {
 
 		$rewrites = Tribe__Events__Integrations__WPML__Rewrites::instance();
 		add_filter( 'rewrite_rules_array', array( $rewrites, 'filter_rewrite_rules_array' ), 20, 1 );
+
+		$permalinks = Tribe__Events__Integrations__WPML__Permalinks::instance();
+		add_filter( 'post_type_link', array( $permalinks, 'filter_post_type_link' ), 20, 2 );
 	}
 
 	protected function setup_cache_expiration_triggers() {
