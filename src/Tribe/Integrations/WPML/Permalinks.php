@@ -71,7 +71,7 @@ class Tribe__Events__Integrations__WPML__Permalinks {
 				$post_link = $this->get_post_permalink( $post, $post_language );
 				break;
 			case 3:
-				$post_link = $this->update_language_query_arg( $post_link, $post, $post_language );
+				$post_link = $this->update_language_query_arg( $post_link, $post_language );
 				break;
 			default:
 				break;
@@ -89,7 +89,7 @@ class Tribe__Events__Integrations__WPML__Permalinks {
 	 *
 	 * @return string
 	 */
-	protected function update_language_query_arg( $post_link, WP_Post $post, $post_language ) {
+	protected function update_language_query_arg( $post_link, $post_language ) {
 		/** @var SitePress $sitepress */
 		global $sitepress;
 
