@@ -55,16 +55,23 @@ class Tribe__Events__Integrations__WPML__Permalinks {
 		/** @var SitePress $sitepress */
 		global $sitepress;
 
+		$post_language = $sitepress->get_language_for_element( $post->ID, 'post_' . $post->post_type );
+
+		if ( $post_language === ICL_LANGUAGE_CODE ) {
+			return $post_link;
+		}
+
 		// append the language as a query argument
 		$language_negotiation_type = $sitepress->get_setting( 'language_negotiation_type' );
+
 
 		switch ( $language_negotiation_type ) {
 			case 1;
 			case 2;
-				$post_link = $this->get_post_permalink( $post );
+				$post_link = $this->get_post_permalink( $post, $post_language );
 				break;
 			case 3:
-				$post_link = $this->update_language_query_arg( $post_link, $post );
+				$post_link = $this->update_language_query_arg( $post_link, $post, $post_language );
 				break;
 			default:
 				break;
@@ -76,16 +83,16 @@ class Tribe__Events__Integrations__WPML__Permalinks {
 	/**
 	 * Returns the post link withe the language query arg removed or updated to the post language.
 	 *
-	 * @param         $post_link
+	 * @param string  $post_link
 	 * @param WP_Post $post
+	 * @param string  $post_language The post language code.
 	 *
 	 * @return string
 	 */
-	protected function update_language_query_arg( $post_link, WP_Post $post, $sitepress ) {
+	protected function update_language_query_arg( $post_link, WP_Post $post, $post_language ) {
 		/** @var SitePress $sitepress */
 		global $sitepress;
 
-		$post_language = $sitepress->get_language_for_element( $post->ID, 'post_' . $post->post_type );
 		if ( $post_language !== ICL_LANGUAGE_CODE ) {
 			if ( $post_language === $sitepress->get_default_language() ) {
 				$post_link = remove_query_arg( 'lang', $post_link );
@@ -103,15 +110,16 @@ class Tribe__Events__Integrations__WPML__Permalinks {
 	}
 
 	/**
-	 * @param WP_Post $post
+	 * Returns the post permalink taking the post language into account.
 	 *
-	 * @return false|string
+	 * @param WP_Post      $post
+	 * @param       string $post_language The post language code.
+	 *
+	 * @return string The post permalink.
 	 */
-	protected function get_post_permalink( WP_Post $post ) {
+	protected function get_post_permalink( WP_Post $post, $post_language ) {
 		/** @var SitePress $sitepress */
 		global $sitepress;
-
-		$post_language = $sitepress->get_language_for_element( $post->ID, 'post_' . $post->post_type );
 
 		$sitepress->switch_lang( $post_language );
 		remove_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 20 );
