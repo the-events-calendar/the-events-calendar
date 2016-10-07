@@ -62,14 +62,16 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 
 	protected function prepare_venue_slug_translations() {
 		$wpml_i18n_strings             = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( array( $this->venue_slug ) );
-		$candidate_slug_translations   = $wpml_i18n_strings[0];
-		$this->venue_slug_translations = array_map( 'esc_attr', $candidate_slug_translations );
+		$post_slug_translations        = $this->get_post_slug_translations_for( Tribe__Events__Venue::POSTTYPE );
+		$slug_translations             = array_merge( $wpml_i18n_strings[0], $post_slug_translations );
+		$this->venue_slug_translations = array_map( 'esc_attr', array_unique( $slug_translations ) );
 	}
 
 	protected function prepare_organizer_slug_translations() {
 		$wpml_i18n_strings                 = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( array( $this->organizer_slug ) );
-		$candidate_slug_translations       = $wpml_i18n_strings[0];
-		$this->organizer_slug_translations = array_map( 'esc_attr', $candidate_slug_translations );
+		$post_slug_translations            = $this->get_post_slug_translations_for( Tribe__Events__Organizer::POSTTYPE );
+		$slug_translations                 = array_merge( $wpml_i18n_strings[0], $post_slug_translations );
+		$this->organizer_slug_translations = array_map( 'esc_attr', array_unique( $slug_translations ) );
 	}
 
 	protected function replace_rules_with_translations( array $rewrite_rules ) {
@@ -117,5 +119,30 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 
 	protected function is_organizer_rule( $candidate_rule ) {
 		return preg_match( '/^' . $this->organizer_slug . '/', $candidate_rule );
+	}
+
+	private function get_post_slug_translations_for( $type ) {
+		/** @var SitePress $sitepress */
+		global $sitepress;
+
+		$post_slug_translation_settings = $sitepress->get_setting( 'posts_slug_translation', array() );
+
+		if ( ! isset( $post_slug_translation_settings['types'][ $type ] ) || ! $post_slug_translation_settings['types'][ $type ]
+		     || ! $sitepress->is_translated_post_type( $type )
+		) {
+			return array();
+		}
+
+		/** @var \wpdb $wpdb */
+		global $wpdb;
+
+		$results = $wpdb->get_results( $wpdb->prepare( "
+						SELECT t.value
+						FROM {$wpdb->prefix}icl_string_translations t
+							JOIN {$wpdb->prefix}icl_strings s ON t.string_id = s.id
+						WHERE s.name = %s AND t.status = %d
+					", 'URL slug: ' . $type, ICL_TM_COMPLETE ) );
+
+		return wp_list_pluck( $results, 'value' );
 	}
 }
