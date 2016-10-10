@@ -72,7 +72,7 @@ class Tribe__Events__Integrations__WPML__Utils {
 	/**
 	 * Fetches the optional post slug translations for a post type.
 	 *
-	 * WPML allows transalating a custom post type slug  when the String Translation
+	 * WPML allows translating a custom post type slug  when the String Translation
 	 * accessory plugin is active.
 	 *
 	 * @param string $type The custom post type slug.
@@ -82,7 +82,7 @@ class Tribe__Events__Integrations__WPML__Utils {
 	 *               the post type slug is not translated. Please note that the translation does not
 	 *               include the original slug.
 	 */
-	public static function get_post_slug_translations_for( $POSTTYPE ) {
+	public static function get_post_slug_translations_for( $type ) {
 		/** @var SitePress $sitepress */
 		global $sitepress;
 
