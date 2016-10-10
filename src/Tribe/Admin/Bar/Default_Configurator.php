@@ -95,10 +95,14 @@ class Tribe__Events__Admin__Bar__Default_Configurator implements Tribe__Events__
 			// Only show help link if it's not blocked in network admin.
 			$hidden_settings_tabs = Tribe__Settings_Manager::get_network_option( 'hideSettingsTabs', array() );
 			if ( ! in_array( 'help', $hidden_settings_tabs ) ) {
+				$href = esc_url( add_query_arg( array(
+					'post_type' => Tribe__Events__Main::POSTTYPE,
+					'page'      => 'tribe-help',
+				), admin_url( 'edit.php' ) ) );
 				$wp_admin_bar->add_menu( array(
 					'id'     => 'tribe-events-help',
 					'title'  => esc_html__( 'Help', 'the-events-calendar' ),
-					'href'   => Tribe__Settings::instance()->get_url( array( 'tab' => 'help' ) ),
+					'href'   => $href,
 					'parent' => 'tribe-events-settings-group',
 				) );
 			}
