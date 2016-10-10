@@ -19,6 +19,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 do_action( 'tribe_events_organizer_before_metabox', $post );
 ?>
+<?php if ( empty( $hide_organizer_title ) ): ?>
+	<tr class="organizer">
+		<td><?php printf( esc_html__( '%s Name:', 'the-events-calendar' ), tribe_get_organizer_label_singular() ); ?></td>
+		<td>
+			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='organizer[Organizer]' size='25' value='<?php echo isset( $_OrganizerOrganizer ) ? esc_attr( $_OrganizerOrganizer ) : ''; ?>' />
+		</td>
+	</tr>
+<?php endif; ?>
 <tr class="organizer">
 	<td><?php esc_html_e( 'Phone:', 'the-events-calendar' ); ?></td>
 	<td>
