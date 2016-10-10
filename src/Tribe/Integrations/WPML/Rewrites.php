@@ -121,13 +121,13 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 		return preg_match( '/^' . $this->organizer_slug . '/', $candidate_rule );
 	}
 
-	private function get_post_slug_translations_for( $type ) {
+	protected function get_post_slug_translations_for( $type ) {
 		/** @var SitePress $sitepress */
 		global $sitepress;
 
 		$post_slug_translation_settings = $sitepress->get_setting( 'posts_slug_translation', array() );
 
-		if ( ! isset( $post_slug_translation_settings['types'][ $type ] ) || ! $post_slug_translation_settings['types'][ $type ]
+		if ( empty( $post_slug_translation_settings['types'][ $type ] )
 		     || ! $sitepress->is_translated_post_type( $type )
 		) {
 			return array();
