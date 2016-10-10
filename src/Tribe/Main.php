@@ -3534,8 +3534,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$saved = true;
 				}
 
+				$is_saved = $event->ID && isset( $saved ) && $saved;
+
+				if ( $is_saved ) {
+					$venue_title = apply_filters( 'the_title', $post->post_title );
+				}
+
 				foreach ( $this->venueTags as $tag ) {
-					if ( $event->ID && isset( $saved ) && $saved ) { //if there is a post AND the post has been saved at least once.
+					if ( $is_saved ) { //if there is a post AND the post has been saved at least once.
 						$$tag = esc_html( get_post_meta( $event->ID, $tag, true ) );
 					} else {
 						$cleaned_tag = str_replace( '_Venue', '', $tag );
