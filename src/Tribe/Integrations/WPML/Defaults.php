@@ -139,7 +139,6 @@ class Tribe__Events__Integrations__WPML__Defaults {
 			'_VenueZip',
 			'_VenuePhone',
 			'_VenueURL',
-			'_OrganizerOrganizer',
 			'_OrganizerEmail',
 			'_OrganizerWebsite',
 			'_OrganizerPhone',
