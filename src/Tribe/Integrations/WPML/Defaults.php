@@ -129,7 +129,6 @@ class Tribe__Events__Integrations__WPML__Defaults {
 			'_EventTimezone',
 			'_EventTimezoneAbbr',
 			'_EventRecurrenceRRULE',
-			'_VenueVenue',
 			'_VenueCountry',
 			'_VenueAddress',
 			'_VenueCity',
