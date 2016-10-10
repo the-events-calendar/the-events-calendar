@@ -101,7 +101,7 @@ if ( $missing_facebook_credentials ) :
 $field              = (object) array();
 $field->label       = __( 'URL:', 'the-events-calendar' );
 $field->placeholder = __( 'facebook.com/example', 'the-events-calendar' );
-$field->help        = __( 'Enter the url for a Facebook group, page, or individual. You can also enter the url of a single Facebook event.', 'the-events-calendar' );
+$field->help        = __( 'Enter the url for a Facebook group or page. You can also enter the url of a single Facebook event.', 'the-events-calendar' );
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-facebook_import_type" data-condition-not-empty>
 	<th scope="row">

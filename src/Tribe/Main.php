@@ -32,8 +32,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '4.3rc4';
-		const MIN_ADDON_VERSION = '4.3rc4';
+		const VERSION           = '4.3';
+		const MIN_ADDON_VERSION = '4.3';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
@@ -2664,21 +2664,31 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// if we're on an Event Cat, show the cat link, except for home.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) ) {
-				$eventUrl = add_query_arg( self::TAXONOMY, get_query_var( 'term' ), $eventUrl );
+				if (
+					(
+						Tribe__Main::instance()->doing_ajax()
+						&& ! empty( $_POST['baseurl'] )
+					)
+					|| apply_filters( 'tribe_events_force_ugly_link', false )
+				) {
+					$eventUrl = add_query_arg( 'tribe_event_category', get_query_var( 'term' ), $eventUrl );
+				} else {
+					$eventUrl = add_query_arg( self::TAXONOMY, get_query_var( 'term' ), $eventUrl );
+				}
 			}
 
 			switch ( $type ) {
 				case 'day':
-					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
+					$eventUrl = add_query_arg( array( 'tribe_event_display' => $type ), $eventUrl );
 					if ( $secondary ) {
-						$eventUrl = add_query_arg( array( 'eventDate' => $secondary ), $eventUrl );
+						$eventUrl = add_query_arg( array( 'date' => $secondary ), $eventUrl );
 					}
 					break;
 				case 'week':
 				case 'month':
-					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
+					$eventUrl = add_query_arg( array( 'tribe_event_display' => $type ), $eventUrl );
 					if ( is_string( $secondary ) ) {
-						$eventUrl = add_query_arg( array( 'eventDate' => $secondary ), $eventUrl );
+						$eventUrl = add_query_arg( array( 'date' => $secondary ), $eventUrl );
 					} elseif ( is_array( $secondary ) ) {
 						$eventUrl = add_query_arg( $secondary, $eventUrl );
 					}
@@ -2686,10 +2696,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				case 'list':
 				case 'past':
 				case 'upcoming':
-					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
+					$eventUrl = add_query_arg( array( 'tribe_event_display' => $type ), $eventUrl );
 					break;
 				case 'dropdown':
-					$dropdown = add_query_arg( array( 'eventDisplay' => 'month', 'eventDate' => ' ' ), $eventUrl );
+					$dropdown = add_query_arg( array( 'tribe_event_display' => 'month', 'eventDate' => ' ' ), $eventUrl );
 					$eventUrl = rtrim( $dropdown ); // tricksy
 					break;
 				case 'single':
