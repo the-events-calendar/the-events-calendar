@@ -3580,8 +3580,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$saved = true;
 				}
 
-				foreach ( $this->organizerTags as $tag ) {
-					if ( $postId && $saved ) { //if there is a post AND the post has been saved at least once.
+				if ( $postId && $saved ) { //if there is a post AND the post has been saved at least once.
+					foreach ( $this->organizerTags as $tag ) {
 						$$tag = get_post_meta( $postId, $tag, true );
 					}
 				}
@@ -3595,7 +3595,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			<div id='eventDetails' class="inside eventForm">
 				<table cellspacing="0" cellpadding="0" id="EventInfo" class="OrganizerInfo">
 					<?php
-					$hide_organizer_title = true;
 					$organizer_meta_box_template = apply_filters( 'tribe_events_organizer_meta_box_template', $this->plugin_path . 'src/admin-views/organizer-meta-box.php' );
 					if ( ! empty( $organizer_meta_box_template ) ) {
 						include( $organizer_meta_box_template );
