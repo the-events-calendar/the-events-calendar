@@ -13,11 +13,11 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	 */
 	protected static $instance;
 	/**
-	 * @var string The English version of the venue slug
+	 * @var string The English version of the venue slug.
 	 */
 	protected $venue_slug = 'venue';
 	/**
-	 * @var string The English version of the organizer slug
+	 * @var string The English version of the organizer slug.
 	 */
 	protected $organizer_slug = 'organizer';
 	/**
@@ -50,6 +50,14 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 		return self::$instance;
 	}
 
+	/**
+	 * Filters the rewrite rules array to add support for translated versions of
+	 * venue and organizer slugs in their rules.
+	 *
+	 * @param array $rewrite_rules
+	 *
+	 * @return array
+	 */
 	public function filter_rewrite_rules_array( array $rewrite_rules ) {
 		$this->prepare_venue_slug_translations();
 		$this->prepare_organizer_slug_translations();
@@ -62,15 +70,15 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 
 	protected function prepare_venue_slug_translations() {
 		$wpml_i18n_strings             = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( array( $this->venue_slug ) );
-		$post_slug_translations        = $this->get_post_slug_translations_for( Tribe__Events__Venue::POSTTYPE );
-		$slug_translations             = array_merge( $wpml_i18n_strings[0], $post_slug_translations );
+		$post_slug_translations        = Tribe__Events__Integrations__WPML__Utils::get_post_slug_translations_for( Tribe__Events__Venue::POSTTYPE );
+		$slug_translations             = array_merge( $wpml_i18n_strings[0], array_values( $post_slug_translations ) );
 		$this->venue_slug_translations = array_map( 'esc_attr', array_unique( $slug_translations ) );
 	}
 
 	protected function prepare_organizer_slug_translations() {
 		$wpml_i18n_strings                 = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( array( $this->organizer_slug ) );
-		$post_slug_translations            = $this->get_post_slug_translations_for( Tribe__Events__Organizer::POSTTYPE );
-		$slug_translations                 = array_merge( $wpml_i18n_strings[0], $post_slug_translations );
+		$post_slug_translations            = Tribe__Events__Integrations__WPML__Utils::get_post_slug_translations_for( Tribe__Events__Organizer::POSTTYPE );
+		$slug_translations                 = array_merge( $wpml_i18n_strings[0], array_values( $post_slug_translations ) );
 		$this->organizer_slug_translations = array_map( 'esc_attr', array_unique( $slug_translations ) );
 	}
 
@@ -89,6 +97,16 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 		return array_combine( $replaced_keys, $values );
 	}
 
+	/**
+	 * Adds support for the translated version of the venue slug in all venues rewrite
+	 * rules regular expressions.
+	 *
+	 * E.g. `venue/then-some` becomes `(?:venue|luogo|lieu)/then-some`; the match uses
+	 * non-capturing groups not to mess up the match keys.
+	 *
+	 * @param string $rule  A rewrite rule scheme assigning pattern matches to vars.
+	 * @param string $regex A rewrite rule regular expression.
+	 */
 	public function translate_venue_rules( $rule, $regex ) {
 		if ( ! $this->is_venue_rule( $regex ) ) {
 			return;
@@ -105,6 +123,16 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 		return preg_match( '/^' . $this->venue_slug . '/', $candidate_rule );
 	}
 
+	/**
+	 * Adds support for the translated version of the organizer slug in all organizers rewrite
+	 * rules regular expressions.
+	 *
+	 * E.g. `organizer/then-some` becomes `(?:organizer|organizzatore|organisateur)/then-some`;
+	 * the match uses non-capturing groups not to mess up the match keys.
+	 *
+	 * @param string $rule  A rewrite rule scheme assigning pattern matches to vars.
+	 * @param string $regex A rewrite rule regular expression.
+	 */
 	public function translate_organizer_rules( $rule, $regex ) {
 		if ( ! $this->is_organizer_rule( $regex ) ) {
 			return;
@@ -119,30 +147,5 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 
 	protected function is_organizer_rule( $candidate_rule ) {
 		return preg_match( '/^' . $this->organizer_slug . '/', $candidate_rule );
-	}
-
-	protected function get_post_slug_translations_for( $type ) {
-		/** @var SitePress $sitepress */
-		global $sitepress;
-
-		$post_slug_translation_settings = $sitepress->get_setting( 'posts_slug_translation', array() );
-
-		if ( empty( $post_slug_translation_settings['types'][ $type ] )
-		     || ! $sitepress->is_translated_post_type( $type )
-		) {
-			return array();
-		}
-
-		/** @var \wpdb $wpdb */
-		global $wpdb;
-
-		$results = $wpdb->get_results( $wpdb->prepare( "
-						SELECT t.value
-						FROM {$wpdb->prefix}icl_string_translations t
-							JOIN {$wpdb->prefix}icl_strings s ON t.string_id = s.id
-						WHERE s.name = %s AND t.status = %d
-					", 'URL slug: ' . $type, ICL_TM_COMPLETE ) );
-
-		return wp_list_pluck( $results, 'value' );
 	}
 }
