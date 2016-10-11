@@ -140,7 +140,7 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 		$this->arguments = array(
 			'priority'    => 30,
 			'capability'  => 'edit_theme_options',
-			'title'       => esc_html__( 'Month/Week View', 'the-events-calendar' ),
+			'title'       => esc_html__( 'Month View', 'the-events-calendar' ),
 			'description' => esc_html__( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections', 'the-events-calendar' ),
 		);
 	}

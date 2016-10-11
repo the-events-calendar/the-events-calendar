@@ -198,10 +198,35 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 			)
 		);
 
+		$manager->add_setting(
+			$customizer->get_setting_name( 'map_pin', $section ),
+			array(
+				'default'              => $this->get_default( 'map_pin' ),
+				'type'                 => 'option',
+
+				'sanitize_callback'    => 'esc_url_raw',
+			)
+		);
+
+		$manager->add_control(
+			new WP_Customize_Image_Control(
+				$manager,
+				$customizer->get_setting_name( 'map_pin', $section ),
+				array(
+					'default'    => $this->get_default( 'button_color' ),
+					'label'      => esc_html__( 'Map Pin', 'the-events-calendar' ),
+					'section'    => $section->id,
+				)
+			)
+		);
+
 		// Introduced to make Selective Refresh have less code duplication
 		$customizer->add_setting_name( $customizer->get_setting_name( 'link_color', $section ) );
 		$customizer->add_setting_name( $customizer->get_setting_name( 'filterbar_color', $section ) );
 		$customizer->add_setting_name( $customizer->get_setting_name( 'button_color', $section ) );
+
+		// To add Live Edit Pins will require some JS refactor to be able to work
+		// $customizer->add_setting_name( $customizer->get_setting_name( 'map_pin', $section ) );
 
 	}
 }
