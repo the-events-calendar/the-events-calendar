@@ -575,10 +575,20 @@ Date.prototype.format = function( mask, utc ) {
 		 */
 		get_base_url          : function() {
 			var base_url = '',
-				$event_header = $( '#tribe-events-header' );
-			if ( $event_header.length ) {
+				$event_header = $( '#tribe-events-header' ),
+				$canonical = $( 'link[rel="canonical"]' );
+
+			if ( $canonical.length ) {
+				// use the canonical URL if it is available (it should be)
+				base_url = $canonical.attr( 'href' );
+			} else if ( $event_header.length ) {
+				// failover to the baseurl of the event header
 				base_url = $event_header.data( 'baseurl' );
+			} else {
+				// use the current URL as a last ditch effort
+				base_url = window.location.origin + window.location.path;
 			}
+
 			return base_url;
 		},
 		/**
@@ -1251,20 +1261,49 @@ Date.prototype.format = function( mask, utc ) {
 				return;
 			}
 
+			// We only want to manipulate shortcode params. Bail otherwise
+			if ( ! $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' ) ) {
+				return;
+			}
+
 			var $header = $( '#tribe-events-header' );
 			var $canonical = $( 'link[rel="canonical"]' );
+			var url = null;
 
 			if ( $canonical.length ) {
 				// use the canonical URL if it is available (it should be)
-				tribe_ev.state.params += '&baseurl=' + $canonical.attr( 'href' );
+				url = $canonical.attr( 'href' );
 			} else if ( $header.length ) {
 				// failover to the baseurl of the event header
-				tribe_ev.state.params += '&baseurl=' + $header.data( 'baseurl' );
+				url = $header.data( 'baseurl' );
 			} else {
 				// use the current URL as a last ditch effort
-				tribe_ev.state.params += '&baseurl=' + window.location.origin + window.location.path;
+				url = window.location.origin + window.location.path;
 			}
 
+			tribe_ev.state.params += '&baseurl=' + url;
+
+			if ( $header.length ) {
+				var cat = /tribe_events_cat=([^&]*)/ig.exec( $header.data( 'baseurl' ) );
+
+				if ( cat && 'undefined' !== typeof cat[1] ) {
+					cat = cat[1];
+				} else {
+					cat = null;
+				}
+
+				if ( cat ) {
+					var cat_regexp = new RegExp( 'tribe_event_category=' + cat );
+
+					if ( ! tribe_ev.state.params.match( cat_regexp ) ) {
+						tribe_ev.state.params += '&tribe_event_category=' + cat;
+					}
+
+					if ( 'string' === typeof tribe_ev.state.url_params && ! tribe_ev.state.url_params.match( cat_regexp ) ) {
+						tribe_ev.state.url_params += '&tribe_event_category=' + cat;
+					}
+				}
+			}
 		} );
 
 		/**
