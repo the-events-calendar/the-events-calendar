@@ -303,10 +303,13 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 
 			if ( $queue && ! $messages ) {
-				$messages['success'][] = __( 'No events were imported or updated.', 'the-events-calendar' );
+				$messages['success'][] = sprintf(
+					__( 'No %1$s were imported or updated.', 'the-events-calendar' ),
+					$content_type_plural
+				);
 			}
 
-			if ( ! empty( $messages['success'] ) ) {
+			if ( ! empty( $messages['success'] ) && ! empty( $content_type_object->show_ui ) ) {
 				// append a URL to view all records for the given post type
 				$url = admin_url( 'edit.php?post_type=' . $content_post_type );
 				$link_text = sprintf( __( 'View all %s', 'the-events-calendar' ), $content_type_plural );
