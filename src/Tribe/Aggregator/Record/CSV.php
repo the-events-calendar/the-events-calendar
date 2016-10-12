@@ -362,9 +362,17 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		$created = $importer->get_new_post_count();
 		$skipped = $importer->get_skipped_row_count();
 
-		$this->meta['activity']->add( 'updated', $this->meta['content_type'], array_fill( 0, $updated, 1 ) );
-		$this->meta['activity']->add( 'created', $this->meta['content_type'], array_fill( 0, $created, 1 ) );
-		$this->meta['activity']->add( 'skipped', $this->meta['content_type'], array_fill( 0, $skipped, 1 ) );
+		if ( $updated ) {
+			$this->meta['activity']->add( 'updated', $this->meta['content_type'], array_fill( 0, $updated, 1 ) );
+		}
+
+		if ( $created ) {
+			$this->meta['activity']->add( 'created', $this->meta['content_type'], array_fill( 0, $created, 1 ) );
+		}
+
+		if ( $skipped ) {
+			$this->meta['activity']->add( 'skipped', $this->meta['content_type'], array_fill( 0, $skipped, 1 ) );
+		}
 
 		$log['updated']  += $updated;
 		$log['created']  += $created;
