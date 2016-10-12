@@ -353,7 +353,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Setup the activation page only if the relevant class exists (in some edge cases, if another
 			// plugin hosting an earlier version of tribe-common is already active we could hit fatals
 			// if we don't take this precaution).
-
+			//
 			// @todo remove class_exists() test once enough time has elapsed and the risk has reduced
 			if ( empty( $this->activation_page ) && class_exists( 'Tribe__Admin__Activation_Page' ) ) {
 				$this->activation_page = new Tribe__Admin__Activation_Page( array(
