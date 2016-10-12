@@ -53,12 +53,19 @@ class Tribe__Events__Aggregator__Page {
 
 		add_action( 'admin_menu', array( $this, 'register_menu_item' ) );
 		add_action( 'current_screen', array( $this, 'action_request' ) );
+		add_action( 'init', array( $this, 'init' ) );
 
 		// filter the plupload default settings to remove mime type restrictions
 		add_filter( 'plupload_default_settings', array( $this, 'filter_plupload_default_settings' ) );
 
 		// Setup Tabs Instance
 		$this->tabs = Tribe__Events__Aggregator__Tabs::instance();
+
+		tribe_notice( 'tribe-aggregator-legacy-import-plugins-active', array( $this, 'notice_legacy_plugins' ), 'type=warning' );
+	}
+
+	public function init() {
+		$plugin = Tribe__Events__Main::instance();
 
 		$localize_data = array(
 			'name' => 'tribe_aggregator',
@@ -131,8 +138,6 @@ class Tribe__Events__Aggregator__Page {
 		);
 
 		tribe_asset( $plugin, 'tribe-ea-facebook-login', 'aggregator-facebook-login.js', array( 'jquery', 'underscore', 'tribe-dependency' ), 'admin_enqueue_scripts' );
-
-		tribe_notice( 'tribe-aggregator-legacy-import-plugins-active', array( $this, 'notice_legacy_plugins' ), 'type=warning' );
 	}
 
 	/**
