@@ -144,44 +144,78 @@ defined( 'WPINC' ) or die;
 
 				// Archive
 				->archive( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%1' ) )
+				->archive( array( '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'featured' => true, 'eventDisplay' => 'list', 'paged' => '%1' ) )
 				->archive( array( '(feed|rdf|rss|rss2|atom)' ), array( 'eventDisplay' => 'list', 'feed' => '%1' ) )
+				->archive( array( '{{ featured }}', '(feed|rdf|rss|rss2|atom)' ), array( 'featured' => true, 'eventDisplay' => 'list', 'feed' => '%1' ) )
 				->archive( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
+				->archive( array( '{{ month }}', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'featured' => true ) )
 				->archive( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%1' ) )
+				->archive( array( '{{ list }}', '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'featured' => true, 'paged' => '%1' ) )
 				->archive( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
+				->archive( array( '{{ list }}', '{{ featured }}' ), array( 'eventDisplay' => 'list', 'featured' => true ) )
 				->archive( array( '{{ today }}' ), array( 'eventDisplay' => 'day' ) )
+				->archive( array( '{{ today }}', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'featured' => true ) )
 				->archive( array( '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%1' ) )
+				->archive( array( '(\d{4}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'eventDate' => '%1', 'featured' => true ) )
 				->archive( array( '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%1' ) )
+				->archive( array( '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'eventDate' => '%1', 'featured' => true ) )
+				->archive( array( '{{ featured }}' ), array( 'featured' => true ) )
 				->archive( array(), array( 'eventDisplay' => 'default' ) )
-
 				->archive( array( 'ical' ), array( 'ical' => 1 ) )
+				->archive( array( '{{ featured }}', 'ical' ), array( 'ical' => 1, 'featured' => true ) )
 				->archive( array( '(\d{4}-\d{2}-\d{2})', 'ical' ), array( 'ical' => 1, 'eventDisplay' => 'day', 'eventDate' => '%1' ) )
+				->archive( array( '(\d{4}-\d{2}-\d{2})', 'ical', 'featured' ), array( 'ical' => 1, 'eventDisplay' => 'day', 'eventDate' => '%1', 'featured' => true ) )
 
 				// Taxonomy
 				->tax( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
+				->tax( array( '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'featured' => true, 'eventDisplay' => 'list', 'paged' => '%2' ) )
 				->tax( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
+				->tax( array( '{{ month }}', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'featured' => true ) )
 				->tax( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
+				->tax( array( '{{ list }}', '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'featured' => true, 'paged' => '%2' ) )
 				->tax( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
+				->tax( array( '{{ list }}', '{{ featured }}' ), array( 'eventDisplay' => 'list', 'featured' => true ) )
 				->tax( array( '{{ today }}' ), array( 'eventDisplay' => 'day' ) )
+				->tax( array( '{{ today }}', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'featured' => true ) )
 				->tax( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
+				->tax( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ) )
 				->tax( array( '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2' ) )
+				->tax( array( '(\d{4}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2', 'featured' => true ) )
 				->tax( array( '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
+				->tax( array( '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ) )
 				->tax( array( 'feed' ), array( 'eventDisplay' => 'list', 'feed' => 'rss2' ) )
+				->tax( array( '{{ featured }}', 'feed' ), array( 'featured' => true, 'eventDisplay' => 'list', 'feed' => 'rss2' ) )
 				->tax( array( 'ical' ), array( 'ical' => 1 ) )
+				->tax( array( '{{ featured }}', 'ical' ), array( 'featured' => true, 'ical' => 1 ) )
 				->tax( array( 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'feed' => '%2' ) )
+				->tax( array( '{{ featured }}', 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'featured' => true, 'feed' => '%2' ) )
+				->tax( array( '{{ featured }}' ), array( 'featured' => true, 'eventDisplay' => 'default' ) )
 				->tax( array(), array( 'eventDisplay' => 'default' ) )
 
 				// Tag
 				->tag( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
+				->tag( array( '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'featured' => true, 'eventDisplay' => 'list', 'paged' => '%2' ) )
 				->tag( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
+				->tag( array( '{{ month }}', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'featured' => true ) )
 				->tag( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
+				->tag( array( '{{ list }}', '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'featured' => true, 'paged' => '%2' ) )
 				->tag( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
+				->tag( array( '{{ list }}', '{{ featured }}' ), array( 'eventDisplay' => 'list', 'featured' => true ) )
 				->tag( array( '{{ today }}' ), array( 'eventDisplay' => 'day' ) )
+				->tag( array( '{{ today }}', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'featured' => true ) )
 				->tag( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
+				->tag( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ) )
 				->tag( array( '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2' ) )
+				->tag( array( '(\d{4}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2', 'featured' => true ) )
 				->tag( array( '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
+				->tag( array( '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ) )
 				->tag( array( 'feed' ), array( 'eventDisplay' => 'list', 'feed' => 'rss2' ) )
+				->tag( array( '{{ featured }}', 'feed' ), array( 'eventDisplay' => 'list', 'feed' => 'rss2', 'featured' => true ) )
 				->tag( array( 'ical' ), array( 'ical' => 1 ) )
+				->tag( array( '{{ featured }}', 'ical' ), array( 'featured' => true, 'ical' => 1 ) )
 				->tag( array( 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'feed' => '%2' ) )
+				->tag( array( '{{ featured }}', 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'featured' => true, 'feed' => '%2' ) )
+				->tag( array( '{{ featured }}' ), array( 'featured' => true ) )
 				->tag( array(), array( 'eventDisplay' => 'default' ) );
 		}
 
@@ -267,6 +301,7 @@ defined( 'WPINC' ) or die;
 				'all' => (array) 'all',
 				'single' => (array) Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ),
 				'archive' => (array) Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ),
+				'featured' => array( 'featured', $tec->featured_slug ),
 			) );
 
 			// Remove duplicates (no need to have 'month' twice if no translations are in effect, etc)

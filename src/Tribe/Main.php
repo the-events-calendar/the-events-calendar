@@ -93,6 +93,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $category_slug = 'category';
 		public $tag_slug = 'tag';
 		public $monthSlug = 'month';
+		public $featured_slug = 'featured';
 
 		/** @deprecated 4.0 */
 		public $taxRewriteSlug = 'event/category';
@@ -618,9 +619,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * Expire notices
 			 */
 			add_action( 'transition_post_status', array( $this, 'action_expire_archive_slug_conflict_notice' ), 10, 3 );
-			
+
 			// Add support for featured events
 			$this->featured_events()->query_helper()->hook_up();
+			$this->featured_events()->permalinks_helper()->hook_up();
 		}
 
 		/**
@@ -917,6 +919,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->pastSlug                                   = sanitize_title( __( 'past', 'the-events-calendar' ) );
 			$this->daySlug                                    = sanitize_title( __( 'day', 'the-events-calendar' ) );
 			$this->todaySlug                                  = sanitize_title( __( 'today', 'the-events-calendar' ) );
+			$this->featured_slug                              = sanitize_title( _x( 'featured', 'featured events slug', 'the-events-calendar' ) );
 
 			$this->singular_venue_label                       = $this->get_venue_label_singular();
 			$this->plural_venue_label                         = $this->get_venue_label_plural();
@@ -2481,6 +2484,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$qvars[] = 'ical';
 			$qvars[] = 'start_date';
 			$qvars[] = 'end_date';
+			$qvars[] = 'featured';
 			$qvars[] = self::TAXONOMY;
 
 			return $qvars;
@@ -2543,13 +2547,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Returns various internal events-related URLs
 		 *
 		 * @param string        $type      type of link. See switch statement for types.
-		 * @param string        $secondary for $type = month, pass a YYYY-MM string for a specific month's URL
+		 * @param string|bool   $secondary for $type = month, pass a YYYY-MM string for a specific month's URL
 		 *                                 for $type = week, pass a Week # string for a specific week's URL
 		 * @param int|bool|null $term
+		 * @param bool|null     $featured
 		 *
 		 * @return string The link.
 		 */
-		public function getLink( $type = 'home', $secondary = false, $term = null ) {
+		public function getLink( $type = 'home', $secondary = false, $term = null, $featured = null ) {
 			// if permalinks are off or user doesn't want them: ugly.
 			if ( '' === get_option( 'permalink_structure' ) ) {
 				return esc_url_raw( $this->uglyLink( $type, $secondary ) );
@@ -2639,9 +2644,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// Filter get link
-			$event_url = apply_filters( 'tribe_events_get_link', $event_url, $type, $secondary, $term, $url_args );
+			$event_url = apply_filters( 'tribe_events_get_link', $event_url, $type, $secondary, $term, $url_args, $featured );
 
-			// @todo deprecate on 4.2
+			/**
+			 * @deprecated 4.3
+			 */
 			$event_url = apply_filters( 'tribe_events_getLink', $event_url, $type, $secondary, $term, $url_args );
 
 			// Add the Arguments back

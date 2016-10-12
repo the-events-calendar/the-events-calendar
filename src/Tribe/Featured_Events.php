@@ -3,6 +3,7 @@ class Tribe__Events__Featured_Events {
 	const FEATURED_EVENT_KEY = '_tribe_featured';
 
 	protected $query_helper;
+	protected $permalinks_helper;
 
 	/**
 	 * @internal
@@ -15,6 +16,19 @@ class Tribe__Events__Featured_Events {
 		}
 
 		return $this->query_helper;
+	}
+
+	/**
+	 * @internal
+	 *
+	 * @return Tribe__Events__Featured_Events__Permalinks_Helper
+	 */
+	public function permalinks_helper() {
+		if ( empty( $this->permalinks_helper ) ) {
+			$this->permalinks_helper = new Tribe__Events__Featured_Events__Permalinks_Helper;
+		}
+
+		return $this->permalinks_helper;
 	}
 
 	/**
