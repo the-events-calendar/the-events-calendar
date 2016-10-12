@@ -106,6 +106,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/** @var Tribe__Admin__Activation_Page */
 		protected $activation_page;
 
+		/** @var Tribe__Events__Featured_Events */
+		protected $featured_events;
+
 		// @todo remove in 4.0
 		public $upcomingSlug = 'upcoming';
 		public $pastSlug = 'past';
@@ -344,6 +347,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			return $updater;
+		}
+
+		/**
+		 * @return Tribe__Events__Featured_Events
+		 */
+		public function featured_events() {
+			if ( empty( $this->featured_events ) ) {
+				$this->featured_events = new Tribe__Events__Featured_Events;
+			}
+
+			return $this->featured_events;
 		}
 
 		/**
@@ -604,6 +618,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * Expire notices
 			 */
 			add_action( 'transition_post_status', array( $this, 'action_expire_archive_slug_conflict_notice' ), 10, 3 );
+			
+			// Add support for featured events
+			$this->featured_events()->query_helper()->hook_up();
 		}
 
 		/**

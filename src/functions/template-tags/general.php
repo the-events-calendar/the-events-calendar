@@ -1586,4 +1586,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		return $field ? $body_and_separator . $field : $body;
 	}
+
+	/**
+	 * Provides access to the Featured Events manager.
+	 *
+	 * @return Tribe__Events__Featured_Events
+	 */
+	function tribe_featured_events() {
+		return Tribe__Events__Main::instance()->featured_events();
+	}
 }
