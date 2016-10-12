@@ -254,8 +254,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		if ( 'csv' === $queue->record->meta['origin'] && 'tribe_events' !== $queue->record->meta['content_type'] ) {
 			$content_type_object = get_post_type_object( $queue->record->meta['content_type'] );
-			$content_type = $content_type_object->labels->singular_name_lowercase;
-			$content_type_plural = $content_type_object->labels->plural_name_lowercase;
+			$content_type = empty( $content_type_object->labels->singular_name_lowercase ) ? $content_type_object->labels->singular_name : $content_type_object->labels->singular_name_lowercase;
+			$content_type_plural = empty( $content_type_object->labels->plural_name_lowercase ) ? $content_type_object->labels->name : $content_type_object->labels->plural_name_lowercase;
 			$content_post_type = $content_type_object->name;
 		}
 
