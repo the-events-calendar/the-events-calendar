@@ -95,7 +95,7 @@ class Tribe__Events__Aggregator__Tabs extends Tribe__Tabbed_View  {
 			return false;
 		}
 
-		$slug    = $this->get_requested_slug( $slug );
+		$slug = $this->get_requested_slug( $slug );
 
 		// Fetch the Active Tab
 		$tab = $this->get_active();
