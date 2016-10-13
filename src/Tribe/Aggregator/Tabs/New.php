@@ -254,8 +254,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		if ( 'csv' === $queue->record->meta['origin'] && 'tribe_events' !== $queue->record->meta['content_type'] ) {
 			$content_type_object = get_post_type_object( $queue->record->meta['content_type'] );
-			$content_type = $content_type_object->labels->singular_name_lowercase;
-			$content_type_plural = $content_type_object->labels->plural_name_lowercase;
+			$content_type = empty( $content_type_object->labels->singular_name_lowercase ) ? $content_type_object->labels->singular_name : $content_type_object->labels->singular_name_lowercase;
+			$content_type_plural = empty( $content_type_object->labels->plural_name_lowercase ) ? $content_type_object->labels->name : $content_type_object->labels->plural_name_lowercase;
 			$content_post_type = $content_type_object->name;
 		}
 
@@ -303,10 +303,13 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 
 			if ( $queue && ! $messages ) {
-				$messages['success'][] = __( 'No events were imported or updated.', 'the-events-calendar' );
+				$messages['success'][] = sprintf(
+					__( 'No %1$s were imported or updated.', 'the-events-calendar' ),
+					$content_type_plural
+				);
 			}
 
-			if ( ! empty( $messages['success'] ) ) {
+			if ( ! empty( $messages['success'] ) && ! empty( $content_type_object->show_ui ) ) {
 				// append a URL to view all records for the given post type
 				$url = admin_url( 'edit.php?post_type=' . $content_post_type );
 				$link_text = sprintf( __( 'View all %s', 'the-events-calendar' ), $content_type_plural );
@@ -487,7 +490,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		<div class="notice inline notice-info tribe-dependent tribe-notice-tribe-missing-aggregator-license" data-ref="tribe-missing-aggregator-license" data-depends="#tribe-ea-field-origin" data-condition-empty>
 
 			<div class="upsell-banner">
-				<img src="<?php echo esc_url( tribe_resource_url( 'images/aggregator/upsell-banner.png' ) ) ; ?>">
+				<img src="<?php echo esc_url( tribe_events_resource_url( 'images/aggregator/upsell-banner.png' ) ) ; ?>">
 			</div>
 
 			<h3><?php esc_html_e( 'Import Using Event Aggregator', 'the-events-calendar' ); ?></h3>
