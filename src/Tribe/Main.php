@@ -172,7 +172,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		);
 
 		public $venueTags = array(
-			'_VenueVenue',
 			'_VenueCountry',
 			'_VenueAddress',
 			'_VenueCity',
@@ -185,7 +184,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		);
 
 		public $organizerTags = array(
-			'_OrganizerOrganizer',
 			'_OrganizerEmail',
 			'_OrganizerWebsite',
 			'_OrganizerPhone',
@@ -3548,8 +3546,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$saved = true;
 				}
 
+				$is_saved = $event->ID && isset( $saved ) && $saved;
+
+				if ( $is_saved ) {
+					$venue_title = apply_filters( 'the_title', $post->post_title );
+				}
+
 				foreach ( $this->venueTags as $tag ) {
-					if ( $event->ID && isset( $saved ) && $saved ) { //if there is a post AND the post has been saved at least once.
+					if ( $is_saved ) { //if there is a post AND the post has been saved at least once.
 						$$tag = esc_html( get_post_meta( $event->ID, $tag, true ) );
 					} else {
 						$cleaned_tag = str_replace( '_Venue', '', $tag );
@@ -3594,8 +3598,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$saved = true;
 				}
 
-				foreach ( $this->organizerTags as $tag ) {
-					if ( $postId && $saved ) { //if there is a post AND the post has been saved at least once.
+				if ( $postId && $saved ) { //if there is a post AND the post has been saved at least once.
+					$organizer_title = apply_filters( 'the_title', $post->post_title );
+					foreach ( $this->organizerTags as $tag ) {
 						$$tag = get_post_meta( $postId, $tag, true );
 					}
 				}
