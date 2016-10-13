@@ -309,7 +309,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Upgrade Notice ==
 
-= [4.3] 2016-10-13 =
+= [4.3] =
 
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
