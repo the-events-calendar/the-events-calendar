@@ -15,7 +15,7 @@ defined( 'WPINC' ) or die;
 
 		/**
 		 * Static singleton variable
-	 * @var self
+		 * @var self
 		 */
 		public static $instance;
 
@@ -112,15 +112,15 @@ defined( 'WPINC' ) or die;
 			do_action( 'tribe_events_pre_rewrite', $this );
 
 			/**
-		 * Provides an opportunity to modify The Events Calendar's rewrite rules before they
-		 * are merged in to WP's own rewrite rules.
-		 *
-		 * @param array $events_rewrite_rules
-		 * @param Tribe__Events__Rewrite $tribe_rewrite
+			 * Provides an opportunity to modify The Events Calendar's rewrite rules before they
+			 * are merged in to WP's own rewrite rules.
+			 *
+			 * @param array $events_rewrite_rules
+			 * @param Tribe__Events__Rewrite $tribe_rewrite
 			 */
-		$this->rules = apply_filters( 'tribe_events_rewrite_rules_custom', $this->rules, $this );
+			$this->rules = apply_filters( 'tribe_events_rewrite_rules_custom', $this->rules, $this );
 
-		$wp_rewrite->rules = $this->rules + $wp_rewrite->rules;
+			$wp_rewrite->rules = $this->rules + $wp_rewrite->rules;
 		}
 
 		/**

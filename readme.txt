@@ -309,13 +309,13 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Upgrade Notice ==
 
-= [4.3] =
+= [4.3] 2016-10-13 =
 
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [4.3] 2016-10-12 =
+= [4.3] 2016-10-13 =
 
 * Feature - Added Event Aggregator to enable service-based event imports from iCal feeds, Facebook, and Meetup
 * Feature - Revamped the CSV import screens to work within the new Event Aggregator pages
