@@ -168,9 +168,9 @@ class Tribe__Events__Aggregator__Event {
 			$keys[] = $key;
 			$keys[] = "_{$fields[ $origin ]['legacy']}";
 
-			$sql .= 'AND meta_key IN ( "' . implode( '", "', $keys ) .'" )';
+			$sql .= 'AND meta_key IN ( "' . implode( '", "', array_map( 'esc_sql', $keys ) ) .'" )';
 		} else {
-			$sql .= 'AND meta_key = ' . esc_sql( $key );
+			$sql .= 'AND meta_key = "' . esc_sql( $key ) . '"';
 		}
 
 		return $wpdb->get_results( $sql, OBJECT_K );
