@@ -2,7 +2,6 @@
 class Tribe__Events__Featured_Events {
 	const FEATURED_EVENT_KEY = '_tribe_featured';
 
-	protected $editor_metabox;
 	protected $query_helper;
 	protected $permalinks_helper;
 
