@@ -107,6 +107,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 					'eventDisplay'   => 'list',
 					'posts_per_page' => self::$limit,
 					'tribe_render_context' => 'widget',
+					'featured' => (bool) $instance['featured_events_only'],
 				)
 			)
 		);
@@ -174,9 +175,10 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$new_instance = $this->default_instance_args( $new_instance );
 
 		/* Strip tags (if needed) and update the widget settings. */
-		$instance['title']              = strip_tags( $new_instance['title'] );
-		$instance['limit']              = $new_instance['limit'];
-		$instance['no_upcoming_events'] = $new_instance['no_upcoming_events'];
+		$instance['title']                = strip_tags( $new_instance['title'] );
+		$instance['limit']                = $new_instance['limit'];
+		$instance['no_upcoming_events']   = $new_instance['no_upcoming_events'];
+		$instance['featured_events_only'] = $new_instance['featured_events_only'];
 
 		if ( isset( $new_instance['jsonld_enable'] ) && $new_instance['jsonld_enable'] == true ) {
 			$instance['jsonld_enable'] = 1;
