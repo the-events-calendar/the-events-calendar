@@ -61,12 +61,6 @@ class Tribe__Events__Integrations__WPML__Filters {
 
 		$bases = $tec->get_i18n_strings( $bases, $languages, $domains, $current_locale );
 
-		$tax_sync_options    = $sitepress->get_setting( 'taxonomies_sync_option' );
-		$translate_event_cat = ! empty( $tax_sync_options[ Tribe__Events__Main::TAXONOMY ] );
-		if ( $translate_event_cat ) {
-			$bases = $this->add_not_accented_bases_to_for( $bases, 'tax' );
-		}
-
 		// re-hook WPML filter
 		add_filter( 'locale', array( $sitepress, 'locale_filter' ) );
 
@@ -110,25 +104,4 @@ class Tribe__Events__Integrations__WPML__Filters {
 		return $bases;
 	}
 
-	/**
-	 * Adds the non accented version of the bases to a base array.
-	 *
-	 * @param array $bases
-	 * @param       $key
-	 *
-	 * @return array
-	 */
-	protected function add_not_accented_bases_to_for( array $bases, $key ) {
-		$original_tax_bases = $bases[ $key ];
-
-		foreach ( $original_tax_bases as $tax_base ) {
-			$flat = remove_accents( urldecode( $tax_base ) );
-			if ( $flat === $tax_base ) {
-				continue;
-			}
-			$bases[ $key ][] = $flat;
-		}
-
-		return $bases;
-	}
 }
