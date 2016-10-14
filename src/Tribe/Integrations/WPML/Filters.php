@@ -61,6 +61,12 @@ class Tribe__Events__Integrations__WPML__Filters {
 
 		$bases = $tec->get_i18n_strings( $bases, $languages, $domains, $current_locale );
 
+		$tax_sync_options    = $sitepress->get_setting( 'taxonomies_sync_option' );
+		$translate_event_cat = ! empty( $tax_sync_options[ Tribe__Events__Main::TAXONOMY ] );
+		if ( $translate_event_cat ) {
+			$bases = $this->add_not_accented_bases_to_for( $bases, 'tax' );
+		}
+
 		// re-hook WPML filter
 		add_filter( 'locale', array( $sitepress, 'locale_filter' ) );
 
@@ -68,24 +74,59 @@ class Tribe__Events__Integrations__WPML__Filters {
 		$post_slug_translation_on  = ! empty( $sitepress_settings['posts_slug_translation']['on'] );
 
 		if ( $string_translation_active && $post_slug_translation_on ) {
-			$supported_post_types = array( Tribe__Events__Main::POSTTYPE );
+			$bases  = $this->translate_single_slugs( $bases );
+		}
 
-			foreach ( $supported_post_types as $post_type ) {
-				// check that translations are active for this CPT
-				$cpt_slug_is_not_translated = empty( $sitepress_settings['posts_slug_translation']['types'][ $post_type ] );
+		return $bases;
+	}
 
-				if ( $cpt_slug_is_not_translated ) {
-					continue;
-				}
+	/**
+	 * @param $bases
+	 *
+	 * @return array
+	 */
+	protected function translate_single_slugs( array $bases ) {
+		global $sitepress_settings;
 
-				$slug_translations = WPML_Slug_Translation::get_translations( $post_type );
+		$supported_post_types = array( Tribe__Events__Main::POSTTYPE );
 
-				if ( ! ( is_array( $slug_translations ) && isset( $slug_translations[1] ) ) ) {
-					continue;
-				}
+		foreach ( $supported_post_types as $post_type ) {
+			// check that translations are active for this CPT
+			$cpt_slug_is_not_translated = empty( $sitepress_settings['posts_slug_translation']['types'][ $post_type ] );
 
-				$bases['single'] = array_merge( $bases['single'], wp_list_pluck( $slug_translations[1], 'value' ) );
+			if ( $cpt_slug_is_not_translated ) {
+				continue;
 			}
+
+			$slug_translations = WPML_Slug_Translation::get_translations( $post_type );
+
+			if ( ! ( is_array( $slug_translations ) && isset( $slug_translations[1] ) ) ) {
+				continue;
+			}
+
+			$bases['single'] = array_merge( $bases['single'], wp_list_pluck( $slug_translations[1], 'value' ) );
+		}
+
+		return $bases;
+	}
+
+	/**
+	 * Adds the non accented version of the bases to a base array.
+	 *
+	 * @param array $bases
+	 * @param       $key
+	 *
+	 * @return array
+	 */
+	protected function add_not_accented_bases_to_for( array $bases, $key ) {
+		$original_tax_bases = $bases[ $key ];
+
+		foreach ( $original_tax_bases as $tax_base ) {
+			$flat = remove_accents( urldecode( $tax_base ) );
+			if ( $flat === $tax_base ) {
+				continue;
+			}
+			$bases[ $key ][] = $flat;
 		}
 
 		return $bases;
