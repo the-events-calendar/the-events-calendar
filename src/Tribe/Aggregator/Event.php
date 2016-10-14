@@ -164,13 +164,13 @@ class Tribe__Events__Aggregator__Event {
 		/**
 		 * Allows us to check for legacy meta keys
 		 */
-		if ( empty( $fields[ $origin ]['legacy'] ) ) {
-			$sql .= 'AND meta_key = ' . esc_sql( $key );
-		} else {
+		if ( ! empty( $fields[ $origin ]['legacy'] ) ) {
 			$keys[] = $key;
 			$keys[] = "_{$fields[ $origin ]['legacy']}";
 
 			$sql .= 'AND meta_key IN ( "' . implode( '", "', $keys ) .'" )';
+		} else {
+			$sql .= 'AND meta_key = ' . esc_sql( $key );
 		}
 
 		return $wpdb->get_results( $sql, OBJECT_K );
