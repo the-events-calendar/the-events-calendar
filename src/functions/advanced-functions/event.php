@@ -32,6 +32,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * - EventShowMapLink bool - Set to true to display a link to the map in the Event view.
 	 * - EventShowMap bool - Set to true to embed the map in the Event view.
 	 * - EventCost string - Default cost of the Event.
+	 * - EventURL string - Link to the Event Website or Third-Party page
 	 * - Venue array - Array of data to create or update an Venue to be associated with the Event. {@link tribe_create_venue}.
 	 * - Organizer array - Array of data to create or update an Organizer to be associated with the Event. {@link tribe_create_organizer}.
 	 *
