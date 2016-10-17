@@ -315,6 +315,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.3.1] tbd =
+
+* Fix - Fixed the support for translated event category archive slug that could lead to broken links on the front-end while using WPML [62018]
+
 = [4.3] 2016-10-13 =
 
 * Feature - Added Event Aggregator to enable service-based event imports from iCal feeds, Facebook, and Meetup
