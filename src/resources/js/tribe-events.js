@@ -294,6 +294,31 @@ tribeDateFormat.i18n = {
 	]
 };
 
+/**
+ * A collection of utility functions.
+ *
+ * @type {{getQueryVars: tribeUtils.getQueryVars}}
+ */
+var tribeUtils = {
+	/**
+	 * Searches a URL, or the current page URL, for query vars and returns an object listing
+	 * them where each query var name is a property associated to its value(s).
+	 *
+	 * @param string location Def. to `location`, an optional URL to scan for query vars.
+	 *
+	 * @returns {{}} An array containing the query vars as properties.
+	 */
+	'getQueryVars': function ( url ) {
+		var queryVars = {},
+			url = url || location;
+		url.search.substr( 1 ).split( '&' ).forEach( function ( queryVar ) {
+			queryVars[ queryVar.split( '=' )[0] ] = queryVar.split( '=' )[1];
+		} );
+
+		return queryVars;
+	}
+};
+
 Date.prototype.format = function( mask, utc ) {
 	return tribeDateFormat( this, mask, utc );
 };

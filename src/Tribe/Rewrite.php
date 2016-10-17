@@ -298,6 +298,9 @@ defined( 'WPINC' ) or die;
 					// Escape all the Bases
 					$base = array_map( 'preg_quote', $base );
 
+					// Add the non accented version of each base
+					$base = $this->add_non_accented_bases_to_for( $base );
+
 					// Create the Regular Expression
 					$bases[ $type ] = '(?:' . implode( '|', $base ) . ')';
 				}
@@ -525,5 +528,26 @@ defined( 'WPINC' ) or die;
 			}
 
 			return false;
+		}
+
+		/**
+		 * Adds the non accented version of the bases to a base array.
+		 *
+		 * @param array $base
+		 *
+		 * @return array
+		 */
+		protected function add_non_accented_bases_to_for( array $base ) {
+			$original_tax_bases = $base;
+
+			foreach ( $original_tax_bases as $tax_base ) {
+				$flat = remove_accents( urldecode( $tax_base ) );
+				if ( $flat === $tax_base || in_array( $flat, $base ) ) {
+					continue;
+				}
+				$base[] = $flat;
+			}
+
+			return $base;
 		}
 	}
