@@ -45,12 +45,12 @@ class Tribe__Events__Integrations__WPML__Category_Translation {
 		$translate_event_cat  = ! empty( $tax_sync_options[ Tribe__Events__Main::TAXONOMY ] );
 		$using_lang_query_var = $sitepress->get_setting( 'language_negotiation_type' ) == 3;
 
-		if ( !$translate_event_cat || $using_lang_query_var ) {
+		if ( ! $translate_event_cat || $using_lang_query_var ) {
 			$slug = 'category';
 		} else {
-			$lang        = $sitepress->get_locale( ICL_LANGUAGE_CODE );
+			$lang            = $sitepress->get_locale( ICL_LANGUAGE_CODE );
 			$tec_translation = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( array( 'category' ), $lang );
-			$slug = ! empty( $tec_translation[0] ) ? end( $tec_translation[0] ) : $slug;
+			$slug            = ! empty( $tec_translation[0] ) ? end( $tec_translation[0] ) : $slug;
 
 			$remove_accents = true;
 

@@ -68,7 +68,7 @@ class Tribe__Events__Integrations__WPML__Filters {
 		$post_slug_translation_on  = ! empty( $sitepress_settings['posts_slug_translation']['on'] );
 
 		if ( $string_translation_active && $post_slug_translation_on ) {
-			$bases  = $this->translate_single_slugs( $bases );
+			$bases = $this->translate_single_slugs( $bases );
 		}
 
 		return $bases;
@@ -94,7 +94,7 @@ class Tribe__Events__Integrations__WPML__Filters {
 
 			$slug_translations = WPML_Slug_Translation::get_translations( $post_type );
 
-			if ( ! ( is_array( $slug_translations ) && isset( $slug_translations[1] ) ) ) {
+			if ( ! isset( $slug_translations[1] ) ) {
 				continue;
 			}
 
