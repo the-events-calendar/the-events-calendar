@@ -31,6 +31,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		'facebook' => array(
 			'source' => 'facebook_id',
 			'target' => 'EventFacebookID',
+			'legacy' => 'FacebookID',
 		),
 		'meetup' => array(
 			'source' => 'meetup_id',
