@@ -309,9 +309,10 @@ var tribeUtils = {
 	 * @returns {{}} An array containing the query vars as properties.
 	 */
 	'getQueryVars': function ( url ) {
-		var queryVars = {}, url = url || location;
-		url.search.substr( 1 ).split( "&" ).forEach( function ( queryVar ) {
-			queryVars[queryVar.split( "=" )[0]] = queryVar.split( "=" )[1]
+		var queryVars = {},
+			url = url || location;
+		url.search.substr( 1 ).split( '&' ).forEach( function ( queryVar ) {
+			queryVars[ queryVar.split( '=' )[0] ] = queryVar.split( '=' )[1];
 		} );
 
 		return queryVars;
