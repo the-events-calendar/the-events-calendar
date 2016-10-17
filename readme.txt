@@ -318,6 +318,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.3.1] tbd =
 
 * Fix - Fixed the support for translated event category archive slug that could lead to broken links on the front-end while using WPML [62018]
+* Fix - Fixed a bug where searching for past events in the List view would always yield no results [61863]
 
 = [4.3.0.1] 2016-10-14 =
 
