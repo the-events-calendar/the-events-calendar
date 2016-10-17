@@ -53,12 +53,62 @@ class Tribe__Events__Aggregator__Page {
 
 		add_action( 'admin_menu', array( $this, 'register_menu_item' ) );
 		add_action( 'current_screen', array( $this, 'action_request' ) );
+		add_action( 'init', array( $this, 'init' ) );
 
 		// filter the plupload default settings to remove mime type restrictions
 		add_filter( 'plupload_default_settings', array( $this, 'filter_plupload_default_settings' ) );
 
 		// Setup Tabs Instance
 		$this->tabs = Tribe__Events__Aggregator__Tabs::instance();
+
+		tribe_notice( 'tribe-aggregator-legacy-import-plugins-active', array( $this, 'notice_legacy_plugins' ), 'type=warning' );
+	}
+
+	public function init() {
+		$plugin = Tribe__Events__Main::instance();
+
+		$localize_data = array(
+			'name' => 'tribe_aggregator',
+			'data' => array(
+				'csv_column_mapping' => array(
+					'events' => get_option( 'tribe_events_import_column_mapping_events', array() ),
+					'organizer' => get_option( 'tribe_events_import_column_mapping_organizers', array() ),
+					'venue' => get_option( 'tribe_events_import_column_mapping_venues', array() ),
+				),
+				'l10n' => array(
+					'all_day' => __( 'All Day', 'the-events-calendar' ),
+					'am' => _x( 'AM', 'Meridian: am', 'the-events-calendar' ),
+					'pm' => _x( 'PM', 'Meridian: pm', 'the-events-calendar' ),
+					'preview_timeout' => __( 'The preview is taking longer than expected. Please try again in a moment.', 'the-events-calendar' ),
+					'preview_fetch_error_prefix' => __( 'There was an error fetching the results from your import:', 'the-events-calendar' ),
+					'import_all' => __( 'Import All (%d)', 'the-events-calendar' ),
+					'import_all_no_number' => __( 'Import All', 'the-events-calendar' ),
+					'import_checked' => __( 'Import Checked (%d)', 'the-events-calendar' ),
+					'create_schedule' => __( 'Save Scheduled Import', 'the-events-calendar' ),
+					'edit_save' => __( 'Save Changes', 'the-events-calendar' ),
+					'events_required_for_manual_submit' => __( 'Your import must include at least one event', 'the-events-calendar' ),
+					'no_results' => __( 'Your preview doesn\'t have any records to import.', 'the-events-calendar' ),
+					'verify_schedule_delete' => __( 'Removing this scheduled import will stop automatic imports from the source. No events will be deleted.', 'the-events-calendar' ),
+					'view_filters' => __( 'View Filters', 'the-events-calendar' ),
+					'hide_filters' => __( 'Hide Filters', 'the-events-calendar' ),
+					'preview_polling' => array(
+						__( 'Please wait while your preview is fetched.', 'the-events-calendar' ),
+						__( 'Please continue to wait while your preview is generated.', 'the-events-calendar' ),
+						__( 'If all goes according to plan, you will have your preview in a few moments.', 'the-events-calendar' ),
+						__( 'Your preview is taking a bit longer than expected, but it <i>is</i> still being generated.', 'the-events-calendar' ),
+					),
+					'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
+				),
+				'default_settings' => Tribe__Events__Aggregator__Settings::instance()->get_all_default_settings(),
+			),
+		);
+
+		/**
+		 * Filters the CSV column mapping output
+		 *
+		 * @param array $mapping Mapping data indexed by CSV import type
+		 */
+		$localize_data['data']['csv_column_mapping'] = apply_filters( 'tribe_aggregator_csv_column_mapping', $localize_data['data']['csv_column_mapping'] );
 
 		// Load these on all the pages
 		tribe_assets( $plugin,
@@ -83,47 +133,11 @@ class Tribe__Events__Aggregator__Page {
 				'conditionals' => array(
 					array( $this, 'is_screen' ),
 				),
-				'localize' => (object) array(
-					'name' => 'tribe_aggregator',
-					'data' => array(
-						'csv_column_mapping' => array(
-							'events' => get_option( 'tribe_events_import_column_mapping_events', array() ),
-							'organizer' => get_option( 'tribe_events_import_column_mapping_organizers', array() ),
-							'venue' => get_option( 'tribe_events_import_column_mapping_venues', array() ),
-						),
-						'l10n' => array(
-							'all_day' => __( 'All Day', 'the-events-calendar' ),
-							'am' => _x( 'AM', 'Meridian: am', 'the-events-calendar' ),
-							'pm' => _x( 'PM', 'Meridian: pm', 'the-events-calendar' ),
-							'preview_timeout' => __( 'The preview is taking longer than expected. Please try again in a moment.', 'the-events-calendar' ),
-							'preview_fetch_error_prefix' => __( 'There was an error fetching the results from your import:', 'the-events-calendar' ),
-							'import_all' => __( 'Import All (%d)', 'the-events-calendar' ),
-							'import_all_no_number' => __( 'Import All', 'the-events-calendar' ),
-							'import_checked' => __( 'Import Checked (%d)', 'the-events-calendar' ),
-							'create_schedule' => __( 'Save Scheduled Import', 'the-events-calendar' ),
-							'edit_save' => __( 'Save Changes', 'the-events-calendar' ),
-							'events_required_for_manual_submit' => __( 'Your import must include at least one event', 'the-events-calendar' ),
-							'no_results' => __( 'Your preview doesn\'t have any records to import.', 'the-events-calendar' ),
-							'verify_schedule_delete' => __( 'Removing this scheduled import will stop automatic imports from the source. No events will be deleted.', 'the-events-calendar' ),
-							'view_filters' => __( 'View Filters', 'the-events-calendar' ),
-							'hide_filters' => __( 'Hide Filters', 'the-events-calendar' ),
-							'preview_polling' => array(
-								__( 'Please wait while your preview is fetched.', 'the-events-calendar' ),
-								__( 'Please continue to wait while your preview is generated.', 'the-events-calendar' ),
-								__( 'If all goes according to plan, you will have your preview in a few moments.', 'the-events-calendar' ),
-								__( 'Your preview is taking a bit longer than expected, but it <i>is</i> still being generated.', 'the-events-calendar' ),
-							),
-							'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
-						),
-						'default_settings' => Tribe__Events__Aggregator__Settings::instance()->get_all_default_settings(),
-					),
-				),
+				'localize' => (object) $localize_data,
 			)
 		);
 
 		tribe_asset( $plugin, 'tribe-ea-facebook-login', 'aggregator-facebook-login.js', array( 'jquery', 'underscore', 'tribe-dependency' ), 'admin_enqueue_scripts' );
-
-		tribe_notice( 'tribe-aggregator-legacy-import-plugins-active', array( $this, 'notice_legacy_plugins' ), 'type=warning' );
 	}
 
 	/**
