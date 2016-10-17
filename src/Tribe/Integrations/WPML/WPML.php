@@ -66,6 +66,11 @@ class Tribe__Events__Integrations__WPML__WPML {
 
 		$permalinks = Tribe__Events__Integrations__WPML__Permalinks::instance();
 		add_filter( 'post_type_link', array( $permalinks, 'filter_post_type_link' ), 20, 2 );
+
+		if ( ! is_admin() ) {
+			$category_translation = Tribe__Events__Integrations__WPML__Category_Translation::instance();
+			add_filter( 'tribe_events_category_slug', array( $category_translation, 'filter_tribe_events_category_slug' ), 20, 2 );
+		}
 	}
 
 	protected function setup_cache_expiration_triggers() {
