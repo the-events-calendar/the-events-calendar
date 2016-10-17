@@ -50,6 +50,14 @@ class Tribe__Events__Aggregator__Record__Activity {
 
 		// Entry for Attachment
 		$this->register( 'attachment', array( 'attachments', 'image', 'images' ) );
+
+		/**
+		 * Fires during record activity wakeup to allow other plugins to inject/register activity entries
+		 * for other custom post types
+		 *
+		 * @param Tribe__Events__Aggregator__Record__Activity $this
+		 */
+		do_action( 'tribe_aggregator_record_activity_wakeup', $this );
 	}
 
 	/**

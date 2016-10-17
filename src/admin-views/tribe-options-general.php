@@ -156,11 +156,17 @@ $general_tab_fields = Tribe__Main::array_insert_after_key(
 	array(
 		'viewWelcomePage'          => array(
 			'type'        => 'html',
-			'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'View Welcome Page', 'the-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . Tribe__Settings::instance()->get_url( array( 'tec-welcome-message' => true ) ) . '" class="button">' . esc_html__( 'View Welcome Page', 'the-events-calendar' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you initially installed the plugin.', 'the-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
+			'html'        =>
+				'<fieldset class="tribe-field tribe-field-html"><legend>' .
+					esc_html__( 'View Welcome Page', 'the-events-calendar' ) .
+				'</legend><div class="tribe-field-wrap"><a href="' . Tribe__Settings::instance()->get_url( array( Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ) ) . '" class="button">' . esc_html__( 'View Welcome Page', 'the-events-calendar' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you initially installed the plugin.', 'the-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
 		),
 		'viewUpdatePage'          => array(
 			'type'        => 'html',
-			'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'View Update Page', 'the-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . Tribe__Settings::instance()->get_url( array( 'tec-update-message' => true ) ) . '" class="button">' . esc_html__( 'View Update Page', 'the-events-calendar' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you updated the plugin.', 'the-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
+			'html'        =>
+				'<fieldset class="tribe-field tribe-field-html"><legend>' .
+					esc_html__( 'View Update Page', 'the-events-calendar' ) .
+				'</legend><div class="tribe-field-wrap"><a href="' . Tribe__Settings::instance()->get_url( array( Tribe__Events__Main::instance()->activation_page->update_slug => 1 ) ) . '" class="button">' . esc_html__( 'View Update Page', 'the-events-calendar' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you updated the plugin.', 'the-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
 		),
 	)
 );

@@ -280,6 +280,9 @@ class Tribe__Events__Organizer {
 			unset( $data['FeaturedImage'] );
 		}
 
+		// the organizer name is saved in the the post_title
+		unset( $data['Organizer'] );
+
 		foreach ( $data as $key => $var ) {
 			update_post_meta( $organizerId, '_Organizer' . $key, $var );
 		}
