@@ -315,6 +315,9 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.3.1] TBD =
+* Tweak - Improve `tribe_create_event` documentation (Props to Keith) [44871]
+
 = [4.3.0.1] 2016-10-14 =
 * Fix - Preventing legacy Facebook events from been duplicated
 
