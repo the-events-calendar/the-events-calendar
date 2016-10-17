@@ -319,6 +319,8 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 * Fix - Fixed the support for translated event category archive slug that could lead to broken links on the front-end while using WPML [62018]
 * Fix - Fixed a bug where searching for past events in the List view would always yield no results [61863]
+* Tweak - Added plugin dir and file path constants.
+* Tweak - Registered plugin as active with Tribe Common. [66657]
 
 = [4.3.0.1] 2016-10-14 =
 
