@@ -317,6 +317,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.3.1] TBD =
 
+* Fix - Venue and Organizers urls are been generated correctly again, without the `-1` [68168]
 * Fix - Pagination links on Month view are updating correctly [67977]
 * Tweak - Improve `tribe_create_event` documentation (Props to Keith) [44871]
 * Fix - Fixed the support for translated event category archive slug that could lead to broken links on the front-end while using WPML [62018]
