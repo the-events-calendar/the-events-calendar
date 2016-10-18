@@ -317,11 +317,12 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.3.1] TBD =
 
+* Fix - Resolved a bug where Venue and Organizers urls were been generated incorrectly [68168]
 * Fix - Pagination links on Month view are updating correctly [67977]
+* Fix - Resolved the support for translated event category archive slug that could lead to broken links on the front-end while using WPML [62018]
+* Fix - Resolved a bug where searching for past events in the List view would always yield no results [61863]
+* Fix - Resolved an issue where long file names would break plugin updates on some Windows installations [62552]
 * Tweak - Improve `tribe_create_event` documentation (Props to Keith) [44871]
-* Fix - Fixed the support for translated event category archive slug that could lead to broken links on the front-end while using WPML [62018]
-* Fix - Fixed a bug where searching for past events in the List view would always yield no results [61863]
-* Fix - Fixed an issue where long file names would break plugin updates on some Windows installations [62552]
 
 = [4.3.0.1] 2016-10-14 =
 
