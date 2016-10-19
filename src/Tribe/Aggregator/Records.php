@@ -595,7 +595,27 @@ class Tribe__Events__Aggregator__Records {
 		update_post_meta( $id, Tribe__Events__Aggregator__Event::$updated_key, $record->post->post_date );
 	}
 
+	/**
+	 * Prefixes a String to be the Key for Record meta
+	 *
+	 * @since  4.3
+	 *
+	 * @param  string $str Append to the Prefix
+	 *
+	 * @return string
+	 */
 	public function prefix_meta( $str = null ) {
 		return Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . $str;
+	}
+
+	/**
+	 * Fetches the Amount of seconds that we will hold a Record Log on the Posts Table
+	 *
+	 * @since  4.3.2
+	 *
+	 * @return int
+	 */
+	public function get_retention() {
+		return apply_filters( 'tribe_aggregator_record_retention', WEEK_IN_SECONDS );
 	}
 }
