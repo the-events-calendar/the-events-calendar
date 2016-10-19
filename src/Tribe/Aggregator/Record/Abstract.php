@@ -760,6 +760,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
+		// It's never time for On Demand schedule, bail!
+		if ( ! isset( $this->frequency->id ) || 'on_demand' === $this->frequency->id ) {
+			return false;
+		}
+
 		$current  = time();
 		$modified = strtotime( $this->post->post_modified_gmt );
 		$next     = $modified + $this->frequency->interval;
