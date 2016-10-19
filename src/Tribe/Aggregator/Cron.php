@@ -279,6 +279,8 @@ class Tribe__Events__Aggregator__Cron {
 		}
 
 		$records = Tribe__Events__Aggregator__Records::instance();
+		$service = Tribe__Events__Aggregator__Service::instance();
+		$origins = null;
 
 		$query = $records->query( array(
 			'post_status' => Tribe__Events__Aggregator__Records::$status->schedule,
@@ -303,6 +305,17 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
+			if ( ! $origins ) {
+				$origins = (object) $service->get_origins();
+			}
+
+			// if there are no remaining imports for today, log that and skip
+			if ( isset( $origins->usage->import->remaining ) && 0 >= $origins->usage->import->remaining ) {
+				$this->log( 'debug', sprintf( $service->get_service_message( 'error:usage-limit-exceeded' ) . ' (%1$d)', $record->id ) );
+				$record->update_meta( 'last_import_status', 'error:usage-limit-exceeded' );
+				continue;
+			}
+
 			// Creating the child records based on this Parent
 			$child = $record->create_child_record();
 
@@ -314,11 +327,16 @@ class Tribe__Events__Aggregator__Cron {
 
 				if ( ! empty( $response->status ) ) {
 					$this->log( 'debug', sprintf( '%s — %s (%s)', $response->status, $response->message, $response->data->import_id ) );
+
+					$record->update_meta( 'last_import_status', 'success:queued' );
 				} else {
 					$this->log( 'debug', 'Could not create Queue on Service' );
+
+					$record->update_meta( 'last_import_status', 'error:import-failed' );
 				}
 			} else {
 				$this->log( 'debug', $child->get_error_message() );
+				$record->update_meta( 'last_import_status', 'error:import-failed' );
 			}
 		}
 	}

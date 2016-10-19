@@ -481,12 +481,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$error = null;
 
-		// if the daily limit for import requests has been reached, error out
-		if ( 0 >= $aggregator->get_daily_limit_available() ) {
-			$error = $this->log_limit_reached_error();
-			return $this->set_status_as_failed( $error );
-		}
-
 		$defaults = array(
 			'type'     => $this->meta['type'],
 			'origin'   => $this->meta['origin'],
@@ -569,9 +563,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// store the import id
 		update_post_meta( $this->id, self::$meta_key_prefix . 'import_id', $response->data->import_id );
-
-		// reduce the daily allotment of import creations
-		$aggregator->reduce_daily_limit( 1 );
 
 		return $response;
 	}
@@ -726,21 +717,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	/**
-	 * Logs the fact that the daily import limit has been reached
-	 *
-	 * @return WP_Error
-	 */
-	public function log_limit_reached_error() {
-		$aggregator = Tribe__Events__Aggregator::instance();
-
-		$error = tribe_error( 'core:aggregator:daily-limit-reached', array(), array( $aggregator->get_daily_limit() ) );
-
-		$this->log_error( $error );
-
-		return $error;
-	}
-
-	/**
 	 * Verifies if this Schedule Record can create a new Child Record
 	 * @return boolean
 	 */
@@ -827,6 +803,31 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		return array( 'title' => $title, 'via' => $via );
+	}
+
+	/**
+	 * Fetches the status message for the last import attempt on (scheduled) records
+	 *
+	 * @param string $type Type of message to fetch
+	 *
+	 * @return string
+	 */
+	public function get_last_import_status( $type = 'error' ) {
+		$status = empty( $this->meta['last_import_status'] ) ? null : $this->meta['last_import_status'];
+
+		if ( ! $status ) {
+			return;
+		}
+
+		if ( 0 !== strpos( $status, $type ) ) {
+			return;
+		}
+
+		if ( 'error:usage-limit-exceeded' === $status ) {
+			return __( 'The daily limit for your Event Aggregator license has been reached. Scheduled imports will not run until tomorrow.', 'the-events-calendar' );
+		}
+
+		return Tribe__Events__Aggregator__Service::instance()->get_service_message( $status );
 	}
 
 	/**

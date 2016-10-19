@@ -385,4 +385,19 @@ class Tribe__Events__Aggregator__Service {
 
 		return $response;
 	}
+
+	/**
+	 * Returns a service message based on key
+	 *
+	 * @param string $key Service Message index
+	 *
+	 * @return string
+	 */
+	public function get_service_message( $key ) {
+		if ( empty( $this->service_messages[ $key ] ) ) {
+			return __( 'Unknown service message', 'the-events-calendar' );
+		}
+
+		return $this->service_messages[ $key ];
+	}
 }
