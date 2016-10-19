@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-09-22 06:47:19+0000\n"
+"PO-Revision-Date: 2016-10-19 17:15:10+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,18 @@ msgstr ""
 "X-Generator: GlotPress/2.3.0-alpha\n"
 "Language: it\n"
 "Project-Id-Version: Plugins - The Events Calendar - Stable (latest release)\n"
+
+#: src/admin-views/aggregator/origins/refine.php:5
+msgid "Location"
+msgstr "Luogo"
+
+#: src/admin-views/admin-welcome-message.php:26
+msgid "Stay in touch with The Events Calendar team. We send out periodic updates, key developer notices, and even the occasional discount."
+msgstr ""
+
+#: src/admin-views/admin-welcome-message.php:20
+msgid "Your ratings help us bring The Events Calendar to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support."
+msgstr ""
 
 #: vendor/tickets/src/views/tickets/rsvp.php:127
 msgctxt "order status label"
@@ -1906,11 +1918,11 @@ msgstr ""
 msgid "Eventbrite"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:757
+#: src/Tribe/Aggregator/Record/Abstract.php:758
 msgid "Deleted Attachment: %d"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:332
+#: src/Tribe/Aggregator/Record/Abstract.php:333
 msgid "Record: "
 msgstr ""
 
@@ -2337,7 +2349,7 @@ msgid "There is an update for %s. You'll need to %scheck your license%s to have 
 msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:588 common/src/Tribe/PUE/Notices.php:269
-#: src/Tribe/Aggregator/Record/Abstract.php:772
+#: src/Tribe/Aggregator/Record/Abstract.php:773
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:588
 #: vendor/tickets/common/src/Tribe/PUE/Notices.php:269
 msgid " (opens in a new window)"
@@ -7002,7 +7014,8 @@ msgstr "lista"
 msgid "month"
 msgstr "mese"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3)  #-#-#-#-#
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.0.1) 
+#. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:753
 #: src/Tribe/Main.php:903

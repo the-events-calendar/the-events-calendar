@@ -11,6 +11,18 @@ msgstr ""
 "Language: ca\n"
 "Project-Id-Version: Plugins - The Events Calendar - Stable (latest release)\n"
 
+#: src/admin-views/aggregator/origins/refine.php:5
+msgid "Location"
+msgstr ""
+
+#: src/admin-views/admin-welcome-message.php:26
+msgid "Stay in touch with The Events Calendar team. We send out periodic updates, key developer notices, and even the occasional discount."
+msgstr ""
+
+#: src/admin-views/admin-welcome-message.php:20
+msgid "Your ratings help us bring The Events Calendar to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support."
+msgstr ""
+
 #: vendor/tickets/src/views/tickets/rsvp.php:127
 msgctxt "order status label"
 msgid "RSVP"
@@ -1906,11 +1918,11 @@ msgstr ""
 msgid "Eventbrite"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:757
+#: src/Tribe/Aggregator/Record/Abstract.php:758
 msgid "Deleted Attachment: %d"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:332
+#: src/Tribe/Aggregator/Record/Abstract.php:333
 msgid "Record: "
 msgstr ""
 
@@ -2337,7 +2349,7 @@ msgid "There is an update for %s. You'll need to %scheck your license%s to have 
 msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:588 common/src/Tribe/PUE/Notices.php:269
-#: src/Tribe/Aggregator/Record/Abstract.php:772
+#: src/Tribe/Aggregator/Record/Abstract.php:773
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:588
 #: vendor/tickets/common/src/Tribe/PUE/Notices.php:269
 msgid " (opens in a new window)"
@@ -7002,7 +7014,8 @@ msgstr "llista"
 msgid "month"
 msgstr "mes"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3)  #-#-#-#-#
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.0.1) 
+#. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:753
 #: src/Tribe/Main.php:903
