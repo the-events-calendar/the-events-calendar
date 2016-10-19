@@ -746,6 +746,32 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	/**
+	 * Verifies if this Record can pruned
+	 * @return boolean
+	 */
+	public function has_passed_retention_time() {
+		// Bail if we are trying to prune a Schedule Record
+		if ( Tribe__Events__Aggregator__Records::$status->schedule === $this->post->post_status ) {
+			return false;
+		}
+
+		$current = time();
+		$created = strtotime( $this->post->post_date_gmt );
+
+		// Prevents Pending that is younger than 1 hour to be pruned
+		if (
+			Tribe__Events__Aggregator__Records::$status->pending === $this->post->post_status &&
+			$current > $created + HOUR_IN_SECONDS
+		) {
+			return false;
+		}
+
+		$prune = $created + Tribe__Events__Aggregator__Records::instance()->get_retention();
+
+		return $current > $prune;
+	}
+
+	/**
 	 * Get info about the source, via and title
 	 *
 	 * @return array

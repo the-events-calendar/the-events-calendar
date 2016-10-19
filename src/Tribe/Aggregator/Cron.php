@@ -69,6 +69,7 @@ class Tribe__Events__Aggregator__Cron {
 		// Add the Actual Process to run on the Action
 		add_action( 'tribe_aggregator_cron_run', array( $this, 'verify_child_record_creation' ), 5 );
 		add_action( 'tribe_aggregator_cron_run', array( $this, 'verify_fetching_from_service' ), 15 );
+		add_action( 'tribe_aggregator_cron_run', array( $this, 'purge_expired_records' ), 25 );
 	}
 
 	/**
@@ -203,7 +204,7 @@ class Tribe__Events__Aggregator__Cron {
 	 *
 	 * @return boolean|array|object
 	 */
-	public function filter_check_http_limit( $run = false, $request, $url ) {
+	public function filter_check_http_limit( $run = false, $request = null, $url = null ) {
 		// We bail if it's not a CRON job
 		if ( ! defined( 'DOING_CRON' ) || ! DOING_CRON ) {
 			return $run;
@@ -379,6 +380,56 @@ class Tribe__Events__Aggregator__Cron {
 				}
 			} else {
 				$this->log( 'debug', sprintf( 'Record (%d) — %s', $record->id, $queue->get_error_message() ) );
+			}
+		}
+	}
+
+	/**
+	 * Checks if any Child Record needs to be created, this will run on the Cron every 15m
+	 *
+	 * @return void
+	 */
+	public function purge_expired_records() {
+		$records = Tribe__Events__Aggregator__Records::instance();
+		$statuses = Tribe__Events__Aggregator__Records::$status;
+
+		$query = $records->query( array(
+			'post_status' => array(
+				$statuses->pending,
+				$statuses->success,
+				$statuses->failed,
+				$statuses->draft,
+			),
+			'date_query' => array(
+				array(
+					'before' => date( 'Y-m-d H:i:s', time() - $records->get_retention() ),
+					'column' => 'post_date_gmt',
+				),
+			),
+			'order' => 'ASC',
+			'posts_per_page' => 100,
+		) );
+
+		if ( ! $query->have_posts() ) {
+			$this->log( 'debug', 'No Records over retetion limit, skipped pruning expired' );
+			return false;
+		}
+
+		foreach ( $query->posts as $post ) {
+			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+
+			if ( ! $record->has_passed_retention_time() ) {
+				$this->log( 'debug', sprintf( 'Record (%d) skipped, not passed retetion time', $record->id ) );
+				continue;
+			}
+
+			// Creating the child records based on this Parent
+			$deleted = wp_delete_post( $record->id, true );
+
+			if ( $deleted ) {
+				$this->log( 'debug', sprintf( 'Record (%d), was pruned', $deleted->ID ) );
+			} else {
+				$this->log( 'debug', sprintf( 'Record (%d), was not pruned', $deleted ) );
 			}
 		}
 	}
