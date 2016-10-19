@@ -315,7 +315,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.3.1] TBD =
+= [4.3.1] 2016-10-19 =
 
 * Fix - Resolved a bug where Venue and Organizers urls were been generated incorrectly [68168]
 * Fix - Pagination links on Month view are updating correctly [67977]
