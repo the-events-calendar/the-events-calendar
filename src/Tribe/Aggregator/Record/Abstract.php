@@ -139,7 +139,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function update_meta( $key, $value ) {
 		$this->meta[ $key ] = $value;
-		return update_post_meta( $this->post->ID, self::$meta_key_prefix . $key, $value );
+
+		$field = self::$meta_key_prefix . $key;
+
+		if ( null === $value ) {
+			return delete_post_meta( $this->post->ID, $field );
+		}
+
+		return update_post_meta( $this->post->ID, $field, $value );
 	}
 
 	/**
@@ -301,6 +308,21 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// prefix all keys
 		foreach ( $meta as $key => $value ) {
+			// skip arrays that are empty
+			if ( is_array( $value ) && empty( $value ) ) {
+				continue;
+			}
+
+			// trim scalars
+			if ( is_scalar( $value ) ) {
+				$value = trim( $value );
+			}
+
+			// if the value is blank or null, let's avoid inserting it
+			if ( null === $value || '' === $value ) {
+				continue;
+			}
+
 			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
 		}
 
