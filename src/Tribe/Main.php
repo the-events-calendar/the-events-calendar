@@ -32,8 +32,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '4.3';
-		const MIN_ADDON_VERSION = '4.3';
+		const VERSION           = '4.4dev1';
+		const MIN_ADDON_VERSION = '4.4dev1';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
@@ -103,8 +103,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/** @var Tribe__Events__Admin__Timezone_Settings */
 		public $timezone_settings;
 
-		/** @var Tribe__Admin__Activation_Page */
-		protected $activation_page;
+		/**
+		 * A Stored version of the Welcome and Update Pages
+		 * @var Tribe__Admin__Activation_Page
+		 */
+		public $activation_page;
 
 		// @todo remove in 4.0
 		public $upcomingSlug = 'upcoming';
@@ -169,7 +172,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		);
 
 		public $venueTags = array(
-			'_VenueVenue',
 			'_VenueCountry',
 			'_VenueAddress',
 			'_VenueCity',
@@ -182,7 +184,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		);
 
 		public $organizerTags = array(
-			'_OrganizerOrganizer',
 			'_OrganizerEmail',
 			'_OrganizerWebsite',
 			'_OrganizerPhone',
@@ -350,13 +351,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return Tribe__Admin__Activation_Page
 		 */
 		public function activation_page() {
-			if ( empty( $this->activation_page ) ) {
+			// Setup the activation page only if the relevant class exists (in some edge cases, if another
+			// plugin hosting an earlier version of tribe-common is already active we could hit fatals
+			// if we don't take this precaution).
+			//
+			// @todo remove class_exists() test once enough time has elapsed and the risk has reduced
+			if ( empty( $this->activation_page ) && class_exists( 'Tribe__Admin__Activation_Page' ) ) {
 				$this->activation_page = new Tribe__Admin__Activation_Page( array(
 					'slug'                  => 'the-events-calendar',
 					'activation_transient'  => '_tribe_events_activation_redirect',
 					'version'               => self::VERSION,
 					'plugin_path'           => $this->plugin_dir . 'the-events-calendar.php',
 					'version_history_slug'  => 'previous_ecp_versions',
+					'update_page_title'    => __( 'Welcome to The Events Calendar', 'the-events-calendar' ),
+					'update_page_template' => $this->plugin_path . 'src/admin-views/admin-update-message.php',
 					'welcome_page_title'    => __( 'Welcome to The Events Calendar', 'the-events-calendar' ),
 					'welcome_page_template' => $this->plugin_path . 'src/admin-views/admin-welcome-message.php',
 				) );
@@ -595,15 +603,27 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Preview handling
 			add_action( 'template_redirect', array( Tribe__Events__Revisions__Preview::instance(), 'hook' ) );
 
-			/**
-			 * Register Notices
-			 */
-			tribe_notice( 'archive-slug-conflict', array( $this, 'render_notice_archive_slug_conflict' ), 'dismiss=1&type=error' );
+			// Register slug conflict notices (but test to see if tribe_notice() is indeed available, in case another plugin
+			// is hosting an earlier version of tribe-common which is already active)
+			//
+			// @todo remove this safety check when we're confident the risk has diminished
+			if ( function_exists( 'tribe_notice' ) ) {
+				tribe_notice( 'archive-slug-conflict', array( $this, 'render_notice_archive_slug_conflict' ), 'dismiss=1&type=error' );
+			}
 
 			/**
 			 * Expire notices
 			 */
 			add_action( 'transition_post_status', array( $this, 'action_expire_archive_slug_conflict_notice' ), 10, 3 );
+
+
+			// Fire up the Customizer Sections
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__General_Theme', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Global_Elements', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Month_Week_View', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Day_List_View', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Single_Event', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Widget', 'instance' ) );
 		}
 
 		/**
@@ -994,6 +1014,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 				// check if the add-on is out of date
 				if ( version_compare( $plugin['current_version'], self::MIN_ADDON_VERSION, '<' ) ) {
+					// don't throw notices for the 4.2 legacy versions of Facebook and iCal
+					if (
+						(
+							false !== strpos( $plugin['plugin_dir_file'], 'the-events-calendar-facebook-importer.php' )
+							|| false !== strpos( $plugin['plugin_dir_file'], 'the-events-calendar-ical-importer.php' )
+						)
+						&& version_compare( $plugin['current_version'], '4.2', '>=' )
+					) {
+						continue;
+					}
+
 					$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
 				}
 			}
@@ -3535,8 +3566,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$saved = true;
 				}
 
+				$is_saved = $event->ID && isset( $saved ) && $saved;
+
+				if ( $is_saved ) {
+					$venue_title = apply_filters( 'the_title', $post->post_title );
+				}
+
 				foreach ( $this->venueTags as $tag ) {
-					if ( $event->ID && isset( $saved ) && $saved ) { //if there is a post AND the post has been saved at least once.
+					if ( $is_saved ) { //if there is a post AND the post has been saved at least once.
 						$$tag = esc_html( get_post_meta( $event->ID, $tag, true ) );
 					} else {
 						$cleaned_tag = str_replace( '_Venue', '', $tag );
@@ -3581,8 +3618,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$saved = true;
 				}
 
-				foreach ( $this->organizerTags as $tag ) {
-					if ( $postId && $saved ) { //if there is a post AND the post has been saved at least once.
+				if ( $postId && $saved ) { //if there is a post AND the post has been saved at least once.
+					$organizer_title = apply_filters( 'the_title', $post->post_title );
+					foreach ( $this->organizerTags as $tag ) {
 						$$tag = get_post_meta( $postId, $tag, true );
 					}
 				}

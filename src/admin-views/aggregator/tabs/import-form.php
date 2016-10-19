@@ -241,22 +241,19 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 			'</a>' ); ?>
 	</p>
 </div>
-<?php echo Tribe__Events__Aggregator__Tabs__New::instance()->maybe_display_aggregator_upsell(); ?>
-<script id="tribe-csv-column-map-events" type="text/html">
-	<?php
-	$event_mapper = new Tribe__Events__Importer__Column_Mapper( 'events' );
-	echo $event_mapper->make_select_box( '' );
+<?php
+echo Tribe__Events__Aggregator__Tabs__New::instance()->maybe_display_aggregator_upsell();
+
+$csv_record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( 'csv' );
+$post_types = $csv_record->get_import_post_types();
+foreach ( $post_types as $post_type ) :
+	$type = str_replace( 'tribe_', '', $post_type->name );
 	?>
-</script>
-<script id="tribe-csv-column-map-organizer" type="text/html">
+	<script id="tribe-csv-column-map-<?php echo esc_attr( $type ); ?>" type="text/html">
+		<?php
+		$mapper = new Tribe__Events__Importer__Column_Mapper( $type );
+		echo $mapper->make_select_box( '' );
+		?>
+	</script>
 	<?php
-	$organizers_mapper = new Tribe__Events__Importer__Column_Mapper( 'organizers' );
-	echo $organizers_mapper->make_select_box( '' );
-	?>
-</script>
-<script id="tribe-csv-column-map-venue" type="text/html">
-	<?php
-	$venues_mapper = new Tribe__Events__Importer__Column_Mapper( 'venues' );
-	echo $venues_mapper->make_select_box( '' );
-	?>
-</script>
+endforeach;
