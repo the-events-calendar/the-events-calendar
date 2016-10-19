@@ -269,6 +269,7 @@ class Tribe__Events__Aggregator__Cron {
 	/**
 	 * Checks if any Child Record needs to be created, this will run on the Cron every 15m
 	 *
+	 * @since  4.3
 	 * @return void
 	 */
 	public function verify_child_record_creation() {
@@ -286,7 +287,7 @@ class Tribe__Events__Aggregator__Cron {
 
 		if ( ! $query->have_posts() ) {
 			$this->log( 'debug', 'No Records Scheduled, skipped creating childs' );
-			return false;
+			return;
 		}
 
 		foreach ( $query->posts as $post ) {
@@ -325,6 +326,7 @@ class Tribe__Events__Aggregator__Cron {
 	/**
 	 * Checks if any record data needs to be fetched from the service, this will run on the Cron every 15m
 	 *
+	 * @since  4.3
 	 * @return void
 	 */
 	public function verify_fetching_from_service() {
@@ -350,7 +352,7 @@ class Tribe__Events__Aggregator__Cron {
 
 		if ( ! $query->have_posts() ) {
 			$this->log( 'debug', 'No Records Pending, skipped Fetching from service' );
-			return false;
+			return;
 		}
 
 		foreach ( $query->posts as $post ) {
@@ -385,8 +387,7 @@ class Tribe__Events__Aggregator__Cron {
 	}
 
 	/**
-	 *
-	 *
+	 * @since  4.3.2
 	 * @return void
 	 */
 	public function purge_expired_records() {
