@@ -385,7 +385,7 @@ class Tribe__Events__Aggregator__Cron {
 	}
 
 	/**
-	 * Checks if any Child Record needs to be created, this will run on the Cron every 15m
+	 *
 	 *
 	 * @return void
 	 */
@@ -412,7 +412,7 @@ class Tribe__Events__Aggregator__Cron {
 
 		if ( ! $query->have_posts() ) {
 			$this->log( 'debug', 'No Records over retetion limit, skipped pruning expired' );
-			return false;
+			return;
 		}
 
 		foreach ( $query->posts as $post ) {
