@@ -112,15 +112,15 @@ defined( 'WPINC' ) or die;
 			do_action( 'tribe_events_pre_rewrite', $this );
 
 			/**
-		 * Provides an opportunity to modify The Events Calendar's rewrite rules before they
-		 * are merged in to WP's own rewrite rules.
-		 *
-		 * @param array $events_rewrite_rules
-		 * @param Tribe__Events__Rewrite $tribe_rewrite
-			 */
-		$this->rules = apply_filters( 'tribe_events_rewrite_rules_custom', $this->rules, $this );
+			 * Provides an opportunity to modify The Events Calendar's rewrite rules before they
+			 * are merged in to WP's own rewrite rules.
+			 *
+			 * @param array $events_rewrite_rules
+			 * @param Tribe__Events__Rewrite $tribe_rewrite
+				 */
+			$this->rules = apply_filters( 'tribe_events_rewrite_rules_custom', $this->rules, $this );
 
-		$wp_rewrite->rules = $this->rules + $wp_rewrite->rules;
+			$wp_rewrite->rules = $this->rules + $wp_rewrite->rules;
 		}
 
 		/**
@@ -272,14 +272,21 @@ defined( 'WPINC' ) or die;
 			// Remove duplicates (no need to have 'month' twice if no translations are in effect, etc)
 			$bases = array_map( 'array_unique', $bases );
 
+
 			// By default we always have `en_US` to avoid 404 with older URLs
-			$languages = apply_filters( 'tribe_events_rewrite_i18n_languages', array_unique( array( 'en_US', get_locale() ) ) );
+			$current_locale = get_locale();
+			$languages      = apply_filters( 'tribe_events_rewrite_i18n_languages', array_unique( array( 'en_US', $current_locale ) ) );
 
 			// By default we load the Default and our plugin domains
 			$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
 				'default' => true, // Default doesn't need file path
 				'the-events-calendar' => $tec->plugin_dir . 'lang/',
 			) );
+
+			if ( $current_locale !== 'en_US' ) {
+				// get the translated version of each base in the site locale
+				$bases = $tec->get_i18n_strings( $bases, $languages, $domains, $current_locale );
+			}
 
 			/**
 			 * Use `tribe_events_rewrite_i18n_slugs_raw` to modify the raw version of the l10n slugs bases.
