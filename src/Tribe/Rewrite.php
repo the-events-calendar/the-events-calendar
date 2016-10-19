@@ -14,39 +14,39 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 	public static $instance;
 
 	/**
-		 * WP_Rewrite Instance
-		 * @var WP_Rewrite
-		 */
-		public $rewrite;
+	 * WP_Rewrite Instance
+	 * @var WP_Rewrite
+	 */
+	public $rewrite;
 
-		/**
-		 * Rewrite rules Holder
-		 * @var array
-		 */
-		public $rules = array();
+	/**
+	 * Rewrite rules Holder
+	 * @var array
+	 */
+	public $rules = array();
 
-		/**
-		 * Base slugs for rewrite urls
-		 * @var array
-		 */
-		public $bases = array();
+	/**
+	 * Base slugs for rewrite urls
+	 * @var array
+	 */
+	public $bases = array();
 
-		/**
-		 * After creating the Hooks on WordPress we lock the usage of the function
-		 * @var boolean
-		 */
-		protected $hook_lock = false;
+	/**
+	 * After creating the Hooks on WordPress we lock the usage of the function
+	 * @var boolean
+	 */
+	protected $hook_lock = false;
 
-		/**
-		 * Tribe__Events__Rewrite constructor.
-		 *
-		 * @param WP_Rewrite|null $wp_rewrite
-		 */
-		public function __construct(WP_Rewrite $wp_rewrite = null) {
-			$this->rewrite = $wp_rewrite;
-		}
+	/**
+	 * Tribe__Events__Rewrite constructor.
+	 *
+	 * @param WP_Rewrite|null $wp_rewrite
+	 */
+	public function __construct(WP_Rewrite $wp_rewrite = null) {
+		$this->rewrite = $wp_rewrite;
+	}
 
-		/**
+	/**
 	 * Static Singleton Factory Method
 	 *
 		 * @return Tribe__Events__Rewrite
@@ -65,7 +65,7 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 	 * @param  WP_Rewrite $wp_rewrite WordPress Rewrite that will be modified, pass it by reference (&$wp_rewrite)
 	 */
 	public function filter_generate( WP_Rewrite $wp_rewrite ) {
-		parent::filter_generate($wp_rewrite);
+		parent::filter_generate( $wp_rewrite );
 
 			/**
 			 * Use this to change the Tribe__Events__Rewrite instance before new rules
