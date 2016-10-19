@@ -322,6 +322,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Resolved the support for translated event category archive slug that could lead to broken links on the front-end while using WPML [62018]
 * Fix - Resolved a bug where searching for past events in the List view would always yield no results [61863]
 * Fix - Resolved an issue where long file names would break plugin updates on some Windows installations [62552]
+* Fix - Resolved an issue where the `/all` link on recurring events on non English websites could be broken [68062] 
 * Tweak - Improve `tribe_create_event` documentation (Props to Keith) [44871]
 
 = [4.3.0.1] 2016-10-14 =
