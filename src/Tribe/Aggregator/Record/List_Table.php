@@ -502,9 +502,14 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		}
 
 		$last_import = null;
+		$last_import_error = $record->get_last_import_status( 'error' );
 		$original = $post->post_modified_gmt;
 		$time = strtotime( $original );
 		$now = current_time( 'timestamp', true );
+
+		if ( $last_import_error ) {
+			$html[] = '<span class="dashicons dashicons-warning tribe-ea-status-failed" title="' . esc_attr( $last_import_error ) . '"></span>';
+		}
 
 		$html[] = '<span title="' . esc_attr( $original ) . '">';
 		if ( ( $now - $time ) <= DAY_IN_SECONDS ) {
