@@ -577,14 +577,22 @@ class Tribe__Events__Aggregator__Records {
 	 * @param string $origin Import Origin
 	 */
 	public function add_record_to_event( $id, $record_id, $origin ) {
+		$record = $this->get_by_post_id( $record_id );
+
 		// Set the event origin
 		update_post_meta( $id, '_EventOrigin', Tribe__Events__Aggregator__Event::$event_origin );
 
-		// Add the Aggregator Origin
+		// Add the Aggregator origin
 		update_post_meta( $id, Tribe__Events__Aggregator__Event::$origin_key, $origin );
 
-		// Add the Aggregator Record
+		// Add the Aggregator record
 		update_post_meta( $id, Tribe__Events__Aggregator__Event::$record_key, $record_id );
+
+		// Add the Aggregator source
+		update_post_meta( $id, Tribe__Events__Aggregator__Event::$source_key, $record->meta['source'] );
+
+		// Add the Aggregator import timestamp
+		update_post_meta( $id, Tribe__Events__Aggregator__Event::$updated_key, $record->post->post_date );
 	}
 
 	public function prefix_meta( $str = null ) {
