@@ -634,6 +634,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Add support for featured events
 			$this->featured_events()->query_helper()->hook_up();
 			$this->featured_events()->permalinks_helper()->hook_up();
+
+			// Fire up the Customizer Sections
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__General_Theme', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Global_Elements', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Month_Week_View', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Day_List_View', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Single_Event', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Widget', 'instance' ) );
 		}
 
 		/**
