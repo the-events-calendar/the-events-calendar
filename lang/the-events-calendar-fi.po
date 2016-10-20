@@ -2346,90 +2346,90 @@ msgid_plural "It looks like you're using %s, but the license keys you supplied d
 msgstr[0] ""
 msgstr[1] ""
 
-#: common/src/Tribe/PUE/Checker.php:641
+#: common/src/Tribe/PUE/Checker.php:648
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:641
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:614
+#: common/src/Tribe/PUE/Checker.php:621
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:614
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:588 common/src/Tribe/PUE/Notices.php:269
+#: common/src/Tribe/PUE/Checker.php:595 common/src/Tribe/PUE/Notices.php:269
 #: src/Tribe/Aggregator/Record/Abstract.php:825
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:588
 #: vendor/tickets/common/src/Tribe/PUE/Notices.php:269
 msgid " (opens in a new window)"
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:586 common/src/Tribe/PUE/Notices.php:267
+#: common/src/Tribe/PUE/Checker.php:593 common/src/Tribe/PUE/Notices.php:267
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:586
 #: vendor/tickets/common/src/Tribe/PUE/Notices.php:267
 msgid "Renew Your License Now"
 msgstr ""
 
-#: common/src/Tribe/Main.php:206 vendor/tickets/common/src/Tribe/Main.php:206
+#: common/src/Tribe/Main.php:213 vendor/tickets/common/src/Tribe/Main.php:206
 msgid ": Selected 1 row"
 msgstr ""
 
-#: common/src/Tribe/Main.php:205 vendor/tickets/common/src/Tribe/Main.php:205
+#: common/src/Tribe/Main.php:212 vendor/tickets/common/src/Tribe/Main.php:205
 msgid ": Selected %d rows"
 msgstr ""
 
-#: common/src/Tribe/Main.php:200 vendor/tickets/common/src/Tribe/Main.php:200
+#: common/src/Tribe/Main.php:207 vendor/tickets/common/src/Tribe/Main.php:200
 msgid "Previous"
 msgstr ""
 
-#: common/src/Tribe/Main.php:198 vendor/tickets/common/src/Tribe/Main.php:198
+#: common/src/Tribe/Main.php:205 vendor/tickets/common/src/Tribe/Main.php:198
 msgid "All"
 msgstr ""
 
-#: common/src/Tribe/Main.php:196 vendor/tickets/common/src/Tribe/Main.php:196
+#: common/src/Tribe/Main.php:203 vendor/tickets/common/src/Tribe/Main.php:196
 msgid "Search:"
 msgstr ""
 
-#: common/src/Tribe/Main.php:195 vendor/tickets/common/src/Tribe/Main.php:195
+#: common/src/Tribe/Main.php:202 vendor/tickets/common/src/Tribe/Main.php:195
 msgid "No matching records found"
 msgstr ""
 
-#: common/src/Tribe/Main.php:194 vendor/tickets/common/src/Tribe/Main.php:194
+#: common/src/Tribe/Main.php:201 vendor/tickets/common/src/Tribe/Main.php:194
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: common/src/Tribe/Main.php:193 vendor/tickets/common/src/Tribe/Main.php:193
+#: common/src/Tribe/Main.php:200 vendor/tickets/common/src/Tribe/Main.php:193
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: common/src/Tribe/Main.php:192 vendor/tickets/common/src/Tribe/Main.php:192
+#: common/src/Tribe/Main.php:199 vendor/tickets/common/src/Tribe/Main.php:192
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: common/src/Tribe/Main.php:191 vendor/tickets/common/src/Tribe/Main.php:191
+#: common/src/Tribe/Main.php:198 vendor/tickets/common/src/Tribe/Main.php:191
 msgid "No data available in table"
 msgstr ""
 
-#: common/src/Tribe/Main.php:190 vendor/tickets/common/src/Tribe/Main.php:190
+#: common/src/Tribe/Main.php:197 vendor/tickets/common/src/Tribe/Main.php:190
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: common/src/Tribe/Main.php:188 vendor/tickets/common/src/Tribe/Main.php:188
+#: common/src/Tribe/Main.php:195 vendor/tickets/common/src/Tribe/Main.php:188
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: common/src/Tribe/Main.php:187 vendor/tickets/common/src/Tribe/Main.php:187
+#: common/src/Tribe/Main.php:194 vendor/tickets/common/src/Tribe/Main.php:187
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: common/src/Tribe/Main.php:170 vendor/tickets/common/src/Tribe/Main.php:170
+#: common/src/Tribe/Main.php:177 vendor/tickets/common/src/Tribe/Main.php:170
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: common/src/Tribe/Main.php:169 vendor/tickets/common/src/Tribe/Main.php:169
+#: common/src/Tribe/Main.php:176 vendor/tickets/common/src/Tribe/Main.php:169
 msgid "System info copied"
 msgstr ""
 
-#: common/src/Tribe/Main.php:168
+#: common/src/Tribe/Main.php:175
 #: common/src/admin-views/tribe-options-help.php:43
 #: vendor/tickets/common/src/Tribe/Main.php:168
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:43
@@ -3471,7 +3471,7 @@ msgstr ""
 msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:565
+#: common/src/Tribe/PUE/Checker.php:568
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:565
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
@@ -6649,37 +6649,37 @@ msgstr "%s asetukset"
 msgid "Events Settings"
 msgstr "Tapahtumien asetukset"
 
-#: common/src/Tribe/PUE/Checker.php:506
+#: common/src/Tribe/PUE/Checker.php:509
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:506
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "Hmmm... jokin on pielessä tämän validaattorin kanssa. Ota yhteyttä %stukeen%s."
 
-#: common/src/Tribe/PUE/Checker.php:560
+#: common/src/Tribe/PUE/Checker.php:563
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:560
 msgid "Valid Key! Expires on %s"
 msgstr "Lisenssiavain kelvollinen! Erääntyy %s"
 
-#: common/src/Tribe/PUE/Checker.php:547
+#: common/src/Tribe/PUE/Checker.php:550
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:547
 msgid "Sorry, key validation server is not available."
 msgstr "Pahoittelemme, validointiavaimen vahvistusserveri ei ole saatavilla."
 
-#: common/src/Tribe/PUE/Checker.php:541
+#: common/src/Tribe/PUE/Checker.php:544
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:541
 msgid "unknown date"
 msgstr "tuntematon päivämäärä"
 
-#: common/src/Tribe/PUE/Checker.php:497
+#: common/src/Tribe/PUE/Checker.php:500
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:497
 msgid "License key(s) updated."
 msgstr "Lisenssiavain/avaimet päivitetty."
 
-#: common/src/Tribe/PUE/Checker.php:415
+#: common/src/Tribe/PUE/Checker.php:418
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:415
 msgid "A valid license key is required for support and updates"
 msgstr "Voimassa oleva lisenssiavain vaaditaan tukea ja päivityksiä varten."
 
-#: common/src/Tribe/PUE/Checker.php:414
+#: common/src/Tribe/PUE/Checker.php:417
 #: src/admin-views/aggregator/status.php:39
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:414
 msgid "License Key"
@@ -6821,7 +6821,7 @@ msgstr "Tänään"
 msgid "Prev"
 msgstr "Edellinen"
 
-#: common/src/Tribe/Main.php:199 src/Tribe/Main.php:2030
+#: common/src/Tribe/Main.php:206 src/Tribe/Main.php:2030
 #: vendor/tickets/common/src/Tribe/Main.php:199
 msgid "Next"
 msgstr "Seuraava"
