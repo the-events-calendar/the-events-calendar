@@ -280,7 +280,6 @@ class Tribe__Events__Aggregator__Cron {
 
 		$records = Tribe__Events__Aggregator__Records::instance();
 		$service = Tribe__Events__Aggregator__Service::instance();
-		$origins = null;
 
 		$query = $records->query( array(
 			'post_status' => Tribe__Events__Aggregator__Records::$status->schedule,
@@ -305,12 +304,8 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
-			if ( ! $origins ) {
-				$origins = (object) $service->get_origins();
-			}
-
 			// if there are no remaining imports for today, log that and skip
-			if ( isset( $origins->usage->import->remaining ) && 0 >= $origins->usage->import->remaining ) {
+			if ( $service->is_over_limit( true ) ) {
 				$this->log( 'debug', sprintf( $service->get_service_message( 'error:usage-limit-exceeded' ) . ' (%1$d)', $record->id ) );
 				$record->update_meta( 'last_import_status', 'error:usage-limit-exceeded' );
 				continue;
