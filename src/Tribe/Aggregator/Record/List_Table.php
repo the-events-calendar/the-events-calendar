@@ -497,7 +497,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$has_child_record = $record->get_child_record_by_status( 'success', 1 );
 
 			if ( ! $has_child_record ) {
-				return $this->render( esc_html__( 'On Demand', 'the-events-calendar' ) );
+				return $this->render( '<i>' . esc_html__( 'Unknown', 'the-events-calendar' ) . '</i>' );
 			}
 		}
 
