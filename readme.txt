@@ -317,13 +317,17 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.3.1] 2016-10-19 =
 
+* Tweak - Implement the pruning of Event Aggregator history records after 7 days, filterable by tribe_aggregator_record_retention [68283]
+* Tweak - Event Aggregator will now verify that the license key has uses remaining before creating a history record [68286]
+* Tweak - Improve `tribe_create_event` documentation (Props to Keith) [44871]
+* Fix - Resolved an issue where scheduled Event Aggregator imports marked as "On Demand" were being run by cron [68284]
+* Fix - Resolved a bug where empty meta fields were being inserted into Event Aggregator record post meta [68290]
 * Fix - Resolved a bug where Venue and Organizers urls were been generated incorrectly [68168]
 * Fix - Pagination links on Month view are updating correctly [67977]
 * Fix - Resolved the support for translated event category archive slug that could lead to broken links on the front-end while using WPML [62018]
 * Fix - Resolved a bug where searching for past events in the List view would always yield no results [61863]
 * Fix - Resolved an issue where long file names would break plugin updates on some Windows installations [62552]
-* Fix - Resolved an issue where the `/all` link on recurring events on non English websites could be broken [68062] 
-* Tweak - Improve `tribe_create_event` documentation (Props to Keith) [44871]
+* Fix - Resolved an issue where the `/all` link on recurring events on non English websites could be broken [68062]
 
 = [4.3.0.1] 2016-10-14 =
 
