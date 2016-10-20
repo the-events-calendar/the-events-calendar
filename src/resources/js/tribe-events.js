@@ -855,6 +855,7 @@ Date.prototype.format = function( mask, utc ) {
 				if ( key !== 'action' ) {
 					var name = decodeURI( key ),
 						$target = '';
+					console.log(value);
 					if ( value.length === 1 ) {
 						if ( $( '[name="' + name + '"]' ).is( 'input[type="text"], input[type="hidden"]' ) ) {
 							$( '[name="' + name + '"]' ).val( value );

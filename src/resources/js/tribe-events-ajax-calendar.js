@@ -252,7 +252,7 @@
 					tf.pre_ajax( function() {
 						tribe_events_calendar_ajax_post();
 					} );
-					tf.set_form( decodeURIComponent( ts.params.replace( /\+/g, '%20' ) ) );
+					tf.set_form( ts.params );
 				}
 			} );
 		}
