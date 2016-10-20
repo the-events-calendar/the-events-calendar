@@ -847,7 +847,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( 'error:usage-limit-exceeded' === $status ) {
-			return __( 'The daily limit for your Event Aggregator license has been reached. Scheduled imports will not run until tomorrow.', 'the-events-calendar' );
+			return __( 'When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached.', 'the-events-calendar' );
 		}
 
 		return Tribe__Events__Aggregator__Service::instance()->get_service_message( $status );
