@@ -210,11 +210,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$result = wp_insert_post( $post );
 
-		// meta_input was introduced in 4.4. Deal with old versions
-		if ( -1 === version_compare( get_bloginfo( 'version' ), '4.4' ) && ! is_wp_error( $result ) ) {
-			foreach ( $post['meta_input'] as $key => $value ) {
-				update_post_meta( $result, $key, $value );
-			}
+		if ( ! is_wp_error( $result ) ) {
+			$this->maybe_add_meta_via_pre_wp_44_method( $result, $post['meta_input'] );
 		}
 
 		// After Creating the Post Load and return
@@ -384,6 +381,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
 		}
 
+		// associate this child with the schedule
+		$post['meta_input'][ self::$meta_key_prefix . 'recent_child' ] = $this->post->ID;
+
 		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
 		if ( ! $frequency ) {
 			return tribe_error( 'core:aggregator:invalid-record-frequency', $meta );
@@ -399,6 +399,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( is_wp_error( $schedule_id ) ) {
 			return tribe_error( 'core:aggregator:save-schedule-failed' );
 		}
+
+		$this->maybe_add_meta_via_pre_wp_44_method( $schedule_id, $post['meta_input'] );
 
 		$update_args = array(
 			'ID' => $this->post->ID,
@@ -460,7 +462,28 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return tribe_error( 'core:aggregator:save-child-failed' );
 		}
 
+		$this->maybe_add_meta_via_pre_wp_44_method( $child_id, $post['meta_input'] );
+
+		// track the most recent child that was spawned
+		$this->update_meta( 'recent_child', $child_id );
+
 		return Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $child_id );
+	}
+
+	/**
+	 * If using WP < 4.4, we need to add meta to the post via update_post_meta
+	 *
+	 * @param int $id Post id to add data to
+	 * @param array $meta Meta to add to the post
+	 */
+	public function maybe_add_meta_via_pre_wp_44_method( $id, $meta ) {
+		if ( -1 !== version_compare( get_bloginfo( 'version' ), '4.4' ) ) {
+			return;
+		}
+
+		foreach ( $meta as $key => $value ) {
+			update_post_meta( $id, $key, $value );
+		}
 	}
 
 	/**
@@ -824,7 +847,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( 'error:usage-limit-exceeded' === $status ) {
-			return __( 'The daily limit for your Event Aggregator license has been reached. Scheduled imports will not run until tomorrow.', 'the-events-calendar' );
+			return __( 'When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached.', 'the-events-calendar' );
 		}
 
 		return Tribe__Events__Aggregator__Service::instance()->get_service_message( $status );

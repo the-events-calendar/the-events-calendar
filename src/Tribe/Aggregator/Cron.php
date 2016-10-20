@@ -409,10 +409,33 @@ class Tribe__Events__Aggregator__Cron {
 	 * @return void
 	 */
 	public function purge_expired_records() {
+		global $wpdb;
+
 		$records = Tribe__Events__Aggregator__Records::instance();
 		$statuses = Tribe__Events__Aggregator__Records::$status;
 
-		$query = $records->query( array(
+		$sql = "
+			SELECT
+				meta_value
+			FROM
+				{$wpdb->postmeta}
+				JOIN {$wpdb->posts}
+				ON ID = post_id
+				AND post_status = %s
+			WHERE
+				meta_key = %s
+		";
+
+		// let's make sure we don't purge the most recent record for each import
+		$records_to_retain = $wpdb->get_col(
+			$wpdb->prepare(
+				$sql,
+				$statuses->schedule,
+				Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'recent_child'
+			)
+		);
+
+		$args = array(
 			'post_status' => array(
 				$statuses->pending,
 				$statuses->success,
@@ -427,7 +450,13 @@ class Tribe__Events__Aggregator__Cron {
 			),
 			'order' => 'ASC',
 			'posts_per_page' => 100,
-		) );
+		);
+
+		if ( $records_to_retain ) {
+			$args['post__not_in'] = $records_to_retain;
+		}
+
+		$query = $records->query( $args );
 
 		if ( ! $query->have_posts() ) {
 			$this->log( 'debug', 'No Records over retetion limit, skipped pruning expired' );
