@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.6.1
-Stable tag: 4.3
+Stable tag: 4.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -314,6 +314,20 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [4.3.1] 2016-10-19 =
+
+* Fix - Resolved a bug where Venue and Organizers urls were been generated incorrectly [68168]
+* Fix - Pagination links on Month view are updating correctly [67977]
+* Fix - Resolved the support for translated event category archive slug that could lead to broken links on the front-end while using WPML [62018]
+* Fix - Resolved a bug where searching for past events in the List view would always yield no results [61863]
+* Fix - Resolved an issue where long file names would break plugin updates on some Windows installations [62552]
+* Fix - Resolved an issue where the `/all` link on recurring events on non English websites could be broken [68062] 
+* Tweak - Improve `tribe_create_event` documentation (Props to Keith) [44871]
+
+= [4.3.0.1] 2016-10-14 =
+
+* Fix - Preventing legacy Facebook events from been duplicated
 
 = [4.3] 2016-10-13 =
 
