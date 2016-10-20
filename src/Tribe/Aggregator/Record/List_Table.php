@@ -492,12 +492,22 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	public function column_imported( $post ) {
+		$html = array();
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+
 		if ( 'scheduled' === $this->tab->get_slug() ) {
+			$last_import_error = $record->get_last_import_status( 'error' );
+
+			if ( $last_import_error ) {
+				$html[] = '<span class="dashicons dashicons-warning tribe-ea-status-failed" title="' . esc_attr( $last_import_error ) . '"></span>';
+			}
+
 			$has_child_record = $record->get_child_record_by_status( 'success', 1 );
 
 			if ( ! $has_child_record ) {
-				return $this->render( esc_html__( 'On Demand', 'the-events-calendar' ) );
+				$html[] = '<i>' . esc_html__( 'Unknown', 'the-events-calendar' ) . '</i>';
+
+				return $this->render( $html );
 			}
 		}
 

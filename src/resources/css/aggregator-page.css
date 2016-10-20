@@ -204,6 +204,10 @@
 	text-align: left;
 }
 
+.tribe-ea .dashicons.tribe-ea-status-failed {
+	color: #dc3232;
+}
+
 .tribe-ea .tribe-ea-report-status {
 	position: absolute;
 	width: 45px;

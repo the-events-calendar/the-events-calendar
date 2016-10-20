@@ -27,8 +27,9 @@ class Tribe__Events__Aggregator__Meta_Box {
 		$post_id = get_the_ID();
 
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_event_id( $post_id );
+		$origin = get_post_meta( $post_id, Tribe__Events__Aggregator__Event::$origin_key, true );
 
-		if ( is_wp_error( $record ) ) {
+		if ( is_wp_error( $record ) && ! $origin ) {
 			return;
 		}
 
@@ -47,12 +48,25 @@ class Tribe__Events__Aggregator__Meta_Box {
 
 		$event_id = get_the_ID();
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_event_id( $event_id );
-		$origin = $aggregator->api( 'origins' )->get_name( $record->origin );
-		$source_info = $record->get_source_info();
-		$source = $source_info['title'];
 
+		$last_import = null;
+		$source = null;
+		$origin = null;
+
+		if ( is_wp_error( $record ) ) {
+			$last_import = get_post_meta( $event_id, Tribe__Events__Aggregator__Event::$updated_key, true );
+			$source = get_post_meta( $event_id, Tribe__Events__Aggregator__Event::$source_key, true );
+			$origin = get_post_meta( $event_id, Tribe__Events__Aggregator__Event::$origin_key, true );
+		} else {
+			$last_import = $record->post->post_modified;
+			$source_info = $record->get_source_info();
+			$source = $source_info['title'];
+			$origin = $record->origin;
+		}
+
+		$origin = $aggregator->api( 'origins' )->get_name( $origin );
 		$datepicker_format = Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
-		$last_import = tribe_format_date( $record->post->post_modified, true, $datepicker_format . ' h:i a' );
+		$last_import = $last_import ? tribe_format_date( $last_import, true, $datepicker_format . ' h:i a' ) : null;
 		$settings_link = Tribe__Settings::instance()->get_url( array( 'tab' => 'imports' ) );
 		$import_setting = tribe_get_option( 'tribe_aggregator_default_update_authority', Tribe__Events__Aggregator__Settings::$default_update_authority );
 
