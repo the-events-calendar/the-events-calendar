@@ -27,6 +27,7 @@
     "archiver": "^0.10.1",
     "glob": "~4.0.5",
     "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^2.1.1",
     "product-taskmaster": "git+https://github.com/moderntribe/product-taskmaster.git",
     "require-dir": "^0.3.0"
   }
