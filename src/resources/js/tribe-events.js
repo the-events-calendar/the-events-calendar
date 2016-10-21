@@ -871,7 +871,6 @@ Date.prototype.format = function( mask, utc ) {
 				if ( key !== 'action' ) {
 					var name = key,
 						$target = '';
-					console.log(key + value);
 					if ( value.length === 1 ) {
 						if ( $( '[name="' + name + '"]' ).is( 'input[type="text"], input[type="hidden"]' ) ) {
 							$( '[name="' + name + '"]' ).val( value );
