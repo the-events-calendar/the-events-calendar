@@ -2,13 +2,8 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
-abstract class Tribe__Events__Aggregator__Tabs__Abstract {
+abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_View__Tab {
 
-	/**
-	 * To Order the Tabs on the UI you need to change the priority
-	 * @var integer
-	 */
-	public $priority = 50;
 
 	/**
 	 * Creates a way to include the this tab HTML easily
@@ -29,27 +24,6 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract {
 	 */
 	public function __construct() {
 	}
-
-	/**
-	 * Enforces a method to display the tab or not
-	 *
-	 * @return boolean
-	 */
-	abstract public function is_visible();
-
-	/**
-	 * Enforces a method to return the Tab Slug
-	 *
-	 * @return string
-	 */
-	abstract public function get_slug();
-
-	/**
-	 * Enforces a method to return the Label of the Tab
-	 *
-	 * @return string
-	 */
-	abstract public function get_label();
 
 	/**
 	 * Fetches the link to this tab

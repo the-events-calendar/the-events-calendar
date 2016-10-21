@@ -10,15 +10,20 @@ if ( "function" === typeof jQuery ) jQuery( document ).ready( function( $ ) {
 	    venueTitle;
 
 	// The tribeEventsSingleMap object must be accessible (as it contains the venue address data etc)
-	if ( "undefined" === typeof tribeEventsSingleMap ) return;
+	if ( 'undefined' === typeof tribeEventsSingleMap ) {
+		return;
+	}
 
 	/**
 	 * Determine whether to use long/lat coordinates (these are preferred) or the venue's street
 	 * address.
 	 */
 	function prepare() {
-		if ( false !== venueCoords ) useCoords();
-		else useAddress();
+		if ( false !== venueCoords ) {
+			useCoords();
+		} else {
+			useAddress();
+		}
 	}
 
 	/**
@@ -66,11 +71,18 @@ if ( "function" === typeof jQuery ) jQuery( document ).ready( function( $ ) {
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		} );
 
-		new google.maps.Marker( {
+		var marker = {
 			map     : venueObject.map,
 			title   : venueTitle,
 			position: position
-		} );
+		};
+
+		// If we have a Map Pin set, we use it
+		if ( 'undefined' !== tribeEventsSingleMap.pin_url && tribeEventsSingleMap.pin_url ) {
+			marker.icon = tribeEventsSingleMap.pin_url;
+		}
+
+		new google.maps.Marker( marker );
 	}
 
 	// Iterate through available addresses and set up the map for each

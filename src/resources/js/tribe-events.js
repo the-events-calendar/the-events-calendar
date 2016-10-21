@@ -617,6 +617,22 @@ Date.prototype.format = function( mask, utc ) {
 			return base_url;
 		},
 		/**
+		 * @function tribe_ev.fn.update_base_url
+		 * @desc tribe_ev.fn.update_base_url can be used on any events view to update base_url for that view
+		 */
+		update_base_url: function( url ) {
+			var $event_header = $( '#tribe-events-header' ),
+				$canonical = $( 'link[rel="canonical"]' );
+
+			if ( $canonical.length ) {
+				// use the canonical URL if it is available (it should be)
+				$canonical.attr( 'href', url );
+			} else if ( $event_header.length ) {
+				// failover to the baseurl of the event header
+				$event_header.data( 'baseurl', url ).attr( 'data-baseurl', url );
+			}
+		},
+		/**
 		 * @function tribe_ev.fn.get_category
 		 * @desc tribe_ev.fn.get_category can be used on any events view to get the category for that view.
 		 * @returns {String} Either an empty string or category slug if data-category is found on #tribe-events.
