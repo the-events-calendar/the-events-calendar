@@ -633,6 +633,11 @@ class Tribe__Events__Linked_Posts {
 		$linked_posts              = array();
 		$event_post_status         = get_post_status( $event_id );
 
+		// Prevents Revisons from been Linked
+		if ( 'inherit' === $event_post_status ) {
+			return;
+		}
+
 		if ( ! isset( $submission[ $linked_post_type_id_field ] ) ) {
 			$submission[ $linked_post_type_id_field ] = array( 0 );
 		}

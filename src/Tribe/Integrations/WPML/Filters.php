@@ -68,26 +68,40 @@ class Tribe__Events__Integrations__WPML__Filters {
 		$post_slug_translation_on  = ! empty( $sitepress_settings['posts_slug_translation']['on'] );
 
 		if ( $string_translation_active && $post_slug_translation_on ) {
-			$supported_post_types = array( Tribe__Events__Main::POSTTYPE );
-
-			foreach ( $supported_post_types as $post_type ) {
-				// check that translations are active for this CPT
-				$cpt_slug_is_not_translated = empty( $sitepress_settings['posts_slug_translation']['types'][ $post_type ] );
-
-				if ( $cpt_slug_is_not_translated ) {
-					continue;
-				}
-
-				$slug_translations = WPML_Slug_Translation::get_translations( $post_type );
-
-				if ( ! ( is_array( $slug_translations ) && isset( $slug_translations[1] ) ) ) {
-					continue;
-				}
-
-				$bases['single'] = array_merge( $bases['single'], wp_list_pluck( $slug_translations[1], 'value' ) );
-			}
+			$bases = $this->translate_single_slugs( $bases );
 		}
 
 		return $bases;
 	}
+
+	/**
+	 * @param $bases
+	 *
+	 * @return array
+	 */
+	protected function translate_single_slugs( array $bases ) {
+		global $sitepress_settings;
+
+		$supported_post_types = array( Tribe__Events__Main::POSTTYPE );
+
+		foreach ( $supported_post_types as $post_type ) {
+			// check that translations are active for this CPT
+			$cpt_slug_is_not_translated = empty( $sitepress_settings['posts_slug_translation']['types'][ $post_type ] );
+
+			if ( $cpt_slug_is_not_translated ) {
+				continue;
+			}
+
+			$slug_translations = WPML_Slug_Translation::get_translations( $post_type );
+
+			if ( ! isset( $slug_translations[1] ) ) {
+				continue;
+			}
+
+			$bases['single'] = array_merge( $bases['single'], wp_list_pluck( $slug_translations[1], 'value' ) );
+		}
+
+		return $bases;
+	}
+
 }

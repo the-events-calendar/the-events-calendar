@@ -577,17 +577,45 @@ class Tribe__Events__Aggregator__Records {
 	 * @param string $origin Import Origin
 	 */
 	public function add_record_to_event( $id, $record_id, $origin ) {
+		$record = $this->get_by_post_id( $record_id );
+
 		// Set the event origin
 		update_post_meta( $id, '_EventOrigin', Tribe__Events__Aggregator__Event::$event_origin );
 
-		// Add the Aggregator Origin
+		// Add the Aggregator origin
 		update_post_meta( $id, Tribe__Events__Aggregator__Event::$origin_key, $origin );
 
-		// Add the Aggregator Record
+		// Add the Aggregator record
 		update_post_meta( $id, Tribe__Events__Aggregator__Event::$record_key, $record_id );
+
+		// Add the Aggregator source
+		update_post_meta( $id, Tribe__Events__Aggregator__Event::$source_key, $record->meta['source'] );
+
+		// Add the Aggregator import timestamp
+		update_post_meta( $id, Tribe__Events__Aggregator__Event::$updated_key, $record->post->post_date );
 	}
 
+	/**
+	 * Prefixes a String to be the Key for Record meta
+	 *
+	 * @since  4.3
+	 *
+	 * @param  string $str Append to the Prefix
+	 *
+	 * @return string
+	 */
 	public function prefix_meta( $str = null ) {
 		return Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . $str;
+	}
+
+	/**
+	 * Fetches the Amount of seconds that we will hold a Record Log on the Posts Table
+	 *
+	 * @since  4.3.2
+	 *
+	 * @return int
+	 */
+	public function get_retention() {
+		return apply_filters( 'tribe_aggregator_record_retention', WEEK_IN_SECONDS );
 	}
 }
