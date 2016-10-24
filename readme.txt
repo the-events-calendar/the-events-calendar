@@ -315,6 +315,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.4] TBD =
+
+* Feature - Add support for featured events [65898]
+
 = [4.3.1.1] 2016-10-20 =
 
 * Fix - Corrected a packaging issue from the 4.3.1 release [67936]

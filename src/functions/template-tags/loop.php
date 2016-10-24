@@ -122,9 +122,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @todo move logic to template classes
 	 */
 	function tribe_get_events_title( $depth = true ) {
+		global $wp_query;
+
 		$events_label_plural = tribe_get_event_label_plural();
 
-		global $wp_query;
+		if ( $wp_query->get( 'featured' ) ) {
+			$events_label_plural = sprintf( _x( 'Featured %s', 'featured events title', 'the-events-calendar'), $events_label_plural );
+		}
 
 		$tribe_ecp = Tribe__Events__Main::instance();
 

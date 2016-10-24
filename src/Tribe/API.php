@@ -179,6 +179,11 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				}
 			}
 
+			// Set featured status
+			empty( $data['feature_event'] )
+				? tribe( 'tec.featured_events' )->unfeature( $event_id )
+				: tribe( 'tec.featured_events' )->feature( $event_id );
+
 			$fields_to_check_for_changes = array(
 				'_EventShowInCalendar',
 				'_thumbnail_id',
