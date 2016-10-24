@@ -117,6 +117,13 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 							</span>
 						</td>
 					</tr>
+					<tr class="event-dynamic-helper">
+						<td class="label">
+						</td>
+						<td>
+							<div class="event-dynamic-helper-text"></div>
+						</td>
+					</tr>
 					<tr class="event-timezone">
 						<td class="label">
 							<label for="event-timezone">

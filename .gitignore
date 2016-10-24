@@ -23,6 +23,7 @@ vendor
 !vendor/tickets
 !vendor/tribe-common-libraries
 !vendor/ForceUTF8
+!vendor/php-date-formatter
 
 # Tests - local config files
 codeception.yml

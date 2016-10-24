@@ -1975,6 +1975,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				// select 2
 				Tribe__Events__Template_Factory::asset_package( 'select2' );
 
+				//php date formatter
+				Tribe__Events__Template_Factory::asset_package( 'php-date-formatter' );
+
 				// date picker
 				Tribe__Events__Template_Factory::asset_package( 'datepicker' );
 
