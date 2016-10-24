@@ -710,46 +710,6 @@ jQuery( document ).ready( function( $ ) {
 
 });
 
-( function ( $ ) {
-	'use strict';
-
-	var widget_update = function ( e, $widget ) {
-		if ( 'undefined' === typeof $widget ) {
-			var $target = $( e.target ),
-				$widget;
-
-			// Prevent weird non avaiable widgets to go any further
-			if ( ! $target.parents('.widget-top').length || $target.parents('#available-widgets').length ) {
-				return;
-			}
-
-			$widget = $target.closest( 'div.widget' );
-		}
-
-		// If we are not dealing with one of the Tribe Widgets
-		if (
-			! $widget.is( '[id*="tribe-events-adv-list"]' ) &&
-			! $widget.is( '[id*="tribe-mini-calendar"]' ) &&
-			! $widget.is( '[id*="tribe-this-week-events"]' )
-		) {
-			return;
-		}
-
-		// Bail when it was not off screen
-		if ( $widget.find( '.select2-container' ).length !== 0 && ! $widget.find( '.select2-container' ).hasClass( 'select2-offscreen' ) ) {
-			return;
-		}
-
-		$widget.find( 'select.calendar-widget-add-filter' ).removeClass( 'select2-offscreen' ).select2();
-	};
-
-	// Open the Widget
-	$( document.body ).on( 'click.widgets-toggle', widget_update );
-
-	// When Updated Re-Structure the Select2
-	$( document ).on( 'widget-updated', widget_update );
-} )( jQuery );
-
 /**
  * Manage the timezone selector user interface.
  */

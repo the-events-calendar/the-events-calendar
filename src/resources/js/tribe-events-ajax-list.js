@@ -174,7 +174,9 @@
 				if ( pathname.match( /\/all\/$/ ) ) {
 					ts.view = 'all';
 				} else {
-					ts.view = 'list';
+					var display = tribeUtils.getQueryVars().tribe_event_display;
+
+					ts.view = undefined !== display ? display : 'list';
 				}
 
 				ts.popping = false;
