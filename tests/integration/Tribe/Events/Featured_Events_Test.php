@@ -18,7 +18,7 @@ class Featured_Events_Test extends Tribe__Events__WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$this->featured_events = tribe_featured_events();
+		$this->featured_events = tribe( 'tec.featured_events' );
 		$this->create_test_posts();
 	}
 

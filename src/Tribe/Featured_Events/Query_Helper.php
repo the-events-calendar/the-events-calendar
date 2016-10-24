@@ -3,7 +3,7 @@
  * @internal
  */
 class Tribe__Events__Featured_Events__Query_Helper {
-	public function hook_up() {
+	public function hook() {
 		add_action( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts' ) );
 	}
 

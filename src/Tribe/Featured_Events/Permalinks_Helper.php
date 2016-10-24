@@ -3,7 +3,7 @@
  * @internal
  */
 class Tribe__Events__Featured_Events__Permalinks_Helper {
-	public function hook_up() {
+	public function hook() {
 		add_filter( 'tribe_events_get_link', array( $this, 'maybe_add_featured_slug' ), 100, 6 );
 	}
 
