@@ -247,10 +247,9 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		$is_queued = $queue->count();
 
-		$content_post_type = $queue->record->meta['content_type'];
+		$content_post_type = empty( $queue->record->meta['content_type'] ) ? Tribe__Events__Main::POSTTYPE : $queue->record->meta['content_type'];
 		$content_type = tribe_get_event_label_singular_lowercase();
 		$content_type_plural = tribe_get_event_label_plural_lowercase();
-		$content_post_type = Tribe__Events__Main::POSTTYPE;
 
 		if ( 'csv' === $queue->record->meta['origin'] && 'tribe_events' !== $queue->record->meta['content_type'] ) {
 			$content_type_object = get_post_type_object( $queue->record->meta['content_type'] );

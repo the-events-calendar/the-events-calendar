@@ -69,6 +69,7 @@ class Tribe__Events__Aggregator__Cron {
 		// Add the Actual Process to run on the Action
 		add_action( 'tribe_aggregator_cron_run', array( $this, 'verify_child_record_creation' ), 5 );
 		add_action( 'tribe_aggregator_cron_run', array( $this, 'verify_fetching_from_service' ), 15 );
+		add_action( 'tribe_aggregator_cron_run', array( $this, 'purge_expired_records' ), 25 );
 	}
 
 	/**
@@ -203,7 +204,7 @@ class Tribe__Events__Aggregator__Cron {
 	 *
 	 * @return boolean|array|object
 	 */
-	public function filter_check_http_limit( $run = false, $request, $url ) {
+	public function filter_check_http_limit( $run = false, $request = null, $url = null ) {
 		// We bail if it's not a CRON job
 		if ( ! defined( 'DOING_CRON' ) || ! DOING_CRON ) {
 			return $run;
@@ -268,6 +269,7 @@ class Tribe__Events__Aggregator__Cron {
 	/**
 	 * Checks if any Child Record needs to be created, this will run on the Cron every 15m
 	 *
+	 * @since  4.3
 	 * @return void
 	 */
 	public function verify_child_record_creation() {
@@ -277,6 +279,7 @@ class Tribe__Events__Aggregator__Cron {
 		}
 
 		$records = Tribe__Events__Aggregator__Records::instance();
+		$service = Tribe__Events__Aggregator__Service::instance();
 
 		$query = $records->query( array(
 			'post_status' => Tribe__Events__Aggregator__Records::$status->schedule,
@@ -285,7 +288,7 @@ class Tribe__Events__Aggregator__Cron {
 
 		if ( ! $query->have_posts() ) {
 			$this->log( 'debug', 'No Records Scheduled, skipped creating childs' );
-			return false;
+			return;
 		}
 
 		foreach ( $query->posts as $post ) {
@@ -301,6 +304,13 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
+			// if there are no remaining imports for today, log that and skip
+			if ( $service->is_over_limit( true ) ) {
+				$this->log( 'debug', sprintf( $service->get_service_message( 'error:usage-limit-exceeded' ) . ' (%1$d)', $record->id ) );
+				$record->update_meta( 'last_import_status', 'error:usage-limit-exceeded' );
+				continue;
+			}
+
 			// Creating the child records based on this Parent
 			$child = $record->create_child_record();
 
@@ -312,11 +322,16 @@ class Tribe__Events__Aggregator__Cron {
 
 				if ( ! empty( $response->status ) ) {
 					$this->log( 'debug', sprintf( '%s — %s (%s)', $response->status, $response->message, $response->data->import_id ) );
+
+					$record->update_meta( 'last_import_status', 'success:queued' );
 				} else {
 					$this->log( 'debug', 'Could not create Queue on Service' );
+
+					$record->update_meta( 'last_import_status', 'error:import-failed' );
 				}
 			} else {
 				$this->log( 'debug', $child->get_error_message() );
+				$record->update_meta( 'last_import_status', 'error:import-failed' );
 			}
 		}
 	}
@@ -324,6 +339,7 @@ class Tribe__Events__Aggregator__Cron {
 	/**
 	 * Checks if any record data needs to be fetched from the service, this will run on the Cron every 15m
 	 *
+	 * @since  4.3
 	 * @return void
 	 */
 	public function verify_fetching_from_service() {
@@ -349,7 +365,7 @@ class Tribe__Events__Aggregator__Cron {
 
 		if ( ! $query->have_posts() ) {
 			$this->log( 'debug', 'No Records Pending, skipped Fetching from service' );
-			return false;
+			return;
 		}
 
 		foreach ( $query->posts as $post ) {
@@ -379,6 +395,84 @@ class Tribe__Events__Aggregator__Cron {
 				}
 			} else {
 				$this->log( 'debug', sprintf( 'Record (%d) — %s', $record->id, $queue->get_error_message() ) );
+			}
+		}
+	}
+
+	/**
+	 * @since  4.3.2
+	 * @return void
+	 */
+	public function purge_expired_records() {
+		global $wpdb;
+
+		$records = Tribe__Events__Aggregator__Records::instance();
+		$statuses = Tribe__Events__Aggregator__Records::$status;
+
+		$sql = "
+			SELECT
+				meta_value
+			FROM
+				{$wpdb->postmeta}
+				JOIN {$wpdb->posts}
+				ON ID = post_id
+				AND post_status = %s
+			WHERE
+				meta_key = %s
+		";
+
+		// let's make sure we don't purge the most recent record for each import
+		$records_to_retain = $wpdb->get_col(
+			$wpdb->prepare(
+				$sql,
+				$statuses->schedule,
+				Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'recent_child'
+			)
+		);
+
+		$args = array(
+			'post_status' => array(
+				$statuses->pending,
+				$statuses->success,
+				$statuses->failed,
+				$statuses->draft,
+			),
+			'date_query' => array(
+				array(
+					'before' => date( 'Y-m-d H:i:s', time() - $records->get_retention() ),
+					'column' => 'post_date_gmt',
+				),
+			),
+			'order' => 'ASC',
+			'posts_per_page' => 100,
+		);
+
+		if ( $records_to_retain ) {
+			$args['post__not_in'] = $records_to_retain;
+		}
+
+		$query = $records->query( $args );
+
+		if ( ! $query->have_posts() ) {
+			$this->log( 'debug', 'No Records over retetion limit, skipped pruning expired' );
+			return;
+		}
+
+		foreach ( $query->posts as $post ) {
+			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+
+			if ( ! $record->has_passed_retention_time() ) {
+				$this->log( 'debug', sprintf( 'Record (%d) skipped, not passed retetion time', $record->id ) );
+				continue;
+			}
+
+			// Creating the child records based on this Parent
+			$deleted = wp_delete_post( $record->id, true );
+
+			if ( $deleted ) {
+				$this->log( 'debug', sprintf( 'Record (%d), was pruned', $deleted->ID ) );
+			} else {
+				$this->log( 'debug', sprintf( 'Record (%d), was not pruned', $deleted ) );
 			}
 		}
 	}

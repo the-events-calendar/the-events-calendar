@@ -385,4 +385,113 @@ class Tribe__Events__Aggregator__Service {
 
 		return $response;
 	}
+
+	/**
+	 * Returns a service message based on key
+	 *
+	 * @param string $key Service Message index
+	 *
+	 * @return string
+	 */
+	public function get_service_message( $key, $args = array() ) {
+		if ( empty( $this->service_messages[ $key ] ) ) {
+			return __( 'Unknown service message', 'the-events-calendar' );
+		}
+
+		return vsprintf( $this->service_messages[ $key ], $args );
+	}
+
+	/**
+	 * Returns usage limits
+	 *
+	 * @param string $type Type of limits to return
+	 * @param boolean $ignore_cache Whether or not cache should be ignored when fetching the value
+	 *
+	 * @return array
+	 */
+	public function get_limit( $type, $ignore_cache = false ) {
+		static $origins;
+
+		if ( ! $origins || $ignore_cache ) {
+			$origins = (object) $this->get_origins();
+		}
+
+		if ( ! isset( $origins->limit->$type ) ) {
+			return 0;
+		}
+
+		return $origins->limit->$type;
+	}
+
+	/**
+	 * Returns limit usage
+	 *
+	 * @param string $type Type of usage to return
+	 * @param boolean $ignore_cache Whether or not cache should be ignored when fetching the value
+	 *
+	 * @return array
+	 */
+	public function get_usage( $type, $ignore_cache = false ) {
+		static $origins;
+
+		if ( ! $origins || $ignore_cache ) {
+			$origins = (object) $this->get_origins();
+		}
+
+		if ( ! isset( $origins->usage->$type ) ) {
+			return array(
+				'used' => 0,
+				'remaining' => 0,
+			);
+		}
+
+		return $origins->usage->$type;
+	}
+
+	/**
+	 * Returns whether or not the limit has been exceeded
+	 *
+	 * @param boolean $ignore_cache Whether or not cache should be ignored when fetching the value
+	 *
+	 * @return boolean
+	 */
+	public function is_over_limit( $ignore_cache = false ) {
+		$limits = $this->get_usage( 'import', $ignore_cache );
+
+		return isset( $limits->remaining ) && 0 >= $limits->remaining;
+	}
+
+	/**
+	 * Returns the currently used imports for the day
+	 *
+	 * @param boolean $ignore_cache Whether or not cache should be ignored when fetching the value
+	 *
+	 * @return int
+	 */
+	public function get_limit_usage( $ignore_cache = false ) {
+		$limits = $this->get_usage( 'import', $ignore_cache );
+
+		if ( isset( $limits->used ) ) {
+			return $limits->used;
+		}
+
+		return 0;
+	}
+
+	/**
+	 * Returns the remaining imports for the day
+	 *
+	 * @param boolean $ignore_cache Whether or not cache should be ignored when fetching the value
+	 *
+	 * @return int
+	 */
+	public function get_limit_remaining( $ignore_cache = false ) {
+		$limits = $this->get_usage( 'import', $ignore_cache );
+
+		if ( isset( $limits->remaining ) ) {
+			return $limits->remaining;
+		}
+
+		return 0;
+	}
 }
