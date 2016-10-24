@@ -315,6 +315,9 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.4] TBD =
+* Feature - Add dynamic helper text to single event editor to display the events date and time [66484]
+
 = [4.3] 2016-10-13 =
 
 * Feature - Added Event Aggregator to enable service-based event imports from iCal feeds, Facebook, and Meetup
