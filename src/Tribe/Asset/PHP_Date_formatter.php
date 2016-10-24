@@ -1,14 +1,13 @@
 <?php
 
-class Tribe__Events__Asset__Select2 extends Tribe__Events__Asset__Abstract_Asset {
+class Tribe__Events__Asset__PHP_Date_Formatter extends Tribe__Events__Asset__Abstract_Asset {
+
 	public function handle() {
-		$css_path = Tribe__Events__Template_Factory::getMinFile( $this->vendor_url . 'select2/select2.css', true );
-		$path = Tribe__Events__Template_Factory::getMinFile( $this->vendor_url . 'select2/select2.js', true );
 
-		wp_enqueue_style( $this->prefix . '-select2-css', $css_path );
-
-		$script_handle = $this->prefix . '-select2';
-		wp_enqueue_script( $script_handle, $path, 'jquery', '3.2' );
+		$path = Tribe__Events__Template_Factory::getMinFile( $this->vendor_url . 'php-date-formatter/js/php-date-formatter.js', true );
+		log_me( $this->prefix );
+		$script_handle = $this->prefix . '-php-date-formatter';
+		wp_enqueue_script( $script_handle, $path, 'jquery', '1.3.4' );
 		Tribe__Events__Template_Factory::add_vendor_script( $script_handle );
 	}
 }
