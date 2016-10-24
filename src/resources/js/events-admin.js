@@ -901,13 +901,9 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	 */
 	obj.event_time_change = function () {
 
-		$( '.timeofdayoptions select' ).each( function () {
-
-			$( this ).on( 'change', function () {
+		$( '.timeofdayoptions select' ).on( 'change', function () {
 
 				obj.setup_and_display_text();
-			} );
-
 		} );
 
 	};
