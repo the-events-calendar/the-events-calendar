@@ -59,31 +59,6 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 		return self::$instance;
 	}
 
-
-	/**
-	 * Do not allow people to Hook methods twice by mistake
-	 */
-	public function hooks( $remove = false ) {
-		if ( false === $this->hook_lock ) {
-			// Don't allow people do Double the hooks
-			$this->hook_lock = true;
-
-			// Hook the methods
-			add_action( 'tribe_events_pre_rewrite', array( $this, 'generate_core_rules' ) );
-			add_filter( 'generate_rewrite_rules', array( $this, 'filter_generate' ) );
-			add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15, 2 );
-
-			// Remove percent Placeholders on all items
-			add_filter( 'rewrite_rules_array', array( $this, 'remove_percent_placeholders' ), 25 );
-
-		} elseif ( true === $remove ) {
-			// Remove the Hooks
-			remove_filter( 'generate_rewrite_rules', array( $this, 'filter_generate' ) );
-			remove_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15 );
-			remove_filter( 'rewrite_rules_array', array( $this, 'remove_percent_placeholders' ), 25 );
-		}
-	}
-
 	/**
 	 * Generate the Rewrite Rules
 	 *
