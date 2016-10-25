@@ -308,15 +308,24 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$date_provided = true;
 				delete_post_meta( $event_id, '_EventAllDay' );
 
-				$start_date_string = "{$data['EventStartDate']} {$data['EventStartHour']}:{$data['EventStartMinute']}:00";
-				$end_date_string = "{$data['EventEndDate']} {$data['EventEndHour']}:{$data['EventEndMinute']}:00";
-
-				if ( isset( $data['EventStartMeridian'] ) ) {
-					$start_date_string .= " {$data['EventStartMeridian']}";
+				// EventStartTime will always be 24h Format
+				if ( isset( $data['EventStartTime'] ) ) {
+					$start_date_string = "{$data['EventStartDate']} {$data['EventStartTime']}";
+				} else {
+					$start_date_string = "{$data['EventStartDate']} {$data['EventStartHour']}:{$data['EventStartMinute']}:00";
+					if ( isset( $data['EventStartMeridian'] ) ) {
+						$start_date_string .= " {$data['EventStartMeridian']}";
+					}
 				}
 
-				if ( isset( $data['EventEndMeridian'] ) ) {
-					$end_date_string .= " {$data['EventEndMeridian']}";
+				// EventEndTime will always be 24h Format
+				if ( isset( $data['EventEndTime'] ) ) {
+					$end_date_string = "{$data['EventStartDate']} {$data['EventEndTime']}";
+				} else {
+					$end_date_string = "{$data['EventEndDate']} {$data['EventEndHour']}:{$data['EventEndMinute']}:00";
+					if ( isset( $data['EventEndMeridian'] ) ) {
+						$end_date_string .= " {$data['EventEndMeridian']}";
+					}
 				}
 
 				$data['EventStartDate'] = date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date_string ) );

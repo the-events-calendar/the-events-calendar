@@ -156,10 +156,14 @@ class Tribe__Events__Admin__Event_Meta_Box {
 
 		if ( $this->vars['_EventStartDate'] ) {
 			$start = Tribe__Date_Utils::date_only( $this->vars['_EventStartDate'], false, $datepicker_format );
+			$startTime = Tribe__Date_Utils::time_only( $this->vars['_EventStartDate'] );
 		}
 
 		// If we don't have a valid start date, assume today's date
 		$this->vars['EventStartDate'] = ( isset( $start ) && $start ) ? $start : date( $datepicker_format );
+		$this->vars['EventStartTime'] = ( isset( $startTime ) && $startTime ? $startTime : null );
+
+		$this->vars['start_timepicker_step'] = $this->get_timepicker_step( 'start' );
 	}
 
 	protected function set_end_date_time() {
@@ -171,10 +175,36 @@ class Tribe__Events__Admin__Event_Meta_Box {
 
 		if ( $this->vars['_EventEndDate'] ) {
 			$end = Tribe__Date_Utils::date_only( $this->vars['_EventEndDate'], false, $datepicker_format );
+			$endTime = Tribe__Date_Utils::time_only( $this->vars['_EventEndDate'] );
 		}
 
 		// If we don't have a valid end date, assume today's date
 		$this->vars['EventEndDate'] = ( isset( $end ) && $end ) ? $end : date( $datepicker_format );
+		$this->vars['EventEndTime'] = ( isset( $endTime ) && $endTime ? $endTime : null );
+
+		$this->vars['end_timepicker_step'] = $this->get_timepicker_step( 'end' );
+	}
+
+	/**
+	 * Gets the Step for the Timepicker
+	 *
+	 * @since 4.4
+	 *
+	 * @param mixed $type
+	 *
+	 * @return int
+	 */
+	protected function get_timepicker_step( $type = null ) {
+		/**
+		 * Allows developers to filter what is the Step for the Timepicker
+		 *
+		 * @since 4.4
+		 *
+		 * @param int    $step
+		 * @param string $type
+		 * @param self   $metabox
+		 */
+		return (int) apply_filters( 'tribe_events_meta_box_timepicker_step', 30, $type, $this );
 	}
 
 	/**
@@ -183,6 +213,16 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	protected function do_meta_box() {
 		$events_meta_box_template = $this->tribe->pluginPath . 'src/admin-views/events-meta-box.php';
 		$events_meta_box_template = apply_filters( 'tribe_events_meta_box_template', $events_meta_box_template );
+
+		/**
+		 * Allow rounding the Timepicker Minutes
+		 *
+		 * @since 4.4
+		 *
+		 * @param bool   $round
+		 * @param self   $metabox
+		 */
+		$this->vars['timepicker_round'] = (bool) apply_filters( 'tribe_events_meta_box_timepicker_round', false, $this );
 
 		extract( $this->vars );
 		$event = $this->event;
