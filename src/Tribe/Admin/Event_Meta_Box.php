@@ -156,12 +156,12 @@ class Tribe__Events__Admin__Event_Meta_Box {
 
 		if ( $this->vars['_EventStartDate'] ) {
 			$start = Tribe__Date_Utils::date_only( $this->vars['_EventStartDate'], false, $datepicker_format );
-			$startTime = Tribe__Date_Utils::time_only( $this->vars['_EventStartDate'] );
+			$start_time = Tribe__Date_Utils::time_only( $this->vars['_EventStartDate'] );
 		}
 
 		// If we don't have a valid start date, assume today's date
 		$this->vars['EventStartDate'] = ( isset( $start ) && $start ) ? $start : date( $datepicker_format );
-		$this->vars['EventStartTime'] = ( isset( $startTime ) && $startTime ? $startTime : null );
+		$this->vars['EventStartTime'] = ( isset( $start_time ) && $start_time ? $start_time : null );
 
 		$this->vars['start_timepicker_step'] = $this->get_timepicker_step( 'start' );
 	}
@@ -175,12 +175,12 @@ class Tribe__Events__Admin__Event_Meta_Box {
 
 		if ( $this->vars['_EventEndDate'] ) {
 			$end = Tribe__Date_Utils::date_only( $this->vars['_EventEndDate'], false, $datepicker_format );
-			$endTime = Tribe__Date_Utils::time_only( $this->vars['_EventEndDate'] );
+			$end_time = Tribe__Date_Utils::time_only( $this->vars['_EventEndDate'] );
 		}
 
 		// If we don't have a valid end date, assume today's date
 		$this->vars['EventEndDate'] = ( isset( $end ) && $end ) ? $end : date( $datepicker_format );
-		$this->vars['EventEndTime'] = ( isset( $endTime ) && $endTime ? $endTime : null );
+		$this->vars['EventEndTime'] = ( isset( $end_time ) && $end_time ? $end_time : null );
 
 		$this->vars['end_timepicker_step'] = $this->get_timepicker_step( 'end' );
 	}

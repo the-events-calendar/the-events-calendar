@@ -1,34 +1,34 @@
-( function ( $, my ) {
+( function ( $, obj ) {
 	"use strict";
 
-	my.selector = {
+	obj.selector = {
 		container  : '.tribe-datetime-block',
 		timepicker : '.tribe-timepicker',
 		all_day    : '#allDayCheckbox',
 		timezone   : '.tribe-field-timezone'
 	};
 
-	my.timepicker = {
+	obj.timepicker = {
 		opts: {
 			forceRoundTime: false,
 			step: 30,
 		}
 	};
 
-	my.timezone = {
+	obj.timezone = {
 		link: _.template( '<a href="#" class="tribe-change-timezone"><%= label %> <%= timezone %></a>' )
 	}
 
-	my.$ = {};
+	obj.$ = {};
 
-	my.container = function( k, container ) {
+	obj.container = function( k, container ) {
 		var $container = $( container ),
-			$all_day = $container.find( my.selector.all_day ),
-			$timepicker = $container.find( my.selector.timepicker ),
-			$timezone = $container.find( my.selector.timezone ),
+			$all_day = $container.find( obj.selector.all_day ),
+			$timepicker = $container.find( obj.selector.timepicker ),
+			$timezone = $container.find( obj.selector.timezone ),
 
 			// Create the Link
-			$timezone_link = $( my.timezone.link( { label: $timezone.data( 'timezoneLabel' ), timezone: $timezone.data( 'timezoneValue' ) } ) );
+			$timezone_link = $( obj.timezone.link( { label: $timezone.data( 'timezoneLabel' ), timezone: $timezone.data( 'timezoneValue' ) } ) );
 
 		// Toggle Timepickers on All Day change
 		$all_day.on( 'change', function() {
@@ -42,7 +42,7 @@
 		// Setup all Timepickers
 		$timepicker.each( function() {
 			var $item = $( this ),
-				opts = $.extend( {}, my.timepicker.opts );
+				opts = $.extend( {}, obj.timepicker.opts );
 
 			if ( $item.data( 'format' ) ) {
 				opts.timeFormat = $item.data( 'format' );
@@ -76,12 +76,12 @@
 		$timezone.after( $timezone_link );
 	};
 
-	my.ready = function() {
-		my.$.containers = $( my.selector.container );
-		my.$.containers.each( my.container );
+	obj.init = function() {
+		obj.$.containers = $( obj.selector.container );
+		obj.$.containers.each( obj.container );
 	}
 
-	$( document ).ready( my.ready );
+	$( document ).ready( obj.init );
 } ( jQuery, {} ) );
 
 /*
