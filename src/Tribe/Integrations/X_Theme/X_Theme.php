@@ -10,15 +10,15 @@
  * This class is meant to be an entry point hooking specialized classes and not
  * a logic hub per se.
  */
-class Tribe__Events__Integrations__XTheme__XTheme {
+class Tribe__Events__Integrations__X_Theme__X_Theme {
 
 	/**
-	 * @var Tribe__Events__Integrations__XTheme__XTheme
+	 * @var Tribe__Events__Integrations__X_Theme__X_Theme
 	 */
 	protected static $instance;
 
 	/**
-	 * @return Tribe__Events__Integrations__XTheme__XTheme
+	 * @return Tribe__Events__Integrations__X_Theme__X_Theme
 	 */
 	public static function instance() {
 		if ( empty( self::$instance ) ) {
