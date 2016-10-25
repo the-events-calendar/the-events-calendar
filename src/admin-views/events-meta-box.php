@@ -44,8 +44,6 @@ $events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 	 * @param boolean
 	 */
 	do_action( 'tribe_events_eventform_top', $event->ID );
-
-	//
 	?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>
