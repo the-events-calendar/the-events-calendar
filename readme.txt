@@ -315,6 +315,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.3.2] tbd =
+
+* Fix - Avoid errors and notices on calendar page when X theme and WPML plugins are active [64400]
+
 = [4.3.1.1] 2016-10-20 =
 
 * Fix - Corrected a packaging issue from the 4.3.1 release [67936]
