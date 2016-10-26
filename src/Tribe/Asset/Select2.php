@@ -9,7 +9,7 @@ class Tribe__Events__Asset__Select2 extends Tribe__Events__Asset__Abstract_Asset
 	protected $aliases = array(
 		'select2' => array(
 			'advanced-custom-fields-pro/acf.php' => 'select2',
-		)
+		),
 	);
 
 	public function handle() {
