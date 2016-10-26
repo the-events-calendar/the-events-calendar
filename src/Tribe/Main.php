@@ -1987,6 +1987,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				// date picker
 				Tribe__Events__Template_Factory::asset_package( 'datepicker' );
 
+				// jQuery Timepicker
+				wp_enqueue_script( 'tribe-jquery-timepicker' );
+				wp_enqueue_style( 'tribe-jquery-timepicker-css' );
+
 				// dialog
 				Tribe__Events__Template_Factory::asset_package( 'dialog' );
 
@@ -2002,14 +2006,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				// ecp placeholders
 				Tribe__Events__Template_Factory::asset_package( 'ecp-plugins' );
 
-				if ( $admin_helpers->is_post_type_screen( self::POSTTYPE ) ){
+				if ( $admin_helpers->is_post_type_screen( self::POSTTYPE ) ) {
 					add_action( 'admin_footer', array( $this, 'printLocalizedAdmin' ) );
 					// hook for other plugins
 					do_action( 'tribe_events_enqueue' );
-				} elseif ( $admin_helpers->is_post_type_screen( self::VENUE_POST_TYPE ) ){
+				} elseif ( $admin_helpers->is_post_type_screen( self::VENUE_POST_TYPE ) ) {
 					// hook for other plugins
 					do_action( 'tribe_venues_enqueue' );
-				} elseif ( $admin_helpers->is_post_type_screen( self::ORGANIZER_POST_TYPE ) ){
+				} elseif ( $admin_helpers->is_post_type_screen( self::ORGANIZER_POST_TYPE ) ) {
 					do_action( 'tribe_organizers_enqueue' );
 				}
 			}
@@ -2242,9 +2246,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'post_type'  => self::POSTTYPE,
 			) );
 
-			while ( $the_query->have_posts() ): $the_query->the_post();
+			while ( $the_query->have_posts() ) {
+				$the_query->the_post();
 				delete_post_meta( get_the_ID(), $key );
-			endwhile;
+			}
 
 			wp_reset_postdata();
 		}
