@@ -865,11 +865,11 @@ Date.prototype.format = function( mask, utc ) {
 				$tribe_bar.tribe_clear_form();
 			}
 
-			params = tribe_ev.fn.parse_string( params );
+			params = tribe_ev.fn.parse_string( decodeURIComponent( params.replace( /\+/g, '%20' ) ) );
 
 			$.each( params, function( key, value ) {
 				if ( key !== 'action' ) {
-					var name = decodeURI( key ),
+					var name = key,
 						$target = '';
 					if ( value.length === 1 ) {
 						if ( $( '[name="' + name + '"]' ).is( 'input[type="text"], input[type="hidden"]' ) ) {
