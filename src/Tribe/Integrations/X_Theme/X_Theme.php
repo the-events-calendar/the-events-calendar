@@ -34,8 +34,30 @@ class Tribe__Events__Integrations__X_Theme__X_Theme {
 	public function hook() {
 		if ( function_exists( 'x_force_template_override' ) ) {
 			add_filter(
-				'template_include', array( Tribe__Events__Integrations__X_Theme__Filters::instance(), 'filter_template_include' )
+				'template_include', array( $this, 'filter_template_include' )
 			);
 		}
+	}
+
+	/**
+	 * Use the filter as an action to remove further filtering on X theme side
+	 * if the query is for our content.
+	 *
+	 * @param string $template
+	 *
+	 * @return string $template
+	 */
+	public function filter_template_include( $template ) {
+		/** @var WP_Query $wp_query */
+		global $wp_query;
+
+		if ( $wp_query->is_main_query()
+		     && empty( $wp_query->tribe_is_multi_posttype )
+		     && ! empty( $wp_query->tribe_is_event_query )
+		) {
+			remove_filter( 'template_include', 'x_force_template_override', 99 );
+		}
+
+		return $template;
 	}
 }
