@@ -317,6 +317,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.3.2] tbd =
 
+* Fix - Avoid loading the select2 JavaScript library twice when Advanced Custom Fields is activated [43065]
 * Fix - Avoid errors and notices on calendar page when X theme and WPML plugins are active [64400]
 
 = [4.3.1.1] 2016-10-20 =
