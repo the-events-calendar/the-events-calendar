@@ -712,7 +712,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'update_post_meta_cache' => false,
 					'no_found_rows'          => false,
 					'do_not_inject_date'     => true,
-					'meta_key'               => '_EventStartDate',
 					'orderby'                => array(
 						'menu_order' => 'ASC',
 						'meta_value' => 'ASC',
