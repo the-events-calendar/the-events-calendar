@@ -1,3 +1,89 @@
+( function ( $, obj ) {
+	"use strict";
+
+	obj.selector = {
+		container  : '.tribe-datetime-block',
+		timepicker : '.tribe-timepicker',
+		all_day    : '#allDayCheckbox',
+		timezone   : '.tribe-field-timezone'
+	};
+
+	obj.timepicker = {
+		opts: {
+			forceRoundTime: false,
+			step: 30,
+		}
+	};
+
+	obj.timezone = {
+		link: _.template( '<a href="#" class="tribe-change-timezone"><%= label %> <%= timezone %></a>' )
+	}
+
+	obj.$ = {};
+
+	obj.container = function( k, container ) {
+		var $container = $( container ),
+			$all_day = $container.find( obj.selector.all_day ),
+			$timepicker = $container.find( obj.selector.timepicker ),
+			$timezone = $container.find( obj.selector.timezone ),
+
+			// Create the Link
+			$timezone_link = $( obj.timezone.link( { label: $timezone.data( 'timezoneLabel' ), timezone: $timezone.data( 'timezoneValue' ) } ) );
+
+		// Toggle Timepickers on All Day change
+		$all_day.on( 'change', function() {
+			if ( true === $all_day.prop( 'checked' ) ) {
+				$timepicker.hide();
+			} else {
+				$timepicker.show();
+			}
+		} ).trigger( 'change' );
+
+		// Setup all Timepickers
+		$timepicker.each( function() {
+			var $item = $( this ),
+				opts = $.extend( {}, obj.timepicker.opts );
+
+			if ( $item.data( 'format' ) ) {
+				opts.timeFormat = $item.data( 'format' );
+			}
+
+			// By default the step is 15
+			if ( $item.data( 'step' ) ) {
+				opts.step = $item.data( 'step' );
+			}
+
+			// Passing anything but 0 or 'false' will make it round to the nearest step
+			var round = $item.data( 'round' );
+			if (
+				round &&
+				0 != round &&
+				'false' !== round
+			) {
+				opts.forceRoundTime = true;
+			}
+
+			$item.timepicker( opts );
+		} );
+
+		// Attach a Click action the Timezone Link
+		$timezone_link.on( 'click', function() {
+			$timezone_link.hide();
+			$timezone.show().select2();
+		} );
+
+		// Append the Link to the Timezone
+		$timezone.after( $timezone_link );
+	};
+
+	obj.init = function() {
+		obj.$.containers = $( obj.selector.container );
+		obj.$.containers.each( obj.container );
+	}
+
+	$( document ).ready( obj.init );
+} ( jQuery, {} ) );
+
 /*
  * Date Format 1.2.3
  * (c) 2007-2009 Steven Levithan <stevenlevithan.com>
@@ -146,6 +232,9 @@ jQuery( document ).ready( function( $ ) {
 
 	$( '.bumpdown-trigger' ).bumpdown();
 
+	/**
+	 * Setup Datepicker
+	 */
 	var $date_format      = $( '[data-datepicker_format]' ),
 		$view_select      = $( '.tribe-field-dropdown_select2 select' ),
 		viewCalLinkHTML   = $( '#view-calendar-link-div' ).html(),
@@ -415,9 +504,6 @@ jQuery( document ).ready( function( $ ) {
 		$.extend( tribe_datepicker_opts, TEC );
 
 		var dates = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
-		var $all_day_check = $( '#allDayCheckbox' );
-		var $tod_options = $( ".timeofdayoptions" );
-		var $time_format = $( "#EventTimeFormatDiv" );
 		var $start_end_month = $( "select[name='EventStartMonth'], select[name='EventEndMonth']" );
 		var $start_month = $( "select[name='EventStartMonth']" );
 		var $end_month = $( 'select[name="EventEndMonth"]' );
@@ -434,26 +520,6 @@ jQuery( document ).ready( function( $ ) {
 				( '' !== $el.val() ) && $el.val( tribeDateFormat( $el.val(), datepicker_format ) );
 			})
 		}
-
-		// toggle time input
-
-		function toggleDayTimeDisplay() {
-			if ( $all_day_check.prop( 'checked' ) === true ) {
-				$tod_options.hide();
-				$time_format.hide();
-			}
-			else {
-				$tod_options.show();
-				$time_format.show();
-			}
-		}
-
-		$all_day_check
-			.click( function() {
-				toggleDayTimeDisplay();
-			} );
-
-		toggleDayTimeDisplay();
 
 		var tribeDaysPerMonth = [29, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
@@ -747,7 +813,16 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	'use strict';
 
 	obj.field_class = '.event-dynamic-helper-text';
-	obj.date_fmt = new DateFormatter();
+	obj.date_fmt_settings = {
+     dateSettings: {
+         days: tribe_dynamic_help_text.days,
+         daysShort: tribe_dynamic_help_text.daysShort,
+         months: tribe_dynamic_help_text.months,
+         monthsShort: tribe_dynamic_help_text.monthsShort,
+     }
+ };
+	obj.date_fmt = new DateFormatter( obj.date_fmt_settings );
+
 	obj.text = JSON.parse( tribe_dynamic_help_text.msgs );
 
 	//Date Formats
@@ -766,11 +841,8 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 		//setup text and display
 		obj.setup_and_display_text();
 
-		//detect event date changes
+		//detect event date & time changes
 		obj.event_date_change();
-
-		//detect event time changes
-		obj.event_time_change();
 
 	};
 
@@ -796,10 +868,10 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	obj.update = function () {
 
 		obj.start_date = $( '#EventStartDate' ).val();
-		obj.start_time = obj.event_time( 'Start' );
+		obj.start_time = $( '#EventStartTime' ).val();
 		obj.end_date = $( '#EventEndDate' ).val();
-		obj.end_time = obj.event_time( 'End' );
-		obj.all_day = $( '#allDayCheckbox' ).prop('checked') ? true : '';
+		obj.end_time = $( '#EventEndTime' ).val();
+		obj.all_day = $( '#allDayCheckbox' ).prop( 'checked' ) ? true : '';
 
 	};
 
@@ -888,26 +960,13 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	 */
 	obj.event_date_change = function () {
 
-		$( '#EventStartDate, #EventEndDate, #allDayCheckbox' ).on( 'change', function () {
+		$( '#EventStartDate, #EventStartTime, #EventEndDate, #EventEndTime, #allDayCheckbox' ).on( 'change', function () {
 
 			obj.setup_and_display_text();
 
 		} );
 
 	};
-
-	/**
-	 * Detect Changes in Event Start and End Times
-	 */
-	obj.event_time_change = function () {
-
-		$( '.timeofdayoptions select' ).on( 'change', function () {
-
-				obj.setup_and_display_text();
-		} );
-
-	};
-
 
 	/**
 	 * Init Dynamic Help if on Single Event Editor
