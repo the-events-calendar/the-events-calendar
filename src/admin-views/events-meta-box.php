@@ -135,6 +135,13 @@ $events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 							</select>
 						</td>
 					</tr>
+					<tr class="event-dynamic-helper">
+						<td class="label">
+						</td>
+						<td>
+							<div class="event-dynamic-helper-text"></div>
+						</td>
+					</tr>
 					<?php
 					/**
 					 * Fires after the event end date field in The Events Calendar meta box

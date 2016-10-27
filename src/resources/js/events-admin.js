@@ -876,27 +876,6 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	};
 
 	/**
-	 * Update event time
-	 *
-	 * @param selector
-	 * @returns {string}
-	 */
-	obj.event_time = function ( selector ) {
-
-		var meridian = $( 'select[name=Event' + selector + 'Meridian] option:selected' ).val();
-
-		var time = $( 'select[name=Event' + selector + 'Hour] option:selected' ).val()
-			+ ':' + $( 'select[name=Event' + selector + 'Minute] option:selected' ).val();
-
-		if ( typeof meridian !== 'undefined' ) {
-			time = time + ' ' + meridian
-		}
-
-		return time;
-
-	};
-
-	/**
 	 * Determine Message to Use based on Date and Time
 	 */
 	obj.msg_logic = function () {
