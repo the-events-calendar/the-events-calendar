@@ -10,13 +10,13 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 
 	obj.field_class = '.event-dynamic-helper-text';
 	obj.date_fmt_settings = {
-     dateSettings: {
-         days: tribe_dynamic_help_text.days,
-         daysShort: tribe_dynamic_help_text.daysShort,
-         months: tribe_dynamic_help_text.months,
-         monthsShort: tribe_dynamic_help_text.monthsShort,
-     }
- };
+		dateSettings: {
+			days: tribe_dynamic_help_text.days,
+			daysShort: tribe_dynamic_help_text.daysShort,
+			months: tribe_dynamic_help_text.months,
+			monthsShort: tribe_dynamic_help_text.monthsShort,
+		}
+	};
 	obj.date_fmt = new DateFormatter( obj.date_fmt_settings );
 
 	obj.text = JSON.parse( tribe_dynamic_help_text.msgs );
@@ -77,22 +77,22 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	obj.msg_logic = function () {
 
 		//single date, different start and end time
-		if ( obj.start_date == obj.end_date && ! obj.all_day && obj.start_time != obj.end_time ) {
+		if ( obj.start_date == obj.end_date && !obj.all_day && obj.start_time != obj.end_time ) {
 			obj.dynamic_text = obj.text[0];
 
-		//single date, same start and end time
-		} else if ( obj.start_date == obj.end_date && ! obj.all_day && obj.start_time == obj.end_time ) {
+			//single date, same start and end time
+		} else if ( obj.start_date == obj.end_date && !obj.all_day && obj.start_time == obj.end_time ) {
 			obj.dynamic_text = obj.text[1];
 
-		//single date, all day
+			//single date, all day
 		} else if ( obj.start_date == obj.end_date && obj.all_day ) {
 			obj.dynamic_text = obj.text[2];
 
-		//different date, different start and end time
-		} else if ( obj.start_date != obj.end_date && ! obj.all_day ) {
+			//different date, different start and end time
+		} else if ( obj.start_date != obj.end_date && !obj.all_day ) {
 			obj.dynamic_text = obj.text[3];
 
-		//different date, all day
+			//different date, all day
 		} else if ( obj.start_date != obj.end_date && obj.all_day ) {
 			obj.dynamic_text = obj.text[4];
 		}
