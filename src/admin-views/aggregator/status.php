@@ -65,7 +65,7 @@ $indicator_icons = array(
 		}
 
 		$text = sprintf( // import count and limit
-			_n( '%1$d import out of %2$d available today', '%1$d imports out of %2$d available today', $import_count, 'the-events-calendar' ),
+			_n( '%1$d import used out of %2$d available today', '%1$d imports used out of %2$d available today', $import_count, 'the-events-calendar' ),
 			intval( $import_count ),
 			intval( $import_limit )
 		);
