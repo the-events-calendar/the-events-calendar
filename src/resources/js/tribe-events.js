@@ -945,21 +945,27 @@ Date.prototype.format = function( mask, utc ) {
 		 *        tribe_ev.fn.tooltips();
 		 */
 		tooltips                 : function() {
+			var $container = $( '#tribe-events' ),
+				$body = $( 'body' ),
+				is_shortcode = $container.hasClass( 'tribe-events-shortcode' ),
+				is_month_view = $container.hasClass( 'view-month' ) || $body.hasClass( 'events-gridview' ),
+				is_week_view = $container.hasClass( 'view-week' ) || $body.hasClass( 'tribe-events-week' ),
+				is_photo_view = $container.hasClass( 'view-photo' ) || $body.hasClass( 'tribe-events-photo' ),
+				is_day_view = $container.hasClass( 'view-day' ) || $body.hasClass( 'tribe-events-day' ),
+				is_list_view = $container.hasClass( 'view-list' ) || $body.hasClass( 'events-list' ),
+				is_map_view = $container.hasClass( 'view-map' ) || $body.hasClass( 'tribe-events-map' ),
+				is_single = $body.hasClass( 'single-tribe_events' );
 
-			$( '#tribe-events' ).on( 'mouseenter', 'div[id*="tribe-events-event-"], div.event-is-recurring',function() {
-
+			$container.on( 'mouseenter', 'div[id*="tribe-events-event-"], div.event-is-recurring', function() {
 				var bottomPad = 0,
 					$this = $( this ),
-					$body = $( 'body' ),
 					$tip;
 
-				if ( $body.hasClass( 'events-gridview' ) ) { // Cal View Tooltips
+				if ( is_month_view ) { // Cal View Tooltips
 					bottomPad = $this.find( 'a' ).outerHeight() + 18;
-				}
-				else if ( $body.is( '.single-tribe_events, .events-list, .tribe-events-day' ) ) { // Single/List View Recurring Tooltips
+				} else if ( is_single || is_day_view || is_list_view ) { // Single/List View Recurring Tooltips
 					bottomPad = $this.outerHeight() + 12;
-				}
-				else if ( $body.is( '.tribe-events-photo' ) ) { // Photo View
+				} else if ( is_photo_view ) { // Photo View
 					bottomPad = $this.outerHeight() + 10;
 				}
 
@@ -967,29 +973,25 @@ Date.prototype.format = function( mask, utc ) {
 				if ( $this.parents( '.tribe-events-calendar-widget' ).length ) {
 					bottomPad = $this.outerHeight() - 6;
 				}
-				if ( !$body.hasClass( 'tribe-events-week' ) ) {
-					if ( $body.hasClass( 'events-gridview' ) ) {
+
+				if ( ! is_week_view || is_shortcode ) {
+					if ( is_month_view || is_shortcode ) {
 						$tip = $this.find( '.tribe-events-tooltip' );
 
-						if ( !$tip.length ) {
+						if ( ! $tip.length ) {
 							var data = $this.data( 'tribejson' );
 
 							if ( typeof data == 'string' ) {
 								data = $.parseJSON( data );
 							}
 
-							$this
-								.append( tribe_tmpl( 'tribe_tmpl_tooltip', data ) );
+							$this.append( tribe_tmpl( 'tribe_tmpl_tooltip', data ) );
 
 							$tip = $this.find( '.tribe-events-tooltip' );
+						}
 
-							$tip.css( 'bottom', bottomPad ).show();
-						}
-						else {
-							$tip.css( 'bottom', bottomPad ).show();
-						}
-					}
-					else {
+						$tip.css( 'bottom', bottomPad ).show();
+					} else {
 						$this.find( '.tribe-events-tooltip' ).css( 'bottom', bottomPad ).show();
 					}
 				}
