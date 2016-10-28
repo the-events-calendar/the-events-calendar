@@ -37,6 +37,7 @@
   "vendor/jquery/*.js",
   "vendor/jquery/smoothness/*.css",
   "vendor/jquery/smoothness/images/*.png",
+  "vendor/php-date-formatter/js/*.js",
   "vendor/select2/*.css",
   "vendor/select2/*.js",
   "vendor/select2/*.gif",

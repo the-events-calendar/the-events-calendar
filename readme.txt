@@ -316,7 +316,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 == Changelog ==
 
 = [4.4] TBD =
-
+* Feature - Add dynamic helper text to single event editor to display the events date and time [66484]
 * Feature - Add support for featured events [65898]
 
 = [4.3.1.1] 2016-10-20 =
