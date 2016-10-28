@@ -869,9 +869,13 @@ Date.prototype.format = function( mask, utc ) {
 
 			$.each( params, function( key, value ) {
 				if ( key !== 'action' ) {
-					var name = decodeURI( key ),
+					var name = decodeURIComponent( key ),
 						$target = '';
 					if ( value.length === 1 ) {
+						if ( Array.isArray( value ) ) {
+						  value = value[0];
+						}
+						value = decodeURIComponent( value.replace( /\+/g, '%20' ) );
 						if ( $( '[name="' + name + '"]' ).is( 'input[type="text"], input[type="hidden"]' ) ) {
 							$( '[name="' + name + '"]' ).val( value );
 						}
