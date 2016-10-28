@@ -5,11 +5,11 @@ class Tribe__Events__Asset__Dynamic extends Tribe__Events__Asset__Abstract_Asset
 
 	public function handle() {
 		$deps = array_merge(
-			$this->deps,
-				array(
-					'jquery',
-					'tribe-events-php-date-formatter',
-				)
+					$this->deps,
+					array(
+						'jquery',
+						'tribe-events-php-date-formatter',
+					)
 		);
 
 		$path = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'events-dynamic.js' ), true );

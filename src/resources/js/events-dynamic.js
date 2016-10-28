@@ -76,24 +76,24 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	 */
 	obj.msg_logic = function () {
 
-		//single date, different start and end time
 		if ( obj.start_date == obj.end_date && !obj.all_day && obj.start_time != obj.end_time ) {
+			//single date, different start and end time
 			obj.dynamic_text = obj.text[0];
 
-			//single date, same start and end time
 		} else if ( obj.start_date == obj.end_date && !obj.all_day && obj.start_time == obj.end_time ) {
+			//single date, same start and end time
 			obj.dynamic_text = obj.text[1];
 
-			//single date, all day
 		} else if ( obj.start_date == obj.end_date && obj.all_day ) {
+			//single date, all day
 			obj.dynamic_text = obj.text[2];
 
-			//different date, different start and end time
 		} else if ( obj.start_date != obj.end_date && !obj.all_day ) {
+			//different date, different start and end time
 			obj.dynamic_text = obj.text[3];
 
-			//different date, all day
 		} else if ( obj.start_date != obj.end_date && obj.all_day ) {
+			//different date, all day
 			obj.dynamic_text = obj.text[4];
 		}
 
