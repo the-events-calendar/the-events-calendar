@@ -85,7 +85,7 @@ Collect free RSVPs with Event Tickets or add paid ticketing features with [Event
 
 = Bulk Event Import =
 
-Fill your calendar with events from your favorite sources, including Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Event Aggregator provides a convenient dashboard to manage scheduled imports, manual imports, filters, one-way sync, import history, and more.
+Fill your calendar with events from your favorite sources, including Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. [Event Aggregator](http://m.tri.be/197u) provides a convenient dashboard to manage scheduled imports, manual imports, filters, one-way sync, import history, and more.
 
 = User-Submitted Events =
 
