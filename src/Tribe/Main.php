@@ -1987,6 +1987,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				//php date formatter
 				Tribe__Events__Template_Factory::asset_package( 'php-date-formatter' );
 
+				//dynamic helper text
+				Tribe__Events__Template_Factory::asset_package( 'dynamic' );
+
 				// date picker
 				Tribe__Events__Template_Factory::asset_package( 'datepicker' );
 
