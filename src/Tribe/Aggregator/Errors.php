@@ -132,7 +132,7 @@ class Tribe__Events__Aggregator__Errors {
 		global $wpdb, $wp_version;
 
 		if( version_compare( floatval( $wp_version ), '4.1', '<' ) ) {
-			$clauses['where'] .= $wpdb->prepare( " AND comment_type != %s", self::$comment_type );
+			$clauses['where'] .= $wpdb->prepare( ' AND comment_type != %s', self::$comment_type );
 		}
 		return $clauses;
 	}
@@ -150,7 +150,7 @@ class Tribe__Events__Aggregator__Errors {
 	public function hide_error_comments_from_feeds( $where, $wp_comment_query ) {
 	    global $wpdb;
 
-		$where .= $wpdb->prepare( " AND comment_type != %s", self::$comment_type );
+		$where .= $wpdb->prepare( ' AND comment_type != %s', self::$comment_type );
 		return $where;
 	}
 
@@ -174,13 +174,15 @@ class Tribe__Events__Aggregator__Errors {
 		$post_id = (int) $post_id;
 		$stats = wp_cache_get( "comments-{$post_id}", 'counts' );
 
-		if ( false !== $stats )
+		if ( false !== $stats ){
 			return $stats;
+		}
 
 		$where = 'WHERE comment_type != "' . self::$comment_type . '"';
 
-		if ( $post_id > 0 )
-			$where .= $wpdb->prepare( " AND comment_post_ID = %d", $post_id );
+		if ( $post_id > 0 ) {
+			$where .= $wpdb->prepare( ' AND comment_post_ID = %d', $post_id );
+		}
 
 		$count = $wpdb->get_results( "SELECT comment_approved, COUNT( * ) AS num_comments FROM {$wpdb->comments} {$where} GROUP BY comment_approved", ARRAY_A );
 
@@ -188,16 +190,20 @@ class Tribe__Events__Aggregator__Errors {
 		$approved = array( '0' => 'moderated', '1' => 'approved', 'spam' => 'spam', 'trash' => 'trash', 'post-trashed' => 'post-trashed' );
 		foreach ( (array) $count as $row ) {
 			// Don't count post-trashed toward totals
-			if ( 'post-trashed' != $row['comment_approved'] && 'trash' != $row['comment_approved'] )
+			if ( 'post-trashed' != $row['comment_approved'] && 'trash' != $row['comment_approved'] ){
 				$total += $row['num_comments'];
-			if ( isset( $approved[$row['comment_approved']] ) )
-				$stats[$approved[$row['comment_approved']]] = $row['num_comments'];
+			}
+
+			if ( isset( $approved[ $row['comment_approved'] ] ) ) {
+				$stats[ $approved[ $row['comment_approved'] ] ] = $row['num_comments'];
+			}
 		}
 
 		$stats['total_comments'] = $total;
 		foreach ( $approved as $key ) {
-			if ( empty($stats[$key]) )
-				$stats[$key] = 0;
+			if ( empty( $stats[ $key ] ) ) {
+				$stats[ $key ] = 0;
+			}
 		}
 
 		$stats = (object) $stats;
