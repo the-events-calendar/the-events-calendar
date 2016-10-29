@@ -318,6 +318,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.3.2] tbd =
 
 * Fix - Aggregator Errors will not show more than once daily as comments [68094]
+* Fix - Event Aggregator ICS default configuration now are been Selected Correctly [67885]
 * Fix - Shortcode Month view now will display tooltips correctly [68094]
 * Fix - Avoid loading the select2 JavaScript library twice when Advanced Custom Fields is activated [43065]
 * Fix - Avoid errors and notices on calendar page when X theme and WPML plugins are active [64400]
