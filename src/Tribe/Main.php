@@ -618,14 +618,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			tribe( 'tec.featured_events.query_helper' )->hook();
 			tribe( 'tec.featured_events.permalinks_helper' )->hook();
-
-			// Fire up the Customizer Sections
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__General_Theme', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Global_Elements', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Month_Week_View', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Day_List_View', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Single_Event', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Widget', 'instance' ) );
 		}
 
 		/**
@@ -4906,6 +4898,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'events-aggregator.main' );
 			tribe( 'events.shortcode.event-details' );
 			tribe( 'events.ignored-events' );
+
+			// Register up the Customizer Sections
+			tribe_singleton( 'events.customizer.general-theme', 'Tribe__Events__Customizer__General_Theme' );
+			tribe_singleton( 'events.customizer.global-elements', 'Tribe__Events__Customizer__Global_Elements' );
+			tribe_singleton( 'events.customizer.month-week-view', 'Tribe__Events__Customizer__Month_Week_View' );
+			tribe_singleton( 'events.customizer.single-event', 'Tribe__Events__Customizer__Single_Event' );
+			tribe_singleton( 'events.customizer.widget', 'Tribe__Events__Customizer__Widget' );
+
+			// Fire up the Customizer Sections
+			tribe( 'events.customizer.general-theme' );
+			tribe( 'events.customizer.global-elements' );
+			tribe( 'events.customizer.month-week-view' );
+			tribe( 'events.customizer.single-event' );
+			tribe( 'events.customizer.widget' );
 		}
 	} // end Tribe__Events__Main class
 } // end if !class_exists Tribe__Events__Main
