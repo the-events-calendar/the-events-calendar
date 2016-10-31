@@ -88,13 +88,17 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 			//single date, all day
 			obj.dynamic_text = obj.text[2];
 
-		} else if ( obj.start_date != obj.end_date && !obj.all_day ) {
+		} else if ( obj.start_date != obj.end_date && !obj.all_day && obj.start_time != obj.end_time ) {
 			//different date, different start and end time
 			obj.dynamic_text = obj.text[3];
 
+		} else if ( obj.start_date != obj.end_date && !obj.all_day && obj.start_time == obj.end_time ) {
+			//different date, same start and end time
+			obj.dynamic_text = obj.text[4];
+
 		} else if ( obj.start_date != obj.end_date && obj.all_day ) {
 			//different date, all day
-			obj.dynamic_text = obj.text[4];
+			obj.dynamic_text = obj.text[5];
 		}
 
 
