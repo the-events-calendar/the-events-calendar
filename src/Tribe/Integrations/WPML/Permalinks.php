@@ -35,7 +35,7 @@ class Tribe__Events__Integrations__WPML__Permalinks {
 	 */
 	public static function instance() {
 		if ( empty( self::$instance ) ) {
-			self::$instance = new static();
+			self::$instance = new self();
 		}
 
 		return self::$instance;
