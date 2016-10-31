@@ -54,8 +54,7 @@ class Tribe__Events__Integrations__Manager {
 
 	private function load_X_theme_integration() {
 		$theme = wp_get_theme();
-
-		if ( preg_match( '/\\/*x$/', $theme->get_template() ) ) {
+		if ( preg_match( '~\\/*x$~i', $theme->get_template() ) ) {
 			return false;
 		}
 
