@@ -150,7 +150,12 @@ class Tribe__Events__Aggregator {
 	public function add_status_to_help() {
 		global $plugin_page;
 
-		if ( 'tribe-help' !== $plugin_page ) {
+		$is_multisite_help_page = is_multisite()
+		                          && is_network_admin()
+		                          && ! empty( $_GET['page'])
+		                          && $_GET['page'] === tribe( 'settings' )->get_help_slug();
+
+		if ( ! ( 'tribe-help' === $plugin_page || $is_multisite_help_page) ) {
 			return;
 		}
 
