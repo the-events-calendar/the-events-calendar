@@ -48,7 +48,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 * @return array
 	 */
 	public function get() {
-		if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			$this->enable_service_origins();
 		}
 
@@ -118,7 +118,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 * @return boolean
 	 */
 	public function is_oauth_enabled( $origin ) {
-		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return false;
 		}
 

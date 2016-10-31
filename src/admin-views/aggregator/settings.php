@@ -369,7 +369,7 @@ $internal = array_merge(
 
 $internal = apply_filters( 'tribe_aggregator_fields', $internal );
 
-if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
+if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 	ob_start();
 	?>
 	<p>

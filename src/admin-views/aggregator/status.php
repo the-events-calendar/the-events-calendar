@@ -16,7 +16,7 @@ $indicator_icons = array(
 		<?php
 		$notes = '&nbsp;';
 		$ea_active = false;
-		if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			$indicator = 'good';
 			$text = __( 'Your license is valid', 'the-events-calendar' );
 			$ea_active = true;
@@ -160,7 +160,7 @@ $indicator_icons = array(
 		$notes = '&nbsp;';
 		$text = 'Connected';
 
-		if ( Tribe__Events__Aggregator::instance()->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
+		if ( tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
 			if ( ! Tribe__Events__Aggregator__Settings::instance()->is_fb_credentials_valid() ) {
 				$indicator = 'warning';
 				$text = __( 'You have not connected Event Aggregator to Facebook', 'the-events-calendar' );

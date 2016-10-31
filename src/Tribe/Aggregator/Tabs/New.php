@@ -480,7 +480,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return;
 		}
 
-		if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
 		}
 

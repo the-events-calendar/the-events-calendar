@@ -144,7 +144,7 @@ class Tribe__Events__Aggregator__Cron {
 	 */
 	public function action_register_cron() {
 		// if the service isn't active, don't do anything
-		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
 		}
 
@@ -250,7 +250,7 @@ class Tribe__Events__Aggregator__Cron {
 	 */
 	public function run() {
 		// if the service isn't active, don't do anything
-		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
 		}
 
@@ -274,7 +274,7 @@ class Tribe__Events__Aggregator__Cron {
 	 */
 	public function verify_child_record_creation() {
 		// if the service isn't active, don't do anything
-		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
 		}
 
@@ -344,7 +344,7 @@ class Tribe__Events__Aggregator__Cron {
 	 */
 	public function verify_fetching_from_service() {
 		// if the service isn't active, don't do anything
-		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
 		}
 
