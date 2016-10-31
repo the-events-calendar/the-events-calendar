@@ -32,10 +32,9 @@ class Tribe__Events__Integrations__X_Theme__X_Theme {
 	 * Hooks the filters and actions neede for this integration to work.
 	 */
 	public function hook() {
+		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		if ( is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
-			add_filter(
-				'template_include', array( $this, 'filter_template_include' )
-			);
+			add_filter( 'template_include', array( $this, 'filter_template_include' ) );
 		}
 	}
 
