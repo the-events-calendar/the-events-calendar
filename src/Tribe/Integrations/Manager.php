@@ -55,6 +55,8 @@ class Tribe__Events__Integrations__Manager {
 	private function load_X_theme_integration() {
 		$theme = wp_get_theme();
 
+		throw new RuntimeException('Loading X theme compat');
+
 		if ( 'x' !== $theme->get_template() ) {
 			return false;
 		}
