@@ -315,7 +315,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.3.2] tbd =
+= [4.3.2] 2016-11-02 =
 
 * Fix - Fixes an issue where the text in the Location search field was URL encoded when using the back or forward button for navigation. [61742]
 * Fix - Aggregator Errors will not show more than once daily as comments (Thanks @Jacob for your report on the forums) [68094]
