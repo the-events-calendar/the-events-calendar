@@ -317,6 +317,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.3.2] tbd =
 
+* Fix - Fixes an issue where the text in the Location search field was URL encoded when using the back or forward button for navigation. [61742]
 * Fix - Aggregator Errors will not show more than once daily as comments (Thanks @Jacob for your report on the forums) [68094]
 * Fix - Event Aggregator ICS default configuration now are been Selected Correctly [67885]
 * Fix - Shortcode Month view now will display tooltips correctly [68094]
