@@ -4,11 +4,6 @@ defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator {
 	/**
-	 * @var Tribe__Events__Aggregator Event Aggregator bootstrap class
-	 */
-	protected static $instance;
-
-	/**
 	 * @var Tribe__Events__Aggregator__Meta_Box Event Aggregator Meta Box object
 	 */
 	public $meta_box;

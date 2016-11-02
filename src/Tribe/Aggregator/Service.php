@@ -91,6 +91,10 @@ class Tribe__Events__Aggregator__Service {
 
 		// Since we don't need to fetch this key elsewhere
 		$api->key = get_option( 'pue_install_key_event_aggregator' );
+		if ( is_multisite() ) {
+			$network_key = get_network_option( null, 'pue_install_key_event_aggregator' );
+			$api->key = ! empty( $api->key ) && $network_key !== $api->key ? $api->key : $network_key;
+		}
 
 		/**
 		 * Creates a clean way to filter and redirect to another API domain/path
