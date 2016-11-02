@@ -473,21 +473,33 @@ jQuery( document ).ready( function( $ ) {
 			beforeShow     : function( element, object ) {
 				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
 				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
-				object.dpDiv.css({
-				                    marginTop: (-element.offsetHeight + 8) + 'px',
-				                  
-				            });
-                var calendar = object.dpDiv;
+				var calendar = $( '#ui-datepicker-div' );
+				var cal = $( '#ui-datepicker-div' ).offset();
+				var input = $( '#EventStartDate' ).offset();
+				var $window = $(window);
+				    scrollLeft = $window.scrollLeft();
+				    scrollTop = $window.scrollTop();
 
-                        // Dirty hack, but we can't do anything without it (for now, in jQuery UI 1.8.20)
-                        setTimeout(function() {
-                            calendar.position({
-                                my: 'left bottom',
-                                at: 'left top',
-                                collision: 'fit flip'
-                            });
-                        }, 1)
-			},
+				var calHeight = $( '#ui-datepicker-div' ).height();
+				var calWidth = $( '#ui-datepicker-div' ).width();
+
+				 if ( scrollTop > calHeight ) {
+				 	calendar.removeClass( 'direction-down' ).addClass( 'direction-up' );
+				 	object.dpDiv.css( {
+				 		marginTop: ( -element.offsetHeight/4 + 27 ) + 'px',
+				 		marginLeft: -element.offsetWidth + 'px'
+				 	} );
+				 }
+
+				 if ( scrollTop < calHeight ) {
+				 	calendar.removeClass( 'direction-up' ).addClass( 'direction-down' );
+				 	object.dpDiv.css( {
+				 		marginTop: ( -element.offsetHeight ) + 'px',
+				 		marginLeft: -element.offsetWidth + 'px'
+				 	} );
+				 }
+				},
+          
 			onSelect       : function( selectedDate ) {
 				var option = this.id == 'EventStartDate' ? 'minDate' : 'maxDate';
 				var instance = $( this ).data( "datepicker" );
