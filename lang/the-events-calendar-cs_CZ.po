@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-09-04 14:35:24+0000\n"
+"PO-Revision-Date: 2016-10-26 23:51:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,20 @@ msgstr ""
 "X-Generator: GlotPress/2.3.0-alpha\n"
 "Language: cs_CZ\n"
 "Project-Id-Version: Plugins - The Events Calendar - Stable (latest release)\n"
+
+#: common/src/Tribe/Admin/Notice/Plugin_Download.php:92
+msgctxt "the final separator in a list of two or more items"
+msgid " and "
+msgstr ""
+
+#: common/src/Tribe/Admin/Notice/Plugin_Download.php:91
+msgctxt "separator used in a list of items"
+msgid ", "
+msgstr ""
+
+#: common/src/Tribe/Admin/Notice/Plugin_Download.php:75
+msgid "To begin using %1$s, please install and activate the latest version of %2$s."
+msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:398
 msgid "Unknown service message"
@@ -25,7 +39,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/refine.php:5
 msgid "Location"
-msgstr ""
+msgstr "Místo"
 
 #: src/admin-views/admin-welcome-message.php:26
 msgid "Stay in touch with The Events Calendar team. We send out periodic updates, key developer notices, and even the occasional discount."
@@ -2481,7 +2495,6 @@ msgstr ""
 msgid "Event Aggregator"
 msgstr ""
 
-#: common/src/Tribe/Plugin_Download_Notice.php:68
 #: vendor/tickets/common/src/Tribe/Plugin_Download_Notice.php:68
 msgid "To begin using %1$s, please install and activate the latest version(s) of %2$s."
 msgstr ""
@@ -2695,7 +2708,7 @@ msgstr "Rezervace"
 
 #: vendor/tickets/src/Tribe/CSV_Importer/RSVP_Importer.php:230
 msgid "Recurring event tickets are not supported, event %s."
-msgstr ""
+msgstr "Vstupenky na opakující se akce nejsou podporovány. (akce: %s)"
 
 #: vendor/tickets/src/Tribe/CSV_Importer/Column_Names.php:41
 msgid "Ticket Stock"
@@ -2889,7 +2902,7 @@ msgstr "Neuvádějte mě na veřejném seznamu účastníků"
 
 #: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:15
 msgid "If you are creating a recurring event, tickets will only show up once per Event Series, meaning that the same ticket will apper across all events. Please configure your events accordingly."
-msgstr ""
+msgstr "Vstupenky na opakující se akci se zobrazí pouze jednou v rámci celé série, což znamená, že stejná vstupenka se objeví u všech akcí. Podle toho si prosím nastavte své akce."
 
 #: vendor/tickets/src/views/tickets/rsvp.php:98
 msgid "Send RSVP confirmation to:"
@@ -3037,7 +3050,7 @@ msgstr "Nastavení pro vstupenky"
 
 #: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:13
 msgid "Currently, tickets will only show up on the frontend once per full event. For PRO users this means the same ticket will appear across all events in the series. Please configure your events accordingly."
-msgstr ""
+msgstr "Momentálně se vstupenky z Tickets zobrazí na webu pouze jednou pro celou akci. Pro uživatele PRO verze to znamená, že stejná vstupenka se zobrazí u všech opakujících se akcí ze stejné série. Nastavte si prosím své akce odpovídajícím způsobem."
 
 #: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:22
 msgid "Selling tickets for recurring events"
@@ -3507,7 +3520,7 @@ msgstr "Zadejte formát pro zobrazování data včetně roku. Používá se při
 #: common/src/Tribe/PUE/Checker.php:568
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:565
 msgid "Thanks for setting up a valid key. It will expire on %s"
-msgstr ""
+msgstr "Děkujeme za vložení platného klíče. Jeho platnost skončí %s"
 
 #: src/Tribe/Main.php:697
 msgid "<a href=\"%s\">edit Events settings</a>."
@@ -3658,7 +3671,7 @@ msgstr "Upravovaní ceny vstupenky není aktuálně povoleno."
 
 #: src/Tribe/Main.php:700
 msgid "%1$s or %2$s"
-msgstr ""
+msgstr "%1$s nebo %2$s"
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/1x"
@@ -4683,7 +4696,7 @@ msgstr "Webová stránka %s"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:481
 msgid "Location:"
-msgstr ""
+msgstr "Místo:"
 
 #: src/admin-views/events-meta-box.php:123
 msgid "Timezone:"
@@ -4772,7 +4785,7 @@ msgstr "Začínáme"
 
 #: vendor/tickets/src/admin-views/admin-welcome-message.php:25
 msgid "Stay in touch with Event Tickets Plus. We send out periodic updates, key developer notices, and even the occasional discount."
-msgstr ""
+msgstr "Sledujte co je nového u pluginu Event Tickets Plus. Pravidelně rozesíláme informace o aktualizacích, důležitá upozornění pro vývojáře a příležitostně i slevy."
 
 #: src/admin-views/admin-welcome-message.php:25
 #: vendor/tickets/src/admin-views/admin-welcome-message.php:24
@@ -4781,7 +4794,7 @@ msgstr "Emailový zpravodaj"
 
 #: vendor/tickets/src/admin-views/admin-welcome-message.php:19
 msgid "Your ratings help us bring The Events Calendar to more users. More happy users mean more support, more features, and more of everything you know and love about Event Tickets. We couldn't do this without your support."
-msgstr ""
+msgstr "Vaše hodnocení nám pomůže přinést plugin The Events Calendar více uživatelům. A více šťastných uživatelů znamená větší podporu, více funkcí a vůbec více všeho, co znáte a milujete na pluginu Event Tickets. To vše bychom nedokázali bez vaší podpory."
 
 #: src/admin-views/admin-update-message.php:58
 #: src/admin-views/admin-welcome-message.php:53
@@ -7058,7 +7071,7 @@ msgstr "seznam"
 msgid "month"
 msgstr "měsíc"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.1) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.1.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:753
@@ -7404,11 +7417,11 @@ msgstr "požádejte administrátora webu aby změnil název v URL u akcí."
 
 #: src/Tribe/Main.php:686
 msgid "Ask the site administrator to edit the %s slug"
-msgstr ""
+msgstr "Požádejte administrátora webu aby upravil název v URL (%s)"
 
 #: src/Tribe/Main.php:688
 msgid "<a href=\"%s\">Edit the %s slug</a>"
-msgstr ""
+msgstr "<a href=\"%s\">Upravte název v URL (%s)</a>"
 
 #: src/deprecated/Tribe__Events__Activation_Page.php:215
 msgid "Thanks for Updating The Events Calendar"
