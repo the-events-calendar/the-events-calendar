@@ -473,6 +473,20 @@ jQuery( document ).ready( function( $ ) {
 			beforeShow     : function( element, object ) {
 				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
 				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
+				object.dpDiv.css({
+				                    marginTop: (-element.offsetHeight + 8) + 'px',
+				                  
+				            });
+                var calendar = object.dpDiv;
+
+                        // Dirty hack, but we can't do anything without it (for now, in jQuery UI 1.8.20)
+                        setTimeout(function() {
+                            calendar.position({
+                                my: 'left bottom',
+                                at: 'left top',
+                                collision: 'fit flip'
+                            });
+                        }, 1)
 			},
 			onSelect       : function( selectedDate ) {
 				var option = this.id == 'EventStartDate' ? 'minDate' : 'maxDate';
