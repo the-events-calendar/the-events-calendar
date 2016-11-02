@@ -255,6 +255,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
 				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
 			}
+
+		$this->bind_implementations();
 		}
 
 		public function maybe_set_common_lib_info() {
@@ -587,13 +589,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_support_content' ) );
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_extra_content' ) );
 
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Aggregator', 'instance' ) );
-
-			// Setup Shortcodes
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Shortcode__Event_Details', 'hook' ) );
-
-			// Load Ignored Events
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Ignored_Events', 'instance' ) );
 
 			// Google Maps API key setting
 			$google_maps_api_key = Tribe__Events__Google__Maps_API_Key::instance();
@@ -4899,6 +4894,24 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$reverse_position = ( 'suffix' === $reverse_position );
 
 			return $reverse_position;
+		}
+
+		/**
+		 * Registers and instances implementations in the container.
+		 */
+		protected function bind_implementations() {
+			// Events Aggregator and its components
+			tribe_singleton( 'events-aggregator.main', 'Tribe__Events__Aggregator', array( 'load', 'hook' ) );
+			tribe_singleton( 'events-aggregator.service', 'Tribe__Events__Aggregator__Service' );
+			tribe( 'events-aggregator.main' );
+
+			// Shortcodes
+			tribe_singleton( 'tec.shortcodes.event-details', 'Tribe__Events__Shortcode__Event_Details', array( 'hook' ) );
+			tribe( 'tec.shortcodes.event-details' );
+
+			// Ignored Events
+			tribe_singleton( 'tec.ignored-events', 'Tribe__Events__Ignored_Events', array( 'hook' ) );
+			tribe( 'tec.ignored-events' );
 		}
 	} // end Tribe__Events__Main class
 } // end if !class_exists Tribe__Events__Main

@@ -42,11 +42,7 @@ class Tribe__Events__Aggregator__Service {
 	 * @return Tribe__Events__Aggregator__Service
 	 */
 	public static function instance() {
-		if ( ! self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
+		return tribe( 'events-aggregator.service' );
 	}
 
 	/**
@@ -107,7 +103,7 @@ class Tribe__Events__Aggregator__Service {
 			return tribe_error( 'core:aggregator:invalid-service-key' );
 		}
 
-		$aggregator = Tribe__Events__Aggregator::instance();
+		$aggregator = tribe( 'events-aggregator.main' );
 		$plugin_name = $aggregator->filter_pue_plugin_name( '', 'event-aggregator' );
 
 		$pue_notices = Tribe__Main::instance()->pue_notices();

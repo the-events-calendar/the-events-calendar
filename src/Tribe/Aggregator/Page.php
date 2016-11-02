@@ -352,7 +352,7 @@ class Tribe__Events__Aggregator__Page {
 			return false;
 		}
 
-		$aggregator = Tribe__Events__Aggregator::instance();
+		$aggregator = tribe( 'events-aggregator.main' );
 
 		if ( ! $aggregator->is_service_active() ) {
 			return false;

@@ -112,7 +112,7 @@ class Tribe__Events__Aggregator__Settings {
 
 	public function is_fb_credentials_valid( $time = null ) {
 		// if the service hasn't enabled oauth for facebook, always assume it is valid
-		if ( ! Tribe__Events__Aggregator::instance()->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
+		if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
 			return true;
 		}
 
