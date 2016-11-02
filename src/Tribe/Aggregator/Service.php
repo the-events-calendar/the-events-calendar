@@ -52,7 +52,7 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Constructor!
 	 */
-	protected function __construct() {
+	public function __construct() {
 		// These messages are delivered by the EA service and don't need to be registered. They just
 		// need to exist here so that they can be translated
 		$this->service_messages = array(
