@@ -220,7 +220,7 @@ class Tribe__Events__Aggregator__Cron {
 			return $run;
 		}
 
-		$service = Tribe__Events__Aggregator__Service::instance();
+		$service = tribe( 'events-aggregator.service' );
 
 		// If the Domain is not we just keep the same answer
 		if ( 0 !== strpos( $url, $service->api()->domain ) ) {
@@ -284,7 +284,7 @@ class Tribe__Events__Aggregator__Cron {
 		}
 
 		$records = Tribe__Events__Aggregator__Records::instance();
-		$service = Tribe__Events__Aggregator__Service::instance();
+		$service = tribe( 'events-aggregator.service' );
 
 		$query = $records->query( array(
 			'post_status' => Tribe__Events__Aggregator__Records::$status->schedule,
