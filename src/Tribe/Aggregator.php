@@ -67,20 +67,15 @@ class Tribe__Events__Aggregator {
 	 * @return Tribe__Events__Aggregator
 	 */
 	public static function instance() {
-		if ( ! self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
+		return tribe( 'events-aggregator.main' );
 	}
 
 	/**
-	 * A private method to prevent it to be created twice.
 	 * It will add the methods and setup any dependencies
 	 *
 	 * Note: This should load on `plugins_loaded@P10`
 	 */
-	private function __construct() {
+	public function __construct() {
 		/**
 		 * As previously seen by other major features some users would rather have it not active
 		 * @var bool

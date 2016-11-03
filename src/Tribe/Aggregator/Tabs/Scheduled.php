@@ -311,7 +311,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 					'error:usage-limit-exceeded',
 					$service->get_service_message(
 						'error:usage-limit-exceeded',
-						Tribe__Events__Aggregator::instance()->get_daily_limit()
+						tribe( 'events-aggregator.main' )->get_daily_limit()
 					)
 				);
 				$record->update_meta( 'last_import_status', 'error:usage-limit-exceeded' );
@@ -344,7 +344,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 	 * @return string
 	 */
 	public function maybe_display_aggregator_missing_license_key_message() {
-		if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
 		}
 

@@ -28,14 +28,16 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return self
 		 */
 		public static function instance() {
-			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
-			}
-
-			return self::$instance;
+			return tribe( 'events.ignored-events' );
 		}
 
-		private function __construct() {
+		/**
+		 * Tribe__Events__Ignored_Events constructor.
+		 *
+		 * Hooks the class to the right actions and filters.
+		 * The class should be built at `plugins_loaded` time.
+		 */
+		public function __construct() {
 			add_action( 'init', array( $this, 'register_ignored_post_status' ) );
 			add_action( 'current_screen', array( $this, 'action_restore_events' ) );
 			add_action( 'current_screen', array( $this, 'action_restore_ignored' ) );

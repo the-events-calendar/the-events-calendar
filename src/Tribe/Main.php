@@ -587,13 +587,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_support_content' ) );
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_extra_content' ) );
 
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Aggregator', 'instance' ) );
-
-			// Setup Shortcodes
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Shortcode__Event_Details', 'hook' ) );
-
-			// Load Ignored Events
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Ignored_Events', 'instance' ) );
+			add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ) );
 
 			// Google Maps API key setting
 			$google_maps_api_key = Tribe__Events__Google__Maps_API_Key::instance();
@@ -624,14 +618,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			tribe( 'tec.featured_events.query_helper' )->hook();
 			tribe( 'tec.featured_events.permalinks_helper' )->hook();
-
-			// Fire up the Customizer Sections
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__General_Theme', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Global_Elements', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Month_Week_View', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Day_List_View', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Single_Event', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Widget', 'instance' ) );
 		}
 
 		/**
@@ -4899,6 +4885,36 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$reverse_position = ( 'suffix' === $reverse_position );
 
 			return $reverse_position;
+		}
+
+		/**
+		 * Instances all classes that should be built at `plugins_loaded` time.
+         *
+         * Classes are bound using the `tribe_singleton` function before and then
+         * built calling the `tribe` function.
+		 */
+		public function on_plugins_loaded(  ) {
+			tribe_singleton( 'events-aggregator.main', 'Tribe__Events__Aggregator' );
+			tribe_singleton( 'events.shortcode.event-details', 'Tribe__Events__Shortcode__Event_Details', array( 'hook' ) );
+			tribe_singleton( 'events.ignored-events', 'Tribe__Events__Ignored_Events' );
+
+			tribe( 'events-aggregator.main' );
+			tribe( 'events.shortcode.event-details' );
+			tribe( 'events.ignored-events' );
+
+			// Register up the Customizer Sections
+			tribe_singleton( 'events.customizer.general-theme', 'Tribe__Events__Customizer__General_Theme' );
+			tribe_singleton( 'events.customizer.global-elements', 'Tribe__Events__Customizer__Global_Elements' );
+			tribe_singleton( 'events.customizer.month-week-view', 'Tribe__Events__Customizer__Month_Week_View' );
+			tribe_singleton( 'events.customizer.single-event', 'Tribe__Events__Customizer__Single_Event' );
+			tribe_singleton( 'events.customizer.widget', 'Tribe__Events__Customizer__Widget' );
+
+			// Fire up the Customizer Sections
+			tribe( 'events.customizer.general-theme' );
+			tribe( 'events.customizer.global-elements' );
+			tribe( 'events.customizer.month-week-view' );
+			tribe( 'events.customizer.single-event' );
+			tribe( 'events.customizer.widget' );
 		}
 	} // end Tribe__Events__Main class
 } // end if !class_exists Tribe__Events__Main

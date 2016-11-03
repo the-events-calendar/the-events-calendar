@@ -20,8 +20,8 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 	 *
 	 * @return self The dynamic instance of this Class
 	 */
-	public static function instance( $name = null ) {
-		return parent::instance( __CLASS__ );
+	public static function instance() {
+		return tribe( 'events.customizer.single-event' );
 	}
 
 	/**
