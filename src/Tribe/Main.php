@@ -4896,7 +4896,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		protected function bind_implementations() { // Events Aggregator and its components
 			tribe_singleton( 'events-aggregator.main', 'Tribe__Events__Aggregator', array( 'load', 'hook' ) );
-			tribe_singleton( 'events-aggregator.service', new Tribe__Events__Aggregator__Service );
+			tribe_singleton( 'events-aggregator.service', 'Tribe__Events__Aggregator__Service' );
 			tribe( 'events-aggregator.main' );
 
 			// Customizer sections
