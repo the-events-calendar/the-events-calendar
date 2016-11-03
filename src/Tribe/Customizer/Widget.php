@@ -21,7 +21,7 @@ final class Tribe__Events__Customizer__Widget extends Tribe__Customizer__Section
 	 * @return self The dynamic instance of this Class
 	 */
 	public static function instance() {
-		return tribe( 'events.customizer.widget' );
+		return tribe( 'tec.customizer.widget' );
 	}
 
 	public function setup() {

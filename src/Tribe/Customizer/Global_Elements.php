@@ -21,7 +21,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 	 * @return self The dynamic instance of this Class
 	 */
 	public static function instance() {
-		return tribe( 'events.customizer.global-elements' );
+		return tribe( 'tec.customizer.global-elements' );
 	}
 
 	/**

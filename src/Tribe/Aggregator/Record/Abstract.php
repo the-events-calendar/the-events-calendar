@@ -851,7 +851,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return __( 'When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached.', 'the-events-calendar' );
 		}
 
-		return Tribe__Events__Aggregator__Service::instance()->get_service_message( $status );
+		return tribe( 'events-aggregator.service' )->get_service_message( $status );
 	}
 
 	/**
