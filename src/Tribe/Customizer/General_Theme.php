@@ -21,7 +21,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	 * @return self The dynamic instance of this Class
 	 */
 	public static function instance() {
-		return tribe( 'events.customizer.general-theme' );
+		return tribe( 'tec.customizer.general-theme' );
 	}
 
 	/**

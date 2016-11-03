@@ -4895,26 +4895,26 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function on_plugins_loaded(  ) {
 			tribe_singleton( 'events-aggregator.main', 'Tribe__Events__Aggregator' );
-			tribe_singleton( 'events.shortcode.event-details', 'Tribe__Events__Shortcode__Event_Details', array( 'hook' ) );
-			tribe_singleton( 'events.ignored-events', 'Tribe__Events__Ignored_Events' );
+			tribe_singleton( 'tec.shortcode.event-details', 'Tribe__Events__Shortcode__Event_Details', array( 'hook' ) );
+			tribe_singleton( 'tec.ignored-events', 'Tribe__Events__Ignored_Events' );
 
 			tribe( 'events-aggregator.main' );
-			tribe( 'events.shortcode.event-details' );
-			tribe( 'events.ignored-events' );
+			tribe( 'tec.shortcode.event-details' );
+			tribe( 'tec.ignored-events' );
 
 			// Register up the Customizer Sections
-			tribe_singleton( 'events.customizer.general-theme', 'Tribe__Events__Customizer__General_Theme' );
-			tribe_singleton( 'events.customizer.global-elements', 'Tribe__Events__Customizer__Global_Elements' );
-			tribe_singleton( 'events.customizer.month-week-view', 'Tribe__Events__Customizer__Month_Week_View' );
-			tribe_singleton( 'events.customizer.single-event', 'Tribe__Events__Customizer__Single_Event' );
-			tribe_singleton( 'events.customizer.widget', 'Tribe__Events__Customizer__Widget' );
+			tribe_singleton( 'tec.customizer.general-theme', 'Tribe__Events__Customizer__General_Theme' );
+			tribe_singleton( 'tec.customizer.global-elements', 'Tribe__Events__Customizer__Global_Elements' );
+			tribe_singleton( 'tec.customizer.month-week-view', 'Tribe__Events__Customizer__Month_Week_View' );
+			tribe_singleton( 'tec.customizer.single-event', 'Tribe__Events__Customizer__Single_Event' );
+			tribe_singleton( 'tec.customizer.widget', 'Tribe__Events__Customizer__Widget' );
 
 			// Fire up the Customizer Sections
-			tribe( 'events.customizer.general-theme' );
-			tribe( 'events.customizer.global-elements' );
-			tribe( 'events.customizer.month-week-view' );
-			tribe( 'events.customizer.single-event' );
-			tribe( 'events.customizer.widget' );
+			tribe( 'tec.customizer.general-theme' );
+			tribe( 'tec.customizer.global-elements' );
+			tribe( 'tec.customizer.month-week-view' );
+			tribe( 'tec.customizer.single-event' );
+			tribe( 'tec.customizer.widget' );
 		}
 	} // end Tribe__Events__Main class
 } // end if !class_exists Tribe__Events__Main

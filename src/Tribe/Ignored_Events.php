@@ -28,7 +28,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return self
 		 */
 		public static function instance() {
-			return tribe( 'events.ignored-events' );
+			return tribe( 'tec.ignored-events' );
 		}
 
 		/**

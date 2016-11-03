@@ -21,7 +21,7 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 	 * @return self The dynamic instance of this Class
 	 */
 	public static function instance() {
-		return tribe( 'events.customizer.month-week-view' );
+		return tribe( 'tec.customizer.month-week-view' );
 	}
 
 	/**
