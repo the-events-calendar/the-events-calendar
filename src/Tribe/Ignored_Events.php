@@ -892,10 +892,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			add_filter( 'post_row_actions', array( $this, 'filter_actions' ), 10, 2 );
 
 			add_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array( $this, 'filter_columns' ), 100 );
-			add_action(
-				'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_custom_column', array( $this, 'action_column_contents' ), 100,
-				2
-			);
+			add_action( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_custom_column', array( $this, 'action_column_contents' ), 100, 2 );
 
 			add_action( 'wp_ajax_tribe_convert_legacy_ignored_events', array( $this, 'ajax_convert_legacy_ignored_events' ) );
 
