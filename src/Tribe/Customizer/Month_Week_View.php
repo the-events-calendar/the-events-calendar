@@ -20,8 +20,8 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 	 *
 	 * @return self The dynamic instance of this Class
 	 */
-	public static function instance( $name = null ) {
-		return parent::instance( __CLASS__ );
+	public static function instance() {
+		return tribe( 'events.customizer.month-week-view' );
 	}
 
 	/**

@@ -254,6 +254,11 @@ class Tribe__Events__Aggregator__Cron {
 			return;
 		}
 
+		// if the service has been disabled by the user don't do anything
+		if ( true === tribe_get_option( 'tribe_aggregator_disable', false ) ) {
+			return;
+		}
+
 		// Flag that we are running the Task
 		$this->is_running = true;
 

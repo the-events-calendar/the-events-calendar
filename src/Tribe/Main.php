@@ -256,7 +256,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
 			}
 
-		$this->bind_implementations();
+			$this->bind_implementations();
 		}
 
 		public function maybe_set_common_lib_info() {
@@ -619,14 +619,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			tribe( 'tec.featured_events.query_helper' )->hook();
 			tribe( 'tec.featured_events.permalinks_helper' )->hook();
-
-			// Fire up the Customizer Sections
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__General_Theme', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Global_Elements', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Month_Week_View', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Day_List_View', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Single_Event', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Customizer__Widget', 'instance' ) );
 		}
 
 		/**
@@ -4897,13 +4889,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Registers and instances implementations in the container.
+		 * Registers the implementations in the container.
+         *
+         * Classes that should be built at `plugins_loaded` time are also instantiated.
+         *
 		 */
-		protected function bind_implementations() {
-			// Events Aggregator and its components
+		protected function bind_implementations() { // Events Aggregator and its components
 			tribe_singleton( 'events-aggregator.main', 'Tribe__Events__Aggregator', array( 'load', 'hook' ) );
-			tribe_singleton( 'events-aggregator.service', 'Tribe__Events__Aggregator__Service' );
+			tribe_singleton( 'events-aggregator.service', new Tribe__Events__Aggregator__Service );
 			tribe( 'events-aggregator.main' );
+
+			// Customizer sections
+			tribe_singleton( 'tec.customizer.global-elements', new Tribe__Events__Customizer__Global_Elements );
+			tribe_singleton( 'tec.customizer.month-week-view', new Tribe__Events__Customizer__Month_Week_View );
+			tribe_singleton( 'tec.customizer.single-event', new Tribe__Events__Customizer__Single_Event );
 
 			// Shortcodes
 			tribe_singleton( 'tec.shortcodes.event-details', 'Tribe__Events__Shortcode__Event_Details', array( 'hook' ) );
@@ -4912,6 +4911,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Ignored Events
 			tribe_singleton( 'tec.ignored-events', 'Tribe__Events__Ignored_Events', array( 'hook' ) );
 			tribe( 'tec.ignored-events' );
+
 		}
 	} // end Tribe__Events__Main class
 } // end if !class_exists Tribe__Events__Main
