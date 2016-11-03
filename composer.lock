@@ -213,16 +213,16 @@
         },
         {
             "name": "composer/ca-bundle",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "b698f6e839b39b4c2173cd84225e63002b847a74"
+                "reference": "a795611394b3c05164fd0eb291b492b39339cba4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/b698f6e839b39b4c2173cd84225e63002b847a74",
-                "reference": "b698f6e839b39b4c2173cd84225e63002b847a74",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/a795611394b3c05164fd0eb291b492b39339cba4",
+                "reference": "a795611394b3c05164fd0eb291b492b39339cba4",
                 "shasum": ""
             },
             "require": {
@@ -267,20 +267,20 @@
                 "ssl",
                 "tls"
             ],
-            "time": "2016-11-02 10:14:10"
+            "time": "2016-11-02 18:11:27"
         },
         {
             "name": "composer/composer",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "16422c4b1ac4286f7caecf5211136dc073191672"
+                "reference": "5465af955800fa884a36f66ff65280584988efd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/16422c4b1ac4286f7caecf5211136dc073191672",
-                "reference": "16422c4b1ac4286f7caecf5211136dc073191672",
+                "url": "https://api.github.com/repos/composer/composer/zipball/5465af955800fa884a36f66ff65280584988efd0",
+                "reference": "5465af955800fa884a36f66ff65280584988efd0",
                 "shasum": ""
             },
             "require": {
@@ -344,7 +344,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2016-09-12 09:27:20"
+            "time": "2016-11-03 16:43:15"
         },
         {
             "name": "composer/semver",
@@ -1098,16 +1098,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "1.17.0",
+            "version": "1.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "7840ed4fab1d3fe67f6426919b79a2a913b25757"
+                "reference": "1384d9cccedfe767b8c312bc3d6cb043d57e5857"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/7840ed4fab1d3fe67f6426919b79a2a913b25757",
-                "reference": "7840ed4fab1d3fe67f6426919b79a2a913b25757",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/1384d9cccedfe767b8c312bc3d6cb043d57e5857",
+                "reference": "1384d9cccedfe767b8c312bc3d6cb043d57e5857",
                 "shasum": ""
             },
             "require": {
@@ -1150,7 +1150,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2016-10-26 20:21:49"
+            "time": "2016-11-02 17:11:45"
         },
         {
             "name": "lucatume/wp-browser-commons",

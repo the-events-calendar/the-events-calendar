@@ -11,6 +11,20 @@ msgstr ""
 "Language: lv\n"
 "Project-Id-Version: Plugins - The Events Calendar - Stable (latest release)\n"
 
+#: common/src/Tribe/Admin/Notice/Plugin_Download.php:92
+msgctxt "the final separator in a list of two or more items"
+msgid " and "
+msgstr ""
+
+#: common/src/Tribe/Admin/Notice/Plugin_Download.php:91
+msgctxt "separator used in a list of items"
+msgid ", "
+msgstr ""
+
+#: common/src/Tribe/Admin/Notice/Plugin_Download.php:75
+msgid "To begin using %1$s, please install and activate the latest version of %2$s."
+msgstr ""
+
 #: src/Tribe/Aggregator/Service.php:398
 msgid "Unknown service message"
 msgstr ""
@@ -2481,7 +2495,6 @@ msgstr ""
 msgid "Event Aggregator"
 msgstr ""
 
-#: common/src/Tribe/Plugin_Download_Notice.php:68
 #: vendor/tickets/common/src/Tribe/Plugin_Download_Notice.php:68
 msgid "To begin using %1$s, please install and activate the latest version(s) of %2$s."
 msgstr ""
@@ -7058,7 +7071,7 @@ msgstr ""
 msgid "month"
 msgstr "mēnesis"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.1) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.1.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:753

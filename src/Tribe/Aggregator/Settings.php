@@ -139,6 +139,7 @@ class Tribe__Events__Aggregator__Settings {
 			'csv',
 			'gcal',
 			'ical',
+			'ics',
 			'facebook',
 			'meetup',
 		);

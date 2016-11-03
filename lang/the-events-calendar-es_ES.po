@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-09-30 19:21:45+0000\n"
+"PO-Revision-Date: 2016-10-26 14:34:15+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,20 @@ msgstr ""
 "X-Generator: GlotPress/2.3.0-alpha\n"
 "Language: es\n"
 "Project-Id-Version: Plugins - The Events Calendar - Stable (latest release)\n"
+
+#: common/src/Tribe/Admin/Notice/Plugin_Download.php:92
+msgctxt "the final separator in a list of two or more items"
+msgid " and "
+msgstr ""
+
+#: common/src/Tribe/Admin/Notice/Plugin_Download.php:91
+msgctxt "separator used in a list of items"
+msgid ", "
+msgstr ""
+
+#: common/src/Tribe/Admin/Notice/Plugin_Download.php:75
+msgid "To begin using %1$s, please install and activate the latest version of %2$s."
+msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:398
 msgid "Unknown service message"
@@ -608,15 +622,15 @@ msgstr ""
 #: src/admin-views/aggregator/status.php:100
 #: src/admin-views/aggregator/status.php:108
 msgid "Not connected to %s"
-msgstr ""
+msgstr "No está conectada a  %s"
 
 #: src/admin-views/aggregator/status.php:86
 msgid "Import Services"
-msgstr ""
+msgstr "Importar Servicios"
 
 #: src/admin-views/aggregator/status.php:75
 msgid "Current usage"
-msgstr ""
+msgstr "Uso actual"
 
 #: src/admin-views/aggregator/status.php:68
 msgid "%1$d import out of %2$d available today"
@@ -679,7 +693,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:367
 msgid "Help page"
-msgstr ""
+msgstr "Pagina de ayuda"
 
 #: src/admin-views/aggregator/settings.php:363
 msgid "Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options. Check your Event Aggregator Service Status on the %1$s."
@@ -2451,7 +2465,6 @@ msgstr ""
 msgid "Event Aggregator"
 msgstr ""
 
-#: common/src/Tribe/Plugin_Download_Notice.php:68
 #: vendor/tickets/common/src/Tribe/Plugin_Download_Notice.php:68
 msgid "To begin using %1$s, please install and activate the latest version(s) of %2$s."
 msgstr ""
@@ -2555,11 +2568,11 @@ msgstr ""
 
 #: src/Tribe/Venue.php:161
 msgid "venues"
-msgstr ""
+msgstr "lugares"
 
 #: src/Tribe/Venue.php:152
 msgid "venue"
-msgstr ""
+msgstr "lugar"
 
 #: vendor/tickets/src/views/tickets/rsvp.php:149
 msgid "Login to RSVP"
@@ -7022,7 +7035,7 @@ msgstr "lista"
 msgid "month"
 msgstr "mes"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.1) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.1.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:753
