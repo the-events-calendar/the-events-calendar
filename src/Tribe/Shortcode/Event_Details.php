@@ -18,7 +18,7 @@ class Tribe__Events__Shortcode__Event_Details {
 	 * @return Tribe__Events__Shortcode__Event_Details
 	 */
 	public static function instance() {
-		return tribe( 'events.shortcode.event-details' );
+		return tribe( 'tec.shortcodes.event-details' );
 	}
 
 	/**

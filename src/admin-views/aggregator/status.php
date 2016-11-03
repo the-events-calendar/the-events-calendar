@@ -23,7 +23,7 @@ $show_third_party_accounts = ! is_network_admin();
 			$text = __( 'Your license is valid', 'the-events-calendar' );
 			$ea_active = true;
 		} else {
-			$service_status = Tribe__Events__Aggregator__Service::instance()->api()->get_error_code();
+			$service_status = tribe( 'events-aggregator.service' )->api()->get_error_code();
 
 			$indicator = 'bad';
 			if ( 'core:aggregator:invalid-service-key' == $service_status ) {
@@ -50,7 +50,7 @@ $show_third_party_accounts = ! is_network_admin();
 			return ob_get_clean();
 		}
 
-		$service = Tribe__Events__Aggregator__Service::instance();
+		$service = tribe( 'events-aggregator.service' );
 		$import_limit = $service->get_limit( 'import' );
 		$import_available = $service->get_limit_remaining();
 		$import_count = $service->get_limit_usage();
@@ -93,8 +93,8 @@ $show_third_party_accounts = ! is_network_admin();
 		$indicator = 'good';
 		$notes = '&nbsp;';
 
-		$ea_server = Tribe__Events__Aggregator__Service::instance()->api()->domain;
-		$up = Tribe__Events__Aggregator__Service::instance()->get( 'status/up' );
+		$ea_server = tribe( 'events-aggregator.service' )->api()->domain;
+		$up = tribe( 'events-aggregator.service' )->get( 'status/up' );
 
 		if ( ! $up || is_wp_error( $up ) ) {
 			$indicator = 'bad';

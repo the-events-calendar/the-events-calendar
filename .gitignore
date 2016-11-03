@@ -28,6 +28,8 @@ vendor
 # Tests - local config files
 codeception.yml
 tests/acceptance.suite.yml
+tests/integration.suite.yml
+tests/muintegration.suite.yml
 tests/functional.suite.yml
 tests/unit.suite.yml
 
