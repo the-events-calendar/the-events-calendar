@@ -10,13 +10,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public static $meta_key_prefix = '_tribe_aggregator_';
 
-	/**
-	 * Comment Type for EA errors
-	 *
-	 * @var string
-	 */
-	public static $error_comment_type = 'tribe-ea-error';
-
 	public $id;
 	public $post;
 	public $meta;
@@ -493,7 +486,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return mixed
 	 */
 	public function queue_import( $args = array() ) {
-		$aggregator = Tribe__Events__Aggregator::instance();
+		$aggregator = tribe( 'events-aggregator.main' );
 
 		$is_previewing = (
 			! empty( $_GET['action'] )
@@ -592,7 +585,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	public function get_import_data() {
-		$aggregator = Tribe__Events__Aggregator::instance();
+		$aggregator = tribe( 'events-aggregator.main' );
 		return $aggregator->api( 'import' )->get( $this->meta['import_id'] );
 	}
 
@@ -714,7 +707,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function get_errors( $args = array() ) {
 		$defaults = array(
 			'post_id' => $this->id,
-			'type'    => self::$error_comment_type,
+			'type'    => Tribe__Events__Aggregator__Errors::$comment_type,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -730,11 +723,32 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return bool
 	 */
 	public function log_error( $error ) {
+		$today = getdate();
+		$args = array(
+			// Resets the Post ID
+			'post_id' => null,
+			'number' => 1,
+			'date_query' => array(
+				array(
+					'year'  => $today['year'],
+					'month' => $today['mon'],
+					'day'   => $today['mday'],
+				),
+			),
+		);
+
+		// Tries To Fetch Comments for today
+		$todays_errors = $this->get_errors( $args );
+
+		if ( ! empty( $todays_errors ) ) {
+			return false;
+		}
+
 		$args = array(
 			'comment_post_ID' => $this->id,
 			'comment_author'  => $error->get_error_code(),
 			'comment_content' => $error->get_error_message(),
-			'comment_type'    => self::$error_comment_type,
+			'comment_type'    => Tribe__Events__Aggregator__Errors::$comment_type,
 		);
 
 		return wp_insert_comment( $args );
@@ -851,7 +865,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return __( 'When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached.', 'the-events-calendar' );
 		}
 
-		return Tribe__Events__Aggregator__Service::instance()->get_service_message( $status );
+		return tribe( 'events-aggregator.service' )->get_service_message( $status );
 	}
 
 	/**
@@ -1194,7 +1208,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			// If we have a Image Field from Service
 			if ( ! empty( $event['image'] ) ) {
 				// Attempt to grab the event image
-				$image_import = Tribe__Events__Aggregator::instance()->api( 'image' )->get( $event['image']->id );
+				$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id );
 
 				/**
 				 * Filters the returned event image url

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-06-13 17:07:15+0000\n"
+"PO-Revision-Date: 2016-10-22 03:24:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,488 +11,502 @@ msgstr ""
 "Language: nl\n"
 "Project-Id-Version: Plugins - The Events Calendar - Stable (latest release)\n"
 
+#: common/src/Tribe/Admin/Notice/Plugin_Download.php:92
+msgctxt "the final separator in a list of two or more items"
+msgid " and "
+msgstr "en"
+
+#: common/src/Tribe/Admin/Notice/Plugin_Download.php:91
+msgctxt "separator used in a list of items"
+msgid ", "
+msgstr ","
+
+#: common/src/Tribe/Admin/Notice/Plugin_Download.php:75
+msgid "To begin using %1$s, please install and activate the latest version of %2$s."
+msgstr "Installeer en activeer de laatste versie van %2$s om %1$s te gaan gebruiken."
+
 #: src/Tribe/Aggregator/Service.php:398
 msgid "Unknown service message"
-msgstr ""
+msgstr "Onbekend servicebericht"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:508
 msgid "Unknown"
-msgstr ""
+msgstr "Onbekend"
 
 #: src/Tribe/Aggregator/Record/Abstract.php:851
 msgid "When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached."
-msgstr ""
+msgstr "Toen deze import voor het laatst ingepland was om te draaien, was je dagelijkse limiet voor je Event Aggregator-licentie reeds bereikt."
 
 #: src/admin-views/aggregator/origins/refine.php:5
 msgid "Location"
-msgstr ""
+msgstr "Locatie"
 
 #: src/admin-views/admin-welcome-message.php:26
 msgid "Stay in touch with The Events Calendar team. We send out periodic updates, key developer notices, and even the occasional discount."
-msgstr ""
+msgstr "Blijf in contact met het Events Calendar-team. We sturen periodieke updates, de belangrijkste ontwikkelaarsmededelingen, en zelfs af en toe een korting."
 
 #: src/admin-views/admin-welcome-message.php:20
 msgid "Your ratings help us bring The Events Calendar to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support."
-msgstr ""
+msgstr "Je waardering helpt ons om The Events Calendar naar meer mensen te brengen. Meer tevreden gebruikers betekent meer ondersteuning, meer functies, en meer van alles wat je al kent en waardeert in The Events Calendar. We kunnen dit niet doen zonder jouw support!"
 
 #: vendor/tickets/src/views/tickets/rsvp.php:127
 msgctxt "order status label"
 msgid "RSVP"
-msgstr ""
+msgstr "RSVP"
 
 #: vendor/tickets/src/views/tickets/rsvp.php:19
 msgctxt "form heading"
 msgid "RSVP"
-msgstr ""
+msgstr "RSVP"
 
 #: vendor/tickets/src/views/tickets/orders-rsvp.php:68
 msgctxt "order status label"
 msgid "RSVP: "
-msgstr ""
+msgstr "RSVP: "
 
 #: vendor/tickets/src/views/tickets/email-tickets-moved.php:99
 msgid "We wanted to let you know that a ticket you purchased for %2$s has been transfered to %3$s%4$s. Your ticket remains valid and no further action is needed on your part:"
 msgid_plural "We wanted to let you know that the following %1$s tickets for %2$s have been transfered to %3$s%4$s. Your existing tickets remain valid and no further action is needed on your part:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "We wilden je laten weten dat het ticket dat je hebt gekocht voor %2$s is omgezet naar %3$s%4$s. Je ticket blijft geldig en je hoeft verder geen actie te ondernemen."
+msgstr[1] "We wilden je laten weten dat de volgende %1$s tickets voor %2$s zijn omgezet naar %3$s%4$s. Je bestaande tickets blijven geldig en je hoeft verder geen actie te ondernemen."
 
 #: vendor/tickets/src/views/tickets/email-ticket-type-moved.php:111
 #: vendor/tickets/src/views/tickets/email-tickets-moved.php:113
 msgid " (taking place on %s)"
-msgstr ""
+msgstr "(vindt plaats op %s)"
 
 #: vendor/tickets/src/views/tickets/email-ticket-type-moved.php:97
 msgid "We wanted to let you know that your ticket for %2$s has been transfered to %3$s%4$s. Your ticket remains valid and no further action is needed on your part."
 msgid_plural "We wanted to let you know that your %1$s tickets for %2$s have been transfered to %3$s%4$s. Your existing tickets remain valid and no further action is needed on your part."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "We wilden je laten weten dat je ticket voor %2$s is omgezet naar %3$s%4$s. Je ticket blijft geldig en je hoeft verder geen actie te ondernemen."
+msgstr[1] "We wilden je laten weten dat je %1$s tickets voor %2$s zijn omgezet naar %3$s%4$s. Je bestaande tickets blijven geldig en je hoeft verder geen actie te ondernemen."
 
 #: vendor/tickets/src/views/tickets/email-ticket-type-moved.php:93
 #: vendor/tickets/src/views/tickets/email-tickets-moved.php:95
 msgid "Important changes to your tickets"
-msgstr ""
+msgstr "Je tickets zijn veranderd (belangrijk!)"
 
 #: vendor/tickets/src/admin-views/ticket-type-history.php:14
 msgid "Click to hide history"
-msgstr ""
+msgstr "Klik om de historie te verbergen"
 
 #: vendor/tickets/src/admin-views/ticket-type-history.php:13
 msgid "Click to view the history"
-msgstr ""
+msgstr "Klik om de historie weer te geven"
 
 #: vendor/tickets/src/admin-views/ticket-type-history.php:9
 msgid "Ticket history:"
-msgstr ""
+msgstr "Tickethistorie:"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:89
 msgctxt "move tickets dialog"
 msgid "Next &raquo;"
-msgstr ""
+msgstr "Volgende &raquo;"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:88
 msgid "Finish!"
-msgstr ""
+msgstr "Klaar!"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:87
 msgctxt "move tickets dialog"
 msgid "&laquo; Back"
-msgstr ""
+msgstr "&raquo; Terug"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:80
 msgctxt "move tickets dialog"
 msgid "Please be patient while your request is processed&hellip;"
-msgstr ""
+msgstr "Een ogenblik terwijl je aanvraag wordt verwerkt&hellip;"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:72
 msgid "Select the ticket type that the tickets should be transferred to:"
-msgstr ""
+msgstr "Selecteer het tickettype waarnaar de tickets overgezet moeten worden:"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:64
 msgid "Select the post you wish to move the ticket type to:"
-msgstr ""
+msgstr "Selecteer het bericht waarnaar je het tickettype wil verplaatsen:"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:59
 msgid "You can also enter keywords to help find the target event by title or description:"
-msgstr ""
+msgstr "Je kan ook trefwoorden invoeren om het doel-evenement te vinden via de titel of de omschrijving:"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:54
 msgid "You can optionally focus on a specific post type:"
-msgstr ""
+msgstr "Optioneel kan je focussen op een specifiek berichttype:"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:47
 msgid "Move tickets to a different event"
-msgstr ""
+msgstr "Verplaats de tickets naar een ander evenement"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:43
 msgid "Move to a different ticket type within the same event"
-msgstr ""
+msgstr "Verplaats naar een ander tickettype binnen hetzelfde evenement"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:30
 msgid "You have selected %1$s ticket for %2$s. You can move it to a different ticket type within the same event, or to a different event."
 msgid_plural "You have selected %1$s tickets for %2$s. You can move them to a different ticket type within the same event, or to a different event."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Je hebt %1$s ticket geselecteerd voor %2$s. Je kan het verplaatsen naar een ander tickettype binnen hetzelfde evenement, of naar een ander evenement."
+msgstr[1] "Je hebt %1$s tickets geselecteerd voor %2$s. Je kan ze verplaatsen naar een ander tickettype binnen hetzelfde evenement, of naar een ander evenement."
 
 #: vendor/tickets/src/admin-views/move-tickets.php:25
 msgid "You have specified a range of attendees that are managed by different providers. It is not currently possible to move these together."
-msgstr ""
+msgstr "Je hebt een reeks van deelnemers gespecificeerd die beheerd worden door verschillende aanbieders. Het is momenteel niet mogelijk om deze gezamenlijk te verplaatsen."
 
 #: vendor/tickets/src/admin-views/move-tickets.php:19
 msgid "No attendees specified! Please try again."
-msgstr ""
+msgstr "Je hebt geen deelnemers gespecificeerd. Probeer het opnieuw."
 
 #: vendor/tickets/src/admin-views/list.php:67
 msgid "Move"
-msgstr ""
+msgstr "Verplaatsen"
 
 #: vendor/tickets/src/admin-views/attendees.php:58
 msgctxt "attendee screen summary"
 msgid "Tickets"
-msgstr ""
+msgstr "Tickets"
 
 #: vendor/tickets/src/admin-views/admin-welcome-message.php:51
 msgid "Addons for creating tickets, custom registration, events and more."
-msgstr ""
+msgstr "Add-ons voor het aanmaken van tickets, aangepaste registratie, evenementen en meer."
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:369
 msgctxt "attendee export"
 msgid "Customer Email Address"
-msgstr ""
+msgstr "E-mailadres klant"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:368
 msgctxt "attendee export"
 msgid "Customer Name"
-msgstr ""
+msgstr "Klantnaam"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:367
 msgctxt "attendee export"
 msgid "Ticket #"
-msgstr ""
+msgstr "Ticket #"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:366
 msgctxt "attendee export"
 msgid "Order Status"
-msgstr ""
+msgstr "Bestellingsstatus"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:365
 msgctxt "attendee export"
 msgid "Order ID"
-msgstr ""
+msgstr "BestellingsID"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:181
 msgid "You must first select one or more tickets before you can move them!"
-msgstr ""
+msgstr "Je moet eerst één of meer tickets selecteren voordat je ze kan verplaatsen!"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:97
 msgid "Post type"
-msgstr ""
+msgstr "Berichttype"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:69
 msgctxt "attendee event actions"
 msgid "View"
-msgstr ""
+msgstr "Bekijk"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:68
 msgctxt "attendee event actions"
 msgid "Edit"
-msgstr ""
+msgstr "Wijzig"
 
 #: vendor/tickets/src/Tribe/RSVP.php:271
 msgid "RSVP Ticket"
-msgstr ""
+msgstr "RSVP Ticket"
 
 #: vendor/tickets/src/Tribe/RSVP.php:270
 msgid "RSVP Tickets"
-msgstr ""
+msgstr "RSVP Tickets"
 
 #: vendor/tickets/src/Tribe/RSVP.php:158
 msgctxt "ticket provider"
 msgid "RSVP"
-msgstr ""
+msgstr "RSVP"
 
 #: vendor/tickets/src/Tribe/RSVP/Attendance_Totals.php:39
 msgctxt "attendee summary"
 msgid "Not Going:"
-msgstr ""
+msgstr "Gaat niet:"
 
 #: vendor/tickets/src/Tribe/RSVP/Attendance_Totals.php:38
 msgctxt "attendee summary"
 msgid "Going:"
-msgstr ""
+msgstr "Gaat:"
 
 #: vendor/tickets/src/Tribe/RSVP/Attendance_Totals.php:37
 msgctxt "attendee summary"
 msgid "Total RSVPs:"
-msgstr ""
+msgstr "Totaal # RSVP's:"
 
 #: vendor/tickets/src/Tribe/Metabox.php:82
 msgid "Are you sure you want to delete this ticket? This cannot be undone."
-msgstr ""
+msgstr "Weet je zeker dat je dit ticket wilt verwijderen? Dit kan niet ongedaan gemaakt worden."
 
 #: vendor/tickets/src/Tribe/Main.php:665
 msgctxt "button text"
 msgid "RSVP"
-msgstr ""
+msgstr "RSVP"
 
 #: vendor/tickets/src/Tribe/Main.php:530
 msgid "Welcome to Event Tickets"
-msgstr ""
+msgstr "Welkom bij Event Tickets"
 
 #: vendor/tickets/src/Tribe/CSV_Importer/Rows.php:49
 msgctxt "post type label"
 msgid "RSVPs"
-msgstr ""
+msgstr "RSVP's"
 
 #: vendor/tickets/src/Tribe/CSV_Importer/Rows.php:35
 msgctxt "import type"
 msgid "RSVPs"
-msgstr ""
+msgstr "RSVP's"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:291
 msgctxt "row action"
 msgid "Delete"
-msgstr ""
+msgstr "Verwijder"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:288
 msgctxt "row action"
 msgid "Move"
-msgstr ""
+msgstr "Verplaats"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:275
 msgctxt "row action"
 msgid "Check In"
-msgstr ""
+msgstr "Inchecken"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:274
 msgctxt "row action"
 msgid "Undo Check In"
-msgstr ""
+msgstr "Inchecken ongedaan maken"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:81
 msgctxt "attendee table"
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:80
 msgctxt "attendee table"
 msgid "Purchaser"
-msgstr ""
+msgstr "Koper"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:79
 msgctxt "attendee table"
 msgid "Ticket"
-msgstr ""
+msgstr "Ticket"
 
 #: vendor/tickets/src/Tribe/Attendance_Totals.php:31
 msgctxt "attendee summary"
 msgid "Deleted Attendees:"
-msgstr ""
+msgstr "Verwijderde deelnemers:"
 
 #: vendor/tickets/src/Tribe/Attendance_Totals.php:30
 msgctxt "attendee summary"
 msgid "Checked in:"
-msgstr ""
+msgstr "Ingecheckt:"
 
 #: vendor/tickets/src/Tribe/Admin/Ticket_History.php:65
 msgid "No history available"
-msgstr ""
+msgstr "Geen historie beschikbaar"
 
 #: vendor/tickets/src/Tribe/Admin/Ticket_History.php:35
 msgctxt "attendee table"
 msgid "Hide history"
-msgstr ""
+msgstr "Historie verbergen"
 
 #: vendor/tickets/src/Tribe/Admin/Ticket_History.php:34
 msgctxt "attendee table"
 msgid "View history"
-msgstr ""
+msgstr "Historie bekijken"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:710
 msgid "This ticket was moved to %1$s from %2$s"
-msgstr ""
+msgstr "Dit ticket was verplaatst naar %1$s van %2$s"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:536
 msgid "This ticket was moved to %1$s %2$s from %3$s %4$s"
-msgstr ""
+msgstr "Dit ticket was verplaatst naar %1$s %2$s van %3$s %4$s"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:452
 msgid "%1$s attendee for %2$s was successfully %3$s. Please adjust stock manually as needed. This attendee will receive an email notifying them of the change."
 msgid_plural "%1$s attendees for %2$s were successfully moved to %3$s. Please adjust stock manually as needed. These attendees will receive an email notifying them of the change."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$s deelnemer voor %2$s was succesvol verplaatst naar %3$s. Pas de voorraad handmatig aan indien nodig. Deze deelnemer zal een mail krijgen over deze wijziging."
+msgstr[1] "%1$s deelnemers voor %2$s waren succesvol verplaatst naar %3$s. Pas de voorraad handmatig aan indien nodig. Deze deelnemers zullen een mail krijgen over deze wijziging."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:445
 msgctxt "moved tickets success message fragment"
 msgid "moved to %s and"
-msgstr ""
+msgstr "verplaatst naar %s en"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:438
 msgctxt "moved tickets success message fragment"
 msgid "assigned to %s"
-msgstr ""
+msgstr "toegewezen aan %s"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:430
 msgid "Tickets could not be moved: there was an unexpected failure during reassignment."
-msgstr ""
+msgstr "Tickets konden niet verplaatst worden: er was een onverwachte fout tijdens de nieuwe toewijzing."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:422
 msgid "Tickets could not be moved: valid ticket IDs or a destination ID were not provided."
-msgstr ""
+msgstr "Tickets konden niet verplaatst worden: Je hebt geen geldige ticket ID's of bestemming ID ingevoerd."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:225
 msgctxt "attendee screen bulk actions"
 msgid "Move"
-msgstr ""
+msgstr "Verplaats"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:113
 msgid "Loading, please wait&hellip;"
-msgstr ""
+msgstr "Aan het laden, een ogenblik&hellip;"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:111
 msgid "No ticket types were found for this post."
-msgstr ""
+msgstr "Er konden geen tickettypes gevonden worden voor dit bericht."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:109
 msgid "No results found - you may need to widen your search criteria."
-msgstr ""
+msgstr "Geen resultaten gevonden - mogelijk moet je de zoekcriteria wat breder maken."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:107
 msgid "Unable to update the post list. Please refresh the page and try again."
-msgstr ""
+msgstr "Niet in staat om de berichtlijst bij te werken. Ververs de pagina en probeer opnieuw."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:105
 msgid "Woops! We could not complete the requested operation due to an unforeseen problem."
-msgstr ""
+msgstr "Woops! We kunnen de gevraagde actie niet uitvoeren vanwege een onvoorzien probleem."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:68
 msgid "Move Attendees"
-msgstr ""
+msgstr "Verplaats deelnemers"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:267
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:651
 msgid "Changes to your tickets from %s"
-msgstr ""
+msgstr "Je tickets voor %s zijn veranderd"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:170
 msgid "Ticket type was moved to <a href=\"%1$s\" target=\"_blank\">%2$s</a> from <a href=\"%3$s\" target=\"_blank\">%4$s</a>"
-msgstr ""
+msgstr "Tickettype was verplaatst naar <a href=\"%1$s\" target=\"_blank\">%2$s</a> van <a href=\"%3$s\" target=\"_blank\">%4$s</a>"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:114
 msgid "Ticket type %1$s for %2$s was successfully moved to %3$s. All previously sold tickets of this type have been transferred to %3$s. Please adjust stock manually as needed. %1$s ticket holders have received an email notifying them of the change. You may now close this window!"
-msgstr ""
+msgstr "Tickettype %1$s voor %2$s was succesvol verplaatst naar %3$s. Alle eerder verkochte tickets van dit type zijn overgeheveld naar %3$s. Pas de voorraad handmatig aan indien nodig. %1$s deelnemers hebben een e-mail ontvangen over deze verandering. Je kan dit scherm nu sluiten!"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:108
 msgid "Ticket type could not be moved: unexpected failure during reassignment."
-msgstr ""
+msgstr "Tickettype kon niet verplaatst worden: onverwachte fout tijdens herplaatsing."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:102
 msgid "Ticket type could not be moved: the ticket type or destination post was invalid."
-msgstr ""
+msgstr "Tickettype kon niet verplaatst worden: het tickettype of bestemmingsbericht was ongeldig."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:72
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:250
 msgid "All supported types"
-msgstr ""
+msgstr "Alle ondersteunde types"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:28
 msgid "Move Ticket Types"
-msgstr ""
+msgstr "Verplaats tickettypes"
 
 #: src/views/single-event.php:28
 msgctxt "%s Events plural label"
 msgid "All %s"
-msgstr ""
+msgstr "Alle %s"
 
 #: src/io/csv/admin-views/header.php:17
 msgid "Legacy Events Import"
-msgstr ""
+msgstr "Legacy Events Importeren"
 
 #: src/admin-views/widget-admin-list.php:37
 msgid "Generate JSON-LD data"
-msgstr ""
+msgstr "Genereer JSON-LD data"
 
 #: src/admin-views/tribe-options-addons-api.php:126
 msgid "Some features and add-ons require you to enter an API key or log into a third-party website so that The Events Calendar can communicate with an outside source."
-msgstr ""
+msgstr "Sommige functies en add-ons vereisen het invoeren van een API-sleutel of om in te loggen op een website van een derde partij, zodat The Events Calendar kan communiceren met deze bron."
 
 #: src/admin-views/tribe-options-addons-api.php:99
 msgid "%s to view your Meetup API Key"
-msgstr ""
+msgstr "%s om je Meetup API-sleutel te zien"
 
 #: src/admin-views/tribe-options-addons-api.php:98
 msgid "Meetup API Key"
-msgstr ""
+msgstr "Meetup API-sleutel"
 
 #: src/admin-views/tribe-options-addons-api.php:94
 msgid "You need a Meetup API Key to import your events from Meetup."
-msgstr ""
+msgstr "Je hebt een Meetup API-sleutel nodig om events van Meetup te importeren."
 
 #: src/admin-views/tribe-options-addons-api.php:82
 msgid "You need to connect Event Aggregator to Facebook to import your events from Facebook."
-msgstr ""
+msgstr "Je moet Event Aggregator aan Facebook verbinden om je evenementen van Facebook te importeren."
 
 #: src/admin-views/tribe-options-addons-api.php:60
 msgid "Disconnect"
-msgstr ""
+msgstr "Uitschakelen"
 
 #: src/admin-views/tribe-options-addons-api.php:59
 msgid "Refresh your connection to Facebook"
-msgstr ""
+msgstr "Ververs je verbinding met Facebook"
 
 #: src/admin-views/tribe-options-addons-api.php:57
 msgid "Your Event Aggregator Facebook connection will expire %s."
-msgstr ""
+msgstr "Je Event Aggregator Facebook-connectie zal verlopen %s."
 
 #: src/admin-views/tribe-options-addons-api.php:55
 msgid "Your Event Aggregator Facebook connection has expired %s."
-msgstr ""
+msgstr "Je Event Aggregator Facebook-connectie is verlopen %s."
 
 #: src/admin-views/tribe-options-addons-api.php:52
 msgid "Connect to Facebook"
-msgstr ""
+msgstr "Verbind met Facebook"
 
 #: src/admin-views/tribe-options-addons-api.php:51
 msgid "You need to connect to Facebook for Event Aggregator to work properly"
-msgstr ""
+msgstr "Je moet verbinden met Facebook om de Event Aggregator goed te laten werken"
 
 #: src/admin-views/tribe-options-addons-api.php:46
 msgid "Facebook Token"
-msgstr ""
+msgstr "Facebook token"
 
 #: src/admin-views/create-organizer-fields.php:16
 #: src/admin-views/organizer-meta-box.php:45
 msgid "The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers."
-msgstr ""
+msgstr "Het e-mailadres zal onleesbaar worden gemaakt op je site om te voorkomen dat het wordt gevonden door spammers."
 
 #: src/admin-views/aggregator/tabs/import-form.php:239
 msgid "Events will be imported with the timezone defined by the source. If no time zone is specified, events will be assigned your site's default timezone (see %1$sSettings > General%2$s)."
-msgstr ""
+msgstr "Evenementen worden geïmporteerd met de tijdszone die door de bron is gedefinieerd. Als er geen tijdszone is gedefinieerd, zullen evenementen worden toegewezen aan de standaard tijdszone van je site (zie %1$sInstellingen > Algemeen%2$s)."
 
 #: src/admin-views/aggregator/tabs/import-form.php:187
 msgid "Category:"
-msgstr ""
+msgstr "Categorie:"
 
 #: src/admin-views/aggregator/tabs/import-form.php:175
 msgid "Status:"
-msgstr ""
+msgstr "Status:"
 
 #: src/admin-views/aggregator/tabs/import-form.php:155
 #: src/admin-views/aggregator/tabs/import-form.php:167
 msgid "Start Time"
-msgstr ""
+msgstr "Starttijd"
 
 #: src/admin-views/aggregator/tabs/import-form.php:151
 #: src/admin-views/aggregator/tabs/import-form.php:163
 msgid "Select All"
-msgstr ""
+msgstr "Alles selecteren"
 
 #: src/admin-views/aggregator/tabs/import-form.php:141
 msgid "The following preview does not necessarily contain all of the data from your CSV file. The data displayed below is meant as a guide to help you map your CSV file's columns to the appropriate Event fields."
-msgstr ""
+msgstr "De volgende preview geeft niet perse alle data weer die in je CSV-bestand staat. De data hieronder is bedoeld als een richtlijn om je te helpen de kolommen in het CSV-bestand te koppelen aan de juiste evenementvelden."
 
 #: src/admin-views/aggregator/tabs/import-form.php:135
 msgid "Column Mapping:"
-msgstr ""
+msgstr "Kolommapping:"
 
 #: src/admin-views/aggregator/tabs/import-form.php:132
 msgid "This is a preview of the type of content you will be getting in during the import based on what is on the calendar now."
@@ -520,11 +534,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:73
 msgid "Buy Event Aggregator"
-msgstr ""
+msgstr "Koop Event Aggregator"
 
 #: src/admin-views/aggregator/tabs/import-form.php:39
 msgid "Choose where you are importing from."
-msgstr ""
+msgstr "Kies waarvandaan je importeert."
 
 #: src/admin-views/aggregator/tabs/import-form.php:38
 msgid "Select Origin"
@@ -540,32 +554,32 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:194
 msgid "Enter your API key"
-msgstr ""
+msgstr "Voer je API-sleutel in"
 
 #: src/admin-views/aggregator/status.php:192
 msgid "You have not entered a Meetup API key"
-msgstr ""
+msgstr "Je hebt geen Meetup API-sleutel ingevoerd"
 
 #: src/admin-views/aggregator/status.php:188
 msgid "API key entered"
-msgstr ""
+msgstr "API-sleutel ingevoerd"
 
 #: src/admin-views/aggregator/status.php:173
 msgid "The service has disabled oAuth. Some types of events may not import."
-msgstr ""
+msgstr "De service heeft oAuth uitgeschakeld. Sommige type evenementen kunnen mogelijk niet worden geïmporteerd "
 
 #: src/admin-views/aggregator/status.php:172
 msgid "Limited connectivity with Facebook"
-msgstr ""
+msgstr "Gelimiteerde connectiviteit met Facebook"
 
 #: src/admin-views/aggregator/status.php:168
 msgctxt "link for connecting facebook"
 msgid "Connect to Facebook"
-msgstr ""
+msgstr "Verbind met Facebook"
 
 #: src/admin-views/aggregator/status.php:166
 msgid "You have not connected Event Aggregator to Facebook"
-msgstr ""
+msgstr "Je hebt Event Aggregator niet verbonden met Facebook"
 
 #: src/admin-views/aggregator/status.php:153
 msgid "Third Party Accounts"
@@ -577,7 +591,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:137
 msgid "WP Cron enabled"
-msgstr ""
+msgstr "WP Cron ingeschakeld"
 
 #: src/admin-views/aggregator/status.php:135
 msgid "Scheduled imports may not run reliably"
@@ -585,38 +599,38 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:134
 msgid "WP Cron not enabled"
-msgstr ""
+msgstr "WP Cron niet ingeschakeld"
 
 #: src/admin-views/aggregator/status.php:122
 msgid "Server Connection"
-msgstr ""
+msgstr "Serverconnectie"
 
 #. translators: %s: Event Aggregator Server URL
 #: src/admin-views/aggregator/status.php:116
 msgid "Connected to %s"
-msgstr ""
+msgstr "Verbonden met %s"
 
 #: src/admin-views/aggregator/status.php:110
 msgid "The server is responding with an error:"
-msgstr ""
+msgstr "De server reageert met een fout:"
 
 #: src/admin-views/aggregator/status.php:101
 msgid "The server is not currently responding"
-msgstr ""
+msgstr "De server reageert niet"
 
 #. translators: %s: Event Aggregator Server URL
 #: src/admin-views/aggregator/status.php:100
 #: src/admin-views/aggregator/status.php:108
 msgid "Not connected to %s"
-msgstr ""
+msgstr "Niet verbonden met %s"
 
 #: src/admin-views/aggregator/status.php:86
 msgid "Import Services"
-msgstr ""
+msgstr "Importeer services"
 
 #: src/admin-views/aggregator/status.php:75
 msgid "Current usage"
-msgstr ""
+msgstr "Huidig verbruik"
 
 #: src/admin-views/aggregator/status.php:68
 msgid "%1$d import out of %2$d available today"
@@ -630,31 +644,31 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:61
 msgid "You have reached your daily import limit. Scheduled imports will be paused until tomorrow."
-msgstr ""
+msgstr "Je hebt je dagelijkse importeerlimiet bereikt. Geplande importeeracties worden gepauzeerd tot morgen."
 
 #: src/admin-views/aggregator/status.php:34
 msgid "Check your license key"
-msgstr ""
+msgstr "Controleer je licentiesleutel"
 
 #: src/admin-views/aggregator/status.php:33
 msgid "Your license is invalid"
-msgstr ""
+msgstr "Je licentie is ongeldig"
 
 #: src/admin-views/aggregator/status.php:30
 msgid "Buy Event Aggregator to access more event sources and automatic imports!"
-msgstr ""
+msgstr "Koop Event Aggregator om toegang te krijgen tot meer evenementbronnen en automatische importeeracties!"
 
 #: src/admin-views/aggregator/status.php:28
 msgid "You do not have a license"
-msgstr ""
+msgstr "Je hebt geen licentie"
 
 #: src/admin-views/aggregator/status.php:21
 msgid "Your license is valid"
-msgstr ""
+msgstr "Je licentie is geldig"
 
 #: src/admin-views/aggregator/status.php:12
 msgid "License &amp; Usage"
-msgstr ""
+msgstr "Licentie &amp; Gebruik"
 
 #: src/admin-views/aggregator/settings.php:400
 #: src/admin-views/aggregator/settings.php:440
@@ -2451,7 +2465,6 @@ msgstr ""
 msgid "Event Aggregator"
 msgstr ""
 
-#: common/src/Tribe/Plugin_Download_Notice.php:68
 #: vendor/tickets/common/src/Tribe/Plugin_Download_Notice.php:68
 msgid "To begin using %1$s, please install and activate the latest version(s) of %2$s."
 msgstr ""
@@ -3995,7 +4008,7 @@ msgstr "Tijdzone instellingen"
 
 #: src/admin-views/tribe-options-timezones.php:10
 msgid "Click this button to update your database and take advantage of additional timezone capabilities. Please <a href=\"%s\" target=\"_blank\">configure WordPress</a> to use the correct timezone before clicking this button!"
-msgstr "klik op deze knop om je database te update En profiteer van extra tijdzone mogelijkheden.  <a href=\"%s\" target=\"_blank\">configureer WordPress</a> om de juiste tijdzone te gebruiken voordat je op deze knop klikt!"
+msgstr "Klik op deze knop om je database te updaten en profiteer van extra tijdzonemogelijkheden. <a href=\"%s\" target=\"_blank\">Configureer WordPress</a> om de juiste tijdzone te gebruiken voordat je op deze knop klikt!"
 
 #: src/admin-views/tribe-options-timezones.php:9
 msgid "Update Timezone Data"
@@ -4099,7 +4112,7 @@ msgstr "Debugmodus"
 
 #: src/admin-views/tribe-options-general.php:169
 msgid "View the page that displayed when you updated the plugin."
-msgstr "Bekijk de pagina die werd weergegeven toen u de plug-in bijwerkte."
+msgstr "Bekijk de pagina die werd weergegeven nadat je de plugin had bijgewerkt."
 
 #: src/admin-views/tribe-options-general.php:168
 #: src/admin-views/tribe-options-general.php:169
@@ -4108,7 +4121,7 @@ msgstr "Bekijk update pagina"
 
 #: src/admin-views/tribe-options-general.php:162
 msgid "View the page that displayed when you initially installed the plugin."
-msgstr "Bekijk de pagina die werd weergegeven wanneer u de plugin installeerde"
+msgstr "Bekijk de pagina die werd weergegeven nadat je de plugin had geïnstalleerd "
 
 #: src/admin-views/tribe-options-general.php:161
 #: src/admin-views/tribe-options-general.php:162
@@ -7022,7 +7035,7 @@ msgstr "lijst"
 msgid "month"
 msgstr "maand"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.1) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.1.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:753

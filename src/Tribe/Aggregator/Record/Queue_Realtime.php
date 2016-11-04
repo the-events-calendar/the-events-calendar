@@ -38,7 +38,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		add_action( 'wp_ajax_tribe_aggregator_realtime_update', array( $this, 'ajax' ) );
 		$this->queue           = $queue;
 		$this->ajax_operations = $ajax_operations ? $ajax_operations : new Tribe__Events__Ajax__Operations;
-		$this->queue_processor = $queue_processor ? $queue_processor : Tribe__Events__Aggregator::instance()->queue_processor;
+		$this->queue_processor = $queue_processor ? $queue_processor : tribe( 'events-aggregator.main' )->queue_processor;
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 			return;
 		}
 
-		$processor = Tribe__Events__Aggregator::instance()->queue_processor;
+		$processor = tribe( 'events-aggregator.main' )->queue_processor;
 		if ( ! $this->record_id = $processor->next_waiting_record( true ) ) {
 			return false;
 		}

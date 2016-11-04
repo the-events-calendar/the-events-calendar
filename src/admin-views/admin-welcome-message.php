@@ -48,7 +48,7 @@ $video_url = 'http://vimeo.com/108805711';
 	</div>
 	<div class="tribe-half-column">
 		<h4><?php esc_html_e( 'Release Notes', 'the-events-calendar' ); ?></h4>
-		<p><a href="http://m.tri.be/nr" target="_blank"><?php esc_html_e( 'Get the Skinny on the Latest Updates', 'the-events-calendar' ); ?></a></p>
+		<p><a href="http://m.tri.be/1956" target="_blank"><?php esc_html_e( 'Get the Skinny on the Latest Updates', 'the-events-calendar' ); ?></a></p>
 
 		<h4><?php esc_html_e( 'News For Events Users', 'the-events-calendar' ); ?></h4>
 		<p><a href="http://m.tri.be/ns" target="_blank"><?php esc_html_e( 'Product Releases, Tutorials and Community Activity', 'the-events-calendar' ); ?></a></p>

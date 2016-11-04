@@ -49,5 +49,18 @@ class Tribe__Events__Integrations__Manager {
 	 */
 	public function load_integrations() {
 		$this->load_wpml_integration();
+		$this->load_X_theme_integration();
+	}
+
+	private function load_X_theme_integration() {
+		$theme = wp_get_theme();
+
+		if ( 'x' !== $theme->get_template() ) {
+			return false;
+		}
+
+		Tribe__Events__Integrations__X_Theme__X_Theme::instance()->hook();
+
+		return true;
 	}
 }

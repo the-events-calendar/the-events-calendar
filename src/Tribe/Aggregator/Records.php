@@ -589,7 +589,9 @@ class Tribe__Events__Aggregator__Records {
 		update_post_meta( $id, Tribe__Events__Aggregator__Event::$record_key, $record_id );
 
 		// Add the Aggregator source
-		update_post_meta( $id, Tribe__Events__Aggregator__Event::$source_key, $record->meta['source'] );
+		if ( isset( $record->meta['source'] ) ) {
+			update_post_meta( $id, Tribe__Events__Aggregator__Event::$source_key, $record->meta['source'] );
+		}
 
 		// Add the Aggregator import timestamp
 		update_post_meta( $id, Tribe__Events__Aggregator__Event::$updated_key, $record->post->post_date );
