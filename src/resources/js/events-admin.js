@@ -471,34 +471,41 @@ jQuery( document ).ready( function( $ ) {
 			firstDay       : startofweek,
 			showButtonPanel: true,
 			beforeShow     : function( element, object ) {
+
 				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
 				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
+
 				var calendar = $( '#ui-datepicker-div' );
 				var cal = $( '#ui-datepicker-div' ).offset();
-				var input = $( '#EventStartDate' ).offset();
+				
 				var $window = $(window);
-				    scrollLeft = $window.scrollLeft();
-				    scrollTop = $window.scrollTop();
+				scrollLeft = $window.scrollLeft();
+				scrollTop = $window.scrollTop();
+
+				var totalTop = scrollTop + object.input.outerHeight();
 
 				var calHeight = $( '#ui-datepicker-div' ).height();
 				var calWidth = $( '#ui-datepicker-div' ).width();
 
-				 if ( scrollTop > calHeight ) {
-				 	calendar.removeClass( 'direction-down' ).addClass( 'direction-up' );
-				 	object.dpDiv.css( {
-				 		marginTop: ( -element.offsetHeight/4 + 27 ) + 'px',
-				 		marginLeft: -element.offsetWidth + 'px'
-				 	} );
-				 }
+				console.log(totalTop);
+				console.log(totalTop);
 
-				 if ( scrollTop < calHeight ) {
-				 	calendar.removeClass( 'direction-up' ).addClass( 'direction-down' );
-				 	object.dpDiv.css( {
-				 		marginTop: ( -element.offsetHeight ) + 'px',
-				 		marginLeft: -element.offsetWidth + 'px'
-				 	} );
-				 }
-				},
+				if ( totalTop > calHeight ) {
+					calendar.removeClass( 'direction-down' ).addClass( 'direction-up' );
+					object.dpDiv.css( {
+						marginTop: ( element.offsetHeight - 8 ) + 'px',
+						marginLeft: ( -element.offsetWidth ) + 'px'
+					} );
+				}
+
+				if ( totalTop < calHeight ) {
+					calendar.removeClass( 'direction-up' ).addClass( 'direction-down' );
+					object.dpDiv.css( {
+						marginTop: ( -element.offsetHeight ) + 'px',
+						marginLeft: -element.offsetWidth + 'px'
+					} );
+				}
+			},
           
 			onSelect       : function( selectedDate ) {
 				var option = this.id == 'EventStartDate' ? 'minDate' : 'maxDate';
