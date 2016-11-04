@@ -294,6 +294,31 @@ tribeDateFormat.i18n = {
 	]
 };
 
+/**
+ * A collection of utility functions.
+ *
+ * @type {{getQueryVars: tribeUtils.getQueryVars}}
+ */
+var tribeUtils = {
+	/**
+	 * Searches a URL, or the current page URL, for query vars and returns an object listing
+	 * them where each query var name is a property associated to its value(s).
+	 *
+	 * @param string location Def. to `location`, an optional URL to scan for query vars.
+	 *
+	 * @returns {{}} An array containing the query vars as properties.
+	 */
+	'getQueryVars': function ( url ) {
+		var queryVars = {},
+			url = url || location;
+		url.search.substr( 1 ).split( '&' ).forEach( function ( queryVar ) {
+			queryVars[ queryVar.split( '=' )[0] ] = queryVar.split( '=' )[1];
+		} );
+
+		return queryVars;
+	}
+};
+
 Date.prototype.format = function( mask, utc ) {
 	return tribeDateFormat( this, mask, utc );
 };
@@ -592,6 +617,22 @@ Date.prototype.format = function( mask, utc ) {
 			return base_url;
 		},
 		/**
+		 * @function tribe_ev.fn.update_base_url
+		 * @desc tribe_ev.fn.update_base_url can be used on any events view to update base_url for that view
+		 */
+		update_base_url: function( url ) {
+			var $event_header = $( '#tribe-events-header' ),
+				$canonical = $( 'link[rel="canonical"]' );
+
+			if ( $canonical.length ) {
+				// use the canonical URL if it is available (it should be)
+				$canonical.attr( 'href', url );
+			} else if ( $event_header.length ) {
+				// failover to the baseurl of the event header
+				$event_header.data( 'baseurl', url ).attr( 'data-baseurl', url );
+			}
+		},
+		/**
 		 * @function tribe_ev.fn.get_category
 		 * @desc tribe_ev.fn.get_category can be used on any events view to get the category for that view.
 		 * @returns {String} Either an empty string or category slug if data-category is found on #tribe-events.
@@ -828,9 +869,13 @@ Date.prototype.format = function( mask, utc ) {
 
 			$.each( params, function( key, value ) {
 				if ( key !== 'action' ) {
-					var name = decodeURI( key ),
+					var name = decodeURIComponent( key ),
 						$target = '';
 					if ( value.length === 1 ) {
+						if ( Array.isArray( value ) ) {
+						  value = value[0];
+						}
+						value = decodeURIComponent( value.replace( /\+/g, '%20' ) );
 						if ( $( '[name="' + name + '"]' ).is( 'input[type="text"], input[type="hidden"]' ) ) {
 							$( '[name="' + name + '"]' ).val( value );
 						}
@@ -904,21 +949,27 @@ Date.prototype.format = function( mask, utc ) {
 		 *        tribe_ev.fn.tooltips();
 		 */
 		tooltips                 : function() {
+			var $container = $( '#tribe-events' ),
+				$body = $( 'body' ),
+				is_shortcode = $container.hasClass( 'tribe-events-shortcode' ),
+				is_month_view = $container.hasClass( 'view-month' ) || $body.hasClass( 'events-gridview' ),
+				is_week_view = $container.hasClass( 'view-week' ) || $body.hasClass( 'tribe-events-week' ),
+				is_photo_view = $container.hasClass( 'view-photo' ) || $body.hasClass( 'tribe-events-photo' ),
+				is_day_view = $container.hasClass( 'view-day' ) || $body.hasClass( 'tribe-events-day' ),
+				is_list_view = $container.hasClass( 'view-list' ) || $body.hasClass( 'events-list' ),
+				is_map_view = $container.hasClass( 'view-map' ) || $body.hasClass( 'tribe-events-map' ),
+				is_single = $body.hasClass( 'single-tribe_events' );
 
-			$( '#tribe-events' ).on( 'mouseenter', 'div[id*="tribe-events-event-"], div.event-is-recurring',function() {
-
+			$container.on( 'mouseenter', 'div[id*="tribe-events-event-"], div.event-is-recurring', function() {
 				var bottomPad = 0,
 					$this = $( this ),
-					$body = $( 'body' ),
 					$tip;
 
-				if ( $body.hasClass( 'events-gridview' ) ) { // Cal View Tooltips
+				if ( is_month_view ) { // Cal View Tooltips
 					bottomPad = $this.find( 'a' ).outerHeight() + 18;
-				}
-				else if ( $body.is( '.single-tribe_events, .events-list, .tribe-events-day' ) ) { // Single/List View Recurring Tooltips
+				} else if ( is_single || is_day_view || is_list_view ) { // Single/List View Recurring Tooltips
 					bottomPad = $this.outerHeight() + 12;
-				}
-				else if ( $body.is( '.tribe-events-photo' ) ) { // Photo View
+				} else if ( is_photo_view ) { // Photo View
 					bottomPad = $this.outerHeight() + 10;
 				}
 
@@ -926,29 +977,25 @@ Date.prototype.format = function( mask, utc ) {
 				if ( $this.parents( '.tribe-events-calendar-widget' ).length ) {
 					bottomPad = $this.outerHeight() - 6;
 				}
-				if ( !$body.hasClass( 'tribe-events-week' ) ) {
-					if ( $body.hasClass( 'events-gridview' ) ) {
+
+				if ( ! is_week_view || is_shortcode ) {
+					if ( is_month_view || is_shortcode ) {
 						$tip = $this.find( '.tribe-events-tooltip' );
 
-						if ( !$tip.length ) {
+						if ( ! $tip.length ) {
 							var data = $this.data( 'tribejson' );
 
 							if ( typeof data == 'string' ) {
 								data = $.parseJSON( data );
 							}
 
-							$this
-								.append( tribe_tmpl( 'tribe_tmpl_tooltip', data ) );
+							$this.append( tribe_tmpl( 'tribe_tmpl_tooltip', data ) );
 
 							$tip = $this.find( '.tribe-events-tooltip' );
+						}
 
-							$tip.css( 'bottom', bottomPad ).show();
-						}
-						else {
-							$tip.css( 'bottom', bottomPad ).show();
-						}
-					}
-					else {
+						$tip.css( 'bottom', bottomPad ).show();
+					} else {
 						$this.find( '.tribe-events-tooltip' ).css( 'bottom', bottomPad ).show();
 					}
 				}

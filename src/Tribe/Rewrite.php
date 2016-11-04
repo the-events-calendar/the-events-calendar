@@ -49,11 +49,11 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 	/**
 	 * Static Singleton Factory Method
 	 *
-		 * @return Tribe__Events__Rewrite
+	 * @return Tribe__Events__Rewrite
 	 */
-		public static function instance( $wp_rewrite = null ) {
-			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self( $wp_rewrite );
+	public static function instance( $wp_rewrite = null ) {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new self( $wp_rewrite );
 		}
 
 		return self::$instance;
@@ -67,17 +67,17 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 	public function filter_generate( WP_Rewrite $wp_rewrite ) {
 		parent::filter_generate( $wp_rewrite );
 
-			/**
-			 * Use this to change the Tribe__Events__Rewrite instance before new rules
-			 * are committed.
-			 *
-			 * Should be used when you want to add more rewrite rules without having to
-			 * deal with the array merge, noting that rules for The Events Calendar are
-			 * themselves added via this hook (default priority).
-			 *
-			 * @var Tribe__Events__Rewrite $rewrite
-			 */
-			do_action( 'tribe_events_pre_rewrite', $this );
+		/**
+		 * Use this to change the Tribe__Events__Rewrite instance before new rules
+		 * are committed.
+		 *
+		 * Should be used when you want to add more rewrite rules without having to
+		 * deal with the array merge, noting that rules for The Events Calendar are
+		 * themselves added via this hook (default priority).
+		 *
+		 * @var Tribe__Events__Rewrite $rewrite
+		 */
+		do_action( 'tribe_events_pre_rewrite', $this );
 
 		/**
 		 * Provides an opportunity to modify The Events Calendar's rewrite rules before they
@@ -112,78 +112,112 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 
 			// Archive
 			->archive( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%1' ) )
+			->archive( array( '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'featured' => true, 'eventDisplay' => 'list', 'paged' => '%1' ) )
 			->archive( array( '(feed|rdf|rss|rss2|atom)' ), array( 'eventDisplay' => 'list', 'feed' => '%1' ) )
+			->archive( array( '{{ featured }}', '(feed|rdf|rss|rss2|atom)' ), array( 'featured' => true, 'eventDisplay' => 'list', 'feed' => '%1' ) )
 			->archive( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
+			->archive( array( '{{ month }}', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'featured' => true ) )
 			->archive( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%1' ) )
+			->archive( array( '{{ list }}', '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'featured' => true, 'paged' => '%1' ) )
 			->archive( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
+			->archive( array( '{{ list }}', '{{ featured }}' ), array( 'eventDisplay' => 'list', 'featured' => true ) )
 			->archive( array( '{{ today }}' ), array( 'eventDisplay' => 'day' ) )
+			->archive( array( '{{ today }}', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'featured' => true ) )
 			->archive( array( '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%1' ) )
+			->archive( array( '(\d{4}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'eventDate' => '%1', 'featured' => true ) )
 			->archive( array( '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%1' ) )
+			->archive( array( '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'eventDate' => '%1', 'featured' => true ) )
+			->archive( array( '{{ featured }}' ), array( 'featured' => true ) )
 			->archive( array(), array( 'eventDisplay' => 'default' ) )
-
 			->archive( array( 'ical' ), array( 'ical' => 1 ) )
+			->archive( array( '{{ featured }}', 'ical' ), array( 'ical' => 1, 'featured' => true ) )
 			->archive( array( '(\d{4}-\d{2}-\d{2})', 'ical' ), array( 'ical' => 1, 'eventDisplay' => 'day', 'eventDate' => '%1' ) )
+			->archive( array( '(\d{4}-\d{2}-\d{2})', 'ical', 'featured' ), array( 'ical' => 1, 'eventDisplay' => 'day', 'eventDate' => '%1', 'featured' => true ) )
 
 			// Taxonomy
 			->tax( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
+			->tax( array( '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'featured' => true, 'eventDisplay' => 'list', 'paged' => '%2' ) )
 			->tax( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
+			->tax( array( '{{ month }}', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'featured' => true ) )
 			->tax( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
+			->tax( array( '{{ list }}', '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'featured' => true, 'paged' => '%2' ) )
 			->tax( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
+			->tax( array( '{{ list }}', '{{ featured }}' ), array( 'eventDisplay' => 'list', 'featured' => true ) )
 			->tax( array( '{{ today }}' ), array( 'eventDisplay' => 'day' ) )
+			->tax( array( '{{ today }}', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'featured' => true ) )
 			->tax( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
+			->tax( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ) )
 			->tax( array( '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2' ) )
+			->tax( array( '(\d{4}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2', 'featured' => true ) )
 			->tax( array( '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
+			->tax( array( '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ) )
 			->tax( array( 'feed' ), array( 'eventDisplay' => 'list', 'feed' => 'rss2' ) )
+			->tax( array( '{{ featured }}', 'feed' ), array( 'featured' => true, 'eventDisplay' => 'list', 'feed' => 'rss2' ) )
 			->tax( array( 'ical' ), array( 'ical' => 1 ) )
+			->tax( array( '{{ featured }}', 'ical' ), array( 'featured' => true, 'ical' => 1 ) )
 			->tax( array( 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'feed' => '%2' ) )
+			->tax( array( '{{ featured }}', 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'featured' => true, 'feed' => '%2' ) )
+			->tax( array( '{{ featured }}' ), array( 'featured' => true, 'eventDisplay' => 'default' ) )
 			->tax( array(), array( 'eventDisplay' => 'default' ) )
 
 			// Tag
 			->tag( array( '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
+			->tag( array( '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'featured' => true, 'eventDisplay' => 'list', 'paged' => '%2' ) )
 			->tag( array( '{{ month }}' ), array( 'eventDisplay' => 'month' ) )
+			->tag( array( '{{ month }}', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'featured' => true ) )
 			->tag( array( '{{ list }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'paged' => '%2' ) )
+			->tag( array( '{{ list }}', '{{ featured }}', '{{ page }}', '(\d+)' ), array( 'eventDisplay' => 'list', 'featured' => true, 'paged' => '%2' ) )
 			->tag( array( '{{ list }}' ), array( 'eventDisplay' => 'list' ) )
+			->tag( array( '{{ list }}', '{{ featured }}' ), array( 'eventDisplay' => 'list', 'featured' => true ) )
 			->tag( array( '{{ today }}' ), array( 'eventDisplay' => 'day' ) )
+			->tag( array( '{{ today }}', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'featured' => true ) )
 			->tag( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
+			->tag( array( '{{ day }}', '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ) )
 			->tag( array( '(\d{4}-\d{2})' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2' ) )
+			->tag( array( '(\d{4}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'month', 'eventDate' => '%2', 'featured' => true ) )
 			->tag( array( '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2' ) )
+			->tag( array( '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ), array( 'eventDisplay' => 'day', 'eventDate' => '%2', 'featured' => true ) )
 			->tag( array( 'feed' ), array( 'eventDisplay' => 'list', 'feed' => 'rss2' ) )
+			->tag( array( '{{ featured }}', 'feed' ), array( 'eventDisplay' => 'list', 'feed' => 'rss2', 'featured' => true ) )
 			->tag( array( 'ical' ), array( 'ical' => 1 ) )
+			->tag( array( '{{ featured }}', 'ical' ), array( 'featured' => true, 'ical' => 1 ) )
 			->tag( array( 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'feed' => '%2' ) )
+			->tag( array( '{{ featured }}', 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'featured' => true, 'feed' => '%2' ) )
+			->tag( array( '{{ featured }}' ), array( 'featured' => true ) )
 			->tag( array(), array( 'eventDisplay' => 'default' ) );
 	}
 
 	/**
-		 * Filters the post permalink to take 3rd party plugins into account.
+	 * Filters the post permalink to take 3rd party plugins into account.
 	 *
-		 * @param  string $permalink Permalink for the post
+	 * @param  string $permalink Permalink for the post
 	 * @param  WP_Post $post Post Object
 	 *
 	 * @return string      Permalink with the language
 	 */
 	public function filter_post_type_link( $permalink, $post ) {
-			$supported_post_types = array(
-				Tribe__Events__Main::POSTTYPE,
-				Tribe__Events__Main::VENUE_POST_TYPE,
-				Tribe__Events__Main::ORGANIZER_POST_TYPE,
-			);
+		$supported_post_types = array(
+			Tribe__Events__Main::POSTTYPE,
+			Tribe__Events__Main::VENUE_POST_TYPE,
+			Tribe__Events__Main::ORGANIZER_POST_TYPE,
+		);
 
-			if ( ! in_array( $post->post_type, $supported_post_types ) ) {
+		if ( ! in_array( $post->post_type, $supported_post_types ) ) {
 			return $permalink;
 		}
 
-			$permalink = str_replace( self::PERCENT_PLACEHOLDER, '%', $permalink );
+		$permalink = str_replace( self::PERCENT_PLACEHOLDER, '%', $permalink );
 
-			/**
-			 * Filters a supported post type permalink to allow third-party plugins to add or remove components.
-			 *
-			 * @param string $permalink The permalink for the post generated by the The Events Calendar.
-			 * @param WP_Post $post The current post object.
-			 * @param array $supported_post_types An array of post types supported by The Events Calendar.
-			 */
-			$permalink = apply_filters( 'tribe_events_post_type_permalink', $permalink, $post, $supported_post_types );
+		/**
+		 * Filters a supported post type permalink to allow third-party plugins to add or remove components.
+		 *
+		 * @param string $permalink The permalink for the post generated by the The Events Calendar.
+		 * @param WP_Post $post The current post object.
+		 * @param array $supported_post_types An array of post types supported by The Events Calendar.
+		 */
+		$permalink = apply_filters( 'tribe_events_post_type_permalink', $permalink, $post, $supported_post_types );
 
-			return $permalink;
+		return $permalink;
 	}
 
 	/**
@@ -228,6 +262,7 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 			'all' => (array) 'all',
 			'single' => (array) Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ),
 			'archive' => (array) Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ),
+			'featured' => array( 'featured', $tec->featured_slug ),
 		) );
 
 		// Remove duplicates (no need to have 'month' twice if no translations are in effect, etc)
@@ -239,20 +274,20 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 		// By default we load the Default and our plugin domains
 		$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
 			'default' => true, // Default doesn't need file path
-				'the-events-calendar' => $tec->plugin_dir . 'lang/',
+			'the-events-calendar' => $tec->plugin_dir . 'lang/',
 		) );
 
-			/**
-			 * Use `tribe_events_rewrite_i18n_slugs_raw` to modify the raw version of the l10n slugs bases.
-			 *
-			 * This is useful to modify the bases before the method is taken into account.
-			 *
-			 * @param array  $bases   An array of rewrite bases that have been generated.
-			 * @param string $method  The method that's being used to generate the bases; defaults to `regex`.
-			 * @param array  $domains An associative array of language domains to use; these would be plugin or themes language
-			 *                        domains with a `'plugin-slug' => '/absolute/path/to/lang/dir'`
-			 */
-			$bases = apply_filters( 'tribe_events_rewrite_i18n_slugs_raw', $bases, $method, $domains );
+		/**
+		 * Use `tribe_events_rewrite_i18n_slugs_raw` to modify the raw version of the l10n slugs bases.
+		 *
+		 * This is useful to modify the bases before the method is taken into account.
+		 *
+		 * @param array  $bases   An array of rewrite bases that have been generated.
+		 * @param string $method  The method that's being used to generate the bases; defaults to `regex`.
+		 * @param array  $domains An associative array of language domains to use; these would be plugin or themes language
+		 *                        domains with a `'plugin-slug' => '/absolute/path/to/lang/dir'`
+		 */
+		$bases = apply_filters( 'tribe_events_rewrite_i18n_slugs_raw', $bases, $method, $domains );
 
 		if ( 'regex' === $method ) {
 			foreach ( $bases as $type => $base ) {
@@ -264,20 +299,19 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 			}
 		}
 
-			/**
-			 * Use `tribe_events_rewrite_i18n_slugs` to modify the final version of the l10n slugs bases
-			 *
-			 * At this stage the method has been applied already and this filter will work with the
-			 * finalized version of the bases.
-			 *
-			 * @param array  $bases   An array of rewrite bases that have been generated.
-			 * @param string $method  The method that's being used to generate the bases; defaults to `regex`.
-			 * @param array  $domains An associative array of language domains to use; these would be plugin or themes language
-			 *                        domains with a `'plugin-slug' => '/absolute/path/to/lang/dir'`
-			 */
-			return (object) apply_filters( 'tribe_events_rewrite_i18n_slugs', $bases, $method, $domains );
+		/**
+		 * Use `tribe_events_rewrite_i18n_slugs` to modify the final version of the l10n slugs bases
+		 *
+		 * At this stage the method has been applied already and this filter will work with the
+		 * finalized version of the bases.
+		 *
+		 * @param array  $bases   An array of rewrite bases that have been generated.
+		 * @param string $method  The method that's being used to generate the bases; defaults to `regex`.
+		 * @param array  $domains An associative array of language domains to use; these would be plugin or themes language
+		 *                        domains with a `'plugin-slug' => '/absolute/path/to/lang/dir'`
+		 */
+		return (object) apply_filters( 'tribe_events_rewrite_i18n_slugs', $bases, $method, $domains );
 	}
-
 
 	/**
 	 * Alias to `$this->add()` but adding the archive base first
@@ -349,7 +383,6 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 
 		return $this->add( $regex, $args );
 	}
-
 
 	protected function remove_hooks() {
 		parent::remove_hooks();

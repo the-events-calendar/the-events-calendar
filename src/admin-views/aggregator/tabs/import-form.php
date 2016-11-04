@@ -37,7 +37,7 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 		$field->label = esc_html__( 'Import Origin:', 'the-events-calendar' );
 		$field->placeholder = esc_attr__( 'Select Origin', 'the-events-calendar' );
 		$field->help = esc_attr__( 'Choose where you are importing from.', 'the-events-calendar' );
-		$field->options = Tribe__Events__Aggregator::instance()->api( 'origins' )->get();
+		$field->options = tribe( 'events-aggregator.main' )->api( 'origins' )->get();
 		?>
 		<tr>
 			<th scope="row">
@@ -52,7 +52,7 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 						class="tribe-ea-field"
 						value="<?php echo esc_attr( $record->meta['origin'] ); ?>"
 					>
-					<strong class="tribe-ea-field-readonly"><?php esc_html_e( Tribe__Events__Aggregator::instance()->api( 'origins' )->get_name( $record->meta['origin'] ) ); ?></strong>
+					<strong class="tribe-ea-field-readonly"><?php esc_html_e( tribe( 'events-aggregator.main' )->api( 'origins' )->get_name( $record->meta['origin'] ) ); ?></strong>
 				<?php else: ?>
 					<select
 						name="aggregator[origin]"

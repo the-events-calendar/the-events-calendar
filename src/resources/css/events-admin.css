@@ -30,6 +30,29 @@
 .tribe-restore-link + a {
 	display: none;
 }
+.tribe-datetime-block .tribe-field-start_date,
+	.tribe-datetime-block .tribe-field-start_time,
+	.tribe-datetime-block .tribe-field-end_date,
+	.tribe-datetime-block .tribe-field-end_time {
+	height: 28px;
+}
+.tribe-datetime-block .tribe-field-start_date,
+	.tribe-datetime-block .tribe-field-end_date {
+	width: 100px;
+}
+.tribe-datetime-block .tribe-field-start_time,
+	.tribe-datetime-block .tribe-field-end_time {
+	width: 80px;
+}
+.tribe-datetime-block .tribe-field-timezone {
+	width: 140px;
+	margin-top: -2px;
+	display: none;
+}
+.tribe-datetime-block .tribe-field-timezone.select2-container {
+	display: inline-block;
+	margin-top: 1px;
+}
 /* = Post Type Editing
 =============================================*/
 .eventForm {
@@ -48,11 +71,6 @@
 }
 .eventForm #event-meta td div:last-child {
 	margin-bottom: 20px;
-}
-.eventForm select,
-	.eventForm input,
-	.eventForm textarea {
-	font-size: 11px;
 }
 .eventForm textarea {
 	width: 100%;
@@ -87,6 +105,11 @@
 #ticket_start_date,
 #ticket_end_date {
 	width: 100px;
+}
+.event-dynamic-helper-text {
+    color: #999;
+    font-style: italic;
+    padding: 10px 0 0;
 }
 .form-table form input {
 	border: none;

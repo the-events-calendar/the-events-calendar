@@ -143,7 +143,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$field = (object) array();
 		$field->label = esc_html__( 'Filter By Origin', 'the-events-calendar' );
 		$field->placeholder = esc_attr__( 'Filter By Origin', 'the-events-calendar' );
-		$field->options = Tribe__Events__Aggregator::instance()->api( 'origins' )->get();
+		$field->options = tribe( 'events-aggregator.main' )->api( 'origins' )->get();
 
 		?>
 			<label class="screen-reader-text" for="tribe-ea-field-origin"><?php echo $field->label; ?></label>
@@ -220,7 +220,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		}
 
 		// disable bulk actions if the Aggregator service is inactive
-		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return '';
 		}
 
@@ -307,7 +307,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			case 'scheduled':
 				// We only need the checkbox when the EA service is active because there aren't any bulk
 				// actions when EA is disabled
-				if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
+				if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 					$columns['cb'] = '<input type="checkbox" />';
 				}
 				$columns['source'] = esc_html_x( 'Source', 'column name', 'the-events-calendar' );
@@ -343,7 +343,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		}
 
 		// disable row actions if the Aggregator service is inactive
-		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return '';
 		}
 
@@ -451,7 +451,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$source_info = $record->get_source_info();
 		$source_info['title'] = $source_info['title'];
 
-		if ( $record->is_schedule && Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( $record->is_schedule && tribe( 'events-aggregator.main' )->is_service_active() ) {
 			$html[] = '<p><b><a href="' . get_edit_post_link( $post->ID ) . '">' . esc_html( $source_info['title'] ) . '</a></b></p>';
 		} else {
 			$html[] = '<p><b>' . esc_html( $source_info['title'] ) . '</b></p>';
@@ -492,12 +492,22 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	public function column_imported( $post ) {
+		$html = array();
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+
 		if ( 'scheduled' === $this->tab->get_slug() ) {
+			$last_import_error = $record->get_last_import_status( 'error' );
+
+			if ( $last_import_error ) {
+				$html[] = '<span class="dashicons dashicons-warning tribe-ea-status-failed" title="' . esc_attr( $last_import_error ) . '"></span>';
+			}
+
 			$has_child_record = $record->get_child_record_by_status( 'success', 1 );
 
 			if ( ! $has_child_record ) {
-				return $this->render( esc_html__( 'On Demand', 'the-events-calendar' ) );
+				$html[] = '<i>' . esc_html__( 'Unknown', 'the-events-calendar' ) . '</i>';
+
+				return $this->render( $html );
 			}
 		}
 

@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.6.1
+Tested up to: 4.6
 Stable tag: 4.4dev1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -85,7 +85,7 @@ Collect free RSVPs with Event Tickets or add paid ticketing features with [Event
 
 = Bulk Event Import =
 
-Fill your calendar with events from your favorite sources, including Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Event Aggregator provides a convenient dashboard to manage scheduled imports, manual imports, filters, one-way sync, import history, and more.
+Fill your calendar with events from your favorite sources, including Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. [Event Aggregator](http://m.tri.be/197u) provides a convenient dashboard to manage scheduled imports, manual imports, filters, one-way sync, import history, and more.
 
 = User-Submitted Events =
 
@@ -314,6 +314,43 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [4.4] TBD =
+* Feature - Add dynamic helper text to single event editor to display the events date and time [66484]
+* Feature - Add support for featured events [65898]
+* Fix - Add a link to The Events Calendar Help page in the Network Administration screen of multisite installations [68665]
+
+= [4.3.2] 2016-11-02 =
+
+* Fix - Fixes an issue where the text in the Location search field was URL encoded when using the back or forward button for navigation. [61742]
+* Fix - Aggregator Errors will not show more than once daily as comments (Thanks @Jacob for your report on the forums) [68094]
+* Fix - Event Aggregator ICS default configuration now are been Selected Correctly [67885]
+* Fix - Shortcode Month view now will display tooltips correctly [68094]
+* Fix - Avoid loading the select2 JavaScript library twice when Advanced Custom Fields is activated (props to @ryan for the initial report [43605]
+* Fix - Avoid errors and notices on calendar page when X theme and WPML plugins are active (thanks @ingrid for reporting this one) [64400]
+
+= [4.3.1.1] 2016-10-20 =
+
+* Fix - Corrected a packaging issue from the 4.3.1 release [67936]
+
+= [4.3.1] 2016-10-20 =
+
+* Tweak - Implement the pruning of Event Aggregator history records after 7 days, filterable by tribe_aggregator_record_retention [68283]
+* Tweak - Event Aggregator will now verify that the license key has uses remaining before creating a history record [68286]
+* Tweak - Improve `tribe_create_event` documentation (Props to Keith) [44871]
+* Fix - Resolved an issue where scheduled Event Aggregator imports marked as "On Demand" were being run by cron [68284]
+* Fix - Resolved a bug where empty meta fields were being inserted into Event Aggregator record post meta [68290]
+* Fix - Resolved a bug where Venue and Organizers urls were been generated incorrectly (Thanks @Matt) [68168]
+* Fix - Pagination links on Month view are updating correctly [67977]
+* Fix - Resolved the support for translated event category archive slug that could lead to broken links on the front-end while using WPML (Props to Wilco in the support Forums) [62018]
+* Fix - Resolved a bug where searching for past events in the List view would always yield no results (Thanks for the report @Davide) [61863]
+* Fix - Resolved an issue where long file names would break plugin updates on some Windows installations (pros to @Alan [62552]
+* Fix - Resolved an issue where the `/all` link on recurring events on non English websites could be broken (reported by @lumiest - thanks!) [68062]
+* Fix - Pagination links on Month view are updating correctly [67977]
+
+= [4.3.0.1] 2016-10-14 =
+
+* Fix - Preventing legacy Facebook events from been duplicated
 
 = [4.3] 2016-10-13 =
 

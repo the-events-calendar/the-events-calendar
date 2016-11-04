@@ -34,7 +34,9 @@ class Tribe__Events__Aggregator__Tabs extends Tribe__Tabbed_View  {
 
 		// Configure the Base Tabs
 		$this->register( 'Tribe__Events__Aggregator__Tabs__New' );
-		$this->register( 'Tribe__Events__Aggregator__Tabs__Scheduled' );
+		if ( false == tribe_get_option( 'tribe_aggregator_disable', false ) ) {
+			$this->register( 'Tribe__Events__Aggregator__Tabs__Scheduled' );
+		}
 		$this->register( 'Tribe__Events__Aggregator__Tabs__History' );
 
 		if ( ! empty( $_GET['id'] ) || Tribe__Main::instance()->doing_ajax() ) {

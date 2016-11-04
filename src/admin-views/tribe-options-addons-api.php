@@ -104,7 +104,7 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 		),
 	);
 
-	if ( ! Tribe__Events__Aggregator::instance()->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
+	if ( ! tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
 		unset( $internal['fb-start'], $internal['fb-info-box'], $internal['fb_token_button'] );
 	}
 }

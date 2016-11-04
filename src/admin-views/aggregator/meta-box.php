@@ -1,16 +1,20 @@
 <dl class="tribe-aggregator-import-details">
-	<dt><?php echo esc_html__( 'Origin:', 'the-events-calendar' ); ?></dt>
+	<dt><?php esc_html_e( 'Origin:', 'the-events-calendar' ); ?></dt>
 	<dd><span class="tribe-value"><?php echo esc_html( $origin ); ?></span></dd>
-	<dt><?php echo esc_html__( 'Source:', 'the-events-calendar' ); ?></dt>
-	<dd><span class="tribe-value"><?php echo esc_html( $source ); ?></span></dd>
-	<dt><?php echo esc_html__( 'Last Import:', 'the-events-calendar' ); ?></dt>
-	<dd>
-		<span class="tribe-value"><?php echo esc_html( $last_import ); ?></span>
-		<span
-			class="dashicons dashicons-editor-help tribe-sticky-tooltip"
-			title="<?php echo esc_attr__( 'The last time this event was imported and/or updated via import.', 'the-events-calendar' ); ?>"
-		></span>
-	</dd>
+	<?php if ( ! empty( $source ) ) : ?>
+		<dt><?php esc_html_e( 'Source:', 'the-events-calendar' ); ?></dt>
+		<dd><span class="tribe-value"><?php echo esc_html( $source ); ?></span></dd>
+	<?php endif; ?>
+	<?php if ( ! empty( $last_import ) ) : ?>
+		<dt><?php esc_html_e( 'Last Import:', 'the-events-calendar' ); ?></dt>
+		<dd>
+			<span class="tribe-value"><?php echo esc_html( $last_import ); ?></span>
+			<span
+				class="dashicons dashicons-editor-help tribe-sticky-tooltip"
+				title="<?php esc_attr_e( 'The last time this event was imported and/or updated via import.', 'the-events-calendar' ); ?>"
+			></span>
+		</dd>
+	<?php endif; ?>
 </dl>
 <p>
 	<?php

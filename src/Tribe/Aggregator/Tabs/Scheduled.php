@@ -291,6 +291,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 	}
 
 	private function action_run_import( $records = array() ) {
+		$service = tribe( 'events-aggregator.service' );
 		$record_obj = Tribe__Events__Aggregator__Records::instance()->get_post_type();
 		$records = array_filter( (array) $records, 'is_numeric' );
 		$success = array();
@@ -304,14 +305,30 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 				continue;
 			}
 
+			// if there are no remaining imports for today, log that and skip
+			if ( $service->is_over_limit( true ) ) {
+				$errors[ $record->id ] = new WP_Error(
+					'error:usage-limit-exceeded',
+					$service->get_service_message(
+						'error:usage-limit-exceeded',
+						tribe( 'events-aggregator.main' )->get_daily_limit()
+					)
+				);
+				$record->update_meta( 'last_import_status', 'error:usage-limit-exceeded' );
+				continue;
+			}
+
 			$child = $record->create_child_record();
 			$child->update_meta( 'interactive', true );
 			$status = $child->queue_import();
 
 			if ( is_wp_error( $status ) ) {
 				$errors[ $record->id ] = $status;
+				$record->update_meta( 'last_import_status', 'error:import-failed' );
 				continue;
 			}
+
+			$record->update_meta( 'last_import_status', 'success:queued' );
 
 			$child->finalize();
 			$child->process_posts();
@@ -327,7 +344,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 	 * @return string
 	 */
 	public function maybe_display_aggregator_missing_license_key_message() {
-		if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
 		}
 

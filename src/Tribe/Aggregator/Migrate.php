@@ -68,7 +68,7 @@ class Tribe__Events__Aggregator__Migrate {
 			return false;
 		}
 
-		$aggregator = Tribe__Events__Aggregator::instance();
+		$aggregator = tribe( 'events-aggregator.main' );
 
 		$html = '<p>' . esc_html__( 'Thanks for activating Event Aggregator! It looks like you have some settings and imports configured on our legacy importer plugins. To complete your transition, we need to transfer those options to our new system.', 'the-events-calendar' );
 

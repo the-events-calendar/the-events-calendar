@@ -10,13 +10,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public static $meta_key_prefix = '_tribe_aggregator_';
 
-	/**
-	 * Comment Type for EA errors
-	 *
-	 * @var string
-	 */
-	public static $error_comment_type = 'tribe-ea-error';
-
 	public $id;
 	public $post;
 	public $meta;
@@ -31,6 +24,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		'facebook' => array(
 			'source' => 'facebook_id',
 			'target' => 'EventFacebookID',
+			'legacy' => 'FacebookID',
 		),
 		'meetup' => array(
 			'source' => 'meetup_id',
@@ -139,7 +133,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function update_meta( $key, $value ) {
 		$this->meta[ $key ] = $value;
-		return update_post_meta( $this->post->ID, self::$meta_key_prefix . $key, $value );
+
+		$field = self::$meta_key_prefix . $key;
+
+		if ( null === $value ) {
+			return delete_post_meta( $this->post->ID, $field );
+		}
+
+		return update_post_meta( $this->post->ID, $field, $value );
 	}
 
 	/**
@@ -203,11 +204,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$result = wp_insert_post( $post );
 
-		// meta_input was introduced in 4.4. Deal with old versions
-		if ( -1 === version_compare( get_bloginfo( 'version' ), '4.4' ) && ! is_wp_error( $result ) ) {
-			foreach ( $post['meta_input'] as $key => $value ) {
-				update_post_meta( $result, $key, $value );
-			}
+		if ( ! is_wp_error( $result ) ) {
+			$this->maybe_add_meta_via_pre_wp_44_method( $result, $post['meta_input'] );
 		}
 
 		// After Creating the Post Load and return
@@ -301,6 +299,21 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// prefix all keys
 		foreach ( $meta as $key => $value ) {
+			// skip arrays that are empty
+			if ( is_array( $value ) && empty( $value ) ) {
+				continue;
+			}
+
+			// trim scalars
+			if ( is_scalar( $value ) ) {
+				$value = trim( $value );
+			}
+
+			// if the value is blank or null, let's avoid inserting it
+			if ( null === $value || '' === $value ) {
+				continue;
+			}
+
 			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
 		}
 
@@ -362,6 +375,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
 		}
 
+		// associate this child with the schedule
+		$post['meta_input'][ self::$meta_key_prefix . 'recent_child' ] = $this->post->ID;
+
 		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
 		if ( ! $frequency ) {
 			return tribe_error( 'core:aggregator:invalid-record-frequency', $meta );
@@ -377,6 +393,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( is_wp_error( $schedule_id ) ) {
 			return tribe_error( 'core:aggregator:save-schedule-failed' );
 		}
+
+		$this->maybe_add_meta_via_pre_wp_44_method( $schedule_id, $post['meta_input'] );
 
 		$update_args = array(
 			'ID' => $this->post->ID,
@@ -438,7 +456,28 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return tribe_error( 'core:aggregator:save-child-failed' );
 		}
 
+		$this->maybe_add_meta_via_pre_wp_44_method( $child_id, $post['meta_input'] );
+
+		// track the most recent child that was spawned
+		$this->update_meta( 'recent_child', $child_id );
+
 		return Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $child_id );
+	}
+
+	/**
+	 * If using WP < 4.4, we need to add meta to the post via update_post_meta
+	 *
+	 * @param int $id Post id to add data to
+	 * @param array $meta Meta to add to the post
+	 */
+	public function maybe_add_meta_via_pre_wp_44_method( $id, $meta ) {
+		if ( -1 !== version_compare( get_bloginfo( 'version' ), '4.4' ) ) {
+			return;
+		}
+
+		foreach ( $meta as $key => $value ) {
+			update_post_meta( $id, $key, $value );
+		}
 	}
 
 	/**
@@ -447,7 +486,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return mixed
 	 */
 	public function queue_import( $args = array() ) {
-		$aggregator = Tribe__Events__Aggregator::instance();
+		$aggregator = tribe( 'events-aggregator.main' );
 
 		$is_previewing = (
 			! empty( $_GET['action'] )
@@ -458,12 +497,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		);
 
 		$error = null;
-
-		// if the daily limit for import requests has been reached, error out
-		if ( 0 >= $aggregator->get_daily_limit_available() ) {
-			$error = $this->log_limit_reached_error();
-			return $this->set_status_as_failed( $error );
-		}
 
 		$defaults = array(
 			'type'     => $this->meta['type'],
@@ -548,14 +581,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// store the import id
 		update_post_meta( $this->id, self::$meta_key_prefix . 'import_id', $response->data->import_id );
 
-		// reduce the daily allotment of import creations
-		$aggregator->reduce_daily_limit( 1 );
-
 		return $response;
 	}
 
 	public function get_import_data() {
-		$aggregator = Tribe__Events__Aggregator::instance();
+		$aggregator = tribe( 'events-aggregator.main' );
 		return $aggregator->api( 'import' )->get( $this->meta['import_id'] );
 	}
 
@@ -677,7 +707,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function get_errors( $args = array() ) {
 		$defaults = array(
 			'post_id' => $this->id,
-			'type'    => self::$error_comment_type,
+			'type'    => Tribe__Events__Aggregator__Errors::$comment_type,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -693,29 +723,35 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return bool
 	 */
 	public function log_error( $error ) {
+		$today = getdate();
+		$args = array(
+			// Resets the Post ID
+			'post_id' => null,
+			'number' => 1,
+			'date_query' => array(
+				array(
+					'year'  => $today['year'],
+					'month' => $today['mon'],
+					'day'   => $today['mday'],
+				),
+			),
+		);
+
+		// Tries To Fetch Comments for today
+		$todays_errors = $this->get_errors( $args );
+
+		if ( ! empty( $todays_errors ) ) {
+			return false;
+		}
+
 		$args = array(
 			'comment_post_ID' => $this->id,
 			'comment_author'  => $error->get_error_code(),
 			'comment_content' => $error->get_error_message(),
-			'comment_type'    => self::$error_comment_type,
+			'comment_type'    => Tribe__Events__Aggregator__Errors::$comment_type,
 		);
 
 		return wp_insert_comment( $args );
-	}
-
-	/**
-	 * Logs the fact that the daily import limit has been reached
-	 *
-	 * @return WP_Error
-	 */
-	public function log_limit_reached_error() {
-		$aggregator = Tribe__Events__Aggregator::instance();
-
-		$error = tribe_error( 'core:aggregator:daily-limit-reached', array(), array( $aggregator->get_daily_limit() ) );
-
-		$this->log_error( $error );
-
-		return $error;
 	}
 
 	/**
@@ -738,11 +774,42 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
+		// It's never time for On Demand schedule, bail!
+		if ( ! isset( $this->frequency->id ) || 'on_demand' === $this->frequency->id ) {
+			return false;
+		}
+
 		$current  = time();
 		$modified = strtotime( $this->post->post_modified_gmt );
 		$next     = $modified + $this->frequency->interval;
 
 		return $current > $next;
+	}
+
+	/**
+	 * Verifies if this Record can pruned
+	 * @return boolean
+	 */
+	public function has_passed_retention_time() {
+		// Bail if we are trying to prune a Schedule Record
+		if ( Tribe__Events__Aggregator__Records::$status->schedule === $this->post->post_status ) {
+			return false;
+		}
+
+		$current = time();
+		$created = strtotime( $this->post->post_date_gmt );
+
+		// Prevents Pending that is younger than 1 hour to be pruned
+		if (
+			Tribe__Events__Aggregator__Records::$status->pending === $this->post->post_status &&
+			$current > $created + HOUR_IN_SECONDS
+		) {
+			return false;
+		}
+
+		$prune = $created + Tribe__Events__Aggregator__Records::instance()->get_retention();
+
+		return $current > $prune;
 	}
 
 	/**
@@ -774,6 +841,31 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		return array( 'title' => $title, 'via' => $via );
+	}
+
+	/**
+	 * Fetches the status message for the last import attempt on (scheduled) records
+	 *
+	 * @param string $type Type of message to fetch
+	 *
+	 * @return string
+	 */
+	public function get_last_import_status( $type = 'error' ) {
+		$status = empty( $this->meta['last_import_status'] ) ? null : $this->meta['last_import_status'];
+
+		if ( ! $status ) {
+			return;
+		}
+
+		if ( 0 !== strpos( $status, $type ) ) {
+			return;
+		}
+
+		if ( 'error:usage-limit-exceeded' === $status ) {
+			return __( 'When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached.', 'the-events-calendar' );
+		}
+
+		return tribe( 'events-aggregator.service' )->get_service_message( $status );
 	}
 
 	/**
@@ -1116,7 +1208,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			// If we have a Image Field from Service
 			if ( ! empty( $event['image'] ) ) {
 				// Attempt to grab the event image
-				$image_import = Tribe__Events__Aggregator::instance()->api( 'image' )->get( $event['image']->id );
+				$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id );
 
 				/**
 				 * Filters the returned event image url

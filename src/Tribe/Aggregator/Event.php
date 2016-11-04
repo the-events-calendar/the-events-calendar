@@ -25,6 +25,20 @@ class Tribe__Events__Aggregator__Event {
 	 */
 	public static $record_key = '_tribe_aggregator_record';
 
+	/**
+	 * Key of the Meta to store the Record's source
+	 *
+	 * @var string
+	 */
+	public static $source_key = '_tribe_aggregator_source';
+
+	/**
+	 * Key of the Meta to store the Record's last import date
+	 *
+	 * @var string
+	 */
+	public static $updated_key = '_tribe_aggregator_updated';
+
 	public $data;
 
 	public function __construct( $data = array() ) {
@@ -158,11 +172,22 @@ class Tribe__Events__Aggregator__Event {
 			FROM
 				{$wpdb->postmeta}
 			WHERE
-				meta_key = %s
-				AND meta_value IN ('" . implode( "','", $values ) ."')
+				meta_value IN ( '" . implode( "','", $values ) ."' )
 		";
 
-		return $wpdb->get_results( $wpdb->prepare( $sql, $key ), OBJECT_K );
+		/**
+		 * Allows us to check for legacy meta keys
+		 */
+		if ( ! empty( $fields[ $origin ]['legacy'] ) ) {
+			$keys[] = $key;
+			$keys[] = "_{$fields[ $origin ]['legacy']}";
+
+			$sql .= 'AND meta_key IN ( "' . implode( '", "', array_map( 'esc_sql', $keys ) ) .'" )';
+		} else {
+			$sql .= 'AND meta_key = "' . esc_sql( $key ) . '"';
+		}
+
+		return $wpdb->get_results( $sql, OBJECT_K );
 	}
 
 	/**
