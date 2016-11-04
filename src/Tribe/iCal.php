@@ -13,7 +13,6 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Set all the filters and actions necessary for the operation of the iCal generator.
-	 * @static
 	 */
 	public function hook() {
 		add_action( 'tribe_events_after_footer', array( $this, 'maybe_add_link' ), 10, 1 );
@@ -39,7 +38,6 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Returns the url for the iCal generator for lists of posts.
-	 * @static
 	 *
 	 * @param string $type The type of iCal link to return, defaults to 'home'.
 	 *
@@ -116,12 +114,8 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Executes the iCal generator when the appropiate query_var or $_GET is setup
-	 *
-	 * @static
-	 *
-	 * @param $template
 	 */
-	public function do_ical_template( $template ) {
+	public function do_ical_template() {
 		// hijack to iCal template
 		if ( get_query_var( 'ical' ) || isset( $_GET['ical'] ) ) {
 			global $wp_query;
@@ -152,7 +146,7 @@ class Tribe__Events__iCal {
 	 *
 	 * @return array events in the month
 	 */
-	private static function get_month_view_events() {
+	private function get_month_view_events() {
 		global $wp_query;
 
 		$event_date = $wp_query->get( 'eventDate' );
@@ -193,8 +187,6 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Generates the iCal file
-	 *
-	 * @static
 	 *
 	 * @param int|null $post If you want the ical file for a single event
 	 * @param bool $echo Whether the content should be echoed or returned
