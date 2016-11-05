@@ -94,7 +94,7 @@ $events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 								<?php echo Tribe__View_Helpers::is_24hr_format() ? 'data-format="H:i"' : '' ?>"
 								data-step="<?php echo esc_attr( $start_timepicker_step ); ?>"
 								data-round="<?php echo esc_attr( $timepicker_round ); ?>"
-								value="<?php echo esc_attr( $EventStartTime ) ?>"
+								value="<?php echo esc_attr( $EventStartTime ? $EventStartTime : $start_timepicker_default ) ?>"
 							/>
 							<span class="helper-text hide-if-js"><?php esc_html_e( 'HH:MM', 'the-events-calendar' ) ?></span>
 
@@ -109,7 +109,7 @@ $events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 								<?php echo Tribe__View_Helpers::is_24hr_format() ? 'data-format="H:i"' : '' ?>"
 								data-step="<?php echo esc_attr( $end_timepicker_step ); ?>"
 								data-round="<?php echo esc_attr( $timepicker_round ); ?>"
-								value="<?php echo esc_attr( $EventEndTime ); ?>"
+								value="<?php echo esc_attr( $EventEndTime ? $EventEndTime : $end_timepicker_default ); ?>"
 							/>
 							<span class="helper-text hide-if-js"><?php esc_html_e( 'HH:MM', 'the-events-calendar' ) ?></span>
 
