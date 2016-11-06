@@ -16,63 +16,19 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		public static $legacy_origin = 'ical-importer';
 
 		/**
-		 * Static singleton variable
-		 *
-		 * @var self
-		 */
-		public static $instance;
-
-		/**
 		 * Static Singleton Factory Method
 		 *
 		 * @return self
 		 */
 		public static function instance() {
-			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
-			}
-
-			return self::$instance;
-		}
-
-		private function __construct() {
-			add_action( 'init', array( $this, 'register_ignored_post_status' ) );
-			add_action( 'current_screen', array( $this, 'action_restore_events' ) );
-			add_action( 'current_screen', array( $this, 'action_restore_ignored' ) );
-
-			/**
-			 * `pre_delete_post` only exists after WP 4.4
-			 * @see https://core.trac.wordpress.org/ticket/12706
-			 */
-			add_filter( 'pre_delete_post', array( $this, 'action_pre_delete_event' ), 10, 3 );
-			add_action( 'trashed_post', array( $this, 'action_from_trash_to_ignored' ) );
-
-			add_filter( 'views_edit-' . Tribe__Events__Main::POSTTYPE, array( $this, 'filter_views' ) );
-			add_filter( 'bulk_actions-edit-' . Tribe__Events__Main::POSTTYPE, array( $this, 'filter_bulk_actions' ), 15 );
-			add_filter( 'post_row_actions', array( $this, 'filter_actions' ), 10, 2 );
-
-			add_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array( $this, 'filter_columns' ), 100 );
-			add_action( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_custom_column', array( $this, 'action_column_contents' ), 100, 2 );
-
-			add_action( 'wp_ajax_tribe_convert_legacy_ignored_events', array( $this, 'ajax_convert_legacy_ignored_events' ) );
-
-			// Modify Success messages
-			add_filter( 'bulk_post_updated_messages', array( $this, 'filter_updated_messages' ), 10, 2 );
-
-			// Register assets
-			add_action( 'init', array( $this, 'action_assets' ) );
-
-			/**
-			 * Register Notices
-			 */
-			tribe_notice( 'legacy-ignored-events', array( $this, 'render_notice_legacy' ), 'dismiss=1&type=warning' );
+			return tribe( 'tec.ignored-events' );
 		}
 
 		public function action_assets() {
 			$plugin = Tribe__Events__Main::instance();
 			$localize = array();
 
-			if ( ! empty( $_GET['post'] ) && self::instance()->can_ignore( $_GET['post'] ) ) {
+			if ( ! empty( $_GET['post'] ) && $this->can_ignore( $_GET['post'] ) ) {
 				$post = get_post( $_GET['post'] );
 				if ( self::$ignored_status === $post->post_status ) {
 					$localize['single'] = array(
@@ -911,6 +867,47 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			}
 
 			wp_send_json( $response );
+		}
+
+		/**
+		 * Hooks the filters and actions needed for the class to work.
+		 *
+		 * @return bool Whether the filters and actions were hooked or not.
+		 */
+		public function hook() {
+			add_action( 'init', array( $this, 'register_ignored_post_status' ) );
+			add_action( 'current_screen', array( $this, 'action_restore_events' ) );
+			add_action( 'current_screen', array( $this, 'action_restore_ignored' ) );
+
+			/**
+			 * `pre_delete_post` only exists after WP 4.4
+			 *
+			 * @see https://core.trac.wordpress.org/ticket/12706
+			 */
+			add_filter( 'pre_delete_post', array( $this, 'action_pre_delete_event' ), 10, 3 );
+			add_action( 'trashed_post', array( $this, 'action_from_trash_to_ignored' ) );
+
+			add_filter( 'views_edit-' . Tribe__Events__Main::POSTTYPE, array( $this, 'filter_views' ) );
+			add_filter( 'bulk_actions-edit-' . Tribe__Events__Main::POSTTYPE, array( $this, 'filter_bulk_actions' ), 15 );
+			add_filter( 'post_row_actions', array( $this, 'filter_actions' ), 10, 2 );
+
+			add_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array( $this, 'filter_columns' ), 100 );
+			add_action( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_custom_column', array( $this, 'action_column_contents' ), 100, 2 );
+
+			add_action( 'wp_ajax_tribe_convert_legacy_ignored_events', array( $this, 'ajax_convert_legacy_ignored_events' ) );
+
+			// Modify Success messages
+			add_filter( 'bulk_post_updated_messages', array( $this, 'filter_updated_messages' ), 10, 2 );
+
+			// Register assets
+			add_action( 'init', array( $this, 'action_assets' ) );
+
+			/**
+			 * Register Notices
+			 */
+			tribe_notice( 'legacy-ignored-events', array( $this, 'render_notice_legacy' ), 'dismiss=1&type=warning' );
+
+			return true;
 		}
 	}
 }

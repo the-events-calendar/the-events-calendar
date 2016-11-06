@@ -87,9 +87,31 @@ class Tribe_Deprecated_Test extends Tribe__Events__WP_UnitTestCase {
 		);
 	}
 
+	public function deprecated_classes_4_3() {
+		return array(
+			array( 'Tribe__Events__Meta_Factory' ),
+			array( 'Tribe__Events__Advanced_Functions__Register_Meta' ),
+		);
+	}
+
+
 	public function test_main_set_option() {
 		$this->expected_deprecated[] = 'Tribe__Events__Main::setOption';
 		Tribe__Events__Main::instance()->setOption( 'schema-version', 0 );
+	}
+
+	/**
+	 * Test if a class exists was deprecated in 4.3 exists but is deprecated.
+	 *
+	 * @dataProvider deprecated_classes_4_3
+	 */
+	public function test_deprecated_class_4_3( $class ) {
+		if ( class_exists( $class, false ) ) {
+			$this->markTestSkipped( $class . 'was already loaded' );
+		}
+
+		$this->expected_deprecated_file[] = dirname( dirname( dirname( __FILE__ ) ) ) . '/src/deprecated/' . $class . '.php';
+		$this->assertTrue( class_exists( $class ), 'Class "' . $class . '" does not exist.' );
 	}
 
 	/**
@@ -116,7 +138,8 @@ class Tribe_Deprecated_Test extends Tribe__Events__WP_UnitTestCase {
 			$this->markTestSkipped( $class . 'was already loaded' );
 		}
 
-		$this->expected_deprecated_file[] = dirname( dirname( dirname( __FILE__ ) ) ) . '/common/src/deprecated/' . $class . '.php';
+		$this->expected_deprecated_file[] = dirname( dirname( dirname( __FILE__ ) ) ) . '/common/src/deprecated/' . $class
+		                                    . '.php';
 		$this->assertTrue( class_exists( $class ), 'Class "' . $class . '" does not exist.' );
 	}
 

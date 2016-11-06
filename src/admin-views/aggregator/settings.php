@@ -86,6 +86,21 @@ $csv = array(
 	),
 );
 
+$ea_disable = array(
+	'tribe_aggregator_disable_header' => array(
+		'type' => 'html',
+		'html' => '<h3 id="tribe-import-ea-disable">' . esc_html__( 'Event Aggregator Control', 'the-events-calendar' ) . '</h3>',
+	),
+	'tribe_aggregator_disable'               => array(
+		'type'            => 'checkbox_bool',
+		'label'           => __( 'Disable Event Aggregator imports', 'the-events-calendar' ),
+		'tooltip'         => __( 'Stop all Event Aggregator imports from running. Existing imported events will not be affected. Imports via CSV file will still be available.', 'the-events-calendar' ),
+		'default'         => false,
+		'parent_option' => Tribe__Events__Main::OPTIONNAME,
+		'validation_type' => 'boolean',
+	),
+);
+
 $global = $ical = $ics = $facebook = $gcal = $meetup = array();
 // if there's an Event Aggregator license key, add the Global settings, Facebook, iCal, and Meetup fields
 if ( Tribe__Events__Aggregator::is_service_active() ) {
@@ -349,12 +364,13 @@ $internal = array_merge(
 	$ics,
 	$facebook,
 	$gcal,
-	$meetup
+	$meetup,
+    $ea_disable
 );
 
 $internal = apply_filters( 'tribe_aggregator_fields', $internal );
 
-if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
+if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 	ob_start();
 	?>
 	<p>

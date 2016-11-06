@@ -144,7 +144,7 @@ class Tribe__Events__Aggregator__Cron {
 	 */
 	public function action_register_cron() {
 		// if the service isn't active, don't do anything
-		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
 		}
 
@@ -220,7 +220,7 @@ class Tribe__Events__Aggregator__Cron {
 			return $run;
 		}
 
-		$service = Tribe__Events__Aggregator__Service::instance();
+		$service = tribe( 'events-aggregator.service' );
 
 		// If the Domain is not we just keep the same answer
 		if ( 0 !== strpos( $url, $service->api()->domain ) ) {
@@ -250,7 +250,12 @@ class Tribe__Events__Aggregator__Cron {
 	 */
 	public function run() {
 		// if the service isn't active, don't do anything
-		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
+			return;
+		}
+
+		// if the service has been disabled by the user don't do anything
+		if ( true === tribe_get_option( 'tribe_aggregator_disable', false ) ) {
 			return;
 		}
 
@@ -274,12 +279,12 @@ class Tribe__Events__Aggregator__Cron {
 	 */
 	public function verify_child_record_creation() {
 		// if the service isn't active, don't do anything
-		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
 		}
 
 		$records = Tribe__Events__Aggregator__Records::instance();
-		$service = Tribe__Events__Aggregator__Service::instance();
+		$service = tribe( 'events-aggregator.service' );
 
 		$query = $records->query( array(
 			'post_status' => Tribe__Events__Aggregator__Records::$status->schedule,
@@ -344,7 +349,7 @@ class Tribe__Events__Aggregator__Cron {
 	 */
 	public function verify_fetching_from_service() {
 		// if the service isn't active, don't do anything
-		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
 		}
 
