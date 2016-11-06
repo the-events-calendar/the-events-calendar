@@ -1,3 +1,5 @@
+var tribe_timepickers = tribe_timepickers || {};
+
 ( function ( $, obj ) {
 	"use strict";
 
@@ -39,8 +41,29 @@
 			}
 		} ).trigger( 'change' );
 
+		obj.setup_timepickers( $timepicker );
+
+		// Attach a Click action the Timezone Link
+		$timezone_link.on( 'click', function() {
+			$timezone_link.hide();
+			$timezone.show().select2();
+		} );
+
+		// Append the Link to the Timezone
+		$timezone.after( $timezone_link );
+	};
+
+	obj.init = function() {
+		obj.$.containers = $( obj.selector.container );
+		obj.$.containers.each( obj.container );
+	};
+
+	/**
+	 * Initializes timepickers
+	 */
+	obj.setup_timepickers = function( $timepickers ) {
 		// Setup all Timepickers
-		$timepicker.each( function() {
+		$timepickers.each( function() {
 			var $item = $( this ),
 				opts = $.extend( {}, obj.timepicker.opts );
 
@@ -65,24 +88,10 @@
 
 			$item.timepicker( opts );
 		} );
-
-		// Attach a Click action the Timezone Link
-		$timezone_link.on( 'click', function() {
-			$timezone_link.hide();
-			$timezone.show().select2();
-		} );
-
-		// Append the Link to the Timezone
-		$timezone.after( $timezone_link );
 	};
 
-	obj.init = function() {
-		obj.$.containers = $( obj.selector.container );
-		obj.$.containers.each( obj.container );
-	}
-
 	$( document ).ready( obj.init );
-} ( jQuery, {} ) );
+} ( jQuery, tribe_timepickers ) );
 
 /*
  * Date Format 1.2.3

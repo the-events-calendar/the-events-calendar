@@ -35,6 +35,13 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 */
 	public function __construct( $event = null ) {
 		$this->tribe = Tribe__Events__Main::instance();
+
+		if ( $event ) {
+			$this->init_with_event( $event );
+		}
+	}
+
+	public function init_with_event( $event ) {
 		$this->get_event( $event );
 		$this->setup_data();
 		$this->do_meta_box();
@@ -194,7 +201,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 *
 	 * @return int
 	 */
-	protected function get_timepicker_step( $type = null ) {
+	public function get_timepicker_step( $type = null ) {
 		/**
 		 * Allows developers to filter what is the Step for the Timepicker
 		 *
@@ -208,12 +215,13 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	}
 
 	/**
-	 * Pull the expected variables into scope and load the meta box template.
+	 * Gets whether or not the timepicker should round the minutes
+	 *
+	 * @since 4.4
+	 *
+	 * @return bool
 	 */
-	protected function do_meta_box() {
-		$events_meta_box_template = $this->tribe->pluginPath . 'src/admin-views/events-meta-box.php';
-		$events_meta_box_template = apply_filters( 'tribe_events_meta_box_template', $events_meta_box_template );
-
+	public function get_timepicker_round() {
 		/**
 		 * Allow rounding the Timepicker Minutes
 		 *
@@ -222,7 +230,17 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		 * @param bool   $round
 		 * @param self   $metabox
 		 */
-		$this->vars['timepicker_round'] = (bool) apply_filters( 'tribe_events_meta_box_timepicker_round', false, $this );
+		return (bool) apply_filters( 'tribe_events_meta_box_timepicker_round', false, $this );
+	}
+
+	/**
+	 * Pull the expected variables into scope and load the meta box template.
+	 */
+	protected function do_meta_box() {
+		$events_meta_box_template = $this->tribe->pluginPath . 'src/admin-views/events-meta-box.php';
+		$events_meta_box_template = apply_filters( 'tribe_events_meta_box_template', $events_meta_box_template );
+
+		$this->vars['timepicker_round'] = $this->get_timepicker_round();
 
 		extract( $this->vars );
 		$event = $this->event;
