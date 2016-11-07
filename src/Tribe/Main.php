@@ -612,6 +612,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			add_action( 'transition_post_status', array( $this, 'action_expire_archive_slug_conflict_notice' ), 10, 3 );
 
+			// Register the Meta Box singleton
+			tribe_singleton( 'tec.admin.event-meta-box', 'Tribe__Events__Admin__Event_Meta_Box' );
+
 			// Add support for featured events
 			tribe_singleton( 'tec.featured_events', 'Tribe__Events__Featured_Events' );
 			tribe_singleton( 'tec.featured_events.query_helper', new Tribe__Events__Featured_Events__Query_Helper );
@@ -3558,8 +3561,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param WP_Post $event
 		 */
 		public function EventsChooserBox( $event = null ) {
-			new Tribe__Events__Admin__Event_Meta_Box( $event );
-				}
+			tribe( 'tec.admin.event-meta-box' )->init_with_event( $event );
+		}
 
 		/**
 		 * Adds a style chooser to the write post page
