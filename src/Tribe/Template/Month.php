@@ -713,7 +713,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'no_found_rows'          => false,
 					'do_not_inject_date'     => true,
 
+					// Dont Remove `meta_key` import for ordering
 					'meta_key'               => '_EventStartDate',
+
+					// Don't replace `orderby` without taking in consideration datetime and menu_order
 					'orderby'                => array(
 						'menu_order' => 'ASC',
 						'meta_value' => 'ASC',
