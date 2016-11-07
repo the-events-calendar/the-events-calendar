@@ -558,7 +558,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_filter( 'wp_import_post_data_processed', array( $this, 'filter_wp_import_data_after' ), 10, 1 );
 			}
 
-			add_action( 'plugins_loaded', array( $this, 'init_ical' ), 2, 0 );
 			add_action( 'plugins_loaded', array( $this, 'init_day_view' ), 2 );
 
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Bar', 'instance' ) );
@@ -786,8 +785,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @TODO move this require to be with the rest of the template tag includes in 3.9
 		 */
 		public function init_ical() {
-			//iCal
-			Tribe__Events__iCal::init();
 			require_once $this->plugin_path . 'src/functions/template-tags/ical.php';
 		}
 
@@ -4916,6 +4913,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.customizer.month-week-view', new Tribe__Events__Customizer__Month_Week_View() );
 			tribe_singleton( 'tec.customizer.single-event', new Tribe__Events__Customizer__Single_Event() );
 			tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
+
+			//iCal
+			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
+			tribe( 'tec.iCal' );
 		}
 	} // end Tribe__Events__Main class
 } // end if !class_exists Tribe__Events__Main

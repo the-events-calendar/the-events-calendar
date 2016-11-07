@@ -22,5 +22,7 @@
     "psr-4": {
       "Tribe\\Tests\\Modules\\Core\\": "tests/_support/Modules"
     }
+  },
+  "require": {
   }
 }

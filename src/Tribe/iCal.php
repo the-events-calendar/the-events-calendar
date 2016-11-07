@@ -7,21 +7,25 @@
 class Tribe__Events__iCal {
 
 	/**
-	 * Set all the filters and actions necessary for the operation of the iCal generator.
-	 * @static
+	 * @var int The number of events that will be exported when generating the iCal feed.
 	 */
-	public static function init() {
-		add_action( 'tribe_events_after_footer', array( __CLASS__, 'maybe_add_link' ), 10, 1 );
-		add_action( 'tribe_events_single_event_after_the_content', array( __CLASS__, 'single_event_links' ) );
-		add_action( 'template_redirect', array( __CLASS__, 'do_ical_template' ) );
-		add_filter( 'tribe_get_ical_link', array( __CLASS__, 'day_view_ical_link' ), 20, 1 );
-		add_action( 'wp_head', array( __CLASS__, 'set_feed_link' ), 2, 0 );
+	protected $feed_default_export_count = 30;
+
+	/**
+	 * Set all the filters and actions necessary for the operation of the iCal generator.
+	 */
+	public function hook() {
+		add_action( 'tribe_events_after_footer', array( $this, 'maybe_add_link' ), 10, 1 );
+		add_action( 'tribe_events_single_event_after_the_content', array( $this, 'single_event_links' ) );
+		add_action( 'template_redirect', array( $this, 'do_ical_template' ) );
+		add_filter( 'tribe_get_ical_link', array( $this, 'day_view_ical_link' ), 20, 1 );
+		add_action( 'wp_head', array( $this, 'set_feed_link' ), 2, 0 );
 	}
 
 	/**
 	 * outputs a <link> element for the ical feed
 	 */
-	public static function set_feed_link() {
+	public function set_feed_link() {
 		if ( ! current_theme_supports( 'automatic-feed-links' ) ) {
 			return;
 		}
@@ -34,13 +38,12 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Returns the url for the iCal generator for lists of posts.
-	 * @static
 	 *
 	 * @param string $type The type of iCal link to return, defaults to 'home'.
 	 *
 	 * @return string
 	 */
-	public static function get_ical_link( $type = 'home' ) {
+	public function get_ical_link( $type = 'home' ) {
 		$tec = Tribe__Events__Main::instance();
 
 		return add_query_arg( array( 'ical' => 1 ), $tec->getLink( $type ) );
@@ -53,7 +56,7 @@ class Tribe__Events__iCal {
 	 *
 	 * @return string
 	 */
-	public static function day_view_ical_link( $link ) {
+	public function day_view_ical_link( $link ) {
 		if ( tribe_is_day() ) {
 			global $wp_query;
 			$day  = $wp_query->get( 'start_date' );
@@ -66,7 +69,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Generates the markup for iCal and gCal single event links
 	 **/
-	public static function single_event_links() {
+	public function single_event_links() {
 
 		// don't show on password protected posts
 		if ( is_single() && post_password_required() ) {
@@ -81,7 +84,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Generates the markup for the "iCal Import" link for the views.
 	 */
-	public static function maybe_add_link() {
+	public function maybe_add_link() {
 		global $wp_query;
 		$show_ical = apply_filters( 'tribe_events_list_show_ical_link', true );
 
@@ -102,22 +105,7 @@ class Tribe__Events__iCal {
 			$view = $wp_query->query_vars['eventDisplay'];
 		}
 
-		switch ( strtolower( $view ) ) {
-			case 'month':
-				$modifier = sprintf( esc_html__( "Month's %s", 'the-events-calendar' ), tribe_get_event_label_plural() );
-				break;
-			case 'week':
-				$modifier = sprintf( esc_html__( "Week's %s", 'the-events-calendar' ), tribe_get_event_label_plural() );
-				break;
-			case 'day':
-				$modifier = sprintf( esc_html__( "Day's %s", 'the-events-calendar' ), tribe_get_event_label_plural() );
-				break;
-			default:
-				$modifier = sprintf( esc_html__( 'Listed %s', 'the-events-calendar' ), tribe_get_event_label_plural() );
-				break;
-		}
-
-		$text  = apply_filters( 'tribe_events_ical_export_text', esc_html__( 'Export', 'the-events-calendar' ) . ' ' . $modifier );
+		$text = apply_filters( 'tribe_events_ical_export_text', esc_html__( 'Export Events', 'the-events-calendar' ) );
 		$title = esc_html__( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'the-events-calendar' );
 		$ical  = '<a class="tribe-events-ical tribe-events-button" title="' . $title . '" href="' . esc_url( tribe_get_ical_link() ) . '">+ ' . $text . '</a>';
 
@@ -126,12 +114,8 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Executes the iCal generator when the appropiate query_var or $_GET is setup
-	 *
-	 * @static
-	 *
-	 * @param $template
 	 */
-	public static function do_ical_template( $template ) {
+	public function do_ical_template() {
 		// hijack to iCal template
 		if ( get_query_var( 'ical' ) || isset( $_GET['ical'] ) ) {
 			global $wp_query;
@@ -141,11 +125,11 @@ class Tribe__Events__iCal {
 				}
 				$event_ids = explode( ',', $_GET['event_ids'] );
 				$events    = Tribe__Events__Query::getEvents( array( 'post__in' => $event_ids ) );
-				self::generate_ical_feed( $events );
+				$this->generate_ical_feed( $events );
 			} elseif ( is_single() ) {
-				self::generate_ical_feed( $wp_query->post, null );
+				$this->generate_ical_feed( $wp_query->post, null );
 			} else {
-				self::generate_ical_feed();
+				$this->generate_ical_feed();
 			}
 			die();
 		}
@@ -162,7 +146,7 @@ class Tribe__Events__iCal {
 	 *
 	 * @return array events in the month
 	 */
-	private static function get_month_view_events() {
+	private function get_month_view_events() {
 		global $wp_query;
 
 		$event_date = $wp_query->get( 'eventDate' );
@@ -204,11 +188,10 @@ class Tribe__Events__iCal {
 	/**
 	 * Generates the iCal file
 	 *
-	 * @static
-	 *
 	 * @param int|null $post If you want the ical file for a single event
+	 * @param bool $echo Whether the content should be echoed or returned
 	 */
-	public static function generate_ical_feed( $post = null ) {
+	public function generate_ical_feed( $post = null, $echo = true ) {
 
 		$tec         = Tribe__Events__Main::instance();
 		$events      = '';
@@ -218,11 +201,29 @@ class Tribe__Events__iCal {
 		if ( $post ) {
 			$events_posts = is_array( $post ) ? $post : array( $post );
 		} else {
-			if ( tribe_is_month() ) {
-				$events_posts = self::get_month_view_events();
+			/**
+			 * Filters the number of upcoming events the iCal feed should export.
+			 *
+			 * This filter allows developer to override the pagination setting and the default value
+			 * to export a number of events that's inferior or superior to the one shown on the page.
+			 * The minimum value is 1.
+			 *
+			 * @param int $count The number of upcoming events that should be exported in the
+			 *                   feed, defaults to 30.
+			 */
+			$count = apply_filters( 'tribe_ical_feed_posts_per_page', $this->feed_default_export_count );
+
+			$count = is_numeric( $count ) && is_int( $count ) && $count > 0 ? $count : $this->feed_default_export_count;
+
+			/** @var WP_Query $wp_query */
+			global $wp_query;
+
+			$query_posts_per_page = $wp_query->get( 'posts_per_page' );
+			if ( $count > $query_posts_per_page ) {
+				$query        = new WP_Query( array_merge( $wp_query->query, array( 'posts_per_page' => $count ) ) );
+				$events_posts = $query->get_posts();
 			} else {
-				global $wp_query;
-				$events_posts = $wp_query->posts;
+				$events_posts = array_slice( $wp_query->posts, 0, $count );
 			}
 		}
 
@@ -359,9 +360,30 @@ class Tribe__Events__iCal {
 		$content = apply_filters( 'tribe_ical_properties', $content );
 		$content .= $events;
 		$content .= 'END:VCALENDAR';
-		echo $content;
 
-		exit;
+		if ( $echo ) {
+			tribe_exit( $content );
+		}
 
+		return $content;
 	}
+
+	/**
+	 * Gets the number of events that should be exported when generating the iCal feed.
+	 *
+	 * @return int
+	 */
+	public function get_feed_default_export_count() {
+		return $this->feed_default_export_count;
+	}
+
+	/**
+	 * Sets the number of events that should be exported when generating the iCal feed.
+	 *
+	 * @param int $count
+	 */
+	public function set_feed_default_export_count( $count ) {
+		$this->feed_default_export_count = $count;
+	}
+
 }

@@ -10,7 +10,7 @@ if ( ! function_exists( 'tribe_get_single_ical_link' ) ) {
 	 * @return string URL for ical for single event.
 	 */
 	function tribe_get_single_ical_link() {
-		$output = Tribe__Events__iCal::get_ical_link( 'single' );
+		$output = tribe( 'tec.iCal' )->get_ical_link( 'single' );
 
 		return apply_filters( 'tribe_get_single_ical_link', $output );
 	}
@@ -25,7 +25,7 @@ if ( ! function_exists( 'tribe_get_ical_link' ) ) {
 	 * @return string URL for ical dump.
 	 */
 	function tribe_get_ical_link() {
-		$output = Tribe__Events__iCal::get_ical_link();
+		$output = tribe( 'tec.iCal' )->get_ical_link();
 
 		return apply_filters( 'tribe_get_ical_link', $output );
 	}
