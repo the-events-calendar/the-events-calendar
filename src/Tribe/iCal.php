@@ -220,7 +220,7 @@ class Tribe__Events__iCal {
 
 			$query_posts_per_page = $wp_query->get( 'posts_per_page' );
 			if ( $count > $query_posts_per_page ) {
-				$query       = new WP_Query( array_merge( $wp_query->query, array( 'posts_per_page' => $count ) ) );
+				$query        = new WP_Query( array_merge( $wp_query->query, array( 'posts_per_page' => $count ) ) );
 				$events_posts = $query->get_posts();
 			} else {
 				$events_posts = array_slice( $wp_query->posts, 0, $count );
@@ -362,8 +362,7 @@ class Tribe__Events__iCal {
 		$content .= 'END:VCALENDAR';
 
 		if ( $echo ) {
-			echo $content;
-			exit;
+			tribe_exit( $content );
 		}
 
 		return $content;

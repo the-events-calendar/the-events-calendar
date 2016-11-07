@@ -115,9 +115,8 @@ class iCalTest extends \Codeception\TestCase\WPTestCase {
 
 		add_filter(
 			'tribe_ical_feed_posts_per_page', function () use ( $filter_count ) {
-			return $filter_count;
-		}
-		);
+				return $filter_count;
+		} );
 
 		$sut = $this->make_instance();
 		$sut->set_feed_default_export_count( $default_export_count );
@@ -159,9 +158,8 @@ class iCalTest extends \Codeception\TestCase\WPTestCase {
 
 		add_filter(
 			'tribe_ical_feed_posts_per_page', function () use ( $filter_count ) {
-			return $filter_count;
-		}
-		);
+				return $filter_count;
+		} );
 
 		$sut = $this->make_instance();
 		$sut->set_feed_default_export_count( $default_export_count );
