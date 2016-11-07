@@ -309,6 +309,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/link.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/widgets.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/ical.php';
 			require_once $this->plugin_path . 'src/deprecated/functions.php';
 
 			// Load Advanced Functions
@@ -776,16 +777,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$help->add_section_content( 'extra-help', sprintf( __( 'If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week).', 'the-events-calendar' ), $link ), 20 );
 
 			}
-		}
-
-		/**
-		 * Load the ical template tags
-		 * Loaded late due to potential upgrade conflict since moving them from pro
-		 *
-		 * @TODO move this require to be with the rest of the template tag includes in 3.9
-		 */
-		public function init_ical() {
-			require_once $this->plugin_path . 'src/functions/template-tags/ical.php';
 		}
 
 		/**
@@ -4918,5 +4909,5 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
 			tribe( 'tec.iCal' );
 		}
-	} // end Tribe__Events__Main class
+	}
 } // end if !class_exists Tribe__Events__Main
