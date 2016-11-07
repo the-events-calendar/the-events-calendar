@@ -202,7 +202,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		// Fetch Status to check what we need to do
 		$status = get_post_status( $this->event->ID );
 
-		if ( ! is_string( $status ) || 'auto-draft' !== $status ) {
+		if ( ! is_string( $status ) || 'auto-draft' === $status ) {
 			return true;
 		}
 
@@ -292,6 +292,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		extract( $this->vars );
 		$event = $this->event;
 		$tribe = $this->tribe;
+
+		// Exposes Class Instance to the included file
+		$metabox = $this;
 
 		include( $events_meta_box_template );
 	}
