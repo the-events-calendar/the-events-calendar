@@ -215,7 +215,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 			'title'                => esc_html__( 'Upcoming Events', 'the-events-calendar' ),
 			'limit'                => '5',
 			'no_upcoming_events'   => false,
-			'featured_events_only' => true,
+			'featured_events_only' => false,
 		) );
 	}
 }
