@@ -202,7 +202,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		// Fetch Status to check what we need to do
 		$status = get_post_status( $this->event->ID );
 
-		if ( ! is_string( $status ) || 'auto-draft' === $status ) {
+		if ( ! $status || 'auto-draft' === $status ) {
 			return true;
 		}
 
