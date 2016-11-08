@@ -5,6 +5,7 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/day/single-event.php
  *
+ * @version 4.4
  * @package TribeEventsCalendar
  *
  */
