@@ -1103,17 +1103,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 				if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
 					$has_image = true;
-					$image_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), 'medium' );
-					$image_src = $image_arr[0];
+					$image_tool_src = tribe_event_featured_image( $event->ID, 'medium', false, false );
 				}
 
-				if ( $has_image ) {
-					$image_tool_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), array( 75, 75 ) );
-					$image_tool_src = $image_tool_arr[0];
-				}
-
-				$image_tool_src = tribe_event_featured_image( $event->ID, 'medium', false, false );
-				do_action( 'debug_robot', $image_tool_src );
 				$category_classes = tribe_events_event_classes( $event->ID, false );
 
 				$json['eventId'] = $event->ID;
