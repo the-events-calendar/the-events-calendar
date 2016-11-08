@@ -627,6 +627,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$classes[] = 'tribe-events-last';
 		}
 
+		// Mark 'featured' events
+		if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
+			$classes[] = 'tribe-event-featured';
+		}
+
 		$classes = apply_filters( 'tribe_events_event_classes', $classes );
 		if ( $echo ) {
 			echo implode( ' ', $classes );
