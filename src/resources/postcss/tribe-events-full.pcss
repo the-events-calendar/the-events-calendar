@@ -541,18 +541,41 @@ select.tribe-events-dropdown {
 
 .tribe-events-list {
 	.tribe-events-loop {
+		.tribe-event-featured {
+			background: var(--featured-event-bg);
+			margin-bottom: 1rem;
+			padding-left: 1.5rem;
+			padding-right: 1.5rem;
+			padding-top: 0;
+
+			&.tribe-events-first {
+				padding-top: 0;
+			}
+
+			.tribe-events-event-image {
+				display: block;
+				float: none;
+				margin: 0 -1.5rem 0 -1.5rem;
+				width: auto;
+			}
+
+			.tribe-events-list-event-title {
+				display: inline-block;
+				margin-top: 1.5rem;
+			}
+		}
+
 		.tribe-events-image {
 			float: left;
 			margin: 0 3% 0 0;
 			width: 30%;
 		}
+
 		.tribe-events-content {
 			width: 100%;
 		}
 	}
-}
 
-.tribe-events-list {
 	h2 {
 		&.tribe-events-page-title {
 			margin-bottom: 15px;

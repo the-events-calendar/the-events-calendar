@@ -567,6 +567,35 @@ select.tribe-events-dropdown {
 	margin-bottom: 60px;
 }
 
+.tribe-events-list .tribe-events-loop .tribe-event-featured {
+	background: #f2f0f1;
+	margin-bottom: 16px;
+	margin-bottom: 1rem;
+	padding-left: 24px;
+	padding-left: 1.5rem;
+	padding-right: 24px;
+	padding-right: 1.5rem;
+	padding-top: 0;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-event-featured.tribe-events-first {
+	padding-top: 0;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-image {
+	display: block;
+	float: none;
+	margin: 0 -24px 0 -24px;
+	margin: 0 -1.5rem 0 -1.5rem;
+	width: auto;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-list-event-title {
+	display: inline-block;
+	margin-top: 24px;
+	margin-top: 1.5rem;
+}
+
 .tribe-events-list .tribe-events-loop .tribe-events-image {
 	float: left;
 	margin: 0 3% 0 0;
