@@ -50,9 +50,15 @@ if ( $posts ) : ?>
 					 */
 					do_action( 'tribe_events_list_widget_before_the_event_image' );
 
+					/**
+					 * Allow the default post thumbnail size to be filtered
+					 *
+					 * @param $size
+					 */
+					$thumbnail_size = apply_filters( 'tribe_events_list_widget_thumbnail_size', 'post-thumbnail' );
 					?>
 					<div class="tribe-event-image">
-						<?php the_post_thumbnail(); ?>
+						<?php the_post_thumbnail( $thumbnail_size ); ?>
 					</div>
 					<?php
 
