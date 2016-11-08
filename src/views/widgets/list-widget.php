@@ -65,7 +65,7 @@ if ( $posts ) : ?>
 					/**
 					 * Fire an action after the list widget featured image
 					 */
-					do_action( 'tribe_events_list_widget_before_the_event_image' );
+					do_action( 'tribe_events_list_widget_after_the_event_image' );
 				}
 				?>
 
