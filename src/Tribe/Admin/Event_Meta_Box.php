@@ -171,6 +171,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		$this->vars['EventStartTime'] = ( isset( $start_time ) && $start_time ? $start_time : null );
 
 		$this->vars['start_timepicker_step'] = $this->get_timepicker_step( 'start' );
+		$this->vars['start_timepicker_default'] = $this->get_timepicker_default( 'start' );
 	}
 
 	protected function set_end_date_time() {
@@ -190,6 +191,70 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		$this->vars['EventEndTime'] = ( isset( $end_time ) && $end_time ? $end_time : null );
 
 		$this->vars['end_timepicker_step'] = $this->get_timepicker_step( 'end' );
+		$this->vars['end_timepicker_default'] = $this->get_timepicker_default( 'end' );
+	}
+
+	/**
+	 * Check if the Event is an Auto-Draft
+	 *
+	 * @since 4.4
+	 *
+	 * @return bool
+	 */
+	public function is_auto_draft() {
+		if ( ! $this->event instanceof WP_Post ) {
+			return true;
+		}
+
+		// Fetch Status to check what we need to do
+		$status = get_post_status( $this->event->ID );
+
+		if ( ! $status || 'auto-draft' === $status ) {
+			return true;
+		}
+
+		// By the end it's non-draft event
+		return false;
+	}
+
+	/**
+	 * Gets the default value for the Timepicker
+	 *
+	 * @since 4.4
+	 *
+	 * @param mixed $type
+	 *
+	 * @return string
+	 */
+	protected function get_timepicker_default( $type = null ) {
+		$default = false;
+		if ( 'start' === $type ) {
+			$date    = Tribe__Date_Utils::date_only( $this->vars['_EventStartDate'], false );
+			$default = '08:00:00';
+		} elseif ( 'end' === $type ) {
+			$date    = Tribe__Date_Utils::date_only( $this->vars['_EventEndDate'], false );
+			$default = '17:00:00';
+		}
+
+		/**
+		 * Allows developers to filter what is the default time for the Timepicker
+		 *
+		 * @since 4.4
+		 *
+		 * @param string $default
+		 * @param string $type
+		 * @param string $date
+		 * @param self   $metabox
+		 */
+		$time = apply_filters( 'tribe_events_meta_box_timepicker_default', $default, $type, $date, $this );
+		$time_str = Tribe__Date_Utils::time_only( $date . ' ' . $time );
+
+		// If we couldn't set we apply the default
+		if ( ! $time_str ) {
+			$time_str = $default;
+		}
+
+		return $time_str;
 	}
 
 	/**
@@ -245,6 +310,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		extract( $this->vars );
 		$event = $this->event;
 		$tribe = $this->tribe;
+
+		// Exposes Class Instance to the included file
+		$metabox = $this;
 
 		include( $events_meta_box_template );
 	}
