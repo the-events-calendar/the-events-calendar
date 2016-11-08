@@ -16,6 +16,33 @@
 	--featured-event-bg: #f2f0f1;
 }
 
+@define-mixin featured-list-styles {
+	.tribe-event-featured {
+		background: var(--featured-event-bg);
+		margin-bottom: 1rem;
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+		padding-top: 0;
+		@mixin-content;
+
+		&.tribe-events-first {
+			padding-top: 0;
+		}
+
+		.tribe-events-event-image {
+			display: block;
+			float: none;
+			margin: 0 -1.5rem 0 -1.5rem;
+			width: auto;
+		}
+
+		.tribe-events-list-event-title {
+			display: inline-block;
+			margin-top: 1.5rem;
+		}
+	}
+}
+
 /* = Global & Miscellaneous Styles
 =============================================*/
 #tribe-events-pg-template {
@@ -541,29 +568,7 @@ select.tribe-events-dropdown {
 
 .tribe-events-list {
 	.tribe-events-loop {
-		.tribe-event-featured {
-			background: var(--featured-event-bg);
-			margin-bottom: 1rem;
-			padding-left: 1.5rem;
-			padding-right: 1.5rem;
-			padding-top: 0;
-
-			&.tribe-events-first {
-				padding-top: 0;
-			}
-
-			.tribe-events-event-image {
-				display: block;
-				float: none;
-				margin: 0 -1.5rem 0 -1.5rem;
-				width: auto;
-			}
-
-			.tribe-events-list-event-title {
-				display: inline-block;
-				margin-top: 1.5rem;
-			}
-		}
+		@mixin featured-list-styles;
 
 		.tribe-events-image {
 			float: left;
@@ -975,6 +980,15 @@ select.tribe-events-dropdown {
 
 #tribe-events-day {
 	padding: 0 15px;
+
+	@mixin featured-list-styles {
+		.tribe-events-content {
+			display: block;
+			float: none;
+			width: auto;
+		}
+	}
+
 	.type-tribe_events {
 		margin-left: 0;
 	}
