@@ -1,7 +1,7 @@
 <?php
 /**
  * List View Single Featured Event
- * This file contains one event in the list view
+ * This file contains one featured event in the list view
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/list/single-featured.php
  *

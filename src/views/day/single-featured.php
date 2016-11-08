@@ -1,9 +1,9 @@
 <?php
 /**
- * Day View Single Event
- * This file contains one event in the day view
+ * Day View Single Featured Event
+ * This file contains one featured event in the day view
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/day/single-event.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/day/single-featured.php
  *
  * @version 4.4
  * @package TribeEventsCalendar
