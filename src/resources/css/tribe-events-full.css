@@ -1230,11 +1230,37 @@ select.tribe-events-dropdown {
 
 .tribe-events-list-widget ol li {
 	list-style: none;
-	margin-bottom: 30px;
+	margin-bottom: 8px;
+	margin-bottom: .5rem;
+}
+
+.tribe-events-list-widget .tribe-list-widget {
+	margin-left: 0;
+}
+
+.tribe-events-list-widget .tribe-events-list-widget-events {
+	padding: 0 24px 8px;
+	padding: 0 1.5rem .5rem;
+}
+
+.tribe-events-list-widget .tribe-event-title {
+	margin-top: 12px;
+	margin-top: .75rem;
 }
 
 .tribe-events-list-widget .duration {
 	font-weight: bold;
+}
+
+.tribe-events-list-widget .tribe-event-featured {
+	background: #f2f0f1;
+}
+
+.tribe-events-list-widget .tribe-event-featured .tribe-event-image {
+	margin-left: -24px;
+	margin-left: -1.5rem;
+	margin-right: -24px;
+	margin-right: -1.5rem;
 }
 
 /* = Events Navigation Bar

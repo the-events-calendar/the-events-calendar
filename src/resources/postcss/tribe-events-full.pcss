@@ -12,6 +12,10 @@
  *
  */
 
+:root {
+	--featured-event-bg: #f2f0f1;
+}
+
 /* = Global & Miscellaneous Styles
 =============================================*/
 #tribe-events-pg-template {
@@ -1235,11 +1239,32 @@ select.tribe-events-dropdown {
 .tribe-events-list-widget {
 	ol li {
 		list-style: none;
-		margin-bottom: 30px;
+		margin-bottom: .5rem;
+	}
+
+	.tribe-list-widget {
+		margin-left: 0;
+	}
+
+	.tribe-events-list-widget-events {
+		padding: 0 1.5rem .5rem;
+	}
+
+	.tribe-event-title {
+		margin-top: .75rem;
 	}
 
 	.duration {
 		font-weight: bold;
+	}
+
+	.tribe-event-featured {
+		background: var(--featured-event-bg);
+
+		.tribe-event-image {
+			margin-left: -1.5rem;
+			margin-right: -1.5rem;
+		}
 	}
 }
 
