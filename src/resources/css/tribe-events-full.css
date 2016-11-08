@@ -1151,6 +1151,13 @@ select.tribe-events-dropdown {
 	margin-left: 1.6em;
 }
 
+/** For images contained *inside* the tooltip body, let's constrain the size by default */
+
+.tribe-events-tooltip .tribe-events-event-body .tribe-events-event-thumb img {
+	max-height: 150px;
+	max-width: 150px;
+}
+
 /* Recurring info tooltip */
 
 .recurringinfo {

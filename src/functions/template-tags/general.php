@@ -633,6 +633,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		$classes = apply_filters( 'tribe_events_event_classes', $classes );
+
 		if ( $echo ) {
 			echo implode( ' ', $classes );
 		} else {
