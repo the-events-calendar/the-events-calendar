@@ -989,7 +989,11 @@ Date.prototype.format = function( mask, utc ) {
 								data = $.parseJSON( data );
 							}
 
-							$this.append( tribe_tmpl( 'tribe_tmpl_tooltip', data ) );
+							var tooltip_template = $this.hasClass( 'tribe-event-featured' )
+									? 'tribe_tmpl_tooltip_featured'
+									: 'tribe_tmpl_tooltip';
+
+							$this.append( tribe_tmpl( tooltip_template, data ) );
 
 							$tip = $this.find( '.tribe-events-tooltip' );
 						}
