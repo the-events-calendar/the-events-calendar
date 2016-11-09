@@ -21,7 +21,7 @@ class Tribe__Events__Event_Tickets__Attendees_Report {
 	 */
 	public function add_hooks() {
 		add_action( 'tribe_tickets_attendees_event_details_list_top', array( $this, 'event_details_top' ) );
-		add_action( 'tribe_tickets_report_event_details_list_top', array( $this, 'event_details_top' ) );
+		add_action( 'tribe_tickets_plus_report_event_details_list_top', array( $this, 'event_details_top' ) );
 	}
 
 	/**
