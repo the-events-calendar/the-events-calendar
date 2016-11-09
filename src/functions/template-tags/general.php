@@ -906,7 +906,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $link
 		 */
 		if ( ! empty( $featured_image ) && apply_filters( 'tribe_event_featured_image_link', $link ) ) {
-			$featured_image .= '<a href="' . esc_url( tribe_get_event_link( $post_id ) ) . '">' . $featured_image . '</a>';
+			$featured_image = '<a href="' . esc_url( tribe_get_event_link( $post_id ) ) . '">' . $featured_image . '</a>';
 		}
 
 		/**
