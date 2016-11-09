@@ -1991,6 +1991,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				Tribe__Events__Template_Factory::asset_package( 'ecp-plugins' );
 
 				if ( $admin_helpers->is_post_type_screen( self::POSTTYPE ) ) {
+					Tribe__Events__Template_Factory::asset_package( 'event-editor' );
 					add_action( 'admin_footer', array( $this, 'printLocalizedAdmin' ) );
 					// hook for other plugins
 					do_action( 'tribe_events_enqueue' );
