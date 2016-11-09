@@ -86,7 +86,7 @@ var tribe_timepickers = tribe_timepickers || {};
 				opts.forceRoundTime = true;
 			}
 
-			$item.timepicker( opts );
+			$item.timepicker( opts ).trigger( 'change' );
 		} );
 	};
 
