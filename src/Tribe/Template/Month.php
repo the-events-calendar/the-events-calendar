@@ -584,6 +584,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 					$event_start = strtotime( tribe_get_start_date( $event->ID, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) );
 					$event_end   = strtotime( tribe_get_end_date( $event->ID, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) );
+					// Builds the Index to allow a better ordering of events
+					$order_index = $event_start . ':' . $event->ID;
+
 
 					$start = date( 'Y-m-d', $event_start );
 					$end = date( 'Y-m-d', $event_end );
@@ -648,7 +651,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 								$this->event_ids_by_day[ $new_start ] = array();
 							}
 
-							$this->event_ids_by_day[ $new_start ][] = $event->ID;
+							$this->event_ids_by_day[ $new_start ][ $order_index ] = $event->ID;
 
 							$new_start = date( 'Y-m-d', strtotime( '+1 day', strtotime( $new_start ) ) );
 						}
@@ -658,14 +661,14 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 							$this->event_ids_by_day[ $start ] = array();
 						}
 
-						$this->event_ids_by_day[ $start ][] = $event->ID;
+						$this->event_ids_by_day[ $start ][ $order_index ] = $event->ID;
 					}
 				}
 
 				// Now that we've built our event_ids_by_day, let's array_unique and sort
 				foreach ( $this->event_ids_by_day as &$day ) {
 					$day = array_unique( $day );
-					sort( $day );
+					ksort( $day );
 				}
 			}
 
@@ -712,7 +715,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'update_post_meta_cache' => false,
 					'no_found_rows'          => false,
 					'do_not_inject_date'     => true,
-					'orderby'                => 'post__in',
+
+					// Don't replace `orderby` without taking in cosideration `menu_order`
+					'orderby'                => array(
+						'menu_order' => 'ASC',
+						'post__in'   => 'ASC',
+					),
 				), $this->args
 			);
 
