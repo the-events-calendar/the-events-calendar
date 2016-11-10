@@ -248,9 +248,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
 
+				$this->loadLibraries();
 				$this->addHooks();
 				$this->maybe_load_tickets_framework();
-				$this->loadLibraries();
 			} else {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
 				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
@@ -323,6 +323,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
 				require_once $this->plugin_path . 'src/functions/template-tags/deprecated.php';
 			}
+
+			// Front page events archive support
+			tribe_singleton( 'tec.front-page-view', 'Tribe__Events__Front_Page_View' );
+			tribe_singleton( 'tec.admin.front-page-view', 'Tribe__Events__Admin__Front_Page_View' );
 		}
 
 		/**
@@ -622,6 +626,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			tribe( 'tec.featured_events.query_helper' )->hook();
 			tribe( 'tec.featured_events.permalinks_helper' )->hook();
+
+			// Add support for positioning the main events view on the site homepage
+			tribe( 'tec.front-page-view' )->hook();
 		}
 
 		/**
