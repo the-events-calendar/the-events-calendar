@@ -51,8 +51,8 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * Exposes all the variables used in this instance, in a way that it's usable to extract
 	 * to be used by a template/view
 	 *
-	 * @param  [type] $event [description]
-	 * @return [type]        [description]
+	 * @param  WP_Post|int|null  $event What Post we are dealing with
+	 * @return array
 	 */
 	public function get_extract_vars( $event ) {
 		$this->get_event( $event );
