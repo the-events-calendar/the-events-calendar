@@ -151,7 +151,7 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	 * Init Dynamic Help if on Single Event Editor
 	 */
 	$( function () {
-		if ( $( '#eventDetails' ).hasClass( 'eventForm' ) ) {
+		if ( $( '#eventDetails, #event_datepickers' ).hasClass( 'eventForm' ) ) {
 			obj.init();
 		}
 	} );

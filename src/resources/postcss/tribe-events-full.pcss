@@ -19,10 +19,8 @@
 @define-mixin featured-list-styles {
 	.tribe-event-featured {
 		background: var(--featured-event-bg);
-		margin-bottom: 1rem;
-		padding-left: 1.5rem;
-		padding-right: 1.5rem;
-		padding-top: 0;
+		margin-bottom: 2rem;
+		padding: 0 1.5rem 1rem;
 		@mixin-content;
 
 		&.tribe-events-first {
@@ -34,6 +32,14 @@
 			float: none;
 			margin: 0 -1.5rem 0 -1.5rem;
 			width: auto;
+		}
+
+		.tribe-events-event-cost {
+			margin-top: 1.5em;
+
+			span {
+				background: #fff;
+			}
 		}
 
 		.tribe-events-list-event-title {
@@ -1164,6 +1170,22 @@ select.tribe-events-dropdown {
 	border-bottom: 1px solid #e7e7e7;
 	margin: 0 5%;
 	padding: 6px 8px;
+
+	&.tribe-event-featured {
+		background: #666;
+		margin: 0;
+		padding: 6px 14px; /* This is a failover if the browser doesn't support calc */
+		padding: 6px calc( 5% + 8px );
+
+		a {
+			color: #fff;
+
+			&:active,
+			&:hover {
+				color: #eee;
+			}
+		}
+	}
 }
 
 .events-archive.events-gridview #tribe-events-content table .tribe-events-last {
@@ -1290,7 +1312,8 @@ select.tribe-events-dropdown {
 	}
 
 	.tribe-events-list-widget-events {
-		padding: 0 1.5rem .5rem;
+		padding: 0 1.5rem;
+		margin-bottom: 1rem;
 	}
 
 	.tribe-event-title {
@@ -1303,6 +1326,7 @@ select.tribe-events-dropdown {
 
 	.tribe-event-featured {
 		background: var(--featured-event-bg);
+		padding-bottom: .75rem;
 
 		.tribe-event-image {
 			margin-left: -1.5rem;

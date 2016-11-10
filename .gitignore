@@ -19,7 +19,6 @@ vendor
 !vendor/jquery
 !vendor/jquery-placeholder
 !vendor/jquery-resize
-!/vendor/select2
 !vendor/tickets
 !vendor/tribe-common-libraries
 !vendor/ForceUTF8
