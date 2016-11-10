@@ -48,6 +48,23 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	}
 
 	/**
+	 * Exposes all the variables used in this instance, in a way that it's usable to extract
+	 * to be used by a template/view
+	 *
+	 * @param  WP_Post|int|null  $event What Post we are dealing with
+	 * @return array
+	 */
+	public function get_extract_vars( $event ) {
+		$this->get_event( $event );
+		$this->setup_data();
+
+		$variables = $this->vars;
+		$variables['event'] = $this->event;
+
+		return $variables;
+	}
+
+	/**
 	 * Work with the specifed event object or else use a placeholder if we are in
 	 * the middle of creating a new event.
 	 *
@@ -56,7 +73,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	protected function get_event( $event = null ) {
 		global $post;
 
-		if ( $event === null ) {
+		if ( null === $event ) {
 			$this->event = $post;
 		} elseif ( $event instanceof WP_Post ) {
 			$this->event = $event;
@@ -66,6 +83,8 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	}
 
 	protected function setup_data() {
+		$this->vars['timepicker_round'] = $this->get_timepicker_round();
+
 		$this->get_existing_event_vars();
 		$this->get_existing_organizer_vars();
 		$this->get_existing_venue_vars();
@@ -83,10 +102,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		if ( ! $this->event->ID ) {
 			return;
 		}
-		$tec = Tribe__Events__Main::instance();
 
 		foreach ( $this->tribe->metaTags as $tag ) {
-			$this->vars[ $tag ] = $tec->getEventMeta( $this->event->ID, $tag, true );
+			$this->vars[ $tag ] = $this->tribe->getEventMeta( $this->event->ID, $tag, true );
 		}
 	}
 
@@ -100,10 +118,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		if ( is_string( $status ) && 'auto-draft' !== $status && ! $this->vars['_EventOrganizerID'] ) {
 			return;
 		}
-		$tec = Tribe__Events__Main::instance();
 
 		foreach ( $this->tribe->organizerTags as $tag ) {
-			$this->vars[ $tag ] = $tec->getEventMeta( $this->vars['_EventOrganizerID'], $tag, true );
+			$this->vars[ $tag ] = $this->tribe->getEventMeta( $this->vars['_EventOrganizerID'], $tag, true );
 		}
 	}
 
@@ -117,10 +134,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		if ( is_string( $status ) && 'auto-draft' !== $status && ! $this->vars['_EventVenueID'] ) {
 			return;
 		}
-		$tec = Tribe__Events__Main::instance();
 
 		foreach ( $this->tribe->venueTags as $tag ) {
-			$this->vars[ $tag ] = $tec->getEventMeta( $this->vars['_EventVenueID'], $tag, true );
+			$this->vars[ $tag ] = $this->tribe->getEventMeta( $this->vars['_EventVenueID'], $tag, true );
 		}
 	}
 
@@ -206,6 +222,10 @@ class Tribe__Events__Admin__Event_Meta_Box {
 			return true;
 		}
 
+		if ( ! $this->event->ID ) {
+			return true;
+		}
+
 		// Fetch Status to check what we need to do
 		$status = get_post_status( $this->event->ID );
 
@@ -226,7 +246,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 *
 	 * @return string
 	 */
-	protected function get_timepicker_default( $type = null ) {
+	public function get_timepicker_default( $type = null ) {
 		$default = false;
 		if ( 'start' === $type ) {
 			$date    = Tribe__Date_Utils::date_only( $this->vars['_EventStartDate'], false );
@@ -304,8 +324,6 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	protected function do_meta_box() {
 		$events_meta_box_template = $this->tribe->pluginPath . 'src/admin-views/events-meta-box.php';
 		$events_meta_box_template = apply_filters( 'tribe_events_meta_box_template', $events_meta_box_template );
-
-		$this->vars['timepicker_round'] = $this->get_timepicker_round();
 
 		extract( $this->vars );
 		$event = $this->event;
