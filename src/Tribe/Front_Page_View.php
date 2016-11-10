@@ -88,7 +88,7 @@ class Tribe__Events__Front_Page_View {
 	 * @return string
 	 */
 	protected function get_main_events_url() {
-		$events_slug = Tribe__Events__Main::instance()->getOption( 'eventsSlug', 'events' );
+		$events_slug = tribe_get_option( 'eventsSlug', 'events' );
 
 		if ( false !== strpos( get_option( 'permalink_structure' ), 'index.php' ) ) {
 			return trailingslashit( home_url() . '/index.php/' . sanitize_title( $events_slug ) );
