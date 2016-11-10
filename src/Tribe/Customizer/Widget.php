@@ -35,6 +35,7 @@ final class Tribe__Events__Customizer__Widget extends Tribe__Customizer__Section
 		if ( $customizer->has_option( $this->ID, 'featured_bg_color' ) ) {
 			$template .= '
 				.tribe-events-list-widget .tribe-event-featured,
+				.tribe-events-venue-widget .tribe-event-featured,
 				.tribe-mini-calendar-list-wrapper .tribe-event-featured,
 				.tribe-events-adv-list-widget .tribe-event-featured {
 					background-color: <%= widget.featured_bg_color %>;
@@ -45,6 +46,7 @@ final class Tribe__Events__Customizer__Widget extends Tribe__Customizer__Section
 		if ( $customizer->has_option( $this->ID, 'featured_title_color' ) ) {
 			$template .= '
 				.tribe-events-list-widget .tribe-event-featured a,
+				.tribe-events-venue-widget .tribe-event-featured a,
 				.tribe-mini-calendar-list-wrapper .tribe-event-featured .tribe-events-title a,
 				.tribe-events-adv-list-widget .tribe-event-featured .tribe-events-title a {
 					color: <%= widget.featured_title_color %>;
@@ -52,6 +54,8 @@ final class Tribe__Events__Customizer__Widget extends Tribe__Customizer__Section
 
 				.tribe-events-list-widget .tribe-event-featured .tribe-events-title a:active,
 				.tribe-events-list-widget .tribe-event-featured .tribe-events-title a:hover,
+				.tribe-events-venue-widget .tribe-event-featured .tribe-events-title a:active,
+				.tribe-events-venue-widget .tribe-event-featured .tribe-events-title a:hover,
 				.tribe-mini-calendar-list-wrapper .tribe-event-featured .tribe-events-title a:active,
 				.tribe-mini-calendar-list-wrapper .tribe-event-featured .tribe-events-title a:hover,
 				.tribe-events-adv-list-widget .tribe-event-featured .tribe-events-title a:active,
@@ -64,6 +68,7 @@ final class Tribe__Events__Customizer__Widget extends Tribe__Customizer__Section
 		if ( $customizer->has_option( $this->ID, 'featured_text_color' ) ) {
 			$template .= '
 				.tribe-events-list-widget .tribe-event-featured,
+				.tribe-events-venue-widget .tribe-event-featured,
 				.tribe-mini-calendar-list-wrapper .tribe-event-featured,
 				.tribe-events-adv-list-widget .tribe-event-featured {
 					color: <%= widget.featured_text_color %>;
@@ -74,6 +79,7 @@ final class Tribe__Events__Customizer__Widget extends Tribe__Customizer__Section
 		if ( ! $customizer->get_option( array( 'widget', 'featured_show_images' ) ) ) {
 			$template .= '
 				.tribe-events-list-widget .tribe-event-featured .tribe-event-image,
+				.tribe-events-venue-widget .tribe-event-featured .tribe-event-image,
 				.tribe-events-adv-list-widget .tribe-event-featured .tribe-event-image,
 				.tribe-mini-calendar-list-wrapper .tribe-event-featured .tribe-event-image {
 					display: none;
