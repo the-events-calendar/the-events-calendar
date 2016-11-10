@@ -1160,14 +1160,18 @@ select.tribe-events-dropdown {
 }
 
 /* Large Calendar Specifics */
-.events-archive.events-gridview #tribe-events-content table .type-tribe_events {
-	border-bottom: 1px solid #e7e7e7;
-	margin: 0 5%;
-	padding: 6px 8px;
-}
+.events-archive.events-gridview {
+	#tribe-events-content table {
+		.type-tribe_event {
+			border-bottom: 1px solid #e7e7e7;
+			margin: 0 5%;
+			padding: 6px 8px;
+		}
 
-.events-archive.events-gridview #tribe-events-content table .tribe-events-last {
-	border-bottom: 0;
+		.tribe-events-last {
+			border-bottom: 0;
+		}
+	}
 }
 
 .tribe-events-viewmore {
