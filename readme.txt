@@ -315,6 +315,9 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.3.3] TBD =
+* Fix - Enable ampersand character in mobile month view titles [45409]
+
 = [4.3.2] 2016-11-02 =
 
 * Fix - Fixes an issue where the text in the Location search field was URL encoded when using the back or forward button for navigation. [61742]
