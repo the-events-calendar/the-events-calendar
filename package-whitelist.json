@@ -24,6 +24,8 @@
   "common/vendor/autoload_52.php",
   "common/vendor/composer/*",
   "common/vendor/lucatume/di52/src/**",
+  "common/vendor/select2/select2*.js",
+  "common/vendor/select2/select2.css",
   "lang/**/*",
   "license.txt",
   "readme.txt",
