@@ -21,9 +21,8 @@ class Tribe__Events__Asset__Select2 extends Tribe__Events__Asset__Abstract_Asset
 		// we know of other plugins loading a version of select2 compatible with our needs
 		// let's not queue the script twice.
 		if ( ! $this->has_script_alias( 'select2' ) ) {
-			$script_handle = 'select2';
-			wp_enqueue_script( $script_handle, $path, 'jquery', '3.2' );
-			Tribe__Events__Template_Factory::add_vendor_script( $script_handle );
+			wp_enqueue_script( 'select2', $path, 'jquery', '3.2' );
+			Tribe__Events__Template_Factory::add_vendor_script( 'select2' );
 		}
 	}
 
