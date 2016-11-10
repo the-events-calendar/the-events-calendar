@@ -348,12 +348,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			if ( $query->tribe_is_event_query && $query->get( 'hide_upcoming' ) && ! $query->get( 'suppress_filters' ) ) {
 				$hide_upcoming_ids = self::getHideFromUpcomingEvents();
 				if ( ! empty( $hide_upcoming_ids ) ) {
-					$post__not_in = $query->get( 'post__not_in' );
-
-					// Merge if there is any items
-					if ( is_array( $post__not_in ) ) {
-						$hide_upcoming_ids = array_merge( $hide_upcoming_ids, $post__not_in );
-					}
+					// Merge if there is any items and remove empty items
+					$hide_upcoming_ids = array_filter( array_merge( $hide_upcoming_ids, (array) $query->get( 'post__not_in' ) ) );
 
 					$query->set( 'post__not_in', $hide_upcoming_ids );
 				}
