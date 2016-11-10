@@ -1,6 +1,8 @@
 var tribe_events_front_page_setting = tribe_events_front_page_setting || {};
 
 jQuery( function( $ ) {
+	'use strict';
+
 	var obj                 = tribe_events_front_page_setting,
 	    enabled             = obj.enabled || false,
 	    events_page_label   = obj.events_page_label || 'Main Events Page',
