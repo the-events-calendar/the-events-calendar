@@ -1193,6 +1193,22 @@ select.tribe-events-dropdown {
 	padding: 6px 8px;
 }
 
+.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured {
+	background: #666;
+	margin: 0;
+	padding: 6px 14px;/* This is a failover if the browser doesn't support calc */
+	padding: 6px calc( 5% + 8px );
+}
+
+.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured a {
+	color: #fff;
+}
+
+.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured a:active,
+			.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured a:hover {
+	color: #eee;
+}
+
 .events-archive.events-gridview #tribe-events-content table .tribe-events-last {
 	border-bottom: 0;
 }
