@@ -101,7 +101,7 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 
 		if ( $customizer->has_option( $this->ID, 'featured_bg_color' ) ) {
 			$template .= '
-				#tribe-events td .tribe_events.tribe-event-featured {
+				.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured {
 					background-color: <%= month_week_view.featured_bg_color %>;
 				}
 			';
@@ -109,12 +109,12 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 
 		if ( $customizer->has_option( $this->ID, 'featured_title_color' ) ) {
 			$template .= '
-				#tribe-events td .tribe_events.tribe-event-featured .tribe-events-month-event-title a {
+				.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured .tribe-events-month-event-title a {
 					color: <%= month_week_view.featured_title_color %>;
 				}
 
-				#tribe-events td .tribe_events.tribe-event-featured .tribe-events-month-event-title a:active,
-				#tribe-events td .tribe_events.tribe-event-featured .tribe-events-month-event-title a:hover {
+				.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured .tribe-events-month-event-title a:active,
+				.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured .tribe-events-month-event-title a:hover {
 					color: <%= month_week_view.featured_title_color_active %>;
 				}
 			';
