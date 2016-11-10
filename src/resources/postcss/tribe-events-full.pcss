@@ -19,10 +19,8 @@
 @define-mixin featured-list-styles {
 	.tribe-event-featured {
 		background: var(--featured-event-bg);
-		margin-bottom: 1rem;
-		padding-left: 1.5rem;
-		padding-right: 1.5rem;
-		padding-top: 0;
+		margin-bottom: 2rem;
+		padding: 0 1.5rem 1rem;
 		@mixin-content;
 
 		&.tribe-events-first {
@@ -34,6 +32,14 @@
 			float: none;
 			margin: 0 -1.5rem 0 -1.5rem;
 			width: auto;
+		}
+
+		.tribe-events-event-cost {
+			margin-top: 1.5em;
+
+			span {
+				background: #fff;
+			}
 		}
 
 		.tribe-events-list-event-title {

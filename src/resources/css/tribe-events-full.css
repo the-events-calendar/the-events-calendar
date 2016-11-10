@@ -569,13 +569,10 @@ select.tribe-events-dropdown {
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured {
 	background: #f2f0f1;
-	margin-bottom: 16px;
-	margin-bottom: 1rem;
-	padding-left: 24px;
-	padding-left: 1.5rem;
-	padding-right: 24px;
-	padding-right: 1.5rem;
-	padding-top: 0;
+	margin-bottom: 32px;
+	margin-bottom: 2rem;
+	padding: 0 24px 16px;
+	padding: 0 1.5rem 1rem;
 }
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured.tribe-events-first {
@@ -588,6 +585,14 @@ select.tribe-events-dropdown {
 	margin: 0 -24px 0 -24px;
 	margin: 0 -1.5rem 0 -1.5rem;
 	width: auto;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost {
+	margin-top: 1.5em;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost span {
+	background: #fff;
 }
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-list-event-title {
@@ -1002,13 +1007,10 @@ select.tribe-events-dropdown {
 
 #tribe-events-day .tribe-event-featured {
 	background: #f2f0f1;
-	margin-bottom: 16px;
-	margin-bottom: 1rem;
-	padding-left: 24px;
-	padding-left: 1.5rem;
-	padding-right: 24px;
-	padding-right: 1.5rem;
-	padding-top: 0;
+	margin-bottom: 32px;
+	margin-bottom: 2rem;
+	padding: 0 24px 16px;
+	padding: 0 1.5rem 1rem;
 }
 
 #tribe-events-day .tribe-event-featured .tribe-events-content {
@@ -1027,6 +1029,14 @@ select.tribe-events-dropdown {
 	margin: 0 -24px 0 -24px;
 	margin: 0 -1.5rem 0 -1.5rem;
 	width: auto;
+}
+
+#tribe-events-day .tribe-event-featured .tribe-events-event-cost {
+	margin-top: 1.5em;
+}
+
+#tribe-events-day .tribe-event-featured .tribe-events-event-cost span {
+	background: #fff;
 }
 
 #tribe-events-day .tribe-event-featured .tribe-events-list-event-title {
