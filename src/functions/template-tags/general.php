@@ -893,7 +893,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$featured_image = $wrapper
 			? get_the_post_thumbnail( $post_id, $size )
-			: wp_get_attachment_image_src( get_post_thumbnail_id( $post ), $size, $icon );
+			: wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $size, false );
 
 		if ( is_array( $featured_image ) ) {
 			$featured_image = $featured_image[ 0 ];

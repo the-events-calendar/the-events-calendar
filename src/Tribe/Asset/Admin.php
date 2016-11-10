@@ -13,6 +13,7 @@ class Tribe__Events__Asset__Admin extends Tribe__Events__Asset__Abstract_Asset {
 				'tribe-bumpdown',
 				'underscore',
 				'wp-util',
+				'tribe-jquery-timepicker',
 			)
 		);
 
