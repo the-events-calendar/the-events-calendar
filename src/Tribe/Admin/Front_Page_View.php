@@ -7,9 +7,7 @@ class Tribe__Events__Admin__Front_Page_View {
 			Tribe__Events__Main::instance(),
 			'tribe-events-front-page-setting',
 			'front-page-setting.js',
-			array(
-				'jquery',
-			),
+			array( 'jquery' ),
 			'admin_enqueue_scripts',
 			array(
 				'localize' => array(
@@ -28,15 +26,16 @@ class Tribe__Events__Admin__Front_Page_View {
 			return;
 		}
 
-		$fields = array_merge( array(
+		$fields = array_merge(
+			array(
 				'show_on_front'        => '',
 				'page_on_front'        => '',
 				'set_main_events_page' => '',
-			), $_POST
+			),
+			$_POST
 		);
 
 		if ( ! wp_verify_nonce( $fields['set_main_events_page'], 'events_front_page_setting' ) ) {
-			do_action( 'debug_robot', 'Nonce check failed: ' . $fields['set_main_events_page'] );
 			return;
 		}
 
