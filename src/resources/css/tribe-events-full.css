@@ -1187,7 +1187,7 @@ select.tribe-events-dropdown {
 
 /* Large Calendar Specifics */
 
-.events-archive.events-gridview #tribe-events-content table .type-tribe_events {
+.events-archive.events-gridview #tribe-events-content table .type-tribe_event {
 	border-bottom: 1px solid #e7e7e7;
 	margin: 0 5%;
 	padding: 6px 8px;
@@ -1195,6 +1195,20 @@ select.tribe-events-dropdown {
 
 .events-archive.events-gridview #tribe-events-content table .tribe-events-last {
 	border-bottom: 0;
+}
+
+.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured {
+	background: #666;
+	margin: 0;
+	padding: 0 3%;
+}
+
+.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured h3 > a {
+	color: white;
+}
+
+.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured h3 > a:hover {
+	color: white;
 }
 
 .tribe-events-viewmore {
