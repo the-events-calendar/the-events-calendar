@@ -122,7 +122,7 @@ class Tribe__Events__Aggregator__Page {
 						'underscore',
 						'tribe-bumpdown',
 						'tribe-dependency',
-						'tribe-events-select2',
+						'tribe-select2',
 						'tribe-ea-facebook-login',
 					),
 				),
