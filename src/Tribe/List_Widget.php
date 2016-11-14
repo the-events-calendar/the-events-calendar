@@ -65,6 +65,8 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	public function widget_output( $args, $instance, $template_name = 'widgets/list-widget' ) {
 		global $wp_query, $tribe_ecp, $post;
 
+		$no_upcoming_events = true;
+
 		$instance = wp_parse_args(
 			$instance, array(
 				'limit' => self::$limit,
