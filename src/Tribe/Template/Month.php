@@ -718,7 +718,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'do_not_inject_date'     => true,
 
 					// Don't replace `orderby` without taking in cosideration `menu_order`
-					'orderby'                =>  'post__in',
+					'orderby'                => 'post__in',
 				), $this->args
 			);
 
