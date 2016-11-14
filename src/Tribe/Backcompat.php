@@ -72,7 +72,7 @@ class Tribe__Events__Backcompat {
 	 * @return array
 	 */
 	public function filter_enabled_views( $enabled_views, $default, $option ) {
-		if ( $option === 'tribeEnableViews' ) {
+		if ( 'tribeEnableViews' === $option ) {
 			if ( ! ( ! empty( $enabled_views ) && in_array( 'upcoming', $enabled_views ) ) ) {
 				return $enabled_views;
 			}
