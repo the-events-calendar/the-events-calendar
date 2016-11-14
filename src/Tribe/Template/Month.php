@@ -584,9 +584,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 					$event_start = strtotime( tribe_get_start_date( $event->ID, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) );
 					$event_end   = strtotime( tribe_get_end_date( $event->ID, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) );
-					// Builds the Index to allow a better ordering of events
-					$order_index = $event_start . ':' . $event->ID;
+					$order = get_post_field( 'menu_order', $event->ID );
 
+					// Builds the Index to allow a better ordering of events
+					$order_index = $order . ':' . $event_start . ':' . $event->ID;
 
 					$start = date( 'Y-m-d', $event_start );
 					$end = date( 'Y-m-d', $event_end );
@@ -717,10 +718,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'do_not_inject_date'     => true,
 
 					// Don't replace `orderby` without taking in cosideration `menu_order`
-					'orderby'                => array(
-						'menu_order' => 'ASC',
-						'post__in'   => 'ASC',
-					),
+					'orderby'                =>  'post__in',
 				), $this->args
 			);
 
