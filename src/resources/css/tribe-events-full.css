@@ -1338,13 +1338,14 @@ select.tribe-events-dropdown {
 .tribe-events-list-widget .tribe-events-list-widget-events {
 	padding: 0 24px;
 	padding: 0 1.5rem;
-	margin-bottom: 16px;
-	margin-bottom: 1rem;
+	margin-bottom: 20px;
+	margin-bottom: 1.25rem;
 }
 
 .tribe-events-list-widget .tribe-event-title {
-	margin-top: 12px;
-	margin-top: .75rem;
+	margin-bottom: 4px;
+	margin-bottom: .25rem;
+	margin-top: 0;
 }
 
 .tribe-events-list-widget .duration {
@@ -1355,6 +1356,11 @@ select.tribe-events-dropdown {
 	background: #f2f0f1;
 	padding-bottom: 12px;
 	padding-bottom: .75rem;
+}
+
+.tribe-events-list-widget .tribe-event-featured .tribe-event-title {
+	margin-top: 12px;
+	margin-top: .75rem;
 }
 
 .tribe-events-list-widget .tribe-event-featured .tribe-event-image {
