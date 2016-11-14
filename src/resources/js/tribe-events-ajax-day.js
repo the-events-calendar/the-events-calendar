@@ -208,7 +208,8 @@
 
 				ts.params = {
 					action   : 'tribe_event_day',
-					eventDate: ts.date
+					eventDate: ts.date,
+					featured : tf.is_featured()
 				};
 
 				ts.url_params = {

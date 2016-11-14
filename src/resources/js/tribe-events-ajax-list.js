@@ -228,7 +228,8 @@
 				ts.params = {
 					action             : 'tribe_list',
 					tribe_paged        : ts.paged,
-					tribe_event_display: ts.view
+					tribe_event_display: ts.view,
+					featured           : tf.is_featured()
 				};
 
 				ts.url_params = {
