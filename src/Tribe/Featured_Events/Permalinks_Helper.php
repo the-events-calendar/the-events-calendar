@@ -12,7 +12,11 @@ class Tribe__Events__Featured_Events__Permalinks_Helper {
 
 		// Do nothing if $featured is explicitly set to (bool) false or if the current query does not
 		// relate to featured events
-		if ( false === $featured || ( null === $featured && ! $wp_query->get( 'featured' ) ) ) {
+		if (
+			false === $featured
+			|| 'single' === $type
+			|| ( null === $featured && ! $wp_query->get( 'featured' ) )
+		) {
 			return $url;
 		}
 
