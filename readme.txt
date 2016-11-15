@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.6.1
+Tested up to: 4.6
 Stable tag: 4.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -315,9 +315,17 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.3.3] TBD =
-* Fix - Enable ampersand character in mobile month view titles (thanks @kate for the report of this) [45409]
+= [4.3.3] 2016-11-16 =
+
 * Feature - Added Tribe Extension class and loader, to make small addons easier to build [68188]
+* Fix - Enable ampersand character in mobile month view titles (thanks @kate for the report of this) [45409]
+* Fix - [69123]
+* Fix - [68902]
+* Fix - Prevent notices for Event Aggregator License checking [67981]
+* Fix - Miss-Matched text domains are resolved, important for translations (props to @Hans) [68462]
+* Fix - Sticky on Month View is working as expect again [68902]
+* Fix - Prevent HTTPS websites from pointing to Assets in HTTP [68372]
+* Fix - On `WP_Query` we will no-longer overwrite custom `post__not_in` params [42143]
 
 = [4.3.2] 2016-11-02 =
 
