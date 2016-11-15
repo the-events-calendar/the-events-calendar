@@ -13,8 +13,9 @@ class Tribe__Events__Admin__Front_Page_View {
 				'localize' => array(
 					'name' => 'tribe_events_front_page_setting',
 					'data' => array(
-						'enabled' => (bool) tribe_get_option( 'front_page_event_archive', false ),
-						'check'   => wp_create_nonce( 'events_front_page_setting' ),
+						'enabled'           => (bool) tribe_get_option( 'front_page_event_archive', false ),
+						'check'             => wp_create_nonce( 'events_front_page_setting' ),
+						'events_page_label' => esc_html_x( 'Main events page', 'Static front page setting', 'the-events-calendar' ),
 					),
 				),
 			)

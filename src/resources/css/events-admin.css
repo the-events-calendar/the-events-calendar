@@ -163,11 +163,11 @@
 	padding-right: .5em;
 	cursor: move;
 }
-.delete-linked-post-group {
+.tribe-delete-this {
 	float: right;
 	color: #444;
 }
-.delete-linked-post-group:hover {
+.tribe-delete-this:hover {
 	color: #a00;
 }
 .tribe_community_edit .edit-linked-post-link,
