@@ -30,5 +30,5 @@ global $post;
 		<input value="yes" type="checkbox" <?php checked( tribe( 'tec.featured_events' )->is_featured( $post->ID ) ); ?> name="feature_event">
 		<?php esc_html_e( 'Feature Event', 'the-events-calendar' ); ?>
 	</label>
-	<span class="dashicons dashicons-editor-help tribe-sticky-tooltip" title="<?php esc_attr_e( 'Featured events can be browsed independently and have special styling applied to them.', 'the-events-calendar' ); ?>"></span>
+	<span class="dashicons dashicons-editor-help tribe-sticky-tooltip" title="<?php esc_attr_e( 'Featured events are highlighted on the front end in views, archives, and widgets.', 'the-events-calendar' ); ?>"></span>
 </p>
