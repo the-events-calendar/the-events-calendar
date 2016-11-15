@@ -404,7 +404,7 @@ jQuery( document ).ready( function( $ ) {
 			group.append( fields );
 		} );
 
-		section.on( 'click', '.delete-this', function(e) {
+		section.on( 'click', '.tribe-delete-this', function(e) {
 			e.preventDefault();
 			var group = $(this).closest( 'tbody' );
 			group.fadeOut( 500, function() { $(this).remove(); } );
