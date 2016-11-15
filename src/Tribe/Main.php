@@ -248,9 +248,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
 
+				$this->loadLibraries();
 				$this->addHooks();
 				$this->maybe_load_tickets_framework();
-				$this->loadLibraries();
 			} else {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
 				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
@@ -309,6 +309,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/link.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/widgets.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/ical.php';
 			require_once $this->plugin_path . 'src/deprecated/functions.php';
 
 			// Load Advanced Functions
@@ -322,6 +323,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
 				require_once $this->plugin_path . 'src/functions/template-tags/deprecated.php';
 			}
+
+			// Front page events archive support
+			tribe_singleton( 'tec.front-page-view', 'Tribe__Events__Front_Page_View' );
+			tribe_singleton( 'tec.admin.front-page-view', 'Tribe__Events__Admin__Front_Page_View' );
 		}
 
 		/**
@@ -558,7 +563,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_filter( 'wp_import_post_data_processed', array( $this, 'filter_wp_import_data_after' ), 10, 1 );
 			}
 
-			add_action( 'plugins_loaded', array( $this, 'init_ical' ), 2, 0 );
 			add_action( 'plugins_loaded', array( $this, 'init_day_view' ), 2 );
 
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Bar', 'instance' ) );
@@ -612,6 +616,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			add_action( 'transition_post_status', array( $this, 'action_expire_archive_slug_conflict_notice' ), 10, 3 );
 
+			// Register the Meta Box singleton
+			tribe_singleton( 'tec.admin.event-meta-box', 'Tribe__Events__Admin__Event_Meta_Box' );
+
 			// Add support for featured events
 			tribe_singleton( 'tec.featured_events', 'Tribe__Events__Featured_Events' );
 			tribe_singleton( 'tec.featured_events.query_helper', new Tribe__Events__Featured_Events__Query_Helper );
@@ -619,6 +626,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			tribe( 'tec.featured_events.query_helper' )->hook();
 			tribe( 'tec.featured_events.permalinks_helper' )->hook();
+
+			// Add support for positioning the main events view on the site homepage
+			tribe( 'tec.front-page-view' )->hook();
 		}
 
 		/**
@@ -774,18 +784,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$help->add_section_content( 'extra-help', sprintf( __( 'If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week).', 'the-events-calendar' ), $link ), 20 );
 
 			}
-		}
-
-		/**
-		 * Load the ical template tags
-		 * Loaded late due to potential upgrade conflict since moving them from pro
-		 *
-		 * @TODO move this require to be with the rest of the template tag includes in 3.9
-		 */
-		public function init_ical() {
-			//iCal
-			Tribe__Events__iCal::init();
-			require_once $this->plugin_path . 'src/functions/template-tags/ical.php';
 		}
 
 		/**
@@ -1957,7 +1955,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( $admin_helpers->is_screen( 'widgets' ) ) {
-				Tribe__Events__Template_Factory::asset_package( 'select2' );
+				Tribe__Events__Template_Factory::asset_package( 'tribe-select2' );
 				Tribe__Events__Template_Factory::asset_package( 'chosen' );
 				Tribe__Events__Template_Factory::asset_package( 'admin' );
 			}
@@ -1969,7 +1967,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				Tribe__Events__Template_Factory::asset_package( 'chosen' );
 
 				// select 2
-				Tribe__Events__Template_Factory::asset_package( 'select2' );
+				Tribe__Events__Template_Factory::asset_package( 'tribe-select2' );
 
 				//php date formatter
 				Tribe__Events__Template_Factory::asset_package( 'php-date-formatter' );
@@ -2000,6 +1998,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				Tribe__Events__Template_Factory::asset_package( 'ecp-plugins' );
 
 				if ( $admin_helpers->is_post_type_screen( self::POSTTYPE ) ) {
+					tribe_asset( $this, 'tribe-events-editor', 'event-editor.js', array( 'jquery' ), 'admin_enqueue_scripts' );
+
 					add_action( 'admin_footer', array( $this, 'printLocalizedAdmin' ) );
 					// hook for other plugins
 					do_action( 'tribe_events_enqueue' );
@@ -3558,8 +3558,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param WP_Post $event
 		 */
 		public function EventsChooserBox( $event = null ) {
-			new Tribe__Events__Admin__Event_Meta_Box( $event );
-				}
+			tribe( 'tec.admin.event-meta-box' )->init_with_event( $event );
+		}
 
 		/**
 		 * Adds a style chooser to the write post page
@@ -4910,9 +4910,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Register and start the Customizer Sections
 			tribe_singleton( 'tec.customizer.general-theme', new Tribe__Events__Customizer__General_Theme() );
 			tribe_singleton( 'tec.customizer.global-elements', new Tribe__Events__Customizer__Global_Elements() );
+			tribe_singleton( 'tec.customizer.day-list-view', new Tribe__Events__Customizer__Day_List_View() );
 			tribe_singleton( 'tec.customizer.month-week-view', new Tribe__Events__Customizer__Month_Week_View() );
 			tribe_singleton( 'tec.customizer.single-event', new Tribe__Events__Customizer__Single_Event() );
 			tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
+
+			//iCal
+			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
+			tribe( 'tec.iCal' );
 		}
-	} // end Tribe__Events__Main class
+	}
 } // end if !class_exists Tribe__Events__Main

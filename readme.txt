@@ -316,9 +316,13 @@ Please see the changelog for the complete list of changes in this release. Remem
 == Changelog ==
 
 = [4.4] TBD =
+
 * Feature - Add dynamic helper text to single event editor to display the events date and time [66484]
 * Feature - Add support for featured events [65898]
+* Feature - Add support for placing the main events archive on the site homepage [38757]
+* Tweak - Adjusted styles and added actions for featured events in the List Widget [65923]
 * Fix - Add a link to The Events Calendar Help page in the Network Administration screen of multisite installations [68665]
+* Fix - Multisite license editing and displaying consistency [68662]
 
 = [4.3.2] 2016-11-02 =
 

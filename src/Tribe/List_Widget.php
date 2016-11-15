@@ -65,6 +65,8 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	public function widget_output( $args, $instance, $template_name = 'widgets/list-widget' ) {
 		global $wp_query, $tribe_ecp, $post;
 
+		$no_upcoming_events = true;
+
 		$instance = wp_parse_args(
 			$instance, array(
 				'limit' => self::$limit,
@@ -107,7 +109,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 					'eventDisplay'   => 'list',
 					'posts_per_page' => self::$limit,
 					'tribe_render_context' => 'widget',
-					'featured' => (bool) $instance['featured_events_only'],
+					'featured' => empty( $instance['featured_events_only'] ) ? false : (bool) $instance['featured_events_only'],
 				)
 			)
 		);
@@ -215,7 +217,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 			'title'                => esc_html__( 'Upcoming Events', 'the-events-calendar' ),
 			'limit'                => '5',
 			'no_upcoming_events'   => false,
-			'featured_events_only' => true,
+			'featured_events_only' => false,
 		) );
 	}
 }
