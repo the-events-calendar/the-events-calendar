@@ -37,6 +37,10 @@
 				params = params + '&tribe_event_category=' + ts.category;
 			}
 
+			if ( tf.is_featured() ) {
+				params = params + '&featured=1';
+			}
+
 			history.replaceState( {
 				"tribe_params"    : params,
 				"tribe_url_params": td.params
@@ -286,6 +290,7 @@
 
 				$( te ).trigger( 'tribe_ev_ajaxStart' ).trigger( 'tribe_ev_listView_AjaxStart' );
 
+				console.log( ts.params );
 				$.post(
 					TribeList.ajaxurl,
 					ts.params,
