@@ -1998,6 +1998,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				Tribe__Events__Template_Factory::asset_package( 'ecp-plugins' );
 
 				if ( $admin_helpers->is_post_type_screen( self::POSTTYPE ) ) {
+					tribe_asset( $this, 'tribe-events-editor', 'event-editor.js', array( 'jquery' ), 'admin_enqueue_scripts' );
+
 					add_action( 'admin_footer', array( $this, 'printLocalizedAdmin' ) );
 					// hook for other plugins
 					do_action( 'tribe_events_enqueue' );
