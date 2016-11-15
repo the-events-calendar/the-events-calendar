@@ -237,7 +237,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 *
 	 */
 	protected function delete_handle() {
-		echo '<a class="dashicons dashicons-trash delete-linked-post-group" href="#"></a>';
+		echo '<a class="dashicons dashicons-trash tribe-delete-this" href="#"></a>';
 	}
 
 	/**
