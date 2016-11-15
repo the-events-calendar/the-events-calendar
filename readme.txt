@@ -318,9 +318,8 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.3.3] 2016-11-16 =
 
 * Feature - Added Tribe Extension class and loader, to make small addons easier to build [68188]
+* Fix - Ordering on Month view is working as expected again [69123]
 * Fix - Enable ampersand character in mobile month view titles (thanks @kate for the report of this) [45409]
-* Fix - [69123]
-* Fix - [68902]
 * Fix - Prevent notices for Event Aggregator License checking [67981]
 * Fix - Miss-Matched text domains are resolved, important for translations (props to @Hans) [68462]
 * Fix - Sticky on Month View is working as expect again [68902]
