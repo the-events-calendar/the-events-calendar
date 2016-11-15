@@ -316,7 +316,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 == Changelog ==
 
 = [4.3.3] TBD =
-* Fix - Enable ampersand character in mobile month view titles [45409]
+* Fix - Enable ampersand character in mobile month view titles (thanks @kate for the report of this) [45409]
 * Feature - Added Tribe Extension class and loader, to make small addons easier to build [68188]
 
 = [4.3.2] 2016-11-02 =
