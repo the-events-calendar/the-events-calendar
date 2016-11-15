@@ -1775,7 +1775,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				<td>
 					<label for="saved_tribe_venue">
 						<?php printf( __( 'Use Saved %s:', 'the-events-calendar' ), $this->singular_venue_label ); ?>
-
 					</label>
 				</td>
 				<td>
