@@ -31,41 +31,6 @@
 	display: none;
 }
 
-.tribe-datetime-block {
-	.tribe-field-start_date,
-	.tribe-field-start_time,
-	.tribe-field-end_date,
-	.tribe-field-end_time {
-		height: 28px;
-	}
-
-
-	.tribe-field-start_date,
-	.tribe-field-end_date {
-		width: 100px;
-	}
-
-	.tribe-field-start_time,
-	.tribe-field-end_time {
-		width: 80px;
-	}
-
-	.tribe-field-timezone {
-		width: 140px;
-		margin-top: -2px;
-		display: none;
-
-		&.select2-container {
-			display: inline-block;
-			margin-top: 1px;
-		}
-	}
-
-	.tribe-change-timezone {
-		white-space: nowrap;
-	}
-}
-
 /* = Post Type Editing
 =============================================*/
 .eventForm {
@@ -118,6 +83,56 @@
 		border-radius: 6px;
 		line-height: 20px;
 	}
+
+	.event-dynamic-helper-text {
+		color: #999;
+		font-style: italic;
+		padding: 0;
+	}
+
+	.tribe-datetime-block {
+		.tribe-allday {
+			margin: 10px 0 0;
+		}
+
+		.tribe-field-start_date,
+		.tribe-field-start_time,
+		.tribe-field-end_date,
+		.tribe-field-end_time {
+			height: 28px;
+		}
+
+
+		.tribe-field-start_date,
+		.tribe-field-end_date {
+			width: 100px;
+		}
+
+		.tribe-field-start_time,
+		.tribe-field-end_time {
+			width: 80px;
+		}
+
+		.tribe-field-timezone {
+			width: 140px;
+			margin-top: -2px;
+			display: none;
+
+			&.select2-container {
+				display: inline-block;
+				margin-top: 1px;
+			}
+		}
+
+		.tribe-change-timezone {
+			white-space: nowrap;
+		}
+	}
+
+	.tribe-datetime-label {
+		vertical-align: top;
+		padding-top: 5px;
+	}
 }
 
 .tribe-community-event-info {
@@ -140,12 +155,6 @@
 #ticket_start_date,
 #ticket_end_date {
 	width: 100px;
-}
-
-.event-dynamic-helper-text {
-    color: #999;
-    font-style: italic;
-    padding: 10px 0 0;
 }
 
 .form-table form input {

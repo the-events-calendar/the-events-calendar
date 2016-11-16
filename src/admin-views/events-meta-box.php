@@ -59,20 +59,8 @@ $events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 						<td colspan='2'><?php printf( esc_html__( 'You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page.', 'the-events-calendar' ), $events_label_singular_lowercase, $events_label_plural_lowercase ); ?></td>
 					</tr>
 					<tr>
-						<td><?php esc_html_e( 'Start/End:', 'the-events-calendar' ); ?></td>
+						<td class="tribe-datetime-label"><?php esc_html_e( 'Start/End:', 'the-events-calendar' ); ?></td>
 						<td class="tribe-datetime-block">
-							<p>
-								<input
-									tabindex="<?php tribe_events_tab_index(); ?>"
-									type="checkbox"
-									id="allDayCheckbox"
-									name="EventAllDay"
-									value="yes"
-									<?php echo esc_html( $isEventAllDay ); ?>
-								/>
-								<label for="allDayCheckbox"><?php esc_html_e( 'All Day Event', 'the-events-calendar' ); ?></label>
-							</p>
-
 							<input
 								autocomplete="off"
 								tabindex="<?php tribe_events_tab_index(); ?>"
@@ -133,6 +121,18 @@ $events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 							>
 								<?php echo wp_timezone_choice( Tribe__Events__Timezones::get_event_timezone_string() ); ?>
 							</select>
+
+							<p class="tribe-allday">
+								<input
+									tabindex="<?php tribe_events_tab_index(); ?>"
+									type="checkbox"
+									id="allDayCheckbox"
+									name="EventAllDay"
+									value="yes"
+									<?php echo esc_html( $isEventAllDay ); ?>
+								/>
+								<label for="allDayCheckbox"><?php esc_html_e( 'All Day Event', 'the-events-calendar' ); ?></label>
+							</p>
 						</td>
 					</tr>
 					<tr class="event-dynamic-helper">
