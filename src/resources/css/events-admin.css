@@ -30,32 +30,6 @@
 .tribe-restore-link + a {
 	display: none;
 }
-.tribe-datetime-block .tribe-field-start_date,
-	.tribe-datetime-block .tribe-field-start_time,
-	.tribe-datetime-block .tribe-field-end_date,
-	.tribe-datetime-block .tribe-field-end_time {
-	height: 28px;
-}
-.tribe-datetime-block .tribe-field-start_date,
-	.tribe-datetime-block .tribe-field-end_date {
-	width: 100px;
-}
-.tribe-datetime-block .tribe-field-start_time,
-	.tribe-datetime-block .tribe-field-end_time {
-	width: 80px;
-}
-.tribe-datetime-block .tribe-field-timezone {
-	width: 140px;
-	margin-top: -2px;
-	display: none;
-}
-.tribe-datetime-block .tribe-field-timezone.select2-container {
-	display: inline-block;
-	margin-top: 1px;
-}
-.tribe-datetime-block .tribe-change-timezone {
-	white-space: nowrap;
-}
 /* = Post Type Editing
 =============================================*/
 .eventForm {
@@ -97,6 +71,44 @@
 	border-radius: 6px;
 	line-height: 20px;
 }
+.eventForm .event-dynamic-helper-text {
+	color: #999;
+	font-style: italic;
+	padding: 0;
+}
+.eventForm .tribe-datetime-block .tribe-allday {
+	margin: 10px 0 0;
+}
+.eventForm .tribe-datetime-block .tribe-field-start_date,
+		.eventForm .tribe-datetime-block .tribe-field-start_time,
+		.eventForm .tribe-datetime-block .tribe-field-end_date,
+		.eventForm .tribe-datetime-block .tribe-field-end_time {
+	height: 28px;
+}
+.eventForm .tribe-datetime-block .tribe-field-start_date,
+		.eventForm .tribe-datetime-block .tribe-field-end_date {
+	width: 100px;
+}
+.eventForm .tribe-datetime-block .tribe-field-start_time,
+		.eventForm .tribe-datetime-block .tribe-field-end_time {
+	width: 80px;
+}
+.eventForm .tribe-datetime-block .tribe-field-timezone {
+	width: 140px;
+	margin-top: -2px;
+	display: none;
+}
+.eventForm .tribe-datetime-block .tribe-field-timezone.select2-container {
+	display: inline-block;
+	margin-top: 1px;
+}
+.eventForm .tribe-datetime-block .tribe-change-timezone {
+	white-space: nowrap;
+}
+.eventForm .tribe-datetime-label {
+	vertical-align: top;
+	padding-top: 5px;
+}
 .tribe-community-event-info {
 	width: 100%;
 	margin: 10px;
@@ -114,11 +126,6 @@
 #ticket_start_date,
 #ticket_end_date {
 	width: 100px;
-}
-.event-dynamic-helper-text {
-    color: #999;
-    font-style: italic;
-    padding: 10px 0 0;
 }
 .form-table form input {
 	border: none;
