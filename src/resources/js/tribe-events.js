@@ -155,6 +155,7 @@ try {
 	tribe_storage.removeItem( t_uid );
 	t_fail && (tribe_storage = false);
 } catch ( e ) {
+	tribe_storage = false;
 }
 
 /*

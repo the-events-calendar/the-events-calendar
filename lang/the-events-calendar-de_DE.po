@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-11-02 00:18:53+0000\n"
+"PO-Revision-Date: 2016-11-06 08:16:27+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,16 +12,19 @@ msgstr ""
 "Project-Id-Version: Plugins - The Events Calendar - Stable (latest release)\n"
 
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:92
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Plugin_Download.php:92
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
 msgstr "und"
 
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:91
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Plugin_Download.php:91
 msgctxt "separator used in a list of items"
 msgid ", "
 msgstr ","
 
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:75
+#: vendor/tickets/common/src/Tribe/Admin/Notice/Plugin_Download.php:75
 msgid "To begin using %1$s, please install and activate the latest version of %2$s."
 msgstr "Um mit %1$s zu nutzen, installieren und aktivieren Sie bitte die aktuelle Version von %2$s."
 
@@ -33,7 +36,7 @@ msgstr "Unbekannte Service Meldung"
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: src/Tribe/Aggregator/Record/Abstract.php:851
+#: src/Tribe/Aggregator/Record/Abstract.php:865
 msgid "When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached."
 msgstr "Als dieser Import zuletzt ausgeführt wurde, wurde das Tageslimit für Ihre Event Aggregator-Lizenz bereits erreicht."
 
@@ -67,19 +70,19 @@ msgstr "RSVP: "
 #: vendor/tickets/src/views/tickets/email-tickets-moved.php:99
 msgid "We wanted to let you know that a ticket you purchased for %2$s has been transfered to %3$s%4$s. Your ticket remains valid and no further action is needed on your part:"
 msgid_plural "We wanted to let you know that the following %1$s tickets for %2$s have been transfered to %3$s%4$s. Your existing tickets remain valid and no further action is needed on your part:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Wir wollten Ihnen mitteilen, dass eine Karte, die sie gekauft haben für %2$s auf %3$s%4$s übertragen wurde. Ihre existierende Karte bleibt gültig und es sind keine weiteren Maßnahmen von Ihrer Seite erforderlich."
+msgstr[1] "Wir wollten Ihnen mitteilen, dass die folgenden %1$s Karten für %2$s auf %3$s%4$s übertragen wurden. Ihre existierenden Karten bleiben gültig und es sind keine weiteren Maßnahmen von Ihrer Seite erforderlich."
 
 #: vendor/tickets/src/views/tickets/email-ticket-type-moved.php:111
 #: vendor/tickets/src/views/tickets/email-tickets-moved.php:113
 msgid " (taking place on %s)"
-msgstr ""
+msgstr "(Erfolgt auf %s)"
 
 #: vendor/tickets/src/views/tickets/email-ticket-type-moved.php:97
 msgid "We wanted to let you know that your ticket for %2$s has been transfered to %3$s%4$s. Your ticket remains valid and no further action is needed on your part."
 msgid_plural "We wanted to let you know that your %1$s tickets for %2$s have been transfered to %3$s%4$s. Your existing tickets remain valid and no further action is needed on your part."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Wir wollten Ihnen mitteilen, dass Ihre Karte für %2$s auf %3$s%4$s übertragen wurde. Ihre Karte bleibt gültig und es sind keine weiteren Maßnahmen von Ihrer Seite erforderlich."
+msgstr[1] "Wir wollten Ihnen mitteilen, dass Ihre %1$s Karten für %2$s auf %3$s%4$s übertragen wurden. Ihre Karten bleiben gültig und es sind keine weiteren Maßnahmen von Ihrer Seite erforderlich."
 
 #: vendor/tickets/src/views/tickets/email-ticket-type-moved.php:93
 #: vendor/tickets/src/views/tickets/email-tickets-moved.php:95
@@ -115,7 +118,7 @@ msgstr "&laquo; Zurück"
 #: vendor/tickets/src/admin-views/move-tickets.php:80
 msgctxt "move tickets dialog"
 msgid "Please be patient while your request is processed&hellip;"
-msgstr ""
+msgstr "Bitte haben Sie Geduld, während Ihr Antrag verarbeitet wird&hellip;"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:72
 msgid "Select the ticket type that the tickets should be transferred to:"
@@ -123,7 +126,7 @@ msgstr "Wähle den Tickettyp zu welchem das Ticket transferiert werden soll:"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:64
 msgid "Select the post you wish to move the ticket type to:"
-msgstr ""
+msgstr "Wählen Sie den Beitrag aus, zu dem Sie den Kartentyp verschieben möchten:"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:59
 msgid "You can also enter keywords to help find the target event by title or description:"
@@ -131,7 +134,7 @@ msgstr "Sie können auch Schlüsselbegriffe (Titel oder Beschreibung) eingeben, 
 
 #: vendor/tickets/src/admin-views/move-tickets.php:54
 msgid "You can optionally focus on a specific post type:"
-msgstr ""
+msgstr "Sie können optional auf einen bestimmten Beitragstyp fokussieren:"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:47
 msgid "Move tickets to a different event"
@@ -139,17 +142,17 @@ msgstr "Karten zu einer anderen Veranstaltung verschieben"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:43
 msgid "Move to a different ticket type within the same event"
-msgstr ""
+msgstr "Zu einem anderen Kartentyp innerhalb der gleichen Veranstaltung verschieben"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:30
 msgid "You have selected %1$s ticket for %2$s. You can move it to a different ticket type within the same event, or to a different event."
 msgid_plural "You have selected %1$s tickets for %2$s. You can move them to a different ticket type within the same event, or to a different event."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sie haben %1$s Karte für %2$s ausgewählt. Sie können sie zu einem anderen Kartentyp innerhalb derselben Veranstaltung oder zu einer anderen Veranstaltung verschieben."
+msgstr[1] "Sie haben %1$s Karten für %2$s ausgewählt. Sie können sie zu einem anderen Kartentyp innerhalb derselben Veranstaltung oder zu einer anderen Veranstaltung verschieben."
 
 #: vendor/tickets/src/admin-views/move-tickets.php:25
 msgid "You have specified a range of attendees that are managed by different providers. It is not currently possible to move these together."
-msgstr ""
+msgstr "Sie haben einen Teilnehmerkreis spezifiziert, der von verschiedenen Anbietern verwaltet wird. Diese können nicht zusammen verschoben werden."
 
 #: vendor/tickets/src/admin-views/move-tickets.php:19
 msgid "No attendees specified! Please try again."
@@ -166,7 +169,7 @@ msgstr "Karten"
 
 #: vendor/tickets/src/admin-views/admin-welcome-message.php:51
 msgid "Addons for creating tickets, custom registration, events and more."
-msgstr ""
+msgstr "Add-Ons für die Erstellung von Karten, benutzerdefinierte Registrierung, Veranstaltungen und vieles mehr."
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:369
 msgctxt "attendee export"
@@ -195,7 +198,7 @@ msgstr "Bestell ID"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:181
 msgid "You must first select one or more tickets before you can move them!"
-msgstr ""
+msgstr "Sie müssen zuerst ein oder mehrere Karten auswählen, bevor Sie sie verschieben können!"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:97
 msgid "Post type"
@@ -243,12 +246,12 @@ msgstr "Total RSVPs:"
 msgid "Are you sure you want to delete this ticket? This cannot be undone."
 msgstr "Möchtest du dieses Ticket löschen? Dies kann nicht rückgängig gemacht werden."
 
-#: vendor/tickets/src/Tribe/Main.php:665
+#: vendor/tickets/src/Tribe/Main.php:681
 msgctxt "button text"
 msgid "RSVP"
 msgstr "RSVP"
 
-#: vendor/tickets/src/Tribe/Main.php:530
+#: vendor/tickets/src/Tribe/Main.php:546
 msgid "Welcome to Event Tickets"
 msgstr "Willkommen zu Event Tickets"
 
@@ -305,7 +308,7 @@ msgstr "Gelöschte Teilnehmer"
 #: vendor/tickets/src/Tribe/Attendance_Totals.php:30
 msgctxt "attendee summary"
 msgid "Checked in:"
-msgstr ""
+msgstr "Eingecheckt:"
 
 #: vendor/tickets/src/Tribe/Admin/Ticket_History.php:65
 msgid "No history available"
@@ -323,27 +326,27 @@ msgstr "Verlauf anzeigen"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:710
 msgid "This ticket was moved to %1$s from %2$s"
-msgstr ""
+msgstr "Diese Karte wurde von %2$s nach %1$s verschoben"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:536
 msgid "This ticket was moved to %1$s %2$s from %3$s %4$s"
-msgstr ""
+msgstr "Diese Karte wurde von %3$s %4$s nach %1$s %2$s verschoben"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:452
 msgid "%1$s attendee for %2$s was successfully %3$s. Please adjust stock manually as needed. This attendee will receive an email notifying them of the change."
 msgid_plural "%1$s attendees for %2$s were successfully moved to %3$s. Please adjust stock manually as needed. These attendees will receive an email notifying them of the change."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$s Teilnehmer für %2$s wurde erfolgreich nach %3$s verschoben. Bitte passen Sie das Lager manuell nach Bedarf an. Die Teilnehmer erhalten eine E-Mail, die sie über die Änderung informiert."
+msgstr[1] "%1$s Teilnehmer für %2$s wurden erfolgreich nach %3$s verschoben. Bitte passen Sie das Lager manuell nach Bedarf an. Die Teilnehmer erhalten eine E-Mail, die sie über die Änderung informiert."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:445
 msgctxt "moved tickets success message fragment"
 msgid "moved to %s and"
-msgstr ""
+msgstr "nach %s verschoben und"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:438
 msgctxt "moved tickets success message fragment"
 msgid "assigned to %s"
-msgstr ""
+msgstr "%s zugewiesen"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:430
 msgid "Tickets could not be moved: there was an unexpected failure during reassignment."
@@ -385,23 +388,23 @@ msgstr "Teilnehmende verschieben"
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:267
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:651
 msgid "Changes to your tickets from %s"
-msgstr ""
+msgstr "Änderungen an Ihren Karten ab %s"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:170
 msgid "Ticket type was moved to <a href=\"%1$s\" target=\"_blank\">%2$s</a> from <a href=\"%3$s\" target=\"_blank\">%4$s</a>"
-msgstr ""
+msgstr "Der Ticket-Typ wurde aus <a href=\"%1$s\" target=\"_blank\">%2$s</a> von <a href=\"%3$s\" target=\"_blank\">%4$s verschoben </a>"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:114
 msgid "Ticket type %1$s for %2$s was successfully moved to %3$s. All previously sold tickets of this type have been transferred to %3$s. Please adjust stock manually as needed. %1$s ticket holders have received an email notifying them of the change. You may now close this window!"
-msgstr ""
+msgstr "Kartentyp %1$s für %2$s wurde erfolgreich nach %3$s verschoben. Alle bisher verkauften Karten dieses Typs wurden nach %3$s übertragen. Bitte passen Sie das Lager manuell nach Bedarf an. %1$s Ticketinhaber haben eine E-Mail erhalten, die sie über die Änderung informiert. Sie können nun dieses Fenster schließen!"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:108
 msgid "Ticket type could not be moved: unexpected failure during reassignment."
-msgstr ""
+msgstr "Kartentyp konnte nicht verschoben werden: Unerwarteter Fehler bei der Neuzuweisung."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:102
 msgid "Ticket type could not be moved: the ticket type or destination post was invalid."
-msgstr ""
+msgstr "Kartentyp konnte nicht verschoben werden: Der Kartentyp oder Zielbeitrag war ungültig."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:72
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:250
@@ -476,7 +479,7 @@ msgstr "Facebook Token"
 #: src/admin-views/create-organizer-fields.php:16
 #: src/admin-views/organizer-meta-box.php:45
 msgid "The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers."
-msgstr "Die E-Mail Adresse wird auf Ihrer Website verschleiert, um sie gegen Spam zu schützen."
+msgstr "Die E-Mail Adresse wird auf der Website verschleiert, um sie gegen Spam zu schützen."
 
 #: src/admin-views/aggregator/tabs/import-form.php:239
 msgid "Events will be imported with the timezone defined by the source. If no time zone is specified, events will be assigned your site's default timezone (see %1$sSettings > General%2$s)."
@@ -633,8 +636,8 @@ msgid "Current usage"
 msgstr "Derzeitige Nutzung"
 
 #: src/admin-views/aggregator/status.php:68
-msgid "%1$d import out of %2$d available today"
-msgid_plural "%1$d imports out of %2$d available today"
+msgid "%1$d import used out of %2$d available today"
+msgid_plural "%1$d imports used out of %2$d available today"
 msgstr[0] "%1$d von %2$d Importen heute verfügbar"
 msgstr[1] "%1$d von %2$d Importen heute verfügbar"
 
@@ -1940,11 +1943,11 @@ msgstr "ICS"
 msgid "Eventbrite"
 msgstr "Eventbrite"
 
-#: src/Tribe/Aggregator/Record/Abstract.php:810
+#: src/Tribe/Aggregator/Record/Abstract.php:824
 msgid "Deleted Attachment: %d"
 msgstr "Gelöschter Anhang:%d"
 
-#: src/Tribe/Aggregator/Record/Abstract.php:352
+#: src/Tribe/Aggregator/Record/Abstract.php:345
 msgid "Record: "
 msgstr "Datensatz:"
 
@@ -2077,107 +2080,107 @@ msgstr "Vielen Dank für die Aktivierung von Event Aggregator! Es sieht aus, als
 msgid "Imported Event"
 msgstr "Importierte Veranstaltung"
 
-#: src/Tribe/Aggregator/Errors.php:59
+#: src/Tribe/Aggregator/Errors.php:72
 msgid "The records you were attempting to import were still not available when this queue was processed. Please try again."
 msgstr "Die Datensätze, die Sie importieren wollten, waren noch nicht verfügbar, als diese Warteschlange verarbeitet wurde. Bitte erneut versuchen."
 
-#: src/Tribe/Aggregator/Errors.php:58
+#: src/Tribe/Aggregator/Errors.php:71
 msgid "Unable to save scheduled import. Please try again."
 msgstr "Der geplante Import kann nicht gespeichert werden. Bitte erneut versuchen."
 
-#: src/Tribe/Aggregator/Errors.php:57
+#: src/Tribe/Aggregator/Errors.php:70
 msgid "Unable to save scheduled import instance. Please try again."
 msgstr "Die geplante Import Instanz kann nicht gespeichert werden. Bitte erneut versuchen."
 
-#: src/Tribe/Aggregator/Errors.php:56
+#: src/Tribe/Aggregator/Errors.php:69
 msgid "Import records must be finalized before posts can be inserted."
 msgstr "Import-Datensätze müssen finalisiert werden, bevor Beiträge eingefügt werden können."
 
-#: src/Tribe/Aggregator/Errors.php:55
+#: src/Tribe/Aggregator/Errors.php:68
 msgid "The CSV file cannot be found. You may need to re-upload the file."
 msgstr "Die CSV Datei wurde nicht gefunden. Sie müssen die Datei erneut hochladen."
 
-#: src/Tribe/Aggregator/Errors.php:54
+#: src/Tribe/Aggregator/Errors.php:67
 msgid "You must map columns from the CSV file to specific fields in order to perform a CSV import."
 msgstr "Sie müssen Spalten aus der CSV-Datei bestimmten Feldern zuordnen, um einen CSV-Import durchzuführen."
 
-#: src/Tribe/Aggregator/Errors.php:52 src/Tribe/Aggregator/Service.php:186
+#: src/Tribe/Aggregator/Errors.php:65 src/Tribe/Aggregator/Service.php:186
 msgid "There may be an issue with the Event Aggregator server. Please try your import again later."
 msgstr "Möglicherweise liegt ein Problem mit dem Event Aggregator-Server vor. Bitte versuchen Sie den Import später erneut."
 
-#: src/Tribe/Aggregator/Errors.php:51
+#: src/Tribe/Aggregator/Errors.php:64
 msgid "You must enter an Event Aggregator license key in Events > Settings > Licenses before using this service."
 msgstr "Sie müssen einen Event Aggregator Lizenzschlüssel in Veranstaltungen > Einstellungen > Lizenzen eingeben, bevor Sie diesen Dienst verwenden können."
 
-#: src/Tribe/Aggregator/Errors.php:50
+#: src/Tribe/Aggregator/Errors.php:63
 msgid "Unable to get a post of the correct type."
 msgstr "Ein Beitrag des richtigen Typs konnte nicht abgerufen werden."
 
-#: src/Tribe/Aggregator/Errors.php:49
+#: src/Tribe/Aggregator/Errors.php:62
 msgid "The import record is missing the origin."
 msgstr "Die Quelle des Importdatensatz fehlt."
 
-#: src/Tribe/Aggregator/Errors.php:48
+#: src/Tribe/Aggregator/Errors.php:61
 msgid "Unable to find a matching post."
 msgstr "Es konnte kein passender Beitrag gefunden werden."
 
-#: src/Tribe/Aggregator/Errors.php:47
+#: src/Tribe/Aggregator/Errors.php:60
 msgid "An invalid frequency was used when trying to create this scheduled import."
 msgstr "Beim Versuch, diesen geplanten Import zu erstellen, wurde eine ungültige Häufigkeit verwendet."
 
-#: src/Tribe/Aggregator/Errors.php:46
+#: src/Tribe/Aggregator/Errors.php:59
 msgid "Unable to attach an image to the event"
 msgstr "Ein Bild kann nicht an die Veranstaltung angehängt werden"
 
-#: src/Tribe/Aggregator/Errors.php:45
+#: src/Tribe/Aggregator/Errors.php:58
 msgid "Unable to find an import record with the ID of %s."
 msgstr "Es konnte kein Importdatensatz mit der ID von %s gefunden werden."
 
-#: src/Tribe/Aggregator/Errors.php:44
+#: src/Tribe/Aggregator/Errors.php:57
 msgid "We received an invalid Facebook Token from the Service."
 msgstr "Es wurde ein ungültiger Facebook Token vom Service empfangen."
 
-#: src/Tribe/Aggregator/Errors.php:43
+#: src/Tribe/Aggregator/Errors.php:56
 msgid "The Event Aggregator API responded with bad data. Please <a href=\"https://theeventscalendar.com/support/post/\" target=\"_blank\">contact support</a>."
 msgstr "Die Aggregator-API reagierte mit fehlerhaften Daten. Bitte <a href=\"https://theeventscalendar.com/support/post/\" target=\"_blank\">kontaktieren Sie den Support</a>."
 
-#: src/Tribe/Aggregator/Errors.php:42
+#: src/Tribe/Aggregator/Errors.php:55
 msgid "Unable to find an event with the ID of %s."
 msgstr "Es wurde keine Veranstaltung mit der ID von %s gefunden."
 
-#: src/Tribe/Aggregator/Errors.php:41
+#: src/Tribe/Aggregator/Errors.php:54
 msgid "Only scheduled import records can be edited."
 msgstr "Nur geplante Import Datensätze können gelöscht werden."
 
-#: src/Tribe/Aggregator/Errors.php:40
+#: src/Tribe/Aggregator/Errors.php:53
 msgid "Invalid data provided for CSV import."
 msgstr "Es wurden ungültige Daten für den CSV Import bereitgestellt."
 
-#: src/Tribe/Aggregator/Errors.php:39
+#: src/Tribe/Aggregator/Errors.php:52
 msgid "You must provide a valid CSV file to perform a CSV import."
 msgstr "Sie müssen eine gültige CSV Datei bereitstellen, um einen CSV Import durchzuführen."
 
-#: src/Tribe/Aggregator/Errors.php:38
+#: src/Tribe/Aggregator/Errors.php:51
 msgid "An invalid import type was used when trying to create this import record."
 msgstr "Beim Versuch, diesen Importdatensatz zu erstellen, wurde ein ungültiger Importtyp verwendet."
 
-#: src/Tribe/Aggregator/Errors.php:36
+#: src/Tribe/Aggregator/Errors.php:49
 msgid "During scheduled import, the limit of HTTP requests was reached and the import was rescheduled."
 msgstr "Beim geplanten Import wurde das Limit von HTTP-Anfragen erreicht und der Import wurde verschoben."
 
-#: src/Tribe/Aggregator/Errors.php:35
+#: src/Tribe/Aggregator/Errors.php:48
 msgid "You do not have permission to delete this record."
 msgstr "Sie haben keine Berechtigung, um diesen Datensatz zu löschen."
 
-#: src/Tribe/Aggregator/Errors.php:34
+#: src/Tribe/Aggregator/Errors.php:47
 msgid "You cannot delete a history record (ID: \"%d\"). "
 msgstr "Sie können einen Verlaufsdatensatz nicht löschen (ID: \"%d\")."
 
-#: src/Tribe/Aggregator/Errors.php:33 src/Tribe/Aggregator/Service.php:71
+#: src/Tribe/Aggregator/Errors.php:46 src/Tribe/Aggregator/Service.php:71
 msgid "The daily limit of %d import requests to the Event Aggregator service has been reached. Please try again later."
 msgstr "Das Tageslimit von %d Importanforderungen an den Event Aggregator Service wurde erreicht. Bitte versuchen Sie es später erneut."
 
-#: src/Tribe/Aggregator/Errors.php:32
+#: src/Tribe/Aggregator/Errors.php:45
 msgid "The image associated with your event could not be attached to the event."
 msgstr "Das mit der Veranstaltung verknüpfte Bild konnte nicht an die Veranstaltung angehängt werden."
 
@@ -2361,91 +2364,91 @@ msgstr[0] "Es sieht so aus, als ob Sie %s verwenden, aber der Lizenzschlüssel, 
 msgstr[1] "Es sieht so aus, als ob Sie %s verwenden, aber die Lizenzschlüssel, die Sie angeben, scheinen nicht gültig zu sein oder fehlen. Bitte überprüfen und korrigieren, so dass Sie immer Zugriff auf unsere neuesten Versionen haben!"
 
 #: common/src/Tribe/PUE/Checker.php:648
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:641
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:648
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr "Es gibt ein Update für %s. %sErneuern Sie Ihre Lizenz%s, um Zugriff auf Fehlerkorrekturen, Sicherheitsupdates und neue Funktionen zu erhalten."
 
 #: common/src/Tribe/PUE/Checker.php:621
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:614
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:621
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr "Es gibt ein Update für %s. Bitte %süberprüfen Sie Ihre Lizenz%s, um Zugriff auf Fehlerkorrekturen, Sicherheitsupdates und neue Funktionen zu erhalten."
 
 #: common/src/Tribe/PUE/Checker.php:595 common/src/Tribe/PUE/Notices.php:269
-#: src/Tribe/Aggregator/Record/Abstract.php:825
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:588
+#: src/Tribe/Aggregator/Record/Abstract.php:839
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:595
 #: vendor/tickets/common/src/Tribe/PUE/Notices.php:269
 msgid " (opens in a new window)"
 msgstr "(öffnet in einem neuen Fenster)"
 
 #: common/src/Tribe/PUE/Checker.php:593 common/src/Tribe/PUE/Notices.php:267
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:586
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:593
 #: vendor/tickets/common/src/Tribe/PUE/Notices.php:267
 msgid "Renew Your License Now"
 msgstr "Jetzt Lizenz erneuern"
 
-#: common/src/Tribe/Main.php:213 vendor/tickets/common/src/Tribe/Main.php:206
+#: common/src/Tribe/Main.php:213 vendor/tickets/common/src/Tribe/Main.php:213
 msgid ": Selected 1 row"
 msgstr ": 1 Zeile ausgewählt"
 
-#: common/src/Tribe/Main.php:212 vendor/tickets/common/src/Tribe/Main.php:205
+#: common/src/Tribe/Main.php:212 vendor/tickets/common/src/Tribe/Main.php:212
 msgid ": Selected %d rows"
 msgstr ": %d Zeilen ausgewählt"
 
-#: common/src/Tribe/Main.php:207 vendor/tickets/common/src/Tribe/Main.php:200
+#: common/src/Tribe/Main.php:207 vendor/tickets/common/src/Tribe/Main.php:207
 msgid "Previous"
 msgstr "Zurück"
 
-#: common/src/Tribe/Main.php:205 vendor/tickets/common/src/Tribe/Main.php:198
+#: common/src/Tribe/Main.php:205 vendor/tickets/common/src/Tribe/Main.php:205
 msgid "All"
 msgstr "Alle"
 
-#: common/src/Tribe/Main.php:203 vendor/tickets/common/src/Tribe/Main.php:196
+#: common/src/Tribe/Main.php:203 vendor/tickets/common/src/Tribe/Main.php:203
 msgid "Search:"
 msgstr "Suchen:"
 
-#: common/src/Tribe/Main.php:202 vendor/tickets/common/src/Tribe/Main.php:195
+#: common/src/Tribe/Main.php:202 vendor/tickets/common/src/Tribe/Main.php:202
 msgid "No matching records found"
 msgstr "Keine passenden Ergebnisse gefunden"
 
-#: common/src/Tribe/Main.php:201 vendor/tickets/common/src/Tribe/Main.php:194
+#: common/src/Tribe/Main.php:201 vendor/tickets/common/src/Tribe/Main.php:201
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(gefiltert von _MAX_ Gesamt Einträgen)"
 
-#: common/src/Tribe/Main.php:200 vendor/tickets/common/src/Tribe/Main.php:193
+#: common/src/Tribe/Main.php:200 vendor/tickets/common/src/Tribe/Main.php:200
 msgid "Showing 0 to 0 of 0 entries"
 msgstr "Zeige 0 bis 0 von 0 Einträgen"
 
-#: common/src/Tribe/Main.php:199 vendor/tickets/common/src/Tribe/Main.php:192
+#: common/src/Tribe/Main.php:199 vendor/tickets/common/src/Tribe/Main.php:199
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "Zeige __START_ bis _END_ von _TOTAL_ Einträgen"
 
-#: common/src/Tribe/Main.php:198 vendor/tickets/common/src/Tribe/Main.php:191
+#: common/src/Tribe/Main.php:198 vendor/tickets/common/src/Tribe/Main.php:198
 msgid "No data available in table"
 msgstr "Kein Daten in Tabelle vorhanden"
 
-#: common/src/Tribe/Main.php:197 vendor/tickets/common/src/Tribe/Main.php:190
+#: common/src/Tribe/Main.php:197 vendor/tickets/common/src/Tribe/Main.php:197
 msgid "Show _MENU_ entries"
 msgstr "Zeige _MENU_ Einträge"
 
-#: common/src/Tribe/Main.php:195 vendor/tickets/common/src/Tribe/Main.php:188
+#: common/src/Tribe/Main.php:195 vendor/tickets/common/src/Tribe/Main.php:195
 msgid ": activate to sort column descending"
 msgstr ": aktivieren, um Spalte absteigend zu sortieren"
 
-#: common/src/Tribe/Main.php:194 vendor/tickets/common/src/Tribe/Main.php:187
+#: common/src/Tribe/Main.php:194 vendor/tickets/common/src/Tribe/Main.php:194
 msgid ": activate to sort column ascending"
 msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
 
-#: common/src/Tribe/Main.php:177 vendor/tickets/common/src/Tribe/Main.php:170
+#: common/src/Tribe/Main.php:177 vendor/tickets/common/src/Tribe/Main.php:177
 msgid "Press \"Cmd + C\" to copy"
 msgstr "Drücke \"CTRL + C\" um zu kopieren"
 
-#: common/src/Tribe/Main.php:176 vendor/tickets/common/src/Tribe/Main.php:169
+#: common/src/Tribe/Main.php:176 vendor/tickets/common/src/Tribe/Main.php:176
 msgid "System info copied"
 msgstr "Systeminformationen kopiert"
 
 #: common/src/Tribe/Main.php:175
 #: common/src/admin-views/tribe-options-help.php:43
-#: vendor/tickets/common/src/Tribe/Main.php:168
+#: vendor/tickets/common/src/Tribe/Main.php:175
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:43
 msgid "Copy to clipboard"
 msgstr "In die Zwischenablage kopieren"
@@ -2464,10 +2467,6 @@ msgstr "Das Importieren von Ereignissen aus mehreren Quellen war nie einfacher! 
 #: vendor/tickets/common/src/Tribe/App_Shop.php:104
 msgid "Event Aggregator"
 msgstr "Event Aggregator"
-
-#: vendor/tickets/common/src/Tribe/Plugin_Download_Notice.php:68
-msgid "To begin using %1$s, please install and activate the latest version(s) of %2$s."
-msgstr "Um %1$s nutzen zu können installieren und aktivieren Sie bitte die neueste Version von %2$s."
 
 #: vendor/tickets/src/Tribe/Tickets.php:1376
 msgid "Tickets are not available as this %s has passed."
@@ -2666,7 +2665,7 @@ msgstr "Karten sind nicht länger verfügbar"
 msgid "Tickets are not yet available."
 msgstr "Karten sind noch nicht verfügbar"
 
-#: vendor/tickets/src/Tribe/Main.php:665
+#: vendor/tickets/src/Tribe/Main.php:681
 msgid "Buy"
 msgstr "Kaufen"
 
@@ -3129,31 +3128,31 @@ msgctxt "Attendee number"
 msgid "Attendee %1$s"
 msgstr "Teilnehmer %1$s"
 
-#: vendor/tickets/src/Tribe/Main.php:424
+#: vendor/tickets/src/Tribe/Main.php:440
 msgid "Already have Events Tickets Plus? You can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
 msgstr "Sie haben bereits Events Tickets Plus? Sie können %s in unseren Premium-Support-Foren. Unser Support-Team überwacht die Foren und wird zu Ihrem Thread innerhalb von 24-48 Stunden (während der Woche) reagieren."
 
-#: vendor/tickets/src/Tribe/Main.php:421
+#: vendor/tickets/src/Tribe/Main.php:437
 msgid "Looking for more immediate support? We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
 msgstr "Suchen Sie nach schneller Unterstützung? Wir bieten%1$s mit dem Kauf eines unserer Premium-Plugins (wie%2$s). Kaufen Sie eine Lizenz und beschreiben Sie Ihr Anliegen direkt im Forum. Sie erhalten eine Antwort innerhalb von 24-48 Stunden während Arbeitstagen."
 
-#: vendor/tickets/src/Tribe/Main.php:420
+#: vendor/tickets/src/Tribe/Main.php:436
 msgid "Events Tickets Plus"
 msgstr "Events Tickets Plus"
 
-#: vendor/tickets/src/Tribe/Main.php:399
+#: vendor/tickets/src/Tribe/Main.php:415
 msgid "We are committed to helping you sell tickets for your event. Check out our handy %s to get started."
 msgstr "Wir wollen Ihnen helfen Karten für Ihre Veranstaltungen zu verkaufen. Prüfen Sie unser handliches %s um zu starten."
 
-#: vendor/tickets/src/Tribe/Main.php:380
+#: vendor/tickets/src/Tribe/Main.php:396
 msgid "Customizing Event Tickets"
 msgstr "Event Tickets anpassen"
 
-#: vendor/tickets/src/Tribe/Main.php:375
+#: vendor/tickets/src/Tribe/Main.php:391
 msgid "Support for Event Tickets"
 msgstr "Support für Event Tickets"
 
-#: vendor/tickets/src/Tribe/Main.php:197
+#: vendor/tickets/src/Tribe/Main.php:213
 msgid "When The Events Calendar and Event Tickets are both activated, The Events Calendar must be running version %1$s or greater. Please %2$supdate now.%3$s"
 msgstr "Wenn sowohl The Events Calendar und Events Tickets aktiviert sind, muss The Events Calendar in der Version %1$s oder höher genutzt werden. Bitte %2$sjetzt updaten.%3$s"
 
@@ -3253,12 +3252,12 @@ msgstr "%1$s aktualisiert. %2$s %3$s anzeigen"
 msgid "It appears as if the tribe-common libraries cannot be found! The directory should be in the \"common/\" directory in the events calendar plugin."
 msgstr "Die tribe-common Bibliotheken konnten nicht gefunden werden! Das Verzeichnis sollte im \"common/\" Verzeichnis im Events Calendar Plugin sein."
 
-#: src/Tribe/Main.php:772 vendor/tickets/src/Tribe/Main.php:429
+#: src/Tribe/Main.php:772 vendor/tickets/src/Tribe/Main.php:445
 msgid "If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
 msgstr "Wenn Sie eine gültige Lizenz für eines unserer Bezahl-Plugins haben, können Sie in unserem Support Forum %s. Unser Support Team prüft die Foren und wird innerhalb wochentags von 24-48 Stunden auf Ihre Anfrage reagieren."
 
-#: src/Tribe/Main.php:771 vendor/tickets/src/Tribe/Main.php:423
-#: vendor/tickets/src/Tribe/Main.php:428
+#: src/Tribe/Main.php:771 vendor/tickets/src/Tribe/Main.php:439
+#: vendor/tickets/src/Tribe/Main.php:444
 msgid "post a thread"
 msgstr "Diskutiere mit"
 
@@ -3266,11 +3265,11 @@ msgstr "Diskutiere mit"
 msgid "<strong>Looking for more immediate support?</strong> We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
 msgstr "<strong>Benötigen Sie schnelle Unterstützung?</strong> Wir bieten %1$s mit dem Kauf eines unserer Premium Plugins (wie %2$s). Erwerben Sie eine Lizenz und Sie können direkt hier eine Anfrage stellen. Wochentags reagieren wir innerhalb von 24-48 Stunden."
 
-#: src/Tribe/Main.php:763 vendor/tickets/src/Tribe/Main.php:417
+#: src/Tribe/Main.php:763 vendor/tickets/src/Tribe/Main.php:433
 msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our %s. Our support staff monitors these forums once a week and would be happy to assist you there."
 msgstr "Wenn Sie die Schritte oben versucht haben und immer noch Probleme auftreten, können Sie eine Anfrage in unserem %s stellen. Unser Support Team prüft diese Foren einmal wöchentlich und hilft Ihnen gerne weiter"
 
-#: src/Tribe/Main.php:762 vendor/tickets/src/Tribe/Main.php:416
+#: src/Tribe/Main.php:762 vendor/tickets/src/Tribe/Main.php:432
 msgid "open-source forum on WordPress.org"
 msgstr "Open Source Forum auf WordPress.org"
 
@@ -3279,7 +3278,7 @@ msgid "<strong>Looking for more immediate support?</strong> We offer %s with the
 msgstr "<strong>Benötigen Sie einen schnellere Unterstützung?</strong> Wir bieten %s mit dem Kauf eines unserer Premium Plugins. Wählen Sie eine Lizenz und Sie können dort direkt ihre Frage stellen und erhalten innerhalb von 24-48 Stunden wochentags eine Antwort"
 
 #: src/Tribe/Main.php:757 src/Tribe/Main.php:765
-#: vendor/tickets/src/Tribe/Main.php:419
+#: vendor/tickets/src/Tribe/Main.php:435
 msgid "premium support on our website"
 msgstr "Premium Support auf unserer Website"
 
@@ -3299,7 +3298,7 @@ msgstr "Die Veranstaltung Plugins anpassen"
 msgid "%s: Code and guides for customizing your calendar in useful and interesting ways."
 msgstr "%s: Code und Anleitungen, um Ihren Kalender auf sinnvolle und interessante Weise anzupassen"
 
-#: src/Tribe/Main.php:737 vendor/tickets/src/Tribe/Main.php:379
+#: src/Tribe/Main.php:737 vendor/tickets/src/Tribe/Main.php:395
 msgid "Troubleshooting common problems"
 msgstr "Lösung allgemeiner Probleme"
 
@@ -3323,7 +3322,7 @@ msgstr "Themer’s Guide"
 msgid "%s: Our most comprehensive outline for customizing the calendar to suit your needs, including custom layouts and styles."
 msgstr "%s: Unser umfassendster Führer, um den Kalender an Ihre Bedürfnisse anzupassen, inklusive individuellen Layouts und Designs."
 
-#: src/Tribe/Main.php:731 vendor/tickets/src/Tribe/Main.php:378
+#: src/Tribe/Main.php:731 vendor/tickets/src/Tribe/Main.php:394
 msgid "Features overview"
 msgstr "Übersicht der Features"
 
@@ -3331,7 +3330,7 @@ msgstr "Übersicht der Features"
 msgid "%s: A complete look at the features you can expect to see right out of the box as well as how to use them."
 msgstr "%s: Eine komplette Übersicht der Funktionen, welche Sie erwarten und wie sie benutzt werden können."
 
-#: src/Tribe/Main.php:729 vendor/tickets/src/Tribe/Main.php:377
+#: src/Tribe/Main.php:729 vendor/tickets/src/Tribe/Main.php:393
 msgid "Settings overview"
 msgstr "Übersicht Einstellungen"
 
@@ -3347,7 +3346,7 @@ msgstr "Unterstützung für The Events Calendar"
 msgid "We are committed to helping make your calendar spectacular and have a wealth of resources available, including a handy %s to get your calendar up and running."
 msgstr "Wir möchten, dass Ihr Kalender spektakulär wird und haben viele Hilfmittel dafür verfügbar, inklusive praktische %s um Ihren Kalender in Gang zu bringen."
 
-#: src/Tribe/Main.php:713 vendor/tickets/src/Tribe/Main.php:397
+#: src/Tribe/Main.php:713 vendor/tickets/src/Tribe/Main.php:413
 msgid "New User Primer"
 msgstr "Primer für neue Nutzer"
 
@@ -3485,7 +3484,7 @@ msgid "Enter the format to use for displaying dates with the year. Used when dis
 msgstr "Geben Sie das Format für die Anzeige eines Datum inkl. Jahr ein. Wird verwendet, wenn ein Datum in einem zukünftigen Jahr angezeigt wird."
 
 #: common/src/Tribe/PUE/Checker.php:568
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:565
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:568
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr "Danke für das Bereitstellen eines gültigen Lizenzschlüssels. Er läuft am %s aus."
 
@@ -3595,7 +3594,7 @@ msgstr "Events Tickets ist ein sorgfältig entwickeltes, erweiterbares Plugin, m
 
 #: common/src/Tribe/Admin/Help_Page.php:64
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:64
-#: vendor/tickets/src/Tribe/Main.php:443
+#: vendor/tickets/src/Tribe/Main.php:459
 msgid "Event Tickets"
 msgstr "Event Tickets"
 
@@ -6563,7 +6562,7 @@ msgstr "Keine anstehenden %1$s für %2$s gefunden. Versuchen Sie anstehende %3$s
 msgid "This %s has passed."
 msgstr "Diese %s hat bereits stattgefunden."
 
-#: src/Tribe/Template/Month.php:816
+#: src/Tribe/Template/Month.php:812
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Das abgefragte Datum \"%s\" war  nicht g&uuml;ltig &ndash; der aktuelle Monat wird stattdessen angezeigt"
 
@@ -6663,38 +6662,38 @@ msgid "Events Settings"
 msgstr "Veranstaltungseinstellungen"
 
 #: common/src/Tribe/PUE/Checker.php:509
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:506
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:509
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "Hmmm... irgendetwas stimmt mit diesem Validator nicht. Bitte kontaktieren Sie den %sSupport%s."
 
 #: common/src/Tribe/PUE/Checker.php:563
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:560
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:563
 msgid "Valid Key! Expires on %s"
 msgstr "Gültiger Schlüssel! Erlischt am %s"
 
 #: common/src/Tribe/PUE/Checker.php:550
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:547
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:550
 msgid "Sorry, key validation server is not available."
 msgstr "Sorry, der Lizensierungsserver ist nicht erreichbar."
 
 #: common/src/Tribe/PUE/Checker.php:544
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:541
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:544
 msgid "unknown date"
 msgstr "Unbekanntes Datum"
 
 #: common/src/Tribe/PUE/Checker.php:500
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:497
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:500
 msgid "License key(s) updated."
 msgstr "Lizenzschlüssel aktualisiert."
 
 #: common/src/Tribe/PUE/Checker.php:418
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:415
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:418
 msgid "A valid license key is required for support and updates"
 msgstr "Für Support und Updates ist ein gültiger Lizenzschlüssel erforderlich"
 
 #: common/src/Tribe/PUE/Checker.php:417
 #: src/admin-views/aggregator/status.php:39
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:414
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:417
 msgid "License Key"
 msgstr "Lizenzschlüssel"
 
@@ -6835,7 +6834,7 @@ msgid "Prev"
 msgstr "Vorherige"
 
 #: common/src/Tribe/Main.php:206 src/Tribe/Main.php:2030
-#: vendor/tickets/common/src/Tribe/Main.php:199
+#: vendor/tickets/common/src/Tribe/Main.php:206
 msgid "Next"
 msgstr "Nächste"
 
@@ -7035,7 +7034,7 @@ msgstr "list"
 msgid "month"
 msgstr "Monat"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.1.1) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.2) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:753
