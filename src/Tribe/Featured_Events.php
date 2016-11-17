@@ -51,4 +51,20 @@ class Tribe__Events__Featured_Events {
 
 		return (bool) get_post_meta( $event_id, self::FEATURED_EVENT_KEY, true );
 	}
+
+	/**
+	 * Indicates is the specified query (or the current global WP_Query object if not
+	 * specified) relates to featured events.
+	 *
+	 * @param WP_Query|null $query
+	 *
+	 * @return bool
+	 */
+	public function is_featured_query( WP_Query $query = null ) {
+		if ( null === $query ) {
+			$query = $GLOBALS['wp_query'];
+		}
+
+		return (bool) $query->get( 'featured' );
+	}
 }
