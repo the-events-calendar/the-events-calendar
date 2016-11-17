@@ -30,7 +30,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 	array(
 		'tribeEventsDisplayThemeTitle'  => array(
 			'type' => 'html',
-			'html' => '<h3>' . esc_html__( 'General Settings', 'tribe-common' ) . '</h3>',
+			'html' => '<h3>' . esc_html__( 'General Settings', 'the-events-calendar' ) . '</h3>',
 		),
 		'postsPerPage'                  => array(
 			'type'            => 'text',
@@ -125,16 +125,16 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 		),
 		'defaultCurrencySymbol'         => array(
 			'type'            => 'text',
-			'label'           => esc_html__( 'Default currency symbol', 'tribe-common' ),
-			'tooltip'         => esc_html__( 'Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively.', 'tribe-common' ),
+			'label'           => esc_html__( 'Default currency symbol', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively.', 'the-events-calendar' ),
 			'validation_type' => 'textarea',
 			'size'            => 'small',
 			'default'         => '$',
 		),
 		'reverseCurrencyPosition'       => array(
 			'type'            => 'checkbox_bool',
-			'label'           => esc_html__( 'Currency symbol follows value', 'tribe-common' ),
-			'tooltip'         => esc_html__( 'The currency symbol normally precedes the value. Enabling this option positions the symbol after the value.', 'tribe-common' ),
+			'label'           => esc_html__( 'Currency symbol follows value', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'The currency symbol normally precedes the value. Enabling this option positions the symbol after the value.', 'the-events-calendar' ),
 			'default'         => false,
 			'validation_type' => 'boolean',
 		),
@@ -145,7 +145,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 		),
 		'tribeEventsMiscellaneousTitle' => array(
 			'type' => 'html',
-			'html' => '<h3>' . esc_html__( 'Miscellaneous Settings', 'tribe-common' ) . '</h3>',
+			'html' => '<h3>' . esc_html__( 'Miscellaneous Settings', 'the-events-calendar' ) . '</h3>',
 		),
 	)
 );
