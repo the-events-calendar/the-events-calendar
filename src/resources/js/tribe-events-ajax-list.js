@@ -290,7 +290,6 @@
 
 				$( te ).trigger( 'tribe_ev_ajaxStart' ).trigger( 'tribe_ev_listView_AjaxStart' );
 
-				console.log( ts.params );
 				$.post(
 					TribeList.ajaxurl,
 					ts.params,
