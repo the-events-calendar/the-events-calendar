@@ -479,7 +479,7 @@ h2 {
 .tribe-events-ajax-loading {
 	background: #666;
 	border-radius: 5px;
-	box-shadow: none !important;
+	box-shadow: none;
 	display: none;
 	left: 50%;
 	margin-left: -27px;
@@ -870,7 +870,6 @@ select.tribe-events-dropdown {
 
 	/* Map */
 	.tribe-events-venue-map {
-		*display: inline;
 		background: #eee;
 		border: 1px solid #ddd;
 		border-radius: 3px;
@@ -881,28 +880,6 @@ select.tribe-events-dropdown {
 		vertical-align: top;
 		width: 58%;
 		zoom: 1;
-	}
-
-	#tribe-events-gmap {
-		height: 0 !important;
-		margin: 0 !important;
-		padding-top: 50%;
-		width: 100% !important;
-	}
-
-	.tribe-events-meta-group {
-		.tribe-events-venue-map {
-			float: none;
-			margin: 20px 0 0;
-			width: 100%;
-		}
-
-		#tribe-events-gmap {
-			height: 0 !important;
-			margin-top: 50px;
-			padding-top: 100%;
-			width: 100% !important;
-		}
 	}
 
 	/* Event Meta */
@@ -937,7 +914,6 @@ select.tribe-events-dropdown {
 .tribe-events-event-meta {
 	.tribe-events-meta-group,
 	.column {
-		*display: inline;
 		box-sizing: border-box;
 		display: inline-block;
 		float: left;
@@ -1348,7 +1324,6 @@ select.tribe-events-dropdown {
 /* Datepicker
    ========================================================================== */
 .datepicker {
-	z-index: 1000 !important;
 
 	td,
 	table tr td span {
@@ -1456,10 +1431,6 @@ select.tribe-events-dropdown {
 
 	.tribe-bar-filters-inner {
 		margin: 0;
-	}
-
-	&.tribe-bar-full .tribe-bar-filters {
-		display: block !important;
 	}
 
 	#tribe-bar-views {
@@ -1660,7 +1631,6 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 .tribe-bar-mini {
 	.tribe-bar-filters {
-		display: block !important;
 		float: left;
 		width: 83.3333%;
 	}
@@ -2038,9 +2008,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 		.tribe-events-single {
 			box-shadow: none;
-			margin-bottom: 0 !important;
-			margin-left: 0;
-			margin-right: 0;
+			margin: 0;
 		}
 	}
 
@@ -2058,7 +2026,6 @@ input[name*='tribe-bar-']:-moz-placeholder {
 		}
 
 		.entry-title {
-			font-size: 2.2rem;
 			font-size: 22px;
 			line-height: 1.4545;
 		}

@@ -44,7 +44,9 @@ var tribe_timepickers = tribe_timepickers || {};
 		obj.setup_timepickers( $timepicker );
 
 		// Attach a Click action the Timezone Link
-		$timezone_link.on( 'click', function() {
+		$timezone_link.on( 'click', function( e ) {
+			e.preventDefault();
+
 			$timezone_link.hide();
 			$timezone.show().select2();
 		} );
@@ -404,7 +406,7 @@ jQuery( document ).ready( function( $ ) {
 			group.append( fields );
 		} );
 
-		section.on( 'click', '.delete-linked-post-group', function(e) {
+		section.on( 'click', '.tribe-delete-this', function(e) {
 			e.preventDefault();
 			var group = $(this).closest( 'tbody' );
 			group.fadeOut( 500, function() { $(this).remove(); } );

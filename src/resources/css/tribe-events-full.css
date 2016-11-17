@@ -474,7 +474,7 @@ h2.tribe-events-page-title a:hover,
 .tribe-events-ajax-loading {
 	background: #666;
 	border-radius: 5px;
-	box-shadow: none !important;
+	box-shadow: none;
 	display: none;
 	left: 50%;
 	margin-left: -27px;
@@ -894,7 +894,6 @@ select.tribe-events-dropdown {
 /* Map */
 
 .single-tribe_events .tribe-events-venue-map {
-	display: inline;
 	background: #eee;
 	border: 1px solid #ddd;
 	border-radius: 3px;
@@ -905,26 +904,6 @@ select.tribe-events-dropdown {
 	vertical-align: top;
 	width: 58%;
 	zoom: 1;
-}
-
-.single-tribe_events #tribe-events-gmap {
-	height: 0 !important;
-	margin: 0 !important;
-	padding-top: 50%;
-	width: 100% !important;
-}
-
-.single-tribe_events .tribe-events-meta-group .tribe-events-venue-map {
-	float: none;
-	margin: 20px 0 0;
-	width: 100%;
-}
-
-.single-tribe_events .tribe-events-meta-group #tribe-events-gmap {
-	height: 0 !important;
-	margin-top: 50px;
-	padding-top: 100%;
-	width: 100% !important;
 }
 
 /* Event Meta */
@@ -954,7 +933,6 @@ select.tribe-events-dropdown {
 
 .tribe-events-event-meta .tribe-events-meta-group,
 	.tribe-events-event-meta .column {
-	display: inline;
 	box-sizing: border-box;
 	display: inline-block;
 	float: left;
@@ -1377,10 +1355,6 @@ select.tribe-events-dropdown {
 /* Datepicker
    ========================================================================== */
 
-.datepicker {
-	z-index: 1000 !important;
-}
-
 .datepicker td,
 	.datepicker table tr td span {
 	border-radius: 0;
@@ -1483,10 +1457,6 @@ select.tribe-events-dropdown {
 
 #tribe-bar-form .tribe-bar-filters-inner {
 	margin: 0;
-}
-
-#tribe-bar-form.tribe-bar-full .tribe-bar-filters {
-	display: block !important;
 }
 
 #tribe-bar-form #tribe-bar-views {
@@ -1677,7 +1647,6 @@ input[name*='tribe-bar-']:-moz-placeholder {
 }
 
 .tribe-bar-mini .tribe-bar-filters {
-	display: block !important;
 	float: left;
 	width: 83.3333%;
 }
@@ -2029,9 +1998,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 .tribe-theme-twentyfifteen.single-tribe_events .tribe-events-single {
 	box-shadow: none;
-	margin-bottom: 0 !important;
-	margin-left: 0;
-	margin-right: 0;
+	margin: 0;
 }
 
 .tribe-theme-twentyfifteen.tribe-events-week .tribe-events-grid .hentry {
@@ -2047,8 +2014,6 @@ input[name*='tribe-bar-']:-moz-placeholder {
 }
 
 .tribe-theme-twentyfifteen .tribe-events-list-widget .entry-title {
-	font-size: 35.2px;
-	font-size: 2.2rem;
 	font-size: 22px;
 	line-height: 1.4545;
 }

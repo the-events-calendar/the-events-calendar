@@ -324,6 +324,17 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Add a link to The Events Calendar Help page in the Network Administration screen of multisite installations [68665]
 * Fix - Multisite license editing and displaying consistency [68662]
 
+= [4.3.3] 2016-11-16 =
+
+* Feature - Added Tribe Extension class and loader, to make small addons easier to build [68188]
+* Fix - Ordering on Month view is working as expected again [69123]
+* Fix - Enable ampersand character in mobile month view titles (thanks @kate for the report of this) [45409]
+* Fix - Prevent notices for Event Aggregator License checking [67981]
+* Fix - Miss-Matched text domains are resolved, important for translations (props to @Hans) [68462]
+* Fix - Sticky on Month View is working as expect again [68902]
+* Fix - Prevent HTTPS websites from pointing to Assets in HTTP [68372]
+* Fix - On `WP_Query` we will no-longer overwrite custom `post__not_in` params [42143]
+
 = [4.3.2] 2016-11-02 =
 
 * Fix - Fixes an issue where the text in the Location search field was URL encoded when using the back or forward button for navigation. [61742]

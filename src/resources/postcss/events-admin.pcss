@@ -31,38 +31,6 @@
 	display: none;
 }
 
-.tribe-datetime-block {
-	.tribe-field-start_date,
-	.tribe-field-start_time,
-	.tribe-field-end_date,
-	.tribe-field-end_time {
-		height: 28px;
-	}
-
-
-	.tribe-field-start_date,
-	.tribe-field-end_date {
-		width: 100px;
-	}
-
-	.tribe-field-start_time,
-	.tribe-field-end_time {
-		width: 80px;
-	}
-
-	.tribe-field-timezone {
-		width: 140px;
-		margin-top: -2px;
-		display: none;
-
-		&.select2-container {
-			display: inline-block;
-			margin-top: 1px;
-		}
-	}
-
-}
-
 /* = Post Type Editing
 =============================================*/
 .eventForm {
@@ -102,11 +70,11 @@
 	}
 
 	.tribe_sectionheader {
-		padding-bottom: 5px !important;
+		padding-bottom: 5px;
 	}
 
 	p {
-		margin: 0 0 10px 0!important;
+		margin: 0 0 10px 0;
 	}
 
 	input[type="text"] {
@@ -114,6 +82,56 @@
 		border: 1px solid #ccc;
 		border-radius: 6px;
 		line-height: 20px;
+	}
+
+	.event-dynamic-helper-text {
+		color: #999;
+		font-style: italic;
+		padding: 0;
+	}
+
+	.tribe-datetime-block {
+		.tribe-allday {
+			margin: 10px 0 0;
+		}
+
+		.tribe-field-start_date,
+		.tribe-field-start_time,
+		.tribe-field-end_date,
+		.tribe-field-end_time {
+			height: 28px;
+		}
+
+
+		.tribe-field-start_date,
+		.tribe-field-end_date {
+			width: 100px;
+		}
+
+		.tribe-field-start_time,
+		.tribe-field-end_time {
+			width: 80px;
+		}
+
+		.tribe-field-timezone {
+			width: 140px;
+			margin-top: -2px;
+			display: none;
+
+			&.select2-container {
+				display: inline-block;
+				margin-top: 1px;
+			}
+		}
+
+		.tribe-change-timezone {
+			white-space: nowrap;
+		}
+	}
+
+	.tribe-datetime-label {
+		vertical-align: top;
+		padding-top: 5px;
 	}
 }
 
@@ -138,11 +156,7 @@
 #ticket_end_date {
 	width: 100px;
 }
-.event-dynamic-helper-text {
-    color: #999;
-    font-style: italic;
-    padding: 10px 0 0;
-}
+
 .form-table form input {
 	border: none;
 }
@@ -203,7 +217,7 @@
 	cursor: move;
 }
 
-.delete-linked-post-group {
+.tribe-delete-this {
 	float: right;
 	color: #444;
 
@@ -431,5 +445,13 @@ table.eventForm {
 
 	td.indicator.warning {
 		color: #f3ae46;
+	}
+}
+
+#event_tribe_organizer {
+	.saved-linked-post {
+		.saved-organizer-table-cell {
+			width: 170px;
+		}
 	}
 }

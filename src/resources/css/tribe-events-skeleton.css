@@ -538,29 +538,10 @@ select.tribe-events-dropdown {
 
 /* Map */
 
-.single-tribe_events .tribe-events-venue-map {
-	width: 63%;
-	float: right;
-}
-
-.single-tribe_events #tribe-events-gmap {
-	height: 0 !important;
-	padding-top: 50%;
-	width: 100% !important;
-	margin: 0 !important;
-}
-
 .single-tribe_events .tribe-events-meta-group .tribe-events-venue-map {
 	float: none;
 	margin: 0;
 	width: 100%;
-}
-
-.single-tribe_events .tribe-events-meta-group #tribe-events-gmap {
-	height: 0 !important;
-	padding-top: 100%;
-	width: 100% !important;
-	margin-top: 50px;
 }
 
 .tribe-events-event-meta:first-child {
@@ -812,39 +793,6 @@ select.tribe-events-dropdown {
 #tribe-bar-views .tribe-bar-view-select,
 #tribe-bar-views .tribe-bar-view-select ~ .tribe-select2 {
 	display: none;
-}
-
-#tribe-bar-views .tribe-select2 {
-	width: 108px !important;
-	float: left;
-}
-
-.tribe-select2-results .select2-results {
-	margin: 4px 0;
-	padding: 0;
-}
-
-.tribe-select2-results .select2-results .select2-result-label {
-	padding: 6px 8px;
-	color: #444;
-	line-height: 14px;
-}
-
-.tribe-select2-results .select2-results .select2-highlighted {
-	background: #ddd;
-	color: #444;
-}
-
-#tribe-bar-views .select2-container .select2-choice div {
-	width: 18px;
-}
-
-#tribe-bar-views .select2-container .select2-choice span {
-	margin-right: 18px;
-}
-
-#tribe-bar-views .select2-container .select2-choice span span {
-	margin-right: 0;
 }
 
 /* Views Select When Have Settings */
