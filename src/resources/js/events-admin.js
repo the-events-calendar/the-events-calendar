@@ -493,7 +493,7 @@ jQuery( document ).ready( function( $ ) {
 			changeYear     : true,
 			numberOfMonths : get_datepicker_num_months(),
 			firstDay       : startofweek,
-			showButtonPanel: true,
+			showButtonPanel: false,
 			beforeShow     : function( element, object ) {
 				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
 				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
