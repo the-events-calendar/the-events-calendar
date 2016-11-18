@@ -403,6 +403,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'live_ajax'         => tribe_get_option( 'liveFiltersUpdate', true ) ? 1 : 0,
 				'datepicker_format' => tribe_get_option( 'datepickerFormat' ),
 				'category'          => is_tax( $tec->get_event_taxonomy() ) ? get_query_var( 'term' ) : '',
+				'featured'          => tribe( 'tec.featured_events' )->is_featured_query(),
 			);
 			// allow data attributes to be filtered before display
 			$data_attributes = (array) apply_filters( 'tribe_events_view_data_attributes', $data_attributes );

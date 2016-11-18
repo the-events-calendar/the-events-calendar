@@ -169,6 +169,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 					'post_status'  => $post_status,
 					'eventDate'    => $_POST['eventDate'],
 					'eventDisplay' => 'day',
+					'featured'     => (bool) tribe_get_request_var( 'featured', false ),
 				);
 
 				Tribe__Events__Main::instance()->displaying = 'day';
