@@ -2020,7 +2020,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Compatibility fix: some plugins enqueue jQuery UI and ther styles on all post screens,
+		 * Compatibility fix: some plugins enqueue jQuery UI/other styles on all post screens,
 		 * breaking our own custom styling of event editor components such as the datepicker.
 		 *
 		 * Needs to execute late enough during admin_enqueue_scripts that the items we are removing
