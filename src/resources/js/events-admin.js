@@ -427,24 +427,37 @@ jQuery( document ).ready( function( $ ) {
 
 	};
 
-	var toggle_linked_post_fields = function() {
-		var dropdown           = $( this );
-		var selected_id        = dropdown.val();
-		var group              = dropdown.closest( 'tbody' );
-		var edit_link          = group.find( '.edit-linked-post-link a' );
-		var edit_link_base_url = edit_link.attr( 'data-admin-url' );
+	var toggle_linked_post_fields = function( event ) {
+		var $select = $( this ),
+			$group = $select.closest( 'tbody' ),
+			$edit = $group.find( '.edit-linked-post-link a' ),
+			edit_link = $edit.attr( 'data-admin-url' ),
+			choice = 'undefined' === typeof event.added ? {} : event.added;
 
-		if ( selected_id != '0' ) {
-			group.find( '.linked-post' ).fadeOut().find( 'input' ).val( '' );
-			edit_link.attr( 'href', edit_link_base_url + selected_id ).show();
+		// Maybe Hide Edit link
+		if ( _.isEmpty( choice ) ) {
+			$edit.hide();
+		}
+
+		if ( 'undefined' !== typeof choice.new && choice.new ) {
+			// Apply the New Given Title to the Correct Field
+			$group.find( '.linked-post-name' ).val( choice.id );
+			$select.val( '' );
+
+			// Display the Fields
+			$group.find( '.linked-post' ).show();
 		} else {
-			group.find( '.linked-post' ).fadeIn();
-			edit_link.hide();
+			// Hide all fields and remove their values
+			$group.find( '.linked-post' ).hide().find( 'input' ).val( '' );
+
+			// Modify and Show edit link
+			if ( ! _.isEmpty( choice ) ) {
+				$edit.attr( 'href', edit_link + choice.id ).show();
+			}
 		}
 	};
 
-	$( '.hide-if-js' )
-		.hide();
+	$( '.hide-if-js' ).hide();
 
 	if ( typeof(TEC) !== 'undefined' ) {
 
