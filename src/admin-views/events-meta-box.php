@@ -201,7 +201,15 @@ $events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 			<tr>
 				<td><?php esc_html_e( 'Currency Symbol:', 'the-events-calendar' ); ?></td>
 				<td>
-					<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='EventCurrencySymbol' name='EventCurrencySymbol' size='2' value='<?php echo isset( $_EventCurrencySymbol ) ? esc_attr( $_EventCurrencySymbol ) : tribe_get_option( 'defaultCurrencySymbol', '$' ); ?>' />
+					<input
+						tabindex="<?php tribe_events_tab_index(); ?>"
+						type='text'
+						id='EventCurrencySymbol'
+						name='EventCurrencySymbol'
+						size='2'
+						value='<?php echo isset( $_EventCurrencySymbol ) ? esc_attr( $_EventCurrencySymbol ) : tribe_get_option( 'defaultCurrencySymbol', '$' ); ?>'
+						class='alignleft'
+					/>
 					<select tabindex="<?php tribe_events_tab_index(); ?>" id="EventCurrencyPosition" name="EventCurrencyPosition">
 						<?php
 						if ( isset( $_EventCurrencyPosition ) && 'suffix' === $_EventCurrencyPosition ) {

@@ -40,6 +40,11 @@
 	padding: 0 6px 10px 0;
 	vertical-align: middle;
 }
+/* Add extra separation between form inputs when left aligned */
+.eventForm td input.alignleft, .eventForm td select.alignleft {
+	margin-right: 4.8px;
+	margin-right: 0.3rem;
+}
 .eventForm #event-meta td {
 	vertical-align: top;
 }
