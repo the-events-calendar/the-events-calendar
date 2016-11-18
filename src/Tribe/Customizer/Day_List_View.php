@@ -178,11 +178,22 @@ class Tribe__Events__Customizer__Day_List_View extends Tribe__Customizer__Sectio
 			'price_bg_color' => '#eeeeee',
 		);
 
+		ob_start();
+		?>
+		<p>
+			<?php esc_html_e( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections.', 'the-events-calendar' ); ?>
+		</p>
+		<p>
+			<?php esc_html_e( 'These settings impact all list-style views, including List View and Day View.', 'the-events-calendar' ); ?>
+		</p>
+		<?php
+		$description = ob_get_clean();
+
 		$this->arguments = array(
 			'priority'    => 40,
 			'capability'  => 'edit_theme_options',
 			'title'       => esc_html__( 'List-style Views', 'the-events-calendar' ),
-			'description' => esc_html__( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections. These settings impact all list-style views, including List View and Day View.', 'the-events-calendar' ),
+			'description' => $description,
 		);
 	}
 
