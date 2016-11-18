@@ -892,15 +892,15 @@ class Tribe__Events__Linked_Posts {
 				name="' . esc_attr( $name ) . '"
 				id="saved_' . esc_attr( $post_type ) . '"
 				data-freeform
-				data-placeholder="' . sprintf( esc_html__( 'Create or Select a %s', 'the-events-calendar' ), $singular_name ) . '"
-				data-search-placeholder="' . sprintf( esc_html__( 'Search or Create a new %s', 'the-events-calendar' ), $singular_name ) . '"
+				data-placeholder="' . sprintf( esc_attr__( 'Create or Select a %s', 'the-events-calendar' ), $singular_name ) . '"
+				data-search-placeholder="' . sprintf( esc_attr__( 'Search or Create a new %s', 'the-events-calendar' ), $singular_name ) . '"
 				data-create-choice-template="' . __( 'Create: <b><%= term %></b>', 'the-events-calendar' ) . '"
 				data-allow-html
 				data-options="' . esc_attr( json_encode( $data ) ) . '"' .
 				( empty( $current ) ? '' : ' value="' . esc_attr( $current ) . '"' ) .
 			'>';
 		} else {
-			echo '<p class="nosaved">' . sprintf( esc_html__( 'No saved %s exists.', 'the-events-calendar' ), $singular_name_lowercase ) . '</p>';
+			echo '<p class="nosaved">' . sprintf( esc_attr__( 'No saved %s exists.', 'the-events-calendar' ), $singular_name_lowercase ) . '</p>';
 			printf( '<input type="hidden" name="%s" value="%d"/>', esc_attr( $name ), 0 );
 		}
 	}
