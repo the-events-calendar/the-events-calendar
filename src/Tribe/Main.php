@@ -2034,7 +2034,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Localize admin
+		 * Localize admin.
+		 *
+		 * Notice that we pass full length month names in the monthNamesShort property:
+		 * this is deliberate and meets a requirement to show full-length months in the
+		 * datepicker's month selector.
 		 *
 		 * @return array
 		 */
@@ -2044,7 +2048,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'dayNamesShort'   => $this->daysOfWeekShort,
 				'dayNamesMin'     => $this->daysOfWeekMin,
 				'monthNames'      => array_values( $this->monthNames() ),
-				'monthNamesShort' => array_values( $this->monthNames( true ) ),
+				'monthNamesShort' => array_values( $this->monthNames() ),
 				'nextText'        => esc_html__( 'Next', 'the-events-calendar' ),
 				'prevText'        => esc_html__( 'Prev', 'the-events-calendar' ),
 				'currentText'     => esc_html__( 'Today', 'the-events-calendar' ),
