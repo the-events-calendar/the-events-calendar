@@ -99,6 +99,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $taxRewriteSlug = 'event/category';
 
 		/** @deprecated 4.0 */
+		/** @deprecated 4.0 */
 		public $tagRewriteSlug = 'event/tag';
 
 		/** @var Tribe__Events__Admin__Timezone_Settings */
@@ -505,6 +506,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'tribe_events_post_errors', array( 'Tribe__Events__Post_Exception', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'Tribe__Events__Options_Exception', 'displayMessage' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'add_admin_assets' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'asset_fixes' ), 200 );
 			add_filter( 'tribe_events_register_event_type_args', array( $this, 'setDashicon' ) );
 			add_action( 'trash_' . self::VENUE_POST_TYPE, array( $this, 'cleanupPostVenues' ) );
 			add_action( 'trash_' . self::ORGANIZER_POST_TYPE, array( $this, 'cleanupPostOrganizers' ) );
@@ -2015,6 +2017,24 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					do_action( 'tribe_organizers_enqueue' );
 				}
 			}
+		}
+
+		/**
+		 * Compatibility fix: some plugins enqueue jQuery UI and ther styles on all post screens,
+		 * breaking our own custom styling of event editor components such as the datepicker.
+		 *
+		 * Needs to execute late enough during admin_enqueue_scripts that the items we are removing
+		 * have already been registered and enqueued.
+		 *
+		 * @see https://github.com/easydigitaldownloads/easy-digital-downloads/issues/3033
+		 */
+		public function asset_fixes() {
+			if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
+				return;
+			}
+
+			wp_dequeue_style( 'jquery-ui-css' );
+			wp_dequeue_style( 'edd-admin' );
 		}
 
 		/**
