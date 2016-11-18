@@ -877,13 +877,18 @@ class Tribe__Events__Linked_Posts {
 			$data = array_values( (array) $options );
 		}
 
-		/*
+		$user_can_create = ( ! empty( $post_type_object->cap->create_posts ) && current_user_can( $post_type_object->cap->create_posts ) );
+		$allowed_creation = ( ! empty( $this->linked_post_types[ $post_type ]['allow_creation'] ) && $this->linked_post_types[ $post_type ]['allow_creation'] );
 
-		! empty( $post_type_object->cap->create_posts )
-		&& current_user_can( $post_type_object->cap->create_posts )
-		&& ! empty( $this->linked_post_types[ $post_type ]['allow_creation'] )
+		$placeholder = sprintf( esc_attr__( 'Select a %s', 'the-events-calendar' ), $singular_name );
+		if ( $user_can_create ) {
+			$placeholder = sprintf( esc_attr__( 'Create or Select a %s', 'the-events-calendar' ), $singular_name );
+		}
 
-		 */
+		$search_placeholder = sprintf( esc_attr__( 'Search a %s', 'the-events-calendar' ), $singular_name );
+		if ( $user_can_create ) {
+			$search_placeholder = sprintf( esc_attr__( 'Search or Create a new %s', 'the-events-calendar' ), $singular_name );
+		}
 
 		if ( $linked_posts || $my_linked_posts ) {
 			echo '<input
@@ -891,12 +896,13 @@ class Tribe__Events__Linked_Posts {
 				class="tribe-dropdown linked-post-dropdown"
 				name="' . esc_attr( $name ) . '"
 				id="saved_' . esc_attr( $post_type ) . '"
-				data-freeform
-				data-placeholder="' . sprintf( esc_attr__( 'Create or Select a %s', 'the-events-calendar' ), $singular_name ) . '"
-				data-search-placeholder="' . sprintf( esc_attr__( 'Search or Create a new %s', 'the-events-calendar' ), $singular_name ) . '"
+				data-placeholder="' . $placeholder . '"
+				data-search-placeholder="' . $search_placeholder . '" ' .
+				( $user_can_create && $allowed_creation ?
+				'data-freeform
 				data-create-choice-template="' . __( 'Create: <b><%= term %></b>', 'the-events-calendar' ) . '"
-				data-allow-html
-				data-options="' . esc_attr( json_encode( $data ) ) . '"' .
+				data-allow-html ' : '' ) .
+				'data-options="' . esc_attr( json_encode( $data ) ) . '"' .
 				( empty( $current ) ? '' : ' value="' . esc_attr( $current ) . '"' ) .
 			'>';
 		} else {
