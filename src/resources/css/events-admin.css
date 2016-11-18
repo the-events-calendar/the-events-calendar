@@ -182,8 +182,12 @@
 	float: right;
 	color: #444;
 }
-.tribe-delete-this:hover {
+.tribe-delete-this:hover,
+	.tribe-delete-this.hover-state {
 	color: #a00;
+}
+.tribe-delete-this.tribe-confirm-delete-this {
+	display : none;
 }
 .tribe_community_edit .edit-linked-post-link,
 	.tribe_community_edit .edit-linked-post-link {
