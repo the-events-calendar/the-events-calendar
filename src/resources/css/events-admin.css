@@ -109,6 +109,11 @@
 	vertical-align: top;
 	padding-top: 5px;
 }
+.ui-datepicker-calendar .ui-datepicker-today a {
+	background: -webkit-linear-gradient(96deg, rgba(10,85,160,1.00) 0%, rgba(18,136,235,1.00) 100%);
+	background: linear-gradient(354deg, rgba(10,85,160,1.00) 0%, rgba(18,136,235,1.00) 100%);
+	color: #fff;
+}
 .tribe-community-event-info {
 	width: 100%;
 	margin: 10px;
