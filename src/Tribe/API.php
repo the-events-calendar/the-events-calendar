@@ -325,7 +325,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 				// EventEndTime will always be 24h Format
 				if ( isset( $data['EventEndTime'] ) ) {
-					$end_date_string = "{$data['EventStartDate']} {$data['EventEndTime']}";
+					$end_date_string = "{$data['EventEndDate']} {$data['EventEndTime']}";
 				} else {
 					$end_date_string = "{$data['EventEndDate']} {$data['EventEndHour']}:{$data['EventEndMinute']}:00";
 					if ( isset( $data['EventEndMeridian'] ) ) {
