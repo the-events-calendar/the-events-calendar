@@ -13,15 +13,15 @@ $linked_post_name_field = "{$linked_post_container}[{$linked_post_name}][]";
 
 ?>
 <script type="text/template" id="tmpl-tribe-create-<?php echo esc_attr( $this->post_type ); ?>">
-<tbody class="new-<?php echo esc_attr( $this->post_type ); ?>">
-	<tr class="linked-post">
-		<td><?php printf( esc_html__( '%s Name:', 'the-events-calendar' ), $this->linked_posts->linked_post_types[ $this->post_type ]['singular_name'] ); ?></td>
-		<td>
-			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='<?php echo esc_attr( $linked_post_name_field ); ?>' class='linked-post-name <?php echo esc_attr( $this->post_type ); ?>-name' size='25' value='' />
-		</td>
-	</tr>
-	<?php do_action( 'tribe_events_linked_post_new_form', $this->post_type ); ?>
-</tbody>
+	<tbody class="new-<?php echo esc_attr( $this->post_type ); ?>">
+		<tr class="linked-post">
+			<td><?php printf( esc_html__( '%s Name:', 'the-events-calendar' ), $this->linked_posts->linked_post_types[ $this->post_type ]['singular_name'] ); ?></td>
+			<td>
+				<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='<?php echo esc_attr( $linked_post_name_field ); ?>' class='linked-post-name <?php echo esc_attr( $this->post_type ); ?>-name' size='25' value='' />
+			</td>
+		</tr>
+		<?php do_action( 'tribe_events_linked_post_new_form', $this->post_type ); ?>
+	</tbody>
 </script>
 
 <script type="text/javascript">
