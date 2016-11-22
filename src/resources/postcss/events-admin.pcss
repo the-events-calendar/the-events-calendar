@@ -143,9 +143,18 @@
 	}
 }
 
-.ui-datepicker-calendar .ui-datepicker-today a {
-	background: linear-gradient(354deg, rgba(10,85,160,1.00) 0%, rgba(18,136,235,1.00) 100%);
-	color: #fff;
+/* Apply a grey highlight to 'today' */
+.ui-datepicker-calendar .ui-datepicker-today {
+	a {
+		background: linear-gradient(354deg, #ccc 0%, #eee 100%);
+		color: black;
+	}
+
+	/* If today is also the current selected day, prefer the default blue highlight */
+	&.ui-datepicker-current-day a {
+		background: linear-gradient( 354deg, rgba( 10,85,160,1.00 ) 0%, rgba( 18,136,235,1.00 ) 100% );
+		color: #fff;
+	}
 }
 
 .tribe-community-event-info {
@@ -238,7 +247,7 @@
 	&.hover-state {
 		color: #a00;
 	}
-	
+
 	&.tribe-confirm-delete-this {
 		display : none;
 	}
@@ -271,13 +280,13 @@
 	padding: 10px 15px;
 	border: 1px solid #e2e2e2;
 	-webkit-border-radius: 3px;
-	   -moz-border-radius: 3px;
-	        border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 	-webkit-border-top-left-radius: 0;
 	-moz-border-radius-topleft: 0;
 	-webkit-border-top-right-radius: 0;
 	-moz-border-radius-topright: 0;
-	 -khtml-border-radius: 3px;
+	-khtml-border-radius: 3px;
 	background: url(../images/bg_fade.png) repeat-x top left;
 	background-color: #fff;
 }
