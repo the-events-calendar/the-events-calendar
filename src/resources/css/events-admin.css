@@ -119,6 +119,10 @@
 	background: linear-gradient(354deg, rgba(10,85,160,1.00) 0%, rgba(18,136,235,1.00) 100%);
 	color: #fff;
 }
+.ui-datepicker select.ui-datepicker-month {
+	width: 128px;
+	width: 8rem;
+}
 .tribe-community-event-info {
 	width: 100%;
 	margin: 10px;
