@@ -325,9 +325,12 @@ jQuery( document ).ready( function( $ ) {
 				fields = $( create_template({}) );
 			}
 
-			section.find( 'tfoot' ).before( fields );
+			// The final <tbody> contains the add new post link, we should add this new selector before that
+			section.find( 'tbody:last' ).before( fields );
 			fields.prepend( dropdown );
-			fields.find( '.chosen' ).chosen().trigger( 'change' );
+
+			tribe_dropdowns.dropdown( fields.find( '.linked-post-dropdown' ) );
+			fields.find( '.linked-post-dropdown' ).trigger( 'change' );
 		});
 
 		section.on( 'change', '.linked-post-dropdown', toggle_linked_post_fields );
