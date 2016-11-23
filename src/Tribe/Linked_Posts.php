@@ -900,6 +900,7 @@ class Tribe__Events__Linked_Posts {
 				data-search-placeholder="' . $search_placeholder . '" ' .
 				( $user_can_create && $allowed_creation ?
 				'data-freeform
+				data-sticky-search
 				data-create-choice-template="' . __( 'Create: <b><%= term %></b>', 'the-events-calendar' ) . '"
 				data-allow-html ' : '' ) .
 				'data-options="' . esc_attr( json_encode( $data ) ) . '"' .

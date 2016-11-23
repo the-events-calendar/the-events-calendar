@@ -444,11 +444,12 @@ jQuery( document ).ready( function( $ ) {
 
 		if ( 'undefined' !== typeof choice.new && choice.new ) {
 			// Apply the New Given Title to the Correct Field
-			$group.find( '.linked-post-name' ).val( choice.id );
+			$group.find( '.linked-post-name' ).val( choice.id ).parents( '.linked-post' ).eq( 0 ).attr( 'data-hidden', true );
+
 			$select.val( '' );
 
 			// Display the Fields
-			$group.find( '.linked-post' ).show();
+			$group.find( '.linked-post' ).not( '[data-hidden]' ).show();
 		} else {
 			// Hide all fields and remove their values
 			$group.find( '.linked-post' ).hide().find( 'input' ).val( '' );
