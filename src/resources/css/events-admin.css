@@ -75,6 +75,7 @@
 	border: 1px solid #ccc;
 	border-radius: 6px;
 	line-height: 20px;
+	margin-left: 0;
 }
 .eventForm .event-dynamic-helper-text {
 	color: #999;
