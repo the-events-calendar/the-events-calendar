@@ -488,7 +488,8 @@ jQuery( document ).ready( function( $ ) {
 			startofweek = $event_pickers.data( 'startofweek' );
 		}
 
-		var $end_date = $( '#EventEndDate' );
+		var $start_date = $( '#EventStartDate' );
+		var $end_date   = $( '#EventEndDate' );
 
 		tribe_datepicker_opts = {
 			dateFormat     : date_format,
@@ -502,25 +503,23 @@ jQuery( document ).ready( function( $ ) {
 				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
 				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
 			},
-			onSelect       : function( selectedDate ) {
-				var option = this.id == 'EventStartDate' ? 'minDate' : 'maxDate';
+			onSelect: function( selected_date ) {
 				var instance = $( this ).data( "datepicker" );
-				var date = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings );
+				var date = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selected_date, instance.settings );
 
+				// If the start date was adjusted, then let's modify the minimum acceptable end date
 				if ( this.id === 'EventStartDate' ) {
-					var startDate = $( '#EventStartDate' ).data( 'prevDate' );
-					var dateDif = null == startDate ? 0 : date_diff_in_days( startDate, $end_date.datepicker( 'getDate' ) );
-					var endDate = new Date( date.setDate( date.getDate() + dateDif ) );
+					var start_date = $( '#EventStartDate' ).data( 'prevDate' );
+					var date_diff = null == start_date ? 0 : date_diff_in_days( start_date, $end_date.datepicker( 'getDate' ) );
+					var end_date = new Date( date.setDate( date.getDate() + date_diff ) );
 
 					$end_date
-						.datepicker( 'option', option, endDate )
-						.datepicker( 'setDate', endDate );
-				} else {
-
-					dates
-						.not( this )
-						.not( '.tribe-no-end-date-update' )
-						.datepicker( 'option', option, date );
+						.datepicker( 'option', 'minDate', end_date )
+						.datepicker( 'setDate', end_date );
+				}
+				// If the end date was adjusted, then let's modify the maximum acceptable start date
+				else if ( this.id === 'EventEndDate' ) {
+					$start_date.datepicker( 'option', 'maxDate', date );
 				}
 
 				// fire the change and blur handlers on the field
