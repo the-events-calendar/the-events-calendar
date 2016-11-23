@@ -243,6 +243,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				return apply_filters( 'tribe_get_organizer_link', $link, $postId, $full_link, $url );
 			}
 		}
+
+		if ( ! $full_link ) {
+			return '';
+		}
+
 		//Return Organizer Name if Pro is not Active
 		return tribe_get_organizer( $org_id );
 	}
