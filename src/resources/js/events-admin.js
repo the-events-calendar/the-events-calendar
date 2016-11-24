@@ -284,22 +284,10 @@ jQuery( document ).ready( function( $ ) {
 	$( viewCalLinkHTML )
 		.insertAfter( '.edit-php.post-type-tribe_events #wpbody-content .wrap h2:eq(0) a' );
 
-	if ( $template_select.length && $template_select.val() === '' ) {
-
-		var t_name = $template_select.find( "option:selected" ).text();
-
-		$template_select
-			.prev( '.select2-container' )
-			.children()
-			.children( 'span' )
-			.text( t_name );
-	}
-
 	//not done by default on front end
 	function get_datepicker_num_months() {
 		return ( is_community_edit && $(window).width() < 768 ) ? 1 : 3;
 	}
-
 
 	var setup_linked_post_fields = function( post_type ) {
 		var saved_template = $( document.getElementById( 'tmpl-tribe-select-' + post_type ) ).length ? wp.template( 'tribe-select-' + post_type ) : null;
