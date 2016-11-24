@@ -67,4 +67,26 @@ class Tribe__Events__Featured_Events {
 
 		return (bool) $query->get( 'featured' );
 	}
+
+	/**
+	 * Indicates if 'featured' is set to a positive value either in the URL query
+	 * or the posted data (if any).
+	 *
+	 * @return bool
+	 */
+	public function featured_events_requested() {
+		$featured_request_var = tribe_get_request_var( 'featured', false );
+
+		switch ( strtolower( $featured_request_var ) ) {
+			case 'true':
+				return true;
+				break;
+
+			case 'false':
+				return false;
+				break;
+		}
+
+		return (bool) $featured_request_var;
+	}
 }
