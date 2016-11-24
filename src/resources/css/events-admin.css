@@ -206,9 +206,8 @@
 .tribe-delete-this.tribe-confirm-delete-this {
 	display : none;
 }
-.tribe_community_edit .edit-linked-post-link,
-	.tribe_community_edit .edit-linked-post-link {
-	display: none !important;
+.tribe_community_edit .edit-linked-post-link a {
+	display: none;
 }
 .tribe-linked-post-error.error {
 	display: inline;
