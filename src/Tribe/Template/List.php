@@ -77,7 +77,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 				'post_type'    => Tribe__Events__Main::POSTTYPE,
 				'post_status'  => $post_status,
 				'paged'        => $tribe_paged,
-				'featured'     => (bool) tribe_get_request_var( 'featured', false ),
+				'featured'     => tribe( 'tec.featured_events' )->featured_events_requested(),
 			);
 
 			// check & set display

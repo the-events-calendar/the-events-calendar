@@ -1791,8 +1791,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 							$edit_link = Tribe__Events__Community__Main::instance()->getUrl( 'edit', $venue_id, null, self::VENUE_POST_TYPE );
 						}
 						?>
-						<div class="edit-venue-link" <?php if ( empty( $venue_id ) ) { ?>style="display:none;"<?php } ?>>
-							<a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( $edit_link ); ?>" target="_blank">
+						<div class="edit-linked-post-link">
+							<a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( $edit_link ); ?>" target="_blank" <?php if ( empty( $venue_id ) ) { ?>style="display:none;"<?php } ?>>
 								<?php echo esc_html( sprintf( __( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label ) ); ?>
 							</a>
 						</div>
