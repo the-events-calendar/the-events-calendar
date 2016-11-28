@@ -13,7 +13,7 @@
  */
 
 :root {
-	--featured-event-bg: #f2f0f1;
+	--featured-event-bg: #0ea0d7;
 }
 
 @define-mixin featured-list-styles {
@@ -38,13 +38,39 @@
 			margin-top: 1.5em;
 
 			span {
-				background: #fff;
+				background: rgba( 255, 255, 255, .2 );
+				border: 0;
+				border-radius: 3px;
+				color: #fff;
+				font-weight: normal;
 			}
 		}
 
 		.tribe-events-list-event-title {
 			display: inline-block;
 			margin-top: 1.5rem;
+
+			a {
+				color: #fff;
+			}
+		}
+
+		.tribe-events-event-meta {
+			color: rgba( 255, 255, 255, .7 );
+			font-weight: normal;
+		}
+
+		.tribe-events-content {
+			color: rgba( 255, 255, 255, .9 );
+		}
+
+		a {
+			color: rgba( 255, 255, 255, .7 );
+
+			&:active,
+			&:hover {
+				color: rgba( 255, 255, 255, .9 );
+			}
 		}
 	}
 }
@@ -1152,6 +1178,18 @@ select.tribe-events-dropdown {
 		margin: 0;
 		padding: 6px 14px; /* This is a failover if the browser doesn't support calc */
 		padding: 6px calc( 5% + 8px );
+
+		&.post-108,
+		&.post-110 {
+			background: #0ea0d7; /* TEC logo */
+			/*background: #1CA8C7; /* Tribe Blue */
+			/*background: #157f9d; /* Blue Mountain */
+			/*background: #078e87; /* Clear Sea */
+			/*background: #2B474F; /* Nightfall */
+			/*background: #2f3750; /* Dark Steel */
+			/*background: #F4AF49; /* Cali Sun */
+			/*background: #416D53; /* Evergreen */
+		}
 
 		.tribe-events-month-event-title {
 			a {
