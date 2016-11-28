@@ -158,7 +158,6 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	public function setup() {
 		$this->defaults = array(
 			'base_color_scheme' => 'light',
-			'accent_color' => '#21759b',
 			'featured_color_scheme' => 'default',
 		);
 
