@@ -183,7 +183,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		}
 
 		// If we don't have a valid start date, assume today's date
-		$this->vars['EventStartDate'] = ( isset( $start ) && $start ) ? $start : date( $datepicker_format );
+		$this->vars['EventStartDate'] = ( isset( $start ) && $start ) ? $start : date_i18n( $datepicker_format );
 		$this->vars['EventStartTime'] = ( isset( $start_time ) && $start_time ? $start_time : null );
 
 		$this->vars['start_timepicker_step'] = $this->get_timepicker_step( 'start' );
