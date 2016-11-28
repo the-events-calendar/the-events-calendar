@@ -107,12 +107,6 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 	}
 
 	public function setup() {
-		$this->defaults = array(
-			'link_color' => '#21759b',
-			'filterbar_color' => '#f5f5f5',
-			'button_color' => '#21759b',
-		);
-
 		$this->arguments = array(
 			'priority'    => 20,
 			'capability'  => 'edit_theme_options',
