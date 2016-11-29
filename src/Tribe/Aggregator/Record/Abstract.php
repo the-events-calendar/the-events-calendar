@@ -1228,7 +1228,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					continue;
 				}
 
-				if ( isset( $image->status ) && 'created' === $image->status ) {
+				if ( ! empty( $image->post_id ) ) {
 					// Set as featured image
 					$featured_status = set_post_thumbnail( $event['ID'], $image->post_id );
 
