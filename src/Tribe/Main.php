@@ -524,7 +524,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
 
-			// Add Vanue data
 			add_action( 'tribe_venue_table_top', array( $this, 'display_rich_snippets_helper' ), 5 );
 
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
@@ -1781,7 +1780,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 			?>
-			<tr class="">
+			<tr class="tribe-rich-snippet-notice">
 				<td colspan="2"><?php printf( esc_html__( 'Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results.', 'the-events-calendar' ), '<a href="https://support.google.com/webmasters/answer/164506" target="_blank">', '</a>' ) ?></td>
 			</tr>
 			<?php
