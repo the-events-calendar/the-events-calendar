@@ -45,10 +45,11 @@ var tribe_timepickers = tribe_timepickers || {};
 
 		// Attach a Click action the Timezone Link
 		$timezone_link.on( 'click', function( e ) {
+			$timezone = $container.find( obj.selector.timezone ).filter( '.select2-container' );
 			e.preventDefault();
 
 			$timezone_link.hide();
-			$timezone.show().select2();
+			$timezone.show();
 		} );
 
 		// Append the Link to the Timezone
@@ -259,11 +260,6 @@ jQuery( document ).ready( function( $ ) {
 		'main' : ['yy-mm-dd', 'm/d/yy', 'mm/dd/yy', 'd/m/yy', 'dd/mm/yy', 'm-d-yy', 'mm-dd-yy', 'd-m-yy', 'dd-mm-yy'],
 		'month': ['yy-mm', 'm/yy', 'mm/yy', 'm/yy', 'mm/yy', 'm-yy', 'mm-yy', 'm-yy', 'mm-yy']
 	};
-
-	// Initialize Chosen and Select2.
-	$( '.chosen, .tribe-field-dropdown_chosen select' ).chosen();
-	$( '.select2' ).select2( {width: '250px'} );
-	$view_select.select2( {width: '250px'} );
 
 	// initialize the category hierarchy checkbox - scroll to closest checked checkbox
 	$( '[data-wp-lists="list:tribe_events_cat"]' ).each( function() {
