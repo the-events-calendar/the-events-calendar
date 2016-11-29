@@ -236,11 +236,11 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 *
 	 */
 	protected function delete_handle() {
-	    ?>
+		?>
 		<a class="dashicons dashicons-trash tribe-delete-this" href="#">
-            <span class="screen-reader-text"><?php esc_html_e( 'Delete this', 'the-events-calendar' ); ?></span>
-        </a>
-    <?php
+			<span class="screen-reader-text"><?php esc_html_e( 'Delete this', 'the-events-calendar' ); ?></span>
+		</a>
+	<?php
 	}
 
 	/**
