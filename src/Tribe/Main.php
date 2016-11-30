@@ -2336,17 +2336,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				) {
 					$using_permalinks = get_option( 'permalink_structure' );
 
-					if($using_permalinks){
-						$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ?
-							$wp_query->query_vars['eventDisplay']
-							: tribe_get_option( 'viewOption', 'list' );
+					if ( $using_permalinks ) {
+						$this->displaying = $wp_query->get( 'eventDisplay', tribe_get_option( 'viewOption', 'list' ) );
 					} else {
-						$event_display_arg = ! empty( $_GET['tribe_event_display'] ) ?
-							$_GET['tribe_event_display']
-							: tribe_get_option( 'viewOption', 'list' );
-						$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ?
-							$wp_query->query_vars['eventDisplay']
-							: $event_display_arg;
+						$this->displaying = $wp_query->get( 'eventDisplay',false );
+						if ( false === $this->displaying ) {
+							$this->displaying = ! empty( $_GET['tribe_event_display'] ) ?
+								filter_var( $_GET['tribe_event_display'], FILTER_SANITIZE_STRING )
+								: tribe_get_option( 'viewOption', 'list' );
+						}
 					}
 
 
