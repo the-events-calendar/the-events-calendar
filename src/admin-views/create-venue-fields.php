@@ -1,5 +1,35 @@
 <?php
 global $post;
+
+// If not $_POST get the current values to edit
+if ( ! $_POST ) {
+	$postId                 = Tribe__Events__Main::postIdHelper();
+	$venue_name             = tribe_get_venue();
+	$_VenuePhone            = tribe_get_phone();
+	$_VenueURL              = strip_tags( tribe_get_venue_website_link( null, null ) );
+	$_VenueAddress          = tribe_get_address();
+	$_VenueCity             = tribe_get_city();
+	$_VenueProvince         = tribe_get_province();
+	$_VenueState            = tribe_get_state();
+	$_VenueCountry          = tribe_get_country();
+	$_VenueZip              = tribe_get_zip();
+	$google_map_link_toggle = get_post_meta( $postId, '_EventShowMapLink', true );
+	$google_map_toggle      = tribe_embed_google_map( $postId );
+
+	//If we just saved use those values from $_POST
+} elseif ( ! empty( $_POST ) ) {
+	$venue_name             = isset( $_POST['venue']['Venue'] ) ? esc_attr( $_POST['venue']['Venue'] ) : '';
+	$_VenuePhone            = isset( $_POST['venue']['Phone'] ) ? esc_attr( $_POST['venue']['Phone'] ) : '';
+	$_VenueURL              = isset( $_POST['venue']['URL'] ) ? esc_attr( $_POST['venue']['URL'] ) : '';
+	$_VenueAddress          = isset( $_POST['venue']['Address'] ) ? esc_attr( $_POST['venue']['Address'] ) : '';
+	$_VenueCity             = isset( $_POST['venue']['City'] ) ? esc_attr( $_POST['venue']['City'] ) : '';
+	$_VenueProvince         = isset( $_POST['venue']['Province'] ) ? esc_attr( $_POST['venue']['Province'] ) : '';
+	$_VenueState            = isset( $_POST['venue']['State'] ) ? esc_attr( $_POST['venue']['State'] ) : '';
+	$_VenueCountry          = isset( $_POST['venue']['Country'] ) ? esc_attr( $_POST['venue']['Country'] ) : '';
+	$_VenueZip              = isset( $_POST['venue']['Zip'] ) ? esc_attr( $_POST['venue']['Zip'] ) : '';
+	$google_map_link_toggle = isset( $_POST['EventShowMapLink'] ) ? esc_attr( $_POST['EventShowMapLink'] ) : '';
+	$google_map_toggle      = isset( $_POST['EventShowMap'] ) ? esc_attr( $_POST['EventShowMap'] ) : '';
+}
 ?>
 <tr class="linked-post venue">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'Address:', 'the-events-calendar' ); ?></td>
@@ -83,7 +113,6 @@ global $post;
 			}
 			?>
 		</select>
-
 	</td>
 </tr>
 <tr class="linked-post venue">
@@ -97,7 +126,7 @@ global $post;
 			size='6'
 			value='<?php echo ( isset( $_VenueZip ) ? esc_attr( $_VenueZip ) : '' ); ?>'
 		/>
-		</td>
+	</td>
 </tr>
 <tr class="linked-post venue">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'Phone:', 'the-events-calendar' ); ?></td>
@@ -110,7 +139,7 @@ global $post;
 			size='14'
 			value='<?php echo ( isset( $_VenuePhone ) ? esc_attr( $_VenuePhone ) : '' ); ?>'
 		/>
-		</td>
+	</td>
 </tr>
 <tr class="linked-post venue">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'Website:', 'the-events-calendar' ); ?></td>
@@ -123,14 +152,14 @@ global $post;
 			size='14'
 			value='<?php echo ( isset( $_VenueURL ) ? esc_attr( $_VenueURL ) : '' ); ?>'
 		/>
-		</td>
+	</td>
 </tr>
 
 <?php
 $google_map_toggle = false;
 $google_map_link_toggle = false;
 
-if ( $post->post_type != Tribe__Events__Main::VENUE_POST_TYPE ) {
+if ( empty( $post->post_type ) || $post->post_type != Tribe__Events__Main::VENUE_POST_TYPE ) {
 	if ( tribe_get_option( 'embedGoogleMaps', true ) ) { // Only show if embed option selected
 		$google_map_toggle = ( tribe_embed_google_map( $post->ID ) || get_post_status( $post->ID ) == 'auto-draft' ) ? true : false;
 		?>

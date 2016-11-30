@@ -523,7 +523,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
-			add_action( 'tribe_venue_table_top', array( $this, 'displayEventVenueDropdown' ) );
+
 			add_action( 'tribe_venue_table_top', array( $this, 'display_rich_snippets_helper' ), 5 );
 
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
@@ -1756,12 +1756,51 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Display a helper for the user, about the location and microdata for rich snippets
+		 * @param int $postId the event ID to see if the helper is needed
+		 */
+		public function display_rich_snippets_helper( $post_id ) {
+			// Avoid showing this message if we are on the Front End
+			if ( ! is_admin() ) {
+				return;
+			}
+
+			$venue_id = get_post_meta( $post_id, '_EventVenueID', true );
+			if (
+				( ! $post_id || get_post_status( $post_id ) == 'auto-draft' ) &&
+				! $venue_id &&
+				tribe_is_community_edit_event_page()
+			) {
+				$venue_id = $this->defaults()->venue_id();
+			}
+			$venue_id = apply_filters( 'tribe_display_event_venue_dropdown_id', $venue_id );
+
+			// If there is a Venue of some sorts, don't display this message
+			if ( $venue_id ) {
+				return;
+			}
+			?>
+			<tr class="tribe-rich-snippet-notice">
+				<td colspan="2"><?php printf( esc_html__( 'Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results.', 'the-events-calendar' ), '<a href="https://support.google.com/webmasters/answer/164506" target="_blank">', '</a>' ) ?></td>
+			</tr>
+			<?php
+		}
+
+		/**
 		 * displays the saved venue dropdown in the event metabox
 		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
+		 *
+		 * @deprecated 4.4
 		 *
 		 * @param int $post_id the event ID for which to create the dropdown
 		 */
 		public function displayEventVenueDropdown( $post_id ) {
+			_deprecated_function(
+				__FUNCTION__,
+				'Tribe__Events__Linked_Posts__Chooser_Meta_Box( $event_id, "tribe_venue" )->render()',
+				'4.4'
+			);
+
 			$venue_id = get_post_meta( $post_id, '_EventVenueID', true );
 
 			// Strange but true: the following func lives in core so is safe to call without a func_exists check
@@ -1805,44 +1844,21 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Display a helper for the user, about the location and microdata for rich snippets
-		 * @param int $postId the event ID to see if the helper is needed
-		 */
-		public function display_rich_snippets_helper( $post_id ) {
-			// Avoid showing this message if we are on the Front End
-			if ( ! is_admin() ) {
-				return;
-			}
-
-			$venue_id = get_post_meta( $post_id, '_EventVenueID', true );
-			if (
-				( ! $post_id || get_post_status( $post_id ) == 'auto-draft' ) &&
-				! $venue_id &&
-				tribe_is_community_edit_event_page()
-			) {
-				$venue_id = $this->defaults()->venue_id();
-			}
-			$venue_id = apply_filters( 'tribe_display_event_venue_dropdown_id', $venue_id );
-
-			// If there is a Venue of some sorts, don't display this message
-			if ( $venue_id ) {
-				return;
-			}
-			?>
-			<tr class="">
-				<td colspan="2"><?php printf( esc_html__( 'Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results.', 'the-events-calendar' ), '<a href="https://support.google.com/webmasters/answer/164506" target="_blank">', '</a>' ) ?></td>
-			</tr>
-			<?php
-		}
-
-		/**
 		 * displays the saved organizer dropdown in the event metabox
 		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
+		 *
+		 * @deprecated 4.4
 		 *
 		 * @param int $post_id the event ID for which to create the dropdown
 		 *
 		 */
 		public function displayEventOrganizerDropdown( $post_id ) {
+			_deprecated_function(
+				__FUNCTION__,
+				'Tribe__Events__Linked_Posts__Chooser_Meta_Box( $event_id, "tribe_organizer" )->render()',
+				'4.4'
+			);
+
 			$current_organizer = get_post_meta( $post_id, '_EventOrganizerID', true );
 
 			if (
@@ -1859,7 +1875,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				<td>
 					<label for="saved_organizer"><?php printf( esc_html__( 'Use Saved %s:', 'the-events-calendar' ), $this->singular_organizer_label ); ?></label>
 				</td>
-				<td><?php $this->saved_organizers_dropdown( $current_organizer ); ?> <div class="edit-organizer-link"<?php if ( empty( $current_organizer ) ) { ?> style="display:none;"<?php } ?>><a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $current_organizer ) ) ); ?>" target="_blank"><?php echo esc_html( sprintf( __( 'Edit %s', 'the-events-calendar' ), $this->singular_organizer_label ) ); ?></a></div></td>
+				<td>
+					<?php $this->saved_organizers_dropdown( $current_organizer ); ?>
+					<div class="edit-organizer-link"<?php if ( empty( $current_organizer ) ) { ?> style="display:none;"<?php } ?>>
+						<a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $current_organizer ) ) ); ?>" target="_blank">
+							<?php echo esc_html( sprintf( __( 'Edit %s', 'the-events-calendar' ), $this->singular_organizer_label ) ); ?>
+						</a>
+					</div>
+				</td>
 			</tr>
 		<?php
 		}
@@ -4935,9 +4958,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.customizer.single-event', new Tribe__Events__Customizer__Single_Event() );
 			tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
 
-			//iCal
+			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
 			tribe( 'tec.iCal' );
+
+
 		}
 	}
 } // end if !class_exists Tribe__Events__Main

@@ -146,17 +146,19 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		$linked_post_type_id_field  = $this->linked_posts->get_post_type_id_field_index( $this->post_type );
 		?>
 		<tr class="saved-linked-post">
-			<td class="saved-organizer-table-cell"><?php
-				$this->move_handle();
-				?><label data-l10n-create-<?php echo esc_attr( $this->post_type ); ?>="<?php printf( esc_attr__( 'Create New %s', 'the-events-calendar' ), $this->singular_name ); ?>"><?php printf( esc_html__( 'Use Saved %s:', 'the-events-calendar' ), $this->singular_name ); ?></label>
+			<td class="saved-organizer-table-cell">
+				<?php $this->move_handle(); ?>
+				<label data-l10n-create-<?php echo esc_attr( $this->post_type ); ?>="<?php printf( esc_attr__( 'Create New %s', 'the-events-calendar' ), $this->singular_name ); ?>"><?php printf( esc_html__( 'Use Saved %s:', 'the-events-calendar' ), $this->singular_name ); ?></label>
 			</td>
-			<td><?php
+			<td>
+			<?php
 				$this->linked_posts->saved_linked_post_dropdown( $this->post_type, $linked_post_id );
 				$this->edit_post_link( $linked_post_id );
 				if ( ! empty( $this->linked_posts->linked_post_types[ $this->post_type ]['allow_multiple'] ) ) {
 					$this->delete_handle();
 				}
-			?></td>
+			?>
+			</td>
 		</tr>
 		<?php
 	}
@@ -170,17 +172,21 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	protected function edit_post_link( $linked_post_id ) {
 		$linked_post_pto = get_post_type_object( $this->post_type );
 		if (
-			empty( $linked_post_pto->cap->create_posts )
-			|| ! current_user_can( $linked_post_pto->cap->create_posts )
+			empty( $linked_post_pto->cap->edit_others_posts )
+			|| ! current_user_can( $linked_post_pto->cap->edit_others_posts )
 		) {
 			return;
 		}
 		?>
-		<div class="edit-linked-post-link"><a
-				<?php if ( empty( $linked_post_id ) ) { ?> style="display:none;"<?php } ?>
+		<div class="edit-linked-post-link">
+			<a
+				style="<?php echo esc_attr( empty( $linked_post_id ) ? 'display: none;' : 'display: inline-block;' ); ?>"
 				data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>"
 				href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $linked_post_id ) ) ); ?>"
-				target="_blank"><?php printf( esc_html__( 'Edit %s', 'the-events-calendar' ), esc_html( $this->singular_name ) ); ?></a>
+				target="_blank"
+			>
+				<?php printf( esc_html__( 'Edit %s', 'the-events-calendar' ), esc_html( $this->singular_name ) ); ?>
+			</a>
 		</div>
 		<?php
 	}
@@ -288,6 +294,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		// filter out any non-truthy values
 		$current_linked_posts = array_filter( $current_linked_posts );
 
+		// We don't have any items
 		$has_no_current_linked_posts = empty( $current_linked_posts );
 		$submitted_data_contains_candidate_linked_posts = ! empty( $_POST[ $linked_post_type_container ] );
 
