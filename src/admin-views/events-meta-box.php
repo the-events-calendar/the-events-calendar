@@ -115,7 +115,7 @@ $events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 								tabindex="<?php tribe_events_tab_index(); ?>"
 								name="EventTimezone"
 								id="event-timezone"
-								class="tribe-field-timezone"
+								class="tribe-field-timezone tribe-dropdown hide-if-js"
 								data-timezone-label="<?php esc_attr_e( 'Timezone:', 'the-events-calendar' ) ?>"
 								data-timezone-value="<?php echo esc_attr( Tribe__Events__Timezones::get_event_timezone_string() ) ?>"
 							>
@@ -210,7 +210,12 @@ $events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 						value='<?php echo isset( $_EventCurrencySymbol ) ? esc_attr( $_EventCurrencySymbol ) : tribe_get_option( 'defaultCurrencySymbol', '$' ); ?>'
 						class='alignleft'
 					/>
-					<select tabindex="<?php tribe_events_tab_index(); ?>" id="EventCurrencyPosition" name="EventCurrencyPosition">
+					<select
+						tabindex="<?php tribe_events_tab_index(); ?>"
+						id="EventCurrencyPosition"
+						name="EventCurrencyPosition"
+						class="tribe-dropdown"
+					>
 						<?php
 						if ( isset( $_EventCurrencyPosition ) && 'suffix' === $_EventCurrencyPosition ) {
 							$suffix = true;

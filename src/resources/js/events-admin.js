@@ -45,10 +45,11 @@ var tribe_timepickers = tribe_timepickers || {};
 
 		// Attach a Click action the Timezone Link
 		$timezone_link.on( 'click', function( e ) {
+			$timezone = $container.find( obj.selector.timezone ).filter( '.select2-container' );
 			e.preventDefault();
 
 			$timezone_link.hide();
-			$timezone.show().select2();
+			$timezone.show();
 		} );
 
 		// Append the Link to the Timezone
@@ -260,11 +261,6 @@ jQuery( document ).ready( function( $ ) {
 		'month': ['yy-mm', 'm/yy', 'mm/yy', 'm/yy', 'mm/yy', 'm-yy', 'mm-yy', 'm-yy', 'mm-yy']
 	};
 
-	// Initialize Chosen and Select2.
-	$( '.chosen, .tribe-field-dropdown_chosen select' ).chosen();
-	$( '.select2' ).select2( {width: '250px'} );
-	$view_select.select2( {width: '250px'} );
-
 	// initialize the category hierarchy checkbox - scroll to closest checked checkbox
 	$( '[data-wp-lists="list:tribe_events_cat"]' ).each( function() {
 		var $list = $( this );
@@ -284,22 +280,10 @@ jQuery( document ).ready( function( $ ) {
 	$( viewCalLinkHTML )
 		.insertAfter( '.edit-php.post-type-tribe_events #wpbody-content .wrap h2:eq(0) a' );
 
-	if ( $template_select.length && $template_select.val() === '' ) {
-
-		var t_name = $template_select.find( "option:selected" ).text();
-
-		$template_select
-			.prev( '.select2-container' )
-			.children()
-			.children( 'span' )
-			.text( t_name );
-	}
-
 	//not done by default on front end
 	function get_datepicker_num_months() {
 		return ( is_community_edit && $(window).width() < 768 ) ? 1 : 3;
 	}
-
 
 	var setup_linked_post_fields = function( post_type ) {
 		var saved_template = $( document.getElementById( 'tmpl-tribe-select-' + post_type ) ).length ? wp.template( 'tribe-select-' + post_type ) : null;

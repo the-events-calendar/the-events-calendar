@@ -1967,10 +1967,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// settings screen
 			if ( $admin_helpers->is_screen( 'settings_page_tribe-settings' ) ) {
-
-				// chosen
-				Tribe__Events__Template_Factory::asset_package( 'chosen' );
-
 				// JS admin
 				Tribe__Events__Template_Factory::asset_package( 'admin' );
 
@@ -1986,16 +1982,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( $admin_helpers->is_screen( 'widgets' ) ) {
 				Tribe__Events__Template_Factory::asset_package( 'tribe-select2' );
-				Tribe__Events__Template_Factory::asset_package( 'chosen' );
 				Tribe__Events__Template_Factory::asset_package( 'admin' );
 			}
 
 			// events, organizer, or venue editing
 			if ( $admin_helpers->is_post_type_screen() ) {
-
-				// chosen
-				Tribe__Events__Template_Factory::asset_package( 'chosen' );
-
 				// select 2
 				Tribe__Events__Template_Factory::asset_package( 'tribe-select2' );
 

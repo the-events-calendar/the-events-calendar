@@ -568,7 +568,7 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured {
-	background: #f2f0f1;
+	background: #0ea0d7;
 	margin-bottom: 32px;
 	margin-bottom: 2rem;
 	padding: 0 24px 16px;
@@ -592,13 +592,39 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost span {
-	background: #fff;
+	background: rgba( 255, 255, 255, .2 );
+	border: 0;
+	border-radius: 3px;
+	color: #fff;
+	font-weight: normal;
 }
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-list-event-title {
 	display: inline-block;
 	margin-top: 24px;
 	margin-top: 1.5rem;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-list-event-title a {
+	color: #fff;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-meta {
+	color: rgba( 255, 255, 255, .7 );
+	font-weight: normal;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-content {
+	color: rgba( 255, 255, 255, .9 );
+}
+
+.tribe-events-list .tribe-events-loop .tribe-event-featured a {
+	color: rgba( 255, 255, 255, .7 );
+}
+
+.tribe-events-list .tribe-events-loop .tribe-event-featured a:active,
+			.tribe-events-list .tribe-events-loop .tribe-event-featured a:hover {
+	color: rgba( 255, 255, 255, .9 );
 }
 
 .tribe-events-list .tribe-events-loop .tribe-events-image {
@@ -984,7 +1010,7 @@ select.tribe-events-dropdown {
 }
 
 #tribe-events-day .tribe-event-featured {
-	background: #f2f0f1;
+	background: #0ea0d7;
 	margin-bottom: 32px;
 	margin-bottom: 2rem;
 	padding: 0 24px 16px;
@@ -1014,13 +1040,39 @@ select.tribe-events-dropdown {
 }
 
 #tribe-events-day .tribe-event-featured .tribe-events-event-cost span {
-	background: #fff;
+	background: rgba( 255, 255, 255, .2 );
+	border: 0;
+	border-radius: 3px;
+	color: #fff;
+	font-weight: normal;
 }
 
 #tribe-events-day .tribe-event-featured .tribe-events-list-event-title {
 	display: inline-block;
 	margin-top: 24px;
 	margin-top: 1.5rem;
+}
+
+#tribe-events-day .tribe-event-featured .tribe-events-list-event-title a {
+	color: #fff;
+}
+
+#tribe-events-day .tribe-event-featured .tribe-events-event-meta {
+	color: rgba( 255, 255, 255, .7 );
+	font-weight: normal;
+}
+
+#tribe-events-day .tribe-event-featured .tribe-events-content {
+	color: rgba( 255, 255, 255, .9 );
+}
+
+#tribe-events-day .tribe-event-featured a {
+	color: rgba( 255, 255, 255, .7 );
+}
+
+#tribe-events-day .tribe-event-featured a:active,
+			#tribe-events-day .tribe-event-featured a:hover {
+	color: rgba( 255, 255, 255, .9 );
 }
 
 #tribe-events-day .type-tribe_events {
@@ -1188,6 +1240,11 @@ select.tribe-events-dropdown {
 	padding: 6px calc( 5% + 8px );
 }
 
+.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured.post-108,
+		.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured.post-110 {
+	background: #0ea0d7;/* TEC logo *//*background: #1CA8C7; /* Tribe Blue *//*background: #157f9d; /* Blue Mountain *//*background: #078e87; /* Clear Sea *//*background: #2B474F; /* Nightfall *//*background: #2f3750; /* Dark Steel *//*background: #F4AF49; /* Cali Sun *//*background: #416D53; /* Evergreen */
+}
+
 .events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured .tribe-events-month-event-title a {
 	color: #fff;
 }
@@ -1338,7 +1395,7 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-list-widget .tribe-event-featured {
-	background: #f2f0f1;
+	background: #0ea0d7;
 	padding-bottom: 12px;
 	padding-bottom: .75rem;
 }

@@ -1,8 +1,4 @@
 jQuery( document ).ready( function( $ ) {
-
-	// init chosen
-	$( '.tribe-field-dropdown_chosen select' ).chosen();
-
 	updateMapsFields();
 
 	// toggle view of the google maps size fields
