@@ -315,6 +315,8 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.3.4] TBD =
+
 = [4.3.3] 2016-11-16 =
 
 * Feature - Added Tribe Extension class and loader, to make small addons easier to build [68188]
