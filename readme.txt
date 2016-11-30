@@ -317,6 +317,8 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.3.4] TBD =
 
+* Fix - fixed an issue where Facebook featured images would not be set on import [69465]
+
 = [4.3.3] 2016-11-16 =
 
 * Feature - Added Tribe Extension class and loader, to make small addons easier to build [68188]
