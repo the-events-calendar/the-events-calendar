@@ -2334,9 +2334,21 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					&& $wp_query->is_main_query()
 					&& ! empty( $wp_query->tribe_is_event_query )
 				) {
-					$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'list' );
+					$using_permalinks = get_option( 'permalink_structure' );
 
-					if ( ! empty( $wp_query->query_vars['embed'] ) ) {
+					if ( $using_permalinks ) {
+						$this->displaying = $wp_query->get( 'eventDisplay', tribe_get_option( 'viewOption', 'list' ) );
+					} else {
+						$this->displaying = $wp_query->get( 'eventDisplay',false );
+						if ( false === $this->displaying ) {
+							$this->displaying = ! empty( $_GET['tribe_event_display'] ) ?
+								filter_var( $_GET['tribe_event_display'], FILTER_SANITIZE_STRING )
+								: tribe_get_option( 'viewOption', 'list' );
+						}
+					}
+
+					$embed = $wp_query->get( 'embed' );
+					if ( ! empty( $embed ) ) {
 						$this->displaying = 'embed';
 					} elseif ( is_single() && $this->displaying != 'all' ) {
 						$this->displaying = 'single-event';
