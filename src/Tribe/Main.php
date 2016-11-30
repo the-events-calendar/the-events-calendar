@@ -2347,7 +2347,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						}
 					}
 
-					if ( ! empty( $wp_query->get( 'embed' ) ) ) {
+					$embed = $wp_query->get( 'embed' );
+					if ( ! empty( $embed ) ) {
 						$this->displaying = 'embed';
 					} elseif ( is_single() && $this->displaying != 'all' ) {
 						$this->displaying = 'single-event';
