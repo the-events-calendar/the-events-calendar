@@ -89,19 +89,18 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 
 			$template .= '
 				.tribe-events-list .tribe-events-loop .tribe-event-featured,
-				.tribe-events-list #tribe-events-day.tribe-events-loop .tribe-event-featured,
-				#tribe-events-content .tribe-events-tooltip.tribe-event-featured {
+				.tribe-events-list #tribe-events-day.tribe-events-loop .tribe-event-featured {
 					background-color: ' . $background_color . ';
 				}
 
-				.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured {
+				#tribe-events-content table.tribe-events-calendar .type-tribe_events.tribe-event-featured {
 					background-color: ' . $background_color . ';
 				}
 
 				.tribe-events-list-widget .tribe-event-featured,
 				.tribe-events-venue-widget .tribe-event-featured,
 				.tribe-mini-calendar-list-wrapper .tribe-event-featured,
-				.tribe-events-adv-list-widget .tribe-event-featured {
+				.tribe-events-adv-list-widget .tribe-event-featured .tribe-mini-calendar-event {
 					background-color: ' . $background_color . ';
 				}
 			';
@@ -110,7 +109,6 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 				$template .= '
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost span,
 					#tribe-events-content.tribe-events-list .tribe-events-loop .tribe-event-featured [class*="-event-title"] a,
-					#tribe-events-content .tribe-event-featured.tribe-events-tooltip .entry-title,
 					.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured .tribe-events-month-event-title a,
 					.tribe-mini-calendar-list-wrapper .tribe-event-featured .tribe-events-title a,
 					.tribe-events-adv-list-widget .tribe-event-featured .tribe-events-title a {
@@ -122,7 +120,6 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-content,
 					.tribe-events-list #tribe-events-day.tribe-events-loop .tribe-event-featured,
 					.tribe-events-list #tribe-events-day.tribe-events-loop .tribe-event-featured .entry-summary,
-					#tribe-events-content .tribe-event-featured.tribe-events-tooltip,
 					.tribe-events-list-widget .tribe-event-featured,
 					.tribe-events-venue-widget .tribe-event-featured,
 					.tribe-mini-calendar-list-wrapper .tribe-event-featured,
@@ -131,7 +128,6 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 					}
 
 					#tribe-events-content.tribe-events-list .tribe-events-loop .tribe-event-featured a,
-					#tribe-events-content .tribe-event-featured.tribe-events-tooltip a,
 					.tribe-events-list-widget .tribe-event-featured a,
 					.tribe-events-venue-widget .tribe-event-featured a,
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-meta {
@@ -140,8 +136,6 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 
 					#tribe-events-content.tribe-events-list .tribe-events-loop .tribe-event-featured a:active,
 					#tribe-events-content.tribe-events-list .tribe-events-loop .tribe-event-featured a:hover,
-					#tribe-events-content .tribe-event-featured.tribe-events-tooltip a:active,
-					#tribe-events-content .tribe-event-featured.tribe-events-tooltip a:hover,
 					.tribe-events-list-widget .tribe-event-featured a:active,
 					.tribe-events-list-widget .tribe-event-featured a:hover,
 					.tribe-events-venue-widget .tribe-event-featured a:active,

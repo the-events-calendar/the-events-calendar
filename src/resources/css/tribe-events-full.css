@@ -1108,6 +1108,28 @@ select.tribe-events-dropdown {
 	width: 100%;
 }
 
+#tribe-events-content table.tribe-events-calendar .type-tribe_events.tribe-event-featured {
+	background: #0ea0d7;
+	margin: 0;
+	padding: 6px 14px;/* This is a failover if the browser doesn't support calc */
+	padding: 6px calc( 5% + 8px );
+}
+
+.events-archive.events-gridview #tribe-events-content table.tribe-events-calendar .type-tribe_events.tribe-event-featured {
+	margin: 0;
+	padding: 6px 14px;/* This is a failover if the browser doesn't support calc */
+	padding: 6px calc( 5% + 8px );
+}
+
+#tribe-events-content table.tribe-events-calendar .type-tribe_events.tribe-event-featured .tribe-events-month-event-title a {
+	color: #fff;
+}
+
+#tribe-events-content table.tribe-events-calendar .type-tribe_events.tribe-event-featured .tribe-events-month-event-title a:active,
+					#tribe-events-content table.tribe-events-calendar .type-tribe_events.tribe-event-featured .tribe-events-month-event-title a:hover {
+	color: #eee;
+}
+
 #tribe-events-content table.tribe-events-calendar,
 	#tribe-events-content .tribe-events-calendar td {
 	border: 1px solid #bbb;
@@ -1231,27 +1253,6 @@ select.tribe-events-dropdown {
 	border-bottom: 1px solid #e7e7e7;
 	margin: 0 5%;
 	padding: 6px 8px;
-}
-
-.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured {
-	background: #666;
-	margin: 0;
-	padding: 6px 14px;/* This is a failover if the browser doesn't support calc */
-	padding: 6px calc( 5% + 8px );
-}
-
-.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured.post-108,
-		.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured.post-110 {
-	background: #0ea0d7;/* TEC logo *//*background: #1CA8C7; /* Tribe Blue *//*background: #157f9d; /* Blue Mountain *//*background: #078e87; /* Clear Sea *//*background: #2B474F; /* Nightfall *//*background: #2f3750; /* Dark Steel *//*background: #F4AF49; /* Cali Sun *//*background: #416D53; /* Evergreen */
-}
-
-.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured .tribe-events-month-event-title a {
-	color: #fff;
-}
-
-.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured .tribe-events-month-event-title a:active,
-				.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured .tribe-events-month-event-title a:hover {
-	color: #eee;
 }
 
 .events-archive.events-gridview #tribe-events-content table .tribe-events-last {
