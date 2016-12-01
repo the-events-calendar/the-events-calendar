@@ -122,6 +122,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost span,
 					#tribe-events-content.tribe-events-list .tribe-events-loop .tribe-event-featured [class*="-event-title"] a,
 					#tribe-events-content table.tribe-events-calendar .type-tribe_events.tribe-event-featured [class*="-event-title"] a,
+					#tribe-events-content table.tribe-events-calendar .type-tribe_events.tribe-event-featured [class*="-event-title"] a:hover,
 					.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured .tribe-events-month-event-title a,
 					.tribe-grid-body .tribe-event-featured.tribe-events-week-hourly-single a,
 					.tribe-mini-calendar-list-wrapper .tribe-event-featured .tribe-events-title a,
