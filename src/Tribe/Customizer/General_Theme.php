@@ -89,7 +89,9 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 
 			$template .= '
 				.tribe-events-list .tribe-events-loop .tribe-event-featured,
-				.tribe-events-list #tribe-events-day.tribe-events-loop .tribe-event-featured {
+				.tribe-events-list #tribe-events-day.tribe-events-loop .tribe-event-featured,
+				.type-tribe_events.tribe-events-photo-event.tribe-event-featured .tribe-events-photo-event-wrap,
+				.type-tribe_events.tribe-events-photo-event.tribe-event-featured .tribe-events-photo-event-wrap:hover {
 					background-color: ' . $background_color . ';
 				}
 
@@ -111,7 +113,8 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 					#tribe-events-content.tribe-events-list .tribe-events-loop .tribe-event-featured [class*="-event-title"] a,
 					.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured .tribe-events-month-event-title a,
 					.tribe-mini-calendar-list-wrapper .tribe-event-featured .tribe-events-title a,
-					.tribe-events-adv-list-widget .tribe-event-featured .tribe-events-title a {
+					.tribe-events-adv-list-widget .tribe-event-featured .tribe-events-title a,
+					.tribe-events-adv-list-widget .tribe-event-featured .tribe-mini-calendar-event .tribe-events-title a {
 						color: #000;
 					}
 
@@ -121,15 +124,17 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 					.tribe-events-list #tribe-events-day.tribe-events-loop .tribe-event-featured,
 					.tribe-events-list #tribe-events-day.tribe-events-loop .tribe-event-featured .entry-summary,
 					.tribe-events-list-widget .tribe-event-featured,
-					.tribe-events-venue-widget .tribe-event-featured,
 					.tribe-mini-calendar-list-wrapper .tribe-event-featured,
 					.tribe-events-adv-list-widget .tribe-event-featured {
 						color: rgba( 0, 0, 0, .9 );
 					}
 
+					.tribe-events-venue-widget .tribe-event-featured,
 					#tribe-events-content.tribe-events-list .tribe-events-loop .tribe-event-featured a,
 					.tribe-events-list-widget .tribe-event-featured a,
 					.tribe-events-venue-widget .tribe-event-featured a,
+					.tribe-events-venue-widget .tribe-event-featured .tribe-event-title a,
+					.tribe-events-adv-list-widget .tribe-event-featured .tribe-events-duration,
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-meta {
 						color: rgba( 0, 0, 0, .7 );
 					}
