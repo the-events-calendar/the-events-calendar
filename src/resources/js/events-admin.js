@@ -596,38 +596,24 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	//show state/province input based on first option in countries list, or based on user input of country
+	$( "#EventCountry" ).change( function () {
+		var $country = $( this );
+			$container = $country.parents( 'table' ).eq( 0 ),
+			$state_dropdown = $container.find( '#s2id_StateProvinceSelect' ),
+			$state_select = $container.find( "#StateProvinceSelect" ),
+			$state_text = $container.find( "#StateProvinceText" ),
+			country = $( this ).val();
 
-	var $state_prov_chzn = $( "#StateProvinceSelect_chosen" ),
-		$state_prov_select = $( "#StateProvinceSelect" ),
-		$state_prov_text = $( "#StateProvinceText" );
-
-
-	function tribeShowHideCorrectStateProvinceInput( country ) {
 		if ( country == 'US' || country == 'United States' ) {
-			$state_prov_chzn.show();
-			if ( $state_prov_chzn.length < 1 ) {
-				$state_prov_select.show();
-			}
-			$state_prov_text.hide();
+			$state_text.hide();
+			$state_select.hide();
+			$state_dropdown.show();
+		} else {
+			$state_text.show();
+			$state_select.hide();
+			$state_dropdown.hide();
 		}
-		else if ( country != '' ) {
-			$state_prov_text.show();
-			$state_prov_chzn.hide();
-			$state_prov_select.hide();
-		}
-		else {
-			$state_prov_text.show();
-			$state_prov_chzn.hide();
-			$state_prov_select.hide();
-		}
-	}
-
-	tribeShowHideCorrectStateProvinceInput( $( "#EventCountry > option:selected" ).val() );
-
-	$( "#EventCountry" ).change( function() {
-		var countryLabel = $( this ).find( 'option:selected' ).val();
-		tribeShowHideCorrectStateProvinceInput( countryLabel );
-	} );
+	} ).trigger( 'change' );
 
 	// EventCoordinates
 	var overwriteCoordinates = {
