@@ -203,7 +203,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		}
 
 		// If we don't have a valid end date, assume today's date
-		$this->vars['EventEndDate'] = ( isset( $end ) && $end ) ? $end : date( $datepicker_format );
+		$this->vars['EventEndDate'] = ( isset( $end ) && $end ) ? $end : date_i18n( $datepicker_format );
 		$this->vars['EventEndTime'] = ( isset( $end_time ) && $end_time ? $end_time : null );
 
 		$this->vars['end_timepicker_step'] = $this->get_timepicker_step( 'end' );
