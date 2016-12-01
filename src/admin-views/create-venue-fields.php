@@ -40,6 +40,7 @@ if ( ! $_POST ) {
 			name='venue[Address][]'
 			size='25'
 			value='<?php echo ( isset( $_VenueAddress ) ? esc_attr( $_VenueAddress ) : '' ); ?>'
+			aria-label="<?php esc_html_e( 'Venue Address', 'the-events-calendar' ); ?>"
 		/>
 	</td>
 </tr>
@@ -52,6 +53,7 @@ if ( ! $_POST ) {
 			name='venue[City][]'
 			size='25'
 			value='<?php echo ( isset( $_VenueCity ) ? esc_attr( $_VenueCity ) : '' ); ?>'
+			aria-label="<?php esc_html_e( 'Venue City', 'the-events-calendar' ); ?>"
 		/>
 	</td>
 </tr>
@@ -76,6 +78,8 @@ if ( ! $_POST ) {
 			tabindex="<?php tribe_events_tab_index(); ?>"
 			name='venue[Country][]'
 			id="EventCountry"
+			aria-label="<?php esc_html_e( 'Venue Country', 'the-events-calendar' ); ?>"
+			
 		>
 			<?php
 			foreach ( $countries as $abbr => $fullname ) {
@@ -105,6 +109,7 @@ if ( ! $_POST ) {
 			tabindex="<?php tribe_events_tab_index(); ?>"
 			id="StateProvinceSelect"
 			name="venue[State]"
+			aria-label="<?php esc_html_e( 'Venue State', 'the-events-calendar' ); ?>"
 		>
 			<option value=""><?php esc_html_e( 'Select a State:', 'the-events-calendar' ); ?></option>
 			<?php
@@ -125,6 +130,7 @@ if ( ! $_POST ) {
 			name='venue[Zip][]'
 			size='6'
 			value='<?php echo ( isset( $_VenueZip ) ? esc_attr( $_VenueZip ) : '' ); ?>'
+			aria-label="<?php esc_html_e( 'Venue Zip Code', 'the-events-calendar' ); ?>"
 		/>
 	</td>
 </tr>
@@ -138,6 +144,7 @@ if ( ! $_POST ) {
 			name='venue[Phone][]'
 			size='14'
 			value='<?php echo ( isset( $_VenuePhone ) ? esc_attr( $_VenuePhone ) : '' ); ?>'
+			aria-label="<?php esc_html_e( 'Venue Phone', 'the-events-calendar' ); ?>"
 		/>
 	</td>
 </tr>
@@ -151,6 +158,7 @@ if ( ! $_POST ) {
 			name='venue[URL][]'
 			size='14'
 			value='<?php echo ( isset( $_VenueURL ) ? esc_attr( $_VenueURL ) : '' ); ?>'
+			aria-label="<?php esc_html_e( 'Venue URL', 'the-events-calendar' ); ?>"
 		/>
 	</td>
 </tr>
@@ -173,6 +181,7 @@ if ( empty( $post->post_type ) || $post->post_type != Tribe__Events__Main::VENUE
 					name="venue[EventShowMap][]"
 					value="1"
 					<?php checked( $google_map_toggle ); ?>
+					aria-label="<?php esc_html_e( 'Show Google Map?', 'the-events-calendar' ); ?>"
 				/>
 			</td>
 		</tr>
@@ -190,6 +199,7 @@ if ( empty( $post->post_type ) || $post->post_type != Tribe__Events__Main::VENUE
 				name="venue[EventShowMapLink][]"
 				value="1"
 				<?php checked( $google_map_link_toggle ); ?>
+				aria-label="<?php esc_html_e( 'Show Google Map Link?', 'the-events-calendar' ); ?>"
 			/>
 		</td>
 	</tr>
