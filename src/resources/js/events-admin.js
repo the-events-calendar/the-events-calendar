@@ -315,8 +315,7 @@ jQuery( document ).ready( function( $ ) {
 			section.find( 'tbody:last' ).before( fields );
 			fields.prepend( dropdown );
 
-			tribe_dropdowns.dropdown( fields.find( '.linked-post-dropdown' ) );
-			fields.find( '.linked-post-dropdown' ).trigger( 'change' );
+			fields.find( '.tribe-dropdown' ).tribe_dropdowns().trigger( 'change' );
 		});
 
 		section.on( 'change', '.linked-post-dropdown', toggle_linked_post_fields );
@@ -392,6 +391,8 @@ jQuery( document ).ready( function( $ ) {
 				add_sticky_linked_post_data( i, tribe_events_linked_posts.post_types[ i ], fields );
 			}
 
+			fields.find( '.tribe-dropdown' ).tribe_dropdowns().trigger( 'change' );
+
 			group.append( fields );
 		} );
 
@@ -435,7 +436,9 @@ jQuery( document ).ready( function( $ ) {
 			$select.val( '' );
 
 			// Display the Fields
-			$group.find( '.linked-post' ).not( '[data-hidden]' ).show();
+			$group
+				.find( '.linked-post' ).not( '[data-hidden]' ).show()
+				.find( '.tribe-dropdown' ).trigger( 'change' );
 		} else {
 			// Hide all fields and remove their values
 			$group.find( '.linked-post' ).hide().find( 'input' ).val( '' );
@@ -596,38 +599,24 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	//show state/province input based on first option in countries list, or based on user input of country
+	$( 'body' ).on( 'change', "#EventCountry", function () {
+		var $country = $( this );
+			$container = $country.parents( 'table' ).eq( 0 ),
+			$state_dropdown = $container.find( '#s2id_StateProvinceSelect' ),
+			$state_select = $container.find( "#StateProvinceSelect" ),
+			$state_text = $container.find( "#StateProvinceText" ),
+			country = $( this ).val();
 
-	var $state_prov_chzn = $( "#StateProvinceSelect_chosen" ),
-		$state_prov_select = $( "#StateProvinceSelect" ),
-		$state_prov_text = $( "#StateProvinceText" );
-
-
-	function tribeShowHideCorrectStateProvinceInput( country ) {
 		if ( country == 'US' || country == 'United States' ) {
-			$state_prov_chzn.show();
-			if ( $state_prov_chzn.length < 1 ) {
-				$state_prov_select.show();
-			}
-			$state_prov_text.hide();
+			$state_text.hide();
+			$state_select.hide();
+			$state_dropdown.show();
+		} else {
+			$state_text.show();
+			$state_select.hide();
+			$state_dropdown.hide();
 		}
-		else if ( country != '' ) {
-			$state_prov_text.show();
-			$state_prov_chzn.hide();
-			$state_prov_select.hide();
-		}
-		else {
-			$state_prov_text.show();
-			$state_prov_chzn.hide();
-			$state_prov_select.hide();
-		}
-	}
-
-	tribeShowHideCorrectStateProvinceInput( $( "#EventCountry > option:selected" ).val() );
-
-	$( "#EventCountry" ).change( function() {
-		var countryLabel = $( this ).find( 'option:selected' ).val();
-		tribeShowHideCorrectStateProvinceInput( countryLabel );
-	} );
+	} ).trigger( 'change' );
 
 	// EventCoordinates
 	var overwriteCoordinates = {
