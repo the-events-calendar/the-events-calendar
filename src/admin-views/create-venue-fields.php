@@ -103,7 +103,7 @@ if ( ! $_POST ) {
 	?>
 	<td class='tribe-table-field-label'><?php esc_html_e( 'State or Province:', 'the-events-calendar' ); ?></td>
 	<td>
-		<input tabindex="<?php tribe_events_tab_index(); ?>" id="StateProvinceText" name="venue[Province][]" type='text' name='' size='25' value='<?php echo esc_attr( $currentProvince ); ?>' />
+		<input tabindex="<?php tribe_events_tab_index(); ?>" id="StateProvinceText" name="venue[Province][]" type='text' name='' size='25' value='<?php echo esc_attr( $currentProvince ); ?>' aria-label="<?php esc_html_e( 'Venue State', 'the-events-calendar' ); ?>" />
 		<select
 			class="tribe-dropdown"
 			tabindex="<?php tribe_events_tab_index(); ?>"
