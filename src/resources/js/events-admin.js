@@ -7,7 +7,8 @@ var tribe_timepickers = tribe_timepickers || {};
 		container  : '.tribe-datetime-block',
 		timepicker : '.tribe-timepicker',
 		all_day    : '#allDayCheckbox',
-		timezone   : '.tribe-field-timezone'
+		timezone   : '.tribe-field-timezone',
+		input      : 'select, input'
 	};
 
 	obj.timepicker = {
@@ -27,10 +28,11 @@ var tribe_timepickers = tribe_timepickers || {};
 		var $container = $( container ),
 			$all_day = $container.find( obj.selector.all_day ),
 			$timepicker = $container.find( obj.selector.timepicker ),
-			$timezone = $container.find( obj.selector.timezone ),
+			$timezone = $container.find( obj.selector.timezone ).not( obj.selector.input ),
+			$input = $container.find( obj.selector.timezone ).filter( obj.selector.input ),
 
 			// Create the Link
-			$timezone_link = $( obj.timezone.link( { label: $timezone.data( 'timezoneLabel' ), timezone: $timezone.data( 'timezoneValue' ) } ) );
+			$timezone_link = $( obj.timezone.link( { label: $input.data( 'timezoneLabel' ), timezone: $input.data( 'timezoneValue' ) } ) );
 
 		// Toggle Timepickers on All Day change
 		$all_day.on( 'change', function() {
