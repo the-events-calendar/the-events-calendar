@@ -616,7 +616,7 @@ jQuery( document ).ready( function( $ ) {
 			$state_select.hide();
 			$state_dropdown.hide();
 		}
-	} ).trigger( 'change' );
+	} ).find( '#EventCountry' ).trigger( 'change' );
 
 	// EventCoordinates
 	var overwriteCoordinates = {
