@@ -1241,6 +1241,18 @@ select.tribe-events-dropdown {
 	color: #000;
 }
 
+.tribe-event-featured .event-is-recurring {
+	color: rgba( 255, 255, 255, .7 );
+}
+
+.tribe-event-featured .event-is-recurring:hover {
+	color: #fff;
+}
+
+.tribe-event-featured .event-is-recurring div {
+	color: rgba( 0, 0, 0, .7 );
+}
+
 .recurring-info-tooltip.tribe-events-tooltip {
 	left: 10px;
 	padding-bottom: .8em;
