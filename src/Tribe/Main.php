@@ -2353,7 +2353,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// If we don't have a Permalink structure we see if we have something on the _GET param
 			if ( ! get_option( 'permalink_structure' ) ) {
-				$display = Tribe__Array::get( $_GET, 'tribe_event_display', $display );
+				$display = Tribe__Utils__Array::get( $_GET, 'tribe_event_display', $display );
 			}
 
 			// Fetch the default if we have nothing
