@@ -3598,8 +3598,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				}
 
 				foreach ( $this->venueTags as $tag ) {
-					if ( $event->ID && isset( $saved ) && $saved ) { //if there is a post AND the post has been saved at least once.
-						$$tag = esc_html( get_post_meta( $event->ID, $tag, true ) );
+					$meta = get_post_meta( $event->ID, $tag, true );
+					if ( ! empty( $meta ) ) {
+						$$tag = esc_html( $meta );
 					} else {
 						$cleaned_tag = str_replace( '_Venue', '', $tag );
 						$$tag = call_user_func( array( $this->defaults(), $cleaned_tag ) );
@@ -3643,9 +3644,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$saved = true;
 				}
 
-				foreach ( $this->organizerTags as $tag ) {
-					if ( $postId && $saved ) { //if there is a post AND the post has been saved at least once.
-						$$tag = get_post_meta( $postId, $tag, true );
+				if ( $postId ) {
+
+					if ( $is_saved ) {
+						$organizer_title = apply_filters( 'the_title', $post->post_title );
+					}
+
+					foreach ( $this->organizerTags as $tag ) {
+						$meta = get_post_meta( $postId, $tag, true );
+						if ( ! empty( $meta ) ) {
+							$$tag = $meta;
+						}
 					}
 				}
 			}
