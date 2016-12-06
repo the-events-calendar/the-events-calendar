@@ -2331,7 +2331,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// If we are in Admin and Not inside of the Default WP AJAX request
-			if ( is_admin() && ! Tribe__Main::instance()->doing_ajax ) {
+			if ( is_admin() && ! Tribe__Main::instance()->doing_ajax() ) {
 				$this->displaying = 'admin';
 				return;
 			}
@@ -2342,7 +2342,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// If we have an embed we just set it and bail
-			$embed = $wp_query->get( 'embed' );
+			$embed = $query->get( 'embed' );
 			if ( ! empty( $embed ) ) {
 				$this->displaying = 'embed';
 				return;
