@@ -460,6 +460,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_filter( 'post_type_archive_link', array( $this, 'event_archive_link' ), 10, 2 );
 			add_filter( 'query_vars', array( $this, 'eventQueryVars' ) );
+			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 1 );
 			add_filter( 'bloginfo_rss', array( $this, 'add_space_to_rss' ) );
 			add_filter( 'post_updated_messages', array( $this, 'updatePostMessage' ) );
 
@@ -494,7 +495,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'tribe_events_csv_import_complete', array( Tribe__Events__Dates__Known_Range::instance(), 'rebuild_known_range' ) );
 			add_action( 'publish_' . self::POSTTYPE, array( $this, 'publishAssociatedTypes' ), 25, 2 );
 			add_action( 'delete_post', array( Tribe__Events__Dates__Known_Range::instance(), 'maybe_rebuild_known_range' ) );
-			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 0 );
 			add_action( 'tribe_events_post_errors', array( 'Tribe__Events__Post_Exception', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'Tribe__Events__Options_Exception', 'displayMessage' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'add_admin_assets' ) );
@@ -2324,37 +2324,50 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Set the displaying class property.
 		 *
 		 */
-		public function setDisplay() {
-			if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-				$this->displaying = 'admin';
-			} else {
-				global $wp_query;
-				if (
-					$wp_query
-					&& $wp_query->is_main_query()
-					&& ! empty( $wp_query->tribe_is_event_query )
-				) {
-					$using_permalinks = get_option( 'permalink_structure' );
-
-					if ( $using_permalinks ) {
-						$this->displaying = $wp_query->get( 'eventDisplay', tribe_get_option( 'viewOption', 'list' ) );
-					} else {
-						$this->displaying = $wp_query->get( 'eventDisplay',false );
-						if ( false === $this->displaying ) {
-							$this->displaying = ! empty( $_GET['tribe_event_display'] ) ?
-								filter_var( $_GET['tribe_event_display'], FILTER_SANITIZE_STRING )
-								: tribe_get_option( 'viewOption', 'list' );
-						}
-					}
-
-					$embed = $wp_query->get( 'embed' );
-					if ( ! empty( $embed ) ) {
-						$this->displaying = 'embed';
-					} elseif ( is_single() && $this->displaying != 'all' ) {
-						$this->displaying = 'single-event';
-					}
-				}
+		public function setDisplay( $query = null ) {
+			// If we didn't get a Query Instance we fetch from the globals
+			if ( ! $query instanceof WP_Query ) {
+				$query = $GLOBALS['wp_query'];
 			}
+
+			// If we are in Admin and Not inside of the Default WP AJAX request
+			if ( is_admin() && ! Tribe__Main::instance()->doing_ajax() ) {
+				$this->displaying = 'admin';
+				return;
+			}
+
+			// Bail if we are not dealing with the main WP Query or a non-event Query
+			if ( ! $query->is_main_query() || empty( $query->tribe_is_event_query ) ) {
+				return;
+			}
+
+			// If we have an embed we just set it and bail
+			$embed = $query->get( 'embed' );
+			if ( ! empty( $embed ) ) {
+				$this->displaying = 'embed';
+				return;
+			}
+
+			// Fetch what ever display we have so far
+			$display = $query->get( 'eventDisplay', false );
+
+			// If we don't have a Permalink structure we see if we have something on the _GET param
+			if ( ! get_option( 'permalink_structure' ) ) {
+				$display = Tribe__Utils__Array::get( $_GET, 'tribe_event_display', $display );
+			}
+
+			// Fetch the default if we have nothing
+			if ( false === $display ) {
+				$display = tribe_get_option( 'viewOption', 'list' );
+			}
+
+			// If single and not All for Recurring events From Pro
+			if ( $query->is_single() && 'all' !== $this->displaying ) {
+				$display = 'single-event';
+			}
+
+			// Only do this by the end
+			$this->displaying = filter_var( $display, FILTER_SANITIZE_STRING );
 		}
 
 		/**
