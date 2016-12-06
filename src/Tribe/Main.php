@@ -3646,7 +3646,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 				if ( $postId ) {
 
-					if ( $is_saved ) {
+					if ( $saved ) {
 						$organizer_title = apply_filters( 'the_title', $post->post_title );
 					}
 
