@@ -333,20 +333,22 @@ jQuery( document ).ready( function( $ ) {
 			}
 
 			var $fields = $( fields );
+			var $rows = $fields.filter( 'tr.linked-post.' + container );
 
 			// bail if the fields are not about this container
-			if ( $fields.filter( 'tr.linked-post.' + container ).length === 0 ) {
+			if ( $rows.length === 0 ) {
 				return;
 			}
 
 			// The linked post type fields also need sticky field behaviour: populate
 			// them if we've been provided with the necessary data to do so
 			var sticky_data = window['tribe_sticky_' + post_type + '_fields'].shift();
+			var sticky_data_added = false;
 
 			if ( 'object' === typeof sticky_data ) {
 				for ( var key in sticky_data ) {
 					// Check to see if we have a field of this name
-					var $field = $( fields ).find( 'input[name="' + container + '[' + key + '][]"]' );
+					var $field = $fields.find( 'input[name="' + container + '[' + key + '][]"]' );
 
 					if ( ! $field.length ) {
 						continue;
@@ -354,7 +356,12 @@ jQuery( document ).ready( function( $ ) {
 
 					// Set the value accordingly
 					$field.val( sticky_data[ key ] );
+					sticky_data_added = true;
 				}
+			}
+
+			if ( sticky_data_added ) {
+				$rows.show();
 			}
 		}
 
@@ -383,16 +390,15 @@ jQuery( document ).ready( function( $ ) {
 			}
 
 			// Populate the fields with any sticky data then add them to the page
-			for ( var i in tribe_events_linked_posts.post_types ) {
-				if ( ! tribe_events_linked_posts.post_types.hasOwnProperty( i ) ) {
+			for ( var post_type in tribe_events_linked_posts.post_types ) {
+				if ( ! tribe_events_linked_posts.post_types.hasOwnProperty( post_type ) ) {
 					continue;
 				}
 
-				add_sticky_linked_post_data( i, tribe_events_linked_posts.post_types[ i ], fields );
+				add_sticky_linked_post_data( post_type, tribe_events_linked_posts.post_types[ post_type ], fields );
 			}
 
 			fields.find( '.tribe-dropdown' ).tribe_dropdowns().trigger( 'change' );
-
 			group.append( fields );
 		} );
 
