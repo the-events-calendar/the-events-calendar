@@ -395,7 +395,7 @@ jQuery( document ).ready( function( $ ) {
 					continue;
 				}
 
-				add_sticky_linked_post_data( post_type, tribe_events_linked_posts.post_types[ i ], fields );
+				add_sticky_linked_post_data( post_type, tribe_events_linked_posts.post_types[ post_type ], fields );
 			}
 
 			fields.find( '.tribe-dropdown' ).tribe_dropdowns().trigger( 'change' );
