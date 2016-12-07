@@ -315,9 +315,12 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.3.4] TBD =
+= [4.3.4] 2016-12-08 =
 
-* Fix - fixed an issue where Facebook featured images would not be set on import [69465]
+* Tweak - Tribe Common now is loaded only once across our plugin suite, improves performance on some cases [65755]
+* Fix - Featured Images for Event Aggregator imports are works as expected again. [69465]
+* Fix - Google Calendar and iCalendar files are now updating it's repective events [68684]
+* Fix - On demand Event Aggregator records will update events corretly [69542]
 
 = [4.3.3] 2016-11-16 =
 
