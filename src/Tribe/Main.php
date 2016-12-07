@@ -87,7 +87,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		public static $dotOrgSupportUrl = 'http://wordpress.org/tags/the-events-calendar';
 
-		protected static $instance;
 		public $rewriteSlug = 'events';
 		public $rewriteSlugSingular = 'event';
 		public $category_slug = 'category';
@@ -214,16 +213,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public static $tribeEventsMuDefaults;
 
 		/**
-		 * Static Singleton Factory Method
+		 * Static Singleton Holder
+		 * @var self
+		 */
+		protected static $instance;
+
+		/**
+		 * Get (and instantiate, if necessary) the instance of the class
 		 *
-		 * @return Tribe__Events__Main
+		 * @return self
 		 */
 		public static function instance() {
-			if ( ! isset( self::$instance ) ) {
-				$className      = __CLASS__;
-				self::$instance = new $className;
+			if ( ! self::$instance ) {
+				self::$instance = new self;
 			}
-
 			return self::$instance;
 		}
 
@@ -242,13 +245,25 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		public function plugins_loaded() {
-			// include the autoloader class
+			/**
+			 * Before any methods from this plugin are called, we initialize our Autoloading
+			 * After this method we can use any `Tribe__` classes
+			 */
 			$this->init_autoloading();
 
-			add_action( 'init', array( $this, 'loadTextDomain' ), 1 );
+			/**
+			 * We need Common to be able to load text domains correctly.
+			 * With that in mind we initialize Common passing the plugin Main class as the context
+			 */
+			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
+
+			/**
+			 * It's important that anything related to Text Domain happens at `init`
+			 * Because of the way $wp_locale works
+			 */
+			add_action( 'init', array( $this, 'setup_l10n_strings' ) );
 
 			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
-
 				$this->addHooks();
 				$this->maybe_load_tickets_framework();
 				$this->loadLibraries();
@@ -287,8 +302,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Load all the required library files.
 		 */
 		protected function loadLibraries() {
-			// initialize the common libraries
-			$this->common();
+			// Setup the Activation page
 			$this->activation_page();
 
 			// Tribe common resources
@@ -324,16 +338,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Common library object accessor method
+		 * Method to initialize Common Object
+		 *
+		 * @deprecated 4.3.4
+		 *
+		 * @return Tribe__Main
 		 */
 		public function common() {
-			static $common;
-
-			if ( ! $common ) {
-				$common = new Tribe__Main( $this );
-			}
-
-			return $common;
+			_deprecated_function( __METHOD__, '4.3.4', 'Tribe__Main::instance( $context )' );
+			return Tribe__Main::instance( $this );
 		}
 
 		/**
@@ -2399,7 +2412,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			return $view;
 		}
 
-		protected function setup_l10n_strings() {
+		public function setup_l10n_strings() {
 			global $wp_locale;
 
 			// Localize month names
