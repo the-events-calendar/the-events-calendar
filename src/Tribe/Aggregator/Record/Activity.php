@@ -226,12 +226,12 @@ class Tribe__Events__Aggregator__Record__Activity {
 	/**
 	 * Fetches a registered Activity counter
 	 *
-	 * @param  string  $slug   The Slug of the Activity
+	 * @param  string  $slug   (optional) The Slug of the Activity
 	 * @param  string  $action (optional) Which action
 	 *
-	 * @return null|array|object
+	 * @return int
 	 */
-	public function count( $slug, $action = null ) {
+	public function count( $slug = null, $action = null ) {
 		$actions = $this->get( $slug );
 
 		if ( empty( $actions ) ) {
@@ -243,9 +243,9 @@ class Tribe__Events__Aggregator__Record__Activity {
 			return array_sum( array_map( 'count', (array) $actions ) );
 		} elseif ( ! empty( $actions->{ $action } ) ) {
 			return count( $actions->{ $action } );
-		} else {
-			return 0;
 		}
+
+		return 0;
 	}
 
 	/**
