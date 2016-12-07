@@ -258,9 +258,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
 
 			/**
-			 * It's important that anything related to Text Domain happens at plugins loaded
+			 * It's important that anything related to Text Domain happens at `init`
+			 * Because of the way $wp_locale works
 			 */
-			$this->setup_l10n_strings();
+			add_action( 'init', array( $this, 'setup_l10n_strings' ) );
 
 			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
 				$this->addHooks();
@@ -2398,7 +2399,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			return $view;
 		}
 
-		protected function setup_l10n_strings() {
+		public function setup_l10n_strings() {
 			global $wp_locale;
 
 			// Localize month names
