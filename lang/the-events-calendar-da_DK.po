@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-11-05 20:14:27+0000\n"
+"PO-Revision-Date: 2016-11-28 12:33:42+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,26 @@ msgstr ""
 "X-Generator: GlotPress/2.3.0-alpha\n"
 "Language: da_DK\n"
 "Project-Id-Version: Plugins - The Events Calendar - Stable (latest release)\n"
+
+#: common/src/admin-views/app-shop.php:31
+#: vendor/tickets/common/src/admin-views/app-shop.php:31
+msgid "Installed"
+msgstr "Installeret"
+
+#: common/src/admin-views/app-shop.php:29
+#: vendor/tickets/common/src/admin-views/app-shop.php:29
+msgid "Installed Add-Ons"
+msgstr "Installerede Add-Ons"
+
+#: common/src/Tribe/Extension.php:368
+#: vendor/tickets/common/src/Tribe/Extension.php:368
+msgid "Unable to run Tribe Extensions. Your website host is running PHP 5.2 or older, and has likely disabled or misconfigured debug_backtrace(). You, or your website host, will need to upgrade PHP or properly configure debug_backtrace() for Tribe Extensions to work."
+msgstr ""
+
+#: common/src/Tribe/Extension.php:144
+#: vendor/tickets/common/src/Tribe/Extension.php:144
+msgid "Tutorial"
+msgstr "Vejledning"
 
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:92
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Plugin_Download.php:92
@@ -2284,8 +2304,8 @@ msgstr ""
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums."
 msgstr ""
 
-#: common/src/admin-views/app-shop.php:32
-#: vendor/tickets/common/src/admin-views/app-shop.php:32
+#: common/src/admin-views/app-shop.php:26
+#: vendor/tickets/common/src/admin-views/app-shop.php:26
 msgid "Buy This Add-On"
 msgstr ""
 
@@ -2363,25 +2383,25 @@ msgid_plural "It looks like you're using %s, but the license keys you supplied d
 msgstr[0] ""
 msgstr[1] ""
 
-#: common/src/Tribe/PUE/Checker.php:648
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:648
+#: common/src/Tribe/PUE/Checker.php:653
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:653
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:621
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:621
+#: common/src/Tribe/PUE/Checker.php:626
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:626
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:595 common/src/Tribe/PUE/Notices.php:269
+#: common/src/Tribe/PUE/Checker.php:600 common/src/Tribe/PUE/Notices.php:269
 #: src/Tribe/Aggregator/Record/Abstract.php:839
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:595
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:600
 #: vendor/tickets/common/src/Tribe/PUE/Notices.php:269
 msgid " (opens in a new window)"
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:593 common/src/Tribe/PUE/Notices.php:267
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:593
+#: common/src/Tribe/PUE/Checker.php:598 common/src/Tribe/PUE/Notices.php:267
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:598
 #: vendor/tickets/common/src/Tribe/PUE/Notices.php:267
 msgid "Renew Your License Now"
 msgstr ""
@@ -2493,44 +2513,44 @@ msgstr "Vælg fra dine eksisterende Eventbrite begivenheder"
 msgid "iCal Importer"
 msgstr "iCal Import"
 
-#: common/src/Tribe/App_Shop.php:152
-#: vendor/tickets/common/src/Tribe/App_Shop.php:152
+#: common/src/Tribe/App_Shop.php:158
+#: vendor/tickets/common/src/Tribe/App_Shop.php:158
 msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:123
-#: vendor/tickets/common/src/Tribe/App_Shop.php:123
+#: common/src/Tribe/App_Shop.php:125
+#: vendor/tickets/common/src/Tribe/App_Shop.php:125
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:145
-#: vendor/tickets/common/src/Tribe/App_Shop.php:145
+#: common/src/Tribe/App_Shop.php:150
+#: vendor/tickets/common/src/Tribe/App_Shop.php:150
 msgctxt "Names of required plugins for Community Tickets"
 msgid "Event Tickets Plus and Community Events"
 msgstr "Event Tickets Plus og Community Events"
 
-#: common/src/Tribe/App_Shop.php:144
-#: vendor/tickets/common/src/Tribe/App_Shop.php:144
+#: common/src/Tribe/App_Shop.php:149
+#: vendor/tickets/common/src/Tribe/App_Shop.php:149
 msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:138
-#: vendor/tickets/common/src/Tribe/App_Shop.php:138
+#: common/src/Tribe/App_Shop.php:142
+#: vendor/tickets/common/src/Tribe/App_Shop.php:142
 msgid "Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go."
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:113
-#: vendor/tickets/common/src/Tribe/App_Shop.php:113
+#: common/src/Tribe/App_Shop.php:114
+#: vendor/tickets/common/src/Tribe/App_Shop.php:114
 msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:132
-#: vendor/tickets/common/src/Tribe/App_Shop.php:132
+#: common/src/Tribe/App_Shop.php:135
+#: vendor/tickets/common/src/Tribe/App_Shop.php:135
 msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:130
-#: vendor/tickets/common/src/Tribe/App_Shop.php:130
+#: common/src/Tribe/App_Shop.php:133
+#: vendor/tickets/common/src/Tribe/App_Shop.php:133
 msgid "Filter Bar"
 msgstr ""
 
@@ -2881,16 +2901,16 @@ msgstr ""
 
 #: vendor/tickets/src/template-tags/tickets.php:241
 msgid "Sold %1$d (units remaining: %2$s%3$s%4$s)"
-msgstr ""
+msgstr "Solgt %1$d (enheder tilbage: %2$s%3$s%4$s)"
 
 #: vendor/tickets/src/template-tags/tickets.php:236
 msgid " pending: %1$d"
-msgstr ""
+msgstr "afventer: %1$d"
 
 #: vendor/tickets/src/template-tags/tickets.php:231
 msgctxt "ticket stock message (cancelled stock)"
 msgid " cancelled: %1$d"
-msgstr ""
+msgstr "aflyst: %1$d"
 
 #: vendor/tickets/src/template-tags/tickets.php:221
 msgid "global inventory"
@@ -3020,7 +3040,7 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:22
 msgid "Selling tickets for recurring events"
-msgstr ""
+msgstr "Salg af billetter for tilbagevendende begivenheder"
 
 #: vendor/tickets/src/admin-views/rsvp-metabox-advanced.php:6
 msgid "(Total available # of this ticket type. Once they're gone, ticket type is sold out.)"
@@ -3036,7 +3056,7 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/meta-box.php:208
 msgid "When will ticket sales occur?"
-msgstr ""
+msgstr "Hvornår skal billeterne frigives?"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:49
 msgid "Edit Venue"
@@ -3065,7 +3085,7 @@ msgstr "Ugyldigt bruger-ID"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:501
 msgid "Invalid Email"
-msgstr ""
+msgstr "Ugyldig email"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:489
 msgid "Empty user and email"
@@ -3093,19 +3113,19 @@ msgstr "Indlæg indsendt."
 
 #: vendor/tickets/src/Tribe/RSVP.php:1390
 msgid "Post published. %1$s"
-msgstr ""
+msgstr "Post udgivet. %1$s"
 
 #: vendor/tickets/src/Tribe/RSVP.php:1386
 msgid "Post updated. %1$s"
-msgstr ""
+msgstr "Post opdateret. %1$s"
 
 #: vendor/tickets/src/Tribe/RSVP.php:1379
 msgid "Return to the %1$sAttendees Report%2$s."
-msgstr ""
+msgstr "Vend tilbage til %1$s deltager rapporten%2$s"
 
 #: vendor/tickets/src/Tribe/RSVP.php:1111
 msgid "(deleted)"
-msgstr ""
+msgstr "(slettet)"
 
 #: vendor/tickets/src/Tribe/RSVP.php:972
 msgid "In order to RSVP, you must enter your name and a valid email address."
@@ -3117,16 +3137,16 @@ msgstr ""
 
 #: vendor/tickets/src/Tribe/RSVP.php:961
 msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
-msgstr ""
+msgstr "Din tilmelding er modtaget, vi har sendt en bekræftelse til din email."
 
 #: vendor/tickets/src/Tribe/RSVP.php:675
 msgid "Your tickets from %s"
-msgstr ""
+msgstr "Dine biletter fra %s"
 
 #: vendor/tickets/src/Tribe/RSVP.php:232
 msgctxt "Attendee number"
 msgid "Attendee %1$s"
-msgstr ""
+msgstr "Deltager %1$s"
 
 #: vendor/tickets/src/Tribe/Main.php:440
 msgid "Already have Events Tickets Plus? You can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
@@ -3182,7 +3202,7 @@ msgstr ""
 
 #: src/functions/template-tags/day.php:108
 msgid "Next Day"
-msgstr ""
+msgstr "Næste dag"
 
 #: src/functions/template-tags/day.php:106
 msgid "Previous Day"
@@ -3402,7 +3422,7 @@ msgstr ""
 #: common/src/admin-views/tribe-options-help.php:26
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:26
 msgid "Search our support forum"
-msgstr ""
+msgstr "Søg i vores supportforum"
 
 #: common/src/admin-views/tribe-options-help.php:26
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:26
@@ -3422,7 +3442,7 @@ msgstr ""
 #: common/src/admin-views/tribe-options-help.php:24
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:24
 msgid "Check our Knowledgebase"
-msgstr ""
+msgstr "Tjek vores vidensdatabase"
 
 #: common/src/admin-views/tribe-options-help.php:24
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:24
@@ -3452,7 +3472,7 @@ msgstr ""
 #: common/src/admin-views/tribe-options-help.php:15
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:15
 msgid "Knowledgebase"
-msgstr ""
+msgstr "Vidensdatabase"
 
 #: common/src/admin-views/tribe-options-help.php:15
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:15
@@ -3483,8 +3503,8 @@ msgstr ""
 msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:568
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:568
+#: common/src/Tribe/PUE/Checker.php:573
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:573
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
@@ -3530,7 +3550,7 @@ msgstr "Installer %s"
 #: common/src/Tribe/Admin/Help_Page.php:775
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:775
 msgid "Upgrade Plugin"
-msgstr ""
+msgstr "Opgradér plugin"
 
 #: common/src/Tribe/Admin/Help_Page.php:767
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:767
@@ -3542,15 +3562,15 @@ msgstr "Aktivér plugin"
 msgid "Activate %s"
 msgstr "Aktiver %s"
 
-#: common/src/Tribe/Admin/Help_Page.php:233 common/src/Tribe/App_Shop.php:142
+#: common/src/Tribe/Admin/Help_Page.php:233 common/src/Tribe/App_Shop.php:147
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:233
-#: vendor/tickets/common/src/Tribe/App_Shop.php:142
+#: vendor/tickets/common/src/Tribe/App_Shop.php:147
 msgid "Community Tickets"
 msgstr ""
 
-#: common/src/Tribe/Admin/Help_Page.php:224 common/src/Tribe/App_Shop.php:120
+#: common/src/Tribe/Admin/Help_Page.php:224 common/src/Tribe/App_Shop.php:122
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:224
-#: vendor/tickets/common/src/Tribe/App_Shop.php:120
+#: vendor/tickets/common/src/Tribe/App_Shop.php:122
 msgid "Event Tickets Plus"
 msgstr ""
 
@@ -3564,9 +3584,9 @@ msgstr ""
 msgid "Facebook Events"
 msgstr ""
 
-#: common/src/Tribe/Admin/Help_Page.php:192 common/src/Tribe/App_Shop.php:149
+#: common/src/Tribe/Admin/Help_Page.php:192 common/src/Tribe/App_Shop.php:155
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:192
-#: vendor/tickets/common/src/Tribe/App_Shop.php:149
+#: vendor/tickets/common/src/Tribe/App_Shop.php:155
 msgid "Eventbrite Tickets"
 msgstr ""
 
@@ -3606,8 +3626,8 @@ msgstr ""
 #: src/views/month/single-day.php:42
 msgid "View %1$s %2$s"
 msgid_plural "View All %1$s %2$s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Vis %1$s %2$s"
+msgstr[1] "Vis alle %1$s %2$s"
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:54
 msgid "Completed!"
@@ -3787,11 +3807,11 @@ msgstr "Vælg den passende importtype."
 
 #: src/io/csv/admin-views/import.php:21
 msgid "To import organizers or venues:"
-msgstr "For at importere arrangører eller venues:"
+msgstr "For at importere arrangører eller steder:"
 
 #: src/io/csv/admin-views/import.php:20
 msgid "If your events have Organizers or Venues, please import those first."
-msgstr "Hvis dine begivenheder har organisatorer eller venues, så importér dem venligst først."
+msgstr "Hvis dine begivenheder har arrangører eller steder, anbefaler vi at importere dem."
 
 #: src/io/csv/admin-views/import.php:17
 msgid "Import Instructions"
@@ -3912,7 +3932,7 @@ msgstr "Kategori"
 
 #: src/functions/template-tags/day.php:112
 msgid "Tomorrow"
-msgstr "Comoros"
+msgstr "I morgen"
 
 #: src/functions/template-tags/day.php:110
 msgid "Yesterday"
@@ -3940,7 +3960,7 @@ msgstr "Vis:"
 
 #: src/admin-views/widget-admin-list.php:13
 msgid "Title:"
-msgstr "Titel:"
+msgstr "Overskrift:"
 
 #: src/admin-views/create-venue-fields.php:117
 #: src/admin-views/create-venue-fields.php:139
@@ -4053,9 +4073,9 @@ msgid "WordPress "
 msgstr "WordPress "
 
 #: common/src/Tribe/Admin/Help_Page.php:811
-#: common/src/admin-views/app-shop.php:26
+#: common/src/admin-views/app-shop.php:78
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:811
-#: vendor/tickets/common/src/admin-views/app-shop.php:26
+#: vendor/tickets/common/src/admin-views/app-shop.php:78
 msgid "Requires:"
 msgstr "Kræver:"
 
@@ -4069,10 +4089,10 @@ msgstr "Seneste version:"
 msgid "More..."
 msgstr "Mere…"
 
-#: common/src/Tribe/Admin/Help_Page.php:183 common/src/Tribe/App_Shop.php:110
+#: common/src/Tribe/Admin/Help_Page.php:183 common/src/Tribe/App_Shop.php:111
 #: src/Tribe/Main.php:766
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:183
-#: vendor/tickets/common/src/Tribe/App_Shop.php:110
+#: vendor/tickets/common/src/Tribe/App_Shop.php:111
 msgid "Events Calendar PRO"
 msgstr "Events Calendar PRO"
 
@@ -4141,7 +4161,7 @@ msgstr "Avancerede indstillinger"
 
 #: src/admin-views/tribe-options-general.php:194
 msgid "0 = zoomed out; 21 = zoomed in."
-msgstr "0 = zoomed ud; 21 = zoomed ind."
+msgstr "0 = zoomet helt ud; 21 = zoomet helt ind."
 
 #: src/admin-views/tribe-options-general.php:193
 msgid "Google Maps default zoom level"
@@ -4297,7 +4317,7 @@ msgstr "Hvor er min kalender?"
 
 #: src/admin-views/tribe-options-general.php:17
 msgid "Finding your calendar."
-msgstr "Find din calendar."
+msgstr "Find din kalender."
 
 #: src/admin-views/tribe-options-general.php:12
 msgid "Finding & extending your calendar."
@@ -4331,7 +4351,7 @@ msgstr "Vælg det dato format som skal bruges når der vælges dato"
 #: common/src/admin-views/tribe-options-display.php:30
 #: vendor/tickets/common/src/admin-views/tribe-options-display.php:30
 msgid "Datepicker Date Format"
-msgstr "Dato format"
+msgstr "Datoformat"
 
 #: src/admin-views/tribe-options-display.php:114
 msgid "Enter the separator that will be used between the start and end time of an event."
@@ -4339,7 +4359,7 @@ msgstr "Tilføj den seperator som der skal bruges imellem start og slut tidspunk
 
 #: src/admin-views/tribe-options-display.php:113
 msgid "Time range separator"
-msgstr "Tidsangivelses seperator"
+msgstr "Seperator for tidsangivelse"
 
 #: src/admin-views/tribe-options-display.php:76
 msgid "Enter the separator that will be placed between the date and time, when both are shown."
@@ -4347,7 +4367,7 @@ msgstr "Indtast den seperator som skal bruges imellem dato og tidsangivelse, nå
 
 #: src/admin-views/tribe-options-display.php:75
 msgid "Date time separator"
-msgstr "Dato og tid seperator"
+msgstr "Seperator for dato og tid"
 
 #: src/admin-views/tribe-options-display.php:99
 msgid "Enter the format to use for dates that show a month and year only. Used on month view."
@@ -4355,7 +4375,7 @@ msgstr "Indtast det format som skal bruges når der skal vises en måned eller e
 
 #: src/admin-views/tribe-options-display.php:98
 msgid "Month and year format"
-msgstr "Måned og år format"
+msgstr "Format for måned og år"
 
 #: src/admin-views/tribe-options-display.php:91
 msgid "Enter the format to use for displaying dates without a year. Used when showing an event from the current year."
@@ -4393,7 +4413,7 @@ msgstr "Ændr standarden for 3 begivenheder pr. dag i månedsvisning. Bemærk at
 
 #: src/admin-views/tribe-options-display.php:184
 msgid "Month view events per day"
-msgstr "Månedsvisning begivenheder pr. dag"
+msgstr "Antal begivenheder pr. dag i månedsvisning"
 
 #: src/admin-views/tribe-options-display.php:178
 msgid "Check this to use the classic header."
@@ -4457,7 +4477,7 @@ msgstr "Layoutindstillinger"
 
 #: src/admin-views/tribe-options-display.php:49
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
-msgstr "Indstillingerne nedenfor styrer visningen af din kalender. Hvis tingene ikke ser rigtige ud, så prøv at skifte mellem de tre \"style sheet\" muligheder eller vælg en side-skabelon fra dit tema. </p> <p> Der vil være situationer, hvor ingen ud-af-boksen skabelon er 100 % perfekt. Tjek vores <a href=\"%s\"> vores themer's guide </a> for instruktioner om brugerdefinerede ændringer."
+msgstr "Indstillingerne nedenfor styrer visningen af din kalender. Hvis tingene ikke ser rigtige ud, så prøv at skifte mellem de tre \"style sheet\" muligheder eller vælg en side-skabelon fra dit tema. </p> <p> Der vil være situationer, hvor ingen ud-af-boksen skabelon er 100&#37; perfekt. Tjek vores <a href=\"%s\">themer's guide </a> for instruktioner om brugerdefinerede ændringer."
 
 #: src/admin-views/tribe-options-display.php:44
 msgid "Display Settings"
@@ -4485,7 +4505,7 @@ msgstr "Åben billetsalg:"
 
 #: vendor/tickets/src/admin-views/legacy-ticket-fields.php:28
 msgid "(Current sale price - this can be managed via the product editor)"
-msgstr "(Nuværende pris - Dette kan ændres vha. produkt editoren)"
+msgstr "(Nuværende pris - Dette kan ændres vha. produkteditoren)"
 
 #: vendor/tickets/src/admin-views/legacy-ticket-fields.php:24
 msgid "Sale Price:"
@@ -4621,7 +4641,7 @@ msgstr "%s Navn på stedet:"
 
 #: src/admin-views/events-meta-box.php:220
 msgid "Enter a 0 for %s that are free or leave blank to hide the field."
-msgstr "Indsæt et 0 for %s som er gratis eller lad feltet stå tomt for at skjule det"
+msgstr "Skriv 0, hvis %s er gratis. Lad være med at skrive noget, hvis feltet ikke skal vises."
 
 #: src/admin-views/events-meta-box.php:212
 #: src/views/modules/meta/details.php:123
@@ -4656,7 +4676,7 @@ msgstr "URL:"
 
 #: src/admin-views/events-meta-box.php:152
 msgid "%s Website"
-msgstr "%s Website"
+msgstr "%s hjemmeside"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:481
 msgid "Location:"
@@ -4779,10 +4799,10 @@ msgstr "Facebook"
 msgid "Filters"
 msgstr "Filtre"
 
-#: common/src/Tribe/Admin/Help_Page.php:200 common/src/Tribe/App_Shop.php:136
+#: common/src/Tribe/Admin/Help_Page.php:200 common/src/Tribe/App_Shop.php:140
 #: src/admin-views/admin-update-message.php:53
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:200
-#: vendor/tickets/common/src/Tribe/App_Shop.php:136
+#: vendor/tickets/common/src/Tribe/App_Shop.php:140
 msgid "Community Events"
 msgstr "Community begivenheder"
 
@@ -4834,19 +4854,19 @@ msgstr "Listet %s"
 
 #: src/Tribe/iCal.php:113
 msgid "Day's %s"
-msgstr "Dages %s"
+msgstr "Dagens %s"
 
 #: src/Tribe/iCal.php:110
 msgid "Week's %s"
-msgstr "Ugers %s"
+msgstr "Ugens %s"
 
 #: src/Tribe/iCal.php:107
 msgid "Month's %s"
-msgstr "Måneders %s"
+msgstr "Månedens %s"
 
 #: src/Tribe/iCal.php:77
 msgid "iCal Export"
-msgstr "Eksportér"
+msgstr "Gem som iCal"
 
 #: src/Tribe/iCal.php:77
 msgid "Download .ics file"
@@ -4860,7 +4880,7 @@ msgstr "Google kalender"
 
 #: src/Tribe/iCal.php:76
 msgid "Add to Google Calendar"
-msgstr "Tilfø til Google Calendar"
+msgstr "Tilføj til Google kalender"
 
 #: src/Tribe/iCal.php:29
 msgid "%1$s %2$s iCal Feed"
@@ -5099,7 +5119,7 @@ msgstr "Colorado"
 #: common/src/Tribe/View_Helpers.php:320
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:320
 msgid "California"
-msgstr "California"
+msgstr "Californien"
 
 #: common/src/Tribe/View_Helpers.php:319
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:319
@@ -5139,27 +5159,27 @@ msgstr "Yemen"
 #: common/src/Tribe/View_Helpers.php:282
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:282
 msgid "Western Sahara"
-msgstr "Western Sahara"
+msgstr "Vestsahara"
 
 #: common/src/Tribe/View_Helpers.php:281
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:281
 msgid "Wallis And Futuna Islands"
-msgstr "Wallis And Futuna Islands"
+msgstr "Wallis og Futuna"
 
 #: common/src/Tribe/View_Helpers.php:280
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:280
 msgid "Virgin Islands (U.S.)"
-msgstr "Virgin Islands (U.S.)"
+msgstr "Amerikanske Jomfruøer"
 
 #: common/src/Tribe/View_Helpers.php:279
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:279
 msgid "Virgin Islands (British)"
-msgstr "Virgin Islands (British)"
+msgstr "Britiske Jomfruøer"
 
 #: common/src/Tribe/View_Helpers.php:278
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:278
 msgid "Viet Nam"
-msgstr "Viet Nam"
+msgstr "Vietnam"
 
 #: common/src/Tribe/View_Helpers.php:277
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:277
@@ -5174,7 +5194,7 @@ msgstr "Vanuatu"
 #: common/src/Tribe/View_Helpers.php:275
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:275
 msgid "Uzbekistan"
-msgstr "Uzbekistan"
+msgstr "Usbekistan"
 
 #: common/src/Tribe/View_Helpers.php:274
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:274
@@ -5184,17 +5204,17 @@ msgstr "Uruguay"
 #: common/src/Tribe/View_Helpers.php:273
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:273
 msgid "United States Minor Outlying Islands"
-msgstr "United States Minor Outlying Islands"
+msgstr "USA's ydre småøer"
 
 #: common/src/Tribe/View_Helpers.php:272
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:272
 msgid "United Kingdom"
-msgstr "United Kingdom"
+msgstr "Storbritannien"
 
 #: common/src/Tribe/View_Helpers.php:271
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:271
 msgid "United Arab Emirates"
-msgstr "United Arab Emirates"
+msgstr "Forenede Arabiske Emirater"
 
 #: common/src/Tribe/View_Helpers.php:270
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:270
@@ -5214,7 +5234,7 @@ msgstr "Tuvalu"
 #: common/src/Tribe/View_Helpers.php:267
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:267
 msgid "Turks And Caicos Islands"
-msgstr "Turks And Caicos Islands"
+msgstr "Turks- og Caicosøerne"
 
 #: common/src/Tribe/View_Helpers.php:266
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:266
@@ -5224,17 +5244,17 @@ msgstr "Turkmenistan"
 #: common/src/Tribe/View_Helpers.php:265
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:265
 msgid "Turkey"
-msgstr "Turkey"
+msgstr "Tyrkiet"
 
 #: common/src/Tribe/View_Helpers.php:264
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:264
 msgid "Tunisia"
-msgstr "Tunisia"
+msgstr "Tunesien"
 
 #: common/src/Tribe/View_Helpers.php:263
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:263
 msgid "Trinidad And Tobago"
-msgstr "Trinidad And Tobago"
+msgstr "Trinidad og Tobago"
 
 #: common/src/Tribe/View_Helpers.php:262
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:262
@@ -5259,12 +5279,12 @@ msgstr "Thailand"
 #: common/src/Tribe/View_Helpers.php:258
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:258
 msgid "Tanzania, United Republic Of"
-msgstr "Tanzania, United Republic Of"
+msgstr "Tanzania"
 
 #: common/src/Tribe/View_Helpers.php:257
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:257
 msgid "Tajikistan"
-msgstr "Tajikistan"
+msgstr "Tadsjikistan"
 
 #: common/src/Tribe/View_Helpers.php:256
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:256
@@ -5274,17 +5294,17 @@ msgstr "Taiwan"
 #: common/src/Tribe/View_Helpers.php:255
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:255
 msgid "Syrian Arab Republic"
-msgstr "Syrian Arab Republic"
+msgstr "Syrien"
 
 #: common/src/Tribe/View_Helpers.php:254
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:254
 msgid "Switzerland"
-msgstr "Switzerland"
+msgstr "Schweiz"
 
 #: common/src/Tribe/View_Helpers.php:253
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:253
 msgid "Sweden"
-msgstr "Sweden"
+msgstr "Sverige"
 
 #: common/src/Tribe/View_Helpers.php:252
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:252
@@ -5294,12 +5314,12 @@ msgstr "Swaziland"
 #: common/src/Tribe/View_Helpers.php:251
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:251
 msgid "Svalbard And Jan Mayen Islands"
-msgstr "Svalbard And Jan Mayen Islands"
+msgstr "Svalbard og Jan Mayen"
 
 #: common/src/Tribe/View_Helpers.php:250
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:250
 msgid "Suriname"
-msgstr "Suriname"
+msgstr "Surinam"
 
 #: common/src/Tribe/View_Helpers.php:249
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:249
@@ -5309,7 +5329,7 @@ msgstr "Sudan"
 #: common/src/Tribe/View_Helpers.php:248
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:248
 msgid "St. Pierre And Miquelon"
-msgstr "St. Pierre And Miquelon"
+msgstr "Saint-Pierre og Miquelon"
 
 #: common/src/Tribe/View_Helpers.php:247
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:247
@@ -5324,17 +5344,17 @@ msgstr "Sri Lanka"
 #: common/src/Tribe/View_Helpers.php:245
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:245
 msgid "Spain"
-msgstr "Spain"
+msgstr "Spanien"
 
 #: common/src/Tribe/View_Helpers.php:244
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:244
 msgid "South Georgia, South Sandwich Islands"
-msgstr "South Georgia, South Sandwich Islands"
+msgstr "South Georgia og South Sandwich Islands"
 
 #: common/src/Tribe/View_Helpers.php:243
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:243
 msgid "South Africa"
-msgstr "South Africa"
+msgstr "Sydafrika"
 
 #: common/src/Tribe/View_Helpers.php:242
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:242
@@ -5344,17 +5364,17 @@ msgstr "Somalia"
 #: common/src/Tribe/View_Helpers.php:241
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:241
 msgid "Solomon Islands"
-msgstr "Solomon Islands"
+msgstr "Salomonøerne"
 
 #: common/src/Tribe/View_Helpers.php:240
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:240
 msgid "Slovenia"
-msgstr "Slovenia"
+msgstr "Slovenien"
 
 #: common/src/Tribe/View_Helpers.php:239
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:239
 msgid "Slovakia (Slovak Republic)"
-msgstr "Slovakia (Slovak Republic)"
+msgstr "Slovakiet"
 
 #: common/src/Tribe/View_Helpers.php:238
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:238
@@ -5369,12 +5389,12 @@ msgstr "Sierra Leone"
 #: common/src/Tribe/View_Helpers.php:236
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:236
 msgid "Seychelles"
-msgstr "Seychelles"
+msgstr "Seychellerne"
 
 #: common/src/Tribe/View_Helpers.php:235
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:235
 msgid "Serbia"
-msgstr "Serbia"
+msgstr "Serbien"
 
 #: common/src/Tribe/View_Helpers.php:234
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:234
@@ -5384,12 +5404,12 @@ msgstr "Senegal"
 #: common/src/Tribe/View_Helpers.php:233
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:233
 msgid "Saudi Arabia"
-msgstr "Saudi Arabia"
+msgstr "Saudi-Arabien"
 
 #: common/src/Tribe/View_Helpers.php:232
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:232
 msgid "Sao Tome And Principe"
-msgstr "Sao Tome And Principe"
+msgstr "São Tomé og Príncipe"
 
 #: common/src/Tribe/View_Helpers.php:231
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:231
@@ -5404,7 +5424,7 @@ msgstr "Samoa"
 #: common/src/Tribe/View_Helpers.php:229
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:229
 msgid "Saint Vincent And The Grenadines"
-msgstr "Saint Vincent And The Grenadines"
+msgstr "Saint Vincent og Grenadinerne"
 
 #: common/src/Tribe/View_Helpers.php:228
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:228
@@ -5414,7 +5434,7 @@ msgstr "Saint Lucia"
 #: common/src/Tribe/View_Helpers.php:227
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:227
 msgid "Saint Kitts And Nevis"
-msgstr "Saint Kitts And Nevis"
+msgstr "Saint Kitts og Nevis"
 
 #: common/src/Tribe/View_Helpers.php:226
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:226
@@ -5424,12 +5444,12 @@ msgstr "Rwanda"
 #: common/src/Tribe/View_Helpers.php:225
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:225
 msgid "Russian Federation"
-msgstr "Russian Federation"
+msgstr "Rusland"
 
 #: common/src/Tribe/View_Helpers.php:224
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:224
 msgid "Romania"
-msgstr "Romania"
+msgstr "Rumænien"
 
 #: common/src/Tribe/View_Helpers.php:223
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:223
@@ -5454,7 +5474,7 @@ msgstr "Portugal"
 #: common/src/Tribe/View_Helpers.php:219
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:219
 msgid "Poland"
-msgstr "Poland"
+msgstr "Polen"
 
 #: common/src/Tribe/View_Helpers.php:218
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:218
@@ -5584,7 +5604,7 @@ msgstr "Mozambique"
 #: common/src/Tribe/View_Helpers.php:193
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:193
 msgid "Morocco"
-msgstr "Morocco"
+msgstr "Marokko"
 
 #: common/src/Tribe/View_Helpers.php:192
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:192
@@ -6110,17 +6130,17 @@ msgstr "Chad"
 #: common/src/Tribe/View_Helpers.php:87
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:87
 msgid "Central African Republic"
-msgstr "Central African Republic"
+msgstr "Centralafrikanske Republik"
 
 #: common/src/Tribe/View_Helpers.php:86
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:86
 msgid "Cayman Islands"
-msgstr "Cayman Islands"
+msgstr "Caymanøerne"
 
 #: common/src/Tribe/View_Helpers.php:85
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:85
 msgid "Cape Verde"
-msgstr "Cape Verde"
+msgstr "Kap Verde"
 
 #: common/src/Tribe/View_Helpers.php:84
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:84
@@ -6130,7 +6150,7 @@ msgstr "Canada"
 #: common/src/Tribe/View_Helpers.php:83
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:83
 msgid "Cameroon"
-msgstr "Cameroon"
+msgstr "Cameroun"
 
 #: common/src/Tribe/View_Helpers.php:82
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:82
@@ -6150,27 +6170,27 @@ msgstr "Burkina Faso"
 #: common/src/Tribe/View_Helpers.php:79
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:79
 msgid "Bulgaria"
-msgstr "Bulgaria"
+msgstr "Bulgarien"
 
 #: common/src/Tribe/View_Helpers.php:78
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:78
 msgid "Brunei Darussalam"
-msgstr "Brunei Darussalam"
+msgstr "Brunei"
 
 #: common/src/Tribe/View_Helpers.php:77
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:77
 msgid "British Indian Ocean Territory"
-msgstr "British Indian Ocean Territory"
+msgstr "Det britiske territorium i Det Indiske Ocean"
 
 #: common/src/Tribe/View_Helpers.php:76
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:76
 msgid "Brazil"
-msgstr "Brazil"
+msgstr "Brasilien"
 
 #: common/src/Tribe/View_Helpers.php:75
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:75
 msgid "Bouvet Island"
-msgstr "Bouvet Island"
+msgstr "Bouvetøen"
 
 #: common/src/Tribe/View_Helpers.php:74
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:74
@@ -6180,7 +6200,7 @@ msgstr "Botswana"
 #: common/src/Tribe/View_Helpers.php:73
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:73
 msgid "Bosnia And Herzegowina"
-msgstr "Bosnia And Herzegowina"
+msgstr "Bosnien-Hercegovina"
 
 #: common/src/Tribe/View_Helpers.php:72
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:72
@@ -6215,7 +6235,7 @@ msgstr "Belgium"
 #: common/src/Tribe/View_Helpers.php:66
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:66
 msgid "Belarus"
-msgstr "Belarus"
+msgstr "Hviderusland"
 
 #: common/src/Tribe/View_Helpers.php:65
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:65
@@ -6240,17 +6260,17 @@ msgstr "Bahamas"
 #: common/src/Tribe/View_Helpers.php:61
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:61
 msgid "Azerbaijan"
-msgstr "Azerbaijan"
+msgstr "Aserbajdsjan"
 
 #: common/src/Tribe/View_Helpers.php:60
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:60
 msgid "Austria"
-msgstr "Austria"
+msgstr "Østrig"
 
 #: common/src/Tribe/View_Helpers.php:59
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:59
 msgid "Australia"
-msgstr "Australia"
+msgstr "Australien"
 
 #: common/src/Tribe/View_Helpers.php:58
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:58
@@ -6260,7 +6280,7 @@ msgstr "Aruba"
 #: common/src/Tribe/View_Helpers.php:57
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:57
 msgid "Armenia"
-msgstr "Armenia"
+msgstr "Armenien"
 
 #: common/src/Tribe/View_Helpers.php:56
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:56
@@ -6270,12 +6290,12 @@ msgstr "Argentina"
 #: common/src/Tribe/View_Helpers.php:55
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:55
 msgid "Antigua And Barbuda"
-msgstr "Antigua And Barbuda"
+msgstr "Antigua og Barbuda"
 
 #: common/src/Tribe/View_Helpers.php:54
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:54
 msgid "Antarctica"
-msgstr "Antarctica"
+msgstr "Antarktis"
 
 #: common/src/Tribe/View_Helpers.php:53
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:53
@@ -6295,17 +6315,17 @@ msgstr "Andorra"
 #: common/src/Tribe/View_Helpers.php:50
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:50
 msgid "American Samoa"
-msgstr "American Samoa"
+msgstr "Amerikansk Samoa"
 
 #: common/src/Tribe/View_Helpers.php:49
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:49
 msgid "Algeria"
-msgstr "Algeria"
+msgstr "Algeriet"
 
 #: common/src/Tribe/View_Helpers.php:48
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:48
 msgid "Albania"
-msgstr "Albania"
+msgstr "Albanien"
 
 #: common/src/Tribe/View_Helpers.php:47
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:47
@@ -6366,7 +6386,7 @@ msgstr "%s må ikke være det samme som %s."
 #: common/src/Tribe/Validate.php:324
 #: vendor/tickets/common/src/Tribe/Validate.php:324
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
-msgstr "Fejl på grund af manglende værdi som %s kan måle sig mod."
+msgstr "Fejl på grund af manglende værdi som %s kan sammenlignes med."
 
 #: common/src/Tribe/Validate.php:271 common/src/Tribe/Validate.php:288
 #: common/src/Tribe/Validate.php:310
@@ -6420,13 +6440,13 @@ msgstr "Ikke-ekstisterende feldtfunktion fundet"
 #: vendor/tickets/common/src/Tribe/Validate.php:112
 #: vendor/tickets/common/src/Tribe/Validate.php:118
 msgid "Field ID:"
-msgstr "Feldt ID:"
+msgstr "Felt-ID:"
 
 #: common/src/Tribe/Validate.php:76 common/src/Tribe/Validate.php:117
 #: vendor/tickets/common/src/Tribe/Validate.php:76
 #: vendor/tickets/common/src/Tribe/Validate.php:117
 msgid "Invalid or incomplete field passed"
-msgstr "Ugyldigt feldt fundet"
+msgstr "Ugyldigt felt fundet"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:543
 msgid "Attendee List for: %s"
@@ -6560,15 +6580,15 @@ msgstr "Ingen kommende %1$s opført under %2$s. Tjek kommende %3$s for denne kat
 
 #: src/Tribe/Template/Embed.php:59 src/Tribe/Template/Single_Event.php:119
 msgid "This %s has passed."
-msgstr "Denne %s er passeret. "
+msgstr "Denne %s er allerede afholdt. "
 
-#: src/Tribe/Template/Month.php:812
+#: src/Tribe/Template/Month.php:818
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Den ønskede dato \"%s\" er ikke valid &ndash; viser den nuværende måned i stedet. "
 
 #: src/Tribe/Template/Month.php:378 src/Tribe/Template_Factory.php:306
 msgid "There were no results found."
-msgstr "Der blev ikke fundet nogen resultater."
+msgstr "Ingen resultater fundet."
 
 #: src/Tribe/Template/Month.php:376
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
@@ -6661,39 +6681,39 @@ msgstr "%s indstillinger"
 msgid "Events Settings"
 msgstr "Indstillinger for begivenheder"
 
-#: common/src/Tribe/PUE/Checker.php:509
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:509
+#: common/src/Tribe/PUE/Checker.php:514
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:514
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "Hmm &hellip; der er noget galt med denne validator. Kontakt venligst %ssupport.%s:"
 
-#: common/src/Tribe/PUE/Checker.php:563
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:563
+#: common/src/Tribe/PUE/Checker.php:568
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:568
 msgid "Valid Key! Expires on %s"
 msgstr "Gyldig nøgle! Udløber %s"
 
-#: common/src/Tribe/PUE/Checker.php:550
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:550
+#: common/src/Tribe/PUE/Checker.php:555
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:555
 msgid "Sorry, key validation server is not available."
 msgstr "Desværre, nøglevalideringsserveren er ikke tilgængelig."
 
-#: common/src/Tribe/PUE/Checker.php:544
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:544
+#: common/src/Tribe/PUE/Checker.php:549
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:549
 msgid "unknown date"
 msgstr "Ukendt dato"
 
-#: common/src/Tribe/PUE/Checker.php:500
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:500
+#: common/src/Tribe/PUE/Checker.php:505
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:505
 msgid "License key(s) updated."
 msgstr "Licensnøgle(r) opdateret."
 
-#: common/src/Tribe/PUE/Checker.php:418
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:418
+#: common/src/Tribe/PUE/Checker.php:423
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:423
 msgid "A valid license key is required for support and updates"
 msgstr "Der kræves en gyldig licensnøgle for support og opdateringer"
 
-#: common/src/Tribe/PUE/Checker.php:417
+#: common/src/Tribe/PUE/Checker.php:422
 #: src/admin-views/aggregator/status.php:39
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:417
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:422
 msgid "License Key"
 msgstr "Licensnøgle"
 
@@ -6711,7 +6731,7 @@ msgstr "Dag"
 
 #: src/Tribe/Main.php:4467
 msgid "%s From"
-msgstr "%s Fra"
+msgstr "%s fra"
 
 #: src/Tribe/Main.php:4465
 msgid "%s In"
@@ -6728,7 +6748,7 @@ msgstr "Søg efter begivenheder"
 
 #: src/Tribe/Main.php:4412
 msgid "Day"
-msgstr "Vis"
+msgstr "Dag"
 
 #: src/Tribe/Main.php:4395
 msgid "Month"
@@ -7034,7 +7054,7 @@ msgstr "liste"
 msgid "month"
 msgstr "måned"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.2) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:753
