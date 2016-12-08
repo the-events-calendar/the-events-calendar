@@ -44,7 +44,7 @@ class Tribe__Events__Aggregator__Meta_Box {
 	}
 
 	public function render() {
-		$aggregator = Tribe__Events__Aggregator::instance();
+		$aggregator = tribe( 'events-aggregator.main' );
 
 		$event_id = get_the_ID();
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_event_id( $event_id );

@@ -21,6 +21,7 @@ class Tribe__Events__Event_Tickets__Attendees_Report {
 	 */
 	public function add_hooks() {
 		add_action( 'tribe_tickets_attendees_event_details_list_top', array( $this, 'event_details_top' ) );
+		add_action( 'tribe_tickets_plus_report_event_details_list_top', array( $this, 'event_details_top' ) );
 	}
 
 	/**
@@ -34,7 +35,7 @@ class Tribe__Events__Event_Tickets__Attendees_Report {
 		if ( Tribe__Events__Main::POSTTYPE === $post_type ) {
 			echo '
 				<li>
-					<strong>' . esc_html__( 'Start Date:', 'the-events-calendar' ) . '</strong>
+					<strong>' . esc_html__( 'Event Date:', 'the-events-calendar' ) . '</strong>
 					' . tribe_get_start_date( $event_id, false, tribe_get_date_format( true ) ) . ' 
 				</li>
 			';

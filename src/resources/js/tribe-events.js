@@ -729,6 +729,16 @@ Date.prototype.format = function( mask, utc ) {
 			var $tribe_events = $( '#tribe-events' );
 			return ($tribe_events.length && $tribe_events.tribe_has_attr( 'data-category' ) && $tribe_events.data( 'category' ) !== '') ? true : false;
 		},
+
+		/**
+		 * Indicates if the current view is a featured events archive.
+		 *
+		 * @return {boolean}
+		 */
+		is_featured: function() {
+			return $( '#tribe-events' ).data( 'featured' ) == '1';
+		},
+
 		/**
 		 * @function tribe_ev.fn.mobile_class
 		 * @desc tribe_ev.fn.mobile_class adds or removes a mobile class from the body element based on the mobile breakpoint.
@@ -990,7 +1000,11 @@ Date.prototype.format = function( mask, utc ) {
 								data = $.parseJSON( data );
 							}
 
-							$this.append( tribe_tmpl( 'tribe_tmpl_tooltip', data ) );
+							var tooltip_template = $this.hasClass( 'tribe-event-featured' )
+									? 'tribe_tmpl_tooltip_featured'
+									: 'tribe_tmpl_tooltip';
+
+							$this.append( tribe_tmpl( tooltip_template, data ) );
 
 							$tip = $this.find( '.tribe-events-tooltip' );
 						}
@@ -1223,6 +1237,7 @@ Date.prototype.format = function( mask, utc ) {
 		date             : '',
 		datepicker_format: '0',
 		do_string        : false,
+		featured         : false,
 		filters          : false,
 		filter_cats      : false,
 		initial_load     : true,

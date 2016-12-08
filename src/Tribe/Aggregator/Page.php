@@ -122,7 +122,7 @@ class Tribe__Events__Aggregator__Page {
 						'underscore',
 						'tribe-bumpdown',
 						'tribe-dependency',
-						'tribe-events-select2',
+						'tribe-select2',
 						'tribe-ea-facebook-login',
 					),
 				),
@@ -187,7 +187,7 @@ class Tribe__Events__Aggregator__Page {
 	 * @return boolean
 	 */
 	public function is_screen() {
-		return Tribe__Admin__Helpers::instance()->is_screen( $this->ID );
+		return ! empty( $this->ID ) && Tribe__Admin__Helpers::instance()->is_screen( $this->ID );
 	}
 
 	/**
@@ -352,7 +352,7 @@ class Tribe__Events__Aggregator__Page {
 			return false;
 		}
 
-		$aggregator = Tribe__Events__Aggregator::instance();
+		$aggregator = tribe( 'events-aggregator.main' );
 
 		if ( ! $aggregator->is_service_active() ) {
 			return false;

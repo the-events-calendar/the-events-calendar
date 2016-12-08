@@ -318,6 +318,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'eventDisplay' => 'month',
 					'eventDate'    => $_POST['eventDate'],
 					'post_status'  => $post_status,
+					'featured'     => tribe( 'tec.featured_events' )->featured_events_requested(),
 				);
 			}
 
@@ -1034,8 +1035,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			$post = $day['events']->post;
 
-			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
-			$classes         = array();
+			// @todo review whether the erasure of any existing classes is generally desirable
+			$classes = array();
+
 			$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
 			foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
 				$classes[] = 'tribe-events-category-' . $tribe_cat_slug;
@@ -1050,6 +1052,11 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			if ( $day['events']->current_post + 1 == $day['events']->post_count ) {
 				$classes[] = 'tribe-events-last';
+			}
+
+			// Mark 'featured' events
+			if ( tribe( 'tec.featured_events' )->is_featured( $post->ID ) ) {
+				$classes[] = 'tribe-event-featured';
 			}
 
 			return $classes;

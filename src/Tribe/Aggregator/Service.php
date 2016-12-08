@@ -14,6 +14,11 @@ class Tribe__Events__Aggregator__Service {
 	protected $aggregator;
 
 	/**
+	 * @var object
+	 */
+	protected $origins = false;
+
+	/**
 	 * Codes and strings from the EA Service. These only exist here so that they can be translated
 	 * @var array
 	 */
@@ -37,22 +42,23 @@ class Tribe__Events__Aggregator__Service {
 	);
 
 	/**
+	 * @var Tribe__Events__Aggregator__API__Requests
+	 */
+	protected $requests;
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return Tribe__Events__Aggregator__Service
 	 */
 	public static function instance() {
-		if ( ! self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
+		return tribe( 'events-aggregator.service' );
 	}
 
 	/**
 	 * Constructor!
 	 */
-	protected function __construct() {
+	public function __construct( Tribe__Events__Aggregator__API__Requests $requests ) {
 		// These messages are delivered by the EA service and don't need to be registered. They just
 		// need to exist here so that they can be translated
 		$this->service_messages = array(
@@ -78,6 +84,8 @@ class Tribe__Events__Aggregator__Service {
 			'success:import-complete'            => __( 'Import is complete', 'the-events-calendar' ),
 			'success:queued'                     => __( 'Import queued', 'the-events-calendar' ),
 		);
+
+		$this->requests = $requests;
 	}
 
 	/**
@@ -95,6 +103,10 @@ class Tribe__Events__Aggregator__Service {
 
 		// Since we don't need to fetch this key elsewhere
 		$api->key = get_option( 'pue_install_key_event_aggregator' );
+		if ( is_multisite() ) {
+			$network_key = get_network_option( null, 'pue_install_key_event_aggregator' );
+			$api->key = ! empty( $api->key ) && $network_key !== $api->key ? $api->key : $network_key;
+		}
 
 		/**
 		 * Creates a clean way to filter and redirect to another API domain/path
@@ -107,7 +119,7 @@ class Tribe__Events__Aggregator__Service {
 			return tribe_error( 'core:aggregator:invalid-service-key' );
 		}
 
-		$aggregator = Tribe__Events__Aggregator::instance();
+		$aggregator = tribe( 'events-aggregator.main' );
 		$plugin_name = $aggregator->filter_pue_plugin_name( '', 'event-aggregator' );
 
 		$pue_notices = Tribe__Main::instance()->pue_notices();
@@ -173,7 +185,7 @@ class Tribe__Events__Aggregator__Service {
 		 */
 		$timeout_in_seconds = (int) apply_filters( 'tribe_aggregator_connection_timeout', 60 );
 
-		$response = wp_remote_get( esc_url_raw( $url ), array( 'timeout' => $timeout_in_seconds ) );
+		$response = $this->requests->get( esc_url_raw( $url ), array( 'timeout' => $timeout_in_seconds ) );
 
 		if ( is_wp_error( $response ) ) {
 			if ( isset( $response->errors['http_request_failed'] ) ) {
@@ -410,10 +422,9 @@ class Tribe__Events__Aggregator__Service {
 	 * @return array
 	 */
 	public function get_limit( $type, $ignore_cache = false ) {
-		static $origins;
-
-		if ( ! $origins || $ignore_cache ) {
+		if ( false === $this->origins || $ignore_cache ) {
 			$origins = (object) $this->get_origins();
+			$this->origins = $origins;
 		}
 
 		if ( ! isset( $origins->limit->$type ) ) {

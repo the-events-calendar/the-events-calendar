@@ -627,7 +627,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$classes[] = 'tribe-events-last';
 		}
 
+		// Mark 'featured' events
+		if ( tribe( 'tec.featured_events' )->is_featured( $event_id ) ) {
+			$classes[] = 'tribe-event-featured';
+		}
+
 		$classes = apply_filters( 'tribe_events_event_classes', $classes );
+
 		if ( $echo ) {
 			echo implode( ' ', $classes );
 		} else {
@@ -856,16 +862,23 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * return the featured image html to an event (within the loop automatically will get event ID)
+	 * Return the featured image for an event (within the loop automatically will get event ID).
+	 *
+	 * Where possible, the image will be returned as a well formed <img> tag contained in a link
+	 * element and wrapped in a div used for targetting featured images from stylesheet. By setting
+	 * the two final and optional parameters to false, however, it is possible to retrieve only
+	 * the image URL itself.
 	 *
 	 * @category Events
+	 *
 	 * @param int    $post_id
 	 * @param string $size
 	 * @param bool   $link
+	 * @param bool   $wrapper
 	 *
 	 * @return string
 	 */
-	function tribe_event_featured_image( $post_id = null, $size = 'full', $link = true ) {
+	function tribe_event_featured_image( $post_id = null, $size = 'full', $link = true, $wrapper = true ) {
 		if ( is_null( $post_id ) ) {
 			$post_id = get_the_ID();
 		}
@@ -876,8 +889,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string $size
 		 * @param int    $post_id
 		 */
-		$image_html     = get_the_post_thumbnail( $post_id, apply_filters( 'tribe_event_featured_image_size', $size, $post_id ) );
-		$featured_image = '';
+		$size = apply_filters( 'tribe_event_featured_image_size', $size, $post_id );
+
+		$featured_image = $wrapper
+			? get_the_post_thumbnail( $post_id, $size )
+			: wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $size, false );
+
+		if ( is_array( $featured_image ) ) {
+			$featured_image = $featured_image[ 0 ];
+		}
 
 		/**
 		 * Controls whether the featured image should be wrapped in a link
@@ -885,10 +905,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param bool $link
 		 */
-		if ( ! empty( $image_html ) && apply_filters( 'tribe_event_featured_image_link', $link ) ) {
-			$featured_image .= '<div class="tribe-events-event-image"><a href="' . esc_url( tribe_get_event_link() ) . '">' . $image_html . '</a></div>';
-		} elseif ( ! empty( $image_html ) ) {
-			$featured_image .= '<div class="tribe-events-event-image">' . $image_html . '</div>';
+		if ( ! empty( $featured_image ) && apply_filters( 'tribe_event_featured_image_link', $link ) ) {
+			$featured_image = '<a href="' . esc_url( tribe_get_event_link( $post_id ) ) . '">' . $featured_image . '</a>';
+		}
+
+		/**
+		 * Whether to wrap the featured image in our standard div (used to
+		 * assist in targeting featured images from stylesheets, etc).
+		 *
+		 * @param bool $wrapper
+		 */
+		if ( ! empty( $featured_image ) && apply_filters( 'tribe_events_featured_image_wrap', $wrapper ) ) {
+			$featured_image = '<div class="tribe-events-event-image">' . $featured_image . '</div>';
 		}
 
 		/**
@@ -1076,13 +1104,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 				if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
 					$has_image = true;
-					$image_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), 'medium' );
-					$image_src = $image_arr[0];
-				}
-
-				if ( $has_image ) {
-					$image_tool_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), array( 75, 75 ) );
-					$image_tool_src = $image_tool_arr[0];
+					$image_tool_src = tribe_event_featured_image( $event->ID, 'medium', false, false );
 				}
 
 				$category_classes = tribe_events_event_classes( $event->ID, false );
