@@ -87,7 +87,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		public static $dotOrgSupportUrl = 'http://wordpress.org/tags/the-events-calendar';
 
-		protected static $instance;
 		public $rewriteSlug = 'events';
 		public $rewriteSlugSingular = 'event';
 		public $category_slug = 'category';
@@ -98,7 +97,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/** @deprecated 4.0 */
 		public $taxRewriteSlug = 'event/category';
 
-		/** @deprecated 4.0 */
 		/** @deprecated 4.0 */
 		public $tagRewriteSlug = 'event/tag';
 
@@ -214,16 +212,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public static $tribeEventsMuDefaults;
 
 		/**
-		 * Static Singleton Factory Method
+		 * Static Singleton Holder
+		 * @var self
+		 */
+		protected static $instance;
+
+		/**
+		 * Get (and instantiate, if necessary) the instance of the class
 		 *
-		 * @return Tribe__Events__Main
+		 * @return self
 		 */
 		public static function instance() {
-			if ( ! isset( self::$instance ) ) {
-				$className      = __CLASS__;
-				self::$instance = new $className;
+			if ( ! self::$instance ) {
+				self::$instance = new self;
 			}
-
 			return self::$instance;
 		}
 
@@ -242,13 +244,25 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		public function plugins_loaded() {
-			// include the autoloader class
+			/**
+			 * Before any methods from this plugin are called, we initialize our Autoloading
+			 * After this method we can use any `Tribe__` classes
+			 */
 			$this->init_autoloading();
 
-			add_action( 'init', array( $this, 'loadTextDomain' ), 1 );
+			/**
+			 * We need Common to be able to load text domains correctly.
+			 * With that in mind we initialize Common passing the plugin Main class as the context
+			 */
+			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
+
+			/**
+			 * It's important that anything related to Text Domain happens at `init`
+			 * Because of the way $wp_locale works
+			 */
+			add_action( 'init', array( $this, 'setup_l10n_strings' ) );
 
 			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
-
 				$this->loadLibraries();
 				$this->addHooks();
 				$this->maybe_load_tickets_framework();
@@ -289,8 +303,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Load all the required library files.
 		 */
 		protected function loadLibraries() {
-			// initialize the common libraries
-			$this->common();
+			// Setup the Activation page
 			$this->activation_page();
 
 			// Tribe common resources
@@ -331,16 +344,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Common library object accessor method
+		 * Method to initialize Common Object
+		 *
+		 * @deprecated 4.3.4
+		 *
+		 * @return Tribe__Main
 		 */
 		public function common() {
-			static $common;
-
-			if ( ! $common ) {
-				$common = new Tribe__Main( $this );
-			}
-
-			return $common;
+			_deprecated_function( __METHOD__, '4.3.4', 'Tribe__Main::instance( $context )' );
+			return Tribe__Main::instance( $this );
 		}
 
 		/**
@@ -468,6 +480,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_filter( 'post_type_archive_link', array( $this, 'event_archive_link' ), 10, 2 );
 			add_filter( 'query_vars', array( $this, 'eventQueryVars' ) );
+			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 1 );
 			add_filter( 'bloginfo_rss', array( $this, 'add_space_to_rss' ) );
 			add_filter( 'post_updated_messages', array( $this, 'updatePostMessage' ) );
 
@@ -502,7 +515,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'tribe_events_csv_import_complete', array( Tribe__Events__Dates__Known_Range::instance(), 'rebuild_known_range' ) );
 			add_action( 'publish_' . self::POSTTYPE, array( $this, 'publishAssociatedTypes' ), 25, 2 );
 			add_action( 'delete_post', array( Tribe__Events__Dates__Known_Range::instance(), 'maybe_rebuild_known_range' ) );
-			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 0 );
 			add_action( 'tribe_events_post_errors', array( 'Tribe__Events__Post_Exception', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'Tribe__Events__Options_Exception', 'displayMessage' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'add_admin_assets' ) );
@@ -2381,25 +2393,50 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Set the displaying class property.
 		 *
 		 */
-		public function setDisplay() {
-			if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-				$this->displaying = 'admin';
-			} else {
-				global $wp_query;
-				if (
-					$wp_query
-					&& $wp_query->is_main_query()
-					&& ! empty( $wp_query->tribe_is_event_query )
-				) {
-					$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'list' );
-
-					if ( ! empty( $wp_query->query_vars['embed'] ) ) {
-						$this->displaying = 'embed';
-					} elseif ( is_single() && $this->displaying != 'all' ) {
-						$this->displaying = 'single-event';
-					}
-				}
+		public function setDisplay( $query = null ) {
+			// If we didn't get a Query Instance we fetch from the globals
+			if ( ! $query instanceof WP_Query ) {
+				$query = $GLOBALS['wp_query'];
 			}
+
+			// If we are in Admin and Not inside of the Default WP AJAX request
+			if ( is_admin() && ! Tribe__Main::instance()->doing_ajax() ) {
+				$this->displaying = 'admin';
+				return;
+			}
+
+			// Bail if we are not dealing with the main WP Query or a non-event Query
+			if ( ! $query->is_main_query() || empty( $query->tribe_is_event_query ) ) {
+				return;
+			}
+
+			// If we have an embed we just set it and bail
+			$embed = $query->get( 'embed' );
+			if ( ! empty( $embed ) ) {
+				$this->displaying = 'embed';
+				return;
+			}
+
+			// Fetch what ever display we have so far
+			$display = $query->get( 'eventDisplay', false );
+
+			// If we don't have a Permalink structure we see if we have something on the _GET param
+			if ( ! get_option( 'permalink_structure' ) ) {
+				$display = Tribe__Utils__Array::get( $_GET, 'tribe_event_display', $display );
+			}
+
+			// Fetch the default if we have nothing
+			if ( false === $display ) {
+				$display = tribe_get_option( 'viewOption', 'list' );
+			}
+
+			// If single and not All for Recurring events From Pro
+			if ( $query->is_single() && 'all' !== $this->displaying ) {
+				$display = 'single-event';
+			}
+
+			// Only do this by the end
+			$this->displaying = filter_var( $display, FILTER_SANITIZE_STRING );
 		}
 
 		/**
@@ -2431,7 +2468,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			return $view;
 		}
 
-		protected function setup_l10n_strings() {
+		public function setup_l10n_strings() {
 			global $wp_locale;
 
 			// Localize month names
@@ -4961,8 +4998,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
 			tribe( 'tec.iCal' );
-
-
 		}
 	}
 } // end if !class_exists Tribe__Events__Main

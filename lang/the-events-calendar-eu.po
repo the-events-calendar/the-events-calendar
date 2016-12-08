@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-04-14 08:30:39+0000\n"
+"PO-Revision-Date: 2016-12-04 09:33:09+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,30 +11,50 @@ msgstr ""
 "Language: eu_ES\n"
 "Project-Id-Version: Plugins - The Events Calendar - Stable (latest release)\n"
 
+#: common/src/admin-views/app-shop.php:31
+#: vendor/tickets/common/src/admin-views/app-shop.php:31
+msgid "Installed"
+msgstr "Instalatuta"
+
+#: common/src/admin-views/app-shop.php:29
+#: vendor/tickets/common/src/admin-views/app-shop.php:29
+msgid "Installed Add-Ons"
+msgstr "Instalatutako Gehigarriak"
+
+#: common/src/Tribe/Extension.php:368
+#: vendor/tickets/common/src/Tribe/Extension.php:368
+msgid "Unable to run Tribe Extensions. Your website host is running PHP 5.2 or older, and has likely disabled or misconfigured debug_backtrace(). You, or your website host, will need to upgrade PHP or properly configure debug_backtrace() for Tribe Extensions to work."
+msgstr ""
+
+#: common/src/Tribe/Extension.php:144
+#: vendor/tickets/common/src/Tribe/Extension.php:144
+msgid "Tutorial"
+msgstr "Tutoriala"
+
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:92
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Plugin_Download.php:92
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
-msgstr ""
+msgstr "eta"
 
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:91
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Plugin_Download.php:91
 msgctxt "separator used in a list of items"
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:75
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Plugin_Download.php:75
 msgid "To begin using %1$s, please install and activate the latest version of %2$s."
-msgstr ""
+msgstr "%1$s erabiltzen hasteko, instalatu eta aktibatu %2$s(r)en azken bertsioa mesedez."
 
 #: src/Tribe/Aggregator/Service.php:398
 msgid "Unknown service message"
-msgstr ""
+msgstr "Zerbitzu mezu ezezaguna"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:508
 msgid "Unknown"
-msgstr ""
+msgstr "Ezezaguna"
 
 #: src/Tribe/Aggregator/Record/Abstract.php:865
 msgid "When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached."
@@ -42,7 +62,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/refine.php:5
 msgid "Location"
-msgstr ""
+msgstr "Kokalekua"
 
 #: src/admin-views/admin-welcome-message.php:26
 msgid "Stay in touch with The Events Calendar team. We send out periodic updates, key developer notices, and even the occasional discount."
@@ -91,20 +111,20 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/ticket-type-history.php:14
 msgid "Click to hide history"
-msgstr ""
+msgstr "Egin klik historia ezkutatzeko"
 
 #: vendor/tickets/src/admin-views/ticket-type-history.php:13
 msgid "Click to view the history"
-msgstr ""
+msgstr "Egin klik historia ikusteko"
 
 #: vendor/tickets/src/admin-views/ticket-type-history.php:9
 msgid "Ticket history:"
-msgstr ""
+msgstr "Tiket historia:"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:89
 msgctxt "move tickets dialog"
 msgid "Next &raquo;"
-msgstr ""
+msgstr "Hurrengoa &raquo;"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:88
 msgid "Finish!"
@@ -418,7 +438,7 @@ msgstr ""
 #: src/views/single-event.php:28
 msgctxt "%s Events plural label"
 msgid "All %s"
-msgstr ""
+msgstr "%s guztiak"
 
 #: src/io/csv/admin-views/header.php:17
 msgid "Legacy Events Import"
@@ -2284,8 +2304,8 @@ msgstr ""
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums."
 msgstr ""
 
-#: common/src/admin-views/app-shop.php:32
-#: vendor/tickets/common/src/admin-views/app-shop.php:32
+#: common/src/admin-views/app-shop.php:26
+#: vendor/tickets/common/src/admin-views/app-shop.php:26
 msgid "Buy This Add-On"
 msgstr ""
 
@@ -2363,25 +2383,25 @@ msgid_plural "It looks like you're using %s, but the license keys you supplied d
 msgstr[0] ""
 msgstr[1] ""
 
-#: common/src/Tribe/PUE/Checker.php:648
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:648
+#: common/src/Tribe/PUE/Checker.php:653
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:653
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:621
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:621
+#: common/src/Tribe/PUE/Checker.php:626
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:626
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:595 common/src/Tribe/PUE/Notices.php:269
+#: common/src/Tribe/PUE/Checker.php:600 common/src/Tribe/PUE/Notices.php:269
 #: src/Tribe/Aggregator/Record/Abstract.php:839
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:595
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:600
 #: vendor/tickets/common/src/Tribe/PUE/Notices.php:269
 msgid " (opens in a new window)"
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:593 common/src/Tribe/PUE/Notices.php:267
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:593
+#: common/src/Tribe/PUE/Checker.php:598 common/src/Tribe/PUE/Notices.php:267
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:598
 #: vendor/tickets/common/src/Tribe/PUE/Notices.php:267
 msgid "Renew Your License Now"
 msgstr ""
@@ -2493,44 +2513,44 @@ msgstr ""
 msgid "iCal Importer"
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:152
-#: vendor/tickets/common/src/Tribe/App_Shop.php:152
+#: common/src/Tribe/App_Shop.php:158
+#: vendor/tickets/common/src/Tribe/App_Shop.php:158
 msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:123
-#: vendor/tickets/common/src/Tribe/App_Shop.php:123
+#: common/src/Tribe/App_Shop.php:125
+#: vendor/tickets/common/src/Tribe/App_Shop.php:125
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:145
-#: vendor/tickets/common/src/Tribe/App_Shop.php:145
+#: common/src/Tribe/App_Shop.php:150
+#: vendor/tickets/common/src/Tribe/App_Shop.php:150
 msgctxt "Names of required plugins for Community Tickets"
 msgid "Event Tickets Plus and Community Events"
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:144
-#: vendor/tickets/common/src/Tribe/App_Shop.php:144
+#: common/src/Tribe/App_Shop.php:149
+#: vendor/tickets/common/src/Tribe/App_Shop.php:149
 msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:138
-#: vendor/tickets/common/src/Tribe/App_Shop.php:138
+#: common/src/Tribe/App_Shop.php:142
+#: vendor/tickets/common/src/Tribe/App_Shop.php:142
 msgid "Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go."
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:113
-#: vendor/tickets/common/src/Tribe/App_Shop.php:113
+#: common/src/Tribe/App_Shop.php:114
+#: vendor/tickets/common/src/Tribe/App_Shop.php:114
 msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:132
-#: vendor/tickets/common/src/Tribe/App_Shop.php:132
+#: common/src/Tribe/App_Shop.php:135
+#: vendor/tickets/common/src/Tribe/App_Shop.php:135
 msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:130
-#: vendor/tickets/common/src/Tribe/App_Shop.php:130
+#: common/src/Tribe/App_Shop.php:133
+#: vendor/tickets/common/src/Tribe/App_Shop.php:133
 msgid "Filter Bar"
 msgstr ""
 
@@ -3485,8 +3505,8 @@ msgstr "Eskerrik asko Ekitaldi Sarrerak erabiltzeagatik! Modern Tribe-eko kideok
 msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
 msgstr "Urtea duten datak bistaratzeko formatua sartu. Etorkizuneko urte bateko data bat bistaratzean erabiltzen da."
 
-#: common/src/Tribe/PUE/Checker.php:568
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:568
+#: common/src/Tribe/PUE/Checker.php:573
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:573
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
@@ -3544,15 +3564,15 @@ msgstr "Gaitu plugin-a"
 msgid "Activate %s"
 msgstr "Aktibatu %s"
 
-#: common/src/Tribe/Admin/Help_Page.php:233 common/src/Tribe/App_Shop.php:142
+#: common/src/Tribe/Admin/Help_Page.php:233 common/src/Tribe/App_Shop.php:147
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:233
-#: vendor/tickets/common/src/Tribe/App_Shop.php:142
+#: vendor/tickets/common/src/Tribe/App_Shop.php:147
 msgid "Community Tickets"
 msgstr "Komunitate sarrerak"
 
-#: common/src/Tribe/Admin/Help_Page.php:224 common/src/Tribe/App_Shop.php:120
+#: common/src/Tribe/Admin/Help_Page.php:224 common/src/Tribe/App_Shop.php:122
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:224
-#: vendor/tickets/common/src/Tribe/App_Shop.php:120
+#: vendor/tickets/common/src/Tribe/App_Shop.php:122
 msgid "Event Tickets Plus"
 msgstr "Ekitaldi sarrerak plus"
 
@@ -3566,9 +3586,9 @@ msgstr "Ekitaldien iragazki barra"
 msgid "Facebook Events"
 msgstr "Facebook ekitaldiak"
 
-#: common/src/Tribe/Admin/Help_Page.php:192 common/src/Tribe/App_Shop.php:149
+#: common/src/Tribe/Admin/Help_Page.php:192 common/src/Tribe/App_Shop.php:155
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:192
-#: vendor/tickets/common/src/Tribe/App_Shop.php:149
+#: vendor/tickets/common/src/Tribe/App_Shop.php:155
 msgid "Eventbrite Tickets"
 msgstr "Eventbrite sarrerak"
 
@@ -4055,9 +4075,9 @@ msgid "WordPress "
 msgstr "WordPress "
 
 #: common/src/Tribe/Admin/Help_Page.php:811
-#: common/src/admin-views/app-shop.php:26
+#: common/src/admin-views/app-shop.php:78
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:811
-#: vendor/tickets/common/src/admin-views/app-shop.php:26
+#: vendor/tickets/common/src/admin-views/app-shop.php:78
 msgid "Requires:"
 msgstr "Betekizunak:"
 
@@ -4071,10 +4091,10 @@ msgstr "Azkeneko bertsioa:"
 msgid "More..."
 msgstr "Gehiago..."
 
-#: common/src/Tribe/Admin/Help_Page.php:183 common/src/Tribe/App_Shop.php:110
+#: common/src/Tribe/Admin/Help_Page.php:183 common/src/Tribe/App_Shop.php:111
 #: src/Tribe/Main.php:766
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:183
-#: vendor/tickets/common/src/Tribe/App_Shop.php:110
+#: vendor/tickets/common/src/Tribe/App_Shop.php:111
 msgid "Events Calendar PRO"
 msgstr "PRO Ekitaldi Egutegia"
 
@@ -4781,10 +4801,10 @@ msgstr "Facebook"
 msgid "Filters"
 msgstr "Iragazkiak"
 
-#: common/src/Tribe/Admin/Help_Page.php:200 common/src/Tribe/App_Shop.php:136
+#: common/src/Tribe/Admin/Help_Page.php:200 common/src/Tribe/App_Shop.php:140
 #: src/admin-views/admin-update-message.php:53
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:200
-#: vendor/tickets/common/src/Tribe/App_Shop.php:136
+#: vendor/tickets/common/src/Tribe/App_Shop.php:140
 msgid "Community Events"
 msgstr "Komunitateko ekitaldiak"
 
@@ -6564,7 +6584,7 @@ msgstr "%2$s azpian zerrendatuta dagoen datorren %1$s ez dago. Kategori honentza
 msgid "This %s has passed."
 msgstr "%s hau amaitu da."
 
-#: src/Tribe/Template/Month.php:812
+#: src/Tribe/Template/Month.php:818
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Eskatutako \"%s\" data ez da baliozkoa &ndash; bere ordez uneko hilabetea erakutsiko da"
 
@@ -6663,39 +6683,39 @@ msgstr "%s hobespenak"
 msgid "Events Settings"
 msgstr "Ekitaldien hobespenak"
 
-#: common/src/Tribe/PUE/Checker.php:509
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:509
+#: common/src/Tribe/PUE/Checker.php:514
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:514
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "Hara! Balidatzaile honek arazoren bat dauka. Mesedez %slaguntza-zerbitzuarekin%s harremanetan jarri."
 
-#: common/src/Tribe/PUE/Checker.php:563
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:563
+#: common/src/Tribe/PUE/Checker.php:568
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:568
 msgid "Valid Key! Expires on %s"
 msgstr "Baliozko gakoa! %s-an iraungitzen da"
 
-#: common/src/Tribe/PUE/Checker.php:550
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:550
+#: common/src/Tribe/PUE/Checker.php:555
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:555
 msgid "Sorry, key validation server is not available."
 msgstr "Barkatu, gako egiaztatze zerbitzaria ez dago erabilgarri."
 
-#: common/src/Tribe/PUE/Checker.php:544
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:544
+#: common/src/Tribe/PUE/Checker.php:549
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:549
 msgid "unknown date"
 msgstr "data ezezaguna"
 
-#: common/src/Tribe/PUE/Checker.php:500
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:500
+#: common/src/Tribe/PUE/Checker.php:505
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:505
 msgid "License key(s) updated."
 msgstr "Lizentzia gakoa(k) eguneratu d(ir)a."
 
-#: common/src/Tribe/PUE/Checker.php:418
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:418
+#: common/src/Tribe/PUE/Checker.php:423
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:423
 msgid "A valid license key is required for support and updates"
 msgstr "Eguneraketentzat eta euskarriarentzat baliozko gako bat beharrezkoa da."
 
-#: common/src/Tribe/PUE/Checker.php:417
+#: common/src/Tribe/PUE/Checker.php:422
 #: src/admin-views/aggregator/status.php:39
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:417
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:422
 msgid "License Key"
 msgstr "Lizentzia gakoa"
 
@@ -7036,7 +7056,7 @@ msgstr "zerrenda"
 msgid "month"
 msgstr "hilabetea"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.2) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:753

@@ -894,7 +894,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @param array $data Import data
 	 *
-	 * @return array|WP_Error
+	 * @return array|WP_Error|Tribe__Events__Aggregator__Record__Queue
 	 */
 	public function process_posts( $data = array() ) {
 		if ( $this->has_queue() ) {
@@ -910,6 +910,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$queue = new Tribe__Events__Aggregator__Record__Queue( $this, $items );
+
 		return $queue->process();
 	}
 

@@ -223,6 +223,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			$result = $record->process_posts();
 		}
 
+		$result->record = $record;
+
 		$this->messages = $this->get_result_messages( $result );
 
 		if (

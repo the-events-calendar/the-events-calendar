@@ -211,7 +211,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					$query->query_vars['s'] = $_REQUEST['tribe-bar-search'];
 				}
 
-				$query->query_vars['eventDisplay'] = ! empty( $query->query_vars['eventDisplay'] ) ? $query->query_vars['eventDisplay'] : Tribe__Events__Main::instance()->displaying;
+				$query->set( 'eventDisplay', $query->get( 'eventDisplay', Tribe__Events__Main::instance()->displaying ) );
 
 				//@todo stop calling EOD cutoff transformations all over the place
 

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-11-04 21:33:27+0000\n"
+"PO-Revision-Date: 2016-12-02 15:43:22+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,26 @@ msgstr ""
 "X-Generator: GlotPress/2.3.0-alpha\n"
 "Language: es\n"
 "Project-Id-Version: Plugins - The Events Calendar - Stable (latest release)\n"
+
+#: common/src/admin-views/app-shop.php:31
+#: vendor/tickets/common/src/admin-views/app-shop.php:31
+msgid "Installed"
+msgstr ""
+
+#: common/src/admin-views/app-shop.php:29
+#: vendor/tickets/common/src/admin-views/app-shop.php:29
+msgid "Installed Add-Ons"
+msgstr ""
+
+#: common/src/Tribe/Extension.php:368
+#: vendor/tickets/common/src/Tribe/Extension.php:368
+msgid "Unable to run Tribe Extensions. Your website host is running PHP 5.2 or older, and has likely disabled or misconfigured debug_backtrace(). You, or your website host, will need to upgrade PHP or properly configure debug_backtrace() for Tribe Extensions to work."
+msgstr ""
+
+#: common/src/Tribe/Extension.php:144
+#: vendor/tickets/common/src/Tribe/Extension.php:144
+msgid "Tutorial"
+msgstr ""
 
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:92
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Plugin_Download.php:92
@@ -847,7 +867,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:31
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: src/admin-views/aggregator/settings.php:18
 msgid "No default category"
@@ -884,7 +904,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/refine.php:3
 msgid "Keyword(s)"
-msgstr ""
+msgstr "Palabra(s) clave"
 
 #: src/admin-views/aggregator/origins/meetup.php:132
 msgid "Enter the url for a Meetup group, page, or individual. You can also enter the url of a single Meetup event."
@@ -1202,7 +1222,7 @@ msgstr ""
 #: src/Tribe/Ignored_Events.php:377 src/Tribe/Ignored_Events.php:379
 #: src/admin-views/aggregator/meta-box.php:5
 msgid "Source:"
-msgstr ""
+msgstr "Fuente:"
 
 #: src/Tribe/Ignored_Events.php:351
 msgid "Last Import"
@@ -1214,7 +1234,7 @@ msgstr ""
 
 #: src/Tribe/Ignored_Events.php:348
 msgid "Source"
-msgstr ""
+msgstr "Fuente"
 
 #: src/Tribe/Ignored_Events.php:319
 msgid "%s post restored."
@@ -1295,7 +1315,7 @@ msgstr ""
 #: src/Tribe/Ignored_Events.php:79 src/Tribe/Ignored_Events.php:95
 #: src/Tribe/Ignored_Events.php:470
 msgid "Delete Permanently"
-msgstr ""
+msgstr "Borrar Permanentemente"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:37
 msgid "Start Date:"
@@ -1355,7 +1375,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:185
 msgid "delete"
-msgstr ""
+msgstr "eliminar"
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:181
 msgid "queued"
@@ -1379,7 +1399,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:507
 msgid "Learn More"
-msgstr ""
+msgstr "Saber más"
 
 #: src/Tribe/Aggregator/Tabs/New.php:502 src/Tribe/Aggregator/Tabs/New.php:509
 msgid "opens in a new window"
@@ -1466,7 +1486,7 @@ msgstr[1] ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:314
 msgid "View all %s"
-msgstr ""
+msgstr "Ver todo %s"
 
 #: src/Tribe/Aggregator/Tabs/New.php:306
 msgid "No %1$s were imported or updated."
@@ -1641,8 +1661,8 @@ msgstr ""
 msgctxt "event aggregator status"
 msgid "Draft <span class=\"count\">(%s)</span>"
 msgid_plural "Draft <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Borrador  <span class=\"count\">(%s)</span>"
+msgstr[1] "Borradores <span class=\"count\">(%s)</span>"
 
 #: src/Tribe/Aggregator/Records.php:236
 msgctxt "event aggregator status"
@@ -1800,7 +1820,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Record/List_Table.php:574
 #: src/Tribe/Aggregator/Record/List_Table.php:582
 msgid "new"
-msgstr ""
+msgstr "nuevo"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:563
 msgid "Latest Import:"
@@ -2284,8 +2304,8 @@ msgstr ""
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums."
 msgstr ""
 
-#: common/src/admin-views/app-shop.php:32
-#: vendor/tickets/common/src/admin-views/app-shop.php:32
+#: common/src/admin-views/app-shop.php:26
+#: vendor/tickets/common/src/admin-views/app-shop.php:26
 msgid "Buy This Add-On"
 msgstr ""
 
@@ -2363,25 +2383,25 @@ msgid_plural "It looks like you're using %s, but the license keys you supplied d
 msgstr[0] ""
 msgstr[1] ""
 
-#: common/src/Tribe/PUE/Checker.php:648
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:648
+#: common/src/Tribe/PUE/Checker.php:653
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:653
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:621
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:621
+#: common/src/Tribe/PUE/Checker.php:626
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:626
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:595 common/src/Tribe/PUE/Notices.php:269
+#: common/src/Tribe/PUE/Checker.php:600 common/src/Tribe/PUE/Notices.php:269
 #: src/Tribe/Aggregator/Record/Abstract.php:839
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:595
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:600
 #: vendor/tickets/common/src/Tribe/PUE/Notices.php:269
 msgid " (opens in a new window)"
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:593 common/src/Tribe/PUE/Notices.php:267
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:593
+#: common/src/Tribe/PUE/Checker.php:598 common/src/Tribe/PUE/Notices.php:267
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:598
 #: vendor/tickets/common/src/Tribe/PUE/Notices.php:267
 msgid "Renew Your License Now"
 msgstr ""
@@ -2493,44 +2513,44 @@ msgstr ""
 msgid "iCal Importer"
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:152
-#: vendor/tickets/common/src/Tribe/App_Shop.php:152
+#: common/src/Tribe/App_Shop.php:158
+#: vendor/tickets/common/src/Tribe/App_Shop.php:158
 msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:123
-#: vendor/tickets/common/src/Tribe/App_Shop.php:123
+#: common/src/Tribe/App_Shop.php:125
+#: vendor/tickets/common/src/Tribe/App_Shop.php:125
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:145
-#: vendor/tickets/common/src/Tribe/App_Shop.php:145
+#: common/src/Tribe/App_Shop.php:150
+#: vendor/tickets/common/src/Tribe/App_Shop.php:150
 msgctxt "Names of required plugins for Community Tickets"
 msgid "Event Tickets Plus and Community Events"
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:144
-#: vendor/tickets/common/src/Tribe/App_Shop.php:144
+#: common/src/Tribe/App_Shop.php:149
+#: vendor/tickets/common/src/Tribe/App_Shop.php:149
 msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:138
-#: vendor/tickets/common/src/Tribe/App_Shop.php:138
+#: common/src/Tribe/App_Shop.php:142
+#: vendor/tickets/common/src/Tribe/App_Shop.php:142
 msgid "Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go."
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:113
-#: vendor/tickets/common/src/Tribe/App_Shop.php:113
+#: common/src/Tribe/App_Shop.php:114
+#: vendor/tickets/common/src/Tribe/App_Shop.php:114
 msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:132
-#: vendor/tickets/common/src/Tribe/App_Shop.php:132
+#: common/src/Tribe/App_Shop.php:135
+#: vendor/tickets/common/src/Tribe/App_Shop.php:135
 msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
 msgstr ""
 
-#: common/src/Tribe/App_Shop.php:130
-#: vendor/tickets/common/src/Tribe/App_Shop.php:130
+#: common/src/Tribe/App_Shop.php:133
+#: vendor/tickets/common/src/Tribe/App_Shop.php:133
 msgid "Filter Bar"
 msgstr ""
 
@@ -3483,8 +3503,8 @@ msgstr ""
 msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:568
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:568
+#: common/src/Tribe/PUE/Checker.php:573
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:573
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
@@ -3542,15 +3562,15 @@ msgstr "Activar plugin"
 msgid "Activate %s"
 msgstr "Activar %s"
 
-#: common/src/Tribe/Admin/Help_Page.php:233 common/src/Tribe/App_Shop.php:142
+#: common/src/Tribe/Admin/Help_Page.php:233 common/src/Tribe/App_Shop.php:147
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:233
-#: vendor/tickets/common/src/Tribe/App_Shop.php:142
+#: vendor/tickets/common/src/Tribe/App_Shop.php:147
 msgid "Community Tickets"
 msgstr ""
 
-#: common/src/Tribe/Admin/Help_Page.php:224 common/src/Tribe/App_Shop.php:120
+#: common/src/Tribe/Admin/Help_Page.php:224 common/src/Tribe/App_Shop.php:122
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:224
-#: vendor/tickets/common/src/Tribe/App_Shop.php:120
+#: vendor/tickets/common/src/Tribe/App_Shop.php:122
 msgid "Event Tickets Plus"
 msgstr ""
 
@@ -3564,9 +3584,9 @@ msgstr ""
 msgid "Facebook Events"
 msgstr "Eventos en Facebook"
 
-#: common/src/Tribe/Admin/Help_Page.php:192 common/src/Tribe/App_Shop.php:149
+#: common/src/Tribe/Admin/Help_Page.php:192 common/src/Tribe/App_Shop.php:155
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:192
-#: vendor/tickets/common/src/Tribe/App_Shop.php:149
+#: vendor/tickets/common/src/Tribe/App_Shop.php:155
 msgid "Eventbrite Tickets"
 msgstr ""
 
@@ -4053,9 +4073,9 @@ msgid "WordPress "
 msgstr "WordPress "
 
 #: common/src/Tribe/Admin/Help_Page.php:811
-#: common/src/admin-views/app-shop.php:26
+#: common/src/admin-views/app-shop.php:78
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:811
-#: vendor/tickets/common/src/admin-views/app-shop.php:26
+#: vendor/tickets/common/src/admin-views/app-shop.php:78
 msgid "Requires:"
 msgstr "Requiere:"
 
@@ -4069,10 +4089,10 @@ msgstr "Última versión:"
 msgid "More..."
 msgstr "Más..."
 
-#: common/src/Tribe/Admin/Help_Page.php:183 common/src/Tribe/App_Shop.php:110
+#: common/src/Tribe/Admin/Help_Page.php:183 common/src/Tribe/App_Shop.php:111
 #: src/Tribe/Main.php:766
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:183
-#: vendor/tickets/common/src/Tribe/App_Shop.php:110
+#: vendor/tickets/common/src/Tribe/App_Shop.php:111
 msgid "Events Calendar PRO"
 msgstr "Events Calendar PRO"
 
@@ -4779,10 +4799,10 @@ msgstr "Facebook"
 msgid "Filters"
 msgstr "Filtros"
 
-#: common/src/Tribe/Admin/Help_Page.php:200 common/src/Tribe/App_Shop.php:136
+#: common/src/Tribe/Admin/Help_Page.php:200 common/src/Tribe/App_Shop.php:140
 #: src/admin-views/admin-update-message.php:53
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:200
-#: vendor/tickets/common/src/Tribe/App_Shop.php:136
+#: vendor/tickets/common/src/Tribe/App_Shop.php:140
 msgid "Community Events"
 msgstr "Community Events"
 
@@ -6562,7 +6582,7 @@ msgstr "No hay proximo %1$s listado en %2$s. Revisa los próximos %3$s en éste 
 msgid "This %s has passed."
 msgstr "Este %s ha pasado."
 
-#: src/Tribe/Template/Month.php:812
+#: src/Tribe/Template/Month.php:818
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "La fecha \"%s\" no es válida &ndash; se muestra el mes actual en lugar de éste."
 
@@ -6661,39 +6681,39 @@ msgstr "Ajustes %s "
 msgid "Events Settings"
 msgstr "Ajustes de eventos"
 
-#: common/src/Tribe/PUE/Checker.php:509
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:509
+#: common/src/Tribe/PUE/Checker.php:514
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:514
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr ""
 
-#: common/src/Tribe/PUE/Checker.php:563
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:563
+#: common/src/Tribe/PUE/Checker.php:568
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:568
 msgid "Valid Key! Expires on %s"
 msgstr "¡Clave válida! Caduca el %s"
 
-#: common/src/Tribe/PUE/Checker.php:550
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:550
+#: common/src/Tribe/PUE/Checker.php:555
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:555
 msgid "Sorry, key validation server is not available."
 msgstr "Lo sentimos, el servidor de validación de claves no está disponible."
 
-#: common/src/Tribe/PUE/Checker.php:544
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:544
+#: common/src/Tribe/PUE/Checker.php:549
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:549
 msgid "unknown date"
 msgstr "fecha desconocida"
 
-#: common/src/Tribe/PUE/Checker.php:500
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:500
+#: common/src/Tribe/PUE/Checker.php:505
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:505
 msgid "License key(s) updated."
 msgstr "Clave de licencia actualizada."
 
-#: common/src/Tribe/PUE/Checker.php:418
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:418
+#: common/src/Tribe/PUE/Checker.php:423
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:423
 msgid "A valid license key is required for support and updates"
 msgstr "Se requiere una clave de licencia válida para soporte y actualizaciones."
 
-#: common/src/Tribe/PUE/Checker.php:417
+#: common/src/Tribe/PUE/Checker.php:422
 #: src/admin-views/aggregator/status.php:39
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:417
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:422
 msgid "License Key"
 msgstr "Clave de licencia"
 
@@ -7034,7 +7054,7 @@ msgstr "lista"
 msgid "month"
 msgstr "mes"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.2) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:753

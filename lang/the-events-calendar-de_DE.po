@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-11-06 08:16:27+0000\n"
+"PO-Revision-Date: 2016-11-21 12:04:18+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,26 @@ msgstr ""
 "X-Generator: GlotPress/2.3.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - The Events Calendar - Stable (latest release)\n"
+
+#: common/src/admin-views/app-shop.php:31
+#: vendor/tickets/common/src/admin-views/app-shop.php:31
+msgid "Installed"
+msgstr "Installiert"
+
+#: common/src/admin-views/app-shop.php:29
+#: vendor/tickets/common/src/admin-views/app-shop.php:29
+msgid "Installed Add-Ons"
+msgstr "Installierte Add-Ons"
+
+#: common/src/Tribe/Extension.php:368
+#: vendor/tickets/common/src/Tribe/Extension.php:368
+msgid "Unable to run Tribe Extensions. Your website host is running PHP 5.2 or older, and has likely disabled or misconfigured debug_backtrace(). You, or your website host, will need to upgrade PHP or properly configure debug_backtrace() for Tribe Extensions to work."
+msgstr "Die Tribe Extensions können nicht ausgeführt werden. Ihre Website nutzt PHP 5.2 oder älter und hat vermutlich debug_backtrace() nicht aktiviert bzw. falsch konfiguriert. Bitte upgraden Sie (oder Ihr Website Host) auf eine neuere PHP Version oder konfigurieren Sie debug_backtrace() korrekt, damit die Tribe Extensions ausgeführt werden können."
+
+#: common/src/Tribe/Extension.php:144
+#: vendor/tickets/common/src/Tribe/Extension.php:144
+msgid "Tutorial"
+msgstr "Tutorial"
 
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:92
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Plugin_Download.php:92
@@ -2284,8 +2304,8 @@ msgstr "Veranstaltungsprotokoll"
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums."
 msgstr "Die Details Ihres Kalender-Plugins und die Einstellungen werden oft für Sie oder unsere Mitarbeiter benötigt, um ein Problem zu beheben. Bitte melden Sie sich an, um Ihre Systeminformationen automatisch mit unserem Support-Team zu teilen. Dieses erlaubt uns, Sie schneller zu unterstützen, wenn Sie in unseren Foren posten."
 
-#: common/src/admin-views/app-shop.php:32
-#: vendor/tickets/common/src/admin-views/app-shop.php:32
+#: common/src/admin-views/app-shop.php:26
+#: vendor/tickets/common/src/admin-views/app-shop.php:26
 msgid "Buy This Add-On"
 msgstr "Kaufen Sie dieses Add-On"
 
@@ -2363,25 +2383,25 @@ msgid_plural "It looks like you're using %s, but the license keys you supplied d
 msgstr[0] "Es sieht so aus, als ob Sie %s verwenden, aber der Lizenzschlüssel, den Sie angeben, scheint nicht gültig zu sein oder fehlt. Bitte überprüfen und korrigieren, so dass Sie immer Zugriff auf unsere neuesten Versionen haben!"
 msgstr[1] "Es sieht so aus, als ob Sie %s verwenden, aber die Lizenzschlüssel, die Sie angeben, scheinen nicht gültig zu sein oder fehlen. Bitte überprüfen und korrigieren, so dass Sie immer Zugriff auf unsere neuesten Versionen haben!"
 
-#: common/src/Tribe/PUE/Checker.php:648
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:648
+#: common/src/Tribe/PUE/Checker.php:653
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:653
 msgid "There is an update for %s. %sRenew your license%s to get access to bug fixes, security updates, and new features."
 msgstr "Es gibt ein Update für %s. %sErneuern Sie Ihre Lizenz%s, um Zugriff auf Fehlerkorrekturen, Sicherheitsupdates und neue Funktionen zu erhalten."
 
-#: common/src/Tribe/PUE/Checker.php:621
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:621
+#: common/src/Tribe/PUE/Checker.php:626
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:626
 msgid "There is an update for %s. You'll need to %scheck your license%s to have access to updates, downloads, and support."
 msgstr "Es gibt ein Update für %s. Bitte %süberprüfen Sie Ihre Lizenz%s, um Zugriff auf Fehlerkorrekturen, Sicherheitsupdates und neue Funktionen zu erhalten."
 
-#: common/src/Tribe/PUE/Checker.php:595 common/src/Tribe/PUE/Notices.php:269
+#: common/src/Tribe/PUE/Checker.php:600 common/src/Tribe/PUE/Notices.php:269
 #: src/Tribe/Aggregator/Record/Abstract.php:839
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:595
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:600
 #: vendor/tickets/common/src/Tribe/PUE/Notices.php:269
 msgid " (opens in a new window)"
 msgstr "(öffnet in einem neuen Fenster)"
 
-#: common/src/Tribe/PUE/Checker.php:593 common/src/Tribe/PUE/Notices.php:267
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:593
+#: common/src/Tribe/PUE/Checker.php:598 common/src/Tribe/PUE/Notices.php:267
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:598
 #: vendor/tickets/common/src/Tribe/PUE/Notices.php:267
 msgid "Renew Your License Now"
 msgstr "Jetzt Lizenz erneuern"
@@ -2493,44 +2513,44 @@ msgstr "Wähle aus den bestehenden Eventbrite Veranstaltungen aus"
 msgid "iCal Importer"
 msgstr "iCal Importer"
 
-#: common/src/Tribe/App_Shop.php:152
-#: vendor/tickets/common/src/Tribe/App_Shop.php:152
+#: common/src/Tribe/App_Shop.php:158
+#: vendor/tickets/common/src/Tribe/App_Shop.php:158
 msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
 msgstr "Das %1$sEventbrite Ticket Add-On%2$s ermöglicht das Erstellen und Verkaufen von Karten mit The Events Calendar. Egal ob Sie eine Karte im Wordpress Dashboard erstellen oder die Details einer bereits bestehenden Veranstaltung von %1$sEventbrite.com%2$s importieren, die Eventbrite Schnittstelle hilft dabei."
 
-#: common/src/Tribe/App_Shop.php:123
-#: vendor/tickets/common/src/Tribe/App_Shop.php:123
+#: common/src/Tribe/App_Shop.php:125
+#: vendor/tickets/common/src/Tribe/App_Shop.php:125
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
 msgstr "Event Ticket Plus ermöglicht Karten für Ihre Veranstaltungen mit WooCommerce, Shopp, WP eCommerce oder Easy Digital Downloads zu verkaufen. Nutzen Sie Ihre Artikel oder Seiten oder verkaufen Sie mit %1$sThe Events Calendar%2$s Karten."
 
-#: common/src/Tribe/App_Shop.php:145
-#: vendor/tickets/common/src/Tribe/App_Shop.php:145
+#: common/src/Tribe/App_Shop.php:150
+#: vendor/tickets/common/src/Tribe/App_Shop.php:150
 msgctxt "Names of required plugins for Community Tickets"
 msgid "Event Tickets Plus and Community Events"
 msgstr "Event Tickets Plus and Community Events"
 
-#: common/src/Tribe/App_Shop.php:144
-#: vendor/tickets/common/src/Tribe/App_Shop.php:144
+#: common/src/Tribe/App_Shop.php:149
+#: vendor/tickets/common/src/Tribe/App_Shop.php:149
 msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
 msgstr "Aktivieren Sie Community Events Tickets, um Karten für ihre Veranstaltungen zu verkaufen. Sie können flexible Zahlungs und Gebührenoptionen verwenden. Sie können sogar die Teilnehmer zu ihren Veranstaltungen einchecken! Dies ist alles vom Front-End Ihrer Website möglich, ohne jemandem Admin Zugang zu Ihrer Website zu gewähren."
 
-#: common/src/Tribe/App_Shop.php:138
-#: vendor/tickets/common/src/Tribe/App_Shop.php:138
+#: common/src/Tribe/App_Shop.php:142
+#: vendor/tickets/common/src/Tribe/App_Shop.php:142
 msgid "Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go."
 msgstr "Ermöglichen Sie Ihren Benutzern Veranstaltungen in Ihrem Kalender mit dem Community Events Plugin hinzuzufügen und zu verwalten. Benutzer können Events anonym oder mit einem Benutzerkonto hinzufügen. Sie möchten sicherstellen, dass keine unerwünschten Veranstaltungen veröffentlicht werden? Schalten Sie einfach die Moderation ein entscheiden Sie, ob Benutzer Veranstaltungen bearbeiten oder einfach einreichen können. Das Plugin hat ein einfach Setup. Nur aktivieren, Optionen konfigurieren und schon kann es losgehen."
 
-#: common/src/Tribe/App_Shop.php:113
-#: vendor/tickets/common/src/Tribe/App_Shop.php:113
+#: common/src/Tribe/App_Shop.php:114
+#: vendor/tickets/common/src/Tribe/App_Shop.php:114
 msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
 msgstr "Der Events Calendar PRO ist ein kostenpflichtiges Add-On für unser Open Source WordPress plugin %1$sThe Events Calendar%2$s. PRO bietet vielfältige Funktionen inklusive Serienterminen, individuelle Felder, abspeichern und Wiederverwenden von Veranstaltern und Veranstaltungsorten, extra Seiten für Veranstaltungsorte, erweiterte Administrationsmöglichkeiten der Events und vieles mehr."
 
-#: common/src/Tribe/App_Shop.php:132
-#: vendor/tickets/common/src/Tribe/App_Shop.php:132
+#: common/src/Tribe/App_Shop.php:135
+#: vendor/tickets/common/src/Tribe/App_Shop.php:135
 msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
 msgstr "Es ist großartig, dass Ihr Kalender <em>DER PLATZ</em> für Premium Verkäufe ist. Sie haben mehr Events als Rihanna? Schade nur, dass Besucher einen persönlichen Assistenten benötigen, um sich durch die ganzen Angebote zu wühlen. Wollen Sie Ihre Veranstaltungen filtern, z.B. nach Entfernung, nur am Wochenende oder kostenlose Events? Dann nutzen Sie The Filter Bar!"
 
-#: common/src/Tribe/App_Shop.php:130
-#: vendor/tickets/common/src/Tribe/App_Shop.php:130
+#: common/src/Tribe/App_Shop.php:133
+#: vendor/tickets/common/src/Tribe/App_Shop.php:133
 msgid "Filter Bar"
 msgstr "Filter Bar"
 
@@ -3483,8 +3503,8 @@ msgstr "Danke, dass Sie Event Tickets nutzen! Wir schätzen sehr Ihre Unterstüt
 msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
 msgstr "Geben Sie das Format für die Anzeige eines Datum inkl. Jahr ein. Wird verwendet, wenn ein Datum in einem zukünftigen Jahr angezeigt wird."
 
-#: common/src/Tribe/PUE/Checker.php:568
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:568
+#: common/src/Tribe/PUE/Checker.php:573
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:573
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr "Danke für das Bereitstellen eines gültigen Lizenzschlüssels. Er läuft am %s aus."
 
@@ -3542,15 +3562,15 @@ msgstr "Aktiviere dieses Plugin"
 msgid "Activate %s"
 msgstr "Aktiviere %s"
 
-#: common/src/Tribe/Admin/Help_Page.php:233 common/src/Tribe/App_Shop.php:142
+#: common/src/Tribe/Admin/Help_Page.php:233 common/src/Tribe/App_Shop.php:147
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:233
-#: vendor/tickets/common/src/Tribe/App_Shop.php:142
+#: vendor/tickets/common/src/Tribe/App_Shop.php:147
 msgid "Community Tickets"
 msgstr "Community Tickets"
 
-#: common/src/Tribe/Admin/Help_Page.php:224 common/src/Tribe/App_Shop.php:120
+#: common/src/Tribe/Admin/Help_Page.php:224 common/src/Tribe/App_Shop.php:122
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:224
-#: vendor/tickets/common/src/Tribe/App_Shop.php:120
+#: vendor/tickets/common/src/Tribe/App_Shop.php:122
 msgid "Event Tickets Plus"
 msgstr "Event Tickets Plus"
 
@@ -3564,9 +3584,9 @@ msgstr "Events Filterleiste"
 msgid "Facebook Events"
 msgstr "Facebook Events"
 
-#: common/src/Tribe/Admin/Help_Page.php:192 common/src/Tribe/App_Shop.php:149
+#: common/src/Tribe/Admin/Help_Page.php:192 common/src/Tribe/App_Shop.php:155
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:192
-#: vendor/tickets/common/src/Tribe/App_Shop.php:149
+#: vendor/tickets/common/src/Tribe/App_Shop.php:155
 msgid "Eventbrite Tickets"
 msgstr "Eventbrite Tickets"
 
@@ -4053,9 +4073,9 @@ msgid "WordPress "
 msgstr "WordPress "
 
 #: common/src/Tribe/Admin/Help_Page.php:811
-#: common/src/admin-views/app-shop.php:26
+#: common/src/admin-views/app-shop.php:78
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:811
-#: vendor/tickets/common/src/admin-views/app-shop.php:26
+#: vendor/tickets/common/src/admin-views/app-shop.php:78
 msgid "Requires:"
 msgstr "Benötigt:"
 
@@ -4069,10 +4089,10 @@ msgstr "Neueste Version:"
 msgid "More..."
 msgstr "Mehr..."
 
-#: common/src/Tribe/Admin/Help_Page.php:183 common/src/Tribe/App_Shop.php:110
+#: common/src/Tribe/Admin/Help_Page.php:183 common/src/Tribe/App_Shop.php:111
 #: src/Tribe/Main.php:766
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:183
-#: vendor/tickets/common/src/Tribe/App_Shop.php:110
+#: vendor/tickets/common/src/Tribe/App_Shop.php:111
 msgid "Events Calendar PRO"
 msgstr "Events Calendar PRO"
 
@@ -4779,10 +4799,10 @@ msgstr "Facebook"
 msgid "Filters"
 msgstr "Filter"
 
-#: common/src/Tribe/Admin/Help_Page.php:200 common/src/Tribe/App_Shop.php:136
+#: common/src/Tribe/Admin/Help_Page.php:200 common/src/Tribe/App_Shop.php:140
 #: src/admin-views/admin-update-message.php:53
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:200
-#: vendor/tickets/common/src/Tribe/App_Shop.php:136
+#: vendor/tickets/common/src/Tribe/App_Shop.php:140
 msgid "Community Events"
 msgstr "Veranstaltungen bearbeiten"
 
@@ -6562,7 +6582,7 @@ msgstr "Keine anstehenden %1$s für %2$s gefunden. Versuchen Sie anstehende %3$s
 msgid "This %s has passed."
 msgstr "Diese %s hat bereits stattgefunden."
 
-#: src/Tribe/Template/Month.php:812
+#: src/Tribe/Template/Month.php:818
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Das abgefragte Datum \"%s\" war  nicht g&uuml;ltig &ndash; der aktuelle Monat wird stattdessen angezeigt"
 
@@ -6661,39 +6681,39 @@ msgstr "%s Einstellungen"
 msgid "Events Settings"
 msgstr "Veranstaltungseinstellungen"
 
-#: common/src/Tribe/PUE/Checker.php:509
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:509
+#: common/src/Tribe/PUE/Checker.php:514
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:514
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
 msgstr "Hmmm... irgendetwas stimmt mit diesem Validator nicht. Bitte kontaktieren Sie den %sSupport%s."
 
-#: common/src/Tribe/PUE/Checker.php:563
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:563
+#: common/src/Tribe/PUE/Checker.php:568
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:568
 msgid "Valid Key! Expires on %s"
 msgstr "Gültiger Schlüssel! Erlischt am %s"
 
-#: common/src/Tribe/PUE/Checker.php:550
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:550
+#: common/src/Tribe/PUE/Checker.php:555
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:555
 msgid "Sorry, key validation server is not available."
 msgstr "Sorry, der Lizensierungsserver ist nicht erreichbar."
 
-#: common/src/Tribe/PUE/Checker.php:544
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:544
+#: common/src/Tribe/PUE/Checker.php:549
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:549
 msgid "unknown date"
 msgstr "Unbekanntes Datum"
 
-#: common/src/Tribe/PUE/Checker.php:500
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:500
+#: common/src/Tribe/PUE/Checker.php:505
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:505
 msgid "License key(s) updated."
 msgstr "Lizenzschlüssel aktualisiert."
 
-#: common/src/Tribe/PUE/Checker.php:418
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:418
+#: common/src/Tribe/PUE/Checker.php:423
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:423
 msgid "A valid license key is required for support and updates"
 msgstr "Für Support und Updates ist ein gültiger Lizenzschlüssel erforderlich"
 
-#: common/src/Tribe/PUE/Checker.php:417
+#: common/src/Tribe/PUE/Checker.php:422
 #: src/admin-views/aggregator/status.php:39
-#: vendor/tickets/common/src/Tribe/PUE/Checker.php:417
+#: vendor/tickets/common/src/Tribe/PUE/Checker.php:422
 msgid "License Key"
 msgstr "Lizenzschlüssel"
 
@@ -7034,7 +7054,7 @@ msgstr "list"
 msgid "month"
 msgstr "Monat"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.2) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:753
