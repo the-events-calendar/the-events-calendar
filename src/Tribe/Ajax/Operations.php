@@ -1,17 +1,10 @@
 <?php
 
 
-class Tribe__Events__Ajax__Operations {
-
-	public function verify_or_exit( $nonce, $action, $exit_data = array() ) {
-		if ( ! wp_verify_nonce( $nonce, $action ) ) {
-			exit( $exit_data );
-		}
-
-		return true;
-	}
-
-	public function exit_data( $data = array() ) {
-		exit( $data );
-	}
+/**
+ * Class Tribe__Events__Ajax__Operations
+ *
+ * Handles The Events Calendar specific class operations.
+ */
+class Tribe__Events__Ajax__Operations extends Tribe__Ajax__Operations {
 }

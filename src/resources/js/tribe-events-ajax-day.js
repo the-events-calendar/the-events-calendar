@@ -63,6 +63,10 @@
 				params = params + '&tribe_event_category=' + ts.category;
 			}
 
+			if ( tf.is_featured() ) {
+				params = params + '&featured=1';
+			}
+
 			history.replaceState( {
 				"tribe_params"    : params,
 				"tribe_url_params": td.params
@@ -208,7 +212,8 @@
 
 				ts.params = {
 					action   : 'tribe_event_day',
-					eventDate: ts.date
+					eventDate: ts.date,
+					featured : tf.is_featured()
 				};
 
 				ts.url_params = {

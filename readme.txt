@@ -5,7 +5,11 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.7
+<<<<<<< HEAD
 Stable tag: 4.3.4.1
+=======
+Stable tag: 4.4dev1
+>>>>>>> develop
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -314,6 +318,16 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [4.4] TBD =
+
+* Feature - Add dynamic helper text to single event editor to display the events date and time [66484]
+* Feature - Add support for featured events [65898]
+* Feature - Add support for placing the main events archive on the site homepage [38757]
+* Tweak - Adjusted styles and added actions for featured events in the List Widget [65923]
+* Tweak - Organizers and Venues are now with a better and cleaner interface [68430]
+* Fix - Add a link to The Events Calendar Help page in the Network Administration screen of multisite installations [68665]
+* Fix - Multisite license editing and displaying consistency [68662]
 
 = [4.3.4.1] 2016-12-09 =
 

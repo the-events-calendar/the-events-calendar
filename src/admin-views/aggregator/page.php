@@ -2,7 +2,7 @@
 $datepicker_format = tribe_get_option( 'datepickerFormat' );
 
 $state_class = 'tribe-aggregator-inactive';
-if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
+if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 	$state_class = 'tribe-aggregator-active';
 }
 ?>

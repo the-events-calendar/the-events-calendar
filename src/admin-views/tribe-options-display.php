@@ -148,7 +148,7 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 			'validation_type' => 'options',
 		),
 		'tribeEventsTemplate'                => array(
-			'type'            => 'dropdown_select2',
+			'type'            => 'dropdown',
 			'label'           => __( 'Events template', 'the-events-calendar' ),
 			'tooltip'         => __( 'Choose a page template to control the appearance of your calendar and event content.', 'the-events-calendar' ),
 			'validation_type' => 'options',
@@ -165,7 +165,7 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 			'validation_type' => 'options_multi',
 		),
 		'viewOption'                         => array(
-			'type'            => 'dropdown_select2',
+			'type'            => 'dropdown',
 			'label'           => __( 'Default view', 'the-events-calendar' ),
 			'validation_type' => 'options',
 			'size'            => 'large',
