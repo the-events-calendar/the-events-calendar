@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.7
-Stable tag: 4.4dev1
+Stable tag: 4.4dev2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -324,6 +324,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Organizers and Venues are now with a better and cleaner interface [68430]
 * Fix - Add a link to The Events Calendar Help page in the Network Administration screen of multisite installations [68665]
 * Fix - Multisite license editing and displaying consistency [68662]
+
+= [4.3.4.1] 2016-12-09 =
+
+* Fix - Updates Tribe Common to remove some stray characters that were impacting page layouts (props: @Aetles) [70536]
 
 = [4.3.4] 2016-12-08 =
 
