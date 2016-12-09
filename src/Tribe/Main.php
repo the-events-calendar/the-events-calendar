@@ -259,23 +259,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function maybe_set_common_lib_info() {
-			// Check if common has a package.json file, if not just bail
-			$common_package_file = $this->plugin_path . 'common/package.json';
-			if ( ! file_exists( $common_package_file ) ) {
+			// if there isn't a tribe-common version, bail with a notice
+			$common_version = file_get_contents( $this->plugin_path . 'common/src/Tribe/Main.php' );
+			if ( ! preg_match( "/const\s+VERSION\s*=\s*'([^']+)'/m", $common_version, $matches ) ) {
 				return add_action( 'admin_head', array( $this, 'missing_common_libs' ) );
 			}
 
-			// Fetch the contents of the package.json file
-			$common_package = file_get_contents( $common_package_file );
-			if ( empty( $common_package ) ) {
-				return add_action( 'admin_head', array( $this, 'missing_common_libs' ) );
-			}
-
-			// Transform into a variable; if version is empty or not string, bail.
-			$common = json_decode( $common_package );
-			if ( empty( $common->version ) || ! is_string( $common->version ) ) {
-				return add_action( 'admin_head', array( $this, 'missing_common_libs' ) );
-			}
+			$common_version = $matches[1];
 
 			/**
 			 * If we don't have a version of Common or an Older version of the Lib
@@ -283,11 +273,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			if (
 				empty( $GLOBALS['tribe-common-info'] ) ||
-				version_compare( $GLOBALS['tribe-common-info']['version'], $common->version, '<' )
+				version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' )
 			) {
 				$GLOBALS['tribe-common-info'] = array(
 					'dir' => "{$this->plugin_path}common/src/Tribe",
-					'version' => $common->version,
+					'version' => $common_version,
 				);
 			}
 		}
@@ -354,12 +344,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Registers the implementations in the container.
-         *
-         * Classes that should be built at `plugins_loaded` time are also instantiated.
-         *
-         * @since  4.4
-         *
-         * @return void
+		 *
+		 * Classes that should be built at `plugins_loaded` time are also instantiated.
+		 *
+		 * @since  4.4
+		 *
+		 * @return void
 		 */
 		public function bind_implementations(  ) {
 			// Front page events archive support
@@ -2577,7 +2567,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$event_details = apply_filters( 'the_content', get_the_content( $post->ID ) );
 
- 			// Hack: Add space after paragraph
+			// Hack: Add space after paragraph
 			// Normally Google Cal understands the newline character %0a
 			// And that character will automatically replace newlines on urlencode()
 			$event_details = str_replace ( '</p>', '</p> ', $event_details );
@@ -2820,7 +2810,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Get all possible translations for a String based on the given Languages and Domains
 		 *
 		 * WARNING: This function is slow because it deals with files, so don't overuse it!
-         * Differently from the `get_i18n_strings` method this will not use any domain that's not specified.
+		 * Differently from the `get_i18n_strings` method this will not use any domain that's not specified.
 		 *
 		 * @todo Include support for the `load_theme_textdomain` + `load_muplugin_textdomain`
 		 *
