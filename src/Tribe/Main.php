@@ -237,37 +237,67 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->pluginDir  = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
 			$this->pluginUrl  = $this->plugin_url = plugins_url( $this->plugin_dir );
 
+			// Set common lib information, needs to happen file load
 			$this->maybe_set_common_lib_info();
 
 			// let's initialize tec silly-early to avoid fatals with upgrades from 3.x to 4.x
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
 		}
 
+		/**
+		 * To avoid duplication of our own methods and to provide a underlying system
+		 * Modern Tribe maintains a Library called Common to store a base for our plugins
+		 *
+		 * Currently we will read the File `common/package.json` to determine which version
+		 * of the Common Lib we will pass to the Auto-Loader of PHP.
+		 *
+		 * In the past we used to parse `common/src/Tribe/Main.php` for the Common Lib version.
+		 *
+		 * @link https://github.com/moderntribe/tribe-common
+		 * @see  self::init_autoloading
+		 *
+		 * @return void
+		 */
 		public function maybe_set_common_lib_info() {
-			$common_version = file_get_contents( $this->plugin_path . 'common/src/Tribe/Main.php' );
-
-			// if there isn't a tribe-common version, bail
-			if ( ! preg_match( "/const\s+VERSION\s*=\s*'([^']+)'/m", $common_version, $matches ) ) {
-				add_action( 'admin_head', array( $this, 'missing_common_libs' ) );
-
-				return;
+			// Check if common has a package.json file, if not just bail
+			$common_package_file = $this->plugin_path . 'common/package.json';
+			if ( ! file_exists( $common_package_file ) ) {
+				return add_action( 'admin_head', array( $this, 'missing_common_libs' ) );
 			}
 
-			$common_version = $matches[1];
+			// Fetch the contents of the package.json file
+			$common_package = file_get_contents( $common_package_file );
+			if ( empty( $common_package ) ) {
+				return add_action( 'admin_head', array( $this, 'missing_common_libs' ) );
+			}
 
-			if ( empty( $GLOBALS['tribe-common-info'] ) ) {
+			// Transform into a variable; if version is empty or not string, bail.
+			$common = json_decode( $common_package );
+			if ( empty( $common->version ) || ! is_string( $common->version ) ) {
+				return add_action( 'admin_head', array( $this, 'missing_common_libs' ) );
+			}
+
+			/**
+			 * If we don't have a version of Common or an Older version of the Lib
+			 * overwrite what should be loaded by the auto-loader
+			 */
+			if (
+				empty( $GLOBALS['tribe-common-info'] ) ||
+				version_compare( $GLOBALS['tribe-common-info']['version'], $common->version, '<' )
+			) {
 				$GLOBALS['tribe-common-info'] = array(
 					'dir' => "{$this->plugin_path}common/src/Tribe",
-					'version' => $common_version,
-				);
-			} elseif ( 1 == version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' ) ) {
-				$GLOBALS['tribe-common-info'] = array(
-					'dir' => "{$this->plugin_path}common/src/Tribe",
-					'version' => $common_version,
+					'version' => $common->version,
 				);
 			}
 		}
 
+		/**
+		 * Plugins shouldn't include their functions before `plugins_loaded` because this will allow
+		 * better compatibility with the autoloader methods.
+		 *
+		 * @return void
+		 */
 		public function plugins_loaded() {
 			/**
 			 * Before any methods from this plugin are called, we initialize our Autoloading
@@ -281,12 +311,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
 
-			/**
-			 * It's important that anything related to Text Domain happens at `init`
-			 * Because of the way $wp_locale works
-			 */
-			add_action( 'init', array( $this, 'setup_l10n_strings' ) );
-
 			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
 				$this->bind_implementations();
 				$this->loadLibraries();
@@ -298,6 +322,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 		}
 
+		/**
+		 * To allow easier usage of classes on our files we have a AutoLoader that will match
+		 * class names to it's required file inclusion into the Request.
+		 *
+		 * @return void
+		 */
 		protected function init_autoloading() {
 			$prefixes = array(
 				'Tribe__Events__' => $this->plugin_path . 'src/Tribe',
@@ -327,19 +357,32 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
          *
          * Classes that should be built at `plugins_loaded` time are also instantiated.
          *
+         * @since  4.4
+         *
+         * @return void
 		 */
 		public function bind_implementations(  ) {
+			// Front page events archive support
+			tribe_singleton( 'tec.front-page-view', 'Tribe__Events__Front_Page_View' );
+			tribe_singleton( 'tec.admin.front-page-view', 'Tribe__Events__Admin__Front_Page_View' );
+
+			// Metabox for Single Edit
+			tribe_singleton( 'tec.admin.event-meta-box', 'Tribe__Events__Admin__Event_Meta_Box' );
+
+			// Featured Events
+			tribe_singleton( 'tec.featured_events', 'Tribe__Events__Featured_Events' );
+			tribe_singleton( 'tec.featured_events.query_helper', new Tribe__Events__Featured_Events__Query_Helper );
+			tribe_singleton( 'tec.featured_events.permalinks_helper', new Tribe__Events__Featured_Events__Permalinks_Helper );
+
+			// Event Aggregator
 			tribe_singleton( 'events-aggregator.main', 'Tribe__Events__Aggregator', array( 'load', 'hook' ) );
 			tribe_singleton( 'events-aggregator.service', 'Tribe__Events__Aggregator__Service' );
-			tribe( 'events-aggregator.main' );
 
 			// Shortcodes
 			tribe_singleton( 'tec.shortcodes.event-details', 'Tribe__Events__Shortcode__Event_Details', array( 'hook' ) );
-			tribe( 'tec.shortcodes.event-details' );
 
 			// Ignored Events
 			tribe_singleton( 'tec.ignored-events', 'Tribe__Events__Ignored_Events', array( 'hook' ) );
-			tribe( 'tec.ignored-events' );
 
 			// Register and start the Customizer Sections
 			tribe_singleton( 'tec.customizer.general-theme', new Tribe__Events__Customizer__General_Theme() );
@@ -351,7 +394,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
-			tribe( 'tec.iCal' );
 		}
 
 		/**
@@ -423,16 +465,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
 				require_once $this->plugin_path . 'src/functions/template-tags/deprecated.php';
 			}
-
-			// Front page events archive support
-			tribe_singleton( 'tec.front-page-view', 'Tribe__Events__Front_Page_View' );
-			tribe_singleton( 'tec.admin.front-page-view', 'Tribe__Events__Admin__Front_Page_View' );
 		}
 
 		/**
 		 * Add filters and actions
 		 */
 		protected function addHooks() {
+			/**
+			 * It's important that anything related to Text Domain happens at `init`
+			 * because of the way $wp_locale works
+			 */
+			add_action( 'init', array( $this, 'setup_l10n_strings' ), 5 );
+
 			// Since TEC is active, change the base page for the Event Settings page
 			Tribe__Settings::$parent_page = 'edit.php';
 
@@ -605,19 +649,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			add_action( 'transition_post_status', array( $this, 'action_expire_archive_slug_conflict_notice' ), 10, 3 );
 
-			// Register the Meta Box singleton
-			tribe_singleton( 'tec.admin.event-meta-box', 'Tribe__Events__Admin__Event_Meta_Box' );
-
-			// Add support for featured events
-			tribe_singleton( 'tec.featured_events', 'Tribe__Events__Featured_Events' );
-			tribe_singleton( 'tec.featured_events.query_helper', new Tribe__Events__Featured_Events__Query_Helper );
-			tribe_singleton( 'tec.featured_events.permalinks_helper', new Tribe__Events__Featured_Events__Permalinks_Helper );
-
 			tribe( 'tec.featured_events.query_helper' )->hook();
 			tribe( 'tec.featured_events.permalinks_helper' )->hook();
 
 			// Add support for positioning the main events view on the site homepage
 			tribe( 'tec.front-page-view' )->hook();
+
+			tribe( 'events-aggregator.main' );
+			tribe( 'tec.shortcodes.event-details' );
+			tribe( 'tec.ignored-events' );
+			tribe( 'tec.iCal' );
 		}
 
 		/**
