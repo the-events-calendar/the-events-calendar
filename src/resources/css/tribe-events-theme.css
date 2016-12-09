@@ -394,13 +394,10 @@ h2.tribe-events-page-title,
 	border: 0;
 	background-color: #fff;
 	color: #606060;
-<<<<<<< HEAD
 	padding: .75em 1em 1.15em;
 	box-shadow: 3px 4px 21px rgba(0, 0, 0, .38);
-=======
 	padding: .75em 1em 0;
 	box-shadow: 3px 4px 21px rgba(0,0,0,.38);
->>>>>>> develop
 }
 
 .tribe-events-tooltip .tribe-events-arrow {
