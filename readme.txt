@@ -324,6 +324,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Organizers and Venues are now with a better and cleaner interface [68430]
 * Fix - Add a link to The Events Calendar Help page in the Network Administration screen of multisite installations [68665]
 * Fix - Multisite license editing and displaying consistency [68662]
+* Fix - WPML integration smaller incompatibilities [70520, 70522]
 
 = [4.3.4] 2016-12-08 =
 
