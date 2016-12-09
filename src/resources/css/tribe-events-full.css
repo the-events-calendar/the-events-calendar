@@ -1907,7 +1907,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 }
 
 .tribe-theme-twentyfifteen .tribe-events-list-widget .type-tribe_events {
-	border-top: 1px solid rgba( 51, 51, 51, .1 );
+	border-top: 1px solid rgba(51, 51, 51, .1);
 	box-shadow: none;
 	margin-left: 0;
 	margin-right: 0;

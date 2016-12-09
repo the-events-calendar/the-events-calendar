@@ -338,7 +338,7 @@ h2.tribe-events-page-title,
 
 #tribe-events-content .tribe-events-calendar td:hover {
 	background: #f7f7f7;
-	box-shadow: rgba(0,0,0, .2) 0 0 10px;
+	box-shadow: rgba(0, 0, 0, .2) 0 0 10px;
 }
 
 #tribe-events-content .tribe-events-calendar td.tribe-events-othermonth {
@@ -388,7 +388,7 @@ h2.tribe-events-page-title,
 	background-color: #fff;
 	color: #606060;
 	padding: .75em 1em 1.15em;
-	box-shadow: 3px 4px 21px rgba(0,0,0,.38);
+	box-shadow: 3px 4px 21px rgba(0, 0, 0, .38);
 }
 
 .tribe-events-tooltip .tribe-events-arrow {
