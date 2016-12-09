@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.7
-Stable tag: 4.3.4
+Stable tag: 4.3.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -314,6 +314,10 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [4.3.4.1] 2016-12-09 =
+
+* Fix - Updates Tribe Common to remove some stray characters that were impacting page layouts (props: @Aetles) [70536]
 
 = [4.3.4] 2016-12-08 =
 
