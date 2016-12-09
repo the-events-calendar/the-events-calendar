@@ -243,37 +243,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
 		}
 
-		public function plugins_loaded() {
-			/**
-			 * Before any methods from this plugin are called, we initialize our Autoloading
-			 * After this method we can use any `Tribe__` classes
-			 */
-			$this->init_autoloading();
-
-			/**
-			 * We need Common to be able to load text domains correctly.
-			 * With that in mind we initialize Common passing the plugin Main class as the context
-			 */
-			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
-
-			/**
-			 * It's important that anything related to Text Domain happens at `init`
-			 * Because of the way $wp_locale works
-			 */
-			add_action( 'init', array( $this, 'setup_l10n_strings' ) );
-
-			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
-				$this->loadLibraries();
-				$this->addHooks();
-				$this->maybe_load_tickets_framework();
-			} else {
-				// Either PHP or WordPress version is inadequate so we simply return an error.
-				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
-			}
-
-			$this->bind_implementations();
-		}
-
 		public function maybe_set_common_lib_info() {
 			$common_version = file_get_contents( $this->plugin_path . 'common/src/Tribe/Main.php' );
 
@@ -297,6 +266,60 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'version' => $common_version,
 				);
 			}
+		}
+
+		public function plugins_loaded() {
+			/**
+			 * Before any methods from this plugin are called, we initialize our Autoloading
+			 * After this method we can use any `Tribe__` classes
+			 */
+			$this->init_autoloading();
+
+			/**
+			 * We need Common to be able to load text domains correctly.
+			 * With that in mind we initialize Common passing the plugin Main class as the context
+			 */
+			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
+
+			/**
+			 * It's important that anything related to Text Domain happens at `init`
+			 * Because of the way $wp_locale works
+			 */
+			add_action( 'init', array( $this, 'setup_l10n_strings' ) );
+
+			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
+				$this->bind_implementations();
+				$this->loadLibraries();
+				$this->addHooks();
+				$this->maybe_load_tickets_framework();
+			} else {
+				// Either PHP or WordPress version is inadequate so we simply return an error.
+				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
+			}
+		}
+
+		protected function init_autoloading() {
+			$prefixes = array(
+				'Tribe__Events__' => $this->plugin_path . 'src/Tribe',
+				'ForceUTF8__' => $this->plugin_path . 'vendor/ForceUTF8',
+			);
+
+			if ( ! class_exists( 'Tribe__Autoloader' ) ) {
+				require_once $GLOBALS['tribe-common-info']['dir'] . '/Autoloader.php';
+
+				$prefixes['Tribe__'] = $GLOBALS['tribe-common-info']['dir'];
+			}
+
+			$autoloader = Tribe__Autoloader::instance();
+			$autoloader->register_prefixes( $prefixes );
+
+			// deprecated classes are registered in a class to path fashion
+			foreach ( glob( $this->plugin_path . 'src/deprecated/*.php' ) as $file ) {
+				$class_name = str_replace( '.php', '', basename( $file ) );
+				$autoloader->register_class( $class_name, $file );
+			}
+
+			$autoloader->register_autoloader();
 		}
 
 		/**
@@ -329,6 +352,37 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
 			tribe( 'tec.iCal' );
+		}
+
+		/**
+		 * Checks if the standalone Tickets plugin is activated.
+		 * If it's not, it loads the Tickets framework from our
+		 * vendor/ submodule.
+		 */
+		public function maybe_load_tickets_framework() {
+			if ( defined( 'EVENT_TICKETS_DIR' ) ) {
+				return;
+			}
+
+			// Give the standalone plugin a chance to load on activation
+			// WordPress loads all the active plugins before activating a new one.
+			if ( isset( $_GET['action'] ) && $_GET['action'] == 'activate' && isset( $_GET['plugin'] ) && strstr( $_GET['plugin'], 'event-tickets.php' ) ) {
+				return;
+			}
+
+			// if there aren't any ticket plugins activated, bail
+			if (
+				! defined( 'EVENT_TICKETS_PLUS' )
+				&& ! defined( 'EVENTS_TICKETS_EDD_DIR' )
+				&& ! defined( 'EVENTS_TICKETS_SHOPP_DIR' )
+				&& ! defined( 'EVENTS_TICKETS_WOO_DIR' )
+				&& ! defined( 'EVENTS_TICKETS_WPEC_DIR' )
+			) {
+				return;
+			}
+
+			require_once $this->plugin_path . 'vendor/tickets/event-tickets.php';
+			Tribe__Tickets__Main::instance()->plugins_loaded();
 		}
 
 		/**
@@ -373,112 +427,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Front page events archive support
 			tribe_singleton( 'tec.front-page-view', 'Tribe__Events__Front_Page_View' );
 			tribe_singleton( 'tec.admin.front-page-view', 'Tribe__Events__Admin__Front_Page_View' );
-		}
-
-		/**
-		 * Updater object accessor method
-		 */
-		public function updater() {
-			static $updater;
-
-			if ( ! $updater ) {
-				$updater = new Tribe__Events__Updater( self::VERSION );
-			}
-
-			return $updater;
-		}
-
-		public function run_updates() {
-			if ( $this->updater()->update_required() ) {
-				$this->updater()->do_updates();
-			}
-		}
-
-		/**
-		 * @return Tribe__Admin__Activation_Page
-		 */
-		public function activation_page() {
-			// Setup the activation page only if the relevant class exists (in some edge cases, if another
-			// plugin hosting an earlier version of tribe-common is already active we could hit fatals
-			// if we don't take this precaution).
-			//
-			// @todo remove class_exists() test once enough time has elapsed and the risk has reduced
-			if ( empty( $this->activation_page ) && class_exists( 'Tribe__Admin__Activation_Page' ) ) {
-				$this->activation_page = new Tribe__Admin__Activation_Page( array(
-					'slug'                  => 'the-events-calendar',
-					'activation_transient'  => '_tribe_events_activation_redirect',
-					'version'               => self::VERSION,
-					'plugin_path'           => $this->plugin_dir . 'the-events-calendar.php',
-					'version_history_slug'  => 'previous_ecp_versions',
-					'update_page_title'    => __( 'Welcome to The Events Calendar', 'the-events-calendar' ),
-					'update_page_template' => $this->plugin_path . 'src/admin-views/admin-update-message.php',
-					'welcome_page_title'    => __( 'Welcome to The Events Calendar', 'the-events-calendar' ),
-					'welcome_page_template' => $this->plugin_path . 'src/admin-views/admin-welcome-message.php',
-				) );
-			}
-
-			return $this->activation_page;
-		}
-
-		/**
-		 * before_html_data_wrapper adds a persistant tag to wrap the event display with a
-		 * way for jQuery to maintain state in the dom. Also has a hook for filtering data
-		 * attributes for inclusion in the dom
-		 *
-		 * @param  string $html
-		 *
-		 * @return string
-		 */
-		public function before_html_data_wrapper( $html ) {
-			global $wp_query;
-
-			if ( ! $this->show_data_wrapper['before'] ) {
-				return $html;
-			}
-
-			$tec = self::instance();
-
-			$data_attributes = array(
-				'live_ajax'         => tribe_get_option( 'liveFiltersUpdate', true ) ? 1 : 0,
-				'datepicker_format' => tribe_get_option( 'datepickerFormat' ),
-				'category'          => is_tax( $tec->get_event_taxonomy() ) ? get_query_var( 'term' ) : '',
-				'featured'          => tribe( 'tec.featured_events' )->is_featured_query(),
-			);
-			// allow data attributes to be filtered before display
-			$data_attributes = (array) apply_filters( 'tribe_events_view_data_attributes', $data_attributes );
-
-			// loop through the attributes and build the html output
-			foreach ( $data_attributes as $id => $attr ) {
-				$attribute_html[] = sprintf(
-					'data-%s="%s"',
-					sanitize_title( $id ),
-					esc_attr( $attr )
-				);
-			}
-
-			$this->show_data_wrapper['before'] = false;
-
-			// return filtered html
-			return apply_filters( 'tribe_events_view_before_html_data_wrapper', sprintf( '<div id="tribe-events" class="tribe-no-js" %s>%s', implode( ' ', $attribute_html ), $html ), $data_attributes, $html );
-		}
-
-		/**
-		 * after_html_data_wrapper close out the persistant dom wrapper
-		 *
-		 * @param  string $html
-		 *
-		 * @return string
-		 */
-		public function after_html_data_wrapper( $html ) {
-			if ( ! $this->show_data_wrapper['after'] ) {
-				return $html;
-			}
-
-			$html .= '</div><!-- #tribe-events -->';
-			$html .= tribe_events_promo_banner( false );
-			$this->show_data_wrapper['after'] = false;
-
-			return apply_filters( 'tribe_events_view_after_html_data_wrapper', $html );
 		}
 
 		/**
@@ -670,6 +618,183 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Add support for positioning the main events view on the site homepage
 			tribe( 'tec.front-page-view' )->hook();
+		}
+
+		/**
+		 * Run on applied action init
+		 */
+		public function init() {
+			// Start the integrations manager
+			Tribe__Events__Integrations__Manager::instance()->load_integrations();
+
+			$rewrite = Tribe__Events__Rewrite::instance();
+
+			$venue                       = Tribe__Events__Venue::instance();
+			$organizer                   = Tribe__Events__Organizer::instance();
+			$this->postVenueTypeArgs     = $venue->post_type_args;
+			$this->postOrganizerTypeArgs = $organizer->post_type_args;
+
+			$this->pluginName = $this->plugin_name            = esc_html__( 'The Events Calendar', 'the-events-calendar' );
+			$this->rewriteSlug                                = $this->getRewriteSlug();
+			$this->rewriteSlugSingular                        = $this->getRewriteSlugSingular();
+			$this->category_slug                              = $this->get_category_slug();
+			$this->tag_slug                                   = $this->get_tag_slug();
+			$this->taxRewriteSlug                             = $this->rewriteSlug . '/' . $this->category_slug;
+			$this->tagRewriteSlug                             = $this->rewriteSlug . '/' . $this->tag_slug;
+			$this->monthSlug                                  = sanitize_title( __( 'month', 'the-events-calendar' ) );
+			$this->listSlug                               	  = sanitize_title( __( 'list', 'the-events-calendar' ) );
+			$this->upcomingSlug                               = sanitize_title( __( 'upcoming', 'the-events-calendar' ) );
+			$this->pastSlug                                   = sanitize_title( __( 'past', 'the-events-calendar' ) );
+			$this->daySlug                                    = sanitize_title( __( 'day', 'the-events-calendar' ) );
+			$this->todaySlug                                  = sanitize_title( __( 'today', 'the-events-calendar' ) );
+			$this->featured_slug                              = sanitize_title( _x( 'featured', 'featured events slug', 'the-events-calendar' ) );
+
+			$this->singular_venue_label                       = $this->get_venue_label_singular();
+			$this->plural_venue_label                         = $this->get_venue_label_plural();
+			$this->singular_organizer_label                   = $this->get_organizer_label_singular();
+			$this->plural_organizer_label                     = $this->get_organizer_label_plural();
+			$this->singular_event_label                       = $this->get_event_label_singular();
+			$this->plural_event_label                         = $this->get_event_label_plural();
+			$this->singular_event_label_lowercase             = tribe_get_event_label_singular_lowercase();
+			$this->plural_event_label_lowercase               = tribe_get_event_label_plural_lowercase();
+
+			$this->postTypeArgs['rewrite']['slug']            = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE, false );
+			$this->currentDay                                 = '';
+			$this->errors                                     = '';
+
+			$this->default_values                             = apply_filters( 'tribe_events_default_value_strategy', new Tribe__Events__Default_Values() );
+
+			Tribe__Events__Query::init();
+			Tribe__Events__Backcompat::init();
+			Tribe__Credits::init();
+			Tribe__Events__Timezones::init();
+			$this->registerPostType();
+
+			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
+			$this->maybeSetTECVersion();
+		}
+
+		/**
+		 * Initializes any admin-specific code (expects to be called when admin_init fires).
+		 */
+		public function admin_init() {
+			global $pagenow;
+
+			$this->timezone_settings = new Tribe__Events__Admin__Timezone_Settings;
+
+			// Right now it only makes sense to add these extra upgrade notices within the plugins.php screen
+			if ( 'plugins.php' === $pagenow ) {
+				new Tribe__Admin__Notice__Plugin_Upgrade_Notice(
+					self::VERSION,
+					$this->plugin_dir . 'the-events-calendar.php'
+				);
+			}
+		}
+
+		/**
+		 * Updater object accessor method
+		 */
+		public function updater() {
+			static $updater;
+
+			if ( ! $updater ) {
+				$updater = new Tribe__Events__Updater( self::VERSION );
+			}
+
+			return $updater;
+		}
+
+		public function run_updates() {
+			if ( $this->updater()->update_required() ) {
+				$this->updater()->do_updates();
+			}
+		}
+
+		/**
+		 * @return Tribe__Admin__Activation_Page
+		 */
+		public function activation_page() {
+			// Setup the activation page only if the relevant class exists (in some edge cases, if another
+			// plugin hosting an earlier version of tribe-common is already active we could hit fatals
+			// if we don't take this precaution).
+			//
+			// @todo remove class_exists() test once enough time has elapsed and the risk has reduced
+			if ( empty( $this->activation_page ) && class_exists( 'Tribe__Admin__Activation_Page' ) ) {
+				$this->activation_page = new Tribe__Admin__Activation_Page( array(
+					'slug'                  => 'the-events-calendar',
+					'activation_transient'  => '_tribe_events_activation_redirect',
+					'version'               => self::VERSION,
+					'plugin_path'           => $this->plugin_dir . 'the-events-calendar.php',
+					'version_history_slug'  => 'previous_ecp_versions',
+					'update_page_title'    => __( 'Welcome to The Events Calendar', 'the-events-calendar' ),
+					'update_page_template' => $this->plugin_path . 'src/admin-views/admin-update-message.php',
+					'welcome_page_title'    => __( 'Welcome to The Events Calendar', 'the-events-calendar' ),
+					'welcome_page_template' => $this->plugin_path . 'src/admin-views/admin-welcome-message.php',
+				) );
+			}
+
+			return $this->activation_page;
+		}
+
+		/**
+		 * before_html_data_wrapper adds a persistant tag to wrap the event display with a
+		 * way for jQuery to maintain state in the dom. Also has a hook for filtering data
+		 * attributes for inclusion in the dom
+		 *
+		 * @param  string $html
+		 *
+		 * @return string
+		 */
+		public function before_html_data_wrapper( $html ) {
+			global $wp_query;
+
+			if ( ! $this->show_data_wrapper['before'] ) {
+				return $html;
+			}
+
+			$tec = self::instance();
+
+			$data_attributes = array(
+				'live_ajax'         => tribe_get_option( 'liveFiltersUpdate', true ) ? 1 : 0,
+				'datepicker_format' => tribe_get_option( 'datepickerFormat' ),
+				'category'          => is_tax( $tec->get_event_taxonomy() ) ? get_query_var( 'term' ) : '',
+				'featured'          => tribe( 'tec.featured_events' )->is_featured_query(),
+			);
+			// allow data attributes to be filtered before display
+			$data_attributes = (array) apply_filters( 'tribe_events_view_data_attributes', $data_attributes );
+
+			// loop through the attributes and build the html output
+			foreach ( $data_attributes as $id => $attr ) {
+				$attribute_html[] = sprintf(
+					'data-%s="%s"',
+					sanitize_title( $id ),
+					esc_attr( $attr )
+				);
+			}
+
+			$this->show_data_wrapper['before'] = false;
+
+			// return filtered html
+			return apply_filters( 'tribe_events_view_before_html_data_wrapper', sprintf( '<div id="tribe-events" class="tribe-no-js" %s>%s', implode( ' ', $attribute_html ), $html ), $data_attributes, $html );
+		}
+
+		/**
+		 * after_html_data_wrapper close out the persistant dom wrapper
+		 *
+		 * @param  string $html
+		 *
+		 * @return string
+		 */
+		public function after_html_data_wrapper( $html ) {
+			if ( ! $this->show_data_wrapper['after'] ) {
+				return $html;
+			}
+
+			$html .= '</div><!-- #tribe-events -->';
+			$html .= tribe_events_promo_banner( false );
+			$this->show_data_wrapper['after'] = false;
+
+			return apply_filters( 'tribe_events_view_after_html_data_wrapper', $html );
 		}
 
 		/**
@@ -935,77 +1060,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function print_noindex_meta() {
 			echo ' <meta name="robots" content="noindex,follow" />' . "\n";
-		}
-
-		/**
-		 * Run on applied action init
-		 */
-		public function init() {
-			// Start the integrations manager
-			Tribe__Events__Integrations__Manager::instance()->load_integrations();
-
-			$rewrite = Tribe__Events__Rewrite::instance();
-
-			$venue                       = Tribe__Events__Venue::instance();
-			$organizer                   = Tribe__Events__Organizer::instance();
-			$this->postVenueTypeArgs     = $venue->post_type_args;
-			$this->postOrganizerTypeArgs = $organizer->post_type_args;
-
-			$this->pluginName = $this->plugin_name            = esc_html__( 'The Events Calendar', 'the-events-calendar' );
-			$this->rewriteSlug                                = $this->getRewriteSlug();
-			$this->rewriteSlugSingular                        = $this->getRewriteSlugSingular();
-			$this->category_slug                              = $this->get_category_slug();
-			$this->tag_slug                                   = $this->get_tag_slug();
-			$this->taxRewriteSlug                             = $this->rewriteSlug . '/' . $this->category_slug;
-			$this->tagRewriteSlug                             = $this->rewriteSlug . '/' . $this->tag_slug;
-			$this->monthSlug                                  = sanitize_title( __( 'month', 'the-events-calendar' ) );
-			$this->listSlug                               	  = sanitize_title( __( 'list', 'the-events-calendar' ) );
-			$this->upcomingSlug                               = sanitize_title( __( 'upcoming', 'the-events-calendar' ) );
-			$this->pastSlug                                   = sanitize_title( __( 'past', 'the-events-calendar' ) );
-			$this->daySlug                                    = sanitize_title( __( 'day', 'the-events-calendar' ) );
-			$this->todaySlug                                  = sanitize_title( __( 'today', 'the-events-calendar' ) );
-			$this->featured_slug                              = sanitize_title( _x( 'featured', 'featured events slug', 'the-events-calendar' ) );
-
-			$this->singular_venue_label                       = $this->get_venue_label_singular();
-			$this->plural_venue_label                         = $this->get_venue_label_plural();
-			$this->singular_organizer_label                   = $this->get_organizer_label_singular();
-			$this->plural_organizer_label                     = $this->get_organizer_label_plural();
-			$this->singular_event_label                       = $this->get_event_label_singular();
-			$this->plural_event_label                         = $this->get_event_label_plural();
-			$this->singular_event_label_lowercase             = tribe_get_event_label_singular_lowercase();
-			$this->plural_event_label_lowercase               = tribe_get_event_label_plural_lowercase();
-
-			$this->postTypeArgs['rewrite']['slug']            = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE, false );
-			$this->currentDay                                 = '';
-			$this->errors                                     = '';
-
-			$this->default_values                             = apply_filters( 'tribe_events_default_value_strategy', new Tribe__Events__Default_Values() );
-
-			Tribe__Events__Query::init();
-			Tribe__Events__Backcompat::init();
-			Tribe__Credits::init();
-			Tribe__Events__Timezones::init();
-			$this->registerPostType();
-
-			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
-			$this->maybeSetTECVersion();
-		}
-
-		/**
-		 * Initializes any admin-specific code (expects to be called when admin_init fires).
-		 */
-		public function admin_init() {
-			global $pagenow;
-
-			$this->timezone_settings = new Tribe__Events__Admin__Timezone_Settings;
-
-			// Right now it only makes sense to add these extra upgrade notices within the plugins.php screen
-			if ( 'plugins.php' === $pagenow ) {
-				new Tribe__Admin__Notice__Plugin_Upgrade_Notice(
-					self::VERSION,
-					$this->plugin_dir . 'the-events-calendar.php'
-				);
-			}
 		}
 
 		/**
@@ -4200,66 +4254,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			return $post;
 		}
 
-		protected function init_autoloading() {
-			$prefixes = array(
-				'Tribe__Events__' => $this->plugin_path . 'src/Tribe',
-				'ForceUTF8__' => $this->plugin_path . 'vendor/ForceUTF8',
-			);
-
-			if ( ! class_exists( 'Tribe__Autoloader' ) ) {
-				require_once $GLOBALS['tribe-common-info']['dir'] . '/Autoloader.php';
-
-				$prefixes['Tribe__'] = $GLOBALS['tribe-common-info']['dir'];
-			}
-
-			$autoloader = Tribe__Autoloader::instance();
-			$autoloader->register_prefixes( $prefixes );
-
-			// deprecated classes are registered in a class to path fashion
-			foreach ( glob( $this->plugin_path . 'src/deprecated/*.php' ) as $file ) {
-				$class_name = str_replace( '.php', '', basename( $file ) );
-				$autoloader->register_class( $class_name, $file );
-			}
-
-			$autoloader->register_autoloader();
-		}
-
 		/**
 		 * Registers the list widget
 		 */
 		public function register_list_widget() {
 			register_widget( 'Tribe__Events__List_Widget' );
-		}
-
-		/**
-		 * Checks if the standalone Tickets plugin is activated.
-		 * If it's not, it loads the Tickets framework from our
-		 * vendor/ submodule.
-		 */
-		public function maybe_load_tickets_framework() {
-			if ( defined( 'EVENT_TICKETS_DIR' ) ) {
-				return;
-			}
-
-			// Give the standalone plugin a chance to load on activation
-			// WordPress loads all the active plugins before activating a new one.
-			if ( isset( $_GET['action'] ) && $_GET['action'] == 'activate' && isset( $_GET['plugin'] ) && strstr( $_GET['plugin'], 'event-tickets.php' ) ) {
-				return;
-			}
-
-			// if there aren't any ticket plugins activated, bail
-			if (
-				! defined( 'EVENT_TICKETS_PLUS' )
-				&& ! defined( 'EVENTS_TICKETS_EDD_DIR' )
-				&& ! defined( 'EVENTS_TICKETS_SHOPP_DIR' )
-				&& ! defined( 'EVENTS_TICKETS_WOO_DIR' )
-				&& ! defined( 'EVENTS_TICKETS_WPEC_DIR' )
-			) {
-				return;
-			}
-
-			require_once $this->plugin_path . 'vendor/tickets/event-tickets.php';
-			Tribe__Tickets__Main::instance()->plugins_loaded();
 		}
 
 		/**
