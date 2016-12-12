@@ -54,6 +54,8 @@ class Tribe__Events__Aggregator__Record__Queue {
 			return $record;
 		}
 
+		$this->remove_duplicate_pending_records_for( $record );
+
 		$this->record = $record;
 
 		// Prevent it going any further
@@ -296,5 +298,59 @@ class Tribe__Events__Aggregator__Record__Queue {
 		}
 
 		return $item_type;
+	}
+
+	/**
+	 * Removes duplicate records for the same import ID.
+	 *
+	 * While it makes sense to keep track of past import records it does not make sense
+	 * to keep more than one pending record for the same import ID.
+	 *
+	 * @param Tribe__Events__Aggregator__Record__Abstract|int $record A record object or a record post ID.
+	 *
+	 * @return int[] An array containing the deleted posts IDs.
+	 */
+	public function remove_duplicate_pending_records_for( $record ) {
+		if ( is_numeric( $record ) ) {
+			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
+		}
+
+		if ( ! is_a( $record, 'Tribe__Events__Aggregator__Record__Abstract' ) ) {
+			return;
+		}
+
+		$import_id = $record->meta['import_id'];
+
+		if ( empty( $import_id ) ) {
+			return;
+		}
+
+		/** @var \wpdb $wpdb */
+		global $wpdb;
+
+		$pending_status = Tribe__Events__Aggregator__Records::$status->pending;
+
+		$query = $wpdb->prepare( "SELECT ID
+			FROM {$wpdb->postmeta} pm
+			JOIN {$wpdb->posts} p
+			ON pm.post_id = p.ID
+			WHERE p.post_type = %s
+			AND p.post_status = %s
+			AND pm.meta_key = '_tribe_aggregator_import_id'
+			AND pm.meta_value = %s
+			ORDER BY p.post_modified_gmt DESC", Tribe__Events__Aggregator__Records::$post_type, $pending_status, $import_id );
+
+		$records = $wpdb->get_col( $query );
+		array_shift( $records );
+
+		$deleted = array();
+		foreach ( $records as $to_delete ) {
+			$post = wp_delete_post( $to_delete, true );
+			if(!empty($post)){
+				$deleted[] = $post->ID;
+			}
+		}
+
+		return $deleted;
 	}
 }
