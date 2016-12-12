@@ -525,7 +525,6 @@ jQuery( document ).ready( function( $ ) {
 
 		$.extend( tribe_datepicker_opts, tribe_l10n_datatables.datepicker );
 
-		console.log( tribe_datepicker_opts );
 		var dates = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
 		var $start_end_month = $( "select[name='EventStartMonth'], select[name='EventEndMonth']" );
 		var $start_month = $( "select[name='EventStartMonth']" );
