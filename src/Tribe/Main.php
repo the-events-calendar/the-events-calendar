@@ -191,10 +191,29 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		public $currentPostTimestamp;
 
+		/**
+		 * @deprecated 4.4
+		 */
 		public $daysOfWeekShort;
+
+		/**
+		 * @deprecated 4.4
+		 */
 		public $daysOfWeek;
+
+		/**
+		 * @deprecated 4.4
+		 */
 		public $daysOfWeekMin;
+
+		/**
+		 * @deprecated 4.4
+		 */
 		public $monthsFull;
+
+		/**
+		 * @deprecated 4.4
+		 */
 		public $monthsShort;
 
 		public $singular_venue_label;
@@ -2082,24 +2101,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Localize admin.
 		 *
-		 * Notice that we pass full length month names in the monthNamesShort property:
-		 * this is deliberate and meets a requirement to show full-length months in the
-		 * datepicker's month selector.
-		 *
 		 * @return array
 		 */
 		public function localizeAdmin() {
 			$bits = array(
-				'dayNames'        => $this->daysOfWeek,
-				'dayNamesShort'   => $this->daysOfWeekShort,
-				'dayNamesMin'     => $this->daysOfWeekMin,
-				'monthNames'      => array_values( $this->monthNames() ),
-				'monthNamesShort' => array_values( $this->monthNames() ),
-				'nextText'        => esc_html__( 'Next', 'the-events-calendar' ),
-				'prevText'        => esc_html__( 'Prev', 'the-events-calendar' ),
-				'currentText'     => esc_html__( 'Today', 'the-events-calendar' ),
-				'closeText'       => esc_html__( 'Done', 'the-events-calendar' ),
-				'ajaxurl'         => esc_url_raw( admin_url( 'admin-ajax.php', ( is_ssl() || FORCE_SSL_ADMIN ? 'https' : 'http' ) ) ),
+				'ajaxurl' => esc_url_raw( admin_url( 'admin-ajax.php', ( is_ssl() || FORCE_SSL_ADMIN ? 'https' : 'http' ) ) ),
 			);
 
 			return $bits;
@@ -2469,47 +2475,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		public function setup_l10n_strings() {
-			global $wp_locale;
-
-			// Localize month names
-			$this->monthsFull = array(
-				'January'   => $wp_locale->get_month( '01' ),
-				'February'  => $wp_locale->get_month( '02' ),
-				'March'     => $wp_locale->get_month( '03' ),
-				'April'     => $wp_locale->get_month( '04' ),
-				'May'       => $wp_locale->get_month( '05' ),
-				'June'      => $wp_locale->get_month( '06' ),
-				'July'      => $wp_locale->get_month( '07' ),
-				'August'    => $wp_locale->get_month( '08' ),
-				'September' => $wp_locale->get_month( '09' ),
-				'October'   => $wp_locale->get_month( '10' ),
-				'November'  => $wp_locale->get_month( '11' ),
-				'December'  => $wp_locale->get_month( '12' ),
-			);
-
-			// yes, it's awkward. easier this way than changing logic elsewhere.
-			$this->monthsShort = $months = array(
-				'Jan' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '01' ) ),
-				'Feb' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '02' ) ),
-				'Mar' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '03' ) ),
-				'Apr' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '04' ) ),
-				'May' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '05' ) ),
-				'Jun' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '06' ) ),
-				'Jul' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '07' ) ),
-				'Aug' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '08' ) ),
-				'Sep' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '09' ) ),
-				'Oct' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '10' ) ),
-				'Nov' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '11' ) ),
-				'Dec' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '12' ) ),
-			);
-
-			// Get the localized weekday names
-			for ( $i = 0; $i <= 6; $i ++ ) {
-				$day = $wp_locale->get_weekday( $i );
-				$this->daysOfWeek[ $i ] = $day;
-				$this->daysOfWeekShort[ $i ] = $wp_locale->get_weekday_abbrev( $day );
-				$this->daysOfWeekMin[ $i ] = $wp_locale->get_weekday_initial( $day );
-			}
+			// @todo these members became deprecated in 4.4 - remove in future release
+			$this->monthsFull      = Tribe__Date_Utils::get_localized_months_full();
+			$this->monthsShort     = Tribe__Date_Utils::get_localized_months_short();
+			$this->daysOfWeek      = Tribe__Date_Utils::get_localized_weekdays_full();
+			$this->daysOfWeekShort = Tribe__Date_Utils::get_localized_months_short();
+			$this->daysOfWeekMin   = Tribe__Date_Utils::get_localized_weekdays_initial();
 
 			// Setup the Strings for Rewrite Translations
 			__( 'tag', 'the-events-calendar' );
@@ -2529,10 +2500,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function monthNames( $short = false ) {
 			if ( $short ) {
-				return $this->monthsShort;
+				return Tribe__Date_Utils::get_localized_months_short();
 			}
 
-			return $this->monthsFull;
+			return Tribe__Date_Utils::get_localized_months_full();
 		}
 
 		/**
