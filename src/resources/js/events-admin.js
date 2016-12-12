@@ -458,7 +458,7 @@ jQuery( document ).ready( function( $ ) {
 
 	$( '.hide-if-js' ).hide();
 
-	if ( typeof(TEC) !== 'undefined' ) {
+	if ( typeof( tribe_l10n_datatables.datepicker ) !== 'undefined' ) {
 
 		var _MS_PER_DAY = 1000 * 60 * 60 * 24;
 
@@ -523,8 +523,9 @@ jQuery( document ).ready( function( $ ) {
 			}
 		};
 
-		$.extend( tribe_datepicker_opts, TEC );
+		$.extend( tribe_datepicker_opts, tribe_l10n_datatables.datepicker );
 
+		console.log( tribe_datepicker_opts );
 		var dates = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
 		var $start_end_month = $( "select[name='EventStartMonth'], select[name='EventEndMonth']" );
 		var $start_month = $( "select[name='EventStartMonth']" );
