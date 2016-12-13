@@ -4,6 +4,8 @@ $indicator_icons = array(
 	'warning' => 'warning',
 	'bad' => 'dismiss',
 );
+
+$show_third_party_accounts = ! is_network_admin();
 ?>
 
 <table class="event-aggregator-status">
@@ -16,12 +18,12 @@ $indicator_icons = array(
 		<?php
 		$notes = '&nbsp;';
 		$ea_active = false;
-		if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			$indicator = 'good';
 			$text = __( 'Your license is valid', 'the-events-calendar' );
 			$ea_active = true;
 		} else {
-			$service_status = Tribe__Events__Aggregator__Service::instance()->api()->get_error_code();
+			$service_status = tribe( 'events-aggregator.service' )->api()->get_error_code();
 
 			$indicator = 'bad';
 			if ( 'core:aggregator:invalid-service-key' == $service_status ) {
@@ -48,7 +50,7 @@ $indicator_icons = array(
 			return ob_get_clean();
 		}
 
-		$service = Tribe__Events__Aggregator__Service::instance();
+		$service = tribe( 'events-aggregator.service' );
 		$import_limit = $service->get_limit( 'import' );
 		$import_available = $service->get_limit_remaining();
 		$import_count = $service->get_limit_usage();
@@ -91,8 +93,8 @@ $indicator_icons = array(
 		$indicator = 'good';
 		$notes = '&nbsp;';
 
-		$ea_server = Tribe__Events__Aggregator__Service::instance()->api()->domain;
-		$up = Tribe__Events__Aggregator__Service::instance()->get( 'status/up' );
+		$ea_server = tribe( 'events-aggregator.service' )->api()->domain;
+		$up = tribe( 'events-aggregator.service' )->get( 'status/up' );
 
 		if ( ! $up || is_wp_error( $up ) ) {
 			$indicator = 'bad';
@@ -147,20 +149,21 @@ $indicator_icons = array(
 	</tbody>
 </table>
 
-<table class="event-aggregator-status">
-	<thead>
-		<tr class="table-heading">
-			<th colspan="4"><?php esc_html_e( 'Third Party Accounts', 'the-events-calendar' ); ?></th>
-		</tr>
-	</thead>
-	<tbody>
+<?php if ( $show_third_party_accounts ) : ?>
+    <table class="event-aggregator-status">
+        <thead>
+        <tr class="table-heading">
+            <th colspan="4"><?php esc_html_e( 'Third Party Accounts', 'the-events-calendar' ); ?></th>
+        </tr>
+        </thead>
+        <tbody>
 		<?php
 		// Facebook status section
 		$indicator = 'good';
 		$notes = '&nbsp;';
 		$text = 'Connected';
 
-		if ( Tribe__Events__Aggregator::instance()->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
+		if ( tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
 			if ( ! Tribe__Events__Aggregator__Settings::instance()->is_fb_credentials_valid() ) {
 				$indicator = 'warning';
 				$text = __( 'You have not connected Event Aggregator to Facebook', 'the-events-calendar' );
@@ -173,14 +176,14 @@ $indicator_icons = array(
 			$notes = esc_html__( 'The service has disabled oAuth. Some types of events may not import.', 'the-events-calendar' );
 		}
 		?>
-		<tr>
-			<td class="label">
-				<img src="<?php echo tribe_events_resource_url( 'images/aggregator/facebook.png' ); ?>" /><span><?php esc_html_e( 'Facebook', 'the-events-calendar' ); ?></span>
-			</td>
-			<td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
-			<td><?php echo esc_html( $text ); ?></td>
-			<td><?php echo $notes; ?></td>
-		</tr>
+        <tr>
+            <td class="label">
+                <img src="<?php echo tribe_events_resource_url( 'images/aggregator/facebook.png' ); ?>" /><span><?php esc_html_e( 'Facebook', 'the-events-calendar' ); ?></span>
+            </td>
+            <td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
+            <td><?php echo esc_html( $text ); ?></td>
+            <td><?php echo esc_html( $notes ); ?></td>
+        </tr>
 		<?php
 		// Meetup status section
 		$indicator = 'good';
@@ -195,13 +198,14 @@ $indicator_icons = array(
 			$notes .= '</a>';
 		}
 		?>
-		<tr>
-			<td class="label">
-				<img src="<?php echo tribe_events_resource_url( 'images/aggregator/meetup.png' ); ?>" /><span><?php esc_html_e( 'Meetup', 'the-events-calendar' ); ?></span>
-			</td>
-			<td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
-			<td><?php echo esc_html( $text ); ?></td>
-			<td><?php echo $notes; ?></td>
-		</tr>
-	</tbody>
-</table>
+        <tr>
+            <td class="label">
+                <img src="<?php echo tribe_events_resource_url( 'images/aggregator/meetup.png' ); ?>" /><span><?php esc_html_e( 'Meetup', 'the-events-calendar' ); ?></span>
+            </td>
+            <td class="indicator <?php esc_attr_e( $indicator ); ?>"><span class="dashicons dashicons-<?php echo esc_attr( $indicator_icons[ $indicator ] ); ?>"></span></td>
+            <td><?php echo esc_html( $text ); ?></td>
+            <td><?php echo $notes; // Escaping handled above ?></td>
+        </tr>
+        </tbody>
+    </table>
+<?php endif; ?>

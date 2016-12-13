@@ -3,7 +3,24 @@
 defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator__API__Abstract {
+
+	/**
+	 * @var array
+	 */
 	public $origins;
+
+	/**
+	 * @var bool Whether EA is enabled or not.
+	 *           While EA might be ready to work on a license and functional level
+	 *           the user might disable it; this flag tracks that choice.
+	 */
+	protected $is_ea_disabled = true;
+
+	/**
+	 * @var array An array of origins that will still be available when EA has
+	 *            been disabled by the user.
+	 */
+	protected $available_when_disabled = array( 'csv' );
 
 	public function __construct() {
 		parent::__construct();
@@ -40,6 +57,8 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 				'disabled' => true,
 			),
 		);
+
+		$this->is_ea_disabled = tribe_get_option( 'tribe_aggregator_disable', false );
 	}
 
 	/**
@@ -48,11 +67,15 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 * @return array
 	 */
 	public function get() {
-		if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			$this->enable_service_origins();
 		}
 
-		return apply_filters( 'tribe_aggregator_origins', $this->origins );
+		$origins = $this->origins;
+
+		$origins = array_filter($origins, array( $this, 'is_origin_available' ));
+
+		return apply_filters( 'tribe_aggregator_origins', $origins );
 	}
 
 	/**
@@ -118,7 +141,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 * @return boolean
 	 */
 	public function is_oauth_enabled( $origin ) {
-		if ( ! Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return false;
 		}
 
@@ -165,5 +188,22 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 			return __( 'Event Aggregator', 'the-events-calendar' );
 		}
 		return $this->origins[ $id ]->name;
+	}
+
+	/**
+	 * Whether an origin is available or not in respect to the user possibility
+	 * to disable EA functions.
+	 *
+	 * @param stdClass|string $origin The origin to check for availability as an object
+	 *                                or a slug.
+	 *
+	 * @return bool
+	 */
+	public function is_origin_available( $origin ) {
+		if ( is_object( $origin ) ) {
+			$origin = $origin->id;
+		}
+
+		return $this->is_ea_disabled ? in_array( $origin, $this->available_when_disabled ) : true;
 	}
 }
