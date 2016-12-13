@@ -2375,7 +2375,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// If single and not All for Recurring events From Pro
-			if ( $query->is_single() && 'all' !== $this->displaying ) {
+			if ( $query->is_single() && 'all' !== $display ) {
 				$display = 'single-event';
 			}
 

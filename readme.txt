@@ -315,6 +315,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.3.4.2] 2016-12-13 =
+
+* Fix - Correct an oversight leading to breakages of the /all/ events archive for Events Calendar PRO users [70662]
+
 = [4.3.4.1] 2016-12-09 =
 
 * Fix - Updates Tribe Common to remove some stray characters that were impacting page layouts (props: @Aetles) [70536]
