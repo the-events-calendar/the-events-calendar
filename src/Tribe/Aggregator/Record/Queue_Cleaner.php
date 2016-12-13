@@ -75,7 +75,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 
 		$id = $record->post->ID;
 
-		if( $post_status === $failed){
+		if ( $post_status === $failed ) {
 			delete_post_meta( $id, '_tribe_aggregator_queue' );
 			Tribe__Post_Transient::instance()->delete( $id, '_tribe_aggregator_queue' );
 
