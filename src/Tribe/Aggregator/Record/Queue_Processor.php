@@ -205,7 +205,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	protected function get_current_queue() {
 		try {
 			$this->current_queue = new Tribe__Events__Aggregator__Record__Queue( $this->current_record_id );
-		} catch ( Exception $e ) {
+		} catch ( InvalidArgumentException $e ) {
 			do_action( 'log', sprintf( __( 'Could not process queue for Import Record %1$d: %2$s', 'the-events-calendar' ), $this->current_record_id, $e->getMessage() ) );
 			return false;
 		}
