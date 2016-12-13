@@ -40,28 +40,55 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 */
 	public $total = 0;
 
-	public function __construct( $record, $items = array() ) {
+	/**
+	 * @var Tribe__Events__Aggregator__Record__Queue_Cleaner
+	 */
+	protected $cleaner;
+
+	/**
+	 * Whether any real processing should happen for the queue or not.
+	 *
+	 * @var bool
+	 */
+	protected $null_process = false;
+
+	/**
+	 * Tribe__Events__Aggregator__Record__Queue constructor.
+	 *
+	 * @param int|Tribe__Events__Aggregator__Record__Abstract       $record
+	 * @param array                                                 $items
+	 * @param Tribe__Events__Aggregator__Record__Queue_Cleaner|null $cleaner
+	 */
+	public function __construct( $record, $items = array(), Tribe__Events__Aggregator__Record__Queue_Cleaner $cleaner = null ) {
 		if ( is_numeric( $record ) ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
 		}
 
-		if ( ! in_array( 'Tribe__Events__Aggregator__Record__Abstract', class_parents( $record ) ) ) {
-			return false;
+		if ( ! is_a( $record, 'Tribe__Events__Aggregator__Record__Abstract' ) ) {
+			$this->null_process = true;
+
+			return;
 		}
 
-		// Prevent it going any further
-		if ( is_wp_error( $record ) ) {
-			return $record;
+		if ( is_wp_error( $items ) ) {
+			$this->null_process = true;
+
+			return;
 		}
 
-		$this->remove_duplicate_pending_records_for( $record );
+		$this->cleaner = $cleaner ? $cleaner : new Tribe__Events__Aggregator__Record__Queue_Cleaner();
+
+		$this->cleaner->remove_duplicate_pending_records_for( $record );
+
+		$failed = $this->cleaner->maybe_fail_stalled_record( $record );
+
+		if ( $failed ) {
+			$this->null_process = true;
+
+			return;
+		}
 
 		$this->record = $record;
-
-		// Prevent it going any further
-		if ( is_wp_error( $items ) ) {
-			return $this;
-		}
 
 		$this->activity();
 
@@ -77,6 +104,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 		} else {
 			$this->load_queue();
 		}
+		$this->cleaner = $cleaner;
 	}
 
 	public function init_queue( $items ) {
@@ -199,6 +227,10 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * @return self
 	 */
 	public function process( $batch_size = null ) {
+		if ( $this->null_process ) {
+			return $this;
+		}
+
 		if ( $this->is_fetching() ) {
 			$data = $this->record->prep_import_data();
 
@@ -299,58 +331,5 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 		return $item_type;
 	}
-
-	/**
-	 * Removes duplicate records for the same import ID.
-	 *
-	 * While it makes sense to keep track of past import records it does not make sense
-	 * to keep more than one pending record for the same import ID.
-	 *
-	 * @param Tribe__Events__Aggregator__Record__Abstract|int $record A record object or a record post ID.
-	 *
-	 * @return int[] An array containing the deleted posts IDs.
-	 */
-	public function remove_duplicate_pending_records_for( $record ) {
-		if ( is_numeric( $record ) ) {
-			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
-		}
-
-		if ( ! is_a( $record, 'Tribe__Events__Aggregator__Record__Abstract' ) ) {
-			return;
-		}
-
-		$import_id = $record->meta['import_id'];
-
-		if ( empty( $import_id ) ) {
-			return;
-		}
-
-		/** @var \wpdb $wpdb */
-		global $wpdb;
-
-		$pending_status = Tribe__Events__Aggregator__Records::$status->pending;
-
-		$query = $wpdb->prepare( "SELECT ID
-			FROM {$wpdb->postmeta} pm
-			JOIN {$wpdb->posts} p
-			ON pm.post_id = p.ID
-			WHERE p.post_type = %s
-			AND p.post_status = %s
-			AND pm.meta_key = '_tribe_aggregator_import_id'
-			AND pm.meta_value = %s
-			ORDER BY p.post_modified_gmt DESC", Tribe__Events__Aggregator__Records::$post_type, $pending_status, $import_id );
-
-		$records = $wpdb->get_col( $query );
-		array_shift( $records );
-
-		$deleted = array();
-		foreach ( $records as $to_delete ) {
-			$post = wp_delete_post( $to_delete, true );
-			if(!empty($post)){
-				$deleted[] = $post->ID;
-			}
-		}
-
-		return $deleted;
-	}
 }
+
