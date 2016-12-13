@@ -7,7 +7,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 	 * @var int The time a record is allowed to stall before having
 	 *          its status set to failed in seconds.
 	 */
-	protected $stall_limit = 1800;
+	protected $stall_limit = HOUR_IN_SECONDS;
 
 	/**
 	 * Removes duplicate records for the same import ID.

@@ -315,6 +315,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.3.5] tbd =
+
+* Fix - Avoid running import notices from stucking in administration area [70614]
+
 = [4.3.4.1] 2016-12-09 =
 
 * Fix - Updates Tribe Common to remove some stray characters that were impacting page layouts (props: @Aetles) [70536]
