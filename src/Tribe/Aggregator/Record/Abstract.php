@@ -119,6 +119,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$this->meta[ $key ] = maybe_unserialize( is_array( $value ) ? reset( $value ) : $value );
 		}
 
+		// `source` will be empty when importing .ics files
+		$this->meta['source'] = ! empty( $meta['source'] ) ? $meta['source'] : '';
+
 		// This prevents lots of isset checks for no reason
 		if ( empty( $this->meta['activity'] ) ) {
 			$this->meta['activity'] = new Tribe__Events__Aggregator__Record__Activity();
@@ -501,7 +504,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$defaults = array(
 			'type'     => $this->meta['type'],
 			'origin'   => $this->meta['origin'],
-			'source'   => ! empty( $this->meta['source'] ) ? $this->meta['source'] : '',
+			'source'   => $this->meta['source'],
 			'callback' => $is_previewing ? null : site_url( '/event-aggregator/insert/?key=' . urlencode( $this->meta['hash'] ) ),
 		);
 
