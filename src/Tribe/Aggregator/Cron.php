@@ -19,7 +19,7 @@ class Tribe__Events__Aggregator__Cron {
 	 * Limit of Requests to our servers
 	 * @var int
 	 */
-	private $limit = 5;
+	private $limit = 0;
 
 	/**
 	 * A Boolean holding if this Cron is Running
