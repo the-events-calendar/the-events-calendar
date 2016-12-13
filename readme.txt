@@ -77,7 +77,7 @@ Looking for something else? We’ve got add-ons available to take your calendar 
 
 = PRO Features =
 
-Add recurring events, a whole recurring events, a whole range of new views ( week / map / photo / venue / organizer) & widgets (calendar / featured venue / week / event countdown), custom event attributes, default content, location search, much more with [Events Calendar PRO](http://m.tri.be/2c)
+Add recurring events, a whole recurring events, a whole range of new views ( week / map / photo / venue / organizer) & widgets (calendar / featured venue / week / event countdown), shortcodes, custom event attributes, default content, location search, much more with [Events Calendar PRO](http://m.tri.be/2c)
 
 = Event Ticketing =
 
@@ -324,6 +324,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Organizers and Venues are now with a better and cleaner interface [68430]
 * Fix - Add a link to The Events Calendar Help page in the Network Administration screen of multisite installations [68665]
 * Fix - Multisite license editing and displaying consistency [68662]
+
+= [4.3.4.2] 2016-12-13 =
+
+* Fix - Correct an oversight leading to breakages of the /all/ events archive for Events Calendar PRO users [70662]
 
 = [4.3.4.1] 2016-12-09 =
 
