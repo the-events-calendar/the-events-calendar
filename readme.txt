@@ -318,6 +318,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.3.5] tbd =
 
 * Fix - Fixed comment count and visibility issues due to Event Aggregator records [68297]
+* Fix - Fixed PHP notices and warnings raised when importing .ics files [69960]
 
 = [4.3.4.1] 2016-12-09 =
 

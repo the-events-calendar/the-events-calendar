@@ -93,6 +93,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return;
 		}
 
+		/** @var Tribe__Events__Aggregator__Record__Abstract $record */
 		$record    = $submission['record'];
 		$post_data = $submission['post_data'];
 		$meta      = $submission['meta'];
