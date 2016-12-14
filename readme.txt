@@ -318,9 +318,9 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.3.5] tbd =
 
 * Fix - Fixed comment count and visibility issues due to Event Aggregator records [68297]
-* Fix - Avoid running import notices from stucking in administration area [70614]
 * Fix - Fixed PHP notices and warnings raised when importing .ics files [69960]
 * Fix - Only show link to Venues if Pro is active in List View [69887]
+* Fix - Fixed and issue that would make Event Aggregator importing notices remain stuck in the Import screen [70614]
 
 = [4.3.4.1] 2016-12-09 =
 
