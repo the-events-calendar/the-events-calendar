@@ -56,7 +56,6 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 * batches of pending import record inserts/updates.
 	 */
 	public function register_scheduled_task() {
-		$schedules = wp_get_schedules();
 		if ( wp_next_scheduled( self::$scheduled_key ) ) {
 			return;
 		}
@@ -192,7 +191,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		$this->current_queue->set_in_progress_flag();
 		$processed = $this->current_queue->process( self::$batch_size );
 		// in the 'fetch' phase this will not be a Queue object
-		if ( is_a( $processed, 'Tribe__Events__Aggregator__Record__Queue' ) ) {
+		if ( $processed instanceof Tribe__Events__Aggregator__Record__Queue ) {
 			$this->processed += $processed->activity->count( $this->current_queue->get_queue_type() );
 		}
 		$this->current_queue->clear_in_progress_flag();
