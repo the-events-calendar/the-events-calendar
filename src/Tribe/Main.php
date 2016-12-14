@@ -4807,6 +4807,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function tribe_settings_url( $url ) {
+			if ( is_network_admin() ) {
+				return $url;
+			}
 			return add_query_arg( array( 'post_type' => self::POSTTYPE ), $url );
 		}
 
