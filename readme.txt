@@ -322,6 +322,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Only show link to Venues if Pro is active in List View [69887]
 * Fix - Avoid error screen when saving licenses on multisite installations [68599]
 * Tweak - Updated the template override instructions in a number of templates [68229]
+* Fix - Fix calendar view links in WPML language switcher [67134]
 
 = [4.3.4.1] 2016-12-09 =
 
