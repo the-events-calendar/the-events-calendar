@@ -321,6 +321,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Fixed PHP notices and warnings raised when importing .ics files [69960]
 * Fix - Only show link to Venues if Pro is active in List View [69887]
 * Fix - Avoid error screen when saving licenses on multisite installations [68599]
+* Tweak - Updated the template override instructions in a number of templates [68229]
 
 = [4.3.4.1] 2016-12-09 =
 
