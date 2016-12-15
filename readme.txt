@@ -321,6 +321,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Fixed PHP notices and warnings raised when importing .ics files [69960]
 * Fix - Only show link to Venues if Pro is active in List View [69887]
 * Fix - Avoid error screen when saving licenses on multisite installations [68599]
+* Fix - Fix calendar view links in WPML language switcher [67134]
 
 = [4.3.4.1] 2016-12-09 =
 
