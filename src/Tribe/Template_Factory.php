@@ -367,7 +367,7 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	 * @return string
 	 */
 	protected function get_title( $title, $sep = null ) {
-		return tribe_get_events_title( false ) . ' ' . $sep . ' ' . $title;
+		return tribe_get_events_title( false );
 	}
 
 	/**
