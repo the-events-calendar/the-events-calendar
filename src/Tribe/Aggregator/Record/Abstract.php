@@ -120,7 +120,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		// `source` will be empty when importing .ics files
-		$this->meta['source'] = ! empty( $meta['source'] ) ? $meta['source'] : '';
+		$this->meta['source'] = ! empty ( $this->meta['source'] ) ? $this->meta['source'] : '';
 
 		// This prevents lots of isset checks for no reason
 		if ( empty( $this->meta['activity'] ) ) {
