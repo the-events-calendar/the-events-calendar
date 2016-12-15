@@ -128,7 +128,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$tribe_ecp = Tribe__Events__Main::instance();
 
-
 		if ( is_single() && tribe_is_event() ) {
 			// For single events, the event title itself is required
 			$title = get_the_title();
