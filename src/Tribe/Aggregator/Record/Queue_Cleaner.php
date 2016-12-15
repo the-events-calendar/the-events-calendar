@@ -41,6 +41,23 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 			AND pm.meta_value = %s
 			ORDER BY p.post_modified_gmt DESC", Tribe__Events__Aggregator__Records::$post_type, $pending_status, $import_id );
 
+		/**
+		 * Filters the query to find duplicate pending import records in respect to an
+		 * import id.
+		 *
+		 * If the filter returns an empty value then the delete operation will be voided.
+		 * This is a maintenance query that should really run so take care while modifying
+		 * or voiding it!
+		 *
+		 * @param string $query The SQL query used to find duplicate pending import records
+		 *                      in respect to an import id.
+		 */
+		$query = apply_filters( 'tribe_aggregator_import_queue_cleaner_query', $query );
+
+		if ( empty( $query ) ) {
+			return array();
+		}
+
 		$records = $wpdb->get_col( $query );
 		array_shift( $records );
 
