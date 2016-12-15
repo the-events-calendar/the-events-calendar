@@ -40,26 +40,55 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 */
 	public $total = 0;
 
-	public function __construct( $record, $items = array() ) {
+	/**
+	 * @var Tribe__Events__Aggregator__Record__Queue_Cleaner
+	 */
+	protected $cleaner;
+
+	/**
+	 * Whether any real processing should happen for the queue or not.
+	 *
+	 * @var bool
+	 */
+	protected $null_process = false;
+
+	/**
+	 * Tribe__Events__Aggregator__Record__Queue constructor.
+	 *
+	 * @param int|Tribe__Events__Aggregator__Record__Abstract       $record
+	 * @param array                                                 $items
+	 * @param Tribe__Events__Aggregator__Record__Queue_Cleaner|null $cleaner
+	 */
+	public function __construct( $record, $items = array(), Tribe__Events__Aggregator__Record__Queue_Cleaner $cleaner = null ) {
 		if ( is_numeric( $record ) ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
 		}
 
-		if ( ! in_array( 'Tribe__Events__Aggregator__Record__Abstract', class_parents( $record ) ) ) {
-			return false;
+		if ( ! is_a( $record, 'Tribe__Events__Aggregator__Record__Abstract' ) ) {
+			$this->null_process = true;
+
+			return;
 		}
 
-		// Prevent it going any further
-		if ( is_wp_error( $record ) ) {
-			return $record;
+		if ( is_wp_error( $items ) ) {
+			$this->null_process = true;
+
+			return;
+		}
+
+		$this->cleaner = $cleaner ? $cleaner : new Tribe__Events__Aggregator__Record__Queue_Cleaner();
+
+		$this->cleaner->remove_duplicate_pending_records_for( $record );
+
+		$failed = $this->cleaner->maybe_fail_stalled_record( $record );
+
+		if ( $failed ) {
+			$this->null_process = true;
+
+			return;
 		}
 
 		$this->record = $record;
-
-		// Prevent it going any further
-		if ( is_wp_error( $items ) ) {
-			return $this;
-		}
 
 		$this->activity();
 
@@ -75,6 +104,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 		} else {
 			$this->load_queue();
 		}
+		$this->cleaner = $cleaner;
 	}
 
 	public function init_queue( $items ) {
@@ -197,6 +227,10 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * @return self
 	 */
 	public function process( $batch_size = null ) {
+		if ( $this->null_process ) {
+			return $this;
+		}
+
 		if ( $this->is_fetching() ) {
 			$data = $this->record->prep_import_data();
 
@@ -298,3 +332,4 @@ class Tribe__Events__Aggregator__Record__Queue {
 		return $item_type;
 	}
 }
+
