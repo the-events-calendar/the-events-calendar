@@ -155,26 +155,26 @@ class Tribe__Events__Aggregator {
 		}
 
 		$help = Tribe__Admin__Help_Page::instance();
-		$help->add_section(
-			'tribe-aggregator-status',
-			__( 'Event Aggregator System Status', 'the-events-calendar' ),
-			60
-		);
+		$section_name = 'tribe-aggregator-status';
+		$section_title = __( 'Event Aggregator System Status', 'the-events-calendar' );
+
+		$help->add_section( $section_name, $section_title, 60 );
 
 		ob_start();
 		include_once Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/aggregator/status.php';
 		$status_html = ob_get_clean();
 
-		$help->add_section_content(
-			'tribe-aggregator-status',
-			$status_html
-		);
+		$help->add_section_content( $section_name, $status_html );
 	}
 
 	/**
 	 * Set up any necessary notices
 	 */
 	public function setup_notices() {
+		if ( ! is_admin() || Tribe__Main::instance()->doing_ajax() ) {
+			return;
+		}
+
 		if ( ! $this->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
 			return;
 		}
