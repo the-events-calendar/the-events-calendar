@@ -128,7 +128,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$tribe_ecp = Tribe__Events__Main::instance();
 
-		$title = sprintf( esc_html__( 'Upcoming %s', 'the-events-calendar' ), $events_label_plural );
+		if ( is_single() && tribe_is_event() ) {
+			// For single events, the event title itself is required
+			$title = get_the_title();
+		} else {
+			// For all other cases, start with 'upcoming events'
+			$title = sprintf( esc_html__( 'Upcoming %s', 'the-events-calendar' ), $events_label_plural );
+		}
 
 		// If there's a date selected in the tribe bar, show the date range of the currently showing events
 		if ( isset( $_REQUEST['tribe-bar-date'] ) && $wp_query->have_posts() ) {
