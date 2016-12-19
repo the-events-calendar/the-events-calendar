@@ -284,7 +284,16 @@ jQuery( document ).ready( function( $ ) {
 
 	//not done by default on front end
 	function get_datepicker_num_months() {
-		return ( is_community_edit && $(window).width() < 768 ) ? 1 : 3;
+		if ( is_community_edit || $( window ).width() < 800 ) {
+			return 1;
+		}
+		if ( ! is_community_edit || $( window ).width() <= 1100 ) {
+			return 2;
+		}
+		if ( ! is_community_edit || $( window ).width() > 1100 ) {
+			return 3;
+		}
+
 	}
 
 	var setup_linked_post_fields = function( post_type ) {
