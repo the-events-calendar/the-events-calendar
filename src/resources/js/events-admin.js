@@ -291,11 +291,11 @@ jQuery( document ).ready( function( $ ) {
 	function get_datepicker_num_months() {
 		var window_width = $( window ).width();
 
-		if $( window_width < 800 ) {
+		if ( window_width < 800 ) {
 			return 1;
 		}
 
-		if $( window_width <= 1100 ) {
+		if ( window_width <= 1100 ) {
 			return 2;
 		} else {
 			return 3;
