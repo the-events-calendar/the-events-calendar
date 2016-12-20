@@ -282,9 +282,24 @@ jQuery( document ).ready( function( $ ) {
 	$( viewCalLinkHTML )
 		.insertAfter( '.edit-php.post-type-tribe_events #wpbody-content .wrap h2:eq(0) a' );
 
-	//not done by default on front end
+	/**
+	 * Returns the number of months to display in
+	 * the datepicker based on the viewport width
+	 *
+	 * @returns {number}
+	 */
 	function get_datepicker_num_months() {
-		return ( is_community_edit && $(window).width() < 768 ) ? 1 : 3;
+		var window_width = $( window ).width();
+
+		if ( window_width < 800 ) {
+			return 1;
+		}
+
+		if ( window_width <= 1100 ) {
+			return 2;
+		} else {
+			return 3;
+		}
 	}
 
 	var setup_linked_post_fields = function( post_type ) {
