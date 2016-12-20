@@ -10,7 +10,8 @@
  *
  *     [your-theme]/tribe-events/modules/bar.php
  *
- * @package TribeEventsCalendar
+ * @package  TribeEventsCalendar
+ * @version  4.3.5
  */
 ?>
 

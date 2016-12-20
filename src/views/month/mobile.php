@@ -6,7 +6,7 @@
  *
  *     [your-theme]/tribe-events/month/mobile.php
  *
- * @version 4.3.3
+ * @version  4.3.5
  */
 ?>
 
