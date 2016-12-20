@@ -1,11 +1,12 @@
 <?php
-
 /**
- *
  * Please see single-event.php in this directory for detailed instructions on how to use and modify these templates.
  *
+ * Override this template in your own theme by creating a file at:
+ *
+ *     [your-theme]/tribe-events/month/tooltip.php
+ * @version  4.3.5
  */
-
 ?>
 
 <script type="text/html" id="tribe_tmpl_tooltip">

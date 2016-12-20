@@ -51,11 +51,10 @@ class Tribe__Events__Integrations__WPML__WPML {
 	}
 
 	protected function hook_filters() {
-		$filters = Tribe__Events__Integrations__WPML__Filters::instance();
-
 		add_filter( 'tribe_events_post_type_permalink', 'wpml_permalink_filter' );
-		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', array( $filters, 'filter_tribe_events_rewrite_i18n_slugs_raw' ), 10,
-			3 );
+
+		$filters = Tribe__Events__Integrations__WPML__Filters::instance();
+		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', array( $filters, 'filter_tribe_events_rewrite_i18n_slugs_raw' ), 10, 3 );
 
 		$linked_posts = Tribe__Events__Integrations__WPML__Linked_Posts::instance();
 		add_filter( 'tribe_events_linked_posts_query', array( $linked_posts, 'filter_tribe_events_linked_posts_query' ), 10, 2 );
@@ -66,6 +65,9 @@ class Tribe__Events__Integrations__WPML__WPML {
 
 		$permalinks = Tribe__Events__Integrations__WPML__Permalinks::instance();
 		add_filter( 'post_type_link', array( $permalinks, 'filter_post_type_link' ), 20, 2 );
+
+		$language_switcher = Tribe__Events__Integrations__WPML__Language_Switcher::instance();
+		add_filter( 'icl_ls_languages', array( $language_switcher, 'filter_icl_ls_languages' ), 5 );
 
 		if ( ! is_admin() ) {
 			$category_translation = Tribe__Events__Integrations__WPML__Category_Translation::instance();

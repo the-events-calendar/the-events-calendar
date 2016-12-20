@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.7
-Stable tag: 4.3.4.2
+Stable tag: 4.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -314,6 +314,22 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [4.3.5] 2016-12-20 =
+
+* Tweak - Updated the template override instructions in a number of templates [68229]
+* Tweak - Improve behaviour of tribe_get_events_title() in respect of single events [46313]
+* Tweak - Event Aggregator will only load on the Administration, prevent bigger loads for Front-End users [70812]
+* Tweak - Allow better filtering for Organizers and Venue Meta fields (Props: @Chouby from Polylang) [70894]
+* Fix - Prevent JavaScript Notices related to Bumpdown [69886]
+* Fix - Assets URL on Windows Servers are fully operational again [68377]
+* Fix - JavaScript and CSS files will respect HTTPS on all pages [69561]
+* Fix - Fixed comment count and visibility issues due to Event Aggregator records [68297]
+* Fix - Fixed PHP notices and warnings raised when importing .ics files [69960]
+* Fix - Only show link to Venues if Pro is active in List View [69887]
+* Fix - Fixed and issue that would make Event Aggregator importing notices remain stuck in the Import screen [70614]
+* Fix - Avoid error screen when saving licenses on multisite installations [68599]
+* Fix - Fix calendar view links in WPML language switcher [67134]
 
 = [4.3.4.2] 2016-12-13 =
 

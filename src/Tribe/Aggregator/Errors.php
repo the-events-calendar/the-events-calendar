@@ -167,7 +167,7 @@ class Tribe__Events__Aggregator__Errors {
 	public function remove_error_comments_from_wp_counts( $stats, $post_id ) {
 		global $wpdb, $pagenow;
 
-		if ( $pagenow !== 'index.php' ) {
+		if ( ! in_array( $pagenow, array( 'index.php', 'edit-comments.php' ) ) ) {
 			return $stats;
 		}
 
@@ -199,7 +199,7 @@ class Tribe__Events__Aggregator__Errors {
 			}
 		}
 
-		$stats['total_comments'] = $total;
+		$stats['total_comments'] = $stats['all'] = $total;
 		foreach ( $approved as $key ) {
 			if ( empty( $stats[ $key ] ) ) {
 				$stats[ $key ] = 0;
