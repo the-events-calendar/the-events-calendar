@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-11-29 02:54:26+0000\n"
+"PO-Revision-Date: 2016-12-15 01:16:20+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3473,7 +3473,7 @@ msgstr "年度を含む日付表示形式を入力してください。将来の
 #: common/src/Tribe/PUE/Checker.php:573
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:573
 msgid "Thanks for setting up a valid key. It will expire on %s"
-msgstr ""
+msgstr "有効なキーを設定していただきありがとうございます。 %sで有効期限が切れます"
 
 #: src/Tribe/Main.php:710
 msgid "<a href=\"%s\">edit Events settings</a>."
@@ -4519,7 +4519,7 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/meta-box.php:42
 msgid "Upload image for the ticket header."
-msgstr ""
+msgstr "チケット用ヘッダーの画像をアップロード。"
 
 #: vendor/tickets/src/admin-views/meta-box.php:31
 msgid "This event was created using Community Events. Are you sure you want to sell tickets for it?"
@@ -4645,7 +4645,7 @@ msgstr "%s Web サイト"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:481
 msgid "Location:"
-msgstr ""
+msgstr "場所: "
 
 #: src/admin-views/events-meta-box.php:123
 msgid "Timezone:"
@@ -7018,7 +7018,7 @@ msgstr "リスト"
 msgid "month"
 msgstr "月"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.4) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.4.2) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:766
@@ -7364,11 +7364,11 @@ msgstr ""
 
 #: src/Tribe/Main.php:699
 msgid "Ask the site administrator to edit the %s slug"
-msgstr ""
+msgstr "%sのスラッグを編集するにはサイト管理者に依頼してください"
 
 #: src/Tribe/Main.php:701
 msgid "<a href=\"%s\">Edit the %s slug</a>"
-msgstr ""
+msgstr "<a href=\"%s\">%s のスラッグを編集</a>"
 
 #: src/deprecated/Tribe__Events__Activation_Page.php:215
 msgid "Thanks for Updating The Events Calendar"

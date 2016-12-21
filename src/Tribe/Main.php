@@ -31,7 +31,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-
 		const VERSION           = '4.4dev3';
 		const MIN_ADDON_VERSION = '4.4dev3';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -3271,7 +3270,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				}
 
 				foreach ( $this->venueTags as $tag ) {
-					if ( $is_saved ) { //if there is a post AND the post has been saved at least once.
+					if ( metadata_exists( 'post', $event->ID, $tag ) ) {
 						$$tag = esc_html( get_post_meta( $event->ID, $tag, true ) );
 					} else {
 						$cleaned_tag = str_replace( '_Venue', '', $tag );
@@ -3316,10 +3315,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$saved = true;
 				}
 
-				if ( $postId && $saved ) { //if there is a post AND the post has been saved at least once.
-					$organizer_title = apply_filters( 'the_title', $post->post_title );
+				if ( $postId ) {
+
+					if ( $saved ) { //if there is a post AND the post has been saved at least once.
+						$organizer_title = apply_filters( 'the_title', $post->post_title );
+					}
+
 					foreach ( $this->organizerTags as $tag ) {
-						$$tag = get_post_meta( $postId, $tag, true );
+						if ( metadata_exists( 'post', $postId, $tag ) ) {
+							$$tag = get_post_meta( $postId, $tag, true );
+						}
 					}
 				}
 			}

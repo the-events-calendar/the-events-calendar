@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-12-06 20:29:21+0000\n"
+"PO-Revision-Date: 2016-12-19 14:55:26+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -58,7 +58,7 @@ msgstr "Sconosciuto"
 
 #: src/Tribe/Aggregator/Record/Abstract.php:865
 msgid "When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached."
-msgstr ""
+msgstr "Quando questa importazione era l'ultima nell'avvio pianificato, il limite giornaliero per la tua licenza di \"Event Aggregator\" era già stato raggiunto."
 
 #: src/admin-views/aggregator/origins/refine.php:5
 msgid "Location"
@@ -66,7 +66,7 @@ msgstr "Luogo"
 
 #: src/admin-views/admin-welcome-message.php:26
 msgid "Stay in touch with The Events Calendar team. We send out periodic updates, key developer notices, and even the occasional discount."
-msgstr ""
+msgstr "Rimani in contatto con il team di \"The Events Calendar\". Ti invieremo aggiornamenti periodici, avvisi sullo sviluppo ed anche sconti occasionali."
 
 #: src/admin-views/admin-welcome-message.php:20
 msgid "Your ratings help us bring The Events Calendar to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support."
@@ -90,8 +90,8 @@ msgstr "RSVP:"
 #: vendor/tickets/src/views/tickets/email-tickets-moved.php:99
 msgid "We wanted to let you know that a ticket you purchased for %2$s has been transfered to %3$s%4$s. Your ticket remains valid and no further action is needed on your part:"
 msgid_plural "We wanted to let you know that the following %1$s tickets for %2$s have been transfered to %3$s%4$s. Your existing tickets remain valid and no further action is needed on your part:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Volevamo avvisarti che un biglietto acquistato per %2$s è stato trasferito in %3$s%4$s. Il tuo biglietto rimane valido e non è necessaria alcuna ulteriore azione da parte tua:"
+msgstr[1] "Volevamo avvisarti che i seguenti %1$s biglietti acquistati per %2$s sono stati trasferiti in %3$s%4$s. I tuoi biglietti rimangono validi e non è necessaria alcuna ulteriore azione da parte tua:"
 
 #: vendor/tickets/src/views/tickets/email-ticket-type-moved.php:111
 #: vendor/tickets/src/views/tickets/email-tickets-moved.php:113
@@ -101,8 +101,8 @@ msgstr " (che si terrà il %s)"
 #: vendor/tickets/src/views/tickets/email-ticket-type-moved.php:97
 msgid "We wanted to let you know that your ticket for %2$s has been transfered to %3$s%4$s. Your ticket remains valid and no further action is needed on your part."
 msgid_plural "We wanted to let you know that your %1$s tickets for %2$s have been transfered to %3$s%4$s. Your existing tickets remain valid and no further action is needed on your part."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Volevamo avvisarti che il tuo biglietto per %2$s è stato trasferito in %3$s%4$s. Il tuo biglietto rimane valido e non è necessaria alcuna ulteriore azione da parte tua."
+msgstr[1] "Volevamo avvisarti che i tuoi %1$s biglietti per %2$s sono stati trasferiti in %3$s%4$s. I tuoi biglietti rimangono validi e non è necessaria alcuna ulteriore azione da parte tua."
 
 #: vendor/tickets/src/views/tickets/email-ticket-type-moved.php:93
 #: vendor/tickets/src/views/tickets/email-tickets-moved.php:95
@@ -142,7 +142,7 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/move-tickets.php:72
 msgid "Select the ticket type that the tickets should be transferred to:"
-msgstr "Seleziona il tipo di biglietto a cui dovrebbero essere trasferiti i biglietti:"
+msgstr "Seleziona il tipo di biglietto in cui dovrebbero essere trasferiti i biglietti:"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:64
 msgid "Select the post you wish to move the ticket type to:"
@@ -150,7 +150,7 @@ msgstr "Seleziona l'inserzione in cui desideri spostare il tipo di biglietto:"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:59
 msgid "You can also enter keywords to help find the target event by title or description:"
-msgstr ""
+msgstr "Puoi anche inserire delle parole chiave per trovare l'evento designato, per titolo o descrizione:"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:54
 msgid "You can optionally focus on a specific post type:"
@@ -162,21 +162,21 @@ msgstr "Sposta i biglietti in un evento diverso"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:43
 msgid "Move to a different ticket type within the same event"
-msgstr ""
+msgstr "Sposta in un tipo di biglietto diverso, all'interno dello stesso evento"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:30
 msgid "You have selected %1$s ticket for %2$s. You can move it to a different ticket type within the same event, or to a different event."
 msgid_plural "You have selected %1$s tickets for %2$s. You can move them to a different ticket type within the same event, or to a different event."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Hai selezionato %1$s biglietto per %2$s. Puoi spostarlo in un altro tipo di biglietto, all'interno dello stesso evento o in uno differente."
+msgstr[1] "Hai selezionato %1$s biglietti per %2$s. Puoi spostarli in un altro tipo di biglietto, all'interno dello stesso evento o in uno differente."
 
 #: vendor/tickets/src/admin-views/move-tickets.php:25
 msgid "You have specified a range of attendees that are managed by different providers. It is not currently possible to move these together."
-msgstr ""
+msgstr "Hai specificato una serie di partecipanti che sono gestiti da diversi fornitori. Al momento non è possibile spostarli insieme."
 
 #: vendor/tickets/src/admin-views/move-tickets.php:19
 msgid "No attendees specified! Please try again."
-msgstr ""
+msgstr "Nessun partecipante specificato! Riprova."
 
 #: vendor/tickets/src/admin-views/list.php:67
 msgid "Move"
@@ -189,7 +189,7 @@ msgstr "Biglietti"
 
 #: vendor/tickets/src/admin-views/admin-welcome-message.php:51
 msgid "Addons for creating tickets, custom registration, events and more."
-msgstr ""
+msgstr "Add-on per creare biglietti, registrazioni personalizzate, eventi e altro."
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:369
 msgctxt "attendee export"
@@ -227,12 +227,12 @@ msgstr ""
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:69
 msgctxt "attendee event actions"
 msgid "View"
-msgstr ""
+msgstr "Visualizza"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:68
 msgctxt "attendee event actions"
 msgid "Edit"
-msgstr ""
+msgstr "Modifica"
 
 #: vendor/tickets/src/Tribe/RSVP.php:271
 msgid "RSVP Ticket"
@@ -346,17 +346,17 @@ msgstr "Visualizza cronologia"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:710
 msgid "This ticket was moved to %1$s from %2$s"
-msgstr ""
+msgstr "Questo biglietto è stato spostato in %1$s da %2$s"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:536
 msgid "This ticket was moved to %1$s %2$s from %3$s %4$s"
-msgstr ""
+msgstr "Questo biglietto è stato spostato in %1$s %2$s da %3$s %4$s"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:452
 msgid "%1$s attendee for %2$s was successfully %3$s. Please adjust stock manually as needed. This attendee will receive an email notifying them of the change."
 msgid_plural "%1$s attendees for %2$s were successfully moved to %3$s. Please adjust stock manually as needed. These attendees will receive an email notifying them of the change."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$s partecipante per %2$s è stato %3$s con successo. Gestisci manualmente il magazzino, se necessario. Questo partecipante riceverà una e-mail notifica riguardo al cambiamento."
+msgstr[1] "%1$s partecipanti per %2$s sono stati %3$s con successo. Gestisci manualmente il magazzino, se necessario. Questi partecipanti riceveranno una e-mail notifica riguardo al cambiamento."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:445
 msgctxt "moved tickets success message fragment"
@@ -366,11 +366,11 @@ msgstr ""
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:438
 msgctxt "moved tickets success message fragment"
 msgid "assigned to %s"
-msgstr ""
+msgstr "assegnati a %s"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:430
 msgid "Tickets could not be moved: there was an unexpected failure during reassignment."
-msgstr ""
+msgstr "I biglietti non possono essere spostati: si è verificato un errore imprevisto durante la riassegnazione."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:422
 msgid "Tickets could not be moved: valid ticket IDs or a destination ID were not provided."
@@ -387,19 +387,19 @@ msgstr ""
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:111
 msgid "No ticket types were found for this post."
-msgstr ""
+msgstr "Non è stato trovato alcun tipo di biglietto per questa inserzione."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:109
 msgid "No results found - you may need to widen your search criteria."
-msgstr ""
+msgstr "Nessun risultato trovato. Forse dovresti utilizzare più termini di ricerca."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:107
 msgid "Unable to update the post list. Please refresh the page and try again."
-msgstr ""
+msgstr "Impossibile aggiornare l'elenco delle inserzioni. Ricarica la pagina e riprova."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:105
 msgid "Woops! We could not complete the requested operation due to an unforeseen problem."
-msgstr ""
+msgstr "Oops! Non è stato possibile completare l'operazione richiesta a causa di un problema imprevisto."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:68
 msgid "Move Attendees"
@@ -412,7 +412,7 @@ msgstr "Modifiche ai tuoi biglietti da %s"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:170
 msgid "Ticket type was moved to <a href=\"%1$s\" target=\"_blank\">%2$s</a> from <a href=\"%3$s\" target=\"_blank\">%4$s</a>"
-msgstr ""
+msgstr "Il tipo di biglietto è stato spostato in <a href=\"%1$s\" target=\"_blank\">%2$s</a> da <a href=\"%3$s\" target=\"_blank\">%4$s</a>."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:114
 msgid "Ticket type %1$s for %2$s was successfully moved to %3$s. All previously sold tickets of this type have been transferred to %3$s. Please adjust stock manually as needed. %1$s ticket holders have received an email notifying them of the change. You may now close this window!"
@@ -420,7 +420,7 @@ msgstr ""
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:108
 msgid "Ticket type could not be moved: unexpected failure during reassignment."
-msgstr ""
+msgstr "Il tipo di biglietto non può essere spostato: errore imprevisto durante la riassegnazione."
 
 #: vendor/tickets/src/Tribe/Admin/Move_Ticket_Types.php:102
 msgid "Ticket type could not be moved: the ticket type or destination post was invalid."
@@ -442,7 +442,7 @@ msgstr "Tutti %s"
 
 #: src/io/csv/admin-views/header.php:17
 msgid "Legacy Events Import"
-msgstr ""
+msgstr "Importazione Eventi Obsoleti"
 
 #: src/admin-views/widget-admin-list.php:37
 msgid "Generate JSON-LD data"
@@ -511,17 +511,17 @@ msgstr "Categoria:"
 
 #: src/admin-views/aggregator/tabs/import-form.php:175
 msgid "Status:"
-msgstr ""
+msgstr "Stato:"
 
 #: src/admin-views/aggregator/tabs/import-form.php:155
 #: src/admin-views/aggregator/tabs/import-form.php:167
 msgid "Start Time"
-msgstr ""
+msgstr "Ora inizio"
 
 #: src/admin-views/aggregator/tabs/import-form.php:151
 #: src/admin-views/aggregator/tabs/import-form.php:163
 msgid "Select All"
-msgstr ""
+msgstr "Seleziona tutto"
 
 #: src/admin-views/aggregator/tabs/import-form.php:141
 msgid "The following preview does not necessarily contain all of the data from your CSV file. The data displayed below is meant as a guide to help you map your CSV file's columns to the appropriate Event fields."
@@ -573,7 +573,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:24
 msgid "No Additional Categories"
-msgstr ""
+msgstr "Nessuna ulteriore categoria"
 
 #: src/admin-views/aggregator/status.php:194
 msgid "Enter your API key"
@@ -581,7 +581,7 @@ msgstr "Inserisci la tua chiave API"
 
 #: src/admin-views/aggregator/status.php:192
 msgid "You have not entered a Meetup API key"
-msgstr ""
+msgstr "Non hai inserito una chiave API di \"Meetup\""
 
 #: src/admin-views/aggregator/status.php:188
 msgid "API key entered"
@@ -589,11 +589,11 @@ msgstr "Chiave API inserita"
 
 #: src/admin-views/aggregator/status.php:173
 msgid "The service has disabled oAuth. Some types of events may not import."
-msgstr ""
+msgstr "Il servizio ha disabilitato \"oAuth\". Alcuni tipi di eventi non possono essere importati."
 
 #: src/admin-views/aggregator/status.php:172
 msgid "Limited connectivity with Facebook"
-msgstr ""
+msgstr "Connettività limitata con \"Facebook\""
 
 #: src/admin-views/aggregator/status.php:168
 msgctxt "link for connecting facebook"
@@ -602,11 +602,11 @@ msgstr "Connetti a Facebook"
 
 #: src/admin-views/aggregator/status.php:166
 msgid "You have not connected Event Aggregator to Facebook"
-msgstr ""
+msgstr "Non hai connesso \"Event Aggregator\" a \"Facebook\""
 
 #: src/admin-views/aggregator/status.php:153
 msgid "Third Party Accounts"
-msgstr ""
+msgstr "Account di terze parti"
 
 #: src/admin-views/aggregator/status.php:142
 msgid "Scheduler Status"
@@ -614,7 +614,7 @@ msgstr "Stato pianificazione"
 
 #: src/admin-views/aggregator/status.php:137
 msgid "WP Cron enabled"
-msgstr ""
+msgstr "WP Cron abilitato"
 
 #: src/admin-views/aggregator/status.php:135
 msgid "Scheduled imports may not run reliably"
@@ -622,7 +622,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:134
 msgid "WP Cron not enabled"
-msgstr ""
+msgstr "WP Cron non abilitato"
 
 #: src/admin-views/aggregator/status.php:122
 msgid "Server Connection"
@@ -635,11 +635,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:110
 msgid "The server is responding with an error:"
-msgstr ""
+msgstr "Il server sta rispondendo con un errore:"
 
 #: src/admin-views/aggregator/status.php:101
 msgid "The server is not currently responding"
-msgstr ""
+msgstr "Il server non sta rispondendo in questo momento."
 
 #. translators: %s: Event Aggregator Server URL
 #: src/admin-views/aggregator/status.php:100
@@ -675,7 +675,7 @@ msgstr "Verifica la tua chiave di licenza"
 
 #: src/admin-views/aggregator/status.php:33
 msgid "Your license is invalid"
-msgstr ""
+msgstr "La tua licenza non è valida"
 
 #: src/admin-views/aggregator/status.php:30
 msgid "Buy Event Aggregator to access more event sources and automatic imports!"
@@ -683,15 +683,15 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:28
 msgid "You do not have a license"
-msgstr ""
+msgstr "Non hai una licenza"
 
 #: src/admin-views/aggregator/status.php:21
 msgid "Your license is valid"
-msgstr ""
+msgstr "La tua licenza è valida"
 
 #: src/admin-views/aggregator/status.php:12
 msgid "License &amp; Usage"
-msgstr ""
+msgstr "Licenza e utilizzo"
 
 #: src/admin-views/aggregator/settings.php:400
 #: src/admin-views/aggregator/settings.php:440
@@ -700,7 +700,7 @@ msgstr "Importazioni"
 
 #: src/admin-views/aggregator/settings.php:387
 msgid "Check out Event Aggregator."
-msgstr ""
+msgstr "Dai un’occhiata ad Event Aggregator."
 
 #: src/admin-views/aggregator/settings.php:386
 msgid "Use the options below to configure your imports. Looking for more ways to import events from other websites?"
@@ -736,11 +736,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:295
 msgid "Meetup Import Settings"
-msgstr ""
+msgstr "Impostazioni di importazione \"Meetup\""
 
 #: src/admin-views/aggregator/settings.php:271
 msgid "The default event category for events imported via Google Calendar"
-msgstr ""
+msgstr "La categoria di eventi predefinita per gli eventi importati tramite \"Google Calendar\""
 
 #: src/admin-views/aggregator/settings.php:260
 msgid "The default post status for events imported via Google Calendar"
@@ -748,11 +748,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:255
 msgid "Google Calendar Import Settings"
-msgstr ""
+msgstr "Impostazioni di importazione \"Google Calendar\""
 
 #: src/admin-views/aggregator/settings.php:231
 msgid "The default event category for events imported via Facebook"
-msgstr ""
+msgstr "La categoria di eventi predefinita per gli eventi importati tramite \"Facebook\""
 
 #: src/admin-views/aggregator/settings.php:220
 msgid "The default post status for events imported via Facebook"
@@ -760,11 +760,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:215
 msgid "Facebook Import Settings"
-msgstr ""
+msgstr "Impostazioni di importazione \"Facebook\""
 
 #: src/admin-views/aggregator/settings.php:191
 msgid "The default event category for events imported via .ics files"
-msgstr ""
+msgstr "La categoria di eventi predefinita per gli eventi importati tramite file \"ICS\""
 
 #: src/admin-views/aggregator/settings.php:180
 msgid "The default post status for events imported via .ics files"
@@ -772,7 +772,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:175
 msgid "ICS File Import Settings"
-msgstr ""
+msgstr "Impostazioni di importazione file ICS"
 
 #: src/admin-views/aggregator/settings.php:151
 msgid "The default event category for events imported via iCalendar"
@@ -784,7 +784,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:135
 msgid "iCalendar Import Settings"
-msgstr ""
+msgstr "Impostazioni di importazione \"iCalendar\""
 
 #: src/admin-views/aggregator/settings.php:122
 #: src/admin-views/aggregator/settings.php:162
@@ -793,7 +793,7 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:282
 #: src/admin-views/aggregator/settings.php:333
 msgid "Show Google Map by default on imported event and venues"
-msgstr ""
+msgstr "Mostra \"Google Maps\" in modo predefinito negli eventi e nei luoghi importati."
 
 #: src/admin-views/aggregator/settings.php:121
 #: src/admin-views/aggregator/settings.php:161
@@ -802,11 +802,11 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:281
 #: src/admin-views/aggregator/settings.php:332
 msgid "Show Google Map"
-msgstr ""
+msgstr "Mostra \"Google Maps\""
 
 #: src/admin-views/aggregator/settings.php:111
 msgid "The default event category for events"
-msgstr ""
+msgstr "La categoria di eventi predefinita per gli eventi"
 
 #: src/admin-views/aggregator/settings.php:100
 msgid "The default post status for events"
@@ -814,11 +814,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:95
 msgid "Global Import Settings"
-msgstr ""
+msgstr "Impostazioni globali di importazione"
 
 #: src/admin-views/aggregator/settings.php:79
 msgid "The default event category for events imported via CSV"
-msgstr ""
+msgstr "La categoria di eventi predefinita per gli eventi importati tramite file \"CSV\""
 
 #: src/admin-views/aggregator/settings.php:78
 #: src/admin-views/aggregator/settings.php:110
@@ -842,19 +842,19 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:259
 #: src/admin-views/aggregator/settings.php:310
 msgid "Default Status"
-msgstr ""
+msgstr "Stato predefinto"
 
 #: src/admin-views/aggregator/settings.php:55
 msgid "Preserve the most recent change in each event field, whether that change occurred on my site or at the original source."
-msgstr ""
+msgstr "Conserva la modifica più recente in ogni campo dell'evento, nel caso in cui sia avvenuta nel mio sito o alla sorgente originaria."
 
 #: src/admin-views/aggregator/settings.php:54
 msgid "Do not re-import events. Changes made locally will be preserved."
-msgstr ""
+msgstr "Non reimportare gli eventi. Le modifiche fatte in locale verranno mantenute."
 
 #: src/admin-views/aggregator/settings.php:53
 msgid "Overwrite my event with any changes from the original source."
-msgstr ""
+msgstr "Sovrascrivi il mio evento con le modifiche dalla sorgente originale."
 
 #: src/admin-views/aggregator/settings.php:44
 msgid "You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Facebook group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed."
@@ -867,11 +867,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:31
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: src/admin-views/aggregator/settings.php:18
 msgid "No default category"
-msgstr ""
+msgstr "Nessuna categoria predefinita"
 
 #: src/admin-views/aggregator/settings.php:7
 msgid "Use global import settings"
@@ -912,7 +912,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/meetup.php:131
 msgid "meetup.com/example"
-msgstr ""
+msgstr "meetup.com/example"
 
 #: src/admin-views/aggregator/origins/meetup.php:60
 msgid "Save"
@@ -920,7 +920,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/meetup.php:58
 msgid "Meetup API Key:"
-msgstr ""
+msgstr "Chiave API di \"Meetup\":"
 
 #: src/admin-views/aggregator/origins/meetup.php:46
 msgid "Your Meetup API key has been saved to %1$sEvents &gt; Settings &gt; APIs%2$s"
@@ -944,7 +944,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/ics.php:5
 msgid "Choose File"
-msgstr ""
+msgstr "Scegli file"
 
 #: src/admin-views/aggregator/origins/ical.php:76
 msgid "Enter the url for the iCalendar feed you wish to import, e.g. https://central.wordcamp.org/calendar.ics"
@@ -996,7 +996,7 @@ msgstr "facebook.com/example"
 #: src/admin-views/aggregator/origins/ical.php:35
 #: src/admin-views/aggregator/origins/meetup.php:90
 msgid "One-Time Import"
-msgstr ""
+msgstr "Importazione singola"
 
 #: src/admin-views/aggregator/origins/facebook.php:51
 #: src/admin-views/aggregator/origins/facebook.php:63
@@ -1011,7 +1011,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/facebook.php:38
 msgid "Log into Facebook"
-msgstr ""
+msgstr "Accedi a \"Facebook\""
 
 #: src/admin-views/aggregator/origins/facebook.php:32
 msgid "Please log in to enable event imports from Facebook."
@@ -1058,7 +1058,7 @@ msgstr ""
 #: src/admin-views/aggregator/origins/csv.php:68
 #: src/admin-views/aggregator/origins/ics.php:34
 msgid "No file chosen"
-msgstr ""
+msgstr "Nessun file scelto"
 
 #: src/admin-views/aggregator/origins/csv.php:43
 msgid "Upload a CSV File"
@@ -1116,12 +1116,12 @@ msgstr ""
 
 #: src/admin-views/aggregator/meta-box.php:9
 msgid "Last Import:"
-msgstr ""
+msgstr "Ultima importazione:"
 
 #: src/admin-views/admin-welcome-message.php:29
 #: vendor/tickets/src/admin-views/admin-welcome-message.php:33
 msgid "News and Announcements"
-msgstr ""
+msgstr "Notizie e annunci"
 
 #: src/admin-views/admin-welcome-message.php:28
 #: vendor/tickets/src/admin-views/admin-welcome-message.php:29
@@ -1140,21 +1140,21 @@ msgstr ""
 #: src/admin-views/admin-welcome-message.php:19
 #: vendor/tickets/src/admin-views/admin-welcome-message.php:18
 msgid "We Need Your Help"
-msgstr ""
+msgstr "Abbiamo bisogno del tuo aiuto"
 
 #: src/Tribe/Utils/Radius.php:55
 msgctxt "Abbreviation for the kilometers unit of measure"
 msgid "km"
-msgstr ""
+msgstr "Km"
 
 #: src/Tribe/Utils/Radius.php:53
 msgctxt "Abbreviation for the miles unit of measure"
 msgid "mi"
-msgstr ""
+msgstr "mi"
 
 #: src/Tribe/Main.php:696
 msgid "The %3$s \"%1$s\" uses the \"/%2$s\" slug: the Events Calendar plugin will show its calendar in place of the page."
-msgstr ""
+msgstr "L'%3$s \"%1$s\" utilizza il prefisso \"/%2$s\": il plugin \"The Events Calendar\" mostrerà il suo calendario al posto della pagina."
 
 #: src/Tribe/Importer/Admin_Page.php:76 src/Tribe/Importer/Admin_Page.php:77
 msgid "Legacy Import"
@@ -1188,7 +1188,7 @@ msgstr ""
 
 #: src/Tribe/Ignored_Events.php:841
 msgid "You do not have permission to migrate Legacy Ignored Events"
-msgstr ""
+msgstr "Non hai i permessi per trasferire gli eventi ignorati obsoleti."
 
 #: src/Tribe/Ignored_Events.php:834
 msgid "Error, a unknown bug happened and it was impossible to migrate the Legacy Ignored Events, try again later."
@@ -1197,22 +1197,22 @@ msgstr ""
 #: src/Tribe/Ignored_Events.php:754
 msgid "Ignored <span class=\"count\">(%s)</span>"
 msgid_plural "Ignored <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<span class=\"count\">(%s)</span> Ignorato"
+msgstr[1] "<span class=\"count\">(%s)</span> Ignorati"
 
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:469
 msgid "Delete &#8220;%s&#8221; permanently"
-msgstr ""
+msgstr "Cancella &#8220;%s&#8221; definitivamente"
 
 #: src/Tribe/Ignored_Events.php:462
 msgid "Restore"
-msgstr ""
+msgstr "Ripristina"
 
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:461
 msgid "Restore &#8220;%s&#8221; from the Ignored"
-msgstr ""
+msgstr "Ripristina &#8220;%s&#8221; da \"Ignorati\""
 
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:432
@@ -1222,25 +1222,25 @@ msgstr ""
 #: src/Tribe/Ignored_Events.php:377 src/Tribe/Ignored_Events.php:379
 #: src/admin-views/aggregator/meta-box.php:5
 msgid "Source:"
-msgstr ""
+msgstr "Sorgente:"
 
 #: src/Tribe/Ignored_Events.php:351
 msgid "Last Import"
-msgstr ""
+msgstr "Ultima importazione"
 
 #: src/Tribe/Ignored_Events.php:350 src/admin-views/aggregator/meta-box.php:14
 msgid "The last time this event was imported and/or updated via import."
-msgstr ""
+msgstr "L'ultima volta che questo evento è stato importato e/o aggiornato tramite importazione."
 
 #: src/Tribe/Ignored_Events.php:348
 msgid "Source"
-msgstr ""
+msgstr "Sorgente"
 
 #: src/Tribe/Ignored_Events.php:319
 msgid "%s post restored."
 msgid_plural "%s posts restored."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s inserzione ripristinata."
+msgstr[1] "%s inserzioni ripristinate."
 
 #: src/Tribe/Ignored_Events.php:267 src/Tribe/Ignored_Events.php:311
 msgid "Error restoring from Ignored Events."
@@ -1257,7 +1257,7 @@ msgstr ""
 #: src/Tribe/Ignored_Events.php:208
 msgctxt "link to knowlegebase article"
 msgid "Read more about Ignored Events."
-msgstr ""
+msgstr "Ulteriori informazioni sugli eventi ignorati."
 
 #: src/Tribe/Ignored_Events.php:207
 msgid "Event Aggregator includes a new, better system for removing unwanted imported events from your calendar. Click the button below to transition previously deleted events. This process will remove unwanted records from your database and include recent or upcoming trashed events in your Ignored archive."
@@ -1266,12 +1266,12 @@ msgstr ""
 #: src/Tribe/Utils/Radius.php:28
 msgctxt "X (kilometers abbreviation)"
 msgid "%1$s (km)"
-msgstr ""
+msgstr "%1$s (Km)"
 
 #: src/Tribe/Utils/Radius.php:18
 msgctxt "X (miles abbreviation)"
 msgid "%1$s (mi)"
-msgstr ""
+msgstr "%1$s (mi)"
 
 #: src/Tribe/Ignored_Events.php:184
 msgid "Undo"
@@ -1301,7 +1301,7 @@ msgstr ""
 
 #: src/Tribe/Ignored_Events.php:87 src/Tribe/Ignored_Events.php:433
 msgid "Hide & Ignore"
-msgstr ""
+msgstr "Nascondi e ignora"
 
 #: src/Tribe/Ignored_Events.php:83 src/Tribe/Ignored_Events.php:503
 #: src/Tribe/Ignored_Events.php:753
@@ -1399,7 +1399,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:509
 msgid "Learn More"
-msgstr ""
+msgstr "Ulteriori informazioni..."
 
 #: src/Tribe/Aggregator/Tabs/New.php:504 src/Tribe/Aggregator/Tabs/New.php:511
 msgid "opens in a new window"
@@ -1415,7 +1415,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:497
 msgid "Import Using Event Aggregator"
-msgstr ""
+msgstr "Importa utilizzando \"Event Aggregator\""
 
 #: src/Tribe/Aggregator/Tabs/New.php:427
 msgid "Unable to save credentials"
@@ -1435,7 +1435,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:392
 msgid "Invalid credential save request"
-msgstr ""
+msgstr "Richiesta non valida di salvataggio credenziale"
 
 #: src/Tribe/Aggregator/Tabs/New.php:381
 msgid "View your scheduled imports."
@@ -1526,7 +1526,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/History.php:93
 msgid "History"
-msgstr ""
+msgstr "Cronologia"
 
 #: src/Tribe/Aggregator/Tabs/History.php:55
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:57
@@ -1535,7 +1535,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/Favorite.php:37
 msgid "Favorite Imports"
-msgstr ""
+msgstr "Importazioni preferite"
 
 #: src/Tribe/Aggregator/Tabs/Edit.php:142
 msgid "Your Scheduled Import has been updated!"
@@ -1579,11 +1579,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:79
 msgid "Import queued"
-msgstr ""
+msgstr "Importazione in coda"
 
 #: src/Tribe/Aggregator/Service.php:78
 msgid "Import is complete"
-msgstr ""
+msgstr "Importazione completata"
 
 #: src/Tribe/Aggregator/Service.php:77
 msgid "Successfully loaded import origins"
@@ -1595,7 +1595,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:75
 msgid "Import created"
-msgstr ""
+msgstr "Importazione creata"
 
 #: src/Tribe/Aggregator/Service.php:74
 msgid "Success"
@@ -7054,7 +7054,7 @@ msgstr "elenco"
 msgid "month"
 msgstr "mese"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.4) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.4.2) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:766
