@@ -1,0 +1,1 @@
+var tribe_events_event_editor=tribe_events_event_editor||{};jQuery(function(e){var t=tribe_events_event_editor,n=e('input[name="EventShowInCalendar"]'),i=e('input[name="feature_event"]');t.auto_enable_sticky_field=function(){e(this).prop("checked")&&n.prop("checked",!0)},i.on("change",t.auto_enable_sticky_field),e(t).trigger("event-editor-post-init.tribe")});

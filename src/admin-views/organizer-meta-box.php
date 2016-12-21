@@ -23,7 +23,7 @@ do_action( 'tribe_events_organizer_before_metabox', $post );
 	<tr class="organizer">
 		<td><?php printf( esc_html__( '%s Name:', 'the-events-calendar' ), tribe_get_organizer_label_singular() ); ?></td>
 		<td>
-			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='organizer[Organizer]' size='25' value='<?php echo isset( $_OrganizerOrganizer ) ? esc_attr( $_OrganizerOrganizer ) : ''; ?>' />
+			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='organizer[Organizer]' size='25' value='<?php echo isset( $organizer_title ) ? esc_attr( $organizer_title ) : ''; ?>' />
 		</td>
 	</tr>
 <?php endif; ?>

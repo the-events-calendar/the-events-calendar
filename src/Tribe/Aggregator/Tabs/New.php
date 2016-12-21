@@ -133,8 +133,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		/**
 		 * @todo  include a way to handle errors on the Send back URL
 		 */
-		$api      = Tribe__Events__Aggregator__Service::instance()->api();
-		$response = Tribe__Events__Aggregator__Service::instance()->get_facebook_token();
+		$api      = tribe( 'events-aggregator.service' )->api();
+		$response = tribe( 'events-aggregator.service' )->get_facebook_token();
 		$type     = $_GET['ea-fb-token'];
 
 		if ( is_wp_error( $response ) ) {
@@ -483,7 +483,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return;
 		}
 
-		if ( Tribe__Events__Aggregator::instance()->is_service_active() ) {
+		if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
 		}
 

@@ -35,9 +35,33 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 */
 	public function __construct( $event = null ) {
 		$this->tribe = Tribe__Events__Main::instance();
+
+		if ( $event ) {
+			$this->init_with_event( $event );
+		}
+	}
+
+	public function init_with_event( $event ) {
 		$this->get_event( $event );
 		$this->setup_data();
 		$this->do_meta_box();
+	}
+
+	/**
+	 * Exposes all the variables used in this instance, in a way that it's usable to extract
+	 * to be used by a template/view
+	 *
+	 * @param  WP_Post|int|null  $event What Post we are dealing with
+	 * @return array
+	 */
+	public function get_extract_vars( $event ) {
+		$this->get_event( $event );
+		$this->setup_data();
+
+		$variables = $this->vars;
+		$variables['event'] = $this->event;
+
+		return $variables;
 	}
 
 	/**
@@ -49,7 +73,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	protected function get_event( $event = null ) {
 		global $post;
 
-		if ( $event === null ) {
+		if ( null === $event ) {
 			$this->event = $post;
 		} elseif ( $event instanceof WP_Post ) {
 			$this->event = $event;
@@ -59,6 +83,8 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	}
 
 	protected function setup_data() {
+		$this->vars['timepicker_round'] = $this->get_timepicker_round();
+
 		$this->get_existing_event_vars();
 		$this->get_existing_organizer_vars();
 		$this->get_existing_venue_vars();
@@ -76,10 +102,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		if ( ! $this->event->ID ) {
 			return;
 		}
-		$tec = Tribe__Events__Main::instance();
 
 		foreach ( $this->tribe->metaTags as $tag ) {
-			$this->vars[ $tag ] = $tec->getEventMeta( $this->event->ID, $tag, true );
+			$this->vars[ $tag ] = $this->tribe->getEventMeta( $this->event->ID, $tag, true );
 		}
 	}
 
@@ -93,10 +118,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		if ( is_string( $status ) && 'auto-draft' !== $status && ! $this->vars['_EventOrganizerID'] ) {
 			return;
 		}
-		$tec = Tribe__Events__Main::instance();
 
 		foreach ( $this->tribe->organizerTags as $tag ) {
-			$this->vars[ $tag ] = $tec->getEventMeta( $this->vars['_EventOrganizerID'], $tag, true );
+			$this->vars[ $tag ] = $this->tribe->getEventMeta( $this->vars['_EventOrganizerID'], $tag, true );
 		}
 	}
 
@@ -110,10 +134,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		if ( is_string( $status ) && 'auto-draft' !== $status && ! $this->vars['_EventVenueID'] ) {
 			return;
 		}
-		$tec = Tribe__Events__Main::instance();
 
 		foreach ( $this->tribe->venueTags as $tag ) {
-			$this->vars[ $tag ] = $tec->getEventMeta( $this->vars['_EventVenueID'], $tag, true );
+			$this->vars[ $tag ] = $this->tribe->getEventMeta( $this->vars['_EventVenueID'], $tag, true );
 		}
 	}
 
@@ -156,10 +179,15 @@ class Tribe__Events__Admin__Event_Meta_Box {
 
 		if ( $this->vars['_EventStartDate'] ) {
 			$start = Tribe__Date_Utils::date_only( $this->vars['_EventStartDate'], false, $datepicker_format );
+			$start_time = Tribe__Date_Utils::time_only( $this->vars['_EventStartDate'] );
 		}
 
 		// If we don't have a valid start date, assume today's date
-		$this->vars['EventStartDate'] = ( isset( $start ) && $start ) ? $start : date( $datepicker_format );
+		$this->vars['EventStartDate'] = ( isset( $start ) && $start ) ? $start : date_i18n( $datepicker_format );
+		$this->vars['EventStartTime'] = ( isset( $start_time ) && $start_time ? $start_time : null );
+
+		$this->vars['start_timepicker_step'] = $this->get_timepicker_step( 'start' );
+		$this->vars['start_timepicker_default'] = $this->get_timepicker_default( 'start' );
 	}
 
 	protected function set_end_date_time() {
@@ -171,10 +199,123 @@ class Tribe__Events__Admin__Event_Meta_Box {
 
 		if ( $this->vars['_EventEndDate'] ) {
 			$end = Tribe__Date_Utils::date_only( $this->vars['_EventEndDate'], false, $datepicker_format );
+			$end_time = Tribe__Date_Utils::time_only( $this->vars['_EventEndDate'] );
 		}
 
 		// If we don't have a valid end date, assume today's date
-		$this->vars['EventEndDate'] = ( isset( $end ) && $end ) ? $end : date( $datepicker_format );
+		$this->vars['EventEndDate'] = ( isset( $end ) && $end ) ? $end : date_i18n( $datepicker_format );
+		$this->vars['EventEndTime'] = ( isset( $end_time ) && $end_time ? $end_time : null );
+
+		$this->vars['end_timepicker_step'] = $this->get_timepicker_step( 'end' );
+		$this->vars['end_timepicker_default'] = $this->get_timepicker_default( 'end' );
+	}
+
+	/**
+	 * Check if the Event is an Auto-Draft
+	 *
+	 * @since 4.4
+	 *
+	 * @return bool
+	 */
+	public function is_auto_draft() {
+		if ( ! $this->event instanceof WP_Post ) {
+			return true;
+		}
+
+		if ( ! $this->event->ID ) {
+			return true;
+		}
+
+		// Fetch Status to check what we need to do
+		$status = get_post_status( $this->event->ID );
+
+		if ( ! $status || 'auto-draft' === $status ) {
+			return true;
+		}
+
+		// By the end it's non-draft event
+		return false;
+	}
+
+	/**
+	 * Gets the default value for the Timepicker
+	 *
+	 * @since 4.4
+	 *
+	 * @param mixed $type
+	 *
+	 * @return string
+	 */
+	public function get_timepicker_default( $type = null ) {
+		$default = false;
+		if ( 'start' === $type ) {
+			$date    = Tribe__Date_Utils::date_only( $this->vars['_EventStartDate'], false );
+			$default = '08:00:00';
+		} elseif ( 'end' === $type ) {
+			$date    = Tribe__Date_Utils::date_only( $this->vars['_EventEndDate'], false );
+			$default = '17:00:00';
+		}
+
+		/**
+		 * Allows developers to filter what is the default time for the Timepicker
+		 *
+		 * @since 4.4
+		 *
+		 * @param string $default
+		 * @param string $type
+		 * @param string $date
+		 * @param self   $metabox
+		 */
+		$time = apply_filters( 'tribe_events_meta_box_timepicker_default', $default, $type, $date, $this );
+		$time_str = Tribe__Date_Utils::time_only( $date . ' ' . $time );
+
+		// If we couldn't set we apply the default
+		if ( ! $time_str ) {
+			$time_str = $default;
+		}
+
+		return $time_str;
+	}
+
+	/**
+	 * Gets the Step for the Timepicker
+	 *
+	 * @since 4.4
+	 *
+	 * @param mixed $type
+	 *
+	 * @return int
+	 */
+	public function get_timepicker_step( $type = null ) {
+		/**
+		 * Allows developers to filter what is the Step for the Timepicker
+		 *
+		 * @since 4.4
+		 *
+		 * @param int    $step
+		 * @param string $type
+		 * @param self   $metabox
+		 */
+		return (int) apply_filters( 'tribe_events_meta_box_timepicker_step', 30, $type, $this );
+	}
+
+	/**
+	 * Gets whether or not the timepicker should round the minutes
+	 *
+	 * @since 4.4
+	 *
+	 * @return bool
+	 */
+	public function get_timepicker_round() {
+		/**
+		 * Allow rounding the Timepicker Minutes
+		 *
+		 * @since 4.4
+		 *
+		 * @param bool   $round
+		 * @param self   $metabox
+		 */
+		return (bool) apply_filters( 'tribe_events_meta_box_timepicker_round', false, $this );
 	}
 
 	/**
@@ -187,6 +328,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		extract( $this->vars );
 		$event = $this->event;
 		$tribe = $this->tribe;
+
+		// Exposes Class Instance to the included file
+		$metabox = $this;
 
 		include( $events_meta_box_template );
 	}
