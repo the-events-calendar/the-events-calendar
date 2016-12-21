@@ -31,8 +31,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION           = '4.4dev3';
-		const MIN_ADDON_VERSION = '4.4dev3';
+		const VERSION           = '4.4dev4';
+		const MIN_ADDON_VERSION = '4.4dev4';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
