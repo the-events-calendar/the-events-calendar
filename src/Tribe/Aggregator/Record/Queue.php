@@ -13,13 +13,6 @@ class Tribe__Events__Aggregator__Record__Queue {
 	protected $importer;
 
 	/**
-	 * Holds a Log of what has been done on This Queue
-	 *
-	 * @var Tribe__Events__Aggregator__Record__Activity
-	 */
-	public $activity = null;
-
-	/**
 	 * Holds the Items that will be processed
 	 *
 	 * @var array
@@ -105,6 +98,14 @@ class Tribe__Events__Aggregator__Record__Queue {
 			$this->load_queue();
 		}
 		$this->cleaner = $cleaner;
+	}
+
+	public function __get( $key ) {
+		switch ( $key ) {
+			case 'activity':
+				return $this->activity();
+				break;
+		}
 	}
 
 	public function init_queue( $items ) {
