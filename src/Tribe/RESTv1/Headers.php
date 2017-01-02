@@ -15,8 +15,7 @@ class Tribe__Events__RESTv1__Headers {
 			return;
 		}
 
-		echo  '<meta name="tec-api-version" content="v1">',
-			'<link rel="https://theeventscalendar.com/" href="' . esc_url( $api_root ) . '" />\n';
+		echo  '<meta name="tec-api-version" content="v1"> <link rel="https://theeventscalendar.com/" href="' . esc_url( $api_root ) . '" />\n';
 	}
 
 	public function send_header() {
