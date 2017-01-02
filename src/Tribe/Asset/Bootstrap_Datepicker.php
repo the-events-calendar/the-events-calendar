@@ -10,15 +10,17 @@ class Tribe__Events__Asset__Bootstrap_Datepicker extends Tribe__Events__Asset__A
 		$handle = $this->prefix . '-bootstrap-datepicker';
 		wp_enqueue_script( $handle, $path, 'jquery', '3.2' );
 		Tribe__Events__Template_Factory::add_vendor_script( $handle );
-		$localized_datepicker_array = array(
-			'days' => array_merge( $this->tec->daysOfWeek, array( $this->tec->daysOfWeek[0] ) ),
-			'daysShort' => array_merge( $this->tec->daysOfWeekShort, array( $this->tec->daysOfWeekShort[0] ) ),
-			'daysMin' => array_merge( $this->tec->daysOfWeekMin, array( $this->tec->daysOfWeekMin[0] ) ),
-			'months' => array_values( $this->tec->monthsFull ),
-			'monthsShort' => array_values( $this->tec->monthsShort ),
-			'clear' => __( 'Clear', 'the-events-calendar' ),
-			'today' => __( 'Today', 'the-events-calendar' ),
-		);
-		wp_localize_script( $handle, 'tribe_bootstrap_datepicker_strings', array( 'dates' => $localized_datepicker_array ) );
+		if( isset ( $localized_datepicker_array ) ) {
+			$localized_datepicker_array = array(
+				'days'        => array_merge( $this->tec->daysOfWeek, array( $this->tec->daysOfWeek[0] ) ),
+				'daysShort'   => array_merge( $this->tec->daysOfWeekShort, array( $this->tec->daysOfWeekShort[0] ) ),
+				'daysMin'     => array_merge( $this->tec->daysOfWeekMin, array( $this->tec->daysOfWeekMin[0] ) ),
+				'months'      => array_values( $this->tec->monthsFull ),
+				'monthsShort' => array_values( $this->tec->monthsShort ),
+				'clear'       => __( 'Clear', 'the-events-calendar' ),
+				'today'       => __( 'Today', 'the-events-calendar' ),
+			);
+			wp_localize_script( $handle, 'tribe_bootstrap_datepicker_strings', array( 'dates' => $localized_datepicker_array ) );
+		}
 	}
 }
