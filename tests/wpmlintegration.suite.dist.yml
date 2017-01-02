@@ -1,10 +1,9 @@
 # Codeception Test Suite Configuration
 
-# suite for WordPress functional tests.
-# Emulate web requests and make application process them.
-class_name: FunctionalTester
+# suite for WPML integration tests.
+class_name: WpmlintegrationTester
 modules:
-    enabled: [Filesystem, WPLoader, \Helper\Functional]
+    enabled: [Filesystem, WPLoader, \Helper\Wpmlintegration]
 env:
     wpml:
         modules:
