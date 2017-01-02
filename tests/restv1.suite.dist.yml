@@ -3,3 +3,4 @@ modules:
     enabled:
         - \Helper\Restv1
         - REST
+        - WPDb
