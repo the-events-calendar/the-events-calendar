@@ -55,9 +55,7 @@ modules:
             windowSize: 1200x100
         WPBootstrapper:
             wpRootFolder: ~/www/wordpress
-        WordPress:
-            depends: WPDb
-            wpRootFolder: /var/www/wp
-            adminUsername: admin
-            adminPassword: password
-            adminPath: /wp-admin
+        REST:
+            depends: WPBrowser
+            url: 'http://tec.tri.be/wp-json/tec/v1/'
+

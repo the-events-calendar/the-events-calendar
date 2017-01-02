@@ -1,6 +1,0 @@
-class_name: FunctionalTester
-modules:
-    enabled:
-        - \Helper\Functional
-        - WPDb
-        - WordPress

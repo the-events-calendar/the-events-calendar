@@ -1,0 +1,5 @@
+class_name: Restv1Tester
+modules:
+    enabled:
+        - \Helper\Restv1
+        - REST
