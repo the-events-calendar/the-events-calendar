@@ -6,6 +6,16 @@ use Codeception\Configuration;
 class DiscoveryCest {
 
 	/**
+	 * @var string
+	 */
+	protected $tec_option = 'tribe_events_calendar_options';
+
+	/**
+	 * @var string
+	 */
+	protected $rest_disable_option = 'rest-v1-disabled';
+
+	/**
 	 * @var string The site full URL to the REST API root.
 	 */
 	protected $rest_url;
@@ -51,5 +61,18 @@ class DiscoveryCest {
 
 		$I->seeHttpHeader( 'X-TEC-API-VERSION', 'v1' );
 		$I->seeHttpHeader( 'X-TEC-API-ROOT', $this->rest_url );
+	}
+
+	/**
+	 * @test
+	 * it should return disabled header if TEC REST API is disabled via option
+	 */
+	public function it_should_return_disabled_header_if_tec_rest_api_is_disabled_via_option( Restv1Tester $I ) {
+		$I->haveOptionInDatabase( $this->tec_option, [ $this->rest_disable_option => true ] );
+
+		$I->sendHEAD( $this->site_url );
+
+		$I->seeHttpHeader( 'X-TEC-API-VERSION', 'disabled' );
+		$I->dontSeeHttpHeader( 'X-TEC-API-ROOT', $this->rest_url );
 	}
 }

@@ -98,15 +98,31 @@ class Tribe__Events__RESTv1__Main {
 	 * Binds the implementations needed to support the REST API.
 	 */
 	public function bind_implementations() {
+		tribe_singleton( 'tec.rest-v1.headers', 'Tribe__Events__RESTv1__Headers__Supported' );
+		tribe_singleton( 'tec.rest-v1.settings', 'Tribe__Events__RESTv1__Settings' );
+		tribe_singleton( 'tec.rest-v1.system', 'Tribe__Events__RESTv1__System' );
+
 		include_once ( dirname( dirname( dirname( __FILE__ ) ) ) ) . '/functions/advanced-functions/rest-v1.php';
-		tribe_singleton( 'tec.rest-v1.headers', 'Tribe__Events__RESTv1__Headers' );
 	}
 
 	/**
 	 * Hooks the filters and actions required for the REST API support to kick in.
 	 */
 	public function hook() {
-		/** @var Tribe__Events__RESTv1__Headers $headers */
+		add_filter( 'tribe_addons_tab_fields', array( tribe( 'tec.rest-v1.settings' ), 'filter_tribe_addons_tab_fields' ) );
+
+		/** @var Tribe__Events__RESTv1__System $system */
+		$system = tribe('tec.rest-v1.system');
+
+		if ( ! $system->tec_rest_api_is_enabled() ) {
+			if ( ! $system->supports_tec_rest_api() ) {
+				tribe_singleton( 'tec.rest-v1.headers', 'Tribe__Events__RESTv1__Headers__Unsupported' );
+			} else {
+				tribe_singleton( 'tec.rest-v1.headers', 'Tribe__Events__RESTv1__Headers__Disabled' );
+			}
+		}
+
+		/** @var Tribe__Events__RESTv1__Headers_Interface $headers */
 		$headers = tribe( 'tec.rest-v1.headers' );
 		add_action( 'wp_head', array( $headers, 'add_header' ), 10, 0 );
 		add_action( 'template_redirect', array( $headers, 'send_header' ), 11, 0 );
