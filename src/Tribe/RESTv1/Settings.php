@@ -54,9 +54,7 @@ class Tribe__Events__RESTv1__Settings {
 
 			'rest-v1-api-info-box' => array(
 				'type' => 'html',
-				'html' => '<p>' .
-				          __( 'The Events Calendar implements its own REST API that applications and websites can use to get events published on your site; you can disable it by unchecking this option.', 'the-events-calendar' ) .
-	                      '</p>'
+				'html' => '<p>' . __( 'The Events Calendar implements its own REST API that applications and websites can use to get events published on your site; you can disable it by unchecking this option.', 'the-events-calendar' ) . '</p>',
 			),
 
 			$option => array(

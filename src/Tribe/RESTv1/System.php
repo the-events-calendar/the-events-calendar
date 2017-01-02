@@ -38,7 +38,7 @@ class Tribe__Events__RESTv1__System {
 	 * @return bool
 	 */
 	public function tec_rest_api_is_enabled() {
-		$enabled = $this->supports_tec_rest_api() && empty( tribe_get_option( self::$disable_option_name ) );
+		$enabled = $this->supports_tec_rest_api() && false == tribe_get_option( self::$disable_option_name );
 
 		/**
 		 * Filters whether TEC REST API is enabled or not for the WP installation.

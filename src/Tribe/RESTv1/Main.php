@@ -112,7 +112,7 @@ class Tribe__Events__RESTv1__Main {
 		add_filter( 'tribe_addons_tab_fields', array( tribe( 'tec.rest-v1.settings' ), 'filter_tribe_addons_tab_fields' ) );
 
 		/** @var Tribe__Events__RESTv1__System $system */
-		$system = tribe('tec.rest-v1.system');
+		$system = tribe( 'tec.rest-v1.system' );
 
 		if ( ! $system->tec_rest_api_is_enabled() ) {
 			if ( ! $system->supports_tec_rest_api() ) {
