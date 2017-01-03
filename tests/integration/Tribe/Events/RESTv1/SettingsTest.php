@@ -1,13 +1,13 @@
 <?php
 namespace Tribe\Events\RESTv1;
 
-use Tribe__Events__RESTv1__Settings as Settings;
-use Tribe__Events__RESTv1__System as System;
+use Tribe__Events__REST__V1__Settings as Settings;
+use Tribe__Events__REST__V1__System as System;
 
 class SettingsTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
-	 * @var \Tribe__Events__RESTv1__System
+	 * @var \Tribe__Events__REST__V1__System
 	 */
 	protected $system;
 

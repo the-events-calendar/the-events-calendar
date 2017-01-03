@@ -1,23 +1,23 @@
 <?php
 
 /**
- * Class Tribe__Events__RESTv1__Settings
+ * Class Tribe__Events__REST__V1__Settings
  *
  * Adds and manages the TEC REST API settings.
  */
-class Tribe__Events__RESTv1__Settings {
+class Tribe__Events__REST__V1__Settings {
 
 	/**
-	 * @var Tribe__Events__RESTv1__System
+	 * @var Tribe__Events__REST__V1__System
 	 */
 	protected $system;
 
 	/**
-	 * Tribe__Events__RESTv1__Settings constructor.
+	 * Tribe__Events__REST__V1__Settings constructor.
 	 *
-	 * @param Tribe__Events__RESTv1__System $system
+	 * @param Tribe__Events__REST__V1__System $system
 	 */
-	public function __construct( Tribe__Events__RESTv1__System $system ) {
+	public function __construct( Tribe__Events__REST__V1__System $system ) {
 		$this->system = $system;
 	}
 
@@ -44,7 +44,7 @@ class Tribe__Events__RESTv1__Settings {
 	 * @return array
 	 */
 	protected function add_fields( array $fields = array() ) {
-		$option = Tribe__Events__RESTv1__System::get_disable_option_name();
+		$option = Tribe__Events__REST__V1__System::get_disable_option_name();
 
 		$additional_fields = array(
 			'rest-v1-api-start' => array(

@@ -1,16 +1,16 @@
 <?php
-if ( ! function_exists( 'tribe_rest_url_prefix' ) ) {
+if ( ! function_exists( 'tribe_events_rest_url_prefix' ) ) {
 	/**
 	 * Returns TEC REST API URL prefix.
 	 *
 	 * @return string TEC REST API URL prefix; default `wp-json/tec/v1`.
 	 */
-	function tribe_rest_url_prefix() {
+	function tribe_events_rest_url_prefix() {
 		return tribe( 'tec.rest-v1.main' )->get_url_prefix();
 	}
 }
 
-if ( ! function_exists( 'tribe_rest_url' ) ) {
+if ( ! function_exists( 'tribe_events_rest_url' ) ) {
 	/**
 	 * Retrieves the URL to a TEC REST endpoint on a site.
 	 *
@@ -24,7 +24,7 @@ if ( ! function_exists( 'tribe_rest_url' ) ) {
 	 *
 	 * @return string Full URL to the endpoint.
 	 */
-	function tribe_rest_url( $path = '/', $scheme = 'rest', $blog_id = null ) {
+	function tribe_events_rest_url( $path = '/', $scheme = 'rest', $blog_id = null ) {
 		return tribe( 'tec.rest-v1.main' )->get_url( $path, $scheme, $blog_id );
 	}
 }

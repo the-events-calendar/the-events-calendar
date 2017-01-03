@@ -1,7 +1,7 @@
 <?php
 namespace Tribe\Events\RESTv1;
 
-use Tribe__Events__RESTv1__System as System;
+use Tribe__Events__REST__V1__System as System;
 
 class SystemTest extends \Codeception\TestCase\WPTestCase {
 

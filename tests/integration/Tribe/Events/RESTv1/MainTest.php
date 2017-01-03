@@ -1,7 +1,7 @@
 <?php
 namespace Tribe\Events\RESTv1;
 
-use Tribe__Events__RESTv1__Main as Main;
+use Tribe__Events__REST__V1__Main as Main;
 
 class MainTest extends \Codeception\TestCase\WPTestCase {
 
@@ -42,7 +42,7 @@ class MainTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_return_the_right_rest_url_prefix() {
 		$sut = $this->make_instance();
 
-		$this->assertEquals( 'wp-json/tec/v1', $sut->get_url_prefix() );
+		$this->assertEquals( 'wp-json/tribe/events/v1', $sut->get_url_prefix() );
 	}
 
 	/**
@@ -54,7 +54,7 @@ class MainTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut = $this->make_instance();
 
-		$this->assertEquals( 'wp-json/tec/v1', $sut->get_url_prefix() );
+		$this->assertEquals( 'wp-json/tribe/events/v1', $sut->get_url_prefix() );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class MainTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_return_the_right_tec_rest_url_for_a_path() {
 		$sut = $this->make_instance();
 
-		$this->assertEquals( $this->site_url . '/?rest_route=/tec/v1/some/path', $sut->get_url( 'some/path' ) );
+		$this->assertEquals( $this->site_url . '/?rest_route=/tribe/events/v1/some/path', $sut->get_url( 'some/path' ) );
 	}
 
 	/**
@@ -76,7 +76,7 @@ class MainTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut = $this->make_instance();
 
-		$this->assertEquals( $this->site_url . '/?rest_route=/tec/v1/some/path', $sut->get_url( 'some/path' ) );
+		$this->assertEquals( $this->site_url . '/?rest_route=/tribe/events/v1/some/path', $sut->get_url( 'some/path' ) );
 	}
 
 	/**
@@ -88,7 +88,7 @@ class MainTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut = $this->make_instance();
 
-		$this->assertEquals( $this->site_url . '/wp-json/tec/v1/some/path', $sut->get_url( 'some/path' ) );
+		$this->assertEquals( $this->site_url . '/wp-json/tribe/events/v1/some/path', $sut->get_url( 'some/path' ) );
 	}
 
 	/**
@@ -101,7 +101,7 @@ class MainTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut = $this->make_instance();
 
-		$this->assertEquals( $this->site_url . '/wp-json/tec/v1/some/path', $sut->get_url( 'some/path' ) );
+		$this->assertEquals( $this->site_url . '/wp-json/tribe/events/v1/some/path', $sut->get_url( 'some/path' ) );
 	}
 
 	/**

@@ -57,5 +57,5 @@ modules:
             wpRootFolder: ~/www/wordpress
         REST:
             depends: WPBrowser
-            url: 'http://tec.tri.be/wp-json/tec/v1/'
+            url: 'http://tec.tri.be/wp-json/tribe/events/v1/'
 

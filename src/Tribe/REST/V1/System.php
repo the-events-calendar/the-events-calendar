@@ -2,26 +2,17 @@
 
 
 /**
- * Class Tribe__Events__RESTv1__System
+ * Class Tribe__Events__REST__V1__System
  *
  * Handles scanning and asserting the current WordPress installation support of
  * TEC REST API.
  */
-class Tribe__Events__RESTv1__System {
+class Tribe__Events__REST__V1__System extends Tribe__REST__System {
 
 	/**
 	 * @var string The name of the option that enables or disables the TEC REST API support.
 	 */
 	protected static $disable_option_name = 'rest-v1-disabled';
-
-	/**
-	 * Whether the WP installation supports WP REST API or not.
-	 *
-	 * @return bool
-	 */
-	public function supports_wp_rest_api() {
-		return function_exists( 'get_rest_url' );
-	}
 
 	/**
 	 * Whether TEC REST API is supported by the WP installation or not.
