@@ -102,7 +102,7 @@ class Tribe__Events__RESTv1__Main {
 		tribe_singleton( 'tec.rest-v1.settings', 'Tribe__Events__RESTv1__Settings' );
 		tribe_singleton( 'tec.rest-v1.system', 'Tribe__Events__RESTv1__System' );
 
-		include_once ( dirname( dirname( dirname( __FILE__ ) ) ) ) . '/functions/advanced-functions/rest-v1.php';
+		include_once Tribe__Events__Main::instance()->plugin_path . 'src/functions/advanced-functions/rest-v1.php';
 	}
 
 	/**
