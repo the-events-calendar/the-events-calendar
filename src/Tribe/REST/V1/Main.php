@@ -24,7 +24,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * Binds the implementations needed to support the REST API.
 	 */
 	public function bind_implementations() {
-		tribe_singleton('tec.rest-v1.headers-base', 'Tribe__Events__REST__V1__Headers__Base');
+		tribe_singleton( 'tec.rest-v1.headers-base', 'Tribe__Events__REST__V1__Headers__Base' );
 		tribe_singleton( 'tec.rest-v1.settings', 'Tribe__Events__REST__V1__Settings' );
 		tribe_singleton( 'tec.rest-v1.system', 'Tribe__Events__REST__V1__System' );
 
@@ -40,7 +40,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		/** @var Tribe__Events__REST__V1__System $system */
 		$system = tribe( 'tec.rest-v1.system' );
 		/** @var Tribe__REST__Headers__Base_Interface $headers_base */
-		$headers_base = tribe('tec.rest-v1.headers-base');
+		$headers_base = tribe( 'tec.rest-v1.headers-base' );
 
 		if ( ! $system->tec_rest_api_is_enabled() ) {
 			if ( ! $system->supports_tec_rest_api() ) {
