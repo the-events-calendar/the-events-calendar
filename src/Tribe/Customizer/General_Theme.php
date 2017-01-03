@@ -126,6 +126,8 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 					.tribe-grid-body .tribe-event-featured.tribe-events-week-hourly-single a,
 					.tribe-mini-calendar-list-wrapper .tribe-event-featured .tribe-events-title a,
 					.tribe-mini-calendar-list-wrapper .tribe-event-featured .tribe-mini-calendar-event .tribe-events-title a,
+					.tribe-events-list-widget .tribe-event-featured .tribe-event-title a,
+					.tribe-events-list-widget .tribe-event-featured .tribe-mini-calendar-event .tribe-event-title a,
 					.tribe-events-adv-list-widget .tribe-event-featured .tribe-events-title a,
 					.tribe-events-adv-list-widget .tribe-event-featured .tribe-mini-calendar-event .tribe-events-title a {
 						color: #000;
@@ -148,6 +150,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 					.tribe-events-list #tribe-events-day.tribe-events-loop .tribe-event-featured,
 					.tribe-events-list #tribe-events-day.tribe-events-loop .tribe-event-featured .entry-summary,
 					.tribe-events-list-widget .tribe-event-featured,
+					.tribe-events-list-widget .tribe-event-featured .tribe-event-duration   ,
 					.tribe-mini-calendar-list-wrapper .tribe-event-featured,
 					.tribe-events-adv-list-widget .tribe-event-featured {
 						color: rgba( 0, 0, 0, .9 );
@@ -157,6 +160,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 					.tribe-events-venue-widget .tribe-event-featured,
 					#tribe-events-content.tribe-events-list .tribe-events-loop .tribe-event-featured a,
 					.tribe-events-list-widget .tribe-event-featured a,
+					.tribe-events-list-widget .tribe-event-featured .tribe-event-title a,
 					.tribe-events-venue-widget .tribe-event-featured a,
 					.tribe-events-venue-widget .tribe-event-featured .tribe-event-title a,
 					.tribe-events-adv-list-widget .tribe-event-featured .tribe-events-duration,
