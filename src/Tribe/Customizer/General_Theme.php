@@ -150,7 +150,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 					.tribe-events-list #tribe-events-day.tribe-events-loop .tribe-event-featured,
 					.tribe-events-list #tribe-events-day.tribe-events-loop .tribe-event-featured .entry-summary,
 					.tribe-events-list-widget .tribe-event-featured,
-					.tribe-events-list-widget .tribe-event-featured .tribe-event-duration   ,
+					.tribe-events-list-widget .tribe-event-featured .tribe-event-duration,
 					.tribe-mini-calendar-list-wrapper .tribe-event-featured,
 					.tribe-events-adv-list-widget .tribe-event-featured {
 						color: rgba( 0, 0, 0, .9 );
