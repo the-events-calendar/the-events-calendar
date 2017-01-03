@@ -43,13 +43,13 @@ class Tribe__Events__RESTv1__Main {
 	 *
 	 * @global WP_Rewrite $wp_rewrite
 	 *
-	 * @param int         $blog_id Optional. Blog ID. Default of null returns URL for current blog.
 	 * @param string      $path    Optional. TEC REST route. Default '/'.
 	 * @param string      $scheme  Optional. Sanitization scheme. Default 'rest'.
+	 * @param int         $blog_id Optional. Blog ID. Default of null returns URL for current blog.
 	 *
 	 * @return string Full URL to the endpoint.
 	 */
-	public function get_url( $blog_id = null, $path = '/', $scheme = 'rest' ) {
+	public function get_url( $path = '/', $scheme = 'rest', $blog_id = null ) {
 		if ( empty( $path ) ) {
 			$path = '/';
 		}
