@@ -56,11 +56,11 @@ class DiscoveryCest {
 			'_EventDuration'     => '32400',
 		];
 
-		$I->havePostInDatabase( [ 'post_type' => 'tribe_events', 'post_name' => 'event-01', 'meta_input' => $meta_input ] );
+		$id = $I->havePostInDatabase( [ 'post_type' => 'tribe_events', 'post_name' => 'event-01', 'meta_input' => $meta_input ] );
 		$I->sendHEAD( $this->site_url . '/event/event-01' );
 
 		$I->seeHttpHeader( 'X-TEC-API-VERSION', 'v1' );
-		$I->seeHttpHeader( 'X-TEC-API-ROOT', $this->rest_url );
+		$I->seeHttpHeader( 'X-TEC-API-ROOT', $this->rest_url . "events/{$id}" );
 	}
 
 	/**

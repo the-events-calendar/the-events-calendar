@@ -52,6 +52,10 @@ class Tribe__Events__REST__V1__Headers__Base implements Tribe__REST__Headers__Ba
 	 * @return string
 	 */
 	public function get_rest_url() {
+		if ( is_single() && tribe_is_event() ) {
+			return tribe_events_rest_url( 'events/' . Tribe__Main::post_id_helper() );
+		}
+
 		return tribe_events_rest_url();
 	}
 }
