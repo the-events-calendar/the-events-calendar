@@ -71,17 +71,21 @@ class TribeDb extends \Codeception\Module {
 		// by default an event will be on UTC time
 		$utc_offset = isset( $overrides['utc_offset'] ) ? $overrides['utc_offset'] : 0;
 
-		$start = date( 'Y-m-d H:i:s', strtotime( $when ) );
-		$end = date( 'Y-m-d H:i:s', strtotime( $when ) + $duration );
+		$start_time = strtotime( $when );
+		$end_time = strtotime( $when ) + $duration;
+
+		$start = date( 'Y-m-d H:i:s', $start_time );
+		$utc_start = date( 'Y-m-d H:i:s', $start_time + $utc_offset * 60 );
+		$end = date( 'Y-m-d H:i:s', $end_time );
+		$utc_end = date( 'Y-m-d H:i:s', $end_time + $utc_offset * 60 );
 
 		$meta_input = [
-			'_EventStartDate'    => $start + $utc_offset,
-			'_EventEndDate'      => $end + $utc_offset,
+			'_EventStartDate'    => $utc_start,
+			'_EventEndDate'      => $utc_end,
 			'_EventStartDateUTC' => $start,
 			'_EventEndDateUTC'   => $end,
 			'_EventDuration'     => $duration,
 		];
-		$meta_input['_EventDuration'] = strtotime( $meta_input['_EventEndDateUTC'] ) - strtotime( $meta_input['_EventEndDateUTC'] );
 
 		unset( $overrides['when'], $overrides['duration'], $overrides['utc_offset'] );
 

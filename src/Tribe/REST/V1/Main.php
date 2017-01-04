@@ -27,6 +27,9 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		tribe_singleton( 'tec.rest-v1.headers-base', 'Tribe__Events__REST__V1__Headers__Base' );
 		tribe_singleton( 'tec.rest-v1.settings', 'Tribe__Events__REST__V1__Settings' );
 		tribe_singleton( 'tec.rest-v1.system', 'Tribe__Events__REST__V1__System' );
+		tribe_singleton( 'tec.rest-v1.validator', 'Tribe__REST__Validator' );
+
+		tribe_singleton( 'tec.rest-v1.endpoints.single-event', 'Tribe__Events__REST__V1__Endpoints__Single_Event' );
 
 		include_once Tribe__Events__Main::instance()->plugin_path . 'src/functions/advanced-functions/rest-v1.php';
 	}
@@ -35,8 +38,24 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * Hooks the filters and actions required for the REST API support to kick in.
 	 */
 	public function hook() {
-		$this->hook_settings();
 		$this->hook_headers();
+		$this->hook_settings();
+
+		/** @var Tribe__Events__REST__V1__System $system */
+		$system = tribe( 'tec.rest-v1.system' );
+
+		if ( ! $system->supports_tec_rest_api() ) {
+			return;
+		}
+
+		add_action( 'rest_api_init', array( $this, 'register_endpoints' ) );
+	}
+
+	/**
+	 * Registers the endpoints, and the handlers, supported by the REST API
+	 */
+	public function register_endpoints() {
+		$this->register_single_event_endpoint();
 	}
 
 	/**
@@ -99,5 +118,31 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 */
 	protected function hook_settings() {
 		add_filter( 'tribe_addons_tab_fields', array( tribe( 'tec.rest-v1.settings' ), 'filter_tribe_addons_tab_fields' ) );
+	}
+
+	/**
+	 * Registers the endpoint that will handle requests for a single event.
+	 */
+	protected function register_single_event_endpoint() {
+		/** @var Tribe__REST__Endpoints__Endpoint_Interface $endpoint */
+		$endpoint = tribe( 'tec.rest-v1.endpoints.single-event' );
+		register_rest_route( $this->get_events_route_namespace(), '/events/(?P<id>\\d+)', array(
+			'methods'   => 'GET',
+			'args'     => array(
+				'id' => array(
+					'validate_callback' => array( tribe( 'tec.rest-v1.validator' ), 'is_numeric' )
+				)
+			),
+			'callback' => array( $endpoint, 'get' )
+		) );
+	}
+
+	/**
+	 * Returns the events REST API namespace string that should be used to register a route.
+	 *
+	 * @return string
+	 */
+	protected function get_events_route_namespace() {
+		return $this->get_namespace() . '/events/' . $this->get_version();
 	}
 }
