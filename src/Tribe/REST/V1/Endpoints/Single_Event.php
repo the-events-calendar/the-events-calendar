@@ -151,7 +151,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event extends Tribe__Events__RE
 			'featured_image_details' => $this->get_featured_image_details( $venue->ID ),
 			'show_map'               => isset( $meta['_EventShowMap'] ) ? $meta['_EventShowMap'] : '0',
 			'show_map_link'          => isset( $meta['_EventShowMapLink'] ) ? $meta['_EventShowMapLink'] : '0',
-			'address'                => isset( $meta['_VenueAddress	'] ) ? $meta[''] : '',
+			'address'                => isset( $meta['_VenueAddress'] ) ? $meta['_VenueAddress'] : '',
 			'city'                   => isset( $meta['_VenueCity'] ) ? $meta['_VenueCity'] : '',
 			'country'                => isset( $meta['_VenueCountry'] ) ? $meta['_VenueCountry'] : '',
 			'province'               => isset( $meta['_VenueProvince'] ) ? $meta['_VenueProvince'] : '',
@@ -194,9 +194,13 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event extends Tribe__Events__RE
 
 		foreach ( $organizers as $organizer_id ) {
 			$organizer = get_post( $organizer_id );
+
 			if ( empty( $organizer ) ) {
 				continue;
 			}
+
+			$meta = array_map( 'reset', get_post_custom( $organizer_id ) );
+
 			$this_data = array(
 				'ID'                     => $organizer->ID,
 				'author'                 => $organizer->post_author,

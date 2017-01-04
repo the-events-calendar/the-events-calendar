@@ -55,6 +55,49 @@ class SingleEventCest extends BaseRestCest {
 			]
 		] );
 
+		$venue_id = $I->havePostInDatabase( [
+			'post_type'         => 'tribe_venue',
+			'post_author'       => '12',
+			'post_title'        => 'Venue 01',
+			'post_name'         => 'venue-01',
+			'post_content'      => 'Venue 01 description',
+			'post_excerpt'      => 'Venue 01 excerpt',
+			'post_date'         => '2017-01-05 14:23:36',
+			'post_date_gmt'     => '2017-01-05 14:23:36',
+			'post_modified'     => '2017-01-05 14:23:36',
+			'post_modified_gmt' => '2017-01-05 14:23:36',
+			'meta_input'        => [
+				'_EventShowMap'       => '1',
+				'_EventShowMapLink'   => '1',
+				'_VenueAddress'       => 'address',
+				'_VenueCity'          => 'city',
+				'_VenueCountry'       => 'country',
+				'_VenueProvince'      => 'province',
+				'_VenueState'         => 'state',
+				'_VenueZip'           => 'zip',
+				'_VenuePhone'         => 'phone',
+				'_VenueURL'           => 'url',
+				'_VenueStateProvince' => 'state_province',
+			],
+		] );
+		$organizer_id = $I->havePostInDatabase( [
+			'post_type'         => 'tribe_organizer',
+			'post_author'       => '12',
+			'post_title'        => 'Organizer 01',
+			'post_name'         => 'organizer-01',
+			'post_content'      => 'Organizer 01 description',
+			'post_excerpt'      => 'Organizer 01 excerpt',
+			'post_date'         => '2017-01-05 14:23:36',
+			'post_date_gmt'     => '2017-01-05 14:23:36',
+			'post_modified'     => '2017-01-05 14:23:36',
+			'post_modified_gmt' => '2017-01-05 14:23:36',
+			'meta_input'        => [
+				'_OrganizerPhone'   => 'phone',
+				'_OrganizerWebsite' => 'website',
+				'_OrganizerEmail'   => 'email',
+			],
+		] );
+
 		$id = $I->haveEventInDatabase( [
 			'post_author'       => '12',
 			'post_title'        => 'Event 01',
@@ -80,9 +123,8 @@ class SingleEventCest extends BaseRestCest {
 				'_EventStartDateUTC'     => '2017-01-05 14:23:36',
 				'_EventEndDateUTC'       => '2017-01-05 16:23:36',
 				'_EventDuration'         => '7200',
-				// todo: test organizer and venue
-//				'_EventVenueID'	 => $venue_id,
-//				'_EventOrganizerID'=> $organizer_id,
+				'_EventVenueID'          => $venue_id,
+				'_EventOrganizerID'      => $organizer_id,
 			],
 		] );
 
@@ -159,6 +201,49 @@ class SingleEventCest extends BaseRestCest {
 		$I->seeResponseContainsJson( [ 'website' => 'http://tri.be' ] );
 		$I->seeResponseContainsJson( [ 'show_map' => '1' ] );
 		$I->seeResponseContainsJson( [ 'show_map_link' => '1' ] );
-
+		$I->seeResponseContainsJson( [
+			'venue' => [
+				'ID'             => $venue_id,
+				'author'         => '12',
+				'date'           => '2017-01-05 14:23:36',
+				'date_utc'       => '2017-01-05 14:23:36',
+				'modified'       => '2017-01-05 14:23:36',
+				'modified_utc'   => '2017-01-05 14:23:36',
+				'link'           => 'http://tribe-pro.dev/venue/venue-01/',
+				'title'          => 'Venue 01',
+				'description'    => '<p>Venue 01 description</p>',
+				'excerpt'        => '<p>Venue 01 excerpt</p>',
+				'show_map'       => '1',
+				'show_map_link'  => '1',
+				'address'        => 'address',
+				'city'           => 'city',
+				'country'        => 'country',
+				'province'       => 'province',
+				'state'          => 'state',
+				'zip'            => 'zip',
+				'phone'          => 'phone',
+				'website'        => 'url',
+				'state_province' => 'state_province',
+			],
+		] );
+		$I->seeResponseContainsJson( [
+			'organizer' => [
+				[
+					'ID'           => $organizer_id,
+					'author'       => '12',
+					'date'         => '2017-01-05 14:23:36',
+					'date_utc'     => '2017-01-05 14:23:36',
+					'modified'     => '2017-01-05 14:23:36',
+					'modified_utc' => '2017-01-05 14:23:36',
+					'link'         => 'http://tribe-pro.dev/organizer/organizer-01/',
+					'title'        => 'Organizer 01',
+					'description'  => '<p>Organizer 01 description</p>',
+					'excerpt'      => '<p>Organizer 01 excerpt</p>',
+					'phone'        => 'phone',
+					'website'      => 'website',
+					'email'        => 'email',
+				],
+			]
+		] );
 	}
 }
