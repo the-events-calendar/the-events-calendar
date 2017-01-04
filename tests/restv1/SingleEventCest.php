@@ -54,6 +54,7 @@ class SingleEventCest extends BaseRestCest {
 				'_wp_attached_file' => 'images/image.png',
 			]
 		] );
+
 		$id = $I->haveEventInDatabase( [
 			'post_author'       => '12',
 			'post_title'        => 'Event 01',
@@ -78,7 +79,10 @@ class SingleEventCest extends BaseRestCest {
 				'_EventEndDate'          => '2017-01-05 16:23:36',
 				'_EventStartDateUTC'     => '2017-01-05 14:23:36',
 				'_EventEndDateUTC'       => '2017-01-05 16:23:36',
-				'_EventDuration'         => '7200'
+				'_EventDuration'         => '7200',
+				// todo: test organizer and venue
+//				'_EventVenueID'	 => $venue_id,
+//				'_EventOrganizerID'=> $organizer_id,
 			],
 		] );
 
