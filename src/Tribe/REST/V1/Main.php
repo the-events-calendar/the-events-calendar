@@ -35,28 +35,8 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * Hooks the filters and actions required for the REST API support to kick in.
 	 */
 	public function hook() {
-		add_filter( 'tribe_addons_tab_fields', array( tribe( 'tec.rest-v1.settings' ), 'filter_tribe_addons_tab_fields' ) );
-
-		/** @var Tribe__Events__REST__V1__System $system */
-		$system = tribe( 'tec.rest-v1.system' );
-		/** @var Tribe__REST__Headers__Base_Interface $headers_base */
-		$headers_base = tribe( 'tec.rest-v1.headers-base' );
-
-		if ( ! $system->tec_rest_api_is_enabled() ) {
-			if ( ! $system->supports_tec_rest_api() ) {
-				tribe_singleton( 'tec.rest-v1.headers', new Tribe__REST__Headers__Unsupported( $headers_base ) );
-			} else {
-				tribe_singleton( 'tec.rest-v1.headers', new Tribe__REST__Headers__Disabled( $headers_base ) );
-			}
-		} else {
-			tribe_singleton( 'tec.rest-v1.headers', new Tribe__REST__Headers__Supported( $headers_base, $this ) );
-		}
-
-		/** @var Tribe__REST__Headers__Headers_Interface $headers */
-		$headers = tribe( 'tec.rest-v1.headers' );
-
-		add_action( 'wp_head', array( $headers, 'add_header' ), 10, 0 );
-		add_action( 'template_redirect', array( $headers, 'send_header' ), 11, 0 );
+		$this->hook_settings();
+		$this->hook_headers();
 	}
 
 	/**
@@ -86,5 +66,38 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 */
 	public function get_reference_url() {
 		return esc_attr( 'htt://theeventscalendar.com' );
+	}
+
+	/**
+	 * Hooks the additional headers and meta tags related to the REST API.
+	 */
+	protected function hook_headers() {
+		/** @var Tribe__Events__REST__V1__System $system */
+		$system = tribe( 'tec.rest-v1.system' );
+		/** @var Tribe__REST__Headers__Base_Interface $headers_base */
+		$headers_base = tribe( 'tec.rest-v1.headers-base' );
+
+		if ( ! $system->tec_rest_api_is_enabled() ) {
+			if ( ! $system->supports_tec_rest_api() ) {
+				tribe_singleton( 'tec.rest-v1.headers', new Tribe__REST__Headers__Unsupported( $headers_base, $this ) );
+			} else {
+				tribe_singleton( 'tec.rest-v1.headers', new Tribe__REST__Headers__Disabled( $headers_base ) );
+			}
+		} else {
+			tribe_singleton( 'tec.rest-v1.headers', new Tribe__REST__Headers__Supported( $headers_base, $this ) );
+		}
+
+		/** @var Tribe__REST__Headers__Headers_Interface $headers */
+		$headers = tribe( 'tec.rest-v1.headers' );
+
+		add_action( 'wp_head', array( $headers, 'add_header' ), 10, 0 );
+		add_action( 'template_redirect', array( $headers, 'send_header' ), 11, 0 );
+	}
+
+	/**
+	 * Hooks the additional Events Settings related to the REST API.
+	 */
+	protected function hook_settings() {
+		add_filter( 'tribe_addons_tab_fields', array( tribe( 'tec.rest-v1.settings' ), 'filter_tribe_addons_tab_fields' ) );
 	}
 }
