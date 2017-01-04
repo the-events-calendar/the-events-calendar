@@ -19,7 +19,7 @@ class DiscoveryCest extends BaseRestCest {
 	 * it should return custom headers for discovery on single event links
 	 */
 	public function it_should_return_custom_headers_for_discovery_on_single_event_links( Restv1Tester $I ) {
-		$I->haveEventInDatabase( [ 'post_name' => 'event-01' ] );
+		$id = $I->haveEventInDatabase( [ 'post_name' => 'event-01' ] );
 
 		$I->sendHEAD( $this->site_url . '/event/event-01' );
 
