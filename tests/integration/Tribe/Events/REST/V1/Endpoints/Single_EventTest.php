@@ -1,17 +1,29 @@
 <?php
 namespace Tribe\Events\REST\V1\Endpoints;
 
+use Prophecy\Prophet;
 use Tribe__Events__Main as Main;
 use Tribe__Events__REST__V1__Endpoints__Single_Event as Endpoint;
-use Tribe__Events__REST__V1__Messages as Messages;
 
 class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
+
+	/**
+	 * @var \Tribe__REST__Messages_Interface
+	 */
+	protected $messages;
+
+	/**
+	 * @var \Tribe__REST__Main
+	 */
+	protected $main;
 
 	public function setUp() {
 		// before
 		parent::setUp();
 
 		// your set up methods here
+		$this->messages = new \Tribe__Events__REST__V1__Messages();
+		$this->main = new \Tribe__Events__REST__V1__Main();
 	}
 
 	public function tearDown() {
@@ -90,6 +102,9 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 * @return Endpoint
 	 */
 	private function make_instance() {
-		return new Endpoint( new Messages() );
+		$messages = $this->messages instanceof Prophet ? $this->messages->reveal() : $this->messages;
+		$main = $this->main instanceof Prophet ? $this->main->reveal() : $this->main;
+
+		return new Endpoint( $messages, $main );
 	}
 }

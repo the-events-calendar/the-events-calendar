@@ -30,8 +30,6 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		tribe_singleton( 'tec.rest-v1.validator', 'Tribe__REST__Validator' );
 		tribe_singleton( 'tec.rest-v1.messages', 'Tribe__Events__REST__V1__Messages' );
 
-		tribe_singleton( 'tec.rest-v1.endpoints.single-event', 'Tribe__Events__REST__V1__Endpoints__Single_Event' );
-
 		include_once Tribe__Events__Main::instance()->plugin_path . 'src/functions/advanced-functions/rest-v1.php';
 	}
 
@@ -125,8 +123,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * Registers the endpoint that will handle requests for a single event.
 	 */
 	protected function register_single_event_endpoint() {
-		/** @var Tribe__REST__Endpoints__Endpoint_Interface $endpoint */
-		$endpoint = tribe( 'tec.rest-v1.endpoints.single-event' );
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Event( tribe( 'tec.rest-v1.messages' ), $this );
+
+		tribe_singleton( 'tec.rest-v1.endpoints.single-event', $endpoint );
+
 		register_rest_route( $this->get_events_route_namespace(), '/events/(?P<id>\\d+)', array(
 			'methods'   => 'GET',
 			'args'     => array(
