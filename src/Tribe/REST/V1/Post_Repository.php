@@ -39,6 +39,13 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__REST__Post_Repo
 		return call_user_func( $this->types_get_map[ $post->post_type ], $id );
 	}
 
+	/**
+	 * Returns an array representation of an event.
+	 *
+	 * @param int $id An event post ID.
+	 *
+	 * @return array
+	 */
 	public function get_event_data( $id ) {
 		$event = get_post( $id );
 
@@ -110,6 +117,13 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__REST__Post_Repo
 		);
 	}
 
+	/**
+	 * Returns an array representation of an event venue.
+	 *
+	 * @param int $id An event or venue post ID.
+	 *
+	 * @return array
+	 */
 	public function get_venue_data( $id ) {
 		if ( tribe_is_event( $id ) ) {
 			$venue = get_post( tribe_get_venue_id( $id ) );
@@ -168,6 +182,13 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__REST__Post_Repo
 		return array_filter( $data );
 	}
 
+	/**
+	 * Returns an array representation of an event organizer(s).
+	 *
+	 * @param int $id An event or organizer post ID.
+	 *
+	 * @return array
+	 */
 	public function get_organizer_data( $id ) {
 		if ( tribe_is_event( $id ) ) {
 			$organizers = tribe_get_organizer_ids( $id );
