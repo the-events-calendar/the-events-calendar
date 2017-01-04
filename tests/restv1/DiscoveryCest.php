@@ -24,7 +24,7 @@ class DiscoveryCest extends BaseRestCest {
 		$I->sendHEAD( $this->site_url . '/event/event-01' );
 
 		$I->seeHttpHeader( 'X-TEC-API-VERSION', 'v1' );
-		$I->seeHttpHeader( 'X-TEC-API-ROOT', $this->rest_url );
+		$I->seeHttpHeader( 'X-TEC-API-ROOT', $this->rest_url . "events/{$id}" );
 	}
 
 	/**
