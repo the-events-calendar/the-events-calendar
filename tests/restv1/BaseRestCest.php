@@ -1,6 +1,5 @@
 <?php
 
-
 use Codeception\Configuration;
 
 class BaseRestCest {

@@ -39,22 +39,23 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event extends Tribe__Events__RE
 			return new WP_Error( 'event-not-found', $message, array( 'status' => 404 ) );
 		}
 
-		if ( ! current_user_can( 'read', $id ) ) {
+		$event = get_post( $id );
+
+		if ( ! ( 'publish' === $event->post_status || current_user_can( 'edit_posts', $id ) ) ) {
 			$message = $this->messages->get_message( 'event-not-accessible' );
 
 			return new WP_Error( 'event-not-accessible', $message, array( 'status' => 403 ) );
 		}
 
-		$event = get_post( $id );
-		$meta = get_post_custom( $id );
+		$meta = array_map( 'reset', get_post_custom( $id ) );
 
 		$data = array(
 			'ID'                     => $id,
 			'link'                   => get_the_permalink( $id ),
 			'rest_url'               => $this->get_rest_url( $id ),
-			'title'                  => apply_filters( 'the_title', $event->post_title ),
-			'description'            => apply_filters( 'the_content', $event->post_content ),
-			'excerpt'                => apply_filters( 'the_excerpt', $event->post_excerpt ),
+			'title'                  => trim( apply_filters( 'the_title', $event->post_title ) ),
+			'description'            => trim( apply_filters( 'the_content', $event->post_content ) ),
+			'excerpt'                => trim( apply_filters( 'the_excerpt', $event->post_excerpt ) ),
 			'featured_image'         => get_the_post_thumbnail_url( $id, 'full' ),
 			'start_date'             => $meta['_EventStartDate'],
 			'start_date_details'     => $this->get_date_details( $meta['_EventStartDate'] ),
@@ -64,17 +65,17 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event extends Tribe__Events__RE
 			'utc_start_date_details' => $this->get_date_details( $meta['_EventStartDateUTC'] ),
 			'utc_end_date'           => $meta['_EventEndDateUTC'],
 			'utc_end_date_details'   => $this->get_date_details( $meta['_EventEndDateUTC'] ),
-			'timezone'               => $meta['_EventTimezone'],
-			'timezone_abbr'          => $meta['_EventTimezoneAbbr'],
+			'timezone'               => isset( $meta['_EventTimezone'] ) ? $meta['_EventTimezone'] : '',
+			'timezone_abbr'          => isset( $meta['_EventTimezoneAbbr'] ) ? $meta['_EventTimezoneAbbr'] : '',
 			'cost'                   => tribe_get_cost( $id ),
 			'cost_details'           => array(
-				'currency_symbol'          => $meta['_EventCurrencySymbol'],
-				'currency_symbol_position' => $meta['_EventCurrencyPosition'],
-				'cost'                     => $meta['_EventCost'],
+				'currency_symbol'          => isset( $meta['_EventCurrencySymbol'] ) ? $meta['_EventCurrencySymbol'] : '',
+				'currency_position' => isset( $meta['_EventCurrencyPosition'] ) ? $meta['_EventCurrencyPosition'] : '',
+				'cost'                     => isset( $meta['_EventCost'] ) ? $meta['_EventCost'] : '',
 			),
-			'website'                => esc_html( $meta['_EventURL'] ),
-			'show_map'               => $meta['_EventShowMap'],
-			'show_map_link'          => $meta['_EventShowMapLink'],
+			'website'                => isset( $meta['_EventURL'] ) ? esc_html( $meta['_EventURL'] ) : '',
+			'show_map'               => isset( $meta['_EventShowMap'] ) ? $meta['_EventShowMap'] : '1',
+			'show_map_link'          => isset( $meta['_EventShowMapLink'] ) ? $meta['_EventShowMapLink'] : '1',
 			'categories'             => $this->get_categories(),
 			'tags'                   => $this->get_tags(),
 			'venue'                  => $this->get_venue(),
@@ -95,8 +96,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event extends Tribe__Events__RE
 			'month'  => date( 'm', strtotime( $date ) ),
 			'day'    => date( 'd', strtotime( $date ) ),
 			'hour'   => date( 'H', strtotime( $date ) ),
-			'minute' => date( 'i', strtotime( $date ) ),
-			'second' => date( 's', strtotime( $date ) ),
+			'minutes' => date( 'i', strtotime( $date ) ),
+			'seconds' => date( 's', strtotime( $date ) ),
 		);
 	}
 
@@ -113,8 +114,10 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event extends Tribe__Events__RE
 	}
 
 	protected function get_categories() {
+		return array();
 	}
 
 	protected function get_tags() {
+		return array();
 	}
 }

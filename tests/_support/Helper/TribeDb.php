@@ -94,8 +94,10 @@ class TribeDb extends \Codeception\Module {
 			'post_type'  => 'tribe_events',
 			'post_title' => "Event {$id}",
 			'post_name'  => "event-{$id}",
-			'meta_input' => $meta_input
+			'meta_input' => isset( $overrides['meta_input'] ) ? array_merge( $meta_input, $overrides['meta_input'] ) : $meta_input,
 		];
+
+		unset( $overrides['meta_input'] );
 
 		return $this->db->havePostInDatabase( array_merge( $defaults, $overrides ) );
 	}
