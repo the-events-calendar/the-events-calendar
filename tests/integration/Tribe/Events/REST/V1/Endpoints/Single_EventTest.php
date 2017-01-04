@@ -13,9 +13,9 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	protected $messages;
 
 	/**
-	 * @var \Tribe__REST__Main
+	 * @var \Tribe__REST__Post_Repository_Interface
 	 */
-	protected $main;
+	protected $repository;
 
 	public function setUp() {
 		// before
@@ -23,7 +23,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		// your set up methods here
 		$this->messages = new \Tribe__Events__REST__V1__Messages();
-		$this->main = new \Tribe__Events__REST__V1__Main();
+		$this->repository = new \Tribe__Events__REST__V1__Post_Repository();
 	}
 
 	public function tearDown() {
@@ -103,8 +103,8 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 */
 	private function make_instance() {
 		$messages = $this->messages instanceof Prophet ? $this->messages->reveal() : $this->messages;
-		$main = $this->main instanceof Prophet ? $this->main->reveal() : $this->main;
+		$repository = $this->repository instanceof Prophet ? $this->repository->reveal() : $this->repository;
 
-		return new Endpoint( $messages, $main );
+		return new Endpoint( $messages, $repository );
 	}
 }
