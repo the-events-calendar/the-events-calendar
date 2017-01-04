@@ -1,5 +1,5 @@
 <?php
-namespace Tribe\Events\RESTv1;
+namespace Tribe\Events\REST\V1;
 
 use Tribe__Events__REST__V1__Settings as Settings;
 use Tribe__Events__REST__V1__System as System;
