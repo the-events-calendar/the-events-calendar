@@ -55,11 +55,16 @@ class SingleEventCest extends BaseRestCest {
 			]
 		] );
 		$id = $I->haveEventInDatabase( [
-			'post_title'   => 'Event 01',
-			'post_name'    => 'event-01',
-			'post_content' => 'Event 01 description',
-			'post_excerpt' => 'Event 01 excerpt',
-			'meta_input'   => [
+			'post_author'       => '12',
+			'post_title'        => 'Event 01',
+			'post_name'         => 'event-01',
+			'post_content'      => 'Event 01 description',
+			'post_excerpt'      => 'Event 01 excerpt',
+			'post_date'         => '2017-01-05 14:23:36',
+			'post_date_gmt'     => '2017-01-05 14:23:36',
+			'post_modified'     => '2017-01-05 14:23:36',
+			'post_modified_gmt' => '2017-01-05 14:23:36',
+			'meta_input'        => [
 				'_thumbnail_id'          => $image_id,
 				'_EventTimezone'         => 'America/New_York',
 				'_EventTimezoneAbbr'     => 'EST',
@@ -82,6 +87,11 @@ class SingleEventCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->seeResponseContainsJson( [ 'ID' => $id ] );
+		$I->seeResponseContainsJson( [ 'author' => '12' ] );
+		$I->seeResponseContainsJson( [ 'date' => '2017-01-05 14:23:36' ] );
+		$I->seeResponseContainsJson( [ 'date_utc' => '2017-01-05 14:23:36' ] );
+		$I->seeResponseContainsJson( [ 'modified' => '2017-01-05 14:23:36' ] );
+		$I->seeResponseContainsJson( [ 'modified_utc' => '2017-01-05 14:23:36' ] );
 		$I->seeResponseContainsJson( [ 'link' => $this->site_url . 'event/event-01/' ] );
 		$I->seeResponseContainsJson( [ 'rest_url' => $this->rest_url . 'events/' . $id ] );
 		$I->seeResponseContainsJson( [ 'title' => 'Event 01' ] );
