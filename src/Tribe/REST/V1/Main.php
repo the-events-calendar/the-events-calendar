@@ -28,6 +28,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		tribe_singleton( 'tec.rest-v1.settings', 'Tribe__Events__REST__V1__Settings' );
 		tribe_singleton( 'tec.rest-v1.system', 'Tribe__Events__REST__V1__System' );
 		tribe_singleton( 'tec.rest-v1.validator', 'Tribe__REST__Validator' );
+		tribe_singleton( 'tec.rest-v1.messages', 'Tribe__Events__REST__V1__Messages' );
 
 		tribe_singleton( 'tec.rest-v1.endpoints.single-event', 'Tribe__Events__REST__V1__Endpoints__Single_Event' );
 

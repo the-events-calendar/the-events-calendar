@@ -3,6 +3,7 @@ namespace Tribe\Events\REST\V1\Endpoints;
 
 use Tribe__Events__Main as Main;
 use Tribe__Events__REST__V1__Endpoints__Single_Event as Endpoint;
+use Tribe__Events__REST__V1__Messages as Messages;
 
 class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
@@ -89,6 +90,6 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 * @return Endpoint
 	 */
 	private function make_instance() {
-		return new Endpoint();
+		return new Endpoint( new Messages() );
 	}
 }

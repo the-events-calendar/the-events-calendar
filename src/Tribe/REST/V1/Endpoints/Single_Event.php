@@ -1,7 +1,8 @@
 <?php
 
 
-class Tribe__Events__REST__V1__Endpoints__Single_Event implements Tribe__REST__Endpoints__Endpoint_Interface {
+class Tribe__Events__REST__V1__Endpoints__Single_Event extends Tribe__Events__REST__V1__Endpoints__Base implements
+	Tribe__REST__Endpoints__Endpoint_Interface {
 
 	/**
 	 * @param WP_REST_Request $request
@@ -12,19 +13,19 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event implements Tribe__REST__E
 		$id = $request['id'];
 
 		if ( empty( $id ) ) {
-			$message = __( 'The event ID is missing from the request', 'the-events-calendar' );
+			$message = $this->messages->get_message( 'missing-event-id' );
 
 			return new WP_Error( 'missing-event-id', $message, array( 'status' => 400 ) );
 		}
 
 		if ( ! tribe_is_event( $id ) ) {
-			$message = __( 'The requested post ID does not exist or is not an event', 'the-events-calendar' );
+			$message = $this->messages->get_message( 'event-not-found' );
 
 			return new WP_Error( 'event-not-found', $message, array( 'status' => 404 ) );
 		}
 
 		if ( ! current_user_can( 'read', $id ) ) {
-			$message = __( 'The requested event is not accessible', 'the-events-calendar' );
+			$message = $this->messages->get_message( 'event-not-accessible' );
 
 			return new WP_Error( 'event-not-accessible', $message, array( 'status' => 403 ) );
 		}
