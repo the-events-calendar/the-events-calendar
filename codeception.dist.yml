@@ -55,3 +55,7 @@ modules:
             windowSize: 1200x100
         WPBootstrapper:
             wpRootFolder: ~/www/wordpress
+        REST:
+            depends: WPBrowser
+            url: 'http://tec.tri.be/wp-json/tribe/events/v1/'
+
