@@ -3,6 +3,7 @@
 namespace Tribe\Events\REST\V1\Endpoints;
 
 use Prophecy\Prophecy\ObjectProphecy;
+use Tribe\Events\Tests\Factories\REST\V1\Event_Response;
 use Tribe__Events__Main as Main;
 use Tribe__Events__REST__V1__Endpoints__Single_Event as Endpoint;
 
@@ -25,6 +26,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		// your set up methods here
 		$this->messages = new \Tribe__Events__REST__V1__Messages();
 		$this->repository = new \Tribe__Events__REST__V1__Post_Repository( new \Tribe__Events__REST__V1__Messages() );
+		$this->factory()->rest_event = new Event_Response();
 	}
 
 	public function tearDown() {
@@ -88,6 +90,14 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertEquals( [ 'some' => 'data' ], $response->get_data() );
+	}
+
+	/**
+	 * @test
+	 * it should foo
+	 */
+	public function it_should_foo() {
+		$response = $this->factory()->rest_event->create_and_get([]);
 	}
 
 	/**

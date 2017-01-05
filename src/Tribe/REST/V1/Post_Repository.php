@@ -61,6 +61,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$meta = array_map( 'reset', get_post_custom( $event_id ) );
 
+		$venue = $this->get_venue_data( $event_id );
+		$organizer = $this->get_organizer_data( $event_id );
 		$data = array(
 			'ID'                     => $event_id,
 			'author'                 => $event->post_author,
@@ -96,8 +98,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'show_map_link'          => isset( $meta['_EventShowMapLink'] ) ? $meta['_EventShowMapLink'] : '0',
 			'categories'             => $this->get_categories( $event_id ),
 			'tags'                   => $this->get_tags( $event_id ),
-			'venue'                  => $this->get_venue_data( $event_id ),
-			'organizer'              => $this->get_organizer_data( $event_id ),
+			'venue'                  => is_wp_error( $venue ) ? array() : $venue,
+			'organizer'              => is_wp_error( $organizer ) ? array() : $organizer,
 		);
 
 		/**
