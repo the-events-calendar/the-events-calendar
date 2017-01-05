@@ -132,17 +132,18 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 *
 	 * @param int $event_or_venue_id An event or venue post ID.
 	 *
-	 * @return array
+	 * @return array|WP_Error Either the array representation of a venue or an error object.
 	 */
 	public function get_venue_data( $event_or_venue_id ) {
 		if ( tribe_is_event( $event_or_venue_id ) ) {
 			$venue = get_post( tribe_get_venue_id( $event_or_venue_id ) );
-		} else {
+			if ( empty( $venue ) ) {
+				return new WP_Error( 'event-no-venue', $this->messages->get_message( 'event-no-venue' ) );
+			}
+		} elseif ( tribe_is_venue( $event_or_venue_id ) ) {
 			$venue = get_post( $event_or_venue_id );
-		}
-
-		if ( empty( $venue ) ) {
-			return array();
+		} else {
+			return new WP_Error( 'venue-not-found', $this->messages->get_message( 'venue-not-found' ) );
 		}
 
 		$meta = array_map( 'reset', get_post_custom( $venue->ID ) );
@@ -197,19 +198,26 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 *
 	 * @param int $event_or_organizer_id An event or organizer post ID.
 	 *
-	 * @return array
+	 * @return array|WP_Error Either an the array representation of an orgnanizer, an
+	 *                        arrya of array representations of an event organizer or
+	 *                        an error object.
 	 */
 	public function get_organizer_data( $event_or_organizer_id ) {
 		if ( tribe_is_event( $event_or_organizer_id ) ) {
 			$organizers = tribe_get_organizer_ids( $event_or_organizer_id );
+			if ( empty( $organizers ) ) {
+				return new WP_Error( 'event-no-organizer', $this->messages->get_message( 'event-no-organizer' ) );
+			}
+			// serializing happens...
+			if ( is_array( $organizers[0] ) ) {
+				$organizers = $organizers[0];
+			}
 			$single = false;
-		} else {
-			$organizers = (array) get_post( $event_or_organizer_id );
+		} elseif ( tribe_is_organizer( $event_or_organizer_id ) ) {
+			$organizers = array( get_post( $event_or_organizer_id ) );
 			$single = true;
-		}
-
-		if ( empty( $organizers ) ) {
-			return array();
+		} else {
+			return new WP_Error( 'organizer-not-found', $this->messages->get_message( 'organizer-not-found' ) );
 		}
 
 		$data = array();
@@ -221,7 +229,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				continue;
 			}
 
-			$meta = array_map( 'reset', get_post_custom( $organizer_id ) );
+			$meta = array_map( 'reset', get_post_custom( $organizer->ID ) );
 
 			$this_data = array(
 				'ID'                     => $organizer->ID,

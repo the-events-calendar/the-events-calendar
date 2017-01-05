@@ -24,7 +24,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * Binds the implementations needed to support the REST API.
 	 */
 	public function bind_implementations() {
-		tribe_singleton( 'Tribe__REST__Messages_Interface', 'Tribe__Events__REST__V1__Messages' );
+		$messages = new Tribe__Events__REST__V1__Messages();
+
+		tribe_singleton( 'Tribe__REST__Messages_Interface', $messages );
+		tribe_singleton( 'tec.rest-v1.messages', $messages );
 
 		tribe_singleton( 'tec.rest-v1.headers-base', 'Tribe__Events__REST__V1__Headers__Base' );
 		tribe_singleton( 'tec.rest-v1.settings', 'Tribe__Events__REST__V1__Settings' );

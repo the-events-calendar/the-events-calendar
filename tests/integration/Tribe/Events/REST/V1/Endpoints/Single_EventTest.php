@@ -24,7 +24,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		// your set up methods here
 		$this->messages = new \Tribe__Events__REST__V1__Messages();
-		$this->repository = new \Tribe__Events__REST__V1__Post_Repository();
+		$this->repository = new \Tribe__Events__REST__V1__Post_Repository( new \Tribe__Events__REST__V1__Messages() );
 	}
 
 	public function tearDown() {
