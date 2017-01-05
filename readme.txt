@@ -315,15 +315,21 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.4] 2017-01-04 =
+= [4.4] 2017-01-09 =
 
 * Feature - Add dynamic helper text to single event editor to display the events date and time [66484]
 * Feature - Add support for featured events [65898]
 * Feature - Add support for placing the main events archive on the site homepage [38757]
-* Tweak - Adjusted styles and added actions for featured events in the List Widget [65923]
-* Tweak - Organizers and Venues are now with a better and cleaner interface [68430]
+* Feature - Add support for the theme customizer [67489]
+* Feature - Make it possible to adjust map pins via the theme customizer [65889]
 * Fix - Add a link to The Events Calendar Help page in the Network Administration screen of multisite installations [68665]
 * Fix - Multisite license editing and displaying consistency [68662]
+* Tweak - Adjusted styles and added actions for featured events in the List Widget [65923]
+* Tweak - Organizers and Venues are now with a better and cleaner interface [68430]
+* Tweak - Eliminate duplicate meta data for organizer posts [25084]
+* Tweak - Improved the start/end date user interface [66486, 66487, 66550]
+* Tweak - iCal export now includes all events - up to a reasonable limit - rather than just those in the current view [65037]
+* Tweak - Adjustments made to the default week view colour scheme [69756]
 
 = [4.3.5] 2016-12-20 =
 
