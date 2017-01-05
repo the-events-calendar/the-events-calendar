@@ -1,7 +1,8 @@
 <?php
+
 namespace Tribe\Events\REST\V1\Endpoints;
 
-use Prophecy\Prophet;
+use Prophecy\Prophecy\ObjectProphecy;
 use Tribe__Events__Main as Main;
 use Tribe__Events__REST__V1__Endpoints__Single_Event as Endpoint;
 
@@ -13,7 +14,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	protected $messages;
 
 	/**
-	 * @var \Tribe__REST__Post_Repository_Interface
+	 * @var \Tribe__Events__REST__Interfaces__Post_Repository
 	 */
 	protected $repository;
 
@@ -58,34 +59,6 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 	/**
 	 * @test
-	 * it should return a WP_Error if requested event does not exist
-	 */
-	public function it_should_return_a_wp_error_if_requested_event_does_not_exist() {
-		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'id', 23 );
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertErrorResponse( 'event-not-found', $response, 404 );
-	}
-
-	/**
-	 * @test
-	 * it should return a WP_Error if requested event is not an event
-	 */
-	public function it_should_return_a_wp_error_if_requested_event_is_not_an_event() {
-		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'id', $this->factory()->post->create() );
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertErrorResponse( 'event-not-found', $response, 404 );
-	}
-
-	/**
-	 * @test
 	 * it should return a WP_Error if user cannot access requested event
 	 */
 	public function it_should_return_a_wp_error_if_user_cannot_access_requested_event() {
@@ -99,11 +72,30 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	}
 
 	/**
+	 * @test
+	 * it should return event data if event accessible
+	 */
+	public function it_should_return_event_data_if_event_accessible() {
+		$request = new \WP_REST_Request( 'GET', '' );
+		$id = $this->factory()->post->create( [ 'post_type' => Main::POSTTYPE, 'post_status' => 'publish' ] );
+		$request->set_param( 'id', $id );
+
+		$this->repository = $this->prophesize( \Tribe__Events__REST__Interfaces__Post_Repository::class );
+		$this->repository->get_event_data( $id )->willReturn( [ 'some' => 'data' ] );
+
+		$sut = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( [ 'some' => 'data' ], $response->get_data() );
+	}
+
+	/**
 	 * @return Endpoint
 	 */
 	private function make_instance() {
-		$messages = $this->messages instanceof Prophet ? $this->messages->reveal() : $this->messages;
-		$repository = $this->repository instanceof Prophet ? $this->repository->reveal() : $this->repository;
+		$messages = $this->messages instanceof ObjectProphecy ? $this->messages->reveal() : $this->messages;
+		$repository = $this->repository instanceof ObjectProphecy ? $this->repository->reveal() : $this->repository;
 
 		return new Endpoint( $messages, $repository );
 	}

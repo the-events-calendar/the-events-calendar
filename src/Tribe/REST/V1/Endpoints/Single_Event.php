@@ -14,7 +14,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event extends Tribe__Events__RE
 	 */
 	protected $serving;
 	/**
-	 * @var Tribe__REST__Post_Repository_Interface
+	 * @var Tribe__Events__REST__Interfaces__Post_Repository
 	 */
 	private $post_repository;
 
@@ -23,7 +23,10 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event extends Tribe__Events__RE
 	 *
 	 * @param Tribe__REST__Main $main
 	 */
-	public function __construct( Tribe__REST__Messages_Interface $messages, Tribe__REST__Post_Repository_Interface $post_repository ) {
+	public function __construct(
+		Tribe__REST__Messages_Interface $messages,
+		Tribe__Events__REST__Interfaces__Post_Repository $post_repository
+	) {
 		parent::__construct( $messages );
 		$this->post_repository = $post_repository;
 	}
@@ -44,12 +47,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event extends Tribe__Events__RE
 			return new WP_Error( 'missing-event-id', $message, array( 'status' => 400 ) );
 		}
 
-		if ( ! tribe_is_event( $id ) ) {
-			$message = $this->messages->get_message( 'event-not-found' );
-
-			return new WP_Error( 'event-not-found', $message, array( 'status' => 404 ) );
-		}
-
 		$event = get_post( $id );
 
 		if ( ! ( 'publish' === $event->post_status || current_user_can( 'edit_posts', $id ) ) ) {
@@ -58,8 +55,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event extends Tribe__Events__RE
 			return new WP_Error( 'event-not-accessible', $message, array( 'status' => 403 ) );
 		}
 
-		$data = $this->post_repository->get_data( $id );
+		$data = $this->post_repository->get_event_data( $id );
 
-		return new WP_REST_Response( $data );
+		return is_wp_error( $data ) ? $data : new WP_REST_Response( $data );
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-class Tribe__Events__REST__V1__Post_Repository implements Tribe__REST__Post_Repository_Interface {
+class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__Interfaces__Post_Repository {
 
 	/**
 	 * A post type to get data request handler map.
@@ -10,12 +10,18 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__REST__Post_Repo
 	 */
 	protected $types_get_map = array();
 
-	public function __construct() {
+	/**
+	 * @var Tribe__REST__Messages_Interface
+	 */
+	protected $messages;
+
+	public function __construct( Tribe__REST__Messages_Interface $messages ) {
 		$this->types_get_map = array(
 			Tribe__Events__Main::POSTTYPE            => array( $this, 'get_event_data' ),
 			Tribe__Events__Main::VENUE_POST_TYPE     => array( $this, 'get_venue_data' ),
 			Tribe__Events__Main::ORGANIZER_POST_TYPE => array( $this, 'get_organizer_data' ),
 		);
+		$this->messages = $messages;
 	}
 
 	/**
@@ -42,29 +48,33 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__REST__Post_Repo
 	/**
 	 * Returns an array representation of an event.
 	 *
-	 * @param int $id An event post ID.
+	 * @param int $event_id An event post ID.
 	 *
-	 * @return array
+	 * @return array|WP_Error Either the array representation of an event or an error object.
 	 */
-	public function get_event_data( $id ) {
-		$event = get_post( $id );
+	public function get_event_data( $event_id ) {
+		$event = get_post( $event_id );
 
-		$meta = array_map( 'reset', get_post_custom( $id ) );
+		if ( empty( $event ) || ! tribe_is_event( $event ) ) {
+			return new WP_Error( 'event-not-found', $this->messages->get_message( 'event-not-found' ) );
+		}
+
+		$meta = array_map( 'reset', get_post_custom( $event_id ) );
 
 		$data = array(
-			'ID'                     => $id,
+			'ID'                     => $event_id,
 			'author'                 => $event->post_author,
 			'date'                   => $event->post_date,
 			'date_utc'               => $event->post_date_gmt,
 			'modified'               => $event->post_modified,
 			'modified_utc'           => $event->post_modified_gmt,
-			'link'                   => get_the_permalink( $id ),
-			'rest_url'               => tribe_events_rest_url( 'events/' . $id ),
+			'link'                   => get_the_permalink( $event_id ),
+			'rest_url'               => tribe_events_rest_url( 'events/' . $event_id ),
 			'title'                  => trim( apply_filters( 'the_title', $event->post_title ) ),
 			'description'            => trim( apply_filters( 'the_content', $event->post_content ) ),
 			'excerpt'                => trim( apply_filters( 'the_excerpt', $event->post_excerpt ) ),
-			'featured_image'         => get_the_post_thumbnail_url( $id, 'full' ),
-			'featured_image_details' => $this->get_featured_image_details( $id ),
+			'featured_image'         => get_the_post_thumbnail_url( $event_id, 'full' ),
+			'featured_image_details' => $this->get_featured_image_details( $event_id ),
 			'start_date'             => $meta['_EventStartDate'],
 			'start_date_details'     => $this->get_date_details( $meta['_EventStartDate'] ),
 			'end_date'               => $meta['_EventEndDate'],
@@ -75,7 +85,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__REST__Post_Repo
 			'utc_end_date_details'   => $this->get_date_details( $meta['_EventEndDateUTC'] ),
 			'timezone'               => isset( $meta['_EventTimezone'] ) ? $meta['_EventTimezone'] : '',
 			'timezone_abbr'          => isset( $meta['_EventTimezoneAbbr'] ) ? $meta['_EventTimezoneAbbr'] : '',
-			'cost'                   => tribe_get_cost( $id ),
+			'cost'                   => tribe_get_cost( $event_id ),
 			'cost_details'           => array(
 				'currency_symbol'   => isset( $meta['_EventCurrencySymbol'] ) ? $meta['_EventCurrencySymbol'] : '',
 				'currency_position' => isset( $meta['_EventCurrencyPosition'] ) ? $meta['_EventCurrencyPosition'] : '',
@@ -84,10 +94,10 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__REST__Post_Repo
 			'website'                => isset( $meta['_EventURL'] ) ? esc_html( $meta['_EventURL'] ) : '',
 			'show_map'               => isset( $meta['_EventShowMap'] ) ? $meta['_EventShowMap'] : '0',
 			'show_map_link'          => isset( $meta['_EventShowMapLink'] ) ? $meta['_EventShowMapLink'] : '0',
-			'categories'             => $this->get_categories(),
-			'tags'                   => $this->get_tags(),
-			'venue'                  => $this->get_venue_data( $id ),
-			'organizer'              => $this->get_organizer_data( $id ),
+			'categories'             => $this->get_categories( $event_id ),
+			'tags'                   => $this->get_tags( $event_id ),
+			'venue'                  => $this->get_venue_data( $event_id ),
+			'organizer'              => $this->get_organizer_data( $event_id ),
 		);
 
 		/**
@@ -120,15 +130,15 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__REST__Post_Repo
 	/**
 	 * Returns an array representation of an event venue.
 	 *
-	 * @param int $id An event or venue post ID.
+	 * @param int $event_or_venue_id An event or venue post ID.
 	 *
 	 * @return array
 	 */
-	public function get_venue_data( $id ) {
-		if ( tribe_is_event( $id ) ) {
-			$venue = get_post( tribe_get_venue_id( $id ) );
+	public function get_venue_data( $event_or_venue_id ) {
+		if ( tribe_is_event( $event_or_venue_id ) ) {
+			$venue = get_post( tribe_get_venue_id( $event_or_venue_id ) );
 		} else {
-			$venue = get_post( $id );
+			$venue = get_post( $event_or_venue_id );
 		}
 
 		if ( empty( $venue ) ) {
@@ -177,7 +187,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__REST__Post_Repo
 		 * @param array   $data  The data that will be returned in the response.
 		 * @param WP_Post $event The requested event.
 		 */
-		$data = apply_filters( 'tribe_rest_event_venue_data', array_filter( $data ), get_post( $id ) );
+		$data = apply_filters( 'tribe_rest_event_venue_data', array_filter( $data ), get_post( $event_or_venue_id ) );
 
 		return array_filter( $data );
 	}
@@ -185,16 +195,16 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__REST__Post_Repo
 	/**
 	 * Returns an array representation of an event organizer(s).
 	 *
-	 * @param int $id An event or organizer post ID.
+	 * @param int $event_or_organizer_id An event or organizer post ID.
 	 *
 	 * @return array
 	 */
-	public function get_organizer_data( $id ) {
-		if ( tribe_is_event( $id ) ) {
-			$organizers = tribe_get_organizer_ids( $id );
+	public function get_organizer_data( $event_or_organizer_id ) {
+		if ( tribe_is_event( $event_or_organizer_id ) ) {
+			$organizers = tribe_get_organizer_ids( $event_or_organizer_id );
 			$single = false;
 		} else {
-			$organizers = (array) get_post( $id );
+			$organizers = (array) get_post( $event_or_organizer_id );
 			$single = true;
 		}
 
@@ -250,18 +260,18 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__REST__Post_Repo
 		 *                                 an array of organizer data arrays.
 		 * @param WP_Post $event           The requested event.
 		 */
-		$data = apply_filters( 'tribe_rest_event_organizer_data', array_filter( $data ), get_post( $id ) );
+		$data = apply_filters( 'tribe_rest_event_organizer_data', array_filter( $data ), get_post( $event_or_organizer_id ) );
 
 		$data = array_filter( $data );
 
 		return $single ? $data[0] : $data;
 	}
 
-	protected function get_categories() {
+	protected function get_categories( $event_id ) {
 		return array();
 	}
 
-	protected function get_tags() {
+	protected function get_tags( $event_id ) {
 		return array();
 	}
 

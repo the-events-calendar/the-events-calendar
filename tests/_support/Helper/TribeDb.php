@@ -108,7 +108,7 @@ class TribeDb extends \Codeception\Module {
 	 * @param      int $count      The number of events to insert.
 	 * @param array    $overrides  An array of arguments to override the defaults (see `haveEventInDatabase`)
 	 * @param int      $time_space A positive amount of hours that should separate the events; by default the events
-	 *                             will happen all at the same time.
+	 *                             will happen spaced one hour from each other.
 	 *
 	 * @return array An array of generated event post IDs.
 	 */
