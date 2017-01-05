@@ -4,7 +4,7 @@ namespace Tribe\Events\Tests\Factories;
 
 use Tribe__Events__Main as Main;
 
-class Events extends \WP_UnitTest_Factory_For_Post {
+class Event extends \WP_UnitTest_Factory_For_Post {
 
 	/**
 	 * Inserts an event in the database.
@@ -18,6 +18,8 @@ class Events extends \WP_UnitTest_Factory_For_Post {
 	 *                         in seconds if required.
 	 *                         `utc_offset` - by default events will happen on UTC time; set this to a different hour
 	 *                         offset if required.
+	 *                         `venue` - set this to a venue post ID
+	 *                         `organizers` - set this to an array of organizer post IDs
 	 *
 	 * @return int The generated event post ID
 	 */
@@ -45,6 +47,16 @@ class Events extends \WP_UnitTest_Factory_For_Post {
 			'_EventEndDateUTC'   => $end,
 			'_EventDuration'     => $duration,
 		];
+
+		if ( isset( $args['venue'] ) ) {
+			$args['meta_input']['_EventVenueID'] = $args['venue'];
+			unset( $args['venue'] );
+		}
+
+		if ( isset( $args['organizers'] ) ) {
+			$args['meta_input']['_EventOrganizerID'] = $args['organizers'];
+			unset( $args['organizers'] );
+		}
 
 		unset( $args['when'], $args['duration'], $args['utc_offset'] );
 
