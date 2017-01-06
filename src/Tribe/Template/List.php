@@ -95,6 +95,11 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 				$args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
 			}
 
+			// if post types order plugin is installed, set args to ignore their custom order
+			if ( is_plugin_active( 'post-types-order/post-types-order.php' ) ) {
+				$args['ignore_custom_sort'] = true;
+			}
+
 			$args = apply_filters( 'tribe_events_listview_ajax_get_event_args', $args, $_POST );
 
 			$query = tribe_get_events( $args, true );
