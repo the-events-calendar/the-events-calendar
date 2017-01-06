@@ -212,8 +212,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				return new WP_Error( 'event-no-organizer', $this->messages->get_message( 'event-no-organizer' ) );
 			}
 			// serializing happens...
-			if ( is_array( $organizers[0] ) ) {
-				$organizers = $organizers[0];
+			if ( is_array( reset( $organizers ) ) ) {
+				$organizers = reset( $organizers );
 			}
 			$single = false;
 		} elseif ( tribe_is_organizer( $event_or_organizer_id ) ) {
@@ -275,7 +275,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$data = array_filter( $data );
 
-		return $single ? $data[0] : $data;
+		return $single ? reset( $data ) : $data;
 	}
 
 	protected function get_categories( $event_id ) {
@@ -299,16 +299,19 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$metadata = wp_get_attachment_metadata( $thumbnail_id );
 		$data = array( 'ID' => $thumbnail_id );
 
-		if ( false !== $metadata
-		     && isset( $metadata['image_meta'] )
-		     && isset( $metadata['file'] )
-		     && isset( $metadata['sizes'] )
+		if (
+			false !== $metadata
+			&& isset( $metadata['image_meta'] )
+			&& isset( $metadata['file'] )
+			&& isset( $metadata['sizes'] )
 		) {
 			unset( $metadata['image_meta'], $metadata['file'] );
-			$metadata['url'] = wp_get_attachment_image_src( $thumbnail_id, 'full' )[0];
+			$full_image_src = wp_get_attachment_image_src( $thumbnail_id, 'full' );
+			$metadata['url'] = ! empty( $full_image_src[0] ) ? $full_image_src[0] : '';
 
 			foreach ( $metadata['sizes'] as $size => &$meta ) {
-				$meta['url'] = wp_get_attachment_image_src( $thumbnail_id, $size )[0];
+				$size_image_src = wp_get_attachment_image_src( $thumbnail_id, $size );
+				$meta['url'] = ! empty( $size_image_src[0] ) ? $size_image_src[0] : '';
 				unset( $meta['file'] );
 			}
 

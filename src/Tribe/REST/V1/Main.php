@@ -130,15 +130,19 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		tribe_singleton( 'tec.rest-v1.endpoints.single-event', $endpoint );
 
-		register_rest_route( $this->get_events_route_namespace(), '/events/(?P<id>\\d+)', array(
-			'methods'  => 'GET',
-			'args'     => array(
-				'id' => array(
-					'validate_callback' => array( tribe( 'tec.rest-v1.validator' ), 'is_numeric' )
-				)
-			),
-			'callback' => array( $endpoint, 'get' )
-		) );
+		register_rest_route(
+			$this->get_events_route_namespace(),
+			'/events/(?P<id>\\d+)',
+			array(
+				'methods'  => 'GET',
+				'args'     => array(
+					'id' => array(
+						'validate_callback' => array( tribe( 'tec.rest-v1.validator' ), 'is_numeric' )
+					)
+				),
+				'callback' => array( $endpoint, 'get' )
+			)
+		);
 	}
 
 	/**
