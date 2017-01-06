@@ -279,11 +279,31 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	}
 
 	protected function get_categories( $event_id ) {
-		return array();
+		$data = $this->get_terms( $event_id, Tribe__Events__Main::TAXONOMY );
+
+		/**
+		 * Filters the data that will be returned for an event categories.
+		 *
+		 * @param array $data The data that will be returned in the response.
+		 * @param WP_Post $event The requsted event.
+		 */
+		$data = apply_filters( 'tribe_rest_event_categories_data', $data, get_post( $event_id ) );
+
+		return array_filter( $data );
 	}
 
 	protected function get_tags( $event_id ) {
-		return array();
+		$data = $this->get_terms($event_id, 'post_tag');
+
+		/**
+		 * Filters the data that will be returned for an event tags.
+		 *
+		 * @param array $data The data that will be returned in the response.
+		 * @param WP_Post $event The requsted event.
+		 */
+		$data = apply_filters( 'tribe_rest_event_tags_data', $data, get_post( $event_id ) );
+
+		return array_filter( $data );
 	}
 
 	/**
@@ -316,6 +336,40 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			}
 
 			$data = array_filter( array_merge( $data, $metadata ) );
+		}
+
+		/**
+		 * Filters the data that will returned for an event featured image if set.
+		 *
+		 * @param array   $data  The event featured image array representation.
+		 * @param WP_Post $event The requsted event.
+		 */
+		return apply_filters( 'tribe_rest_events_featured_image_details', $data, get_post( $id ) );
+	}
+
+	protected function get_terms( $event_id, $taxonomy) {
+		$terms = wp_get_post_terms( $event_id, $taxonomy );
+
+		if ( empty( $terms ) ) {
+			return array();
+		}
+
+		$data = [];
+		foreach ( $terms as $term ) {
+			$term_data = (array) $term;
+			$term_data['ID'] = $term_data['term_id'];
+			$term_data['link'] = get_term_link( $term, $taxonomy );
+			unset( $term_data['term_id'], $term_data['term_taxonomy_id'], $term_data['term_group'], $term_data['filter'] );
+
+			/**
+			 * Filters the data that will be returned for an event taxonomy term.
+			 *
+			 * @param array                $term_data The data that will be returned in the response for the taxonomy term.
+			 * @param array|object|WP_Term $term      The term original object.
+			 * @param string               $taxonomy  The term taxonomy
+			 * @param WP_Post              $event     The requsted event.
+			 */
+			$data[] = apply_filters( 'tribe_rest_event_taxonomy_term_data', $term_data, $term, $taxonomy, get_post( $event_id ) );
 		}
 
 		return $data;

@@ -3,6 +3,7 @@
 namespace Tribe\Events\REST\V1;
 
 use Tribe\Events\Tests\Testcases\Events_TestCase;
+use Tribe__Events__Main as Main;
 use Tribe__Events__REST__V1__Messages as Messages;
 use Tribe__Events__REST__V1__Post_Repository as Post_Repository;
 
@@ -264,6 +265,104 @@ class Post_RepositoryTest extends Events_TestCase {
 		$this->assertEquals( $venue, $data['ID'] );
 	}
 
+	/**
+	 * @test
+	 * it should return empty array for venue if no venue is assigned to event
+	 */
+	public function it_should_return_empty_array_for_venue_if_no_venue_is_assigned_to_event() {
+		$event = $this->factory()->event->create();
+
+		$sut = $this->make_instance();
+
+		$data = $sut->get_event_data( $event );
+
+		$this->assertArrayHasKey( 'venue', $data );
+		$this->assertEquals( [], $data['venue'] );
+	}
+
+	/**
+	 * @test
+	 * it should return empty array for organizers if no organizers is assigned to event
+	 */
+	public function it_should_return_empty_array_for_organizers_if_no_organizers_is_assigned_to_event() {
+		$event = $this->factory()->event->create();
+
+		$sut = $this->make_instance();
+
+		$data = $sut->get_event_data( $event );
+
+		$this->assertArrayHasKey( 'organizer', $data );
+		$this->assertEquals( [], $data['organizer'] );
+	}
+
+	/**
+	 * @test
+	 * it should return empty array for tags if no tags are assigned to event
+	 */
+	public function it_should_return_empty_array_for_tags_if_no_tags_are_assigned_to_event() {
+		$event = $this->factory()->event->create();
+
+		$sut = $this->make_instance();
+
+		$data = $sut->get_event_data( $event );
+
+		$this->assertArrayHasKey( 'tags', $data );
+		$this->assertEquals( [], $data['tags'] );
+	}
+
+	/**
+	 * @test
+	 * it should return empty array for categories if no categories are assigned to event
+	 */
+	public function it_should_return_empty_array_for_categories_if_no_categories_are_assigned_to_event() {
+		$event = $this->factory()->event->create();
+
+		$sut = $this->make_instance();
+
+		$data = $sut->get_event_data( $event );
+
+		$this->assertArrayHasKey( 'categories', $data );
+		$this->assertEquals( [], $data['categories'] );
+	}
+
+
+	/**
+	 * @test
+	 * it should include event tags in the response
+	 */
+	public function it_should_include_event_tags_in_the_response() {
+		// need to be able to assign terms to use `tax_input`
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$this->factory()->term->create( [ 'slug' => 'tag-1', 'taxonomy' => 'post_tag' ] );
+		$this->factory()->term->create( [ 'slug' => 'tag-2', 'taxonomy' => 'post_tag' ] );
+		$event = $this->factory()->event->create( [ 'tax_input' => [ 'post_tag' => 'tag-1,tag2' ] ] );
+
+		$sut = $this->make_instance();
+
+		$data = $sut->get_event_data( $event );
+
+		$this->assertArrayHasKey( 'tags', $data );
+		$this->assertCount( 2, $data['tags'] );
+	}
+
+	/**
+	 * @test
+	 * it should include event categories in the response
+	 */
+	public function it_should_include_event_categories_in_the_response() {
+		// need to be able to assign terms to use `tax_input`
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$cat_1 = $this->factory()->term->create( [ 'slug' => 'cat-1', 'taxonomy' => Main::TAXONOMY ] );
+		$cat_2 = $this->factory()->term->create( [ 'slug' => 'cat-2', 'taxonomy' => Main::TAXONOMY ] );
+		$event = $this->factory()->event->create( [ 'tax_input' => [ Main::TAXONOMY => [ $cat_1, $cat_2 ] ] ] );
+
+		$sut = $this->make_instance();
+
+		$data = $sut->get_event_data( $event );
+
+		$this->assertArrayHasKey( 'categories', $data );
+		$this->assertCount( 2, $data['categories'] );
+	}
 
 	/**
 	 * @return Post_Repository

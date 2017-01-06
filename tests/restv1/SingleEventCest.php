@@ -98,6 +98,12 @@ class SingleEventCest extends BaseRestCest {
 			],
 		] );
 
+		$tag_1 = $I->haveTermInDatabase( 'tag-1', 'post_tag', [ 'slug' => 'tag-1', 'description' => 'Tag 1 description' ] )[0];
+		$tag_2 = $I->haveTermInDatabase( 'tag-2', 'post_tag', [ 'slug' => 'tag-2', 'description' => 'Tag 2 description' ] )[0];
+
+		$category_1 = $I->haveTermInDatabase( 'category-1', 'tribe_events_cat', [ 'slug' => 'category-1', 'description' => 'Category 1 description' ] )[0];
+		$category_2 = $I->haveTermInDatabase( 'category-2', 'tribe_events_cat', [ 'slug' => 'category-2', 'description' => 'Category 2 description' ] )[0];
+
 		$id = $I->haveEventInDatabase( [
 			'post_author'       => '12',
 			'post_title'        => 'Event 01',
@@ -108,6 +114,10 @@ class SingleEventCest extends BaseRestCest {
 			'post_date_gmt'     => '2017-01-05 14:23:36',
 			'post_modified'     => '2017-01-05 14:23:36',
 			'post_modified_gmt' => '2017-01-05 14:23:36',
+			'tax_input'         => [
+				'post_tag'         => [ 'tag-1', 'tag-2' ],
+				'tribe_events_cat' => [ 'category-1', 'category-2' ],
+			],
 			'meta_input'        => [
 				'_thumbnail_id'          => $image_id,
 				'_EventTimezone'         => 'America/New_York',
@@ -242,6 +252,54 @@ class SingleEventCest extends BaseRestCest {
 					'phone'        => 'phone',
 					'website'      => 'website',
 					'email'        => 'email',
+				],
+			]
+		] );
+		$I->seeResponseContainsJson( [
+			'tags' => [
+				[
+					'ID'          => $tag_1,
+					'name'        => 'tag-1',
+					'slug'        => 'tag-1',
+					'taxonomy'    => 'post_tag',
+					'description' => 'Tag 1 description',
+					'parent'      => 0,
+					'count'       => 1,
+					'link'        => $this->site_url . 'tag/tag-1/',
+				],
+				[
+					'ID' => $tag_2,
+					'name'        => 'tag-2',
+					'slug'        => 'tag-2',
+					'taxonomy'    => 'post_tag',
+					'description' => 'Tag 2 description',
+					'parent'      => 0,
+					'count'       => 1,
+					'link'        => $this->site_url . 'tag/tag-2/',
+				],
+			]
+		] );
+		$I->seeResponseContainsJson( [
+			'categories' => [
+				[
+					'ID'          => $category_1,
+					'name'        => 'category-1',
+					'slug'        => 'category-1',
+					'taxonomy'    => 'tribe_events_cat',
+					'description' => 'Category 1 description',
+					'parent'      => 0,
+					'count'       => 1,
+					'link'        => $this->site_url . 'events/category/category-1/',
+				],
+				[
+					'ID' => $category_2,
+					'name'        => 'category-2',
+					'slug'        => 'category-2',
+					'taxonomy'    => 'tribe_events_cat',
+					'description' => 'Category 2 description',
+					'parent'      => 0,
+					'count'       => 1,
+					'link'        => $this->site_url . 'events/category/category-2/',
 				],
 			]
 		] );
