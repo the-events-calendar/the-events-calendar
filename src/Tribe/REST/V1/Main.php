@@ -55,6 +55,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * Registers the endpoints, and the handlers, supported by the REST API
 	 */
 	public function register_endpoints() {
+		$this->register_event_archives_endpoint();
 		$this->register_single_event_endpoint();
 	}
 
@@ -152,5 +153,22 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 */
 	protected function get_events_route_namespace() {
 		return $this->get_namespace() . '/events/' . $this->get_version();
+	}
+
+	protected function register_event_archives_endpoint() {
+		$messages = tribe( 'tec.rest-v1.messages' );
+		$post_repository = tribe( 'tec.rest-v1.repository' );
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Event( $messages, $post_repository );
+
+		tribe_singleton( 'tec.rest-v1.endpoints.archive-event', $endpoint );
+
+		register_rest_route(
+			$this->get_events_route_namespace(),
+			'/events',
+			array(
+				'methods'  => 'GET',
+				'callback' => array( $endpoint, 'get' )
+			)
+		);
 	}
 }

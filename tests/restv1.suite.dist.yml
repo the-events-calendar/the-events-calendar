@@ -5,3 +5,4 @@ modules:
         - REST
         - WPDb
         - \Helper\TribeDb
+        - Asserts

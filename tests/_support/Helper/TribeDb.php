@@ -55,7 +55,7 @@ class TribeDb extends \Codeception\Module {
 	 *                         Keep in mind `tax_input` and `meta_input` to bake terms and custom fields in.
 	 *                         Notable arguments:
 	 *                         `when` - by default events will happen in 24hrs; set this to a different hour offset
-	 *                         to have them happen at a different time.
+	 *                         to have them happen at a different time in the format `+4 hours`
 	 *                         `duration` - by defautl events will last for 2hrs; set this to a different duration
 	 *                         in seconds if required.
 	 *                         `utc_offset` - by default events will happen on UTC time; set this to a different hour
@@ -65,7 +65,7 @@ class TribeDb extends \Codeception\Module {
 	 */
 	public function haveEventInDatabase( array $overrides = [] ) {
 		// by default an event will happen tomorrow
-		$when = isset( $overrides['when'] ) ? '+' . $overrides['when'] . ' hours' : '+24 hours';
+		$when = isset( $overrides['when'] ) ? $overrides['when'] : '+24 hours';
 		// by default an event will last 2hrs
 		$duration = isset( $overrides['duration'] ) ? $overrides['duration'] : '7200';
 		// by default an event will be on UTC time
@@ -114,8 +114,8 @@ class TribeDb extends \Codeception\Module {
 	 */
 	public function haveManyEventsInDatabase( $count, array $overrides = [], $time_space = null ) {
 		$ids = [];
-		$time = empty( $time_space ) ? false : 1;
-		foreach ( $count as $n ) {
+		$time = empty( $time_space ) ? 1 : $time_space;
+		for ( $n = 0; $n < $count; $n ++ ) {
 			$event_overrides = $overrides;
 			if ( ! empty( $time_space ) ) {
 				$event_overrides['when'] = '+' . $time . ' hours';
