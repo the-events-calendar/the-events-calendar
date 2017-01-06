@@ -3,8 +3,7 @@
 namespace Tribe\Events\REST\V1\Endpoints;
 
 use Prophecy\Prophecy\ObjectProphecy;
-use Tribe\Events\Tests\Factories\REST\V1\Event_Response;
-use Tribe__Events__Main as Main;
+use Tribe\Events\Tests\Factories\Event;
 use Tribe__Events__REST__V1__Endpoints__Single_Event as Endpoint;
 
 class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
@@ -24,9 +23,9 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		parent::setUp();
 
 		// your set up methods here
+		$this->factory()->event = new Event();
 		$this->messages = new \Tribe__Events__REST__V1__Messages();
 		$this->repository = new \Tribe__Events__REST__V1__Post_Repository( new \Tribe__Events__REST__V1__Messages() );
-		$this->factory()->rest_event = new Event_Response();
 	}
 
 	public function tearDown() {
@@ -65,7 +64,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 */
 	public function it_should_return_a_wp_error_if_user_cannot_access_requested_event() {
 		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'id', $this->factory()->post->create( [ 'post_type' => Main::POSTTYPE, 'post_status' => 'draft' ] ) );
+		$request->set_param( 'id', $this->factory()->event->create( [ 'post_status' => 'draft' ] ) );
 
 		$sut = $this->make_instance();
 		$response = $sut->get( $request );
@@ -79,7 +78,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 */
 	public function it_should_return_event_data_if_event_accessible() {
 		$request = new \WP_REST_Request( 'GET', '' );
-		$id = $this->factory()->post->create( [ 'post_type' => Main::POSTTYPE, 'post_status' => 'publish' ] );
+		$id = $this->factory()->event->create();
 		$request->set_param( 'id', $id );
 
 		$this->repository = $this->prophesize( \Tribe__Events__REST__Interfaces__Post_Repository::class );
@@ -90,14 +89,6 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertEquals( [ 'some' => 'data' ], $response->get_data() );
-	}
-
-	/**
-	 * @test
-	 * it should foo
-	 */
-	public function it_should_foo() {
-		$response = $this->factory()->rest_event->create_and_get([]);
 	}
 
 	/**

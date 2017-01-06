@@ -25,8 +25,9 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 	 */
 	function create_object( $args = array() ) {
 		$args['post_type'] = Main::POSTTYPE;
+		$args['post_status'] = isset( $args['post_status'] ) ? $args['post_status'] : 'publish';
 		// by default an event will happen tomorrow
-		$when = isset( $args['when'] ) ? '+' . $args['when'] . ' hours' : '+24 hours';
+		$when = isset( $args['when'] ) ? $args['when'] : '+24 hours';
 		// by default an event will last 2hrs
 		$duration = isset( $args['duration'] ) ? $args['duration'] : '7200';
 		// by default an event will be on UTC time
@@ -88,14 +89,12 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 	 */
 	function create_many( $count, $args = array(), $generation_definitions = null ) {
 		$ids = [];
-		$time = empty( $args['time_space'] ) ? false : 1;
-		foreach ( $count as $n ) {
+		$time = empty( $args['time_space'] ) ? 1 : $args['time_space'];
+		for ( $n = 0; $n < $count; $n ++ ) {
 			$event_args = $args;
-			if ( ! empty( $time_space ) ) {
+			if ( ! empty( $time ) ) {
 				$event_args['when'] = '+' . $time . ' hours';
-				$time += $time_space;
-				$event_args['post_title'] = "Event {$n}";
-				$event_args['post_name'] = "event-{$n}";
+				$time += $time;
 			}
 			$ids[] = $this->create_object( $event_args );
 		}

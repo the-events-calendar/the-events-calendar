@@ -14,6 +14,7 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 			'event-archive-bad-per-page' => __( "The 'per_page' parameter must be a positive integer greater than 1", 'the-events-calendar' ),
 			'event-archive-bad-start-date' => __( "The 'start_date' parameter must be in a supported format", 'the-events-calendar' ),
 			'event-archive-bad-end-date' => __( "The 'end_date' parameter must be in a supported format", 'the-events-calendar' ),
+			'event-archive-bad-search-string' => __( "The 'search' parameter must be a string", 'the-events-calendar' ),
 			'event-archive-page-not-found' => __( 'The requested event archive page does not exist', 'the-events-calendar' ),
 			'venue-not-found'      => __( 'The requested post ID does not exist or is not an venue', 'the-events-calendar' ),
 			'organizer-not-found'  => __( 'The requested post ID does not exist or is not an organizer', 'the-events-calendar' ),

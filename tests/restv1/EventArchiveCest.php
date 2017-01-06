@@ -220,9 +220,9 @@ class EventArchiveCest extends BaseRestCest {
 	 * @test
 	 * it should return error if page is not positive int
 	 */
-	public function it_should_return_error_if_page_is_not_positive_int(Restv1Tester $I) {
-		foreach ( $this->not_positive_integer_numbers() as  $number) {
-			$I->sendGET( $this->events_url . '?page='. $number );
+	public function it_should_return_error_if_page_is_not_positive_int( Restv1Tester $I ) {
+		foreach ( $this->not_positive_integer_numbers() as $number ) {
+			$I->sendGET( $this->events_url . '?page=' . $number );
 
 			$I->seeResponseCodeIs( 400 );
 			$I->seeResponseIsJson();
@@ -233,9 +233,9 @@ class EventArchiveCest extends BaseRestCest {
 	 * @test
 	 * it should return error if per_page is not positive int
 	 */
-	public function it_should_return_error_if_per_page_is_not_positive_int(Restv1Tester $I) {
-		foreach ( $this->not_positive_integer_numbers() as  $number) {
-			$I->sendGET( $this->events_url . '?per_page='. $number );
+	public function it_should_return_error_if_per_page_is_not_positive_int( Restv1Tester $I ) {
+		foreach ( $this->not_positive_integer_numbers() as $number ) {
+			$I->sendGET( $this->events_url . '?per_page=' . $number );
 
 			$I->seeResponseCodeIs( 400 );
 			$I->seeResponseIsJson();
@@ -263,7 +263,40 @@ class EventArchiveCest extends BaseRestCest {
 		$I->assertCount( 3, $response->events );
 	}
 
+	/**
+	 * @test
+	 * it should allow searching the events
+	 */
+	public function it_should_allow_searching_the_events( Restv1Tester $I ) {
+		$I->haveManyEventsInDatabase( 5, [ 'post_title' => 'foo' ] );
+		$I->haveManyEventsInDatabase( 5, [ 'post_title' => 'foo bar' ] );
+		$I->haveManyEventsInDatabase( 5, [ 'post_title' => 'bar' ] );
+		$I->haveOptionInDatabase( 'posts_per_page', 20 );
+
+		$I->sendGET( $this->events_url, array( 'search' => 'foo' ) );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse() );
+		$foo_events = $response->events;
+		$I->assertCount( 10, $foo_events );
+
+		$I->sendGET( $this->events_url, array( 'search' => 'bar' ) );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse() );
+		$bar_events = $response->events;
+		$I->assertCount( 10, $bar_events );
+
+		$ƒ = function ( $event ) {
+			return $event->ID;
+		};
+
+		$I->assertCount( 5, array_intersect( array_map( $ƒ, $foo_events ), array_map( $ƒ, $bar_events ) ) );
+	}
+
 	protected function not_positive_integer_numbers() {
-		return [ 'foo',-1 ,0,'foo bar' ];
+		return [ 'foo', - 1, 0, 'foo bar' ];
 	}
 }
