@@ -121,6 +121,14 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event extends Tribe__Events__R
 			$data['events'][] = $this->repository->get_event_data( $event_id );
 		}
 
+		/**
+		 * Filters the data that will be returned for an events archive request.
+		 *
+		 * @param array           $data    The retrieved data.
+		 * @param WP_REST_Request $request The original request.
+		 */
+		$data = apply_filters( 'tribe_rest_events_archive_data', $data, $request );
+
 		return new WP_REST_Response( $data );
 	}
 

@@ -191,7 +191,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 * @param array   $data  The data that will be returned in the response.
 		 * @param WP_Post $event The requested event.
 		 */
-		$data = apply_filters( 'tribe_rest_event_venue_data', array_filter( $data ), get_post( $event_or_venue_id ) );
+		$data = apply_filters( 'tribe_rest_venue_data', array_filter( $data ), get_post( $event_or_venue_id ) );
 
 		return array_filter( $data );
 	}
@@ -344,7 +344,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 * @param array   $data  The event featured image array representation.
 		 * @param WP_Post $event The requsted event.
 		 */
-		return apply_filters( 'tribe_rest_events_featured_image_details', $data, get_post( $id ) );
+		return apply_filters( 'tribe_rest_event_featured_image_details', $data, get_post( $id ) );
 	}
 
 	protected function get_terms( $event_id, $taxonomy) {
