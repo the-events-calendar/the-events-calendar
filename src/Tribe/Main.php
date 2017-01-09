@@ -31,9 +31,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION           = '4.4';
-		const MIN_ADDON_VERSION = '4.4';
-		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
+		const VERSION             = '4.4.0.1';
+		const MIN_ADDON_VERSION   = '4.4';
+		const MIN_COMMON_VERSION  = '4.4';
+		const WP_PLUGIN_URL       = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
 		 * Maybe display data wrapper
@@ -312,6 +313,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * After this method we can use any `Tribe__` classes
 			 */
 			$this->init_autoloading();
+
+			// Safety check: if Tribe Common is not at a certain minimum version, bail out
+			if ( version_compare( Tribe__Main::VERSION, self::MIN_COMMON_VERSION, '<' ) ) {
+				return;
+			}
 
 			/**
 			 * We need Common to be able to load text domains correctly.
