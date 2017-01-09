@@ -3,6 +3,9 @@
 use Codeception\Configuration;
 use Codeception\Util\Autoload;
 
-include_once codecept_data_dir( 'classes/WP_Screen.php' );
+$support = Configuration::supportDir();
 
-Autoload::addNamespace( '\Tribe\Events\Tests', Configuration::supportDir() );
+include_once codecept_data_dir( 'classes/WP_Screen.php' );
+include_once  $support . 'utils.php';
+
+Autoload::addNamespace( '\Tribe\Events\Tests', $support );
