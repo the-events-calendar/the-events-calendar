@@ -20,6 +20,11 @@ class Organizer extends \WP_UnitTest_Factory_For_Post {
 			],
 		];
 
+		if ( isset( $args['meta_input'] ) ) {
+			$defaults['meta_input'] = array_merge( $defaults['meta_input'], $args ['meta_input'] );
+			unset( $args['meta_input'] );
+		}
+
 		return parent::create_object( array_merge( $defaults, $args ) );
 	}
 }
