@@ -22,6 +22,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event extends Tribe__Events__R
 		);
 
 	/**
+	 * @var int The total number of events according to the current request parameters and user access rights.
+	 */
+	protected $total;
+
+	/**
 	 * Tribe__Events__REST__V1__Endpoints__Archive_Event constructor.
 	 *
 	 * @param Tribe__REST__Messages_Interface                  $messages
@@ -97,6 +102,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event extends Tribe__Events__R
 			$args['posts_per_page'] = get_option( 'posts_per_page' );
 		}
 
+		if ( current_user_can( 'edit_posts' ) ) {
+			$args['post_status'] = 'any';
+		}
+
 		$events = tribe_get_events( $args );
 
 		$page = $page ? $page : 1;
@@ -121,6 +130,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event extends Tribe__Events__R
 			$data['events'][] = $this->repository->get_event_data( $event_id );
 		}
 
+		$data['total'] = $total = $this->get_total( $args );
+		$data['total_pages'] = $this->get_total_pages( $total, $per_page );
+
 		/**
 		 * Filters the data that will be returned for an events archive request.
 		 *
@@ -129,7 +141,14 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event extends Tribe__Events__R
 		 */
 		$data = apply_filters( 'tribe_rest_events_archive_data', $data, $request );
 
-		return new WP_REST_Response( $data );
+		$response = new WP_REST_Response( $data );
+
+		if ( isset( $data['total'] ) && isset( $data['total_pages'] ) ) {
+			$response->header( 'X-TEC-Total', $data['total'], true );
+			$response->header( 'X-TEC-TotalPages', $data['total_pages'], true );
+		}
+
+		return $response;
 	}
 
 	protected function parse_page( WP_REST_Request $request ) {
@@ -235,7 +254,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event extends Tribe__Events__R
 	 * @return bool
 	 */
 	protected function has_next( $args, $page ) {
-		$next = tribe_get_events( array_merge( $args, array( 'paged' => $page + 1 ) ) );
+		$overrides = array(
+			'paged'                  => $page + 1,
+			'fields'                 => 'ids',
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false
+		);
+		$next = tribe_get_events( array_merge( $args, $overrides ) );
 
 		return ! empty( $next );
 	}
@@ -251,7 +276,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event extends Tribe__Events__R
 	 * @return bool
 	 */
 	protected function has_previous( $page, $args ) {
-		$previous = tribe_get_events( array_merge( $args, array( 'paged' => $page - 1 ) ) );
+		$overrides = array(
+			'paged'                  => $page - 1,
+			'fields'                 => 'ids',
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false
+		);
+		$previous = tribe_get_events( array_merge( $args, $overrides ) );
 
 		return 1 !== $page && ! empty( $previous );
 	}
@@ -292,5 +323,34 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event extends Tribe__Events__R
 		}
 
 		return $filtered;
+	}
+
+	/**
+	 * @param array $args
+	 *
+	 * @return int
+	 */
+	protected function get_total( $args ) {
+		$this->total = count( tribe_get_events( array_merge( $args, array(
+			'posts_per_page'         => - 1,
+			'fields'                 => 'ids',
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false
+		) ) ) );
+
+		return $this->total;
+	}
+
+	/**
+	 * @param int $total
+	 * @param int $per_page
+	 *
+	 * @return int
+	 */
+	protected function get_total_pages( $total, $per_page = null ) {
+		$per_page = $per_page ? $per_page : get_option( 'posts_per_page' );
+		$total_pages = intval( ceil( $total / $per_page ) );
+
+		return $total_pages;
 	}
 }

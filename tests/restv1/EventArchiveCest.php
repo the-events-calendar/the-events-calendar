@@ -296,6 +296,25 @@ class EventArchiveCest extends BaseRestCest {
 		$I->assertCount( 5, array_intersect( array_map( $ƒ, $foo_events ), array_map( $ƒ, $bar_events ) ) );
 	}
 
+	/**
+	 * @test
+	 * it should return totals in headers and data
+	 */
+	public function it_should_return_totals_in_headers_and_data(Restv1Tester $I) {
+		$I->haveManyEventsInDatabase( 10 );
+		$I->haveOptionInDatabase( 'posts_per_page', 5 );
+
+		$I->sendGET( $this->events_url );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse() );
+		$I->assertEquals(10, $response->total);
+		$I->assertEquals(2, $response->total_pages);
+		$I->seeHttpHeader('X-TEC-Total',10);
+		$I->seeHttpHeader('X-TEC-TotalPages',2);
+	}
+
 	protected function not_positive_integer_numbers() {
 		return [ 'foo', - 1, 0, 'foo bar' ];
 	}

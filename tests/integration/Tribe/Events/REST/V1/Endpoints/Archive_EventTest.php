@@ -340,4 +340,83 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		return new Archive( $messages, $repository );
 	}
+
+	public function events_and_per_page_settings() {
+		return [
+			[ 9, 3, 3 ],
+			[ 10, 3, 4 ],
+			[ 1, 3, 1 ],
+			[ 3, 3, 1 ],
+		];
+	}
+	/**
+	 * @test
+	 * it should return the amount of pages in archive for the current archive setting
+	 * @dataProvider events_and_per_page_settings
+	 */
+	public function it_should_return_the_amount_of_pages_in_archive_for_the_current_archive_setting( $count, $per_page, $pages ) {
+		$this->factory()->event->create_many( $count );
+		update_option( 'posts_per_page', $per_page );
+		$request = new \WP_REST_Request( 'GET', '' );
+
+		$sut = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( $count, $response->get_data()['total'] );
+		$this->assertEquals( $pages, $response->get_data()['total_pages'] );
+		$this->assertEquals( $count, $response->get_headers()['X-TEC-Total'] );
+		$this->assertEquals( $pages, $response->get_headers()['X-TEC-TotalPages'] );
+	}
+
+	/**
+	 * @test
+	 * it should return different number of pages according to the requesting user access rights
+	 */
+	public function it_should_return_different_number_of_pages_according_to_the_requesting_user_access_rights() {
+		$this->factory()->event->create_many( 5, [ 'post_status' => 'publish' ] );
+		$this->factory()->event->create_many( 5, [ 'post_status' => 'draft' ] );
+		update_option( 'posts_per_page', 5 );
+		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user($user);
+
+		$request = new \WP_REST_Request( 'GET', '' );
+
+		$sut = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 10, $response->get_data()['total'] );
+		$this->assertEquals( 2, $response->get_data()['total_pages'] );
+		$this->assertEquals( 10, $response->get_headers()['X-TEC-Total'] );
+		$this->assertEquals( 2, $response->get_headers()['X-TEC-TotalPages'] );
+
+		// visitors cannot see drafts
+		wp_set_current_user( 0 );
+		$request = new \WP_REST_Request( 'GET', '' );
+
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 5, $response->get_data()['total'] );
+		$this->assertEquals( 1, $response->get_data()['total_pages'] );
+		$this->assertEquals( 5, $response->get_headers()['X-TEC-Total'] );
+		$this->assertEquals( 1, $response->get_headers()['X-TEC-TotalPages'] );
+	}
+
+	/**
+	 * @test
+	 * it should return checksum of request data in data
+	 */
+	public function it_should_return_checksum_of_request_data_in_data() {
+		$this->factory()->event->create_many( 5 );
+		update_option( 'posts_per_page', 5 );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+
+		$sut = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+	}
 }
