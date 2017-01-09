@@ -24,9 +24,12 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * Binds the implementations needed to support the REST API.
 	 */
 	public function bind_implementations() {
+		tribe_singleton( 'tec.rest-v1.messages', 'Tribe__Events__REST__V1__Messages' );
 		tribe_singleton( 'tec.rest-v1.headers-base', 'Tribe__Events__REST__V1__Headers__Base' );
 		tribe_singleton( 'tec.rest-v1.settings', 'Tribe__Events__REST__V1__Settings' );
 		tribe_singleton( 'tec.rest-v1.system', 'Tribe__Events__REST__V1__System' );
+		tribe_singleton( 'tec.rest-v1.validator', 'Tribe__REST__Validator' );
+		tribe_singleton( 'tec.rest-v1.repository', 'Tribe__Events__REST__V1__Post_Repository' );
 
 		include_once Tribe__Events__Main::instance()->plugin_path . 'src/functions/advanced-functions/rest-v1.php';
 	}
@@ -35,8 +38,23 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * Hooks the filters and actions required for the REST API support to kick in.
 	 */
 	public function hook() {
-		add_filter( 'tribe_addons_tab_fields', array( tribe( 'tec.rest-v1.settings' ), 'filter_tribe_addons_tab_fields' ) );
+		$this->hook_headers();
+		$this->hook_settings();
 
+		/** @var Tribe__Events__REST__V1__System $system */
+		$system = tribe( 'tec.rest-v1.system' );
+
+		if ( ! $system->supports_tec_rest_api() ) {
+			return;
+		}
+
+		add_action( 'rest_api_init', array( $this, 'register_endpoints' ) );
+	}
+
+	/**
+	 * Hooks the additional headers and meta tags related to the REST API.
+	 */
+	protected function hook_headers() {
 		/** @var Tribe__Events__REST__V1__System $system */
 		$system = tribe( 'tec.rest-v1.system' );
 		/** @var Tribe__REST__Headers__Base_Interface $headers_base */
@@ -44,7 +62,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		if ( ! $system->tec_rest_api_is_enabled() ) {
 			if ( ! $system->supports_tec_rest_api() ) {
-				tribe_singleton( 'tec.rest-v1.headers', new Tribe__REST__Headers__Unsupported( $headers_base ) );
+				tribe_singleton( 'tec.rest-v1.headers', new Tribe__REST__Headers__Unsupported( $headers_base, $this ) );
 			} else {
 				tribe_singleton( 'tec.rest-v1.headers', new Tribe__REST__Headers__Disabled( $headers_base ) );
 			}
@@ -60,14 +78,65 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	}
 
 	/**
-	 * Returns the REST API URL prefix that will be appended to the namespace.
-	 *
-	 * The prefix should be in the `/some/path` format.
+	 * Hooks the additional Events Settings related to the REST API.
+	 */
+	protected function hook_settings() {
+		add_filter( 'tribe_addons_tab_fields', array( tribe( 'tec.rest-v1.settings' ), 'filter_tribe_addons_tab_fields' ) );
+	}
+
+	/**
+	 * Registers the endpoints, and the handlers, supported by the REST API
+	 */
+	public function register_endpoints() {
+		$this->register_event_archives_endpoint();
+		$this->register_single_event_endpoint();
+	}
+
+	protected function register_event_archives_endpoint() {
+		$messages = tribe( 'tec.rest-v1.messages' );
+		$post_repository = tribe( 'tec.rest-v1.repository' );
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Event( $messages, $post_repository );
+
+		tribe_singleton( 'tec.rest-v1.endpoints.archive-event', $endpoint );
+
+		register_rest_route( $this->get_events_route_namespace(), '/events', array(
+				'methods'  => 'GET',
+				'callback' => array( $endpoint, 'get' ),
+			) );
+	}
+
+	/**
+	 * Registers the endpoint that will handle requests for a single event.
+	 */
+	protected function register_single_event_endpoint() {
+		$messages = tribe( 'tec.rest-v1.messages' );
+		$post_repository = tribe( 'tec.rest-v1.repository' );
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Event( $messages, $post_repository );
+
+		tribe_singleton( 'tec.rest-v1.endpoints.single-event', $endpoint );
+
+		register_rest_route(
+			$this->get_events_route_namespace(),
+			'/events/(?P<id>\\d+)',
+			array(
+				'methods'  => 'GET',
+				'args'     => array(
+					'id' => array(
+						'validate_callback' => array( tribe( 'tec.rest-v1.validator' ), 'is_numeric' )
+					)
+				),
+				'callback' => array( $endpoint, 'get' ),
+			)
+		);
+	}
+
+	/**
+	 * Returns the events REST API namespace string that should be used to register a route.
 	 *
 	 * @return string
 	 */
-	protected function url_prefix() {
-		return $this->url_prefix;
+	protected function get_events_route_namespace() {
+		return $this->get_namespace() . '/events/' . $this->get_version();
 	}
 
 	/**
@@ -86,5 +155,16 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 */
 	public function get_reference_url() {
 		return esc_attr( 'htt://theeventscalendar.com' );
+	}
+
+	/**
+	 * Returns the REST API URL prefix that will be appended to the namespace.
+	 *
+	 * The prefix should be in the `/some/path` format.
+	 *
+	 * @return string
+	 */
+	protected function url_prefix() {
+		return $this->url_prefix;
 	}
 }

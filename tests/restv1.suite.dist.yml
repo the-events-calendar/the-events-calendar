@@ -4,3 +4,5 @@ modules:
         - \Helper\Restv1
         - REST
         - WPDb
+        - \Helper\TribeDb
+        - Asserts
