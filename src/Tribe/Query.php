@@ -992,7 +992,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				'post_type'            => Tribe__Events__Main::POSTTYPE,
 				'orderby'              => 'event_date',
 				'order'                => 'ASC',
-				'posts_per_page'       => tribe_get_option( 'postsPerPage', 10 ), 'tribe_render_context' => 'default',
+				'posts_per_page'       => tribe_get_option( 'postsPerPage', 10 ),
+				'tribe_render_context' => 'default',
 			);
 			$args     = wp_parse_args( $args, $defaults );
 
