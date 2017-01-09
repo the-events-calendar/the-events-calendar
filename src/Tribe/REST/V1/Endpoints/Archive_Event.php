@@ -102,7 +102,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event extends Tribe__Events__R
 			$args['posts_per_page'] = get_option( 'posts_per_page' );
 		}
 
-		if ( current_user_can( 'edit_posts' ) ) {
+		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
+		if ( current_user_can( $cap ) ) {
 			$args['post_status'] = 'any';
 		}
 

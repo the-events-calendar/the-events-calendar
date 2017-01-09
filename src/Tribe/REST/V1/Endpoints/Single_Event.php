@@ -55,7 +55,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event extends Tribe__Events__RE
 			return new WP_Error( 'event-not-found', $message, array( 'status' => 404 ) );
 		}
 
-		if ( ! ( 'publish' === $event->post_status || current_user_can( 'edit_posts', $id ) ) ) {
+		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->read_post;
+		if ( ! ( 'publish' === $event->post_status || current_user_can( $cap, $id ) ) ) {
 			$message = $this->messages->get_message( 'event-not-accessible' );
 
 			return new WP_Error( 'event-not-accessible', $message, array( 'status' => 403 ) );
