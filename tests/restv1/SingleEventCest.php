@@ -55,8 +55,7 @@ class SingleEventCest extends BaseRestCest {
 			]
 		] );
 
-		$venue_id = $I->havePostInDatabase( [
-			'post_type'         => 'tribe_venue',
+		$venue_id = $I->haveVenueInDatabase( [
 			'post_author'       => '12',
 			'post_title'        => 'Venue 01',
 			'post_name'         => 'venue-01',
@@ -80,8 +79,8 @@ class SingleEventCest extends BaseRestCest {
 				'_VenueStateProvince' => 'state_province',
 			],
 		] );
-		$organizer_id = $I->havePostInDatabase( [
-			'post_type'         => 'tribe_organizer',
+
+		$organizer_id = $I->haveOrganizerInDatabase([
 			'post_author'       => '12',
 			'post_title'        => 'Organizer 01',
 			'post_name'         => 'organizer-01',

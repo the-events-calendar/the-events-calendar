@@ -11,6 +11,39 @@ class TribeDb extends \Codeception\Module {
 	 */
 	protected $db;
 
+	/**
+	 * @var array An array containing some pre-compiled locations data.
+	 */
+	protected $locations
+		= [
+			'new_york' => [
+				'_VenueAddress	'   => '939 Lexington Ave',
+				'_VenueCity	'      => 'New York',
+				'_VenueCountry	'   => 'United States',
+				'_VenueProvince'      => '',
+				'_VenueState'         => 'NY',
+				'_VenueZip'           => '10065',
+				'_VenuePhone'         => '',
+				'_VenueURL'           => '',
+				'_VenueShowMap'       => 'true',
+				'_VenueShowMapLink'   => 'true',
+				'_VenueStateProvince' => 'NY',
+			],
+			'paris'    => [
+				'_VenueAddress'       => '37 Rue de la Bûcherie',
+				'_VenueCity'          => 'Paris',
+				'_VenueCountry'       => 'France',
+				'_VenueProvince'      => 'Paris',
+				'_VenueState'         => '',
+				'_VenueZip'           => '75005',
+				'_VenuePhone'         => '',
+				'_VenueURL'           => '',
+				'_VenueShowMap'       => 'true',
+				'_VenueShowMapLink'   => 'true',
+				'_VenueStateProvince' => 'Paris',
+			],
+		];
+
 	public function _initialize() {
 		$this->db = $this->getModule( 'WPDb' );
 	}
@@ -49,6 +82,81 @@ class TribeDb extends \Codeception\Module {
 	}
 
 	/**
+	 * Inserts a venue in the database.
+	 *
+	 * @param array  $overrides
+	 * @param string $location An options prefixed location to set for the venue (see `$locations`).
+	 *
+	 * @return int The venue post ID
+	 */
+	public function haveVenueInDatabase( array $overrides = [], $location = null ) {
+		$uniqid = uniqid();
+		$args = [
+			'post_type'    => 'tribe_venue',
+			'post_title'   => 'Venue ' . $uniqid,
+			'post_name'    => 'venue-' . $uniqid,
+			'post_content' => 'Venue ' . $uniqid . ' description',
+			'post_excerpt' => 'Venue ' . $uniqid . ' excerpt',
+			'meta_input'   => [
+				'_EventShowMap'       => '1',
+				'_EventShowMapLink'   => '1',
+				'_VenueAddress'       => $uniqid . ' address',
+				'_VenueCity'          => $uniqid . ' city',
+				'_VenueCountry'       => $uniqid . ' country',
+				'_VenueProvince'      => $uniqid . ' province',
+				'_VenueState'         => $uniqid . ' state',
+				'_VenueZip'           => $uniqid . ' zip',
+				'_VenuePhone'         => $uniqid . ' phone',
+				'_VenueURL'           => $uniqid . ' url',
+				'_VenueStateProvince' => $uniqid . ' state_province',
+			],
+		];
+
+		if ( is_string( $location ) && isset( $this->locations[ $location ] ) ) {
+			$args['meta_input'] = array_merge( $args['meta_input'], $this->locations[ $location ] );
+		}
+
+		if ( isset( $overrides['meta_input'] ) ) {
+			$args['meta_input'] = array_merge( $args['meta_input'], $overrides['meta_input'] );
+			unset( $overrides['meta_input'] );
+		}
+
+		return $this->db->havePostInDatabase( array_merge( $args, $overrides ) );
+	}
+
+	/**
+	 * Inserts an organizer in the database.
+	 *
+	 * @param array  $overrides
+	 *
+	 * @return int The organizer post ID
+	 */
+	public function haveOrganizerInDatabase( array $overrides = [] ) {
+		$uniqid = uniqid();
+		$args = [
+			'post_type'    => 'tribe_organizer',
+			'post_title'   => 'Organizer ' . $uniqid,
+			'post_name'    => 'organizer-' . $uniqid,
+			'post_content' => 'Organizer ' . $uniqid . ' description',
+			'post_excerpt' => 'Organizer ' . $uniqid . ' excerpt',
+			'meta_input'   => [
+				'_OrganizerPhone'   => $uniqid . ' phone',
+				'_OrganizerWebsite' => $uniqid . ' website',
+				'_OrganizerEmail'   => $uniqid . ' email',
+			],
+		];
+
+		if ( isset( $overrides['meta_input'] ) ) {
+			$args['meta_input'] = array_merge( $args['meta_input'], $overrides['meta_input'] );
+			unset( $overrides['meta_input'] );
+		}
+
+		$args = array_merge( $args, $overrides );
+
+		return $this->db->havePostInDatabase( $args );
+	}
+
+	/**
 	 * Inserts an event in the database.
 	 *
 	 * @param array $overrides An array of values to override the default arguments.
@@ -60,6 +168,7 @@ class TribeDb extends \Codeception\Module {
 	 *                         in seconds if required.
 	 *                         `utc_offset` - by default events will happen on UTC time; set this to a different hour
 	 *                         offset if required.
+	 *                         `venue` - shortcut to add an `_EventVenueID` to the event meta, must be a venue post ID.
 	 *
 	 * @return int The generated event post ID
 	 */
@@ -86,6 +195,11 @@ class TribeDb extends \Codeception\Module {
 			'_EventEndDateUTC'   => $end,
 			'_EventDuration'     => $duration,
 		];
+
+		if ( isset( $overrides['venue'] ) ) {
+			$meta_input['_EventVenueID'] = $overrides['venue'];
+			unset($overrides['venue']);
+		}
 
 		unset( $overrides['when'], $overrides['duration'], $overrides['utc_offset'] );
 
@@ -128,4 +242,5 @@ class TribeDb extends \Codeception\Module {
 
 		return $ids;
 	}
+
 }

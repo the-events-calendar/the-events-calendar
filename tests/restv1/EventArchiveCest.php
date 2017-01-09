@@ -300,7 +300,7 @@ class EventArchiveCest extends BaseRestCest {
 	 * @test
 	 * it should return totals in headers and data
 	 */
-	public function it_should_return_totals_in_headers_and_data(Restv1Tester $I) {
+	public function it_should_return_totals_in_headers_and_data( Restv1Tester $I ) {
 		$I->haveManyEventsInDatabase( 10 );
 		$I->haveOptionInDatabase( 'posts_per_page', 5 );
 
@@ -309,10 +309,10 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
-		$I->assertEquals(10, $response->total);
-		$I->assertEquals(2, $response->total_pages);
-		$I->seeHttpHeader('X-TEC-Total',10);
-		$I->seeHttpHeader('X-TEC-TotalPages',2);
+		$I->assertEquals( 10, $response->total );
+		$I->assertEquals( 2, $response->total_pages );
+		$I->seeHttpHeader( 'X-TEC-Total', 10 );
+		$I->seeHttpHeader( 'X-TEC-TotalPages', 2 );
 	}
 
 	protected function not_positive_integer_numbers() {
