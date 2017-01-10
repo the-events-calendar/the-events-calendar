@@ -56,8 +56,8 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 				'name' => __( 'Meetup', 'the-events-calendar' ),
 				'disabled' => true,
 			),
-			'other' => (object) array(
-				'id' => 'other',
+			'url' => (object) array(
+				'id' => 'url',
 				'name' => __( 'Other URL', 'the-events-calendar' ),
 				'disabled' => true,
 			),

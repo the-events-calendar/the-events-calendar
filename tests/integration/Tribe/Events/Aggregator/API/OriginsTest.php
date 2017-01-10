@@ -51,8 +51,8 @@ class OriginsTest extends Aggregator_TestCase {
 
 		$origins = $sut->get();
 
-		$this->assertArrayHasKey( 'other', $origins );
-		$this->assertFalse( $origins['other']->disabled );
+		$this->assertArrayHasKey( 'url', $origins );
+		$this->assertFalse( $origins['url']->disabled );
 	}
 
 	/**
@@ -60,15 +60,15 @@ class OriginsTest extends Aggregator_TestCase {
 	 * it should not enable the Other URL origin if not allowed from the server
 	 */
 	public function it_should_not_enable_the_other_url_origin_if_not_allowed_from_the_server() {
-		$this->service->get_origins()->willReturn( $this->factory()->ea_service->create_origins( [ 'disable' => 'other' ] ) );
+		$this->service->get_origins()->willReturn( $this->factory()->ea_service->create_origins( [ 'disable' => 'url' ] ) );
 		$this->service->api()->willReturn( true );
 
 		$sut = $this->make_instance();
 
 		$origins = $sut->get();
 
-		$this->assertArrayHasKey( 'other', $origins );
-		$this->assertTrue( $origins['other']->disabled );
+		$this->assertArrayHasKey( 'url', $origins );
+		$this->assertTrue( $origins['url']->disabled );
 	}
 
 	/**

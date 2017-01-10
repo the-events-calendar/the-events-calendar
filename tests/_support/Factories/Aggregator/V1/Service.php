@@ -69,7 +69,7 @@ class Service extends \WP_UnitTest_Factory {
 				'name' => 'Meetup',
 			] ),
 			5 => set_object_state( [
-				'id'   => 'other',
+				'id'   => 'url',
 				'name' => 'Other URL',
 			] ),
 		];
