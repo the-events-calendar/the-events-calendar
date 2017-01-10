@@ -346,6 +346,9 @@ class Tribe__Events__Aggregator__Records {
 			case 'ea/meetup':
 				$record = new Tribe__Events__Aggregator__Record__Meetup( $post );
 				break;
+			case 'url':
+				$record = new Tribe__Events__Aggregator__Record__Url( $post );
+				break;
 		}
 
 		return $record;

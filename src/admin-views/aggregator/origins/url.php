@@ -81,9 +81,9 @@ $field->help        = __( 'Enter the url for the site you wish to import, e.g. h
 	</th>
 	<td>
 		<input
-			name="aggregator[ical][source]"
+			name="aggregator[url][source]"
 			type="text"
-			id="tribe-ea-field-ical_source"
+			id="tribe-ea-field-url_source"
 			class="tribe-ea-field tribe-ea-size-xlarge"
 			placeholder="<?php echo esc_attr( $field->placeholder ); ?>"
 			value="<?php echo esc_attr( empty( $record->meta['source'] ) ? '' : $record->meta['source'] ); ?>"
