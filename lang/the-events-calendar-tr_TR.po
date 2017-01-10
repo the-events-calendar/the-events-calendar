@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-03-30 22:08:20+0000\n"
+"PO-Revision-Date: 2017-01-07 19:22:23+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3656,7 +3656,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:712
 msgid "%1$s or %2$s"
-msgstr ""
+msgstr "%1$s veya %2$s"
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/1x"
@@ -4094,7 +4094,7 @@ msgstr "Daha fazla…"
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:183
 #: vendor/tickets/common/src/Tribe/App_Shop.php:111
 msgid "Events Calendar PRO"
-msgstr ""
+msgstr "Events Calendar PRO"
 
 #: common/src/Tribe/Admin/Help_Page.php:402
 #: common/src/Tribe/Admin/Help_Page.php:777
@@ -4554,7 +4554,7 @@ msgstr "E-posta için plan resembler 580px genişliğinde, istediğiniz uzunlukt
 
 #: vendor/tickets/src/admin-views/meta-box.php:42
 msgid "Upload image for the ticket header."
-msgstr ""
+msgstr "Bilet manşeti için görsel yükle."
 
 #: vendor/tickets/src/admin-views/meta-box.php:31
 msgid "This event was created using Community Events. Are you sure you want to sell tickets for it?"
@@ -4680,7 +4680,7 @@ msgstr "%s Web site"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:481
 msgid "Location:"
-msgstr ""
+msgstr "Konum:"
 
 #: src/admin-views/events-meta-box.php:123
 msgid "Timezone:"
@@ -4769,7 +4769,7 @@ msgstr "Başlarken"
 
 #: vendor/tickets/src/admin-views/admin-welcome-message.php:25
 msgid "Stay in touch with Event Tickets Plus. We send out periodic updates, key developer notices, and even the occasional discount."
-msgstr ""
+msgstr "Events Tickets Plus ile temasta kalın. Periyodik olarak güncellemeler, geliştirici notları ve hatta dönemsel indirimler gönderiyoruz."
 
 #: src/admin-views/admin-welcome-message.php:25
 #: vendor/tickets/src/admin-views/admin-welcome-message.php:24

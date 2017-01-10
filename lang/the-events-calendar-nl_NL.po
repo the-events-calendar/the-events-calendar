@@ -2910,7 +2910,7 @@ msgstr "in afwachting: %1$d"
 #: vendor/tickets/src/template-tags/tickets.php:231
 msgctxt "ticket stock message (cancelled stock)"
 msgid " cancelled: %1$d"
-msgstr "geannuleerd: %1$d"
+msgstr ""
 
 #: vendor/tickets/src/template-tags/tickets.php:221
 msgid "global inventory"
