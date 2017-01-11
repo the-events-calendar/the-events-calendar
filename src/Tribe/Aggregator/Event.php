@@ -75,6 +75,7 @@ class Tribe__Events__Aggregator__Event {
 			'parent_uid' => 'parent_uid',
 			'recurrence' => 'recurrence',
 			'categories' => 'categories',
+			'ID'         => 'original_ID',
 		);
 
 		$venue_field_map = array(
