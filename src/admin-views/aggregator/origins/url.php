@@ -3,7 +3,7 @@ $origin_slug        = 'url';
 $field              = (object) array();
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Import Type', 'the-events-calendar' );
-$field->help        = __( 'One-time imports include all events in the current feed, while scheduled imports automatically grab new events and updates from the feed on a set schedule.', 'the-events-calendar' );
+$field->help        = __( 'One-time imports include currently listed upcoming events, while scheduled imports automatically grab new events and updates from this url on a set schedule.', 'the-events-calendar' );
 $field->source      = 'url_import_type';
 
 $frequency              = (object) array();
@@ -73,7 +73,7 @@ $frequencies = $cron->get_frequency();
 $field              = (object) array();
 $field->label       = __( 'URL:', 'the-events-calendar' );
 $field->placeholder = __( 'example.com/', 'the-events-calendar' );
-$field->help        = __( 'Enter the url for the site you wish to import, e.g. http://example.com', 'the-events-calendar' );
+$field->help        = __( 'Enter the url for the calendar, website, or event you would like to import. Event Aggregator will attempt to import events at that location.', 'the-events-calendar' );
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-url_import_type" data-condition-not-empty>
 	<th scope="row">
