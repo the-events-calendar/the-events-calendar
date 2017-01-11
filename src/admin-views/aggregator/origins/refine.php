@@ -19,7 +19,7 @@ switch ( $origin_slug ) {
 		break;
 	case 'url':
 		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
-		$radius->help = __( 'Use the filters to narrow down which events are fetched from this iCalendar feed.', 'the-events-calendar' );
+		$radius->help = __( 'Use the filters to narrow down which events are fetched from this site.', 'the-events-calendar' );
 		break;
 	case 'ical':
 	default:
