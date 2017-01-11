@@ -43,7 +43,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'target' => 'uid',
 		),
 		'url' => array(
-			'source' => 'original_ID',
+			'source' => 'ID',
 			'target' => 'original_ID',
 		),
 	);
