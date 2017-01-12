@@ -365,6 +365,39 @@ class Post_RepositoryTest extends Events_TestCase {
 	}
 
 	/**
+	 * @test
+	 * it should return the event website if set
+	 */
+	public function it_should_return_the_event_website_if_set() {
+		// need to be able to assign terms to use `tax_input`
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$event = $this->factory()->event->create( [ 'meta_input' => [ '_EventURL' => 'http://example.com' ] ] );
+
+		$sut = $this->make_instance();
+
+		$data = $sut->get_event_data( $event );
+
+		$this->assertArrayHasKey( 'website', $data );
+		$this->assertEquals( 'http://example.com', $data['website'] );
+	}
+
+	/**
+	 * @test
+	 * it should use the event permalink as website if event website is empty
+	 */
+	public function it_should_use_the_event_permalink_as_website_if_event_website_is_empty() {
+		$event = $this->factory()->event->create();
+		delete_post_meta($event,'_EventURL');
+
+		$sut = $this->make_instance();
+
+		$data = $sut->get_event_data( $event );
+
+		$this->assertArrayHasKey( 'website', $data );
+		$this->assertEquals( get_the_permalink( $event ), $data['website'] );
+	}
+
+	/**
 	 * @return Post_Repository
 	 */
 	private function make_instance() {

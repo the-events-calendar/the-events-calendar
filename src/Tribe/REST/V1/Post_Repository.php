@@ -94,7 +94,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				'currency_position' => isset( $meta['_EventCurrencyPosition'] ) ? $meta['_EventCurrencyPosition'] : '',
 				'cost'              => isset( $meta['_EventCost'] ) ? $meta['_EventCost'] : '',
 			),
-			'website'                => isset( $meta['_EventURL'] ) ? esc_html( $meta['_EventURL'] ) : '',
+			'website'                => isset( $meta['_EventURL'] ) ? esc_html( $meta['_EventURL'] ) : get_the_permalink( $event_id ),
 			'show_map'               => isset( $meta['_EventShowMap'] ) ? $meta['_EventShowMap'] : '0',
 			'show_map_link'          => isset( $meta['_EventShowMapLink'] ) ? $meta['_EventShowMapLink'] : '0',
 			'categories'             => $this->get_categories( $event_id ),
