@@ -366,6 +366,7 @@ class Post_RepositoryTest extends Events_TestCase {
 
 	/**
 	 * @test
+<<<<<<< Updated upstream
 	 * it should return the event website if set
 	 */
 	public function it_should_return_the_event_website_if_set() {
@@ -397,6 +398,14 @@ class Post_RepositoryTest extends Events_TestCase {
 		$this->assertEquals( get_the_permalink( $event ), $data['website'] );
 	}
 
+=======
+	 * it should set the cost details to an array of values if an events has more than one price components
+	 */
+	public function it_should_set_the_cost_details_to_an_array_of_values_if_an_events_has_more_than_one_price_components() {
+		$this->markTestIncomplete();
+	}	
+	
+>>>>>>> Stashed changes
 	/**
 	 * @return Post_Repository
 	 */
