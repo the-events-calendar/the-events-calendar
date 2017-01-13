@@ -64,6 +64,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$venue = $this->get_venue_data( $event_id );
 		$organizer = $this->get_organizer_data( $event_id );
+
 		$data = array(
 			'ID'                     => $event_id,
 			'author'                 => $event->post_author,
@@ -88,11 +89,11 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'utc_end_date_details'   => $this->get_date_details( $meta['_EventEndDateUTC'] ),
 			'timezone'               => isset( $meta['_EventTimezone'] ) ? $meta['_EventTimezone'] : '',
 			'timezone_abbr'          => isset( $meta['_EventTimezoneAbbr'] ) ? $meta['_EventTimezoneAbbr'] : '',
-			'cost'                   => tribe_get_cost( $event_id ),
+			'cost'                   => tribe_get_cost( $event_id, true ),
 			'cost_details'           => array(
 				'currency_symbol'   => isset( $meta['_EventCurrencySymbol'] ) ? $meta['_EventCurrencySymbol'] : '',
 				'currency_position' => isset( $meta['_EventCurrencyPosition'] ) ? $meta['_EventCurrencyPosition'] : '',
-				'cost'              => isset( $meta['_EventCost'] ) ? $meta['_EventCost'] : '',
+				'values'              => $this->get_cost_values( $event_id ),
 			),
 			'website'                => isset( $meta['_EventURL'] ) ? esc_html( $meta['_EventURL'] ) : get_the_permalink( $event_id ),
 			'show_map'               => isset( $meta['_EventShowMap'] ) ? $meta['_EventShowMap'] : '0',
@@ -373,5 +374,19 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Returns an ASC array of event costs.
+	 *
+	 * @param int|WP_Post $event_id The event post or the post ID.
+	 *
+	 * @return array
+	 */
+	protected function get_cost_values( $event_id ) {
+		$cost_values = array_keys( tribe( 'tec.cost-utils' )->get_event_costs( $event_id ) );
+		sort( $cost_values, SORT_NUMERIC );
+
+		return $cost_values;
 	}
 }
