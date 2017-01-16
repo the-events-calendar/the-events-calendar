@@ -405,6 +405,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// REST API v1
 			tribe_singleton( 'tec.rest-v1.main', 'Tribe__Events__REST__V1__Main', array( 'bind_implementations', 'hook' ) );
+
+			/**
+			 * Allows other plugins and services to override/change the bound implementations.
+			 */
+			do_action( 'tribe_events_bound_implementations' );
 		}
 
 		/**

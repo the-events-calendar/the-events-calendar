@@ -188,6 +188,13 @@
 	.tribe-ea-tab-scheduled {
 		td.column-source {
 			padding-left: 10px;
+			:not(.row-actions) a:first-of-type {
+				overflow : hidden;
+				white-space : nowrap;
+				text-overflow : ellipsis;
+				display : inline-block;
+				max-width : 100%;
+			}
 		}
 	}
 
