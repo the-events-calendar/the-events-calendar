@@ -110,6 +110,13 @@ class Tribe__Events__Aggregator__Page {
 		 */
 		$localize_data['data']['csv_column_mapping'] = apply_filters( 'tribe_aggregator_csv_column_mapping', $localize_data['data']['csv_column_mapping'] );
 
+		/**
+		 * filters the whole array that will be localized for event aggregator.
+		 *
+		 * @param array $localize_data
+		 */
+		$localize_data['data'] = apply_filters( 'tribe_aggregator_localized_data', $localize_data['data'] );
+
 		// Load these on all the pages
 		tribe_assets( $plugin,
 			array(
