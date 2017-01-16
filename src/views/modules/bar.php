@@ -6,8 +6,12 @@
  * $filters and $views variables are loaded in and coming from
  * the show funcion in: lib/Bar.php
  *
- * @package TribeEventsCalendar
+ * Override this template in your own theme by creating a file at:
  *
+ *     [your-theme]/tribe-events/modules/bar.php
+ *
+ * @package  TribeEventsCalendar
+ * @version  4.3.5
  */
 ?>
 

@@ -282,9 +282,24 @@ jQuery( document ).ready( function( $ ) {
 	$( viewCalLinkHTML )
 		.insertAfter( '.edit-php.post-type-tribe_events #wpbody-content .wrap h2:eq(0) a' );
 
-	//not done by default on front end
+	/**
+	 * Returns the number of months to display in
+	 * the datepicker based on the viewport width
+	 *
+	 * @returns {number}
+	 */
 	function get_datepicker_num_months() {
-		return ( is_community_edit && $(window).width() < 768 ) ? 1 : 3;
+		var window_width = $( window ).width();
+
+		if ( window_width < 800 ) {
+			return 1;
+		}
+
+		if ( window_width <= 1100 ) {
+			return 2;
+		} else {
+			return 3;
+		}
 	}
 
 	var setup_linked_post_fields = function( post_type ) {
@@ -458,7 +473,7 @@ jQuery( document ).ready( function( $ ) {
 
 	$( '.hide-if-js' ).hide();
 
-	if ( typeof(TEC) !== 'undefined' ) {
+	if ( typeof( tribe_l10n_datatables.datepicker ) !== 'undefined' ) {
 
 		var _MS_PER_DAY = 1000 * 60 * 60 * 24;
 
@@ -523,7 +538,7 @@ jQuery( document ).ready( function( $ ) {
 			}
 		};
 
-		$.extend( tribe_datepicker_opts, TEC );
+		$.extend( tribe_datepicker_opts, tribe_l10n_datatables.datepicker );
 
 		var dates = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
 		var $start_end_month = $( "select[name='EventStartMonth'], select[name='EventEndMonth']" );

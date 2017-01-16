@@ -98,10 +98,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$ven_id = tribe_get_venue_id( $postId );
 		$url = esc_url_raw( get_permalink( $ven_id ) );
 
-		if ( $full_link ) {
-			$name = tribe_get_venue( $ven_id );
+		if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
+			$link = tribe_get_venue( $ven_id );
+		} elseif ( $full_link ) {
+			$name       = tribe_get_venue( $ven_id );
 			$attr_title = the_title_attribute( array( 'post' => $ven_id, 'echo' => false ) );
-			$link = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '" title="'.$attr_title.'">' . $name . '</a>' : false;
+			$link       = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '" title="' . $attr_title . '">' . $name . '</a>' : false;
 		} else {
 			$link = $url;
 		}

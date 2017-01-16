@@ -6,6 +6,7 @@
  * [your-theme]/tribe-events/modules/meta/map.php
  *
  * @package TribeEventsCalendar
+ * @version 4.4
  */
 
 $map = tribe_get_embedded_map();
