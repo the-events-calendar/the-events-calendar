@@ -1,7 +1,7 @@
 <?php
 
 
-class Tribe__Events__Aggregator__Record__Url extends Tribe__Events__Aggregator__Record__Abstract{
+class Tribe__Events__Aggregator__Record__Url extends Tribe__Events__Aggregator__Record__Abstract {
 
 	/**
 	 * @var string

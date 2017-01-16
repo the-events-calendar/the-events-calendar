@@ -405,8 +405,8 @@ $internal = array_merge(
 	$facebook,
 	$gcal,
 	$meetup,
-    $url,
-    $ea_disable
+	$url,
+	$ea_disable
 );
 
 $internal = apply_filters( 'tribe_aggregator_fields', $internal );
