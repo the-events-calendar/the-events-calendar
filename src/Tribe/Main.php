@@ -375,7 +375,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return void
 		 */
-		public function bind_implementations(  ) {
+		public function bind_implementations() {
 			// Front page events archive support
 			tribe_singleton( 'tec.front-page-view', 'Tribe__Events__Front_Page_View' );
 			tribe_singleton( 'tec.admin.front-page-view', 'Tribe__Events__Admin__Front_Page_View' );
@@ -395,7 +395,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Shortcodes
 			tribe_singleton( 'tec.shortcodes.event-details', 'Tribe__Events__Shortcode__Event_Details', array( 'hook' ) );
 
-			// Ignored Events
+			// Event types
+			tribe_singleton( 'tec.inactive-events', 'Tribe__Events__Inactive_Events', array( 'hook' ) );
 			tribe_singleton( 'tec.ignored-events', 'Tribe__Events__Ignored_Events', array( 'hook' ) );
 
 			// Register and start the Customizer Sections
@@ -671,6 +672,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			tribe( 'events-aggregator.main' );
 			tribe( 'tec.shortcodes.event-details' );
+			tribe( 'tec.inactive-events' );
 			tribe( 'tec.ignored-events' );
 			tribe( 'tec.iCal' );
 		}
