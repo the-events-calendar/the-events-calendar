@@ -1,0 +1,14 @@
+<?php
+
+class Tribe__Events__REST__V1__EA_Messages extends Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interface
+{
+	public function __construct()
+	{
+		$this->messages = array(
+			'not-tec-rest-api-site' => __( 'The Events Calendar is not active or is not at least version 4.5 on the requested URL.', 'the-events-calendar' ),
+			'tec-rest-api-unsupported' => __( 'The requested URL does not support The Events Calendar REST API.', 'the-events-calendar' ),
+			'tec-rest-api-disabled' => __( 'The Events Calendar REST API is disabled on the requested URL.', 'the-events-calendar' ),
+			'no_results' => __( 'The requested URL does not have any upcoming and published events.', 'the-events-calendar' ),
+		);
+	}
+}
