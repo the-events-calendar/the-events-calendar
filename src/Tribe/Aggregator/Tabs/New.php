@@ -456,6 +456,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		$result = $record->get_import_data();
 
+		$result->origin = $record->origin;
+
 		if ( is_wp_error( $result ) ) {
 			wp_send_json_error( $result );
 		}
