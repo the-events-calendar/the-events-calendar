@@ -369,10 +369,10 @@ tribe_aggregator.fields = {
 			import_type = $( '#' + $import_type.first().attr( 'id' ).replace( 's2id_', '' ) ).val();
 		}
 
-		if ('manual' === import_type && !data.items.length) {
+        if ( 'manual' === import_type && !data.items.length ) {
 			var origin = data.origin;
-			var message = 'undefined' !== ea.l10n[origin].no_results ?
-				ea.l10n[origin].no_results
+			var message = 'undefined' !== ea.l10n[ origin ].no_results ?
+				ea.l10n[ origin ].no_results
 				: ea.l10n.no_results;
 			obj.display_fetch_error(message);
 			return;

@@ -456,7 +456,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		$result = $record->get_import_data();
 
-		if ( isset( $result->data ) ){
+		if ( isset( $result->data ) ) {
 			$result->data->origin = $record->origin;
 		}
 

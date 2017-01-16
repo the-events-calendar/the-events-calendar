@@ -487,8 +487,7 @@ class Tribe__Events__Aggregator__Service {
 	 * These messages are delivered by the EA service and don't need to be registered. They just need to exist
 	 * here so that they can be translated.
 	 */
-	protected function register_messages()
-	{
+	protected function register_messages() {
 		$this->service_messages = array(
 			'error:create-import-failed' => __( 'Sorry, but something went wrong. Please try again.', 'the-events-calendar' ),
 			'error:create-import-invalid-params' => __( 'The import parameters were invalid.', 'the-events-calendar' ),
