@@ -10,6 +10,8 @@ class Tribe__Events__Inactive_Events {
 	}
 
 	public function register() {
+		$supports = array_keys( get_all_post_type_supports( Tribe__Events__Main::POSTTYPE ) );
+
 		/**
 		 * Defines the inactive event post type.
 		 *
@@ -17,7 +19,7 @@ class Tribe__Events__Inactive_Events {
 		 */
 		register_post_type( self::POST_TYPE, apply_filters( 'tribe_events_register_inactive_event_type_args', array(
 			'public'          => false,
-			'supports'        => get_all_post_type_supports( Tribe__Events__Main::POSTTYPE ),
+			'supports'        => $supports,
 			'taxonomies'      => array( 'post_tag' ),
 			'capability_type' => array( 'tribe_event', 'tribe_events' ),
 			'map_meta_cap'    => true,
