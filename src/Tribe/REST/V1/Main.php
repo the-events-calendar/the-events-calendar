@@ -183,13 +183,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 */
 	public function filter_service_messages( array $messages = array() ) {
 		/** @var Tribe__REST__Messages_Interface $rest_messages */
-		$rest_messages               = tribe( 'tec.rest-v1.ea-messages' );
-		$messages_array              = $rest_messages->get_messages();
-		$prefixed_rest_messages_keys = array_map( array(
-			$rest_messages,
-			'prefix_message_slug'
-		), array_keys( $messages_array ) );
-		$messages                    = array_merge( $messages, array_combine( $prefixed_rest_messages_keys, array_values( $messages_array ) ) );
+		$rest_messages  = tribe( 'tec.rest-v1.ea-messages' );
+		$messages_array = $rest_messages->get_messages();
+		$prefixed_rest_messages_keys = array_map( array( $rest_messages, 'prefix_message_slug' ), array_keys( $messages_array ) );
+		$messages = array_merge( $messages, array_combine( $prefixed_rest_messages_keys, array_values( $messages_array ) ) );
 
 		return $messages;
 	}
