@@ -46,8 +46,7 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 	 *
 	 * @return array An associative array in the `[ <slug> => <localized message> ]` format.
 	 */
-	public function get_messages(  )
-	{
+	public function get_messages() {
 		return $this->messages;
 	}
 
@@ -62,8 +61,7 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 	 *
 	 * @return string The prefixed message slug.
 	 */
-	public function prefix_message_slug( $message_slug )
-	{
+	public function prefix_message_slug( $message_slug ) {
 		return $this->message_prefix . $message_slug;
 	}
 }
