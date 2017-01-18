@@ -101,7 +101,7 @@ $ea_disable = array(
 	),
 );
 
-$global = $ical = $ics = $facebook = $gcal = $meetup = array();
+$global = $ical = $ics = $facebook = $gcal = $meetup = $url = array();
 // if there's an Event Aggregator license key, add the Global settings, Facebook, iCal, and Meetup fields
 if ( Tribe__Events__Aggregator::is_service_active() ) {
 	$global = array(
