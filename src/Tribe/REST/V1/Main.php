@@ -25,6 +25,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 */
 	public function bind_implementations() {
 		tribe_singleton( 'tec.rest-v1.messages', 'Tribe__Events__REST__V1__Messages' );
+		tribe_singleton( 'tec.rest-v1.ea-messages', 'Tribe__Events__REST__V1__EA_Messages' );
 		tribe_singleton( 'tec.rest-v1.headers-base', 'Tribe__Events__REST__V1__Headers__Base' );
 		tribe_singleton( 'tec.rest-v1.settings', 'Tribe__Events__REST__V1__Settings' );
 		tribe_singleton( 'tec.rest-v1.system', 'Tribe__Events__REST__V1__System' );
@@ -40,6 +41,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	public function hook() {
 		$this->hook_headers();
 		$this->hook_settings();
+		$this->hook_messages();
 
 		/** @var Tribe__Events__REST__V1__System $system */
 		$system = tribe( 'tec.rest-v1.system' );
@@ -166,5 +168,41 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 */
 	protected function url_prefix() {
 		return $this->url_prefix;
+	}
+
+	protected function hook_messages() {
+		add_filter( 'tribe_aggregator_service_messages', array( $this, 'filter_service_messages' ) );
+		add_filter( 'tribe_aggregator_localized_data', array( $this, 'filter_localized_data' ) );
+	}
+
+	/**
+	 * Filters the messages returned by the Event Aggregator Service to add those specific to the REST API v1.
+	 *
+	 * @param array $messages
+	 * @return array The original messages plus those specific to the REST API V1.
+	 */
+	public function filter_service_messages( array $messages = array() ) {
+		/** @var Tribe__REST__Messages_Interface $rest_messages */
+		$rest_messages  = tribe( 'tec.rest-v1.ea-messages' );
+		$messages_array = $rest_messages->get_messages();
+		$prefixed_rest_messages_keys = array_map( array( $rest_messages, 'prefix_message_slug' ), array_keys( $messages_array ) );
+		$messages = array_merge( $messages, array_combine( $prefixed_rest_messages_keys, array_values( $messages_array ) ) );
+
+		return $messages;
+	}
+
+	/**
+	 * Filters the messages localized by the Event Aggregator Service to add those specific to the REST API v1.
+	 *
+	 * @param array $localized_data
+	 *
+	 * @return array
+	 */
+	public function filter_localized_data( array $localized_data = array() ) {
+		/** @var Tribe__REST__Messages_Interface $rest_messages */
+		$rest_messages                 = tribe( 'tec.rest-v1.ea-messages' );
+		$localized_data['l10n']['url'] = $rest_messages->get_messages();
+
+		return $localized_data;
 	}
 }
