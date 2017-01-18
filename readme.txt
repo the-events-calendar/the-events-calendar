@@ -315,6 +315,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.4.1] tbd =
+
+* Fix - WPML integration smaller incompatibilities [70520, 70522]
+
 = [4.4.0.1] 2017-01-09 =
 
 * Fix - Adds safety check to ensure a smooth activation process when earlier versions of Tribe Common are active
