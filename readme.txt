@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.7
-Stable tag: 4.4dev1
+Stable tag: 4.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,7 +77,7 @@ Looking for something else? We’ve got add-ons available to take your calendar 
 
 = PRO Features =
 
-Add recurring events, a whole recurring events, a whole range of new views ( week / map / photo / venue / organizer) & widgets (calendar / featured venue / week / event countdown), custom event attributes, default content, location search, much more with [Events Calendar PRO](http://m.tri.be/2c)
+Add recurring events, a whole recurring events, a whole range of new views ( week / map / photo / venue / organizer) & widgets (calendar / featured venue / week / event countdown), shortcodes, custom event attributes, default content, location search, much more with [Events Calendar PRO](http://m.tri.be/2c)
 
 = Event Ticketing =
 
@@ -315,16 +315,51 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.4] TBD =
+= [4.4.0.1] 2017-01-09 =
+
+* Fix - Adds safety check to ensure a smooth activation process when earlier versions of Tribe Common are active
+
+= [4.4] 2017-01-09 =
 
 * Feature - Add dynamic helper text to single event editor to display the events date and time [66484]
 * Feature - Add support for featured events [65898]
 * Feature - Add support for placing the main events archive on the site homepage [38757]
-* Tweak - Adjusted styles and added actions for featured events in the List Widget [65923]
-* Tweak - Organizers and Venues are now with a better and cleaner interface [68430]
+* Feature - Add support for the theme customizer [67489]
+* Feature - Make it possible to adjust map pins via the theme customizer [65889]
+* Feature - Support for Event Aggregator in a multisite network context added [61427]
 * Fix - Add a link to The Events Calendar Help page in the Network Administration screen of multisite installations [68665]
 * Fix - Multisite license editing and displaying consistency [68662]
-* Fix - WPML integration smaller incompatibilities [70520, 70522]
+* Tweak - Adjusted styles and added actions for featured events in the List Widget [65923]
+* Tweak - Organizers and Venues are now with a better and cleaner interface [68430]
+* Tweak - Eliminate duplicate meta data for organizer posts [25084]
+* Tweak - Improved the start/end date user interface [66486, 66487, 66550]
+* Tweak - iCal export now includes all events - up to a reasonable limit - rather than just those in the current view [65037]
+* Tweak - Adjustments made to the default week view colour scheme [69756]
+* Tweak - Add AJAX and improve consistency of the venue and organizer UI [38129]
+
+= [4.3.5] 2016-12-20 =
+
+* Tweak - Updated the template override instructions in a number of templates [68229]
+* Tweak - Improve behaviour of tribe_get_events_title() in respect of single events [46313]
+* Tweak - Event Aggregator will only load on the Administration, prevent bigger loads for Front-End users [70812]
+* Tweak - Allow better filtering for Organizers and Venue Meta fields (Props: @Chouby from Polylang) [70894]
+* Fix - Prevent JavaScript Notices related to Bumpdown [69886]
+* Fix - Assets URL on Windows Servers are fully operational again [68377]
+* Fix - JavaScript and CSS files will respect HTTPS on all pages [69561]
+* Fix - Fixed comment count and visibility issues due to Event Aggregator records [68297]
+* Fix - Fixed PHP notices and warnings raised when importing .ics files [69960]
+* Fix - Only show link to Venues if Pro is active in List View [69887]
+* Fix - Fixed and issue that would make Event Aggregator importing notices remain stuck in the Import screen [70614]
+* Fix - Avoid error screen when saving licenses on multisite installations [68599]
+* Fix - Fix calendar view links in WPML language switcher [67134]
+
+= [4.3.4.2] 2016-12-13 =
+
+* Fix - Correct an oversight leading to breakages of the /all/ events archive for Events Calendar PRO users [70662]
+
+= [4.3.4.1] 2016-12-09 =
+
+* Fix - Updates Tribe Common to remove some stray characters that were impacting page layouts (props: @Aetles) [70536]
 
 = [4.3.4] 2016-12-08 =
 

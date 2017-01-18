@@ -56,7 +56,6 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 * batches of pending import record inserts/updates.
 	 */
 	public function register_scheduled_task() {
-		$schedules = wp_get_schedules();
 		if ( wp_next_scheduled( self::$scheduled_key ) ) {
 			return;
 		}
@@ -191,7 +190,10 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 
 		$this->current_queue->set_in_progress_flag();
 		$processed = $this->current_queue->process( self::$batch_size );
-		$this->processed += $processed->activity->count( $this->current_queue->get_queue_type() );
+		// in the 'fetch' phase this will not be a Queue object
+		if ( $processed instanceof Tribe__Events__Aggregator__Record__Queue ) {
+			$this->processed += $processed->activity->count( $this->current_queue->get_queue_type() );
+		}
 		$this->current_queue->clear_in_progress_flag();
 
 		return true;
@@ -205,7 +207,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	protected function get_current_queue() {
 		try {
 			$this->current_queue = new Tribe__Events__Aggregator__Record__Queue( $this->current_record_id );
-		} catch ( Exception $e ) {
+		} catch ( InvalidArgumentException $e ) {
 			do_action( 'log', sprintf( __( 'Could not process queue for Import Record %1$d: %2$s', 'the-events-calendar' ), $this->current_record_id, $e->getMessage() ) );
 			return false;
 		}

@@ -1,11 +1,12 @@
 <?php
-
 /**
- *
  * Please see single-event.php in this directory for detailed instructions on how to use and modify these templates.
  *
+ * Override this template in your own theme by creating a file at:
+ *
+ *     [your-theme]/tribe-events/month/tooltip.php
+ * @version 4.4
  */
-
 ?>
 
 <script type="text/html" id="tribe_tmpl_tooltip">
@@ -36,14 +37,14 @@
 				<img src="[[=imageTooltipSrc]]" alt="[[=title]]" />
 			</div>
 		[[ } ]]
-		
+
 		<h4 class="entry-title summary">[[=raw title]]</h4>
 
 		<div class="tribe-events-event-body">
 			<div class="tribe-event-duration">
 				<abbr class="tribe-events-abbr tribe-event-date-start">[[=dateDisplay]] </abbr>
 			</div>
-			
+
 			[[ if(excerpt.length) { ]]
 			<div class="tribe-event-description">[[=raw excerpt]]</div>
 			[[ } ]]

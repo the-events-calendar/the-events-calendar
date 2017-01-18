@@ -478,3 +478,7 @@ a.tribe-events-gmap {
 .tribe-theme-twentyfourteen.events-archive .entry-content {
 	width: 90%;
 }
+
+.tribe-is-responsive.tribe-mobile .tribe-events-page-title {
+	margin-top: .5em;
+}
