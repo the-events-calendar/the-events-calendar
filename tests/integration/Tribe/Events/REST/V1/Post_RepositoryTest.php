@@ -2,12 +2,18 @@
 
 namespace Tribe\Events\REST\V1;
 
+use Prophecy\Argument;
 use Tribe\Events\Tests\Testcases\Events_TestCase;
+use Tribe__Events__Cost_Utils as Cost_Utils;
 use Tribe__Events__Main as Main;
 use Tribe__Events__REST__V1__Messages as Messages;
 use Tribe__Events__REST__V1__Post_Repository as Post_Repository;
 
 class Post_RepositoryTest extends Events_TestCase {
+
+	protected $backups = [
+		'tec.cost-utils',
+	];
 
 	/**
 	 * @var \Tribe__REST__Messages_Interface
@@ -362,6 +368,85 @@ class Post_RepositoryTest extends Events_TestCase {
 
 		$this->assertArrayHasKey( 'categories', $data );
 		$this->assertCount( 2, $data['categories'] );
+	}
+
+	/**
+	 * @test
+	 * it should return the event website if set
+	 */
+	public function it_should_return_the_event_website_if_set() {
+		// need to be able to assign terms to use `tax_input`
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$event = $this->factory()->event->create( [ 'meta_input' => [ '_EventURL' => 'http://example.com' ] ] );
+
+		$sut = $this->make_instance();
+
+		$data = $sut->get_event_data( $event );
+
+		$this->assertArrayHasKey( 'website', $data );
+		$this->assertEquals( 'http://example.com', $data['website'] );
+	}
+
+	/**
+	 * @test
+	 * it should use the event permalink as website if event website is empty
+	 */
+	public function it_should_use_the_event_permalink_as_website_if_event_website_is_empty() {
+		$event = $this->factory()->event->create();
+		delete_post_meta( $event, '_EventURL' );
+
+		$sut = $this->make_instance();
+
+		$data = $sut->get_event_data( $event );
+
+		$this->assertArrayHasKey( 'website', $data );
+		$this->assertEquals( get_the_permalink( $event ), $data['website'] );
+	}
+
+	public function cost_details() {
+		return [
+			[ [ 0 => 0 ], [ 0 => 0 ] ],
+			[ [], [] ],
+			[ [ 0 => 0 ], [ 0 ] ],
+			[ [ 0 => 0, 12 => 12 ], [ 0, 12 ] ],
+			[ [ 0 => 0, 12 => 12, 23 => 23 ], [ 0, 12, 23 ] ],
+			[ [ 23 => 23, 12 => 12, 0 => 0 ], [ 0, 12, 23 ] ],
+		];
+	}
+
+	/**
+	 * @test
+	 * it should set the cost details to an array of values if an events has more than one price components
+	 * @dataProvider cost_details
+	 */
+	public function it_should_set_the_cost_details_to_an_array_of_values_if_an_events_has_more_than_one_price_components( $costs,
+		$expected
+	) {
+		// need to be able to assign terms to use `meta_input`
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$event_id = $this->factory()->event->create( [
+			'meta_input' => [
+				'_EventCurrencySymbol'   => '$',
+				'_EventCurrencyPosition' => 'prefix'
+			]
+		] );
+		/** @var Cost_Utils $cost_utils */
+		$cost_utils = $this->prophesize( Cost_Utils::class );
+		$cost_utils->get_formatted_event_cost( Argument::any(), true )->willReturn( 'foo cost' );
+		$cost_utils->get_event_costs( Argument::any() )->will( function () use ( $costs ) {
+			return $costs;
+		} );
+		tribe_singleton( 'tec.cost-utils', $cost_utils->reveal() );
+
+		$sut  = $this->make_instance();
+		$data = $sut->get_event_data( $event_id );
+
+		$this->assertArrayHasKey( 'cost', $data );
+		$this->assertEquals( 'foo cost', $data['cost'] );
+		$this->assertArrayHasKey( 'cost_details', $data );
+		$this->assertEquals( '$', $data['cost_details']['currency_symbol'] );
+		$this->assertEquals( 'prefix', $data['cost_details']['currency_position'] );
+		$this->assertEquals( $expected, $data['cost_details']['values'] );
 	}
 
 	/**

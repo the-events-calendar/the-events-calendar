@@ -199,12 +199,12 @@ class SingleEventCest extends BaseRestCest {
 		] );
 		$I->seeResponseContainsJson( [ 'timezone' => 'America/New_York' ] );
 		$I->seeResponseContainsJson( [ 'timezone_abbr' => 'EST' ] );
-		$I->seeResponseContainsJson( [ 'cost' => '23' ] );
+		$I->seeResponseContainsJson( [ 'cost' => '$23' ] );
 		$I->seeResponseContainsJson( [
 			'cost_details' => [
 				'currency_symbol'   => '$',
 				'currency_position' => 'prefix',
-				'cost'              => '23'
+				'values'              => [ '23'  ]
 			]
 		] );
 		$I->seeResponseContainsJson( [ 'website' => 'http://tri.be' ] );

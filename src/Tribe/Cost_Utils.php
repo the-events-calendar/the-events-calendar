@@ -19,13 +19,8 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 	 * @return Tribe__Events__Cost_Utils
 	 */
 	public static function instance() {
-		static $instance;
-
-		if ( ! $instance ) {
-			$instance = new self;
-		}
-
-		return $instance;
+		_deprecated_function( 'Tribe__Events__Cost_Utils::instance()', '4.5', "tribe( 'tec.cost-utils' )" );
+		return tribe( 'tec.cost-utils' );
 	}
 
 	/**

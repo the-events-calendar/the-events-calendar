@@ -376,6 +376,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function bind_implementations(  ) {
+			// Utils
+			tribe_singleton( 'tec.cost-utils', 'Tribe__Events__Cost_Utils' );
+
 			// Front page events archive support
 			tribe_singleton( 'tec.front-page-view', 'Tribe__Events__Front_Page_View' );
 			tribe_singleton( 'tec.admin.front-page-view', 'Tribe__Events__Admin__Front_Page_View' );

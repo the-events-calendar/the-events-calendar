@@ -115,7 +115,7 @@ class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 			'$6',
 		);
 
-		$cost_utils = Tribe__Events__Cost_Utils::instance();
+		$cost_utils = tribe( 'tec.cost-utils' );
 		$range = $cost_utils->parse_cost_range( $costs );
 
 		$this->assertEquals( array(
