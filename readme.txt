@@ -317,10 +317,12 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.4.1] TBD =
 
+* Fix - iCal export for Single events working again [71916]
 * Tweak - Changes the Search label to prevent duplicate words (props @oheinrich) [72149]
 * Tweak - Add theme version to `tribe-event.css` (props @berler) [71973]
 * Fix - Resolve JavaScript error when jQuery was been de-registered [71369]
 * Fix - Prevent Third Party notes to be escaped, anchor link working again [71872]
+* Fix - Google Maps now are using HTTPS instead of HTTP (props @cliffordp)
 * Fix - Prevent Fatals on Event Aggegrator Cron, due to Activity logging failure [71904]
 * Fix - Elminate some cases of problem with Facebook manual import on Event Aggregator [69137]
 * Fix - WPML integration smaller incompatibilities [70520, 70522]
