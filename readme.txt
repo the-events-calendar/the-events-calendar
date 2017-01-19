@@ -317,7 +317,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.4.1] TBD =
 
-* Tweak - Add theme version to `tribe-event.css` [71973]
+* Tweak - Add theme version to `tribe-event.css` (props @berler) [71973]
 * Fix - Resolve JavaScript error when jQuery was been de-registered [71369]
 * Fix - Prevent Fatals on Event Aggegrator Cron, due to Activity logging failure [71904]
 * Fix - Elminate some cases of problem with Facebook manual import on Event Aggregator [69137]
