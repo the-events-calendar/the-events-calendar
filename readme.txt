@@ -317,6 +317,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.4.1] TBD =
 
+* Fix - Resolve the Fatals related to undefined methods and Memory exhaustion [71958, 71912]
 * Fix - iCal export for Single events working again [71916]
 * Tweak - Changes the Search label to prevent duplicate words (props @oheinrich) [72149]
 * Tweak - Add theme version to `tribe-event.css` (props @berler) [71973]
