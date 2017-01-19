@@ -318,6 +318,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.4.1] TBD =
 
 * Fix - Resolve JavaScript error when jQuery was been de-registered [71369]
+* Fix - Prevent Fatals when Importing Images on Event Aggregator [70576]
 * Fix - WPML integration smaller incompatibilities [70520, 70522]
 
 = [4.4.0.1] 2017-01-09 =
