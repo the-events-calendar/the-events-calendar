@@ -2,13 +2,8 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
-class Tribe__Events__Aggregator__Tabs {
+class Tribe__Events__Aggregator__Tabs extends Tribe__Tabbed_View  {
 
-	/**
-	 * A list of all the tabs
-	 * @var array
-	 */
-	private $items = array();
 
 	/**
 	 * Static Singleton Holder
@@ -39,7 +34,9 @@ class Tribe__Events__Aggregator__Tabs {
 
 		// Configure the Base Tabs
 		$this->register( 'Tribe__Events__Aggregator__Tabs__New' );
-		$this->register( 'Tribe__Events__Aggregator__Tabs__Scheduled' );
+		if ( false == tribe_get_option( 'tribe_aggregator_disable', false ) ) {
+			$this->register( 'Tribe__Events__Aggregator__Tabs__Scheduled' );
+		}
 		$this->register( 'Tribe__Events__Aggregator__Tabs__History' );
 
 		if ( ! empty( $_GET['id'] ) || Tribe__Main::instance()->doing_ajax() ) {
@@ -62,24 +59,6 @@ class Tribe__Events__Aggregator__Tabs {
 
 		$tab = $this->get_active();
 		return $tab->get_label() . ' &ndash; ' . $admin_title;
-	}
-
-	/**
-	 * Fetches the current active tab
-	 *
-	 * @return object An instance of the Class used to create the Tab
-	 */
-	public function get_active() {
-		/**
-		 * Allow Developers to change the default tab
-		 * @param string $slug
-		 */
-		$default = apply_filters( 'tribe_aggregator_default_tab', 'new' );
-
-		$tab = ! empty( $_GET['tab'] ) && $this->exists( $_GET['tab'] ) ? $_GET['tab'] : $default;
-
-		// Return the active tab or the default one
-		return $this->get( $tab );
 	}
 
 	/**
@@ -118,16 +97,7 @@ class Tribe__Events__Aggregator__Tabs {
 			return false;
 		}
 
-		/**
-		 * Allow Developers to change the default tab
-		 * @param string $slug
-		 */
-		$default = apply_filters( 'tribe_aggregator_default_tab', 'new' );
-
-		if ( is_null( $slug ) ) {
-			// Set the slug
-			$slug = ! empty( $_GET['tab'] ) && $this->exists( $_GET['tab'] ) ? $_GET['tab'] : $default;
-		}
+		$slug = $this->get_requested_slug( $slug );
 
 		// Fetch the Active Tab
 		$tab = $this->get_active();
@@ -137,72 +107,28 @@ class Tribe__Events__Aggregator__Tabs {
 	}
 
 	/**
-	 * Removes a tab from the queue items
-	 *
-	 * @param  string  $slug The Slug of the Tab
-	 *
-	 * @return boolean
+	 * @return mixed|void
 	 */
-	public function remove( $slug ) {
-		if ( ! $this->exists( $slug ) ) {
-			return false;
-		}
+	public function get_default_tab() {
+		/**
+		 * Allow Developers to change the default tab
+		 *
+		 * @param string $slug
+		 */
+		$default = apply_filters( 'tribe_aggregator_default_tab', 'new' );
 
-		unset( $this->items[ $slug ] );
-		return true;
+		return $default;
 	}
 
 	/**
-	 * Fetches the Instance of the Tab or all the tabs
+	 * Returns the main admin settings URL.
 	 *
-	 * @param  string  $slug (optional) The Slug of the Tab
+	 * @param array|string $args     Query String or Array with the arguments
+	 * @param boolean      $relative Return a relative URL or absolute
 	 *
-	 * @return null|array|object        If we couldn't find the tab it will be null, if the slug is null will return all tabs
+	 * @return string
 	 */
-	public function get( $slug = null ) {
-		// Sort Tabs by priority
-		uasort( $this->items, array( $this, '_sort_by_priority' ) );
-
-		if ( is_null( $slug ) ) {
-			return $this->items;
-		}
-
-		// Prevent weird stuff here
-		$slug = sanitize_title_with_dashes( $slug );
-
-		if ( ! empty( $this->items[ $slug ] ) ) {
-			return $this->items[ $slug ];
-		}
-
-		return null;
-	}
-
-	/**
-	 * Checks if a given Tab (slug) exits
-	 *
-	 * @param  string  $slug The Slug of the Tab
-	 *
-	 * @return boolean
-	 */
-	public function exists( $slug ) {
-		return is_object( $this->get( $slug ) ) ? true : false;
-	}
-
-	/**
-	 * A method to sort tabs by priority
-	 *
-	 * @access private
-	 *
-	 * @param  object  $a First tab to compare
-	 * @param  object  $b Second tab to compare
-	 *
-	 * @return int
-	 */
-	public function _sort_by_priority( $a, $b ) {
-		if ( $a->priority == $b->priority ) {
-			return 0;
-		}
-
-		return ( $a->priority < $b->priority ) ? -1 : 1;
+	public function get_url( $args, $relative ) {
+		return Tribe__Events__Aggregator__Page::instance()->get_url( $args, $relative );
 	}
 }

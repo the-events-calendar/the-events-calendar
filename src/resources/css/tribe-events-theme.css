@@ -153,8 +153,15 @@ h2.tribe-events-page-title,
 
 .tribe-events-list .type-tribe_events {
 	border-bottom: 0;
-	padding: 1.75em 0;
+	margin-bottom: 32px;
+	margin-bottom: 2rem;
+	padding: 0;
 	position: relative;
+}
+
+.tribe-events-list .type-tribe_events:first-of-type {
+	margin-top: 32px;
+	margin-top: 2rem;
 }
 
 .tribe-events-list .type-tribe_events h2 {
@@ -387,7 +394,7 @@ h2.tribe-events-page-title,
 	border: 0;
 	background-color: #fff;
 	color: #606060;
-	padding: .75em 1em 1.15em;
+	padding: .75em 1em 0;
 	box-shadow: 3px 4px 21px rgba(0, 0, 0, .38);
 }
 
@@ -446,7 +453,7 @@ h2.tribe-events-page-title,
 	padding: .4em 0 .5em;
 }
 
-.tribe-events-tooltip .tribe-events-event-thumb {
+.tribe-events-tooltip:not(.tribe-event-featured) .tribe-events-event-thumb {
 	padding: .85em 1em 0 0;
 }
 
@@ -478,10 +485,8 @@ h2.tribe-events-page-title,
 
 .tribe-shortcode-align-center {
 	display: table;
-
-	/* This !important was used to insure that this Class works everywhere */
-	margin-left: auto!important;
-	margin-right: auto!important;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .tribe-shortcode.tribe-events-event-meta.tribe-shortcode-align-right {

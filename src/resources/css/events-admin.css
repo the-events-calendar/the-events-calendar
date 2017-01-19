@@ -40,6 +40,11 @@
 	padding: 0 6px 10px 0;
 	vertical-align: middle;
 }
+/* Add extra separation between form inputs when left aligned */
+.eventForm td input.alignleft, .eventForm td select.alignleft {
+	margin-right: 4.8px;
+	margin-right: 0.3rem;
+}
 .eventForm #event-meta td {
 	vertical-align: top;
 }
@@ -48,11 +53,6 @@
 }
 .eventForm #event-meta td div:last-child {
 	margin-bottom: 20px;
-}
-.eventForm select,
-	.eventForm input,
-	.eventForm textarea {
-	font-size: 11px;
 }
 .eventForm textarea {
 	width: 100%;
@@ -65,10 +65,71 @@
 	margin-top: 0;
 }
 .eventForm .tribe_sectionheader {
-	padding-bottom: 5px !important;
+	padding-bottom: 5px;
 }
 .eventForm p {
-	margin: 0 0 10px 0!important;
+	margin: 0 0 10px 0;
+}
+.eventForm input[type="text"] {
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	line-height: 20px;
+	margin-left: 0;
+}
+.eventForm .event-dynamic-helper-text {
+	color: #999;
+	font-style: italic;
+	padding: 0;
+}
+.eventForm .tribe-datetime-block .tribe-allday {
+	margin: 10px 0 0;
+}
+.eventForm .tribe-datetime-block .tribe-field-start_date,
+		.eventForm .tribe-datetime-block .tribe-field-start_time,
+		.eventForm .tribe-datetime-block .tribe-field-end_date,
+		.eventForm .tribe-datetime-block .tribe-field-end_time {
+	height: 28px;
+}
+.eventForm .tribe-datetime-block .tribe-field-start_date,
+		.eventForm .tribe-datetime-block .tribe-field-end_date {
+	width: 100px;
+}
+.eventForm .tribe-datetime-block .tribe-field-start_time,
+		.eventForm .tribe-datetime-block .tribe-field-end_time {
+	width: 80px;
+}
+.eventForm .tribe-datetime-block .tribe-field-timezone {
+	width: 100px;
+	margin-top: -2px;
+	display: none;
+}
+.eventForm .tribe-datetime-block .tribe-field-timezone.select2-container {
+	display: inline-block;
+	margin-top: -4px;
+}
+.eventForm .tribe-datetime-block .tribe-change-timezone {
+	white-space: nowrap;
+}
+.eventForm .tribe-datetime-label {
+	vertical-align: top;
+	padding-top: 5px;
+}
+/* Apply a grey highlight to 'today' */
+.ui-datepicker-calendar .ui-datepicker-today a {
+	background: -webkit-linear-gradient(96deg, #ccc 0%, #eee 100%);
+	background: linear-gradient(354deg, #ccc 0%, #eee 100%);
+	color: black;
+}
+/* If today is also the current selected day, prefer the default blue highlight */
+.ui-datepicker-calendar .ui-datepicker-today.ui-datepicker-current-day a {
+	background: -webkit-linear-gradient( 96deg, rgba(10, 85, 160, 1.00) 0%, rgba(18, 136, 235, 1.00) 100% );
+	background: linear-gradient( 354deg, rgba(10, 85, 160, 1.00) 0%, rgba(18, 136, 235, 1.00) 100% );
+	color: #fff;
+}
+.ui-datepicker select.ui-datepicker-month {
+	width: 128px;
+	width: 8rem;
 }
 .tribe-community-event-info {
 	width: 100%;
@@ -134,16 +195,19 @@
 	padding-right: .5em;
 	cursor: move;
 }
-.delete-linked-post-group {
+.tribe-delete-this {
 	float: right;
 	color: #444;
 }
-.delete-linked-post-group:hover {
+.tribe-delete-this:hover,
+	.tribe-delete-this.hover-state {
 	color: #a00;
 }
-.tribe_community_edit .edit-linked-post-link,
-	.tribe_community_edit .edit-linked-post-link {
-	display: none !important;
+.tribe-delete-this.tribe-confirm-delete-this {
+	display : none;
+}
+.tribe_community_edit .edit-linked-post-link a {
+	display: none;
 }
 .tribe-linked-post-error.error {
 	display: inline;
@@ -167,7 +231,7 @@
 	-moz-border-radius-topleft: 0;
 	-webkit-border-top-right-radius: 0;
 	-moz-border-radius-topright: 0;
-	 -khtml-border-radius: 3px;
+	-khtml-border-radius: 3px;
 	background: url(../images/bg_fade.png) repeat-x top left;
 	background-color: #fff;
 }
@@ -323,4 +387,7 @@ table.eventForm {
 }
 .event-aggregator-status td.indicator.warning {
 	color: #f3ae46;
+}
+#event_tribe_organizer .saved-linked-post .saved-organizer-table-cell {
+	width: 170px;
 }
