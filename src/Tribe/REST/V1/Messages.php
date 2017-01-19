@@ -6,7 +6,7 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 	/**
 	 * @var string
 	 */
-	protected $message_prefix = 'rest-v1::';
+	protected $message_prefix = 'rest-v1:';
 
 	public function __construct() {
 		$this->messages = array(
