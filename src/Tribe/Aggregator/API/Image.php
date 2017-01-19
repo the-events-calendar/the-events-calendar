@@ -71,12 +71,19 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		$headers = wp_remote_retrieve_headers( $response );
 		$body = wp_remote_retrieve_body( $response );
 
+		$is_invalid_image = count( array_intersect( array( 'content-type', 'content-disposition' ), array_keys( $headers ) ) ) === 0;
+
+		// Baild if we don't have Content type or Disposition
+		if ( $is_invalid_image ) {
+			return new WP_Error( 'invalid-file-headers', $body );
+		}
+
 		// if the response isn't an image then we need to bail
 		if ( ! preg_match( '/image/', $headers['content-type'] ) ) {
 			/**
 			 * @todo  See a way for Tribe__Errors to handle overwriting
 			 */
-			return new WP_Error( 'invalid-image', $$body );
+			return new WP_Error( 'invalid-image', $body );
 		}
 
 		// Fetch the Extension (it's safe because it comes from our service)
