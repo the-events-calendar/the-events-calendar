@@ -510,6 +510,7 @@ class Tribe__Events__Aggregator__Service {
 			'success:get-origin' => __( 'Successfully loaded import origins', 'the-events-calendar' ),
 			'success:import-complete' => __( 'Import is complete', 'the-events-calendar' ),
 			'success:queued' => __( 'Import queued', 'the-events-calendar' ),
+			'error:invalid-other-url' => __( 'The URL provided could not be reached.', 'the-events-calendar' ),
 		);
 
 		/**
