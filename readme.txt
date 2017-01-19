@@ -317,6 +317,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.4.1] TBD =
 
+* Fix - iCal export for Single events working again [71916]
 * Fix - Resolve JavaScript error when jQuery was been de-registered [71369]
 * Fix - WPML integration smaller incompatibilities [70520, 70522]
 
