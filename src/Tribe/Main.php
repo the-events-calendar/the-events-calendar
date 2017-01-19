@@ -2610,7 +2610,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param int|null $post_id
 		 *
-		 * @return string a fully qualified link to http://maps.google.com/ for this event
+		 * @return string a fully qualified link to https://maps.google.com/ for this event
 		 */
 		public function googleMapLink( $post_id = null ) {
 			if ( $post_id === null || ! is_numeric( $post_id ) ) {
@@ -2630,7 +2630,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( $to_encode ) {
-				$url = 'http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=' . urlencode( trim( $to_encode ) );
+				$url = 'https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=' . urlencode( trim( $to_encode ) );
 			}
 
 			return apply_filters( 'tribe_events_google_map_link', $url, $post_id );
@@ -4094,7 +4094,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$filters['tribe-bar-search'] = array(
 					'name'    => 'tribe-bar-search',
 					'caption' => esc_html__( 'Search', 'the-events-calendar' ),
-					'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr__( 'Search', 'the-events-calendar' ) . '">',
+					'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr__( 'Keyword', 'the-events-calendar' ) . '">',
 				);
 			}
 
