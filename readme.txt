@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.7
-Stable tag: 4.4dev4
+Stable tag: 4.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -315,15 +315,40 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.4] TBD =
+= [4.4.1] TBD =
+
+* Fix - Resolve the Fatals related to undefined methods and Memory exhaustion [71958, 71912]
+* Fix - iCal export for Single events working again [71916]
+* Tweak - Changes the Search label to prevent duplicate words (props @oheinrich) [72149]
+* Tweak - Add theme version to `tribe-event.css` (props @berler) [71973]
+* Fix - Resolve JavaScript error when jQuery was been de-registered [71369]
+* Fix - Prevent Third Party notes to be escaped, anchor link working again [71872]
+* Fix - Google Maps now are using HTTPS instead of HTTP (props @cliffordp)
+* Fix - Prevent Fatals on Event Aggegrator Cron, due to Activity logging failure [71904]
+* Fix - Elminate some cases of problem with Facebook manual import on Event Aggregator [69137]
+* Fix - WPML integration smaller incompatibilities [70520, 70522]
+
+= [4.4.0.1] 2017-01-09 =
+
+* Fix - Adds safety check to ensure a smooth activation process when earlier versions of Tribe Common are active
+
+= [4.4] 2017-01-09 =
 
 * Feature - Add dynamic helper text to single event editor to display the events date and time [66484]
 * Feature - Add support for featured events [65898]
 * Feature - Add support for placing the main events archive on the site homepage [38757]
-* Tweak - Adjusted styles and added actions for featured events in the List Widget [65923]
-* Tweak - Organizers and Venues are now with a better and cleaner interface [68430]
+* Feature - Add support for the theme customizer [67489]
+* Feature - Make it possible to adjust map pins via the theme customizer [65889]
+* Feature - Support for Event Aggregator in a multisite network context added [61427]
 * Fix - Add a link to The Events Calendar Help page in the Network Administration screen of multisite installations [68665]
 * Fix - Multisite license editing and displaying consistency [68662]
+* Tweak - Adjusted styles and added actions for featured events in the List Widget [65923]
+* Tweak - Organizers and Venues are now with a better and cleaner interface [68430]
+* Tweak - Eliminate duplicate meta data for organizer posts [25084]
+* Tweak - Improved the start/end date user interface [66486, 66487, 66550]
+* Tweak - iCal export now includes all events - up to a reasonable limit - rather than just those in the current view [65037]
+* Tweak - Adjustments made to the default week view colour scheme [69756]
+* Tweak - Add AJAX and improve consistency of the venue and organizer UI [38129]
 
 = [4.3.5] 2016-12-20 =
 
