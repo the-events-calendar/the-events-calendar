@@ -18,8 +18,11 @@ class Events_TestCaseTest extends Events_TestCase {
 		parent::tearDown();
 	}
 
-	// tests
-	public function testMe() {
+	/**
+	 * @test
+	 * it should allow scaffolding events repeating on a day at the same time
+	 */
+	public function it_should_allow_scaffolding_events_repeating_on_a_day_at_the_same_time() {
+		$this->markTestIncomplete();
 	}
-
 }
