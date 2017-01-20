@@ -34,11 +34,3 @@ tests/unit.suite.yml
 
 # Tests - local output files
 tests/_output
-
-# Tests - local bootstrap files
-tests/_bootstrap.php
-tests/acceptance/_bootstrap.php
-tests/functional/_bootstrap.php
-tests/unit/_bootstrap.php
-
-tests/_output/*
