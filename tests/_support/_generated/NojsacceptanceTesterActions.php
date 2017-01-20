@@ -4960,6 +4960,7 @@ trait NojsacceptanceTesterActions
 	 *                         in seconds if required.
 	 *                         `utc_offset` - by default events will happen on UTC time; set this to a different hour
 	 *                         offset if required.
+	 *                         `venue` - shortcut to add an `_EventVenueID` to the event meta, must be a venue post ID.
 	 *
 	 * @return int The generated event post ID
      * @see \Helper\TribeDb::haveEventInDatabase()
