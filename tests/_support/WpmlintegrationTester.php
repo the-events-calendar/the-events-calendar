@@ -16,9 +16,9 @@
  *
  * @SuppressWarnings(PHPMD)
 */
-class FunctionalTester extends \Codeception\Actor
+class WpmlintegrationTester extends \Codeception\Actor
 {
-    use _generated\FunctionalTesterActions;
+    use _generated\WpmlintegrationTesterActions;
 
    /**
     * Define custom actions here
