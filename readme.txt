@@ -322,6 +322,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Changes the Search label to prevent duplicate words (props @oheinrich) [72149]
 * Tweak - Add theme version to `tribe-event.css` (props @berler) [71973]
 * Fix - Resolve JavaScript error when jQuery was been de-registered [71369]
+* Fix - Prevent Fatals when Importing Images on Event Aggregator [70576]
 * Fix - Prevent Third Party notes to be escaped, anchor link working again [71872]
 * Fix - Google Maps now are using HTTPS instead of HTTP (props @cliffordp)
 * Fix - Prevent Fatals on Event Aggegrator Cron, due to Activity logging failure [71904]
