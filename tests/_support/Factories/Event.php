@@ -33,7 +33,12 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 		// by default an event will be on UTC time
 		$utc_offset = isset( $args['utc_offset'] ) ? $args['utc_offset'] : 0;
 
-		$start_time = strtotime( $when );
+		if ( is_numeric( $when ) ) {
+			$start_time = $when;
+		} else {
+			$start_time = strtotime( $when );
+		}
+
 		$end_time = strtotime( $when ) + $duration;
 
 		$start = date( 'Y-m-d H:i:s', $start_time );
