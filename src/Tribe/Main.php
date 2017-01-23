@@ -2250,6 +2250,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$qvars[] = 'end_date';
 			$qvars[] = 'featured';
 			$qvars[] = self::TAXONOMY;
+			$qvars[] = 'tribe_remove_date_filters';
 
 			return $qvars;
 		}
