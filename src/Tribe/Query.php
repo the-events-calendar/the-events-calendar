@@ -413,8 +413,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 			// otherwise, let's remove the date filters if we're in the admin dashboard and the query is
 			// and event query on the tribe_events edit page
-			return
-			(
+			return (
 				is_admin()
 				&& $query->tribe_is_event_query
 				&& Tribe__Admin__Helpers::instance()->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE )
