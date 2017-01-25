@@ -315,7 +315,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.4.1] TBD =
+= [4.4.1] 2017-01-25 =
 
 * Fix - Resolve the Fatals related to undefined methods and Memory exhaustion [71958, 71912]
 * Fix - iCal export for Single events working again [71916]
