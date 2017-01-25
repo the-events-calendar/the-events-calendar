@@ -131,7 +131,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 	}
 
 	public function activity() {
-		if ( ! $this->activity ) {
+		if ( empty( $this->activity ) ) {
 			if (
 				empty( $this->record->meta[ self::$activity_key ] )
 				|| ! $this->record->meta[ self::$activity_key ] instanceof Tribe__Events__Aggregator__Record__Activity
