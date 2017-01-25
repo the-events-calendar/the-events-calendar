@@ -5,7 +5,7 @@ $week_days = array();
 for ( $i = 1; $i <= 7; $i++ ) {
 	$week_days[] = array(
 		'id' => $i,
-		'text' => (string) date_i18n( 'l', strtotime( '01-01-2017 +' . $i . " day" ) ),
+		'text' => (string) date_i18n( 'l', strtotime( '31-12-2016 +' . $i . " day" ) ),
 	);
 }
 $month_days = array();
@@ -45,7 +45,7 @@ for ( $i = 1; $i <= 31; $i++ ) {
 				data-hide-search
 				data-prevent-clear
 				data-options="<?php echo esc_attr( json_encode( $week_days ) ); ?>"
-				value="<?php echo esc_attr( empty( $record->meta['day'] ) ? 1 : $record->meta['day'] ); ?>"
+				value="<?php echo esc_attr( empty( $record->meta['day'] ) ? date( 'w', strtotime( $record->post->post_modified ) ) + 1 : $record->meta['day'] ); ?>"
 			>
 			<strong class="tribe-ea-field-readonly"><?php echo esc_html__( 'at approximately', 'the-events-calendar' ) ?></strong>
 		</span>
@@ -63,7 +63,7 @@ for ( $i = 1; $i <= 31; $i++ ) {
 				data-hide-search
 				data-prevent-clear
 				data-options="<?php echo esc_attr( json_encode( $month_days ) ); ?>"
-				value="<?php echo esc_attr( empty( $record->meta['day'] ) ? 1 : $record->meta['day'] ); ?>"
+				value="<?php echo esc_attr( empty( $record->meta['day'] ) ? date( 'j', strtotime( $record->post->post_modified ) ) : $record->meta['day'] ); ?>"
 			>
 			<strong class="tribe-ea-field-readonly"><?php echo esc_html__( 'at approximately', 'the-events-calendar' ) ?></strong>
 		</span>
