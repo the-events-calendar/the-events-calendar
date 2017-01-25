@@ -1,7 +1,7 @@
 <?php
 
 class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
-	implements Tribe__REST__Endpoints__Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface {
+	implements Tribe__REST__Endpoints__Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface, Tribe__Documentation__Swagger__Builder_Interface {
 
 	/**
 	 * @var string
