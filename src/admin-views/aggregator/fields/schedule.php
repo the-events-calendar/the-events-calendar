@@ -74,7 +74,7 @@ for ( $i = 1; $i <= 31; $i++ ) {
 			name="aggregator[<?php echo esc_attr( $origin ) ?>][schedule_time]"
 			id="tribe-ea-field-<?php echo esc_attr( $origin ) ?>_schedule_time"
 			<?php echo Tribe__View_Helpers::is_24hr_format() ? 'data-format="H:i"' : '' ?>"
-			value="<?php echo esc_attr( empty( $record->meta['time'] ) ? '03:00:00' : $record->meta['time'] ); ?>"
+			value="<?php echo esc_attr( empty( $record->meta['time'] ) ? Tribe__Date_Utils::time_only( strtotime( $record->post->post_modified ) ) : $record->meta['time'] ); ?>"
 		/>
 		<span class="helper-text hide-if-js"><?php esc_html_e( 'HH:MM', 'the-events-calendar' ) ?></span>
 	</td>
