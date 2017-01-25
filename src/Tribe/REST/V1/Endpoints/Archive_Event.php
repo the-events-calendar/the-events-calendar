@@ -3,7 +3,7 @@
 
 class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	extends Tribe__Events__REST__V1__Endpoints__Base
-	implements Tribe__REST__Endpoints__Endpoint_Interface {
+	implements Tribe__REST__Endpoints__Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface {
 
 	/**
 	 * @var Tribe__Events__REST__Interfaces__Post_Repository
@@ -112,7 +112,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$page = $page ? $page : 1;
 
-		if ( empty( $events ) && 1 !== $page ) {
+		if ( empty( $events ) ) {
 			$message = $this->messages->get_message( 'event-archive-page-not-found' );
 
 			return new WP_Error( 'event-archive-page-not-found', $message, array( 'status' => 404 ) );
@@ -132,7 +132,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$data['events'][] = $this->repository->get_event_data( $event_id );
 		}
 
-		$data['total'] = $total = $this->get_total( $args );
+		$data['total']       = $total = $this->get_total( $args );
 		$data['total_pages'] = $this->get_total_pages( $total, $per_page );
 
 		/**
@@ -239,8 +239,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		$url = tribe_events_rest_url( 'events/' );
 
 		$flipped = array_flip( $this->supported_query_vars );
-		$values = array_intersect_key( $args, $flipped );
-		$keys = array_intersect_key( $flipped, $values );
+		$values  = array_intersect_key( $args, $flipped );
+		$keys    = array_intersect_key( $flipped, $values );
 
 		if ( ! empty( $args ) ) {
 			$url = add_query_arg( array_combine( array_values( $keys ), array_values( $values ) ), $url );
@@ -262,7 +262,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false
 		);
-		$next = tribe_get_events( array_merge( $args, $overrides ) );
+		$next      = tribe_get_events( array_merge( $args, $overrides ) );
 
 		return ! empty( $next );
 	}
@@ -284,7 +284,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false
 		);
-		$previous = tribe_get_events( array_merge( $args, $overrides ) );
+		$previous  = tribe_get_events( array_merge( $args, $overrides ) );
 
 		return 1 !== $page && ! empty( $previous );
 	}
@@ -350,9 +350,86 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @return int
 	 */
 	protected function get_total_pages( $total, $per_page = null ) {
-		$per_page = $per_page ? $per_page : get_option( 'posts_per_page' );
+		$per_page    = $per_page ? $per_page : get_option( 'posts_per_page' );
 		$total_pages = intval( ceil( $total / $per_page ) );
 
 		return $total_pages;
+	}
+
+	/**
+	 * Returns an array in the format used by Swagger 2.0.
+	 *
+	 * While the structure must conform to that used by v2.0 of Swagger the structure can be that of a full document
+	 * or that of a document part.
+	 * The intelligence lies in the "gatherer" of informations rather than in the single "providers" implementing this
+	 * interface.
+	 *
+	 * @link http://swagger.io/
+	 *
+	 * @return array An array description of a Swagger supported component.
+	 */
+	public function get_documentation() {
+		return array(
+			'get' => array(
+				'parameters' => array(
+					array(
+						'name'        => 'page',
+						'in'          => 'query',
+						'description' => __( 'The archive page to return', 'the-events-calendar' ),
+						'type'        => 'integer',
+						'required'    => false,
+						'default'     => 1,
+					),
+					array(
+						'name'        => 'per_page',
+						'in'          => 'query',
+						'description' => __( 'The number of events to return on each page', 'the-events-calendar' ),
+						'type'        => 'integer',
+						'required'    => false,
+						'default'     => get_option( 'posts_per_page' ),
+					),
+					array(
+						'name'        => 'start_date',
+						'in'          => 'query',
+						'description' => __( 'Events should start after the specified date', 'the-events-calendar' ),
+						'type'        => 'date',
+						'required'    => false,
+						'default'     => date( Tribe__Date_Utils::DBDATETIMEFORMAT, time() ),
+					),
+					array(
+						'name'        => 'end_date',
+						'in'          => 'query',
+						'description' => __( 'Events should start before the specified date', 'the-events-calendar' ),
+						'type'        => 'string',
+						'required'    => false,
+						'default'     => date( Tribe__Date_Utils::DBDATETIMEFORMAT, time() ),
+					),
+					array(
+						'name'        => 'search',
+						'in'          => 'query',
+						'description' => __( 'Events should contain the specified string in the title or description', 'the-events-calendar' ),
+						'type'        => 'string',
+						'required'    => false,
+						'default'     => '',
+					),
+				),
+				'responses'  => array(
+					'200' => array(
+						'description' => __( 'Returns all the upcoming events matching the search criteria', 'the-event-calendar' ),
+						'schema'      => array(
+							'title' => 'events',
+							'type'  => 'array',
+							'items' => array( '$ref' => '#/definitions/Event' ),
+						),
+					),
+					'400' => array(
+						'description' => __( 'One or more of the specified query variables has a bad format', 'the-events-calendar' ),
+					),
+					'404' => array(
+						'description' => __( 'No events match the query or the requested page was not found.', 'the-events-calendar' ),
+					),
+				),
+			),
+		);
 	}
 }

@@ -49,8 +49,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
-		$this->assertInstanceOf( \WP_REST_Response::class, $response );
-		$this->assertEquals( [], $response->get_data()['events'] );
+		$this->assertInstanceOf( \WP_Error::class, $response );
 	}
 
 	/**

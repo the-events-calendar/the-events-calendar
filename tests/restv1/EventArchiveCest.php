@@ -10,9 +10,7 @@ class EventArchiveCest extends BaseRestCest {
 	public function it_should_return_empty_array_if_there_are_no_events( Restv1Tester $I ) {
 		$I->sendGET( $this->events_url );
 
-		$I->seeResponseCodeIs( 200 );
-		$I->seeResponseIsJson();
-		$I->seeResponseContainsJson( [] );
+		$I->seeResponseCodeIs( 404 );
 	}
 
 	/**

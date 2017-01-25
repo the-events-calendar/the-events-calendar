@@ -19,6 +19,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 */
 	protected $url_prefix = '/events/v1';
 
+	/**
+	 * @var array
+	 */
+	protected $registered_endpoints = array();
 
 	/**
 	 * Binds the implementations needed to support the REST API.
@@ -83,38 +87,43 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * Hooks the additional Events Settings related to the REST API.
 	 */
 	protected function hook_settings() {
-		add_filter( 'tribe_addons_tab_fields', array( tribe( 'tec.rest-v1.settings' ), 'filter_tribe_addons_tab_fields' ) );
+		add_filter( 'tribe_addons_tab_fields', array(
+			tribe( 'tec.rest-v1.settings' ),
+			'filter_tribe_addons_tab_fields'
+		) );
 	}
 
 	/**
 	 * Registers the endpoints, and the handlers, supported by the REST API
 	 */
 	public function register_endpoints() {
+		$this->register_documentation_endpoint();
 		$this->register_event_archives_endpoint();
 		$this->register_single_event_endpoint();
-		$this->register_documentation_endpoint();
 	}
 
 	protected function register_event_archives_endpoint() {
-		$messages = tribe( 'tec.rest-v1.messages' );
+		$messages        = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Event( $messages, $post_repository );
+		$endpoint        = new Tribe__Events__REST__V1__Endpoints__Archive_Event( $messages, $post_repository );
 
 		tribe_singleton( 'tec.rest-v1.endpoints.archive-event', $endpoint );
 
 		register_rest_route( $this->get_events_route_namespace(), '/events', array(
-				'methods'  => 'GET',
-				'callback' => array( $endpoint, 'get' ),
-			) );
+			'methods'  => 'GET',
+			'callback' => array( $endpoint, 'get' ),
+		) );
+
+		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/events', $endpoint );
 	}
 
 	/**
 	 * Registers the endpoint that will handle requests for a single event.
 	 */
 	protected function register_single_event_endpoint() {
-		$messages = tribe( 'tec.rest-v1.messages' );
+		$messages        = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Event( $messages, $post_repository );
+		$endpoint        = new Tribe__Events__REST__V1__Endpoints__Single_Event( $messages, $post_repository );
 
 		tribe_singleton( 'tec.rest-v1.endpoints.single-event', $endpoint );
 
@@ -131,6 +140,8 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 				'callback' => array( $endpoint, 'get' ),
 			)
 		);
+
+		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/events/{id}', $endpoint );
 	}
 
 	/**
@@ -180,14 +191,18 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * Filters the messages returned by the Event Aggregator Service to add those specific to the REST API v1.
 	 *
 	 * @param array $messages
+	 *
 	 * @return array The original messages plus those specific to the REST API V1.
 	 */
 	public function filter_service_messages( array $messages = array() ) {
 		/** @var Tribe__REST__Messages_Interface $rest_messages */
-		$rest_messages  = tribe( 'tec.rest-v1.ea-messages' );
-		$messages_array = $rest_messages->get_messages();
-		$prefixed_rest_messages_keys = array_map( array( $rest_messages, 'prefix_message_slug' ), array_keys( $messages_array ) );
-		$messages = array_merge( $messages, array_combine( $prefixed_rest_messages_keys, array_values( $messages_array ) ) );
+		$rest_messages               = tribe( 'tec.rest-v1.ea-messages' );
+		$messages_array              = $rest_messages->get_messages();
+		$prefixed_rest_messages_keys = array_map( array(
+			$rest_messages,
+			'prefix_message_slug'
+		), array_keys( $messages_array ) );
+		$messages                    = array_merge( $messages, array_combine( $prefixed_rest_messages_keys, array_values( $messages_array ) ) );
 
 		return $messages;
 	}
@@ -208,7 +223,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	}
 
 	protected function register_documentation_endpoint() {
-		$endpoint = new Tribe__Events__REST__V1__Endpoints__Documentation(  );
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Swagger_Documentation( $this->get_semantic_version() );
 
 		tribe_singleton( 'tec.rest-v1.endpoints.documentation', $endpoint );
 
@@ -216,5 +231,11 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 			'methods'  => 'GET',
 			'callback' => array( $endpoint, 'get' ),
 		) );
+
+		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/doc', $endpoint );
+	}
+
+	protected function get_semantic_version() {
+		return '1.0.0';
 	}
 }
