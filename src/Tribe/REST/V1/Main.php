@@ -92,6 +92,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	public function register_endpoints() {
 		$this->register_event_archives_endpoint();
 		$this->register_single_event_endpoint();
+		$this->register_documentation_endpoint();
 	}
 
 	protected function register_event_archives_endpoint() {
@@ -204,5 +205,16 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$localized_data['l10n']['url'] = $rest_messages->get_messages();
 
 		return $localized_data;
+	}
+
+	protected function register_documentation_endpoint() {
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Documentation(  );
+
+		tribe_singleton( 'tec.rest-v1.endpoints.documentation', $endpoint );
+
+		register_rest_route( $this->get_events_route_namespace(), '/doc', array(
+			'methods'  => 'GET',
+			'callback' => array( $endpoint, 'get' ),
+		) );
 	}
 }

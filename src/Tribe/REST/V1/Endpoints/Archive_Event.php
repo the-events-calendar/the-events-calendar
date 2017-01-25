@@ -1,8 +1,9 @@
 <?php
 
 
-class Tribe__Events__REST__V1__Endpoints__Archive_Event extends Tribe__Events__REST__V1__Endpoints__Base implements
-	Tribe__REST__Endpoints__Endpoint_Interface {
+class Tribe__Events__REST__V1__Endpoints__Archive_Event
+	extends Tribe__Events__REST__V1__Endpoints__Base
+	implements Tribe__REST__Endpoints__Endpoint_Interface {
 
 	/**
 	 * @var Tribe__Events__REST__Interfaces__Post_Repository
