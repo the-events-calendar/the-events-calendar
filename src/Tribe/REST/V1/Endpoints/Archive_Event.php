@@ -242,7 +242,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		$values  = array_intersect_key( $args, $flipped );
 		$keys    = array_intersect_key( $flipped, $values );
 
-		if ( ! empty( $args ) ) {
+		if ( ! empty( $keys ) ) {
 			$url = add_query_arg( array_combine( array_values( $keys ), array_values( $values ) ), $url );
 		}
 
