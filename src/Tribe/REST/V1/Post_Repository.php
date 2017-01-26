@@ -355,7 +355,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			return array();
 		}
 
-		$data = [];
+		$data = array();
 		foreach ( $terms as $term ) {
 			$term_data = (array) $term;
 			$term_data['ID'] = $term_data['term_id'];
