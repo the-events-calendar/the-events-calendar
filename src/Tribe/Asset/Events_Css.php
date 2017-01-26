@@ -52,7 +52,7 @@ class Tribe__Events__Asset__Events_Css extends Tribe__Events__Asset__Abstract_As
 				if ( $user_stylesheet_url ) {
 					// wp_get_theme() is safe because it has cache
 					$theme = wp_get_theme();
-					wp_enqueue_style( $name, $user_stylesheet_url, array(), $current_theme->get( 'Version' ) );
+					wp_enqueue_style( $name, $user_stylesheet_url, array(), isset( $theme ) ? $theme->get( 'Version' ) : Tribe__Events__Main::VERSION );
 				}
 			} else {
 
