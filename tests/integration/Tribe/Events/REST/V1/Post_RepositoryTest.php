@@ -455,4 +455,37 @@ class Post_RepositoryTest extends Events_TestCase {
 	private function make_instance() {
 		return new Post_Repository( $this->messages );
 	}
+
+	public function cost_strings() {
+		return [
+			[ '25.55', 25.55 ],
+			[ '25,55', 25.55, ',' ],
+			[ '23', 23 ],
+		];
+	}
+
+	/**
+	 * @test
+	 * it should properly format cost values
+	 * @dataProvider cost_strings
+	 */
+	public function it_should_properly_format_cost_values( $cost_string, $expected_cost, $sep = '.' ) {
+		// need to be able to assign terms to use `meta_input`
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$event_id = $this->factory()->event->create( [
+			'meta_input' => [
+				'_EventCost'             => $cost_string,
+				'_EventCurrencySymbol'   => '$',
+				'_EventCurrencyPosition' => 'prefix'
+			]
+		] );
+		global $wp_locale;
+		$wp_locale->number_format['decimal_point'] = $sep;
+
+		$sut = $this->make_instance();
+		$data = $sut->get_event_data( $event_id );
+
+		$this->assertArrayHasKey( 'cost', $data );
+		$this->assertEquals( [ $expected_cost ], $data['cost_details']['values'] );
+	}
 }
