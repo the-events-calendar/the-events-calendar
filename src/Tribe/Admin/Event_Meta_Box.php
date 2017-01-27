@@ -42,6 +42,8 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	}
 
 	public function init_with_event( $event ) {
+		add_action( 'tribe_events_eventform_top', array( $this, 'date_time_section' ) );
+
 		$this->get_event( $event );
 		$this->setup_data();
 		$this->do_meta_box();
@@ -325,13 +327,64 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		$events_meta_box_template = $this->tribe->pluginPath . 'src/admin-views/events-meta-box.php';
 		$events_meta_box_template = apply_filters( 'tribe_events_meta_box_template', $events_meta_box_template );
 
-		extract( $this->vars );
-		$event = $this->event;
-		$tribe = $this->tribe;
+		$this->do_template_part( $events_meta_box_template );
+	}
 
-		// Exposes Class Instance to the included file
+	/**
+	 * Injects the date/time settings section into the events meta box.
+	 *
+	 * This normally only happens when the meta box renders when an actual event is being
+	 * edited (as opposed to other related post types).
+	 *
+	 * @param int $post_id
+	 */
+	public function date_time_section( $post_id ) {
+		$should_render = (
+			Tribe__Events__Main::POSTTYPE === get_post_type( $post_id )
+			|| Tribe__Events__Main::POSTTYPE === $GLOBALS['typenow']
+		);
+
+		/**
+		 * Controls whether the date time section is injected into the events meta box or not.
+		 *
+		 * @var bool $should_render
+		 * @var int  $event_id
+		 */
+		if ( ! apply_filters( 'tribe_events_event_meta_box_render_date_time_section', $should_render, $post_id ) ) {
+			return;
+		}
+
+		/**
+		 * Controls the path to the date time section template (a component of the events meta box).
+		 *
+		 * @var string $template_path
+		 */
+		$path = apply_filters(
+			'tribe_events_event_meta_box_date_time_section_template',
+			$this->tribe->pluginPath . 'src/admin-views/events-meta-box/date-time.php'
+		);
+
+		$this->do_template_part( $path );
+	}
+
+	/**
+	 * Used to render the meta box (or individual components within it).
+	 *
+	 * Takes care of making sure the expected range of variables are in scope for those template
+	 * parts.
+	 *
+	 * @param $template_path
+	 */
+	protected function do_template_part( $template_path ) {
+		if ( ! file_exists( $template_path ) ) {
+			return;
+		}
+
+		extract( $this->vars );
+		$event   = $this->event;
+		$tribe   = $this->tribe;
 		$metabox = $this;
 
-		include( $events_meta_box_template );
+		include $template_path;
 	}
 }
