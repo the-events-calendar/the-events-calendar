@@ -24,10 +24,9 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 		'timezone'          => 'EventTimezone',
 		'recurrence'        => 'recurrence',
 		'categories'        => 'categories',
-		'currency_symbol'   => '_EventCurrencySymbol',
-		'currency_position' => '_EventCurrencyPosition',
-		'cost'              => '_EventCost',
-
+		'currency_symbol'   => 'EventCurrencySymbol',
+		'currency_position' => 'EventCurrencyPosition',
+		'cost'              => 'EventCost',
 	);
 
 	public $organizer_field_map = array(
@@ -79,6 +78,8 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 		foreach ( $response->data->events as $event ) {
 			$events[] = $this->translate_json_to_event( $event );
 		}
+
+		return $events;
 	}
 
 	/**
