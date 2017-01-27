@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 </p>
 <p>
 	<input id="<?php echo esc_attr( $this->get_field_id( 'featured_events_only' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'featured_events_only' ) ); ?>" type="checkbox" <?php checked( $instance['featured_events_only'], 1 ); ?> value="1" />
-	<label for="<?php echo esc_attr( $this->get_field_id( 'featured_events_only' ) ); ?>"><?php echo esc_html_x( 'Limit to featured events only', 'events list widget setting', 'tribe-events-calendar-pro' ); ?></label>
+	<label for="<?php echo esc_attr( $this->get_field_id( 'featured_events_only' ) ); ?>"><?php echo esc_html_x( 'Limit to featured events only', 'events list widget setting', 'the-events-calendar' ); ?></label>
 </p>
 <p>
 	<?php $jsonld_enable = ( isset( $instance['jsonld_enable'] ) && $instance['jsonld_enable'] ) || false === $this->updated; ?>
