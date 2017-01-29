@@ -1895,11 +1895,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				// ecp placeholders
 				Tribe__Events__Template_Factory::asset_package( 'ecp-plugins' );
 
-				if ( $admin_helpers->is_post_type_screen( self::POSTTYPE ) ) {
+				/**
+				 * Controls whether the event editor script is enqueued within the current screen.
+				 *
+				 * @var bool $add_script
+				 */
+				if ( apply_filters( 'tribe_events_screen_add_event_editor_script', $admin_helpers->is_post_type_screen( self::POSTTYPE ) ) ) {
 					tribe_asset( $this, 'tribe-events-editor', 'event-editor.js', array( 'jquery' ), 'admin_enqueue_scripts' );
 
 					add_action( 'admin_footer', array( $this, 'printLocalizedAdmin' ) );
-					// hook for other plugins
+
+					/**
+					 * Fires after the event-editor.js script has been enqueued.
+					 */
 					do_action( 'tribe_events_enqueue' );
 				} elseif ( $admin_helpers->is_post_type_screen( self::VENUE_POST_TYPE ) ) {
 					// hook for other plugins
