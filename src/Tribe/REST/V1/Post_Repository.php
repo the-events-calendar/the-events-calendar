@@ -175,7 +175,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'zip'                    => isset( $meta['_VenueZip'] ) ? $meta['_VenueZip'] : '',
 			'phone'                  => isset( $meta['_VenuePhone'] ) ? $meta['_VenuePhone'] : '',
 			'website'                => isset( $meta['_VenueURL'] ) ? $meta['_VenueURL'] : '',
-			'state_province'         => isset( $meta['_VenueStateProvince'] ) ? $meta['_VenueStateProvince'] : '',
+			'stateprovince'         => isset( $meta['_VenueStateProvince'] ) ? $meta['_VenueStateProvince'] : '',
 		);
 
 		/**

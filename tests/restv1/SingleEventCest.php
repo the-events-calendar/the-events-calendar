@@ -232,7 +232,7 @@ class SingleEventCest extends BaseRestCest {
 				'zip'            => 'zip',
 				'phone'          => 'phone',
 				'website'        => 'url',
-				'state_province' => 'state_province',
+				'stateprovince' => 'state_province',
 			],
 		] );
 		$I->seeResponseContainsJson( [
