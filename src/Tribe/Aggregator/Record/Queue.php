@@ -131,7 +131,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 	}
 
 	public function activity() {
-		if ( ! $this->activity ) {
+		if ( empty( $this->activity ) ) {
 			if (
 				empty( $this->record->meta[ self::$activity_key ] )
 				|| ! $this->record->meta[ self::$activity_key ] instanceof Tribe__Events__Aggregator__Record__Activity
@@ -225,7 +225,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 	/**
 	 * Processes a batch for the queue
 	 *
-	 * @return self
+	 * @return self|Tribe__Events__Aggregator__Record__Activity
 	 */
 	public function process( $batch_size = null ) {
 		if ( $this->null_process ) {
