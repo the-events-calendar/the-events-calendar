@@ -313,7 +313,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$bar_events = $response->get_data()['events'];
 		$this->assertCount( 10, $bar_events );
 
-		$this->assertCount( 5, array_intersect( wp_list_pluck( $foo_events, 'ID' ), wp_list_pluck( $bar_events, 'ID' ) ) );
+		$this->assertCount( 5, array_intersect( wp_list_pluck( $foo_events, 'id' ), wp_list_pluck( $bar_events, 'id' ) ) );
 	}
 
 	/**
