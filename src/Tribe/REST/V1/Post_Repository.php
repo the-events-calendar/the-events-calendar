@@ -286,7 +286,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 * Filters the data that will be returned for an event categories.
 		 *
 		 * @param array $data The data that will be returned in the response.
-		 * @param WP_Post $event The requsted event.
+		 * @param WP_Post $event The requested event.
 		 */
 		$data = apply_filters( 'tribe_rest_event_categories_data', $data, get_post( $event_id ) );
 
