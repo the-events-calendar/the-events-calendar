@@ -1,8 +1,9 @@
 <?php
 
 
-class Tribe__Events__REST__V1__Endpoints__Single_Event extends Tribe__Events__REST__V1__Endpoints__Base implements
-	Tribe__REST__Endpoints__Endpoint_Interface {
+class Tribe__Events__REST__V1__Endpoints__Single_Event
+	extends Tribe__Events__REST__V1__Endpoints__Base
+	implements Tribe__REST__Endpoints__Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface {
 
 	/**
 	 * @var Tribe__REST__Main
@@ -65,5 +66,50 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event extends Tribe__Events__RE
 		$data = $this->post_repository->get_event_data( $id );
 
 		return is_wp_error( $data ) ? $data : new WP_REST_Response( $data );
+	}
+
+	/**
+	 * Returns an array in the format used by Swagger 2.0.
+	 *
+	 * While the structure must conform to that used by v2.0 of Swagger the structure can be that of a full document
+	 * or that of a document part.
+	 * The intelligence lies in the "gatherer" of informations rather than in the single "providers" implementing this
+	 * interface.
+	 *
+	 * @link http://swagger.io/
+	 *
+	 * @return array An array description of a Swagger supported component.
+	 */
+	public function get_documentation() {
+		return array(
+			'get' => array(
+				'parameters' => array(
+					array(
+						'name'        => 'id',
+						'in'          => 'path',
+						'description' => __( 'the event post ID', 'the-events-calendar' ),
+						'type'        => 'integer',
+						'required'    => true,
+					),
+				),
+				'responses'  => array(
+					'200' => array(
+						'description' => __( 'Returns the data of the event with the specified post ID', 'the-event-calendar' ),
+						'schema'      => array(
+							'$ref' => '#/definitions/Event',
+						),
+					),
+					'400' => array(
+						'description' => __( 'The event post ID is missing.', 'the-events-calendar' )
+					),
+					'403' => array(
+						'description' => __( 'The event with the specified ID is not accesible.', 'the-events-calendar' )
+					),
+					'404' => array(
+						'description' => __( 'An event with the specified event does not exist.', 'the-events-calendar' )
+					),
+				),
+			),
+		);
 	}
 }
