@@ -120,9 +120,6 @@ class Tribe__Events__Meta__Save {
 
 		Tribe__Events__API::saveEventMeta( $this->post_id, $_POST, $this->post );
 
-		// Add this hook back in
-		add_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, array( Tribe__Events__Main::instance(), 'addEventMeta' ), 15, 2 );
-
 		return true;
 	}
 
