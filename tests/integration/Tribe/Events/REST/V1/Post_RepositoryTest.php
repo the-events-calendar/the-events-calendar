@@ -90,7 +90,7 @@ class Post_RepositoryTest extends Events_TestCase {
 		$data = $sut->get_data( $event );
 
 		$this->assertInternalType( 'array', $data );
-		$this->assertEquals( $event, $data['ID'] );
+		$this->assertEquals( $event, $data['id'] );
 	}
 
 	/**
@@ -129,7 +129,7 @@ class Post_RepositoryTest extends Events_TestCase {
 		$data = $sut->get_venue_data( $event );
 
 		$this->assertInternalType( 'array', $data );
-		$this->assertEquals( $venue, $data['ID'] );
+		$this->assertEquals( $venue, $data['id'] );
 	}
 
 	/**
@@ -158,7 +158,7 @@ class Post_RepositoryTest extends Events_TestCase {
 		$data = $sut->get_venue_data( $venue );
 
 		$this->assertInternalType( 'array', $data );
-		$this->assertEquals( $venue, $data['ID'] );
+		$this->assertEquals( $venue, $data['id'] );
 	}
 
 	/**
@@ -196,7 +196,7 @@ class Post_RepositoryTest extends Events_TestCase {
 		$data = $sut->get_organizer_data( $organizer );
 
 		$this->assertInternalType( 'array', $data );
-		$this->assertEquals( $organizer, $data['ID'] );
+		$this->assertEquals( $organizer, $data['id'] );
 	}
 
 	/**
@@ -226,7 +226,7 @@ class Post_RepositoryTest extends Events_TestCase {
 		$data = $sut->get_organizer_data( $event );
 
 		$this->assertInternalType( 'array', $data );
-		$this->assertEquals( $organizer, $data[0]['ID'] );
+		$this->assertEquals( $organizer, $data[0]['id'] );
 	}
 
 	/**
@@ -240,7 +240,7 @@ class Post_RepositoryTest extends Events_TestCase {
 		$data = $sut->get_data( $event );
 
 		$this->assertInternalType( 'array', $data );
-		$this->assertEquals( $event, $data['ID'] );
+		$this->assertEquals( $event, $data['id'] );
 	}
 
 	/**
@@ -254,7 +254,7 @@ class Post_RepositoryTest extends Events_TestCase {
 		$data = $sut->get_data( $organizer );
 
 		$this->assertInternalType( 'array', $data );
-		$this->assertEquals( $organizer, $data['ID'] );
+		$this->assertEquals( $organizer, $data['id'] );
 	}
 
 	/**
@@ -268,7 +268,7 @@ class Post_RepositoryTest extends Events_TestCase {
 		$data = $sut->get_data( $venue );
 
 		$this->assertInternalType( 'array', $data );
-		$this->assertEquals( $venue, $data['ID'] );
+		$this->assertEquals( $venue, $data['id'] );
 	}
 
 	/**

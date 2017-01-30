@@ -141,13 +141,13 @@ class SingleEventCest extends BaseRestCest {
 
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
-		$I->seeResponseContainsJson( [ 'ID' => $id ] );
+		$I->seeResponseContainsJson( [ 'id' => $id ] );
 		$I->seeResponseContainsJson( [ 'author' => '12' ] );
 		$I->seeResponseContainsJson( [ 'date' => '2017-01-05 14:23:36' ] );
 		$I->seeResponseContainsJson( [ 'date_utc' => '2017-01-05 14:23:36' ] );
 		$I->seeResponseContainsJson( [ 'modified' => '2017-01-05 14:23:36' ] );
 		$I->seeResponseContainsJson( [ 'modified_utc' => '2017-01-05 14:23:36' ] );
-		$I->seeResponseContainsJson( [ 'link' => $this->site_url . 'event/event-01/' ] );
+		$I->seeResponseContainsJson( [ 'url' => $this->site_url . 'event/event-01/' ] );
 		$I->seeResponseContainsJson( [ 'rest_url' => $this->rest_url . 'events/' . $id ] );
 		$I->seeResponseContainsJson( [ 'title' => 'Event 01' ] );
 		$I->seeResponseContainsJson( [ 'description' => '<p>Event 01 description</p>' ] );
@@ -212,14 +212,14 @@ class SingleEventCest extends BaseRestCest {
 		$I->seeResponseContainsJson( [ 'show_map_link' => '1' ] );
 		$I->seeResponseContainsJson( [
 			'venue' => [
-				'ID'             => $venue_id,
+				'id'             => $venue_id,
 				'author'         => '12',
 				'date'           => '2017-01-05 14:23:36',
 				'date_utc'       => '2017-01-05 14:23:36',
 				'modified'       => '2017-01-05 14:23:36',
 				'modified_utc'   => '2017-01-05 14:23:36',
-				'link'           => 'http://tribe-pro.dev/venue/venue-01/',
-				'title'          => 'Venue 01',
+				'url'           => 'http://tribe-pro.dev/venue/venue-01/',
+				'venue'          => 'Venue 01',
 				'description'    => '<p>Venue 01 description</p>',
 				'excerpt'        => '<p>Venue 01 excerpt</p>',
 				'show_map'       => '1',
@@ -232,20 +232,20 @@ class SingleEventCest extends BaseRestCest {
 				'zip'            => 'zip',
 				'phone'          => 'phone',
 				'website'        => 'url',
-				'state_province' => 'state_province',
+				'stateprovince' => 'state_province',
 			],
 		] );
 		$I->seeResponseContainsJson( [
 			'organizer' => [
 				[
-					'ID'           => $organizer_id,
+					'id'           => $organizer_id,
 					'author'       => '12',
 					'date'         => '2017-01-05 14:23:36',
 					'date_utc'     => '2017-01-05 14:23:36',
 					'modified'     => '2017-01-05 14:23:36',
 					'modified_utc' => '2017-01-05 14:23:36',
-					'link'         => 'http://tribe-pro.dev/organizer/organizer-01/',
-					'title'        => 'Organizer 01',
+					'url'         => 'http://tribe-pro.dev/organizer/organizer-01/',
+					'organizer'        => 'Organizer 01',
 					'description'  => '<p>Organizer 01 description</p>',
 					'excerpt'      => '<p>Organizer 01 excerpt</p>',
 					'phone'        => 'phone',
@@ -257,48 +257,48 @@ class SingleEventCest extends BaseRestCest {
 		$I->seeResponseContainsJson( [
 			'tags' => [
 				[
-					'ID'          => $tag_1,
+					'id'          => $tag_1,
 					'name'        => 'tag-1',
 					'slug'        => 'tag-1',
 					'taxonomy'    => 'post_tag',
 					'description' => 'Tag 1 description',
 					'parent'      => 0,
 					'count'       => 1,
-					'link'        => $this->site_url . 'tag/tag-1/',
+					'url'        => $this->site_url . 'tag/tag-1/',
 				],
 				[
-					'ID' => $tag_2,
+					'id' => $tag_2,
 					'name'        => 'tag-2',
 					'slug'        => 'tag-2',
 					'taxonomy'    => 'post_tag',
 					'description' => 'Tag 2 description',
 					'parent'      => 0,
 					'count'       => 1,
-					'link'        => $this->site_url . 'tag/tag-2/',
+					'url'        => $this->site_url . 'tag/tag-2/',
 				],
 			]
 		] );
 		$I->seeResponseContainsJson( [
 			'categories' => [
 				[
-					'ID'          => $category_1,
+					'id'          => $category_1,
 					'name'        => 'category-1',
 					'slug'        => 'category-1',
 					'taxonomy'    => 'tribe_events_cat',
 					'description' => 'Category 1 description',
 					'parent'      => 0,
 					'count'       => 1,
-					'link'        => $this->site_url . 'events/category/category-1/',
+					'url'        => $this->site_url . 'events/category/category-1/',
 				],
 				[
-					'ID' => $category_2,
+					'id' => $category_2,
 					'name'        => 'category-2',
 					'slug'        => 'category-2',
 					'taxonomy'    => 'tribe_events_cat',
 					'description' => 'Category 2 description',
 					'parent'      => 0,
 					'count'       => 1,
-					'link'        => $this->site_url . 'events/category/category-2/',
+					'url'        => $this->site_url . 'events/category/category-2/',
 				],
 			]
 		] );

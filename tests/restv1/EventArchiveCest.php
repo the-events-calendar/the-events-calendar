@@ -288,7 +288,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->assertCount( 10, $bar_events );
 
 		$ƒ = function ( $event ) {
-			return $event->ID;
+			return $event->id;
 		};
 
 		$I->assertCount( 5, array_intersect( array_map( $ƒ, $foo_events ), array_map( $ƒ, $bar_events ) ) );

@@ -66,13 +66,13 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$organizer = $this->get_organizer_data( $event_id );
 
 		$data = array(
-			'ID'                     => $event_id,
+			'id'                     => $event_id,
 			'author'                 => $event->post_author,
 			'date'                   => $event->post_date,
 			'date_utc'               => $event->post_date_gmt,
 			'modified'               => $event->post_modified,
 			'modified_utc'           => $event->post_modified_gmt,
-			'link'                   => get_the_permalink( $event_id ),
+			'url'                   => get_the_permalink( $event_id ),
 			'rest_url'               => tribe_events_rest_url( 'events/' . $event_id ),
 			'title'                  => trim( apply_filters( 'the_title', $event->post_title ) ),
 			'description'            => trim( apply_filters( 'the_content', $event->post_content ) ),
@@ -153,14 +153,14 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$meta = array_map( 'reset', get_post_custom( $venue->ID ) );
 
 		$data = array(
-			'ID'                     => $venue->ID,
+			'id'                     => $venue->ID,
 			'author'                 => $venue->post_author,
 			'date'                   => $venue->post_date,
 			'date_utc'               => $venue->post_date_gmt,
 			'modified'               => $venue->post_modified,
 			'modified_utc'           => $venue->post_modified_gmt,
-			'link'                   => get_the_permalink( $venue->ID ),
-			'title'                  => trim( apply_filters( 'the_title', $venue->post_title ) ),
+			'url'                   => get_the_permalink( $venue->ID ),
+			'venue'                  => trim( apply_filters( 'the_title', $venue->post_title ) ),
 			'description'            => trim( apply_filters( 'the_content', $venue->post_content ) ),
 			'excerpt'                => trim( apply_filters( 'the_excerpt', $venue->post_excerpt ) ),
 			'featured_image'         => get_the_post_thumbnail_url( $venue->ID, 'full' ),
@@ -175,7 +175,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'zip'                    => isset( $meta['_VenueZip'] ) ? $meta['_VenueZip'] : '',
 			'phone'                  => isset( $meta['_VenuePhone'] ) ? $meta['_VenuePhone'] : '',
 			'website'                => isset( $meta['_VenueURL'] ) ? $meta['_VenueURL'] : '',
-			'state_province'         => isset( $meta['_VenueStateProvince'] ) ? $meta['_VenueStateProvince'] : '',
+			'stateprovince'         => isset( $meta['_VenueStateProvince'] ) ? $meta['_VenueStateProvince'] : '',
 		);
 
 		/**
@@ -236,14 +236,14 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			$meta = array_map( 'reset', get_post_custom( $organizer->ID ) );
 
 			$this_data = array(
-				'ID'                     => $organizer->ID,
+				'id'                     => $organizer->ID,
 				'author'                 => $organizer->post_author,
 				'date'                   => $organizer->post_date,
 				'date_utc'               => $organizer->post_date_gmt,
 				'modified'               => $organizer->post_modified,
 				'modified_utc'           => $organizer->post_modified_gmt,
-				'link'                   => get_the_permalink( $organizer->ID ),
-				'title'                  => trim( apply_filters( 'the_title', $organizer->post_title ) ),
+				'url'                    => get_the_permalink( $organizer->ID ),
+				'organizer'              => trim( apply_filters( 'the_title', $organizer->post_title ) ),
 				'description'            => trim( apply_filters( 'the_content', $organizer->post_content ) ),
 				'excerpt'                => trim( apply_filters( 'the_excerpt', $organizer->post_excerpt ) ),
 				'featured_image'         => get_the_post_thumbnail_url( $organizer->ID, 'full' ),
@@ -358,8 +358,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$data = array();
 		foreach ( $terms as $term ) {
 			$term_data = (array) $term;
-			$term_data['ID'] = $term_data['term_id'];
-			$term_data['link'] = get_term_link( $term, $taxonomy );
+			$term_data['id'] = $term_data['term_id'];
+			$term_data['url'] = get_term_link( $term, $taxonomy );
 			unset( $term_data['term_id'], $term_data['term_taxonomy_id'], $term_data['term_group'], $term_data['filter'] );
 
 			/**
