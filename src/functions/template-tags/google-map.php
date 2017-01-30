@@ -24,8 +24,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string A fully qualified link to http://maps.google.com/ for this event
 	 */
 	function tribe_get_map_link( $postId = null ) {
-		$tribe_ecp = Tribe__Events__Main::instance();
-		$output    = esc_url( $tribe_ecp->googleMapLink( $postId ) );
+		$tec = Tribe__Events__Main::instance();
+		$output    = esc_url( $tec->googleMapLink( $postId ) );
 
 		return apply_filters( 'tribe_get_map_link', $output );
 	}
