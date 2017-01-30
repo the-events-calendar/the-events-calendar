@@ -19,14 +19,14 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 		$documentation = array(
 			'type'       => 'object',
 			'properties' => array(
-				'ID'                     => array( 'type' => 'int', 'description' => __( 'The venue WordPress post ID', 'the-events-calendar' ) ),
+				'id'                     => array( 'type' => 'int', 'description' => __( 'The venue WordPress post ID', 'the-events-calendar' ) ),
 				'author'                 => array( 'type' => 'int', 'description' => __( 'The venue author WordPress post ID', 'the-events-calendar' ) ),
 				'date'                   => array( 'type' => 'string', 'description' => __( 'The venue creation date in the site timezone', 'the-events-calendar' ) ),
 				'date_utc'               => array( 'type' => 'string', 'description' => __( 'The venue creation date in UTC time', 'the-events-calendar' ) ),
 				'modified'               => array( 'type' => 'string', 'description' => __( 'The venue last modification date in the site timezone', 'the-events-calendar' ) ),
 				'modified_utc'           => array( 'type' => 'string', 'description' => __( 'The venue last modification date in UTC time', 'the-events-calendar' ) ),
-				'link'                   => array( 'type' => 'string', 'description' => __( 'The URL to the venue page', 'the-events-calendar' ) ),
-				'title'                  => array( 'type' => 'string', 'description' => __( 'The venue name', 'the-events-calendar' ) ),
+				'url'                    => array( 'type' => 'string', 'description' => __( 'The URL to the venue page', 'the-events-calendar' ) ),
+				'venue'                  => array( 'type' => 'string', 'description' => __( 'The venue name', 'the-events-calendar' ) ),
 				'description'            => array( 'type' => 'string', 'description' => __( 'The venue long description', 'the-events-calendar' ) ),
 				'excerpt'                => array( 'type' => 'string', 'description' => __( 'The venue short description', 'the-events-calendar' ) ),
 				'featured_image'         => array( 'type' => 'string', 'description' => __( 'The link to the full size venue image if any', 'the-events-calendar' ) ),
@@ -41,7 +41,7 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 				'zip'                    => array( 'type' => 'string', 'description' => __( 'The venue ZIP code', 'the-events-calendar' ) ),
 				'phone'                  => array( 'type' => 'string', 'description' => __( 'The venue phone number', 'the-events-calendar' ) ),
 				'website'                => array( 'type' => 'string', 'description' => __( 'The venue website URL', 'the-events-calendar' ) ),
-				'state_province'         => array( 'type' => 'string', 'description' => __( 'The venue state or province', 'the-events-calendar' ) ),
+				'stateprovince'          => array( 'type' => 'string', 'description' => __( 'The venue state or province', 'the-events-calendar' ) ),
 			),
 		);
 

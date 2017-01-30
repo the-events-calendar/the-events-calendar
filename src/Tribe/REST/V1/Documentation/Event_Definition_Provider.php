@@ -19,13 +19,13 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 		$documentation = array(
 			'type'       => 'object',
 			'properties' => array(
-				'ID'                     => array( 'type' => 'int', 'description' => __( 'The event WordPress post ID', 'the-events-calendar' ) ),
+				'id'                     => array( 'type' => 'int', 'description' => __( 'The event WordPress post ID', 'the-events-calendar' ) ),
 				'author'                 => array( 'type' => 'int', 'description' => __( 'The event author WordPress post ID', 'the-events-calendar' ) ),
 				'date'                   => array( 'type' => 'string', 'description' => __( 'The event creation date in the site timezone', 'the-events-calendar' ) ),
 				'date_utc'               => array( 'type' => 'string', 'description' => __( 'The event creation date in UTC time', 'the-events-calendar' ) ),
 				'modified'               => array( 'type' => 'string', 'description' => __( 'The event last modification date in the site timezone', 'the-events-calendar' ) ),
 				'modified_utc'           => array( 'type' => 'string', 'description' => __( 'The event last modification date in UTC time', 'the-events-calendar' ) ),
-				'link'                   => array( 'type' => 'string', 'description' => __( 'The URL to the event page', 'the-events-calendar' ) ),
+				'url'                    => array( 'type' => 'string', 'description' => __( 'The URL to the event page', 'the-events-calendar' ) ),
 				'rest_url'               => array( 'type' => 'string', 'description' => __( 'The TEC REST API link to fetc this event', 'the-events-calendar' ) ),
 				'title'                  => array( 'type' => 'string', 'description' => __( 'The event name', 'the-events-calendar' ) ),
 				'description'            => array( 'type' => 'string', 'description' => __( 'The event long description', 'the-events-calendar' ) ),
