@@ -45,7 +45,7 @@ for ( $i = 1; $i <= 31; $i++ ) {
 				data-hide-search
 				data-prevent-clear
 				data-options="<?php echo esc_attr( json_encode( $week_days ) ); ?>"
-				value="<?php echo esc_attr( empty( $record->meta['day'] ) ? date( 'w', strtotime( $record->post->post_modified ) ) + 1 : $record->meta['day'] ); ?>"
+				value="<?php echo esc_attr( empty( $record->meta['schedule_day'] ) || $record->meta['schedule_day'] > 7 ? date( 'w', strtotime( $record->post->post_modified ) ) + 1 : $record->meta['schedule_day'] ); ?>"
 			>
 			<strong class="tribe-ea-field-readonly"><?php echo esc_html__( 'at approximately', 'the-events-calendar' ) ?></strong>
 		</span>
@@ -53,7 +53,7 @@ for ( $i = 1; $i <= 31; $i++ ) {
 			data-depends="#tribe-ea-field-<?php echo esc_attr( $origin ) ?>_import_frequency"
 			data-condition="monthly"
 		>
-			<strong class="tribe-ea-field-readonly"><?php echo esc_html__( 'Import runs montly on', 'the-events-calendar' ) ?></strong>
+			<strong class="tribe-ea-field-readonly"><?php echo esc_html__( 'Import runs monthly on', 'the-events-calendar' ) ?></strong>
 			<input
 				type="hidden"
 				name="aggregator[<?php echo esc_attr( $origin ) ?>][schedule_day]"
@@ -63,7 +63,7 @@ for ( $i = 1; $i <= 31; $i++ ) {
 				data-hide-search
 				data-prevent-clear
 				data-options="<?php echo esc_attr( json_encode( $month_days ) ); ?>"
-				value="<?php echo esc_attr( empty( $record->meta['day'] ) ? date( 'j', strtotime( $record->post->post_modified ) ) : $record->meta['day'] ); ?>"
+				value="<?php echo esc_attr( empty( $record->meta['schedule_day'] ) ? date( 'j', strtotime( $record->post->post_modified ) ) : $record->meta['schedule_day'] ); ?>"
 			>
 			<strong class="tribe-ea-field-readonly"><?php echo esc_html__( 'at approximately', 'the-events-calendar' ) ?></strong>
 		</span>
@@ -74,7 +74,7 @@ for ( $i = 1; $i <= 31; $i++ ) {
 			name="aggregator[<?php echo esc_attr( $origin ) ?>][schedule_time]"
 			id="tribe-ea-field-<?php echo esc_attr( $origin ) ?>_schedule_time"
 			<?php echo Tribe__View_Helpers::is_24hr_format() ? 'data-format="H:i"' : '' ?>"
-			value="<?php echo esc_attr( empty( $record->meta['time'] ) ? Tribe__Date_Utils::time_only( strtotime( $record->post->post_modified ) ) : $record->meta['time'] ); ?>"
+			value="<?php echo esc_attr( empty( $record->meta['schedule_time'] ) ? Tribe__Date_Utils::time_only( strtotime( $record->post->post_modified ) ) : $record->meta['schedule_time'] ); ?>"
 		/>
 		<span class="helper-text hide-if-js"><?php esc_html_e( 'HH:MM', 'the-events-calendar' ) ?></span>
 	</td>
