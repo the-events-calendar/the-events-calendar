@@ -1218,7 +1218,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				if ( is_object( $event['image'] ) ) {
 					$image = $this->import_aggregator_image( $event );
 				} else {
-					$event['image'] = str_replace( 'http://tribe2.dev', 'http://45cd86b0.eu.ngrok.io', $event['image'] );
 					$image          = $this->import_image( $event );
 				}
 
