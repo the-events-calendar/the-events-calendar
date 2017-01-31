@@ -1346,6 +1346,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $image;
 	}
 
+	/**
+	 * Imports the image contained in the event `image` field if any.
+	 *
+	 * @param array $event An event data in array format.
+	 *
+	 * @return object|bool An object with the image post ID or `false` on failure.
+	 */
 	public function import_image( $event ) {
 		if ( empty( $event['image'] ) || ! filter_var( $event['image'], FILTER_VALIDATE_URL ) ) {
 			return false;
@@ -1358,7 +1365,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// Set variables for storage, fix file filename for query strings.
 		preg_match( '/[^\?]+\.(jpe?g|jpe|gif|png)\b/i', $event['image'], $matches );
 		if ( ! $matches ) {
-			return new WP_Error( 'image_sideload_failed', __( 'Invalid image URL' ) );
+			return false;
 		}
 
 		$file_array         = array();
@@ -1369,13 +1376,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// If error storing temporarily, return the error.
 		if ( is_wp_error( $file_array['tmp_name'] ) ) {
-			return $file_array['tmp_name'];
+			return false;
 		}
 
 		$id = media_handle_sideload( $file_array, $event['ID'], $event['post_title'] );
 
 		if ( is_wp_error( $id ) ) {
 			@unlink( $file_array['tmp_name'] );
+
+			return false;
 		}
 
 		return (object) array( 'post_id' => $id );
