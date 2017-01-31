@@ -152,7 +152,7 @@ class SingleEventCest extends BaseRestCest {
 		$I->seeResponseContainsJson( [ 'title' => 'Event 01' ] );
 		$I->seeResponseContainsJson( [ 'description' => '<p>Event 01 description</p>' ] );
 		$I->seeResponseContainsJson( [ 'excerpt' => '<p>Event 01 excerpt</p>' ] );
-		$I->seeResponseContainsJson( [ 'featured_image' => $this->site_url . 'wp-content/uploads/images/image.png' ] );
+		$I->seeResponseContainsJson( [ 'image' => [ 'url' => $this->site_url . 'wp-content/uploads/images/image.png' ] ] );
 		$I->seeResponseContainsJson( [ 'start_date' => '2017-01-05 14:23:36' ] );
 		$I->seeResponseContainsJson( [
 			'start_date_details' => [

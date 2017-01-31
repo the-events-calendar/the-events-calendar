@@ -238,8 +238,8 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$documentation->register_definition_provider( 'Event', new Tribe__Events__REST__V1__Documentation__Event_Definition_Provider() );
 		$documentation->register_definition_provider( 'Venue', new Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider() );
 		$documentation->register_definition_provider( 'Organizer', new Tribe__Events__REST__V1__Documentation__Organizer_Definition_Provider() );
-		$documentation->register_definition_provider( 'ImageDetails', new Tribe__Documentation__Swagger__Image_Definition_Provider() );
-		$documentation->register_definition_provider( 'ImageSizeDetails', new Tribe__Documentation__Swagger__Image_Size_Details_Definition_Provider() );
+		$documentation->register_definition_provider( 'Image', new Tribe__Documentation__Swagger__Image_Definition_Provider() );
+		$documentation->register_definition_provider( 'ImageSize', new Tribe__Documentation__Swagger__Image_Size_Definition_Provider() );
 		$documentation->register_definition_provider( 'DateDetails', new Tribe__Documentation__Swagger__Date_Details_Definition_Provider() );
 		$documentation->register_definition_provider( 'CostDetails', new Tribe__Documentation__Swagger__Cost_Details_Definition_Provider() );
 		$documentation->register_definition_provider( 'Term', new Tribe__Documentation__Swagger__Term_Definition_Provider() );
