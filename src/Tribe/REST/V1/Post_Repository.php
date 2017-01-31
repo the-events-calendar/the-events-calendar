@@ -72,13 +72,12 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'date_utc'               => $event->post_date_gmt,
 			'modified'               => $event->post_modified,
 			'modified_utc'           => $event->post_modified_gmt,
-			'url'                   => get_the_permalink( $event_id ),
+			'url'                    => get_the_permalink( $event_id ),
 			'rest_url'               => tribe_events_rest_url( 'events/' . $event_id ),
 			'title'                  => trim( apply_filters( 'the_title', $event->post_title ) ),
 			'description'            => trim( apply_filters( 'the_content', $event->post_content ) ),
 			'excerpt'                => trim( apply_filters( 'the_excerpt', $event->post_excerpt ) ),
-			'featured_image'         => get_the_post_thumbnail_url( $event_id, 'full' ),
-			'featured_image_details' => $this->get_featured_image_details( $event_id ),
+			'image'                  => $this->get_featured_image( $event_id ),
 			'start_date'             => $meta['_EventStartDate'],
 			'start_date_details'     => $this->get_date_details( $meta['_EventStartDate'] ),
 			'end_date'               => $meta['_EventEndDate'],
@@ -93,7 +92,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'cost_details'           => array(
 				'currency_symbol'   => isset( $meta['_EventCurrencySymbol'] ) ? $meta['_EventCurrencySymbol'] : '',
 				'currency_position' => isset( $meta['_EventCurrencyPosition'] ) ? $meta['_EventCurrencyPosition'] : '',
-				'values'              => $this->get_cost_values( $event_id ),
+				'values'            => $this->get_cost_values( $event_id ),
 			),
 			'website'                => isset( $meta['_EventURL'] ) ? esc_html( $meta['_EventURL'] ) : get_the_permalink( $event_id ),
 			'show_map'               => isset( $meta['_EventShowMap'] ) ? $meta['_EventShowMap'] : '0',
@@ -153,29 +152,28 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$meta = array_map( 'reset', get_post_custom( $venue->ID ) );
 
 		$data = array(
-			'id'                     => $venue->ID,
-			'author'                 => $venue->post_author,
-			'date'                   => $venue->post_date,
-			'date_utc'               => $venue->post_date_gmt,
-			'modified'               => $venue->post_modified,
-			'modified_utc'           => $venue->post_modified_gmt,
-			'url'                   => get_the_permalink( $venue->ID ),
-			'venue'                  => trim( apply_filters( 'the_title', $venue->post_title ) ),
-			'description'            => trim( apply_filters( 'the_content', $venue->post_content ) ),
-			'excerpt'                => trim( apply_filters( 'the_excerpt', $venue->post_excerpt ) ),
-			'featured_image'         => get_the_post_thumbnail_url( $venue->ID, 'full' ),
-			'featured_image_details' => $this->get_featured_image_details( $venue->ID ),
-			'show_map'               => isset( $meta['_EventShowMap'] ) ? $meta['_EventShowMap'] : '0',
-			'show_map_link'          => isset( $meta['_EventShowMapLink'] ) ? $meta['_EventShowMapLink'] : '0',
-			'address'                => isset( $meta['_VenueAddress'] ) ? $meta['_VenueAddress'] : '',
-			'city'                   => isset( $meta['_VenueCity'] ) ? $meta['_VenueCity'] : '',
-			'country'                => isset( $meta['_VenueCountry'] ) ? $meta['_VenueCountry'] : '',
-			'province'               => isset( $meta['_VenueProvince'] ) ? $meta['_VenueProvince'] : '',
-			'state'                  => isset( $meta['_VenueState'] ) ? $meta['_VenueState'] : '',
-			'zip'                    => isset( $meta['_VenueZip'] ) ? $meta['_VenueZip'] : '',
-			'phone'                  => isset( $meta['_VenuePhone'] ) ? $meta['_VenuePhone'] : '',
-			'website'                => isset( $meta['_VenueURL'] ) ? $meta['_VenueURL'] : '',
-			'stateprovince'         => isset( $meta['_VenueStateProvince'] ) ? $meta['_VenueStateProvince'] : '',
+			'id'            => $venue->ID,
+			'author'        => $venue->post_author,
+			'date'          => $venue->post_date,
+			'date_utc'      => $venue->post_date_gmt,
+			'modified'      => $venue->post_modified,
+			'modified_utc'  => $venue->post_modified_gmt,
+			'url'           => get_the_permalink( $venue->ID ),
+			'venue'         => trim( apply_filters( 'the_title', $venue->post_title ) ),
+			'description'   => trim( apply_filters( 'the_content', $venue->post_content ) ),
+			'excerpt'       => trim( apply_filters( 'the_excerpt', $venue->post_excerpt ) ),
+			'image'         => $this->get_featured_image( $venue->ID ),
+			'show_map'      => isset( $meta['_EventShowMap'] ) ? $meta['_EventShowMap'] : '0',
+			'show_map_link' => isset( $meta['_EventShowMapLink'] ) ? $meta['_EventShowMapLink'] : '0',
+			'address'       => isset( $meta['_VenueAddress'] ) ? $meta['_VenueAddress'] : '',
+			'city'          => isset( $meta['_VenueCity'] ) ? $meta['_VenueCity'] : '',
+			'country'       => isset( $meta['_VenueCountry'] ) ? $meta['_VenueCountry'] : '',
+			'province'      => isset( $meta['_VenueProvince'] ) ? $meta['_VenueProvince'] : '',
+			'state'         => isset( $meta['_VenueState'] ) ? $meta['_VenueState'] : '',
+			'zip'           => isset( $meta['_VenueZip'] ) ? $meta['_VenueZip'] : '',
+			'phone'         => isset( $meta['_VenuePhone'] ) ? $meta['_VenuePhone'] : '',
+			'website'       => isset( $meta['_VenueURL'] ) ? $meta['_VenueURL'] : '',
+			'stateprovince' => isset( $meta['_VenueStateProvince'] ) ? $meta['_VenueStateProvince'] : '',
 		);
 
 		/**
@@ -236,21 +234,20 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			$meta = array_map( 'reset', get_post_custom( $organizer->ID ) );
 
 			$this_data = array(
-				'id'                     => $organizer->ID,
-				'author'                 => $organizer->post_author,
-				'date'                   => $organizer->post_date,
-				'date_utc'               => $organizer->post_date_gmt,
-				'modified'               => $organizer->post_modified,
-				'modified_utc'           => $organizer->post_modified_gmt,
-				'url'                    => get_the_permalink( $organizer->ID ),
-				'organizer'              => trim( apply_filters( 'the_title', $organizer->post_title ) ),
-				'description'            => trim( apply_filters( 'the_content', $organizer->post_content ) ),
-				'excerpt'                => trim( apply_filters( 'the_excerpt', $organizer->post_excerpt ) ),
-				'featured_image'         => get_the_post_thumbnail_url( $organizer->ID, 'full' ),
-				'featured_image_details' => $this->get_featured_image_details( $organizer->ID ),
-				'phone'                  => isset( $meta['_OrganizerPhone'] ) ? $meta['_OrganizerPhone'] : '',
-				'website'                => isset( $meta['_OrganizerWebsite'] ) ? $meta['_OrganizerWebsite'] : '',
-				'email'                  => isset( $meta['_OrganizerEmail'] ) ? $meta['_OrganizerEmail'] : '',
+				'id'           => $organizer->ID,
+				'author'       => $organizer->post_author,
+				'date'         => $organizer->post_date,
+				'date_utc'     => $organizer->post_date_gmt,
+				'modified'     => $organizer->post_modified,
+				'modified_utc' => $organizer->post_modified_gmt,
+				'url'          => get_the_permalink( $organizer->ID ),
+				'organizer'    => trim( apply_filters( 'the_title', $organizer->post_title ) ),
+				'description'  => trim( apply_filters( 'the_content', $organizer->post_content ) ),
+				'excerpt'      => trim( apply_filters( 'the_excerpt', $organizer->post_excerpt ) ),
+				'image'        => $this->get_featured_image( $organizer->ID ),
+				'phone'        => isset( $meta['_OrganizerPhone'] ) ? $meta['_OrganizerPhone'] : '',
+				'website'      => isset( $meta['_OrganizerWebsite'] ) ? $meta['_OrganizerWebsite'] : '',
+				'email'        => isset( $meta['_OrganizerEmail'] ) ? $meta['_OrganizerEmail'] : '',
 			);
 
 
@@ -307,47 +304,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		return array_filter( $data );
 	}
 
-	/**
-	 * @param int $id The event post ID.
-	 */
-	protected function get_featured_image_details( $id ) {
-		$thumbnail_id = get_post_thumbnail_id( $id );
-
-		if ( empty( $thumbnail_id ) ) {
-			return array();
-		}
-
-		$metadata = wp_get_attachment_metadata( $thumbnail_id );
-		$data = array( 'ID' => $thumbnail_id );
-
-		if (
-			false !== $metadata
-			&& isset( $metadata['image_meta'] )
-			&& isset( $metadata['file'] )
-			&& isset( $metadata['sizes'] )
-		) {
-			unset( $metadata['image_meta'], $metadata['file'] );
-			$full_image_src = wp_get_attachment_image_src( $thumbnail_id, 'full' );
-			$metadata['url'] = ! empty( $full_image_src[0] ) ? $full_image_src[0] : '';
-
-			foreach ( $metadata['sizes'] as $size => &$meta ) {
-				$size_image_src = wp_get_attachment_image_src( $thumbnail_id, $size );
-				$meta['url'] = ! empty( $size_image_src[0] ) ? $size_image_src[0] : '';
-				unset( $meta['file'] );
-			}
-
-			$data = array_filter( array_merge( $data, $metadata ) );
-		}
-
-		/**
-		 * Filters the data that will returned for an event featured image if set.
-		 *
-		 * @param array   $data  The event featured image array representation.
-		 * @param WP_Post $event The requsted event.
-		 */
-		return apply_filters( 'tribe_rest_event_featured_image_details', $data, get_post( $id ) );
-	}
-
 	protected function get_terms( $event_id, $taxonomy) {
 		$terms = wp_get_post_terms( $event_id, $taxonomy );
 
@@ -401,5 +357,44 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		sort( $cost_values, SORT_NUMERIC );
 
 		return $cost_values;
+	}
+
+	protected function get_featured_image($id) {
+		$full_url = get_the_post_thumbnail_url($id, 'full');
+		$thumbnail_id = get_post_thumbnail_id($id);
+		$file = get_attached_file($thumbnail_id);
+
+		$data = array(
+			'url' => $full_url,
+			'id' => $thumbnail_id,
+			'extension' => pathinfo($file, PATHINFO_EXTENSION),
+		);
+
+		$metadata = wp_get_attachment_metadata( $thumbnail_id );
+
+		if (
+			false !== $metadata
+			&& isset( $metadata['image_meta'] )
+			&& isset( $metadata['file'] )
+			&& isset( $metadata['sizes'] )
+		) {
+			unset( $metadata['image_meta'], $metadata['file'] );
+
+			foreach ( $metadata['sizes'] as $size => &$meta ) {
+				$size_image_src = wp_get_attachment_image_src( $thumbnail_id, $size );
+				$meta['url'] = ! empty( $size_image_src[0] ) ? $size_image_src[0] : '';
+				unset( $meta['file'] );
+			}
+
+			$data = array_filter( array_merge( $data, $metadata ) );
+		}
+
+		/**
+		 * Filters the data that will returned for an event featured image if set.
+		 *
+		 * @param array   $data  The event featured image array representation.
+		 * @param WP_Post $event The requested event.
+		 */
+		return apply_filters( 'tribe_rest_event_featured_image', $data, get_post( $id ) );
 	}
 }
