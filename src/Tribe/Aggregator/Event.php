@@ -75,7 +75,7 @@ class Tribe__Events__Aggregator__Event {
 			'parent_uid'        => 'parent_uid',
 			'recurrence'        => 'recurrence',
 			'categories'        => 'categories',
-			'ID'                => 'original_ID',
+			'id'                => 'EventOriginalID',
 			'currency_symbol'   => 'EventCurrencySymbol',
 			'currency_position' => 'EventCurrencyPosition',
 			'cost'              => 'EventCost',
