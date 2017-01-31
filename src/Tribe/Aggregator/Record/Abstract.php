@@ -1215,28 +1215,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// If we have a Image Field from Service
 			if ( ! empty( $event['image'] ) ) {
-				// Attempt to grab the event image
-				$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id );
-
-				/**
-				 * Filters the returned event image url
-				 *
-				 * @param array|bool $image       Attachment information
-				 * @param array      $event       Event array
-				 */
-				$image = apply_filters( 'tribe_aggregator_event_image', $image_import, $event );
-
-				// If there was a problem bail out
-				if ( false === $image ) {
-					continue;
+				if ( is_object( $event['image'] ) ) {
+					$image = $this->import_aggregator_image( $event );
+				} else {
+					$event['image'] = str_replace( 'http://tribe2.dev', 'http://45cd86b0.eu.ngrok.io', $event['image'] );
+					$image          = $this->import_image( $event );
 				}
 
-				// Verify for more Complex Errors
-				if ( is_wp_error( $image ) ) {
-					continue;
-				}
-
-				if ( ! empty( $image->post_id ) ) {
+				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
 					// Set as featured image
 					$featured_status = set_post_thumbnail( $event['ID'], $image->post_id );
 
@@ -1334,5 +1320,65 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function finalize() {
 		$this->update_meta( 'finalized', true );
+	}
+
+	public function import_aggregator_image( $event) {
+		// Attempt to grab the event image
+		$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id );
+
+		/**
+		 * Filters the returned event image url
+		 *
+		 * @param array|bool $image       Attachment information
+		 * @param array      $event       Event array
+		 */
+		$image = apply_filters( 'tribe_aggregator_event_image', $image_import, $event );
+
+		// If there was a problem bail out
+		if ( false === $image ) {
+			return false;
+		}
+
+		// Verify for more Complex Errors
+		if ( is_wp_error( $image ) ) {
+			return $image;
+		}
+
+		return $image;
+	}
+
+	public function import_image( $event ) {
+		if ( empty( $event['image'] ) || ! filter_var( $event['image'], FILTER_VALIDATE_URL ) ) {
+			return false;
+		}
+
+		require_once( ABSPATH . 'wp-admin/includes/media.php' );
+		require_once( ABSPATH . 'wp-admin/includes/file.php' );
+		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+
+		// Set variables for storage, fix file filename for query strings.
+		preg_match( '/[^\?]+\.(jpe?g|jpe|gif|png)\b/i', $event['image'], $matches );
+		if ( ! $matches ) {
+			return new WP_Error( 'image_sideload_failed', __( 'Invalid image URL' ) );
+		}
+
+		$file_array         = array();
+		$file_array['name'] = basename( $matches[0] );
+
+		// Download file to temp location.
+		$file_array['tmp_name'] = download_url( $event['image'] );
+
+		// If error storing temporarily, return the error.
+		if ( is_wp_error( $file_array['tmp_name'] ) ) {
+			return $file_array['tmp_name'];
+		}
+
+		$id = media_handle_sideload( $file_array, $event['ID'], $event['post_title'] );
+
+		if ( is_wp_error( $id ) ) {
+			@unlink( $file_array['tmp_name'] );
+		}
+
+		return (object) array( 'post_id' => $id );
 	}
 }
