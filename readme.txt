@@ -315,6 +315,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.4.2] TBD =
+
+* Tweak - Removed the no longer required vendor/tickets module [71908]
+
 = [4.4.1.1] 2017-01-26 =
 
 * Fix - Resolved fatal caused when rendering themes that override tribe styles
