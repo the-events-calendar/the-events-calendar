@@ -68,6 +68,9 @@ $frequencies = $cron->get_frequency();
 		></span>
 	</td>
 </tr>
+
+<?php $this->template( 'fields/schedule', array( 'record' => $record, 'origin' => 'gcal', 'aggregator_action' => $aggregator_action ) ); ?>
+
 <?php
 $field              = (object) array();
 $field->label       = __( 'URL:', 'the-events-calendar' );

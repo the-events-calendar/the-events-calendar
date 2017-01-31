@@ -250,11 +250,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$result = wp_update_post( $post );
 		remove_filter( 'wp_insert_post_data', array( $this, 'dont_change_post_modified' ) );
 
-		// meta_input was introduced in 4.4. Deal with old versions
-		if ( -1 === version_compare( $wp_version, '4.4' ) && ! is_wp_error( $result ) ) {
-			foreach ( $post['meta_input'] as $key => $value ) {
-				update_post_meta( $result, $key, $value );
-			}
+		if ( ! is_wp_error( $result ) ) {
+			$this->maybe_add_meta_via_pre_wp_44_method( $result, $post['meta_input'] );
 		}
 
 		// After Creating the Post Load and return
@@ -782,9 +779,38 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
-		$current  = time();
-		$modified = strtotime( $this->post->post_modified_gmt );
-		$next     = $modified + $this->frequency->interval;
+		$current = time();
+		$last    = strtotime( $this->post->post_modified_gmt );
+		$next    = $last + $this->frequency->interval;
+
+		// Only do anything if we have one of these metas
+		if ( ! empty( $this->meta['schedule_day'] ) || ! empty( $this->meta['schedule_time'] ) ) {
+			// Setup to avoid notices
+			$maybe_next = 0;
+
+			// Now depending on the type of frequency we build the
+			switch ( $this->frequency->id ) {
+				case 'daily':
+					$time_string = date( 'Y-m-d' ) . ' ' . $this->meta['schedule_time'];
+					$maybe_next  = strtotime( $time_string );
+					break;
+				case 'weekly':
+					$start_week    = date( 'Y-m-d', strtotime( '-' . date( 'w' ) . ' days' ) );
+					$scheduled_day = date( 'Y-m-d', strtotime( $start_week . ' +' . ( (int) $this->meta['schedule_day'] - 1 ) . ' days' ) );
+					$time_string   = date( 'Y-m-d', strtotime( $scheduled_day ) ) . ' ' . $this->meta['schedule_time'];
+					$maybe_next    = strtotime( $time_string );
+					break;
+				case 'monthly':
+					$time_string = date( 'Y-m-' ) . $this->meta['schedule_day'] . ' ' . $this->meta['schedule_time'];
+					$maybe_next  = strtotime( $time_string );
+					break;
+			}
+
+			// If our Next date based on Last run is bigger than the scheduled time it means we bail
+			if ( $maybe_next > $next ) {
+				$next = $maybe_next;
+			}
+		}
 
 		return $current > $next;
 	}

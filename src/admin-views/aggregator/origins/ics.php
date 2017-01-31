@@ -36,6 +36,8 @@ $field->media_title = __( 'Upload an ICS File', 'the-events-calendar' );
 	</td>
 </tr>
 
+<?php $this->template( 'fields/schedule', array( 'record' => $record, 'origin' => 'ics', 'aggregator_action' => $aggregator_action ) ); ?>
+
 <?php include dirname( __FILE__ ) . '/refine.php'; ?>
 
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-ics_file" data-condition-not-empty>

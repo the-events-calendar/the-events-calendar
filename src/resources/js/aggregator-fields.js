@@ -135,6 +135,9 @@ tribe_aggregator.fields = {
 
 		$( '.tribe-dependency' ).change();
 
+		// Configure TimePickers
+		tribe_timepickers.setup_timepickers( $( tribe_timepickers.selector.timepicker ) );
+
 		if ( 'edit' === obj.$.action.val() ) {
 			obj.$.form.addClass( 'edit-form' );
 			$( obj.selector.finalize_button ).html( ea.l10n.edit_save );
