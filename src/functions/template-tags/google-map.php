@@ -87,9 +87,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		if ( tribe_get_option( 'embedGoogleMaps', true ) ) {
 			if ( $post_type == Tribe__Events__Main::POSTTYPE ) {
-				$output = get_post_meta( $postId, '_EventShowMap', 1 ) == 1;
+				$output = tribe_is_truthy( get_post_meta( $postId, '_EventShowMap', 1 ) );
 			} elseif ( $post_type == Tribe__Events__Main::VENUE_POST_TYPE ) {
-				$output = get_post_meta( $postId, '_VenueShowMap', 1 ) !== 'false' ? 1 : 0;
+				$output = tribe_is_truthy( get_post_meta( $postId, '_VenueShowMap', 1 ) );
 			}
 		}
 
@@ -114,9 +114,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$post_type = get_post_type( $postId );
 
 		if ( $post_type == Tribe__Events__Main::POSTTYPE ) {
-			$output = get_post_meta( $postId, '_EventShowMapLink', 1 ) == 1;
+			$output = tribe_is_truthy( get_post_meta( $postId, '_EventShowMapLink', 1 ) );
 		} elseif ( $post_type == Tribe__Events__Main::VENUE_POST_TYPE ) {
-			$output = get_post_meta( $postId, '_VenueShowMapLink', 1 ) !== 'false' ? 1 : 0;
+			$output = tribe_is_truthy( get_post_meta( $postId, '_VenueShowMapLink', 1 ) );
 		}
 
 		return apply_filters( 'tribe_show_google_map_link', $output );

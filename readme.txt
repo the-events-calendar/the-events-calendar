@@ -317,7 +317,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.4.2] TBD =
 
-
+* Fix - Ensure the global and source-specific Google Map settings for imports are respected [67228]
 
 = [4.4.1.1] 2017-01-26 =
 
