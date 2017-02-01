@@ -1213,11 +1213,28 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						if ( ! is_wp_error( $term ) ) {
 							$terms[] = (int) $term['term_id'];
 
-							// Track that we created a Term
+							// Track that we created an event category
 							$activity->add( 'cat', 'created', $term['term_id'] );
 						}
 					} else {
 						$terms[] = (int) $term['term_id'];
+					}
+				}
+			}
+
+			$tags = array();
+			if ( ! empty( $event['tags'] ) ) {
+				foreach ( $event['tags'] as $tag_name ) {
+					if ( ! $tag = term_exists( $tag_name, 'post_tag' ) ) {
+						$tag = wp_insert_term( $tag_name, 'post_tag' );
+						if ( ! is_wp_error( $tag ) ) {
+							$tags[] = (int) $tag['term_id'];
+
+							// Track that we created a post tag
+							$activity->add( 'tag', 'created', $tag['term_id'] );
+						}
+					} else {
+						$tags[] = (int) $tag['term_id'];
 					}
 				}
 			}
@@ -1228,6 +1245,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );
+			wp_set_object_terms( $event['ID'], $tags, 'post_tag', false );
 
 			// If we have a Image Field from Service
 			if ( ! empty( $event['image'] ) ) {
