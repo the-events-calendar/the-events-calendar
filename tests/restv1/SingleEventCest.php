@@ -208,8 +208,8 @@ class SingleEventCest extends BaseRestCest {
 			]
 		] );
 		$I->seeResponseContainsJson( [ 'website' => 'http://tri.be' ] );
-		$I->seeResponseContainsJson( [ 'show_map' => '1' ] );
-		$I->seeResponseContainsJson( [ 'show_map_link' => '1' ] );
+		$I->seeResponseContainsJson( [ 'show_map' => true ] );
+		$I->seeResponseContainsJson( [ 'show_map_link' => true ] );
 		$I->seeResponseContainsJson( [
 			'venue' => [
 				'id'             => $venue_id,
@@ -222,8 +222,8 @@ class SingleEventCest extends BaseRestCest {
 				'venue'          => 'Venue 01',
 				'description'    => '<p>Venue 01 description</p>',
 				'excerpt'        => '<p>Venue 01 excerpt</p>',
-				'show_map'       => '1',
-				'show_map_link'  => '1',
+				'show_map'       => true,
+				'show_map_link'  => true,
 				'address'        => 'address',
 				'city'           => 'city',
 				'country'        => 'country',
