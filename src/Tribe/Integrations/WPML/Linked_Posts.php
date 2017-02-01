@@ -85,7 +85,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		/** @var SitePress $sitepress */
 		global $sitepress;
 
-		if ( empty( $sitepress ) || ! is_a( $sitepress, 'SitePress' ) ) {
+		if ( empty( $sitepress ) || ! $sitepress instanceof SitePress ) {
 			return $results;
 		}
 
