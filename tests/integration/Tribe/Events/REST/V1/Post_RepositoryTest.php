@@ -73,7 +73,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	public function it_should_return_an_event_array_representation_if_event() {
 		$event = $this->factory()->event->create();
 
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_event_data( $event );
 
 		$this->assertInternalType( 'array', $data );
@@ -86,7 +86,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	public function it_should_reutrn_the_array_representation_of_an_event_if_trying_to_get_an_event_data() {
 		$event = $this->factory()->event->create();
 
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_data( $event );
 
 		$this->assertInternalType( 'array', $data );
@@ -98,7 +98,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	 * it should return a WP Error if trying to get venue data for a non existing post
 	 */
 	public function it_should_return_a_wp_error_if_trying_to_get_venue_data_for_a_non_existing_post() {
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_venue_data( 214234 );
 
 		$this->assertWPError( $data );
@@ -110,7 +110,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	 * it should return a WP Error if trying to get venue data for not a venue and not an event
 	 */
 	public function it_should_return_a_wp_error_if_trying_to_get_venue_data_for_not_a_venue_and_not_an_event() {
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_venue_data( $this->factory()->post->create() );
 
 		$this->assertWPError( $data );
@@ -125,7 +125,7 @@ class Post_RepositoryTest extends Events_TestCase {
 		$venue = $this->factory()->venue->create();
 		$event = $this->factory()->event->create( [ 'venue' => $venue ] );
 
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_venue_data( $event );
 
 		$this->assertInternalType( 'array', $data );
@@ -139,7 +139,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	public function it_should_return_a_wp_error_if_trying_to_get_venue_data_for_an_event_with_not_venue() {
 		$event = $this->factory()->event->create();
 
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_venue_data( $event );
 
 		$this->assertWPError( $data );
@@ -154,7 +154,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	public function it_should_return_venue_array_representation_if_trying_to_get_venue_data_for_an_event_with_venue() {
 		$venue = $this->factory()->venue->create();
 
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_venue_data( $venue );
 
 		$this->assertInternalType( 'array', $data );
@@ -166,7 +166,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	 * it should return a WP Error if trying to get organizer data for a non existing post
 	 */
 	public function it_should_return_a_wp_error_if_trying_to_get_organizer_data_for_a_non_existing_post() {
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_organizer_data( 214234 );
 
 		$this->assertWPError( $data );
@@ -178,7 +178,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	 * it should return a WP Error if trying to get organizer data for not a organizer and not an event
 	 */
 	public function it_should_return_a_wp_error_if_trying_to_get_organizer_data_for_not_a_organizer_and_not_an_event() {
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_organizer_data( $this->factory()->post->create() );
 
 		$this->assertWPError( $data );
@@ -192,7 +192,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	public function it_should_return_organizer_array_representation_if_trying_to_get_organizer_data_for_a_organizer() {
 		$organizer = $this->factory()->organizer->create();
 
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_organizer_data( $organizer );
 
 		$this->assertInternalType( 'array', $data );
@@ -206,7 +206,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	public function it_should_return_a_wp_error_if_trying_to_get_organizer_data_for_an_event_with_not_organizer() {
 		$event = $this->factory()->event->create();
 
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_organizer_data( $event );
 
 		$this->assertWPError( $data );
@@ -220,9 +220,9 @@ class Post_RepositoryTest extends Events_TestCase {
 	 */
 	public function it_should_return_organizer_array_representation_if_trying_to_get_organizer_data_for_an_event_with_organizer() {
 		$organizer = $this->factory()->organizer->create();
-		$event = $this->factory()->event->create( [ 'organizers' => [ $organizer ] ] );
+		$event     = $this->factory()->event->create( [ 'organizers' => [ $organizer ] ] );
 
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_organizer_data( $event );
 
 		$this->assertInternalType( 'array', $data );
@@ -236,7 +236,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	public function it_should_return_an_event_data_if_trying_to_get_data_for_an_event() {
 		$event = $this->factory()->event->create();
 
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_data( $event );
 
 		$this->assertInternalType( 'array', $data );
@@ -250,7 +250,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	public function it_should_return_an_organizer_data_if_trying_to_get_data_for_an_organizer() {
 		$organizer = $this->factory()->organizer->create();
 
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_data( $organizer );
 
 		$this->assertInternalType( 'array', $data );
@@ -264,7 +264,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	public function it_should_return_an_venue_data_if_trying_to_get_data_for_an_venue() {
 		$venue = $this->factory()->venue->create();
 
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_data( $venue );
 
 		$this->assertInternalType( 'array', $data );
@@ -419,7 +419,8 @@ class Post_RepositoryTest extends Events_TestCase {
 	 * it should set the cost details to an array of values if an events has more than one price components
 	 * @dataProvider cost_details
 	 */
-	public function it_should_set_the_cost_details_to_an_array_of_values_if_an_events_has_more_than_one_price_components( $costs,
+	public function it_should_set_the_cost_details_to_an_array_of_values_if_an_events_has_more_than_one_price_components(
+		$costs,
 		$expected
 	) {
 		// need to be able to assign terms to use `meta_input`
@@ -482,10 +483,98 @@ class Post_RepositoryTest extends Events_TestCase {
 		global $wp_locale;
 		$wp_locale->number_format['decimal_point'] = $sep;
 
-		$sut = $this->make_instance();
+		$sut  = $this->make_instance();
 		$data = $sut->get_event_data( $event_id );
 
 		$this->assertArrayHasKey( 'cost', $data );
 		$this->assertEquals( [ $expected_cost ], $data['cost_details']['values'] );
+	}
+
+	public function hide_from_listings_values() {
+		return [
+			[ null, false ],
+			[ false, false ],
+			[ 'no', false ],
+			[ '0', false ],
+			[ 'false', false ],
+			[ 0, false ],
+			[ 'yes', true ],
+		];
+	}
+
+	/**
+	 * @test
+	 * it should handle an event hide from upcoming value
+	 * @dataProvider hide_from_listings_values
+	 */
+	public function it_should_handle_an_event_hide_from_upcoming_value( $hide, $expected ) {
+		if ( null !== $hide ) {
+			$id = $this->factory()->event->create( [ 'meta_input' => [ '_EventHideFromUpcoming' => $hide ] ] );
+		} else {
+			$id = $this->factory()->event->create();
+		}
+
+		$sut  = $this->make_instance();
+		$data = $sut->get_event_data( $id );
+
+		$this->assertArrayHasKey( 'hide_from_listings', $data );
+		$this->assertEquals( $expected, $data['hide_from_listings'] );
+	}
+
+	public function menu_order_and_sticky_values() {
+		return [
+			[ '-1', true ],
+			[ - 1, true ],
+			[ 0, false ],
+			[ - 2, false ],
+			[ 1, false ],
+			[ 2, false ],
+		];
+	}
+
+	/**
+	 * @test
+	 * it should hide an event sticky value
+	 * @dataProvider menu_order_and_sticky_values
+	 */
+	public function it_should_hide_an_event_sticky_value( $menu_order, $expected ) {
+		$id = $this->factory()->event->create( [ 'menu_order' => $menu_order ] );
+
+		$sut  = $this->make_instance();
+		$data = $sut->get_event_data( $id );
+
+		$this->assertArrayHasKey( 'sticky', $data );
+		$this->assertEquals( $expected, $data['sticky'] );
+	}
+
+	public function featured_values() {
+		return [
+			[ '1', true ],
+			[ 1, true ],
+			[ true, true ],
+			[ 0, false ],
+			[ 'yes', false ],
+			[ 'no', false ],
+			[ false, false ],
+		];
+	}
+
+	/**
+	 * @test
+	 * it should handle an event featured value
+	 * @dataProvider featured_values
+	 */
+	public function it_should_handle_an_event_featured_value( $featured, $expected ) {
+		if ( null !== $featured ) {
+			$id = $this->factory()->event->create( [ 'meta_input' => [ '_tribe_featured' => $featured ] ] );
+		} else {
+			$id = $this->factory()->event->create();
+		}
+
+		$sut  = $this->make_instance();
+		$data = $sut->get_event_data( $id );
+
+		$this->assertArrayHasKey( 'featured', $data );
+		$this->assertEquals( $expected, $data['featured'] );
 	}
 }
