@@ -1051,8 +1051,24 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			if ( $show_map_setting ) {
-				$event['EventShowMap']     = $show_map_setting;
-				$event['EventShowMapLink'] = $show_map_setting;
+				$event['EventShowMap']     = $show_map_setting && $event['show_map'];
+				$event['EventShowMapLink'] = $show_map_setting && $event['show_map_link'];
+			}
+			unset( $event['show_map'], $event['show_map_link'] );
+
+			if ( isset( $event['hide_from_listings'] ) ) {
+				if ( $event['hide_from_listings'] == true ) {
+					$event['EventHideFromUpcoming'] = 'yes';
+				}
+				unset( $event['hide_from_listings'] );
+			}
+
+			if ( isset( $event['sticky'] ) ) {
+				if ( $event['sticky'] == true ) {
+					$event['EventShowInCalendar'] = 'yes';
+					$event['menu_order']          = - 1;
+				}
+				unset( $event['sticky'] );
 			}
 
 			if ( empty( $event['recurrence'] ) ) {
