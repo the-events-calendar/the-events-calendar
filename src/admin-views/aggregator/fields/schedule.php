@@ -40,7 +40,8 @@ for ( $i = 1; $i <= 31; $i++ ) {
 				type="hidden"
 				name="aggregator[<?php echo esc_attr( $origin ) ?>][schedule_day]"
 				id="tribe-ea-field-<?php echo esc_attr( $origin ) ?>_schedule_day"
-				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-small"
+				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-medium"
+				style="margin-left: 0;"
 				placeholder="<?php echo esc_attr__( 'Day', 'the-events-calendar' ); ?>"
 				data-hide-search
 				data-prevent-clear
@@ -53,12 +54,13 @@ for ( $i = 1; $i <= 31; $i++ ) {
 			data-depends="#tribe-ea-field-<?php echo esc_attr( $origin ) ?>_import_frequency"
 			data-condition="monthly"
 		>
-			<strong class="tribe-ea-field-readonly"><?php echo esc_html__( 'Import runs monthly on', 'the-events-calendar' ) ?></strong>
+			<strong class="tribe-ea-field-readonly"><?php echo esc_html__( 'Import runs monthly on day', 'the-events-calendar' ) ?></strong>
 			<input
 				type="hidden"
 				name="aggregator[<?php echo esc_attr( $origin ) ?>][schedule_day]"
 				id="tribe-ea-field-<?php echo esc_attr( $origin ) ?>_schedule_day"
 				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-tiny"
+				style="margin-left: 0;"
 				placeholder="<?php echo esc_attr__( 'Day', 'the-events-calendar' ); ?>"
 				data-hide-search
 				data-prevent-clear
