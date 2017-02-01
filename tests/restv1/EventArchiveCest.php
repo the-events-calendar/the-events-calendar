@@ -188,7 +188,7 @@ class EventArchiveCest extends BaseRestCest {
 	 * @test
 	 * it should return error if start date is in bad format
 	 */
-	public function it_return_error_if_start_date_is_in_bad_format( Restv1Tester $I ) {
+	public function it_should_return_error_if_start_date_is_in_bad_format( Restv1Tester $I ) {
 		// 10 events each 1 week apart starting now
 		$I->haveManyEventsInDatabase( 10, [], 24 * 7 );
 		$I->haveOptionInDatabase( 'posts_per_page', 20 );
@@ -203,7 +203,7 @@ class EventArchiveCest extends BaseRestCest {
 	 * @test
 	 * it should return error if end date is in bad format
 	 */
-	public function it_return_error_if_end_date_is_in_bad_format( Restv1Tester $I ) {
+	public function it_should_return_error_if_end_date_is_in_bad_format( Restv1Tester $I ) {
 		// 10 events each 1 week apart starting now
 		$I->haveManyEventsInDatabase( 10, [], 24 * 7 );
 		$I->haveOptionInDatabase( 'posts_per_page', 20 );

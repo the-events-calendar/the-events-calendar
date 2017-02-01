@@ -154,7 +154,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			return min( $this->get_max_posts_per_page(), intval( $request['per_page'] ) );
 		}
 
-		return get_option( 'posts_per_page' );
+		return false;
 	}
 
 	protected function parse_start_date( WP_REST_Request $request ) {
