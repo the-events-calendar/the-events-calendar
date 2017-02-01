@@ -94,12 +94,11 @@ class Tribe__Events__Aggregator__Event {
 			'address' => 'Address',
 			'city' => 'City',
 			'country' => 'Country',
-			'province' => 'Province',
 			'state' => 'State',
-			'stateprovince' => 'StateProvince',
-			'province' => 'Province',
+			'stateprovince' => 'Province',
 			'zip' => 'Zip',
 			'phone' => 'Phone',
+			'website' => 'URL'
 		);
 
 		$organizer_field_map = array(
