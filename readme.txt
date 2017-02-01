@@ -318,7 +318,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.4.2] TBD =
 
 * Fix - Ensure the global and source-specific Google Map settings for imports are respected [67228]
-* Feature - Added new filters for the output of the functions: tribe_get_start_time, tribe_get_start_time, tribe_get_end_date & tribe_get_end_time [67759]
+* Tweak - Add filters for template tag functions related to dates: `tribe_get_start_time`, `tribe_get_end_time`, `tribe_get_start_date` and `tribe_get_end_date` [67759]
 
 = [4.4.1.1] 2017-01-26 =
 
