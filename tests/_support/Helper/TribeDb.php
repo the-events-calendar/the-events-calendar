@@ -196,6 +196,25 @@ class TribeDb extends \Codeception\Module {
 			'_EventDuration'     => $duration,
 		];
 
+		$tax_input = [];
+		if ( isset( $overrides['categories'] ) ) {
+			$tax_input['tribe_events_cat'] = $overrides['categories'];
+			unset( $overrides['categories'] );
+		}
+		if ( isset( $overrides['tags'] ) ) {
+			$tax_input['post_tag'] = $overrides['tags'];
+			unset( $overrides['tags'] );
+		}
+
+		if ( ! empty( $tax_input ) ) {
+			if ( isset( $overrides['tax_input'] ) ) {
+				$overrides['tax_input'] = array_merge( $overrides['tax_input'], $tax_input );
+			} else {
+				$overrides['tax_input'] = $tax_input;
+			}
+		}
+
+
 		if ( isset( $overrides['venue'] ) ) {
 			$meta_input['_EventVenueID'] = $overrides['venue'];
 			unset($overrides['venue']);

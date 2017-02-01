@@ -4,6 +4,7 @@ namespace Tribe\Events\REST\V1\Endpoints;
 
 use Prophecy\Prophecy\ObjectProphecy;
 use Tribe\Events\Tests\Factories\Event;
+use Tribe__Events__Main as Main;
 use Tribe__Events__REST__V1__Endpoints__Archive_Event as Archive;
 
 class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
@@ -25,8 +26,8 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		// your set up methods here
 		$this->factory()->event = new Event();
-		$this->messages = new \Tribe__Events__REST__V1__Messages();
-		$this->repository = new \Tribe__Events__REST__V1__Post_Repository( new \Tribe__Events__REST__V1__Messages() );
+		$this->messages         = new \Tribe__Events__REST__V1__Messages();
+		$this->repository       = new \Tribe__Events__REST__V1__Post_Repository( new \Tribe__Events__REST__V1__Messages() );
 	}
 
 	/**
@@ -46,7 +47,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	public function it_should_return_empty_array_if_there_are_no_events_in_site() {
 		$request = new \WP_REST_Request( 'GET', '' );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
@@ -61,7 +62,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 3 );
 		$this->factory()->event->create_many( 5 );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -78,7 +79,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 3 );
 		$this->factory()->event->create_many( 5 );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -95,7 +96,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 10 );
 		$this->factory()->event->create_many( 51 );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -115,7 +116,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 			return 20;
 		} );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -145,7 +146,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'per_page', $bad );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertWPError( $response );
@@ -161,7 +162,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 10 );
 		$this->factory()->event->create_many( 10, [ 'time_space' => '+4 days' ] );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -178,7 +179,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 10 );
 		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -196,7 +197,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 10 );
 		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -213,7 +214,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 10 );
 		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertWPError( $response );
@@ -229,7 +230,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 10 );
 		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertWPError( $response );
@@ -245,14 +246,14 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 3 );
 		$this->factory()->event->create_many( 9 );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertCount( 3, $response->get_data()['events'] );
 		$this->assertRegExp( '/page=2/', $response->get_data()['rest_url'] );
 		$this->assertRegExp( '/page=3/', $response->get_data()['next_rest_url'] );
-		$this->assertNotRegExp( '/page=/', $response->get_data()['previous_rest_url'] );
+		$this->assertNotRegExp( '/(?<!per_)page=/', $response->get_data()['previous_rest_url'] );
 	}
 
 	/**
@@ -265,7 +266,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 3 );
 		$this->factory()->event->create_many( 2 );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertWPError( $response );
@@ -280,7 +281,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'page', $bad );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertWPError( $response );
@@ -298,7 +299,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->factory()->event->create_many( 5, [ 'post_title' => 'foo bar' ] );
 		$this->factory()->event->create_many( 5, [ 'post_title' => 'bar' ] );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -324,7 +325,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'search', new \stdClass() );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertWPError( $response );
@@ -334,7 +335,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 * @return Archive
 	 */
 	private function make_instance() {
-		$messages = $this->messages instanceof ObjectProphecy ? $this->messages->reveal() : $this->messages;
+		$messages   = $this->messages instanceof ObjectProphecy ? $this->messages->reveal() : $this->messages;
 		$repository = $this->repository instanceof ObjectProphecy ? $this->repository->reveal() : $this->repository;
 
 		return new Archive( $messages, $repository );
@@ -348,6 +349,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 			[ 3, 3, 1 ],
 		];
 	}
+
 	/**
 	 * @test
 	 * it should return the amount of pages in archive for the current archive setting
@@ -358,7 +360,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', $per_page );
 		$request = new \WP_REST_Request( 'GET', '' );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -377,11 +379,11 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->factory()->event->create_many( 5, [ 'post_status' => 'draft' ] );
 		update_option( 'posts_per_page', 5 );
 		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
-		wp_set_current_user($user);
+		wp_set_current_user( $user );
 
 		$request = new \WP_REST_Request( 'GET', '' );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -405,17 +407,196 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 	/**
 	 * @test
-	 * it should return checksum of request data in data
+	 * it should allow filtering events by a category
 	 */
-	public function it_should_return_checksum_of_request_data_in_data() {
-		$this->factory()->event->create_many( 5 );
-		update_option( 'posts_per_page', 5 );
+	public function it_should_allow_filtering_events_by_a_category() {
+		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
+		$term_id = $this->factory()->term->create( [ 'taxonomy' => Main::TAXONOMY, 'slug' => 'cat1' ] );
+		$this->factory()->event->create_many( 3 );
+		$this->factory()->event->create_many( 3, [ 'tax_input' => [ Main::TAXONOMY => [ $term_id ] ] ] );
+
+		update_option( 'posts_per_page', 6 );
 
 		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'categories', 'cat1' );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 3, $response->get_data()['total'] );
+	}
+
+	/**
+	 * @test
+	 * it should allow filtering events by category term_id
+	 */
+	public function it_should_allow_filtering_events_by_category_term_id() {
+		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
+		$term_id = $this->factory()->term->create( [ 'taxonomy' => Main::TAXONOMY, 'slug' => 'cat1' ] );
+		$this->factory()->event->create_many( 3 );
+		$this->factory()->event->create_many( 3, [ 'tax_input' => [ Main::TAXONOMY => [ $term_id ] ] ] );
+
+		update_option( 'posts_per_page', 6 );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'categories', $term_id );
+
+		$sut      = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 3, $response->get_data()['total'] );
+	}
+
+	/**
+	 * @test
+	 * it should allow filtering events by multiple categories with OR logic
+	 */
+	public function it_should_allow_filtering_events_by_multiple_categories_with_or_logic() {
+		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
+		$t1 = $this->factory()->term->create( [ 'taxonomy' => Main::TAXONOMY, 'slug' => 'cat1' ] );
+		$t2 = $this->factory()->term->create( [ 'taxonomy' => Main::TAXONOMY, 'slug' => 'cat2' ] );
+		$t3 = $this->factory()->term->create( [ 'taxonomy' => Main::TAXONOMY, 'slug' => 'cat3' ] );
+		$this->factory()->event->create_many( 3 );
+		$this->factory()->event->create_many( 3, [ 'tax_input' => [ Main::TAXONOMY => [ $t1, $t2, $t3 ] ] ] );
+		$this->factory()->event->create_many( 3, [ 'tax_input' => [ Main::TAXONOMY => [ $t1, $t2 ] ] ] );
+		$this->factory()->event->create_many( 3, [ 'tax_input' => [ Main::TAXONOMY => [ $t1 ] ] ] );
+
+		update_option( 'posts_per_page', 10 );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'categories', [ $t1, 'cat2', 'cat3' ] );
+
+		$sut      = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 9, $response->get_data()['total'] );
+	}
+
+	/**
+	 * @test
+	 * it should paginate events when filtering by category
+	 */
+	public function it_should_paginate_events_when_filtering_by_category() {
+		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
+		$t1 = $this->factory()->term->create( [ 'taxonomy' => Main::TAXONOMY, 'slug' => 'cat1' ] );
+		$this->factory()->event->create_many( 5 );
+		$this->factory()->event->create_many( 5, [ 'tax_input' => [ Main::TAXONOMY => [ $t1 ] ] ] );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'categories', [ $t1 ] );
+		$request->set_param( 'per_page', 3 );
+
+		$sut      = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$data = $response->get_data();
+		$this->assertCount( 3, $data['events'] );
+		$this->assertEquals( 5, $data['total'] );
+		$this->assertEquals( 2, $data['total_pages'] );
+	}
+	/**
+	 * @test
+	 * it should allow filtering events by a tag
+	 */
+	public function it_should_allow_filtering_events_by_a_tag() {
+		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
+		$term_id = $this->factory()->term->create( [ 'taxonomy' => 'post_tag', 'slug' => 'tag1' ] );
+		$this->factory()->event->create_many( 3 );
+		$this->factory()->event->create_many( 3, [ 'tax_input' => [ 'post_tag' => [ $term_id ] ] ] );
+
+		update_option( 'posts_per_page', 6 );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'tags', 'tag1' );
+
+		$sut      = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 3, $response->get_data()['total'] );
+	}
+
+	/**
+	 * @test
+	 * it should allow filtering events by tag term_id
+	 */
+	public function it_should_allow_filtering_events_by_tag_term_id() {
+		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
+		$term_id = $this->factory()->term->create( [ 'taxonomy' => 'post_tag', 'slug' => 'tag1' ] );
+		$this->factory()->event->create_many( 3 );
+		$this->factory()->event->create_many( 3, [ 'tax_input' => [ 'post_tag' => [ $term_id ] ] ] );
+
+		update_option( 'posts_per_page', 6 );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'tags', $term_id );
+
+		$sut      = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 3, $response->get_data()['total'] );
+	}
+
+	/**
+	 * @test
+	 * it should allow filtering events by multiple tags with OR logic
+	 */
+	public function it_should_allow_filtering_events_by_multiple_tags_with_or_logic() {
+		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
+		$t1 = $this->factory()->term->create( [ 'taxonomy' => 'post_tag', 'slug' => 'tag1' ] );
+		$t2 = $this->factory()->term->create( [ 'taxonomy' => 'post_tag', 'slug' => 'tag2' ] );
+		$t3 = $this->factory()->term->create( [ 'taxonomy' => 'post_tag', 'slug' => 'tag3' ] );
+		$this->factory()->event->create_many( 3 );
+		$this->factory()->event->create_many( 3, [ 'tax_input' => [ 'post_tag' => [ $t1, $t2, $t3 ] ] ] );
+		$this->factory()->event->create_many( 3, [ 'tax_input' => [ 'post_tag' => [ $t1, $t2 ] ] ] );
+		$this->factory()->event->create_many( 3, [ 'tax_input' => [ 'post_tag' => [ $t1 ] ] ] );
+
+		update_option( 'posts_per_page', 10 );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'tags', [ $t1, 'tag2', 'tag3' ] );
+
+		$sut      = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 9, $response->get_data()['total'] );
+	}
+
+	/**
+	 * @test
+	 * it should paginate events when filtering by tag
+	 */
+	public function it_should_paginate_events_when_filtering_by_tag() {
+		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
+		$t1 = $this->factory()->term->create( [ 'taxonomy' => 'post_tag', 'slug' => 'tag1' ] );
+		$this->factory()->event->create_many( 5 );
+		$this->factory()->event->create_many( 5, [ 'tax_input' => [ 'post_tag' => [ $t1 ] ] ] );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'tags', [ $t1 ] );
+		$request->set_param( 'per_page', 3 );
+
+		$sut      = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$data = $response->get_data();
+		$this->assertCount( 3, $data['events'] );
+		$this->assertEquals( 5, $data['total'] );
+		$this->assertEquals( 2, $data['total_pages'] );
 	}
 }

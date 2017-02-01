@@ -20,6 +20,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			'start_date' => 'start_date',
 			'end_date'   => 'end_date',
 			'search'     => 's',
+			'categories'     => 'categories',
 		);
 
 	/**
@@ -53,54 +54,29 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$args = array();
 
-		$page = $this->parse_page( $request );
+		try {
+			$args['paged']          = $this->parse_page( $request );
+			$args['posts_per_page'] = $this->parse_per_page( $request );
+			$args['start_date']     = $this->parse_start_date( $request );
+			$args['end_date']       = $this->parse_end_date( $request );
+			$args['s']              = $this->parse_search( $request );
 
-		if ( is_wp_error( $page ) ) {
-			return $page;
-		}
+			$args['tax_query'] = array_filter( array(
+				$this->parse_categories( $request ),
+				$this->parse_tags( $request ),
+			) );
 
-		$args['paged'] = $page;
+			$args = array_filter( wp_parse_args( $args, $defaults ) );
 
-		$per_page = $this->parse_per_page( $request );
+			$data = array( 'events' => array() );
 
-		if ( is_wp_error( $per_page ) ) {
-			return $per_page;
-		}
+			$data['rest_url'] = $this->get_current_rest_url( $args );
 
-		$args['posts_per_page'] = $per_page;
-
-		$start_date = $this->parse_start_date( $request );
-
-		if ( is_wp_error( $start_date ) ) {
-			return $start_date;
-		}
-
-		$args['start_date'] = $start_date;
-
-		$end_date = $this->parse_end_date( $request );
-
-		if ( is_wp_error( $end_date ) ) {
-			return $end_date;
-		}
-
-		$args['end_date'] = $end_date;
-
-		$search = $this->parse_search( $request );
-
-		if ( is_wp_error( $search ) ) {
-			return $search;
-		}
-
-		$args['s'] = $search;
-
-		$args = array_filter( wp_parse_args( $args, $defaults ) );
-
-		$data = array( 'events' => array() );
-
-		$data['rest_url'] = $this->get_current_rest_url( $args );
-
-		if ( ! isset( $args['posts_per_page'] ) ) {
-			$args['posts_per_page'] = get_option( 'posts_per_page' );
+			if ( ! isset( $args['posts_per_page'] ) ) {
+				$args['posts_per_page'] = get_option( 'posts_per_page' );
+			}
+		} catch ( Tribe__REST__Exceptions__Exception $e ) {
+			return new WP_Error( $e->getCode(), $e->getMessage(), array( 'status' => $e->getStatus() ) );
 		}
 
 		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
@@ -110,7 +86,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$events = tribe_get_events( $args );
 
-		$page = $page ? $page : 1;
+		$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
 
 		if ( empty( $events ) ) {
 			$message = $this->messages->get_message( 'event-archive-page-not-found' );
@@ -133,7 +109,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		}
 
 		$data['total']       = $total = $this->get_total( $args );
-		$data['total_pages'] = $this->get_total_pages( $total, $per_page );
+		$data['total_pages'] = $this->get_total_pages( $total, $this->parse_per_page( $request ) );
 
 		/**
 		 * Filters the data that will be returned for an events archive request.
@@ -161,27 +137,24 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		if ( isset( $request['page'] ) && ! $this->is_positive_int_gte( $request['page'], 1 ) ) {
 			$message = $this->messages->get_message( 'event-archive-bad-page' );
 
-			return new WP_Error( 'event-archive-bad-page', $message, array( 'status' => 400 ) );
+			throw new Tribe__REST__Exceptions__Exception( $message, 'event-archive-bad-page', 400 );
 		}
 
 		return intval( $request['page'] );
 	}
 
 	protected function parse_per_page( WP_REST_Request $request ) {
-		if ( ! isset( $request['per_page'] ) ) {
-			return false;
-		}
-
 		if ( isset( $request['per_page'] ) && ! $this->is_positive_int_gte( $request['per_page'], 1 ) ) {
 			$message = $this->messages->get_message( 'event-archive-bad-per-page' );
 
-			return new WP_Error( 'event-archive-bad-per-page', $message, array( 'status' => 400 ) );
+			throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-per-page', $message, 400 );
 		}
 
 		if ( ! empty( $request['per_page'] ) ) {
 			return min( $this->get_max_posts_per_page(), intval( $request['per_page'] ) );
 		}
 
+		return get_option( 'posts_per_page' );
 	}
 
 	protected function parse_start_date( WP_REST_Request $request ) {
@@ -193,14 +166,14 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			if ( ! is_numeric( $start_date ) ) {
 				$message = $this->messages->get_message( 'event-archive-bad-start-date' );
 
-				return new WP_Error( 'event-archive-bad-start-date', $message, array( 'status' => 400 ) );
+				throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-start-date', $message, 400 );
 			}
 			try {
 				return date( Tribe__Date_Utils::DBDATETIMEFORMAT, $start_date );
 			} catch ( Exception $e ) {
 				$message = $this->messages->get_message( 'event-archive-bad-start-date' );
 
-				return new WP_Error( 'event-archive-bad-start-date', $message, array( 'status' => 400 ) );
+				throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-start-date', $message, 400 );
 			}
 		}
 
@@ -216,14 +189,14 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			if ( ! is_numeric( $end_date ) ) {
 				$message = $this->messages->get_message( 'event-archive-bad-end-date' );
 
-				return new WP_Error( 'event-archive-bad-end-date', $message, array( 'status' => 400 ) );
+				throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-end-date', $message,400);
 			}
 			try {
 				return date( Tribe__Date_Utils::DBDATETIMEFORMAT, $end_date );
 			} catch ( Exception $e ) {
 				$message = $this->messages->get_message( 'event-archive-bad-end-date' );
 
-				return new WP_Error( 'event-archive-bad-end-date', $message, array( 'status' => 400 ) );
+				throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-end-date', $message, 400 );
 			}
 		}
 
@@ -321,7 +294,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		if ( ! $filtered ) {
 			$message = $this->messages->get_message( 'event-archive-bad-search-string' );
 
-			return new WP_Error( 'event-archive-bad-search-string', $message, array( 'status' => 400 ) );
+			throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-search-string', $message, 400 );
 		}
 
 		return $filtered;
@@ -431,5 +404,48 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				),
 			),
 		);
+	}
+
+	protected function parse_categories( WP_REST_Request $request ) {
+		return $this->parse_terms( $request, 'categories', Tribe__Events__Main::TAXONOMY );
+	}
+
+	protected function parse_tags( $request ) {
+		return $this->parse_terms( $request, 'tags', 'post_tag' );
+	}
+
+	protected function parse_terms( $request, $key, $taxonomy ) {
+		if ( ! isset( $request[ $key ] ) ) {
+			return false;
+		}
+
+		$parsed = array();
+		$tags   = (array) $request[ $key ];
+
+		foreach ( $tags as $tag ) {
+			$term = get_term_by( 'slug', $tag, $taxonomy );
+
+			if ( false === $term ) {
+				$term = get_term_by( 'id', $tag, $taxonomy );
+			}
+
+			if ( false === $term ) {
+				$message = $this->messages->get_message( 'event-archive-bad-' . $key );
+
+				throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-' . $key, $message, 400 );
+			}
+
+			$parsed[] = $term->term_id;
+		}
+
+		if ( ! empty( $parsed ) ) {
+			$parsed= array(
+				'taxonomy' => $taxonomy,
+				'field'    => 'term_id',
+				'terms'    => $parsed
+			);
+		}
+
+		return $parsed;
 	}
 }
