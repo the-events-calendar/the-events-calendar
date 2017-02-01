@@ -329,7 +329,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$this->bind_implementations();
 				$this->loadLibraries();
 				$this->addHooks();
-				$this->maybe_load_tickets_framework();
 			} else {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
 				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
@@ -408,37 +407,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
-		}
-
-		/**
-		 * Checks if the standalone Tickets plugin is activated.
-		 * If it's not, it loads the Tickets framework from our
-		 * vendor/ submodule.
-		 */
-		public function maybe_load_tickets_framework() {
-			if ( defined( 'EVENT_TICKETS_DIR' ) ) {
-				return;
-			}
-
-			// Give the standalone plugin a chance to load on activation
-			// WordPress loads all the active plugins before activating a new one.
-			if ( isset( $_GET['action'] ) && $_GET['action'] == 'activate' && isset( $_GET['plugin'] ) && strstr( $_GET['plugin'], 'event-tickets.php' ) ) {
-				return;
-			}
-
-			// if there aren't any ticket plugins activated, bail
-			if (
-				! defined( 'EVENT_TICKETS_PLUS' )
-				&& ! defined( 'EVENTS_TICKETS_EDD_DIR' )
-				&& ! defined( 'EVENTS_TICKETS_SHOPP_DIR' )
-				&& ! defined( 'EVENTS_TICKETS_WOO_DIR' )
-				&& ! defined( 'EVENTS_TICKETS_WPEC_DIR' )
-			) {
-				return;
-			}
-
-			require_once $this->plugin_path . 'vendor/tickets/event-tickets.php';
-			Tribe__Tickets__Main::instance()->plugins_loaded();
 		}
 
 		/**
