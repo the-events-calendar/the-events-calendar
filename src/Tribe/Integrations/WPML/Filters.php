@@ -32,7 +32,7 @@ class Tribe__Events__Integrations__WPML__Filters {
 		/** @var SitePress $sitepress */
 		global $sitepress, $sitepress_settings;
 
-		if ( empty( $sitepress ) || ! is_a( $sitepress, 'SitePress' ) ) {
+		if ( empty( $sitepress ) || ! $sitepress instanceof SitePress ) {
 			return $bases;
 		}
 
