@@ -1,4 +1,5 @@
 <?php
+$tab                = $this->tabs->get_active();
 $origin_slug        = 'ics';
 $field              = (object) array();
 $field->label       = __( 'Choose File:', 'the-events-calendar' );
@@ -36,7 +37,11 @@ $field->media_title = __( 'Upload an ICS File', 'the-events-calendar' );
 	</td>
 </tr>
 
-<?php $this->template( 'fields/schedule', array( 'record' => $record, 'origin' => 'ics', 'aggregator_action' => $aggregator_action ) ); ?>
+<?php
+if ( 'edit' === $tab->get_slug() ) {
+	$this->template( 'fields/schedule', array( 'record' => $record, 'origin' => $origin_slug, 'aggregator_action' => $aggregator_action ) );
+}
+?>
 
 <?php include dirname( __FILE__ ) . '/refine.php'; ?>
 
