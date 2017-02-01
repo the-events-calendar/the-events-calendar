@@ -57,7 +57,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
 		}
 
-		if ( ! is_a( $record, 'Tribe__Events__Aggregator__Record__Abstract' ) ) {
+		if ( ! is_object( $record ) || ! in_array( 'Tribe__Events__Aggregator__Record__Abstract', class_parents( $record ) ) ) {
 			$this->null_process = true;
 
 			return;
