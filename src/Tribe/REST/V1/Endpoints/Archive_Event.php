@@ -420,13 +420,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		}
 
 		$parsed = array();
-		$tags   = (array) $request[ $key ];
+		$requested   = (array) $request[ $key ];
 
-		foreach ( $tags as $tag ) {
-			$term = get_term_by( 'slug', $tag, $taxonomy );
+		foreach ( $requested as $requeste_term ) {
+			$term = get_term_by( 'slug', $requeste_term, $taxonomy );
 
 			if ( false === $term ) {
-				$term = get_term_by( 'id', $tag, $taxonomy );
+				$term = get_term_by( 'id', $requeste_term, $taxonomy );
 			}
 
 			if ( false === $term ) {

@@ -2,11 +2,24 @@
 
 
 class CategoryArchiveCest extends BaseRestCest {
+
+	/**
+	 * @test
+	 * it should return 400 if hitting non existing category
+	 */
+	public function it_should_return_400_if_hitting_non_existing_category(Restv1Tester $I) {
+		$I->sendGET( $this->events_url, [ 'categories' => [ 'cat1' ] ] );
+
+		$I->seeResponseCodeIs( 400 );
+		$I->seeResponseIsJson();
+	}
 	/**
 	 * @test
 	 * it should return 404 if hitting empty category archive
 	 */
 	public function it_should_return_404_if_hitting_empty_category_archive( Restv1Tester $I ) {
+		$I->haveTermInDatabase( 'cat1', 'tribe_events_cat', [ 'slug' => 'cat1' ] );
+
 		$I->sendGET( $this->events_url, [ 'categories' => [ 'cat1' ] ] );
 
 		$I->seeResponseCodeIs( 404 );
