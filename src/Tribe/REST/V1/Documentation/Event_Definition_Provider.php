@@ -64,7 +64,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 					'description' => __( 'The event short description', 'the-events-calendar' ),
 				),
 				'image' => array(
-					'type' => 'string',
+					'type' => 'object',
 					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
 					'$ref' => '#/definitions/Image',
 				),
