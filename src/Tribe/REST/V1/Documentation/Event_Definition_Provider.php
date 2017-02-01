@@ -64,7 +64,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 					'description' => __( 'The event short description', 'the-events-calendar' ),
 				),
 				'image' => array(
-					'type' => 'string',
+					'type' => 'object',
 					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
 					'$ref' => '#/definitions/Image',
 				),
@@ -132,6 +132,18 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				'show_map_link' => array(
 					'type' => 'bool',
 					'description' => __( 'Whether the map link should be shown for the event or not', 'the-events-calendar' ),
+				),
+				'hide_from_listings' => array(
+					'type'        => 'bool',
+					'description' => __( 'Whether an event should be hidden from the calendar view or not', 'the-events-calendar' )
+				),
+				'sticky'             => array(
+					'type'        => 'bool',
+					'description' => __( 'Whether an event is sticky in the calendar view or not', 'the-events-calendar' )
+				),
+				'featured'           => array(
+					'type'        => 'bool',
+					'description' => __( 'Whethere the event is featured in the calendar or not', 'the-events-calendar' )
 				),
 				'categories' => array(
 					'type' => 'array',

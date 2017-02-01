@@ -95,8 +95,11 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				'values'            => $this->get_cost_values( $event_id ),
 			),
 			'website'                => isset( $meta['_EventURL'] ) ? esc_html( $meta['_EventURL'] ) : get_the_permalink( $event_id ),
-			'show_map'               => isset( $meta['_EventShowMap'] ) ? $meta['_EventShowMap'] : '0',
-			'show_map_link'          => isset( $meta['_EventShowMapLink'] ) ? $meta['_EventShowMapLink'] : '0',
+			'show_map'               => isset( $meta['_EventShowMap'] ) ? (bool) $meta['_EventShowMap'] : true,
+			'show_map_link'          => isset( $meta['_EventShowMapLink'] ) ? (bool) $meta['_EventShowMapLink'] : true,
+			'hide_from_listings'     => isset( $meta['_EventHideFromUpcoming'] ) && $meta['_EventHideFromUpcoming'] === 'yes' ? true : false,
+			'sticky'                 => $event->menu_order == - 1 ? true : false,
+			'featured'               => isset( $meta['_tribe_featured'] ) && $meta['_tribe_featured'] == 1 ? true : false,
 			'categories'             => $this->get_categories( $event_id ),
 			'tags'                   => $this->get_tags( $event_id ),
 			'venue'                  => is_wp_error( $venue ) ? array() : $venue,
@@ -360,8 +363,13 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	}
 
 	protected function get_featured_image($id) {
-		$full_url = get_the_post_thumbnail_url($id, 'full');
 		$thumbnail_id = get_post_thumbnail_id($id);
+
+		if ( empty( $thumbnail_id ) ) {
+			return false;
+		}
+
+		$full_url = get_the_post_thumbnail_url($id, 'full');
 		$file = get_attached_file($thumbnail_id);
 
 		$data = array(
