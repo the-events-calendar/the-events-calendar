@@ -13,15 +13,14 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	/**
 	 * @var array An array mapping the REST request supported query vars to the args used in a TEC WP_Query.
 	 */
-	protected $supported_query_vars
-		= array(
-			'page'       => 'paged',
-			'per_page'   => 'posts_per_page',
-			'start_date' => 'start_date',
-			'end_date'   => 'end_date',
-			'search'     => 's',
-			'categories'     => 'categories',
-		);
+	protected $supported_query_vars = array(
+		'page'       => 'paged',
+		'per_page'   => 'posts_per_page',
+		'start_date' => 'start_date',
+		'end_date'   => 'end_date',
+		'search'     => 's',
+		'categories' => 'categories',
+	);
 
 	/**
 	 * @var int The total number of events according to the current request parameters and user access rights.
@@ -382,6 +381,22 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 						'in'          => 'query',
 						'description' => __( 'Events should contain the specified string in the title or description', 'the-events-calendar' ),
 						'type'        => 'string',
+						'required'    => false,
+						'default'     => '',
+					),
+					array(
+						'name'        => 'categories',
+						'in'          => 'query',
+						'description' => __( 'Events should be assigned one of the specified categories slugs or IDs', 'the-events-calendar' ),
+						'type'        => 'array',
+						'required'    => false,
+						'default'     => '',
+					),
+					array(
+						'name'        => 'tags',
+						'in'          => 'query',
+						'description' => __( 'Events should be assigned one of the specified tags slugs or IDs', 'the-events-calendar' ),
+						'type'        => 'array',
 						'required'    => false,
 						'default'     => '',
 					),
