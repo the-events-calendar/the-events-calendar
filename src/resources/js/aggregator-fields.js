@@ -623,6 +623,8 @@ tribe_aggregator.fields = {
 				unique_id_field = 'meetup_id';
 			} else if ( 'ical' === origin || 'ics' === origin || 'gcal' === origin ) {
 				unique_id_field = 'uid';
+			} else if ( 'url' === origin ) {
+                unique_id_field = 'id';
 			}
 
 			if ( null !== unique_id_field ) {
