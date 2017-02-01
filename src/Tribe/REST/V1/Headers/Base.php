@@ -56,6 +56,21 @@ class Tribe__Events__REST__V1__Headers__Base implements Tribe__REST__Headers__Ba
 			return tribe_events_rest_url( 'events/' . Tribe__Main::post_id_helper() );
 		}
 
+		/** @var WP_Query $wp_query */
+		global $wp_query ;
+
+		if ( ! empty( $wp_query->tribe_is_event_category ) && $wp_query->tribe_is_event_category ) {
+			$category = $wp_query->get( Tribe__Events__Main::TAXONOMY );
+
+			return add_query_arg( array( 'categories' => $category ), tribe_events_rest_url( 'events/' ) );
+		}
+
+		if ( $wp_query->is_tag ) {
+			$tag = $wp_query->get( 'tag' );
+
+			return add_query_arg( array( 'tags' => $tag ), tribe_events_rest_url( 'events/' ) );
+		}
+
 		return tribe_events_rest_url();
 	}
 }

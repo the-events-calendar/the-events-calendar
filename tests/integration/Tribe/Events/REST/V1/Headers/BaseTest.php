@@ -64,6 +64,40 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * @test
+	 * it should return a category filtered root URL when hitting an event archive
+	 */
+	public function it_should_return_a_category_filtered_root_url_when_hitting_an_event_archive() {
+		global $wp_query;
+		$wp_query->is_single = false;
+		$wp_query->tribe_is_event_category = true;
+		$wp_query->set(Main::TAXONOMY,'cat1');
+
+		$sut = $this->make_instance();
+
+		$rest_url = $sut->get_rest_url();
+
+		$this->assertRegExp( '#categories=cat1#' , $rest_url );
+	}
+
+	/**
+	 * @test
+	 * it should return a tag filtered root URL when hitting a tag archive
+	 */
+	public function it_should_return_a_tag_filtered_root_url_when_hitting_a_tag_archive() {
+		global $wp_query;
+		$wp_query->is_single = false;
+		$wp_query->is_tag    = true;
+		$wp_query->set( 'tag', 'tag1' );
+
+		$sut = $this->make_instance();
+
+		$rest_url = $sut->get_rest_url();
+
+		$this->assertRegExp( '#tags=tag1#', $rest_url );
+	}
+
+	/**
 	 * @return Base
 	 */
 	protected function make_instance() {

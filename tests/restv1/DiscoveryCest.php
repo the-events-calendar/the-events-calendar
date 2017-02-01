@@ -39,4 +39,30 @@ class DiscoveryCest extends BaseRestCest {
 		$I->seeHttpHeader( 'X-TEC-API-VERSION', 'disabled' );
 		$I->dontSeeHttpHeader( 'X-TEC-API-ROOT', $this->rest_url );
 	}
+
+	/**
+	 * @test
+	 * it should return a category filtered root when hitting an event category page
+	 */
+	public function it_should_return_a_category_filtered_root_when_hitting_an_event_category_page(Restv1Tester $I) {
+		$I->haveTermInDatabase( 'cat1', 'tribe_events_cat', [ 'slug' => 'cat1' ] );
+
+		$I->sendHEAD( $this->site_url . '/events/category/cat1/' );
+
+		$I->seeHttpHeader( 'X-TEC-API-VERSION', 'v1' );
+		$I->seeHttpHeader( 'X-TEC-API-ROOT', $this->rest_url . 'events/?categories=cat1' );
+	}
+
+	/**
+	 * @test
+	 * it should return a tag filtered root when hitting and event tag page
+	 */
+	public function it_should_return_a_tag_filtered_root_when_hitting_and_event_tag_page(Restv1Tester $I) {
+		$I->haveTermInDatabase( 'tag1', 'post_tag', [ 'slug' => 'tag1' ] );
+
+		$I->sendHEAD( $this->site_url . '/tag/tag1/' );
+
+		$I->seeHttpHeader( 'X-TEC-API-VERSION', 'v1' );
+		$I->seeHttpHeader( 'X-TEC-API-ROOT', $this->rest_url .'events/?tags=tag1');
+	}
 }
