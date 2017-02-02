@@ -63,6 +63,19 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 		$response = $this->service->get_import( $import_id );
 
 		if ( is_wp_error( $response ) ) {
+
+			/** @var WP_Error $response */
+			if ( 'core:aggregator:http_request-limit' === $response->get_error_code() ) {
+				$response = (object) array(
+					'status'       => 'queued',
+					'message_code' => 'queued',
+					'message'      => tribe( 'events-aggregator.service' )->get_service_message( 'queued' ),
+					'data'         => (object) array(
+						'import_id' => $import_id
+					)
+				);
+			}
+
 			return $response;
 		}
 
