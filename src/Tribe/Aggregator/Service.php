@@ -187,6 +187,7 @@ class Tribe__Events__Aggregator__Service {
 
 		$response = $this->requests->get( esc_url_raw( $url ), array( 'timeout' => $timeout_in_seconds ) );
 
+		// this is not an error from the EA server, but one dealing with communication with it
 		if ( is_wp_error( $response ) ) {
 			if ( isset( $response->errors['http_request_failed'] ) ) {
 				$response->errors['http_request_failed'][0] = __( 'Connection timed out while transferring the feed. If you are dealing with large feeds you may need to customize the tribe_aggregator_connection_timeout filter.', 'the-events-calendar' );
@@ -194,8 +195,9 @@ class Tribe__Events__Aggregator__Service {
 			return $response;
 		}
 
+		// whatever the EA server responds, success or error, the response from it will be a 200 as HTTP status
 		if ( isset( $response->data ) && isset( $response->data->status ) && '404' === $response->data->status ) {
-			return new WP_Error( 'core:aggregator:daily-limit-reached', esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' ) );
+			return tribe_error( 'core:aggregator:daily-limit-reached', (array) $response->data, array( $this->get_limit( 'import' ) ) );
 		}
 
 		// if the response is not an image, let's json decode the body
