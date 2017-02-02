@@ -21,7 +21,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @param string $postId
 	 *
-	 * @return string A fully qualified link to http://maps.google.com/ for this event
+	 * @return string A fully qualified link to https://maps.google.com/ for this event
 	 */
 	function tribe_get_map_link( $postId = null ) {
 		$tec    = Tribe__Events__Main::instance();
@@ -37,7 +37,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @param string $postId
 	 *
-	 * @return string A fully qualified link to http://maps.google.com/ for this event
+	 * @return string A fully qualified link to https://maps.google.com/ for this event
 	 */
 	function tribe_get_map_link_html( $postId = null ) {
 		$link = sprintf(
@@ -62,7 +62,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param int    $height
 	 * @param bool   $force_load If true, then load the map even if an address is not provided.
 	 *
-	 * @return string An iframe pulling http://maps.google.com/ for this event
+	 * @return string An iframe pulling https://maps.google.com/ for this event
 	 */
 	function tribe_get_embedded_map( $post_id = null, $width = null, $height = null, $force_load = false ) {
 		return Tribe__Events__Embedded_Maps::instance()->get_map( $post_id, $width, $height, $force_load );
