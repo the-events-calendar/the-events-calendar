@@ -187,15 +187,21 @@ class Tribe__Events__Aggregator__Service {
 
 		$response = $this->requests->get( esc_url_raw( $url ), array( 'timeout' => $timeout_in_seconds ) );
 
+		// this is not an error from the EA server, but one dealing with communication with it
+		// OR an error happened due to HTTP request rescheduling
 		if ( is_wp_error( $response ) ) {
+			/** @var WP_Error $response */
 			if ( isset( $response->errors['http_request_failed'] ) ) {
 				$response->errors['http_request_failed'][0] = __( 'Connection timed out while transferring the feed. If you are dealing with large feeds you may need to customize the tribe_aggregator_connection_timeout filter.', 'the-events-calendar' );
 			}
+
 			return $response;
 		}
 
+		// whatever the EA server responds, success or error, the response from it will be a 200 as HTTP status
+		// so we check into it to see if something went wrong
 		if ( isset( $response->data ) && isset( $response->data->status ) && '404' === $response->data->status ) {
-			return new WP_Error( 'core:aggregator:daily-limit-reached', esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' ) );
+			return tribe_error( 'core:aggregator:daily-limit-reached', (array) $response->data, array( $this->get_limit( 'import' ) ) );
 		}
 
 		// if the response is not an image, let's json decode the body
@@ -406,7 +412,7 @@ class Tribe__Events__Aggregator__Service {
 	 * @return string
 	 */
 	public function get_service_message( $key, $args = array() ) {
-		if ( empty( $this->service_messages[ $key ] ) ) {
+		if ( ! $this->has_service_message( $key ) ) {
 			return __( 'Unknown service message', 'the-events-calendar' );
 		}
 
@@ -504,5 +510,16 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		return 0;
+	}
+
+	/**
+	 * Whether a message with the specified code is supported or not.
+	 *
+	 * @param string $code The message code
+	 *
+	 * @return bool
+	 */
+	public function has_service_message( $code ) {
+		return ! empty( $this->service_messages[ $code ] );
 	}
 }
