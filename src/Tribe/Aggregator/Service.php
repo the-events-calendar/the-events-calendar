@@ -188,10 +188,13 @@ class Tribe__Events__Aggregator__Service {
 		$response = $this->requests->get( esc_url_raw( $url ), array( 'timeout' => $timeout_in_seconds ) );
 
 		// this is not an error from the EA server, but one dealing with communication with it
+		// OR an error happened due to HTTP request rescheduling
 		if ( is_wp_error( $response ) ) {
+			/** @var WP_Error $response */
 			if ( isset( $response->errors['http_request_failed'] ) ) {
 				$response->errors['http_request_failed'][0] = __( 'Connection timed out while transferring the feed. If you are dealing with large feeds you may need to customize the tribe_aggregator_connection_timeout filter.', 'the-events-calendar' );
 			}
+
 			return $response;
 		}
 
@@ -409,7 +412,7 @@ class Tribe__Events__Aggregator__Service {
 	 * @return string
 	 */
 	public function get_service_message( $key, $args = array() ) {
-		if ( empty( $this->service_messages[ $key ] ) ) {
+		if ( ! $this->has_service_message( $key ) ) {
 			return __( 'Unknown service message', 'the-events-calendar' );
 		}
 
@@ -507,5 +510,16 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		return 0;
+	}
+
+	/**
+	 * Whether a message with the specified code is supported or not.
+	 *
+	 * @param string $code The message code
+	 *
+	 * @return bool
+	 */
+	public function has_service_message( $code ) {
+		return ! empty( $this->service_messages[ $code ] );
 	}
 }
