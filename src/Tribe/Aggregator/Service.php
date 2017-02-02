@@ -196,6 +196,7 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		// whatever the EA server responds, success or error, the response from it will be a 200 as HTTP status
+		// so we check into it to see if something went wrong
 		if ( isset( $response->data ) && isset( $response->data->status ) && '404' === $response->data->status ) {
 			return tribe_error( 'core:aggregator:daily-limit-reached', (array) $response->data, array( $this->get_limit( 'import' ) ) );
 		}
