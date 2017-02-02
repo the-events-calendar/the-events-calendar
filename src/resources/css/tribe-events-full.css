@@ -1413,11 +1413,19 @@ select.tribe-events-dropdown {
 	margin-top: .75rem;
 }
 
+.tribe-events-list-widget .tribe-event-featured .tribe-event-title a {
+	color: white;
+}
+
 .tribe-events-list-widget .tribe-event-featured .tribe-event-image {
 	margin-left: -24px;
 	margin-left: -1.5rem;
 	margin-right: -24px;
 	margin-right: -1.5rem;
+}
+
+.tribe-events-list-widget .tribe-event-featured .tribe-event-duration {
+	color: white;
 }
 
 /* = Events Navigation Bar

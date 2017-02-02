@@ -388,7 +388,13 @@ class Tribe__Events__Aggregator__Cron {
 			if ( ! is_wp_error( $queue ) ) {
 				/** @var Tribe__Events__Aggregator__Record__Queue $queue */
 				$this->log( 'debug', sprintf( 'Record (%d) has processed queue ', $queue->record->id ) );
-				$activity = $queue->activity()->get();
+
+				if ( $queue instanceof Tribe__Events__Aggregator__Record__Queue ) {
+					$activity = $queue->activity()->get();
+				} else {
+					// if fetching or on error
+					$activity = $queue;
+				}
 
 				foreach ( $activity as $key => $actions ) {
 					foreach ( $actions as $action => $ids ) {

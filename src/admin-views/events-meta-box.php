@@ -55,6 +55,16 @@ $events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 		<tr>
 			<td colspan="2">
 				<table class="eventtable">
+					<?php
+					/**
+					 * Don't Remove the <colgroup> it's important to avoid
+					 * recurrence meta changing it's width when the Description changes
+					 */
+					?>
+					<colgroup>
+						<col style="width:15%">
+						<col style="width:85%">
+					</colgroup>
 					<tr id="recurrence-changed-row">
 						<td colspan='2'><?php printf( esc_html__( 'You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page.', 'the-events-calendar' ), $events_label_singular_lowercase, $events_label_plural_lowercase ); ?></td>
 					</tr>
