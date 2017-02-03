@@ -1,4 +1,5 @@
 <?php
+$tab                = $this->tabs->get_active();
 $origin_slug        = 'meetup';
 $field              = (object) array();
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
@@ -125,7 +126,11 @@ $missing_meetup_credentials = ! $meetup_api_key;
 	</td>
 </tr>
 
-<?php $this->template( 'fields/schedule', array( 'record' => $record, 'origin' => 'meetup', 'aggregator_action' => $aggregator_action ) ); ?>
+<?php
+if ( 'edit' === $tab->get_slug() ) {
+	$this->template( 'fields/schedule', array( 'record' => $record, 'origin' => $origin_slug, 'aggregator_action' => $aggregator_action ) );
+}
+?>
 
 <?php
 $field              = (object) array();

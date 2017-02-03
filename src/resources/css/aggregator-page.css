@@ -84,7 +84,7 @@
 }
 
 .tribe-ea .tribe-ea-size-tiny {
-	width: 65px;
+	width: 75px;
 }
 
 .tribe-ea .tribe-ea-size-small {
@@ -121,6 +121,10 @@
 
 .tribe-ea .tribe-ea-field-readonly + .tribe-ea-field {
 	margin-left: 10px;
+}
+
+.tribe-ea .tribe-ea-field.tribe-field-inline-dropdown {
+	margin-left: 0;
 }
 
 .tribe-ea .tribe-credential-row {
