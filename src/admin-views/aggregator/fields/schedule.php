@@ -40,8 +40,7 @@ for ( $i = 1; $i <= 31; $i++ ) {
 				type="hidden"
 				name="aggregator[<?php echo esc_attr( $origin ) ?>][schedule_day]"
 				id="tribe-ea-field-<?php echo esc_attr( $origin ) ?>_schedule_day"
-				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-medium"
-				style="margin-left: 0;"
+				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-medium tribe-field-inline-dropdown"
 				placeholder="<?php echo esc_attr__( 'Day', 'the-events-calendar' ); ?>"
 				data-hide-search
 				data-prevent-clear
@@ -59,8 +58,7 @@ for ( $i = 1; $i <= 31; $i++ ) {
 				type="hidden"
 				name="aggregator[<?php echo esc_attr( $origin ) ?>][schedule_day]"
 				id="tribe-ea-field-<?php echo esc_attr( $origin ) ?>_schedule_day"
-				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-tiny"
-				style="margin-left: 0;"
+				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-tiny tribe-field-inline-dropdown"
 				placeholder="<?php echo esc_attr__( 'Day', 'the-events-calendar' ); ?>"
 				data-hide-search
 				data-prevent-clear
