@@ -486,7 +486,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Queues the import on the Aggregator service
 	 *
-	 * @return mixed
+	 * @see Tribe__Events__Aggregator__API__Import::create()
+	 *
+	 * @return stdClass|WP_Error|int A response object, a `WP_Error` instance on failure or a record
+	 *                               post ID if the record had to be re-scheduled due to HTTP request
+	 *                               limit.
 	 */
 	public function queue_import( $args = array() ) {
 		$aggregator = tribe( 'events-aggregator.main' );
