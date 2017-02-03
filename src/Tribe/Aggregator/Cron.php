@@ -329,6 +329,11 @@ class Tribe__Events__Aggregator__Cron {
 					$this->log( 'debug', sprintf( '%s — %s (%s)', $response->status, $response->message, $response->data->import_id ) );
 
 					$record->update_meta( 'last_import_status', 'success:queued' );
+				} elseif ( is_numeric( $response ) ) {
+					// it's the post ID of a rescheduled record
+					$this->log( 'debug', sprintf( 'rescheduled — %s', $response ) );
+
+					$record->update_meta( 'last_import_status', 'queued' );
 				} else {
 					$this->log( 'debug', 'Could not create Queue on Service' );
 
