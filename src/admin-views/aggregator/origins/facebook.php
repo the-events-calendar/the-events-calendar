@@ -1,4 +1,5 @@
 <?php
+$tab                = $this->tabs->get_active();
 $origin_slug        = 'facebook';
 $field              = (object) array();
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
@@ -96,6 +97,12 @@ if ( $missing_facebook_credentials ) :
 		></span>
 	</td>
 </tr>
+
+<?php
+if ( 'edit' === $tab->get_slug() ) {
+	$this->template( 'fields/schedule', array( 'record' => $record, 'origin' => $origin_slug, 'aggregator_action' => $aggregator_action ) );
+}
+?>
 
 <?php
 $field              = (object) array();

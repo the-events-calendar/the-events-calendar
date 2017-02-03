@@ -1,4 +1,5 @@
 <?php
+$tab                = $this->tabs->get_active();
 $origin_slug        = 'ics';
 $field              = (object) array();
 $field->label       = __( 'Choose File:', 'the-events-calendar' );
@@ -35,6 +36,12 @@ $field->media_title = __( 'Upload an ICS File', 'the-events-calendar' );
 		<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
 	</td>
 </tr>
+
+<?php
+if ( 'edit' === $tab->get_slug() ) {
+	$this->template( 'fields/schedule', array( 'record' => $record, 'origin' => $origin_slug, 'aggregator_action' => $aggregator_action ) );
+}
+?>
 
 <?php include dirname( __FILE__ ) . '/refine.php'; ?>
 

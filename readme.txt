@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.7
-Stable tag: 4.4.0.1
+Stable tag: 4.4.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -314,6 +314,24 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [4.4.1.1] 2017-01-26 =
+
+* Fix - Resolved fatal caused when rendering themes that override tribe styles
+
+= [4.4.1] 2017-01-26 =
+
+* Fix - Resolve the Fatals related to undefined methods and Memory exhaustion [71958, 71912]
+* Fix - iCal export for Single events working again [71916]
+* Tweak - Changes the Search label to prevent duplicate words (props @oheinrich) [72149]
+* Tweak - Add theme version to `tribe-event.css` (props @berler) [71973]
+* Fix - Resolve JavaScript error when jQuery was been de-registered [71369]
+* Fix - Prevent Fatals when Importing Images on Event Aggregator [70576]
+* Fix - Prevent Third Party notes to be escaped, anchor link working again [71872]
+* Fix - Google Maps now are using HTTPS instead of HTTP (props @cliffordp)
+* Fix - Prevent Fatals on Event Aggegrator Cron, due to Activity logging failure [71904]
+* Fix - Elminate some cases of problem with Facebook manual import on Event Aggregator [69137]
+* Fix - WPML integration smaller incompatibilities [70520, 70522]
 
 = [4.4.0.1] 2017-01-09 =
 

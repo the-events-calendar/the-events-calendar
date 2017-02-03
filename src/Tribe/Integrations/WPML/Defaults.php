@@ -67,9 +67,15 @@ class Tribe__Events__Integrations__WPML__Defaults {
 			return false;
 		}
 
+		$translation_management = $this->core_tm();
+
+		if ( empty( $translation_management ) ) {
+			return false;
+		}
+
 		$fields = $this->get_default_copy_fields();
 		foreach ( $fields as $field ) {
-			$this->sitepress->core_tm()->settings['custom_fields_translation'][ $field ] = WPML_COPY_CUSTOM_FIELD;
+			$translation_management->settings['custom_fields_translation'][ $field ] = WPML_COPY_CUSTOM_FIELD;
 		}
 
 		// remove the method to avoid infinite loops
@@ -77,17 +83,10 @@ class Tribe__Events__Integrations__WPML__Defaults {
 
 		// the Translation Management plugin might not be active on this
 		// installation, save this option only if Translation Management is active.
-		$translation_management = $this->sitepress->core_tm();
-		$tm_is_active           = ! empty( $translation_management )
-		                          && is_a( $translation_management, 'TranslationManagement' );
-		if ( $tm_is_active ) {
-			$translation_management->save_settings();
-			Tribe__Settings_Manager::set_option( $this->defaults_option_name, true );
+		$translation_management->save_settings();
+		Tribe__Settings_Manager::set_option( $this->defaults_option_name, true );
 
-			return true;
-		}
-
-		return false;
+		return true;
 	}
 
 	/**
@@ -147,5 +146,27 @@ class Tribe__Events__Integrations__WPML__Defaults {
 		// its own specific defaults, plus this array will be parse once per site and concurrency cannot be
 		// granted.
 		return $default_copy_fields;
+	}
+
+	/**
+	 * Wrapper around `Sitepress::core_tm()` method to allow for older WPML versions
+	 * to still work.
+	 *
+	 * @return bool|TranslationManagement Either a ready to use `TranslationManagement`
+	 *                                    instance or `false` if the object is not initialized
+	 *                                    or not available.
+	 */
+	protected function core_tm( ) {
+		if ( method_exists( $this->sitepress, 'core_tm' ) ) {
+			$translation_management = $this->sitepress->core_tm();
+		} else {
+			global $iclTranslationManagement;
+			$translation_management = $iclTranslationManagement;
+		}
+
+		$tm_is_active = ! empty( $translation_management )
+						&& is_a( $translation_management, 'TranslationManagement' );
+
+		return $tm_is_active ? $translation_management : false;
 	}
 }
