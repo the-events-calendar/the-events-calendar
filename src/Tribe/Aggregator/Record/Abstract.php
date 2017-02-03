@@ -547,8 +547,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// if the Aggregator API returns a WP_Error, set this record as failed
 		if ( is_wp_error( $response ) ) {
-			$error = $response;
-			return $this->set_status_as_failed( $error );
+			// if the error is just a reschedule set this record as pending
+			/** @var WP_Error $response */
+			if ( 'core:aggregator:http_request-limit' === $response->get_error_code() ) {
+				return $this->set_status_as_pending();
+			} else {
+				$error = $response;
+
+				return $this->set_status_as_failed( $error );
+			}
 		}
 
 		// if the Aggregator response has an unexpected format, set this record as failed
