@@ -352,7 +352,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 						_n( '%1$d new event category was created.', '%1$d new event categories were created.', $queue->activity->count( 'category', 'created' ), 'the-events-calendar' ),
 						$queue->activity->count( 'category', 'created' )
 					) .
-					' <a href="' . admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) . '">' .
+					' <a href="' . esc_url( admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) ) . '">' .
 					__( 'View your event categories', 'the-events-calendar' ) .
 					'</a>';
 			}
@@ -364,7 +364,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 						 _n( '%1$d new event tag was created.', '%1$d new event tags were created.', $queue->activity->count( 'tag', 'created' ), 'the-events-calendar' ),
 						 $queue->activity->count( 'tag', 'created' )
 					 ) .
-					 ' <a href="' . admin_url( 'edit-tags.php?taxonomy=post_tag&post_type=tribe_events' ) . '">' .
+					 ' <a href="' . esc_url( admin_url( 'edit-tags.php?taxonomy=post_tag&post_type=tribe_events' ) ) . '">' .
 					 __( 'View your event tags', 'the-events-calendar' ) .
 					 '</a>';
 			}

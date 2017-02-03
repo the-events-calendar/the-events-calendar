@@ -624,7 +624,7 @@ tribe_aggregator.fields = {
 			} else if ( 'ical' === origin || 'ics' === origin || 'gcal' === origin ) {
 				unique_id_field = 'uid';
 			} else if ( 'url' === origin ) {
-                unique_id_field = 'id';
+				unique_id_field = 'id';
 			}
 
 			if ( null !== unique_id_field ) {

@@ -1252,7 +1252,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				if ( is_object( $event['image'] ) ) {
 					$image = $this->import_aggregator_image( $event );
 				} else {
-					$image          = $this->import_image( $event );
+					$image = $this->import_image( $event );
 				}
 
 				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
@@ -1355,7 +1355,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$this->update_meta( 'finalized', true );
 	}
 
-	public function import_aggregator_image( $event) {
+    /**
+     * Imports an image information from EA server and creates the WP attachment object if required.
+     *
+     * @param array $event An event representation in the format provided by an Event Aggregator response.
+     *
+     * @return bool|stdClass|WP_Error An image information in the format provided by an Event Aggregator responsr or
+     *                                `false` on failure.
+     */
+	public function import_aggregator_image( $event ) {
 		// Attempt to grab the event image
 		$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id );
 
