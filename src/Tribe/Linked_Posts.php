@@ -48,7 +48,7 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	public function enqueue_scripts() {
-		wp_localize_script( 'jquery', 'tribe_events_linked_posts', $this->get_post_type_container_data() );
+		wp_localize_script( 'tribe-events-admin', 'tribe_events_linked_posts', $this->get_post_type_container_data() );
 	}
 
 	/**

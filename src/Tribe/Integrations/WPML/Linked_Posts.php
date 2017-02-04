@@ -45,7 +45,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 			return $id;
 		}
 
-		$event_language_info = wpml_get_language_information( $event_id );
+		$event_language_info = wpml_get_language_information( null, $event_id );
 
 		$language_code = ! empty( $event_language_info['language_code'] ) ? $event_language_info['language_code'] :
 			ICL_LANGUAGE_CODE;
