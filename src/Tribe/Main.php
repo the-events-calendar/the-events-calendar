@@ -375,6 +375,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function bind_implementations(  ) {
+			// Utils
+			tribe_singleton( 'tec.cost-utils', 'Tribe__Events__Cost_Utils' );
+
 			// Front page events archive support
 			tribe_singleton( 'tec.front-page-view', 'Tribe__Events__Front_Page_View' );
 			tribe_singleton( 'tec.admin.front-page-view', 'Tribe__Events__Admin__Front_Page_View' );
@@ -407,6 +410,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
+
+			// REST API v1
+			tribe_singleton( 'tec.rest-v1.main', 'Tribe__Events__REST__V1__Main', array( 'bind_implementations', 'hook' ) );
+			tribe( 'tec.rest-v1.main' );
+
+			/**
+			 * Allows other plugins and services to override/change the bound implementations.
+			 */
+			do_action( 'tribe_events_bound_implementations' );
 		}
 
 		/**
@@ -641,6 +653,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.shortcodes.event-details' );
 			tribe( 'tec.ignored-events' );
 			tribe( 'tec.iCal' );
+			tribe( 'tec.rest-v1.main' );
 		}
 
 		/**

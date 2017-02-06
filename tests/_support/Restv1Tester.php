@@ -16,9 +16,9 @@
  *
  * @SuppressWarnings(PHPMD)
 */
-class FunctionalTester extends \Codeception\Actor
+class Restv1Tester extends \Codeception\Actor
 {
-    use _generated\FunctionalTesterActions;
+    use _generated\Restv1TesterActions;
 
    /**
     * Define custom actions here

@@ -17,6 +17,10 @@ switch ( $origin_slug ) {
 		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
 		$radius->help = __( 'Use the filters to narrow down which events are fetched from this Google Calendar.', 'the-events-calendar' );
 		break;
+	case 'url':
+		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
+		$radius->help = __( 'Use the filters to narrow down which events are fetched from this site.', 'the-events-calendar' );
+		break;
 	case 'ical':
 	default:
 		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
@@ -51,7 +55,7 @@ switch ( $origin_slug ) {
 			>
 			<span class="tribe-dependent tribe-date-helper" data-depends="#tribe-ea-field-<?php echo esc_attr( $origin_slug ); ?>_start" data-condition-not-empty><?php esc_html_e( 'Events on or after', 'the-events-calendar' ); ?> <span id="tribe-date-helper-date-<?php echo esc_attr( $origin_slug ); ?>"><?php echo esc_attr( empty( $record->meta['start'] ) ? '' : $record->meta['start'] ); ?></span></span>
 		</div>
-		<div class="tribe-refine">
+		<div class="tribe-refine tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not="url">
 			<input
 				name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][location]"
 				type="text"

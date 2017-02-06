@@ -42,6 +42,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'source' => 'uid',
 			'target' => 'uid',
 		),
+		'url' => array(
+			'source' => 'id',
+			'target' => 'EventOriginalID',
+		),
 	);
 
 	/**
@@ -1073,8 +1077,24 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			if ( $show_map_setting ) {
-				$event['EventShowMap']     = $show_map_setting;
-				$event['EventShowMapLink'] = $show_map_setting;
+				$event['EventShowMap']     = $show_map_setting && $event['show_map'];
+				$event['EventShowMapLink'] = $show_map_setting && $event['show_map_link'];
+			}
+			unset( $event['show_map'], $event['show_map_link'] );
+
+			if ( isset( $event['hide_from_listings'] ) ) {
+				if ( $event['hide_from_listings'] == true ) {
+					$event['EventHideFromUpcoming'] = 'yes';
+				}
+				unset( $event['hide_from_listings'] );
+			}
+
+			if ( isset( $event['sticky'] ) ) {
+				if ( $event['sticky'] == true ) {
+					$event['EventShowInCalendar'] = 'yes';
+					$event['menu_order']          = - 1;
+				}
+				unset( $event['sticky'] );
 			}
 
 			if ( empty( $event['recurrence'] ) ) {
@@ -1219,11 +1239,28 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						if ( ! is_wp_error( $term ) ) {
 							$terms[] = (int) $term['term_id'];
 
-							// Track that we created a Term
+							// Track that we created an event category
 							$activity->add( 'cat', 'created', $term['term_id'] );
 						}
 					} else {
 						$terms[] = (int) $term['term_id'];
+					}
+				}
+			}
+
+			$tags = array();
+			if ( ! empty( $event['tags'] ) ) {
+				foreach ( $event['tags'] as $tag_name ) {
+					if ( ! $tag = term_exists( $tag_name, 'post_tag' ) ) {
+						$tag = wp_insert_term( $tag_name, 'post_tag' );
+						if ( ! is_wp_error( $tag ) ) {
+							$tags[] = (int) $tag['term_id'];
+
+							// Track that we created a post tag
+							$activity->add( 'tag', 'created', $tag['term_id'] );
+						}
+					} else {
+						$tags[] = (int) $tag['term_id'];
 					}
 				}
 			}
@@ -1234,31 +1271,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );
+			wp_set_object_terms( $event['ID'], $tags, 'post_tag', false );
 
 			// If we have a Image Field from Service
 			if ( ! empty( $event['image'] ) ) {
-				// Attempt to grab the event image
-				$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id );
-
-				/**
-				 * Filters the returned event image url
-				 *
-				 * @param array|bool $image       Attachment information
-				 * @param array      $event       Event array
-				 */
-				$image = apply_filters( 'tribe_aggregator_event_image', $image_import, $event );
-
-				// If there was a problem bail out
-				if ( false === $image ) {
-					continue;
+				if ( is_object( $event['image'] ) ) {
+					$image = $this->import_aggregator_image( $event );
+				} else {
+					$image = $this->import_image( $event );
 				}
 
-				// Verify for more Complex Errors
-				if ( is_wp_error( $image ) ) {
-					continue;
-				}
-
-				if ( ! empty( $image->post_id ) ) {
+				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
 					// Set as featured image
 					$featured_status = set_post_thumbnail( $event['ID'], $image->post_id );
 
@@ -1356,5 +1379,82 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function finalize() {
 		$this->update_meta( 'finalized', true );
+	}
+
+    /**
+     * Imports an image information from EA server and creates the WP attachment object if required.
+     *
+     * @param array $event An event representation in the format provided by an Event Aggregator response.
+     *
+     * @return bool|stdClass|WP_Error An image information in the format provided by an Event Aggregator responsr or
+     *                                `false` on failure.
+     */
+	public function import_aggregator_image( $event ) {
+		// Attempt to grab the event image
+		$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id );
+
+		/**
+		 * Filters the returned event image url
+		 *
+		 * @param array|bool $image       Attachment information
+		 * @param array      $event       Event array
+		 */
+		$image = apply_filters( 'tribe_aggregator_event_image', $image_import, $event );
+
+		// If there was a problem bail out
+		if ( false === $image ) {
+			return false;
+		}
+
+		// Verify for more Complex Errors
+		if ( is_wp_error( $image ) ) {
+			return $image;
+		}
+
+		return $image;
+	}
+
+	/**
+	 * Imports the image contained in the event `image` field if any.
+	 *
+	 * @param array $event An event data in array format.
+	 *
+	 * @return object|bool An object with the image post ID or `false` on failure.
+	 */
+	public function import_image( $event ) {
+		if ( empty( $event['image'] ) || ! filter_var( $event['image'], FILTER_VALIDATE_URL ) ) {
+			return false;
+		}
+
+		require_once( ABSPATH . 'wp-admin/includes/media.php' );
+		require_once( ABSPATH . 'wp-admin/includes/file.php' );
+		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+
+		// Set variables for storage, fix file filename for query strings.
+		preg_match( '/[^\?]+\.(jpe?g|jpe|gif|png)\b/i', $event['image'], $matches );
+		if ( ! $matches ) {
+			return false;
+		}
+
+		$file_array         = array();
+		$file_array['name'] = basename( $matches[0] );
+
+		// Download file to temp location.
+		$file_array['tmp_name'] = download_url( $event['image'] );
+
+		// If error storing temporarily, return the error.
+		if ( is_wp_error( $file_array['tmp_name'] ) ) {
+			return false;
+		}
+
+		$id = media_handle_sideload( $file_array, $event['ID'], $event['post_title'] );
+
+		if ( is_wp_error( $id ) ) {
+			@unlink( $file_array['tmp_name'] );
+
+			return false;
+		}
+
+		return (object) array( 'post_id' => $id );
 	}
 }

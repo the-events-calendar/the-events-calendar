@@ -4,26 +4,29 @@ defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__API__Abstract {
 	public $event_field_map = array(
-		'title'          => 'post_title',
-		'description'    => 'post_content',
-		'start_date'     => 'EventStartDate',
-		'start_hour'     => 'EventStartHour',
-		'start_minute'   => 'EventStartMinute',
-		'start_meridian' => 'EventStartMeridian',
-		'end_date'       => 'EventEndDate',
-		'end_hour'       => 'EventEndHour',
-		'end_minute'     => 'EventEndMinute',
-		'end_meridian'   => 'EventEndMeridian',
-		'url'            => 'EventURL',
-		'parent_id'      => 'parent_id',
-		'uid'            => 'uid',
-		'facebook_id'    => 'facebook_id',
-		'dev_start'      => 'dev_start',
-		'dev_end'        => 'dev_end',
-		'all_day'        => 'EventAllDay',
-		'timezone'       => 'EventTimezone',
-		'recurrence'     => 'recurrence',
-		'categories'     => 'categories',
+		'title'             => 'post_title',
+		'description'       => 'post_content',
+		'start_date'        => 'EventStartDate',
+		'start_hour'        => 'EventStartHour',
+		'start_minute'      => 'EventStartMinute',
+		'start_meridian'    => 'EventStartMeridian',
+		'end_date'          => 'EventEndDate',
+		'end_hour'          => 'EventEndHour',
+		'end_minute'        => 'EventEndMinute',
+		'end_meridian'      => 'EventEndMeridian',
+		'url'               => 'EventURL',
+		'parent_id'         => 'parent_id',
+		'uid'               => 'uid',
+		'facebook_id'       => 'facebook_id',
+		'dev_start'         => 'dev_start',
+		'dev_end'           => 'dev_end',
+		'all_day'           => 'EventAllDay',
+		'timezone'          => 'EventTimezone',
+		'recurrence'        => 'recurrence',
+		'categories'        => 'categories',
+		'currency_symbol'   => 'EventCurrencySymbol',
+		'currency_position' => 'EventCurrencyPosition',
+		'cost'              => 'EventCost',
 	);
 
 	public $organizer_field_map = array(
@@ -75,6 +78,8 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 		foreach ( $response->data->events as $event ) {
 			$events[] = $this->translate_json_to_event( $event );
 		}
+
+		return $events;
 	}
 
 	/**

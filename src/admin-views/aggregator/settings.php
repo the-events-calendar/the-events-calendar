@@ -101,7 +101,7 @@ $ea_disable = array(
 	),
 );
 
-$global = $ical = $ics = $facebook = $gcal = $meetup = array();
+$global = $ical = $ics = $facebook = $gcal = $meetup = $url = array();
 // if there's an Event Aggregator license key, add the Global settings, Facebook, iCal, and Meetup fields
 if ( Tribe__Events__Aggregator::is_service_active() ) {
 	$global = array(
@@ -354,6 +354,46 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'options' => $origin_show_map_options,
 		),
 	);
+
+	$url = array(
+		'url-defaults' => array(
+			'type' => 'html',
+			'html' => '<h3 id="tribe-import-url-settings">' . esc_html__( 'Other URL Import Settings', 'the-events-calendar' ) . '</h3>',
+		),
+		'tribe_aggregator_default_url_post_status' => array(
+			'type' => 'dropdown',
+			'label' => esc_html__( 'Default Status', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'The default post status for events imported via other URLs', 'the-events-calendar' ),
+			'size' => 'medium',
+			'validation_type' => 'options',
+			'default' => '',
+			'can_be_empty' => true,
+			'parent_option' => Tribe__Events__Main::OPTIONNAME,
+			'options' => $origin_post_statuses,
+		),
+		'tribe_aggregator_default_url_category' => array(
+			'type' => 'dropdown',
+			'label' => esc_html__( 'Default Event Category', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'The default event category for events imported via other URLs', 'the-events-calendar' ),
+			'size' => 'medium',
+			'validation_type' => 'options',
+			'default' => '',
+			'can_be_empty' => true,
+			'parent_option' => Tribe__Events__Main::OPTIONNAME,
+			'options' => $origin_categories,
+		),
+		'tribe_aggregator_default_url_show_map' => array(
+			'type' => 'dropdown',
+			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
+			'size' => 'medium',
+			'validation_type' => 'options',
+			'default' => 'no',
+			'can_be_empty' => true,
+			'parent_option' => Tribe__Events__Main::OPTIONNAME,
+			'options' => $origin_show_map_options,
+		),
+	);
 }
 
 $internal = array_merge(
@@ -365,7 +405,8 @@ $internal = array_merge(
 	$facebook,
 	$gcal,
 	$meetup,
-    $ea_disable
+	$url,
+	$ea_disable
 );
 
 $internal = apply_filters( 'tribe_aggregator_fields', $internal );
@@ -392,7 +433,8 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 		<a href="#tribe-import-ics-settings"><?php esc_html_e( 'ICS File', 'the-events-calendar' ); ?></a> |
 		<a href="#tribe-import-facebook-settings"><?php esc_html_e( 'Facebook', 'the-events-calendar' ); ?></a> |
 		<a href="#tribe-import-google-settings"><?php esc_html_e( 'Google Calendar', 'the-events-calendar' ); ?></a> |
-		<a href="#tribe-import-meetup-settings"><?php esc_html_e( 'Meetup', 'the-events-calendar' ); ?></a>
+		<a href="#tribe-import-meetup-settings"><?php esc_html_e( 'Meetup', 'the-events-calendar' ); ?></a> |
+		<a href="#tribe-import-url-settings"><?php esc_html_e( 'Other URLs', 'the-events-calendar' ); ?></a>
 	</div>
 	<?php
 	$import_instructions = ob_get_clean();

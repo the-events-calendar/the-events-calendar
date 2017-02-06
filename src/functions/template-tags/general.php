@@ -755,7 +755,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$tribe_ecp = Tribe__Events__Main::instance();
 		$post_id    = Tribe__Events__Main::postIdHelper( $post_id );
 
-		$cost_utils = Tribe__Events__Cost_Utils::instance();
+		$cost_utils = tribe( 'tec.cost-utils' );
 		$cost = $cost_utils->get_formatted_event_cost( $post_id, $with_currency_symbol );
 
 		return apply_filters( 'tribe_get_cost', $cost, $post_id, $with_currency_symbol );
@@ -783,7 +783,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return int the minimum cost.
 	 */
 	function tribe_get_minimum_cost() {
-		return Tribe__Events__Cost_Utils::instance()->get_minimum_cost();
+		return tribe( 'tec.cost-utils' )->get_minimum_cost();
 	}
 
 	/**
@@ -793,7 +793,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return int the maximum cost.
 	 */
 	function tribe_get_maximum_cost() {
-		return Tribe__Events__Cost_Utils::instance()->get_maximum_cost();
+		return tribe( 'tec.cost-utils' )->get_maximum_cost();
 	}
 
 	/**
@@ -803,7 +803,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool if uncosted events exist
 	 */
 	function tribe_has_uncosted_events() {
-		return Tribe__Events__Cost_Utils::instance()->has_uncosted_events();
+		return tribe( 'tec.cost-utils' )->has_uncosted_events();
 	}
 
 	/**
