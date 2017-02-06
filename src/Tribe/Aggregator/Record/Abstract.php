@@ -420,7 +420,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Creates a child record based on the import record
 	 *
-	 * @return boolean|WP_Error
+	 * @return boolean|WP_Error|Tribe__Events__Aggregator__Record__Abstract
 	 */
 	public function create_child_record() {
 		$post = array(
@@ -486,7 +486,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Queues the import on the Aggregator service
 	 *
-	 * @return mixed
+	 * @see Tribe__Events__Aggregator__API__Import::create()
+	 *
+	 * @return stdClass|WP_Error|int A response object, a `WP_Error` instance on failure or a record
+	 *                               post ID if the record had to be re-scheduled due to HTTP request
+	 *                               limit.
 	 */
 	public function queue_import( $args = array() ) {
 		$aggregator = tribe( 'events-aggregator.main' );
@@ -543,8 +547,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// if the Aggregator API returns a WP_Error, set this record as failed
 		if ( is_wp_error( $response ) ) {
-			$error = $response;
-			return $this->set_status_as_failed( $error );
+			// if the error is just a reschedule set this record as pending
+			/** @var WP_Error $response */
+			if ( 'core:aggregator:http_request-limit' === $response->get_error_code() ) {
+				return $this->set_status_as_pending();
+			} else {
+				$error = $response;
+
+				return $this->set_status_as_failed( $error );
+			}
 		}
 
 		// if the Aggregator response has an unexpected format, set this record as failed
@@ -557,9 +568,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'success:create-import' != $response->message_code
 			&& 'queued' != $response->message_code
 		) {
-			/**
-			 * @todo Allow overwriting the message
-			 */
 			$error = new WP_Error(
 				$response->message_code,
 				Tribe__Events__Aggregator__Errors::build(
