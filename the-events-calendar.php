@@ -27,7 +27,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-define( 'THE_EVENTS_CALENDAR_PLUGIN_FILE', __FILE__ );
+define( 'TRIBE_EVENTS_FILE', __FILE__ );
 
 // the main plugin class
 require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';
