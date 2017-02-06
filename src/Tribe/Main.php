@@ -139,6 +139,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $pluginName;
 
 		public $displaying;
+		public $plugin_file;
 		public $plugin_dir;
 		public $plugin_path;
 		public $plugin_url;
@@ -252,7 +253,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Initializes plugin variables and sets up WordPress hooks/actions.
 		 */
 		protected function __construct() {
-			$this->pluginPath = $this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
+			$this->plugin_file = TRIBE_EVENTS_FILE;
+			$this->pluginPath = $this->plugin_path = trailingslashit( dirname( $this->plugin_file ) );
 			$this->pluginDir  = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
 			$this->pluginUrl  = $this->plugin_url = plugins_url( $this->plugin_dir );
 
@@ -330,6 +332,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$this->loadLibraries();
 				$this->addHooks();
 				$this->maybe_load_tickets_framework();
+				$this->register_active_plugin();
 			} else {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
 				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
@@ -439,6 +442,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			require_once $this->plugin_path . 'vendor/tickets/event-tickets.php';
 			Tribe__Tickets__Main::instance()->plugins_loaded();
+		}
+
+		/**
+		 * Registers this plugin as being active for other tribe plugins and extensions
+		 */
+		protected function register_active_plugin() {
+			if ( class_exists( 'Tribe__Dependency' ) ) {
+				Tribe__Dependency::instance()->add_active_plugin(
+					__CLASS__,
+					self::VERSION,
+					$this->plugin_file
+				);
+			}
 		}
 
 		/**
