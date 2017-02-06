@@ -130,6 +130,7 @@ class Tribe__Events__Aggregator__Page {
 						'tribe-bumpdown',
 						'tribe-dependency',
 						'tribe-select2',
+						'tribe-events-admin',
 						'tribe-ea-facebook-login',
 					),
 				),

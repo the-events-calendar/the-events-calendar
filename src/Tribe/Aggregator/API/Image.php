@@ -67,16 +67,29 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 			return $response;
 		}
 
+		// Get Headers and Body
+		$headers = wp_remote_retrieve_headers( $response );
+		$body = wp_remote_retrieve_body( $response );
+
+
+
+		$is_invalid_image = empty( $headers->{'content-type'} ) && empty( $headers->{'content-disposition'} ) ;
+
+		// Baild if we don't have Content type or Disposition
+		if ( $is_invalid_image ) {
+			return new WP_Error( 'invalid-file-headers', $body );
+		}
+
 		// if the response isn't an image then we need to bail
-		if ( ! preg_match( '/image/', $response['headers']['content-type'] ) ) {
+		if ( ! preg_match( '/image/', $headers->{'content-type'} ) ) {
 			/**
 			 * @todo  See a way for Tribe__Errors to handle overwriting
 			 */
-			return new WP_Error( 'invalid-image', $response['body'] );
+			return new WP_Error( 'invalid-image', $body );
 		}
 
 		// Fetch the Extension (it's safe because it comes from our service)
-		$extension = str_replace( 'image/', '', $response['headers']['content-type'] );
+		$extension = str_replace( 'image/', '', $headers->{'content-type'} );
 
 		// Removed Query String
 		if ( false !== strpos( $extension, '?' ) ) {
@@ -85,7 +98,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		}
 
 		if (
-			preg_match( '/filename="([^"]+)"/', $response['headers']['content-disposition'], $matches )
+			preg_match( '/filename="([^"]+)"/', $headers->{'content-disposition'}, $matches )
 			&& ! empty( $matches[1] )
 		) {
 			$filename = $matches[1];
@@ -95,7 +108,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 				$filename = reset( $parts );
 			}
 		} else {
-			$filename = md5( $response['body'] ) . '.' . $extension;
+			$filename = md5( $body ) . '.' . $extension;
 		}
 
 		// Clean the Filename
@@ -105,7 +118,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		$filetype = wp_check_filetype( basename( $filename ), null );
 
 		// save the file to the filesystem in the upload directory somewhere
-		$upload_results = wp_upload_bits( $filename, null, $response['body'] );
+		$upload_results = wp_upload_bits( $filename, null, $body );
 
 		// if the file path isn't set, all hope is lost
 		if ( empty( $upload_results['file'] ) ) {

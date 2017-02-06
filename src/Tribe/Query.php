@@ -372,7 +372,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				add_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 10, 2 );
 			}
 
-			// if is in the admin remove the event date & upcoming filters, unless is an ajax call
+			if ( $query->tribe_is_event_query ) {
+				do_action( 'tribe_events_pre_get_posts', $query );
+			}
+
+			/**
+			 * If is in the admin remove the event date & upcoming filters, unless is an ajax call
+			 * It's important to note that `tribe_remove_date_filters` nees to be set before calling
+			 * self::should_remove_date_filters() to allow the date_filters to be actually removed
+			 */
 			if ( self::should_remove_date_filters( $query ) ) {
 				remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
 				remove_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ) );
@@ -387,11 +395,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					$query->set( 'order', $query->query['order'] );
 				}
 			}
-
-			if ( $query->tribe_is_event_query ) {
-				do_action( 'tribe_events_pre_get_posts', $query );
-			}
-
 			return $query;
 		}
 
@@ -410,10 +413,12 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 			// otherwise, let's remove the date filters if we're in the admin dashboard and the query is
 			// and event query on the tribe_events edit page
-			return ( is_admin()
-						&& $query->tribe_is_event_query
-						&& Tribe__Admin__Helpers::instance()->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE ) )
-			       || true === $query->get( 'tribe_remove_date_filters', false );
+			return (
+				is_admin()
+				&& $query->tribe_is_event_query
+				&& Tribe__Admin__Helpers::instance()->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE )
+			)
+			|| true === $query->get( 'tribe_remove_date_filters', false );
 		}
 
 		/**
