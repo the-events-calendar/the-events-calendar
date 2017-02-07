@@ -97,16 +97,28 @@ class Tribe__Events__Meta__Save {
 	 * @return bool `true` if event meta was updated, `false` otherwise.
 	 */
 	public function save() {
-		if ( ! $this->context->has_nonce() ) {
+		// @todo @luca add series related checks here
+		if ($this->is_event() ) {if ( ! $this->context->has_nonce() ) {
 			return false;
 		}
 
-		if ( ! $this->context->verify_nonce() ) {
-			return false;
-		}
+			if ( ! $this->context->verify_nonce() ) {
+				return false;
+			}
 
-		if ( ! $this->context->current_user_can_edit_events() ) {
-			return false;
+			if ( ! $this->context->current_user_can_edit_events() ) {
+				return false;
+			}
+		} elseif(class_exists('Tribe__Events__Pro__Recurrence__Series')) {
+			$pto = get_post_type_object( Tribe__Events__Pro__Recurrence__Series::POST_TYPE );
+
+			if ( empty( $pto ) ) {
+				return false;
+			}
+
+			if ( ! current_user_can( $pto->cap->edit_posts ) ) {
+				return false;
+			}
 		}
 
 		// Remove this hook to avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
@@ -138,7 +150,7 @@ class Tribe__Events__Meta__Save {
 	 */
 	public function maybe_save() {
 		// only continue if it's an event post
-		if ( ! $this->is_event() ) {
+		if ( ! ($this->is_event() || $this->is_series()) ) {
 			return false;
 		}
 
@@ -185,6 +197,17 @@ class Tribe__Events__Meta__Save {
 	 */
 	protected function is_event() {
 		return $this->post->post_type === Tribe__Events__Main::POSTTYPE;
+	}
+
+	/**
+	 * @return bool
+	 */
+	protected function is_series() {
+		if ( ! class_exists( 'Tribe__Events__Pro__Recurrence__Series' ) ) {
+			return false;
+		}
+
+		return $this->post->post_type === Tribe__Events__Pro__Recurrence__Series::POST_TYPE;
 	}
 
 }
