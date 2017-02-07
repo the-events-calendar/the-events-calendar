@@ -13,6 +13,11 @@ class Tribe__Events__Aggregator__Record__Queue {
 	protected $importer;
 
 	/**
+	 * @var Tribe__Events__Aggregator__Record__Activity
+	 */
+	protected $activity;
+
+	/**
 	 * Holds the Items that will be processed
 	 *
 	 * @var array
