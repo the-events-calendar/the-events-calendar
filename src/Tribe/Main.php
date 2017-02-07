@@ -31,7 +31,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '4.4.0.1';
+		const VERSION             = '4.4.1.1';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.4';
 		const WP_PLUGIN_URL       = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -329,7 +329,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$this->bind_implementations();
 				$this->loadLibraries();
 				$this->addHooks();
-				$this->maybe_load_tickets_framework();
 			} else {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
 				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
@@ -412,37 +411,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
-		}
-
-		/**
-		 * Checks if the standalone Tickets plugin is activated.
-		 * If it's not, it loads the Tickets framework from our
-		 * vendor/ submodule.
-		 */
-		public function maybe_load_tickets_framework() {
-			if ( defined( 'EVENT_TICKETS_DIR' ) ) {
-				return;
-			}
-
-			// Give the standalone plugin a chance to load on activation
-			// WordPress loads all the active plugins before activating a new one.
-			if ( isset( $_GET['action'] ) && $_GET['action'] == 'activate' && isset( $_GET['plugin'] ) && strstr( $_GET['plugin'], 'event-tickets.php' ) ) {
-				return;
-			}
-
-			// if there aren't any ticket plugins activated, bail
-			if (
-				! defined( 'EVENT_TICKETS_PLUS' )
-				&& ! defined( 'EVENTS_TICKETS_EDD_DIR' )
-				&& ! defined( 'EVENTS_TICKETS_SHOPP_DIR' )
-				&& ! defined( 'EVENTS_TICKETS_WOO_DIR' )
-				&& ! defined( 'EVENTS_TICKETS_WPEC_DIR' )
-			) {
-				return;
-			}
-
-			require_once $this->plugin_path . 'vendor/tickets/event-tickets.php';
-			Tribe__Tickets__Main::instance()->plugins_loaded();
 		}
 
 		/**
@@ -2255,6 +2223,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$qvars[] = 'end_date';
 			$qvars[] = 'featured';
 			$qvars[] = self::TAXONOMY;
+			$qvars[] = 'tribe_remove_date_filters';
 
 			return $qvars;
 		}
@@ -2615,7 +2584,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param int|null $post_id
 		 *
-		 * @return string a fully qualified link to http://maps.google.com/ for this event
+		 * @return string a fully qualified link to https://maps.google.com/ for this event
 		 */
 		public function googleMapLink( $post_id = null ) {
 			if ( $post_id === null || ! is_numeric( $post_id ) ) {
@@ -2635,7 +2604,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( $to_encode ) {
-				$url = 'http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=' . urlencode( trim( $to_encode ) );
+				$url = 'https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=' . urlencode( trim( $to_encode ) );
 			}
 
 			return apply_filters( 'tribe_events_google_map_link', $url, $post_id );
@@ -4099,7 +4068,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$filters['tribe-bar-search'] = array(
 					'name'    => 'tribe-bar-search',
 					'caption' => esc_html__( 'Search', 'the-events-calendar' ),
-					'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr__( 'Search', 'the-events-calendar' ) . '">',
+					'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr__( 'Keyword', 'the-events-calendar' ) . '">',
 				);
 			}
 
