@@ -316,12 +316,12 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.4.2] TBD =
+= [4.4.2] 2017-02-09 =
 
 * Fix - Ensure the global and source-specific Google Map settings for imports are respected [67228]
-* Tweak - Add filters for template tag functions related to dates: `tribe_get_start_time`, `tribe_get_end_time`, `tribe_get_start_date` and `tribe_get_end_date` [67759]
 * Fix - Prevent PHP 5.2 Strict mode from throwing notices due to usage of `is_a` [72812]
 * Fix - Ensure the events list widget's show/hide if there are upcoming events setting is respected [72965]
+* Tweak - Add filters for template tag functions related to dates: `tribe_get_start_time`, `tribe_get_end_time`, `tribe_get_start_date` and `tribe_get_end_date` [67759]
 
 = [4.4.1.1] 2017-01-26 =
 
