@@ -3867,7 +3867,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						'utm_campaign' => 'in-app',
 						'utm_medium'   => 'plugin-tec',
 						'utm_source'   => 'plugins-manager',
-					), self::$tribeUrl . self::$addOnPath
+					), self::$tecUrl . self::$addOnPath
 				);
 				$links[] = '<a href="' . esc_url( $link ) . '" target="_blank">' . $anchor . '</a>';
 			}
@@ -3941,7 +3941,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 									'utm_medium'   => 'plugin-tec',
 									'utm_source'   => 'post-editor',
 								),
-								self::$tribeUrl . self::$addOnPath
+								self::$tecUrl . self::$addOnPath
 							)
 						)
 						. '">',
