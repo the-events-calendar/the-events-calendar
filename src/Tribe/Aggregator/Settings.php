@@ -142,6 +142,7 @@ class Tribe__Events__Aggregator__Settings {
 			'ics',
 			'facebook',
 			'meetup',
+			'url',
 		);
 
 		$settings = array();
