@@ -98,9 +98,10 @@ class Tribe__Events__Meta__Save {
 	 */
 	public function save() {
 		// @todo @luca add series related checks here
-		if ($this->is_event() ) {if ( ! $this->context->has_nonce() ) {
-			return false;
-		}
+		if ( $this->is_event() ) {
+			if ( ! $this->context->has_nonce() ) {
+				return false;
+			}
 
 			if ( ! $this->context->verify_nonce() ) {
 				return false;
@@ -109,7 +110,7 @@ class Tribe__Events__Meta__Save {
 			if ( ! $this->context->current_user_can_edit_events() ) {
 				return false;
 			}
-		} elseif(class_exists('Tribe__Events__Pro__Recurrence__Series')) {
+		} elseif ( class_exists( 'Tribe__Events__Pro__Recurrence__Series' ) ) {
 			$pto = get_post_type_object( Tribe__Events__Pro__Recurrence__Series::POST_TYPE );
 
 			if ( empty( $pto ) ) {
@@ -150,7 +151,7 @@ class Tribe__Events__Meta__Save {
 	 */
 	public function maybe_save() {
 		// only continue if it's an event post
-		if ( ! ($this->is_event() || $this->is_series()) ) {
+		if ( ! ( $this->is_event() || $this->is_series() ) ) {
 			return false;
 		}
 
