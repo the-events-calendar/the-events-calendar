@@ -44,12 +44,12 @@ $organizer = tribe_get_organizer();
 <?php if ( tribe_events_has_tickets() ) : ?>
 	<div class="tribe-events-event-cost">
 		
-		<?php if (tribe_events_has_soldout() ){ 
+		<?php if( tribe_events_has_soldout() ) {
 			echo esc_html_e( 'Out of stock!', 'event-tickets' );
-		}else{?>
-			<?php echo tribe_events_count_available_tickets($event_id);
-			echo " ";
-			esc_html_e( 'Tickets left', 'event-tickets' );	
+		}else{ ?>
+			<?php echo tribe_events_count_available_tickets( $event_id );
+			echo ' ';
+			esc_html_e( 'Tickets left', 'event-tickets' );
 		}?>
 		
 	</div>
