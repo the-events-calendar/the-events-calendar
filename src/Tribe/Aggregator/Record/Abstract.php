@@ -26,7 +26,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @var array
 	 */
 	protected $origin_import_policies = array(
-		'url' => array( 'show_map_link' )
+		'url' => array( 'show_map_link' ),
 	);
 
 	public static $unique_id_fields = array(
