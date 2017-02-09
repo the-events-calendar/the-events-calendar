@@ -1045,8 +1045,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		//if we have no non recurring events the message may be different
 		$non_recurring = false;
 
-		$origin                   = $this->meta['origin'];
-		$show_map_setting         = 'yes' === Tribe__Events__Aggregator__Settings::instance()->default_map( $origin );
+		$origin = $this->meta['origin'];
+		$show_map_setting = tribe_is_truthy( Tribe__Events__Aggregator__Settings::instance()->default_map( $origin ) );
 		$update_authority_setting = Tribe__Events__Aggregator__Settings::instance()->default_update_authority( $origin );
 
 		$unique_inserted = array();
