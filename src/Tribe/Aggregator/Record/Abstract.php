@@ -1085,7 +1085,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			$import_settings = Tribe__Events__Aggregator__Settings::instance()->default_settings_import( $origin );
-			$should_import_settings = 'yes' === $import_settings ? true : false;
+			$should_import_settings = tribe_is_truthy( $import_settings ) ? true : false;
 
 			if ( $show_map_setting ) {
 				$event['EventShowMap'] = $show_map_setting || (bool) isset( $event['show_map'] );
