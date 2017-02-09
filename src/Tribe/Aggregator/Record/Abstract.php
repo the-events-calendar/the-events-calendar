@@ -1074,25 +1074,34 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				continue;
 			}
 
+			$import_settings = Tribe__Events__Aggregator__Settings::instance()->default_settings_import( $this->meta['origin'] );
+			$should_import_settings = 'yes' === $import_settings ? true : false;
+
 			if ( $show_map_setting ) {
 				$event['EventShowMap']     = $show_map_setting && $event['show_map'];
-				$event['EventShowMapLink'] = $show_map_setting && $event['show_map_link'];
+				if ( $should_import_settings ) {
+					$event['EventShowMapLink'] = $show_map_setting && $event['show_map_link'];
+				}
 			}
 			unset( $event['show_map'], $event['show_map_link'] );
 
-			if ( isset( $event['hide_from_listings'] ) ) {
+			if ( $should_import_settings && isset( $event['hide_from_listings'] ) ) {
 				if ( $event['hide_from_listings'] == true ) {
 					$event['EventHideFromUpcoming'] = 'yes';
 				}
 				unset( $event['hide_from_listings'] );
 			}
 
-			if ( isset( $event['sticky'] ) ) {
+			if ( $should_import_settings && isset( $event['sticky'] ) ) {
 				if ( $event['sticky'] == true ) {
 					$event['EventShowInCalendar'] = 'yes';
 					$event['menu_order']          = - 1;
 				}
 				unset( $event['sticky'] );
+			}
+
+			if ( ! $should_import_settings ) {
+				unset( $event['feature_event'] );
 			}
 
 			if ( empty( $event['recurrence'] ) ) {
