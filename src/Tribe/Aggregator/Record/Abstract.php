@@ -3,6 +3,7 @@
 defined( 'WPINC' ) or die;
 
 abstract class Tribe__Events__Aggregator__Record__Abstract {
+
 	/**
 	 * Meta key prefix for ea-record data
 	 *
@@ -19,6 +20,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	public $is_schedule = false;
 	public $is_manual = false;
+
+	/**
+	 * An associative array of origins and the settings they define a policy for.
+	 * @var array
+	 */
+	protected $origin_import_policies = array(
+		'url' => array( 'show_map_link' )
+	);
 
 	public static $unique_id_fields = array(
 		'facebook' => array(
@@ -1036,8 +1045,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		//if we have no non recurring events the message may be different
 		$non_recurring = false;
 
-		$show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( $this->meta['origin'] );
-		$update_authority_setting = Tribe__Events__Aggregator__Settings::instance()->default_update_authority( $this->meta['origin'] );
+		$origin                   = $this->meta['origin'];
+		$show_map_setting         = 'yes' === Tribe__Events__Aggregator__Settings::instance()->default_map( $origin );
+		$update_authority_setting = Tribe__Events__Aggregator__Settings::instance()->default_update_authority( $origin );
 
 		$unique_inserted = array();
 
@@ -1074,13 +1084,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				continue;
 			}
 
-			$import_settings = Tribe__Events__Aggregator__Settings::instance()->default_settings_import( $this->meta['origin'] );
+			$import_settings = Tribe__Events__Aggregator__Settings::instance()->default_settings_import( $origin );
 			$should_import_settings = 'yes' === $import_settings ? true : false;
 
 			if ( $show_map_setting ) {
-				$event['EventShowMap']     = $show_map_setting && $event['show_map'];
-				if ( $should_import_settings ) {
-					$event['EventShowMapLink'] = $show_map_setting && $event['show_map_link'];
+				$event['EventShowMap'] = $show_map_setting || (bool) isset( $event['show_map'] );
+				if ( $this->has_import_policy_for( $origin, 'show_map_link' ) ) {
+					$event['EventShowMapLink'] = isset( $event['show_map_link'] ) ? (bool) $event['show_map_link'] : $show_map_setting;
+				} else {
+					$event['EventShowMapLink'] = $show_map_setting;
 				}
 			}
 			unset( $event['show_map'], $event['show_map_link'] );
@@ -1463,5 +1475,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		return (object) array( 'post_id' => $id );
+	}
+
+	/**
+	 * Whether an origin has more granulat policies concerning an import setting or not.
+	 *
+	 * @param string $origin
+	 * @param string $setting
+	 *
+	 * @return bool
+	 */
+	protected function has_import_policy_for( $origin, $setting ) {
+		return isset( $this->origin_import_policies[ $origin ] ) && in_array( $setting, $this->origin_import_policies[ $origin ] );
 	}
 }
