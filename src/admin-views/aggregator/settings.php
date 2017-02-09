@@ -27,12 +27,12 @@ foreach ( $matches[1] as $key => $match ) {
 	$origin_categories[ $match ] = $matches[2][ $key ];
 }
 
-$show_map_options = array(
+$yes_no_options = array(
 	'no' => __( 'No', 'the-events-calendar' ),
 	'yes' => __( 'Yes', 'the-events-calendar' ),
 );
 
-$origin_show_map_options = array( '' => $use_global_settings_phrase ) + $show_map_options;
+$origin_show_map_options = array( '' => $use_global_settings_phrase ) + $yes_no_options;
 
 $change_authority = array(
 	'import-defaults-update_authority' => array(
@@ -140,7 +140,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'default' => 'no',
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
-			'options' => $show_map_options,
+			'options' => $yes_no_options,
 		),
 	);
 
@@ -392,6 +392,17 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'can_be_empty' => true,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_show_map_options,
+		),
+		'tribe_aggregator_default_url_import_event_settings' => array(
+			'type' => 'dropdown',
+			'label' => esc_html__( 'Import Event Settings', 'the-events-calendar' ),
+			'tooltip' => esc_html__( "Fetch source event's settings (e.g. Show Google Maps Link or Sticky in Month View) when importing from another site using The Events Calendar.", 'the-events-calendar' ),
+			'size' => 'medium',
+			'validation_type' => 'options',
+			'default' => 'no',
+			'can_be_empty' => true,
+			'parent_option' => Tribe__Events__Main::OPTIONNAME,
+			'options' => $yes_no_options,
 		),
 	);
 }
