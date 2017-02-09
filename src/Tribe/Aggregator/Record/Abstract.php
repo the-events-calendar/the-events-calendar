@@ -229,8 +229,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return WP_Post|WP_Error
 	 */
 	public function save( $post_id, $args = array(), $meta = array() ) {
-		global $wp_version;
-
 		if ( ! isset( $meta['type'] ) || 'schedule' !== $meta['type'] ) {
 			return tribe_error( 'core:aggregator:invalid-edit-record-type', $type );
 		}
