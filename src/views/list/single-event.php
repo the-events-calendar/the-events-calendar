@@ -22,16 +22,15 @@ $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : ''
 // Organizer
 $organizer = tribe_get_organizer();
 
-$tickets_available = tribe_events_count_available_tickets();
-
 ?>
 
 	<!-- Event Cost -->
 <?php if ( tribe_get_cost() ) : ?>
 	<div class="tribe-events-event-cost">
 		<span><?php echo tribe_get_cost( null, true ); ?></span>
-		<?php echo $tickets_available; ?>
-		<button type="submit" name="tickets_process" value="1" class="button alt"><?php esc_html_e( 'RSVP Now!', 'event-tickets' );?></button>
+
+		<?php do_action( 'tribe_events_inside_cost' ) ?>
+
 	</div>
 <?php endif; ?>
 
