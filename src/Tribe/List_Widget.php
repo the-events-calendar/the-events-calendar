@@ -65,8 +65,6 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	public function widget_output( $args, $instance, $template_name = 'widgets/list-widget' ) {
 		global $wp_query, $tribe_ecp, $post;
 
-		$no_upcoming_events = true;
-
 		$instance = wp_parse_args(
 			$instance, array(
 				'limit' => self::$limit,
@@ -85,6 +83,10 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		 */
 		extract( $args, EXTR_SKIP );
 		extract( $instance, EXTR_SKIP );
+
+		if ( ! isset( $no_upcoming_events ) ) {
+			$no_upcoming_events = true;
+		}
 
 		// Temporarily unset the tribe bar params so they don't apply
 		$hold_tribe_bar_args = array();
