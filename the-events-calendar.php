@@ -2,7 +2,7 @@
 /*
 Plugin Name: The Events Calendar
 Description: The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome.
-Version: 4.4.1.1
+Version: 4.4.2
 Author: Modern Tribe, Inc.
 Author URI: http://m.tri.be/1x
 Text Domain: the-events-calendar
@@ -27,6 +27,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+define( 'TRIBE_EVENTS_FILE', __FILE__ );
 
 // the main plugin class
 require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';

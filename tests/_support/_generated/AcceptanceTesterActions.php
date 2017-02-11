@@ -14,3781 +14,3781 @@ use Helper\TribeDb;
 
 trait AcceptanceTesterActions
 {
-    /**
-     * @return \Codeception\Scenario
-     */
-    abstract protected function getScenario();
+	/**
+	 * @return \Codeception\Scenario
+	 */
+	abstract protected function getScenario();
 
-    
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns all the cookies whose name matches a regex pattern.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns all the cookies whose name matches a regex pattern.
 	 *
 	 * @param string $cookiePattern
 	 *
 	 * @return array|null
-     * @see \Codeception\Module\WPWebDriver::grabCookiesWithPattern()
-     */
-    public function grabCookiesWithPattern($cookiePattern) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabCookiesWithPattern', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::grabCookiesWithPattern()
+	 */
+	public function grabCookiesWithPattern($cookiePattern) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabCookiesWithPattern', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Waits for any jQuery triggered AJAX request to be resolved.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Waits for any jQuery triggered AJAX request to be resolved.
 	 *
 	 * @param int $time
-     * @see \Codeception\Module\WPWebDriver::waitForJqueryAjax()
-     */
-    public function waitForJqueryAjax($time = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForJqueryAjax', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Grabs the current page full URL including the query vars.
-     * @see \Codeception\Module\WPWebDriver::grabFullUrl()
-     */
-    public function grabFullUrl() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabFullUrl', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Print out latest Selenium Logs in debug mode
-     * @see \Codeception\Module\WebDriver::debugWebDriverLogs()
-     */
-    public function debugWebDriverLogs() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('debugWebDriverLogs', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Changes the subdomain for the 'url' configuration parameter.
-     * Does not open a page; use `amOnPage` for that.
-     *
-     * ``` php
-     * <?php
-     * // If config is: 'http://mysite.com'
-     * // or config is: 'http://www.mysite.com'
-     * // or config is: 'http://company.mysite.com'
-     *
-     * $I->amOnSubdomain('user');
-     * $I->amOnPage('/');
-     * // moves to http://user.mysite.com/
-     * ?>
-     * ```
-     *
-     * @param $subdomain
-     *
-     * @return mixed
-     * @see \Codeception\Module\WebDriver::amOnSubdomain()
-     */
-    public function amOnSubdomain($subdomain) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Condition('amOnSubdomain', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Takes a screenshot of the current window and saves it to `tests/_output/debug`.
-     *
-     * ``` php
-     * <?php
-     * $I->amOnPage('/user/edit');
-     * $I->makeScreenshot('edit_page');
-     * // saved to: tests/_output/debug/edit_page.png
-     * ?>
-     * ```
-     *
-     * @param $name
-     * @see \Codeception\Module\WebDriver::makeScreenshot()
-     */
-    public function makeScreenshot($name) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('makeScreenshot', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Resize the current window.
-     *
-     * ``` php
-     * <?php
-     * $I->resizeWindow(800, 600);
-     *
-     * ```
-     *
-     * @param int $width
-     * @param int $height
-     * @see \Codeception\Module\WebDriver::resizeWindow()
-     */
-    public function resizeWindow($width, $height) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('resizeWindow', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a cookie with the given name is set.
-     * You can set additional cookie params like `domain`, `path` as array passed in last argument.
-     *
-     * ``` php
-     * <?php
-     * $I->seeCookie('PHPSESSID');
-     * ?>
-     * ```
-     *
-     * @param $cookie
-     * @param array $params
-     * @return mixed
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeCookie()
-     */
-    public function canSeeCookie($cookie, $params = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCookie', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a cookie with the given name is set.
-     * You can set additional cookie params like `domain`, `path` as array passed in last argument.
-     *
-     * ``` php
-     * <?php
-     * $I->seeCookie('PHPSESSID');
-     * ?>
-     * ```
-     *
-     * @param $cookie
-     * @param array $params
-     * @return mixed
-     * @see \Codeception\Module\WebDriver::seeCookie()
-     */
-    public function seeCookie($cookie, $params = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCookie', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that there isn't a cookie with the given name.
-     * You can set additional cookie params like `domain`, `path` as array passed in last argument.
-     *
-     * @param $cookie
-     *
-     * @param array $params
-     * @return mixed
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::dontSeeCookie()
-     */
-    public function cantSeeCookie($cookie, $params = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCookie', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that there isn't a cookie with the given name.
-     * You can set additional cookie params like `domain`, `path` as array passed in last argument.
-     *
-     * @param $cookie
-     *
-     * @param array $params
-     * @return mixed
-     * @see \Codeception\Module\WebDriver::dontSeeCookie()
-     */
-    public function dontSeeCookie($cookie, $params = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCookie', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Sets a cookie with the given name and value.
-     * You can set additional cookie params like `domain`, `path`, `expires`, `secure` in array passed as last argument.
-     *
-     * ``` php
-     * <?php
-     * $I->setCookie('PHPSESSID', 'el4ukv0kqbvoirg7nkp4dncpk3');
-     * ?>
-     * ```
-     *
-     * @param $name
-     * @param $val
-     * @param array $params
-     *
-     * @return mixed
-     * @see \Codeception\Module\WebDriver::setCookie()
-     */
-    public function setCookie($cookie, $value, $params = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('setCookie', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Unsets cookie with the given name.
-     * You can set additional cookie params like `domain`, `path` in array passed as last argument.
-     *
-     * @param $cookie
-     *
-     * @param array $params
-     * @return mixed
-     * @see \Codeception\Module\WebDriver::resetCookie()
-     */
-    public function resetCookie($cookie, $params = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('resetCookie', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Grabs a cookie value.
-     * You can set additional cookie params like `domain`, `path` in array passed as last argument.
-     *
-     * @param $cookie
-     *
-     * @param array $params
-     * @return mixed
-     * @see \Codeception\Module\WebDriver::grabCookie()
-     */
-    public function grabCookie($cookie, $params = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabCookie', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Open web page at the given absolute URL and sets its hostname as the base host.
-     *
-     * ``` php
-     * <?php
-     * $I->amOnUrl('http://codeception.com');
-     * $I->amOnPage('/quickstart'); // moves to http://codeception.com/quickstart
-     * ?>
-     * ```
-     * @see \Codeception\Module\WebDriver::amOnUrl()
-     */
-    public function amOnUrl($url) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Condition('amOnUrl', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Opens the page for the given relative URI.
-     *
-     * ``` php
-     * <?php
-     * // opens front page
-     * $I->amOnPage('/');
-     * // opens /register page
-     * $I->amOnPage('/register');
-     * ```
-     *
-     * @param $page
-     * @see \Codeception\Module\WebDriver::amOnPage()
-     */
-    public function amOnPage($page) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Condition('amOnPage', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current page contains the given string (case insensitive).
-     *
-     * You can specify a specific HTML element (via CSS or XPath) as the second
-     * parameter to only search within that element.
-     *
-     * ``` php
-     * <?php
-     * $I->see('Logout');                        // I can suppose user is logged in
-     * $I->see('Sign Up', 'h1');                 // I can suppose it's a signup page
-     * $I->see('Sign Up', '//body/h1');          // with XPath
-     * $I->see('Sign Up', ['css' => 'body h1']); // with strict CSS locator
-     * ```
-     *
-     * Note that the search is done after stripping all HTML tags from the body,
-     * so `$I->see('strong')` will return true for strings like:
-     *
-     *   - `<p>I am Stronger than thou</p>`
-     *   - `<script>document.createElement('strong');</script>`
-     *
-     * But will *not* be true for strings like:
-     *
-     *   - `<strong>Home</strong>`
-     *   - `<div class="strong">Home</strong>`
-     *   - `<!-- strong -->`
-     *
-     * For checking the raw source code, use `seeInSource()`.
-     *
-     * @param      $text
-     * @param null $selector
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::see()
-     */
-    public function canSee($text, $selector = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('see', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current page contains the given string (case insensitive).
-     *
-     * You can specify a specific HTML element (via CSS or XPath) as the second
-     * parameter to only search within that element.
-     *
-     * ``` php
-     * <?php
-     * $I->see('Logout');                        // I can suppose user is logged in
-     * $I->see('Sign Up', 'h1');                 // I can suppose it's a signup page
-     * $I->see('Sign Up', '//body/h1');          // with XPath
-     * $I->see('Sign Up', ['css' => 'body h1']); // with strict CSS locator
-     * ```
-     *
-     * Note that the search is done after stripping all HTML tags from the body,
-     * so `$I->see('strong')` will return true for strings like:
-     *
-     *   - `<p>I am Stronger than thou</p>`
-     *   - `<script>document.createElement('strong');</script>`
-     *
-     * But will *not* be true for strings like:
-     *
-     *   - `<strong>Home</strong>`
-     *   - `<div class="strong">Home</strong>`
-     *   - `<!-- strong -->`
-     *
-     * For checking the raw source code, use `seeInSource()`.
-     *
-     * @param      $text
-     * @param null $selector
-     * @see \Codeception\Module\WebDriver::see()
-     */
-    public function see($text, $selector = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('see', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current page doesn't contain the text specified (case insensitive).
-     * Give a locator as the second parameter to match a specific region.
-     *
-     * ```php
-     * <?php
-     * $I->dontSee('Login');                         // I can suppose user is already logged in
-     * $I->dontSee('Sign Up','h1');                  // I can suppose it's not a signup page
-     * $I->dontSee('Sign Up','//body/h1');           // with XPath
-     * $I->dontSee('Sign Up', ['css' => 'body h1']); // with strict CSS locator
-     * ```
-     *
-     * Note that the search is done after stripping all HTML tags from the body,
-     * so `$I->dontSee('strong')` will fail on strings like:
-     *
-     *   - `<p>I am Stronger than thou</p>`
-     *   - `<script>document.createElement('strong');</script>`
-     *
-     * But will ignore strings like:
-     *
-     *   - `<strong>Home</strong>`
-     *   - `<div class="strong">Home</strong>`
-     *   - `<!-- strong -->`
-     *
-     * For checking the raw source code, use `seeInSource()`.
-     *
-     * @param      $text
-     * @param null $selector
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::dontSee()
-     */
-    public function cantSee($text, $selector = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSee', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current page doesn't contain the text specified (case insensitive).
-     * Give a locator as the second parameter to match a specific region.
-     *
-     * ```php
-     * <?php
-     * $I->dontSee('Login');                         // I can suppose user is already logged in
-     * $I->dontSee('Sign Up','h1');                  // I can suppose it's not a signup page
-     * $I->dontSee('Sign Up','//body/h1');           // with XPath
-     * $I->dontSee('Sign Up', ['css' => 'body h1']); // with strict CSS locator
-     * ```
-     *
-     * Note that the search is done after stripping all HTML tags from the body,
-     * so `$I->dontSee('strong')` will fail on strings like:
-     *
-     *   - `<p>I am Stronger than thou</p>`
-     *   - `<script>document.createElement('strong');</script>`
-     *
-     * But will ignore strings like:
-     *
-     *   - `<strong>Home</strong>`
-     *   - `<div class="strong">Home</strong>`
-     *   - `<!-- strong -->`
-     *
-     * For checking the raw source code, use `seeInSource()`.
-     *
-     * @param      $text
-     * @param null $selector
-     * @see \Codeception\Module\WebDriver::dontSee()
-     */
-    public function dontSee($text, $selector = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSee', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current page contains the given string in its
-     * raw source code.
-     *
-     * ``` php
-     * <?php
-     * $I->seeInSource('<h1>Green eggs &amp; ham</h1>');
-     * ```
-     *
-     * @param      $raw
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeInSource()
-     */
-    public function canSeeInSource($raw) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInSource', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current page contains the given string in its
-     * raw source code.
-     *
-     * ``` php
-     * <?php
-     * $I->seeInSource('<h1>Green eggs &amp; ham</h1>');
-     * ```
-     *
-     * @param      $raw
-     * @see \Codeception\Module\WebDriver::seeInSource()
-     */
-    public function seeInSource($raw) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInSource', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current page contains the given string in its
-     * raw source code.
-     *
-     * ```php
-     * <?php
-     * $I->dontSeeInSource('<h1>Green eggs &amp; ham</h1>');
-     * ```
-     *
-     * @param      $raw
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::dontSeeInSource()
-     */
-    public function cantSeeInSource($raw) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInSource', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current page contains the given string in its
-     * raw source code.
-     *
-     * ```php
-     * <?php
-     * $I->dontSeeInSource('<h1>Green eggs &amp; ham</h1>');
-     * ```
-     *
-     * @param      $raw
-     * @see \Codeception\Module\WebDriver::dontSeeInSource()
-     */
-    public function dontSeeInSource($raw) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInSource', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the page source contains the given string.
-     *
-     * ```php
-     * <?php
-     * $I->seeInPageSource('<link rel="apple-touch-icon"');
-     * ```
-     *
-     * @param $text
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeInPageSource()
-     */
-    public function canSeeInPageSource($text) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInPageSource', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the page source contains the given string.
-     *
-     * ```php
-     * <?php
-     * $I->seeInPageSource('<link rel="apple-touch-icon"');
-     * ```
-     *
-     * @param $text
-     * @see \Codeception\Module\WebDriver::seeInPageSource()
-     */
-    public function seeInPageSource($text) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInPageSource', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the page source doesn't contain the given string.
-     *
-     * @param $text
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::dontSeeInPageSource()
-     */
-    public function cantSeeInPageSource($text) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInPageSource', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the page source doesn't contain the given string.
-     *
-     * @param $text
-     * @see \Codeception\Module\WebDriver::dontSeeInPageSource()
-     */
-    public function dontSeeInPageSource($text) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInPageSource', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Perform a click on a link or a button, given by a locator.
-     * If a fuzzy locator is given, the page will be searched for a button, link, or image matching the locator string.
-     * For buttons, the "value" attribute, "name" attribute, and inner text are searched.
-     * For links, the link text is searched.
-     * For images, the "alt" attribute and inner text of any parent links are searched.
-     *
-     * The second parameter is a context (CSS or XPath locator) to narrow the search.
-     *
-     * Note that if the locator matches a button of type `submit`, the form will be submitted.
-     *
-     * ``` php
-     * <?php
-     * // simple link
-     * $I->click('Logout');
-     * // button of form
-     * $I->click('Submit');
-     * // CSS button
-     * $I->click('#form input[type=submit]');
-     * // XPath
-     * $I->click('//form/*[@type=submit]');
-     * // link in context
-     * $I->click('Logout', '#nav');
-     * // using strict locator
-     * $I->click(['link' => 'Login']);
-     * ?>
-     * ```
-     *
-     * @param $link
-     * @param $context
-     * @see \Codeception\Module\WebDriver::click()
-     */
-    public function click($link, $context = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('click', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that there's a link with the specified text.
-     * Give a full URL as the second parameter to match links with that exact URL.
-     *
-     * ``` php
-     * <?php
-     * $I->seeLink('Logout'); // matches <a href="#">Logout</a>
-     * $I->seeLink('Logout','/logout'); // matches <a href="/logout">Logout</a>
-     * ?>
-     * ```
-     *
-     * @param      $text
-     * @param null $url
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeLink()
-     */
-    public function canSeeLink($text, $url = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeLink', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that there's a link with the specified text.
-     * Give a full URL as the second parameter to match links with that exact URL.
-     *
-     * ``` php
-     * <?php
-     * $I->seeLink('Logout'); // matches <a href="#">Logout</a>
-     * $I->seeLink('Logout','/logout'); // matches <a href="/logout">Logout</a>
-     * ?>
-     * ```
-     *
-     * @param      $text
-     * @param null $url
-     * @see \Codeception\Module\WebDriver::seeLink()
-     */
-    public function seeLink($text, $url = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeLink', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the page doesn't contain a link with the given string.
-     * If the second parameter is given, only links with a matching "href" attribute will be checked.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeLink('Logout'); // I suppose user is not logged in
-     * $I->dontSeeLink('Checkout now', '/store/cart.php');
-     * ?>
-     * ```
-     *
-     * @param $text
-     * @param null $url
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::dontSeeLink()
-     */
-    public function cantSeeLink($text, $url = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeLink', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the page doesn't contain a link with the given string.
-     * If the second parameter is given, only links with a matching "href" attribute will be checked.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeLink('Logout'); // I suppose user is not logged in
-     * $I->dontSeeLink('Checkout now', '/store/cart.php');
-     * ?>
-     * ```
-     *
-     * @param $text
-     * @param null $url
-     * @see \Codeception\Module\WebDriver::dontSeeLink()
-     */
-    public function dontSeeLink($text, $url = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeLink', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that current URI contains the given string.
-     *
-     * ``` php
-     * <?php
-     * // to match: /home/dashboard
-     * $I->seeInCurrentUrl('home');
-     * // to match: /users/1
-     * $I->seeInCurrentUrl('/users/');
-     * ?>
-     * ```
-     *
-     * @param $uri
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeInCurrentUrl()
-     */
-    public function canSeeInCurrentUrl($uri) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInCurrentUrl', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that current URI contains the given string.
-     *
-     * ``` php
-     * <?php
-     * // to match: /home/dashboard
-     * $I->seeInCurrentUrl('home');
-     * // to match: /users/1
-     * $I->seeInCurrentUrl('/users/');
-     * ?>
-     * ```
-     *
-     * @param $uri
-     * @see \Codeception\Module\WebDriver::seeInCurrentUrl()
-     */
-    public function seeInCurrentUrl($uri) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInCurrentUrl', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current URL is equal to the given string.
-     * Unlike `seeInCurrentUrl`, this only matches the full URL.
-     *
-     * ``` php
-     * <?php
-     * // to match root url
-     * $I->seeCurrentUrlEquals('/');
-     * ?>
-     * ```
-     *
-     * @param $uri
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeCurrentUrlEquals()
-     */
-    public function canSeeCurrentUrlEquals($uri) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCurrentUrlEquals', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current URL is equal to the given string.
-     * Unlike `seeInCurrentUrl`, this only matches the full URL.
-     *
-     * ``` php
-     * <?php
-     * // to match root url
-     * $I->seeCurrentUrlEquals('/');
-     * ?>
-     * ```
-     *
-     * @param $uri
-     * @see \Codeception\Module\WebDriver::seeCurrentUrlEquals()
-     */
-    public function seeCurrentUrlEquals($uri) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCurrentUrlEquals', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current URL matches the given regular expression.
-     *
-     * ``` php
-     * <?php
-     * // to match root url
-     * $I->seeCurrentUrlMatches('~$/users/(\d+)~');
-     * ?>
-     * ```
-     *
-     * @param $uri
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeCurrentUrlMatches()
-     */
-    public function canSeeCurrentUrlMatches($uri) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCurrentUrlMatches', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current URL matches the given regular expression.
-     *
-     * ``` php
-     * <?php
-     * // to match root url
-     * $I->seeCurrentUrlMatches('~$/users/(\d+)~');
-     * ?>
-     * ```
-     *
-     * @param $uri
-     * @see \Codeception\Module\WebDriver::seeCurrentUrlMatches()
-     */
-    public function seeCurrentUrlMatches($uri) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCurrentUrlMatches', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current URI doesn't contain the given string.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeInCurrentUrl('/users/');
-     * ?>
-     * ```
-     *
-     * @param $uri
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::dontSeeInCurrentUrl()
-     */
-    public function cantSeeInCurrentUrl($uri) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInCurrentUrl', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current URI doesn't contain the given string.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeInCurrentUrl('/users/');
-     * ?>
-     * ```
-     *
-     * @param $uri
-     * @see \Codeception\Module\WebDriver::dontSeeInCurrentUrl()
-     */
-    public function dontSeeInCurrentUrl($uri) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInCurrentUrl', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current URL doesn't equal the given string.
-     * Unlike `dontSeeInCurrentUrl`, this only matches the full URL.
-     *
-     * ``` php
-     * <?php
-     * // current url is not root
-     * $I->dontSeeCurrentUrlEquals('/');
-     * ?>
-     * ```
-     *
-     * @param $uri
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::dontSeeCurrentUrlEquals()
-     */
-    public function cantSeeCurrentUrlEquals($uri) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCurrentUrlEquals', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current URL doesn't equal the given string.
-     * Unlike `dontSeeInCurrentUrl`, this only matches the full URL.
-     *
-     * ``` php
-     * <?php
-     * // current url is not root
-     * $I->dontSeeCurrentUrlEquals('/');
-     * ?>
-     * ```
-     *
-     * @param $uri
-     * @see \Codeception\Module\WebDriver::dontSeeCurrentUrlEquals()
-     */
-    public function dontSeeCurrentUrlEquals($uri) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCurrentUrlEquals', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that current url doesn't match the given regular expression.
-     *
-     * ``` php
-     * <?php
-     * // to match root url
-     * $I->dontSeeCurrentUrlMatches('~$/users/(\d+)~');
-     * ?>
-     * ```
-     *
-     * @param $uri
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::dontSeeCurrentUrlMatches()
-     */
-    public function cantSeeCurrentUrlMatches($uri) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCurrentUrlMatches', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that current url doesn't match the given regular expression.
-     *
-     * ``` php
-     * <?php
-     * // to match root url
-     * $I->dontSeeCurrentUrlMatches('~$/users/(\d+)~');
-     * ?>
-     * ```
-     *
-     * @param $uri
-     * @see \Codeception\Module\WebDriver::dontSeeCurrentUrlMatches()
-     */
-    public function dontSeeCurrentUrlMatches($uri) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCurrentUrlMatches', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Executes the given regular expression against the current URI and returns the first match.
-     * If no parameters are provided, the full URI is returned.
-     *
-     * ``` php
-     * <?php
-     * $user_id = $I->grabFromCurrentUrl('~$/user/(\d+)/~');
-     * $uri = $I->grabFromCurrentUrl();
-     * ?>
-     * ```
-     *
-     * @param null $uri
-     *
-     * @return mixed
-     * @see \Codeception\Module\WebDriver::grabFromCurrentUrl()
-     */
-    public function grabFromCurrentUrl($uri = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabFromCurrentUrl', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the specified checkbox is checked.
-     *
-     * ``` php
-     * <?php
-     * $I->seeCheckboxIsChecked('#agree'); // I suppose user agreed to terms
-     * $I->seeCheckboxIsChecked('#signup_form input[type=checkbox]'); // I suppose user agreed to terms, If there is only one checkbox in form.
-     * $I->seeCheckboxIsChecked('//form/input[@type=checkbox and @name=agree]');
-     * ?>
-     * ```
-     *
-     * @param $checkbox
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeCheckboxIsChecked()
-     */
-    public function canSeeCheckboxIsChecked($checkbox) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCheckboxIsChecked', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the specified checkbox is checked.
-     *
-     * ``` php
-     * <?php
-     * $I->seeCheckboxIsChecked('#agree'); // I suppose user agreed to terms
-     * $I->seeCheckboxIsChecked('#signup_form input[type=checkbox]'); // I suppose user agreed to terms, If there is only one checkbox in form.
-     * $I->seeCheckboxIsChecked('//form/input[@type=checkbox and @name=agree]');
-     * ?>
-     * ```
-     *
-     * @param $checkbox
-     * @see \Codeception\Module\WebDriver::seeCheckboxIsChecked()
-     */
-    public function seeCheckboxIsChecked($checkbox) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCheckboxIsChecked', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Check that the specified checkbox is unchecked.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeCheckboxIsChecked('#agree'); // I suppose user didn't agree to terms
-     * $I->seeCheckboxIsChecked('#signup_form input[type=checkbox]'); // I suppose user didn't check the first checkbox in form.
-     * ?>
-     * ```
-     *
-     * @param $checkbox
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::dontSeeCheckboxIsChecked()
-     */
-    public function cantSeeCheckboxIsChecked($checkbox) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCheckboxIsChecked', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Check that the specified checkbox is unchecked.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeCheckboxIsChecked('#agree'); // I suppose user didn't agree to terms
-     * $I->seeCheckboxIsChecked('#signup_form input[type=checkbox]'); // I suppose user didn't check the first checkbox in form.
-     * ?>
-     * ```
-     *
-     * @param $checkbox
-     * @see \Codeception\Module\WebDriver::dontSeeCheckboxIsChecked()
-     */
-    public function dontSeeCheckboxIsChecked($checkbox) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCheckboxIsChecked', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the given input field or textarea contains the given value.
-     * For fuzzy locators, fields are matched by label text, the "name" attribute, CSS, and XPath.
-     *
-     * ``` php
-     * <?php
-     * $I->seeInField('Body','Type your comment here');
-     * $I->seeInField('form textarea[name=body]','Type your comment here');
-     * $I->seeInField('form input[type=hidden]','hidden_value');
-     * $I->seeInField('#searchform input','Search');
-     * $I->seeInField('//form/*[@name=search]','Search');
-     * $I->seeInField(['name' => 'search'], 'Search');
-     * ?>
-     * ```
-     *
-     * @param $field
-     * @param $value
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeInField()
-     */
-    public function canSeeInField($field, $value) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInField', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the given input field or textarea contains the given value.
-     * For fuzzy locators, fields are matched by label text, the "name" attribute, CSS, and XPath.
-     *
-     * ``` php
-     * <?php
-     * $I->seeInField('Body','Type your comment here');
-     * $I->seeInField('form textarea[name=body]','Type your comment here');
-     * $I->seeInField('form input[type=hidden]','hidden_value');
-     * $I->seeInField('#searchform input','Search');
-     * $I->seeInField('//form/*[@name=search]','Search');
-     * $I->seeInField(['name' => 'search'], 'Search');
-     * ?>
-     * ```
-     *
-     * @param $field
-     * @param $value
-     * @see \Codeception\Module\WebDriver::seeInField()
-     */
-    public function seeInField($field, $value) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInField', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that an input field or textarea doesn't contain the given value.
-     * For fuzzy locators, the field is matched by label text, CSS and XPath.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeInField('Body','Type your comment here');
-     * $I->dontSeeInField('form textarea[name=body]','Type your comment here');
-     * $I->dontSeeInField('form input[type=hidden]','hidden_value');
-     * $I->dontSeeInField('#searchform input','Search');
-     * $I->dontSeeInField('//form/*[@name=search]','Search');
-     * $I->dontSeeInField(['name' => 'search'], 'Search');
-     * ?>
-     * ```
-     *
-     * @param $field
-     * @param $value
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::dontSeeInField()
-     */
-    public function cantSeeInField($field, $value) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInField', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that an input field or textarea doesn't contain the given value.
-     * For fuzzy locators, the field is matched by label text, CSS and XPath.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeInField('Body','Type your comment here');
-     * $I->dontSeeInField('form textarea[name=body]','Type your comment here');
-     * $I->dontSeeInField('form input[type=hidden]','hidden_value');
-     * $I->dontSeeInField('#searchform input','Search');
-     * $I->dontSeeInField('//form/*[@name=search]','Search');
-     * $I->dontSeeInField(['name' => 'search'], 'Search');
-     * ?>
-     * ```
-     *
-     * @param $field
-     * @param $value
-     * @see \Codeception\Module\WebDriver::dontSeeInField()
-     */
-    public function dontSeeInField($field, $value) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInField', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks if the array of form parameters (name => value) are set on the form matched with the
-     * passed selector.
-     *
-     * ``` php
-     * <?php
-     * $I->seeInFormFields('form[name=myform]', [
-     *      'input1' => 'value',
-     *      'input2' => 'other value',
-     * ]);
-     * ?>
-     * ```
-     *
-     * For multi-select elements, or to check values of multiple elements with the same name, an
-     * array may be passed:
-     *
-     * ``` php
-     * <?php
-     * $I->seeInFormFields('.form-class', [
-     *      'multiselect' => [
-     *          'value1',
-     *          'value2',
-     *      ],
-     *      'checkbox[]' => [
-     *          'a checked value',
-     *          'another checked value',
-     *      ],
-     * ]);
-     * ?>
-     * ```
-     *
-     * Additionally, checkbox values can be checked with a boolean.
-     *
-     * ``` php
-     * <?php
-     * $I->seeInFormFields('#form-id', [
-     *      'checkbox1' => true,        // passes if checked
-     *      'checkbox2' => false,       // passes if unchecked
-     * ]);
-     * ?>
-     * ```
-     *
-     * Pair this with submitForm for quick testing magic.
-     *
-     * ``` php
-     * <?php
-     * $form = [
-     *      'field1' => 'value',
-     *      'field2' => 'another value',
-     *      'checkbox1' => true,
-     *      // ...
-     * ];
-     * $I->submitForm('//form[@id=my-form]', $form, 'submitButton');
-     * // $I->amOnPage('/path/to/form-page') may be needed
-     * $I->seeInFormFields('//form[@id=my-form]', $form);
-     * ?>
-     * ```
-     *
-     * @param $formSelector
-     * @param $params
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeInFormFields()
-     */
-    public function canSeeInFormFields($formSelector, $params) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInFormFields', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks if the array of form parameters (name => value) are set on the form matched with the
-     * passed selector.
-     *
-     * ``` php
-     * <?php
-     * $I->seeInFormFields('form[name=myform]', [
-     *      'input1' => 'value',
-     *      'input2' => 'other value',
-     * ]);
-     * ?>
-     * ```
-     *
-     * For multi-select elements, or to check values of multiple elements with the same name, an
-     * array may be passed:
-     *
-     * ``` php
-     * <?php
-     * $I->seeInFormFields('.form-class', [
-     *      'multiselect' => [
-     *          'value1',
-     *          'value2',
-     *      ],
-     *      'checkbox[]' => [
-     *          'a checked value',
-     *          'another checked value',
-     *      ],
-     * ]);
-     * ?>
-     * ```
-     *
-     * Additionally, checkbox values can be checked with a boolean.
-     *
-     * ``` php
-     * <?php
-     * $I->seeInFormFields('#form-id', [
-     *      'checkbox1' => true,        // passes if checked
-     *      'checkbox2' => false,       // passes if unchecked
-     * ]);
-     * ?>
-     * ```
-     *
-     * Pair this with submitForm for quick testing magic.
-     *
-     * ``` php
-     * <?php
-     * $form = [
-     *      'field1' => 'value',
-     *      'field2' => 'another value',
-     *      'checkbox1' => true,
-     *      // ...
-     * ];
-     * $I->submitForm('//form[@id=my-form]', $form, 'submitButton');
-     * // $I->amOnPage('/path/to/form-page') may be needed
-     * $I->seeInFormFields('//form[@id=my-form]', $form);
-     * ?>
-     * ```
-     *
-     * @param $formSelector
-     * @param $params
-     * @see \Codeception\Module\WebDriver::seeInFormFields()
-     */
-    public function seeInFormFields($formSelector, $params) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInFormFields', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks if the array of form parameters (name => value) are not set on the form matched with
-     * the passed selector.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeInFormFields('form[name=myform]', [
-     *      'input1' => 'non-existent value',
-     *      'input2' => 'other non-existent value',
-     * ]);
-     * ?>
-     * ```
-     *
-     * To check that an element hasn't been assigned any one of many values, an array can be passed
-     * as the value:
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeInFormFields('.form-class', [
-     *      'fieldName' => [
-     *          'This value shouldn\'t be set',
-     *          'And this value shouldn\'t be set',
-     *      ],
-     * ]);
-     * ?>
-     * ```
-     *
-     * Additionally, checkbox values can be checked with a boolean.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeInFormFields('#form-id', [
-     *      'checkbox1' => true,        // fails if checked
-     *      'checkbox2' => false,       // fails if unchecked
-     * ]);
-     * ?>
-     * ```
-     *
-     * @param $formSelector
-     * @param $params
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::dontSeeInFormFields()
-     */
-    public function cantSeeInFormFields($formSelector, $params) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInFormFields', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks if the array of form parameters (name => value) are not set on the form matched with
-     * the passed selector.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeInFormFields('form[name=myform]', [
-     *      'input1' => 'non-existent value',
-     *      'input2' => 'other non-existent value',
-     * ]);
-     * ?>
-     * ```
-     *
-     * To check that an element hasn't been assigned any one of many values, an array can be passed
-     * as the value:
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeInFormFields('.form-class', [
-     *      'fieldName' => [
-     *          'This value shouldn\'t be set',
-     *          'And this value shouldn\'t be set',
-     *      ],
-     * ]);
-     * ?>
-     * ```
-     *
-     * Additionally, checkbox values can be checked with a boolean.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeInFormFields('#form-id', [
-     *      'checkbox1' => true,        // fails if checked
-     *      'checkbox2' => false,       // fails if unchecked
-     * ]);
-     * ?>
-     * ```
-     *
-     * @param $formSelector
-     * @param $params
-     * @see \Codeception\Module\WebDriver::dontSeeInFormFields()
-     */
-    public function dontSeeInFormFields($formSelector, $params) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInFormFields', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Selects an option in a select tag or in radio button group.
-     *
-     * ``` php
-     * <?php
-     * $I->selectOption('form select[name=account]', 'Premium');
-     * $I->selectOption('form input[name=payment]', 'Monthly');
-     * $I->selectOption('//form/select[@name=account]', 'Monthly');
-     * ?>
-     * ```
-     *
-     * Provide an array for the second argument to select multiple options:
-     *
-     * ``` php
-     * <?php
-     * $I->selectOption('Which OS do you use?', array('Windows','Linux'));
-     * ?>
-     * ```
-     *
-     * Or provide an associative array for the second argument to specifically define which selection method should be used:
-     *
-     * ``` php
-     * <?php
-     * $I->selectOption('Which OS do you use?', array('text' => 'Windows')); // Only search by text 'Windows'
-     * $I->selectOption('Which OS do you use?', array('value' => 'windows')); // Only search by value 'windows'
-     * ?>
-     * ```
-     *
-     * @param $select
-     * @param $option
-     * @see \Codeception\Module\WebDriver::selectOption()
-     */
-    public function selectOption($select, $option) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('selectOption', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     *
-     * @see \Codeception\Module\WebDriver::unselectOption()
-     */
-    public function unselectOption($select, $option) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('unselectOption', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Ticks a checkbox. For radio buttons, use the `selectOption` method instead.
-     *
-     * ``` php
-     * <?php
-     * $I->checkOption('#agree');
-     * ?>
-     * ```
-     *
-     * @param $option
-     * @see \Codeception\Module\WebDriver::checkOption()
-     */
-    public function checkOption($option) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('checkOption', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Unticks a checkbox.
-     *
-     * ``` php
-     * <?php
-     * $I->uncheckOption('#notify');
-     * ?>
-     * ```
-     *
-     * @param $option
-     * @see \Codeception\Module\WebDriver::uncheckOption()
-     */
-    public function uncheckOption($option) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('uncheckOption', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Fills a text field or textarea with the given string.
-     *
-     * ``` php
-     * <?php
-     * $I->fillField("//input[@type='text']", "Hello World!");
-     * $I->fillField(['name' => 'email'], 'jon@mail.com');
-     * ?>
-     * ```
-     *
-     * @param $field
-     * @param $value
-     * @see \Codeception\Module\WebDriver::fillField()
-     */
-    public function fillField($field, $value) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('fillField', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Attaches a file relative to the Codeception data directory to the given file upload field.
-     *
-     * ``` php
-     * <?php
-     * // file is stored in 'tests/_data/prices.xls'
-     * $I->attachFile('input[@type="file"]', 'prices.xls');
-     * ?>
-     * ```
-     *
-     * @param $field
-     * @param $filename
-     * @see \Codeception\Module\WebDriver::attachFile()
-     */
-    public function attachFile($field, $filename) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('attachFile', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Grabs all visible text from the current page.
-     *
-     * @return string
-     * @see \Codeception\Module\WebDriver::getVisibleText()
-     */
-    public function getVisibleText() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('getVisibleText', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Finds and returns the text contents of the given element.
-     * If a fuzzy locator is used, the element is found using CSS, XPath,
-     * and by matching the full page source by regular expression.
-     *
-     * ``` php
-     * <?php
-     * $heading = $I->grabTextFrom('h1');
-     * $heading = $I->grabTextFrom('descendant-or-self::h1');
-     * $value = $I->grabTextFrom('~<input value=(.*?)]~sgi'); // match with a regex
-     * ?>
-     * ```
-     *
-     * @param $cssOrXPathOrRegex
-     *
-     * @return mixed
-     * @see \Codeception\Module\WebDriver::grabTextFrom()
-     */
-    public function grabTextFrom($cssOrXPathOrRegex) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTextFrom', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Grabs the value of the given attribute value from the given element.
-     * Fails if element is not found.
-     *
-     * ``` php
-     * <?php
-     * $I->grabAttributeFrom('#tooltip', 'title');
-     * ?>
-     * ```
-     *
-     *
-     * @param $cssOrXpath
-     * @param $attribute
-     *
-     * @return mixed
-     * @see \Codeception\Module\WebDriver::grabAttributeFrom()
-     */
-    public function grabAttributeFrom($cssOrXpath, $attribute) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabAttributeFrom', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Finds the value for the given form field.
-     * If a fuzzy locator is used, the field is found by field name, CSS, and XPath.
-     *
-     * ``` php
-     * <?php
-     * $name = $I->grabValueFrom('Name');
-     * $name = $I->grabValueFrom('input[name=username]');
-     * $name = $I->grabValueFrom('descendant-or-self::form/descendant::input[@name = 'username']');
-     * $name = $I->grabValueFrom(['name' => 'username']);
-     * ?>
-     * ```
-     *
-     * @param $field
-     *
-     * @return mixed
-     * @see \Codeception\Module\WebDriver::grabValueFrom()
-     */
-    public function grabValueFrom($field) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabValueFrom', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Grabs either the text content, or attribute values, of nodes
-     * matched by $cssOrXpath and returns them as an array.
-     *
-     * ```html
-     * <a href="#first">First</a>
-     * <a href="#second">Second</a>
-     * <a href="#third">Third</a>
-     * ```
-     *
-     * ```php
-     * <?php
-     * // would return ['First', 'Second', 'Third']
-     * $aLinkText = $I->grabMultiple('a');
-     *
-     * // would return ['#first', '#second', '#third']
-     * $aLinks = $I->grabMultiple('a', 'href');
-     * ?>
-     * ```
-     *
-     * @param $cssOrXpath
-     * @param $attribute
-     * @return string[]
-     * @see \Codeception\Module\WebDriver::grabMultiple()
-     */
-    public function grabMultiple($cssOrXpath, $attribute = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabMultiple', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the given element exists on the page and is visible.
-     * You can also specify expected attributes of this element.
-     *
-     * ``` php
-     * <?php
-     * $I->seeElement('.error');
-     * $I->seeElement('//form/input[1]');
-     * $I->seeElement('input', ['name' => 'login']);
-     * $I->seeElement('input', ['value' => '123456']);
-     *
-     * // strict locator in first arg, attributes in second
-     * $I->seeElement(['css' => 'form input'], ['name' => 'login']);
-     * ?>
-     * ```
-     *
-     * @param $selector
-     * @param array $attributes
-     * @return
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeElement()
-     */
-    public function canSeeElement($selector, $attributes = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeElement', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the given element exists on the page and is visible.
-     * You can also specify expected attributes of this element.
-     *
-     * ``` php
-     * <?php
-     * $I->seeElement('.error');
-     * $I->seeElement('//form/input[1]');
-     * $I->seeElement('input', ['name' => 'login']);
-     * $I->seeElement('input', ['value' => '123456']);
-     *
-     * // strict locator in first arg, attributes in second
-     * $I->seeElement(['css' => 'form input'], ['name' => 'login']);
-     * ?>
-     * ```
-     *
-     * @param $selector
-     * @param array $attributes
-     * @return
-     * @see \Codeception\Module\WebDriver::seeElement()
-     */
-    public function seeElement($selector, $attributes = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeElement', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the given element is invisible or not present on the page.
-     * You can also specify expected attributes of this element.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeElement('.error');
-     * $I->dontSeeElement('//form/input[1]');
-     * $I->dontSeeElement('input', ['name' => 'login']);
-     * $I->dontSeeElement('input', ['value' => '123456']);
-     * ?>
-     * ```
-     *
-     * @param $selector
-     * @param array $attributes
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::dontSeeElement()
-     */
-    public function cantSeeElement($selector, $attributes = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeElement', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the given element is invisible or not present on the page.
-     * You can also specify expected attributes of this element.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeElement('.error');
-     * $I->dontSeeElement('//form/input[1]');
-     * $I->dontSeeElement('input', ['name' => 'login']);
-     * $I->dontSeeElement('input', ['value' => '123456']);
-     * ?>
-     * ```
-     *
-     * @param $selector
-     * @param array $attributes
-     * @see \Codeception\Module\WebDriver::dontSeeElement()
-     */
-    public function dontSeeElement($selector, $attributes = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeElement', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the given element exists on the page, even it is invisible.
-     *
-     * ``` php
-     * <?php
-     * $I->seeElementInDOM('//form/input[type=hidden]');
-     * ?>
-     * ```
-     *
-     * @param $selector
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeElementInDOM()
-     */
-    public function canSeeElementInDOM($selector, $attributes = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeElementInDOM', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the given element exists on the page, even it is invisible.
-     *
-     * ``` php
-     * <?php
-     * $I->seeElementInDOM('//form/input[type=hidden]');
-     * ?>
-     * ```
-     *
-     * @param $selector
-     * @see \Codeception\Module\WebDriver::seeElementInDOM()
-     */
-    public function seeElementInDOM($selector, $attributes = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeElementInDOM', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Opposite of `seeElementInDOM`.
-     *
-     * @param $selector
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::dontSeeElementInDOM()
-     */
-    public function cantSeeElementInDOM($selector, $attributes = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeElementInDOM', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Opposite of `seeElementInDOM`.
-     *
-     * @param $selector
-     * @see \Codeception\Module\WebDriver::dontSeeElementInDOM()
-     */
-    public function dontSeeElementInDOM($selector, $attributes = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeElementInDOM', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that there are a certain number of elements matched by the given locator on the page.
-     *
-     * ``` php
-     * <?php
-     * $I->seeNumberOfElements('tr', 10);
-     * $I->seeNumberOfElements('tr', [0,10]); //between 0 and 10 elements
-     * ?>
-     * ```
-     * @param $selector
-     * @param mixed $expected :
-     * - string: strict number
-     * - array: range of numbers [0,10]
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeNumberOfElements()
-     */
-    public function canSeeNumberOfElements($selector, $expected) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeNumberOfElements', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that there are a certain number of elements matched by the given locator on the page.
-     *
-     * ``` php
-     * <?php
-     * $I->seeNumberOfElements('tr', 10);
-     * $I->seeNumberOfElements('tr', [0,10]); //between 0 and 10 elements
-     * ?>
-     * ```
-     * @param $selector
-     * @param mixed $expected :
-     * - string: strict number
-     * - array: range of numbers [0,10]
-     * @see \Codeception\Module\WebDriver::seeNumberOfElements()
-     */
-    public function seeNumberOfElements($selector, $expected) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeNumberOfElements', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     *
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeNumberOfElementsInDOM()
-     */
-    public function canSeeNumberOfElementsInDOM($selector, $expected) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeNumberOfElementsInDOM', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     *
-     * @see \Codeception\Module\WebDriver::seeNumberOfElementsInDOM()
-     */
-    public function seeNumberOfElementsInDOM($selector, $expected) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeNumberOfElementsInDOM', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the given option is selected.
-     *
-     * ``` php
-     * <?php
-     * $I->seeOptionIsSelected('#form input[name=payment]', 'Visa');
-     * ?>
-     * ```
-     *
-     * @param $selector
-     * @param $optionText
-     *
-     * @return mixed
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeOptionIsSelected()
-     */
-    public function canSeeOptionIsSelected($selector, $optionText) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeOptionIsSelected', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the given option is selected.
-     *
-     * ``` php
-     * <?php
-     * $I->seeOptionIsSelected('#form input[name=payment]', 'Visa');
-     * ?>
-     * ```
-     *
-     * @param $selector
-     * @param $optionText
-     *
-     * @return mixed
-     * @see \Codeception\Module\WebDriver::seeOptionIsSelected()
-     */
-    public function seeOptionIsSelected($selector, $optionText) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeOptionIsSelected', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the given option is not selected.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeOptionIsSelected('#form input[name=payment]', 'Visa');
-     * ?>
-     * ```
-     *
-     * @param $selector
-     * @param $optionText
-     *
-     * @return mixed
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::dontSeeOptionIsSelected()
-     */
-    public function cantSeeOptionIsSelected($selector, $optionText) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeOptionIsSelected', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the given option is not selected.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeOptionIsSelected('#form input[name=payment]', 'Visa');
-     * ?>
-     * ```
-     *
-     * @param $selector
-     * @param $optionText
-     *
-     * @return mixed
-     * @see \Codeception\Module\WebDriver::dontSeeOptionIsSelected()
-     */
-    public function dontSeeOptionIsSelected($selector, $optionText) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeOptionIsSelected', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the page title contains the given string.
-     *
-     * ``` php
-     * <?php
-     * $I->seeInTitle('Blog - Post #1');
-     * ?>
-     * ```
-     *
-     * @param $title
-     *
-     * @return mixed
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeInTitle()
-     */
-    public function canSeeInTitle($title) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInTitle', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the page title contains the given string.
-     *
-     * ``` php
-     * <?php
-     * $I->seeInTitle('Blog - Post #1');
-     * ?>
-     * ```
-     *
-     * @param $title
-     *
-     * @return mixed
-     * @see \Codeception\Module\WebDriver::seeInTitle()
-     */
-    public function seeInTitle($title) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInTitle', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the page title does not contain the given string.
-     *
-     * @param $title
-     *
-     * @return mixed
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::dontSeeInTitle()
-     */
-    public function cantSeeInTitle($title) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInTitle', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the page title does not contain the given string.
-     *
-     * @param $title
-     *
-     * @return mixed
-     * @see \Codeception\Module\WebDriver::dontSeeInTitle()
-     */
-    public function dontSeeInTitle($title) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInTitle', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Accepts the active JavaScript native popup window, as created by `window.alert`|`window.confirm`|`window.prompt`.
-     * Don't confuse popups with modal windows,
-     * as created by [various libraries](http://jster.net/category/windows-modals-popups).
-     * @see \Codeception\Module\WebDriver::acceptPopup()
-     */
-    public function acceptPopup() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('acceptPopup', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Dismisses the active JavaScript popup, as created by `window.alert`|`window.confirm`|`window.prompt`.
-     * @see \Codeception\Module\WebDriver::cancelPopup()
-     */
-    public function cancelPopup() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('cancelPopup', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the active JavaScript popup,
-     * as created by `window.alert`|`window.confirm`|`window.prompt`, contains the given string.
-     *
-     * @param $text
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WebDriver::seeInPopup()
-     */
-    public function canSeeInPopup($text) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInPopup', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the active JavaScript popup,
-     * as created by `window.alert`|`window.confirm`|`window.prompt`, contains the given string.
-     *
-     * @param $text
-     * @see \Codeception\Module\WebDriver::seeInPopup()
-     */
-    public function seeInPopup($text) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInPopup', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Enters text into a native JavaScript prompt popup, as created by `window.prompt`.
-     *
-     * @param $keys
-     * @see \Codeception\Module\WebDriver::typeInPopup()
-     */
-    public function typeInPopup($keys) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('typeInPopup', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Reloads the current page.
-     * @see \Codeception\Module\WebDriver::reloadPage()
-     */
-    public function reloadPage() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('reloadPage', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Moves back in history.
-     * @see \Codeception\Module\WebDriver::moveBack()
-     */
-    public function moveBack() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('moveBack', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Moves forward in history.
-     * @see \Codeception\Module\WebDriver::moveForward()
-     */
-    public function moveForward() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('moveForward', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Submits the given form on the page, optionally with the given form
-     * values.  Give the form fields values as an array. Note that hidden fields
-     * can't be accessed.
-     *
-     * Skipped fields will be filled by their values from the page.
-     * You don't need to click the 'Submit' button afterwards.
-     * This command itself triggers the request to form's action.
-     *
-     * You can optionally specify what button's value to include
-     * in the request with the last parameter as an alternative to
-     * explicitly setting its value in the second parameter, as
-     * button values are not otherwise included in the request.
-     *
-     * Examples:
-     *
-     * ``` php
-     * <?php
-     * $I->submitForm('#login', [
-     *     'login' => 'davert',
-     *     'password' => '123456'
-     * ]);
-     * // or
-     * $I->submitForm('#login', [
-     *     'login' => 'davert',
-     *     'password' => '123456'
-     * ], 'submitButtonName');
-     *
-     * ```
-     *
-     * For example, given this sample "Sign Up" form:
-     *
-     * ``` html
-     * <form action="/sign_up">
-     *     Login:
-     *     <input type="text" name="user[login]" /><br/>
-     *     Password:
-     *     <input type="password" name="user[password]" /><br/>
-     *     Do you agree to our terms?
-     *     <input type="checkbox" name="user[agree]" /><br/>
-     *     Select pricing plan:
-     *     <select name="plan">
-     *         <option value="1">Free</option>
-     *         <option value="2" selected="selected">Paid</option>
-     *     </select>
-     *     <input type="submit" name="submitButton" value="Submit" />
-     * </form>
-     * ```
-     *
-     * You could write the following to submit it:
-     *
-     * ``` php
-     * <?php
-     * $I->submitForm(
-     *     '#userForm',
-     *     [
-     *         'user[login]' => 'Davert',
-     *         'user[password]' => '123456',
-     *         'user[agree]' => true
-     *     ],
-     *     'submitButton'
-     * );
-     * ```
-     * Note that "2" will be the submitted value for the "plan" field, as it is
-     * the selected option.
-     *
-     * Also note that this differs from PhpBrowser, in that
-     * ```'user' => [ 'login' => 'Davert' ]``` is not supported at the moment.
-     * Named array keys *must* be included in the name as above.
-     *
-     * Pair this with seeInFormFields for quick testing magic.
-     *
-     * ``` php
-     * <?php
-     * $form = [
-     *      'field1' => 'value',
-     *      'field2' => 'another value',
-     *      'checkbox1' => true,
-     *      // ...
-     * ];
-     * $I->submitForm('//form[@id=my-form]', $form, 'submitButton');
-     * // $I->amOnPage('/path/to/form-page') may be needed
-     * $I->seeInFormFields('//form[@id=my-form]', $form);
-     * ?>
-     * ```
-     *
-     * Parameter values must be set to arrays for multiple input fields
-     * of the same name, or multi-select combo boxes.  For checkboxes,
-     * either the string value can be used, or boolean values which will
-     * be replaced by the checkbox's value in the DOM.
-     *
-     * ``` php
-     * <?php
-     * $I->submitForm('#my-form', [
-     *      'field1' => 'value',
-     *      'checkbox' => [
-     *          'value of first checkbox',
-     *          'value of second checkbox,
-     *      ],
-     *      'otherCheckboxes' => [
-     *          true,
-     *          false,
-     *          false
-     *      ],
-     *      'multiselect' => [
-     *          'first option value',
-     *          'second option value'
-     *      ]
-     * ]);
-     * ?>
-     * ```
-     *
-     * Mixing string and boolean values for a checkbox's value is not supported
-     * and may produce unexpected results.
-     *
-     * Field names ending in "[]" must be passed without the trailing square
-     * bracket characters, and must contain an array for its value.  This allows
-     * submitting multiple values with the same name, consider:
-     *
-     * ```php
-     * $I->submitForm('#my-form', [
-     *     'field[]' => 'value',
-     *     'field[]' => 'another value', // 'field[]' is already a defined key
-     * ]);
-     * ```
-     *
-     * The solution is to pass an array value:
-     *
-     * ```php
-     * // this way both values are submitted
-     * $I->submitForm('#my-form', [
-     *     'field' => [
-     *         'value',
-     *         'another value',
-     *     ]
-     * ]);
-     * ```
-     *
-     * The `$button` parameter can be either a string, an array or an instance
-     * of Facebook\WebDriver\WebDriverBy. When it is a string, the
-     * button will be found by its "name" attribute. If $button is an
-     * array then it will be treated as a strict selector and a WebDriverBy
-     * will be used verbatim.
-     *
-     * For example, given the following HTML:
-     *
-     * ``` html
-     * <input type="submit" name="submitButton" value="Submit" />
-     * ```
-     *
-     * `$button` could be any one of the following:
-     *   - 'submitButton'
-     *   - ['name' => 'submitButton']
-     *   - WebDriverBy::name('submitButton')
-     *
-     * @param $selector
-     * @param $params
-     * @param $button
-     * @see \Codeception\Module\WebDriver::submitForm()
-     */
-    public function submitForm($selector, $params, $button = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('submitForm', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Waits up to $timeout seconds for the given element to change.
-     * Element "change" is determined by a callback function which is called repeatedly
-     * until the return value evaluates to true.
-     *
-     * ``` php
-     * <?php
-     * use \Facebook\WebDriver\WebDriverElement
-     * $I->waitForElementChange('#menu', function(WebDriverElement $el) {
-     *     return $el->isDisplayed();
-     * }, 100);
-     * ?>
-     * ```
-     *
-     * @param $element
-     * @param \Closure $callback
-     * @param int $timeout seconds
-     * @throws \Codeception\Exception\ElementNotFound
-     * @see \Codeception\Module\WebDriver::waitForElementChange()
-     */
-    public function waitForElementChange($element, $callback, $timeout = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElementChange', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Waits up to $timeout seconds for an element to appear on the page.
-     * If the element doesn't appear, a timeout exception is thrown.
-     *
-     * ``` php
-     * <?php
-     * $I->waitForElement('#agree_button', 30); // secs
-     * $I->click('#agree_button');
-     * ?>
-     * ```
-     *
-     * @param $element
-     * @param int $timeout seconds
-     * @throws \Exception
-     * @see \Codeception\Module\WebDriver::waitForElement()
-     */
-    public function waitForElement($element, $timeout = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElement', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Waits up to $timeout seconds for the given element to be visible on the page.
-     * If element doesn't appear, a timeout exception is thrown.
-     *
-     * ``` php
-     * <?php
-     * $I->waitForElementVisible('#agree_button', 30); // secs
-     * $I->click('#agree_button');
-     * ?>
-     * ```
-     *
-     * @param $element
-     * @param int $timeout seconds
-     * @throws \Exception
-     * @see \Codeception\Module\WebDriver::waitForElementVisible()
-     */
-    public function waitForElementVisible($element, $timeout = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElementVisible', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Waits up to $timeout seconds for the given element to become invisible.
-     * If element stays visible, a timeout exception is thrown.
-     *
-     * ``` php
-     * <?php
-     * $I->waitForElementNotVisible('#agree_button', 30); // secs
-     * ?>
-     * ```
-     *
-     * @param $element
-     * @param int $timeout seconds
-     * @throws \Exception
-     * @see \Codeception\Module\WebDriver::waitForElementNotVisible()
-     */
-    public function waitForElementNotVisible($element, $timeout = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElementNotVisible', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Waits up to $timeout seconds for the given string to appear on the page.
-     *
-     * Can also be passed a selector to search in, be as specific as possible when using selectors.
-     * waitForText() will only watch the first instance of the matching selector / text provided.
-     * If the given text doesn't appear, a timeout exception is thrown.
-     *
-     * ``` php
-     * <?php
-     * $I->waitForText('foo', 30); // secs
-     * $I->waitForText('foo', 30, '.title'); // secs
-     * ?>
-     * ```
-     *
-     * @param string $text
-     * @param int $timeout seconds
-     * @param null $selector
-     * @throws \Exception
-     * @see \Codeception\Module\WebDriver::waitForText()
-     */
-    public function waitForText($text, $timeout = null, $selector = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForText', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Wait for $timeout seconds.
-     *
-     * @param int $timeout secs
-     * @throws \Codeception\Exception\TestRuntimeException
-     * @see \Codeception\Module\WebDriver::wait()
-     */
-    public function wait($timeout) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('wait', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Low-level API method.
-     * If Codeception commands are not enough, this allows you to use Selenium WebDriver methods directly:
-     *
-     * ``` php
-     * $I->executeInSelenium(function(\Facebook\WebDriver\Remote\RemoteWebDriver $webdriver) {
-     *   $webdriver->get('http://google.com');
-     * });
-     * ```
-     *
-     * This runs in the context of the
-     * [RemoteWebDriver class](https://github.com/facebook/php-webdriver/blob/master/lib/remote/RemoteWebDriver.php).
-     * Try not to use this command on a regular basis.
-     * If Codeception lacks a feature you need, please implement it and submit a patch.
-     *
-     * @param callable $function
-     * @see \Codeception\Module\WebDriver::executeInSelenium()
-     */
-    public function executeInSelenium($function) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('executeInSelenium', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Switch to another window identified by name.
-     *
-     * The window can only be identified by name. If the $name parameter is blank, the parent window will be used.
-     *
-     * Example:
-     * ``` html
-     * <input type="button" value="Open window" onclick="window.open('http://example.com', 'another_window')">
-     * ```
-     *
-     * ``` php
-     * <?php
-     * $I->click("Open window");
-     * # switch to another window
-     * $I->switchToWindow("another_window");
-     * # switch to parent window
-     * $I->switchToWindow();
-     * ?>
-     * ```
-     *
-     * If the window has no name, the only way to access it is via the `executeInSelenium()` method, like so:
-     *
-     * ``` php
-     * <?php
-     * $I->executeInSelenium(function (\Facebook\WebDriver\Remote\RemoteWebDriver $webdriver) {
-     *      $handles=$webdriver->getWindowHandles();
-     *      $last_window = end($handles);
-     *      $webdriver->switchTo()->window($last_window);
-     * });
-     * ?>
-     * ```
-     *
-     * @param string|null $name
-     * @see \Codeception\Module\WebDriver::switchToWindow()
-     */
-    public function switchToWindow($name = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('switchToWindow', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Switch to another frame on the page.
-     *
-     * Example:
-     * ``` html
-     * <iframe name="another_frame" src="http://example.com">
-     *
-     * ```
-     *
-     * ``` php
-     * <?php
-     * # switch to iframe
-     * $I->switchToIFrame("another_frame");
-     * # switch to parent page
-     * $I->switchToIFrame();
-     *
-     * ```
-     *
-     * @param string|null $name
-     * @see \Codeception\Module\WebDriver::switchToIFrame()
-     */
-    public function switchToIFrame($name = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('switchToIFrame', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Executes JavaScript and waits up to $timeout seconds for it to return true.
-     *
-     * In this example we will wait up to 60 seconds for all jQuery AJAX requests to finish.
-     *
-     * ``` php
-     * <?php
-     * $I->waitForJS("return $.active == 0;", 60);
-     * ?>
-     * ```
-     *
-     * @param string $script
-     * @param int $timeout seconds
-     * @see \Codeception\Module\WebDriver::waitForJS()
-     */
-    public function waitForJS($script, $timeout = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForJS', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Executes custom JavaScript.
-     *
-     * This example uses jQuery to get a value and assigns that value to a PHP variable:
-     *
-     * ```php
-     * <?php
-     * $myVar = $I->executeJS('return $("#myField").val()');
-     * ?>
-     * ```
-     *
-     * @param $script
-     * @return mixed
-     * @see \Codeception\Module\WebDriver::executeJS()
-     */
-    public function executeJS($script) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('executeJS', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Maximizes the current window.
-     * @see \Codeception\Module\WebDriver::maximizeWindow()
-     */
-    public function maximizeWindow() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('maximizeWindow', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Performs a simple mouse drag-and-drop operation.
-     *
-     * ``` php
-     * <?php
-     * $I->dragAndDrop('#drag', '#drop');
-     * ?>
-     * ```
-     *
-     * @param string $source (CSS ID or XPath)
-     * @param string $target (CSS ID or XPath)
-     * @see \Codeception\Module\WebDriver::dragAndDrop()
-     */
-    public function dragAndDrop($source, $target) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dragAndDrop', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Move mouse over the first element matched by the given locator.
-     * If the second and third parameters are given,
-     * then the mouse is moved to an offset of the element's top-left corner.
-     * Otherwise, the mouse is moved to the center of the element.
-     *
-     * ``` php
-     * <?php
-     * $I->moveMouseOver(['css' => '.checkout'], 20, 50);
-     * ?>
-     * ```
-     *
-     * @param string $cssOrXPath css or xpath of the web element
-     * @param int $offsetX
-     * @param int $offsetY
-     *
-     * @throws \Codeception\Exception\ElementNotFound
-     * @see \Codeception\Module\WebDriver::moveMouseOver()
-     */
-    public function moveMouseOver($cssOrXPath, $offsetX = null, $offsetY = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('moveMouseOver', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Performs contextual click with the right mouse button on an element.
-     *
-     * @param $cssOrXPath
-     * @throws \Codeception\Exception\ElementNotFound
-     * @see \Codeception\Module\WebDriver::clickWithRightButton()
-     */
-    public function clickWithRightButton($cssOrXPath) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('clickWithRightButton', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Pauses test execution in debug mode.
-     * To proceed test press "ENTER" in console.
-     *
-     * This method is useful while writing tests,
-     * since it allows you to inspect the current page in the middle of a test case.
-     * @see \Codeception\Module\WebDriver::pauseExecution()
-     */
-    public function pauseExecution() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('pauseExecution', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Performs a double-click on an element matched by CSS or XPath.
-     *
-     * @param $cssOrXPath
-     * @throws \Codeception\Exception\ElementNotFound
-     * @see \Codeception\Module\WebDriver::doubleClick()
-     */
-    public function doubleClick($cssOrXPath) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('doubleClick', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Presses the given key on the given element.
-     * To specify a character and modifier (e.g. ctrl, alt, shift, meta), pass an array for $char with
-     * the modifier as the first element and the character as the second.
-     * For special keys use key constants from WebDriverKeys class.
-     *
-     * ``` php
-     * <?php
-     * // <input id="page" value="old" />
-     * $I->pressKey('#page','a'); // => olda
-     * $I->pressKey('#page',array('ctrl','a'),'new'); //=> new
-     * $I->pressKey('#page',array('shift','111'),'1','x'); //=> old!!!1x
-     * $I->pressKey('descendant-or-self::*[@id='page']','u'); //=> oldu
-     * $I->pressKey('#name', array('ctrl', 'a'), \Facebook\WebDriver\WebDriverKeys::DELETE); //=>''
-     * ?>
-     * ```
-     *
-     * @param $element
-     * @param $char string|array Can be char or array with modifier. You can provide several chars.
-     * @throws \Codeception\Exception\ElementNotFound
-     * @see \Codeception\Module\WebDriver::pressKey()
-     */
-    public function pressKey($element, $char) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('pressKey', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Append the given text to the given element.
-     * Can also add a selection to a select box.
-     *
-     * ``` php
-     * <?php
-     * $I->appendField('#mySelectbox', 'SelectValue');
-     * $I->appendField('#myTextField', 'appended');
-     * ?>
-     * ```
-     *
-     * @param string $field
-     * @param string $value
-     * @throws \Codeception\Exception\ElementNotFound
-     * @see \Codeception\Module\WebDriver::appendField()
-     */
-    public function appendField($field, $value) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('appendField', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * @param string $name
-     * @see \Codeception\Module\WebDriver::saveSessionSnapshot()
-     */
-    public function saveSessionSnapshot($name) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('saveSessionSnapshot', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * @param string $name
-     * @return bool
-     * @see \Codeception\Module\WebDriver::loadSessionSnapshot()
-     */
-    public function loadSessionSnapshot($name) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('loadSessionSnapshot', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Move to the middle of the given element matched by the given locator.
-     * Extra shift, calculated from the top-left corner of the element,
-     * can be set by passing $offsetX and $offsetY parameters.
-     *
-     * ``` php
-     * <?php
-     * $I->scrollTo(['css' => '.checkout'], 20, 50);
-     * ?>
-     * ```
-     *
-     * @param $selector
-     * @param int $offsetX
-     * @param int $offsetY
-     * @see \Codeception\Module\WebDriver::scrollTo()
-     */
-    public function scrollTo($selector, $offsetX = null, $offsetY = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('scrollTo', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Goes to the login page and logs in as the site admin.
+	 * @see \Codeception\Module\WPWebDriver::waitForJqueryAjax()
+	 */
+	public function waitForJqueryAjax($time = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForJqueryAjax', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Grabs the current page full URL including the query vars.
+	 * @see \Codeception\Module\WPWebDriver::grabFullUrl()
+	 */
+	public function grabFullUrl() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabFullUrl', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Print out latest Selenium Logs in debug mode
+	 * @see \Codeception\Module\WebDriver::debugWebDriverLogs()
+	 */
+	public function debugWebDriverLogs() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('debugWebDriverLogs', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Changes the subdomain for the 'url' configuration parameter.
+	 * Does not open a page; use `amOnPage` for that.
+	 *
+	 * ``` php
+	 * <?php
+	 * // If config is: 'http://mysite.com'
+	 * // or config is: 'http://www.mysite.com'
+	 * // or config is: 'http://company.mysite.com'
+	 *
+	 * $I->amOnSubdomain('user');
+	 * $I->amOnPage('/');
+	 * // moves to http://user.mysite.com/
+	 * ?>
+	 * ```
+	 *
+	 * @param $subdomain
+	 *
+	 * @return mixed
+	 * @see \Codeception\Module\WebDriver::amOnSubdomain()
+	 */
+	public function amOnSubdomain($subdomain) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Condition('amOnSubdomain', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Takes a screenshot of the current window and saves it to `tests/_output/debug`.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->amOnPage('/user/edit');
+	 * $I->makeScreenshot('edit_page');
+	 * // saved to: tests/_output/debug/edit_page.png
+	 * ?>
+	 * ```
+	 *
+	 * @param $name
+	 * @see \Codeception\Module\WebDriver::makeScreenshot()
+	 */
+	public function makeScreenshot($name) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('makeScreenshot', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Resize the current window.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->resizeWindow(800, 600);
+	 *
+	 * ```
+	 *
+	 * @param int $width
+	 * @param int $height
+	 * @see \Codeception\Module\WebDriver::resizeWindow()
+	 */
+	public function resizeWindow($width, $height) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('resizeWindow', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a cookie with the given name is set.
+	 * You can set additional cookie params like `domain`, `path` as array passed in last argument.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeCookie('PHPSESSID');
+	 * ?>
+	 * ```
+	 *
+	 * @param $cookie
+	 * @param array $params
+	 * @return mixed
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeCookie()
+	 */
+	public function canSeeCookie($cookie, $params = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCookie', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a cookie with the given name is set.
+	 * You can set additional cookie params like `domain`, `path` as array passed in last argument.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeCookie('PHPSESSID');
+	 * ?>
+	 * ```
+	 *
+	 * @param $cookie
+	 * @param array $params
+	 * @return mixed
+	 * @see \Codeception\Module\WebDriver::seeCookie()
+	 */
+	public function seeCookie($cookie, $params = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCookie', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that there isn't a cookie with the given name.
+	 * You can set additional cookie params like `domain`, `path` as array passed in last argument.
+	 *
+	 * @param $cookie
+	 *
+	 * @param array $params
+	 * @return mixed
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::dontSeeCookie()
+	 */
+	public function cantSeeCookie($cookie, $params = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCookie', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that there isn't a cookie with the given name.
+	 * You can set additional cookie params like `domain`, `path` as array passed in last argument.
+	 *
+	 * @param $cookie
+	 *
+	 * @param array $params
+	 * @return mixed
+	 * @see \Codeception\Module\WebDriver::dontSeeCookie()
+	 */
+	public function dontSeeCookie($cookie, $params = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCookie', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Sets a cookie with the given name and value.
+	 * You can set additional cookie params like `domain`, `path`, `expires`, `secure` in array passed as last argument.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->setCookie('PHPSESSID', 'el4ukv0kqbvoirg7nkp4dncpk3');
+	 * ?>
+	 * ```
+	 *
+	 * @param $name
+	 * @param $val
+	 * @param array $params
+	 *
+	 * @return mixed
+	 * @see \Codeception\Module\WebDriver::setCookie()
+	 */
+	public function setCookie($cookie, $value, $params = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('setCookie', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Unsets cookie with the given name.
+	 * You can set additional cookie params like `domain`, `path` in array passed as last argument.
+	 *
+	 * @param $cookie
+	 *
+	 * @param array $params
+	 * @return mixed
+	 * @see \Codeception\Module\WebDriver::resetCookie()
+	 */
+	public function resetCookie($cookie, $params = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('resetCookie', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Grabs a cookie value.
+	 * You can set additional cookie params like `domain`, `path` in array passed as last argument.
+	 *
+	 * @param $cookie
+	 *
+	 * @param array $params
+	 * @return mixed
+	 * @see \Codeception\Module\WebDriver::grabCookie()
+	 */
+	public function grabCookie($cookie, $params = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabCookie', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Open web page at the given absolute URL and sets its hostname as the base host.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->amOnUrl('http://codeception.com');
+	 * $I->amOnPage('/quickstart'); // moves to http://codeception.com/quickstart
+	 * ?>
+	 * ```
+	 * @see \Codeception\Module\WebDriver::amOnUrl()
+	 */
+	public function amOnUrl($url) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Condition('amOnUrl', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Opens the page for the given relative URI.
+	 *
+	 * ``` php
+	 * <?php
+	 * // opens front page
+	 * $I->amOnPage('/');
+	 * // opens /register page
+	 * $I->amOnPage('/register');
+	 * ```
+	 *
+	 * @param $page
+	 * @see \Codeception\Module\WebDriver::amOnPage()
+	 */
+	public function amOnPage($page) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Condition('amOnPage', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current page contains the given string (case insensitive).
+	 *
+	 * You can specify a specific HTML element (via CSS or XPath) as the second
+	 * parameter to only search within that element.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->see('Logout');                        // I can suppose user is logged in
+	 * $I->see('Sign Up', 'h1');                 // I can suppose it's a signup page
+	 * $I->see('Sign Up', '//body/h1');          // with XPath
+	 * $I->see('Sign Up', ['css' => 'body h1']); // with strict CSS locator
+	 * ```
+	 *
+	 * Note that the search is done after stripping all HTML tags from the body,
+	 * so `$I->see('strong')` will return true for strings like:
+	 *
+	 *   - `<p>I am Stronger than thou</p>`
+	 *   - `<script>document.createElement('strong');</script>`
+	 *
+	 * But will *not* be true for strings like:
+	 *
+	 *   - `<strong>Home</strong>`
+	 *   - `<div class="strong">Home</strong>`
+	 *   - `<!-- strong -->`
+	 *
+	 * For checking the raw source code, use `seeInSource()`.
+	 *
+	 * @param      $text
+	 * @param null $selector
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::see()
+	 */
+	public function canSee($text, $selector = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('see', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current page contains the given string (case insensitive).
+	 *
+	 * You can specify a specific HTML element (via CSS or XPath) as the second
+	 * parameter to only search within that element.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->see('Logout');                        // I can suppose user is logged in
+	 * $I->see('Sign Up', 'h1');                 // I can suppose it's a signup page
+	 * $I->see('Sign Up', '//body/h1');          // with XPath
+	 * $I->see('Sign Up', ['css' => 'body h1']); // with strict CSS locator
+	 * ```
+	 *
+	 * Note that the search is done after stripping all HTML tags from the body,
+	 * so `$I->see('strong')` will return true for strings like:
+	 *
+	 *   - `<p>I am Stronger than thou</p>`
+	 *   - `<script>document.createElement('strong');</script>`
+	 *
+	 * But will *not* be true for strings like:
+	 *
+	 *   - `<strong>Home</strong>`
+	 *   - `<div class="strong">Home</strong>`
+	 *   - `<!-- strong -->`
+	 *
+	 * For checking the raw source code, use `seeInSource()`.
+	 *
+	 * @param      $text
+	 * @param null $selector
+	 * @see \Codeception\Module\WebDriver::see()
+	 */
+	public function see($text, $selector = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('see', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current page doesn't contain the text specified (case insensitive).
+	 * Give a locator as the second parameter to match a specific region.
+	 *
+	 * ```php
+	 * <?php
+	 * $I->dontSee('Login');                         // I can suppose user is already logged in
+	 * $I->dontSee('Sign Up','h1');                  // I can suppose it's not a signup page
+	 * $I->dontSee('Sign Up','//body/h1');           // with XPath
+	 * $I->dontSee('Sign Up', ['css' => 'body h1']); // with strict CSS locator
+	 * ```
+	 *
+	 * Note that the search is done after stripping all HTML tags from the body,
+	 * so `$I->dontSee('strong')` will fail on strings like:
+	 *
+	 *   - `<p>I am Stronger than thou</p>`
+	 *   - `<script>document.createElement('strong');</script>`
+	 *
+	 * But will ignore strings like:
+	 *
+	 *   - `<strong>Home</strong>`
+	 *   - `<div class="strong">Home</strong>`
+	 *   - `<!-- strong -->`
+	 *
+	 * For checking the raw source code, use `seeInSource()`.
+	 *
+	 * @param      $text
+	 * @param null $selector
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::dontSee()
+	 */
+	public function cantSee($text, $selector = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSee', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current page doesn't contain the text specified (case insensitive).
+	 * Give a locator as the second parameter to match a specific region.
+	 *
+	 * ```php
+	 * <?php
+	 * $I->dontSee('Login');                         // I can suppose user is already logged in
+	 * $I->dontSee('Sign Up','h1');                  // I can suppose it's not a signup page
+	 * $I->dontSee('Sign Up','//body/h1');           // with XPath
+	 * $I->dontSee('Sign Up', ['css' => 'body h1']); // with strict CSS locator
+	 * ```
+	 *
+	 * Note that the search is done after stripping all HTML tags from the body,
+	 * so `$I->dontSee('strong')` will fail on strings like:
+	 *
+	 *   - `<p>I am Stronger than thou</p>`
+	 *   - `<script>document.createElement('strong');</script>`
+	 *
+	 * But will ignore strings like:
+	 *
+	 *   - `<strong>Home</strong>`
+	 *   - `<div class="strong">Home</strong>`
+	 *   - `<!-- strong -->`
+	 *
+	 * For checking the raw source code, use `seeInSource()`.
+	 *
+	 * @param      $text
+	 * @param null $selector
+	 * @see \Codeception\Module\WebDriver::dontSee()
+	 */
+	public function dontSee($text, $selector = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSee', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current page contains the given string in its
+	 * raw source code.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeInSource('<h1>Green eggs &amp; ham</h1>');
+	 * ```
+	 *
+	 * @param      $raw
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeInSource()
+	 */
+	public function canSeeInSource($raw) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInSource', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current page contains the given string in its
+	 * raw source code.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeInSource('<h1>Green eggs &amp; ham</h1>');
+	 * ```
+	 *
+	 * @param      $raw
+	 * @see \Codeception\Module\WebDriver::seeInSource()
+	 */
+	public function seeInSource($raw) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInSource', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current page contains the given string in its
+	 * raw source code.
+	 *
+	 * ```php
+	 * <?php
+	 * $I->dontSeeInSource('<h1>Green eggs &amp; ham</h1>');
+	 * ```
+	 *
+	 * @param      $raw
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::dontSeeInSource()
+	 */
+	public function cantSeeInSource($raw) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInSource', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current page contains the given string in its
+	 * raw source code.
+	 *
+	 * ```php
+	 * <?php
+	 * $I->dontSeeInSource('<h1>Green eggs &amp; ham</h1>');
+	 * ```
+	 *
+	 * @param      $raw
+	 * @see \Codeception\Module\WebDriver::dontSeeInSource()
+	 */
+	public function dontSeeInSource($raw) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInSource', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the page source contains the given string.
+	 *
+	 * ```php
+	 * <?php
+	 * $I->seeInPageSource('<link rel="apple-touch-icon"');
+	 * ```
+	 *
+	 * @param $text
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeInPageSource()
+	 */
+	public function canSeeInPageSource($text) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInPageSource', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the page source contains the given string.
+	 *
+	 * ```php
+	 * <?php
+	 * $I->seeInPageSource('<link rel="apple-touch-icon"');
+	 * ```
+	 *
+	 * @param $text
+	 * @see \Codeception\Module\WebDriver::seeInPageSource()
+	 */
+	public function seeInPageSource($text) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInPageSource', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the page source doesn't contain the given string.
+	 *
+	 * @param $text
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::dontSeeInPageSource()
+	 */
+	public function cantSeeInPageSource($text) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInPageSource', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the page source doesn't contain the given string.
+	 *
+	 * @param $text
+	 * @see \Codeception\Module\WebDriver::dontSeeInPageSource()
+	 */
+	public function dontSeeInPageSource($text) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInPageSource', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Perform a click on a link or a button, given by a locator.
+	 * If a fuzzy locator is given, the page will be searched for a button, link, or image matching the locator string.
+	 * For buttons, the "value" attribute, "name" attribute, and inner text are searched.
+	 * For links, the link text is searched.
+	 * For images, the "alt" attribute and inner text of any parent links are searched.
+	 *
+	 * The second parameter is a context (CSS or XPath locator) to narrow the search.
+	 *
+	 * Note that if the locator matches a button of type `submit`, the form will be submitted.
+	 *
+	 * ``` php
+	 * <?php
+	 * // simple link
+	 * $I->click('Logout');
+	 * // button of form
+	 * $I->click('Submit');
+	 * // CSS button
+	 * $I->click('#form input[type=submit]');
+	 * // XPath
+	 * $I->click('//form/*[@type=submit]');
+	 * // link in context
+	 * $I->click('Logout', '#nav');
+	 * // using strict locator
+	 * $I->click(['link' => 'Login']);
+	 * ?>
+	 * ```
+	 *
+	 * @param $link
+	 * @param $context
+	 * @see \Codeception\Module\WebDriver::click()
+	 */
+	public function click($link, $context = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('click', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that there's a link with the specified text.
+	 * Give a full URL as the second parameter to match links with that exact URL.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeLink('Logout'); // matches <a href="#">Logout</a>
+	 * $I->seeLink('Logout','/logout'); // matches <a href="/logout">Logout</a>
+	 * ?>
+	 * ```
+	 *
+	 * @param      $text
+	 * @param null $url
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeLink()
+	 */
+	public function canSeeLink($text, $url = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeLink', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that there's a link with the specified text.
+	 * Give a full URL as the second parameter to match links with that exact URL.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeLink('Logout'); // matches <a href="#">Logout</a>
+	 * $I->seeLink('Logout','/logout'); // matches <a href="/logout">Logout</a>
+	 * ?>
+	 * ```
+	 *
+	 * @param      $text
+	 * @param null $url
+	 * @see \Codeception\Module\WebDriver::seeLink()
+	 */
+	public function seeLink($text, $url = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeLink', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the page doesn't contain a link with the given string.
+	 * If the second parameter is given, only links with a matching "href" attribute will be checked.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeLink('Logout'); // I suppose user is not logged in
+	 * $I->dontSeeLink('Checkout now', '/store/cart.php');
+	 * ?>
+	 * ```
+	 *
+	 * @param $text
+	 * @param null $url
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::dontSeeLink()
+	 */
+	public function cantSeeLink($text, $url = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeLink', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the page doesn't contain a link with the given string.
+	 * If the second parameter is given, only links with a matching "href" attribute will be checked.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeLink('Logout'); // I suppose user is not logged in
+	 * $I->dontSeeLink('Checkout now', '/store/cart.php');
+	 * ?>
+	 * ```
+	 *
+	 * @param $text
+	 * @param null $url
+	 * @see \Codeception\Module\WebDriver::dontSeeLink()
+	 */
+	public function dontSeeLink($text, $url = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeLink', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that current URI contains the given string.
+	 *
+	 * ``` php
+	 * <?php
+	 * // to match: /home/dashboard
+	 * $I->seeInCurrentUrl('home');
+	 * // to match: /users/1
+	 * $I->seeInCurrentUrl('/users/');
+	 * ?>
+	 * ```
+	 *
+	 * @param $uri
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeInCurrentUrl()
+	 */
+	public function canSeeInCurrentUrl($uri) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInCurrentUrl', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that current URI contains the given string.
+	 *
+	 * ``` php
+	 * <?php
+	 * // to match: /home/dashboard
+	 * $I->seeInCurrentUrl('home');
+	 * // to match: /users/1
+	 * $I->seeInCurrentUrl('/users/');
+	 * ?>
+	 * ```
+	 *
+	 * @param $uri
+	 * @see \Codeception\Module\WebDriver::seeInCurrentUrl()
+	 */
+	public function seeInCurrentUrl($uri) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInCurrentUrl', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current URL is equal to the given string.
+	 * Unlike `seeInCurrentUrl`, this only matches the full URL.
+	 *
+	 * ``` php
+	 * <?php
+	 * // to match root url
+	 * $I->seeCurrentUrlEquals('/');
+	 * ?>
+	 * ```
+	 *
+	 * @param $uri
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeCurrentUrlEquals()
+	 */
+	public function canSeeCurrentUrlEquals($uri) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCurrentUrlEquals', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current URL is equal to the given string.
+	 * Unlike `seeInCurrentUrl`, this only matches the full URL.
+	 *
+	 * ``` php
+	 * <?php
+	 * // to match root url
+	 * $I->seeCurrentUrlEquals('/');
+	 * ?>
+	 * ```
+	 *
+	 * @param $uri
+	 * @see \Codeception\Module\WebDriver::seeCurrentUrlEquals()
+	 */
+	public function seeCurrentUrlEquals($uri) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCurrentUrlEquals', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current URL matches the given regular expression.
+	 *
+	 * ``` php
+	 * <?php
+	 * // to match root url
+	 * $I->seeCurrentUrlMatches('~$/users/(\d+)~');
+	 * ?>
+	 * ```
+	 *
+	 * @param $uri
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeCurrentUrlMatches()
+	 */
+	public function canSeeCurrentUrlMatches($uri) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCurrentUrlMatches', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current URL matches the given regular expression.
+	 *
+	 * ``` php
+	 * <?php
+	 * // to match root url
+	 * $I->seeCurrentUrlMatches('~$/users/(\d+)~');
+	 * ?>
+	 * ```
+	 *
+	 * @param $uri
+	 * @see \Codeception\Module\WebDriver::seeCurrentUrlMatches()
+	 */
+	public function seeCurrentUrlMatches($uri) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCurrentUrlMatches', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current URI doesn't contain the given string.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeInCurrentUrl('/users/');
+	 * ?>
+	 * ```
+	 *
+	 * @param $uri
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::dontSeeInCurrentUrl()
+	 */
+	public function cantSeeInCurrentUrl($uri) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInCurrentUrl', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current URI doesn't contain the given string.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeInCurrentUrl('/users/');
+	 * ?>
+	 * ```
+	 *
+	 * @param $uri
+	 * @see \Codeception\Module\WebDriver::dontSeeInCurrentUrl()
+	 */
+	public function dontSeeInCurrentUrl($uri) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInCurrentUrl', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current URL doesn't equal the given string.
+	 * Unlike `dontSeeInCurrentUrl`, this only matches the full URL.
+	 *
+	 * ``` php
+	 * <?php
+	 * // current url is not root
+	 * $I->dontSeeCurrentUrlEquals('/');
+	 * ?>
+	 * ```
+	 *
+	 * @param $uri
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::dontSeeCurrentUrlEquals()
+	 */
+	public function cantSeeCurrentUrlEquals($uri) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCurrentUrlEquals', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current URL doesn't equal the given string.
+	 * Unlike `dontSeeInCurrentUrl`, this only matches the full URL.
+	 *
+	 * ``` php
+	 * <?php
+	 * // current url is not root
+	 * $I->dontSeeCurrentUrlEquals('/');
+	 * ?>
+	 * ```
+	 *
+	 * @param $uri
+	 * @see \Codeception\Module\WebDriver::dontSeeCurrentUrlEquals()
+	 */
+	public function dontSeeCurrentUrlEquals($uri) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCurrentUrlEquals', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that current url doesn't match the given regular expression.
+	 *
+	 * ``` php
+	 * <?php
+	 * // to match root url
+	 * $I->dontSeeCurrentUrlMatches('~$/users/(\d+)~');
+	 * ?>
+	 * ```
+	 *
+	 * @param $uri
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::dontSeeCurrentUrlMatches()
+	 */
+	public function cantSeeCurrentUrlMatches($uri) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCurrentUrlMatches', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that current url doesn't match the given regular expression.
+	 *
+	 * ``` php
+	 * <?php
+	 * // to match root url
+	 * $I->dontSeeCurrentUrlMatches('~$/users/(\d+)~');
+	 * ?>
+	 * ```
+	 *
+	 * @param $uri
+	 * @see \Codeception\Module\WebDriver::dontSeeCurrentUrlMatches()
+	 */
+	public function dontSeeCurrentUrlMatches($uri) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCurrentUrlMatches', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Executes the given regular expression against the current URI and returns the first match.
+	 * If no parameters are provided, the full URI is returned.
+	 *
+	 * ``` php
+	 * <?php
+	 * $user_id = $I->grabFromCurrentUrl('~$/user/(\d+)/~');
+	 * $uri = $I->grabFromCurrentUrl();
+	 * ?>
+	 * ```
+	 *
+	 * @param null $uri
+	 *
+	 * @return mixed
+	 * @see \Codeception\Module\WebDriver::grabFromCurrentUrl()
+	 */
+	public function grabFromCurrentUrl($uri = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabFromCurrentUrl', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the specified checkbox is checked.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeCheckboxIsChecked('#agree'); // I suppose user agreed to terms
+	 * $I->seeCheckboxIsChecked('#signup_form input[type=checkbox]'); // I suppose user agreed to terms, If there is only one checkbox in form.
+	 * $I->seeCheckboxIsChecked('//form/input[@type=checkbox and @name=agree]');
+	 * ?>
+	 * ```
+	 *
+	 * @param $checkbox
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeCheckboxIsChecked()
+	 */
+	public function canSeeCheckboxIsChecked($checkbox) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCheckboxIsChecked', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the specified checkbox is checked.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeCheckboxIsChecked('#agree'); // I suppose user agreed to terms
+	 * $I->seeCheckboxIsChecked('#signup_form input[type=checkbox]'); // I suppose user agreed to terms, If there is only one checkbox in form.
+	 * $I->seeCheckboxIsChecked('//form/input[@type=checkbox and @name=agree]');
+	 * ?>
+	 * ```
+	 *
+	 * @param $checkbox
+	 * @see \Codeception\Module\WebDriver::seeCheckboxIsChecked()
+	 */
+	public function seeCheckboxIsChecked($checkbox) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCheckboxIsChecked', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Check that the specified checkbox is unchecked.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeCheckboxIsChecked('#agree'); // I suppose user didn't agree to terms
+	 * $I->seeCheckboxIsChecked('#signup_form input[type=checkbox]'); // I suppose user didn't check the first checkbox in form.
+	 * ?>
+	 * ```
+	 *
+	 * @param $checkbox
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::dontSeeCheckboxIsChecked()
+	 */
+	public function cantSeeCheckboxIsChecked($checkbox) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCheckboxIsChecked', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Check that the specified checkbox is unchecked.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeCheckboxIsChecked('#agree'); // I suppose user didn't agree to terms
+	 * $I->seeCheckboxIsChecked('#signup_form input[type=checkbox]'); // I suppose user didn't check the first checkbox in form.
+	 * ?>
+	 * ```
+	 *
+	 * @param $checkbox
+	 * @see \Codeception\Module\WebDriver::dontSeeCheckboxIsChecked()
+	 */
+	public function dontSeeCheckboxIsChecked($checkbox) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCheckboxIsChecked', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the given input field or textarea contains the given value.
+	 * For fuzzy locators, fields are matched by label text, the "name" attribute, CSS, and XPath.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeInField('Body','Type your comment here');
+	 * $I->seeInField('form textarea[name=body]','Type your comment here');
+	 * $I->seeInField('form input[type=hidden]','hidden_value');
+	 * $I->seeInField('#searchform input','Search');
+	 * $I->seeInField('//form/*[@name=search]','Search');
+	 * $I->seeInField(['name' => 'search'], 'Search');
+	 * ?>
+	 * ```
+	 *
+	 * @param $field
+	 * @param $value
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeInField()
+	 */
+	public function canSeeInField($field, $value) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInField', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the given input field or textarea contains the given value.
+	 * For fuzzy locators, fields are matched by label text, the "name" attribute, CSS, and XPath.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeInField('Body','Type your comment here');
+	 * $I->seeInField('form textarea[name=body]','Type your comment here');
+	 * $I->seeInField('form input[type=hidden]','hidden_value');
+	 * $I->seeInField('#searchform input','Search');
+	 * $I->seeInField('//form/*[@name=search]','Search');
+	 * $I->seeInField(['name' => 'search'], 'Search');
+	 * ?>
+	 * ```
+	 *
+	 * @param $field
+	 * @param $value
+	 * @see \Codeception\Module\WebDriver::seeInField()
+	 */
+	public function seeInField($field, $value) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInField', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that an input field or textarea doesn't contain the given value.
+	 * For fuzzy locators, the field is matched by label text, CSS and XPath.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeInField('Body','Type your comment here');
+	 * $I->dontSeeInField('form textarea[name=body]','Type your comment here');
+	 * $I->dontSeeInField('form input[type=hidden]','hidden_value');
+	 * $I->dontSeeInField('#searchform input','Search');
+	 * $I->dontSeeInField('//form/*[@name=search]','Search');
+	 * $I->dontSeeInField(['name' => 'search'], 'Search');
+	 * ?>
+	 * ```
+	 *
+	 * @param $field
+	 * @param $value
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::dontSeeInField()
+	 */
+	public function cantSeeInField($field, $value) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInField', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that an input field or textarea doesn't contain the given value.
+	 * For fuzzy locators, the field is matched by label text, CSS and XPath.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeInField('Body','Type your comment here');
+	 * $I->dontSeeInField('form textarea[name=body]','Type your comment here');
+	 * $I->dontSeeInField('form input[type=hidden]','hidden_value');
+	 * $I->dontSeeInField('#searchform input','Search');
+	 * $I->dontSeeInField('//form/*[@name=search]','Search');
+	 * $I->dontSeeInField(['name' => 'search'], 'Search');
+	 * ?>
+	 * ```
+	 *
+	 * @param $field
+	 * @param $value
+	 * @see \Codeception\Module\WebDriver::dontSeeInField()
+	 */
+	public function dontSeeInField($field, $value) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInField', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks if the array of form parameters (name => value) are set on the form matched with the
+	 * passed selector.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeInFormFields('form[name=myform]', [
+	 *      'input1' => 'value',
+	 *      'input2' => 'other value',
+	 * ]);
+	 * ?>
+	 * ```
+	 *
+	 * For multi-select elements, or to check values of multiple elements with the same name, an
+	 * array may be passed:
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeInFormFields('.form-class', [
+	 *      'multiselect' => [
+	 *          'value1',
+	 *          'value2',
+	 *      ],
+	 *      'checkbox[]' => [
+	 *          'a checked value',
+	 *          'another checked value',
+	 *      ],
+	 * ]);
+	 * ?>
+	 * ```
+	 *
+	 * Additionally, checkbox values can be checked with a boolean.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeInFormFields('#form-id', [
+	 *      'checkbox1' => true,        // passes if checked
+	 *      'checkbox2' => false,       // passes if unchecked
+	 * ]);
+	 * ?>
+	 * ```
+	 *
+	 * Pair this with submitForm for quick testing magic.
+	 *
+	 * ``` php
+	 * <?php
+	 * $form = [
+	 *      'field1' => 'value',
+	 *      'field2' => 'another value',
+	 *      'checkbox1' => true,
+	 *      // ...
+	 * ];
+	 * $I->submitForm('//form[@id=my-form]', $form, 'submitButton');
+	 * // $I->amOnPage('/path/to/form-page') may be needed
+	 * $I->seeInFormFields('//form[@id=my-form]', $form);
+	 * ?>
+	 * ```
+	 *
+	 * @param $formSelector
+	 * @param $params
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeInFormFields()
+	 */
+	public function canSeeInFormFields($formSelector, $params) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInFormFields', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks if the array of form parameters (name => value) are set on the form matched with the
+	 * passed selector.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeInFormFields('form[name=myform]', [
+	 *      'input1' => 'value',
+	 *      'input2' => 'other value',
+	 * ]);
+	 * ?>
+	 * ```
+	 *
+	 * For multi-select elements, or to check values of multiple elements with the same name, an
+	 * array may be passed:
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeInFormFields('.form-class', [
+	 *      'multiselect' => [
+	 *          'value1',
+	 *          'value2',
+	 *      ],
+	 *      'checkbox[]' => [
+	 *          'a checked value',
+	 *          'another checked value',
+	 *      ],
+	 * ]);
+	 * ?>
+	 * ```
+	 *
+	 * Additionally, checkbox values can be checked with a boolean.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeInFormFields('#form-id', [
+	 *      'checkbox1' => true,        // passes if checked
+	 *      'checkbox2' => false,       // passes if unchecked
+	 * ]);
+	 * ?>
+	 * ```
+	 *
+	 * Pair this with submitForm for quick testing magic.
+	 *
+	 * ``` php
+	 * <?php
+	 * $form = [
+	 *      'field1' => 'value',
+	 *      'field2' => 'another value',
+	 *      'checkbox1' => true,
+	 *      // ...
+	 * ];
+	 * $I->submitForm('//form[@id=my-form]', $form, 'submitButton');
+	 * // $I->amOnPage('/path/to/form-page') may be needed
+	 * $I->seeInFormFields('//form[@id=my-form]', $form);
+	 * ?>
+	 * ```
+	 *
+	 * @param $formSelector
+	 * @param $params
+	 * @see \Codeception\Module\WebDriver::seeInFormFields()
+	 */
+	public function seeInFormFields($formSelector, $params) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInFormFields', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks if the array of form parameters (name => value) are not set on the form matched with
+	 * the passed selector.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeInFormFields('form[name=myform]', [
+	 *      'input1' => 'non-existent value',
+	 *      'input2' => 'other non-existent value',
+	 * ]);
+	 * ?>
+	 * ```
+	 *
+	 * To check that an element hasn't been assigned any one of many values, an array can be passed
+	 * as the value:
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeInFormFields('.form-class', [
+	 *      'fieldName' => [
+	 *          'This value shouldn\'t be set',
+	 *          'And this value shouldn\'t be set',
+	 *      ],
+	 * ]);
+	 * ?>
+	 * ```
+	 *
+	 * Additionally, checkbox values can be checked with a boolean.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeInFormFields('#form-id', [
+	 *      'checkbox1' => true,        // fails if checked
+	 *      'checkbox2' => false,       // fails if unchecked
+	 * ]);
+	 * ?>
+	 * ```
+	 *
+	 * @param $formSelector
+	 * @param $params
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::dontSeeInFormFields()
+	 */
+	public function cantSeeInFormFields($formSelector, $params) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInFormFields', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks if the array of form parameters (name => value) are not set on the form matched with
+	 * the passed selector.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeInFormFields('form[name=myform]', [
+	 *      'input1' => 'non-existent value',
+	 *      'input2' => 'other non-existent value',
+	 * ]);
+	 * ?>
+	 * ```
+	 *
+	 * To check that an element hasn't been assigned any one of many values, an array can be passed
+	 * as the value:
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeInFormFields('.form-class', [
+	 *      'fieldName' => [
+	 *          'This value shouldn\'t be set',
+	 *          'And this value shouldn\'t be set',
+	 *      ],
+	 * ]);
+	 * ?>
+	 * ```
+	 *
+	 * Additionally, checkbox values can be checked with a boolean.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeInFormFields('#form-id', [
+	 *      'checkbox1' => true,        // fails if checked
+	 *      'checkbox2' => false,       // fails if unchecked
+	 * ]);
+	 * ?>
+	 * ```
+	 *
+	 * @param $formSelector
+	 * @param $params
+	 * @see \Codeception\Module\WebDriver::dontSeeInFormFields()
+	 */
+	public function dontSeeInFormFields($formSelector, $params) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInFormFields', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Selects an option in a select tag or in radio button group.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->selectOption('form select[name=account]', 'Premium');
+	 * $I->selectOption('form input[name=payment]', 'Monthly');
+	 * $I->selectOption('//form/select[@name=account]', 'Monthly');
+	 * ?>
+	 * ```
+	 *
+	 * Provide an array for the second argument to select multiple options:
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->selectOption('Which OS do you use?', array('Windows','Linux'));
+	 * ?>
+	 * ```
+	 *
+	 * Or provide an associative array for the second argument to specifically define which selection method should be used:
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->selectOption('Which OS do you use?', array('text' => 'Windows')); // Only search by text 'Windows'
+	 * $I->selectOption('Which OS do you use?', array('value' => 'windows')); // Only search by value 'windows'
+	 * ?>
+	 * ```
+	 *
+	 * @param $select
+	 * @param $option
+	 * @see \Codeception\Module\WebDriver::selectOption()
+	 */
+	public function selectOption($select, $option) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('selectOption', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 *
+	 * @see \Codeception\Module\WebDriver::unselectOption()
+	 */
+	public function unselectOption($select, $option) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('unselectOption', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Ticks a checkbox. For radio buttons, use the `selectOption` method instead.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->checkOption('#agree');
+	 * ?>
+	 * ```
+	 *
+	 * @param $option
+	 * @see \Codeception\Module\WebDriver::checkOption()
+	 */
+	public function checkOption($option) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('checkOption', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Unticks a checkbox.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->uncheckOption('#notify');
+	 * ?>
+	 * ```
+	 *
+	 * @param $option
+	 * @see \Codeception\Module\WebDriver::uncheckOption()
+	 */
+	public function uncheckOption($option) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('uncheckOption', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Fills a text field or textarea with the given string.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->fillField("//input[@type='text']", "Hello World!");
+	 * $I->fillField(['name' => 'email'], 'jon@mail.com');
+	 * ?>
+	 * ```
+	 *
+	 * @param $field
+	 * @param $value
+	 * @see \Codeception\Module\WebDriver::fillField()
+	 */
+	public function fillField($field, $value) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('fillField', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Attaches a file relative to the Codeception data directory to the given file upload field.
+	 *
+	 * ``` php
+	 * <?php
+	 * // file is stored in 'tests/_data/prices.xls'
+	 * $I->attachFile('input[@type="file"]', 'prices.xls');
+	 * ?>
+	 * ```
+	 *
+	 * @param $field
+	 * @param $filename
+	 * @see \Codeception\Module\WebDriver::attachFile()
+	 */
+	public function attachFile($field, $filename) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('attachFile', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Grabs all visible text from the current page.
+	 *
+	 * @return string
+	 * @see \Codeception\Module\WebDriver::getVisibleText()
+	 */
+	public function getVisibleText() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('getVisibleText', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Finds and returns the text contents of the given element.
+	 * If a fuzzy locator is used, the element is found using CSS, XPath,
+	 * and by matching the full page source by regular expression.
+	 *
+	 * ``` php
+	 * <?php
+	 * $heading = $I->grabTextFrom('h1');
+	 * $heading = $I->grabTextFrom('descendant-or-self::h1');
+	 * $value = $I->grabTextFrom('~<input value=(.*?)]~sgi'); // match with a regex
+	 * ?>
+	 * ```
+	 *
+	 * @param $cssOrXPathOrRegex
+	 *
+	 * @return mixed
+	 * @see \Codeception\Module\WebDriver::grabTextFrom()
+	 */
+	public function grabTextFrom($cssOrXPathOrRegex) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTextFrom', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Grabs the value of the given attribute value from the given element.
+	 * Fails if element is not found.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->grabAttributeFrom('#tooltip', 'title');
+	 * ?>
+	 * ```
+	 *
+	 *
+	 * @param $cssOrXpath
+	 * @param $attribute
+	 *
+	 * @return mixed
+	 * @see \Codeception\Module\WebDriver::grabAttributeFrom()
+	 */
+	public function grabAttributeFrom($cssOrXpath, $attribute) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabAttributeFrom', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Finds the value for the given form field.
+	 * If a fuzzy locator is used, the field is found by field name, CSS, and XPath.
+	 *
+	 * ``` php
+	 * <?php
+	 * $name = $I->grabValueFrom('Name');
+	 * $name = $I->grabValueFrom('input[name=username]');
+	 * $name = $I->grabValueFrom('descendant-or-self::form/descendant::input[@name = 'username']');
+	 * $name = $I->grabValueFrom(['name' => 'username']);
+	 * ?>
+	 * ```
+	 *
+	 * @param $field
+	 *
+	 * @return mixed
+	 * @see \Codeception\Module\WebDriver::grabValueFrom()
+	 */
+	public function grabValueFrom($field) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabValueFrom', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Grabs either the text content, or attribute values, of nodes
+	 * matched by $cssOrXpath and returns them as an array.
+	 *
+	 * ```html
+	 * <a href="#first">First</a>
+	 * <a href="#second">Second</a>
+	 * <a href="#third">Third</a>
+	 * ```
+	 *
+	 * ```php
+	 * <?php
+	 * // would return ['First', 'Second', 'Third']
+	 * $aLinkText = $I->grabMultiple('a');
+	 *
+	 * // would return ['#first', '#second', '#third']
+	 * $aLinks = $I->grabMultiple('a', 'href');
+	 * ?>
+	 * ```
+	 *
+	 * @param $cssOrXpath
+	 * @param $attribute
+	 * @return string[]
+	 * @see \Codeception\Module\WebDriver::grabMultiple()
+	 */
+	public function grabMultiple($cssOrXpath, $attribute = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabMultiple', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the given element exists on the page and is visible.
+	 * You can also specify expected attributes of this element.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeElement('.error');
+	 * $I->seeElement('//form/input[1]');
+	 * $I->seeElement('input', ['name' => 'login']);
+	 * $I->seeElement('input', ['value' => '123456']);
+	 *
+	 * // strict locator in first arg, attributes in second
+	 * $I->seeElement(['css' => 'form input'], ['name' => 'login']);
+	 * ?>
+	 * ```
+	 *
+	 * @param $selector
+	 * @param array $attributes
+	 * @return
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeElement()
+	 */
+	public function canSeeElement($selector, $attributes = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeElement', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the given element exists on the page and is visible.
+	 * You can also specify expected attributes of this element.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeElement('.error');
+	 * $I->seeElement('//form/input[1]');
+	 * $I->seeElement('input', ['name' => 'login']);
+	 * $I->seeElement('input', ['value' => '123456']);
+	 *
+	 * // strict locator in first arg, attributes in second
+	 * $I->seeElement(['css' => 'form input'], ['name' => 'login']);
+	 * ?>
+	 * ```
+	 *
+	 * @param $selector
+	 * @param array $attributes
+	 * @return
+	 * @see \Codeception\Module\WebDriver::seeElement()
+	 */
+	public function seeElement($selector, $attributes = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeElement', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the given element is invisible or not present on the page.
+	 * You can also specify expected attributes of this element.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeElement('.error');
+	 * $I->dontSeeElement('//form/input[1]');
+	 * $I->dontSeeElement('input', ['name' => 'login']);
+	 * $I->dontSeeElement('input', ['value' => '123456']);
+	 * ?>
+	 * ```
+	 *
+	 * @param $selector
+	 * @param array $attributes
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::dontSeeElement()
+	 */
+	public function cantSeeElement($selector, $attributes = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeElement', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the given element is invisible or not present on the page.
+	 * You can also specify expected attributes of this element.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeElement('.error');
+	 * $I->dontSeeElement('//form/input[1]');
+	 * $I->dontSeeElement('input', ['name' => 'login']);
+	 * $I->dontSeeElement('input', ['value' => '123456']);
+	 * ?>
+	 * ```
+	 *
+	 * @param $selector
+	 * @param array $attributes
+	 * @see \Codeception\Module\WebDriver::dontSeeElement()
+	 */
+	public function dontSeeElement($selector, $attributes = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeElement', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the given element exists on the page, even it is invisible.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeElementInDOM('//form/input[type=hidden]');
+	 * ?>
+	 * ```
+	 *
+	 * @param $selector
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeElementInDOM()
+	 */
+	public function canSeeElementInDOM($selector, $attributes = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeElementInDOM', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the given element exists on the page, even it is invisible.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeElementInDOM('//form/input[type=hidden]');
+	 * ?>
+	 * ```
+	 *
+	 * @param $selector
+	 * @see \Codeception\Module\WebDriver::seeElementInDOM()
+	 */
+	public function seeElementInDOM($selector, $attributes = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeElementInDOM', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Opposite of `seeElementInDOM`.
+	 *
+	 * @param $selector
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::dontSeeElementInDOM()
+	 */
+	public function cantSeeElementInDOM($selector, $attributes = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeElementInDOM', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Opposite of `seeElementInDOM`.
+	 *
+	 * @param $selector
+	 * @see \Codeception\Module\WebDriver::dontSeeElementInDOM()
+	 */
+	public function dontSeeElementInDOM($selector, $attributes = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeElementInDOM', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that there are a certain number of elements matched by the given locator on the page.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeNumberOfElements('tr', 10);
+	 * $I->seeNumberOfElements('tr', [0,10]); //between 0 and 10 elements
+	 * ?>
+	 * ```
+	 * @param $selector
+	 * @param mixed $expected :
+	 * - string: strict number
+	 * - array: range of numbers [0,10]
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeNumberOfElements()
+	 */
+	public function canSeeNumberOfElements($selector, $expected) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeNumberOfElements', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that there are a certain number of elements matched by the given locator on the page.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeNumberOfElements('tr', 10);
+	 * $I->seeNumberOfElements('tr', [0,10]); //between 0 and 10 elements
+	 * ?>
+	 * ```
+	 * @param $selector
+	 * @param mixed $expected :
+	 * - string: strict number
+	 * - array: range of numbers [0,10]
+	 * @see \Codeception\Module\WebDriver::seeNumberOfElements()
+	 */
+	public function seeNumberOfElements($selector, $expected) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeNumberOfElements', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 *
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeNumberOfElementsInDOM()
+	 */
+	public function canSeeNumberOfElementsInDOM($selector, $expected) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeNumberOfElementsInDOM', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 *
+	 * @see \Codeception\Module\WebDriver::seeNumberOfElementsInDOM()
+	 */
+	public function seeNumberOfElementsInDOM($selector, $expected) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeNumberOfElementsInDOM', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the given option is selected.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeOptionIsSelected('#form input[name=payment]', 'Visa');
+	 * ?>
+	 * ```
+	 *
+	 * @param $selector
+	 * @param $optionText
+	 *
+	 * @return mixed
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeOptionIsSelected()
+	 */
+	public function canSeeOptionIsSelected($selector, $optionText) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeOptionIsSelected', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the given option is selected.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeOptionIsSelected('#form input[name=payment]', 'Visa');
+	 * ?>
+	 * ```
+	 *
+	 * @param $selector
+	 * @param $optionText
+	 *
+	 * @return mixed
+	 * @see \Codeception\Module\WebDriver::seeOptionIsSelected()
+	 */
+	public function seeOptionIsSelected($selector, $optionText) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeOptionIsSelected', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the given option is not selected.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeOptionIsSelected('#form input[name=payment]', 'Visa');
+	 * ?>
+	 * ```
+	 *
+	 * @param $selector
+	 * @param $optionText
+	 *
+	 * @return mixed
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::dontSeeOptionIsSelected()
+	 */
+	public function cantSeeOptionIsSelected($selector, $optionText) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeOptionIsSelected', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the given option is not selected.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeOptionIsSelected('#form input[name=payment]', 'Visa');
+	 * ?>
+	 * ```
+	 *
+	 * @param $selector
+	 * @param $optionText
+	 *
+	 * @return mixed
+	 * @see \Codeception\Module\WebDriver::dontSeeOptionIsSelected()
+	 */
+	public function dontSeeOptionIsSelected($selector, $optionText) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeOptionIsSelected', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the page title contains the given string.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeInTitle('Blog - Post #1');
+	 * ?>
+	 * ```
+	 *
+	 * @param $title
+	 *
+	 * @return mixed
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeInTitle()
+	 */
+	public function canSeeInTitle($title) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInTitle', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the page title contains the given string.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeInTitle('Blog - Post #1');
+	 * ?>
+	 * ```
+	 *
+	 * @param $title
+	 *
+	 * @return mixed
+	 * @see \Codeception\Module\WebDriver::seeInTitle()
+	 */
+	public function seeInTitle($title) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInTitle', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the page title does not contain the given string.
+	 *
+	 * @param $title
+	 *
+	 * @return mixed
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::dontSeeInTitle()
+	 */
+	public function cantSeeInTitle($title) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInTitle', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the page title does not contain the given string.
+	 *
+	 * @param $title
+	 *
+	 * @return mixed
+	 * @see \Codeception\Module\WebDriver::dontSeeInTitle()
+	 */
+	public function dontSeeInTitle($title) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInTitle', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Accepts the active JavaScript native popup window, as created by `window.alert`|`window.confirm`|`window.prompt`.
+	 * Don't confuse popups with modal windows,
+	 * as created by [various libraries](http://jster.net/category/windows-modals-popups).
+	 * @see \Codeception\Module\WebDriver::acceptPopup()
+	 */
+	public function acceptPopup() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('acceptPopup', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Dismisses the active JavaScript popup, as created by `window.alert`|`window.confirm`|`window.prompt`.
+	 * @see \Codeception\Module\WebDriver::cancelPopup()
+	 */
+	public function cancelPopup() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('cancelPopup', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the active JavaScript popup,
+	 * as created by `window.alert`|`window.confirm`|`window.prompt`, contains the given string.
+	 *
+	 * @param $text
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WebDriver::seeInPopup()
+	 */
+	public function canSeeInPopup($text) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInPopup', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the active JavaScript popup,
+	 * as created by `window.alert`|`window.confirm`|`window.prompt`, contains the given string.
+	 *
+	 * @param $text
+	 * @see \Codeception\Module\WebDriver::seeInPopup()
+	 */
+	public function seeInPopup($text) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInPopup', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Enters text into a native JavaScript prompt popup, as created by `window.prompt`.
+	 *
+	 * @param $keys
+	 * @see \Codeception\Module\WebDriver::typeInPopup()
+	 */
+	public function typeInPopup($keys) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('typeInPopup', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Reloads the current page.
+	 * @see \Codeception\Module\WebDriver::reloadPage()
+	 */
+	public function reloadPage() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('reloadPage', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Moves back in history.
+	 * @see \Codeception\Module\WebDriver::moveBack()
+	 */
+	public function moveBack() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('moveBack', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Moves forward in history.
+	 * @see \Codeception\Module\WebDriver::moveForward()
+	 */
+	public function moveForward() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('moveForward', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Submits the given form on the page, optionally with the given form
+	 * values.  Give the form fields values as an array. Note that hidden fields
+	 * can't be accessed.
+	 *
+	 * Skipped fields will be filled by their values from the page.
+	 * You don't need to click the 'Submit' button afterwards.
+	 * This command itself triggers the request to form's action.
+	 *
+	 * You can optionally specify what button's value to include
+	 * in the request with the last parameter as an alternative to
+	 * explicitly setting its value in the second parameter, as
+	 * button values are not otherwise included in the request.
+	 *
+	 * Examples:
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->submitForm('#login', [
+	 *     'login' => 'davert',
+	 *     'password' => '123456'
+	 * ]);
+	 * // or
+	 * $I->submitForm('#login', [
+	 *     'login' => 'davert',
+	 *     'password' => '123456'
+	 * ], 'submitButtonName');
+	 *
+	 * ```
+	 *
+	 * For example, given this sample "Sign Up" form:
+	 *
+	 * ``` html
+	 * <form action="/sign_up">
+	 *     Login:
+	 *     <input type="text" name="user[login]" /><br/>
+	 *     Password:
+	 *     <input type="password" name="user[password]" /><br/>
+	 *     Do you agree to our terms?
+	 *     <input type="checkbox" name="user[agree]" /><br/>
+	 *     Select pricing plan:
+	 *     <select name="plan">
+	 *         <option value="1">Free</option>
+	 *         <option value="2" selected="selected">Paid</option>
+	 *     </select>
+	 *     <input type="submit" name="submitButton" value="Submit" />
+	 * </form>
+	 * ```
+	 *
+	 * You could write the following to submit it:
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->submitForm(
+	 *     '#userForm',
+	 *     [
+	 *         'user[login]' => 'Davert',
+	 *         'user[password]' => '123456',
+	 *         'user[agree]' => true
+	 *     ],
+	 *     'submitButton'
+	 * );
+	 * ```
+	 * Note that "2" will be the submitted value for the "plan" field, as it is
+	 * the selected option.
+	 *
+	 * Also note that this differs from PhpBrowser, in that
+	 * ```'user' => [ 'login' => 'Davert' ]``` is not supported at the moment.
+	 * Named array keys *must* be included in the name as above.
+	 *
+	 * Pair this with seeInFormFields for quick testing magic.
+	 *
+	 * ``` php
+	 * <?php
+	 * $form = [
+	 *      'field1' => 'value',
+	 *      'field2' => 'another value',
+	 *      'checkbox1' => true,
+	 *      // ...
+	 * ];
+	 * $I->submitForm('//form[@id=my-form]', $form, 'submitButton');
+	 * // $I->amOnPage('/path/to/form-page') may be needed
+	 * $I->seeInFormFields('//form[@id=my-form]', $form);
+	 * ?>
+	 * ```
+	 *
+	 * Parameter values must be set to arrays for multiple input fields
+	 * of the same name, or multi-select combo boxes.  For checkboxes,
+	 * either the string value can be used, or boolean values which will
+	 * be replaced by the checkbox's value in the DOM.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->submitForm('#my-form', [
+	 *      'field1' => 'value',
+	 *      'checkbox' => [
+	 *          'value of first checkbox',
+	 *          'value of second checkbox,
+	 *      ],
+	 *      'otherCheckboxes' => [
+	 *          true,
+	 *          false,
+	 *          false
+	 *      ],
+	 *      'multiselect' => [
+	 *          'first option value',
+	 *          'second option value'
+	 *      ]
+	 * ]);
+	 * ?>
+	 * ```
+	 *
+	 * Mixing string and boolean values for a checkbox's value is not supported
+	 * and may produce unexpected results.
+	 *
+	 * Field names ending in "[]" must be passed without the trailing square
+	 * bracket characters, and must contain an array for its value.  This allows
+	 * submitting multiple values with the same name, consider:
+	 *
+	 * ```php
+	 * $I->submitForm('#my-form', [
+	 *     'field[]' => 'value',
+	 *     'field[]' => 'another value', // 'field[]' is already a defined key
+	 * ]);
+	 * ```
+	 *
+	 * The solution is to pass an array value:
+	 *
+	 * ```php
+	 * // this way both values are submitted
+	 * $I->submitForm('#my-form', [
+	 *     'field' => [
+	 *         'value',
+	 *         'another value',
+	 *     ]
+	 * ]);
+	 * ```
+	 *
+	 * The `$button` parameter can be either a string, an array or an instance
+	 * of Facebook\WebDriver\WebDriverBy. When it is a string, the
+	 * button will be found by its "name" attribute. If $button is an
+	 * array then it will be treated as a strict selector and a WebDriverBy
+	 * will be used verbatim.
+	 *
+	 * For example, given the following HTML:
+	 *
+	 * ``` html
+	 * <input type="submit" name="submitButton" value="Submit" />
+	 * ```
+	 *
+	 * `$button` could be any one of the following:
+	 *   - 'submitButton'
+	 *   - ['name' => 'submitButton']
+	 *   - WebDriverBy::name('submitButton')
+	 *
+	 * @param $selector
+	 * @param $params
+	 * @param $button
+	 * @see \Codeception\Module\WebDriver::submitForm()
+	 */
+	public function submitForm($selector, $params, $button = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('submitForm', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Waits up to $timeout seconds for the given element to change.
+	 * Element "change" is determined by a callback function which is called repeatedly
+	 * until the return value evaluates to true.
+	 *
+	 * ``` php
+	 * <?php
+	 * use \Facebook\WebDriver\WebDriverElement
+	 * $I->waitForElementChange('#menu', function(WebDriverElement $el) {
+	 *     return $el->isDisplayed();
+	 * }, 100);
+	 * ?>
+	 * ```
+	 *
+	 * @param $element
+	 * @param \Closure $callback
+	 * @param int $timeout seconds
+	 * @throws \Codeception\Exception\ElementNotFound
+	 * @see \Codeception\Module\WebDriver::waitForElementChange()
+	 */
+	public function waitForElementChange($element, $callback, $timeout = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElementChange', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Waits up to $timeout seconds for an element to appear on the page.
+	 * If the element doesn't appear, a timeout exception is thrown.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->waitForElement('#agree_button', 30); // secs
+	 * $I->click('#agree_button');
+	 * ?>
+	 * ```
+	 *
+	 * @param $element
+	 * @param int $timeout seconds
+	 * @throws \Exception
+	 * @see \Codeception\Module\WebDriver::waitForElement()
+	 */
+	public function waitForElement($element, $timeout = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElement', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Waits up to $timeout seconds for the given element to be visible on the page.
+	 * If element doesn't appear, a timeout exception is thrown.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->waitForElementVisible('#agree_button', 30); // secs
+	 * $I->click('#agree_button');
+	 * ?>
+	 * ```
+	 *
+	 * @param $element
+	 * @param int $timeout seconds
+	 * @throws \Exception
+	 * @see \Codeception\Module\WebDriver::waitForElementVisible()
+	 */
+	public function waitForElementVisible($element, $timeout = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElementVisible', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Waits up to $timeout seconds for the given element to become invisible.
+	 * If element stays visible, a timeout exception is thrown.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->waitForElementNotVisible('#agree_button', 30); // secs
+	 * ?>
+	 * ```
+	 *
+	 * @param $element
+	 * @param int $timeout seconds
+	 * @throws \Exception
+	 * @see \Codeception\Module\WebDriver::waitForElementNotVisible()
+	 */
+	public function waitForElementNotVisible($element, $timeout = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElementNotVisible', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Waits up to $timeout seconds for the given string to appear on the page.
+	 *
+	 * Can also be passed a selector to search in, be as specific as possible when using selectors.
+	 * waitForText() will only watch the first instance of the matching selector / text provided.
+	 * If the given text doesn't appear, a timeout exception is thrown.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->waitForText('foo', 30); // secs
+	 * $I->waitForText('foo', 30, '.title'); // secs
+	 * ?>
+	 * ```
+	 *
+	 * @param string $text
+	 * @param int $timeout seconds
+	 * @param null $selector
+	 * @throws \Exception
+	 * @see \Codeception\Module\WebDriver::waitForText()
+	 */
+	public function waitForText($text, $timeout = null, $selector = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForText', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Wait for $timeout seconds.
+	 *
+	 * @param int $timeout secs
+	 * @throws \Codeception\Exception\TestRuntimeException
+	 * @see \Codeception\Module\WebDriver::wait()
+	 */
+	public function wait($timeout) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('wait', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Low-level API method.
+	 * If Codeception commands are not enough, this allows you to use Selenium WebDriver methods directly:
+	 *
+	 * ``` php
+	 * $I->executeInSelenium(function(\Facebook\WebDriver\Remote\RemoteWebDriver $webdriver) {
+	 *   $webdriver->get('http://google.com');
+	 * });
+	 * ```
+	 *
+	 * This runs in the context of the
+	 * [RemoteWebDriver class](https://github.com/facebook/php-webdriver/blob/master/lib/remote/RemoteWebDriver.php).
+	 * Try not to use this command on a regular basis.
+	 * If Codeception lacks a feature you need, please implement it and submit a patch.
+	 *
+	 * @param callable $function
+	 * @see \Codeception\Module\WebDriver::executeInSelenium()
+	 */
+	public function executeInSelenium($function) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('executeInSelenium', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Switch to another window identified by name.
+	 *
+	 * The window can only be identified by name. If the $name parameter is blank, the parent window will be used.
+	 *
+	 * Example:
+	 * ``` html
+	 * <input type="button" value="Open window" onclick="window.open('http://example.com', 'another_window')">
+	 * ```
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->click("Open window");
+	 * # switch to another window
+	 * $I->switchToWindow("another_window");
+	 * # switch to parent window
+	 * $I->switchToWindow();
+	 * ?>
+	 * ```
+	 *
+	 * If the window has no name, the only way to access it is via the `executeInSelenium()` method, like so:
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->executeInSelenium(function (\Facebook\WebDriver\Remote\RemoteWebDriver $webdriver) {
+	 *      $handles=$webdriver->getWindowHandles();
+	 *      $last_window = end($handles);
+	 *      $webdriver->switchTo()->window($last_window);
+	 * });
+	 * ?>
+	 * ```
+	 *
+	 * @param string|null $name
+	 * @see \Codeception\Module\WebDriver::switchToWindow()
+	 */
+	public function switchToWindow($name = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('switchToWindow', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Switch to another frame on the page.
+	 *
+	 * Example:
+	 * ``` html
+	 * <iframe name="another_frame" src="http://example.com">
+	 *
+	 * ```
+	 *
+	 * ``` php
+	 * <?php
+	 * # switch to iframe
+	 * $I->switchToIFrame("another_frame");
+	 * # switch to parent page
+	 * $I->switchToIFrame();
+	 *
+	 * ```
+	 *
+	 * @param string|null $name
+	 * @see \Codeception\Module\WebDriver::switchToIFrame()
+	 */
+	public function switchToIFrame($name = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('switchToIFrame', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Executes JavaScript and waits up to $timeout seconds for it to return true.
+	 *
+	 * In this example we will wait up to 60 seconds for all jQuery AJAX requests to finish.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->waitForJS("return $.active == 0;", 60);
+	 * ?>
+	 * ```
+	 *
+	 * @param string $script
+	 * @param int $timeout seconds
+	 * @see \Codeception\Module\WebDriver::waitForJS()
+	 */
+	public function waitForJS($script, $timeout = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForJS', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Executes custom JavaScript.
+	 *
+	 * This example uses jQuery to get a value and assigns that value to a PHP variable:
+	 *
+	 * ```php
+	 * <?php
+	 * $myVar = $I->executeJS('return $("#myField").val()');
+	 * ?>
+	 * ```
+	 *
+	 * @param $script
+	 * @return mixed
+	 * @see \Codeception\Module\WebDriver::executeJS()
+	 */
+	public function executeJS($script) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('executeJS', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Maximizes the current window.
+	 * @see \Codeception\Module\WebDriver::maximizeWindow()
+	 */
+	public function maximizeWindow() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('maximizeWindow', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Performs a simple mouse drag-and-drop operation.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dragAndDrop('#drag', '#drop');
+	 * ?>
+	 * ```
+	 *
+	 * @param string $source (CSS ID or XPath)
+	 * @param string $target (CSS ID or XPath)
+	 * @see \Codeception\Module\WebDriver::dragAndDrop()
+	 */
+	public function dragAndDrop($source, $target) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dragAndDrop', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Move mouse over the first element matched by the given locator.
+	 * If the second and third parameters are given,
+	 * then the mouse is moved to an offset of the element's top-left corner.
+	 * Otherwise, the mouse is moved to the center of the element.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->moveMouseOver(['css' => '.checkout'], 20, 50);
+	 * ?>
+	 * ```
+	 *
+	 * @param string $cssOrXPath css or xpath of the web element
+	 * @param int $offsetX
+	 * @param int $offsetY
+	 *
+	 * @throws \Codeception\Exception\ElementNotFound
+	 * @see \Codeception\Module\WebDriver::moveMouseOver()
+	 */
+	public function moveMouseOver($cssOrXPath, $offsetX = null, $offsetY = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('moveMouseOver', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Performs contextual click with the right mouse button on an element.
+	 *
+	 * @param $cssOrXPath
+	 * @throws \Codeception\Exception\ElementNotFound
+	 * @see \Codeception\Module\WebDriver::clickWithRightButton()
+	 */
+	public function clickWithRightButton($cssOrXPath) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('clickWithRightButton', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Pauses test execution in debug mode.
+	 * To proceed test press "ENTER" in console.
+	 *
+	 * This method is useful while writing tests,
+	 * since it allows you to inspect the current page in the middle of a test case.
+	 * @see \Codeception\Module\WebDriver::pauseExecution()
+	 */
+	public function pauseExecution() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('pauseExecution', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Performs a double-click on an element matched by CSS or XPath.
+	 *
+	 * @param $cssOrXPath
+	 * @throws \Codeception\Exception\ElementNotFound
+	 * @see \Codeception\Module\WebDriver::doubleClick()
+	 */
+	public function doubleClick($cssOrXPath) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('doubleClick', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Presses the given key on the given element.
+	 * To specify a character and modifier (e.g. ctrl, alt, shift, meta), pass an array for $char with
+	 * the modifier as the first element and the character as the second.
+	 * For special keys use key constants from WebDriverKeys class.
+	 *
+	 * ``` php
+	 * <?php
+	 * // <input id="page" value="old" />
+	 * $I->pressKey('#page','a'); // => olda
+	 * $I->pressKey('#page',array('ctrl','a'),'new'); //=> new
+	 * $I->pressKey('#page',array('shift','111'),'1','x'); //=> old!!!1x
+	 * $I->pressKey('descendant-or-self::*[@id='page']','u'); //=> oldu
+	 * $I->pressKey('#name', array('ctrl', 'a'), \Facebook\WebDriver\WebDriverKeys::DELETE); //=>''
+	 * ?>
+	 * ```
+	 *
+	 * @param $element
+	 * @param $char string|array Can be char or array with modifier. You can provide several chars.
+	 * @throws \Codeception\Exception\ElementNotFound
+	 * @see \Codeception\Module\WebDriver::pressKey()
+	 */
+	public function pressKey($element, $char) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('pressKey', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Append the given text to the given element.
+	 * Can also add a selection to a select box.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->appendField('#mySelectbox', 'SelectValue');
+	 * $I->appendField('#myTextField', 'appended');
+	 * ?>
+	 * ```
+	 *
+	 * @param string $field
+	 * @param string $value
+	 * @throws \Codeception\Exception\ElementNotFound
+	 * @see \Codeception\Module\WebDriver::appendField()
+	 */
+	public function appendField($field, $value) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('appendField', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * @param string $name
+	 * @see \Codeception\Module\WebDriver::saveSessionSnapshot()
+	 */
+	public function saveSessionSnapshot($name) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('saveSessionSnapshot', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * @param string $name
+	 * @return bool
+	 * @see \Codeception\Module\WebDriver::loadSessionSnapshot()
+	 */
+	public function loadSessionSnapshot($name) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('loadSessionSnapshot', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Move to the middle of the given element matched by the given locator.
+	 * Extra shift, calculated from the top-left corner of the element,
+	 * can be set by passing $offsetX and $offsetY parameters.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->scrollTo(['css' => '.checkout'], 20, 50);
+	 * ?>
+	 * ```
+	 *
+	 * @param $selector
+	 * @param int $offsetX
+	 * @param int $offsetY
+	 * @see \Codeception\Module\WebDriver::scrollTo()
+	 */
+	public function scrollTo($selector, $offsetX = null, $offsetY = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('scrollTo', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Goes to the login page and logs in as the site admin.
 	 *
 	 * @return array An array of login credentials and auth cookies.
-     * @see \Codeception\Module\WPWebDriver::loginAsAdmin()
-     */
-    public function loginAsAdmin() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('loginAsAdmin', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::loginAsAdmin()
+	 */
+	public function loginAsAdmin() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('loginAsAdmin', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Goes to the login page and logs in using the given credentials.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Goes to the login page and logs in using the given credentials.
 	 *
 	 * @param string $username
 	 * @param string $password
 	 *
 	 * @return array An array of login credentials and auth cookies.
-     * @see \Codeception\Module\WPWebDriver::loginAs()
-     */
-    public function loginAs($username, $password) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('loginAs', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::loginAs()
+	 */
+	public function loginAs($username, $password) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('loginAs', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns WordPress default auth cookie if present.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns WordPress default auth cookie if present.
 	 *
 	 * @param null $pattern Optional, overrides the default cookie name.
 	 *
 	 * @return mixed Either a cookie or null.
-     * @see \Codeception\Module\WPWebDriver::grabWordPressAuthCookie()
-     */
-    public function grabWordPressAuthCookie($pattern = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabWordPressAuthCookie', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::grabWordPressAuthCookie()
+	 */
+	public function grabWordPressAuthCookie($pattern = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabWordPressAuthCookie', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns WordPress default login cookie if present.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns WordPress default login cookie if present.
 	 *
 	 * @param null $pattern Optional, overrides the default cookie name.
 	 *
 	 * @return mixed Either a cookie or null.
-     * @see \Codeception\Module\WPWebDriver::grabWordPressLoginCookie()
-     */
-    public function grabWordPressLoginCookie($pattern = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabWordPressLoginCookie', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::grabWordPressLoginCookie()
+	 */
+	public function grabWordPressLoginCookie($pattern = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabWordPressLoginCookie', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * In the plugin administration screen activates a plugin clicking the "Activate" link.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * In the plugin administration screen activates a plugin clicking the "Activate" link.
 	 *
 	 * The method will presume the browser is in the plugin screen already.
 	 *
 	 * @param  string $pluginSlug The plugin slug, like "hello-dolly".
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPWebDriver::activatePlugin()
-     */
-    public function activatePlugin($pluginSlug) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('activatePlugin', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::activatePlugin()
+	 */
+	public function activatePlugin($pluginSlug) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('activatePlugin', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * In the plugin administration screen deactivates a plugin clicking the "Deactivate" link.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * In the plugin administration screen deactivates a plugin clicking the "Deactivate" link.
 	 *
 	 * The method will presume the browser is in the plugin screen already.
 	 *
 	 * @param  string $pluginSlug The plugin slug, like "hello-dolly".
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPWebDriver::deactivatePlugin()
-     */
-    public function deactivatePlugin($pluginSlug) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('deactivatePlugin', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::deactivatePlugin()
+	 */
+	public function deactivatePlugin($pluginSlug) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('deactivatePlugin', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Navigates the browser to the plugins administration screen.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Navigates the browser to the plugins administration screen.
 	 *
 	 * Makes no check about the user being logged in and authorized to do so.
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPWebDriver::amOnPluginsPage()
-     */
-    public function amOnPluginsPage() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Condition('amOnPluginsPage', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::amOnPluginsPage()
+	 */
+	public function amOnPluginsPage() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Condition('amOnPluginsPage', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Navigates the browser to the Pages administration screen.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Navigates the browser to the Pages administration screen.
 	 *
 	 * Makes no check about the user being logged in and authorized to do so.
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPWebDriver::amOnPagesPage()
-     */
-    public function amOnPagesPage() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Condition('amOnPagesPage', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::amOnPagesPage()
+	 */
+	public function amOnPagesPage() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Condition('amOnPagesPage', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Looks for a deactivated plugin in the plugin administration screen.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Looks for a deactivated plugin in the plugin administration screen.
 	 *
 	 * Will not navigate to the plugin administration screen.
 	 *
 	 * @param string $pluginSlug The plugin slug, like "hello-dolly".
 	 *
 	 * @return void
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPWebDriver::seePluginDeactivated()
-     */
-    public function canSeePluginDeactivated($pluginSlug) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seePluginDeactivated', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Looks for a deactivated plugin in the plugin administration screen.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPWebDriver::seePluginDeactivated()
+	 */
+	public function canSeePluginDeactivated($pluginSlug) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seePluginDeactivated', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Looks for a deactivated plugin in the plugin administration screen.
 	 *
 	 * Will not navigate to the plugin administration screen.
 	 *
 	 * @param string $pluginSlug The plugin slug, like "hello-dolly".
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPWebDriver::seePluginDeactivated()
-     */
-    public function seePluginDeactivated($pluginSlug) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seePluginDeactivated', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::seePluginDeactivated()
+	 */
+	public function seePluginDeactivated($pluginSlug) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seePluginDeactivated', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Looks for a plugin in the plugin administration screen.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Looks for a plugin in the plugin administration screen.
 	 *
 	 * Will not navigate to the plugin administration screen.
 	 *
 	 * @param  string $pluginSlug The plugin slug, like "hello-dolly".
 	 *
 	 * @return void
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPWebDriver::seePluginInstalled()
-     */
-    public function canSeePluginInstalled($pluginSlug) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seePluginInstalled', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Looks for a plugin in the plugin administration screen.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPWebDriver::seePluginInstalled()
+	 */
+	public function canSeePluginInstalled($pluginSlug) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seePluginInstalled', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Looks for a plugin in the plugin administration screen.
 	 *
 	 * Will not navigate to the plugin administration screen.
 	 *
 	 * @param  string $pluginSlug The plugin slug, like "hello-dolly".
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPWebDriver::seePluginInstalled()
-     */
-    public function seePluginInstalled($pluginSlug) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seePluginInstalled', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::seePluginInstalled()
+	 */
+	public function seePluginInstalled($pluginSlug) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seePluginInstalled', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Looks for an activated plugin in the plugin administration screen.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Looks for an activated plugin in the plugin administration screen.
 	 *
 	 * Will not navigate to the plugin administration screen.
 	 *
 	 * @param string $pluginSlug The plugin slug, like "hello-dolly".
 	 *
 	 * @return void
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPWebDriver::seePluginActivated()
-     */
-    public function canSeePluginActivated($pluginSlug) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seePluginActivated', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Looks for an activated plugin in the plugin administration screen.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPWebDriver::seePluginActivated()
+	 */
+	public function canSeePluginActivated($pluginSlug) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seePluginActivated', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Looks for an activated plugin in the plugin administration screen.
 	 *
 	 * Will not navigate to the plugin administration screen.
 	 *
 	 * @param string $pluginSlug The plugin slug, like "hello-dolly".
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPWebDriver::seePluginActivated()
-     */
-    public function seePluginActivated($pluginSlug) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seePluginActivated', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::seePluginActivated()
+	 */
+	public function seePluginActivated($pluginSlug) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seePluginActivated', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Looks for a missing plugin in the plugin administration screen.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Looks for a missing plugin in the plugin administration screen.
 	 *
 	 * Will not navigate to the plugin administration screen.
 	 *
 	 * @param  string $pluginSlug The plugin slug, like "hello-dolly".
 	 *
 	 * @return void
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPWebDriver::dontSeePluginInstalled()
-     */
-    public function cantSeePluginInstalled($pluginSlug) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeePluginInstalled', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Looks for a missing plugin in the plugin administration screen.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPWebDriver::dontSeePluginInstalled()
+	 */
+	public function cantSeePluginInstalled($pluginSlug) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeePluginInstalled', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Looks for a missing plugin in the plugin administration screen.
 	 *
 	 * Will not navigate to the plugin administration screen.
 	 *
 	 * @param  string $pluginSlug The plugin slug, like "hello-dolly".
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPWebDriver::dontSeePluginInstalled()
-     */
-    public function dontSeePluginInstalled($pluginSlug) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeePluginInstalled', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::dontSeePluginInstalled()
+	 */
+	public function dontSeePluginInstalled($pluginSlug) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeePluginInstalled', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * In an administration screen will look for an error message.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * In an administration screen will look for an error message.
 	 *
 	 * Allows for class-based error checking to decouple from internationalization.
 	 *
 	 * @param array $classes A list of classes the error notice should have.
 	 *
 	 * @return void
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPWebDriver::seeErrorMessage()
-     */
-    public function canSeeErrorMessage($classes = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeErrorMessage', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * In an administration screen will look for an error message.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPWebDriver::seeErrorMessage()
+	 */
+	public function canSeeErrorMessage($classes = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeErrorMessage', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * In an administration screen will look for an error message.
 	 *
 	 * Allows for class-based error checking to decouple from internationalization.
 	 *
 	 * @param array $classes A list of classes the error notice should have.
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPWebDriver::seeErrorMessage()
-     */
-    public function seeErrorMessage($classes = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeErrorMessage', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::seeErrorMessage()
+	 */
+	public function seeErrorMessage($classes = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeErrorMessage', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current page is a wp_die generated one.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current page is a wp_die generated one.
 	 *
 	 * @return void
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPWebDriver::seeWpDiePage()
-     */
-    public function canSeeWpDiePage() {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeWpDiePage', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that the current page is a wp_die generated one.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPWebDriver::seeWpDiePage()
+	 */
+	public function canSeeWpDiePage() {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeWpDiePage', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that the current page is a wp_die generated one.
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPWebDriver::seeWpDiePage()
-     */
-    public function seeWpDiePage() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeWpDiePage', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::seeWpDiePage()
+	 */
+	public function seeWpDiePage() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeWpDiePage', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * In an administration screen will look for a message.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * In an administration screen will look for a message.
 	 *
 	 * Allows for class-based error checking to decouple from internationalization.
 	 *
 	 * @param array $classes A list of classes the message should have.
 	 *
 	 * @return void
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPWebDriver::seeMessage()
-     */
-    public function canSeeMessage($classes = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeMessage', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * In an administration screen will look for a message.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPWebDriver::seeMessage()
+	 */
+	public function canSeeMessage($classes = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeMessage', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * In an administration screen will look for a message.
 	 *
 	 * Allows for class-based error checking to decouple from internationalization.
 	 *
 	 * @param array $classes A list of classes the message should have.
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPWebDriver::seeMessage()
-     */
-    public function seeMessage($classes = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeMessage', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::seeMessage()
+	 */
+	public function seeMessage($classes = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeMessage', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns WordPress default test cookie if present.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns WordPress default test cookie if present.
 	 *
 	 * @param null $pattern Optional, overrides the default cookie name.
 	 *
 	 * @return mixed Either a cookie or null.
-     * @see \Codeception\Module\WPWebDriver::grabWordPressTestCookie()
-     */
-    public function grabWordPressTestCookie($pattern = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabWordPressTestCookie', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPWebDriver::grabWordPressTestCookie()
+	 */
+	public function grabWordPressTestCookie($pattern = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabWordPressTestCookie', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     *
-     * @see \Codeception\Module\WPWebDriver::amOnAdminPage()
-     */
-    public function amOnAdminPage($path) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Condition('amOnAdminPage', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that two variables are equal.
-     *
-     * @param        $expected
-     * @param        $actual
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertEquals()
-     */
-    public function assertEquals($expected, $actual, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertEquals', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 *
+	 * @see \Codeception\Module\WPWebDriver::amOnAdminPage()
+	 */
+	public function amOnAdminPage($path) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Condition('amOnAdminPage', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that two variables are not equal
-     *
-     * @param        $expected
-     * @param        $actual
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertNotEquals()
-     */
-    public function assertNotEquals($expected, $actual, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotEquals', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that two variables are same
-     *
-     * @param        $expected
-     * @param        $actual
-     * @param string $message
-     * @return mixed|void
-     * @see \Codeception\Module\Asserts::assertSame()
-     */
-    public function assertSame($expected, $actual, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertSame', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that two variables are equal.
+	 *
+	 * @param        $expected
+	 * @param        $actual
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertEquals()
+	 */
+	public function assertEquals($expected, $actual, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertEquals', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that two variables are not same
-     *
-     * @param        $expected
-     * @param        $actual
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertNotSame()
-     */
-    public function assertNotSame($expected, $actual, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotSame', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that actual is greater than expected
-     *
-     * @param        $expected
-     * @param        $actual
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertGreaterThan()
-     */
-    public function assertGreaterThan($expected, $actual, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertGreaterThan', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that two variables are not equal
+	 *
+	 * @param        $expected
+	 * @param        $actual
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertNotEquals()
+	 */
+	public function assertNotEquals($expected, $actual, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotEquals', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that actual is greater or equal than expected
-     *
-     * @param        $expected
-     * @param        $actual
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertGreaterThanOrEqual()
-     */
-    public function assertGreaterThanOrEqual($expected, $actual, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertGreaterThanOrEqual', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that actual is less than expected
-     *
-     * @param        $expected
-     * @param        $actual
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertLessThan()
-     */
-    public function assertLessThan($expected, $actual, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertLessThan', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that two variables are same
+	 *
+	 * @param        $expected
+	 * @param        $actual
+	 * @param string $message
+	 * @return mixed|void
+	 * @see \Codeception\Module\Asserts::assertSame()
+	 */
+	public function assertSame($expected, $actual, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertSame', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that actual is less or equal than expected
-     *
-     * @param        $expected
-     * @param        $actual
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertLessThanOrEqual()
-     */
-    public function assertLessThanOrEqual($expected, $actual, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertLessThanOrEqual', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that haystack contains needle
-     *
-     * @param        $needle
-     * @param        $haystack
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertContains()
-     */
-    public function assertContains($needle, $haystack, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertContains', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that two variables are not same
+	 *
+	 * @param        $expected
+	 * @param        $actual
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertNotSame()
+	 */
+	public function assertNotSame($expected, $actual, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotSame', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that haystack doesn't contain needle.
-     *
-     * @param        $needle
-     * @param        $haystack
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertNotContains()
-     */
-    public function assertNotContains($needle, $haystack, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotContains', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that string match with pattern
-     *
-     * @param string $pattern
-     * @param string $string
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertRegExp()
-     */
-    public function assertRegExp($pattern, $string, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertRegExp', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that actual is greater than expected
+	 *
+	 * @param        $expected
+	 * @param        $actual
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertGreaterThan()
+	 */
+	public function assertGreaterThan($expected, $actual, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertGreaterThan', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that string not match with pattern
-     *
-     * @param string $pattern
-     * @param string $string
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertNotRegExp()
-     */
-    public function assertNotRegExp($pattern, $string, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotRegExp', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that variable is empty.
-     *
-     * @param        $actual
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertEmpty()
-     */
-    public function assertEmpty($actual, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertEmpty', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that actual is greater or equal than expected
+	 *
+	 * @param        $expected
+	 * @param        $actual
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertGreaterThanOrEqual()
+	 */
+	public function assertGreaterThanOrEqual($expected, $actual, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertGreaterThanOrEqual', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that variable is not empty.
-     *
-     * @param        $actual
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertNotEmpty()
-     */
-    public function assertNotEmpty($actual, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotEmpty', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that variable is NULL
-     *
-     * @param        $actual
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertNull()
-     */
-    public function assertNull($actual, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNull', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that actual is less than expected
+	 *
+	 * @param        $expected
+	 * @param        $actual
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertLessThan()
+	 */
+	public function assertLessThan($expected, $actual, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertLessThan', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that variable is not NULL
-     *
-     * @param        $actual
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertNotNull()
-     */
-    public function assertNotNull($actual, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotNull', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that condition is positive.
-     *
-     * @param        $condition
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertTrue()
-     */
-    public function assertTrue($condition, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertTrue', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that actual is less or equal than expected
+	 *
+	 * @param        $expected
+	 * @param        $actual
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertLessThanOrEqual()
+	 */
+	public function assertLessThanOrEqual($expected, $actual, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertLessThanOrEqual', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that condition is negative.
-     *
-     * @param        $condition
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertFalse()
-     */
-    public function assertFalse($condition, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertFalse', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks if file exists
-     *
-     * @param string $filename
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertFileExists()
-     */
-    public function assertFileExists($filename, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertFileExists', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that haystack contains needle
+	 *
+	 * @param        $needle
+	 * @param        $haystack
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertContains()
+	 */
+	public function assertContains($needle, $haystack, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertContains', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks if file doesn't exist
-     *
-     * @param string $filename
-     * @param string $message
-     * @see \Codeception\Module\Asserts::assertFileNotExists()
-     */
-    public function assertFileNotExists($filename, $message = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertFileNotExists', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * @param $expected
-     * @param $actual
-     * @param $description
-     * @see \Codeception\Module\Asserts::assertGreaterOrEquals()
-     */
-    public function assertGreaterOrEquals($expected, $actual, $description = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertGreaterOrEquals', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that haystack doesn't contain needle.
+	 *
+	 * @param        $needle
+	 * @param        $haystack
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertNotContains()
+	 */
+	public function assertNotContains($needle, $haystack, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotContains', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * @param $expected
-     * @param $actual
-     * @param $description
-     * @see \Codeception\Module\Asserts::assertLessOrEquals()
-     */
-    public function assertLessOrEquals($expected, $actual, $description = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertLessOrEquals', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * @param $actual
-     * @param $description
-     * @see \Codeception\Module\Asserts::assertIsEmpty()
-     */
-    public function assertIsEmpty($actual, $description = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertIsEmpty', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that string match with pattern
+	 *
+	 * @param string $pattern
+	 * @param string $string
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertRegExp()
+	 */
+	public function assertRegExp($pattern, $string, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertRegExp', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * @param $key
-     * @param $actual
-     * @param $description
-     * @see \Codeception\Module\Asserts::assertArrayHasKey()
-     */
-    public function assertArrayHasKey($key, $actual, $description = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertArrayHasKey', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * @param $key
-     * @param $actual
-     * @param $description
-     * @see \Codeception\Module\Asserts::assertArrayNotHasKey()
-     */
-    public function assertArrayNotHasKey($key, $actual, $description = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertArrayNotHasKey', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that string not match with pattern
+	 *
+	 * @param string $pattern
+	 * @param string $string
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertNotRegExp()
+	 */
+	public function assertNotRegExp($pattern, $string, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotRegExp', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * @param $expectedCount
-     * @param $actual
-     * @param $description
-     * @see \Codeception\Module\Asserts::assertCount()
-     */
-    public function assertCount($expectedCount, $actual, $description = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertCount', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * @param $class
-     * @param $actual
-     * @param $description
-     * @see \Codeception\Module\Asserts::assertInstanceOf()
-     */
-    public function assertInstanceOf($class, $actual, $description = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertInstanceOf', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that variable is empty.
+	 *
+	 * @param        $actual
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertEmpty()
+	 */
+	public function assertEmpty($actual, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertEmpty', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * @param $class
-     * @param $actual
-     * @param $description
-     * @see \Codeception\Module\Asserts::assertNotInstanceOf()
-     */
-    public function assertNotInstanceOf($class, $actual, $description = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotInstanceOf', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * @param $type
-     * @param $actual
-     * @param $description
-     * @see \Codeception\Module\Asserts::assertInternalType()
-     */
-    public function assertInternalType($type, $actual, $description = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertInternalType', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that variable is not empty.
+	 *
+	 * @param        $actual
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertNotEmpty()
+	 */
+	public function assertNotEmpty($actual, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotEmpty', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Fails the test with message.
-     *
-     * @param $message
-     * @see \Codeception\Module\Asserts::fail()
-     */
-    public function fail($message) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('fail', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Handles and checks exception called inside callback function.
-     * Either exception class name or exception instance should be provided.
-     *
-     * ```php
-     * <?php
-     * $I->expectException(MyException::class, function() {
-     *     $this->doSomethingBad();
-     * });
-     *
-     * $I->expectException(new MyException(), function() {
-     *     $this->doSomethingBad();
-     * });
-     * ```
-     * If you want to check message or exception code, you can pass them with exception instance:
-     * ```php
-     * <?php
-     * // will check that exception MyException is thrown with "Don't do bad things" message
-     * $I->expectException(new MyException("Don't do bad things"), function() {
-     *     $this->doSomethingBad();
-     * });
-     * ```
-     *
-     * @param $exception string or \Exception
-     * @param $callback
-     * @see \Codeception\Module\Asserts::expectException()
-     */
-    public function expectException($exception, $callback) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('expectException', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that variable is NULL
+	 *
+	 * @param        $actual
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertNull()
+	 */
+	public function assertNull($actual, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNull', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Replaces the WordPress domains in a SQL dump string.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that variable is not NULL
+	 *
+	 * @param        $actual
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertNotNull()
+	 */
+	public function assertNotNull($actual, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotNull', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that condition is positive.
+	 *
+	 * @param        $condition
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertTrue()
+	 */
+	public function assertTrue($condition, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertTrue', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that condition is negative.
+	 *
+	 * @param        $condition
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertFalse()
+	 */
+	public function assertFalse($condition, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertFalse', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks if file exists
+	 *
+	 * @param string $filename
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertFileExists()
+	 */
+	public function assertFileExists($filename, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertFileExists', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks if file doesn't exist
+	 *
+	 * @param string $filename
+	 * @param string $message
+	 * @see \Codeception\Module\Asserts::assertFileNotExists()
+	 */
+	public function assertFileNotExists($filename, $message = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertFileNotExists', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * @param $expected
+	 * @param $actual
+	 * @param $description
+	 * @see \Codeception\Module\Asserts::assertGreaterOrEquals()
+	 */
+	public function assertGreaterOrEquals($expected, $actual, $description = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertGreaterOrEquals', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * @param $expected
+	 * @param $actual
+	 * @param $description
+	 * @see \Codeception\Module\Asserts::assertLessOrEquals()
+	 */
+	public function assertLessOrEquals($expected, $actual, $description = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertLessOrEquals', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * @param $actual
+	 * @param $description
+	 * @see \Codeception\Module\Asserts::assertIsEmpty()
+	 */
+	public function assertIsEmpty($actual, $description = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertIsEmpty', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * @param $key
+	 * @param $actual
+	 * @param $description
+	 * @see \Codeception\Module\Asserts::assertArrayHasKey()
+	 */
+	public function assertArrayHasKey($key, $actual, $description = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertArrayHasKey', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * @param $key
+	 * @param $actual
+	 * @param $description
+	 * @see \Codeception\Module\Asserts::assertArrayNotHasKey()
+	 */
+	public function assertArrayNotHasKey($key, $actual, $description = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertArrayNotHasKey', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * @param $expectedCount
+	 * @param $actual
+	 * @param $description
+	 * @see \Codeception\Module\Asserts::assertCount()
+	 */
+	public function assertCount($expectedCount, $actual, $description = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertCount', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * @param $class
+	 * @param $actual
+	 * @param $description
+	 * @see \Codeception\Module\Asserts::assertInstanceOf()
+	 */
+	public function assertInstanceOf($class, $actual, $description = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertInstanceOf', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * @param $class
+	 * @param $actual
+	 * @param $description
+	 * @see \Codeception\Module\Asserts::assertNotInstanceOf()
+	 */
+	public function assertNotInstanceOf($class, $actual, $description = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotInstanceOf', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * @param $type
+	 * @param $actual
+	 * @param $description
+	 * @see \Codeception\Module\Asserts::assertInternalType()
+	 */
+	public function assertInternalType($type, $actual, $description = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('assertInternalType', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Fails the test with message.
+	 *
+	 * @param $message
+	 * @see \Codeception\Module\Asserts::fail()
+	 */
+	public function fail($message) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('fail', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Handles and checks exception called inside callback function.
+	 * Either exception class name or exception instance should be provided.
+	 *
+	 * ```php
+	 * <?php
+	 * $I->expectException(MyException::class, function() {
+	 *     $this->doSomethingBad();
+	 * });
+	 *
+	 * $I->expectException(new MyException(), function() {
+	 *     $this->doSomethingBad();
+	 * });
+	 * ```
+	 * If you want to check message or exception code, you can pass them with exception instance:
+	 * ```php
+	 * <?php
+	 * // will check that exception MyException is thrown with "Don't do bad things" message
+	 * $I->expectException(new MyException("Don't do bad things"), function() {
+	 *     $this->doSomethingBad();
+	 * });
+	 * ```
+	 *
+	 * @param $exception string or \Exception
+	 * @param $callback
+	 * @see \Codeception\Module\Asserts::expectException()
+	 */
+	public function expectException($exception, $callback) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('expectException', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Replaces the WordPress domains in a SQL dump string.
 	 *
 	 * @param string $sql The input SQL dump string.
 	 * @return string The modified SQL string.
-     * @see \Codeception\Module\WPDb::replaceSiteDomainInSql()
-     */
-    public function replaceSiteDomainInSql($sql) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('replaceSiteDomainInSql', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::replaceSiteDomainInSql()
+	 */
+	public function replaceSiteDomainInSql($sql) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('replaceSiteDomainInSql', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     *
-     * @see \Codeception\Module\WPDb::replaceSiteDomainInMultisiteSql()
-     */
-    public function replaceSiteDomainInMultisiteSql($sql) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('replaceSiteDomainInMultisiteSql', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that an option is not in the database for the current blog.
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 *
+	 * @see \Codeception\Module\WPDb::replaceSiteDomainInMultisiteSql()
+	 */
+	public function replaceSiteDomainInMultisiteSql($sql) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('replaceSiteDomainInMultisiteSql', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that an option is not in the database for the current blog.
 	 *
 	 * If the value is an object or an array then the serialized option will be checked for.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::dontSeeOptionInDatabase()
-     */
-    public function cantSeeOptionInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeOptionInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that an option is not in the database for the current blog.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::dontSeeOptionInDatabase()
+	 */
+	public function cantSeeOptionInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeOptionInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that an option is not in the database for the current blog.
 	 *
 	 * If the value is an object or an array then the serialized option will be checked for.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontSeeOptionInDatabase()
-     */
-    public function dontSeeOptionInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeOptionInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontSeeOptionInDatabase()
+	 */
+	public function dontSeeOptionInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeOptionInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns a prefixed table name for the current blog.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns a prefixed table name for the current blog.
 	 *
 	 * If the table is not one to be prefixed (e.g. `users`) then the proper table name will be returned.
 	 *
 	 * @param  string $tableName The table name, e.g. `options`.
 	 *
 	 * @return string            The prefixed table name, e.g. `wp_options` or `wp_2_options`.
-     * @see \Codeception\Module\WPDb::grabPrefixedTableNameFor()
-     */
-    public function grabPrefixedTableNameFor($tableName = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabPrefixedTableNameFor', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabPrefixedTableNameFor()
+	 */
+	public function grabPrefixedTableNameFor($tableName = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabPrefixedTableNameFor', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a post meta value in the database for the current blog.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a post meta value in the database for the current blog.
 	 *
 	 * If the `meta_value` is an object or an array then the serialized value will be checked for.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seePostMetaInDatabase()
-     */
-    public function canSeePostMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seePostMetaInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a post meta value in the database for the current blog.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seePostMetaInDatabase()
+	 */
+	public function canSeePostMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seePostMetaInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a post meta value in the database for the current blog.
 	 *
 	 * If the `meta_value` is an object or an array then the serialized value will be checked for.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::seePostMetaInDatabase()
-     */
-    public function seePostMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seePostMetaInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seePostMetaInDatabase()
+	 */
+	public function seePostMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seePostMetaInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a link in the database.
-	 *
-	 * Will look up the "links" table.
-	 *
-	 * @param  array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seeLinkInDatabase()
-     */
-    public function canSeeLinkInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeLinkInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a link in the database.
-	 *
-	 * Will look up the "links" table.
-	 *
-	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::seeLinkInDatabase()
-     */
-    public function seeLinkInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeLinkInDatabase', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a link is not in the database.
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a link in the database.
 	 *
 	 * Will look up the "links" table.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::dontSeeLinkInDatabase()
-     */
-    public function cantSeeLinkInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeLinkInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a link is not in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seeLinkInDatabase()
+	 */
+	public function canSeeLinkInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeLinkInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a link in the database.
 	 *
 	 * Will look up the "links" table.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontSeeLinkInDatabase()
-     */
-    public function dontSeeLinkInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeLinkInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seeLinkInDatabase()
+	 */
+	public function seeLinkInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeLinkInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a post meta value is not there.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a link is not in the database.
+	 *
+	 * Will look up the "links" table.
+	 *
+	 * @param  array $criteria An array of search criteria.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::dontSeeLinkInDatabase()
+	 */
+	public function cantSeeLinkInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeLinkInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a link is not in the database.
+	 *
+	 * Will look up the "links" table.
+	 *
+	 * @param  array $criteria An array of search criteria.
+	 * @see \Codeception\Module\WPDb::dontSeeLinkInDatabase()
+	 */
+	public function dontSeeLinkInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeLinkInDatabase', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a post meta value is not there.
 	 *
 	 * If the meta value is an object or an array then the serialized version will be checked for.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::dontSeePostMetaInDatabase()
-     */
-    public function cantSeePostMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeePostMetaInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a post meta value is not there.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::dontSeePostMetaInDatabase()
+	 */
+	public function cantSeePostMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeePostMetaInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a post meta value is not there.
 	 *
 	 * If the meta value is an object or an array then the serialized version will be checked for.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontSeePostMetaInDatabase()
-     */
-    public function dontSeePostMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeePostMetaInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontSeePostMetaInDatabase()
+	 */
+	public function dontSeePostMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeePostMetaInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a post to term relation exists in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a post to term relation exists in the database.
 	 *
 	 * Will look up the "term_relationships" table.
 	 *
@@ -3797,16 +3797,16 @@ trait AcceptanceTesterActions
 	 * @param  integer $term_order The order the term applies to the post, defaults to 0.
 	 *
 	 * @return void
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seePostWithTermInDatabase()
-     */
-    public function canSeePostWithTermInDatabase($post_id, $term_id, $term_order = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seePostWithTermInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a post to term relation exists in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seePostWithTermInDatabase()
+	 */
+	public function canSeePostWithTermInDatabase($post_id, $term_id, $term_order = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seePostWithTermInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a post to term relation exists in the database.
 	 *
 	 * Will look up the "term_relationships" table.
 	 *
@@ -3815,220 +3815,220 @@ trait AcceptanceTesterActions
 	 * @param  integer $term_order The order the term applies to the post, defaults to 0.
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPDb::seePostWithTermInDatabase()
-     */
-    public function seePostWithTermInDatabase($post_id, $term_id, $term_order = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seePostWithTermInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seePostWithTermInDatabase()
+	 */
+	public function seePostWithTermInDatabase($post_id, $term_id, $term_order = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seePostWithTermInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a user is in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a user is in the database.
 	 *
 	 * Will look up the "users" table.
 	 *
 	 * @param  array $criteria
 	 *
 	 * @return void
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seeUserInDatabase()
-     */
-    public function canSeeUserInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeUserInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a user is in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seeUserInDatabase()
+	 */
+	public function canSeeUserInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeUserInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a user is in the database.
 	 *
 	 * Will look up the "users" table.
 	 *
 	 * @param  array $criteria
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPDb::seeUserInDatabase()
-     */
-    public function seeUserInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeUserInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seeUserInDatabase()
+	 */
+	public function seeUserInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeUserInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a user is not in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a user is not in the database.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::dontSeeUserInDatabase()
-     */
-    public function cantSeeUserInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeUserInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a user is not in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::dontSeeUserInDatabase()
+	 */
+	public function cantSeeUserInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeUserInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a user is not in the database.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontSeeUserInDatabase()
-     */
-    public function dontSeeUserInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeUserInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontSeeUserInDatabase()
+	 */
+	public function dontSeeUserInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeUserInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts a page in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts a page in the database.
 	 *
 	 * @param array $overrides An array of values to override the default ones.
-     * @see \Codeception\Module\WPDb::havePageInDatabase()
-     */
-    public function havePageInDatabase($overrides = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('havePageInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::havePageInDatabase()
+	 */
+	public function havePageInDatabase($overrides = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('havePageInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts a post in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts a post in the database.
 	 *
 	 * @param  array $data An associative array of post data to override default and random generated values.
 	 *
 	 * @return int post_id The inserted post ID.
-     * @see \Codeception\Module\WPDb::havePostInDatabase()
-     */
-    public function havePostInDatabase($data = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('havePostInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::havePostInDatabase()
+	 */
+	public function havePostInDatabase($data = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('havePostInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets the posts table name.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets the posts table name.
 	 *
 	 * @return string The prefixed table name, e.g. `wp_posts`
-     * @see \Codeception\Module\WPDb::grabPostsTableName()
-     */
-    public function grabPostsTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabPostsTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabPostsTableName()
+	 */
+	public function grabPostsTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabPostsTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns the id value of the last table entry.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns the id value of the last table entry.
 	 *
 	 * @param string $tableName
 	 * @param string $idColumn
 	 *
 	 * @return mixed
-     * @see \Codeception\Module\WPDb::grabLatestEntryByFromDatabase()
-     */
-    public function grabLatestEntryByFromDatabase($tableName, $idColumn = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabLatestEntryByFromDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabLatestEntryByFromDatabase()
+	 */
+	public function grabLatestEntryByFromDatabase($tableName, $idColumn = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabLatestEntryByFromDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Adds one or more meta key and value couples in the database for a post.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Adds one or more meta key and value couples in the database for a post.
 	 *
 	 * @param int $post_id
 	 * @param string $meta_key
 	 * @param mixed $meta_value The value to insert in the database, objects and arrays will be serialized.
 	 *
 	 * @return int The inserted meta `meta_id`.
-     * @see \Codeception\Module\WPDb::havePostmetaInDatabase()
-     */
-    public function havePostmetaInDatabase($post_id, $meta_key, $meta_value) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('havePostmetaInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::havePostmetaInDatabase()
+	 */
+	public function havePostmetaInDatabase($post_id, $meta_key, $meta_value) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('havePostmetaInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns the prefixed post meta table name.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns the prefixed post meta table name.
 	 *
 	 * @return string The prefixed `postmeta` table name, e.g. `wp_postmeta`.
-     * @see \Codeception\Module\WPDb::grabPostMetaTableName()
-     */
-    public function grabPostMetaTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabPostMetaTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabPostMetaTableName()
+	 */
+	public function grabPostMetaTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabPostMetaTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets a term from the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets a term from the database.
 	 *
 	 * Looks up the prefixed `terms` table, e.g. `wp_terms`.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::grabTermIdFromDatabase()
-     */
-    public function grabTermIdFromDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTermIdFromDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabTermIdFromDatabase()
+	 */
+	public function grabTermIdFromDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTermIdFromDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets the prefixed terms table name, e.g. `wp_terms`.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets the prefixed terms table name, e.g. `wp_terms`.
 	 *
 	 * @return string
-     * @see \Codeception\Module\WPDb::grabTermsTableName()
-     */
-    public function grabTermsTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTermsTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabTermsTableName()
+	 */
+	public function grabTermsTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTermsTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts a term in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts a term in the database.
 	 *
 	 * @param  string $name The term name, e.g. "Fuzzy".
 	 * @param string $taxonomy The term taxonomy
 	 * @param array $overrides An array of values to override the default ones.
 	 *
 	 * @return array An array containing `term_id` and `term_taxonomy_id` of the inserted term.
-     * @see \Codeception\Module\WPDb::haveTermInDatabase()
-     */
-    public function haveTermInDatabase($name, $taxonomy, $overrides = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveTermInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveTermInDatabase()
+	 */
+	public function haveTermInDatabase($name, $taxonomy, $overrides = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveTermInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets the prefixed term and taxonomy table name, e.g. `wp_term_taxonomy`.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets the prefixed term and taxonomy table name, e.g. `wp_term_taxonomy`.
 	 *
 	 * @return string
-     * @see \Codeception\Module\WPDb::grabTermTaxonomyTableName()
-     */
-    public function grabTermTaxonomyTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTermTaxonomyTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabTermTaxonomyTableName()
+	 */
+	public function grabTermTaxonomyTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTermTaxonomyTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts a term meta row in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts a term meta row in the database.
 	 *
 	 * Objects and array meta values will be serialized.
 	 *
@@ -4037,47 +4037,47 @@ trait AcceptanceTesterActions
 	 * @param mixed $meta_value
 	 *
 	 * @return int The inserted term meta `meta_id`
-     * @see \Codeception\Module\WPDb::haveTermMetaInDatabase()
-     */
-    public function haveTermMetaInDatabase($term_id, $meta_key, $meta_value) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveTermMetaInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveTermMetaInDatabase()
+	 */
+	public function haveTermMetaInDatabase($term_id, $meta_key, $meta_value) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveTermMetaInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets the terms meta table prefixed name.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets the terms meta table prefixed name.
 	 *
 	 * E.g.: `wp_termmeta`.
 	 *
 	 * @return string
-     * @see \Codeception\Module\WPDb::grabTermMetaTableName()
-     */
-    public function grabTermMetaTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTermMetaTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabTermMetaTableName()
+	 */
+	public function grabTermMetaTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTermMetaTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets a `term_taxonomy_id` from the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets a `term_taxonomy_id` from the database.
 	 *
 	 * Looks up the prefixed `terms_relationships` table, e.g. `wp_term_relationships`.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::grabTermTaxonomyIdFromDatabase()
-     */
-    public function grabTermTaxonomyIdFromDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTermTaxonomyIdFromDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabTermTaxonomyIdFromDatabase()
+	 */
+	public function grabTermTaxonomyIdFromDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTermTaxonomyIdFromDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Creates a term relationship in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Creates a term relationship in the database.
 	 *
 	 * Please mind that no check about the consistency of the insertion is made. E.g. a post could be assigned a term from
 	 * a taxonomy that's not registered for that post type.
@@ -4085,447 +4085,447 @@ trait AcceptanceTesterActions
 	 * @param     int $object_id A post ID, a user ID or anything that can be assigned a taxonomy term.
 	 * @param     int $term_taxonomy_id
 	 * @param int $term_order Defaults to `0`.
-     * @see \Codeception\Module\WPDb::haveTermRelationshipInDatabase()
-     */
-    public function haveTermRelationshipInDatabase($object_id, $term_taxonomy_id, $term_order = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveTermRelationshipInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveTermRelationshipInDatabase()
+	 */
+	public function haveTermRelationshipInDatabase($object_id, $term_taxonomy_id, $term_order = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveTermRelationshipInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets the prefixed term relationships table name, e.g. `wp_term_relationships`.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets the prefixed term relationships table name, e.g. `wp_term_relationships`.
 	 *
 	 * @return string
-     * @see \Codeception\Module\WPDb::grabTermRelationshipsTableName()
-     */
-    public function grabTermRelationshipsTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTermRelationshipsTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabTermRelationshipsTableName()
+	 */
+	public function grabTermRelationshipsTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTermRelationshipsTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a page in the database.
-	 *
-	 * @param  array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seePageInDatabase()
-     */
-    public function canSeePageInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seePageInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a page in the database.
-	 *
-	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::seePageInDatabase()
-     */
-    public function seePageInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seePageInDatabase', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a post in the database.
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a page in the database.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seePostInDatabase()
-     */
-    public function canSeePostInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seePostInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a post in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seePageInDatabase()
+	 */
+	public function canSeePageInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seePageInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a page in the database.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::seePostInDatabase()
-     */
-    public function seePostInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seePostInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seePageInDatabase()
+	 */
+	public function seePageInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seePageInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a page is not in the database.
-	 *
-	 * @param  array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::dontSeePageInDatabase()
-     */
-    public function cantSeePageInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeePageInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a page is not in the database.
-	 *
-	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontSeePageInDatabase()
-     */
-    public function dontSeePageInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeePageInDatabase', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a post is not in the database.
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a post in the database.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::dontSeePostInDatabase()
-     */
-    public function cantSeePostInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeePostInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a post is not in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seePostInDatabase()
+	 */
+	public function canSeePostInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seePostInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a post in the database.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontSeePostInDatabase()
-     */
-    public function dontSeePostInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeePostInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seePostInDatabase()
+	 */
+	public function seePostInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seePostInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a comment in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a page is not in the database.
+	 *
+	 * @param  array $criteria An array of search criteria.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::dontSeePageInDatabase()
+	 */
+	public function cantSeePageInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeePageInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a page is not in the database.
+	 *
+	 * @param  array $criteria An array of search criteria.
+	 * @see \Codeception\Module\WPDb::dontSeePageInDatabase()
+	 */
+	public function dontSeePageInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeePageInDatabase', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a post is not in the database.
+	 *
+	 * @param  array $criteria An array of search criteria.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::dontSeePostInDatabase()
+	 */
+	public function cantSeePostInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeePostInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a post is not in the database.
+	 *
+	 * @param  array $criteria An array of search criteria.
+	 * @see \Codeception\Module\WPDb::dontSeePostInDatabase()
+	 */
+	public function dontSeePostInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeePostInDatabase', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a comment in the database.
 	 *
 	 * Will look up the "comments" table.
 	 *
 	 * @param  array $criteria
 	 *
 	 * @return void
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seeCommentInDatabase()
-     */
-    public function canSeeCommentInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCommentInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a comment in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seeCommentInDatabase()
+	 */
+	public function canSeeCommentInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCommentInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a comment in the database.
 	 *
 	 * Will look up the "comments" table.
 	 *
 	 * @param  array $criteria
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPDb::seeCommentInDatabase()
-     */
-    public function seeCommentInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCommentInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seeCommentInDatabase()
+	 */
+	public function seeCommentInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCommentInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a comment is not in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a comment is not in the database.
 	 *
 	 * Will look up the "comments" table.
 	 *
 	 * @param  array $criteria
 	 *
 	 * @return void
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::dontSeeCommentInDatabase()
-     */
-    public function cantSeeCommentInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCommentInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a comment is not in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::dontSeeCommentInDatabase()
+	 */
+	public function cantSeeCommentInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCommentInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a comment is not in the database.
 	 *
 	 * Will look up the "comments" table.
 	 *
 	 * @param  array $criteria
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPDb::dontSeeCommentInDatabase()
-     */
-    public function dontSeeCommentInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCommentInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontSeeCommentInDatabase()
+	 */
+	public function dontSeeCommentInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCommentInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a comment meta value is in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a comment meta value is in the database.
 	 *
 	 * Will look up the "commentmeta" table.
 	 *
 	 * @param  array $criteria
 	 *
 	 * @return void
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seeCommentMetaInDatabase()
-     */
-    public function canSeeCommentMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCommentMetaInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a comment meta value is in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seeCommentMetaInDatabase()
+	 */
+	public function canSeeCommentMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCommentMetaInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a comment meta value is in the database.
 	 *
 	 * Will look up the "commentmeta" table.
 	 *
 	 * @param  array $criteria
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPDb::seeCommentMetaInDatabase()
-     */
-    public function seeCommentMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCommentMetaInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seeCommentMetaInDatabase()
+	 */
+	public function seeCommentMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCommentMetaInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a comment meta value is not in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a comment meta value is not in the database.
 	 *
 	 * Will look up the "commentmeta" table.
 	 *
 	 * @param  array $criteria
 	 *
 	 * @return void
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::dontSeeCommentMetaInDatabase()
-     */
-    public function cantSeeCommentMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCommentMetaInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a comment meta value is not in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::dontSeeCommentMetaInDatabase()
+	 */
+	public function cantSeeCommentMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCommentMetaInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a comment meta value is not in the database.
 	 *
 	 * Will look up the "commentmeta" table.
 	 *
 	 * @param  array $criteria
 	 *
 	 * @return void
-     * @see \Codeception\Module\WPDb::dontSeeCommentMetaInDatabase()
-     */
-    public function dontSeeCommentMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCommentMetaInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontSeeCommentMetaInDatabase()
+	 */
+	public function dontSeeCommentMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCommentMetaInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a user meta value in the database.
-	 *
-	 * @param  array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seeUserMetaInDatabase()
-     */
-    public function canSeeUserMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeUserMetaInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a user meta value in the database.
-	 *
-	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::seeUserMetaInDatabase()
-     */
-    public function seeUserMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeUserMetaInDatabase', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Check that a user meta value is not in the database.
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a user meta value in the database.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::dontSeeUserMetaInDatabase()
-     */
-    public function cantSeeUserMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeUserMetaInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Check that a user meta value is not in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seeUserMetaInDatabase()
+	 */
+	public function canSeeUserMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeUserMetaInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a user meta value in the database.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontSeeUserMetaInDatabase()
-     */
-    public function dontSeeUserMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeUserMetaInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seeUserMetaInDatabase()
+	 */
+	public function seeUserMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeUserMetaInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes an entry from the commentmeta table.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Check that a user meta value is not in the database.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontHaveCommentMetaInDatabase()
-     */
-    public function dontHaveCommentMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveCommentMetaInDatabase', func_get_args()));
-    }
-
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes a link from the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::dontSeeUserMetaInDatabase()
+	 */
+	public function cantSeeUserMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeUserMetaInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Check that a user meta value is not in the database.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontHaveLinkInDatabase()
-     */
-    public function dontHaveLinkInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveLinkInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontSeeUserMetaInDatabase()
+	 */
+	public function dontSeeUserMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeUserMetaInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes an entry from the postmeta table.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes an entry from the commentmeta table.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontHavePostMetaInDatabase()
-     */
-    public function dontHavePostMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHavePostMetaInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontHaveCommentMetaInDatabase()
+	 */
+	public function dontHaveCommentMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveCommentMetaInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes an entry from the posts table.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes a link from the database.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontHavePostInDatabase()
-     */
-    public function dontHavePostInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHavePostInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontHaveLinkInDatabase()
+	 */
+	public function dontHaveLinkInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveLinkInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes an entry from the term_relationships table.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes an entry from the postmeta table.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontHaveTermRelationshipInDatabase()
-     */
-    public function dontHaveTermRelationshipInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveTermRelationshipInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontHavePostMetaInDatabase()
+	 */
+	public function dontHavePostMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHavePostMetaInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes an entry from the term_taxonomy table.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes an entry from the posts table.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontHaveTermTaxonomyInDatabase()
-     */
-    public function dontHaveTermTaxonomyInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveTermTaxonomyInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontHavePostInDatabase()
+	 */
+	public function dontHavePostInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHavePostInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes an entry from the usermeta table.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes an entry from the term_relationships table.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontHaveUserMetaInDatabase()
-     */
-    public function dontHaveUserMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveUserMetaInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontHaveTermRelationshipInDatabase()
+	 */
+	public function dontHaveTermRelationshipInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveTermRelationshipInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes a user from the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes an entry from the term_taxonomy table.
+	 *
+	 * @param  array $criteria An array of search criteria.
+	 * @see \Codeception\Module\WPDb::dontHaveTermTaxonomyInDatabase()
+	 */
+	public function dontHaveTermTaxonomyInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveTermTaxonomyInDatabase', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes an entry from the usermeta table.
+	 *
+	 * @param  array $criteria An array of search criteria.
+	 * @see \Codeception\Module\WPDb::dontHaveUserMetaInDatabase()
+	 */
+	public function dontHaveUserMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveUserMetaInDatabase', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes a user from the database.
 	 *
 	 * @param int|string $userIdOrLogin
-     * @see \Codeception\Module\WPDb::dontHaveUserInDatabase()
-     */
-    public function dontHaveUserInDatabase($userIdOrLogin) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveUserInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontHaveUserInDatabase()
+	 */
+	public function dontHaveUserInDatabase($userIdOrLogin) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveUserInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets the a user ID from the database using the user login.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets the a user ID from the database using the user login.
 	 *
 	 * @param string $userLogin
 	 *
 	 * @return int The user ID
-     * @see \Codeception\Module\WPDb::grabUserIdFromDatabase()
-     */
-    public function grabUserIdFromDatabase($userLogin) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabUserIdFromDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabUserIdFromDatabase()
+	 */
+	public function grabUserIdFromDatabase($userLogin) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabUserIdFromDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets a user meta from the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets a user meta from the database.
 	 *
 	 * @param int $userId
 	 * @param string $meta_key
 	 *
 	 * @return array An associative array of meta key/values.
-     * @see \Codeception\Module\WPDb::grabUserMetaFromDatabase()
-     */
-    public function grabUserMetaFromDatabase($userId, $meta_key) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabUserMetaFromDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabUserMetaFromDatabase()
+	 */
+	public function grabUserMetaFromDatabase($userId, $meta_key) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabUserMetaFromDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns all entries matching a criteria from the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns all entries matching a criteria from the database.
 	 *
 	 * @param string $table
 	 * @param string $column
@@ -4533,17 +4533,17 @@ trait AcceptanceTesterActions
 	 *
 	 * @return array An array of results.
 	 * @throws \Exception
-     * @see \Codeception\Module\WPDb::grabAllFromDatabase()
-     */
-    public function grabAllFromDatabase($table, $column, $criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabAllFromDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabAllFromDatabase()
+	 */
+	public function grabAllFromDatabase($table, $column, $criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabAllFromDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts a transient in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts a transient in the database.
 	 *
 	 * If the value is an array or an object then the value will be serialized.
 	 *
@@ -4551,17 +4551,17 @@ trait AcceptanceTesterActions
 	 * @param mixed $value
 	 *
 	 * @return int The inserted option `option_id`.
-     * @see \Codeception\Module\WPDb::haveTransientInDatabase()
-     */
-    public function haveTransientInDatabase($transient, $value) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveTransientInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveTransientInDatabase()
+	 */
+	public function haveTransientInDatabase($transient, $value) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveTransientInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts an option in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts an option in the database.
 	 *
 	 * If the option value is an object or an array then the value will be serialized.
 	 *
@@ -4570,48 +4570,48 @@ trait AcceptanceTesterActions
 	 * @param string $autoload
 	 *
 	 * @return int The inserted `option_id`
-     * @see \Codeception\Module\WPDb::haveOptionInDatabase()
-     */
-    public function haveOptionInDatabase($option_name, $option_value, $autoload = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveOptionInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveOptionInDatabase()
+	 */
+	public function haveOptionInDatabase($option_name, $option_value, $autoload = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveOptionInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes a transient from the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes a transient from the database.
 	 *
 	 * @param $transient
 	 *
 	 * @return int The removed option `option_id`.
-     * @see \Codeception\Module\WPDb::dontHaveTransientInDatabase()
-     */
-    public function dontHaveTransientInDatabase($transient) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveTransientInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontHaveTransientInDatabase()
+	 */
+	public function dontHaveTransientInDatabase($transient) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveTransientInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes an entry from the options table.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes an entry from the options table.
 	 *
 	 * @param      $key
 	 * @param null $value
 	 *
 	 * @return int The removed option `option_id`.
-     * @see \Codeception\Module\WPDb::dontHaveOptionInDatabase()
-     */
-    public function dontHaveOptionInDatabase($key, $value = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveOptionInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontHaveOptionInDatabase()
+	 */
+	public function dontHaveOptionInDatabase($key, $value = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveOptionInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts a site option in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts a site option in the database.
 	 *
 	 * If the value is an array or an object then the value will be serialized.
 	 *
@@ -4619,225 +4619,225 @@ trait AcceptanceTesterActions
 	 * @param mixed $value
 	 *
 	 * @return int The inserted option `option_id`.
-     * @see \Codeception\Module\WPDb::haveSiteOptionInDatabase()
-     */
-    public function haveSiteOptionInDatabase($key, $value) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveSiteOptionInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveSiteOptionInDatabase()
+	 */
+	public function haveSiteOptionInDatabase($key, $value) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveSiteOptionInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Sets the current blog to the main one (`blog_id` 1).
-     * @see \Codeception\Module\WPDb::useMainBlog()
-     */
-    public function useMainBlog() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('useMainBlog', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Sets the blog to be used.
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Sets the current blog to the main one (`blog_id` 1).
+	 * @see \Codeception\Module\WPDb::useMainBlog()
+	 */
+	public function useMainBlog() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('useMainBlog', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Sets the blog to be used.
 	 *
 	 * @param int $id
-     * @see \Codeception\Module\WPDb::useBlog()
-     */
-    public function useBlog($id = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('useBlog', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::useBlog()
+	 */
+	public function useBlog($id = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('useBlog', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes a site option from the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes a site option from the database.
 	 *
 	 * @param      $key
 	 * @param null $value
-     * @see \Codeception\Module\WPDb::dontHaveSiteOptionInDatabase()
-     */
-    public function dontHaveSiteOptionInDatabase($key, $value = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveSiteOptionInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontHaveSiteOptionInDatabase()
+	 */
+	public function dontHaveSiteOptionInDatabase($key, $value = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveSiteOptionInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts a site transient in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts a site transient in the database.
 	 *
 	 * If the value is an array or an object then the value will be serialized.
 	 *
 	 * @param $key
 	 * @param $value
-     * @see \Codeception\Module\WPDb::haveSiteTransientInDatabase()
-     */
-    public function haveSiteTransientInDatabase($key, $value) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveSiteTransientInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveSiteTransientInDatabase()
+	 */
+	public function haveSiteTransientInDatabase($key, $value) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveSiteTransientInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes a site transient from the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes a site transient from the database.
 	 *
 	 * @param string $key
-     * @see \Codeception\Module\WPDb::dontHaveSiteTransientInDatabase()
-     */
-    public function dontHaveSiteTransientInDatabase($key) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveSiteTransientInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontHaveSiteTransientInDatabase()
+	 */
+	public function dontHaveSiteTransientInDatabase($key) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveSiteTransientInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets a site option from the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets a site option from the database.
 	 *
 	 * @param string $key
 	 *
 	 * @return mixed|string
-     * @see \Codeception\Module\WPDb::grabSiteOptionFromDatabase()
-     */
-    public function grabSiteOptionFromDatabase($key) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabSiteOptionFromDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabSiteOptionFromDatabase()
+	 */
+	public function grabSiteOptionFromDatabase($key) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabSiteOptionFromDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets an option from the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets an option from the database.
 	 *
 	 * @param string $option_name
 	 *
 	 * @return mixed|string
-     * @see \Codeception\Module\WPDb::grabOptionFromDatabase()
-     */
-    public function grabOptionFromDatabase($option_name) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabOptionFromDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabOptionFromDatabase()
+	 */
+	public function grabOptionFromDatabase($option_name) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabOptionFromDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets a site transient from the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets a site transient from the database.
 	 *
 	 * @param string $key
 	 *
 	 * @return mixed|string
-     * @see \Codeception\Module\WPDb::grabSiteTransientFromDatabase()
-     */
-    public function grabSiteTransientFromDatabase($key) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabSiteTransientFromDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabSiteTransientFromDatabase()
+	 */
+	public function grabSiteTransientFromDatabase($key) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabSiteTransientFromDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a site option is in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a site option is in the database.
 	 *
 	 * @param string $key
 	 * @param mixed|null $value
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seeSiteSiteTransientInDatabase()
-     */
-    public function canSeeSiteSiteTransientInDatabase($key, $value = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeSiteSiteTransientInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a site option is in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seeSiteSiteTransientInDatabase()
+	 */
+	public function canSeeSiteSiteTransientInDatabase($key, $value = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeSiteSiteTransientInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a site option is in the database.
 	 *
 	 * @param string $key
 	 * @param mixed|null $value
-     * @see \Codeception\Module\WPDb::seeSiteSiteTransientInDatabase()
-     */
-    public function seeSiteSiteTransientInDatabase($key, $value = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeSiteSiteTransientInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seeSiteSiteTransientInDatabase()
+	 */
+	public function seeSiteSiteTransientInDatabase($key, $value = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeSiteSiteTransientInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks if an option is in the database for the current blog.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks if an option is in the database for the current blog.
 	 *
 	 * If checking for an array or an object then the serialized version will be checked for.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seeOptionInDatabase()
-     */
-    public function canSeeOptionInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeOptionInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks if an option is in the database for the current blog.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seeOptionInDatabase()
+	 */
+	public function canSeeOptionInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeOptionInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks if an option is in the database for the current blog.
 	 *
 	 * If checking for an array or an object then the serialized version will be checked for.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::seeOptionInDatabase()
-     */
-    public function seeOptionInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeOptionInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seeOptionInDatabase()
+	 */
+	public function seeOptionInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeOptionInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a site option is in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a site option is in the database.
 	 *
 	 * @param string $key
 	 * @param mixed|null $value
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seeSiteOptionInDatabase()
-     */
-    public function canSeeSiteOptionInDatabase($key, $value = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeSiteOptionInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a site option is in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seeSiteOptionInDatabase()
+	 */
+	public function canSeeSiteOptionInDatabase($key, $value = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeSiteOptionInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a site option is in the database.
 	 *
 	 * @param string $key
 	 * @param mixed|null $value
-     * @see \Codeception\Module\WPDb::seeSiteOptionInDatabase()
-     */
-    public function seeSiteOptionInDatabase($key, $value = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeSiteOptionInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seeSiteOptionInDatabase()
+	 */
+	public function seeSiteOptionInDatabase($key, $value = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeSiteOptionInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns the current site url as specified in the module configuration.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns the current site url as specified in the module configuration.
 	 *
 	 * @return string The current site URL
-     * @see \Codeception\Module\WPDb::grabSiteUrl()
-     */
-    public function grabSiteUrl() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabSiteUrl', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabSiteUrl()
+	 */
+	public function grabSiteUrl() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabSiteUrl', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts many posts in the database returning their IDs.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts many posts in the database returning their IDs.
 	 *
 	 * @param int $count The number of posts to insert.
 	 * @param array $overrides {
@@ -4854,125 +4854,125 @@ trait AcceptanceTesterActions
 	 * }
 	 *
 	 * @return array
-     * @see \Codeception\Module\WPDb::haveManyPostsInDatabase()
-     */
-    public function haveManyPostsInDatabase($count, $overrides = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveManyPostsInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveManyPostsInDatabase()
+	 */
+	public function haveManyPostsInDatabase($count, $overrides = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveManyPostsInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a term in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a term in the database.
 	 *
 	 * Looks up the `terms` and `term_taxonomy` prefixed tables.
 	 *
 	 * @param array $criteria An array of criteria to search for the term, can be columns from the `terms` and the
 	 *                        `term_taxonomy` tables.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seeTermInDatabase()
-     */
-    public function canSeeTermInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeTermInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a term in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seeTermInDatabase()
+	 */
+	public function canSeeTermInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeTermInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a term in the database.
 	 *
 	 * Looks up the `terms` and `term_taxonomy` prefixed tables.
 	 *
 	 * @param array $criteria An array of criteria to search for the term, can be columns from the `terms` and the
 	 *                        `term_taxonomy` tables.
-     * @see \Codeception\Module\WPDb::seeTermInDatabase()
-     */
-    public function seeTermInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeTermInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seeTermInDatabase()
+	 */
+	public function seeTermInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeTermInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes a term from the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes a term from the database.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontHaveTermInDatabase()
-     */
-    public function dontHaveTermInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveTermInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontHaveTermInDatabase()
+	 */
+	public function dontHaveTermInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveTermInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Makes sure a term is not in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Makes sure a term is not in the database.
 	 *
 	 * Looks up both the `terms` table and the `term_taxonomy` tables.
 	 *
 	 * @param array $criteria An array of criteria to search for the term, can be columns from the `terms` and the
 	 *                        `term_taxonomy` tables.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::dontSeeTermInDatabase()
-     */
-    public function cantSeeTermInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeTermInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Makes sure a term is not in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::dontSeeTermInDatabase()
+	 */
+	public function cantSeeTermInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeTermInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Makes sure a term is not in the database.
 	 *
 	 * Looks up both the `terms` table and the `term_taxonomy` tables.
 	 *
 	 * @param array $criteria An array of criteria to search for the term, can be columns from the `terms` and the
 	 *                        `term_taxonomy` tables.
-     * @see \Codeception\Module\WPDb::dontSeeTermInDatabase()
-     */
-    public function dontSeeTermInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeTermInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontSeeTermInDatabase()
+	 */
+	public function dontSeeTermInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeTermInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts many comments in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts many comments in the database.
 	 *
 	 * @param int $count The number of comments to insert.
 	 * @param   int $comment_post_ID The comment parent post ID.
 	 * @param array $overrides An associative array to override the defaults.
 	 *
 	 * @return int[] An array containing the inserted comments IDs.
-     * @see \Codeception\Module\WPDb::haveManyCommentsInDatabase()
-     */
-    public function haveManyCommentsInDatabase($count, $comment_post_ID, $overrides = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveManyCommentsInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveManyCommentsInDatabase()
+	 */
+	public function haveManyCommentsInDatabase($count, $comment_post_ID, $overrides = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveManyCommentsInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts a comment in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts a comment in the database.
 	 *
 	 * @param  int $comment_post_ID The id of the post the comment refers to.
 	 * @param  array $data The comment data overriding default and random generated values.
 	 *
 	 * @return int The inserted comment `comment_id`
-     * @see \Codeception\Module\WPDb::haveCommentInDatabase()
-     */
-    public function haveCommentInDatabase($comment_post_ID, $data = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveCommentInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveCommentInDatabase()
+	 */
+	public function haveCommentInDatabase($comment_post_ID, $data = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveCommentInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts a comment meta field in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts a comment meta field in the database.
 	 *
 	 * Array and object meta values will be serialized.
 	 *
@@ -4981,115 +4981,115 @@ trait AcceptanceTesterActions
 	 * @param mixed $meta_value
 	 *
 	 * @return int The inserted comment meta ID
-     * @see \Codeception\Module\WPDb::haveCommentMetaInDatabase()
-     */
-    public function haveCommentMetaInDatabase($comment_id, $meta_key, $meta_value) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveCommentMetaInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveCommentMetaInDatabase()
+	 */
+	public function haveCommentMetaInDatabase($comment_id, $meta_key, $meta_value) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveCommentMetaInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns the prefixed comment meta table name.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns the prefixed comment meta table name.
 	 *
 	 * E.g. `wp_commentmeta`.
 	 *
 	 * @return string
-     * @see \Codeception\Module\WPDb::grabCommentmetaTableName()
-     */
-    public function grabCommentmetaTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabCommentmetaTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabCommentmetaTableName()
+	 */
+	public function grabCommentmetaTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabCommentmetaTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes an entry from the comments table.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes an entry from the comments table.
 	 *
 	 * @param  array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontHaveCommentInDatabase()
-     */
-    public function dontHaveCommentInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveCommentInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontHaveCommentInDatabase()
+	 */
+	public function dontHaveCommentInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveCommentInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets the comments table name.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets the comments table name.
 	 *
 	 * @return string The prefixed table name, e.g. `wp_comments`.
-     * @see \Codeception\Module\WPDb::grabCommentsTableName()
-     */
-    public function grabCommentsTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabCommentsTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabCommentsTableName()
+	 */
+	public function grabCommentsTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabCommentsTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts many links in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts many links in the database.
 	 *
 	 * @param           int $count
 	 * @param array|null $overrides
 	 *
 	 * @return array An array of inserted `link_id`s.
-     * @see \Codeception\Module\WPDb::haveManyLinksInDatabase()
-     */
-    public function haveManyLinksInDatabase($count, $overrides = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveManyLinksInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveManyLinksInDatabase()
+	 */
+	public function haveManyLinksInDatabase($count, $overrides = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveManyLinksInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts a link in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts a link in the database.
 	 *
 	 * @param  array $overrides The data to insert.
 	 *
 	 * @return int The inserted link `link_id`.
-     * @see \Codeception\Module\WPDb::haveLinkInDatabase()
-     */
-    public function haveLinkInDatabase($overrides = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveLinkInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveLinkInDatabase()
+	 */
+	public function haveLinkInDatabase($overrides = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveLinkInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns the prefixed links table name.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns the prefixed links table name.
 	 *
 	 * E.g. `wp_links`.
 	 *
 	 * @return string
-     * @see \Codeception\Module\WPDb::grabLinksTableName()
-     */
-    public function grabLinksTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabLinksTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabLinksTableName()
+	 */
+	public function grabLinksTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabLinksTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     *
-     * @see \Codeception\Module\WPDb::haveManyUsersInDatabase()
-     */
-    public function haveManyUsersInDatabase($count, $user_login, $role = null, $overrides = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveManyUsersInDatabase', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts a user and appropriate meta in the database.
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 *
+	 * @see \Codeception\Module\WPDb::haveManyUsersInDatabase()
+	 */
+	public function haveManyUsersInDatabase($count, $user_login, $role = null, $overrides = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveManyUsersInDatabase', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts a user and appropriate meta in the database.
 	 *
 	 * @param  string $user_login The user login slug
 	 * @param  string $role The user role slug, e.g. "administrator"; defaults to "subscriber".
@@ -5097,34 +5097,34 @@ trait AcceptanceTesterActions
 	 *                            and "usermeta" table.
 	 *
 	 * @return int The inserted user `ID`
-     * @see \Codeception\Module\WPDb::haveUserInDatabase()
-     */
-    public function haveUserInDatabase($user_login, $role = null, $overrides = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveUserInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveUserInDatabase()
+	 */
+	public function haveUserInDatabase($user_login, $role = null, $overrides = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveUserInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Sets a user capabilities.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Sets a user capabilities.
 	 *
 	 * @param int $userId
 	 * @param string|array $role Either a role string (e.g. `administrator`) or an associative array of blog IDs/roles
 	 *                           for a multisite installation; e.g. `[1 => 'administrator`, 2 => 'subscriber']`.
 	 *
 	 * @return array An array of inserted `meta_id`.
-     * @see \Codeception\Module\WPDb::haveUserCapabilitiesInDatabase()
-     */
-    public function haveUserCapabilitiesInDatabase($userId, $role) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveUserCapabilitiesInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveUserCapabilitiesInDatabase()
+	 */
+	public function haveUserCapabilitiesInDatabase($userId, $role) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveUserCapabilitiesInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Sets a user meta.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Sets a user meta.
 	 *
 	 * @param int $userId
 	 * @param string $meta_key
@@ -5132,47 +5132,47 @@ trait AcceptanceTesterActions
 	 *                           values will trigger the insertion of multiple rows.
 	 *
 	 * @return array An array of inserted `user_id`.
-     * @see \Codeception\Module\WPDb::haveUserMetaInDatabase()
-     */
-    public function haveUserMetaInDatabase($userId, $meta_key, $meta_value) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveUserMetaInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveUserMetaInDatabase()
+	 */
+	public function haveUserMetaInDatabase($userId, $meta_key, $meta_value) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveUserMetaInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns the prefixed `usermeta` table name, e.g. `wp_usermeta`.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns the prefixed `usermeta` table name, e.g. `wp_usermeta`.
 	 *
 	 * @return string
-     * @see \Codeception\Module\WPDb::grabUsermetaTableName()
-     */
-    public function grabUsermetaTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabUsermetaTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabUsermetaTableName()
+	 */
+	public function grabUsermetaTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabUsermetaTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Sets the user level in the database for a user.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Sets the user level in the database for a user.
 	 *
 	 * @param int $userId
 	 * @param string|array $role Either a role string (e.g. `administrator`) or an array of blog IDs/roles for a
 	 *                           multisite installation.
 	 *
 	 * @return array An array of inserted `meta_id`.
-     * @see \Codeception\Module\WPDb::haveUserLevelsInDatabase()
-     */
-    public function haveUserLevelsInDatabase($userId, $role) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveUserLevelsInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveUserLevelsInDatabase()
+	 */
+	public function haveUserLevelsInDatabase($userId, $role) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveUserLevelsInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts many terms in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts many terms in the database.
 	 *
 	 * @param       int $count
 	 * @param       string $name The term name.
@@ -5180,394 +5180,394 @@ trait AcceptanceTesterActions
 	 * @param array $overrides An associative array of default overrides.
 	 *
 	 * @return array An array of inserted terms `term_id`s.
-     * @see \Codeception\Module\WPDb::haveManyTermsInDatabase()
-     */
-    public function haveManyTermsInDatabase($count, $name, $taxonomy, $overrides = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveManyTermsInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveManyTermsInDatabase()
+	 */
+	public function haveManyTermsInDatabase($count, $name, $taxonomy, $overrides = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveManyTermsInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a term taxonomy in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a term taxonomy in the database.
 	 *
 	 * Will look up the prefixed `term_taxonomy` table, e.g. `wp_term_taxonomy`.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seeTermTaxonomyInDatabase()
-     */
-    public function canSeeTermTaxonomyInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeTermTaxonomyInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a term taxonomy in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seeTermTaxonomyInDatabase()
+	 */
+	public function canSeeTermTaxonomyInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeTermTaxonomyInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a term taxonomy in the database.
 	 *
 	 * Will look up the prefixed `term_taxonomy` table, e.g. `wp_term_taxonomy`.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::seeTermTaxonomyInDatabase()
-     */
-    public function seeTermTaxonomyInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeTermTaxonomyInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seeTermTaxonomyInDatabase()
+	 */
+	public function seeTermTaxonomyInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeTermTaxonomyInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a term taxonomy is not in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a term taxonomy is not in the database.
 	 *
 	 * Will look up the prefixed `term_taxonomy` table, e.g. `wp_term_taxonomy`.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::dontSeeTermTaxonomyInDatabase()
-     */
-    public function cantSeeTermTaxonomyInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeTermTaxonomyInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a term taxonomy is not in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::dontSeeTermTaxonomyInDatabase()
+	 */
+	public function cantSeeTermTaxonomyInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeTermTaxonomyInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a term taxonomy is not in the database.
 	 *
 	 * Will look up the prefixed `term_taxonomy` table, e.g. `wp_term_taxonomy`.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontSeeTermTaxonomyInDatabase()
-     */
-    public function dontSeeTermTaxonomyInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeTermTaxonomyInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontSeeTermTaxonomyInDatabase()
+	 */
+	public function dontSeeTermTaxonomyInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeTermTaxonomyInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a term meta in the database.
-	 *
-	 * @param array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seeTermMetaInDatabase()
-     */
-    public function canSeeTermMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeTermMetaInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a term meta in the database.
-	 *
-	 * @param array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::seeTermMetaInDatabase()
-     */
-    public function seeTermMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeTermMetaInDatabase', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes a term meta from the database.
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a term meta in the database.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontHaveTermMetaInDatabase()
-     */
-    public function dontHaveTermMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveTermMetaInDatabase', func_get_args()));
-    }
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seeTermMetaInDatabase()
+	 */
+	public function canSeeTermMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeTermMetaInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a term meta in the database.
+	 *
+	 * @param array $criteria An array of search criteria.
+	 * @see \Codeception\Module\WPDb::seeTermMetaInDatabase()
+	 */
+	public function seeTermMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeTermMetaInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a term meta is not in the database.
-	 *
-	 * @param array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::dontSeeTermMetaInDatabase()
-     */
-    public function cantSeeTermMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeTermMetaInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a term meta is not in the database.
-	 *
-	 * @param array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontSeeTermMetaInDatabase()
-     */
-    public function dontSeeTermMetaInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeTermMetaInDatabase', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a table in the database.
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes a term meta from the database.
+	 *
+	 * @param array $criteria An array of search criteria.
+	 * @see \Codeception\Module\WPDb::dontHaveTermMetaInDatabase()
+	 */
+	public function dontHaveTermMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveTermMetaInDatabase', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a term meta is not in the database.
+	 *
+	 * @param array $criteria An array of search criteria.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::dontSeeTermMetaInDatabase()
+	 */
+	public function cantSeeTermMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeTermMetaInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a term meta is not in the database.
+	 *
+	 * @param array $criteria An array of search criteria.
+	 * @see \Codeception\Module\WPDb::dontSeeTermMetaInDatabase()
+	 */
+	public function dontSeeTermMetaInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeTermMetaInDatabase', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a table in the database.
 	 *
 	 * @param string $table
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seeTableInDatabase()
-     */
-    public function canSeeTableInDatabase($table) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeTableInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a table in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seeTableInDatabase()
+	 */
+	public function canSeeTableInDatabase($table) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeTableInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a table in the database.
 	 *
 	 * @param string $table
-     * @see \Codeception\Module\WPDb::seeTableInDatabase()
-     */
-    public function seeTableInDatabase($table) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeTableInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seeTableInDatabase()
+	 */
+	public function seeTableInDatabase($table) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeTableInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets the prefixed `blog_versions` table name.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets the prefixed `blog_versions` table name.
 	 *
 	 * @return string
-     * @see \Codeception\Module\WPDb::grabBlogVersionsTableName()
-     */
-    public function grabBlogVersionsTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabBlogVersionsTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabBlogVersionsTableName()
+	 */
+	public function grabBlogVersionsTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabBlogVersionsTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets the prefixed `sitemeta` table name.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets the prefixed `sitemeta` table name.
 	 *
 	 * @return string
-     * @see \Codeception\Module\WPDb::grabSiteMetaTableName()
-     */
-    public function grabSiteMetaTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabSiteMetaTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabSiteMetaTableName()
+	 */
+	public function grabSiteMetaTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabSiteMetaTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets the prefixed `signups` table name.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets the prefixed `signups` table name.
 	 *
 	 * @return string
-     * @see \Codeception\Module\WPDb::grabSignupsTableName()
-     */
-    public function grabSignupsTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabSignupsTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabSignupsTableName()
+	 */
+	public function grabSignupsTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabSignupsTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets the prefixed `registration_log` table name.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets the prefixed `registration_log` table name.
 	 *
 	 * @return string
-     * @see \Codeception\Module\WPDb::grabRegistrationLogTableName()
-     */
-    public function grabRegistrationLogTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabRegistrationLogTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabRegistrationLogTableName()
+	 */
+	public function grabRegistrationLogTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabRegistrationLogTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets the prefixed `site` table name.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets the prefixed `site` table name.
 	 *
 	 * @return string
-     * @see \Codeception\Module\WPDb::grabSiteTableName()
-     */
-    public function grabSiteTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabSiteTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabSiteTableName()
+	 */
+	public function grabSiteTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabSiteTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a blog in the database, looks up the `blogs` table.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a blog in the database, looks up the `blogs` table.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seeBlogInDatabase()
-     */
-    public function canSeeBlogInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeBlogInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a blog in the database, looks up the `blogs` table.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seeBlogInDatabase()
+	 */
+	public function canSeeBlogInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeBlogInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a blog in the database, looks up the `blogs` table.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::seeBlogInDatabase()
-     */
-    public function seeBlogInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeBlogInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seeBlogInDatabase()
+	 */
+	public function seeBlogInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeBlogInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets the prefixed `blogs` table name.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets the prefixed `blogs` table name.
 	 *
 	 * @return string
-     * @see \Codeception\Module\WPDb::grabBlogsTableName()
-     */
-    public function grabBlogsTableName() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabBlogsTableName', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabBlogsTableName()
+	 */
+	public function grabBlogsTableName() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabBlogsTableName', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts many blogs in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts many blogs in the database.
 	 *
 	 * @param int $count
 	 * @param array $overrides
 	 *
 	 * @return array An array of inserted blogs `blog_id`s.
-     * @see \Codeception\Module\WPDb::haveManyBlogsInDatabase()
-     */
-    public function haveManyBlogsInDatabase($count, $overrides = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveManyBlogsInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveManyBlogsInDatabase()
+	 */
+	public function haveManyBlogsInDatabase($count, $overrides = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveManyBlogsInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts a blog in the `blogs` table.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts a blog in the `blogs` table.
 	 *
 	 * @param  string $domainOrPath The subdomain or the path to the be used for the blog.
 	 * @param array $overrides An array of values to override the defaults.
 	 *
 	 * @return int The inserted blog `blog_id`.
-     * @see \Codeception\Module\WPDb::haveBlogInDatabase()
-     */
-    public function haveBlogInDatabase($domainOrPath, $overrides = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveBlogInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveBlogInDatabase()
+	 */
+	public function haveBlogInDatabase($domainOrPath, $overrides = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveBlogInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns the site domain inferred from the `url` set in the config.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns the site domain inferred from the `url` set in the config.
 	 *
 	 * @return string
-     * @see \Codeception\Module\WPDb::getSiteDomain()
-     */
-    public function getSiteDomain() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('getSiteDomain', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::getSiteDomain()
+	 */
+	public function getSiteDomain() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('getSiteDomain', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Removes an entry from the `blogs` table.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Removes an entry from the `blogs` table.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontHaveBlogInDatabase()
-     */
-    public function dontHaveBlogInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveBlogInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontHaveBlogInDatabase()
+	 */
+	public function dontHaveBlogInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveBlogInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a row is not present in the `blogs` table.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a row is not present in the `blogs` table.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::dontSeeBlogInDatabase()
-     */
-    public function cantSeeBlogInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeBlogInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks that a row is not present in the `blogs` table.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::dontSeeBlogInDatabase()
+	 */
+	public function cantSeeBlogInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeBlogInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks that a row is not present in the `blogs` table.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::dontSeeBlogInDatabase()
-     */
-    public function dontSeeBlogInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeBlogInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::dontSeeBlogInDatabase()
+	 */
+	public function dontSeeBlogInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeBlogInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns the table prefix, namespaced for secondary blogs if selected.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns the table prefix, namespaced for secondary blogs if selected.
 	 *
 	 * @return string The blog aware table prefix.
-     * @see \Codeception\Module\WPDb::grabTablePrefix()
-     */
-    public function grabTablePrefix() {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTablePrefix', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::grabTablePrefix()
+	 */
+	public function grabTablePrefix() {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTablePrefix', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Sets the current theme options.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Sets the current theme options.
 	 *
 	 * @param string $stylesheet The theme stylesheet slug, e.g. `twentysixteen`.
 	 * @param string|null $template The theme template slug, e.g. `twentysixteen`, defaults to `$stylesheet`.
 	 * @param string|null $themeName The theme name, e.g. `Twentysixteen`, defaults to title version of `$stylesheet`.
-     * @see \Codeception\Module\WPDb::useTheme()
-     */
-    public function useTheme($stylesheet, $template = null, $themeName = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('useTheme', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::useTheme()
+	 */
+	public function useTheme($stylesheet, $template = null, $themeName = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('useTheme', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Creates and adds a menu to a theme location in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Creates and adds a menu to a theme location in the database.
 	 *
 	 * @param string $slug The menu slug.
 	 * @param string $location The theme menu location the menu will be assigned to.
 	 * @param array $overrides An array of values to override the defaults.
 	 *
 	 * @return array An array containing the created menu `term_id` and `term_taxonomy_id`.
-     * @see \Codeception\Module\WPDb::haveMenuInDatabase()
-     */
-    public function haveMenuInDatabase($slug, $location, $overrides = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveMenuInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveMenuInDatabase()
+	 */
+	public function haveMenuInDatabase($slug, $location, $overrides = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveMenuInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Adds a menu element to a menu for the current theme.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Adds a menu element to a menu for the current theme.
 	 *
 	 * @param string $menuSlug The menu slug the item should be added to.
 	 * @param string $title The menu item title.
@@ -5575,338 +5575,338 @@ trait AcceptanceTesterActions
 	 * @param array|null $meta An associative array that will be prefixed with `_menu_item_` for the item post meta.
 	 *
 	 * @return int The menu item post `ID`
-     * @see \Codeception\Module\WPDb::haveMenuItemInDatabase()
-     */
-    public function haveMenuItemInDatabase($menuSlug, $title, $menuOrder = null, $meta = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveMenuItemInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::haveMenuItemInDatabase()
+	 */
+	public function haveMenuItemInDatabase($menuSlug, $title, $menuOrder = null, $meta = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveMenuItemInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a term relationship in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a term relationship in the database.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\WPDb::seeTermRelationshipInDatabase()
-     */
-    public function canSeeTermRelationshipInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeTermRelationshipInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Checks for a term relationship in the database.
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\WPDb::seeTermRelationshipInDatabase()
+	 */
+	public function canSeeTermRelationshipInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeTermRelationshipInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Checks for a term relationship in the database.
 	 *
 	 * @param array $criteria An array of search criteria.
-     * @see \Codeception\Module\WPDb::seeTermRelationshipInDatabase()
-     */
-    public function seeTermRelationshipInDatabase($criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeTermRelationshipInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\WPDb::seeTermRelationshipInDatabase()
+	 */
+	public function seeTermRelationshipInDatabase($criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeTermRelationshipInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Deletes a database entry.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Deletes a database entry.
 	 *
 	 * @param  string $table The table name.
 	 * @param  array $data An associative array of the column names and values to use as deletion criteria.
 	 *
 	 * @return void
-     * @see \Codeception\Module\ExtendedDb::dontHaveInDatabase()
-     */
-    public function dontHaveInDatabase($table, $criteria) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\ExtendedDb::dontHaveInDatabase()
+	 */
+	public function dontHaveInDatabase($table, $criteria) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('dontHaveInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts or updates a database entry on duplicate key.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts or updates a database entry on duplicate key.
 	 *
 	 * @param  string $table The table name.
 	 * @param  array $data An associative array of the column names and values to insert.
 	 *
 	 * @return void
-     * @see \Codeception\Module\ExtendedDb::haveOrUpdateInDatabase()
-     */
-    public function haveOrUpdateInDatabase($table, $data) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveOrUpdateInDatabase', func_get_args()));
-    }
+	 * @see \Codeception\Module\ExtendedDb::haveOrUpdateInDatabase()
+	 */
+	public function haveOrUpdateInDatabase($table, $data) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveOrUpdateInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts an SQL record into a database. This record will be erased after the test.
-     *
-     * ```php
-     * <?php
-     * $I->haveInDatabase('users', array('name' => 'miles', 'email' => 'miles@davis.com'));
-     * ?>
-     * ```
-     *
-     * @param string $table
-     * @param array $data
-     *
-     * @return integer $id
-     * @see \Codeception\Module\Db::haveInDatabase()
-     */
-    public function haveInDatabase($table, $data) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveInDatabase', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Asserts that a row with the given column values exists.
-     * Provide table name and column values.
-     *
-     * ``` php
-     * <?php
-     * $I->seeInDatabase('users', array('name' => 'Davert', 'email' => 'davert@mail.com'));
-     * ```
-     * Fails if no such user found.
-     *
-     * @param string $table
-     * @param array $criteria
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\Db::seeInDatabase()
-     */
-    public function canSeeInDatabase($table, $criteria = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Asserts that a row with the given column values exists.
-     * Provide table name and column values.
-     *
-     * ``` php
-     * <?php
-     * $I->seeInDatabase('users', array('name' => 'Davert', 'email' => 'davert@mail.com'));
-     * ```
-     * Fails if no such user found.
-     *
-     * @param string $table
-     * @param array $criteria
-     * @see \Codeception\Module\Db::seeInDatabase()
-     */
-    public function seeInDatabase($table, $criteria = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInDatabase', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts an SQL record into a database. This record will be erased after the test.
+	 *
+	 * ```php
+	 * <?php
+	 * $I->haveInDatabase('users', array('name' => 'miles', 'email' => 'miles@davis.com'));
+	 * ?>
+	 * ```
+	 *
+	 * @param string $table
+	 * @param array $data
+	 *
+	 * @return integer $id
+	 * @see \Codeception\Module\Db::haveInDatabase()
+	 */
+	public function haveInDatabase($table, $data) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Asserts that the given number of records were found in the database.
-     *
-     * ```php
-     * <?php
-     * $I->seeNumRecords(1, 'users', ['name' => 'davert'])
-     * ?>
-     * ```
-     *
-     * @param int $expectedNumber Expected number
-     * @param string $table Table name
-     * @param array $criteria Search criteria [Optional]
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\Db::seeNumRecords()
-     */
-    public function canSeeNumRecords($expectedNumber, $table, $criteria = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeNumRecords', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Asserts that the given number of records were found in the database.
-     *
-     * ```php
-     * <?php
-     * $I->seeNumRecords(1, 'users', ['name' => 'davert'])
-     * ?>
-     * ```
-     *
-     * @param int $expectedNumber Expected number
-     * @param string $table Table name
-     * @param array $criteria Search criteria [Optional]
-     * @see \Codeception\Module\Db::seeNumRecords()
-     */
-    public function seeNumRecords($expectedNumber, $table, $criteria = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeNumRecords', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Effect is opposite to ->seeInDatabase
-     *
-     * Asserts that there is no record with the given column values in a database.
-     * Provide table name and column values.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeInDatabase('users', array('name' => 'Davert', 'email' => 'davert@mail.com'));
-     * ```
-     * Fails if such user was found.
-     *
-     * @param string $table
-     * @param array $criteria
-     * Conditional Assertion: Test won't be stopped on fail
-     * @see \Codeception\Module\Db::dontSeeInDatabase()
-     */
-    public function cantSeeInDatabase($table, $criteria = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInDatabase', func_get_args()));
-    }
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Effect is opposite to ->seeInDatabase
-     *
-     * Asserts that there is no record with the given column values in a database.
-     * Provide table name and column values.
-     *
-     * ``` php
-     * <?php
-     * $I->dontSeeInDatabase('users', array('name' => 'Davert', 'email' => 'davert@mail.com'));
-     * ```
-     * Fails if such user was found.
-     *
-     * @param string $table
-     * @param array $criteria
-     * @see \Codeception\Module\Db::dontSeeInDatabase()
-     */
-    public function dontSeeInDatabase($table, $criteria = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInDatabase', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Asserts that a row with the given column values exists.
+	 * Provide table name and column values.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeInDatabase('users', array('name' => 'Davert', 'email' => 'davert@mail.com'));
+	 * ```
+	 * Fails if no such user found.
+	 *
+	 * @param string $table
+	 * @param array $criteria
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\Db::seeInDatabase()
+	 */
+	public function canSeeInDatabase($table, $criteria = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Asserts that a row with the given column values exists.
+	 * Provide table name and column values.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->seeInDatabase('users', array('name' => 'Davert', 'email' => 'davert@mail.com'));
+	 * ```
+	 * Fails if no such user found.
+	 *
+	 * @param string $table
+	 * @param array $criteria
+	 * @see \Codeception\Module\Db::seeInDatabase()
+	 */
+	public function seeInDatabase($table, $criteria = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Fetches a single column value from a database.
-     * Provide table name, desired column and criteria.
-     *
-     * ``` php
-     * <?php
-     * $mail = $I->grabFromDatabase('users', 'email', array('name' => 'Davert'));
-     * ```
-     *
-     * @param string $table
-     * @param string $column
-     * @param array $criteria
-     *
-     * @return mixed
-     * @see \Codeception\Module\Db::grabFromDatabase()
-     */
-    public function grabFromDatabase($table, $column, $criteria = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabFromDatabase', func_get_args()));
-    }
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns the number of rows in a database
-     *
-     * @param string $table    Table name
-     * @param array  $criteria Search criteria [Optional]
-     *
-     * @return int
-     * @see \Codeception\Module\Db::grabNumRecords()
-     */
-    public function grabNumRecords($table, $criteria = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabNumRecords', func_get_args()));
-    }
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Asserts that the given number of records were found in the database.
+	 *
+	 * ```php
+	 * <?php
+	 * $I->seeNumRecords(1, 'users', ['name' => 'davert'])
+	 * ?>
+	 * ```
+	 *
+	 * @param int $expectedNumber Expected number
+	 * @param string $table Table name
+	 * @param array $criteria Search criteria [Optional]
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\Db::seeNumRecords()
+	 */
+	public function canSeeNumRecords($expectedNumber, $table, $criteria = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeNumRecords', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Asserts that the given number of records were found in the database.
+	 *
+	 * ```php
+	 * <?php
+	 * $I->seeNumRecords(1, 'users', ['name' => 'davert'])
+	 * ?>
+	 * ```
+	 *
+	 * @param int $expectedNumber Expected number
+	 * @param string $table Table name
+	 * @param array $criteria Search criteria [Optional]
+	 * @see \Codeception\Module\Db::seeNumRecords()
+	 */
+	public function seeNumRecords($expectedNumber, $table, $criteria = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeNumRecords', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Returns an array of default options overriding the specified ones.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Effect is opposite to ->seeInDatabase
+	 *
+	 * Asserts that there is no record with the given column values in a database.
+	 * Provide table name and column values.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeInDatabase('users', array('name' => 'Davert', 'email' => 'davert@mail.com'));
+	 * ```
+	 * Fails if such user was found.
+	 *
+	 * @param string $table
+	 * @param array $criteria
+	 * Conditional Assertion: Test won't be stopped on fail
+	 * @see \Codeception\Module\Db::dontSeeInDatabase()
+	 */
+	public function cantSeeInDatabase($table, $criteria = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInDatabase', func_get_args()));
+	}
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Effect is opposite to ->seeInDatabase
+	 *
+	 * Asserts that there is no record with the given column values in a database.
+	 * Provide table name and column values.
+	 *
+	 * ``` php
+	 * <?php
+	 * $I->dontSeeInDatabase('users', array('name' => 'Davert', 'email' => 'davert@mail.com'));
+	 * ```
+	 * Fails if such user was found.
+	 *
+	 * @param string $table
+	 * @param array $criteria
+	 * @see \Codeception\Module\Db::dontSeeInDatabase()
+	 */
+	public function dontSeeInDatabase($table, $criteria = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInDatabase', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Fetches a single column value from a database.
+	 * Provide table name, desired column and criteria.
+	 *
+	 * ``` php
+	 * <?php
+	 * $mail = $I->grabFromDatabase('users', 'email', array('name' => 'Davert'));
+	 * ```
+	 *
+	 * @param string $table
+	 * @param string $column
+	 * @param array $criteria
+	 *
+	 * @return mixed
+	 * @see \Codeception\Module\Db::grabFromDatabase()
+	 */
+	public function grabFromDatabase($table, $column, $criteria = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabFromDatabase', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns the number of rows in a database
+	 *
+	 * @param string $table    Table name
+	 * @param array  $criteria Search criteria [Optional]
+	 *
+	 * @return int
+	 * @see \Codeception\Module\Db::grabNumRecords()
+	 */
+	public function grabNumRecords($table, $criteria = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('grabNumRecords', func_get_args()));
+	}
+
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Returns an array of default options overriding the specified ones.
 	 *
 	 * @param array $overrides
 	 *
 	 * @return array
-     * @see \Tribe\Tests\Modules\Core\Acceptance\Options::getDefaultCoreOptions()
-     */
-    public function getDefaultCoreOptions($overrides = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('getDefaultCoreOptions', func_get_args()));
-    }
+	 * @see \Tribe\Tests\Modules\Core\Acceptance\Options::getDefaultCoreOptions()
+	 */
+	public function getDefaultCoreOptions($overrides = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('getDefaultCoreOptions', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Gets an option from the tribe option database row.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Gets an option from the tribe option database row.
 	 *
 	 * @param       string $key
 	 * @param mixed        $default
 	 *
 	 * @return mixed
-     * @see \Helper\TribeDb::getTribeOptionFromDatabase()
-     */
-    public function getTribeOptionFromDatabase($key, $default = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('getTribeOptionFromDatabase', func_get_args()));
-    }
+	 * @see \Helper\TribeDb::getTribeOptionFromDatabase()
+	 */
+	public function getTribeOptionFromDatabase($key, $default = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('getTribeOptionFromDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Sets an option in the tribe option row.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Sets an option in the tribe option row.
 	 *
 	 * @param string       $key
 	 * @param string|array $value
-     * @see \Helper\TribeDb::setTribeOption()
-     */
-    public function setTribeOption($key, $value) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('setTribeOption', func_get_args()));
-    }
+	 * @see \Helper\TribeDb::setTribeOption()
+	 */
+	public function setTribeOption($key, $value) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('setTribeOption', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts a venue in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts a venue in the database.
 	 *
 	 * @param array  $overrides
 	 * @param string $location An options prefixed location to set for the venue (see `$locations`).
 	 *
 	 * @return int The venue post ID
-     * @see \Helper\TribeDb::haveVenueInDatabase()
-     */
-    public function haveVenueInDatabase($overrides = null, $location = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveVenueInDatabase', func_get_args()));
-    }
+	 * @see \Helper\TribeDb::haveVenueInDatabase()
+	 */
+	public function haveVenueInDatabase($overrides = null, $location = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveVenueInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts an organizer in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts an organizer in the database.
 	 *
 	 * @param array  $overrides
 	 *
 	 * @return int The organizer post ID
-     * @see \Helper\TribeDb::haveOrganizerInDatabase()
-     */
-    public function haveOrganizerInDatabase($overrides = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveOrganizerInDatabase', func_get_args()));
-    }
+	 * @see \Helper\TribeDb::haveOrganizerInDatabase()
+	 */
+	public function haveOrganizerInDatabase($overrides = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveOrganizerInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts an event in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts an event in the database.
 	 *
 	 * @param array $overrides An array of values to override the default arguments.
 	 *                         Keep in mind `tax_input` and `meta_input` to bake terms and custom fields in.
@@ -5919,17 +5919,17 @@ trait AcceptanceTesterActions
 	 *                         offset if required.
 	 *
 	 * @return int The generated event post ID
-     * @see \Helper\TribeDb::haveEventInDatabase()
-     */
-    public function haveEventInDatabase($overrides = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveEventInDatabase', func_get_args()));
-    }
+	 * @see \Helper\TribeDb::haveEventInDatabase()
+	 */
+	public function haveEventInDatabase($overrides = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveEventInDatabase', func_get_args()));
+	}
 
- 
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * Inserts many events in the database.
+
+	/**
+	 * [!] Method is generated. Documentation taken from corresponding module.
+	 *
+	 * Inserts many events in the database.
 	 *
 	 * @param      int $count      The number of events to insert.
 	 * @param array    $overrides  An array of arguments to override the defaults (see `haveEventInDatabase`)
@@ -5937,9 +5937,9 @@ trait AcceptanceTesterActions
 	 *                             will happen spaced one hour from each other.
 	 *
 	 * @return array An array of generated event post IDs.
-     * @see \Helper\TribeDb::haveManyEventsInDatabase()
-     */
-    public function haveManyEventsInDatabase($count, $overrides = null, $time_space = null) {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveManyEventsInDatabase', func_get_args()));
-    }
+	 * @see \Helper\TribeDb::haveManyEventsInDatabase()
+	 */
+	public function haveManyEventsInDatabase($count, $overrides = null, $time_space = null) {
+		return $this->getScenario()->runStep(new \Codeception\Step\Action('haveManyEventsInDatabase', func_get_args()));
+	}
 }
