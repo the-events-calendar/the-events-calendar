@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, MZAWeb, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shelbelliott, shane.pearlman, aguseo, tribecari, trishasalas
+Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, MZAWeb, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shelbelliott, shane.pearlman, aguseo, tribecari, trishasalas
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.7
-Stable tag: 4.4.1.1
+Tested up to: 4.7.2
+Stable tag: 4.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -205,8 +205,8 @@ But wait: there's more! We've got a whole stable of plugins available to help yo
 
 Our Free Plugins:
 
-* [Event Tickets](https://wordpress.org/support/plugin/event-tickets/)
-* [Advanced Post Manager](https://wordpress.org/extend/plugins/advanced-post-manager/)
+* [Event Tickets](https://wordpress.org/plugin/event-tickets/)
+* [Advanced Post Manager](https://wordpress.org/plugins/advanced-post-manager/)
 * [Blog Copier](https://wordpress.org/plugins/blog-copier/)
 * [GigPress](https://wordpress.org/plugins/gigpress/)
 * [Image Widget](https://wordpress.org/plugins/image-widget/)
@@ -270,7 +270,6 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * [George Gecewicz](https://profiles.wordpress.org/ggwicz)
 * [Gustavo Bordoni](https://profiles.wordpress.org/bordoni)
 * [Hunter Wilson](https://profiles.wordpress.org/joinfof)
-* [Josh Mallard](https://profiles.wordpress.org/joshlimecuda)
 * [Leah Koerper](https://profiles.wordpress.org/leahkoerper)
 * [Luca Tumedei](https://profiles.wordpress.org/lucatume)
 * [Matthew Batchelder](https://profiles.wordpress.org/borkweb)
@@ -279,6 +278,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * [Peter Chester](https://profiles.wordpress.org/peterchester)
 * [Reid Peifer](https://profiles.wordpress.org/reid.peifer)
 * [Shane Pearlman](https://profiles.wordpress.org/shane.pearlman)
+* [Shelby Elliott](https://profiles.wordpress.org/shelbelliott)
 * [Trisha Salas](https://profiles.wordpress.org/trishasalas)
 * [Zachary Tirrell](https://profiles.wordpress.org/zbtirrell)
 
@@ -292,6 +292,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * [John Gadbois](https://profiles.wordpress.org/jgadbois)
 * [Jonah West](https://profiles.wordpress.org/jonahcoyote)
 * [Jonathan Brinley](https://profiles.wordpress.org/jbrinley)
+* [Josh Mallard](https://profiles.wordpress.org/joshlimecuda)
 * [Justin Endler](https://profiles.wordpress.org/justinendler)
 * [Kelly Groves](https://profiles.wordpress.org/kellykathryn)
 * [Kelsey Damas](https://profiles.wordpress.org/kelseydamas)
@@ -314,6 +315,13 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [4.4.2] 2017-02-09 =
+
+* Fix - Ensure the global and source-specific Google Map settings for imports are respected [67228]
+* Fix - Prevent PHP 5.2 Strict mode from throwing notices due to usage of `is_a` [72812]
+* Fix - Ensure the events list widget's show/hide if there are upcoming events setting is respected [72965]
+* Tweak - Add filters for template tag functions related to dates: `tribe_get_start_time`, `tribe_get_end_time`, `tribe_get_start_date` and `tribe_get_end_date` [67759]
 
 = [4.4.1.1] 2017-01-26 =
 

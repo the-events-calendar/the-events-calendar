@@ -31,7 +31,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '4.4.1.1';
+		const VERSION             = '4.4.2';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.4';
 		const WP_PLUGIN_URL       = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -139,6 +139,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $pluginName;
 
 		public $displaying;
+		public $plugin_file;
 		public $plugin_dir;
 		public $plugin_path;
 		public $plugin_url;
@@ -252,7 +253,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Initializes plugin variables and sets up WordPress hooks/actions.
 		 */
 		protected function __construct() {
-			$this->pluginPath = $this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
+			$this->plugin_file = TRIBE_EVENTS_FILE;
+			$this->pluginPath = $this->plugin_path = trailingslashit( dirname( $this->plugin_file ) );
 			$this->pluginDir  = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
 			$this->pluginUrl  = $this->plugin_url = plugins_url( $this->plugin_dir );
 
@@ -329,6 +331,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$this->bind_implementations();
 				$this->loadLibraries();
 				$this->addHooks();
+				$this->register_active_plugin();
 			} else {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
 				add_action( 'admin_head', array( $this, 'notSupportedError' ) );
@@ -411,6 +414,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
+		}
+
+		/**
+		 * Registers this plugin as being active for other tribe plugins and extensions
+		 */
+		protected function register_active_plugin() {
+			if ( class_exists( 'Tribe__Dependency' ) ) {
+				Tribe__Dependency::instance()->add_active_plugin(
+					__CLASS__,
+					self::VERSION,
+					$this->plugin_file
+				);
+			}
 		}
 
 		/**
@@ -3824,7 +3840,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						'utm_campaign' => 'in-app',
 						'utm_medium'   => 'plugin-tec',
 						'utm_source'   => 'plugins-manager',
-					), self::$tribeUrl . self::$addOnPath
+					), self::$tecUrl . self::$addOnPath
 				);
 				$links[] = '<a href="' . esc_url( $link ) . '" target="_blank">' . $anchor . '</a>';
 			}
@@ -3898,7 +3914,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 									'utm_medium'   => 'plugin-tec',
 									'utm_source'   => 'post-editor',
 								),
-								self::$tribeUrl . self::$addOnPath
+								self::$tecUrl . self::$addOnPath
 							)
 						)
 						. '">',
