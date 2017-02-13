@@ -6,8 +6,8 @@ modules:
     config:
         WPLoader:
             multisite: true
-            wpRootFolder: /var/www/mu-tec.tribe
-            dbName: muTribeTests
+            wpRootFolder: /tmp/wordpress
+            dbName: wploader
             dbHost: localhost
             dbUser: root
             dbPassword: ''
@@ -15,7 +15,7 @@ modules:
             dbCharset: utf8
             dbCollate: ''
             tablePrefix: wp_
-            domain: mu-tec.tribe
+            domain: tec.tri.be
             adminEmail: admin@mu-tec.tribe
             title: 'The Events Calendar MU Tests'
             plugins:
