@@ -11,6 +11,10 @@ php:
 
 services:
   - mysql
+  
+# disable the default submodule logic
+git:
+  submodules: false
 
 cache:
   directories:
@@ -23,10 +27,11 @@ env:
 before_install:
   - mysql -e "create database IF NOT EXISTS $wpDbName;" -uroot
   - mysql -e "create database IF NOT EXISTS $wpLoaderDbName;" -uroot
+  - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
+  - git submodule update --init --recursive
 
 install:
   - composer update --prefer-dist
-  - git submodule update --init --recursive
 
 before_script:
   # set up folders
@@ -70,6 +75,5 @@ before_script:
   - cd $PLUGIN_DIR
 
 script:
-  - codecept run unit -vvv
   - codecept run integration -vvv
   - codecept run muintegration -vvv
