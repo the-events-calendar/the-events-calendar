@@ -316,6 +316,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.4.3] unreleased =
+
+* Fix - Resolved issue where iCal exports on month view were exporting more events than intended [72133]
+
 = [4.4.2] 2017-02-09 =
 
 * Fix - Ensure the global and source-specific Google Map settings for imports are respected [67228]
