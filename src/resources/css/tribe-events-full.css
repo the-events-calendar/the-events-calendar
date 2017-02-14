@@ -927,6 +927,10 @@ select.tribe-events-dropdown {
 	zoom: 1;
 }
 
+.single-tribe_events .secondary .tribe-events-venue-map {
+	width: 58%;
+}
+
 /* Event Meta */
 
 .single-tribe_events .tribe-events-event-meta {
@@ -2191,6 +2195,13 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	position: absolute !important;
 	width: 1px;
 	word-wrap: normal !important;
+}
+
+@media screen and (max-width: 767px) {
+
+	.single-tribe_events .secondary .tribe-events-venue-map {
+		width: 90%;
+	}
 }
 
 @media screen and (min-width: 44.375em) {
