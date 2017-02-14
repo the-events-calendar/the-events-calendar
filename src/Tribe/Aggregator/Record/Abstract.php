@@ -3,6 +3,7 @@
 defined( 'WPINC' ) or die;
 
 abstract class Tribe__Events__Aggregator__Record__Abstract {
+
 	/**
 	 * Meta key prefix for ea-record data
 	 *
@@ -19,6 +20,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	public $is_schedule = false;
 	public $is_manual = false;
+
+	/**
+	 * An associative array of origins and the settings they define a policy for.
+	 * @var array
+	 */
+	protected $origin_import_policies = array(
+		'url' => array( 'show_map_link' ),
+	);
 
 	public static $unique_id_fields = array(
 		'facebook' => array(
@@ -41,6 +50,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		'ics' => array(
 			'source' => 'uid',
 			'target' => 'uid',
+		),
+		'url' => array(
+			'source' => 'id',
+			'target' => 'EventOriginalID',
 		),
 	);
 
@@ -225,8 +238,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return WP_Post|WP_Error
 	 */
 	public function save( $post_id, $args = array(), $meta = array() ) {
-		global $wp_version;
-
 		if ( ! isset( $meta['type'] ) || 'schedule' !== $meta['type'] ) {
 			return tribe_error( 'core:aggregator:invalid-edit-record-type', $type );
 		}
@@ -417,7 +428,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Creates a child record based on the import record
 	 *
-	 * @return boolean|WP_Error
+	 * @return boolean|WP_Error|Tribe__Events__Aggregator__Record__Abstract
 	 */
 	public function create_child_record() {
 		$post = array(
@@ -483,7 +494,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Queues the import on the Aggregator service
 	 *
-	 * @return mixed
+	 * @see Tribe__Events__Aggregator__API__Import::create()
+	 *
+	 * @return stdClass|WP_Error|int A response object, a `WP_Error` instance on failure or a record
+	 *                               post ID if the record had to be re-scheduled due to HTTP request
+	 *                               limit.
 	 */
 	public function queue_import( $args = array() ) {
 		$aggregator = tribe( 'events-aggregator.main' );
@@ -540,8 +555,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// if the Aggregator API returns a WP_Error, set this record as failed
 		if ( is_wp_error( $response ) ) {
-			$error = $response;
-			return $this->set_status_as_failed( $error );
+			// if the error is just a reschedule set this record as pending
+			/** @var WP_Error $response */
+			if ( 'core:aggregator:http_request-limit' === $response->get_error_code() ) {
+				return $this->set_status_as_pending();
+			} else {
+				$error = $response;
+
+				return $this->set_status_as_failed( $error );
+			}
 		}
 
 		// if the Aggregator response has an unexpected format, set this record as failed
@@ -554,9 +576,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'success:create-import' != $response->message_code
 			&& 'queued' != $response->message_code
 		) {
-			/**
-			 * @todo Allow overwriting the message
-			 */
 			$error = new WP_Error(
 				$response->message_code,
 				Tribe__Events__Aggregator__Errors::build(
@@ -1034,8 +1053,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		//if we have no non recurring events the message may be different
 		$non_recurring = false;
 
-		$show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( $this->meta['origin'] );
-		$update_authority_setting = Tribe__Events__Aggregator__Settings::instance()->default_update_authority( $this->meta['origin'] );
+		$origin = $this->meta['origin'];
+		$show_map_setting = tribe_is_truthy( Tribe__Events__Aggregator__Settings::instance()->default_map( $origin ) );
+		$update_authority_setting = Tribe__Events__Aggregator__Settings::instance()->default_update_authority( $origin );
 
 		$unique_inserted = array();
 
@@ -1072,9 +1092,36 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				continue;
 			}
 
+			$import_settings = Tribe__Events__Aggregator__Settings::instance()->default_settings_import( $origin );
+			$should_import_settings = tribe_is_truthy( $import_settings ) ? true : false;
+
 			if ( $show_map_setting ) {
-				$event['EventShowMap']     = $show_map_setting;
-				$event['EventShowMapLink'] = $show_map_setting;
+				$event['EventShowMap'] = $show_map_setting || (bool) isset( $event['show_map'] );
+				if ( $this->has_import_policy_for( $origin, 'show_map_link' ) ) {
+					$event['EventShowMapLink'] = isset( $event['show_map_link'] ) ? (bool) $event['show_map_link'] : $show_map_setting;
+				} else {
+					$event['EventShowMapLink'] = $show_map_setting;
+				}
+			}
+			unset( $event['show_map'], $event['show_map_link'] );
+
+			if ( $should_import_settings && isset( $event['hide_from_listings'] ) ) {
+				if ( $event['hide_from_listings'] == true ) {
+					$event['EventHideFromUpcoming'] = 'yes';
+				}
+				unset( $event['hide_from_listings'] );
+			}
+
+			if ( $should_import_settings && isset( $event['sticky'] ) ) {
+				if ( $event['sticky'] == true ) {
+					$event['EventShowInCalendar'] = 'yes';
+					$event['menu_order']          = - 1;
+				}
+				unset( $event['sticky'] );
+			}
+
+			if ( ! $should_import_settings ) {
+				unset( $event['feature_event'] );
 			}
 
 			if ( empty( $event['recurrence'] ) ) {
@@ -1219,11 +1266,28 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						if ( ! is_wp_error( $term ) ) {
 							$terms[] = (int) $term['term_id'];
 
-							// Track that we created a Term
+							// Track that we created an event category
 							$activity->add( 'cat', 'created', $term['term_id'] );
 						}
 					} else {
 						$terms[] = (int) $term['term_id'];
+					}
+				}
+			}
+
+			$tags = array();
+			if ( ! empty( $event['tags'] ) ) {
+				foreach ( $event['tags'] as $tag_name ) {
+					if ( ! $tag = term_exists( $tag_name, 'post_tag' ) ) {
+						$tag = wp_insert_term( $tag_name, 'post_tag' );
+						if ( ! is_wp_error( $tag ) ) {
+							$tags[] = (int) $tag['term_id'];
+
+							// Track that we created a post tag
+							$activity->add( 'tag', 'created', $tag['term_id'] );
+						}
+					} else {
+						$tags[] = (int) $tag['term_id'];
 					}
 				}
 			}
@@ -1234,31 +1298,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );
+			wp_set_object_terms( $event['ID'], $tags, 'post_tag', false );
 
 			// If we have a Image Field from Service
 			if ( ! empty( $event['image'] ) ) {
-				// Attempt to grab the event image
-				$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id );
-
-				/**
-				 * Filters the returned event image url
-				 *
-				 * @param array|bool $image       Attachment information
-				 * @param array      $event       Event array
-				 */
-				$image = apply_filters( 'tribe_aggregator_event_image', $image_import, $event );
-
-				// If there was a problem bail out
-				if ( false === $image ) {
-					continue;
+				if ( is_object( $event['image'] ) ) {
+					$image = $this->import_aggregator_image( $event );
+				} else {
+					$image = $this->import_image( $event );
 				}
 
-				// Verify for more Complex Errors
-				if ( is_wp_error( $image ) ) {
-					continue;
-				}
-
-				if ( ! empty( $image->post_id ) ) {
+				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
 					// Set as featured image
 					$featured_status = set_post_thumbnail( $event['ID'], $image->post_id );
 
@@ -1356,5 +1406,94 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function finalize() {
 		$this->update_meta( 'finalized', true );
+	}
+
+    /**
+     * Imports an image information from EA server and creates the WP attachment object if required.
+     *
+     * @param array $event An event representation in the format provided by an Event Aggregator response.
+     *
+     * @return bool|stdClass|WP_Error An image information in the format provided by an Event Aggregator responsr or
+     *                                `false` on failure.
+     */
+	public function import_aggregator_image( $event ) {
+		// Attempt to grab the event image
+		$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id );
+
+		/**
+		 * Filters the returned event image url
+		 *
+		 * @param array|bool $image       Attachment information
+		 * @param array      $event       Event array
+		 */
+		$image = apply_filters( 'tribe_aggregator_event_image', $image_import, $event );
+
+		// If there was a problem bail out
+		if ( false === $image ) {
+			return false;
+		}
+
+		// Verify for more Complex Errors
+		if ( is_wp_error( $image ) ) {
+			return $image;
+		}
+
+		return $image;
+	}
+
+	/**
+	 * Imports the image contained in the event `image` field if any.
+	 *
+	 * @param array $event An event data in array format.
+	 *
+	 * @return object|bool An object with the image post ID or `false` on failure.
+	 */
+	public function import_image( $event ) {
+		if ( empty( $event['image'] ) || ! filter_var( $event['image'], FILTER_VALIDATE_URL ) ) {
+			return false;
+		}
+
+		require_once( ABSPATH . 'wp-admin/includes/media.php' );
+		require_once( ABSPATH . 'wp-admin/includes/file.php' );
+		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+
+		// Set variables for storage, fix file filename for query strings.
+		preg_match( '/[^\?]+\.(jpe?g|jpe|gif|png)\b/i', $event['image'], $matches );
+		if ( ! $matches ) {
+			return false;
+		}
+
+		$file_array         = array();
+		$file_array['name'] = basename( $matches[0] );
+
+		// Download file to temp location.
+		$file_array['tmp_name'] = download_url( $event['image'] );
+
+		// If error storing temporarily, return the error.
+		if ( is_wp_error( $file_array['tmp_name'] ) ) {
+			return false;
+		}
+
+		$id = media_handle_sideload( $file_array, $event['ID'], $event['post_title'] );
+
+		if ( is_wp_error( $id ) ) {
+			@unlink( $file_array['tmp_name'] );
+
+			return false;
+		}
+
+		return (object) array( 'post_id' => $id );
+	}
+
+	/**
+	 * Whether an origin has more granulat policies concerning an import setting or not.
+	 *
+	 * @param string $origin
+	 * @param string $setting
+	 *
+	 * @return bool
+	 */
+	protected function has_import_policy_for( $origin, $setting ) {
+		return isset( $this->origin_import_policies[ $origin ] ) && in_array( $setting, $this->origin_import_policies[ $origin ] );
 	}
 }

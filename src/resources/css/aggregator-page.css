@@ -203,6 +203,14 @@
 	padding-left: 10px;
 }
 
+.tribe-ea .tribe-ea-tab-scheduled td.column-source :not(.row-actions) a:first-of-type {
+	overflow : hidden;
+	white-space : nowrap;
+	text-overflow : ellipsis;
+	display : inline-block;
+	max-width : 100%;
+}
+
 .tribe-ea td.column-source {
 	padding-left: 50px;
 	position: relative;

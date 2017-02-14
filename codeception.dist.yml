@@ -18,7 +18,7 @@ modules:
             adminPassword: admin
             adminUrl: /wp-admin
         WPDb:
-            dsn: 'mysql:host=localhost;dbname=tec-tests'
+            dsn: 'mysql:host=localhost;dbname=test'
             user: root
             password: password
             dump: tests/_data/dump.sql
@@ -27,17 +27,17 @@ modules:
             url: 'http://tec.tri.be'
             tablePrefix: wp_
         WPLoader:
-            wpRootFolder: ~/www/wordpress
-            dbName: wordpress-tests
+            wpRootFolder: /tmp/wordpress
+            dbName: wploader
             dbHost: localhost
             dbUser: root
-            dbPassword: password
+            dbPassword: ''
             wpDebug: true
             dbCharset: utf8
             dbCollate: ''
-            tablePrefix: wptests_
+            tablePrefix: wp_
             domain: tec.tri.be
-            adminEmail: admin@tec.tri.ve
+            adminEmail: admin@tec.tri.be
             title: 'The Events Calendar Tests'
             phpBinary: php
             language: ''
@@ -54,4 +54,7 @@ modules:
             adminUrl: /wp-admin
             windowSize: 1200x100
         WPBootstrapper:
-            wpRootFolder: ~/www/wordpress
+            wpRootFolder: /tmp/wordpress
+        REST:
+            depends: WPBrowser
+            url: 'http://tec.tri.be/wp-json/tribe/events/v1/'

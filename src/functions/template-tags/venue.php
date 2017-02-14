@@ -146,9 +146,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_full_address( $postId = null, $includeVenueName = false ) {
 		$postId    = tribe_get_venue_id( $postId );
-		$tribe_ecp = Tribe__Events__Main::instance();
+		$tec = Tribe__Events__Main::instance();
 
-		return apply_filters( 'tribe_get_full_address', $tribe_ecp->fullAddress( $postId, $includeVenueName ) );
+		return apply_filters( 'tribe_get_full_address', $tec->fullAddress( $postId, $includeVenueName ) );
 	}
 
 	/**

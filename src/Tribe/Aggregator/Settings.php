@@ -17,7 +17,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return Tribe__Events__Aggregator
+	 * @return Tribe__Events__Aggregator__Settings
 	 */
 	public static function instance() {
 		if ( ! self::$instance ) {
@@ -142,6 +142,7 @@ class Tribe__Events__Aggregator__Settings {
 			'ics',
 			'facebook',
 			'meetup',
+			'url',
 		);
 
 		$settings = array();
@@ -240,6 +241,22 @@ class Tribe__Events__Aggregator__Settings {
 				$setting = $origin_setting;
 			}
 		}
+
+		return $setting;
+	}
+
+	/**
+	 * Returns the default value for an origin regarding applicable event settings.
+	 *
+	 * Event setttings are those settings related to an event presentation like Show Google Map, Hide from Listings and so on.
+	 *
+	 * @param string $origin The origin to look up the settings for.
+	 *
+	 * @return string The option value.
+	 */
+	public function default_settings_import( $origin ) {
+		// by default do not import the event settings
+		$setting = tribe_get_option( "tribe_aggregator_default_{$origin}_import_event_settings", 'no' );
 
 		return $setting;
 	}
