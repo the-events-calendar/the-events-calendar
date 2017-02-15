@@ -6,7 +6,7 @@
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/list/single-featured.php
  *
  * @package TribeEventsCalendar
- * @version  4.4
+ * @version  4.5
  *
  */
 if ( ! defined( 'ABSPATH' ) ) {
