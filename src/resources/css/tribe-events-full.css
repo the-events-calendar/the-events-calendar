@@ -927,6 +927,18 @@ select.tribe-events-dropdown {
 	zoom: 1;
 }
 
+.single-tribe_events .tribe-events-meta-group + .tribe-events-meta-group + .tribe-events-meta-group-gmap {
+	clear: both;
+	display: block;
+	float: none;
+	width: auto;
+}
+
+.single-tribe_events .tribe-events-meta-group + .tribe-events-meta-group + .tribe-events-meta-group-gmap .tribe-events-venue-map {
+	float: none;
+	width: 100%;
+}
+
 .single-tribe_events .secondary .tribe-events-venue-map {
 	width: 58%;
 }
