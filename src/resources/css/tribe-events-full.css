@@ -25,7 +25,8 @@
 /* = Global & Miscellaneous Styles
 =============================================*/
 
-.tribe-events-page-template {
+#tribe-events-pg-template,
+.tribe-events-pg-template {
 	margin: 0 auto;
 	max-width: 1200px;
 }
