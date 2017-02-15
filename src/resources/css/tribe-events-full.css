@@ -22,13 +22,6 @@
  *
  */
 
-#tribe-events .tribe-event-featured .tribe-events-event-cost.featured-event .button {
-	background: #fff;
-	color: #0ea0d7;
-	margin-top: 0;
-	margin-left: 10px;
-}
-
 /* = Global & Miscellaneous Styles
 =============================================*/
 
@@ -657,6 +650,12 @@ select.tribe-events-dropdown {
 	margin: 0;
 }
 
+.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-button {
+	background: #fff;
+	color: #0ea0d7;
+	margin-left: 10px;
+}
+
 .tribe-events-list .tribe-events-loop .tribe-events-image {
 	float: left;
 	margin: 0 3% 0 0;
@@ -763,12 +762,13 @@ select.tribe-events-dropdown {
 	font-style: normal;
 	font-weight: bold;
 	line-height: 1;
-	padding: 10px;
+	padding: 8px;
 	text-align: center;
 	text-overflow: ellipsis;
 }
 
-.tribe-events-list .tribe-events-event-cost .tribe-tickets-left {
+.tribe-events-list .tribe-events-event-cost .tribe-tickets-left,
+		.tribe-events-list .tribe-events-event-cost .tribe-out-of-stock {
 	color: #727272;
 }
 
@@ -776,8 +776,7 @@ select.tribe-events-dropdown {
 	margin: 0;
 }
 
-#tribe-events .tribe-events-list .tribe-events-event-cost .button {
-	margin-top: 0;
+.tribe-events-list .tribe-button {
 	margin-left: 10px;
 }
 
@@ -1139,6 +1138,12 @@ select.tribe-events-dropdown {
 
 .tribe-events-day .tribe-event-featured .tribe-events-event-cost .tribe-ticket-cost {
 	margin: 0;
+}
+
+.tribe-events-day .tribe-event-featured .tribe-button {
+	background: #fff;
+	color: #0ea0d7;
+	margin-left: 10px;
 }
 
 .tribe-events-day .type-tribe_events {
