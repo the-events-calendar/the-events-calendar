@@ -28,7 +28,14 @@ $organizer = tribe_get_organizer();
 <?php if ( tribe_get_cost() ) : ?>
 	<div class="tribe-events-event-cost">
 		<span class="ticket-cost"><?php echo tribe_get_cost( null, true ); ?></span>
-		<?php do_action( 'tribe_events_inside_cost' ) ?>
+		<?php
+			/**
+			 * Runs after cost is displayed in list style views
+			 *
+			 * @since 4.5
+			 */
+			do_action( 'tribe_events_inside_cost' )
+		?>
 	</div>
 <?php endif; ?>
 

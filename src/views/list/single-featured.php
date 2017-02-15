@@ -65,7 +65,10 @@ echo tribe_event_featured_image( null, 'large' );
 <?php if ( tribe_get_cost() ) : ?>
 	<div class="tribe-events-event-cost featured-event">
 		<span class="ticket-cost"><?php echo tribe_get_cost( null, true ); ?></span>
-		<?php do_action( 'tribe_events_inside_cost' ) ?>
+		<?php
+			/** This action is documented in the-events-calendar/src/views/list/single-event.php */
+			do_action( 'tribe_events_inside_cost' )
+		?>
 	</div>
 <?php endif; ?>
 
