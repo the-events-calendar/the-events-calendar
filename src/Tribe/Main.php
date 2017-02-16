@@ -93,7 +93,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $tag_slug = 'tag';
 		public $monthSlug = 'month';
 		public $featured_slug = 'featured';
-		public $all_slug = 'featured';
+		public $all_slug = 'all';
 
 		/** @deprecated 4.0 */
 		public $taxRewriteSlug = 'event/category';
