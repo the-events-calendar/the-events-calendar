@@ -93,6 +93,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $tag_slug = 'tag';
 		public $monthSlug = 'month';
 		public $featured_slug = 'featured';
+		public $all_slug = 'featured';
 
 		/** @deprecated 4.0 */
 		public $taxRewriteSlug = 'event/category';
@@ -719,6 +720,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->daySlug                                    = sanitize_title( __( 'day', 'the-events-calendar' ) );
 			$this->todaySlug                                  = sanitize_title( __( 'today', 'the-events-calendar' ) );
 			$this->featured_slug                              = sanitize_title( _x( 'featured', 'featured events slug', 'the-events-calendar' ) );
+			$this->all_slug                                   = sanitize_title( _x( 'all', 'all events slug', 'the-events-calendar' ) );
 
 			$this->singular_venue_label                       = $this->get_venue_label_singular();
 			$this->plural_venue_label                         = $this->get_venue_label_plural();
