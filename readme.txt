@@ -322,6 +322,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Resolved meta width issue for maps when Pro is active [69844, 72272]
 * Fix - Resolved issue where featured images were not being imported via Event Aggregator Facebook imports [72764]
 * Fix - Resolved issue where translated 'all' slugs were not respected [71996]
+* Tweak - Translation improvements and fixes [70068]
 * Tweak - Allow "-1" when specifying the "Month view events per day" setting [70497]
 
 = [4.4.2] 2017-02-09 =
