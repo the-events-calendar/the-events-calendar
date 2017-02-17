@@ -83,6 +83,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 
 			$background_color_obj = new Tribe__Utils__Color( $background_color );
 			$background_rgb = $background_color_obj->getRgb();
+			$button_gradient = $background_color_obj->darken( $background_color );
 
 			if ( $is_custom ) {
 				$is_light = $background_color_obj->isLight();
@@ -115,6 +116,11 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 				.tribe-grid-body .tribe-event-featured.tribe-events-week-hourly-single:hover {
 					background-color: ' . $background_color . ';
 				}
+				
+				.tribe-button {
+					background:' . $background_color . ' -webkit-linear-gradient( top, ' . $background_color . ', #' . $button_gradient . ');
+					background:' . $background_color . ' linear-gradient( to bottom, ' . $background_color . ', #' . $button_gradient . ');
+					}
 			';
 
 			if ( $is_light ) {
@@ -245,7 +251,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 				$manager,
 				$customizer->get_setting_name( 'featured_color_scheme', $section ),
 				array(
-					'label'    => __( 'Featured Events Highlight Color', 'the-events-calendar' ),
+					'label'    => __( 'Featured Highlight Color', 'the-events-calendar' ),
 					'section'  => $section->id,
 					'type'     => 'select',
 					'choices'  => $this->get_featured_color_choices(),
