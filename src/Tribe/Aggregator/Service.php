@@ -376,13 +376,17 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Returns a service message based on key
 	 *
-	 * @param string $key Service Message index
+	 * @param string $key     Service Message index
+	 * @param array  $args    An array of arguments that will be fed to a `sprintf` like function to replace
+	 *                        placeholders.
+	 * @param string $default A default message that should be returned should the message code not be found; defaults
+	 *                        to the unknown message.
 	 *
 	 * @return string
 	 */
-	public function get_service_message( $key, $args = array() ) {
+	public function get_service_message( $key, $args = array(), $default = null ) {
 		if ( empty( $this->service_messages[ $key ] ) ) {
-			return __( 'Unknown service message', 'the-events-calendar' );
+			return ! empty( $default ) ? $default : $this->get_unknow_message();
 		}
 
 		return vsprintf( $this->service_messages[ $key ], $args );
@@ -519,5 +523,14 @@ class Tribe__Events__Aggregator__Service {
 		 * @param array $service_messages An associative array of service messages in the `[ <slug> => <localized text> ]` format.
 		 */
 		$this->service_messages = apply_filters( 'tribe_aggregator_service_messages', $this->service_messages );
+	}
+
+	/**
+	 * Returns the message used for unknown message codes.
+	 *
+	 * @return string
+	 */
+	public function get_unknow_message() {
+		return __( 'Unknown service message', 'the-events-calendar' );
 	}
 }
