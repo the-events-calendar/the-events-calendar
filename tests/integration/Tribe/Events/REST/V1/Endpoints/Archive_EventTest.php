@@ -391,11 +391,23 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->assertEquals( 2, $response->get_data()['total_pages'] );
 		$this->assertEquals( 10, $response->get_headers()['X-TEC-Total'] );
 		$this->assertEquals( 2, $response->get_headers()['X-TEC-TotalPages'] );
+	}
 
+	/**
+	 * @test
+	 * it should hide non published events from visitors
+	 */
+	public function it_should_hide_non_published_events_from_visitors() {
+		$this->factory()->event->create_many( 5, [ 'post_status' => 'publish' ] );
+		$this->factory()->event->create_many( 5, [ 'post_status' => 'draft' ] );
+		update_option( 'posts_per_page', 5 );
 		// visitors cannot see drafts
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'subscriber' ] ) );
+		wp_set_current_user( 0 );
+
 		$request = new \WP_REST_Request( 'GET', '' );
 
+
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
