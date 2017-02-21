@@ -220,7 +220,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$result = wp_insert_post( $post );
 
-		if ( ! is_wp_error( $result ) ) {
+		if ( is_wp_error( $result ) ) {
 			$this->maybe_add_meta_via_pre_wp_44_method( $result, $post['meta_input'] );
 		}
 
