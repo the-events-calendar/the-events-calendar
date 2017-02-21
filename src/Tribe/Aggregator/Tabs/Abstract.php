@@ -101,28 +101,11 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 			'schedule_time' => empty( $data['schedule_time'] )    ? null     : $data['schedule_time'],
 		);
 
-		// make sure there's data
-		if ( empty( $meta['file'] ) && empty( $meta['source'] ) ) {
-			if ( 'csv' === $meta['origin'] || 'ics' === $meta['origin'] ) {
-				wp_send_json_error( array(
-					'message' => __( 'Please provide the file that you wish to import.', 'the-events-calendar' ),
-				) );
-			} else {
-				wp_send_json_error( array(
-					'message' => __( 'Please provide the URL that you wish to import.', 'the-events-calendar' ),
-				) );
-			}
-		}
+		$meta = $this->validate_meta_by_origin( $meta['origin'], $meta );
 
-		// validate that the URLs are accurate for the relevant origin
-		if ( 'facebook' === $meta['origin'] && ! preg_match( '!(https?://)?(www\.)?facebook\.com!', $meta['source'] ) ) {
-			wp_send_json_error( array(
-				'message' => __( 'Please provide a Facebook URL when importing from Facebook.', 'the-events-calendar' ),
-			) );
-		} elseif ( 'meetup' === $meta['origin'] && ! preg_match( '!(https?://)?(www\.)?meetup\.com!', $meta['source'] ) ) {
-			wp_send_json_error( array(
-				'message' => __( 'Please provide a Meetup URL when importing from Meetup.', 'the-events-calendar' ),
-			) );
+		if ( is_wp_error( $meta ) ) {
+			/** @var WP_Error $validated */
+			wp_send_json_error( $meta->get_error_message() );
 		}
 
 		return array(
@@ -130,5 +113,60 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 			'post_data' => $post_data,
 			'meta' => $meta,
 		);
+	}
+
+	/**
+	 * Validates the meta in relation to the origin.
+	 *
+	 *
+	 * @param string $origin
+	 * @param array  $meta
+	 *
+	 * @return array|WP_Error The updated/validated meta array or A `WP_Error` if the validation failed.
+	 */
+	protected function validate_meta_by_origin( $origin, $meta ) {
+		$result = $meta;
+
+		switch ($origin){
+			case 'csv':
+			case 'ics':
+				if ( empty( $meta['file'] ) ) {
+					$result = new WP_Error( 'missing-file', __( 'Please provide the file that you wish to import.', 'the-events-calendar' ) );
+				}
+				break;
+			case 'facebook':
+				if ( empty( $meta['url'] ) || ! preg_match( '!(https?://)?(www\.)?facebook\.com!', $meta['source'] ) ) {
+					$result = new WP_Error( 'not-facebook-url', __( 'Please provide a Facebook URL when importing from Facebook.', 'the-events-calendar' ) );
+				}
+				break;
+			case 'meetup':
+				if ( empty( $meta['url'] ) || ! preg_match( '!(https?://)?(www\.)?meetup\.com!', $meta['source'] ) ) {
+					$result = new WP_Error( 'not-meetup-url', __( 'Please provide a Meetup URL when importing from Meetup.', 'the-events-calendar' ) );
+				}
+				break;
+			case 'url':
+				if ( ! empty( $meta['count'] ) ) {
+					$count = $meta['count'];
+					if ( ! filter_var( $count, FILTER_VALIDATE_INT ) || intval( $count ) < 1 ) {
+						$result = new WP_Error( 'invalid-url-count', __( 'Please provide a positive integer number for the count of events to import.', 'the-events-calendar' ) );
+					}
+					break;
+				} else {
+					$count = tribe_get_option( 'tribe_aggregator_default_url_import_events_count', 20 );
+					if ( ! filter_var( $count, FILTER_VALIDATE_INT ) || intval( $count ) < 1 ) {
+						$result = new WP_Error( 'invalid-url-count', __( 'Weird: the import count number stored in the option is not a positive integer.', 'the-events-calendar' ) );
+						break;
+					}
+					$result['count'] = intval( $count );
+				}
+				break;
+			default:
+				if ( empty( $meta['url'] ) ) {
+					$result = new WP_Error( 'missing-url', __( 'Please provide the URL that you wish to import.', 'the-events-calendar' ) );
+				}
+				break;
+		}
+
+		return $result;
 	}
 }
