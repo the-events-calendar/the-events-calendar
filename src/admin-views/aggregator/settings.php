@@ -393,6 +393,17 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_show_map_options,
 		),
+		'tribe_aggregator_default_url_import_events_count' => array(
+			'type' => 'text',
+			'label' => esc_html__( 'Import Events count', 'the-events-calendar' ),
+			// @todo @luca set the correct URL for Knowledgebase here
+			'tooltip' => esc_html__( 'When importing from another site providing events via The Events Calendar REST API fetch this number of events. The hosting resources that the third party website uses will affect the success rate of Previewing and Importing events.', 'the-events-calendar' ) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'http://google.com' ), esc_html( 'Learn more in our Knowledgebase.' ) ),
+			'size' => 'small',
+			'validation_type' => 'positive_int',
+			'default' => '20',
+			'can_be_empty' => false,
+			'parent_option' => Tribe__Events__Main::OPTIONNAME,
+		),
 		'tribe_aggregator_default_url_import_event_settings' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Import Event Settings', 'the-events-calendar' ),
