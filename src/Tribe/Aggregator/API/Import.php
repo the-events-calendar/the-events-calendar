@@ -82,6 +82,12 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 			return $response;
 		}
 
+		// let's try to use the localized version of the message if available
+		if ( ! empty( $response->message_code ) ) {
+			$default = ! empty( $response->message ) ? $response->message : $this->service->get_unknown_message();
+			$response->message = $this->service->get_service_message( $response->message_code, $default );
+		}
+
 		if ( 'success_import-complete' !== $response->message_code ) {
 			return $response;
 		}
