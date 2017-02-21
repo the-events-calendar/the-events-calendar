@@ -127,7 +127,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 	protected function validate_meta_by_origin( $origin, $meta ) {
 		$result = $meta;
 
-		switch ($origin){
+		switch ( $origin ) {
 			case 'csv':
 			case 'ics':
 				if ( empty( $meta['file'] ) ) {
