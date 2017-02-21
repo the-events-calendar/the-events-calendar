@@ -393,7 +393,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->assertEquals( 2, $response->get_headers()['X-TEC-TotalPages'] );
 
 		// visitors cannot see drafts
-		wp_set_current_user( 0 );
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'subscriber' ] ) );
 		$request = new \WP_REST_Request( 'GET', '' );
 
 		$response = $sut->get( $request );
