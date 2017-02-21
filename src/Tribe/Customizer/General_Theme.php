@@ -126,7 +126,6 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 				.tribe-button:active,
 				.tribe-button:focus {
 					background-color: ' . $background_color . ';
-					background-color: ' . $background_color . ';
 					}
 			';
 
