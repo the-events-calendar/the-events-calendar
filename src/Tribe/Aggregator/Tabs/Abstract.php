@@ -146,20 +146,45 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 				}
 				break;
 			case 'url':
-				if ( ! empty( $meta['count'] ) ) {
-					$count = $meta['count'];
-					if ( ! filter_var( $count, FILTER_VALIDATE_INT ) || intval( $count ) < 1 ) {
-						$result = new WP_Error( 'invalid-url-count', __( 'Please provide a positive integer number for the count of events to import.', 'the-events-calendar' ) );
-					}
-					break;
-				} else {
-					$count = tribe_get_option( 'tribe_aggregator_default_url_import_events_count', 20 );
-					if ( ! filter_var( $count, FILTER_VALIDATE_INT ) || intval( $count ) < 1 ) {
-						$result = new WP_Error( 'invalid-url-count', __( 'Weird: the import count number stored in the option is not a positive integer.', 'the-events-calendar' ) );
-						break;
-					}
-					$result['count'] = intval( $count );
-				}
+				$now = time();
+				$range = tribe_get_option( 'tribe_aggregator_default_url_import_range', 3 * MONTH_IN_SECONDS );
+				$start = ! empty( $meta['start'] ) ? $this->to_timestamp( $meta['start'], $now ) : $now;
+				$end = ! empty( $meta['end'] ) ? $this->to_timestamp( $meta['end'], $now + $range ) : $now + $range;
+
+				/**
+				 * Filters the URL import range cap.
+				 *
+				 * @param int   $max_range The duration in seconds of the cap.
+				 * @param array $meta      The meta for this import request.
+				 */
+				$max_range = apply_filters( 'tribe_aggregator_url_import_range_cap', 3 * MONTH_IN_SECONDS, $meta );
+
+				// but soft-cap the range to start + cap at the most
+				$end = min( $end, $start + $max_range );
+
+				/**
+				 * Filters the URL import range start date after the cap has been applied.
+				 *
+				 * @param int   $start The start date UNIX timestamp.
+				 * @param int   $end   The end date UNIX timestamp.
+				 * @param array $meta  The meta for this import request.
+				 */
+				$start = apply_filters( 'tribe_aggregator_url_import_range_start', $start, $end, $meta );
+
+				/**
+				 * Filters the URL import range end date after the cap has been applied.
+				 *
+				 * @param int   $end   The end date UNIX timestamp.
+				 * @param int   $start The start date UNIX timestamp.
+				 * @param array $meta  The meta for this import request.
+				 */
+				$end = apply_filters( 'tribe_aggregator_url_import_range_end', $end, $start, $meta );
+
+				// @todo scheduled imports starts
+
+				$result['start'] = $start;
+				$result['end'] = $end;
+
 				break;
 			default:
 				if ( empty( $meta['url'] ) ) {
@@ -169,5 +194,19 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Casts a string or int to a timestamp.
+	 *
+	 * @param int|string $time
+	 * @param int        $default The default time that should be used if the conversion of `$time` fails
+	 *
+	 * @return int
+	 */
+	protected function to_timestamp( $time, $default = '' ) {
+		$time = Tribe__Date_Utils::is_timestamp( $time ) ? $time : strtotime( $time );
+
+		return false !== $time ? $time : $default;
 	}
 }
