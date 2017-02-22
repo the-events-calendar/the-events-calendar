@@ -88,17 +88,18 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 
 		$meta = array(
 			'origin'        => $post_data['origin'],
-			'type'          => empty( $data['import_type'] )      ? 'manual' : $data['import_type'],
-			'frequency'     => empty( $data['import_frequency'] ) ? null     : $data['import_frequency'],
-			'file'          => empty( $data['file'] )             ? null     : $data['file'],
-			'keywords'      => empty( $data['keywords'] )         ? null     : $data['keywords'],
-			'location'      => empty( $data['location'] )         ? null     : $data['location'],
-			'start'         => empty( $data['start'] )            ? null     : $data['start'],
-			'radius'        => empty( $data['radius'] )           ? null     : $data['radius'],
-			'source'        => empty( $data['source'] )           ? null     : $data['source'],
-			'content_type'  => empty( $data['content_type'] )     ? null     : $data['content_type'],
-			'schedule_day'  => empty( $data['schedule_day'] )     ? null     : $data['schedule_day'],
-			'schedule_time' => empty( $data['schedule_time'] )    ? null     : $data['schedule_time'],
+			'type'          => empty( $data['import_type'] ) ? 'manual' : $data['import_type'],
+			'frequency'     => empty( $data['import_frequency'] ) ? null : $data['import_frequency'],
+			'file'          => empty( $data['file'] ) ? null : $data['file'],
+			'keywords'      => empty( $data['keywords'] ) ? null : $data['keywords'],
+			'location'      => empty( $data['location'] ) ? null : $data['location'],
+			'start'         => empty( $data['start'] ) ? null : $data['start'],
+			'end'           => empty( $data['end'] ) ? null : $data['end'],
+			'radius'        => empty( $data['radius'] ) ? null : $data['radius'],
+			'source'        => empty( $data['source'] ) ? null : $data['source'],
+			'content_type'  => empty( $data['content_type'] ) ? null : $data['content_type'],
+			'schedule_day'  => empty( $data['schedule_day'] ) ? null : $data['schedule_day'],
+			'schedule_time' => empty( $data['schedule_time'] ) ? null : $data['schedule_time'],
 		);
 
 		$meta = $this->validate_meta_by_origin( $meta['origin'], $meta );
