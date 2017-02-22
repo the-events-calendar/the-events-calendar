@@ -99,7 +99,7 @@ class Tribe__Events__Aggregator__Page {
 					),
 					'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
 				),
-				'default_settings' => Tribe__Events__Aggregator__Settings::instance()->get_all_default_settings(),
+				'default_settings' => tribe( 'events-aggregator.settings' )->get_all_default_settings(),
 			),
 		);
 

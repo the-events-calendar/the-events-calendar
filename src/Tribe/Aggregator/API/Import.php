@@ -138,7 +138,7 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 
 		$event['post_type'] = Tribe__Events__Main::POSTTYPE;
 
-		$event['post_status'] = Tribe__Events__Aggregator__Settings::instance()->default_post_status( $json->origin );
+		$event['post_status'] = tribe( 'events-aggregator.settings' )->default_post_status( $json->origin );
 
 		// translate json key/value pairs to event array key/value pairs
 		foreach ( get_object_vars( $json ) as $key => $value ) {
@@ -206,7 +206,7 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 			}
 		}
 
-		$show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( $json->origin );
+		$show_map_setting = tribe( 'events-aggregator.settings' )->default_map( $json->origin );
 
 		$event['EventShowMap']     = $show_map_setting;
 		$event['EventShowMapLink'] = $show_map_setting;
