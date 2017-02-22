@@ -75,10 +75,12 @@ $field->label       = __( 'URL:', 'the-events-calendar' );
 $field->placeholder = __( 'example.com/', 'the-events-calendar' );
 $field->help        = __( 'Enter the url for the calendar, website, or event you would like to import. Event Aggregator will attempt to import events at that location.', 'the-events-calendar' );
 
-$n = tribe_get_option( 'tribe_aggregator_default_url_import_events_count', 20 );
-$count_message = esc_html( sprintf( _n( 'Event Aggregator will try to fetch %d event from the source site,', 'Event Aggregator will try to fetch %d events from the source site,', $n, 'the-events-calendar' ), $n ) );
-$link = esc_attr( admin_url( '/edit.php?post_type=tribe_events&page=tribe-common&tab=imports#tribe-field-tribe_aggregator_default_url_import_events_count' ) );
-$field->count_message = $count_message . ' ' . sprintf( '<a href="%s" target="_blank">%s</a> ', $link, esc_html__( 'you can modify this setting here.', 'the-events-calendar' ) );
+$range_option = tribe_get_option( 'tribe_aggregator_default_url_import_range', MONTH_IN_SECONDS );
+$range_strings = tribe( 'events-aggregator.settings' )->get_url_import_range_options( false );
+$range_string = $range_strings[ $range_option ];
+$range_message = esc_html( sprintf( __( 'Event Aggregator will try to fetch events starting in %s from the current date or the specified date;', 'the-events-calendar' ), $range_string ) );
+$link = esc_attr( admin_url( '/edit.php?post_type=tribe_events&page=tribe-common&tab=imports#tribe-field-tribe_aggregator_default_url_import_range' ) );
+$field->range_message = $range_message . ' ' . sprintf( '<a href="%s" target="_blank">%s</a> ', $link, esc_html__( 'you can modify this setting here.', 'the-events-calendar' ) );
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-url_import_type" data-condition-not-empty>
 	<th scope="row">
@@ -100,7 +102,7 @@ $field->count_message = $count_message . ' ' . sprintf( '<a href="%s" target="_b
 <?php include dirname( __FILE__ ) . '/refine.php'; ?>
 
 <div class="tribe-dependent" data-depends="#tribe-ea-field-url_import_type" data-condition-not-empty>
-    <p><?php echo $field->count_message; ?></p>
+    <p><?php echo $field->range_message; ?></p>
 </div>
 
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-url_import_type" data-condition-not-empty>

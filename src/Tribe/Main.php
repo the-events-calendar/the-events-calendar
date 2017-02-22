@@ -396,6 +396,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Event Aggregator
 			tribe_singleton( 'events-aggregator.main', 'Tribe__Events__Aggregator', array( 'load', 'hook' ) );
 			tribe_singleton( 'events-aggregator.service', 'Tribe__Events__Aggregator__Service' );
+			tribe_singleton( 'events-aggregator.settings', 'Tribe__Events__Aggregator__Settings' );
 
 			// Shortcodes
 			tribe_singleton( 'tec.shortcodes.event-details', 'Tribe__Events__Shortcode__Event_Details', array( 'hook' ) );
