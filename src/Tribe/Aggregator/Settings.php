@@ -271,35 +271,35 @@ class Tribe__Events__Aggregator__Settings {
 		$options = array(
 			DAY_IN_SECONDS       => array(
 				'title' => __( 'One day', 'the-events-calendar' ),
-				'range' => __( 'a day', 'the-events-calendar' )
+				'range' => __( 'a day', 'the-events-calendar' ),
 			),
 			3 * DAY_IN_SECONDS   => array(
 				'title' => __( 'Three days', 'the-events-calendar' ),
-				'range' => __( 'three days', 'the-events-calendar' )
+				'range' => __( 'three days', 'the-events-calendar' ),
 			),
 			WEEK_IN_SECONDS      => array(
 				'title' => __( 'One week', 'the-events-calendar' ),
-				'range' => __( 'a week', 'the-events-calendar' )
+				'range' => __( 'a week', 'the-events-calendar' ),
 			),
 			2 * WEEK_IN_SECONDS  => array(
 				'title' => __( 'Two weeks', 'the-events-calendar' ),
-				'range' => __( 'two weeks', 'the-events-calendar' )
+				'range' => __( 'two weeks', 'the-events-calendar' ),
 			),
 			3 * WEEK_IN_SECONDS  => array(
 				'title' => __( 'Three weeks', 'the-events-calendar' ),
-				'range' => __( 'three weeks', 'the-events-calendar' )
+				'range' => __( 'three weeks', 'the-events-calendar' ),
 			),
 			MONTH_IN_SECONDS     => array(
 				'title' => __( 'One month', 'the-events-calendar' ),
-				'range' => __( 'a month', 'the-events-calendar' )
+				'range' => __( 'a month', 'the-events-calendar' ),
 			),
 			2 * MONTH_IN_SECONDS => array(
 				'title' => __( 'Two months', 'the-events-calendar' ),
-				'range' => __( 'two months', 'the-events-calendar' )
+				'range' => __( 'two months', 'the-events-calendar' ),
 			),
 			3 * MONTH_IN_SECONDS => array(
 				'title' => __( 'Three months', 'the-events-calendar' ),
-				'range' => __( 'three months', 'the-events-calendar' )
+				'range' => __( 'three months', 'the-events-calendar' ),
 			),
 		);
 
