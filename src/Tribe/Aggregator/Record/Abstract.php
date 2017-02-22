@@ -540,12 +540,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$defaults['start'] = $this->meta['start'];
 		}
 
-		if ( ! empty( $this->meta['radius'] ) ) {
-			$defaults['radius'] = $this->meta['radius'];
+		if ( ! empty( $this->meta['end'] ) ) {
+			$defaults['end'] = $this->meta['end'];
 		}
 
-		if ( ! empty( $this->meta['count'] ) ) {
-			$defaults['count'] = $this->meta['count'];
+		if ( ! empty( $this->meta['radius'] ) ) {
+			$defaults['radius'] = $this->meta['radius'];
 		}
 
 		if ( $is_previewing ) {
