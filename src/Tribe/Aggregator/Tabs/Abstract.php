@@ -180,8 +180,6 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 				 */
 				$end = apply_filters( 'tribe_aggregator_url_import_range_end', $end, $start, $meta );
 
-				// @todo scheduled imports starts
-
 				$result['start'] = $start;
 				$result['end'] = $end;
 
