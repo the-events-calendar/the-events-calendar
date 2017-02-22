@@ -220,7 +220,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$result = wp_insert_post( $post );
 
-		if ( ! is_wp_error( $result ) ) {
+		if ( is_wp_error( $result ) ) {
 			$this->maybe_add_meta_via_pre_wp_44_method( $result, $post['meta_input'] );
 		}
 
@@ -538,6 +538,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		if ( ! empty( $this->meta['start'] ) ) {
 			$defaults['start'] = $this->meta['start'];
+		}
+
+		if ( ! empty( $this->meta['end'] ) ) {
+			$defaults['end'] = $this->meta['end'];
 		}
 
 		if ( ! empty( $this->meta['radius'] ) ) {
@@ -1054,8 +1058,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$non_recurring = false;
 
 		$origin = $this->meta['origin'];
-		$show_map_setting = tribe_is_truthy( Tribe__Events__Aggregator__Settings::instance()->default_map( $origin ) );
-		$update_authority_setting = Tribe__Events__Aggregator__Settings::instance()->default_update_authority( $origin );
+		$show_map_setting = tribe_is_truthy( tribe( 'events-aggregator.settings' )->default_map( $origin ) );
+		$update_authority_setting = tribe( 'events-aggregator.settings' )->default_update_authority( $origin );
 
 		$unique_inserted = array();
 
@@ -1092,7 +1096,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				continue;
 			}
 
-			$import_settings = Tribe__Events__Aggregator__Settings::instance()->default_settings_import( $origin );
+			$import_settings = tribe( 'events-aggregator.settings' )->default_settings_import( $origin );
 			$should_import_settings = tribe_is_truthy( $import_settings ) ? true : false;
 
 			if ( $show_map_setting ) {

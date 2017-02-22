@@ -64,7 +64,8 @@ class MainTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_return_the_right_tec_rest_url_for_a_path() {
 		$sut = $this->make_instance();
 
-		$this->assertEquals( $this->site_url . '/?rest_route=/tribe/events/v1/some/path', $sut->get_url( 'some/path' ) );
+		$expected = str_replace( home_url(), $this->site_url, rest_url( '/tribe/events/v1/some/path' ) );
+		$this->assertEquals( $expected, $sut->get_url( 'some/path' ) );
 	}
 
 	/**
@@ -76,7 +77,8 @@ class MainTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut = $this->make_instance();
 
-		$this->assertEquals( $this->site_url . '/?rest_route=/tribe/events/v1/some/path', $sut->get_url( 'some/path' ) );
+		$expected = str_replace( home_url(), $this->site_url, rest_url( '/tribe/events/v1/some/path' ) );
+		$this->assertEquals( $expected, $sut->get_url( 'some/path' ) );
 	}
 
 	/**
@@ -88,7 +90,8 @@ class MainTest extends \Codeception\TestCase\WPTestCase {
 
 		$sut = $this->make_instance();
 
-		$this->assertEquals( $this->site_url . '/wp-json/tribe/events/v1/some/path', $sut->get_url( 'some/path' ) );
+		$expected = str_replace( home_url(), $this->site_url, rest_url( '/tribe/events/v1/some/path' ) );
+		$this->assertEquals( $expected, $sut->get_url( 'some/path' ) );
 	}
 
 	/**

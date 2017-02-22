@@ -79,9 +79,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		}
 
 		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
-		if ( current_user_can( $cap ) ) {
-			$args['post_status'] = 'any';
-		}
+		$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
 
 		$events = tribe_get_events( $args );
 

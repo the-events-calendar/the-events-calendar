@@ -188,7 +188,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		// Make sure we have a post status set no matter what
 		if ( empty( $data['post_status'] ) ) {
-			$data['post_status'] = Tribe__Events__Aggregator__Settings::instance()->default_post_status( $data['origin'] );
+			$data['post_status'] = tribe( 'events-aggregator.settings' )->default_post_status( $data['origin'] );
 		}
 
 		// If the submitted category is null, that means the user intended to de-select the default

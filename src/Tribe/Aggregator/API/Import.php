@@ -82,6 +82,12 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 			return $response;
 		}
 
+		// let's try to use the localized version of the message if available
+		if ( ! empty( $response->message_code ) ) {
+			$default = ! empty( $response->message ) ? $response->message : $this->service->get_unknown_message();
+			$response->message = $this->service->get_service_message( $response->message_code, $default );
+		}
+
 		if ( 'success_import-complete' !== $response->message_code ) {
 			return $response;
 		}
@@ -132,7 +138,7 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 
 		$event['post_type'] = Tribe__Events__Main::POSTTYPE;
 
-		$event['post_status'] = Tribe__Events__Aggregator__Settings::instance()->default_post_status( $json->origin );
+		$event['post_status'] = tribe( 'events-aggregator.settings' )->default_post_status( $json->origin );
 
 		// translate json key/value pairs to event array key/value pairs
 		foreach ( get_object_vars( $json ) as $key => $value ) {
@@ -200,7 +206,7 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 			}
 		}
 
-		$show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( $json->origin );
+		$show_map_setting = tribe( 'events-aggregator.settings' )->default_map( $json->origin );
 
 		$event['EventShowMap']     = $show_map_setting;
 		$event['EventShowMapLink'] = $show_map_setting;

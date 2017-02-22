@@ -456,7 +456,7 @@ class Tribe__Events__Aggregator {
 		$this->migrate = Tribe__Events__Aggregator__Migrate::instance();
 		$this->page = Tribe__Events__Aggregator__Page::instance();
 		$this->service = tribe( 'events-aggregator.service' );
-		$this->settings = Tribe__Events__Aggregator__Settings::instance();
+		$this->settings = tribe( 'events-aggregator.settings' );
 		$this->records = Tribe__Events__Aggregator__Records::instance();
 		$this->cron = Tribe__Events__Aggregator__Cron::instance();
 		$this->queue_processor = new Tribe__Events__Aggregator__Record__Queue_Processor;

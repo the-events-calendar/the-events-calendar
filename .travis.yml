@@ -77,3 +77,4 @@ before_script:
 script:
   - codecept run integration -vvv
   - codecept run muintegration -vvv
+  - codecept run restv1 -vvv
