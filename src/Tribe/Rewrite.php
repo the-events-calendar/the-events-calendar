@@ -259,7 +259,7 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 			'tag' => array( 'tag', $tec->tag_slug ),
 			'tax' => array( 'category', $tec->category_slug ),
 			'page' => (array) 'page',
-			'all' => (array) 'all',
+			'all' => array( 'all', $tec->all_slug ),
 			'single' => (array) Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ),
 			'archive' => (array) Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ),
 			'featured' => array( 'featured', $tec->featured_slug ),
