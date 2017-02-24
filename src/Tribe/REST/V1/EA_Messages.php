@@ -4,6 +4,7 @@ class Tribe__Events__REST__V1__EA_Messages extends Tribe__Events__REST__V1__Mess
 	public function __construct() {
 		parent::__construct();
 
+		// TEC REST v1 messages will all have the `rest-v1:` prefix applied
 		$ea_messages = array(
 			'not-tec-rest-api-site'              => __( 'The Events Calendar is not active or is not at least version 4.5 on the requested URL.', 'the-events-calendar' ),
 			'tec-rest-api-unsupported'           => __( 'Events could not be imported. The requested URL does not support The Events Calendar REST API.', 'the-events-calendar' ),
@@ -52,9 +53,9 @@ class Tribe__Events__REST__V1__EA_Messages extends Tribe__Events__REST__V1__Mess
 			'tec-rest-api-single-event-empty',
 		);
 
-		$adjust_link = esc_attr( admin_url( '/edit.php?post_type=tribe_events&page=tribe-common&tab=imports#tribe-field-tribe_aggregator_default_url_import_events_count' ) );
+		$adjust_link = esc_attr( admin_url( '/edit.php?post_type=tribe_events&page=tribe-common&tab=imports#tribe-field-tribe_aggregator_default_url_import_range' ) );
 		$adjust_message = esc_html__( 'Try to adjust your import settings and try again.', 'the-events-calendar' );
-		$adjust_message_html = sprintf( '<a href="%s" target="_blank">%s</a> ', $adjust_link, $adjust_message );
+		$adjust_message_html = sprintf( '<p><a href="%s" target="_blank">%s</a></p> ', $adjust_link, $adjust_message );
 
 		foreach ( $adjustable_map as $message_code ) {
 			$ea_messages[ $message_code ] .= ' ' . $adjust_message_html;
