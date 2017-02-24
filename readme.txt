@@ -316,6 +316,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.4.4] TBD =
+
+* Fix - Avoid unnecessarily removing a callback from an action while inside the same action (improves PolyLang compatibility - props @Chouby) [73122]
+
 = [4.4.3] 2017-02-22 =
 
 * Fix - Resolved issue where iCal exports on month view were exporting more events than intended (thanks to @s2ldesign for reporting in our forums) [72133]
