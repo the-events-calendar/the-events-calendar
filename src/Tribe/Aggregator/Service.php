@@ -494,14 +494,14 @@ class Tribe__Events__Aggregator__Service {
 	protected function register_messages() {
 		$this->service_messages = array(
 			'error:create-import-failed' => __( 'Sorry, but something went wrong. Please try again.', 'the-events-calendar' ),
-			'error:create-import-invalid-params' => __( 'The import parameters were invalid.', 'the-events-calendar' ),
+			'error:create-import-invalid-params' => __( 'Events could not be imported. The import parameters were invalid.', 'the-events-calendar' ),
 			'error:fb-permissions' => __( 'Events cannot be imported because Facebook has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Facebook. You can <a href="https://theeventscalendar.com/knowledgebase/import-errors/" target="_blank">read more about Facebook restrictions in our knowledgebase</a>.', 'the-events-calendar' ),
 			'error:fetch-404' => __( 'The URL provided could not be reached.', 'the-events-calendar' ),
 			'error:fetch-failed' => __( 'The URL provided failed to load.', 'the-events-calendar' ),
 			'error:get-image' => __( 'The image associated with your event could not be imported.', 'the-events-calendar' ),
 			'error:get-image-bad-association' => __( 'The image associated with your event is not accessible with your API key.', 'the-events-calendar' ),
 			'error:import-failed' => __( 'The import failed for an unknown reason. Please try again. If the problem persists, please contact support.', 'the-events-calendar' ),
-			'error:invalid-ical-url' => __( 'The URL provided did not have events in the proper format.', 'the-events-calendar' ),
+			'error:invalid-ical-url' => __( 'Events could not be imported. The URL provided did not have events in the proper format.', 'the-events-calendar' ),
 			'error:invalid-ics-file' => __( 'The file provided could not be opened. Please confirm that it is a properly formatted .ics file.', 'the-events-calendar' ),
 			'error:meetup-api-key' => __( 'Your Meetup API key is invalid.', 'the-events-calendar' ),
 			'error:meetup-api-quota' => __( 'Event Aggregator cannot reach Meetup.com because you exceeded the request limit for your Meetup API key.', 'the-events-calendar' ),
@@ -514,7 +514,7 @@ class Tribe__Events__Aggregator__Service {
 			'success:get-origin' => __( 'Successfully loaded import origins', 'the-events-calendar' ),
 			'success:import-complete' => __( 'Import is complete', 'the-events-calendar' ),
 			'success:queued' => __( 'Import queued', 'the-events-calendar' ),
-			'error:invalid-other-url' => __( 'The URL provided could not be reached.', 'the-events-calendar' ),
+			'error:invalid-other-url' => __( 'Events could not be imported. The URL provided could not be reached.', 'the-events-calendar' ),
 		);
 
 		/**
