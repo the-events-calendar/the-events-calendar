@@ -40,6 +40,39 @@ $organizer = tribe_get_organizer();
 </h2>
 <?php do_action( 'tribe_events_after_the_event_title' ) ?>
 
+<!-- Event Available Tickets -->
+<?php
+$event_id = get_the_ID();
+
+$woo_tickets = Tribe__Tickets_Plus__Commerce__WooCommerce__Main::get_instance();
+
+$tickets_count = 0;
+$stock_count   = 0;
+$sold_count    = 0;
+
+foreach ( $woo_tickets->get_tickets( $event_id ) as $ticket ) {
+      ++$tickets_count;
+      $stock_count += $ticket->stock;
+      $sold_count  += $ticket->qty_sold;
+}
+
+if ( ! $tickets_count )
+      return;
+      
+$tickets_left = $stock_count - $sold_count;
+
+if ( $tickets_left == 0 ) {
+      
+}else{
+	if ( $tickets_left > 0 ) {
+	      echo '<strong><em>Only '.$tickets_left.' tickets left!</em></strong><br>';
+	}
+	
+	if ( $stock_count - $sold_count == 0 ) {
+	      echo '<strong><em>Sold out!</em></strong><br>';
+	}
+}?>
+
 <!-- Event Meta -->
 <?php do_action( 'tribe_events_before_the_meta' ) ?>
 <div class="tribe-events-event-meta">
