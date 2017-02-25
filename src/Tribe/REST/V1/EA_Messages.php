@@ -7,7 +7,7 @@ class Tribe__Events__REST__V1__EA_Messages extends Tribe__Events__REST__V1__Mess
 		// TEC REST v1 messages will all have the `rest-v1:` prefix applied
 		$ea_messages = array(
 			'not-tec-rest-api-site'              => __( 'The Events Calendar is not active or is not at least version 4.5 on the requested URL.', 'the-events-calendar' ),
-			'tec-rest-api-unsupported'           => __( 'Events could not be imported. The requested URL does not support The Events Calendar REST API.', 'the-events-calendar' ),
+			'tec-rest-api-unsupported'           => __( 'Events could not be imported. Event Aggregator does not yet support events from that URL. We have noted your request and will review it for support in the future.', 'the-events-calendar' ),
 			'tec-rest-api-disabled'              => __( 'Events could not be imported. The Events Calendar REST API is disabled on the requested URL.', 'the-events-calendar' ),
 			'tec-rest-api-bad-data'              => __( 'Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but returned malformed data.', 'the-events-calendar' ),
 			'tec-rest-api-archive-header-error'  => __( 'Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but there was an error while fetching the archive control data.', 'the-events-calendar' ),
