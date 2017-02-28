@@ -9,7 +9,6 @@ abstract class Tribe__Events__Importer__File_Importer {
 	/** @var Tribe__Events__Importer__File_Reader */
 	private $reader = null;
 	private $map = array();
-	private $inverted_map = array();
 	private $type = '';
 	private $limit = 100;
 	private $offset = 0;
@@ -20,6 +19,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	private $log = array();
 
 	protected $skipped = array();
+	protected $inverted_map = array();
 
 	public $is_aggregator = false;
 	public $aggregator_record;
