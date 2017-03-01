@@ -1339,4 +1339,33 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function finalize() {
 		$this->update_meta( 'finalized', true );
 	}
+
+	/**
+	 * preserve Event Options
+	 *
+	 * @param array $event Event data
+	 *
+	 * @return array
+	 */
+	public static function preserve_event_option_fields( $event ) {
+		$event_post = get_post( $event['ID'] );
+		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $event['ID'] );
+
+		// we want to preserve this option if not explicitly being overridden
+		if ( ! isset( $event['EventHideFromUpcoming'] ) && isset( $post_meta['_EventHideFromUpcoming'] ) ) {
+			$event['EventHideFromUpcoming'] = $post_meta['_EventHideFromUpcoming'];
+		}
+
+		// we want to preserve the existing sticky state unless it is explicitly being overridden
+		if ( ! isset( $event['EventShowInCalendar'] ) && '-1' == $event_post->menu_order ) {
+			$event['EventShowInCalendar'] = 'yes';
+		}
+
+		// we want to preserve the existing featured state unless it is explicitly being overridden
+		if ( ! isset( $event['feature_event'] ) && isset( $post_meta['_tribe_featured'] ) ) {
+			$event['feature_event'] = $post_meta['_tribe_featured'];
+		}
+
+		return $event;
+	}
 }
