@@ -319,6 +319,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.4.4] TBD =
 
 * Fix - Avoid unnecessarily removing a callback from an action while inside the same action (improves PolyLang compatibility - props @Chouby) [73122]
+* Fix - Resolving issue where sites that overrode the wp-admin path would fail to successfully perform a Facebook OAuth with Event Aggregator [74687]
 * Tweak - Improve template loading for easier customization by developers and better support of the template hierarchy (props @QWp6t) [72842]
 
 = [4.4.3] 2017-02-22 =
