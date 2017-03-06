@@ -25,6 +25,7 @@ class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggrega
 		$url = $service->api()->domain . 'facebook/' . $service->api()->key;
 		$defaults = array(
 			'referral' => urlencode( home_url() ),
+			'admin_url' => urlencode( get_admin_url() ),
 			'type' => 'new',
 			'lang' => get_bloginfo( 'language' ),
 		);
