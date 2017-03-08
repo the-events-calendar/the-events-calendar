@@ -70,7 +70,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				),
 				'all_day' => array(
 					'type' => 'boolean',
-					'description' => __( 'Whether or not this event is an All day Event', 'the-events-calendar' ),
+					'description' => __( 'Whether or not this event is an all day Event', 'the-events-calendar' ),
 				),
 				'start_date' => array(
 					'type' => 'string',
