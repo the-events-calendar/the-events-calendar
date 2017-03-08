@@ -68,6 +68,10 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
 					'$ref' => '#/definitions/Image',
 				),
+				'all_day' => array(
+					'type' => 'boolean',
+					'description' => __( 'Whether or not this event is an all day Event', 'the-events-calendar' ),
+				),
 				'start_date' => array(
 					'type' => 'string',
 					'description' => __( 'The event start date in the event or site timezone', 'the-events-calendar' ),
