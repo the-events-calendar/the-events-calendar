@@ -474,7 +474,12 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			}
 
 			if ( ! empty( $record->meta['start'] ) ) {
-				$html[] = '<dt>' . __( 'Start:', 'the-events-calendar' ) . '</dt><dd>' . esc_html( $record->meta['start'] ) . '</dd>';
+				$start = $record->meta['start'];
+				if ( is_numeric( $start ) ) {
+					$start = date( Tribe__Date_Utils::DATEONLYFORMAT, $start );
+				}
+
+				$html[] = '<dt>' . __( 'Start:', 'the-events-calendar' ) . '</dt><dd>' . esc_html( $start ) . '</dd>';
 			}
 
 			if ( ! empty( $record->meta['location'] ) ) {

@@ -57,6 +57,7 @@ class Tribe__Events__Aggregator__Event {
 		$field_map = array(
 			'title'              => 'post_title',
 			'description'        => 'post_content',
+			'excerpt'            => 'post_excerpt',
 			'start_date'         => 'EventStartDate',
 			'start_hour'         => 'EventStartHour',
 			'start_minute'       => 'EventStartMinute',
