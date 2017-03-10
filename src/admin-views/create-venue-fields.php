@@ -164,6 +164,19 @@ if ( ! $_POST ) {
 </tr>
 
 <?php
+
+/**
+ * Only show the Google map toggles on the admin screens
+ * @since
+ * @central #73813
+ *
+ * @TODO ascertain version number
+ *
+ */
+if( ! is_admin() ) {
+	return;
+}
+
 $google_map_toggle = false;
 $google_map_link_toggle = false;
 
