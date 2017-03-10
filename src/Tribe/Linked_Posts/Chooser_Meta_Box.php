@@ -224,7 +224,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		?>
 		<tr>
 			<td></td>
-			<td><a class="tribe-add-post" href="#"><?php echo esc_html( sprintf( __( 'Add another %s', 'the-events-calendar' ), $this->singular_name_lowercase ) ); ?></a></td>
+			<td><a class="tribe-add-post tribe-button tribe-button-secondary" href="#"><?php echo esc_html( sprintf( __( 'Add another %s', 'the-events-calendar' ), $this->singular_name_lowercase ) ); ?></a></td>
 		</tr>
 		<?php
 	}
