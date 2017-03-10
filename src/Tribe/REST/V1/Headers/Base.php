@@ -71,6 +71,14 @@ class Tribe__Events__REST__V1__Headers__Base implements Tribe__REST__Headers__Ba
 			return add_query_arg( array( 'tags' => $tag ), tribe_events_rest_url( 'events/' ) );
 		}
 
+		if ( $wp_query->get( 'post_type' ) === Tribe__Events__Venue::POSTTYPE ) {
+			$venue = $wp_query->get( 'name' );
+			if ( ! empty( $wp_query->queried_object_id ) && is_numeric( $wp_query->queried_object_id ) ) {
+				$venue = $wp_query->queried_object_id;
+			}
+			return add_query_arg( array( 'venue' => $venue ), tribe_events_rest_url( 'events/' ) );
+		}
+
 		return tribe_events_rest_url();
 	}
 }
