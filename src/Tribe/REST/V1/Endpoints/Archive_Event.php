@@ -22,6 +22,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		'categories' => 'categories',
 		'venue'      => 'venue',
 		'organizer'  => 'organizer',
+		'featured'  => 'featured',
 	);
 
 	/**
@@ -65,6 +66,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$args['meta_query'] = array_filter( array(
 				$this->parse_meta( $request, 'venue', '_EventVenueID', '=', 'NUMERIC' ),
 				$this->parse_meta( $request, 'organizer', '_EventOrganizerID', '=', 'NUMERIC' ),
+				$this->parse_featured( $request ),
 			) );
 
 			$args['tax_query'] = array_filter( array(
@@ -213,6 +215,19 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 	protected function parse_tags( $request ) {
 		return $this->parse_terms( $request, 'tags', 'post_tag' );
+	}
+
+	protected function parse_featured( $request ) {
+		if ( ! isset( $request['featured'] ) ) {
+			return false;
+		}
+
+		$parsed = array(
+			'key' => Tribe__Events__Featured_Events::FEATURED_EVENT_KEY,
+			'compare' => $request['featured'] ? 'EXISTS' : 'NOT EXISTS',
+		);
+
+		return $parsed;
 	}
 
 	protected function parse_terms( $request, $key, $taxonomy ) {
