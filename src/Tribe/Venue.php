@@ -198,7 +198,7 @@ class Tribe__Events__Venue {
 
 	public function meta_box_title( $title, $post_type ) {
 		if ( self::POSTTYPE === $post_type ) {
-			return 'Location';
+			return _x( 'Location', 'Metabox title', 'the-events-calendar' );
 		}
 
 		return $title;
