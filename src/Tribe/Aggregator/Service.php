@@ -269,8 +269,8 @@ class Tribe__Events__Aggregator__Service {
 	 *
 	 * @return stdClass|WP_Error
 	 */
-	public function get_import( $import_id ) {
-		$response = $this->get( 'import/' . $import_id );
+	public function get_import( $import_id, $data = array() ) {
+		$response = $this->get( 'import/' . $import_id, $data );
 
 		return $response;
 	}

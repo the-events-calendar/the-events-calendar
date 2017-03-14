@@ -609,7 +609,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	public function get_import_data() {
 		$aggregator = tribe( 'events-aggregator.main' );
-		return $aggregator->api( 'import' )->get( $this->meta['import_id'] );
+
+		// For now only apply this to the URL type
+		if ( 'url' === $this->type ) {
+			$data = array(
+				'start' => $this->meta['start'],
+				'end' => $this->meta['end'],
+			);
+		}
+
+		return $aggregator->api( 'import' )->get( $this->meta['import_id'], $data );
 	}
 
 	public function delete( $force = false ) {
