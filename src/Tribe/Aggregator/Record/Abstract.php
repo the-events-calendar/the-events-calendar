@@ -609,6 +609,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	public function get_import_data() {
 		$aggregator = tribe( 'events-aggregator.main' );
+		$data = array();
 
 		// For now only apply this to the URL type
 		if ( 'url' === $this->type ) {
