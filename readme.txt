@@ -318,7 +318,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.5] TBD =
 
-* Tweak - Clean up direct calls to get events and use wrapper tribe_get_events() which has it's a hook for customizing
+* Tweak - Clean up direct calls to get events and use wrapper tribe_get_events() which has a hook for customizing
 
 = [4.4.3] 2017-02-22 =
 
