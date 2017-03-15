@@ -898,8 +898,30 @@ select.tribe-events-dropdown {
 		margin: 20px 4% 2% 0;
 		padding: 5px;
 		vertical-align: top;
-		width: 58%;
+		width: 90%;
 		zoom: 1;
+	}
+
+	.tribe-events-meta-group + .tribe-events-meta-group + .tribe-events-meta-group-gmap {
+		clear: both;
+		display: block;
+		float: none;
+		width: auto;
+
+		.tribe-events-venue-map {
+			float: none;
+			width: 100%;
+		}
+	}
+
+	.secondary {
+		.tribe-events-venue-map {
+			width: 58%;
+
+			@media screen and (max-width: 767px) {
+				width: 90%;
+			}
+		}
 	}
 
 	/* Event Meta */
