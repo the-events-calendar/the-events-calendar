@@ -20,6 +20,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		'end_date'   => 'end_date',
 		'search'     => 's',
 		'categories' => 'categories',
+		'venue'      => 'venue',
+		'organizer'  => 'organizer',
+		'featured'  => 'featured',
 	);
 
 	/**
@@ -59,6 +62,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$args['start_date']     = $this->parse_start_date( $request );
 			$args['end_date']       = $this->parse_end_date( $request );
 			$args['s']              = $this->parse_search( $request );
+
+			$args['meta_query'] = array_filter( array(
+				$this->parse_meta( $request, 'venue', '_EventVenueID', '=', 'NUMERIC' ),
+				$this->parse_meta( $request, 'organizer', '_EventOrganizerID', '=', 'NUMERIC' ),
+				$this->parse_featured( $request ),
+			) );
 
 			$args['tax_query'] = array_filter( array(
 				$this->parse_categories( $request ),
@@ -199,6 +208,78 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		return false;
 	}
+
+	protected function parse_categories( WP_REST_Request $request ) {
+		return $this->parse_terms( $request, 'categories', Tribe__Events__Main::TAXONOMY );
+	}
+
+	protected function parse_tags( $request ) {
+		return $this->parse_terms( $request, 'tags', 'post_tag' );
+	}
+
+	protected function parse_featured( $request ) {
+		if ( ! isset( $request['featured'] ) ) {
+			return false;
+		}
+
+		$parsed = array(
+			'key' => Tribe__Events__Featured_Events::FEATURED_EVENT_KEY,
+			'compare' => $request['featured'] ? 'EXISTS' : 'NOT EXISTS',
+		);
+
+		return $parsed;
+	}
+
+	protected function parse_terms( $request, $key, $taxonomy ) {
+		if ( ! isset( $request[ $key ] ) ) {
+			return false;
+		}
+
+		$parsed    = array();
+		$requested = (array) $request[ $key ];
+
+		foreach ( $requested as $requeste_term ) {
+			$term = get_term_by( 'slug', $requeste_term, $taxonomy );
+
+			if ( false === $term ) {
+				$term = get_term_by( 'id', $requeste_term, $taxonomy );
+			}
+
+			if ( false === $term ) {
+				$message = $this->messages->get_message( 'event-archive-bad-' . $key );
+
+				throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-' . $key, $message, 400 );
+			}
+
+			$parsed[] = $term->term_id;
+		}
+
+		if ( ! empty( $parsed ) ) {
+			$parsed = array(
+				'taxonomy' => $taxonomy,
+				'field'    => 'term_id',
+				'terms'    => $parsed,
+			);
+		}
+
+		return $parsed;
+	}
+
+	protected function parse_meta( $request, $key, $meta, $compare = '=', $type = 'CHAR' ) {
+		if ( ! isset( $request[ $key ] ) ) {
+			return false;
+		}
+
+		$parsed = array(
+			'key'     => $meta,
+			'value'   => $request[ $key ],
+			'type'    => $type,
+			'compare' => $compare,
+		);
+
+		return $parsed;
+	}
+
 
 	/**
 	 * @param array $args
@@ -417,48 +498,5 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				),
 			),
 		);
-	}
-
-	protected function parse_categories( WP_REST_Request $request ) {
-		return $this->parse_terms( $request, 'categories', Tribe__Events__Main::TAXONOMY );
-	}
-
-	protected function parse_tags( $request ) {
-		return $this->parse_terms( $request, 'tags', 'post_tag' );
-	}
-
-	protected function parse_terms( $request, $key, $taxonomy ) {
-		if ( ! isset( $request[ $key ] ) ) {
-			return false;
-		}
-
-		$parsed = array();
-		$requested   = (array) $request[ $key ];
-
-		foreach ( $requested as $requeste_term ) {
-			$term = get_term_by( 'slug', $requeste_term, $taxonomy );
-
-			if ( false === $term ) {
-				$term = get_term_by( 'id', $requeste_term, $taxonomy );
-			}
-
-			if ( false === $term ) {
-				$message = $this->messages->get_message( 'event-archive-bad-' . $key );
-
-				throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-' . $key, $message, 400 );
-			}
-
-			$parsed[] = $term->term_id;
-		}
-
-		if ( ! empty( $parsed ) ) {
-			$parsed= array(
-				'taxonomy' => $taxonomy,
-				'field'    => 'term_id',
-				'terms'    => $parsed
-			);
-		}
-
-		return $parsed;
 	}
 }

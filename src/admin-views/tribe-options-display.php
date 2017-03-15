@@ -182,8 +182,8 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 		'monthEventAmount'                   => array(
 			'type'            => 'text',
 			'label'           => __( 'Month view events per day', 'the-events-calendar' ),
-			'tooltip'         => sprintf( __( 'Change the default 3 events per day in month view. Please note there may be performance issues if you set this too high. <a href="%s">Read more</a>.', 'the-events-calendar' ), 'http://m.tri.be/rh' ),
-			'validation_type' => 'positive_int',
+			'tooltip'         => sprintf( __( 'Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href="%s">Read more</a>.', 'the-events-calendar' ), 'http://m.tri.be/rh' ),
+			'validation_type' => 'int',
 			'size'            => 'small',
 			'default'         => '3',
 		),
