@@ -1054,19 +1054,22 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$found_organizers = array();
 		$found_venues     = array();
 
-		//if we have no non recurring events the message may be different
-		$non_recurring = false;
-
 		$origin = $this->meta['origin'];
 		$show_map_setting = tribe_is_truthy( tribe( 'events-aggregator.settings' )->default_map( $origin ) );
 		$update_authority_setting = tribe( 'events-aggregator.settings' )->default_update_authority( $origin );
+
+		$import_settings = tribe( 'events-aggregator.settings' )->default_settings_import( $origin );
+		$should_import_settings = tribe_is_truthy( $import_settings ) ? true : false;
 
 		$unique_inserted = array();
 
 		foreach ( $items as $item ) {
 			$event = Tribe__Events__Aggregator__Event::translate_service_data( $item );
 
-			// set the event ID if it can be set
+			// Configure the Post Type (enforcing)
+			$event['post_type'] = Tribe__Events__Main::POSTTYPE;
+
+			// Set the event ID if it can be set
 			if (
 				$unique_field
 				&& isset( $event[ $unique_field['target'] ] )
@@ -1075,7 +1078,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
 			}
 
-			// only set the post status if there isn't an ID
+			// Checks if we need to search for Global ID
+			if ( ! empty( $item->global_id ) ) {
+				$global_event = Tribe__Events__Aggregator__Event::get_post_by_global_id( $item->global_id );
+
+				// If we found something we will only update that Post
+				if ( $global_event ) {
+					$event['ID'] = $global_event->ID;
+				}
+			}
+
+			// Only set the post status if there isn't an ID
 			if ( empty( $event['ID'] ) ) {
 				$event['post_status'] = $args['post_status'];
 			}
@@ -1095,9 +1108,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$activity->add( 'event', 'skipped', $event['ID'] );
 				continue;
 			}
-
-			$import_settings = tribe( 'events-aggregator.settings' )->default_settings_import( $origin );
-			$should_import_settings = tribe_is_truthy( $import_settings ) ? true : false;
 
 			if ( $show_map_setting ) {
 				$event['EventShowMap'] = $show_map_setting || (bool) isset( $event['show_map'] );
@@ -1128,10 +1138,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				unset( $event['feature_event'] );
 			}
 
-			if ( empty( $event['recurrence'] ) ) {
-				$non_recurring = true;
-			}
-
 			// set the parent
 			if ( ! empty( $event['ID'] ) && ( $id = wp_get_post_parent_id( $event['ID'] ) ) ) {
 				$event['post_parent'] = $id;
@@ -1139,61 +1145,117 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event['post_parent'] = $k;
 			}
 
-			//if we should create a venue or use existing
+			// if we should create a venue or use existing
 			if ( ! empty( $event['Venue']['Venue'] ) ) {
-				$v_id = array_search( $event['Venue']['Venue'], $found_venues );
-				if ( false !== $v_id ) {
-					$event['EventVenueID'] = $v_id;
-				} elseif ( ! empty( $item->venue->global_id ) && $venue = Tribe__Events__Aggregator__Event::get_post_by_global_id( $item->venue->global_id ) ) {
-					$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
-					$event['EventVenueID']      = $venue->ID;
-				} elseif ( $venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Main::VENUE_POST_TYPE ) ) {
-					$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
-					$event['EventVenueID']      = $venue->ID;
-				} else {
-					$event['Venue']['ShowMap']     = $show_map_setting;
-					$event['Venue']['ShowMapLink'] = $show_map_setting;
-					$event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $this->meta['post_status'] );
+				if ( ! empty( $item->venue->global_id ) ) {
+					// Did we find a Post with a matching Global ID in History
+					$venue = Tribe__Events__Aggregator__Event::get_post_by( 'global_id_history', $item->venue->global_id );
 
-					if ( ! empty( $item->venue->global_id ) ) {
-						update_post_meta( $event['EventVenueID'], Tribe__Events__Aggregator__Event::$global_id_key, $item->venue->global_id );
+					// Save the Venue Data for Updating
+					$venue_data = $event['Venue'];
+
+					if ( $venue ) {
+						$event['EventVenueID'] = $venue->ID;
+						$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
+
+						// Here we might need to update the Venue depending on the main GlobalID
+						// @todo Update Venue
+					}
+				} else {
+					$venue_id = array_search( $event['Venue']['Venue'], $found_venues );
+					if ( ! $venue_id ) {
+						$venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Main::VENUE_POST_TYPE );
+
+						if ( $venue ) {
+							$venue_id = $venue->ID;
+							$found_venues[ $venue_id ] = $event['Venue']['Venue'];
+						}
 					}
 
-					// Log this Venue was created
-					$activity->add( 'venue', 'created', $event['EventVenueID'] );
+					// We didn't find any matching Venue for the provided one
+					if ( ! $venue_id ) {
+						$event['Venue']['ShowMap']     = $show_map_setting;
+						$event['Venue']['ShowMapLink'] = $show_map_setting;
+						$event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $this->meta['post_status'] );
+
+						$found_venues[ $event['EventVenueID'] ] = $event['Venue']['Venue'];
+
+						// Log this Venue was created
+						$activity->add( 'venue', 'created', $event['EventVenueID'] );
+					} else {
+						// Maybe update here
+						// @todo Update Venue
+					}
+				}
+
+				// Update the Venue Global ID
+				if ( ! empty( $item->venue->global_id ) ) {
+					update_post_meta( $event['EventVenueID'], Tribe__Events__Aggregator__Event::$global_id_key, $item->venue->global_id );
+				}
+
+				// Update the Venue Global ID History
+				if ( ! empty( $item->venue->global_id_history ) ) {
+					update_post_meta( $event['EventVenueID'], Tribe__Events__Aggregator__Event::$global_id_history_key, $item->venue->global_id_history );
 				}
 
 				// Remove the Venue to avoid duplicates
 				unset( $event['Venue'] );
 			}
 
-			//if we should create an organizer or use existing
+			// if we should create a organizer or use existing
 			if ( ! empty( $event['Organizer']['Organizer'] ) ) {
-				$o_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
-				if ( false !== $o_id ) {
-					$event['EventOrganizerID'] = $o_id;
-				} elseif ( ! empty( $item->organizer->global_id ) && $organizer = Tribe__Events__Aggregator__Event::get_post_by_global_id( $item->organizer->global_id ) ) {
-					$found_organizers[ $organizer->ID ] = $event['Organizer']['Organizer'];
-					$event['EventOrganizerID']          = $organizer->ID;
-				} elseif ( $organizer = get_page_by_title( $event['Organizer']['Organizer'], 'OBJECT', Tribe__Events__Main::ORGANIZER_POST_TYPE ) ) {
-					$found_organizers[ $organizer->ID ] = $event['Organizer']['Organizer'];
-					$event['EventOrganizerID']          = $organizer->ID;
-				} else {
-					$event['EventOrganizerID'] = Tribe__Events__Organizer::instance()->create( $event['Organizer'], $this->meta['post_status'] );
+				if ( ! empty( $item->organizer->global_id ) ) {
+					// Did we find a Post with a matching Global ID in History
+					$organizer = Tribe__Events__Aggregator__Event::get_post_by( 'global_id_history', $item->organizer->global_id );
 
-					if ( ! empty( $item->organizer->global_id ) ) {
-						update_post_meta( $event['EventOrganizerID'], Tribe__Events__Aggregator__Event::$global_id_key, $item->organizer->global_id );
+					// Save the Organizer Data for Updating
+					$organizer_data = $event['Organizer'];
+
+					if ( $organizer ) {
+						$event['EventOrganizerID'] = $organizer->ID;
+						$found_organizers[ $organizer->ID ] = $event['Organizer']['Organizer'];
+
+						// Here we might need to update the Organizer depending on the main GlobalID
+						// @todo Update Organizer
+					}
+				} else {
+					$organizer_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
+					if ( ! $organizer_id ) {
+						$organizer = get_page_by_title( $event['Organizer']['Organizer'], 'OBJECT', Tribe__Events__Main::VENUE_POST_TYPE );
+
+						if ( $organizer ) {
+							$organizer_id = $organizer->ID;
+							$found_organizers[ $organizer_id ] = $event['Organizer']['Organizer'];
+						}
 					}
 
-					// Log this Organizer was created
-					$activity->add( 'organizer', 'created', $event['EventOrganizerID'] );
+					// We didn't find any matching Organizer for the provided one
+					if ( ! $organizer_id ) {
+						$event['EventOrganizerID'] = Tribe__Events__Organizer::instance()->create( $event['Organizer'], $this->meta['post_status'] );
+
+						$found_organizers[ $event['EventOrganizerID'] ] = $event['Organizer']['Organizer'];
+
+						// Log this Organizer was created
+						$activity->add( 'organizer', 'created', $event['EventOrganizerID'] );
+					} else {
+						// Maybe update here
+						// @todo Update Organizer
+					}
+				}
+
+				// Update the Organizer Global ID
+				if ( ! empty( $item->organizer->global_id ) ) {
+					update_post_meta( $event['EventOrganizerID'], Tribe__Events__Aggregator__Event::$global_id_key, $item->organizer->global_id );
+				}
+
+				// Update the Organizer Global ID History
+				if ( ! empty( $item->organizer->global_id_history ) ) {
+					update_post_meta( $event['EventOrganizerID'], Tribe__Events__Aggregator__Event::$global_id_history_key, $item->organizer->global_id_history );
 				}
 
 				// Remove the Organizer to avoid duplicates
 				unset( $event['Organizer'] );
 			}
-
-			$event['post_type'] = Tribe__Events__Main::POSTTYPE;
 
 			/**
 			 * Filters the event data before any sort of saving of the event
@@ -1202,16 +1264,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			 * @param Tribe__Events__Aggregator__Record__Abstract Importer record
 			 */
 			$event = apply_filters( 'tribe_aggregator_before_save_event', $event, $this );
-
-			// Checks if we need to search for Global ID
-			if ( ! empty( $item->global_id ) ) {
-				$global_event = Tribe__Events__Aggregator__Event::get_post_by_global_id( $item->global_id );
-
-				// If we found something we will only update that Post
-				if ( $global_event ) {
-					$event['ID'] = $global_event->ID;
-				}
-			}
 
 			if ( ! empty( $event['ID'] ) ) {
 				if ( 'preserve_changes' === $update_authority_setting ) {
@@ -1232,23 +1284,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				// since the Event API only supports the _setting_ of these meta fields, we need to manually
 				// delete them rather than relying on Tribe__Events__API::saveEventMeta()
-				if (
-					isset( $event['EventShowMap'] )
-					&& (
-						empty( $event['EventShowMap'] )
-						|| 'no' === $event['EventShowMap']
-					)
-				) {
+				if ( isset( $event['EventShowMap'] ) && ! tribe_is_truthy( $event['EventShowMap'] ) ) {
 					delete_post_meta( $event['ID'], '_EventShowMap' );
 				}
 
-				if (
-					isset( $event['EventShowMapLink'] )
-					&& (
-						empty( $event['EventShowMapLink'] )
-						|| 'no' === $event['EventShowMapLink']
-					)
-				) {
+				if ( isset( $event['EventShowMapLink'] ) && ! tribe_is_truthy( $event['EventShowMapLink'] ) ) {
 					delete_post_meta( $event['ID'], '_EventShowMapLink' );
 				}
 
@@ -1266,26 +1306,28 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event = apply_filters( 'tribe_aggregator_before_insert_event', $event, $this );
 				$event['ID'] = tribe_create_event( $event );
 
-				if ( ! empty( $item->global_id ) ) {
-					update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$global_id_key, $item->global_id );
-				}
-
 				// Log this event was created
 				$activity->add( 'event', 'created', $event['ID'] );
 			}
 
 			Tribe__Events__Aggregator__Records::instance()->add_record_to_event( $event['ID'], $this->id, $this->origin );
 
-			//add post parent possibility
+			// Add the Global ID of this event
+			if ( ! empty( $item->global_id ) ) {
+				update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$global_id_key, $item->global_id );
+			}
+
+			// Add post parent possibility
 			if ( empty( $event['parent_uid'] ) ) {
 				$possible_parents[ $event['ID'] ] = $event[ $unique_field['target'] ];
 			}
 
+			// Check for legacy Unique ID (now we try to use Global ID)
 			if ( ! empty( $event[ $unique_field['target'] ] ) ) {
 				update_post_meta( $event['ID'], "_{$unique_field['target']}", $event[ $unique_field['target'] ] );
 			}
 
-			//Save the meta data in case of updating to pro later on
+			// Save the meta data in case of updating to pro later on
 			if ( ! empty( $event['EventRecurrenceRRULE'] ) ) {
 				update_post_meta( $event['ID'], '_EventRecurrenceRRULE', $event['EventRecurrenceRRULE'] );
 			}

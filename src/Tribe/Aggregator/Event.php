@@ -222,7 +222,22 @@ class Tribe__Events__Aggregator__Event {
 	 *
 	 * @return int
 	 */
-	public static function get_post_by_global_id( $value ) {
+	public static function get_post_by( $key = 'global_id', $value = null ) {
+		if ( is_null( $value ) ) {
+			return false;
+		}
+
+		$keys = array(
+			'global_id' => self::global_id_key,
+			'global_id_history' => self::global_id_history_key,
+		);
+
+		if ( ! isset( $keys[ $key ] ) ) {
+			return false;
+		}
+
+		$key = $keys[ $key ];
+
 		global $wpdb;
 
 		$sql = "
@@ -231,7 +246,7 @@ class Tribe__Events__Aggregator__Event {
 			FROM
 				{$wpdb->postmeta}
 			WHERE
-				meta_key = '" . esc_sql( self::$global_id_key ) . "' AND
+				meta_key = '" . esc_sql( $key ) . "' AND
 				meta_value = '" . esc_sql( $value ) . "'
 		";
 		$id = (int) $wpdb->get_var( $sql );

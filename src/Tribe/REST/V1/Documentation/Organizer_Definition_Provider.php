@@ -23,6 +23,14 @@ class Tribe__Events__REST__V1__Documentation__Organizer_Definition_Provider
 					'type' => 'int',
 					'description' => __( 'The organizer WordPress post ID', 'the-events-calendar' ),
 				),
+				'global_id' => array(
+					'type' => 'string',
+					'description' => __( 'The organizer ID used to globally identify in Event Aggregator', 'the-events-calendar' ),
+				),
+				'global_id_history' => array(
+					'type' => 'array',
+					'description' => __( 'An Array containing the history of where this organizer comes from', 'the-events-calendar' ),
+				),
 				'author' => array(
 					'type' => 'int',
 					'description' => __( 'The organizer author WordPress post ID', 'the-events-calendar' ),
