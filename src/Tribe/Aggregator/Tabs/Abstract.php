@@ -136,12 +136,12 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 				}
 				break;
 			case 'facebook':
-				if ( empty( $meta['url'] ) || ! preg_match( '!(https?://)?(www\.)?facebook\.com!', $meta['source'] ) ) {
+				if ( empty( $meta['source'] ) || ! preg_match( '!(https?://)?(www\.)?facebook\.com!', $meta['source'] ) ) {
 					$result = new WP_Error( 'not-facebook-url', __( 'Please provide a Facebook URL when importing from Facebook.', 'the-events-calendar' ) );
 				}
 				break;
 			case 'meetup':
-				if ( empty( $meta['url'] ) || ! preg_match( '!(https?://)?(www\.)?meetup\.com!', $meta['source'] ) ) {
+				if ( empty( $meta['source'] ) || ! preg_match( '!(https?://)?(www\.)?meetup\.com!', $meta['source'] ) ) {
 					$result = new WP_Error( 'not-meetup-url', __( 'Please provide a Meetup URL when importing from Meetup.', 'the-events-calendar' ) );
 				}
 				break;
