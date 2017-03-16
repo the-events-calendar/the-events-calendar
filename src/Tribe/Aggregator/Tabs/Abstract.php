@@ -185,7 +185,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 
 				break;
 			default:
-				if ( empty( $meta['url'] ) ) {
+				if ( empty( $meta['source'] ) ) {
 					$result = new WP_Error( 'missing-url', __( 'Please provide the URL that you wish to import.', 'the-events-calendar' ) );
 				}
 				break;
