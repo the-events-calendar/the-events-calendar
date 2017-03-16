@@ -33,6 +33,20 @@ class Tribe__Events__Aggregator__Event {
 	public static $source_key = '_tribe_aggregator_source';
 
 	/**
+	 * Key of the Meta to store the Post Global ID
+	 *
+	 * @var string
+	 */
+	public static $global_id_key = '_tribe_aggregator_global_id';
+
+	/**
+	 * Key of the Meta to store the Post Global ID history
+	 *
+	 * @var string
+	 */
+	public static $global_id_history_key = '_tribe_aggregator_global_id_history';
+
+	/**
 	 * Key of the Meta to store the Record's last import date
 	 *
 	 * @var string
@@ -72,6 +86,7 @@ class Tribe__Events__Aggregator__Event {
 			'image'              => 'image',
 			'facebook_id'        => 'EventFacebookID',
 			'meetup_id'          => 'EventMeetupID',
+			'global_id'          => 'global_id',
 			'uid'                => 'uid',
 			'parent_uid'         => 'parent_uid',
 			'recurrence'         => 'recurrence',
@@ -198,6 +213,34 @@ class Tribe__Events__Aggregator__Event {
 		}
 
 		return $wpdb->get_results( $sql, OBJECT_K );
+	}
+
+	/**
+	 * Fetch the Post ID for a given Global ID
+	 *
+	 * @param array $value The Global ID we are searching for
+	 *
+	 * @return int
+	 */
+	public static function get_post_by_global_id( $value ) {
+		global $wpdb;
+
+		$sql = "
+			SELECT
+				post_id
+			FROM
+				{$wpdb->postmeta}
+			WHERE
+				meta_key = '" . esc_sql( self::$global_id_key ) . "' AND
+				meta_value = '" . esc_sql( $value ) . "'
+		";
+		$id = (int) $wpdb->get_var( $sql );
+
+		if ( ! $id ) {
+			return false;
+		}
+
+		return get_post( $id );
 	}
 
 	/**

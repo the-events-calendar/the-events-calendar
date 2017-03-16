@@ -1144,6 +1144,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$v_id = array_search( $event['Venue']['Venue'], $found_venues );
 				if ( false !== $v_id ) {
 					$event['EventVenueID'] = $v_id;
+				} elseif ( ! empty( $item->venue->global_id ) && $venue = Tribe__Events__Aggregator__Event::get_post_by_global_id( $item->venue->global_id ) ) {
+					$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
+					$event['EventVenueID']      = $venue->ID;
 				} elseif ( $venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Main::VENUE_POST_TYPE ) ) {
 					$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
 					$event['EventVenueID']      = $venue->ID;
@@ -1151,6 +1154,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					$event['Venue']['ShowMap']     = $show_map_setting;
 					$event['Venue']['ShowMapLink'] = $show_map_setting;
 					$event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $this->meta['post_status'] );
+
+					if ( ! empty( $item->venue->global_id ) ) {
+						update_post_meta( $event['EventVenueID'], Tribe__Events__Aggregator__Event::$global_id_key, $item->venue->global_id );
+					}
 
 					// Log this Venue was created
 					$activity->add( 'venue', 'created', $event['EventVenueID'] );
@@ -1165,11 +1172,18 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$o_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
 				if ( false !== $o_id ) {
 					$event['EventOrganizerID'] = $o_id;
+				} elseif ( ! empty( $item->organizer->global_id ) && $organizer = Tribe__Events__Aggregator__Event::get_post_by_global_id( $item->organizer->global_id ) ) {
+					$found_organizers[ $organizer->ID ] = $event['Organizer']['Organizer'];
+					$event['EventOrganizerID']          = $organizer->ID;
 				} elseif ( $organizer = get_page_by_title( $event['Organizer']['Organizer'], 'OBJECT', Tribe__Events__Main::ORGANIZER_POST_TYPE ) ) {
 					$found_organizers[ $organizer->ID ] = $event['Organizer']['Organizer'];
 					$event['EventOrganizerID']          = $organizer->ID;
 				} else {
 					$event['EventOrganizerID'] = Tribe__Events__Organizer::instance()->create( $event['Organizer'], $this->meta['post_status'] );
+
+					if ( ! empty( $item->organizer->global_id ) ) {
+						update_post_meta( $event['EventOrganizerID'], Tribe__Events__Aggregator__Event::$global_id_key, $item->organizer->global_id );
+					}
 
 					// Log this Organizer was created
 					$activity->add( 'organizer', 'created', $event['EventOrganizerID'] );
@@ -1188,6 +1202,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			 * @param Tribe__Events__Aggregator__Record__Abstract Importer record
 			 */
 			$event = apply_filters( 'tribe_aggregator_before_save_event', $event, $this );
+
+			// Checks if we need to search for Global ID
+			if ( ! empty( $item->global_id ) ) {
+				$global_event = Tribe__Events__Aggregator__Event::get_post_by_global_id( $item->global_id );
+
+				// If we found something we will only update that Post
+				if ( $global_event ) {
+					$event['ID'] = $global_event->ID;
+				}
+			}
 
 			if ( ! empty( $event['ID'] ) ) {
 				if ( 'preserve_changes' === $update_authority_setting ) {
@@ -1241,6 +1265,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				 */
 				$event = apply_filters( 'tribe_aggregator_before_insert_event', $event, $this );
 				$event['ID'] = tribe_create_event( $event );
+
+				if ( ! empty( $item->global_id ) ) {
+					update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$global_id_key, $item->global_id );
+				}
 
 				// Log this event was created
 				$activity->add( 'event', 'created', $event['ID'] );

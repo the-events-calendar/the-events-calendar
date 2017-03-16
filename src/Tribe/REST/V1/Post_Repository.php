@@ -67,6 +67,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$data = array(
 			'id'                     => $event_id,
+			'global_id'              => isset( $meta[ Tribe__Events__Aggregator__Event::$global_id_key ] ) ? $meta[ Tribe__Events__Aggregator__Event::$global_id_key ] : false,
 			'author'                 => $event->post_author,
 			'date'                   => $event->post_date,
 			'date_utc'               => $event->post_date_gmt,
