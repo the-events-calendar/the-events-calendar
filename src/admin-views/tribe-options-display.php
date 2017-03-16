@@ -191,7 +191,7 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 			'type'            => 'checkbox_bool',
 			'label'           => __( 'Enable the Month View Cache', 'the-events-calendar' ),
 			'tooltip'         => sprintf( __( 'Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href="%s">Read more</a>.', 'the-events-calendar' ), 'http://m.tri.be/18di' ),
-			'default'         => false,
+			'default'         => true,
 			'validation_type' => 'boolean',
 		),
 	)
