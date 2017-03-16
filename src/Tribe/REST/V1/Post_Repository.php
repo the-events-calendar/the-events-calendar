@@ -158,6 +158,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$data = array(
 			'id'            => $venue->ID,
+			'global_id'     => isset( $meta[ Tribe__Events__Aggregator__Event::$global_id_key ] ) ? $meta[ Tribe__Events__Aggregator__Event::$global_id_key ] : false,
 			'author'        => $venue->post_author,
 			'date'          => $venue->post_date,
 			'date_utc'      => $venue->post_date_gmt,
@@ -240,6 +241,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 			$this_data = array(
 				'id'           => $organizer->ID,
+				'global_id'    => isset( $meta[ Tribe__Events__Aggregator__Event::$global_id_key ] ) ? $meta[ Tribe__Events__Aggregator__Event::$global_id_key ] : false,
 				'author'       => $organizer->post_author,
 				'date'         => $organizer->post_date,
 				'date_utc'     => $organizer->post_date_gmt,
