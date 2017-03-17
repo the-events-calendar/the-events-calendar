@@ -302,13 +302,14 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @return array
 	 */
 	protected function get_date_details( $date ) {
+		$time = strtotime( $date );
 		return array(
-			'year'    => date( 'Y', strtotime( $date ) ),
-			'month'   => date( 'm', strtotime( $date ) ),
-			'day'     => date( 'd', strtotime( $date ) ),
-			'hour'    => date( 'H', strtotime( $date ) ),
-			'minutes' => date( 'i', strtotime( $date ) ),
-			'seconds' => date( 's', strtotime( $date ) ),
+			'year'    => date( 'Y', $time ),
+			'month'   => date( 'm', $time ),
+			'day'     => date( 'd', $time ),
+			'hour'    => date( 'H', $time ),
+			'minutes' => date( 'i', $time ),
+			'seconds' => date( 's', $time ),
 		);
 	}
 
