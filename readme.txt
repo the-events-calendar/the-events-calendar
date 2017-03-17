@@ -319,6 +319,8 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.4.5] TBD =
 
 * Tweak - Enable the month view cache by default on new installations [74867]
+* Fix - External links to Google maps changed from http to https [74930]
+* Fix - Links to WordPress.org changed from http to https [72273]
 
 = [4.4.4] 2017-03-08 =
 
