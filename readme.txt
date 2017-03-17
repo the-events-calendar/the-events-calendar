@@ -316,6 +316,11 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.4.5] TBD
+
+* Fix - External links to Google maps changed from http to https [74930]
+* Fix - Links to WordPress.org changed from http to https [72273]
+
 = [4.4.4] 2017-03-08 =
 
 * Fix - Avoid unnecessarily removing a callback from an action while inside the same action (improves PolyLang compatibility - props @Chouby) [73122]
