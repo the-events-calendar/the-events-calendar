@@ -14,7 +14,15 @@ class Tribe__Events__REST__V1__Headers__Base implements Tribe__REST__Headers__Ba
 	/**
 	 * @var string
 	 */
+	protected $api_origin_header = 'X-TEC-API-ORIGIN';
+	/**
+	 * @var string
+	 */
 	protected $api_version_meta_name = 'tec-api-version';
+	/**
+	 * @var string
+	 */
+	protected $api_origin_meta_name = 'tec-api-origin';
 
 	/**
 	 * Returns the header that the REST API will print on the page head to report
@@ -37,6 +45,16 @@ class Tribe__Events__REST__V1__Headers__Base implements Tribe__REST__Headers__Ba
 	}
 
 	/**
+	 * Returns the header the REST API will print on the page head to report its origin
+	 * url. Normaly the home_url()
+	 *
+	 * @return string
+	 */
+	public function get_api_origin_header() {
+		return $this->api_origin_header;
+	}
+
+	/**
 	 * Returns the `name` of the meta tag that will be printed on the page to indicate
 	 * the REST API version.
 	 *
@@ -44,6 +62,16 @@ class Tribe__Events__REST__V1__Headers__Base implements Tribe__REST__Headers__Ba
 	 */
 	public function get_api_version_meta_name() {
 		return $this->api_version_meta_name;
+	}
+
+	/**
+	 * Returns the `name` of the meta tag that will be printed on the page to indicate
+	 * the REST API Origin URL.
+	 *
+	 * @return string
+	 */
+	public function get_api_origin_meta_name() {
+		return $this->api_origin_meta_name;
 	}
 
 	/**
@@ -85,5 +113,14 @@ class Tribe__Events__REST__V1__Headers__Base implements Tribe__REST__Headers__Ba
 		}
 
 		return tribe_events_rest_url();
+	}
+
+	/**
+	 * Returns the REST API Origin Site.
+	 *
+	 * @return string
+	 */
+	public function get_rest_origin_url() {
+		return home_url();
 	}
 }

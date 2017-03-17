@@ -33,6 +33,20 @@ class Tribe__Events__Aggregator__Event {
 	public static $source_key = '_tribe_aggregator_source';
 
 	/**
+	 * Key of the Meta to store the Post Global ID
+	 *
+	 * @var string
+	 */
+	public static $global_id_key = '_tribe_aggregator_global_id';
+
+	/**
+	 * Key of the Meta to store the Post Global ID lineage
+	 *
+	 * @var string
+	 */
+	public static $global_id_lineage_key = '_tribe_aggregator_global_id_lineage';
+
+	/**
 	 * Key of the Meta to store the Record's last import date
 	 *
 	 * @var string
@@ -198,6 +212,49 @@ class Tribe__Events__Aggregator__Event {
 		}
 
 		return $wpdb->get_results( $sql, OBJECT_K );
+	}
+
+	/**
+	 * Fetch the Post ID for a given Global ID
+	 *
+	 * @param array $value The Global ID we are searching for
+	 *
+	 * @return bool|WP_Post
+	 */
+	public static function get_post_by_meta( $key = 'global_id', $value = null ) {
+		if ( is_null( $value ) ) {
+			return false;
+		}
+
+		$keys = array(
+			'global_id' => self::$global_id_key,
+			'global_id_lineage' => self::$global_id_lineage_key,
+		);
+
+		if ( ! isset( $keys[ $key ] ) ) {
+			return false;
+		}
+
+		$key = $keys[ $key ];
+
+		global $wpdb;
+
+		$sql = "
+			SELECT
+				post_id
+			FROM
+				{$wpdb->postmeta}
+			WHERE
+				meta_key = '" . esc_sql( $key ) . "' AND
+				meta_value = '" . esc_sql( $value ) . "'
+		";
+		$id = (int) $wpdb->get_var( $sql );
+
+		if ( ! $id ) {
+			return false;
+		}
+
+		return get_post( $id );
 	}
 
 	/**
