@@ -27,9 +27,9 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 					'type' => 'string',
 					'description' => __( 'The event ID used to globally identify in Event Aggregator', 'the-events-calendar' ),
 				),
-				'global_id_history' => array(
+				'global_id_lineage' => array(
 					'type' => 'array',
-					'description' => __( 'An array containing the history of where this event comes from', 'the-events-calendar' ),
+					'description' => __( 'An Array containing the lineage of where this event comes from, this should not change after the event is created.', 'the-events-calendar' ),
 				),
 				'author' => array(
 					'type' => 'int',
