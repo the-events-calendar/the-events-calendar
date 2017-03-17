@@ -1204,7 +1204,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				unset( $event['Venue'] );
 			}
 
-			// if we should create a organizer or use existing
+			// if we should create an organizer or use existing
 			if ( ! empty( $event['Organizer']['Organizer'] ) ) {
 				if ( ! empty( $item->organizer->global_id ) ) {
 					// Did we find a Post with a matching Global ID in History
