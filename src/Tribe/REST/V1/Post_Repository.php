@@ -67,8 +67,9 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$data = array(
 			'id'                     => $event_id,
-			'global_id'              => isset( $meta[ Tribe__Events__Aggregator__Event::$global_id_key ] ) ? $meta[ Tribe__Events__Aggregator__Event::$global_id_key ] : false,
-			'global_id_history'      => isset( $meta[ Tribe__Events__Aggregator__Event::$global_id_key_history ] ) ? $meta[ Tribe__Events__Aggregator__Event::$global_id_key_history ] : false,
+			'global_id'              => false,
+			'global_id_lineage'      => array(),
+			'id'                     => $event_id,
 			'author'                 => $event->post_author,
 			'date'                   => $event->post_date,
 			'date_utc'               => $event->post_date_gmt,
@@ -109,6 +110,9 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'organizer'              => is_wp_error( $organizer ) ? array() : $organizer,
 		);
 
+		// Add the Global ID fields
+		$data = $this->add_global_id_fields( $data, $event_id );
+
 		/**
 		 * Filters the data that will be returnedf for a single event.
 		 *
@@ -118,22 +122,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$data = apply_filters( 'tribe_rest_event_data', $data, $event );
 
 		return $data;
-	}
-
-	/**
-	 * @param string $date A date string in a format `strtotime` can parse.
-	 *
-	 * @return array
-	 */
-	protected function get_date_details( $date ) {
-		return array(
-			'year'    => date( 'Y', strtotime( $date ) ),
-			'month'   => date( 'm', strtotime( $date ) ),
-			'day'     => date( 'd', strtotime( $date ) ),
-			'hour'    => date( 'H', strtotime( $date ) ),
-			'minutes' => date( 'i', strtotime( $date ) ),
-			'seconds' => date( 's', strtotime( $date ) ),
-		);
 	}
 
 	/**
@@ -159,8 +147,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$data = array(
 			'id'                => $venue->ID,
-			'global_id'         => isset( $meta[ Tribe__Events__Aggregator__Event::$global_id_key ] ) ? $meta[ Tribe__Events__Aggregator__Event::$global_id_key ] : false,
-			'global_id_history' => isset( $meta[ Tribe__Events__Aggregator__Event::$global_id_key_history ] ) ? $meta[ Tribe__Events__Aggregator__Event::$global_id_key_history ] : false,
 			'author'            => $venue->post_author,
 			'date'              => $venue->post_date,
 			'date_utc'          => $venue->post_date_gmt,
@@ -184,8 +170,11 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'stateprovince'     => isset( $meta['_VenueStateProvince'] ) ? $meta['_VenueStateProvince'] : '',
 		);
 
+		// Add the Global ID fields
+		$data = $this->add_global_id_fields( $data, $venue->ID );
+
 		/**
-		 * Filters the data that will be returnedf for a single venue.
+		 * Filters the data that will be returned for a single venue.
 		 *
 		 * @param array   $data  The data that will be returned in the response.
 		 * @param WP_Post $event The requested venue.
@@ -193,7 +182,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$data = apply_filters( 'tribe_rest_venue_data', array_filter( $data ), $venue );
 
 		/**
-		 * Filters the data that will be returnedf for an event venue.
+		 * Filters the data that will be returned for an event venue.
 		 *
 		 * @param array   $data  The data that will be returned in the response.
 		 * @param WP_Post $event The requested event.
@@ -243,8 +232,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 			$this_data = array(
 				'id'                => $organizer->ID,
-				'global_id'         => isset( $meta[ Tribe__Events__Aggregator__Event::$global_id_key ] ) ? $meta[ Tribe__Events__Aggregator__Event::$global_id_key ] : false,
-				'global_id_history' => isset( $meta[ Tribe__Events__Aggregator__Event::$global_id_key_history ] ) ? $meta[ Tribe__Events__Aggregator__Event::$global_id_key_history ] : false,
 				'author'            => $organizer->post_author,
 				'date'              => $organizer->post_date,
 				'date_utc'          => $organizer->post_date_gmt,
@@ -259,6 +246,9 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				'website'           => isset( $meta['_OrganizerWebsite'] ) ? $meta['_OrganizerWebsite'] : '',
 				'email'             => isset( $meta['_OrganizerEmail'] ) ? $meta['_OrganizerEmail'] : '',
 			);
+
+			// Add the Global ID fields
+			$this_data = $this->add_global_id_fields( $this_data, $organizer->ID );
 
 			/**
 			 * Filters the data that will be returnedf for a single organizer.
@@ -283,6 +273,43 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$data = array_filter( $data );
 
 		return $single ? reset( $data ) : $data;
+	}
+
+	/**
+	 * Adds the Global ID fields to a set of rest data
+	 *
+	 * @param array  $data  Rest Array of data
+	 * @param int    $id    Post ID
+	 *
+	 * @return array
+	 */
+	protected function add_global_id_fields( $data, $post_id ) {
+		$global_id = new Tribe__Utils__Global_ID;
+		$global_id->type( 'url' );
+		$global_id->origin( home_url() );
+
+		$lineage = get_post_meta( $post_id, Tribe__Events__Aggregator__Event::$global_id_lineage_key );
+
+		$data['global_id'] = $global_id->generate( [ 'id' => $post_id ] );
+		$data['global_id_lineage'] = array_merge( (array) $data['global_id'], (array) $lineage );
+
+		return $data;
+	}
+
+	/**
+	 * @param string $date A date string in a format `strtotime` can parse.
+	 *
+	 * @return array
+	 */
+	protected function get_date_details( $date ) {
+		return array(
+			'year'    => date( 'Y', strtotime( $date ) ),
+			'month'   => date( 'm', strtotime( $date ) ),
+			'day'     => date( 'd', strtotime( $date ) ),
+			'hour'    => date( 'H', strtotime( $date ) ),
+			'minutes' => date( 'i', strtotime( $date ) ),
+			'seconds' => date( 's', strtotime( $date ) ),
+		);
 	}
 
 	protected function get_categories( $event_id ) {

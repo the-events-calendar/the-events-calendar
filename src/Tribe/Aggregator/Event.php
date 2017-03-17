@@ -40,11 +40,11 @@ class Tribe__Events__Aggregator__Event {
 	public static $global_id_key = '_tribe_aggregator_global_id';
 
 	/**
-	 * Key of the Meta to store the Post Global ID history
+	 * Key of the Meta to store the Post Global ID lineage
 	 *
 	 * @var string
 	 */
-	public static $global_id_history_key = '_tribe_aggregator_global_id_history';
+	public static $global_id_lineage_key = '_tribe_aggregator_global_id_lineage';
 
 	/**
 	 * Key of the Meta to store the Record's last import date
@@ -86,7 +86,6 @@ class Tribe__Events__Aggregator__Event {
 			'image'              => 'image',
 			'facebook_id'        => 'EventFacebookID',
 			'meetup_id'          => 'EventMeetupID',
-			'global_id'          => 'global_id',
 			'uid'                => 'uid',
 			'parent_uid'         => 'parent_uid',
 			'recurrence'         => 'recurrence',
@@ -222,14 +221,14 @@ class Tribe__Events__Aggregator__Event {
 	 *
 	 * @return int
 	 */
-	public static function get_post_by( $key = 'global_id', $value = null ) {
+	public static function get_post_by_meta( $key = 'global_id', $value = null ) {
 		if ( is_null( $value ) ) {
 			return false;
 		}
 
 		$keys = array(
-			'global_id' => self::global_id_key,
-			'global_id_history' => self::global_id_history_key,
+			'global_id' => self::$global_id_key,
+			'global_id_lineage' => self::$global_id_lineage_key,
 		);
 
 		if ( ! isset( $keys[ $key ] ) ) {
