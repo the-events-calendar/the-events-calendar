@@ -149,7 +149,8 @@ var tribe_events_bar_action;
 		$( 'input[name*="tribe-bar-"]' ).placeholder();
 
 		// Create list
-		$( '<ul class="tribe-bar-views-list" />' ).insertAfter( $tribebarselect );
+
+		$( '<div class="tribe-bar-views-list" role="listbox" tabindex="0" aria-label="View Calendar as" aria-expanded="false" />' ).insertAfter( $tribebarselect );
 
 		var $tribebarviews = $( '.tribe-bar-views-list' );
 
@@ -157,12 +158,16 @@ var tribe_events_bar_action;
 		$tribebarselect.find( 'option' ).each( function( i ) {
 			var $view = $( this );
 			displaying = $view.data( 'view' );
+
+
 			// build list items and append them
 			var unique_c = 'tribe-bar-views-option-' + $view.data( 'view' );
-			$( '<li></li>', {
-				'class'               : 'tribe-bar-views-option ' + unique_c,
+			$( '<div></div>', {
+				'role': 'option',
+				'class': 'tribe-bar-views-option ' + unique_c,
 				'data-tribe-bar-order': i,
-				'data-view'           : displaying
+				'data-view': displaying,
+				'tabindex': - 1
 			} ).html( [
 				'   <a href="#">',
 				'   <span class="tribe-icon-' + displaying + '">' + $view.text() + '</span>',
@@ -173,15 +178,14 @@ var tribe_events_bar_action;
 
 		//find the current view and select it in the bar
 		var currentview = $tribebarselect.find( ':selected' ).data( 'view' ),
-			$currentli = $tribebarviews.find( 'li[data-view=' + currentview + ']' );
+			$currentview = $tribebarviews.find( 'div[data-view=' + currentview + ']' );
 
-		$currentli.prependTo( $tribebarviews ).addClass( 'tribe-bar-active' );
+		$currentview.prependTo( $tribebarviews ).addClass( 'tribe-bar-active' );
 
 		// toggle the views dropdown
-		$tribebar.on( 'click', '#tribe-bar-views', function( e ) {
+		$tribebar.on( 'click', $tribebarviews, function( e ) {
 			e.stopPropagation();
-			var $this = $( this );
-			$this.toggleClass( 'tribe-bar-views-open' );
+			$tribebarviews.toggleClass( 'tribe-bar-views-open' );
 		} );
 
 		// change views
@@ -193,7 +197,7 @@ var tribe_events_bar_action;
 				var target = $this.data( 'view' );
 
 				ts.cur_url = $( 'option[data-view=' + target + ']' ).val();
-				ts.view_target = $( 'select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]' ).data( 'view' );
+				ts.view_target = $( '.tribe-bar-views-list option[value="' + ts.cur_url + '"]' ).data( 'view' );
 				tribe_events_bar_action = 'change_view';
 				tribe_events_bar_change_view();
 
