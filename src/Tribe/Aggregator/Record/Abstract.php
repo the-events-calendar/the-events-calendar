@@ -1151,8 +1151,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					// Did we find a Post with a matching Global ID in History
 					$venue = Tribe__Events__Aggregator__Event::get_post_by_meta( 'global_id_lineage', $item->venue->global_id );
 
-					var_dump( $venue );
-
 					// Save the Venue Data for Updating
 					$venue_data = $event['Venue'];
 
