@@ -219,7 +219,7 @@ class Tribe__Events__Aggregator__Event {
 	 *
 	 * @param array $value The Global ID we are searching for
 	 *
-	 * @return int
+	 * @return bool|WP_Post
 	 */
 	public static function get_post_by_meta( $key = 'global_id', $value = null ) {
 		if ( is_null( $value ) ) {
