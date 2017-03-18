@@ -118,8 +118,11 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		// Load the queue
 		$queue = $this->queue ? $this->queue : new Tribe__Events__Aggregator__Record__Queue( $this->record_id );
 
+		// We always need to setup the Current Queue
+		$this->queue_processor->set_current_queue( $queue );
+
+		// Only if it's not empty that we care about proccesing.
 		if ( ! $queue->is_empty() ) {
-			$this->queue_processor->set_current_queue( $queue );
 			$this->queue_processor->process_batch( $this->record_id );
 		}
 
