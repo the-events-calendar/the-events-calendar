@@ -270,12 +270,12 @@ class Tribe__Events__Aggregator__Settings {
 	public function get_url_import_range_options( $title = true ) {
 		$options = array(
 			DAY_IN_SECONDS       => array(
-				'title' => __( 'One day', 'the-events-calendar' ),
-				'range' => __( 'a day', 'the-events-calendar' ),
+				'title' => __( '24 hours', 'the-events-calendar' ),
+				'range' => __( '24 hours', 'the-events-calendar' ),
 			),
 			3 * DAY_IN_SECONDS   => array(
-				'title' => __( 'Three days', 'the-events-calendar' ),
-				'range' => __( 'three days', 'the-events-calendar' ),
+				'title' => __( '72 hours', 'the-events-calendar' ),
+				'range' => __( '72 hours', 'the-events-calendar' ),
 			),
 			WEEK_IN_SECONDS      => array(
 				'title' => __( 'One week', 'the-events-calendar' ),
