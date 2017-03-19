@@ -400,7 +400,7 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 	ob_start();
 	?>
 	<p><?php esc_html_e( 'Use the options below to configure your imports. Looking for more ways to import events from other websites?', 'the-events-calendar' ); ?></p>
-	<a href="http://m.tri.be/196z"><?php esc_html_e( 'Check out Event Aggregator.', 'the-events-calendar' ); ?></a>
+	<a href="https://m.tri.be/196z"><?php esc_html_e( 'Check out Event Aggregator.', 'the-events-calendar' ); ?></a>
 	<?php
 	$import_instructions = ob_get_clean();
 }
