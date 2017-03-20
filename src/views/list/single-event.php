@@ -40,6 +40,21 @@ $organizer = tribe_get_organizer();
 </h2>
 <?php do_action( 'tribe_events_after_the_event_title' ) ?>
 
+<!-- Event Ticket Availability -->
+<?php if ( tribe_events_has_tickets() ) : ?>
+	<div class="tribe-events-event-cost">
+		
+		<?php if( tribe_events_has_soldout() ) {
+			echo esc_html_e( 'Out of stock!', 'event-tickets' );
+		}else{ ?>
+			<?php echo tribe_events_count_available_tickets( $event_id );
+			echo ' ';
+			esc_html_e( 'Tickets left', 'event-tickets' );
+		}?>
+		
+	</div>
+<?php endif; ?>
+
 <!-- Event Meta -->
 <?php do_action( 'tribe_events_before_the_meta' ) ?>
 <div class="tribe-events-event-meta">
