@@ -1487,10 +1487,14 @@ select.tribe-events-dropdown {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	background: #f5f5f5;
 	margin: 0;
 	position: relative;
 	width: 100%;
+}
+
+#tribe-bar-form .selectability {
+	position: absolute;
+	z-index: 200;
 }
 
 #tribe-bar-form input {
@@ -1542,10 +1546,9 @@ select.tribe-events-dropdown {
 }
 
 #tribe-bar-form .tribe-bar-filters {
-	float: left;
+	background: #f5f5f5;
 	margin: 0;
 	position: relative;
-	width: 100%;
 }
 
 #tribe-bar-form .tribe-bar-filters-inner {
@@ -1556,7 +1559,6 @@ select.tribe-events-dropdown {
 	margin: 0;
 	padding: 0 0 0 5px;
 	position: relative;
-	width: 16.66667%;
 }
 
 #tribe-bar-form .tribe-bar-views-inner label {
