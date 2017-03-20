@@ -1526,8 +1526,7 @@ select.tribe-events-dropdown {
 
 .selectability div[role="textbox"] {
 	cursor: pointer;
-	line-height: 3;
-	padding: 0 10px 0 15px;
+	padding: 5px 10px 15px 15px;
 }
 
 .selectability div[role="listbox"] {
@@ -1541,6 +1540,44 @@ select.tribe-events-dropdown {
 .selectability:focus, div[role="textbox"]:focus, div[role="listbox"]:focus, div[role="option"]:focus {
 	border: 1px dashed #b9b9b9;
 	outline: 0;
+}
+
+.selectability div[role="textbox"] {
+	display: block;
+	position: relative;
+}
+
+.selectability div[role="textbox"] .tribe-icon, .selectability div[role="option"] .tribe-icon {
+	background-position: 0 55%;
+	background-repeat: no-repeat;
+	display: inline-block;
+	min-height: 16px;
+	padding-left: 20px;
+	width: 15px;
+}
+
+.selectability div[role="textbox"] .tribe-icon.day, .selectability div[role="option"] .tribe-icon.day {
+	background-image: url(../images/events-bar/icon-day.png);
+}
+
+.selectability div[role="textbox"] .tribe-icon.list, .selectability div[role="option"] .tribe-icon.list {
+	background-image: url(../images/events-bar/icon-list.png);
+}
+
+.selectability div[role="textbox"] .tribe-icon.map, .selectability div[role="option"] .tribe-icon.map {
+	background-image: url(../images/events-bar/icon-map.png);
+}
+
+.selectability div[role="textbox"] .tribe-icon.month, .selectability div[role="option"] .tribe-icon.month {
+	background-image: url(../images/events-bar/icon-month.png);
+}
+
+.selectability div[role="textbox"] .tribe-icon.photo, .selectability div[role="option"] .tribe-icon.photo {
+	background-image: url(../images/events-bar/icon-photo.png);
+}
+
+.selectability div[role="textbox"] .tribe-icon.week, .selectability div[role="option"] .tribe-icon.week {
+	background-image: url(../images/events-bar/icon-week.png);
 }
 
 #tribe-bar-form {

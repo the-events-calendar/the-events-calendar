@@ -1478,8 +1478,7 @@ select.tribe-events-dropdown {
 
 	div[role="textbox"] {
 		cursor: pointer;
-		line-height: 3;
-		padding: 0 10px 0 15px;
+		padding: 5px 10px 15px 15px;
 	}
 
 	div[role="listbox"] {
@@ -1499,6 +1498,49 @@ div[role="option"] {
 	&:focus {
 		border: 1px dashed #b9b9b9;
 		outline: 0;
+	}
+}
+
+.selectability {
+	div[role="textbox"] {
+		display: block;
+		position: relative;
+	}
+}
+
+.selectability div[role="textbox"],
+.selectability div[role="option"] {
+	.tribe-icon {
+		background-position: 0 55%;
+		background-repeat: no-repeat;
+		display: inline-block;
+		min-height: 16px;
+		padding-left: 20px;
+		width: 15px;
+	}
+
+	.tribe-icon.day {
+		background-image: url(../images/events-bar/icon-day.png);
+	}
+
+	.tribe-icon.list {
+		background-image: url(../images/events-bar/icon-list.png);
+	}
+
+	.tribe-icon.map {
+		background-image: url(../images/events-bar/icon-map.png);
+	}
+
+	.tribe-icon.month {
+		background-image: url(../images/events-bar/icon-month.png);
+	}
+
+	.tribe-icon.photo {
+		background-image: url(../images/events-bar/icon-photo.png);
+	}
+
+	.tribe-icon.week {
+		background-image: url(../images/events-bar/icon-week.png);
 	}
 }
 
