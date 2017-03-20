@@ -39,7 +39,7 @@ if ( ! $_POST ) {
 			type='text'
 			name='venue[Address][]'
 			size='25'
-			value='<?php echo ( isset( $_VenueAddress ) ? esc_attr( $_VenueAddress ) : '' ); ?>'
+			value='<?php echo isset( $_VenueAddress ) ? esc_attr( $_VenueAddress ) : ''; ?>'
 			aria-label="<?php esc_html_e( 'Venue Address', 'the-events-calendar' ); ?>"
 		/>
 	</td>
@@ -52,7 +52,7 @@ if ( ! $_POST ) {
 			type='text'
 			name='venue[City][]'
 			size='25'
-			value='<?php echo ( isset( $_VenueCity ) ? esc_attr( $_VenueCity ) : '' ); ?>'
+			value='<?php echo isset( $_VenueCity ) ? esc_attr( $_VenueCity ) : ''; ?>'
 			aria-label="<?php esc_html_e( 'Venue City', 'the-events-calendar' ); ?>"
 		/>
 	</td>
@@ -79,7 +79,7 @@ if ( ! $_POST ) {
 			name='venue[Country][]'
 			id="EventCountry"
 			aria-label="<?php esc_html_e( 'Venue Country', 'the-events-calendar' ); ?>"
-			
+
 		>
 			<?php
 			foreach ( $countries as $abbr => $fullname ) {
@@ -114,7 +114,7 @@ if ( ! $_POST ) {
 			<option value=""><?php esc_html_e( 'Select a State:', 'the-events-calendar' ); ?></option>
 			<?php
 			foreach ( Tribe__View_Helpers::loadStates() as $abbr => $fullname ) {
-				echo '<option value="' . esc_attr( $abbr ) . '"' . selected( ( ( $_VenueStateProvince != - 1 ? $_VenueStateProvince : $currentState ) == $abbr ), true, false ) . '>' . esc_html( $fullname ) . '</option>';
+				echo '<option value="' . esc_attr( $abbr ) . '" ' . selected( ( ( $_VenueStateProvince != - 1 ? $_VenueStateProvince : $currentState ) == $abbr ), true, false ) . '>' . esc_html( $fullname ) . '</option>';
 			}
 			?>
 		</select>
@@ -129,7 +129,7 @@ if ( ! $_POST ) {
 			id='EventZip'
 			name='venue[Zip][]'
 			size='6'
-			value='<?php echo ( isset( $_VenueZip ) ? esc_attr( $_VenueZip ) : '' ); ?>'
+			value='<?php echo isset( $_VenueZip ) ? esc_attr( $_VenueZip ) : ''; ?>'
 			aria-label="<?php esc_html_e( 'Venue Zip Code', 'the-events-calendar' ); ?>"
 		/>
 	</td>
@@ -143,7 +143,7 @@ if ( ! $_POST ) {
 			id='EventPhone'
 			name='venue[Phone][]'
 			size='14'
-			value='<?php echo ( isset( $_VenuePhone ) ? esc_attr( $_VenuePhone ) : '' ); ?>'
+			value='<?php echo isset( $_VenuePhone ) ? esc_attr( $_VenuePhone ) : ''; ?>'
 			aria-label="<?php esc_html_e( 'Venue Phone', 'the-events-calendar' ); ?>"
 		/>
 	</td>
@@ -157,7 +157,7 @@ if ( ! $_POST ) {
 			id='EventWebsite'
 			name='venue[URL][]'
 			size='14'
-			value='<?php echo ( isset( $_VenueURL ) ? esc_attr( $_VenueURL ) : '' ); ?>'
+			value='<?php echo isset( $_VenueURL ) ? esc_attr( $_VenueURL ) : ''; ?>'
 			aria-label="<?php esc_html_e( 'Venue URL', 'the-events-calendar' ); ?>"
 		/>
 	</td>
@@ -173,7 +173,7 @@ if ( ! $_POST ) {
  * @TODO ascertain version number
  *
  */
-if( ! is_admin() ) {
+if ( ! is_admin() ) {
 	return;
 }
 
