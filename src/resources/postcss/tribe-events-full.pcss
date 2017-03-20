@@ -1455,7 +1455,11 @@ select.tribe-events-dropdown {
 	}
 
 	.tribe-bar-filters {
-		width: 83%;
+		width: 100%;
+
+		@media screen and ( min-width: 800px ) {
+			width: 83%;
+		}
 	}
 
 	.tribe-bar-views {
@@ -1483,10 +1487,12 @@ select.tribe-events-dropdown {
 
 	div[role="listbox"] {
 		background: #e0e0e0;
+		width: 100%;
 	}
 
 	div[role="option"] {
 		padding: 0 10px 0 20px;
+		width: 100%;
 	}
 }
 

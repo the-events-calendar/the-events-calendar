@@ -1503,7 +1503,7 @@ select.tribe-events-dropdown {
 }
 
 #tribe-bar-form .tribe-bar-filters {
-	width: 83%;
+	width: 100%;
 }
 
 #tribe-bar-form .tribe-bar-views {
@@ -1531,10 +1531,12 @@ select.tribe-events-dropdown {
 
 .selectability div[role="listbox"] {
 	background: #e0e0e0;
+	width: 100%;
 }
 
 .selectability div[role="option"] {
 	padding: 0 10px 0 20px;
+	width: 100%;
 }
 
 .selectability:focus, div[role="textbox"]:focus, div[role="listbox"]:focus, div[role="option"]:focus {
@@ -2302,6 +2304,13 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	#tribe-events-content .tribe-events-tooltip ul,
 	#tribe-events-content .tribe-events-tooltip ol {
 		margin-left: 1.6em;
+	}
+}
+
+@media screen and ( min-width: 800px ) {
+
+	#tribe-bar-form .tribe-bar-filters {
+		width: 83%;
 	}
 }
 
