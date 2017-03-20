@@ -151,19 +151,19 @@ var tribe_events_bar_action;
 		// Trigger Mobile Change
 		tf.maybe_default_view_change();
 
-//		// change views with select (for skeleton styles)
-//		$tribebar.on( 'change', '.tribe-bar-views-select', function( e ) {
-//			e.preventDefault();
-//			var $this = $( "option:selected", this );
-//
-//			var target = $this.data( 'view' );
-//
-//			ts.cur_url = $( 'option[data-view=' + target + ']' ).val();
-//			ts.view_target = $( 'select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]' ).data( 'view' );
-//			tribe_events_bar_action = 'change_view';
-//			tribe_events_bar_change_view();
-//
-//		} );
+		// change views with select (for skeleton styles)
+		$tribebar.on( 'change', '.tribe-bar-views-select', function( e ) {
+			e.preventDefault();
+			var $this = $( "option:selected", this );
+
+			var target = $this.data( 'view' );
+
+			ts.cur_url = $( 'option[data-view=' + target + ']' ).val();
+			ts.view_target = $( 'select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]' ).data( 'view' );
+			tribe_events_bar_action = 'change_view';
+			tribe_events_bar_change_view();
+
+		} );
 
 		$tribebar.on( 'click', '#tribe-bar-collapse-toggle', function() {
 			$( this ).toggleClass( 'tribe-bar-filters-open' );

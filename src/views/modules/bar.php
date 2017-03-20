@@ -68,8 +68,10 @@ $current_url = tribe_events_get_current_filter_url();
 
 		<!-- Views -->
 		<?php if ( count( $views ) > 1 ) { ?>
-			<div id="tribe-bar-views">
+			<div id="tribe-bar-views" class="tribe-bar-views">
 				<div class="tribe-bar-views-inner tribe-clearfix">
+					<h3 class="tribe-events-visuallyhidden"><?php esc_html_e( 'Event Views Navigation', 'the-events-calendar' ) ?></h3>
+					<label><?php esc_html_e( 'View As', 'the-events-calendar' ); ?></label>
 					<select class="tribe-bar-views-select tribe-no-param" name="tribe-bar-view" aria-label="Select a View">
 						<?php foreach ( $views as $view ) : ?>
 							<option <?php echo tribe_is_view( $view['displaying'] ) ? 'selected' : 'tribe-inactive' ?> value="<?php echo esc_attr( $view['url'] ); ?>" data-view="<?php echo esc_attr( $view['displaying'] ); ?>">

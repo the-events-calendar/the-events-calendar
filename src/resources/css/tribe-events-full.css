@@ -1483,18 +1483,68 @@ select.tribe-events-dropdown {
 	box-sizing: border-box;
 }
 
+/* Layout Styles */
+
 #tribe-bar-form {
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
 	margin: 0;
 	position: relative;
 	width: 100%;
 }
 
-#tribe-bar-form .selectability {
+#tribe-bar-form:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#tribe-bar-form .tribe-bar-filters,
+	#tribe-bar-form .tribe-bar-views {
+	float: left;
+}
+
+#tribe-bar-form .tribe-bar-filters {
+	width: 83%;
+}
+
+#tribe-bar-form .tribe-bar-views {
+	width: 17%;
+}
+
+.tribe-bar-views-inner {
+	margin: 0;
+	padding: 0;
+}
+
+.selectability {
+	cursor: pointer;
+	margin: 0;
+	padding: 0;
 	position: absolute;
-	z-index: 200;
+	width: 100%;
+	z-index: 99;
+}
+
+.selectability div[role="textbox"] {
+	cursor: pointer;
+	line-height: 3;
+	padding: 0 10px 0 15px;
+}
+
+.selectability div[role="listbox"] {
+	background: #e0e0e0;
+}
+
+.selectability div[role="option"] {
+	padding: 0 10px 0 20px;
+}
+
+.selectability:focus, div[role="textbox"]:focus, div[role="listbox"]:focus, div[role="option"]:focus {
+	border: 1px dashed #b9b9b9;
+	outline: 0;
+}
+
+#tribe-bar-form {
+	background: #e0e0e0;
 }
 
 #tribe-bar-form input {
@@ -1557,12 +1607,13 @@ select.tribe-events-dropdown {
 
 #tribe-bar-form #tribe-bar-views {
 	margin: 0;
-	padding: 0 0 0 5px;
+	padding: 0;
 	position: relative;
 }
 
 #tribe-bar-form .tribe-bar-views-inner label {
-	padding: 0 15px;
+	margin: 0;
+	padding: 15px 15px 0 15px;
 	text-align: left;
 }
 
@@ -1627,16 +1678,6 @@ input[name*='tribe-bar-']:-moz-placeholder {
 #tribe-bar-views:hover,
 #tribe-bar-views label:hover {
 	cursor: pointer;
-}
-
-.tribe-bar-views-inner {
-	background: #e0e0e0;
-	margin: 0;
-	padding: 15px 0 45px 0;
-}
-
-.tribe-bar-views-inner .select2-container {
-	padding: 0 15px;
 }
 
 .tribe-select2-results-views.select2-drop {
