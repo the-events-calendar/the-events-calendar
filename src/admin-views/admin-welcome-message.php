@@ -18,8 +18,8 @@ $video_url = 'https://vimeo.com/108805711';
 	<div class="tribe-half-column">
 		<h2><?php esc_html_e( 'We Need Your Help', 'the-events-calendar' ); ?></h2>
 		<p><?php esc_html_e( "Your ratings help us bring The Events Calendar to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support.", 'the-events-calendar' ); ?></p>
-		<p><strong><?php esc_html_e( 'Rate us today!', 'the-events-calendar' ); ?></strong> <a class="tribe-rating-link" href="https://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a></p>
-		<a href="https://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5" target="_blank" class="button-primary"><?php esc_html_e( 'Rate It', 'the-events-calendar' ); ?></a>
+		<p><strong><?php esc_html_e( 'Rate us today!', 'the-events-calendar' ); ?></strong> <a class="tribe-rating-link" href="https://wordpress.org/support/plugin/the-events-calendar/reviews/?filter=5" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a></p>
+		<a href="https://wordpress.org/support/plugin/the-events-calendar/reviews/?filter=5" target="_blank" class="button-primary"><?php esc_html_e( 'Rate It', 'the-events-calendar' ); ?></a>
 	</div>
 	<div class="tribe-half-column">
 		<h2><?php esc_html_e( 'Newsletter Signup', 'the-events-calendar' ); ?></h2>
