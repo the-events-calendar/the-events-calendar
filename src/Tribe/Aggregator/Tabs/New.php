@@ -501,14 +501,14 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 			<p><?php esc_html_e( 'With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup.com in a jiffy.', 'the-events-calendar' ); ?></p>
 
-			<a href="http://m.tri.be/196y" class="tribe-license-link tribe-button tribe-button-primary" target="_blank">
+			<a href="https://m.tri.be/196y" class="tribe-license-link tribe-button tribe-button-primary" target="_blank">
 				<?php esc_html_e( 'Buy It Now', 'the-events-calendar' );?>
 				<span class="screen-reader-text">
 					<?php esc_html_e( 'opens in a new window', 'the-events-calendar' );?>
 				</span>
 			</a>
 
-			<a href="http://m.tri.be/196z" class="tribe-license-link tribe-button tribe-button-secondary" target="_blank">
+			<a href="https://m.tri.be/196z" class="tribe-license-link tribe-button tribe-button-secondary" target="_blank">
 				<?php esc_html_e( 'Learn More', 'the-events-calendar' ); ?>
 				<span class="screen-reader-text">
 					<?php esc_html_e( 'opens in a new window', 'the-events-calendar' );?>
