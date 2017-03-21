@@ -116,17 +116,17 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 				.tribe-grid-body .tribe-event-featured.tribe-events-week-hourly-single:hover {
 					background-color: ' . $background_color . ';
 				}
-				
+
 				.tribe-button {
 					background:' . $background_color . ' -webkit-linear-gradient( top, ' . $background_color . ', #' . $button_gradient . ');
 					background:' . $background_color . ' linear-gradient( to bottom, ' . $background_color . ', #' . $button_gradient . ');
-					}
-					
+				}
+
 				.tribe-button:hover,
 				.tribe-button:active,
 				.tribe-button:focus {
 					background-color: ' . $background_color . ';
-					}
+				}
 			';
 
 			if ( $is_light ) {
