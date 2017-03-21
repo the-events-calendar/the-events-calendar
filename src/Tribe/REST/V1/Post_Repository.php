@@ -290,7 +290,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$lineage = get_post_meta( $post_id, Tribe__Events__Aggregator__Event::$global_id_lineage_key );
 
-		$data['global_id'] = $global_id->generate( [ 'id' => $post_id ] );
+		$data['global_id'] = $global_id->generate( array( 'id' => $post_id ) );
 		$data['global_id_lineage'] = array_merge( (array) $data['global_id'], (array) $lineage );
 
 		return $data;
