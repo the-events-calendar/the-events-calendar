@@ -188,7 +188,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		// Make sure we have a post status set no matter what
 		if ( empty( $data['post_status'] ) ) {
-			$data['post_status'] = Tribe__Events__Aggregator__Settings::instance()->default_post_status( $data['origin'] );
+			$data['post_status'] = tribe( 'events-aggregator.settings' )->default_post_status( $data['origin'] );
 		}
 
 		// If the submitted category is null, that means the user intended to de-select the default
@@ -352,9 +352,21 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 						_n( '%1$d new event category was created.', '%1$d new event categories were created.', $queue->activity->count( 'category', 'created' ), 'the-events-calendar' ),
 						$queue->activity->count( 'category', 'created' )
 					) .
-					' <a href="' . admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) . '">' .
+					' <a href="' . esc_url( admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) ) . '">' .
 					__( 'View your event categories', 'the-events-calendar' ) .
 					'</a>';
+			}
+
+			$tags_created = $queue->activity->get( 'tag', 'created' );
+			if ( ! empty( $tags_created ) ) {
+				$messages['success'][] = '<br/>' .
+					 sprintf( // add category count
+						 _n( '%1$d new event tag was created.', '%1$d new event tags were created.', $queue->activity->count( 'tag', 'created' ), 'the-events-calendar' ),
+						 $queue->activity->count( 'tag', 'created' )
+					 ) .
+					 ' <a href="' . esc_url( admin_url( 'edit-tags.php?taxonomy=post_tag&post_type=tribe_events' ) ) . '">' .
+					 __( 'View your event tags', 'the-events-calendar' ) .
+					 '</a>';
 			}
 		}
 
@@ -457,6 +469,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		}
 
 		$result = $record->get_import_data();
+
+		if ( isset( $result->data ) ) {
+			$result->data->origin = $record->origin;
+		}
 
 		if ( is_wp_error( $result ) ) {
 			wp_send_json_error( $result );

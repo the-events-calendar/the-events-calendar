@@ -477,6 +477,11 @@ class Tribe__Events__Aggregator__Cron {
 		foreach ( $query->posts as $post ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
+			if ( ! $record ) {
+				$this->log( 'debug', sprintf( 'Record (%d) skipped, original post non-existent', $post->id ) );
+				continue;
+			}
+
 			if ( ! $record->has_passed_retention_time() ) {
 				$this->log( 'debug', sprintf( 'Record (%d) skipped, not passed retetion time', $record->id ) );
 				continue;

@@ -1,4 +1,5 @@
 <?php
+$tab                = $this->tabs->get_active();
 $origin_slug        = 'facebook';
 $field              = (object) array();
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
@@ -14,7 +15,7 @@ $frequency->source      = 'facebook_import_frequency';
 $cron = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
 
-$missing_facebook_credentials = ! Tribe__Events__Aggregator__Settings::instance()->is_fb_credentials_valid();
+$missing_facebook_credentials = ! tribe( 'events-aggregator.settings' )->is_fb_credentials_valid();
 $data_depends = '#tribe-ea-field-origin';
 $data_condition = 'facebook';
 
@@ -96,6 +97,12 @@ if ( $missing_facebook_credentials ) :
 		></span>
 	</td>
 </tr>
+
+<?php
+if ( 'edit' === $tab->get_slug() ) {
+	$this->template( 'fields/schedule', array( 'record' => $record, 'origin' => $origin_slug, 'aggregator_action' => $aggregator_action ) );
+}
+?>
 
 <?php
 $field              = (object) array();

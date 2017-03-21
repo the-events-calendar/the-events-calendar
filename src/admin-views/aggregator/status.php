@@ -164,7 +164,7 @@ $show_third_party_accounts = ! is_network_admin();
 		$text = 'Connected';
 
 		if ( tribe( 'events-aggregator.main' )->api( 'origins' )->is_oauth_enabled( 'facebook' ) ) {
-			if ( ! Tribe__Events__Aggregator__Settings::instance()->is_fb_credentials_valid() ) {
+			if ( ! tribe( 'events-aggregator.settings' )->is_fb_credentials_valid() ) {
 				$indicator = 'warning';
 				$text = __( 'You have not connected Event Aggregator to Facebook', 'the-events-calendar' );
 				$facebook_auth_url = Tribe__Events__Aggregator__Record__Facebook::get_auth_url( array( 'back' => 'settings' ) );

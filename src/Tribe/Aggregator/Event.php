@@ -33,6 +33,20 @@ class Tribe__Events__Aggregator__Event {
 	public static $source_key = '_tribe_aggregator_source';
 
 	/**
+	 * Key of the Meta to store the Post Global ID
+	 *
+	 * @var string
+	 */
+	public static $global_id_key = '_tribe_aggregator_global_id';
+
+	/**
+	 * Key of the Meta to store the Post Global ID lineage
+	 *
+	 * @var string
+	 */
+	public static $global_id_lineage_key = '_tribe_aggregator_global_id_lineage';
+
+	/**
 	 * Key of the Meta to store the Record's last import date
 	 *
 	 * @var string
@@ -55,26 +69,37 @@ class Tribe__Events__Aggregator__Event {
 		$item = (object) $item;
 
 		$field_map = array(
-			'title' => 'post_title',
-			'description' => 'post_content',
-			'start_date' => 'EventStartDate',
-			'start_hour' => 'EventStartHour',
-			'start_minute' => 'EventStartMinute',
-			'start_meridian' => 'EventStartMeridian',
-			'end_date' => 'EventEndDate',
-			'end_hour' => 'EventEndHour',
-			'end_minute' => 'EventEndMinute',
-			'end_meridian' => 'EventEndMeridian',
-			'timezone' => 'EventTimezone',
-			'url' => 'EventURL',
-			'all_day' => 'EventAllDay',
-			'image' => 'image',
-			'facebook_id' => 'EventFacebookID',
-			'meetup_id' => 'EventMeetupID',
-			'uid' => 'uid',
-			'parent_uid' => 'parent_uid',
-			'recurrence' => 'recurrence',
-			'categories' => 'categories',
+			'title'              => 'post_title',
+			'description'        => 'post_content',
+			'excerpt'            => 'post_excerpt',
+			'start_date'         => 'EventStartDate',
+			'start_hour'         => 'EventStartHour',
+			'start_minute'       => 'EventStartMinute',
+			'start_meridian'     => 'EventStartMeridian',
+			'end_date'           => 'EventEndDate',
+			'end_hour'           => 'EventEndHour',
+			'end_minute'         => 'EventEndMinute',
+			'end_meridian'       => 'EventEndMeridian',
+			'timezone'           => 'EventTimezone',
+			'url'                => 'EventURL',
+			'all_day'            => 'EventAllDay',
+			'image'              => 'image',
+			'facebook_id'        => 'EventFacebookID',
+			'meetup_id'          => 'EventMeetupID',
+			'uid'                => 'uid',
+			'parent_uid'         => 'parent_uid',
+			'recurrence'         => 'recurrence',
+			'categories'         => 'categories',
+			'tags'               => 'tags',
+			'id'                 => 'EventOriginalID',
+			'currency_symbol'    => 'EventCurrencySymbol',
+			'currency_position'  => 'EventCurrencyPosition',
+			'cost'               => 'EventCost',
+			'show_map'           => 'show_map',
+			'show_map_link'      => 'show_map_link',
+			'hide_from_listings' => 'hide_from_listings',
+			'sticky'             => 'sticky',
+			'featured'           => 'feature_event',
 		);
 
 		$venue_field_map = array(
@@ -84,12 +109,11 @@ class Tribe__Events__Aggregator__Event {
 			'address' => 'Address',
 			'city' => 'City',
 			'country' => 'Country',
-			'province' => 'Province',
 			'state' => 'State',
-			'stateprovince' => 'StateProvince',
-			'province' => 'Province',
+			'stateprovince' => 'Province',
 			'zip' => 'Zip',
 			'phone' => 'Phone',
+			'website' => 'URL'
 		);
 
 		$organizer_field_map = array(
@@ -188,6 +212,49 @@ class Tribe__Events__Aggregator__Event {
 		}
 
 		return $wpdb->get_results( $sql, OBJECT_K );
+	}
+
+	/**
+	 * Fetch the Post ID for a given Global ID
+	 *
+	 * @param array $value The Global ID we are searching for
+	 *
+	 * @return bool|WP_Post
+	 */
+	public static function get_post_by_meta( $key = 'global_id', $value = null ) {
+		if ( is_null( $value ) ) {
+			return false;
+		}
+
+		$keys = array(
+			'global_id' => self::$global_id_key,
+			'global_id_lineage' => self::$global_id_lineage_key,
+		);
+
+		if ( ! isset( $keys[ $key ] ) ) {
+			return false;
+		}
+
+		$key = $keys[ $key ];
+
+		global $wpdb;
+
+		$sql = "
+			SELECT
+				post_id
+			FROM
+				{$wpdb->postmeta}
+			WHERE
+				meta_key = '" . esc_sql( $key ) . "' AND
+				meta_value = '" . esc_sql( $value ) . "'
+		";
+		$id = (int) $wpdb->get_var( $sql );
+
+		if ( ! $id ) {
+			return false;
+		}
+
+		return get_post( $id );
 	}
 
 	/**

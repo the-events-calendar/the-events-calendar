@@ -31,7 +31,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
+<<<<<<< HEAD
 		const VERSION             = '4.4.4';
+=======
+		const VERSION             = '4.5dev1';
+>>>>>>> develop
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.4';
 		const WP_PLUGIN_URL       = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -333,7 +337,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$this->bind_implementations();
 				$this->loadLibraries();
 				$this->addHooks();
-				$this->maybe_load_tickets_framework();
 				$this->register_active_plugin();
 			} else {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
@@ -381,6 +384,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function bind_implementations(  ) {
+			// Utils
+			tribe_singleton( 'tec.cost-utils', 'Tribe__Events__Cost_Utils' );
+
 			// Front page events archive support
 			tribe_singleton( 'tec.front-page-view', 'Tribe__Events__Front_Page_View' );
 			tribe_singleton( 'tec.admin.front-page-view', 'Tribe__Events__Admin__Front_Page_View' );
@@ -396,6 +402,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Event Aggregator
 			tribe_singleton( 'events-aggregator.main', 'Tribe__Events__Aggregator', array( 'load', 'hook' ) );
 			tribe_singleton( 'events-aggregator.service', 'Tribe__Events__Aggregator__Service' );
+			tribe_singleton( 'events-aggregator.settings', 'Tribe__Events__Aggregator__Settings' );
 
 			// Shortcodes
 			tribe_singleton( 'tec.shortcodes.event-details', 'Tribe__Events__Shortcode__Event_Details', array( 'hook' ) );
@@ -413,37 +420,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
-		}
 
-		/**
-		 * Checks if the standalone Tickets plugin is activated.
-		 * If it's not, it loads the Tickets framework from our
-		 * vendor/ submodule.
-		 */
-		public function maybe_load_tickets_framework() {
-			if ( defined( 'EVENT_TICKETS_DIR' ) ) {
-				return;
-			}
+			// REST API v1
+			tribe_singleton( 'tec.rest-v1.main', 'Tribe__Events__REST__V1__Main', array( 'bind_implementations', 'hook' ) );
+			tribe( 'tec.rest-v1.main' );
 
-			// Give the standalone plugin a chance to load on activation
-			// WordPress loads all the active plugins before activating a new one.
-			if ( isset( $_GET['action'] ) && $_GET['action'] == 'activate' && isset( $_GET['plugin'] ) && strstr( $_GET['plugin'], 'event-tickets.php' ) ) {
-				return;
-			}
-
-			// if there aren't any ticket plugins activated, bail
-			if (
-				! defined( 'EVENT_TICKETS_PLUS' )
-				&& ! defined( 'EVENTS_TICKETS_EDD_DIR' )
-				&& ! defined( 'EVENTS_TICKETS_SHOPP_DIR' )
-				&& ! defined( 'EVENTS_TICKETS_WOO_DIR' )
-				&& ! defined( 'EVENTS_TICKETS_WPEC_DIR' )
-			) {
-				return;
-			}
-
-			require_once $this->plugin_path . 'vendor/tickets/event-tickets.php';
-			Tribe__Tickets__Main::instance()->plugins_loaded();
+			/**
+			 * Allows other plugins and services to override/change the bound implementations.
+			 */
+			do_action( 'tribe_events_bound_implementations' );
 		}
 
 		/**
@@ -691,6 +676,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.shortcodes.event-details' );
 			tribe( 'tec.ignored-events' );
 			tribe( 'tec.iCal' );
+			tribe( 'tec.rest-v1.main' );
 		}
 
 		/**
