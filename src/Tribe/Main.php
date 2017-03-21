@@ -85,7 +85,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		public static $addOnPath = 'products/';
 
-		public static $dotOrgSupportUrl = 'https://wordpress.org/tags/the-events-calendar';
+		public static $dotOrgSupportUrl = 'https://wordpress.org/support/plugin/the-events-calendar';
 
 		public $rewriteSlug = 'events';
 		public $rewriteSlugSingular = 'event';
