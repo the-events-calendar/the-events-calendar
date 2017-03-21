@@ -85,7 +85,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		public static $addOnPath = 'products/';
 
-		public static $dotOrgSupportUrl = 'https://wordpress.org/tags/the-events-calendar';
+		public static $dotOrgSupportUrl = 'https://wordpress.org/support/plugin/the-events-calendar';
 
 		public $rewriteSlug = 'events';
 		public $rewriteSlugSingular = 'event';
@@ -2193,7 +2193,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->monthsFull      = Tribe__Date_Utils::get_localized_months_full();
 			$this->monthsShort     = Tribe__Date_Utils::get_localized_months_short();
 			$this->daysOfWeek      = Tribe__Date_Utils::get_localized_weekdays_full();
-			$this->daysOfWeekShort = Tribe__Date_Utils::get_localized_months_short();
+			$this->daysOfWeekShort = Tribe__Date_Utils::get_localized_weekdays_short();
 			$this->daysOfWeekMin   = Tribe__Date_Utils::get_localized_weekdays_initial();
 
 			// Setup the Strings for Rewrite Translations
