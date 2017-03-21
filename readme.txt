@@ -321,6 +321,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Enable the month view cache by default on new installations [74867]
 * Fix - External links to Google maps changed from http to https [74930]
 * Fix - Links to WordPress.org changed from http to https [72273]
+* Fix - Correct the value for days of the week abbreviation (thanks @mmmmartin03 for the report) [75379]
 
 = [4.4.4] 2017-03-08 =
 
