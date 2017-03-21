@@ -1503,7 +1503,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$this->update_meta( 'finalized', true );
 	}
 
-<<<<<<< HEAD
 	/**
 	 * preserve Event Options
 	 *
@@ -1531,7 +1530,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		return $event;
-=======
+	}
+
     /**
      * Imports an image information from EA server and creates the WP attachment object if required.
      *
@@ -1619,6 +1619,5 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	protected function has_import_policy_for( $origin, $setting ) {
 		return isset( $this->origin_import_policies[ $origin ] ) && in_array( $setting, $this->origin_import_policies[ $origin ] );
->>>>>>> develop
 	}
 }
