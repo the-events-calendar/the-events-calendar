@@ -52,7 +52,7 @@
 				<a href="https://m.tri.be/nu" target="_blank"><?php esc_html_e( 'Tickets', 'the-events-calendar' ); ?></a><br/>
 				<a href="https://m.tri.be/nx" target="_blank"><?php esc_html_e( 'Community Events', 'the-events-calendar' ); ?></a><br/>
 				<a href="https://m.tri.be/nv" target="_blank"><?php esc_html_e( 'Filters', 'the-events-calendar' ); ?></a><br/>
-				<a href="https://m.tri.be/nw" target="_blank"><?php esc_html_e( 'Facebook', 'the-events-calendar' ); ?></a><br/><br/>
+				<a href="https://m.tri.be/19mo" target="_blank"><?php esc_html_e( 'Imports', 'the-events-calendar' ); ?></a><br/><br/>
 			</p>
 
 			<h4><?php esc_html_e( 'News For Events Users', 'the-events-calendar' ); ?></h4>
