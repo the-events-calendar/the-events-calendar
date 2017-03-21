@@ -252,7 +252,19 @@ class Tribe__Events__Aggregator__Event {
 				continue;
 			}
 
-			$event[ $field ] = $post_meta[ $field ];
+			// If the field name contains a leading underscore we need to strip it (or the field will not save)
+			$field_name = trim( $field, '_' );
+			$event[ $field_name ] = $post_meta[ $field ];
+		}
+
+		// The start date needs to be adjusted from a MySQL style datetime string to just the date
+		if ( isset( $modified['_EventStartDate'] ) ) {
+			$event['EventStartDate'] = Tribe__Date_Utils::dateOnly( $event['EventStartDate'] );
+		}
+
+		// The end date needs to be adjusted from a MySQL style datetime string to just the date
+		if ( isset( $modified['_EventEndDate'] ) ) {
+			$event['EventEndDate'] = Tribe__Date_Utils::dateOnly( $event['EventEndDate'] );
 		}
 
 		return $event;

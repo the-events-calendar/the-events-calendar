@@ -1070,7 +1070,18 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event['post_parent'] = $k;
 			}
 
-			//if we should create a venue or use existing
+			// Do we have an existing venue for this event that we should preserve?
+			// @todo review: should we care about the potential for multiple venue IDs?
+			if (
+				! empty( $event['ID'] )
+				&& 'preserve_changes' === $update_authority_setting
+				&& $existing_venue_id = tribe_get_venue_id( $event['ID'] )
+			) {
+				$event['EventVenueID'] = $existing_venue_id;
+				unset( $event['Venue'] );
+			}
+
+			// if we should create a venue or use existing
 			if ( ! empty( $event['Venue']['Venue'] ) ) {
 				$v_id = array_search( $event['Venue']['Venue'], $found_venues );
 				if ( false !== $v_id ) {
@@ -1089,6 +1100,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				// Remove the Venue to avoid duplicates
 				unset( $event['Venue'] );
+			}
+
+			// Do we have an existing organizer(s) for this event that we should preserve?
+			if (
+				! empty( $event['ID'] )
+				&& 'preserve_changes' === $update_authority_setting
+				&& $existing_organizer_ids = tribe_get_organizer_ids( $event['ID'] )
+			) {
+				$event['EventOrganizerID'] = $existing_organizer_ids;
+				unset( $event['Organizer'] );
 			}
 
 			//if we should create an organizer or use existing
@@ -1193,7 +1214,19 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				update_post_meta( $event['ID'], '_EventRecurrenceRRULE', $event['EventRecurrenceRRULE'] );
 			}
 
-			$terms = array();
+			// Are there any existing event categories for this event?
+			$terms = wp_get_object_terms( $event['ID'], Tribe__Events__Main::TAXONOMY );
+
+			if ( is_wp_error( $terms ) ) {
+				$terms = array();
+			}
+
+			// If so, should we preserve those categories?
+			if ( ! empty( $terms ) && 'preserve_changes' === $update_authority_setting ) {
+				$terms = wp_list_pluck( $terms, 'term_id' );
+				unset( $event['categories'] );
+			}
+
 			if ( ! empty( $event['categories'] ) ) {
 				foreach ( $event['categories'] as $cat ) {
 					if ( ! $term = term_exists( $cat, Tribe__Events__Main::TAXONOMY ) ) {
