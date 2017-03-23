@@ -316,13 +316,13 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.4.5] TBD =
+= [4.4.5] 2017-03-23 =
 
-* Fix - Local changes to events should be preserved in accordance with the Event Import Authority setting [72876]
+* Fix - Local changes to events should be preserved in accordance with the Event Import Authority setting (thanks to @bryan for reporting this one) [72876]
 * Fix - Correct the value for days of the week abbreviation (thanks @mmmmartin03 for the report) [75379]
 * Tweak - Enable the month view cache by default on new installations [74867]
-* Tweak - External links to Google maps changed from http to https [74930]
-* Tweak - Links to WordPress.org changed from http to https [72273]
+* Tweak - External links to Google maps changed from http to https (nice find by @bjf2000 - reported via the .org support page) [74930]
+* Tweak - Links to WordPress.org changed from http to https (ultimatly this is also credited to @bjf2000's find. Thanks!) [72273]
 
 = [4.4.4] 2017-03-08 =
 
