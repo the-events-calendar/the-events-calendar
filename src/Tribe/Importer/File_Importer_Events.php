@@ -210,8 +210,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 					unset( $event['EventShowMap'] );
 				}
 
-				if ( isset( $event['EventShowMapLink'] ) ) {
-					unset( $event['EventShowMapLink'] );
+				if ( ! isset( $this->inverted_map['event_show_map_link'] ) ) {
+					$event['EventShowMapLink'] = $show_map_setting;
 				}
 			}
 		}
@@ -241,7 +241,6 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		return $event;
-
 	}
 
 	private function find_matching_organizer_id( $record ) {

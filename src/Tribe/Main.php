@@ -171,6 +171,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_EventTimezoneAbbr',
 			self::EVENTSERROROPT,
 			'_EventOrigin',
+			'_tribe_featured',
 		);
 
 		public $venueTags = array(

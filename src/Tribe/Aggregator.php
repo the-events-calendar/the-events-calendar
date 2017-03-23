@@ -476,6 +476,39 @@ class Tribe__Events__Aggregator {
 	}
 
 	/**
+	 * Adds support for CSV's multiple mime types
+	 *
+	 * WordPress mime support requires a one to one mapping of an extension to a type, but CSV can come in multiple types
+	 *
+	 * @param  array $mimes supported mime types
+	 * @return array        mime types with expanded support
+	 */
+	public function add_csv_mimes( $info, $file, $filename, $mimes ) {
+		$wp_filetype = wp_check_filetype( $filename, $mimes );
+		$ext = $wp_filetype['ext'];
+		$type = $wp_filetype['type'];
+
+		if ( $ext !== 'csv' ) {
+			return $info;
+		}
+
+		if ( function_exists( 'finfo_file' ) ) {
+			// Use finfo_file if available to validate non-image files.
+			$finfo = finfo_open( FILEINFO_MIME_TYPE );
+			$real_mime = finfo_file( $finfo, $file );
+			finfo_close( $finfo );
+
+			// If the extension matches an alternate mime type, let's use it
+			if ( in_array( $real_mime, array( 'text/plain', 'text/csv', 'text/comma-separated-values' ) ) ) {
+				$info['ext'] = $ext;
+				$info['type'] = $type;
+			}
+		}
+
+		return $info;
+	}
+
+	/**
 	 * Hooks all the filters and actions needed for Events Aggregator to work.
      *
      * No action or filter will be loaded if Events Aggregator has not loaded first.
@@ -518,6 +551,8 @@ class Tribe__Events__Aggregator {
 		}
 
 		add_action( 'admin_init', array( $this, 'add_status_to_help' ) );
+
+		add_filter( 'wp_check_filetype_and_ext', array( $this, 'add_csv_mimes' ), 10, 4 );
 
 		return true;
 	}
