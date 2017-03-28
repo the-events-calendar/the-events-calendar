@@ -13,7 +13,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:4098
 msgid "Keyword"
-msgstr ""
+msgstr "Mot-clé"
 
 #: vendor/tickets/src/template-tags/tickets.php:243
 msgctxt "ticket stock message (pending stock)"
@@ -134,7 +134,7 @@ msgstr ""
 #: src/admin-views/events-meta-box.php:99
 msgctxt "Start Date Time \"to\" End Date Time"
 msgid "to"
-msgstr ""
+msgstr "au"
 
 #: src/admin-views/events-meta-box.php:97
 #: src/admin-views/events-meta-box.php:112
@@ -188,7 +188,7 @@ msgstr ""
 
 #: src/Tribe/iCal.php:108
 msgid "Export Events"
-msgstr ""
+msgstr "Exporter les événements"
 
 #: src/Tribe/Main.php:705
 msgctxt "featured events slug"
@@ -406,27 +406,27 @@ msgstr ""
 
 #: src/Tribe/Asset/Dynamic.php:63
 msgid "Aug"
-msgstr ""
+msgstr "Août"
 
 #: src/Tribe/Asset/Dynamic.php:62
 msgid "Jul"
-msgstr ""
+msgstr "Juill"
 
 #: src/Tribe/Asset/Dynamic.php:61
 msgid "Jun"
-msgstr ""
+msgstr "Juin"
 
 #: src/Tribe/Asset/Dynamic.php:59
 msgid "Apr"
-msgstr ""
+msgstr "avr"
 
 #: src/Tribe/Asset/Dynamic.php:58
 msgid "Mar"
-msgstr ""
+msgstr "Mars"
 
 #: src/Tribe/Asset/Dynamic.php:57
 msgid "Feb"
-msgstr ""
+msgstr "Fév"
 
 #: src/Tribe/Asset/Dynamic.php:56
 msgid "Jan"
@@ -434,59 +434,59 @@ msgstr ""
 
 #: src/Tribe/Asset/Dynamic.php:53
 msgid "December"
-msgstr ""
+msgstr "Décembre"
 
 #: src/Tribe/Asset/Dynamic.php:52
 msgid "November"
-msgstr ""
+msgstr "Novembre"
 
 #: src/Tribe/Asset/Dynamic.php:51
 msgid "October"
-msgstr ""
+msgstr "Octobre"
 
 #: src/Tribe/Asset/Dynamic.php:50
 msgid "September"
-msgstr ""
+msgstr "Septembre"
 
 #: src/Tribe/Asset/Dynamic.php:49
 msgid "August"
-msgstr ""
+msgstr "Août"
 
 #: src/Tribe/Asset/Dynamic.php:48
 msgid "July"
-msgstr ""
+msgstr "Juillet"
 
 #: src/Tribe/Asset/Dynamic.php:47
 msgid "June"
-msgstr ""
+msgstr "Juin"
 
 #: src/Tribe/Asset/Dynamic.php:46 src/Tribe/Asset/Dynamic.php:60
 msgid "May"
-msgstr ""
+msgstr "Mai"
 
 #: src/Tribe/Asset/Dynamic.php:45
 msgid "April"
-msgstr ""
+msgstr "Avril"
 
 #: src/Tribe/Asset/Dynamic.php:44
 msgid "March"
-msgstr ""
+msgstr "Mars"
 
 #: src/Tribe/Asset/Dynamic.php:43
 msgid "February"
-msgstr ""
+msgstr "Février"
 
 #: src/Tribe/Asset/Dynamic.php:42
 msgid "January"
-msgstr ""
+msgstr "Janvier"
 
 #: src/Tribe/Asset/Dynamic.php:39
 msgid "Sat"
-msgstr ""
+msgstr "Sam"
 
 #: src/Tribe/Asset/Dynamic.php:38
 msgid "Fri"
-msgstr ""
+msgstr "Ven"
 
 #: src/Tribe/Asset/Dynamic.php:37
 msgid "Thu"
@@ -494,47 +494,47 @@ msgstr ""
 
 #: src/Tribe/Asset/Dynamic.php:36
 msgid "Wed"
-msgstr ""
+msgstr "Jeu"
 
 #: src/Tribe/Asset/Dynamic.php:35
 msgid "Tue"
-msgstr ""
+msgstr "Mar"
 
 #: src/Tribe/Asset/Dynamic.php:34
 msgid "Mon"
-msgstr ""
+msgstr "Lun"
 
 #: src/Tribe/Asset/Dynamic.php:33
 msgid "Sun"
-msgstr ""
+msgstr "Dim"
 
 #: src/Tribe/Asset/Dynamic.php:30
 msgid "Saturday"
-msgstr ""
+msgstr "Samedi"
 
 #: src/Tribe/Asset/Dynamic.php:29
 msgid "Friday"
-msgstr ""
+msgstr "Vendredi"
 
 #: src/Tribe/Asset/Dynamic.php:28
 msgid "Thursday"
-msgstr ""
+msgstr "Jeudi"
 
 #: src/Tribe/Asset/Dynamic.php:27
 msgid "Wednesday"
-msgstr ""
+msgstr "Mercredi"
 
 #: src/Tribe/Asset/Dynamic.php:26
 msgid "Tuesday"
-msgstr ""
+msgstr "Mardi"
 
 #: src/Tribe/Asset/Dynamic.php:25
 msgid "Monday"
-msgstr ""
+msgstr "Lundi"
 
 #: src/Tribe/Asset/Dynamic.php:24
 msgid "Sunday"
-msgstr ""
+msgstr "Dimanche"
 
 #: src/Tribe/Admin/Front_Page_View.php:18
 msgctxt "Static front page setting"
@@ -591,7 +591,7 @@ msgstr ""
 #: common/src/admin-views/app-shop.php:31
 #: vendor/tickets/common/src/admin-views/app-shop.php:31
 msgid "Installed"
-msgstr ""
+msgstr "Installé"
 
 #: common/src/admin-views/app-shop.php:29
 #: vendor/tickets/common/src/admin-views/app-shop.php:29
