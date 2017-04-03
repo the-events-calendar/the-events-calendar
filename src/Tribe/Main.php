@@ -953,7 +953,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return array
 		 */
 		public function filter_tracker_event_post_types( $post_types ) {
-			$post_types[] = Tribe__Events__Main::POSTTYPE;
+			$post_types[] = self::POSTTYPE;
 			$post_types[] = Tribe__Events__Venue::POSTTYPE;
 			$post_types[] = Tribe__Events__Organizer::POSTTYPE;
 
