@@ -361,9 +361,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			// Tribe__Events__Tickets__Tickets->get_ticket_prices() adds them to this filter
 			$event_cost = (array) apply_filters( 'tribe_events_event_costs', array(), $event_id );
 
-			var_dump( $event_cost );
-			exit;
-
 			// Kill the old cost meta data
 			delete_post_meta( $event_id, '_EventCost' );
 
