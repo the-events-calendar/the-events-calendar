@@ -260,22 +260,22 @@ class Tribe__Events__Aggregator__Event {
 	/**
 	 * Preserves changed fields by resetting array indexes back to the stored post/meta values
 	 *
-	 * @param array $event Event array to reset
+	 * @param array $data Event array to reset
 	 *
 	 * @return array
 	 */
-	public static function preserve_changed_fields( $event ) {
-		if ( empty( $event['ID'] ) ) {
-			return $event;
+	public static function preserve_changed_fields( $data ) {
+		if ( empty( $data['ID'] ) ) {
+			return $data;
 		}
 
-		$post = get_post( $event['ID'] );
-		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $event['ID'] );
+		$post = get_post( $data['ID'] );
+		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $data['ID'] );
 
-		if ( empty( $post_meta[ Tribe__Events__API::$modified_field_key ] ) ) {
+		if ( empty( $post_meta[ Tribe__Tracker::$field_key ] ) ) {
 			$modified = array();
 		} else {
-			$modified = $post_meta[ Tribe__Events__API::$modified_field_key ];
+			$modified = $post_meta[ Tribe__Tracker::$field_key ];
 		}
 
 		$post_fields_to_reset = array(
@@ -292,7 +292,7 @@ class Tribe__Events__Aggregator__Event {
 			}
 
 			// don't bother resetting if we aren't trying to update the field
-			if ( ! isset( $event[ $field ] ) ) {
+			if ( ! isset( $data[ $field ] ) ) {
 				continue;
 			}
 
@@ -301,13 +301,24 @@ class Tribe__Events__Aggregator__Event {
 				continue;
 			}
 
-			$event[ $field ] = $post->$field;
+			$data[ $field ] = $post->$field;
 		}
 
 		$tec = Tribe__Events__Main::instance();
 
+		// Depending on the Post Type we fetch other fields
+		if ( Tribe__Events__Main::POSTTYPE === $post->post_type ) {
+			$fields = $tec->metaTags;
+		} elseif ( Tribe__Events__Venue::POSTTYPE === $post->post_type ) {
+			$fields = $tec->venueTags;
+		} elseif ( Tribe__Events__Organizer::POSTTYPE === $post->post_type ) {
+			$fields = $tec->organizerTags;
+		} else {
+			$fields = array();
+		}
+
 		// reset any modified meta fields
-		foreach ( $tec->metaTags as $field ) {
+		foreach ( $fields as $field ) {
 			// don't bother resetting if the field hasn't been modified
 			if ( ! isset( $modified[ $field ] ) ) {
 				continue;
@@ -315,13 +326,13 @@ class Tribe__Events__Aggregator__Event {
 
 			// if we don't have a field to reset to, let's unset the event meta field
 			if ( ! isset( $post_meta[ $field ] ) ) {
-				unset( $event[ $field ] );
+				unset( $data[ $field ] );
 				continue;
 			}
 
-			$event[ $field ] = $post_meta[ $field ];
+			$data[ $field ] = $post_meta[ $field ];
 		}
 
-		return $event;
+		return $data;
 	}
 }
