@@ -1,4 +1,5 @@
 <?php
+$tab                = $this->tabs->get_active();
 $origin_slug        = 'url';
 $field              = (object) array();
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
