@@ -271,6 +271,7 @@ class Tribe__Events__Aggregator__Event {
 
 		$post = get_post( $data['ID'] );
 		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $data['ID'] );
+		$post_terms = Tribe__Events__API::get_event_terms( $data['ID'], array( 'fields' => 'ids' ) );
 
 		if ( empty( $post_meta[ Tribe__Tracker::$field_key ] ) ) {
 			$modified = array();
@@ -331,6 +332,22 @@ class Tribe__Events__Aggregator__Event {
 			}
 
 			$data[ $field ] = $post_meta[ $field ];
+		}
+
+		// reset any modified taxonomy terms
+		$taxonomy_map = array(
+			'post_tag'	 => 'tags',
+			Tribe__Events__Main::TAXONOMY => 'categories',
+		);
+		foreach ( $post_terms as $taxonomy => $terms ) {
+			if ( ! isset( $modified[ $taxonomy ] ) ) {
+				continue;
+			}
+			$tax_key = isset( $taxonomy_map[ $taxonomy ] ) ?
+				$taxonomy_map[ $taxonomy ]
+				: $taxonomy;
+
+			$data[ $tax_key ] = $post_terms[ $taxonomy ];
 		}
 
 		return $data;
