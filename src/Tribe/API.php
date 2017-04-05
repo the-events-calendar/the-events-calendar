@@ -371,6 +371,26 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		}
 
 		/**
+		 * @param int $event_id The event post ID
+		 * @param array $args An array of arguments supported by the `wp_get_object_terms` function.
+		 *
+		 * @since 4.5
+		 *
+		 * @see wp_get_object_terms()
+		 *
+		 * @return array An associative array of terms in the [ <taxonomy> => [ <term_1>, <term_2>, ...], ...] format.
+		 */
+		public static function get_event_terms( $event_id, array $args = [] ) {
+			$terms = array();
+			foreach ( get_post_taxonomies( $event_id ) as $taxonomy ) {
+				$tax_terms = wp_get_object_terms( $event_id, $taxonomy, $args );
+				$terms[ $taxonomy ] = $tax_terms;
+			}
+
+			return $terms;
+		}
+
+		/**
 		 * Saves the event organizer information passed via an event
 		 *
 		 * @param array   $data        The organizer data.
