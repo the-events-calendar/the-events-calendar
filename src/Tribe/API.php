@@ -374,6 +374,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param int $event_id The event post ID
 		 * @param array $args An array of arguments supported by the `wp_get_object_terms` function.
 		 *
+		 * @since 4.5
+		 *
 		 * @see wp_get_object_terms()
 		 *
 		 * @return array An associative array of terms in the [ <taxonomy> => [ <term_1>, <term_2>, ...], ...] format.

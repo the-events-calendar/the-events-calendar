@@ -343,10 +343,8 @@ class Tribe__Events__Aggregator__Event {
 			if ( ! isset( $modified[ $taxonomy ] ) ) {
 				continue;
 			}
-			$tax_key = isset( $taxonomy_map[ $taxonomy ] ) ?
-				$taxonomy_map[ $taxonomy ]
-				: $taxonomy;
 
+			$tax_key = Tribe__Utils__Array::get( $taxonomy, $taxonomy_map, $taxonomy );
 			$data[ $tax_key ] = $post_terms[ $taxonomy ];
 		}
 
