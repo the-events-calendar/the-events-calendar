@@ -59,7 +59,14 @@ switch ( $origin_slug ) {
 				placeholder="<?php echo esc_attr( $start_date->placeholder ); ?>"
 				value="<?php echo esc_attr( $start ); ?>"
 			>
-			<span class="tribe-dependent tribe-date-helper" data-depends="#tribe-ea-field-<?php echo esc_attr( $origin_slug ); ?>_start" data-condition-not-empty><?php esc_html_e( 'Events on or after', 'the-events-calendar' ); ?> <span id="tribe-date-helper-date-<?php echo esc_attr( $origin_slug ); ?>"><?php echo esc_attr( empty( $record->meta['start'] ) ? '' : $record->meta['start'] ); ?></span></span>
+			<span
+				class="tribe-dependent tribe-date-helper"
+				data-depends="#tribe-ea-field-<?php echo esc_attr( $origin_slug ); ?>_start"
+				data-condition-not-empty
+			>
+				<?php esc_html_e( 'Events on or after', 'the-events-calendar' ); ?>
+				<span id="tribe-date-helper-date-<?php echo esc_attr( $origin_slug ); ?>"><?php echo esc_html( $start ); ?></span>
+			</span>
 		</div>
 		<div class="tribe-refine tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not="url">
 			<input
