@@ -344,7 +344,7 @@ class Tribe__Events__Aggregator__Event {
 				continue;
 			}
 
-			$tax_key = Tribe__Utils__Array::get( $taxonomy, $taxonomy_map, $taxonomy );
+			$tax_key = Tribe__Utils__Array::get( $taxonomy_map, $taxonomy, $taxonomy );
 			$data[ $tax_key ] = $post_terms[ $taxonomy ];
 		}
 
