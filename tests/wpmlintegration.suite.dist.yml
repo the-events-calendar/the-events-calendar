@@ -9,6 +9,16 @@ env:
         modules:
             config:
                 WPLoader:
+                    wpRootFolder: /tmp/wordpress
+                    dbName: wploader
+                    dbHost: localhost
+                    dbUser: root
+                    dbPassword: ''
+                    wpDebug: true
+                    tablePrefix: wp_
+                    domain: tec.tri.be
+                    adminEmail: admin@tec.tri.be
+                    title: 'The Events Calendar Tests'
                     plugins:
                         - sitepress-multilingual-cms/sitepress.php
                         - wpml-translation-management/plugin.php
