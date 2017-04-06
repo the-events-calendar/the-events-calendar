@@ -30,6 +30,3 @@ tests/*.suite.yml
 
 # Tests - local output files
 tests/_output
-
-# Loca utility files
-makefile
