@@ -380,7 +380,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 * @return array An associative array of terms in the [ <taxonomy> => [ <term_1>, <term_2>, ...], ...] format.
 		 */
-		public static function get_event_terms( $event_id, array $args = [] ) {
+		public static function get_event_terms( $event_id, array $args = array() ) {
 			$terms = array();
 			foreach ( get_post_taxonomies( $event_id ) as $taxonomy ) {
 				$tax_terms = wp_get_object_terms( $event_id, $taxonomy, $args );
