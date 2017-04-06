@@ -26,10 +26,7 @@ vendor
 
 # Tests - local config files
 codeception.yml
-tests/integration.suite.yml
-tests/muintegration.suite.yml
-tests/functional.suite.yml
-tests/unit.suite.yml
+tests/*.suite.yml
 
 # Tests - local output files
 tests/_output
