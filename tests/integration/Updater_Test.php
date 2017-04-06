@@ -3,7 +3,7 @@
 /**
  * @group updates
  */
-class Tribe__Events__Updater_Test extends \Codeception\TestCase\WPTestCase {
+class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 	public function test_update_required() {
 		$current_version = Tribe__Events__Main::VERSION;

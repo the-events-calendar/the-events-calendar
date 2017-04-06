@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Test that things autoload properly
  *
@@ -7,7 +6,7 @@
  *
  * @package Tribe__Events__Main
  */
-class Tribe_Autoloader_Test extends \Codeception\TestCase\WPTestCase {
+class Autoloader_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Test if a class exists that is autoloaded through the core plugin.
 	 */
