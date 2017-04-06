@@ -3,7 +3,7 @@
 /**
  * @group capabilities
  */
-class Tribe__Events__Capabilities_Test extends Tribe__Events__WP_UnitTestCase {
+class Tribe__Events__Capabilities_Test extends \Codeception\TestCase\WPTestCase {
 
 	public function contributor_or_higher() {
 		return array(

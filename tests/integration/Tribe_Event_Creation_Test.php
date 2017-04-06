@@ -7,7 +7,7 @@
  *
  * @package TribeEvents
  */
-class Tribe_Event_Creation_Test extends Tribe__Events__WP_UnitTestCase {
+class Tribe_Event_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Check to make sure that the post object is created from a returned post ID.
 	 *

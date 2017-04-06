@@ -1,9 +1,9 @@
 <?php
 namespace Tribe\Events;
 
-use Tribe__Events__WP_UnitTestCase;
+use \Codeception\TestCase\WPTestCase;
 
-class Venue_Template_Tags_Test extends Tribe__Events__WP_UnitTestCase {
+class Venue_Template_Tags_Test extends \Codeception\TestCase\WPTestCase {
 	protected $posts = [];
 	protected $venue_url = 'http://power.of.greyskull/by-the';
 

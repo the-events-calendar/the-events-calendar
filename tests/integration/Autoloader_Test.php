@@ -7,7 +7,11 @@
  *
  * @package Tribe__Events__Main
  */
-class Tribe_Autoloader_Test extends Tribe__Events__WP_UnitTestCase {
+class Tribe_Autoloader_Test extends \Codeception\TestCase\WPTestCase {
+	/**
+	 * @var array
+	 */
+	protected $expected_deprecated_file = [];
 
 	/**
 	 * Test if a class exists that is autoloaded through the core plugin.

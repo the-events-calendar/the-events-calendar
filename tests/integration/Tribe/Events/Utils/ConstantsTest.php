@@ -1,7 +1,6 @@
 <?php
 namespace Tribe\Events\Utils;
 
-use Pimple\Container;
 use Tribe__Events__Constants as Constants;
 
 class ConstantsTest extends \Codeception\TestCase\WPTestCase {

@@ -8,7 +8,7 @@
  *
  * @package Tribe__Events__Main
  */
-class Tribe_Deprecated_Test extends Tribe__Events__WP_UnitTestCase {
+class Tribe_Deprecated_Test extends \Codeception\TestCase\WPTestCase {
 
 	public function deprecated_classes_4_0() {
 		return array(

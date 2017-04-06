@@ -1,6 +1,6 @@
 <?php
 
-class Tribe__Events__iCal_Test extends Tribe__Events__WP_UnitTestCase {
+class Tribe__Events__iCal_Test extends \Codeception\TestCase\WPTestCase {
 
 	public function test_exists() {
 		$this->assertTrue( class_exists( 'Tribe__Events__iCal' ), 'Check that Tribe__Events__iCal exists' );

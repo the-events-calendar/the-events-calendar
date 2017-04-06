@@ -1,7 +1,7 @@
 <?php
 namespace Tribe\Events;
 
-class Navigation_Test extends \Tribe__Events__WP_UnitTestCase {
+class Navigation_Test extends \Codeception\TestCase\WPTestCase {
 	public function setUp() {
 		// before
 		parent::setUp();

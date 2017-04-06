@@ -6,7 +6,7 @@
  *
  * @package Tribe__Events__Main
  */
-class Tribe_Query_Date_Filter_Test extends Tribe__Events__WP_UnitTestCase {
+class Tribe_Query_Date_Filter_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Event date & upcoming filters should not be removed from non-admin pages
 	 *
