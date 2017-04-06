@@ -1225,6 +1225,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 								}
 							}
 						} else {
+							$event['EventVenueID'] = $venue_id;
+
 							// Here we might need to update the Venue depending we found something based on old code
 							if ( 'retain' !== $update_authority_setting ) {
 								// Update the Venue
@@ -1308,6 +1310,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 								}
 							}
 						} else {
+							$event['EventOrganizerID'] = $organizer_id;
+
 							// Here we might need to update the Organizer depending we found something based on old code
 							if ( 'retain' !== $update_authority_setting ) {
 								// Update the Organizer
@@ -1326,7 +1330,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				// Remove the Organizer to avoid duplicates
 				unset( $event['Organizer'] );
 			}
-
 
 			/**
 			 * Filters the event data before any sort of saving of the event
