@@ -1,4 +1,5 @@
 <?php
+
 namespace Tribe\Events;
 
 use \Codeception\TestCase\WPTestCase;
@@ -12,7 +13,26 @@ class Venue_Template_Tags_Test extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-		$settings = $this->post_example_settings;
+		$settings = array(
+			'post_author'           => 3,
+			'post_title'            => 'Test event',
+			'post_content'          => 'This is event content!',
+			'post_status'           => 'publish',
+			'EventAllDay'           => false,
+			'EventHideFromUpcoming' => true,
+			'EventOrganizerID'      => 5,
+			'EventVenueID'          => 8,
+			'EventShowMapLink'      => true,
+			'EventShowMap'          => true,
+			'EventStartDate'        => '2012-01-01',
+			'EventEndDate'          => '2012-01-03',
+			'EventStartHour'        => '01',
+			'EventStartMinute'      => '15',
+			'EventStartMeridian'    => 'am',
+			'EventEndHour'          => '03',
+			'EventEndMinute'        => '25',
+			'EventEndMeridian'      => 'pm',
+		);
 		unset( $settings['EventHideFromUpcoming'] );
 
 		// Create a test venue with a URL
