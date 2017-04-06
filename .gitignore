@@ -28,17 +28,11 @@ vendor
 codeception.yml
 tests/integration.suite.yml
 tests/muintegration.suite.yml
-tests/functional.suite.dist.yml
+tests/functional.suite.yml
 tests/unit.suite.yml
 
 # Tests - local output files
 tests/_output
-
-# Tests - local bootstrap files
-tests/_bootstrap.php
-tests/acceptance/_bootstrap.php
-tests/functional/_bootstrap.php
-tests/unit/_bootstrap.php
 
 # Loca utility files
 makefile
