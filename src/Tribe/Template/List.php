@@ -111,7 +111,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 			if ( ! empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
 				$tribe_paged   = 1;
 				$args['paged'] = 1;
-				$query         = Tribe__Events__Query::getEvents( $args, true );
+				$query         = tribe_get_events( $args, true );
 			}
 
 

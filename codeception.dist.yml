@@ -20,7 +20,7 @@ modules:
         WPDb:
             dsn: 'mysql:host=localhost;dbname=test'
             user: root
-            password: password
+            password: ''
             dump: tests/_data/dump.sql
             populate: true
             cleanup: true

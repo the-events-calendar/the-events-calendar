@@ -124,7 +124,7 @@ class Tribe__Events__iCal {
 					die();
 				}
 				$event_ids = explode( ',', $_GET['event_ids'] );
-				$events    = Tribe__Events__Query::getEvents( array( 'post__in' => $event_ids ) );
+				$events    = tribe_get_events( array( 'post__in' => $event_ids ) );
 				$this->generate_ical_feed( $events );
 			} elseif ( is_single() ) {
 				$this->generate_ical_feed( $wp_query->post );

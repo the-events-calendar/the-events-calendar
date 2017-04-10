@@ -69,20 +69,4 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 		$fields = array( 'foo' => 'bar' );
 		$this->assertEquals( $fields, $sut->filter_tribe_addons_tab_fields( $fields ) );
 	}
-
-	/**
-	 * @test
-	 * it should add the enable/disable field if whether the TEC REST API is disabled or not
-	 */
-	public function it_should_add_the_enable_disable_field_if_whether_the_tec_rest_api_is_disabled_or_not() {
-		$this->system->supports_wp_rest_api()->willReturn( true );
-		$this->system->supports_tec_rest_api()->willReturn( true );
-		$this->system->tec_rest_api_is_enabled()->willReturn( false );
-
-		$sut = $this->make_instance();
-
-		$fields = array( 'foo' => 'bar' );
-		$this->assertArrayHasKey( System::get_disable_option_name(), $sut->filter_tribe_addons_tab_fields( $fields ) );
-	}
-
 }

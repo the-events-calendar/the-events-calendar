@@ -33,6 +33,20 @@ class Tribe__Events__Aggregator__Event {
 	public static $source_key = '_tribe_aggregator_source';
 
 	/**
+	 * Key of the Meta to store the Post Global ID
+	 *
+	 * @var string
+	 */
+	public static $global_id_key = '_tribe_aggregator_global_id';
+
+	/**
+	 * Key of the Meta to store the Post Global ID lineage
+	 *
+	 * @var string
+	 */
+	public static $global_id_lineage_key = '_tribe_aggregator_global_id_lineage';
+
+	/**
 	 * Key of the Meta to store the Record's last import date
 	 *
 	 * @var string
@@ -57,6 +71,7 @@ class Tribe__Events__Aggregator__Event {
 		$field_map = array(
 			'title'              => 'post_title',
 			'description'        => 'post_content',
+			'excerpt'            => 'post_excerpt',
 			'start_date'         => 'EventStartDate',
 			'start_hour'         => 'EventStartHour',
 			'start_minute'       => 'EventStartMinute',
@@ -200,24 +215,68 @@ class Tribe__Events__Aggregator__Event {
 	}
 
 	/**
+	 * Fetch the Post ID for a given Global ID
+	 *
+	 * @param array $value The Global ID we are searching for
+	 *
+	 * @return bool|WP_Post
+	 */
+	public static function get_post_by_meta( $key = 'global_id', $value = null ) {
+		if ( is_null( $value ) ) {
+			return false;
+		}
+
+		$keys = array(
+			'global_id' => self::$global_id_key,
+			'global_id_lineage' => self::$global_id_lineage_key,
+		);
+
+		if ( ! isset( $keys[ $key ] ) ) {
+			return false;
+		}
+
+		$key = $keys[ $key ];
+
+		global $wpdb;
+
+		$sql = "
+			SELECT
+				post_id
+			FROM
+				{$wpdb->postmeta}
+			WHERE
+				meta_key = '" . esc_sql( $key ) . "' AND
+				meta_value = '" . esc_sql( $value ) . "'
+		";
+		$id = (int) $wpdb->get_var( $sql );
+
+		if ( ! $id ) {
+			return false;
+		}
+
+		return get_post( $id );
+	}
+
+	/**
 	 * Preserves changed fields by resetting array indexes back to the stored post/meta values
 	 *
-	 * @param array $event Event array to reset
+	 * @param array $data Event array to reset
 	 *
 	 * @return array
 	 */
-	public static function preserve_changed_fields( $event ) {
-		if ( empty( $event['ID'] ) ) {
-			return $event;
+	public static function preserve_changed_fields( $data ) {
+		if ( empty( $data['ID'] ) ) {
+			return $data;
 		}
 
-		$post = get_post( $event['ID'] );
-		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $event['ID'] );
+		$post = get_post( $data['ID'] );
+		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $data['ID'] );
+		$post_terms = Tribe__Events__API::get_event_terms( $data['ID'], array( 'fields' => 'ids' ) );
 
-		if ( empty( $post_meta[ Tribe__Events__API::$modified_field_key ] ) ) {
+		if ( empty( $post_meta[ Tribe__Tracker::$field_key ] ) ) {
 			$modified = array();
 		} else {
-			$modified = $post_meta[ Tribe__Events__API::$modified_field_key ];
+			$modified = $post_meta[ Tribe__Tracker::$field_key ];
 		}
 
 		$post_fields_to_reset = array(
@@ -234,7 +293,7 @@ class Tribe__Events__Aggregator__Event {
 			}
 
 			// don't bother resetting if we aren't trying to update the field
-			if ( ! isset( $event[ $field ] ) ) {
+			if ( ! isset( $data[ $field ] ) ) {
 				continue;
 			}
 
@@ -243,13 +302,24 @@ class Tribe__Events__Aggregator__Event {
 				continue;
 			}
 
-			$event[ $field ] = $post->$field;
+			$data[ $field ] = $post->$field;
 		}
 
 		$tec = Tribe__Events__Main::instance();
 
+		// Depending on the Post Type we fetch other fields
+		if ( Tribe__Events__Main::POSTTYPE === $post->post_type ) {
+			$fields = $tec->metaTags;
+		} elseif ( Tribe__Events__Venue::POSTTYPE === $post->post_type ) {
+			$fields = $tec->venueTags;
+		} elseif ( Tribe__Events__Organizer::POSTTYPE === $post->post_type ) {
+			$fields = $tec->organizerTags;
+		} else {
+			$fields = array();
+		}
+
 		// reset any modified meta fields
-		foreach ( $tec->metaTags as $field ) {
+		foreach ( $fields as $field ) {
 			// don't bother resetting if the field hasn't been modified
 			if ( ! isset( $modified[ $field ] ) ) {
 				continue;
@@ -257,7 +327,7 @@ class Tribe__Events__Aggregator__Event {
 
 			// if we don't have a field to reset to, let's unset the event meta field
 			if ( ! isset( $post_meta[ $field ] ) ) {
-				unset( $event[ $field ] );
+				unset( $data[ $field ] );
 				continue;
 			}
 
@@ -282,6 +352,20 @@ class Tribe__Events__Aggregator__Event {
 			$event['EventEndMinute'] = date( 'i', $end_datetime );
 		}
 
-		return $event;
+		// reset any modified taxonomy terms
+		$taxonomy_map = array(
+			'post_tag'	 => 'tags',
+			Tribe__Events__Main::TAXONOMY => 'categories',
+		);
+		foreach ( $post_terms as $taxonomy => $terms ) {
+			if ( ! isset( $modified[ $taxonomy ] ) ) {
+				continue;
+			}
+
+			$tax_key = Tribe__Utils__Array::get( $taxonomy_map, $taxonomy, $taxonomy );
+			$data[ $tax_key ] = $post_terms[ $taxonomy ];
+		}
+
+		return $data;
 	}
 }

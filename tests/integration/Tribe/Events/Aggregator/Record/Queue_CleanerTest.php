@@ -167,7 +167,8 @@ class Queue_CleanerTest extends \Codeception\TestCase\WPTestCase {
 		$failed = $sut->maybe_fail_stalled_record( $record );
 
 		$this->assertFalse( $failed );
-		$this->assertEquals( Records::$status->pending, ( get_post( $record->post->ID ) )->post_status );
+		$post = get_post( $record->post->ID );
+		$this->assertEquals( Records::$status->pending, $post->post_status );
 	}
 
 	/**
@@ -190,7 +191,8 @@ class Queue_CleanerTest extends \Codeception\TestCase\WPTestCase {
 		$failed = $sut->maybe_fail_stalled_record( $record );
 
 		$this->assertTrue( $failed );
-		$this->assertEquals( Records::$status->failed, ( get_post( $record->post->ID ) )->post_status );
+		$post = get_post( $record->post->ID );
+		$this->assertEquals( Records::$status->failed, $post->post_status );
 		$this->assertEmpty( get_post_meta( $record->post->ID, '_tribe_aggregator_queue', true ) );
 		$this->assertEmpty( get_post_meta( $record->post->ID, '_transient_tribe_aggregator_queue', true ) );
 		$this->assertEmpty( get_post_meta( $record->post->ID, '_transient_timeout_tribe_aggregator_queue', true ) );
@@ -216,7 +218,8 @@ class Queue_CleanerTest extends \Codeception\TestCase\WPTestCase {
 				$failed = $sut->maybe_fail_stalled_record( $record );
 
 				$this->assertTrue( $failed );
-				$this->assertEquals( Records::$status->failed, ( get_post( $record->post->ID ) )->post_status );
+		        $post = get_post( $record->post->ID );
+		        $this->assertEquals( Records::$status->failed, $post->post_status );
 				$this->assertEmpty( get_post_meta( $record->post->ID, '_tribe_aggregator_queue', true ) );
 				$this->assertEmpty( get_post_meta( $record->post->ID, '_transient_tribe_aggregator_queue', true ) );
 				$this->assertEmpty( get_post_meta( $record->post->ID, '_transient_timeout_tribe_aggregator_queue', true ) );
@@ -240,7 +243,8 @@ class Queue_CleanerTest extends \Codeception\TestCase\WPTestCase {
 		$failed = $sut->maybe_fail_stalled_record( $record );
 
 		$this->assertFalse( $failed );
-		$this->assertEquals( Records::$status->schedule, ( get_post( $record->post->ID ) )->post_status );
+		$post = get_post( $record->post->ID );
+		$this->assertEquals( Records::$status->schedule, $post->post_status );
 	}
 
 	/**

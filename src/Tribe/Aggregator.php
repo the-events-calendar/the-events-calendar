@@ -251,7 +251,11 @@ class Tribe__Events__Aggregator {
 
 		$cache_group = $this->api( 'origins' )->cache_group;
 
-		return delete_transient( "{$cache_group}_origins" );
+		$purged = true;
+		$purged &= (bool) delete_transient( "{$cache_group}_origins" );
+		$purged &= (bool) delete_transient( "{$cache_group}_origin_limit" );
+
+		return $purged;
 	}
 
 	/**
@@ -456,7 +460,7 @@ class Tribe__Events__Aggregator {
 		$this->migrate = Tribe__Events__Aggregator__Migrate::instance();
 		$this->page = Tribe__Events__Aggregator__Page::instance();
 		$this->service = tribe( 'events-aggregator.service' );
-		$this->settings = Tribe__Events__Aggregator__Settings::instance();
+		$this->settings = tribe( 'events-aggregator.settings' );
 		$this->records = Tribe__Events__Aggregator__Records::instance();
 		$this->cron = Tribe__Events__Aggregator__Cron::instance();
 		$this->queue_processor = new Tribe__Events__Aggregator__Record__Queue_Processor;

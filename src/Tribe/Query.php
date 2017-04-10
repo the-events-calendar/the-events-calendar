@@ -1007,7 +1007,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			ksort( $args );
 
 			$cache     = new Tribe__Cache();
-			$cache_key = 'get_events_' . serialize( $args );
+			$cache_key = 'get_events_' . get_current_user_id() . serialize( $args );
 
 			$result = $cache->get( $cache_key, 'save_post' );
 			if ( $result && $result instanceof WP_Query ) {
