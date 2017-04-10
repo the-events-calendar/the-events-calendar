@@ -52,7 +52,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 */
 	public function get( WP_REST_Request $request ) {
-		$defaults = array( 'fields' => 'ids', 'posts_per_page' => get_option( 'posts_per_page' ) );
+		$defaults = array( 'posts_per_page' => get_option( 'posts_per_page' ) );
 
 		$args = array();
 
@@ -89,6 +89,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
 		$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
+		// Due to an incompatibility between date based queries and 'ids' fields we cannot do this, see `wp_list_pluck` use down
+		// $args['fields'] = 'ids';
 
 		$events = tribe_get_events( $args );
 
@@ -99,6 +101,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 			return new WP_Error( 'event-archive-page-not-found', $message, array( 'status' => 404 ) );
 		}
+
+		$events = wp_list_pluck( $events, 'ID' );
 
 		unset( $args['fields'] );
 

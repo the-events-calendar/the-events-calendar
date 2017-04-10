@@ -28,6 +28,8 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->factory()->event = new Event();
 		$this->messages = new \Tribe__Events__REST__V1__Messages();
 		$this->repository = new \Tribe__Events__REST__V1__Post_Repository( new \Tribe__Events__REST__V1__Messages() );
+		// to avoid date filters from being canned
+		\Tribe__Main::instance()->doing_ajax( true );
 	}
 
 	/**
