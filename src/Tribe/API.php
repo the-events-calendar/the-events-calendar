@@ -122,7 +122,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			Tribe__Events__Linked_Posts::instance()->handle_submission( $event_id, $data );
 
 			// Ordinarily there is a single cost value for each event, but addons (ie, ticketing plugins) may need
-			// to record a number of different pricepoints for the same event
+			// to record a number of different price points for the same event
 			$event_cost = isset( $data['EventCost'] ) ? (array) $data['EventCost'] : array();
 			$data['EventCost'] = (array) apply_filters( 'tribe_events_event_costs', $event_cost, $event_id );
 

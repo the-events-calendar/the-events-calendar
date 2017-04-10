@@ -71,9 +71,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		$headers = wp_remote_retrieve_headers( $response );
 		$body = wp_remote_retrieve_body( $response );
 
-
-
-		$is_invalid_image = empty( $headers->{'content-type'} ) && empty( $headers->{'content-disposition'} ) ;
+		$is_invalid_image = empty( $headers['content-type'] ) && empty( $headers['content-disposition'] ) ;
 
 		// Baild if we don't have Content type or Disposition
 		if ( $is_invalid_image ) {
@@ -81,7 +79,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		}
 
 		// if the response isn't an image then we need to bail
-		if ( ! preg_match( '/image/', $headers->{'content-type'} ) ) {
+		if ( ! preg_match( '/image/', $headers['content-type'] ) ) {
 			/**
 			 * @todo  See a way for Tribe__Errors to handle overwriting
 			 */
@@ -89,7 +87,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		}
 
 		// Fetch the Extension (it's safe because it comes from our service)
-		$extension = str_replace( 'image/', '', $headers->{'content-type'} );
+		$extension = str_replace( 'image/', '', $headers['content-type'] );
 
 		// Removed Query String
 		if ( false !== strpos( $extension, '?' ) ) {
@@ -98,7 +96,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		}
 
 		if (
-			preg_match( '/filename="([^"]+)"/', $headers->{'content-disposition'}, $matches )
+			preg_match( '/filename="([^"]+)"/', $headers['content-disposition'], $matches )
 			&& ! empty( $matches[1] )
 		) {
 			$filename = $matches[1];

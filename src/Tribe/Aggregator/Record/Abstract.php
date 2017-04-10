@@ -1135,7 +1135,18 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event['post_parent'] = $k;
 			}
 
-			//if we should create a venue or use existing
+			// Do we have an existing venue for this event that we should preserve?
+			// @todo review: should we care about the potential for multiple venue IDs?
+			if (
+				! empty( $event['ID'] )
+				&& 'preserve_changes' === $update_authority_setting
+				&& $existing_venue_id = tribe_get_venue_id( $event['ID'] )
+			) {
+				$event['EventVenueID'] = $existing_venue_id;
+				unset( $event['Venue'] );
+			}
+
+			// if we should create a venue or use existing
 			if ( ! empty( $event['Venue']['Venue'] ) ) {
 				$v_id = array_search( $event['Venue']['Venue'], $found_venues );
 				if ( false !== $v_id ) {
@@ -1154,6 +1165,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				// Remove the Venue to avoid duplicates
 				unset( $event['Venue'] );
+			}
+
+			// Do we have an existing organizer(s) for this event that we should preserve?
+			if (
+				! empty( $event['ID'] )
+				&& 'preserve_changes' === $update_authority_setting
+				&& $existing_organizer_ids = tribe_get_organizer_ids( $event['ID'] )
+			) {
+				$event['EventOrganizerID'] = $existing_organizer_ids;
+				unset( $event['Organizer'] );
 			}
 
 			//if we should create an organizer or use existing
@@ -1258,7 +1279,19 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				update_post_meta( $event['ID'], '_EventRecurrenceRRULE', $event['EventRecurrenceRRULE'] );
 			}
 
-			$terms = array();
+			// Are there any existing event categories for this event?
+			$terms = wp_get_object_terms( $event['ID'], Tribe__Events__Main::TAXONOMY );
+
+			if ( is_wp_error( $terms ) ) {
+				$terms = array();
+			}
+
+			// If so, should we preserve those categories?
+			if ( ! empty( $terms ) && 'preserve_changes' === $update_authority_setting ) {
+				$terms = wp_list_pluck( $terms, 'term_id' );
+				unset( $event['categories'] );
+			}
+
 			if ( ! empty( $event['categories'] ) ) {
 				foreach ( $event['categories'] as $cat ) {
 					if ( ! $term = term_exists( $cat, Tribe__Events__Main::TAXONOMY ) ) {
@@ -1406,6 +1439,35 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function finalize() {
 		$this->update_meta( 'finalized', true );
+	}
+
+	/**
+	 * preserve Event Options
+	 *
+	 * @param array $event Event data
+	 *
+	 * @return array
+	 */
+	public static function preserve_event_option_fields( $event ) {
+		$event_post = get_post( $event['ID'] );
+		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $event['ID'] );
+
+		// we want to preserve this option if not explicitly being overridden
+		if ( ! isset( $event['EventHideFromUpcoming'] ) && isset( $post_meta['_EventHideFromUpcoming'] ) ) {
+			$event['EventHideFromUpcoming'] = $post_meta['_EventHideFromUpcoming'];
+		}
+
+		// we want to preserve the existing sticky state unless it is explicitly being overridden
+		if ( ! isset( $event['EventShowInCalendar'] ) && '-1' == $event_post->menu_order ) {
+			$event['EventShowInCalendar'] = 'yes';
+		}
+
+		// we want to preserve the existing featured state unless it is explicitly being overridden
+		if ( ! isset( $event['feature_event'] ) && isset( $post_meta['_tribe_featured'] ) ) {
+			$event['feature_event'] = $post_meta['_tribe_featured'];
+		}
+
+		return $event;
 	}
 
     /**

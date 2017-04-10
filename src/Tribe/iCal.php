@@ -199,6 +199,8 @@ class Tribe__Events__iCal {
 
 		if ( $post ) {
 			$events_posts = is_array( $post ) ? $post : array( $post );
+		} elseif ( tribe_is_month() ) {
+			$events_posts = self::get_month_view_events();
 		} else {
 			/**
 			 * Filters the number of upcoming events the iCal feed should export.

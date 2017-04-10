@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, MZAWeb, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shelbelliott, shane.pearlman, aguseo, tribecari, trishasalas
+Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, MZAWeb, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shelbelliott, shane.pearlman, aguseo, tribecari, trishasalas, courane01
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.7.2
 Stable tag: 4.5dev1
+Tested up to: 4.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -152,7 +152,7 @@ Note that we aren't going to say "tough luck" if you identify a plugin/theme con
 
 = I'm still stuck. Where do I go to file a bug or ask a question? =
 
-Users of the free The Events Calendar should post their questions in the plugin's [WordPress.org forum](http://wordpress.org/support/plugin/the-events-calendar/), which we hit about once a week (usually on Wednesdays). Please make sure to read [our sticky post](http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first) providing an overview of the support we provide free users BEFORE posting. If you find you're not getting support in as timely a fashion as you wish, you might want to consider purchasing a PRO license.
+Users of the free The Events Calendar should post their questions in the plugin's [WordPress.org forum](https://wordpress.org/support/plugin/the-events-calendar/), which we hit about once a week (usually on Wednesdays). Please make sure to read [our sticky post](https://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first/) providing an overview of the support we provide free users BEFORE posting. If you find you're not getting support in as timely a fashion as you wish, you might want to consider purchasing a PRO license.
 
 If you're already a PRO user, you're entitled access to our more actively-monitored [Events Calendar PRO forum](http://m.tri.be/2r) on our website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. Generally, except in times of increased support loads, we reply to all comments within 24-48 hours during the business week.
 
@@ -243,7 +243,7 @@ Additional resources available include:
 * [Release Notes](http://m.tri.be/2v)
 * [Forums](http://m.tri.be/2r)
 
-We hit the [The Events Calendar forum here on WordPress.org](http://wordpress.org/support/plugin/the-events-calendar/) about once a week, assisting users with basic troubleshooting and identifying bugs that have been reported. (If you are looking for more active support, might we suggest buying a PRO license? Our team hits the [Premium Forums](http://m.tri.be/2r) daily.)
+We hit the [The Events Calendar forum here on WordPress.org](https://wordpress.org/support/plugin/the-events-calendar/) about once a week, assisting users with basic troubleshooting and identifying bugs that have been reported. (If you are looking for more active support, might we suggest buying a PRO license? Our team hits the [Premium Forums](http://m.tri.be/2r) daily.)
 
 Some things to consider before posting on the forum:
 
@@ -315,6 +315,29 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [4.4.5] 2017-03-23 =
+
+* Fix - Local changes to events should be preserved in accordance with the Event Import Authority setting (thanks to @bryan for reporting this one) [72876]
+* Fix - Correct the value for days of the week abbreviation (thanks @mmmmartin03 for the report) [75379]
+* Tweak - Enable the month view cache by default on new installations [74867]
+* Tweak - External links to Google maps changed from http to https (nice find by @bjf2000 - reported via the .org support page) [74930]
+* Tweak - Links to WordPress.org changed from http to https (ultimately this is also credited to @bjf2000's find. Thanks!) [72273]
+
+= [4.4.4] 2017-03-08 =
+
+* Fix - Avoid unnecessarily removing a callback from an action while inside the same action (improves PolyLang compatibility - props @Chouby) [73122]
+* Fix - Resolving issue where sites that overrode the wp-admin path would fail to successfully perform a Facebook OAuth with Event Aggregator [74687]
+* Tweak - Improve template loading for easier customization by developers and better support of the template hierarchy (props @QWp6t) [72842]
+
+= [4.4.3] 2017-02-22 =
+
+* Fix - Resolved issue where iCal exports on month view were exporting more events than intended (thanks to @s2ldesign for reporting in our forums) [72133]
+* Fix - Resolved meta width issue for maps when Pro is active (gracias a @ANTONIO JOSE por el reporte del error)  [69844, 72272]
+* Fix - Resolved issue where featured images were not being imported via Event Aggregator Facebook imports (cheers to @Cody for the inital bug report) [72764]
+* Fix - Resolved issue where translated 'all' slugs were not respected (thank you @Marianne for your report in the forums) [71996]
+* Tweak - Translation improvements and fixes (@Katja - thanks! ) [70068]
+* Tweak - Allow "-1" when specifying the "Month view events per day" setting [70497]
 
 = [4.4.2] 2017-02-09 =
 

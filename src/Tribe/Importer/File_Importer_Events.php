@@ -201,18 +201,14 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			$cats = $cats ? $cats . ',' . $category_setting : $category_setting;
 		}
 
-		if ( $this->is_aggregator ) {
-			if ( $show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( 'csv' ) ) {
-				$event['EventShowMap']     = $show_map_setting;
-				$event['EventShowMapLink'] = $show_map_setting;
-			} else {
-				if ( isset( $event['EventShowMap'] ) ) {
-					unset( $event['EventShowMap'] );
-				}
+		// if a default setting is in place and the setting not provided at import, override it
+		if ( $this->is_aggregator && $show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( 'csv' ) ) {
+			if ( ! isset( $this->inverted_map['event_show_map'] ) ) {
+				$event['EventShowMap'] = $show_map_setting;
+			}
 
-				if ( isset( $event['EventShowMapLink'] ) ) {
-					unset( $event['EventShowMapLink'] );
-				}
+			if ( ! isset( $this->inverted_map['event_show_map_link'] ) ) {
+				$event['EventShowMapLink'] = $show_map_setting;
 			}
 		}
 
@@ -241,7 +237,6 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		return $event;
-
 	}
 
 	private function find_matching_organizer_id( $record ) {

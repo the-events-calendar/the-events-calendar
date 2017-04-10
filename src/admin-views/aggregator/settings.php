@@ -52,7 +52,7 @@ $change_authority = array(
 		'options' => array(
 			'overwrite' => __( 'Overwrite my event with any changes from the original source.', 'the-events-calendar' ),
 			'retain' => __( 'Do not re-import events. Changes made locally will be preserved.', 'the-events-calendar' ),
-			'preserve_changes' => __( 'Preserve the most recent change in each event field, whether that change occurred on my site or at the original source.', 'the-events-calendar' ),
+			'preserve_changes' => __( 'Import events but preserve local changes to event fields.', 'the-events-calendar' ),
 		),
 	),
 );
@@ -453,7 +453,7 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 	ob_start();
 	?>
 	<p><?php esc_html_e( 'Use the options below to configure your imports. Looking for more ways to import events from other websites?', 'the-events-calendar' ); ?></p>
-	<a href="http://m.tri.be/196z"><?php esc_html_e( 'Check out Event Aggregator.', 'the-events-calendar' ); ?></a>
+	<a href="https://m.tri.be/196z"><?php esc_html_e( 'Check out Event Aggregator.', 'the-events-calendar' ); ?></a>
 	<?php
 	$import_instructions = ob_get_clean();
 }
