@@ -182,7 +182,7 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 		'monthEventAmount'                   => array(
 			'type'            => 'text',
 			'label'           => __( 'Month view events per day', 'the-events-calendar' ),
-			'tooltip'         => sprintf( __( 'Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href="%s">Read more</a>.', 'the-events-calendar' ), 'http://m.tri.be/rh' ),
+			'tooltip'         => sprintf( __( 'Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href="%s">Read more</a>.', 'the-events-calendar' ), 'https://m.tri.be/rh' ),
 			'validation_type' => 'int',
 			'size'            => 'small',
 			'default'         => '3',
@@ -190,8 +190,8 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 		'enable_month_view_cache' => array(
 			'type'            => 'checkbox_bool',
 			'label'           => __( 'Enable the Month View Cache', 'the-events-calendar' ),
-			'tooltip'         => sprintf( __( 'Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href="%s">Read more</a>.', 'the-events-calendar' ), 'http://m.tri.be/18di' ),
-			'default'         => false,
+			'tooltip'         => sprintf( __( 'Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href="%s">Read more</a>.', 'the-events-calendar' ), 'https://m.tri.be/18di' ),
+			'default'         => true,
 			'validation_type' => 'boolean',
 		),
 	)

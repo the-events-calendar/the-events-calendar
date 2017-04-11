@@ -161,8 +161,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			// include child categories in the query, save categories for reuse
 			$this->set_queried_event_cats();
 
-
-
 			/**
 			 * Controls whether or not month view caching is enabled.
 			 *
@@ -215,7 +213,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 */
 		protected function should_enable_month_view_cache() {
 			// Respect the month view caching setting
-			if ( ! tribe_get_option( 'enable_month_view_cache', false ) ) {
+			if ( ! tribe_get_option( 'enable_month_view_cache', true ) ) {
 				return false;
 			}
 

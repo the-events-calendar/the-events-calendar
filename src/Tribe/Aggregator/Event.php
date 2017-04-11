@@ -373,6 +373,7 @@ class Tribe__Events__Aggregator__Event {
 			$data['EventEndDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $end_datetime );
 			$data['EventEndHour'] = date( 'H', $end_datetime );
 			$data['EventEndMinute'] = date( 'i', $end_datetime );
+
 		}
 
 		// reset any modified taxonomy terms
