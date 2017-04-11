@@ -1059,7 +1059,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$unique_field = $this->get_unique_field();
 		$existing_ids = $this->get_existing_ids_from_import_data( $items );
 
-		//cache
+		// cache
 		$possible_parents = array();
 		$found_organizers = array();
 		$found_venues     = array();
@@ -1157,9 +1157,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// if we should create a venue or use existing
 			if ( ! empty( $event['Venue']['Venue'] ) ) {
-				if ( ! empty( $item->venue->global_id ) ) {
-					// Did we find a Post with a matching Global ID in History
-					$venue = Tribe__Events__Aggregator__Event::get_post_by_meta( 'global_id_lineage', $item->venue->global_id );
+				if ( ! empty( $item->venue->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
+					// Pre-set for ICS based imports
+					$venue = false;
+					if ( ! empty( $item->venue->global_id ) ) {
+						// Did we find a Post with a matching Global ID in History
+						$venue = Tribe__Events__Aggregator__Event::get_post_by_meta( 'global_id_lineage', $item->venue->global_id );
+					}
 
 					// Save the Venue Data for Updating
 					$venue_data = $event['Venue'];
@@ -1177,19 +1181,27 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					}
 
 					if ( $venue ) {
-						$venue_id = $event['EventVenueID'] = $venue->ID;
+						$venue_id = $event['EventVenueID'] = $venue_data['ID'] = $venue->ID;
 						$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
 
 						// Here we might need to update the Venue depending on the main GlobalID
-						if ( 'retain' !== $update_authority_setting ) {
+						if ( 'retain' === $update_authority_setting ) {
+							// When we get here we say that we skipped an Venue
+							$activity->add( 'venue', 'skipped', $venue->ID );
+						} else {
+							if ( 'preserve_changes' === $update_authority_setting ) {
+								$venue_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $venue_data );
+							}
+
+							add_filter( 'tribe_tracker_enabled', '__return_false' );
+
 							// Update the Venue
 							Tribe__Events__Venue::instance()->update( $venue->ID, $venue_data );
 
 							// Tell that we updated the Venue to the activity tracker
 							$activity->add( 'venue', 'updated', $venue->ID );
-						} else {
-							// When we get here we say that we skipped an Venue
-							$activity->add( 'venue', 'skipped', $venue->ID );
+
+							remove_filter( 'tribe_tracker_enabled', '__return_false' );
 						}
 					} else {
 						$venue_id = array_search( $event['Venue']['Venue'], $found_venues );
@@ -1225,18 +1237,26 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 								}
 							}
 						} else {
-							$event['EventVenueID'] = $venue_id;
+							$event['EventVenueID'] = $venue_data['ID'] = $venue_id;
 
 							// Here we might need to update the Venue depending we found something based on old code
-							if ( 'retain' !== $update_authority_setting ) {
+							if ( 'retain' === $update_authority_setting ) {
+								// When we get here we say that we skipped an Venue
+								$activity->add( 'venue', 'skipped', $venue_id );
+							} else {
+								if ( 'preserve_changes' === $update_authority_setting ) {
+									$venue_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $venue_data );
+								}
+
+								add_filter( 'tribe_tracker_enabled', '__return_false' );
+
 								// Update the Venue
 								Tribe__Events__Venue::instance()->update( $venue_id, $venue_data );
 
 								// Tell that we updated the Venue to the activity tracker
 								$activity->add( 'venue', 'updated', $venue_id );
-							} else {
-								// When we get here we say that we skipped an Venue
-								$activity->add( 'venue', 'skipped', $venue_id );
+
+								remove_filter( 'tribe_tracker_enabled', '__return_false' );
 							}
 						}
 					}
@@ -1248,9 +1268,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// if we should create an organizer or use existing
 			if ( ! empty( $event['Organizer']['Organizer'] ) ) {
-				if ( ! empty( $item->organizer->global_id ) ) {
-					// Did we find a Post with a matching Global ID in History
-					$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta( 'global_id_lineage', $item->organizer->global_id );
+				if ( ! empty( $item->organizer->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) {
+					// Pre-set for ICS based imports
+					$organizer = false;
+					if ( ! empty( $item->organizer->global_id ) ) {
+						// Did we find a Post with a matching Global ID in History
+						$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta( 'global_id_lineage', $item->organizer->global_id );
+					}
 
 					// Save the Organizer Data for Updating
 					$organizer_data = $event['Organizer'];
@@ -1264,19 +1288,27 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					}
 
 					if ( $organizer ) {
-						$organizer_id = $event['EventOrganizerID'] = $organizer->ID;
+						$organizer_id = $event['EventOrganizerID'] = $organizer_data['ID'] = $organizer->ID;
 						$found_organizers[ $organizer->ID ] = $event['Organizer']['Organizer'];
 
 						// Here we might need to update the Organizer depending we found something based on old code
-						if ( 'retain' !== $update_authority_setting ) {
+						if ( 'retain' === $update_authority_setting ) {
+							// When we get here we say that we skipped an Organizer
+							$activity->add( 'organizer', 'skipped', $organizer->ID );
+						} else {
+							if ( 'preserve_changes' === $update_authority_setting ) {
+								$organizer_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $organizer_data );
+							}
+
+							add_filter( 'tribe_tracker_enabled', '__return_false' );
+
 							// Update the Organizer
 							Tribe__Events__Organizer::instance()->update( $organizer->ID, $organizer_data );
 
+							remove_filter( 'tribe_tracker_enabled', '__return_false' );
+
 							// Tell that we updated the Organizer to the activity tracker
 							$activity->add( 'organizer', 'updated', $organizer->ID );
-						} else {
-							// When we get here we say that we skipped an Organizer
-							$activity->add( 'organizer', 'skipped', $organizer->ID );
 						}
 					} else {
 						$organizer_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
@@ -1292,7 +1324,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						// We didn't find any matching Organizer for the provided one
 						if ( ! $organizer_id ) {
 							$organizer_id = $event['EventOrganizerID'] = Tribe__Events__Organizer::instance()->create( $event['Organizer'], $this->meta['post_status'] );
-
 							$found_organizers[ $event['EventOrganizerID'] ] = $event['Organizer']['Organizer'];
 
 							// Log this Organizer was created
@@ -1310,18 +1341,27 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 								}
 							}
 						} else {
-							$event['EventOrganizerID'] = $organizer_id;
+							$event['EventOrganizerID'] = $organizer_data['ID'] = $organizer_id;
 
 							// Here we might need to update the Organizer depending we found something based on old code
-							if ( 'retain' !== $update_authority_setting ) {
+							if ( 'retain' === $update_authority_setting ) {
+								// When we get here we say that we skipped an Organizer
+								$activity->add( 'organizer', 'skipped', $organizer_id );
+
+							} else {
+								if ( 'preserve_changes' === $update_authority_setting ) {
+									$organizer_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $organizer_data );
+								}
+
+								add_filter( 'tribe_tracker_enabled', '__return_false' );
+
 								// Update the Organizer
 								Tribe__Events__Organizer::instance()->update( $organizer_id, $organizer_data );
 
+								remove_filter( 'tribe_tracker_enabled', '__return_false' );
+
 								// Tell that we updated the Organizer to the activity tracker
 								$activity->add( 'organizer', 'updated', $organizer_id );
-							} else {
-								// When we get here we say that we skipped an Organizer
-								$activity->add( 'organizer', 'skipped', $organizer_id );
 							}
 						}
 					}
@@ -1330,6 +1370,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				// Remove the Organizer to avoid duplicates
 				unset( $event['Organizer'] );
 			}
+
 
 			/**
 			 * Filters the event data before any sort of saving of the event
@@ -1344,7 +1385,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					$event = Tribe__Events__Aggregator__Event::preserve_changed_fields( $event );
 				}
 
-				add_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
+				add_filter( 'tribe_tracker_enabled', '__return_false' );
 
 				/**
 				 * Filters the event data before updating event
@@ -1366,7 +1407,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					delete_post_meta( $event['ID'], '_EventShowMapLink' );
 				}
 
-				remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
+				remove_filter( 'tribe_tracker_enabled', '__return_false' );
 
 				// Log that this event was updated
 				$activity->add( 'event', 'updated', $event['ID'] );
