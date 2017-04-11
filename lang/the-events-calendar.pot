@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 4.4.4dev1\n"
+"Project-Id-Version: The Events Calendar 4.4.5dev1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-calendar\n"
-"POT-Creation-Date: 2017-03-08 16:30:02+00:00\n"
+"POT-Creation-Date: 2017-03-23 18:29:18+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-03-08 16:30\n"
+"PO-Revision-Date: 2017-03-23 18:29\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -96,7 +96,6 @@ msgstr ""
 
 #: src/Tribe/Aggregator/API/Origins.php:36
 #: src/Tribe/Aggregator/Record/Facebook.php:46
-#: src/admin-views/admin-update-message.php:55
 #: src/admin-views/aggregator/settings.php:393
 #: src/admin-views/aggregator/status.php:181
 #: src/admin-views/tribe-options-addons-api.php:78
@@ -2457,19 +2456,19 @@ msgstr ""
 msgid "This %s has passed."
 msgstr ""
 
-#: src/Tribe/Template/Month.php:373
+#: src/Tribe/Template/Month.php:371
 msgid "There were no results found for %s this month. Try searching next month."
 msgstr ""
 
-#: src/Tribe/Template/Month.php:377
+#: src/Tribe/Template/Month.php:375
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
 msgstr ""
 
-#: src/Tribe/Template/Month.php:379 src/Tribe/Template_Factory.php:306
+#: src/Tribe/Template/Month.php:377 src/Tribe/Template_Factory.php:306
 msgid "There were no results found."
 msgstr ""
 
-#: src/Tribe/Template/Month.php:819
+#: src/Tribe/Template/Month.php:817
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr ""
 
@@ -2531,6 +2530,11 @@ msgstr ""
 
 #: src/Tribe/Venue.php:161
 msgid "venues"
+msgstr ""
+
+#: src/Tribe/Venue.php:201
+msgctxt "Metabox title"
+msgid "Location"
 msgstr ""
 
 #: src/Tribe/Venue.php:274 src/functions/template-tags/venue.php:274
@@ -2619,6 +2623,12 @@ msgstr ""
 
 #: src/admin-views/admin-update-message.php:54
 msgid "Filters"
+msgstr ""
+
+#: src/admin-views/admin-update-message.php:55
+#: src/admin-views/aggregator/settings.php:416
+#: src/admin-views/aggregator/settings.php:456
+msgid "Imports"
 msgstr ""
 
 #: src/admin-views/admin-update-message.php:58
@@ -3175,11 +3185,6 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:403
 msgid "Check out Event Aggregator."
-msgstr ""
-
-#: src/admin-views/aggregator/settings.php:416
-#: src/admin-views/aggregator/settings.php:456
-msgid "Imports"
 msgstr ""
 
 #: src/admin-views/aggregator/status.php:14

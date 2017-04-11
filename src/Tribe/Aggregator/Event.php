@@ -331,7 +331,25 @@ class Tribe__Events__Aggregator__Event {
 				continue;
 			}
 
-			$data[ $field ] = $post_meta[ $field ];
+			// If the field name contains a leading underscore we need to strip it (or the field will not save)
+			$field_name = trim( $field, '_' );
+			$event[ $field_name ] = $post_meta[ $field ];
+		}
+
+		// The start date needs to be adjusted from a MySQL style datetime string to just the date
+		if ( isset( $modified['_EventStartDate'] ) ) {
+			$start_datetime = strtotime( $event['EventStartDate'] );
+			$event['EventStartDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $start_datetime );
+			$event['EventStartHour'] = date( 'H', $start_datetime );
+			$event['EventStartMinute'] = date( 'i', $start_datetime );
+		}
+
+		// The end date needs to be adjusted from a MySQL style datetime string to just the date
+		if ( isset( $modified['_EventEndDate'] ) ) {
+			$end_datetime = strtotime( $event['EventEndDate'] );
+			$event['EventEndDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $end_datetime );
+			$event['EventEndHour'] = date( 'H', $end_datetime );
+			$event['EventEndMinute'] = date( 'i', $end_datetime );
 		}
 
 		// reset any modified taxonomy terms
