@@ -274,7 +274,6 @@ class Tribe__Events__Aggregator__Event {
 		$post_terms = Tribe__Events__API::get_event_terms( $data['ID'], array( 'fields' => 'ids' ) );
 		$modified   = Tribe__Utils__Array::get( $post_meta, Tribe__Tracker::$field_key, array() );
 		$tec        = Tribe__Events__Main::instance();
-		var_dump( $data );
 
 		// Depending on the Post Type we fetch other fields
 		if ( Tribe__Events__Main::POSTTYPE === $post->post_type ) {
@@ -375,8 +374,6 @@ class Tribe__Events__Aggregator__Event {
 			$data['EventEndHour'] = date( 'H', $end_datetime );
 			$data['EventEndMinute'] = date( 'i', $end_datetime );
 		}
-
-		var_dump( $data );
 
 		// reset any modified taxonomy terms
 		$taxonomy_map = array(
