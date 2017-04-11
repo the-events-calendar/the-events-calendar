@@ -1,8 +1,0 @@
-class_name: NojsacceptanceTester
-modules:
-    enabled:
-        - \Helper\Nojsacceptance
-        - WPBrowser
-        - WPDb
-        - \Tribe\Tests\Modules\Core\Acceptance\Options
-        - \Helper\TribeDb
