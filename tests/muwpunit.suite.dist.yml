@@ -1,14 +1,11 @@
-# Codeception Test Suite Configuration
-
-# suite for WordPress functional tests.
-# Emulate web requests and make application process them.
-class_name: IntegrationTester
+class_name: MuwpunitTester
 modules:
     enabled:
-        - \Helper\Integration
+        - \Helper\Muwpunit
         - WPLoader
     config:
         WPLoader:
+            multisite: true
             wpRootFolder: /tmp/wordpress
             dbName: wploader
             dbHost: localhost
@@ -21,3 +18,4 @@ modules:
             title: 'The Events Calendar Tests'
             plugins:
                 - the-events-calendar/the-events-calendar.php
+
