@@ -211,11 +211,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Organizer Page Link
 	 *
-	 * Returns the event Organizer Name with a link to their single organizer page
+	 * Returns an anchor tag with the event Organizer Name linked to their single organizer page if PRO is active
 	 *
 	 * @param int  $postId    Can supply either event id or organizer id, if none specified, current post is used
-	 * @param bool $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output
-	 * @param bool $echo      If true, echo the link, otherwise return
+	 * @param bool $full_link If false only the URL is returned
+	 * @param bool $echo      deprecated
 	 *
 	 * @return string Organizer Name and Url
 	 */
@@ -243,6 +243,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				return apply_filters( 'tribe_get_organizer_link', $link, $postId, $full_link, $url );
 			}
 		}
+
+		if ( ! $full_link ) {
+			return;
+		}
+
 		//Return Organizer Name if Pro is not Active
 		return tribe_get_organizer( $org_id );
 	}
