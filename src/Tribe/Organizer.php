@@ -339,14 +339,26 @@ class Tribe__Events__Organizer {
 			'ID' => $id,
 		);
 
+		if ( isset( $data['post_title'] ) ) {
+			$args['post_title'] = $data['post_title'];
+		}
+
 		if ( isset( $data['Organizer'] ) ) {
 			$args['post_title'] = $data['Organizer'];
 			unset( $data['Organizer'] );
 		}
 
+		if ( isset( $data['post_content'] ) ) {
+			$args['post_content'] = $data['post_content'];
+		}
+
 		if ( isset( $data['Description'] ) ) {
 			$args['post_content'] = $data['Description'];
 			unset( $data['Description'] );
+		}
+
+		if ( isset( $data['post_excerpt'] ) ) {
+			$args['post_excerpt'] = $data['post_excerpt'];
 		}
 
 		if ( isset( $data['Excerpt'] ) ) {
