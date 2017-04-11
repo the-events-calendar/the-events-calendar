@@ -1371,7 +1371,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				unset( $event['Organizer'] );
 			}
 
-
 			/**
 			 * Filters the event data before any sort of saving of the event
 			 *

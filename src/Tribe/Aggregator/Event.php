@@ -274,6 +274,7 @@ class Tribe__Events__Aggregator__Event {
 		$post_terms = Tribe__Events__API::get_event_terms( $data['ID'], array( 'fields' => 'ids' ) );
 		$modified   = Tribe__Utils__Array::get( $post_meta, Tribe__Tracker::$field_key, array() );
 		$tec        = Tribe__Events__Main::instance();
+		var_dump( $data );
 
 		// Depending on the Post Type we fetch other fields
 		if ( Tribe__Events__Main::POSTTYPE === $post->post_type ) {
@@ -355,12 +356,31 @@ class Tribe__Events__Aggregator__Event {
 				continue;
 			}
 
-			$data[ $field ] = $post_meta[ $field ];
+			// If the field name contains a leading underscore we need to strip it (or the field will not save)
+			$field_name = trim( $field, '_' );
+			$data[ $field_name ] = $post_meta[ $field ];
 		}
+
+		// The start date needs to be adjusted from a MySQL style datetime string to just the date
+		if ( isset( $modified['_EventStartDate'] ) ) {
+			$start_datetime = strtotime( $data['EventStartDate'] );
+			$data['EventStartDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $start_datetime );
+			$data['EventStartHour'] = date( 'H', $start_datetime );
+			$data['EventStartMinute'] = date( 'i', $start_datetime );
+		}
+		// The end date needs to be adjusted from a MySQL style datetime string to just the date
+		if ( isset( $modified['_EventEndDate'] ) ) {
+			$end_datetime = strtotime( $data['EventEndDate'] );
+			$data['EventEndDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $end_datetime );
+			$data['EventEndHour'] = date( 'H', $end_datetime );
+			$data['EventEndMinute'] = date( 'i', $end_datetime );
+		}
+
+		var_dump( $data );
 
 		// reset any modified taxonomy terms
 		$taxonomy_map = array(
-			'post_tag'	                  => 'tags',
+			'post_tag'                    => 'tags',
 			Tribe__Events__Main::TAXONOMY => 'categories',
 		);
 
