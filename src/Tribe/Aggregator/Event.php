@@ -269,14 +269,52 @@ class Tribe__Events__Aggregator__Event {
 			return $data;
 		}
 
-		$post = get_post( $data['ID'] );
-		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $data['ID'] );
+		$post       = get_post( $data['ID'] );
+		$post_meta  = Tribe__Events__API::get_and_flatten_event_meta( $data['ID'] );
 		$post_terms = Tribe__Events__API::get_event_terms( $data['ID'], array( 'fields' => 'ids' ) );
+		$modified   = Tribe__Utils__Array::get( $post_meta, Tribe__Tracker::$field_key, array() );
+		$tec        = Tribe__Events__Main::instance();
 
-		if ( empty( $post_meta[ Tribe__Tracker::$field_key ] ) ) {
-			$modified = array();
+		// Depending on the Post Type we fetch other fields
+		if ( Tribe__Events__Main::POSTTYPE === $post->post_type ) {
+			$fields = $tec->metaTags;
+		} elseif ( Tribe__Events__Venue::POSTTYPE === $post->post_type ) {
+			$fields = $tec->venueTags;
+
+			if ( isset( $data['Venue'] ) ) {
+				$data['post_title'] = $data['Venue'];
+				unset( $data['Venue'] );
+			}
+
+			if ( isset( $data['Description'] ) ) {
+				$data['post_content'] = $data['Description'];
+				unset( $data['Description'] );
+			}
+
+			if ( isset( $data['Excerpt'] ) ) {
+				$data['post_excerpt'] = $data['Excerpt'];
+				unset( $data['Excerpt'] );
+			}
+		} elseif ( Tribe__Events__Organizer::POSTTYPE === $post->post_type ) {
+			$fields = $tec->organizerTags;
+
+			if ( isset( $data['Organizer'] ) ) {
+				$data['post_title'] = $data['Organizer'];
+				unset( $data['Organizer'] );
+			}
+
+			if ( isset( $data['Description'] ) ) {
+				$data['post_content'] = $data['Description'];
+				unset( $data['Description'] );
+			}
+
+			if ( isset( $data['Excerpt'] ) ) {
+				$data['post_excerpt'] = $data['Excerpt'];
+				unset( $data['Excerpt'] );
+			}
+
 		} else {
-			$modified = $post_meta[ Tribe__Tracker::$field_key ];
+			$fields = array();
 		}
 
 		$post_fields_to_reset = array(
@@ -305,19 +343,6 @@ class Tribe__Events__Aggregator__Event {
 			$data[ $field ] = $post->$field;
 		}
 
-		$tec = Tribe__Events__Main::instance();
-
-		// Depending on the Post Type we fetch other fields
-		if ( Tribe__Events__Main::POSTTYPE === $post->post_type ) {
-			$fields = $tec->metaTags;
-		} elseif ( Tribe__Events__Venue::POSTTYPE === $post->post_type ) {
-			$fields = $tec->venueTags;
-		} elseif ( Tribe__Events__Organizer::POSTTYPE === $post->post_type ) {
-			$fields = $tec->organizerTags;
-		} else {
-			$fields = array();
-		}
-
 		// reset any modified meta fields
 		foreach ( $fields as $field ) {
 			// don't bother resetting if the field hasn't been modified
@@ -336,9 +361,10 @@ class Tribe__Events__Aggregator__Event {
 
 		// reset any modified taxonomy terms
 		$taxonomy_map = array(
-			'post_tag'	 => 'tags',
+			'post_tag'	                  => 'tags',
 			Tribe__Events__Main::TAXONOMY => 'categories',
 		);
+
 		foreach ( $post_terms as $taxonomy => $terms ) {
 			if ( ! isset( $modified[ $taxonomy ] ) ) {
 				continue;
