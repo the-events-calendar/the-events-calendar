@@ -312,7 +312,6 @@ class Tribe__Events__Aggregator__Event {
 				$data['post_excerpt'] = $data['Excerpt'];
 				unset( $data['Excerpt'] );
 			}
-
 		} else {
 			$fields = array();
 		}
