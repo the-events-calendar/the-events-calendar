@@ -1268,7 +1268,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// if we should create an organizer or use existing
 			if ( ! empty( $event['Organizer']['Organizer'] ) ) {
-				if ( ! empty( $item->organizer->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) {
+				if ( ! empty( $item->organizer->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
 					// Pre-set for ICS based imports
 					$organizer = false;
 					if ( ! empty( $item->organizer->global_id ) ) {
