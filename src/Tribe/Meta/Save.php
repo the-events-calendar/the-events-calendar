@@ -181,4 +181,13 @@ class Tribe__Events__Meta__Save {
 		return $this->post->post_type === Tribe__Events__Main::POSTTYPE;
 	}
 
+	/**
+	 * @return bool
+	 */
+	protected function is_series() {
+		if ( ! class_exists( 'Tribe__Events__Pro__Recurrence__Series' ) ) {
+			return false;
+		}
+		return $this->post->post_type === Tribe__Events__Pro__Recurrence__Series::POST_TYPE;
+	}
 }
