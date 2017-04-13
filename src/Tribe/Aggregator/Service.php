@@ -547,7 +547,7 @@ class Tribe__Events__Aggregator__Service {
 		$confirmation_args = array_intersect_key( $args, $keys );
 		$confirmation_args = array_merge( $confirmation_args, array(
 			'facebook_token' => '1',
-			'meetup_api_key' => '1'
+			'meetup_api_key' => '1',
 		) );
 		$response = $this->post_import( $confirmation_args );
 
