@@ -533,4 +533,26 @@ class Tribe__Events__Aggregator__Service {
 	public function get_unknow_message() {
 		return __( 'Unknown service message', 'the-events-calendar' );
 	}
+
+	/**
+	 * Confirms an import with Event Aggregator Service.
+	 *
+	 * @param array $args
+	 *
+	 * @return bool Whether the import was confirmed or not.
+	 */
+	public function confirm_import( $args ) {
+		$keys = array( 'origin', 'source', 'type' );
+		$keys = array_combine( $keys, $keys );
+		$confirmation_args = array_intersect_key( $args, $keys );
+		$confirmation_args = array_merge( $confirmation_args, array(
+			'facebook_token' => '1',
+			'meetup_api_key' => '1'
+		) );
+		$response = $this->post_import( $confirmation_args );
+
+		$confirmed = ! empty( $response->status ) && 0 !== strpos( $response->status, 'error' );
+
+		return $confirmed;
+	}
 }
