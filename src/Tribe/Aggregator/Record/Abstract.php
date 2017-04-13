@@ -1525,8 +1525,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$terms[] = (int) $this->meta['category'];
 			}
 
-			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );
-			wp_set_object_terms( $event['ID'], $tags, 'post_tag', false );
+			$normalized_categories = tribe_normalize_terms_list( $terms, Tribe__Events__Main::TAXONOMY );
+			$normalized_tags = tribe_normalize_terms_list( $tags, 'post_tag' );
+			wp_set_object_terms( $event['ID'], $normalized_categories, Tribe__Events__Main::TAXONOMY, false );
+			wp_set_object_terms( $event['ID'], $normalized_tags, 'post_tag', false );
 
 			// If we have a Image Field from Service
 			if ( ! empty( $event['image'] ) ) {
