@@ -289,11 +289,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				return;
 			}
 
-			$grid_start_datetime = tribe_beginning_of_day( $this->first_grid_date );
-			$grid_end_datetime   = tribe_end_of_day( $this->final_grid_date );
-
 			$cache     = new Tribe__Cache();
-			$cache_key = 'events_month_jsonld_' . $grid_start_datetime . '-' . $grid_end_datetime;
+			$cache_key = $this->get_month_view_cache_key( 'events_month_jsonld' );
 			$json_ld   = $cache->get_transient( $cache_key, 'save_post' );
 
 			if ( ! $json_ld ) {
@@ -505,11 +502,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		protected function set_events_in_month() {
 			global $wpdb;
 
-			$grid_start_datetime = tribe_beginning_of_day( $this->first_grid_date );
-			$grid_end_datetime   = tribe_end_of_day( $this->final_grid_date );
-
 			$cache     = new Tribe__Cache();
-			$cache_key = 'events_in_month' . $grid_start_datetime . '-' . $grid_end_datetime;
+			$cache_key = $this->get_month_view_cache_key( 'events_in_month' );
 
 			// We always use the object cache if available
 			$cache_getter = 'get';
@@ -568,6 +562,19 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			// cache the found events in the object cache
 			$cache->$cache_setter( $cache_key, $this->events_in_month, $expiration, 'save_post' );
+		}
+
+		/**
+		 * Returns a string that can be used as a cache key for the current month.
+		 *
+		 * @param string $prefix
+		 *
+		 * @return string
+		 */
+		protected function get_month_view_cache_key( $prefix ) {
+			$grid_start_datetime = tribe_beginning_of_day( $this->first_grid_date );
+			$grid_end_datetime   = tribe_end_of_day( $this->final_grid_date );
+			return $prefix . '-' . $grid_start_datetime . '-' . $grid_end_datetime;
 		}
 
 		/**
