@@ -549,8 +549,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				AND $wpdb->posts.post_status IN('$post_stati')
 				ORDER BY $wpdb->posts.menu_order ASC, DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;
 				",
-				$grid_start_datetime,
-				$grid_end_datetime
+				tribe_beginning_of_day( $this->first_grid_date ),
+				tribe_end_of_day( $this->final_grid_date )
 			);
 
 			$this->events_in_month = $wpdb->get_results( $events_request );
