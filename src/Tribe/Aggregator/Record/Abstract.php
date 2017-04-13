@@ -959,6 +959,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return array|WP_Error|Tribe__Events__Aggregator__Record__Queue
 	 */
 	public function process_posts( $data = array() ) {
+		if ( 'manual' === $this->type ) {
+			/** @var Tribe__Events__Aggregator__Service $service */
+			$service = tribe( 'events-aggregator.service' );
+			$service->confirm_import( $this->meta );
+		}
+
 		if ( $this->has_queue() ) {
 			$queue = new Tribe__Events__Aggregator__Record__Queue( $this );
 			return $queue->process();
