@@ -320,6 +320,7 @@ class Tribe__Events__Aggregator__Event {
 			'post_title',
 			'post_content',
 			'post_status',
+			'post_excerpt',
 		);
 
 		// reset any modified post fields
