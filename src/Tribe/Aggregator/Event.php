@@ -362,15 +362,15 @@ class Tribe__Events__Aggregator__Event {
 		}
 
 		// The start date needs to be adjusted from a MySQL style datetime string to just the date
-		if ( isset( $modified['_EventStartDate'] ) ) {
-			$start_datetime = strtotime( $data['EventStartDate'] );
+		if ( isset( $modified['_EventStartDate'] ) && isset( $post_meta['_EventStartDate'] ) ) {
+			$start_datetime = strtotime( $post_meta['_EventStartDate'] );
 			$data['EventStartDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $start_datetime );
 			$data['EventStartHour'] = date( 'H', $start_datetime );
 			$data['EventStartMinute'] = date( 'i', $start_datetime );
 		}
 		// The end date needs to be adjusted from a MySQL style datetime string to just the date
-		if ( isset( $modified['_EventEndDate'] ) ) {
-			$end_datetime = strtotime( $data['EventEndDate'] );
+		if ( isset( $modified['_EventEndDate'] ) && isset( $post_meta['_EventEndDate'] ) ) {
+			$end_datetime = strtotime( $post_meta['_EventEndDate'] );
 			$data['EventEndDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $end_datetime );
 			$data['EventEndHour'] = date( 'H', $end_datetime );
 			$data['EventEndMinute'] = date( 'i', $end_datetime );
