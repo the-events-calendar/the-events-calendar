@@ -376,6 +376,10 @@ class Tribe__Events__Aggregator__Event {
 			$data['EventEndMinute'] = date( 'i', $end_datetime );
 		}
 
+		if ( isset( $modified['_EventAllDay'] ) ) {
+			$data['EventAllDay'] = ! empty( $post_meta['_EventAllDay'] );
+		}
+
 		// reset any modified taxonomy terms
 		$taxonomy_map = array(
 			'post_tag'                    => 'tags',
