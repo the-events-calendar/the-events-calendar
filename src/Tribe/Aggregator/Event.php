@@ -361,7 +361,11 @@ class Tribe__Events__Aggregator__Event {
 			}
 
 			// some fields might have been modified emptying them: we still keep that change
-			$data[ $field_name ] = empty( $post_meta[ $field ] ) ? '' : $post_meta[ $field ];
+			if ( empty( $post_meta[ $field ] ) ) {
+				unset( $data[ $field_name ] );
+			} else {
+				$data[ $field_name ] = $post_meta[ $field ];
+			}
 		}
 
 		// The start date needs to be adjusted from a MySQL style datetime string to just the date
