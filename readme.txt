@@ -316,6 +316,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.4.6] 2017-04-19 =
+
+* Fix - Enhance month view caching to minimize impact of JSON-LD generation [74656]
+
 = [4.4.5] 2017-03-23 =
 
 * Fix - Local changes to events should be preserved in accordance with the Event Import Authority setting (thanks to @bryan for reporting this one) [72876]
