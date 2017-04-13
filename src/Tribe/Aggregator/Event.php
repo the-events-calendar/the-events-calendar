@@ -316,6 +316,9 @@ class Tribe__Events__Aggregator__Event {
 			$fields = array();
 		}
 
+		// add the featured image to the fields
+		$fields[] = '_thumbnail_id';
+
 		$post_fields_to_reset = array(
 			'post_title',
 			'post_content',
@@ -350,15 +353,15 @@ class Tribe__Events__Aggregator__Event {
 				continue;
 			}
 
-			// if we don't have a field to reset to, let's unset the event meta field
-			if ( ! isset( $post_meta[ $field ] ) ) {
-				unset( $data[ $field ] );
-				continue;
+			if ( $field === '_thumbnail_id' ) {
+				$field_name = 'image';
+			} else {
+				// If the field name contains a leading underscore we need to strip it (or the field will not save)
+				$field_name = trim( $field, '_' );
 			}
 
-			// If the field name contains a leading underscore we need to strip it (or the field will not save)
-			$field_name = trim( $field, '_' );
-			$data[ $field_name ] = $post_meta[ $field ];
+			// some fields might have been modified emptying them: we still keep that change
+			$data[ $field_name ] = empty( $post_meta[ $field ] ) ? '' : $post_meta[ $field ];
 		}
 
 		// The start date needs to be adjusted from a MySQL style datetime string to just the date
@@ -374,10 +377,6 @@ class Tribe__Events__Aggregator__Event {
 			$data['EventEndDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $end_datetime );
 			$data['EventEndHour'] = date( 'H', $end_datetime );
 			$data['EventEndMinute'] = date( 'i', $end_datetime );
-		}
-
-		if ( isset( $modified['_EventAllDay'] ) ) {
-			$data['EventAllDay'] = ! empty( $post_meta['_EventAllDay'] );
 		}
 
 		// reset any modified taxonomy terms
