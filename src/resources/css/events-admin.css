@@ -45,6 +45,9 @@
 	margin-right: 4.8px;
 	margin-right: 0.3rem;
 }
+.eventForm #EventURL {
+	width: 70%;
+}
 .eventForm #event-meta td {
 	vertical-align: top;
 }
