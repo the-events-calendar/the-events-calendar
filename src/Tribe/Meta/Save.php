@@ -132,7 +132,7 @@ class Tribe__Events__Meta__Save {
 	 */
 	public function maybe_save() {
 		// only continue if it's an event post
-		if ( ! $this->is_event() ) {
+		if ( ! ( $this->is_event() || $this->is_series() ) ) {
 			return false;
 		}
 
