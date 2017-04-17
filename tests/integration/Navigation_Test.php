@@ -1,11 +1,33 @@
 <?php
 namespace Tribe\Events;
 
-class Navigation_Test extends \Tribe__Events__WP_UnitTestCase {
+class Navigation_Test extends \Codeception\TestCase\WPTestCase {
+	private $post_example_settings;
+
 	public function setUp() {
 		// before
 		parent::setUp();
 		// your set up methods here
+		$this->post_example_settings = array(
+			'post_author'           => 3,
+			'post_title'            => 'Test event',
+			'post_content'          => 'This is event content!',
+			'post_status'           => 'publish',
+			'EventAllDay'           => false,
+			'EventHideFromUpcoming' => true,
+			'EventOrganizerID'      => 5,
+			'EventVenueID'          => 8,
+			'EventShowMapLink'      => true,
+			'EventShowMap'          => true,
+			'EventStartDate'        => '2012-01-01',
+			'EventEndDate'          => '2012-01-03',
+			'EventStartHour'        => '01',
+			'EventStartMinute'      => '15',
+			'EventStartMeridian'    => 'am',
+			'EventEndHour'          => '03',
+			'EventEndMinute'        => '25',
+			'EventEndMeridian'      => 'pm',
+		);
 	}
 
 	public function tearDown() {

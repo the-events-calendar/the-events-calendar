@@ -12,20 +12,6 @@ api:
   ea_license: YOUR_EA_LICENSE
 modules:
     config:
-        WPBrowser:
-            url: 'http://tec.tri.be'
-            adminUsername: admin
-            adminPassword: admin
-            adminUrl: /wp-admin
-        WPDb:
-            dsn: 'mysql:host=localhost;dbname=test'
-            user: root
-            password: ''
-            dump: tests/_data/dump.sql
-            populate: true
-            cleanup: true
-            url: 'http://tec.tri.be'
-            tablePrefix: wp_
         WPLoader:
             wpRootFolder: /tmp/wordpress
             dbName: wploader
@@ -55,6 +41,3 @@ modules:
             windowSize: 1200x100
         WPBootstrapper:
             wpRootFolder: /tmp/wordpress
-        REST:
-            depends: WPBrowser
-            url: 'http://tec.tri.be/wp-json/tribe/events/v1/'

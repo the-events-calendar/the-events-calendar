@@ -3,9 +3,9 @@ namespace Tribe\Events;
 
 use Tribe__Events__Featured_Events,
     Tribe__Events__Main,
-    Tribe__Events__WP_UnitTestCase;
+    \Codeception\TestCase\WPTestCase;
 
-class Featured_Events_Test extends Tribe__Events__WP_UnitTestCase {
+class Featured_Events_Test extends \Codeception\TestCase\WPTestCase {
 	protected $posts         = [];
 	protected $featured_id   = 0;
 	protected $unfeatured_id = 0;

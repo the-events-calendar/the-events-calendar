@@ -1,6 +1,6 @@
 <?php
 
-class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
+class Cost_Utils_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Container for our test events. Each event will be stored as an array of
 	 * [ cost, post_id ] - in other words this is an array of arrays.
@@ -8,7 +8,7 @@ class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 	 * @var array
 	 */
 	protected $test_events = [];
-
+	protected $post_example_settings;
 
 	/**
 	 * Ensure we have events with a range of different costs and also
@@ -17,6 +17,27 @@ class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 	public function setUp() {
 		// This needs to come first so that the post_example_settings template is created
 		parent::setUp();
+
+		$this->post_example_settings = array(
+			'post_author'           => 3,
+			'post_title'            => 'Test event',
+			'post_content'          => 'This is event content!',
+			'post_status'           => 'publish',
+			'EventAllDay'           => false,
+			'EventHideFromUpcoming' => true,
+			'EventOrganizerID'      => 5,
+			'EventVenueID'          => 8,
+			'EventShowMapLink'      => true,
+			'EventShowMap'          => true,
+			'EventStartDate'        => '2012-01-01',
+			'EventEndDate'          => '2012-01-03',
+			'EventStartHour'        => '01',
+			'EventStartMinute'      => '15',
+			'EventStartMeridian'    => 'am',
+			'EventEndHour'          => '03',
+			'EventEndMinute'        => '25',
+			'EventEndMeridian'      => 'pm',
+		);
 
 		$costs = [
 			null, // a null value means the event has no cost - as distinct from being free
@@ -36,7 +57,7 @@ class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 		$iterations = 0;
 
 		foreach ( $costs as $event_cost ) {
-			$iterations++;
+			$iterations ++;
 
 			$new_event = $this->post_example_settings;
 			$new_event['post_title'] .= uniqid();
@@ -81,7 +102,7 @@ class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 
 		// Let's remove any uncosted test events and ensure the test works in reverse
 		$this->remove_uncosted_events();
-		delete_transient(Tribe__Events__Cost_Utils::UNCOSTED_EVENTS_TRANSIENT);
+		delete_transient( Tribe__Events__Cost_Utils::UNCOSTED_EVENTS_TRANSIENT );
 
 		$this->assertFalse( tribe_has_uncosted_events(),
 			'We do not expect to find events without a cost after they have been removed'
@@ -99,8 +120,8 @@ class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 			wp_delete_post( $event_id, true );
 			unset( $this->test_events[ $event_id ] );
 		}
-		
-		delete_transient(Tribe__Events__Cost_Utils::UNCOSTED_EVENTS_TRANSIENT);
+
+		delete_transient( Tribe__Events__Cost_Utils::UNCOSTED_EVENTS_TRANSIENT );
 	}
 
 	/**
@@ -119,10 +140,10 @@ class Tribe__Events__Cost_Utils_Test extends Tribe__Events__WP_UnitTestCase {
 		$range = $cost_utils->parse_cost_range( $costs );
 
 		$this->assertEquals( array(
-			10 => '1',
-			15 => '1.5',
-			50 => '5',
-			60 => '6',
+			10  => '1',
+			15  => '1.5',
+			50  => '5',
+			60  => '6',
 			100 => '10',
 			150 => '15',
 		), $range );

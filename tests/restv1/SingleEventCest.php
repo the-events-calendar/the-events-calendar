@@ -147,12 +147,12 @@ class SingleEventCest extends BaseRestCest {
 		$I->seeResponseContainsJson( [ 'date_utc' => '2017-01-05 14:23:36' ] );
 		$I->seeResponseContainsJson( [ 'modified' => '2017-01-05 14:23:36' ] );
 		$I->seeResponseContainsJson( [ 'modified_utc' => '2017-01-05 14:23:36' ] );
-		$I->seeResponseContainsJson( [ 'url' => $this->site_url . 'event/event-01/' ] );
+		$I->seeResponseContainsJson( [ 'url' => $this->site_url . '/event/event-01/' ] );
 		$I->seeResponseContainsJson( [ 'rest_url' => $this->rest_url . 'events/' . $id ] );
 		$I->seeResponseContainsJson( [ 'title' => 'Event 01' ] );
 		$I->seeResponseContainsJson( [ 'description' => '<p>Event 01 description</p>' ] );
 		$I->seeResponseContainsJson( [ 'excerpt' => '<p>Event 01 excerpt</p>' ] );
-		$I->seeResponseContainsJson( [ 'image' => [ 'url' => $this->site_url . 'wp-content/uploads/images/image.png' ] ] );
+		$I->seeResponseContainsJson( [ 'image' => [ 'url' => $this->site_url . '/wp-content/uploads/images/image.png' ] ] );
 		$I->seeResponseContainsJson( [ 'start_date' => '2017-01-05 14:23:36' ] );
 		$I->seeResponseContainsJson( [
 			'start_date_details' => [
@@ -218,7 +218,7 @@ class SingleEventCest extends BaseRestCest {
 				'date_utc'       => '2017-01-05 14:23:36',
 				'modified'       => '2017-01-05 14:23:36',
 				'modified_utc'   => '2017-01-05 14:23:36',
-				'url'            => $this->site_url . 'venue/venue-01/',
+				'url'            => $this->site_url . '/venue/venue-01/',
 				'venue'          => 'Venue 01',
 				'description'    => '<p>Venue 01 description</p>',
 				'excerpt'        => '<p>Venue 01 excerpt</p>',
@@ -244,7 +244,7 @@ class SingleEventCest extends BaseRestCest {
 					'date_utc'     => '2017-01-05 14:23:36',
 					'modified'     => '2017-01-05 14:23:36',
 					'modified_utc' => '2017-01-05 14:23:36',
-					'url'          => $this->site_url . 'organizer/organizer-01/',
+					'url'          => $this->site_url . '/organizer/organizer-01/',
 					'organizer'    => 'Organizer 01',
 					'description'  => '<p>Organizer 01 description</p>',
 					'excerpt'      => '<p>Organizer 01 excerpt</p>',
@@ -264,7 +264,7 @@ class SingleEventCest extends BaseRestCest {
 					'description' => 'Tag 1 description',
 					'parent'      => 0,
 					'count'       => 1,
-					'url'        => $this->site_url . 'tag/tag-1/',
+					'url'        => $this->site_url . '/tag/tag-1/',
 				],
 				[
 					'id' => $tag_2,
@@ -274,7 +274,7 @@ class SingleEventCest extends BaseRestCest {
 					'description' => 'Tag 2 description',
 					'parent'      => 0,
 					'count'       => 1,
-					'url'        => $this->site_url . 'tag/tag-2/',
+					'url'        => $this->site_url . '/tag/tag-2/',
 				],
 			]
 		] );
@@ -288,7 +288,7 @@ class SingleEventCest extends BaseRestCest {
 					'description' => 'Category 1 description',
 					'parent'      => 0,
 					'count'       => 1,
-					'url'        => $this->site_url . 'events/category/category-1/',
+					'url'        => $this->site_url . '/events/category/category-1/',
 				],
 				[
 					'id' => $category_2,
@@ -298,7 +298,7 @@ class SingleEventCest extends BaseRestCest {
 					'description' => 'Category 2 description',
 					'parent'      => 0,
 					'count'       => 1,
-					'url'        => $this->site_url . 'events/category/category-2/',
+					'url'        => $this->site_url . '/events/category/category-2/',
 				],
 			]
 		] );

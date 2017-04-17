@@ -24,22 +24,10 @@ vendor
 !vendor/ForceUTF8
 !vendor/php-date-formatter
 
-# Tests - local config files
+# Tests - local Codeception files
 codeception.yml
-tests/acceptance.suite.yml
-tests/integration.suite.yml
-tests/muintegration.suite.yml
-tests/functional.suite.dist.yml
-tests/unit.suite.yml
-
-# Tests - local output files
+tests/*.suite.yml
 tests/_output
 
-# Tests - local bootstrap files
-tests/_bootstrap.php
-tests/acceptance/_bootstrap.php
-tests/functional/_bootstrap.php
-tests/unit/_bootstrap.php
-
-# Loca utility files
+# Local utility files
 makefile
