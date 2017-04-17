@@ -42,9 +42,9 @@ class File_Importer_Venues_ContentTest extends File_Importer_VenuesTest {
 
 	/**
 	 * @test
-	 * it should not overwrite post content when reimporting
+	 * it should overwrite post content when reimporting
 	 */
-	public function it_should_not_overwrite_post_content_when_reimporting() {
+	public function it_should_overwrite_post_content_when_reimporting() {
 		$this->data        = [
 			'description_1' => 'First description',
 		];
@@ -65,14 +65,14 @@ class File_Importer_Venues_ContentTest extends File_Importer_VenuesTest {
 		$reimport_post_id = $sut->import_next_row();
 
 		$this->assertEquals( $post_id, $reimport_post_id );
-		$this->assertEquals( 'First description', get_post( $post_id )->post_content );
+		$this->assertEquals( 'New description', get_post( $post_id )->post_content );
 	}
 
 	/**
 	 * @test
-	 * it should not restore a venue description that has been emptied
+	 * it should restore a venue description that has been emptied
 	 */
-	public function it_should_not_restore_a_venue_description_that_has_been_emptied() {
+	public function it_should_restore_a_venue_description_that_has_been_emptied() {
 		$this->data        = [
 			'description_1' => 'First description',
 		];
@@ -93,6 +93,6 @@ class File_Importer_Venues_ContentTest extends File_Importer_VenuesTest {
 		$reimport_post_id = $sut->import_next_row();
 
 		$this->assertEquals( $post_id, $reimport_post_id );
-		$this->assertEquals( '', get_post( $post_id )->post_content );
+		$this->assertEquals( 'New description', get_post( $post_id )->post_content );
 	}
 }

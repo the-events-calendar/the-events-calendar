@@ -1,10 +1,24 @@
 <?php
-
-namespace Tribe\Events\functions\templateTags;
+namespace TEC\Tests\functions\template_tags;
 
 use Codeception\TestCase\WPTestCase;
 
 class generalTest extends WPTestCase {
+
+	public function setUp() {
+		// before
+		parent::setUp();
+
+		// your set up methods here
+	}
+
+	public function tearDown() {
+		// your tear down methods here
+
+		// then
+		parent::tearDown();
+	}
+
 	public function separated_field_inputs() {
 		return [
 			[ '', ' | ', 'Hello', 'Hello' ],

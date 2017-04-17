@@ -1,39 +1,63 @@
 <?php
 
-class iCal_Test extends \Codeception\TestCase\WPTestCase {
+namespace Tribe\Events;
 
-	public function test_exists() {
-		$this->assertTrue( class_exists( 'Tribe__Events__iCal' ), 'Check that Tribe__Events__iCal exists' );
+use Tribe__Events__iCal as iCal;
+use Tribe__Events__API;
+use WP_Post;
+
+class iCalTest extends \Codeception\TestCase\WPTestCase {
+	protected $post_example_settings;
+
+	public function setUp() {
+		// before
+		parent::setUp();
+
+		// your set up methods here
+		$this->post_example_settings = array(
+			'post_author'           => 3,
+			'post_title'            => 'Test event',
+			'post_content'          => 'This is event content!',
+			'post_status'           => 'publish',
+			'EventAllDay'           => false,
+			'EventHideFromUpcoming' => true,
+			'EventOrganizerID'      => 5,
+			'EventVenueID'          => 8,
+			'EventShowMapLink'      => true,
+			'EventShowMap'          => true,
+			'EventStartDate'        => '2012-01-01',
+			'EventEndDate'          => '2012-01-03',
+			'EventStartHour'        => '01',
+			'EventStartMinute'      => '15',
+			'EventStartMeridian'    => 'am',
+			'EventEndHour'          => '03',
+			'EventEndMinute'        => '25',
+			'EventEndMeridian'      => 'pm',
+		);
+	}
+
+	public function tearDown() {
+		// your tear down methods here
+
+		// then
+		parent::tearDown();
 	}
 
 	/**
-	 * Check to make sure that get_ical_link function works as expected
+	 * @test
+	 * it should be instantiatable
 	 */
-	public function test_get_ical_link_home() {
-		$ical_link = tribe( 'tec.iCal' )->get_ical_link();
-		$ical_link_home = tribe( 'tec.iCal' )->get_ical_link( 'home' );
+	public function it_should_be_instantiatable() {
+		$sut = $this->make_instance();
 
-		$this->assertEquals( $ical_link, $ical_link_home, 'Check that events home is the default' );
+		$this->assertInstanceOf( iCal::class, $sut );
 	}
 
 	/**
-	 * Check to make sure that get_ical_link function works as expected
-	 *
-	 * @uses $post_example_settings
+	 * @return iCal
 	 */
-	public function test_get_ical_link_single() {
-		global $post;
-		$post = get_post( Tribe__Events__API::createEvent( $this->post_example_settings ) );
-		$this->assertTrue( $post instanceof WP_Post, 'Check that post creates properly' );
-
-		$ical_link_single_via_object = tribe( 'tec.iCal' )->get_ical_link( 'single' );
-
-		$this->assertNotEmpty( filter_var( $ical_link_single_via_object, FILTER_VALIDATE_URL ), 'Checking that we get back a valid URL from object' );
-
-		$ical_link_single_via_function = tribe_get_single_ical_link();
-		$this->assertNotEmpty( filter_var( $ical_link_single_via_function, FILTER_VALIDATE_URL ), 'Checking that we get back a valid URL from function' );
-
-		$this->assertEquals( $ical_link_single_via_object, $ical_link_single_via_function, 'Check that the function and object get the same result' );
+	protected function make_instance() {
+		return new iCal();
 	}
 
 	public function count_scenarios() {
@@ -82,13 +106,6 @@ class iCal_Test extends \Codeception\TestCase\WPTestCase {
 		$content = $sut->generate_ical_feed( null, false );
 
 		$this->assertEventsCount( $expected, $content );
-	}
-
-	/**
-	 * @return iCal
-	 */
-	protected function make_instance() {
-		return new iCal();
 	}
 
 	/**
@@ -190,4 +207,35 @@ class iCal_Test extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEventsCount( $default_export_count, $content );
 	}
+
+	/**
+	 * Check to make sure that get_ical_link function works as expected
+	 */
+	public function test_get_ical_link_home() {
+		$ical_link = $this->make_instance()->get_ical_link();
+		$ical_link_home = $this->make_instance()->get_ical_link( 'home' );
+
+		$this->assertEquals( $ical_link, $ical_link_home, 'Check that events home is the default' );
+	}
+
+	/**
+	 * Check to make sure that get_ical_link function works as expected
+	 *
+	 * @uses $post_example_settings
+	 */
+	public function test_get_ical_link_single() {
+		global $post;
+		$post = get_post( Tribe__Events__API::createEvent( $this->post_example_settings ) );
+		$this->assertTrue( $post instanceof WP_Post, 'Check that post creates properly' );
+
+		$ical_link_single_via_object = $this->make_instance()->get_ical_link( 'single' );
+
+		$this->assertNotEmpty( filter_var( $ical_link_single_via_object, FILTER_VALIDATE_URL ), 'Checking that we get back a valid URL from object' );
+
+		$ical_link_single_via_function = tribe_get_single_ical_link();
+		$this->assertNotEmpty( filter_var( $ical_link_single_via_function, FILTER_VALIDATE_URL ), 'Checking that we get back a valid URL from function' );
+
+		$this->assertEquals( $ical_link_single_via_object, $ical_link_single_via_function, 'Check that the function and object get the same result' );
+	}
+
 }

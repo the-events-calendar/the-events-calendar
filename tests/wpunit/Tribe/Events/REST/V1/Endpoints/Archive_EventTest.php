@@ -26,8 +26,10 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		// your set up methods here
 		$this->factory()->event = new Event();
-		$this->messages         = new \Tribe__Events__REST__V1__Messages();
-		$this->repository       = new \Tribe__Events__REST__V1__Post_Repository( new \Tribe__Events__REST__V1__Messages() );
+		$this->messages = new \Tribe__Events__REST__V1__Messages();
+		$this->repository = new \Tribe__Events__REST__V1__Post_Repository( new \Tribe__Events__REST__V1__Messages() );
+		// to avoid date filters from being canned
+		\Tribe__Main::instance()->doing_ajax( true );
 	}
 
 	/**
@@ -47,7 +49,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	public function it_should_return_empty_array_if_there_are_no_events_in_site() {
 		$request = new \WP_REST_Request( 'GET', '' );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
@@ -62,7 +64,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 3 );
 		$this->factory()->event->create_many( 5 );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -79,7 +81,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 3 );
 		$this->factory()->event->create_many( 5 );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -96,7 +98,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 10 );
 		$this->factory()->event->create_many( 51 );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -116,7 +118,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 			return 20;
 		} );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -146,7 +148,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'per_page', $bad );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertWPError( $response );
@@ -158,11 +160,12 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 */
 	public function it_should_allow_filtering_the_events_by_start_date() {
 		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'start_date', strtotime( '+1 month' ) );
+		$request->set_param( 'start_date', strtotime( '+3 days' ) );
 		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 10, [ 'time_space' => '+4 days' ] );
+		$this->factory()->event->create_many( 4, [ 'time_space' => '24' ] );
+		$this->assertCount( 4, tribe_get_events() );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -179,7 +182,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 10 );
 		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -197,7 +200,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 10 );
 		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -214,7 +217,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 10 );
 		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertWPError( $response );
@@ -230,7 +233,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 10 );
 		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertWPError( $response );
@@ -246,7 +249,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 3 );
 		$this->factory()->event->create_many( 9 );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -266,7 +269,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', 3 );
 		$this->factory()->event->create_many( 2 );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertWPError( $response );
@@ -281,7 +284,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'page', $bad );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertWPError( $response );
@@ -299,7 +302,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->factory()->event->create_many( 5, [ 'post_title' => 'foo bar' ] );
 		$this->factory()->event->create_many( 5, [ 'post_title' => 'bar' ] );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -325,7 +328,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'search', new \stdClass() );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertWPError( $response );
@@ -335,7 +338,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 * @return Archive
 	 */
 	private function make_instance() {
-		$messages   = $this->messages instanceof ObjectProphecy ? $this->messages->reveal() : $this->messages;
+		$messages = $this->messages instanceof ObjectProphecy ? $this->messages->reveal() : $this->messages;
 		$repository = $this->repository instanceof ObjectProphecy ? $this->repository->reveal() : $this->repository;
 
 		return new Archive( $messages, $repository );
@@ -360,7 +363,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		update_option( 'posts_per_page', $per_page );
 		$request = new \WP_REST_Request( 'GET', '' );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -383,7 +386,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$request = new \WP_REST_Request( 'GET', '' );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -407,7 +410,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -433,7 +436,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'categories', 'cat1' );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -456,7 +459,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'categories', $term_id );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -483,7 +486,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'categories', [ $t1, 'cat2', 'cat3' ] );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -505,7 +508,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request->set_param( 'categories', [ $t1 ] );
 		$request->set_param( 'per_page', 3 );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -514,6 +517,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->assertEquals( 5, $data['total'] );
 		$this->assertEquals( 2, $data['total_pages'] );
 	}
+
 	/**
 	 * @test
 	 * it should allow filtering events by a tag
@@ -530,7 +534,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'tags', 'tag1' );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -553,7 +557,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'tags', $term_id );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -580,7 +584,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'tags', [ $t1, 'tag2', 'tag3' ] );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
@@ -602,7 +606,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request->set_param( 'tags', [ $t1 ] );
 		$request->set_param( 'per_page', 3 );
 
-		$sut      = $this->make_instance();
+		$sut = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );

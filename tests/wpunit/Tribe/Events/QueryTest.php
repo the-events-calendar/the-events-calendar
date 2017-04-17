@@ -1,6 +1,10 @@
 <?php
 namespace Tribe\Events;
 
+use WP_Query;
+use Tribe__Events__Main;
+use Tribe__Events__Query;
+use Tribe__Main;
 /**
  * Test that the Event Queries behave as expected
  *
