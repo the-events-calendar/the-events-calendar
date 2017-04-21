@@ -60,6 +60,10 @@
 		td {
 			vertical-align: top;
 
+			&:first-child {
+				line-height: 30px;
+			}
+
 			div {
 				margin-bottom: 10px;
 
@@ -91,7 +95,21 @@
 		margin: 0 0 10px 0;
 	}
 
-	input[type="text"] {
+	input[type="text"],
+	input[type="password"],
+	input[type="color"],
+	input[type="date"],
+	input[type="datetime"],
+	input[type="datetime-local"],
+	input[type="email"],
+	input[type="month"],
+	input[type="number"],
+	input[type="search"],
+	input[type="tel"],
+	input[type="text"],
+	input[type="time"],
+	input[type="url"],
+	input[type="week"] {
 		background-image: none;
 		border: 1px solid #ccc;
 		border-radius: 3px;

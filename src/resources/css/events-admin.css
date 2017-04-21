@@ -64,6 +64,10 @@
 	vertical-align: top;
 }
 
+.eventForm #event-meta td:first-child {
+	line-height: 30px;
+}
+
 .eventForm #event-meta td div {
 	margin-bottom: 10px;
 }
@@ -93,7 +97,21 @@
 	margin: 0 0 10px 0;
 }
 
-.eventForm input[type="text"] {
+.eventForm input[type="text"],
+	.eventForm input[type="password"],
+	.eventForm input[type="color"],
+	.eventForm input[type="date"],
+	.eventForm input[type="datetime"],
+	.eventForm input[type="datetime-local"],
+	.eventForm input[type="email"],
+	.eventForm input[type="month"],
+	.eventForm input[type="number"],
+	.eventForm input[type="search"],
+	.eventForm input[type="tel"],
+	.eventForm input[type="text"],
+	.eventForm input[type="time"],
+	.eventForm input[type="url"],
+	.eventForm input[type="week"] {
 	background-image: none;
 	border: 1px solid #ccc;
 	border-radius: 3px;
