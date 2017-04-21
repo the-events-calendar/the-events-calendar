@@ -330,6 +330,12 @@ jQuery( document ).ready( function( $ ) {
 			section.find( 'tbody:last' ).before( fields );
 			fields.prepend( dropdown );
 
+			if ( section.find( 'tbody' ).length > 1 ) {
+				section.find( '.move-linked-post-group' ).show();
+			} else {
+				section.find( '.move-linked-post-group' ).hide();
+			}
+
 			fields.find( '.tribe-dropdown' ).tribe_dropdowns().trigger( 'change' );
 		});
 
@@ -419,8 +425,10 @@ jQuery( document ).ready( function( $ ) {
 
 		section.on( 'click', '.tribe-delete-this', function(e) {
 			e.preventDefault();
-			var group = $(this).closest( 'tbody' );
-			group.fadeOut( 500, function() { $(this).remove(); } );
+			var group = $( this ).closest( 'tbody' );
+			group.fadeOut( 500, function() {
+				$( this ).remove();
+			} );
 		});
 
 		var sortable_items = '> tbody';
@@ -429,13 +437,19 @@ jQuery( document ).ready( function( $ ) {
 			sortable_items = 'table ' + sortable_items;
 		}
 
-		section.sortable({
+		section.sortable( {
 			items: sortable_items,
 			handle: '.move-linked-post-group',
+			containment: 'parent',
 			axis: 'y',
 			delay: 100
-		});
+		} );
 
+		if ( section.find( 'tbody' ).length > 1 ) {
+			section.find( '.move-linked-post-group' ).show();
+		} else {
+			section.find( '.move-linked-post-group' ).hide();
+		}
 	};
 
 	var toggle_linked_post_fields = function( event ) {
