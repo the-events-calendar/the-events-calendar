@@ -501,6 +501,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Frontend Javascript
 			add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );
+
+			// WP Admin Menu Fixes
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_wp_admin_menu_style' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_wp_admin_menu_style' ) );
+
 			add_filter( 'tribe_events_before_html', array( $this, 'before_html_data_wrapper' ) );
 			add_filter( 'tribe_events_after_html', array( $this, 'after_html_data_wrapper' ) );
 
@@ -1873,9 +1878,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				wp_enqueue_style( self::POSTTYPE . '-admin', tribe_events_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 			}
 
-			// UI admin
-			Tribe__Events__Template_Factory::asset_package( 'admin-menu' );
-
 			// settings screen
 			if ( $admin_helpers->is_screen( 'settings_page_tribe-settings' ) ) {
 				// JS admin
@@ -2077,6 +2079,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			} else {
 				return get_post_meta( $post_id, '_EventStartDate', true );
 			}
+		}
+
+		/**
+		 * Make sure we are loading a style for all logged-in users when we have the admin menu
+		 * @return void
+		 */
+		public function enqueue_wp_admin_menu_style() {
+			if ( ! is_admin_bar_showing() ) {
+				return;
+			}
+
+			// UI admin
+			Tribe__Events__Template_Factory::asset_package( 'admin-menu' );
 		}
 
 		/**
