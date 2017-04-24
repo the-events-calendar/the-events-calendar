@@ -880,14 +880,14 @@ class Tribe__Events__Linked_Posts {
 		$user_can_create = ( ! empty( $post_type_object->cap->create_posts ) && current_user_can( $post_type_object->cap->create_posts ) );
 		$allowed_creation = ( ! empty( $this->linked_post_types[ $post_type ]['allow_creation'] ) && $this->linked_post_types[ $post_type ]['allow_creation'] );
 
-		$placeholder = sprintf( esc_attr__( 'Select a %s', 'the-events-calendar' ), $singular_name );
+		$placeholder = sprintf( esc_attr__( 'Find a %s', 'the-events-calendar' ), $singular_name );
 		if ( $user_can_create && $allowed_creation ) {
-			$placeholder = sprintf( esc_attr__( 'Select or Create a %s', 'the-events-calendar' ), $singular_name );
+			$placeholder = sprintf( esc_attr__( 'Create or Find %s', 'the-events-calendar' ), $singular_name );
 		}
 
-		$search_placeholder = sprintf( esc_attr__( 'Search a %s', 'the-events-calendar' ), $singular_name );
+		$search_placeholder = sprintf( esc_attr__( 'Find a %s', 'the-events-calendar' ), $singular_name );
 		if ( $user_can_create && $allowed_creation ) {
-			$search_placeholder = sprintf( esc_attr__( 'Create or Search a %s', 'the-events-calendar' ), $singular_name );
+			$search_placeholder = sprintf( esc_attr__( 'Create or Find %s', 'the-events-calendar' ), $singular_name );
 		}
 
 		if ( $linked_posts || $my_linked_posts ) {
