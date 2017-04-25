@@ -21,17 +21,6 @@ $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : ''
 
 ?>
 
-<!-- Event Cost -->
-<?php if ( tribe_get_cost() ) : ?>
-	<div class="tribe-events-event-cost">
-		<span><?php echo tribe_get_cost( null, true ); ?></span>
-		<?php
-		/** This action is documented in the-events-calendar/src/views/list/single-event.php */
-		do_action( 'tribe_events_inside_cost' )
-		?>
-	</div>
-<?php endif; ?>
-
 <!-- Event Title -->
 <?php do_action( 'tribe_events_before_the_event_title' ) ?>
 <h2 class="tribe-events-list-event-title summary">
@@ -58,6 +47,18 @@ $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : ''
 	<?php endif; ?>
 
 </div><!-- .tribe-events-event-meta -->
+
+<!-- Event Cost -->
+<?php if ( tribe_get_cost() ) : ?>
+	<div class="tribe-events-event-cost">
+		<span><?php echo tribe_get_cost( null, true ); ?></span>
+		<?php
+		/** This action is documented in the-events-calendar/src/views/list/single-event.php */
+		do_action( 'tribe_events_inside_cost' )
+		?>
+	</div>
+<?php endif; ?>
+
 <?php do_action( 'tribe_events_after_the_meta' ) ?>
 
 <!-- Event Image -->
