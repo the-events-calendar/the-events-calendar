@@ -316,8 +316,9 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5] TBD =
+= [4.5.1] TBD =
 
+* Fix - Prevented errors on EA import screen that happened in exotic circumstance. Thanks to Kathryn for reporting this!
 * Tweak - Clean up direct calls to get events and use wrapper tribe_get_events() which has a hook for customizing
 
 = [4.4.5] 2017-03-23 =
