@@ -286,6 +286,11 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		foreach ( $origins as $origin => $count ) {
 			$origin_instance = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $origin );
+
+			if ( null === $origin_instance ) {
+				continue;
+			}
+
 			$link = $this->page->get_url( array( 'tab' => $this->tab->get_slug(), 'origin' => $origin ) );
 			$text = $origin_instance->get_label() . sprintf( ' <span class="count">(%s)</span>', number_format_i18n( $count ) );
 			$views[ $origin ] = ( $given_origin !== $origin ? sprintf( '<a href="%s">%s</a>', $link, $text ) : $text );
