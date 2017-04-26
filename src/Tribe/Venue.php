@@ -229,10 +229,18 @@ class Tribe__Events__Venue {
 	 * @param array  $data The venue data.
 	 * @param string $post_type Venue Post Type
 	 * @param string $post_status The intended post status.
+	 * @param int|null $event_id The ID of the linked event
 	 *
 	 * @return mixed
 	 */
-	public function save( $id, $data, $post_type, $post_status ) {
+	public function save( $id, $data, $post_type, $post_status, $event_id ) {
+
+// print '<pre>';
+// print '<h1>DATA</h1>';
+// var_dump( $data );
+// print '</pre><hr>'
+
+// die;
 		if ( isset( $data['VenueID'] ) && $data['VenueID'] > 0 ) {
 			if ( count( $data ) == 1 ) {
 				// Only an ID was passed and we should do nothing.
@@ -253,7 +261,7 @@ class Tribe__Events__Venue {
 			unset( $data['VenueID'] );
 		}
 
-		return $this->create( $data, $post_status );
+		return $this->create( $data, $post_status, $event_id );
 	}
 
 	/**
@@ -304,24 +312,37 @@ class Tribe__Events__Venue {
 	/**
 	 * Creates a new venue
 	 *
-	 * @param array  $data        The venue data.
-	 * @param string $post_status the intended post status.
+	 * @param array    $data        The venue data.
+	 * @param string   $post_status the intended post status.
+	 * @param int|null $event_id    The event ID.
 	 *
 	 * @return int
 	 */
-	public function create( $data, $post_status = 'publish' ) {
+	public function create( $data, $post_status = 'publish', $event_id = 0 ) {
 
 		if ( ( isset( $data['Venue'] ) && $data['Venue'] ) || $this->has_venue_data( $data ) ) {
 			$title   = isset( $data['Venue'] ) ? $data['Venue'] : esc_html__( 'Unnamed Venue', 'the-events-calendar' );
 			$content = isset( $data['Description'] ) ? $data['Description'] : '';
 			$slug    = sanitize_title( $title );
 
+			// // Get the event origin; it may be useful for preventing duplicates.
+			// $event_origin = get_post_meta( $event_id, '_EventOrigin', true );
+
+			// // Determine if we're in a context where some extra work is required to prevent
+			// // duplicate venues after "previewing" the parent event.
+			// $prevent_duplicates = 'draft' === $post_status && $event_id && 'events-calendar' === $event_origin;
+
+			// // When publishing the parent event, check for and remove "preview" venues.
+			// if ( 'publish' === $post_status && 'events-calendar' === $event_origin ) {
+			// 	Tribe__Events__Main::instance()->remove_preview_venues( $event_id, true );
+			// }
+
 			$postdata = array(
-				'post_title'  => $title,
+				'post_title'   => $title,
 				'post_content' => $content,
-				'post_name'   => $slug,
-				'post_type'   => self::POSTTYPE,
-				'post_status' => $post_status,
+				'post_name'    => $slug,
+				'post_type'    => self::POSTTYPE,
+				'post_status'  => $post_status,
 			);
 
 			$venue_id = wp_insert_post( $postdata, true );
@@ -331,8 +352,22 @@ class Tribe__Events__Venue {
 			$data['ShowMapLink'] = isset( $data['ShowMapLink'] ) ? $data['ShowMapLink'] : 'true';
 
 			if ( ! is_wp_error( $venue_id ) ) {
+
 				$this->save_meta( $venue_id, $data );
+
 				do_action( 'tribe_events_venue_created', $venue_id, $data );
+
+				// Helps prevent duplicate venues when events are previewd.
+				// if ( $prevent_duplicates ) {
+
+				// 	$preview_venues   = (array) get_post_meta( $event_id, '_previewVenues', true );
+				// 	$preview_venues[] = $venue_id;
+
+				// 	// Remove empty values, which can easily arise here.
+				// 	$preview_venues = array_filter( $preview_venues );
+
+				// 	update_post_meta( $event_id, '_previewVenues', array_values( $preview_venues ) );
+				// }
 
 				return $venue_id;
 			}

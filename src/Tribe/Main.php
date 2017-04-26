@@ -664,6 +664,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			add_action( 'transition_post_status', array( $this, 'action_expire_archive_slug_conflict_notice' ), 10, 3 );
 
+			add_action( 'tribe_events_after_view', array( $this, 'testing_george' ) );
+
 			tribe( 'tec.featured_events.query_helper' )->hook();
 			tribe( 'tec.featured_events.permalinks_helper' )->hook();
 
@@ -675,6 +677,82 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.ignored-events' );
 			tribe( 'tec.iCal' );
 			tribe( 'tec.rest-v1.main' );
+		}
+
+		public function testing_george() {
+
+			if ( ! is_singular( Tribe__Events__Main::POSTTYPE ) ) {
+				return;
+			}
+
+			$event_id     = get_the_ID();
+			$event_status = get_post_status( $event_id );
+
+			$is_event_preview = is_preview() && ( 'draft' === $event_status || 'auto-draft' === $event_status );
+
+			if ( ! $is_event_preview ) {
+				return;
+			}
+
+			$venue_id     = get_post_meta( $event_id, '_EventVenueID', true );
+			$venue_status = get_post_status( $event_id );
+
+			$is_preview_venue = 'draft' === $venue_status || 'auto-draft' === $venue_status;
+
+			if ( ! $is_preview_venue ) {
+				return;
+			}
+
+			$this->add_preview_venue( $venue_id, $event_id );
+
+	// print '<h1>is_preview</h1>';
+	// 			print '<pre>';
+	// 			var_dump( $is_singular );
+	// 			print '</pre><hr>';print '<pre>';
+	// 			var_dump( $is_preview );
+	// 			print '</pre><hr>';
+
+
+			// $event_id = get_the_ID();
+
+			// 	print '<h1>EVENTID</h1>';
+			// 	print '<pre>';
+			// 	var_dump( $event_id );
+			// 	print '</pre><hr>';
+
+			// $venue_id = get_post_meta( $event_id, '_EventVenueID', true );
+
+			// 	print '<h1>VENUE ID</h1>';
+			// 	print '<pre>';
+			// 	var_dump( $venue_id );
+			// 	print '</pre><hr>';
+
+			// $event_status     = get_post_status( $event_id );
+			// $is_preview_event = is_preview() && ( 'draft' === $event_status || 'auto-draft' === $event_status );
+
+			// 	print '<h1>IS_PREVIEW_EVENT</h1>';
+			// 	print '<pre>';
+			// 	var_dump( $is_preview_event );
+			// 	print '</pre><hr>';
+
+			// $venue_status      = get_post_status( $venue_id );
+			// $has_preview_venue = 'draft' === $venue_status || 'auto-draft' === $venue_status;
+
+			// 	print '<h1>HAS_PREVIEW_VENUE</h1>';
+			// 	print '<pre>';
+			// 	var_dump( $has_preview_venue );
+			// 	print '</pre>';	
+		}
+
+		public function add_preview_venue( $venue_id, $event_id ) {
+
+			$preview_venues = (array) get_post_meta( $event_id, '_previewVenues', true );
+			$preview_venues[] = $venue_id;
+
+			// Remove empty values, which can easily arise here.
+			$preview_venues = array_filter( $preview_venues );
+			
+			update_post_meta( $event_id, '_previewVenues', array_values( $preview_venues ) );
 		}
 
 		/**
@@ -2042,6 +2120,45 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Removes preview venues on a given event if any exist.
+		 *
+		 * @since 4.5.1
+		 *
+		 * @param int $event_id The event ID whose preview venues to remove.
+		 * @param bool $delete_meta Whether to delete existing _EventVenueID
+		 */
+		public function remove_preview_venues( $event_id, $delete_meta = false ) {
+
+			$event_id = absint( $event_id );
+
+			if ( ! $event_id ) {
+				return;
+			}
+
+			$preview_venues = get_post_meta( $event_id, '_previewVenues', true );
+
+			if ( ! is_array( $preview_venues ) || empty( $preview_venues ) ) {
+				return;
+			}
+
+
+			foreach ( $preview_venues as $key => $venue_id ) {
+				// $status = get_post_status( $venue_id );
+				// $draft  = 'draft' === $status || 'auto-draft' === $status;
+
+				// Only delete "Preview" venues.
+				//if ( $draft ) {
+					wp_delete_post( $venue_id );
+				//}
+			}
+
+			//In some cases, one must clear the _EventVenueID before it's regenerated.
+			if ( $delete_meta ) {
+				delete_post_meta( $event_id, '_EventVenueID' );
+			}
+		}
+
+		/**
 		 * Filters the post types across all of the Tribe plugins
 		 */
 		public function filter_post_types( $post_types ) {
@@ -3050,6 +3167,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			remove_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			remove_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
 
+			// Clear out preview venues on publish.
+			//$event_origin = get_post_meta( $postID, '_EventOrigin', true );
+
+			//if ( 'events-calendar' === $event_origin ) {
+			$this->remove_preview_venues( $postID, true );
+			//}
+
 			// save venue and organizer info on first pass
 			if ( isset( $post->post_status ) && $post->post_status == 'publish' ) {
 
@@ -3090,7 +3214,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// put the actions back
 			add_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
-
 		}
 
 		/**
