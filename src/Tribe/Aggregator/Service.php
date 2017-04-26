@@ -515,6 +515,7 @@ class Tribe__Events__Aggregator__Service {
 			'success:import-complete' => __( 'Import is complete', 'the-events-calendar' ),
 			'success:queued' => __( 'Import queued', 'the-events-calendar' ),
 			'error:invalid-other-url' => __( 'Events could not be imported. The URL provided could not be reached.', 'the-events-calendar' ),
+			'error:empty-results' => __( 'The requested source does not have any upcoming and published events matching the search criteria.', 'the-events-calendar' ),
 		);
 
 		/**
