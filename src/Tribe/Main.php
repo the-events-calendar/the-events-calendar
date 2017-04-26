@@ -660,7 +660,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// Prevent duplicate venues from being created on event preview.
-			add_action( 'tribe_events_after_view', array( $this, 'maybe_prevent_duplicate_venues' ) );
+			add_action( 'tribe_events_after_view', array( $this, 'maybe_add_preview_venues' ) );
 
 			/**
 			 * Expire notices
@@ -3154,7 +3154,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.5.1
 		 */
-		public function add_preview_venues() {
+		public function maybe_add_preview_venues() {
 
 			if ( ! is_singular( self::POSTTYPE ) ) {
 				return;
