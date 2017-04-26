@@ -326,8 +326,6 @@ jQuery( document ).ready( function( $ ) {
 				fields = $( create_template({}) );
 			}
 
-			console.log( fields );
-
 			// The final <tbody> contains the add new post link, we should add this new selector before that
 			section.find( 'tfoot' ).before( fields );
 			fields.prepend( dropdown );
