@@ -327,7 +327,7 @@ jQuery( document ).ready( function( $ ) {
 			}
 
 			// The final <tbody> contains the add new post link, we should add this new selector before that
-			section.find( 'tbody:last' ).before( fields );
+			section.find( 'tfoot' ).before( fields );
 			fields.prepend( dropdown );
 
 			if ( section.find( 'tbody' ).length > 1 ) {
