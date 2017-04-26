@@ -83,6 +83,10 @@
 	font-weight: 600;
 }
 
+.tribe-ea .tribe-ea-size-tiny {
+	width: 75px;
+}
+
 .tribe-ea .tribe-ea-size-small {
 	width: 100px;
 }
@@ -117,6 +121,10 @@
 
 .tribe-ea .tribe-ea-field-readonly + .tribe-ea-field {
 	margin-left: 10px;
+}
+
+.tribe-ea .tribe-ea-field.tribe-field-inline-dropdown {
+	margin-left: 0;
 }
 
 .tribe-ea .tribe-credential-row {
@@ -193,6 +201,14 @@
 
 .tribe-ea .tribe-ea-tab-scheduled td.column-source {
 	padding-left: 10px;
+}
+
+.tribe-ea .tribe-ea-tab-scheduled td.column-source :not(.row-actions) a:first-of-type {
+	overflow : hidden;
+	white-space : nowrap;
+	text-overflow : ellipsis;
+	display : inline-block;
+	max-width : 100%;
 }
 
 .tribe-ea td.column-source {

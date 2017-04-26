@@ -135,6 +135,9 @@ tribe_aggregator.fields = {
 
 		$( '.tribe-dependency' ).change();
 
+		// Configure TimePickers
+		tribe_timepickers.setup_timepickers( $( tribe_timepickers.selector.timepicker ) );
+
 		if ( 'edit' === obj.$.action.val() ) {
 			obj.$.form.addClass( 'edit-form' );
 			$( obj.selector.finalize_button ).html( ea.l10n.edit_save );
@@ -369,8 +372,12 @@ tribe_aggregator.fields = {
 			import_type = $( '#' + $import_type.first().attr( 'id' ).replace( 's2id_', '' ) ).val();
 		}
 
-		if ( 'manual' === import_type && ! data.items.length ) {
-			obj.display_fetch_error( ea.l10n.no_results );
+        if ( 'manual' === import_type && !data.items.length ) {
+			var origin = data.origin;
+			var message = 'undefined' !== ea.l10n[ origin ].no_results ?
+				ea.l10n[ origin ].no_results
+				: ea.l10n.no_results;
+			obj.display_fetch_error(message);
 			return;
 		}
 
@@ -619,6 +626,8 @@ tribe_aggregator.fields = {
 				unique_id_field = 'meetup_id';
 			} else if ( 'ical' === origin || 'ics' === origin || 'gcal' === origin ) {
 				unique_id_field = 'uid';
+			} else if ( 'url' === origin ) {
+				unique_id_field = 'id';
 			}
 
 			if ( null !== unique_id_field ) {

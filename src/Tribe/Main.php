@@ -31,9 +31,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '4.4.6';
+		const VERSION             = '4.5.1';
 		const MIN_ADDON_VERSION   = '4.4';
-		const MIN_COMMON_VERSION  = '4.4';
+		const MIN_COMMON_VERSION  = '4.5';
 		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
@@ -333,7 +333,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$this->bind_implementations();
 				$this->loadLibraries();
 				$this->addHooks();
-				$this->maybe_load_tickets_framework();
 				$this->register_active_plugin();
 			} else {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
@@ -381,6 +380,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function bind_implementations(  ) {
+			// Utils
+			tribe_singleton( 'tec.cost-utils', 'Tribe__Events__Cost_Utils' );
+
 			// Front page events archive support
 			tribe_singleton( 'tec.front-page-view', 'Tribe__Events__Front_Page_View' );
 			tribe_singleton( 'tec.admin.front-page-view', 'Tribe__Events__Admin__Front_Page_View' );
@@ -396,6 +398,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Event Aggregator
 			tribe_singleton( 'events-aggregator.main', 'Tribe__Events__Aggregator', array( 'load', 'hook' ) );
 			tribe_singleton( 'events-aggregator.service', 'Tribe__Events__Aggregator__Service' );
+			tribe_singleton( 'events-aggregator.settings', 'Tribe__Events__Aggregator__Settings' );
 
 			// Shortcodes
 			tribe_singleton( 'tec.shortcodes.event-details', 'Tribe__Events__Shortcode__Event_Details', array( 'hook' ) );
@@ -413,37 +416,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
-		}
 
-		/**
-		 * Checks if the standalone Tickets plugin is activated.
-		 * If it's not, it loads the Tickets framework from our
-		 * vendor/ submodule.
-		 */
-		public function maybe_load_tickets_framework() {
-			if ( defined( 'EVENT_TICKETS_DIR' ) ) {
-				return;
-			}
+			// REST API v1
+			tribe_singleton( 'tec.rest-v1.main', 'Tribe__Events__REST__V1__Main', array( 'bind_implementations', 'hook' ) );
+			tribe( 'tec.rest-v1.main' );
 
-			// Give the standalone plugin a chance to load on activation
-			// WordPress loads all the active plugins before activating a new one.
-			if ( isset( $_GET['action'] ) && $_GET['action'] == 'activate' && isset( $_GET['plugin'] ) && strstr( $_GET['plugin'], 'event-tickets.php' ) ) {
-				return;
-			}
-
-			// if there aren't any ticket plugins activated, bail
-			if (
-				! defined( 'EVENT_TICKETS_PLUS' )
-				&& ! defined( 'EVENTS_TICKETS_EDD_DIR' )
-				&& ! defined( 'EVENTS_TICKETS_SHOPP_DIR' )
-				&& ! defined( 'EVENTS_TICKETS_WOO_DIR' )
-				&& ! defined( 'EVENTS_TICKETS_WPEC_DIR' )
-			) {
-				return;
-			}
-
-			require_once $this->plugin_path . 'vendor/tickets/event-tickets.php';
-			Tribe__Tickets__Main::instance()->plugins_loaded();
+			/**
+			 * Allows other plugins and services to override/change the bound implementations.
+			 */
+			do_action( 'tribe_events_bound_implementations' );
 		}
 
 		/**
@@ -554,7 +535,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
-			add_action( 'post_updated', array( $this, 'track_event_post_field_changes' ), 10, 3 );
 
 			/* Registers the list widget */
 			add_action( 'widgets_init', array( $this, 'register_list_widget' ), 90 );
@@ -576,6 +556,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', array( 'Tribe__Cache_Listener', 'instance' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Cache', 'setup' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Support', 'getInstance' ) );
+
+			add_filter( 'tribe_tracker_post_types', array( $this, 'filter_tracker_event_post_types' ) );
+			add_filter( 'tribe_tracker_taxonomies', array( $this, 'filter_tracker_event_taxonomies' ) );
 
 			if ( ! Tribe__Main::instance()->doing_ajax() ) {
 				add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
@@ -691,6 +674,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.shortcodes.event-details' );
 			tribe( 'tec.ignored-events' );
 			tribe( 'tec.iCal' );
+			tribe( 'tec.rest-v1.main' );
 		}
 
 		/**
@@ -959,6 +943,39 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function do_addons_api_settings_tab() {
 			include_once $this->plugin_path . 'src/admin-views/tribe-options-addons-api.php';
+		}
+
+		/**
+		 * By default Tribe__Tracker won't track Event Post Types, so we add them here.
+		 *
+		 * @since  4.5
+		 *
+		 * @param  array $post_types
+		 *
+		 * @return array
+		 */
+		public function filter_tracker_event_post_types( array $post_types ) {
+			$post_types[] = self::POSTTYPE;
+			$post_types[] = Tribe__Events__Venue::POSTTYPE;
+			$post_types[] = Tribe__Events__Organizer::POSTTYPE;
+
+			return $post_types;
+		}
+
+		/**
+		 * By default Tribe__Tracker won't track our Post Types taxonomies, so we add them here.
+		 *
+		 * @since  4.5
+		 *
+		 * @param  array $taxonomies
+		 *
+		 * @return array
+		 */
+		public function filter_tracker_event_taxonomies( array $taxonomies ) {
+			$taxonomies[] = 'post_tag';
+			$taxonomies[] = self::TAXONOMY;
+
+			return $taxonomies;
 		}
 
 		/**
@@ -2953,50 +2970,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Allow this callback to run
 			$avoid_recursion = false;
-		}
-
-		/**
-		 * Tracks fields that are changed when an event is updated
-		 *
-		 * @param int $post_id Post ID
-		 * @param WP_Post $post_after New post object
-		 * @param WP_Post $post_before Old post object
-		 */
-		public function track_event_post_field_changes( $post_id, $post_after, $post_before ) {
-			if ( self::POSTTYPE !== $post_after->post_type ) {
-				return;
-			}
-
-			// bail if we shouldn't be tracking modifications
-			if ( ! apply_filters( 'tribe_aggregator_track_modified_fields', true ) ) {
-				return;
-			}
-
-			$now = current_time( 'timestamp' );
-
-			if ( ! $modified = get_post_meta( $post_id, Tribe__Events__API::$modified_field_key, true ) ) {
-				$modified = array();
-			}
-
-			$fields_to_check_for_changes = array(
-				'post_title',
-				'post_content',
-				'post_status',
-				'post_type',
-				'post_parent',
-			);
-
-			foreach ( $fields_to_check_for_changes as $field ) {
-				if ( ! Tribe__Events__API::is_post_value_changed( $field, $post_after, $post_before ) ) {
-					continue;
-				}
-
-				$modified[ $field ] = $now;
-			}
-
-			if ( $modified ) {
-				update_post_meta( $post_id, Tribe__Events__API::$modified_field_key, $modified );
-			}
 		}
 
 		public function normalize_organizer_submission( $submission ) {

@@ -17,6 +17,10 @@ switch ( $origin_slug ) {
 		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
 		$radius->help = __( 'Use the filters to narrow down which events are fetched from this Google Calendar.', 'the-events-calendar' );
 		break;
+	case 'url':
+		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
+		$radius->help = __( 'Use the filters to narrow down which events are fetched from this site.', 'the-events-calendar' );
+		break;
 	case 'ical':
 	default:
 		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
@@ -41,17 +45,30 @@ switch ( $origin_slug ) {
 			<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $radius->help ); ?>" data-width-rule="all-triggers"></span>
 		</div>
 		<div class="tribe-refine">
+			<?php
+				$start = empty( $record->meta['start'] ) ? '' : $record->meta['start'];
+				if ( is_numeric( $start ) ) {
+					$start = date( Tribe__Date_Utils::DATEONLYFORMAT, $start );
+				}
+			?>
 			<input
 				name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][start]"
 				type="text"
 				id="tribe-ea-field-<?php echo esc_attr( $origin_slug ); ?>_start"
 				class="tribe-ea-field tribe-ea-size-medium tribe-datepicker"
 				placeholder="<?php echo esc_attr( $start_date->placeholder ); ?>"
-				value="<?php echo esc_attr( empty( $record->meta['start'] ) ? '' : $record->meta['start'] ); ?>"
+				value="<?php echo esc_attr( $start ); ?>"
 			>
-			<span class="tribe-dependent tribe-date-helper" data-depends="#tribe-ea-field-<?php echo esc_attr( $origin_slug ); ?>_start" data-condition-not-empty><?php esc_html_e( 'Events on or after', 'the-events-calendar' ); ?> <span id="tribe-date-helper-date-<?php echo esc_attr( $origin_slug ); ?>"><?php echo esc_attr( empty( $record->meta['start'] ) ? '' : $record->meta['start'] ); ?></span></span>
+			<span
+				class="tribe-dependent tribe-date-helper"
+				data-depends="#tribe-ea-field-<?php echo esc_attr( $origin_slug ); ?>_start"
+				data-condition-not-empty
+			>
+				<?php esc_html_e( 'Events on or after', 'the-events-calendar' ); ?>
+				<span id="tribe-date-helper-date-<?php echo esc_attr( $origin_slug ); ?>"><?php echo esc_html( $start ); ?></span>
+			</span>
 		</div>
-		<div class="tribe-refine">
+		<div class="tribe-refine tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not="url">
 			<input
 				name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][location]"
 				type="text"

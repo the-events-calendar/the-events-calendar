@@ -4,8 +4,9 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
+Stable tag: 4.5.1
 Tested up to: 4.7.3
-Stable tag: 4.4.6
+Stable tag: 4.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -316,9 +317,13 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.4.6] 2017-04-19 =
+= [4.5.1] TBD =
 
 * Fix - Enhance month view caching to minimize impact of JSON-LD generation [74656]
+
+= [4.5] TBD =
+
+* Tweak - Clean up direct calls to get events and use wrapper tribe_get_events() which has a hook for customizing
 
 = [4.4.5] 2017-03-23 =
 

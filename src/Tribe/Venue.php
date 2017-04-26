@@ -370,6 +370,41 @@ class Tribe__Events__Venue {
 		$data['ShowMap']     = isset( $data['ShowMap'] ) ? $data['ShowMap'] : 'false';
 		$data['ShowMapLink'] = isset( $data['ShowMapLink'] ) ? $data['ShowMapLink'] : 'false';
 
+		$args = array(
+			'ID' => $venue_id,
+		);
+
+		if ( isset( $data['post_title'] ) ) {
+			$args['post_title'] = $data['post_title'];
+		}
+
+		if ( isset( $data['Venue'] ) ) {
+			$args['post_title'] = $data['Venue'];
+			unset( $data['Venue'] );
+		}
+
+		if ( isset( $data['post_content'] ) ) {
+			$args['post_content'] = $data['post_content'];
+		}
+
+		if ( isset( $data['Description'] ) ) {
+			$args['post_content'] = $data['Description'];
+			unset( $data['Description'] );
+		}
+
+		if ( isset( $data['post_excerpt'] ) ) {
+			$args['post_excerpt'] = $data['post_excerpt'];
+		}
+
+		if ( isset( $data['Excerpt'] ) ) {
+			$args['post_excerpt'] = $data['Excerpt'];
+			unset( $data['Excerpt'] );
+		}
+
+		if ( count( $args ) > 1 ) {
+			wp_update_post( $args );
+		}
+
 		$this->save_meta( $venue_id, $data );
 		do_action( 'tribe_events_venue_updated', $venue_id, $data );
 	}

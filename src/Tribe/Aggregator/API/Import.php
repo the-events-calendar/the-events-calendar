@@ -4,26 +4,29 @@ defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__API__Abstract {
 	public $event_field_map = array(
-		'title'          => 'post_title',
-		'description'    => 'post_content',
-		'start_date'     => 'EventStartDate',
-		'start_hour'     => 'EventStartHour',
-		'start_minute'   => 'EventStartMinute',
-		'start_meridian' => 'EventStartMeridian',
-		'end_date'       => 'EventEndDate',
-		'end_hour'       => 'EventEndHour',
-		'end_minute'     => 'EventEndMinute',
-		'end_meridian'   => 'EventEndMeridian',
-		'url'            => 'EventURL',
-		'parent_id'      => 'parent_id',
-		'uid'            => 'uid',
-		'facebook_id'    => 'facebook_id',
-		'dev_start'      => 'dev_start',
-		'dev_end'        => 'dev_end',
-		'all_day'        => 'EventAllDay',
-		'timezone'       => 'EventTimezone',
-		'recurrence'     => 'recurrence',
-		'categories'     => 'categories',
+		'title'             => 'post_title',
+		'description'       => 'post_content',
+		'start_date'        => 'EventStartDate',
+		'start_hour'        => 'EventStartHour',
+		'start_minute'      => 'EventStartMinute',
+		'start_meridian'    => 'EventStartMeridian',
+		'end_date'          => 'EventEndDate',
+		'end_hour'          => 'EventEndHour',
+		'end_minute'        => 'EventEndMinute',
+		'end_meridian'      => 'EventEndMeridian',
+		'url'               => 'EventURL',
+		'parent_id'         => 'parent_id',
+		'uid'               => 'uid',
+		'facebook_id'       => 'facebook_id',
+		'dev_start'         => 'dev_start',
+		'dev_end'           => 'dev_end',
+		'all_day'           => 'EventAllDay',
+		'timezone'          => 'EventTimezone',
+		'recurrence'        => 'recurrence',
+		'categories'        => 'categories',
+		'currency_symbol'   => 'EventCurrencySymbol',
+		'currency_position' => 'EventCurrencyPosition',
+		'cost'              => 'EventCost',
 	);
 
 	public $organizer_field_map = array(
@@ -59,8 +62,8 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 	 *
 	 * @return stdClass|WP_Error
 	 */
-	public function get( $import_id ) {
-		$response = $this->service->get_import( $import_id );
+	public function get( $import_id, $data = array() ) {
+		$response = $this->service->get_import( $import_id, $data );
 
 		if ( is_wp_error( $response ) ) {
 
@@ -79,6 +82,12 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 			return $response;
 		}
 
+		// let's try to use the localized version of the message if available
+		if ( ! empty( $response->message_code ) ) {
+			$default = ! empty( $response->message ) ? $response->message : $this->service->get_unknown_message();
+			$response->message = $this->service->get_service_message( $response->message_code, $default );
+		}
+
 		if ( 'success_import-complete' !== $response->message_code ) {
 			return $response;
 		}
@@ -88,6 +97,8 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 		foreach ( $response->data->events as $event ) {
 			$events[] = $this->translate_json_to_event( $event );
 		}
+
+		return $events;
 	}
 
 	/**
@@ -127,7 +138,7 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 
 		$event['post_type'] = Tribe__Events__Main::POSTTYPE;
 
-		$event['post_status'] = Tribe__Events__Aggregator__Settings::instance()->default_post_status( $json->origin );
+		$event['post_status'] = tribe( 'events-aggregator.settings' )->default_post_status( $json->origin );
 
 		// translate json key/value pairs to event array key/value pairs
 		foreach ( get_object_vars( $json ) as $key => $value ) {
@@ -195,7 +206,7 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 			}
 		}
 
-		$show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( $json->origin );
+		$show_map_setting = tribe( 'events-aggregator.settings' )->default_map( $json->origin );
 
 		$event['EventShowMap']     = $show_map_setting;
 		$event['EventShowMapLink'] = $show_map_setting;

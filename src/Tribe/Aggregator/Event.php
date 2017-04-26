@@ -33,6 +33,20 @@ class Tribe__Events__Aggregator__Event {
 	public static $source_key = '_tribe_aggregator_source';
 
 	/**
+	 * Key of the Meta to store the Post Global ID
+	 *
+	 * @var string
+	 */
+	public static $global_id_key = '_tribe_aggregator_global_id';
+
+	/**
+	 * Key of the Meta to store the Post Global ID lineage
+	 *
+	 * @var string
+	 */
+	public static $global_id_lineage_key = '_tribe_aggregator_global_id_lineage';
+
+	/**
 	 * Key of the Meta to store the Record's last import date
 	 *
 	 * @var string
@@ -55,26 +69,37 @@ class Tribe__Events__Aggregator__Event {
 		$item = (object) $item;
 
 		$field_map = array(
-			'title' => 'post_title',
-			'description' => 'post_content',
-			'start_date' => 'EventStartDate',
-			'start_hour' => 'EventStartHour',
-			'start_minute' => 'EventStartMinute',
-			'start_meridian' => 'EventStartMeridian',
-			'end_date' => 'EventEndDate',
-			'end_hour' => 'EventEndHour',
-			'end_minute' => 'EventEndMinute',
-			'end_meridian' => 'EventEndMeridian',
-			'timezone' => 'EventTimezone',
-			'url' => 'EventURL',
-			'all_day' => 'EventAllDay',
-			'image' => 'image',
-			'facebook_id' => 'EventFacebookID',
-			'meetup_id' => 'EventMeetupID',
-			'uid' => 'uid',
-			'parent_uid' => 'parent_uid',
-			'recurrence' => 'recurrence',
-			'categories' => 'categories',
+			'title'              => 'post_title',
+			'description'        => 'post_content',
+			'excerpt'            => 'post_excerpt',
+			'start_date'         => 'EventStartDate',
+			'start_hour'         => 'EventStartHour',
+			'start_minute'       => 'EventStartMinute',
+			'start_meridian'     => 'EventStartMeridian',
+			'end_date'           => 'EventEndDate',
+			'end_hour'           => 'EventEndHour',
+			'end_minute'         => 'EventEndMinute',
+			'end_meridian'       => 'EventEndMeridian',
+			'timezone'           => 'EventTimezone',
+			'url'                => 'EventURL',
+			'all_day'            => 'EventAllDay',
+			'image'              => 'image',
+			'facebook_id'        => 'EventFacebookID',
+			'meetup_id'          => 'EventMeetupID',
+			'uid'                => 'uid',
+			'parent_uid'         => 'parent_uid',
+			'recurrence'         => 'recurrence',
+			'categories'         => 'categories',
+			'tags'               => 'tags',
+			'id'                 => 'EventOriginalID',
+			'currency_symbol'    => 'EventCurrencySymbol',
+			'currency_position'  => 'EventCurrencyPosition',
+			'cost'               => 'EventCost',
+			'show_map'           => 'show_map',
+			'show_map_link'      => 'show_map_link',
+			'hide_from_listings' => 'hide_from_listings',
+			'sticky'             => 'sticky',
+			'featured'           => 'feature_event',
 		);
 
 		$venue_field_map = array(
@@ -84,12 +109,11 @@ class Tribe__Events__Aggregator__Event {
 			'address' => 'Address',
 			'city' => 'City',
 			'country' => 'Country',
-			'province' => 'Province',
 			'state' => 'State',
-			'stateprovince' => 'StateProvince',
-			'province' => 'Province',
+			'stateprovince' => 'Province',
 			'zip' => 'Zip',
 			'phone' => 'Phone',
+			'website' => 'URL'
 		);
 
 		$organizer_field_map = array(
@@ -191,30 +215,115 @@ class Tribe__Events__Aggregator__Event {
 	}
 
 	/**
+	 * Fetch the Post ID for a given Global ID
+	 *
+	 * @param array $value The Global ID we are searching for
+	 *
+	 * @return bool|WP_Post
+	 */
+	public static function get_post_by_meta( $key = 'global_id', $value = null ) {
+		if ( is_null( $value ) ) {
+			return false;
+		}
+
+		$keys = array(
+			'global_id' => self::$global_id_key,
+			'global_id_lineage' => self::$global_id_lineage_key,
+		);
+
+		if ( ! isset( $keys[ $key ] ) ) {
+			return false;
+		}
+
+		$key = $keys[ $key ];
+
+		global $wpdb;
+
+		$sql = "
+			SELECT
+				post_id
+			FROM
+				{$wpdb->postmeta}
+			WHERE
+				meta_key = '" . esc_sql( $key ) . "' AND
+				meta_value = '" . esc_sql( $value ) . "'
+		";
+		$id = (int) $wpdb->get_var( $sql );
+
+		if ( ! $id ) {
+			return false;
+		}
+
+		return get_post( $id );
+	}
+
+	/**
 	 * Preserves changed fields by resetting array indexes back to the stored post/meta values
 	 *
-	 * @param array $event Event array to reset
+	 * @param array $data Event array to reset
 	 *
 	 * @return array
 	 */
-	public static function preserve_changed_fields( $event ) {
-		if ( empty( $event['ID'] ) ) {
-			return $event;
+	public static function preserve_changed_fields( $data ) {
+		if ( empty( $data['ID'] ) ) {
+			return $data;
 		}
 
-		$post = get_post( $event['ID'] );
-		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $event['ID'] );
+		$post       = get_post( $data['ID'] );
+		$post_meta  = Tribe__Events__API::get_and_flatten_event_meta( $data['ID'] );
+		$post_terms = Tribe__Events__API::get_event_terms( $data['ID'], array( 'fields' => 'ids' ) );
+		$modified   = Tribe__Utils__Array::get( $post_meta, Tribe__Tracker::$field_key, array() );
+		$tec        = Tribe__Events__Main::instance();
 
-		if ( empty( $post_meta[ Tribe__Events__API::$modified_field_key ] ) ) {
-			$modified = array();
+		// Depending on the Post Type we fetch other fields
+		if ( Tribe__Events__Main::POSTTYPE === $post->post_type ) {
+			$fields = $tec->metaTags;
+		} elseif ( Tribe__Events__Venue::POSTTYPE === $post->post_type ) {
+			$fields = $tec->venueTags;
+
+			if ( isset( $data['Venue'] ) ) {
+				$data['post_title'] = $data['Venue'];
+				unset( $data['Venue'] );
+			}
+
+			if ( isset( $data['Description'] ) ) {
+				$data['post_content'] = $data['Description'];
+				unset( $data['Description'] );
+			}
+
+			if ( isset( $data['Excerpt'] ) ) {
+				$data['post_excerpt'] = $data['Excerpt'];
+				unset( $data['Excerpt'] );
+			}
+		} elseif ( Tribe__Events__Organizer::POSTTYPE === $post->post_type ) {
+			$fields = $tec->organizerTags;
+
+			if ( isset( $data['Organizer'] ) ) {
+				$data['post_title'] = $data['Organizer'];
+				unset( $data['Organizer'] );
+			}
+
+			if ( isset( $data['Description'] ) ) {
+				$data['post_content'] = $data['Description'];
+				unset( $data['Description'] );
+			}
+
+			if ( isset( $data['Excerpt'] ) ) {
+				$data['post_excerpt'] = $data['Excerpt'];
+				unset( $data['Excerpt'] );
+			}
 		} else {
-			$modified = $post_meta[ Tribe__Events__API::$modified_field_key ];
+			$fields = array();
 		}
+
+		// add the featured image to the fields
+		$fields[] = '_thumbnail_id';
 
 		$post_fields_to_reset = array(
 			'post_title',
 			'post_content',
 			'post_status',
+			'post_excerpt',
 		);
 
 		// reset any modified post fields
@@ -225,7 +334,7 @@ class Tribe__Events__Aggregator__Event {
 			}
 
 			// don't bother resetting if we aren't trying to update the field
-			if ( ! isset( $event[ $field ] ) ) {
+			if ( ! isset( $data[ $field ] ) ) {
 				continue;
 			}
 
@@ -234,45 +343,61 @@ class Tribe__Events__Aggregator__Event {
 				continue;
 			}
 
-			$event[ $field ] = $post->$field;
+			$data[ $field ] = $post->$field;
 		}
 
-		$tec = Tribe__Events__Main::instance();
-
 		// reset any modified meta fields
-		foreach ( $tec->metaTags as $field ) {
+		foreach ( $fields as $field ) {
 			// don't bother resetting if the field hasn't been modified
 			if ( ! isset( $modified[ $field ] ) ) {
 				continue;
 			}
 
-			// if we don't have a field to reset to, let's unset the event meta field
-			if ( ! isset( $post_meta[ $field ] ) ) {
-				unset( $event[ $field ] );
-				continue;
+			if ( $field === '_thumbnail_id' ) {
+				$field_name = 'image';
+			} else {
+				// If the field name contains a leading underscore we need to strip it (or the field will not save)
+				$field_name = trim( $field, '_' );
 			}
 
-			// If the field name contains a leading underscore we need to strip it (or the field will not save)
-			$field_name = trim( $field, '_' );
-			$event[ $field_name ] = $post_meta[ $field ];
+			// some fields might have been modified emptying them: we still keep that change
+			if ( empty( $post_meta[ $field ] ) ) {
+				unset( $data[ $field_name ] );
+			} else {
+				$data[ $field_name ] = $post_meta[ $field ];
+			}
 		}
 
 		// The start date needs to be adjusted from a MySQL style datetime string to just the date
-		if ( isset( $modified['_EventStartDate'] ) ) {
-			$start_datetime = strtotime( $event['EventStartDate'] );
-			$event['EventStartDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $start_datetime );
-			$event['EventStartHour'] = date( 'H', $start_datetime );
-			$event['EventStartMinute'] = date( 'i', $start_datetime );
+		if ( isset( $modified['_EventStartDate'] ) && isset( $post_meta['_EventStartDate'] ) ) {
+			$start_datetime = strtotime( $post_meta['_EventStartDate'] );
+			$data['EventStartDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $start_datetime );
+			$data['EventStartHour'] = date( 'H', $start_datetime );
+			$data['EventStartMinute'] = date( 'i', $start_datetime );
 		}
-
 		// The end date needs to be adjusted from a MySQL style datetime string to just the date
-		if ( isset( $modified['_EventEndDate'] ) ) {
-			$end_datetime = strtotime( $event['EventEndDate'] );
-			$event['EventEndDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $end_datetime );
-			$event['EventEndHour'] = date( 'H', $end_datetime );
-			$event['EventEndMinute'] = date( 'i', $end_datetime );
+		if ( isset( $modified['_EventEndDate'] ) && isset( $post_meta['_EventEndDate'] ) ) {
+			$end_datetime = strtotime( $post_meta['_EventEndDate'] );
+			$data['EventEndDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $end_datetime );
+			$data['EventEndHour'] = date( 'H', $end_datetime );
+			$data['EventEndMinute'] = date( 'i', $end_datetime );
 		}
 
-		return $event;
+		// reset any modified taxonomy terms
+		$taxonomy_map = array(
+			'post_tag'                    => 'tags',
+			Tribe__Events__Main::TAXONOMY => 'categories',
+		);
+
+		foreach ( $post_terms as $taxonomy => $terms ) {
+			if ( ! isset( $modified[ $taxonomy ] ) ) {
+				continue;
+			}
+
+			$tax_key = Tribe__Utils__Array::get( $taxonomy_map, $taxonomy, $taxonomy );
+			$data[ $tax_key ] = $post_terms[ $taxonomy ];
+		}
+
+		return $data;
 	}
 }

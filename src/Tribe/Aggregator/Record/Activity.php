@@ -48,6 +48,9 @@ class Tribe__Events__Aggregator__Record__Activity {
 		// Entry for Terms in Events Cat
 		$this->register( Tribe__Events__Main::TAXONOMY, array( 'category', 'categories', 'cat', 'cats' ) );
 
+		// Entry for Tags
+		$this->register( 'post_tag', array( 'tag', 'tags' ) );
+
 		// Entry for Attachment
 		$this->register( 'attachment', array( 'attachments', 'image', 'images' ) );
 
