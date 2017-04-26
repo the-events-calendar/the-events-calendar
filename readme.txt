@@ -316,6 +316,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.5.1] TBD =
+
+* Fix - Enhance month view caching to minimize impact of JSON-LD generation [74656]
+
 = [4.5] TBD =
 
 * Tweak - Clean up direct calls to get events and use wrapper tribe_get_events() which has a hook for customizing
