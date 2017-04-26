@@ -3210,7 +3210,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-
 			foreach ( $preview_venues as $key => $venue_id ) {
 				wp_delete_post( $venue_id );
 			}
