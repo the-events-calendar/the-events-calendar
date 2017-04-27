@@ -288,6 +288,12 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$origin_instance = Tribe__Events__Aggregator__Records::instance()->get_by_origin( $origin );
 
 			if ( null === $origin_instance ) {
+				$debug_message = sprintf(
+					'The aggregator origin "%s" contains records, but is not supported and was skipped in the counts.',
+					$origin
+				);
+				Tribe__Main::instance()->log()->log_debug( $debug_message, 'aggregator' );
+
 				continue;
 			}
 
@@ -304,8 +310,6 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 * @return array
 	 */
 	public function get_columns() {
-		$post_type = $this->screen->post_type;
-
 		$columns = array();
 
 		switch ( $this->tab->get_slug() ) {
