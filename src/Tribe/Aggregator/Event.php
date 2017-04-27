@@ -374,6 +374,8 @@ class Tribe__Events__Aggregator__Event {
 			$data['EventStartDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $start_datetime );
 			$data['EventStartHour'] = date( 'H', $start_datetime );
 			$data['EventStartMinute'] = date( 'i', $start_datetime );
+			// Date is stored in 24hr format and doesn't need meridian, which might be set already.
+			unset( $data['EventStartMeridian'] );
 		}
 		// The end date needs to be adjusted from a MySQL style datetime string to just the date
 		if ( isset( $modified['_EventEndDate'] ) && isset( $post_meta['_EventEndDate'] ) ) {
@@ -381,6 +383,8 @@ class Tribe__Events__Aggregator__Event {
 			$data['EventEndDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $end_datetime );
 			$data['EventEndHour'] = date( 'H', $end_datetime );
 			$data['EventEndMinute'] = date( 'i', $end_datetime );
+			// Date is stored in 24hr format and doesn't need meridian, which might be set already.
+			unset( $data['EventEndMeridian'] );
 		}
 
 		// reset any modified taxonomy terms
