@@ -319,6 +319,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.5.1] TBD =
 
 * Fix - Made EA preserve custom dates after reimporting a Facebook Event when option is set. [75787]
+* Fix - Enhance month view caching to minimize impact of JSON-LD generation [74656]
 
 = [4.5] TBD =
 
