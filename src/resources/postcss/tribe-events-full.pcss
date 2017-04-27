@@ -718,12 +718,15 @@ select.tribe-events-dropdown {
 		margin: 0 0 8px 0;
 	}
 
+	.tribe-events-venue-details {
+		margin: 15px 0;
+	}
 	/* Cost */
 	.tribe-events-event-cost {
 		display: flex;
 		align-items: center;
-		float: right;
-		margin: 0;
+		float: none;
+		margin: 0 0 15px;
 
 		span {
 			border: 1px solid #ddd;
@@ -731,13 +734,15 @@ select.tribe-events-dropdown {
 			font-style: normal;
 			font-weight: bold;
 			line-height: 1;
-			padding: 8px;
+			padding: 8px 12px;
 			text-align: center;
 			text-overflow: ellipsis;
 		}
 
 		.tribe-tickets-left,
 		.tribe-out-of-stock {
+			background: #f0f0f0;
+			border-left: none;
 			color: #727272;
 		}
 
@@ -748,6 +753,16 @@ select.tribe-events-dropdown {
 
 	.tribe-button {
 		margin-left: 10px;
+
+		&.sold-out {
+			background: none;
+			border: none;
+			color: #a00;
+
+			&:hover {
+				cursor: default;
+			}
+		}
 	}
 }
 

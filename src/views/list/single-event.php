@@ -24,21 +24,6 @@ $organizer = tribe_get_organizer();
 
 ?>
 
-<!-- Event Cost -->
-<?php if ( tribe_get_cost() ) : ?>
-	<div class="tribe-events-event-cost">
-		<span class="ticket-cost"><?php echo tribe_get_cost( null, true ); ?></span>
-		<?php
-		/**
-		 * Runs after cost is displayed in list style views
-		 *
-		 * @since 4.5
-		 */
-		do_action( 'tribe_events_inside_cost' )
-		?>
-	</div>
-<?php endif; ?>
-
 <!-- Event Title -->
 <?php do_action( 'tribe_events_before_the_event_title' ) ?>
 <h2 class="tribe-events-list-event-title">
@@ -72,6 +57,22 @@ $organizer = tribe_get_organizer();
 
 	</div>
 </div><!-- .tribe-events-event-meta -->
+
+<!-- Event Cost -->
+<?php if ( tribe_get_cost() ) : ?>
+	<div class="tribe-events-event-cost">
+		<span class="ticket-cost"><?php echo tribe_get_cost( null, true ); ?></span>
+		<?php
+		/**
+		 * Runs after cost is displayed in list style views
+		 *
+		 * @since 4.5
+		 */
+		do_action( 'tribe_events_inside_cost' )
+		?>
+	</div>
+<?php endif; ?>
+
 <?php do_action( 'tribe_events_after_the_meta' ) ?>
 
 <!-- Event Image -->
