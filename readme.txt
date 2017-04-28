@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Stable tag: 4.5dev1
+Stable tag: 4.5rc1
 Tested up to: 4.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -316,23 +316,26 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5] TBD =
+= [4.5] 2017-05-01 =
 
 * Feature - Event Aggregator now allows users to import from other sites with The Events Calendar [68139]
 * Feature - Include a Events REST API endpoint for read operations [70711]
+* Feature - Include granular Scheduling for Events Aggregator
 * Tweak - Update Authority for modified fields now will include Organizer, Venues and Taxonomy changes [71152]
 * Tweak - Clean up direct calls to get events and use wrapper `tribe_get_events()` which has a hook for customizing
 * Tweak - Remove including Event Tickets for backwards compatibility as a vendor library [71908]
 * Tweak - Create a global ID to increase consistency on all of the imported items with Aggregator [75218]
-* Fix - Remove notice regarding undefined source when importing CSV files with Aggregator [68643]
 * Fix - Prevent Aggregator to run on Empty Queues thus generating fatals [75377]
 * Fix - Categories and Tags are no longer cleared when importing with Aggregator [74264]
 * Fix - Increase consistency on Column Mapping for CSV imports [76476]
-* Tweak - Added filters for REST API: `tribe_events_rest_url_prefix`, `tribe_rest_url`, `tribe_events_rest_use_builtin`, `tribe_rest_events_archive_data`, `tribe_rest_event_max_per_page`, `tribe_rest_event_data`, `tribe_rest_venue_data`, `tribe_rest_organizer_data`
+* Tweak - Added filters for REST API: `tribe_events_rest_url_prefix`, `tribe_rest_url`, `tribe_events_rest_use_builtin`, `tribe_rest_events_archive_data`, `tribe_rest_event_max_per_page`, `tribe_rest_event_data`, `tribe_rest_venue_data`, `tribe_rest_organizer_data`, `tribe_rest_event_categories_data`, `tribe_rest_event_tags_data`, `tribe_rest_event_taxonomy_term_data`, `tribe_rest_event_featured_image`, `tribe_events_rest_api_enabled`
 * Tweak - Added filters for REST API Documentation: `tribe_rest_swagger_cost_details_documentation`, `tribe_rest_swagger_date_details_documentation`, `tribe_rest_swagger_image_details_documentation`, `tribe_rest_swagger_image_size_documentation`, `tribe_rest_swagger_term_documentation`, `tribe_rest_swagger_event_documentation`, `tribe_rest_swagger_organizer_documentation`, `tribe_rest_swagger_venue_documentation`, `tribe_rest_swagger_documentation`
 * Tweak - Added filters for Modified fields tracking: `tribe_tracker_post_types`, `tribe_tracker_excluded_meta_keys`, `tribe_tracker_enabled`, `tribe_tracker_enabled_for_terms`, `tribe_tracker_taxonomies`
 * Tweak - Added filters for Aggregator: `tribe_aggregator_localized_data`, `tribe_aggregator_service_messages`, `tribe_aggregator_url_import_range_options`, `tribe_aggregator_url_import_range_cap`, `tribe_aggregator_url_import_range_start`, `tribe_aggregator_url_import_range_end`
 * Tweak - Removed filters for Aggregator: `tribe_aggregator_track_modified_fields`
+* Tweak - Added actions for Initialization: `tribe_events_bound_implementations`
+* Tweak - Removed methods for `Tribe__Events__Main`: `track_event_post_field_changes`, `maybe_load_tickets_framework`
+* Tweak - Removed methods for `Tribe__Events__Aggregator__Service`: `has_service_message`
 
 = [4.4.5] 2017-03-23 =
 
