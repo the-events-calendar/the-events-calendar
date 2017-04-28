@@ -318,7 +318,21 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.5] TBD =
 
-* Tweak - Clean up direct calls to get events and use wrapper tribe_get_events() which has a hook for customizing
+* Feature - Event Aggregator now allows users to import from other sites with The Events Calendar [68139]
+* Feature - Include a Events REST API endpoint for read operations [70711]
+* Tweak - Update Authority for modified fields now will include Organizer, Venues and Taxonomy changes [71152]
+* Tweak - Clean up direct calls to get events and use wrapper `tribe_get_events()` which has a hook for customizing
+* Tweak - Remove including Event Tickets for backwards compatibility as a vendor library [71908]
+* Tweak - Create a global ID to increase consistency on all of the imported items with Aggregator [75218]
+* Fix - Remove notice regarding undefined source when importing CSV files with Aggregator [68643]
+* Fix - Prevent Aggregator to run on Empty Queues thus generating fatals [75377]
+* Fix - Categories and Tags are no longer cleared when importing with Aggregator [74264]
+* Fix - Increase consistency on Column Mapping for CSV imports [76476]
+* Tweak - Added filters for REST API: `tribe_events_rest_url_prefix`, `tribe_rest_url`, `tribe_events_rest_use_builtin`, `tribe_rest_events_archive_data`, `tribe_rest_event_max_per_page`, `tribe_rest_event_data`, `tribe_rest_venue_data`, `tribe_rest_organizer_data`
+* Tweak - Added filters for REST API Documentation: `tribe_rest_swagger_cost_details_documentation`, `tribe_rest_swagger_date_details_documentation`, `tribe_rest_swagger_image_details_documentation`, `tribe_rest_swagger_image_size_documentation`, `tribe_rest_swagger_term_documentation`, `tribe_rest_swagger_event_documentation`, `tribe_rest_swagger_organizer_documentation`, `tribe_rest_swagger_venue_documentation`, `tribe_rest_swagger_documentation`
+* Tweak - Added filters for Modified fields tracking: `tribe_tracker_post_types`, `tribe_tracker_excluded_meta_keys`, `tribe_tracker_enabled`, `tribe_tracker_enabled_for_terms`, `tribe_tracker_taxonomies`
+* Tweak - Added filters for Aggregator: `tribe_aggregator_localized_data`, `tribe_aggregator_service_messages`, `tribe_aggregator_url_import_range_options`, `tribe_aggregator_url_import_range_cap`, `tribe_aggregator_url_import_range_start`, `tribe_aggregator_url_import_range_end`
+* Tweak - Removed filters for Aggregator: `tribe_aggregator_track_modified_fields`
 
 = [4.4.5] 2017-03-23 =
 
