@@ -2675,7 +2675,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 *  Returns the full address of an event along with HTML markup.  It
-		 *  loads the full-address template to generate the HTML
+		 *  loads the address template to generate the HTML
 		 */
 		public function fullAddress( $post_id = null, $includeVenueName = false ) {
 			global $post;
