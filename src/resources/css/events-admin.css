@@ -117,13 +117,11 @@
 }
 /* Apply a grey highlight to 'today' */
 .ui-datepicker-calendar .ui-datepicker-today a {
-	background: -webkit-linear-gradient(96deg, #ccc 0%, #eee 100%);
 	background: linear-gradient(354deg, #ccc 0%, #eee 100%);
 	color: black;
 }
 /* If today is also the current selected day, prefer the default blue highlight */
 .ui-datepicker-calendar .ui-datepicker-today.ui-datepicker-current-day a {
-	background: -webkit-linear-gradient( 96deg, rgba(10, 85, 160, 1.00) 0%, rgba(18, 136, 235, 1.00) 100% );
 	background: linear-gradient( 354deg, rgba(10, 85, 160, 1.00) 0%, rgba(18, 136, 235, 1.00) 100% );
 	color: #fff;
 }
@@ -338,7 +336,6 @@ table.eventForm {
 	padding: 8px 24px;
 	padding: .5rem 1.5rem;
 	text-decoration: none;
-	-webkit-transition: background-color 0.5s ease;
 	transition: background-color 0.5s ease;
 }
 .tribe-ea-facebook-button:active,
