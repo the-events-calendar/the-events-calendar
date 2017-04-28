@@ -321,6 +321,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Prevented errors on EA import screen that happened in exotic circumstance. Thanks @kathryn for reporting this! [75787]
 * Fix - Made EA preserve custom dates after reimporting a Facebook Event when option is set. [75787]
 * Fix - Enhance month view caching to minimize impact of JSON-LD generation [74656]
+* Tweak - Styling/layout improvements within the Event Aggregator screen [77895]
 
 = [4.5] TBD =
 
