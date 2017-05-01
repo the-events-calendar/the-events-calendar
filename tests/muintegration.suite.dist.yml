@@ -1,12 +1,11 @@
-# Codeception Test Suite Configuration
-
-# suite for WordPress functional tests.
-# Emulate web requests and make application process them.
-class_name: IntegrationTester
+class_name: MuintegrationTester
 modules:
-    enabled: [WPLoader, \Helper\Integration]
+    enabled:
+        - \Helper\Muintegration
+        - WPLoader
     config:
         WPLoader:
+            multisite: true
             wpRootFolder: /tmp/wordpress
             dbName: wploader
             dbHost: localhost
@@ -17,10 +16,8 @@ modules:
             dbCollate: ''
             tablePrefix: wp_
             domain: tec.tri.be
-            adminEmail: admin@tec.tri.be
-            title: 'The Events Calendar Tests'
-            phpBinary: php
-            language: ''
+            adminEmail: admin@mu-tec.tribe
+            title: 'The Events Calendar MU Tests'
             plugins:
                 - the-events-calendar/the-events-calendar.php
             activatePlugins:

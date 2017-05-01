@@ -81,7 +81,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$id = $this->factory()->event->create();
 		$request->set_param( 'id', $id );
 
-		$this->repository = $this->prophesize( \Tribe__Events__REST__Interfaces__Post_Repository::class );
+		$this->repository = $this->prophesize( \Tribe__Events__REST__V1__Post_Repository::class );
 		$this->repository->get_event_data( $id )->willReturn( [ 'some' => 'data' ] );
 
 		$sut = $this->make_instance();
