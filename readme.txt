@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Stable tag: 4.5rc1
+Stable tag: 4.5
 Tested up to: 4.7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -32,9 +32,9 @@ The Events Calendar is crafted the WordPress way.
 
 The Events Calendar plugin has been audited by many WordPress industry experts, including core developer Mark Jaquith for security & plugin review team member Pippin Williamson for best practices and plugin compatibility.
 
-Our dedicated support team has poured hundreds of hours into QA, monthly usability tests, and numerous user interviews to guarantee quality and ease-of-use.  We stand behind our work and offer light support weekly for the community via the WordPress.org support forums. 
+Our dedicated support team has poured hundreds of hours into QA, monthly usability tests, and numerous user interviews to guarantee quality and ease-of-use.  We stand behind our work and offer light support weekly for the community via the WordPress.org support forums.
 
-If you need a deeper level of support or a faster response to your specific question, our Events Calendar PRO add-on includes access to our premium support forums with a 24-48 hour response time during the workweek. 
+If you need a deeper level of support or a faster response to your specific question, our Events Calendar PRO add-on includes access to our premium support forums with a 24-48 hour response time during the workweek.
 
 Enjoy using The Events Calendar, know how to get under the hood and want to make money helping people? We’re growing our community team and would love to hear from you. If you’re interested, [check this out!](http://m.tri.be/mk)
 
@@ -50,11 +50,11 @@ The Events Calendar is built to work out of the box. Just turn it on, configure 
 * Partial template overrides
 * Template tags, hooks, and filters
 * [Extensive documentation](http://m.tri.be/eu)
-* [Library of code snippets](https://github.com/theeventscalendar) on GitHub. 
+* [Library of code snippets](https://github.com/theeventscalendar) on GitHub.
 
-Whether your vision is big or small, you’re in good company. Hundreds of thousands of churches, eateries, small businesses, musicians, venues, and non-profits are publishing and promoting their events with The Events Calendar. 
+Whether your vision is big or small, you’re in good company. Hundreds of thousands of churches, eateries, small businesses, musicians, venues, and non-profits are publishing and promoting their events with The Events Calendar.
 
-The Events Calendar has been scaled to work on networks with over 25 million unique visitors per month and hundreds of thousands of events. Fortune 100 companies, major universities, government institutions and some seriously epic startups push their events with our platform. 
+The Events Calendar has been scaled to work on networks with over 25 million unique visitors per month and hundreds of thousands of events. Fortune 100 companies, major universities, government institutions and some seriously epic startups push their events with our platform.
 
 = FEATURES =
 
