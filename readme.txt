@@ -38,7 +38,7 @@ If you need a deeper level of support or a faster response to your specific ques
 
 Enjoy using The Events Calendar, know how to get under the hood and want to make money helping people? We’re growing our community team and would love to hear from you. If you’re interested, [check this out!](http://m.tri.be/mk)
 
-= PLUG-N-PLAY & HIGHLY CUSTOMIZABLE =
+= PLUG-N-PLAY or HIGHLY CUSTOMIZABLE =
 
 The Events Calendar is built to work out of the box. Just turn it on, configure the settings to match your needs and you’ll be making events in less than 5 minutes.
 Or customize it to suit your specific needs. The Events Calendar is built by developers, for developers…it’s ready to be the foundation for your wildest hack sessions:
