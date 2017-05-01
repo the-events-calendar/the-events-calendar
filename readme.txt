@@ -325,8 +325,8 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Clean up direct calls to get events and use wrapper `tribe_get_events()` which has a hook for customizing
 * Tweak - Remove including Event Tickets for backwards compatibility as a vendor library [71908]
 * Tweak - Create a global ID to increase consistency on all of the imported items with Aggregator [75218]
-* Fix - Prevent Aggregator to run on Empty Queues thus generating fatals [75377]
-* Fix - Categories and Tags are no longer cleared when importing with Aggregator [74264]
+* Fix - Prevent Aggregator to run on Empty Queues thus generating fatals (props to @Donald for the report here) [75377]
+* Fix - Categories and Tags are no longer cleared when importing with Aggregator (thank you @Nicolas for the report) [74264]
 * Fix - Increase consistency on Column Mapping for CSV imports [76476]
 * Tweak - Added filters for REST API: `tribe_events_rest_url_prefix`, `tribe_rest_url`, `tribe_events_rest_use_builtin`, `tribe_rest_events_archive_data`, `tribe_rest_event_max_per_page`, `tribe_rest_event_data`, `tribe_rest_venue_data`, `tribe_rest_organizer_data`, `tribe_rest_event_categories_data`, `tribe_rest_event_tags_data`, `tribe_rest_event_taxonomy_term_data`, `tribe_rest_event_featured_image`, `tribe_events_rest_api_enabled`
 * Tweak - Added filters for REST API Documentation: `tribe_rest_swagger_cost_details_documentation`, `tribe_rest_swagger_date_details_documentation`, `tribe_rest_swagger_image_details_documentation`, `tribe_rest_swagger_image_size_documentation`, `tribe_rest_swagger_term_documentation`, `tribe_rest_swagger_event_documentation`, `tribe_rest_swagger_organizer_documentation`, `tribe_rest_swagger_venue_documentation`, `tribe_rest_swagger_documentation`
