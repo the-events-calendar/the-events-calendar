@@ -83,7 +83,7 @@ $field->label       = __( 'URL:', 'the-events-calendar' );
 $field->placeholder = __( 'example.com/', 'the-events-calendar' );
 $field->help        = __( 'Enter the url for the calendar, website, or event you would like to import. Event Aggregator will attempt to import events at that location.', 'the-events-calendar' );
 
-$range_option = tribe_get_option( 'tribe_aggregator_default_url_import_range', MONTH_IN_SECONDS );
+$range_option = tribe_get_option( 'tribe_aggregator_default_url_import_range', 30 * DAY_IN_SECONDS );
 $range_strings = tribe( 'events-aggregator.settings' )->get_url_import_range_options( false );
 $range_string = $range_strings[ $range_option ];
 $range_message = esc_html( sprintf( __( 'Event Aggregator will try to fetch events starting in %s from the current date or the specified date;', 'the-events-calendar' ), $range_string ) );

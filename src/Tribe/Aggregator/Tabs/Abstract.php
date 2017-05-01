@@ -147,7 +147,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 				break;
 			case 'url':
 				$now = time();
-				$range = tribe_get_option( 'tribe_aggregator_default_url_import_range', 3 * MONTH_IN_SECONDS );
+				$range = tribe_get_option( 'tribe_aggregator_default_url_import_range', 3 * 30 * DAY_IN_SECONDS );
 				$start = ! empty( $meta['start'] ) ? $this->to_timestamp( $meta['start'], $now ) : $now;
 				$end = ! empty( $meta['end'] ) ? $this->to_timestamp( $meta['end'], $now + $range ) : $now + $range;
 
@@ -157,7 +157,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 				 * @param int   $max_range The duration in seconds of the cap.
 				 * @param array $meta      The meta for this import request.
 				 */
-				$max_range = apply_filters( 'tribe_aggregator_url_import_range_cap', 3 * MONTH_IN_SECONDS, $meta );
+				$max_range = apply_filters( 'tribe_aggregator_url_import_range_cap', 3 * 30 * DAY_IN_SECONDS, $meta );
 
 				// but soft-cap the range to start + cap at the most
 				$end = min( $end, $start + $max_range );
