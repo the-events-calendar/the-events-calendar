@@ -269,35 +269,35 @@ class Tribe__Events__Aggregator__Settings {
 	 */
 	public function get_url_import_range_options( $title = true ) {
 		$options = array(
-			DAY_IN_SECONDS       => array(
+			DAY_IN_SECONDS          => array(
 				'title' => __( '24 hours', 'the-events-calendar' ),
 				'range' => __( '24 hours', 'the-events-calendar' ),
 			),
-			3 * DAY_IN_SECONDS   => array(
+			3 * DAY_IN_SECONDS      => array(
 				'title' => __( '72 hours', 'the-events-calendar' ),
 				'range' => __( '72 hours', 'the-events-calendar' ),
 			),
-			WEEK_IN_SECONDS      => array(
+			WEEK_IN_SECONDS         => array(
 				'title' => __( 'One week', 'the-events-calendar' ),
 				'range' => __( 'a week', 'the-events-calendar' ),
 			),
-			2 * WEEK_IN_SECONDS  => array(
+			2 * WEEK_IN_SECONDS     => array(
 				'title' => __( 'Two weeks', 'the-events-calendar' ),
 				'range' => __( 'two weeks', 'the-events-calendar' ),
 			),
-			3 * WEEK_IN_SECONDS  => array(
+			3 * WEEK_IN_SECONDS     => array(
 				'title' => __( 'Three weeks', 'the-events-calendar' ),
 				'range' => __( 'three weeks', 'the-events-calendar' ),
 			),
-			MONTH_IN_SECONDS     => array(
+			30 * DAY_IN_SECONDS     => array(
 				'title' => __( 'One month', 'the-events-calendar' ),
 				'range' => __( 'a month', 'the-events-calendar' ),
 			),
-			2 * MONTH_IN_SECONDS => array(
+			2 * 30 * DAY_IN_SECONDS => array(
 				'title' => __( 'Two months', 'the-events-calendar' ),
 				'range' => __( 'two months', 'the-events-calendar' ),
 			),
-			3 * MONTH_IN_SECONDS => array(
+			3 * 30 * DAY_IN_SECONDS => array(
 				'title' => __( 'Three months', 'the-events-calendar' ),
 				'range' => __( 'three months', 'the-events-calendar' ),
 			),

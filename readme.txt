@@ -334,6 +334,14 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Enhance month view caching to minimize impact of JSON-LD generation [74656]
 * Tweak - Styling/layout improvements within the Event Aggregator screen [77895]
 
+= [4.5.0.2] 2017-05-01 =
+
+* Fix - Ensure compatibility with WordPress version 4.4 and earlier
+
+= [4.5.0.1] 2017-05-01 =
+
+* Fix - Resolving issue where some premium plugins were falsely claiming they were out of date
+
 = [4.5] 2017-05-01 =
 
 * Feature - Event Aggregator now allows users to import from other sites with The Events Calendar [68139]
