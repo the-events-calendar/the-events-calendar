@@ -792,7 +792,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return boolean
 	 */
 	public function is_schedule_time() {
-		if ( true == getenv( 'TRIBE_DEBUG_OVERRIDE_SCHEDULE' ) ) {
+		if ( tribe_is_truthy( getenv( 'TRIBE_DEBUG_OVERRIDE_SCHEDULE' ) ) ) {
 			return true;
 		}
 
