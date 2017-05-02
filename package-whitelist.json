@@ -49,14 +49,5 @@
   "vendor/php-date-formatter/js/*.js",
   "vendor/jquery-placeholder/*.js",
   "vendor/jquery-resize/*.js",
-  "vendor/tickets/event-tickets.php",
-  "vendor/tickets/readme.txt",
-  "vendor/tickets/src/**/*",
-  "vendor/tickets/lang/**/*",
-  "vendor/tickets/common/tribe-autoload.php",
-  "vendor/tickets/common/tribe-common.php",
-  "vendor/tickets/common/readme.txt",
-  "vendor/tickets/common/src/**/*",
-  "vendor/tickets/common/lang/**/*",
   "vendor/tribe-common-libraries/**/*"
 ]

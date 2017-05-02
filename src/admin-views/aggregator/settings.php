@@ -400,7 +400,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'tooltip' => esc_html__( 'When importing from a website that uses The Events Calendar, the REST API will attempt to fetch events this far in the future. That website\'s hosting resources may impact the success of imports. Selecting a shorter time period may improve results.', 'the-events-calendar' ) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/other-url-import-errors-in-event-aggregator' ), esc_html( 'Learn more.' ) ),
 			'size' => 'medium',
 			'validation_type' => 'options',
-			'default' => MONTH_IN_SECONDS,
+			'default' => 30 * DAY_IN_SECONDS,
 			'can_be_empty' => false,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => tribe( 'events-aggregator.settings' )->get_url_import_range_options( true ),

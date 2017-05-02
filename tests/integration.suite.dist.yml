@@ -15,6 +15,7 @@ modules:
             wpDebug: true
             dbCharset: utf8
             dbCollate: ''
+
             tablePrefix: wp_
             domain: tec.tri.be
             adminEmail: admin@tec.tri.be
@@ -25,3 +26,4 @@ modules:
                 - the-events-calendar/the-events-calendar.php
             activatePlugins:
                 - the-events-calendar/the-events-calendar.php
+

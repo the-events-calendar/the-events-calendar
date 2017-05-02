@@ -1,16 +1,3 @@
-.DS_Store
-.idea
-.floo
-.flooignore
-
-node_modules
-
-# build files for js minification
-
-compiler.jar
-*.ps1
-
-
 # Vendor dependencies - ignore all by default...
 vendor
 # ...but do not ignore the ones below; add to the whitelist as the need arises
@@ -27,7 +14,13 @@ vendor
 # Tests - local Codeception files
 codeception.yml
 tests/*.suite.yml
+
+# Tests - local output files
 tests/_output
 
-# Local utility files
-makefile
+# General Purpose Ingored Files
+.DS_Store
+.idea
+node_modules
+compiler.jar
+*.ps1

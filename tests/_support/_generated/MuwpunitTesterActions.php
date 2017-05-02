@@ -5,17 +5,17 @@ namespace _generated;
 // You should not change it manually as it will be overwritten on next build
 // @codingStandardsIgnoreFile
 
-use Helper\Muintegration;
+use Helper\Muwpunit;
 use Codeception\Module\WPLoader;
 
-trait MuintegrationTesterActions
+trait MuwpunitTesterActions
 {
     /**
      * @return \Codeception\Scenario
      */
     abstract protected function getScenario();
 
-    
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -26,7 +26,7 @@ trait MuintegrationTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('ensureDbModuleCompat', func_get_args()));
     }
 
- 
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -37,7 +37,7 @@ trait MuintegrationTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('bootstrapActions', func_get_args()));
     }
 
- 
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -48,7 +48,7 @@ trait MuintegrationTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('activatePlugins', func_get_args()));
     }
 
- 
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *

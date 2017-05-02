@@ -374,14 +374,26 @@ class Tribe__Events__Venue {
 			'ID' => $venue_id,
 		);
 
+		if ( isset( $data['post_title'] ) ) {
+			$args['post_title'] = $data['post_title'];
+		}
+
 		if ( isset( $data['Venue'] ) ) {
 			$args['post_title'] = $data['Venue'];
 			unset( $data['Venue'] );
 		}
 
+		if ( isset( $data['post_content'] ) ) {
+			$args['post_content'] = $data['post_content'];
+		}
+
 		if ( isset( $data['Description'] ) ) {
 			$args['post_content'] = $data['Description'];
 			unset( $data['Description'] );
+		}
+
+		if ( isset( $data['post_excerpt'] ) ) {
+			$args['post_excerpt'] = $data['post_excerpt'];
 		}
 
 		if ( isset( $data['Excerpt'] ) ) {

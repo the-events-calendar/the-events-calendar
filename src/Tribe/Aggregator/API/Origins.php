@@ -58,7 +58,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 			),
 			'url' => (object) array(
 				'id' => 'url',
-				'name' => __( 'Other URL', 'the-events-calendar' ),
+				'name' => __( 'Other URL (beta)', 'the-events-calendar' ),
 				'disabled' => true,
 			),
 		);

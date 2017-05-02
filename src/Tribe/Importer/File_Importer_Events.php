@@ -88,14 +88,14 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			$event = Tribe__Events__Aggregator__Event::preserve_changed_fields( $event );
 		}
 
-		add_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
+		add_filter( 'tribe_tracker_enabled', '__return_false' );
 		Tribe__Events__API::updateEvent( $post_id, $event );
 
 		if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
 			$this->aggregator_record->meta['activity']->add( 'event', 'updated', $post_id );
 		}
 
-		remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
+		remove_filter( 'tribe_tracker_enabled', '__return_false' );
 	}
 
 	protected function create_post( array $record ) {

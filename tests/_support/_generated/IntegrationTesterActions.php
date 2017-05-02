@@ -15,7 +15,7 @@ trait IntegrationTesterActions
      */
     abstract protected function getScenario();
 
-    
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -26,7 +26,7 @@ trait IntegrationTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('ensureDbModuleCompat', func_get_args()));
     }
 
- 
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -37,7 +37,7 @@ trait IntegrationTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('bootstrapActions', func_get_args()));
     }
 
- 
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
@@ -48,7 +48,7 @@ trait IntegrationTesterActions
         return $this->getScenario()->runStep(new \Codeception\Step\Action('activatePlugins', func_get_args()));
     }
 
- 
+
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
