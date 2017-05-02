@@ -3301,7 +3301,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				wp_delete_post( $venue_id );
 			}
 
-			//In some cases, one must clear the _EventVenueID before it's regenerated.
+			// In some cases, one must clear the _EventVenueID before it's regenerated.
 			if ( $delete_meta ) {
 				delete_post_meta( $event_id, '_EventVenueID' );
 			}
@@ -3333,7 +3333,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				wp_delete_post( $organizer_id );
 			}
 
-			//In some cases, one must clear the _EventOrganizerID before it's regenerated.
+			// In some cases, one must clear the _EventOrganizerID before it's regenerated.
 			if ( $delete_meta ) {
 				delete_post_meta( $event_id, '_EventOrganizerID' );
 			}
