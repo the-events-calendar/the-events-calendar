@@ -2,7 +2,6 @@
 
 # suite for WordPress functional tests.
 # Emulate web requests and make application process them.
-<<<<<<< HEAD
 class_name: WpunitTester
 modules:
     enabled: [WPLoader, \Helper\Wpunit]
