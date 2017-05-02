@@ -3043,19 +3043,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Publishes associated venue/organizer when an event is published
 		 *
-		 * @param int     $postID , the post ID
-		 * @param WP_Post $post   , the post object
+		 * @param int     $post_id The post ID.
+		 * @param WP_Post $post    The post object.
 		 *
 		 */
-		public function publishAssociatedTypes( $postID, $post ) {
+		public function publishAssociatedTypes( $post_id, $post ) {
 
 			// don't need to save the venue or organizer meta when we are just publishing
 			remove_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			remove_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
 
 			// Remove any "preview" venues and organizers (duplicates) attached to this event.
-			$this->remove_preview_venues( $postID, true );
-			$this->remove_preview_organizers( $postID, true );
+			$this->remove_preview_venues( $post_id, true );
+			$this->remove_preview_organizers( $post_id, true );
 
 			// save venue and organizer info on first pass
 			if ( isset( $post->post_status ) && $post->post_status == 'publish' ) {
