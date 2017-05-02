@@ -269,20 +269,61 @@ class Tribe__Events__Aggregator__Event {
 			return $data;
 		}
 
-		$post = get_post( $data['ID'] );
-		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $data['ID'] );
+		$post       = get_post( $data['ID'] );
+		$post_meta  = Tribe__Events__API::get_and_flatten_event_meta( $data['ID'] );
 		$post_terms = Tribe__Events__API::get_event_terms( $data['ID'], array( 'fields' => 'ids' ) );
+		$modified   = Tribe__Utils__Array::get( $post_meta, Tribe__Tracker::$field_key, array() );
+		$tec        = Tribe__Events__Main::instance();
 
-		if ( empty( $post_meta[ Tribe__Tracker::$field_key ] ) ) {
-			$modified = array();
+		// Depending on the Post Type we fetch other fields
+		if ( Tribe__Events__Main::POSTTYPE === $post->post_type ) {
+			$fields = $tec->metaTags;
+		} elseif ( Tribe__Events__Venue::POSTTYPE === $post->post_type ) {
+			$fields = $tec->venueTags;
+
+			if ( isset( $data['Venue'] ) ) {
+				$data['post_title'] = $data['Venue'];
+				unset( $data['Venue'] );
+			}
+
+			if ( isset( $data['Description'] ) ) {
+				$data['post_content'] = $data['Description'];
+				unset( $data['Description'] );
+			}
+
+			if ( isset( $data['Excerpt'] ) ) {
+				$data['post_excerpt'] = $data['Excerpt'];
+				unset( $data['Excerpt'] );
+			}
+		} elseif ( Tribe__Events__Organizer::POSTTYPE === $post->post_type ) {
+			$fields = $tec->organizerTags;
+
+			if ( isset( $data['Organizer'] ) ) {
+				$data['post_title'] = $data['Organizer'];
+				unset( $data['Organizer'] );
+			}
+
+			if ( isset( $data['Description'] ) ) {
+				$data['post_content'] = $data['Description'];
+				unset( $data['Description'] );
+			}
+
+			if ( isset( $data['Excerpt'] ) ) {
+				$data['post_excerpt'] = $data['Excerpt'];
+				unset( $data['Excerpt'] );
+			}
 		} else {
-			$modified = $post_meta[ Tribe__Tracker::$field_key ];
+			$fields = array();
 		}
+
+		// add the featured image to the fields
+		$fields[] = '_thumbnail_id';
 
 		$post_fields_to_reset = array(
 			'post_title',
 			'post_content',
 			'post_status',
+			'post_excerpt',
 		);
 
 		// reset any modified post fields
@@ -305,19 +346,6 @@ class Tribe__Events__Aggregator__Event {
 			$data[ $field ] = $post->$field;
 		}
 
-		$tec = Tribe__Events__Main::instance();
-
-		// Depending on the Post Type we fetch other fields
-		if ( Tribe__Events__Main::POSTTYPE === $post->post_type ) {
-			$fields = $tec->metaTags;
-		} elseif ( Tribe__Events__Venue::POSTTYPE === $post->post_type ) {
-			$fields = $tec->venueTags;
-		} elseif ( Tribe__Events__Organizer::POSTTYPE === $post->post_type ) {
-			$fields = $tec->organizerTags;
-		} else {
-			$fields = array();
-		}
-
 		// reset any modified meta fields
 		foreach ( $fields as $field ) {
 			// don't bother resetting if the field hasn't been modified
@@ -325,38 +353,43 @@ class Tribe__Events__Aggregator__Event {
 				continue;
 			}
 
-			// if we don't have a field to reset to, let's unset the event meta field
-			if ( ! isset( $post_meta[ $field ] ) ) {
-				unset( $data[ $field ] );
-				continue;
+			if ( $field === '_thumbnail_id' ) {
+				$field_name = 'image';
+			} else {
+				// If the field name contains a leading underscore we need to strip it (or the field will not save)
+				$field_name = trim( $field, '_' );
 			}
 
-			// If the field name contains a leading underscore we need to strip it (or the field will not save)
-			$field_name = trim( $field, '_' );
-			$event[ $field_name ] = $post_meta[ $field ];
+			// some fields might have been modified emptying them: we still keep that change
+			if ( empty( $post_meta[ $field ] ) ) {
+				unset( $data[ $field_name ] );
+			} else {
+				$data[ $field_name ] = $post_meta[ $field ];
+			}
 		}
 
 		// The start date needs to be adjusted from a MySQL style datetime string to just the date
-		if ( isset( $modified['_EventStartDate'] ) ) {
-			$start_datetime = strtotime( $event['EventStartDate'] );
-			$event['EventStartDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $start_datetime );
-			$event['EventStartHour'] = date( 'H', $start_datetime );
-			$event['EventStartMinute'] = date( 'i', $start_datetime );
+		if ( isset( $modified['_EventStartDate'] ) && isset( $post_meta['_EventStartDate'] ) ) {
+			$start_datetime = strtotime( $post_meta['_EventStartDate'] );
+			$data['EventStartDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $start_datetime );
+			$data['EventStartHour'] = date( 'H', $start_datetime );
+			$data['EventStartMinute'] = date( 'i', $start_datetime );
 		}
 
 		// The end date needs to be adjusted from a MySQL style datetime string to just the date
-		if ( isset( $modified['_EventEndDate'] ) ) {
-			$end_datetime = strtotime( $event['EventEndDate'] );
-			$event['EventEndDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $end_datetime );
-			$event['EventEndHour'] = date( 'H', $end_datetime );
-			$event['EventEndMinute'] = date( 'i', $end_datetime );
+		if ( isset( $modified['_EventEndDate'] ) && isset( $post_meta['_EventEndDate'] ) ) {
+			$end_datetime = strtotime( $post_meta['_EventEndDate'] );
+			$data['EventEndDate'] = date( Tribe__Date_Utils::DBDATEFORMAT, $end_datetime );
+			$data['EventEndHour'] = date( 'H', $end_datetime );
+			$data['EventEndMinute'] = date( 'i', $end_datetime );
 		}
 
 		// reset any modified taxonomy terms
 		$taxonomy_map = array(
-			'post_tag'	 => 'tags',
+			'post_tag'                    => 'tags',
 			Tribe__Events__Main::TAXONOMY => 'categories',
 		);
+
 		foreach ( $post_terms as $taxonomy => $terms ) {
 			if ( ! isset( $modified[ $taxonomy ] ) ) {
 				continue;

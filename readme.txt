@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Stable tag: 4.6dev1
-Tested up to: 4.7.3
+Tested up to: 4.7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,9 +13,11 @@ The Events Calendar is a carefully crafted, extensible plugin that lets you easi
 
 == Description ==
 
-Create and manage your calendar of events with ease. Get professional-level quality and features backed by a team you can trust. The Events Calendar will help take your site to the next level.
+Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust.
 
-The Events Calendar is built and supported by Modern Tribe's WordPress artisans. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more?
+Packed with loads of useful features, The Events Calendar by Modern Tribe is ready to go right out of the box. It’s extensible, easy to use, and completely customizable.
+
+Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more?
 
 <strong>Check out [Events Calendar PRO](http://m.tri.be/mj) and [other add-ons](http://m.tri.be/2a)</strong>
 
@@ -28,27 +30,35 @@ The Events Calendar is built and supported by Modern Tribe's WordPress artisans.
 
 The Events Calendar is crafted the WordPress way.
 
-The Events Calendar has been audited by many of the industry's WordPress experts including core developer Mark Jaquith for security & plugin review team member Pippin Williamson for best practices and plugin compatibility.
+The Events Calendar plugin has been audited by many WordPress industry experts, including core developer Mark Jaquith for security & plugin review team member Pippin Williamson for best practices and plugin compatibility.
 
-We've poured hundreds of hours into QA by a dedicated support team, monthly usability tests to guarantee that it's easy to use, and numerous user interviews to make sure you get what you want. We care about quality and crafting products that thrive in the wild.
+Our dedicated support team has poured hundreds of hours into QA, monthly usability tests, and numerous user interviews to guarantee quality and ease-of-use.  We stand behind our work and offer light support weekly for the community via the WordPress.org support forums.
 
-The team at Modern Tribe stands by our work and offers light support every Wednesday to the community via the WordPress.org support forums. Feel free to ask a question if you're having a problem with implementation or if you find bugs. Looking for help NOW or need a deeper level of support? Add the [premium add-on plugin](http://m.tri.be/2c) and you get access to premium support forums with 24-48 hour response times on weekdays.
+If you need a deeper level of support or a faster response to your specific question, our Events Calendar PRO add-on includes access to our premium support forums with a 24-48 hour response time during the workweek.
 
-Enjoy using The Events Calendar, know how to get under the hood and want to make money helping people? We're growing our community team and would love to hear from you. If you’re interested, [check this out!](http://m.tri.be/mk)
+Enjoy using The Events Calendar, know how to get under the hood and want to make money helping people? We’re growing our community team and would love to hear from you. If you’re interested, [check this out!](http://m.tri.be/mk)
 
-= PLUG-N-PLAY & HIGHLY CUSTOMIZABLE =
+= PLUG-N-PLAY or HIGHLY CUSTOMIZABLE =
+
+The Events Calendar is built to work out of the box. Just turn it on, configure the settings to match your needs and you’ll be making events in less than 5 minutes.
+Or customize it to suit your specific needs. The Events Calendar is built by developers, for developers…it’s ready to be the foundation for your wildest hack sessions:
 
 The Events Calendar is built to work out of the box. Just turn it on, configure the settings to match your needs and you'll be making events in less than 5 minutes.
 
-By developers, for developers...it's ready to be the foundation for your wildest hack sessions. Complete with a skeleton stylesheet to theme fast and efficiently, loads of tools including partial template overrides, a host of template tags, hooks and filters, [careful documentation](http://m.tri.be/eu), as well as a [library of code snippets](https://github.com/theeventscalendar) on GitHub. The Events Calendar is built FOR people who build websites.
+* WP REST API support
+* Skeleton stylesheet to theme fast & efficiently
+* Partial template overrides
+* Template tags, hooks, and filters
+* [Extensive documentation](http://m.tri.be/eu)
+* [Library of code snippets](https://github.com/theeventscalendar) on GitHub.
 
-Whether your vision is big or small, we have you in mind.
+Whether your vision is big or small, you’re in good company. Hundreds of thousands of churches, eateries, small businesses, musicians, venues, and non-profits are publishing and promoting their events with The Events Calendar.
 
-We've scaled The Events Calendar to work on a network with over 25 million unique visitors per month and hundreds of thousands of events. We have it running for Fortune 100 companies. Major universities, government institutions and some seriously epic startups push their events with our platform. Thousands of churches, eateries, small businesses, musicians, venues, and non-profits are publishing and promoting their events with The Events Calendar. You're in good company.
+The Events Calendar has been scaled to work on networks with over 25 million unique visitors per month and hundreds of thousands of events. Fortune 100 companies, major universities, government institutions and some seriously epic startups push their events with our platform.
 
 = FEATURES =
 
-Whether you're operating a hyperlocal hub listing thousands of events, a university with many thousands of users, or you're a sole business owner listing your classes, The Events Calendar has your back.
+Whether you’re operating a hyperlocal hub listing thousands of events, a university with many thousands of users, or you’re a sole business owner listing your classes, The Events Calendar has your back.
 
 Just getting started? Definitely watch and read through the [New User Primer](http://m.tri.be/2d) before going much further.
 
@@ -62,6 +72,7 @@ Just getting started? Definitely watch and read through the [New User Primer](ht
 * Widget: Upcoming events list
 * Events Taxonomies (Categories & Tags)
 * Google Calendar and iCal exporting
+* WP REST API endpoints (READ)
 * Completely ajaxified for super smooth browsing
 * Completely responsive from mobile to tablet to desktop
 * Tested on the major theme frameworks such as Avada, Genesis, Woo Themes, Thesis and many more.
@@ -81,7 +92,7 @@ Add recurring events, a whole recurring events, a whole range of new views ( wee
 
 = Event Ticketing =
 
-Collect free RSVPs with Event Tickets or add paid ticketing features with [Event Tickets Plus](http://m.tri.be/18wg), including the ability to sell tickets, collect sales, and manage attendees all from within your WordPress dashboard!  Works with your favorite eCommerce plugin (WooCommerce, Shopp, Easy Digital Downloads, or WP E-Commerce).
+Collect free RSVPs with Event Tickets or add paid ticketing features with [Event Tickets Plus](http://m.tri.be/18wg), including the ability to sell tickets, collect sales, and manage attendees all from within your WordPress dashboard! Works with your favorite eCommerce plugin (WooCommerce, Shopp, Easy Digital Downloads, or WP E-Commerce).
 
 = Bulk Event Import =
 
@@ -316,9 +327,36 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5] TBD =
+= [4.6] TBD =
 
-* Tweak - Clean up direct calls to get events and use wrapper tribe_get_events() which has a hook for customizing
+= [4.5.0.2] 2017-05-01 =
+
+* Fix - Ensure compatibility with WordPress version 4.4 and earlier
+
+= [4.5.0.1] 2017-05-01 =
+
+* Fix - Resolving issue where some premium plugins were falsely claiming they were out of date
+
+= [4.5] 2017-05-01 =
+
+* Feature - Event Aggregator now allows users to import from other sites with The Events Calendar [68139]
+* Feature - Include a Events REST API endpoint for read operations [70711]
+* Feature - Include granular Scheduling for Events Aggregator
+* Tweak - Update Authority for modified fields now will include Organizer, Venues and Taxonomy changes [71152]
+* Tweak - Clean up direct calls to get events and use wrapper `tribe_get_events()` which has a hook for customizing
+* Tweak - Remove including Event Tickets for backwards compatibility as a vendor library [71908]
+* Tweak - Create a global ID to increase consistency on all of the imported items with Event Aggregator [75218]
+* Fix - Prevent Aggregator to run on Empty Queues thus generating fatals (props to @Donald for the report here) [75377]
+* Fix - Categories and Tags are no longer cleared when importing with Event Aggregator (thank you @Nicolas for the report) [74264]
+* Fix - Increase consistency on Column Mapping for CSV imports [76476]
+* Tweak - Added filters for REST API: `tribe_events_rest_url_prefix`, `tribe_rest_url`, `tribe_events_rest_use_builtin`, `tribe_rest_events_archive_data`, `tribe_rest_event_max_per_page`, `tribe_rest_event_data`, `tribe_rest_venue_data`, `tribe_rest_organizer_data`, `tribe_rest_event_categories_data`, `tribe_rest_event_tags_data`, `tribe_rest_event_taxonomy_term_data`, `tribe_rest_event_featured_image`, `tribe_events_rest_api_enabled`
+* Tweak - Added filters for REST API Documentation: `tribe_rest_swagger_cost_details_documentation`, `tribe_rest_swagger_date_details_documentation`, `tribe_rest_swagger_image_details_documentation`, `tribe_rest_swagger_image_size_documentation`, `tribe_rest_swagger_term_documentation`, `tribe_rest_swagger_event_documentation`, `tribe_rest_swagger_organizer_documentation`, `tribe_rest_swagger_venue_documentation`, `tribe_rest_swagger_documentation`
+* Tweak - Added filters for Modified fields tracking: `tribe_tracker_post_types`, `tribe_tracker_excluded_meta_keys`, `tribe_tracker_enabled`, `tribe_tracker_enabled_for_terms`, `tribe_tracker_taxonomies`
+* Tweak - Added filters for Event Aggregator: `tribe_aggregator_localized_data`, `tribe_aggregator_service_messages`, `tribe_aggregator_url_import_range_options`, `tribe_aggregator_url_import_range_cap`, `tribe_aggregator_url_import_range_start`, `tribe_aggregator_url_import_range_end`
+* Tweak - Removed filters for Event Aggregator: `tribe_aggregator_track_modified_fields`
+* Tweak - Added actions for Initialization: `tribe_events_bound_implementations`
+* Tweak - Removed methods for `Tribe__Events__Main`: `track_event_post_field_changes`, `maybe_load_tickets_framework`
+* Tweak - Removed methods for `Tribe__Events__Aggregator__Service`: `has_service_message`
 
 = [4.4.5] 2017-03-23 =
 
