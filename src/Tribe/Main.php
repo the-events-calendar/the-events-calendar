@@ -3242,14 +3242,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function link_preview_venue_to_event( $venue_id, $event_id ) {
 
-			$preview_venues = (array) get_post_meta( $event_id, '_previewVenues', true );
+			$preview_venues = (array) get_post_meta( $event_id, '_preview_venues', true );
 			$preview_venues[] = $venue_id;
 
 			// Remove empty and duplicate values, which can easily arise here.
 			$preview_venues = array_filter( $preview_venues );
 			$preview_venues = array_unique( $preview_venues );
 
-			update_post_meta( $event_id, '_previewVenues', array_values( $preview_venues ) );
+			update_post_meta( $event_id, '_preview_venues', array_values( $preview_venues ) );
 		}
 
 		/**
@@ -3262,7 +3262,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function link_preview_organizer_to_event( $organizer_ids, $event_id ) {
 
-			$preview_organizers = (array) get_post_meta( $event_id, '_previewOrganizers', true );
+			$preview_organizers = (array) get_post_meta( $event_id, '_preview_organizers', true );
 
 			foreach ( $organizer_ids as $key => $organizer_id ) {
 				$preview_organizers[] = $organizer_id;
@@ -3272,7 +3272,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$preview_organizers = array_filter( $preview_organizers );
 			$preview_organizers = array_unique( $preview_organizers );
 
-			update_post_meta( $event_id, '_previewOrganizers', array_values( $preview_organizers ) );
+			update_post_meta( $event_id, '_preview_organizers', array_values( $preview_organizers ) );
 		}
 
 		/**
@@ -3291,7 +3291,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			$preview_venues = get_post_meta( $event_id, '_previewVenues', true );
+			$preview_venues = get_post_meta( $event_id, '_preview_venues', true );
 
 			if ( ! is_array( $preview_venues ) || empty( $preview_venues ) ) {
 				return;
@@ -3323,7 +3323,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			$preview_organizers = get_post_meta( $event_id, '_previewOrganizers', true );
+			$preview_organizers = get_post_meta( $event_id, '_preview_organizers', true );
 
 			if ( ! is_array( $preview_organizers ) || empty( $preview_organizers ) ) {
 				return;
