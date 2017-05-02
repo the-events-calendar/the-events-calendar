@@ -792,6 +792,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return boolean
 	 */
 	public function is_schedule_time() {
+		if ( true == getenv( 'TRIBE_DEBUG_OVERRIDE_SCHEDULE' ) ) {
+			return true;
+		}
+
 		// If we are not on a Schedule Type
 		if ( ! $this->is_schedule ) {
 			return false;
