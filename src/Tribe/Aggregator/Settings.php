@@ -20,11 +20,7 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return Tribe__Events__Aggregator__Settings
 	 */
 	public static function instance() {
-		if ( ! self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
+		return tribe( 'events-aggregator.settings' );
 	}
 
 	/**
@@ -33,7 +29,7 @@ class Tribe__Events__Aggregator__Settings {
 	 *
 	 * Note: This should load on `plugins_loaded@P10`
 	 */
-	private function __construct() {
+	public function __construct() {
 		add_action( 'tribe_settings_do_tabs', array( $this, 'do_import_settings_tab' ) );
 		add_action( 'current_screen', array( $this, 'maybe_clear_fb_credentials' ) );
 	}
@@ -259,5 +255,66 @@ class Tribe__Events__Aggregator__Settings {
 		$setting = tribe_get_option( "tribe_aggregator_default_{$origin}_import_event_settings", 'no' );
 
 		return $setting;
+	}
+
+	/**
+	 * Returns the range options available for URL imports.
+	 *
+	 * Titles are meant to be used in titles and make sense alone, range strings are meant to be used when using the
+	 * duration in a sentence and do not make sense alone.
+	 *
+	 * @param bool $title Whether the values of the array should be for title or for use as range.
+	 *
+	 * @return array An associative array of durations and strings.
+	 */
+	public function get_url_import_range_options( $title = true ) {
+		$options = array(
+			DAY_IN_SECONDS          => array(
+				'title' => __( '24 hours', 'the-events-calendar' ),
+				'range' => __( '24 hours', 'the-events-calendar' ),
+			),
+			3 * DAY_IN_SECONDS      => array(
+				'title' => __( '72 hours', 'the-events-calendar' ),
+				'range' => __( '72 hours', 'the-events-calendar' ),
+			),
+			WEEK_IN_SECONDS         => array(
+				'title' => __( 'One week', 'the-events-calendar' ),
+				'range' => __( 'a week', 'the-events-calendar' ),
+			),
+			2 * WEEK_IN_SECONDS     => array(
+				'title' => __( 'Two weeks', 'the-events-calendar' ),
+				'range' => __( 'two weeks', 'the-events-calendar' ),
+			),
+			3 * WEEK_IN_SECONDS     => array(
+				'title' => __( 'Three weeks', 'the-events-calendar' ),
+				'range' => __( 'three weeks', 'the-events-calendar' ),
+			),
+			30 * DAY_IN_SECONDS     => array(
+				'title' => __( 'One month', 'the-events-calendar' ),
+				'range' => __( 'a month', 'the-events-calendar' ),
+			),
+			2 * 30 * DAY_IN_SECONDS => array(
+				'title' => __( 'Two months', 'the-events-calendar' ),
+				'range' => __( 'two months', 'the-events-calendar' ),
+			),
+			3 * 30 * DAY_IN_SECONDS => array(
+				'title' => __( 'Three months', 'the-events-calendar' ),
+				'range' => __( 'three months', 'the-events-calendar' ),
+			),
+		);
+
+		/**
+		 * Filters the options available for the URL import range.
+		 *
+		 * @param array $options An array of arrays in the format
+		 *                       [ <range duration in seconds> => [ 'title' => <title>, 'range' => <range> ] ].
+		 */
+		$options = apply_filters( 'tribe_aggregator_url_import_range_options', $options );
+
+		if ( $title ) {
+			return array_combine( array_keys( $options ), wp_list_pluck( $options, 'title' ) );
+		}
+
+		return array_combine( array_keys( $options ), wp_list_pluck( $options, 'range' ) );
 	}
 }

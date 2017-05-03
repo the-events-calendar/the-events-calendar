@@ -23,7 +23,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 	}
 
 	protected function create_post( array $record ) {
-		$post_status_setting = Tribe__Events__Aggregator__Settings::instance()->default_post_status( 'csv' );
+		$post_status_setting = tribe( 'events-aggregator.settings' )->default_post_status( 'csv' );
 		$organizer = $this->build_organizer_array( false, $record );
 		$id        = Tribe__Events__API::createOrganizer( $organizer, $post_status_setting );
 		if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {

@@ -269,8 +269,8 @@ class Tribe__Events__Aggregator__Service {
 	 *
 	 * @return stdClass|WP_Error
 	 */
-	public function get_import( $import_id ) {
-		$response = $this->get( 'import/' . $import_id );
+	public function get_import( $import_id, $data = array() ) {
+		$response = $this->get( 'import/' . $import_id, $data );
 
 		return $response;
 	}
@@ -376,13 +376,17 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Returns a service message based on key
 	 *
-	 * @param string $key Service Message index
+	 * @param string $key     Service Message index
+	 * @param array  $args    An array of arguments that will be fed to a `sprintf` like function to replace
+	 *                        placeholders.
+	 * @param string $default A default message that should be returned should the message code not be found; defaults
+	 *                        to the unknown message.
 	 *
 	 * @return string
 	 */
-	public function get_service_message( $key, $args = array() ) {
+	public function get_service_message( $key, $args = array(), $default = null ) {
 		if ( empty( $this->service_messages[ $key ] ) ) {
-			return __( 'Unknown service message', 'the-events-calendar' );
+			return ! empty( $default ) ? $default : $this->get_unknow_message();
 		}
 
 		return vsprintf( $this->service_messages[ $key ], $args );
@@ -490,14 +494,14 @@ class Tribe__Events__Aggregator__Service {
 	protected function register_messages() {
 		$this->service_messages = array(
 			'error:create-import-failed' => __( 'Sorry, but something went wrong. Please try again.', 'the-events-calendar' ),
-			'error:create-import-invalid-params' => __( 'The import parameters were invalid.', 'the-events-calendar' ),
+			'error:create-import-invalid-params' => __( 'Events could not be imported. The import parameters were invalid.', 'the-events-calendar' ),
 			'error:fb-permissions' => __( 'Events cannot be imported because Facebook has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Facebook. You can <a href="https://theeventscalendar.com/knowledgebase/import-errors/" target="_blank">read more about Facebook restrictions in our knowledgebase</a>.', 'the-events-calendar' ),
 			'error:fetch-404' => __( 'The URL provided could not be reached.', 'the-events-calendar' ),
 			'error:fetch-failed' => __( 'The URL provided failed to load.', 'the-events-calendar' ),
 			'error:get-image' => __( 'The image associated with your event could not be imported.', 'the-events-calendar' ),
 			'error:get-image-bad-association' => __( 'The image associated with your event is not accessible with your API key.', 'the-events-calendar' ),
 			'error:import-failed' => __( 'The import failed for an unknown reason. Please try again. If the problem persists, please contact support.', 'the-events-calendar' ),
-			'error:invalid-ical-url' => __( 'The URL provided did not have events in the proper format.', 'the-events-calendar' ),
+			'error:invalid-ical-url' => __( 'Events could not be imported. The URL provided did not have events in the proper format.', 'the-events-calendar' ),
 			'error:invalid-ics-file' => __( 'The file provided could not be opened. Please confirm that it is a properly formatted .ics file.', 'the-events-calendar' ),
 			'error:meetup-api-key' => __( 'Your Meetup API key is invalid.', 'the-events-calendar' ),
 			'error:meetup-api-quota' => __( 'Event Aggregator cannot reach Meetup.com because you exceeded the request limit for your Meetup API key.', 'the-events-calendar' ),
@@ -510,7 +514,8 @@ class Tribe__Events__Aggregator__Service {
 			'success:get-origin' => __( 'Successfully loaded import origins', 'the-events-calendar' ),
 			'success:import-complete' => __( 'Import is complete', 'the-events-calendar' ),
 			'success:queued' => __( 'Import queued', 'the-events-calendar' ),
-			'error:invalid-other-url' => __( 'The URL provided could not be reached.', 'the-events-calendar' ),
+			'error:invalid-other-url' => __( 'Events could not be imported. The URL provided could not be reached.', 'the-events-calendar' ),
+			'error:no-results' => __( 'The requested source does not have any upcoming and published events matching the search criteria.', 'the-events-calendar' ),
 		);
 
 		/**
@@ -519,5 +524,36 @@ class Tribe__Events__Aggregator__Service {
 		 * @param array $service_messages An associative array of service messages in the `[ <slug> => <localized text> ]` format.
 		 */
 		$this->service_messages = apply_filters( 'tribe_aggregator_service_messages', $this->service_messages );
+	}
+
+	/**
+	 * Returns the message used for unknown message codes.
+	 *
+	 * @return string
+	 */
+	public function get_unknow_message() {
+		return __( 'Unknown service message', 'the-events-calendar' );
+	}
+
+	/**
+	 * Confirms an import with Event Aggregator Service.
+	 *
+	 * @param array $args
+	 *
+	 * @return bool Whether the import was confirmed or not.
+	 */
+	public function confirm_import( $args ) {
+		$keys = array( 'origin', 'source', 'type' );
+		$keys = array_combine( $keys, $keys );
+		$confirmation_args = array_intersect_key( $args, $keys );
+		$confirmation_args = array_merge( $confirmation_args, array(
+			'facebook_token' => '1',
+			'meetup_api_key' => '1',
+		) );
+		$response = $this->post_import( $confirmation_args );
+
+		$confirmed = ! empty( $response->status ) && 0 !== strpos( $response->status, 'error' );
+
+		return $confirmed;
 	}
 }

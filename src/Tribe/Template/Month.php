@@ -161,8 +161,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			// include child categories in the query, save categories for reuse
 			$this->set_queried_event_cats();
 
-
-
 			/**
 			 * Controls whether or not month view caching is enabled.
 			 *
@@ -215,7 +213,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 */
 		protected function should_enable_month_view_cache() {
 			// Respect the month view caching setting
-			if ( ! tribe_get_option( 'enable_month_view_cache', false ) ) {
+			if ( ! tribe_get_option( 'enable_month_view_cache', true ) ) {
 				return false;
 			}
 
@@ -774,7 +772,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'date'         => $date,
 					'events'       => $day_events,
 					'total_events' => $day_events->found_posts,
-					'view_more'    => ( $day_events->found_posts > $this->events_per_day ) ? self::view_more_link( $date ) : false,
+					'view_more'    => ( $day_events->found_posts > $this->events_per_day && $this->events_per_day >= 1 ) ? self::view_more_link( $date ) : false,
 					'month'        => $month_type,
 				);
 

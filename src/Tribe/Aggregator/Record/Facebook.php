@@ -25,6 +25,7 @@ class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggrega
 		$url = $service->api()->domain . 'facebook/' . $service->api()->key;
 		$defaults = array(
 			'referral' => urlencode( home_url() ),
+			'admin_url' => urlencode( get_admin_url() ),
 			'type' => 'new',
 			'lang' => get_bloginfo( 'language' ),
 		);
@@ -65,5 +66,21 @@ class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggrega
 		$event['EventURL'] = $record->meta['source'];
 
 		return $event;
+	}
+
+	/**
+	 * Filters the event to ensure that fields are preserved that are not otherwise supported by Facebook
+	 *
+	 * @param array $event Event data
+	 * @param Tribe__Events__Aggregator__Record__Abstract $record Aggregator Import Record
+	 *
+	 * @return array
+	 */
+	public static function filter_event_to_preserve_fields( $event, $record ) {
+		if ( 'facebook' !== $record->origin ) {
+			return $event;
+		}
+
+		return self::preserve_event_option_fields( $event );
 	}
 }

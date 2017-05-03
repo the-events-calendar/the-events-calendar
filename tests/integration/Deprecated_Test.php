@@ -8,7 +8,7 @@
  *
  * @package Tribe__Events__Main
  */
-class Tribe_Deprecated_Test extends Tribe__Events__WP_UnitTestCase {
+class Deprecated_Test extends \Codeception\TestCase\WPTestCase {
 
 	public function deprecated_classes_4_0() {
 		return array(
@@ -110,7 +110,7 @@ class Tribe_Deprecated_Test extends Tribe__Events__WP_UnitTestCase {
 			$this->markTestSkipped( $class . 'was already loaded' );
 		}
 
-		$this->expected_deprecated_file[] = dirname( dirname( dirname( __FILE__ ) ) ) . '/src/deprecated/' . $class . '.php';
+		add_filter( 'deprecated_file_trigger_error', '__return_false' );
 		$this->assertTrue( class_exists( $class ), 'Class "' . $class . '" does not exist.' );
 	}
 
@@ -124,7 +124,7 @@ class Tribe_Deprecated_Test extends Tribe__Events__WP_UnitTestCase {
 			$this->markTestSkipped( $class . 'was already loaded' );
 		}
 
-		$this->expected_deprecated_file[] = dirname( dirname( dirname( __FILE__ ) ) ) . '/src/deprecated/' . $class . '.php';
+		add_filter( 'deprecated_file_trigger_error', '__return_false' );
 		$this->assertTrue( class_exists( $class ), 'Class "' . $class . '" does not exist.' );
 	}
 
@@ -138,8 +138,7 @@ class Tribe_Deprecated_Test extends Tribe__Events__WP_UnitTestCase {
 			$this->markTestSkipped( $class . 'was already loaded' );
 		}
 
-		$this->expected_deprecated_file[] = dirname( dirname( dirname( __FILE__ ) ) ) . '/common/src/deprecated/' . $class
-		                                    . '.php';
+		add_filter( 'deprecated_file_trigger_error', '__return_false' );
 		$this->assertTrue( class_exists( $class ), 'Class "' . $class . '" does not exist.' );
 	}
 
@@ -153,7 +152,7 @@ class Tribe_Deprecated_Test extends Tribe__Events__WP_UnitTestCase {
 			$this->markTestSkipped( $class . 'was already loaded' );
 		}
 
-		$this->expected_deprecated_file[] = dirname( dirname( dirname( __FILE__ ) ) ) . '/src/deprecated/' . $class . '.php';
+		add_filter( 'deprecated_file_trigger_error', '__return_false' );
 		$this->assertTrue( class_exists( $class ), 'Class "' . $class . '" does not exist.' );
 	}
 }

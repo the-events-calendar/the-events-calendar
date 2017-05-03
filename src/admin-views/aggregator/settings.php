@@ -52,7 +52,7 @@ $change_authority = array(
 		'options' => array(
 			'overwrite' => __( 'Overwrite my event with any changes from the original source.', 'the-events-calendar' ),
 			'retain' => __( 'Do not re-import events. Changes made locally will be preserved.', 'the-events-calendar' ),
-			'preserve_changes' => __( 'Preserve the most recent change in each event field, whether that change occurred on my site or at the original source.', 'the-events-calendar' ),
+			'preserve_changes' => __( 'Import events but preserve local changes to event fields.', 'the-events-calendar' ),
 		),
 	),
 );
@@ -393,6 +393,18 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => $origin_show_map_options,
 		),
+		'tribe_aggregator_default_url_import_range' => array(
+			'type' => 'dropdown',
+			'label' => esc_html__( 'Import date range', 'the-events-calendar' ),
+			// @todo @luca set the correct URL for Knowledgebase here
+			'tooltip' => esc_html__( 'When importing from a website that uses The Events Calendar, the REST API will attempt to fetch events this far in the future. That website\'s hosting resources may impact the success of imports. Selecting a shorter time period may improve results.', 'the-events-calendar' ) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/other-url-import-errors-in-event-aggregator' ), esc_html( 'Learn more.' ) ),
+			'size' => 'medium',
+			'validation_type' => 'options',
+			'default' => 30 * DAY_IN_SECONDS,
+			'can_be_empty' => false,
+			'parent_option' => Tribe__Events__Main::OPTIONNAME,
+			'options' => tribe( 'events-aggregator.settings' )->get_url_import_range_options( true ),
+		),
 		'tribe_aggregator_default_url_import_event_settings' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Import Event Settings', 'the-events-calendar' ),
@@ -453,7 +465,7 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 	ob_start();
 	?>
 	<p><?php esc_html_e( 'Use the options below to configure your imports. Looking for more ways to import events from other websites?', 'the-events-calendar' ); ?></p>
-	<a href="http://m.tri.be/196z"><?php esc_html_e( 'Check out Event Aggregator.', 'the-events-calendar' ); ?></a>
+	<a href="https://m.tri.be/196z"><?php esc_html_e( 'Check out Event Aggregator.', 'the-events-calendar' ); ?></a>
 	<?php
 	$import_instructions = ob_get_clean();
 }

@@ -1,4 +1,4 @@
-# The Events Calendar tests
+# Events Calendar PRO tests
 
 This is a brief and quick guide that's covering the bare essentials needed to set up the tests on your local plugin copy.
 Please refer to [Codeception](http://codeception.com/docs) and [WP Browser](https://github.com/lucatume/wp-browser) documentation for any issue that's not TEC related.
@@ -17,13 +17,10 @@ To be able to run successfully on your system Codeception will need to be config
 Codeception allows for "distribution" versions of its configuration to be  shared among developers, what you define in your local Codeception configuration files will override the "distribution" setting; think of CSS rules.  
 The repository contains a `codeception.dist.yml` file that Codeception will read before reading the local to your machine `codeception.yml` file.  
 Copy the distribution version of the Codeception configuration file in the root folder of the plugin
-
+	
 	cp codeception.dist.yml codeception.yml
 
-Edit the file `codeception.yml` file to suit your database, installation folder and web driver settings.
-**Note** Acceptance tests will use the `WPDb` module and start from the `tests/_data/dump.sql` file for each test: administrator username and password used by the `WPWebDriver` module should not be changed.  
-While this makes creating starting points for tests easier you should make sure that the table prefix defined in the `codeception.dist.yml` file is the same that your acceptance installation is using.
-
+**Edit the file `codeception.yml` file to suit your database, installation folder and web driver settings.**
 
 **Beware**: The `WPLoader` module that's used in functional tests will **destroy** the database it's working on: **do not** point it to the same database you use for development! A good rule of thumb is to have a database for development (e.g. `tec`) and one that will be used for tests (e.g. `tec-tests`).  
 On the same lines the repository packs "distribution" versions of the `unit.suite.dist.yml`, `functional.suite.dist.yml` and `acceptance.suite.dist.yml` configuration files: there is usually no need to override those but it's worth mentioning they exist.
@@ -44,11 +41,7 @@ Nothing different from a default Codeception environment so this command will ru
 	vendor/bin/codecept run
 
 Failing tests are ok in set up terms: the system works. Errors should be reported.
-Please refer to [Codeception documentation](http://codeception.com/docs) to learn about more run and configuration options.
-
-If you'd like to run just the acceptance tests (or substitute for unir or functional) you can use a command like this:
-
-	vendor/bin/codecept run acceptance
+Please refer to [Codeception documentation](http://codeception.com/docs) to learn about more run and configuaration options.
 
 ## Contributing to tests
 Should you come up with good utility methods, worthy database configurations and "cool additions" in general for the plugin tests feel free to open a PR and submit them for review.

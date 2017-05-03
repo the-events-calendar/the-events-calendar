@@ -23,7 +23,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 	}
 
 	protected function create_post( array $record ) {
-		$post_status_setting = Tribe__Events__Aggregator__Settings::instance()->default_post_status( 'csv' );
+		$post_status_setting = tribe( 'events-aggregator.settings' )->default_post_status( 'csv' );
 		$venue = $this->build_venue_array( false, $record );
 		$id    = Tribe__Events__API::createVenue( $venue, $post_status_setting );
 		if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
@@ -34,7 +34,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 	}
 
 	private function build_venue_array( $venue_id, array $record ) {
-		$show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( 'csv' );
+		$show_map_setting = tribe( 'events-aggregator.settings' )->default_map( 'csv' );
 
 		$venue_address         = trim( $this->get_value_by_key( $record, 'venue_address' ) . ' ' . $this->get_value_by_key( $record, 'venue_address2' ) );
 		$venue                 = array(

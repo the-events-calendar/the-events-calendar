@@ -31,10 +31,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '4.5dev1';
+		const VERSION             = '4.5.0.2';
 		const MIN_ADDON_VERSION   = '4.4';
-		const MIN_COMMON_VERSION  = '4.4';
-		const WP_PLUGIN_URL       = 'http://wordpress.org/extend/plugins/the-events-calendar/';
+		const MIN_COMMON_VERSION  = '4.5.0.1';
+		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
 		 * Maybe display data wrapper
@@ -80,12 +80,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public $postOrganizerTypeArgs = array();
 
-		public static $tribeUrl = 'http://tri.be/';
+		public static $tribeUrl = 'https://tri.be/';
 		public static $tecUrl = 'https://theeventscalendar.com/';
 
 		public static $addOnPath = 'products/';
 
-		public static $dotOrgSupportUrl = 'http://wordpress.org/tags/the-events-calendar';
+		public static $dotOrgSupportUrl = 'https://wordpress.org/support/plugin/the-events-calendar';
 
 		public $rewriteSlug = 'events';
 		public $rewriteSlugSingular = 'event';
@@ -93,6 +93,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $tag_slug = 'tag';
 		public $monthSlug = 'month';
 		public $featured_slug = 'featured';
+		public $all_slug = 'all';
 
 		/** @deprecated 4.0 */
 		public $taxRewriteSlug = 'event/category';
@@ -170,6 +171,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_EventTimezoneAbbr',
 			self::EVENTSERROROPT,
 			'_EventOrigin',
+			'_tribe_featured',
 		);
 
 		public $venueTags = array(
@@ -396,6 +398,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Event Aggregator
 			tribe_singleton( 'events-aggregator.main', 'Tribe__Events__Aggregator', array( 'load', 'hook' ) );
 			tribe_singleton( 'events-aggregator.service', 'Tribe__Events__Aggregator__Service' );
+			tribe_singleton( 'events-aggregator.settings', 'Tribe__Events__Aggregator__Settings' );
 
 			// Shortcodes
 			tribe_singleton( 'tec.shortcodes.event-details', 'Tribe__Events__Shortcode__Event_Details', array( 'hook' ) );
@@ -512,7 +515,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'bloginfo_rss', array( $this, 'add_space_to_rss' ) );
 			add_filter( 'post_updated_messages', array( $this, 'updatePostMessage' ) );
 
-			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
+			/* Add nav menu item - thanks to https://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
 			add_filter( 'nav_menu_items_' . self::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events' ), null, 2 );
 
@@ -532,7 +535,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
-			add_action( 'post_updated', array( $this, 'track_event_post_field_changes' ), 10, 3 );
 
 			/* Registers the list widget */
 			add_action( 'widgets_init', array( $this, 'register_list_widget' ), 90 );
@@ -554,6 +556,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', array( 'Tribe__Cache_Listener', 'instance' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Cache', 'setup' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Support', 'getInstance' ) );
+
+			add_filter( 'tribe_tracker_post_types', array( $this, 'filter_tracker_event_post_types' ) );
+			add_filter( 'tribe_tracker_taxonomies', array( $this, 'filter_tracker_event_taxonomies' ) );
 
 			if ( ! Tribe__Main::instance()->doing_ajax() ) {
 				add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
@@ -700,6 +705,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->daySlug                                    = sanitize_title( __( 'day', 'the-events-calendar' ) );
 			$this->todaySlug                                  = sanitize_title( __( 'today', 'the-events-calendar' ) );
 			$this->featured_slug                              = sanitize_title( _x( 'featured', 'featured events slug', 'the-events-calendar' ) );
+			$this->all_slug                                   = sanitize_title( _x( 'all', 'all events slug', 'the-events-calendar' ) );
 
 			$this->singular_venue_label                       = $this->get_venue_label_singular();
 			$this->plural_venue_label                         = $this->get_venue_label_plural();
@@ -940,6 +946,39 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * By default Tribe__Tracker won't track Event Post Types, so we add them here.
+		 *
+		 * @since  4.5
+		 *
+		 * @param  array $post_types
+		 *
+		 * @return array
+		 */
+		public function filter_tracker_event_post_types( array $post_types ) {
+			$post_types[] = self::POSTTYPE;
+			$post_types[] = Tribe__Events__Venue::POSTTYPE;
+			$post_types[] = Tribe__Events__Organizer::POSTTYPE;
+
+			return $post_types;
+		}
+
+		/**
+		 * By default Tribe__Tracker won't track our Post Types taxonomies, so we add them here.
+		 *
+		 * @since  4.5
+		 *
+		 * @param  array $taxonomies
+		 *
+		 * @return array
+		 */
+		public function filter_tracker_event_taxonomies( array $taxonomies ) {
+			$taxonomies[] = 'post_tag';
+			$taxonomies[] = self::TAXONOMY;
+
+			return $taxonomies;
+		}
+
+		/**
 		 * Append the text about The Events Calendar to the feature box on the Help page
 		 *
 		 * @filter "tribe_help_pre_get_sections"
@@ -947,7 +986,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function add_help_section_feature_box_content( $help ) {
-			$link = '<a href="http://m.tri.be/18j8" target="_blank">' . esc_html__( 'New User Primer', 'the-events-calendar' ) . '</a>';
+			$link = '<a href="https://m.tri.be/18j8" target="_blank">' . esc_html__( 'New User Primer', 'the-events-calendar' ) . '</a>';
 
 			$help->add_section_content( 'feature-box', sprintf( __( 'We are committed to helping make your calendar spectacular and have a wealth of resources available, including a handy %s to get your calendar up and running.', 'the-events-calendar' ), $link ) );
 		}
@@ -963,17 +1002,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$help->add_section_content( 'support', '<strong>' . esc_html__( 'Support for The Events Calendar', 'the-events-calendar' ) . '</strong>', 15 );
 
 			$help->add_section_content( 'support', array(
-				sprintf( __( '%s: A thorough walkthrough of The Events Calendar and the settings that are available to you.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18je" target="_blank">' . esc_html__( 'Settings overview', 'the-events-calendar' ) . '</a></strong>' ),
+				sprintf( __( '%s: A thorough walkthrough of The Events Calendar and the settings that are available to you.', 'the-events-calendar' ), '<strong><a href="https://m.tri.be/18je" target="_blank">' . esc_html__( 'Settings overview', 'the-events-calendar' ) . '</a></strong>' ),
 
-				sprintf( __( '%s: A complete look at the features you can expect to see right out of the box as well as how to use them.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18jc" target="_blank">' . esc_html__( 'Features overview', 'the-events-calendar' ) . '</a></strong>' ),
+				sprintf( __( '%s: A complete look at the features you can expect to see right out of the box as well as how to use them.', 'the-events-calendar' ), '<strong><a href="https://m.tri.be/18jc" target="_blank">' . esc_html__( 'Features overview', 'the-events-calendar' ) . '</a></strong>' ),
 
-				sprintf( __( '%s: Our most comprehensive outline for customizing the calendar to suit your needs, including custom layouts and styles.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18jg" target="_blank">' . esc_html__( 'Themer’s Guide', 'the-events-calendar' ) . '</a></strong>' ),
+				sprintf( __( '%s: Our most comprehensive outline for customizing the calendar to suit your needs, including custom layouts and styles.', 'the-events-calendar' ), '<strong><a href="https://m.tri.be/18jg" target="_blank">' . esc_html__( 'Themer’s Guide', 'the-events-calendar' ) . '</a></strong>' ),
 
-				sprintf( __( '%s: An overview of the default templates and styles that are included in the plugin, as well as how to change them.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18jd" target="_blank">' . esc_html__( 'Using stylesheets and page templates', 'the-events-calendar' ) . '</a></strong>' ),
+				sprintf( __( '%s: An overview of the default templates and styles that are included in the plugin, as well as how to change them.', 'the-events-calendar' ), '<strong><a href="https://m.tri.be/18jd" target="_blank">' . esc_html__( 'Using stylesheets and page templates', 'the-events-calendar' ) . '</a></strong>' ),
 
-				sprintf( __( '%s: Do you see an issue with your calendar? Go here first to find where it’s coming from and how to fix it.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18jb" target="_blank">' . esc_html__( 'Troubleshooting common problems', 'the-events-calendar' ) . '</a></strong>' ),
+				sprintf( __( '%s: Do you see an issue with your calendar? Go here first to find where it’s coming from and how to fix it.', 'the-events-calendar' ), '<strong><a href="https://m.tri.be/18jb" target="_blank">' . esc_html__( 'Troubleshooting common problems', 'the-events-calendar' ) . '</a></strong>' ),
 
-				sprintf( __( '%s: Code and guides for customizing your calendar in useful and interesting ways.', 'the-events-calendar' ), '<strong><a href="http://m.tri.be/18ja" target="_blank">' . esc_html__( 'Customizing the Events plugins', 'the-events-calendar' ) . '</a></strong>' ),
+				sprintf( __( '%s: Code and guides for customizing your calendar in useful and interesting ways.', 'the-events-calendar' ), '<strong><a href="https://m.tri.be/18ja" target="_blank">' . esc_html__( 'Customizing the Events plugins', 'the-events-calendar' ) . '</a></strong>' ),
 			), 15 );
 		}
 
@@ -991,7 +1030,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$link_et = '<a href="https://wordpress.org/support/plugin/event-tickets/" target="_blank">' . esc_html__( 'Events Tickets', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( 'If you have tried the above steps and are still having trouble, you can post a new thread to our WordPress.org forums for %1$s or %2$s. Our support staff monitors these forums once a week and would be happy to assist you there. ', 'the-events-calendar' ), $link_tec, $link_et ), 20 );
 
-				$link = '<a href="http://m.tri.be/4w/" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
+				$link = '<a href="https://m.tri.be/4w/" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( '<strong>Looking for more immediate support?</strong> We offer %s with the purchase of any of our premium plugins. Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays', 'the-events-calendar' ), $link ), 20 );
 
 			} elseif ( ! $help->is_active( array( 'events-calendar-pro', 'event-tickets' ) ) ) {
@@ -999,13 +1038,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$link = '<a href="https://wordpress.org/support/plugin/the-events-calendar" target="_blank">' . esc_html__( 'open-source forum on WordPress.org', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( 'If you have tried the above steps and are still having trouble, you can post a new thread to our %s. Our support staff monitors these forums once a week and would be happy to assist you there.', 'the-events-calendar' ), $link ), 20 );
 
-				$link_forum = '<a href="http://m.tri.be/4w/" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
-				$link_plus = '<a href="http://m.tri.be/18n0" target="_blank">' . esc_html__( 'Events Calendar PRO', 'the-events-calendar' ) . '</a>';
+				$link_forum = '<a href="https://m.tri.be/4w/" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
+				$link_plus = '<a href="https://m.tri.be/18n0" target="_blank">' . esc_html__( 'Events Calendar PRO', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( '<strong>Looking for more immediate support?</strong> We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays.', 'the-events-calendar' ), $link_forum, $link_plus ), 20 );
 
 			} else {
 
-				$link = '<a href="http://m.tri.be/4w/" target="_blank">' . esc_html__( 'post a thread', 'the-events-calendar' ) . '</a>';
+				$link = '<a href="https://m.tri.be/4w/" target="_blank">' . esc_html__( 'post a thread', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( 'If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week).', 'the-events-calendar' ), $link ), 20 );
 
 			}
@@ -2171,7 +2210,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->monthsFull      = Tribe__Date_Utils::get_localized_months_full();
 			$this->monthsShort     = Tribe__Date_Utils::get_localized_months_short();
 			$this->daysOfWeek      = Tribe__Date_Utils::get_localized_weekdays_full();
-			$this->daysOfWeekShort = Tribe__Date_Utils::get_localized_months_short();
+			$this->daysOfWeekShort = Tribe__Date_Utils::get_localized_weekdays_short();
 			$this->daysOfWeekMin   = Tribe__Date_Utils::get_localized_weekdays_initial();
 
 			// Setup the Strings for Rewrite Translations
@@ -2203,7 +2242,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @todo This is only registering the events post type, not the meta types
 		 *
-		 * @link http://codex.wordpress.org/Custom_Queries#Permalinks_for_Custom_Archives
+		 * @link https://codex.wordpress.org/Custom_Queries#Permalinks_for_Custom_Archives
 		 */
 		public static function flushRewriteRules() {
 
@@ -2235,7 +2274,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param array $qvars
 		 *
-		 * @link http://codex.wordpress.org/Custom_Queries#Permalinks_for_Custom_Archives
+		 * @link https://codex.wordpress.org/Custom_Queries#Permalinks_for_Custom_Archives
 		 * @return mixed array of query variables that this plugin understands
 		 */
 		public function eventQueryVars( $qvars ) {
@@ -2584,7 +2623,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$params = apply_filters( 'tribe_google_calendar_parameters', $params, $post->ID );
 
-			$base_url = 'http://www.google.com/calendar/event';
+			$base_url = 'https://www.google.com/calendar/event';
 			$url    = add_query_arg( $params, $base_url );
 
 			return $url;
@@ -2931,50 +2970,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Allow this callback to run
 			$avoid_recursion = false;
-		}
-
-		/**
-		 * Tracks fields that are changed when an event is updated
-		 *
-		 * @param int $post_id Post ID
-		 * @param WP_Post $post_after New post object
-		 * @param WP_Post $post_before Old post object
-		 */
-		public function track_event_post_field_changes( $post_id, $post_after, $post_before ) {
-			if ( self::POSTTYPE !== $post_after->post_type ) {
-				return;
-			}
-
-			// bail if we shouldn't be tracking modifications
-			if ( ! apply_filters( 'tribe_aggregator_track_modified_fields', true ) ) {
-				return;
-			}
-
-			$now = current_time( 'timestamp' );
-
-			if ( ! $modified = get_post_meta( $post_id, Tribe__Events__API::$modified_field_key, true ) ) {
-				$modified = array();
-			}
-
-			$fields_to_check_for_changes = array(
-				'post_title',
-				'post_content',
-				'post_status',
-				'post_type',
-				'post_parent',
-			);
-
-			foreach ( $fields_to_check_for_changes as $field ) {
-				if ( ! Tribe__Events__API::is_post_value_changed( $field, $post_after, $post_before ) ) {
-					continue;
-				}
-
-				$modified[ $field ] = $now;
-			}
-
-			if ( $modified ) {
-				update_post_meta( $post_id, Tribe__Events__API::$modified_field_key, $modified );
-			}
 		}
 
 		public function normalize_organizer_submission( $submission ) {

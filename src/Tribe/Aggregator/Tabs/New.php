@@ -188,7 +188,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		// Make sure we have a post status set no matter what
 		if ( empty( $data['post_status'] ) ) {
-			$data['post_status'] = Tribe__Events__Aggregator__Settings::instance()->default_post_status( $data['origin'] );
+			$data['post_status'] = tribe( 'events-aggregator.settings' )->default_post_status( $data['origin'] );
 		}
 
 		// If the submitted category is null, that means the user intended to de-select the default
@@ -517,14 +517,14 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 			<p><?php esc_html_e( 'With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup.com in a jiffy.', 'the-events-calendar' ); ?></p>
 
-			<a href="http://m.tri.be/196y" class="tribe-license-link tribe-button tribe-button-primary" target="_blank">
+			<a href="https://m.tri.be/196y" class="tribe-license-link tribe-button tribe-button-primary" target="_blank">
 				<?php esc_html_e( 'Buy It Now', 'the-events-calendar' );?>
 				<span class="screen-reader-text">
 					<?php esc_html_e( 'opens in a new window', 'the-events-calendar' );?>
 				</span>
 			</a>
 
-			<a href="http://m.tri.be/196z" class="tribe-license-link tribe-button tribe-button-secondary" target="_blank">
+			<a href="https://m.tri.be/196z" class="tribe-license-link tribe-button tribe-button-secondary" target="_blank">
 				<?php esc_html_e( 'Learn More', 'the-events-calendar' ); ?>
 				<span class="screen-reader-text">
 					<?php esc_html_e( 'opens in a new window', 'the-events-calendar' );?>
