@@ -44,7 +44,8 @@ class OriginsTest extends Aggregator_TestCase {
 	 * it should enable the Other URL origin if allowed from the server
 	 */
 	public function it_should_enable_the_other_url_origin_if_allowed_from_the_server() {
-		$this->service->get_origins()->willReturn( $this->factory()->ea_service->create_origins() );
+		$mock_origins = $this->factory()->ea_service->create_origins();
+		$this->service->get_origins()->willReturn( $mock_origins );
 		$this->service->api()->willReturn( true );
 
 		$sut = $this->make_instance();

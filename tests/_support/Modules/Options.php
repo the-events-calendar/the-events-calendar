@@ -1,6 +1,6 @@
 <?php
 
-namespace Tribe\Tests\Modules\Options;
+namespace Tribe\Events\Tests\Modules;
 
 
 class Options extends \Codeception\Module {
