@@ -327,7 +327,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5.1] TBD =
+= [4.5.1] 2017-05-03 =
 
 * Fix - Prevented errors on EA import screen that happened in exotic circumstance. Thanks @kathryn for reporting this! [75787]
 * Fix - Made EA preserve custom dates after reimporting a Facebook Event when option is set. [75787]
