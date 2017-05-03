@@ -378,8 +378,16 @@ class Tribe__Events__Aggregator__Cron {
 			return;
 		}
 
+		$cleaner = new Tribe__Events__Aggregator__Record__Queue_Cleaner();
 		foreach ( $query->posts as $post ) {
 			$record = $records->get_by_post_id( $post );
+
+			$cleaner->remove_duplicate_pending_records_for( $record );
+			$failed = $cleaner->maybe_fail_stalled_record( $record );
+
+			if ( $failed ) {
+				continue;
+			}
 
 			// Just double Check for CSV
 			if ( 'csv' === $record->origin ) {
