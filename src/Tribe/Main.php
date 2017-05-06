@@ -651,6 +651,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Preview handling
 			add_action( 'template_redirect', array( Tribe__Events__Revisions__Preview::instance(), 'hook' ) );
 
+			// Register all of the post types in the chunker and start the chunker
+			add_filter( 'tribe_meta_chunker_post_types', array( $this, 'filter_meta_chunker_post_types' ) );
+			tribe( 'chunker' );
+
 			// Register slug conflict notices (but test to see if tribe_notice() is indeed available, in case another plugin
 			// is hosting an earlier version of tribe-common which is already active)
 			//
@@ -5055,6 +5059,23 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public static function ecpActive( $version = '2.0.7' ) {
 			return class_exists( 'Tribe__Events__Pro__Main' ) && defined( 'Tribe__Events__Pro__Main::VERSION' ) && version_compare( Tribe__Events__Pro__Main::VERSION, $version, '>=' );
+		}
+
+		/**
+         * Filters the chunkable post types.
+         *
+		 * @param array $post_types
+		 * @return array The filtered post types
+		 */
+		public function filter_meta_chunker_post_types( array $post_types ) {
+			$post_types = array_merge( $post_types, array(
+				self::POSTTYPE,
+				self::VENUE_POST_TYPE,
+				self::ORGANIZER_POST_TYPE,
+				Tribe__Events__Aggregator__Records::$post_type,
+			) );
+
+			return $post_types;
 		}
 
 	}
