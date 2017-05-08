@@ -31,7 +31,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '4.5.0.2';
+		const VERSION             = '4.5.1';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.5.0.1';
 		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
@@ -3040,11 +3040,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Publishes associated venue/organizer when an event is published
 		 *
-		 * @param int     $postID , the post ID
-		 * @param WP_Post $post   , the post object
+		 * @param int     $post_id The post ID.
+		 * @param WP_Post $post    The post object.
 		 *
 		 */
-		public function publishAssociatedTypes( $postID, $post ) {
+		public function publishAssociatedTypes( $post_id, $post ) {
 
 			// don't need to save the venue or organizer meta when we are just publishing
 			remove_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
@@ -3090,7 +3090,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// put the actions back
 			add_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
-
 		}
 
 		/**
