@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, MZAWeb, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shelbelliott, shane.pearlman, aguseo, tribecari, trishasalas, courane01
+Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, MZAWeb, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shelbelliott, shane.pearlman, aguseo, tribecari, trishasalas, courane01, GeoffBel, vicskf
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
@@ -280,7 +280,6 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * [Geoff Graham](https://profiles.wordpress.org/geoffgraham)
 * [George Gecewicz](https://profiles.wordpress.org/ggwicz)
 * [Gustavo Bordoni](https://profiles.wordpress.org/bordoni)
-* [Hunter Wilson](https://profiles.wordpress.org/joinfof)
 * [Leah Koerper](https://profiles.wordpress.org/leahkoerper)
 * [Luca Tumedei](https://profiles.wordpress.org/lucatume)
 * [Matthew Batchelder](https://profiles.wordpress.org/borkweb)
@@ -328,6 +327,13 @@ Please see the changelog for the complete list of changes in this release. Remem
 == Changelog ==
 
 = [4.6] TBD =
+
+= [4.5.1] 2017-05-04 =
+
+* Fix - Prevented errors on EA import screen that happened in exotic circumstance. Thanks @kathryn for reporting this! [75787]
+* Fix - Made EA preserve custom dates after reimporting a Facebook Event when option is set. [75787]
+* Fix - Enhance month view caching to minimize impact of JSON-LD generation [74656]
+* Tweak - Styling/layout improvements within the Event Aggregator screen [77895]
 
 = [4.5.0.2] 2017-05-01 =
 
