@@ -238,7 +238,7 @@ class Tribe__Events__Aggregator__Service {
 
 		// If we have an WP_Error we return only CSV
 		if ( is_wp_error( $response ) || empty( $response->status ) ) {
-			set_transient('tribe_aggregator_origins_response', $origins, 300);
+			set_transient( 'tribe_aggregator_origins_response', $origins, 300 );
 
 			return $origins;
 		}
