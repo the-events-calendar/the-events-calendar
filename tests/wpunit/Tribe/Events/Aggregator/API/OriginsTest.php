@@ -56,22 +56,6 @@ class OriginsTest extends Aggregator_TestCase {
 	}
 
 	/**
-	 * @test
-	 * it should not enable the Other URL origin if not allowed from the server
-	 */
-	public function it_should_not_enable_the_other_url_origin_if_not_allowed_from_the_server() {
-		$this->service->get_origins()->willReturn( $this->factory()->ea_service->create_origins( [ 'disable' => 'url' ] ) );
-		$this->service->api()->willReturn( true );
-
-		$sut = $this->make_instance();
-
-		$origins = $sut->get();
-
-		$this->assertArrayHasKey( 'url', $origins );
-		$this->assertTrue( $origins['url']->disabled );
-	}
-
-	/**
 	 * @return Origins
 	 */
 	private function make_instance() {
