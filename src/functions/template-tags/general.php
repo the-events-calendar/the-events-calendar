@@ -1004,8 +1004,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		$use_yearless_format = apply_filters( 'tribe_events_event_schedule_details_use_yearless_format',
 			(
-					tribe_get_start_date( $event, false, 'Y' ) === date_i18n( 'Y' )
-					&& tribe_get_end_date( $event, false, 'Y' ) === date_i18n( 'Y' )
+				tribe_get_start_date( $event, false, 'Y' ) === date_i18n( 'Y' )
+				&& tribe_get_end_date( $event, false, 'Y' ) === date_i18n( 'Y' )
 			),
 			$event
 		);
