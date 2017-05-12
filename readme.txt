@@ -328,6 +328,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.5.2] TBD =
 
+* Fix - Correct REST API reference URL (our thanks to Lindsey for flagging this) [78658]
 * Tweak - Make the inclusion or exclusion of the year (within the event schedule string) filterable [78070]
 
 = [4.5.1] 2017-05-04 =
