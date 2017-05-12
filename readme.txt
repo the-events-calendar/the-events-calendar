@@ -326,6 +326,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.5.2] TBD =
+
+* Fix - Correct REST API reference URL (our thanks to Lindsey for flagging this) [78658]
+
 = [4.5.1] 2017-05-04 =
 
 * Fix - Prevented errors on EA import screen that happened in exotic circumstance. Thanks @kathryn for reporting this! [75787]
