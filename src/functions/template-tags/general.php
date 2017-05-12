@@ -958,7 +958,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return mixed|void
 	 */
-	function tribe_events_( $event = null, $before = '', $after = '' ) {
+	function tribe_events_event_schedule_details( $event = null, $before = '', $after = '' ) {
 		if ( is_null( $event ) ) {
 			global $post;
 			$event = $post;
