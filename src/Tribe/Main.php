@@ -5062,8 +5062,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-         * Filters the chunkable post types.
-         *
+		 * Filters the chunkable post types.
+		 *
 		 * @param array $post_types
 		 * @return array The filtered post types
 		 */
