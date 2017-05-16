@@ -2,11 +2,9 @@
 
 # suite for WordPress functional tests.
 # Emulate web requests and make application process them.
-class_name: IntegrationTester
+class_name: WpunitTester
 modules:
-    enabled:
-        - \Helper\Integration
-        - WPLoader
+    enabled: [WPLoader, \Helper\Wpunit]
     config:
         WPLoader:
             wpRootFolder: /tmp/wordpress
