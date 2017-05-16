@@ -18,7 +18,7 @@ class Auth extends \Restv1Tester {
 	public function authenticate_with_role( $role ) {
 		$I = $this;
 
-		$user_id = $I->haveUserInDatabase( 'user', 'administrator', [ 'user_pass' => 'user' ] );
+		$user_id = $I->haveUserInDatabase( 'user', $role, [ 'user_pass' => 'user' ] );
 
 		// login to get the cookies
 		$I->loginAs( 'user', 'user' );
