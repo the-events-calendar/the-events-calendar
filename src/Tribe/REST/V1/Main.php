@@ -35,6 +35,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		tribe_singleton( 'tec.rest-v1.system', 'Tribe__Events__REST__V1__System' );
 		tribe_singleton( 'tec.rest-v1.validator', 'Tribe__REST__Validator' );
 		tribe_singleton( 'tec.rest-v1.repository', 'Tribe__Events__REST__V1__Post_Repository' );
+		tribe_singleton( 'tec.rest-v1.auth', 'Tribe__Events__REST__V1__Auth' );
 
 		include_once Tribe__Events__Main::instance()->plugin_path . 'src/functions/advanced-functions/rest-v1.php';
 	}
@@ -131,13 +132,23 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 			$this->get_events_route_namespace(),
 			'/events/(?P<id>\\d+)',
 			array(
-				'methods'  => 'GET',
+				'methods' => 'GET',
 				'args'     => array(
 					'id' => array(
 						'validate_callback' => array( tribe( 'tec.rest-v1.validator' ), 'is_numeric' )
 					)
 				),
 				'callback' => array( $endpoint, 'get' ),
+			)
+		);
+
+		register_rest_route(
+			$this->get_events_route_namespace(),
+			'/events/?',
+			array(
+				'methods'             => 'POST',
+				'permission_callback' => array( tribe( 'tec.rest-v1.auth' ), 'can_post_event' ),
+				'callback'            => array( $endpoint, 'post' ),
 			)
 		);
 

@@ -112,4 +112,21 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			),
 		);
 	}
+
+	public function post( WP_REST_Request $request ) {
+		$this->serving = $request;
+
+		$id = Tribe__Events__API::createEvent( array(
+			'post_title'     => $request->get_param( 'title' ),
+			'post_content'   => $request->get_param( 'description' ),
+			'EventStartDate' => date( 'Y-m-d', strtotime( $request->get_param( 'start_date' ) ) ),
+			'EventStartTime' => date( 'H:i:s', strtotime( $request->get_param( 'start_date' ) ) ),
+			'EventEndDate'   => date( 'Y-m-d', strtotime( $request->get_param( 'end_date' ) ) ),
+			'EventEndTime'   => date( 'H:i:s', strtotime( $request->get_param( 'end_date' ) ) ),
+		) );
+
+		$data = $this->post_repository->get_event_data( $id );
+
+		return new WP_REST_Response( $data );
+	}
 }
