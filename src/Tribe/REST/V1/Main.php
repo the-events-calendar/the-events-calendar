@@ -36,6 +36,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		tribe_singleton( 'tec.rest-v1.validator', 'Tribe__REST__Validator' );
 		tribe_singleton( 'tec.rest-v1.repository', 'Tribe__Events__REST__V1__Post_Repository' );
 		tribe_singleton( 'tec.rest-v1.auth', 'Tribe__Events__REST__V1__Auth' );
+		tribe_singleton( 'tec.rest-v1.validator', 'Tribe__REST__Validator' );
 
 		include_once Tribe__Events__Main::instance()->plugin_path . 'src/functions/advanced-functions/rest-v1.php';
 	}
@@ -124,7 +125,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	protected function register_single_event_endpoint() {
 		$messages        = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$endpoint        = new Tribe__Events__REST__V1__Endpoints__Single_Event( $messages, $post_repository );
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Event( $messages, $post_repository, tribe( 'tec.rest-v1.validator' ) );
 
 		tribe_singleton( 'tec.rest-v1.endpoints.single-event', $endpoint );
 
@@ -149,6 +150,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 				'methods'             => 'POST',
 				'permission_callback' => array( tribe( 'tec.rest-v1.auth' ), 'can_post_event' ),
 				'callback'            => array( $endpoint, 'post' ),
+				'args'                => $endpoint->get_post_args(),
 			)
 		);
 

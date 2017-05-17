@@ -17,7 +17,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	/**
 	 * @var Tribe__Events__REST__Interfaces__Post_Repository
 	 */
-	private $post_repository;
+	protected $post_repository;
+
+	/**
+	 * @var Tribe__REST__Validator_Interface
+	 */
+	protected $validator;
 
 	/**
 	 * Tribe__Events__REST__V1__Endpoints__Single_Event constructor.
@@ -26,10 +31,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 */
 	public function __construct(
 		Tribe__REST__Messages_Interface $messages,
-		Tribe__Events__REST__Interfaces__Post_Repository $post_repository
+		Tribe__Events__REST__Interfaces__Post_Repository $post_repository,
+		Tribe__REST__Validator_Interface $validator
 	) {
 		parent::__construct( $messages );
 		$this->post_repository = $post_repository;
+		$this->validator = $validator;
 	}
 
 	/**
@@ -115,18 +122,55 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 	public function post( WP_REST_Request $request ) {
 		$this->serving = $request;
-
-		$id = Tribe__Events__API::createEvent( array(
+		$postarr = array(
+			'post_author'    => $request->get_param( 'author' ),
+			'post_date'      => $this->localize_date( 'Y-m-d H:i:s', $request->get_param( 'date' ) ),
+			'post_date_gmt'  => $this->localize_date( 'Y-m-d H:i:s', $request->get_param( 'date_utc' ) ),
 			'post_title'     => $request->get_param( 'title' ),
 			'post_content'   => $request->get_param( 'description' ),
-			'EventStartDate' => date( 'Y-m-d', strtotime( $request->get_param( 'start_date' ) ) ),
-			'EventStartTime' => date( 'H:i:s', strtotime( $request->get_param( 'start_date' ) ) ),
-			'EventEndDate'   => date( 'Y-m-d', strtotime( $request->get_param( 'end_date' ) ) ),
-			'EventEndTime'   => date( 'H:i:s', strtotime( $request->get_param( 'end_date' ) ) ),
-		) );
+			'EventStartDate' => $this->localize_date( 'Y-m-d', $request->get_param( 'start_date' ) ),
+			'EventStartTime' => $this->localize_date( 'H:i:s', $request->get_param( 'start_date' ) ),
+			'EventEndDate'   => $this->localize_date( 'Y-m-d', $request->get_param( 'end_date' ) ),
+			'EventEndTime'   => $this->localize_date( 'H:i:s', $request->get_param( 'end_date' ) ),
+		);
+
+		$id = Tribe__Events__API::createEvent( array_filter( $postarr ) );
 
 		$data = $this->post_repository->get_event_data( $id );
 
-		return new WP_REST_Response( $data );
+		$response = new WP_REST_Response( $data );
+		$response->set_status( 201 );
+
+		return $response;
+	}
+
+	/**
+	 * Provides the content of the `args` array to register the endpoint support for POST requests.
+	 *
+	 * @return array
+	 */
+	public function get_post_args() {
+		return array(
+			'author'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
+			'date'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'date_utc'    => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'title'       => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ), ),
+			'description' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'start_date'  => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'end_date'    => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+		);
+	}
+
+	protected function localize_date( $format, $date ) {
+		$timezone = Tribe__Timezones::generate_timezone_string_from_utc_offset( Tribe__Timezones::wp_timezone_string() );
+		if ( Tribe__Date_Utils::is_timestamp( $date ) ) {
+			$date = new DateTime();
+			$date->setTimestamp( $date );
+			$date->setTimezone( new DateTimeZone( $timezone ) );
+		} else {
+			$date = new DateTime( $date, new DateTimeZone( $timezone ) );
+		}
+
+		return $date->format( $format );
 	}
 }
