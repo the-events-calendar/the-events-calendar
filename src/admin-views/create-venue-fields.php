@@ -31,7 +31,7 @@ if ( ! $_POST ) {
 	$google_map_toggle      = isset( $_POST['EventShowMap'] ) ? esc_attr( $_POST['EventShowMap'] ) : '';
 }
 ?>
-<tr class="linked-post venue">
+<tr class="linked-post venue tribe-linked-type-venue-address">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'Address:', 'the-events-calendar' ); ?></td>
 	<td>
 		<input
@@ -44,7 +44,7 @@ if ( ! $_POST ) {
 		/>
 	</td>
 </tr>
-<tr class="linked-post venue">
+<tr class="linked-post venue tribe-linked-type-venue-city">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'City:', 'the-events-calendar' ); ?></td>
 	<td>
 		<input
@@ -57,7 +57,7 @@ if ( ! $_POST ) {
 		/>
 	</td>
 </tr>
-<tr class="linked-post venue">
+<tr class="linked-post venue tribe-linked-type-venue-country">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'Country:', 'the-events-calendar' ); ?></td>
 	<td>
 		<?php
@@ -93,7 +93,7 @@ if ( ! $_POST ) {
 		</select>
 	</td>
 </tr>
-<tr class="linked-post venue">
+<tr class="linked-post venue tribe-linked-type-venue-state-province">
 	<?php
 	if ( ! isset( $_VenueStateProvince ) || $_VenueStateProvince == '' ) {
 		$_VenueStateProvince = - 1;
@@ -120,7 +120,7 @@ if ( ! $_POST ) {
 		</select>
 	</td>
 </tr>
-<tr class="linked-post venue">
+<tr class="linked-post venue tribe-linked-type-venue-zip">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'Postal Code:', 'the-events-calendar' ); ?></td>
 	<td>
 		<input
@@ -134,7 +134,7 @@ if ( ! $_POST ) {
 		/>
 	</td>
 </tr>
-<tr class="linked-post venue">
+<tr class="linked-post venue tribe-linked-type-venue-phone">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'Phone:', 'the-events-calendar' ); ?></td>
 	<td>
 		<input
@@ -148,7 +148,7 @@ if ( ! $_POST ) {
 		/>
 	</td>
 </tr>
-<tr class="linked-post venue">
+<tr class="linked-post venue tribe-linked-type-venue-website">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'Website:', 'the-events-calendar' ); ?></td>
 	<td>
 		<input
@@ -184,7 +184,7 @@ if ( empty( $post->post_type ) || $post->post_type != Tribe__Events__Main::VENUE
 	if ( tribe_get_option( 'embedGoogleMaps', true ) ) { // Only show if embed option selected
 		$google_map_toggle = ( tribe_embed_google_map( $post->ID ) || get_post_status( $post->ID ) == 'auto-draft' ) ? true : false;
 		?>
-		<tr id="google_map_toggle" class="remain-visible">
+		<tr id="google_map_toggle" class="remain-visible tribe-linked-type-venue-googlemap">
 			<td class='tribe-table-field-label'><?php esc_html_e( 'Show Google Map:', 'the-events-calendar' ); ?></td>
 			<td>
 				<input
@@ -202,7 +202,7 @@ if ( empty( $post->post_type ) || $post->post_type != Tribe__Events__Main::VENUE
 	}
 	$google_map_link_toggle = ( get_post_status( $post->ID ) == 'auto-draft' && $google_map_toggle ) ? true : get_post_meta( $post->ID, '_EventShowMapLink', true );
 	?>
-	<tr id="google_map_link_toggle" class="remain-visible">
+	<tr id="google_map_link_toggle" class="remain-visible tribe-linked-type-venue-googlemap-link">
 		<td class='tribe-table-field-label'><?php esc_html_e( 'Show Google Maps Link:', 'the-events-calendar' ); ?></td>
 		<td>
 			<input
