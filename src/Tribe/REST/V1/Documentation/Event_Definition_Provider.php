@@ -57,7 +57,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				),
 				'rest_url' => array(
 					'type' => 'string',
-					'description' => __( 'The TEC REST API link to fetc this event', 'the-events-calendar' ),
+					'description' => __( 'The TEC REST API link to fetch this event', 'the-events-calendar' ),
 				),
 				'title' => array(
 					'type' => 'string',
