@@ -161,6 +161,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		);
 	}
 
+	/**
+	 * Localizes a date or timestamp using WordPress timezone and returns it in the specified format.
+	 *
+	 * @param string $format
+	 * @param mixed $date
+	 *
+	 * @return string
+	 */
 	protected function localize_date( $format, $date ) {
 		$timezone = Tribe__Timezones::generate_timezone_string_from_utc_offset( Tribe__Timezones::wp_timezone_string() );
 		if ( Tribe__Date_Utils::is_timestamp( $date ) ) {
