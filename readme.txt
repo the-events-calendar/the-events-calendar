@@ -326,7 +326,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5.2] TBD =
+= [4.5.2] 2017-05-17 =
 
 * Fix - Correct REST API reference URL (our thanks to Lindsey for flagging this) [78658]
 * Fix - Improve Event Aggregator integration to avoid situations where imports continually restart but do not complete [77988]
