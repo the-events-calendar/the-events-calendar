@@ -326,6 +326,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.5.2.1] 2017-05-19 =
+
+* Fix - Prevent fatal errors occuring in PHP 5.5 and earlier [79208]
+
 = [4.5.2] 2017-05-17 =
 
 * Fix - Correct REST API reference URL (our thanks to Lindsey for flagging this) [78658]
