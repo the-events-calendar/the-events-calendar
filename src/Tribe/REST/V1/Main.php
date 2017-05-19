@@ -33,7 +33,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		tribe_singleton( 'tec.rest-v1.headers-base', 'Tribe__Events__REST__V1__Headers__Base' );
 		tribe_singleton( 'tec.rest-v1.settings', 'Tribe__Events__REST__V1__Settings' );
 		tribe_singleton( 'tec.rest-v1.system', 'Tribe__Events__REST__V1__System' );
-		tribe_singleton( 'tec.rest-v1.validator', 'Tribe__REST__Validator' );
+		tribe_singleton( 'tec.rest-v1.validator', 'Tribe__Validator__Base' );
 		tribe_singleton( 'tec.rest-v1.repository', 'Tribe__Events__REST__V1__Post_Repository' );
 
 		include_once Tribe__Events__Main::instance()->plugin_path . 'src/functions/advanced-functions/rest-v1.php';
