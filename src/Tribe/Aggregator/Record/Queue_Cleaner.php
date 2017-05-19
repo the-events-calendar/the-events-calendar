@@ -5,6 +5,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 
 	/**
 	 * Default is 12hrs.
+	 *
 	 * @var int The time a record is allowed to stall before havint its status set to to failed since its creation in
 	 *          seconds.
 	 */
