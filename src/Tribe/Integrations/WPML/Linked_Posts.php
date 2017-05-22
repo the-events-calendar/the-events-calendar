@@ -124,6 +124,8 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	}
 
 	/**
+	 * Returns a list of post IDs of linked posts for the current language.
+	 *
 	 * @param array $args An array WP_Query arguments
 	 *
 	 * @return array An array of linked posts filtered by the current language
