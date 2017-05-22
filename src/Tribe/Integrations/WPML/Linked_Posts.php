@@ -14,6 +14,15 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	protected static $instance;
 
 	/**
+	 * @var array A array cache.
+	 */
+	protected $cache = array(
+		'current_language_linked_post_ids' => null,
+		'default_language_linked_post_ids' => null,
+		'filtered_linked_post_query'       => null,
+	);
+
+	/**
 	 * @return Tribe__Events__Integrations__WPML__Linked_Posts
 	 */
 	public static function instance() {
@@ -73,6 +82,10 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 *                    WPML is not active or the current language is the default one.
 	 */
 	public function filter_tribe_events_linked_posts_query( $results = null, array $args = array() ) {
+		if ( null !== $this->cache['filtered_linked_post_query'] ) {
+			return $this->cache['filtered_linked_post_query'];
+		}
+
 		if ( isset( $args['post__not_in'] ) ) {
 			return $results;
 		}
@@ -96,7 +109,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		// IDs only and drop the order to avoid wasting time on something we'll account for later
 		$sub_query_args = array_merge( $args, array( 'fields' => 'ids', 'order' => false ) );
 
-		$linked_posts_ids = $this->get_curent_language_linked_posts_ids( $sub_query_args );
+		$linked_posts_ids = $this->get_current_language_linked_posts_ids( $sub_query_args );
 
 		$default_lang_linked_posts_ids = $this->get_default_language_linked_post_ids( $sub_query_args );
 
@@ -104,6 +117,8 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 
 		// run this query to keep the specified `orderby`
 		$linked_posts = get_posts( array_merge( $args, array( 'post__in' => $linked_posts_ids ) ) );
+
+		$this->cache['filtered_linked_post_query'] = $linked_posts;
 
 		return $linked_posts;
 	}
@@ -130,7 +145,11 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 *
 	 * @return array An array of linked posts filtered by the current language
 	 */
-	protected function get_curent_language_linked_posts_ids( array $args ) {
+	protected function get_current_language_linked_posts_ids( array $args ) {
+		if ( null !== $this->cache['current_language_linked_post_ids'] ) {
+			return $this->cache['current_language_linked_post_ids'];
+		}
+
 		/** @var SitePress $sitepress */
 		global $sitepress;
 		$sitepress->switch_lang( ICL_LANGUAGE_CODE );
@@ -139,7 +158,11 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		// the user might have posts that are *only* translated and none in the default language
 		$query = new WP_Query( $args );
 
-		return $query->have_posts() ? $query->posts : array();
+		$linked_post_ids = $query->have_posts() ? $query->posts : array();
+
+		$this->cache['current_language_linked_post_ids'] = $linked_post_ids;
+
+		return $linked_post_ids;
 	}
 
 	/**
@@ -151,6 +174,10 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 * @return array An array of linked posts filtered by the default language
 	 */
 	protected function get_default_language_linked_post_ids( array $args ) {
+		if ( null !== $this->cache['default_language_linked_post_ids'] ) {
+			return $this->cache['default_language_linked_post_ids'];
+		}
+
 		/** @var SitePress $sitepress */
 		global $sitepress;
 
@@ -165,7 +192,11 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		$not_translated = array_filter( $posts, array( $this, 'is_not_translated' ) );
 		$assigned = $this->get_linked_post_assigned_to_current( $args );
 
-		return ! empty( $assigned ) ? array_merge( $not_translated, (array) $assigned ) : $not_translated;
+		$linked_post_ids = ! empty( $assigned ) ? array_merge( $not_translated, (array) $assigned ) : $not_translated;
+
+		$this->cache['default_language_linked_post_ids'] = $linked_post_ids;
+
+		return $linked_post_ids;
 	}
 
 	/**

@@ -24,6 +24,11 @@ class Tribe__Events__Linked_Posts {
 	public $linked_post_types;
 
 	/**
+	 * @var array An array cache.
+	 */
+	protected $cache = array();
+
+	/**
 	 * Returns a singleton of this class
 	 *
 	 * @return Tribe__Events__Linked_Posts
@@ -415,6 +420,11 @@ class Tribe__Events__Linked_Posts {
 	 * @return array
 	 */
 	public function get_linked_post_info( $linked_post_type, $args = array(), $linked_post_ids = null ) {
+		$key = md5( $linked_post_type . maybe_serialize( $args ) . $linked_post_ids );
+		if ( ! empty( $this->cache[ 'linked_post_info_' . $key ] ) ) {
+			return $this->cache[ 'linked_post_info_' . $key ];
+		}
+
 		$defaults = array(
 			'post_type'            => $linked_post_type,
 			'post_status'          => array(
@@ -461,6 +471,8 @@ class Tribe__Events__Linked_Posts {
 		} else {
 			$linked_posts = array();
 		}
+
+		$this->cache[ 'linked_post_info_' . $key ] = $linked_posts;
 
 		return $linked_posts;
 	}
