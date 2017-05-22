@@ -14,9 +14,9 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	protected static $instance;
 
 	/**
-	 * @var array An array cache.
+	 * @var Tribe__Cache
 	 */
-	protected $cache = array();
+	protected $cache;
 
 	/**
 	 * @return Tribe__Events__Integrations__WPML__Linked_Posts
@@ -27,6 +27,15 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		}
 
 		return self::$instance;
+	}
+
+	/**
+	 * Tribe__Events__Integrations__WPML__Linked_Posts constructor.
+	 *
+	 * @param Tribe__Cache|null $cache
+	 */
+	public function __construct( Tribe__Cache $cache = null ) {
+		$this->cache = null !== $cache ? $cache : tribe( 'cache' );
 	}
 
 	/**
@@ -78,7 +87,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 *                    WPML is not active or the current language is the default one.
 	 */
 	public function filter_tribe_events_linked_posts_query( $results = null, array $args = array() ) {
-		$cache_key = 'filtered_linked_post_query' . md5( maybe_serialize( $args ) );
+		$cache_key = $this->cache->make_key( func_get_args(), 'filtered_linked_post_query' );
 		if ( isset( $this->cache[ $cache_key ] ) ) {
 			return $this->cache[ $cache_key ];
 		}
@@ -143,7 +152,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 * @return array An array of linked posts filtered by the current language
 	 */
 	protected function get_current_language_linked_posts_ids( array $args ) {
-		$cache_key = 'current_language_linked_post_ids' . md5( maybe_serialize( $args ) );
+		$cache_key = $this->cache->make_key( func_get_args(), 'current_language_linked_post_ids' );
 		if ( isset( $this->cache[ $cache_key ] ) ) {
 			return $this->cache[ $cache_key ];
 		}
@@ -172,7 +181,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 * @return array An array of linked posts filtered by the default language
 	 */
 	protected function get_default_language_linked_post_ids( array $args ) {
-		$cache_key = 'default_language_linked_post_ids' . md5( maybe_serialize( $args ) );
+		$cache_key = $this->cache->make_key( func_get_args(), 'default_language_linked_post_ids' );
 		if ( isset( $this->cache[ $cache_key ] ) ) {
 			return $this->cache[ $cache_key ];
 		}
