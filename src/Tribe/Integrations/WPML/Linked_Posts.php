@@ -105,12 +105,12 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		// run this query to keep the specified `orderby`
 		$linked_posts = get_posts( array_merge( $args, array( 'post__in' => $linked_posts_ids ) ) );
 
-		$sitepress->switch_lang( ICL_LANGUAGE_CODE );
-
 		return $linked_posts;
 	}
 
 	/**
+	 * Whether a post ID has a translation in the current language or not.
+	 *
 	 * @param int $id The post ID
 	 *
 	 * @return bool `true` if the post lacks a WPML managed translation, `false` if the post has a WPML managed translation.
