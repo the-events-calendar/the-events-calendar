@@ -24,9 +24,9 @@ class Tribe__Events__Linked_Posts {
 	public $linked_post_types;
 
 	/**
-	 * @var array An array cache.
+	 * @var Tribe__Cache
 	 */
-	protected $cache = array();
+	protected $cache;
 
 	/**
 	 * Returns a singleton of this class
@@ -43,8 +43,12 @@ class Tribe__Events__Linked_Posts {
 
 	/**
 	 * Constructor!
+	 *
+	 * @param Tribe__Cache|null $cache
 	 */
-	protected function __construct() {
+	protected function __construct(Tribe__Cache $cache = null) {
+		$this->cache = null !== $cache ? $cache : tribe( 'cache' );
+
 		$this->main = Tribe__Events__Main::instance();
 		$this->register_default_linked_post_types();
 
@@ -420,8 +424,8 @@ class Tribe__Events__Linked_Posts {
 	 * @return array
 	 */
 	public function get_linked_post_info( $linked_post_type, $args = array(), $linked_post_ids = null ) {
-		$cache_key = 'linked_post_info_' . md5( $linked_post_type . maybe_serialize( $args ) . $linked_post_ids );
-		if ( isset( $this->cache[ $cache_key ] ) ) {
+		$cache_key = $this->cache->make_key( func_get_args(), 'linked_post_info_' );
+		if ( isset( $this->cache[$cache_key] ) ) {
 			return $this->cache[ $cache_key ];
 		}
 
