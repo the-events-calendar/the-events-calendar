@@ -375,7 +375,7 @@ class Tribe__Events__Aggregator__Records {
 	 *
 	 * @param int $post_id WP Post ID of record
 	 *
-	 * @return Tribe__Events__Aggregator__Record__Abstract|Tribe__Error
+	 * @return Tribe__Events__Aggregator__Record__Abstract|Tribe__Error|null
 	 */
 	public function get_by_post_id( $post ) {
 		$post = get_post( $post );
