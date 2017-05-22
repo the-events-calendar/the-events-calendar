@@ -41,13 +41,11 @@ class Tribe__Events__Integrations__WPML__WPML {
 	}
 
 	protected function hook_actions() {
-		$defaults = Tribe__Events__Integrations__WPML__Defaults::instance();
-
-		if ( ! $defaults->has_set_defaults() ) {
-			add_action( 'icl_save_settings', array( $defaults, 'set_defaults' ) );
-		}
-
 		$this->setup_cache_expiration_triggers();
+		$defaults = Tribe__Events__Integrations__WPML__Defaults::instance();
+		if ( ! $defaults->has_set_defaults() ) {
+			add_action( 'wpml_parse_config_file', array( $defaults, 'setup_config_file' ) );
+		}
 	}
 
 	protected function hook_filters() {
