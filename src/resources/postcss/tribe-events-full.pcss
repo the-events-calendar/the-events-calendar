@@ -83,7 +83,15 @@
 
 			.tribe-tickets-left {
 				color: #fff;
+				font-style: italic;
+				font-weight: normal;
 				margin-left: 1px;
+			}
+
+			.tribe-out-of-stock {
+				background: none;
+				border: 0;
+				padding-left: 22px;
 			}
 
 			.tribe-ticket-cost {
@@ -739,11 +747,18 @@ select.tribe-events-dropdown {
 			text-overflow: ellipsis;
 		}
 
-		.tribe-tickets-left,
-		.tribe-out-of-stock {
+		.tribe-tickets-left {
 			background: #f0f0f0;
 			border-left: none;
 			color: #727272;
+			font-style: italic;
+			font-weight: normal;
+		}
+
+		.tribe-out-of-stock {
+			background: none;
+			border: 0;
+			padding-left: 22px;
 		}
 
 		.tribe-ticket-cost {
@@ -774,7 +789,7 @@ select.tribe-events-dropdown {
 }
 
 
-/* Date Seperators */
+/* Date Separators */
 .tribe-events-list-separator-year {
 	color: #ccc;
 	display: block;
