@@ -12,14 +12,11 @@ class Tribe__Events__Integrations__WPML__Defaults {
 	 * @var Tribe__Events__Integrations__WPML__Defaults
 	 */
 	protected static $instance;
+
 	/**
 	 * @var string The name of the sub-option that will store the first run flag.
 	 */
-	public $defaults_option_name = 'wpml_did_set_defaults';
-	/**
-	 * @var SitePress
-	 */
-	protected $sitepress;
+	public $defaults_option_name = 'wpml_tec_did_set_defaults';
 
 	/**
 	 * @var Tribe__Settings_Manager
@@ -32,12 +29,7 @@ class Tribe__Events__Integrations__WPML__Defaults {
 	 * @param SitePress|null               $sitepress
 	 * @param Tribe__Settings_Manager|null $settings_manager
 	 */
-	public function __construct( SitePress $sitepress = null, Tribe__Settings_Manager $settings_manager = null ) {
-		if ( empty( $sitepress ) ) {
-			global /** @var SitePress $sitepress */
-			$sitepress;
-		}
-		$this->sitepress = $sitepress;
+	public function __construct( Tribe__Settings_Manager $settings_manager = null ) {
 		$this->settings_manager = $settings_manager ? $settings_manager : Tribe__Settings_Manager::instance();
 	}
 
