@@ -643,6 +643,8 @@ select.tribe-events-dropdown {
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-tickets-left {
 	color: #fff;
+	font-style: italic;
+	font-weight: normal;
 	margin-left: 1px;
 }
 
@@ -781,6 +783,8 @@ select.tribe-events-dropdown {
 	background: #f0f0f0;
 	border-left: none;
 	color: #727272;
+	font-style: italic;
+	font-weight: normal;
 }
 
 .tribe-events-list .tribe-events-event-cost .tribe-out-of-stock {
@@ -1176,6 +1180,8 @@ select.tribe-events-dropdown {
 
 .tribe-events-day .tribe-event-featured .tribe-events-event-cost .tribe-tickets-left {
 	color: #fff;
+	font-style: italic;
+	font-weight: normal;
 	margin-left: 1px;
 }
 
