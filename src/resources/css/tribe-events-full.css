@@ -771,11 +771,15 @@ select.tribe-events-dropdown {
 	text-overflow: ellipsis;
 }
 
-.tribe-events-list .tribe-events-event-cost .tribe-tickets-left,
-		.tribe-events-list .tribe-events-event-cost .tribe-out-of-stock {
+.tribe-events-list .tribe-events-event-cost .tribe-tickets-left {
 	background: #f0f0f0;
 	border-left: none;
 	color: #727272;
+}
+
+.tribe-events-list .tribe-events-event-cost .tribe-out-of-stock {
+	border: 0;
+	padding-left: 22px;
 }
 
 .tribe-events-list .tribe-events-event-cost .tribe-ticket-cost {
