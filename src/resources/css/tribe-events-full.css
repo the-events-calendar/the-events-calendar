@@ -646,6 +646,12 @@ select.tribe-events-dropdown {
 	margin-left: 1px;
 }
 
+.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-out-of-stock {
+	background: none;
+	border: 0;
+	padding-left: 22px;
+}
+
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-ticket-cost {
 	margin: 0;
 }
@@ -778,6 +784,7 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-list .tribe-events-event-cost .tribe-out-of-stock {
+	background: none;
 	border: 0;
 	padding-left: 22px;
 }
@@ -807,7 +814,7 @@ select.tribe-events-dropdown {
 	line-height: inherit;
 }
 
-/* Date Seperators */
+/* Date Separators */
 
 .tribe-events-list-separator-year {
 	color: #ccc;
@@ -1170,6 +1177,12 @@ select.tribe-events-dropdown {
 .tribe-events-day .tribe-event-featured .tribe-events-event-cost .tribe-tickets-left {
 	color: #fff;
 	margin-left: 1px;
+}
+
+.tribe-events-day .tribe-event-featured .tribe-events-event-cost .tribe-out-of-stock {
+	background: none;
+	border: 0;
+	padding-left: 22px;
 }
 
 .tribe-events-day .tribe-event-featured .tribe-events-event-cost .tribe-ticket-cost {

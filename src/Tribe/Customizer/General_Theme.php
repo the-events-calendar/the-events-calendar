@@ -132,6 +132,8 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 			if ( $is_light ) {
 				$template .= '
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost span,
+					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-tickets-left,
+					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-button,
 					#tribe-events-content.tribe-events-list .tribe-events-loop .tribe-event-featured [class*="-event-title"] a,
 					#tribe-events-content table.tribe-events-calendar .type-tribe_events.tribe-event-featured [class*="-event-title"] a,
 					.events-archive.events-gridview #tribe-events-content table .type-tribe_events.tribe-event-featured .tribe-events-month-event-title a,
