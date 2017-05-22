@@ -153,12 +153,54 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	protected function get_default_language_linked_post_ids( array $args ) {
 		/** @var SitePress $sitepress */
 		global $sitepress;
+
 		$sitepress->switch_lang( $sitepress->get_default_language() );
 
 		$query = new WP_Query( $args );
 
 		$posts = $query->have_posts() ? $query->posts : array();
 
-		return array_filter( $posts, array( $this, 'is_not_translated' ) );
+		$sitepress->switch_lang( $sitepress->get_current_language() );
+
+		$not_translated = array_filter( $posts, array( $this, 'is_not_translated' ) );
+		$assigned = $this->get_linked_post_assigned_to_current( $args );
+
+		return ! empty( $assigned ) ? array_merge( $not_translated, (array) $assigned ) : $not_translated;
+	}
+
+	/**
+	 * Returns the post ID(s) of post(s) of the type specified in the args linked to the current event.
+	 *
+	 * @param array $args An array of arguments in the format supported by `WP_Query`
+	 *
+	 * @return array An array of linked post IDs or an empty array if no post types, more than one post type
+	 *               is specified in the args, or the current post is not an event.
+	 */
+	protected function get_linked_post_assigned_to_current( array $args ) {
+		$post_type = (array) Tribe__Utils__Array::get( $args, 'post_type', array() );
+		$current_post_id = Tribe__Main::post_id_helper();
+
+		if ( ! tribe_is_event( $current_post_id ) ) {
+			return array();
+		}
+
+		if ( count( $post_type ) !== 1 || empty( $current_post_id ) ) {
+			return array();
+		}
+
+		$post_type = reset( $post_type );
+
+		$map = array(
+			Tribe__Events__Main::VENUE_POST_TYPE     => '_EventVenueID',
+			Tribe__Events__Main::ORGANIZER_POST_TYPE => '_EventOrganizerID',
+		);
+
+		if ( empty( $map[ $post_type ] ) ) {
+			return array();
+		}
+
+		$assigned = get_post_meta( $current_post_id, $map[ $post_type ], false );
+
+		return ! empty( $assigned ) ? $assigned : array();
 	}
 }
