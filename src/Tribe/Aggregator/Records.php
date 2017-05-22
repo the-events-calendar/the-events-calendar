@@ -375,7 +375,7 @@ class Tribe__Events__Aggregator__Records {
 	 *
 	 * @param int $post_id WP Post ID of record
 	 *
-	 * @return Tribe__Events__Aggregator__Record__Abstract|null
+	 * @return Tribe__Events__Aggregator__Record__Abstract|WP_Error|null
 	 */
 	public function get_by_post_id( $post ) {
 		$post = get_post( $post );
@@ -404,7 +404,7 @@ class Tribe__Events__Aggregator__Records {
 	 *
 	 * @param int $import_id Aggregator import id
 	 *
-	 * @return Tribe__Events__Aggregator__Record__Abstract|null
+	 * @return Tribe__Events__Aggregator__Record__Abstract|WP_Error|null
 	 */
 	public function get_by_import_id( $import_id ) {
 		$args = array(
@@ -438,7 +438,7 @@ class Tribe__Events__Aggregator__Records {
 	 *
 	 * @param  int $event_id   Post ID for the Event
 	 *
-	 * @return Tribe__Events__Aggregator__Record__Abstract|null
+	 * @return Tribe__Events__Aggregator__Record__Abstract|WP_Error|null
 	 */
 	public function get_by_event_id( $event_id ) {
 		$event = get_post( $event_id );
