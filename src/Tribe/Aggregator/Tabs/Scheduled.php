@@ -267,7 +267,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		foreach ( $records as $record_id ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record_id );
 
-			if ( is_wp_error( $record ) ) {
+			if ( tribe_is_error( $record ) ) {
 				$errors[ $record_id ] = $record;
 				continue;
 			}
@@ -300,7 +300,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		foreach ( $records as $record_id ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record_id );
 
-			if ( is_wp_error( $record ) ) {
+			if ( tribe_is_error( $record ) ) {
 				$errors[ $record_id ] = $record;
 				continue;
 			}

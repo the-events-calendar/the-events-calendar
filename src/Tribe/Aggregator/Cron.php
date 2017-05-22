@@ -299,6 +299,10 @@ class Tribe__Events__Aggregator__Cron {
 		foreach ( $query->posts as $post ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
+			if ( tribe_is_error( $record ) ) {
+				continue;
+			}
+
 			if ( empty( $record->meta['_tribe_aggregator_queue'] ) ) {
 				// this is incoherent, a schedule should have a queue
 				$record->set_status( Tribe__Events__Aggregator__Records::$status->failed );
@@ -387,6 +391,10 @@ class Tribe__Events__Aggregator__Cron {
 		$cleaner = new Tribe__Events__Aggregator__Record__Queue_Cleaner();
 		foreach ( $query->posts as $post ) {
 			$record = $records->get_by_post_id( $post );
+
+			if ( tribe_is_error( $record ) ) {
+				continue;
+			}
 
 			$cleaner->remove_duplicate_pending_records_for( $record );
 			$failed = $cleaner->maybe_fail_stalled_record( $record );
@@ -491,7 +499,7 @@ class Tribe__Events__Aggregator__Cron {
 		foreach ( $query->posts as $post ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
-			if ( ! $record ) {
+			if ( tribe_is_error( $record ) ) {
 				$this->log( 'debug', sprintf( 'Record (%d) skipped, original post non-existent', $post->id ) );
 				continue;
 			}
