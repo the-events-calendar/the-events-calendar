@@ -14,13 +14,9 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	protected static $instance;
 
 	/**
-	 * @var array A array cache.
+	 * @var array An array cache.
 	 */
-	protected $cache = array(
-		'current_language_linked_post_ids' => null,
-		'default_language_linked_post_ids' => null,
-		'filtered_linked_post_query'       => null,
-	);
+	protected $cache = array();
 
 	/**
 	 * @return Tribe__Events__Integrations__WPML__Linked_Posts
@@ -82,8 +78,9 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 *                    WPML is not active or the current language is the default one.
 	 */
 	public function filter_tribe_events_linked_posts_query( $results = null, array $args = array() ) {
-		if ( null !== $this->cache['filtered_linked_post_query'] ) {
-			return $this->cache['filtered_linked_post_query'];
+		$cache_key = 'filtered_linked_post_query' . md5( maybe_serialize( $args ) );
+		if ( isset( $this->cache[ $cache_key ] ) ) {
+			return $this->cache[ $cache_key ];
 		}
 
 		if ( isset( $args['post__not_in'] ) ) {
@@ -118,7 +115,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		// run this query to keep the specified `orderby`
 		$linked_posts = get_posts( array_merge( $args, array( 'post__in' => $linked_posts_ids ) ) );
 
-		$this->cache['filtered_linked_post_query'] = $linked_posts;
+		$this->cache[$cache_key] = $linked_posts;
 
 		return $linked_posts;
 	}
@@ -146,8 +143,9 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 * @return array An array of linked posts filtered by the current language
 	 */
 	protected function get_current_language_linked_posts_ids( array $args ) {
-		if ( null !== $this->cache['current_language_linked_post_ids'] ) {
-			return $this->cache['current_language_linked_post_ids'];
+		$cache_key = 'current_language_linked_post_ids' . md5( maybe_serialize( $args ) );
+		if ( isset( $this->cache[ $cache_key ] ) ) {
+			return $this->cache[ $cache_key ];
 		}
 
 		/** @var SitePress $sitepress */
@@ -160,7 +158,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 
 		$linked_post_ids = $query->have_posts() ? $query->posts : array();
 
-		$this->cache['current_language_linked_post_ids'] = $linked_post_ids;
+		$this->cache[$cache_key] = $linked_post_ids;
 
 		return $linked_post_ids;
 	}
@@ -174,8 +172,9 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 * @return array An array of linked posts filtered by the default language
 	 */
 	protected function get_default_language_linked_post_ids( array $args ) {
-		if ( null !== $this->cache['default_language_linked_post_ids'] ) {
-			return $this->cache['default_language_linked_post_ids'];
+		$cache_key = 'default_language_linked_post_ids' . md5( maybe_serialize( $args ) );
+		if ( isset( $this->cache[ $cache_key ] ) ) {
+			return $this->cache[ $cache_key ];
 		}
 
 		/** @var SitePress $sitepress */
@@ -194,7 +193,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 
 		$linked_post_ids = ! empty( $assigned ) ? array_merge( $not_translated, (array) $assigned ) : $not_translated;
 
-		$this->cache['default_language_linked_post_ids'] = $linked_post_ids;
+		$this->cache[$cache_key] = $linked_post_ids;
 
 		return $linked_post_ids;
 	}

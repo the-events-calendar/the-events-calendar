@@ -420,9 +420,9 @@ class Tribe__Events__Linked_Posts {
 	 * @return array
 	 */
 	public function get_linked_post_info( $linked_post_type, $args = array(), $linked_post_ids = null ) {
-		$key = md5( $linked_post_type . maybe_serialize( $args ) . $linked_post_ids );
-		if ( ! empty( $this->cache[ 'linked_post_info_' . $key ] ) ) {
-			return $this->cache[ 'linked_post_info_' . $key ];
+		$cache_key = 'linked_post_info_' . md5( $linked_post_type . maybe_serialize( $args ) . $linked_post_ids );
+		if ( isset( $this->cache[ $cache_key ] ) ) {
+			return $this->cache[ $cache_key ];
 		}
 
 		$defaults = array(
@@ -472,7 +472,7 @@ class Tribe__Events__Linked_Posts {
 			$linked_posts = array();
 		}
 
-		$this->cache[ 'linked_post_info_' . $key ] = $linked_posts;
+		$this->cache[ $cache_key ] = $linked_posts;
 
 		return $linked_posts;
 	}
