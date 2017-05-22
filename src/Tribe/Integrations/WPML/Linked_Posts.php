@@ -19,6 +19,15 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	protected $cache;
 
 	/**
+	 * Tribe__Events__Integrations__WPML__Linked_Posts constructor.
+	 *
+	 * @param Tribe__Cache|null $cache
+	 */
+	public function __construct( Tribe__Cache $cache = null ) {
+		$this->cache = null !== $cache ? $cache : tribe( 'cache' );
+	}
+
+	/**
 	 * @return Tribe__Events__Integrations__WPML__Linked_Posts
 	 */
 	public static function instance() {
@@ -27,15 +36,6 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		}
 
 		return self::$instance;
-	}
-
-	/**
-	 * Tribe__Events__Integrations__WPML__Linked_Posts constructor.
-	 *
-	 * @param Tribe__Cache|null $cache
-	 */
-	public function __construct( Tribe__Cache $cache = null ) {
-		$this->cache = null !== $cache ? $cache : tribe( 'cache' );
 	}
 
 	/**
@@ -67,7 +67,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		$added = wpml_add_translatable_content( 'post_' . $linked_post_type, $id, $language_code );
 
 		if ( WPML_API_ERROR === $added ) {
-			$log   = new Tribe__Log();
+			$log = new Tribe__Log();
 			$entry = "Could not set language for linked post type '{$linked_post_type}' with id '{$id}' to '{$language_code}'";
 			$log->log_error( $entry, __CLASS__ );
 		}
@@ -124,24 +124,9 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		// run this query to keep the specified `orderby`
 		$linked_posts = get_posts( array_merge( $args, array( 'post__in' => $linked_posts_ids ) ) );
 
-		$this->cache[$cache_key] = $linked_posts;
+		$this->cache[ $cache_key ] = $linked_posts;
 
 		return $linked_posts;
-	}
-
-	/**
-	 * Whether a post ID has a translation in the current language or not.
-	 *
-	 * @param int $id The post ID
-	 *
-	 * @return bool `true` if the post lacks a WPML managed translation, `false` if the post has a WPML managed translation.
-	 */
-	protected function is_not_translated( $id ) {
-		/** @var SitePress $sitepress */
-		global $sitepress;
-		$translation_id = $sitepress->get_object_id( $id, 'post', true, ICL_LANGUAGE_CODE );
-
-		return empty( $translation_id ) || $translation_id == $id;
 	}
 
 	/**
@@ -167,7 +152,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 
 		$linked_post_ids = $query->have_posts() ? $query->posts : array();
 
-		$this->cache[$cache_key] = $linked_post_ids;
+		$this->cache[ $cache_key ] = $linked_post_ids;
 
 		return $linked_post_ids;
 	}
@@ -202,7 +187,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 
 		$linked_post_ids = ! empty( $assigned ) ? array_merge( $not_translated, (array) $assigned ) : $not_translated;
 
-		$this->cache[$cache_key] = $linked_post_ids;
+		$this->cache[ $cache_key ] = $linked_post_ids;
 
 		return $linked_post_ids;
 	}
@@ -241,5 +226,20 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		$assigned = get_post_meta( $current_post_id, $map[ $post_type ], false );
 
 		return ! empty( $assigned ) ? $assigned : array();
+	}
+
+	/**
+	 * Whether a post ID has a translation in the current language or not.
+	 *
+	 * @param int $id The post ID
+	 *
+	 * @return bool `true` if the post lacks a WPML managed translation, `false` if the post has a WPML managed translation.
+	 */
+	protected function is_not_translated( $id ) {
+		/** @var SitePress $sitepress */
+		global $sitepress;
+		$translation_id = $sitepress->get_object_id( $id, 'post', true, ICL_LANGUAGE_CODE );
+
+		return empty( $translation_id ) || $translation_id == $id;
 	}
 }
