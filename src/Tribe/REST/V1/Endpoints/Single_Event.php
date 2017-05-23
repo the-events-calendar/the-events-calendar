@@ -112,19 +112,26 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		);
 	}
 
+	/**
+	 * Handles POST requests on the endpoint.
+	 *
+	 * @param WP_REST_Request $request
+	 *
+	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
+	 */
 	public function post( WP_REST_Request $request ) {
 		$this->serving = $request;
 
 		$postarr = array(
 			'post_author'    => $request->get_param( 'author' ),
-			'post_date'      => $this->localize_date( 'Y-m-d H:i:s', $request->get_param( 'date' ) ),
-			'post_date_gmt'  => $this->localize_date( 'Y-m-d H:i:s', $request->get_param( 'date_utc' ) ),
+			'post_date'      => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request->get_param( 'date' ) ),
+			'post_date_gmt'  => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request->get_param( 'date_utc' ) ),
 			'post_title'     => $request->get_param( 'title' ),
 			'post_content'   => $request->get_param( 'description' ),
-			'EventStartDate' => $this->localize_date( 'Y-m-d', $request->get_param( 'start_date' ) ),
-			'EventStartTime' => $this->localize_date( 'H:i:s', $request->get_param( 'start_date' ) ),
-			'EventEndDate'   => $this->localize_date( 'Y-m-d', $request->get_param( 'end_date' ) ),
-			'EventEndTime'   => $this->localize_date( 'H:i:s', $request->get_param( 'end_date' ) ),
+			'EventStartDate' => Tribe__Timezones::localize_date( 'Y-m-d', $request->get_param( 'start_date' ) ),
+			'EventStartTime' => Tribe__Timezones::localize_date( 'H:i:s', $request->get_param( 'start_date' ) ),
+			'EventEndDate'   => Tribe__Timezones::localize_date( 'Y-m-d', $request->get_param( 'end_date' ) ),
+			'EventEndTime'   => Tribe__Timezones::localize_date( 'H:i:s', $request->get_param( 'end_date' ) ),
 		);
 
 		$id = Tribe__Events__API::createEvent( array_filter( $postarr ) );
@@ -164,26 +171,5 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'start_date'  => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
 			'end_date'    => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
 		);
-	}
-
-	/**
-	 * Localizes a date or timestamp using WordPress timezone and returns it in the specified format.
-	 *
-	 * @param string $format
-	 * @param mixed $date
-	 *
-	 * @return string
-	 */
-	protected function localize_date( $format, $date ) {
-		$timezone = Tribe__Timezones::generate_timezone_string_from_utc_offset( Tribe__Timezones::wp_timezone_string() );
-		if ( Tribe__Date_Utils::is_timestamp( $date ) ) {
-			$date = new DateTime();
-			$date->setTimestamp( $date );
-			$date->setTimezone( new DateTimeZone( $timezone ) );
-		} else {
-			$date = new DateTime( $date, new DateTimeZone( $timezone ) );
-		}
-
-		return $date->format( $format );
 	}
 }
