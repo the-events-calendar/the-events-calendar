@@ -3,7 +3,7 @@
 
 class Tribe__Events__REST__V1__Endpoints__Single_Event
 	extends Tribe__Events__REST__V1__Endpoints__Base
-	implements Tribe__REST__Endpoints__Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface {
+	implements Tribe__REST__Endpoints__GET_Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface {
 
 	/**
 	 * @var Tribe__REST__Main
@@ -47,30 +47,22 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	public function get( WP_REST_Request $request ) {
 		$this->serving = $request;
 
-		$id = $request['id'];
+		$event = get_post( $request->get_param('id') );
 
-		if ( empty( $id ) ) {
-			$message = $this->messages->get_message( 'missing-event-id' );
-
-			return new WP_Error( 'missing-event-id', $message, array( 'status' => 400 ) );
-		}
-
-		$event = get_post( $id );
-
-		if ( empty( $event ) || ! tribe_is_event( $id ) ) {
+		if ( empty( $event ) || ! tribe_is_event( $event ) ) {
 			$message = $this->messages->get_message( 'event-not-found' );
 
 			return new WP_Error( 'event-not-found', $message, array( 'status' => 404 ) );
 		}
 
 		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->read_post;
-		if ( ! ( 'publish' === $event->post_status || current_user_can( $cap, $id ) ) ) {
+		if ( ! ( 'publish' === $event->post_status || current_user_can( $cap, $request['id'] ) ) ) {
 			$message = $this->messages->get_message( 'event-not-accessible' );
 
 			return new WP_Error( 'event-not-accessible', $message, array( 'status' => 403 ) );
 		}
 
-		$data = $this->post_repository->get_event_data( $id );
+		$data = $this->post_repository->get_event_data( $request['id'] );
 
 		return is_wp_error( $data ) ? $data : new WP_REST_Response( $data );
 	}
@@ -122,6 +114,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 	public function post( WP_REST_Request $request ) {
 		$this->serving = $request;
+
 		$postarr = array(
 			'post_author'    => $request->get_param( 'author' ),
 			'post_date'      => $this->localize_date( 'Y-m-d H:i:s', $request->get_param( 'date' ) ),
@@ -145,11 +138,21 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	}
 
 	/**
+	 * Provides the content of the `args` array to register the endpoint support for GET requests.
+	 *
+	 * @return array
+	 */
+	public function GET_args(  ) {
+		return array(
+			'id' => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_positive_int' ) ),
+		);
+	}
+	/**
 	 * Provides the content of the `args` array to register the endpoint support for POST requests.
 	 *
 	 * @return array
 	 */
-	public function get_post_args() {
+	public function get_POST_args() {
 		return array(
 			'author'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
 			'date'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),

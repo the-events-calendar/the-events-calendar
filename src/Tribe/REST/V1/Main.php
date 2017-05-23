@@ -33,7 +33,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		tribe_singleton( 'tec.rest-v1.headers-base', 'Tribe__Events__REST__V1__Headers__Base' );
 		tribe_singleton( 'tec.rest-v1.settings', 'Tribe__Events__REST__V1__Settings' );
 		tribe_singleton( 'tec.rest-v1.system', 'Tribe__Events__REST__V1__System' );
-		tribe_singleton( 'tec.rest-v1.validator', 'Tribe__Validator__Base' );
+		tribe_singleton( 'tec.rest-v1.validator', 'Tribe__Events__Validator__Base' );
 		tribe_singleton( 'tec.rest-v1.repository', 'Tribe__Events__REST__V1__Post_Repository' );
 
 		include_once Tribe__Events__Main::instance()->plugin_path . 'src/functions/advanced-functions/rest-v1.php';
@@ -112,6 +112,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		register_rest_route( $this->get_events_route_namespace(), '/events', array(
 			'methods'  => 'GET',
 			'callback' => array( $endpoint, 'get' ),
+			'args'     => $endpoint->GET_args(),
 		) );
 
 		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/events', $endpoint );
@@ -121,23 +122,32 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * Registers the endpoint that will handle requests for a single event.
 	 */
 	protected function register_single_event_endpoint() {
-		$messages        = tribe( 'tec.rest-v1.messages' );
+		$messages = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$endpoint        = new Tribe__Events__REST__V1__Endpoints__Single_Event( $messages, $post_repository );
+		$validator = tribe( 'tec.rest-v1.validator' );
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Event( $messages, $post_repository, $validator );
 
 		tribe_singleton( 'tec.rest-v1.endpoints.single-event', $endpoint );
 
+		$namespace = $this->get_events_route_namespace();
+
 		register_rest_route(
-			$this->get_events_route_namespace(),
+			$namespace,
 			'/events/(?P<id>\\d+)',
 			array(
 				'methods'  => 'GET',
-				'args'     => array(
-					'id' => array(
-						'validate_callback' => array( tribe( 'tec.rest-v1.validator' ), 'is_numeric' )
-					)
-				),
+				'args'     => $endpoint->GET_args(),
 				'callback' => array( $endpoint, 'get' ),
+			)
+		);
+
+		register_rest_route(
+			$namespace,
+			'/events',
+			array(
+				'methods'  => 'POST',
+				'args'     => $endpoint->get_POST_args(),
+				'callback' => array( $endpoint, 'post' ),
 			)
 		);
 
