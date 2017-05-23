@@ -103,9 +103,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	}
 
 	protected function register_event_archives_endpoint() {
-		$messages        = tribe( 'tec.rest-v1.messages' );
+		$messages = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$endpoint        = new Tribe__Events__REST__V1__Endpoints__Archive_Event( $messages, $post_repository );
+		$validator = tribe( 'tec.rest-v1.validator' );
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Event( $messages, $post_repository, $validator );
 
 		tribe_singleton( 'tec.rest-v1.endpoints.archive-event', $endpoint );
 
