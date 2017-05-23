@@ -979,7 +979,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$parent_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->post->post_parent );
 
-		if ( tribe_is_error( $record ) ) {
+		if ( tribe_is_error( $parent_record ) ) {
 			return;
 		}
 
