@@ -32,7 +32,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	public function __construct(
 		Tribe__REST__Messages_Interface $messages,
 		Tribe__Events__REST__Interfaces__Post_Repository $post_repository,
-		Tribe__REST__Validator_Interface $validator
+		Tribe__Validator__Interface $validator
 	) {
 		parent::__construct( $messages );
 		$this->post_repository = $post_repository;

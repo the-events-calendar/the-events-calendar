@@ -18,6 +18,11 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 */
 	protected $repository;
 
+	/**
+	 * @var \Tribe__Validator__Interface
+	 */
+	protected $validator;
+
 	public function setUp() {
 		// before
 		parent::setUp();
@@ -26,13 +31,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->factory()->event = new Event();
 		$this->messages = new \Tribe__Events__REST__V1__Messages();
 		$this->repository = new \Tribe__Events__REST__V1__Post_Repository( new \Tribe__Events__REST__V1__Messages() );
-	}
-
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
+		$this->validator = new \Tribe__Validator__Base();
 	}
 
 	/**
@@ -43,6 +42,17 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$sut = $this->make_instance();
 
 		$this->assertInstanceOf( Endpoint::class, $sut );
+	}
+
+	/**
+	 * @return Endpoint
+	 */
+	private function make_instance() {
+		$messages = $this->messages instanceof ObjectProphecy ? $this->messages->reveal() : $this->messages;
+		$repository = $this->repository instanceof ObjectProphecy ? $this->repository->reveal() : $this->repository;
+		$validator = $this->validator instanceof ObjectProphecy ? $this->validator->reveal() : $this->validator;
+
+		return new Endpoint( $messages, $repository, $validator );
 	}
 
 	/**
@@ -89,15 +99,5 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertEquals( [ 'some' => 'data' ], $response->get_data() );
-	}
-
-	/**
-	 * @return Endpoint
-	 */
-	private function make_instance() {
-		$messages = $this->messages instanceof ObjectProphecy ? $this->messages->reveal() : $this->messages;
-		$repository = $this->repository instanceof ObjectProphecy ? $this->repository->reveal() : $this->repository;
-
-		return new Endpoint( $messages, $repository );
 	}
 }
