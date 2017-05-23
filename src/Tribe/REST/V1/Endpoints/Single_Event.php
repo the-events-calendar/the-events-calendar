@@ -3,7 +3,7 @@
 
 class Tribe__Events__REST__V1__Endpoints__Single_Event
 	extends Tribe__Events__REST__V1__Endpoints__Base
-	implements Tribe__REST__Endpoints__GET_Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface {
+	implements Tribe__REST__Endpoints__GET_Endpoint_Interface, Tribe__REST__Endpoints__POST_Endpoint_Interface,Tribe__Documentation__Swagger__Provider_Interface {
 
 	/**
 	 * @var Tribe__REST__Main
@@ -147,12 +147,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'id' => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_positive_int' ) ),
 		);
 	}
+
 	/**
-	 * Provides the content of the `args` array to register the endpoint support for POST requests.
+	 * Returns the content of the `args` array that should be used to register the endpoint
+	 * with the `register_rest_route` function.
 	 *
 	 * @return array
 	 */
-	public function get_POST_args() {
+	public function POST_args() {
 		return array(
 			'author'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
 			'date'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
