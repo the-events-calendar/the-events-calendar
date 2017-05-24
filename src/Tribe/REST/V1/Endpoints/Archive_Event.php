@@ -191,7 +191,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @throws Tribe__REST__Exceptions__Exception If the end date cannot be parsed.
 	 */
 	protected function parse_end_date( WP_REST_Request $request ) {
-		return $this->parse_date_value($request,'end_date');
+		return $this->parse_date_value( $request, 'end_date' );
 	}
 
 	/**
@@ -562,17 +562,17 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			'per_page'   => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_positive_int' ),
-				'default'           => tribe_get_option( 'posts_per_page' ),
+				'default'           => $this->get_default_posts_per_page(),
 			),
 			'start_date' => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
 				'default'           => date( Tribe__Date_Utils::DBDATETIMEFORMAT, time() ),
 			),
-			'end_date'   => array(
+			'end_date' => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
-				'default'           => date( Tribe__Date_Utils::DBDATETIMEFORMAT, '+24 months' ),
+				'default'           => date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( '+24 months' ) ),
 			),
 			's'          => array(
 				'required'          => false,
