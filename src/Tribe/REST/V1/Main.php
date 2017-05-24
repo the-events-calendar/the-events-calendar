@@ -147,7 +147,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 			'/events',
 			array(
 				'methods'  => 'POST',
-				'args'     => $endpoint->get_POST_args(),
+				'args'     => $endpoint->POST_args(),
 				'callback' => array( $endpoint, 'post' ),
 			)
 		);
