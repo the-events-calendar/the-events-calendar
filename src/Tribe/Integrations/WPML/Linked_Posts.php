@@ -92,8 +92,10 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 			return $this->cache[ $cache_key ];
 		}
 
+		$post__not_in = false;
 		if ( isset( $args['post__not_in'] ) ) {
-			return $results;
+			$post__not_in = (array) $args['post__not_in'];
+			unset( $args['post__not_in'] );
 		}
 
 		// some other function is already filtering this, let's bail
@@ -121,8 +123,16 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 
 		$linked_posts_ids = array_merge( $default_lang_linked_posts_ids, $linked_posts_ids );
 
-		// run this query to keep the specified `orderby`
-		$linked_posts = get_posts( array_merge( $args, array( 'post__in' => $linked_posts_ids ) ) );
+		if ( false !== $post__not_in ) {
+			$linked_posts_ids = array_diff( $linked_posts_ids, $post__not_in );
+		}
+
+		if ( empty( $linked_posts_ids ) ) {
+			return $linked_posts = array();
+		} else {
+			// run this query to keep the specified `orderby`
+			$linked_posts = get_posts( array_merge( $args, array( 'post__in' => $linked_posts_ids ) ) );
+		}
 
 		$this->cache[ $cache_key ] = $linked_posts;
 
@@ -185,7 +195,8 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		$not_translated = array_filter( $posts, array( $this, 'is_not_translated' ) );
 		$assigned = $this->get_linked_post_assigned_to_current( $args );
 
-		$linked_post_ids = ! empty( $assigned ) ? array_merge( $not_translated, (array) $assigned ) : $not_translated;
+		// if a linked post is assigned always show it, translated or not
+		$linked_post_ids = array_merge( $not_translated, $assigned );
 
 		$this->cache[ $cache_key ] = $linked_post_ids;
 
