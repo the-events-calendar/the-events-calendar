@@ -40,4 +40,17 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 
 		return false;
 	}
+
+	/**
+	 * Returns the default value of posts per page.
+	 *
+	 * Cascading fallback is TEC `posts_per_page` option, `posts_per_page` option and, finally, 20.
+	 *
+	 * @return int
+	 */
+	protected function get_default_posts_per_page() {
+		$posts_per_page = tribe_get_option( 'posts_per_page', get_option( 'posts_per_page' ) );
+
+		return ! empty( $posts_per_page ) ? $posts_per_page : 20;
+	}
 }
