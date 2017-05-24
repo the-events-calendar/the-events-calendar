@@ -629,7 +629,6 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost span {
-	background: rgba(255, 255, 255, .1);
 	border: 0;
 	color: #fff;
 	display: block;
@@ -641,7 +640,12 @@ select.tribe-events-dropdown {
 	text-overflow: ellipsis;
 }
 
+.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .ticket-cost {
+	background: rgba(255, 255, 255, .2);
+}
+
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-tickets-left {
+	background: rgba(255, 255, 255, .1);
 	color: #fff;
 	font-style: italic;
 	font-weight: normal;
@@ -656,6 +660,11 @@ select.tribe-events-dropdown {
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-ticket-cost {
 	margin: 0;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-button {
+	color: #000;
+	font-weight: bold;
 }
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-button {
@@ -1166,7 +1175,6 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-day .tribe-event-featured .tribe-events-event-cost span {
-	background: rgba(255, 255, 255, .1);
 	border: 0;
 	color: #fff;
 	display: block;
@@ -1178,7 +1186,12 @@ select.tribe-events-dropdown {
 	text-overflow: ellipsis;
 }
 
+.tribe-events-day .tribe-event-featured .tribe-events-event-cost .ticket-cost {
+	background: rgba(255, 255, 255, .2);
+}
+
 .tribe-events-day .tribe-event-featured .tribe-events-event-cost .tribe-tickets-left {
+	background: rgba(255, 255, 255, .1);
 	color: #fff;
 	font-style: italic;
 	font-weight: normal;
@@ -1193,6 +1206,11 @@ select.tribe-events-dropdown {
 
 .tribe-events-day .tribe-event-featured .tribe-events-event-cost .tribe-ticket-cost {
 	margin: 0;
+}
+
+.tribe-events-day .tribe-event-featured .tribe-events-event-cost .tribe-button {
+	color: #000;
+	font-weight: bold;
 }
 
 .tribe-events-day .tribe-event-featured .tribe-button {
