@@ -20,14 +20,16 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	protected $post_repository;
 
 	/**
-	 * @var Tribe__REST__Validator_Interface
+	 * @var Tribe__Events__Validator__Interface
 	 */
 	protected $validator;
 
 	/**
 	 * Tribe__Events__REST__V1__Endpoints__Single_Event constructor.
 	 *
-	 * @param Tribe__REST__Main $main
+	 * @param Tribe__REST__Messages_Interface                  $messages
+	 * @param Tribe__Events__REST__Interfaces__Post_Repository $post_repository
+	 * @param Tribe__Validator__Interface                      $validator
 	 */
 	public function __construct(
 		Tribe__REST__Messages_Interface $messages,
