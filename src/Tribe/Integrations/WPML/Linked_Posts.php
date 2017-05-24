@@ -14,6 +14,16 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	protected static $instance;
 
 	/**
+	 * @var string
+	 */
+	public $current_language;
+
+	/**
+	 * @var int
+	 */
+	protected $element_id;
+
+	/**
 	 * @var Tribe__Cache
 	 */
 	protected $cache;
@@ -237,6 +247,80 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		$assigned = get_post_meta( $current_post_id, $map[ $post_type ], false );
 
 		return ! empty( $assigned ) ? $assigned : array();
+	}
+
+	/**
+	 * Conditionally sets up a `shutdown` action to translated the linked post IDs.
+	 *
+	 * @param array $data An array of data about the translation provided by WPML.
+	 *
+	 * @return bool Whether the `shutdown` action has been hooked or not.
+	 */
+	public function maybe_translate_linked_posts( array $data ) {
+		$required_keys = array( 'element_id', 'element_type', 'type' );
+
+		if ( count( array_intersect_key( $data, array_combine( $required_keys, $required_keys ) ) ) < count( $required_keys ) ) {
+			return false;
+		}
+
+		if ( $data['element_type'] !== 'post_' . Tribe__Events__Main::POSTTYPE || $data['type'] !== 'insert' ) {
+			return false;
+		}
+
+		/** @var wpdb $wpdb */
+		/** @var SitePress $sitepress */
+		global $wpdb, $sitepress;
+
+		$current_language = $sitepress->get_current_language();
+
+		if ( $sitepress->get_default_language() === $current_language ) {
+			return false;
+		}
+
+		if ( empty( $_REQUEST['wpml_original_post_id'] ) ) {
+			return false;
+		}
+
+		$this->element_id = $data['element_id'];
+		$this->current_language = $current_language;
+
+		add_action( 'shutdown', array( $this, 'translate_linked_posts' ) );
+
+		return true;
+	}
+
+	/**
+	 * Translates the linked posts when creating the translated version of a post.
+	 */
+	public function translate_linked_posts() {
+		$original_post_id = $_REQUEST['wpml_original_post_id'];
+
+		$original_venue_ID = get_post_meta( $original_post_id, '_EventVenueID' );
+		$original_organizer_ID = get_post_meta( $original_post_id, '_EventOrganizerID' );
+		$post_id = $this->element_id;
+
+		$this->set_linked_post_translations_for( $post_id, $this->current_language, $original_venue_ID, '_EventVenueID' );
+		$this->set_linked_post_translations_for( $post_id, $this->current_language, $original_organizer_ID, '_EventOrganizerID' );
+	}
+
+	/**
+	 * Replaces the linked post IDs for the current post with the IDs of the translated versions if available.
+	 *
+	 * @param int    $post_id
+	 * @param string $current_language
+	 * @param array  $linked_post_ids
+	 */
+	protected function set_linked_post_translations_for( $post_id, $current_language, $linked_post_ids, $meta_key ) {
+		if ( ! empty( $linked_post_ids ) ) {
+			delete_post_meta( $post_id, $meta_key );
+			foreach ( $linked_post_ids as $linked_post_id ) {
+				$translations = wpml_get_content_translations_filter( null, $linked_post_id );
+				$translated_linked_post_id = empty( $translations[ $current_language ]->element_id ) ?
+					$linked_post_id
+					: $translations[ $current_language ]->element_id;
+				add_post_meta( $post_id, $meta_key, $translated_linked_post_id );
+			}
+		}
 	}
 
 	/**

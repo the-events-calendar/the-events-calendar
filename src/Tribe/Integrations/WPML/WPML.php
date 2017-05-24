@@ -46,6 +46,8 @@ class Tribe__Events__Integrations__WPML__WPML {
 		if ( ! $defaults->has_set_defaults() ) {
 			add_action( 'wpml_parse_config_file', array( $defaults, 'setup_config_file' ) );
 		}
+		$linked_posts = Tribe__Events__Integrations__WPML__Linked_Posts::instance();
+		add_action( 'wpml_translation_update', array( $linked_posts, 'maybe_translate_linked_posts' ), 10, 1 );
 	}
 
 	protected function hook_filters() {
