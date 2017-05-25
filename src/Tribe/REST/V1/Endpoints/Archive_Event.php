@@ -65,7 +65,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		$date_format = Tribe__Date_Utils::DBDATETIMEFORMAT;
 
 		try {
-			$args['paged'] = $request->get_param('page');
+			$args['paged'] = $request['page'];
 			$args['posts_per_page'] = $request['per_page'];
 			$args['start_date'] = isset( $request['start_date'] ) ?
 				Tribe__Timezones::localize_date( $date_format, $request['start_date'] )
@@ -101,6 +101,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		// Due to an incompatibility between date based queries and 'ids' fields we cannot do this, see `wp_list_pluck` use down
 		// $args['fields'] = 'ids';
 
+		if ( empty( $args['posts_per_page'] ) ) {
+			$args['posts_per_page'] = $this->get_default_posts_per_page();
+		}
+
 		$events = tribe_get_events( $args );
 
 		$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
@@ -127,7 +131,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$data['events'][] = $this->repository->get_event_data( $event_id );
 		}
 
-		$data['total']       = $total = $this->get_total( $args );
+		$data['total'] = $total = $this->get_total( $args );
 		$data['total_pages'] = $this->get_total_pages( $total, $args['posts_per_page'] );
 
 		/**
@@ -173,17 +177,18 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	/**
 	 * Parses the request for featured events.
 	 *
-	 * @param WP_REST_Request $request
+	 * @param string $featured
+	 *
 	 * @return array|bool Either the meta query for featured events or `false` if not specified.
 	 */
-	protected function parse_featured_meta_query_entry( $request ) {
-		if ( ! isset( $request['featured'] ) ) {
+	protected function parse_featured_meta_query_entry( $featured ) {
+		if ( null === $featured ) {
 			return false;
 		}
 
 		$parsed = array(
 			'key' => Tribe__Events__Featured_Events::FEATURED_EVENT_KEY,
-			'compare' => $request['featured'] ? 'EXISTS' : 'NOT EXISTS',
+			'compare' => $featured ? 'EXISTS' : 'NOT EXISTS',
 		);
 
 		return $parsed;
@@ -210,12 +215,6 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 			if ( false === $term ) {
 				$term = get_term_by( 'id', $t, $taxonomy );
-			}
-
-			if ( false === $term ) {
-				$message = $this->messages->get_message( 'event-archive-bad-' . $key );
-
-				throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-' . $key, $message, 400 );
 			}
 
 			$parsed[] = $term->term_id;
@@ -364,22 +363,6 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		 * @param int $per_page Default to 50.
 		 */
 		return apply_filters( 'tribe_rest_event_max_per_page', 50 );
-	}
-
-	protected function parse_search( $request ) {
-		if ( ! isset( $request['search'] ) ) {
-			return false;
-		}
-
-		$filtered = filter_var( $request['search'], FILTER_SANITIZE_STRING );
-
-		if ( ! $filtered ) {
-			$message = $this->messages->get_message( 'event-archive-bad-search-string' );
-
-			throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-search-string', $message, 400 );
-		}
-
-		return $filtered;
 	}
 
 	/**

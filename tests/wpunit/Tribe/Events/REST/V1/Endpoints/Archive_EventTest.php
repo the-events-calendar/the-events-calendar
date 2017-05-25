@@ -81,7 +81,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 */
 	public function it_should_return_a_number_of_events_equal_to_the_posts_per_page_option() {
 		$request = new \WP_REST_Request( 'GET', '' );
-		update_option( 'posts_per_page', 3 );
+		tribe_update_option( 'posts_per_page', 3 );
 		$this->factory()->event->create_many( 5 );
 
 		$sut = $this->make_instance();
@@ -106,57 +106,6 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertCount( 5, $response->get_data()['events'] );
-	}
-
-	/**
-	 * @test
-	 * it should cap the per_page value at 50
-	 */
-	public function it_should_cap_the_per_page_value_at_50() {
-		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'per_page', 100 );
-		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 51 );
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertInstanceOf( \WP_REST_Response::class, $response );
-		$this->assertCount( 50, $response->get_data()['events'] );
-	}
-
-	/**
-	 * @test
-	 * it should allow filtering the per_page cap
-	 */
-	public function it_should_allow_filtering_the_per_page_cap() {
-		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'per_page', 100 );
-		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 21 );
-		add_filter( 'tribe_rest_event_max_per_page', function () {
-			return 20;
-		} );
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertInstanceOf( \WP_REST_Response::class, $response );
-		$this->assertCount( 20, $response->get_data()['events'] );
-	}
-
-	public function not_positive_integers_above_one() {
-		return [
-			[ 'foo' ],
-			[ 'Happy as Larry' ],
-			[ '' ],
-			[ '0' ],
-			[ 0 ],
-			[ '-1' ],
-			[ - 1 ],
-			[ new \stdClass() ],
-			[ array( 'foo' => 'bar' ) ],
-		];
 	}
 
 	/**
@@ -214,44 +163,12 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 	/**
 	 * @test
-	 * it should return a WP_Error when sending bad start_date parameter
-	 */
-	public function it_should_return_a_wp_error_when_sending_bad_start_date_parameter() {
-		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'start_date', 'Happy as Larry' );
-		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertWPError( $response );
-	}
-
-	/**
-	 * @test
-	 * it should return a WP_Error when sending a bad end_date parameter
-	 */
-	public function it_should_return_a_wp_error_when_sending_a_bad_end_date_parameter() {
-		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'end_date', 'Happy as Larry' );
-		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertWPError( $response );
-	}
-
-	/**
-	 * @test
 	 * it should allow specifying the page to get
 	 */
 	public function it_should_allow_specifying_the_page_to_get() {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'page', 2 );
-		update_option( 'posts_per_page', 3 );
+		$request->set_param( 'per_page', 3 );
 		$this->factory()->event->create_many( 9 );
 
 		$sut = $this->make_instance();
@@ -618,27 +535,12 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->assertEqualSets( $featured, wp_list_pluck( $data['events'], 'id' ) );
 
 		$request->set_param( 'featured', false );
-
 		$response = $sut->get( $request );
+
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$data = $response->get_data();
 		$this->assertCount( 5, $data['events'] );
 		$this->assertEqualSets( $not_featured, wp_list_pluck( $data['events'], 'id' ) );
-	}
-
-	/**
-	 * It should return error if term specified is not a term
-	 *
-	 * @test
-	 */
-	public function it_should_return_error_if_term_specified_is_not_a_term() {
-		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'tags', [ 'some-non-existing-tag' ] );
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertWPError( $response );
 	}
 
 	/**
