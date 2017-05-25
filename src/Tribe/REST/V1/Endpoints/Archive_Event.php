@@ -522,13 +522,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_string' ),
 			),
-			'venue'      => array(
+			'venue'     => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, array( $this->validator, 'is_venue_id' ) ),
+				'validate_callback' => array( $this->validator, 'is_venue_id' ),
 			),
-			'organizer'  => array(
+			'organizer' => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, array( $this->validator, 'is_organizer_id_list' ) ),
+				'validate_callback' => array( $this->validator, 'is_organizer_id_list' ),
 			),
 			'featured'   => array(
 				'required' => false,

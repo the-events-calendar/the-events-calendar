@@ -48,4 +48,13 @@ class RestGuy extends \Restv1Tester {
 			}
 		}
 	}
+
+	public function generate_nonce_for_role( $role ) {
+		$user = $this->haveUserInDatabase( 'user', $role, [ 'user_pass' => 'secret' ] );
+		$this->loginAs( 'user', 'secret' );
+		$_COOKIE[ LOGGED_IN_COOKIE ] = $this->grabCookie( LOGGED_IN_COOKIE );
+		wp_set_current_user( $user );
+
+		return wp_create_nonce( 'wp_rest' );
+	}
 }

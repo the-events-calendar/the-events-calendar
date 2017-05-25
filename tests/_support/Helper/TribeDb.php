@@ -127,7 +127,7 @@ class TribeDb extends \Codeception\Module {
 	/**
 	 * Inserts an organizer in the database.
 	 *
-	 * @param array  $overrides
+	 * @param array $overrides
 	 *
 	 * @return int The organizer post ID
 	 */
@@ -154,6 +154,33 @@ class TribeDb extends \Codeception\Module {
 		$args = array_merge( $args, $overrides );
 
 		return $this->db->havePostInDatabase( $args );
+	}
+
+	/**
+	 * Inserts many events in the database.
+	 *
+	 * @param      int $count      The number of events to insert.
+	 * @param array    $overrides  An array of arguments to override the defaults (see `haveEventInDatabase`)
+	 * @param int      $time_space A positive amount of hours that should separate the events; by default the events
+	 *                             will happen spaced one hour from each other.
+	 *
+	 * @return array An array of generated event post IDs.
+	 */
+	public function haveManyEventsInDatabase( $count, array $overrides = [], $time_space = null ) {
+		$ids = [];
+		$time = empty( $time_space ) ? 1 : $time_space;
+		for ( $n = 0; $n < $count; $n ++ ) {
+			$event_overrides = $overrides;
+			if ( ! empty( $time_space ) ) {
+				$event_overrides['when'] = '+' . $time . ' hours';
+				$time += $time_space;
+				$event_overrides['post_title'] = "Event {$n}";
+				$event_overrides['post_name'] = "event-{$n}";
+			}
+			$ids[] = $this->haveEventInDatabase( $event_overrides );
+		}
+
+		return $ids;
 	}
 
 	/**
@@ -214,10 +241,15 @@ class TribeDb extends \Codeception\Module {
 			}
 		}
 
-
 		if ( isset( $overrides['venue'] ) ) {
 			$meta_input['_EventVenueID'] = $overrides['venue'];
-			unset($overrides['venue']);
+			unset( $overrides['venue'] );
+		}
+
+		$organizers = [];
+		if ( isset( $overrides['organizer'] ) ) {
+			$organizers = (array) $overrides['organizer'];
+			unset( $overrides['organizer'] );
 		}
 
 		unset( $overrides['when'], $overrides['duration'], $overrides['utc_offset'] );
@@ -232,34 +264,15 @@ class TribeDb extends \Codeception\Module {
 
 		unset( $overrides['meta_input'] );
 
-		return $this->db->havePostInDatabase( array_merge( $defaults, $overrides ) );
-	}
+		$post_id = $this->db->havePostInDatabase( array_merge( $defaults, $overrides ) );
 
-	/**
-	 * Inserts many events in the database.
-	 *
-	 * @param      int $count      The number of events to insert.
-	 * @param array    $overrides  An array of arguments to override the defaults (see `haveEventInDatabase`)
-	 * @param int      $time_space A positive amount of hours that should separate the events; by default the events
-	 *                             will happen spaced one hour from each other.
-	 *
-	 * @return array An array of generated event post IDs.
-	 */
-	public function haveManyEventsInDatabase( $count, array $overrides = [], $time_space = null ) {
-		$ids = [];
-		$time = empty( $time_space ) ? 1 : $time_space;
-		for ( $n = 0; $n < $count; $n ++ ) {
-			$event_overrides = $overrides;
-			if ( ! empty( $time_space ) ) {
-				$event_overrides['when'] = '+' . $time . ' hours';
-				$time += $time_space;
-				$event_overrides['post_title'] = "Event {$n}";
-				$event_overrides['post_name'] = "event-{$n}";
+		if ( ! empty( $organizers ) ) {
+			foreach ( $organizers as $organizer_id ) {
+				$this->db->havePostmetaInDatabase( $post_id, '_EventOrganizerID', $organizer_id );
 			}
-			$ids[] = $this->haveEventInDatabase( $event_overrides );
 		}
 
-		return $ids;
+		return $post_id;
 	}
 
 }
