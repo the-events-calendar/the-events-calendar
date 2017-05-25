@@ -61,43 +61,43 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 */
 	public function get( WP_REST_Request $request ) {
-		$defaults = array( 'posts_per_page' => get_option( 'posts_per_page' ) );
-
 		$args = array();
+		$date_format = Tribe__Date_Utils::DBDATETIMEFORMAT;
 
 		try {
-			$args['paged']          = $this->parse_page( $request );
-			$args['posts_per_page'] = $this->parse_per_page( $request );
-			$args['start_date']     = $this->parse_start_date( $request );
-			$args['end_date']       = $this->parse_end_date( $request );
-			$args['s']              = $this->parse_search( $request );
+			$args['paged'] = $request->get_param('page');
+			$args['posts_per_page'] = $request['per_page'];
+			$args['start_date'] = isset( $request['start_date'] ) ?
+				Tribe__Timezones::localize_date( $date_format, $request['start_date'] )
+				: false;
+			$args['end_date'] = isset( $request['end_date'] ) ?
+				Tribe__Timezones::localize_date( $date_format, $request['end_date'] )
+				: false;
+			$args['s'] = $request['search'];
 
 			$args['meta_query'] = array_filter( array(
-				$this->parse_meta_query_entry( $request, 'venue', '_EventVenueID', '=', 'NUMERIC' ),
-				$this->parse_meta_query_entry( $request, 'organizer', '_EventOrganizerID', '=', 'NUMERIC' ),
-				$this->parse_featured_meta_query_entry( $request ),
+				$this->parse_meta_query_entry( $request['venue'], '_EventVenueID', '=', 'NUMERIC' ),
+				$this->parse_meta_query_entry( $request['organizer'], '_EventOrganizerID', '=', 'NUMERIC' ),
+				$this->parse_featured_meta_query_entry( $request['featured'] ),
 			) );
 
 			$args['tax_query'] = array_filter( array(
-				$this->parse_categories( $request ),
-				$this->parse_tags( $request ),
+				$this->parse_terms_query( $request['categories'], Tribe__Events__Main::TAXONOMY ),
+				$this->parse_terms_query( $request['tags'], 'post_tag' ),
 			) );
 
-			$args = array_filter( wp_parse_args( $args, $defaults ) );
+			$args = $this->parse_args( $args, $request->get_default_params() );
 
 			$data = array( 'events' => array() );
 
 			$data['rest_url'] = $this->get_current_rest_url( $args );
-
-			if ( ! isset( $args['posts_per_page'] ) ) {
-				$args['posts_per_page'] = get_option( 'posts_per_page' );
-			}
 		} catch ( Tribe__REST__Exceptions__Exception $e ) {
 			return new WP_Error( $e->getCode(), $e->getMessage(), array( 'status' => $e->getStatus() ) );
 		}
 
 		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
 		$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
+
 		// Due to an incompatibility between date based queries and 'ids' fields we cannot do this, see `wp_list_pluck` use down
 		// $args['fields'] = 'ids';
 
@@ -128,7 +128,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		}
 
 		$data['total']       = $total = $this->get_total( $args );
-		$data['total_pages'] = $this->get_total_pages( $total, $this->parse_per_page( $request ) );
+		$data['total_pages'] = $this->get_total_pages( $total, $args['posts_per_page'] );
 
 		/**
 		 * Filters the data that will be returned for an events archive request.
@@ -159,59 +159,15 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	}
 
 	/**
-	 * Parsed the `per_page` argument from the request.
+	 * Parses the `per_page` argument from the request.
 	 *
-	 * @param WP_REST_Request $request
+	 * @param int $per_page The `per_page` param provided by the request.
 	 * @return bool|int The `per_page` argument provided in the request or `false` if not set.
 	 */
-	protected function parse_per_page( WP_REST_Request $request ) {
-		return ! empty( $request['per_page'] ) ?
-			min( $this->get_max_posts_per_page(), intval( $request['per_page'] ) )
+	public function sanitize_per_page( $per_page ) {
+		return ! empty( $per_page ) ?
+			min( $this->get_max_posts_per_page(), intval( $per_page ) )
 			: false;
-	}
-
-	/**
-	 * Parses and converts the start date specified in the request.
-	 *
-	 * @param WP_REST_Request $request
-	 * @return bool|string The parsed date in db format or `false` if not set.
-	 *
-	 * @throws Tribe__REST__Exceptions__Exception If the start date cannot be parsed.
-	 */
-	protected function parse_start_date( WP_REST_Request $request ) {
-		return $this->parse_date_value( $request, 'start_date' );
-	}
-
-	/**
-	 * Parses and converts the end date specified in the request.
-	 *
-	 * @param WP_REST_Request $request
-	 * @return bool|string The parsed date in db format or `false` if not set.
-	 *
-	 * @throws Tribe__REST__Exceptions__Exception If the end date cannot be parsed.
-	 */
-	protected function parse_end_date( WP_REST_Request $request ) {
-		return $this->parse_date_value( $request, 'end_date' );
-	}
-
-	/**
-	 * Parses the event categories specified in the request.
-	 *
-	 * @param WP_REST_Request $request
-	 * @return array|bool Either an array of event categories `term_id`s or `false` if not specified.
-	 */
-	protected function parse_categories( WP_REST_Request $request ) {
-		return $this->parse_terms( $request, 'categories', Tribe__Events__Main::TAXONOMY );
-	}
-
-	/**
-	 * Parses the event tags specified in the request.
-	 *
-	 * @param WP_REST_Request $request
-	 * @return array|bool Either an array of event tags `term_id`s or `false` if not specified.
-	 */
-	protected function parse_tags( $request ) {
-		return $this->parse_terms( $request, 'tags', 'post_tag' );
 	}
 
 	/**
@@ -234,27 +190,26 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	}
 
 	/**
-	 * @param WP_REST_Request $request
-	 * @param string $key The key where the terms are stored in the request..
+	 * @param array|string $terms A list of terms term_id or slugs or a single term term_id or slug.
 	 * @param string $taxonomy The taxonomy of the terms to parse.
 	 *
 	 * @return array|bool Either an array of `terms_ids` or `false` on failure.
 	 *
 	 * @throws Tribe__REST__Exceptions__Exception If one of the terms does not exist for the specified taxonomy.
 	 */
-	protected function parse_terms( $request, $key, $taxonomy ) {
-		if ( ! isset( $request[ $key ] ) ) {
+	protected function parse_terms_query( $terms, $taxonomy ) {
+		if ( empty( $terms ) ) {
 			return false;
 		}
 
 		$parsed    = array();
-		$requested = (array) $request[ $key ];
+		$requested = Tribe__Utils__Array::list_to_array($terms);
 
-		foreach ( $requested as $requeste_term ) {
-			$term = get_term_by( 'slug', $requeste_term, $taxonomy );
+		foreach ( $requested as $t ) {
+			$term = get_term_by( 'slug', $t, $taxonomy );
 
 			if ( false === $term ) {
-				$term = get_term_by( 'id', $requeste_term, $taxonomy );
+				$term = get_term_by( 'id', $t, $taxonomy );
 			}
 
 			if ( false === $term ) {
@@ -280,21 +235,20 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	/**
 	 * Parses and created a meta query entry in from the request.
 	 *
-	 * @param WP_REST_Request $request
-	 * @param string          $key      The key where the values for the meta query are stored in the request.
-	 * @param string          $meta_key The meta key that should be used for the comparison.
-	 * @param string          $compare  The comparison operator.
-	 * @param string          $type     The type to which compared values should be cast.
-	 * @param string          $relation If multiple meta values are provided then this is the relation that the query should use.
+	 * @param string $meta_value The value that should be used for comparison.
+	 * @param string $meta_key   The meta key that should be used for the comparison.
+	 * @param string $compare    The comparison operator.
+	 * @param string $type       The type to which compared values should be cast.
+	 * @param string $relation   If multiple meta values are provided then this is the relation that the query should use.
 	 *
 	 * @return array|bool The meta query entry or `false` on failure.
 	 */
-	protected function parse_meta_query_entry( $request, $key, $meta_key, $compare = '=', $type = 'CHAR', $relation = 'OR' ) {
-		if ( ! isset( $request[ $key ] ) ) {
+	protected function parse_meta_query_entry( $meta_value, $meta_key, $compare = '=', $type = 'CHAR', $relation = 'OR' ) {
+		if ( empty( $meta_value ) ) {
 			return false;
 		}
 
-		$meta_values = Tribe__Utils__Array::list_to_array( $request[ $key ] );
+		$meta_values = Tribe__Utils__Array::list_to_array( $meta_value );
 
 		$parsed = array();
 		foreach ( $meta_values as $meta_value ) {
@@ -568,19 +522,20 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			'per_page'   => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_positive_int' ),
+				'sanitize_callback' => array( $this, 'sanitize_per_page' ),
 				'default'           => $this->get_default_posts_per_page(),
 			),
 			'start_date' => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
-				'default'           => date( Tribe__Date_Utils::DBDATETIMEFORMAT, time() ),
+				'default'           => Tribe__Timezones::localize_date(Tribe__Date_Utils::DBDATETIMEFORMAT,'yesterday 23:59'),
 			),
 			'end_date' => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
 				'default'           => date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( '+24 months' ) ),
 			),
-			's'          => array(
+			's' => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_string' ),
 			),
@@ -604,5 +559,25 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'validate_callback' => array( $this->validator, 'is_post_tag' ),
 			),
 		);
+	}
+
+	/**
+	 * Parses the arguments populated parsing the request filling out with the defaults.
+	 *
+	 * @param array $args
+	 * @param array $defaults
+	 *
+	 * @return array
+	 */
+	protected function parse_args( array $args, array $defaults ) {
+		foreach ( $this->supported_query_vars as $request_key => $query_var ) {
+			if ( isset( $defaults[ $request_key ] ) ) {
+				$defaults[ $query_var ] = $defaults[ $request_key ];
+			}
+		}
+
+		$args = wp_parse_args( array_filter( $args ), $defaults );
+
+		return $args;
 	}
 }

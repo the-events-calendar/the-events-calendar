@@ -29,25 +29,25 @@ class SingleEventCest extends BaseRestCest {
 
 	/**
 	 * @test
-	 * it should return a not found status if hitting a non existing single event endpoint
+	 * it should return bad request if hitting a non existing single event endpoint
 	 */
-	public function it_should_return_a_not_found_status_if_hitting_a_non_existing_single_event_endpoint( Restv1Tester $I ) {
+	public function it_should_return_bad_request_if_hitting_a_non_existing_single_event_endpoint( Restv1Tester $I ) {
 		$I->sendGET( $this->events_url . '/13' );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 400 );
 		$I->seeResponseIsJson();
 	}
 
 	/**
 	 * @test
-	 * it should return a not found status if id is not of an event
+	 * it should return bad request if id is not of an event
 	 */
-	public function it_should_return_a_not_found_status_if_id_is_not_of_an_event( Restv1Tester $I ) {
+	public function it_should_return_bad_request_if_id_is_not_of_an_event( Restv1Tester $I ) {
 		$id = $I->havePostInDatabase();
 
 		$I->sendGET( $this->events_url . '/' . $id );
 
-		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseCodeIs( 400 );
 		$I->seeResponseIsJson();
 	}
 

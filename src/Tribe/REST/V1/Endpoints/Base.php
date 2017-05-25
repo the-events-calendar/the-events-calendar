@@ -13,29 +13,28 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	}
 
 	/**
-	 * @param WP_REST_Request $request
-	 * @param                 $slug
-	 * @return bool|false|string
-	 * @throws Tribe__REST__Exceptions__Exception
+	 * Parses a date value throwing an exception if not valid.
+	 *
+	 * @param string          $date The date under which the request could store the
+	 * @param string          $message_slug
+	 *
+	 * @return false|string Either the date in the specified format localized to the site timezone or `false`
+	 *                      if the date is not provided in the request under the `$key` index.
+	 *
+	 * @throws Tribe__REST__Exceptions__Exception If the date provided is not a valid date string or
+	 *                                            UNIX timestamp.
 	 */
-	protected function parse_date_value( WP_REST_Request $request, $slug ) {
-		if ( ! empty( $request[ $slug ] ) ) {
-			$start_date = strtotime( $request[ $slug ] );
-			// Unix timestamp is a thing...
-			$start_date = $start_date ? $start_date : $request[ $slug ];
-			// at this point if it's legit it should be a number
-			if ( ! is_numeric( $start_date ) ) {
-				$message = $this->messages->get_message( "event-archive-bad-{$slug}" );
+	protected function parse_date_value( $date, $message_slug  ) {
+		if ( ! empty( $date ) ) {
+			$parsed = Tribe__Timezones::localize_date( Tribe__Date_Utils::DBDATETIMEFORMAT, $request[ $key ] );
 
-				throw new Tribe__REST__Exceptions__Exception( "event-archive-bad-{$slug}", $message, 400 );
-			}
-			try {
-				return date( Tribe__Date_Utils::DBDATETIMEFORMAT, $start_date );
-			} catch ( Exception $e ) {
-				$message = $this->messages->get_message( "event-archive-bad-{$slug}" );
+			if ( false === $parsed ) {
+				$message = $this->messages->get_message( $message_slug );
 
-				throw new Tribe__REST__Exceptions__Exception( "event-archive-bad-{$slug}", $message, 400 );
+				throw new Tribe__REST__Exceptions__Exception( $key, $message, 400 );
 			}
+
+			return $parsed;
 		}
 
 		return false;

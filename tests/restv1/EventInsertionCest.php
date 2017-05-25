@@ -23,8 +23,6 @@ class EventInsertionCest extends BaseRestCest {
 		$I->canSeeResponseContainsJson( [
 			'title'       => 'An event',
 			'description' => trim( apply_filters( 'the_content', 'An event content' ) ),
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( 'tomorrow 9am' ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( 'tomorrow 11am' ) ),
 		] );
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'id', $response );
