@@ -30,10 +30,18 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 		return count( array_filter( $organizers, 'tribe_is_organizer' ) ) === count( $organizers );
 	}
 
+	/**
+	 * Whether a list or array of organizer post IDs only contains valid organizer IDs or not.
+	 *
+	 * @param  string|array $organizers A list of organizer post IDs separated by the specified separator or an array
+	 *                                  of organizer post IDs.
+	 * @param string        $sep        The separator used in the list to separate the organizer post IDs; ignored if
+	 *                                  the input value is an array.
+	 *
+	 * @return bool
+	 */
 	public function is_organizer_id_list( $organizers, $sep = ','  ) {
-		if ( !is_array($organizers) ) {
-			$organizers = preg_split( '/\\s*' . preg_quote( $sep ) . '\\s*/', $organizers );
-		}
+		$organizers = Tribe__Utils__Array::list_to_array( $organizers, $sep );
 
 		$valid = array_filter( $organizers, array( $this, 'is_organizer_id' ) );
 
