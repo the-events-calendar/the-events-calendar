@@ -2,6 +2,7 @@
 
 namespace Tribe\Events\Validator;
 
+use Tribe\Events\Tests\Factories\Event;
 use Tribe__Events__Validator__Base as Validator;
 
 class BaseTest extends \Codeception\TestCase\WPTestCase {
@@ -260,5 +261,49 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue( $sut->is_organizer_id_list( implode( ' , ', $organizers ) ) );
 		$this->assertTrue( $sut->is_organizer_id_list( implode( ' ,', $organizers ) ) );
 		$this->assertFalse( $sut->is_organizer_id_list( implode( ' ,', array_merge( $organizers, [ 23 ] ) ) ) );
+	}
+
+	public function is_event_id_bad_inputs() {
+		return [
+			[ '' ],
+			[ null ],
+			[ false ],
+			[ 'foo' ],
+			[ '23' ],
+			[ 23 ],
+			[ 0 ],
+			[ '0' ],
+		];
+	}
+
+	/**
+	 * Test is_event_id with bad inputs
+	 *
+	 * @test
+	 * @dataProvider is_event_id_bad_inputs
+	 */
+	public function test_is_event_id_with_bad_inputs( $input ) {
+		$sut = $this->make_instance();
+
+		$this->assertFalse( $sut->is_event_id( $input ) );
+	}
+
+	/**
+	 * Test is_event_id
+	 *
+	 * @test
+	 */
+	public function test_is_event_id() {
+		$id = $this->factory()->event->create();
+
+		$sut = $this->make_instance();
+
+		$this->assertTrue( $sut->is_event_id( $id ) );
+		$this->assertTrue( $sut->is_event_id( '' . $id ) );
+	}
+
+	function setUp() {
+		parent::setUp();
+		$this->factory()->event = new Event();
 	}
 }

@@ -57,19 +57,6 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 	/**
 	 * @test
-	 * it should return a bad request status if id is missing from request
-	 */
-	public function it_should_return_a_bad_request_status_if_id_is_missing_from_request() {
-		$request = new \WP_REST_Request();
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertErrorResponse( 'missing-event-id', $response, 400 );
-	}
-
-	/**
-	 * @test
 	 * it should return a WP_Error if user cannot access requested event
 	 */
 	public function it_should_return_a_wp_error_if_user_cannot_access_requested_event() {
@@ -99,5 +86,13 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertEquals( [ 'some' => 'data' ], $response->get_data() );
+	}
+
+	/**
+	 * It should return error if trying to fetch
+	 *
+	 * @test
+	 */
+	public function it_should_return_error_if_trying_to_fetch() {
 	}
 }

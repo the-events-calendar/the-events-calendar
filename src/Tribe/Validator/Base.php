@@ -50,4 +50,15 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	public function is_event_category( $category ) {
 		return $this->is_term_of_taxonomy( $category, Tribe__Events__Main::TAXONOMY );
 	}
+
+	/**
+	 * Whether the value is the post ID of an existing event or not.
+	 *
+	 * @param int|string $event_id
+	 *
+	 * @return bool
+	 */
+	public function is_event_id( $event_id ) {
+		return !empty($event_id) && tribe_is_event($event_id);
+	}
 }

@@ -51,16 +51,9 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 		$event = get_post( $request->get_param('id') );
 
-		if ( empty( $event ) || ! tribe_is_event( $event ) ) {
-			$message = $this->messages->get_message( 'event-not-found' );
-
-			return new WP_Error( 'event-not-found', $message, array( 'status' => 404 ) );
-		}
-
 		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->read_post;
 		if ( ! ( 'publish' === $event->post_status || current_user_can( $cap, $request['id'] ) ) ) {
 			$message = $this->messages->get_message( 'event-not-accessible' );
-
 			return new WP_Error( 'event-not-accessible', $message, array( 'status' => 403 ) );
 		}
 
@@ -153,7 +146,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 */
 	public function GET_args(  ) {
 		return array(
-			'id' => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_positive_int' ) ),
+			'id' => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_event_id' ) ),
 		);
 	}
 
