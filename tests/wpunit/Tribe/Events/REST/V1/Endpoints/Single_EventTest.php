@@ -87,12 +87,4 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertEquals( [ 'some' => 'data' ], $response->get_data() );
 	}
-
-	/**
-	 * It should return error if trying to fetch
-	 *
-	 * @test
-	 */
-	public function it_should_return_error_if_trying_to_fetch() {
-	}
 }
