@@ -249,7 +249,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function save( $post_id, $args = array(), $meta = array() ) {
 		if ( ! isset( $meta['type'] ) || 'schedule' !== $meta['type'] ) {
-			return tribe_error( 'core:aggregator:invalid-edit-record-type', $type );
+			return tribe_error( 'core:aggregator:invalid-edit-record-type', $meta );
 		}
 
 		$defaults = array(
