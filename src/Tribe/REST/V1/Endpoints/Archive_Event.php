@@ -285,20 +285,30 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @param string          $meta_key The meta key that should be used for the comparison.
 	 * @param string          $compare  The comparison operator.
 	 * @param string          $type     The type to which compared values should be cast.
+	 * @param string          $relation If multiple meta values are provided then this is the relation that the query should use.
 	 *
 	 * @return array|bool The meta query entry or `false` on failure.
 	 */
-	protected function parse_meta_query_entry( $request, $key, $meta_key, $compare = '=', $type = 'CHAR' ) {
+	protected function parse_meta_query_entry( $request, $key, $meta_key, $compare = '=', $type = 'CHAR', $relation = 'OR' ) {
 		if ( ! isset( $request[ $key ] ) ) {
 			return false;
 		}
 
-		$parsed = array(
-			'key'     => $meta_key,
-			'value'   => $request[ $key ],
-			'type'    => $type,
-			'compare' => $compare,
-		);
+		$meta_values = Tribe__Utils__Array::list_to_array( $request[ $key ] );
+
+		$parsed = array();
+		foreach ( $meta_values as $meta_value ) {
+			$parsed[] = array(
+				'key'     => $meta_key,
+				'value'   => $meta_value,
+				'type'    => $type,
+				'compare' => $compare,
+			);
+		}
+
+		if ( count( $parsed ) > 1 ) {
+			$parsed['relation'] = $relation;
+		}
 
 		return $parsed;
 	}
@@ -388,10 +398,6 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		$rest_url = remove_query_arg( 'page', $rest_url );
 
 		return 2 === $page ? $rest_url : add_query_arg( array( 'page' => $page - 1 ), $rest_url );
-	}
-
-	protected function is_positive_int_gte( $value, $min ) {
-		return filter_var( $value, FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => $min ) ) );
 	}
 
 	/**
@@ -584,7 +590,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			),
 			'organizer'  => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, array( $this->validator, 'is_organizer_id' ) ),
+				'validate_callback' => array( $this->validator, array( $this->validator, 'is_organizer_id_list' ) ),
 			),
 			'featured'   => array(
 				'required' => false,

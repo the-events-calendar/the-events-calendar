@@ -240,4 +240,25 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertTrue( $sut->is_event_category( [ $category_1, $category_2 ] ) );
 		$this->assertFalse( $sut->is_event_category( [ $category_1, $category_2, $category_3 ] ) );
 	}
+
+	/**
+	 * Test is_organizer_id_list
+	 *
+	 * @test
+	 */
+	public function test_is_organizer_id_list() {
+		$organizers = $this->factory()->post->create_many( 2, [ 'post_type' => \Tribe__Events__Main::ORGANIZER_POST_TYPE ] );
+
+		$sut = $this->make_instance();
+
+		$this->assertFalse( $sut->is_organizer_id_list( [] ) );
+		$this->assertFalse( $sut->is_organizer_id_list( [ ',' ] ) );
+		$this->assertTrue( $sut->is_organizer_id_list( reset( $organizers ) ) );
+		$this->assertTrue( $sut->is_organizer_id_list( [ reset( $organizers ) ] ) );
+		$this->assertTrue( $sut->is_organizer_id_list( implode( ',', $organizers ) ) );
+		$this->assertTrue( $sut->is_organizer_id_list( implode( ', ', $organizers ) ) );
+		$this->assertTrue( $sut->is_organizer_id_list( implode( ' , ', $organizers ) ) );
+		$this->assertTrue( $sut->is_organizer_id_list( implode( ' ,', $organizers ) ) );
+		$this->assertFalse( $sut->is_organizer_id_list( implode( ' ,', array_merge( $organizers, [ 23 ] ) ) ) );
+	}
 }

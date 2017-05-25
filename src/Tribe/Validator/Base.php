@@ -30,6 +30,16 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 		return count( array_filter( $organizers, 'tribe_is_organizer' ) ) === count( $organizers );
 	}
 
+	public function is_organizer_id_list( $organizers, $sep = ','  ) {
+		if ( !is_array($organizers) ) {
+			$organizers = preg_split( '/\\s*' . preg_quote( $sep ) . '\\s*/', $organizers );
+		}
+
+		$valid = array_filter( $organizers, array( $this, 'is_organizer_id' ) );
+
+		return ! empty( $organizers ) && count( $valid ) === count( $organizers );
+	}
+
 	/**
 	 * Whether the event category exists or not.
 	 *
