@@ -994,8 +994,23 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$format = $date_with_year_format;
 
-		// if it starts and ends in the current year then there is no need to display the year
-		if ( tribe_get_start_date( $event, false, 'Y' ) === date( 'Y' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
+		/**
+		 * If a yearless date format should be preferred.
+		 *
+		 * By default, this will be true if the event starts and ends in the current year.
+		 *
+		 * @param bool    $use_yearless_format
+		 * @param WP_Post $event
+		 */
+		$use_yearless_format = apply_filters( 'tribe_events_event_schedule_details_use_yearless_format',
+			(
+				tribe_get_start_date( $event, false, 'Y' ) === date_i18n( 'Y' )
+				&& tribe_get_end_date( $event, false, 'Y' ) === date_i18n( 'Y' )
+			),
+			$event
+		);
+
+		if ( $use_yearless_format ) {
 			$format = $date_without_year_format;
 		}
 

@@ -20,6 +20,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	public $is_schedule = false;
 	public $is_manual = false;
+	public $last_wpdb_error = '';
 
 	/**
 	 * An associative array of origins and the settings they define a policy for.
@@ -218,10 +219,19 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$post = $this->prep_post_args( $type, $args, $meta );
 
+		$this->watch_for_db_errors();
+
 		$result = wp_insert_post( $post );
 
 		if ( is_wp_error( $result ) ) {
 			$this->maybe_add_meta_via_pre_wp_44_method( $result, $post['meta_input'] );
+		}
+
+		if ( $this->db_errors_happened() ) {
+			$error_message = __( 'Something went wrong while inserting the record in the database.', 'the-events-calendar' );
+			wp_delete_post( $result );
+
+			return new WP_Error( 'db-error-during-creation', $error_message );
 		}
 
 		// After Creating the Post Load and return
@@ -397,6 +407,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
 		$post['post_content'] = $frequency->id;
 
+		$this->watch_for_db_errors();
+
 		// create schedule post
 		$schedule_id = wp_insert_post( $post );
 
@@ -406,6 +418,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$this->maybe_add_meta_via_pre_wp_44_method( $schedule_id, $post['meta_input'] );
+
+
+		if ( $this->db_errors_happened() ) {
+			wp_delete_post( $schedule_id );
+
+			return tribe_error( 'core:aggregator:save-schedule-failed' );
+		}
 
 		$update_args = array(
 			'ID' => $this->post->ID,
@@ -453,14 +472,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
 		if ( ! $frequency ) {
-			return tribe_error( 'core:aggregator:invalid-record-frequency', $meta );
+			return tribe_error( 'core:aggregator:invalid-record-frequency', $post['meta_input'] );
 		}
 
 		// Setup the post_content as the Frequency (makes it easy to fetch by frequency)
 		$post['post_content'] = $frequency->id;
 
+		$this->watch_for_db_errors();
+
 		// create schedule post
 		$child_id = wp_insert_post( $post );
+
 
 		// if the schedule creation failed, bail
 		if ( is_wp_error( $child_id ) ) {
@@ -468,6 +490,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$this->maybe_add_meta_via_pre_wp_44_method( $child_id, $post['meta_input'] );
+
+		if ( $this->db_errors_happened() ) {
+			wp_delete_post( $child_id );
+
+			return tribe_error( 'core:aggregator:save-child-failed' );
+		}
 
 		// track the most recent child that was spawned
 		$this->update_meta( 'recent_child', $child_id );
@@ -792,6 +820,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return boolean
 	 */
 	public function is_schedule_time() {
+		if ( tribe_is_truthy( getenv( 'TRIBE_DEBUG_OVERRIDE_SCHEDULE' ) ) ) {
+			return true;
+		}
+
 		// If we are not on a Schedule Type
 		if ( ! $this->is_schedule ) {
 			return false;
@@ -1800,5 +1832,25 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	protected function has_import_policy_for( $origin, $setting ) {
 		return isset( $this->origin_import_policies[ $origin ] ) && in_array( $setting, $this->origin_import_policies[ $origin ] );
+	}
+
+	/**
+	 * Starts monitoring the db for errors.
+	 */
+	protected function watch_for_db_errors() {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$this->last_wpdb_error = $wpdb->last_error;
+
+	}
+
+	/**
+	 * @return bool Whether a db error happened during the insertion of data or not.
+	 */
+	protected function db_errors_happened() {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		return $wpdb->last_error !== $this->last_wpdb_error;
 	}
 }
