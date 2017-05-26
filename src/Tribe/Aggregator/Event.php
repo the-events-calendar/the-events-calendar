@@ -377,6 +377,7 @@ class Tribe__Events__Aggregator__Event {
 			// Date is stored in 24hr format and doesn't need meridian, which might be set already.
 			unset( $data['EventStartMeridian'] );
 		}
+
 		// The end date needs to be adjusted from a MySQL style datetime string to just the date
 		if ( isset( $modified['_EventEndDate'] ) && isset( $post_meta['_EventEndDate'] ) ) {
 			$end_datetime = strtotime( $post_meta['_EventEndDate'] );

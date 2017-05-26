@@ -194,6 +194,12 @@ class Tribe__Events__Aggregator__Record__Queue {
 	public function save() {
 		$this->record->update_meta( self::$activity_key, $this->activity );
 
+		/** @var Tribe__Meta__Chunker $chunker */
+		$chunker = tribe( 'chunker' );
+		// this data has the potential to be very big, so we register it for possible chunking in the db
+		$key = Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . self::$queue_key;
+		$chunker->register_chunking_for( $this->record->post->ID, $key );
+
 		if ( empty( $this->items ) ) {
 			$this->record->delete_meta( self::$queue_key );
 		} else {

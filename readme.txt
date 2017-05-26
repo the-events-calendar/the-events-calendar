@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Stable tag: 4.5.1
-Tested up to: 4.7.4
+Stable tag: 4.6rc2
+Tested up to: 4.7.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -325,6 +325,22 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [4.6] TBD =
+
+* Tweak - Minor tweaks to the CSS for linked post types (Organizer/Venues)
+* Fix - Prevent drag and drop icon showing when singular linked post type is been displayed
+
+= [4.5.2.1] 2017-05-19 =
+
+* Fix - Prevent fatal errors occuring in PHP 5.5 and earlier [79208]
+
+= [4.5.2] 2017-05-17 =
+
+* Fix - Correct REST API reference URL (our thanks to Lindsey for flagging this) [78658]
+* Fix - Improve Event Aggregator integration to avoid situations where imports continually restart but do not complete [77988]
+* Tweak - Make the inclusion or exclusion of the year (within the event schedule string) filterable [78070]
+* Tweak - Adjustments to help avoid false positive security alerts being generated in relation to our customizer integration [78355]
 
 = [4.5.1] 2017-05-04 =
 

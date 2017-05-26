@@ -164,7 +164,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
-		$I->assertCount( 6, $response->events );
+		$I->assertCount( 5, $response->events );
 	}
 
 	/**
@@ -181,7 +181,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
-		$I->assertCount( 4, $response->events );
+		$I->assertCount( 5, $response->events );
 	}
 
 	/**
@@ -246,12 +246,13 @@ class EventArchiveCest extends BaseRestCest {
 	 */
 	public function it_should_allow_using_start_date_and_end_date_to_narrow_down_events( Restv1Tester $I ) {
 		// 10 events each 1 week apart starting now
+		// so 0, +8, +15, +22, +29 days...
 		$I->haveManyEventsInDatabase( 10, [], 24 * 7 );
 		$I->haveOptionInDatabase( 'posts_per_page', 20 );
 
 		$params = array(
-			'start_date' => date( 'U', strtotime( '+4 weeks' ) ),
-			'end_date'   => date( 'U', strtotime( '+6 weeks' ) ),
+			'start_date' => strtotime( '+10 days' ),
+			'end_date'   => strtotime( '+30 days' ),
 		);
 		$I->sendGET( $this->events_url, $params );
 

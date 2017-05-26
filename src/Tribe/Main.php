@@ -31,9 +31,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '4.5.1';
+
+		const VERSION             = '4.6rc2';
+
 		const MIN_ADDON_VERSION   = '4.4';
-		const MIN_COMMON_VERSION  = '4.5.0.1';
+		const MIN_COMMON_VERSION  = '4.6rc';
+
 		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
@@ -501,6 +504,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Frontend Javascript
 			add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );
+
+			// WP Admin Menu Fixes
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_wp_admin_menu_style' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_wp_admin_menu_style' ) );
+
 			add_filter( 'tribe_events_before_html', array( $this, 'before_html_data_wrapper' ) );
 			add_filter( 'tribe_events_after_html', array( $this, 'after_html_data_wrapper' ) );
 
@@ -650,6 +658,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Preview handling
 			add_action( 'template_redirect', array( Tribe__Events__Revisions__Preview::instance(), 'hook' ) );
+
+			// Register all of the post types in the chunker and start the chunker
+			add_filter( 'tribe_meta_chunker_post_types', array( $this, 'filter_meta_chunker_post_types' ) );
+			tribe( 'chunker' );
 
 			// Register slug conflict notices (but test to see if tribe_notice() is indeed available, in case another plugin
 			// is hosting an earlier version of tribe-common which is already active)
@@ -1873,9 +1885,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				wp_enqueue_style( self::POSTTYPE . '-admin', tribe_events_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 			}
 
-			// UI admin
-			Tribe__Events__Template_Factory::asset_package( 'admin-menu' );
-
 			// settings screen
 			if ( $admin_helpers->is_screen( 'settings_page_tribe-settings' ) ) {
 				// JS admin
@@ -2077,6 +2086,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			} else {
 				return get_post_meta( $post_id, '_EventStartDate', true );
 			}
+		}
+
+		/**
+		 * Make sure we are loading a style for all logged-in users when we have the admin menu
+		 * @return void
+		 */
+		public function enqueue_wp_admin_menu_style() {
+			if ( ! is_admin_bar_showing() ) {
+				return;
+			}
+
+			// UI admin
+			Tribe__Events__Template_Factory::asset_package( 'admin-menu' );
 		}
 
 		/**
@@ -2675,7 +2697,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 *  Returns the full address of an event along with HTML markup.  It
-		 *  loads the full-address template to generate the HTML
+		 *  loads the address template to generate the HTML
 		 */
 		public function fullAddress( $post_id = null, $includeVenueName = false ) {
 			global $post;
@@ -5055,6 +5077,23 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public static function ecpActive( $version = '2.0.7' ) {
 			return class_exists( 'Tribe__Events__Pro__Main' ) && defined( 'Tribe__Events__Pro__Main::VERSION' ) && version_compare( Tribe__Events__Pro__Main::VERSION, $version, '>=' );
+		}
+
+		/**
+		 * Filters the chunkable post types.
+		 *
+		 * @param array $post_types
+		 * @return array The filtered post types
+		 */
+		public function filter_meta_chunker_post_types( array $post_types ) {
+			$post_types = array_merge( $post_types, array(
+				self::POSTTYPE,
+				self::VENUE_POST_TYPE,
+				self::ORGANIZER_POST_TYPE,
+				Tribe__Events__Aggregator__Records::$post_type,
+			) );
+
+			return $post_types;
 		}
 
 	}
