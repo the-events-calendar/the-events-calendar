@@ -90,7 +90,7 @@ class EventArchiveCest extends BaseRestCest {
 
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
-		$I->seeResponseContainsUrl( 'rest_url', $this->events_url );
+		$I->see_response_contains_url( 'rest_url', $this->events_url );
 	}
 
 	/**
@@ -105,7 +105,7 @@ class EventArchiveCest extends BaseRestCest {
 
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
-		$I->seeResponseContainsUrl( 'next_rest_url', $this->events_url . '/?page=2' );
+		$I->see_response_contains_url( 'next_rest_url', $this->events_url . '/?page=2' );
 	}
 
 	/**
@@ -120,7 +120,7 @@ class EventArchiveCest extends BaseRestCest {
 
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
-		$I->seeResponseContainsUrl( 'previous_rest_url', $this->events_url . '/?page=2' );
+		$I->see_response_contains_url( 'previous_rest_url', $this->events_url . '/?page=2' );
 	}
 
 	/**
@@ -135,7 +135,7 @@ class EventArchiveCest extends BaseRestCest {
 
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
-		$I->seeResponseContainsUrl( 'previous_rest_url', $this->events_url . '/' );
+		$I->see_response_contains_url( 'previous_rest_url', $this->events_url . '/' );
 	}
 
 	/**
