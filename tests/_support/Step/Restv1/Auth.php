@@ -2,7 +2,7 @@
 
 namespace Step\Restv1;
 
-class Auth extends \Restv1Tester {
+trait Auth  {
 	/**
 	 * Authenticates a user with a role for the scope of the test.
 	 *
@@ -15,7 +15,7 @@ class Auth extends \Restv1Tester {
 	 *
 	 * @return string The generated and valid nonce.
 	 */
-	public function authenticate_with_role( $role ) {
+	public function generate_nonce_for_role( $role ) {
 		$I = $this;
 
 		$user_id = $I->haveUserInDatabase( 'user', $role, [ 'user_pass' => 'user' ] );

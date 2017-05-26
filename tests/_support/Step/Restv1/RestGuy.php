@@ -4,7 +4,15 @@ namespace Step\Restv1;
 
 class RestGuy extends \Restv1Tester {
 
-	public function seeResponseContainsUrl( $index, $url ) {
+	use Auth;
+
+	/**
+	 * Asserts that a JSON response contains the expected URL at the specified index.
+	 *
+	 * @param string $index
+	 * @param string $url
+	 */
+	public function see_response_contains_url( $index, $url ) {
 		$response = $this->grabResponse();
 		$decoded = json_decode( $response );
 		$components = parse_url( $url );
@@ -47,14 +55,5 @@ class RestGuy extends \Restv1Tester {
 				$this->assertEquals( $response_components[ $key ], $value );
 			}
 		}
-	}
-
-	public function generate_nonce_for_role( $role ) {
-		$user = $this->haveUserInDatabase( 'user', $role, [ 'user_pass' => 'secret' ] );
-		$this->loginAs( 'user', 'secret' );
-		$_COOKIE[ LOGGED_IN_COOKIE ] = $this->grabCookie( LOGGED_IN_COOKIE );
-		wp_set_current_user( $user );
-
-		return wp_create_nonce( 'wp_rest' );
 	}
 }
