@@ -3252,20 +3252,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since 4.5.1
 		 */
 		public function maybe_add_preview_venues_and_organizers() {
-		
+
 			if ( ! is_singular( self::POSTTYPE ) ) {
 				return;
 			}
-		
+
 			$event_id     = get_the_ID();
 			$event_status = get_post_status( $event_id );
-		
+
 			$is_event_preview = is_preview() && ( 'draft' === $event_status || 'auto-draft' === $event_status );
-		
+
 			if ( ! $is_event_preview ) {
 				return;
 			}
-		
+
 			$this->add_preview_venues( $event_id );
 			$this->add_preview_organizers( $event_id );
 		}
@@ -3283,7 +3283,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Prevent imported venues from being auto-deleted.
 			$venue_origin = get_post_meta( $venue_id, '_VenueOrigin', true );
-			
+
 			if ( 'events-calendar' !== $venue_origin ) {
 				return;
 			}
@@ -3291,11 +3291,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$venue_status     = get_post_status( $venue_id );
 
 			$is_preview_venue = 'draft' === $venue_status || 'auto-draft' === $venue_status;
-			
+
 			if ( ! $is_preview_venue ) {
 				return;
 			}
-			
+
 			$this->link_preview_venue_to_event( $venue_id, $event_id );
 		}
 
@@ -3307,24 +3307,24 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param int $event_id The ID of the event being previewed.
 		 */
 		public function add_preview_organizers( $event_id ) {
-			
+
 			$organizer_ids = get_post_meta( $event_id, '_EventOrganizerID', false );
-			
+
 			if ( empty( $organizer_ids ) || ! is_array( $organizer_ids ) ) {
 				return;
 			}
-			
+
 			foreach ( $organizer_ids as $key => $organizer_id ) {
-			
+
 				$organizer_status = get_post_status( $organizer_id );
-			
+
 				$is_preview_organizer = 'draft' === $organizer_status || 'auto-draft' === $organizer_status;
-			
+
 				if ( ! $is_preview_organizer ) {
 					unset( $organizer_ids[ $key ] );
 				}
 			}
-			
+
 			$this->link_preview_organizer_to_event( $organizer_ids, $event_id );
 		}
 
@@ -3337,15 +3337,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param int $event_id ID of event being previewed.
 		 */
 		public function link_preview_venue_to_event( $venue_id, $event_id ) {
-			
+
 			$preview_venues = (array) get_post_meta( $event_id, '_preview_venues', true );
-			
+
 			$preview_venues[] = $venue_id;
-			
+
 			// Remove empty and duplicate values, which can easily arise here.
 			$preview_venues = array_filter( $preview_venues );
 			$preview_venues = array_unique( $preview_venues );
-			
+
 			update_post_meta( $event_id, '_preview_venues', array_values( $preview_venues ) );
 		}
 
@@ -3358,17 +3358,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param int $event_id ID of event being previewed.
 		 */
 		public function link_preview_organizer_to_event( $organizer_ids, $event_id ) {
-			
+
 			$preview_organizers = (array) get_post_meta( $event_id, '_preview_organizers', true );
-			
+
 			foreach ( $organizer_ids as $key => $organizer_id ) {
 				$preview_organizers[] = $organizer_id;
 			}
-			
+
 			// Remove empty and duplicate values, which can easily arise here.
 			$preview_organizers = array_filter( $preview_organizers );
 			$preview_organizers = array_unique( $preview_organizers );
-			
+
 			update_post_meta( $event_id, '_preview_organizers', array_values( $preview_organizers ) );
 		}
 
@@ -3381,23 +3381,23 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $delete_meta Whether to delete existing _EventVenueID
 		 */
 		public function remove_preview_venues( $event_id, $delete_meta = false ) {
-			
+
 			$event_id = absint( $event_id );
-			
+
 			if ( ! $event_id ) {
 				return;
 			}
-			
+
 			$preview_venues = get_post_meta( $event_id, '_preview_venues', true );
-			
+
 			if ( ! is_array( $preview_venues ) || empty( $preview_venues ) ) {
 				return;
 			}
-			
+
 			foreach ( $preview_venues as $key => $venue_id ) {
 				wp_delete_post( $venue_id );
 			}
-			
+
 			// In some cases, one must clear the _EventVenueID before it's regenerated.
 			if ( $delete_meta ) {
 				delete_post_meta( $event_id, '_EventVenueID' );
@@ -3414,21 +3414,21 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function remove_preview_organizers( $event_id, $delete_meta = false ) {
 			$event_id = absint( $event_id );
-			
+
 			if ( ! $event_id ) {
 				return;
 			}
-			
+
 			$preview_organizers = get_post_meta( $event_id, '_preview_organizers', true );
-			
+
 			if ( ! is_array( $preview_organizers ) || empty( $preview_organizers ) ) {
 				return;
 			}
-			
+
 			foreach ( $preview_organizers as $key => $organizer_id ) {
 				wp_delete_post( $organizer_id );
 			}
-			
+
 			// In some cases, one must clear the _EventOrganizerID before it's regenerated.
 			if ( $delete_meta ) {
 				delete_post_meta( $event_id, '_EventOrganizerID' );
