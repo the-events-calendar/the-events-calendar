@@ -263,7 +263,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $sut->is_organizer_id_list( implode( ' ,', array_merge( $organizers, [ 23 ] ) ) ) );
 	}
 
-	public function is_event_id_bad_inputs() {
+	public function post_id_bad_inputs() {
 		return [
 			[ '' ],
 			[ null ],
@@ -280,7 +280,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	 * Test is_event_id with bad inputs
 	 *
 	 * @test
-	 * @dataProvider is_event_id_bad_inputs
+	 * @dataProvider post_id_bad_inputs
 	 */
 	public function test_is_event_id_with_bad_inputs( $input ) {
 		$sut = $this->make_instance();
