@@ -419,7 +419,7 @@ class EventInsertionCest extends BaseRestCest {
 	 *
 	 * @test
 	 */
-	public function it_should_return_bad_request_if_trying_to_set_image_to_id_of_non_attachment(Tester $I) {
+	public function it_should_return_bad_request_if_trying_to_set_image_to_id_of_non_attachment( Tester $I ) {
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$I->sendPOST( $this->events_url, [
@@ -433,5 +433,61 @@ class EventInsertionCest extends BaseRestCest {
 
 		$I->seeResponseCodeIs( 400 );
 		$I->seeResponseIsJson();
+	}
+
+	/**
+	 * It should allow setting the image passing its attachment ID
+	 *
+	 * @test
+	 */
+	public function it_should_allow_setting_the_image_passing_its_attachment_id( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$image_path = codecept_data_dir( 'csv-import-test-files/featured-image/images/featured-image.jpg' );
+		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+		$attachment_id = $I->factory()->attachment->create_upload_object( $image_path );
+
+		$I->sendPOST( $this->events_url, [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'all_day'     => true,
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'image'       => $attachment_id,
+		] );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'image', $response );
+		$I->assertEquals( $attachment_id, $response['image']['id'] );
+	}
+
+	/**
+	 * It should allow setting the image setting passing a valid URL
+	 *
+	 * @test
+	 */
+	public function it_should_allow_setting_the_image_setting_passing_a_valid_url( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$image_path = codecept_data_dir( 'csv-import-test-files/featured-image/images/featured-image.jpg' );
+		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+		$attachment_id = $I->factory()->attachment->create_upload_object( $image_path );
+
+		$I->sendPOST( $this->events_url, [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'all_day'     => true,
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'image'       => wp_get_attachment_url( $attachment_id ),
+		] );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'image', $response );
+		$I->assertNotEmpty( $attachment_id, $response['image']['id'] );
 	}
 }

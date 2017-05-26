@@ -132,6 +132,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'EventStartTime' => Tribe__Date_Utils::reformat( $request['start_date'], 'H:i:s' ),
 			'EventEndDate'   => Tribe__Date_Utils::reformat( $request['end_date'], 'Y-m-d' ),
 			'EventEndTime'   => Tribe__Date_Utils::reformat( $request['end_date'], 'H:i:s' ),
+			'FeaturedImage'  => $request['image'],
 		);
 
 		$id = Tribe__Events__API::createEvent( array_filter( $postarr ) );
