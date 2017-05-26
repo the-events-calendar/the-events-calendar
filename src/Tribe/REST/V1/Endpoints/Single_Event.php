@@ -49,7 +49,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	public function get( WP_REST_Request $request ) {
 		$this->serving = $request;
 
-		$event = get_post( $request->get_param('id') );
+		$event = get_post( $request['id'] );
 
 		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->read_post;
 		if ( ! ( 'publish' === $event->post_status || current_user_can( $cap, $request['id'] ) ) ) {
@@ -118,15 +118,20 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		$this->serving = $request;
 
 		$postarr = array(
-			'post_author'    => $request->get_param( 'author' ),
-			'post_date'      => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request->get_param( 'date' ) ),
-			'post_date_gmt'  => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request->get_param( 'date_utc' ) ),
-			'post_title'     => $request->get_param( 'title' ),
-			'post_content'   => $request->get_param( 'description' ),
-			'EventStartDate' => Tribe__Timezones::localize_date( 'Y-m-d', $request->get_param( 'start_date' ) ),
-			'EventStartTime' => Tribe__Timezones::localize_date( 'H:i:s', $request->get_param( 'start_date' ) ),
-			'EventEndDate'   => Tribe__Timezones::localize_date( 'Y-m-d', $request->get_param( 'end_date' ) ),
-			'EventEndTime'   => Tribe__Timezones::localize_date( 'H:i:s', $request->get_param( 'end_date' ) ),
+			// Post fields
+			'post_author'    => $request['author'],
+			'post_date'      => Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ),
+			'post_date_gmt'  => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ),
+			'post_title'     => $request['title'],
+			'post_content'   => $request['description'],
+			'post_excerpt'   => $request['excerpt'],
+			// Event data
+			'EventTimezone'  => $request['timezone'],
+			'EventAllDay'    => tribe_is_truthy( $request['all_day'] ),
+			'EventStartDate' => Tribe__Date_Utils::reformat( $request['start_date'], 'Y-m-d' ),
+			'EventStartTime' => Tribe__Date_Utils::reformat( $request['start_date'], 'H:i:s' ),
+			'EventEndDate'   => Tribe__Date_Utils::reformat( $request['end_date'], 'Y-m-d' ),
+			'EventEndTime'   => Tribe__Date_Utils::reformat( $request['end_date'], 'H:i:s' ),
 		);
 
 		$id = Tribe__Events__API::createEvent( array_filter( $postarr ) );
@@ -158,13 +163,19 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 */
 	public function POST_args() {
 		return array(
+			// Post fields
 			'author'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
 			'date'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
 			'date_utc'    => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
 			'title'       => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ), ),
 			'description' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'excerpt'     => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			// Event data
+			'timezone'    => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_timezone' ) ),
+			'all_day'     => array( 'required' => false, 'default' => false ),
 			'start_date'  => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
 			'end_date'    => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'image'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
 		);
 	}
 }
