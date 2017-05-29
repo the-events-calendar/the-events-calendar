@@ -266,6 +266,7 @@ class EventInsertionCest extends BaseRestCest {
 	 * @example ["start_date_details", "foo"]
 	 * @example ["end_date_details", "foo"]
 	 * @example ["timezone_abbr", "foo"]
+	 * @example ["cost_details", "foo"]
 	 *
 	 * @test
 	 */
