@@ -20,11 +20,12 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 			'event-archive-bad-start-date'    => __( "The 'start_date' parameter must be in a supported format", 'the-events-calendar' ),
 			'event-archive-bad-end-date'      => __( "The 'end_date' parameter must be in a supported format", 'the-events-calendar' ),
 			'event-archive-bad-search-string' => __( "The 'search' parameter must be a string", 'the-events-calendar' ),
-			'event-archive-bad-categories'      => __( "The 'categories' parameter contains invalid category slugs or IDs", 'the-events-calendar' ),
-			'event-archive-bad-tags'           => __( "The 'tags' parameter contains invalid tag slugs or IDs", 'the-events-calendar' ),
+			'event-archive-bad-categories'    => __( "The 'categories' parameter contains invalid category slugs or IDs", 'the-events-calendar' ),
+			'event-archive-bad-tags'          => __( "The 'tags' parameter contains invalid tag slugs or IDs", 'the-events-calendar' ),
 			'event-archive-page-not-found'    => __( 'The requested event archive page does not exist', 'the-events-calendar' ),
 			'venue-not-found'                 => __( 'The requested post ID does not exist or is not an venue', 'the-events-calendar' ),
 			'organizer-not-found'             => __( 'The requested post ID does not exist or is not an organizer', 'the-events-calendar' ),
+			'could-not-create-venue'          => __( 'The venue could not be inserted from the provided data', 'the-events-calendar' ),
 		);
 	}
 
