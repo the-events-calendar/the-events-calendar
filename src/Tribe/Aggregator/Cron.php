@@ -299,6 +299,12 @@ class Tribe__Events__Aggregator__Cron {
 		foreach ( $query->posts as $post ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
+			if ( empty( $record->meta['_tribe_aggregator_queue'] ) ) {
+				// this is incoherent, a schedule should have a queue
+				$record->set_status( Tribe__Events__Aggregator__Records::$status->failed );
+				continue;
+			}
+
 			if ( ! $record->is_schedule_time() ) {
 				$this->log( 'debug', sprintf( 'Record (%d) skipped, not scheduled time', $record->id ) );
 				continue;
@@ -378,8 +384,16 @@ class Tribe__Events__Aggregator__Cron {
 			return;
 		}
 
+		$cleaner = new Tribe__Events__Aggregator__Record__Queue_Cleaner();
 		foreach ( $query->posts as $post ) {
 			$record = $records->get_by_post_id( $post );
+
+			$cleaner->remove_duplicate_pending_records_for( $record );
+			$failed = $cleaner->maybe_fail_stalled_record( $record );
+
+			if ( $failed ) {
+				continue;
+			}
 
 			// Just double Check for CSV
 			if ( 'csv' === $record->origin ) {
