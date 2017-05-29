@@ -706,4 +706,31 @@ class EventInsertionCest extends BaseRestCest {
 		$response = json_decode( $I->grabResponse(), true );
 		$I->seePostInDatabase( [ 'ID' => $response['id'], 'post_status' => $data[1] ] );
 	}
+
+	/**
+	 * It should allow inserting an existing venue ID with the event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_inserting_an_existing_venue_id_with_the_event(Tester $I) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$venue_id = $I->haveVenueInDatabase();
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'venue'       => $venue_id,
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$I->seeResponseContainsJson( [
+			'venue' => [ 'id' => $venue_id ],
+		] );
+	}
 }
