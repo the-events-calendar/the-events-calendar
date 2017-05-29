@@ -490,4 +490,62 @@ class EventInsertionCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'image', $response );
 		$I->assertNotEmpty( $attachment_id, $response['image']['id'] );
 	}
+
+	/**
+	 * It should allow setting the event cost as a string
+	 *
+	 * @test
+	 */
+	public function it_should_allow_setting_the_event_cost_as_a_string( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$I->sendPOST( $this->events_url, [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'all_day'     => true,
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'cost'        => '20$',
+		] );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$I->seeResponseContainsJson( [
+			'cost'         => '20$',
+			'cost_details' => [
+				'currency_symbol'   => '$',
+				'currency_position' => 'postfix',
+				'values'            => [ 20 ],
+			]
+		] );
+	}
+
+	/**
+	 * It should allow to insert the cost as an array of values
+	 *
+	 * @test
+	 */
+	public function it_should_allow_to_insert_the_cost_as_an_array_of_values( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$I->sendPOST( $this->events_url, [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'all_day'     => true,
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'cost'        => [ '0$', '20$', '30$' ],
+		] );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$I->seeResponseContainsJson( [
+			'cost'         => 'Free - 30$',
+			'cost_details' => [
+				'currency_symbol'   => '$',
+				'currency_position' => 'postfix',
+				'values'            => [ 0, 20, 30 ],
+			]
+		] );
+	}
 }

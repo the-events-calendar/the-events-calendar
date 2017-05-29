@@ -119,20 +119,23 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 		$postarr = array(
 			// Post fields
-			'post_author'    => $request['author'],
-			'post_date'      => Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ),
-			'post_date_gmt'  => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ),
-			'post_title'     => $request['title'],
-			'post_content'   => $request['description'],
-			'post_excerpt'   => $request['excerpt'],
+			'post_author'           => $request['author'],
+			'post_date'             => Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ),
+			'post_date_gmt'         => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ),
+			'post_title'            => $request['title'],
+			'post_content'          => $request['description'],
+			'post_excerpt'          => $request['excerpt'],
 			// Event data
-			'EventTimezone'  => $request['timezone'],
-			'EventAllDay'    => tribe_is_truthy( $request['all_day'] ),
-			'EventStartDate' => Tribe__Date_Utils::reformat( $request['start_date'], 'Y-m-d' ),
-			'EventStartTime' => Tribe__Date_Utils::reformat( $request['start_date'], 'H:i:s' ),
-			'EventEndDate'   => Tribe__Date_Utils::reformat( $request['end_date'], 'Y-m-d' ),
-			'EventEndTime'   => Tribe__Date_Utils::reformat( $request['end_date'], 'H:i:s' ),
-			'FeaturedImage'  => $request['image'],
+			'EventTimezone'         => $request['timezone'],
+			'EventAllDay'           => tribe_is_truthy( $request['all_day'] ),
+			'EventStartDate'        => Tribe__Date_Utils::reformat( $request['start_date'], 'Y-m-d' ),
+			'EventStartTime'        => Tribe__Date_Utils::reformat( $request['start_date'], 'H:i:s' ),
+			'EventEndDate'          => Tribe__Date_Utils::reformat( $request['end_date'], 'Y-m-d' ),
+			'EventEndTime'          => Tribe__Date_Utils::reformat( $request['end_date'], 'H:i:s' ),
+			'FeaturedImage'         => $request['image'],
+			'EventCost'             => $request['cost'],
+			'EventCurrencyPosition' => tribe( 'cost-utils' )->parse_currency_position( $request['cost'] ),
+			'EventCurrencySymbol'   => tribe( 'cost-utils' )->parse_currency_symbol( $request['cost'] ),
 		);
 
 		$id = Tribe__Events__API::createEvent( array_filter( $postarr ) );
@@ -177,6 +180,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'start_date'  => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
 			'end_date'    => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
 			'image'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
+			'cost'        => array( 'required' => false ),
 		);
 	}
 }
