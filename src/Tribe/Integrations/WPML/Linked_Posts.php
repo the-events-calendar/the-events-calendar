@@ -97,7 +97,8 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 *                    WPML is not active or the current language is the default one.
 	 */
 	public function filter_tribe_events_linked_posts_query( $results = null, array $args = array() ) {
-		$cache_key = $this->cache->make_key( func_get_args(), 'filtered_linked_post_query' );
+		$func_args = func_get_args();
+		$cache_key = $this->cache->make_key( $func_args, 'filtered_linked_post_query' );
 		if ( isset( $this->cache[ $cache_key ] ) ) {
 			return $this->cache[ $cache_key ];
 		}
@@ -157,7 +158,8 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 * @return array An array of linked posts filtered by the current language
 	 */
 	protected function get_current_language_linked_posts_ids( array $args ) {
-		$cache_key = $this->cache->make_key( func_get_args(), 'current_language_linked_post_ids' );
+		$func_args = func_get_args();
+		$cache_key = $this->cache->make_key( $func_args, 'current_language_linked_post_ids' );
 		if ( isset( $this->cache[ $cache_key ] ) ) {
 			return $this->cache[ $cache_key ];
 		}
@@ -186,7 +188,8 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 * @return array An array of linked posts filtered by the default language
 	 */
 	protected function get_default_language_linked_post_ids( array $args ) {
-		$cache_key = $this->cache->make_key( func_get_args(), 'default_language_linked_post_ids' );
+		$func_args = func_get_args();
+		$cache_key = $this->cache->make_key( $func_args, 'default_language_linked_post_ids' );
 		if ( isset( $this->cache[ $cache_key ] ) ) {
 			return $this->cache[ $cache_key ];
 		}
@@ -229,7 +232,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 			return array();
 		}
 
-		if ( count( $post_type ) !== 1 || empty( $current_post_id ) ) {
+		if ( 1 !== count( $post_type ) || empty( $current_post_id ) ) {
 			return array();
 		}
 
@@ -259,7 +262,8 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	public function maybe_translate_linked_posts( array $data ) {
 		$required_keys = array( 'element_id', 'element_type', 'type' );
 
-		if ( count( array_intersect_key( $data, array_combine( $required_keys, $required_keys ) ) ) < count( $required_keys ) ) {
+		$intersected_keys = array_intersect_key( $data, array_combine( $required_keys, $required_keys ) );
+		if ( count( $intersected_keys ) < count( $required_keys ) ) {
 			return false;
 		}
 
