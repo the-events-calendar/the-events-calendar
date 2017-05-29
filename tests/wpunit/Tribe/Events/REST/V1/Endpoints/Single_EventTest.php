@@ -87,4 +87,34 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertEquals( [ 'some' => 'data' ], $response->get_data() );
 	}
+
+	public function post_stati_and_user_roles() {
+		return [
+			[ 'publish', 'administrator', 'publish' ],
+			[ 'publish', 'editor', 'publish' ],
+			[ 'publish', 'author', 'publish' ],
+			[ 'publish', 'contributor', 'pending' ],
+			[ 'publish', 'subscriber', 'pending' ],
+			[ 'future', 'administrator', 'future' ],
+			[ 'future', 'editor', 'future' ],
+			[ 'future', 'author', 'future' ],
+			[ 'future', 'contributor', 'pending' ],
+			[ 'future', 'subscriber', 'pending' ],
+		];
+	}
+
+	/**
+	 * It should correctly scale back post status *
+	 *
+	 * @test
+	 * @dataProvider post_stati_and_user_roles
+	 */
+	public function it_should_correctly_scale_back_post_status( $post_status, $role, $expected ) {
+		$user_id = $this->factory()->user->create( [ 'role' => $role ] );
+		wp_set_current_user( $user_id );
+
+		$sut = $this->make_instance();
+
+		$this->assertEquals( $expected, $sut->scale_back_post_status( $post_status, \Tribe__Events__Main::POSTTYPE ) );
+	}
 }

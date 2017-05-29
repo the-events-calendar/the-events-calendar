@@ -155,6 +155,7 @@ class EventInsertionCest extends BaseRestCest {
 	 * @example ["author", ""]
 	 * @example ["date", "foo"]
 	 * @example ["date_utc", "foo"]
+	 * @example ["website", "foo"]
 	 */
 	public function it_should_return_bad_request_if_trying_to_set_optional_parameter_to_bad_value( Tester $I, \Codeception\Example $example ) {
 		$I->generate_nonce_for_role( 'administrator' );
@@ -548,5 +549,161 @@ class EventInsertionCest extends BaseRestCest {
 				'values'            => [ 0, 20, 30 ],
 			]
 		] );
+	}
+
+	/**
+	 * It should allow setting the event website
+	 *
+	 * @test
+	 */
+	public function it_should_allow_setting_the_event_website( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$I->sendPOST( $this->events_url, [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'all_day'     => true,
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'website'     => 'http://example.com',
+		] );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$I->seeResponseContainsJson( [
+			'website' => 'http://example.com',
+		] );
+	}
+
+	/**
+	 * It should set the event permalink if not set
+	 *
+	 * @test
+	 */
+	public function it_should_set_the_event_permalink_if_not_set( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$I->sendPOST( $this->events_url, [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'all_day'     => true,
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+		] );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->seeResponseContainsJson( [
+			'website' => get_permalink( $response['id'] ),
+		] );
+	}
+
+	/**
+	 * It should allow inserting presentation meta to users that can `publish_posts` and `manage_options`
+	 *
+	 * @test
+	 *
+	 * @example ["show_map", true ]
+	 * @example ["show_map_link", true]
+	 * @example ["hide_from_listings", true]
+	 * @example ["sticky", true]
+	 * @example ["featured", true]
+	 */
+	public function it_should_allow_inserting_presentation_meta_to_users_that_can_publish_post_and_manage_options( Tester $I, \Codeception\Example $data ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+		];
+		$params[ $data[0] ] = (bool) $data[1];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$I->seeResponseContainsJson( [ $data[0] => $data[1] ] );
+	}
+
+	/**
+	 * It should not allow inserting presentation meta to users that cannot `publish_post` and `edit_options`
+	 *
+	 * @test
+	 * @example ["show_map", true ]
+	 * @example ["show_map_link", true]
+	 * @example ["hide_from_listings", true]
+	 * @example ["sticky", true]
+	 * @example ["featured", true]
+	 */
+	public function it_should_not_allow_inserting_presentation_meta_to_users_that_cannot_publish_post_and_edit_options_( Tester $I, \Codeception\Example $data ) {
+		$I->generate_nonce_for_role( 'author' );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+		];
+		$params[ $data[0] ] = $data[1];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$I->seeResponseContainsJson( [ $data[0] => false ] );
+	}
+
+	/**
+	 * It should set the post status to draft if user cannot publish posts
+	 *
+	 * @test
+	 */
+	public function it_should_set_the_post_status_to_draft_if_user_cannot_publish_posts( Tester $I ) {
+		$I->generate_nonce_for_role( 'contributor' );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'status'      => 'publish',
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->seePostInDatabase( [ 'ID' => $response['id'], 'post_status' => 'pending' ] );
+	}
+
+	/**
+	 * It should allow a user that can publish to set status to publish
+	 *
+	 * @test
+	 * @example ["administrator", "publish" ]
+	 * @example ["editor", "publish"]
+	 * @example ["author", "publish"]
+	 */
+	public function it_should_allow_a_user_that_can_publish_to_set_status_to_publish( Tester $I, \Codeception\Example $data ) {
+		$I->generate_nonce_for_role( $data[0] );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'status'      => $data[1],
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->seePostInDatabase( [ 'ID' => $response['id'], 'post_status' => $data[1] ] );
 	}
 }

@@ -52,4 +52,24 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 
 		return ! empty( $posts_per_page ) ? $posts_per_page : 20;
 	}
+
+	/**
+	 * Falls back on an allowed post status in respect to the user user capabilities of publishing.
+	 *
+	 * @param string $post_status
+	 * @param string $post_type
+	 *
+	 * @return string
+	 */
+		public function scale_back_post_status( $post_status, $post_type ) {
+		$post_type_object = get_post_type_object( $post_type );
+		if ( current_user_can( $post_type_object->cap->publish_posts ) ) {
+			return $post_status;
+		}
+		if ( in_array( $post_status, array( 'publish', 'future' ) ) ) {
+			return 'pending';
+		}
+
+		return $post_status;
+	}
 }

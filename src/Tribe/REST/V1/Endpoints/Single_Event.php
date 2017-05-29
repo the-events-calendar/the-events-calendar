@@ -3,7 +3,7 @@
 
 class Tribe__Events__REST__V1__Endpoints__Single_Event
 	extends Tribe__Events__REST__V1__Endpoints__Base
-	implements Tribe__REST__Endpoints__GET_Endpoint_Interface, Tribe__REST__Endpoints__POST_Endpoint_Interface,Tribe__Documentation__Swagger__Provider_Interface {
+	implements Tribe__REST__Endpoints__GET_Endpoint_Interface, Tribe__REST__Endpoints__POST_Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface {
 
 	/**
 	 * @var Tribe__REST__Main
@@ -54,6 +54,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->read_post;
 		if ( ! ( 'publish' === $event->post_status || current_user_can( $cap, $request['id'] ) ) ) {
 			$message = $this->messages->get_message( 'event-not-accessible' );
+
 			return new WP_Error( 'event-not-accessible', $message, array( 'status' => 403 ) );
 		}
 
@@ -117,14 +118,18 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	public function post( WP_REST_Request $request ) {
 		$this->serving = $request;
 
+		$post_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
+		$can_publish = current_user_can( $post_object->cap->publish_posts );
+
 		$postarr = array(
 			// Post fields
-			'post_author'           => $request['author'],
-			'post_date'             => Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ),
-			'post_date_gmt'         => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ),
-			'post_title'            => $request['title'],
-			'post_content'          => $request['description'],
-			'post_excerpt'          => $request['excerpt'],
+			'post_author'   => $request['author'],
+			'post_date'     => Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ),
+			'post_date_gmt' => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ),
+			'post_title'    => $request['title'],
+			'post_content'  => $request['description'],
+			'post_excerpt'  => $request['excerpt'],
+			'post_status'   => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
 			// Event data
 			'EventTimezone'         => $request['timezone'],
 			'EventAllDay'           => tribe_is_truthy( $request['all_day'] ),
@@ -136,7 +141,19 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'EventCost'             => $request['cost'],
 			'EventCurrencyPosition' => tribe( 'cost-utils' )->parse_currency_position( $request['cost'] ),
 			'EventCurrencySymbol'   => tribe( 'cost-utils' )->parse_currency_symbol( $request['cost'] ),
+			'EventURL'              => filter_var( $request['website'], FILTER_SANITIZE_URL ),
 		);
+
+		if ( $can_publish && current_user_can( 'manage_options' ) ) {
+			$postarr = array_merge( $postarr, array(
+				// Event presentation data
+				'EventShowMap'          => tribe_is_truthy( $request['show_map'] ),
+				'EventShowMapLink'      => tribe_is_truthy( $request['show_map_link'] ),
+				'EventHideFromUpcoming' => tribe_is_truthy( $request['hide_from_listings'] ) ? 'yes' : false,
+				'EventShowInCalendar'   => tribe_is_truthy( $request['sticky'] ),
+				'feature_event'         => tribe_is_truthy( $request['featured'] ),
+			) );
+		}
 
 		$id = Tribe__Events__API::createEvent( array_filter( $postarr ) );
 
@@ -153,7 +170,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 *
 	 * @return array
 	 */
-	public function GET_args(  ) {
+	public function GET_args() {
 		return array(
 			'id' => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_event_id' ) ),
 		);
@@ -168,19 +185,27 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	public function POST_args() {
 		return array(
 			// Post fields
-			'author'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
-			'date'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'date_utc'    => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'title'       => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ), ),
-			'description' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'excerpt'     => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'author'             => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
+			'date'               => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'date_utc'           => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'title'              => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ), ),
+			'description'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'excerpt'            => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'status'             => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_post_status' ) ),
 			// Event data
-			'timezone'    => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_timezone' ) ),
-			'all_day'     => array( 'required' => false, 'default' => false ),
-			'start_date'  => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'end_date'    => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'image'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
-			'cost'        => array( 'required' => false ),
+			'timezone'           => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_timezone' ) ),
+			'all_day'            => array( 'required' => false, 'default' => false ),
+			'start_date'         => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'end_date'           => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'image'              => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
+			'cost'               => array( 'required' => false ),
+			'website'            => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_url' ) ),
+			// Event presentation data
+			"show_map"           => array( 'required' => false ),
+			"show_map_link"      => array( 'required' => false ),
+			"hide_from_listings" => array( 'required' => false ),
+			"sticky"             => array( 'required' => false ),
+			"featured"           => array( 'required' => false ),
 		);
 	}
 }
