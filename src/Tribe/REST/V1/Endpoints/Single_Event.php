@@ -20,25 +20,32 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	protected $post_repository;
 
 	/**
-	 * @var Tribe__Events__Validator__Interface
+	 * @var Tribe__Events__REST__V1__Validator__Interface
 	 */
 	protected $validator;
+	/**
+	 * @var Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface
+	 */
+	private $venue_endpoint;
 
 	/**
 	 * Tribe__Events__REST__V1__Endpoints__Single_Event constructor.
 	 *
-	 * @param Tribe__REST__Messages_Interface                  $messages
-	 * @param Tribe__Events__REST__Interfaces__Post_Repository $post_repository
-	 * @param Tribe__Validator__Interface                      $validator
+	 * @param Tribe__REST__Messages_Interface                                    $messages
+	 * @param Tribe__Events__REST__Interfaces__Post_Repository                   $post_repository
+	 * @param Tribe__Events__REST__V1__Validator__Interface                      $validator
+	 * @param Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $venue_endpoint
 	 */
 	public function __construct(
 		Tribe__REST__Messages_Interface $messages,
 		Tribe__Events__REST__Interfaces__Post_Repository $post_repository,
-		Tribe__Validator__Interface $validator
+		Tribe__Events__REST__V1__Validator__Interface $validator,
+		Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $venue_endpoint
 	) {
 		parent::__construct( $messages );
 		$this->post_repository = $post_repository;
 		$this->validator = $validator;
+		$this->venue_endpoint = $venue_endpoint;
 	}
 
 	/**
@@ -112,10 +119,11 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * Handles POST requests on the endpoint.
 	 *
 	 * @param WP_REST_Request $request
+	 * @param bool            $return_id Whether the created post ID should be returned or the full response object.
 	 *
-	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
+	 * @return WP_Error|WP_REST_Response|int An array containing the data on success or a WP_Error instance on failure.
 	 */
-	public function post( WP_REST_Request $request ) {
+	public function post( WP_REST_Request $request, $return_id = false ) {
 		$this->serving = $request;
 
 		$post_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
@@ -123,13 +131,13 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 		$postarr = array(
 			// Post fields
-			'post_author'   => $request['author'],
-			'post_date'     => Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ),
-			'post_date_gmt' => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ),
-			'post_title'    => $request['title'],
-			'post_content'  => $request['description'],
-			'post_excerpt'  => $request['excerpt'],
-			'post_status'   => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
+			'post_author'           => $request['author'],
+			'post_date'             => Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ),
+			'post_date_gmt'         => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ),
+			'post_title'            => $request['title'],
+			'post_content'          => $request['description'],
+			'post_excerpt'          => $request['excerpt'],
+			'post_status'           => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
 			// Event data
 			'EventTimezone'         => $request['timezone'],
 			'EventAllDay'           => tribe_is_truthy( $request['all_day'] ),
@@ -144,6 +152,16 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'EventURL'              => filter_var( $request['website'], FILTER_SANITIZE_URL ),
 		);
 
+		if ( ! empty( $request['venue'] ) ) {
+			$venue_id = $this->insert_venue( $request['venue'] );
+
+			if ( is_wp_error( $venue_id ) ) {
+				return $venue_id;
+			}
+
+			$postarr['venue'] = $venue_id;
+		}
+
 		if ( $can_publish && current_user_can( 'manage_options' ) ) {
 			$postarr = array_merge( $postarr, array(
 				// Event presentation data
@@ -156,6 +174,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		}
 
 		$id = Tribe__Events__API::createEvent( array_filter( $postarr ) );
+
+		if ( is_wp_error( $id ) ) {
+			return $id;
+		}
+
+		if ( $return_id ) {
+			return $id;
+		}
 
 		$data = $this->post_repository->get_event_data( $id );
 
@@ -185,27 +211,49 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	public function POST_args() {
 		return array(
 			// Post fields
-			'author'             => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
-			'date'               => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'date_utc'           => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'title'              => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ), ),
-			'description'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'excerpt'            => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'status'             => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_post_status' ) ),
-			// Event data
-			'timezone'           => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_timezone' ) ),
-			'all_day'            => array( 'required' => false, 'default' => false ),
-			'start_date'         => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'end_date'           => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'image'              => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
-			'cost'               => array( 'required' => false ),
-			'website'            => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_url' ) ),
+			'author'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
+			'date'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'date_utc'    => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'title'       => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ), ),
+			'description' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'excerpt'     => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'status'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_post_status' ) ),
+			// Event meta fields
+			'timezone'   => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_timezone' ) ),
+			'all_day'    => array( 'required' => false, 'default' => false ),
+			'start_date' => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'end_date'   => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'image'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
+			'cost'       => array( 'required' => false ),
+			'website'    => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_url' ) ),
 			// Event presentation data
-			"show_map"           => array( 'required' => false ),
-			"show_map_link"      => array( 'required' => false ),
-			"hide_from_listings" => array( 'required' => false ),
-			"sticky"             => array( 'required' => false ),
-			"featured"           => array( 'required' => false ),
+			'show_map'           => array( 'required' => false ),
+			'show_map_link'      => array( 'required' => false ),
+			'hide_from_listings' => array( 'required' => false ),
+			'sticky'             => array( 'required' => false ),
+			'featured'           => array( 'required' => false ),
+			// Linked Posts
+			'venue' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_venue_id_or_entry' ) ),
 		);
+	}
+
+	protected function insert_venue( $venue = null ) {
+		if ( empty( $venue ) ) {
+			return false;
+		}
+
+		if ( tribe_is_venue( $venue ) ) {
+			return array( 'VenueID' => $venue );
+		}
+
+		$venue_request = new WP_REST_Request();
+		$venue_request->set_param( 'args', $this->venue_endpoint->POST_args() );
+
+		$body_params = (array) $venue;
+		foreach ( $body_params as $key => $value ) {
+			$venue_request->set_param( $key, $value );
+		}
+
+		return $this->venue_endpoint->post( $venue_request, true );
 	}
 }

@@ -33,8 +33,9 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		tribe_singleton( 'tec.rest-v1.headers-base', 'Tribe__Events__REST__V1__Headers__Base' );
 		tribe_singleton( 'tec.rest-v1.settings', 'Tribe__Events__REST__V1__Settings' );
 		tribe_singleton( 'tec.rest-v1.system', 'Tribe__Events__REST__V1__System' );
-		tribe_singleton( 'tec.rest-v1.validator', 'Tribe__Events__Validator__Base' );
+		tribe_singleton( 'tec.rest-v1.validator', 'Tribe__Events__REST__V1__Validator__Base' );
 		tribe_singleton( 'tec.rest-v1.repository', 'Tribe__Events__REST__V1__Post_Repository' );
+		tribe_singleton( 'tec.rest-v1.endpoints.single-venue', array( $this, 'build_single_venue_endpoint' ) );
 
 		include_once Tribe__Events__Main::instance()->plugin_path . 'src/functions/advanced-functions/rest-v1.php';
 	}
@@ -126,7 +127,8 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$messages = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
 		$validator = tribe( 'tec.rest-v1.validator' );
-		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Event( $messages, $post_repository, $validator );
+		$venue_endpoint = tribe( 'tec.rest-v1.endpoints.single-venue' );
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Event( $messages, $post_repository, $validator, $venue_endpoint );
 
 		tribe_singleton( 'tec.rest-v1.endpoints.single-event', $endpoint );
 
@@ -258,5 +260,18 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 	protected function get_semantic_version() {
 		return '1.0.0';
+	}
+
+	/**
+	 * Builds an instance of the single venue endpoint ready to use.
+	 *
+	 * @return Tribe__Events__REST__V1__Endpoints__Single_Venue
+	 */
+	public function build_single_venue_endpoint() {
+		$messages = tribe( 'tec.rest-v1.messages' );
+		$post_repository = tribe( 'tec.rest-v1.repository' );
+		$validator = tribe( 'tec.rest-v1.validator' );
+
+		return new Tribe__Events__REST__V1__Endpoints__Single_Venue( $messages, $post_repository, $validator );
 	}
 }
