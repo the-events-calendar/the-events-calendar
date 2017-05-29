@@ -102,12 +102,10 @@ class Tribe__Events__Integrations__WPML__Defaults {
 	 * @return string
 	 */
 	protected function get_config_file_contents() {
-		return <<< XML
-<wpml-config>
-	<custom-fields>
-	</custom-fields>	
-</wpml-config>
-XML;
+		return "<wpml-config>
+			<custom-fields>
+			</custom-fields>
+		</wpml-config>";
 	}
 
 	/**
