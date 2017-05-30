@@ -16,22 +16,44 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->venue_response = new Venue_Response();
 	}
 
+	public function is_venue_id_or_entry_bad_inputs() {
+		return [
+			[ 23 ],
+			[ 'foo' ],
+			[ '23' ],
+			[ [ 'address' => '221b Baker Street' ] ],
+		];
+}
 	/**
-	 * Test is_venue_id_or_entry
+	 * Test is_venue_id_or_entry with bad inputs
+	 *
+	 * @test
+	 * @dataProvider is_venue_id_or_entry_bad_inputs
+	 */
+	public function test_is_venue_id_or_entry($input) {
+		$sut = $this->make_instance();
+
+		$this->assertFalse( $sut->is_venue_id_or_entry( $input ) );
+	}
+
+	/**
+	 * Test is_venue_id_or_entry with good inputs
 	 *
 	 * @test
 	 */
-	public function test_is_venue_id_or_entry() {
+	public function test_is_venue_id_or_entry_with_good_inputs() {
 		/** @var \WP_Post $venue */
 		$venue = $this->factory()->venue->create_and_get();
 		$venue_response = $this->factory()->venue_response->create();
 
 		$sut = $this->make_instance();
-
-		$this->assertFalse( $sut->is_venue_id_or_entry( 23 ) );
 		$this->assertTrue( $sut->is_venue_id_or_entry( $venue->ID ) );
 		$this->assertTrue( $sut->is_venue_id_or_entry( $venue_response['id'] ) );
 		$this->assertTrue( $sut->is_venue_id_or_entry( $venue_response ) );
+		$venue_data = [
+			'venue' => 'Some venue', // the only required param
+		];
+		$this->assertTrue( $sut->is_venue_id_or_entry( $venue_data ) );
 	}
 
 	/**
