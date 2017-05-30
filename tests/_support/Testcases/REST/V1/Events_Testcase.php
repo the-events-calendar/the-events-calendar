@@ -1,6 +1,6 @@
 <?php
 
-namespace Tribe\Events\Tests\REST\V1;
+namespace Tribe\Events\Tests\Testcases\REST\V1;
 
 
 use Codeception\TestCase\WPTestCase;
