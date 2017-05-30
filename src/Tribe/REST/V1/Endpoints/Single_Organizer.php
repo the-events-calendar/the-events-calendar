@@ -27,18 +27,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	}
 
 	/**
-	 * Inserts a post of the linked post type provided the linked post data or post ID.
-	 *
-	 * @param int|array $data Either an existing linked post ID or the linked post data.
-	 *
-	 * @return false|array|WP_Error `false` if the linked post data is empty, the linked post ID (in an array as requested by the
-	 *                              linked posts engine) or a `WP_Error` if the linked post insertion failed.
-	 */
-	public function insert( $data ) {
-		// TODO: Implement insert() method.
-	}
-
-	/**
 	 * Handles POST requests on the endpoint.
 	 *
 	 * @param WP_REST_Request $request
