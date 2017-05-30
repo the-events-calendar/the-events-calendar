@@ -46,6 +46,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 			'Phone'         => $request['phone'],
 			'Website'       => $request['website'],
 			'Email'         => $request['email'],
+			'FeaturedImage' => tribe_upload_image( $request['image'] ),
 		);
 
 		$id = Tribe__Events__Organizer::instance()->create( array_filter( $postarr ) );
@@ -78,6 +79,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 			'phone'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
 			'website'     => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_url' ) ),
 			'email'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'image'              => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
 		);
 	}
 

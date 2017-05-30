@@ -57,6 +57,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			'phone'         => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
 			'stateprovince' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
 			'website'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_url' ) ),
+			'image'              => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
 		);
 	}
 
@@ -76,16 +77,17 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			'post_date_gmt'       => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ),
 			'post_status'         => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
 			'Venue'               => $request['venue'],
-			'Description'                       => $request['description'],
-			'Address'                           => $request['address'],
-			'City'                              => $request['city'],
-			'Country'                           => $request['country'],
-			'Province'                          => $request['province'],
-			'State'                             => $request['state'],
-			'Zip'                               => $request['zip'],
-			'Phone'                             => $request['phone'],
-			'ShowMap'                           => tribe_is_truthy( $request['show_map'] ),
-			'ShowMapLink'                       => tribe_is_truthy( $request['show_map_link'] ),
+			'Description'         => $request['description'],
+			'Address'             => $request['address'],
+			'City'                => $request['city'],
+			'Country'             => $request['country'],
+			'Province'            => $request['province'],
+			'State'               => $request['state'],
+			'Zip'                 => $request['zip'],
+			'Phone'               => $request['phone'],
+			'ShowMap'             => tribe_is_truthy( $request['show_map'] ),
+			'ShowMapLink'         => tribe_is_truthy( $request['show_map_link'] ),
+			'FeaturedImage'       => tribe_upload_image( $request['image'] ),
 		);
 
 		$id = Tribe__Events__Venue::instance()->create( array_filter( $postarr ) );

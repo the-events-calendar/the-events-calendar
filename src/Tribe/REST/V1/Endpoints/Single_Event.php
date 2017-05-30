@@ -153,7 +153,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'EventStartTime'        => Tribe__Date_Utils::reformat( $request['start_date'], 'H:i:s' ),
 			'EventEndDate'          => Tribe__Date_Utils::reformat( $request['end_date'], 'Y-m-d' ),
 			'EventEndTime'          => Tribe__Date_Utils::reformat( $request['end_date'], 'H:i:s' ),
-			'FeaturedImage'         => $request['image'],
+			'FeaturedImage'         => tribe_upload_image( $request['image'] ),
 			'EventCost'             => $request['cost'],
 			'EventCurrencyPosition' => tribe( 'cost-utils' )->parse_currency_position( $request['cost'] ),
 			'EventCurrencySymbol'   => tribe( 'cost-utils' )->parse_currency_symbol( $request['cost'] ),

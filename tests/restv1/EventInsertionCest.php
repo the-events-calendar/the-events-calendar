@@ -915,4 +915,56 @@ class EventInsertionCest extends BaseRestCest {
 		$I->assertContains( $organizer_id_1, $response_organizer_ids );
 		$I->assertContains( $organizer_id_2, $response_organizer_ids );
 	}
+
+	/**
+	 * It should allow setting the linked posts images when creating them with the event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_setting_the_linked_posts_images_when_creating_them_with_the_event( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$image_path = codecept_data_dir( 'csv-import-test-files/featured-image/images/featured-image.jpg' );
+		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+		// WordPress does not care if the image is the same
+		$attachment_id_1 = $I->factory()->attachment->create_upload_object( $image_path );
+		$attachment_id_2 = $I->factory()->attachment->create_upload_object( $image_path );
+		$attachment_id_3 = $I->factory()->attachment->create_upload_object( $image_path );
+
+		$I->assertNotEquals( $attachment_id_1, $attachment_id_2 );
+		$I->assertNotEquals( $attachment_id_1, $attachment_id_3 );
+		$I->assertNotEquals( $attachment_id_2, $attachment_id_3 );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'venue'       => [
+				'venue' => 'A venue',
+				'image' => wp_get_attachment_url( $attachment_id_1 )
+			],
+			'organizer'   => [
+				[ 'organizer' => 'Organizer A', 'image' => wp_get_attachment_url( $attachment_id_2 ) ],
+				[ 'organizer' => 'Organizer C', 'image' => wp_get_attachment_url( $attachment_id_3 ) ],
+			],
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'venue', $response );
+		$venue_response = $response['venue'];
+		$I->assertNotEmpty( $venue_response['image'] );
+		$I->assertEquals(wp_get_attachment_url($attachment_id_1),$venue_response['image']['url']);
+		$I->assertArrayHasKey( 'organizer', $response );
+		$organizer_response = $response['organizer'];
+		$I->assertCount( 2, $organizer_response );
+		$I->assertNotEmpty( $organizer_response[0]['image'] );
+		$I->assertEquals(wp_get_attachment_url($attachment_id_2),$organizer_response[0]['image']['url']);
+		$I->assertNotEmpty( $organizer_response[1]['image'] );
+		$I->assertEquals(wp_get_attachment_url($attachment_id_3),$organizer_response[1]['image']['url']);
+	}
 }
