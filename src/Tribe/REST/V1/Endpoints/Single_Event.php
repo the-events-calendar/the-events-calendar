@@ -192,6 +192,40 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	}
 
 	/**
+	 * Inserts a venue using the venue endpoint.
+	 *
+	 * @param int|array $venue Either an existing venue post ID or the venue data.
+	 *
+	 * @return false|array|WP_Error `false` if the venue data is empty, the venue post ID (in an array as requested by the linked posts
+	 *                                      engine) or a `WP_Error` if the venue insertion failed.
+	 */
+	protected function insert_venue( $venue = null ) {
+		if ( empty( $venue ) ) {
+			return false;
+		}
+
+		if ( tribe_is_venue( $venue ) ) {
+			return array( 'VenueID' => $venue );
+		}
+
+		$venue_request = new WP_REST_Request();
+		$venue_request->set_param( 'args', $this->venue_endpoint->POST_args() );
+
+		$body_params = (array) $venue;
+		foreach ( $body_params as $key => $value ) {
+			$venue_request->set_param( $key, $value );
+		}
+
+		$venue_id =  $this->venue_endpoint->post( $venue_request, true );
+
+		if ( $venue_id instanceof WP_Error ) {
+			return $venue_id;
+		}
+
+		return array( 'VenueID' => $venue_id );
+	}
+
+	/**
 	 * Provides the content of the `args` array to register the endpoint support for GET requests.
 	 *
 	 * @return array
@@ -211,21 +245,21 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	public function POST_args() {
 		return array(
 			// Post fields
-			'author'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
-			'date'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'date_utc'    => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'title'       => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ), ),
-			'description' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'excerpt'     => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'status'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_post_status' ) ),
+			'author'             => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
+			'date'               => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'date_utc'           => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'title'              => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ), ),
+			'description'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'excerpt'            => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'status'             => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_post_status' ) ),
 			// Event meta fields
-			'timezone'   => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_timezone' ) ),
-			'all_day'    => array( 'required' => false, 'default' => false ),
-			'start_date' => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'end_date'   => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'image'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
-			'cost'       => array( 'required' => false ),
-			'website'    => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_url' ) ),
+			'timezone'           => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_timezone' ) ),
+			'all_day'            => array( 'required' => false, 'default' => false ),
+			'start_date'         => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'end_date'           => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'image'              => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
+			'cost'               => array( 'required' => false ),
+			'website'            => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_url' ) ),
 			// Event presentation data
 			'show_map'           => array( 'required' => false ),
 			'show_map_link'      => array( 'required' => false ),
@@ -233,27 +267,10 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'sticky'             => array( 'required' => false ),
 			'featured'           => array( 'required' => false ),
 			// Linked Posts
-			'venue' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_venue_id_or_entry' ) ),
+			'venue'              => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_venue_id_or_entry' )
+			),
 		);
-	}
-
-	protected function insert_venue( $venue = null ) {
-		if ( empty( $venue ) ) {
-			return false;
-		}
-
-		if ( tribe_is_venue( $venue ) ) {
-			return array( 'VenueID' => $venue );
-		}
-
-		$venue_request = new WP_REST_Request();
-		$venue_request->set_param( 'args', $this->venue_endpoint->POST_args() );
-
-		$body_params = (array) $venue;
-		foreach ( $body_params as $key => $value ) {
-			$venue_request->set_param( $key, $value );
-		}
-
-		return $this->venue_endpoint->post( $venue_request, true );
 	}
 }
