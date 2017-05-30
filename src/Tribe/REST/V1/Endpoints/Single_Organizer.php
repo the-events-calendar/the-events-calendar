@@ -72,7 +72,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 			'author'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
 			'date'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
 			'date_utc'    => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'organizer'   => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ), ),
+			'organizer'   => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ) ),
 			'description' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
 			'status'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_post_status' ) ),
 			// Organizer meta fields

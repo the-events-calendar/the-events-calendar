@@ -42,7 +42,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			'author'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
 			'date'          => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
 			'date_utc'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'venue'         => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ), ),
+			'venue'         => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ) ),
 			'description'   => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
 			'status'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_post_status' ) ),
 			// Venue meta fields

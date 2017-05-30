@@ -234,7 +234,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'author'             => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
 			'date'               => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
 			'date_utc'           => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'title'              => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ), ),
+			'title'              => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ) ),
 			'description'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
 			'excerpt'            => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
 			'status'             => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_post_status' ) ),

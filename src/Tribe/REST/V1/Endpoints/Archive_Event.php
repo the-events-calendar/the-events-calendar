@@ -159,7 +159,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @return bool|int The `page` argument provided in the request or `false` if not set.
 	 */
 	protected function parse_page( WP_REST_Request $request ) {
-		return !empty( $request['page'] ) ? intval( $request['page'] ) : false;
+		return ! empty( $request['page'] ) ? intval( $request['page'] ) : false;
 	}
 
 	/**
@@ -208,7 +208,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		}
 
 		$parsed    = array();
-		$requested = Tribe__Utils__Array::list_to_array($terms);
+		$requested = Tribe__Utils__Array::list_to_array( $terms );
 
 		foreach ( $requested as $t ) {
 			$term = get_term_by( 'slug', $t, $taxonomy );
@@ -511,7 +511,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			'start_date' => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
-				'default'           => Tribe__Timezones::localize_date(Tribe__Date_Utils::DBDATETIMEFORMAT,'yesterday 23:59'),
+				'default'           => Tribe__Timezones::localize_date( Tribe__Date_Utils::DBDATETIMEFORMAT, 'yesterday 23:59' ),
 			),
 			'end_date' => array(
 				'required'          => false,

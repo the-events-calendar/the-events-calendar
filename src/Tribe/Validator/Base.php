@@ -67,6 +67,6 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	 * @return bool
 	 */
 	public function is_event_id( $event_id ) {
-		return !empty($event_id) && tribe_is_event($event_id);
+		return ! empty( $event_id ) && tribe_is_event( $event_id );
 	}
 }

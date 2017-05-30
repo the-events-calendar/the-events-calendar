@@ -54,7 +54,7 @@ class Tribe__Events__REST__V1__Validator__Base
 				return false;
 			}
 
-			$is_associative_array = is_array( $entry ) and ( array_values( $entry ) !== $entry );
+			$is_associative_array = is_array( $entry ) && ( array_values( $entry ) !== $entry );
 			if ( ! $is_associative_array ) {
 				return false;
 			}
