@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-05-15 04:40:50+0000\n"
+"PO-Revision-Date: 2017-05-17 19:17:20+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -33,7 +33,7 @@ msgstr "Entrez l'URL de l'agenda, du site web ou de l'évènement que vous dési
 
 #: src/Tribe/REST/V1/Messages.php:23
 msgid "The 'categories' parameter contains invalid category slugs or IDs"
-msgstr ""
+msgstr "Le paramètre catégorie contient un identifiant ou un ID de catégorie invalide."
 
 #: src/Tribe/REST/V1/Messages.php:14
 msgid "The requested post ID does not exist or is not an event"
@@ -105,11 +105,11 @@ msgstr "Identifiant du post de l'événement"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:465
 msgid "Events should contain the specified string in the title or description"
-msgstr ""
+msgstr "Les évènements doivent contenir la chaîne spécifiée dans le titre ou la description"
 
 #: src/Tribe/REST/V1/Messages.php:24
 msgid "The 'tags' parameter contains invalid tag slugs or IDs"
-msgstr ""
+msgstr "Le paramètre étiquette contient un identifiant ou un ID de catégorie invalide."
 
 #: src/Tribe/REST/V1/Messages.php:25
 msgid "The requested event archive page does not exist"
@@ -164,7 +164,7 @@ msgstr "Date de début de l'événement dans le fuseau horaire du site ou de l'�
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:89
 msgid "An array of each component of the event start date"
-msgstr ""
+msgstr "Un tableau de chaque composant de la date de début d’un évènement"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:94
 msgid "The event end date in the event or site timezone"
@@ -172,7 +172,7 @@ msgstr "Date de fin de l'évènement dans le fuseau horaire du site ou de l'év�
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:98
 msgid "An array of each component of the event end date"
-msgstr ""
+msgstr "Un tableau de chaque composant de la date de fin d’un évènement"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:103
 msgid "The event start date in UTC time"
@@ -180,7 +180,7 @@ msgstr "Date de début de l’évènement en heure UTC"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:107
 msgid "An array of each component of the event start date in UTC time"
-msgstr ""
+msgstr "Un tableau de chaque composant de la date de début d’un évènement en UTC"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:112
 msgid "The event end date in UTC time"
@@ -188,11 +188,11 @@ msgstr "Date de fin de l’évènement en heure UTC"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:116
 msgid "An array of each component of the event end date in UTC time"
-msgstr ""
+msgstr "Un tableau de chaque composant de la date de fin d’un évènement en UTC"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:125
 msgid "The abbreviated event timezone string"
-msgstr ""
+msgstr "Abréviation du fuseau horaire de l’évènement"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:129
 msgid "The event cost including the currency symbol"
@@ -220,7 +220,7 @@ msgstr "Si un évènement doit être caché de la vue agenda ou non"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:154
 msgid "Whether an event is sticky in the calendar view or not"
-msgstr ""
+msgstr "Si un évènement est épinglé dans l’agenda ou pas"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:158
 msgid "Whethere the event is featured in the calendar or not"
@@ -389,7 +389,7 @@ msgstr "L'URL demandée ne présente aucun prochain évènement publié correspo
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:433
 msgid "The archive page to return"
-msgstr ""
+msgstr "La page d’archive a retourner"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:441
 msgid "The number of events to return on each page"
@@ -457,11 +457,11 @@ msgstr "En savoir plus."
 
 #: src/Tribe/REST/V1/Messages.php:19
 msgid "The 'per_page' parameter must be a positive integer greater than 1"
-msgstr ""
+msgstr "le paramètre «per_page» doit être un entier positif supérieur à 1"
 
 #: src/Tribe/REST/V1/Messages.php:20
 msgid "The 'start_date' parameter must be in a supported format"
-msgstr ""
+msgstr "Le paramètre «start_date» doit être dans un format supporté"
 
 #: src/admin-views/aggregator/settings.php:377
 msgid "The default event category for events imported via other URLs"
@@ -473,7 +473,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:121
 msgid "The event timezone string"
-msgstr ""
+msgstr "Le fuseau horaire de l’évènement"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:28
 msgid "The organizer ID used to globally identify in Event Aggregator"
@@ -723,7 +723,7 @@ msgstr "La taxonomie du terme appartient à"
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:32
 msgid "The term slug"
-msgstr ""
+msgstr "L’identifiant du terme"
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:28
 msgid "The term name"
@@ -735,11 +735,11 @@ msgstr "Identifiant WordPress du terme"
 
 #: common/src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:36
 msgid "The link to the image in the specified size on the site"
-msgstr ""
+msgstr "Lien vers l’image dans la taille spécifiée sur le site"
 
 #: common/src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:32
 msgid "The image mime-type"
-msgstr ""
+msgstr "le type mime de l’image"
 
 #: common/src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:28
 msgid "The image height in pixels in the specified size"
@@ -799,11 +799,11 @@ msgstr "Année de la date"
 
 #: common/src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:33
 msgid "An sorted array of all the numeric values for the cost"
-msgstr ""
+msgstr "Un tableau trié avec toutes les valeurs numérique du prix"
 
 #: common/src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:28
 msgid "The position of the currency symbol in the cost string"
-msgstr ""
+msgstr "Position du symbole monétaire dans la chaîne prix"
 
 #: common/src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:24
 msgid "The cost currency symbol"
@@ -2066,8 +2066,8 @@ msgstr "Évènement %d : %s"
 #: src/Tribe/Ignored_Events.php:840
 msgid "Migration: %d Legacy Ignored Post failed to be migrated."
 msgid_plural "Migration: %d Legacy Ignored Posts failed to be migrated."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Migration: échec pour %d ancien article ignoré."
+msgstr[1] "Migration: échec pour %d anciens articles ignorés."
 
 #: src/Tribe/Ignored_Events.php:828
 msgid "Migration: %d Legacy Ignored Post was migrated but %d failed. To see the migrated event you will first need to refresh this screen."
