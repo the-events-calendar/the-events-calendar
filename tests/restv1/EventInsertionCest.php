@@ -787,8 +787,8 @@ class EventInsertionCest extends BaseRestCest {
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'organizer', $response );
 		$organizer_response = $response['organizer'];
-		$I->assertArrayHasKey( 'id', $organizer_response );
-		$I->assertEquals( $organizer_id, $organizer_response['id'] );
+		$I->assertCount( 1,$organizer_response );
+		$I->assertEquals( $organizer_id, $organizer_response[0]['id'] );
 	}
 
 	/**
