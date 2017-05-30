@@ -27,6 +27,7 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 			'organizer-not-found'             => __( 'The requested post ID does not exist or is not an organizer', 'the-events-calendar' ),
 			'could-not-create-venue'          => __( 'The venue could not be created from the provided data', 'the-events-calendar' ),
 			'could-not-create-organizer'      => __( 'The organizer could not be created from the provided data', 'the-events-calendar' ),
+			'invalid-linked-post-id'          => __( 'The provided linked post ID is not valid', 'the-events-calendar' ),
 		);
 	}
 
