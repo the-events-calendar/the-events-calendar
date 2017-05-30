@@ -82,6 +82,31 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	}
 
 	/**
+	 * Inserts one or more organizers.
+	 *
+	 * @param int|array $data Either an existing linked post ID or the linked post data or an array of the previous options.
+	 *
+	 * @return false|array|WP_Error `false` if the linked post data is empty, the linked post ID (in an array as requested by the
+	 *                              linked posts engine) or a `WP_Error` if the linked post insertion failed.
+	 */
+	public function insert( $data ) {
+		$data = (array) $data;
+
+		$inserted = array();
+		foreach ( $data as $entry ) {
+			$organizer_id = parent::insert( $entry );
+
+			if ( $organizer_id instanceof WP_Error ) {
+				return $organizer_id;
+			}
+
+			$inserted[] = $organizer_id;
+		}
+
+		return array( $this->get_id_index() => wp_list_pluck( $inserted, $this->get_id_index() ) );
+	}
+
+	/**
 	 * Returns the post type handled by this linked post endpoint.
 	 *
 	 * @return string

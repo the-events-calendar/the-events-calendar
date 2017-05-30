@@ -712,7 +712,7 @@ class EventInsertionCest extends BaseRestCest {
 	 *
 	 * @test
 	 */
-	public function it_should_allow_inserting_an_existing_venue_id_with_the_event(Tester $I) {
+	public function it_should_allow_inserting_an_existing_venue_id_with_the_event( Tester $I ) {
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$venue_id = $I->haveVenueInDatabase();
@@ -739,7 +739,7 @@ class EventInsertionCest extends BaseRestCest {
 	 *
 	 * @test
 	 */
-	public function it_should_allow_inserting_a_venue_along_with_the_event(Tester $I) {
+	public function it_should_allow_inserting_a_venue_along_with_the_event( Tester $I ) {
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$params = [
@@ -767,7 +767,7 @@ class EventInsertionCest extends BaseRestCest {
 	 *
 	 * @test
 	 */
-	public function it_should_allow_linking_the_inserted_event_to_an_existing_organizer(Tester $I) {
+	public function it_should_allow_linking_the_inserted_event_to_an_existing_organizer( Tester $I ) {
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$organizer_id = $I->haveOrganizerInDatabase();
@@ -787,7 +787,7 @@ class EventInsertionCest extends BaseRestCest {
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'organizer', $response );
 		$organizer_response = $response['organizer'];
-		$I->assertCount( 1,$organizer_response );
+		$I->assertCount( 1, $organizer_response );
 		$I->assertEquals( $organizer_id, $organizer_response[0]['id'] );
 	}
 
@@ -796,7 +796,30 @@ class EventInsertionCest extends BaseRestCest {
 	 *
 	 * @test
 	 */
-	public function it_should_allow_linking_the_event_to_multiple_existing_organizers() {
+	public function it_should_allow_linking_the_event_to_multiple_existing_organizers( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$organizer_id_1 = $I->haveOrganizerInDatabase();
+		$organizer_id_2 = $I->haveOrganizerInDatabase();
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'organizer'   => [ $organizer_id_1, $organizer_id_2 ]
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'organizer', $response );
+		$organizer_response = $response['organizer'];
+		$I->assertCount( 2, $organizer_response );
+		$I->assertEquals( $organizer_id_1, $organizer_response[0]['id'] );
+		$I->assertEquals( $organizer_id_2, $organizer_response[1]['id'] );
 	}
 
 	/**
@@ -804,7 +827,26 @@ class EventInsertionCest extends BaseRestCest {
 	 *
 	 * @test
 	 */
-	public function it_should_allow_creating_the_event_organizer_while_inserting_the_event() {
+	public function it_should_allow_creating_the_event_organizer_while_inserting_the_event( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'organizer'   => [ [ 'organizer' => 'Organizer A' ] ],
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'organizer', $response );
+		$organizer_response = $response['organizer'];
+		$I->assertCount( 1, $organizer_response );
+		$I->assertArrayHasKey( 'id', $organizer_response[0] );
 	}
 
 	/**
@@ -812,7 +854,29 @@ class EventInsertionCest extends BaseRestCest {
 	 *
 	 * @test
 	 */
-	public function it_should_allow_creating_multiple_event_organizers_while_inserting_the_event() {
+	public function it_should_allow_creating_multiple_event_organizers_while_inserting_the_event( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'organizer'   => [
+				[ 'organizer' => 'Organizer A' ],
+				[ 'organizer' => 'Organizer B' ],
+				[ 'organizer' => 'Organizer C' ],
+			],
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'organizer', $response );
+		$organizer_response = $response['organizer'];
+		$I->assertCount( 3, $organizer_response );
 	}
 
 	/**
@@ -820,6 +884,35 @@ class EventInsertionCest extends BaseRestCest {
 	 *
 	 * @test
 	 */
-	public function it_should_allow_creating_multiple_organizers_and_linking_existing_ones_while_inserting_the_event() {
+	public function it_should_allow_creating_multiple_organizers_and_linking_existing_ones_while_inserting_the_event( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$organizer_id_1 = $I->haveOrganizerInDatabase();
+		$organizer_id_2 = $I->haveOrganizerInDatabase();
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'organizer'   => [
+				[ 'organizer' => 'Organizer A' ],
+				[ 'id' => $organizer_id_1 ],
+				[ 'id' => $organizer_id_2 ],
+				[ 'organizer' => 'Organizer C' ],
+			],
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'organizer', $response );
+		$organizer_response = $response['organizer'];
+		$I->assertCount( 4, $organizer_response );
+		$response_organizer_ids = array_column( $organizer_response, 'id' );
+		$I->assertContains( $organizer_id_1, $response_organizer_ids );
+		$I->assertContains( $organizer_id_2, $response_organizer_ids );
 	}
 }

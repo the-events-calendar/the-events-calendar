@@ -46,6 +46,15 @@ abstract class Tribe__Events__REST__V1__Endpoints__Linked_Post_Base extends Trib
 			return array( $this->get_id_index() => $data );
 		}
 
+		if ( ! empty( $data['id'] ) ) {
+			if ( $this->is_post_type( $data['id'] ) ) {
+				return array( $this->get_id_index() => $data['id'] );
+			}
+			$message = $this->messages->get_message( 'invalid-linked-post-id' );
+
+			return new WP_Error( 'invalid-linked-post-id', $message, array( 'status' => 400 ) );
+		}
+
 		$data_request = new WP_REST_Request();
 		$data_request->set_param( 'args', $this->POST_args() );
 

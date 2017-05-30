@@ -247,10 +247,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'sticky'             => array( 'required' => false ),
 			'featured'           => array( 'required' => false ),
 			// Linked Posts
-			'venue'              => array(
-				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_venue_id_or_entry' )
-			),
+			'venue'     => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_venue_id_or_entry' ) ),
+			'organizer' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_organizer_id_or_entry' ) ),
 		);
 	}
 }
