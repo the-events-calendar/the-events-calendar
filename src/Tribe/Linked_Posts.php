@@ -424,7 +424,8 @@ class Tribe__Events__Linked_Posts {
 	 * @return array
 	 */
 	public function get_linked_post_info( $linked_post_type, $args = array(), $linked_post_ids = null ) {
-		$cache_key = $this->cache->make_key( func_get_args(), 'linked_post_info_' );
+		$func_args = func_get_args();
+		$cache_key = $this->cache->make_key( $func_args, 'linked_post_info_' );
 		if ( isset( $this->cache[ $cache_key ] ) ) {
 			return $this->cache[ $cache_key ];
 		}
