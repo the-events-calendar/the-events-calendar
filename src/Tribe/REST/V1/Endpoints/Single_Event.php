@@ -23,10 +23,16 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * @var Tribe__Events__REST__V1__Validator__Interface
 	 */
 	protected $validator;
+
 	/**
 	 * @var Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface
 	 */
-	private $venue_endpoint;
+	protected $venue_endpoint;
+
+	/**
+	 * @var Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface
+	 */
+	protected $organizer_endpoint;
 
 	/**
 	 * Tribe__Events__REST__V1__Endpoints__Single_Event constructor.
@@ -40,12 +46,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		Tribe__REST__Messages_Interface $messages,
 		Tribe__Events__REST__Interfaces__Post_Repository $post_repository,
 		Tribe__Events__REST__V1__Validator__Interface $validator,
-		Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $venue_endpoint
+		Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $venue_endpoint,
+		Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $organizer_endpoint
 	) {
 		parent::__construct( $messages );
 		$this->post_repository = $post_repository;
 		$this->validator = $validator;
 		$this->venue_endpoint = $venue_endpoint;
+		$this->organizer_endpoint = $organizer_endpoint;
 	}
 
 	/**
@@ -159,6 +167,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		}
 
 		$postarr['venue'] = $venue;
+
+		$organizer = $this->organizer_endpoint->insert( $request['organizer'] );
+
+		if ( is_wp_error( $organizer ) ) {
+			return $organizer;
+		}
+
+		$postarr['organizer'] = $organizer;
 
 		if ( $can_publish && current_user_can( 'manage_options' ) ) {
 			$postarr = array_merge( $postarr, array(

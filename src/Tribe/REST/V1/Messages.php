@@ -25,7 +25,8 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 			'event-archive-page-not-found'    => __( 'The requested event archive page does not exist', 'the-events-calendar' ),
 			'venue-not-found'                 => __( 'The requested post ID does not exist or is not an venue', 'the-events-calendar' ),
 			'organizer-not-found'             => __( 'The requested post ID does not exist or is not an organizer', 'the-events-calendar' ),
-			'could-not-create-venue'          => __( 'The venue could not be inserted from the provided data', 'the-events-calendar' ),
+			'could-not-create-venue'          => __( 'The venue could not be created from the provided data', 'the-events-calendar' ),
+			'could-not-create-organizer'      => __( 'The organizer could not be created from the provided data', 'the-events-calendar' ),
 		);
 	}
 

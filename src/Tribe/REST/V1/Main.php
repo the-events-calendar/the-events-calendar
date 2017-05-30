@@ -36,6 +36,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		tribe_singleton( 'tec.rest-v1.validator', 'Tribe__Events__REST__V1__Validator__Base' );
 		tribe_singleton( 'tec.rest-v1.repository', 'Tribe__Events__REST__V1__Post_Repository' );
 		tribe_singleton( 'tec.rest-v1.endpoints.single-venue', array( $this, 'build_single_venue_endpoint' ) );
+		tribe_singleton( 'tec.rest-v1.endpoints.single-organizer', array( $this, 'build_single_organizer_endpoint' ) );
 
 		include_once Tribe__Events__Main::instance()->plugin_path . 'src/functions/advanced-functions/rest-v1.php';
 	}
@@ -94,6 +95,11 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		) );
 	}
 
+	protected function hook_messages() {
+		add_filter( 'tribe_aggregator_service_messages', array( $this, 'filter_service_messages' ) );
+		add_filter( 'tribe_aggregator_localized_data', array( $this, 'filter_localized_data' ) );
+	}
+
 	/**
 	 * Registers the endpoints, and the handlers, supported by the REST API
 	 */
@@ -101,138 +107,6 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$this->register_documentation_endpoint();
 		$this->register_event_archives_endpoint();
 		$this->register_single_event_endpoint();
-	}
-
-	protected function register_event_archives_endpoint() {
-		$messages = tribe( 'tec.rest-v1.messages' );
-		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$validator = tribe( 'tec.rest-v1.validator' );
-		$endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Event( $messages, $post_repository, $validator );
-
-		tribe_singleton( 'tec.rest-v1.endpoints.archive-event', $endpoint );
-
-		register_rest_route( $this->get_events_route_namespace(), '/events', array(
-			'methods'  => 'GET',
-			'callback' => array( $endpoint, 'get' ),
-			'args'     => $endpoint->GET_args(),
-		) );
-
-		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/events', $endpoint );
-	}
-
-	/**
-	 * Registers the endpoint that will handle requests for a single event.
-	 */
-	protected function register_single_event_endpoint() {
-		$messages = tribe( 'tec.rest-v1.messages' );
-		$post_repository = tribe( 'tec.rest-v1.repository' );
-		$validator = tribe( 'tec.rest-v1.validator' );
-		$venue_endpoint = tribe( 'tec.rest-v1.endpoints.single-venue' );
-		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Event( $messages, $post_repository, $validator, $venue_endpoint );
-
-		tribe_singleton( 'tec.rest-v1.endpoints.single-event', $endpoint );
-
-		$namespace = $this->get_events_route_namespace();
-
-		register_rest_route(
-			$namespace,
-			'/events/(?P<id>\\d+)',
-			array(
-				'methods'  => 'GET',
-				'args'     => $endpoint->GET_args(),
-				'callback' => array( $endpoint, 'get' ),
-			)
-		);
-
-		register_rest_route(
-			$namespace,
-			'/events',
-			array(
-				'methods'  => 'POST',
-				'args'     => $endpoint->POST_args(),
-				'callback' => array( $endpoint, 'post' ),
-			)
-		);
-
-		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/events/{id}', $endpoint );
-	}
-
-	/**
-	 * Returns the events REST API namespace string that should be used to register a route.
-	 *
-	 * @return string
-	 */
-	protected function get_events_route_namespace() {
-		return $this->get_namespace() . '/events/' . $this->get_version();
-	}
-
-	/**
-	 * Returns the string indicating the REST API version.
-	 *
-	 * @return string
-	 */
-	public function get_version() {
-		return 'v1';
-	}
-
-	/**
-	 * Returns the URL where the API users will find the API documentation.
-	 *
-	 * @return string
-	 */
-	public function get_reference_url() {
-		return esc_attr( 'https://theeventscalendar.com/' );
-	}
-
-	/**
-	 * Returns the REST API URL prefix that will be appended to the namespace.
-	 *
-	 * The prefix should be in the `/some/path` format.
-	 *
-	 * @return string
-	 */
-	protected function url_prefix() {
-		return $this->url_prefix;
-	}
-
-	protected function hook_messages() {
-		add_filter( 'tribe_aggregator_service_messages', array( $this, 'filter_service_messages' ) );
-		add_filter( 'tribe_aggregator_localized_data', array( $this, 'filter_localized_data' ) );
-	}
-
-	/**
-	 * Filters the messages returned by the Event Aggregator Service to add those specific to the REST API v1.
-	 *
-	 * @param array $messages
-	 *
-	 * @return array The original messages plus those specific to the REST API V1.
-	 */
-	public function filter_service_messages( array $messages = array() ) {
-		/** @var Tribe__REST__Messages_Interface $rest_messages */
-		$rest_messages               = tribe( 'tec.rest-v1.ea-messages' );
-		$messages_array              = $rest_messages->get_messages();
-		$prefixed_rest_messages_keys = array_map( array(
-			$rest_messages,
-			'prefix_message_slug'
-		), array_keys( $messages_array ) );
-		$messages                    = array_merge( $messages, array_combine( $prefixed_rest_messages_keys, array_values( $messages_array ) ) );
-
-		return $messages;
-	}
-
-	/**
-	 * Filters the messages localized by the Event Aggregator Service to add those specific to the REST API v1.
-	 *
-	 * @param array $localized_data
-	 *
-	 * @return array
-	 */
-	public function filter_localized_data( array $localized_data = array() ) {
-		/** @var Tribe__REST__Messages_Interface $rest_messages */
-		$rest_messages                 = tribe( 'tec.rest-v1.ea-messages' );
-		$localized_data['l10n']['url'] = $rest_messages->get_messages();
-
-		return $localized_data;
 	}
 
 	protected function register_documentation_endpoint() {
@@ -263,7 +137,125 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	}
 
 	/**
-	 * Builds an instance of the single venue endpoint ready to use.
+	 * Returns the events REST API namespace string that should be used to register a route.
+	 *
+	 * @return string
+	 */
+	protected function get_events_route_namespace() {
+		return $this->get_namespace() . '/events/' . $this->get_version();
+	}
+
+	/**
+	 * Returns the string indicating the REST API version.
+	 *
+	 * @return string
+	 */
+	public function get_version() {
+		return 'v1';
+	}
+
+	protected function register_event_archives_endpoint() {
+		$messages = tribe( 'tec.rest-v1.messages' );
+		$post_repository = tribe( 'tec.rest-v1.repository' );
+		$validator = tribe( 'tec.rest-v1.validator' );
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Event( $messages, $post_repository, $validator );
+
+		tribe_singleton( 'tec.rest-v1.endpoints.archive-event', $endpoint );
+
+		register_rest_route( $this->get_events_route_namespace(), '/events', array(
+			'methods'  => 'GET',
+			'callback' => array( $endpoint, 'get' ),
+			'args'     => $endpoint->GET_args(),
+		) );
+
+		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/events', $endpoint );
+	}
+
+	/**
+	 * Registers the endpoint that will handle requests for a single event.
+	 */
+	protected function register_single_event_endpoint() {
+		$messages = tribe( 'tec.rest-v1.messages' );
+		$post_repository = tribe( 'tec.rest-v1.repository' );
+		$validator = tribe( 'tec.rest-v1.validator' );
+		$venue_endpoint = tribe( 'tec.rest-v1.endpoints.single-venue' );
+		$organizer_endpoint = tribe( 'tec.rest-v1.endpoints.single-organizer' );
+
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Event( $messages, $post_repository, $validator, $venue_endpoint, $organizer_endpoint );
+
+		tribe_singleton( 'tec.rest-v1.endpoints.single-event', $endpoint );
+
+		$namespace = $this->get_events_route_namespace();
+
+		register_rest_route(
+			$namespace,
+			'/events/(?P<id>\\d+)',
+			array(
+				'methods'  => 'GET',
+				'args'     => $endpoint->GET_args(),
+				'callback' => array( $endpoint, 'get' ),
+			)
+		);
+
+		register_rest_route(
+			$namespace,
+			'/events',
+			array(
+				'methods'  => 'POST',
+				'args'     => $endpoint->POST_args(),
+				'callback' => array( $endpoint, 'post' ),
+			)
+		);
+
+		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/events/{id}', $endpoint );
+	}
+
+	/**
+	 * Returns the URL where the API users will find the API documentation.
+	 *
+	 * @return string
+	 */
+	public function get_reference_url() {
+		return esc_attr( 'https://theeventscalendar.com/' );
+	}
+
+	/**
+	 * Filters the messages returned by the Event Aggregator Service to add those specific to the REST API v1.
+	 *
+	 * @param array $messages
+	 *
+	 * @return array The original messages plus those specific to the REST API V1.
+	 */
+	public function filter_service_messages( array $messages = array() ) {
+		/** @var Tribe__REST__Messages_Interface $rest_messages */
+		$rest_messages = tribe( 'tec.rest-v1.ea-messages' );
+		$messages_array = $rest_messages->get_messages();
+		$prefixed_rest_messages_keys = array_map( array(
+			$rest_messages,
+			'prefix_message_slug'
+		), array_keys( $messages_array ) );
+		$messages = array_merge( $messages, array_combine( $prefixed_rest_messages_keys, array_values( $messages_array ) ) );
+
+		return $messages;
+	}
+
+	/**
+	 * Filters the messages localized by the Event Aggregator Service to add those specific to the REST API v1.
+	 *
+	 * @param array $localized_data
+	 *
+	 * @return array
+	 */
+	public function filter_localized_data( array $localized_data = array() ) {
+		/** @var Tribe__REST__Messages_Interface $rest_messages */
+		$rest_messages = tribe( 'tec.rest-v1.ea-messages' );
+		$localized_data['l10n']['url'] = $rest_messages->get_messages();
+
+		return $localized_data;
+	}
+
+	/**
+	 * Builds an instance of the single venue endpoint.
 	 *
 	 * @return Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 */
@@ -273,5 +265,29 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$validator = tribe( 'tec.rest-v1.validator' );
 
 		return new Tribe__Events__REST__V1__Endpoints__Single_Venue( $messages, $post_repository, $validator );
+	}
+
+	/**
+	 * Builds an instance of the single organizer endpoint.
+	 *
+	 * @return Tribe__Events__REST__V1__Endpoints__Single_Organizer
+	 */
+	public function build_single_organizer_endpoint() {
+		$messages = tribe( 'tec.rest-v1.messages' );
+		$post_repository = tribe( 'tec.rest-v1.repository' );
+		$validator = tribe( 'tec.rest-v1.validator' );
+
+		return new Tribe__Events__REST__V1__Endpoints__Single_Organizer( $messages, $post_repository, $validator );
+	}
+
+	/**
+	 * Returns the REST API URL prefix that will be appended to the namespace.
+	 *
+	 * The prefix should be in the `/some/path` format.
+	 *
+	 * @return string
+	 */
+	protected function url_prefix() {
+		return $this->url_prefix;
 	}
 }

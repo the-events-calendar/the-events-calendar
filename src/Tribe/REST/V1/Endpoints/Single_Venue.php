@@ -2,35 +2,12 @@
 
 
 class Tribe__Events__REST__V1__Endpoints__Single_Venue
-	extends Tribe__Events__REST__V1__Endpoints__Base
+	extends Tribe__Events__REST__V1__Endpoints__Linked_Post_Base
 	implements Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface {
-
 	/**
-	 * @var Tribe__Events__REST__Interfaces__Post_Repository
+	 * @var string
 	 */
-	protected $post_repository;
-
-	/**
-	 * @var Tribe__Events__REST__V1__Validator__Interface
-	 */
-	protected $validator;
-
-	/**
-	 * Tribe__Events__REST__V1__Endpoints__Single_Venue constructor.
-	 *
-	 * @param Tribe__REST__Messages_Interface                  $messages
-	 * @param Tribe__Events__REST__Interfaces__Post_Repository $post_repository
-	 * @param Tribe__Events__REST__V1__Validator__Interface    $validator
-	 */
-	public function __construct(
-		Tribe__REST__Messages_Interface $messages,
-		Tribe__Events__REST__Interfaces__Post_Repository $post_repository,
-		Tribe__Events__REST__V1__Validator__Interface $validator
-	) {
-		parent::__construct( $messages );
-		$this->post_repository = $post_repository;
-		$this->validator = $validator;
-	}
+	protected $post_type = Tribe__Events__Main::VENUE_POST_TYPE;
 
 	/**
 	 * Handles GET requests on the endpoint.
@@ -51,40 +28,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 */
 	public function GET_args() {
 		// TODO: Implement GET_args() method.
-	}
-
-	/**
-	 * Inserts a post of the linked post type.
-	 *
-	 * @param int|array $data Either an existing linked post ID or the linked post data.
-	 *
-	 * @return false|array|WP_Error `false` if the linked post data is empty, the linked post ID (in an array as requested by the
-	 *                              linked posts engine) or a `WP_Error` if the linked post insertion failed.
-	 */
-	public function insert( $data ) {
-		if ( empty( $data ) ) {
-			return false;
-		}
-
-		if ( tribe_is_venue( $data ) ) {
-			return array( 'VenueID' => $data );
-		}
-
-		$data_request = new WP_REST_Request();
-		$data_request->set_param( 'args', $this->POST_args() );
-
-		$body_params = (array) $data;
-		foreach ( $body_params as $key => $value ) {
-			$data_request->set_param( $key, $value );
-		}
-
-		$venue_id = $this->post( $data_request, true );
-
-		if ( $venue_id instanceof WP_Error ) {
-			return $venue_id;
-		}
-
-		return array( 'VenueID' => $venue_id );
 	}
 
 	/**
@@ -127,22 +70,22 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 */
 	public function post( WP_REST_Request $request, $return_id = false ) {
 		$postarr = array(
-			'VenueID'       => $request['id'],
-			'post_author'   => $request['author'],
-			'post_date'     => Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ),
-			'post_date_gmt' => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ),
-			'post_status'   => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
-			'Venue'         => $request['venue'],
-			'Description'   => $request['description'],
-			'Address'       => $request['address'],
-			'City'          => $request['city'],
-			'Country'       => $request['country'],
-			'Province'      => $request['province'],
-			'State'         => $request['state'],
-			'Zip'           => $request['zip'],
-			'Phone'         => $request['phone'],
-			'ShowMap'       => tribe_is_truthy( $request['show_map'] ),
-			'ShowMapLink'   => tribe_is_truthy( $request['show_map_link'] ),
+			$this->get_id_index() => $request['id'],
+			'post_author'         => $request['author'],
+			'post_date'           => Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ),
+			'post_date_gmt'       => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ),
+			'post_status'         => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
+			'Venue'               => $request['venue'],
+			'Description'                       => $request['description'],
+			'Address'                           => $request['address'],
+			'City'                              => $request['city'],
+			'Country'                           => $request['country'],
+			'Province'                          => $request['province'],
+			'State'                             => $request['state'],
+			'Zip'                               => $request['zip'],
+			'Phone'                             => $request['phone'],
+			'ShowMap'                           => tribe_is_truthy( $request['show_map'] ),
+			'ShowMapLink'                       => tribe_is_truthy( $request['show_map_link'] ),
 		);
 
 		$id = Tribe__Events__Venue::instance()->create( array_filter( $postarr ) );
@@ -154,5 +97,25 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		}
 
 		return $return_id ? $id : $this->post_repository->get_venue_data( $id );
+	}
+
+	/**
+	 * Returns the post type handled by this linked post endpoint.
+	 *
+	 * @return string
+	 */
+	protected function get_post_type() {
+		return Tribe__Events__Main::VENUE_POST_TYPE;
+	}
+
+	/**
+	 * Whether the data represents a valid post type ID.
+	 *
+	 * @param mixed $data
+	 *
+	 * @return bool
+	 */
+	protected function is_post_type( $data ) {
+		return tribe_is_venue( $data );
 	}
 }
