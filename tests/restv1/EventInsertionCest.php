@@ -958,13 +958,187 @@ class EventInsertionCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'venue', $response );
 		$venue_response = $response['venue'];
 		$I->assertNotEmpty( $venue_response['image'] );
-		$I->assertEquals(wp_get_attachment_url($attachment_id_1),$venue_response['image']['url']);
+		$I->assertEquals( wp_get_attachment_url( $attachment_id_1 ), $venue_response['image']['url'] );
 		$I->assertArrayHasKey( 'organizer', $response );
 		$organizer_response = $response['organizer'];
 		$I->assertCount( 2, $organizer_response );
 		$I->assertNotEmpty( $organizer_response[0]['image'] );
-		$I->assertEquals(wp_get_attachment_url($attachment_id_2),$organizer_response[0]['image']['url']);
+		$I->assertEquals( wp_get_attachment_url( $attachment_id_2 ), $organizer_response[0]['image']['url'] );
 		$I->assertNotEmpty( $organizer_response[1]['image'] );
-		$I->assertEquals(wp_get_attachment_url($attachment_id_3),$organizer_response[1]['image']['url']);
+		$I->assertEquals( wp_get_attachment_url( $attachment_id_3 ), $organizer_response[1]['image']['url'] );
+	}
+
+	/**
+	 * It should allow assigning existing event categories to an inserted event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_assigning_existing_event_categories_to_an_inserted_event( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$cat_1 = $I->haveTermInDatabase( 'cat1', Tribe__Events__Main::TAXONOMY );
+		$cat_2 = $I->haveTermInDatabase( 'cat2', Tribe__Events__Main::TAXONOMY );
+
+		$cat_1_id = reset( $cat_1 );
+		$cat_2_id = reset( $cat_2 );
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'categories'  => [ $cat_1_id, $cat_2_id ],
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertNotEmpty( $response['categories'] );
+		$I->assertCount( 2, $response['categories'] );
+		$I->assertEquals( $cat_1_id, $response['categories'][0]['id'] );
+		$I->assertEquals( $cat_2_id, $response['categories'][1]['id'] );
+	}
+
+	/**
+	 * It should allow creating event categories while inserting an event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_creating_event_categories_while_inserting_an_event( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'categories'  => 'cat1,cat2',
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertNotEmpty( $response['categories'] );
+		$I->assertCount( 2, $response['categories'] );
+	}
+
+	/**
+	 * It should allow assigning existing categories and creating new categories while inserting an event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_assigning_existing_categories_and_creating_new_categories_while_inserting_an_event( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$cat_1 = $I->haveTermInDatabase( 'cat1', Tribe__Events__Main::TAXONOMY );
+
+		$cat_1_id = reset( $cat_1 );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'categories'  => [ $cat_1_id, 'cat2' ],
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertNotEmpty( $response['categories'] );
+		$I->assertCount( 2, $response['categories'] );
+		$I->assertEquals( $cat_1_id, $response['categories'][0]['id'] );
+	}
+
+	/**
+	 * It should allow assigning existing event tags to an inserted event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_assigning_existing_event_tags_to_an_inserted_event( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$tag_1 = $I->haveTermInDatabase( 'tag1', 'post_tag' );
+		$tag_2 = $I->haveTermInDatabase( 'tag2', 'post_tag' );
+
+		$tag_1_id = reset( $tag_1 );
+		$tag_2_id = reset( $tag_2 );
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'tags'  => [ $tag_1_id, $tag_2_id ],
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertNotEmpty( $response['tags'] );
+		$I->assertCount( 2, $response['tags'] );
+		$I->assertEquals( $tag_1_id, $response['tags'][0]['id'] );
+		$I->assertEquals( $tag_2_id, $response['tags'][1]['id'] );
+	}
+
+	/**
+	 * It should allow creating event tags while inserting an event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_creating_event_tags_while_inserting_an_event( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'tags'  => 'tag1,tag2',
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertNotEmpty( $response['tags'] );
+		$I->assertCount( 2, $response['tags'] );
+	}
+
+	/**
+	 * It should allow assigning existing tags and creating new tags while inserting an event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_assigning_existing_tags_and_creating_new_tags_while_inserting_an_event( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$tag_1 = $I->haveTermInDatabase( 'tag1', 'post_tag' );
+
+		$tag_1_id = reset( $tag_1 );
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'tags'  => [ $tag_1_id, 'tag2' ],
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertNotEmpty( $response['tags'] );
+		$I->assertCount( 2, $response['tags'] );
+		$I->assertEquals( $tag_1_id, $response['tags'][0]['id'] );
 	}
 }

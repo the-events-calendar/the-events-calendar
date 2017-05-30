@@ -136,6 +136,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 		$post_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 		$can_publish = current_user_can( $post_object->cap->publish_posts );
+		$events_cat = Tribe__Events__Main::TAXONOMY;
 
 		$postarr = array(
 			// Post fields
@@ -158,6 +159,11 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'EventCurrencyPosition' => tribe( 'cost-utils' )->parse_currency_position( $request['cost'] ),
 			'EventCurrencySymbol'   => tribe( 'cost-utils' )->parse_currency_symbol( $request['cost'] ),
 			'EventURL'              => filter_var( $request['website'], FILTER_SANITIZE_URL ),
+			// Taxonomies
+			'tax_input' => array_filter( array(
+				$events_cat => Tribe__Terms::translate_terms_to_ids( $request['categories'], $events_cat ),
+				'post_tag'  => Tribe__Terms::translate_terms_to_ids( $request['tags'], 'post_tag' ),
+			) ),
 		);
 
 		$venue = $this->venue_endpoint->insert( $request['venue'] );
