@@ -761,4 +761,65 @@ class EventInsertionCest extends BaseRestCest {
 		$venue_response = $response['venue'];
 		$I->assertArrayHasKey( 'id', $venue_response );
 	}
+
+	/**
+	 * It should allow linking the inserted event to an existing organizer
+	 *
+	 * @test
+	 */
+	public function it_should_allow_linking_the_inserted_event_to_an_existing_organizer(Tester $I) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$organizer_id = $I->haveOrganizerInDatabase();
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'organizer'   => $organizer_id
+		];
+
+		$I->sendPOST( $this->events_url, $params );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'organizer', $response );
+		$organizer_response = $response['organizer'];
+		$I->assertArrayHasKey( 'id', $organizer_response );
+		$I->assertEquals( $organizer_id, $organizer_response['id'] );
+	}
+
+	/**
+	 * It should allow linking the event to multiple existing organizers
+	 *
+	 * @test
+	 */
+	public function it_should_allow_linking_the_event_to_multiple_existing_organizers() {
+	}
+
+	/**
+	 * It should allow creating the event organizer while inserting the event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_creating_the_event_organizer_while_inserting_the_event() {
+	}
+
+	/**
+	 * It should allow creating multiple event organizers while inserting the event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_creating_multiple_event_organizers_while_inserting_the_event() {
+	}
+
+	/**
+	 * It should allow creating multiple organizers and linking existing ones while inserting the event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_creating_multiple_organizers_and_linking_existing_ones_while_inserting_the_event() {
+	}
 }

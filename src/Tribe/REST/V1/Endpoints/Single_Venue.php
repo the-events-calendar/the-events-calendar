@@ -33,6 +33,91 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	}
 
 	/**
+	 * Handles GET requests on the endpoint.
+	 *
+	 * @param WP_REST_Request $request
+	 *
+	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
+	 */
+	public function get( WP_REST_Request $request ) {
+		// TODO: Implement get() method.
+	}
+
+	/**
+	 * Returns the content of the `args` array that should be used to register the endpoint
+	 * with the `register_rest_route` function.
+	 *
+	 * @return array
+	 */
+	public function GET_args() {
+		// TODO: Implement GET_args() method.
+	}
+
+	/**
+	 * Inserts a post of the linked post type.
+	 *
+	 * @param int|array $data Either an existing linked post ID or the linked post data.
+	 *
+	 * @return false|array|WP_Error `false` if the linked post data is empty, the linked post ID (in an array as requested by the
+	 *                              linked posts engine) or a `WP_Error` if the linked post insertion failed.
+	 */
+	public function insert( $data ) {
+		if ( empty( $data ) ) {
+			return false;
+		}
+
+		if ( tribe_is_venue( $data ) ) {
+			return array( 'VenueID' => $data );
+		}
+
+		$data_request = new WP_REST_Request();
+		$data_request->set_param( 'args', $this->POST_args() );
+
+		$body_params = (array) $data;
+		foreach ( $body_params as $key => $value ) {
+			$data_request->set_param( $key, $value );
+		}
+
+		$venue_id = $this->post( $data_request, true );
+
+		if ( $venue_id instanceof WP_Error ) {
+			return $venue_id;
+		}
+
+		return array( 'VenueID' => $venue_id );
+	}
+
+	/**
+	 * Returns the content of the `args` array that should be used to register the endpoint
+	 * with the `register_rest_route` function.
+	 *
+	 * @return array
+	 */
+	public function POST_args() {
+		return array(
+			// Post fields
+			'author'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
+			'date'          => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'date_utc'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
+			'venue'         => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ), ),
+			'description'   => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'status'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_post_status' ) ),
+			// Venue meta fields
+			'show_map'      => array( 'required' => false ),
+			'show_map_link' => array( 'required' => false ),
+			'address'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'city'          => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'country'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'province'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'state'         => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'zip'           => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'phone'         => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'stateprovince' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
+			'website'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_url' ) ),
+		);
+	}
+
+	/**
 	 * Handles POST requests on the endpoint.
 	 *
 	 * @param WP_REST_Request $request
@@ -69,56 +154,5 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		}
 
 		return $return_id ? $id : $this->post_repository->get_venue_data( $id );
-	}
-
-	/**
-	 * Returns the content of the `args` array that should be used to register the endpoint
-	 * with the `register_rest_route` function.
-	 *
-	 * @return array
-	 */
-	public function POST_args() {
-		return array(
-			// Post fields
-			'author'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
-			'date'          => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'date_utc'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'venue'         => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ), ),
-			'description'   => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'status'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_post_status' ) ),
-			// Venue meta fields
-			'show_map'      => array( 'required' => false ),
-			'show_map_link' => array( 'required' => false ),
-			'address'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'city'          => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'country'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'province'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'state'         => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'zip'           => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'phone'         => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'stateprovince' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'website'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_url' ) ),
-		);
-	}
-
-	/**
-	 * Handles GET requests on the endpoint.
-	 *
-	 * @param WP_REST_Request $request
-	 *
-	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
-	 */
-	public function get( WP_REST_Request $request ) {
-		// TODO: Implement get() method.
-	}
-
-	/**
-	 * Returns the content of the `args` array that should be used to register the endpoint
-	 * with the `register_rest_route` function.
-	 *
-	 * @return array
-	 */
-	public function GET_args() {
-		// TODO: Implement GET_args() method.
 	}
 }

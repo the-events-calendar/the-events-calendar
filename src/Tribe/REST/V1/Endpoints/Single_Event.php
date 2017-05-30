@@ -152,15 +152,13 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'EventURL'              => filter_var( $request['website'], FILTER_SANITIZE_URL ),
 		);
 
-		if ( ! empty( $request['venue'] ) ) {
-			$venue_id = $this->insert_venue( $request['venue'] );
+		$venue = $this->venue_endpoint->insert( $request['venue'] );
 
-			if ( is_wp_error( $venue_id ) ) {
-				return $venue_id;
-			}
-
-			$postarr['venue'] = $venue_id;
+		if ( is_wp_error( $venue ) ) {
+			return $venue;
 		}
+
+		$postarr['venue'] = $venue;
 
 		if ( $can_publish && current_user_can( 'manage_options' ) ) {
 			$postarr = array_merge( $postarr, array(
@@ -189,40 +187,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		$response->set_status( 201 );
 
 		return $response;
-	}
-
-	/**
-	 * Inserts a venue using the venue endpoint.
-	 *
-	 * @param int|array $venue Either an existing venue post ID or the venue data.
-	 *
-	 * @return false|array|WP_Error `false` if the venue data is empty, the venue post ID (in an array as requested by the linked posts
-	 *                                      engine) or a `WP_Error` if the venue insertion failed.
-	 */
-	protected function insert_venue( $venue = null ) {
-		if ( empty( $venue ) ) {
-			return false;
-		}
-
-		if ( tribe_is_venue( $venue ) ) {
-			return array( 'VenueID' => $venue );
-		}
-
-		$venue_request = new WP_REST_Request();
-		$venue_request->set_param( 'args', $this->venue_endpoint->POST_args() );
-
-		$body_params = (array) $venue;
-		foreach ( $body_params as $key => $value ) {
-			$venue_request->set_param( $key, $value );
-		}
-
-		$venue_id =  $this->venue_endpoint->post( $venue_request, true );
-
-		if ( $venue_id instanceof WP_Error ) {
-			return $venue_id;
-		}
-
-		return array( 'VenueID' => $venue_id );
 	}
 
 	/**
