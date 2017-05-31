@@ -126,10 +126,10 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 						),
 					),
 					'400' => array(
-						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' )
+						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
 					),
 					'403' => array(
-						'description' => __( 'The user is not authorized to create events', 'the-events-calendar' )
+						'description' => __( 'The user is not authorized to create events', 'the-events-calendar' ),
 					),
 				),
 			),
@@ -148,7 +148,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'type'              => 'integer',
 				'description'       => __( 'the event post ID', 'the-events-calendar' ),
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_event_id' )
+				'validate_callback' => array( $this->validator, 'is_event_id' ),
 			),
 		);
 	}
@@ -178,7 +178,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
 				'type'              => 'string',
-				'description'       => __( 'The event publication date (UTC timezone)', 'the-events-calendar' )
+				'description'       => __( 'The event publication date (UTC timezone)', 'the-events-calendar' ),
 			),
 			'title'              => array(
 				'required'          => true,

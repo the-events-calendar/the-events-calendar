@@ -476,14 +476,14 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'validate_callback' => array( $this->validator, 'is_event_category' ),
 				'description' => __( 'Events should be assigned one of the specified categories slugs or IDs', 'the-events-calendar' ),
 				'swagger_type' => 'array',
-				'collectionFormat'=>'csv'
+				'collectionFormat' => 'csv',
 			),
 			'tags'       => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_post_tag' ),
 				'description' => __( 'Events should be assigned one of the specified tags slugs or IDs', 'the-events-calendar' ),
 				'swagger_type' => 'array',
-				'collectionFormat'=>'csv'
+				'collectionFormat' => 'csv',
 			),
 			'venue'     => array(
 				'required'          => false,
