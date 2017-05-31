@@ -375,7 +375,7 @@ class Tribe__Events__Aggregator__Records {
 	 *
 	 * @param int $post_id WP Post ID of record
 	 *
-	 * @return Tribe__Events__Aggregator__Record__Abstract|null
+	 * @return Tribe__Events__Aggregator__Record__Abstract|Tribe__Error|null
 	 */
 	public function get_by_post_id( $post ) {
 		$post = get_post( $post );
@@ -404,7 +404,7 @@ class Tribe__Events__Aggregator__Records {
 	 *
 	 * @param int $import_id Aggregator import id
 	 *
-	 * @return Tribe__Events__Aggregator__Record__Abstract|null
+	 * @return Tribe__Events__Aggregator__Record__Abstract|Tribe__Error
 	 */
 	public function get_by_import_id( $import_id ) {
 		$args = array(
@@ -438,7 +438,7 @@ class Tribe__Events__Aggregator__Records {
 	 *
 	 * @param  int $event_id   Post ID for the Event
 	 *
-	 * @return Tribe__Events__Aggregator__Record__Abstract|null
+	 * @return Tribe__Events__Aggregator__Record__Abstract|Tribe__Error
 	 */
 	public function get_by_event_id( $event_id ) {
 		$event = get_post( $event_id );
@@ -569,7 +569,7 @@ class Tribe__Events__Aggregator__Records {
 		$record = $this->get_by_import_id( $import_id );
 
 		// We received an Invalid Import ID
-		if ( is_wp_error( $record ) ) {
+		if ( tribe_is_error( $record ) ) {
 			return wp_send_json_error();
 		}
 
@@ -597,6 +597,10 @@ class Tribe__Events__Aggregator__Records {
 	 */
 	public function add_record_to_event( $id, $record_id, $origin ) {
 		$record = $this->get_by_post_id( $record_id );
+
+		if ( tribe_is_error( $record ) ) {
+			return;
+		}
 
 		// Set the event origin
 		update_post_meta( $id, '_EventOrigin', Tribe__Events__Aggregator__Event::$event_origin );
