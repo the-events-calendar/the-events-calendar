@@ -464,6 +464,30 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 						'required'    => false,
 						'default'     => '',
 					),
+					array(
+						'name'        => 'venue',
+						'in'          => 'query',
+						'description' => __( 'The post ID of a venue events should be filtered by', 'the-events-calendar' ),
+						'type'        => 'integer',
+						'required'    => false,
+						'default'     => '',
+					),
+					array(
+						'name'        => 'organizer',
+						'in'          => 'query',
+						'description' => __( 'The post ID of an organizer events should be filtered by', 'the-events-calendar' ),
+						'type'        => 'integer',
+						'required'    => false,
+						'default'     => '',
+					),
+					array(
+						'name'        => 'featured',
+						'in'          => 'query',
+						'description' => __( 'If specified events will be filtered by their featured status', 'the-events-calendar' ),
+						'type'        => 'bool',
+						'required'    => false,
+						'default'     => '',
+					),
 				),
 				'responses'  => array(
 					'200' => array(

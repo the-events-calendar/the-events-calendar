@@ -16,11 +16,11 @@ class VenueArchiveCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should retuen bad request if trying to get events by non existing venue ID
+	 * It should return bad request if trying to get events by non existing venue ID
 	 *
 	 * @test
 	 */
-	public function it_should_retuen_bad_request_if_trying_to_get_events_by_non_existing_venue_id( Tester $I ) {
+	public function it_should_return_bad_request_if_trying_to_get_events_by_non_existing_venue_id( Tester $I ) {
 		$I->sendGET( $this->events_url, [ 'venue' => 23 ] );
 
 		$I->seeResponseCodeIs( 400 );

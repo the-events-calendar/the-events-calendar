@@ -90,4 +90,22 @@ class FeaturedEventArchiveCest extends BaseRestCest {
 		$I->assertCount( 6, $response->events );
 		$I->assertEquals( array_merge( $featured, $featured_drafts ), array_column( $response->events, 'id' ) );
 	}
+
+	/**
+	 * It should return featured and non featured events if the featured query var is not specified
+	 *
+	 * @test
+	 */
+	public function it_should_return_featured_and_non_featured_events_if_the_featured_query_var_is_not_specified(Tester $I) {
+		$featured = $I->haveManyEventsInDatabase( 3, [ 'meta_input' => [ Tribe__Events__Featured_Events::FEATURED_EVENT_KEY => true ] ] );
+		$not_featured = $I->haveManyEventsInDatabase( 3 );
+
+		$I->sendGET( $this->events_url );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse() );
+		$I->assertCount( 6, $response->events );
+		$I->assertEquals( array_merge( $featured, $not_featured ), array_column( $response->events, 'id' ) );
+	}
 }
