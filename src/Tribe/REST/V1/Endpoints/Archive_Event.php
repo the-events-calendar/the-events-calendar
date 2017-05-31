@@ -64,36 +64,32 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		$args = array();
 		$date_format = Tribe__Date_Utils::DBDATETIMEFORMAT;
 
-		try {
-			$args['paged'] = $request['page'];
-			$args['posts_per_page'] = $request['per_page'];
-			$args['start_date'] = isset( $request['start_date'] ) ?
-				Tribe__Timezones::localize_date( $date_format, $request['start_date'] )
-				: false;
-			$args['end_date'] = isset( $request['end_date'] ) ?
-				Tribe__Timezones::localize_date( $date_format, $request['end_date'] )
-				: false;
-			$args['s'] = $request['search'];
+		$args['paged'] = $request['page'];
+		$args['posts_per_page'] = $request['per_page'];
+		$args['start_date'] = isset( $request['start_date'] ) ?
+			Tribe__Timezones::localize_date( $date_format, $request['start_date'] )
+			: false;
+		$args['end_date'] = isset( $request['end_date'] ) ?
+			Tribe__Timezones::localize_date( $date_format, $request['end_date'] )
+			: false;
+		$args['s'] = $request['search'];
 
-			$args['meta_query'] = array_filter( array(
-				$this->parse_meta_query_entry( $request['venue'], '_EventVenueID', '=', 'NUMERIC' ),
-				$this->parse_meta_query_entry( $request['organizer'], '_EventOrganizerID', '=', 'NUMERIC' ),
-				$this->parse_featured_meta_query_entry( $request['featured'] ),
-			) );
+		$args['meta_query'] = array_filter( array(
+			$this->parse_meta_query_entry( $request['venue'], '_EventVenueID', '=', 'NUMERIC' ),
+			$this->parse_meta_query_entry( $request['organizer'], '_EventOrganizerID', '=', 'NUMERIC' ),
+			$this->parse_featured_meta_query_entry( $request['featured'] ),
+		) );
 
-			$args['tax_query'] = array_filter( array(
-				$this->parse_terms_query( $request['categories'], Tribe__Events__Main::TAXONOMY ),
-				$this->parse_terms_query( $request['tags'], 'post_tag' ),
-			) );
+		$args['tax_query'] = array_filter( array(
+			$this->parse_terms_query( $request['categories'], Tribe__Events__Main::TAXONOMY ),
+			$this->parse_terms_query( $request['tags'], 'post_tag' ),
+		) );
 
-			$args = $this->parse_args( $args, $request->get_default_params() );
+		$args = $this->parse_args( $args, $request->get_default_params() );
 
-			$data = array( 'events' => array() );
+		$data = array( 'events' => array() );
 
-			$data['rest_url'] = $this->get_current_rest_url( $args );
-		} catch ( Tribe__REST__Exceptions__Exception $e ) {
-			return new WP_Error( $e->getCode(), $e->getMessage(), array( 'status' => $e->getStatus() ) );
-		}
+		$data['rest_url'] = $this->get_current_rest_url( $args );
 
 		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
 		$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
