@@ -92,16 +92,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 */
 	public function get_documentation() {
 		return array(
-			'get' => array(
-				'parameters' => array(
-					array(
-						'name'        => 'id',
-						'in'          => 'path',
-						'description' => __( 'the event post ID', 'the-events-calendar' ),
-						'type'        => 'integer',
-						'required'    => true,
-					),
-				),
+			'get'  => array(
+				'parameters' => $this->swaggerize_args( $this->GET_args() ),
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Returns the data of the event with the specified post ID', 'the-event-calendar' ),
@@ -119,6 +111,175 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 						'description' => __( 'An event with the specified event does not exist.', 'the-events-calendar' )
 					),
 				),
+			),
+			'post' => array(
+				'parameters' => $this->swaggerize_args( $this->POST_args() ),
+				'responses'  => array(
+					'201' => array(
+						'description' => __( 'Returns the data of the created event', 'the-event-calendar' ),
+						'schema'      => array(
+							'$ref' => '#/definitions/Event',
+						),
+					),
+					'400' => array(
+						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' )
+					),
+					'403' => array(
+						'description' => __( 'The user is not authorized to create events', 'the-events-calendar' )
+					),
+				),
+			),
+		);
+	}
+
+	/**
+	 * Provides the content of the `args` array to register the endpoint support for GET requests.
+	 *
+	 * @return array
+	 */
+	public function GET_args() {
+		return array(
+			'id' => array(
+				'in'                => 'path',
+				'type'              => 'integer',
+				'description'       => __( 'the event post ID', 'the-events-calendar' ),
+				'required'          => true,
+				'validate_callback' => array( $this->validator, 'is_event_id' )
+			),
+		);
+	}
+
+	/**
+	 * Returns the content of the `args` array that should be used to register the endpoint
+	 * with the `register_rest_route` function.
+	 *
+	 * @return array
+	 */
+	public function POST_args() {
+		return array(
+			// Post fields
+			'author'             => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_user_id' ),
+				'type'              => 'integer',
+				'description'       => __( 'The event author ID', 'the-events-calendar' ),
+			),
+			'date'               => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_time' ),
+				'type'              => 'string',
+				'description'       => __( 'The event publication date', 'the-events-calendar' ),
+			),
+			'date_utc'           => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_time' ),
+				'type'              => 'string',
+				'description'       => __( 'The event publication date (UTC timezone)', 'the-events-calendar' )
+			),
+			'title'              => array(
+				'required'          => true,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The event title', 'the-events-calendar' ),
+			),
+			'description'        => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The event description', 'the-events-calendar' ),
+			),
+			'excerpt'            => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The event excerpt', 'the-events-calendar' ),
+			),
+			'status'             => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_post_status' ),
+				'type'              => 'string',
+				'description'       => __( 'The event post status', 'the-events-calendar' ),
+			),
+			// Event meta fields
+			'timezone'           => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_timezone' ),
+				'type'              => 'string',
+				'description'       => __( 'The event timezone', 'the-events-calendar' ),
+			),
+			'all_day'            => array(
+				'required'    => false,
+				'default'     => false,
+				'type'        => 'string',
+				'description' => __( 'Whether the event lasts the whole day or not', 'the-events-calendar' ),
+			),
+			'start_date'         => array(
+				'required'          => true,
+				'validate_callback' => array( $this->validator, 'is_time' ),
+				'type'              => 'string',
+				'description'       => __( 'The event start date and time', 'the-events-calendar' ),
+			),
+			'end_date'           => array(
+				'required'          => true,
+				'validate_callback' => array( $this->validator, 'is_time' ),
+				'type'              => 'string',
+				'description'       => __( 'The event end date and time', 'the-events-calendar' ),
+			),
+			'image'              => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_image' ),
+				'type'              => 'string',
+				'description'       => __( 'The event featured image ID or URL', 'the-events-calendar' ),
+			),
+			'cost'               => array(
+				'required'    => false,
+				'type'        => 'string',
+				'description' => __( 'The event cost', 'the-events-calendar' ),
+			),
+			'website'            => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_url' ),
+				'type'              => 'string',
+				'description'       => __( 'The event website', 'the-events-calendar' ),
+			),
+			// Event presentation data
+			'show_map'           => array(
+				'required'    => false,
+				'type'        => 'boolean',
+				'description' => __( 'Whether the event should show a map or not', 'the-events-calendar' ),
+			),
+			'show_map_link'      => array(
+				'required'    => false,
+				'type'        => 'boolean',
+				'description' => __( 'Whether the event should show a map link or not', 'the-events-calendar' ),
+			),
+			'hide_from_listings' => array(
+				'required'    => false,
+				'type'        => 'boolean',
+				'description' => __( 'Whether events should be hidden in the calendar view or not', 'the-events-calendar' ),
+			),
+			'sticky'             => array(
+				'required'    => false,
+				'type'        => 'boolean',
+				'description' => __( 'Whether the event should be sticky in the calendar view or not', 'the-events-calendar' ),
+			),
+			'featured'           => array(
+				'required'    => false,
+				'type'        => 'boolean',
+				'description' => __( 'Whether the event should be featured on the site or not', 'the-events-calendar' ),
+			),
+			// Linked Posts
+			'venue'              => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_venue_id_or_entry' ),
+				'type'              => 'array',
+				'description'       => __( 'The event venue ID or data', 'the-events-calendar' ),
+			),
+			'organizer'          => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_organizer_id_or_entry' ),
+				'type'              => 'array',
+				'description'       => __( 'The event organizer IDs or data', 'the-events-calendar' ),
 			),
 		);
 	}
@@ -161,7 +322,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'EventCurrencySymbol'   => tribe( 'cost-utils' )->parse_currency_symbol( $request['cost'] ),
 			'EventURL'              => filter_var( $request['website'], FILTER_SANITIZE_URL ),
 			// Taxonomies
-			'tax_input' => array_filter( array(
+			'tax_input'             => array_filter( array(
 				$events_cat => Tribe__Terms::translate_terms_to_ids( $request['categories'], $events_cat ),
 				'post_tag'  => Tribe__Terms::translate_terms_to_ids( $request['tags'], 'post_tag' ),
 			) ),
@@ -210,52 +371,5 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		$response->set_status( 201 );
 
 		return $response;
-	}
-
-	/**
-	 * Provides the content of the `args` array to register the endpoint support for GET requests.
-	 *
-	 * @return array
-	 */
-	public function GET_args() {
-		return array(
-			'id' => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_event_id' ) ),
-		);
-	}
-
-	/**
-	 * Returns the content of the `args` array that should be used to register the endpoint
-	 * with the `register_rest_route` function.
-	 *
-	 * @return array
-	 */
-	public function POST_args() {
-		return array(
-			// Post fields
-			'author'             => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
-			'date'               => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'date_utc'           => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'title'              => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'description'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'excerpt'            => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'status'             => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_post_status' ) ),
-			// Event meta fields
-			'timezone'           => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_timezone' ) ),
-			'all_day'            => array( 'required' => false, 'default' => false ),
-			'start_date'         => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'end_date'           => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'image'              => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
-			'cost'               => array( 'required' => false ),
-			'website'            => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_url' ) ),
-			// Event presentation data
-			'show_map'           => array( 'required' => false ),
-			'show_map_link'      => array( 'required' => false ),
-			'hide_from_listings' => array( 'required' => false ),
-			'sticky'             => array( 'required' => false ),
-			'featured'           => array( 'required' => false ),
-			// Linked Posts
-			'venue'     => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_venue_id_or_entry' ) ),
-			'organizer' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_organizer_id_or_entry' ) ),
-		);
 	}
 }

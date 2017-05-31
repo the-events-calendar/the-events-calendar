@@ -267,6 +267,39 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->assertEquals( 201, $response->get_status() );
 
 		$data = $response->get_data();
-		$this->assertNotEmpty($data['featured'] );
+		$this->assertNotEmpty( $data['featured'] );
+	}
+
+	/**
+	 * Test swaggerize_args
+	 *
+	 * @test
+	 */
+	public function test_swaggerize_args() {
+		$sut = $this->make_instance();
+
+		$this->assertEmpty( $sut->swaggerize_args( [] ) );
+		$args = [
+			'id' => [
+				'in'                => 'path',
+				'type'              => 'integer',
+				'description'       => 'Param description',
+				'required'          => true,
+				'validate_callback' => [ $this->validator, 'is_event_id' ]
+			],
+		];
+
+		$expected = [
+			[
+				'name'        => 'id',
+				'in'          => 'path',
+				'type'        => 'integer',
+				'description' => 'Param description',
+				'required'    => true,
+				'default'     => '',
+			],
+		];
+
+		$this->assertEqualSets( $expected, $sut->swaggerize_args( $args ) );
 	}
 }

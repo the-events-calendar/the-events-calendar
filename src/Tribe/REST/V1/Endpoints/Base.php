@@ -13,6 +13,35 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	}
 
 	/**
+	 * Converts an array of arguments suitable for the WP REST API to the Swagger format.
+	 *
+	 * @param array $args
+	 *
+	 * @return array The converted arguments.
+	 */
+	public function swaggerize_args( array $args = [] ) {
+		if ( empty( $args ) ) {
+			return $args;
+		}
+
+		$no_description = __( 'No description provided', 'the-events-calendar' );
+
+		$swaggerized = array();
+		foreach ( $args as $name => $info ) {
+			$swaggerized[] = array(
+				'name'        => $name,
+				'in'          => isset( $info['in'] ) ? $info['in'] : 'body',
+				'description' => isset( $info['description'] ) ? $info['description'] : $no_description,
+				'type'        => isset( $info['type'] ) ? $info['type'] : 'string',
+				'required'    => isset( $info['required'] ) ? $info['required'] : false,
+				'default'     => isset( $info['default'] ) ? $info['default'] : '',
+			);
+		}
+
+		return $swaggerized;
+	}
+
+	/**
 	 * Returns the default value of posts per page.
 	 *
 	 * Cascading fallback is TEC `posts_per_page` option, `posts_per_page` option and, finally, 20.
