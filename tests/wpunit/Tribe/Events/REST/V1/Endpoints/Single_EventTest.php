@@ -7,7 +7,6 @@ use Tribe\Events\Tests\Factories\Event;
 use Tribe__Events__REST__V1__Endpoints__Single_Event as Endpoint;
 
 class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
-
 	/**
 	 * @var \Tribe__REST__Messages_Interface
 	 */
@@ -23,6 +22,16 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 */
 	protected $validator;
 
+	/**
+	 * @var \Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface
+	 */
+	protected $venue_endpoint;
+
+	/**
+	 * @var \Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface
+	 */
+	protected $organizer_endpoint;
+
 	public function setUp() {
 		// before
 		parent::setUp();
@@ -31,7 +40,11 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->factory()->event = new Event();
 		$this->messages = new \Tribe__Events__REST__V1__Messages();
 		$this->repository = new \Tribe__Events__REST__V1__Post_Repository( new \Tribe__Events__REST__V1__Messages() );
-		$this->validator = new \Tribe__Validator__Base();
+		$this->validator = new \Tribe__Events__REST__V1__Validator__Base();
+		$this->venue_endpoint = $this->prophesize(\Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface::class);
+		$this->organizer_endpoint = $this->prophesize(\Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface::class);
+//		$this->venue_endpoint = tribe( 'tec.rest-v1.endpoints.single-venue' );
+//		$this->organizer_endpoint = tribe( 'tec.rest-v1.endpoints.single-organizer' );
 	}
 
 	/**
@@ -51,8 +64,11 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$messages = $this->messages instanceof ObjectProphecy ? $this->messages->reveal() : $this->messages;
 		$repository = $this->repository instanceof ObjectProphecy ? $this->repository->reveal() : $this->repository;
 		$validator = $this->validator instanceof ObjectProphecy ? $this->validator->reveal() : $this->validator;
+		$venue_endpoint = $this->venue_endpoint instanceof ObjectProphecy ? $this->venue_endpoint->reveal() : $this->venue_endpoint;
+		$organizer_endpoint = $this->organizer_endpoint instanceof ObjectProphecy ? $this->organizer_endpoint->reveal() :
+			$this->organizer_endpoint;
 
-		return new Endpoint( $messages, $repository, $validator );
+		return new Endpoint( $messages, $repository, $validator, $venue_endpoint, $organizer_endpoint );
 	}
 
 	/**

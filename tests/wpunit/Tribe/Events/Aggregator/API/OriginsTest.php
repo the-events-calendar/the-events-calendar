@@ -7,7 +7,6 @@ use Tribe__Events__Aggregator__API__Origins as Origins;
 use Tribe__Events__Aggregator__Service as Service;
 
 class OriginsTest extends Aggregator_TestCase {
-
 	/**
 	 * @var Service
 	 */
@@ -44,8 +43,8 @@ class OriginsTest extends Aggregator_TestCase {
 	 * it should enable the Other URL origin if allowed from the server
 	 */
 	public function it_should_enable_the_other_url_origin_if_allowed_from_the_server() {
-		$this->service->get_origins()->willReturn( $this->factory()->ea_service->create_origins() );
 		$this->service->api()->willReturn( true );
+		$this->service->get_origins()->willReturn( $this->factory()->ea_service->create_origins() );
 
 		$sut = $this->make_instance();
 
