@@ -40,7 +40,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	 *
 	 * @return bool
 	 */
-	public function is_organizer_id_list( $organizers, $sep = ','  ) {
+	public function is_organizer_id_list( $organizers, $sep = ',' ) {
 		$organizers = Tribe__Utils__Array::list_to_array( $organizers, $sep );
 
 		$valid = array_filter( $organizers, array( $this, 'is_organizer_id' ) );
@@ -51,8 +51,8 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether the event category exists or not.
 	 *
-	 * @param mixed  $category Either a single event category `term_id` or `slug` or an array of
-	 *                     `term_id`s and `slug`s
+	 * @param mixed $category Either a single event category `term_id` or `slug` or an array of
+	 *                        `term_id`s and `slug`s
 	 * @return bool
 	 */
 	public function is_event_category( $category ) {
