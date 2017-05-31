@@ -407,88 +407,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	public function get_documentation() {
 		return array(
 			'get' => array(
-				'parameters' => array(
-					array(
-						'name'        => 'page',
-						'in'          => 'query',
-						'description' => __( 'The archive page to return', 'the-events-calendar' ),
-						'type'        => 'integer',
-						'required'    => false,
-						'default'     => 1,
-					),
-					array(
-						'name'        => 'per_page',
-						'in'          => 'query',
-						'description' => __( 'The number of events to return on each page', 'the-events-calendar' ),
-						'type'        => 'integer',
-						'required'    => false,
-						'default'     => get_option( 'posts_per_page' ),
-					),
-					array(
-						'name'        => 'start_date',
-						'in'          => 'query',
-						'description' => __( 'Events should start after the specified date', 'the-events-calendar' ),
-						'type'        => 'date',
-						'required'    => false,
-						'default'     => date( Tribe__Date_Utils::DBDATETIMEFORMAT, time() ),
-					),
-					array(
-						'name'        => 'end_date',
-						'in'          => 'query',
-						'description' => __( 'Events should start before the specified date', 'the-events-calendar' ),
-						'type'        => 'string',
-						'required'    => false,
-						'default'     => date( Tribe__Date_Utils::DBDATETIMEFORMAT, time() ),
-					),
-					array(
-						'name'        => 'search',
-						'in'          => 'query',
-						'description' => __( 'Events should contain the specified string in the title or description', 'the-events-calendar' ),
-						'type'        => 'string',
-						'required'    => false,
-						'default'     => '',
-					),
-					array(
-						'name'        => 'categories',
-						'in'          => 'query',
-						'description' => __( 'Events should be assigned one of the specified categories slugs or IDs', 'the-events-calendar' ),
-						'type'        => 'array',
-						'required'    => false,
-						'default'     => '',
-					),
-					array(
-						'name'        => 'tags',
-						'in'          => 'query',
-						'description' => __( 'Events should be assigned one of the specified tags slugs or IDs', 'the-events-calendar' ),
-						'type'        => 'array',
-						'required'    => false,
-						'default'     => '',
-					),
-					array(
-						'name'        => 'venue',
-						'in'          => 'query',
-						'description' => __( 'The post ID of a venue events should be filtered by', 'the-events-calendar' ),
-						'type'        => 'integer',
-						'required'    => false,
-						'default'     => '',
-					),
-					array(
-						'name'        => 'organizer',
-						'in'          => 'query',
-						'description' => __( 'The post ID of an organizer events should be filtered by', 'the-events-calendar' ),
-						'type'        => 'integer',
-						'required'    => false,
-						'default'     => '',
-					),
-					array(
-						'name'        => 'featured',
-						'in'          => 'query',
-						'description' => __( 'If specified events will be filtered by their featured status', 'the-events-calendar' ),
-						'type'        => 'bool',
-						'required'    => false,
-						'default'     => '',
-					),
-				),
+				'parameters' => $this->swaggerize_args( $this->GET_args(), array( 'in' => 'query', 'default' => '' ) ),
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Returns all the upcoming events matching the search criteria', 'the-event-calendar' ),
@@ -521,45 +440,69 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_positive_int' ),
 				'default'           => 1,
+				'description' => __( 'The archive page to return', 'the-events-calendar' ),
+				'type' => 'integer',
 			),
 			'per_page'   => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_positive_int' ),
 				'sanitize_callback' => array( $this, 'sanitize_per_page' ),
 				'default'           => $this->get_default_posts_per_page(),
+				'description' => __( 'The number of events to return on each page', 'the-events-calendar' ),
+				'type' => 'integer',
 			),
 			'start_date' => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
 				'default'           => Tribe__Timezones::localize_date( Tribe__Date_Utils::DBDATETIMEFORMAT, 'yesterday 23:59' ),
+				'description' => __( 'Events should start after the specified date', 'the-events-calendar' ),
+				'swagger_type' => 'string',
 			),
 			'end_date' => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
 				'default'           => date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( '+24 months' ) ),
+				'description' => __( 'Events should start before the specified date', 'the-events-calendar' ),
+				'swagger_type' => 'string',
 			),
 			's' => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_string' ),
-			),
-			'venue'     => array(
-				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_venue_id' ),
-			),
-			'organizer' => array(
-				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_organizer_id_list' ),
-			),
-			'featured'   => array(
-				'required' => false,
+				'description' => __( 'Events should contain the specified string in the title or description', 'the-events-calendar' ),
+				'type' => 'string',
 			),
 			'categories' => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_event_category' ),
+				'description' => __( 'Events should be assigned one of the specified categories slugs or IDs', 'the-events-calendar' ),
+				'swagger_type' => 'array',
+				'collectionFormat'=>'csv'
 			),
 			'tags'       => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_post_tag' ),
+				'description' => __( 'Events should be assigned one of the specified tags slugs or IDs', 'the-events-calendar' ),
+				'swagger_type' => 'array',
+				'collectionFormat'=>'csv'
+			),
+			'venue'     => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_venue_id' ),
+				'description' => __( 'Events should be assigned one of the specified venue IDs', 'the-events-calendar' ),
+				'swagger_type' => 'array',
+				'collectionFormat' => 'csv',
+			),
+			'organizer' => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_organizer_id_list' ),
+				'description' => __( 'Events should be assigned one of the specified organizer IDs', 'the-events-calendar' ),
+				'swagger_type' => 'array',
+				'collectionFormat' => 'csv',
+			),
+			'featured'   => array(
+				'required' => false,
+				'type' => 'boolean',
+				'description' => __( 'If specified events will be filtered by their featured status', 'the-events-calendar' ),
 			),
 		);
 	}

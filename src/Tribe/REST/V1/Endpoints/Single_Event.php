@@ -91,9 +91,13 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
+		$GET_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
+
+		$POST_defaults = array( 'in' => 'body', 'default' => '', 'type' => 'string' );
+
 		return array(
 			'get'  => array(
-				'parameters' => $this->swaggerize_args( $this->GET_args() ),
+				'parameters' => $this->swaggerize_args( $this->GET_args(), $GET_defaults ),
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Returns the data of the event with the specified post ID', 'the-event-calendar' ),
@@ -113,7 +117,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				),
 			),
 			'post' => array(
-				'parameters' => $this->swaggerize_args( $this->POST_args() ),
+				'parameters' => $this->swaggerize_args( $this->POST_args(), $POST_defaults ),
 				'responses'  => array(
 					'201' => array(
 						'description' => __( 'Returns the data of the created event', 'the-event-calendar' ),
@@ -210,7 +214,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'all_day'            => array(
 				'required'    => false,
 				'default'     => false,
-				'type'        => 'string',
+				'type'        => 'boolean',
 				'description' => __( 'Whether the event lasts the whole day or not', 'the-events-calendar' ),
 			),
 			'start_date'         => array(
@@ -232,14 +236,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'description'       => __( 'The event featured image ID or URL', 'the-events-calendar' ),
 			),
 			'cost'               => array(
-				'required'    => false,
-				'type'        => 'string',
-				'description' => __( 'The event cost', 'the-events-calendar' ),
+				'required'     => false,
+				'swagger_type' => 'string',
+				'description'  => __( 'The event cost', 'the-events-calendar' ),
 			),
 			'website'            => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_url' ),
-				'type'              => 'string',
+				'swagger_type'      => 'string',
 				'description'       => __( 'The event website', 'the-events-calendar' ),
 			),
 			// Event presentation data
@@ -272,13 +276,13 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'venue'              => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_venue_id_or_entry' ),
-				'type'              => 'array',
+				'swagger_type'      => 'array',
 				'description'       => __( 'The event venue ID or data', 'the-events-calendar' ),
 			),
 			'organizer'          => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_organizer_id_or_entry' ),
-				'type'              => 'array',
+				'swagger_type'      => 'array',
 				'description'       => __( 'The event organizer IDs or data', 'the-events-calendar' ),
 			),
 		);
