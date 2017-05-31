@@ -600,7 +600,7 @@ class EventInsertionCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should allow inserting presentation meta to users that can `publish_posts` and `manage_options`
+	 * It should allow inserting presentation meta to users that can `publish_posts` and `edit_other_posts`
 	 *
 	 * @test
 	 *
@@ -610,8 +610,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @example ["sticky", true]
 	 * @example ["featured", true]
 	 */
-	public function it_should_allow_inserting_presentation_meta_to_users_that_can_publish_post_and_manage_options( Tester $I, \Codeception\Example $data ) {
-		$I->generate_nonce_for_role( 'administrator' );
+	public function it_should_allow_inserting_presentation_meta_to_users_that_can_publish_posts_and_edit_other_posts( Tester $I, \Codeception\Example $data ) {
+		$I->generate_nonce_for_role( 'editor' );
 
 		$params = [
 			'title'       => 'An event',
@@ -629,7 +629,7 @@ class EventInsertionCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should not allow inserting presentation meta to users that cannot `publish_post` and `edit_options`
+	 * It should not allow inserting presentation meta to users that cannot `publish_posts` and `edit_other_posts`
 	 *
 	 * @test
 	 * @example ["show_map", true ]
@@ -638,7 +638,7 @@ class EventInsertionCest extends BaseRestCest {
 	 * @example ["sticky", true]
 	 * @example ["featured", true]
 	 */
-	public function it_should_not_allow_inserting_presentation_meta_to_users_that_cannot_publish_post_and_edit_options_( Tester $I, \Codeception\Example $data ) {
+	public function it_should_not_allow_inserting_presentation_meta_to_users_that_cannot_publish_posts_and_edit_other_posts( Tester $I, \Codeception\Example $data ) {
 		$I->generate_nonce_for_role( 'author' );
 
 		$params = [

@@ -4,6 +4,8 @@ namespace Tribe\Events\REST\V1\Endpoints;
 
 use Prophecy\Prophecy\ObjectProphecy;
 use Tribe\Events\Tests\Factories\Event;
+use Tribe\Events\Tests\Factories\Organizer;
+use Tribe\Events\Tests\Factories\Venue;
 use Tribe__Events__REST__V1__Endpoints__Single_Event as Endpoint;
 
 class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
@@ -38,13 +40,13 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		// your set up methods here
 		$this->factory()->event = new Event();
+		$this->factory()->venue = new Venue();
+		$this->factory()->organizer = new Organizer();
 		$this->messages = new \Tribe__Events__REST__V1__Messages();
 		$this->repository = new \Tribe__Events__REST__V1__Post_Repository( new \Tribe__Events__REST__V1__Messages() );
 		$this->validator = new \Tribe__Events__REST__V1__Validator__Base();
-		$this->venue_endpoint = $this->prophesize(\Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface::class);
-		$this->organizer_endpoint = $this->prophesize(\Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface::class);
-//		$this->venue_endpoint = tribe( 'tec.rest-v1.endpoints.single-venue' );
-//		$this->organizer_endpoint = tribe( 'tec.rest-v1.endpoints.single-organizer' );
+		$this->venue_endpoint = tribe( 'tec.rest-v1.endpoints.single-venue' );
+		$this->organizer_endpoint = tribe( 'tec.rest-v1.endpoints.single-organizer' );
 	}
 
 	/**
@@ -116,6 +118,8 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 			[ 'future', 'author', 'future' ],
 			[ 'future', 'contributor', 'pending' ],
 			[ 'future', 'subscriber', 'pending' ],
+			[ 'draft', 'contributor', 'draft' ],
+			[ 'draft', 'subscriber', 'draft' ],
 		];
 	}
 
@@ -132,5 +136,137 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$sut = $this->make_instance();
 
 		$this->assertEquals( $expected, $sut->scale_back_post_status( $post_status, \Tribe__Events__Main::POSTTYPE ) );
+	}
+
+	/**
+	 * It should allow inserting (POSTing) an event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_inserting_pos_ting_an_event() {
+		$sut = $this->make_instance();
+
+		$request = new \WP_REST_Request();
+
+		$venue = $this->factory()->venue->create();
+		$organizer_1 = $this->factory()->organizer->create();
+		$organizer_2 = $this->factory()->organizer->create();
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'categories'  => [ 'cat1', 'cat2' ],
+			'tags'        => [ 'tag1', 'tag2' ],
+			'venue'       => $venue,
+			'organizer'   => [ $organizer_1, $organizer_2 ],
+		];
+
+		foreach ( $params as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		/** @var \WP_REST_Response $response */
+		$response = $sut->post( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 201, $response->status );
+	}
+
+	/**
+	 * It should return venue error if trying to insert event with invalid venue data
+	 *
+	 * @test
+	 */
+	public function it_should_return_venue_error_if_trying_to_insert_event_with_invalid_venue_data() {
+		$sut = $this->make_instance();
+
+		$request = new \WP_REST_Request();
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'venue'       => 23,
+		];
+
+		foreach ( $params as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		/** @var \WP_Error $response */
+		$response = $sut->post( $request );
+
+		$this->assertWPError( $response );
+		$this->assertEquals( 'could-not-create-venue', $response->get_error_code() );
+		$error_data = $response->get_error_data();
+		$this->assertEquals( 400, $error_data['status'] );
+	}
+
+	/**
+	 * It should return organizer error if trying to insert organizer with invalid organizer data
+	 *
+	 * @test
+	 */
+	public function it_should_return_organizer_error_if_trying_to_insert_organizer_with_invalid_organizer_data() {
+		$sut = $this->make_instance();
+
+		$request = new \WP_REST_Request();
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'organizer'   => 23,
+		];
+
+		foreach ( $params as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		/** @var \WP_Error $response */
+		$response = $sut->post( $request );
+
+		$this->assertWPError( $response );
+		$this->assertEquals( 'could-not-create-organizer', $response->get_error_code() );
+		$error_data = $response->get_error_data();
+		$this->assertEquals( 400, $error_data['status'] );
+	}
+
+	/**
+	 * It should allow some users that can publish posts to set presentation data
+	 *
+	 * @test
+	 */
+	public function it_should_allow_some_users_that_can_publish_posts_and_edit_others_posts_to_set_presentation_data() {
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'editor' ] ) );
+
+		$sut = $this->make_instance();
+
+		$request = new \WP_REST_Request();
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'featured'    => true,
+		];
+
+		foreach ( $params as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		/** @var \WP_REST_Response $response */
+		$response = $sut->post( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 201, $response->get_status() );
+
+		$data = $response->get_data();
+		$this->assertNotEmpty($data['featured'] );
 	}
 }

@@ -136,6 +136,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 		$post_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 		$can_publish = current_user_can( $post_object->cap->publish_posts );
+		$can_edit_others_posts = current_user_can( $post_object->cap->edit_others_posts );
 		$events_cat = Tribe__Events__Main::TAXONOMY;
 
 		$postarr = array(
@@ -182,7 +183,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 		$postarr['organizer'] = $organizer;
 
-		if ( $can_publish && current_user_can( 'manage_options' ) ) {
+		if ( $can_publish && $can_edit_others_posts ) {
 			$postarr = array_merge( $postarr, array(
 				// Event presentation data
 				'EventShowMap'          => tribe_is_truthy( $request['show_map'] ),

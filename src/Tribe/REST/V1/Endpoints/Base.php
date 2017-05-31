@@ -13,34 +13,6 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	}
 
 	/**
-	 * Parses a date value throwing an exception if not valid.
-	 *
-	 * @param string          $date The date under which the request could store the
-	 * @param string          $message_slug
-	 *
-	 * @return false|string Either the date in the specified format localized to the site timezone or `false`
-	 *                      if the date is not provided in the request under the `$key` index.
-	 *
-	 * @throws Tribe__REST__Exceptions__Exception If the date provided is not a valid date string or
-	 *                                            UNIX timestamp.
-	 */
-	protected function parse_date_value( $date, $message_slug  ) {
-		if ( ! empty( $date ) ) {
-			$parsed = Tribe__Timezones::localize_date( Tribe__Date_Utils::DBDATETIMEFORMAT, $request[ $key ] );
-
-			if ( false === $parsed ) {
-				$message = $this->messages->get_message( $message_slug );
-
-				throw new Tribe__REST__Exceptions__Exception( $key, $message, 400 );
-			}
-
-			return $parsed;
-		}
-
-		return false;
-	}
-
-	/**
 	 * Returns the default value of posts per page.
 	 *
 	 * Cascading fallback is TEC `posts_per_page` option, `posts_per_page` option and, finally, 20.
