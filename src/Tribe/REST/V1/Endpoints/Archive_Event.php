@@ -352,7 +352,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	/**
 	 * @return int
 	 */
-	protected function get_max_posts_per_page() {
+	public function get_max_posts_per_page() {
 		/**
 		 * Filters the maximum number of events per page that should be returned.
 		 *

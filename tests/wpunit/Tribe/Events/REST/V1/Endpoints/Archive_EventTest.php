@@ -557,7 +557,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$request = new \WP_REST_Request();
 		$request->set_param( 'venue', $venue_id );
-		$request->set_param('per_page', 10);
+		$request->set_param( 'per_page', 10 );
 
 		/** @var \WP_REST_Response $response */
 		$response = $sut->get( $request );
@@ -576,13 +576,13 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	public function it_should_allow_filtering_events_by_organizer_id() {
 		$organizer_id = $this->factory()->organizer->create();
 		$with_organizer = $this->factory()->event->create_many( 3, [ 'meta_input' => [ '_EventOrganizerID' => $organizer_id ] ] );
-		 $this->factory()->event->create_many( 3 );
+		$this->factory()->event->create_many( 3 );
 
 		$sut = $this->make_instance();
 
 		$request = new \WP_REST_Request();
 		$request->set_param( 'organizer', $organizer_id );
-		$request->set_param('per_page', 10);
+		$request->set_param( 'per_page', 10 );
 
 		/** @var \WP_REST_Response $response */
 		$response = $sut->get( $request );
@@ -643,5 +643,41 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$data = $response->get_data();
 		$this->assertCount( 9, $data['events'] );
 		$this->assertEqualSets( array_merge( $with_organizer_1, $with_organizer_2, $with_organizer_1_and_2 ), wp_list_pluck( $data['events'], 'id' ) );
+	}
+
+	public function sanitize_per_page_inputs() {
+		return [
+			[ 23, 23 ],
+			[ '23', 23 ],
+			[ 0, false ],
+			[ '0', false ],
+		];
+	}
+
+	/**
+	 * Test sanitize_per_page
+	 *
+	 * @test
+	 * @dataProvider sanitize_per_page_inputs
+	 */
+	public function test_sanitize_per_page( $input, $expected ) {
+		$sut = $this->make_instance();
+
+		$this->assertEquals( $expected, $sut->sanitize_per_page( $input ) );
+	}
+
+	/**
+	 * It should allow filtering the max number of posts per page
+	 *
+	 * @test
+	 */
+	public function it_should_allow_filtering_the_max_number_of_posts_per_page() {
+		add_filter( 'tribe_rest_event_max_per_page', function () {
+			return 7;
+		} );
+
+		$sut = $this->make_instance();
+
+		$this->assertEquals( 7, $sut->get_max_posts_per_page() );
 	}
 }
