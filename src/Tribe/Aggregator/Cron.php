@@ -303,12 +303,6 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
-//			if ( empty( $record->meta['_tribe_aggregator_queue'] ) ) {
-//				// this is incoherent, a schedule should have a queue
-//				$record->set_status( Tribe__Events__Aggregator__Records::$status->failed );
-//				continue;
-//			}
-
 			if ( ! $record->is_schedule_time() ) {
 				$this->log( 'debug', sprintf( 'Record (%d) skipped, not scheduled time', $record->id ) );
 				continue;
