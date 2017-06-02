@@ -326,6 +326,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.5.4] TBD =
+
+* Fix - Removed extra double quotes in organizer link output [71133]
+
 = [4.5.3] 2017-06-01 =
 
 * Fix - Made it easier to translate the update confirmation message (our thanks to safu9 for highlighting this) [79729]
