@@ -79,7 +79,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 			'phone'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
 			'website'     => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_url' ) ),
 			'email'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'image'              => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
+			'image'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
 		);
 	}
 

@@ -17,7 +17,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 */
 	public function get( WP_REST_Request $request ) {
-		// TODO: Implement get() method.
+		// @todo Implement get() method.
 	}
 
 	/**
@@ -57,7 +57,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			'phone'         => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
 			'stateprovince' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
 			'website'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_url' ) ),
-			'image'              => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
+			'image'         => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
 		);
 	}
 
