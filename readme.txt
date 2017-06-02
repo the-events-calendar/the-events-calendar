@@ -333,7 +333,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Language - 2 new strings added, 156 updated, 0 fuzzied, and 4 obsoleted [the-events-calendar]
 * Language - 4 new strings added, 20 updated, 1 fuzzied, and 0 obsoleted [tribe-common]
 
-= [4.5.3] 2017-05-31 =
+= [4.5.3] 2017-06-01 =
 
 * Fix - Made it easier to translate the update confirmation message (our thanks to safu9 for highlighting this) [79729]
 * Fix - Fixed compatibility issue with WPML which caused organizers and venues to disappear on translated events [67581]
