@@ -128,6 +128,11 @@ class Tribe__Events__Aggregator__Record__Queue {
 	}
 
 	public function load_queue() {
+		if ( empty( $this->record->meta[ self::$queue_key ] ) ) {
+			$this->is_fetching = false;
+			$this->items = array();
+		}
+
 		$this->items = $this->record->meta[ self::$queue_key ];
 
 		if ( 'fetch' === $this->items ) {
