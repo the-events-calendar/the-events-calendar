@@ -453,6 +453,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	public function column_source( $post ) {
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
+		if ( tribe_is_error( $record ) ) {
+			return '';
+		}
+
 		if ( 'scheduled' !== $this->tab->get_slug() ) {
 			$html[] = $this->get_status_icon( $record );
 		}
@@ -508,6 +512,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	public function column_imported( $post ) {
 		$html = array();
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+
+		if ( tribe_is_error( $record ) ) {
+			return '';
+		}
 
 		if ( 'scheduled' === $this->tab->get_slug() ) {
 			$last_import_error = $record->get_last_import_status( 'error' );
@@ -565,12 +573,21 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$html = array();
 
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+
+		if ( tribe_is_error( $record ) ) {
+			return '';
+		}
+
 		$last_imported = $record->get_child_record_by_status( 'success', 1 );
 
 		// is this the scheduled import page?
 		if ( $last_imported && $last_imported->have_posts() ) {
 			// Fetches the Record Object
 			$last_imported = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $last_imported->post->ID );
+
+			if ( tribe_is_error( $last_imported ) ) {
+				return '';
+			}
 
 			$html[] = '<div class="tribe-ea-total">' . number_format_i18n( $record->get_event_count( 'created' ) ) . ' ' . esc_html__( 'all time', 'the-events-calendar' ) . '</div>';
 

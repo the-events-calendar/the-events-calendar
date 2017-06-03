@@ -181,7 +181,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $data['import_id'] );
 
-		if ( is_wp_error( $record ) ) {
+		if ( tribe_is_error( $record ) ) {
 			$this->messages['error'][] = $record->get_error_message();
 			return $this->messages;
 		}
@@ -464,7 +464,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $import_id );
 
-		if ( is_wp_error( $record ) ) {
+		if ( tribe_is_error( $record ) ) {
 			wp_send_json_error( $record );
 		}
 
@@ -484,7 +484,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 			if ( ! empty( $record->post->post_parent ) ) {
 				$parent_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record->post->post_parent );
-				$parent_record->update_meta( 'source_name', $result->data->source_name );
+
+				if ( tribe_is_error( $parent_record ) ) {
+					$parent_record->update_meta( 'source_name', $result->data->source_name );
+				}
 			}
 		}
 

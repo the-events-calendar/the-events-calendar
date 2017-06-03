@@ -328,6 +328,17 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.7] TBD =
 
+= [4.5.3] 2017-06-01 =
+
+* Fix - Made it easier to translate the update confirmation message (our thanks to safu9 for highlighting this) [79729]
+* Fix - Fixed compatibility issue with WPML which caused organizers and venues to disappear on translated events [67581]
+* Fix — Fixed bug where venues and organizers would be duplicated when their associated event is previewed. [64088]
+* Tweak - Other fixes to the plugin verbiage (with thanks to @garrett-eclipse and others)
+
+= [4.5.2.1] 2017-05-19 =
+
+* Fix - Prevent fatal errors occuring in PHP 5.5 and earlier [79208]
+
 = [4.5.2] 2017-05-17 =
 
 * Fix - Correct REST API reference URL (our thanks to Lindsey for flagging this) [78658]
