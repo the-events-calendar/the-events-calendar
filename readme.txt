@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Stable tag: 4.6
+Stable tag: 4.5.4
 Tested up to: 4.7.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -326,7 +326,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.6] TBD =
+= [4.5.4] 2017-06-06 =
 
 * Tweak - Minor tweaks to the CSS for linked post types (Organizer/Venues)
 * Fix - Prevent drag and drop icon showing when singular linked post type is been displayed
