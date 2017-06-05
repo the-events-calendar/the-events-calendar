@@ -398,6 +398,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 	protected function get_featured_image( $id ) {
 		$thumbnail_id = get_post_thumbnail_id( $id );
+		$guid = get_post_field( 'guid', $thumbnail_id );
 
 		if ( empty( $thumbnail_id ) ) {
 			return false;
@@ -409,6 +410,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$data = array(
 			'url' => $full_url,
 			'id' => $thumbnail_id,
+			'guid' => $guid,
 			'extension' => pathinfo( $file, PATHINFO_EXTENSION ),
 		);
 
