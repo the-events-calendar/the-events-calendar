@@ -43,7 +43,7 @@ class Tribe__Events__Meta__Context {
 	 */
 	public function verify_nonce( ) {
 		$event_nonce = wp_verify_nonce( $_POST['ecp_nonce'], Tribe__Events__Main::POSTTYPE );
-		$series_nonce = wp_verify_nonce( $_POST['ecp_nonce'], Tribe__Events__Pro__Recurrence__Series::POST_TYPE );
+		$series_nonce = wp_verify_nonce( $_POST['ecp_nonce'], Tribe__Events__Pro__Series::POST_TYPE );
 
 		return $event_nonce || $series_nonce;
 	}
