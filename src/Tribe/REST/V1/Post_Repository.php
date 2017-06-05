@@ -396,20 +396,20 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		return $cost_values;
 	}
 
-	protected function get_featured_image($id) {
-		$thumbnail_id = get_post_thumbnail_id($id);
+	protected function get_featured_image( $id ) {
+		$thumbnail_id = get_post_thumbnail_id( $id );
 
 		if ( empty( $thumbnail_id ) ) {
 			return false;
 		}
 
-		$full_url = get_the_post_thumbnail_url($id, 'full');
-		$file = get_attached_file($thumbnail_id);
+		$full_url = get_the_post_thumbnail_url( $id, 'full' );
+		$file = get_attached_file( $thumbnail_id );
 
 		$data = array(
 			'url' => $full_url,
 			'id' => $thumbnail_id,
-			'extension' => pathinfo($file, PATHINFO_EXTENSION),
+			'extension' => pathinfo( $file, PATHINFO_EXTENSION ),
 		);
 
 		$metadata = wp_get_attachment_metadata( $thumbnail_id );
@@ -424,7 +424,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 			foreach ( $metadata['sizes'] as $size => &$meta ) {
 				$size_image_src = wp_get_attachment_image_src( $thumbnail_id, $size );
-				$meta['url'] = ! empty( $size_image_src[0] ) ? $size_image_src[0] : '';
+				$meta['url'] = ! empty( $size_image_src[ 0 ] ) ? $size_image_src[ 0 ] : '';
 				unset( $meta['file'] );
 			}
 
