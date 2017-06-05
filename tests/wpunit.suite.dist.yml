@@ -2,11 +2,9 @@
 
 # suite for WordPress functional tests.
 # Emulate web requests and make application process them.
-class_name: IntegrationTester
+class_name: WpunitTester
 modules:
-    enabled:
-        - \Helper\Integration
-        - WPLoader
+    enabled: [WPLoader, \Helper\Wpunit]
     config:
         WPLoader:
             wpRootFolder: /tmp/wordpress
@@ -15,15 +13,18 @@ modules:
             dbUser: root
             dbPassword: ''
             wpDebug: true
+            dbCharset: utf8
+            dbCollate: ''
             tablePrefix: wp_
             domain: tec.tri.be
             adminEmail: admin@tec.tri.be
             title: 'The Events Calendar Tests'
+            phpBinary: php
+            language: ''
             plugins:
                 - the-events-calendar/the-events-calendar.php
-
-# To test integrations use environments loading the needed plugins
-# Running the suite without specifying an environment will run with the default parameters (above)
+            activatePlugins:
+                - the-events-calendar/the-events-calendar.php
 env:
     wpml:
         modules:
