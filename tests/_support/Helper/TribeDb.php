@@ -247,14 +247,17 @@ class TribeDb extends \Codeception\Module {
 	 */
 	public function haveManyEventsInDatabase( $count, array $overrides = [], $time_space = null ) {
 		$ids = [];
-		$time = empty( $time_space ) ? 1 : $time_space;
+		$time_space = empty( $time_space ) ? 1 : $time_space;
+		$time = 1;
 		for ( $n = 0; $n < $count; $n ++ ) {
 			$event_overrides = $overrides;
 			if ( ! empty( $time_space ) ) {
 				$event_overrides['when'] = '+' . $time . ' hours';
 				$time += $time_space;
-				$event_overrides['post_title'] = "Event {$n}";
-				$event_overrides['post_name'] = "event-{$n}";
+				$event_overrides['post_title'] = isset( $overrides['post_title'] ) ?
+					$overrides['post_title'] : "Event {$n}";
+				$event_overrides['post_name'] = isset( $overrides['post_content'] ) ?
+					$overrides['post_content'] : "event-{$n}";
 			}
 			$ids[] = $this->haveEventInDatabase( $event_overrides );
 		}

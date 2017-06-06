@@ -1,3 +1,5 @@
+@custom-media --tablet (max-width: 782px);
+
 /* = Post Type Listing
 =============================================*/
 .events-cal {
@@ -50,9 +52,17 @@
 		}
 	}
 
+	#EventURL {
+		width: 70%;
+	}
+
 	#event-meta {
 		td {
 			vertical-align: top;
+
+			&:first-child {
+				line-height: 30px;
+			}
 
 			div {
 				margin-bottom: 10px;
@@ -85,7 +95,21 @@
 		margin: 0 0 10px 0;
 	}
 
-	input[type="text"] {
+	input[type="text"],
+	input[type="password"],
+	input[type="color"],
+	input[type="date"],
+	input[type="datetime"],
+	input[type="datetime-local"],
+	input[type="email"],
+	input[type="month"],
+	input[type="number"],
+	input[type="search"],
+	input[type="tel"],
+	input[type="text"],
+	input[type="time"],
+	input[type="url"],
+	input[type="week"] {
 		background-image: none;
 		border: 1px solid #ccc;
 		border-radius: 3px;
@@ -111,15 +135,31 @@
 			height: 28px;
 		}
 
-
 		.tribe-field-start_date,
 		.tribe-field-end_date {
 			width: 100px;
+			@media (--tablet) {
+				width: 63%;
+				display: inline-block;
+			}
 		}
 
 		.tribe-field-start_time,
 		.tribe-field-end_time {
 			width: 80px;
+			@media (--tablet) {
+				width: 35%;
+				display: inline-block;
+			}
+		}
+
+		.tribe-datetime-separator {
+			@media (--tablet) {
+				width: 100%;
+				display: block;
+				text-align: center;
+				padding: 5px 0;
+			}
 		}
 
 		.tribe-field-timezone {
@@ -130,11 +170,22 @@
 			&.select2-container {
 				display: inline-block;
 				margin-top: -4px;
+
+				@media (--tablet) {
+					display: table;
+					margin: 10px auto 0;
+				}
 			}
 		}
 
 		.tribe-change-timezone {
 			white-space: nowrap;
+			@media (--tablet) {
+				width: 100%;
+				display: block;
+				text-align: center;
+				padding: 5px 0;
+			}
 		}
 	}
 
@@ -361,14 +412,11 @@ table.eventForm {
 	margin-right: 10px!important;
 }
 
-.linked-post-dropdown,
-.venue-dropdown,
-.organizer-dropdown,
 .events-dropdown,
 #eventsDefaultState,
 #defaultCountry,
 #StateProvinceSelect {
-	width: 220px !important;
+	min-width: 220px;
 }
 
 .multi-day-cutoff-dropdown {
@@ -478,13 +526,5 @@ table.eventForm {
 
 	td.indicator.warning {
 		color: #f3ae46;
-	}
-}
-
-#event_tribe_organizer {
-	.saved-linked-post {
-		.saved-organizer-table-cell {
-			width: 170px;
-		}
 	}
 }

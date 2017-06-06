@@ -148,7 +148,10 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		<tr class="saved-linked-post">
 			<td class="saved-organizer-table-cell">
 				<?php $this->move_handle(); ?>
-				<label data-l10n-create-<?php echo esc_attr( $this->post_type ); ?>="<?php printf( esc_attr__( 'Create New %s', 'the-events-calendar' ), $this->singular_name ); ?>"><?php printf( esc_html__( 'Use Saved %s:', 'the-events-calendar' ), $this->singular_name ); ?></label>
+				<label
+					data-l10n-create-<?php echo esc_attr( $this->post_type ); ?>="<?php printf( esc_attr__( 'Create New %s', 'the-events-calendar' ), $this->singular_name ); ?>">
+					<?php printf( esc_html__( '%s:', 'the-events-calendar' ), $this->singular_name ); ?>
+				</label>
 			</td>
 			<td>
 			<?php
@@ -222,10 +225,12 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		}
 
 		?>
-		<tr>
-			<td></td>
-			<td><a class="tribe-add-post" href="#"><?php echo esc_html( sprintf( __( 'Add another %s', 'the-events-calendar' ), $this->singular_name_lowercase ) ); ?></a></td>
-		</tr>
+		<tfoot>
+			<tr>
+				<td></td>
+				<td><a class="tribe-add-post tribe-button tribe-button-secondary" href="#"><?php echo esc_html( sprintf( __( 'Add another %s', 'the-events-calendar' ), $this->singular_name_lowercase ) ); ?></a></td>
+			</tr>
+		</tfoot>
 		<?php
 	}
 
