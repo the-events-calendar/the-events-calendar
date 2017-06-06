@@ -654,9 +654,11 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-out-of-stock {
-	background: none;
-	border: 0;
-	padding-left: 22px;
+	background: #f0f0f0;
+	border-left: none;
+	color: #727272;
+	font-style: italic;
+	font-weight: normal;
 }
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-ticket-cost {
@@ -798,9 +800,11 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-list .tribe-events-event-cost .tribe-out-of-stock {
-	background: none;
-	border: 0;
-	padding-left: 22px;
+	background: #f0f0f0;
+	border-left: none;
+	color: #727272;
+	font-style: italic;
+	font-weight: normal;
 }
 
 .tribe-events-list .tribe-events-event-cost .tribe-ticket-cost {
@@ -1200,9 +1204,11 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-day .tribe-event-featured .tribe-events-event-cost .tribe-out-of-stock {
-	background: none;
-	border: 0;
-	padding-left: 22px;
+	background: #f0f0f0;
+	border-left: none;
+	color: #727272;
+	font-style: italic;
+	font-weight: normal;
 }
 
 .tribe-events-day .tribe-event-featured .tribe-events-event-cost .tribe-ticket-cost {
