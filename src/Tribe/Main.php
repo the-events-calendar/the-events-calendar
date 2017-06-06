@@ -384,6 +384,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function bind_implementations(  ) {
 			// Utils
 			tribe_singleton( 'tec.cost-utils', 'Tribe__Events__Cost_Utils' );
+			tribe_singleton( 'tec.known-range', 'Tribe__Events__Dates__Known_Range' );
 
 			// Front page events archive support
 			tribe_singleton( 'tec.front-page-view', 'Tribe__Events__Front_Page_View' );
