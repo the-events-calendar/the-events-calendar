@@ -606,11 +606,13 @@ select.tribe-events-dropdown {
 	margin-top: 1.5rem;
 }
 
-.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-list-event-title a {
+.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-list-event-title 5
+			a {
 	color: #fff;
 }
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-meta {
+	background-color: transparent;
 	color: rgba(255, 255, 255, .7);
 	font-weight: normal;
 }
@@ -1061,11 +1063,13 @@ select.tribe-events-dropdown {
 	margin-top: 1.5rem;
 }
 
-.tribe-events-day .tribe-event-featured .tribe-events-list-event-title a {
+.tribe-events-day .tribe-event-featured .tribe-events-list-event-title 5
+			a {
 	color: #fff;
 }
 
 .tribe-events-day .tribe-event-featured .tribe-events-event-meta {
+	background-color: transparent;
 	color: rgba(255, 255, 255, .7);
 	font-weight: normal;
 }
