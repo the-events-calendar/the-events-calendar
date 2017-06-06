@@ -89,7 +89,7 @@ class File_Importer_Events_ReimportBehaviourTest extends File_Importer_EventsTes
 	public function it_should_not_remove_featured_image_when_re_importing_same_event_from_file() {
 		$image_url     = plugins_url( '_data/csv-import-test-files/featured-image/images/featured-image.jpg', codecept_data_dir() );
 		$attachment_id = $this->factory()->attachment->create_upload_object( $image_url );
-		$this->featured_image_uploader->upload_and_get_attachment()->willReturn( $attachment_id );
+		$this->featured_image_uploader->upload_and_get_attachment_id()->willReturn( $attachment_id );
 
 		$sut = $this->make_instance( 'reimport-behaviour' );
 
@@ -127,7 +127,7 @@ class File_Importer_Events_ReimportBehaviourTest extends File_Importer_EventsTes
 	public function it_should_not_modify_the_featured_image_when_re_importing_file_with_empty_secondary_fields( $field ) {
 		$image_url     = plugins_url( '_data/csv-import-test-files/featured-image/images/featured-image.jpg', codecept_data_dir() );
 		$attachment_id = $this->factory()->attachment->create_upload_object( $image_url );
-		$this->featured_image_uploader->upload_and_get_attachment()->willReturn( $attachment_id );
+		$this->featured_image_uploader->upload_and_get_attachment_id()->willReturn( $attachment_id );
 
 		$sut = $this->make_instance( 'reimport-behaviour' );
 
@@ -176,7 +176,7 @@ class File_Importer_Events_ReimportBehaviourTest extends File_Importer_EventsTes
 	public function it_should_not_modify_the_featured_image_when_re_importing_file_with_modified_secondary_fields( $field, $modified_value ) {
 		$image_url     = plugins_url( '_data/csv-import-test-files/featured-image/images/featured-image.jpg', codecept_data_dir() );
 		$attachment_id = $this->factory()->attachment->create_upload_object( $image_url );
-		$this->featured_image_uploader->upload_and_get_attachment()->willReturn( $attachment_id );
+		$this->featured_image_uploader->upload_and_get_attachment_id()->willReturn( $attachment_id );
 
 		$sut = $this->make_instance( 'reimport-behaviour' );
 

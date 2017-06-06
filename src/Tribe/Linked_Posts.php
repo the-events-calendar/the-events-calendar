@@ -39,7 +39,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Constructor!
 	 */
-	protected function __construct() {
+	public function __construct() {
 		$this->main = Tribe__Events__Main::instance();
 		$this->register_default_linked_post_types();
 

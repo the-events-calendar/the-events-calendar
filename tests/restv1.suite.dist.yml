@@ -4,8 +4,10 @@ modules:
         - \Helper\Restv1
         - REST
         - WPDb
+        - WPBrowser
         - \Helper\TribeDb
         - Asserts
+        - WPLoader
     config:
         WPBrowser:
             url: 'http://tec.tri.be'
@@ -24,3 +26,12 @@ modules:
             cleanup: true
             url: 'http://tec.tri.be'
             tablePrefix: wp_
+        WPLoader:
+            # just load WordPress using the same db as WPDb
+            loadOnly: true
+            wpRootFolder: /tmp/wordpress
+            dbName: test
+            dbHost: localhost
+            dbUser: root
+            dbPassword: ''
+
