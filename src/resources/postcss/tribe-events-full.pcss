@@ -603,7 +603,7 @@ select.tribe-events-dropdown {
 	.tribe-events-loop {
 		@mixin featured-list-styles;
 
-		.tribe-events-image {
+		.tribe-events-event-image {
 			float: left;
 			margin: 0 3% 0 0;
 			width: 30%;
@@ -659,9 +659,9 @@ select.tribe-events-dropdown {
 		}
 
 		+ div.tribe-events-content {
-			float: left;
+			display: block;
+			float: none;
 			position: relative;
-			width: 67%;
 		}
 	}
 
@@ -1004,8 +1004,6 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-day {
-	padding: 0 15px;
-
 	@mixin featured-list-styles {
 		.tribe-events-content {
 			display: block;
