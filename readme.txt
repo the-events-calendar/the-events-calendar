@@ -330,6 +330,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 * Tweak - Minor tweaks to the CSS for linked post types (Organizer/Venues)
 * Fix - Prevent drag and drop icon showing when singular linked post type is been displayed
+* Fix - Better sanitization of data
 * Language - 2 new strings added, 156 updated, 0 fuzzied, and 4 obsoleted [the-events-calendar]
 * Language - 4 new strings added, 20 updated, 1 fuzzied, and 0 obsoleted [tribe-common]
 
