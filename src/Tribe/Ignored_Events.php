@@ -320,7 +320,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		public function action_column_contents( $column, $post ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_event_id( $post );
 
-			if ( is_wp_error( $record ) ) {
+			if ( tribe_is_error( $record ) ) {
 				return false;
 			}
 
