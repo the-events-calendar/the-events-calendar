@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Stable tag: 4.6rc2
+Stable tag: 4.5.4
 Tested up to: 4.7.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -326,10 +326,19 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.6] TBD =
+= [4.5.4] 2017-06-06 =
 
 * Tweak - Minor tweaks to the CSS for linked post types (Organizer/Venues)
 * Fix - Prevent drag and drop icon showing when singular linked post type is been displayed
+* Language - 2 new strings added, 156 updated, 0 fuzzied, and 4 obsoleted [the-events-calendar]
+* Language - 4 new strings added, 20 updated, 1 fuzzied, and 0 obsoleted [tribe-common]
+
+= [4.5.3] 2017-06-01 =
+
+* Fix - Made it easier to translate the update confirmation message (our thanks to safu9 for highlighting this) [79729]
+* Fix - Fixed compatibility issue with WPML which caused organizers and venues to disappear on translated events [67581]
+* Fix — Fixed bug where venues and organizers would be duplicated when their associated event is previewed. [64088]
+* Tweak - Other fixes to the plugin verbiage (with thanks to @garrett-eclipse and others)
 
 = [4.5.2.1] 2017-05-19 =
 

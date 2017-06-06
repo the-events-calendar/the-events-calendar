@@ -292,16 +292,14 @@ class Tribe__Events__Aggregator__Cron {
 		) );
 
 		if ( ! $query->have_posts() ) {
-			$this->log( 'debug', 'No Records Scheduled, skipped creating childs' );
+			$this->log( 'debug', 'No Records Scheduled, skipped creating children' );
 			return;
 		}
 
 		foreach ( $query->posts as $post ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
-			if ( empty( $record->meta['_tribe_aggregator_queue'] ) ) {
-				// this is incoherent, a schedule should have a queue
-				$record->set_status( Tribe__Events__Aggregator__Records::$status->failed );
+			if ( tribe_is_error( $record ) ) {
 				continue;
 			}
 
@@ -311,7 +309,7 @@ class Tribe__Events__Aggregator__Cron {
 			}
 
 			if ( $record->get_child_record_by_status( 'pending' ) ) {
-				$this->log( 'debug', sprintf( 'Record (%d) skipped, has pending childs', $record->id ) );
+				$this->log( 'debug', sprintf( 'Record (%d) skipped, has pending child(ren)', $record->id ) );
 				continue;
 			}
 
@@ -326,7 +324,7 @@ class Tribe__Events__Aggregator__Cron {
 			$child = $record->create_child_record();
 
 			if ( ! is_wp_error( $child ) ) {
-				$this->log( 'debug', sprintf( 'Record (%d), was created as a child', $child->id ) );
+				$this->log( 'debug', sprintf( 'Record (%d) was created as a child', $child->id ) );
 
 				// Creates on the Service a Queue to Fetch the events
 				$response = $child->queue_import();
@@ -387,6 +385,10 @@ class Tribe__Events__Aggregator__Cron {
 		$cleaner = new Tribe__Events__Aggregator__Record__Queue_Cleaner();
 		foreach ( $query->posts as $post ) {
 			$record = $records->get_by_post_id( $post );
+
+			if ( tribe_is_error( $record ) ) {
+				continue;
+			}
 
 			$cleaner->remove_duplicate_pending_records_for( $record );
 			$failed = $cleaner->maybe_fail_stalled_record( $record );
@@ -484,20 +486,20 @@ class Tribe__Events__Aggregator__Cron {
 		$query = $records->query( $args );
 
 		if ( ! $query->have_posts() ) {
-			$this->log( 'debug', 'No Records over retetion limit, skipped pruning expired' );
+			$this->log( 'debug', 'No Records over retention limit, skipped pruning expired' );
 			return;
 		}
 
 		foreach ( $query->posts as $post ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
-			if ( ! $record ) {
+			if ( tribe_is_error( $record ) ) {
 				$this->log( 'debug', sprintf( 'Record (%d) skipped, original post non-existent', $post->id ) );
 				continue;
 			}
 
 			if ( ! $record->has_passed_retention_time() ) {
-				$this->log( 'debug', sprintf( 'Record (%d) skipped, not passed retetion time', $record->id ) );
+				$this->log( 'debug', sprintf( 'Record (%d) skipped, not past retention time', $record->id ) );
 				continue;
 			}
 
@@ -505,9 +507,9 @@ class Tribe__Events__Aggregator__Cron {
 			$deleted = wp_delete_post( $record->id, true );
 
 			if ( $deleted ) {
-				$this->log( 'debug', sprintf( 'Record (%d), was pruned', $deleted->ID ) );
+				$this->log( 'debug', sprintf( 'Record (%d) was pruned', $deleted->ID ) );
 			} else {
-				$this->log( 'debug', sprintf( 'Record (%d), was not pruned', $deleted ) );
+				$this->log( 'debug', sprintf( 'Record (%d) was not pruned', $deleted ) );
 			}
 		}
 	}
