@@ -340,7 +340,7 @@ h2.tribe-events-page-title,
 	border: 1px solid #d2d2d2;
 	border-top: 0;
 	-webkit-transition: all .2s cubic-bezier(.550, .085, .680, .530);
-	        transition: all .2s cubic-bezier(.550, .085, .680, .530);
+	transition: all .2s cubic-bezier(.550, .085, .680, .530);
 }
 
 #tribe-events-content .tribe-events-calendar td:hover {
