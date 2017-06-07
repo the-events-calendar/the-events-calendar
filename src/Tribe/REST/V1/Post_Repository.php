@@ -146,28 +146,28 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$meta = array_map( 'reset', get_post_custom( $venue->ID ) );
 
 		$data = array(
-			'id'                => $venue->ID,
-			'author'            => $venue->post_author,
-			'date'              => $venue->post_date,
-			'date_utc'          => $venue->post_date_gmt,
-			'modified'          => $venue->post_modified,
-			'modified_utc'      => $venue->post_modified_gmt,
-			'url'               => get_the_permalink( $venue->ID ),
-			'venue'             => trim( apply_filters( 'the_title', $venue->post_title ) ),
-			'description'       => trim( apply_filters( 'the_content', $venue->post_content ) ),
-			'excerpt'           => trim( apply_filters( 'the_excerpt', $venue->post_excerpt ) ),
-			'image'             => $this->get_featured_image( $venue->ID ),
-			'show_map'          => isset( $meta['_VenueShowMap'] ) ? (bool) $meta['_VenueShowMap'] : true,
-			'show_map_link'     => isset( $meta['_VenueShowMapLink'] ) ? (bool) $meta['_VenueShowMapLink'] : true,
-			'address'           => isset( $meta['_VenueAddress'] ) ? $meta['_VenueAddress'] : '',
-			'city'              => isset( $meta['_VenueCity'] ) ? $meta['_VenueCity'] : '',
-			'country'           => isset( $meta['_VenueCountry'] ) ? $meta['_VenueCountry'] : '',
-			'province'          => isset( $meta['_VenueProvince'] ) ? $meta['_VenueProvince'] : '',
-			'state'             => isset( $meta['_VenueState'] ) ? $meta['_VenueState'] : '',
-			'zip'               => isset( $meta['_VenueZip'] ) ? $meta['_VenueZip'] : '',
-			'phone'             => isset( $meta['_VenuePhone'] ) ? $meta['_VenuePhone'] : '',
-			'website'           => isset( $meta['_VenueURL'] ) ? $meta['_VenueURL'] : '',
-			'stateprovince'     => isset( $meta['_VenueStateProvince'] ) ? $meta['_VenueStateProvince'] : '',
+			'id'            => $venue->ID,
+			'author'        => $venue->post_author,
+			'date'          => $venue->post_date,
+			'date_utc'      => $venue->post_date_gmt,
+			'modified'      => $venue->post_modified,
+			'modified_utc'  => $venue->post_modified_gmt,
+			'url'           => get_the_permalink( $venue->ID ),
+			'venue'         => trim( apply_filters( 'the_title', $venue->post_title ) ),
+			'description'   => trim( apply_filters( 'the_content', $venue->post_content ) ),
+			'excerpt'       => trim( apply_filters( 'the_excerpt', $venue->post_excerpt ) ),
+			'image'         => $this->get_featured_image( $venue->ID ),
+			'show_map'      => isset( $meta['_VenueShowMap'] ) ? (bool) $meta['_VenueShowMap'] : true,
+			'show_map_link' => isset( $meta['_VenueShowMapLink'] ) ? (bool) $meta['_VenueShowMapLink'] : true,
+			'address'       => isset( $meta['_VenueAddress'] ) ? $meta['_VenueAddress'] : '',
+			'city'          => isset( $meta['_VenueCity'] ) ? $meta['_VenueCity'] : '',
+			'country'       => isset( $meta['_VenueCountry'] ) ? $meta['_VenueCountry'] : '',
+			'province'      => isset( $meta['_VenueProvince'] ) ? $meta['_VenueProvince'] : '',
+			'state'         => isset( $meta['_VenueState'] ) ? $meta['_VenueState'] : '',
+			'zip'           => isset( $meta['_VenueZip'] ) ? $meta['_VenueZip'] : '',
+			'phone'         => isset( $meta['_VenuePhone'] ) ? $meta['_VenuePhone'] : '',
+			'website'       => isset( $meta['_VenueURL'] ) ? $meta['_VenueURL'] : '',
+			'stateprovince' => isset( $meta['_VenueStateProvince'] ) ? $meta['_VenueStateProvince'] : '',
 		);
 
 		// Add the Global ID fields
@@ -190,6 +190,71 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$data = apply_filters( 'tribe_rest_venue_data', array_filter( $data ), get_post( $event_or_venue_id ) );
 
 		return array_filter( $data );
+	}
+
+	protected function get_featured_image( $id ) {
+		$thumbnail_id = get_post_thumbnail_id( $id );
+
+		if ( empty( $thumbnail_id ) ) {
+			return false;
+		}
+
+		$full_url = get_the_post_thumbnail_url( $id, 'full' );
+		$file = get_attached_file( $thumbnail_id );
+
+		$data = array(
+			'url'       => $full_url,
+			'id'        => $thumbnail_id,
+			'extension' => pathinfo( $file, PATHINFO_EXTENSION ),
+		);
+
+		$metadata = wp_get_attachment_metadata( $thumbnail_id );
+
+		if (
+			false !== $metadata
+			&& isset( $metadata['image_meta'] )
+			&& isset( $metadata['file'] )
+			&& isset( $metadata['sizes'] )
+		) {
+			unset( $metadata['image_meta'], $metadata['file'] );
+
+			foreach ( $metadata['sizes'] as $size => &$meta ) {
+				$size_image_src = wp_get_attachment_image_src( $thumbnail_id, $size );
+				$meta['url'] = ! empty( $size_image_src[0] ) ? $size_image_src[0] : '';
+				unset( $meta['file'] );
+			}
+
+			$data = array_filter( array_merge( $data, $metadata ) );
+		}
+
+		/**
+		 * Filters the data that will returned for an event featured image if set.
+		 *
+		 * @param array   $data  The event featured image array representation.
+		 * @param WP_Post $event The requested event.
+		 */
+		return apply_filters( 'tribe_rest_event_featured_image', $data, get_post( $id ) );
+	}
+
+	/**
+	 * Adds the Global ID fields to a set of rest data
+	 *
+	 * @param array $data Rest Array of data
+	 * @param int   $id   Post ID
+	 *
+	 * @return array
+	 */
+	protected function add_global_id_fields( $data, $post_id ) {
+		$global_id = new Tribe__Utils__Global_ID;
+		$global_id->type( 'url' );
+		$global_id->origin( home_url() );
+
+		$lineage = get_post_meta( $post_id, Tribe__Events__Aggregator__Event::$global_id_lineage_key );
+
+		$data['global_id'] = $global_id->generate( array( 'id' => $post_id ) );
+		$data['global_id_lineage'] = array_merge( (array) $data['global_id'], (array) $lineage );
+
+		return $data;
 	}
 
 	/**
@@ -231,20 +296,20 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			$meta = array_map( 'reset', get_post_custom( $organizer->ID ) );
 
 			$this_data = array(
-				'id'                => $organizer->ID,
-				'author'            => $organizer->post_author,
-				'date'              => $organizer->post_date,
-				'date_utc'          => $organizer->post_date_gmt,
-				'modified'          => $organizer->post_modified,
-				'modified_utc'      => $organizer->post_modified_gmt,
-				'url'               => get_the_permalink( $organizer->ID ),
-				'organizer'         => trim( apply_filters( 'the_title', $organizer->post_title ) ),
-				'description'       => trim( apply_filters( 'the_content', $organizer->post_content ) ),
-				'excerpt'           => trim( apply_filters( 'the_excerpt', $organizer->post_excerpt ) ),
-				'image'             => $this->get_featured_image( $organizer->ID ),
-				'phone'             => isset( $meta['_OrganizerPhone'] ) ? $meta['_OrganizerPhone'] : '',
-				'website'           => isset( $meta['_OrganizerWebsite'] ) ? $meta['_OrganizerWebsite'] : '',
-				'email'             => isset( $meta['_OrganizerEmail'] ) ? $meta['_OrganizerEmail'] : '',
+				'id'           => $organizer->ID,
+				'author'       => $organizer->post_author,
+				'date'         => $organizer->post_date,
+				'date_utc'     => $organizer->post_date_gmt,
+				'modified'     => $organizer->post_modified,
+				'modified_utc' => $organizer->post_modified_gmt,
+				'url'          => get_the_permalink( $organizer->ID ),
+				'organizer'    => trim( apply_filters( 'the_title', $organizer->post_title ) ),
+				'description'  => trim( apply_filters( 'the_content', $organizer->post_content ) ),
+				'excerpt'      => trim( apply_filters( 'the_excerpt', $organizer->post_excerpt ) ),
+				'image'        => $this->get_featured_image( $organizer->ID ),
+				'phone'        => isset( $meta['_OrganizerPhone'] ) ? $meta['_OrganizerPhone'] : '',
+				'website'      => isset( $meta['_OrganizerWebsite'] ) ? $meta['_OrganizerWebsite'] : '',
+				'email'        => isset( $meta['_OrganizerEmail'] ) ? $meta['_OrganizerEmail'] : '',
 			);
 
 			// Add the Global ID fields
@@ -276,33 +341,13 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	}
 
 	/**
-	 * Adds the Global ID fields to a set of rest data
-	 *
-	 * @param array  $data  Rest Array of data
-	 * @param int    $id    Post ID
-	 *
-	 * @return array
-	 */
-	protected function add_global_id_fields( $data, $post_id ) {
-		$global_id = new Tribe__Utils__Global_ID;
-		$global_id->type( 'url' );
-		$global_id->origin( home_url() );
-
-		$lineage = get_post_meta( $post_id, Tribe__Events__Aggregator__Event::$global_id_lineage_key );
-
-		$data['global_id'] = $global_id->generate( array( 'id' => $post_id ) );
-		$data['global_id_lineage'] = array_merge( (array) $data['global_id'], (array) $lineage );
-
-		return $data;
-	}
-
-	/**
 	 * @param string $date A date string in a format `strtotime` can parse.
 	 *
 	 * @return array
 	 */
 	protected function get_date_details( $date ) {
 		$time = strtotime( $date );
+
 		return array(
 			'year'    => date( 'Y', $time ),
 			'month'   => date( 'm', $time ),
@@ -311,62 +356,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'minutes' => date( 'i', $time ),
 			'seconds' => date( 's', $time ),
 		);
-	}
-
-	protected function get_categories( $event_id ) {
-		$data = $this->get_terms( $event_id, Tribe__Events__Main::TAXONOMY );
-
-		/**
-		 * Filters the data that will be returned for an event categories.
-		 *
-		 * @param array $data The data that will be returned in the response.
-		 * @param WP_Post $event The requested event.
-		 */
-		$data = apply_filters( 'tribe_rest_event_categories_data', $data, get_post( $event_id ) );
-
-		return array_filter( $data );
-	}
-
-	protected function get_tags( $event_id ) {
-		$data = $this->get_terms($event_id, 'post_tag');
-
-		/**
-		 * Filters the data that will be returned for an event tags.
-		 *
-		 * @param array $data The data that will be returned in the response.
-		 * @param WP_Post $event The requsted event.
-		 */
-		$data = apply_filters( 'tribe_rest_event_tags_data', $data, get_post( $event_id ) );
-
-		return array_filter( $data );
-	}
-
-	protected function get_terms( $event_id, $taxonomy) {
-		$terms = wp_get_post_terms( $event_id, $taxonomy );
-
-		if ( empty( $terms ) ) {
-			return array();
-		}
-
-		$data = array();
-		foreach ( $terms as $term ) {
-			$term_data = (array) $term;
-			$term_data['id'] = $term_data['term_id'];
-			$term_data['url'] = get_term_link( $term, $taxonomy );
-			unset( $term_data['term_id'], $term_data['term_taxonomy_id'], $term_data['term_group'], $term_data['filter'] );
-
-			/**
-			 * Filters the data that will be returned for an event taxonomy term.
-			 *
-			 * @param array                $term_data The data that will be returned in the response for the taxonomy term.
-			 * @param array|object|WP_Term $term      The term original object.
-			 * @param string               $taxonomy  The term taxonomy
-			 * @param WP_Post              $event     The requsted event.
-			 */
-			$data[] = apply_filters( 'tribe_rest_event_taxonomy_term_data', $term_data, $term, $taxonomy, get_post( $event_id ) );
-		}
-
-		return $data;
 	}
 
 	/**
@@ -396,47 +385,59 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		return $cost_values;
 	}
 
-	protected function get_featured_image($id) {
-		$thumbnail_id = get_post_thumbnail_id($id);
-
-		if ( empty( $thumbnail_id ) ) {
-			return false;
-		}
-
-		$full_url = get_the_post_thumbnail_url($id, 'full');
-		$file = get_attached_file($thumbnail_id);
-
-		$data = array(
-			'url' => $full_url,
-			'id' => $thumbnail_id,
-			'extension' => pathinfo($file, PATHINFO_EXTENSION),
-		);
-
-		$metadata = wp_get_attachment_metadata( $thumbnail_id );
-
-		if (
-			false !== $metadata
-			&& isset( $metadata['image_meta'] )
-			&& isset( $metadata['file'] )
-			&& isset( $metadata['sizes'] )
-		) {
-			unset( $metadata['image_meta'], $metadata['file'] );
-
-			foreach ( $metadata['sizes'] as $size => &$meta ) {
-				$size_image_src = wp_get_attachment_image_src( $thumbnail_id, $size );
-				$meta['url'] = ! empty( $size_image_src[0] ) ? $size_image_src[0] : '';
-				unset( $meta['file'] );
-			}
-
-			$data = array_filter( array_merge( $data, $metadata ) );
-		}
+	protected function get_categories( $event_id ) {
+		$data = $this->get_terms( $event_id, Tribe__Events__Main::TAXONOMY );
 
 		/**
-		 * Filters the data that will returned for an event featured image if set.
+		 * Filters the data that will be returned for an event categories.
 		 *
-		 * @param array   $data  The event featured image array representation.
+		 * @param array   $data  The data that will be returned in the response.
 		 * @param WP_Post $event The requested event.
 		 */
-		return apply_filters( 'tribe_rest_event_featured_image', $data, get_post( $id ) );
+		$data = apply_filters( 'tribe_rest_event_categories_data', $data, get_post( $event_id ) );
+
+		return array_filter( $data );
+	}
+
+	protected function get_terms( $event_id, $taxonomy ) {
+		$terms = wp_get_post_terms( $event_id, $taxonomy );
+
+		if ( empty( $terms ) ) {
+			return array();
+		}
+
+		$data = array();
+		foreach ( $terms as $term ) {
+			$term_data = (array) $term;
+			$term_data['id'] = $term_data['term_id'];
+			$term_data['url'] = get_term_link( $term, $taxonomy );
+			unset( $term_data['term_id'], $term_data['term_taxonomy_id'], $term_data['term_group'], $term_data['filter'] );
+
+			/**
+			 * Filters the data that will be returned for an event taxonomy term.
+			 *
+			 * @param array                $term_data The data that will be returned in the response for the taxonomy term.
+			 * @param array|object|WP_Term $term      The term original object.
+			 * @param string               $taxonomy  The term taxonomy
+			 * @param WP_Post              $event     The requsted event.
+			 */
+			$data[] = apply_filters( 'tribe_rest_event_taxonomy_term_data', $term_data, $term, $taxonomy, get_post( $event_id ) );
+		}
+
+		return $data;
+	}
+
+	protected function get_tags( $event_id ) {
+		$data = $this->get_terms( $event_id, 'post_tag' );
+
+		/**
+		 * Filters the data that will be returned for an event tags.
+		 *
+		 * @param array   $data  The data that will be returned in the response.
+		 * @param WP_Post $event The requsted event.
+		 */
+		$data = apply_filters( 'tribe_rest_event_tags_data', $data, get_post( $event_id ) );
+
+		return array_filter( $data );
 	}
 }
