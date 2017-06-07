@@ -3,7 +3,7 @@
 
 class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	extends Tribe__Events__REST__V1__Endpoints__Linked_Post_Base
-	implements Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface {
+	implements Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface {
 	/**
 	 * @var string
 	 */
@@ -29,6 +29,103 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		$data = $this->post_repository->get_venue_data( $request['id'] );
 
 		return is_wp_error( $data ) ? $data : new WP_REST_Response( $data );
+	}
+
+	/**
+	 * Handles POST requests on the endpoint.
+	 *
+	 * @param WP_REST_Request $request
+	 * @param bool            $return_id Whether the created post ID should be returned or the full response object.
+	 *
+	 * @return WP_Error|WP_REST_Response|int An array containing the data on success or a WP_Error instance on failure.
+	 */
+	public function post( WP_REST_Request $request, $return_id = false ) {
+		$postarr = array(
+			$this->get_id_index() => $request['id'],
+			'post_author'         => $request['author'],
+			'post_date'           => Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ),
+			'post_date_gmt'       => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ),
+			'post_status'         => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
+			'Venue'               => $request['venue'],
+			'Description'         => $request['description'],
+			'Address'             => $request['address'],
+			'City'                => $request['city'],
+			'Country'             => $request['country'],
+			'Province'            => $request['province'],
+			'State'               => $request['state'],
+			'Zip'                 => $request['zip'],
+			'Phone'               => $request['phone'],
+			'ShowMap'             => tribe_is_truthy( $request['show_map'] ),
+			'ShowMapLink'         => tribe_is_truthy( $request['show_map_link'] ),
+			'FeaturedImage'       => tribe_upload_image( $request['image'] ),
+		);
+
+		$id = Tribe__Events__Venue::instance()->create( array_filter( $postarr ) );
+
+		if ( empty( $id ) ) {
+			$message = $this->messages->get_message( 'could-not-create-venue' );
+
+			return new WP_Error( 'could-not-create-venue', $message, array( 'status' => 400 ) );
+		}
+
+		return $return_id ? $id : $this->post_repository->get_venue_data( $id );
+	}
+
+	/**
+	 * Returns an array in the format used by Swagger 2.0.
+	 *
+	 * While the structure must conform to that used by v2.0 of Swagger the structure can be that of a full document
+	 * or that of a document part.
+	 * The intelligence lies in the "gatherer" of informations rather than in the single "providers" implementing this
+	 * interface.
+	 *
+	 * @link http://swagger.io/
+	 *
+	 * @return array An array description of a Swagger supported component.
+	 */
+	public function get_documentation() {
+		$GET_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
+		$POST_defaults = array( 'in' => 'body', 'default' => '', 'type' => 'string' );
+
+		return array(
+			'get'  => array(
+				'parameters' => $this->swaggerize_args( $this->GET_args(), $GET_defaults ),
+				'responses'  => array(
+					'200' => array(
+						'description' => __( 'Returns the data of the venue with the specified post ID', 'the-event-calendar' ),
+						'schema'      => array(
+							'$ref' => '#/definitions/Venue',
+						),
+					),
+					'400' => array(
+						'description' => __( 'The venue post ID is missing.', 'the-events-calendar' ),
+					),
+					'403' => array(
+						'description' => __( 'The venue with the specified ID is not accessible.', 'the-events-calendar' ),
+					),
+					'404' => array(
+						'description' => __( 'A venue with the specified post ID does not exist.', 'the-events-calendar' ),
+					),
+				),
+			),
+//			'post' => array(
+//				'parameters' => $this->swaggerize_args( $this->POST_args(), $POST_defaults ),
+//				'responses'  => array(
+//					'201' => array(
+//						'description' => __( 'Returns the data of the created venue', 'the-event-calendar' ),
+//						'schema'      => array(
+//							'$ref' => '#/definitions/Venue',
+//						),
+//					),
+//					'400' => array(
+//						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
+//					),
+//					'403' => array(
+//						'description' => __( 'The user is not authorized to create venues', 'the-events-calendar' ),
+//					),
+//				),
+//			),
+		);
 	}
 
 	/**
@@ -78,46 +175,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			'website'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_url' ) ),
 			'image'         => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
 		);
-	}
-
-	/**
-	 * Handles POST requests on the endpoint.
-	 *
-	 * @param WP_REST_Request $request
-	 * @param bool            $return_id Whether the created post ID should be returned or the full response object.
-	 *
-	 * @return WP_Error|WP_REST_Response|int An array containing the data on success or a WP_Error instance on failure.
-	 */
-	public function post( WP_REST_Request $request, $return_id = false ) {
-		$postarr = array(
-			$this->get_id_index() => $request['id'],
-			'post_author'         => $request['author'],
-			'post_date'           => Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ),
-			'post_date_gmt'       => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ),
-			'post_status'         => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
-			'Venue'               => $request['venue'],
-			'Description'         => $request['description'],
-			'Address'             => $request['address'],
-			'City'                => $request['city'],
-			'Country'             => $request['country'],
-			'Province'            => $request['province'],
-			'State'               => $request['state'],
-			'Zip'                 => $request['zip'],
-			'Phone'               => $request['phone'],
-			'ShowMap'             => tribe_is_truthy( $request['show_map'] ),
-			'ShowMapLink'         => tribe_is_truthy( $request['show_map_link'] ),
-			'FeaturedImage'       => tribe_upload_image( $request['image'] ),
-		);
-
-		$id = Tribe__Events__Venue::instance()->create( array_filter( $postarr ) );
-
-		if ( empty( $id ) ) {
-			$message = $this->messages->get_message( 'could-not-create-venue' );
-
-			return new WP_Error( 'could-not-create-venue', $message, array( 'status' => 400 ) );
-		}
-
-		return $return_id ? $id : $this->post_repository->get_venue_data( $id );
 	}
 
 	/**
