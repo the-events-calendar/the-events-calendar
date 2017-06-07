@@ -52,6 +52,8 @@ class Tribe__Events__Importer__File_Reader {
 		/**
 		 * Allows for filtering the row for import
 		 *
+		 * @since 4.5.5
+		 *
 		 * @param array $row
 		 */
 		$row = apply_filters( 'tribe_events_import_row', $row );
@@ -72,7 +74,7 @@ class Tribe__Events__Importer__File_Reader {
 	/**
 	 * Sanitizes a row
 	 *
-	 * @since TBD
+	 * @since 4.5.5
 	 *
 	 * @param array $row Import row
 	 */
