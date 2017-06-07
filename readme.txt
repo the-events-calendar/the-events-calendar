@@ -330,6 +330,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 * Fix - Removed extra double quotes in organizer link output [71133]
 * Fix - Make the list and day view styles match more closely [63599]
+* Fix - Better sanitization on CSV imports [80311]
 
 = [4.5.4] Feature Release/TBD =
 
