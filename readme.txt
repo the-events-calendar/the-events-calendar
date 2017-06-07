@@ -329,6 +329,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.5.5] Maintenance Release/TBD =
 
 * Fix - Removed extra double quotes in organizer link output [71133]
+* Fix - Better sanitization on CSV imports [80311]
 
 = [4.5.4] Feature Release/TBD =
 
