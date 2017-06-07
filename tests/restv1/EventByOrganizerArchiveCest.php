@@ -2,7 +2,7 @@
 
 use Step\Restv1\RestGuy as Tester;
 
-class OrganizerArchiveCest extends BaseRestCest {
+class EventByOrganizerArchiveCest extends BaseRestCest {
 	/**
 	 * It should return bad request if trying to get events by non numeric organizer
 	 *

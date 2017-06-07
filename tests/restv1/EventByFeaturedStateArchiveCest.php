@@ -2,7 +2,7 @@
 
 use Step\Restv1\RestGuy as Tester;
 
-class FeaturedEventArchiveCest extends BaseRestCest {
+class EventByFeaturedStateArchiveCest extends BaseRestCest {
 	/**
 	 * It should return 404 if no event is featured
 	 *
