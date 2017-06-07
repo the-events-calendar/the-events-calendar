@@ -107,6 +107,8 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$this->register_documentation_endpoint();
 		$this->register_event_archives_endpoint();
 		$this->register_single_event_endpoint();
+		$this->register_single_venue_endpoint();
+		$this->register_single_organizer_endpoint();
 	}
 
 	protected function register_documentation_endpoint() {
@@ -289,5 +291,55 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 */
 	protected function url_prefix() {
 		return $this->url_prefix;
+	}
+
+	/**
+	 * Registers the endpoint that will handle requests for a single venue.
+	 */
+	protected function register_single_venue_endpoint() {
+		$messages = tribe( 'tec.rest-v1.messages' );
+		$post_repository = tribe( 'tec.rest-v1.repository' );
+		$validator = tribe( 'tec.rest-v1.validator' );
+
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Venue( $messages, $post_repository, $validator );
+
+		tribe_singleton( 'tec.rest-v1.endpoints.single-venue', $endpoint );
+
+		$namespace = $this->get_events_route_namespace();
+
+		register_rest_route(
+			$namespace,
+			'/venues/(?P<id>\\d+)',
+			array(
+				'methods'  => 'GET',
+				'args'     => $endpoint->GET_args(),
+				'callback' => array( $endpoint, 'get' ),
+			)
+		);
+	}
+
+	/**
+	 * Registers the endpoint that will handle requests for a single organizer.
+	 */
+	protected function register_single_organizer_endpoint() {
+		$messages = tribe( 'tec.rest-v1.messages' );
+		$post_repository = tribe( 'tec.rest-v1.repository' );
+		$validator = tribe( 'tec.rest-v1.validator' );
+
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Organizer( $messages, $post_repository, $validator );
+
+		tribe_singleton( 'tec.rest-v1.endpoints.single-organizer', $endpoint );
+
+		$namespace = $this->get_events_route_namespace();
+
+		register_rest_route(
+			$namespace,
+			'/organizers/(?P<id>\\d+)',
+			array(
+				'methods'  => 'GET',
+				'args'     => $endpoint->GET_args(),
+				'callback' => array( $endpoint, 'get' ),
+			)
+		);
 	}
 }
