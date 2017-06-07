@@ -316,6 +316,8 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 				'callback' => array( $endpoint, 'get' ),
 			)
 		);
+
+		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/venues/{id}', $endpoint );
 	}
 
 	/**
@@ -341,5 +343,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 				'callback' => array( $endpoint, 'get' ),
 			)
 		);
+
+		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/organizers/{id}', $endpoint );
 	}
 }
