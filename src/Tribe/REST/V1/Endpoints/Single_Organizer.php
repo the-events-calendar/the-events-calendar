@@ -13,7 +13,18 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 */
 	public function get( WP_REST_Request $request ) {
-		// @todo: Implement get() method.
+		$organizer = get_post( $request['id'] );
+
+		$cap = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->read_post;
+		if ( ! ( 'publish' === $organizer->post_status || current_user_can( $cap, $request['id'] ) ) ) {
+			$message = $this->messages->get_message( 'organizer-not-accessible' );
+
+			return new WP_Error( 'organizer-not-accessible', $message, array( 'status' => 403 ) );
+		}
+
+		$data = $this->post_repository->get_organizer_data( $request['id'] );
+
+		return is_wp_error( $data ) ? $data : new WP_REST_Response( $data );
 	}
 
 	/**
@@ -23,7 +34,15 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 * @return array
 	 */
 	public function GET_args() {
-		// @todo: Implement GET_args() method.
+		return array(
+			'id' => array(
+				'in'                => 'path',
+				'type'              => 'integer',
+				'description'       => __( 'the organizer post ID', 'the-events-calendar' ),
+				'required'          => true,
+				'validate_callback' => array( $this->validator, 'is_organizer_id' ),
+			),
+		);
 	}
 
 	/**

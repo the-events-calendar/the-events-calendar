@@ -1689,7 +1689,7 @@ trait Restv1TesterActions
      *
      * Replaces the WordPress domains in a SQL dump string.
 	 *
-	 * @param string $sql The input SQL dump string.
+	 * @param string|array $sql The input SQL dump string.
 	 *
 	 * @return string The modified SQL string.
      * @see \Codeception\Module\WPDb::replaceSiteDomainInSql()
@@ -1702,7 +1702,10 @@ trait Restv1TesterActions
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
-     *
+     * Replaces the site domain in the multisite tables of a SQL dump.
+	 *
+	 * @param string|array $sql
+	 * @return array|mixed|string
      * @see \Codeception\Module\WPDb::replaceSiteDomainInMultisiteSql()
      */
     public function replaceSiteDomainInMultisiteSql($sql) {

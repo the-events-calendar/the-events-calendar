@@ -32,6 +32,11 @@ class BaseRestCest {
 	protected $venues_url;
 
 	/**
+	 * @var
+	 */
+	protected $organizers_url;
+
+	/**
 	 * @var string
 	 */
 	protected $documentation_url;
@@ -41,6 +46,7 @@ class BaseRestCest {
 		$this->rest_url = $this->site_url . '/wp-json/tribe/events/v1/';
 		$this->events_url = $this->rest_url . 'events';
 		$this->venues_url = $this->rest_url . 'venues';
+		$this->organizers_url = $this->rest_url . 'organizers';
 		$this->documentation_url = $this->rest_url . 'doc';
 	}
 }
