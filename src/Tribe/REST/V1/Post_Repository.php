@@ -69,7 +69,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'id'                     => $event_id,
 			'global_id'              => false,
 			'global_id_lineage'      => array(),
-			'id'                     => $event_id,
 			'author'                 => $event->post_author,
 			'date'                   => $event->post_date,
 			'date_utc'               => $event->post_date_gmt,
@@ -278,8 +277,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Adds the Global ID fields to a set of rest data
 	 *
-	 * @param array  $data  Rest Array of data
-	 * @param int    $id    Post ID
+	 * @param array $data    Rest Array of data
+	 * @param int   $post_id Post ID
 	 *
 	 * @return array
 	 */
@@ -398,7 +397,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 	protected function get_featured_image( $id ) {
 		$thumbnail_id = get_post_thumbnail_id( $id );
-		$guid = get_post_field( 'guid', $thumbnail_id );
 
 		if ( empty( $thumbnail_id ) ) {
 			return false;
@@ -410,7 +408,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$data = array(
 			'url' => $full_url,
 			'id' => $thumbnail_id,
-			'guid' => $guid,
 			'extension' => pathinfo( $file, PATHINFO_EXTENSION ),
 		);
 
