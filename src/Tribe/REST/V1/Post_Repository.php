@@ -423,7 +423,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 			foreach ( $metadata['sizes'] as $size => &$meta ) {
 				$size_image_src = wp_get_attachment_image_src( $thumbnail_id, $size );
-				$meta['url'] = ! empty( $size_image_src[ 0 ] ) ? $size_image_src[ 0 ] : '';
+				$meta['url'] = ! empty( $size_image_src[0] ) ? $size_image_src[0] : '';
 				unset( $meta['file'] );
 			}
 
