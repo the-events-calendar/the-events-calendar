@@ -295,6 +295,8 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 	/**
 	 * Registers the endpoint that will handle requests for a single venue.
+	 *
+	 * @since bucket/full-rest-api
 	 */
 	protected function register_single_venue_endpoint() {
 		$messages = tribe( 'tec.rest-v1.messages' );
@@ -322,6 +324,8 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 	/**
 	 * Registers the endpoint that will handle requests for a single organizer.
+	 *
+	 * @since bucket/full-rest-api
 	 */
 	protected function register_single_organizer_endpoint() {
 		$messages = tribe( 'tec.rest-v1.messages' );
