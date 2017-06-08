@@ -92,7 +92,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 */
 	public function get_documentation() {
 		$GET_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
-
 		$POST_defaults = array( 'in' => 'body', 'default' => '', 'type' => 'string' );
 
 		return array(
@@ -106,13 +105,13 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 						),
 					),
 					'400' => array(
-						'description' => __( 'The event post ID is missing.', 'the-events-calendar' )
+						'description' => __( 'The event post ID is missing.', 'the-events-calendar' ),
 					),
 					'403' => array(
-						'description' => __( 'The event with the specified ID is not accesible.', 'the-events-calendar' )
+						'description' => __( 'The event with the specified ID is not accessible.', 'the-events-calendar' ),
 					),
 					'404' => array(
-						'description' => __( 'An event with the specified event does not exist.', 'the-events-calendar' )
+						'description' => __( 'An event with the specified ID does not exist.', 'the-events-calendar' ),
 					),
 				),
 			),

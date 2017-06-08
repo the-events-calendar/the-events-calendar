@@ -1,7 +1,7 @@
 <?php
 
 
-class TagArchiveCest extends BaseRestCest {
+class EventByTagArchiveCest extends BaseRestCest {
 
 	/**
 	 * @test

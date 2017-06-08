@@ -28,6 +28,8 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 			'could-not-create-venue'          => __( 'The venue could not be created from the provided data', 'the-events-calendar' ),
 			'could-not-create-organizer'      => __( 'The organizer could not be created from the provided data', 'the-events-calendar' ),
 			'invalid-linked-post-id'          => __( 'The provided linked post ID is not valid', 'the-events-calendar' ),
+			'venue-not-accessible'            => __( 'The requested venue is not accessible', 'the-events-calendar' ),
+			'organizer-not-accessible'        => __( 'The requested organizer is not accessible', 'the-events-calendar' ),
 		);
 	}
 

@@ -1,7 +1,9 @@
 <?php
 
 class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
-	implements Tribe__REST__Endpoints__GET_Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface, Tribe__Documentation__Swagger__Builder_Interface {
+	implements Tribe__REST__Endpoints__GET_Endpoint_Interface,
+	Tribe__Documentation__Swagger__Provider_Interface,
+	Tribe__Documentation__Swagger__Builder_Interface {
 
 	/**
 	 * @var string
@@ -110,7 +112,7 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 	 * Registers a documentation provider for a path.
 	 *
 	 * @param                                            $path
-	 * @param Tribe__REST__Endpoints__GET_Endpoint_Interface $endpoint
+	 * @param Tribe__Documentation__Swagger__Provider_Interface $endpoint
 	 */
 	public function register_documentation_provider( $path, Tribe__Documentation__Swagger__Provider_Interface $endpoint ) {
 		$this->documentation_providers[ $path ] = $endpoint;
