@@ -157,8 +157,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'description'   => trim( apply_filters( 'the_content', $venue->post_content ) ),
 			'excerpt'       => trim( apply_filters( 'the_excerpt', $venue->post_excerpt ) ),
 			'image'         => $this->get_featured_image( $venue->ID ),
-			'show_map'      => isset( $meta['_VenueShowMap'] ) ? (bool) $meta['_VenueShowMap'] : true,
-			'show_map_link' => isset( $meta['_VenueShowMapLink'] ) ? (bool) $meta['_VenueShowMapLink'] : true,
 			'address'       => isset( $meta['_VenueAddress'] ) ? $meta['_VenueAddress'] : '',
 			'city'          => isset( $meta['_VenueCity'] ) ? $meta['_VenueCity'] : '',
 			'country'       => isset( $meta['_VenueCountry'] ) ? $meta['_VenueCountry'] : '',
@@ -170,8 +168,13 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'stateprovince' => isset( $meta['_VenueStateProvince'] ) ? $meta['_VenueStateProvince'] : '',
 		);
 
+		$data = array_filter( $data );
+
+		$data['show_map'] = isset( $meta['_VenueShowMap'] ) ? tribe_is_truthy( $meta['_VenueShowMap'] ) : true;
+		$data['show_map_link'] = isset( $meta['_VenueShowMapLink'] ) ? tribe_is_truthy( $meta['_VenueShowMapLink'] ) : true;
+
 		// Add the Global ID fields
-		$data = $this->add_global_id_fields( $data, $venue->ID );
+		$data = $this->add_global_id_fields( $data , $venue->ID );
 
 		/**
 		 * Filters the data that will be returned for a single venue.
@@ -179,7 +182,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 * @param array   $data  The data that will be returned in the response.
 		 * @param WP_Post $event The requested venue.
 		 */
-		$data = apply_filters( 'tribe_rest_venue_data', array_filter( $data ), $venue );
+		$data = apply_filters( 'tribe_rest_venue_data', $data, $venue );
 
 		/**
 		 * Filters the data that will be returned for an event venue.
@@ -187,9 +190,9 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 * @param array   $data  The data that will be returned in the response.
 		 * @param WP_Post $event The requested event.
 		 */
-		$data = apply_filters( 'tribe_rest_venue_data', array_filter( $data ), get_post( $event_or_venue_id ) );
+		$data = apply_filters( 'tribe_rest_venue_data', $data, get_post( $event_or_venue_id ) );
 
-		return array_filter( $data );
+		return $data;
 	}
 
 	protected function get_featured_image( $id ) {
