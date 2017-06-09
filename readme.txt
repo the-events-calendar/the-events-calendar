@@ -332,6 +332,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Make the list and day view styles match more closely [63599]
 * Fix - Better sanitization on CSV imports [80311]
 * Fix - Prevent tabs from being incorrectly escaped in iCal output (props: KZeni) [80452]
+* Fix — Fixed inconsistent font styling of Tribe Bar form labels. [27252]
 
 = [4.5.4] Feature Release/TBD =
 
