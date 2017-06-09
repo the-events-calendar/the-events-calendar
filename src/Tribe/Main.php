@@ -1582,7 +1582,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Setup Linked Posts singleton after we've set up the post types that we care about
 			Tribe__Events__Linked_Posts::instance();
-			
+
 			$taxonomy_args = array(
 				'hierarchical'          => true,
 				'update_count_callback' => '',
@@ -1601,7 +1601,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'assign_terms' => 'edit_tribe_events',
 				),
 			);
-			
+
 			/**
 			 * Filter the event category taxonomy arguments used in register_taxonomy.
 			 *
