@@ -297,6 +297,23 @@ class Tribe__Events__Organizer {
 	 * @return mixed
 	 */
 	public function create( $data, $post_status = 'publish' ) {
+		/**
+		 * Filters the ID of the generated organizer before the class creates it.
+		 *
+		 * If a non `null` value is returned that will be returned and the organizer creation process will bail.
+		 *
+		 * @param mixed $check Whether the organizer insertion process should procede or not.
+		 * @param array $data The data provided to create the organizer.
+		 * @param string $post_status The post status that should be applied to the created organizer.
+		 *
+		 * @since TBD
+		 */
+		$check = apply_filters( 'tribe_events_tribe_organizer_create', null, $data, $post_status );
+
+		if ( null !== $check ) {
+			return $check;
+		}
+
 		if ( ( isset( $data['Organizer'] ) && $data['Organizer'] ) || $this->has_organizer_data( $data ) ) {
 
 			$organizer_label = tribe_get_organizer_label_singular();
@@ -305,12 +322,17 @@ class Tribe__Events__Organizer {
 			$content = isset( $data['Description'] ) ? $data['Description'] : '';
 			$slug    = sanitize_title( $title );
 
+			$data = new Tribe__Data( $data, false );
+
 			$postdata = array(
 				'post_title'   => $title,
 				'post_content' => $content,
 				'post_name'    => $slug,
 				'post_type'    => self::POSTTYPE,
-				'post_status'  => $post_status,
+				'post_status'   => isset( $data['post_status'] ) ? $data['post_status'] : $post_status,
+				'post_author'   => $data['post_author'],
+				'post_date'     => $data['post_date'],
+				'post_date_gmt' => $data['post_date_gmt'],
 			);
 
 			$organizer_id = wp_insert_post( $postdata, true );

@@ -284,10 +284,13 @@ class Tribe__Events__Venue {
 			}
 		}
 
-		update_post_meta( $venue_id, '_EventShowMapLink', isset( $data['EventShowMapLink'] ) );
-		update_post_meta( $venue_id, '_EventShowMap', isset( $data['EventShowMap'] ) );
-		unset( $data['EventShowMapLink'] );
-		unset( $data['EventShowMap'] );
+
+		update_post_meta( $venue_id, '_EventShowMapLink', isset( $data['ShowMapLink'] ) );
+		update_post_meta( $venue_id, '_EventShowMap', isset( $data['ShowMap'] ) );
+		update_post_meta( $venue_id, '_VenueShowMapLink', isset( $data['ShowMapLink'] ) );
+		update_post_meta( $venue_id, '_VenueShowMap', isset( $data['ShowMap'] ) );
+		unset( $data['ShowMapLink'] );
+		unset( $data['ShowMap'] );
 
 		if ( isset( $data['FeaturedImage'] ) && ! empty( $data['FeaturedImage'] ) ) {
 			update_post_meta( $venue_id, '_thumbnail_id', $data['FeaturedImage'] );
@@ -310,25 +313,54 @@ class Tribe__Events__Venue {
 	 * @return int
 	 */
 	public function create( $data, $post_status = 'publish' ) {
+		/**
+		 * Filters the ID of the generated venue before the class creates it.
+		 *
+		 * If a non `null` value is returned that will be returned and the venue creation process will bail.
+		 *
+		 * @param mixed $check Whether the venue insertion process should procede or not.
+		 * @param array $data The data provided to create the venue.
+		 * @param string $post_status The post status that should be applied to the created venue.
+		 *
+		 * @since TBD
+		 */
+		$check = apply_filters( 'tribe_events_tribe_venue_create', null, $data, $post_status );
+
+		if ( null !== $check ) {
+			return $check;
+		}
 
 		if ( ( isset( $data['Venue'] ) && $data['Venue'] ) || $this->has_venue_data( $data ) ) {
 			$title   = isset( $data['Venue'] ) ? $data['Venue'] : esc_html__( 'Unnamed Venue', 'the-events-calendar' );
 			$content = isset( $data['Description'] ) ? $data['Description'] : '';
 			$slug    = sanitize_title( $title );
 
+			$data = new Tribe__Data( $data, false );
+
 			$postdata = array(
-				'post_title'  => $title,
-				'post_content' => $content,
-				'post_name'   => $slug,
-				'post_type'   => self::POSTTYPE,
-				'post_status' => $post_status,
+				'post_title'    => $title,
+				'post_content'  => $content,
+				'post_name'     => $slug,
+				'post_type'     => self::POSTTYPE,
+				'post_status'   => isset( $data['post_status'] ) ? $data['post_status'] : $post_status,
+				'post_author'   => $data['post_author'],
+				'post_date'     => $data['post_date'],
+				'post_date_gmt' => $data['post_date_gmt'],
 			);
 
-			$venue_id = wp_insert_post( $postdata, true );
+			$venue_id = wp_insert_post( array_filter( $postdata ), true );
 
 			// By default, the show map and show map link options should be on
-			$data['ShowMap'] = isset( $data['ShowMap'] ) ? $data['ShowMap'] : 'true';
-			$data['ShowMapLink'] = isset( $data['ShowMapLink'] ) ? $data['ShowMapLink'] : 'true';
+			if ( isset( $data['ShowMap'] ) && ! tribe_is_truthy( $data['ShowMap'] ) ) {
+				unset( $data['ShowMap'] );
+			} else {
+				$data['ShowMap'] = true;
+			}
+			if ( isset( $data['ShowMapLink'] ) && ! tribe_is_truthy( $data['ShowMapLink'] ) ) {
+				unset( $data['ShowMapLink'] );
+			} else {
+				$data['ShowMapLink'] = true;
+			}
 
 			if ( ! is_wp_error( $venue_id ) ) {
 				$this->save_meta( $venue_id, $data );
