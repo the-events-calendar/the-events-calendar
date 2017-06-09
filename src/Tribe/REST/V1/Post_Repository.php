@@ -174,7 +174,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$data['show_map_link'] = isset( $meta['_VenueShowMapLink'] ) ? tribe_is_truthy( $meta['_VenueShowMapLink'] ) : true;
 
 		// Add the Global ID fields
-		$data = $this->add_global_id_fields( $data , $venue->ID );
+		$data = $this->add_global_id_fields( $data, $venue->ID );
 
 		/**
 		 * Filters the data that will be returned for a single venue.
