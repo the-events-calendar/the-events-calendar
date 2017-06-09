@@ -44,18 +44,21 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 * @since bucket/full-rest-api
 	 */
 	public function post( WP_REST_Request $request, $return_id = false ) {
+		$post_date = isset( $request['date'] ) ? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ) : false;
+		$post_date_gmt = isset( $request['date_utc'] ) ? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ) : false;
+
 		$postarr = array(
-			'OrganizerID'   => $request['id'],
-			'post_author'   => $request['author'],
-			'post_date'     => Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ),
-			'post_date_gmt' => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ),
-			'post_status'   => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
-			'Organizer'     => $request['organizer'],
-			'Description'   => $request['description'],
-			'Phone'         => $request['phone'],
-			'Website'       => $request['website'],
-			'Email'         => $request['email'],
-			'FeaturedImage' => tribe_upload_image( $request['image'] ),
+			$this->get_id_index() => $request['id'],
+			'post_author'         => $request['author'],
+			'post_date'           => $post_date,
+			'post_date_gmt'       => $post_date_gmt,
+			'post_status'         => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
+			'Organizer'           => $request['organizer'],
+			'Description'         => $request['description'],
+			'Phone'               => $request['phone'],
+			'Website'             => $request['website'],
+			'Email'               => $request['email'],
+			'FeaturedImage'       => tribe_upload_image( $request['image'] ),
 		);
 
 		$id = Tribe__Events__Organizer::instance()->create( array_filter( $postarr ) );
@@ -66,7 +69,16 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 			return new WP_Error( 'could-not-create-organizer', $message, array( 'status' => 400 ) );
 		}
 
-		return $return_id ? $id : $this->post_repository->get_organizer_data( $id );
+		if ( $return_id ) {
+			return $id;
+		}
+
+		$data = $this->post_repository->get_organizer_data( $id );
+
+		$response = new WP_REST_Response( $data );
+		$response->set_status( 201 );
+
+		return $response;
 	}
 
 	/**
@@ -104,7 +116,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 * The intelligence lies in the "gatherer" of informations rather than in the single "providers" implementing this
 	 * interface.
 	 *
-	 * @link http://swagger.io/
+	 * @link  http://swagger.io/
 	 *
 	 * @return array An array description of a Swagger supported component.
 	 *
@@ -135,23 +147,23 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 					),
 				),
 			),
-//			'post' => array(
-//				'parameters' => $this->swaggerize_args( $this->POST_args(), $POST_defaults ),
-//				'responses'  => array(
-//					'201' => array(
-//						'description' => __( 'Returns the data of the created organizer', 'the-event-calendar' ),
-//						'schema'      => array(
-//							'$ref' => '#/definitions/Organizer',
-//						),
-//					),
-//					'400' => array(
-//						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
-//					),
-//					'403' => array(
-//						'description' => __( 'The user is not authorized to create organizers', 'the-events-calendar' ),
-//					),
-//				),
-//			),
+			'post' => array(
+				'parameters' => $this->swaggerize_args( $this->POST_args(), $POST_defaults ),
+				'responses'  => array(
+					'201' => array(
+						'description' => __( 'Returns the data of the created organizer', 'the-event-calendar' ),
+						'schema'      => array(
+							'$ref' => '#/definitions/Organizer',
+						),
+					),
+					'400' => array(
+						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
+					),
+					'403' => array(
+						'description' => __( 'The user is not authorized to create organizers', 'the-events-calendar' ),
+					),
+				),
+			),
 		);
 	}
 
@@ -198,6 +210,15 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 			'email'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
 			'image'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
 		);
+	}
+
+	/**
+	 * @return bool Whether the current user can post or not.
+	 */
+	public function can_post() {
+		$cap = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE )->cap->edit_posts;
+
+		return current_user_can( $cap );
 	}
 
 	/**

@@ -6,8 +6,25 @@ use Tribe__Timezones as Timezones;
 
 class EventInsertionCest extends BaseRestCest {
 	/**
-	 * It should allow inserting an event
+	 * It should return 403 if user cannot insert organizers
 	 *
+	 * @test
+	 */
+	public function it_should_return_403_if_user_cannot_insert_organizers( Tester $I ) {
+		$I->sendPOST( $this->events_url, [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'excerpt'     => 'An event excerpt',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+		] );
+
+		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseIsJson();
+	}
+
+	/**
+	 * It should allow inserting an event *
 	 * @test
 	 */
 	public function it_should_allow_inserting_an_event( Tester $I ) {

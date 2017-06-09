@@ -48,11 +48,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 * @since bucket/full-rest-api
 	 */
 	public function post( WP_REST_Request $request, $return_id = false ) {
+		$post_date = isset( $request['date'] ) ? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ) : false;
+		$post_date_gmt = isset( $request['date_utc'] ) ? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ) : false;
+
 		$postarr = array(
 			$this->get_id_index() => $request['id'],
 			'post_author'         => $request['author'],
-			'post_date'           => Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ),
-			'post_date_gmt'       => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ),
+			'post_date'           => $post_date,
+			'post_date_gmt'       => $post_date_gmt,
 			'post_status'         => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
 			'Venue'               => $request['venue'],
 			'Description'         => $request['description'],
@@ -61,14 +64,23 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			'Country'             => $request['country'],
 			'Province'            => $request['province'],
 			'State'               => $request['state'],
+			'StateProvince'       => $request['stateprovince'],
 			'Zip'                 => $request['zip'],
 			'Phone'               => $request['phone'],
-			'ShowMap'             => tribe_is_truthy( $request['show_map'] ),
-			'ShowMapLink'         => tribe_is_truthy( $request['show_map_link'] ),
+			'URL'  => $request['website'],
 			'FeaturedImage'       => tribe_upload_image( $request['image'] ),
 		);
 
-		$id = Tribe__Events__Venue::instance()->create( array_filter( $postarr ) );
+		$postarr = array_filter( $postarr );
+
+		if ( isset( $request['show_map'] ) ) {
+			$postarr['ShowMap'] = tribe_is_truthy( $request['show_map'] );
+		}
+		if ( isset( $request['show_map_link'] ) ) {
+			$postarr['ShowMapLink'] = tribe_is_truthy( $request['show_map_link'] );
+		}
+
+		$id = Tribe__Events__Venue::instance()->create( $postarr );
 
 		if ( empty( $id ) ) {
 			$message = $this->messages->get_message( 'could-not-create-venue' );
@@ -76,7 +88,16 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			return new WP_Error( 'could-not-create-venue', $message, array( 'status' => 400 ) );
 		}
 
-		return $return_id ? $id : $this->post_repository->get_venue_data( $id );
+		if ( $return_id ) {
+			return $id;
+		}
+
+		$data = $this->post_repository->get_venue_data( $id );
+
+		$response = new WP_REST_Response( $data );
+		$response->set_status( 201 );
+
+		return $response;
 	}
 
 	/**
@@ -87,7 +108,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 * The intelligence lies in the "gatherer" of informations rather than in the single "providers" implementing this
 	 * interface.
 	 *
-	 * @link http://swagger.io/
+	 * @link  http://swagger.io/
 	 *
 	 * @return array An array description of a Swagger supported component.
 	 *
@@ -98,7 +119,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		$POST_defaults = array( 'in' => 'body', 'default' => '', 'type' => 'string' );
 
 		return array(
-			'get'  => array(
+			'get' => array(
 				'parameters' => $this->swaggerize_args( $this->GET_args(), $GET_defaults ),
 				'responses'  => array(
 					'200' => array(
@@ -118,23 +139,23 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 					),
 				),
 			),
-//			'post' => array(
-//				'parameters' => $this->swaggerize_args( $this->POST_args(), $POST_defaults ),
-//				'responses'  => array(
-//					'201' => array(
-//						'description' => __( 'Returns the data of the created venue', 'the-event-calendar' ),
-//						'schema'      => array(
-//							'$ref' => '#/definitions/Venue',
-//						),
-//					),
-//					'400' => array(
-//						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
-//					),
-//					'403' => array(
-//						'description' => __( 'The user is not authorized to create venues', 'the-events-calendar' ),
-//					),
-//				),
-//			),
+			'post' => array(
+				'parameters' => $this->swaggerize_args( $this->POST_args(), $POST_defaults ),
+				'responses'  => array(
+					'201' => array(
+						'description' => __( 'Returns the data of the created venue', 'the-event-calendar' ),
+						'schema'      => array(
+							'$ref' => '#/definitions/Venue',
+						),
+					),
+					'400' => array(
+						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
+					),
+					'403' => array(
+						'description' => __( 'The user is not authorized to create venues', 'the-events-calendar' ),
+					),
+				),
+			),
 		);
 	}
 
@@ -213,5 +234,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 */
 	protected function is_post_type( $data ) {
 		return tribe_is_venue( $data );
+	}
+
+	/**
+	 * @return bool Whether the current user can post or not.
+	 */
+	public function can_post() {
+		$cap = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_posts;
+
+		return current_user_can( $cap );
 	}
 }
