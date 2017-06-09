@@ -297,7 +297,7 @@ class Tribe__Events__Venue {
 		unset( $data['Venue'] );
 
 		foreach ( $data as $key => $var ) {
-			update_post_meta( $venue_id, '_Venue' . $key, $var );
+			update_post_meta( $venue_id, '_Venue' . $key, sanitize_text_field( $var ) );
 		}
 	}
 
