@@ -49,10 +49,9 @@ $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : ''
 
 </div><!-- .tribe-events-event-meta -->
 
-<!-- Event Cost -->
 <?php if ( tribe_get_cost() ) : ?>
 	<div class="tribe-events-event-cost">
-		<span><?php echo tribe_get_cost( null, true ); ?></span>
+		<span class="ticket-cost"><?php echo tribe_get_cost( null, true ); ?></span>
 		<?php
 		/** This action is documented in the-events-calendar/src/views/list/single-event.php */
 		do_action( 'tribe_events_inside_cost' )
