@@ -632,6 +632,7 @@ select.tribe-events-dropdown {
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost span {
 	border: 0;
 	color: #fff;
+	background: rgba(255, 255, 255, .1);
 	display: block;
 	font-style: normal;
 	font-weight: bold;
@@ -646,8 +647,6 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-tickets-left {
-	background: rgba(255, 255, 255, .1);
-	color: #fff;
 	font-style: italic;
 	font-weight: normal;
 	margin-left: 1px;
@@ -1190,6 +1189,7 @@ select.tribe-events-dropdown {
 .tribe-events-day .tribe-event-featured .tribe-events-event-cost span {
 	border: 0;
 	color: #fff;
+	background: rgba(255, 255, 255, .1);
 	display: block;
 	font-style: normal;
 	font-weight: bold;
@@ -1204,8 +1204,6 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-day .tribe-event-featured .tribe-events-event-cost .tribe-tickets-left {
-	background: rgba(255, 255, 255, .1);
-	color: #fff;
 	font-style: italic;
 	font-weight: normal;
 	margin-left: 1px;
@@ -2186,9 +2184,9 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	background-size: 12px 16px;
 }
 
-/* ==========================================================================
+/* =========================================================================
   Theme Compatibility
-   ========================================================================== */
+========================================================================== */
 
 /* Twenty Fourteen
 ========================================================================== */
@@ -2353,6 +2351,13 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 .tribe-theme-twentysixteen h2.tribe-events-list-event-title {
 	clear: none;
+}
+
+/* Twenty Seventeen
+========================================================================== */
+
+.tribe-theme-twentyseventeen .entry-content a {
+	box-shadow: none;
 }
 
 /* = Events Retina
