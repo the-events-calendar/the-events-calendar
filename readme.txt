@@ -326,13 +326,14 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5.5] Maintenance Release/TBD =
+= [4.5.5] TBD =
 
 * Fix - Removed extra double quotes in organizer link output [71133]
 * Fix - Make the list and day view styles match more closely [63599]
 * Fix - Better sanitization on CSV imports [80311]
 * Fix - Prevent tabs from being incorrectly escaped in iCal output (props: KZeni) [80452]
-* Fix — Fixed inconsistent font styling of Tribe Bar form labels. [27252]
+* Fix - Fixed inconsistent font styling of Tribe Bar form labels. [27252]
+* Tweak - Added new filter hooks 'tribe_events_register_event_type_args' and 'tribe_events_register_event_cat_type_args' [80658]
 
 = [4.5.4] 2017-06-06 =
 
