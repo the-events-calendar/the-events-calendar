@@ -70,7 +70,7 @@ input.tribe-button,
 button.tribe-button,
 a.tribe-button,
 .tribe-button {
-	margin: 0 0 0 10px;
+	margin: 10px;
 	padding: 9px 12px;
 	line-height: 1;
 	border-radius: 3px;
