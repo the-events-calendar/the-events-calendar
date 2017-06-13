@@ -20,7 +20,6 @@
   "common/vendor/datatables/media/js/jquery.dataTables*.js",
   "common/vendor/jquery/*.css",
   "common/vendor/jquery/images/*.png",
-  "common/vendor/jquery-timepicker/**/*.js",
   "common/vendor/jquery-timepicker/**/*.css",
   "common/vendor/jquery-timepicker/**/*.png",
   "common/vendor/autoload.php",
