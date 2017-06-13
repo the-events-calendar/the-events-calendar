@@ -268,7 +268,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 				$manager,
 				$customizer->get_setting_name( 'featured_color_scheme_custom', $section ),
 				array(
-					'description' => __( 'If the Featured Events highlight color is set to Custom, the following color will be used:', 'the-events-calendar' ),
+					'description' => __( 'If the Featured highlight color is set to Custom, the following color will be used:', 'the-events-calendar' ),
 					'section' => $section->id,
 				)
 			)
