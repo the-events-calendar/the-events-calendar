@@ -333,6 +333,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Better sanitization on CSV imports [80311]
 * Fix - Prevent tabs from being incorrectly escaped in iCal output (props: KZeni) [80452]
 * Fix - Fixed inconsistent font styling of Tribe Bar form labels. [27252]
+* Tweak - Removed unused Javascript (jQuery UI Dialog) to help avoid warnings (our thanks to @gama6889 for flagging this) [80766]
 * Tweak - Added new filter hooks 'tribe_events_register_event_type_args' and 'tribe_events_register_event_cat_type_args' [80658]
 
 = [4.5.4] 2017-06-06 =
