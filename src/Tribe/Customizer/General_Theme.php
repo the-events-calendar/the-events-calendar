@@ -83,7 +83,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 
 			$background_color_obj = new Tribe__Utils__Color( $background_color );
 			$background_rgb = $background_color_obj->getRgb();
-			$button_gradient = $background_color_obj->darken( 7 );
+			$button_gradient = $background_color_obj->darken( 15 );
 
 			if ( $is_custom ) {
 				$is_light = $background_color_obj->isLight();
@@ -118,14 +118,13 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 				}
 
 				.tribe-button {
-					background:' . $background_color . ' -webkit-linear-gradient( top, ' . $background_color . ', #' . $button_gradient . ');
-					background:' . $background_color . ' linear-gradient( to bottom, ' . $background_color . ', #' . $button_gradient . ');
+					background-color: ' . $background_color . ';
 				}
 
 				.tribe-button:hover,
 				.tribe-button:active,
 				.tribe-button:focus {
-					background-color: ' . $background_color . ';
+					background-color: #' . $button_gradient . ';
 				}
 			';
 

@@ -120,7 +120,62 @@
 		.tribe-button {
 			background: #fff;
 			color: var(--featured-event-bg);
-			margin-left: 10px;
+		}
+	}
+}
+
+/* Cost */
+.tribe-events-event-cost {
+	display: flex;
+	align-items: center;
+	float: none;
+	margin: 0 0 15px;
+
+	span {
+		border: 1px solid #ddd;
+		display: block;
+		font-style: normal;
+		font-weight: bold;
+		line-height: 1;
+		padding: 8px 12px;
+		text-align: center;
+		text-overflow: ellipsis;
+	}
+
+	.tribe-tickets-left {
+		background: #f0f0f0;
+		border-left: none;
+		color: #727272;
+		font-style: italic;
+		font-weight: normal;
+	}
+
+	.tribe-out-of-stock {
+		background: #f0f0f0;
+		border-left: none;
+		color: #727272;
+		font-style: italic;
+		font-weight: normal;
+	}
+
+	.tribe-ticket-cost {
+		margin: 0;
+	}
+
+	.tribe-button {
+		margin: 0 0 0 10px;
+		padding: 9px 12px;
+		line-height: 1;
+		border-radius: 3px;
+
+		&.sold-out {
+			background: none;
+			border: none;
+			color: #a00;
+
+			&:hover {
+				cursor: default;
+			}
 		}
 	}
 }
@@ -747,58 +802,6 @@ select.tribe-events-dropdown {
 
 	.tribe-events-venue-details {
 		margin: 15px 0;
-	}
-	/* Cost */
-	.tribe-events-event-cost {
-		display: flex;
-		align-items: center;
-		float: none;
-		margin: 0 0 15px;
-
-		span {
-			border: 1px solid #ddd;
-			display: block;
-			font-style: normal;
-			font-weight: bold;
-			line-height: 1;
-			padding: 8px 12px;
-			text-align: center;
-			text-overflow: ellipsis;
-		}
-
-		.tribe-tickets-left {
-			background: #f0f0f0;
-			border-left: none;
-			color: #727272;
-			font-style: italic;
-			font-weight: normal;
-		}
-
-		.tribe-out-of-stock {
-			background: #f0f0f0;
-			border-left: none;
-			color: #727272;
-			font-style: italic;
-			font-weight: normal;
-		}
-
-		.tribe-ticket-cost {
-			margin: 0;
-		}
-	}
-
-	.tribe-button {
-		margin-left: 10px;
-
-		&.sold-out {
-			background: none;
-			border: none;
-			color: #a00;
-
-			&:hover {
-				cursor: default;
-			}
-		}
 	}
 }
 
