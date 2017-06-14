@@ -70,10 +70,10 @@ input.tribe-button,
 button.tribe-button,
 a.tribe-button,
 .tribe-button {
+	border-radius: 3px;
+	line-height: 1;
 	margin: 10px;
 	padding: 9px 12px;
-	line-height: 1;
-	border-radius: 3px;
 }
 
 input.tribe-button.sold-out, button.tribe-button.sold-out, a.tribe-button.sold-out, .tribe-button.sold-out {
