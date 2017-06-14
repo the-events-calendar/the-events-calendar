@@ -24,36 +24,52 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 		return tribe( 'tec.customizer.general-theme' );
 	}
 
+	/**
+	 * Gets the Colors for the Button background
+	 *
+	 * @since  F17.5
+	 *
+	 * @param  array  $settings Section array of settings
+	 * @return string
+	 */
+	protected function get_button_bg_color( $settings = array() ) {
+		$scheme = $this->sanitize_featured_color_choice( $settings['featured_color_scheme'] );
+		$schemes = $this->get_featured_color_schemes();
 
+		if ( 'custom' === $scheme ) {
+			$button_bg = $settings['featured_color_scheme_custom'];
+		} else {
+			$button_bg = $schemes[ $scheme ]['colors'][0];
+		}
+
+		if ( ! $button_bg ) {
+			$button_bg = $schemes['default']['colors'][0];
+		}
+
+		return $button_bg;
+	}
+
+	/**
+	 * Creates the Section ghost settings for Customizer
+	 *
+	 * @since  F17.5
+	 *
+	 * @param  array  $settings Section array of settings
+	 * @return array
+	 */
 	public function create_ghost_settings( $settings = array() ) {
 		if ( ! empty( $settings['featured_color_scheme'] ) ) {
-			$scheme = $this->sanitize_featured_color_choice( $settings['featured_color_scheme'] );
-
-			var_dump( $scheme );
-			$schemes = $this->get_featured_color_schemes();
-
-			if ( 'custom' === $scheme ) {
-				$settings['button_bg'] = $settings['featured_color_scheme_custom'];
-				$scheme                = 'default';
-			} else {
-				$settings['button_bg'] = $schemes[ $scheme ]['colors'][0];
-			}
-
-			if ( ! $settings['button_bg'] ) {
-				$settings['button_bg'] = $schemes['default']['colors'][0];
-			}
+			$settings['button_bg'] = $this->get_button_bg_color( $settings );
 
 			$background_color_obj = new Tribe__Utils__Color( $settings['button_bg'] );
 			$button_bg_rgb = $background_color_obj->getRgb();
-			$settings['button_bg_is_light'] = $background_color_obj->isLight();
-
 
 			$settings['button_bg_Rgb'] = $button_bg_rgb['R'];
 			$settings['button_bg_rGb'] = $button_bg_rgb['G'];
 			$settings['button_bg_rgB'] = $button_bg_rgb['B'];
 			$settings['button_bg_hover'] = '#' . $background_color_obj->darken( 15 );
 
-			if ( $settings['button_bg_is_light'] ) {
+			if ( $background_color_obj->isLight() ) {
 				$settings['button_color'] = '#' . $background_color_obj->darken( 60 );
 			} else {
 				$settings['button_color'] = '#fff';
@@ -70,6 +86,8 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	 */
 	public function get_css_template( $template ) {
 		$customizer = Tribe__Customizer::instance();
+		$settings = $customizer->get_option( array( $this->ID ) );
+		$background_color_obj = new Tribe__Utils__Color( $this->get_button_bg_color( $settings ) );
 
 		if ( $customizer->has_option( $this->ID, 'accent_color' ) ) {
 			$template .= '
@@ -146,7 +164,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 				}
 			';
 
-			if ( $customizer->get_option( array( $this->ID, 'button_bg_is_light' ) ) ) {
+			if ( $background_color_obj->isLight() ) {
 				$template .= '
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost span,
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-tickets-left,
