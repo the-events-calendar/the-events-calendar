@@ -24,6 +24,45 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 		return tribe( 'tec.customizer.general-theme' );
 	}
 
+
+	public function create_ghost_settings( $settings = array() ) {
+		if ( ! empty( $settings['featured_color_scheme'] ) ) {
+			$scheme = $this->sanitize_featured_color_choice( $settings['featured_color_scheme'] );
+
+			var_dump( $scheme );
+			$schemes = $this->get_featured_color_schemes();
+
+			if ( 'custom' === $scheme ) {
+				$settings['button_bg'] = $settings['featured_color_scheme_custom'];
+				$scheme                = 'default';
+			} else {
+				$settings['button_bg'] = $schemes[ $scheme ]['colors'][0];
+			}
+
+			if ( ! $settings['button_bg'] ) {
+				$settings['button_bg'] = $schemes['default']['colors'][0];
+			}
+
+			$background_color_obj = new Tribe__Utils__Color( $settings['button_bg'] );
+			$button_bg_rgb = $background_color_obj->getRgb();
+			$settings['button_bg_is_light'] = $background_color_obj->isLight();
+
+
+			$settings['button_bg_Rgb'] = $button_bg_rgb['R'];
+			$settings['button_bg_rGb'] = $button_bg_rgb['G'];
+			$settings['button_bg_rgB'] = $button_bg_rgb['B'];
+			$settings['button_bg_hover'] = '#' . $background_color_obj->darken( 15 );
+
+			if ( $settings['button_bg_is_light'] ) {
+				$settings['button_color'] = '#' . $background_color_obj->darken( 60 );
+			} else {
+				$settings['button_color'] = '#fff';
+			}
+		}
+
+		return $settings;
+	}
+
 	/**
 	 * Grab the CSS rules template
 	 *
@@ -62,79 +101,52 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 			';
 		}
 
-		if ( $scheme = $customizer->get_option( array( $this->ID, 'featured_color_scheme' ) ) ) {
-			$scheme = $this->sanitize_featured_color_choice( $scheme );
-			$schemes = $this->get_featured_color_schemes();
-
-			$is_light  = false;
-			$is_custom = false;
-
-			if ( 'custom' === $scheme ) {
-				$background_color = $customizer->get_option( array( $this->ID, 'featured_color_scheme_custom' ) );
-				$scheme           = 'default';
-				$is_custom        = true;
-			} else {
-				$background_color = $schemes[ $scheme ]['colors'][0];
-			}
-
-			if ( ! $background_color ) {
-				$background_color = $schemes['default']['colors'][0];
-			}
-
-			$background_color_obj = new Tribe__Utils__Color( $background_color );
-			$background_rgb = $background_color_obj->getRgb();
-			$button_gradient = $background_color_obj->darken( 15 );
-			$button_color = $background_color_obj->darken( 60 );
-
-			if ( $is_custom ) {
-				$is_light = $background_color_obj->isLight();
-			}
-
+		if ( $customizer->has_option( $this->ID, 'featured_color_scheme' ) ) {
 			$template .= '
 				.tribe-events-list .tribe-events-loop .tribe-event-featured,
 				.tribe-events-list #tribe-events-day.tribe-events-loop .tribe-event-featured,
 				.type-tribe_events.tribe-events-photo-event.tribe-event-featured .tribe-events-photo-event-wrap,
 				.type-tribe_events.tribe-events-photo-event.tribe-event-featured .tribe-events-photo-event-wrap:hover {
-					background-color: ' . $background_color . ';
+					background-color: <%= general_theme.button_bg %>;
 				}
 
 				#tribe-events-content table.tribe-events-calendar .type-tribe_events.tribe-event-featured {
-					background-color: ' . $background_color . ';
+					background-color: <%= general_theme.button_bg %>;
 				}
 
 				.tribe-events-list-widget .tribe-event-featured,
 				.tribe-events-venue-widget .tribe-event-featured,
 				.tribe-mini-calendar-list-wrapper .tribe-event-featured,
 				.tribe-events-adv-list-widget .tribe-event-featured .tribe-mini-calendar-event {
-					background-color: ' . $background_color . ';
+					background-color: <%= general_theme.button_bg %>;
 				}
 
 				.tribe-grid-body .tribe-event-featured.tribe-events-week-hourly-single {
-					background-color: rgba(' . "{$background_rgb['R']},{$background_rgb['G']},{$background_rgb['B']}, .7 )" . ';
-					border-color: ' . $background_color . ';
+					background-color: rgba(<%= general_theme.button_bg_Rgb %>,<%= general_theme.button_bg_rGb %>,<%= general_theme.button_bg_rgB %>, .7 );
+					border-color: <%= general_theme.button_bg %>;
 				}
 
 				.tribe-grid-body .tribe-event-featured.tribe-events-week-hourly-single:hover {
-					background-color: ' . $background_color . ';
+					background-color: <%= general_theme.button_bg %>;
 				}
 
 				.tribe-button {
-					background-color: ' . $background_color . ';
-					' . ( $is_light ? 'color: #' . $button_color . ';' : '' ) . '
+					background-color: <%= general_theme.button_bg %>;
+					color: <%= general_theme.button_color %>;
 				}
 
 				.tribe-button:hover,
 				.tribe-button:active,
 				.tribe-button:focus {
-					background-color: #' . $button_gradient . ';
+					background-color: <%= general_theme.button_bg_hover %>;
 				}
 
 				#tribe-events .tribe-event-featured .tribe-button:hover {
-					color: ' . $background_color . ';
+					color: <%= general_theme.button_bg %>;
 				}
 			';
 
-			if ( $is_light ) {
+			if ( $customizer->get_option( array( $this->ID, 'button_bg_is_light' ) ) ) {
 				$template .= '
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost span,
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-tickets-left,
@@ -153,7 +165,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 					}
 
 					#tribe-events .tribe-event-featured .tribe-button:hover {
-						color: #' . $background_color_obj->darken( 30 ) . ';
+						color: rgba( 0, 0, 0, .9 );
 					}
 
 					#tribe-events-content.tribe-events-list .tribe-events-loop .tribe-event-featured [class*="-event-title"] a:hover,
