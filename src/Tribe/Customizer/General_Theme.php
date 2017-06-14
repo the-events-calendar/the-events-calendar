@@ -175,7 +175,10 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 					.tribe-events-list-widget .tribe-event-featured,
 					.tribe-events-list-widget .tribe-event-featured .tribe-event-duration,
 					.tribe-mini-calendar-list-wrapper .tribe-event-featured,
-					.tribe-events-adv-list-widget .tribe-event-featured {
+					.tribe-events-adv-list-widget .tribe-event-featured,
+					#tribe-geo-results .tribe-event-featured .tribe-events-content,
+					#tribe-geo-results .tribe-event-featured .tribe-events-duration,
+					#tribe-geo-results .tribe-event-featured .tribe-events-event-meta {
 						color: rgba( 0, 0, 0, .9 );
 					}
 
