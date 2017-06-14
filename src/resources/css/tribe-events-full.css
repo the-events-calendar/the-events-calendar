@@ -66,20 +66,23 @@
 	margin: 0;
 }
 
-.tribe-events-event-cost .tribe-button {
+input.tribe-button,
+button.tribe-button,
+a.tribe-button,
+.tribe-button {
 	margin: 0 0 0 10px;
 	padding: 9px 12px;
 	line-height: 1;
 	border-radius: 3px;
 }
 
-.tribe-events-event-cost .tribe-button.sold-out {
+input.tribe-button.sold-out, button.tribe-button.sold-out, a.tribe-button.sold-out, .tribe-button.sold-out {
 	background: none;
 	border: none;
 	color: #a00;
 }
 
-.tribe-events-event-cost .tribe-button.sold-out:hover {
+input.tribe-button.sold-out:hover, button.tribe-button.sold-out:hover, a.tribe-button.sold-out:hover, .tribe-button.sold-out:hover {
 	cursor: default;
 }
 
