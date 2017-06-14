@@ -84,6 +84,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 			$background_color_obj = new Tribe__Utils__Color( $background_color );
 			$background_rgb = $background_color_obj->getRgb();
 			$button_gradient = $background_color_obj->darken( 15 );
+			$button_color = $background_color_obj->darken( 60 );
 
 			if ( $is_custom ) {
 				$is_light = $background_color_obj->isLight();
@@ -119,6 +120,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 
 				.tribe-button {
 					background-color: ' . $background_color . ';
+					' . ( $is_light ? 'color: #' . $button_color . ';' : '' ) . '
 				}
 
 				.tribe-button:hover,
