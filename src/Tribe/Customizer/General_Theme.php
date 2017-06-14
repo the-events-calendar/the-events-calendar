@@ -64,10 +64,11 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 			$background_color_obj = new Tribe__Utils__Color( $settings['button_bg'] );
 			$button_bg_rgb = $background_color_obj->getRgb();
 
-			$settings['button_bg_Rgb'] = $button_bg_rgb['R'];
-			$settings['button_bg_rGb'] = $button_bg_rgb['G'];
-			$settings['button_bg_rgB'] = $button_bg_rgb['B'];
+			$settings['button_bg_hex_red'] = $button_bg_rgb['R'];
+			$settings['button_bg_hex_green'] = $button_bg_rgb['G'];
+			$settings['button_bg_hex_blue'] = $button_bg_rgb['B'];
 			$settings['button_bg_hover'] = '#' . $background_color_obj->darken( 15 );
+			$settings['button_color_hover'] = '#' . $background_color_obj->darken( 30 );
 
 			if ( $background_color_obj->isLight() ) {
 				$settings['button_color'] = '#' . $background_color_obj->darken( 60 );
@@ -140,7 +141,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 				}
 
 				.tribe-grid-body .tribe-event-featured.tribe-events-week-hourly-single {
-					background-color: rgba(<%= general_theme.button_bg_Rgb %>,<%= general_theme.button_bg_rGb %>,<%= general_theme.button_bg_rgB %>, .7 );
+					background-color: rgba(<%= general_theme.button_bg_hex_red %>,<%= general_theme.button_bg_hex_green %>,<%= general_theme.button_bg_hex_blue %>, .7 );
 					border-color: <%= general_theme.button_bg %>;
 				}
 
@@ -160,7 +161,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 				}
 
 				#tribe-events .tribe-event-featured .tribe-button:hover {
-					color: <%= general_theme.button_bg %>;
+					color: <%= general_theme.button_color_hover %>;
 				}
 			';
 
@@ -183,7 +184,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 					}
 
 					#tribe-events .tribe-event-featured .tribe-button:hover {
-						color: rgba( 0, 0, 0, .9 );
+						color: <%= general_theme.button_color_hover %>;
 					}
 
 					#tribe-events-content.tribe-events-list .tribe-events-loop .tribe-event-featured [class*="-event-title"] a:hover,
