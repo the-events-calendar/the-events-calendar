@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, MZAWeb, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shelbelliott, shane.pearlman, aguseo, tribecari, trishasalas, courane01, GeoffBel, vicskf
+Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, brook-tribe, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, leahkoerper, lucatume, mastromktg, mat-lipe, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, shelbelliott, tribecari, vicskf, zbtirrell
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Stable tag: 4.5.5
-Tested up to: 4.7.5
+Tested up to: 4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -285,11 +285,11 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * [Matthew Batchelder](https://profiles.wordpress.org/borkweb)
 * [Neill McShea](https://profiles.wordpress.org/neillmcshea)
 * [Nico Santos](https://profiles.wordpress.org/nicosantos)
+* [Patricia Hillebrandt](https://profiles.wordpress.org/patriciahillebrandt)
 * [Peter Chester](https://profiles.wordpress.org/peterchester)
 * [Reid Peifer](https://profiles.wordpress.org/reid.peifer)
 * [Shane Pearlman](https://profiles.wordpress.org/shane.pearlman)
 * [Shelby Elliott](https://profiles.wordpress.org/shelbelliott)
-* [Trisha Salas](https://profiles.wordpress.org/trishasalas)
 * [Zachary Tirrell](https://profiles.wordpress.org/zbtirrell)
 
 = Past Contributors =
@@ -317,6 +317,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * [Ryan Urban](https://profiles.wordpress.org/ryancurban)
 * [Samuel Estok](https://profiles.wordpress.org/faction23)
 * [Timothy Wood](https://profiles.wordpress.org/codearachnid)
+* [Trisha Salas](https://profiles.wordpress.org/trishasalas)
 
 == Upgrade Notice ==
 
@@ -326,7 +327,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5.5] TBD =
+= [4.5.5] 2017-06-14 =
 
 * Fix - Removed extra double quotes in organizer link output [71133]
 * Fix - Make the list and day view styles match more closely [63599]
