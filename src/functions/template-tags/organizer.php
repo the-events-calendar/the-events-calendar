@@ -231,7 +231,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			if ( $full_link ) {
 				$name = tribe_get_organizer( $org_id );
 				$attr_title = the_title_attribute( array( 'post' => $org_id, 'echo' => false ) );
-				$link = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '" title="'.$attr_title.'"">' . $name . '</a>' : false;
+				$link = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '" title="'.$attr_title.'">' . $name . '</a>' : false;
 			} else {
 				$link = $url;
 			}

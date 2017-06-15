@@ -1501,7 +1501,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			Tribe__Events__Aggregator__Records::instance()->add_record_to_event( $event['ID'], $this->id, $this->origin );
 
 			// Add post parent possibility
-			if ( empty( $event['parent_uid'] ) ) {
+			if ( empty( $event['parent_uid'] ) && ! empty( $unique_field ) ) {
 				$possible_parents[ $event['ID'] ] = $event[ $unique_field['target'] ];
 			}
 
@@ -1793,36 +1793,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
-		require_once( ABSPATH . 'wp-admin/includes/media.php' );
-		require_once( ABSPATH . 'wp-admin/includes/file.php' );
-		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+		$uploader = new Tribe__Image__Uploader( $event['image'] );
+		$thumbnail_id = $uploader->upload_and_get_attachment_id();
 
-		// Set variables for storage, fix file filename for query strings.
-		preg_match( '/[^\?]+\.(jpe?g|jpe|gif|png)\b/i', $event['image'], $matches );
-		if ( ! $matches ) {
-			return false;
-		}
-
-		$file_array         = array();
-		$file_array['name'] = basename( $matches[0] );
-
-		// Download file to temp location.
-		$file_array['tmp_name'] = download_url( $event['image'] );
-
-		// If error storing temporarily, return the error.
-		if ( is_wp_error( $file_array['tmp_name'] ) ) {
-			return false;
-		}
-
-		$id = media_handle_sideload( $file_array, $event['ID'], $event['post_title'] );
-
-		if ( is_wp_error( $id ) ) {
-			@unlink( $file_array['tmp_name'] );
-
-			return false;
-		}
-
-		return (object) array( 'post_id' => $id );
+		return false !== $thumbnail_id ? (object) array( 'post_id' => $thumbnail_id ) : false;
 	}
 
 	/**

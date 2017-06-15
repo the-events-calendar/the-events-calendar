@@ -32,8 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.5.4';
-
+		const VERSION             = '4.5.5';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.5.4';
 
@@ -1566,31 +1565,52 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function registerPostType() {
 			$this->generatePostTypeLabels();
-			register_post_type( self::POSTTYPE, apply_filters( 'tribe_events_register_event_type_args', $this->postTypeArgs ) );
+
+			$post_type_args = $this->postTypeArgs;
+
+			/**
+			 * Filter the event post type arguments used in register_post_type.
+			 *
+			 * @param array $post_type_args
+			 *
+			 * @since 3.2
+			 */
+			$post_type_args = apply_filters( 'tribe_events_register_event_type_args', $post_type_args );
+
+			register_post_type( self::POSTTYPE, $post_type_args );
 
 			// Setup Linked Posts singleton after we've set up the post types that we care about
 			Tribe__Events__Linked_Posts::instance();
 
-			register_taxonomy(
-				self::TAXONOMY, self::POSTTYPE, array(
-					'hierarchical'          => true,
-					'update_count_callback' => '',
-					'rewrite'               => array(
-						'slug'         => $this->rewriteSlug . '/' . $this->category_slug,
-						'with_front'   => false,
-						'hierarchical' => true,
-					),
-					'public'                => true,
-					'show_ui'               => true,
-					'labels'                => $this->taxonomyLabels,
-					'capabilities'          => array(
-						'manage_terms' => 'publish_tribe_events',
-						'edit_terms'   => 'publish_tribe_events',
-						'delete_terms' => 'publish_tribe_events',
-						'assign_terms' => 'edit_tribe_events',
-					),
-				)
+			$taxonomy_args = array(
+				'hierarchical'          => true,
+				'update_count_callback' => '',
+				'rewrite'               => array(
+					'slug'         => $this->rewriteSlug . '/' . $this->category_slug,
+					'with_front'   => false,
+					'hierarchical' => true,
+				),
+				'public'                => true,
+				'show_ui'               => true,
+				'labels'                => $this->taxonomyLabels,
+				'capabilities'          => array(
+					'manage_terms' => 'publish_tribe_events',
+					'edit_terms'   => 'publish_tribe_events',
+					'delete_terms' => 'publish_tribe_events',
+					'assign_terms' => 'edit_tribe_events',
+				),
 			);
+
+			/**
+			 * Filter the event category taxonomy arguments used in register_taxonomy.
+			 *
+			 * @param array $taxonomy_args
+			 *
+			 * @since 4.5.5
+			 */
+			$taxonomy_args = apply_filters( 'tribe_events_register_event_cat_type_args', $taxonomy_args );
+
+			register_taxonomy( self::TAXONOMY, self::POSTTYPE, $taxonomy_args );
 
 			if ( Tribe__Settings_Manager::get_option( 'showComments', 'no' ) == 'yes' ) {
 				add_post_type_support( self::POSTTYPE, 'comments' );
