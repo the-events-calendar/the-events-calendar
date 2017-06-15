@@ -329,6 +329,8 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.5.6] TBD =
 
+* Tweak - Added actions: `tribe_events_inside_cost`
+* Tweak - Changed views: `day/single-event`, `day/single-featured`, `list/single-event`, `list/single-featured`
 * Language - 1 new strings added, 15 updated, 1 fuzzied, and 1 obsoleted [the-events-calendar]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted [tribe-common]
 
