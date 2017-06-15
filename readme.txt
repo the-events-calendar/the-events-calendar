@@ -327,6 +327,11 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.5.6] TBD =
+
+* Language - 1 new strings added, 15 updated, 1 fuzzied, and 1 obsoleted [the-events-calendar]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted [tribe-common]
+
 = [4.5.5] 2017-06-14 =
 
 * Fix - Removed extra double quotes in organizer link output [71133]
