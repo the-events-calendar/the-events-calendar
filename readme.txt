@@ -327,6 +327,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.6.1] TBD =
+
+* Tweak - Textual corrections (with thanks to @garrett-eclipse for highlighting many of these) [77196]
+
 = [4.5.5] 2017-06-14 =
 
 * Fix - Removed extra double quotes in organizer link output [71133]
