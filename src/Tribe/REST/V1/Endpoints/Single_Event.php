@@ -417,17 +417,28 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		if ( 'trash' === $event->post_status ) {
 			$message = $this->messages->get_message( 'event-is-in-trash' );
 
-			// @todo: bad request? server error?
 			return new WP_Error( 'event-is-in-trash', $message, array( 'status' => 410 ) );
 		}
 
-		$deleted = wp_trash_post( $event_id );
+		/**
+		 * Filters the event delete operation.
+		 *
+		 * Returning a non `null` value here will override the default trashing operation.
+		 *
+		 * @param int|bool        $deleted Whether the event was successfully deleted or not.
+		 * @param WP_REST_Request $request The original API request.
+		 *
+		 * @since TBD
+		 */
+		$deleted = apply_filters( 'tribe_events_rest_event_delete', null, $request );
+		if ( null === $deleted ) {
+			$deleted = wp_trash_post( $event_id );
+		}
 
 		if ( false === $deleted ) {
 			$message = $this->messages->get_message( 'could-not-delete-event' );
 
-			// @todo: bad request? server error?
-			return new WP_Error( 'could-not-delete-event', $message, array( 'status' => 400 ) );
+			return new WP_Error( 'could-not-delete-event', $message, array( 'status' => 500 ) );
 		}
 
 		$data = $this->post_repository->get_event_data( $event_id );
