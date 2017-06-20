@@ -18,6 +18,11 @@ class Tribe__Events__Venue {
 		'exclude_from_search' => true,
 	);
 
+	/**
+	 * @var string
+	 */
+	protected $meta_prefix = '_Venue';
+
 	public static $valid_venue_keys = array(
 		'Venue',
 		'Address',
@@ -29,12 +34,6 @@ class Tribe__Events__Venue {
 		'Zip',
 		'Phone',
 	);
-
-	/**
-	 * @var string
-	 */
-	protected $meta_prefix = '_Venue';
-
 
 	public $singular_venue_label;
 	public $plural_venue_label;
@@ -361,12 +360,14 @@ class Tribe__Events__Venue {
 				$duplicates = tribe( 'post-duplicate' );
 				$duplicates->use_post_fields( $this->get_duplicate_post_fields() );
 				$duplicates->use_custom_fields( $this->get_duplicate_custom_fields() );
+
 				// for the purpose of finding duplicates we skip empty fields
 				$candidate_data = array_filter( $postdata );
 				$candidate_data = array_combine(
 					array_map( array( $this, 'prefix_key' ), array_keys( $candidate_data ) ),
 					array_values( $candidate_data )
 				);
+
 				$found = $duplicates->find_for( $candidate_data );
 			}
 
@@ -513,13 +514,24 @@ class Tribe__Events__Venue {
 	 * @return array An array of post fields to matching strategy in the format
 	 *               [ <post_field> => [ 'match' => <strategy> ] ]
 	 *
-	 * @see Tribe__Duplicate__Post
+	 * @see Tribe__Duplicate__Strategy_Factory for supported strategies
 	 */
 	protected function get_duplicate_post_fields() {
-		return array(
+		$fields = array(
 			'post_title'   => array( 'match' => 'same' ),
 			'post_content' => array( 'match' => 'same' ),
 		);
+
+		/**
+		 * Filters the post fields that should be used to search for a venue duplicate.
+		 *
+		 * @param array $fields An array associating the custom field meta key to the strategy definition.
+		 *
+		 * @see   Tribe__Duplicate__Strategy_Factory
+		 *
+		 * @since TBD
+		 */
+		return apply_filters( 'tribe_event_venue_duplicate_post_fields', $fields );
 	}
 
 	/**
@@ -528,22 +540,34 @@ class Tribe__Events__Venue {
 	 * @return array An array of post fields to matching strategy in the format
 	 *               [ <custom_field> => [ 'match' => <strategy> ] ]
 	 *
-	 * @see Tribe__Duplicate__Post
+	 * @see Tribe__Duplicate__Strategy_Factory for supported strategies
 	 */
 	protected function get_duplicate_custom_fields() {
-		return array(
+		$fields = array(
 			'_VenueAddress'       => array( 'match' => 'like' ),
-			'_VenueCity'          => array( 'match' => 'like' ),
-			'_VenueProvince'      => array( 'match' => 'like' ),
-			'_VenueState'         => array( 'match' => 'like' ),
-			'_VenueStateProvince' => array( 'match' => 'like' ),
-			'_VenueZip'           => array( 'match' => 'like' ),
-			'_VenuePhone'         => array( 'match' => 'like' ),
+			'_VenueCity'          => array( 'match' => 'same' ),
+			'_VenueProvince'      => array( 'match' => 'same' ),
+			'_VenueState'         => array( 'match' => 'same' ),
+			'_VenueStateProvince' => array( 'match' => 'same' ),
+			'_VenueZip'           => array( 'match' => 'same' ),
+			'_VenuePhone'         => array( 'match' => 'same' ),
 		);
+
+		/**
+		 * Filters the custom fields that should be used to search for a venue duplicate.
+		 *
+		 * @param array $fields An array associating the custom field meta key to the strategy definition.
+		 *
+		 * @see   Tribe__Duplicate__Strategy_Factory
+		 *
+		 * @since TBD
+		 */
+		return apply_filters( 'tribe_event_venue_duplicate_custom_fields', $fields );
 	}
 
 	/**
-	 * Prefixes a key with the corect
+	 * Prefixes a key with the correct meta key prefix if needed.
+	 *
 	 * @param string $key
 	 *
 	 * @return string

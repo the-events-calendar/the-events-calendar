@@ -47,12 +47,13 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		$post_date = isset( $request['date'] ) ? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ) : false;
 		$post_date_gmt = isset( $request['date_utc'] ) ? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ) : false;
 
-		$postarr = array(
+		$post_status = $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE );
+		$postarr     = array(
 			$this->get_id_index() => $request['id'],
 			'post_author'         => $request['author'],
 			'post_date'           => $post_date,
 			'post_date_gmt'       => $post_date_gmt,
-			'post_status'         => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
+			'post_status'         => $post_status,
 			'Organizer'           => $request['organizer'],
 			'Description'         => $request['description'],
 			'Phone'               => $request['phone'],
@@ -61,7 +62,17 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 			'FeaturedImage'       => tribe_upload_image( $request['image'] ),
 		);
 
-		$id = Tribe__Events__Organizer::instance()->create( array_filter( $postarr ) );
+		/**
+		 * Filters whether the API should try to avoid inserting duplicate organizers or not.
+		 *
+		 * @param bool  $avoid_duplicates
+		 * @param array $postarr The organizer data provided in the request.
+		 *
+		 * @since TBD
+		 */
+		$avoid_duplicates = apply_filters( 'tribe_events_rest_organizer_insert_avoid_duplicates', true, $postarr );
+
+		$id = Tribe__Events__Organizer::instance()->create( array_filter( $postarr ), $post_status, $avoid_duplicates );
 
 		if ( empty( $id ) ) {
 			$message = $this->messages->get_message( 'could-not-create-organizer' );

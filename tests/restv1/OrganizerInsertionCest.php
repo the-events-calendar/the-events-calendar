@@ -186,4 +186,119 @@ class OrganizerInsertionCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'image', $response );
 		$I->assertEquals( $image_id, $response['image']['id'] );
 	}
+
+	/**
+	 * It should avoid inserting a organizer with identical fields twice
+	 * @test
+	 */
+	public function it_should_avoid_inserting_a_organizer_with_identical_fields_twice(Tester $I) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$I->sendPOST( $this->organizers_url, [
+			'organizer' => 'An organizer',
+			'description' => 'An organizer description',
+		] );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'id', $response );
+		$first_id = $response['id'];
+
+
+		$I->sendPOST( $this->organizers_url, [
+			'organizer' => 'An organizer',
+			'description' => 'An organizer description',
+		] );
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'id', $response );
+		$I->assertEquals( $first_id, $response['id'] );
+
+		$I->sendPOST( $this->organizers_url, [
+			'organizer' => 'An organizer',
+		] );
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'id', $response );
+		$I->assertEquals( $first_id, $response['id'] );
+
+		$I->sendPOST( $this->organizers_url, [
+			'organizer' => 'an organizer',
+			'description' => 'an organizer description',
+		] );
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'id', $response );
+		$I->assertEquals( $first_id, $response['id'] );
+	}
+
+	/**
+	 * It should avoid inserting duplicates when providing custom fields information
+	 * @test
+	 */
+	public function it_should_avoid_inserting_duplicates_when_providing_custom_fields_information(Tester $I) {
+		$I->generate_nonce_for_role( 'administrator' );
+
+		$I->sendPOST( $this->organizers_url, [
+			'organizer' => 'A organizer',
+			'phone'     => '11223344',
+			'email'     => 'doe@anizer.org',
+			'website'   => 'http://anizer.org',
+		] );
+
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'id', $response );
+		$first_id = $response['id'];
+
+
+		$I->sendPOST( $this->organizers_url, [
+			'organizer' => 'A organizer',
+			'phone'     => '11223344',
+			'email'     => 'doe@anizer.org',
+			'website'   => 'http://anizer.org',
+		] );
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'id', $response );
+		$I->assertEquals( $first_id, $response['id'] );
+
+		$I->sendPOST( $this->organizers_url, [
+			'organizer' => 'A organizer',
+			'email'     => 'doe@anizer.org',
+			'website'   => 'http://anizer.org',
+		] );
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'id', $response );
+		$I->assertEquals( $first_id, $response['id'] );
+
+		$I->sendPOST( $this->organizers_url, [
+			'organizer' => 'A organizer',
+			'phone'     => '11223344',
+			'website'   => 'http://anizer.org',
+		] );
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'id', $response );
+		$I->assertEquals( $first_id, $response['id'] );
+
+		$I->sendPOST( $this->organizers_url, [
+			'organizer' => 'A organizer',
+			'website'   => 'http://anizer.org',
+		] );
+		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertArrayHasKey( 'id', $response );
+		$I->assertEquals( $first_id, $response['id'] );
+	}
 }
