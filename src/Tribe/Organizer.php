@@ -332,11 +332,11 @@ class Tribe__Events__Organizer {
 			$data = new Tribe__Data( $data, false );
 
 			$postdata = array(
-				'post_title'   => $title,
-				'post_content' => $content,
-				'post_name'    => $slug,
-				'post_type'    => self::POSTTYPE,
-				'post_status'   => isset( $data['post_status'] ) ? $data['post_status'] : $post_status,
+				'post_title'    => $title,
+				'post_content'  => $content,
+				'post_name'     => $slug,
+				'post_type'     => self::POSTTYPE,
+				'post_status'   => Tribe__Utils__Array::get( $data, 'post_status', $post_status ),
 				'post_author'   => $data['post_author'],
 				'post_date'     => $data['post_date'],
 				'post_date_gmt' => $data['post_date_gmt'],
