@@ -329,6 +329,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.6.1] TBD =
 
+* Tweak - Better detection and reporting of communication failures with the Event Aggregator server
 * Tweak - Textual corrections (with thanks to @garrett-eclipse for highlighting many of these) [77196]
 
 = [4.5.5] 2017-06-14 =
