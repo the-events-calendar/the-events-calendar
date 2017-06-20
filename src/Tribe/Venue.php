@@ -30,6 +30,11 @@ class Tribe__Events__Venue {
 		'Phone',
 	);
 
+	/**
+	 * @var string
+	 */
+	protected $meta_prefix = '_Venue';
+
 
 	public $singular_venue_label;
 	public $plural_venue_label;
@@ -309,10 +314,12 @@ class Tribe__Events__Venue {
 	 *
 	 * @param array  $data        The venue data.
 	 * @param string $post_status the intended post status.
+	 * @param bool $avoid_duplicates Whether a check to avoid the insertion of a duplicate venue
+	 *                               should be made (`true`) or not (`false`).
 	 *
 	 * @return int
 	 */
-	public function create( $data, $post_status = 'publish' ) {
+	public function create( $data, $post_status = 'publish', $avoid_duplicates = false ) {
 		/**
 		 * Filters the ID of the generated venue before the class creates it.
 		 *
@@ -348,7 +355,24 @@ class Tribe__Events__Venue {
 				'post_date_gmt' => $data['post_date_gmt'],
 			);
 
-			$venue_id = wp_insert_post( array_filter( $postdata ), true );
+			$found = false;
+			if ( $avoid_duplicates ) {
+				/** @var Tribe__Duplicate__Post $duplicates */
+				$duplicates = tribe( 'post-duplicate' );
+				$duplicates->use_post_fields( $this->get_duplicate_post_fields() );
+				$duplicates->use_custom_fields( $this->get_duplicate_custom_fields() );
+				// for the purpose of finding duplicates we skip empty fields
+				$candidate_data = array_filter( $postdata );
+				$candidate_data = array_combine(
+					array_map( array( $this, 'prefix_key' ), array_keys( $candidate_data ) ),
+					array_values( $candidate_data )
+				);
+				$found = $duplicates->find_for( $candidate_data );
+			}
+
+			$venue_id = false === $found
+				? wp_insert_post( array_filter( $postdata ), true )
+				: $found;
 
 			// By default, the show map and show map link options should be on
 			if ( isset( $data['ShowMap'] ) && ! tribe_is_truthy( $data['ShowMap'] ) ) {
@@ -481,5 +505,56 @@ class Tribe__Events__Venue {
 		 * @param string $template Template path
 		 */
 		include apply_filters( 'tribe_events_tribe_venue_new_form_fields', $template );
+	}
+
+	/**
+	 * Returns an array of post fields that should be used to spot possible duplicates.
+	 *
+	 * @return array An array of post fields to matching strategy in the format
+	 *               [ <post_field> => [ 'match' => <strategy> ] ]
+	 *
+	 * @see Tribe__Duplicate__Post
+	 */
+	protected function get_duplicate_post_fields() {
+		return array(
+			'post_title'   => array( 'match' => 'same' ),
+			'post_content' => array( 'match' => 'same' ),
+		);
+	}
+
+	/**
+	 * Returns an array of post custom fields that should be used to spot possible duplicates.
+	 *
+	 * @return array An array of post fields to matching strategy in the format
+	 *               [ <custom_field> => [ 'match' => <strategy> ] ]
+	 *
+	 * @see Tribe__Duplicate__Post
+	 */
+	protected function get_duplicate_custom_fields() {
+		return array(
+			'_VenueAddress'       => array( 'match' => 'like' ),
+			'_VenueCity'          => array( 'match' => 'like' ),
+			'_VenueProvince'      => array( 'match' => 'like' ),
+			'_VenueState'         => array( 'match' => 'like' ),
+			'_VenueStateProvince' => array( 'match' => 'like' ),
+			'_VenueZip'           => array( 'match' => 'like' ),
+			'_VenuePhone'         => array( 'match' => 'like' ),
+		);
+	}
+
+	/**
+	 * Prefixes a key with the corect
+	 * @param string $key
+	 *
+	 * @return string
+	 */
+	protected function prefix_key( $key ) {
+		$prefixable_keys = self::$valid_venue_keys;
+		unset( $prefixable_keys['Venue'] );
+		if ( 0 !== strpos( $key, $this->meta_prefix ) && in_array( $key, $prefixable_keys ) ) {
+			return $this->meta_prefix . $key;
+		}
+
+		return $key;
 	}
 }

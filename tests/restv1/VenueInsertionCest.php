@@ -201,4 +201,137 @@ class VenueInsertionCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'image', $response );
 		$I->assertEquals( $image_id, $response['image']['id'] );
 	}
+	
+	/**
+	 * It should avoid inserting a venue with identical fields twice
+	 * @test
+	 */
+	 public function it_should_avoid_inserting_a_venue_with_identical_fields_twice(Tester $I) {
+		 $I->generate_nonce_for_role( 'administrator' );
+
+		 $I->sendPOST( $this->venues_url, [
+			 'venue' => 'A venue',
+			 'description' => 'A venue description',
+		 ] );
+
+		 $I->seeResponseCodeIs( 201 );
+		 $I->seeResponseIsJson();
+		 $response = json_decode( $I->grabResponse(), true );
+		 $I->assertArrayHasKey( 'id', $response );
+		 $first_id = $response['id'];
+
+
+		 $I->sendPOST( $this->venues_url, [
+			 'venue' => 'A venue',
+			 'description' => 'A venue description',
+		 ] );
+		 $I->seeResponseCodeIs( 201 );
+		 $I->seeResponseIsJson();
+		 $response = json_decode( $I->grabResponse(), true );
+		 $I->assertArrayHasKey( 'id', $response );
+		 $I->assertEquals( $first_id, $response['id'] );
+
+		 $I->sendPOST( $this->venues_url, [
+			 'venue' => 'A venue',
+		 ] );
+		 $I->seeResponseCodeIs( 201 );
+		 $I->seeResponseIsJson();
+		 $response = json_decode( $I->grabResponse(), true );
+		 $I->assertArrayHasKey( 'id', $response );
+		 $I->assertEquals( $first_id, $response['id'] );
+
+		 $I->sendPOST( $this->venues_url, [
+			 'venue' => 'a venue',
+			 'description' => 'a venue description',
+		 ] );
+		 $I->seeResponseCodeIs( 201 );
+		 $I->seeResponseIsJson();
+		 $response = json_decode( $I->grabResponse(), true );
+		 $I->assertArrayHasKey( 'id', $response );
+		 $I->assertEquals( $first_id, $response['id'] );
+	 }
+
+	 /**
+	  * It should avoid inserting duplicates when providing custom fields information
+	  * @test
+	  */
+	  public function it_should_avoid_inserting_duplicates_when_providing_custom_fields_information(Tester $I) {
+		  $I->generate_nonce_for_role( 'administrator' );
+
+		  $I->sendPOST( $this->venues_url, [
+			  'venue'         => 'A venue',
+			  'description'   => 'A venue description',
+			  'address'       => 'A venue address',
+			  'city'          => 'A venue city',
+			  'country'       => 'A venue country',
+			  'province'      => 'A venue province',
+			  'state'         => 'A venue state',
+			  'stateprovince' => 'A venue stateprovince',
+			  'zip'           => 'A venue zip',
+			  'phone'         => '11223344',
+		  ] );
+
+		  $I->seeResponseCodeIs( 201 );
+		  $I->seeResponseIsJson();
+		  $response = json_decode( $I->grabResponse(), true );
+		  $I->assertArrayHasKey( 'id', $response );
+		  $first_id = $response['id'];
+
+
+		  $I->sendPOST( $this->venues_url, [
+			  'venue'         => 'A venue',
+			  'description'   => 'A venue description',
+			  'address'       => 'A venue address',
+			  'city'          => 'A venue city',
+			  'country'       => 'A venue country',
+			  'province'      => 'A venue province',
+			  'state'         => 'A venue state',
+			  'stateprovince' => 'A venue stateprovince',
+			  'zip'           => 'A venue zip',
+			  'phone'         => '11223344',
+		  ] );
+		  $I->seeResponseCodeIs( 201 );
+		  $I->seeResponseIsJson();
+		  $response = json_decode( $I->grabResponse(), true );
+		  $I->assertArrayHasKey( 'id', $response );
+		  $I->assertEquals( $first_id, $response['id'] );
+
+		  $I->sendPOST( $this->venues_url, [
+			  'venue'         => 'a venue',
+			  'country'       => 'a venue country',
+			  'province'      => 'a venue province',
+			  'state'         => 'a venue state',
+			  'phone'         => '11223344',
+
+		  ] );
+		  $I->seeResponseCodeIs( 201 );
+		  $I->seeResponseIsJson();
+		  $response = json_decode( $I->grabResponse(), true );
+		  $I->assertArrayHasKey( 'id', $response );
+		  $I->assertEquals( $first_id, $response['id'] );
+
+		  $I->sendPOST( $this->venues_url, [
+			  'venue'         => 'a venue',
+			  'description'   => 'a venue description',
+			  'phone'         => '11223344',
+		  ] );
+		  $I->seeResponseCodeIs( 201 );
+		  $I->seeResponseIsJson();
+		  $response = json_decode( $I->grabResponse(), true );
+		  $I->assertArrayHasKey( 'id', $response );
+		  $I->assertEquals( $first_id, $response['id'] );
+
+		  $I->sendPOST( $this->venues_url, [
+			  'venue'         => 'a venue',
+			  'description'   => 'a venue description',
+			  'address'       => 'a venue address',
+			  'city'          => 'a venue city',
+			  'country'       => 'a venue country',
+		  ] );
+		  $I->seeResponseCodeIs( 201 );
+		  $I->seeResponseIsJson();
+		  $response = json_decode( $I->grabResponse(), true );
+		  $I->assertArrayHasKey( 'id', $response );
+		  $I->assertEquals( $first_id, $response['id'] );
+	  }
 }
