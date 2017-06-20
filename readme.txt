@@ -327,7 +327,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5.6] 2017-06-21 =
+= [4.5.6] 2017-06-22 =
 
 * Tweak - Improved how Cost field looks and it's consistency across views [71092 & 71094]
 * Fix - Resolved issue where the Meta Chunker attempted to inappropriately chunk meta for post post_types [80857]
