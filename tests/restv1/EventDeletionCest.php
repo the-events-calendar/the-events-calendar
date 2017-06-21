@@ -51,7 +51,7 @@ class EventDeletionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_return_410_when_re_deleting_a_deleted_event( Tester $I ) {
-		$id = $I->havePostInDatabase( [ 'post_status' => 'trash' ] );
+		$id = $I->haveEventInDatabase( [ 'post_status' => 'trash' ] );
 
 		$I->generate_nonce_for_role( 'administrator' );
 
