@@ -329,6 +329,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.6.1] TBD =
 
+* Fix - Improve compatibility with WPML in relation to event permalinks specifically (props: @dgwatkins) [81224]
 * Tweak - Better detection and reporting of communication failures with the Event Aggregator server
 * Tweak - Textual corrections (with thanks to @garrett-eclipse for highlighting many of these) [77196]
 
