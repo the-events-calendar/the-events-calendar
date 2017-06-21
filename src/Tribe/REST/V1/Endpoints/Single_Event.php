@@ -435,7 +435,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	public function delete( WP_REST_Request $request ) {
 		$event_id = $request['id'];
 
-		$event = get_post($event_id);
+		$event = get_post( $event_id );
 
 		if ( 'trash' === $event->post_status ) {
 			$message = $this->messages->get_message( 'event-is-in-trash' );
@@ -470,7 +470,9 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	}
 
 	/**
-	 * @return bool Whether the current user can delete or not.
+	 * Whether the current user can delete posts of the type managed by the endpoint or not.
+	 *
+	 * @return bool
 	 */
 	public function can_delete() {
 		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->delete_posts;
