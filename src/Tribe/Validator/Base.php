@@ -73,6 +73,6 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 
 		$event = get_post( $event_id );
 
-		return ! empty( $event ) && Tribe__Events__Main::POSTTYPE !== $event->post_type;
+		return ! empty( $event ) && Tribe__Events__Main::POSTTYPE === $event->post_type;
 	}
 }
