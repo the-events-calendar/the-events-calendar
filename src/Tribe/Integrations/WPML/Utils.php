@@ -114,7 +114,7 @@ class Tribe__Events__Integrations__WPML__Utils {
 	/**
 	 * Returns an array of currently active locales (other than English).
 	 *
-	 * Example: [ 'fr_fr', 'de_de', 'it_it' ]
+	 * Example: [ 'fr_FR', 'de_DE', 'it_IT' ]
 	 *
 	 * @return array
 	 */
