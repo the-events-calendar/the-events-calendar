@@ -94,7 +94,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
-		$GET_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
+		$GET_defaults = $DELETE_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
 		$POST_defaults = array( 'in' => 'body', 'default' => '', 'type' => 'string' );
 
 		return array(
@@ -132,6 +132,29 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 					),
 					'403' => array(
 						'description' => __( 'The user is not authorized to create events', 'the-events-calendar' ),
+					),
+				),
+			),
+			'delete'  => array(
+				'parameters' => $this->swaggerize_args( $this->DELETE_args(), $DELETE_defaults ),
+				'responses'  => array(
+					'200' => array(
+						'description' => __( 'Deletes an event and returns its data', 'the-event-calendar' ),
+						'schema'      => array(
+							'$ref' => '#/definitions/Event',
+						),
+					),
+					'400' => array(
+						'description' => __( 'The event post ID is missing or does not exist.', 'the-events-calendar' ),
+					),
+					'403' => array(
+						'description' => __( 'The current user cannot delete the event with the specified ID.', 'the-events-calendar' ),
+					),
+					'410' => array(
+						'description' => __( 'The event with the specified ID has been deleted already.', 'the-events-calendar' ),
+					),
+					'500' => array(
+						'description' => __( 'The event with the specified ID could not be deleted.', 'the-events-calendar' ),
 					),
 				),
 			),
