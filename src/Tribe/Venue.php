@@ -348,7 +348,7 @@ class Tribe__Events__Venue {
 				'post_content'  => $content,
 				'post_name'     => $slug,
 				'post_type'     => self::POSTTYPE,
-				'post_status'   => isset( $data['post_status'] ) ? $data['post_status'] : $post_status,
+				'post_status'   => Tribe__Utils__Array::get( $data, 'post_status', $post_status ),
 				'post_author'   => $data['post_author'],
 				'post_date'     => $data['post_date'],
 				'post_date_gmt' => $data['post_date_gmt'],
