@@ -58,5 +58,6 @@ class EventDeletionCest extends BaseRestCest {
 		$I->sendDELETE( $this->events_url . "/{$id}" );
 
 		$I->seeResponseCodeIs( 410 );
+		$I->seeResponseIsJson();
 	}
 }
