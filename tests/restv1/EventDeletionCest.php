@@ -8,13 +8,10 @@ class EventDeletionCest extends BaseRestCest {
 	/**
 	 * It should return 400 if trying to delete event passing bad event ID
 	 * @test
-	 *
-	 * @example ["23"]
-	 * @example ["foo"]
 	 */
-	public function it_should_return_400_if_trying_to_delete_event_passing_bad_event_id( Tester $I, \Codeception\Example $data ) {
-		$id = $data[0];
-		$I->sendDELETE( $this->events_url . "/{$id}" );
+	public function it_should_return_400_if_trying_to_delete_event_passing_bad_event_id( Tester $I ) {
+		// pass an ID that does not exist
+		$I->sendDELETE( $this->events_url . "/23" );
 
 		$I->seeResponseCodeIs( 400 );
 		$I->seeResponseIsJson();
