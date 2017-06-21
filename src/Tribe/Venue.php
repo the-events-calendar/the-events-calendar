@@ -18,6 +18,11 @@ class Tribe__Events__Venue {
 		'exclude_from_search' => true,
 	);
 
+	/**
+	 * @var string
+	 */
+	protected $meta_prefix = '_Venue';
+
 	public static $valid_venue_keys = array(
 		'Venue',
 		'Address',
@@ -29,7 +34,6 @@ class Tribe__Events__Venue {
 		'Zip',
 		'Phone',
 	);
-
 
 	public $singular_venue_label;
 	public $plural_venue_label;
@@ -284,10 +288,13 @@ class Tribe__Events__Venue {
 			}
 		}
 
-		update_post_meta( $venue_id, '_EventShowMapLink', isset( $data['EventShowMapLink'] ) );
-		update_post_meta( $venue_id, '_EventShowMap', isset( $data['EventShowMap'] ) );
-		unset( $data['EventShowMapLink'] );
-		unset( $data['EventShowMap'] );
+
+		update_post_meta( $venue_id, '_EventShowMapLink', isset( $data['ShowMapLink'] ) );
+		update_post_meta( $venue_id, '_EventShowMap', isset( $data['ShowMap'] ) );
+		update_post_meta( $venue_id, '_VenueShowMapLink', isset( $data['ShowMapLink'] ) );
+		update_post_meta( $venue_id, '_VenueShowMap', isset( $data['ShowMap'] ) );
+		unset( $data['ShowMapLink'] );
+		unset( $data['ShowMap'] );
 
 		if ( isset( $data['FeaturedImage'] ) && ! empty( $data['FeaturedImage'] ) ) {
 			update_post_meta( $venue_id, '_thumbnail_id', $data['FeaturedImage'] );
@@ -306,29 +313,79 @@ class Tribe__Events__Venue {
 	 *
 	 * @param array  $data        The venue data.
 	 * @param string $post_status the intended post status.
+	 * @param bool $avoid_duplicates Whether a check to avoid the insertion of a duplicate venue
+	 *                               should be made (`true`) or not (`false`).
 	 *
 	 * @return int
 	 */
-	public function create( $data, $post_status = 'publish' ) {
+	public function create( $data, $post_status = 'publish', $avoid_duplicates = false ) {
+		/**
+		 * Filters the ID of the generated venue before the class creates it.
+		 *
+		 * If a non `null` value is returned that will be returned and the venue creation process will bail.
+		 *
+		 * @param mixed $check Whether the venue insertion process should procede or not.
+		 * @param array $data The data provided to create the venue.
+		 * @param string $post_status The post status that should be applied to the created venue.
+		 *
+		 * @since TBD
+		 */
+		$check = apply_filters( 'tribe_events_tribe_venue_create', null, $data, $post_status );
+
+		if ( null !== $check ) {
+			return $check;
+		}
 
 		if ( ( isset( $data['Venue'] ) && $data['Venue'] ) || $this->has_venue_data( $data ) ) {
 			$title   = isset( $data['Venue'] ) ? $data['Venue'] : esc_html__( 'Unnamed Venue', 'the-events-calendar' );
 			$content = isset( $data['Description'] ) ? $data['Description'] : '';
 			$slug    = sanitize_title( $title );
 
+			$data = new Tribe__Data( $data, false );
+
 			$postdata = array(
-				'post_title'  => $title,
-				'post_content' => $content,
-				'post_name'   => $slug,
-				'post_type'   => self::POSTTYPE,
-				'post_status' => $post_status,
+				'post_title'    => $title,
+				'post_content'  => $content,
+				'post_name'     => $slug,
+				'post_type'     => self::POSTTYPE,
+				'post_status'   => Tribe__Utils__Array::get( $data, 'post_status', $post_status ),
+				'post_author'   => $data['post_author'],
+				'post_date'     => $data['post_date'],
+				'post_date_gmt' => $data['post_date_gmt'],
 			);
 
-			$venue_id = wp_insert_post( $postdata, true );
+			$found = false;
+			if ( $avoid_duplicates ) {
+				/** @var Tribe__Duplicate__Post $duplicates */
+				$duplicates = tribe( 'post-duplicate' );
+				$duplicates->use_post_fields( $this->get_duplicate_post_fields() );
+				$duplicates->use_custom_fields( $this->get_duplicate_custom_fields() );
+
+				// for the purpose of finding duplicates we skip empty fields
+				$candidate_data = array_filter( $postdata );
+				$candidate_data = array_combine(
+					array_map( array( $this, 'prefix_key' ), array_keys( $candidate_data ) ),
+					array_values( $candidate_data )
+				);
+
+				$found = $duplicates->find_for( $candidate_data );
+			}
+
+			$venue_id = false === $found
+				? wp_insert_post( array_filter( $postdata ), true )
+				: $found;
 
 			// By default, the show map and show map link options should be on
-			$data['ShowMap'] = isset( $data['ShowMap'] ) ? $data['ShowMap'] : 'true';
-			$data['ShowMapLink'] = isset( $data['ShowMapLink'] ) ? $data['ShowMapLink'] : 'true';
+			if ( isset( $data['ShowMap'] ) && ! tribe_is_truthy( $data['ShowMap'] ) ) {
+				unset( $data['ShowMap'] );
+			} else {
+				$data['ShowMap'] = true;
+			}
+			if ( isset( $data['ShowMapLink'] ) && ! tribe_is_truthy( $data['ShowMapLink'] ) ) {
+				unset( $data['ShowMapLink'] );
+			} else {
+				$data['ShowMapLink'] = true;
+			}
 
 			if ( ! is_wp_error( $venue_id ) ) {
 				$this->save_meta( $venue_id, $data );
@@ -449,5 +506,79 @@ class Tribe__Events__Venue {
 		 * @param string $template Template path
 		 */
 		include apply_filters( 'tribe_events_tribe_venue_new_form_fields', $template );
+	}
+
+	/**
+	 * Returns an array of post fields that should be used to spot possible duplicates.
+	 *
+	 * @return array An array of post fields to matching strategy in the format
+	 *               [ <post_field> => [ 'match' => <strategy> ] ]
+	 *
+	 * @see Tribe__Duplicate__Strategy_Factory for supported strategies
+	 */
+	protected function get_duplicate_post_fields() {
+		$fields = array(
+			'post_title'   => array( 'match' => 'same' ),
+			'post_content' => array( 'match' => 'same' ),
+		);
+
+		/**
+		 * Filters the post fields that should be used to search for a venue duplicate.
+		 *
+		 * @param array $fields An array associating the custom field meta key to the strategy definition.
+		 *
+		 * @see   Tribe__Duplicate__Strategy_Factory
+		 *
+		 * @since TBD
+		 */
+		return apply_filters( 'tribe_event_venue_duplicate_post_fields', $fields );
+	}
+
+	/**
+	 * Returns an array of post custom fields that should be used to spot possible duplicates.
+	 *
+	 * @return array An array of post fields to matching strategy in the format
+	 *               [ <custom_field> => [ 'match' => <strategy> ] ]
+	 *
+	 * @see Tribe__Duplicate__Strategy_Factory for supported strategies
+	 */
+	protected function get_duplicate_custom_fields() {
+		$fields = array(
+			'_VenueAddress'       => array( 'match' => 'like' ),
+			'_VenueCity'          => array( 'match' => 'same' ),
+			'_VenueProvince'      => array( 'match' => 'same' ),
+			'_VenueState'         => array( 'match' => 'same' ),
+			'_VenueStateProvince' => array( 'match' => 'same' ),
+			'_VenueZip'           => array( 'match' => 'same' ),
+			'_VenuePhone'         => array( 'match' => 'same' ),
+		);
+
+		/**
+		 * Filters the custom fields that should be used to search for a venue duplicate.
+		 *
+		 * @param array $fields An array associating the custom field meta key to the strategy definition.
+		 *
+		 * @see   Tribe__Duplicate__Strategy_Factory
+		 *
+		 * @since TBD
+		 */
+		return apply_filters( 'tribe_event_venue_duplicate_custom_fields', $fields );
+	}
+
+	/**
+	 * Prefixes a key with the correct meta key prefix if needed.
+	 *
+	 * @param string $key
+	 *
+	 * @return string
+	 */
+	protected function prefix_key( $key ) {
+		$prefixable_keys = self::$valid_venue_keys;
+		unset( $prefixable_keys['Venue'] );
+		if ( 0 !== strpos( $key, $this->meta_prefix ) && in_array( $key, $prefixable_keys ) ) {
+			return $this->meta_prefix . $key;
+		}
+
+		return $key;
 	}
 }

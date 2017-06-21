@@ -89,4 +89,62 @@ class Single_OrganizerTest extends WPRestApiTestCase {
 
 		$this->assertErrorResponse( 'organizer-not-accessible', $response, 403 );
 	}
+
+	/**
+	 * It should allow inserting a organizer
+	 *
+	 * @test
+	 */
+	public function it_should_allow_inserting_a_organizer() {
+		$data = [
+			'organizer' => 'A organizer',
+			'phone'     => 'Organizer phone',
+			'email'     => 'doe@john.com',
+			'website'   => 'http://organizer.com',
+		];
+		$request = new \WP_REST_Request();
+		foreach ( $data as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		$sut = $this->make_instance();
+		$response = $sut->post( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+	}
+
+	/**
+	 * It should return WP_Error if organizer could not be created
+	 *
+	 * @test
+	 */
+	public function it_should_return_wp_error_if_organizer_could_not_be_created() {
+		$request = new \WP_REST_Request();
+		$request->set_param( 'organizer', 'A organizer' );
+		add_filter( 'tribe_events_tribe_organizer_create', function () {
+			return false;
+		} );
+
+		$sut = $this->make_instance();
+		/** @var \WP_Error $response */
+		$response = $sut->post( $request );
+
+		$this->assertWPError( $response );
+		$this->assertEquals( 'could-not-create-organizer', $response->get_error_code() );
+	}
+
+	/**
+	 * It should return the inserted organizer ID when requesting just the organizer ID
+	 *
+	 * @test
+	 */
+	public function it_should_return_the_inserted_organizer_id_when_requesting_just_the_organizer_id() {
+		$request = new \WP_REST_Request();
+		$request->set_param( 'organizer', 'A organizer' );
+
+		$sut = $this->make_instance();
+		$response = $sut->post( $request, true );
+
+		$this->assertTrue( tribe_is_organizer( $response ) );
+	}
 }

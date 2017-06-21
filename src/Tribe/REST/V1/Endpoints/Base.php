@@ -20,7 +20,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	 *
 	 * @return array The converted arguments.
 	 */
-	public function swaggerize_args( array $args = [], array $defaults = [] ) {
+	public function swaggerize_args( array $args = array(), array $defaults = array() ) {
 		if ( empty( $args ) ) {
 			return $args;
 		}

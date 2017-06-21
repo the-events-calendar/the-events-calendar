@@ -3,7 +3,9 @@
 
 class Tribe__Events__REST__V1__Endpoints__Single_Event
 	extends Tribe__Events__REST__V1__Endpoints__Base
-	implements Tribe__REST__Endpoints__GET_Endpoint_Interface, Tribe__REST__Endpoints__POST_Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface {
+	implements Tribe__REST__Endpoints__GET_Endpoint_Interface,
+	Tribe__REST__Endpoints__POST_Endpoint_Interface,
+	Tribe__Documentation__Swagger__Provider_Interface {
 
 	/**
 	 * @var Tribe__REST__Main
@@ -303,11 +305,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		$can_edit_others_posts = current_user_can( $post_object->cap->edit_others_posts );
 		$events_cat = Tribe__Events__Main::TAXONOMY;
 
+		$post_data = isset( $request['date'] ) ? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ) : false;
+		$post_date_gmt = isset( $request['date_utc'] ) ? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ) : false;
+
 		$postarr = array(
 			// Post fields
 			'post_author'           => $request['author'],
-			'post_date'             => Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ),
-			'post_date_gmt'         => Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ),
+			'post_date'             => $post_data,
+			'post_date_gmt'         => $post_date_gmt,
 			'post_title'            => $request['title'],
 			'post_content'          => $request['description'],
 			'post_excerpt'          => $request['excerpt'],
@@ -374,5 +379,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		$response->set_status( 201 );
 
 		return $response;
+	}
+
+	/**
+	 * @return bool Whether the current user can post or not.
+	 */
+	public function can_post() {
+		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
+
+		return current_user_can( $cap );
 	}
 }

@@ -18,6 +18,11 @@ class Tribe__Events__Organizer {
 		'exclude_from_search' => true,
 	);
 
+	/**
+	 * @var string
+	 */
+	protected $meta_prefix = '_Organizer';
+
 	public static $valid_keys = array(
 		'Organizer',
 		'Phone',
@@ -293,10 +298,29 @@ class Tribe__Events__Organizer {
 	 *
 	 * @param array  $data        The organizer data.
 	 * @param string $post_status the intended post status.
+	 * @param bool $avoid_duplicates Whether a check to avoid the insertion of a duplicate organizer
+	 *                               should be made (`true`) or not (`false`).
 	 *
 	 * @return mixed
 	 */
-	public function create( $data, $post_status = 'publish' ) {
+	public function create( $data, $post_status = 'publish', $avoid_duplicates = false ) {
+		/**
+		 * Filters the ID of the generated organizer before the class creates it.
+		 *
+		 * If a non `null` value is returned that will be returned and the organizer creation process will bail.
+		 *
+		 * @param mixed $check Whether the organizer insertion process should procede or not.
+		 * @param array $data The data provided to create the organizer.
+		 * @param string $post_status The post status that should be applied to the created organizer.
+		 *
+		 * @since TBD
+		 */
+		$check = apply_filters( 'tribe_events_tribe_organizer_create', null, $data, $post_status );
+
+		if ( null !== $check ) {
+			return $check;
+		}
+
 		if ( ( isset( $data['Organizer'] ) && $data['Organizer'] ) || $this->has_organizer_data( $data ) ) {
 
 			$organizer_label = tribe_get_organizer_label_singular();
@@ -305,15 +329,39 @@ class Tribe__Events__Organizer {
 			$content = isset( $data['Description'] ) ? $data['Description'] : '';
 			$slug    = sanitize_title( $title );
 
+			$data = new Tribe__Data( $data, false );
+
 			$postdata = array(
-				'post_title'   => $title,
-				'post_content' => $content,
-				'post_name'    => $slug,
-				'post_type'    => self::POSTTYPE,
-				'post_status'  => $post_status,
+				'post_title'    => $title,
+				'post_content'  => $content,
+				'post_name'     => $slug,
+				'post_type'     => self::POSTTYPE,
+				'post_status'   => Tribe__Utils__Array::get( $data, 'post_status', $post_status ),
+				'post_author'   => $data['post_author'],
+				'post_date'     => $data['post_date'],
+				'post_date_gmt' => $data['post_date_gmt'],
 			);
 
-			$organizer_id = wp_insert_post( $postdata, true );
+			$found = false;
+			if ( $avoid_duplicates ) {
+				/** @var Tribe__Duplicate__Post $duplicates */
+				$duplicates = tribe( 'post-duplicate' );
+				$duplicates->use_post_fields( $this->get_duplicate_post_fields() );
+				$duplicates->use_custom_fields( $this->get_duplicate_custom_fields() );
+
+				// for the purpose of finding duplicates we skip empty fields
+				$candidate_data = array_filter( $postdata );
+				$candidate_data = array_combine(
+					array_map( array( $this, 'prefix_key' ), array_keys( $candidate_data ) ),
+					array_values( $candidate_data )
+				);
+
+				$found = $duplicates->find_for( $candidate_data );
+			}
+
+			$organizer_id = false === $found
+				? wp_insert_post( array_filter( $postdata ), true )
+				: $found;
 
 			if ( ! is_wp_error( $organizer_id ) ) {
 				$this->save_meta( $organizer_id, $data );
@@ -421,5 +469,75 @@ class Tribe__Events__Organizer {
 		 * @param string $template Template path
 		 */
 		include apply_filters( 'tribe_events_tribe_organizer_new_form_fields', $template );
+	}
+
+	/**
+	 * Returns an array of post fields that should be used to spot possible duplicates.
+	 *
+	 * @return array An array of post fields to matching strategy in the format
+	 *               [ <post_field> => [ 'match' => <strategy> ] ]
+	 *
+	 * @see Tribe__Duplicate__Strategy_Factory for supported strategies
+	 */
+	protected function get_duplicate_post_fields() {
+		$fields = array(
+			'post_title'   => array( 'match' => 'same' ),
+			'post_content' => array( 'match' => 'same' ),
+		);
+
+		/**
+		 * Filters the post fields that should be used to search for a organizer duplicate.
+		 *
+		 * @param array $fields An array associating the custom field meta key to the strategy definition.
+		 *
+		 * @see   Tribe__Duplicate__Strategy_Factory
+		 *
+		 * @since TBD
+		 */
+		return apply_filters( 'tribe_event_venue_duplicate_post_fields', $fields );
+	}
+
+	/**
+	 * Returns an array of post custom fields that should be used to spot possible duplicates.
+	 *
+	 * @return array An array of post fields to matching strategy in the format
+	 *               [ <custom_field> => [ 'match' => <strategy> ] ]
+	 *
+	 * @see Tribe__Duplicate__Strategy_Factory for supported strategies
+	 */
+	protected function get_duplicate_custom_fields() {
+		$fields = array(
+			'_OrganizerPhone'   => array( 'match' => 'same' ),
+			'_OrganizerEmail'   => array( 'match' => 'same' ),
+			'_OrganizerWebsite' => array( 'match' => 'same' ),
+		);
+
+		/**
+		 * Filters the custom fields that should be used to search for a organizer duplicate.
+		 *
+		 * @param array $fields An array associating the custom field meta key to the strategy definition.
+		 *
+		 * @see   Tribe__Duplicate__Strategy_Factory
+		 *
+		 * @since TBD
+		 */
+		return apply_filters( 'tribe_event_organizer_duplicate_custom_fields', $fields );
+	}
+
+	/**
+	 * Prefixes a key with the correct meta key prefix if needed.
+	 *
+	 * @param string $key
+	 *
+	 * @return string
+	 */
+	protected function prefix_key( $key ) {
+		$prefixable_keys = self::$valid_keys;
+		unset( $prefixable_keys['Organizer'] );
+		if ( 0 !== strpos( $key, $this->meta_prefix ) && in_array( $key, $prefixable_keys ) ) {
+			return $this->meta_prefix . $key;
+		}
+
+		return $key;
 	}
 }

@@ -282,7 +282,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$args = [
 			'id' => [
 				'in'                => 'path',
-				'type'              => 'integer',
+				'swagger_type'              => 'integer',
 				'required'          => true,
 				'validate_callback' => [ $this->validator, 'is_event_id' ]
 			],

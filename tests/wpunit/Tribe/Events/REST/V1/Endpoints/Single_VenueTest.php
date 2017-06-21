@@ -89,4 +89,113 @@ class Single_VenueTest extends WPRestApiTestCase {
 
 		$this->assertErrorResponse( 'venue-not-accessible', $response, 403 );
 	}
+
+	/**
+	 * It should allow inserting a venue
+	 *
+	 * @test
+	 */
+	public function it_should_allow_inserting_a_venue() {
+		$data = [
+			'venue'         => 'A venue',
+			'show_map'      => false,
+			'show_map_link' => false,
+			'address'       => 'Venue address',
+			'city'          => 'Venue city',
+			'country'       => 'Venue country',
+			'province'      => 'Venue province',
+			'state'         => 'Venue state',
+			'stateprovince' => 'Venue stateprovince',
+			'zip'           => 'Venue zip',
+			'phone'         => 'Venue phone',
+			'website'       => 'http://venue.com',
+		];
+		$request = new \WP_REST_Request();
+		foreach ( $data as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		$sut = $this->make_instance();
+		$response = $sut->post( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+	}
+
+	/**
+	 * It should properly set boolean meta fields
+	 *
+	 * @test
+	 */
+	public function it_should_properly_set_boolean_meta_fields() {
+		$data = [
+			'venue'         => 'A venue',
+			'show_map'      => false,
+			'show_map_link' => false,
+		];
+
+		$request = new \WP_REST_Request();
+		foreach ( $data as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		$sut = $this->make_instance();
+		$response = $sut->post( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertFalse( $response->data['show_map'] );
+		$this->assertFalse( $response->data['show_map_link'] );
+
+		$data = [
+			'venue'         => 'A second venue',
+			'show_map'      => true,
+			'show_map_link' => true,
+		];
+
+		$request = new \WP_REST_Request();
+		foreach ( $data as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		$sut = $this->make_instance();
+		$response = $sut->post( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertTrue( $response->data['show_map'] );
+		$this->assertTrue( $response->data['show_map_link'] );
+	}
+
+	/**
+	 * It should return WP_Error if venue could not be created
+	 *
+	 * @test
+	 */
+	public function it_should_return_wp_error_if_venue_could_not_be_created() {
+		$request = new \WP_REST_Request();
+		$request->set_param( 'venue', 'A venue' );
+		add_filter( 'tribe_events_tribe_venue_create', function () {
+			return false;
+		} );
+
+		$sut = $this->make_instance();
+		/** @var \WP_Error $response */
+		$response = $sut->post( $request );
+
+		$this->assertWPError( $response );
+		$this->assertEquals( 'could-not-create-venue', $response->get_error_code() );
+	}
+
+	/**
+	 * It should return the inserted venue ID when requesting just the venue ID
+	 *
+	 * @test
+	 */
+	public function it_should_return_the_inserted_venue_id_when_requesting_just_the_venue_id() {
+		$request = new \WP_REST_Request();
+		$request->set_param( 'venue', 'A venue' );
+
+		$sut = $this->make_instance();
+		$response = $sut->post( $request, true );
+
+		$this->assertTrue( tribe_is_venue( $response ) );
+	}
 }

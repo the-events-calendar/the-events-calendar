@@ -203,9 +203,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 			$namespace,
 			'/events',
 			array(
-				'methods'  => 'POST',
-				'args'     => $endpoint->POST_args(),
-				'callback' => array( $endpoint, 'post' ),
+				'methods'             => 'POST',
+				'args'                => $endpoint->POST_args(),
+				'permission_callback' => array( $endpoint, 'can_post' ),
+				'callback'            => array( $endpoint, 'post' ),
 			)
 		);
 
@@ -319,6 +320,17 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 			)
 		);
 
+		register_rest_route(
+			$namespace,
+			'/venues',
+			array(
+				'methods'  => 'POST',
+				'args'     => $endpoint->POST_args(),
+				'permission_callback' => array( $endpoint, 'can_post' ),
+				'callback' => array( $endpoint, 'post' ),
+			)
+		);
+
 		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/venues/{id}', $endpoint );
 	}
 
@@ -345,6 +357,17 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 				'methods'  => 'GET',
 				'args'     => $endpoint->GET_args(),
 				'callback' => array( $endpoint, 'get' ),
+			)
+		);
+
+		register_rest_route(
+			$namespace,
+			'/organizers',
+			array(
+				'methods'  => 'POST',
+				'args'     => $endpoint->POST_args(),
+				'permission_callback' => array( $endpoint, 'can_post' ),
+				'callback' => array( $endpoint, 'post' ),
 			)
 		);
 
