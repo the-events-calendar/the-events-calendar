@@ -7,7 +7,8 @@
  */
 class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	extends Tribe__Events__REST__V1__Endpoints__Linked_Post_Base
-	implements Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface {
+	implements Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface,
+	Tribe__Documentation__Swagger__Provider_Interface {
 	/**
 	 * @var string
 	 */
@@ -126,7 +127,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 * @since bucket/full-rest-api
 	 */
 	public function get_documentation() {
-		$GET_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
+		$GET_defaults = $DELETE_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
 		$POST_defaults = array( 'in' => 'body', 'default' => '', 'type' => 'string' );
 
 		return array(
@@ -164,6 +165,29 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 					),
 					'403' => array(
 						'description' => __( 'The user is not authorized to create venues', 'the-events-calendar' ),
+					),
+				),
+			),
+			'delete'  => array(
+				'parameters' => $this->swaggerize_args( $this->DELETE_args(), $DELETE_defaults ),
+				'responses'  => array(
+					'200' => array(
+						'description' => __( 'Deletes a venue and returns its data', 'the-event-calendar' ),
+						'schema'      => array(
+							'$ref' => '#/definitions/Venue',
+						),
+					),
+					'400' => array(
+						'description' => __( 'The venue post ID is missing or does not exist.', 'the-venues-calendar' ),
+					),
+					'403' => array(
+						'description' => __( 'The current user cannot delete the venue with the specified ID.', 'the-venues-calendar' ),
+					),
+					'410' => array(
+						'description' => __( 'The venue with the specified ID has been deleted already.', 'the-venues-calendar' ),
+					),
+					'500' => array(
+						'description' => __( 'The venue with the specified ID could not be deleted.', 'the-venues-calendar' ),
 					),
 				),
 			),
@@ -252,6 +276,72 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 */
 	public function can_post() {
 		$cap = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_posts;
+
+		return current_user_can( $cap );
+	}
+
+	/**
+	 * Handles DELETE requests on the endpoint.
+	 *
+	 * @param WP_REST_Request $request
+	 *
+	 * @return WP_Error|WP_REST_Response An array containing the data of the trashed post on
+	 *                                   success or a WP_Error instance on failure.
+	 */
+	public function delete( WP_REST_Request $request ) {
+		$venue_id = $request['id'];
+
+		$venue = get_post( $venue_id );
+
+		if ( 'trash' === $venue->post_status ) {
+			$message = $this->messages->get_message( 'venue-is-in-trash' );
+
+			return new WP_Error( 'venue-is-in-trash', $message, array( 'status' => 410 ) );
+		}
+
+		/**
+		 * Filters the venue delete operation.
+		 *
+		 * Returning a non `null` value here will override the default trashing operation.
+		 *
+		 * @param int|bool        $deleted Whether the venue was successfully deleted or not.
+		 * @param WP_REST_Request $request The original API request.
+		 *
+		 * @since TBD
+		 */
+		$deleted = apply_filters( 'tribe_venues_rest_venue_delete', null, $request );
+		if ( null === $deleted ) {
+			$deleted = wp_trash_post( $venue_id );
+		}
+
+		if ( false === $deleted ) {
+			$message = $this->messages->get_message( 'could-not-delete-venue' );
+
+			return new WP_Error( 'could-not-delete-venue', $message, array( 'status' => 500 ) );
+		}
+
+		$data = $this->post_repository->get_venue_data( $venue_id );
+
+		return is_wp_error( $data ) ? $data : new WP_REST_Response( $data );
+	}
+
+	/**
+	 * Returns the content of the `args` array that should be used to register the endpoint
+	 * with the `register_rest_route` function.
+	 *
+	 * @return array
+	 */
+	public function DELETE_args() {
+		return $this->GET_args();
+	}
+
+	/**
+	 * Whether the current user can delete posts of the type managed by the endpoint or not.
+	 *
+	 * @return bool
+	 */
+	public function can_delete() {
+		$cap = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->delete_posts;
 
 		return current_user_can( $cap );
 	}

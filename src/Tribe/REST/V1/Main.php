@@ -321,9 +321,17 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 			$namespace,
 			'/venues/(?P<id>\\d+)',
 			array(
-				'methods'  => 'GET',
-				'args'     => $endpoint->GET_args(),
-				'callback' => array( $endpoint, 'get' ),
+				array(
+					'methods'  => 'GET',
+					'args'     => $endpoint->GET_args(),
+					'callback' => array( $endpoint, 'get' ),
+				),
+				array(
+					'methods'             => 'DELETE',
+					'args'                => $endpoint->DELETE_args(),
+					'permission_callback' => array( $endpoint, 'can_delete' ),
+					'callback'            => array( $endpoint, 'delete' ),
+				),
 			)
 		);
 
@@ -361,9 +369,17 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 			$namespace,
 			'/organizers/(?P<id>\\d+)',
 			array(
-				'methods'  => 'GET',
-				'args'     => $endpoint->GET_args(),
-				'callback' => array( $endpoint, 'get' ),
+				array(
+					'methods'  => 'GET',
+					'args'     => $endpoint->GET_args(),
+					'callback' => array( $endpoint, 'get' ),
+				),
+				array(
+					'methods'             => 'DELETE',
+					'args'                => $endpoint->DELETE_args(),
+					'permission_callback' => array( $endpoint, 'can_delete' ),
+					'callback'            => array( $endpoint, 'delete' ),
+				),
 			)
 		);
 
