@@ -69,7 +69,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'id'                     => $event_id,
 			'global_id'              => false,
 			'global_id_lineage'      => array(),
-			'id'                     => $event_id,
 			'author'                 => $event->post_author,
 			'date'                   => $event->post_date,
 			'date_utc'               => $event->post_date_gmt,

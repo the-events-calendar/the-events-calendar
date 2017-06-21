@@ -2,7 +2,9 @@
 
 
 interface Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface
-	extends Tribe__REST__Endpoints__GET_Endpoint_Interface, Tribe__REST__Endpoints__POST_Endpoint_Interface {
+	extends Tribe__REST__Endpoints__GET_Endpoint_Interface,
+	Tribe__REST__Endpoints__POST_Endpoint_Interface,
+	Tribe__REST__Endpoints__DELETE_Endpoint_Interface {
 
 	/**
 	 * Inserts a post of the linked post type provided the linked post data or post ID.

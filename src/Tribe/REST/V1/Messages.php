@@ -30,6 +30,12 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 			'invalid-linked-post-id'          => __( 'The provided linked post ID is not valid', 'the-events-calendar' ),
 			'venue-not-accessible'            => __( 'The requested venue is not accessible', 'the-events-calendar' ),
 			'organizer-not-accessible'        => __( 'The requested organizer is not accessible', 'the-events-calendar' ),
+			'could-not-delete-event'          => __( 'The event could not be deleted', 'the-events-calendar' ),
+			'event-is-in-trash'               => __( 'The event is already trashed', 'the-events-calendar' ),
+			'could-not-delete-venue'          => __( 'The venue could not be deleted', 'the-venues-calendar' ),
+			'venue-is-in-trash'               => __( 'The venue is already trashed', 'the-venues-calendar' ),
+			'could-not-delete-organizer'      => __( 'The organizer could not be deleted', 'the-organizers-calendar' ),
+			'organizer-is-in-trash'           => __( 'The organizer is already trashed', 'the-organizers-calendar' ),
 		);
 	}
 

@@ -5,6 +5,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	extends Tribe__Events__REST__V1__Endpoints__Base
 	implements Tribe__REST__Endpoints__GET_Endpoint_Interface,
 	Tribe__REST__Endpoints__POST_Endpoint_Interface,
+	Tribe__REST__Endpoints__DELETE_Endpoint_Interface,
 	Tribe__Documentation__Swagger__Provider_Interface {
 
 	/**
@@ -93,7 +94,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
-		$GET_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
+		$GET_defaults = $DELETE_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
 		$POST_defaults = array( 'in' => 'body', 'default' => '', 'type' => 'string' );
 
 		return array(
@@ -131,6 +132,29 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 					),
 					'403' => array(
 						'description' => __( 'The user is not authorized to create events', 'the-events-calendar' ),
+					),
+				),
+			),
+			'delete'  => array(
+				'parameters' => $this->swaggerize_args( $this->DELETE_args(), $DELETE_defaults ),
+				'responses'  => array(
+					'200' => array(
+						'description' => __( 'Deletes an event and returns its data', 'the-event-calendar' ),
+						'schema'      => array(
+							'$ref' => '#/definitions/Event',
+						),
+					),
+					'400' => array(
+						'description' => __( 'The event post ID is missing or does not exist.', 'the-events-calendar' ),
+					),
+					'403' => array(
+						'description' => __( 'The current user cannot delete the event with the specified ID.', 'the-events-calendar' ),
+					),
+					'410' => array(
+						'description' => __( 'The event with the specified ID has been deleted already.', 'the-events-calendar' ),
+					),
+					'500' => array(
+						'description' => __( 'The event with the specified ID could not be deleted.', 'the-events-calendar' ),
 					),
 				),
 			),
@@ -386,6 +410,72 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 */
 	public function can_post() {
 		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
+
+		return current_user_can( $cap );
+	}
+
+	/**
+	 * Returns the content of the `args` array that should be used to register the endpoint
+	 * with the `register_rest_route` function.
+	 *
+	 * @return array
+	 */
+	public function DELETE_args() {
+		return $this->GET_args();
+	}
+
+	/**
+	 * Handles DELETE requests on the endpoint.
+	 *
+	 * @param WP_REST_Request $request
+	 *
+	 * @return WP_Error|WP_REST_Response An array containing the data of the trashed post on
+	 *                                   success or a WP_Error instance on failure.
+	 */
+	public function delete( WP_REST_Request $request ) {
+		$event_id = $request['id'];
+
+		$event = get_post( $event_id );
+
+		if ( 'trash' === $event->post_status ) {
+			$message = $this->messages->get_message( 'event-is-in-trash' );
+
+			return new WP_Error( 'event-is-in-trash', $message, array( 'status' => 410 ) );
+		}
+
+		/**
+		 * Filters the event delete operation.
+		 *
+		 * Returning a non `null` value here will override the default trashing operation.
+		 *
+		 * @param int|bool        $deleted Whether the event was successfully deleted or not.
+		 * @param WP_REST_Request $request The original API request.
+		 *
+		 * @since TBD
+		 */
+		$deleted = apply_filters( 'tribe_events_rest_event_delete', null, $request );
+		if ( null === $deleted ) {
+			$deleted = wp_trash_post( $event_id );
+		}
+
+		if ( false === $deleted ) {
+			$message = $this->messages->get_message( 'could-not-delete-event' );
+
+			return new WP_Error( 'could-not-delete-event', $message, array( 'status' => 500 ) );
+		}
+
+		$data = $this->post_repository->get_event_data( $event_id );
+
+		return is_wp_error( $data ) ? $data : new WP_REST_Response( $data );
+	}
+
+	/**
+	 * Whether the current user can delete posts of the type managed by the endpoint or not.
+	 *
+	 * @return bool
+	 */
+	public function can_delete() {
+		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->delete_posts;
 
 		return current_user_can( $cap );
 	}

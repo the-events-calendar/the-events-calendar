@@ -301,4 +301,59 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$this->assertEqualSets( $expected, $sut->swaggerize_args( $args, [ 'description' => 'No description', 'default' => 'foo' ] ) );
 	}
+
+	/**
+	 * It should allow deleting an event
+	 * @test
+	 */
+	public function it_should_allow_deleting_an_event() {
+		$id = $this->factory()->event->create();
+
+		$request = new \WP_REST_Request();
+		$request->set_param( 'id', $id );
+
+		$sut      = $this->make_instance();
+		$response = $sut->delete( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$data = $response->get_data();
+		$this->assertEquals( 'trash', ( get_post( $id )->post_status ) );
+		$this->assertEquals( $id, $data['id'] );
+	}
+
+	/**
+	 * It should return error if event has been deleted already
+	 * @test
+	 */
+	public function it_should_return_error_if_event_has_been_deleted_already() {
+		$id = $this->factory()->event->create();
+		wp_trash_post( $id );
+
+		$request = new \WP_REST_Request();
+		$request->set_param( 'id', $id );
+
+		$sut      = $this->make_instance();
+		$response = $sut->delete( $request );
+
+		$this->assertInstanceOf( \WP_Error::class, $response );
+		$this->assertEquals( 'event-is-in-trash', $response->get_error_code() );
+	}
+
+	/**
+	 * It should return an error if event cannot be trashed
+	 * @test
+	 */
+	public function it_should_return_an_error_if_event_cannot_be_trashed() {
+		$id = $this->factory()->event->create();
+
+		add_filter( 'tribe_events_rest_event_delete', '__return_false' );
+		$request = new \WP_REST_Request();
+		$request->set_param( 'id', $id );
+
+		$sut      = $this->make_instance();
+		$response = $sut->delete( $request );
+
+		$this->assertInstanceOf( \WP_Error::class, $response );
+		$this->assertEquals( 'could-not-delete-event', $response->get_error_code() );
+	}
 }
