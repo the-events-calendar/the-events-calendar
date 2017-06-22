@@ -7,7 +7,7 @@
  */
 class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	extends Tribe__Events__REST__V1__Endpoints__Linked_Post_Base
-	implements Tribe__Events__REST__V1__Endpoints__Linked_CREATE_Endpoint_Interface,
+	implements Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface,
 	Tribe__Documentation__Swagger__Provider_Interface {
 
 	/**

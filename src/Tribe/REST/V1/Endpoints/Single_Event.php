@@ -29,29 +29,30 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	protected $validator;
 
 	/**
-	 * @var Tribe__Events__REST__V1__Endpoints__Linked_CREATE_Endpoint_Interface
+	 * @var Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface
 	 */
 	protected $venue_endpoint;
 
 	/**
-	 * @var Tribe__Events__REST__V1__Endpoints__Linked_CREATE_Endpoint_Interface
+	 * @var Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface
 	 */
 	protected $organizer_endpoint;
 
 	/**
 	 * Tribe__Events__REST__V1__Endpoints__Single_Event constructor.
 	 *
-	 * @param Tribe__REST__Messages_Interface                                      $messages
-	 * @param Tribe__Events__REST__Interfaces__Post_Repository                     $post_repository
-	 * @param Tribe__Events__REST__V1__Validator__Interface                        $validator
-	 * @param Tribe__Events__REST__V1__Endpoints__Linked_CREATE_Endpoint_Interface $venue_endpoint
+	 * @param Tribe__REST__Messages_Interface                                    $messages
+	 * @param Tribe__Events__REST__Interfaces__Post_Repository                   $post_repository
+	 * @param Tribe__Events__REST__V1__Validator__Interface                      $validator
+	 * @param Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $venue_endpoint
+	 * @param Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $organizer_endpoint
 	 */
 	public function __construct(
 		Tribe__REST__Messages_Interface $messages,
 		Tribe__Events__REST__Interfaces__Post_Repository $post_repository,
 		Tribe__Events__REST__V1__Validator__Interface $validator,
-		Tribe__Events__REST__V1__Endpoints__Linked_CREATE_Endpoint_Interface $venue_endpoint,
-		Tribe__Events__REST__V1__Endpoints__Linked_CREATE_Endpoint_Interface $organizer_endpoint
+		Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $venue_endpoint,
+		Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $organizer_endpoint
 	) {
 		parent::__construct( $messages );
 		$this->post_repository = $post_repository;

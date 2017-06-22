@@ -15,7 +15,7 @@ class Tribe__Events__REST__V1__Validator__Base
 		}
 
 		$request = new WP_REST_Request();
-		/** @var Tribe__Events__REST__V1__Endpoints__Linked_CREATE_Endpoint_Interface $venue_endpoint */
+		/** @var Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $venue_endpoint */
 		$venue_endpoint = tribe( 'tec.rest-v1.endpoints.single-venue' );
 
 		$request->set_attributes( array( 'args' => $venue_endpoint->CREATE_args() ) );
@@ -60,7 +60,7 @@ class Tribe__Events__REST__V1__Validator__Base
 			}
 
 			$request = new WP_REST_Request();
-			/** @var Tribe__Events__REST__V1__Endpoints__Linked_CREATE_Endpoint_Interface $organizer_endpoint */
+			/** @var Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $organizer_endpoint */
 			$organizer_endpoint = tribe( 'tec.rest-v1.endpoints.single-organizer' );
 
 			$request->set_attributes( array( 'args' => $organizer_endpoint->CREATE_args() ) );
