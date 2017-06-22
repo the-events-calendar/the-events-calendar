@@ -48,7 +48,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 *
 	 * @since bucket/full-rest-api
 	 */
-	public function post( WP_REST_Request $request, $return_id = false ) {
+	public function create( WP_REST_Request $request, $return_id = false ) {
 		$post_date = isset( $request['date'] ) ? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ) : false;
 		$post_date_gmt = isset( $request['date_utc'] ) ? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ) : false;
 

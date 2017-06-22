@@ -219,7 +219,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 				'methods'             => WP_REST_Server::CREATABLE,
 				'args'                => $endpoint->CREATE_args(),
 				'permission_callback' => array( $endpoint, 'can_post' ),
-				'callback'            => array( $endpoint, 'post' ),
+				'callback'            => array( $endpoint, 'create' ),
 			)
 		);
 
@@ -348,7 +348,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 				'methods'  => WP_REST_Server::CREATABLE,
 				'args'     => $endpoint->CREATE_args(),
 				'permission_callback' => array( $endpoint, 'can_post' ),
-				'callback' => array( $endpoint, 'post' ),
+				'callback' => array( $endpoint, 'create' ),
 			)
 		);
 
@@ -396,7 +396,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 				'methods'  => WP_REST_Server::CREATABLE,
 				'args'     => $endpoint->CREATE_args(),
 				'permission_callback' => array( $endpoint, 'can_post' ),
-				'callback' => array( $endpoint, 'post' ),
+				'callback' => array( $endpoint, 'create' ),
 			)
 		);
 

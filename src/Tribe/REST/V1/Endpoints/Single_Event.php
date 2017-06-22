@@ -98,6 +98,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	public function get_documentation() {
 		$GET_defaults = $DELETE_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
 		$POST_defaults = array( 'in' => 'body', 'default' => '', 'type' => 'string' );
+		$post_args = array_merge( $this->READ_args(), $this->CREATE_args() );
 
 		return array(
 			'get'  => array(
@@ -121,8 +122,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				),
 			),
 			'post' => array(
-				'parameters' => $this->swaggerize_args( $this->CREATE_args(), $POST_defaults ),
+				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
 				'responses'  => array(
+					'200' => array(
+						'description' => __( 'Returns the data of the updated event', 'the-event-calendar' ),
+						'schema'      => array(
+							'$ref' => '#/definitions/Event',
+						),
+					),
 					'201' => array(
 						'description' => __( 'Returns the data of the created event', 'the-event-calendar' ),
 						'schema'      => array(
@@ -323,7 +330,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 *
 	 * @return WP_Error|WP_REST_Response|int An array containing the data on success or a WP_Error instance on failure.
 	 */
-	public function post( WP_REST_Request $request, $return_id = false ) {
+	public function create( WP_REST_Request $request, $return_id = false ) {
 		$this->serving = $request;
 
 		$postarr = $this->prepare_postarr( $request );

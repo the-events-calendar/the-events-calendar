@@ -64,7 +64,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Linked_Post_Base
 			$data_request->set_param( $key, $value );
 		}
 
-		$post_id = $this->post( $data_request, true );
+		$post_id = $this->create( $data_request, true );
 
 		if ( $post_id instanceof WP_Error ) {
 			return $post_id;
