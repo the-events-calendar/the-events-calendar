@@ -338,7 +338,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 * Fix - Removed extra double quotes in organizer link output [71133]
 * Fix - Make the list and day view styles match more closely [63599]
-* Fix - Better sanitization on CSV imports [80311]
+* Fix - Better sanitization on CSV imports (thanks to Valentinos Chouris from NCC Group for reporting this) [80311]
 * Fix - Prevent tabs from being incorrectly escaped in iCal output (props: KZeni) [80452]
 * Fix - Fixed inconsistent font styling of Tribe Bar form labels. [27252]
 * Tweak - Removed unused Javascript (jQuery UI Dialog) to help avoid warnings (our thanks to @gama6889 for flagging this) [80766]
