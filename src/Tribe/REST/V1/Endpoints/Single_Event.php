@@ -3,9 +3,10 @@
 
 class Tribe__Events__REST__V1__Endpoints__Single_Event
 	extends Tribe__Events__REST__V1__Endpoints__Base
-	implements Tribe__REST__Endpoints__GET_Endpoint_Interface,
-	Tribe__REST__Endpoints__POST_Endpoint_Interface,
+	implements Tribe__REST__Endpoints__READ_Endpoint_Interface,
+	Tribe__REST__Endpoints__CREATE_Endpoint_Interface,
 	Tribe__REST__Endpoints__DELETE_Endpoint_Interface,
+    Tribe__REST__Endpoints__UPDATE_Endpoint_Interface,
 	Tribe__Documentation__Swagger__Provider_Interface {
 
 	/**
@@ -28,29 +29,29 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	protected $validator;
 
 	/**
-	 * @var Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface
+	 * @var Tribe__Events__REST__V1__Endpoints__Linked_CREATE_Endpoint_Interface
 	 */
 	protected $venue_endpoint;
 
 	/**
-	 * @var Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface
+	 * @var Tribe__Events__REST__V1__Endpoints__Linked_CREATE_Endpoint_Interface
 	 */
 	protected $organizer_endpoint;
 
 	/**
 	 * Tribe__Events__REST__V1__Endpoints__Single_Event constructor.
 	 *
-	 * @param Tribe__REST__Messages_Interface                                    $messages
-	 * @param Tribe__Events__REST__Interfaces__Post_Repository                   $post_repository
-	 * @param Tribe__Events__REST__V1__Validator__Interface                      $validator
-	 * @param Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $venue_endpoint
+	 * @param Tribe__REST__Messages_Interface                                      $messages
+	 * @param Tribe__Events__REST__Interfaces__Post_Repository                     $post_repository
+	 * @param Tribe__Events__REST__V1__Validator__Interface                        $validator
+	 * @param Tribe__Events__REST__V1__Endpoints__Linked_CREATE_Endpoint_Interface $venue_endpoint
 	 */
 	public function __construct(
 		Tribe__REST__Messages_Interface $messages,
 		Tribe__Events__REST__Interfaces__Post_Repository $post_repository,
 		Tribe__Events__REST__V1__Validator__Interface $validator,
-		Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $venue_endpoint,
-		Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $organizer_endpoint
+		Tribe__Events__REST__V1__Endpoints__Linked_CREATE_Endpoint_Interface $venue_endpoint,
+		Tribe__Events__REST__V1__Endpoints__Linked_CREATE_Endpoint_Interface $organizer_endpoint
 	) {
 		parent::__construct( $messages );
 		$this->post_repository = $post_repository;
@@ -99,7 +100,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 		return array(
 			'get'  => array(
-				'parameters' => $this->swaggerize_args( $this->GET_args(), $GET_defaults ),
+				'parameters' => $this->swaggerize_args( $this->READ_args(), $GET_defaults ),
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Returns the data of the event with the specified post ID', 'the-event-calendar' ),
@@ -119,7 +120,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				),
 			),
 			'post' => array(
-				'parameters' => $this->swaggerize_args( $this->POST_args(), $POST_defaults ),
+				'parameters' => $this->swaggerize_args( $this->CREATE_args(), $POST_defaults ),
 				'responses'  => array(
 					'201' => array(
 						'description' => __( 'Returns the data of the created event', 'the-event-calendar' ),
@@ -166,7 +167,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 *
 	 * @return array
 	 */
-	public function GET_args() {
+	public function READ_args() {
 		return array(
 			'id' => array(
 				'in'                => 'path',
@@ -184,7 +185,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 *
 	 * @return array
 	 */
-	public function POST_args() {
+	public function CREATE_args() {
 		return array(
 			// Post fields
 			'author'             => array(
@@ -421,7 +422,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * @return array
 	 */
 	public function DELETE_args() {
-		return $this->GET_args();
+		return $this->READ_args();
 	}
 
 	/**
@@ -478,5 +479,34 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->delete_posts;
 
 		return current_user_can( $cap );
+	}
+
+	/**
+	 * Handles UPDATE requests on the endpoint.
+	 *
+	 * @param WP_REST_Request $request
+	 *
+	 * @return WP_Error|WP_REST_Response An array containing the data of the updated post on
+	 *                                   success or a WP_Error instance on failure.
+	 */
+	public function update( WP_REST_Request $request ) {
+		// TODO: Implement update() method.
+	}
+
+	/**
+	 * Returns the content of the `args` array that should be used to register the endpoint
+	 * with the `register_rest_route` function.
+	 *
+	 * @return array
+	 */
+	public function EDIT_args() {
+		return array_merge( $this->READ_args(), $this->CREATE_args() );
+	}
+
+	/**
+	 * @return bool Whether the current user can update or not.
+	 */
+	public function can_update() {
+		return $this->can_post();
 	}
 }

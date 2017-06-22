@@ -3,7 +3,7 @@
 
 class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	extends Tribe__Events__REST__V1__Endpoints__Base
-	implements Tribe__REST__Endpoints__GET_Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface {
+	implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface {
 
 	/**
 	 * @var Tribe__Events__REST__Interfaces__Post_Repository
@@ -407,7 +407,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	public function get_documentation() {
 		return array(
 			'get' => array(
-				'parameters' => $this->swaggerize_args( $this->GET_args(), array( 'in' => 'query', 'default' => '' ) ),
+				'parameters' => $this->swaggerize_args( $this->READ_args(), array( 'in' => 'query', 'default' => '' ) ),
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Returns all the upcoming events matching the search criteria', 'the-event-calendar' ),
@@ -434,7 +434,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 *
 	 * @return array
 	 */
-	public function GET_args() {
+	public function READ_args() {
 		return array(
 			'page'       => array(
 				'required'          => false,

@@ -7,7 +7,7 @@
  */
 class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	extends Tribe__Events__REST__V1__Endpoints__Linked_Post_Base
-	implements Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface,
+	implements Tribe__Events__REST__V1__Endpoints__Linked_CREATE_Endpoint_Interface,
 	Tribe__Documentation__Swagger__Provider_Interface {
 
 	/**
@@ -140,7 +140,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 
 		return array(
 			'get'  => array(
-				'parameters' => $this->swaggerize_args( $this->GET_args(), $GET_defaults ),
+				'parameters' => $this->swaggerize_args( $this->READ_args(), $GET_defaults ),
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Returns the data of the organizer with the specified post ID', 'the-event-calendar' ),
@@ -160,7 +160,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 				),
 			),
 			'post' => array(
-				'parameters' => $this->swaggerize_args( $this->POST_args(), $POST_defaults ),
+				'parameters' => $this->swaggerize_args( $this->CREATE_args(), $POST_defaults ),
 				'responses'  => array(
 					'201' => array(
 						'description' => __( 'Returns the data of the created organizer', 'the-event-calendar' ),
@@ -210,7 +210,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 *
 	 * @since bucket/full-rest-api
 	 */
-	public function GET_args() {
+	public function READ_args() {
 		return array(
 			'id' => array(
 				'in'                => 'path',
@@ -230,7 +230,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 *
 	 * @since bucket/full-rest-api
 	 */
-	public function POST_args() {
+	public function CREATE_args() {
 		return array(
 			// Post fields
 			'author'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
@@ -332,7 +332,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 * @return array
 	 */
 	public function DELETE_args() {
-		return $this->GET_args();
+		return $this->READ_args();
 	}
 
 	/**
