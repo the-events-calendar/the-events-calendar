@@ -1,7 +1,8 @@
 <?php
 
 
-abstract class Tribe__Events__REST__V1__Endpoints__Linked_Post_Base extends Tribe__Events__REST__V1__Endpoints__Base {
+abstract class Tribe__Events__REST__V1__Endpoints__Linked_Post_Base
+	extends Tribe__Events__REST__V1__Endpoints__Base {
 	/**
 	 * @var Tribe__Events__REST__Interfaces__Post_Repository
 	 */
@@ -42,7 +43,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Linked_Post_Base extends Trib
 			return false;
 		}
 
-		if ( $this->is_post_type( $data ) ) {
+		if ( is_numeric( $data ) && $this->is_post_type( $data ) ) {
 			return array( $this->get_id_index() => $data );
 		}
 
@@ -56,7 +57,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Linked_Post_Base extends Trib
 		}
 
 		$data_request = new WP_REST_Request();
-		$data_request->set_param( 'args', $this->POST_args() );
+		$data_request->set_param( 'args', $this->CREATE_args() );
 
 		$body_params = (array) $data;
 		foreach ( $body_params as $key => $value ) {

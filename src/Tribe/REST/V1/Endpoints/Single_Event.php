@@ -326,67 +326,10 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	public function post( WP_REST_Request $request, $return_id = false ) {
 		$this->serving = $request;
 
-		$post_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
-		$can_publish = current_user_can( $post_object->cap->publish_posts );
-		$can_edit_others_posts = current_user_can( $post_object->cap->edit_others_posts );
-		$events_cat = Tribe__Events__Main::TAXONOMY;
+		$postarr = $this->prepare_postarr( $request );
 
-		$post_data = isset( $request['date'] ) ? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ) : false;
-		$post_date_gmt = isset( $request['date_utc'] ) ? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ) : false;
-
-		$postarr = array(
-			// Post fields
-			'post_author'           => $request['author'],
-			'post_date'             => $post_data,
-			'post_date_gmt'         => $post_date_gmt,
-			'post_title'            => $request['title'],
-			'post_content'          => $request['description'],
-			'post_excerpt'          => $request['excerpt'],
-			'post_status'           => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
-			// Event data
-			'EventTimezone'         => $request['timezone'],
-			'EventAllDay'           => tribe_is_truthy( $request['all_day'] ),
-			'EventStartDate'        => Tribe__Date_Utils::reformat( $request['start_date'], 'Y-m-d' ),
-			'EventStartTime'        => Tribe__Date_Utils::reformat( $request['start_date'], 'H:i:s' ),
-			'EventEndDate'          => Tribe__Date_Utils::reformat( $request['end_date'], 'Y-m-d' ),
-			'EventEndTime'          => Tribe__Date_Utils::reformat( $request['end_date'], 'H:i:s' ),
-			'FeaturedImage'         => tribe_upload_image( $request['image'] ),
-			'EventCost'             => $request['cost'],
-			'EventCurrencyPosition' => tribe( 'cost-utils' )->parse_currency_position( $request['cost'] ),
-			'EventCurrencySymbol'   => tribe( 'cost-utils' )->parse_currency_symbol( $request['cost'] ),
-			'EventURL'              => filter_var( $request['website'], FILTER_SANITIZE_URL ),
-			// Taxonomies
-			'tax_input'             => array_filter( array(
-				$events_cat => Tribe__Terms::translate_terms_to_ids( $request['categories'], $events_cat ),
-				'post_tag'  => Tribe__Terms::translate_terms_to_ids( $request['tags'], 'post_tag' ),
-			) ),
-		);
-
-		$venue = $this->venue_endpoint->insert( $request['venue'] );
-
-		if ( is_wp_error( $venue ) ) {
-			return $venue;
-		}
-
-		$postarr['venue'] = $venue;
-
-		$organizer = $this->organizer_endpoint->insert( $request['organizer'] );
-
-		if ( is_wp_error( $organizer ) ) {
-			return $organizer;
-		}
-
-		$postarr['organizer'] = $organizer;
-
-		if ( $can_publish && $can_edit_others_posts ) {
-			$postarr = array_merge( $postarr, array(
-				// Event presentation data
-				'EventShowMap'          => tribe_is_truthy( $request['show_map'] ),
-				'EventShowMapLink'      => tribe_is_truthy( $request['show_map_link'] ),
-				'EventHideFromUpcoming' => tribe_is_truthy( $request['hide_from_listings'] ) ? 'yes' : false,
-				'EventShowInCalendar'   => tribe_is_truthy( $request['sticky'] ),
-				'feature_event'         => tribe_is_truthy( $request['featured'] ),
-			) );
+		if ( is_wp_error( $postarr ) ) {
+			return $postarr;
 		}
 
 		$id = Tribe__Events__API::createEvent( array_filter( $postarr ) );
@@ -486,12 +429,39 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * Handles UPDATE requests on the endpoint.
 	 *
 	 * @param WP_REST_Request $request
+	 * @param bool            $return_id Whether the created post ID should be returned or the full response object.
 	 *
 	 * @return WP_Error|WP_REST_Response An array containing the data of the updated post on
 	 *                                   success or a WP_Error instance on failure.
 	 */
 	public function update( WP_REST_Request $request ) {
-		// TODO: Implement update() method.
+		$this->serving = $request;
+
+		$postarr = $this->prepare_postarr( $request );
+
+		if ( is_wp_error( $postarr ) ) {
+			return $postarr;
+		}
+
+		$id = Tribe__Events__API::updateEvent( $request['id'], array_filter( $postarr ) );
+
+		if ( is_wp_error( $id ) ) {
+			/** @var WP_Error $id */
+			return $id;
+		}
+
+		if ( false === $id ) {
+			$message = $this->messages->get_message( 'could-not-update-event' );
+
+			return new WP_Error( 'could-not-update-event', $message, array( 'status' => 403 ) );
+		}
+
+		$data = $this->post_repository->get_event_data( $id );
+
+		$response = new WP_REST_Response( $data );
+		$response->set_status( 200 );
+
+		return $response;
 	}
 
 	/**
@@ -513,5 +483,82 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 */
 	public function can_update() {
 		return $this->can_post();
+	}
+
+	/**
+	 * Prepares an array with the event data from the specified request.
+	 *
+	 * @param WP_REST_Request $request
+	 *
+	 * @return array|WP_Error An array specifying the event data, a `WP_Error` if an error occurred.
+	 */
+	protected function prepare_postarr( WP_REST_Request $request ) {
+		$post_object           = get_post_type_object( Tribe__Events__Main::POSTTYPE );
+		$can_publish           = current_user_can( $post_object->cap->publish_posts );
+		$can_edit_others_posts = current_user_can( $post_object->cap->edit_others_posts );
+		$events_cat            = Tribe__Events__Main::TAXONOMY;
+
+		$post_data     = isset( $request['date'] ) ? Tribe__Date_Utils::reformat( $request['date'],
+			'Y-m-d H:i:s' ) : false;
+		$post_date_gmt = isset( $request['date_utc'] ) ? Tribe__Timezones::localize_date( 'Y-m-d H:i:s',
+			$request['date_utc'], 'UTC' ) : false;
+
+		$postarr = array(
+			// Post fields
+			'post_author'           => $request['author'],
+			'post_date'             => $post_data,
+			'post_date_gmt'         => $post_date_gmt,
+			'post_title'            => $request['title'],
+			'post_content'          => $request['description'],
+			'post_excerpt'          => $request['excerpt'],
+			'post_status'           => $this->scale_back_post_status( $request['status'],
+				Tribe__Events__Main::POSTTYPE ),
+			// Event data
+			'EventTimezone'         => $request['timezone'],
+			'EventAllDay'           => tribe_is_truthy( $request['all_day'] ),
+			'EventStartDate'        => Tribe__Date_Utils::reformat( $request['start_date'], 'Y-m-d' ),
+			'EventStartTime'        => Tribe__Date_Utils::reformat( $request['start_date'], 'H:i:s' ),
+			'EventEndDate'          => Tribe__Date_Utils::reformat( $request['end_date'], 'Y-m-d' ),
+			'EventEndTime'          => Tribe__Date_Utils::reformat( $request['end_date'], 'H:i:s' ),
+			'FeaturedImage'         => tribe_upload_image( $request['image'] ),
+			'EventCost'             => $request['cost'],
+			'EventCurrencyPosition' => tribe( 'cost-utils' )->parse_currency_position( $request['cost'] ),
+			'EventCurrencySymbol'   => tribe( 'cost-utils' )->parse_currency_symbol( $request['cost'] ),
+			'EventURL'              => filter_var( $request['website'], FILTER_SANITIZE_URL ),
+			// Taxonomies
+			'tax_input'             => array_filter( array(
+				$events_cat => Tribe__Terms::translate_terms_to_ids( $request['categories'], $events_cat ),
+				'post_tag'  => Tribe__Terms::translate_terms_to_ids( $request['tags'], 'post_tag' ),
+			) ),
+		);
+
+		$venue = $this->venue_endpoint->insert( $request['venue'] );
+
+		if ( is_wp_error( $venue ) ) {
+			return $venue;
+		}
+
+		$postarr['venue'] = $venue;
+
+		$organizer = $this->organizer_endpoint->insert( $request['organizer'] );
+
+		if ( is_wp_error( $organizer ) ) {
+			return $organizer;
+		}
+
+		$postarr['organizer'] = $organizer;
+
+		if ( $can_publish && $can_edit_others_posts ) {
+			$postarr = array_merge( $postarr, array(
+				// Event presentation data
+				'EventShowMap'          => tribe_is_truthy( $request['show_map'] ),
+				'EventShowMapLink'      => tribe_is_truthy( $request['show_map_link'] ),
+				'EventHideFromUpcoming' => tribe_is_truthy( $request['hide_from_listings'] ) ? 'yes' : false,
+				'EventShowInCalendar'   => tribe_is_truthy( $request['sticky'] ),
+				'feature_event'         => tribe_is_truthy( $request['featured'] ),
+			) );
+		}
+
+		return $postarr;
 	}
 }

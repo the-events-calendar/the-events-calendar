@@ -36,6 +36,7 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 			'venue-is-in-trash'               => __( 'The venue is already trashed', 'the-venues-calendar' ),
 			'could-not-delete-organizer'      => __( 'The organizer could not be deleted', 'the-organizers-calendar' ),
 			'organizer-is-in-trash'           => __( 'The organizer is already trashed', 'the-organizers-calendar' ),
+			'could-not-update-event'          => __( 'The event could not be updated', 'the-events-calendar' ),
 		);
 	}
 
