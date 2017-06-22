@@ -329,6 +329,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.6.1] TBD =
 
+* Fix - Restore support for translated events category slugs when WPML is active [73478]
 * Fix - Improve handling of shortcodes within event view excerpts (props: @awbauer) [81226]
 * Fix - Improve compatibility with WPML in relation to event permalinks specifically (props: @dgwatkins) [81224]
 * Tweak - Better detection and reporting of communication failures with the Event Aggregator server
