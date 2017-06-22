@@ -89,4 +89,13 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 
 		return ! empty( $posts_per_page ) ? $posts_per_page : 20;
 	}
+
+	/**
+	 * Modifies a request argument marking it as not required.
+	 *
+	 * @param array $arg
+	 */
+	protected function unrequire_arg( array &$arg ) {
+		$arg['required'] = false;
+	}
 }

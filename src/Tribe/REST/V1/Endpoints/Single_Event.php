@@ -501,7 +501,11 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * @return array
 	 */
 	public function EDIT_args() {
-		return array_merge( $this->READ_args(), $this->CREATE_args() );
+		// when editing the only required argument is the ID ('id')
+		$create_args = $this->CREATE_args();
+		array_walk( $create_args, array( $this, 'unrequire_arg' ) );
+
+		return array_merge( $this->READ_args(), $create_args );
 	}
 
 	/**
