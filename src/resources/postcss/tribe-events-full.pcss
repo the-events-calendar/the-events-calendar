@@ -34,18 +34,6 @@
 			width: auto;
 		}
 
-		.tribe-events-event-cost {
-			margin-top: 1.5em;
-
-			span {
-				background: rgba( 255, 255, 255, .2 );
-				border: 0;
-				border-radius: 3px;
-				color: #fff;
-				font-weight: normal;
-			}
-		}
-
 		.tribe-events-list-event-title {
 			display: inline-block;
 			margin-top: 1.5rem;
@@ -73,8 +61,129 @@
 				color: rgba( 255, 255, 255, .9 );
 			}
 		}
+
+		/* Cost */
+		.tribe-events-event-cost {
+			display: flex;
+			align-items: center;
+			float: none;
+			margin: 30px 0;
+
+			span {
+				border: 0;
+				color: #fff;
+				background: rgba( 255, 255, 255, 0.1 );
+				display: block;
+				font-style: normal;
+				font-weight: bold;
+				line-height: 1;
+				padding: 10px;
+				text-align: center;
+				text-overflow: ellipsis;
+			}
+
+			.ticket-cost {
+				background: rgba( 255, 255, 255, 0.2 );
+			}
+
+			.tribe-tickets-left {
+				font-style: italic;
+				font-weight: normal;
+				margin-left: 1px;
+			}
+
+			.tribe-out-of-stock {
+				background: #f0f0f0;
+				border-left: none;
+				color: #727272;
+				font-style: italic;
+				font-weight: normal;
+			}
+
+			.tribe-ticket-cost {
+				margin: 0;
+			}
+
+			.tribe-button {
+				color: #000;
+				font-weight: bold;
+
+				&:hover {
+					color: var(--featured-event-bg);
+				}
+
+				&:active {
+					color: #000;
+				}
+			}
+		}
+
+		.tribe-button {
+			background: #fff;
+			color: var(--featured-event-bg);
+		}
 	}
 }
+
+/* Cost */
+.tribe-events-event-cost {
+	display: flex;
+	align-items: center;
+	float: none;
+	margin: 0 0 15px;
+
+	span {
+		border: 1px solid #ddd;
+		display: block;
+		font-style: normal;
+		font-weight: bold;
+		line-height: 1;
+		padding: 8px 12px;
+		text-align: center;
+		text-overflow: ellipsis;
+	}
+
+	.tribe-tickets-left {
+		background: #f0f0f0;
+		border-left: none;
+		color: #727272;
+		font-style: italic;
+		font-weight: normal;
+	}
+
+	.tribe-out-of-stock {
+		background: #f0f0f0;
+		border-left: none;
+		color: #727272;
+		font-style: italic;
+		font-weight: normal;
+	}
+
+	.tribe-ticket-cost {
+		margin: 0;
+	}
+}
+
+input.tribe-button,
+button.tribe-button,
+a.tribe-button,
+.tribe-button {
+	border-radius: 3px;
+	line-height: 1;
+	margin: 10px;
+	padding: 9px 12px;
+
+	&.sold-out {
+		background: none;
+		border: none;
+		color: #a00;
+
+		&:hover {
+			cursor: default;
+		}
+	}
+}
+
 
 /* = Global & Miscellaneous Styles
 =============================================*/
@@ -601,6 +710,7 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-list {
+
 	.tribe-events-loop {
 		@mixin featured-list-styles;
 
@@ -619,17 +729,17 @@ select.tribe-events-dropdown {
 		&.tribe-events-page-title {
 			margin-bottom: 15px;
 		}
+	}
 
-		.tribe-events-list-event-title {
-				border: none;
-				display: block;
-				font-size: 1.4em;
-				letter-spacing: 0;
-				line-height: 1.4em;
-				margin: 0;
-				padding: 0;
-				text-transform: none;
-		}
+	.tribe-events-list-event-title {
+		border: none;
+		display: inline-block;
+		font-size: 1.4em;
+		letter-spacing: 0;
+		line-height: 1.4em;
+		margin: 0;
+		padding: 0;
+		text-transform: none;
 	}
 
 	.type-tribe_events {
@@ -695,22 +805,8 @@ select.tribe-events-dropdown {
 		margin: 0 0 8px 0;
 	}
 
-	/* Cost */
-	.tribe-events-event-cost {
-		float: right;
-		margin: 0 0 5px 5px;
-
-		span {
-			background: #eee;
-			border: 1px solid #ddd;
-			display: block;
-			font-style: normal;
-			font-weight: bold;
-			line-height: 1.3;
-			padding: 5px 10px;
-			text-align: center;
-			text-overflow: ellipsis;
-		}
+	.tribe-events-venue-details {
+		margin: 15px 0;
 	}
 }
 
@@ -722,7 +818,7 @@ select.tribe-events-dropdown {
 }
 
 
-/* Date Seperators */
+/* Date Separators */
 .tribe-events-list-separator-year {
 	color: #ccc;
 	display: block;
@@ -2005,9 +2101,9 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	}
 }
 
-/* ==========================================================================
+/* =========================================================================
   Theme Compatibility
-   ========================================================================== */
+========================================================================== */
 
 /* Twenty Fourteen
 ========================================================================== */
@@ -2192,7 +2288,22 @@ input[name*='tribe-bar-']:-moz-placeholder {
 			box-shadow: none;
 		}
 	}
+
+	h2.tribe-events-list-event-title {
+		clear: none;
+	}
 }
+
+/* Twenty Seventeen
+========================================================================== */
+.tribe-theme-twentyseventeen {
+	.entry-content {
+		a {
+			box-shadow: none;
+		}
+	}
+}
+
 
 /* = Events Retina
 =============================================*/

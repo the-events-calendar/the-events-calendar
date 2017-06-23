@@ -4,7 +4,7 @@ Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Stable tag: 4.6.1
+Stable tag: 4.5.7
 Tested up to: 4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -327,7 +327,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.6.1] TBD =
+= [4.5.7] TBD =
 
 * Fix - Restore support for translated events category slugs when WPML is active [73478]
 * Fix - Improve handling of shortcodes within event view excerpts (props: @awbauer) [81226]
@@ -335,6 +335,16 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Better detection and reporting of communication failures with the Event Aggregator server
 * Tweak - Textual corrections (with thanks to @garrett-eclipse for highlighting many of these) [77196]
 * Tweak - New filter added ("tribe_events_linked_posts_dropdown_enable_creation") to facilitate more control over linked posts [80487]
+
+= [4.5.6] 2017-06-22 =
+
+* Tweak - Improved how Cost field looks and it's consistency across views [71092 & 71094]
+* Fix - Resolved issue where the Meta Chunker attempted to inappropriately chunk meta for post post_types [80857]
+* Tweak - Added actions: `tribe_events_inside_cost`
+* Tweak - Changed views: `day/single-event`, `day/single-featured`, `list/single-event`, `list/single-featured`
+* Language - 1 new strings added, 15 updated, 1 fuzzied, and 1 obsoleted [the-events-calendar]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted [tribe-common]
+
 
 = [4.5.5] 2017-06-14 =
 

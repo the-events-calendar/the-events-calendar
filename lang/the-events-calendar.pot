@@ -5,11 +5,11 @@ msgstr ""
 "Project-Id-Version: The Events Calendar 4.5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2017-06-14 15:07:07+00:00\n"
+"POT-Creation-Date: 2017-06-15 15:15:32+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-06-14 15:07\n"
+"PO-Revision-Date: 2017-06-15 15:15\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -1509,61 +1509,61 @@ msgstr ""
 msgid "Price Background Color"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:196
+#: src/Tribe/Customizer/General_Theme.php:253
 msgid "General Theme"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:197
+#: src/Tribe/Customizer/General_Theme.php:254
 msgid "Global configurations for the styling of The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:228
+#: src/Tribe/Customizer/General_Theme.php:285
 msgid "Accent Color"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:248
-msgid "Featured Events Highlight Color"
+#: src/Tribe/Customizer/General_Theme.php:305
+msgid "Featured Highlight Color"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:271
+#: src/Tribe/Customizer/General_Theme.php:328
 msgid ""
-"If the Featured Events highlight color is set to Custom, the following color "
-"will be used:"
+"If the Featured highlight color is set to Custom, the following color will "
+"be used:"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:291
+#: src/Tribe/Customizer/General_Theme.php:348
 msgid "Blue Steel"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:297
+#: src/Tribe/Customizer/General_Theme.php:354
 msgid "Deep Sea"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:303
+#: src/Tribe/Customizer/General_Theme.php:360
 msgid "Default"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:309
+#: src/Tribe/Customizer/General_Theme.php:366
 msgid "Evergreen"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:315
+#: src/Tribe/Customizer/General_Theme.php:372
 msgid "Lagoon"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:321
+#: src/Tribe/Customizer/General_Theme.php:378
 msgid "Malacite"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:327
+#: src/Tribe/Customizer/General_Theme.php:384
 msgid "Skyfall"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:333
+#: src/Tribe/Customizer/General_Theme.php:390
 msgid "Sunshine"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:339
+#: src/Tribe/Customizer/General_Theme.php:396
 msgid "Custom"
 msgstr ""
 
@@ -2134,11 +2134,11 @@ msgstr ""
 msgid "%s:"
 msgstr ""
 
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:231
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:241
 msgid "Add another %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:252
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:262
 msgid "Delete this"
 msgstr ""
 
@@ -5357,8 +5357,8 @@ msgstr ""
 msgid "Day Navigation"
 msgstr ""
 
-#: src/views/day/single-event.php:66 src/views/day/single-featured.php:65
-#: src/views/list/single-event.php:76 src/views/list/single-featured.php:75
+#: src/views/day/single-event.php:71 src/views/day/single-featured.php:68
+#: src/views/list/single-event.php:85 src/views/list/single-featured.php:79
 msgid "Find out more"
 msgstr ""
 
