@@ -2,7 +2,8 @@
 
 
 abstract class Tribe__Events__REST__V1__Endpoints__Linked_Post_Base
-	extends Tribe__Events__REST__V1__Endpoints__Base {
+	extends Tribe__Events__REST__V1__Endpoints__Base
+	implements Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface {
 	/**
 	 * @var Tribe__Events__REST__Interfaces__Post_Repository
 	 */

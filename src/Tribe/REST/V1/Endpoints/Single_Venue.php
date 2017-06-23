@@ -49,38 +49,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 * @since bucket/full-rest-api
 	 */
 	public function create( WP_REST_Request $request, $return_id = false ) {
-		$post_date = isset( $request['date'] ) ? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ) : false;
-		$post_date_gmt = isset( $request['date_utc'] ) ? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ) : false;
-
-		$post_status = $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE );
-		$postarr     = array(
-			$this->get_id_index() => $request['id'],
-			'post_author'         => $request['author'],
-			'post_date'           => $post_date,
-			'post_date_gmt'       => $post_date_gmt,
-			'post_status'         => $post_status,
-			'Venue'               => $request['venue'],
-			'Description'         => $request['description'],
-			'Address'             => $request['address'],
-			'City'                => $request['city'],
-			'Country'             => $request['country'],
-			'Province'            => $request['province'],
-			'State'               => $request['state'],
-			'StateProvince'       => $request['stateprovince'],
-			'Zip'                 => $request['zip'],
-			'Phone'               => $request['phone'],
-			'URL'  => $request['website'],
-			'FeaturedImage'       => tribe_upload_image( $request['image'] ),
-		);
-
-		$postarr = array_filter( $postarr );
-
-		if ( isset( $request['show_map'] ) ) {
-			$postarr['ShowMap'] = tribe_is_truthy( $request['show_map'] );
-		}
-		if ( isset( $request['show_map_link'] ) ) {
-			$postarr['ShowMapLink'] = tribe_is_truthy( $request['show_map_link'] );
-		}
+		$postarr = $this->prepare_postarr( $request );
 
 		/**
 		 * Filters whether the API should try to avoid inserting duplicate venues or not.
@@ -92,7 +61,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		 */
 		$avoid_duplicates = apply_filters( 'tribe_events_rest_venue_insert_avoid_duplicates', true, $postarr );
 
-		$id               = Tribe__Events__Venue::instance()->create( $postarr, $post_status, $avoid_duplicates );
+		$id = Tribe__Events__Venue::instance()->create( $postarr, $postarr['post_status'], $avoid_duplicates );
 
 		if ( empty( $id ) ) {
 			$message = $this->messages->get_message( 'could-not-create-venue' );
@@ -248,6 +217,50 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	}
 
 	/**
+	 * Prepares an array with the venue data from the specified request.
+	 *
+	 * @param WP_REST_Request $request
+	 *
+	 * @return array
+	 */
+	public function prepare_postarr( WP_REST_Request $request ) {
+		$post_date = isset( $request['date'] ) ? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ) : false;
+		$post_date_gmt = isset( $request['date_utc'] ) ? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ) : false;
+		$post_status = $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE );
+
+		$postarr = array(
+			$this->get_id_index() => $request['id'],
+			'post_author'         => $request['author'],
+			'post_date'           => $post_date,
+			'post_date_gmt'       => $post_date_gmt,
+			'post_status'         => $post_status,
+			'Venue'               => $request['venue'],
+			'Description'         => $request['description'],
+			'Address'             => $request['address'],
+			'City'                => $request['city'],
+			'Country'             => $request['country'],
+			'Province'            => $request['province'],
+			'State'               => $request['state'],
+			'StateProvince'       => $request['stateprovince'],
+			'Zip'                 => $request['zip'],
+			'Phone'               => $request['phone'],
+			'URL'                 => $request['website'],
+			'FeaturedImage'       => tribe_upload_image( $request['image'] ),
+		);
+
+		$postarr = array_filter( $postarr );
+
+		if ( isset( $request['show_map'] ) ) {
+			$postarr['ShowMap'] = tribe_is_truthy( $request['show_map'] );
+		}
+		if ( isset( $request['show_map_link'] ) ) {
+			$postarr['ShowMapLink'] = tribe_is_truthy( $request['show_map_link'] );
+		}
+
+		return $postarr;
+	}
+
+	/**
 	 * Returns the post type handled by this linked post endpoint.
 	 *
 	 * @return string
@@ -274,7 +287,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	/**
 	 * @return bool Whether the current user can post or not.
 	 */
-	public function can_post() {
+	public function can_create() {
 		$cap = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_posts;
 
 		return current_user_can( $cap );
@@ -344,5 +357,53 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		$cap = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->delete_posts;
 
 		return current_user_can( $cap );
+	}
+
+	/**
+	 * Handles UPDATE requests on the endpoint.
+	 *
+	 * @param WP_REST_Request $request
+	 *
+	 * @return WP_Error|WP_REST_Response An array containing the data of the updated post on
+	 *                                   success or a WP_Error instance on failure.
+	 */
+	public function update( WP_REST_Request $request ) {
+		$postarr = $this->prepare_postarr( $request );
+
+		$id = Tribe__Events__Venue::instance()->update( $request['id'], $postarr );
+
+		if ( empty( $id ) ) {
+			$message = $this->messages->get_message( 'could-not-update-venue' );
+
+			return new WP_Error( 'could-not-update-venue', $message, array( 'status' => 400 ) );
+		}
+
+		$data = $this->post_repository->get_venue_data( $id );
+
+		$response = new WP_REST_Response( $data );
+		$response->set_status( 200 );
+
+		return $response;
+	}
+
+	/**
+	 * Returns the content of the `args` array that should be used to register the endpoint
+	 * with the `register_rest_route` function.
+	 *
+	 * @return array
+	 */
+	public function EDIT_args() {
+		// when editing the only required argument is the ID ('id')
+		$create_args = $this->CREATE_args();
+		array_walk( $create_args, array( $this, 'unrequire_arg' ) );
+
+		return array_merge( $this->READ_args(), $create_args );
+	}
+
+	/**
+	 * @return bool Whether the current user can update or not.
+	 */
+	public function can_edit() {
+		return $this->can_create();
 	}
 }

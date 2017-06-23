@@ -4,7 +4,6 @@ use Codeception\Example;
 use Step\Restv1\RestGuy as Tester;
 
 class OrganizerInsertionCest extends BaseRestCest {
-
 	/**
 	 * It should return 403 if user cannot insert organizers
 	 *

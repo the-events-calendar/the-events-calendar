@@ -45,23 +45,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 * @since bucket/full-rest-api
 	 */
 	public function create( WP_REST_Request $request, $return_id = false ) {
-		$post_date = isset( $request['date'] ) ? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ) : false;
-		$post_date_gmt = isset( $request['date_utc'] ) ? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ) : false;
-
-		$post_status = $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE );
-		$postarr     = array(
-			$this->get_id_index() => $request['id'],
-			'post_author'         => $request['author'],
-			'post_date'           => $post_date,
-			'post_date_gmt'       => $post_date_gmt,
-			'post_status'         => $post_status,
-			'Organizer'           => $request['organizer'],
-			'Description'         => $request['description'],
-			'Phone'               => $request['phone'],
-			'Website'             => $request['website'],
-			'Email'               => $request['email'],
-			'FeaturedImage'       => tribe_upload_image( $request['image'] ),
-		);
+		$postarr = $this->prepare_postarr( $request );
 
 		/**
 		 * Filters whether the API should try to avoid inserting duplicate organizers or not.
@@ -250,10 +234,43 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	/**
 	 * @return bool Whether the current user can post or not.
 	 */
-	public function can_post() {
+	public function can_create() {
 		$cap = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE )->cap->edit_posts;
 
 		return current_user_can( $cap );
+	}
+
+	/**
+	 * Prepares an array with the or data from the specified request.
+	 *
+	 * @param WP_REST_Request $request
+	 *
+	 * @return array
+	 */
+	public function prepare_postarr( WP_REST_Request $request ) {
+		$post_date = isset( $request['date'] )
+			? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' )
+			: false;
+		$post_date_gmt = isset( $request['date_utc'] )
+			? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' )
+			: false;
+
+		$post_status = $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE );
+		$postarr = array(
+			$this->get_id_index() => $request['id'],
+			'post_author'         => $request['author'],
+			'post_date'           => $post_date,
+			'post_date_gmt'       => $post_date_gmt,
+			'post_status'         => $post_status,
+			'Organizer'           => $request['organizer'],
+			'Description'         => $request['description'],
+			'Phone'               => $request['phone'],
+			'Website'             => $request['website'],
+			'Email'               => $request['email'],
+			'FeaturedImage'       => tribe_upload_image( $request['image'] ),
+		);
+
+		return $postarr;
 	}
 
 	/**
@@ -344,5 +361,53 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		$cap = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE )->cap->delete_posts;
 
 		return current_user_can( $cap );
+	}
+
+	/**
+	 * Handles UPDATE requests on the endpoint.
+	 *
+	 * @param WP_REST_Request $request
+	 *
+	 * @return WP_Error|WP_REST_Response An array containing the data of the updated post on
+	 *                                   success or a WP_Error instance on failure.
+	 */
+	public function update( WP_REST_Request $request ) {
+		$postarr = $this->prepare_postarr( $request );
+
+		$id = Tribe__Events__Organizer::instance()->update( $request['id'], array_filter( $postarr ) );
+
+		if ( empty( $id ) ) {
+			$message = $this->messages->get_message( 'could-not-udpate-organizer' );
+
+			return new WP_Error( 'could-not-udpate-organizer', $message, array( 'status' => 400 ) );
+		}
+
+		$data = $this->post_repository->get_organizer_data( $id );
+
+		$response = new WP_REST_Response( $data );
+		$response->set_status( 200 );
+
+		return $response;
+	}
+
+	/**
+	 * Returns the content of the `args` array that should be used to register the endpoint
+	 * with the `register_rest_route` function.
+	 *
+	 * @return array
+	 */
+	public function EDIT_args() {
+		// when editing the only required argument is the ID ('id')
+		$create_args = $this->CREATE_args();
+		array_walk( $create_args, array( $this, 'unrequire_arg' ) );
+
+		return array_merge( $this->READ_args(), $create_args );
+	}
+
+	/**
+	 * @return bool Whether the current user can update or not.
+	 */
+	public function can_edit() {
+		return $this->can_create();
 	}
 }
