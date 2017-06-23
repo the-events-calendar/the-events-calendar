@@ -436,7 +436,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * Handles UPDATE requests on the endpoint.
 	 *
 	 * @param WP_REST_Request $request
-	 * @param bool            $return_id Whether the created post ID should be returned or the full response object.
 	 *
 	 * @return WP_Error|WP_REST_Response An array containing the data of the updated post on
 	 *                                   success or a WP_Error instance on failure.
@@ -505,10 +504,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		$can_edit_others_posts = current_user_can( $post_object->cap->edit_others_posts );
 		$events_cat            = Tribe__Events__Main::TAXONOMY;
 
-		$post_data     = isset( $request['date'] ) ? Tribe__Date_Utils::reformat( $request['date'],
-			'Y-m-d H:i:s' ) : false;
-		$post_date_gmt = isset( $request['date_utc'] ) ? Tribe__Timezones::localize_date( 'Y-m-d H:i:s',
-			$request['date_utc'], 'UTC' ) : false;
+		$post_data     = isset( $request['date'] )
+			? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' )
+			: false;
+		$post_date_gmt = isset( $request['date_utc'] )
+			? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' )
+			: false;
 
 		$postarr = array(
 			// Post fields
@@ -518,8 +519,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'post_title'            => $request['title'],
 			'post_content'          => $request['description'],
 			'post_excerpt'          => $request['excerpt'],
-			'post_status'           => $this->scale_back_post_status( $request['status'],
-				Tribe__Events__Main::POSTTYPE ),
+			'post_status'           => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
 			// Event data
 			'EventTimezone'         => $request['timezone'],
 			'EventAllDay'           => tribe_is_truthy( $request['all_day'] ),
