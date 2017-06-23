@@ -370,6 +370,8 @@ class Tribe__Events__Organizer {
 				 *
 				 * @param int   $organizer_id The updated organizer post ID.
 				 * @param array $data         The data used to update the organizer.
+				 *
+				 * @since TBD
 				 */
 				do_action( 'tribe_events_organizer_created', $organizer_id, $data->to_array() );
 
@@ -388,6 +390,8 @@ class Tribe__Events__Organizer {
 	 * @param array $data        The organizer data.
 	 *
 	 * @return int The updated organizer post ID
+	 *
+	 * @since TBD
 	 */
 	public function update( $id, $data ) {
 		/**
@@ -491,6 +495,8 @@ class Tribe__Events__Organizer {
 		 * Filters the template path of the template that holds the organizer form fields
 		 *
 		 * @param string $template Template path
+		 *
+		 * @since TBD
 		 */
 		include apply_filters( 'tribe_events_tribe_organizer_new_form_fields', $template );
 	}
