@@ -336,6 +336,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Better detection and reporting of communication failures with the Event Aggregator server
 * Tweak - Textual corrections (with thanks to @garrett-eclipse for highlighting many of these) [77196]
 * Tweak - New filter added ("tribe_events_linked_posts_dropdown_enable_creation") to facilitate more control over linked posts [80487]
+* Tweak - Improve performance of theme compatibility code [71974]
 
 = [4.5.6] 2017-06-22 =
 
