@@ -19,7 +19,7 @@ if ( ! $_POST ) {
 	//If we just saved use those values from $_POST
 } elseif ( ! empty( $_POST ) ) {
 
-		// Special compatibility for array values of these fields, which happens on Community Events submission form.
+	// Special compatibility for array values of these fields, which happens on Community Events submission form.
 	if ( isset( $_POST['community-event'] ) && ! empty( $_POST['community-event'] ) ) {
 
 		$venue_name             = isset( $_POST['venue']['Venue'] ) ? esc_attr( $_POST['venue']['Venue'][0] ) : '';
