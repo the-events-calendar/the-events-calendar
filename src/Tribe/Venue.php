@@ -485,7 +485,7 @@ class Tribe__Events__Venue {
 		$post_fields = array_merge( Tribe__Duplicate__Post::$post_table_columns, array(
 			'Venue',
 			'Description',
-			'Excerpt'
+			'Excerpt',
 		) );
 		$meta = array_diff_key( $data->to_array(), array_combine( $post_fields, $post_fields ) );
 
