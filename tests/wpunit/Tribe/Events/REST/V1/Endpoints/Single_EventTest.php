@@ -139,11 +139,11 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	}
 
 	/**
-	 * It should allow inserting (POSTing) an event
+	 * It should allow creating an event
 	 *
 	 * @test
 	 */
-	public function it_should_allow_inserting_pos_ting_an_event() {
+	public function it_should_allow_creating_an_event() {
 		$sut = $this->make_instance();
 
 		$request = new \WP_REST_Request();
@@ -168,7 +168,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		}
 
 		/** @var \WP_REST_Response $response */
-		$response = $sut->post( $request );
+		$response = $sut->create( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertEquals( 201, $response->status );
@@ -197,7 +197,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		}
 
 		/** @var \WP_Error $response */
-		$response = $sut->post( $request );
+		$response = $sut->create( $request );
 
 		$this->assertWPError( $response );
 		$this->assertEquals( 'could-not-create-venue', $response->get_error_code() );
@@ -228,7 +228,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		}
 
 		/** @var \WP_Error $response */
-		$response = $sut->post( $request );
+		$response = $sut->create( $request );
 
 		$this->assertWPError( $response );
 		$this->assertEquals( 'could-not-create-organizer', $response->get_error_code() );
@@ -261,7 +261,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		}
 
 		/** @var \WP_REST_Response $response */
-		$response = $sut->post( $request );
+		$response = $sut->create( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertEquals( 201, $response->get_status() );
@@ -355,5 +355,149 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
 		$this->assertEquals( 'could-not-delete-event', $response->get_error_code() );
+	}
+
+	/**
+	 * It should allow updating an event
+	 *
+	 * @test
+	 */
+	public function it_should_allow_updating_an_event() {
+		$sut = $this->make_instance();
+
+		$request = new \WP_REST_Request();
+
+		$event = $this->factory()->event->create();
+
+		$venue       = $this->factory()->venue->create();
+		$organizer_1 = $this->factory()->organizer->create();
+		$organizer_2 = $this->factory()->organizer->create();
+
+		$params = [
+			'id'          => $event,
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'categories'  => [ 'cat1', 'cat2' ],
+			'tags'        => [ 'tag1', 'tag2' ],
+			'venue'       => $venue,
+			'organizer'   => [ $organizer_1, $organizer_2 ],
+		];
+
+		foreach ( $params as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		/** @var \WP_REST_Response $response */
+		$response = $sut->update( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 200, $response->status );
+	}
+
+	/**
+	 * It should return venue error if trying to insert event with invalid venue data in update
+	 *
+	 * @test
+	 */
+	public function it_should_return_venue_error_if_trying_to_insert_event_with_invalid_venue_data_in_update() {
+		$event = $this->factory()->event->create();
+
+		$sut = $this->make_instance();
+
+		$request = new \WP_REST_Request();
+
+		$params = [
+			'id'          => $event,
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'venue'       => 23,
+		];
+
+		foreach ( $params as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		/** @var \WP_Error $response */
+		$response = $sut->update( $request );
+
+		$this->assertWPError( $response );
+		$this->assertEquals( 'could-not-create-venue', $response->get_error_code() );
+		$error_data = $response->get_error_data();
+		$this->assertEquals( 400, $error_data['status'] );
+	}
+
+	/**
+	 * It should return organizer error if trying to insert organizer with invalid organizer data in update
+	 *
+	 * @test
+	 */
+	public function it_should_return_organizer_error_if_trying_to_insert_organizer_with_invalid_organizer_data_in_update() {
+		$event = $this->factory()->event->create();
+
+		$sut = $this->make_instance();
+
+		$request = new \WP_REST_Request();
+
+		$params = [
+			'id'          => $event,
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'organizer'   => 23,
+		];
+
+		foreach ( $params as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		/** @var \WP_Error $response */
+		$response = $sut->update( $request );
+
+		$this->assertWPError( $response );
+		$this->assertEquals( 'could-not-create-organizer', $response->get_error_code() );
+		$error_data = $response->get_error_data();
+		$this->assertEquals( 400, $error_data['status'] );
+	}
+
+	/**
+	 * It should allow some users that can publish posts to set presentation data in update
+	 *
+	 * @test
+	 */
+	public function it_should_allow_some_users_that_can_publish_posts_and_edit_others_posts_to_set_presentation_data_in_update() {
+		$event = $this->factory()->event->create();
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'editor' ] ) );
+
+		$sut = $this->make_instance();
+
+		$request = new \WP_REST_Request();
+
+		$params = [
+			'id'          => $event,
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'featured'    => true,
+		];
+
+		foreach ( $params as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		/** @var \WP_REST_Response $response */
+		$response = $sut->update( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 200, $response->get_status() );
+
+		$data = $response->get_data();
+		$this->assertNotEmpty( $data['featured'] );
 	}
 }

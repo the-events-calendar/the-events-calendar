@@ -75,4 +75,8 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 
 		return ! empty( $event ) && Tribe__Events__Main::POSTTYPE === $event->post_type;
 	}
+
+	public function is_timezone( $candidate ) {
+		return is_string( $candidate ) && Tribe__Timezones::is_valid_timezone( $candidate );
+	}
 }

@@ -4,14 +4,17 @@ use Step\Restv1\RestGuy as Tester;
 use Tribe__Image__Uploader as Image;
 use Tribe__Timezones as Timezones;
 
-class EventInsertionCest extends BaseRestCest {
+class EventUpdateCest extends BaseRestCest
+{
 	/**
-	 * It should return 403 if user cannot insert events
+	 * It should return 403 if user cannot update events
 	 *
 	 * @test
 	 */
-	public function it_should_return_403_if_user_cannot_insert_events( Tester $I ) {
-		$I->sendPOST( $this->events_url, [
+	public function it_should_return_403_if_user_cannot_update_events( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
+		$I->sendPOST( $this->events_url ."/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'excerpt'     => 'An event excerpt',
@@ -24,17 +27,20 @@ class EventInsertionCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should allow inserting an event *
+	 * It should allow updating an event
 	 * @test
 	 */
-	public function it_should_allow_inserting_an_event( Tester $I ) {
+	public function it_should_allow_updating_an_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
+
 		$timezone = 'America/New_York';
 		$I->haveOptionInDatabase( 'timezone_string', $timezone );
 
 		$start = 'tomorrow 9am';
 		$end = 'tomorrow 11am';
-		$I->sendPOST( $this->events_url, [
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'excerpt'     => 'An event excerpt',
@@ -42,7 +48,7 @@ class EventInsertionCest extends BaseRestCest {
 			'end_date'    => date( 'Y-m-d H:i:s', strtotime( $end ) ),
 		] );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
@@ -66,6 +72,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @example ["next wednesday 4pm", "next wednesday 5pm"]
 	 */
 	public function it_should_allow_to_set_the_start_date_using_natural_language( Tester $I, \Codeception\Example $data ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$start = $data[0];
@@ -74,12 +82,12 @@ class EventInsertionCest extends BaseRestCest {
 		$timezone = 'America/New_York';
 		$I->haveOptionInDatabase( 'timezone_string', $timezone );
 
-		$I->sendPOST( $this->events_url, [
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'      => 'An event',
 			'start_date' => $start,
 			'end_date'   => $end,
 		] );
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 
 		$I->canSeeResponseContainsJson( [
@@ -92,16 +100,18 @@ class EventInsertionCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should allow specifying the timezone of the event to insert
+	 * It should allow specifying the timezone of the event to update
 	 *
 	 * @test
 	 *
 	 * @example ["tomorrow 9am", "tomorrow 11am", "America/New_York"]
 	 * @example ["tomorrow 11am", "tomorrow 1pm", "UTC"]
 	 * @example ["next wednesday 4pm", "next wednesday 5pm","Australia/Darwin"]
-	 * @example ["next wednesday 4pm", "next wednesday 5pm","Pacific/Bougainville"]
+	 * @example ["next wednesday 4pm", "next wednesday 5pm","Europe/Rome"]
 	 */
-	public function it_should_allow_specifying_the_timezone_of_the_event_to_insert( Tester $I, \Codeception\Example $data ) {
+	public function it_should_allow_specifying_the_timezone_of_the_event_to_update( Tester $I, \Codeception\Example $data ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		// set the site to another timezone completely
@@ -111,14 +121,14 @@ class EventInsertionCest extends BaseRestCest {
 		$end = $data[1];
 		$timezone = $data[2];
 
-		$I->sendPOST( $this->events_url, [
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'      => 'An event',
 			'start_date' => $start,
 			'end_date'   => $end,
 			'timezone'   => $timezone,
 		] );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
@@ -128,23 +138,35 @@ class EventInsertionCest extends BaseRestCest {
 			'utc_start_date' => Timezones::convert_date_from_timezone( $start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 			'utc_end_date'   => Timezones::convert_date_from_timezone( $end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 		] );
+
+		$new_timezone = 'Europe/Paris';
+
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
+			'title'      => 'An event',
+			'start_date' => $start,
+			'end_date'   => $end,
+			'timezone'   => $new_timezone,
+		] );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$I->canSeeResponseContainsJson( [
+			'title'          => 'An event',
+			'timezone'       => $new_timezone,
+			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $start ) ),
+			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'utc_start_date' => Timezones::convert_date_from_timezone( $start, $new_timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'utc_end_date'   => Timezones::convert_date_from_timezone( $end, $new_timezone, 'UTC', 'Y-m-d H:i:s' ),
+		] );
+
 	}
 
 	/**
-	 * It should mark bad request if required param is missing or bad
+	 * It should mark bad request if id is bad
 	 *
 	 * @test
-	 *
-	 * @example ["title", false]
-	 * @example ["title", ""]
-	 * @example ["start_date", false]
-	 * @example ["start_date", ""]
-	 * @example ["start_date", "not a strtotime parsable string"]
-	 * @example ["end_date", false]
-	 * @example ["end_date", ""]
-	 * @example ["end_date", "not a strtotime parsable string"]
 	 */
-	public function it_should_mark_bad_request_if_required_param_is_missing_or_bad( Tester $I, \Codeception\Example $data ) {
+	public function it_should_mark_bad_request_if_id_is_bad( Tester $I ) {
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$params = [
@@ -153,13 +175,7 @@ class EventInsertionCest extends BaseRestCest {
 			'end_date'   => 'tomorrow 11am',
 		];
 
-		if ( false === $data[1] ) {
-			unset( $params[ $data[0] ] );
-		} else {
-			$params[ $data[0] ] = $data[1];
-		}
-
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . '/2389', $params );
 
 		$I->seeResponseCodeIs( 400 );
 	}
@@ -175,6 +191,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @example ["website", "foo"]
 	 */
 	public function it_should_return_bad_request_if_trying_to_set_optional_parameter_to_bad_value( Tester $I, \Codeception\Example $example ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$params = [
@@ -185,7 +203,7 @@ class EventInsertionCest extends BaseRestCest {
 
 		$params[ $example[0] ] = $example[1];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
 		$I->seeResponseCodeIs( 400 );
 	}
@@ -196,6 +214,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_to_set_the_event_author( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$user_id = $I->haveUserInDatabase( 'author', 'author' );
@@ -207,9 +227,9 @@ class EventInsertionCest extends BaseRestCest {
 			'author'     => $user_id,
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 
 		$I->seeResponseContainsJson( [ 'author' => $user_id ] );
 	}
@@ -220,6 +240,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_to_set_the_post_date( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$timezone = 'America/New_York';
 		$I->haveOptionInDatabase( 'timezone_string', $timezone );
 
@@ -234,9 +256,9 @@ class EventInsertionCest extends BaseRestCest {
 			'date'       => 'tomorrow 9am',
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 
 		$I->seeResponseContainsJson( [
 			'date' => $date->format( 'Y-m-d H:i:s' ),
@@ -249,6 +271,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_setting_the_post_gmt_date( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$timezone = 'America/New_York';
 		$I->haveOptionInDatabase( 'timezone_string', $timezone );
 
@@ -263,9 +287,9 @@ class EventInsertionCest extends BaseRestCest {
 			'date_utc'   => 'tomorrow 9am',
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 
 		$I->seeResponseContainsJson( [
 			'date_utc' => $date->format( 'Y-m-d H:i:s' ),
@@ -289,6 +313,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_not_allow_overriding_generated_fields( Tester $I, \Codeception\Example $data ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$key = $data[0];
 		$value = $data[1];
 
@@ -302,9 +328,9 @@ class EventInsertionCest extends BaseRestCest {
 		];
 		$params[ $key ] = $value;
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 
@@ -317,6 +343,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_specifying_if_an_event_is_an_all_day_one( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 		$timezone = 'America/New_York';
 		$I->haveOptionInDatabase( 'timezone_string', $timezone );
@@ -325,7 +353,7 @@ class EventInsertionCest extends BaseRestCest {
 		$end = 'tomorrow 11am';
 		$all_day_start = 'tomorrow 00:00:00';
 		$all_day_end = 'tomorrow 23:59:59';
-		$I->sendPOST( $this->events_url, [
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
@@ -333,7 +361,7 @@ class EventInsertionCest extends BaseRestCest {
 			'end_date'    => date( 'Y-m-d H:i:s', strtotime( $end ) ),
 		] );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
@@ -354,6 +382,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_inserting_a_multiday_all_day_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 		$timezone = 'America/New_York';
 		$I->haveOptionInDatabase( 'timezone_string', $timezone );
@@ -362,7 +392,7 @@ class EventInsertionCest extends BaseRestCest {
 		$end = '+5 days 11am';
 		$all_day_start = 'tomorrow 00:00:00';
 		$all_day_end = '+5 days 23:59:59';
-		$I->sendPOST( $this->events_url, [
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
@@ -370,7 +400,7 @@ class EventInsertionCest extends BaseRestCest {
 			'end_date'    => date( 'Y-m-d H:i:s', strtotime( $end ) ),
 		] );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
@@ -395,11 +425,13 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_return_bad_request_if_trying_to_set_image_to_bad_value( Tester $I, \Codeception\Example $data ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$image = $data[0];
 
 		$I->generate_nonce_for_role( 'administrator' );
 
-		$I->sendPOST( $this->events_url, [
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
@@ -418,9 +450,11 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_return_bad_request_if_trying_to_set_image_to_non_supported_image_type( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
-		$I->sendPOST( $this->events_url, [
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
@@ -439,9 +473,11 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_return_bad_request_if_trying_to_set_image_to_id_of_non_attachment( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
-		$I->sendPOST( $this->events_url, [
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
@@ -460,13 +496,15 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_setting_the_image_passing_its_attachment_id( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$image_path = codecept_data_dir( 'csv-import-test-files/featured-image/images/featured-image.jpg' );
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
 		$attachment_id = $I->factory()->attachment->create_upload_object( $image_path );
 
-		$I->sendPOST( $this->events_url, [
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
@@ -475,7 +513,7 @@ class EventInsertionCest extends BaseRestCest {
 			'image'       => $attachment_id,
 		] );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'image', $response );
@@ -488,22 +526,23 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_setting_the_image_setting_passing_a_valid_url( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$image_path = codecept_data_dir( 'csv-import-test-files/featured-image/images/featured-image.jpg' );
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
 		$attachment_id = $I->factory()->attachment->create_upload_object( $image_path );
 
-		$I->sendPOST( $this->events_url, [
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
-			'all_day'     => true,
 			'start_date'  => 'tomorrow 9am',
 			'end_date'    => 'tomorrow 11am',
 			'image'       => wp_get_attachment_url( $attachment_id ),
 		] );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'image', $response );
@@ -516,9 +555,11 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_setting_the_event_cost_as_a_string( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
-		$I->sendPOST( $this->events_url, [
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
@@ -527,7 +568,7 @@ class EventInsertionCest extends BaseRestCest {
 			'cost'        => '20$',
 		] );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->seeResponseContainsJson( [
 			'cost'         => '20$',
@@ -545,9 +586,11 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_to_insert_the_cost_as_an_array_of_values( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
-		$I->sendPOST( $this->events_url, [
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
@@ -556,7 +599,7 @@ class EventInsertionCest extends BaseRestCest {
 			'cost'        => [ '0$', '20$', '30$' ],
 		] );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->seeResponseContainsJson( [
 			'cost'         => 'Free - 30$',
@@ -574,9 +617,11 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_setting_the_event_website( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
-		$I->sendPOST( $this->events_url, [
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
@@ -585,34 +630,10 @@ class EventInsertionCest extends BaseRestCest {
 			'website'     => 'http://example.com',
 		] );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->seeResponseContainsJson( [
 			'website' => 'http://example.com',
-		] );
-	}
-
-	/**
-	 * It should set the event permalink if not set
-	 *
-	 * @test
-	 */
-	public function it_should_set_the_event_permalink_if_not_set( Tester $I ) {
-		$I->generate_nonce_for_role( 'administrator' );
-
-		$I->sendPOST( $this->events_url, [
-			'title'       => 'An event',
-			'description' => 'An event content',
-			'all_day'     => true,
-			'start_date'  => 'tomorrow 9am',
-			'end_date'    => 'tomorrow 11am',
-		] );
-
-		$I->seeResponseCodeIs( 201 );
-		$I->seeResponseIsJson();
-		$response = json_decode( $I->grabResponse(), true );
-		$I->seeResponseContainsJson( [
-			'website' => get_permalink( $response['id'] ),
 		] );
 	}
 
@@ -628,6 +649,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @example ["featured", true]
 	 */
 	public function it_should_allow_inserting_presentation_meta_to_users_that_can_publish_posts_and_edit_other_posts( Tester $I, \Codeception\Example $data ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'editor' );
 
 		$params = [
@@ -638,9 +661,9 @@ class EventInsertionCest extends BaseRestCest {
 		];
 		$params[ $data[0] ] = (bool) $data[1];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->seeResponseContainsJson( [ $data[0] => $data[1] ] );
 	}
@@ -656,6 +679,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @example ["featured", true]
 	 */
 	public function it_should_not_allow_inserting_presentation_meta_to_users_that_cannot_publish_posts_and_edit_other_posts( Tester $I, \Codeception\Example $data ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'author' );
 
 		$params = [
@@ -666,9 +691,9 @@ class EventInsertionCest extends BaseRestCest {
 		];
 		$params[ $data[0] ] = $data[1];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->seeResponseContainsJson( [ $data[0] => false ] );
 	}
@@ -679,6 +704,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_set_the_post_status_to_draft_if_user_cannot_publish_posts( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'contributor' );
 
 		$params = [
@@ -689,9 +716,9 @@ class EventInsertionCest extends BaseRestCest {
 			'status'      => 'publish',
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->seePostInDatabase( [ 'ID' => $response['id'], 'post_status' => 'pending' ] );
@@ -706,6 +733,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @example ["author", "publish"]
 	 */
 	public function it_should_allow_a_user_that_can_publish_to_set_status_to_publish( Tester $I, \Codeception\Example $data ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( $data[0] );
 
 		$params = [
@@ -716,9 +745,9 @@ class EventInsertionCest extends BaseRestCest {
 			'status'      => $data[1],
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->seePostInDatabase( [ 'ID' => $response['id'], 'post_status' => $data[1] ] );
@@ -730,6 +759,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_inserting_an_existing_venue_id_with_the_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$venue_id = $I->haveVenueInDatabase();
@@ -742,9 +773,9 @@ class EventInsertionCest extends BaseRestCest {
 			'venue'       => $venue_id,
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->seeResponseContainsJson( [
 			'venue' => [ 'id' => $venue_id ],
@@ -757,6 +788,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_inserting_a_venue_along_with_the_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$params = [
@@ -769,9 +802,9 @@ class EventInsertionCest extends BaseRestCest {
 			],
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'venue', $response );
@@ -785,6 +818,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_linking_the_inserted_event_to_an_existing_organizer( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$organizer_id = $I->haveOrganizerInDatabase();
@@ -797,9 +832,9 @@ class EventInsertionCest extends BaseRestCest {
 			'organizer'   => $organizer_id
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'organizer', $response );
@@ -814,6 +849,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_linking_the_event_to_multiple_existing_organizers( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$organizer_id_1 = $I->haveOrganizerInDatabase();
@@ -827,9 +864,9 @@ class EventInsertionCest extends BaseRestCest {
 			'organizer'   => [ $organizer_id_1, $organizer_id_2 ]
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'organizer', $response );
@@ -845,6 +882,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_creating_the_event_organizer_while_inserting_the_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$params = [
@@ -855,9 +894,9 @@ class EventInsertionCest extends BaseRestCest {
 			'organizer'   => [ [ 'organizer' => 'Organizer A' ] ],
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'organizer', $response );
@@ -872,6 +911,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_creating_multiple_event_organizers_while_inserting_the_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$params = [
@@ -886,9 +927,9 @@ class EventInsertionCest extends BaseRestCest {
 			],
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'organizer', $response );
@@ -902,6 +943,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_creating_multiple_organizers_and_linking_existing_ones_while_inserting_the_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$organizer_id_1 = $I->haveOrganizerInDatabase();
@@ -920,9 +963,9 @@ class EventInsertionCest extends BaseRestCest {
 			],
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'organizer', $response );
@@ -939,6 +982,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_setting_the_linked_posts_images_when_creating_them_with_the_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$image_path = codecept_data_dir( 'csv-import-test-files/featured-image/images/featured-image.jpg' );
@@ -967,9 +1012,9 @@ class EventInsertionCest extends BaseRestCest {
 			],
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'venue', $response );
@@ -991,6 +1036,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_assigning_existing_event_categories_to_an_inserted_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$cat_1 = $I->haveTermInDatabase( 'cat1', Tribe__Events__Main::TAXONOMY );
@@ -1006,9 +1053,9 @@ class EventInsertionCest extends BaseRestCest {
 			'categories'  => [ $cat_1_id, $cat_2_id ],
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertNotEmpty( $response['categories'] );
@@ -1023,6 +1070,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_creating_event_categories_while_inserting_an_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$params = [
@@ -1033,9 +1082,9 @@ class EventInsertionCest extends BaseRestCest {
 			'categories'  => 'cat1,cat2',
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertNotEmpty( $response['categories'] );
@@ -1048,6 +1097,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_assigning_existing_categories_and_creating_new_categories_while_inserting_an_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$cat_1 = $I->haveTermInDatabase( 'cat1', Tribe__Events__Main::TAXONOMY );
@@ -1062,9 +1113,9 @@ class EventInsertionCest extends BaseRestCest {
 			'categories'  => [ $cat_1_id, 'cat2' ],
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertNotEmpty( $response['categories'] );
@@ -1078,6 +1129,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_assigning_existing_event_tags_to_an_inserted_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$tag_1 = $I->haveTermInDatabase( 'tag1', 'post_tag' );
@@ -1093,9 +1146,9 @@ class EventInsertionCest extends BaseRestCest {
 			'tags'  => [ $tag_1_id, $tag_2_id ],
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertNotEmpty( $response['tags'] );
@@ -1110,6 +1163,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_creating_event_tags_while_inserting_an_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$params = [
@@ -1117,12 +1172,12 @@ class EventInsertionCest extends BaseRestCest {
 			'description' => 'An event content',
 			'start_date'  => 'tomorrow 9am',
 			'end_date'    => 'tomorrow 11am',
-			'tags'  => 'tag1,tag2',
+			'tags'        => 'tag1,tag2',
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertNotEmpty( $response['tags'] );
@@ -1135,6 +1190,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_assigning_existing_tags_and_creating_new_tags_while_inserting_an_event( Tester $I ) {
+		$event_id = $I->haveEventInDatabase();
+
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$tag_1 = $I->haveTermInDatabase( 'tag1', 'post_tag' );
@@ -1149,9 +1206,9 @@ class EventInsertionCest extends BaseRestCest {
 			'tags'  => [ $tag_1_id, 'tag2' ],
 		];
 
-		$I->sendPOST( $this->events_url, $params );
+		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
 
-		$I->seeResponseCodeIs( 201 );
+		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertNotEmpty( $response['tags'] );

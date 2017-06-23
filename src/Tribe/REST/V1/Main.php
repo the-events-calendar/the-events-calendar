@@ -167,7 +167,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		register_rest_route( $this->get_events_route_namespace(), '/events', array(
 			'methods'  => 'GET',
 			'callback' => array( $endpoint, 'get' ),
-			'args'     => $endpoint->GET_args(),
+			'args'     => $endpoint->READ_args(),
 		) );
 
 		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/events', $endpoint );
@@ -194,15 +194,21 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 			'/events/(?P<id>\\d+)',
 			array(
 				array(
-					'methods'  => 'GET',
-					'args'     => $endpoint->GET_args(),
+					'methods'  => WP_REST_Server::READABLE,
+					'args'     => $endpoint->READ_args(),
 					'callback' => array( $endpoint, 'get' ),
 				),
 				array(
-					'methods'             => 'DELETE',
+					'methods'             => WP_REST_Server::DELETABLE,
 					'args'                => $endpoint->DELETE_args(),
 					'permission_callback' => array( $endpoint, 'can_delete' ),
 					'callback'            => array( $endpoint, 'delete' ),
+				),
+				array(
+					'methods'             => WP_REST_Server::EDITABLE,
+					'args'                => $endpoint->EDIT_args(),
+					'permission_callback' => array( $endpoint, 'can_update' ),
+					'callback'            => array( $endpoint, 'update' ),
 				),
 			)
 		);
@@ -210,10 +216,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		register_rest_route(
 			$namespace,
 			'/events', array(
-				'methods'             => 'POST',
-				'args'                => $endpoint->POST_args(),
+				'methods'             => WP_REST_Server::CREATABLE,
+				'args'                => $endpoint->CREATE_args(),
 				'permission_callback' => array( $endpoint, 'can_post' ),
-				'callback'            => array( $endpoint, 'post' ),
+				'callback'            => array( $endpoint, 'create' ),
 			)
 		);
 
@@ -322,12 +328,12 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 			'/venues/(?P<id>\\d+)',
 			array(
 				array(
-					'methods'  => 'GET',
-					'args'     => $endpoint->GET_args(),
+					'methods'  => WP_REST_Server::READABLE,
+					'args'     => $endpoint->READ_args(),
 					'callback' => array( $endpoint, 'get' ),
 				),
 				array(
-					'methods'             => 'DELETE',
+					'methods'             => WP_REST_Server::DELETABLE,
 					'args'                => $endpoint->DELETE_args(),
 					'permission_callback' => array( $endpoint, 'can_delete' ),
 					'callback'            => array( $endpoint, 'delete' ),
@@ -339,10 +345,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 			$namespace,
 			'/venues',
 			array(
-				'methods'  => 'POST',
-				'args'     => $endpoint->POST_args(),
+				'methods'  => WP_REST_Server::CREATABLE,
+				'args'     => $endpoint->CREATE_args(),
 				'permission_callback' => array( $endpoint, 'can_post' ),
-				'callback' => array( $endpoint, 'post' ),
+				'callback' => array( $endpoint, 'create' ),
 			)
 		);
 
@@ -370,12 +376,12 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 			'/organizers/(?P<id>\\d+)',
 			array(
 				array(
-					'methods'  => 'GET',
-					'args'     => $endpoint->GET_args(),
+					'methods'  => WP_REST_Server::READABLE,
+					'args'     => $endpoint->READ_args(),
 					'callback' => array( $endpoint, 'get' ),
 				),
 				array(
-					'methods'             => 'DELETE',
+					'methods'             => WP_REST_Server::DELETABLE,
 					'args'                => $endpoint->DELETE_args(),
 					'permission_callback' => array( $endpoint, 'can_delete' ),
 					'callback'            => array( $endpoint, 'delete' ),
@@ -387,10 +393,10 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 			$namespace,
 			'/organizers',
 			array(
-				'methods'  => 'POST',
-				'args'     => $endpoint->POST_args(),
+				'methods'  => WP_REST_Server::CREATABLE,
+				'args'     => $endpoint->CREATE_args(),
 				'permission_callback' => array( $endpoint, 'can_post' ),
-				'callback' => array( $endpoint, 'post' ),
+				'callback' => array( $endpoint, 'create' ),
 			)
 		);
 
