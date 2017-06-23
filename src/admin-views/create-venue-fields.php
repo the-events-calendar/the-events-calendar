@@ -18,15 +18,33 @@ if ( ! $_POST ) {
 
 	//If we just saved use those values from $_POST
 } elseif ( ! empty( $_POST ) ) {
-	$venue_name             = isset( $_POST['venue']['Venue'] ) ? esc_attr( $_POST['venue']['Venue'] ) : '';
-	$_VenuePhone            = isset( $_POST['venue']['Phone'] ) ? esc_attr( $_POST['venue']['Phone'] ) : '';
-	$_VenueURL              = isset( $_POST['venue']['URL'] ) ? esc_attr( $_POST['venue']['URL'] ) : '';
-	$_VenueAddress          = isset( $_POST['venue']['Address'] ) ? esc_attr( $_POST['venue']['Address'] ) : '';
-	$_VenueCity             = isset( $_POST['venue']['City'] ) ? esc_attr( $_POST['venue']['City'] ) : '';
-	$_VenueProvince         = isset( $_POST['venue']['Province'] ) ? esc_attr( $_POST['venue']['Province'] ) : '';
+
+	// Special compatibility for array values of these fields, which happens on Community Events submission form.
+	if ( isset( $_POST['community-event'] ) && ! empty( $_POST['community-event'] ) ) {
+
+		$venue_name             = isset( $_POST['venue']['Venue'] ) ? esc_attr( $_POST['venue']['Venue'][0] ) : '';
+		$_VenuePhone            = isset( $_POST['venue']['Phone'] ) ? esc_attr( $_POST['venue']['Phone'][0] ) : '';
+		$_VenueURL              = isset( $_POST['venue']['URL'] ) ? esc_attr( $_POST['venue']['URL'][0] ) : '';
+		$_VenueAddress          = isset( $_POST['venue']['Address'] ) ? esc_attr( $_POST['venue']['Address'][0] ) : '';
+		$_VenueCity             = isset( $_POST['venue']['City'] ) ? esc_attr( $_POST['venue']['City'][0] ) : '';
+		$_VenueProvince         = isset( $_POST['venue']['Province'] ) ? esc_attr( $_POST['venue']['Province'][0] ) : '';
+		$_VenueCountry          = isset( $_POST['venue']['Country'] ) ? esc_attr( $_POST['venue']['Country'][0] ) : '';
+		$_VenueZip              = isset( $_POST['venue']['Zip'] ) ? esc_attr( $_POST['venue']['Zip'][0] ) : '';
+
+	// "Normal" case, when not on Community Events submission form, in which case these fields are strings.
+	} else {
+
+		$venue_name             = isset( $_POST['venue']['Venue'] ) ? esc_attr( $_POST['venue']['Venue'] ) : '';
+		$_VenuePhone            = isset( $_POST['venue']['Phone'] ) ? esc_attr( $_POST['venue']['Phone'] ) : '';
+		$_VenueURL              = isset( $_POST['venue']['URL'] ) ? esc_attr( $_POST['venue']['URL'] ) : '';
+		$_VenueAddress          = isset( $_POST['venue']['Address'] ) ? esc_attr( $_POST['venue']['Address'] ) : '';
+		$_VenueCity             = isset( $_POST['venue']['City'] ) ? esc_attr( $_POST['venue']['City'] ) : '';
+		$_VenueProvince         = isset( $_POST['venue']['Province'] ) ? esc_attr( $_POST['venue']['Province'] ) : '';
+		$_VenueCountry          = isset( $_POST['venue']['Country'] ) ? esc_attr( $_POST['venue']['Country'] ) : '';
+		$_VenueZip              = isset( $_POST['venue']['Zip'] ) ? esc_attr( $_POST['venue']['Zip'] ) : '';
+	}
+
 	$_VenueState            = isset( $_POST['venue']['State'] ) ? esc_attr( $_POST['venue']['State'] ) : '';
-	$_VenueCountry          = isset( $_POST['venue']['Country'] ) ? esc_attr( $_POST['venue']['Country'] ) : '';
-	$_VenueZip              = isset( $_POST['venue']['Zip'] ) ? esc_attr( $_POST['venue']['Zip'] ) : '';
 	$google_map_link_toggle = isset( $_POST['EventShowMapLink'] ) ? esc_attr( $_POST['EventShowMapLink'] ) : '';
 	$google_map_toggle      = isset( $_POST['EventShowMap'] ) ? esc_attr( $_POST['EventShowMap'] ) : '';
 }
