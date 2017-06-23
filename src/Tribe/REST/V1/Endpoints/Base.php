@@ -67,14 +67,15 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	 */
 	public function scale_back_post_status( $post_status, $post_type ) {
 		$post_type_object = get_post_type_object( $post_type );
+
 		if ( current_user_can( $post_type_object->cap->publish_posts ) ) {
-			return $post_status;
+			return ! empty( $post_status ) ? $post_status : 'publish';
 		}
 		if ( in_array( $post_status, array( 'publish', 'future' ) ) ) {
 			return 'pending';
 		}
 
-		return $post_status;
+		return ! empty( $post_status ) ? $post_status : 'draft';
 	}
 
 	/**

@@ -327,7 +327,7 @@ class Tribe__Events__Venue {
 		 *
 		 * If a non `null` value is returned that will be returned and the venue creation process will bail.
 		 *
-		 * @param mixed $check Whether the venue insertion process should procede or not.
+		 * @param mixed $check Whether the venue insertion process should proceed or not.
 		 * @param array $data The data provided to create the venue.
 		 * @param string $post_status The post status that should be applied to the created venue.
 		 *
@@ -435,6 +435,23 @@ class Tribe__Events__Venue {
 	 * @return int The updated venue post ID
 	 */
 	public function update( $venue_id, $data ) {
+		/**
+		 * Filters the ID of the venue before the class updates it.
+		 *
+		 * If a non `null` value is returned that will be returned and the venue update process will bail.
+		 *
+		 * @param mixed  $check       Whether the venue update process should proceed or not.
+		 * @param int    $venue_id    The post ID of the venue that should be updated
+		 * @param array  $data        The data provided to update the venue.
+		 *
+		 * @since TBD
+		 */
+		$check = apply_filters( 'tribe_events_tribe_venue_update', null, $venue_id, $data );
+
+		if ( null !== $check ) {
+			return $check;
+		}
+
 		$data = new Tribe__Data( $data, '' );
 
 		unset( $data['VenueID'] );

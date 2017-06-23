@@ -108,7 +108,7 @@ class Single_OrganizerTest extends WPRestApiTestCase {
 		}
 
 		$sut = $this->make_instance();
-		$response = $sut->post( $request );
+		$response = $sut->create( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 	}
@@ -127,7 +127,7 @@ class Single_OrganizerTest extends WPRestApiTestCase {
 
 		$sut = $this->make_instance();
 		/** @var \WP_Error $response */
-		$response = $sut->post( $request );
+		$response = $sut->create( $request );
 
 		$this->assertWPError( $response );
 		$this->assertEquals( 'could-not-create-organizer', $response->get_error_code() );
@@ -143,8 +143,56 @@ class Single_OrganizerTest extends WPRestApiTestCase {
 		$request->set_param( 'organizer', 'A organizer' );
 
 		$sut = $this->make_instance();
-		$response = $sut->post( $request, true );
+		$response = $sut->create( $request, true );
 
 		$this->assertTrue( tribe_is_organizer( $response ) );
+	}
+	/**
+	 * It should allow updating a organizer
+	 *
+	 * @test
+	 */
+	public function it_should_allow_updating_a_organizer() {
+		$organizer = $this->factory()->organizer->create();
+
+		$data = [
+			'id'        => $organizer,
+			'organizer' => 'A organizer',
+			'phone'     => 'Organizer phone',
+			'email'     => 'doe@john.com',
+			'website'   => 'http://organizer.com',
+		];
+		$request = new \WP_REST_Request();
+		foreach ( $data as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		$sut = $this->make_instance();
+		$response = $sut->update( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+	}
+
+	/**
+	 * It should return WP_Error if organizer could not be updated
+	 *
+	 * @test
+	 */
+	public function it_should_return_wp_error_if_organizer_could_not_be_updated() {
+		$organizer = $this->factory()->organizer->create();
+
+		$request = new \WP_REST_Request();
+		$request->set_param( 'id', $organizer );
+		$request->set_param( 'organizer', 'A organizer' );
+		add_filter( 'tribe_events_tribe_organizer_update', function () {
+			return false;
+		} );
+
+		$sut = $this->make_instance();
+		/** @var \WP_Error $response */
+		$response = $sut->update( $request );
+
+		$this->assertWPError( $response );
+		$this->assertEquals( 'could-not-update-organizer', $response->get_error_code() );
 	}
 }

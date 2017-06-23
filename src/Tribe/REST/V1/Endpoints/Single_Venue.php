@@ -123,6 +123,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			'post' => array(
 				'parameters' => $this->swaggerize_args( $this->CREATE_args(), $POST_defaults ),
 				'responses'  => array(
+					'200' => array(
+						'description' => __( 'Returns the data of the updated venue', 'the-event-calendar' ),
+						'schema'      => array(
+							'$ref' => '#/definitions/Venue',
+						),
+					),
 					'201' => array(
 						'description' => __( 'Returns the data of the created venue', 'the-event-calendar' ),
 						'schema'      => array(

@@ -390,6 +390,23 @@ class Tribe__Events__Organizer {
 	 * @return int The updated organizer post ID
 	 */
 	public function update( $id, $data ) {
+		/**
+		 * Filters the ID of the organizer before the class updates it.
+		 *
+		 * If a non `null` value is returned that will be returned and the organizer update process will bail.
+		 *
+		 * @param mixed $check        Whether the organizer update process should proceed or not.
+		 * @param int   $organizer_id The post ID of the organizer that should be updated
+		 * @param array $data         The data provided to update the organizer.
+		 *
+		 * @since TBD
+		 */
+		$check = apply_filters( 'tribe_events_tribe_organizer_update', null, $id, $data );
+
+		if ( null !== $check ) {
+			return $check;
+		}
+
 		$data = new Tribe__Data( $data, '' );
 
 		unset( $data['OrganizerID'] );

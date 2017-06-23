@@ -57,7 +57,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		 */
 		$avoid_duplicates = apply_filters( 'tribe_events_rest_organizer_insert_avoid_duplicates', true, $postarr );
 
-		$id = Tribe__Events__Organizer::instance()->create( array_filter( $postarr ), $post_status, $avoid_duplicates );
+		$id = Tribe__Events__Organizer::instance()->create( array_filter( $postarr ), $postarr['post_status'], $avoid_duplicates );
 
 		if ( empty( $id ) ) {
 			$message = $this->messages->get_message( 'could-not-create-organizer' );
@@ -377,9 +377,9 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		$id = Tribe__Events__Organizer::instance()->update( $request['id'], array_filter( $postarr ) );
 
 		if ( empty( $id ) ) {
-			$message = $this->messages->get_message( 'could-not-udpate-organizer' );
+			$message = $this->messages->get_message( 'could-not-update-organizer' );
 
-			return new WP_Error( 'could-not-udpate-organizer', $message, array( 'status' => 400 ) );
+			return new WP_Error( 'could-not-update-organizer', $message, array( 'status' => 400 ) );
 		}
 
 		$data = $this->post_repository->get_organizer_data( $id );
