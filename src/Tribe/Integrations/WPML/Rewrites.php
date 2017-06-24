@@ -148,4 +148,26 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	protected function is_organizer_rule( $candidate_rule ) {
 		return preg_match( '/^' . $this->organizer_slug . '/', $candidate_rule );
 	}
+
+	/**
+	 * Adds translated versions of the events category base slug to the rewrite rules.
+	 *
+	 * @param array  $bases
+	 * @param string $method
+	 *
+	 * @return array
+	 */
+	public function filter_tax_base_slug( $bases, $method ) {
+		// We only want to make changes if there is a tax key and if the method is 'regex'
+		if ( ! isset( $bases['tax'] ) || 'regex' !== $method ) {
+			return $bases;
+		}
+
+		// Fetch translated versions of the event category slug and append them
+		$category_translation = Tribe__Events__Integrations__WPML__Category_Translation::instance();
+		$translated_slugs = $category_translation->get_translated_base_slugs();
+		$bases['tax'] = array_merge( $bases['tax'], $translated_slugs );
+
+		return $bases;
+	}
 }

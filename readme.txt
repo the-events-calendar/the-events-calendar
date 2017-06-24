@@ -4,7 +4,7 @@ Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Stable tag: 4.5.5
+Stable tag: 4.6.1
 Tested up to: 4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -327,11 +327,19 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.6.1] TBD =
+
+* Fix - Restore support for translated events category slugs when WPML is active [73478]
+* Fix - Improve handling of shortcodes within event view excerpts (props: @awbauer) [81226]
+* Fix - Improve compatibility with WPML in relation to event permalinks specifically (props: @dgwatkins) [81224]
+* Tweak - Better detection and reporting of communication failures with the Event Aggregator server
+* Tweak - Textual corrections (with thanks to @garrett-eclipse for highlighting many of these) [77196]
+
 = [4.5.5] 2017-06-14 =
 
 * Fix - Removed extra double quotes in organizer link output [71133]
 * Fix - Make the list and day view styles match more closely [63599]
-* Fix - Better sanitization on CSV imports [80311]
+* Fix - Better sanitization on CSV imports (thanks to Valentinos Chouris from NCC Group for reporting this) [80311]
 * Fix - Prevent tabs from being incorrectly escaped in iCal output (props: KZeni) [80452]
 * Fix - Fixed inconsistent font styling of Tribe Bar form labels. [27252]
 * Tweak - Removed unused Javascript (jQuery UI Dialog) to help avoid warnings (our thanks to @gama6889 for flagging this) [80766]

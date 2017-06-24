@@ -237,7 +237,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 	></span>
 
 	<p class="tribe-timezone-message">
-		<?php echo sprintf( esc_html__( 'Events will be imported with the timezone defined by the source. If no time zone is specified, events will be assigned your site\'s default timezone (see %1$sSettings > General%2$s).', 'the-events-calendar' ),
+		<?php echo sprintf( esc_html__( 'Events will be imported with the timezone defined by the source. If no timezone is specified, events will be assigned your site\'s default timezone (see %1$sSettings > General%2$s).', 'the-events-calendar' ),
 			'<a href="' . esc_url( Tribe__Settings::instance()->get_url() ) . '#tribe-field-tribe_events_timezone_mode">',
 			'</a>' ); ?>
 	</p>
