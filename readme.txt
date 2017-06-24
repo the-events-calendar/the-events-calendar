@@ -337,6 +337,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Textual corrections (with thanks to @garrett-eclipse for highlighting many of these) [77196]
 * Tweak - New filter added ("tribe_events_linked_posts_dropdown_enable_creation") to facilitate more control over linked posts [80487]
 * Tweak - Improve performance of theme compatibility code [71974]
+* Tweak - Don't show Event Aggregator system status in Help tab if there's no Event Aggregator license in place [68506]
 
 = [4.5.6] 2017-06-22 =
 
