@@ -14,6 +14,8 @@ interface Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface
 	 *
 	 * @return false|array|WP_Error `false` if the linked post data is empty, the linked post ID (in an array as requested by the
 	 *                              linked posts engine) or a `WP_Error` if the linked post insertion failed.
+	 * 
+	 * @since TBD
 	 */
 	public function insert( $data );
 }
