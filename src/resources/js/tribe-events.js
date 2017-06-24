@@ -492,7 +492,7 @@ Date.prototype.format = function( mask, utc ) {
 	}
 
 	if ( "undefined" !== typeof tribe_bootstrap_datepicker_strings && tribe_bootstrap_datepicker_strings.dates != null ) {
-		//$.fn.bootstrapDatepicker.dates['en'] = tribe_bootstrap_datepicker_strings.dates;
+		$.fn.bootstrapDatepicker.dates['en'] = tribe_bootstrap_datepicker_strings.dates;
 	}
 
 })( jQuery );
