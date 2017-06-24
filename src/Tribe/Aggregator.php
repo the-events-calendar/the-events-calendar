@@ -84,12 +84,15 @@ class Tribe__Events__Aggregator {
 		$section_name = 'tribe-aggregator-status';
 		$section_title = __( 'Event Aggregator System Status', 'the-events-calendar' );
 
-		$help->add_section( $section_name, $section_title, 60 );
-
 		ob_start();
 		include_once Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/aggregator/status.php';
 		$status_html = ob_get_clean();
 
+		if ( empty( $status_html ) ) {
+			return;
+		}
+
+		$help->add_section( $section_name, $section_title, 60 );
 		$help->add_section_content( $section_name, $status_html );
 	}
 
