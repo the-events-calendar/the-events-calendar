@@ -207,7 +207,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 				array(
 					'methods'             => WP_REST_Server::EDITABLE,
 					'args'                => $endpoint->EDIT_args(),
-					'permission_callback' => array( $endpoint, 'can_update' ),
+					'permission_callback' => array( $endpoint, 'can_edit' ),
 					'callback'            => array( $endpoint, 'update' ),
 				),
 			)
@@ -218,7 +218,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 			'/events', array(
 				'methods'             => WP_REST_Server::CREATABLE,
 				'args'                => $endpoint->CREATE_args(),
-				'permission_callback' => array( $endpoint, 'can_post' ),
+				'permission_callback' => array( $endpoint, 'can_create' ),
 				'callback'            => array( $endpoint, 'create' ),
 			)
 		);
@@ -338,6 +338,12 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 					'permission_callback' => array( $endpoint, 'can_delete' ),
 					'callback'            => array( $endpoint, 'delete' ),
 				),
+				array(
+					'methods'             => WP_REST_Server::EDITABLE,
+					'args'                => $endpoint->EDIT_args(),
+					'permission_callback' => array( $endpoint, 'can_edit' ),
+					'callback'            => array( $endpoint, 'update' ),
+				),
 			)
 		);
 
@@ -347,7 +353,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 			array(
 				'methods'  => WP_REST_Server::CREATABLE,
 				'args'     => $endpoint->CREATE_args(),
-				'permission_callback' => array( $endpoint, 'can_post' ),
+				'permission_callback' => array( $endpoint, 'can_create' ),
 				'callback' => array( $endpoint, 'create' ),
 			)
 		);
@@ -386,6 +392,12 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 					'permission_callback' => array( $endpoint, 'can_delete' ),
 					'callback'            => array( $endpoint, 'delete' ),
 				),
+				array(
+					'methods'             => WP_REST_Server::EDITABLE,
+					'args'                => $endpoint->EDIT_args(),
+					'permission_callback' => array( $endpoint, 'can_edit' ),
+					'callback'            => array( $endpoint, 'update' ),
+				),
 			)
 		);
 
@@ -395,7 +407,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 			array(
 				'methods'  => WP_REST_Server::CREATABLE,
 				'args'     => $endpoint->CREATE_args(),
-				'permission_callback' => array( $endpoint, 'can_post' ),
+				'permission_callback' => array( $endpoint, 'can_create' ),
 				'callback' => array( $endpoint, 'create' ),
 			)
 		);

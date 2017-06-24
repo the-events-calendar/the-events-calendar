@@ -116,7 +116,7 @@ class Single_VenueTest extends WPRestApiTestCase {
 		}
 
 		$sut = $this->make_instance();
-		$response = $sut->post( $request );
+		$response = $sut->create( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 	}
@@ -139,7 +139,7 @@ class Single_VenueTest extends WPRestApiTestCase {
 		}
 
 		$sut = $this->make_instance();
-		$response = $sut->post( $request );
+		$response = $sut->create( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertFalse( $response->data['show_map'] );
@@ -157,7 +157,7 @@ class Single_VenueTest extends WPRestApiTestCase {
 		}
 
 		$sut = $this->make_instance();
-		$response = $sut->post( $request );
+		$response = $sut->create( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertTrue( $response->data['show_map'] );
@@ -178,7 +178,7 @@ class Single_VenueTest extends WPRestApiTestCase {
 
 		$sut = $this->make_instance();
 		/** @var \WP_Error $response */
-		$response = $sut->post( $request );
+		$response = $sut->create( $request );
 
 		$this->assertWPError( $response );
 		$this->assertEquals( 'could-not-create-venue', $response->get_error_code() );
@@ -194,8 +194,112 @@ class Single_VenueTest extends WPRestApiTestCase {
 		$request->set_param( 'venue', 'A venue' );
 
 		$sut = $this->make_instance();
-		$response = $sut->post( $request, true );
+		$response = $sut->create( $request, true );
 
 		$this->assertTrue( tribe_is_venue( $response ) );
+	}
+
+	/**
+	 * It should allow updating a venue
+	 *
+	 * @test
+	 */
+	public function it_should_allow_updating_a_venue() {
+		$venue = $this->factory()->venue->create();
+
+		$data = [
+			'id'            => $venue,
+			'venue'         => 'A venue',
+			'show_map'      => false,
+			'show_map_link' => false,
+			'address'       => 'Venue address',
+			'city'          => 'Venue city',
+			'country'       => 'Venue country',
+			'province'      => 'Venue province',
+			'state'         => 'Venue state',
+			'stateprovince' => 'Venue stateprovince',
+			'zip'           => 'Venue zip',
+			'phone'         => 'Venue phone',
+			'website'       => 'http://venue.com',
+		];
+		$request = new \WP_REST_Request();
+		foreach ( $data as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		$sut = $this->make_instance();
+		$response = $sut->update( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+	}
+
+	/**
+	 * It should properly set boolean meta fields
+	 *
+	 * @test
+	 */
+	public function it_should_properly_set_boolean_meta_fields_when_updating() {
+		$venue = $this->factory()->venue->create();
+
+		$data = [
+			'id'            => $venue,
+			'venue'         => 'A venue',
+			'show_map'      => false,
+			'show_map_link' => false,
+		];
+
+		$request = new \WP_REST_Request();
+		foreach ( $data as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		$sut = $this->make_instance();
+		$response = $sut->create( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertFalse( $response->data['show_map'] );
+		$this->assertFalse( $response->data['show_map_link'] );
+
+		$data = [
+			'id'            => $venue,
+			'venue'         => 'A venue',
+			'show_map'      => true,
+			'show_map_link' => true,
+		];
+
+		$request = new \WP_REST_Request();
+		foreach ( $data as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		$sut = $this->make_instance();
+		$response = $sut->update( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertTrue( $response->data['show_map'] );
+		$this->assertTrue( $response->data['show_map_link'] );
+	}
+
+	/**
+	 * It should return WP_Error if venue could not be updated
+	 *
+	 * @test
+	 */
+	public function it_should_return_wp_error_if_venue_could_not_be_updated() {
+		$venue = $this->factory()->venue->create();
+
+		$request = new \WP_REST_Request();
+		$request->set_param( 'id', $venue );
+		$request->set_param( 'venue', 'A venue' );
+		add_filter( 'tribe_events_tribe_venue_update', function () {
+			return false;
+		} );
+
+		$sut = $this->make_instance();
+		/** @var \WP_Error $response */
+		$response = $sut->update( $request );
+
+		$this->assertWPError( $response );
+		$this->assertEquals( 'could-not-update-venue', $response->get_error_code() );
 	}
 }

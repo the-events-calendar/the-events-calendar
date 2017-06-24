@@ -23,6 +23,9 @@ class Tribe__Events__Venue {
 	 */
 	protected $meta_prefix = '_Venue';
 
+	/**
+	 * @var array A list of all the valid Venue keys, post fields and custom fields
+	 */
 	public static $valid_venue_keys = array(
 		'Venue',
 		'Address',
@@ -324,7 +327,7 @@ class Tribe__Events__Venue {
 		 *
 		 * If a non `null` value is returned that will be returned and the venue creation process will bail.
 		 *
-		 * @param mixed $check Whether the venue insertion process should procede or not.
+		 * @param mixed $check Whether the venue insertion process should proceed or not.
 		 * @param array $data The data provided to create the venue.
 		 * @param string $post_status The post status that should be applied to the created venue.
 		 *
@@ -389,7 +392,14 @@ class Tribe__Events__Venue {
 
 			if ( ! is_wp_error( $venue_id ) ) {
 				$this->save_meta( $venue_id, $data );
-				do_action( 'tribe_events_venue_created', $venue_id, $data );
+
+				/**
+				 * Fires immediately after a venue has been created.
+				 *
+				 * @param int   $venue_id The updated venue post ID.
+				 * @param array $data         The data used to update the venue.
+				 */
+				do_action( 'tribe_events_venue_created', $venue_id, $data->to_array() );
 
 				return $venue_id;
 			}
@@ -420,50 +430,76 @@ class Tribe__Events__Venue {
 	 * Updates an venue
 	 *
 	 * @param int   $venue_id The venue ID to update.
-	 * @param array $data    The venue data.
+	 * @param array $data     The venue data.
 	 *
+	 * @return int The updated venue post ID
 	 */
 	public function update( $venue_id, $data ) {
-		$data['ShowMap']     = isset( $data['ShowMap'] ) ? $data['ShowMap'] : 'false';
-		$data['ShowMapLink'] = isset( $data['ShowMapLink'] ) ? $data['ShowMapLink'] : 'false';
+		/**
+		 * Filters the ID of the venue before the class updates it.
+		 *
+		 * If a non `null` value is returned that will be returned and the venue update process will bail.
+		 *
+		 * @param mixed  $check       Whether the venue update process should proceed or not.
+		 * @param int    $venue_id    The post ID of the venue that should be updated
+		 * @param array  $data        The data provided to update the venue.
+		 *
+		 * @since TBD
+		 */
+		$check = apply_filters( 'tribe_events_tribe_venue_update', null, $venue_id, $data );
 
-		$args = array(
-			'ID' => $venue_id,
-		);
-
-		if ( isset( $data['post_title'] ) ) {
-			$args['post_title'] = $data['post_title'];
+		if ( null !== $check ) {
+			return $check;
 		}
 
-		if ( isset( $data['Venue'] ) ) {
-			$args['post_title'] = $data['Venue'];
-			unset( $data['Venue'] );
-		}
+		$data = new Tribe__Data( $data, '' );
 
-		if ( isset( $data['post_content'] ) ) {
-			$args['post_content'] = $data['post_content'];
-		}
+		unset( $data['VenueID'] );
 
-		if ( isset( $data['Description'] ) ) {
-			$args['post_content'] = $data['Description'];
-			unset( $data['Description'] );
-		}
-
-		if ( isset( $data['post_excerpt'] ) ) {
-			$args['post_excerpt'] = $data['post_excerpt'];
-		}
-
-		if ( isset( $data['Excerpt'] ) ) {
-			$args['post_excerpt'] = $data['Excerpt'];
-			unset( $data['Excerpt'] );
-		}
+		$args = array_filter( array(
+			'ID'            => $venue_id,
+			'post_title'    => Tribe__Utils__Array::get( $data, 'post_title', $data['Venue'] ),
+			'post_content'  => Tribe__Utils__Array::get( $data, 'post_content', $data['Description'] ),
+			'post_excerpt'  => Tribe__Utils__Array::get( $data, 'post_excerpt', $data['Excerpt'] ),
+			'post_author'   => $data['post_author'],
+			'post_date'     => $data['post_date'],
+			'post_date_gmt' => $data['post_date_gmt'],
+			'post_status'   => $data['post_status'],
+		) );
 
 		if ( count( $args ) > 1 ) {
 			wp_update_post( $args );
 		}
 
-		$this->save_meta( $venue_id, $data );
-		do_action( 'tribe_events_venue_updated', $venue_id, $data );
+		if ( isset( $data['ShowMap'] ) && ! tribe_is_truthy( $data['ShowMap'] ) ) {
+			unset( $data['ShowMap'] );
+		} else {
+			$data['ShowMap'] = true;
+		}
+		if ( isset( $data['ShowMapLink'] ) && ! tribe_is_truthy( $data['ShowMapLink'] ) ) {
+			unset( $data['ShowMapLink'] );
+		} else {
+			$data['ShowMapLink'] = true;
+		}
+
+		$post_fields = array_merge( Tribe__Duplicate__Post::$post_table_columns, array(
+			'Venue',
+			'Description',
+			'Excerpt',
+		) );
+		$meta = array_diff_key( $data->to_array(), array_combine( $post_fields, $post_fields ) );
+
+		$this->save_meta( $venue_id, $meta );
+
+		/**
+		 * Fires immediately after a venue has been updated.
+		 *
+		 * @param int $venue_id The updated venue post ID.
+		 * @param array $data The data used to update the venue.
+		 */
+		do_action( 'tribe_events_venue_updated', $venue_id, $data->to_array() );
+
+		return $venue_id;
 	}
 
 	/**

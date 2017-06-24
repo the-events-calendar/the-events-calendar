@@ -362,10 +362,18 @@ class Tribe__Events__Organizer {
 			$organizer_id = false === $found
 				? wp_insert_post( array_filter( $postdata ), true )
 				: $found;
-
 			if ( ! is_wp_error( $organizer_id ) ) {
 				$this->save_meta( $organizer_id, $data );
-				do_action( 'tribe_events_organizer_created', $organizer_id, $data );
+
+				/**
+				 * Fires immediately after an organizer has been created.
+				 *
+				 * @param int   $organizer_id The updated organizer post ID.
+				 * @param array $data         The data used to update the organizer.
+				 *
+				 * @since TBD
+				 */
+				do_action( 'tribe_events_organizer_created', $organizer_id, $data->to_array() );
 
 				return $organizer_id;
 			}
@@ -381,45 +389,65 @@ class Tribe__Events__Organizer {
 	 * @param int   $organizerId The organizer ID to update.
 	 * @param array $data        The organizer data.
 	 *
+	 * @return int The updated organizer post ID
+	 *
+	 * @since TBD
 	 */
 	public function update( $id, $data ) {
+		/**
+		 * Filters the ID of the organizer before the class updates it.
+		 *
+		 * If a non `null` value is returned that will be returned and the organizer update process will bail.
+		 *
+		 * @param mixed $check        Whether the organizer update process should proceed or not.
+		 * @param int   $organizer_id The post ID of the organizer that should be updated
+		 * @param array $data         The data provided to update the organizer.
+		 *
+		 * @since TBD
+		 */
+		$check = apply_filters( 'tribe_events_tribe_organizer_update', null, $id, $data );
+
+		if ( null !== $check ) {
+			return $check;
+		}
+
+		$data = new Tribe__Data( $data, '' );
+
+		unset( $data['OrganizerID'] );
+
 		$args = array(
-			'ID' => $id,
+			'ID'            => $id,
+			'post_title'    => Tribe__Utils__Array::get( $data, 'post_title', $data['Organizer'] ),
+			'post_content'  => Tribe__Utils__Array::get( $data, 'post_content', $data['Description'] ),
+			'post_excerpt'  => Tribe__Utils__Array::get( $data, 'post_excerpt', $data['Excerpt'] ),
+			'post_author'   => $data['post_author'],
+			'post_date'     => $data['post_date'],
+			'post_date_gmt' => $data['post_date_gmt'],
+			'post_status'   => $data['post_status'],
 		);
-
-		if ( isset( $data['post_title'] ) ) {
-			$args['post_title'] = $data['post_title'];
-		}
-
-		if ( isset( $data['Organizer'] ) ) {
-			$args['post_title'] = $data['Organizer'];
-			unset( $data['Organizer'] );
-		}
-
-		if ( isset( $data['post_content'] ) ) {
-			$args['post_content'] = $data['post_content'];
-		}
-
-		if ( isset( $data['Description'] ) ) {
-			$args['post_content'] = $data['Description'];
-			unset( $data['Description'] );
-		}
-
-		if ( isset( $data['post_excerpt'] ) ) {
-			$args['post_excerpt'] = $data['post_excerpt'];
-		}
-
-		if ( isset( $data['Excerpt'] ) ) {
-			$args['post_excerpt'] = $data['Excerpt'];
-			unset( $data['Excerpt'] );
-		}
 
 		if ( count( $args ) > 1 ) {
 			wp_update_post( $args );
 		}
 
-		$this->save_meta( $id, $data );
-		do_action( 'tribe_events_organizer_updated', $id, $data );
+		$post_fields = array_merge( Tribe__Duplicate__Post::$post_table_columns, array(
+			'Organizer',
+			'Description',
+			'Excerpt',
+		) );
+		$meta = array_diff_key( $data->to_array(), array_combine( $post_fields, $post_fields ) );
+
+		$this->save_meta( $id, $meta );
+
+		/**
+		 * Fires immediately after an organizer has been updated.
+		 *
+		 * @param int $organizer_id The updated organizer post ID.
+		 * @param array $data The data used to update the organizer.
+		 */
+		do_action( 'tribe_events_organizer_updated', $id, $data->to_array() );
+
+		return $id;
 	}
 
 	/**
@@ -467,6 +495,8 @@ class Tribe__Events__Organizer {
 		 * Filters the template path of the template that holds the organizer form fields
 		 *
 		 * @param string $template Template path
+		 *
+		 * @since TBD
 		 */
 		include apply_filters( 'tribe_events_tribe_organizer_new_form_fields', $template );
 	}
