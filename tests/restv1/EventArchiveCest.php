@@ -125,9 +125,9 @@ class EventArchiveCest extends BaseRestCest {
 
 	/**
 	 * @test
-	 * it should retunr the archive root rest url if previous page is 1
+	 * it should return the archive root rest url if previous page is 1
 	 */
-	public function it_should_retunr_the_archive_root_rest_url_if_previous_page_is_1( Tester $I ) {
+	public function it_should_return_the_archive_root_rest_url_if_previous_page_is_1( Tester $I ) {
 		$I->haveManyEventsInDatabase( 6 );
 		$I->haveOptionInDatabase( 'posts_per_page', 3 );
 

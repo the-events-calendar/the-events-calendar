@@ -2,14 +2,8 @@
 
 
 class Tribe__Events__REST__V1__Endpoints__Archive_Event
-	extends Tribe__Events__REST__V1__Endpoints__Base
+	extends Tribe__Events__REST__V1__Endpoints__Archive_Base
 	implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface {
-
-	/**
-	 * @var Tribe__Events__REST__Interfaces__Post_Repository
-	 */
-	protected $repository;
-
 	/**
 	 * @var array An array mapping the REST request supported query vars to the args used in a TEC WP_Query.
 	 */
@@ -25,33 +19,6 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		'organizer'  => 'organizer',
 		'featured'   => 'featured',
 	);
-
-	/**
-	 * @var int The total number of events according to the current request parameters and user access rights.
-	 */
-	protected $total;
-
-	/**
-	 * @var Tribe__Validator__Interface
-	 */
-	protected $validator;
-
-	/**
-	 * Tribe__Events__REST__V1__Endpoints__Archive_Event constructor.
-	 *
-	 * @param Tribe__REST__Messages_Interface                  $messages
-	 * @param Tribe__Events__REST__Interfaces__Post_Repository $repository
-	 * @param Tribe__Events__Validator__Interface              $validator
-	 */
-	public function __construct(
-		Tribe__REST__Messages_Interface $messages,
-		Tribe__Events__REST__Interfaces__Post_Repository $repository,
-		Tribe__Events__Validator__Interface $validator
-	) {
-		parent::__construct( $messages );
-		$this->repository = $repository;
-		$this->validator = $validator;
-	}
 
 	/**
 	 * Handles GET requests on the endpoint.
@@ -159,18 +126,6 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	}
 
 	/**
-	 * Parses the `per_page` argument from the request.
-	 *
-	 * @param int $per_page The `per_page` param provided by the request.
-	 * @return bool|int The `per_page` argument provided in the request or `false` if not set.
-	 */
-	public function sanitize_per_page( $per_page ) {
-		return ! empty( $per_page ) ?
-			min( $this->get_max_posts_per_page(), intval( $per_page ) )
-			: false;
-	}
-
-	/**
 	 * Parses the request for featured events.
 	 *
 	 * @param string $featured
@@ -263,27 +218,6 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	}
 
 	/**
-	 * Builds and returns the current rest URL depending on the query arguments.
-	 *
-	 * @param array $args
-	 *
-	 * @return string
-	 */
-	protected function get_current_rest_url( array $args = array() ) {
-		$url = tribe_events_rest_url( 'events/' );
-
-		$flipped = array_flip( $this->supported_query_vars );
-		$values  = array_intersect_key( $args, $flipped );
-		$keys    = array_intersect_key( $flipped, $values );
-
-		if ( ! empty( $keys ) ) {
-			$url = add_query_arg( array_combine( array_values( $keys ), array_values( $values ) ), $url );
-		}
-
-		return $url;
-	}
-
-	/**
 	 * Whether there is a next page in respect to the specified one.
 	 *
 	 * @param array $args
@@ -301,18 +235,6 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		$next      = tribe_get_events( array_merge( $args, $overrides ) );
 
 		return ! empty( $next );
-	}
-
-	/**
-	 * Builds and returns the next page REST URL.
-	 *
-	 * @param string $rest_url
-	 * @param int $page
-	 *
-	 * @return string
-	 */
-	protected function get_next_rest_url( $rest_url, $page ) {
-		return add_query_arg( array( 'page' => $page + 1 ), remove_query_arg( 'page', $rest_url ) );
 	}
 
 	/**
@@ -336,20 +258,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	}
 
 	/**
-	 * Builds and returns the previous page REST URL.
+	 * Returns the maximum number of posts per page fetched via the REST API.
 	 *
-	 * @param string $rest_url
-	 * @param int $page
-	 *
-	 * @return string
-	 */
-	protected function get_previous_rest_url( $rest_url, $page ) {
-		$rest_url = remove_query_arg( 'page', $rest_url );
-
-		return 2 === $page ? $rest_url : add_query_arg( array( 'page' => $page - 1 ), $rest_url );
-	}
-
-	/**
 	 * @return int
 	 */
 	public function get_max_posts_per_page() {
@@ -359,37 +269,6 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		 * @param int $per_page Default to 50.
 		 */
 		return apply_filters( 'tribe_rest_event_max_per_page', 50 );
-	}
-
-	/**
-	 * @param array $args
-	 *
-	 * @return int
-	 */
-	protected function get_total( $args ) {
-		$this->total = count( tribe_get_events( array_merge( $args, array(
-			'posts_per_page'         => - 1,
-			'fields'                 => 'ids',
-			'update_post_meta_cache' => false,
-			'update_post_term_cache' => false
-		) ) ) );
-
-		return $this->total;
-	}
-
-	/**
-	 * Returns the total number of pages depending on the `per_page` setting.
-	 *
-	 * @param int $total
-	 * @param int $per_page
-	 *
-	 * @return int
-	 */
-	protected function get_total_pages( $total, $per_page = null ) {
-		$per_page    = $per_page ? $per_page : get_option( 'posts_per_page' );
-		$total_pages = intval( ceil( $total / $per_page ) );
-
-		return $total_pages;
 	}
 
 	/**
@@ -508,22 +387,29 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	}
 
 	/**
-	 * Parses the arguments populated parsing the request filling out with the defaults.
-	 *
 	 * @param array $args
-	 * @param array $defaults
 	 *
-	 * @return array
+	 * @return int
 	 */
-	protected function parse_args( array $args, array $defaults ) {
-		foreach ( $this->supported_query_vars as $request_key => $query_var ) {
-			if ( isset( $defaults[ $request_key ] ) ) {
-				$defaults[ $query_var ] = $defaults[ $request_key ];
-			}
-		}
+	protected function get_total( $args ) {
+		$this->total = count( tribe_get_events( array_merge( $args, array(
+			'posts_per_page'         => - 1,
+			'fields'                 => 'ids',
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false
+		) ) ) );
 
-		$args = wp_parse_args( array_filter( $args ), $defaults );
+		return $this->total;
+	}
 
-		return $args;
+	/**
+	 * Returns the archive base REST URL
+	 *
+	 * @return string
+	 */
+	protected function get_base_rest_url() {
+		$url = tribe_events_rest_url( 'events/' );
+
+		return $url;
 	}
 }

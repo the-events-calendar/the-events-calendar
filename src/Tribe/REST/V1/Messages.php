@@ -39,6 +39,7 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 			'could-not-update-event'          => __( 'The event could not be updated', 'the-events-calendar' ),
 			'could-not-update-venue'          => __( 'The venue could not be updated', 'the-venues-calendar' ),
 			'could-not-update-organizer'      => __( 'The organizer could not be updated', 'the-organizers-calendar' ),
+			'venue-archive-page-not-found'    => __( 'The requested venue archive page does not exist', 'the-venues-calendar' ),
 		);
 	}
 

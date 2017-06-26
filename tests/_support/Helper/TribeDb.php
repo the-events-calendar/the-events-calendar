@@ -275,4 +275,10 @@ class TribeDb extends \Codeception\Module {
 		return $post_id;
 	}
 
+	public function haveManyVenuesInDatabase( $count, array $overrides = [] ) {
+		return array_map( function () use ( $overrides ) {
+			return $this->haveVenueInDatabase( $overrides );
+		}, range( 1, $count ) );
+	}
+
 }
