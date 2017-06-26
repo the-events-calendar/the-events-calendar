@@ -49,17 +49,13 @@ class Tribe__Events__Venue {
 	 * @return Tribe__Events__Venue
 	 */
 	public static function instance() {
-		if ( ! self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
+		return tribe( 'tec.linked-posts.venue' );
 	}
 
 	/**
-	 * Constructor!
+	 * Tribe__Events__Venue constructor.
 	 */
-	protected function __construct() {
+	public function __construct() {
 		$rewrite = Tribe__Events__Rewrite::instance();
 
 		$this->singular_venue_label                = $this->get_venue_label_singular();
@@ -361,6 +357,7 @@ class Tribe__Events__Venue {
 			if ( $avoid_duplicates ) {
 				/** @var Tribe__Duplicate__Post $duplicates */
 				$duplicates = tribe( 'post-duplicate' );
+				$duplicates->set_post_type( Tribe__Events__Main::VENUE_POST_TYPE );
 				$duplicates->use_post_fields( $this->get_duplicate_post_fields() );
 				$duplicates->use_custom_fields( $this->get_duplicate_custom_fields() );
 
@@ -556,6 +553,7 @@ class Tribe__Events__Venue {
 		$fields = array(
 			'post_title'   => array( 'match' => 'same' ),
 			'post_content' => array( 'match' => 'same' ),
+			'post_excerpt' => array( 'match' => 'same' ),
 		);
 
 		/**
@@ -599,6 +597,38 @@ class Tribe__Events__Venue {
 		 * @since TBD
 		 */
 		return apply_filters( 'tribe_event_venue_duplicate_custom_fields', $fields );
+	}
+
+	public function find_like( $search ) {
+		$post_fields = $this->get_duplicate_post_fields();
+		$post_fields = array_combine(
+			array_keys( $post_fields ),
+			array_fill( 0, count( $post_fields ), array( 'match' => 'like' ) )
+		);
+
+		$custom_fields = $this->get_duplicate_custom_fields();
+		$custom_fields = array_combine(
+			array_keys( $custom_fields ),
+			array_fill( 0, count( $custom_fields ), array( 'match' => 'like' ) )
+		);
+
+		/** @var Tribe__Duplicate__Post $duplicates */
+		$duplicates = tribe( 'post-duplicate' );
+		$duplicates->set_post_type( Tribe__Events__Main::VENUE_POST_TYPE );
+		$duplicates->use_post_fields( $post_fields );
+		$duplicates->use_custom_fields( $custom_fields );
+		$duplicates->set_where_operator( 'OR' );
+
+		$merged = array_merge( $post_fields, $custom_fields );
+
+		$data = array_combine(
+			array_keys( $merged ),
+			array_fill( 0, count( $merged ), $search )
+		);
+
+		$found = $duplicates->find_all_for( $data );
+
+		return $found;
 	}
 
 	/**

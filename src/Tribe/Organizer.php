@@ -41,17 +41,13 @@ class Tribe__Events__Organizer {
 	 * @return Tribe__Events__Organizer
 	 */
 	public static function instance() {
-		if ( ! self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
+		return tribe( 'tec.linked-posts.organizer' );
 	}
 
 	/**
-	 * Constructor!
+	 * Tribe__Events__Organizer constructor.
 	 */
-	protected function __construct() {
+	public function __construct() {
 		$rewrite = Tribe__Events__Rewrite::instance();
 
 		$this->singular_organizer_label                = $this->get_organizer_label_singular();
@@ -346,6 +342,7 @@ class Tribe__Events__Organizer {
 			if ( $avoid_duplicates ) {
 				/** @var Tribe__Duplicate__Post $duplicates */
 				$duplicates = tribe( 'post-duplicate' );
+				$duplicates->set_post_type( Tribe__Events__Main::ORGANIZER_POST_TYPE );
 				$duplicates->use_post_fields( $this->get_duplicate_post_fields() );
 				$duplicates->use_custom_fields( $this->get_duplicate_custom_fields() );
 

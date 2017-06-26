@@ -10,9 +10,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	protected $supported_query_vars = array(
 		'page'     => 'paged',
 		'per_page' => 'posts_per_page',
+		'search'     => 's',
 //		'start_date' => 'start_date',
 //		'end_date'   => 'end_date',
-//		'search'     => 's',
 //		'categories' => 'categories',
 //		'tags'       => 'tags',
 //		'venue'      => 'venue',
@@ -50,8 +50,19 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 		$args = array();
 		$args['posts_per_page'] = $request['per_page'];
 		$args['paged'] = $request['page'];
+		$args['s'] = $request['search'];
 
 		$args = $this->parse_args( $args, $request->get_default_params() );
+
+		if ( ! empty( $args['s'] ) ) {
+			/** @var Tribe__Events__Venue $linked_post */
+			$linked_post = tribe( 'tec.linked-posts.venue' );
+			$matches = $linked_post->find_like( $args['s'] );
+			unset( $args['s'] );
+			if ( ! empty( $matches ) ) {
+				$args['post__in'] = $matches;
+			}
+		}
 
 		$venues = tribe_get_venues( $only_with_upcoming, $args['posts_per_page'], $suppress_filters, $args );
 
