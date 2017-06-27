@@ -900,7 +900,7 @@ class Tribe__Events__Linked_Posts {
 		/**
 		 * Controls whether the UI to create new linked posts should be displayed.
 		 *
-		 * @since TBD
+		 * @since 4.5.7
 		 *
 		 * @param bool $enabled
 		 * @param string $post_type
