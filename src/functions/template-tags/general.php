@@ -199,8 +199,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *		@type string    $end_date        Maximum end date of the Event.
 	 *		@type string    $eventDate       A specific Event date for the Query.
 	 *		@type bool      $hide_upcoming   Hide events that are not on eventDate, internal usage
-	 *		@type int       $venue           Select events from a specfic Venue
-	 *		@type int       $organizer       Select events from a specfic Organizer
+	 *		@type int       $venue           Select events from a specific Venue
+	 *		@type int       $organizer       Select events from a specific Organizer
 	 *		@type string    $eventDisplay    How to display the Events, internal usage
 	 *
 	 *		@see  get_posts()  for more params

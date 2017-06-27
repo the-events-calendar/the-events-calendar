@@ -8,17 +8,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	 * @var array An array mapping the REST request supported query vars to the args used in a TEC WP_Query.
 	 */
 	protected $supported_query_vars = array(
-		'page'     => 'paged',
-		'per_page' => 'posts_per_page',
-		'search'     => 's',
-		'event'     => 'event',
-//		'start_date' => 'start_date',
-//		'end_date'   => 'end_date',
-//		'categories' => 'categories',
-//		'tags'       => 'tags',
-//		'venue'      => 'venue',
-//		'organizer'  => 'organizer',
-//		'featured'   => 'featured',
+		'page'               => 'paged',
+		'per_page'           => 'posts_per_page',
+		'search'             => 's',
+		'event'              => 'event',
+		'has_events'         => 'has_events',
+		'only_with_upcoming' => 'only_with_upcoming',
 	);
 
 	/**
@@ -44,20 +39,22 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 */
 	public function get( WP_REST_Request $request ) {
-		$only_with_upcoming = false;
-		$suppress_filters = false;
+		$args                       = array();
+		$args['posts_per_page']     = $request['per_page'];
+		$args['paged']              = $request['page'];
+		$args['s']                  = $request['search'];
+		$args['event']              = $request['event'];
+		$args['has_events']         = $request['has_events'];
 
-		$args = array();
-		$args['posts_per_page'] = $request['per_page'];
-		$args['paged'] = $request['page'];
-		$args['s'] = $request['search'];
-		$args['event'] = $request['event'];
-		$args['has_events'] = $request['has_events'];
-
-		$cap = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_posts;
+		$cap                 = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_posts;
 		$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
 
 		$args = $this->parse_args( $args, $request->get_default_params() );
+
+		$only_with_upcoming = isset( $request['only_with_upcoming'] )
+			? tribe_is_truthy( $request['only_with_upcoming'] )
+			: true;
+		unset( $args['only_with_upcoming'] );
 
 		if ( ! empty( $args['s'] ) ) {
 			/** @var Tribe__Events__Venue $linked_post */
@@ -73,7 +70,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			}
 		}
 
-		$venues = tribe_get_venues( $only_with_upcoming, $args['posts_per_page'], $suppress_filters, $args );
+		$venues = tribe_get_venues( $only_with_upcoming, $args['posts_per_page'], true, $args );
 
 		unset( $args['fields'] );
 
@@ -126,14 +123,14 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	 */
 	public function READ_args() {
 		return array(
-			'page'     => array(
+			'page'                => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_positive_int' ),
 				'default'           => 1,
 				'description'       => __( 'The archive page to return', 'the-events-calendar' ),
 				'type'              => 'integer',
 			),
-			'per_page' => array(
+			'per_page'            => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_positive_int' ),
 				'sanitize_callback' => array( $this, 'sanitize_per_page' ),
@@ -141,22 +138,28 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 				'description'       => __( 'The number of venues to return on each page', 'the-events-calendar' ),
 				'type'              => 'integer',
 			),
-			'search' => array(
+			'search'              => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_string' ),
-				'description' => __( 'Events should contain the specified string in the title or description', 'the-events-calendar' ),
-				'type' => 'string',
+				'description'       => __( 'Venues should contain the specified string in the title, description or custom fields', 'the-events-calendar' ),
+				'type'              => 'string',
 			),
-			'event' => array(
+			'event'               => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_event_id' ),
 				'description'       => __( 'Venues should be related to this event', 'the-events-calendar' ),
 				'type'              => 'integer',
 			),
-			'has_events' => array(
-				'required'          => false,
-				'description'       => __( 'Venues should have events associated to them', 'the-events-calendar' ),
-				'swagger_type'              => 'boolean',
+			'has_events'          => array(
+				'required'     => false,
+				'description'  => __( 'Venues should have events associated to them', 'the-events-calendar' ),
+				'swagger_type' => 'boolean',
+			),
+			'only_with_upcoming' => array(
+				'required'     => false,
+				'description'  => __( 'Venues should have upcoming events associated to them', 'the-events-calendar' ),
+				'swagger_type' => 'boolean',
+				'default' => true,
 			),
 		);
 	}

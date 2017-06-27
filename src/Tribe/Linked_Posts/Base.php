@@ -19,6 +19,11 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	protected $meta_prefix = '';
 
 	/**
+	 * @var string The meta key relating a post of the type managed by the class to events.
+	 */
+	protected $event_meta_key = '';
+
+	/**
 	 * Returns an array of post fields that should be used to spot possible duplicates.
 	 *
 	 * @return array An array of post fields to matching strategy in the format
@@ -51,8 +56,8 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	 *
 	 * @return array|bool An array of post IDs or `false` if nothing was found.
 	 *
-	 * @see get_duplicate_post_fields()
-	 * @see get_duplicate_custom_fields()
+	 * @see   get_duplicate_post_fields()
+	 * @see   get_duplicate_custom_fields()
 	 *
 	 * @since TDB
 	 */
@@ -86,6 +91,168 @@ abstract class Tribe__Events__Linked_Posts__Base {
 		$found = $duplicates->find_all_for( $data );
 
 		return $found;
+	}
+
+	/**
+	 * Returns posts linked to the specified event.
+	 *
+	 * @param int|WP_Post $event_id
+	 *
+	 * @return array An array of matching post IDs.
+	 *
+	 * @since TBD
+	 */
+	public function find_for_event( $event_id ) {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		$event_id = Tribe__Main::post_id_helper( $event_id );
+
+		if ( empty( $event_id ) ) {
+			return array();
+		}
+
+		$query    = "SELECT pm.meta_value
+				FROM {$wpdb-> posts} p
+				JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+				WHERE p.post_type = %s
+				AND pm.post_id = %d
+				AND meta_key = %s";
+		$prepared = $wpdb->prepare( $query, Tribe__Events__Main::POSTTYPE, $event_id, $this->event_meta_key );
+
+		$results = $wpdb->get_col( $prepared );
+
+
+		if ( empty( $results ) ) {
+			return array();
+		}
+
+		return array_map( 'intval', $results );
+	}
+
+	/**
+	 * Returns an array of posts that have events, past or future, linked to them.
+	 *
+	 * @param bool  $has_events          Whether to look for posts with linked events or not.
+	 * @param array $excluded_post_stati An array of post stati that should not be
+	 *                                   considered for the purpose of marking a post
+	 *                                   as "with events".
+	 *
+	 * @return array An array of matching post IDs.
+	 *
+	 * @since TBD
+	 */
+	public function find_with_events( $has_events = true, $excluded_post_stati = null ) {
+		$has_events = tribe_is_truthy( $has_events );
+
+		if ( null === $excluded_post_stati ) {
+			$excluded_post_stati = array( 'pending', 'draft' );
+		}
+
+		/**
+		 * Filters the post stati that should be excluded when looking for venues with events.
+		 *
+		 * By default if an event is linked to a venue but in "pending" or "draft" status that venue
+		 * will not be marked as having events.
+		 *
+		 * @param array $excluded_post_stati
+		 *
+		 *
+		 * @since TBD
+		 */
+		$excluded_post_stati = apply_filters( "tribe_{$this->post_type}_has_events_excluded_post_stati", $excluded_post_stati );
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		$post_status_clause = '';
+		if ( ! empty( $excluded_post_stati ) ) {
+			$excluded_post_stati_in = array();
+			foreach ( $excluded_post_stati as $status ) {
+				$excluded_post_stati_in[] = $wpdb->prepare( '%s', $status );
+			}
+			$excluded_post_stati_in = implode( ',', $excluded_post_stati_in );
+
+			$post_status_clause = "AND p.post_status NOT IN ({$excluded_post_stati_in})";
+		}
+
+		$has_events_query = "SELECT DISTINCT pm.meta_value
+				FROM {$wpdb->posts} p 
+				JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+				WHERE p.post_type = %s
+				{$post_status_clause}
+				AND meta_key = %s";
+
+		$prepared_has_events_query = $wpdb->prepare(
+			$has_events_query,
+			Tribe__Events__Main::POSTTYPE,
+			$this->event_meta_key
+		);
+
+		$results = $wpdb->get_col( $prepared_has_events_query );
+
+		if ( ! $has_events ) {
+			$query    = "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s";
+			$prepared = $wpdb->prepare( $query, Tribe__Events__Main::VENUE_POST_TYPE );
+			$venues   = $wpdb->get_col( $prepared );
+
+			if ( empty( $venues ) ) {
+				return array();
+			}
+
+			$found = array_diff( $venues, $results );
+
+			if ( empty( $found ) ) {
+				return array();
+			}
+		} else {
+			$found = $results;
+		}
+
+		return array_map( 'intval', array_values( $found ) );
+	}
+
+	public function find_with_upcoming_events( $only_with_upcoming = true ) {
+		$only_with_upcoming = tribe_is_truthy( $only_with_upcoming );
+
+		$args = array(
+			'fields'     => 'ids',
+			'start_date' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, time() ),
+		);
+
+		$events = tribe_get_events( $args );
+
+		if ( empty( $events ) ) {
+			return array();
+		}
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		$events_in = implode( ',', $events );
+		$in_clause = $only_with_upcoming
+			? "WHERE p.ID IN ({$events_in})"
+			: "WHERE p.ID NOT IN ({$events_in})";
+
+		$query = "SELECT pm.meta_value
+			FROM {$wpdb->posts} p
+			JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+			{$in_clause}
+			AND pm.meta_key = %s";
+
+		$prepared = $wpdb->prepare( $query, $this->event_meta_key );
+
+		$found = $wpdb->get_col( $prepared );
+		if ( ! $only_with_upcoming ) {
+			$without_events = $this->find_with_events( false );
+			$found          = array_unique( array_merge( $found, $without_events ) );
+		}
+
+		if ( empty( $found ) ) {
+			return array();
+		}
+
+		return array_map( 'intval', $found );
 	}
 
 	/**

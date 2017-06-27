@@ -383,10 +383,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param bool  $only_with_upcoming Only return venues with upcoming events attached to them.
 	 * @param int   $posts_per_page
 	 * @param bool  $suppress_filters
-	 * @param array $args An array of WP_Query arguments to override the default ones.
-	 *                    Additionally the following arguments are supported:
-	 *                    `event` - integer; fetch venues related to this event post ID
-	 *                    `has_events` - bool; fetch venues that have events, not in draft or pending status, associated
+	 * @param array $args {
+	 *		Optional. Array of Query parameters.
+	 *
+	 *		@type int  $event      Only venues linked to this event post ID.
+	 *		@type bool $has_events Only venues that have events.
+	 * }
 	 *
 	 * @return array An array of venue post objects.
 	 */
@@ -394,69 +396,33 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
-		if ( ! empty( $args['event'] ) && is_numeric( $args['event'] ) ) {
-			$query    = "SELECT pm.meta_value as 'venue_id'
-				FROM {$wpdb-> posts} p
-				JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
-				WHERE p.post_type = %s
-				AND pm.post_id = %d
-				AND meta_key = '_EventVenueID'";
-			$prepared = $wpdb->prepare( $query, Tribe__Events__Main::POSTTYPE, $args['event'] );
-			$results  = $wpdb->get_results( $prepared );
-
-			if ( empty( $results ) ) {
-				return array();
-			}
-
-			$post__in         = wp_list_pluck( $results, 'venue_id' );
-			$args['post__in'] = ! empty( $args['post__in'] )
-				? array_intersect( (array) $args['post__in'], $post__in )
-				: $post__in;
-
-			if ( empty( $args['post__in'] ) ) {
-				return array();
-			}
+		if ( tribe_is_truthy( $only_with_upcoming ) ) {
+			$args['only_with_upcoming'] = true;
 		}
 
-		if ( isset( $args['has_events'] ) ) {
-			$has_events_query          = "SELECT pm.meta_value as 'venue_id'
-				FROM {$wpdb->posts} p 
-				JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
-				WHERE p.post_type = %s
-				AND meta_key = '_EventVenueID'";
-			$prepared_has_events_query = $wpdb->prepare(
-				$has_events_query,
-				Tribe__Events__Main::POSTTYPE,
-				Tribe__Events__Main::VENUE_POST_TYPE
-			);
+		$filter_args = array(
+			'event' => 'find_for_event',
+			'has_events' => 'find_with_events',
+			'only_with_upcoming' => 'find_with_upcoming_events',
+		);
 
-			$results = $wpdb->get_results( $prepared_has_events_query );
-
-			if ( ! tribe_is_truthy( $args['has_events'] ) ) {
-				$query    = "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s";
-				$prepared = $wpdb->prepare( $query, Tribe__Events__Main::VENUE_POST_TYPE );
-				$venues   = $wpdb->get_col( $prepared );
-
-				if ( empty( $venues ) ) {
-					return array();
-				}
-
-				$post__in = array_diff( $venues, wp_list_pluck( $results, 'venue_id' ) );
-
-				if ( empty( $post__in ) ) {
-					return array();
-				}
-			} else {
-				$post__in = wp_list_pluck( $results, 'venue_id' );
+		foreach ( $filter_args as $filter_arg => $method ) {
+			if ( ! isset( $args[ $filter_arg ] ) ) {
+				continue;
 			}
 
-			if ( empty( $post__in ) ) {
+			$found = call_user_func(
+				array( tribe( 'tec.linked-posts.venue' ), $method ),
+				$args[ $filter_arg ]
+			);
+
+			if ( empty( $found ) ) {
 				return array();
 			}
 
 			$args['post__in'] = ! empty( $args['post__in'] )
-				? array_intersect( (array) $args['post__in'], $post__in )
-				: $post__in;
+				? array_intersect( (array) $args['post__in'], $found )
+				: $found;
 
 			if ( empty( $args['post__in'] ) ) {
 				return array();

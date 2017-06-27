@@ -24,6 +24,11 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	protected $meta_prefix = '_Venue';
 
 	/**
+	 * @var string The meta key relating a post of the type managed by the class to events.
+	 */
+	protected $event_meta_key = '_EventVenueID';
+
+	/**
 	 * @var array A list of all the valid Venue keys, post fields and custom fields
 	 */
 	public static $valid_venue_keys = array(
@@ -116,7 +121,10 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 
 		add_filter( 'tribe_events_linked_post_type_args', array( $this, 'filter_linked_post_type_args' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_id_field_index', array( $this, 'linked_post_id_field_index' ), 10, 2 );
-		add_filter( 'tribe_events_linked_post_name_field_index', array( $this, 'linked_post_name_field_index' ), 10, 2 );
+		add_filter( 'tribe_events_linked_post_name_field_index', array(
+			$this,
+			'linked_post_name_field_index'
+		), 10, 2 );
 		add_filter( 'tribe_events_linked_post_type_container', array( $this, 'linked_post_type_container' ), 10, 2 );
 		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 5 );
 		add_filter( 'tribe_events_linked_post_meta_box_title', array( $this, 'meta_box_title' ), 5, 2 );
@@ -139,7 +147,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	 *
 	 * @since 4.2
 	 *
-	 * @param array $args Array of linked post type arguments
+	 * @param array  $args      Array of linked post type arguments
 	 * @param string $post_type Linked post type
 	 *
 	 * @return array
@@ -195,7 +203,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	 *
 	 * @since 4.2
 	 *
-	 * @param string $id_field Field name of the field that will hold the ID
+	 * @param string $id_field  Field name of the field that will hold the ID
 	 * @param string $post_type Post type of linked post
 	 */
 	public function linked_post_id_field_index( $id_field, $post_type ) {
@@ -212,7 +220,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	 * @since 4.2
 	 *
 	 * @param string $name_field Field name of the field that will hold the name
-	 * @param string $post_type Post type of linked post
+	 * @param string $post_type  Post type of linked post
 	 *
 	 * @return string
 	 */
@@ -253,10 +261,10 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	/**
 	 * Saves the event venue information passed via an event
 	 *
-	 * @param int|null $id ID of event venue
-	 * @param array  $data The venue data.
-	 * @param string $post_type Venue Post Type
-	 * @param string $post_status The intended post status.
+	 * @param int|null $id          ID of event venue
+	 * @param array    $data        The venue data.
+	 * @param string   $post_type   Venue Post Type
+	 * @param string   $post_status The intended post status.
 	 *
 	 * @return mixed
 	 */
@@ -288,7 +296,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	 * Saves venue meta
 	 *
 	 * @param int   $venue_id The venue ID.
-	 * @param array $data    The venue data.
+	 * @param array $data     The venue data.
 	 *
 	 */
 	public function save_meta( $venue_id, $data ) {
@@ -335,10 +343,10 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	/**
 	 * Creates a new venue
 	 *
-	 * @param array  $data        The venue data.
-	 * @param string $post_status the intended post status.
-	 * @param bool $avoid_duplicates Whether a check to avoid the insertion of a duplicate venue
-	 *                               should be made (`true`) or not (`false`).
+	 * @param array  $data             The venue data.
+	 * @param string $post_status      the intended post status.
+	 * @param bool   $avoid_duplicates Whether a check to avoid the insertion of a duplicate venue
+	 *                                 should be made (`true`) or not (`false`).
 	 *
 	 * @return int
 	 */
@@ -348,8 +356,8 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		 *
 		 * If a non `null` value is returned that will be returned and the venue creation process will bail.
 		 *
-		 * @param mixed $check Whether the venue insertion process should proceed or not.
-		 * @param array $data The data provided to create the venue.
+		 * @param mixed  $check       Whether the venue insertion process should proceed or not.
+		 * @param array  $data        The data provided to create the venue.
 		 * @param string $post_status The post status that should be applied to the created venue.
 		 *
 		 * @since TBD
@@ -419,7 +427,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 				 * Fires immediately after a venue has been created.
 				 *
 				 * @param int   $venue_id The updated venue post ID.
-				 * @param array $data         The data used to update the venue.
+				 * @param array $data     The data used to update the venue.
 				 */
 				do_action( 'tribe_events_venue_created', $venue_id, $data->to_array() );
 
@@ -462,9 +470,9 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		 *
 		 * If a non `null` value is returned that will be returned and the venue update process will bail.
 		 *
-		 * @param mixed  $check       Whether the venue update process should proceed or not.
-		 * @param int    $venue_id    The post ID of the venue that should be updated
-		 * @param array  $data        The data provided to update the venue.
+		 * @param mixed $check    Whether the venue update process should proceed or not.
+		 * @param int   $venue_id The post ID of the venue that should be updated
+		 * @param array $data     The data provided to update the venue.
 		 *
 		 * @since TBD
 		 */
@@ -479,15 +487,15 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		unset( $data['VenueID'] );
 
 		$args = array_filter( array(
-			'ID'            => $venue_id,
-			'post_title'    => Tribe__Utils__Array::get( $data, 'post_title', $data['Venue'] ),
-			'post_content'  => Tribe__Utils__Array::get( $data, 'post_content', $data['Description'] ),
-			'post_excerpt'  => Tribe__Utils__Array::get( $data, 'post_excerpt', $data['Excerpt'] ),
-			'post_author'   => $data['post_author'],
-			'post_date'     => $data['post_date'],
-			'post_date_gmt' => $data['post_date_gmt'],
-			'post_status'   => $data['post_status'],
-		) );
+			                      'ID'            => $venue_id,
+			                      'post_title'    => Tribe__Utils__Array::get( $data, 'post_title', $data['Venue'] ),
+			                      'post_content'  => Tribe__Utils__Array::get( $data, 'post_content', $data['Description'] ),
+			                      'post_excerpt'  => Tribe__Utils__Array::get( $data, 'post_excerpt', $data['Excerpt'] ),
+			                      'post_author'   => $data['post_author'],
+			                      'post_date'     => $data['post_date'],
+			                      'post_date_gmt' => $data['post_date_gmt'],
+			                      'post_status'   => $data['post_status'],
+		                      ) );
 
 		if ( count( $args ) > 1 ) {
 			wp_update_post( $args );
@@ -509,15 +517,15 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			'Description',
 			'Excerpt',
 		) );
-		$meta = array_diff_key( $data->to_array(), array_combine( $post_fields, $post_fields ) );
+		$meta        = array_diff_key( $data->to_array(), array_combine( $post_fields, $post_fields ) );
 
 		$this->save_meta( $venue_id, $meta );
 
 		/**
 		 * Fires immediately after a venue has been updated.
 		 *
-		 * @param int $venue_id The updated venue post ID.
-		 * @param array $data The data used to update the venue.
+		 * @param int   $venue_id The updated venue post ID.
+		 * @param array $data     The data used to update the venue.
 		 */
 		do_action( 'tribe_events_venue_updated', $venue_id, $data->to_array() );
 
@@ -527,8 +535,9 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	/**
 	 * Deletes a venue
 	 *
-	 * @param int  $venue_id      The venue ID to delete.
-	 * @param bool $force_delete  Whether or not to bypass the trash when deleting the venue (see wp_delete_post's $force_delete param)
+	 * @param int  $venue_id     The venue ID to delete.
+	 * @param bool $force_delete Whether or not to bypass the trash when deleting the venue (see wp_delete_post's
+	 *                           $force_delete param)
 	 *
 	 */
 	public function delete( $venue_id, $force_delete = false ) {
@@ -540,7 +549,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	 *
 	 * @since 4.2.4
 	 *
-	 * @param int $default Default venue ID
+	 * @param int    $default   Default venue ID
 	 * @param string $post_type Post type of form being output
 	 */
 	public function linked_post_default( $default, $post_type ) {

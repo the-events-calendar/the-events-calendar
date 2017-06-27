@@ -8,6 +8,16 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	 */
 	protected $messages;
 
+	/**
+	 * @var array
+	 */
+	protected $supported_query_vars = array();
+
+	/**
+	 * Tribe__Events__REST__V1__Endpoints__Base constructor.
+	 *
+	 * @param Tribe__REST__Messages_Interface $messages
+	 */
 	public function __construct( Tribe__REST__Messages_Interface $messages ) {
 		$this->messages = $messages;
 	}
@@ -95,6 +105,8 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	 * Modifies a request argument marking it as not required.
 	 *
 	 * @param array $arg
+	 *
+	 * @since TBD
 	 */
 	protected function unrequire_arg( array &$arg ) {
 		$arg['required'] = false;
@@ -107,6 +119,8 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	 * @param array $defaults
 	 *
 	 * @return array
+	 *
+	 * @since TBD
 	 */
 	protected function parse_args( array $args, array $defaults ) {
 		foreach ( $this->supported_query_vars as $request_key => $query_var ) {

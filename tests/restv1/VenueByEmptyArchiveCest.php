@@ -67,48 +67,25 @@ class VenueByEmptyArchiveCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should return 404 if there are no events in db
+	 * It should mark venue as empty if draft or pending events are assigned to it
 	 * @test
 	 */
-	public function it_should_return_404_if_there_are_no_venues_in_db( Tester $I ) {
-		$event = $I->haveEventInDatabase();
+	public function it_should_mark_venue_as_empty_if_draft_or_pending_events_are_assigned_to_it( Tester $I ) {
+		$venue_1         = $I->haveVenueInDatabase();
+		$venue_2         = $I->haveVenueInDatabase();
+		$venue_3         = $I->haveVenueInDatabase();
+		$venue_4         = $I->haveVenueInDatabase();
+		$draft_event     = $I->haveEventInDatabase( [ 'post_status' => 'draft', 'venue' => $venue_1 ] );
+		$pending_event   = $I->haveEventInDatabase( [ 'post_status' => 'pending', 'venue' => $venue_2 ] );
+		$published_event = $I->haveEventInDatabase( [ 'venue' => $venue_3 ] );
 
-		$I->sendGET( $this->venues_url, [ 'event' => $event ] );
-
-		$I->seeResponseCodeIs( 404 );
-		$I->seeResponseIsJson();
-	}
-
-	/**
-	 * It should not return non public venues related to event
-	 * @test
-	 */
-	public function it_should_not_return_non_public_venues_related_to_event( Tester $I ) {
-		$draft_venue = $I->haveVenueInDatabase( [ 'post_status' => 'draft' ] );
-		$event       = $I->haveEventInDatabase( [ 'venue' => $draft_venue ] );
-
-		$I->sendGET( $this->venues_url, [ 'event' => $event ] );
-
-		$I->seeResponseCodeIs( 404 );
-		$I->seeResponseIsJson();
-	}
-
-	/**
-	 * It should show non public venues to authorized user
-	 * @test
-	 */
-	public function it_should_show_non_public_venues_to_authorized_user( Tester $I ) {
-		$draft_venue = $I->haveVenueInDatabase( [ 'post_status' => 'draft' ] );
-		$event       = $I->haveEventInDatabase( [ 'venue' => $draft_venue ] );
-
-		$I->generate_nonce_for_role( 'editor' );
-		$I->sendGET( $this->venues_url, [ 'event' => $event ] );
+		$I->sendGET( $this->venues_url, [ 'has_events' => 'true' ] );
 
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
-		$response = json_decode( $I->grabResponse() );
-		$I->assertCount( 1, $response->venues );
-		$first = $response->venues[0];
-		$I->assertEquals( $draft_venue, $first->id );
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertCount( 1, $response['venues'] );
+		$response_venues = array_column( $response['venues'], 'id' );
+		$I->assertEquals( [ $venue_3 ], $response_venues );
 	}
 }
