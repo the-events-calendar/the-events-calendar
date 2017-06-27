@@ -1,6 +1,6 @@
 <?php
 
-class Tribe__Events__Venue {
+class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	const POSTTYPE = 'tribe_venue';
 
 	/**
@@ -38,9 +38,33 @@ class Tribe__Events__Venue {
 		'Phone',
 	);
 
+	/**
+	 * @var array A list of the valid meta keys for this linked post.
+	 */
+	public static $meta_keys = array(
+		'Address',
+		'City',
+		'Province',
+		'State',
+		'StateProvince',
+		'Province',
+		'Zip',
+		'Phone',
+	);
+
+	/**
+	 * @var string
+	 */
 	public $singular_venue_label;
+
+	/**
+	 * @var string
+	 */
 	public $plural_venue_label;
 
+	/**
+	 * @var Tribe__Events__Venue
+	 */
 	protected static $instance;
 
 	/**
@@ -58,10 +82,11 @@ class Tribe__Events__Venue {
 	public function __construct() {
 		$rewrite = Tribe__Events__Rewrite::instance();
 
-		$this->singular_venue_label                = $this->get_venue_label_singular();
-		$this->singular_venue_label_lowercase      = $this->get_venue_label_singular_lowercase();
-		$this->plural_venue_label                  = $this->get_venue_label_plural();
-		$this->plural_venue_label_lowercase        = $this->get_venue_label_plural_lowercase();
+		$this->post_type                      = self::POSTTYPE;
+		$this->singular_venue_label           = $this->get_venue_label_singular();
+		$this->singular_venue_label_lowercase = $this->get_venue_label_singular_lowercase();
+		$this->plural_venue_label             = $this->get_venue_label_plural();
+		$this->plural_venue_label_lowercase   = $this->get_venue_label_plural_lowercase();
 
 		$this->post_type_args['rewrite']['slug']   = $rewrite->prepare_slug( $this->singular_venue_label, self::POSTTYPE, false );
 		$this->post_type_args['show_in_nav_menus'] = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
@@ -597,54 +622,5 @@ class Tribe__Events__Venue {
 		 * @since TBD
 		 */
 		return apply_filters( 'tribe_event_venue_duplicate_custom_fields', $fields );
-	}
-
-	public function find_like( $search ) {
-		$post_fields = $this->get_duplicate_post_fields();
-		$post_fields = array_combine(
-			array_keys( $post_fields ),
-			array_fill( 0, count( $post_fields ), array( 'match' => 'like' ) )
-		);
-
-		$custom_fields = $this->get_duplicate_custom_fields();
-		$custom_fields = array_combine(
-			array_keys( $custom_fields ),
-			array_fill( 0, count( $custom_fields ), array( 'match' => 'like' ) )
-		);
-
-		/** @var Tribe__Duplicate__Post $duplicates */
-		$duplicates = tribe( 'post-duplicate' );
-		$duplicates->set_post_type( Tribe__Events__Main::VENUE_POST_TYPE );
-		$duplicates->use_post_fields( $post_fields );
-		$duplicates->use_custom_fields( $custom_fields );
-		$duplicates->set_where_operator( 'OR' );
-
-		$merged = array_merge( $post_fields, $custom_fields );
-
-		$data = array_combine(
-			array_keys( $merged ),
-			array_fill( 0, count( $merged ), $search )
-		);
-
-		$found = $duplicates->find_all_for( $data );
-
-		return $found;
-	}
-
-	/**
-	 * Prefixes a key with the correct meta key prefix if needed.
-	 *
-	 * @param string $key
-	 *
-	 * @return string
-	 */
-	protected function prefix_key( $key ) {
-		$prefixable_keys = self::$valid_venue_keys;
-		unset( $prefixable_keys['Venue'] );
-		if ( 0 !== strpos( $key, $this->meta_prefix ) && in_array( $key, $prefixable_keys ) ) {
-			return $this->meta_prefix . $key;
-		}
-
-		return $key;
 	}
 }
