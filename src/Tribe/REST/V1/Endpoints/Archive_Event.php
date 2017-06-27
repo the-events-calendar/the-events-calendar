@@ -396,7 +396,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			'posts_per_page'         => - 1,
 			'fields'                 => 'ids',
 			'update_post_meta_cache' => false,
-			'update_post_term_cache' => false
+			'update_post_term_cache' => false,
 		) ) ) );
 
 		return $this->total;

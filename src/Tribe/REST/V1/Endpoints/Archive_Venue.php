@@ -184,14 +184,16 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	 * @return int
 	 */
 	protected function get_total( $args ) {
-		$only_with_upcoming = $args['only_with_upcoming'];
-		unset($args['posts_per_page']);
+		$only_with_upcoming = isset( $request['only_with_upcoming'] )
+			? tribe_is_truthy( $request['only_with_upcoming'] )
+			: true;
+		unset( $args['posts_per_page'] );
 
-		$this->total = count( tribe_get_venues( $only_with_upcoming, -1, false,
+		$this->total = count( tribe_get_venues( $only_with_upcoming, - 1, false,
 			array_merge( $args, array(
 				'fields'                 => 'ids',
 				'update_post_meta_cache' => false,
-				'update_post_term_cache' => false
+				'update_post_term_cache' => false,
 			) ) ) );
 
 		return $this->total;
@@ -223,7 +225,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			'paged'                  => $page + 1,
 			'fields'                 => 'ids',
 			'update_post_meta_cache' => false,
-			'update_post_term_cache' => false
+			'update_post_term_cache' => false,
 		);
 
 		$per_page = $args['posts_per_page'];
@@ -249,7 +251,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			'paged'                  => $page - 1,
 			'fields'                 => 'ids',
 			'update_post_meta_cache' => false,
-			'update_post_term_cache' => false
+			'update_post_term_cache' => false,
 		);
 
 		$per_page = $args['posts_per_page'];
