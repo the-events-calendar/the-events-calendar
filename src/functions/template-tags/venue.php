@@ -385,14 +385,16 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param bool  $suppress_filters
 	 * @param array $args An array of WP_Query arguments to override the default ones.
 	 *                    Additionally the following arguments are supported:
-	 *                    `event` => integer; fetch venues related to this event post ID
+	 *                    `event` - integer; fetch venues related to this event post ID
+	 *                    `has_events` - bool; fetch venues that have events, not in draft or pending status, associated
 	 *
 	 * @return array An array of venue post objects.
 	 */
 	function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true, array $args = array() ) {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
 		if ( ! empty( $args['event'] ) && is_numeric( $args['event'] ) ) {
-			/** @var wpdb $wpdb */
-			global $wpdb;
 			$query    = "SELECT pm.meta_value as 'venue_id'
 				FROM {$wpdb-> posts} p
 				JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
@@ -407,6 +409,52 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$post__in         = wp_list_pluck( $results, 'venue_id' );
+			$args['post__in'] = ! empty( $args['post__in'] )
+				? array_intersect( (array) $args['post__in'], $post__in )
+				: $post__in;
+
+			if ( empty( $args['post__in'] ) ) {
+				return array();
+			}
+		}
+
+		if ( isset( $args['has_events'] ) ) {
+			$has_events_query          = "SELECT pm.meta_value as 'venue_id'
+				FROM {$wpdb->posts} p 
+				JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+				WHERE p.post_type = %s
+				AND meta_key = '_EventVenueID'";
+			$prepared_has_events_query = $wpdb->prepare(
+				$has_events_query,
+				Tribe__Events__Main::POSTTYPE,
+				Tribe__Events__Main::VENUE_POST_TYPE
+			);
+
+			$results = $wpdb->get_results( $prepared_has_events_query );
+			$post__in = array();
+
+			if ( ! tribe_is_truthy( $args['has_events'] ) ) {
+				$query    = "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s";
+				$prepared = $wpdb->prepare( $query, Tribe__Events__Main::VENUE_POST_TYPE );
+				$venues   = $wpdb->get_col( $prepared );
+
+				if ( empty( $venues ) ) {
+					return array();
+				}
+
+				$post__in = array_diff( $venues, wp_list_pluck( $results, 'venue_id' ) );
+
+				if ( empty( $post__in ) ) {
+					return array();
+				}
+			} else {
+				$post__in = wp_list_pluck( $results, 'venue_id' );
+			}
+
+			if ( empty( $post__in ) ) {
+				return array();
+			}
+
 			$args['post__in'] = ! empty( $args['post__in'] )
 				? array_intersect( (array) $args['post__in'], $post__in )
 				: $post__in;

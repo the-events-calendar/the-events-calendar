@@ -52,6 +52,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 		$args['paged'] = $request['page'];
 		$args['s'] = $request['search'];
 		$args['event'] = $request['event'];
+		$args['has_events'] = $request['has_events'];
 
 		$cap = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_posts;
 		$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
@@ -151,6 +152,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 				'validate_callback' => array( $this->validator, 'is_event_id' ),
 				'description'       => __( 'Venues should be related to this event', 'the-events-calendar' ),
 				'type'              => 'integer',
+			),
+			'has_events' => array(
+				'required'          => false,
+				'description'       => __( 'Venues should have events associated to them', 'the-events-calendar' ),
+				'swagger_type'              => 'boolean',
 			),
 		);
 	}
