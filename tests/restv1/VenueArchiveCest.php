@@ -33,14 +33,14 @@ class VenueArchiveCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'venues', $response );
 		$I->assertCount( $per_page, $response['venues'] );
 		$fetched_venues_ids = array_column( $response['venues'], 'id' );
-		$I->assertCount(5,array_intersect($venues, $fetched_venues_ids ));
-		$venues = array_diff($venues,$fetched_venues_ids);
+		$I->assertCount( 5, array_intersect( $venues, $fetched_venues_ids ) );
+		$venues = array_diff( $venues, $fetched_venues_ids );
 		$I->assertEquals( 10, $response['total'] );
 		$I->assertEquals( 2, $response['total_pages'] );
 		$I->seeHttpHeader( 'X-TEC-Total', 10 );
 		$I->seeHttpHeader( 'X-TEC-TotalPages', 2 );
 
-		$I->sendGET( $this->venues_url,[
+		$I->sendGET( $this->venues_url, [
 			'page' => 2,
 		] );
 
@@ -50,8 +50,8 @@ class VenueArchiveCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'venues', $response );
 		$I->assertCount( 5, $response['venues'] );
 		$fetched_venues_ids = array_column( $response['venues'], 'id' );
-		sort($fetched_venues_ids);
-		$I->assertEquals($venues, $fetched_venues_ids );
+		sort( $fetched_venues_ids );
+		$I->assertEquals( $venues, $fetched_venues_ids );
 		$I->assertEquals( 10, $response['total'] );
 		$I->assertEquals( 2, $response['total_pages'] );
 		$I->seeHttpHeader( 'X-TEC-Total', 10 );
@@ -78,15 +78,15 @@ class VenueArchiveCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'venues', $response );
 		$I->assertCount( 4, $response['venues'] );
 		$fetched_venues_ids = array_column( $response['venues'], 'id' );
-		$I->assertCount(4,array_intersect($venues, $fetched_venues_ids ));
+		$I->assertCount( 4, array_intersect( $venues, $fetched_venues_ids ) );
 		$I->assertEquals( 10, $response['total'] );
 		$I->assertEquals( 3, $response['total_pages'] );
 		$I->seeHttpHeader( 'X-TEC-Total', 10 );
 		$I->seeHttpHeader( 'X-TEC-TotalPages', 3 );
 
-		$I->sendGET( $this->venues_url,[
+		$I->sendGET( $this->venues_url, [
 			'per_page' => 2,
-			'page' => 2,
+			'page'     => 2,
 		] );
 
 		$I->seeResponseCodeIs( 200 );
@@ -95,7 +95,7 @@ class VenueArchiveCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'venues', $response );
 		$I->assertCount( 2, $response['venues'] );
 		$fetched_venues_ids = array_column( $response['venues'], 'id' );
-		$I->assertCount(2,array_intersect($venues, $fetched_venues_ids ));
+		$I->assertCount( 2, array_intersect( $venues, $fetched_venues_ids ) );
 		$I->assertEquals( 10, $response['total'] );
 		$I->assertEquals( 5, $response['total_pages'] );
 		$I->seeHttpHeader( 'X-TEC-Total', 10 );
@@ -250,5 +250,34 @@ class VenueArchiveCest extends BaseRestCest {
 		$I->assertEquals( 2, $response->total_pages );
 		$I->seeHttpHeader( 'X-TEC-Total', 10 );
 		$I->seeHttpHeader( 'X-TEC-TotalPages', 2 );
+	}
+
+	/**
+	 * It should not show non public venues
+	 * @test
+	 */
+	public function it_should_not_show_non_public_venues( Tester $I ) {
+		$I->haveManyVenuesInDatabase( 3, [ 'post_status' => 'draft' ] );
+
+		$I->sendGET( $this->venues_url );
+
+		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseIsJson();
+	}
+
+	/**
+	 * It should show non public venues to user with authorization
+	 * @test
+	 */
+	public function it_should_show_non_public_venues_to_user_with_authorization( Tester $I ) {
+		$I->haveManyVenuesInDatabase( 3, [ 'post_status' => 'draft' ] );
+
+		$I->generate_nonce_for_role('editor');
+		$I->sendGET( $this->venues_url );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse() );
+		$I->assertCount( 3, $response->venues );
 	}
 }

@@ -344,7 +344,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'description' => __( 'Events should start before the specified date', 'the-events-calendar' ),
 				'swagger_type' => 'string',
 			),
-			's' => array(
+			'search' => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_string' ),
 				'description' => __( 'Events should contain the specified string in the title or description', 'the-events-calendar' ),

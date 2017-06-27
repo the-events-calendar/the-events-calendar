@@ -11,6 +11,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 		'page'     => 'paged',
 		'per_page' => 'posts_per_page',
 		'search'     => 's',
+		'event'     => 'event',
 //		'start_date' => 'start_date',
 //		'end_date'   => 'end_date',
 //		'categories' => 'categories',
@@ -21,8 +22,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	);
 
 	/**
-	 * Returns an array in the format used by Swagger 2.0.
-	 *
+	 * Returns an array in the format used by Swagger 2.0. *
 	 * While the structure must conform to that used by v2.0 of Swagger the structure can be that of a full document
 	 * or that of a document part.
 	 * The intelligence lies in the "gatherer" of informations rather than in the single "providers" implementing this
@@ -51,6 +51,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 		$args['posts_per_page'] = $request['per_page'];
 		$args['paged'] = $request['page'];
 		$args['s'] = $request['search'];
+		$args['event'] = $request['event'];
+
+		$cap = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_posts;
+		$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
 
 		$args = $this->parse_args( $args, $request->get_default_params() );
 
@@ -80,7 +84,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 
 		$ids = wp_list_pluck( $venues, 'ID' );
 
-		$data = array( 'events' => array() );
+		$data = array( 'venues' => array() );
 
 		foreach ( $ids as $venue_id ) {
 			$data['venues'][] = $this->repository->get_venue_data( $venue_id );
@@ -134,6 +138,18 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 				'sanitize_callback' => array( $this, 'sanitize_per_page' ),
 				'default'           => $this->get_default_posts_per_page(),
 				'description'       => __( 'The number of venues to return on each page', 'the-events-calendar' ),
+				'type'              => 'integer',
+			),
+			'search' => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'description' => __( 'Events should contain the specified string in the title or description', 'the-events-calendar' ),
+				'type' => 'string',
+			),
+			'event' => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_event_id' ),
+				'description'       => __( 'Venues should be related to this event', 'the-events-calendar' ),
 				'type'              => 'integer',
 			),
 		);
