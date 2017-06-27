@@ -43,9 +43,16 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	abstract protected function get_duplicate_custom_fields();
 
 	/**
+	 * Finds posts of the type managed by the class that contain the search string.
+	 *
+	 * The method will search in the post and custom fields defined by the class.
+	 *
 	 * @param string $search
 	 *
-	 * @return array|bool An array of post IDs or `false` on failure.
+	 * @return array|bool An array of post IDs or `false` if nothing was found.
+	 *
+	 * @see get_duplicate_post_fields()
+	 * @see get_duplicate_custom_fields()
 	 *
 	 * @since TDB
 	 */

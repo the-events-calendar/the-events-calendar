@@ -61,6 +61,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			unset( $args['s'] );
 			if ( ! empty( $matches ) ) {
 				$args['post__in'] = $matches;
+			} else {
+				$message = $this->messages->get_message( 'venue-archive-page-not-found' );
+
+				return new WP_Error( 'venue-archive-page-not-found', $message, array( 'status' => 404 ) );
 			}
 		}
 

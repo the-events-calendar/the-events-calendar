@@ -105,7 +105,7 @@ class VenueTest extends Events_TestCase {
 	public function should_allow_searching_like_in_custom_fields()
 	{
 		$venue_1 = $this->factory()->venue->create( [
-			'post_excerpt' => 'Venue Foo',
+			'post_title' => 'Venue Foo',
 			'post_content' => 'lorem dolor',
 			'post_excerpt' => 'sed nunqua',
 			'meta_input' => [
@@ -119,7 +119,7 @@ class VenueTest extends Events_TestCase {
 			],
 		] );
 		$venue_2 = $this->factory()->venue->create( [ 
-			'post_excerpt' => 'Venue Bar',
+			'post_title' => 'Venue Bar',
 			'post_content' => 'dolor sit',
 			'post_excerpt' => 'altera via',
 			'meta_input' => [
@@ -133,7 +133,7 @@ class VenueTest extends Events_TestCase {
 			],
 		] );
 		$venue_3 = $this->factory()->venue->create( [ 
-			'post_excerpt' => 'Venue Baz',
+			'post_title' => 'Venue Baz',
 			'post_content' => 'sit nunqua',
 			'post_excerpt' => 'Caesar docet',
 			'meta_input' => [

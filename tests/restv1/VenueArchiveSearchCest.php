@@ -8,12 +8,12 @@ class VenueArchiveSearchCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_searching_venues_by_title( Tester $I ) {
-		$I->haveVenueInDatabase( [ 'post_title' => 'Venue 1' ] );
-		$I->haveVenueInDatabase( [ 'post_title' => 'Venue 2' ] );
-		$I->haveVenueInDatabase( [ 'post_title' => 'Venue 3' ] );
+		$I->haveVenueInDatabase( [ 'post_title' => 'Venue foo' ] );
+		$I->haveVenueInDatabase( [ 'post_title' => 'Venue baz' ] );
+		$I->haveVenueInDatabase( [ 'post_title' => 'Venue bar' ] );
 
 		$I->sendGET( $this->venues_url, [
-			'search' => 'foo',
+			'search' => 'woo',
 		] );
 
 		$I->seeResponseCodeIs( 404 );
@@ -29,7 +29,7 @@ class VenueArchiveSearchCest extends BaseRestCest {
 		$I->assertCount( 3, $response->venues );
 
 		$I->sendGET( $this->venues_url, [
-			'search' => 'Venue 1',
+			'search' => 'Venue foo',
 		] );
 
 		$I->seeResponseCodeIs( 200 );
@@ -43,12 +43,12 @@ class VenueArchiveSearchCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_searching_venues_by_description( Tester $I ) {
-		$I->haveVenueInDatabase( [ 'post_content' => 'Content 1' ] );
-		$I->haveVenueInDatabase( [ 'post_content' => 'Content 2' ] );
-		$I->haveVenueInDatabase( [ 'post_content' => 'Content 3' ] );
+		$I->haveVenueInDatabase( [ 'post_content' => 'Content foo' ] );
+		$I->haveVenueInDatabase( [ 'post_content' => 'Content baz' ] );
+		$I->haveVenueInDatabase( [ 'post_content' => 'Content bar' ] );
 
 		$I->sendGET( $this->venues_url, [
-			'search' => 'foo',
+			'search' => 'woo',
 		] );
 
 		$I->seeResponseCodeIs( 404 );
@@ -64,7 +64,7 @@ class VenueArchiveSearchCest extends BaseRestCest {
 		$I->assertCount( 3, $response->venues );
 
 		$I->sendGET( $this->venues_url, [
-			'search' => 'Content 1',
+			'search' => 'Content foo',
 		] );
 
 		$I->seeResponseCodeIs( 200 );
@@ -78,12 +78,12 @@ class VenueArchiveSearchCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_searching_venues_by_excerpt( Tester $I ) {
-		$I->haveVenueInDatabase( [ 'post_excerpt' => 'Excerpt 1' ] );
-		$I->haveVenueInDatabase( [ 'post_excerpt' => 'Excerpt 2' ] );
-		$I->haveVenueInDatabase( [ 'post_excerpt' => 'Excerpt 3' ] );
+		$I->haveVenueInDatabase( [ 'post_excerpt' => 'Excerpt foo' ] );
+		$I->haveVenueInDatabase( [ 'post_excerpt' => 'Excerpt baz' ] );
+		$I->haveVenueInDatabase( [ 'post_excerpt' => 'Excerpt bar' ] );
 
 		$I->sendGET( $this->venues_url, [
-			'search' => 'foo',
+			'search' => 'woo',
 		] );
 
 		$I->seeResponseCodeIs( 404 );
@@ -99,7 +99,7 @@ class VenueArchiveSearchCest extends BaseRestCest {
 		$I->assertCount( 3, $response->venues );
 
 		$I->sendGET( $this->venues_url, [
-			'search' => 'Excerpt 1',
+			'search' => 'Excerpt foo',
 		] );
 
 		$I->seeResponseCodeIs( 200 );
@@ -113,5 +113,83 @@ class VenueArchiveSearchCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_searching_venues_by_custom_fields( Tester $I ) {
+		$I->haveVenueInDatabase( [
+			                         'post_title'   => 'Venue Foo',
+			                         'post_content' => 'lorem dolor',
+			                         'post_excerpt' => 'sed nunqua',
+			                         'meta_input'   => [
+				                         '_VenueAddress'       => '221b Baker Street',
+				                         '_VenueCity'          => 'London',
+				                         '_VenueProvince'      => 'Greater London',
+				                         '_VenueState'         => 'England',
+				                         '_VenueStateProvince' => 'England, Greater London',
+				                         '_VenueZip'           => '223345',
+				                         '_VenuePhone'         => '111111',
+			                         ],
+		                         ] );
+		$I->haveVenueInDatabase( [
+			                         'post_title'   => 'Venue Bar',
+			                         'post_content' => 'dolor sit',
+			                         'post_excerpt' => 'altera via',
+			                         'meta_input'   => [
+				                         '_VenueAddress'       => '10, Piccadilly Circus',
+				                         '_VenueCity'          => 'London',
+				                         '_VenueProvince'      => 'Greater London',
+				                         '_VenueState'         => 'England',
+				                         '_VenueStateProvince' => 'England, Greater London',
+				                         '_VenueZip'           => '223345',
+				                         '_VenuePhone'         => '22222222',
+			                         ],
+		                         ] );
+		$I->haveVenueInDatabase( [
+			                         'post_title'   => 'Venue Baz',
+			                         'post_content' => 'sit nunqua',
+			                         'post_excerpt' => 'Caesar docet',
+			                         'meta_input'   => [
+				                         '_VenueAddress'       => '100, Avenue du Temple',
+				                         '_VenueCity'          => 'Paris',
+				                         '_VenueProvince'      => 'Ile de France',
+				                         '_VenueState'         => 'France',
+				                         '_VenueStateProvince' => 'France, Ile de France',
+				                         '_VenueZip'           => '23443',
+				                         '_VenuePhone'         => '3333333',
+			                         ],
+		                         ] );
+
+		$I->sendGET( $this->venues_url, [
+			'search' => 'woo',
+		] );
+
+		$I->seeResponseCodeIs( 404 );
+		$I->seeResponseIsJson();
+
+		$I->sendGET( $this->venues_url, [
+			'search' => 'Venue',
+		] );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse() );
+		$I->assertCount( 3, $response->venues );
+
+		$searches = [
+			'london'         => 2,
+			'3333333'        => 1,
+			'temple avenue'  => 1,
+			'greater london' => 2,
+			'france'         => 1,
+			'france, ile de' => 1,
+			'223345'         => 2,
+		];
+		foreach ( $searches as $s => $expected ) {
+			$I->sendGET( $this->venues_url, [
+				'search' => $s,
+			] );
+
+			$I->seeResponseCodeIs( 200 );
+			$I->seeResponseIsJson();
+			$response = json_decode( $I->grabResponse() );
+			$I->assertCount( $expected, $response->venues );
+		}
 	}
 }
