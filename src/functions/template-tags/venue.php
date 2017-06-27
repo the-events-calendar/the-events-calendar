@@ -431,7 +431,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			);
 
 			$results = $wpdb->get_results( $prepared_has_events_query );
-			$post__in = array();
 
 			if ( ! tribe_is_truthy( $args['has_events'] ) ) {
 				$query    = "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s";
