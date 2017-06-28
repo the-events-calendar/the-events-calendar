@@ -24,11 +24,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	 * The intelligence lies in the "gatherer" of informations rather than in the single "providers" implementing this
 	 * interface.
 	 *
-	 * @link  http://swagger.io/
+	 * @link http://swagger.io/
 	 *
 	 * @return array An array description of a Swagger supported component.
-	 *
-	 * @since 4.5
 	 */
 	public function get_documentation() {
 		return array(
@@ -93,6 +91,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 		unset( $args['only_with_upcoming'] );
 
 		if ( ! empty( $args['s'] ) ) {
+			if(!is_string($args['s'])){
+				$message = $this->messages->get_message( 'archive-bad-search-string' );
+
+				return new WP_Error( 'archive-bad-search-string', $message, array( 'status' => 400 ) );
+			}
+
 			/** @var Tribe__Events__Venue $linked_post */
 			$linked_post = tribe( 'tec.linked-posts.venue' );
 			$matches     = $linked_post->find_like( $args['s'] );
@@ -106,7 +110,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			}
 		}
 
-		$venues = tribe_get_venues( $only_with_upcoming, $args['posts_per_page'], true, $args );
+		$posts_per_page = Tribe__Utils__Array::get( $args, 'per_page', $this->get_default_posts_per_page() );
+		$venues         = tribe_get_venues( $only_with_upcoming, $posts_per_page, true, $args );
 
 		unset( $args['fields'] );
 
@@ -126,7 +131,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 
 		$data['rest_url'] = $this->get_current_rest_url( $args );
 
-		$page = $args['paged'];
+		$page = Tribe__Utils__Array::get( $args, 'paged', 1 );
 
 		if ( $this->has_next( $args, $page, $only_with_upcoming ) ) {
 			$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $page );
@@ -137,7 +142,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 		}
 
 		$data['total']       = $total = $this->get_total( $args, $only_with_upcoming );
-		$data['total_pages'] = $this->get_total_pages( $total, $args['posts_per_page'] );
+		$data['total_pages'] = $this->get_total_pages( $total, $posts_per_page );
 
 		$response = new WP_REST_Response( $data );
 
@@ -217,8 +222,6 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	}
 
 	/**
-	 * Returns the total number of posts matching the request parameters.
-	 *
 	 * @param array $args
 	 * @param bool  $only_with_upcoming
 	 *
@@ -272,7 +275,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			'update_post_term_cache' => false,
 		);
 
-		$per_page  = $args['posts_per_page'];
+		$per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
 		$overrides = array_merge( $args, $overrides );
 
 		$next = tribe_get_venues( $only_with_upcoming, $per_page, false, $overrides );
@@ -289,7 +292,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	 *
 	 * @return bool
 	 *
-	 * @since TBD
+	 * @since 4.5
 	 */
 	protected function has_previous( $page, $args, $only_with_upcoming ) {
 		$overrides = array(
@@ -299,7 +302,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			'update_post_term_cache' => false,
 		);
 
-		$per_page  = $args['posts_per_page'];
+		$per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
 		$overrides = array_merge( $args, $overrides );
 
 		$previous = tribe_get_venues( $only_with_upcoming, $per_page, false, array_merge( $args, $overrides ) );

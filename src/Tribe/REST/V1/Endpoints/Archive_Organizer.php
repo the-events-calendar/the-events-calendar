@@ -24,11 +24,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 * The intelligence lies in the "gatherer" of informations rather than in the single "providers" implementing this
 	 * interface.
 	 *
-	 * @link  http://swagger.io/
+	 * @link http://swagger.io/
 	 *
 	 * @return array An array description of a Swagger supported component.
-	 *
-	 * @since 4.5
 	 */
 	public function get_documentation() {
 		return array(
@@ -72,28 +70,33 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			'has_events'     => $request['has_events'],
 		);
 
-		$cap                 = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE )->cap->edit_posts;
+		$cap                 = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_posts;
 		$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
 
 		$args = $this->parse_args( $args, $request->get_default_params() );
 
 		/**
-		 * Filters whether only posts with upcoming events should be shown (`true`) or not (`false`) when
+		 * Filters whether only organizers with upcoming events should be shown (`true`) or not (`false`) when
 		 * the request parameter `only_with_upcoming` is not explicitly set.
 		 *
 		 * @param bool $default_only_with_upcoming
 		 *
 		 * @since TBD
 		 */
-		$default_only_with_upcoming = apply_filters( "tribe_rest_organizer_default_only_with_upcoming", false );
+		$default_only_with_upcoming = apply_filters( 'tribe_rest_organizer_default_only_with_upcoming', false );
 
 		$only_with_upcoming = isset( $request['only_with_upcoming'] )
 			? tribe_is_truthy( $request['only_with_upcoming'] )
 			: $default_only_with_upcoming;
-
 		unset( $args['only_with_upcoming'] );
 
 		if ( ! empty( $args['s'] ) ) {
+			if(!is_string($args['s'])){
+				$message = $this->messages->get_message( 'archive-bad-search-string' );
+
+				return new WP_Error( 'archive-bad-search-string', $message, array( 'status' => 400 ) );
+			}
+
 			/** @var Tribe__Events__Organizer $linked_post */
 			$linked_post = tribe( 'tec.linked-posts.organizer' );
 			$matches     = $linked_post->find_like( $args['s'] );
@@ -107,7 +110,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			}
 		}
 
-		$organizers = tribe_get_organizers( $only_with_upcoming, $args['posts_per_page'], true, $args );
+		$posts_per_page = Tribe__Utils__Array::get( $args, 'per_page', $this->get_default_posts_per_page() );
+		$organizers         = tribe_get_organizers( $only_with_upcoming, $posts_per_page, true, $args );
 
 		unset( $args['fields'] );
 
@@ -127,7 +131,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 
 		$data['rest_url'] = $this->get_current_rest_url( $args );
 
-		$page = $args['paged'];
+		$page = Tribe__Utils__Array::get( $args, 'paged', 1 );
 
 		if ( $this->has_next( $args, $page, $only_with_upcoming ) ) {
 			$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $page );
@@ -138,7 +142,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 		}
 
 		$data['total']       = $total = $this->get_total( $args, $only_with_upcoming );
-		$data['total_pages'] = $this->get_total_pages( $total, $args['posts_per_page'] );
+		$data['total_pages'] = $this->get_total_pages( $total, $posts_per_page );
 
 		$response = new WP_REST_Response( $data );
 
@@ -156,7 +160,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 *
 	 * @return array
 	 *
-	 * @since TBD
+	 * @since 4.5
 	 */
 	public function READ_args() {
 		return array(
@@ -206,7 +210,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 *
 	 * @return int
 	 *
-	 * @since TBD
+	 * @since 4.5
 	 */
 	public function get_max_posts_per_page() {
 		/**
@@ -218,8 +222,6 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	}
 
 	/**
-	 * Returns the total number of posts matching the request parameters.
-	 *
 	 * @param array $args
 	 * @param bool  $only_with_upcoming
 	 *
@@ -227,10 +229,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 *
 	 * @since TBD
 	 */
-	protected function get_total( $args, $only_with_upcoming ) {
+	protected function get_total( $args, $only_with_upcoming = false ) {
 		unset( $args['posts_per_page'] );
 
-		$this->total = count( tribe_get_organizers( $only_with_upcoming, - 1, false,
+		$this->total = count( tribe_get_organizers( $only_with_upcoming, - 1, true,
 			array_merge( $args, array(
 				'fields'                 => 'ids',
 				'update_post_meta_cache' => false,
@@ -245,7 +247,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 *
 	 * @return string
 	 *
-	 * @since 4.5
+	 * @since TBD
 	 */
 	protected function get_base_rest_url() {
 		$url = tribe_events_rest_url( 'organizers/' );
@@ -273,7 +275,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			'update_post_term_cache' => false,
 		);
 
-		$per_page  = $args['posts_per_page'];
+		$per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
 		$overrides = array_merge( $args, $overrides );
 
 		$next = tribe_get_organizers( $only_with_upcoming, $per_page, false, $overrides );
@@ -290,7 +292,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 *
 	 * @return bool
 	 *
-	 * @since TBD
+	 * @since 4.5
 	 */
 	protected function has_previous( $page, $args, $only_with_upcoming ) {
 		$overrides = array(
@@ -300,7 +302,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			'update_post_term_cache' => false,
 		);
 
-		$per_page  = $args['posts_per_page'];
+		$per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
 		$overrides = array_merge( $args, $overrides );
 
 		$previous = tribe_get_organizers( $only_with_upcoming, $per_page, false, array_merge( $args, $overrides ) );
