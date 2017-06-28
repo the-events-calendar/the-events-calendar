@@ -62,6 +62,7 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	 * @since TDB
 	 */
 	public function find_like( $search ) {
+		// @todo: cache this
 		$post_fields = $this->get_duplicate_post_fields();
 		$post_fields = array_combine(
 			array_keys( $post_fields ),
@@ -103,6 +104,7 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	 * @since TBD
 	 */
 	public function find_for_event( $event_id ) {
+		// @todo: cache this
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
@@ -143,6 +145,7 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	 * @since TBD
 	 */
 	public function find_with_events( $has_events = true, $excluded_post_stati = null ) {
+		// @todo: cache this
 		$has_events = tribe_is_truthy( $has_events );
 
 		if ( null === $excluded_post_stati ) {
@@ -193,7 +196,7 @@ abstract class Tribe__Events__Linked_Posts__Base {
 
 		if ( ! $has_events ) {
 			$query    = "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s";
-			$prepared = $wpdb->prepare( $query, Tribe__Events__Main::VENUE_POST_TYPE );
+			$prepared = $wpdb->prepare( $query, $this->post_type );
 			$venues   = $wpdb->get_col( $prepared );
 
 			if ( empty( $venues ) ) {
@@ -213,6 +216,7 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	}
 
 	public function find_with_upcoming_events( $only_with_upcoming = true ) {
+		// @todo: cache this
 		$only_with_upcoming = tribe_is_truthy( $only_with_upcoming );
 
 		$args = array(

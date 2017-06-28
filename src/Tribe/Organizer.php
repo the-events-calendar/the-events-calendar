@@ -4,6 +4,16 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	const POSTTYPE = 'tribe_organizer';
 
 	/**
+	 * @var string
+	 */
+	protected $meta_prefix = '_Organizer';
+
+	/**
+	 * @var string The meta key relating a post of the type managed by the class to events.
+	 */
+	protected $event_meta_key = '_EventOrganizerID';
+
+	/**
 	 * Args for organizer post type
 	 * @var array
 	 */
@@ -17,11 +27,6 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		'map_meta_cap'        => true,
 		'exclude_from_search' => true,
 	);
-
-	/**
-	 * @var string
-	 */
-	protected $meta_prefix = '_Organizer';
 
 	/**
 	 * @var array
@@ -524,6 +529,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		$fields = array(
 			'post_title'   => array( 'match' => 'same' ),
 			'post_content' => array( 'match' => 'same' ),
+			'post_excerpt' => array( 'match' => 'same' ),
 		);
 
 		/**

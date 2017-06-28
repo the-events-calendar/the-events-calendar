@@ -1,6 +1,6 @@
 <?php
 
-class Tribe__Events__REST__V1__Endpoints__Archive_Venue
+class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	extends Tribe__Events__REST__V1__Endpoints__Archive_Base
 	implements Tribe__REST__Endpoints__READ_Endpoint_Interface,
 	           Tribe__Documentation__Swagger__Provider_Interface {
@@ -36,11 +36,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 				'parameters' => $this->swaggerize_args( $this->READ_args(), array( 'in' => 'query', 'default' => '' ) ),
 				'responses'  => array(
 					'200' => array(
-						'description' => __( 'Returns all the venues matching the search criteria', 'the-event-calendar' ),
+						'description' => __( 'Returns all the organizers matching the search criteria', 'the-event-calendar' ),
 						'schema'      => array(
-							'title' => 'venues',
+							'title' => 'organizers',
 							'type'  => 'array',
-							'items' => array( '$ref' => '#/definitions/Venue' ),
+							'items' => array( '$ref' => '#/definitions/Organizer' ),
 						),
 					),
 					'400' => array(
@@ -72,56 +72,57 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			'has_events'     => $request['has_events'],
 		);
 
-		$cap                 = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_posts;
+		$cap                 = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE )->cap->edit_posts;
 		$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
 
 		$args = $this->parse_args( $args, $request->get_default_params() );
 
 		/**
-		 * Filters whether only venues with upcoming events should be shown (`true`) or not (`false`) when
+		 * Filters whether only posts with upcoming events should be shown (`true`) or not (`false`) when
 		 * the request parameter `only_with_upcoming` is not explicitly set.
 		 *
 		 * @param bool $default_only_with_upcoming
 		 *
 		 * @since TBD
 		 */
-		$default_only_with_upcoming = apply_filters( 'tribe_rest_venue_default_only_with_upcoming', false );
+		$default_only_with_upcoming = apply_filters( "tribe_rest_organizer_default_only_with_upcoming", false );
 
 		$only_with_upcoming = isset( $request['only_with_upcoming'] )
 			? tribe_is_truthy( $request['only_with_upcoming'] )
 			: $default_only_with_upcoming;
+
 		unset( $args['only_with_upcoming'] );
 
 		if ( ! empty( $args['s'] ) ) {
-			/** @var Tribe__Events__Venue $linked_post */
-			$linked_post = tribe( 'tec.linked-posts.venue' );
+			/** @var Tribe__Events__Organizer $linked_post */
+			$linked_post = tribe( 'tec.linked-posts.organizer' );
 			$matches     = $linked_post->find_like( $args['s'] );
 			unset( $args['s'] );
 			if ( ! empty( $matches ) ) {
 				$args['post__in'] = $matches;
 			} else {
-				$message = $this->messages->get_message( 'venue-archive-page-not-found' );
+				$message = $this->messages->get_message( 'organizer-archive-page-not-found' );
 
-				return new WP_Error( 'venue-archive-page-not-found', $message, array( 'status' => 404 ) );
+				return new WP_Error( 'organizer-archive-page-not-found', $message, array( 'status' => 404 ) );
 			}
 		}
 
-		$venues = tribe_get_venues( $only_with_upcoming, $args['posts_per_page'], true, $args );
+		$organizers = tribe_get_organizers( $only_with_upcoming, $args['posts_per_page'], true, $args );
 
 		unset( $args['fields'] );
 
-		if ( empty( $venues ) ) {
-			$message = $this->messages->get_message( 'venue-archive-page-not-found' );
+		if ( empty( $organizers ) ) {
+			$message = $this->messages->get_message( 'organizer-archive-page-not-found' );
 
-			return new WP_Error( 'venue-archive-page-not-found', $message, array( 'status' => 404 ) );
+			return new WP_Error( 'organizer-archive-page-not-found', $message, array( 'status' => 404 ) );
 		}
 
-		$ids = wp_list_pluck( $venues, 'ID' );
+		$ids = wp_list_pluck( $organizers, 'ID' );
 
-		$data = array( 'venues' => array() );
+		$data = array( 'organizers' => array() );
 
-		foreach ( $ids as $venue_id ) {
-			$data['venues'][] = $this->repository->get_venue_data( $venue_id );
+		foreach ( $ids as $organizer_id ) {
+			$data['organizers'][] = $this->repository->get_organizer_data( $organizer_id );
 		}
 
 		$data['rest_url'] = $this->get_current_rest_url( $args );
@@ -155,7 +156,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	 *
 	 * @return array
 	 *
-	 * @since 4.5
+	 * @since TBD
 	 */
 	public function READ_args() {
 		return array(
@@ -171,29 +172,29 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 				'validate_callback' => array( $this->validator, 'is_positive_int' ),
 				'sanitize_callback' => array( $this, 'sanitize_per_page' ),
 				'default'           => $this->get_default_posts_per_page(),
-				'description'       => __( 'The number of venues to return on each page', 'the-events-calendar' ),
+				'description'       => __( 'The number of organizers to return on each page', 'the-events-calendar' ),
 				'type'              => 'integer',
 			),
 			'search'             => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_string' ),
-				'description'       => __( 'Venues should contain the specified string in the title, description or custom fields', 'the-events-calendar' ),
+				'description'       => __( 'Organizers should contain the specified string in the title, description or custom fields', 'the-events-calendar' ),
 				'type'              => 'string',
 			),
 			'event'              => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_event_id' ),
-				'description'       => __( 'Venues should be related to this event', 'the-events-calendar' ),
+				'description'       => __( 'Organizers should be related to this event', 'the-events-calendar' ),
 				'type'              => 'integer',
 			),
 			'has_events'         => array(
 				'required'     => false,
-				'description'  => __( 'Venues should have events associated to them', 'the-events-calendar' ),
+				'description'  => __( 'Organizers should have events associated to them', 'the-events-calendar' ),
 				'swagger_type' => 'boolean',
 			),
 			'only_with_upcoming' => array(
 				'required'     => false,
-				'description'  => __( 'Venues should have upcoming events associated to them', 'the-events-calendar' ),
+				'description'  => __( 'Organizers should have upcoming events associated to them', 'the-events-calendar' ),
 				'swagger_type' => 'boolean',
 				'default'      => false,
 			),
@@ -205,15 +206,15 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	 *
 	 * @return int
 	 *
-	 * @since 4.5
+	 * @since TBD
 	 */
 	public function get_max_posts_per_page() {
 		/**
-		 * Filters the maximum number of venues per page that should be returned.
+		 * Filters the maximum number of organizers per page that should be returned.
 		 *
 		 * @param int $per_page Default to 50.
 		 */
-		return apply_filters( 'tribe_rest_venue_max_per_page', 50 );
+		return apply_filters( 'tribe_rest_organizer_max_per_page', 50 );
 	}
 
 	/**
@@ -226,10 +227,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	 *
 	 * @since TBD
 	 */
-	protected function get_total( $args, $only_with_upcoming = false ) {
+	protected function get_total( $args, $only_with_upcoming ) {
 		unset( $args['posts_per_page'] );
 
-		$this->total = count( tribe_get_venues( $only_with_upcoming, - 1, true,
+		$this->total = count( tribe_get_organizers( $only_with_upcoming, - 1, false,
 			array_merge( $args, array(
 				'fields'                 => 'ids',
 				'update_post_meta_cache' => false,
@@ -244,10 +245,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	 *
 	 * @return string
 	 *
-	 * @since TBD
+	 * @since 4.5
 	 */
 	protected function get_base_rest_url() {
-		$url = tribe_events_rest_url( 'venues/' );
+		$url = tribe_events_rest_url( 'organizers/' );
 
 		return $url;
 	}
@@ -275,7 +276,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 		$per_page  = $args['posts_per_page'];
 		$overrides = array_merge( $args, $overrides );
 
-		$next = tribe_get_venues( $only_with_upcoming, $per_page, false, $overrides );
+		$next = tribe_get_organizers( $only_with_upcoming, $per_page, false, $overrides );
 
 		return ! empty( $next );
 	}
@@ -302,7 +303,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 		$per_page  = $args['posts_per_page'];
 		$overrides = array_merge( $args, $overrides );
 
-		$previous = tribe_get_venues( $only_with_upcoming, $per_page, false, array_merge( $args, $overrides ) );
+		$previous = tribe_get_organizers( $only_with_upcoming, $per_page, false, array_merge( $args, $overrides ) );
 
 		return 1 !== $page && ! empty( $previous );
 	}

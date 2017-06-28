@@ -275,10 +275,35 @@ class TribeDb extends \Codeception\Module {
 		return $post_id;
 	}
 
+	/**
+	 * Inserts many venues in the database
+	 *
+	 * @param       $count
+	 * @param array $overrides An array of values overriding the default ones of each generated venue.
+	 *
+	 * @return array
+	 *
+	 * @see haveVenueInDatabase
+	 */
 	public function haveManyVenuesInDatabase( $count, array $overrides = [] ) {
 		return array_map( function () use ( $overrides ) {
 			return $this->haveVenueInDatabase( $overrides );
 		}, range( 1, $count ) );
 	}
 
+	/**
+	 * Inserts many organizers in the database
+	 *
+	 * @param       $count
+	 * @param array $overrides An array of values overriding the default ones of each generated organizer.
+	 *
+	 * @return array
+	 *
+	 * @see haveOrganizerInDatabase
+	 */
+	public function haveManyOrganizersInDatabase( $count, array $overrides = [] ) {
+		return array_map( function () use ( $overrides ) {
+			return $this->haveOrganizerInDatabase( $overrides );
+		}, range( 1, $count ) );
+	}
 }

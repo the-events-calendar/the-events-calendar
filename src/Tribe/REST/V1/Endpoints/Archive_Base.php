@@ -3,6 +3,11 @@
 abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	extends Tribe__Events__REST__V1__Endpoints__Base {
 	/**
+	 * @var string The post type managed by this archive
+	 */
+	protected $post_type = '';
+
+	/**
 	 * @var array An array mapping the REST request supported query vars to the args used in a TEC WP_Query.
 	 */
 	protected $supported_query_vars = array();
