@@ -5,6 +5,11 @@ namespace Tribe\Events;
 use Tribe\Events\Tests\Testcases\Events_TestCase;
 use Tribe__Events__Venue as Venue;
 
+/**
+ * Class VenueTest
+ *
+ * Really a proxy to test the base class.
+ */
 class VenueTest extends Events_TestCase {
 	/**
 	 * It should allow searching like in title

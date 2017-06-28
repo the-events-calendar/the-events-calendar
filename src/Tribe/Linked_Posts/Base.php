@@ -62,7 +62,15 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	 * @since TDB
 	 */
 	public function find_like( $search ) {
-		// @todo: cache this
+		/** @var Tribe__Cache $cache */
+		$cache      = tribe( 'cache' );
+		$components = array( __CLASS__, __FUNCTION__, $search );
+		$cache_key  = $cache->make_key( $components );
+
+		if ( $cached = $cache[ $cache_key ] ) {
+			return $cached;
+		}
+
 		$post_fields = $this->get_duplicate_post_fields();
 		$post_fields = array_combine(
 			array_keys( $post_fields ),
@@ -91,6 +99,8 @@ abstract class Tribe__Events__Linked_Posts__Base {
 
 		$found = $duplicates->find_all_for( $data );
 
+		$cache[$cache_key]=$found;
+
 		return $found;
 	}
 
@@ -104,7 +114,15 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	 * @since TBD
 	 */
 	public function find_for_event( $event_id ) {
-		// @todo: cache this
+		/** @var Tribe__Cache $cache */
+		$cache      = tribe( 'cache' );
+		$components = array( __CLASS__, __FUNCTION__, $event_id );
+		$cache_key  = $cache->make_key( $components );
+
+		if ( $cached = $cache[ $cache_key ] ) {
+			return $cached;
+		}
+
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
@@ -129,7 +147,11 @@ abstract class Tribe__Events__Linked_Posts__Base {
 			return array();
 		}
 
-		return array_map( 'intval', $results );
+		$found = array_map( 'intval', $results );
+
+		$cache[ $cache_key ] = $found;
+
+		return $found;
 	}
 
 	/**
@@ -145,7 +167,15 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	 * @since TBD
 	 */
 	public function find_with_events( $has_events = true, $excluded_post_stati = null ) {
-		// @todo: cache this
+		/** @var Tribe__Cache $cache */
+		$cache         = tribe( 'cache' );
+		$function_args = func_get_args();
+		$components    = array_merge(array( __CLASS__, __FUNCTION__), $function_args );
+		$cache_key     = $cache->make_key( $components );
+
+		if ( $cached = $cache[ $cache_key ] ) {
+			return $cached;
+		}
 		$has_events = tribe_is_truthy( $has_events );
 
 		if ( null === $excluded_post_stati ) {
@@ -200,23 +230,39 @@ abstract class Tribe__Events__Linked_Posts__Base {
 			$venues   = $wpdb->get_col( $prepared );
 
 			if ( empty( $venues ) ) {
+				$cache[ $cache_key ] = array();
+
 				return array();
 			}
 
 			$found = array_diff( $venues, $results );
 
 			if ( empty( $found ) ) {
+				$cache[ $cache_key ] = array();
+
 				return array();
 			}
 		} else {
 			$found = $results;
 		}
 
-		return array_map( 'intval', array_values( $found ) );
+		$found               = array_map( 'intval', array_values( $found ) );
+
+		$cache[ $cache_key ] = $found;
+
+		return $found;
 	}
 
 	public function find_with_upcoming_events( $only_with_upcoming = true ) {
-		// @todo: cache this
+		/** @var Tribe__Cache $cache */
+		$cache      = tribe( 'cache' );
+		$components = array( __CLASS__, __FUNCTION__, $only_with_upcoming );
+		$cache_key  = $cache->make_key( $components );
+
+		if ( $cached = $cache[ $cache_key ] ) {
+			return $cached;
+		}
+
 		$only_with_upcoming = tribe_is_truthy( $only_with_upcoming );
 
 		$args = array(
@@ -227,6 +273,8 @@ abstract class Tribe__Events__Linked_Posts__Base {
 		$events = tribe_get_events( $args );
 
 		if ( empty( $events ) ) {
+			$cache[ $cache_key ] = array();
+
 			return array();
 		}
 
@@ -253,10 +301,16 @@ abstract class Tribe__Events__Linked_Posts__Base {
 		}
 
 		if ( empty( $found ) ) {
+			$cache[ $cache_key ] = array();
+
 			return array();
 		}
 
-		return array_map( 'intval', $found );
+		$found = array_map( 'intval', $found );
+
+		$cache[ $cache_key ] = $found;
+
+		return $found;
 	}
 
 	/**
