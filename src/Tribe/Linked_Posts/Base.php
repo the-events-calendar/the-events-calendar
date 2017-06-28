@@ -99,7 +99,7 @@ abstract class Tribe__Events__Linked_Posts__Base {
 
 		$found = $duplicates->find_all_for( $data );
 
-		$cache[$cache_key]=$found;
+		$cache[ $cache_key ] = $found;
 
 		return $found;
 	}
@@ -170,7 +170,7 @@ abstract class Tribe__Events__Linked_Posts__Base {
 		/** @var Tribe__Cache $cache */
 		$cache         = tribe( 'cache' );
 		$function_args = func_get_args();
-		$components    = array_merge(array( __CLASS__, __FUNCTION__), $function_args );
+		$components    = array_merge( array( __CLASS__, __FUNCTION__ ), $function_args );
 		$cache_key     = $cache->make_key( $components );
 
 		if ( $cached = $cache[ $cache_key ] ) {

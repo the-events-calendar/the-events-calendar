@@ -91,7 +91,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 		unset( $args['only_with_upcoming'] );
 
 		if ( ! empty( $args['s'] ) ) {
-			if(!is_string($args['s'])){
+			if ( ! is_string( $args['s'] ) ) {
 				$message = $this->messages->get_message( 'archive-bad-search-string' );
 
 				return new WP_Error( 'archive-bad-search-string', $message, array( 'status' => 400 ) );
