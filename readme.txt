@@ -327,7 +327,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5.7] 2017-06-27 =
+= [4.5.7] 2017-06-28 =
 
 * Fix - Restore support for translated events category slugs when WPML is active [73478]
 * Fix - Improve handling of shortcodes within event view excerpts (props: @awbauer) [81226]
