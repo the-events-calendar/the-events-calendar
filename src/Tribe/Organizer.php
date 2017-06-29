@@ -564,7 +564,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		 *
 		 * @param array $fields An array associating the custom field meta key to the strategy definition.
 		 *
-		 * @see   Tribe__Duplicrte__Strategy_Factory
+		 * @see   Tribe__Duplicate__Strategy_Factory
 		 *
 		 * @since TBD
 		 */

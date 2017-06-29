@@ -253,6 +253,15 @@ abstract class Tribe__Events__Linked_Posts__Base {
 		return $found;
 	}
 
+	/**
+	 * Finds posts of the type managed by the class that are related to upcoming events.
+	 *
+	 * @param bool $only_with_upcoming
+	 *
+	 * @return array|bool An array of post IDs or `false` if nothing was found.
+	 *
+	 * @since TDB
+	 */
 	public function find_with_upcoming_events( $only_with_upcoming = true ) {
 		/** @var Tribe__Cache $cache */
 		$cache      = tribe( 'cache' );
