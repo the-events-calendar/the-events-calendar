@@ -504,6 +504,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Frontend Javascript
 			add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );
+
+			// WP Admin Menu Fixes
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_wp_admin_menu_style' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_wp_admin_menu_style' ) );
+
 			add_filter( 'tribe_events_before_html', array( $this, 'before_html_data_wrapper' ) );
 			add_filter( 'tribe_events_after_html', array( $this, 'after_html_data_wrapper' ) );
 
@@ -1561,31 +1566,52 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function registerPostType() {
 			$this->generatePostTypeLabels();
-			register_post_type( self::POSTTYPE, apply_filters( 'tribe_events_register_event_type_args', $this->postTypeArgs ) );
+
+			$post_type_args = $this->postTypeArgs;
+
+			/**
+			 * Filter the event post type arguments used in register_post_type.
+			 *
+			 * @param array $post_type_args
+			 *
+			 * @since 3.2
+			 */
+			$post_type_args = apply_filters( 'tribe_events_register_event_type_args', $post_type_args );
+
+			register_post_type( self::POSTTYPE, $post_type_args );
 
 			// Setup Linked Posts singleton after we've set up the post types that we care about
 			Tribe__Events__Linked_Posts::instance();
 
-			register_taxonomy(
-				self::TAXONOMY, self::POSTTYPE, array(
-					'hierarchical'          => true,
-					'update_count_callback' => '',
-					'rewrite'               => array(
-						'slug'         => $this->rewriteSlug . '/' . $this->category_slug,
-						'with_front'   => false,
-						'hierarchical' => true,
-					),
-					'public'                => true,
-					'show_ui'               => true,
-					'labels'                => $this->taxonomyLabels,
-					'capabilities'          => array(
-						'manage_terms' => 'publish_tribe_events',
-						'edit_terms'   => 'publish_tribe_events',
-						'delete_terms' => 'publish_tribe_events',
-						'assign_terms' => 'edit_tribe_events',
-					),
-				)
+			$taxonomy_args = array(
+				'hierarchical'          => true,
+				'update_count_callback' => '',
+				'rewrite'               => array(
+					'slug'         => $this->rewriteSlug . '/' . $this->category_slug,
+					'with_front'   => false,
+					'hierarchical' => true,
+				),
+				'public'                => true,
+				'show_ui'               => true,
+				'labels'                => $this->taxonomyLabels,
+				'capabilities'          => array(
+					'manage_terms' => 'publish_tribe_events',
+					'edit_terms'   => 'publish_tribe_events',
+					'delete_terms' => 'publish_tribe_events',
+					'assign_terms' => 'edit_tribe_events',
+				),
 			);
+
+			/**
+			 * Filter the event category taxonomy arguments used in register_taxonomy.
+			 *
+			 * @param array $taxonomy_args
+			 *
+			 * @since 4.5.5
+			 */
+			$taxonomy_args = apply_filters( 'tribe_events_register_event_cat_type_args', $taxonomy_args );
+
+			register_taxonomy( self::TAXONOMY, self::POSTTYPE, $taxonomy_args );
 
 			if ( Tribe__Settings_Manager::get_option( 'showComments', 'no' ) == 'yes' ) {
 				add_post_type_support( self::POSTTYPE, 'comments' );
@@ -1883,9 +1909,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				wp_enqueue_style( self::POSTTYPE . '-admin', tribe_events_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 			}
 
-			// UI admin
-			Tribe__Events__Template_Factory::asset_package( 'admin-menu' );
-
 			// settings screen
 			if ( $admin_helpers->is_screen( 'settings_page_tribe-settings' ) ) {
 				// JS admin
@@ -2087,6 +2110,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			} else {
 				return get_post_meta( $post_id, '_EventStartDate', true );
 			}
+		}
+
+		/**
+		 * Make sure we are loading a style for all logged-in users when we have the admin menu
+		 * @return void
+		 */
+		public function enqueue_wp_admin_menu_style() {
+			if ( ! is_admin_bar_showing() ) {
+				return;
+			}
+
+			// UI admin
+			Tribe__Events__Template_Factory::asset_package( 'admin-menu' );
 		}
 
 		/**

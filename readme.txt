@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, MZAWeb, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shelbelliott, shane.pearlman, aguseo, tribecari, trishasalas, courane01, GeoffBel, vicskf
+Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, brook-tribe, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, leahkoerper, lucatume, mastromktg, mat-lipe, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, shelbelliott, tribecari, vicskf, zbtirrell
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Stable tag: 4.7dev1
-Tested up to: 4.7.5
+Tested up to: 4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -163,7 +163,7 @@ Note that we aren't going to say "tough luck" if you identify a plugin/theme con
 
 = I'm still stuck. Where do I go to file a bug or ask a question? =
 
-Users of the free The Events Calendar should post their questions in the plugin's [WordPress.org forum](https://wordpress.org/support/plugin/the-events-calendar/), which we hit about once a week (usually on Wednesdays). Please make sure to read [our sticky post](https://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first/) providing an overview of the support we provide free users BEFORE posting. If you find you're not getting support in as timely a fashion as you wish, you might want to consider purchasing a PRO license.
+Users of the free The Events Calendar should post their questions in the plugin's [WordPress.org forum](https://wordpress.org/support/plugin/the-events-calendar/), which we hit about once a week (usually on Wednesdays). Please make sure to read [our sticky post](http://m.tri.be/19oc) providing an overview of the support we provide free users BEFORE posting. If you find you're not getting support in as timely a fashion as you wish, you might want to consider purchasing a PRO license.
 
 If you're already a PRO user, you're entitled access to our more actively-monitored [Events Calendar PRO forum](http://m.tri.be/2r) on our website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. Generally, except in times of increased support loads, we reply to all comments within 24-48 hours during the business week.
 
@@ -285,11 +285,11 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * [Matthew Batchelder](https://profiles.wordpress.org/borkweb)
 * [Neill McShea](https://profiles.wordpress.org/neillmcshea)
 * [Nico Santos](https://profiles.wordpress.org/nicosantos)
+* [Patricia Hillebrandt](https://profiles.wordpress.org/patriciahillebrandt)
 * [Peter Chester](https://profiles.wordpress.org/peterchester)
 * [Reid Peifer](https://profiles.wordpress.org/reid.peifer)
 * [Shane Pearlman](https://profiles.wordpress.org/shane.pearlman)
 * [Shelby Elliott](https://profiles.wordpress.org/shelbelliott)
-* [Trisha Salas](https://profiles.wordpress.org/trishasalas)
 * [Zachary Tirrell](https://profiles.wordpress.org/zbtirrell)
 
 = Past Contributors =
@@ -317,6 +317,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * [Ryan Urban](https://profiles.wordpress.org/ryancurban)
 * [Samuel Estok](https://profiles.wordpress.org/faction23)
 * [Timothy Wood](https://profiles.wordpress.org/codearachnid)
+* [Trisha Salas](https://profiles.wordpress.org/trishasalas)
 
 == Upgrade Notice ==
 
@@ -327,6 +328,34 @@ Please see the changelog for the complete list of changes in this release. Remem
 == Changelog ==
 
 = [4.7] TBD =
+
+= [4.5.6] 2017-06-22 =
+
+* Tweak - Improved how Cost field looks and it's consistency across views [71092 & 71094]
+* Fix - Resolved issue where the Meta Chunker attempted to inappropriately chunk meta for post post_types [80857]
+* Tweak - Added actions: `tribe_events_inside_cost`
+* Tweak - Changed views: `day/single-event`, `day/single-featured`, `list/single-event`, `list/single-featured`
+* Language - 1 new strings added, 15 updated, 1 fuzzied, and 1 obsoleted [the-events-calendar]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted [tribe-common]
+
+= [4.5.5] 2017-06-14 =
+
+* Fix - Removed extra double quotes in organizer link output [71133]
+* Fix - Make the list and day view styles match more closely [63599]
+* Fix - Better sanitization on CSV imports [80311]
+* Fix - Prevent tabs from being incorrectly escaped in iCal output (props: KZeni) [80452]
+* Fix - Fixed inconsistent font styling of Tribe Bar form labels. [27252]
+* Tweak - Removed unused Javascript (jQuery UI Dialog) to help avoid warnings (our thanks to @gama6889 for flagging this) [80766]
+* Tweak - Added new filter hooks 'tribe_events_register_event_type_args' and 'tribe_events_register_event_cat_type_args' [80658]
+
+= [4.5.4] 2017-06-06 =
+
+* Tweak - Minor tweaks to the CSS for linked post types (Organizer/Venues)
+* Fix - Prevent drag and drop icon showing when singular linked post type is been displayed
+* Fix - Resolved issue where scheduled imports sometimes failed to execute [79587]
+* Fix - Better sanitization of data (Props to Valentinos Chouris for reporting this) [80310]
+* Language - 2 new strings added, 156 updated, 0 fuzzied, and 4 obsoleted [the-events-calendar]
+* Language - 4 new strings added, 20 updated, 1 fuzzied, and 0 obsoleted [tribe-common]
 
 = [4.5.3] 2017-06-01 =
 

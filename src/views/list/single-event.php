@@ -5,8 +5,7 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/list/single-event.php
  *
- * @package TribeEventsCalendar
- * @version  4.3
+ * @version 4.5.6
  *
  */
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,13 +22,6 @@ $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : ''
 $organizer = tribe_get_organizer();
 
 ?>
-
-<!-- Event Cost -->
-<?php if ( tribe_get_cost() ) : ?>
-	<div class="tribe-events-event-cost">
-		<span><?php echo tribe_get_cost( null, true ); ?></span>
-	</div>
-<?php endif; ?>
 
 <!-- Event Title -->
 <?php do_action( 'tribe_events_before_the_event_title' ) ?>
@@ -64,14 +56,30 @@ $organizer = tribe_get_organizer();
 
 	</div>
 </div><!-- .tribe-events-event-meta -->
+
+<!-- Event Cost -->
+<?php if ( tribe_get_cost() ) : ?>
+	<div class="tribe-events-event-cost">
+		<span class="ticket-cost"><?php echo tribe_get_cost( null, true ); ?></span>
+		<?php
+		/**
+		 * Runs after cost is displayed in list style views
+		 *
+		 * @since 4.5
+		 */
+		do_action( 'tribe_events_inside_cost' )
+		?>
+	</div>
+<?php endif; ?>
+
 <?php do_action( 'tribe_events_after_the_meta' ) ?>
 
 <!-- Event Image -->
-<?php echo tribe_event_featured_image( null, 'medium' ) ?>
+<?php echo tribe_event_featured_image( null, 'medium' ); ?>
 
 <!-- Event Content -->
-<?php do_action( 'tribe_events_before_the_content' ) ?>
-<div class="tribe-events-list-event-description tribe-events-content">
+<?php do_action( 'tribe_events_before_the_content' ); ?>
+<div class="tribe-events-list-event-description tribe-events-content description entry-summary">
 	<?php echo tribe_events_get_the_excerpt( null, wp_kses_allowed_html( 'post' ) ); ?>
 	<a href="<?php echo esc_url( tribe_get_event_link() ); ?>" class="tribe-events-read-more" rel="bookmark"><?php esc_html_e( 'Find out more', 'the-events-calendar' ) ?> &raquo;</a>
 </div><!-- .tribe-events-list-event-description -->

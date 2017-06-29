@@ -69,7 +69,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'id'                     => $event_id,
 			'global_id'              => false,
 			'global_id_lineage'      => array(),
-			'id'                     => $event_id,
 			'author'                 => $event->post_author,
 			'date'                   => $event->post_date,
 			'date_utc'               => $event->post_date_gmt,
@@ -278,8 +277,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Adds the Global ID fields to a set of rest data
 	 *
-	 * @param array  $data  Rest Array of data
-	 * @param int    $id    Post ID
+	 * @param array $data    Rest Array of data
+	 * @param int   $post_id Post ID
 	 *
 	 * @return array
 	 */
@@ -396,20 +395,20 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		return $cost_values;
 	}
 
-	protected function get_featured_image($id) {
-		$thumbnail_id = get_post_thumbnail_id($id);
+	protected function get_featured_image( $id ) {
+		$thumbnail_id = get_post_thumbnail_id( $id );
 
 		if ( empty( $thumbnail_id ) ) {
 			return false;
 		}
 
-		$full_url = get_the_post_thumbnail_url($id, 'full');
-		$file = get_attached_file($thumbnail_id);
+		$full_url = get_the_post_thumbnail_url( $id, 'full' );
+		$file = get_attached_file( $thumbnail_id );
 
 		$data = array(
 			'url' => $full_url,
 			'id' => $thumbnail_id,
-			'extension' => pathinfo($file, PATHINFO_EXTENSION),
+			'extension' => pathinfo( $file, PATHINFO_EXTENSION ),
 		);
 
 		$metadata = wp_get_attachment_metadata( $thumbnail_id );

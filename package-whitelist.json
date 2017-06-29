@@ -44,7 +44,6 @@
   "vendor/chosen/public/*.png",
   "vendor/ForceUTF8/Encoding.php",
   "vendor/jquery/*.css",
-  "vendor/jquery/*.js",
   "vendor/jquery/smoothness/*.css",
   "vendor/jquery/smoothness/images/*.png",
   "vendor/php-date-formatter/js/*.js",
