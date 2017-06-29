@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-06-06 08:13:38+0000\n"
+"PO-Revision-Date: 2017-06-16 22:57:50+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -952,11 +952,11 @@ msgstr ""
 
 #: src/admin-views/create-venue-fields.php:161
 msgid "Venue URL"
-msgstr ""
+msgstr "会場 URL"
 
 #: src/admin-views/create-venue-fields.php:133
 msgid "Venue Zip Code"
-msgstr ""
+msgstr "会場の郵便番号"
 
 #: src/admin-views/create-venue-fields.php:106
 #: src/admin-views/create-venue-fields.php:112
@@ -990,11 +990,11 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:252
 msgid "Delete this"
-msgstr ""
+msgstr "こちらを削除"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:38
 msgid "Event Date:"
-msgstr ""
+msgstr "イベント日時: "
 
 #: src/Tribe/Customizer/Widget.php:132
 msgid "Show Featured Event Images"
@@ -1002,11 +1002,11 @@ msgstr ""
 
 #: src/Tribe/Customizer/Widget.php:113
 msgid "Calendar Date Bar Color"
-msgstr ""
+msgstr "カレンダー日付バーの色"
 
 #: src/Tribe/Customizer/Widget.php:91
 msgid "Calendar Header Color"
-msgstr ""
+msgstr "カレンダーヘッダーの色"
 
 #: src/Tribe/Customizer/Widget.php:59
 msgid "Widgets"
@@ -1014,11 +1014,11 @@ msgstr "ウィジェット"
 
 #: src/Tribe/Customizer/Single_Event.php:132
 msgid "Details Background Color"
-msgstr ""
+msgstr "詳細の背景色"
 
 #: src/Tribe/Customizer/Single_Event.php:110
 msgid "Post Title Color"
-msgstr ""
+msgstr "投稿タイトルの色"
 
 #: src/Tribe/Customizer/Single_Event.php:78
 msgid "Single Event"
@@ -1332,7 +1332,7 @@ msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:548
 msgid "Site License Key"
-msgstr ""
+msgstr "サイトライセンスキー"
 
 #: common/src/Tribe/PUE/Checker.php:537
 msgid "Check this box if you wish to override the network license key with your own"
@@ -1344,7 +1344,7 @@ msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:527 common/src/Tribe/PUE/Checker.php:561
 msgid "License Key Status:"
-msgstr ""
+msgstr "ライセンスキーの状態: "
 
 #: common/src/Tribe/Customizer.php:566
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
@@ -1352,7 +1352,7 @@ msgstr ""
 
 #: common/src/admin-views/app-shop.php:31
 msgid "Installed"
-msgstr ""
+msgstr "インストール済み"
 
 #: common/src/admin-views/app-shop.php:29
 msgid "Installed Add-Ons"
@@ -1485,7 +1485,7 @@ msgstr "ステータス:"
 #: src/admin-views/aggregator/tabs/import-form.php:156
 #: src/admin-views/aggregator/tabs/import-form.php:168
 msgid "Start Time"
-msgstr ""
+msgstr "開始時間"
 
 #: src/admin-views/aggregator/tabs/import-form.php:152
 #: src/admin-views/aggregator/tabs/import-form.php:164
@@ -1591,11 +1591,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:136
 msgid "WP Cron not enabled"
-msgstr ""
+msgstr "WP Cron が有効ではありません"
 
 #: src/admin-views/aggregator/status.php:124
 msgid "Server Connection"
-msgstr ""
+msgstr "サーバー接続"
 
 #. translators: %s: Event Aggregator Server URL
 #: src/admin-views/aggregator/status.php:118
@@ -1618,7 +1618,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:88
 msgid "Import Services"
-msgstr ""
+msgstr "サービスのインポート"
 
 #: src/admin-views/aggregator/status.php:77
 msgid "Current usage"
@@ -1685,7 +1685,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:447
 msgid "Help page"
-msgstr ""
+msgstr "ヘルプページ"
 
 #: src/admin-views/aggregator/settings.php:443
 msgid "Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options. Check your Event Aggregator Service Status on the %1$s."
@@ -1705,7 +1705,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:310
 msgid "Meetup Import Settings"
-msgstr ""
+msgstr "Meetup インポート設定"
 
 #: src/admin-views/aggregator/settings.php:286
 msgid "The default event category for events imported via Google Calendar"
@@ -1717,7 +1717,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:270
 msgid "Google Calendar Import Settings"
-msgstr ""
+msgstr "Google カレンダーのインポート設定"
 
 #: src/admin-views/aggregator/settings.php:246
 msgid "The default event category for events imported via Facebook"

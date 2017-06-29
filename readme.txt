@@ -4,7 +4,7 @@ Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Stable tag: 4.5.6rc1
+Stable tag: 4.5.6
 Tested up to: 4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -327,7 +327,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5.6] TBD =
+= [4.5.6] 2017-06-22 =
 
 * Tweak - Improved how Cost field looks and it's consistency across views [71092 & 71094]
 * Fix - Resolved issue where the Meta Chunker attempted to inappropriately chunk meta for post post_types [80857]
