@@ -107,7 +107,9 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$this->register_documentation_endpoint();
 		$this->register_event_archives_endpoint();
 		$this->register_single_event_endpoint();
+		$this->register_venue_archives_endpoint();
 		$this->register_single_venue_endpoint();
+		$this->register_organizer_archives_endpoint();
 		$this->register_single_organizer_endpoint();
 	}
 
@@ -156,6 +158,11 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		return 'v1';
 	}
 
+	/**
+	 * Builds and hooks the event archives endpoint
+	 *
+	 * @since 4.5
+	 */
 	protected function register_event_archives_endpoint() {
 		$messages = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
@@ -413,5 +420,49 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		);
 
 		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/organizers/{id}', $endpoint );
+	}
+
+	/**
+	 * Builds and hooks the venue archives endpoint
+	 *
+	 * @since TBD
+	 */
+	protected function register_venue_archives_endpoint() {
+		$messages = tribe( 'tec.rest-v1.messages' );
+		$post_repository = tribe( 'tec.rest-v1.repository' );
+		$validator = tribe( 'tec.rest-v1.validator' );
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Venue( $messages, $post_repository, $validator );
+
+		tribe_singleton( 'tec.rest-v1.endpoints.archive-venue', $endpoint );
+
+		register_rest_route( $this->get_events_route_namespace(), '/venues', array(
+			'methods'  => 'GET',
+			'callback' => array( $endpoint, 'get' ),
+			'args'     => $endpoint->READ_args(),
+		) );
+
+		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/venues', $endpoint );
+	}
+
+	/**
+	 * Builds and hooks the organizer archives endpoint
+	 *
+	 * @since TBD
+	 */
+	protected function register_organizer_archives_endpoint() {
+		$messages = tribe( 'tec.rest-v1.messages' );
+		$post_repository = tribe( 'tec.rest-v1.repository' );
+		$validator = tribe( 'tec.rest-v1.validator' );
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Organizer( $messages, $post_repository, $validator );
+
+		tribe_singleton( 'tec.rest-v1.endpoints.archive-organizer', $endpoint );
+
+		register_rest_route( $this->get_events_route_namespace(), '/organizers', array(
+			'methods'  => 'GET',
+			'callback' => array( $endpoint, 'get' ),
+			'args'     => $endpoint->READ_args(),
+		) );
+
+		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/organizers', $endpoint );
 	}
 }

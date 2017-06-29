@@ -8,6 +8,16 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	 */
 	protected $messages;
 
+	/**
+	 * @var array
+	 */
+	protected $supported_query_vars = array();
+
+	/**
+	 * Tribe__Events__REST__V1__Endpoints__Base constructor.
+	 *
+	 * @param Tribe__REST__Messages_Interface $messages
+	 */
 	public function __construct( Tribe__REST__Messages_Interface $messages ) {
 		$this->messages = $messages;
 	}
@@ -80,7 +90,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 
 	/**
 	 * Returns the default value of posts per page.
-	 *
+	 an*
 	 * Cascading fallback is TEC `posts_per_page` option, `posts_per_page` option and, finally, 20.
 	 *
 	 * @return int
@@ -95,8 +105,32 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	 * Modifies a request argument marking it as not required.
 	 *
 	 * @param array $arg
+	 *
+	 * @since TBD
 	 */
 	protected function unrequire_arg( array &$arg ) {
 		$arg['required'] = false;
+	}
+
+	/**
+	 * Parses the arguments populated parsing the request filling out with the defaults.
+	 *
+	 * @param array $args
+	 * @param array $defaults
+	 *
+	 * @return array
+	 *
+	 * @since TBD
+	 */
+	protected function parse_args( array $args, array $defaults ) {
+		foreach ( $this->supported_query_vars as $request_key => $query_var ) {
+			if ( isset( $defaults[ $request_key ] ) ) {
+				$defaults[ $query_var ] = $defaults[ $request_key ];
+			}
+		}
+
+		$args = wp_parse_args( array_filter( $args ), $defaults );
+
+		return $args;
 	}
 }

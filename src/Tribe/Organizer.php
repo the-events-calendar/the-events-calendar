@@ -1,7 +1,17 @@
 <?php
 
-class Tribe__Events__Organizer {
+class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	const POSTTYPE = 'tribe_organizer';
+
+	/**
+	 * @var string
+	 */
+	protected $meta_prefix = '_Organizer';
+
+	/**
+	 * @var string The meta key relating a post of the type managed by the class to events.
+	 */
+	protected $event_meta_key = '_EventOrganizerID';
 
 	/**
 	 * Args for organizer post type
@@ -19,16 +29,24 @@ class Tribe__Events__Organizer {
 	);
 
 	/**
-	 * @var string
+	 * @var array
 	 */
-	protected $meta_prefix = '_Organizer';
-
 	public static $valid_keys = array(
 		'Organizer',
 		'Phone',
 		'Email',
 		'Website',
 	);
+
+	/**
+	 * @var array A list of the valid meta keys for this linked post.
+	 */
+	public static $meta_keys = array(
+		'Phone',
+		'Email',
+		'Website',
+	);
+
 
 	public $singular_organizer_label;
 	public $plural_organizer_label;
@@ -41,23 +59,20 @@ class Tribe__Events__Organizer {
 	 * @return Tribe__Events__Organizer
 	 */
 	public static function instance() {
-		if ( ! self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
+		return tribe( 'tec.linked-posts.organizer' );
 	}
 
 	/**
-	 * Constructor!
+	 * Tribe__Events__Organizer constructor.
 	 */
-	protected function __construct() {
+	public function __construct() {
 		$rewrite = Tribe__Events__Rewrite::instance();
 
-		$this->singular_organizer_label                = $this->get_organizer_label_singular();
-		$this->singular_organizer_label_lowercase      = $this->get_organizer_label_singular_lowercase();
-		$this->plural_organizer_label                  = $this->get_organizer_label_plural();
-		$this->plural_organizer_label_lowercase        = $this->get_organizer_label_plural_lowercase();
+		$this->post_type                          = self::POSTTYPE;
+		$this->singular_organizer_label           = $this->get_organizer_label_singular();
+		$this->singular_organizer_label_lowercase = $this->get_organizer_label_singular_lowercase();
+		$this->plural_organizer_label             = $this->get_organizer_label_plural();
+		$this->plural_organizer_label_lowercase   = $this->get_organizer_label_plural_lowercase();
 
 		$this->post_type_args['rewrite']['slug']   = $rewrite->prepare_slug( $this->singular_organizer_label, self::POSTTYPE, false );
 		$this->post_type_args['show_in_nav_menus'] = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
@@ -346,6 +361,7 @@ class Tribe__Events__Organizer {
 			if ( $avoid_duplicates ) {
 				/** @var Tribe__Duplicate__Post $duplicates */
 				$duplicates = tribe( 'post-duplicate' );
+				$duplicates->set_post_type( Tribe__Events__Main::ORGANIZER_POST_TYPE );
 				$duplicates->use_post_fields( $this->get_duplicate_post_fields() );
 				$duplicates->use_custom_fields( $this->get_duplicate_custom_fields() );
 
@@ -513,6 +529,7 @@ class Tribe__Events__Organizer {
 		$fields = array(
 			'post_title'   => array( 'match' => 'same' ),
 			'post_content' => array( 'match' => 'same' ),
+			'post_excerpt' => array( 'match' => 'same' ),
 		);
 
 		/**
@@ -552,22 +569,5 @@ class Tribe__Events__Organizer {
 		 * @since TBD
 		 */
 		return apply_filters( 'tribe_event_organizer_duplicate_custom_fields', $fields );
-	}
-
-	/**
-	 * Prefixes a key with the correct meta key prefix if needed.
-	 *
-	 * @param string $key
-	 *
-	 * @return string
-	 */
-	protected function prefix_key( $key ) {
-		$prefixable_keys = self::$valid_keys;
-		unset( $prefixable_keys['Organizer'] );
-		if ( 0 !== strpos( $key, $this->meta_prefix ) && in_array( $key, $prefixable_keys ) ) {
-			return $this->meta_prefix . $key;
-		}
-
-		return $key;
 	}
 }

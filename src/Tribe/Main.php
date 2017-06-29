@@ -423,6 +423,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Linked Posts
 			tribe_singleton( 'tec.linked-posts', 'Tribe__Events__Linked_Posts' );
+			tribe_singleton( 'tec.linked-posts.venue', 'Tribe__Events__Venue' );
+			tribe_singleton( 'tec.linked-posts.organizer', 'Tribe__Events__Organizer' );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.

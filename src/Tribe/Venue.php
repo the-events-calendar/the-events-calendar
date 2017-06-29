@@ -1,6 +1,6 @@
 <?php
 
-class Tribe__Events__Venue {
+class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	const POSTTYPE = 'tribe_venue';
 
 	/**
@@ -24,6 +24,11 @@ class Tribe__Events__Venue {
 	protected $meta_prefix = '_Venue';
 
 	/**
+	 * @var string The meta key relating a post of the type managed by the class to events.
+	 */
+	protected $event_meta_key = '_EventVenueID';
+
+	/**
 	 * @var array A list of all the valid Venue keys, post fields and custom fields
 	 */
 	public static $valid_venue_keys = array(
@@ -38,9 +43,33 @@ class Tribe__Events__Venue {
 		'Phone',
 	);
 
+	/**
+	 * @var array A list of the valid meta keys for this linked post.
+	 */
+	public static $meta_keys = array(
+		'Address',
+		'City',
+		'Province',
+		'State',
+		'StateProvince',
+		'Province',
+		'Zip',
+		'Phone',
+	);
+
+	/**
+	 * @var string
+	 */
 	public $singular_venue_label;
+
+	/**
+	 * @var string
+	 */
 	public $plural_venue_label;
 
+	/**
+	 * @var Tribe__Events__Venue
+	 */
 	protected static $instance;
 
 	/**
@@ -49,23 +78,20 @@ class Tribe__Events__Venue {
 	 * @return Tribe__Events__Venue
 	 */
 	public static function instance() {
-		if ( ! self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
+		return tribe( 'tec.linked-posts.venue' );
 	}
 
 	/**
-	 * Constructor!
+	 * Tribe__Events__Venue constructor.
 	 */
-	protected function __construct() {
+	public function __construct() {
 		$rewrite = Tribe__Events__Rewrite::instance();
 
-		$this->singular_venue_label                = $this->get_venue_label_singular();
-		$this->singular_venue_label_lowercase      = $this->get_venue_label_singular_lowercase();
-		$this->plural_venue_label                  = $this->get_venue_label_plural();
-		$this->plural_venue_label_lowercase        = $this->get_venue_label_plural_lowercase();
+		$this->post_type                      = self::POSTTYPE;
+		$this->singular_venue_label           = $this->get_venue_label_singular();
+		$this->singular_venue_label_lowercase = $this->get_venue_label_singular_lowercase();
+		$this->plural_venue_label             = $this->get_venue_label_plural();
+		$this->plural_venue_label_lowercase   = $this->get_venue_label_plural_lowercase();
 
 		$this->post_type_args['rewrite']['slug']   = $rewrite->prepare_slug( $this->singular_venue_label, self::POSTTYPE, false );
 		$this->post_type_args['show_in_nav_menus'] = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
@@ -118,7 +144,7 @@ class Tribe__Events__Venue {
 	 *
 	 * @since 4.2
 	 *
-	 * @param array $args Array of linked post type arguments
+	 * @param array  $args      Array of linked post type arguments
 	 * @param string $post_type Linked post type
 	 *
 	 * @return array
@@ -174,7 +200,7 @@ class Tribe__Events__Venue {
 	 *
 	 * @since 4.2
 	 *
-	 * @param string $id_field Field name of the field that will hold the ID
+	 * @param string $id_field  Field name of the field that will hold the ID
 	 * @param string $post_type Post type of linked post
 	 */
 	public function linked_post_id_field_index( $id_field, $post_type ) {
@@ -191,7 +217,7 @@ class Tribe__Events__Venue {
 	 * @since 4.2
 	 *
 	 * @param string $name_field Field name of the field that will hold the name
-	 * @param string $post_type Post type of linked post
+	 * @param string $post_type  Post type of linked post
 	 *
 	 * @return string
 	 */
@@ -232,10 +258,10 @@ class Tribe__Events__Venue {
 	/**
 	 * Saves the event venue information passed via an event
 	 *
-	 * @param int|null $id ID of event venue
-	 * @param array  $data The venue data.
-	 * @param string $post_type Venue Post Type
-	 * @param string $post_status The intended post status.
+	 * @param int|null $id          ID of event venue
+	 * @param array    $data        The venue data.
+	 * @param string   $post_type   Venue Post Type
+	 * @param string   $post_status The intended post status.
 	 *
 	 * @return mixed
 	 */
@@ -267,7 +293,7 @@ class Tribe__Events__Venue {
 	 * Saves venue meta
 	 *
 	 * @param int   $venue_id The venue ID.
-	 * @param array $data    The venue data.
+	 * @param array $data     The venue data.
 	 *
 	 */
 	public function save_meta( $venue_id, $data ) {
@@ -314,10 +340,10 @@ class Tribe__Events__Venue {
 	/**
 	 * Creates a new venue
 	 *
-	 * @param array  $data        The venue data.
-	 * @param string $post_status the intended post status.
-	 * @param bool $avoid_duplicates Whether a check to avoid the insertion of a duplicate venue
-	 *                               should be made (`true`) or not (`false`).
+	 * @param array  $data             The venue data.
+	 * @param string $post_status      the intended post status.
+	 * @param bool   $avoid_duplicates Whether a check to avoid the insertion of a duplicate venue
+	 *                                 should be made (`true`) or not (`false`).
 	 *
 	 * @return int
 	 */
@@ -327,8 +353,8 @@ class Tribe__Events__Venue {
 		 *
 		 * If a non `null` value is returned that will be returned and the venue creation process will bail.
 		 *
-		 * @param mixed $check Whether the venue insertion process should proceed or not.
-		 * @param array $data The data provided to create the venue.
+		 * @param mixed  $check       Whether the venue insertion process should proceed or not.
+		 * @param array  $data        The data provided to create the venue.
 		 * @param string $post_status The post status that should be applied to the created venue.
 		 *
 		 * @since TBD
@@ -361,6 +387,7 @@ class Tribe__Events__Venue {
 			if ( $avoid_duplicates ) {
 				/** @var Tribe__Duplicate__Post $duplicates */
 				$duplicates = tribe( 'post-duplicate' );
+				$duplicates->set_post_type( Tribe__Events__Main::VENUE_POST_TYPE );
 				$duplicates->use_post_fields( $this->get_duplicate_post_fields() );
 				$duplicates->use_custom_fields( $this->get_duplicate_custom_fields() );
 
@@ -397,7 +424,7 @@ class Tribe__Events__Venue {
 				 * Fires immediately after a venue has been created.
 				 *
 				 * @param int   $venue_id The updated venue post ID.
-				 * @param array $data         The data used to update the venue.
+				 * @param array $data     The data used to update the venue.
 				 */
 				do_action( 'tribe_events_venue_created', $venue_id, $data->to_array() );
 
@@ -440,9 +467,9 @@ class Tribe__Events__Venue {
 		 *
 		 * If a non `null` value is returned that will be returned and the venue update process will bail.
 		 *
-		 * @param mixed  $check       Whether the venue update process should proceed or not.
-		 * @param int    $venue_id    The post ID of the venue that should be updated
-		 * @param array  $data        The data provided to update the venue.
+		 * @param mixed $check    Whether the venue update process should proceed or not.
+		 * @param int   $venue_id The post ID of the venue that should be updated
+		 * @param array $data     The data provided to update the venue.
 		 *
 		 * @since TBD
 		 */
@@ -457,15 +484,15 @@ class Tribe__Events__Venue {
 		unset( $data['VenueID'] );
 
 		$args = array_filter( array(
-			'ID'            => $venue_id,
-			'post_title'    => Tribe__Utils__Array::get( $data, 'post_title', $data['Venue'] ),
-			'post_content'  => Tribe__Utils__Array::get( $data, 'post_content', $data['Description'] ),
-			'post_excerpt'  => Tribe__Utils__Array::get( $data, 'post_excerpt', $data['Excerpt'] ),
-			'post_author'   => $data['post_author'],
-			'post_date'     => $data['post_date'],
-			'post_date_gmt' => $data['post_date_gmt'],
-			'post_status'   => $data['post_status'],
-		) );
+			                      'ID'            => $venue_id,
+			                      'post_title'    => Tribe__Utils__Array::get( $data, 'post_title', $data['Venue'] ),
+			                      'post_content'  => Tribe__Utils__Array::get( $data, 'post_content', $data['Description'] ),
+			                      'post_excerpt'  => Tribe__Utils__Array::get( $data, 'post_excerpt', $data['Excerpt'] ),
+			                      'post_author'   => $data['post_author'],
+			                      'post_date'     => $data['post_date'],
+			                      'post_date_gmt' => $data['post_date_gmt'],
+			                      'post_status'   => $data['post_status'],
+		                      ) );
 
 		if ( count( $args ) > 1 ) {
 			wp_update_post( $args );
@@ -487,15 +514,15 @@ class Tribe__Events__Venue {
 			'Description',
 			'Excerpt',
 		) );
-		$meta = array_diff_key( $data->to_array(), array_combine( $post_fields, $post_fields ) );
+		$meta        = array_diff_key( $data->to_array(), array_combine( $post_fields, $post_fields ) );
 
 		$this->save_meta( $venue_id, $meta );
 
 		/**
 		 * Fires immediately after a venue has been updated.
 		 *
-		 * @param int $venue_id The updated venue post ID.
-		 * @param array $data The data used to update the venue.
+		 * @param int   $venue_id The updated venue post ID.
+		 * @param array $data     The data used to update the venue.
 		 */
 		do_action( 'tribe_events_venue_updated', $venue_id, $data->to_array() );
 
@@ -505,8 +532,9 @@ class Tribe__Events__Venue {
 	/**
 	 * Deletes a venue
 	 *
-	 * @param int  $venue_id      The venue ID to delete.
-	 * @param bool $force_delete  Whether or not to bypass the trash when deleting the venue (see wp_delete_post's $force_delete param)
+	 * @param int  $venue_id     The venue ID to delete.
+	 * @param bool $force_delete Whether or not to bypass the trash when deleting the venue (see wp_delete_post's
+	 *                           $force_delete param)
 	 *
 	 */
 	public function delete( $venue_id, $force_delete = false ) {
@@ -518,7 +546,7 @@ class Tribe__Events__Venue {
 	 *
 	 * @since 4.2.4
 	 *
-	 * @param int $default Default venue ID
+	 * @param int    $default   Default venue ID
 	 * @param string $post_type Post type of form being output
 	 */
 	public function linked_post_default( $default, $post_type ) {
@@ -556,6 +584,7 @@ class Tribe__Events__Venue {
 		$fields = array(
 			'post_title'   => array( 'match' => 'same' ),
 			'post_content' => array( 'match' => 'same' ),
+			'post_excerpt' => array( 'match' => 'same' ),
 		);
 
 		/**
@@ -599,22 +628,5 @@ class Tribe__Events__Venue {
 		 * @since TBD
 		 */
 		return apply_filters( 'tribe_event_venue_duplicate_custom_fields', $fields );
-	}
-
-	/**
-	 * Prefixes a key with the correct meta key prefix if needed.
-	 *
-	 * @param string $key
-	 *
-	 * @return string
-	 */
-	protected function prefix_key( $key ) {
-		$prefixable_keys = self::$valid_venue_keys;
-		unset( $prefixable_keys['Venue'] );
-		if ( 0 !== strpos( $key, $this->meta_prefix ) && in_array( $key, $prefixable_keys ) ) {
-			return $this->meta_prefix . $key;
-		}
-
-		return $key;
 	}
 }
