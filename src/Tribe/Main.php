@@ -331,6 +331,21 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			Tribe__Main::instance( $this )->load_text_domain( 'the-events-calendar', $this->plugin_dir . 'lang/' );
 
+			/**
+			 * We're checking if common dir is not empty
+			 */
+			public function is_dir_empty( $dir ) {
+				if ( ! is_readable( $dir ) ) return null;
+				return ( count( scandir( $dir ) ) == 2 );
+			}
+
+			/**
+			 * We're loading the "tribe-common" textDomain
+			 */
+
+			if ( ! is_dir_empty($this->plugin_dir . 'common' ) ) {
+				Tribe__Main::instance( $this )->load_text_domain( 'tribe-common', $this->plugin_dir . 'common/lang/' );
+			}
 			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
 				$this->bind_implementations();
 				$this->loadLibraries();
