@@ -77,7 +77,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 *
 	 * @return array
 	 */
-	public function get( $sort = null ) {
+	public function get() {
 		if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			$this->enable_service_origins();
 		}

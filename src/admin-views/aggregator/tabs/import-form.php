@@ -44,7 +44,6 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 		foreach ( $field->options as $key => $option ) {
 			$option->disabled = ( isset( $option->disabled ) ? $option->disabled : null );
 			$option->upsell = ( isset( $option->upsell ) ? $option->upsell : false );
-			$option->subtitle = ( isset( $option->subtitle ) ? 'data-subtitle="' . $option->subtitle . '"' : '' );
 
 			$option->is_selected = false;
 			if ( ! empty( $_GET['ea-auth'] ) && $option->id === $_GET['ea-auth'] ) {
@@ -87,7 +86,9 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 								value="<?php echo esc_attr( $option->id ); ?>"
 								<?php disabled( $option->disabled ); ?>
 								<?php selected( $option->is_selected ); ?>
-								<?php echo $option->subtitle; ?>
+								<?php if ( isset( $option->subtitle ) ) : ?>
+									data-subtitle="<?php echo esc_attr( $option->subtitle ); ?>"
+								<?php endif; ?>
 							><?php echo esc_html( $option->name ); ?></option>
 						<?php endforeach; ?>
 						<?php if ( ! $hide_upsell && ! empty( $field->upsell_options ) ) : ?>
@@ -98,10 +99,12 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 							><?php esc_html_e( 'Buy Event Aggregator', 'the-events-calendar' ); ?></option>
 							<?php foreach ( $field->upsell_options as $option ) : ?>
 								<option
-										value="<?php echo esc_attr( $option->id ); ?>"
+									value="<?php echo esc_attr( $option->id ); ?>"
 									<?php disabled( $option->disabled ); ?>
 									<?php selected( $option->is_selected ); ?>
-									<?php echo $option->subtitle; ?>
+									<?php if ( isset( $option->subtitle ) ) : ?>
+										data-subtitle="<?php echo esc_attr( $option->subtitle ); ?>"
+									<?php endif; ?>
 								><?php echo esc_html( $option->name ); ?></option>
 							<?php endforeach; ?>
 							</optgroup>
