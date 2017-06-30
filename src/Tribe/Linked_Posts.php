@@ -897,13 +897,24 @@ class Tribe__Events__Linked_Posts {
 		$user_can_create = ( ! empty( $post_type_object->cap->create_posts ) && current_user_can( $post_type_object->cap->create_posts ) );
 		$allowed_creation = ( ! empty( $this->linked_post_types[ $post_type ]['allow_creation'] ) && $this->linked_post_types[ $post_type ]['allow_creation'] );
 
+		/**
+		 * Controls whether the UI to create new linked posts should be displayed.
+		 *
+		 * @since 4.5.7
+		 *
+		 * @param bool $enabled
+		 * @param string $post_type
+		 * @param Tribe__Events__Linked_Posts
+		 */
+		$creation_enabled = apply_filters( 'tribe_events_linked_posts_dropdown_enable_creation', $user_can_create && $allowed_creation, $post_type, $this );
+
 		$placeholder = sprintf( esc_attr__( 'Find a %s', 'the-events-calendar' ), $singular_name );
-		if ( $user_can_create && $allowed_creation ) {
+		if ( $creation_enabled ) {
 			$placeholder = sprintf( esc_attr__( 'Create or Find %s', 'the-events-calendar' ), $singular_name );
 		}
 
 		$search_placeholder = sprintf( esc_attr__( 'Find a %s', 'the-events-calendar' ), $singular_name );
-		if ( $user_can_create && $allowed_creation ) {
+		if ( $creation_enabled ) {
 			$search_placeholder = sprintf( esc_attr__( 'Create or Find %s', 'the-events-calendar' ), $singular_name );
 		}
 
@@ -915,7 +926,7 @@ class Tribe__Events__Linked_Posts {
 				id="saved_' . esc_attr( $post_type ) . '"
 				data-placeholder="' . $placeholder . '"
 				data-search-placeholder="' . $search_placeholder . '" ' .
-				( $user_can_create && $allowed_creation ?
+				( $creation_enabled ?
 				'data-freeform
 				data-sticky-search
 				data-create-choice-template="' . __( 'Create: <b><%= term %></b>', 'the-events-calendar' ) . '"

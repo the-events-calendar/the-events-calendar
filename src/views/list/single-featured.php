@@ -5,8 +5,7 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/list/single-featured.php
  *
- * @package TribeEventsCalendar
- * @version  4.4
+ * @version 4.5.6
  *
  */
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,13 +24,6 @@ $organizer = tribe_get_organizer();
 
 echo tribe_event_featured_image( null, 'large' );
 ?>
-
-<!-- Event Cost -->
-<?php if ( tribe_get_cost() ) : ?>
-	<div class="tribe-events-event-cost">
-		<span><?php echo tribe_get_cost( null, true ); ?></span>
-	</div>
-<?php endif; ?>
 
 <!-- Event Title -->
 <?php do_action( 'tribe_events_before_the_event_title' ) ?>
@@ -67,6 +59,17 @@ echo tribe_event_featured_image( null, 'large' );
 	</div>
 </div><!-- .tribe-events-event-meta -->
 <?php do_action( 'tribe_events_after_the_meta' ) ?>
+
+<!-- Event Cost -->
+<?php if ( tribe_get_cost() ) : ?>
+	<div class="tribe-events-event-cost featured-event">
+		<span class="ticket-cost"><?php echo esc_html( tribe_get_cost( null, true ) ); ?></span>
+		<?php
+		/** This action is documented in the-events-calendar/src/views/list/single-event.php */
+		do_action( 'tribe_events_inside_cost' )
+		?>
+	</div>
+<?php endif; ?>
 
 <!-- Event Content -->
 <?php do_action( 'tribe_events_before_the_content' ) ?>

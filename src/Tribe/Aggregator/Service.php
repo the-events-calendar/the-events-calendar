@@ -160,7 +160,10 @@ class Tribe__Events__Aggregator__Service {
 		 */
 		$timeout_in_seconds = (int) apply_filters( 'tribe_aggregator_connection_timeout', 60 );
 
-		$response = $this->requests->get( esc_url_raw( $url ), array( 'timeout' => $timeout_in_seconds ) );
+		$response = $http_response = $this->requests->get(
+			esc_url_raw( $url ),
+			array( 'timeout' => $timeout_in_seconds )
+		);
 
 		if ( is_wp_error( $response ) ) {
 			if ( isset( $response->errors['http_request_failed'] ) ) {
@@ -176,6 +179,15 @@ class Tribe__Events__Aggregator__Service {
 		// if the response is not an image, let's json decode the body
 		if ( ! preg_match( '/image/', $response['headers']['content-type'] ) ) {
 			$response = json_decode( wp_remote_retrieve_body( $response ) );
+		}
+
+		// It's possible that the json_decode() operation will have failed
+		if ( null === $response ) {
+			return new WP_Error(
+				'core:aggregator:bad-json-response',
+				esc_html__( 'The response from the Event Aggregator server was badly formed and could not be understood. Please try again.', 'the-events-calendar' ),
+				$http_response
+			);
 		}
 
 		return $response;

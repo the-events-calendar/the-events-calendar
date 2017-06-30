@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-04-20 18:49:02+0000\n"
+"PO-Revision-Date: 2017-06-27 05:29:44+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,11 +13,11 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts.php:902 src/Tribe/Linked_Posts.php:907
 msgid "Create or Find %s"
-msgstr ""
+msgstr "Creează sau găsește %s"
 
 #: src/Tribe/Linked_Posts.php:900 src/Tribe/Linked_Posts.php:905
 msgid "Find a %s"
-msgstr ""
+msgstr "Găsește un %s"
 
 #: src/Tribe/Integrations/WPML/Defaults.php:117
 msgid "The Events Calenar could not write WPML default config file: please create  the file manually."
@@ -73,7 +73,7 @@ msgstr ""
 
 #: common/src/Tribe/Ajax/Dropdown.php:38
 msgid "Cannot look for Terms without a taxonomy"
-msgstr ""
+msgstr "Nu pot căuta termeni fără o taxonomie"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:24
 msgid "The event WordPress post ID"
@@ -112,7 +112,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:460
 msgid "Other URLs"
-msgstr ""
+msgstr "Alte URL-uri"
 
 #: src/admin-views/aggregator/settings.php:411
 msgid "Fetch source event's settings (e.g. Show Google Maps Link or Sticky in Month View) when importing from another site using The Events Calendar."
@@ -237,15 +237,15 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:64
 msgid "The event name"
-msgstr ""
+msgstr "Numele evenimentului"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:68
 msgid "The event long description"
-msgstr ""
+msgstr "Descrierea lungă a evenimentului"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:72
 msgid "The event short description"
-msgstr ""
+msgstr "Descrierea scurtă a evenimentului"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:76
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:72
@@ -327,11 +327,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:162
 msgid "The event categories"
-msgstr ""
+msgstr "Categoriile evenimentului"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:167
 msgid "The event tags"
-msgstr ""
+msgstr "Etichetele evenimentului"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:172
 msgid "The event venue"
@@ -339,7 +339,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:177
 msgid "The event organizers"
-msgstr ""
+msgstr "Organizatorii evenimentului"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:24
 msgid "The organizer WordPress post ID"
@@ -372,15 +372,15 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:60
 msgid "The organizer name"
-msgstr ""
+msgstr "Numele organizatorului"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:64
 msgid "The organizer long description"
-msgstr ""
+msgstr "Descrierea lungă a organizatorului"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:68
 msgid "The organizer short description"
-msgstr ""
+msgstr "Descrierea scurtă a organizatorului"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:77
 msgid "The organizer phone number"
@@ -388,11 +388,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:81
 msgid "The organizer website"
-msgstr ""
+msgstr "Situl web al organizatorului"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:85
 msgid "The organizer email address"
-msgstr ""
+msgstr "Adresa de email a organizatorului"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:28
 msgid "The venue ID used to globally identify in Event Aggregator"
@@ -552,7 +552,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/EA_Messages.php:39
 msgid "Learn more."
-msgstr ""
+msgstr "Află mai mult."
 
 #: src/Tribe/REST/V1/Messages.php:19
 msgid "The 'per_page' parameter must be a positive integer greater than 1"
@@ -672,15 +672,15 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:273 src/Tribe/Aggregator/Settings.php:274
 msgid "24 hours"
-msgstr ""
+msgstr "24 de ore"
 
 #: src/Tribe/Aggregator/Settings.php:277 src/Tribe/Aggregator/Settings.php:278
 msgid "72 hours"
-msgstr ""
+msgstr "72 de ore"
 
 #: src/Tribe/Aggregator/Settings.php:281
 msgid "One week"
-msgstr ""
+msgstr "O săptămână"
 
 #: src/Tribe/Aggregator/Service.php:518
 msgid "The requested source does not have any upcoming and published events matching the search criteria."
@@ -688,43 +688,43 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:282
 msgid "a week"
-msgstr ""
+msgstr "o săptămână"
 
 #: src/Tribe/Aggregator/Settings.php:285
 msgid "Two weeks"
-msgstr ""
+msgstr "Două săptămâni"
 
 #: src/Tribe/Aggregator/Settings.php:286
 msgid "two weeks"
-msgstr ""
+msgstr "două săptămâni"
 
 #: src/Tribe/Aggregator/Settings.php:289
 msgid "Three weeks"
-msgstr ""
+msgstr "Trei săptămâni"
 
 #: src/Tribe/Aggregator/Settings.php:293
 msgid "One month"
-msgstr ""
+msgstr "O lună"
 
 #: src/Tribe/Aggregator/Settings.php:294
 msgid "a month"
-msgstr ""
+msgstr "o lună"
 
 #: src/Tribe/Aggregator/Settings.php:297
 msgid "Two months"
-msgstr ""
+msgstr "Două luni"
 
 #: src/Tribe/Aggregator/Settings.php:298
 msgid "two months"
-msgstr ""
+msgstr "două luni"
 
 #: src/Tribe/Aggregator/Settings.php:301
 msgid "Three months"
-msgstr ""
+msgstr "Trei luni"
 
 #: src/Tribe/Aggregator/Settings.php:302
 msgid "three months"
-msgstr ""
+msgstr "trei luni"
 
 #: src/Tribe/Aggregator/Tabs/New.php:363
 msgid "%1$d new event tag was created."
@@ -751,7 +751,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/Url.php:17
 msgid "Other URL"
-msgstr ""
+msgstr "Alt URL"
 
 #: src/Tribe/Aggregator/Service.php:497
 msgid "Events could not be imported. The import parameters were invalid."
@@ -815,7 +815,7 @@ msgstr ""
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:40
 msgid "The term description"
-msgstr ""
+msgstr "Descrierea termenului"
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:36
 msgid "The taxonomy the term belongs to"
@@ -823,15 +823,15 @@ msgstr ""
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:32
 msgid "The term slug"
-msgstr ""
+msgstr "Descriptorul termenului"
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:28
 msgid "The term name"
-msgstr ""
+msgstr "Numele termenului"
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:24
 msgid "The WordPress term ID"
-msgstr ""
+msgstr "ID-ul termenului WordPress"
 
 #: common/src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:36
 msgid "The link to the image in the specified size on the site"
@@ -990,15 +990,15 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts.php:921
 msgid "Create: <b><%= term %></b>"
-msgstr ""
+msgstr "Creează: <b><%= term %></b>"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:252
 msgid "Delete this"
-msgstr ""
+msgstr "Șterge asta"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:38
 msgid "Event Date:"
-msgstr ""
+msgstr "Dată eveniment:"
 
 #: src/Tribe/Customizer/Widget.php:132
 msgid "Show Featured Event Images"
@@ -1348,7 +1348,7 @@ msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:527 common/src/Tribe/PUE/Checker.php:561
 msgid "License Key Status:"
-msgstr ""
+msgstr "Stare cheie licență:"
 
 #: common/src/Tribe/Customizer.php:566
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
@@ -3700,11 +3700,11 @@ msgstr "Editare loc de întâlnire"
 
 #: src/views/list/nav.php:34
 msgid "Next %s"
-msgstr ""
+msgstr "%s următoare"
 
 #: src/views/list/nav.php:26
 msgid "Previous %s"
-msgstr ""
+msgstr "%s anterioare"
 
 #: src/io/csv/admin-views/result.php:26
 msgid "%1$s%2$s%3$sInserted:%4$s A new item was inserted successfully. %5$s%2$s%3$sUpdated:%4$s An item was found with the same name and/or start date. The existing item was updated with the new value from the file.%5$s%2$s%3$sSkipped:%4$s A row was found in the CSV file that could not be imported. Please see below for the invalid rows.%5$s%6$s"
@@ -4116,7 +4116,7 @@ msgstr ""
 #: src/admin-views/aggregator/origins/url.php:122
 #: src/admin-views/aggregator/tabs/import-form.php:208
 msgid "Cancel"
-msgstr "Anulare"
+msgstr "Anulează"
 
 #: common/src/Tribe/Validate.php:211
 msgid "%s must be a positive number or percent."
@@ -4326,7 +4326,7 @@ msgstr "Adresa curentă URL a Evenimentelor dvs. este %s"
 
 #: src/functions/template-tags/loop.php:157
 msgid "Past %s"
-msgstr ""
+msgstr "%s trecute"
 
 #: src/functions/template-tags/loop.php:155
 msgid "%1$s for %2$s - %3$s"
@@ -4334,7 +4334,7 @@ msgstr ""
 
 #: src/functions/template-tags/loop.php:140
 msgid "Upcoming %s"
-msgstr "Evenimente viitoare %s"
+msgstr "%s viitoare"
 
 #: src/functions/template-tags/google-map.php:47
 msgid "+ Google Map"
@@ -4445,7 +4445,7 @@ msgstr "Statul sau Provincia:"
 #: src/admin-views/create-venue-fields.php:61
 #: src/admin-views/venue-meta-box.php:62
 msgid "Country:"
-msgstr "Ţara:"
+msgstr "Țară:"
 
 #: src/admin-views/create-venue-fields.php:48
 #: src/admin-views/venue-meta-box.php:50

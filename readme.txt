@@ -1,10 +1,10 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, brook-tribe, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, leahkoerper, lucatume, mastromktg, mat-lipe, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, shelbelliott, tribecari, vicskf, zbtirrell
+Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, brook-tribe, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, leahkoerper, lucatume, mastromktg, mat-lipe, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, shelbelliott, tribecari, vicskf, zbtirrell
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Stable tag: 4.5.5
+Stable tag: 4.5.7
 Tested up to: 4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -327,11 +327,33 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.5.7] 2017-06-28 =
+
+* Fix - Restore support for translated events category slugs when WPML is active [73478]
+* Fix - Improve handling of shortcodes within event view excerpts (props: @awbauer) [81226]
+* Fix - Improve compatibility with WPML in relation to event permalinks specifically (props: @dgwatkins) [81224]
+* Fix - Improved handling of Venue fields that allows for better form validation in Community Events [76297]
+* Tweak - Better detection and reporting of communication failures with the Event Aggregator server
+* Tweak - Textual corrections (with thanks to @garrett-eclipse for highlighting many of these) [77196]
+* Tweak - New filter added ("tribe_events_linked_posts_dropdown_enable_creation") to facilitate more control over linked posts [80487]
+* Tweak - Improve performance of theme compatibility code [71974]
+* Tweak - Don't show Event Aggregator system status in Help tab if there's no Event Aggregator license in place [68506]
+
+= [4.5.6] 2017-06-22 =
+
+* Tweak - Improved how Cost field looks and it's consistency across views [71092 & 71094]
+* Fix - Resolved issue where the Meta Chunker attempted to inappropriately chunk meta for post post_types [80857]
+* Tweak - Added actions: `tribe_events_inside_cost`
+* Tweak - Changed views: `day/single-event`, `day/single-featured`, `list/single-event`, `list/single-featured`
+* Language - 1 new strings added, 15 updated, 1 fuzzied, and 1 obsoleted [the-events-calendar]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted [tribe-common]
+
+
 = [4.5.5] 2017-06-14 =
 
 * Fix - Removed extra double quotes in organizer link output [71133]
 * Fix - Make the list and day view styles match more closely [63599]
-* Fix - Better sanitization on CSV imports [80311]
+* Fix - Better sanitization on CSV imports (thanks to Valentinos Chouris from NCC Group for reporting this) [80311]
 * Fix - Prevent tabs from being incorrectly escaped in iCal output (props: KZeni) [80452]
 * Fix - Fixed inconsistent font styling of Tribe Bar form labels. [27252]
 * Tweak - Removed unused Javascript (jQuery UI Dialog) to help avoid warnings (our thanks to @gama6889 for flagging this) [80766]

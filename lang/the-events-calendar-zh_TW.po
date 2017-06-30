@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-05-26 12:07:39+0000\n"
+"PO-Revision-Date: 2017-06-16 05:39:44+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -4068,7 +4068,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:951
 msgid "%1$s or %2$s"
-msgstr ""
+msgstr "%1$s 或 %2$s"
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/1x"
@@ -4262,7 +4262,7 @@ msgstr "Column Mapping: %s"
 
 #: src/functions/template-tags/options.php:29
 msgid "You %1$scannot%2$s use the same slug as above. The above should ideally be plural, and this singular.%3$sYour single Event URL is like: %4$s"
-msgstr ""
+msgstr "您  %1$s 不能 %2$s 使用和上面相同的代稱，上面代稱適合複數與此單數。 %3$s 您的單一活動網址應如：%4$s"
 
 #: src/functions/template-tags/options.php:20
 msgid "Your current Events URL is %s"
@@ -4333,7 +4333,7 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:153
 msgid "%s:"
-msgstr ""
+msgstr "%s："
 
 #: src/admin-views/aggregator/meta-box.php:2
 msgid "Origin:"
@@ -4474,7 +4474,7 @@ msgstr "更多..."
 #: common/src/Tribe/Admin/Help_Page.php:183
 #: common/src/Tribe/Plugins_API.php:223 src/Tribe/Main.php:1057
 msgid "Events Calendar PRO"
-msgstr ""
+msgstr "事件日曆專業版"
 
 #: common/src/Tribe/Admin/Help_Page.php:402
 #: common/src/Tribe/Admin/Help_Page.php:777
@@ -4941,7 +4941,7 @@ msgstr "%s 網站"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:499
 msgid "Location:"
-msgstr ""
+msgstr "地點："
 
 #: src/admin-views/events-meta-box.php:129
 msgid "Timezone:"
@@ -6464,7 +6464,7 @@ msgstr "活動設定"
 
 #: common/src/Tribe/PUE/Checker.php:886
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
-msgstr ""
+msgstr "嗯…認證器發生錯誤，請聯絡 %s 支援 %s 。"
 
 #: common/src/Tribe/PUE/Checker.php:925
 msgid "Valid Key! Expires on %s"
@@ -7028,7 +7028,7 @@ msgstr "沒有匯入"
 #: src/Tribe/Aggregator/Record/CSV.php:190
 #: src/Tribe/Importer/Admin_Page.php:357
 msgid "The following fields are required for a successful import:"
-msgstr ""
+msgstr "為了成功匯入以下欄位是必須的："
 
 #: src/Tribe/Importer/Admin_Page.php:316
 msgid "We were unable to process your request. Please try again."
