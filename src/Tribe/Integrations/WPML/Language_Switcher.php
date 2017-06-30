@@ -41,7 +41,12 @@ class Tribe__Events__Integrations__WPML__Language_Switcher {
 			return $languages;
 		}
 
-		$current_url = home_url( $_SERVER['REQUEST_URI'] );
+		$root_folder = parse_url( home_url(), PHP_URL_PATH );
+		$request_uri = $_SERVER['REQUEST_URI'];
+		if ( ! empty( $root_folder ) ) {
+			$request_uri = str_replace( $root_folder, '', $request_uri, 1 );
+		}
+		$current_url = home_url( $request_uri );
 
 		/** @var SitePress $sitepress */
 		global $sitepress;
