@@ -667,12 +667,12 @@
 	cursor: default;
 }
 
-.tribe-upsell-subtitle {
+.tribe-dropdown-subtitle {
 	font-size: 11px;
 	color: gray;
 }
 
-.select2-highlighted .tribe-upsell-subtitle {
+.select2-highlighted .tribe-dropdown-subtitle {
 	color: white;
 }
 

@@ -35,31 +35,37 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 				'id' => 'facebook',
 				'name' => __( 'Facebook', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 			'gcal' => (object) array(
 				'id' => 'gcal',
 				'name' => __( 'Google Calendar', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 			'ical' => (object) array(
 				'id' => 'ical',
 				'name' => __( 'iCalendar', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 			'ics' => (object) array(
 				'id' => 'ics',
 				'name' => __( 'ICS File', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 			'meetup' => (object) array(
 				'id' => 'meetup',
 				'name' => __( 'Meetup', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 			'url' => (object) array(
 				'id' => 'url',
 				'name' => __( 'Other URL (beta)', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 		);
 
@@ -71,16 +77,46 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 *
 	 * @return array
 	 */
-	public function get() {
+	public function get( $sort = null ) {
 		if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 			$this->enable_service_origins();
 		}
 
 		$origins = $this->origins;
+		$origins = array_filter( $origins, array( $this, 'is_origin_available' ) );
 
-		$origins = array_filter($origins, array( $this, 'is_origin_available' ));
+		/**
+		 * The origins (sources) that EA can import from
+		 *
+		 * @param array $origins The origins
+		 */
+		$origins = apply_filters( 'tribe_aggregator_origins', $origins );
 
-		return apply_filters( 'tribe_aggregator_origins', $origins );
+		return $origins;
+
+		// Sorts output so that origins which are unavailable unless upsold appear on bottom
+		if ( 'display' === $sort ) {
+			$show_before_upsell = array();
+			$show_after_upsell = array();
+
+			foreach ( $origins as $origin ) {
+				$can_upsell = isset( $origin->upsell ) ? $origin->upsell : false;
+				$is_disabled = isset( $origin->disabled ) ? $origin->disabled : false;
+
+				if ( $can_upsell && $is_disabled ) {
+					$show_after_upsell[] = $origin;
+				} else {
+					$show_before_upsell[] = $origin;
+				}
+			}
+
+			sort( $show_before_upsell );
+			sort( $show_after_upsell );
+
+			$origins = array_merge( $show_before_upsell, $show_after_upsell );
+		}
+
+		return $origins;
 	}
 
 	/**

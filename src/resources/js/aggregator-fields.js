@@ -711,10 +711,12 @@ tribe_aggregator.fields = {
 			}
 
 			args.upsellFormatter = function( option ) {
-				if ( 'redirect' == option.id ) {
-					var parts = option.text.split( '|' );
-					option.text = parts[0] + '<br><span class="tribe-upsell-subtitle">' + parts[1] + '</span>';
+				var $option = jQuery( option.element );
+
+				if ( 'string' === typeof $option.data( 'subtitle' ) ) {
+					option.text = option.text + '<br><span class="tribe-dropdown-subtitle">' + $option.data( 'subtitle' ) + '</span>';
 				}
+
 				return option.text;
 			}
 
