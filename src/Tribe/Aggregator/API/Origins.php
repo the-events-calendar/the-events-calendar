@@ -93,30 +93,6 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 		$origins = apply_filters( 'tribe_aggregator_origins', $origins );
 
 		return $origins;
-
-		// Sorts output so that origins which are unavailable unless upsold appear on bottom
-		if ( 'display' === $sort ) {
-			$show_before_upsell = array();
-			$show_after_upsell = array();
-
-			foreach ( $origins as $origin ) {
-				$can_upsell = isset( $origin->upsell ) ? $origin->upsell : false;
-				$is_disabled = isset( $origin->disabled ) ? $origin->disabled : false;
-
-				if ( $can_upsell && $is_disabled ) {
-					$show_after_upsell[] = $origin;
-				} else {
-					$show_before_upsell[] = $origin;
-				}
-			}
-
-			sort( $show_before_upsell );
-			sort( $show_after_upsell );
-
-			$origins = array_merge( $show_before_upsell, $show_after_upsell );
-		}
-
-		return $origins;
 	}
 
 	/**
