@@ -374,9 +374,15 @@ tribe_aggregator.fields = {
 
         if ( 'manual' === import_type && !data.items.length ) {
 			var origin = data.origin;
-			var message = 'undefined' !== ea.l10n[ origin ].no_results ?
+			var origin_specific_no_results_msg = (
+				'undefined' !== typeof ea.l10n[ origin ]
+				&& 'undefined' !== typeof ea.l10n[ origin ].no_results
+			);
+
+			var message = origin_specific_no_results_msg ?
 				ea.l10n[ origin ].no_results
 				: ea.l10n.no_results;
+
 			obj.display_fetch_error(message);
 			return;
 		}
