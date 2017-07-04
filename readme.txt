@@ -329,6 +329,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.5.8] TBD =
 
+* Fix - Remove permalink logic for recurring events (Events Calendar PRO will implement instead) [74153]
 * Fix - Avoid type error when setting up one-time imports for Facebook URLs (our thanks to @J for flagging this!) [78664]
 
 = [4.5.7] 2017-06-28 =
