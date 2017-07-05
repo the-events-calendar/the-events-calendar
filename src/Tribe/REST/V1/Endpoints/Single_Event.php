@@ -278,7 +278,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_url' ),
 				'swagger_type'      => 'string',
-				'description'       => __( 'The event website', 'the-events-calendar' ),
+				'description'       => __( 'The event website URL', 'the-events-calendar' ),
 			),
 			// Event presentation data
 			'show_map'           => array(

@@ -200,25 +200,113 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	public function CREATE_args() {
 		return array(
 			// Post fields
-			'author'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
-			'date'          => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'date_utc'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'venue'         => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'description'   => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'status'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_post_status' ) ),
+			'author'        => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_user_id' ),
+				'type'              => 'integer',
+				'description'       => __( 'The venue author ID', 'the-events-calendar' ),
+			),
+			'date'          => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_time' ),
+				'type'              => 'string',
+				'description'       => __( 'The venue publication date', 'the-events-calendar' ),
+			),
+			'date_utc'      => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_time' ),
+				'type'              => 'string',
+				'description'       => __( 'The venue publication date (UTC timezone)', 'the-events-calendar' ),
+			),
+			'venue'         => array(
+				'required'          => true,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The venue name', 'the-events-calendar' ),
+			),
+			'description'   => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The venue description', 'the-events-calendar' ),
+			),
+			'status'        => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_post_status' ),
+				'type'              => 'string',
+				'description'       => __( 'The venue post status', 'the-events-calendar' ),
+			),
 			// Venue meta fields
-			'show_map'      => array( 'required' => false ),
-			'show_map_link' => array( 'required' => false ),
-			'address'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'city'          => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'country'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'province'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'state'         => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'zip'           => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'phone'         => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'stateprovince' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'website'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_url' ) ),
-			'image'         => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
+			'show_map'      => array(
+				'required'    => false,
+				'type'        => 'string',
+				'description' => __( 'Whether events linked to the venue should show a map or not', 'the-events-calendar' ),
+			),
+			'show_map_link' => array(
+				'required'    => false,
+				'type'        => 'string',
+				'description' => __( 'Whether events linked to the venue should show a map link or not', 'the-events-calendar' ),
+			),
+			'address'       => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The venue address', 'the-events-calendar' ),
+			),
+			'city'          => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The venue city', 'the-events-calendar' ),
+			),
+			'country'       => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The venue country', 'the-events-calendar' ),
+			),
+			'province'      => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The venue province', 'the-events-calendar' ),
+			),
+			'state'         => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The venue state', 'the-events-calendar' ),
+			),
+			'zip'           => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The venue ZIP code', 'the-events-calendar' ),
+			),
+			'phone'         => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The venue phone number', 'the-events-calendar' ),
+			),
+			'stateprovince' => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The venue state and province', 'the-events-calendar' ),
+			),
+			'website'       => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_url' ),
+				'type'              => 'string',
+				'description'       => __( 'The venue website URL', 'the-events-calendar' ),
+			),
+			'image'         => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_image' ),
+				'type'              => 'string',
+				'description'       => __( 'The organizer featured image ID or URL', 'the-events-calendar' ),
+			),
 		);
 	}
 

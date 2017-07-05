@@ -102,26 +102,37 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 	/**
 	 * Registers the endpoints, and the handlers, supported by the REST API
+	 *
+	 * @param bool $register_routes Whether routes should be registered as well or not.
 	 */
-	public function register_endpoints() {
-		$this->register_documentation_endpoint();
-		$this->register_event_archives_endpoint();
-		$this->register_single_event_endpoint();
-		$this->register_venue_archives_endpoint();
-		$this->register_single_venue_endpoint();
-		$this->register_organizer_archives_endpoint();
-		$this->register_single_organizer_endpoint();
+	public function register_endpoints( $register_routes = true ) {
+		$this->register_documentation_endpoint( $register_routes );
+		$this->register_event_archives_endpoint( $register_routes );
+		$this->register_single_event_endpoint( $register_routes );
+		$this->register_venue_archives_endpoint( $register_routes );
+		$this->register_single_venue_endpoint( $register_routes );
+		$this->register_organizer_archives_endpoint( $register_routes );
+		$this->register_single_organizer_endpoint( $register_routes );
 	}
 
-	protected function register_documentation_endpoint() {
+	/**
+	 * Builds and hooks the documentation endpoint
+	 *
+	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
+	 *
+	 * @since 4.5
+	 */
+	protected function register_documentation_endpoint( $register_routes = true ) {
 		$endpoint = new Tribe__Events__REST__V1__Endpoints__Swagger_Documentation( $this->get_semantic_version() );
 
 		tribe_singleton( 'tec.rest-v1.endpoints.documentation', $endpoint );
 
-		register_rest_route( $this->get_events_route_namespace(), '/doc', array(
-			'methods'  => 'GET',
-			'callback' => array( $endpoint, 'get' ),
-		) );
+		if ( $register_routes ) {
+			register_rest_route( $this->get_events_route_namespace(), '/doc', array(
+				'methods'  => 'GET',
+				'callback' => array( $endpoint, 'get' ),
+			) );
+		}
 
 		/** @var Tribe__Documentation__Swagger__Builder_Interface $documentation */
 		$documentation = tribe( 'tec.rest-v1.endpoints.documentation' );
@@ -161,9 +172,11 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Builds and hooks the event archives endpoint
 	 *
+	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
+	 *
 	 * @since 4.5
 	 */
-	protected function register_event_archives_endpoint() {
+	protected function register_event_archives_endpoint( $register_routes = true ) {
 		$messages = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
 		$validator = tribe( 'tec.rest-v1.validator' );
@@ -171,19 +184,25 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		tribe_singleton( 'tec.rest-v1.endpoints.archive-event', $endpoint );
 
-		register_rest_route( $this->get_events_route_namespace(), '/events', array(
-			'methods'  => 'GET',
-			'callback' => array( $endpoint, 'get' ),
-			'args'     => $endpoint->READ_args(),
-		) );
+		if ( $register_routes ) {
+			register_rest_route( $this->get_events_route_namespace(), '/events', array(
+				'methods'  => 'GET',
+				'callback' => array( $endpoint, 'get' ),
+				'args'     => $endpoint->READ_args(),
+			) );
+		}
 
 		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/events', $endpoint );
 	}
 
 	/**
 	 * Registers the endpoint that will handle requests for a single event.
+	 *
+	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
+	 *
+	 * @since 4.5
 	 */
-	protected function register_single_event_endpoint() {
+	protected function register_single_event_endpoint( $register_routes = true ) {
 		$messages = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
 		$validator = tribe( 'tec.rest-v1.validator' );
@@ -196,39 +215,41 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		$namespace = $this->get_events_route_namespace();
 
-		register_rest_route(
-			$namespace,
-			'/events/(?P<id>\\d+)',
-			array(
+		if ( $register_routes ) {
+			register_rest_route(
+				$namespace,
+				'/events/(?P<id>\\d+)',
 				array(
-					'methods'  => WP_REST_Server::READABLE,
-					'args'     => $endpoint->READ_args(),
-					'callback' => array( $endpoint, 'get' ),
-				),
-				array(
-					'methods'             => WP_REST_Server::DELETABLE,
-					'args'                => $endpoint->DELETE_args(),
-					'permission_callback' => array( $endpoint, 'can_delete' ),
-					'callback'            => array( $endpoint, 'delete' ),
-				),
-				array(
-					'methods'             => WP_REST_Server::EDITABLE,
-					'args'                => $endpoint->EDIT_args(),
-					'permission_callback' => array( $endpoint, 'can_edit' ),
-					'callback'            => array( $endpoint, 'update' ),
-				),
-			)
-		);
+					array(
+						'methods'  => WP_REST_Server::READABLE,
+						'args'     => $endpoint->READ_args(),
+						'callback' => array( $endpoint, 'get' ),
+					),
+					array(
+						'methods'             => WP_REST_Server::DELETABLE,
+						'args'                => $endpoint->DELETE_args(),
+						'permission_callback' => array( $endpoint, 'can_delete' ),
+						'callback'            => array( $endpoint, 'delete' ),
+					),
+					array(
+						'methods'             => WP_REST_Server::EDITABLE,
+						'args'                => $endpoint->EDIT_args(),
+						'permission_callback' => array( $endpoint, 'can_edit' ),
+						'callback'            => array( $endpoint, 'update' ),
+					),
+				)
+			);
 
-		register_rest_route(
-			$namespace,
-			'/events', array(
-				'methods'             => WP_REST_Server::CREATABLE,
-				'args'                => $endpoint->CREATE_args(),
-				'permission_callback' => array( $endpoint, 'can_create' ),
-				'callback'            => array( $endpoint, 'create' ),
-			)
-		);
+			register_rest_route(
+				$namespace,
+				'/events', array(
+					'methods'             => WP_REST_Server::CREATABLE,
+					'args'                => $endpoint->CREATE_args(),
+					'permission_callback' => array( $endpoint, 'can_create' ),
+					'callback'            => array( $endpoint, 'create' ),
+				)
+			);
+		}
 
 		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/events/{id}', $endpoint );
 	}
@@ -317,9 +338,11 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Registers the endpoint that will handle requests for a single venue.
 	 *
-	 * @since bucket/full-rest-api
+	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
+	 *
+	 * @since TBD
 	 */
-	protected function register_single_venue_endpoint() {
+	protected function register_single_venue_endpoint( $register_routes = true ) {
 		$messages = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
 		$validator = tribe( 'tec.rest-v1.validator' );
@@ -330,40 +353,42 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		$namespace = $this->get_events_route_namespace();
 
-		register_rest_route(
-			$namespace,
-			'/venues/(?P<id>\\d+)',
-			array(
+		if ( $register_routes ) {
+			register_rest_route(
+				$namespace,
+				'/venues/(?P<id>\\d+)',
 				array(
-					'methods'  => WP_REST_Server::READABLE,
-					'args'     => $endpoint->READ_args(),
-					'callback' => array( $endpoint, 'get' ),
-				),
-				array(
-					'methods'             => WP_REST_Server::DELETABLE,
-					'args'                => $endpoint->DELETE_args(),
-					'permission_callback' => array( $endpoint, 'can_delete' ),
-					'callback'            => array( $endpoint, 'delete' ),
-				),
-				array(
-					'methods'             => WP_REST_Server::EDITABLE,
-					'args'                => $endpoint->EDIT_args(),
-					'permission_callback' => array( $endpoint, 'can_edit' ),
-					'callback'            => array( $endpoint, 'update' ),
-				),
-			)
-		);
+					array(
+						'methods'  => WP_REST_Server::READABLE,
+						'args'     => $endpoint->READ_args(),
+						'callback' => array( $endpoint, 'get' ),
+					),
+					array(
+						'methods'             => WP_REST_Server::DELETABLE,
+						'args'                => $endpoint->DELETE_args(),
+						'permission_callback' => array( $endpoint, 'can_delete' ),
+						'callback'            => array( $endpoint, 'delete' ),
+					),
+					array(
+						'methods'             => WP_REST_Server::EDITABLE,
+						'args'                => $endpoint->EDIT_args(),
+						'permission_callback' => array( $endpoint, 'can_edit' ),
+						'callback'            => array( $endpoint, 'update' ),
+					),
+				)
+			);
 
-		register_rest_route(
-			$namespace,
-			'/venues',
-			array(
-				'methods'  => WP_REST_Server::CREATABLE,
-				'args'     => $endpoint->CREATE_args(),
-				'permission_callback' => array( $endpoint, 'can_create' ),
-				'callback' => array( $endpoint, 'create' ),
-			)
-		);
+			register_rest_route(
+				$namespace,
+				'/venues',
+				array(
+					'methods'             => WP_REST_Server::CREATABLE,
+					'args'                => $endpoint->CREATE_args(),
+					'permission_callback' => array( $endpoint, 'can_create' ),
+					'callback'            => array( $endpoint, 'create' ),
+				)
+			);
+		}
 
 		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/venues/{id}', $endpoint );
 	}
@@ -371,9 +396,11 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Registers the endpoint that will handle requests for a single organizer.
 	 *
+	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
+	 *
 	 * @since bucket/full-rest-api
 	 */
-	protected function register_single_organizer_endpoint() {
+	protected function register_single_organizer_endpoint( $register_routes = true ) {
 		$messages = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
 		$validator = tribe( 'tec.rest-v1.validator' );
@@ -384,40 +411,42 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		$namespace = $this->get_events_route_namespace();
 
-		register_rest_route(
-			$namespace,
-			'/organizers/(?P<id>\\d+)',
-			array(
+		if ( $register_routes ) {
+			register_rest_route(
+				$namespace,
+				'/organizers/(?P<id>\\d+)',
 				array(
-					'methods'  => WP_REST_Server::READABLE,
-					'args'     => $endpoint->READ_args(),
-					'callback' => array( $endpoint, 'get' ),
-				),
-				array(
-					'methods'             => WP_REST_Server::DELETABLE,
-					'args'                => $endpoint->DELETE_args(),
-					'permission_callback' => array( $endpoint, 'can_delete' ),
-					'callback'            => array( $endpoint, 'delete' ),
-				),
-				array(
-					'methods'             => WP_REST_Server::EDITABLE,
-					'args'                => $endpoint->EDIT_args(),
-					'permission_callback' => array( $endpoint, 'can_edit' ),
-					'callback'            => array( $endpoint, 'update' ),
-				),
-			)
-		);
+					array(
+						'methods'  => WP_REST_Server::READABLE,
+						'args'     => $endpoint->READ_args(),
+						'callback' => array( $endpoint, 'get' ),
+					),
+					array(
+						'methods'             => WP_REST_Server::DELETABLE,
+						'args'                => $endpoint->DELETE_args(),
+						'permission_callback' => array( $endpoint, 'can_delete' ),
+						'callback'            => array( $endpoint, 'delete' ),
+					),
+					array(
+						'methods'             => WP_REST_Server::EDITABLE,
+						'args'                => $endpoint->EDIT_args(),
+						'permission_callback' => array( $endpoint, 'can_edit' ),
+						'callback'            => array( $endpoint, 'update' ),
+					),
+				)
+			);
 
-		register_rest_route(
-			$namespace,
-			'/organizers',
-			array(
-				'methods'  => WP_REST_Server::CREATABLE,
-				'args'     => $endpoint->CREATE_args(),
-				'permission_callback' => array( $endpoint, 'can_create' ),
-				'callback' => array( $endpoint, 'create' ),
-			)
-		);
+			register_rest_route(
+				$namespace,
+				'/organizers',
+				array(
+					'methods'             => WP_REST_Server::CREATABLE,
+					'args'                => $endpoint->CREATE_args(),
+					'permission_callback' => array( $endpoint, 'can_create' ),
+					'callback'            => array( $endpoint, 'create' ),
+				)
+			);
+		}
 
 		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/organizers/{id}', $endpoint );
 	}
@@ -425,9 +454,11 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Builds and hooks the venue archives endpoint
 	 *
+	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
+	 *
 	 * @since TBD
 	 */
-	protected function register_venue_archives_endpoint() {
+	protected function register_venue_archives_endpoint( $register_routes = true ) {
 		$messages = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
 		$validator = tribe( 'tec.rest-v1.validator' );
@@ -435,11 +466,13 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		tribe_singleton( 'tec.rest-v1.endpoints.archive-venue', $endpoint );
 
-		register_rest_route( $this->get_events_route_namespace(), '/venues', array(
-			'methods'  => 'GET',
-			'callback' => array( $endpoint, 'get' ),
-			'args'     => $endpoint->READ_args(),
-		) );
+		if ( $register_routes ) {
+			register_rest_route( $this->get_events_route_namespace(), '/venues', array(
+				'methods'  => 'GET',
+				'callback' => array( $endpoint, 'get' ),
+				'args'     => $endpoint->READ_args(),
+			) );
+		}
 
 		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/venues', $endpoint );
 	}
@@ -447,9 +480,11 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Builds and hooks the organizer archives endpoint
 	 *
+	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
+	 *
 	 * @since TBD
 	 */
-	protected function register_organizer_archives_endpoint() {
+	protected function register_organizer_archives_endpoint( $register_routes = true ) {
 		$messages = tribe( 'tec.rest-v1.messages' );
 		$post_repository = tribe( 'tec.rest-v1.repository' );
 		$validator = tribe( 'tec.rest-v1.validator' );
@@ -457,11 +492,13 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		tribe_singleton( 'tec.rest-v1.endpoints.archive-organizer', $endpoint );
 
-		register_rest_route( $this->get_events_route_namespace(), '/organizers', array(
-			'methods'  => 'GET',
-			'callback' => array( $endpoint, 'get' ),
-			'args'     => $endpoint->READ_args(),
-		) );
+		if ( $register_routes ) {
+			register_rest_route( $this->get_events_route_namespace(), '/organizers', array(
+				'methods'  => 'GET',
+				'callback' => array( $endpoint, 'get' ),
+				'args'     => $endpoint->READ_args(),
+			) );
+		}
 
 		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/organizers', $endpoint );
 	}

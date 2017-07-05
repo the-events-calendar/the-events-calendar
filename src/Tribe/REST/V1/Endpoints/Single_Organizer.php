@@ -217,17 +217,67 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	public function CREATE_args() {
 		return array(
 			// Post fields
-			'author'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_user_id' ) ),
-			'date'        => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'date_utc'    => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_time' ) ),
-			'organizer'   => array( 'required' => true, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'description' => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'status'      => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_post_status' ) ),
+			'author'      => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_user_id' ),
+				'type'              => 'integer',
+				'description'       => __( 'The organizer author ID', 'the-events-calendar' ),
+			),
+			'date'        => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_time' ),
+				'type'              => 'string',
+				'description'       => __( 'The organizer publication date', 'the-events-calendar' ),
+			),
+			'date_utc'    => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_time' ),
+				'type'              => 'string',
+				'description'       => __( 'The organizer publication date (UTC timezone)', 'the-events-calendar' ),
+			),
+			'organizer'   => array(
+				'required'          => true,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The organizer name', 'the-events-calendar' ),
+			),
+			'description' => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The organizer description', 'the-events-calendar' ),
+			),
+			'status'      => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_post_status' ),
+				'type'              => 'string',
+				'description'       => __( 'The organizer post status', 'the-events-calendar' ),
+			),
 			// Organizer meta fields
-			'phone'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'website'     => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_url' ) ),
-			'email'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_string' ) ),
-			'image'       => array( 'required' => false, 'validate_callback' => array( $this->validator, 'is_image' ) ),
+			'phone'       => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The organizer phone number', 'the-events-calendar' ),
+			),
+			'website'     => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_url' ),
+				'type'              => 'string',
+				'description'       => __( 'The organizer website', 'the-events-calendar' ),
+			),
+			'email'       => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The organizer e-mail address', 'the-events-calendar' ),
+			),
+			'image'       => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_image' ),
+				'type'              => 'string',
+				'description'       => __( 'The organizer featured image ID or URL', 'the-events-calendar' ),
+			),
 		);
 	}
 
