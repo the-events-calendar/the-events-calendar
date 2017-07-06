@@ -711,7 +711,7 @@ tribe_aggregator.fields = {
 			}
 
 			args.upsellFormatter = function( option ) {
-				var $option = jQuery( option.element );
+				var $option = $( option.element );
 
 				if ( 'string' === typeof $option.data( 'subtitle' ) ) {
 					option.text = option.text + '<br><span class="tribe-dropdown-subtitle">' + $option.data( 'subtitle' ) + '</span>';

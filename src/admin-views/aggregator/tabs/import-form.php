@@ -42,11 +42,11 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 		$field->upsell_options = array();
 
 		foreach ( $field->options as $key => $option ) {
-			$option->disabled = ( isset( $option->disabled ) ? $option->disabled : null );
-			$option->upsell = ( isset( $option->upsell ) ? $option->upsell : false );
+			$option->disabled = isset( $option->disabled ) ? $option->disabled : null;
+			$option->upsell = isset( $option->upsell ) ? $option->upsell : false;
 
 			$option->is_selected = false;
-			if ( ! empty( $_GET['ea-auth'] ) && $option->id === $_GET['ea-auth'] ) {
+			if ( ! empty( $_GET['ea-auth'] ) && $_GET['ea-auth'] === $option->id ) {
 				$option->is_selected = true;
 			}
 
