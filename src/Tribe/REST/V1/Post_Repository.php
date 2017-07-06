@@ -401,27 +401,27 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		return array_filter( $data );
 	}
 
-	protected function get_terms( $event_id, $taxonomy ) {
+	public function get_terms( $event_id, $taxonomy ) {
 		$terms = wp_get_post_terms( $event_id, $taxonomy );
 
 		if ( empty( $terms ) ) {
 			return array();
 		}
 
-		$data = array();
-		foreach ( $terms as $term ) {
-			$term_data = (array) $term;
-			$term_data['id'] = $term_data['term_id'];
-			$term_data['url'] = get_term_link( $term, $taxonomy );
-			unset( $term_data['term_id'], $term_data['term_taxonomy_id'], $term_data['term_group'], $term_data['filter'] );
+		$terms_data = $this->get_terms_data( $terms, $taxonomy );
 
+		$data = array();
+		foreach ( $terms_data as $term_data ) {
+			$term = get_term( $terms_data['id'], $taxonomy );
 			/**
 			 * Filters the data that will be returned for an event taxonomy term.
 			 *
 			 * @param array                $term_data The data that will be returned in the response for the taxonomy term.
 			 * @param array|object|WP_Term $term      The term original object.
 			 * @param string               $taxonomy  The term taxonomy
-			 * @param WP_Post              $event     The requsted event.
+			 * @param WP_Post              $event     The requested event.
+			 *
+			 * @since 4.5
 			 */
 			$data[] = apply_filters( 'tribe_rest_event_taxonomy_term_data', $term_data, $term, $taxonomy, get_post( $event_id ) );
 		}
@@ -441,5 +441,56 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$data = apply_filters( 'tribe_rest_event_tags_data', $data, get_post( $event_id ) );
 
 		return array_filter( $data );
+	}
+
+	/**
+	 * Returns an array of array representations of a taxonomy term.
+	 *
+	 * @param array   $terms    An array of term objects.
+	 * @param  string $taxonomy The terms taxonomy.
+	 *
+	 * @return array|\WP_Error Either the array representation of taxonomy terms or an error object.
+	 *
+	 * @since TBD
+	 */
+	public function get_terms_data( array $terms, $taxonomy ) {
+		$terms_controller = new WP_REST_Terms_Controller( $taxonomy );
+		$request          = new WP_REST_Request();
+
+		$rename_map = array(
+			'link' => 'url',
+		);
+
+		$data = array();
+		foreach ( $terms as $term ) {
+			$term_data = $terms_controller->prepare_item_for_response( $term, $request );
+
+			if ( empty( $term_data->data ) ) {
+				continue;
+			}
+
+			$term_data = $term_data->data;
+
+			foreach ( $rename_map as $old => $new ) {
+				if ( ! isset( $term_data[ $old ] ) || isset( $term_data[ $new ] ) ) {
+					continue;
+				}
+				$term_data[ $new ] = $term_data[ $old ];
+				unset( $term_data[ $old ] );
+			}
+
+			/**
+			 * Filters the data that will be returned for a taxonomy term.
+			 *
+			 * @param array                $term_data The data that will be returned in the response for the taxonomy term.
+			 * @param array|object|WP_Term $term      The term original object.
+			 * @param string               $taxonomy  The term taxonomy
+			 *
+			 * @since TBD
+			 */
+			$data[] = apply_filters( 'tribe_rest_taxonomy_term_data', $term_data, $term, $taxonomy );
+		}
+
+		return $data;
 	}
 }

@@ -113,6 +113,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$this->register_single_venue_endpoint( $register_routes );
 		$this->register_organizer_archives_endpoint( $register_routes );
 		$this->register_single_organizer_endpoint( $register_routes );
+		$this->register_categories_endpoint($register_routes);
 	}
 
 	/**
@@ -129,7 +130,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		if ( $register_routes ) {
 			register_rest_route( $this->get_events_route_namespace(), '/doc', array(
-				'methods'  => 'GET',
+				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $endpoint, 'get' ),
 			) );
 		}
@@ -186,7 +187,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		if ( $register_routes ) {
 			register_rest_route( $this->get_events_route_namespace(), '/events', array(
-				'methods'  => 'GET',
+				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $endpoint, 'get' ),
 				'args'     => $endpoint->READ_args(),
 			) );
@@ -468,7 +469,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		if ( $register_routes ) {
 			register_rest_route( $this->get_events_route_namespace(), '/venues', array(
-				'methods'  => 'GET',
+				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $endpoint, 'get' ),
 				'args'     => $endpoint->READ_args(),
 			) );
@@ -494,12 +495,80 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		if ( $register_routes ) {
 			register_rest_route( $this->get_events_route_namespace(), '/organizers', array(
-				'methods'  => 'GET',
+				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $endpoint, 'get' ),
 				'args'     => $endpoint->READ_args(),
 			) );
 		}
 
 		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/organizers', $endpoint );
+	}
+
+	/**
+	 * Builds and hooks the event categories archives endpoint
+	 *
+	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
+	 *
+	 * @since TBG
+	 */
+	protected function register_categories_endpoint($register_routes) {
+		$messages         = tribe('tec.rest-v1.messages');
+		$post_repository  = tribe('tec.rest-v1.repository');
+		$validator        = tribe('tec.rest-v1.validator');
+		$archive_endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Category($messages, $post_repository, $validator);
+		$single_endpoint  = new Tribe__Events__REST__V1__Endpoints__Single_Category( $messages, $post_repository, $validator );
+
+		tribe_singleton('tec.rest-v1.endpoints.archive-category', $archive_endpoint);
+		tribe_singleton('tec.rest-v1.endpoints.single-category', $archive_endpoint);
+
+		if ( $register_routes ) {
+			$namespace = $this->get_events_route_namespace();
+
+			register_rest_route(
+				$namespace,
+				'/categories',
+				array(
+					array(
+						'methods'  => WP_REST_Server::READABLE,
+						'callback' => array( $archive_endpoint, 'get' ),
+						'args'     => $archive_endpoint->READ_args(),
+					),
+					array(
+						'methods'             => WP_REST_Server::CREATABLE,
+						'args'                => $single_endpoint->CREATE_args(),
+						'permission_callback' => array( $single_endpoint, 'can_create' ),
+						'callback'            => array( $single_endpoint, 'create' ),
+					),
+				)
+			);
+
+			register_rest_route(
+				$namespace,
+				'/categories(?P<id>\\d+)',
+				array(
+					array(
+						'methods'  => WP_REST_Server::READABLE,
+						'args'     => $single_endpoint->READ_args(),
+						'callback' => array( $single_endpoint, 'get' ),
+					),
+					array(
+						'methods'             => WP_REST_Server::DELETABLE,
+						'args'                => $single_endpoint->DELETE_args(),
+						'permission_callback' => array( $single_endpoint, 'can_delete' ),
+						'callback'            => array( $single_endpoint, 'delete' ),
+					),
+					array(
+						'methods'             => WP_REST_Server::EDITABLE,
+						'args'                => $single_endpoint->EDIT_args(),
+						'permission_callback' => array( $single_endpoint, 'can_edit' ),
+						'callback'            => array( $single_endpoint, 'update' ),
+					),
+				)
+			);
+		}
+
+		$documentation_endpoint = tribe( 'tec.rest-v1.endpoints.documentation' );
+		$documentation_endpoint->register_documentation_provider('/categories', $archive_endpoint);
+		$documentation_endpoint->register_documentation_provider('/categories/{id}', $single_endpoint);
 	}
 }
