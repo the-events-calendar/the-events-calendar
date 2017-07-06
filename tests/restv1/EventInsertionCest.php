@@ -99,7 +99,7 @@ class EventInsertionCest extends BaseRestCest {
 	 * @example ["tomorrow 9am", "tomorrow 11am", "America/New_York"]
 	 * @example ["tomorrow 11am", "tomorrow 1pm", "UTC"]
 	 * @example ["next wednesday 4pm", "next wednesday 5pm","Australia/Darwin"]
-	 * @example ["next wednesday 4pm", "next wednesday 5pm","Pacific/Bougainville"]
+	 * @example ["next wednesday 4pm", "next wednesday 5pm","Europe/Rome"]
 	 */
 	public function it_should_allow_specifying_the_timezone_of_the_event_to_insert( Tester $I, \Codeception\Example $data ) {
 		$I->generate_nonce_for_role( 'administrator' );
