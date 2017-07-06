@@ -968,7 +968,6 @@ class EventInsertionCest extends BaseRestCest {
 		];
 
 		$I->sendPOST( $this->events_url, $params );
-
 		$I->seeResponseCodeIs( 201 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
