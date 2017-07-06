@@ -95,6 +95,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $tag_slug = 'tag';
 		public $monthSlug = 'month';
 		public $featured_slug = 'featured';
+
+		/**
+		 * @deprecated TBD use `Tribe__Events__Pro__Main::instance()->all_slug` instead
+		 *
+		 * @var string
+		 */
 		public $all_slug = 'all';
 
 		/** @deprecated 4.0 */
