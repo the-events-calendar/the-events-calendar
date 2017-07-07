@@ -3839,7 +3839,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function isOrganizer( $postId = null ) {
 			if ( $postId === null || ! is_numeric( $postId ) ) {
 				global $post;
-				$postId = $post->ID;
+				if ( isset( $post->ID ) ) {
+					$postId = $post->ID;
+				}
 			}
 			if ( isset( $postId ) && get_post_field( 'post_type', $postId ) == self::ORGANIZER_POST_TYPE ) {
 				return true;
