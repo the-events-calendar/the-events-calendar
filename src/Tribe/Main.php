@@ -3839,7 +3839,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function isOrganizer( $postId = null ) {
 			if ( $postId === null || ! is_numeric( $postId ) ) {
 				global $post;
-				if ( isset($post->ID) ){
+				if ( isset( $post->ID ) ) {
 					$postId = $post->ID;
 				}
 			}
