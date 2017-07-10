@@ -1,0 +1,81 @@
+sudo: required
+
+language: php
+
+notifications:
+  email: false
+
+php:
+  - '5.6'
+  - '7.0'
+
+services:
+  - mysql
+
+# disable the default submodule logic
+git:
+  submodules: false
+
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+
+env:
+  - wpDbName=test wpLoaderDbName=wploader wpDbPrefix=wp_ wpUrl=tec.tri.be wpAdminUsername=admin wpAdminPassword=admin
+
+before_install:
+  - mysql -e "create database IF NOT EXISTS $wpDbName;" -uroot
+  - mysql -e "create database IF NOT EXISTS $wpLoaderDbName;" -uroot
+  - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
+  - git submodule update --init --recursive
+
+install:
+  - composer update --prefer-dist
+
+before_script:
+  # set up folders
+  - mkdir -p $HOME/tools /tmp/wordpress
+
+  # install wp-cli
+  - wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -P /tmp/tools/
+  - chmod +x /tmp/tools/wp-cli.phar && mv /tmp/tools/wp-cli.phar /tmp/tools/wp
+  - export PATH=$PATH:/tmp/tools:vendor/bin
+
+  # install Apache and WordPress setup scripts
+  - git clone https://github.com/lucatume/travis-apache-setup.git /tmp/tools/travis-apache-setup
+  - chmod +x /tmp/tools/travis-apache-setup/apache-setup.sh
+  - chmod +x /tmp/tools/travis-apache-setup/wp-install.sh
+  - ln -s /tmp/tools/travis-apache-setup/apache-setup.sh /tmp/tools/apache-setup
+  - ln -s /tmp/tools/travis-apache-setup/wp-install.sh /tmp/tools/wp-install
+
+  # download and install WordPress
+  - wp-install --dir=/tmp/wordpress --dbname="$wpDbName" --dbuser="root" --dbpass="" --dbprefix=wp_ --domain="wordpress.dev" --title="Test" --admin_user=admin --admin_password=admin --admin_email=admin@wordpress.dev --theme=twentysixteen --empty
+  - cd /tmp/wordpress
+
+  # move the plugin into WordPress folder
+  - mv $TRAVIS_BUILD_DIR /tmp/wordpress/wp-content/plugins/the-events-calendar
+  - export PLUGIN_DIR="/tmp/wordpress/wp-content/plugins/the-events-calendar"
+
+  # activate the plugin in WordPress
+  - wp plugin activate the-events-calendar
+
+  # flush rewrite rules
+  - printf  "apache_modules:\n\t- mod_rewrite" > /tmp/wordpress/wp-cli.yml
+  - wp rewrite structure '/%postname%/' --hard
+
+  # export a dump of the just installed database to the _data folder
+  - cd /tmp/wordpress
+  - wp db export $PLUGIN_DIR/tests/_data/dump.sql
+
+  # set up Apache virtual host
+  - sudo env "PATH=$PATH" apache-setup --host="127.0.0.1" --url="$wpUrl" --dir="/tmp/wordpress"
+
+  # Get back to the plugin dir
+  - cd $PLUGIN_DIR
+
+script:
+  - codecept run integration -vvv
+  - codecept run muintegration -vvv
+  - codecept run wpunit -vvv
+  - codecept run restv1 -vvv

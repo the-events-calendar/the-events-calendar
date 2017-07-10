@@ -157,8 +157,6 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			$data = $this->meta;
 		}
 
-		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $data['import_id'] );
-
 		if ( empty( $data['column_map'] ) ) {
 			return tribe_error( 'core:aggregator:missing-csv-column-map' );
 		}

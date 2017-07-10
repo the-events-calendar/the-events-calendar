@@ -3,6 +3,7 @@
 defined( 'WPINC' ) or die;
 
 abstract class Tribe__Events__Aggregator__Record__Abstract {
+
 	/**
 	 * Meta key prefix for ea-record data
 	 *
@@ -19,6 +20,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	public $is_schedule = false;
 	public $is_manual = false;
+	public $last_wpdb_error = '';
+
+	/**
+	 * An associative array of origins and the settings they define a policy for.
+	 * @var array
+	 */
+	protected $origin_import_policies = array(
+		'url' => array( 'show_map_link' ),
+	);
 
 	public static $unique_id_fields = array(
 		'facebook' => array(
@@ -41,6 +51,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		'ics' => array(
 			'source' => 'uid',
 			'target' => 'uid',
+		),
+		'url' => array(
+			'source' => 'id',
+			'target' => 'EventOriginalID',
 		),
 	);
 
@@ -205,10 +219,19 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$post = $this->prep_post_args( $type, $args, $meta );
 
+		$this->watch_for_db_errors();
+
 		$result = wp_insert_post( $post );
 
-		if ( ! is_wp_error( $result ) ) {
+		if ( is_wp_error( $result ) ) {
 			$this->maybe_add_meta_via_pre_wp_44_method( $result, $post['meta_input'] );
+		}
+
+		if ( $this->db_errors_happened() ) {
+			$error_message = __( 'Something went wrong while inserting the record in the database.', 'the-events-calendar' );
+			wp_delete_post( $result );
+
+			return new WP_Error( 'db-error-during-creation', $error_message );
 		}
 
 		// After Creating the Post Load and return
@@ -225,10 +248,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return WP_Post|WP_Error
 	 */
 	public function save( $post_id, $args = array(), $meta = array() ) {
-		global $wp_version;
-
 		if ( ! isset( $meta['type'] ) || 'schedule' !== $meta['type'] ) {
-			return tribe_error( 'core:aggregator:invalid-edit-record-type', $type );
+			return tribe_error( 'core:aggregator:invalid-edit-record-type', $meta );
 		}
 
 		$defaults = array(
@@ -348,7 +369,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Creates a schedule record based on the import record
 	 *
-	 * @return boolean|WP_Error
+	 * @return boolean|Tribe_Error
 	 */
 	public function create_schedule_record() {
 		$post = array(
@@ -386,6 +407,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
 		$post['post_content'] = $frequency->id;
 
+		$this->watch_for_db_errors();
+
 		// create schedule post
 		$schedule_id = wp_insert_post( $post );
 
@@ -395,6 +418,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$this->maybe_add_meta_via_pre_wp_44_method( $schedule_id, $post['meta_input'] );
+
+		if ( $this->db_errors_happened() ) {
+			wp_delete_post( $schedule_id );
+
+			return tribe_error( 'core:aggregator:save-schedule-failed' );
+		}
 
 		$update_args = array(
 			'ID' => $this->post->ID,
@@ -417,7 +446,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Creates a child record based on the import record
 	 *
-	 * @return boolean|WP_Error
+	 * @return boolean|Tribe_Error|Tribe__Events__Aggregator__Record__Abstract
 	 */
 	public function create_child_record() {
 		$post = array(
@@ -442,11 +471,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
 		if ( ! $frequency ) {
-			return tribe_error( 'core:aggregator:invalid-record-frequency', $meta );
+			return tribe_error( 'core:aggregator:invalid-record-frequency', $post['meta_input'] );
 		}
 
 		// Setup the post_content as the Frequency (makes it easy to fetch by frequency)
 		$post['post_content'] = $frequency->id;
+
+		$this->watch_for_db_errors();
 
 		// create schedule post
 		$child_id = wp_insert_post( $post );
@@ -457,6 +488,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$this->maybe_add_meta_via_pre_wp_44_method( $child_id, $post['meta_input'] );
+
+		if ( $this->db_errors_happened() ) {
+			wp_delete_post( $child_id );
+
+			return tribe_error( 'core:aggregator:save-child-failed' );
+		}
 
 		// track the most recent child that was spawned
 		$this->update_meta( 'recent_child', $child_id );
@@ -483,7 +520,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Queues the import on the Aggregator service
 	 *
-	 * @return mixed
+	 * @see Tribe__Events__Aggregator__API__Import::create()
+	 *
+	 * @return stdClass|WP_Error|int A response object, a `WP_Error` instance on failure or a record
+	 *                               post ID if the record had to be re-scheduled due to HTTP request
+	 *                               limit.
 	 */
 	public function queue_import( $args = array() ) {
 		$aggregator = tribe( 'events-aggregator.main' );
@@ -525,6 +566,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$defaults['start'] = $this->meta['start'];
 		}
 
+		if ( ! empty( $this->meta['end'] ) ) {
+			$defaults['end'] = $this->meta['end'];
+		}
+
 		if ( ! empty( $this->meta['radius'] ) ) {
 			$defaults['radius'] = $this->meta['radius'];
 		}
@@ -540,8 +585,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// if the Aggregator API returns a WP_Error, set this record as failed
 		if ( is_wp_error( $response ) ) {
-			$error = $response;
-			return $this->set_status_as_failed( $error );
+			// if the error is just a reschedule set this record as pending
+			/** @var WP_Error $response */
+			if ( 'core:aggregator:http_request-limit' === $response->get_error_code() ) {
+				return $this->set_status_as_pending();
+			} else {
+				$error = $response;
+
+				return $this->set_status_as_failed( $error );
+			}
 		}
 
 		// if the Aggregator response has an unexpected format, set this record as failed
@@ -554,9 +606,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'success:create-import' != $response->message_code
 			&& 'queued' != $response->message_code
 		) {
-			/**
-			 * @todo Allow overwriting the message
-			 */
 			$error = new WP_Error(
 				$response->message_code,
 				Tribe__Events__Aggregator__Errors::build(
@@ -586,7 +635,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	public function get_import_data() {
 		$aggregator = tribe( 'events-aggregator.main' );
-		return $aggregator->api( 'import' )->get( $this->meta['import_id'] );
+		$data = array();
+
+		// For now only apply this to the URL type
+		if ( 'url' === $this->type ) {
+			$data = array(
+				'start' => $this->meta['start'],
+				'end' => $this->meta['end'],
+			);
+		}
+
+		return $aggregator->api( 'import' )->get( $this->meta['import_id'], $data );
 	}
 
 	public function delete( $force = false ) {
@@ -759,6 +818,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return boolean
 	 */
 	public function is_schedule_time() {
+		if ( tribe_is_truthy( getenv( 'TRIBE_DEBUG_OVERRIDE_SCHEDULE' ) ) ) {
+			return true;
+		}
+
 		// If we are not on a Schedule Type
 		if ( ! $this->is_schedule ) {
 			return false;
@@ -915,6 +978,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$parent_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->post->post_parent );
+
+		if ( tribe_is_error( $parent_record ) ) {
+			return;
+		}
+
 		$parent_record->update_meta( 'source_name', $source_name );
 	}
 
@@ -926,6 +994,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return array|WP_Error|Tribe__Events__Aggregator__Record__Queue
 	 */
 	public function process_posts( $data = array() ) {
+		if ( 'manual' === $this->type ) {
+			/** @var Tribe__Events__Aggregator__Service $service */
+			$service = tribe( 'events-aggregator.service' );
+			$service->confirm_import( $this->meta );
+		}
+
 		if ( $this->has_queue() ) {
 			$queue = new Tribe__Events__Aggregator__Record__Queue( $this );
 			return $queue->process();
@@ -1026,23 +1100,27 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$unique_field = $this->get_unique_field();
 		$existing_ids = $this->get_existing_ids_from_import_data( $items );
 
-		//cache
+		// cache
 		$possible_parents = array();
 		$found_organizers = array();
 		$found_venues     = array();
 
-		//if we have no non recurring events the message may be different
-		$non_recurring = false;
+		$origin = $this->meta['origin'];
+		$show_map_setting = tribe_is_truthy( tribe( 'events-aggregator.settings' )->default_map( $origin ) );
+		$update_authority_setting = tribe( 'events-aggregator.settings' )->default_update_authority( $origin );
 
-		$show_map_setting = Tribe__Events__Aggregator__Settings::instance()->default_map( $this->meta['origin'] );
-		$update_authority_setting = Tribe__Events__Aggregator__Settings::instance()->default_update_authority( $this->meta['origin'] );
+		$import_settings = tribe( 'events-aggregator.settings' )->default_settings_import( $origin );
+		$should_import_settings = tribe_is_truthy( $import_settings ) ? true : false;
 
 		$unique_inserted = array();
 
 		foreach ( $items as $item ) {
 			$event = Tribe__Events__Aggregator__Event::translate_service_data( $item );
 
-			// set the event ID if it can be set
+			// Configure the Post Type (enforcing)
+			$event['post_type'] = Tribe__Events__Main::POSTTYPE;
+
+			// Set the event ID if it can be set
 			if (
 				$unique_field
 				&& isset( $event[ $unique_field['target'] ] )
@@ -1051,7 +1129,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
 			}
 
-			// only set the post status if there isn't an ID
+			// Checks if we need to search for Global ID
+			if ( ! empty( $item->global_id ) ) {
+				$global_event = Tribe__Events__Aggregator__Event::get_post_by_meta( 'global_id', $item->global_id );
+
+				// If we found something we will only update that Post
+				if ( $global_event ) {
+					$event['ID'] = $global_event->ID;
+				}
+			}
+
+			// Only set the post status if there isn't an ID
 			if ( empty( $event['ID'] ) ) {
 				$event['post_status'] = $args['post_status'];
 			}
@@ -1073,12 +1161,32 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			if ( $show_map_setting ) {
-				$event['EventShowMap']     = $show_map_setting;
-				$event['EventShowMapLink'] = $show_map_setting;
+				$event['EventShowMap'] = $show_map_setting || (bool) isset( $event['show_map'] );
+				if ( $this->has_import_policy_for( $origin, 'show_map_link' ) ) {
+					$event['EventShowMapLink'] = isset( $event['show_map_link'] ) ? (bool) $event['show_map_link'] : $show_map_setting;
+				} else {
+					$event['EventShowMapLink'] = $show_map_setting;
+				}
+			}
+			unset( $event['show_map'], $event['show_map_link'] );
+
+			if ( $should_import_settings && isset( $event['hide_from_listings'] ) ) {
+				if ( $event['hide_from_listings'] == true ) {
+					$event['EventHideFromUpcoming'] = 'yes';
+				}
+				unset( $event['hide_from_listings'] );
 			}
 
-			if ( empty( $event['recurrence'] ) ) {
-				$non_recurring = true;
+			if ( $should_import_settings && isset( $event['sticky'] ) ) {
+				if ( $event['sticky'] == true ) {
+					$event['EventShowInCalendar'] = 'yes';
+					$event['menu_order']          = - 1;
+				}
+				unset( $event['sticky'] );
+			}
+
+			if ( ! $should_import_settings ) {
+				unset( $event['feature_event'] );
 			}
 
 			// set the parent
@@ -1088,47 +1196,242 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event['post_parent'] = $k;
 			}
 
-			//if we should create a venue or use existing
-			if ( ! empty( $event['Venue']['Venue'] ) ) {
-				$v_id = array_search( $event['Venue']['Venue'], $found_venues );
-				if ( false !== $v_id ) {
-					$event['EventVenueID'] = $v_id;
-				} elseif ( $venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Main::VENUE_POST_TYPE ) ) {
-					$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
-					$event['EventVenueID']      = $venue->ID;
-				} else {
-					$event['Venue']['ShowMap']     = $show_map_setting;
-					$event['Venue']['ShowMapLink'] = $show_map_setting;
-					$event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $this->meta['post_status'] );
+			// Do we have an existing venue for this event that we should preserve?
+			// @todo review: should we care about the potential for multiple venue IDs?
+			if (
+				! empty( $event['ID'] )
+				&& 'preserve_changes' === $update_authority_setting
+				&& $existing_venue_id = tribe_get_venue_id( $event['ID'] )
+			) {
+				$event['EventVenueID'] = $existing_venue_id;
+				unset( $event['Venue'] );
+			}
 
-					// Log this Venue was created
-					$activity->add( 'venue', 'created', $event['EventVenueID'] );
+			// if we should create a venue or use existing
+			if ( ! empty( $event['Venue']['Venue'] ) ) {
+				if ( ! empty( $item->venue->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
+					// Pre-set for ICS based imports
+					$venue = false;
+					if ( ! empty( $item->venue->global_id ) ) {
+						// Did we find a Post with a matching Global ID in History
+						$venue = Tribe__Events__Aggregator__Event::get_post_by_meta( 'global_id_lineage', $item->venue->global_id );
+					}
+
+					// Save the Venue Data for Updating
+					$venue_data = $event['Venue'];
+
+					if ( isset( $item->venue->description ) ) {
+						$venue_data['Description'] = $item->venue->description;
+					}
+
+					if ( isset( $item->venue->excerpt ) ) {
+						$venue_data['Excerpt'] = $item->venue->excerpt;
+					}
+
+					if ( isset( $item->venue->image ) ) {
+						$venue_data['FeaturedImage'] = $item->venue->image;
+					}
+
+					if ( $venue ) {
+						$venue_id = $event['EventVenueID'] = $venue_data['ID'] = $venue->ID;
+						$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
+
+						// Here we might need to update the Venue depending on the main GlobalID
+						if ( 'retain' === $update_authority_setting ) {
+							// When we get here we say that we skipped an Venue
+							$activity->add( 'venue', 'skipped', $venue->ID );
+						} else {
+							if ( 'preserve_changes' === $update_authority_setting ) {
+								$venue_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $venue_data );
+							}
+
+							add_filter( 'tribe_tracker_enabled', '__return_false' );
+
+							// Update the Venue
+							Tribe__Events__Venue::instance()->update( $venue->ID, $venue_data );
+
+							// Tell that we updated the Venue to the activity tracker
+							$activity->add( 'venue', 'updated', $venue->ID );
+
+							remove_filter( 'tribe_tracker_enabled', '__return_false' );
+						}
+					} else {
+						$venue_id = array_search( $event['Venue']['Venue'], $found_venues );
+						if ( ! $venue_id ) {
+							$venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Venue::POSTTYPE );
+
+							if ( $venue ) {
+								$venue_id = $venue->ID;
+								$found_venues[ $venue_id ] = $event['Venue']['Venue'];
+							}
+						}
+
+						// We didn't find any matching Venue for the provided one
+						if ( ! $venue_id ) {
+							$event['Venue']['ShowMap']     = $show_map_setting;
+							$event['Venue']['ShowMapLink'] = $show_map_setting;
+							$venue_id = $event['EventVenueID'] = Tribe__Events__Venue::instance()->create( $event['Venue'], $this->meta['post_status'] );
+
+							$found_venues[ $event['EventVenueID'] ] = $event['Venue']['Venue'];
+
+							// Log this Venue was created
+							$activity->add( 'venue', 'created', $event['EventVenueID'] );
+
+							// Create the Venue Global ID
+							if ( ! empty( $item->venue->global_id ) ) {
+								update_post_meta( $event['EventVenueID'], Tribe__Events__Aggregator__Event::$global_id_key, $item->venue->global_id );
+							}
+
+							// Create the Venue Global ID History
+							if ( ! empty( $item->venue->global_id_lineage ) ) {
+								foreach ( $item->venue->global_id_lineage as $gid ) {
+									add_post_meta( $event['EventVenueID'], Tribe__Events__Aggregator__Event::$global_id_lineage_key, $gid );
+								}
+							}
+						} else {
+							$event['EventVenueID'] = $venue_data['ID'] = $venue_id;
+
+							// Here we might need to update the Venue depending we found something based on old code
+							if ( 'retain' === $update_authority_setting ) {
+								// When we get here we say that we skipped an Venue
+								$activity->add( 'venue', 'skipped', $venue_id );
+							} else {
+								if ( 'preserve_changes' === $update_authority_setting ) {
+									$venue_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $venue_data );
+								}
+
+								add_filter( 'tribe_tracker_enabled', '__return_false' );
+
+								// Update the Venue
+								Tribe__Events__Venue::instance()->update( $venue_id, $venue_data );
+
+								// Tell that we updated the Venue to the activity tracker
+								$activity->add( 'venue', 'updated', $venue_id );
+
+								remove_filter( 'tribe_tracker_enabled', '__return_false' );
+							}
+						}
+					}
 				}
 
 				// Remove the Venue to avoid duplicates
 				unset( $event['Venue'] );
 			}
 
+			// Do we have an existing organizer(s) for this event that we should preserve?
+			if (
+				! empty( $event['ID'] )
+				&& 'preserve_changes' === $update_authority_setting
+				&& $existing_organizer_ids = tribe_get_organizer_ids( $event['ID'] )
+			) {
+				$event['EventOrganizerID'] = $existing_organizer_ids;
+				unset( $event['Organizer'] );
+			}
+
 			//if we should create an organizer or use existing
 			if ( ! empty( $event['Organizer']['Organizer'] ) ) {
-				$o_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
-				if ( false !== $o_id ) {
-					$event['EventOrganizerID'] = $o_id;
-				} elseif ( $organizer = get_page_by_title( $event['Organizer']['Organizer'], 'OBJECT', Tribe__Events__Main::ORGANIZER_POST_TYPE ) ) {
-					$found_organizers[ $organizer->ID ] = $event['Organizer']['Organizer'];
-					$event['EventOrganizerID']          = $organizer->ID;
-				} else {
-					$event['EventOrganizerID'] = Tribe__Events__Organizer::instance()->create( $event['Organizer'], $this->meta['post_status'] );
+				if ( ! empty( $item->organizer->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
+					// Pre-set for ICS based imports
+					$organizer = false;
+					if ( ! empty( $item->organizer->global_id ) ) {
+						// Did we find a Post with a matching Global ID in History
+						$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta( 'global_id_lineage', $item->organizer->global_id );
+					}
 
-					// Log this Organizer was created
-					$activity->add( 'organizer', 'created', $event['EventOrganizerID'] );
+					// Save the Organizer Data for Updating
+					$organizer_data = $event['Organizer'];
+
+					if ( isset( $item->organizer->description ) ) {
+						$organizer_data['Description'] = $item->organizer->description;
+					}
+
+					if ( isset( $item->organizer->excerpt ) ) {
+						$organizer_data['Excerpt'] = $item->organizer->excerpt;
+					}
+
+					if ( $organizer ) {
+						$organizer_id = $event['EventOrganizerID'] = $organizer_data['ID'] = $organizer->ID;
+						$found_organizers[ $organizer->ID ] = $event['Organizer']['Organizer'];
+
+						// Here we might need to update the Organizer depending we found something based on old code
+						if ( 'retain' === $update_authority_setting ) {
+							// When we get here we say that we skipped an Organizer
+							$activity->add( 'organizer', 'skipped', $organizer->ID );
+						} else {
+							if ( 'preserve_changes' === $update_authority_setting ) {
+								$organizer_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $organizer_data );
+							}
+
+							add_filter( 'tribe_tracker_enabled', '__return_false' );
+
+							// Update the Organizer
+							Tribe__Events__Organizer::instance()->update( $organizer->ID, $organizer_data );
+
+							remove_filter( 'tribe_tracker_enabled', '__return_false' );
+
+							// Tell that we updated the Organizer to the activity tracker
+							$activity->add( 'organizer', 'updated', $organizer->ID );
+						}
+					} else {
+						$organizer_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
+						if ( ! $organizer_id ) {
+							$organizer = get_page_by_title( $event['Organizer']['Organizer'], 'OBJECT', Tribe__Events__Organizer::POSTTYPE );
+
+							if ( $organizer ) {
+								$organizer_id = $organizer->ID;
+								$found_organizers[ $organizer_id ] = $event['Organizer']['Organizer'];
+							}
+						}
+
+						// We didn't find any matching Organizer for the provided one
+						if ( ! $organizer_id ) {
+							$organizer_id = $event['EventOrganizerID'] = Tribe__Events__Organizer::instance()->create( $event['Organizer'], $this->meta['post_status'] );
+							$found_organizers[ $event['EventOrganizerID'] ] = $event['Organizer']['Organizer'];
+
+							// Log this Organizer was created
+							$activity->add( 'organizer', 'created', $event['EventOrganizerID'] );
+
+							// Create the Organizer Global ID
+							if ( ! empty( $item->organizer->global_id ) ) {
+								update_post_meta( $event['EventOrganizerID'], Tribe__Events__Aggregator__Event::$global_id_key, $item->organizer->global_id );
+							}
+
+							// Create the Organizer Global ID History
+							if ( ! empty( $item->organizer->global_id_lineage ) ) {
+								foreach ( $item->organizer->global_id_lineage as $gid ) {
+									add_post_meta( $event['EventOrganizerID'], Tribe__Events__Aggregator__Event::$global_id_lineage_key, $gid );
+								}
+							}
+						} else {
+							$event['EventOrganizerID'] = $organizer_data['ID'] = $organizer_id;
+
+							// Here we might need to update the Organizer depending we found something based on old code
+							if ( 'retain' === $update_authority_setting ) {
+								// When we get here we say that we skipped an Organizer
+								$activity->add( 'organizer', 'skipped', $organizer_id );
+
+							} else {
+								if ( 'preserve_changes' === $update_authority_setting ) {
+									$organizer_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $organizer_data );
+								}
+
+								add_filter( 'tribe_tracker_enabled', '__return_false' );
+
+								// Update the Organizer
+								Tribe__Events__Organizer::instance()->update( $organizer_id, $organizer_data );
+
+								remove_filter( 'tribe_tracker_enabled', '__return_false' );
+
+								// Tell that we updated the Organizer to the activity tracker
+								$activity->add( 'organizer', 'updated', $organizer_id );
+							}
+						}
+					}
 				}
 
 				// Remove the Organizer to avoid duplicates
 				unset( $event['Organizer'] );
 			}
-
-			$event['post_type'] = Tribe__Events__Main::POSTTYPE;
 
 			/**
 			 * Filters the event data before any sort of saving of the event
@@ -1143,7 +1446,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					$event = Tribe__Events__Aggregator__Event::preserve_changed_fields( $event );
 				}
 
-				add_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
+				add_filter( 'tribe_tracker_enabled', '__return_false' );
 
 				/**
 				 * Filters the event data before updating event
@@ -1157,27 +1460,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				// since the Event API only supports the _setting_ of these meta fields, we need to manually
 				// delete them rather than relying on Tribe__Events__API::saveEventMeta()
-				if (
-					isset( $event['EventShowMap'] )
-					&& (
-						empty( $event['EventShowMap'] )
-						|| 'no' === $event['EventShowMap']
-					)
-				) {
+				if ( isset( $event['EventShowMap'] ) && ! tribe_is_truthy( $event['EventShowMap'] ) ) {
 					delete_post_meta( $event['ID'], '_EventShowMap' );
 				}
 
-				if (
-					isset( $event['EventShowMapLink'] )
-					&& (
-						empty( $event['EventShowMapLink'] )
-						|| 'no' === $event['EventShowMapLink']
-					)
-				) {
+				if ( isset( $event['EventShowMapLink'] ) && ! tribe_is_truthy( $event['EventShowMapLink'] ) ) {
 					delete_post_meta( $event['ID'], '_EventShowMapLink' );
 				}
 
-				remove_filter( 'tribe_aggregator_track_modified_fields', '__return_false' );
+				remove_filter( 'tribe_tracker_enabled', '__return_false' );
 
 				// Log that this event was updated
 				$activity->add( 'event', 'updated', $event['ID'] );
@@ -1193,25 +1484,50 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				// Log this event was created
 				$activity->add( 'event', 'created', $event['ID'] );
+
+				// Create the Event Global ID
+				if ( ! empty( $item->global_id ) ) {
+					update_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$global_id_key, $item->global_id );
+				}
+
+				// Create the Event Global ID History
+				if ( ! empty( $item->global_id_lineage ) ) {
+					foreach ( $item->global_id_lineage as $gid ) {
+						add_post_meta( $event['ID'], Tribe__Events__Aggregator__Event::$global_id_lineage_key, $gid );
+					}
+				}
 			}
 
 			Tribe__Events__Aggregator__Records::instance()->add_record_to_event( $event['ID'], $this->id, $this->origin );
 
-			//add post parent possibility
-			if ( empty( $event['parent_uid'] ) ) {
+			// Add post parent possibility
+			if ( empty( $event['parent_uid'] ) && ! empty( $unique_field ) ) {
 				$possible_parents[ $event['ID'] ] = $event[ $unique_field['target'] ];
 			}
 
+			// Check for legacy Unique ID (now we try to use Global ID)
 			if ( ! empty( $event[ $unique_field['target'] ] ) ) {
 				update_post_meta( $event['ID'], "_{$unique_field['target']}", $event[ $unique_field['target'] ] );
 			}
 
-			//Save the meta data in case of updating to pro later on
+			// Save the meta data in case of updating to pro later on
 			if ( ! empty( $event['EventRecurrenceRRULE'] ) ) {
 				update_post_meta( $event['ID'], '_EventRecurrenceRRULE', $event['EventRecurrenceRRULE'] );
 			}
 
-			$terms = array();
+			// Are there any existing event categories for this event?
+			$terms = wp_get_object_terms( $event['ID'], Tribe__Events__Main::TAXONOMY );
+
+			if ( is_wp_error( $terms ) ) {
+				$terms = array();
+			}
+
+			// If so, should we preserve those categories?
+			if ( ! empty( $terms ) && 'preserve_changes' === $update_authority_setting ) {
+				$terms = wp_list_pluck( $terms, 'term_id' );
+				unset( $event['categories'] );
+			}
+
 			if ( ! empty( $event['categories'] ) ) {
 				foreach ( $event['categories'] as $cat ) {
 					if ( ! $term = term_exists( $cat, Tribe__Events__Main::TAXONOMY ) ) {
@@ -1219,11 +1535,28 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						if ( ! is_wp_error( $term ) ) {
 							$terms[] = (int) $term['term_id'];
 
-							// Track that we created a Term
+							// Track that we created an event category
 							$activity->add( 'cat', 'created', $term['term_id'] );
 						}
 					} else {
 						$terms[] = (int) $term['term_id'];
+					}
+				}
+			}
+
+			$tags = array();
+			if ( ! empty( $event['tags'] ) ) {
+				foreach ( $event['tags'] as $tag_name ) {
+					if ( ! $tag = term_exists( $tag_name, 'post_tag' ) ) {
+						$tag = wp_insert_term( $tag_name, 'post_tag' );
+						if ( ! is_wp_error( $tag ) ) {
+							$tags[] = (int) $tag['term_id'];
+
+							// Track that we created a post tag
+							$activity->add( 'tag', 'created', $tag['term_id'] );
+						}
+					} else {
+						$tags[] = (int) $tag['term_id'];
 					}
 				}
 			}
@@ -1233,34 +1566,62 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$terms[] = (int) $this->meta['category'];
 			}
 
-			wp_set_object_terms( $event['ID'], $terms, Tribe__Events__Main::TAXONOMY, false );
+			$normalized_categories = tribe_normalize_terms_list( $terms, Tribe__Events__Main::TAXONOMY );
+			$normalized_tags = tribe_normalize_terms_list( $tags, 'post_tag' );
+			wp_set_object_terms( $event['ID'], $normalized_categories, Tribe__Events__Main::TAXONOMY, false );
+			wp_set_object_terms( $event['ID'], $normalized_tags, 'post_tag', false );
 
 			// If we have a Image Field from Service
 			if ( ! empty( $event['image'] ) ) {
-				// Attempt to grab the event image
-				$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id );
-
-				/**
-				 * Filters the returned event image url
-				 *
-				 * @param array|bool $image       Attachment information
-				 * @param array      $event       Event array
-				 */
-				$image = apply_filters( 'tribe_aggregator_event_image', $image_import, $event );
-
-				// If there was a problem bail out
-				if ( false === $image ) {
-					continue;
+				if ( is_object( $event['image'] ) ) {
+					$image = $this->import_aggregator_image( $event );
+				} else {
+					$image = $this->import_image( $event );
 				}
 
-				// Verify for more Complex Errors
-				if ( is_wp_error( $image ) ) {
-					continue;
-				}
-
-				if ( ! empty( $image->post_id ) ) {
+				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
 					// Set as featured image
 					$featured_status = set_post_thumbnail( $event['ID'], $image->post_id );
+
+					if ( $featured_status ) {
+						// Log this attachment was created
+						$activity->add( 'attachment', 'created', $image->post_id );
+					}
+				}
+			}
+
+			// If we have a Image Field for the Organizer from Service
+			if ( ! empty( $item->organizer->image ) && $organizer_id ) {
+				$args = array(
+					'ID' => $organizer_id,
+					'image' => $item->organizer->image,
+					'post_title' => get_the_title( $organizer_id ),
+				);
+				$image = $this->import_image( $args );
+
+				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
+					// Set as featured image
+					$featured_status = set_post_thumbnail( $organizer_id, $image->post_id );
+
+					if ( $featured_status ) {
+						// Log this attachment was created
+						$activity->add( 'attachment', 'created', $image->post_id );
+					}
+				}
+			}
+
+			// If we have a Image Field for the Venue from Service
+			if ( ! empty( $item->venue->image ) && $venue_id ) {
+				$args = array(
+					'ID' => $venue_id,
+					'image' => $item->venue->image,
+					'post_title' => get_the_title( $venue_id ),
+				);
+				$image = $this->import_image( $args );
+
+				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
+					// Set as featured image
+					$featured_status = set_post_thumbnail( $venue_id, $image->post_id );
 
 					if ( $featured_status ) {
 						// Log this attachment was created
@@ -1356,5 +1717,117 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function finalize() {
 		$this->update_meta( 'finalized', true );
+	}
+
+	/**
+	 * preserve Event Options
+	 *
+	 * @param array $event Event data
+	 *
+	 * @return array
+	 */
+	public static function preserve_event_option_fields( $event ) {
+		$event_post = get_post( $event['ID'] );
+		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $event['ID'] );
+
+		// we want to preserve this option if not explicitly being overridden
+		if ( ! isset( $event['EventHideFromUpcoming'] ) && isset( $post_meta['_EventHideFromUpcoming'] ) ) {
+			$event['EventHideFromUpcoming'] = $post_meta['_EventHideFromUpcoming'];
+		}
+
+		// we want to preserve the existing sticky state unless it is explicitly being overridden
+		if ( ! isset( $event['EventShowInCalendar'] ) && '-1' == $event_post->menu_order ) {
+			$event['EventShowInCalendar'] = 'yes';
+		}
+
+		// we want to preserve the existing featured state unless it is explicitly being overridden
+		if ( ! isset( $event['feature_event'] ) && isset( $post_meta['_tribe_featured'] ) ) {
+			$event['feature_event'] = $post_meta['_tribe_featured'];
+		}
+
+		return $event;
+	}
+
+    /**
+     * Imports an image information from EA server and creates the WP attachment object if required.
+     *
+     * @param array $event An event representation in the format provided by an Event Aggregator response.
+     *
+     * @return bool|stdClass|WP_Error An image information in the format provided by an Event Aggregator responsr or
+     *                                `false` on failure.
+     */
+	public function import_aggregator_image( $event ) {
+		// Attempt to grab the event image
+		$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id );
+
+		/**
+		 * Filters the returned event image url
+		 *
+		 * @param array|bool $image       Attachment information
+		 * @param array      $event       Event array
+		 */
+		$image = apply_filters( 'tribe_aggregator_event_image', $image_import, $event );
+
+		// If there was a problem bail out
+		if ( false === $image ) {
+			return false;
+		}
+
+		// Verify for more Complex Errors
+		if ( is_wp_error( $image ) ) {
+			return $image;
+		}
+
+		return $image;
+	}
+
+	/**
+	 * Imports the image contained in the event `image` field if any.
+	 *
+	 * @param array $event An event data in array format.
+	 *
+	 * @return object|bool An object with the image post ID or `false` on failure.
+	 */
+	public function import_image( $event ) {
+		if ( empty( $event['image'] ) || ! filter_var( $event['image'], FILTER_VALIDATE_URL ) ) {
+			return false;
+		}
+
+		$uploader = new Tribe__Image__Uploader( $event['image'] );
+		$thumbnail_id = $uploader->upload_and_get_attachment_id();
+
+		return false !== $thumbnail_id ? (object) array( 'post_id' => $thumbnail_id ) : false;
+	}
+
+	/**
+	 * Whether an origin has more granulat policies concerning an import setting or not.
+	 *
+	 * @param string $origin
+	 * @param string $setting
+	 *
+	 * @return bool
+	 */
+	protected function has_import_policy_for( $origin, $setting ) {
+		return isset( $this->origin_import_policies[ $origin ] ) && in_array( $setting, $this->origin_import_policies[ $origin ] );
+	}
+
+	/**
+	 * Starts monitoring the db for errors.
+	 */
+	protected function watch_for_db_errors() {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$this->last_wpdb_error = $wpdb->last_error;
+
+	}
+
+	/**
+	 * @return bool Whether a db error happened during the insertion of data or not.
+	 */
+	protected function db_errors_happened() {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		return $wpdb->last_error !== $this->last_wpdb_error;
 	}
 }

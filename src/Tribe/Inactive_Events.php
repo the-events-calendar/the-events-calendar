@@ -20,7 +20,7 @@ class Tribe__Events__Inactive_Events {
 		register_post_type( self::POST_TYPE, apply_filters( 'tribe_events_register_inactive_event_type_args', array(
 			'public'          => false,
 			'supports'        => $supports,
-			'taxonomies'      => array( 'post_tag' ),
+			'taxonomies'      => array( Tribe__Events__Main::TAXONOMY, 'post_tag' ),
 			'capability_type' => array( 'tribe_event', 'tribe_events' ),
 			'map_meta_cap'    => true,
 		) ) );

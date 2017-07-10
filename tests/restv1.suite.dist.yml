@@ -1,0 +1,26 @@
+class_name: Restv1Tester
+modules:
+    enabled:
+        - \Helper\Restv1
+        - REST
+        - WPDb
+        - \Helper\TribeDb
+        - Asserts
+    config:
+        WPDb:
+            dsn: 'mysql:host=localhost;dbname=test'
+            user: root
+            password: ''
+            dump: tests/_data/dump.sql
+            populate: true
+            cleanup: true
+            url: 'http://tec.tri.be'
+            tablePrefix: wp_
+        WPBrowser:
+            url: 'http://tec.tri.be'
+            adminUsername: admin
+            adminPassword: admin
+            adminUrl: /wp-admin
+        REST:
+            depends: WPBrowser
+            url: 'http://tec.tri.be/wp-json/tribe/events/v1/'

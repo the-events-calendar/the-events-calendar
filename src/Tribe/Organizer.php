@@ -284,7 +284,7 @@ class Tribe__Events__Organizer {
 		unset( $data['Organizer'] );
 
 		foreach ( $data as $key => $var ) {
-			update_post_meta( $organizerId, '_Organizer' . $key, $var );
+			update_post_meta( $organizerId, '_Organizer' . $key, sanitize_text_field( $var ) );
 		}
 	}
 
@@ -335,6 +335,41 @@ class Tribe__Events__Organizer {
 	 *
 	 */
 	public function update( $id, $data ) {
+		$args = array(
+			'ID' => $id,
+		);
+
+		if ( isset( $data['post_title'] ) ) {
+			$args['post_title'] = $data['post_title'];
+		}
+
+		if ( isset( $data['Organizer'] ) ) {
+			$args['post_title'] = $data['Organizer'];
+			unset( $data['Organizer'] );
+		}
+
+		if ( isset( $data['post_content'] ) ) {
+			$args['post_content'] = $data['post_content'];
+		}
+
+		if ( isset( $data['Description'] ) ) {
+			$args['post_content'] = $data['Description'];
+			unset( $data['Description'] );
+		}
+
+		if ( isset( $data['post_excerpt'] ) ) {
+			$args['post_excerpt'] = $data['post_excerpt'];
+		}
+
+		if ( isset( $data['Excerpt'] ) ) {
+			$args['post_excerpt'] = $data['Excerpt'];
+			unset( $data['Excerpt'] );
+		}
+
+		if ( count( $args ) > 1 ) {
+			wp_update_post( $args );
+		}
+
 		$this->save_meta( $id, $data );
 		do_action( 'tribe_events_organizer_updated', $id, $data );
 	}

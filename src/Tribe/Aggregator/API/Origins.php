@@ -56,6 +56,11 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 				'name' => __( 'Meetup', 'the-events-calendar' ),
 				'disabled' => true,
 			),
+			'url' => (object) array(
+				'id' => 'url',
+				'name' => __( 'Other URL (beta)', 'the-events-calendar' ),
+				'disabled' => true,
+			),
 		);
 
 		$this->is_ea_disabled = tribe_get_option( 'tribe_aggregator_disable', false );
@@ -116,11 +121,13 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 * Fetches origin data from the service and sets necessary transients
 	 */
 	private function fetch_origin_data() {
-		static $origin_data;
+		$cached = tribe_get_var( 'events-aggregator.origins-data' );
 
-		if ( ! $origin_data ) {
-			$origin_data = (object) $this->service->get_origins();
+		if ( ! empty( $cached ) ) {
+			return $cached;
 		}
+
+		$origin_data = (object) $this->service->get_origins();
 
 		if ( ! get_transient( "{$this->cache_group}_origin_oauth" ) && ! empty( $origin_data->oauth ) ) {
 			set_transient( "{$this->cache_group}_origin_oauth", $origin_data->oauth, 6 * HOUR_IN_SECONDS );
@@ -129,6 +136,8 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 		if ( ! get_transient( "{$this->cache_group}_origin_limit" ) && ! empty( $origin_data->limit ) ) {
 			set_transient( "{$this->cache_group}_origin_limit", $origin_data->limit, 6 * HOUR_IN_SECONDS );
 		}
+
+		tribe_set_var( 'events-aggregator.origins-data', $origin_data );
 
 		return $origin_data;
 	}

@@ -106,6 +106,7 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 			$this->template( 'origins/facebook', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 			$this->template( 'origins/meetup', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 			$this->template( 'origins/eventbrite', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
+			$this->template( 'origins/url', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 		}
 		?>
 

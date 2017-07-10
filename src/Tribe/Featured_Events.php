@@ -26,7 +26,7 @@ class Tribe__Events__Featured_Events {
 	 *
 	 * @return bool
 	 */
-	public function unfeature( $event= null ) {
+	public function unfeature( $event = null ) {
 		$event_id = Tribe__Main::post_id_helper( $event );
 
 		if ( ! $event_id ) {

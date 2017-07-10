@@ -37,7 +37,7 @@ class Tribe__Events__Integrations__WPML__Language_Switcher {
 			return $languages;
 		}
 
-		if ( is_admin() || ! ( tribe_is_event_query() && is_archive() ) ) {
+		if ( is_admin() || ! ( tribe_is_event_query() && is_archive() && ! is_tax( Tribe__Events__Main::TAXONOMY ) ) ) {
 			return $languages;
 		}
 

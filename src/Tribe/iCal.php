@@ -124,7 +124,7 @@ class Tribe__Events__iCal {
 					die();
 				}
 				$event_ids = explode( ',', $_GET['event_ids'] );
-				$events    = Tribe__Events__Query::getEvents( array( 'post__in' => $event_ids ) );
+				$events    = tribe_get_events( array( 'post__in' => $event_ids ) );
 				$this->generate_ical_feed( $events );
 			} elseif ( is_single() ) {
 				$this->generate_ical_feed( $wp_query->post );
@@ -199,6 +199,8 @@ class Tribe__Events__iCal {
 
 		if ( $post ) {
 			$events_posts = is_array( $post ) ? $post : array( $post );
+		} elseif ( tribe_is_month() ) {
+			$events_posts = self::get_month_view_events();
 		} else {
 			/**
 			 * Filters the number of upcoming events the iCal feed should export.
@@ -273,8 +275,8 @@ class Tribe__Events__iCal {
 			$item[] = 'CREATED:' . $tzoned->created;
 			$item[] = 'LAST-MODIFIED:' . $tzoned->modified;
 			$item[] = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . parse_url( home_url( '/' ), PHP_URL_HOST );
-			$item[] = 'SUMMARY:' . str_replace( array( ',', "\n", "\r", "\t" ), array( '\,', '\n', '', '\t' ), html_entity_decode( strip_tags( $event_post->post_title ), ENT_QUOTES ) );
-			$item[] = 'DESCRIPTION:' . str_replace( array( ',', "\n", "\r", "\t" ), array( '\,', '\n', '', '\t' ), html_entity_decode( strip_tags( $event_post->post_content ), ENT_QUOTES ) );
+			$item[] = 'SUMMARY:' . str_replace( array( ',', "\n", "\r" ), array( '\,', '\n', '' ), html_entity_decode( strip_tags( $event_post->post_title ), ENT_QUOTES ) );
+			$item[] = 'DESCRIPTION:' . str_replace( array( ',', "\n", "\r" ), array( '\,', '\n', '' ), html_entity_decode( strip_tags( str_replace( '</p>', '</p> ', apply_filters( 'the_content', $event_post->post_content ) ) ), ENT_QUOTES ) );
 			$item[] = 'URL:' . get_permalink( $event_post->ID );
 
 			// add location if available
