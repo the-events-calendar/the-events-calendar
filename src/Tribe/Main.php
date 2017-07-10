@@ -3726,10 +3726,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$types = apply_filters( 'tribe_events_event_details_meta_box_post_types', array( self::POSTTYPE ) );
 
 			add_meta_box(
-				'tribe_events_event_details', $this->plugin_name, array(
-					$this,
-					'EventsChooserBox',
-				), $types, 'normal', 'high'
+				'tribe_events_event_details',
+				$this->plugin_name,
+				array( $this, 'EventsChooserBox' ),
+				$types,
+				'normal',
+				'high'
 			);
 
 			/**
@@ -3740,10 +3742,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$types = apply_filters( 'tribe_events_event_options_meta_box_post_types', array( self::POSTTYPE ) );
 
 			add_meta_box(
-				'tribe_events_event_options', sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ), array(
-					$this,
-					'eventMetaBox',
-				), $types, 'side', 'default'
+				'tribe_events_event_options',
+				sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ),
+				array( $this, 'eventMetaBox' ),
+				$types,
+				'side',
+				'default'
 			);
 
 			/**
@@ -3754,10 +3758,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$types = apply_filters( 'tribe_events_venue_details_meta_box_post_types', array( self::VENUE_POST_TYPE ) );
 
 			add_meta_box(
-				'tribe_events_venue_details', sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_venue_label ), array(
-					$this,
-					'VenueMetaBox',
-				), $types, 'normal', 'high'
+				'tribe_events_venue_details',
+				sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_venue_label ),
+				array( $this, 'VenueMetaBox' ),
+				$types,
+				'normal',
+				'high'
 			);
 
 			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
@@ -3772,10 +3778,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$types = apply_filters( 'tribe_events_organizer_details_meta_box_post_types', array( self::ORGANIZER_POST_TYPE ) );
 
 			add_meta_box(
-				'tribe_events_organizer_details', sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_organizer_label ), array(
-					$this,
-					'OrganizerMetaBox',
-				), $types, 'normal', 'high'
+				'tribe_events_organizer_details',
+				sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_organizer_label ),
+				array( $this, 'OrganizerMetaBox' ),
+				$types,
+				'normal',
+				'high'
 			);
 		}
 
