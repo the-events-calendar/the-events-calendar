@@ -540,7 +540,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 2 );
 			/* End Setup Tribe Events Bar */
 
-			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
+			add_action( 'add_meta_boxes', array( $this, 'addEventBox' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 
@@ -1962,11 +1962,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				// ecp placeholders
 				Tribe__Events__Template_Factory::asset_package( 'ecp-plugins' );
 
-				if ( $admin_helpers->is_post_type_screen( self::POSTTYPE ) ) {
+				/**
+				 * Controls whether the event editor script is enqueued within the current screen.
+				 *
+				 * @var bool $add_script
+				 */
+				if ( apply_filters( 'tribe_events_screen_add_event_editor_script', $admin_helpers->is_post_type_screen( self::POSTTYPE ) ) ) {
 					tribe_asset( $this, 'tribe-events-editor', 'event-editor.js', array( 'jquery' ), 'admin_enqueue_scripts' );
 
 					add_action( 'admin_footer', array( $this, 'printLocalizedAdmin' ) );
-					// hook for other plugins
+
+					/**
+					 * Fires after the event-editor.js script has been enqueued.
+					 */
 					do_action( 'tribe_events_enqueue' );
 				} elseif ( $admin_helpers->is_post_type_screen( self::VENUE_POST_TYPE ) ) {
 					// hook for other plugins
@@ -3708,38 +3716,74 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Callback for adding the Meta box to the admin page
-		 *
 		 */
 		public function addEventBox() {
-			add_meta_box(
-				'tribe_events_event_details', $this->plugin_name, array(
-					$this,
-					'EventsChooserBox',
-				), self::POSTTYPE, 'normal', 'high'
-			);
-			add_meta_box(
-				'tribe_events_event_options', sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ), array(
-					$this,
-					'eventMetaBox',
-				), self::POSTTYPE, 'side', 'default'
-			);
+			/**
+			 * Sets the post types for which the Event Details meta box will be registered.
+			 *
+			 * @var array $types
+			 */
+			$types = apply_filters( 'tribe_events_event_details_meta_box_post_types', array( self::POSTTYPE ) );
 
 			add_meta_box(
-				'tribe_events_venue_details', sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_venue_label ), array(
-					$this,
-					'VenueMetaBox',
-				), self::VENUE_POST_TYPE, 'normal', 'high'
+				'tribe_events_event_details',
+				$this->plugin_name,
+				array( $this, 'EventsChooserBox' ),
+				$types,
+				'normal',
+				'high'
+			);
+
+			/**
+			 * Sets the post types for which the Event Options meta box will be registered.
+			 *
+			 * @var array $types
+			 */
+			$types = apply_filters( 'tribe_events_event_options_meta_box_post_types', array( self::POSTTYPE ) );
+
+			add_meta_box(
+				'tribe_events_event_options',
+				sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ),
+				array( $this, 'eventMetaBox' ),
+				$types,
+				'side',
+				'default'
+			);
+
+			/**
+			 * Sets the post types for which the Venue Details meta box will be registered.
+			 *
+			 * @var array $types
+			 */
+			$types = apply_filters( 'tribe_events_venue_details_meta_box_post_types', array( self::VENUE_POST_TYPE ) );
+
+			add_meta_box(
+				'tribe_events_venue_details',
+				sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_venue_label ),
+				array( $this, 'VenueMetaBox' ),
+				$types,
+				'normal',
+				'high'
 			);
 
 			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 				remove_meta_box( 'slugdiv', self::VENUE_POST_TYPE, 'normal' );
 			}
 
+			/**
+			 * Sets the post types for which the Organizer Details meta box will be registered.
+			 *
+			 * @var array $types
+			 */
+			$types = apply_filters( 'tribe_events_organizer_details_meta_box_post_types', array( self::ORGANIZER_POST_TYPE ) );
+
 			add_meta_box(
-				'tribe_events_organizer_details', sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_organizer_label ), array(
-					$this,
-					'OrganizerMetaBox',
-				), self::ORGANIZER_POST_TYPE, 'normal', 'high'
+				'tribe_events_organizer_details',
+				sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_organizer_label ),
+				array( $this, 'OrganizerMetaBox' ),
+				$types,
+				'normal',
+				'high'
 			);
 		}
 
