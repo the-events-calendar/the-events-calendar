@@ -612,7 +612,7 @@ class EventInsertionCest extends BaseRestCest {
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->seeResponseContainsJson( [
-			'website' => get_permalink( $response['id'] ),
+			'website' => get_post_permalink( $response['id'] ),
 		] );
 	}
 
