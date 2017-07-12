@@ -97,7 +97,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $featured_slug = 'featured';
 
 		/**
-		 * @deprecated TBD use `Tribe__Events__Pro__Main::instance()->all_slug` instead
+		 * @deprecated 4.5.8 use `Tribe__Events__Pro__Main::instance()->all_slug` instead
 		 *
 		 * @var string
 		 */
