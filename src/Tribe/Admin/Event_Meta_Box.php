@@ -392,7 +392,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 			return;
 		}
 
-		extract( $this->vars );
+		extract( $this->vars, EXTR_SKIP );
 		$event   = $this->event;
 		$tribe   = $this->tribe;
 		$metabox = $this;
