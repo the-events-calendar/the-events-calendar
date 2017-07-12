@@ -336,7 +336,11 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * This normally only happens when the meta box renders when an actual event is being
 	 * edited (as opposed to other related post types).
 	 *
-	 * @param int $post_id
+	 * @since  TBD
+	 *
+	 * @param  int $post_id
+	 *
+	 * @return void
 	 */
 	public function date_time_section( $post_id ) {
 		$should_render = (
@@ -347,8 +351,10 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		/**
 		 * Controls whether the date time section is injected into the events meta box or not.
 		 *
-		 * @var bool $should_render
-		 * @var int  $event_id
+		 * @since  TBD
+		 *
+		 * @param bool $should_render
+		 * @param int  $event_id
 		 */
 		if ( ! apply_filters( 'tribe_events_event_meta_box_render_date_time_section', $should_render, $post_id ) ) {
 			return;
@@ -357,7 +363,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		/**
 		 * Controls the path to the date time section template (a component of the events meta box).
 		 *
-		 * @var string $template_path
+		 * @since  TBD
+		 *
+		 * @param string $template_path
 		 */
 		$path = apply_filters(
 			'tribe_events_event_meta_box_date_time_section_template',
@@ -373,7 +381,11 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * Takes care of making sure the expected range of variables are in scope for those template
 	 * parts.
 	 *
+	 * @since  TBD
+	 *
 	 * @param $template_path
+	 *
+	 * @return void
 	 */
 	protected function do_template_part( $template_path ) {
 		if ( ! file_exists( $template_path ) ) {
