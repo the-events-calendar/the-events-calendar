@@ -221,7 +221,7 @@ class Tribe__Events__Aggregator__Event {
 	 *
 	 * @return bool|WP_Post
 	 */
-	public static function get_post_by_meta( $key = 'global_id', $value = null ) {
+	public static function get_post_by_meta( $key, $value = null ) {
 		if ( null === $value ) {
 			return false;
 		}
@@ -234,7 +234,6 @@ class Tribe__Events__Aggregator__Event {
 		if ( isset( $keys[ $key ] ) ) {
 			$key = $keys[ $key ];
 		}
-
 
 		global $wpdb;
 
