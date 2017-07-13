@@ -334,6 +334,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Add a safety check in isOrganizer() function (our thanks to Kevin for flagging this!) [81645]
 * Fix - Avoid EA Client hanging when no events are found while attempting an import from a Facebook source [82713]
 * Fix - Improve compatibility of The Events Calendar when operating with WPML from within a subdirectory (props: @dgwatkins) [81998]
+* Fix - Avoid overwriting Venues and Organizers when importing FB events with similarly named Venues and Organizers [75370]
 
 = [4.5.7] 2017-06-28 =
 
