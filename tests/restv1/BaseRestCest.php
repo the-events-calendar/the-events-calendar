@@ -48,5 +48,6 @@ class BaseRestCest {
 		$this->venues_url = $this->rest_url . 'venues';
 		$this->organizers_url = $this->rest_url . 'organizers';
 		$this->documentation_url = $this->rest_url . 'doc';
+		wp_cache_flush();
 	}
 }

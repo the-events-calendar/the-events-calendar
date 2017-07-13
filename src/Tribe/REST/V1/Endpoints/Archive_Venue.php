@@ -110,7 +110,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			}
 		}
 
-		$posts_per_page = Tribe__Utils__Array::get( $args, 'per_page', $this->get_default_posts_per_page() );
+		$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
 		$venues         = tribe_get_venues( $only_with_upcoming, $posts_per_page, true, $args );
 
 		unset( $args['fields'] );
