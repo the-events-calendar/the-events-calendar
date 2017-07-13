@@ -1781,10 +1781,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( ! isset( $fields[ $this->meta['origin'] ] ) ) {
-			return NULL;
+			return null;
 		}
 
-		return $fields [ $this->meta['origin'] ];
+		return $fields[ $this->meta['origin'] ];
 	}
 
 	/**
