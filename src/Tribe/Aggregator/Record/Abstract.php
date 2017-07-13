@@ -94,6 +94,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	private $temp_event_count = 0;
 
 	/**
+	 * The import record origin.
+	 *
+	 * @var string
+	 */
+	protected $origin;
+
+	/**
 	 * Setup all the hooks and filters
 	 *
 	 * @return void
