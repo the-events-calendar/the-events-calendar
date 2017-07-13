@@ -59,6 +59,34 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	);
 
 	/**
+	 * @var array
+	 */
+	public static $unique_venue_id_fields = array(
+		'facebook' => array(
+			'source' => 'facebook_id',
+			'target' => 'VenueFacebookID',
+		),
+		'meetup'   => array(
+			'source' => 'meetup_id',
+			'target' => 'VenueMeetupID',
+		),
+	);
+
+	/**
+	 * @var array
+	 */
+	public static $unique_organizer_id_fields = array(
+		'facebook' => array(
+			'source' => 'facebook_id',
+			'target' => 'OrganizerFacebookID',
+		),
+		'meetup'   => array(
+			'source' => 'meetup_id',
+			'target' => 'OrganizerMeetupID',
+		),
+	);
+
+	/**
 	 * Holds the event count temporarily while event counts (comment_count) is being updated
 	 *
 	 * @var int
