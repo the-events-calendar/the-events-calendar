@@ -1739,12 +1739,32 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $selected;
 	}
 
-	protected function get_unique_field() {
-		if ( ! isset( self::$unique_id_fields[ $this->meta['origin'] ] ) ) {
-			return null;
+	/**
+	 * Gets the unique field map for the current origin and the specified post type.
+	 *
+	 * @param string $for
+	 *
+	 * @return array|null
+	 */
+	protected function get_unique_field( $for = null ) {
+		$fields = self::$unique_id_fields;
+
+		switch ( $for ) {
+			case 'venue':
+				$fields = self::$unique_venue_id_fields;
+				break;
+			case 'organizer':
+				$fields = self::$unique_organizer_id_fields;
+				break;
+			default:
+				break;
 		}
 
-		return self::$unique_id_fields[ $this->meta['origin'] ];
+		if ( ! isset( $fields[ $this->meta['origin'] ] ) ) {
+			return NULL;
+		}
+
+		return $fields [ $this->meta['origin'] ];
 	}
 
 	/**
