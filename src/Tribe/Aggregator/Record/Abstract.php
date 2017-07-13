@@ -1292,8 +1292,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						}
 					} else {
 						$venue_id = array_search( $event['Venue']['Venue'], $found_venues );
+
 						if ( ! $venue_id ) {
-							$venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Venue::POSTTYPE );
+							$unique_field = $this->get_unique_field( 'venue' );
+
+							if ( ! empty( $unique_field ) ) {
+								$target = $unique_field['target'];
+								$value  = $venue_data[ $target ];
+								$venue  = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Venue{$target}", $value );
+							} else {
+								$venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Venue::POSTTYPE );
+							}
 
 							if ( $venue ) {
 								$venue_id = $venue->ID;
@@ -1409,11 +1418,22 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						}
 					} else {
 						$organizer_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
-						if ( ! $organizer_id ) {
-							$organizer = get_page_by_title( $event['Organizer']['Organizer'], 'OBJECT', Tribe__Events__Organizer::POSTTYPE );
 
+						if ( ! $organizer_id ) {
+							$unique_field = $this->get_unique_field( 'organizer' );
+
+							if ( ! empty( $unique_field ) ) {
+								$target    = $unique_field['target'];
+								$value     = $organizer_data[ $target ];
+								$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Organizer{$target}", $value );
+							} else {
+								$organizer = get_page_by_title( $event['Organizer']['Organizer'], 'OBJECT', Tribe__Events__Organizer::POSTTYPE );
+							}
+						}
+
+						if ( ! $organizer_id ) {
 							if ( $organizer ) {
-								$organizer_id = $organizer->ID;
+								$organizer_id                      = $organizer->ID;
 								$found_organizers[ $organizer_id ] = $event['Organizer']['Organizer'];
 							}
 						}
