@@ -331,6 +331,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 * Fix - Avoid overwriting Venues and Organizers when importing FB events with similarly named Venues and Organizers [75370]
 * Fix - Improve handling of large and/or slow Google Calendar and iCal feeds [79975]
+* Tweak - Added period "." separator to datepicker formats. [65282]
 
 = [4.5.8] 2017-07-13 =
 
