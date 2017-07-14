@@ -273,10 +273,8 @@ tribeDateFormat.masks = {
 	"7":               'd-m-yyyy',
 	"8":               'dd-mm-yyyy',
 	"9":               'yyyy.mm.dd',
-	"10":              'd.m.yyyy',
-	"11":              'mm.dd.yyyy',
-	"12":              'm.d.yyyy',
-	"13":              'dd.mm.yyyy',
+	"10":              'mm.dd.yyyy',
+	"11":              'dd.mm.yyyy',
 	"m0":              'yyyy-mm',
 	"m1":              'm/yyyy',
 	"m2":              'mm/yyyy',
@@ -1218,9 +1216,7 @@ Date.prototype.format = function( mask, utc ) {
 				'd-m-yyyy',
 				'dd-mm-yyyy',
 				'yyyy.mm.dd',
-				'd.m.yyyy',
 				'mm.dd.yyyy',
-				'm.d.yyyy',
 				'dd.mm.yyyy'
 			],
 			'month': ['yyyy-mm', 'm/yyyy', 'mm/yyyy', 'm/yyyy', 'mm/yyyy', 'm-yyyy', 'mm-yyyy', 'm-yyyy', 'mm-yyyy']

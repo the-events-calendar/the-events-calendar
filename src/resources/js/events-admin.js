@@ -214,10 +214,8 @@ tribeDateFormat.masks = {
 	"7":               'd-m-yyyy',
 	"8":               'dd-mm-yyyy',
 	"9":               'yyyy.mm.dd',
-	"10":              'd.m.yyyy',
-	"11":              'mm.dd.yyyy',
-	"12":              'm.d.yyyy',
-	"13":              'dd.mm.yyyy',
+	"10":              'mm.dd.yyyy',
+	"11":              'dd.mm.yyyy',
 	"m0":              'yyyy-mm',
 	"m1":              'm/yyyy',
 	"m2":              'mm/yyyy',
@@ -275,9 +273,7 @@ jQuery( document ).ready( function( $ ) {
 			'd-m-yy',
 			'dd-mm-yy',
 			'yy.mm.dd',
-			'd.m.yy',
 			'mm.dd.yy',
-			'm.d.yy',
 			'dd.mm.yy'
 		],
 		'month': ['yy-mm', 'm/yy', 'mm/yy', 'm/yy', 'mm/yy', 'm-yy', 'mm-yy', 'm-yy', 'mm-yy']
