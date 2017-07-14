@@ -4,7 +4,7 @@ Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Stable tag: 4.5.8
+Stable tag: 4.5.9
 Tested up to: 4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -327,10 +327,18 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5.8] TBD =
+= [4.5.9] TBD =
+
+* Fix - Avoid overwriting Venues and Organizers when importing FB events with similarly named Venues and Organizers [75370]
+* Fix - Improve handling of large and/or slow Google Calendar and iCal feeds [79975]
+
+= [4.5.8] 2017-07-13 =
 
 * Fix - Remove permalink logic for recurring events (Events Calendar PRO will implement instead) [74153]
 * Fix - Avoid type error when setting up one-time imports for Facebook URLs (our thanks to @J for flagging this!) [78664]
+* Fix - Add a safety check in isOrganizer() function (our thanks to Kevin for flagging this!) [81645]
+* Fix - Avoid EA Client hanging when no events are found while attempting an import from a Facebook source [82713]
+* Fix - Improve compatibility of The Events Calendar when operating with WPML from within a subdirectory (props: @dgwatkins) [81998]
 
 = [4.5.7] 2017-06-28 =
 
