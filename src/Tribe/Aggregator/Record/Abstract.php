@@ -59,11 +59,46 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	);
 
 	/**
+	 * @var array
+	 */
+	public static $unique_venue_id_fields = array(
+		'facebook' => array(
+			'source' => 'facebook_id',
+			'target' => 'VenueFacebookID',
+		),
+		'meetup'   => array(
+			'source' => 'meetup_id',
+			'target' => 'VenueMeetupID',
+		),
+	);
+
+	/**
+	 * @var array
+	 */
+	public static $unique_organizer_id_fields = array(
+		'facebook' => array(
+			'source' => 'facebook_id',
+			'target' => 'OrganizerFacebookID',
+		),
+		'meetup'   => array(
+			'source' => 'meetup_id',
+			'target' => 'OrganizerMeetupID',
+		),
+	);
+
+	/**
 	 * Holds the event count temporarily while event counts (comment_count) is being updated
 	 *
 	 * @var int
 	 */
 	private $temp_event_count = 0;
+
+	/**
+	 * The import record origin.
+	 *
+	 * @var string
+	 */
+	protected $origin;
 
 	/**
 	 * Setup all the hooks and filters
@@ -1257,8 +1292,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						}
 					} else {
 						$venue_id = array_search( $event['Venue']['Venue'], $found_venues );
+
 						if ( ! $venue_id ) {
-							$venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Venue::POSTTYPE );
+							$unique_field = $this->get_unique_field( 'venue' );
+
+							if ( ! empty( $unique_field ) ) {
+								$target = $unique_field['target'];
+								$value  = $venue_data[ $target ];
+								$venue  = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Venue{$target}", $value );
+							} else {
+								$venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Venue::POSTTYPE );
+							}
 
 							if ( $venue ) {
 								$venue_id = $venue->ID;
@@ -1374,11 +1418,22 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						}
 					} else {
 						$organizer_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
-						if ( ! $organizer_id ) {
-							$organizer = get_page_by_title( $event['Organizer']['Organizer'], 'OBJECT', Tribe__Events__Organizer::POSTTYPE );
 
+						if ( ! $organizer_id ) {
+							$unique_field = $this->get_unique_field( 'organizer' );
+
+							if ( ! empty( $unique_field ) ) {
+								$target    = $unique_field['target'];
+								$value     = $organizer_data[ $target ];
+								$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Organizer{$target}", $value );
+							} else {
+								$organizer = get_page_by_title( $event['Organizer']['Organizer'], 'OBJECT', Tribe__Events__Organizer::POSTTYPE );
+							}
+						}
+
+						if ( ! $organizer_id ) {
 							if ( $organizer ) {
-								$organizer_id = $organizer->ID;
+								$organizer_id                      = $organizer->ID;
 								$found_organizers[ $organizer_id ] = $event['Organizer']['Organizer'];
 							}
 						}
@@ -1704,12 +1759,32 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $selected;
 	}
 
-	protected function get_unique_field() {
-		if ( ! isset( self::$unique_id_fields[ $this->meta['origin'] ] ) ) {
+	/**
+	 * Gets the unique field map for the current origin and the specified post type.
+	 *
+	 * @param string $for
+	 *
+	 * @return array|null
+	 */
+	protected function get_unique_field( $for = null ) {
+		$fields = self::$unique_id_fields;
+
+		switch ( $for ) {
+			case 'venue':
+				$fields = self::$unique_venue_id_fields;
+				break;
+			case 'organizer':
+				$fields = self::$unique_organizer_id_fields;
+				break;
+			default:
+				break;
+		}
+
+		if ( ! isset( $fields[ $this->meta['origin'] ] ) ) {
 			return null;
 		}
 
-		return self::$unique_id_fields[ $this->meta['origin'] ];
+		return $fields[ $this->meta['origin'] ];
 	}
 
 	/**
