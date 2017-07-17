@@ -3,6 +3,7 @@
 use Codeception\Configuration;
 
 class BaseRestCest {
+
 	/**
 	 * @var string
 	 */
@@ -44,6 +45,11 @@ class BaseRestCest {
 	/**
 	 * @var string
 	 */
+	protected $tags_url;
+
+	/**
+	 * @var string
+	 */
 	protected $documentation_url;
 
 	public function _before( Restv1Tester $I ) {
@@ -53,6 +59,7 @@ class BaseRestCest {
 		$this->venues_url        = $this->rest_url . 'venues';
 		$this->organizers_url    = $this->rest_url . 'organizers';
 		$this->categories_url    = $this->rest_url . 'categories';
+		$this->tags_url          = $this->rest_url . 'tags';
 		$this->documentation_url = $this->rest_url . 'doc';
 		wp_cache_flush();
 	}

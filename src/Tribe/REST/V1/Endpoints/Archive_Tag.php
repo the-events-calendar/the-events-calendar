@@ -1,9 +1,26 @@
 <?php
 
-class Tribe__Events__REST__V1__Endpoints__Archive_Category
+class Tribe__Events__REST__V1__Endpoints__Archive_Tag
 	extends Tribe__Events__REST__V1__Endpoints__Term_Archive_Base
 	implements Tribe__REST__Endpoints__READ_Endpoint_Interface,
 	Tribe__Documentation__Swagger__Provider_Interface {
+
+	/**
+	 * @var array An array mapping the REST request supported query vars to the args used in a WP_REST_Terms_Controller query.
+	 */
+	protected $supported_query_vars = array(
+		'page'       => 'page',
+		'per_page'   => 'per_page',
+		'search'     => 'search',
+		'exclude'    => 'exclude',
+		'include'    => 'include',
+		'order'      => 'order',
+		'orderby'    => 'orderby',
+		'hide_empty' => 'hide_empty',
+		'post'       => 'post',
+		'event'      => 'post',
+		'slug'       => 'slug',
+	);
 
 	/**
 	 * Returns an array in the format used by Swagger 2.0.
@@ -23,7 +40,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Category
 				'parameters' => $this->swaggerize_args( $this->READ_args(), array( 'in' => 'query', 'default' => '' ) ),
 				'responses'  => array(
 					'200' => array(
-						'description' => __( 'Returns all the event categories matching the search criteria', 'the-event-calendar' ),
+						'description' => __( 'Returns all the event tags matching the search criteria', 'the-event-calendar' ),
 						'schema'      => array(
 							'title' => $this->get_data_key(),
 							'type'  => 'array',
@@ -34,7 +51,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Category
 						'description' => __( 'One or more of the specified query variables has a bad format', 'the-events-calendar' ),
 					),
 					'404' => array(
-						'description' => __( 'No event categories match the query or the requested page was not found.', 'the-events-calendar' ),
+						'description' => __( 'No event tags match the query or the requested page was not found.', 'the-events-calendar' ),
 					),
 				),
 			),
@@ -49,7 +66,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Category
 	 * @since TBD
 	 */
 	public function get_taxonomy() {
-		return Tribe__Events__Main::TAXONOMY;
+		return 'post_tag';
 	}
 
 	/**
@@ -58,7 +75,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Category
 	 * @return string
 	 */
 	protected function get_base_rest_url() {
-		return tribe_events_rest_url( 'categories/' );
+		return tribe_events_rest_url( 'tags/' );
 	}
 
 	/**
@@ -69,7 +86,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Category
 	 * @since TBD
 	 */
 	protected function get_data_key() {
-		return 'categories';
+		return 'tags';
 	}
 
 	/**
@@ -92,7 +109,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Category
 				'validate_callback' => array( $this->validator, 'is_positive_int' ),
 				'sanitize_callback' => array( $this, 'sanitize_per_page' ),
 				'default'           => $this->get_default_posts_per_page(),
-				'description'       => __( 'The number of event categories to return on each page', 'the-events-calendar' ),
+				'description'       => __( 'The number of event tags to return on each page', 'the-events-calendar' ),
 				'type'              => 'integer',
 			),
 			'search'     => array(
@@ -103,13 +120,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Category
 			),
 			'exclude'    => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_event_category' ),
+				'validate_callback' => array( $this->validator, 'is_post_tag' ),
 				'description'       => __( 'Ensure result set exclude specific IDs', 'the-events-calendar' ),
 				'swagger_type'      => 'array',
 			),
 			'include'    => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_event_category' ),
+				'validate_callback' => array( $this->validator, 'is_post_tag' ),
 				'description'       => __( 'Limit result set to specific IDs', 'the-events-calendar' ),
 				'swagger_type'      => 'array',
 			),
@@ -130,12 +147,6 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Category
 				'description' => __( 'Whether to hide terms not assigned to any posts', 'the-events-calendar' ),
 				'type'        => 'boolean',
 				'default'     => '1',
-			),
-			'parent'     => array(
-				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_event_category' ),
-				'description'       => __( 'Limit result set to terms assigned to a specific parent', 'the-events-calendar' ),
-				'type'              => 'integer',
 			),
 			'post'       => array(
 				'required'          => false,
