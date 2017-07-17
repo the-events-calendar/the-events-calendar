@@ -515,8 +515,9 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$messages         = tribe('tec.rest-v1.messages');
 		$post_repository  = tribe('tec.rest-v1.repository');
 		$validator        = tribe('tec.rest-v1.validator');
-		$archive_endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Category($messages, $post_repository, $validator);
-		$single_endpoint  = new Tribe__Events__REST__V1__Endpoints__Single_Category( $messages, $post_repository, $validator );
+		$terms_controller = new WP_REST_Terms_Controller( Tribe__Events__Main::TAXONOMY );
+		$archive_endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Category( $messages, $post_repository, $validator, $terms_controller );
+		$single_endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Category( $messages, $post_repository, $validator );
 
 		tribe_singleton('tec.rest-v1.endpoints.archive-category', $archive_endpoint);
 		tribe_singleton('tec.rest-v1.endpoints.single-category', $archive_endpoint);
