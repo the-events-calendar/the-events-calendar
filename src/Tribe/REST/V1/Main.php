@@ -512,14 +512,14 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 *
 	 * @since TBD
 	 */
-	protected function register_categories_endpoint($register_routes) {
-		$messages         = tribe('tec.rest-v1.messages');
-		$post_repository  = tribe('tec.rest-v1.repository');
-		$validator        = tribe('tec.rest-v1.validator');
+	protected function register_categories_endpoint( $register_routes ) {
+		$messages         = tribe( 'tec.rest-v1.messages' );
+		$post_repository  = tribe( 'tec.rest-v1.repository' );
+		$validator        = tribe( 'tec.rest-v1.validator' );
 		$terms_controller = new WP_REST_Terms_Controller( Tribe__Events__Main::TAXONOMY );
 		$archive_endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Category( $messages, $post_repository, $validator, $terms_controller );
 
-		tribe_singleton('tec.rest-v1.endpoints.archive-category', $archive_endpoint);
+		tribe_singleton( 'tec.rest-v1.endpoints.archive-category', $archive_endpoint );
 
 		if ( $register_routes ) {
 			$namespace = $this->get_events_route_namespace();
@@ -538,7 +538,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		}
 
 		$documentation_endpoint = tribe( 'tec.rest-v1.endpoints.documentation' );
-		$documentation_endpoint->register_documentation_provider('/categories', $archive_endpoint);
+		$documentation_endpoint->register_documentation_provider( '/categories', $archive_endpoint );
 	}
 
 	/**
@@ -548,14 +548,14 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 *
 	 * @since TBD
 	 */
-	protected function register_tags_endpoint($register_routes) {
-		$messages         = tribe('tec.rest-v1.messages');
-		$post_repository  = tribe('tec.rest-v1.repository');
-		$validator        = tribe('tec.rest-v1.validator');
+	protected function register_tags_endpoint( $register_routes ) {
+		$messages         = tribe( 'tec.rest-v1.messages' );
+		$post_repository  = tribe( 'tec.rest-v1.repository' );
+		$validator        = tribe( 'tec.rest-v1.validator' );
 		$terms_controller = new WP_REST_Terms_Controller( 'post_tag' );
 		$archive_endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Tag( $messages, $post_repository, $validator, $terms_controller );
 
-		tribe_singleton('tec.rest-v1.endpoints.archive-category', $archive_endpoint);
+		tribe_singleton( 'tec.rest-v1.endpoints.archive-category', $archive_endpoint );
 
 		if ( $register_routes ) {
 			$namespace = $this->get_events_route_namespace();
@@ -575,6 +575,6 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		}
 
 		$documentation_endpoint = tribe( 'tec.rest-v1.endpoints.documentation' );
-		$documentation_endpoint->register_documentation_provider('/tags', $archive_endpoint);
+		$documentation_endpoint->register_documentation_provider( '/tags', $archive_endpoint );
 	}
 }

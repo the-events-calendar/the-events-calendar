@@ -83,7 +83,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Archive_Base
 			$this->get_data_key() => $prepared,
 		);
 
-		$current_page = isset($params['page']) ? $params['page'] : 1;
+		$current_page = isset( $params['page'] ) ? $params['page'] : 1;
 		$has_next     = $current_page < $data['total_pages'];
 		$has_previous = $current_page > 1;
 
@@ -133,5 +133,5 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Archive_Base
 	 *
 	 * @since TBD
 	 */
-	abstract  protected function get_data_key();
+	abstract protected function get_data_key();
 }
