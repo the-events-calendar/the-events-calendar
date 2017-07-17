@@ -47,12 +47,18 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 
 		$swaggerized = array();
 		foreach ( $args as $name => $info ) {
+			if ( isset( $info['swagger_type'] ) ) {
+				$type = $info['swagger_type'];
+			} else {
+				$type = isset( $info['type'] ) ? $info['type'] : false;
+			}
+
 			$read = array(
 				'name'             => $name,
 				'in'               => isset( $info['in'] ) ? $info['in'] : false,
 				'collectionFormat' => isset( $info['collectionFormat'] ) ? $info['collectionFormat'] : false,
 				'description'      => isset( $info['description'] ) ? $info['description'] : false,
-				'type'             => isset( $info['swagger_type'] ) ? $info['swagger_type'] : false,
+				'type'             => $type,
 				'required'         => isset( $info['required'] ) ? $info['required'] : false,
 				'default'          => isset( $info['default'] ) ? $info['default'] : false,
 			);
@@ -129,8 +135,21 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 			}
 		}
 
-		$args = wp_parse_args( array_filter( $args ), $defaults );
+		$args = wp_parse_args( array_filter( $args, array( $this, 'is_not_null' ) ), $defaults );
 
 		return $args;
+	}
+
+	/**
+	 * Whether a value is null or not.
+	 *
+	 * @param mixed $value
+	 *
+	 * @return bool
+	 *
+	 * @since TBD
+	 */
+	public function is_not_null( $value ) {
+		return null !== $value;
 	}
 }
