@@ -42,6 +42,7 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 			'venue-archive-page-not-found'     => __( 'The requested venue archive page does not exist', 'the-venues-calendar' ),
 			'organizer-archive-page-not-found' => __( 'The requested organizer archive page does not exist', 'the-organizers-calendar' ),
 			'archive-bad-search-string'        => __( "The 'search' parameter must be a string", 'the-venues-calendar' ),
+			'category-archive-page-not-found'  => __( 'The requested event category archive page does not exist', 'the-events-calendar' ),
 		);
 	}
 
