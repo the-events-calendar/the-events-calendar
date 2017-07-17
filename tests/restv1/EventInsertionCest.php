@@ -99,7 +99,7 @@ class EventInsertionCest extends BaseRestCest {
 	 * @example ["tomorrow 9am", "tomorrow 11am", "America/New_York"]
 	 * @example ["tomorrow 11am", "tomorrow 1pm", "UTC"]
 	 * @example ["next wednesday 4pm", "next wednesday 5pm","Australia/Darwin"]
-	 * @example ["next wednesday 4pm", "next wednesday 5pm","Pacific/Bougainville"]
+	 * @example ["next wednesday 4pm", "next wednesday 5pm","Europe/Rome"]
 	 */
 	public function it_should_allow_specifying_the_timezone_of_the_event_to_insert( Tester $I, \Codeception\Example $data ) {
 		$I->generate_nonce_for_role( 'administrator' );
@@ -612,7 +612,7 @@ class EventInsertionCest extends BaseRestCest {
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
 		$I->seeResponseContainsJson( [
-			'website' => get_permalink( $response['id'] ),
+			'website' => get_post_permalink( $response['id'] ),
 		] );
 	}
 
@@ -968,7 +968,6 @@ class EventInsertionCest extends BaseRestCest {
 		];
 
 		$I->sendPOST( $this->events_url, $params );
-
 		$I->seeResponseCodeIs( 201 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );

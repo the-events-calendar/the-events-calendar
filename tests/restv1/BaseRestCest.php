@@ -54,5 +54,6 @@ class BaseRestCest {
 		$this->organizers_url    = $this->rest_url . 'organizers';
 		$this->categories_url    = $this->rest_url . 'categories';
 		$this->documentation_url = $this->rest_url . 'doc';
+		wp_cache_flush();
 	}
 }
