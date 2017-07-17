@@ -15,7 +15,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Category extends Tribe__Events_
 	 *
 	 * @return WP_Error|WP_REST_Response|int An array containing the data on success or a WP_Error instance on failure.
 	 */
-	public function create( WP_REST_Request $request, $return_id = FALSE ) {
+	public function create( WP_REST_Request $request, $return_id = false ) {
 		// TODO: Implement create() method.
 	}
 
