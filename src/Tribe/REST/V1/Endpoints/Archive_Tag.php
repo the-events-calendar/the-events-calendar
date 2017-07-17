@@ -79,7 +79,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Tag
 	}
 
 	/**
-	 * Returns the key where the term data will be stored.
+	 * Returns the data key that will be used to store terms data in the response.
 	 *
 	 * @return string
 	 *

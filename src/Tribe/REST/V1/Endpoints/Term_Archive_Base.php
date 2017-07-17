@@ -83,15 +83,16 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Archive_Base
 			$this->get_data_key() => $prepared,
 		);
 
-		$has_next     = $params['page'] < $data['total_pages'];
-		$has_previous = $params['page'] > 1;
+		$current_page = isset($params['page']) ? $params['page'] : 1;
+		$has_next     = $current_page < $data['total_pages'];
+		$has_previous = $current_page > 1;
 
 		if ( $has_next ) {
-			$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $params['page'] );
+			$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $current_page );
 		}
 
 		if ( $has_previous ) {
-			$data['previous_rest_url'] = $this->get_previous_rest_url( $data['rest_url'], $params['page'] );
+			$data['previous_rest_url'] = $this->get_previous_rest_url( $data['rest_url'], $current_page );
 		}
 
 		$response->header( 'X-TEC-Total', $data['total'], true );
@@ -124,4 +125,13 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Archive_Base
 	 * @since TBD
 	 */
 	abstract protected function get_taxonomy();
+
+	/**
+	 * Returns the data key that will be used to store terms data in the response.
+	 *
+	 * @return string
+	 *
+	 * @since TBD
+	 */
+	abstract  protected function get_data_key();
 }
