@@ -408,7 +408,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			return array();
 		}
 
-		$terms_data = $this->get_terms_data( $terms, $taxonomy );
+		$terms_data = $this->prepare_terms_data( $terms, $taxonomy );
 
 		$data = array();
 		foreach ( $terms_data as $term_data ) {
@@ -444,32 +444,25 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	}
 
 	/**
-	 * Returns an array of array representations of a taxonomy term.
+	 * Returns an array of prepared array representations of a taxonomy term.
 	 *
-	 * @param array   $terms    An array of term objects.
-	 * @param  string $taxonomy The terms taxonomy.
+	 * @param array $terms_data An array of term objects.
+	 * @param string $taxonomy The taxonomy of the term objects.
 	 *
 	 * @return array|\WP_Error Either the array representation of taxonomy terms or an error object.
 	 *
 	 * @since TBD
 	 */
-	public function get_terms_data( array $terms, $taxonomy ) {
-		$terms_controller = new WP_REST_Terms_Controller( $taxonomy );
-		$request          = new WP_REST_Request();
-
+	public function prepare_terms_data( array $terms_data, $taxonomy ) {
 		$rename_map = array(
 			'link' => 'url',
 		);
 
 		$data = array();
-		foreach ( $terms as $term ) {
-			$term_data = $terms_controller->prepare_item_for_response( $term, $request );
-
-			if ( empty( $term_data->data ) ) {
+		foreach ( $terms_data as $term_data ) {
+			if ( empty( $term_data ) ) {
 				continue;
 			}
-
-			$term_data = $term_data->data;
 
 			foreach ( $rename_map as $old => $new ) {
 				if ( ! isset( $term_data[ $old ] ) || isset( $term_data[ $new ] ) ) {
@@ -488,7 +481,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			 *
 			 * @since TBD
 			 */
-			$data[] = apply_filters( 'tribe_rest_taxonomy_term_data', $term_data, $term, $taxonomy );
+			$data[] = apply_filters( 'tribe_rest_taxonomy_term_data', $term_data, $taxonomy );
 		}
 
 		return $data;
