@@ -535,6 +535,12 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 						'callback' => array( $archive_endpoint, 'get' ),
 						'args'     => $archive_endpoint->READ_args(),
 					),
+					array(
+						'methods'             => WP_REST_Server::CREATABLE,
+						'args'                => $single_endpoint->CREATE_args(),
+						'permission_callback' => array( $single_endpoint, 'can_create' ),
+						'callback'            => array( $single_endpoint, 'create' ),
+					),
 				)
 			);
 
@@ -546,6 +552,12 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 						'methods'  => WP_REST_Server::READABLE,
 						'callback' => array( $single_endpoint, 'get' ),
 						'args'     => $single_endpoint->READ_args(),
+					),
+					array(
+						'methods'             => WP_REST_Server::EDITABLE,
+						'args'                => $single_endpoint->EDIT_args(),
+						'permission_callback' => array( $single_endpoint, 'can_edit' ),
+						'callback'            => array( $single_endpoint, 'update' ),
 					),
 				)
 			);
@@ -585,6 +597,12 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 						'callback' => array( $archive_endpoint, 'get' ),
 						'args'     => $archive_endpoint->READ_args(),
 					),
+					array(
+						'methods'             => WP_REST_Server::CREATABLE,
+						'args'                => $single_endpoint->CREATE_args(),
+						'permission_callback' => array( $single_endpoint, 'can_create' ),
+						'callback'            => array( $single_endpoint, 'create' ),
+					),
 				)
 			);
 
@@ -596,6 +614,12 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 						'methods'  => WP_REST_Server::READABLE,
 						'callback' => array( $single_endpoint, 'get' ),
 						'args'     => $single_endpoint->READ_args(),
+					),
+					array(
+						'methods'             => WP_REST_Server::EDITABLE,
+						'args'                => $single_endpoint->EDIT_args(),
+						'permission_callback' => array( $single_endpoint, 'can_edit' ),
+						'callback'            => array( $single_endpoint, 'update' ),
 					),
 				)
 			);

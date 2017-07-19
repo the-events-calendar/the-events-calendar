@@ -9,20 +9,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 	Tribe__Documentation__Swagger__Provider_Interface {
 
 	/**
-	 * Handles POST requests on the endpoint.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request
-	 * @param bool            $return_id Whether the created post ID should be returned or the full response object.
-	 *
-	 * @return WP_Error|WP_REST_Response|int An array containing the data on success or a WP_Error instance on failure.
-	 */
-	public function create( WP_REST_Request $request, $return_id = false ) {
-		// TODO: Implement create() method.
-	}
-
-	/**
 	 * Returns the content of the `args` array that should be used to register the endpoint
 	 * with the `register_rest_route` function.
 	 *
@@ -31,18 +17,26 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 	 * @return array
 	 */
 	public function CREATE_args() {
-		return array();
-	}
-
-	/**
-	 * Whether the current user can create content of the specified type or not.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool Whether the current user can post or not.
-	 */
-	public function can_create() {
-		// TODO: Implement can_create() method.
+		return array(
+			'name'             => array(
+				'required'          => true,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The event tag name', 'the-events-calendar' ),
+			),
+			'description'             => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The event tag description', 'the-events-calendar' ),
+			),
+			'slug'             => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The event tag slug', 'the-events-calendar' ),
+			),
+		);
 	}
 
 	/**
@@ -118,43 +112,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 				'validate_callback' => array( $this->validator, 'is_post_tag' ),
 			),
 		);
-	}
-
-	/**
-	 * Handles UPDATE requests on the endpoint.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request
-	 *
-	 * @return WP_Error|WP_REST_Response An array containing the data of the updated post on
-	 *                                   success or a WP_Error instance on failure.
-	 */
-	public function update( WP_REST_Request $request ) {
-		// TODO: Implement update() method.
-	}
-
-	/**
-	 * Returns the content of the `args` array that should be used to register the endpoint
-	 * with the `register_rest_route` function.
-	 *
-	 * @since TBD
-	 *
-	 * @return array
-	 */
-	public function EDIT_args() {
-		return array();
-	}
-
-	/**
-	 * Whether the current user can update content of this type or not.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool Whether the current user can update or not.
-	 */
-	public function can_edit() {
-		// TODO: Implement can_edit() method.
 	}
 
 	/**
