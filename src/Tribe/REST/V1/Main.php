@@ -508,9 +508,9 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Builds and hooks the event categories archives endpoint
 	 *
-	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
-	 *
 	 * @since TBD
+	 *
+	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 */
 	protected function register_categories_endpoint( $register_routes ) {
 		$messages         = tribe( 'tec.rest-v1.messages' );
@@ -544,9 +544,9 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Builds and hooks the event tags archives endpoint
 	 *
-	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
-	 *
 	 * @since TBD
+	 *
+	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 */
 	protected function register_tags_endpoint( $register_routes ) {
 		$messages         = tribe( 'tec.rest-v1.messages' );

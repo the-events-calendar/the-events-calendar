@@ -13,6 +13,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Category
 	 * The intelligence lies in the "gatherer" of informations rather than in the single "providers" implementing this
 	 * interface.
 	 *
+	 * @since TBD
+	 *
 	 * @link http://swagger.io/
 	 *
 	 * @return array An array description of a Swagger supported component.
@@ -44,9 +46,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Category
 	/**
 	 * Returns the taxonomy of the terms handled by the endpoint.
 	 *
-	 * @return string
-	 *
 	 * @since TBD
+	 *
+	 * @return string
 	 */
 	public function get_taxonomy() {
 		return Tribe__Events__Main::TAXONOMY;
@@ -54,6 +56,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Category
 
 	/**
 	 * Returns the archive base REST URL
+	 *
+	 * @since TBD
 	 *
 	 * @return string
 	 */
@@ -64,9 +68,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Category
 	/**
 	 * Returns the data key that will be used to store terms data in the response.
 	 *
-	 * @return string
-	 *
 	 * @since TBD
+	 *
+	 * @return string
 	 */
 	protected function get_data_key() {
 		return 'categories';
@@ -75,6 +79,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Category
 	/**
 	 * Returns the content of the `args` array that should be used to register the endpoint
 	 * with the `register_rest_route` function.
+	 *
+	 * @since TBD
 	 *
 	 * @return array
 	 */
