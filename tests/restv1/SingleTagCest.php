@@ -24,6 +24,7 @@ class SingleTagCest extends BaseRestCest {
 		$I->seeResponseIsJson();
 		$expected = [
 			'id'          => $id,
+			'name'        => 'foo',
 			'count'       => 2,
 			'description' => 'Term description',
 			'url'         => get_term_link( $id, 'post_tag' ),

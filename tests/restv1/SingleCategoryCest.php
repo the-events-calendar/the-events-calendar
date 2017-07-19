@@ -27,6 +27,7 @@ class SingleCategoryCest extends BaseRestCest {
 		$I->seeResponseIsJson();
 		$expected = [
 			'id'          => $id,
+			'name'        => 'foo',
 			'count'       => 2,
 			'description' => 'Term description',
 			'url'         => get_term_link( $id, Main::TAXONOMY ),
@@ -37,7 +38,7 @@ class SingleCategoryCest extends BaseRestCest {
 			'urls'        => [
 				'self'       => $url,
 				'collection' => $this->categories_url,
-				'up'     => $this->categories_url . "/{$parent}",
+				'up'         => $this->categories_url . "/{$parent}",
 			],
 		];
 		foreach ( $expected as $key => $value ) {
