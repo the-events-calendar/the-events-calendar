@@ -1,6 +1,6 @@
 <?php
 
-class Tribe__Events__REST__V1__Endpoints__Single_Category
+class Tribe__Events__REST__V1__Endpoints__Single_Tag
 	extends Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	implements Tribe__REST__Endpoints__READ_Endpoint_Interface,
 	Tribe__REST__Endpoints__CREATE_Endpoint_Interface,
@@ -113,9 +113,9 @@ class Tribe__Events__REST__V1__Endpoints__Single_Category
 			'id' => array(
 				'in'                => 'path',
 				'type'              => 'integer',
-				'description'       => __( 'the event category term ID', 'the-events-calendar' ),
+				'description'       => __( 'the event tag term ID', 'the-events-calendar' ),
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_event_category' ),
+				'validate_callback' => array( $this->validator, 'is_post_tag' ),
 			),
 		);
 	}
@@ -165,7 +165,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Category
 	 * @return string
 	 */
 	public function get_taxonomy() {
-		return Tribe__Events__Main::TAXONOMY;
+		return 'post_tag';
 	}
 
 	/**
@@ -176,6 +176,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Category
 	 * @return string
 	 */
 	protected function get_term_namespace() {
-		return 'categories';
+		return 'tags';
 	}
 }

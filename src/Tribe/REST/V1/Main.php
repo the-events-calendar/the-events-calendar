@@ -57,6 +57,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		}
 
 		add_action( 'rest_api_init', array( $this, 'register_endpoints' ) );
+		add_filter( 'tribe_events_register_event_cat_type_args', array( $this, 'filter_taxonomy_args' ) );
 	}
 
 	/**
@@ -518,6 +519,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$validator        = tribe( 'tec.rest-v1.validator' );
 		$terms_controller = new WP_REST_Terms_Controller( Tribe__Events__Main::TAXONOMY );
 		$archive_endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Category( $messages, $post_repository, $validator, $terms_controller );
+		$single_endpoint  = new Tribe__Events__REST__V1__Endpoints__Single_Category( $messages, $post_repository, $validator, $terms_controller );
 
 		tribe_singleton( 'tec.rest-v1.endpoints.archive-category', $archive_endpoint );
 
@@ -535,10 +537,23 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 					),
 				)
 			);
+
+			register_rest_route(
+				$namespace,
+				'/categories/(?P<id>\\d+)',
+				array(
+					array(
+						'methods'  => WP_REST_Server::READABLE,
+						'callback' => array( $single_endpoint, 'get' ),
+						'args'     => $single_endpoint->READ_args(),
+					),
+				)
+			);
 		}
 
 		$documentation_endpoint = tribe( 'tec.rest-v1.endpoints.documentation' );
 		$documentation_endpoint->register_documentation_provider( '/categories', $archive_endpoint );
+		$documentation_endpoint->register_documentation_provider( '/categories/{id}', $single_endpoint );
 	}
 
 	/**
@@ -554,6 +569,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$validator        = tribe( 'tec.rest-v1.validator' );
 		$terms_controller = new WP_REST_Terms_Controller( 'post_tag' );
 		$archive_endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Tag( $messages, $post_repository, $validator, $terms_controller );
+		$single_endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Tag( $messages, $post_repository, $validator, $terms_controller );
 
 		tribe_singleton( 'tec.rest-v1.endpoints.archive-category', $archive_endpoint );
 
@@ -572,9 +588,36 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 				)
 			);
 
+			register_rest_route(
+				$namespace,
+				'/tags/(?P<id>\\d+)',
+				array(
+					array(
+						'methods'  => WP_REST_Server::READABLE,
+						'callback' => array( $single_endpoint, 'get' ),
+						'args'     => $single_endpoint->READ_args(),
+					),
+				)
+			);
 		}
 
 		$documentation_endpoint = tribe( 'tec.rest-v1.endpoints.documentation' );
 		$documentation_endpoint->register_documentation_provider( '/tags', $archive_endpoint );
+		$documentation_endpoint->register_documentation_provider( '/tags/{id}', $single_endpoint );
+	}
+
+	/**
+	 * Filters the event category taxonomy registration arguments to make it show in REST API requests.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $taxonomy_args
+	 *
+	 * @return array
+	 */
+	public function filter_taxonomy_args( array $taxonomy_args ) {
+		$taxonomy_args['show_in_rest'] = true;
+
+		return $taxonomy_args;
 	}
 }

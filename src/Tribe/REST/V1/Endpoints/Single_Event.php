@@ -358,6 +358,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	}
 
 	/**
+	 * Whether the current user can create content of the specified type or not.
+	 *
 	 * @return bool Whether the current user can post or not.
 	 */
 	public function can_create() {
@@ -424,6 +426,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	/**
 	 * Whether the current user can delete posts of the type managed by the endpoint or not.
 	 *
+	 * @since TBD
+	 *
 	 * @return bool
 	 */
 	public function can_delete() {
@@ -485,6 +489,10 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	}
 
 	/**
+	 * Whether the current user can update content of this type or not.
+	 *
+	 * @since TBD
+	 *
 	 * @return bool Whether the current user can update or not.
 	 */
 	public function can_edit() {

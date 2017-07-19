@@ -225,11 +225,11 @@ class TribeDb extends \Codeception\Module {
 
 		$tax_input = [];
 		if ( isset( $overrides['categories'] ) ) {
-			$tax_input['tribe_events_cat'] = $overrides['categories'];
+			$tax_input['tribe_events_cat'] = (array)$overrides['categories'];
 			unset( $overrides['categories'] );
 		}
 		if ( isset( $overrides['tags'] ) ) {
-			$tax_input['post_tag'] = $overrides['tags'];
+			$tax_input['post_tag'] = (array)$overrides['tags'];
 			unset( $overrides['tags'] );
 		}
 
@@ -254,7 +254,7 @@ class TribeDb extends \Codeception\Module {
 
 		unset( $overrides['when'], $overrides['duration'], $overrides['utc_offset'] );
 
-		$id = uniqid();
+		$id = uniqid( mt_rand( 1, 999 ), true );
 		$defaults = [
 			'post_type'  => 'tribe_events',
 			'post_title' => "Event {$id}",

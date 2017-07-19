@@ -446,43 +446,70 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Returns an array of prepared array representations of a taxonomy term.
 	 *
+	 * @since TBD
+	 *
 	 * @param array $terms_data An array of term objects.
 	 * @param string $taxonomy The taxonomy of the term objects.
 	 *
 	 * @return array|\WP_Error Either the array representation of taxonomy terms or an error object.
-	 *
-	 * @since TBD
 	 */
 	public function prepare_terms_data( array $terms_data, $taxonomy ) {
-		$rename_map = array(
-			'link' => 'url',
-		);
-
 		$data = array();
 		foreach ( $terms_data as $term_data ) {
 			if ( empty( $term_data ) ) {
 				continue;
 			}
 
-			foreach ( $rename_map as $old => $new ) {
-				if ( ! isset( $term_data[ $old ] ) || isset( $term_data[ $new ] ) ) {
-					continue;
-				}
-				$term_data[ $new ] = $term_data[ $old ];
-				unset( $term_data[ $old ] );
-			}
-
-			/**
-			 * Filters the data that will be returned for a taxonomy term.
-			 *
-			 * @param array                $term_data The data that will be returned in the response for the taxonomy term.
-			 * @param array|object|WP_Term $term      The term original object.
-			 * @param string               $taxonomy  The term taxonomy
-			 *
-			 * @since TBD
-			 */
-			$data[] = apply_filters( 'tribe_rest_taxonomy_term_data', $term_data, $taxonomy );
+			$data[] = $this->prepare_term_data( $term_data, $taxonomy );
 		}
+
+		return $data;
+	}
+
+	/**
+	 * Prepares a single term data for the response.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $term_data
+	 * @param string $taxonomy
+	 * @param string $namespace
+	 *
+	 * @return array
+	 */
+	public function prepare_term_data( $term_data, $taxonomy, $namespace ) {
+		$rename_map = array(
+			'link' => 'url',
+		);
+
+		foreach ( $rename_map as $old => $new ) {
+			if ( ! isset( $term_data[ $old ] ) || isset( $term_data[ $new ] ) ) {
+				continue;
+			}
+			$term_data[ $new ] = $term_data[ $old ];
+			unset( $term_data[ $old ] );
+		}
+
+		unset( $term_data['_links'] );
+
+		$term_data['urls'] = array(
+			'self'       => tribe_events_rest_url( "{$namespace}/{$term_data['id']}" ),
+			'collection' => tribe_events_rest_url( $namespace ),
+		);
+
+		if ( 0 != $term_data['parent'] ) {
+			$term_data['urls']['up'] = tribe_events_rest_url( "{$namespace}/{$term_data['parent']}" );
+		}
+
+		/**
+		 * Filters the data that will be returned for a taxonomy term.
+		 *
+		 * @param array                $term_data The data that will be returned in the response for the taxonomy term.
+		 * @param string               $taxonomy  The term taxonomy
+		 *
+		 * @since TBD
+		 */
+		$data = apply_filters( 'tribe_rest_taxonomy_term_data', $term_data, $taxonomy );
 
 		return $data;
 	}
