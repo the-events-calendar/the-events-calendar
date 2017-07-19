@@ -559,6 +559,12 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 						'permission_callback' => array( $single_endpoint, 'can_edit' ),
 						'callback'            => array( $single_endpoint, 'update' ),
 					),
+					array(
+						'methods'             => WP_REST_Server::DELETABLE,
+						'args'                => $single_endpoint->DELETE_args(),
+						'permission_callback' => array( $single_endpoint, 'can_delete' ),
+						'callback'            => array( $single_endpoint, 'delete' ),
+					),
 				)
 			);
 		}
@@ -620,6 +626,12 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 						'args'                => $single_endpoint->EDIT_args(),
 						'permission_callback' => array( $single_endpoint, 'can_edit' ),
 						'callback'            => array( $single_endpoint, 'update' ),
+					),
+					array(
+						'methods'             => WP_REST_Server::DELETABLE,
+						'args'                => $single_endpoint->DELETE_args(),
+						'permission_callback' => array( $single_endpoint, 'can_delete' ),
+						'callback'            => array( $single_endpoint, 'delete' ),
 					),
 				)
 			);

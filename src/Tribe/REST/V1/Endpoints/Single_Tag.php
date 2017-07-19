@@ -40,43 +40,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 	}
 
 	/**
-	 * Handles DELETE requests on the endpoint.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request
-	 *
-	 * @return WP_Error|WP_REST_Response An array containing the data of the trashed post on
-	 *                                   success or a WP_Error instance on failure.
-	 */
-	public function delete( WP_REST_Request $request ) {
-		// TODO: Implement delete() method.
-	}
-
-	/**
-	 * Returns the content of the `args` array that should be used to register the endpoint
-	 * with the `register_rest_route` function.
-	 *
-	 * @since TBD
-	 *
-	 * @return array
-	 */
-	public function DELETE_args() {
-		return array();
-	}
-
-	/**
-	 * Whether the current user can delete content of this type or not.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool Whether the current user can delete or not.
-	 */
-	public function can_delete() {
-		// TODO: Implement can_delete() method.
-	}
-
-	/**
 	 * Returns an array in the format used by Swagger 2.0.
 	 *
 	 * While the structure must conform to that used by v2.0 of Swagger the structure can be that of a full document
@@ -91,7 +54,75 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
-		return array();
+		$GET_defaults = $DELETE_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
+		$POST_defaults = array( 'in' => 'body', 'default' => '', 'type' => 'string' );
+		$post_args = array_merge( $this->READ_args(), $this->CREATE_args() );
+
+		return array(
+			'get'  => array(
+				'parameters' => $this->swaggerize_args( $this->READ_args(), $GET_defaults ),
+				'responses'  => array(
+					'200' => array(
+						'description' => __( 'Returns the data of the event tag with the specified term ID', 'the-event-calendar' ),
+						'schema'      => array(
+							'$ref' => '#/definitions/Term',
+						),
+					),
+					'400' => array(
+						'description' => __( 'The event tag term ID is missing.', 'the-events-calendar' ),
+					),
+					'404' => array(
+						'description' => __( 'An event tag with the specified term ID does not exist.', 'the-events-calendar' ),
+					),
+				),
+			),
+			'post' => array(
+				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
+				'responses'  => array(
+					'200' => array(
+						'description' => __( 'Returns the data of the updated event tag', 'the-event-calendar' ),
+						'schema'      => array(
+							'$ref' => '#/definitions/Term',
+						),
+					),
+					'201' => array(
+						'description' => __( 'Returns the data of the created event tag', 'the-event-calendar' ),
+						'schema'      => array(
+							'$ref' => '#/definitions/Term',
+						),
+					),
+					'400' => array(
+						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
+					),
+					'403' => array(
+						'description' => __( 'The user is not authorized to create event tags', 'the-events-calendar' ),
+					),
+				),
+			),
+			'delete'  => array(
+				'parameters' => $this->swaggerize_args( $this->DELETE_args(), $DELETE_defaults ),
+				'responses'  => array(
+					'200' => array(
+						'description' => __( 'Deletes an event tag and returns its data', 'the-event-calendar' ),
+						'schema'      => array(
+							'$ref' => '#/definitions/Term',
+						),
+					),
+					'400' => array(
+						'description' => __( 'The event tag term ID is missing or does not exist.', 'the-events-calendar' ),
+					),
+					'403' => array(
+						'description' => __( 'The current user cannot delete the event tag with the specified term ID.', 'the-events-calendar' ),
+					),
+					'410' => array(
+						'description' => __( 'The event tag with the specified term ID has been deleted already.', 'the-events-calendar' ),
+					),
+					'500' => array(
+						'description' => __( 'The event tag with the specified term ID could not be deleted.', 'the-events-calendar' ),
+					),
+				),
+			),
+		);
 	}
 
 	/**
