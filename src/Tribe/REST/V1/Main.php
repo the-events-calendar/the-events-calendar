@@ -113,6 +113,8 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$this->register_single_venue_endpoint( $register_routes );
 		$this->register_organizer_archives_endpoint( $register_routes );
 		$this->register_single_organizer_endpoint( $register_routes );
+		$this->register_categories_endpoint( $register_routes );
+		$this->register_tags_endpoint( $register_routes );
 	}
 
 	/**
@@ -129,7 +131,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		if ( $register_routes ) {
 			register_rest_route( $this->get_events_route_namespace(), '/doc', array(
-				'methods'  => 'GET',
+				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $endpoint, 'get' ),
 			) );
 		}
@@ -186,7 +188,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		if ( $register_routes ) {
 			register_rest_route( $this->get_events_route_namespace(), '/events', array(
-				'methods'  => 'GET',
+				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $endpoint, 'get' ),
 				'args'     => $endpoint->READ_args(),
 			) );
@@ -468,7 +470,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		if ( $register_routes ) {
 			register_rest_route( $this->get_events_route_namespace(), '/venues', array(
-				'methods'  => 'GET',
+				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $endpoint, 'get' ),
 				'args'     => $endpoint->READ_args(),
 			) );
@@ -494,12 +496,85 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		if ( $register_routes ) {
 			register_rest_route( $this->get_events_route_namespace(), '/organizers', array(
-				'methods'  => 'GET',
+				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $endpoint, 'get' ),
 				'args'     => $endpoint->READ_args(),
 			) );
 		}
 
 		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/organizers', $endpoint );
+	}
+
+	/**
+	 * Builds and hooks the event categories archives endpoint
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
+	 */
+	protected function register_categories_endpoint( $register_routes ) {
+		$messages         = tribe( 'tec.rest-v1.messages' );
+		$post_repository  = tribe( 'tec.rest-v1.repository' );
+		$validator        = tribe( 'tec.rest-v1.validator' );
+		$terms_controller = new WP_REST_Terms_Controller( Tribe__Events__Main::TAXONOMY );
+		$archive_endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Category( $messages, $post_repository, $validator, $terms_controller );
+
+		tribe_singleton( 'tec.rest-v1.endpoints.archive-category', $archive_endpoint );
+
+		if ( $register_routes ) {
+			$namespace = $this->get_events_route_namespace();
+
+			register_rest_route(
+				$namespace,
+				'/categories',
+				array(
+					array(
+						'methods'  => WP_REST_Server::READABLE,
+						'callback' => array( $archive_endpoint, 'get' ),
+						'args'     => $archive_endpoint->READ_args(),
+					),
+				)
+			);
+		}
+
+		$documentation_endpoint = tribe( 'tec.rest-v1.endpoints.documentation' );
+		$documentation_endpoint->register_documentation_provider( '/categories', $archive_endpoint );
+	}
+
+	/**
+	 * Builds and hooks the event tags archives endpoint
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
+	 */
+	protected function register_tags_endpoint( $register_routes ) {
+		$messages         = tribe( 'tec.rest-v1.messages' );
+		$post_repository  = tribe( 'tec.rest-v1.repository' );
+		$validator        = tribe( 'tec.rest-v1.validator' );
+		$terms_controller = new WP_REST_Terms_Controller( 'post_tag' );
+		$archive_endpoint = new Tribe__Events__REST__V1__Endpoints__Archive_Tag( $messages, $post_repository, $validator, $terms_controller );
+
+		tribe_singleton( 'tec.rest-v1.endpoints.archive-category', $archive_endpoint );
+
+		if ( $register_routes ) {
+			$namespace = $this->get_events_route_namespace();
+
+			register_rest_route(
+				$namespace,
+				'/tags',
+				array(
+					array(
+						'methods'  => WP_REST_Server::READABLE,
+						'callback' => array( $archive_endpoint, 'get' ),
+						'args'     => $archive_endpoint->READ_args(),
+					),
+				)
+			);
+
+		}
+
+		$documentation_endpoint = tribe( 'tec.rest-v1.endpoints.documentation' );
+		$documentation_endpoint->register_documentation_provider( '/tags', $archive_endpoint );
 	}
 }

@@ -3,6 +3,7 @@
 use Codeception\Configuration;
 
 class BaseRestCest {
+
 	/**
 	 * @var string
 	 */
@@ -39,14 +40,26 @@ class BaseRestCest {
 	/**
 	 * @var string
 	 */
+	protected $categories_url;
+
+	/**
+	 * @var string
+	 */
+	protected $tags_url;
+
+	/**
+	 * @var string
+	 */
 	protected $documentation_url;
 
 	public function _before( Restv1Tester $I ) {
-		$this->site_url = $I->grabSiteUrl();
-		$this->rest_url = $this->site_url . '/wp-json/tribe/events/v1/';
-		$this->events_url = $this->rest_url . 'events';
-		$this->venues_url = $this->rest_url . 'venues';
-		$this->organizers_url = $this->rest_url . 'organizers';
+		$this->site_url          = $I->grabSiteUrl();
+		$this->rest_url          = $this->site_url . '/wp-json/tribe/events/v1/';
+		$this->events_url        = $this->rest_url . 'events';
+		$this->venues_url        = $this->rest_url . 'venues';
+		$this->organizers_url    = $this->rest_url . 'organizers';
+		$this->categories_url    = $this->rest_url . 'categories';
+		$this->tags_url          = $this->rest_url . 'tags';
 		$this->documentation_url = $this->rest_url . 'doc';
 		wp_cache_flush();
 	}

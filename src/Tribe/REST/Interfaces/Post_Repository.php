@@ -31,4 +31,16 @@ interface Tribe__Events__REST__Interfaces__Post_Repository {
 	 *                        an error object.
 	 */
 	public function get_organizer_data( $event_or_organizer_id );
+
+	/**
+	 * Returns an array of prepared array representations of a taxonomy term.
+	 *
+	 * @param array $terms_data An array of term objects.
+	 * @param string $taxonomy The taxonomy of the term objects.
+	 *
+	 * @return array|\WP_Error Either the array representation of taxonomy terms or an error object.
+	 *
+	 * @since TBD
+	 */
+	public function prepare_terms_data( array $terms_data, $taxonomy );
 }
