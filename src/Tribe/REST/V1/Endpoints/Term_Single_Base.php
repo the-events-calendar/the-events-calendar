@@ -97,8 +97,13 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 		if ( is_wp_error( $term_response ) ) {
 			return $term_response;
 		}
+		$term_data = $term_response->get_data();
 
-		$data = $this->repository->prepare_term_data( $term_response->get_data(), $this->get_taxonomy(), $this->get_term_namespace() );
+		if ( $return_id ) {
+			return $term_data['id'];
+		}
+
+		$data = $this->repository->prepare_term_data( $term_data, $this->get_taxonomy(), $this->get_term_namespace() );
 
 		$term_response->set_data( $data );
 
