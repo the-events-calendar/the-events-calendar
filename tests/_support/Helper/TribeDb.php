@@ -225,11 +225,11 @@ class TribeDb extends \Codeception\Module {
 
 		$tax_input = [];
 		if ( isset( $overrides['categories'] ) ) {
-			$tax_input['tribe_events_cat'] = (array)$overrides['categories'];
+			$tax_input['tribe_events_cat'] = (array) $overrides['categories'];
 			unset( $overrides['categories'] );
 		}
 		if ( isset( $overrides['tags'] ) ) {
-			$tax_input['post_tag'] = (array)$overrides['tags'];
+			$tax_input['post_tag'] = (array) $overrides['tags'];
 			unset( $overrides['tags'] );
 		}
 
