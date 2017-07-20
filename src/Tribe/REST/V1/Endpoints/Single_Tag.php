@@ -18,19 +18,19 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 	 */
 	public function CREATE_args() {
 		return array(
-			'name'             => array(
+			'name'        => array(
 				'required'          => true,
 				'validate_callback' => array( $this->validator, 'is_string' ),
 				'type'              => 'string',
 				'description'       => __( 'The event tag name', 'the-events-calendar' ),
 			),
-			'description'             => array(
+			'description' => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_string' ),
 				'type'              => 'string',
 				'description'       => __( 'The event tag description', 'the-events-calendar' ),
 			),
-			'slug'             => array(
+			'slug'        => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_string' ),
 				'type'              => 'string',
