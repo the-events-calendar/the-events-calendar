@@ -543,7 +543,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'type'     => $this->meta['type'],
 			'origin'   => $this->meta['origin'],
 			'source'   => isset( $this->meta['source'] ) ? $this->meta['source'] : '',
-			'callback' => $is_previewing ? null : site_url( '/event-aggregator/insert/?key=' . urlencode( $this->meta['hash'] ) ),
+			'callback' => $is_previewing ? null : home_url( '/event-aggregator/insert/?key=' . urlencode( $this->meta['hash'] ) ),
 		);
 
 		if ( ! empty( $this->meta['frequency'] ) ) {
