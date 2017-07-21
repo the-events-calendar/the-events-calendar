@@ -330,6 +330,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.5.9] TBD =
 
 * Fix - Send Aggregator callback URL with correct Scheme [83364]
+* Fix - Scheduled Aggregator cron for inserting will re-enqueue to complete scheduled imports [83382]
 * Fix - Avoid overwriting Venues and Organizers when importing FB events with similarly named Venues and Organizers [75370]
 * Fix - Improve handling of large and/or slow Google Calendar and iCal feeds [79975]
 * Tweak - Added period "." separator to datepicker formats. [65282]
