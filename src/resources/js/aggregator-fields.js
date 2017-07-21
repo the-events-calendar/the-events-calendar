@@ -44,7 +44,7 @@ tribe_aggregator.fields = {
 	result_fetch_count: 0,
 
 	// the maximum number of result fetches that can be done per frequency before erroring out
-	max_result_fetch_count: 5,
+	max_result_fetch_count: 15,
 
 	// frequency at which we will poll for results
 	polling_frequency_index: 0,
