@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-07-07 06:43:36+0000\n"
+"PO-Revision-Date: 2017-07-17 09:53:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -49,7 +49,7 @@ msgstr ""
 
 #: common/src/Tribe/Plugins_API.php:61
 msgid "More Details"
-msgstr ""
+msgstr "詳細情報"
 
 #: common/src/Tribe/Plugins_API.php:60
 msgid "More information about %s"
@@ -61,7 +61,7 @@ msgstr "今すぐ購入"
 
 #: common/src/Tribe/Plugins_API.php:51
 msgid "Buy %s now"
-msgstr ""
+msgstr "今すぐ %s を購入"
 
 #: common/src/Tribe/PUE/Checker.php:1093
 msgid "There is a new version of %1$s available. %2$s"
@@ -186,7 +186,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:89
 msgid "The Events Calendar REST API"
-msgstr ""
+msgstr "The Events Calendar REST API"
 
 #: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:90
 msgid "The Events Calendar REST API allows accessing upcoming events information easily and conveniently."
@@ -378,7 +378,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:56
 msgid "The URL to the organizer page"
-msgstr ""
+msgstr "主催者ページの URL"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:60
 msgid "The organizer name"
@@ -446,7 +446,7 @@ msgstr "会場住所"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:87
 msgid "The venue city"
-msgstr ""
+msgstr "会場都市"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:91
 msgid "The venue country"
@@ -666,7 +666,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:361
 msgid "Other URL Import Settings"
-msgstr ""
+msgstr "その他の URL のインポート設定"
 
 #: src/admin-views/aggregator/origins/url.php:91
 msgid "you can modify this setting here."
@@ -807,7 +807,7 @@ msgstr "all"
 
 #: common/src/Tribe/Validate.php:245
 msgid "%s must be a whole number."
-msgstr ""
+msgstr "%s は整数でなければなりません。"
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:52
 msgid "The URL to the term archive page"
@@ -1328,7 +1328,7 @@ msgstr "イベントのヘルプ"
 
 #: common/src/Tribe/PUE/Checker.php:1668
 msgid "Expired license. Consult your network administrator."
-msgstr ""
+msgstr "ライセンスの有効期限が切れました。 ネットワーク管理者に相談してください。"
 
 #: common/src/Tribe/PUE/Checker.php:1667
 msgid "No license entered. Consult your network administrator."
@@ -1348,7 +1348,7 @@ msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:536
 msgid "Override network license key"
-msgstr ""
+msgstr "ネットワークライセンスキーを上書きする"
 
 #: common/src/Tribe/PUE/Checker.php:527 common/src/Tribe/PUE/Checker.php:561
 msgid "License Key Status:"
@@ -1439,7 +1439,7 @@ msgstr "Meetup API キー"
 
 #: src/admin-views/tribe-options-addons-api.php:94
 msgid "You need a Meetup API Key to import your events from Meetup."
-msgstr ""
+msgstr "Meetup からイベントをインポートするには Meetup API キーが必要です。"
 
 #: src/admin-views/tribe-options-addons-api.php:82
 msgid "You need to connect Event Aggregator to Facebook to import your events from Facebook."
@@ -1659,7 +1659,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:30
 msgid "You do not have a license"
-msgstr ""
+msgstr "ライセンスを持っていません"
 
 #: src/admin-views/aggregator/status.php:23
 msgid "Your license is valid"
@@ -1749,7 +1749,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:190
 msgid "ICS File Import Settings"
-msgstr ""
+msgstr "ICS ファイルのインポート設定"
 
 #: src/admin-views/aggregator/settings.php:166
 msgid "The default event category for events imported via iCalendar"
@@ -1761,7 +1761,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:150
 msgid "iCalendar Import Settings"
-msgstr ""
+msgstr "iCalendar インポート設定"
 
 #: src/admin-views/aggregator/settings.php:137
 #: src/admin-views/aggregator/settings.php:177
@@ -1913,7 +1913,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/ics.php:10
 msgid "Upload an ICS File"
-msgstr ""
+msgstr "ICS ファイルアップロード"
 
 #: src/admin-views/aggregator/origins/ics.php:7
 msgid "Select your ICS file from the WordPress media library. You may need to first upload the file from your computer to the library."
@@ -2524,11 +2524,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/Abstract.php:189
 msgid "Please provide the URL that you wish to import."
-msgstr ""
+msgstr "インポートする URL を入力してください。"
 
 #: src/Tribe/Aggregator/Tabs/Abstract.php:135
 msgid "Please provide the file that you wish to import."
-msgstr ""
+msgstr "インポートするファイルを指定してください。"
 
 #: src/Tribe/Aggregator/Tabs/Abstract.php:59
 msgid "There was a problem processing your import. Please try again."
@@ -2588,7 +2588,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:514
 msgid "The image associated with your event is not accessible with your API key."
-msgstr ""
+msgstr "イベントに関連付けられている画像には API キーでアクセスできません。"
 
 #: src/Tribe/Aggregator/Service.php:513
 msgid "The image associated with your event could not be imported."
@@ -2941,7 +2941,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Page.php:95
 msgid "Please wait while your preview is fetched."
-msgstr ""
+msgstr "プレビューを取得している間お待ちください。"
 
 #: src/Tribe/Aggregator/Page.php:93
 msgid "Hide Filters"
@@ -3020,7 +3020,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Migrate.php:294
 msgid "We did not find any Facebook Events settings to migrate."
-msgstr ""
+msgstr "移行する Facebook イベント設定は見つかりませんでした。"
 
 #: src/Tribe/Aggregator/Migrate.php:287
 msgid "You do not have permission to migrate Facebook Events settings to Event Aggregator"
@@ -3032,11 +3032,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Migrate.php:80
 msgid "Migrate iCal Importer settings"
-msgstr ""
+msgstr "iCal Importer の設定を移行する"
 
 #: src/Tribe/Aggregator/Migrate.php:76
 msgid "Migrate Facebook Events settings"
-msgstr ""
+msgstr "Facebook イベントの設定を移行する"
 
 #: src/Tribe/Aggregator/Migrate.php:73
 msgid "Thanks for activating Event Aggregator! It looks like you have some settings and imports configured on our legacy importer plugins. To complete your transition, we need to transfer those options to our new system."
@@ -3196,7 +3196,7 @@ msgstr ""
 #: src/Tribe/Aggregator/API/Origins.php:51
 #: src/admin-views/aggregator/settings.php:456
 msgid "ICS File"
-msgstr ""
+msgstr "ICS ファイル"
 
 #: src/Tribe/Aggregator/API/Origins.php:46
 #: src/Tribe/Aggregator/Record/iCal.php:14
@@ -3232,11 +3232,11 @@ msgstr ""
 #: common/src/admin-views/tribe-options-licenses.php:11
 #: common/src/admin-views/tribe-options-licenses.php:16
 msgid " (opens in new window)"
-msgstr ""
+msgstr " (新しいウィンドウで開きます)"
 
 #: common/src/admin-views/tribe-options-help.php:48
 msgid "Event Log"
-msgstr ""
+msgstr "イベントログ"
 
 #: common/src/admin-views/tribe-options-help.php:35
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. Please opt-in below to automatically share your system information with our support team. This will allow us to assist you faster if you post in our forums."
@@ -3308,7 +3308,7 @@ msgstr " (新しいウィンドウで開きます)"
 
 #: common/src/Tribe/PUE/Checker.php:957 common/src/Tribe/PUE/Notices.php:288
 msgid "Renew Your License Now"
-msgstr ""
+msgstr "今すぐライセンスを更新する"
 
 #: common/src/Tribe/Main.php:268
 msgid ": Selected 1 row"
@@ -3544,7 +3544,7 @@ msgstr "ダウンロードログ"
 
 #: common/src/admin-views/event-log.php:100
 msgid "The selected log file is empty or has not been generated yet."
-msgstr ""
+msgstr "選択したログファイルは空であるかまだ生成されていません。"
 
 #: common/src/admin-views/event-log.php:43
 msgid "Method"
@@ -6215,7 +6215,7 @@ msgstr "アルバ"
 
 #: common/src/Tribe/View_Helpers.php:57
 msgid "Armenia"
-msgstr "アルメリア"
+msgstr "アルメニア"
 
 #: common/src/Tribe/View_Helpers.php:56
 msgid "Argentina"
@@ -6243,7 +6243,7 @@ msgstr "アンドラ"
 
 #: common/src/Tribe/View_Helpers.php:50
 msgid "American Samoa"
-msgstr "米サモア"
+msgstr "アメリカ領サモア"
 
 #: common/src/Tribe/View_Helpers.php:49
 msgid "Algeria"
