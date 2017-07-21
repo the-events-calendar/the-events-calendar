@@ -35,31 +35,37 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 				'id' => 'facebook',
 				'name' => __( 'Facebook', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 			'gcal' => (object) array(
 				'id' => 'gcal',
 				'name' => __( 'Google Calendar', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 			'ical' => (object) array(
 				'id' => 'ical',
 				'name' => __( 'iCalendar', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 			'ics' => (object) array(
 				'id' => 'ics',
 				'name' => __( 'ICS File', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 			'meetup' => (object) array(
 				'id' => 'meetup',
 				'name' => __( 'Meetup', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 			'url' => (object) array(
 				'id' => 'url',
 				'name' => __( 'Other URL (beta)', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 		);
 
@@ -77,10 +83,16 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 		}
 
 		$origins = $this->origins;
+		$origins = array_filter( $origins, array( $this, 'is_origin_available' ) );
 
-		$origins = array_filter($origins, array( $this, 'is_origin_available' ));
+		/**
+		 * The origins (sources) that EA can import from
+		 *
+		 * @param array $origins The origins
+		 */
+		$origins = apply_filters( 'tribe_aggregator_origins', $origins );
 
-		return apply_filters( 'tribe_aggregator_origins', $origins );
+		return $origins;
 	}
 
 	/**
