@@ -669,8 +669,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	public function get_import_data() {
+		/** @var \Tribe__Events__Aggregator $aggregator */
 		$aggregator = tribe( 'events-aggregator.main' );
-		$data = array();
+		$data       = array();
 
 		// For now only apply this to the URL type
 		if ( 'url' === $this->type ) {
@@ -680,7 +681,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			);
 		}
 
-		return $aggregator->api( 'import' )->get( $this->meta['import_id'], $data );
+		/** @var \Tribe__Events__Aggregator__API__Import $import_api */
+		$import_api  = $aggregator->api( 'import' );
+		$import_data = $import_api->get( $this->meta['import_id'], $data );
+
+		$import_data = $this->maybe_cast_to_error( $import_data );
+
+		return $import_data;
 	}
 
 	public function delete( $force = false ) {
@@ -1904,5 +1911,34 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		global $wpdb;
 
 		return $wpdb->last_error !== $this->last_wpdb_error;
+	}
+
+	/**
+	 * Cast error responses from the Service to WP_Errors to ease processing down the line.
+	 *
+	 * If a response is a WP_Error already or is not an error response then it will not be modified.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Error|object $import_data
+	 *
+	 * @return array|\WP_Error
+	 */
+	protected function maybe_cast_to_error( $import_data ) {
+		if ( is_wp_error( $import_data ) ) {
+			return $import_data;
+		}
+
+		if ( ! empty( $import_data->status ) && 'error' === $import_data->status ) {
+			$import_data = (array) $import_data;
+			$code        = Tribe__Utils__Array::get( $import_data, 'message_code', 'error:import-failed' );
+			/** @var \Tribe__Events__Aggregator__Service $service */
+			$service     = tribe( 'events-aggregator.service' );
+			$message     = Tribe__Utils__Array::get( $import_data, 'message', $service->get_service_message( 'error:import-failed' ) );
+			$data        = Tribe__Utils__Array::get( $import_data, 'data', array() );
+			$import_data = new WP_Error( $code, $message, $data );
+		}
+
+		return $import_data;
 	}
 }

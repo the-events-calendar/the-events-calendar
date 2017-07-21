@@ -334,6 +334,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Added period "." separator to datepicker formats. [65282]
 * Tweak - Added tribe_events_month_get_events_in_month filter to allow overriding of events used in month templates. [83317]
 
+= [4.5.8.1] 2017-07-21 =
+
+* Fix - Fixed an issue where failed EA Imports would hang for a long time before failing [83344]
+
 = [4.5.8] 2017-07-13 =
 
 * Fix - Remove permalink logic for recurring events (Events Calendar PRO will implement instead) [74153]

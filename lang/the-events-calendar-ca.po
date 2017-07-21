@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-05-18 10:00:11+0000\n"
+"PO-Revision-Date: 2017-07-19 15:23:21+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -123,7 +123,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:460
 msgid "Other URLs"
-msgstr ""
+msgstr "Altres URLs"
 
 #: src/admin-views/aggregator/settings.php:411
 msgid "Fetch source event's settings (e.g. Show Google Maps Link or Sticky in Month View) when importing from another site using The Events Calendar."
@@ -1362,7 +1362,7 @@ msgstr ""
 
 #: common/src/admin-views/app-shop.php:31
 msgid "Installed"
-msgstr ""
+msgstr "Instal·lat"
 
 #: common/src/admin-views/app-shop.php:29
 msgid "Installed Add-Ons"
@@ -1486,7 +1486,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:188
 msgid "Category:"
-msgstr ""
+msgstr "Categoria"
 
 #: src/admin-views/aggregator/tabs/import-form.php:176
 msgid "Status:"
@@ -3677,11 +3677,11 @@ msgstr "Editar el Lloc"
 
 #: src/views/list/nav.php:34
 msgid "Next %s"
-msgstr ""
+msgstr "Següent %s"
 
 #: src/views/list/nav.php:26
 msgid "Previous %s"
-msgstr ""
+msgstr "Anterior %s"
 
 #: src/io/csv/admin-views/result.php:26
 msgid "%1$s%2$s%3$sInserted:%4$s A new item was inserted successfully. %5$s%2$s%3$sUpdated:%4$s An item was found with the same name and/or start date. The existing item was updated with the new value from the file.%5$s%2$s%3$sSkipped:%4$s A row was found in the CSV file that could not be imported. Please see below for the invalid rows.%5$s%6$s"
@@ -3701,7 +3701,7 @@ msgstr ""
 
 #: src/functions/template-tags/day.php:108
 msgid "Next Day"
-msgstr ""
+msgstr "Següent dia"
 
 #: src/functions/template-tags/day.php:106
 msgid "Previous Day"
@@ -4007,7 +4007,7 @@ msgstr ""
 
 #: common/src/Tribe/Admin/Help_Page.php:825
 msgid "Active Users:"
-msgstr ""
+msgstr "Usuaris Actius:"
 
 #: common/src/Tribe/Admin/Help_Page.php:802
 msgid "Install Plugin"
