@@ -139,17 +139,17 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 
 		while ( $this->next_waiting_record() ) {
 			if ( ! $this->do_processing() ) {
-				$queue_items = get_post_meta( $this->current_record_id, Tribe__Events__Aggregator__Records::meta_prefix( 'queue' ), true );
-
-				// We only get here if we done processing this batch.
-				if ( ! empty( $queue_items ) ) {
-					// Schedule a Cron Event to happen ASAP, and flag it for searching and we need to make it unique
-					// By default WordPress won't allow more than one Action to happen twice in 10 minutes
-					wp_schedule_single_event( time(), self::$scheduled_single_key );
-				}
-
 				break;
 			}
+		}
+
+		$queue_items = get_post_meta( $this->current_record_id, Tribe__Events__Aggregator__Records::meta_prefix( Tribe__Events__Aggregator__Record__Queue::$queue_key ), true );
+
+		// We only get here if we done processing this batch.
+		if ( ! empty( $queue_items ) ) {
+			// Schedule a Cron Event to happen ASAP, and flag it for searching and we need to make it unique
+			// By default WordPress won't allow more than one Action to happen twice in 10 minutes
+			wp_schedule_single_event( time(), self::$scheduled_single_key );
 		}
 	}
 
