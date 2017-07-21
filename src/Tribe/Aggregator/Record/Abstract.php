@@ -1839,6 +1839,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	/**
+	 * Cast error responses from the Service to WP_Errors to ease processing down the line.
+	 *
+	 * If a response is a WP_Error already or is not an error response then it will not be modified.
+	 *
+	 * @since TBD
+	 *
 	 * @param WP_Error|object $import_data
 	 *
 	 * @return array|\WP_Error
