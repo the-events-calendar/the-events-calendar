@@ -201,27 +201,30 @@ var tribeDateFormat = function() {
 }();
 
 tribeDateFormat.masks = {
-	"default"        : "ddd mmm dd yyyy HH:MM:ss",
-	"tribeQuery"     : "yyyy-mm-dd",
+	"default":         "ddd mmm dd yyyy HH:MM:ss",
+	"tribeQuery":      "yyyy-mm-dd",
 	"tribeMonthQuery": "yyyy-mm",
-	"0"              : 'yyyy-mm-dd',
-	"1"              : 'm/d/yyyy',
-	"2"              : 'mm/dd/yyyy',
-	"3"              : 'd/m/yyyy',
-	"4"              : 'dd/mm/yyyy',
-	"5"              : 'm-d-yyyy',
-	"6"              : 'mm-dd-yyyy',
-	"7"              : 'd-m-yyyy',
-	"8"              : 'dd-mm-yyyy',
-	"m0"             : 'yyyy-mm',
-	"m1"             : 'm/yyyy',
-	"m2"             : 'mm/yyyy',
-	"m3"             : 'm/yyyy',
-	"m4"             : 'mm/yyyy',
-	"m5"             : 'm-yyyy',
-	"m6"             : 'mm-yyyy',
-	"m7"             : 'm-yyyy',
-	"m8"             : 'mm-yyyy'
+	"0":               'yyyy-mm-dd',
+	"1":               'm/d/yyyy',
+	"2":               'mm/dd/yyyy',
+	"3":               'd/m/yyyy',
+	"4":               'dd/mm/yyyy',
+	"5":               'm-d-yyyy',
+	"6":               'mm-dd-yyyy',
+	"7":               'd-m-yyyy',
+	"8":               'dd-mm-yyyy',
+	"9":               'yyyy.mm.dd',
+	"10":              'mm.dd.yyyy',
+	"11":              'dd.mm.yyyy',
+	"m0":              'yyyy-mm',
+	"m1":              'm/yyyy',
+	"m2":              'mm/yyyy',
+	"m3":              'm/yyyy',
+	"m4":              'mm/yyyy',
+	"m5":              'm-yyyy',
+	"m6":              'mm-yyyy',
+	"m7":              'm-yyyy',
+	"m8":              'mm-yyyy'
 
 };
 
@@ -259,7 +262,20 @@ jQuery( document ).ready( function( $ ) {
 
 	// Modified from tribe_ev.data to match jQuery UI formatting.
 	var datepicker_formats = {
-		'main' : ['yy-mm-dd', 'm/d/yy', 'mm/dd/yy', 'd/m/yy', 'dd/mm/yy', 'm-d-yy', 'mm-dd-yy', 'd-m-yy', 'dd-mm-yy'],
+		'main' : [
+			'yy-mm-dd',
+			'm/d/yy',
+			'mm/dd/yy',
+			'd/m/yy',
+			'dd/mm/yy',
+			'm-d-yy',
+			'mm-dd-yy',
+			'd-m-yy',
+			'dd-mm-yy',
+			'yy.mm.dd',
+			'mm.dd.yy',
+			'dd.mm.yy'
+		],
 		'month': ['yy-mm', 'm/yy', 'mm/yy', 'm/yy', 'mm/yy', 'm-yy', 'mm-yy', 'm-yy', 'mm-yy']
 	};
 
@@ -493,7 +509,7 @@ jQuery( document ).ready( function( $ ) {
 
 		var date_format = 'yy-mm-dd';
 
-		if ( $date_format.length && $date_format.attr( 'data-datepicker_format' ).length === 1 ) {
+		if ( $date_format.length && $date_format.attr( 'data-datepicker_format' ).length >= 1 ) {
 			datepicker_format = $date_format.attr( 'data-datepicker_format' );
 			date_format = datepicker_formats.main[ datepicker_format ];
 		}
