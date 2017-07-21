@@ -60,7 +60,7 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 	 *
 	 * @param string $import_id Event Aggregator import id
 	 *
-	 * @return stdClass|WP_Error
+	 * @return stdClass|WP_Error A class containing the service response or a WP_Error if the service could not be reached.
 	 */
 	public function get( $import_id, $data = array() ) {
 		$response = $this->service->get_import( $import_id, $data );
