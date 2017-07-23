@@ -341,7 +341,7 @@ var tribe_events_bar_action;
 								ts.url_params[ $this.attr( 'name' ) ] = $this.val();
 							}
 						}
-						else {
+						else if ( 'undefined' !== typeof $this.attr( 'name' ) ) {
 							ts.url_params[ $this.attr( 'name' ) ] = $this.val();
 						}
 					}
