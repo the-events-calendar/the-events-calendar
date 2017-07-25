@@ -1918,7 +1918,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * If a response is a WP_Error already or is not an error response then it will not be modified.
 	 *
-	 * @since TBD
+	 * @since 4.5.9
 	 *
 	 * @param WP_Error|object $import_data
 	 *

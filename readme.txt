@@ -327,7 +327,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5.9] TBD =
+= [4.5.9] 2017-07-25 =
 
 * Fix - Send Aggregator callback URL with correct Scheme [83364]
 * Fix - Scheduled Aggregator cron for inserting will re-enqueue to complete scheduled imports [83382]

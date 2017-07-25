@@ -544,7 +544,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			 * @param string     $start_date      The start date to filter the queried events by
 			 * @param string     $end_date        The end date to filter the queried events by
 			 *
-			 * @since TBD
+			 * @since 4.5.9
 			 */
 			$events_in_month = apply_filters( 'tribe_events_month_get_events_in_month', null, $start_date, $end_date );
 

@@ -5,7 +5,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	/**
 	 * Which Action will be triggered as a single Cron event
 	 *
-	 * @since  TBD
+	 * @since  4.5.9
 	 *
 	 * @var    string
 	 */
