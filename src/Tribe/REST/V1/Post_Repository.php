@@ -460,7 +460,16 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				continue;
 			}
 
-			$data[] = $this->prepare_term_data( $term_data, $taxonomy );
+			$namespace_map = array(
+				Tribe__Events__Main::TAXONOMY => 'categories',
+				'post_tag'                    => 'tags',
+			);
+
+			$namespace     = isset( $namespace_mapp[ $taxonomy ] )
+				? $namespace_map[ $taxonomy ]
+				: $namespace_map[0];
+
+			$data[] = $this->prepare_term_data( $term_data, $taxonomy, $namespace );
 		}
 
 		return $data;
@@ -481,6 +490,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$rename_map = array(
 			'link' => 'url',
 		);
+
+		$term_data = (array) $term_data;
 
 		foreach ( $rename_map as $old => $new ) {
 			if ( ! isset( $term_data[ $old ] ) || isset( $term_data[ $new ] ) ) {
