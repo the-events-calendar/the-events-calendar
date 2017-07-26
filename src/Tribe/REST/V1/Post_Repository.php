@@ -465,9 +465,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				'post_tag'                    => 'tags',
 			);
 
-			$namespace     = isset( $namespace_map[ $taxonomy ] )
-				? $namespace_map[ $taxonomy ]
-				: $namespace_map[0];
+			$namespace = Tribe__Utils__Array::get( $namespace_map, $taxonomy, $namespace_map[0] );
 
 			$data[] = $this->prepare_term_data( $term_data, $taxonomy, $namespace );
 		}
