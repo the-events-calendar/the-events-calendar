@@ -1563,7 +1563,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			Tribe__Events__Aggregator__Records::instance()->add_record_to_event( $event['ID'], $this->id, $this->origin );
 
 			// Add post parent possibility
-			if ( empty( $event['parent_uid'] ) && ! empty( $unique_field ) ) {
+			if ( empty( $event['parent_uid'] ) && ! empty( $unique_field ) && ! empty( $event[ $unique_field['target'] ] ) ) {
 				$possible_parents[ $event['ID'] ] = $event[ $unique_field['target'] ];
 			}
 
