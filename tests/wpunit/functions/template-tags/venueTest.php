@@ -1,6 +1,6 @@
 <?php
 
-namespace Tribe\Events;
+namespace Tribe\Events\functions\templateTags;
 
 class venueTest extends \Codeception\TestCase\WPTestCase {
 	protected $posts = [];
