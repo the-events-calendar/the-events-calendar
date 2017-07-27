@@ -320,7 +320,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		public function action_column_contents( $column, $post ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_event_id( $post );
 
-			if ( is_wp_error( $record ) ) {
+			if ( tribe_is_error( $record ) ) {
 				return false;
 			}
 
@@ -857,8 +857,8 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				$response->status = true;
 				$response->text = sprintf(
 					_n(
-						'Migration: %d Legacy Ignored Post was migrated sucessfully. To see the migrated event you will first need to refresh this screen.',
-						'Migration: %d Legacy Ignored Posts were migrated sucessfully. To see the migrated events you will first need to refresh this screen.',
+						'Migration: %d Legacy Ignored Post was migrated successfully. To see the migrated event you will first need to refresh this screen.',
+						'Migration: %d Legacy Ignored Posts were migrated successfully. To see the migrated events you will first need to refresh this screen.',
 						count( $response->migrated ),
 						'the-events-calendar'
 					),

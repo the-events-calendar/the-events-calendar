@@ -24,7 +24,7 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 	 * @return int The generated event post ID
 	 */
 	function create_object( $args = array() ) {
-		$args['post_type'] = Main::POSTTYPE;
+		$args['post_type'] = $this->get_post_type();
 		$args['post_status'] = isset( $args['post_status'] ) ? $args['post_status'] : 'publish';
 		// by default an event will happen tomorrow
 		$when = isset( $args['when'] ) ? $args['when'] : '+24 hours';
@@ -33,8 +33,8 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 		// by default an event will be on UTC time
 		$utc_offset = isset( $args['utc_offset'] ) ? $args['utc_offset'] : 0;
 
-		$start_time = strtotime( $when );
-		$end_time = strtotime( $when ) + $duration;
+		$start_time = is_numeric( $when ) ? $when : strtotime( $when );
+		$end_time = $start_time + $duration;
 
 		$start = date( 'Y-m-d H:i:s', $start_time );
 		$utc_start = date( 'Y-m-d H:i:s', $start_time + $utc_offset * 60 );
@@ -65,7 +65,7 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 
 		$id = uniqid();
 		$defaults = [
-			'post_type'  => Main::POSTTYPE,
+			'post_type'  => $this->get_post_type(),
 			'post_title' => "Event {$id}",
 			'post_name'  => "event-{$id}",
 			'meta_input' => isset( $args['meta_input'] ) ? array_merge( $meta_input, $args['meta_input'] ) : $meta_input,
@@ -110,5 +110,12 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 		}
 
 		return $ids;
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function get_post_type() {
+		return Main::POSTTYPE;
 	}
 }

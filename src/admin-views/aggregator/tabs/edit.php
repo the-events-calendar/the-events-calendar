@@ -2,7 +2,11 @@
 $record = new stdClass;
 
 if ( ! empty( $_GET['id'] ) ) {
-	$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( (int) $_GET['id'] );
+	$get_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( (int) $_GET['id'] );
+
+	if ( ! tribe_is_error( $get_record ) ) {
+		$record = $get_record;
+	}
 }
 
 $aggregator_action = 'edit';

@@ -194,6 +194,15 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		return $data;
 	}
 
+	/**
+	 * Returns the post thumbnail data.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $id A post ID.
+	 *
+	 * @return bool|array An array containing the post featured image data or `false` on failure.
+	 */
 	protected function get_featured_image( $id ) {
 		$thumbnail_id = get_post_thumbnail_id( $id );
 

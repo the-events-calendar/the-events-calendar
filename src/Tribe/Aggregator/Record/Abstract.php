@@ -20,6 +20,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	public $is_schedule = false;
 	public $is_manual = false;
+	public $last_wpdb_error = '';
 
 	/**
 	 * An associative array of origins and the settings they define a policy for.
@@ -218,10 +219,19 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$post = $this->prep_post_args( $type, $args, $meta );
 
+		$this->watch_for_db_errors();
+
 		$result = wp_insert_post( $post );
 
 		if ( is_wp_error( $result ) ) {
 			$this->maybe_add_meta_via_pre_wp_44_method( $result, $post['meta_input'] );
+		}
+
+		if ( $this->db_errors_happened() ) {
+			$error_message = __( 'Something went wrong while inserting the record in the database.', 'the-events-calendar' );
+			wp_delete_post( $result );
+
+			return new WP_Error( 'db-error-during-creation', $error_message );
 		}
 
 		// After Creating the Post Load and return
@@ -239,7 +249,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function save( $post_id, $args = array(), $meta = array() ) {
 		if ( ! isset( $meta['type'] ) || 'schedule' !== $meta['type'] ) {
-			return tribe_error( 'core:aggregator:invalid-edit-record-type', $type );
+			return tribe_error( 'core:aggregator:invalid-edit-record-type', $meta );
 		}
 
 		$defaults = array(
@@ -359,7 +369,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Creates a schedule record based on the import record
 	 *
-	 * @return boolean|WP_Error
+	 * @return boolean|Tribe_Error
 	 */
 	public function create_schedule_record() {
 		$post = array(
@@ -397,6 +407,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
 		$post['post_content'] = $frequency->id;
 
+		$this->watch_for_db_errors();
+
 		// create schedule post
 		$schedule_id = wp_insert_post( $post );
 
@@ -406,6 +418,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$this->maybe_add_meta_via_pre_wp_44_method( $schedule_id, $post['meta_input'] );
+
+		if ( $this->db_errors_happened() ) {
+			wp_delete_post( $schedule_id );
+
+			return tribe_error( 'core:aggregator:save-schedule-failed' );
+		}
 
 		$update_args = array(
 			'ID' => $this->post->ID,
@@ -428,7 +446,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Creates a child record based on the import record
 	 *
-	 * @return boolean|WP_Error|Tribe__Events__Aggregator__Record__Abstract
+	 * @return boolean|Tribe_Error|Tribe__Events__Aggregator__Record__Abstract
 	 */
 	public function create_child_record() {
 		$post = array(
@@ -453,11 +471,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
 		if ( ! $frequency ) {
-			return tribe_error( 'core:aggregator:invalid-record-frequency', $meta );
+			return tribe_error( 'core:aggregator:invalid-record-frequency', $post['meta_input'] );
 		}
 
 		// Setup the post_content as the Frequency (makes it easy to fetch by frequency)
 		$post['post_content'] = $frequency->id;
+
+		$this->watch_for_db_errors();
 
 		// create schedule post
 		$child_id = wp_insert_post( $post );
@@ -468,6 +488,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$this->maybe_add_meta_via_pre_wp_44_method( $child_id, $post['meta_input'] );
+
+		if ( $this->db_errors_happened() ) {
+			wp_delete_post( $child_id );
+
+			return tribe_error( 'core:aggregator:save-child-failed' );
+		}
 
 		// track the most recent child that was spawned
 		$this->update_meta( 'recent_child', $child_id );
@@ -608,8 +634,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	public function get_import_data() {
+		/** @var \Tribe__Events__Aggregator $aggregator */
 		$aggregator = tribe( 'events-aggregator.main' );
-		$data = array();
+		$data       = array();
 
 		// For now only apply this to the URL type
 		if ( 'url' === $this->type ) {
@@ -619,7 +646,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			);
 		}
 
-		return $aggregator->api( 'import' )->get( $this->meta['import_id'], $data );
+		/** @var \Tribe__Events__Aggregator__API__Import $import_api */
+		$import_api  = $aggregator->api( 'import' );
+		$import_data = $import_api->get( $this->meta['import_id'], $data );
+
+		$import_data = $this->maybe_cast_to_error( $import_data );
+
+		return $import_data;
 	}
 
 	public function delete( $force = false ) {
@@ -792,6 +825,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return boolean
 	 */
 	public function is_schedule_time() {
+		if ( tribe_is_truthy( getenv( 'TRIBE_DEBUG_OVERRIDE_SCHEDULE' ) ) ) {
+			return true;
+		}
+
 		// If we are not on a Schedule Type
 		if ( ! $this->is_schedule ) {
 			return false;
@@ -948,6 +985,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$parent_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->post->post_parent );
+
+		if ( tribe_is_error( $parent_record ) ) {
+			return;
+		}
+
 		$parent_record->update_meta( 'source_name', $source_name );
 	}
 
@@ -1466,7 +1508,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			Tribe__Events__Aggregator__Records::instance()->add_record_to_event( $event['ID'], $this->id, $this->origin );
 
 			// Add post parent possibility
-			if ( empty( $event['parent_uid'] ) ) {
+			if ( empty( $event['parent_uid'] ) && ! empty( $unique_field ) ) {
 				$possible_parents[ $event['ID'] ] = $event[ $unique_field['target'] ];
 			}
 
@@ -1758,36 +1800,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
-		require_once( ABSPATH . 'wp-admin/includes/media.php' );
-		require_once( ABSPATH . 'wp-admin/includes/file.php' );
-		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+		$uploader = new Tribe__Image__Uploader( $event['image'] );
+		$thumbnail_id = $uploader->upload_and_get_attachment_id();
 
-		// Set variables for storage, fix file filename for query strings.
-		preg_match( '/[^\?]+\.(jpe?g|jpe|gif|png)\b/i', $event['image'], $matches );
-		if ( ! $matches ) {
-			return false;
-		}
-
-		$file_array         = array();
-		$file_array['name'] = basename( $matches[0] );
-
-		// Download file to temp location.
-		$file_array['tmp_name'] = download_url( $event['image'] );
-
-		// If error storing temporarily, return the error.
-		if ( is_wp_error( $file_array['tmp_name'] ) ) {
-			return false;
-		}
-
-		$id = media_handle_sideload( $file_array, $event['ID'], $event['post_title'] );
-
-		if ( is_wp_error( $id ) ) {
-			@unlink( $file_array['tmp_name'] );
-
-			return false;
-		}
-
-		return (object) array( 'post_id' => $id );
+		return false !== $thumbnail_id ? (object) array( 'post_id' => $thumbnail_id ) : false;
 	}
 
 	/**
@@ -1800,5 +1816,54 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	protected function has_import_policy_for( $origin, $setting ) {
 		return isset( $this->origin_import_policies[ $origin ] ) && in_array( $setting, $this->origin_import_policies[ $origin ] );
+	}
+
+	/**
+	 * Starts monitoring the db for errors.
+	 */
+	protected function watch_for_db_errors() {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$this->last_wpdb_error = $wpdb->last_error;
+
+	}
+
+	/**
+	 * @return bool Whether a db error happened during the insertion of data or not.
+	 */
+	protected function db_errors_happened() {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		return $wpdb->last_error !== $this->last_wpdb_error;
+	}
+
+	/**
+	 * Cast error responses from the Service to WP_Errors to ease processing down the line.
+	 *
+	 * If a response is a WP_Error already or is not an error response then it will not be modified.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Error|object $import_data
+	 *
+	 * @return array|\WP_Error
+	 */
+	protected function maybe_cast_to_error( $import_data ) {
+		if ( is_wp_error( $import_data ) ) {
+			return $import_data;
+		}
+
+		if ( ! empty( $import_data->status ) && 'error' === $import_data->status ) {
+			$import_data = (array) $import_data;
+			$code        = Tribe__Utils__Array::get( $import_data, 'message_code', 'error:import-failed' );
+			/** @var \Tribe__Events__Aggregator__Service $service */
+			$service     = tribe( 'events-aggregator.service' );
+			$message     = Tribe__Utils__Array::get( $import_data, 'message', $service->get_service_message( 'error:import-failed' ) );
+			$data        = Tribe__Utils__Array::get( $import_data, 'data', array() );
+			$import_data = new WP_Error( $code, $message, $data );
+		}
+
+		return $import_data;
 	}
 }

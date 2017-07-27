@@ -9,14 +9,6 @@ modules:
         - Asserts
         - WPLoader
     config:
-        WPBrowser:
-            url: 'http://tec.tri.be'
-            adminUsername: admin
-            adminPassword: admin
-            adminUrl: /wp-admin
-        REST:
-            depends: WPBrowser
-            url: 'http://tec.tri.be/wp-json/tribe/events/v1/'
         WPDb:
             dsn: 'mysql:host=localhost;dbname=test'
             user: root
@@ -26,6 +18,14 @@ modules:
             cleanup: true
             url: 'http://tec.tri.be'
             tablePrefix: wp_
+        WPBrowser:
+            url: 'http://tec.tri.be'
+            adminUsername: admin
+            adminPassword: admin
+            adminUrl: /wp-admin
+        REST:
+            depends: WPBrowser
+            url: 'http://tec.tri.be/wp-json/tribe/events/v1/'
         WPLoader:
             # just load WordPress using the same db as WPDb
             loadOnly: true

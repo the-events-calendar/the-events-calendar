@@ -29,7 +29,7 @@ class Tribe__Events__Aggregator__Meta_Box {
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_event_id( $post_id );
 		$origin = get_post_meta( $post_id, Tribe__Events__Aggregator__Event::$origin_key, true );
 
-		if ( is_wp_error( $record ) && ! $origin ) {
+		if ( tribe_is_error( $record ) && ! $origin ) {
 			return;
 		}
 
@@ -53,7 +53,7 @@ class Tribe__Events__Aggregator__Meta_Box {
 		$source = null;
 		$origin = null;
 
-		if ( is_wp_error( $record ) ) {
+		if ( tribe_is_error( $record ) ) {
 			$last_import = get_post_meta( $event_id, Tribe__Events__Aggregator__Event::$updated_key, true );
 			$source = get_post_meta( $event_id, Tribe__Events__Aggregator__Event::$source_key, true );
 			$origin = get_post_meta( $event_id, Tribe__Events__Aggregator__Event::$origin_key, true );

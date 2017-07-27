@@ -304,7 +304,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		unset( $data['Organizer'] );
 
 		foreach ( $data as $key => $var ) {
-			update_post_meta( $organizerId, '_Organizer' . $key, $var );
+			update_post_meta( $organizerId, '_Organizer' . $key, sanitize_text_field( $var ) );
 		}
 	}
 

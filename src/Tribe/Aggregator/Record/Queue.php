@@ -128,6 +128,11 @@ class Tribe__Events__Aggregator__Record__Queue {
 	}
 
 	public function load_queue() {
+		if ( empty( $this->record->meta[ self::$queue_key ] ) ) {
+			$this->is_fetching = false;
+			$this->items = array();
+		}
+
 		$this->items = $this->record->meta[ self::$queue_key ];
 
 		if ( 'fetch' === $this->items ) {
@@ -194,6 +199,12 @@ class Tribe__Events__Aggregator__Record__Queue {
 	public function save() {
 		$this->record->update_meta( self::$activity_key, $this->activity );
 
+		/** @var Tribe__Meta__Chunker $chunker */
+		$chunker = tribe( 'chunker' );
+		// this data has the potential to be very big, so we register it for possible chunking in the db
+		$key = Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . self::$queue_key;
+		$chunker->register_chunking_for( $this->record->post->ID, $key );
+
 		if ( empty( $this->items ) ) {
 			$this->record->delete_meta( self::$queue_key );
 		} else {
@@ -203,7 +214,8 @@ class Tribe__Events__Aggregator__Record__Queue {
 		// If we have a parent also update that
 		if ( ! empty( $this->record->post->post_parent ) ) {
 			$parent = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->record->post->post_parent );
-			if ( isset( $parent->meta[ self::$activity_key ] ) ) {
+
+			if ( ! tribe_is_error( $parent ) && isset( $parent->meta[ self::$activity_key ] ) ) {
 				$activity = $parent->meta[ self::$activity_key ];
 
 				if ( $activity instanceof Tribe__Events__Aggregator__Record__Activity ) {

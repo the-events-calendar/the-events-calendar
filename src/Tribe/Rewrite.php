@@ -103,11 +103,6 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 	public function generate_core_rules( Tribe__Events__Rewrite $rewrite ) {
 		$rewrite
 			// Single
-			->single( array( '(\d{4}-\d{2}-\d{2})' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'eventDate' => '%2' ) )
-			->single( array( '(\d{4}-\d{2}-\d{2})', 'embed' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'eventDate' => '%2', 'embed' => 1 ) )
-			->single( array( '{{ all }}' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'post_type' => Tribe__Events__Main::POSTTYPE, 'eventDisplay' => 'all' ) )
-
-			->single( array( '(\d{4}-\d{2}-\d{2})', 'ical' ), array( Tribe__Events__Main::POSTTYPE => '%1', 'eventDate' => '%2', 'ical' => 1 ) )
 			->single( array( 'ical' ), array( 'ical' => 1, 'name' => '%1', 'post_type' => Tribe__Events__Main::POSTTYPE ) )
 
 			// Archive
@@ -259,7 +254,6 @@ class Tribe__Events__Rewrite extends  Tribe__Rewrite {
 			'tag' => array( 'tag', $tec->tag_slug ),
 			'tax' => array( 'category', $tec->category_slug ),
 			'page' => (array) 'page',
-			'all' => array( 'all', $tec->all_slug ),
 			'single' => (array) Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ),
 			'archive' => (array) Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ),
 			'featured' => array( 'featured', $tec->featured_slug ),

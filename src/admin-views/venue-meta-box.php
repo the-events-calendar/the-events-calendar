@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <?php do_action( 'tribe_events_venue_before_metabox', $post ); ?>
 <?php if ( $post->post_type != Tribe__Events__Main::VENUE_POST_TYPE ): ?>
-	<tr class="venue">
+	<tr class="venue tribe-linked-type-venue-name">
 		<td class='tribe-table-field-label'><?php printf( esc_html__( '%s Name:', 'the-events-calendar' ), tribe_get_venue_label_singular() ); ?></td>
 		<td>
 			<input
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</td>
 	</tr>
 <?php endif; ?>
-<tr class="venue">
+<tr class="venue tribe-linked-type-venue-address">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'Address:', 'the-events-calendar' ); ?></td>
 	<td>
 		<input
@@ -46,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/>
 	</td>
 </tr>
-<tr class="venue">
+<tr class="venue tribe-linked-type-venue-city">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'City:', 'the-events-calendar' ); ?></td>
 	<td>
 		<input
@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/>
 	</td>
 </tr>
-<tr class="venue">
+<tr class="venue tribe-linked-type-venue-country">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'Country:', 'the-events-calendar' ); ?></td>
 	<td>
 		<?php
@@ -92,7 +92,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</select>
 	</td>
 </tr>
-<tr class="venue">
+<tr class="venue tribe-linked-type-venue-state-province">
 	<?php
 	if ( ! isset( $_VenueStateProvince ) || $_VenueStateProvince == '' ) {
 		$_VenueStateProvince = - 1;
@@ -130,7 +130,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	</td>
 </tr>
-<tr class="venue">
+<tr class="venue tribe-linked-type-venue-zip">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'Postal Code:', 'the-events-calendar' ); ?></td>
 	<td>
 		<input
@@ -143,7 +143,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/>
 	</td>
 </tr>
-<tr class="venue">
+<tr class="venue tribe-linked-type-venue-phone">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'Phone:', 'the-events-calendar' ); ?></td>
 	<td>
 		<input
@@ -156,7 +156,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/>
 	</td>
 </tr>
-<tr class="venue">
+<tr class="venue tribe-linked-type-venue-website">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'Website:', 'the-events-calendar' ); ?></td>
 	<td>
 		<input
