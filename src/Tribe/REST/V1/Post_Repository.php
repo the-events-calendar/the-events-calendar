@@ -492,6 +492,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$rename_map = array(
 			'link' => 'url',
+			'term_id' => 'id',
 		);
 
 		$term_data = (array) $term_data;

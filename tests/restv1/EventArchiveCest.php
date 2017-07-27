@@ -153,9 +153,9 @@ class EventArchiveCest extends BaseRestCest {
 
 	/**
 	 * @test
-	 * it should allow requesting events happening after a date in the future
+	 * it should allow requesting events starting after a date in the future
 	 */
-	public function it_should_allow_requesting_events_happening_after_a_date_in_the_future( Tester $I ) {
+	public function it_should_allow_requesting_events_starting_after_a_date_in_the_future( Tester $I ) {
 		// 10 events each 1 week apart starting now
 		$I->haveManyEventsInDatabase( 10, [], 24 * 7 );
 		$I->haveOptionInDatabase( 'posts_per_page', 20 );
@@ -165,14 +165,14 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
-		$I->assertCount( 5, $response->events );
+		$I->assertCount( 6, $response->events );
 	}
 
 	/**
 	 * @test
-	 * it should allow requesting events happening after a date in the past
+	 * it should allow requesting events ending after a date in the future
 	 */
-	public function it_should_allow_requesting_events_happening_after_a_date_in_the_past( Tester $I ) {
+	public function it_should_allow_requesting_events_ending_after_a_date_in_the_future( Tester $I ) {
 		// 10 events each 1 week apart starting now
 		$I->haveManyEventsInDatabase( 10, [], 24 * 7 );
 		$I->haveOptionInDatabase( 'posts_per_page', 20 );

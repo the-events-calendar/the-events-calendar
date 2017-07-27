@@ -286,9 +286,6 @@ class SingleEventCest extends BaseRestCest {
 					'slug'        => 'tag-1',
 					'taxonomy'    => 'post_tag',
 					'description' => 'Tag 1 description',
-					'parent'      => 0,
-					'count'       => 1,
-					'url'        => $this->site_url . '/tag/tag-1/',
 				],
 				[
 					'id' => $tag_2,
@@ -296,9 +293,6 @@ class SingleEventCest extends BaseRestCest {
 					'slug'        => 'tag-2',
 					'taxonomy'    => 'post_tag',
 					'description' => 'Tag 2 description',
-					'parent'      => 0,
-					'count'       => 1,
-					'url'        => $this->site_url . '/tag/tag-2/',
 				],
 			]
 		] );
@@ -310,9 +304,6 @@ class SingleEventCest extends BaseRestCest {
 					'slug'        => 'category-1',
 					'taxonomy'    => 'tribe_events_cat',
 					'description' => 'Category 1 description',
-					'parent'      => 0,
-					'count'       => 1,
-					'url'        => $this->site_url . '/events/category/category-1/',
 				],
 				[
 					'id' => $category_2,
@@ -320,9 +311,6 @@ class SingleEventCest extends BaseRestCest {
 					'slug'        => 'category-2',
 					'taxonomy'    => 'tribe_events_cat',
 					'description' => 'Category 2 description',
-					'parent'      => 0,
-					'count'       => 1,
-					'url'        => $this->site_url . '/events/category/category-2/',
 				],
 			]
 		] );
