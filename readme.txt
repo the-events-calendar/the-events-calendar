@@ -327,6 +327,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.5.10] TBD =
+
+* Fix - avoid duplicate events when importing from some iCal, GoogleCalendar and Facebook feeds in Event Aggregator [67038]
+
 = [4.5.9] 2017-07-26 =
 
 * Fix - Send Aggregator callback URL with correct Scheme [83364]
