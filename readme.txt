@@ -327,6 +327,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.5.10] TBD =
+
+* Tweak - Add some context to the Organizer e-mail address field if Community Events is activated [80426]
+
 = [4.5.9] 2017-07-26 =
 
 * Fix - Send Aggregator callback URL with correct Scheme [83364]

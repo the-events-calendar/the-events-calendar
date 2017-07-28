@@ -16,6 +16,10 @@
 	</td>
 	<td class="organizer-email">
 		<input id="organizer-email" type='text' name='organizer[Email][]' class='organizer-email' size='25' value='' />
-		<p><?php esc_html_e( 'The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.', 'the-events-calendar' ); ?></p>
+		<?php if ( function_exists( 'tribe_is_community_edit_event_page' ) && tribe_is_community_edit_event_page() ) : ?>
+			<p><?php echo esc_html_x( 'The e-mail address will be obfuscated on this site to avoid it getting harvested by spammers.', 'An alternate version of the e-mail address obfuscation help text for use on the Community Events submission form.', 'the-events-calendar' ); ?></p>
+		<?php else : ?>
+			<p><?php esc_html_e( 'The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.', 'the-events-calendar' ); ?></p>
+		<?php endif; ?>
 	</td>
 </tr>
