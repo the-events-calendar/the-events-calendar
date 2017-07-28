@@ -329,6 +329,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.5.10] TBD =
 
+* Tweak - Tweaked the Organizer e-mail address field label a bit to better accomodate Community Events [80426]
 * Fix - avoid duplicate events when importing from some iCal, GoogleCalendar and Facebook feeds in Event Aggregator [67038]
 
 = [4.5.9] 2017-07-26 =
