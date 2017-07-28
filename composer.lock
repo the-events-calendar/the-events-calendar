@@ -553,33 +553,33 @@
         },
         {
             "name": "doctrine/inflector",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae"
+                "reference": "e11d84c6e018beedd929cff5220969a3c6d1d462"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/90b2128806bfde671b6952ab8bea493942c1fdae",
-                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/e11d84c6e018beedd929cff5220969a3c6d1d462",
+                "reference": "e11d84c6e018beedd929cff5220969a3c6d1d462",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.2"
+                "php": "^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.*"
+                "phpunit/phpunit": "^6.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\Inflector\\": "lib/"
+                "psr-4": {
+                    "Doctrine\\Common\\Inflector\\": "lib/Doctrine/Common/Inflector"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -616,7 +616,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2015-11-06T14:35:42+00:00"
+            "time": "2017-07-22T12:18:28+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -1159,16 +1159,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "1.21.10",
+            "version": "1.21.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "6643bbb185d509029d8f9be19f904da92b17391b"
+                "reference": "e7cd95cb2fe65d629bfdce7d2b8b7fb25a66226c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/6643bbb185d509029d8f9be19f904da92b17391b",
-                "reference": "6643bbb185d509029d8f9be19f904da92b17391b",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/e7cd95cb2fe65d629bfdce7d2b8b7fb25a66226c",
+                "reference": "e7cd95cb2fe65d629bfdce7d2b8b7fb25a66226c",
                 "shasum": ""
             },
             "require": {
@@ -1180,6 +1180,7 @@
                 "wp-cli/wp-cli": "^1.1"
             },
             "require-dev": {
+                "eventviva/php-image-resize": "^1.6",
                 "mikey179/vfsstream": "^1.6",
                 "ofbeaton/console-tester": "^1.1",
                 "site5/phantoman": "^1.1",
@@ -1216,7 +1217,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2017-07-14T15:55:34+00:00"
+            "time": "2017-07-26T18:13:24+00:00"
         },
         {
             "name": "lucatume/wp-browser-commons",
@@ -5083,16 +5084,16 @@
         },
         {
             "name": "wp-cli/php-cli-tools",
-            "version": "v0.11.3",
+            "version": "v0.11.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/php-cli-tools.git",
-                "reference": "09075e5a5ba804df43e148f887cbf4466bebfa2c"
+                "reference": "2d2b582d79c935f790c4e49e74906859025ffeb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/php-cli-tools/zipball/09075e5a5ba804df43e148f887cbf4466bebfa2c",
-                "reference": "09075e5a5ba804df43e148f887cbf4466bebfa2c",
+                "url": "https://api.github.com/repos/wp-cli/php-cli-tools/zipball/2d2b582d79c935f790c4e49e74906859025ffeb3",
+                "reference": "2d2b582d79c935f790c4e49e74906859025ffeb3",
                 "shasum": ""
             },
             "require": {
@@ -5129,7 +5130,7 @@
                 "cli",
                 "console"
             ],
-            "time": "2017-06-08T12:06:09+00:00"
+            "time": "2017-07-25T21:46:43+00:00"
         },
         {
             "name": "wp-cli/rewrite-command",

@@ -4,6 +4,14 @@
 class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 
 	/**
+	 * Default is 12hrs.
+	 *
+	 * @var int The time a record is allowed to stall before havint its status set to to failed since its creation in
+	 *          seconds.
+	 */
+	protected $time_to_live = 43200; // For pre-PHP 5.6 compat, we do not define as 12 * HOUR_IN_SECONDS
+
+	/**
 	 * @var int The time a record is allowed to stall before having
 	 *          its status set to failed in seconds.
 	 */
@@ -99,11 +107,13 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 			return true;
 		}
 
+		$created = strtotime( $record->post->post_date );
 		$last_updated = strtotime( $record->post->post_modified_gmt );
-		$pending_for = time() - $last_updated;
+		$now = time();
+		$since_creation = $now - $created;
+		$pending_for = $now - $last_updated;
 
-
-		if ( $pending_for > $this->stall_limit ) {
+		if ( $pending_for > $this->stall_limit || $since_creation > $this->time_to_live ) {
 			$failed = Tribe__Events__Aggregator__Records::$status->failed;
 			wp_update_post( array( 'ID' => $id, 'post_status' => $failed ) );
 			delete_post_meta( $id, '_tribe_aggregator_queue' );

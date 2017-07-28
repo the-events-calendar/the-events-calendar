@@ -412,7 +412,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$data = array();
 		foreach ( $terms_data as $term_data ) {
-			$term = get_term( $terms_data['id'], $taxonomy );
+			$term_id = Tribe__Utils__Array::get( $term_data, 'id', $term_data['term_id'] );
+			$term    = get_term( $term_id, $taxonomy );
 			/**
 			 * Filters the data that will be returned for an event taxonomy term.
 			 *
@@ -460,7 +461,14 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				continue;
 			}
 
-			$data[] = $this->prepare_term_data( $term_data, $taxonomy );
+			$namespace_map = array(
+				Tribe__Events__Main::TAXONOMY => 'categories',
+				'post_tag'                    => 'tags',
+			);
+
+			$namespace = Tribe__Utils__Array::get( $namespace_map, $taxonomy, reset( $namespace_map ) );
+
+			$data[] = $this->prepare_term_data( $term_data, $taxonomy, $namespace );
 		}
 
 		return $data;
@@ -478,9 +486,16 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @return array
 	 */
 	public function prepare_term_data( $term_data, $taxonomy, $namespace ) {
+		if ( empty( $term_data ) ) {
+			return array();
+		}
+
 		$rename_map = array(
 			'link' => 'url',
+			'term_id' => 'id',
 		);
+
+		$term_data = (array) $term_data;
 
 		foreach ( $rename_map as $old => $new ) {
 			if ( ! isset( $term_data[ $old ] ) || isset( $term_data[ $new ] ) ) {
@@ -492,8 +507,10 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		unset( $term_data['_links'] );
 
+		$term_id = Tribe__Utils__Array::get( $term_data, 'id', $term_data['term_id'] );
+
 		$term_data['urls'] = array(
-			'self'       => tribe_events_rest_url( "{$namespace}/{$term_data['id']}" ),
+			'self'       => tribe_events_rest_url( "{$namespace}/{$term_id}" ),
 			'collection' => tribe_events_rest_url( $namespace ),
 		);
 

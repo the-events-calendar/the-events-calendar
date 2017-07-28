@@ -333,7 +333,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		unset( $data['Venue'] );
 
 		foreach ( $data as $key => $var ) {
-			update_post_meta( $venue_id, '_Venue' . $key, $var );
+			update_post_meta( $venue_id, '_Venue' . $key, sanitize_text_field( $var ) );
 		}
 	}
 

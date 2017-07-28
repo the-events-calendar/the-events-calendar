@@ -41,18 +41,16 @@ class Tribe__Events__Integrations__WPML__WPML {
 	}
 
 	protected function hook_actions() {
-		$defaults = Tribe__Events__Integrations__WPML__Defaults::instance();
-
-		if ( ! $defaults->has_set_defaults() ) {
-			add_action( 'icl_save_settings', array( $defaults, 'set_defaults' ) );
-		}
-
 		$this->setup_cache_expiration_triggers();
+		$defaults = Tribe__Events__Integrations__WPML__Defaults::instance();
+		if ( ! $defaults->has_set_defaults() ) {
+			add_action( 'wpml_parse_config_file', array( $defaults, 'setup_config_file' ) );
+		}
+		$linked_posts = Tribe__Events__Integrations__WPML__Linked_Posts::instance();
+		add_action( 'wpml_translation_update', array( $linked_posts, 'maybe_translate_linked_posts' ), 10, 1 );
 	}
 
 	protected function hook_filters() {
-		add_filter( 'tribe_events_post_type_permalink', 'wpml_permalink_filter' );
-
 		$filters = Tribe__Events__Integrations__WPML__Filters::instance();
 		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', array( $filters, 'filter_tribe_events_rewrite_i18n_slugs_raw' ), 10, 3 );
 
@@ -62,6 +60,7 @@ class Tribe__Events__Integrations__WPML__WPML {
 
 		$rewrites = Tribe__Events__Integrations__WPML__Rewrites::instance();
 		add_filter( 'rewrite_rules_array', array( $rewrites, 'filter_rewrite_rules_array' ), 20, 1 );
+		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', array( $rewrites, 'filter_tax_base_slug' ), 10, 2 );
 
 		$permalinks = Tribe__Events__Integrations__WPML__Permalinks::instance();
 		add_filter( 'post_type_link', array( $permalinks, 'filter_post_type_link' ), 20, 2 );

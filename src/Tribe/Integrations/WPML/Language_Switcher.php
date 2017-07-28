@@ -37,11 +37,18 @@ class Tribe__Events__Integrations__WPML__Language_Switcher {
 			return $languages;
 		}
 
-		if ( is_admin() || ! ( tribe_is_event_query() && is_archive() ) ) {
+		if ( is_admin() || ! ( tribe_is_event_query() && is_archive() && ! is_tax( Tribe__Events__Main::TAXONOMY ) ) ) {
 			return $languages;
 		}
 
-		$current_url = home_url( $_SERVER['REQUEST_URI'] );
+		$root_folder = parse_url( home_url(), PHP_URL_PATH );
+		$request_uri = $_SERVER['REQUEST_URI'];
+
+		if ( ! empty( $root_folder ) ) {
+			$request_uri = str_replace( $root_folder, '', $request_uri );
+		}
+
+		$current_url = home_url( $request_uri );
 
 		/** @var SitePress $sitepress */
 		global $sitepress;

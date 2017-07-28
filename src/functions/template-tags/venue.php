@@ -137,7 +137,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Full Address
 	 *
-	 * Returns the full address for the venue. Function uses the views/full-address.php template which you can override in your theme (including google microformats etc).
+	 * Returns the full address for the venue. Function uses the views/modules/address.php template which you can override in your theme.
 	 *
 	 * @param int  $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @param bool $includeVenueName

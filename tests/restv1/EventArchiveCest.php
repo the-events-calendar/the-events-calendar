@@ -153,9 +153,9 @@ class EventArchiveCest extends BaseRestCest {
 
 	/**
 	 * @test
-	 * it should allow requesting events happening after a date in the future
+	 * it should allow requesting events starting after a date in the future
 	 */
-	public function it_should_allow_requesting_events_happening_after_a_date_in_the_future( Tester $I ) {
+	public function it_should_allow_requesting_events_starting_after_a_date_in_the_future( Tester $I ) {
 		// 10 events each 1 week apart starting now
 		$I->haveManyEventsInDatabase( 10, [], 24 * 7 );
 		$I->haveOptionInDatabase( 'posts_per_page', 20 );
@@ -170,9 +170,9 @@ class EventArchiveCest extends BaseRestCest {
 
 	/**
 	 * @test
-	 * it should allow requesting events happening after a date in the past
+	 * it should allow requesting events ending after a date in the future
 	 */
-	public function it_should_allow_requesting_events_happening_after_a_date_in_the_past( Tester $I ) {
+	public function it_should_allow_requesting_events_ending_after_a_date_in_the_future( Tester $I ) {
 		// 10 events each 1 week apart starting now
 		$I->haveManyEventsInDatabase( 10, [], 24 * 7 );
 		$I->haveOptionInDatabase( 'posts_per_page', 20 );
@@ -251,12 +251,13 @@ class EventArchiveCest extends BaseRestCest {
 	 */
 	public function it_should_allow_using_start_date_and_end_date_to_narrow_down_events( Tester $I ) {
 		// 10 events each 1 week apart starting now
+		// so 0, +8, +15, +22, +29 days...
 		$I->haveManyEventsInDatabase( 10, [], 24 * 7 );
 		$I->haveOptionInDatabase( 'posts_per_page', 20 );
 
 		$params = array(
-			'start_date' => date( 'U', strtotime( '+4 weeks' ) ),
-			'end_date'   => date( 'U', strtotime( '+6 weeks' ) ),
+			'start_date' => strtotime( '+10 days' ),
+			'end_date'   => strtotime( '+30 days' ),
 		);
 		$I->sendGET( $this->events_url, $params );
 

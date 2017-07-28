@@ -160,22 +160,55 @@ class Tribe__Events__Aggregator__Service {
 		 */
 		$timeout_in_seconds = (int) apply_filters( 'tribe_aggregator_connection_timeout', 60 );
 
-		$response = $this->requests->get( esc_url_raw( $url ), array( 'timeout' => $timeout_in_seconds ) );
+		$response = $http_response = $this->requests->get(
+			esc_url_raw( $url ),
+			array( 'timeout' => $timeout_in_seconds )
+		);
 
 		if ( is_wp_error( $response ) ) {
 			if ( isset( $response->errors['http_request_failed'] ) ) {
 				$response->errors['http_request_failed'][0] = __( 'Connection timed out while transferring the feed. If you are dealing with large feeds you may need to customize the tribe_aggregator_connection_timeout filter.', 'the-events-calendar' );
 			}
+
 			return $response;
 		}
 
+		if ( 403 == wp_remote_retrieve_response_code( $response ) ) {
+			return new WP_Error(
+				'core:aggregator:request-denied',
+				esc_html__( 'Event Aggregator server has blocked your request. Please try your import again later or contact support to know why.',
+					'the-events-calendar' )
+			);
+		}
+
+		// we know it is not a 404 or 403 at this point
+		if ( 200 != wp_remote_retrieve_response_code( $response ) ) {
+			return new WP_Error(
+				'core:aggregator:bad-response',
+				esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.',
+					'the-events-calendar' )
+			);
+		}
+
 		if ( isset( $response->data ) && isset( $response->data->status ) && '404' === $response->data->status ) {
-			return new WP_Error( 'core:aggregator:daily-limit-reached', esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' ) );
+			return new WP_Error(
+				'core:aggregator:daily-limit-reached',
+				esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' )
+			);
 		}
 
 		// if the response is not an image, let's json decode the body
 		if ( ! preg_match( '/image/', $response['headers']['content-type'] ) ) {
 			$response = json_decode( wp_remote_retrieve_body( $response ) );
+		}
+
+		// It's possible that the json_decode() operation will have failed
+		if ( null === $response ) {
+			return new WP_Error(
+				'core:aggregator:bad-json-response',
+				esc_html__( 'The response from the Event Aggregator server was badly formed and could not be understood. Please try again.', 'the-events-calendar' ),
+				$http_response
+			);
 		}
 
 		return $response;
@@ -496,6 +529,7 @@ class Tribe__Events__Aggregator__Service {
 			'error:create-import-failed' => __( 'Sorry, but something went wrong. Please try again.', 'the-events-calendar' ),
 			'error:create-import-invalid-params' => __( 'Events could not be imported. The import parameters were invalid.', 'the-events-calendar' ),
 			'error:fb-permissions' => __( 'Events cannot be imported because Facebook has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Facebook. You can <a href="https://theeventscalendar.com/knowledgebase/import-errors/" target="_blank">read more about Facebook restrictions in our knowledgebase</a>.', 'the-events-calendar' ),
+			'error:fb-no-results' => __( 'No upcoming Facebook events found.', 'the-events-calendar' ),
 			'error:fetch-404' => __( 'The URL provided could not be reached.', 'the-events-calendar' ),
 			'error:fetch-failed' => __( 'The URL provided failed to load.', 'the-events-calendar' ),
 			'error:get-image' => __( 'The image associated with your event could not be imported.', 'the-events-calendar' ),

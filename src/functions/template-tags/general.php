@@ -994,8 +994,23 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$format = $date_with_year_format;
 
-		// if it starts and ends in the current year then there is no need to display the year
-		if ( tribe_get_start_date( $event, false, 'Y' ) === date( 'Y' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
+		/**
+		 * If a yearless date format should be preferred.
+		 *
+		 * By default, this will be true if the event starts and ends in the current year.
+		 *
+		 * @param bool    $use_yearless_format
+		 * @param WP_Post $event
+		 */
+		$use_yearless_format = apply_filters( 'tribe_events_event_schedule_details_use_yearless_format',
+			(
+				tribe_get_start_date( $event, false, 'Y' ) === date_i18n( 'Y' )
+				&& tribe_get_end_date( $event, false, 'Y' ) === date_i18n( 'Y' )
+			),
+			$event
+		);
+
+		if ( $use_yearless_format ) {
 			$format = $date_without_year_format;
 		}
 
@@ -1412,10 +1427,22 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$remove_shortcodes = apply_filters( 'tribe_events_excerpt_shortcode_removal', true );
 
 		// Get the Excerpt or content based on what is available
-		if ( has_excerpt( $post->ID ) ) {
-			$excerpt = $post->post_excerpt;
-		} else {
-			$excerpt = $post->post_content;
+		$excerpt = has_excerpt( $post->ID ) ? $post->post_excerpt : $post->post_content;
+
+		// If shortcode filter is enabled let's process them
+		if ( $allow_shortcodes ) {
+			$excerpt = do_shortcode( $excerpt );
+		}
+
+		// Remove all shortcode Content before removing HTML
+		if ( $remove_shortcodes ) {
+			$excerpt = preg_replace( '#\[.+\]#U', '', $excerpt );
+		}
+
+		// Remove "all" HTML based on what is allowed
+		$excerpt = wp_kses( $excerpt, $allowed_html );
+
+		if ( ! has_excerpt( $post->ID ) ) {
 			// We will only trim Excerpt if it comes from Post Content
 
 			/**
@@ -1435,19 +1462,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			// Now we actually trim it
 			$excerpt = wp_trim_words( $excerpt, $excerpt_length, $excerpt_more );
 		}
-
-		// If shortcode filter is enabled lets process them
-		if ( $allow_shortcodes ) {
-			$excerpt = do_shortcode( $excerpt );
-		}
-
-		// Remove all shortcode Content before removing HTML
-		if ( $remove_shortcodes ) {
-			$excerpt = preg_replace( '#\[.+\]#U', '', $excerpt );
-		}
-
-		// Remove "all" HTML based on what is allowed
-		$excerpt = wp_kses( $excerpt, $allowed_html );
 
 		/**
 		 * Filter the event excerpt used in various views.
