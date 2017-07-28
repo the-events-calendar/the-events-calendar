@@ -1,10 +1,10 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, brook-tribe, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, leahkoerper, lucatume, mastromktg, mat-lipe, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, shelbelliott, tribecari, vicskf, zbtirrell
+Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, brook-tribe, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, leahkoerper, jentheo, lucatume, mastromktg, mat-lipe, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, shelbelliott, tribecari, vicskf, zbtirrell
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Stable tag: 4.5.8
+Stable tag: 4.5.9
 Tested up to: 4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -326,6 +326,19 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [4.5.9] 2017-07-26 =
+
+* Fix - Send Aggregator callback URL with correct Scheme [83364]
+* Fix - Scheduled Aggregator cron for inserting will re-enqueue to complete scheduled imports [83382]
+* Fix - Avoid overwriting Venues and Organizers when importing FB events with similarly named Venues and Organizers [75370]
+* Fix - Improve handling of large and/or slow Google Calendar and iCal feeds [79975]
+* Tweak - Added period "." separator to datepicker formats. [65282]
+* Tweak - Added tribe_events_month_get_events_in_month filter to allow overriding of events used in month templates. [83317]
+
+= [4.5.8.1] 2017-07-21 =
+
+* Fix - Fixed an issue where failed EA Imports would hang for a long time before failing [83344]
 
 = [4.5.8] 2017-07-13 =
 

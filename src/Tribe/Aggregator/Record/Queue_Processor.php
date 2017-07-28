@@ -3,6 +3,15 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	public static $scheduled_key = 'tribe_aggregator_process_insert_records';
 
 	/**
+	 * Which Action will be triggered as a single Cron event
+	 *
+	 * @since  4.5.9
+	 *
+	 * @var    string
+	 */
+	public static $scheduled_single_key = 'tribe_aggregator_single_process_insert_records';
+
+	/**
 	 *Number of items to be processed in a single batch.
 	 *
 	 * @var int
@@ -47,7 +56,10 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 */
 	public function manage_scheduled_task() {
 		add_action( 'tribe_events_blog_deactivate', array( $this, 'clear_scheduled_task' ) );
+
 		add_action( self::$scheduled_key, array( $this, 'process_queue' ), 20, 0 );
+		add_action( self::$scheduled_single_key, array( $this, 'process_queue' ), 20, 0 );
+
 		$this->register_scheduled_task();
 	}
 
@@ -129,6 +141,16 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 			if ( ! $this->do_processing() ) {
 				break;
 			}
+		}
+
+		$queue_items = get_post_meta( $this->current_record_id, Tribe__Events__Aggregator__Records::prefix_meta( Tribe__Events__Aggregator__Record__Queue::$queue_key ), true );
+
+		// We only get here if we done processing this batch
+		// Now we will check for more events on the queue
+		if ( ! empty( $queue_items ) ) {
+			// Schedule a Cron Event to happen ASAP, and flag it for searching and we need to make it unique
+			// By default WordPress won't allow more than one Action to happen twice in 10 minutes
+			wp_schedule_single_event( time(), self::$scheduled_single_key );
 		}
 	}
 

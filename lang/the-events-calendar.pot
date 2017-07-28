@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 4.5.8\n"
+"Project-Id-Version: The Events Calendar 4.5.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2017-07-12 14:59:49+00:00\n"
+"POT-Creation-Date: 2017-07-25 17:35:43+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-07-12 14:59\n"
+"PO-Revision-Date: 2017-07-25 17:35\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -94,7 +94,7 @@ msgctxt "%s Event count in admin list"
 msgid "All %s"
 msgstr ""
 
-#: src/Tribe/Aggregator/API/Origins.php:31 src/Tribe/Aggregator/Service.php:239
+#: src/Tribe/Aggregator/API/Origins.php:31 src/Tribe/Aggregator/Service.php:260
 msgid "CSV File"
 msgstr ""
 
@@ -179,7 +179,7 @@ msgid ""
 "The image associated with your event could not be attached to the event."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:46 src/Tribe/Aggregator/Service.php:521
+#: src/Tribe/Aggregator/Errors.php:46 src/Tribe/Aggregator/Service.php:542
 msgid ""
 "The daily limit of %d import requests to the Event Aggregator service has "
 "been reached. Please try again later."
@@ -261,7 +261,8 @@ msgid ""
 "Licenses before using this service."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:65 src/Tribe/Aggregator/Service.php:176
+#: src/Tribe/Aggregator/Errors.php:65 src/Tribe/Aggregator/Service.php:188
+#: src/Tribe/Aggregator/Service.php:196
 msgid ""
 "There may be an issue with the Event Aggregator server. Please try your "
 "import again later."
@@ -474,23 +475,23 @@ msgstr[1] ""
 msgid "Manage Active Plugins"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:231
+#: src/Tribe/Aggregator/Record/Abstract.php:266
 msgid "Something went wrong while inserting the record in the database."
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:366
+#: src/Tribe/Aggregator/Record/Abstract.php:401
 msgid "Record: "
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:916
+#: src/Tribe/Aggregator/Record/Abstract.php:958
 msgid "Deleted Attachment: %d"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:931
+#: src/Tribe/Aggregator/Record/Abstract.php:973
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:957
+#: src/Tribe/Aggregator/Record/Abstract.php:999
 msgid ""
 "When this import was last scheduled to run, the daily limit for your Event "
 "Aggregator license had already been reached."
@@ -686,7 +687,7 @@ msgstr ""
 msgid "Select %s"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Queue_Processor.php:211
+#: src/Tribe/Aggregator/Record/Queue_Processor.php:233
 msgid "Could not process queue for Import Record %1$d: %2$s"
 msgstr ""
 
@@ -854,21 +855,27 @@ msgid ""
 "tribe_aggregator_connection_timeout filter."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:188
+#: src/Tribe/Aggregator/Service.php:179
+msgid ""
+"Event Aggregator server has blocked your request. Please try your import "
+"again later or contact support to know why."
+msgstr ""
+
+#: src/Tribe/Aggregator/Service.php:209
 msgid ""
 "The response from the Event Aggregator server was badly formed and could not "
 "be understood. Please try again."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:508
+#: src/Tribe/Aggregator/Service.php:529
 msgid "Sorry, but something went wrong. Please try again."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:509
+#: src/Tribe/Aggregator/Service.php:530
 msgid "Events could not be imported. The import parameters were invalid."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:510
+#: src/Tribe/Aggregator/Service.php:531
 msgid ""
 "Events cannot be imported because Facebook has returned an error. This could "
 "mean that the event ID does not exist, the event or source is marked as "
@@ -878,98 +885,98 @@ msgid ""
 "knowledgebase</a>."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:511
+#: src/Tribe/Aggregator/Service.php:532
 msgid "No upcoming Facebook events found."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:512
+#: src/Tribe/Aggregator/Service.php:533
 msgid "The URL provided could not be reached."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:513
+#: src/Tribe/Aggregator/Service.php:534
 msgid "The URL provided failed to load."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:514
+#: src/Tribe/Aggregator/Service.php:535
 msgid "The image associated with your event could not be imported."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:515
+#: src/Tribe/Aggregator/Service.php:536
 msgid ""
 "The image associated with your event is not accessible with your API key."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:516
+#: src/Tribe/Aggregator/Service.php:537
 msgid ""
 "The import failed for an unknown reason. Please try again. If the problem "
 "persists, please contact support."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:517
+#: src/Tribe/Aggregator/Service.php:538
 msgid ""
 "Events could not be imported. The URL provided did not have events in the "
 "proper format."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:518
+#: src/Tribe/Aggregator/Service.php:539
 msgid ""
 "The file provided could not be opened. Please confirm that it is a properly "
 "formatted .ics file."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:519
+#: src/Tribe/Aggregator/Service.php:540
 msgid "Your Meetup API key is invalid."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:520
+#: src/Tribe/Aggregator/Service.php:541
 msgid ""
 "Event Aggregator cannot reach Meetup.com because you exceeded the request "
 "limit for your Meetup API key."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:522
+#: src/Tribe/Aggregator/Service.php:543
 msgid "The import is in progress."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:523
+#: src/Tribe/Aggregator/Service.php:544
 msgid "The import will be starting soon."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:524
+#: src/Tribe/Aggregator/Service.php:545
 msgid "Success"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:525
+#: src/Tribe/Aggregator/Service.php:546
 msgid "Import created"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:526
+#: src/Tribe/Aggregator/Service.php:547
 msgid "Successfully fetched Facebook Token"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:527
+#: src/Tribe/Aggregator/Service.php:548
 msgid "Successfully loaded import origins"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:528
+#: src/Tribe/Aggregator/Service.php:549
 msgid "Import is complete"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:529
+#: src/Tribe/Aggregator/Service.php:550
 msgid "Import queued"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:530
+#: src/Tribe/Aggregator/Service.php:551
 msgid "Events could not be imported. The URL provided could not be reached."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:531
+#: src/Tribe/Aggregator/Service.php:552
 msgid ""
 "The requested source does not have any upcoming and published events "
 "matching the search criteria."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:548
+#: src/Tribe/Aggregator/Service.php:569
 msgid "Unknown service message"
 msgstr ""
 
@@ -2188,7 +2195,7 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.5.8)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.5.9)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: src/Tribe/Main.php:714 src/Tribe/Main.php:1049
 msgid "The Events Calendar"
@@ -3274,7 +3281,7 @@ msgstr ""
 msgid "There were no results found."
 msgstr ""
 
-#: src/Tribe/Template/Month.php:881
+#: src/Tribe/Template/Month.php:899
 msgid ""
 "The requested date \"%s\" was not valid &ndash; showing the current month "
 "instead"
