@@ -329,7 +329,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.5.10] TBD =
 
-* Tweak - Add some context to the Organizer e-mail address field if Community Events is activated [80426]
+* Tweak - Tweaked the Organizer e-mail address field label a bit to better accomodate Community Events [80426]
 
 = [4.5.9] 2017-07-26 =
 
