@@ -651,8 +651,10 @@ jQuery( document ).ready( function( $ ) {
 
 	//show state/province input based on first option in countries list, or based on user input of country
 	$( 'body' ).on( 'change', "#EventCountry", function () {
+		console.log("changed");
+
 		var $country = $( this );
-			$container = $country.parents( 'table' ).eq( 0 ),
+			$container = $country.parents( 'div.eventForm' ).eq( 0 ),
 			$state_dropdown = $container.find( '#s2id_StateProvinceSelect' ),
 			$state_select = $container.find( "#StateProvinceSelect" ),
 			$state_text = $container.find( "#StateProvinceText" ),
