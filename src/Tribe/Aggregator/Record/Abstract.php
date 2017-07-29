@@ -59,11 +59,46 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	);
 
 	/**
+	 * @var array
+	 */
+	public static $unique_venue_id_fields = array(
+		'facebook' => array(
+			'source' => 'facebook_id',
+			'target' => 'VenueFacebookID',
+		),
+		'meetup'   => array(
+			'source' => 'meetup_id',
+			'target' => 'VenueMeetupID',
+		),
+	);
+
+	/**
+	 * @var array
+	 */
+	public static $unique_organizer_id_fields = array(
+		'facebook' => array(
+			'source' => 'facebook_id',
+			'target' => 'OrganizerFacebookID',
+		),
+		'meetup'   => array(
+			'source' => 'meetup_id',
+			'target' => 'OrganizerMeetupID',
+		),
+	);
+
+	/**
 	 * Holds the event count temporarily while event counts (comment_count) is being updated
 	 *
 	 * @var int
 	 */
 	private $temp_event_count = 0;
+
+	/**
+	 * The import record origin.
+	 *
+	 * @var string
+	 */
+	protected $origin;
 
 	/**
 	 * Setup all the hooks and filters
@@ -543,7 +578,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'type'     => $this->meta['type'],
 			'origin'   => $this->meta['origin'],
 			'source'   => isset( $this->meta['source'] ) ? $this->meta['source'] : '',
-			'callback' => $is_previewing ? null : site_url( '/event-aggregator/insert/?key=' . urlencode( $this->meta['hash'] ) ),
+			'callback' => $is_previewing ? null : home_url( '/event-aggregator/insert/?key=' . urlencode( $this->meta['hash'] ) ),
 		);
 
 		if ( ! empty( $this->meta['frequency'] ) ) {
@@ -634,8 +669,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	public function get_import_data() {
+		/** @var \Tribe__Events__Aggregator $aggregator */
 		$aggregator = tribe( 'events-aggregator.main' );
-		$data = array();
+		$data       = array();
 
 		// For now only apply this to the URL type
 		if ( 'url' === $this->type ) {
@@ -645,7 +681,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			);
 		}
 
-		return $aggregator->api( 'import' )->get( $this->meta['import_id'], $data );
+		/** @var \Tribe__Events__Aggregator__API__Import $import_api */
+		$import_api  = $aggregator->api( 'import' );
+		$import_data = $import_api->get( $this->meta['import_id'], $data );
+
+		$import_data = $this->maybe_cast_to_error( $import_data );
+
+		return $import_data;
 	}
 
 	public function delete( $force = false ) {
@@ -1257,8 +1299,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						}
 					} else {
 						$venue_id = array_search( $event['Venue']['Venue'], $found_venues );
+
 						if ( ! $venue_id ) {
-							$venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Venue::POSTTYPE );
+							$unique_field = $this->get_unique_field( 'venue' );
+
+							if ( ! empty( $unique_field ) ) {
+								$target = $unique_field['target'];
+								$value  = $venue_data[ $target ];
+								$venue  = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Venue{$target}", $value );
+							} else {
+								$venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Venue::POSTTYPE );
+							}
 
 							if ( $venue ) {
 								$venue_id = $venue->ID;
@@ -1374,11 +1425,22 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						}
 					} else {
 						$organizer_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
-						if ( ! $organizer_id ) {
-							$organizer = get_page_by_title( $event['Organizer']['Organizer'], 'OBJECT', Tribe__Events__Organizer::POSTTYPE );
 
+						if ( ! $organizer_id ) {
+							$unique_field = $this->get_unique_field( 'organizer' );
+
+							if ( ! empty( $unique_field ) ) {
+								$target    = $unique_field['target'];
+								$value     = $organizer_data[ $target ];
+								$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Organizer{$target}", $value );
+							} else {
+								$organizer = get_page_by_title( $event['Organizer']['Organizer'], 'OBJECT', Tribe__Events__Organizer::POSTTYPE );
+							}
+						}
+
+						if ( ! $organizer_id ) {
 							if ( $organizer ) {
-								$organizer_id = $organizer->ID;
+								$organizer_id                      = $organizer->ID;
 								$found_organizers[ $organizer_id ] = $event['Organizer']['Organizer'];
 							}
 						}
@@ -1501,7 +1563,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			Tribe__Events__Aggregator__Records::instance()->add_record_to_event( $event['ID'], $this->id, $this->origin );
 
 			// Add post parent possibility
-			if ( empty( $event['parent_uid'] ) && ! empty( $unique_field ) ) {
+			if ( empty( $event['parent_uid'] ) && ! empty( $unique_field ) && ! empty( $event[ $unique_field['target'] ] ) ) {
 				$possible_parents[ $event['ID'] ] = $event[ $unique_field['target'] ];
 			}
 
@@ -1704,12 +1766,32 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $selected;
 	}
 
-	protected function get_unique_field() {
-		if ( ! isset( self::$unique_id_fields[ $this->meta['origin'] ] ) ) {
+	/**
+	 * Gets the unique field map for the current origin and the specified post type.
+	 *
+	 * @param string $for
+	 *
+	 * @return array|null
+	 */
+	protected function get_unique_field( $for = null ) {
+		$fields = self::$unique_id_fields;
+
+		switch ( $for ) {
+			case 'venue':
+				$fields = self::$unique_venue_id_fields;
+				break;
+			case 'organizer':
+				$fields = self::$unique_organizer_id_fields;
+				break;
+			default:
+				break;
+		}
+
+		if ( ! isset( $fields[ $this->meta['origin'] ] ) ) {
 			return null;
 		}
 
-		return self::$unique_id_fields[ $this->meta['origin'] ];
+		return $fields[ $this->meta['origin'] ];
 	}
 
 	/**
@@ -1829,5 +1911,34 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		global $wpdb;
 
 		return $wpdb->last_error !== $this->last_wpdb_error;
+	}
+
+	/**
+	 * Cast error responses from the Service to WP_Errors to ease processing down the line.
+	 *
+	 * If a response is a WP_Error already or is not an error response then it will not be modified.
+	 *
+	 * @since 4.5.9
+	 *
+	 * @param WP_Error|object $import_data
+	 *
+	 * @return array|\WP_Error
+	 */
+	protected function maybe_cast_to_error( $import_data ) {
+		if ( is_wp_error( $import_data ) ) {
+			return $import_data;
+		}
+
+		if ( ! empty( $import_data->status ) && 'error' === $import_data->status ) {
+			$import_data = (array) $import_data;
+			$code        = Tribe__Utils__Array::get( $import_data, 'message_code', 'error:import-failed' );
+			/** @var \Tribe__Events__Aggregator__Service $service */
+			$service     = tribe( 'events-aggregator.service' );
+			$message     = Tribe__Utils__Array::get( $import_data, 'message', $service->get_service_message( 'error:import-failed' ) );
+			$data        = Tribe__Utils__Array::get( $import_data, 'data', array() );
+			$import_data = new WP_Error( $code, $message, $data );
+		}
+
+		return $import_data;
 	}
 }

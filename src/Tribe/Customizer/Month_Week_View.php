@@ -194,7 +194,7 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 				$manager,
 				$customizer->get_setting_name( 'highlight_color', $section ),
 				array(
-					'label'   => __( 'Calendar Hightlight Color' ),
+					'label'   => __( 'Calendar Highlight Color' ),
 					'section' => $section->id,
 				)
 			)
