@@ -68,7 +68,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 		// Pagination
 		add_filter( 'post_limits', array( $this, 'events_search_limits' ), 10, 2 );
 
-		add_filter( "tribe_apm_headers_{$post_type}" , array( $this, 'column_headers_check' ) );
+		add_filter( "tribe_apm_headers_{$post_type}", array( $this, 'column_headers_check' ) );
 
 		add_filter( "views_edit-{$post_type}", array( $this, 'filter_views' ), 100, 1 );
 		add_filter( 'tribe_post_count_sql', array( $this, 'filter_add_join_event_start_meta' ) );
@@ -449,7 +449,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 				'status' => $name,
 				'href'   => $this->get_url( array( 'post_status' => $name ) ),
 				'class'  => array(),
-				'text'   => sprintf( translate_nooped_plural( $status->label_count, $count ), number_format_i18n( $count ) )
+				'text'   => sprintf( translate_nooped_plural( $status->label_count, $count ), number_format_i18n( $count ) ),
 			);
 		}
 
@@ -475,7 +475,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 	 */
 	public function filter_add_join_event_start_meta( $query ) {
 		global $wpdb;
-		$query['join']= "LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id AND eventStart.meta_key = '_EventStartDate')";
+		$query['join'] = "LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id AND eventStart.meta_key = '_EventStartDate')";
 		return $query;
 	}
 }
