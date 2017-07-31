@@ -417,6 +417,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.customizer.single-event', new Tribe__Events__Customizer__Single_Event() );
 			tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
 
+			tribe_singleton( 'tec.admin.list', 'Tribe__Events__Admin__List' );
+
 			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
 
@@ -568,11 +570,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_tracker_post_types', array( $this, 'filter_tracker_event_post_types' ) );
 			add_filter( 'tribe_tracker_taxonomies', array( $this, 'filter_tracker_event_taxonomies' ) );
 
-			if ( ! Tribe__Main::instance()->doing_ajax() ) {
-				add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
-			} else {
-				add_action( 'admin_init', array( $this, 'init_admin_list_screen' ) );
-			}
+			add_action( 'init', tribe_callback( 'tec.admin.list', 'init' ) );
 
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
@@ -2157,27 +2155,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 				}
 			}
-		}
-
-		/**
-		 * Initializes admin-specific items for the events admin list dashboard page. Hooked to the
-		 * current_screen action
-		 *
-		 * @param WP_Screen $screen WP Admin screen object for the current page
-		 */
-		public function init_admin_list_screen( $screen ) {
-			// If we are dealing with a AJAX call just drop these checks
-			if ( ! Tribe__Main::instance()->doing_ajax() ) {
-				if ( 'edit' !== $screen->base ) {
-					return;
-				}
-
-				if ( self::POSTTYPE !== $screen->post_type ) {
-					return;
-				}
-			}
-
-			Tribe__Events__Admin_List::init();
 		}
 
 		/**
