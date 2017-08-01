@@ -4835,20 +4835,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * When the edit-tags.php screen loads, setup filters
-		 * to fix the tagcloud links
-		 *
-		 * @deprecated 4.1.2
-		 *
-		 */
-		public function prepare_to_fix_tagcloud_links() {
-			_deprecated_function( __METHOD__, '4.1.2' );
-			if ( Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
-				add_filter( 'get_edit_term_link', array( $this, 'add_post_type_to_edit_term_link' ), 10, 4 );
-			}
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
