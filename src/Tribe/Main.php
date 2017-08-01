@@ -5014,20 +5014,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Set an option
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param string $name
-		 * @param mixed  $value
-		 *
-		 */
-		public function setOption( $name, $value ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::set_option' );
-			Tribe__Settings_Manager::set_option( $name, $value );
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
