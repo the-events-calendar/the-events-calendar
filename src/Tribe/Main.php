@@ -381,7 +381,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return void
 		 */
-		public function bind_implementations(  ) {
+		public function bind_implementations() {
 			// Utils
 			tribe_singleton( 'tec.cost-utils', 'Tribe__Events__Cost_Utils' );
 			tribe_singleton( 'tec.known-range', 'Tribe__Events__Dates__Known_Range' );
@@ -418,6 +418,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
 
 			tribe_singleton( 'tec.admin.list', 'Tribe__Events__Admin__List' );
+
+			tribe_singleton( 'tec.inactive-events', 'Tribe__Events__Inactive_Events' );
 
 			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
@@ -571,6 +573,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_tracker_taxonomies', array( $this, 'filter_tracker_event_taxonomies' ) );
 
 			add_action( 'init', tribe_callback( 'tec.admin.list', 'init' ) );
+			add_action( 'init', tribe_callback( 'tec.inactive-events', 'register' ) );
 
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
