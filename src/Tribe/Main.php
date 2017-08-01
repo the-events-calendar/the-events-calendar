@@ -4890,23 +4890,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Insert an array immediately before a specified key within another array.
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param $key
-		 * @param $source_array
-		 * @param $insert_array
-		 *
-		 * @return array
-		 */
-		public static function array_insert_before_key( $key, $source_array, $insert_array ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Main::array_insert_before_key' );
-
-			return self::instance()->common()->array_insert_before_key( $key, $source_array, $insert_array );
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
