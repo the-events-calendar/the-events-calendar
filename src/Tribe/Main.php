@@ -4907,17 +4907,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Create setting tabs
-		 *
-		 * @deprecated 4.0
-		 *
-		 */
-		public function doSettingTabs() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::do_setting_tabs' );
-			Tribe__Settings_Manager::instance()->do_setting_tabs();
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
