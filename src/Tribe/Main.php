@@ -4918,17 +4918,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Create the help tab
-		 *
-		 * @deprecated 4.0
-		 *
-		 */
-		public function doHelpTab() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::do_help_tab' );
-			Tribe__Settings_Manager::instance()->do_help_tab();
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
