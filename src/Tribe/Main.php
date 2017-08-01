@@ -5055,31 +5055,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Saves the network options for the plugin
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param array $options formatted the same as from getOptions()
-		 * @param bool  $apply_filters
-		 *
-		 */
-		public function setNetworkOptions( $options, $apply_filters = true ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::set_network_options' );
-			Tribe__Settings_Manager::set_network_options( $options, $apply_filters );
-		}
-
-		/**
-		 * Add the network admin options page
-		 *
-		 * @deprecated 4.0
-		 *
-		 */
-		public function addNetworkOptionsPage() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::add_network_options_page' );
-			Tribe__Settings_Manager::add_network_options_page();
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
