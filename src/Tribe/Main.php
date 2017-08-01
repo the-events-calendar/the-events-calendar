@@ -4973,18 +4973,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Get all options for the Events Calendar
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @return array of options
-		 */
-		public static function getOptions() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::get_options' );
-			return Tribe__Settings_Manager::get_options();
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
