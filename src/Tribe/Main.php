@@ -5160,21 +5160,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Define an admin notice
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param string $key
-		 * @param string $notice
-		 *
-		 * @return bool
-		 */
-		public static function setNotice( $key, $notice ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices::set_notice' );
-			return Tribe__Notices::set_notice( $key, $notice );
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
