@@ -5203,29 +5203,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Get the admin notices
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @return array
-		 */
-		public static function getNotices() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices::get' );
-			return Tribe__Notices::get();
-		}
-
-		/**
-		 * Add help menu item to the admin (unless blocked via network admin settings).
-		 *
-		 * @deprecated 4.0
-		 *
-		 */
-		public function addHelpAdminMenuItem() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::add_help_admin_menu_item' );
-			Tribe__Settings_Manager::instance()->add_help_admin_menu_item();
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
