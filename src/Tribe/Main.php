@@ -5040,21 +5040,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Get value for a specific network option
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param string $optionName name of option
-		 * @param string $default    default value
-		 *
-		 * @return mixed results of option query
-		 */
-		public function getNetworkOption( $optionName, $default = '' ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::get_network_option' );
-			return Tribe__Settings_Manager::get_network_option( $optionName, $default );
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
