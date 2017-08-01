@@ -5301,23 +5301,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Helper used to test if PRO is present and activated.
-		 *
-		 * This method should no longer be used, but is being retained to avoid potential
-		 * for fatal errors where core is updated before an addon plugin - such as Community
-		 * Events 3.4 or earlier - which might otherwise occur were it removed completely.
-		 *
-		 * @deprecated 3.7
-		 *
-		 * @param string $version
-		 *
-		 * @return bool
-		 */
-		public static function ecpActive( $version = '2.0.7' ) {
-			return class_exists( 'Tribe__Events__Pro__Main' ) && defined( 'Tribe__Events__Pro__Main::VERSION' ) && version_compare( Tribe__Events__Pro__Main::VERSION, $version, '>=' );
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
