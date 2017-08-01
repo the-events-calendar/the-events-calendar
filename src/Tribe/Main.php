@@ -5245,31 +5245,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Converts a set of inputs to YYYY-MM-DD HH:MM:SS format for MySQL
-		 *
-		 * @deprecated 3.11
-		 *
-		 * @param string $date     The date.
-		 * @param int    $hour     The hour of the day.
-		 * @param int    $minute   The minute of the hour.
-		 * @param string $meridian "am" or "pm".
-		 *
-		 * @return string The date and time.
-		 */
-		public function dateToTimeStamp( $date, $hour, $minute, $meridian ) {
-			_deprecated_function( __METHOD__, '3.11', 'strtotime' );
-			if ( preg_match( '/(PM|pm)/', $meridian ) && $hour < 12 ) {
-				$hour += '12';
-			}
-			if ( preg_match( '/(AM|am)/', $meridian ) && $hour == 12 ) {
-				$hour = '00';
-			}
-			$date = $this->dateHelper( $date );
-
-			return "$date $hour:$minute:00";
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
