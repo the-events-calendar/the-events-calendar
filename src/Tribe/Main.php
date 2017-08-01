@@ -4849,30 +4849,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Tag clouds in the admin don't pass the post type arg
-		 * when getting the edit link. If we're on the tag admin
-		 * in Events post type context, make sure we add that
-		 * arg to the edit tag link
-		 *
-		 * @deprecated 4.1.2
-		 *
-		 * @param string $link
-		 * @param int    $term_id
-		 * @param string $taxonomy
-		 * @param string $context
-		 *
-		 * @return string
-		 */
-		public function add_post_type_to_edit_term_link( $link, $term_id, $taxonomy, $context ) {
-			_deprecated_function( __METHOD__, '4.1.2' );
-			if ( $taxonomy == 'post_tag' && empty( $context ) ) {
-				$link = add_query_arg( array( 'post_type' => self::POSTTYPE ), $link );
-			}
-
-			return esc_url_raw( $link );
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
