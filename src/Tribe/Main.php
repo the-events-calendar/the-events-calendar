@@ -5080,17 +5080,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Render network admin options view
-		 *
-		 * @deprecated 4.0
-		 *
-		 */
-		public function doNetworkSettingTab() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::do_network_settings_tab' );
-			Tribe__Settings_Manager::do_network_settings_tab();
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
