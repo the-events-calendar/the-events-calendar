@@ -5091,17 +5091,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Save hidden tabs
-		 *
-		 * @deprecated 4.0
-		 *
-		 */
-		public function saveAllTabsHidden() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::save_all_tabs_hidden' );
-			Tribe__Settings_Manager::instance()->save_all_tabs_hidden();
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
