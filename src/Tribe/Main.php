@@ -5226,25 +5226,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Allow programmatic override of defaultValueReplace setting
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @return boolean
-		 */
-		public function defaultValueReplaceEnabled() {
-
-			_deprecated_function( __METHOD__, '4.0', "tribe_get_option( 'defaultValueReplace' )" );
-
-			if ( ! is_admin() ) {
-				return false;
-			}
-
-			return tribe_get_option( 'defaultValueReplace' );
-
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
