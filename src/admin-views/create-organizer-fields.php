@@ -16,6 +16,6 @@
 	</td>
 	<td class="organizer-email">
 		<input id="organizer-email" type='text' name='organizer[Email][]' class='organizer-email' size='25' value='' />
-		<p><?php esc_html_e( 'The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.', 'the-events-calendar' ); ?></p>
+		<p><?php esc_html_e( 'The e-mail address will be obfuscated on this site to avoid it getting harvested by spammers.', 'the-events-calendar' ); ?></p>
 	</td>
 </tr>
