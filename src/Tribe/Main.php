@@ -4951,28 +4951,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Get tag rewrite slug.
-		 *
-		 * This method returns a concatenation of the base rewrite slug (ie "events") and the tag taxonomy slug
-		 * (ie "tag"). If you only wish the taxonomy slug itself, you should call the get_tag_slug()
-		 * method.
-		 *
-		 * @deprecated 4.0 please use getRewriteSlug() and get_tag_slug() instead
-		 *
-		 * @return string
-		 */
-		public function getTagRewriteSlug() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Events__Main::get_tag_slug' );
-
-			$slug = $this->getRewriteSlug() . '/' . $this->tag_slug;
-
-			/**
-			 * @deprecated since 4.0
-			 */
-			return apply_filters( 'tribe_events_tag_rewrite_slug', $slug );
-		}
-
-		/**
 		 * Filters the chunkable post types.
 		 *
 		 * @param array $post_types
