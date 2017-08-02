@@ -192,6 +192,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_VenueZip',
 			'_VenuePhone',
 			'_VenueURL',
+			'_VenueShowMap',
+			'_VenueShowMapLink',
 		);
 
 		public $organizerTags = array(
