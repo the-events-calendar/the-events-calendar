@@ -143,7 +143,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 			}
 		}
 
-		$queue_items = get_post_meta( $this->current_record_id, Tribe__Events__Aggregator__Records::prefix_meta( Tribe__Events__Aggregator__Record__Queue::$queue_key ), true );
+		$queue_items = get_post_meta( $this->current_record_id, Tribe__Events__Aggregator__Records::instance()->prefix_meta( Tribe__Events__Aggregator__Record__Queue::$queue_key ), true );
 
 		// We only get here if we done processing this batch
 		// Now we will check for more events on the queue
