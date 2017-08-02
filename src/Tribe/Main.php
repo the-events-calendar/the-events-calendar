@@ -941,7 +941,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// What the user can do
 			$edit_post_link = sprintf( __( 'Ask the site administrator to edit the %s slug', 'the-events-calendar' ), $name );
 			if ( isset( $post_type->cap->edit_posts ) && current_user_can( $post_type->cap->edit_posts ) ) {
-				$edit_post_link = sprintf( __( '<a href="%s">Edit the %s slug</a>', 'the-events-calendar' ), get_edit_post_link( $conflict->ID ), $name );
+				$edit_post_link = sprintf( '<a href="%1$s">%2$s</a>', get_edit_post_link( $conflict->ID ), sprintf( __( 'Edit the %s slug', 'the-events-calendar' ), $name ) );
 			}
 
 			$settings_cap       = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
@@ -950,7 +950,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( current_user_can( $settings_cap ) ) {
 				$admin_slug         = apply_filters( 'tribe_settings_admin_slug', 'tribe-common' );
 				$setting_page_link  = apply_filters( 'tribe_settings_url', admin_url( 'edit.php?page=' . $admin_slug . '#tribe-field-eventsSlug' ) );
-				$edit_settings_link = sprintf( __( '<a href="%s">edit Events settings</a>.', 'the-events-calendar' ), $setting_page_link );
+				$edit_settings_link = sprintf( '<a href="%1$s">%2$s</a>', $setting_page_link, __( 'edit Events settings.', 'the-events-calendar' ) );
 			}
 
 			$line_2 = sprintf( __( '%1$s or %2$s', 'the-events-calendar' ), $edit_post_link, $edit_settings_link );
