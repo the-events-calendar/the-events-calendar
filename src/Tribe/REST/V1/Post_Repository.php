@@ -387,6 +387,15 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		return $cost_values;
 	}
 
+	/**
+	 * Returns the categories assigned to the specified event.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $event_id
+	 *
+	 * @return array
+	 */
 	protected function get_categories( $event_id ) {
 		$data = $this->get_terms( $event_id, Tribe__Events__Main::TAXONOMY );
 
@@ -401,10 +410,20 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		return array_filter( $data );
 	}
 
+	/**
+	 * Returns the terms associated with an event.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $event_id An event post ID.
+	 * @param string $taxonomy
+	 *
+	 * @return array
+	 */
 	public function get_terms( $event_id, $taxonomy ) {
 		$terms = wp_get_post_terms( $event_id, $taxonomy );
 
-		if ( empty( $terms ) ) {
+		if ( empty( $terms ) || is_wp_error( $terms ) ) {
 			return array();
 		}
 
@@ -412,7 +431,11 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$data = array();
 		foreach ( $terms_data as $term_data ) {
-			$term_id = Tribe__Utils__Array::get( $term_data, 'id', $term_data['term_id'] );
+			if ( empty( $term_data['id'] ) && empty( $term_data['term_id'] ) ) {
+				continue;
+			}
+
+			$term_id = isset( $term_data['id'] ) ? $term_data['id'] : $term_data['term_id'];
 			$term    = get_term( $term_id, $taxonomy );
 			/**
 			 * Filters the data that will be returned for an event taxonomy term.
@@ -430,6 +453,15 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		return $data;
 	}
 
+	/**
+	 * Returns the tags assigned to the specified event.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $event_id
+	 *
+	 * @return array
+	 */
 	protected function get_tags( $event_id ) {
 		$data = $this->get_terms( $event_id, 'post_tag' );
 
@@ -511,7 +543,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		unset( $term_data['_links'] );
 
-		$term_id = Tribe__Utils__Array::get( $term_data, 'id', $term_data['term_id'] );
+		$term_id = $term_data['id'];
 
 		$term_data['urls'] = array(
 			'self'       => tribe_events_rest_url( "{$namespace}/{$term_id}" ),
