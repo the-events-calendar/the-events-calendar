@@ -387,7 +387,7 @@ jQuery( document ).ready( function( $ ) {
 					// Check to see if we have a field of this name
 					var $field = $fields.find( 'input[name="' + container + '[' + key + '][]"]' );
 
-					if ( ! $field.length ) {
+					if ( ! $field.length || _.isEmpty( field ) ) {
 						continue;
 					}
 
