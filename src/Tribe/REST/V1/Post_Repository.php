@@ -431,6 +431,10 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$data = array();
 		foreach ( $terms_data as $term_data ) {
+			if ( empty( $term_data['id'] ) && empty( $term_data['term_id'] ) ) {
+				continue;
+			}
+
 			$term_id = Tribe__Utils__Array::get( $term_data, 'id', $term_data['term_id'] );
 			$term    = get_term( $term_id, $taxonomy );
 			/**
