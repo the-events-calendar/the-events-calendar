@@ -39,7 +39,7 @@ class Tribe__Events__Integrations__Twenty_Seventeen {
 		 *
 		 * @since TBD
 		 *
-		 * @oaram bool  $should_remove
+		 * @param bool  $should_remove
 		 * @param array $classes
 		 */
 		$remove_sidebar_class = apply_filters(
