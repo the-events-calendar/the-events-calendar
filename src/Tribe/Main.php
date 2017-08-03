@@ -573,7 +573,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_tracker_taxonomies', array( $this, 'filter_tracker_event_taxonomies' ) );
 
 			add_action( 'init', tribe_callback( 'tec.admin.list', 'init' ) );
+
 			add_action( 'init', tribe_callback( 'tec.inactive-events', 'register' ) );
+			add_action( 'init', tribe_callback( 'tec.inactive-events', 'init' ) );
 
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
