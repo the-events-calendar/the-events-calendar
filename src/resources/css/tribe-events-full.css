@@ -1349,6 +1349,13 @@ select.tribe-events-dropdown {
 	z-index: 1001;
 }
 
+.tribe-events-calendar .tribe-events-tooltip {
+	left: 100px;
+	right: auto;
+	top: 9px;
+	bottom: auto !important;
+}
+
 .tribe-events-tooltip .tribe-events-arrow {
 	background-image: url(../images/tribe-tooltips.png);
 	background-position: 0 0;
@@ -1370,9 +1377,31 @@ select.tribe-events-dropdown {
 	right: 3px;
 }
 
+.tribe-events-calendar .tribe-events-right .tribe-events-tooltip {
+	right: 100px;
+	bottom: auto;
+}
+
 .tribe-events-right .tribe-events-tooltip .tribe-events-arrow {
 	left: auto;
 	right: 30px;
+}
+
+.tribe-events-calendar .tribe-events-tooltip .tribe-events-arrow {
+	background-position: -30px 0;
+	bottom: auto;
+	height: 18px;
+	left: -4px;
+	left: -7px;
+	top: 6px;
+	width: 8px;
+	background-size: 37px 20px;
+}
+
+.tribe-events-calendar .tribe-events-right .tribe-events-tooltip .tribe-events-arrow {
+	background-position: -22px 0;
+	left: auto;
+	right: -8px;
 }
 
 .tribe-events-tooltip ul,
