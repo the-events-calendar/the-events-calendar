@@ -490,12 +490,16 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			return array();
 		}
 
+		$term_data = (array) $term_data;
+
+		if ( empty( $term_data['id'] ) && empty( $term_data['term_id'] ) ) {
+			return array();
+		}
+
 		$rename_map = array(
 			'link' => 'url',
 			'term_id' => 'id',
 		);
-
-		$term_data = (array) $term_data;
 
 		foreach ( $rename_map as $old => $new ) {
 			if ( ! isset( $term_data[ $old ] ) || isset( $term_data[ $new ] ) ) {
