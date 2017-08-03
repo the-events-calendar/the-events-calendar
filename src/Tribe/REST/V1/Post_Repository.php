@@ -543,7 +543,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		unset( $term_data['_links'] );
 
-		$term_id = isset( $term_data['id'] ) ? $term_data['id'] : $term_data['term_id'];
+		$term_id = $term_data['id'];
 
 		$term_data['urls'] = array(
 			'self'       => tribe_events_rest_url( "{$namespace}/{$term_id}" ),
