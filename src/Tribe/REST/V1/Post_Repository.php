@@ -435,7 +435,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				continue;
 			}
 
-			$term_id = Tribe__Utils__Array::get( $term_data, 'id', $term_data['term_id'] );
+			$term_id = isset( $term_data['id'] ) ? $term_data['id'] : $term_data['term_id'];
 			$term    = get_term( $term_id, $taxonomy );
 			/**
 			 * Filters the data that will be returned for an event taxonomy term.
@@ -543,7 +543,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		unset( $term_data['_links'] );
 
-		$term_id = Tribe__Utils__Array::get( $term_data, 'id', $term_data['term_id'] );
+		$term_id = isset( $term_data['id'] ) ? $term_data['id'] : $term_data['term_id'];
 
 		$term_data['urls'] = array(
 			'self'       => tribe_events_rest_url( "{$namespace}/{$term_id}" ),
