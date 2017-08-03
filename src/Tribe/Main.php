@@ -429,6 +429,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.rest-v1.main', 'Tribe__Events__REST__V1__Main', array( 'bind_implementations', 'hook' ) );
 			tribe( 'tec.rest-v1.main' );
 
+			// Integrations
+			tribe_singleton( 'tec.integrations.twenty-seventeen', 'Tribe__Events__Integrations__Twenty_Seventeen', array( 'hook' ) );
+
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
 			 */

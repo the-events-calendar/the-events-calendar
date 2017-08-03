@@ -332,6 +332,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Avoid duplicate events when importing from some iCal, Google Calendar and Facebook feeds in Event Aggregator [67038]
 * Tweak - Moved the organizer e-mail address field label a bit to better accomodate Community Events [80426]
 * Tweak - Avoid notice-level errors while processing queues within Event Aggregator [84020]
+* Tweak - Improve compatibility and avoid Javascript errors when running alongside Twenty Seventeen [70853]
 
 = [4.5.9] 2017-07-26 =
 
