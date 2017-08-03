@@ -18,6 +18,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		'venue'      => 'venue',
 		'organizer'  => 'organizer',
 		'featured'   => 'featured',
+		'geoloc'     => 'tribe_geoloc',
+		'geoloc_lat' => 'tribe_geoloc_lat',
+		'geoloc_lng' => 'tribe_geoloc_lng',
 	);
 
 	/**
@@ -381,7 +384,24 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			'featured'   => array(
 				'required' => false,
 				'type' => 'boolean',
-				'description' => __( 'If specified events will be filtered by their featured status', 'the-events-calendar' ),
+				'description' => __( 'Events should be filtered by their featured status', 'the-events-calendar' ),
+			),
+			'geoloc'   => array(
+				'required' => false,
+				'type' => 'boolean',
+				'description' => __( 'Requires Events Calendar Pro. Events should be filtered by whether their venue has geolocation data', 'the-events-calendar' ),
+			),
+			'geoloc_lat'   => array(
+				'required' => false,
+				'swagger_type' => 'number',
+				'format' => 'double',
+				'description' => __( 'Requires Events Calendar Pro. Events should be filtered by their venue latitude location, must also provide geoloc_lng', 'the-events-calendar' ),
+			),
+			'geoloc_lng'   => array(
+				'required' => false,
+				'swagger_type' => 'number',
+				'format' => 'double',
+				'description' => __( 'Requires Events Calendar Pro. Events should be filtered by their venue longitude location, must also provide geoloc_lat', 'the-events-calendar' ),
 			),
 		);
 	}
