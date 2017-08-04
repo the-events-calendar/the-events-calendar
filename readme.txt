@@ -334,6 +334,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Moved the organizer e-mail address field label a bit to better accomodate Community Events [80426]
 * Tweak - Avoid notice-level errors while processing queues within Event Aggregator [84020]
 * Tweak - Improve compatibility and avoid Javascript errors when running alongside Twenty Seventeen [70853]
+* Tweak - Moved tooltips to side of event title in Month view to prevent cutoff (thanks Riccardo for flagging!) [65136]
 
 = [4.5.9] 2017-07-26 =
 
