@@ -4,7 +4,7 @@ Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Stable tag: 4.5.9
+Stable tag: 4.5.10
 Tested up to: 4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -329,8 +329,13 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.5.10] TBD =
 
+* Fix - Avoid duplicate events when importing from some iCal, Google Calendar and Facebook feeds in Event Aggregator [67038]
 * Fix - Fixed bug that caused scheduled imports to get stuck in a perpetual state of failure when receiving error messages from the Event Aggregator service. [83767]
 * Fix - Resolved issue where errors from the Event Aggregator service were not properly logging/visible on the History tab.
+* Tweak - Made linked post fields' auto-save features more stringently check for empty values to prevent the plugin from trying to "save" empty values [80282] 
+* Tweak - Moved the organizer e-mail address field label a bit to better accomodate Community Events [80426]
+* Tweak - Avoid notice-level errors while processing queues within Event Aggregator [84020]
+* Tweak - Improve compatibility and avoid Javascript errors when running alongside Twenty Seventeen [70853]
 
 = [4.5.9] 2017-07-26 =
 

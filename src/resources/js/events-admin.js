@@ -387,7 +387,8 @@ jQuery( document ).ready( function( $ ) {
 					// Check to see if we have a field of this name
 					var $field = $fields.find( 'input[name="' + container + '[' + key + '][]"]' );
 
-					if ( ! $field.length ) {
+					// If no field or an empty value, skip.
+					if ( ! $field.length || _.isEmpty( sticky_data[ key ] ) ) {
 						continue;
 					}
 
@@ -652,7 +653,7 @@ jQuery( document ).ready( function( $ ) {
 	//show state/province input based on first option in countries list, or based on user input of country
 	$( 'body' ).on( 'change', "#EventCountry", function () {
 		var $country = $( this );
-			$container = $country.parents( 'table' ).eq( 0 ),
+			$container = $country.parents( 'div.eventForm' ).eq( 0 ),
 			$state_dropdown = $container.find( '#s2id_StateProvinceSelect' ),
 			$state_select = $container.find( "#StateProvinceSelect" ),
 			$state_text = $container.find( "#StateProvinceText" ),
