@@ -79,4 +79,21 @@ class Tribe__Events__JSON_LD__Venue extends Tribe__JSON_LD__Abstract {
 		return array( $post_id => $data );
 	}
 
+	/**
+	 * Get a link to the event
+	 *
+	 * @param  int|WP_Post  $post The Post Object or ID
+	 *
+	 * @return false|string Link to the event or false
+	 */
+	protected function get_link( $post ) {
+		if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
+			$link = tribe_get_venue_link( $post, false );
+		} else {
+			$link = false;
+		}
+
+		return $link;
+	}
+
 }
