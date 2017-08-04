@@ -121,6 +121,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	public function get_documentation() {
 		$GET_defaults = $DELETE_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
 		$POST_defaults = array( 'in' => 'body', 'default' => '', 'type' => 'string' );
+		$post_args = array_merge( $this->READ_args(), $this->CREATE_args() );
 
 		return array(
 			'get'  => array(
@@ -144,7 +145,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 				),
 			),
 			'post' => array(
-				'parameters' => $this->swaggerize_args( $this->CREATE_args(), $POST_defaults ),
+				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
 				'responses'  => array(
 					'201' => array(
 						'description' => __( 'Returns the data of the created organizer', 'the-event-calendar' ),
