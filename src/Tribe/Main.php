@@ -3703,7 +3703,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Sets the post types for which the Event Details meta box will be registered.
 			 *
-			 * @var array $types
+			 * @since  TBD
+			 *
+			 * @param  array  $types
 			 */
 			$types = apply_filters( 'tribe_events_event_details_meta_box_post_types', array( self::POSTTYPE ) );
 
@@ -3719,7 +3721,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Sets the post types for which the Event Options meta box will be registered.
 			 *
-			 * @var array $types
+			 * @since  TBD
+			 *
+			 * @param  array  $types
 			 */
 			$types = apply_filters( 'tribe_events_event_options_meta_box_post_types', array( self::POSTTYPE ) );
 
@@ -3735,7 +3739,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Sets the post types for which the Venue Details meta box will be registered.
 			 *
-			 * @var array $types
+			 * @since  TBD
+			 *
+			 * @param  array  $types
 			 */
 			$types = apply_filters( 'tribe_events_venue_details_meta_box_post_types', array( self::VENUE_POST_TYPE ) );
 
@@ -3755,7 +3761,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Sets the post types for which the Organizer Details meta box will be registered.
 			 *
-			 * @var array $types
+			 * @since  TBD
+			 *
+			 * @param  array  $types
 			 */
 			$types = apply_filters( 'tribe_events_organizer_details_meta_box_post_types', array( self::ORGANIZER_POST_TYPE ) );
 

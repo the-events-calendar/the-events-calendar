@@ -185,8 +185,31 @@ class Tribe__Events__Inactive_Events {
 
 		add_action( 'current_screen', array( $this, 'kill_direct_access' ) );
 
+		add_filter( 'tribe_events_event_details_meta_box_post_types', array( $this, 'add_type' ) );
+		add_filter( 'tribe_events_event_options_meta_box_post_types', array( $this, 'add_type' ) );
+
+		add_filter( 'tribe_is_post_type_screen_post_types', array( $this, 'add_type' ) );
+
 		// Register Assets
 		$this->register_assets();
+	}
+
+	/**
+	 * Given an array of post types, adds the inactive events post type (if not already present).
+	 *
+	 * @since  TBD
+	 *
+	 * @param array $post_types
+	 *
+	 * @return array
+	 */
+	public function add_type( array $post_types ) {
+		$post_type = self::POST_TYPE;
+		if ( ! in_array( $post_type, $post_types ) ) {
+			$post_types[] = $post_type;
+		}
+
+		return $post_types;
 	}
 
 	/**
@@ -227,7 +250,7 @@ class Tribe__Events__Inactive_Events {
 		}
 
 		$back_link = esc_url( add_query_arg( array( 'post_type' => Tribe__Events__Main::POSTTYPE ), admin_url( 'edit.php' ) ) );
-		$html[] = sprintf( esc_html__( '%1$s does not allow direct access currently.', 'the-events-calendar' ), $this->get_type_plural_label() );
+		$html[] = sprintf( esc_html__( 'Direct access to %1$s in not available.', 'the-events-calendar' ), $this->get_type_plural_label() );
 		$html[] = sprintf( '<a href="%1$s" class="">%2$s</a>', $back_link, esc_html__( '&laquo; Back', 'the-events-calendar' ) );
 
 		wp_die(
