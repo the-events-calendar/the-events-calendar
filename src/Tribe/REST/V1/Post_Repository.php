@@ -431,11 +431,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$data = array();
 		foreach ( $terms_data as $term_data ) {
-			if ( empty( $term_data['id'] ) && empty( $term_data['term_id'] ) ) {
-				continue;
-			}
+			$term_id = $term_data['id'];
 
-			$term_id = isset( $term_data['id'] ) ? $term_data['id'] : $term_data['term_id'];
 			$term    = get_term( $term_id, $taxonomy );
 			/**
 			 * Filters the data that will be returned for an event taxonomy term.
@@ -550,7 +547,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'collection' => tribe_events_rest_url( $namespace ),
 		);
 
-		if ( 0 != $term_data['parent'] ) {
+		if ( ! empty( $term_data['parent'] ) ) {
 			$term_data['urls']['up'] = tribe_events_rest_url( "{$namespace}/{$term_data['parent']}" );
 		}
 

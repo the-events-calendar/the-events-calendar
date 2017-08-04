@@ -443,7 +443,11 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		);
 
 		if ( count( $args ) > 1 ) {
+			$post_type = Tribe__Events__Main::ORGANIZER_POST_TYPE;
+			$tag       = "save_post_{$post_type}";
+			remove_action( $tag, array( tribe( 'tec.main' ), 'save_organizer_data' ), 16 );
 			wp_update_post( $args );
+			add_action( $tag, array( tribe( 'tec.main' ), 'save_organizer_data' ), 16, 2 );
 		}
 
 		$post_fields = array_merge( Tribe__Duplicate__Post::$post_table_columns, array(

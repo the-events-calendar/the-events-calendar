@@ -318,10 +318,10 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		}
 
 
-		update_post_meta( $venue_id, '_EventShowMapLink', isset( $data['ShowMapLink'] ) );
-		update_post_meta( $venue_id, '_EventShowMap', isset( $data['ShowMap'] ) );
-		update_post_meta( $venue_id, '_VenueShowMapLink', isset( $data['ShowMapLink'] ) );
-		update_post_meta( $venue_id, '_VenueShowMap', isset( $data['ShowMap'] ) );
+		update_post_meta( $venue_id, '_EventShowMapLink', Tribe__Utils__Array::get( $data, 'ShowMapLink', false ) );
+		update_post_meta( $venue_id, '_EventShowMap', Tribe__Utils__Array::get( $data, 'ShowMap', false ) );
+		update_post_meta( $venue_id, '_VenueShowMapLink', Tribe__Utils__Array::get( $data, 'ShowMapLink', false ) );
+		update_post_meta( $venue_id, '_VenueShowMap', Tribe__Utils__Array::get( $data, 'ShowMap', false ) );
 		unset( $data['ShowMapLink'] );
 		unset( $data['ShowMap'] );
 
@@ -495,16 +495,20 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		                      ) );
 
 		if ( count( $args ) > 1 ) {
+			$post_type = Tribe__Events__Main::VENUE_POST_TYPE;
+			$tag       = "save_post_{$post_type}";
+			remove_action( $tag, array( tribe( 'tec.main' ), 'save_venue_data' ), 16 );
 			wp_update_post( $args );
+			add_action( $tag, array( tribe( 'tec.main' ), 'save_venue_data' ), 16, 2 );
 		}
 
 		if ( isset( $data['ShowMap'] ) && ! tribe_is_truthy( $data['ShowMap'] ) ) {
-			unset( $data['ShowMap'] );
+			$data['ShowMap'] = 'false';
 		} else {
 			$data['ShowMap'] = true;
 		}
 		if ( isset( $data['ShowMapLink'] ) && ! tribe_is_truthy( $data['ShowMapLink'] ) ) {
-			unset( $data['ShowMapLink'] );
+			$data['ShowMapLink'] = 'false';
 		} else {
 			$data['ShowMapLink'] = true;
 		}
