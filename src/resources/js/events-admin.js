@@ -387,7 +387,8 @@ jQuery( document ).ready( function( $ ) {
 					// Check to see if we have a field of this name
 					var $field = $fields.find( 'input[name="' + container + '[' + key + '][]"]' );
 
-					if ( ! $field.length ) {
+					// If no field or an empty value, skip.
+					if ( ! $field.length || _.isEmpty( sticky_data[ key ] ) ) {
 						continue;
 					}
 
