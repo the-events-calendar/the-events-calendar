@@ -62,6 +62,8 @@ class Tribe__Events__JSON_LD__Organizer extends Tribe__JSON_LD__Abstract {
 	/**
 	 * Get a link to the event
 	 *
+	 * @since TBD
+	 *
 	 * @param  int|WP_Post  $post The Post Object or ID
 	 *
 	 * @return false|string Link to the event or false
