@@ -439,7 +439,12 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 				continue;
 			}
 
-			if ( empty( $total_posts->$name ) ) {
+			if ( ! isset( $total_posts->$name ) ) {
+				continue;
+			}
+
+			if ( 0 === $total_posts->$name ) {
+				unset( $views[ $name ] );
 				continue;
 			}
 
