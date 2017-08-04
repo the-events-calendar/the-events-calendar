@@ -69,6 +69,7 @@ class Tribe__Events__JSON_LD__Organizer extends Tribe__JSON_LD__Abstract {
 	 * @return false|string Link to the event or false
 	 */
 	protected function get_link( $post ) {
+		// @TODO Move this logic to Pro once #33734 is handled.
 		if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			$link = tribe_get_organizer_link( $post, false );
 		} else {
