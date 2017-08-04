@@ -148,7 +148,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	 * @return false|string Link to the event or false
 	 */
 	protected function get_link( $post ) {
-		return tribe_get_event_link( Tribe__Main::post_id_helper( $post ) );
+		return tribe_get_event_link( $post );
 	}
 
 }
