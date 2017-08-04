@@ -495,7 +495,8 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		                      ) );
 
 		if ( count( $args ) > 1 ) {
-			$tag = 'save_post_' . Tribe__Events__Main::VENUE_POST_TYPE;
+			$post_type = Tribe__Events__Main::VENUE_POST_TYPE;
+			$tag       = "save_post_{$post_type}";
 			remove_action( $tag, array( tribe( 'tec.main' ), 'save_venue_data' ), 16 );
 			wp_update_post( $args );
 			add_action( $tag, array( tribe( 'tec.main' ), 'save_venue_data' ), 16, 2 );
