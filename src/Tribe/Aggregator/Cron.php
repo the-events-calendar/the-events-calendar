@@ -322,13 +322,14 @@ class Tribe__Events__Aggregator__Cron {
 
 			// Creating the child records based on this Parent
 			$child = $record->create_child_record();
+			$this->log( 'debug', sprintf( 'Creating child record %d', $child->id ) );
 
 			if ( ! is_wp_error( $child ) ) {
 				$this->log( 'debug', sprintf( 'Record (%d) was created as a child', $child->id ) );
 
 				// Creates on the Service a Queue to Fetch the events
 				$response = $child->queue_import();
-
+				$this->log( 'debug', sprintf( 'Queueing import on EA Service for %d', $child->id ) );
 				if ( ! empty( $response->status ) ) {
 					$this->log( 'debug', sprintf( '%s — %s (%s)', $response->status, $response->message, $response->data->import_id ) );
 
@@ -394,6 +395,7 @@ class Tribe__Events__Aggregator__Cron {
 			$failed = $cleaner->maybe_fail_stalled_record( $record );
 
 			if ( $failed ) {
+				$this->log( 'error', sprintf( 'Stalled record (%d)', $record->id ) );
 				continue;
 			}
 

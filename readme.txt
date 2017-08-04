@@ -330,6 +330,8 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.5.10] TBD =
 
 * Fix - Avoid duplicate events when importing from some iCal, Google Calendar and Facebook feeds in Event Aggregator [67038]
+* Fix - Fixed bug that caused scheduled imports to get stuck in a perpetual state of failure when receiving error messages from the Event Aggregator service. [83767]
+* Fix - Resolved issue where errors from the Event Aggregator service were not properly logging/visible on the History tab.
 * Tweak - Made linked post fields' auto-save features more stringently check for empty values to prevent the plugin from trying to "save" empty values [80282] 
 * Tweak - Moved the organizer e-mail address field label a bit to better accomodate Community Events [80426]
 * Tweak - Added filter to tribe_get_display_end_date()'s return value [77730]
