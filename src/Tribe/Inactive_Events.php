@@ -156,7 +156,7 @@ class Tribe__Events__Inactive_Events {
 			'taxonomies'          => array( Tribe__Events__Main::TAXONOMY, 'post_tag' ),
 			'capability_type'     => array( 'tribe_event', 'tribe_events' ),
 			'map_meta_cap'        => true,
-			'labels'              => $this->get_type_labels()
+			'labels'              => $this->get_type_labels(),
 		);
 
 		/**
