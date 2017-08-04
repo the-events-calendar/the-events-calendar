@@ -346,10 +346,10 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		$postarr = array_filter( $postarr );
 
 		if ( isset( $request['show_map'] ) ) {
-			$postarr['ShowMap'] = tribe_is_truthy( $request['show_map'] );
+			$postarr['ShowMap'] = tribe_is_truthy( $request['show_map'] ) ? '1' : 'false';
 		}
 		if ( isset( $request['show_map_link'] ) ) {
-			$postarr['ShowMapLink'] = tribe_is_truthy( $request['show_map_link'] );
+			$postarr['ShowMapLink'] = tribe_is_truthy( $request['show_map_link'] ) ? '1' : 'false';
 		}
 
 		return $postarr;
