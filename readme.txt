@@ -327,6 +327,11 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.5.10] TBD =
+
+* Fix - Fixed bug that caused scheduled imports to get stuck in a perpetual state of failure when receiving error messages from the Event Aggregator service. [83767]
+* Fix - Resolved issue where errors from the Event Aggregator service were not properly logging/visible on the History tab.
+
 = [4.5.9] 2017-07-26 =
 
 * Fix - Send Aggregator callback URL with correct Scheme [83364]
