@@ -812,7 +812,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		);
 
 		$args = wp_parse_args( $args, $defaults );
-
 		return get_comments( $args );
 	}
 
@@ -826,8 +825,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function log_error( $error ) {
 		$today = getdate();
 		$args = array(
-			// Resets the Post ID
-			'post_id' => null,
 			'number' => 1,
 			'date_query' => array(
 				array(
@@ -1050,7 +1047,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$items = $this->prep_import_data( $data );
 
 		if ( is_wp_error( $items ) ) {
-			$this->set_status_as_failed( $items );
 			return $items;
 		}
 
@@ -1104,6 +1100,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( is_wp_error( $data ) ) {
+			$this->set_status_as_failed( $data );
 			return $data;
 		}
 
