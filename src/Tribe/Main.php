@@ -3219,7 +3219,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			// is the current user allowed to edit this venue?
+			// is the current user allowed to edit this organizer?
 			if ( ! current_user_can( 'edit_tribe_organizer', $postID ) ) {
 				return;
 			}
