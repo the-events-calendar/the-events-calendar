@@ -534,26 +534,44 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$post_stati = implode( "','", $post_stati );
 			$ignore_hidden_events_AND = $this->hidden_events_fragment();
 
-			$events_request = $wpdb->prepare(
-				"SELECT tribe_event_start.post_id as ID,
-						tribe_event_start.meta_value as EventStartDate,
-						tribe_event_end_date.meta_value as EventEndDate
-				FROM $wpdb->postmeta AS tribe_event_start
-				LEFT JOIN $wpdb->posts ON tribe_event_start.post_id = $wpdb->posts.ID
-				LEFT JOIN $wpdb->postmeta as tribe_event_end_date ON ( tribe_event_start.post_id = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' )
-				WHERE $ignore_hidden_events_AND tribe_event_start.meta_key = '_EventStartDate'
-				AND ( (tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
-					OR (tribe_event_start.meta_value <= '%1\$s' AND tribe_event_end_date.meta_value >= '%1\$s')
-					OR ( tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
-				)
-				AND $wpdb->posts.post_status IN('$post_stati')
-				ORDER BY $wpdb->posts.menu_order ASC, DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;
-				",
-				tribe_beginning_of_day( $this->first_grid_date ),
-				tribe_end_of_day( $this->final_grid_date )
-			);
+			$start_date = tribe_beginning_of_day( $this->first_grid_date );
+			$end_date   = tribe_end_of_day( $this->final_grid_date );
 
-			$this->events_in_month = $wpdb->get_results( $events_request );
+			/**
+			 * Allow bypassing the events in month SQL query to return events an alternative way.
+			 *
+			 * @param null|array $events_in_month An array of events in month (default null, run the SQL query like normal)
+			 * @param string     $start_date      The start date to filter the queried events by
+			 * @param string     $end_date        The end date to filter the queried events by
+			 *
+			 * @since 4.5.9
+			 */
+			$events_in_month = apply_filters( 'tribe_events_month_get_events_in_month', null, $start_date, $end_date );
+
+			if ( null === $events_in_month ) {
+				$events_request = $wpdb->prepare(
+					"SELECT tribe_event_start.post_id as ID,
+							tribe_event_start.meta_value as EventStartDate,
+							tribe_event_end_date.meta_value as EventEndDate
+					FROM $wpdb->postmeta AS tribe_event_start
+					LEFT JOIN $wpdb->posts ON tribe_event_start.post_id = $wpdb->posts.ID
+					LEFT JOIN $wpdb->postmeta as tribe_event_end_date ON ( tribe_event_start.post_id = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' )
+					WHERE $ignore_hidden_events_AND tribe_event_start.meta_key = '_EventStartDate'
+					AND ( (tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
+						OR (tribe_event_start.meta_value <= '%1\$s' AND tribe_event_end_date.meta_value >= '%1\$s')
+						OR ( tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
+					)
+					AND $wpdb->posts.post_status IN('$post_stati')
+					ORDER BY $wpdb->posts.menu_order ASC, DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;
+					",
+					$start_date,
+					$end_date
+				);
+
+				$events_in_month = $wpdb->get_results( $events_request );
+			}
+
+			$this->events_in_month = $events_in_month;
 
 			// cache the postmeta and terms for all these posts in one go
 			$event_ids_in_month = wp_list_pluck( $this->events_in_month, 'ID' );

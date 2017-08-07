@@ -49,7 +49,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$can_inject = false;
 			}
 
-			return apply_filters( 'tribe_query_can_inject_date_field', $can_inject );
+			/**
+			 * Determine whether a date field can be injected into various parts of a query.
+			 *
+			 * @param boolean  $can_inject Whether the date field can be injected
+			 * @param WP_Query $query      Query object
+			 *
+			 * @since 4.5.8
+			 */
+			return apply_filters( 'tribe_query_can_inject_date_field', $can_inject, $query );
 		}
 
 		/**

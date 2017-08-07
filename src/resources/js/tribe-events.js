@@ -260,28 +260,30 @@ var tribeDateFormat = function() {
 }();
 
 tribeDateFormat.masks = {
-	"default"        : "ddd mmm dd yyyy HH:MM:ss",
-	"tribeQuery"     : "yyyy-mm-dd",
+	"default":         "ddd mmm dd yyyy HH:MM:ss",
+	"tribeQuery":      "yyyy-mm-dd",
 	"tribeMonthQuery": "yyyy-mm",
-	"0"              : 'yyyy-mm-dd',
-	"1"              : 'm/d/yyyy',
-	"2"              : 'mm/dd/yyyy',
-	"3"              : 'd/m/yyyy',
-	"4"              : 'dd/mm/yyyy',
-	"5"              : 'm-d-yyyy',
-	"6"              : 'mm-dd-yyyy',
-	"7"              : 'd-m-yyyy',
-	"8"              : 'dd-mm-yyyy',
-	"m0"             : 'yyyy-mm',
-	"m1"             : 'm/yyyy',
-	"m2"             : 'mm/yyyy',
-	"m3"             : 'm/yyyy',
-	"m4"             : 'mm/yyyy',
-	"m5"             : 'm-yyyy',
-	"m6"             : 'mm-yyyy',
-	"m7"             : 'm-yyyy',
-	"m8"             : 'mm-yyyy'
-
+	"0":               'yyyy-mm-dd',
+	"1":               'm/d/yyyy',
+	"2":               'mm/dd/yyyy',
+	"3":               'd/m/yyyy',
+	"4":               'dd/mm/yyyy',
+	"5":               'm-d-yyyy',
+	"6":               'mm-dd-yyyy',
+	"7":               'd-m-yyyy',
+	"8":               'dd-mm-yyyy',
+	"9":               'yyyy.mm.dd',
+	"10":              'mm.dd.yyyy',
+	"11":              'dd.mm.yyyy',
+	"m0":              'yyyy-mm',
+	"m1":              'm/yyyy',
+	"m2":              'mm/yyyy',
+	"m3":              'm/yyyy',
+	"m4":              'mm/yyyy',
+	"m5":              'm-yyyy',
+	"m6":              'mm-yyyy',
+	"m7":              'm-yyyy',
+	"m8":              'mm-yyyy'
 };
 
 tribeDateFormat.i18n = {
@@ -1202,8 +1204,21 @@ Date.prototype.format = function( mask, utc ) {
 		base_url            : '',
 		cur_url             : tribe_ev.fn.url_path( document.URL ),
 		cur_date            : tribe_ev.fn.current_date(),
-		datepicker_formats  : {
-			'main' : ['yyyy-mm-dd', 'm/d/yyyy', 'mm/dd/yyyy', 'd/m/yyyy', 'dd/mm/yyyy', 'm-d-yyyy', 'mm-dd-yyyy', 'd-m-yyyy', 'dd-mm-yyyy'],
+		datepicker_formats: {
+			'main': [
+				'yyyy-mm-dd',
+				'm/d/yyyy',
+				'mm/dd/yyyy',
+				'd/m/yyyy',
+				'dd/mm/yyyy',
+				'm-d-yyyy',
+				'mm-dd-yyyy',
+				'd-m-yyyy',
+				'dd-mm-yyyy',
+				'yyyy.mm.dd',
+				'mm.dd.yyyy',
+				'dd.mm.yyyy'
+			],
 			'month': ['yyyy-mm', 'm/yyyy', 'mm/yyyy', 'm/yyyy', 'mm/yyyy', 'm-yyyy', 'mm-yyyy', 'm-yyyy', 'mm-yyyy']
 		},
 		datepicker_opts     : {},
