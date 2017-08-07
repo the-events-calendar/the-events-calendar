@@ -36,7 +36,7 @@ class Tribe__Events__Inactive_Events {
 	 * @return WP_Post_Type|WP_Error
 	 */
 	public function register() {
-		$this->obj = register_post_type( self::POST_TYPE, $this->get_type_args() );
+		$this->obj = register_post_type( self::POSTTYPE, $this->get_type_args() );
 
 		return $this->obj;
 	}
@@ -193,7 +193,7 @@ class Tribe__Events__Inactive_Events {
 	 * @return array
 	 */
 	public function add_type( array $post_types ) {
-		$post_type = self::POST_TYPE;
+		$post_type = self::POSTTYPE;
 		if ( ! in_array( $post_type, $post_types ) ) {
 			$post_types[] = $post_type;
 		}
@@ -268,7 +268,7 @@ class Tribe__Events__Inactive_Events {
 			array(
 				'localize' => array(
 					'name' => 'tribe_events_inactive_event_post_type',
-					'data' => self::POST_TYPE,
+					'data' => self::POSTTYPE,
 				),
 				'conditionals' => array( $this, 'is_screen' ),
 			)
@@ -283,7 +283,7 @@ class Tribe__Events__Inactive_Events {
 	 * @return boolean
 	 */
 	public function is_screen() {
-		return tribe( 'admin.helpers' )->is_post_type_screen( self::POST_TYPE )
+		return tribe( 'admin.helpers' )->is_post_type_screen( self::POSTTYPE )
 			&& tribe( 'admin.helpers' )->is_base( array( 'edit', 'post' ) );
 	}
 }
