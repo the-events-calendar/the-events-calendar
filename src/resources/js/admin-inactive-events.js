@@ -22,9 +22,7 @@ var tribe_inactive_events = tribe_inactive_events || {};
 
 		$( '#menu-posts-tribe_events, #menu-posts-tribe_events a.wp-has-submenu' )
 			.addClass( 'wp-menu-open wp-has-current-submenu wp-has-submenu' ).removeClass( 'wp-not-current-submenu' )
-			.find( "li a[href='edit.php?post_type=" + obj.post_type + "']" )
-			.parent().hide()
-			.parents( '.wp-submenu' ).eq( 0 ).find( '.wp-first-item' ).addClass( 'current' );
+			.find( '.wp-submenu' ).eq( 0 ).find( '.wp-first-item' ).addClass( 'current' );
 	};
 
 	$( document ).ready( obj.init );

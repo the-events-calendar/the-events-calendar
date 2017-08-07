@@ -26,16 +26,7 @@ class Tribe__Events__Inactive_Events {
 	 *
 	 * @var   integer
 	 */
-	private $menu_position = 1337;
-
-	/**
-	 * Saved String ID for the Inactive Events Edit page
-	 *
-	 * @since TBD
-	 *
-	 * @var   string
-	 */
-	public $menu_id;
+	public $menu_position = 1337;
 
 	/**
 	 * Register the Post Type in WordPress
@@ -181,8 +172,6 @@ class Tribe__Events__Inactive_Events {
 			return;
 		}
 
-		add_action( 'admin_menu', array( $this, 'add_submenu' ) );
-
 		add_action( 'current_screen', array( $this, 'kill_direct_access' ) );
 
 		add_filter( 'tribe_events_event_details_meta_box_post_types', array( $this, 'add_type' ) );
@@ -296,22 +285,5 @@ class Tribe__Events__Inactive_Events {
 	public function is_screen() {
 		return tribe( 'admin.helpers' )->is_post_type_screen( self::POST_TYPE )
 			&& tribe( 'admin.helpers' )->is_base( array( 'edit', 'post' ) );
-	}
-
-	/**
-	 * Adds the submenu for the Inactive Events inside of the Events Menu
-	 *
-	 * @since  TBD
-	 *
-	 * @return void
-	 */
-	public function add_submenu() {
-		$this->menu_id = add_submenu_page(
-			'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE,
-			$this->get_type_singular_label(),
-			$this->get_type_singular_label(),
-			'edit_tribe_events',
-			'edit.php?post_type=' . self::POST_TYPE
-		);
 	}
 }
