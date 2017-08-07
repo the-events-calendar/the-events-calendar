@@ -318,10 +318,10 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		}
 
 
-		update_post_meta( $venue_id, '_EventShowMapLink', isset( $data['ShowMapLink'] ) ) ? $data['ShowMapLink'] : false;
-		update_post_meta( $venue_id, '_EventShowMap', isset( $data['ShowMap'] ) ) ? $data['ShowMap'] : false;
-		update_post_meta( $venue_id, '_VenueShowMapLink', isset( $data['ShowMapLink'] ) ) ? $data['ShowMapLink'] : false;
-		update_post_meta( $venue_id, '_VenueShowMap', isset( $data['ShowMap'] ) ) ? $data['ShowMap'] : false;
+		update_post_meta( $venue_id, '_EventShowMapLink', isset( $data['ShowMapLink'] ) ? $data['ShowMapLink'] : 'false' );
+		update_post_meta( $venue_id, '_EventShowMap', isset( $data['ShowMap'] ) ? $data['ShowMap'] : 'false' );
+		update_post_meta( $venue_id, '_VenueShowMapLink', isset( $data['ShowMapLink'] ) ? $data['ShowMapLink'] : 'false' );
+		update_post_meta( $venue_id, '_VenueShowMap', isset( $data['ShowMap'] ) ? $data['ShowMap'] : 'false' );
 		unset( $data['ShowMapLink'] );
 		unset( $data['ShowMap'] );
 
