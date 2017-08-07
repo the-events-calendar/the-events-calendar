@@ -8,7 +8,7 @@ class Tribe__Events__Inactive_Events {
 	 *
 	 * @since  TBD
 	 */
-	const POST_TYPE = 'tribe_inactive_event';
+	const POSTTYPE = 'tribe_inactive_event';
 
 	/**
 	 * A instance of the Registered Post Type
@@ -26,16 +26,7 @@ class Tribe__Events__Inactive_Events {
 	 *
 	 * @var   integer
 	 */
-	private $menu_position = 1337;
-
-	/**
-	 * Saved String ID for the Inactive Events Edit page
-	 *
-	 * @since TBD
-	 *
-	 * @var   string
-	 */
-	public $menu_id;
+	public $menu_position = 1337;
 
 	/**
 	 * Register the Post Type in WordPress
@@ -45,7 +36,7 @@ class Tribe__Events__Inactive_Events {
 	 * @return WP_Post_Type|WP_Error
 	 */
 	public function register() {
-		$this->obj = register_post_type( self::POST_TYPE, $this->get_type_args() );
+		$this->obj = register_post_type( self::POSTTYPE, $this->get_type_args() );
 
 		return $this->obj;
 	}
@@ -129,6 +120,13 @@ class Tribe__Events__Inactive_Events {
 			'not_found_in_trash'      => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->get_type_plural_label() ) ),
 		);
 
+		/**
+		 * Filters the register_post_type labels for Inactive Events
+		 *
+		 * @since  TBD
+		 *
+		 * @param  array  $arguments  Information to setup the Inactive Event Post Type labels
+		 */
 		return apply_filters( 'tribe_events_inactive_event_post_type_labels', $labels );
 	}
 
@@ -180,8 +178,8 @@ class Tribe__Events__Inactive_Events {
 		if ( ! is_admin() ) {
 			return;
 		}
-
-		add_action( 'admin_menu', array( $this, 'add_submenu' ) );
+		// Initialize the Admin List for Inactive Events
+		tribe( 'tec.admin.inactive-list' )->init();
 
 		add_action( 'current_screen', array( $this, 'kill_direct_access' ) );
 
@@ -204,7 +202,7 @@ class Tribe__Events__Inactive_Events {
 	 * @return array
 	 */
 	public function add_type( array $post_types ) {
-		$post_type = self::POST_TYPE;
+		$post_type = self::POSTTYPE;
 		if ( ! in_array( $post_type, $post_types ) ) {
 			$post_types[] = $post_type;
 		}
@@ -279,7 +277,7 @@ class Tribe__Events__Inactive_Events {
 			array(
 				'localize' => array(
 					'name' => 'tribe_events_inactive_event_post_type',
-					'data' => self::POST_TYPE,
+					'data' => self::POSTTYPE,
 				),
 				'conditionals' => array( $this, 'is_screen' ),
 			)
@@ -294,24 +292,7 @@ class Tribe__Events__Inactive_Events {
 	 * @return boolean
 	 */
 	public function is_screen() {
-		return tribe( 'admin.helpers' )->is_post_type_screen( self::POST_TYPE )
+		return tribe( 'admin.helpers' )->is_post_type_screen( self::POSTTYPE )
 			&& tribe( 'admin.helpers' )->is_base( array( 'edit', 'post' ) );
-	}
-
-	/**
-	 * Adds the submenu for the Inactive Events inside of the Events Menu
-	 *
-	 * @since  TBD
-	 *
-	 * @return void
-	 */
-	public function add_submenu() {
-		$this->menu_id = add_submenu_page(
-			'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE,
-			$this->get_type_singular_label(),
-			$this->get_type_singular_label(),
-			'edit_tribe_events',
-			'edit.php?post_type=' . self::POST_TYPE
-		);
 	}
 }

@@ -1,14 +1,14 @@
 <?php
 /**
- * Controls Tribe Events Calendar admin list views for events
+ * Controls Tribe Events Calendar admin list views for Inactive Events
  */
-class Tribe__Events__Admin__List extends Tribe__Template {
+class Tribe__Events__Admin__Inactive_List extends Tribe__Template {
 	protected static $start_col_active = true;
 	protected static $end_col_active = true;
 	protected static $start_col_first = true;
 
 	/**
-	 * Constructor for Tribe__Events__Admin__List
+	 * Constructor for Tribe__Events__Admin__Inactive_List
 	 *
 	 * @since  TBD
 	 */
@@ -19,7 +19,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 	}
 
 	/**
-	 * Initialize the Listing of Events
+	 * Initialize the Listing of Inactive Events
 	 *
 	 * Currently Hooked to: `admin_init`
 	 *
@@ -33,7 +33,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 	}
 
 	/**
-	 * Initialize the Listing
+	 * Initialize the Inactive Events Listing
 	 *
 	 * Currently Hooked to: `current_screen`
 	 *
@@ -44,7 +44,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 	 * @return void
 	 */
 	public function configure_screen( $screen = null ) {
-		$post_type = Tribe__Events__Main::POSTTYPE;
+		$post_type = Tribe__Events__Inactive_Events::POSTTYPE;
 
 		// If we are dealing with a AJAX call just drop these checks
 		if ( $screen instanceof WP_Post ) {
@@ -81,7 +81,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 	}
 
 	/**
-	 * Fields filter for standard wordpress templates.  Adds the start and end date to queries in the
+	 * Fields filter for standard wordpress templates. Adds the start and end date to queries in the
 	 * events category
 	 *
 	 * @since  TBD
@@ -92,7 +92,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 	 * @return string The modified form.
 	 */
 	public function events_search_fields( $fields, $query ) {
-		if ( ! $query->is_main_query() || $query->get( 'post_type' ) != Tribe__Events__Main::POSTTYPE ) {
+		if ( ! $query->is_main_query() || $query->get( 'post_type' ) != Tribe__Events__Inactive_Events::POSTTYPE ) {
 			return $fields;
 		}
 
@@ -115,7 +115,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 	}
 
 	/**
-	 * Defines custom logic for sorting events table by start/end date. No matter how user selects
+	 * Defines custom logic for sorting Inactive Events table by start/end date. No matter how user selects
 	 * what should be is sorted, always include date sorting in some fashion
 	 *
 	 * @since  TBD
@@ -127,7 +127,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 	 */
 	public function sort_by_event_date( Array $clauses, WP_Query $wp_query ) {
 		// bail if this is not a query for event post type
-		if ( $wp_query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE ) {
+		if ( $wp_query->get( 'post_type' ) !== Tribe__Events__Inactive_Events::POSTTYPE ) {
 			return $clauses;
 		}
 
@@ -181,7 +181,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 	}
 
 	/**
-	 * Defines custom logic for sorting events table by category or tags
+	 * Defines custom logic for sorting Inactive Events table by category or tags
 	 *
 	 * @since  TBD
 	 *
@@ -235,7 +235,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 	}
 
 	/**
-	 * limit filter for admin queries
+	 * Limit filter for admin queries
 	 *
 	 * @since  TBD
 	 *
@@ -245,7 +245,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 	 * @return string modified limits clause
 	 */
 	public function events_search_limits( $limits, $query ) {
-		if ( ! $query->is_main_query() || $query->get( 'post_type' ) != Tribe__Events__Main::POSTTYPE ) {
+		if ( ! $query->is_main_query() || $query->get( 'post_type' ) != Tribe__Events__Inactive_Events::POSTTYPE ) {
 			return $limits;
 		}
 
@@ -365,7 +365,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 	}
 
 	/**
-	 * Gets the URL for the Events Admin List
+	 * Gets the URL for the Inactive Events Admin List
 	 *
 	 * @since  TBD
 	 *
@@ -378,7 +378,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 		$args = wp_parse_args( $args, $defaults );
 
 		// Always have the correct CPT
-		$args['post_type'] = Tribe__Events__Main::POSTTYPE;
+		$args['post_type'] = Tribe__Events__Inactive_Events::POSTTYPE;
 
 		// Which URL
 		$url = admin_url( 'edit.php' );
@@ -387,7 +387,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 	}
 
 	/**
-	 * Adds and updates the filters for the Events Listing
+	 * Adds and updates the filters for the Inactive Events Listing
 	 *
 	 * @since  TBD
 	 *
@@ -398,8 +398,8 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 	public function filter_views( $views ) {
 		global $post_type, $post_type_object, $locked_post_status, $avail_post_stati;
 
-		$total_posts = tribe_post_count( Tribe__Events__Main::POSTTYPE );
-		$mine_posts  = tribe_post_count( Tribe__Events__Main::POSTTYPE, array(), get_current_user_id() );
+		$total_posts = tribe_post_count( Tribe__Events__Inactive_Events::POSTTYPE );
+		$mine_posts  = tribe_post_count( Tribe__Events__Inactive_Events::POSTTYPE, array(), get_current_user_id() );
 
 		$total_count = array_sum( (array) $total_posts );
 		$mine_count  = array_sum( (array) $mine_posts );
