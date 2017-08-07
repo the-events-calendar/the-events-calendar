@@ -8,7 +8,7 @@ class Tribe__Events__Inactive_Events {
 	 *
 	 * @since  TBD
 	 */
-	const POST_TYPE = 'tribe_inactive_event';
+	const POSTTYPE = 'tribe_inactive_event';
 
 	/**
 	 * A instance of the Registered Post Type
