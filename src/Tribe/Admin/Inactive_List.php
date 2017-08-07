@@ -1,6 +1,6 @@
 <?php
 /**
- * Controls Tribe Events Calendar admin list views for events
+ * Controls Tribe Events Calendar admin list views for Inactive Events
  */
 class Tribe__Events__Admin__Inactive_List extends Tribe__Template {
 	protected static $start_col_active = true;
@@ -8,7 +8,7 @@ class Tribe__Events__Admin__Inactive_List extends Tribe__Template {
 	protected static $start_col_first = true;
 
 	/**
-	 * Constructor for Tribe__Events__Admin__List
+	 * Constructor for Tribe__Events__Admin__Inactive_List
 	 *
 	 * @since  TBD
 	 */
@@ -19,7 +19,7 @@ class Tribe__Events__Admin__Inactive_List extends Tribe__Template {
 	}
 
 	/**
-	 * Initialize the Listing of Events
+	 * Initialize the Listing of Inactive Events
 	 *
 	 * Currently Hooked to: `admin_init`
 	 *
@@ -33,7 +33,7 @@ class Tribe__Events__Admin__Inactive_List extends Tribe__Template {
 	}
 
 	/**
-	 * Initialize the Listing
+	 * Initialize the Inactive Events Listing
 	 *
 	 * Currently Hooked to: `current_screen`
 	 *
@@ -81,7 +81,7 @@ class Tribe__Events__Admin__Inactive_List extends Tribe__Template {
 	}
 
 	/**
-	 * Fields filter for standard wordpress templates.  Adds the start and end date to queries in the
+	 * Fields filter for standard wordpress templates. Adds the start and end date to queries in the
 	 * events category
 	 *
 	 * @since  TBD
@@ -115,7 +115,7 @@ class Tribe__Events__Admin__Inactive_List extends Tribe__Template {
 	}
 
 	/**
-	 * Defines custom logic for sorting events table by start/end date. No matter how user selects
+	 * Defines custom logic for sorting Inactive Events table by start/end date. No matter how user selects
 	 * what should be is sorted, always include date sorting in some fashion
 	 *
 	 * @since  TBD
@@ -181,7 +181,7 @@ class Tribe__Events__Admin__Inactive_List extends Tribe__Template {
 	}
 
 	/**
-	 * Defines custom logic for sorting events table by category or tags
+	 * Defines custom logic for sorting Inactive Events table by category or tags
 	 *
 	 * @since  TBD
 	 *
@@ -235,7 +235,7 @@ class Tribe__Events__Admin__Inactive_List extends Tribe__Template {
 	}
 
 	/**
-	 * limit filter for admin queries
+	 * Limit filter for admin queries
 	 *
 	 * @since  TBD
 	 *
@@ -365,7 +365,7 @@ class Tribe__Events__Admin__Inactive_List extends Tribe__Template {
 	}
 
 	/**
-	 * Gets the URL for the Series Admin List
+	 * Gets the URL for the Inactive Events Admin List
 	 *
 	 * @since  TBD
 	 *
@@ -387,7 +387,7 @@ class Tribe__Events__Admin__Inactive_List extends Tribe__Template {
 	}
 
 	/**
-	 * Adds and updates the filters for the Events Listing
+	 * Adds and updates the filters for the Inactive Events Listing
 	 *
 	 * @since  TBD
 	 *

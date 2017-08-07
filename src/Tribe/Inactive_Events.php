@@ -120,6 +120,13 @@ class Tribe__Events__Inactive_Events {
 			'not_found_in_trash'      => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->get_type_plural_label() ) ),
 		);
 
+		/**
+		 * Filters the register_post_type labels for Inactive Events
+		 *
+		 * @since  TBD
+		 *
+		 * @param  array  $arguments  Information to setup the Inactive Event Post Type labels
+		 */
 		return apply_filters( 'tribe_events_inactive_event_post_type_labels', $labels );
 	}
 
@@ -171,6 +178,8 @@ class Tribe__Events__Inactive_Events {
 		if ( ! is_admin() ) {
 			return;
 		}
+		// Initialize the Admin List for Inactive Events
+		tribe( 'tec.admin.inactive-list' )->init();
 
 		add_action( 'current_screen', array( $this, 'kill_direct_access' ) );
 

@@ -365,7 +365,7 @@ class Tribe__Events__Admin__List extends Tribe__Template {
 	}
 
 	/**
-	 * Gets the URL for the Series Admin List
+	 * Gets the URL for the Events Admin List
 	 *
 	 * @since  TBD
 	 *

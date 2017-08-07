@@ -418,6 +418,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
 
 			tribe_singleton( 'tec.admin.list', 'Tribe__Events__Admin__List' );
+			tribe_singleton( 'tec.admin.inactive-list', 'Tribe__Events__Admin__Inactive_List' );
 
 			tribe_singleton( 'tec.inactive-events', 'Tribe__Events__Inactive_Events' );
 
