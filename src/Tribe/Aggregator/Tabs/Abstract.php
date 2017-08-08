@@ -147,9 +147,9 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 				break;
 			case 'url':
 				$now = time();
-				$range = tribe_get_option( 'tribe_aggregator_default_url_import_range', 3 * 30 * DAY_IN_SECONDS );
+				$range = tribe_get_option( 'tribe_aggregator_default_url_import_range', 30 * DAY_IN_SECONDS );
 				$start = ! empty( $meta['start'] ) ? $this->to_timestamp( $meta['start'], $now ) : $now;
-				$end = ! empty( $meta['end'] ) ? $this->to_timestamp( $meta['end'], $now + $range ) : $now + $range;
+				$end = ! empty( $meta['end'] ) ? $this->to_timestamp( $meta['end'], $start + $range ) : $start + $range;
 
 				/**
 				 * Filters the URL import range cap.
