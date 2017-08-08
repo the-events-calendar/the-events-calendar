@@ -271,10 +271,14 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			if ( isset( $data['EventStartDate'] ) ) {
 				$data['EventStartDate'] = Tribe__Date_Utils::datetime_from_format( $datepicker_format, $data['EventStartDate'] );
+			} elseif ( $existing_start_date = get_post_meta( $event_id, '_EventStartDate', true ) ) {
+				$data['EventStartDate'] = $existing_start_date;
 			}
 
 			if ( isset( $data['EventEndDate'] ) ) {
 				$data['EventEndDate'] = Tribe__Date_Utils::datetime_from_format( $datepicker_format, $data['EventEndDate'] );
+			} elseif ( $existing_end_date = get_post_meta( $event_id, '_EventEndDate', true ) ) {
+				$data['EventEndDate'] = $existing_end_date;
 			}
 
 			if ( isset( $data['EventAllDay'] ) && 'yes' === $data['EventAllDay'] ) {
