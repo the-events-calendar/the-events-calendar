@@ -333,7 +333,6 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.5.10] 2017-08-09 =
 
-
 * Fix - Avoid duplicate events when importing from some iCal, Google Calendar and Facebook feeds in Event Aggregator (our thanks to Jason Sears, controlyours and many other users for highlighting these issues) [67038]
 * Fix - Fixed bug that caused scheduled imports to get stuck in a perpetual state of failure when receiving error messages from the Event Aggregator service (our thanks to Antonio Jose and others for flagging this problem) [83767]
 * Fix - Resolved issue where errors from the Event Aggregator service were not properly logging/visible on the History tab [83767]
