@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-12-17 19:55:35+0000\n"
+"PO-Revision-Date: 2017-08-02 10:23:01+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1048,7 +1048,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Single_Event.php:78
 msgid "Single Event"
-msgstr ""
+msgstr "אירוע בודד"
 
 #: src/Tribe/Customizer/Month_Week_View.php:197
 msgid "Calendar Highlight Color"
@@ -1065,7 +1065,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Month_Week_View.php:143
 msgid "Month View"
-msgstr ""
+msgstr "תצוגה חודשית"
 
 #: src/Tribe/Customizer/Global_Elements.php:211
 msgid "Map Pin"
@@ -1093,7 +1093,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:396
 msgid "Custom"
-msgstr ""
+msgstr "מותאם אישית"
 
 #: src/Tribe/Customizer/General_Theme.php:390
 msgid "Sunshine"
@@ -1117,7 +1117,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:360
 msgid "Default"
-msgstr ""
+msgstr "ברירת מחדל"
 
 #: src/Tribe/Customizer/General_Theme.php:354
 msgid "Deep Sea"
@@ -1716,11 +1716,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:337
 msgid "The default event category for events imported via Meetup"
-msgstr "קטגוריית האירוע מחדל לאירועים שיובאו דרך Meetup"
+msgstr "קטגוריית ברירת המחדל לאירועים שיובאו דרך Meetup"
 
 #: src/admin-views/aggregator/settings.php:326
 msgid "The default post status for events imported via Meetup"
-msgstr "את הסטטוס הרשום ברירת המחדל עבור אירועים שיובא דרך Meetup"
+msgstr "הסטטוס ברירת המחדל עבור אירועים שיובאו דרך Meetup"
 
 #: src/admin-views/aggregator/settings.php:315
 msgid "To import Meetup events, please be sure to add your Meetup API key on %1$sEvents > Settings > APIs%2$s"
@@ -1855,7 +1855,7 @@ msgstr "באפשרותך לבצע שינויים לאירועים שיובאו �
 #: src/admin-views/aggregator/settings.php:40
 #: src/admin-views/aggregator/settings.php:48
 msgid "Event Update Authority"
-msgstr "רשות עדכן אירוע"
+msgstr "הרשאה לעדכון אירוע"
 
 #: src/admin-views/aggregator/settings.php:31
 msgid "No"
@@ -6771,7 +6771,7 @@ msgstr "%s קטגוריה"
 
 #: src/Tribe/Main.php:1710 src/Tribe/Organizer.php:78 src/Tribe/Venue.php:84
 msgid "No %s found in Trash"
-msgstr "%s לא נמצה בין הפריטים שנמחקו"
+msgstr "לא נמצא %s בפריטים שנמחקו"
 
 #: src/Tribe/Main.php:1709 src/Tribe/Organizer.php:77 src/Tribe/Venue.php:83
 msgid "No %s found"
@@ -6830,11 +6830,11 @@ msgstr "תצוגה"
 
 #: src/Tribe/Main.php:1262
 msgid "The following plugins are out of date: %1$s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %2$sLearn More%3$s."
-msgstr "את התוספים הבאים אינם מעודכנים: %1$s. כל ההרחבות מכילים תלות בלוח האירועים ולא יהיו תקינים, אלא אם תבצע את העידכון לגרסה המתאימה. %2$sלמד יותר%3$s."
+msgstr "התוספים הבאים אינם מעודכנים: %1$s. כל ההרחבות תלויות בלוח האירועים והן לא יהיו תקינות אלא אם יתבצע העדכון לגרסה המתאימה. %2$sלמידע נוסף%3$s."
 
 #: src/Tribe/Main.php:1250
 msgid "Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s"
-msgstr "גירסת לוח אירועים אינה מעודכנת לאחת ההרחבות לוח האירועים שלך. בבקשה %sעדכן כעת.%s"
+msgstr "גירסת לוח אירועים אינה מתאימה לאחד התוספים של לוח האירועים שלך. נא %sלעדכן עכשיו.%s"
 
 #: src/Tribe/Main.php:751
 msgid "Initializing Tribe Events on %s"
@@ -6913,7 +6913,7 @@ msgstr "לרשימת האירועים"
 
 #: src/Tribe/List_Widget.php:30
 msgid "A widget that displays upcoming events."
-msgstr "רכיב המראה שאין אירועים קרובים"
+msgstr "רכיב להצגת אירועים קרובים."
 
 #: common/src/Tribe/Settings.php:620 src/Tribe/Importer/Options.php:54
 msgid "Settings saved."
@@ -7013,7 +7013,7 @@ msgstr "תגיות האירוע"
 
 #: src/Tribe/Importer/Column_Mapper.php:82
 msgid "Event Category"
-msgstr "קטגוריית טיולים"
+msgstr "קטגוריית אירוע"
 
 #: src/Tribe/Importer/Column_Mapper.php:81
 msgid "Event Currency Position"
@@ -7172,7 +7172,7 @@ msgstr "תאריך התחלה"
 
 #: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1719
 msgid "%s Categories"
-msgstr "%s קטגוריות"
+msgstr "קטגוריות %s"
 
 #: src/Tribe/Admin/Timezone_Updater.php:105
 msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
@@ -7202,7 +7202,7 @@ msgstr "עריכת %s"
 
 #: src/Tribe/Main.php:4679 src/Tribe/Main.php:4736
 msgid "Use Saved %s:"
-msgstr "שמרת %s:"
+msgstr "השתמש ב%s שמורים:"
 
 #: src/Tribe/Main.php:948
 msgid " ask the site administrator set a different Events URL slug."
