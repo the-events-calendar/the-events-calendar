@@ -81,6 +81,18 @@ class Tribe__Events__Admin__Inactive_List extends Tribe__Template {
 	}
 
 	/**
+	 * Checks if we are on the correct screen for the Admin listing
+	 *
+	 * @since  TBD
+	 *
+	 * @return boolean
+	 */
+	public function is_screen() {
+		return tribe( 'admin.helpers' )->is_post_type_screen( Tribe__Events__Inactive_Events::POSTTYPE )
+			&& tribe( 'admin.helpers' )->is_base( 'edit' );
+	}
+
+	/**
 	 * Fields filter for standard wordpress templates. Adds the start and end date to queries in the
 	 * events category
 	 *
