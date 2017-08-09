@@ -338,6 +338,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Avoid notice-level errors while processing queues within Event Aggregator (our thanks to David Sharpe and others for reporting this) [84020]
 * Tweak - Improve compatibility and avoid Javascript errors when running alongside Twenty Seventeen [70853]
 * Compatibility - Minimum supported version of WordPress is now 4.4
+* Language - 1 new strings added, 119 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.5.9] 2017-07-26 =
 
