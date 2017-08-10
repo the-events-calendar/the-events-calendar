@@ -216,7 +216,7 @@ But wait: there's more! We've got a whole stable of plugins available to help yo
 
 Our Free Plugins:
 
-* [Event Tickets](https://wordpress.org/plugin/event-tickets/)
+* [Event Tickets](https://wordpress.org/plugins/event-tickets/)
 * [Advanced Post Manager](https://wordpress.org/plugins/advanced-post-manager/)
 * [Blog Copier](https://wordpress.org/plugins/blog-copier/)
 * [GigPress](https://wordpress.org/plugins/gigpress/)
