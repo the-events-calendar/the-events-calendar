@@ -330,6 +330,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.5.11] TBD =
 
 * Fix - Avoid Event Aggregator previews or scheduled imports being marked as failures [84259]
+* Language - Improvements to various strings to improve ease of translation (props to @ramiy)
 
 = [4.5.10] 2017-08-09 =
 
