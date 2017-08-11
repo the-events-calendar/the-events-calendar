@@ -1012,7 +1012,7 @@ Date.prototype.format = function( mask, utc ) {
 						}
 
 						// Look for the distance between top of tooltip and top of visible viewport.
-						var dist_to_top = $this.offset().top - ( $(window).scrollTop() + 50 ); // The +50 is some padding for a more aesthetically-pleasing view. 
+						var dist_to_top = $this.offset().top - ( $( window ).scrollTop() + 50 ); // The +50 is some padding for a more aesthetically-pleasing view. 
 						var tip_height  = $tip.outerHeight();
 
 						// If true, tooltip is near top of viewport, so tweak some values to keep the tooltip fully in-view.
@@ -1028,12 +1028,12 @@ Date.prototype.format = function( mask, utc ) {
 				}
 
 			} ).on( 'mouseleave', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', function() {
-				
+
 				var $tip = $( this ).find( '.tribe-events-tooltip' );
 
 				$tip.stop( true, false ).fadeOut( 200, function() {
 					$tip.removeClass( 'tribe-events-tooltip-flipdown' );
-				});
+				} );
 
 			} );
 		},
