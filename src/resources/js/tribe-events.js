@@ -1011,6 +1011,15 @@ Date.prototype.format = function( mask, utc ) {
 							$tip = $this.find( '.tribe-events-tooltip' );
 						}
 
+						// Look for the distance between top of tooltip and top of visible viewport.
+						var dist_to_top = $this.offset().top - ( $(window).scrollTop() + 50 ); // The +50 is some padding for a more aesthetically-pleasing view. 
+						var tip_height  = $tip.outerHeight();
+
+						// If true, tooltip is near top of viewport, so tweak some values to keep the tooltip fully in-view.
+						if ( dist_to_top < tip_height ) {
+							bottomPad = -tip_height;
+						}
+
 						$tip.css( 'bottom', bottomPad ).show();
 					} else {
 						$this.find( '.tribe-events-tooltip' ).css( 'bottom', bottomPad ).show();
