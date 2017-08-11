@@ -1219,7 +1219,20 @@ Date.prototype.format = function( mask, utc ) {
 				'mm.dd.yyyy',
 				'dd.mm.yyyy'
 			],
-			'month': ['yyyy-mm', 'm/yyyy', 'mm/yyyy', 'm/yyyy', 'mm/yyyy', 'm-yyyy', 'mm-yyyy', 'm-yyyy', 'mm-yyyy']
+			'month': [
+				'yyyy-mm',
+				'm/yyyy',
+				'mm/yyyy',
+				'm/yyyy',
+				'mm/yyyy',
+				'm-yyyy',
+				'mm-yyyy',
+				'm-yyyy',
+				'mm-yyyy',
+				'yyyy.mm',
+				'mm.yyyy',
+				'mm.yyyy'
+			]
 		},
 		datepicker_opts     : {},
 		default_permalinks  : (!config.permalink_settings.length),
@@ -1293,16 +1306,16 @@ Date.prototype.format = function( mask, utc ) {
 
 		tf.update_viewport_variables();
 
-		var $body = $( 'body' ),
-			$tribe_events = $( '#tribe-events' ),
-			$tribe_content = $( '#tribe-events-content' ),
-			$tribe_events_header = $( '#tribe-events-header' ),
+		var $body                 = $( 'body' ),
+			$tribe_events        = $( document.getElementById( 'tribe-events' ) ),
+			$tribe_content       = $( document.getElementById( 'tribe-events-content' ) ),
+			$tribe_events_header = $( document.getElementById( 'tribe-events-header' ) ),
 			resize_timer;
 
-
 		$tribe_events.removeClass( 'tribe-no-js' );
-		ts.category = tf.get_category();
-		td.base_url = tf.get_base_url();
+		
+		ts.category   = tf.get_category();
+		td.base_url   = tf.get_base_url();
 		ts.page_title = document.title;
 
 		var tribe_display = tf.get_url_param( 'tribe_event_display' );
@@ -1314,7 +1327,7 @@ Date.prototype.format = function( mask, utc ) {
 			ts.view = $tribe_events_header.data( 'view' );
 		}
 
-		if ( $tribe_events.tribe_has_attr( 'data-datepicker_format' ) && $tribe_events.attr( 'data-datepicker_format' ).length === 1 ) {
+		if ( $tribe_events.tribe_has_attr( 'data-datepicker_format' ) ) {
 			ts.datepicker_format = $tribe_events.attr( 'data-datepicker_format' );
 		}
 
