@@ -1018,6 +1018,7 @@ Date.prototype.format = function( mask, utc ) {
 						// If true, tooltip is near top of viewport, so tweak some values to keep the tooltip fully in-view.
 						if ( dist_to_top < tip_height ) {
 							bottomPad = -tip_height;
+							$tip.addClass( 'tribe-events-tooltip-flipdown' );
 						}
 
 						$tip.css( 'bottom', bottomPad ).show();
@@ -1027,7 +1028,13 @@ Date.prototype.format = function( mask, utc ) {
 				}
 
 			} ).on( 'mouseleave', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', function() {
-				$( this ).find( '.tribe-events-tooltip' ).stop( true, false ).fadeOut( 200 );
+				
+				var $tip = $( this ).find( '.tribe-events-tooltip' );
+
+				$tip.stop( true, false ).fadeOut( 200, function() {
+					$tip.removeClass( 'tribe-events-tooltip-flipdown' );
+				});
+
 			} );
 		},
 		/**
