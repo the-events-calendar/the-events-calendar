@@ -1306,11 +1306,11 @@ Date.prototype.format = function( mask, utc ) {
 
 		tf.update_viewport_variables();
 
-		var $body                 = $( 'body' ),
-			$tribe_events        = $( document.getElementById( 'tribe-events' ) ),
-			$tribe_content       = $( document.getElementById( 'tribe-events-content' ) ),
-			$tribe_events_header = $( document.getElementById( 'tribe-events-header' ) ),
-			resize_timer;
+		var $body                = $( 'body' );
+		var $tribe_events        = $( document.getElementById( 'tribe-events' ) );
+		var $tribe_content       = $( document.getElementById( 'tribe-events-content' ) );
+		var $tribe_events_header = $( document.getElementById( 'tribe-events-header' ) );
+		var resize_timer;
 
 		$tribe_events.removeClass( 'tribe-no-js' );
 		
