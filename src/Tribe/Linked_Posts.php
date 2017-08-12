@@ -915,7 +915,7 @@ class Tribe__Events__Linked_Posts {
 		$english_vowels        = array( 'a', 'e', 'i', 'o', 'u' );
 
 		if ( in_array( $post_type_starts_with, $english_vowels ) ) {
-			$indefinite_article = _x( 'an', 'Indefinite article for the phrase "Find a {post type name}" when the {post type name} starts with a vowel.', 'the-events-calendar' );
+			$indefinite_article = _x( 'an', 'Indefinite article for the phrase "Find a {post type name}" when the {post type name} starts with a vowel, e.g. "Find an Organizer".', 'the-events-calendar' );
 		}
 
 		$placeholder = sprintf( esc_attr__( 'Find %1$s %2$s', 'the-events-calendar' ), $indefinite_article, $singular_name );
