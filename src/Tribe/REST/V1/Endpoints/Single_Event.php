@@ -507,9 +507,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * @return array|WP_Error An array specifying the event data, a `WP_Error` if an error occurred.
 	 */
 	protected function prepare_postarr( WP_REST_Request $request ) {
-		$post_object           = get_post_type_object( Tribe__Events__Main::POSTTYPE );
-		$can_publish           = current_user_can( $post_object->cap->publish_posts );
-		$can_edit_others_posts = current_user_can( $post_object->cap->edit_others_posts );
 		$events_cat            = Tribe__Events__Main::TAXONOMY;
 
 		$post_date     = isset( $request['date'] )
@@ -563,16 +560,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 		$postarr['organizer'] = $organizer;
 
-		if ( $can_publish && $can_edit_others_posts ) {
-			$postarr = array_merge( $postarr, array(
-				// Event presentation data
-				'EventShowMap'          => tribe_is_truthy( $request['show_map'] ),
-				'EventShowMapLink'      => tribe_is_truthy( $request['show_map_link'] ),
-				'EventHideFromUpcoming' => tribe_is_truthy( $request['hide_from_listings'] ) ? 'yes' : false,
-				'EventShowInCalendar'   => tribe_is_truthy( $request['sticky'] ),
-				'feature_event'         => tribe_is_truthy( $request['featured'] ),
-			) );
-		}
+		// Event presentation data
+		$postarr['EventShowMap']          = tribe_is_truthy( $request['show_map'] );
+		$postarr['EventShowMapLink']      = tribe_is_truthy( $request['show_map_link'] );
+		$postarr['EventHideFromUpcoming'] = tribe_is_truthy( $request['hide_from_listings'] ) ? 'yes' : false;
+		$postarr['EventShowInCalendar']   = tribe_is_truthy( $request['sticky'] );
+		$postarr['feature_event']         = tribe_is_truthy( $request['featured'] );
 
 		return $postarr;
 	}
