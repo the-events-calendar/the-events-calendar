@@ -332,6 +332,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Avoid Event Aggregator previews or scheduled imports being marked as failures [84259]
 * Fix - Fixed start and end date limit parsing for events archive in the REST API code [78375]
 * Tweak - Modify certain event queries to widen the window of opportunity for query caching (props @garretjohnson) [84841]
+* Tweak - Improve Event Aggregator message regarding Facebook token expiration [70376]
 * Language - Improvements to various strings to improve ease of translation (props to @ramiy)
 
 = [4.5.10] 2017-08-09 =
