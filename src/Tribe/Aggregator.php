@@ -404,7 +404,7 @@ class Tribe__Events__Aggregator {
 		<p>
 			<?php
 			if ( $passed > 0 ) {
-				echo sprintf( __( 'Your Event Aggregator Facebook token has expired %s.', 'the-events-calendar' ), $time );
+				echo sprintf( __( 'Your Event Aggregator Facebook token expired %s.', 'the-events-calendar' ), $time );
 			} else {
 				echo sprintf( __( 'Your Event Aggregator Facebook token will expire %s.', 'the-events-calendar' ), $time );
 			}
