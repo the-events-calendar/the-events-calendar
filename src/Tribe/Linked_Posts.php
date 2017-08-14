@@ -908,12 +908,24 @@ class Tribe__Events__Linked_Posts {
 		 */
 		$creation_enabled = apply_filters( 'tribe_events_linked_posts_dropdown_enable_creation', $user_can_create && $allowed_creation, $post_type, $this );
 
-		$placeholder = sprintf( esc_attr__( 'Find a %s', 'the-events-calendar' ), $singular_name );
+		$indefinite_article = _x( 'a', 'Indefinite article for the phrase "Find a {post type name}. Will be replaced with "an" if the {post type name} starts with a vowel.', 'the-events-calendar' );
+
+		$post_type_starts_with = substr( $singular_name, 0, 1 );
+		$post_type_starts_with = strtolower( $post_type_starts_with );
+		$english_vowels        = array( 'a', 'e', 'i', 'o', 'u' );
+
+		if ( in_array( $post_type_starts_with, $english_vowels ) ) {
+			$indefinite_article = _x( 'an', 'Indefinite article for the phrase "Find a {post type name}" when the {post type name} starts with a vowel, e.g. "Find an Organizer".', 'the-events-calendar' );
+		}
+
+		$placeholder = sprintf( esc_attr__( 'Find %1$s %2$s', 'the-events-calendar' ), $indefinite_article, $singular_name );
+
 		if ( $creation_enabled ) {
 			$placeholder = sprintf( esc_attr__( 'Create or Find %s', 'the-events-calendar' ), $singular_name );
 		}
 
-		$search_placeholder = sprintf( esc_attr__( 'Find a %s', 'the-events-calendar' ), $singular_name );
+		$search_placeholder = sprintf( esc_attr__( 'Find %1$s %2$s', 'the-events-calendar' ), $indefinite_article, $singular_name );
+
 		if ( $creation_enabled ) {
 			$search_placeholder = sprintf( esc_attr__( 'Create or Find %s', 'the-events-calendar' ), $singular_name );
 		}
