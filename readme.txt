@@ -331,6 +331,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 * Fix - Avoid Event Aggregator previews or scheduled imports being marked as failures [84259]
 * Fix - Fixed start and end date limit parsing for events archive in the REST API code [78375]
+* Fix - Fixed Post ID not being sent to the_title filter for Organizers and Venues (props Anna L.) [85206]
 * Tweak - Modify certain event queries to widen the window of opportunity for query caching (props @garretjohnson) [84841]
 * Language - Improvements to various strings to improve ease of translation (props to @ramiy)
 
