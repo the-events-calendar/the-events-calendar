@@ -3513,7 +3513,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$is_saved = $event->ID && isset( $saved ) && $saved;
 
 				if ( $is_saved ) {
-					$venue_title = apply_filters( 'the_title', $post->post_title );
+					$venue_title = apply_filters( 'the_title', $post->post_title, $post->ID );
 				}
 
 				foreach ( $this->venueTags as $tag ) {
@@ -3565,7 +3565,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				if ( $postId ) {
 
 					if ( $saved ) { //if there is a post AND the post has been saved at least once.
-						$organizer_title = apply_filters( 'the_title', $post->post_title );
+						$organizer_title = apply_filters( 'the_title', $post->post_title, $post->ID );
 					}
 
 					foreach ( $this->organizerTags as $tag ) {
