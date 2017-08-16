@@ -1118,19 +1118,20 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				}
 
 				if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
-					$has_image = true;
+					$has_image      = true;
+					$image_src      = tribe_event_featured_image( $event->ID, 'large', false, false );
 					$image_tool_src = tribe_event_featured_image( $event->ID, 'medium', false, false );
 				}
 
 				$category_classes = tribe_events_event_classes( $event->ID, false );
 
-				$json['eventId'] = $event->ID;
-				$json['title'] = wp_kses_post( $event->post_title );
-				$json['permalink'] = tribe_get_event_link( $event->ID );
-				$json['imageSrc'] = $image_src;
-				$json['dateDisplay'] = $date_display;
+				$json['eventId']         = $event->ID;
+				$json['title']           = wp_kses_post( $event->post_title );
+				$json['permalink']       = tribe_get_event_link( $event->ID );
+				$json['imageSrc']        = $image_src;
+				$json['dateDisplay']     = $date_display;
 				$json['imageTooltipSrc'] = $image_tool_src;
-				$json['excerpt'] = tribe_events_get_the_excerpt( $event );
+				$json['excerpt']         = tribe_events_get_the_excerpt( $event );
 				$json['categoryClasses'] = $category_classes;
 
 				/**
