@@ -20,7 +20,7 @@ $venue_details = tribe_get_venue_details();
 $venue_address = tribe_get_address();
  
 // Venue
-$has_venue_address = ( ! empty( $venue_address ) ) ? ' location' : '';
+$has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : '';
 
 // Organizer
 $organizer = tribe_get_organizer();
