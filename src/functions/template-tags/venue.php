@@ -27,7 +27,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		} else {
 			/**
 			 * Allow for customizing the Venue ID retrieved for this item.
-			 * 
+			 *
 			 * @since TBD
 			 *
 			 * @param int $venue_id The Venue ID for the specified event.
@@ -90,7 +90,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since TBD
 		 *
 		 * @param bool $has_venue Whether the specified event has a venue.
-		 * @param int $postId The post ID of the event being checked. 
+		 * @param int $postId The post ID of the event being checked.
 		 */
 		return apply_filters( 'tribe_has_venue', $has_venue, $postId );
 	}
@@ -113,7 +113,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since TBD
 		 *
 		 * @param string $venue The name of the retrieved venue.
-		 * @param int $postId The post ID of the event whose venue is being retrieved. 
+		 * @param int $postId The post ID of the event whose venue is being retrieved.
 		 */
 		return apply_filters( 'tribe_get_venue', $venue, $postId );
 	}
@@ -147,7 +147,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since TBD
 		 *
-		 * @param string $link The assembled "Venue name with link" string 
+		 * @param string $link The assembled "Venue name with link" string
 		 * @param int  $postId Can supply either event id or venue id, if none specified, current post is used
 		 * @param bool $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output
 		 * @param string $url The raw permalink to the venue.
@@ -180,7 +180,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since TBD
 		 *
 		 * @param string $output The escaped country name of the venue.
-		 * @param int $postId The post ID of the event whose venue is being retrieved. 
+		 * @param int $postId The post ID of the event whose venue is being retrieved.
 		 */
 		return apply_filters( 'tribe_get_country', $output, $postId );
 	}
