@@ -332,6 +332,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Avoid Event Aggregator previews or scheduled imports being marked as failures [84259]
 * Fix - Fixed start and end date limit parsing for events archive in the REST API code [78375]
 * Fix - Fixed Post ID not being sent to the_title filter for Organizers and Venues (props Anna L.) [85206]
+* Fix - Fixed an issue that would sometimes render Event Aggregator options invalid even with a valid license [78469]
 * Tweak - Prevent stray commas from showing up for some event venues in the List View [72289] 
 * Tweak - Modify certain event queries to widen the window of opportunity for query caching (props @garretjohnson) [84841]
 * Tweak - Improve Event Aggregator message regarding Facebook token expiration [70376]
