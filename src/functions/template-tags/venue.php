@@ -90,7 +90,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since TBD
 		 *
 		 * @param bool $has_venue Whether the specified event has a venue.
-		 * @param int $postId The post ID of the event being checked.
+		 * @param int $postId Can be either the event ID or its venue ID
 		 */
 		return apply_filters( 'tribe_has_venue', $has_venue, $postId );
 	}
@@ -100,12 +100,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @since TBD
 	 *
-	 * @param int  $postId    Can supply either event id or venue id, if none specified, current post is used
+	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @return string Venue Name
 	 */
 	function tribe_get_venue( $postId = null ) {
-		$postId = tribe_get_venue_id( $postId );
-		$venue  = ( $postId > 0 ) ? esc_html( get_the_title( $postId ) ) : null;
+		$venue_id = tribe_get_venue_id( $postId );
+		$venue    = ( $venue_id > 0 ) ? esc_html( get_the_title( $venue_id ) ) : null;
 
 		/**
 		 * Allows customization of the retrieved venue name for a specified event.
@@ -113,9 +113,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since TBD
 		 *
 		 * @param string $venue The name of the retrieved venue.
-		 * @param int $postId The post ID of the event whose venue is being retrieved.
+		 * @param int $venue_id The venue ID.
 		 */
-		return apply_filters( 'tribe_get_venue', $venue, $postId );
+		return apply_filters( 'tribe_get_venue', $venue, $venue_id );
 	}
 
 	/**
@@ -129,14 +129,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_venue_link( $postId = null, $full_link = true ) {
 
-		$ven_id = tribe_get_venue_id( $postId );
-		$url    = esc_url_raw( get_permalink( $ven_id ) );
+		$venue_id = tribe_get_venue_id( $postId );
+		$url      = esc_url_raw( get_permalink( $venue_id ) );
 
 		if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
-			$link = tribe_get_venue( $ven_id );
+			$link = tribe_get_venue( $venue_id );
 		} elseif ( $full_link ) {
-			$name       = tribe_get_venue( $ven_id );
-			$attr_title = the_title_attribute( array( 'post' => $ven_id, 'echo' => false ) );
+			$name       = tribe_get_venue( $venue_id );
+			$attr_title = the_title_attribute( array( 'post' => $venue_id, 'echo' => false ) );
 			$link       = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '" title="' . $attr_title . '">' . $name . '</a>' : false;
 		} else {
 			$link = $url;
@@ -148,15 +148,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since TBD
 		 *
 		 * @param string $link The assembled "Venue name with link" string
-		 * @param int  $postId Can supply either event id or venue id, if none specified, current post is used
+		 * @param int $venue_id The venue's ID.
 		 * @param bool $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output
 		 * @param string $url The raw permalink to the venue.
 		 */
-		return apply_filters( 'tribe_get_venue_link', $link, $postId, $full_link, $url );
+		return apply_filters( 'tribe_get_venue_link', $link, $venue_id, $full_link, $url );
 	}
 
 	/**
-	 * Returns the event country
+	 * Returns the venue's country
 	 *
 	 * @since TBD
 	 *
@@ -164,8 +164,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string Country
 	 */
 	function tribe_get_country( $postId = null ) {
-		$postId        = tribe_get_venue_id( $postId );
-		$venue_country = tribe_get_event_meta( $postId, '_VenueCountry', true );
+		$venue_id      = tribe_get_venue_id( $postId );
+		$venue_country = tribe_get_event_meta( $venue_id, '_VenueCountry', true );
 
 		// _VenueCountry should hold an array of [ 'country_id', 'country_name' ]. Let's get the country
 		// name from that array and output that
@@ -180,9 +180,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since TBD
 		 *
 		 * @param string $output The escaped country name of the venue.
-		 * @param int $postId The post ID of the event whose venue is being retrieved.
+		 * @param int $venue_id The venue ID.
 		 */
-		return apply_filters( 'tribe_get_country', $output, $postId );
+		return apply_filters( 'tribe_get_country', $output, $venue_id );
 	}
 
 	/**
@@ -195,7 +195,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string Formatted event address
 	 */
 	function tribe_get_full_address( $postId = null, $includeVenueName = false ) {
-		$postId    = tribe_get_venue_id( $postId );
+		$venue_id  = tribe_get_venue_id( $postId );
 		$tec       = Tribe__Events__Main::instance();
 
 		/**
@@ -204,10 +204,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since TBD
 		 *
 		 * @param string $address The formatted event address
-		 * @param int  $postId Can supply either event id or venue id, if none specified, current post is used
+		 * @param int $venue_id The venue ID.
 		 * @param bool $includeVenueName To include the venue name or not.
 		 */
-		return apply_filters( 'tribe_get_full_address', $tec->fullAddress( $postId, $includeVenueName ) );
+		return apply_filters( 'tribe_get_full_address', $tec->fullAddress( $venue_id, $includeVenueName ), $venue_id, $includeVenueName );
 	}
 
 	/**
@@ -242,10 +242,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string Street address
 	 */
 	function tribe_get_address( $postId = null ) {
-		$postId = tribe_get_venue_id( $postId );
-		$output = esc_html( tribe_get_event_meta( $postId, '_VenueAddress', true ) );
+		$venue_id = tribe_get_venue_id( $postId );
+		$output   = esc_html( tribe_get_event_meta( $venue_id, '_VenueAddress', true ) );
 
-		return apply_filters( 'tribe_get_address', $output );
+		/**
+		 * Allows customization of the venue's street address.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $output The escaped venue street address
+		 * @param int $venue_id The venue ID.
+		 */
+		return apply_filters( 'tribe_get_address', $output, $venue_id );
 	}
 
 	/**
@@ -257,10 +265,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string City
 	 */
 	function tribe_get_city( $postId = null ) {
-		$postId = tribe_get_venue_id( $postId );
-		$output = esc_html( tribe_get_event_meta( $postId, '_VenueCity', true ) );
+		$venue_id = tribe_get_venue_id( $postId );
+		$output   = esc_html( tribe_get_event_meta( $venue_id, '_VenueCity', true ) );
 
-		return apply_filters( 'tribe_get_city', $output );
+		/**
+		 * Allows customization of the venue's city.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $output The escaped venue city
+		 * @param int $venue_id The venue ID.
+		 */
+		return apply_filters( 'tribe_get_city', $output, $venue_id );
 	}
 
 	/**
@@ -273,10 +289,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @todo Depricate tribe_get_stateprovince or tribe_get_region
 	 */
 	function tribe_get_stateprovince( $postId = null ) {
-		$postId = tribe_get_venue_id( $postId );
-		$output = esc_html( tribe_get_event_meta( $postId, '_VenueStateProvince', true ) );
+		$venue_id = tribe_get_venue_id( $postId );
+		$output   = esc_html( tribe_get_event_meta( $venue_id, '_VenueStateProvince', true ) );
 
-		return apply_filters( 'tribe_get_stateprovince', $output );
+		/**
+		 * Allows customization of the venue's state or province.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $output The escaped venue state or province.
+		 * @param int $venue_id The venue ID.
+		 */
+		return apply_filters( 'tribe_get_stateprovince', $output, $venue_id );
 	}
 
 	/**
@@ -288,10 +312,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string State
 	 */
 	function tribe_get_state( $postId = null ) {
-		$postId = tribe_get_venue_id( $postId );
-		$output = esc_html( tribe_get_event_meta( $postId, '_VenueState', true ) );
+		$venue_id = tribe_get_venue_id( $postId );
+		$output   = esc_html( tribe_get_event_meta( $venue_id, '_VenueState', true ) );
 
-		return apply_filters( 'tribe_get_state', $output );
+		/**
+		 * Allows customization of the venue's state.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $output The escaped venue state or province.
+		 * @param int $venue_id The venue ID.
+		 */
+		return apply_filters( 'tribe_get_state', $output, $venue_id );
 	}
 
 	/**
@@ -303,10 +335,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string Province
 	 */
 	function tribe_get_province( $postId = null ) {
-		$postId = tribe_get_venue_id( $postId );
-		$output = esc_html( tribe_get_event_meta( $postId, '_VenueProvince', true ) );
+		$venue_id = tribe_get_venue_id( $postId );
+		$output   = esc_html( tribe_get_event_meta( $venue_id, '_VenueProvince', true ) );
 
-		return apply_filters( 'tribe_get_province', $output );
+		/**
+		 * Allows customization of the venue's province.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $output The escaped venue province
+		 * @param int $venue_id The venue ID.
+		 */
+		return apply_filters( 'tribe_get_province', $output, $venue_id );
 	}
 
 	/**
@@ -319,18 +359,26 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @todo Depricate tribe_get_region or tribe_get_stateprovince
 	 */
 	function tribe_get_region( $postId = null ) {
-		$postId = tribe_get_venue_id( $postId );
-		if ( tribe_get_event_meta( $postId, '_VenueStateProvince', true ) ) {
-			$region = tribe_get_event_meta( $postId, '_VenueStateProvince', true );
+		$venue_id = tribe_get_venue_id( $postId );
+		if ( tribe_get_event_meta( $venue_id, '_VenueStateProvince', true ) ) {
+			$region = tribe_get_event_meta( $venue_id, '_VenueStateProvince', true );
 		} else {
-			if ( tribe_get_country( $postId ) == esc_html__( 'United States', 'the-events-calendar' ) ) {
-				$region = tribe_get_state( $postId );
+			if ( tribe_get_country( $venue_id ) == esc_html__( 'United States', 'the-events-calendar' ) ) {
+				$region = tribe_get_state( $venue_id );
 			} else {
 				$region = tribe_get_province();
 			}
 		}
 
-		return apply_filters( 'tribe_get_region', $region );
+		/**
+		 * Allows customization of the venue's state or province for US, or non-US addresses.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $region The venue province
+		 * @param int $venue_id The venue ID
+		 */
+		return apply_filters( 'tribe_get_region', $region, $venue_id );
 	}
 
 	/**
@@ -342,10 +390,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string Zip code
 	 */
 	function tribe_get_zip( $postId = null ) {
-		$postId = tribe_get_venue_id( $postId );
-		$output = esc_html( tribe_get_event_meta( $postId, '_VenueZip', true ) );
-
-		return apply_filters( 'tribe_get_zip', $output );
+		$venue_id = tribe_get_venue_id( $postId );
+		$output   = esc_html( tribe_get_event_meta( $venue_id, '_VenueZip', true ) );
+		
+		/**
+		 * Allows customization of the venue's zip code.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $output The venue zip code
+		 * @param int $venue_id The venue ID
+		 */
+		return apply_filters( 'tribe_get_zip', $output, $venue_id );
 	}
 
 	/**
@@ -358,11 +414,19 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_full_region( $event_id ) {
 		$province = tribe_get_event_meta( $event_id, '_VenueStateProvince', true );
-		$states = Tribe__View_Helpers::loadStates();
+		$states   = Tribe__View_Helpers::loadStates();
 
 		$full_region = isset( $states[ $province ] ) ? $states[ $province ] : $province;
 
-		return apply_filters( 'tribe_get_full_region', $full_region );
+		/**
+		 * Allows customization of the venue address's full region name.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $full_region The full region name of the given event's Venue address
+		 * @param int  $event_id The ID of the event whose venue is being accessed
+		 */
+		return apply_filters( 'tribe_get_full_region', $full_region, $event_id );
 	}
 
 
@@ -375,11 +439,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return array An Array with the Latitute and Longitude of the venue
 	 */
 	function tribe_get_coordinates( $postId = null ) {
-		$postId = tribe_get_venue_id( $postId );
+		$venue_id = tribe_get_venue_id( $postId );
 
 		if ( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) ) {
-			$output[ 'lat' ] = (float) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::LAT, true );
-			$output[ 'lng' ] = (float) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::LNG, true );
+			$output[ 'lat' ] = (float) get_post_meta( $venue_id, Tribe__Events__Pro__Geo_Loc::LAT, true );
+			$output[ 'lng' ] = (float) get_post_meta( $venue_id, Tribe__Events__Pro__Geo_Loc::LNG, true );
 		} else {
 			$output = array(
 				'lat' => 0,
@@ -387,7 +451,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			);
 		}
 
-		return apply_filters( 'tribe_get_coordinates', $output );
+		/**
+		 * Allows customization of a venue's coordinates.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $output The latitute and longitude of the venue.
+		 * @param int $venue_id The venue ID
+		 */
+		return apply_filters( 'tribe_get_coordinates', $output, $venue_id );
 	}
 
 
@@ -400,15 +472,23 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool Depending on the venue checkbox of overwrite coordinates
 	 */
 	function tribe_is_venue_overwrite( $postId = null ) {
-		$postId = tribe_get_venue_id( $postId );
+		$venue_id = tribe_get_venue_id( $postId );
 
 		if ( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) ) {
-			$output = (int) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::OVERWRITE, true );
+			$output = (int) get_post_meta( $venue_id, Tribe__Events__Pro__Geo_Loc::OVERWRITE, true );
 		} else{
 			$output = 0;
 		}
 
-		return apply_filters( 'tribe_is_venue_overwrite', (bool) $output );
+		/**
+		 * Allows customization of a venue's coordinates.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $output Whether the venue's coordinates are overwritten or not.
+		 * @param int  $venue_id The venue ID
+		 */
+		return apply_filters( 'tribe_is_venue_overwrite', (bool) $output, $venue_id );
 	}
 
 
@@ -421,10 +501,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string Phone number
 	 */
 	function tribe_get_phone( $postId = null ) {
-		$postId = tribe_get_venue_id( $postId );
-		$output = esc_html( tribe_get_event_meta( $postId, '_VenuePhone', true ) );
+		$venue_id = tribe_get_venue_id( $postId );
+		$output   = esc_html( tribe_get_event_meta( $venue_id, '_VenuePhone', true ) );
 
-		return apply_filters( 'tribe_get_phone', $output );
+		/**
+		 * Allows customization of a venue's phone number.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $output Whether the venue's coordinates are overwritten or not.
+		 * @param int  $venue_id The venue ID
+		 */
+		return apply_filters( 'tribe_get_phone', $output, $venue_id );
 	}
 
 	/**
@@ -469,17 +557,46 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 					$url = "http://$url";
 				}
 			}
+
+			/**
+			 * Allows customization of a venue's website link target.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $output The venue's website link target.
+			 * @param int $post_id The venue ID.
+			 */
+			$website_link_target = apply_filters( 'tribe_get_venue_website_link_target', '_self', $post_id );
+
+			/**
+			 * Allows customization of a venue's website link label.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $label The venue's website link label.
+			 * @param int $post_id The venue ID.
+			 */
+			$website_link_label = apply_filters( 'tribe_get_venue_website_link_label', esc_html( $label ), $post_id );
+
 			$html = sprintf(
 				'<a href="%s" target="%s">%s</a>',
 				esc_attr( esc_url( $url ) ),
-				apply_filters( 'tribe_get_venue_website_link_target', '_self' ),
-				apply_filters( 'tribe_get_venue_website_link_label', esc_html( $label ) )
+				$website_link_target,
+				$website_link_label
 			);
 		} else {
 			$html = '';
 		}
 
-		return apply_filters( 'tribe_get_venue_website_link', $html );
+		/**
+		 * Allows customization of a venue's website link.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $html The assembled HTML link tag of venue's website link.
+		 * @param int $post_id The venue ID.
+		 */
+		return apply_filters( 'tribe_get_venue_website_link', $html, $post_ids );
 	}
 
 	/**
@@ -524,7 +641,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$venue_details['address'] = $venue_address;
 		}
 
-		return apply_filters( 'tribe_get_venue_details', $venue_details );
+		/**
+		 * Allows customization of the retrieved venue details.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $venue_details An array of the venue's details.
+		 * @param int $post_id The venue ID
+		 */
+		return apply_filters( 'tribe_get_venue_details', $venue_details, $post_id );
 	}
 
 	/**
@@ -552,6 +677,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Filters the parts of a venue address
 			 *
+			 * @since TBD
+			 *
 			 * @var array Array of address parts
 			 * @var int Event ID
 			 */
@@ -576,6 +703,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Filters the venue single-line address
+		 *
+		 * @since TBD
 		 *
 		 * @var string Venue address line
 		 * @var int Event ID
