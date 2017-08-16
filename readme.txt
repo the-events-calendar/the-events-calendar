@@ -327,6 +327,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.5.10.1] 2017-08-16 =
+
+* Fix - Updates common library to resolve a range of issues preventing frontend assets from loading and breaking parts of our user interface [85017]
+
 = [4.5.10] 2017-08-09 =
 
 * Fix - Avoid duplicate events when importing from some iCal, Google Calendar and Facebook feeds in Event Aggregator (our thanks to Jason Sears, controlyours and many other users for highlighting these issues) [67038]
