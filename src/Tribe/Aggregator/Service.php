@@ -250,9 +250,11 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Fetch origins from service
 	 *
-	 * @return array
+	 * @param bool $return_error Whether response errors should be returned, if any.
+	 *
+	 * @return array The origins array of an array containing the origins first and an error second if `return_error` is set to `true`.
 	 */
-	public function get_origins() {
+	public function get_origins( $return_error = false ) {
 		$origins = array(
 			'origin' => array(
 				(object) array(
@@ -263,9 +265,12 @@ class Tribe__Events__Aggregator__Service {
 		);
 
 		$response = $this->get( 'origin' );
+		$error = null;
 
-		// If we have an WP_Error we return only CSV
+		// If we have an WP_Error or a bad response we return only CSV and set some error data
 		if ( is_wp_error( $response ) || empty( $response->status ) ) {
+			$error = $response;
+
 			return $origins;
 		}
 
@@ -273,7 +278,9 @@ class Tribe__Events__Aggregator__Service {
 			$origins = array_merge( $origins, (array) $response->data );
 		}
 
-		return $origins;
+		return $return_error
+			? array( $origins, $error )
+			: $origins;
 	}
 
 	/**
