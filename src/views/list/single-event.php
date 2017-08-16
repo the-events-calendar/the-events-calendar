@@ -15,8 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Setup an array of venue details for use later in the template
 $venue_details = tribe_get_venue_details();
 
+// The address string via tribe_get_venue_details will often be populated even when there's
+// no address, so let's get the address string on its own for a couple of checks below.
+$venue_address = tribe_get_address();
+ 
 // Venue
-$has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : '';
+$has_venue_address = ( ! empty( $venue_address ) ) ? ' location' : '';
 
 // Organizer
 $organizer = tribe_get_organizer();
@@ -45,7 +49,9 @@ $organizer = tribe_get_organizer();
 		<?php if ( $venue_details ) : ?>
 			<!-- Venue Display Info -->
 			<div class="tribe-events-venue-details">
-				<?php echo implode( ', ', $venue_details ); ?>
+				<?php $address_delimiter = empty( $venue_address ) ? ' ' : ', '; ?>
+				<?php echo implode( $address_delimiter, $venue_details ); ?>
+
 				<?php
 				if ( tribe_get_map_link() ) {
 					echo tribe_get_map_link_html();
