@@ -69,6 +69,8 @@ class OriginsTest extends Aggregator_TestCase {
 		$sut = $this->make_instance();
 		delete_transient( $sut->cache_group . '_origin_limit' );
 		delete_transient( $sut->cache_group . '_origin_oauth' );
+		delete_transient( $sut->cache_group . '_origins' );
+		delete_transient( $sut->cache_group . '_fetch_lock' );
 
 		$sut->get();
 
@@ -92,6 +94,8 @@ class OriginsTest extends Aggregator_TestCase {
 		$sut = $this->make_instance();
 		delete_transient( $sut->cache_group . '_origin_limit' );
 		delete_transient( $sut->cache_group . '_origin_oauth' );
+		delete_transient( $sut->cache_group . '_origins' );
+		delete_transient( $sut->cache_group . '_fetch_lock' );
 
 		$sut->get();
 
@@ -117,6 +121,7 @@ class OriginsTest extends Aggregator_TestCase {
 		delete_transient( $sut->cache_group . '_origin_limit' );
 		delete_transient( $sut->cache_group . '_origin_oauth' );
 		delete_transient( $sut->cache_group . '_origins' );
+		delete_transient( $sut->cache_group . '_fetch_lock' );
 
 		$sut->get();
 
