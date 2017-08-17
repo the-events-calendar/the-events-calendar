@@ -368,16 +368,17 @@ class Tribe__Events__Aggregator__Cron {
 		$records = Tribe__Events__Aggregator__Records::instance();
 
 		$query = $records->query( array(
-			'post_status' => Tribe__Events__Aggregator__Records::$status->pending,
-			'posts_per_page' => -1,
-			'order' => 'ASC',
-			'meta_query' => array(
+			'post_status'    => Tribe__Events__Aggregator__Records::$status->pending,
+			'posts_per_page' => - 1,
+			'order'          => 'ASC',
+			'meta_query'     => array(
 				array(
-					'key' => '_tribe_aggregator_origin',
-					'value' => 'csv',
+					'key'     => '_tribe_aggregator_origin',
+					'value'   => 'csv',
 					'compare' => '!=',
 				),
 			),
+			'after'          => '-4 hours',
 		) );
 
 		if ( ! $query->have_posts() ) {
