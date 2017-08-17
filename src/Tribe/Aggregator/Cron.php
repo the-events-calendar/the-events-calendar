@@ -537,32 +537,6 @@ class Tribe__Events__Aggregator__Cron {
 	 * @return void
 	 */
 	public function log( $type = 'colorize', $message = '' ) {
-		// Log on our Structure
-		Tribe__Main::instance()->log()->log_debug( $message, 'aggregator' );
-
-		// Only go further if we have WP_CLI
-		if ( ! class_exists( 'WP_CLI' ) ) {
-			return false;
-		}
-
-		switch ( $type ) {
-			case 'error':
-				WP_CLI::error( $message );
-				break;
-			case 'warning':
-				WP_CLI::warning( $message );
-				break;
-			case 'success':
-				WP_CLI::success( $message );
-				break;
-			case 'debug':
-				WP_CLI::debug( $message, 'aggregator' );
-				break;
-
-			case 'colorize':
-			default:
-				WP_CLI::log( WP_CLI::colorize( $message ) );
-				break;
-		}
+		tribe( 'logger' )->log( $message, $type, 'EA Cron' );
 	}
 }
