@@ -505,13 +505,23 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
-			// Creating the child records based on this Parent
-			$deleted = wp_delete_post( $record->id, true );
+			$has_post = false;
+			$deleted  = false;
 
-			if ( $deleted ) {
-				$this->log( 'debug', sprintf( 'Record (%d) was pruned', $deleted->ID ) );
+			// Creating the child records based on this Parent
+			if ( ! empty( $record->id ) ) {
+				$has_post = true;
+				$deleted  = wp_delete_post( $record->id, true );
+			}
+
+			if ( $has_post ) {
+				if ( $deleted ) {
+					$this->log( 'debug', sprintf( 'Record (%d) was pruned', $deleted->ID ) );
+				} else {
+					$this->log( 'debug', sprintf( 'Record (%d) was not pruned', $deleted ) );
+				}
 			} else {
-				$this->log( 'debug', sprintf( 'Record (%d) was not pruned', $deleted ) );
+				$this->log( 'debug', sprintf( 'Record (%d) did not have a `$record->id` so it did not require pruning', $deleted ) );
 			}
 		}
 	}
