@@ -397,7 +397,7 @@ class Tribe__Events__Aggregator__Cron {
 			$failed = $cleaner->maybe_fail_stalled_record( $record );
 
 			if ( $failed ) {
-				tribe( 'logger' )->log_error( sprintf( 'Stalled record (%d)', $record->id ), 'EA Cron' );
+				tribe( 'logger' )->log_debug( sprintf( 'Stalled record (%d) was skipped', $record->id ), 'EA Cron' );
 				continue;
 			}
 
