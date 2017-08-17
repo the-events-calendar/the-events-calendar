@@ -392,7 +392,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_zip( $postId = null ) {
 		$venue_id = tribe_get_venue_id( $postId );
 		$output   = esc_html( tribe_get_event_meta( $venue_id, '_VenueZip', true ) );
-		
+
 		/**
 		 * Allows customization of the venue's zip code.
 		 *
