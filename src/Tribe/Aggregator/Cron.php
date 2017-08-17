@@ -496,7 +496,7 @@ class Tribe__Events__Aggregator__Cron {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
 			if ( tribe_is_error( $record ) ) {
-				$this->log( 'debug', sprintf( 'Record (%d) skipped, original post non-existent', $post->id ) );
+				$this->log( 'debug', sprintf( 'Record (%d) skipped, original post non-existent', $post->ID ) );
 				continue;
 			}
 
