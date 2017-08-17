@@ -386,6 +386,9 @@ class Tribe__Events__Aggregator__Cron {
 			return;
 		}
 
+		$count = count( $query->posts );
+		tribe( 'logger' )->log_debug( "Found {$count} records", 'EA Cron' );
+
 		$cleaner = new Tribe__Events__Aggregator__Record__Queue_Cleaner();
 		foreach ( $query->posts as $post ) {
 			$record = $records->get_by_post_id( $post );

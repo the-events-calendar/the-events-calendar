@@ -472,12 +472,14 @@ class Tribe__Events__Aggregator__Records {
 
 		$args = (array) $args;
 
-		if ( isset( $args['before'] ) ) {
-			$before_timestamp = is_numeric( $args['before'] )
-				? $args['before']
-				: Tribe__Date_Utils::wp_strtotime( $args['before'] );
+		if ( isset( $args['after'] ) ) {
+			$before_timestamp = is_numeric( $args['after'] )
+				? $args['after']
+				: Tribe__Date_Utils::wp_strtotime( $args['after'] );
 			$before_datetime  = new DateTime( "@{$before_timestamp}" );
 			$this->after_time = $before_datetime->format( 'Y-m-d H:00:00' );
+
+			add_filter( 'posts_where', array( $this, 'filter_posts_where' ) );
 
 			tribe( 'logger' )->log_debug( "Filtering records happening after {$this->after_time}", 'EA Records' );
 		}
