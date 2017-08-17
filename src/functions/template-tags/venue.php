@@ -15,7 +15,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Returns the event Venue ID.
 	 *
-	 * @since TBD
+	 * @since ??
 	 *
 	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
 	 * @return int Venue ID
@@ -28,7 +28,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Allow for customizing the Venue ID retrieved for this item.
 			 *
-			 * @since TBD
+			 * @since TBD Added dockblock and venue ID to filter.
 			 *
 			 * @param int $venue_id The Venue ID for the specified event.
 			 * @param int $postId The ID of the event whose venue is being looked for.
@@ -48,7 +48,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of the singular version of the Venue Label
 		 *
-		 * @since TBD
+		 * @since TBD Added dockblock
 		 *
 		 * @param string $label The singular version of the Venue label, defaults to "Venue" (uppercase)
 		 */
@@ -66,7 +66,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of the plural version of the Venue Label
 		 *
-		 * @since TBD
+		 * @since TBD Added dockblock
 		 *
 		 * @param string $label The plural version of the Venue label, defaults to "Venues" (uppercase)
 		 */
@@ -87,7 +87,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of whether a given event has a venue.
 		 *
-		 * @since TBD
+		 * @since TBD Added dockblock and venue ID to filter.
 		 *
 		 * @param bool $has_venue Whether the specified event has a venue.
 		 * @param int $postId Can be either the event ID or its venue ID
@@ -110,7 +110,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of the retrieved venue name for a specified event.
 		 *
-		 * @since TBD
+		 * @since TBD Added dockblock and venue ID to filter.
 		 *
 		 * @param string $venue The name of the retrieved venue.
 		 * @param int $venue_id The venue ID.
@@ -145,7 +145,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of the "Venue name with link" retrieved for a specified event.
 		 *
-		 * @since TBD
+		 * @since TBD Added dockblock and function args to filter.
 		 *
 		 * @param string $link The assembled "Venue name with link" string
 		 * @param int $venue_id The venue's ID.
@@ -177,7 +177,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of the retrieved venue country for a specified event.
 		 *
-		 * @since TBD
+		 * @since TBD Added dockblock and venue ID to filter.
 		 *
 		 * @param string $output The escaped country name of the venue.
 		 * @param int $venue_id The venue ID.
@@ -201,7 +201,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of the venue's full address.
 		 *
-		 * @since TBD
+		 * @since TBD Added dockblock; also added $venue_id and $includeVenueName to filter.
 		 *
 		 * @param string $address The formatted event address
 		 * @param int $venue_id The venue ID.
@@ -248,7 +248,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of the venue's street address.
 		 *
-		 * @since TBD
+		 * @since TBD Added docblock and venue ID to filter
 		 *
 		 * @param string $output The escaped venue street address
 		 * @param int $venue_id The venue ID.
@@ -271,7 +271,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of the venue's city.
 		 *
-		 * @since TBD
+		 * @since TBD Added docblock and venue ID to filter
 		 *
 		 * @param string $output The escaped venue city
 		 * @param int $venue_id The venue ID.
@@ -295,7 +295,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of the venue's state or province.
 		 *
-		 * @since TBD
+		 * @since TBD Added docblock and venue ID to filter
 		 *
 		 * @param string $output The escaped venue state or province.
 		 * @param int $venue_id The venue ID.
@@ -318,7 +318,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of the venue's state.
 		 *
-		 * @since TBD
+		 * @since TBD Added docblock and venue ID to filter
 		 *
 		 * @param string $output The escaped venue state or province.
 		 * @param int $venue_id The venue ID.
@@ -341,7 +341,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of the venue's province.
 		 *
-		 * @since TBD
+		 * @since TBD Added docblock and venue ID to filter
 		 *
 		 * @param string $output The escaped venue province
 		 * @param int $venue_id The venue ID.
@@ -373,7 +373,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of the venue's state or province for US, or non-US addresses.
 		 *
-		 * @since TBD
+		 * @since TBD Added docblock and venue ID to filter
 		 *
 		 * @param string $region The venue province
 		 * @param int $venue_id The venue ID
@@ -396,7 +396,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of the venue's zip code.
 		 *
-		 * @since TBD
+		 * @since TBD Added docblock and venue ID to filter
 		 *
 		 * @param string $output The venue zip code
 		 * @param int $venue_id The venue ID
@@ -421,7 +421,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of the venue address's full region name.
 		 *
-		 * @since TBD
+		 * @since TBD Added docblock and event ID to filter
 		 *
 		 * @param string $full_region The full region name of the given event's Venue address
 		 * @param int  $event_id The ID of the event whose venue is being accessed
@@ -454,7 +454,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of a venue's coordinates.
 		 *
-		 * @since TBD
+		 * @since TBD Added docblock and venue ID to filter
 		 *
 		 * @param array $output The latitute and longitude of the venue.
 		 * @param int $venue_id The venue ID
@@ -483,7 +483,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of a venue's coordinates.
 		 *
-		 * @since TBD
+		 * @since TBD Added docblock and venue ID to filter
 		 *
 		 * @param bool $output Whether the venue's coordinates are overwritten or not.
 		 * @param int  $venue_id The venue ID
@@ -507,7 +507,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of a venue's phone number.
 		 *
-		 * @since TBD
+		 * @since TBD Added docblock and venue ID to filter
 		 *
 		 * @param bool $output Whether the venue's coordinates are overwritten or not.
 		 * @param int  $venue_id The venue ID
@@ -561,7 +561,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Allows customization of a venue's website link target.
 			 *
-			 * @since TBD
+			 * @since TBD Added docblock and venue ID to filter.
 			 *
 			 * @param string $output The venue's website link target.
 			 * @param int $post_id The venue ID.
@@ -571,7 +571,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Allows customization of a venue's website link label.
 			 *
-			 * @since TBD
+			 * @since TBD Added docblock and venue ID to filter.
 			 *
 			 * @param string $label The venue's website link label.
 			 * @param int $post_id The venue ID.
@@ -591,7 +591,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of a venue's website link.
 		 *
-		 * @since TBD
+		 * @since TBD Added docblock.
 		 *
 		 * @param string $html The assembled HTML link tag of venue's website link.
 		 * @param int $post_id The venue ID.
@@ -644,16 +644,16 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of the retrieved venue details.
 		 *
-		 * @since TBD
+		 * @since TBD Added docblock and venue ID to filter.
 		 *
-		 * @param array $venue_details An array of the venue's details.
+		 * @param array $venue_details An array of the venue's details
 		 * @param int $post_id The venue ID
 		 */
 		return apply_filters( 'tribe_get_venue_details', $venue_details, $post_id );
 	}
 
 	/**
-	 * Gets the venue name and address on a single line
+	 * Gets the venue name and address on a single line.
 	 *
 	 * @since TBD
 	 *
@@ -675,9 +675,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			);
 
 			/**
-			 * Filters the parts of a venue address
+			 * Filters the parts of a venue address.
 			 *
-			 * @since TBD
+			 * @since TBD Added docblock and event ID to filter.
 			 *
 			 * @var array Array of address parts
 			 * @var int Event ID
@@ -702,9 +702,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Filters the venue single-line address
+		 * Filters the venue single-line address.
 		 *
-		 * @since TBD
+		 * @since TBD Added docblock and function args to filter.
 		 *
 		 * @var string Venue address line
 		 * @var int Event ID
