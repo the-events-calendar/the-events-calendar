@@ -190,6 +190,8 @@ class Tribe__Events__Inactive_Events {
 
 		add_filter( 'tribe_post_types', array( $this, 'add_type' ) );
 
+		add_filter( 'tribe_events_metabox_post_types', array( $this, 'add_type' ) );
+
 		// Register Assets
 		$this->register_assets();
 	}
