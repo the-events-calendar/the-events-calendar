@@ -169,7 +169,31 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		// `source` will be empty when importing .ics files
+		$original_source = $this->meta['source'];
 		$this->meta['source'] = ! empty ( $this->meta['source'] ) ? $this->meta['source'] : '';
+
+		// Intelligently prepend "http://" if the protocol is missing from the source URL
+		if ( ! empty( $this->meta['source'] && false === strpos( $this->meta['source'], '://' ) ) ) {
+			$this->meta['source'] = 'http://' . $this->meta['source'];
+		}
+
+		/**
+		 * Provides an opportunity to set or modify the source URL for an import.
+		 *
+		 * @since TBD
+		 *
+		 * @param string  $source
+		 * @param string  $original_source
+		 * @param WP_Post $record
+		 * @param array   $meta
+		 */
+		$this->meta['source'] = apply_filters(
+			'tribe_aggregator_meta_source',
+			$this->meta['source'],
+			$original_source,
+			$this->post,
+			$this->meta
+		);
 
 		// This prevents lots of isset checks for no reason
 		if ( empty( $this->meta['activity'] ) ) {
