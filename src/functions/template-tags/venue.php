@@ -618,7 +618,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string $html The assembled HTML link tag of venue's website link.
 		 * @param int $post_id The venue ID.
 		 */
-		return apply_filters( 'tribe_get_venue_website_link', $html, $post_ids );
+		return apply_filters( 'tribe_get_venue_website_link', $html, $post_id );
 	}
 
 	/**
