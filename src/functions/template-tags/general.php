@@ -1444,7 +1444,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		if ( ! has_excerpt( $post->ID ) ) {
 			// Temporarily alter the global post in preparation for our filters.
-			$global_post = $GLOBALS['post'];
+			$global_post     = $GLOBALS['post'];
 			$GLOBALS['post'] = $post;
 
 			// We will only trim Excerpt if it comes from Post Content
