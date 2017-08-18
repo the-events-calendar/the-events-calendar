@@ -1006,14 +1006,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			if ( $last_children_query->have_posts() ) {
 				$last_children        = reset( $last_children_query->posts );
 				$last_children_status = str_replace( 'tribe-ea-', '', $last_children->post_status );
+
 				$map                  = array(
 					'failed'  => 'error:import-failed',
 					'success' => 'success:queued',
 					'success' => 'success:queued',
 				);
-				if ( array_key_exists( $last_children_status, $map ) ) {
-					$status = $map[ $last_children_status ];
-				}
+
+				$status = Tribe__Utils__Array::get( $map, $last_children_status, null );
 			}
 		}
 
