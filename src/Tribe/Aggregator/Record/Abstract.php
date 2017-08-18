@@ -1004,16 +1004,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( empty( $status ) && $lookup_children ) {
 			$last_children_query = $this->query_child_records( array( 'posts_per_page' => 1, 'order' => 'DESC', 'order_by' => 'modified' ) );
 			if ( $last_children_query->have_posts() ) {
-				$last_children        = reset( $last_children_query->posts );
-				$last_children_status = str_replace( 'tribe-ea-', '', $last_children->post_status );
+				$last_children = reset( $last_children_query->posts );
 
-				$map                  = array(
-					'failed'  => 'error:import-failed',
-					'success' => 'success:queued',
-					'success' => 'success:queued',
+				$map = array(
+					'tribe-ea-failed'  => 'error:import-failed',
+					'tribe-ea-success' => 'success:queued',
 				);
 
-				$status = Tribe__Utils__Array::get( $map, $last_children_status, null );
+				$status = Tribe__Utils__Array::get( $map, $last_children->post_status, null );
 			}
 		}
 
