@@ -173,7 +173,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$this->meta['source'] = ! empty ( $this->meta['source'] ) ? $this->meta['source'] : '';
 
 		// Intelligently prepend "http://" if the protocol is missing from the source URL
-		if ( ! empty( $this->meta['source'] && false === strpos( $this->meta['source'], '://' ) ) ) {
+		if ( ! empty( $this->meta['source'] ) && false === strpos( $this->meta['source'], '://' ) ) {
 			$this->meta['source'] = 'http://' . $this->meta['source'];
 		}
 
