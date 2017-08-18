@@ -90,9 +90,12 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 *
 	 */
 	public function render_dropdowns() {
-		$post_id = $this->event->ID;
+		$post_id                      = $this->event->ID;
+		$current_linked_post_meta_key = $this->linked_posts->get_meta_key( $this->post_type );
+		$current_linked_posts         = get_post_meta( $post_id, $current_linked_post_meta_key, false );
 
-		$current_linked_posts = get_post_meta( $post_id, $this->linked_posts->get_meta_key( $this->post_type ), false );
+		// @todo
+		$current_linked_posts = apply_filters( "tribe_events_linked_post_meta_values_{$current_linked_post_meta_key}", $current_linked_posts, $post_id );
 
 		if ( $this->use_default_post( $current_linked_posts ) ) {
 			/**

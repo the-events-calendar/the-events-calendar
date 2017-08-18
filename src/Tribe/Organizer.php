@@ -87,6 +87,7 @@ class Tribe__Events__Organizer {
 		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 5 );
 		add_filter( 'tribe_events_linked_post_default', array( $this, 'linked_post_default' ), 10, 2 );
 		add_action( 'tribe_events_linked_post_new_form', array( $this, 'linked_post_new_form' ) );
+		add_filter( 'tribe_events_linked_post_meta_values__EventOrganizerID', array( $this, 'filter_out_invalid_organizer_ids' ), 10, 2 );
 	}
 
 	/**
@@ -223,6 +224,11 @@ class Tribe__Events__Organizer {
 		}
 
 		return $container;
+	}
+
+	// @todo
+	public function filter_out_invalid_organizer_ids( $organizer_ids, $post_id ) {
+		return array_map( 'absint', $organizer_ids );
 	}
 
 	/**
