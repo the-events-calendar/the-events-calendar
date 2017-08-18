@@ -105,7 +105,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		 * Name of filter is assembled as tribe_events_linked_post_meta_values_{$current_linked_post_meta_key}, where
 		 * $current_linked_post_meta_key is just literally the name of the curren meta key. So when the _EventOrganizerID
 		 * is being filtered, for example, the filter name would be tribe_events_linked_post_meta_values__EventOrganizerID
-		 * 
+		 *
 		 * @since TBD
 		 *
 		 * @param array $current_linked_posts The array of the current meta field's values.
@@ -296,7 +296,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	}
 
 	/**
-	 * Supply previously submitted linked post field values to the events-admin.js script in order to provide 
+	 * Supply previously submitted linked post field values to the events-admin.js script in order to provide
 	 * them with sticky qualities. This *must* run later than the action:priority used to enqueue events-admin.js.
 	 *
 	 * @since ??
