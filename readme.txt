@@ -331,6 +331,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 * Fix - Avoid Event Aggregator previews or scheduled imports being marked as failures [84259]
 * Fix - Fixed start and end date limit parsing for events archive in the REST API code [78375]
+* Fix - Fixed issue with `tribe_events_get_the_excerpt()` returning a read more link that sometimes pointed to the current page [70473]
 * Fix - Fixed Post ID not being sent to the_title filter for Organizers and Venues (props Anna L.) [85206]
 * Fix - Fixed issue where Month View tooltips would often go off-screen in some smaller viewport sizes [65136]
 * Fix - Fixed an issue that would sometimes render Event Aggregator options invalid even with a valid license [78469]

@@ -1444,6 +1444,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$excerpt = wp_kses( $excerpt, $allowed_html );
 
 		if ( ! has_excerpt( $post->ID ) ) {
+			// Temporarily alter the global post in preparation for our filters.
+			$global_post     = $GLOBALS['post'];
+			$GLOBALS['post'] = $post;
+
 			// We will only trim Excerpt if it comes from Post Content
 
 			/**
@@ -1462,6 +1466,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Now we actually trim it
 			$excerpt = wp_trim_words( $excerpt, $excerpt_length, $excerpt_more );
+
+			// Original post is back in action!
+			$GLOBALS['post'] = $global_post;
 		}
 
 		/**
