@@ -552,11 +552,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			'post_type'        => Tribe__Events__Main::VENUE_POST_TYPE,
 			'posts_per_page'   => $posts_per_page,
 			'suppress_filters' => $suppress_filters,
+			'post_status'      => 'publish'
 		);
 
-		if ( $only_with_upcoming ) {
+		if ( $only_with_upcoming ) {		
 			global $wpdb;
 
+			// Grabs all venue IDs that are associated with upcoming events.
 			$sql = "
 				SELECT DISTINCT pm.meta_value, 
 				    pm.meta_key,
@@ -578,6 +580,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 			$args['post__in'] = array_values( $venue_ids );
 
+			// Ensure post__not_in isn't on the query, because when it is, post__in fails.
 			unset( $args['post__not_in'] );
 		}
 
