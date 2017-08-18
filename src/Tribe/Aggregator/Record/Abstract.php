@@ -683,6 +683,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		/** @var \Tribe__Events__Aggregator__API__Import $import_api */
 		$import_api  = $aggregator->api( 'import' );
+
+		if ( empty( $this->meta['import_id'] ) ) {
+			return tribe_error( 'core:aggregator:record-not-finalized' );
+		}
+
 		$import_data = $import_api->get( $this->meta['import_id'], $data );
 
 		$import_data = $this->maybe_cast_to_error( $import_data );
