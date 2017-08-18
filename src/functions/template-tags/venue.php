@@ -568,7 +568,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				        ON p.ID = pm.post_id
 				    LEFT JOIN wp_postmeta eventDate
 				        ON p.ID=eventDate.post_id AND eventDate.meta_key='_EventStartDate'
-				WHERE p.post_type = 'tribe_events'
+				WHERE p.post_type = '%s'
 				    AND p.post_status = 'publish'
 				    AND pm.meta_key = '_EventVenueID'
 				    AND pm.meta_value > 0
@@ -576,12 +576,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				GROUP BY pm.meta_value
 				";
 
+			$sql       = $wpdb->prepare( $sql, array( Tribe__Events__Main::POSTTYPE ) );
 			$venue_ids = $wpdb->get_col( $sql );
 
-			$args['post__in'] = array_values( $venue_ids );
+			if ( ! empty( $venue_ids ) ) {
+				$args['post__in'] = array_values( $venue_ids );
 
-			// Ensure post__not_in isn't on the query, because when it is, post__in fails.
-			unset( $args['post__not_in'] );
+				// Ensure post__not_in isn't on the query, because when it is, post__in fails.
+				unset( $args['post__not_in'] );
+			}
 		}
 
 		$venues = get_posts( $args );
