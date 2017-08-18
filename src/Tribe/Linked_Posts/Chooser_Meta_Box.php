@@ -43,10 +43,11 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	}
 
 	/**
-	 * Work with the specifed event object or else use a placeholder if we are in
-	 * the middle of creating a new event.
+	 * Work with the specifed event object or else use a placeholder if in the middle of creating a new event.
 	 *
-	 * @param null $event
+	 * @since ??
+	 *
+	 * @param mixed $event
 	 */
 	protected function get_event( $event = null ) {
 		if ( is_null( $event ) ) {
@@ -71,35 +72,52 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	/**
 	 * Render the organizer chooser section for the events meta box
 	 *
+	 * @since ??
 	 */
 	public function render() {
 		$this->render_dropdowns();
 		$this->render_add_post_button();
 
 		/**
-		 * Make this Template filterable, used for Community Facing templates
+		 * Make this Template filterable, used for Community Facing templates.
 		 *
-		 * @var string $file_path
+		 * @since ??
+		 *
+		 * @param string $file_path
 		 */
 		include apply_filters( 'tribe_events_multiple_linked_post_template', $this->tribe->pluginPath . 'src/admin-views/linked-post-meta-box.php' );
 	}
 
 	/**
-	 * displays the saved organizer dropdown in the event metabox
-	 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
+	 * Displays the saved linked post dropdown in the event metabox.
 	 *
+	 * @since 3.0
+	 * @since ?? Genericized to work for all linked posts, not just organizers like it was originally.
 	 */
 	public function render_dropdowns() {
 		$post_id                      = $this->event->ID;
 		$current_linked_post_meta_key = $this->linked_posts->get_meta_key( $this->post_type );
 		$current_linked_posts         = get_post_meta( $post_id, $current_linked_post_meta_key, false );
 
-		// @todo
+		/**
+		 * Allows for filtering the array of values retrieved for a specific linked post meta field.
+		 *
+		 * Name of filter is assembled as tribe_events_linked_post_meta_values_{$current_linked_post_meta_key}, where
+		 * $current_linked_post_meta_key is just literally the name of the curren meta key. So when the _EventOrganizerID
+		 * is being filtered, for example, the filter name would be tribe_events_linked_post_meta_values__EventOrganizerID
+		 * 
+		 * @since TBD
+		 *
+		 * @param array $current_linked_posts The array of the current meta field's values.
+		 * @param int $post_id The current event's post ID.
+		 */
 		$current_linked_posts = apply_filters( "tribe_events_linked_post_meta_values_{$current_linked_post_meta_key}", $current_linked_posts, $post_id );
 
 		if ( $this->use_default_post( $current_linked_posts ) ) {
 			/**
 			 * Filters the default selected post for the linked post
+			 *
+			 * @since ??
 			 *
 			 * @param array $default Default post array
 			 * @param string $post_type Linked post post type
@@ -108,7 +126,9 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		}
 
 		/**
-		 * Filters the default selected post for the linked post
+		 * Filters the default selected post for the linked post.
+		 *
+		 * @since ??
 		 *
 		 * @param array $current_linked_posts Array of currently linked posts
 		 * @param string $post_type Linked post post type
@@ -119,6 +139,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		   from the $current_organizers array. This prevents the automatic
 		   selection of an organizer every time the event is edited. */
 		$linked_post_pto = get_post_type_object( $this->post_type );
+
 		if ( ! current_user_can( $linked_post_pto->cap->create_posts ) ) {
 			$current_linked_posts = array_filter( $current_linked_posts );
 		}
@@ -140,10 +161,11 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	}
 
 	/**
-	 * Render a single row of the organizers table
+	 * Render a single row of the linked post's table
 	 *
-	 * @param int $organizer_id
+	 * @since 3.0
 	 *
+	 * @param int $linked_post_id
 	 */
 	protected function single_post_dropdown( $linked_post_id ) {
 		$linked_post_type_container = $this->linked_posts->get_post_type_container( $this->post_type );
@@ -171,7 +193,9 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	}
 
 	/**
-	 * Render a link to edit the organizer post
+	 * Render a link to edit the linked post
+	 *
+	 * @since 3.0
 	 *
 	 * @param int $organizer_id
 	 */
@@ -200,6 +224,8 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	/**
 	 * Determine if the event can use the default setting
 	 *
+	 * @since ??
+	 *
 	 * @param array $current_organizers
 	 * @return bool
 	 */
@@ -219,6 +245,8 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 
 	/**
 	 * Renders the "Add Another Organizer" button
+	 *
+	 * @since ??
 	 */
 	protected function render_add_post_button() {
 		if ( empty( $this->linked_posts->linked_post_types[ $this->post_type ]['allow_multiple'] ) ) {
@@ -246,14 +274,18 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	}
 
 	/**
-	 * Renders the handle for sorting organizers
+	 * Renders the handle for sorting linked posts
+	 *
+	 * @since 3.0
 	 */
 	protected function move_handle() {
 		echo '<span class="dashicons dashicons-screenoptions move-linked-post-group"></span>';
 	}
 
 	/**
-	 * Renders the handle for deleting an organizer
+	 * Renders the handle for deleting a linked post
+	 *
+	 * @since 3.0
 	 */
 	protected function delete_handle() {
 		?>
@@ -264,11 +296,10 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	}
 
 	/**
-	 * Supply previously submitted organizer field values to the events-admin.js
-	 * script in order to provide them with sticky qualities.
+	 * Supply previously submitted linked post field values to the events-admin.js script in order to provide 
+	 * them with sticky qualities. This *must* run later than the action:priority used to enqueue events-admin.js.
 	 *
-	 * This *must* run later than the action:priority used to enqueue
-	 * events-admin.js.
+	 * @since ??
 	 */
 	public function sticky_form_data() {
 		$submitted_data = array();
@@ -298,6 +329,8 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	}
 
 	/**
+	 * Parse candidate linked posts.
+	 *
 	 * @param $current_linked_posts
 	 * @return mixed
 	 */
