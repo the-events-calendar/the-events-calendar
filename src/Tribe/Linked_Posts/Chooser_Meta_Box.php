@@ -32,10 +32,10 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	protected $singular_name;
 
 	public function __construct( $event = null, $post_type = null ) {
-		$this->tribe        = Tribe__Events__Main::instance();
-		$this->linked_posts = Tribe__Events__Linked_Posts::instance();
-		$this->post_type = $post_type;
-		$this->singular_name = $this->linked_posts->linked_post_types[ $this->post_type ]['singular_name'];
+		$this->tribe                   = Tribe__Events__Main::instance();
+		$this->linked_posts            = Tribe__Events__Linked_Posts::instance();
+		$this->post_type               = $post_type;
+		$this->singular_name           = $this->linked_posts->linked_post_types[ $this->post_type ]['singular_name'];
 		$this->singular_name_lowercase = $this->linked_posts->linked_post_types[ $this->post_type ]['singular_name_lowercase'];
 		$this->get_event( $event );
 
@@ -123,8 +123,9 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		?><script type="text/template" id="tmpl-tribe-select-<?php echo esc_attr( $this->post_type ); ?>"><?php $this->single_post_dropdown( 0 ); ?></script><?php
 
 		$current_linked_posts = $this->maybe_parse_candidate_linked_posts( $current_linked_posts );
+		$current_linked_posts = array_values( $current_linked_posts );
 
-		$i = 0;
+		$i           = 0;
 		$num_records = count( $current_linked_posts );
 
 		do {
@@ -170,7 +171,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 * Render a link to edit the organizer post
 	 *
 	 * @param int $organizer_id
-	 *
 	 */
 	protected function edit_post_link( $linked_post_id ) {
 		$linked_post_pto = get_post_type_object( $this->post_type );
@@ -198,7 +198,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 * Determine if the event can use the default setting
 	 *
 	 * @param array $current_organizers
-	 *
 	 * @return bool
 	 */
 	protected function use_default_post( $current_posts ) {
@@ -217,7 +216,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 
 	/**
 	 * Renders the "Add Another Organizer" button
-	 *
 	 */
 	protected function render_add_post_button() {
 		if ( empty( $this->linked_posts->linked_post_types[ $this->post_type ]['allow_multiple'] ) ) {
@@ -246,7 +244,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 
 	/**
 	 * Renders the handle for sorting organizers
-	 *
 	 */
 	protected function move_handle() {
 		echo '<span class="dashicons dashicons-screenoptions move-linked-post-group"></span>';
@@ -254,7 +251,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 
 	/**
 	 * Renders the handle for deleting an organizer
-	 *
 	 */
 	protected function delete_handle() {
 		?>
@@ -275,7 +271,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		$submitted_data = array();
 
 		$linked_posts = Tribe__Events__Linked_Posts::instance();
-		$container = $linked_posts->get_post_type_container( $this->post_type );
+		$container    = $linked_posts->get_post_type_container( $this->post_type );
 
 		if ( empty( $_POST[ $container ] ) || ! is_array( $_POST[ $container ] ) ) {
 			return;
@@ -300,7 +296,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 
 	/**
 	 * @param $current_linked_posts
-	 *
 	 * @return mixed
 	 */
 	private function maybe_parse_candidate_linked_posts( array $current_linked_posts = array() ) {
@@ -310,7 +305,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		$current_linked_posts = array_filter( $current_linked_posts );
 
 		// We don't have any items
-		$has_no_current_linked_posts = empty( $current_linked_posts );
+		$has_no_current_linked_posts                    = empty( $current_linked_posts );
 		$submitted_data_contains_candidate_linked_posts = ! empty( $_POST[ $linked_post_type_container ] );
 
 		if ( $has_no_current_linked_posts && $submitted_data_contains_candidate_linked_posts ) {
