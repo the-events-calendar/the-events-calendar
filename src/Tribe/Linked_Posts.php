@@ -541,9 +541,8 @@ class Tribe__Events__Linked_Posts {
 			return $linked_posts;
 		}
 
-		$subject_meta_key   = $this->get_meta_key( $subject_post_type );
-
-		$target_link_posts  = get_post_meta( $target_post_id, $subject_meta_key );
+		$subject_meta_key  = $this->get_meta_key( $subject_post_type );
+		$target_link_posts = get_post_meta( $target_post_id, $subject_meta_key );
 
 		// if the subject isn't in the target's linked posts, add it
 		if ( ! in_array( $subject_post_id, $target_link_posts ) ) {
@@ -556,7 +555,7 @@ class Tribe__Events__Linked_Posts {
 			}
 
 			// add the subject to the target
-			$linked_posts = add_metadata('post', $target_post_id, $subject_meta_key, $subject_post_id );
+			$linked_posts = add_metadata( 'post', $target_post_id, $subject_meta_key, $subject_post_id );
 		}
 
 		if ( $linked_posts ) {
@@ -733,7 +732,7 @@ class Tribe__Events__Linked_Posts {
 		$currently_linked_posts = $this->get_linked_posts_by_post_type( $event_id, $linked_post_type );
 		$currently_linked_posts = wp_list_pluck( $currently_linked_posts, 'ID' );
 
-		$posts_to_add = array_diff( $linked_posts, $currently_linked_posts );
+		$posts_to_add    = array_diff( $linked_posts, $currently_linked_posts );
 		$posts_to_remove = array_diff( $currently_linked_posts, $linked_posts );
 
 		foreach ( $posts_to_remove as $linked_post_id ) {
