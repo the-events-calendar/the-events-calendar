@@ -545,13 +545,49 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return array An array of venue post objects.
 	 */
 	function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true ) {
-		$venues = get_posts(
-			array(
-				'post_type'        => Tribe__Events__Main::VENUE_POST_TYPE,
-				'posts_per_page'   => $posts_per_page,
-				'suppress_filters' => $suppress_filters,
-			)
+		$venues    = array();
+		$venue_ids = array();
+
+		$args = array(
+			'post_type'        => Tribe__Events__Main::VENUE_POST_TYPE,
+			'posts_per_page'   => $posts_per_page,
+			'suppress_filters' => $suppress_filters,
+			'post_status'      => 'publish'
 		);
+
+		if ( $only_with_upcoming ) {		
+			global $wpdb;
+
+			// Grabs all venue IDs that are associated with upcoming events.
+			$sql = "
+				SELECT DISTINCT pm.meta_value, 
+				    pm.meta_key,
+				    p.ID
+				FROM wp_postmeta pm 
+				    INNER JOIN wp_posts p 
+				        ON p.ID = pm.post_id
+				    LEFT JOIN wp_postmeta eventDate
+				        ON p.ID=eventDate.post_id AND eventDate.meta_key='_EventStartDate'
+				WHERE p.post_type = '%s'
+				    AND p.post_status = 'publish'
+				    AND pm.meta_key = '_EventVenueID'
+				    AND pm.meta_value > 0
+				    AND eventDate.meta_value > CURRENT_DATE()
+				GROUP BY pm.meta_value
+				";
+
+			$sql       = $wpdb->prepare( $sql, array( Tribe__Events__Main::POSTTYPE ) );
+			$venue_ids = $wpdb->get_col( $sql );
+
+			if ( ! empty( $venue_ids ) ) {
+				$args['post__in'] = array_values( $venue_ids );
+
+				// Ensure post__not_in isn't on the query, because when it is, post__in fails.
+				unset( $args['post__not_in'] );
+			}
+		}
+
+		$venues = get_posts( $args );
 
 		return $venues;
 	}
