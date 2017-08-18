@@ -881,6 +881,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
+		// If the last import status is an error and this scheduled import frequency is not on demand let's try again
+		if (
+			$this->get_last_import_status( 'error', true )
+			&& isset( $this->frequency->id )
+			&& 'on_demand' !== $this->frequency->id
+		) {
+			return true;
+		}
+
 		$current = time();
 		$last    = strtotime( $this->post->post_modified_gmt );
 		$next    = $last + $this->frequency->interval;
@@ -978,18 +987,37 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Fetches the status message for the last import attempt on (scheduled) records
 	 *
 	 * @param string $type Type of message to fetch
+	 * @param bool   $lookup_children Whether the function should try to read the last children post status to return a coherent
+	 *                                last import status or not, default `false`.
 	 *
-	 * @return string
+	 * @return bool|string Either the message corresponding to the last import status or `false` if the last import status
+	 *                     is empty or not the one required.
 	 */
-	public function get_last_import_status( $type = 'error' ) {
+	public function get_last_import_status( $type = 'error', $lookup_children = false ) {
 		$status = empty( $this->meta['last_import_status'] ) ? null : $this->meta['last_import_status'];
 
+		if ( empty( $status ) && $lookup_children ) {
+			$last_children_query = $this->query_child_records( array( 'posts_per_page' => 1, 'order' => 'DESC', 'order_by' => 'modified' ) );
+			if ( $last_children_query->have_posts() ) {
+				$last_children        = reset( $last_children_query->posts );
+				$last_children_status = str_replace( 'tribe-ea-', '', $last_children->post_status );
+				$map                  = array(
+					'failed'  => 'error:import-failed',
+					'success' => 'success:queued',
+					'success' => 'success:queued',
+				);
+				if ( array_key_exists( $last_children_status, $map ) ) {
+					$status = $map[ $last_children_status ];
+				}
+			}
+		}
+
 		if ( ! $status ) {
-			return;
+			return false;
 		}
 
 		if ( 0 !== strpos( $status, $type ) ) {
-			return;
+			return false;
 		}
 
 		if ( 'error:usage-limit-exceeded' === $status ) {
@@ -1937,5 +1965,19 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		return $import_data;
+	}
+
+	/**
+	 * Sets the post associated with this record.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_post|int $post A post object or post ID
+	 */
+	public function set_post( $post ) {
+		if ( ! $post instanceof WP_Post ) {
+			$post = get_post( $post );
+		}
+		$this->post = $post;
 	}
 }
