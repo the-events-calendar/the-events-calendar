@@ -341,6 +341,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Prevent stray commas from showing up for some event venues in the Day View [85429] 
 * Tweak - Modify certain event queries to widen the window of opportunity for query caching (props @garretjohnson) [84841]
 * Tweak - Improve Event Aggregator message regarding Facebook token expiration [70376]
+* Tweak - Support importing from URLs (Event Aggregator) where the protocol hasn't been specified by defaulting to HTTP [76466]
 * Language - Improvements to various strings to improve ease of translation (props to @ramiy)
 
 = [4.5.10.1] 2017-08-16 =
