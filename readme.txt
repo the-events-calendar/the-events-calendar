@@ -327,6 +327,9 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= TBD =
+* Fix - remove extra trailing double-quotes at the end of the timepicker data-format attributes
+
 = [4.5.10.1] 2017-08-16 =
 
 * Fix - Updates common library to resolve a range of issues preventing frontend assets from loading and breaking parts of our user interface [85017]
