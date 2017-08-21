@@ -812,7 +812,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		);
 
 		$args = wp_parse_args( $args, $defaults );
-
 		return get_comments( $args );
 	}
 
@@ -826,8 +825,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function log_error( $error ) {
 		$today = getdate();
 		$args = array(
-			// Resets the Post ID
-			'post_id' => null,
 			'number' => 1,
 			'date_query' => array(
 				array(
@@ -1050,7 +1047,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$items = $this->prep_import_data( $data );
 
 		if ( is_wp_error( $items ) ) {
-			$this->set_status_as_failed( $items );
 			return $items;
 		}
 
@@ -1104,6 +1100,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( is_wp_error( $data ) ) {
+			$this->set_status_as_failed( $data );
 			return $data;
 		}
 
@@ -1301,10 +1298,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						$venue_id = array_search( $event['Venue']['Venue'], $found_venues );
 
 						if ( ! $venue_id ) {
-							$unique_field = $this->get_unique_field( 'venue' );
+							$venue_unique_field = $this->get_unique_field( 'venue' );
 
-							if ( ! empty( $unique_field ) ) {
-								$target = $unique_field['target'];
+							if ( ! empty( $venue_unique_field ) ) {
+								$target = $venue_unique_field['target'];
 								$value  = $venue_data[ $target ];
 								$venue  = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Venue{$target}", $value );
 							} else {
@@ -1427,10 +1424,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						$organizer_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
 
 						if ( ! $organizer_id ) {
-							$unique_field = $this->get_unique_field( 'organizer' );
+							$organizer_unique_field = $this->get_unique_field( 'organizer' );
 
-							if ( ! empty( $unique_field ) ) {
-								$target    = $unique_field['target'];
+							if ( ! empty( $organizer_unique_field ) ) {
+								$target    = $organizer_unique_field['target'];
 								$value     = $organizer_data[ $target ];
 								$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Organizer{$target}", $value );
 							} else {
