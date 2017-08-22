@@ -170,6 +170,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// `source` will be empty when importing .ics files
 		$this->meta['source'] = ! empty ( $this->meta['source'] ) ? $this->meta['source'] : '';
+		$original_source = $this->meta['source'];
 
 		// Intelligently prepend "http://" if the protocol is missing from the source URL
 		if ( ! empty( $this->meta['source'] ) && false === strpos( $this->meta['source'], '://' ) ) {
