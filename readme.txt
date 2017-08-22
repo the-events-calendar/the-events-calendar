@@ -331,14 +331,23 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 * Fix - Avoid Event Aggregator previews or scheduled imports being marked as failures [84259]
 * Fix - Fixed start and end date limit parsing for events archive in the REST API code [78375]
+* Fix - Fixed issue with `tribe_events_get_the_excerpt()` returning a read more link that sometimes pointed to the current page [70473]
 * Fix - Fixed Post ID not being sent to the_title filter for Organizers and Venues (props Anna L.) [85206]
+* Fix - Fixed issue where Month View tooltips would often go off-screen in some smaller viewport sizes [65136]
 * Fix - Fixed an issue that would sometimes render Event Aggregator options invalid even with a valid license [78469]
 * Fix — Fixed an issue where the mobile.php template file would often fail to include an event's featured image [74291]
 * Fix - Resolved issue where invalid linked post IDs prevent proper updates on linked posts (props to Mathew L. and a few others for highlighting this issue) [71802]
-* Tweak - Prevent stray commas from showing up for some event venues in the List View [72289]
+* Fix - Do not hijack the blog when the main events page is configured to appear on the site's homepage (our thanks to Jason and others for flagging this problem) [72094]
+* Tweak - Prevent stray commas from showing up for some event venues in the List View [72289] 
+* Tweak - Prevent stray commas from showing up for some event venues in the Day View [85429] 
 * Tweak - Modify certain event queries to widen the window of opportunity for query caching (props @garretjohnson) [84841]
 * Tweak - Improve Event Aggregator message regarding Facebook token expiration [70376]
+* Tweak - Support importing from URLs (Event Aggregator) where the protocol hasn't been specified by defaulting to HTTP [76466]
 * Language - Improvements to various strings to improve ease of translation (props to @ramiy)
+
+= [4.5.10.1] 2017-08-16 =
+
+* Fix - Updates common library to resolve a range of issues preventing frontend assets from loading and breaking parts of our user interface [85017]
 
 = [4.5.10] 2017-08-09 =
 
