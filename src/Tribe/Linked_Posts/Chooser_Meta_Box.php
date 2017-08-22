@@ -45,8 +45,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	/**
 	 * Work with the specifed event object or else use a placeholder if in the middle of creating a new event.
 	 *
-	 * @since ??
-	 *
 	 * @param mixed $event
 	 */
 	protected function get_event( $event = null ) {
@@ -71,8 +69,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 
 	/**
 	 * Render the organizer chooser section for the events meta box
-	 *
-	 * @since ??
 	 */
 	public function render() {
 		$this->render_dropdowns();
@@ -80,8 +76,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 
 		/**
 		 * Make this Template filterable, used for Community Facing templates.
-		 *
-		 * @since ??
 		 *
 		 * @param string $file_path
 		 */
@@ -92,7 +86,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 * Displays the saved linked post dropdown in the event metabox.
 	 *
 	 * @since 3.0
-	 * @since ?? Genericized to work for all linked posts, not just organizers like it was originally.
+	 * @since TBD Genericized to work for all linked posts, not just organizers like it was originally.
 	 */
 	public function render_dropdowns() {
 		$post_id                      = $this->event->ID;
@@ -117,8 +111,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 			/**
 			 * Filters the default selected post for the linked post
 			 *
-			 * @since ??
-			 *
 			 * @param array $default Default post array
 			 * @param string $post_type Linked post post type
 			 */
@@ -127,8 +119,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 
 		/**
 		 * Filters the default selected post for the linked post.
-		 *
-		 * @since ??
 		 *
 		 * @param array $current_linked_posts Array of currently linked posts
 		 * @param string $post_type Linked post post type
@@ -197,7 +187,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 *
 	 * @since 3.0
 	 *
-	 * @param int $organizer_id
+	 * @param int $linked_post_id
 	 */
 	protected function edit_post_link( $linked_post_id ) {
 		$linked_post_pto = get_post_type_object( $this->post_type );
@@ -224,9 +214,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	/**
 	 * Determine if the event can use the default setting
 	 *
-	 * @since ??
-	 *
-	 * @param array $current_organizers
+	 * @param array $current_posts
 	 * @return bool
 	 */
 	protected function use_default_post( $current_posts ) {
@@ -245,8 +233,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 
 	/**
 	 * Renders the "Add Another Organizer" button
-	 *
-	 * @since ??
 	 */
 	protected function render_add_post_button() {
 		if ( empty( $this->linked_posts->linked_post_types[ $this->post_type ]['allow_multiple'] ) ) {
@@ -298,8 +284,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	/**
 	 * Supply previously submitted linked post field values to the events-admin.js script in order to provide
 	 * them with sticky qualities. This *must* run later than the action:priority used to enqueue events-admin.js.
-	 *
-	 * @since ??
 	 */
 	public function sticky_form_data() {
 		$submitted_data = array();

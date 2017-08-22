@@ -233,6 +233,7 @@ class Tribe__Events__Organizer {
 	 *
 	 * @param array $organizer_ids An array of post IDs of the current event's attached Organizers.
 	 * @param int $post_id The current event's post ID.
+	 *
 	 * @return array
 	 */
 	public function filter_out_invalid_organizer_ids( $organizer_ids, $post_id ) {
