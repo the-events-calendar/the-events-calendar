@@ -334,7 +334,8 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Fixed Post ID not being sent to the_title filter for Organizers and Venues (props Anna L.) [85206]
 * Fix - Fixed an issue that would sometimes render Event Aggregator options invalid even with a valid license [78469]
 * Fix — Fixed an issue where the mobile.php template file would often fail to include an event's featured image [74291]
-* Tweak - Prevent stray commas from showing up for some event venues in the List View [72289] 
+* Fix - Resolved issue where invalid linked post IDs prevent proper updates on linked posts (props to Mathew L. and a few others for highlighting this issue) [71802]
+* Tweak - Prevent stray commas from showing up for some event venues in the List View [72289]
 * Tweak - Modify certain event queries to widen the window of opportunity for query caching (props @garretjohnson) [84841]
 * Tweak - Improve Event Aggregator message regarding Facebook token expiration [70376]
 * Language - Improvements to various strings to improve ease of translation (props to @ramiy)
