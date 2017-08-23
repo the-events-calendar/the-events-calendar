@@ -264,21 +264,13 @@ class Tribe__Events__Aggregator__Record__Queue {
 			$this->save();
 		}
 
-		// Every time we are about to process we reset the next var
-		$this->next = array();
 
 		if ( ! $batch_size ) {
 			$batch_size = apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size );
 		}
 
-		for ( $i = 0; $i < $batch_size; $i++ ) {
-			if ( 0 === count( $this->items ) ) {
-				break;
-			}
-
-			// Remove the Event from the Items remaining
-			$this->next[] = array_shift( $this->items );
-		}
+		// Every time we are about to process we reset the next var
+		$this->next = array_splice( $this->items, 0, $batch_size );
 
 		if ( 'csv' === $this->record->origin ) {
 			$activity = $this->record->continue_import();
