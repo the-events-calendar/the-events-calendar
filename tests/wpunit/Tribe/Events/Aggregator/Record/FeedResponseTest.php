@@ -22,6 +22,10 @@ class FeedResponseTest extends Events_TestCase {
 			$uids = [];
 
 			foreach ( $events as $event ) {
+				if ( empty( $event->uid ) ) {
+					continue;
+				}
+
 				$event_uid = $event->uid;
 				if ( array_key_exists( $event_uid, $uids ) ) {
 					throw new \RuntimeException( "File {$response_basename}: an event with UID {$event_uid} already exists ({$uids[$event_uid]})" );
