@@ -169,9 +169,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 	protected function parse_start_date( WP_REST_Request $request ) {
 		if ( ! empty( $request['start_date'] ) ) {
-			$start_date = strtotime( $request['start_date'] );
+			$start_date = $request['start_date'];
 			// Unix timestamp is a thing...
-			$start_date = $start_date ? $start_date : $request['start_date'];
+			$start_date = is_numeric( $start_date ) ? $start_date : strtotime( $request['start_date'] );
 			// at this point if it's legit it should be a number
 			if ( ! is_numeric( $start_date ) ) {
 				$message = $this->messages->get_message( 'event-archive-bad-start-date' );
@@ -192,9 +192,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 	protected function parse_end_date( WP_REST_Request $request ) {
 		if ( isset( $request['end_date'] ) ) {
-			$end_date = strtotime( $request['end_date'] );
+			$end_date = $request['end_date'];
 			// Unix timestamp is a thing...
-			$end_date = $end_date ? $end_date : $request['end_date'];
+			$end_date = is_numeric( $end_date ) ? $end_date : strtotime( $request['end_date'] );
 			// at this point if it's legit it should be a number
 			if ( ! is_numeric( $end_date ) ) {
 				$message = $this->messages->get_message( 'event-archive-bad-end-date' );

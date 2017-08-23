@@ -23,7 +23,12 @@ class Tribe__Events__Front_Page_View {
 	public function parse_query( WP_Query $query ) {
 		// We're only interested in the main query (when it runs in relation to the site homepage),
 		// we also need to make an exception for compatibility with Community Events (WP_Route)
-		if ( ! $query->is_main_query() || ! $query->is_home() || $query->get( 'WP_Route' ) ) {
+		if (
+			! $query->is_main_query()
+			|| ! $query->is_home()
+			|| $query->is_posts_page
+			|| $query->get( 'WP_Route' )
+		) {
 			return;
 		}
 

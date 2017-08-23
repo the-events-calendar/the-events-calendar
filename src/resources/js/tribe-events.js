@@ -1011,6 +1011,16 @@ Date.prototype.format = function( mask, utc ) {
 							$tip = $this.find( '.tribe-events-tooltip' );
 						}
 
+						// Look for the distance between top of tooltip and top of visible viewport.
+						var dist_to_top = $this.offset().top - ( $( window ).scrollTop() + 50 ); // The +50 is some padding for a more aesthetically-pleasing view. 
+						var tip_height  = $tip.outerHeight();
+
+						// If true, tooltip is near top of viewport, so tweak some values to keep the tooltip fully in-view.
+						if ( dist_to_top < tip_height ) {
+							bottomPad = -tip_height;
+							$tip.addClass( 'tribe-events-tooltip-flipdown' );
+						}
+
 						$tip.css( 'bottom', bottomPad ).show();
 					} else {
 						$this.find( '.tribe-events-tooltip' ).css( 'bottom', bottomPad ).show();
@@ -1018,7 +1028,13 @@ Date.prototype.format = function( mask, utc ) {
 				}
 
 			} ).on( 'mouseleave', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', function() {
-				$( this ).find( '.tribe-events-tooltip' ).stop( true, false ).fadeOut( 200 );
+
+				var $tip = $( this ).find( '.tribe-events-tooltip' );
+
+				$tip.stop( true, false ).fadeOut( 200, function() {
+					$tip.removeClass( 'tribe-events-tooltip-flipdown' );
+				} );
+
 			} );
 		},
 		/**
@@ -1219,7 +1235,20 @@ Date.prototype.format = function( mask, utc ) {
 				'mm.dd.yyyy',
 				'dd.mm.yyyy'
 			],
-			'month': ['yyyy-mm', 'm/yyyy', 'mm/yyyy', 'm/yyyy', 'mm/yyyy', 'm-yyyy', 'mm-yyyy', 'm-yyyy', 'mm-yyyy']
+			'month': [
+				'yyyy-mm',
+				'm/yyyy',
+				'mm/yyyy',
+				'm/yyyy',
+				'mm/yyyy',
+				'm-yyyy',
+				'mm-yyyy',
+				'm-yyyy',
+				'mm-yyyy',
+				'yyyy.mm',
+				'mm.yyyy',
+				'mm.yyyy'
+			]
 		},
 		datepicker_opts     : {},
 		default_permalinks  : (!config.permalink_settings.length),
@@ -1293,16 +1322,16 @@ Date.prototype.format = function( mask, utc ) {
 
 		tf.update_viewport_variables();
 
-		var $body = $( 'body' ),
-			$tribe_events = $( '#tribe-events' ),
-			$tribe_content = $( '#tribe-events-content' ),
-			$tribe_events_header = $( '#tribe-events-header' ),
-			resize_timer;
-
+		var $body                = $( 'body' );
+		var $tribe_events        = $( document.getElementById( 'tribe-events' ) );
+		var $tribe_content       = $( document.getElementById( 'tribe-events-content' ) );
+		var $tribe_events_header = $( document.getElementById( 'tribe-events-header' ) );
+		var resize_timer;
 
 		$tribe_events.removeClass( 'tribe-no-js' );
-		ts.category = tf.get_category();
-		td.base_url = tf.get_base_url();
+		
+		ts.category   = tf.get_category();
+		td.base_url   = tf.get_base_url();
 		ts.page_title = document.title;
 
 		var tribe_display = tf.get_url_param( 'tribe_event_display' );
@@ -1314,7 +1343,7 @@ Date.prototype.format = function( mask, utc ) {
 			ts.view = $tribe_events_header.data( 'view' );
 		}
 
-		if ( $tribe_events.tribe_has_attr( 'data-datepicker_format' ) && $tribe_events.attr( 'data-datepicker_format' ).length === 1 ) {
+		if ( $tribe_events.tribe_has_attr( 'data-datepicker_format' ) ) {
 			ts.datepicker_format = $tribe_events.attr( 'data-datepicker_format' );
 		}
 

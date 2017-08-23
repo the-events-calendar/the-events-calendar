@@ -4,7 +4,7 @@ Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.4
-Stable tag: 4.5.10.1
+Stable tag: 4.5.11
 Tested up to: 4.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -216,7 +216,7 @@ But wait: there's more! We've got a whole stable of plugins available to help yo
 
 Our Free Plugins:
 
-* [Event Tickets](https://wordpress.org/plugin/event-tickets/)
+* [Event Tickets](https://wordpress.org/plugins/event-tickets/)
 * [Advanced Post Manager](https://wordpress.org/plugins/advanced-post-manager/)
 * [Blog Copier](https://wordpress.org/plugins/blog-copier/)
 * [GigPress](https://wordpress.org/plugins/gigpress/)
@@ -327,8 +327,24 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= TBD =
-* Fix - remove extra trailing double-quotes at the end of the timepicker data-format attributes
+= [4.5.11] TBD =
+
+* Fix - Avoid Event Aggregator previews or scheduled imports being marked as failures [84259]
+* Fix - Fixed start and end date limit parsing for events archive in the REST API code [78375]
+* Fix - Fixed issue with `tribe_events_get_the_excerpt()` returning a read more link that sometimes pointed to the current page [70473]
+* Fix - Fixed Post ID not being sent to the_title filter for Organizers and Venues (props Anna L.) [85206]
+* Fix - Fixed issue where Month View tooltips would often go off-screen in some smaller viewport sizes [65136]
+* Fix - Fixed an issue that would sometimes render Event Aggregator options invalid even with a valid license [78469]
+* Fix - Fixed an issue where the mobile.php template file would often fail to include an event's featured image [74291]
+* Fix - Resolved issue where invalid linked post IDs prevent proper updates on linked posts (props to Mathew L. and a few others for highlighting this issue) [71802]
+* Fix - Do not hijack the blog when the main events page is configured to appear on the site's homepage (our thanks to Jason and others for flagging this problem) [72094]
+* Fix - remove extra trailing double-quotes at the end of the timepicker data-format attributes [85603]
+* Tweak - Prevent stray commas from showing up for some event venues in the List View [72289]
+* Tweak - Prevent stray commas from showing up for some event venues in the Day View [85429]
+* Tweak - Modify certain event queries to widen the window of opportunity for query caching (props @garretjohnson) [84841]
+* Tweak - Improve Event Aggregator message regarding Facebook token expiration [70376]
+* Tweak - Support importing from URLs (Event Aggregator) where the protocol hasn't been specified by defaulting to HTTP [76466]
+* Language - Improvements to various strings to improve ease of translation (props to @ramiy)
 
 = [4.5.10.1] 2017-08-16 =
 

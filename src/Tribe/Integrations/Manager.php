@@ -68,7 +68,7 @@ class Tribe__Events__Integrations__Manager {
 	/**
 	 * Loads our Twenty Seventeen integrations if that theme is active.
 	 *
-	 * @since TBD
+	 * @since 4.5.10
 	 *
 	 * @return bool
 	 */
