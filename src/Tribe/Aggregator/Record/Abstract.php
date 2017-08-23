@@ -1206,8 +1206,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$import_settings = tribe( 'events-aggregator.settings' )->default_settings_import( $origin );
 		$should_import_settings = tribe_is_truthy( $import_settings ) ? true : false;
 
-		$unique_inserted = array();
-
 		foreach ( $items as $item ) {
 			$event = Tribe__Events__Aggregator__Event::translate_service_data( $item );
 
@@ -1764,8 +1762,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( ! $unique_field ) {
 			return array();
 		}
-
-		$parent_selected_ids = array();
 
 		if ( ! empty( $this->meta['ids_to_import'] ) && 'all' !== $this->meta['ids_to_import'] ) {
 			if ( is_array( $this->meta['ids_to_import'] ) ) {
