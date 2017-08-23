@@ -1741,6 +1741,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					}
 				}
 			}
+
+			// update the existing IDs in the context of this batch
+			if ( $unique_field && isset( $event[ $unique_field['target'] ] ) ) {
+				$existing_ids[ $event[ $unique_field['target'] ] ] = (object) array(
+					'post_id'    => $event['ID'],
+					'meta_value' => $event[ $unique_field['target'] ],
+				);
+			}
 		}
 
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
