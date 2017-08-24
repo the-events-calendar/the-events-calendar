@@ -327,7 +327,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5.11] TBD =
+= [4.5.11] 2017-08-24 =
 
 * Fix - Avoid Event Aggregator previews or scheduled imports being marked as failures [84259]
 * Fix - Fixed start and end date limit parsing for events archive in the REST API code [78375]
