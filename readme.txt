@@ -346,6 +346,9 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Improve Event Aggregator message regarding Facebook token expiration [70376]
 * Tweak - Support importing from URLs (Event Aggregator) where the protocol hasn't been specified by defaulting to HTTP [76466]
 * Tweak - Removed WP API adjustments [85996]
+* Tweak - Added filter: `tribe_aggregator_meta_source` to filter the Event Aggregator import source
+* Tweak - Added filter: `tribe_events_linked_post_meta_values_{$current_linked_post_meta_key}` for filtering the array of values retrieved for a specific linked post meta field
+* Tweak - Updated views: `src/views/day/single-event.php` and `src/views/list/single-event.php`
 * Compatibility - Minimum supported version of WordPress is now 4.5
 * Language - Improvements to various strings to improve ease of translation (props to @ramiy)
 * Language - 5 new strings added, 56 updated, 1 fuzzied, and 3 obsoleted [the-events-calendar]
