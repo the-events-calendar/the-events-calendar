@@ -946,7 +946,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// What the user can do
 			$edit_post_link = sprintf( __( 'Ask the site administrator to edit the %s slug', 'the-events-calendar' ), $name );
 			if ( isset( $post_type->cap->edit_posts ) && current_user_can( $post_type->cap->edit_posts ) ) {
-				$edit_post_link = sprintf( __( '<a href="%s">Edit the %s slug</a>', 'the-events-calendar' ), get_edit_post_link( $conflict->ID ), $name );
+				$edit_post_link = '<a href="' . get_edit_post_link( $conflict->ID ) . '">' . sprintf( __( 'Edit the %s slug', 'the-events-calendar' ), $name ) . '</a>';
 			}
 
 			$settings_cap       = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
