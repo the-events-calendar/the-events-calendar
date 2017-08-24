@@ -348,6 +348,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Removed WP API adjustments [85996]
 * Compatibility - Minimum supported version of WordPress is now 4.5
 * Language - Improvements to various strings to improve ease of translation (props to @ramiy)
+* Language - 5 new strings added, 56 updated, 1 fuzzied, and 3 obsoleted [the-events-calendar]
 
 = [4.5.10.1] 2017-08-16 =
 
