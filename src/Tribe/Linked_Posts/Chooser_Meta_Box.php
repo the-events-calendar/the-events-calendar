@@ -86,7 +86,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 * Displays the saved linked post dropdown in the event metabox.
 	 *
 	 * @since 3.0
-	 * @since TBD Genericized to work for all linked posts, not just organizers like it was originally.
+	 * @since 4.5.11 Genericized to work for all linked posts, not just organizers like it was originally.
 	 */
 	public function render_dropdowns() {
 		$post_id                      = $this->event->ID;
@@ -100,7 +100,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		 * $current_linked_post_meta_key is just literally the name of the curren meta key. So when the _EventOrganizerID
 		 * is being filtered, for example, the filter name would be tribe_events_linked_post_meta_values__EventOrganizerID
 		 *
-		 * @since TBD
+		 * @since 4.5.11
 		 *
 		 * @param array $current_linked_posts The array of the current meta field's values.
 		 * @param int $post_id The current event's post ID.

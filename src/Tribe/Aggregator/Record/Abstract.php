@@ -180,7 +180,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Provides an opportunity to set or modify the source URL for an import.
 		 *
-		 * @since TBD
+		 * @since 4.5.11
 		 *
 		 * @param string  $source
 		 * @param string  $original_source
@@ -1997,7 +1997,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Sets the post associated with this record.
 	 *
-	 * @since TBD
+	 * @since 4.5.11
 	 *
 	 * @param WP_post|int $post A post object or post ID
 	 */
