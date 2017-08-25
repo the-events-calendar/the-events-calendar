@@ -294,6 +294,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 			$this->activity = $this->activity()->merge( $activity );
 		} else {
+			// this queue instance should not register any new activity
 			$this->activity = $this->activity();
 		}
 
@@ -357,6 +358,55 @@ class Tribe__Events__Aggregator__Record__Queue {
 		}
 
 		return $item_type;
+	}
+
+	/**
+	 * Acquires the global (db stored) queue lock if available.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the lock could be acquired or not if another instance/process has
+	 *              already acquired the lock.
+	 */
+	protected function acquire_lock() {
+		if ( empty( $this->record->post->ID ) ) {
+			return false;
+		}
+
+		$post_id = $this->record->post->ID;
+
+		$post_transient = Tribe__Post_Transient::instance();
+
+		$locked = $post_transient->get( $post_id, 'aggregator_queue_lock' );
+
+		if ( ! empty( $locked ) ) {
+			return false;
+		}
+
+		$post_transient->set( $post_id, 'aggregator_queue_lock', '1', 180 );
+
+		return true;
+	}
+
+	/**
+	 * Release the queue lock if this instance of the queue holds it.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	protected function release_lock() {
+		if ( empty( $this->record->post->ID ) || ! $this->has_lock ) {
+			return false;
+		}
+
+		$post_id = $this->record->post->ID;
+
+		$post_transient = Tribe__Post_Transient::instance();
+
+		$post_transient->delete( $post_id, 'aggregator_queue_lock' );
+
+		return true;
 	}
 }
 
