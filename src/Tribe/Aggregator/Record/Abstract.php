@@ -1184,6 +1184,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function insert_posts( $items = array() ) {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
+		// sets the default user ID to that of the first user that can edit events
+		$default_user_id = $this->get_default_user_id();
+
 		// Creates an Activity to log what Happened
 		$activity = new Tribe__Events__Aggregator__Record__Activity();
 
@@ -1593,6 +1596,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						// we should not be here; probably a concurrency issue
 						continue;
 					}
+				}
+
+				// during cron runs the user will be set to 0; we assign the event to the first user that can edit events
+				if ( ! isset( $event['post_author'] ) ) {
+					$event['post_author'] = $default_user_id;
 				}
 
 				/**
@@ -2020,5 +2028,30 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$post = get_post( $post );
 		}
 		$this->post = $post;
+	}
+
+	/**
+	 * Returns the user ID of the first user that can edit events or the current user ID if available.
+	 *
+	 * @since TBD
+	 *
+	 * @return int The user ID or `0` (not logged in user) if not possible.
+	 */
+	protected function get_default_user_id() {
+		$current_user_id = get_current_user_id();
+
+		if ( 0 !== $current_user_id ) {
+			return $current_user_id;
+		}
+
+		$authors          = get_users( array( 'who' => 'authors' ) );
+		$post_type_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
+		foreach ( $authors as $author ) {
+			if ( user_can( $author, $post_type_object->cap->edit_posts ) ) {
+				return $author->ID;
+			}
+		}
+
+		return 0;
 	}
 }
