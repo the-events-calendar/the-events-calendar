@@ -1588,6 +1588,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				// Log that this event was updated
 				$activity->add( 'event', 'updated', $event['ID'] );
 			} else {
+				if ( isset( $event[ $unique_field['target'] ] ) ) {
+					if ( isset( $existing_ids[ $event[ $unique_field['target'] ] ] ) ) {
+						// we should not be here; probably a concurrency issue
+						continue;
+					}
+				}
+
 				/**
 				 * Filters the event data before inserting event
 				 *
