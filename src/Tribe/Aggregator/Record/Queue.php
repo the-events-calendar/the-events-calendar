@@ -182,12 +182,13 @@ class Tribe__Events__Aggregator__Record__Queue {
 	}
 
 	/**
-	 * Shortcut to check if this queue is empty
+	 * Shortcut to check if this queue is empty.
 	 *
-	 * @return boolean
+	 * @return boolean `true` if this queue instance has acquired the lock and
+	 *                 the count is 0, `false` otherwise.
 	 */
 	public function is_empty() {
-		return 0 === $this->count();
+		return $this->has_lock && 0 === $this->count();
 	}
 
 	/**
@@ -407,17 +408,6 @@ class Tribe__Events__Aggregator__Record__Queue {
 		$post_transient->delete( $post_id, 'aggregator_queue_lock' );
 
 		return true;
-	}
-
-	/**
-	 * Whether this queue instance has successfully acquired a lock on the queue processing or not.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool
-	 */
-	public function has_lock() {
-		return $this->has_lock;
 	}
 }
 
