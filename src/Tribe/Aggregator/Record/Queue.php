@@ -408,5 +408,16 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 		return true;
 	}
+
+	/**
+	 * Whether this queue instance has successfully acquired a lock on the queue processing or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function has_lock() {
+		return $this->has_lock;
+	}
 }
 
