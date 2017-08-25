@@ -1307,6 +1307,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// if we should create a venue or use existing
 			if ( ! empty( $event['Venue']['Venue'] ) ) {
+				$event['Venue']['Venue'] = trim( $event['Venue']['Venue'] );
+
 				if ( ! empty( $item->venue->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
 					// Pre-set for ICS based imports
 					$venue = false;
