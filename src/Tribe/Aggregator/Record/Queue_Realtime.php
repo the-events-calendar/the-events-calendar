@@ -179,8 +179,11 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	}
 
 	/**
-	 * @param $percentage
-	 * @param $done
+	 * Returns the progress message data.
+	 *
+	 * @param Tribe__Events__Aggregator__Record__Queue $queue
+	 * @param int $percentage
+	 * @param bool $done
 	 *
 	 * @return mixed|string|void
 	 */
