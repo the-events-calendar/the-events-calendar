@@ -1592,7 +1592,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				 * Filters the event data before inserting event
 				 *
 				 * @param array $event Event data to save
-				 * @param Tribe__Events__Aggregator__Record__Abstract Importer record
+				 * @param Tribe__Events__Aggregator__Record__Abstract $record Importer record
 				 */
 				$event = apply_filters( 'tribe_aggregator_before_insert_event', $event, $this );
 				$event['ID'] = tribe_create_event( $event );
@@ -1620,7 +1620,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$possible_parents[ $event['ID'] ] = $event[ $unique_field['target'] ];
 			}
 
-			// Check for legacy Unique ID (now we try to use Global ID)
+			// Save the unique field information
 			if ( ! empty( $event[ $unique_field['target'] ] ) ) {
 				update_post_meta( $event['ID'], "_{$unique_field['target']}", $event[ $unique_field['target'] ] );
 			}
