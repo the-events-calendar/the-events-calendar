@@ -327,6 +327,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.5.12] TBD =
+
+* Fix - Fixed an issue where Tribe Bar searches weren't accurately displaying date formats with periods (e.g. "YYYY.MM") [84202]
+
 = [4.5.11] 2017-08-24 =
 
 * Fix - Avoid Event Aggregator previews or scheduled imports being marked as failures [84259]
@@ -338,7 +342,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Fixed an issue where the mobile.php template file would often fail to include an event's featured image [74291]
 * Fix - Resolved issue where invalid linked post IDs prevent proper updates on linked posts (props to Mathew L. and a few others for highlighting this issue) [71802]
 * Fix - Do not hijack the blog when the main events page is configured to appear on the site's homepage (our thanks to Jason and others for flagging this problem) [72094]
-* Fix - remove extra trailing double-quotes at the end of the timepicker data-format attributes [85603]
+* Fix - Remove extra trailing double-quotes at the end of the timepicker data-format attributes [85603]
 * Fix - Fixed an issues where Event Aggregator scheduled imports could not run other than manually [81639]
 * Tweak - Prevent stray commas from showing up for some event venues in the List View [72289]
 * Tweak - Prevent stray commas from showing up for some event venues in the Day View [85429]
