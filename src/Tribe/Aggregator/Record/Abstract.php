@@ -1217,9 +1217,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$unique_field
 				&& isset( $event[ $unique_field['target'] ] )
 				&& isset( $existing_ids[ $event[ $unique_field['target'] ] ] )
-				&& tribe_is_event( $existing_ids[ $event[ $unique_field['target'] ] ] )
 			) {
-				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
+				$event_post_id = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
+				if ( tribe_is_event( $event_post_id ) ) {
+					$event['ID'] = $event_post_id;
+				}
 			}
 
 			// Checks if we need to search for Global ID
