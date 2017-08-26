@@ -330,6 +330,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.5.12] TBD =
 
 * Fix - Fixed an issue where Tribe Bar searches weren't accurately displaying date formats with periods (e.g. "YYYY.MM") [84202]
+* Fix - Fixed a typo in REST API Swagger documentation that mentioned "organizer" when it should have stated "venue".
 
 = [4.5.11] 2017-08-24 =
 
