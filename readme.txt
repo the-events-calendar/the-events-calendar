@@ -338,6 +338,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Fixed an issue where the mobile.php template file would often fail to include an event's featured image [74291]
 * Fix - Resolved issue where invalid linked post IDs prevent proper updates on linked posts (props to Mathew L. and a few others for highlighting this issue) [71802]
 * Fix - Do not hijack the blog when the main events page is configured to appear on the site's homepage (our thanks to Jason and others for flagging this problem) [72094]
+* Fix - Fixed issues with Event Aggregator queueing system where events might be duplicated or incorrectly updated [79975]
 * Tweak - Prevent stray commas from showing up for some event venues in the List View [72289]
 * Tweak - Prevent stray commas from showing up for some event venues in the Day View [85429]
 * Tweak - Modify certain event queries to widen the window of opportunity for query caching (props @garretjohnson) [84841]
