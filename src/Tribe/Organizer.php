@@ -229,7 +229,7 @@ class Tribe__Events__Organizer {
 	/**
 	 * Removes anything other than integers from the supplied array of Organizer IDs.
 	 *
-	 * @since TBD
+	 * @since 4.5.11
 	 *
 	 * @param array $organizer_ids An array of post IDs of the current event's attached Organizers.
 	 * @param int $post_id The current event's post ID.
@@ -237,7 +237,7 @@ class Tribe__Events__Organizer {
 	 * @return array
 	 */
 	public function filter_out_invalid_organizer_ids( $organizer_ids, $post_id ) {
-		return array_map( 'absint', $organizer_ids );
+		return array_map( 'absint', (array) $organizer_ids );
 	}
 
 	/**

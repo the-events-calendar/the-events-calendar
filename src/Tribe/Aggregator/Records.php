@@ -667,7 +667,7 @@ class Tribe__Events__Aggregator__Records {
 	/**
 	 * Filters the records query to only return records after a defined time.
 	 *
-	 * @since TBD
+	 * @since 4.5.11
 	 *
 	 * @param string $where The original WHERE clause.
 	 *

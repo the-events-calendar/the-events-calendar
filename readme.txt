@@ -3,7 +3,7 @@
 Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, brook-tribe, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, leahkoerper, jentheo, lucatume, mastromktg, mat-lipe, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, shelbelliott, tribecari, vicskf, zbtirrell
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
-Requires at least: 4.4
+Requires at least: 4.5
 Stable tag: 4.5.11
 Tested up to: 4.8.1
 License: GPLv2 or later
@@ -327,7 +327,13 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5.11] TBD =
+= [4.5.12] TBD =
+
+* Fix - Fixed an issue where Tribe Bar searches weren't accurately displaying date formats with periods (e.g. "YYYY.MM") [84202]
+* Fix - Fixed a typo in REST API Swagger documentation that mentioned "organizer" when it should have stated "venue".
+* Fix - Fixed issues with Event Aggregator queueing system where events might be duplicated or incorrectly updated [79975]
+
+= [4.5.11] 2017-08-24 =
 
 * Fix - Avoid Event Aggregator previews or scheduled imports being marked as failures [84259]
 * Fix - Fixed start and end date limit parsing for events archive in the REST API code [78375]
@@ -338,13 +344,20 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Fixed an issue where the mobile.php template file would often fail to include an event's featured image [74291]
 * Fix - Resolved issue where invalid linked post IDs prevent proper updates on linked posts (props to Mathew L. and a few others for highlighting this issue) [71802]
 * Fix - Do not hijack the blog when the main events page is configured to appear on the site's homepage (our thanks to Jason and others for flagging this problem) [72094]
-* Fix - Fixed issues with Event Aggregator queueing system where events might be duplicated or incorrectly updated [79975]
+* Fix - Remove extra trailing double-quotes at the end of the timepicker data-format attributes [85603]
+* Fix - Fixed an issues where Event Aggregator scheduled imports could not run other than manually [81639]
 * Tweak - Prevent stray commas from showing up for some event venues in the List View [72289]
 * Tweak - Prevent stray commas from showing up for some event venues in the Day View [85429]
 * Tweak - Modify certain event queries to widen the window of opportunity for query caching (props @garretjohnson) [84841]
 * Tweak - Improve Event Aggregator message regarding Facebook token expiration [70376]
 * Tweak - Support importing from URLs (Event Aggregator) where the protocol hasn't been specified by defaulting to HTTP [76466]
+* Tweak - Removed WP API adjustments [85996]
+* Tweak - Added filter: `tribe_aggregator_meta_source` to filter the Event Aggregator import source
+* Tweak - Added filter: `tribe_events_linked_post_meta_values_{$current_linked_post_meta_key}` for filtering the array of values retrieved for a specific linked post meta field
+* Tweak - Updated views: `src/views/day/single-event.php` and `src/views/list/single-event.php`
+* Compatibility - Minimum supported version of WordPress is now 4.5
 * Language - Improvements to various strings to improve ease of translation (props to @ramiy)
+* Language - 5 new strings added, 56 updated, 1 fuzzied, and 3 obsoleted [the-events-calendar]
 
 = [4.5.10.1] 2017-08-16 =
 
@@ -356,7 +369,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Fixed bug that caused scheduled imports to get stuck in a perpetual state of failure when receiving error messages from the Event Aggregator service (our thanks to Antonio Jose and others for flagging this problem) [83767]
 * Fix - Resolved issue where errors from the Event Aggregator service were not properly logging/visible on the History tab [83767]
 * Tweak - Made linked post fields' auto-save features more stringently check for empty values to prevent the plugin from trying to "save" empty values (our thanks to Jean-Marie for highlighting this problem) [80282]
-* Tweak - Moved the organizer e-mail address field label a bit to better accomodate Community Events [80426]
+* Tweak - Moved the organizer e-mail address field label a bit to better accommodate Community Events [80426]
 * Tweak - Added filter to tribe_get_display_end_date()'s return value [77730]
 * Tweak - Avoid notice-level errors while processing queues within Event Aggregator (our thanks to David Sharpe and others for reporting this) [84020]
 * Tweak - Improve compatibility and avoid Javascript errors when running alongside Twenty Seventeen [70853]

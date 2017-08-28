@@ -594,7 +594,7 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Returns the default origins array.
 	 *
-	 * @since TBD
+	 * @since 4.5.11
 	 *
 	 * @return array
 	 */
