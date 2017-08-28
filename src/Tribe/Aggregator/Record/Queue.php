@@ -215,7 +215,6 @@ class Tribe__Events__Aggregator__Record__Queue {
 		$chunker->register_chunking_for( $this->record->post->ID, $key );
 
 		if ( empty( $this->items ) ) {
-			do_action( 'tribe_aggregator_queue_finished', $this );
 			$this->record->delete_meta( self::$queue_key );
 		} else {
 			$this->record->update_meta( self::$queue_key, $this->items );
