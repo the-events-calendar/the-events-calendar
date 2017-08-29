@@ -143,7 +143,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	/**
 	 * Get a link to the event
 	 *
-	 * @since TBD
+	 * @since 4.5.10
 	 *
 	 * @param  int|WP_Post  $post The Post Object or ID
 	 *

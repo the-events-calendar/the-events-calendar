@@ -35,6 +35,11 @@ class Tribe__Events__Aggregator__Records {
 	private static $instance;
 
 	/**
+	 * @var string The time, in "Y-m-d H:i:s" format, that's used to query records.
+	 */
+	protected $after_time;
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return self
@@ -464,6 +469,21 @@ class Tribe__Events__Aggregator__Records {
 			'orderby'     => 'modified',
 			'order'       => 'DESC',
 		);
+
+		$args = (array) $args;
+
+		if ( isset( $args['after'] ) ) {
+			$before_timestamp = is_numeric( $args['after'] )
+				? $args['after']
+				: Tribe__Date_Utils::wp_strtotime( $args['after'] );
+			$before_datetime  = new DateTime( "@{$before_timestamp}" );
+			$this->after_time = $before_datetime->format( 'Y-m-d H:00:00' );
+
+			add_filter( 'posts_where', array( $this, 'filter_posts_where' ) );
+
+			tribe( 'logger' )->log_debug( "Filtering records happening after {$this->after_time}", 'EA Records' );
+		}
+
 		$args = (object) wp_parse_args( $args, $defaults );
 
 		// Enforce the Post Type
@@ -642,5 +662,29 @@ class Tribe__Events__Aggregator__Records {
 	 */
 	public function get_retention() {
 		return apply_filters( 'tribe_aggregator_record_retention', WEEK_IN_SECONDS );
+	}
+
+	/**
+	 * Filters the records query to only return records after a defined time.
+	 *
+	 * @since 4.5.11
+	 *
+	 * @param string $where The original WHERE clause.
+	 *
+	 * @return string The updated WHERE clause.
+	 */
+	public function filter_posts_where( $where ) {
+		if ( empty( $this->after_time ) ) {
+			return $where;
+		}
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$where .= $wpdb->prepare( " AND {$wpdb->posts}.post_modified >= %s", $this->after_time );
+
+		remove_filter( 'posts_where', array( $this, 'filter_posts_where' ) );
+		unset( $this->after_time );
+
+		return $where;
 	}
 }

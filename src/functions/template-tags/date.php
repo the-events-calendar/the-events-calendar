@@ -43,7 +43,7 @@ if ( ! function_exists( 'tribe_get_display_end_date' ) ) {
 		/**
 		 * Filters the displayed end date of an event, which factors in the EOD cutoff.
 		 *
-		 * @since TBD
+		 * @since 4.5.10
 		 *
 		 * @see tribe_get_display_end_date()
 		 *

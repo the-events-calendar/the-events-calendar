@@ -87,6 +87,7 @@ class Tribe__Events__Organizer {
 		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 5 );
 		add_filter( 'tribe_events_linked_post_default', array( $this, 'linked_post_default' ), 10, 2 );
 		add_action( 'tribe_events_linked_post_new_form', array( $this, 'linked_post_new_form' ) );
+		add_filter( 'tribe_events_linked_post_meta_values__EventOrganizerID', array( $this, 'filter_out_invalid_organizer_ids' ), 10, 2 );
 	}
 
 	/**
@@ -223,6 +224,20 @@ class Tribe__Events__Organizer {
 		}
 
 		return $container;
+	}
+
+	/**
+	 * Removes anything other than integers from the supplied array of Organizer IDs.
+	 *
+	 * @since 4.5.11
+	 *
+	 * @param array $organizer_ids An array of post IDs of the current event's attached Organizers.
+	 * @param int $post_id The current event's post ID.
+	 *
+	 * @return array
+	 */
+	public function filter_out_invalid_organizer_ids( $organizer_ids, $post_id ) {
+		return array_map( 'absint', (array) $organizer_ids );
 	}
 
 	/**
