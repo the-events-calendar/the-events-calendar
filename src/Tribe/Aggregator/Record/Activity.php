@@ -95,7 +95,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 			$this->map[ $to ] = $slug;
 		}
 
-		$this->sanity_check( $slug );
+		$this->prevent_duplicates_between_item_actions( $slug );
 
 		return true;
 	}
@@ -277,13 +277,13 @@ class Tribe__Events__Aggregator__Record__Activity {
 	}
 
 	/**
-	 * Checks the activities for a slug to make sure there is no incoherency due to concurring processes.
+	 * Checks the activities for a slug to make sure there are no incoherent duplicate entries due to concurring processes.
 	 *
 	 * @since TBD
 	 *
 	 * @param string $slug
 	 */
-	protected function sanity_check( $slug ) {
+	protected function prevent_duplicates_between_item_actions( $slug ) {
 		// sanity check the updated elements: elements cannot be created AND updated
 		if ( ! empty( $this->items[ $slug ]->updated ) && ! empty( $this->items[ $slug ]->created ) ) {
 			$this->items[ $slug ]->updated = array_diff( $this->items[ $slug ]->updated, $this->items[ $slug ]->created );
