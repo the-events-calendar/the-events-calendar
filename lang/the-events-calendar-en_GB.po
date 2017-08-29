@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-07-14 19:16:02+0000\n"
+"PO-Revision-Date: 2017-07-28 19:27:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,15 +13,15 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:95
 msgid "Add more sources"
-msgstr ""
+msgstr "Add more sources"
 
 #: src/Tribe/Aggregator/Service.php:532
 msgid "No upcoming Facebook events found."
-msgstr ""
+msgstr "No upcoming Facebook events found."
 
 #: src/Tribe/Aggregator/Service.php:179
 msgid "Event Aggregator server has blocked your request. Please try your import again later or contact support to know why."
-msgstr ""
+msgstr "Event Aggregator server has blocked your request. Please try your import again later or contact support to know why."
 
 #: src/Tribe/Customizer/General_Theme.php:305
 msgid "Featured Highlight Color"
@@ -45,7 +45,7 @@ msgstr "Find a %s"
 
 #: src/Tribe/Integrations/WPML/Defaults.php:117
 msgid "The Events Calendar could not write WPML default config file: please create the file manually."
-msgstr ""
+msgstr "The Events Calendar could not write WPML default config file: please create the file manually."
 
 #: common/src/Tribe/Plugins_API.php:270
 msgid "Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go."

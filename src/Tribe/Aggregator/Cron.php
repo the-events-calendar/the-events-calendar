@@ -292,7 +292,7 @@ class Tribe__Events__Aggregator__Cron {
 		) );
 
 		if ( ! $query->have_posts() ) {
-			$this->log( 'debug', 'No Records Scheduled, skipped creating children' );
+			tribe( 'logger' )->log_debug( 'No Records Scheduled, skipped creating children', 'EA Cron' );
 			return;
 		}
 
@@ -304,47 +304,50 @@ class Tribe__Events__Aggregator__Cron {
 			}
 
 			if ( ! $record->is_schedule_time() ) {
-				$this->log( 'debug', sprintf( 'Record (%d) skipped, not scheduled time', $record->id ) );
+				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, not scheduled time', $record->id ), 'EA Cron' );
 				continue;
 			}
 
 			if ( $record->get_child_record_by_status( 'pending' ) ) {
-				$this->log( 'debug', sprintf( 'Record (%d) skipped, has pending child(ren)', $record->id ) );
+				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, has pending child(ren)', $record->id ), 'EA Cron' );
 				continue;
 			}
 
 			// if there are no remaining imports for today, log that and skip
 			if ( $service->is_over_limit( true ) ) {
-				$this->log( 'debug', sprintf( $service->get_service_message( 'error:usage-limit-exceeded' ) . ' (%1$d)', $record->id ) );
+				tribe( 'logger' )->log_debug( sprintf( $service->get_service_message( 'error:usage-limit-exceeded' ) . ' (%1$d)', $record->id ),
+					'EA Cron' );
 				$record->update_meta( 'last_import_status', 'error:usage-limit-exceeded' );
 				continue;
 			}
 
 			// Creating the child records based on this Parent
 			$child = $record->create_child_record();
+			tribe( 'logger' )->log_debug( sprintf( 'Creating child record %d', $child->id ), 'EA Cron' );
 
 			if ( ! is_wp_error( $child ) ) {
-				$this->log( 'debug', sprintf( 'Record (%d) was created as a child', $child->id ) );
+				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) was created as a child', $child->id ), 'EA Cron' );
 
 				// Creates on the Service a Queue to Fetch the events
 				$response = $child->queue_import();
-
+				tribe( 'logger' )->log_debug( sprintf( 'Queueing import on EA Service for %d', $child->id ), 'EA Cron' );
 				if ( ! empty( $response->status ) ) {
-					$this->log( 'debug', sprintf( '%s — %s (%s)', $response->status, $response->message, $response->data->import_id ) );
+					tribe( 'logger' )->log_debug( sprintf( '%s — %s (%s)', $response->status, $response->message, $response->data->import_id ),
+						'EA Cron' );
 
 					$record->update_meta( 'last_import_status', 'success:queued' );
 				} elseif ( is_numeric( $response ) ) {
 					// it's the post ID of a rescheduled record
-					$this->log( 'debug', sprintf( 'rescheduled — %s', $response ) );
+					tribe( 'logger' )->log_debug( sprintf( 'rescheduled — %s', $response ), 'EA Cron' );
 
 					$record->update_meta( 'last_import_status', 'queued' );
 				} else {
-					$this->log( 'debug', 'Could not create Queue on Service' );
+					tribe( 'logger' )->log_debug( 'Could not create Queue on Service', 'EA Cron' );
 
 					$record->update_meta( 'last_import_status', 'error:import-failed' );
 				}
 			} else {
-				$this->log( 'debug', $child->get_error_message() );
+				tribe( 'logger' )->log_debug( $child->get_error_message(), 'EA Cron' );
 				$record->update_meta( 'last_import_status', 'error:import-failed' );
 			}
 		}
@@ -365,22 +368,26 @@ class Tribe__Events__Aggregator__Cron {
 		$records = Tribe__Events__Aggregator__Records::instance();
 
 		$query = $records->query( array(
-			'post_status' => Tribe__Events__Aggregator__Records::$status->pending,
-			'posts_per_page' => -1,
-			'order' => 'ASC',
-			'meta_query' => array(
+			'post_status'    => Tribe__Events__Aggregator__Records::$status->pending,
+			'posts_per_page' => - 1,
+			'order'          => 'ASC',
+			'meta_query'     => array(
 				array(
-					'key' => '_tribe_aggregator_origin',
-					'value' => 'csv',
+					'key'     => '_tribe_aggregator_origin',
+					'value'   => 'csv',
 					'compare' => '!=',
 				),
 			),
+			'after'          => '-4 hours',
 		) );
 
 		if ( ! $query->have_posts() ) {
-			$this->log( 'debug', 'No Records Pending, skipped Fetching from service' );
+			tribe( 'logger' )->log_debug( 'No Records Pending, skipped Fetching from service', 'EA Cron' );
 			return;
 		}
+
+		$count = count( $query->posts );
+		tribe( 'logger' )->log_debug( "Found {$count} records", 'EA Cron' );
 
 		$cleaner = new Tribe__Events__Aggregator__Record__Queue_Cleaner();
 		foreach ( $query->posts as $post ) {
@@ -394,12 +401,13 @@ class Tribe__Events__Aggregator__Cron {
 			$failed = $cleaner->maybe_fail_stalled_record( $record );
 
 			if ( $failed ) {
+				tribe( 'logger' )->log_debug( sprintf( 'Stalled record (%d) was skipped', $record->id ), 'EA Cron' );
 				continue;
 			}
 
 			// Just double Check for CSV
 			if ( 'csv' === $record->origin ) {
-				$this->log( 'debug', sprintf( 'Record (%d) skipped, has CSV origin', $record->id ) );
+				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, has CSV origin', $record->id ), 'EA Cron' );
 				continue;
 			}
 
@@ -408,7 +416,7 @@ class Tribe__Events__Aggregator__Cron {
 
 			if ( ! is_wp_error( $queue ) ) {
 				/** @var Tribe__Events__Aggregator__Record__Queue $queue */
-				$this->log( 'debug', sprintf( 'Record (%d) has processed queue ', $record->id ) );
+				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) has processed queue ', $record->id ), 'EA Cron' );
 
 				if ( $queue instanceof Tribe__Events__Aggregator__Record__Queue ) {
 					$activity = $queue->activity()->get();
@@ -422,11 +430,11 @@ class Tribe__Events__Aggregator__Cron {
 						if ( empty( $ids ) ) {
 							continue;
 						}
-						$this->log( 'debug', sprintf( "\t" . '%s — %s: %s', $key, $action, implode( ', ', $ids ) ) );
+						tribe( 'logger' )->log_debug( sprintf( "\t" . '%s — %s: %s', $key, $action, implode( ', ', $ids ) ), 'EA Cron' );
 					}
 				}
 			} else {
-				$this->log( 'debug', sprintf( 'Record (%d) — %s', $record->id, $queue->get_error_message() ) );
+				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) — %s', $record->id, $queue->get_error_message() ), 'EA Cron' );
 			}
 		}
 	}
@@ -486,7 +494,7 @@ class Tribe__Events__Aggregator__Cron {
 		$query = $records->query( $args );
 
 		if ( ! $query->have_posts() ) {
-			$this->log( 'debug', 'No Records over retention limit, skipped pruning expired' );
+			tribe( 'logger' )->log_debug( 'No Records over retention limit, skipped pruning expired', 'EA Cron' );
 			return;
 		}
 
@@ -494,63 +502,34 @@ class Tribe__Events__Aggregator__Cron {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
 			if ( tribe_is_error( $record ) ) {
-				$this->log( 'debug', sprintf( 'Record (%d) skipped, original post non-existent', $post->id ) );
+				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, original post non-existent', $post->ID ), 'EA Cron' );
 				continue;
 			}
 
 			if ( ! $record->has_passed_retention_time() ) {
-				$this->log( 'debug', sprintf( 'Record (%d) skipped, not past retention time', $record->id ) );
+				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, not past retention time', $record->id ), 'EA Cron' );
 				continue;
 			}
 
+			$has_post = false;
+			$deleted  = false;
+
 			// Creating the child records based on this Parent
-			$deleted = wp_delete_post( $record->id, true );
-
-			if ( $deleted ) {
-				$this->log( 'debug', sprintf( 'Record (%d) was pruned', $deleted->ID ) );
-			} else {
-				$this->log( 'debug', sprintf( 'Record (%d) was not pruned', $deleted ) );
+			if ( ! empty( $record->id ) ) {
+				$has_post = true;
+				$deleted  = wp_delete_post( $record->id, true );
 			}
-		}
-	}
 
-	/**
-	 * Allows us to log if we are using WP_CLI to fire this cron task
-	 *
-	 * @see    http://wp-cli.org/docs/internal-api/#output
-	 *
-	 * @param  string $type    What kind of log is this
-	 * @param  string $message message displayed
-	 *
-	 * @return void
-	 */
-	public function log( $type = 'colorize', $message = '' ) {
-		// Log on our Structure
-		Tribe__Main::instance()->log()->log_debug( $message, 'aggregator' );
-
-		// Only go further if we have WP_CLI
-		if ( ! class_exists( 'WP_CLI' ) ) {
-			return false;
-		}
-
-		switch ( $type ) {
-			case 'error':
-				WP_CLI::error( $message );
-				break;
-			case 'warning':
-				WP_CLI::warning( $message );
-				break;
-			case 'success':
-				WP_CLI::success( $message );
-				break;
-			case 'debug':
-				WP_CLI::debug( $message, 'aggregator' );
-				break;
-
-			case 'colorize':
-			default:
-				WP_CLI::log( WP_CLI::colorize( $message ) );
-				break;
+			if ( $has_post ) {
+				if ( $deleted ) {
+					tribe( 'logger' )->log_debug( sprintf( 'Record (%d) was pruned', $deleted->ID ), 'EA Cron' );
+				} else {
+					tribe( 'logger' )->log_debug( sprintf( 'Record (%d) was not pruned', $deleted ), 'EA Cron' );
+				}
+			} else {
+				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) did not have a `$record->id` so it did not require pruning', $deleted ),
+					'EA Cron' );
+			}
 		}
 	}
 }

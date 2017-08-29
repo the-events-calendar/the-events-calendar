@@ -5,7 +5,7 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/list/single-event.php
  *
- * @version 4.5.6
+ * @version 4.5.11
  *
  */
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,6 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Setup an array of venue details for use later in the template
 $venue_details = tribe_get_venue_details();
+
+// The address string via tribe_get_venue_details will often be populated even when there's
+// no address, so let's get the address string on its own for a couple of checks below.
+$venue_address = tribe_get_address();
 
 // Venue
 $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : '';
@@ -45,12 +49,16 @@ $organizer = tribe_get_organizer();
 		<?php if ( $venue_details ) : ?>
 			<!-- Venue Display Info -->
 			<div class="tribe-events-venue-details">
-				<?php echo implode( ', ', $venue_details ); ?>
-				<?php
+			<?php
+				$address_delimiter = empty( $venue_address ) ? ' ' : ', ';
+
+				// These details are already escaped in various ways earlier in the process.
+				echo implode( $address_delimiter, $venue_details );
+
 				if ( tribe_get_map_link() ) {
 					echo tribe_get_map_link_html();
 				}
-				?>
+			?>
 			</div> <!-- .tribe-events-venue-details -->
 		<?php endif; ?>
 

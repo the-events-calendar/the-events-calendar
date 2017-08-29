@@ -170,6 +170,30 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// `source` will be empty when importing .ics files
 		$this->meta['source'] = ! empty ( $this->meta['source'] ) ? $this->meta['source'] : '';
+		$original_source = $this->meta['source'];
+
+		// Intelligently prepend "http://" if the protocol is missing from the source URL
+		if ( ! empty( $this->meta['source'] ) && false === strpos( $this->meta['source'], '://' ) ) {
+			$this->meta['source'] = 'http://' . $this->meta['source'];
+		}
+
+		/**
+		 * Provides an opportunity to set or modify the source URL for an import.
+		 *
+		 * @since 4.5.11
+		 *
+		 * @param string  $source
+		 * @param string  $original_source
+		 * @param WP_Post $record
+		 * @param array   $meta
+		 */
+		$this->meta['source'] = apply_filters(
+			'tribe_aggregator_meta_source',
+			$this->meta['source'],
+			$original_source,
+			$this->post,
+			$this->meta
+		);
 
 		// This prevents lots of isset checks for no reason
 		if ( empty( $this->meta['activity'] ) ) {
@@ -683,6 +707,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		/** @var \Tribe__Events__Aggregator__API__Import $import_api */
 		$import_api  = $aggregator->api( 'import' );
+
+		if ( empty( $this->meta['import_id'] ) ) {
+			return tribe_error( 'core:aggregator:record-not-finalized' );
+		}
+
 		$import_data = $import_api->get( $this->meta['import_id'], $data );
 
 		$import_data = $this->maybe_cast_to_error( $import_data );
@@ -812,7 +841,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		);
 
 		$args = wp_parse_args( $args, $defaults );
-
 		return get_comments( $args );
 	}
 
@@ -826,8 +854,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function log_error( $error ) {
 		$today = getdate();
 		$args = array(
-			// Resets the Post ID
-			'post_id' => null,
 			'number' => 1,
 			'date_query' => array(
 				array(
@@ -882,6 +908,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// It's never time for On Demand schedule, bail!
 		if ( ! isset( $this->frequency->id ) || 'on_demand' === $this->frequency->id ) {
 			return false;
+		}
+
+		// If the last import status is an error and this scheduled import frequency is not on demand let's try again
+		if (
+			$this->get_last_import_status( 'error', true )
+			&& isset( $this->frequency->id )
+			&& 'on_demand' !== $this->frequency->id
+		) {
+			return true;
 		}
 
 		$current = time();
@@ -981,18 +1016,35 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Fetches the status message for the last import attempt on (scheduled) records
 	 *
 	 * @param string $type Type of message to fetch
+	 * @param bool   $lookup_children Whether the function should try to read the last children post status to return a coherent
+	 *                                last import status or not, default `false`.
 	 *
-	 * @return string
+	 * @return bool|string Either the message corresponding to the last import status or `false` if the last import status
+	 *                     is empty or not the one required.
 	 */
-	public function get_last_import_status( $type = 'error' ) {
+	public function get_last_import_status( $type = 'error', $lookup_children = false ) {
 		$status = empty( $this->meta['last_import_status'] ) ? null : $this->meta['last_import_status'];
 
+		if ( empty( $status ) && $lookup_children ) {
+			$last_children_query = $this->query_child_records( array( 'posts_per_page' => 1, 'order' => 'DESC', 'order_by' => 'modified' ) );
+			if ( $last_children_query->have_posts() ) {
+				$last_children = reset( $last_children_query->posts );
+
+				$map = array(
+					'tribe-ea-failed'  => 'error:import-failed',
+					'tribe-ea-success' => 'success:queued',
+				);
+
+				$status = Tribe__Utils__Array::get( $map, $last_children->post_status, null );
+			}
+		}
+
 		if ( ! $status ) {
-			return;
+			return false;
 		}
 
 		if ( 0 !== strpos( $status, $type ) ) {
-			return;
+			return false;
 		}
 
 		if ( 'error:usage-limit-exceeded' === $status ) {
@@ -1050,7 +1102,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$items = $this->prep_import_data( $data );
 
 		if ( is_wp_error( $items ) ) {
-			$this->set_status_as_failed( $items );
 			return $items;
 		}
 
@@ -1104,6 +1155,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( is_wp_error( $data ) ) {
+			$this->set_status_as_failed( $data );
 			return $data;
 		}
 
@@ -1301,10 +1353,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						$venue_id = array_search( $event['Venue']['Venue'], $found_venues );
 
 						if ( ! $venue_id ) {
-							$unique_field = $this->get_unique_field( 'venue' );
+							$venue_unique_field = $this->get_unique_field( 'venue' );
 
-							if ( ! empty( $unique_field ) ) {
-								$target = $unique_field['target'];
+							if ( ! empty( $venue_unique_field ) ) {
+								$target = $venue_unique_field['target'];
 								$value  = $venue_data[ $target ];
 								$venue  = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Venue{$target}", $value );
 							} else {
@@ -1427,10 +1479,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						$organizer_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
 
 						if ( ! $organizer_id ) {
-							$unique_field = $this->get_unique_field( 'organizer' );
+							$organizer_unique_field = $this->get_unique_field( 'organizer' );
 
-							if ( ! empty( $unique_field ) ) {
-								$target    = $unique_field['target'];
+							if ( ! empty( $organizer_unique_field ) ) {
+								$target    = $organizer_unique_field['target'];
 								$value     = $organizer_data[ $target ];
 								$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Organizer{$target}", $value );
 							} else {
@@ -1940,5 +1992,19 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		return $import_data;
+	}
+
+	/**
+	 * Sets the post associated with this record.
+	 *
+	 * @since 4.5.11
+	 *
+	 * @param WP_post|int $post A post object or post ID
+	 */
+	public function set_post( $post ) {
+		if ( ! $post instanceof WP_Post ) {
+			$post = get_post( $post );
+		}
+		$this->post = $post;
 	}
 }

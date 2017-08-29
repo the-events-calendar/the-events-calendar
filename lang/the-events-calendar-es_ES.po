@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-06-15 14:15:16+0000\n"
+"PO-Revision-Date: 2017-08-05 10:58:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,11 +13,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:95
 msgid "Add more sources"
-msgstr ""
+msgstr "Añade más fuentes"
 
 #: src/Tribe/Aggregator/Service.php:532
 msgid "No upcoming Facebook events found."
-msgstr ""
+msgstr "No se han encontrado eventos próximos en Facebook"
 
 #: src/Tribe/Aggregator/Service.php:179
 msgid "Event Aggregator server has blocked your request. Please try your import again later or contact support to know why."
@@ -29,7 +29,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:209
 msgid "The response from the Event Aggregator server was badly formed and could not be understood. Please try again."
-msgstr ""
+msgstr "La respuesta del servidor Event Aggregator se creó mal y no se pudo comprender. Por favor, inténtalo de nuevo."
 
 #: common/src/Tribe/Plugins_API.php:218
 msgid "Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support."
@@ -808,7 +808,7 @@ msgstr "%1$s el %2$s"
 #: src/functions/template-tags/loop.php:162
 msgctxt "month view"
 msgid "%1$s for %2$s"
-msgstr "%1$s para %2$s"
+msgstr "%1$s en %2$s"
 
 #: src/admin-views/tribe-options-display.php:185
 msgid "Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href=\"%s\">Read more</a>."
@@ -933,7 +933,7 @@ msgstr "Símbolo de la moneda"
 
 #: src/Tribe/Main.php:4335
 msgid "Keyword"
-msgstr "Palabra Clave"
+msgstr "Palabra clave"
 
 #: src/functions/template-tags/loop.php:130
 msgctxt "featured events title"
@@ -1012,7 +1012,7 @@ msgstr "destacado"
 
 #: src/Tribe/Linked_Posts.php:932
 msgid "Create: <b><%= term %></b>"
-msgstr ""
+msgstr "Crear: <b><%= term %></b>"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:262
 msgid "Delete this"
@@ -1036,7 +1036,7 @@ msgstr "Color de cabecera del calendario"
 
 #: src/Tribe/Customizer/Widget.php:59
 msgid "Widgets"
-msgstr ""
+msgstr "Widgets"
 
 #: src/Tribe/Customizer/Single_Event.php:132
 msgid "Details Background Color"
@@ -2439,7 +2439,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Tabs/New.php:384
 msgctxt "separator between date and time"
 msgid " at "
-msgstr ""
+msgstr "a las"
 
 #: src/Tribe/Aggregator/Tabs/New.php:380
 msgid "Your scheduled import was saved and the first import is complete!"
