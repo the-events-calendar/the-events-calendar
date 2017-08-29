@@ -285,7 +285,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 								? $query->get( 'eventDate' )
 								: date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
 							if ( ! $query->tribe_is_past ) {
-								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_beginning_of_day( $event_date ) : tribe_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:s' ) ) );
+								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_beginning_of_day( $event_date ) : tribe_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:00' ) ) );
 								$query->set( 'end_date', '' );
 								$query->set( 'order', self::set_order( 'ASC', $query ) );
 							} else {

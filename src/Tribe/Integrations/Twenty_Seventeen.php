@@ -2,13 +2,13 @@
 /**
  * Facilitates smoother integration with the Twenty Seventeen theme.
  *
- * @since TBD
+ * @since 4.5.10
  */
 class Tribe__Events__Integrations__Twenty_Seventeen {
 	/**
 	 * Performs setup for the Twenty Seventeen integration singleton.
 	 *
-	 * @since TBD
+	 * @since 4.5.10
 	 */
 	public function hook() {
 		add_filter( 'body_class', array( $this, 'body_classes' ) );
@@ -21,7 +21,7 @@ class Tribe__Events__Integrations__Twenty_Seventeen {
 	 * modify 'page-one-column' to 'page-two-column', to achieve better fit
 	 * and avoid JS errors.
 	 *
-	 * @since TBD
+	 * @since 4.5.10
 	 * @see   https://central.tri.be/issues/70853
 	 *
 	 * @param array $classes
@@ -37,7 +37,7 @@ class Tribe__Events__Integrations__Twenty_Seventeen {
 		 * The default is to do this, for event views, as if this is present when
 		 * the sidebar is not (which is normal), JS errors can result.
 		 *
-		 * @since TBD
+		 * @since 4.5.10
 		 *
 		 * @param bool  $should_remove
 		 * @param array $classes

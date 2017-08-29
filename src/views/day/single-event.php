@@ -5,7 +5,7 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/day/single-event.php
  *
- * @version 4.5.6
+ * @version 4.5.11
  *
  */
 
@@ -16,9 +16,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 $venue_details = tribe_get_venue_details();
 
 // Venue microformats
-$has_venue = ( $venue_details ) ? ' vcard' : '';
+$has_venue         = ( $venue_details ) ? ' vcard' : '';
 $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : '';
 
+// The address string via tribe_get_venue_details will often be populated even when there's
+// no address, so let's get the address string on its own for a couple of checks below.
+$venue_address = tribe_get_address();
 ?>
 
 <!-- Event Title -->
@@ -42,7 +45,12 @@ $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : ''
 	<?php if ( $venue_details ) : ?>
 		<!-- Venue Display Info -->
 		<div class="tribe-events-venue-details">
-			<?php echo implode( ', ', $venue_details ); ?>
+		<?php
+			$address_delimiter = empty( $venue_address ) ? ' ' : ', ';
+
+			// These details are already escaped in various ways earlier in the code.
+			echo implode( $address_delimiter, $venue_details );
+		?>
 		</div> <!-- .tribe-events-venue-details -->
 	<?php endif; ?>
 

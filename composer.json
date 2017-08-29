@@ -11,7 +11,8 @@
   "require-dev": {
     "lucatume/wp-browser": "~1.14",
     "xamin/handlebars.php": "^0.10.3",
-    "mikey179/vfsStream": "^1.6"
+    "mikey179/vfsStream": "^1.6",
+    "vlucas/phpdotenv": "^2.4"
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
