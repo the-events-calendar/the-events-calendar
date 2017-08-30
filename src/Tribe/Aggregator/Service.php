@@ -264,7 +264,7 @@ class Tribe__Events__Aggregator__Service {
 		if ( is_wp_error( $response ) || empty( $response->status ) ) {
 			$error = $response;
 
-			return $origins;
+			return $return_error ? array( $origins, $error ) : $origins;
 		}
 
 		if ( $response && 'success' === $response->status ) {
