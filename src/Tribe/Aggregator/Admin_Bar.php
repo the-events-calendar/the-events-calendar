@@ -7,23 +7,22 @@
 class Tribe__Events__Aggregator__Admin_Bar {
 
 	/**
+	 * Instance of this Class
+	 *
 	 * @since  TBD
 	 *
 	 * @var Tribe__Events__Admin__Bar__Admin_Bar
 	 */
 	protected static $instance;
+
 	/**
+	 * Plugin Constants
+	 *
 	 * @since  TBD
 	 *
 	 * @var Tribe__Events__Constants
 	 */
 	protected $constants;
-	/**
-	 * @since  TBD
-	 *
-	 * @var Tribe__Events__Admin__Bar__Configurator_Interface
-	 */
-	protected $config;
 
 	/**
 	 * Singleton constructor for the class.
