@@ -7,6 +7,9 @@ class Tribe__Events__Aggregator__Record__Queue {
 	public static $queue_key = 'queue';
 	public static $activity_key = 'activity';
 
+	/**
+	 * @var Tribe__Events__Aggregator__Record__Abstract
+	 */
 	public $record;
 
 	public $is_fetching = false;
@@ -49,6 +52,11 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * @var bool
 	 */
 	protected $null_process = false;
+
+	/**
+	 * @var bool Whether this queue instance has acquired the lock or not.
+	 */
+	protected $has_lock = false;
 
 	/**
 	 * Tribe__Events__Aggregator__Record__Queue constructor.
@@ -174,12 +182,13 @@ class Tribe__Events__Aggregator__Record__Queue {
 	}
 
 	/**
-	 * Shortcut to check if this queue is empty
+	 * Shortcut to check if this queue is empty.
 	 *
-	 * @return boolean
+	 * @return boolean `true` if this queue instance has acquired the lock and
+	 *                 the count is 0, `false` otherwise.
 	 */
 	public function is_empty() {
-		return 0 === $this->count();
+		return $this->has_lock && 0 === $this->count();
 	}
 
 	/**
@@ -236,6 +245,8 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 		wp_update_post( $args );
 
+		$this->release_lock();
+
 		return $this;
 	}
 
@@ -249,44 +260,43 @@ class Tribe__Events__Aggregator__Record__Queue {
 			return $this;
 		}
 
-		if ( $this->is_fetching() ) {
-			$data = $this->record->prep_import_data();
+		$this->has_lock = $this->acquire_lock();
 
-			if (
-				'fetch' === $data
-				|| ! is_array( $data )
-				|| is_wp_error( $data )
-			) {
-				return $this->activity();
+		if ( $this->has_lock ) {
+			if ( $this->is_fetching() ) {
+				$data = $this->record->prep_import_data();
+
+				if (
+					'fetch' === $data
+					|| ! is_array( $data )
+					|| is_wp_error( $data )
+				) {
+					return $this->activity();
+				}
+
+				$this->init_queue( $data );
+				$this->save();
 			}
 
-			$this->init_queue( $data );
-			$this->save();
-		}
 
-		// Every time we are about to process we reset the next var
-		$this->next = array();
-
-		if ( ! $batch_size ) {
-			$batch_size = apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size );
-		}
-
-		for ( $i = 0; $i < $batch_size; $i++ ) {
-			if ( 0 === count( $this->items ) ) {
-				break;
+			if ( ! $batch_size ) {
+				$batch_size = apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size );
 			}
 
-			// Remove the Event from the Items remaining
-			$this->next[] = array_shift( $this->items );
-		}
+			// Every time we are about to process we reset the next var
+			$this->next = array_splice( $this->items, 0, $batch_size );
 
-		if ( 'csv' === $this->record->origin ) {
-			$activity = $this->record->continue_import();
+			if ( 'csv' === $this->record->origin ) {
+				$activity = $this->record->continue_import();
+			} else {
+				$activity = $this->record->insert_posts( $this->next );
+			}
+
+			$this->activity = $this->activity()->merge( $activity );
 		} else {
-			$activity = $this->record->insert_posts( $this->next );
+			// this queue instance should not register any new activity
+			$this->activity = $this->activity();
 		}
-
-		$this->activity = $this->activity()->merge( $activity );
 
 		return $this->save();
 	}
@@ -348,6 +358,55 @@ class Tribe__Events__Aggregator__Record__Queue {
 		}
 
 		return $item_type;
+	}
+
+	/**
+	 * Acquires the global (db stored) queue lock if available.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the lock could be acquired or not if another instance/process has
+	 *              already acquired the lock.
+	 */
+	protected function acquire_lock() {
+		if ( empty( $this->record->post->ID ) ) {
+			return false;
+		}
+
+		$post_id = $this->record->post->ID;
+
+		$post_transient = Tribe__Post_Transient::instance();
+
+		$locked = $post_transient->get( $post_id, 'aggregator_queue_lock' );
+
+		if ( ! empty( $locked ) ) {
+			return false;
+		}
+
+		$post_transient->set( $post_id, 'aggregator_queue_lock', '1', 180 );
+
+		return true;
+	}
+
+	/**
+	 * Release the queue lock if this instance of the queue holds it.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	protected function release_lock() {
+		if ( empty( $this->record->post->ID ) || ! $this->has_lock ) {
+			return false;
+		}
+
+		$post_id = $this->record->post->ID;
+
+		$post_transient = Tribe__Post_Transient::instance();
+
+		$post_transient->delete( $post_id, 'aggregator_queue_lock' );
+
+		return true;
 	}
 }
 

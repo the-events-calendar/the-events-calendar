@@ -1184,6 +1184,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function insert_posts( $items = array() ) {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
+		// sets the default user ID to that of the first user that can edit events
+		$default_user_id = $this->get_default_user_id();
+
 		// Creates an Activity to log what Happened
 		$activity = new Tribe__Events__Aggregator__Record__Activity();
 
@@ -1206,8 +1209,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$import_settings = tribe( 'events-aggregator.settings' )->default_settings_import( $origin );
 		$should_import_settings = tribe_is_truthy( $import_settings ) ? true : false;
 
-		$unique_inserted = array();
-
 		foreach ( $items as $item ) {
 			$event = Tribe__Events__Aggregator__Event::translate_service_data( $item );
 
@@ -1220,7 +1221,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				&& isset( $event[ $unique_field['target'] ] )
 				&& isset( $existing_ids[ $event[ $unique_field['target'] ] ] )
 			) {
-				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
+				$event_post_id = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
+				if ( tribe_is_event( $event_post_id ) ) {
+					$event['ID'] = $event_post_id;
+				}
 			}
 
 			// Checks if we need to search for Global ID
@@ -1303,6 +1307,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// if we should create a venue or use existing
 			if ( ! empty( $event['Venue']['Venue'] ) ) {
+				$event['Venue']['Venue'] = trim( $event['Venue']['Venue'] );
+
 				if ( ! empty( $item->venue->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
 					// Pre-set for ICS based imports
 					$venue = false;
@@ -1433,6 +1439,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			//if we should create an organizer or use existing
 			if ( ! empty( $event['Organizer']['Organizer'] ) ) {
+				$event['Organizer']['Organizer'] = trim( $event['Organizer']['Organizer'] );
+
 				if ( ! empty( $item->organizer->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
 					// Pre-set for ICS based imports
 					$organizer = false;
@@ -1587,11 +1595,23 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				// Log that this event was updated
 				$activity->add( 'event', 'updated', $event['ID'] );
 			} else {
+				if ( isset( $event[ $unique_field['target'] ] ) ) {
+					if ( isset( $existing_ids[ $event[ $unique_field['target'] ] ] ) ) {
+						// we should not be here; probably a concurrency issue
+						continue;
+					}
+				}
+
+				// during cron runs the user will be set to 0; we assign the event to the first user that can edit events
+				if ( ! isset( $event['post_author'] ) ) {
+					$event['post_author'] = $default_user_id;
+				}
+
 				/**
 				 * Filters the event data before inserting event
 				 *
 				 * @param array $event Event data to save
-				 * @param Tribe__Events__Aggregator__Record__Abstract Importer record
+				 * @param Tribe__Events__Aggregator__Record__Abstract $record Importer record
 				 */
 				$event = apply_filters( 'tribe_aggregator_before_insert_event', $event, $this );
 				$event['ID'] = tribe_create_event( $event );
@@ -1619,7 +1639,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$possible_parents[ $event['ID'] ] = $event[ $unique_field['target'] ];
 			}
 
-			// Check for legacy Unique ID (now we try to use Global ID)
+			// Save the unique field information
 			if ( ! empty( $event[ $unique_field['target'] ] ) ) {
 				update_post_meta( $event['ID'], "_{$unique_field['target']}", $event[ $unique_field['target'] ] );
 			}
@@ -1743,6 +1763,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					}
 				}
 			}
+
+			// update the existing IDs in the context of this batch
+			if ( $unique_field && isset( $event[ $unique_field['target'] ] ) ) {
+				$existing_ids[ $event[ $unique_field['target'] ] ] = (object) array(
+					'post_id'    => $event['ID'],
+					'meta_value' => $event[ $unique_field['target'] ],
+				);
+			}
 		}
 
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
@@ -1764,8 +1792,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( ! $unique_field ) {
 			return array();
 		}
-
-		$parent_selected_ids = array();
 
 		if ( ! empty( $this->meta['ids_to_import'] ) && 'all' !== $this->meta['ids_to_import'] ) {
 			if ( is_array( $this->meta['ids_to_import'] ) ) {
@@ -2006,5 +2032,30 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$post = get_post( $post );
 		}
 		$this->post = $post;
+	}
+
+	/**
+	 * Returns the user ID of the first user that can edit events or the current user ID if available.
+	 *
+	 * @since TBD
+	 *
+	 * @return int The user ID or `0` (not logged in user) if not possible.
+	 */
+	protected function get_default_user_id() {
+		$current_user_id = get_current_user_id();
+
+		if ( 0 !== $current_user_id ) {
+			return $current_user_id;
+		}
+
+		$authors          = get_users( array( 'who' => 'authors' ) );
+		$post_type_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
+		foreach ( $authors as $author ) {
+			if ( user_can( $author, $post_type_object->cap->edit_posts ) ) {
+				return $author->ID;
+			}
+		}
+
+		return 0;
 	}
 }

@@ -7,6 +7,7 @@ include_once( codecept_data_dir( 'classes/Tribe__Events__Aggregator__Record__Sch
 use Tribe__Events__Aggregator__Record__Abstract as Base;
 use Tribe__Events__Aggregator__Record__Scheduled_Test as Record;
 use Tribe__Events__Aggregator__Records as Records;
+use Tribe__Events__Main as Main;
 
 class AbstractTest extends \Codeception\TestCase\WPTestCase {
 
@@ -53,6 +54,8 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 		];
 		$record->meta['schedule_day']  = $schedule_day;
 		$record->meta['schedule_time'] = $schedule_time;
+		$record->meta['post_status']   = 'publish';
+		$record->meta['origin']        = 'ical';
 
 		return $record;
 	}
@@ -214,5 +217,37 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 			'post_status' => Records::$status->success,
 			'post_date'   => date( 'Y-m-d H:i:s', $modified ),
 		] );
+	}
+
+	/**
+	 * It should correctly insert posts
+	 *
+	 * @test
+	 */
+	public function should_correctly_insert_posts() {
+		$this->markTestSkipped( 'This test runs for a long time and should be run alone and on purpose' );
+
+		$file                  = codecept_data_dir( 'ea-responses/ea-huge-feed-response-01.json' );
+		$response              = json_decode( file_get_contents( $file ) );
+		$response_events_count = count( $response->data->events );
+
+		if ( $response_events_count < 1000 ) {
+			throw new \RuntimeException( 'The number of events in the file should be 1000 or more' );
+		}
+
+		$to_insert = $response->data->events;
+
+		$this->assertEmpty( 0, get_posts( [ 'post_type' => Main::POSTTYPE ] ) );
+
+		$sut = $this->make_scheduled_record_instance();
+
+		/** @var \Tribe__Events__Aggregator__Record__Activity $activity */
+		$activity = $sut->insert_posts( $to_insert );
+
+		$this->assertCount( count( $to_insert ),
+			get_posts( [ 'post_type' => Main::POSTTYPE, 'post_status' => $sut->meta['post_status'], 'posts_per_page' => - 1 ] ) );
+		$this->assertEquals( count( $to_insert ), $activity->count( Main::POSTTYPE,'created' ) );
+		$this->assertEquals( 0, $activity->count( Main::POSTTYPE,'updated' ) );
+		$this->assertEquals( 0, $activity->count( Main::POSTTYPE,'skipped' ) );
 	}
 }
