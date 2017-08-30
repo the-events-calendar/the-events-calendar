@@ -32,7 +32,7 @@ class Tribe__Events__Aggregator__Admin_Bar {
 	 * @return Tribe__Events__Aggregator__Admin_Bar
 	 */
 	public static function instance() {
-		if ( empty( self::$instance ) ) {
+		if ( ! self::$instance ) {
 			self::$instance = new self();
 		}
 
