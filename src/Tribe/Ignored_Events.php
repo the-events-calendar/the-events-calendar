@@ -382,10 +382,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				// Modify when it can be ignored
 				if ( $this->can_ignore( $event ) ) {
 					$actions['trash'] = sprintf(
-						'<a href="%s" class="submitdelete" aria-label="%s">%s</a>',
+						'<a href="%1$s" class="submitdelete" aria-label="%2$s" title="%3$s">%4$s</a>',
 						get_delete_post_link( $event->ID ),
 						/* translators: %s: post title */
-						esc_attr( sprintf( __( 'Move &#8220;%s&#8221; to the Trash', 'the-events-calendar' ), $title ) ),
+						esc_attr( sprintf( __( 'Hide and Ignore &#8220;%s&#8221;', 'the-events-calendar' ), $title ) ),
+						esc_attr__( 'Ignored events do not show on the calendar but can be updated with future imports', 'the-events-calendar' ),
 						__( 'Hide & Ignore', 'the-events-calendar' )
 					);
 				}
