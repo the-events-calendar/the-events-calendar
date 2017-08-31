@@ -333,6 +333,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Fixed a typo in REST API Swagger documentation that mentioned "organizer" when it should have stated "venue".
 * Fix - Fixed issues with Event Aggregator queueing system where events might be duplicated or incorrectly updated [79975]
 * Fix - Prevent notice when the Aggregator Record title is an array [82149]
+* Fix - Prevent Warnings when throwing WordPress admin notices from Aggregator daily usage limit [83187]
+* Fix - Resolved problem where Aggregator wouldn't allow you to remove filtering terms for Records [76949]
+* Tweak - Included tooltip for Aggregator "Hide & Ignore" button for events [67890]
+* Tweak - Added all the Aggregator Origins to the Admin Bar [68693]
 
 = [4.5.11] 2017-08-24 =
 

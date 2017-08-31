@@ -107,8 +107,9 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 			'warning' => array(),
 		);
 
-		$meta[ 'post_status' ] = empty( $post_data['post_status'] ) ? 'draft' : $post_data['post_status'];
-		$meta[ 'category' ] = empty( $post_data['category'] ) ? null : $post_data['category'];
+		$meta['post_status'] = empty( $post_data['post_status'] ) ? 'draft' : $post_data['post_status'];
+		$meta['category'] = empty( $post_data['category'] ) ? null : $post_data['category'];
+
 		$result = $record->save( $post_data['post_id'], array(), $meta );
 
 		if ( is_wp_error( $result ) ) {
