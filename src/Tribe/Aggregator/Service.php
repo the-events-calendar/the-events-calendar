@@ -176,8 +176,7 @@ class Tribe__Events__Aggregator__Service {
 		if ( 403 == wp_remote_retrieve_response_code( $response ) ) {
 			return new WP_Error(
 				'core:aggregator:request-denied',
-				esc_html__( 'Event Aggregator server has blocked your request. Please try your import again later or contact support to know why.',
-					'the-events-calendar' )
+				esc_html__( 'Event Aggregator server has blocked your request. Please try your import again later or contact support to know why.', 'the-events-calendar' )
 			);
 		}
 
@@ -185,8 +184,7 @@ class Tribe__Events__Aggregator__Service {
 		if ( 200 != wp_remote_retrieve_response_code( $response ) ) {
 			return new WP_Error(
 				'core:aggregator:bad-response',
-				esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.',
-					'the-events-calendar' )
+				esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' )
 			);
 		}
 
