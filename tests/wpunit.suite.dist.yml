@@ -25,6 +25,9 @@ modules:
                 - the-events-calendar/the-events-calendar.php
             activatePlugins:
                 - the-events-calendar/the-events-calendar.php
+
+# To test integrations use environments loading the needed plugins
+# Running the suite without specifying an environment will run with the default parameters (above)
 env:
     wpml:
         modules:

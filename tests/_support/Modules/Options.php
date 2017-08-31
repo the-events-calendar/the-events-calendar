@@ -1,5 +1,4 @@
 <?php
-
 namespace Tribe\Events\Tests\Modules;
 
 

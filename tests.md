@@ -1,47 +1,106 @@
-# Events Calendar PRO tests
-
+# Tribe tests setup guide
 This is a brief and quick guide that's covering the bare essentials needed to set up the tests on your local plugin copy.
 Please refer to [Codeception](http://codeception.com/docs) and [WP Browser](https://github.com/lucatume/wp-browser) documentation for any issue that's not TEC related.
 
+## The commitment
+Modern Tribe has a long-term commitment to automate testing and improve test coverage.
+Writing test for the your code is not a fashion, someone's mania or a passing whim: do your part.
+
 ## Set up
-After cloning the TEX repository on your local machine change directory to the plugin root folder and pull in any needed dependency using [Composer](https://getcomposer.org/):
+After cloning the repository on your local machine change directory to the plugin root folder and pull in any needed dependency using [Composer](https://getcomposer.org/):
 
 	composer update
 
-when Composer finished the update process (might take a while) set up your own [Codeception](http://codeception.com/) installation running
+Our testing stack uses modules from [wp-browser](https://github.com/lucatume/wp-browser "lucatume/wp-browser · GitHub") on top of the [Codeception](http://codeception.com/ "Codeception - BDD-style PHP testing.") testing framework.
+In each plugin we have different *suites* set up to test our code in different ways and different levels; each suite has its own configuration file, e.g. the `wpunit` suite will read its configuration from the `tests/wpunit.suite.yml` file.
+The repository provides, for each suite, the *distribution* version of the suite configuration file; e.g. the distribution version of the `wpunit` suite configuration file will be called `tests/wpunit.suite.dist.yml`.
+For each suite **make a copy** of the distribution version of the suite configuration file and remove the `.dist` part; e.g. clone the `wpunit.suite.dist.yml` file to the `wpunit.suite.yml` file, this is now the *local* version of the suite configuration file.
+Codeception applies suites configurations in a cascading way (same as CSS): apply the distribution version first and then override it with the local version.
+The distribution version of the suites configuration files will specify domains, database credentials and other details suitable for the CI environment: you should modify those value in each suite configuration file to match your local setup.
 
-	vendor/bin/wpcept bootstrap
+### Testing the testing framework
+To test that the configuration is ok run Codeception build command:
 
-The `wpcept bootstrap` command is a modified version of the default `codecept bootstrap` command that will take care of setting up a WordPress-friendly testing environment.  
-To be able to run successfully on your system Codeception will need to be configured to look for the right database, the right WordPress installation and so on.  
-Codeception allows for "distribution" versions of its configuration to be  shared among developers, what you define in your local Codeception configuration files will override the "distribution" setting; think of CSS rules.  
-The repository contains a `codeception.dist.yml` file that Codeception will read before reading the local to your machine `codeception.yml` file.  
-Copy the distribution version of the Codeception configuration file in the root folder of the plugin
-	
-	cp codeception.dist.yml codeception.yml
+```shell
+./vendor/bin/codeception build
+```
+If you get some errors **take the time to read what the error says** and fix it.
+If you did everything ok you should now be able to run each suite with the following command:
 
-**Edit the file `codeception.yml` file to suit your database, installation folder and web driver settings.**
+```shell
+./vendor/bin/codeception run <suite>
+```
 
-**Beware**: The `WPLoader` module that's used in functional tests will **destroy** the database it's working on: **do not** point it to the same database you use for development! A good rule of thumb is to have a database for development (e.g. `tec`) and one that will be used for tests (e.g. `tec-tests`).  
-On the same lines the repository packs "distribution" versions of the `unit.suite.dist.yml`, `functional.suite.dist.yml` and `acceptance.suite.dist.yml` configuration files: there is usually no need to override those but it's worth mentioning they exist.
-The last piece of the configuration is the bootstrap file; the repository comes with "distribution" versions of these file in the root folder of the pluging tests (`/tests/_bootstrap.dist.php`) and a bootstrap file specific to each suite (`/tests/acceptance/_bootstrap.dist.php`, `/tests/functional/_bootstrap.dist.php`, `/tests/unit/_bootstrap.dist.php`); remove the root `_bootstrap.php` file Codeception created during bootstrapping and copy the one in the root of the plugin tests (`/tests`)
-	
-	rm _bootstrap.php
-	cp _bootstrap.dist.php _bootstrap.php
+E.g.
 
-You *should* not need to edit anything in any bootstrap file to make things work. Do the same for the suite specific bootstrap files
+```shell
+./vendor/bin/codeception run wpunit
+```
 
-	cp acceptance/_bootstrap.dist.php acceptance/_bootstrap.php
-	cp functional/_bootstrap.dist.php functional/_bootstrap.php
-	cp unit/_bootstrap.dist.php unit/_bootstrap.php
-	
+Do not use the command to run all suites at the same time as we have, in many plugins, multisite test suites that will break the world.
+
+## Adding test cases to the suites
+[wp-browser](https://github.com/lucatume/wp-browser "lucatume/wp-browser · GitHub") extends [Codeception](http://codeception.com/ "Codeception - BDD-style PHP testing.") to provide convenient ways to generate test cases, e.g. adding a test case for the `Tribe__Some__Class` class to the `wpunit` suite is as easy as:
+
+```shell
+./vendor/bin/wpcept generate:wpcept wpunit "Tribe\Some\Class"
+```
+
+The command will take care of the rest.
+If the test case has already been added add a test method (a `function`) to the test case (the `class somethingTest`).
+
+### codecept, wpcept... What's the difference?
+The `wpcept` command in an *extension* of the `codecept` command; as such it can do anything the `codecept` command can do and more.
+When in doubt use `wpcept`.
+
+### Where and what should I add my tests
+In short:
+
+* **Acceptance** tests are meant to test the UI/API from a client perspective, run against the full application stack and do not "peek" at the database and set the testing fixture using a db dump and UI only; typical modules: `WPBrowser`, `WPWebDriver`, `WPDb`)
+* **Functional** tests are meant to test the implementation of that client consumed/used UI/API from a developer perspective, run against the application entry points (e.g. WordPress routing system) and set up the testing fixture manipulating the database and HTTP requests (GET, POST etc.); typical modules: `WordPress`, `REST`, `WPDb`, `Filesystem`)
+* **Integration** tests are meant to test a group of classes working together to accomplish a task (e.g. REST API endpoint handling), run against a module main class (e.g. a REST API endpoint handler) and set up the fixture using WordPress methods; typical modules: `WPLoader`, `Filesystem`
+* **WordPress Unit** tests are meant to test a single class that depends on WordPress functions in isolation mocking its dependencies and checking its outputs, run against a single class and set up the testing fixture using mocking and WordPress methods typical modules: `WPLoader`
+* **Unit** tests are meant to test a single class that doesn't depend on WordPress functions in isolation mocking its dependencies and checking its outputs, run against a single class and set up the testing fixture using mocking and WordPress methods typical modules: `Unit`
+
+We do a mostly WordPress Unit tests.
+
+## Testing Club rules
+1. You talk about the Testing Club. A lot.
+2. If you break it you fix it.
+3. Removing a test is not fixing it; it should **never** be done unless the tested class/case/module has been removed.
+4. Use namespacing for testing: the test framework requires PHP 5.6: stop writing code for PHP 5.2 in tests.
+5. Avoid "clever" code in tests: clarity is paramount in testing over smart code.
+6. If a test is complicated to write either you are trying to test too much or the thing you are testing it too complicated: refactor the code you are testing and get back.
+7. Test one thing per per test method. E.g. an object reads and writes? Write a test for the reading and a test for the writing.
+8. While you can use XDebug while running tests that's usually a good hint you should write a new assertion or a new test method.
+9. Look around the test code and use it as an example.
+10. When in doubt call for help: you are working in a place of smart and helpful people and will get help.
+
+Read [Codeception](http://codeception.com/ "Codeception - BDD-style PHP testing.") and [wp-browser](https://github.com/lucatume/wp-browser "lucatume/wp-browser · GitHub") documentation to understand what you are doing.
+
 ## Running the tests
-Nothing different from a default Codeception environment so this command will run all the tests
+Do not run all the suites at the same time, run each suite separately (why? WordPress loves globals, tests don't):
 
-	vendor/bin/codecept run
+```shell
+./vendor/bin/codecept run <suite>
+```
 
-Failing tests are ok in set up terms: the system works. Errors should be reported.
-Please refer to [Codeception documentation](http://codeception.com/docs) to learn about more run and configuaration options.
+The name of a suite is the same as the configuration file: e.g. `wpunit.suite.yml` is for the `wpunit` suite:
 
-## Contributing to tests
-Should you come up with good utility methods, worthy database configurations and "cool additions" in general for the plugin tests feel free to open a PR and submit them for review.
+```shell
+./vendor/bin/codecept run wpunit
+```
+
+### Running a single testcase
+You might want to run just a test case (a class), in that case point Codeception to it:
+
+```shell
+./vendor/bin/codecept run tests/path/to/the/ClassTest.php
+```
+
+### Running a single testcase test method
+If you find yourself in need to run just one test method from a test case point Codeception to the testcase **and** the method:
+
+```shell
+./vendor/bin/codecept run tests/path/to/the/ClassTest.php:test_something
+```
