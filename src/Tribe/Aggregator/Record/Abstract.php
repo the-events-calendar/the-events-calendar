@@ -319,7 +319,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$defaults = array(
 			'frequency' => null,
 		);
-
 		$meta = wp_parse_args( $meta, $defaults );
 
 		$post = $this->prep_post_args( $meta['type'], $args, $meta );
@@ -389,8 +388,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$value = trim( $value );
 			}
 
-			// if the value is blank or null, let's avoid inserting it
-			if ( null === $value || '' === $value ) {
+			// if the value is null, let's avoid inserting it
+			if ( null === $value ) {
 				continue;
 			}
 
