@@ -329,7 +329,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.5.12] TBD =
 
-* Fix - Fixed an issue where Tribe Bar searches weren't accurately displaying date formats with periods (e.g. "YYYY.MM") [84202]
+* Fix - Fixed an issue where, with certain date formats chosen in the Events display settings, the "Next Month" link navigation wasn't working. [86937]
 * Fix - Fixed a typo in REST API Swagger documentation that mentioned "organizer" when it should have stated "venue".
 * Fix - Fixed issues with Event Aggregator queueing system where events might be duplicated or incorrectly updated [79975]
 * Fix - Prevent notice when the Aggregator Record title is an array [82149]
