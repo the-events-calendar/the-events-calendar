@@ -201,7 +201,15 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 *                 the count is 0, `false` otherwise.
 	 */
 	public function is_empty() {
-		return $this->has_lock && 0 === $this->count();
+		$count_matches = true;
+
+		if ( ! empty( $this->record->meta['ids_to_import'] ) && $this->items !== 'fetch' ) {
+			$to_import_count = count( $this->record->meta['ids_to_import'] );
+			$imported_so_far = $this->activity()->count( $this->get_queue_type() );
+			$count_matches   = $to_import_count === $imported_so_far;
+		}
+
+		return $this->has_lock && $count_matches && 0 === $this->count();
 	}
 
 	/**

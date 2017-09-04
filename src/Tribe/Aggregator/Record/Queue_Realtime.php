@@ -129,10 +129,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 
 		/** @var \Tribe__Events__Aggregator__Record__Queue $current_queue */
 		$current_queue   = $this->queue_processor->current_queue;
-		$to_import_count = count( $current_queue->record->meta['ids_to_import'] );
-		$imported_so_far = $current_queue->activity()->count( $current_queue->get_queue_type() );
-		$count_matches   = $to_import_count === $imported_so_far;
-		$done            = $current_queue->is_empty() && $count_matches;
+		$done            = $current_queue->is_empty();
 		$percentage      = $current_queue->progress_percentage();
 
 		$this->ajax_operations->exit_data( $this->get_progress_message_data( $current_queue, $percentage, $done ) );
