@@ -130,13 +130,26 @@ class Tribe__Events__Aggregator__Record__Queue {
 		} else {
 			$this->items = $items;
 
-			// Count the Total of items now and stores as the total
+			//php Count the Total of items now and stores as the total
 			$this->total = count( $this->items );
 		}
 	}
 
 	public function load_queue() {
-		if ( empty( $this->record->meta[ self::$queue_key ] ) ) {
+		if ( ! isset( $this->record->meta[ self::$queue_key ] ) ) {
+			// try to fetch the queue meta from the db directly
+			$queue_key  = '_tribe_aggregator_' . self::$queue_key;
+			wp_cache_delete( $this->record->id, 'post_meta' );
+			$queue_meta = get_post_meta( $this->record->id, $queue_key, true );
+			if ( empty( $queue_meta ) ) {
+				// ok, really empty
+				$this->is_fetching = false;
+				$this->items       = array();
+			} else {
+				$this->items                            = $queue_meta;
+				$this->record->meta[ self::$queue_key ] = $queue_meta;
+			}
+		} elseif ( empty( $this->record->meta[ self::$queue_key ] ) ) {
 			$this->is_fetching = false;
 			$this->items       = array();
 		} else {
