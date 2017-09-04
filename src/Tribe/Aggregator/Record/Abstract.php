@@ -638,6 +638,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$args = wp_parse_args( $args, $defaults );
 
+		if ( ! empty( $args['start'] ) ) {
+			// Tries to convert a Datepicker formated string
+			$args['start'] = Tribe__Date_Utils::maybe_format_from_datepicker( $args['start'] );
+		}
+
+		if ( ! empty( $args['end'] ) ) {
+			// Tries to convert a Datepicker formated string
+			$args['end'] = Tribe__Date_Utils::maybe_format_from_datepicker( $args['end'] );
+		}
+
 		// create the import on the Event Aggregator service
 		$response = $aggregator->api( 'import' )->create( $args );
 
