@@ -11,7 +11,7 @@ vendor
 !vendor/ForceUTF8
 !vendor/php-date-formatter
 
-# Tests - local config files
+# Tests - local Codeception files
 codeception.yml
 tests/*.suite.yml
 .env.local

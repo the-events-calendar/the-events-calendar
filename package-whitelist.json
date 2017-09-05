@@ -6,6 +6,7 @@
   "common/readme.txt",
   "common/src/**/*",
   "common/lang/**/*",
+  "common/vendor/handlebars/*.js",
   "common/vendor/clipboard/*.js",
   "common/vendor/datatables/extensions/FixedHeader/css/fixedHeader.dataTables*.css",
   "common/vendor/datatables/extensions/FixedHeader/js/dataTables*.js",

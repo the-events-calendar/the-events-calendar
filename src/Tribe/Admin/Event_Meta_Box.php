@@ -2,7 +2,7 @@
 /**
  * Sets up and renders the main event meta box used in the event editor.
  */
-class Tribe__Events__Admin__Event_Meta_Box {
+class Tribe__Events__Admin__Event_Meta_Box extends Tribe__Template {
 	/**
 	 * @var WP_Post
 	 */
@@ -34,6 +34,11 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * @param null $event
 	 */
 	public function __construct( $event = null ) {
+		// Configure the Admin Template Variables
+		$this->set_template_origin( Tribe__Events__Main::instance() );
+		$this->set_template_folder( 'src/admin-views' );
+		$this->set_template_context_extract( true );
+
 		$this->tribe = Tribe__Events__Main::instance();
 
 		if ( $event ) {
@@ -42,6 +47,8 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	}
 
 	public function init_with_event( $event ) {
+		add_action( 'tribe_events_eventform_top', array( $this, 'date_time_section' ) );
+
 		$this->get_event( $event );
 		$this->setup_data();
 		$this->do_meta_box();
@@ -322,16 +329,55 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * Pull the expected variables into scope and load the meta box template.
 	 */
 	protected function do_meta_box() {
-		$events_meta_box_template = $this->tribe->pluginPath . 'src/admin-views/events-meta-box.php';
-		$events_meta_box_template = apply_filters( 'tribe_events_meta_box_template', $events_meta_box_template );
+		$context = $this->vars;
+		$context['event'] = $this->event;
+		$context['tribe'] = $this->tribe;
+		$context['metabox'] = $this;
 
-		extract( $this->vars );
-		$event = $this->event;
-		$tribe = $this->tribe;
+		return $this->template( 'events-meta-box', $context );
+	}
 
-		// Exposes Class Instance to the included file
-		$metabox = $this;
+	/**
+	 * Injects the date/time settings section into the events meta box.
+	 *
+	 * This normally only happens when the meta box renders when an actual event is being
+	 * edited (as opposed to other related post types).
+	 *
+	 * @since  TBD
+	 *
+	 * @param  int $post_id
+	 *
+	 * @return false|string
+	 */
+	public function date_time_section( $post_id ) {
+		$template = 'date-time';
+		$post_types = array( Tribe__Events__Main::POSTTYPE );
 
-		include( $events_meta_box_template );
+		/**
+		 * Controls whether the date time section is injected into the events meta box or not.
+		 *
+		 * @since  TBD
+		 *
+		 * @param  array   $post_types
+		 * @param  string  $template
+		 * @param  int     $post_id
+		 */
+		$post_types = apply_filters( 'tribe_events_metabox_post_types', $post_types, $template, $post_id );
+
+		$should_render = (
+			in_array( get_post_type( $post_id ), $post_types )
+			|| in_array( $GLOBALS['typenow'], $post_types )
+		);
+
+		if ( ! $should_render ) {
+			return false;
+		}
+
+		$context = $this->vars;
+		$context['event'] = $this->event;
+		$context['tribe'] = $this->tribe;
+		$context['metabox'] = $this;
+
+		return $this->template( array( 'metabox', $template ), $context );
 	}
 }
