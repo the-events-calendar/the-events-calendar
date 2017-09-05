@@ -567,6 +567,16 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		$postarr['EventShowInCalendar']   = tribe_is_truthy( $request['sticky'] );
 		$postarr['feature_event']         = tribe_is_truthy( $request['featured'] );
 
+		/**
+		 * Allow filtering of $postarr data with additional $request arguments.
+		 *
+		 * @param array           $postarr Post array used for create/update
+		 * @param WP_REST_Request $request REST request object
+		 *
+		 * @since TBD
+		 */
+		$postarr = apply_filters( 'tribe_events_rest_event_prepare_postarr', $postarr, $request );
+
 		return $postarr;
 	}
 }
