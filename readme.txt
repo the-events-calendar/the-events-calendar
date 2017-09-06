@@ -341,6 +341,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Datatables Head and Foot checkboxes will not select all items, only the current page [77395]
 * Tweak - Included tooltip for Aggregator "Hide & Ignore" button for events [67890]
 * Tweak - Added all the Aggregator Origins to the Admin Bar [68693]
+* Tweak - Added filters: `tribe_get_state_options`
 
 = [4.5.11] 2017-08-24 =
 
