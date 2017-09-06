@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-08-05 10:58:55+0000\n"
+"PO-Revision-Date: 2017-08-27 08:40:10+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "Encontrar un %s"
 
 #: src/Tribe/Integrations/WPML/Defaults.php:117
 msgid "The Events Calendar could not write WPML default config file: please create the file manually."
-msgstr ""
+msgstr "The Events Calendar no puede escribir en el fichero de configuración por defecto de WPML: por favor, crea uno manualmente."
 
 #: common/src/Tribe/Plugins_API.php:270
 msgid "Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go."
@@ -877,7 +877,7 @@ msgstr "Detalles sobre cada tamaño disponible para la imagen"
 
 #: common/src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:40
 msgid "The image natural height in pixels"
-msgstr ""
+msgstr "Altura original de la imagen en píxeles"
 
 #: common/src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:36
 msgid "The image natural width in pixels"
@@ -1052,7 +1052,7 @@ msgstr "Evento único"
 
 #: src/Tribe/Customizer/Month_Week_View.php:197
 msgid "Calendar Highlight Color"
-msgstr ""
+msgstr "Color para resaltar en el calendario"
 
 #: src/Tribe/Customizer/Month_Week_View.php:175
 msgid "Calendar Table Color"
@@ -1105,7 +1105,7 @@ msgstr "Skyfall"
 
 #: src/Tribe/Customizer/General_Theme.php:378
 msgid "Malachite"
-msgstr ""
+msgstr "Malacite"
 
 #: src/Tribe/Customizer/General_Theme.php:372
 msgid "Lagoon"
@@ -1129,7 +1129,7 @@ msgstr "Blue Steel"
 
 #: src/Tribe/Customizer/General_Theme.php:328
 msgid "If the Featured highlight color is set to Custom, the following color will be used:"
-msgstr ""
+msgstr "Si el color para resaltar los eventos destacados está ajustado a Personalizado, el color usado será:"
 
 #: src/Tribe/Customizer/General_Theme.php:285
 msgid "Accent Color"

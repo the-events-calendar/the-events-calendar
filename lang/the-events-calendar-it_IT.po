@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-06-03 06:40:21+0000\n"
+"PO-Revision-Date: 2017-09-02 07:56:43+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,91 +13,91 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:95
 msgid "Add more sources"
-msgstr ""
+msgstr "Aggiungi altre fonti"
 
 #: src/Tribe/Aggregator/Service.php:532
 msgid "No upcoming Facebook events found."
-msgstr ""
+msgstr "Non sono stati trovati prossimi eventi Facebook."
 
 #: src/Tribe/Aggregator/Service.php:179
 msgid "Event Aggregator server has blocked your request. Please try your import again later or contact support to know why."
-msgstr ""
+msgstr "Il server aggregatore di eventi ha bloccato la tua richiesta. Prova ad importare nuovamente o contatta il supporto tecnico per sapere il motivo."
 
 #: src/Tribe/Customizer/General_Theme.php:305
 msgid "Featured Highlight Color"
-msgstr ""
+msgstr "Colore evidenziatore in primo piano"
 
 #: src/Tribe/Aggregator/Service.php:209
 msgid "The response from the Event Aggregator server was badly formed and could not be understood. Please try again."
-msgstr ""
+msgstr "La risposta dal server aggregatore non era formattata correttamente e non poteva essere capita. Riprova ancora."
 
 #: common/src/Tribe/Plugins_API.php:218
 msgid "Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support."
-msgstr ""
+msgstr "Importa eventi da tutto il web! L'aggregatore di eventi rende facile eseguire importazioni pianificate o manuali da Facebook, Meetup, Google Calendar e iCalendar, oltre al caricamento da file CSV e ICS. è inoltre possibile importare direttamente da altri siti che eseguono The Events Calendar grazie al nostro supporto API integrato."
 
 #: src/Tribe/Linked_Posts.php:913 src/Tribe/Linked_Posts.php:918
 msgid "Create or Find %s"
-msgstr ""
+msgstr "Crea o Cerca %s"
 
 #: src/Tribe/Linked_Posts.php:911 src/Tribe/Linked_Posts.php:916
 msgid "Find a %s"
-msgstr ""
+msgstr "Trova un %s"
 
 #: src/Tribe/Integrations/WPML/Defaults.php:117
 msgid "The Events Calendar could not write WPML default config file: please create the file manually."
-msgstr ""
+msgstr "Events Calendar non può scrivere il file di configurazione WPML. Crea il file manualmente."
 
 #: common/src/Tribe/Plugins_API.php:270
 msgid "Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go."
-msgstr ""
+msgstr "Accetta gli eventi inviati dagli utenti sul tuo sito! Con gli eventi della community puoi accettare le richieste pubbliche o richiedere l'accesso. Le impostazioni forniscono le opzioni per salvare come bozza o pubblicare automaticamente, attivare categorie e tag e scegliere se gli utenti possono modificare/gestire i propri eventi o semplicemente inviarli. Meglio di tutti - l'installazione è facile! Basta attivare, configurare le opzioni e il gioco è fatto."
 
 #: common/src/Tribe/Plugins_API.php:239
 msgid "Event Tickets provides a simple way for visitors to RSVP to your events. As a standalone plugin, it enables you to add RSVP functionality to posts or pages. When paired with The Events Calendar, you can add that same RSVP functionality directly to your event listings."
-msgstr ""
+msgstr "I biglietti dell'evento offrono un modo semplice per i visitatori per rispondere ai tuoi eventi. Come plug-in autonomo, ti consente di aggiungere la funzionalità di rispondere ai post o alle pagine. Quando è associato a The Events Calendar, è possibile aggiungere la stessa funzionalità di ringraziamento direttamente agli eventi."
 
 #: common/src/Tribe/Plugins_API.php:210
 msgid "Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust."
-msgstr ""
+msgstr "Creare un calendario eventi e gestirlo con facilità. Il plugin The Events Calendar fornisce una qualità professionale e funzioni supportate da una squadra di fiducia."
 
 #: common/src/Tribe/Plugins_API.php:61
 msgid "More Details"
-msgstr ""
+msgstr "Più dettagli"
 
 #: common/src/Tribe/Plugins_API.php:60
 msgid "More information about %s"
-msgstr ""
+msgstr "Più informazioni riguardo %s"
 
 #: common/src/Tribe/Plugins_API.php:52
 msgid "Buy Now"
-msgstr ""
+msgstr "Compra"
 
 #: common/src/Tribe/Plugins_API.php:51
 msgid "Buy %s now"
-msgstr ""
+msgstr "Compra %s adesso"
 
 #: common/src/Tribe/PUE/Checker.php:1093
 msgid "There is a new version of %1$s available. %2$s"
-msgstr ""
+msgstr "C'è una nuova versione di %1$s disponibile. %2$s"
 
 #: common/src/Tribe/PUE/Checker.php:1082
 msgid "Update now to version %s."
-msgstr ""
+msgstr "Aggiorna adesso alla versione %s"
 
 #: common/src/Tribe/Ajax/Dropdown.php:238
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
-msgstr ""
+msgstr "La sorgente \"%s\" non è valida e non può essere raggiunta sull'istanza \"%s\"."
 
 #: common/src/Tribe/Ajax/Dropdown.php:188
 msgid "Empty data set for this dropdown"
-msgstr ""
+msgstr "Nessun dato impostato per questo menu a discesa"
 
 #: common/src/Tribe/Ajax/Dropdown.php:175
 msgid "Missing data source for this dropdown"
-msgstr ""
+msgstr "Sorgente dati mancante per questo menu a discesa"
 
 #: common/src/Tribe/Ajax/Dropdown.php:38
 msgid "Cannot look for Terms without a taxonomy"
-msgstr ""
+msgstr "Non è possibile cercare termini senza una tassonomia"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:24
 msgid "The event WordPress post ID"
@@ -131,7 +131,7 @@ msgstr "Porta il tuo widget immagine al livello successivo con Image Widget Plus
 
 #: common/src/Tribe/Plugins_API.php:298
 msgid "Image Widget Plus"
-msgstr ""
+msgstr "Immagine Widget Plus"
 
 #: src/admin-views/aggregator/settings.php:460
 msgid "Other URLs"
@@ -139,27 +139,27 @@ msgstr "Altri URLs"
 
 #: src/admin-views/aggregator/settings.php:411
 msgid "Fetch source event's settings (e.g. Show Google Maps Link or Sticky in Month View) when importing from another site using The Events Calendar."
-msgstr ""
+msgstr "Immettere le impostazioni dell'evento di origine (Ad esempio mostra il collegamento a Google Maps o adesivi nella visualizzazione mensile) quando si importa da un altro sito utilizzando The Events Calendar."
 
 #: src/admin-views/aggregator/settings.php:410
 msgid "Import Event Settings"
-msgstr ""
+msgstr "Importa la configurazione degli eventi"
 
 #: src/admin-views/aggregator/settings.php:400
 msgid "When importing from a website that uses The Events Calendar, the REST API will attempt to fetch events this far in the future. That website's hosting resources may impact the success of imports. Selecting a shorter time period may improve results."
-msgstr ""
+msgstr "Quando si esegue l'importazione da un sito web che utilizza The Events Calendar, l'API REST cercherà di recuperare gli eventi da ora in avanti. Le risorse di hosting di questo sito web possono influenzare l'esito delle importazioni. La selezione di un periodo di tempo più breve può migliorare i risultati."
 
 #: src/admin-views/aggregator/origins/url.php:84
 msgid "Enter the url for the calendar, website, or event you would like to import. Event Aggregator will attempt to import events at that location."
-msgstr ""
+msgstr "Inserisci l'URL per il calendario, il sito web o l'evento che desideri importare. L'aggregatore di eventi tenterà di importare gli stessi in quella posizione."
 
 #: src/Tribe/REST/V1/Messages.php:23
 msgid "The 'categories' parameter contains invalid category slugs or IDs"
-msgstr ""
+msgstr "Il parametro \"categorie\" contiene i nodi o gli ID di categoria non validi"
 
 #: src/Tribe/REST/V1/Messages.php:14
 msgid "The requested post ID does not exist or is not an event"
-msgstr ""
+msgstr "L'ID dell'articolo richiesto non esiste o non è un evento"
 
 #: src/Tribe/REST/V1/Messages.php:13
 msgid "The event ID is missing from the request"
@@ -252,7 +252,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:40
 msgid "The event creation date in the site timezone"
-msgstr ""
+msgstr "La data di creazione dell'evento nel fuso orario del sito"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:56
 msgid "The URL to the event page"
