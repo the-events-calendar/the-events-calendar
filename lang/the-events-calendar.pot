@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 4.5.11\n"
+"Project-Id-Version: The Events Calendar 4.5.12\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2017-08-24 19:04:00+00:00\n"
+"POT-Creation-Date: 2017-09-06 14:35:39+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-08-24 19:04\n"
+"PO-Revision-Date: 2017-09-06 14:35\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -34,7 +34,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:73
 #: src/Tribe/Aggregator/Page.php:246
-#: src/admin-views/aggregator/tabs/import-form.php:224
+#: src/admin-views/aggregator/tabs/import-form.php:230
 msgid "Import"
 msgstr ""
 
@@ -63,7 +63,7 @@ msgstr ""
 #: src/Tribe/Admin/Timezone_Updater.php:87
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:56
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:98
-#: src/Tribe/Aggregator/Record/Queue_Realtime.php:196
+#: src/Tribe/Aggregator/Record/Queue_Realtime.php:201
 msgid "%d%% complete"
 msgstr ""
 
@@ -78,14 +78,14 @@ msgid "%s Categories"
 msgstr ""
 
 #: src/Tribe/Admin_List.php:252
-#: src/admin-views/aggregator/tabs/import-form.php:174
-#: src/admin-views/aggregator/tabs/import-form.php:186
+#: src/admin-views/aggregator/tabs/import-form.php:180
+#: src/admin-views/aggregator/tabs/import-form.php:192
 msgid "Start Date"
 msgstr ""
 
 #: src/Tribe/Admin_List.php:253
-#: src/admin-views/aggregator/tabs/import-form.php:176
-#: src/admin-views/aggregator/tabs/import-form.php:188
+#: src/admin-views/aggregator/tabs/import-form.php:182
+#: src/admin-views/aggregator/tabs/import-form.php:194
 msgid "End Date"
 msgstr ""
 
@@ -94,7 +94,8 @@ msgctxt "%s Event count in admin list"
 msgid "All %s"
 msgstr ""
 
-#: src/Tribe/Aggregator/API/Origins.php:31 src/Tribe/Aggregator/Service.php:606
+#: src/Tribe/Aggregator/API/Origins.php:31
+#: src/Tribe/Aggregator/Admin_Bar.php:88 src/Tribe/Aggregator/Service.php:604
 msgid "CSV File"
 msgstr ""
 
@@ -179,7 +180,7 @@ msgid ""
 "The image associated with your event could not be attached to the event."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:46 src/Tribe/Aggregator/Service.php:542
+#: src/Tribe/Aggregator/Errors.php:46 src/Tribe/Aggregator/Service.php:540
 msgid ""
 "The daily limit of %d import requests to the Event Aggregator service has "
 "been reached. Please try again later."
@@ -261,8 +262,8 @@ msgid ""
 "Licenses before using this service."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:65 src/Tribe/Aggregator/Service.php:188
-#: src/Tribe/Aggregator/Service.php:196
+#: src/Tribe/Aggregator/Errors.php:65 src/Tribe/Aggregator/Service.php:187
+#: src/Tribe/Aggregator/Service.php:194
 msgid ""
 "There may be an issue with the Event Aggregator server. Please try your "
 "import again later."
@@ -418,7 +419,7 @@ msgid ""
 msgstr ""
 
 #: src/Tribe/Aggregator/Page.php:92
-#: src/Tribe/Aggregator/Record/List_Table.php:482
+#: src/Tribe/Aggregator/Record/List_Table.php:485
 msgid "View Filters"
 msgstr ""
 
@@ -479,19 +480,19 @@ msgstr ""
 msgid "Something went wrong while inserting the record in the database."
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:425
+#: src/Tribe/Aggregator/Record/Abstract.php:424
 msgid "Record: "
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:993
+#: src/Tribe/Aggregator/Record/Abstract.php:1002
 msgid "Deleted Attachment: %d"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:1008
+#: src/Tribe/Aggregator/Record/Abstract.php:1017
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:1051
+#: src/Tribe/Aggregator/Record/Abstract.php:1060
 msgid ""
 "When this import was last scheduled to run, the daily limit for your Event "
 "Aggregator license had already been reached."
@@ -612,78 +613,78 @@ msgstr ""
 msgid "Import preview"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:473
+#: src/Tribe/Aggregator/Record/List_Table.php:476
 #: src/Tribe/Ignored_Events.php:329
 msgctxt "record via origin"
 msgid "via "
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:486
+#: src/Tribe/Aggregator/Record/List_Table.php:489
 msgid "Keywords:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:495
+#: src/Tribe/Aggregator/Record/List_Table.php:498
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:48
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:80
 #: src/views/modules/meta/details.php:65 src/views/modules/meta/details.php:90
 msgid "Start:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:499
+#: src/Tribe/Aggregator/Record/List_Table.php:502
 msgid "Location:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:503
+#: src/Tribe/Aggregator/Record/List_Table.php:506
 msgid "Radius:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:530
+#: src/Tribe/Aggregator/Record/List_Table.php:533
 msgid "Unknown"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:545 src/Tribe/Aggregator.php:395
+#: src/Tribe/Aggregator/Record/List_Table.php:548 src/Tribe/Aggregator.php:395
 #: src/Tribe/Ignored_Events.php:347
 #: src/admin-views/tribe-options-addons-api.php:34
 msgctxt "human readable time ago"
 msgid "about %s ago"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:547 src/Tribe/Aggregator.php:397
+#: src/Tribe/Aggregator/Record/List_Table.php:550 src/Tribe/Aggregator.php:397
 #: src/Tribe/Ignored_Events.php:349
 #: src/admin-views/tribe-options-addons-api.php:36
 msgctxt "in human readable time"
 msgid "in about %s"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:563
+#: src/Tribe/Aggregator/Record/List_Table.php:566
 msgid "Invalid Frequency"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:566
+#: src/Tribe/Aggregator/Record/List_Table.php:569
 msgid "One Time"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:592
+#: src/Tribe/Aggregator/Record/List_Table.php:595
 msgid "all time"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:594
+#: src/Tribe/Aggregator/Record/List_Table.php:597
 msgid "Latest Import:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:597
-#: src/Tribe/Aggregator/Record/List_Table.php:605
-#: src/Tribe/Aggregator/Record/List_Table.php:613
+#: src/Tribe/Aggregator/Record/List_Table.php:600
+#: src/Tribe/Aggregator/Record/List_Table.php:608
+#: src/Tribe/Aggregator/Record/List_Table.php:616
 msgid "new"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:599
-#: src/Tribe/Aggregator/Record/List_Table.php:608
-#: src/Tribe/Aggregator/Record/List_Table.php:616
+#: src/Tribe/Aggregator/Record/List_Table.php:602
+#: src/Tribe/Aggregator/Record/List_Table.php:611
+#: src/Tribe/Aggregator/Record/List_Table.php:619
 msgid "updated"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:634
+#: src/Tribe/Aggregator/Record/List_Table.php:637
 msgid "Select %s"
 msgstr ""
 
@@ -713,7 +714,7 @@ msgstr ""
 msgid "Skipped:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Queue_Realtime.php:174
+#: src/Tribe/Aggregator/Record/Queue_Realtime.php:176
 msgid ""
 "Unable to continue inserting data. Please reload this page to continue/try "
 "again."
@@ -861,21 +862,21 @@ msgid ""
 "again later or contact support to know why."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:209
+#: src/Tribe/Aggregator/Service.php:207
 msgid ""
 "The response from the Event Aggregator server was badly formed and could not "
 "be understood. Please try again."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:529
+#: src/Tribe/Aggregator/Service.php:527
 msgid "Sorry, but something went wrong. Please try again."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:530
+#: src/Tribe/Aggregator/Service.php:528
 msgid "Events could not be imported. The import parameters were invalid."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:531
+#: src/Tribe/Aggregator/Service.php:529
 msgid ""
 "Events cannot be imported because Facebook has returned an error. This could "
 "mean that the event ID does not exist, the event or source is marked as "
@@ -885,98 +886,98 @@ msgid ""
 "knowledgebase</a>."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:532
+#: src/Tribe/Aggregator/Service.php:530
 msgid "No upcoming Facebook events found."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:533
+#: src/Tribe/Aggregator/Service.php:531
 msgid "The URL provided could not be reached."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:534
+#: src/Tribe/Aggregator/Service.php:532
 msgid "The URL provided failed to load."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:535
+#: src/Tribe/Aggregator/Service.php:533
 msgid "The image associated with your event could not be imported."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:536
+#: src/Tribe/Aggregator/Service.php:534
 msgid ""
 "The image associated with your event is not accessible with your API key."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:537
+#: src/Tribe/Aggregator/Service.php:535
 msgid ""
 "The import failed for an unknown reason. Please try again. If the problem "
 "persists, please contact support."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:538
+#: src/Tribe/Aggregator/Service.php:536
 msgid ""
 "Events could not be imported. The URL provided did not have events in the "
 "proper format."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:539
+#: src/Tribe/Aggregator/Service.php:537
 msgid ""
 "The file provided could not be opened. Please confirm that it is a properly "
 "formatted .ics file."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:540
+#: src/Tribe/Aggregator/Service.php:538
 msgid "Your Meetup API key is invalid."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:541
+#: src/Tribe/Aggregator/Service.php:539
 msgid ""
 "Event Aggregator cannot reach Meetup.com because you exceeded the request "
 "limit for your Meetup API key."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:543
+#: src/Tribe/Aggregator/Service.php:541
 msgid "The import is in progress."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:544
+#: src/Tribe/Aggregator/Service.php:542
 msgid "The import will be starting soon."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:545
+#: src/Tribe/Aggregator/Service.php:543
 msgid "Success"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:546
+#: src/Tribe/Aggregator/Service.php:544
 msgid "Import created"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:547
+#: src/Tribe/Aggregator/Service.php:545
 msgid "Successfully fetched Facebook Token"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:548
+#: src/Tribe/Aggregator/Service.php:546
 msgid "Successfully loaded import origins"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:549
+#: src/Tribe/Aggregator/Service.php:547
 msgid "Import is complete"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:550
+#: src/Tribe/Aggregator/Service.php:548
 msgid "Import queued"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:551
+#: src/Tribe/Aggregator/Service.php:549
 msgid "Events could not be imported. The URL provided could not be reached."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:552
+#: src/Tribe/Aggregator/Service.php:550
 msgid ""
 "The requested source does not have any upcoming and published events "
 "matching the search criteria."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:569
+#: src/Tribe/Aggregator/Service.php:567
 msgid "Unknown service message"
 msgstr ""
 
@@ -1060,15 +1061,15 @@ msgstr ""
 msgid "Edit Import"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Edit.php:130
+#: src/Tribe/Aggregator/Tabs/Edit.php:131
 msgid "Scheduled import was successfully updated."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Edit.php:136
+#: src/Tribe/Aggregator/Tabs/Edit.php:137
 msgid "View All Scheduled Imports"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Edit.php:142
+#: src/Tribe/Aggregator/Tabs/Edit.php:143
 msgid "Your Scheduled Import has been updated!"
 msgstr ""
 
@@ -1690,7 +1691,7 @@ msgid "Click here"
 msgstr ""
 
 #: src/Tribe/Ignored_Events.php:35 src/Tribe/Ignored_Events.php:51
-#: src/Tribe/Ignored_Events.php:426
+#: src/Tribe/Ignored_Events.php:427
 msgid "Delete Permanently"
 msgstr ""
 
@@ -1700,16 +1701,16 @@ msgid ""
 "recreated via import."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:39 src/Tribe/Ignored_Events.php:459
-#: src/Tribe/Ignored_Events.php:709
+#: src/Tribe/Ignored_Events.php:39 src/Tribe/Ignored_Events.php:460
+#: src/Tribe/Ignored_Events.php:710
 msgid "Ignored"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:43 src/Tribe/Ignored_Events.php:389
+#: src/Tribe/Ignored_Events.php:43 src/Tribe/Ignored_Events.php:390
 msgid "Hide & Ignore"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:44
+#: src/Tribe/Ignored_Events.php:44 src/Tribe/Ignored_Events.php:389
 msgid ""
 "Ignored events do not show on the calendar but can be updated with future "
 "imports"
@@ -1788,44 +1789,44 @@ msgstr ""
 
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:388
-msgid "Move &#8220;%s&#8221; to the Trash"
+msgid "Hide and Ignore &#8220;%s&#8221;"
 msgstr ""
 
 #. translators: %s: post title
-#: src/Tribe/Ignored_Events.php:417
+#: src/Tribe/Ignored_Events.php:418
 msgid "Restore &#8220;%s&#8221; from the Ignored"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:418
+#: src/Tribe/Ignored_Events.php:419
 msgid "Restore"
 msgstr ""
 
 #. translators: %s: post title
-#: src/Tribe/Ignored_Events.php:425
+#: src/Tribe/Ignored_Events.php:426
 msgid "Delete &#8220;%s&#8221; permanently"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:710
+#: src/Tribe/Ignored_Events.php:711
 msgid "Ignored <span class=\"count\">(%s)</span>"
 msgid_plural "Ignored <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:790
+#: src/Tribe/Ignored_Events.php:791
 msgid ""
 "Error, a unknown bug happened and it was impossible to migrate the Legacy "
 "Ignored Events, try again later."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:797
+#: src/Tribe/Ignored_Events.php:798
 msgid "You do not have permission to migrate Legacy Ignored Events"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:804
+#: src/Tribe/Ignored_Events.php:805
 msgid "There were no Legacy Events to be Migrated, you are ready to rock!"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:828
+#: src/Tribe/Ignored_Events.php:829
 msgid ""
 "Migration: %d Legacy Ignored Post was migrated but %d failed. To see the "
 "migrated event you will first need to refresh this screen."
@@ -1835,17 +1836,17 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:840
+#: src/Tribe/Ignored_Events.php:841
 msgid "Migration: %d Legacy Ignored Post failed to be migrated."
 msgid_plural "Migration: %d Legacy Ignored Posts failed to be migrated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:852
+#: src/Tribe/Ignored_Events.php:853
 msgid "Event %d: %s"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:859
+#: src/Tribe/Ignored_Events.php:860
 msgid ""
 "Migration: %d Legacy Ignored Post was migrated successfully. To see the "
 "migrated event you will first need to refresh this screen."
@@ -2209,7 +2210,7 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.5.11)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.5.12)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: src/Tribe/Main.php:719 src/Tribe/Main.php:1054
 msgid "The Events Calendar"
@@ -2415,8 +2416,8 @@ msgid ""
 "respond to your thread within 24-48 hours (during the week)."
 msgstr ""
 
-#: src/Tribe/Main.php:1124 src/admin-views/aggregator/tabs/import-form.php:177
-#: src/admin-views/aggregator/tabs/import-form.php:189
+#: src/Tribe/Main.php:1124 src/admin-views/aggregator/tabs/import-form.php:183
+#: src/admin-views/aggregator/tabs/import-form.php:195
 #: src/functions/template-tags/general.php:58
 msgid "Event"
 msgstr ""
@@ -2890,7 +2891,6 @@ msgid "The organizer ID used to globally identify in Event Aggregator"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:32
-#: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:32
 msgid ""
 "An Array containing the lineage of where this organizer comes from, this "
 "should not change after the organizer is created."
@@ -2950,6 +2950,12 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:28
 msgid "The venue ID used to globally identify in Event Aggregator"
+msgstr ""
+
+#: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:32
+msgid ""
+"An array containing the lineage of where this venue comes from; this should "
+"not change after the venue is created."
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:36
@@ -3815,7 +3821,7 @@ msgstr ""
 #: src/admin-views/aggregator/origins/ical.php:111
 #: src/admin-views/aggregator/origins/ics.php:54
 #: src/admin-views/aggregator/origins/url.php:122
-#: src/admin-views/aggregator/tabs/import-form.php:227
+#: src/admin-views/aggregator/tabs/import-form.php:233
 msgid "Cancel"
 msgstr ""
 
@@ -4345,79 +4351,79 @@ msgstr ""
 msgid "Choose where you are importing from."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:95
+#: src/admin-views/aggregator/tabs/import-form.php:101
 msgid "Add more sources"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:98
+#: src/admin-views/aggregator/tabs/import-form.php:104
 msgid "Access more event sources and automatic imports!"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:99
+#: src/admin-views/aggregator/tabs/import-form.php:105
 msgid "Buy Event Aggregator"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:137
+#: src/admin-views/aggregator/tabs/import-form.php:143
 msgid ""
 "Choose a status for the event(s) to be imported with and/or define an Event "
 "Category to automatically assign. An assigned category will be added to the "
 "event in addition to any Event Categories from the import source."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:138
+#: src/admin-views/aggregator/tabs/import-form.php:144
 msgid ""
 "These settings will also apply to events imported in the future via this "
 "scheduled import."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:140
+#: src/admin-views/aggregator/tabs/import-form.php:146
 msgid ""
 "Select the Event Field that best matches your CSV file column. The contents "
 "of that column will then be mapped to the specified event field when the "
 "event is created."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:142
+#: src/admin-views/aggregator/tabs/import-form.php:148
 msgid ""
 "When you save this scheduled import, the events above will begin importing."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:152
+#: src/admin-views/aggregator/tabs/import-form.php:158
 msgid ""
 "This is a preview of the type of content you will be getting in during the "
 "import based on what is on the calendar now."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:155
+#: src/admin-views/aggregator/tabs/import-form.php:161
 msgid "Column Mapping:"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:161
+#: src/admin-views/aggregator/tabs/import-form.php:167
 msgid ""
 "The following preview does not necessarily contain all of the data from your "
 "CSV file. The data displayed below is meant as a guide to help you map your "
 "CSV file's columns to the appropriate Event fields."
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:171
-#: src/admin-views/aggregator/tabs/import-form.php:183
+#: src/admin-views/aggregator/tabs/import-form.php:177
+#: src/admin-views/aggregator/tabs/import-form.php:189
 msgid "Select All"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:175
-#: src/admin-views/aggregator/tabs/import-form.php:187
+#: src/admin-views/aggregator/tabs/import-form.php:181
+#: src/admin-views/aggregator/tabs/import-form.php:193
 msgid "Start Time"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:195
+#: src/admin-views/aggregator/tabs/import-form.php:201
 msgid "Status:"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:207
+#: src/admin-views/aggregator/tabs/import-form.php:213
 msgid "Category:"
 msgstr ""
 
-#: src/admin-views/aggregator/tabs/import-form.php:259
+#: src/admin-views/aggregator/tabs/import-form.php:265
 msgid ""
 "Events will be imported with the timezone defined by the source. If no "
 "timezone is specified, events will be assigned your site's default timezone "
