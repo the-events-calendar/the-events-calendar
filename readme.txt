@@ -327,7 +327,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5.12] TBD =
+= [4.5.12] 2017-09-06 =
 
 * Fix - Fixed an issue where, with certain date formats chosen in the Events display settings, the "Next Month" link navigation wasn't working (props to @tttammi and others for reporting this issue!) [86937]
 * Fix - Fixed a typo in REST API Swagger documentation that mentioned "organizer" when it should have stated "venue".
