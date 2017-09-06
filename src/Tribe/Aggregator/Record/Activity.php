@@ -279,7 +279,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 	/**
 	 * Checks the activities for a slug to make sure there are no incoherent duplicate entries due to concurring processes.
 	 *
-	 * @since TBD
+	 * @since 4.5.11
 	 *
 	 * @param string $slug
 	 */

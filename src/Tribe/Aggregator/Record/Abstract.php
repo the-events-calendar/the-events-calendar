@@ -2046,7 +2046,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Returns the user ID of the first user that can edit events or the current user ID if available.
 	 *
-	 * @since TBD
+	 * @since 4.5.11
 	 *
 	 * @return int The user ID or `0` (not logged in user) if not possible.
 	 */

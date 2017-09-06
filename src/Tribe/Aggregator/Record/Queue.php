@@ -363,7 +363,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 	/**
 	 * Acquires the global (db stored) queue lock if available.
 	 *
-	 * @since TBD
+	 * @since 4.5.11
 	 *
 	 * @return bool Whether the lock could be acquired or not if another instance/process has
 	 *              already acquired the lock.
@@ -391,7 +391,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 	/**
 	 * Release the queue lock if this instance of the queue holds it.
 	 *
-	 * @since TBD
+	 * @since 4.5.11
 	 *
 	 * @return bool
 	 */

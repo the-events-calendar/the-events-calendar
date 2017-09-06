@@ -2,14 +2,14 @@
 /**
  * Class to initialize and add the required items in
  *
- * @since  TBD
+ * @since  4.5.11
  */
 class Tribe__Events__Aggregator__Admin_Bar {
 
 	/**
 	 * Instance of this Class
 	 *
-	 * @since  TBD
+	 * @since  4.5.11
 	 *
 	 * @var Tribe__Events__Admin__Bar__Admin_Bar
 	 */
@@ -18,7 +18,7 @@ class Tribe__Events__Aggregator__Admin_Bar {
 	/**
 	 * Plugin Constants
 	 *
-	 * @since  TBD
+	 * @since  4.5.11
 	 *
 	 * @var Tribe__Events__Constants
 	 */
@@ -27,7 +27,7 @@ class Tribe__Events__Aggregator__Admin_Bar {
 	/**
 	 * Singleton constructor for the class.
 	 *
-	 * @since  TBD
+	 * @since  4.5.11
 	 *
 	 * @return Tribe__Events__Aggregator__Admin_Bar
 	 */
@@ -42,7 +42,7 @@ class Tribe__Events__Aggregator__Admin_Bar {
 	/**
 	 * Tribe__Events__Aggregator__Admin_Bar constructor.
 	 *
-	 * @since  TBD
+	 * @since  4.5.11
 	 *
 	 * @param  Tribe__Events__Constants  $constants A constants access proxy.
 	 */
@@ -53,7 +53,7 @@ class Tribe__Events__Aggregator__Admin_Bar {
 	/**
 	 * Whether the Tribe Admin Bar is enabled or not.
 	 *
-	 * @since  TBD
+	 * @since  4.5.11
 	 *
 	 * @return bool `false` if the `TRIBE_DISABLE_TOOLBAR_ITEMS` constant is `true` or the current screen is the network
 	 *              admin one, `true` otherwise.
@@ -67,7 +67,7 @@ class Tribe__Events__Aggregator__Admin_Bar {
 	/**
 	 * Adds menus, groups and nodes to the admin bar according the configuration.
 	 *
-	 * @since  TBD
+	 * @since  4.5.11
 	 *
 	 * @param WP_Admin_Bar|null $wp_admin_bar
 	 */
