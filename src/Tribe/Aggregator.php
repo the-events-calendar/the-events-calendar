@@ -518,7 +518,7 @@ class Tribe__Events__Aggregator {
 	/**
 	 * Adds the Items for Aggregator on the Admin bar
 	 *
-	 * @since   4.5.11
+	 * @since   4.5.12
 	 *
 	 * @return  void
 	 */
