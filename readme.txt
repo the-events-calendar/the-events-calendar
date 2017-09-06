@@ -329,14 +329,16 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.5.12] TBD =
 
-* Fix - Fixed an issue where, with certain date formats chosen in the Events display settings, the "Next Month" link navigation wasn't working. [86937]
+* Fix - Fixed an issue where, with certain date formats chosen in the Events display settings, the "Next Month" link navigation wasn't working (props to @tttammi and others for reporting this issue!) [86937]
 * Fix - Fixed a typo in REST API Swagger documentation that mentioned "organizer" when it should have stated "venue".
 * Fix - Fixed issues with Event Aggregator queueing system where events might be duplicated or incorrectly updated [79975]
 * Fix - Prevent notice when the Aggregator Record title is an array [82149]
-* Fix - Allows Aggregator Google Map settings to extend the Global Setting by default [67639]
-* Fix - Prevent Warnings when throwing WordPress admin notices from Aggregator daily usage limit [83187]
+* Fix - Allows Aggregator Google Map settings to extend the Global Setting by default (props to queerio for reporting this!) [67639]
+* Fix - Prevent Warnings when throwing WordPress admin notices from Aggregator daily usage limit (props to cigarplanner for reporting this!) [83187]
 * Fix - Resolved problem where Aggregator wouldn't allow you to remove filtering terms for Records [76949]
-* Fix - Allow any datepicker format to be used on Aggregator filtering Events [77819]
+* Fix - Allow any datepicker format to be used on Aggregator filtering Events (props to matthewseymour for reporting this!) [77819]
+* Fix - Added check to see if log directory is readable before listing logs within it (thank you @rodrigochallengeday-org and @richmondmom for reporting this) [86091]
+* Tweak - Datatables Head and Foot checkboxes will not select all items, only the current page [77395]
 * Tweak - Included tooltip for Aggregator "Hide & Ignore" button for events [67890]
 * Tweak - Added all the Aggregator Origins to the Admin Bar [68693]
 
