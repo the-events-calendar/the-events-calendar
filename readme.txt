@@ -342,7 +342,8 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Included tooltip for Aggregator "Hide & Ignore" button for events [67890]
 * Tweak - Added all the Aggregator Origins to the Admin Bar [68693]
 * Tweak - Added filters: `tribe_get_state_options`
-* Tweak - Added template tags: `maybe_format_from_datepicker()`, 
+* Tweak - Added template tags: `maybe_format_from_datepicker()`
+* Language - 2 new strings added, 90 updated, 0 fuzzied, and 1 obsoleted
 
 = [4.5.11] 2017-08-24 =
 
