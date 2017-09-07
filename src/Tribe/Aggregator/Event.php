@@ -189,7 +189,7 @@ class Tribe__Events__Aggregator__Event {
 
 		$key = "_{$fields[ $origin ]['target']}";
 		$post_type = Tribe__Events__Main::POSTTYPE;
-		$interval = "('" . implode( "','", array_map( 'absint', $values ) ) . "')";
+		$interval = "('" . implode( "','", array_map( 'esc_sql', $values ) ) . "')";
 
 		$sql = "
 			SELECT
