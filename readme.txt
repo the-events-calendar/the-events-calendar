@@ -330,6 +330,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.5.12.1] 2017-09-07 =
 
 * Fix - Fixed an issue where events imported via Event Aggregator from an iCal-like source would be duplicated in place of being updated [87654]
+* Fix - Fixed an issue where manually running Scheduled Imports would always result in a failed import [87321]
 
 = [4.5.12] 2017-09-06 =
 
