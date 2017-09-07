@@ -330,6 +330,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 
 			$record->update_meta( 'last_import_status', 'success:queued' );
 			$record->update_meta( 'import_id', $status->data->import_id );
+			$child->update_meta( 'import_id', $status->data->import_id );
 
 			$child->finalize();
 			$child->process_posts();
