@@ -408,7 +408,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'tribe_aggregator_default_url_import_event_settings' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Import Event Settings', 'the-events-calendar' ),
-			'tooltip' => esc_html__( "Fetch source events settings (e.g. Show Google Maps Link or Sticky in Month View) when importing from another site using The Events Calendar.", 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'Fetch source events settings (e.g. Show Google Maps Link or Sticky in Month View) when importing from another site using The Events Calendar.', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => 'no',
