@@ -295,9 +295,9 @@ class Tribe__Events__Aggregator__Settings {
 	 */
 	public function get_import_limit_type_options(  ) {
 		$options = array(
-			'range'   => __( 'By date range', 'the-events-calendar' ),
-			'count' => __( 'By number of events', 'the-events-calendar' ),
-			'no_limit'  => __( 'Do not limit (not recommended)', 'the-events-calendar' ),
+			'range'    => __( 'By date range', 'the-events-calendar' ),
+			'count'    => __( 'By number of events', 'the-events-calendar' ),
+			'no_limit' => __( 'Do not limit (not recommended)', 'the-events-calendar' ),
 		);
 
 		/**
