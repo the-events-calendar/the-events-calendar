@@ -395,7 +395,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		),
 		'tribe_aggregator_default_url_import_range' => array(
 			'type' => 'dropdown',
-			'label' => esc_html__( 'Import date range', 'the-events-calendar' ),
+			'label' => esc_html__( 'Import Date Range', 'the-events-calendar' ),
 			// @todo @luca set the correct URL for Knowledgebase here
 			'tooltip' => esc_html__( 'When importing from a website that uses The Events Calendar, the REST API will attempt to fetch events this far in the future. That website\'s hosting resources may impact the success of imports. Selecting a shorter time period may improve results.', 'the-events-calendar' ) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/other-url-import-errors-in-event-aggregator' ), esc_html( 'Learn more.' ) ),
 			'size' => 'medium',
@@ -408,7 +408,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'tribe_aggregator_default_url_import_event_settings' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Import Event Settings', 'the-events-calendar' ),
-			'tooltip' => esc_html__( "Fetch source event's settings (e.g. Show Google Maps Link or Sticky in Month View) when importing from another site using The Events Calendar.", 'the-events-calendar' ),
+			'tooltip' => esc_html__( "Fetch source events settings (e.g. Show Google Maps Link or Sticky in Month View) when importing from another site using The Events Calendar.", 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => 'no',
