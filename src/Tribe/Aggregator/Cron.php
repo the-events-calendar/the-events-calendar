@@ -172,6 +172,14 @@ class Tribe__Events__Aggregator__Cron {
 		// Fetch the last half hour as a timestamp
 		$start_timestamp = strtotime( $date );
 
+		// randomize the time by plus/minus 0-5 minutes
+		$start_timestamp += ( mt_rand( -5, 5 ) * 60 );
+
+		// if the start timestamp is older than RIGHT NOW, set it for 5 minutes from now
+		if ( time() > $start_timestamp ) {
+			$start_timestamp += 300;
+		}
+
 		// Now add an action twice hourly
 		wp_schedule_event( $start_timestamp, 'tribe-every15mins', self::$action );
 	}

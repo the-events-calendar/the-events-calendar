@@ -932,6 +932,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$last    = strtotime( $this->post->post_modified_gmt );
 		$next    = $last + $this->frequency->interval;
 
+		// let's add some randomization of -5 to 0 minutes (this makes sure we don't push a schedule beyond when it should fire off)
+		$next += ( mt_rand( -5, 0 ) * 60 );
+
 		// Only do anything if we have one of these metas
 		if ( ! empty( $this->meta['schedule_day'] ) || ! empty( $this->meta['schedule_time'] ) ) {
 			// Setup to avoid notices
