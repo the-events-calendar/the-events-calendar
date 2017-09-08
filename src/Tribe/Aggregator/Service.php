@@ -635,13 +635,13 @@ class Tribe__Events__Aggregator__Service {
 				break;
 			case 'count':
 				$limit_args['limit_type'] = 'count';
-				$default            = $settings->get_import_limit_count_default();
+				$default                  = $settings->get_import_limit_count_default();
 				$limit_args['limit']      = tribe_get_option( 'tribe_aggregator_default_import_limit_number', $default );
 				break;
 			default:
 			case 'range':
 				$limit_args['limit_type'] = 'range';
-				$default            = $settings->get_import_range_default();
+				$default                  = $settings->get_import_range_default();
 				$limit_args['limit']      = tribe_get_option( 'tribe_aggregator_default_import_limit_range', $default );
 				break;
 		}
@@ -655,7 +655,7 @@ class Tribe__Events__Aggregator__Service {
 		 * @param array                              $args       The import request arguments.
 		 * @param Tribe__Events__Aggregator__Service $service    The service instance handling the import request..
 		 */
-		$limit_args = apply_filters( 'tribe__', $limit_args, $args, $this );
+		$limit_args = apply_filters( 'tribe_aggregator_limit_args', $limit_args, $args, $this );
 
 		if ( is_array( $limit_args ) ) {
 			$args = array_merge( $args, $limit_args );
