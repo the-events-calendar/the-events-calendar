@@ -145,7 +145,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'tribe_aggregator_default_import_limit_type' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Import limit type', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'Limit the number of imported events by number, date range or not at all; on slower websites this may impact the success of imports. Selecting a shorter time period or a smaller number  of events may improve results.', 'the-events-calendar' ) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/other-url-import-errors-in-event-aggregator' ), esc_html( 'Learn more.' ) ),
+			'tooltip' => esc_html__( 'Limit the number of imported events by number, date range, or not at all; on slower websites this may impact the success of imports. Selecting a shorter time period or a smaller number of events may improve results.', 'the-events-calendar' ) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/other-url-import-errors-in-event-aggregator' ), esc_html( 'Learn more.' ) ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => 'by_range',
@@ -157,7 +157,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Import date range limit', 'the-events-calendar' ),
 			// @todo set the KB link to the correct link
-			'tooltip' => esc_html__( 'When importing from an event source import events this far into the future; on slower websites this may impact the success of imports. Selecting a shorter time period may improve results.', 'the-events-calendar' ) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/other-url-import-errors-in-event-aggregator' ), esc_html( 'Learn more.' ) ),
+			'tooltip' => esc_html__( 'When importing from an event source, this is how far into the future the events will be fetched; on slower websites a larger date range may impact the success of imports. Selecting a shorter time period may improve results.', 'the-events-calendar' ) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/other-url-import-errors-in-event-aggregator' ), esc_html( 'Learn more.' ) ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => tribe( 'events-aggregator.settings' )->get_import_range_default( true ),
@@ -172,9 +172,9 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		),
 		'tribe_aggregator_default_import_limit_number' => array(
 			'type' => 'dropdown',
-			'label' => esc_html__( 'Import numeric limit', 'the-events-calendar' ),
+			'label' => esc_html__( 'Import quantity limit', 'the-events-calendar' ),
 			// @todo set the KB link to the correct link
-			'tooltip' => esc_html__( 'When importing from an event source import this many events; on slower websites this may impact the success of imports. Setting this to a smaller number may improve results.', 'the-events-calendar' ) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/other-url-import-errors-in-event-aggregator' ), esc_html( 'Learn more.' ) ),
+			'tooltip' => esc_html__( 'When importing from an event source, this is the maximum number of events that will be imported; on slower websites this may impact the success of imports. Setting this to a smaller number may improve results.', 'the-events-calendar' ) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/other-url-import-errors-in-event-aggregator' ), esc_html( 'Learn more.' ) ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => tribe( 'events-aggregator.settings' )->get_import_limit_count_default(),
