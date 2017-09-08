@@ -329,7 +329,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.5.12.2] 2017-09-08 =
 
-
+* Fix - Fixed an issue where manually running Scheduled Imports would always result in a failed import [87321]
 
 = [4.5.12.1] 2017-09-07 =
 
