@@ -330,6 +330,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.5.13] TBD =
 
 * Fix - Fixed a typo in the Event List widget options [71081]
+* Fix - Addressed some PHP notices that would sometimes emerge in tag-filtered Post lists in the wp-admin. Thanks to @wfsec28 and others in the forums for reporting this! [45274]
 * Tweak - Aggregator will now allow for some minor shifts in schedule execution time to help distribute requests to EA Service [86628]
 * Tweak - Improve Event Aggregator settings texts [77452]
 
