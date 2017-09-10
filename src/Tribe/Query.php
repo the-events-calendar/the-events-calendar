@@ -79,7 +79,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				&& ! $helper->is_post_type_screen( 'post' )
 			) {
 				$types = $query->get( 'post_type' );
-				
+
 				if ( empty( $types ) ) {
 					$types = array( 'post' );
 				}
