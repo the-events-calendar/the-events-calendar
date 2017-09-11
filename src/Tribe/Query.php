@@ -64,8 +64,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * Set any query flags
 		 *
 		 * @param WP_Query $query
-		 **/
+		 */
 		public static function parse_query( $query ) {
+			$helper = Tribe__Admin__Helpers::instance();
 
 			// set paged
 			if ( $query->is_main_query() && isset( $_GET['tribe_paged'] ) ) {
@@ -73,11 +74,16 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			// Add tribe events post type to tag queries only in tag archives
-			if ( $query->is_tag && (array) $query->get( 'post_type' ) != array( Tribe__Events__Main::POSTTYPE ) ) {
+			if ( $query->is_tag
+				&& (array) $query->get( 'post_type' ) != array( Tribe__Events__Main::POSTTYPE )
+				&& ! $helper->is_post_type_screen( 'post' )
+			) {
 				$types = $query->get( 'post_type' );
+
 				if ( empty( $types ) ) {
 					$types = array( 'post' );
 				}
+
 				if ( is_array( $types ) && $query->is_main_query() ) {
 					$types[] = Tribe__Events__Main::POSTTYPE;
 				} elseif ( $query->is_main_query() ) {
@@ -89,6 +95,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						}
 					}
 				}
+
 				$query->set( 'post_type', $types );
 			}
 
