@@ -332,7 +332,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Fixed a typo in the Event List widget options [71081]
 * Tweak - Aggregator will now allow for some minor shifts in schedule execution time to help distribute requests to EA Service [86628]
 * Tweak - Improve Event Aggregator settings texts [77452]
-* Tweak - Add actions before and after posts are inserted or updated by Event Aggregator to allow custom functions to kick in [87530]
+* Tweak - Add actions before and after posts are inserted or updated by Event Aggregator to allow custom functions to kick in: `tribe_aggregator_before_insert_posts` and `tribe_aggregator_after_insert_posts`, respectively. [87530]
 
 = [4.5.12.1] 2017-09-07 =
 
