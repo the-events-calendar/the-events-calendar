@@ -1204,7 +1204,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 * @param array $items An array of items to insert.
 		 * @param array $meta  The record meta information.
 		 */
-		do_action( 'tribe_aggregator_pre_insert_posts', $items, $this->meta );
+		do_action( 'tribe_aggregator_before_insert_posts', $items, $this->meta );
 
 		// sets the default user ID to that of the first user that can edit events
 		$default_user_id = $this->get_default_user_id();
