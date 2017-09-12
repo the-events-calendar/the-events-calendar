@@ -625,7 +625,13 @@ class Tribe__Events__Aggregator__Service {
 			return $args;
 		}
 
-		$limit_type = tribe_get_option( 'tribe_aggregator_default_import_limit_type', false );
+		$is_other_url = isset( $args['origin'] ) && $args['origin'] === 'url';
+		if ( $is_other_url ) {
+			$limit_type = 'range';
+		} else {
+			$limit_type = tribe_get_option( 'tribe_aggregator_default_import_limit_type', false );
+		}
+
 		/** @var \Tribe__Events__Aggregator__Settings $settings */
 		$settings = tribe( 'events-aggregator.settings' );
 
@@ -642,7 +648,9 @@ class Tribe__Events__Aggregator__Service {
 			case 'range':
 				$limit_args['limit_type'] = 'range';
 				$default                  = $settings->get_import_range_default();
-				$limit_args['limit']      = tribe_get_option( 'tribe_aggregator_default_import_limit_range', $default );
+				$limit_args['limit']      = $is_other_url
+					? tribe_get_option( 'tribe_aggregator_default_url_import_range', $default )
+					: tribe_get_option( 'tribe_aggregator_default_import_limit_range', $default );
 				break;
 		}
 

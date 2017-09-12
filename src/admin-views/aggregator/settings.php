@@ -148,7 +148,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'tooltip' => esc_html__( 'Limit the number of imported events by number, date range, or not at all; on slower websites this may impact the success of imports. Selecting a shorter time period or a smaller number of events may improve results.', 'the-events-calendar' ) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/other-url-import-errors-in-event-aggregator' ), esc_html( 'Learn more.' ) ),
 			'size' => 'medium',
 			'validation_type' => 'options',
-			'default' => 'by_range',
+			'default' => 'range',
 			'can_be_empty' => false,
 			'parent_option' => Tribe__Events__Main::OPTIONNAME,
 			'options' => tribe( 'events-aggregator.settings' )->get_import_limit_type_options(),
