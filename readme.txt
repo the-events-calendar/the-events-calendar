@@ -330,6 +330,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.5.13] TBD =
 
 * Fix - Fixed a typo in the Event List widget options [71081]
+* Tweak - Aggregator prevents duplicated Records with the same params to be created [68833]
 * Tweak - Aggregator will now allow for some minor shifts in schedule execution time to help distribute requests to EA Service [86628]
 * Tweak - Improve Event Aggregator settings texts [77452]
 
