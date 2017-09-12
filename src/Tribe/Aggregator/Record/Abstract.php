@@ -249,6 +249,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$this->update_meta( 'activity', $this->activity() );
 	}
 
+	/**
+	 * Gets a hash with the information we need to verify if a given record is a duplicate
+	 *
+	 * @since  TBD
+	 *
+	 * @return string
+	 */
 	public function get_data_hash() {
 		$meta = array(
 			'file',
