@@ -1,7 +1,3 @@
-[submodule "vendor/jquery-resize"]
-	path = vendor/jquery-resize
-	url = git://github.com/cowboy/jquery-resize.git
-
 [submodule "vendor/jquery-placeholder"]
 	path = vendor/jquery-placeholder
 	url = https://github.com/mathiasbynens/jquery-placeholder.git
