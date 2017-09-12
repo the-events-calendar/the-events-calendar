@@ -16,6 +16,14 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		public static $legacy_origin = 'ical-importer';
 
 		/**
+		 * Where we save the previous Status when ignoring an Event
+		 *
+		 * @since TBD
+		 * @var string
+		 */
+		public static $key_previous_status = '_tribe_ignored_event_previous_status';
+
+		/**
 		 * Static Singleton Factory Method
 		 *
 		 * @return self
@@ -617,6 +625,8 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return false;
 			}
 
+			$previous_status = ;
+
 			// Update only what we need
 			$arguments = array(
 				'ID' => $event->ID,
@@ -630,7 +640,14 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			}
 
 			// Try to update back to the Event CPT
-			return wp_update_post( $arguments );
+			$updated = wp_update_post( $arguments );
+
+			// Saves on a meta the previous Status
+			if ( $updated ) {
+				update_post_meta( $event->ID, self::$key_previous_status, $event->post_status );
+			}
+
+			return $updated;
 		}
 
 		/**
@@ -690,14 +707,33 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return null;
 			}
 
+			$restore_status = get_post_meta( $event->ID, self::$key_previous_status, true );
+
+			if ( ! empty( $restore_status ) ) {
+				/**
+				 * Which is the default Post status to Restore Ignored Events
+				 *
+				 * @param  string   $post_status
+				 * @param  WP_Post  $event
+				 */
+				$restore_status = apply_filters( 'tribe_events_ignored_events_default_restore_status', 'publish', $event );
+			}
+
 			// Update only what we need
 			$arguments = array(
 				'ID' => $event->ID,
-				'post_status' => 'publish',
+				'post_status' => $restore_status,
 			);
 
 			// Try to update back to the Event CPT
-			return wp_update_post( $arguments );
+			$updated = wp_update_post( $arguments );
+
+			// Delete the Previous status stored
+			if ( $updated ) {
+				delete_post_meta( $event->ID, self::$key_previous_status );
+			}
+
+			return $updated;
 		}
 
 		/**
