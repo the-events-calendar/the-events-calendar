@@ -195,12 +195,12 @@
         /**
          * The Events Calendar Patch
          *
-         * @since TBD
+         * @since 4.5.13
          * @see https://github.com/cowboy/jquery-resize/issues/1
          * @see https://central.tri.be/issues/71994
          */
-        if (!data) {
-          data = $.data( this, str_data, {})
+        if ( ! data ) {
+          data = $.data( this, str_data, {} );
         }
         
         // If called from the polling loop, w and h will be passed in as
