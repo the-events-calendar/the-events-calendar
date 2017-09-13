@@ -56,9 +56,25 @@ if ( $posts ) : ?>
 					 * @param $size
 					 */
 					$thumbnail_size = apply_filters( 'tribe_events_list_widget_thumbnail_size', 'post-thumbnail' );
+
+					/**
+					 * Filters whether the featured image link should be added to the Events List Widget
+					 *
+					 * @since TBD
+					 * @param bool Whether the featured image link should be added or not
+					 */
+					$featured_image_link = apply_filters( 'tribe_events_list_widget_featured_image_link', true );
 					?>
 					<div class="tribe-event-image">
-						<?php the_post_thumbnail( $thumbnail_size ); ?>
+						<?php if ( $featured_image_link ) : ?> 
+							<a href="<?php echo esc_url( tribe_get_event_link() ); ?>">
+						<?php endif; ?>
+							
+								<?php the_post_thumbnail( $thumbnail_size ); ?>
+
+						<?php if ( $featured_image_link ) : ?> 
+							</a>
+						<?php endif; ?>
 					</div>
 					<?php
 
