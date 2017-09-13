@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 4.5.12\n"
+"Project-Id-Version: The Events Calendar 4.5.12.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2017-09-06 14:35:39+00:00\n"
+"POT-Creation-Date: 2017-09-08 17:38:35+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-09-06 14:35\n"
+"PO-Revision-Date: 2017-09-08 17:38\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -1271,19 +1271,19 @@ msgstr ""
 msgid "Successfully %s %d scheduled import"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:356
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:357
 msgid ""
 "All scheduled imports are currently suspended, and no events will be "
 "imported."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:361
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:362
 msgid ""
 "To continue using scheduled imports, please enter a valid Event Aggregator "
 "license key under %1$sEvents > Settings > Licenses%2$s."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:367
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:368
 msgid "Enter Event Aggregator License"
 msgstr ""
 
@@ -2210,7 +2210,7 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.5.12)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.5.12.2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: src/Tribe/Main.php:719 src/Tribe/Main.php:1054
 msgid "The Events Calendar"

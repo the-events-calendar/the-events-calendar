@@ -329,10 +329,20 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.5.13] TBD =
 
+* Feature - Remove 'France, Metropolitan' option from country list to prevent issues with Google Maps API (thanks @varesanodotfr for pointing this out) [78023]
+* Feature - Ignored Events will restore previous Status instead of setting to Publish [82213]
+* Fix - Patched jQuery Resize vendor library to avoid JavaScript conflicts (props to @britner for the original report) [71994]
 * Fix - Fixed a typo in the Event List widget options [71081]
-* Tweak - Aggregator prevents duplicated Records with the same params to be created [68833]
+* Fix - Addressed some PHP notices that would sometimes emerge in tag-filtered Post lists in the wp-admin. Thanks to @wfsec28 and others in the forums for reporting this! [45274]
+* Fix — When "Full Styles" or "Tribe Events Styles" are used, prevent duplicate featured images from showing up in the Twentyseventeen theme. Props to @want2what and others in the forums for reporting this. [80955]
+* Tweak - Aggregator prevents duplicated Records with the same params from being created [68833]
 * Tweak - Aggregator will now allow for some minor shifts in schedule execution time to help distribute requests to EA Service [86628]
 * Tweak - Improve Event Aggregator settings texts [77452]
+* Tweak - Add actions before and after posts are inserted or updated by Event Aggregator to allow custom functions to kick in: `tribe_aggregator_before_insert_posts` and `tribe_aggregator_after_insert_posts`, respectively. [87530]
+
+= [4.5.12.2] 2017-09-08 =
+
+* Fix - Fixed an issue where manually running Scheduled Imports would always result in a failed import [87321]
 
 = [4.5.12.1] 2017-09-07 =
 

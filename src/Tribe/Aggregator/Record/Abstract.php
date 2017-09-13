@@ -698,8 +698,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$args['end'] = Tribe__Date_Utils::maybe_format_from_datepicker( $args['end'] );
 		}
 
-
-
 		// create the import on the Event Aggregator service
 		$response = $aggregator->api( 'import' )->create( $args );
 
@@ -1247,6 +1245,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function insert_posts( $items = array() ) {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
+
+		/**
+		 * Fires before events and linked posts are inserted in the database.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $items An array of items to insert.
+		 * @param array $meta  The record meta information.
+		 */
+		do_action( 'tribe_aggregator_before_insert_posts', $items, $this->meta );
 
 		// sets the default user ID to that of the first user that can edit events
 		$default_user_id = $this->get_default_user_id();
@@ -1838,6 +1846,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
+
+		/**
+		 * Fires after events and linked posts have been inserted in the database.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                                       $items    An array of items to insert.
+		 * @param array                                       $meta     The record meta information.
+		 * @param Tribe__Events__Aggregator__Record__Activity $activity The record insertion activity report.
+		 */
+		do_action( 'tribe_aggregator_after_insert_posts', $items, $this->meta, $activity );
 
 		return $activity;
 	}

@@ -106,7 +106,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 		if ( ! empty( $post_data['action'] ) && 'new' === $post_data['action'] ) {
 			$hash = array_filter( $meta );
 
-			// remove non-needed data for the Hash of the Record
+			// remove non-needed data from the Hash of the Record
 			unset( $hash['schedule_day'], $hash['schedule_time'] );
 			ksort( $hash );
 			$hash = maybe_serialize( $hash );
