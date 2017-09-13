@@ -331,6 +331,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 * Feature - Remove 'France, Metropolitan' option from country list to prevent issues with Google Maps API (thanks @varesanodotfr for pointing this out) [78023]
 * Feature - Ignored Events will restore previous Status instead of setting to Publish [82213]
+* Fix - Patched jQuery Resize vendor library to avoid JavaScript conflicts (props to @britner for the original report) [71994]
 * Fix - Fixed a typo in the Event List widget options [71081]
 * Fix - Addressed some PHP notices that would sometimes emerge in tag-filtered Post lists in the wp-admin. Thanks to @wfsec28 and others in the forums for reporting this! [45274]
 * Fix — When "Full Styles" or "Tribe Events Styles" are used, prevent duplicate featured images from showing up in the Twentyseventeen theme. Props to @want2what and others in the forums for reporting this. [80955]
