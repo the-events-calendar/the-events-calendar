@@ -934,6 +934,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$last    = strtotime( $this->post->post_modified_gmt );
 		$next    = $last + $this->frequency->interval;
 
+		// let's add some randomization of -5 to 0 minutes (this makes sure we don't push a schedule beyond when it should fire off)
+		$next += ( mt_rand( -5, 0 ) * 60 );
+
 		// Only do anything if we have one of these metas
 		if ( ! empty( $this->meta['schedule_day'] ) || ! empty( $this->meta['schedule_time'] ) ) {
 			// Setup to avoid notices
@@ -1194,6 +1197,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function insert_posts( $items = array() ) {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
+
+		/**
+		 * Fires before events and linked posts are inserted in the database.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $items An array of items to insert.
+		 * @param array $meta  The record meta information.
+		 */
+		do_action( 'tribe_aggregator_before_insert_posts', $items, $this->meta );
 
 		// sets the default user ID to that of the first user that can edit events
 		$default_user_id = $this->get_default_user_id();
@@ -1785,6 +1798,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
+
+		/**
+		 * Fires after events and linked posts have been inserted in the database.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                                       $items    An array of items to insert.
+		 * @param array                                       $meta     The record meta information.
+		 * @param Tribe__Events__Aggregator__Record__Activity $activity The record insertion activity report.
+		 */
+		do_action( 'tribe_aggregator_after_insert_posts', $items, $this->meta, $activity );
 
 		return $activity;
 	}

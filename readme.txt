@@ -4,7 +4,7 @@ Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.5.12.1
+Stable tag: 4.5.13
 Tested up to: 4.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -326,6 +326,20 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [4.5.13] TBD =
+
+* Feature - Remove 'France, Metropolitan' option from country list to prevent issues with Google Maps API (thanks @varesanodotfr for pointing this out) [78023]
+* Fix - Fixed a typo in the Event List widget options [71081]
+* Fix - Addressed some PHP notices that would sometimes emerge in tag-filtered Post lists in the wp-admin. Thanks to @wfsec28 and others in the forums for reporting this! [45274]
+* Fix — When "Full Styles" or "Tribe Events Styles" are used, prevent duplicate featured images from showing up in the Twentyseventeen theme. Props to @want2what and others in the forums for reporting this. [80955]
+* Tweak - Aggregator will now allow for some minor shifts in schedule execution time to help distribute requests to EA Service [86628]
+* Tweak - Improve Event Aggregator settings texts [77452]
+* Tweak - Add actions before and after posts are inserted or updated by Event Aggregator to allow custom functions to kick in: `tribe_aggregator_before_insert_posts` and `tribe_aggregator_after_insert_posts`, respectively. [87530]
+
+= [4.5.12.2] 2017-09-08 =
+
+* Fix - Fixed an issue where manually running Scheduled Imports would always result in a failed import [87321]
 
 = [4.5.12.1] 2017-09-07 =
 
