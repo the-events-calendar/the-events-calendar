@@ -68,7 +68,7 @@ if ( $posts ) : ?>
 					$post_thumbnail      = get_the_post_thumbnail( null, $thumbnail_size );
 
 					if ( $featured_image_link ) {
-					  $post_thumbnail = '<a href="' . esc_url( tribe_get_event_link() ) . '">' . $post_thumbnail . '</a>';
+						$post_thumbnail = '<a href="' . esc_url( tribe_get_event_link() ) . '">' . $post_thumbnail . '</a>';
 					}
 					?>
 					<div class="tribe-event-image">
