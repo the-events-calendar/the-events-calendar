@@ -7,7 +7,6 @@ use Tribe__Events__Aggregator__API__Origins as Origins;
 use Tribe__Events__Aggregator__Service as Service;
 
 class OriginsTest extends Aggregator_TestCase {
-
 	/**
 	 * @var Service
 	 */
@@ -47,6 +46,7 @@ class OriginsTest extends Aggregator_TestCase {
 		$mock_origins = $this->factory()->ea_service->create_origins();
 		$this->service->get_origins()->willReturn( $mock_origins );
 		$this->service->api()->willReturn( true );
+		$this->service->get_origins()->willReturn( $this->factory()->ea_service->create_origins() );
 
 		$sut = $this->make_instance();
 

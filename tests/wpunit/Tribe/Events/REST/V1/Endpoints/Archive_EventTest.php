@@ -4,12 +4,12 @@ namespace Tribe\Events\REST\V1\Endpoints;
 
 use Prophecy\Prophecy\ObjectProphecy;
 use Tribe\Events\Tests\Factories\Event;
+use Tribe\Events\Tests\Factories\Organizer;
+use Tribe\Events\Tests\Factories\Venue;
 use Tribe__Events__Main as Main;
 use Tribe__Events__REST__V1__Endpoints__Archive_Event as Archive;
 
 class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
-
-
 	/**
 	 * @var \Tribe__REST__Messages_Interface
 	 */
@@ -20,14 +20,23 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 */
 	protected $repository;
 
+	/**
+	 * @var \Tribe__Events__Validator__Interface
+	 */
+	protected $validator;
+
 	public function setUp() {
 		// before
 		parent::setUp();
 
 		// your set up methods here
 		$this->factory()->event = new Event();
+		$this->factory()->venue = new Venue();
+		$this->factory()->organizer = new Organizer();
 		$this->messages = new \Tribe__Events__REST__V1__Messages();
 		$this->repository = new \Tribe__Events__REST__V1__Post_Repository( new \Tribe__Events__REST__V1__Messages() );
+		$this->validator = new \Tribe__Events__Validator__Base;
+
 		// to avoid date filters from being canned
 		\Tribe__Main::instance()->doing_ajax( true );
 	}
@@ -40,6 +49,17 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$sut = $this->make_instance();
 
 		$this->assertInstanceOf( Archive::class, $sut );
+	}
+
+	/**
+	 * @return Archive
+	 */
+	private function make_instance() {
+		$messages = $this->messages instanceof ObjectProphecy ? $this->messages->reveal() : $this->messages;
+		$repository = $this->repository instanceof ObjectProphecy ? $this->repository->reveal() : $this->repository;
+		$validator = $this->validator instanceof ObjectProphecy ? $this->validator->reveal() : $this->validator;
+
+		return new Archive( $messages, $repository, $validator );
 	}
 
 	/**
@@ -61,7 +81,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 */
 	public function it_should_return_a_number_of_events_equal_to_the_posts_per_page_option() {
 		$request = new \WP_REST_Request( 'GET', '' );
-		update_option( 'posts_per_page', 3 );
+		tribe_update_option( 'posts_per_page', 3 );
 		$this->factory()->event->create_many( 5 );
 
 		$sut = $this->make_instance();
@@ -86,72 +106,6 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertCount( 5, $response->get_data()['events'] );
-	}
-
-	/**
-	 * @test
-	 * it should cap the per_page value at 50
-	 */
-	public function it_should_cap_the_per_page_value_at_50() {
-		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'per_page', 100 );
-		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 51 );
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertInstanceOf( \WP_REST_Response::class, $response );
-		$this->assertCount( 50, $response->get_data()['events'] );
-	}
-
-	/**
-	 * @test
-	 * it should allow filtering the per_page cap
-	 */
-	public function it_should_allow_filtering_the_per_page_cap() {
-		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'per_page', 100 );
-		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 21 );
-		add_filter( 'tribe_rest_event_max_per_page', function () {
-			return 20;
-		} );
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertInstanceOf( \WP_REST_Response::class, $response );
-		$this->assertCount( 20, $response->get_data()['events'] );
-	}
-
-	public function not_positive_integers_above_one() {
-		return [
-			[ 'foo' ],
-			[ 'Happy as Larry' ],
-			[ '' ],
-			[ '0' ],
-			[ 0 ],
-			[ '-1' ],
-			[ - 1 ],
-			[ new \stdClass() ],
-			[ array( 'foo' => 'bar' ) ],
-		];
-	}
-
-	/**
-	 * @test
-	 * it should return a WP_Error  if per_page is not a positive integer above 1
-	 * @dataProvider not_positive_integers_above_one
-	 */
-	public function it_should_return_a_wp_error_if_per_page_is_not_a_positive_integer_above_1( $bad ) {
-		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'per_page', $bad );
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertWPError( $response );
 	}
 
 	/**
@@ -209,44 +163,12 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 	/**
 	 * @test
-	 * it should return a WP_Error when sending bad start_date parameter
-	 */
-	public function it_should_return_a_wp_error_when_sending_bad_start_date_parameter() {
-		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'start_date', 'Happy as Larry' );
-		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertWPError( $response );
-	}
-
-	/**
-	 * @test
-	 * it should return a WP_Error when sending a bad end_date parameter
-	 */
-	public function it_should_return_a_wp_error_when_sending_a_bad_end_date_parameter() {
-		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'end_date', 'Happy as Larry' );
-		update_option( 'posts_per_page', 10 );
-		$this->factory()->event->create_many( 10, [ 'time_space' => '+12 days' ] );
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertWPError( $response );
-	}
-
-	/**
-	 * @test
 	 * it should allow specifying the page to get
 	 */
 	public function it_should_allow_specifying_the_page_to_get() {
 		$request = new \WP_REST_Request( 'GET', '' );
 		$request->set_param( 'page', 2 );
-		update_option( 'posts_per_page', 3 );
+		$request->set_param( 'per_page', 3 );
 		$this->factory()->event->create_many( 9 );
 
 		$sut = $this->make_instance();
@@ -268,21 +190,6 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request->set_param( 'page', 2 );
 		update_option( 'posts_per_page', 3 );
 		$this->factory()->event->create_many( 2 );
-
-		$sut = $this->make_instance();
-		$response = $sut->get( $request );
-
-		$this->assertWPError( $response );
-	}
-
-	/**
-	 * @test
-	 * it should return WP_Error if page is not a positive integer above 1
-	 * @dataProvider not_positive_integers_above_one
-	 */
-	public function it_should_return_wp_error_if_page_is_not_a_positive_integer_above_1( $bad ) {
-		$request = new \WP_REST_Request( 'GET', '' );
-		$request->set_param( 'page', $bad );
 
 		$sut = $this->make_instance();
 		$response = $sut->get( $request );
@@ -332,16 +239,6 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$response = $sut->get( $request );
 
 		$this->assertWPError( $response );
-	}
-
-	/**
-	 * @return Archive
-	 */
-	private function make_instance() {
-		$messages = $this->messages instanceof ObjectProphecy ? $this->messages->reveal() : $this->messages;
-		$repository = $this->repository instanceof ObjectProphecy ? $this->repository->reveal() : $this->repository;
-
-		return new Archive( $messages, $repository );
 	}
 
 	public function events_and_per_page_settings() {
@@ -614,5 +511,173 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->assertCount( 3, $data['events'] );
 		$this->assertEquals( 5, $data['total'] );
 		$this->assertEquals( 2, $data['total_pages'] );
+	}
+
+	/**
+	 * It should allow filtering events by featured status
+	 *
+	 * @test
+	 */
+	public function it_should_allow_filtering_events_by_featured_status() {
+		$not_featured = $this->factory()->event->create_many( 5 );
+		$featured = $this->factory()->event->create_many( 5, [ 'meta_input' => [ \Tribe__Events__Featured_Events::FEATURED_EVENT_KEY => 'true' ] ] );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'featured', true );
+		$request->set_param( 'per_page', 20 );
+
+		$sut = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$data = $response->get_data();
+		$this->assertCount( 5, $data['events'] );
+		$this->assertEqualSets( $featured, wp_list_pluck( $data['events'], 'id' ) );
+
+		$request->set_param( 'featured', false );
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$data = $response->get_data();
+		$this->assertCount( 5, $data['events'] );
+		$this->assertEqualSets( $not_featured, wp_list_pluck( $data['events'], 'id' ) );
+	}
+
+	/**
+	 * It should allow filtering events by venue ID
+	 *
+	 * @test
+	 */
+	public function it_should_allow_filtering_events_by_venue_id() {
+		$venue_id = $this->factory()->venue->create();
+		$with_venue = $this->factory()->event->create_many( 3, [ 'meta_input' => [ '_EventVenueID' => $venue_id ] ] );
+		$this->factory()->event->create_many( 3 );
+
+		$sut = $this->make_instance();
+
+		$request = new \WP_REST_Request();
+		$request->set_param( 'venue', $venue_id );
+		$request->set_param( 'per_page', 10 );
+
+		/** @var \WP_REST_Response $response */
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$data = $response->get_data();
+		$this->assertCount( 3, $data['events'] );
+		$this->assertEqualSets( $with_venue, wp_list_pluck( $data['events'], 'id' ) );
+	}
+
+	/**
+	 * It should allow filtering events by organizer ID
+	 *
+	 * @test
+	 */
+	public function it_should_allow_filtering_events_by_organizer_id() {
+		$organizer_id = $this->factory()->organizer->create();
+		$with_organizer = $this->factory()->event->create_many( 3, [ 'meta_input' => [ '_EventOrganizerID' => $organizer_id ] ] );
+		$this->factory()->event->create_many( 3 );
+
+		$sut = $this->make_instance();
+
+		$request = new \WP_REST_Request();
+		$request->set_param( 'organizer', $organizer_id );
+		$request->set_param( 'per_page', 10 );
+
+		/** @var \WP_REST_Response $response */
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$data = $response->get_data();
+		$this->assertCount( 3, $data['events'] );
+		$this->assertEqualSets( $with_organizer, wp_list_pluck( $data['events'], 'id' ) );
+	}
+
+	/**
+	 * It should allow filtering events by multiple organizer ID
+	 *
+	 * with a logic OR behaviour (WP REST like)
+	 *
+	 * @test
+	 */
+	public function it_should_allow_filtering_events_by_multiple_organizer_id() {
+		$organizer_id_1 = $this->factory()->organizer->create();
+		$organizer_id_2 = $this->factory()->organizer->create();
+
+		$with_organizer_1 = $this->factory()->event->create_many( 3, [ 'meta_input' => [ '_EventOrganizerID' => $organizer_id_1 ] ] );
+		$with_organizer_2 = $this->factory()->event->create_many( 3, [ 'meta_input' => [ '_EventOrganizerID' => $organizer_id_2 ] ] );
+		$with_organizer_1_and_2 = $this->factory()->event->create_many( 3 );
+		foreach ( $with_organizer_1_and_2 as $id ) {
+			add_post_meta( $id, '_EventOrganizerID', $organizer_id_1 );
+			add_post_meta( $id, '_EventOrganizerID', $organizer_id_2 );
+		}
+		$this->factory()->event->create_many( 3 );
+
+		$sut = $this->make_instance();
+
+		$request = new \WP_REST_Request();
+		$request->set_param( 'organizer', $organizer_id_1 );
+		$request->set_param( 'per_page', 10 );
+
+		/** @var \WP_REST_Response $response */
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$data = $response->get_data();
+		$this->assertCount( 6, $data['events'] );
+		$this->assertEqualSets( array_merge( $with_organizer_1, $with_organizer_1_and_2 ), wp_list_pluck( $data['events'], 'id' ) );
+
+		$request->set_param( 'organizer', $organizer_id_2 );
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$data = $response->get_data();
+		$this->assertCount( 6, $data['events'] );
+		$this->assertEqualSets( array_merge( $with_organizer_2, $with_organizer_1_and_2 ), wp_list_pluck( $data['events'], 'id' ) );
+
+		// we expect a logic OR behaviour
+		$request->set_param( 'organizer', implode( ',', [ $organizer_id_1, $organizer_id_2 ] ) );
+		$response = $sut->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$data = $response->get_data();
+		$this->assertCount( 9, $data['events'] );
+		$this->assertEqualSets( array_merge( $with_organizer_1, $with_organizer_2, $with_organizer_1_and_2 ), wp_list_pluck( $data['events'], 'id' ) );
+	}
+
+	public function sanitize_per_page_inputs() {
+		return [
+			[ 23, 23 ],
+			[ '23', 23 ],
+			[ 0, false ],
+			[ '0', false ],
+		];
+	}
+
+	/**
+	 * Test sanitize_per_page
+	 *
+	 * @test
+	 * @dataProvider sanitize_per_page_inputs
+	 */
+	public function test_sanitize_per_page( $input, $expected ) {
+		$sut = $this->make_instance();
+
+		$this->assertEquals( $expected, $sut->sanitize_per_page( $input ) );
+	}
+
+	/**
+	 * It should allow filtering the max number of posts per page
+	 *
+	 * @test
+	 */
+	public function it_should_allow_filtering_the_max_number_of_posts_per_page() {
+		add_filter( 'tribe_rest_event_max_per_page', function () {
+			return 7;
+		} );
+
+		$sut = $this->make_instance();
+
+		$this->assertEquals( 7, $sut->get_max_posts_per_page() );
 	}
 }

@@ -54,8 +54,10 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 			unset( $args['venue'] );
 		}
 
-		if ( isset( $args['organizers'] ) ) {
-			$args['meta_input']['_EventOrganizerID'] = $args['organizers'];
+		if ( isset( $args['organizers']) || isset($args['organizer']) ) {
+			$organizers = isset($args['organizers'])
+				? (array)$args['organizers']
+				: (array)$args['organizer'];
 			unset( $args['organizers'] );
 		}
 
@@ -73,7 +75,15 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 
 		$args = array_merge( $defaults, $args );
 
-		return parent::create_object( $args );
+		$id = parent::create_object( $args );
+
+		if ( ! empty( $organizers ) ) {
+			foreach ( $organizers as $organizer ) {
+				add_post_meta( $id, '_EventOrganizerID', $organizer );
+			}
+		}
+
+		return $id;
 	}
 
 	/**

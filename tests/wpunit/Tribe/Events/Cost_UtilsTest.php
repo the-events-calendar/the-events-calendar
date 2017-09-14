@@ -231,6 +231,9 @@ class Cost_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, $out );
 	}
 
+	/**
+	 * @return \Tribe__Events__Cost_Utils
+	 */
 	private function make_instance() {
 		return new \Tribe__Events__Cost_Utils();
 	}

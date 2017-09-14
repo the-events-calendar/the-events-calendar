@@ -44,7 +44,7 @@ tribe_aggregator.fields = {
 	result_fetch_count: 0,
 
 	// the maximum number of result fetches that can be done per frequency before erroring out
-	max_result_fetch_count: 5,
+	max_result_fetch_count: 15,
 
 	// frequency at which we will poll for results
 	polling_frequency_index: 0,
@@ -374,9 +374,15 @@ tribe_aggregator.fields = {
 
         if ( 'manual' === import_type && !data.items.length ) {
 			var origin = data.origin;
-			var message = 'undefined' !== ea.l10n[ origin ].no_results ?
+			var origin_specific_no_results_msg = (
+				'undefined' !== typeof ea.l10n[ origin ]
+				&& 'undefined' !== typeof ea.l10n[ origin ].no_results
+			);
+
+			var message = origin_specific_no_results_msg ?
 				ea.l10n[ origin ].no_results
 				: ea.l10n.no_results;
+
 			obj.display_fetch_error(message);
 			return;
 		}
@@ -711,10 +717,12 @@ tribe_aggregator.fields = {
 			}
 
 			args.upsellFormatter = function( option ) {
-				if ( 'redirect' == option.id ) {
-					var parts = option.text.split( '|' );
-					option.text = parts[0] + '<br><span class="tribe-upsell-subtitle">' + parts[1] + '</span>';
+				var $option = $( option.element );
+
+				if ( 'string' === typeof $option.data( 'subtitle' ) ) {
+					option.text = option.text + '<br><span class="tribe-dropdown-subtitle">' + $option.data( 'subtitle' ) + '</span>';
 				}
+
 				return option.text;
 			}
 

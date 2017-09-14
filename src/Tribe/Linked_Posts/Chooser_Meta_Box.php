@@ -224,11 +224,21 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 			return;
 		}
 
+		$classes = array(
+			'tribe-add-post',
+		);
+		if ( is_admin() ) {
+			$classes[] = 'button';
+		} else {
+			$classes[] = 'tribe-button';
+			$classes[] = 'tribe-button-secondary';
+		}
+
 		?>
 		<tfoot>
 			<tr>
 				<td></td>
-				<td><a class="tribe-add-post tribe-button tribe-button-secondary" href="#"><?php echo esc_html( sprintf( __( 'Add another %s', 'the-events-calendar' ), $this->singular_name_lowercase ) ); ?></a></td>
+				<td><a class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" href="#"><?php echo esc_html( sprintf( __( 'Add another %s', 'the-events-calendar' ), $this->singular_name_lowercase ) ); ?></a></td>
 			</tr>
 		</tfoot>
 		<?php

@@ -1,5 +1,6 @@
 <?php
-$has_license_key = Tribe__Events__Aggregator::is_service_active();
+$has_license_key = tribe( 'events-aggregator.main' )->is_service_active();
+$hide_upsell = false || defined( 'TRIBE_HIDE_UPSELL' );
 
 if ( 'edit' === $aggregator_action ) {
 	$default_post_status = get_post_meta( $record->post->ID, Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'post_status', true );
@@ -38,6 +39,23 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 		$field->placeholder = esc_attr__( 'Select Origin', 'the-events-calendar' );
 		$field->help = esc_attr__( 'Choose where you are importing from.', 'the-events-calendar' );
 		$field->options = tribe( 'events-aggregator.main' )->api( 'origins' )->get();
+		$field->upsell_options = array();
+
+		foreach ( $field->options as $key => $option ) {
+			$option->disabled = isset( $option->disabled ) ? $option->disabled : null;
+			$option->upsell = isset( $option->upsell ) ? $option->upsell : false;
+
+			$option->is_selected = false;
+			if ( ! empty( $_GET['ea-auth'] ) && $_GET['ea-auth'] === $option->id ) {
+				$option->is_selected = true;
+			}
+
+			// If this is an upsell option we move it to that optgroup
+			if ( $option->disabled && $option->upsell && ! $has_license_key ) {
+				$field->upsell_options[] = $option;
+				unset( $field->options[ $key ] );
+			}
+		}
 		?>
 		<tr>
 			<th scope="row">
@@ -63,33 +81,34 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 						data-prevent-clear
 					>
 						<option value=""></option>
-						<?php
-						$upsell = false || defined( 'TRIBE_HIDE_UPSELL' );
-						foreach ( $field->options as $option ) {
-							$disabled = ( isset( $option->disabled ) ? $option->disabled : null );
-							if ( ! $upsell && $disabled ) {
-								$upsell = true;
-								?><option value="redirect"><?php
-									esc_html_e( 'Buy Event Aggregator', 'the-events-calendar' );
-									echo '|';
-									esc_html_e( 'Access more event sources and automatic imports!', 'the-events-calendar' );
-								?></option><?php
-							}
-
-							$is_selected = false;
-							if ( ! empty( $_GET['ea-auth'] ) && $option->id === $_GET['ea-auth'] ) {
-								$is_selected = true;
-							}
-							?>
+						<?php foreach ( $field->options as $option ) : ?>
 							<option
 								value="<?php echo esc_attr( $option->id ); ?>"
-								<?php disabled( $disabled ); ?>
-								<?php selected( $is_selected ); ?>
-								><?php esc_html_e( $option->name ); ?></option>
-							<?php
-						}
-						?>
-					</select>
+								<?php disabled( $option->disabled ); ?>
+								<?php selected( $option->is_selected ); ?>
+								<?php if ( isset( $option->subtitle ) ) : ?>
+									data-subtitle="<?php echo esc_attr( $option->subtitle ); ?>"
+								<?php endif; ?>
+							><?php echo esc_html( $option->name ); ?></option>
+						<?php endforeach; ?>
+						<?php if ( ! $hide_upsell && ! empty( $field->upsell_options ) ) : ?>
+							<optgroup label="<?php esc_attr_e( 'Add more sources', 'the-events-calendar' ); ?>">
+							<option
+								value="redirect"
+								data-subtitle="<?php esc_attr_e( 'Access more event sources and automatic imports!', 'the-events-calendar' ); ?>"
+							><?php esc_html_e( 'Buy Event Aggregator', 'the-events-calendar' ); ?></option>
+							<?php foreach ( $field->upsell_options as $option ) : ?>
+								<option
+									value="<?php echo esc_attr( $option->id ); ?>"
+									<?php disabled( $option->disabled ); ?>
+									<?php selected( $option->is_selected ); ?>
+									<?php if ( isset( $option->subtitle ) ) : ?>
+										data-subtitle="<?php echo esc_attr( $option->subtitle ); ?>"
+									<?php endif; ?>
+								><?php echo esc_html( $option->name ); ?></option>
+							<?php endforeach; ?>
+							</optgroup>
+						<?php endif; ?>
 				<?php endif; ?>
 				<span class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help" data-bumpdown="<?php echo esc_attr( $field->help ); ?>" data-width-rule="all-triggers"></span>
 			</td>
