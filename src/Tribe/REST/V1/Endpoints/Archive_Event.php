@@ -369,7 +369,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			),
 			'venue'     => array(
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_venue_id' ),
+				'validate_callback' => array( $this->validator, 'is_venue_id_list' ),
 				'description' => __( 'Events should be assigned one of the specified venue IDs', 'the-events-calendar' ),
 				'swagger_type' => 'array',
 				'collectionFormat' => 'csv',
