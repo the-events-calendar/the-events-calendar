@@ -89,7 +89,7 @@ class Tribe__Events__Admin__Inactive_List extends Tribe__Template {
 	 */
 	public function is_screen() {
 		return tribe( 'admin.helpers' )->is_post_type_screen( Tribe__Events__Inactive_Events::POSTTYPE )
-			&& tribe( 'admin.helpers' )->is_base( 'edit' );
+			&& tribe( 'admin.helpers' )->is_base( array( 'edit', 'post' ) );
 	}
 
 	/**
