@@ -3,7 +3,7 @@
 class Tribe__Events__Asset__Bootstrap_Datepicker extends Tribe__Events__Asset__Abstract_Asset {
 
 	public function handle() {
-		$css_path = Tribe__Events__Template_Factory::getMinFile( $this->vendor_url . 'bootstrap-datepicker/css/datepicker.css', true );
+		$css_path = Tribe__Events__Template_Factory::getMinFile( $this->vendor_url . 'bootstrap-datepicker/css/bootstrap-datepicker.standalone.css', true );
 		$path = Tribe__Events__Template_Factory::getMinFile( $this->vendor_url . 'bootstrap-datepicker/js/bootstrap-datepicker.min.js', true );
 		wp_enqueue_style( $this->prefix . '-bootstrap-datepicker-css', $css_path );
 
@@ -25,6 +25,7 @@ class Tribe__Events__Asset__Bootstrap_Datepicker extends Tribe__Events__Asset__A
 			'monthsShort' => array_values( $months_short ),
 			'clear'       => esc_attr__( 'Clear', 'the-events-calendar' ),
 			'today'       => esc_attr__( 'Today', 'the-events-calendar' ),
+			'titleFormat' => esc_attr( 'MM yyyy' ),
 		);
 		wp_localize_script( $handle, 'tribe_bootstrap_datepicker_strings', array( 'dates' => $localized_datepicker_array ) );
 	}

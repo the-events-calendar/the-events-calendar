@@ -1,9 +1,17 @@
 <?php
 
+/**
+ * Class Tribe__Events__Validator__Base
+ *
+ * @since TBD
+ */
 class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	implements Tribe__Events__Validator__Interface {
+
 	/**
 	 * Whether the provided value is an existing Venue post ID or not.
+	 *
+	 * @since TBD
 	 *
 	 * @param mixed $venue_id
 	 *
@@ -15,6 +23,8 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 
 	/**
 	 * Whether the provided value is an existing Organizer post ID or not.
+	 *
+	 * @since TBD
 	 *
 	 * @param mixed $organizer Either an array of Organizer post IDs or a single Organizer post ID.
 	 *
@@ -33,6 +43,8 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether a list or array of organizer post IDs only contains valid organizer IDs or not.
 	 *
+	 * @since TBD
+	 *
 	 * @param  string|array $organizers A list of organizer post IDs separated by the specified separator or an array
 	 *                                  of organizer post IDs.
 	 * @param string        $sep        The separator used in the list to separate the organizer post IDs; ignored if
@@ -41,6 +53,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	 * @return bool
 	 */
 	public function is_organizer_id_list( $organizers, $sep = ',' ) {
+		$sep        = is_string( $sep ) ? $sep : ',';
 		$organizers = Tribe__Utils__Array::list_to_array( $organizers, $sep );
 
 		$valid = array_filter( $organizers, array( $this, 'is_organizer_id' ) );
@@ -51,8 +64,11 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether the event category exists or not.
 	 *
+	 * @since TBD
+	 *
 	 * @param mixed $category Either a single event category `term_id` or `slug` or an array of
 	 *                        `term_id`s and `slug`s
+	 *
 	 * @return bool
 	 */
 	public function is_event_category( $category ) {
@@ -61,6 +77,8 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 
 	/**
 	 * Whether the value is the post ID of an existing event or not.
+	 *
+	 * @since TBD
 	 *
 	 * @param int|string $event_id
 	 *
@@ -76,7 +94,37 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 		return ! empty( $event ) && Tribe__Events__Main::POSTTYPE === $event->post_type;
 	}
 
+	/**
+	 * Whether the string represents a valid PHP timezone or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $candidate
+	 *
+	 * @return bool
+	 */
 	public function is_timezone( $candidate ) {
 		return is_string( $candidate ) && Tribe__Timezones::is_valid_timezone( $candidate );
+	}
+
+	/**
+	 * Whether a list or array of venue post IDs only contains valid venue IDs or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param  string|array $venues A list of venue post IDs separated by the specified separator or an array
+	 *                                  of venue post IDs.
+	 * @param string        $sep        The separator used in the list to separate the venue post IDs; ignored if
+	 *                                  the input value is an array.
+	 *
+	 * @return bool
+	 */
+	public function is_venue_id_list( $venues, $sep = ',' ) {
+		$sep    = is_string( $sep ) ? $sep : ',';
+		$venues = Tribe__Utils__Array::list_to_array( $venues, $sep );
+
+		$valid = array_filter( $venues, array( $this, 'is_venue_id' ) );
+
+		return ! empty( $venues ) && count( $valid ) === count( $venues );
 	}
 }
