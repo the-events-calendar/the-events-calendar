@@ -29,6 +29,7 @@ class Tribe__Events__REST__V1__Documentation__Organizer_Definition_Provider
 				),
 				'global_id_lineage' => array(
 					'type' => 'array',
+					'items' => array( 'type' => 'string' ),
 					'description' => __( 'An Array containing the lineage of where this organizer comes from, this should not change after the organizer is created.', 'the-events-calendar' ),
 				),
 				'author' => array(
