@@ -75,6 +75,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$this->parse_terms_query( $request['tags'], 'post_tag' ),
 		) );
 
+		// Filter by geoloc
+		if ( ! empty( $request['geoloc'] ) ) {
+			$args['tribe_geoloc'] = 1;
+			$args['tribe_geoloc_lat'] = isset( $request['geoloc_lat'] ) ? $request['geoloc_lat'] : '';
+			$args['tribe_geoloc_lng'] = isset( $request['geoloc_lng'] ) ? $request['geoloc_lng'] : '';
+		}
+
 		$args = $this->parse_args( $args, $request->get_default_params() );
 
 		$data = array( 'events' => array() );
