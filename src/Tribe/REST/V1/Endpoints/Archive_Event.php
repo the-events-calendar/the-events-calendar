@@ -21,7 +21,27 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		'geoloc'     => 'tribe_geoloc',
 		'geoloc_lat' => 'tribe_geoloc_lat',
 		'geoloc_lng' => 'tribe_geoloc_lng',
+		'status'     => 'post_status',
 	);
+
+	/**
+	 * Tribe__Events__REST__V1__Endpoints__Archive_Event constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__REST__Messages_Interface                  $messages
+	 * @param Tribe__Events__REST__Interfaces__Post_Repository $repository
+	 * @param Tribe__Events__Validator__Interface              $validator
+	 */
+	public function __construct(
+		Tribe__REST__Messages_Interface $messages,
+		Tribe__Events__REST__Interfaces__Post_Repository $repository,
+		Tribe__Events__Validator__Interface $validator
+	) {
+		parent::__construct( $messages, $repository, $validator );
+		$this->post_type = Tribe__Events__Main::POSTTYPE;
+	}
+
 
 	/**
 	 * Handles GET requests on the endpoint.
@@ -61,8 +81,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$data['rest_url'] = $this->get_current_rest_url( $args );
 
-		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
-		$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
+		if ( null === $request['status'] ) {
+			$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
+			$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
+		} else {
+			$args['post_status'] = $this->filter_post_status_list( $request['status'] );
+		}
 
 		// Due to an incompatibility between date based queries and 'ids' fields we cannot do this, see `wp_list_pluck` use down
 		// $args['fields'] = 'ids';
@@ -322,86 +346,93 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_positive_int' ),
 				'default'           => 1,
-				'description' => __( 'The archive page to return', 'the-events-calendar' ),
-				'type' => 'integer',
+				'description'       => __( 'The archive page to return', 'the-events-calendar' ),
+				'type'              => 'integer',
 			),
 			'per_page'   => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_positive_int' ),
 				'sanitize_callback' => array( $this, 'sanitize_per_page' ),
 				'default'           => $this->get_default_posts_per_page(),
-				'description' => __( 'The number of events to return on each page', 'the-events-calendar' ),
-				'type' => 'integer',
+				'description'       => __( 'The number of events to return on each page', 'the-events-calendar' ),
+				'type'              => 'integer',
 			),
 			'start_date' => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
 				'default'           => Tribe__Timezones::localize_date( Tribe__Date_Utils::DBDATETIMEFORMAT, 'yesterday 23:59' ),
-				'description' => __( 'Events should start after the specified date', 'the-events-calendar' ),
-				'swagger_type' => 'string',
+				'description'       => __( 'Events should start after the specified date', 'the-events-calendar' ),
+				'swagger_type'      => 'string',
 			),
-			'end_date' => array(
+			'end_date'   => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_time' ),
 				'default'           => date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( '+24 months' ) ),
-				'description' => __( 'Events should start before the specified date', 'the-events-calendar' ),
-				'swagger_type' => 'string',
+				'description'       => __( 'Events should start before the specified date', 'the-events-calendar' ),
+				'swagger_type'      => 'string',
 			),
-			'search' => array(
+			'search'     => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_string' ),
-				'description' => __( 'Events should contain the specified string in the title or description', 'the-events-calendar' ),
-				'type' => 'string',
+				'description'       => __( 'Events should contain the specified string in the title or description', 'the-events-calendar' ),
+				'type'              => 'string',
 			),
 			'categories' => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_event_category' ),
-				'description' => __( 'Events should be assigned one of the specified categories slugs or IDs', 'the-events-calendar' ),
-				'swagger_type' => 'array',
-				'collectionFormat' => 'csv',
+				'description'       => __( 'Events should be assigned one of the specified categories slugs or IDs', 'the-events-calendar' ),
+				'swagger_type'      => 'array',
+				'collectionFormat'  => 'csv',
 			),
 			'tags'       => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_post_tag' ),
-				'description' => __( 'Events should be assigned one of the specified tags slugs or IDs', 'the-events-calendar' ),
-				'swagger_type' => 'array',
-				'collectionFormat' => 'csv',
+				'description'       => __( 'Events should be assigned one of the specified tags slugs or IDs', 'the-events-calendar' ),
+				'swagger_type'      => 'array',
+				'collectionFormat'  => 'csv',
 			),
-			'venue'     => array(
+			'venue'      => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_venue_id_list' ),
-				'description' => __( 'Events should be assigned one of the specified venue IDs', 'the-events-calendar' ),
-				'swagger_type' => 'array',
-				'collectionFormat' => 'csv',
+				'description'       => __( 'Events should be assigned one of the specified venue IDs', 'the-events-calendar' ),
+				'swagger_type'      => 'array',
+				'collectionFormat'  => 'csv',
 			),
-			'organizer' => array(
+			'organizer'  => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_organizer_id_list' ),
-				'description' => __( 'Events should be assigned one of the specified organizer IDs', 'the-events-calendar' ),
-				'swagger_type' => 'array',
-				'collectionFormat' => 'csv',
+				'description'       => __( 'Events should be assigned one of the specified organizer IDs', 'the-events-calendar' ),
+				'swagger_type'      => 'array',
+				'collectionFormat'  => 'csv',
 			),
 			'featured'   => array(
-				'required' => false,
-				'type' => 'boolean',
+				'required'    => false,
+				'type'        => 'boolean',
 				'description' => __( 'Events should be filtered by their featured status', 'the-events-calendar' ),
 			),
-			'geoloc'   => array(
-				'required' => false,
-				'type' => 'boolean',
+			'status'     => array(
+				'required'          => false,
+				'validate_callback' => array( $this, 'filter_post_status_list' ),
+				'swagger_type'      => 'string',
+				'format'            => 'string',
+				'description'       => __( 'The event post status', 'the-events-calendar' ),
+			),
+			'geoloc'     => array(
+				'required'    => false,
+				'type'        => 'boolean',
 				'description' => __( 'Requires Events Calendar Pro. Events should be filtered by whether their venue has geolocation data', 'the-events-calendar' ),
 			),
-			'geoloc_lat'   => array(
-				'required' => false,
+			'geoloc_lat' => array(
+				'required'     => false,
 				'swagger_type' => 'number',
-				'format' => 'double',
-				'description' => __( 'Requires Events Calendar Pro. Events should be filtered by their venue latitude location, must also provide geoloc_lng', 'the-events-calendar' ),
+				'format'       => 'double',
+				'description'  => __( 'Requires Events Calendar Pro. Events should be filtered by their venue latitude location, must also provide geoloc_lng', 'the-events-calendar' ),
 			),
-			'geoloc_lng'   => array(
-				'required' => false,
+			'geoloc_lng' => array(
+				'required'     => false,
 				'swagger_type' => 'number',
-				'format' => 'double',
-				'description' => __( 'Requires Events Calendar Pro. Events should be filtered by their venue longitude location, must also provide geoloc_lat', 'the-events-calendar' ),
+				'format'       => 'double',
+				'description'  => __( 'Requires Events Calendar Pro. Events should be filtered by their venue longitude location, must also provide geoloc_lat', 'the-events-calendar' ),
 			),
 		);
 	}
