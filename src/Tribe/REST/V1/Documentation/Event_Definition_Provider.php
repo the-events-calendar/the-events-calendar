@@ -33,7 +33,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				),
 				'author' => array(
 					'type' => 'int',
-					'description' => __( 'The event author WordPress post ID', 'the-events-calendar' ),
+					'description' => __( 'The event author user ID', 'the-events-calendar' ),
 				),
 				'date' => array(
 					'type' => 'string',
