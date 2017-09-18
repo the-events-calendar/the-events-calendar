@@ -171,6 +171,7 @@ class SingleEventCest extends BaseRestCest {
 		$I->seeResponseContainsJson( [ 'date_utc' => '2017-01-05 14:23:36' ] );
 		$I->seeResponseContainsJson( [ 'modified' => '2017-01-05 14:23:36' ] );
 		$I->seeResponseContainsJson( [ 'modified_utc' => '2017-01-05 14:23:36' ] );
+		$I->seeResponseContainsJson( [ 'status' => 'publish' ] );
 		$I->seeResponseContainsJson( [ 'url' => $this->site_url . '/event/event-01/' ] );
 		$I->seeResponseContainsJson( [ 'rest_url' => $this->rest_url . 'events/' . $id ] );
 		$I->seeResponseContainsJson( [ 'title' => 'Event 01' ] );
