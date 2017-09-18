@@ -25,6 +25,7 @@ class VenueSingleCest extends BaseRestCest {
 			'date_utc',
 			'modified',
 			'modified_utc',
+			'status',
 			'url',
 			'venue',
 			'description',
