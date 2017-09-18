@@ -52,6 +52,10 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 					'type' => 'string',
 					'description' => __( 'The event last modification date in UTC time', 'the-events-calendar' ),
 				),
+				'status' => array(
+					'type' => 'string',
+					'description' => __( 'The event status', 'the-events-calendar' ),
+				),
 				'url' => array(
 					'type' => 'string',
 					'description' => __( 'The URL to the event page', 'the-events-calendar' ),

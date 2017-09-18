@@ -14,7 +14,26 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 		'event'              => 'event',
 		'has_events'         => 'has_events',
 		'only_with_upcoming' => 'only_with_upcoming',
+		'status'             => 'post_status',
 	);
+
+	/**
+	 * Tribe__Events__REST__V1__Endpoints__Archive_Organizer constructor.
+	 *
+	 * @TBD
+	 *
+	 * @param Tribe__REST__Messages_Interface                  $messages
+	 * @param Tribe__Events__REST__Interfaces__Post_Repository $repository
+	 * @param Tribe__Events__Validator__Interface              $validator
+	 */
+	public function __construct(
+		Tribe__REST__Messages_Interface $messages,
+		Tribe__Events__REST__Interfaces__Post_Repository $repository,
+		Tribe__Events__Validator__Interface $validator
+	) {
+		parent::__construct( $messages, $repository, $validator );
+		$this->post_type = Tribe__Events__Main::ORGANIZER_POST_TYPE;
+	}
 
 	/**
 	 * Returns an array in the format used by Swagger 2.0
@@ -70,10 +89,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			'has_events'     => $request['has_events'],
 		);
 
-		$cap                 = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_posts;
-		$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
-
-		$args = $this->parse_args( $args, $request->get_default_params() );
+		if ( null === $request['status'] ) {
+			$cap                 = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_posts;
+			$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
+		} else {
+			$args['post_status'] = $this->filter_post_status_list( $request['status'] );
+		}
 
 		/**
 		 * Filters whether only organizers with upcoming events should be shown (`true`) or not (`false`) when
@@ -201,6 +222,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 				'description'  => __( 'Organizers should have upcoming events associated to them', 'the-events-calendar' ),
 				'swagger_type' => 'boolean',
 				'default'      => false,
+			),
+			'status'             => array(
+				'required'          => false,
+				'validate_callback' => array( $this, 'filter_post_status_list' ),
+				'swagger_type'      => 'string',
+				'format'            => 'string',
+				'description'       => __( 'The organizer post status', 'the-events-calendar' ),
 			),
 		);
 	}
