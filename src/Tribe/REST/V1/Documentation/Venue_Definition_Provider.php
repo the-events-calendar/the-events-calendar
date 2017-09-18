@@ -51,6 +51,10 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 					'type' => 'string',
 					'description' => __( 'The venue last modification date in UTC time', 'the-events-calendar' ),
 				),
+				'status' => array(
+					'type' => 'string',
+					'description' => __( 'The venue status', 'the-events-calendar' ),
+				),
 				'url' => array(
 					'type' => 'string',
 					'description' => __( 'The URL to the venue page', 'the-events-calendar' ),

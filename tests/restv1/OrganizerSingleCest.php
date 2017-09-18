@@ -25,6 +25,7 @@ class OrganizerSingleCest extends BaseRestCest {
 			'date_utc',
 			'modified',
 			'modified_utc',
+			'status',
 			'url',
 			'organizer',
 			'description',
