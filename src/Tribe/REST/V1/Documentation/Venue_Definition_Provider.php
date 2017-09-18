@@ -20,7 +20,7 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 			'type'       => 'object',
 			'properties' => array(
 				'id' => array(
-					'type' => 'int',
+					'type' => 'integer',
 					'description' => __( 'The venue WordPress post ID', 'the-events-calendar' ),
 				),
 				'global_id' => array(
@@ -29,10 +29,11 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 				),
 				'global_id_lineage' => array(
 					'type' => 'array',
+					'items' => array( 'type' => 'string' ),
 					'description' => __( 'An Array containing the lineage of where this organizer comes from, this should not change after the organizer is created.', 'the-events-calendar' ),
 				),
 				'author' => array(
-					'type' => 'int',
+					'type' => 'integer',
 					'description' => __( 'The venue author WordPress post ID', 'the-events-calendar' ),
 				),
 				'date' => array(
@@ -75,11 +76,11 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 					'type' => 'string',
 					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),'$ref' => '#/definitions/Image' ),
 				'show_map' => array(
-					'type' => 'bool',
+					'type' => 'boolean',
 					'description' => __( 'Whether the map should be shown for the venue or not', 'the-events-calendar' ),
 				),
 				'show_map_link' => array(
-					'type' => 'bool',
+					'type' => 'boolean',
 					'description' => __( 'Whether the map link should be shown for the venue or not', 'the-events-calendar' ),
 				),
 				'address' => array(
