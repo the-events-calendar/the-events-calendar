@@ -63,7 +63,7 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 		$documentation = array(
 			'swagger'     => $this->swagger_version,
 			'info'        => $this->get_api_info(),
-			'host'        => home_url(),
+			'host'        => parse_url( home_url(), PHP_URL_HOST ),
 			'basePath'    => str_replace( home_url(), '', tribe_events_rest_url() ),
 			'schemes'     => is_ssl() ? array( 'https', 'http' ) : array( 'http' ),
 			'consumes'    => array( 'application/json' ),
