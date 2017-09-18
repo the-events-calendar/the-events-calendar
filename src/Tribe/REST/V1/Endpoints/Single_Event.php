@@ -64,9 +64,11 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		}
 
 		$data = $this->post_repository->get_event_data( $id );
-		
+
 		/**
 		 * Filters the data that will be returned for a single event request.
+		 *
+		 * @since TBD
 		 *
 		 * @param array           $data    The retrieved data.
 		 * @param WP_REST_Request $request The original request.
