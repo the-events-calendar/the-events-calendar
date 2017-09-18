@@ -351,7 +351,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Added all the Aggregator Origins to the Admin Bar [68693]
 * Tweak - Added filters: `tribe_get_state_options`
 * Tweak - Added template tags: `maybe_format_from_datepicker()`
-* Tweak - Added the `tribe_rest_single_event_data` filter to the single event endpoint to allow filtering the returned data (thanks @mwender) [88748]
+* Tweak - Added the `tribe_rest_single_event_data` filter to the single event REST API endpoint to allow filtering the returned data (thanks @mwender) [88748]
 * Language - 2 new strings added, 90 updated, 0 fuzzied, and 1 obsoleted
 
 = [4.5.11] 2017-08-24 =
