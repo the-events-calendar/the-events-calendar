@@ -97,7 +97,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 */
 	public function get_documentation() {
 		$GET_defaults = $DELETE_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
-		$POST_defaults = array( 'in' => 'body', 'default' => '', 'type' => 'string' );
+		$POST_defaults = array( 'in' => 'formData', 'default' => '', 'type' => 'string' );
 		$post_args = array_merge( $this->READ_args(), $this->CREATE_args() );
 
 		return array(
@@ -122,6 +122,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				),
 			),
 			'post' => array(
+				'consumes' => array( 'application/x-www-form-urlencoded' ),
 				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
 				'responses'  => array(
 					'200' => array(
@@ -311,12 +312,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_venue_id_or_entry' ),
 				'swagger_type'      => 'array',
+				'items'             => array( 'type' => 'integer' ),
 				'description'       => __( 'The event venue ID or data', 'the-events-calendar' ),
 			),
 			'organizer'          => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_organizer_id_or_entry' ),
 				'swagger_type'      => 'array',
+				'items'             => array( 'type' => 'integer' ),
 				'description'       => __( 'The event organizer IDs or data', 'the-events-calendar' ),
 			),
 		);

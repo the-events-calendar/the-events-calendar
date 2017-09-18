@@ -67,7 +67,7 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 			'basePath'    => str_replace( home_url(), '', tribe_events_rest_url() ),
 			'schemes'     => is_ssl() ? array( 'https', 'http' ) : array( 'http' ),
 			'consumes'    => array( 'application/json' ),
-			'produces'    => array( 'applicatin/json' ),
+			'produces'    => array( 'application/json' ),
 			'paths'       => $this->get_paths(),
 			'definitions' => $this->get_definitions(),
 		);
@@ -102,7 +102,7 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 			} else {
 				$documentation = $this->get_own_documentation();
 			}
-			$paths[ $path . ':' ] = $documentation;
+			$paths[ $path ] = $documentation;
 		}
 
 		return $paths;

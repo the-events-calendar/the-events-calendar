@@ -129,12 +129,14 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Tag
 				'validate_callback' => array( $this->validator, 'is_post_tag' ),
 				'description'       => __( 'Ensure result set exclude specific IDs', 'the-events-calendar' ),
 				'swagger_type'      => 'array',
+				'items' => array( 'type' => 'integer' ),
 			),
 			'include'    => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_post_tag' ),
 				'description'       => __( 'Limit result set to specific IDs', 'the-events-calendar' ),
 				'swagger_type'      => 'array',
+				'items' => array( 'type' => 'integer' ),
 			),
 			'order'      => array(
 				'required'          => false,

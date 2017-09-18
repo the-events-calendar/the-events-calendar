@@ -358,6 +358,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'validate_callback' => array( $this->validator, 'is_event_category' ),
 				'description' => __( 'Events should be assigned one of the specified categories slugs or IDs', 'the-events-calendar' ),
 				'swagger_type' => 'array',
+				'items' => array( 'type' => 'integer' ),
 				'collectionFormat' => 'csv',
 			),
 			'tags'       => array(
@@ -365,6 +366,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'validate_callback' => array( $this->validator, 'is_post_tag' ),
 				'description' => __( 'Events should be assigned one of the specified tags slugs or IDs', 'the-events-calendar' ),
 				'swagger_type' => 'array',
+				'items' => array( 'type' => 'integer' ),
 				'collectionFormat' => 'csv',
 			),
 			'venue'     => array(
@@ -372,6 +374,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'validate_callback' => array( $this->validator, 'is_venue_id_list' ),
 				'description' => __( 'Events should be assigned one of the specified venue IDs', 'the-events-calendar' ),
 				'swagger_type' => 'array',
+				'items' => array( 'type' => 'integer' ),
 				'collectionFormat' => 'csv',
 			),
 			'organizer' => array(
@@ -379,6 +382,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'validate_callback' => array( $this->validator, 'is_organizer_id_list' ),
 				'description' => __( 'Events should be assigned one of the specified organizer IDs', 'the-events-calendar' ),
 				'swagger_type' => 'array',
+				'items' => array( 'type' => 'integer' ),
 				'collectionFormat' => 'csv',
 			),
 			'featured'   => array(

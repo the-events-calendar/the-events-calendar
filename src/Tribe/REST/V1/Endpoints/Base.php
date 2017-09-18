@@ -42,6 +42,9 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 			'description' => $no_description,
 			'required'    => false,
 			'default'     => '',
+			'items' => array(
+				'type' => 'integer',
+			),
 		), $defaults );
 
 
@@ -53,18 +56,25 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 				$type = isset( $info['type'] ) ? $info['type'] : false;
 			}
 
+			$type = $this->convert_type( $type );
+
 			$read = array(
 				'name'             => $name,
 				'in'               => isset( $info['in'] ) ? $info['in'] : false,
 				'collectionFormat' => isset( $info['collectionFormat'] ) ? $info['collectionFormat'] : false,
 				'description'      => isset( $info['description'] ) ? $info['description'] : false,
 				'type'             => $type,
+				'items'            => isset( $info['items'] ) ? $info['items'] : false,
 				'required'         => isset( $info['required'] ) ? $info['required'] : false,
 				'default'          => isset( $info['default'] ) ? $info['default'] : false,
 			);
 
 			if ( isset( $info['swagger_type'] ) ) {
 				$read['type'] = $info['swagger_type'];
+			}
+
+			if ( $read['type'] !== 'array' ) {
+				unset( $defaults['items'] );
 			}
 
 			$swaggerized[] = array_merge( $defaults, array_filter( $read ) );
@@ -151,5 +161,23 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	 */
 	public function is_not_null( $value ) {
 		return null !== $value;
+	}
+
+	/**
+	 * Converts REST format type argument to the correspondant Swagger.io definition.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	protected function convert_type( $type ) {
+		$rest_to_swagger_type_map = array(
+			'int'  => 'integer',
+			'bool' => 'boolean',
+		);
+
+		return Tribe__Utils__Array::get( $rest_to_swagger_type_map, $type, $type );
 	}
 }
