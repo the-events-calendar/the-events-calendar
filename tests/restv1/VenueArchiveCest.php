@@ -280,4 +280,103 @@ class VenueArchiveCest extends BaseRestCest {
 		$response = json_decode( $I->grabResponse() );
 		$I->assertCount( 3, $response->venues );
 	}
+
+	/**
+	 * It should allow getting venues by status
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_venues_by_status( Tester $I ) {
+		$published = $I->haveManyVenuesInDatabase( 3, [ 'post_status' => 'publish' ] );
+		$draft     = $I->haveManyVenuesInDatabase( 3, [ 'post_status' => 'draft' ] );
+		$pending   = $I->haveManyVenuesInDatabase( 3, [ 'post_status' => 'pending' ] );
+
+		$I->haveHttpHeader( 'X-WP-Nonce', $I->generate_nonce_for_role( 'editor' ) );
+
+		$I->sendGET( $this->venues_url, [ 'status' => 'publish' ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 200 );
+		$response = json_decode( $I->grabResponse(), true );
+
+		$I->assertCount( 3, $response['venues'] );
+		$response_ids = array_column( $response['venues'], 'id' );
+		sort( $response_ids );
+		$I->assertEquals( $published, $response_ids );
+
+		$I->sendGET( $this->venues_url, [ 'status' => 'publish, draft' ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 200 );
+		$response = json_decode( $I->grabResponse(), true );
+
+		$I->assertCount( 6, $response['venues'] );
+		$response_ids = array_column( $response['venues'], 'id' );
+		sort( $response_ids );
+		$I->assertEquals( array_merge( $published, $draft ), $response_ids );
+
+		$I->sendGET( $this->venues_url, [ 'status' => [ 'publish', 'draft', 'pending' ] ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 200 );
+		$response = json_decode( $I->grabResponse(), true );
+
+		$I->assertCount( 9, $response['venues'] );
+		$response_ids = array_column( $response['venues'], 'id' );
+		sort( $response_ids );
+		$I->assertEquals( array_merge( $published, $draft, $pending ), $response_ids );
+	}
+
+	/**
+	 * It should return bad request when trying to query venues by non existing post status
+	 *
+	 * @test
+	 */
+	public function should_return_bad_request_when_trying_to_query_venues_by_non_existing_post_status( Tester $I ) {
+		$I->haveManyVenuesInDatabase( 3, [ 'post_status' => 'publish' ] );
+
+		$I->haveHttpHeader( 'X-WP-Nonce', $I->generate_nonce_for_role( 'editor' ) );
+
+		$I->sendGET( $this->venues_url, [ 'status' => 'foo' ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 400 );
+
+		$I->sendGET( $this->venues_url, [ 'status' => 'foo, bar' ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 400 );
+
+		$I->sendGET( $this->venues_url, [ 'status' => 'foo, bar, publish' ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 400 );
+	}
+
+	/**
+	 * It should return 400 when user tries to query venues by status user cannot read
+	 *
+	 * @test
+	 */
+	public function should_return_400_when_user_tries_to_query_venues_by_status_user_cannot_read( Tester $I ) {
+		$published = $I->haveManyVenuesInDatabase( 3, [ 'post_status' => 'publish' ] );
+		$I->haveManyVenuesInDatabase( 3, [ 'post_status' => 'draft' ] );
+		$I->haveManyVenuesInDatabase( 3, [ 'post_status' => 'pending' ] );
+
+		$I->sendGET( $this->venues_url, [ 'status' => 'publish' ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 200 );
+		$response = json_decode( $I->grabResponse(), true );
+
+		$I->assertCount( 3, $response['venues'] );
+		$response_ids = array_column( $response['venues'], 'id' );
+		sort( $response_ids );
+		$I->assertEquals( $published, $response_ids );
+
+		$I->sendGET( $this->venues_url, [ 'status' => 'publish, draft' ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 400 );
+	}
 }

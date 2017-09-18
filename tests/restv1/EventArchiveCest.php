@@ -281,7 +281,7 @@ class EventArchiveCest extends BaseRestCest {
 
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
-		$response = json_decode( $I->grabResponse() );
+		$response   = json_decode( $I->grabResponse() );
 		$foo_events = $response->events;
 		$I->assertCount( 10, $foo_events );
 
@@ -289,7 +289,7 @@ class EventArchiveCest extends BaseRestCest {
 
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
-		$response = json_decode( $I->grabResponse() );
+		$response   = json_decode( $I->grabResponse() );
 		$bar_events = $response->events;
 		$I->assertCount( 10, $bar_events );
 
@@ -317,5 +317,96 @@ class EventArchiveCest extends BaseRestCest {
 		$I->assertEquals( 2, $response->total_pages );
 		$I->seeHttpHeader( 'X-TEC-Total', 10 );
 		$I->seeHttpHeader( 'X-TEC-TotalPages', 2 );
+	}
+
+	/**
+	 * It should allow getting events by status
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_events_by_status( Tester $I ) {
+		$published = $I->haveManyEventsInDatabase( 3, [ 'post_status' => 'publish' ] );
+		$draft     = $I->haveManyEventsInDatabase( 3, [ 'post_status' => 'draft' ] );
+		$pending   = $I->haveManyEventsInDatabase( 3, [ 'post_status' => 'pending' ] );
+
+		$I->haveHttpHeader( 'X-WP-Nonce', $I->generate_nonce_for_role( 'editor' ) );
+
+		$I->sendGET( $this->events_url, [ 'status' => 'publish' ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 200 );
+		$response = json_decode( $I->grabResponse(), true );
+
+		$I->assertCount( 3, $response['events'] );
+		$I->assertEquals( $published, array_column( $response['events'], 'id' ) );
+
+		$I->sendGET( $this->events_url, [ 'status' => 'publish, draft' ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 200 );
+		$response = json_decode( $I->grabResponse(), true );
+
+		$I->assertCount( 6, $response['events'] );
+		$I->assertEquals( array_merge( $published, $draft ), array_column( $response['events'], 'id' ) );
+
+		$I->sendGET( $this->events_url, [ 'status' => [ 'publish', 'draft', 'pending' ] ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 200 );
+		$response = json_decode( $I->grabResponse(), true );
+
+		$I->assertCount( 9, $response['events'] );
+		$I->assertEquals( array_merge( $published, $draft, $pending ), array_column( $response['events'], 'id' ) );
+	}
+
+	/**
+	 * It should return bad request when trying to query events by non existing post status
+	 *
+	 * @test
+	 */
+	public function should_return_bad_request_when_trying_to_query_events_by_non_existing_post_status( Tester $I ) {
+		$I->haveManyEventsInDatabase( 3, [ 'post_status' => 'publish' ] );
+
+		$I->haveHttpHeader( 'X-WP-Nonce', $I->generate_nonce_for_role( 'editor' ) );
+
+		$I->sendGET( $this->events_url, [ 'status' => 'foo' ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 400 );
+
+		$I->sendGET( $this->events_url, [ 'status' => 'foo, bar' ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 400 );
+
+		$I->sendGET( $this->events_url, [ 'status' => 'foo, bar, publish' ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 400 );
+	}
+
+	/**
+	 * It should return 400 when user tries to query events by status user cannot read
+	 *
+	 * @test
+	 */
+	public function should_return_400_when_user_tries_to_query_events_by_status_user_cannot_read( Tester $I ) {
+		$published = $I->haveManyEventsInDatabase( 3, [ 'post_status' => 'publish' ] );
+		$I->haveManyEventsInDatabase( 3, [ 'post_status' => 'draft' ] );
+		$I->haveManyEventsInDatabase( 3, [ 'post_status' => 'pending' ] );
+
+		$I->sendGET( $this->events_url, [ 'status' => 'publish' ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 200 );
+		$response = json_decode( $I->grabResponse(), true );
+
+		$I->assertCount( 3, $response['events'] );
+		$I->assertEquals( $published, array_column( $response['events'], 'id' ) );
+
+		$I->sendGET( $this->events_url, [ 'status' => 'publish, draft' ] );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 400 );
 	}
 }

@@ -112,12 +112,14 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Category
 				'validate_callback' => array( $this->validator, 'is_event_category' ),
 				'description'       => __( 'Ensure result set exclude specific IDs', 'the-events-calendar' ),
 				'swagger_type'      => 'array',
+				'items'             => array( 'type' => 'integer' ),
 			),
 			'include'    => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_event_category' ),
 				'description'       => __( 'Limit result set to specific IDs', 'the-events-calendar' ),
 				'swagger_type'      => 'array',
+				'items'             => array( 'type' => 'integer' ),
 			),
 			'order'      => array(
 				'required'          => false,
