@@ -171,6 +171,7 @@ class SingleEventCest extends BaseRestCest {
 		$I->seeResponseContainsJson( [ 'date_utc' => '2017-01-05 14:23:36' ] );
 		$I->seeResponseContainsJson( [ 'modified' => '2017-01-05 14:23:36' ] );
 		$I->seeResponseContainsJson( [ 'modified_utc' => '2017-01-05 14:23:36' ] );
+		$I->seeResponseContainsJson( [ 'status' => 'publish' ] );
 		$I->seeResponseContainsJson( [ 'url' => $this->site_url . '/event/event-01/' ] );
 		$I->seeResponseContainsJson( [ 'rest_url' => $this->rest_url . 'events/' . $id ] );
 		$I->seeResponseContainsJson( [ 'title' => 'Event 01' ] );
@@ -242,6 +243,7 @@ class SingleEventCest extends BaseRestCest {
 				'date_utc'       => '2017-01-05 14:23:36',
 				'modified'       => '2017-01-05 14:23:36',
 				'modified_utc'   => '2017-01-05 14:23:36',
+				'status'         => 'publish',
 				'url'            => $this->site_url . '/venue/venue-01/',
 				'venue'          => 'Venue 01',
 				'description'    => '<p>Venue 01 description</p>',
@@ -268,6 +270,7 @@ class SingleEventCest extends BaseRestCest {
 					'date_utc'     => '2017-01-05 14:23:36',
 					'modified'     => '2017-01-05 14:23:36',
 					'modified_utc' => '2017-01-05 14:23:36',
+					'status'       => 'publish',
 					'url'          => $this->site_url . '/organizer/organizer-01/',
 					'organizer'    => 'Organizer 01',
 					'description'  => '<p>Organizer 01 description</p>',

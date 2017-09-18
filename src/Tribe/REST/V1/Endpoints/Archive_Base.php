@@ -135,4 +135,33 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 
 		return 2 === $page ? $rest_url : add_query_arg( array( 'page' => $page - 1 ), $rest_url );
 	}
+
+	/**
+	 * Filters a list of post stati returning only those accessible by the current user for the post type
+	 * managed by the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|string $post_stati An array of post stati or a comma separated list of post stati.
+	 *
+	 * @return array|bool An array of post stati accessible by the current user or `false` if the no requested
+	 *               stati are accessible by the user.
+	 */
+	public function filter_post_status_list( $post_stati = 'publish' ) {
+		$stati         = Tribe__Utils__Array::list_to_array( $post_stati, ',' );
+		$post_type_obj = get_post_type_object( $this->post_type );
+
+		if ( ! current_user_can( $post_type_obj->cap->edit_posts ) ) {
+			return $stati === array( 'publish' )
+				? $stati
+				: false;
+		}
+
+		global $wp_post_statuses;
+		$valid_stati = array_keys( $wp_post_statuses );
+
+		return count( array_intersect( $stati, $valid_stati ) ) === count( $stati )
+			? $stati
+			: false;
+	}
 }

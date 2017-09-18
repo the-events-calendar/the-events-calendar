@@ -33,7 +33,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				),
 				'author' => array(
 					'type' => 'int',
-					'description' => __( 'The event author WordPress post ID', 'the-events-calendar' ),
+					'description' => __( 'The event author user ID', 'the-events-calendar' ),
 				),
 				'date' => array(
 					'type' => 'string',
@@ -50,6 +50,10 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				'modified_utc' => array(
 					'type' => 'string',
 					'description' => __( 'The event last modification date in UTC time', 'the-events-calendar' ),
+				),
+				'status' => array(
+					'type' => 'string',
+					'description' => __( 'The event status', 'the-events-calendar' ),
 				),
 				'url' => array(
 					'type' => 'string',
