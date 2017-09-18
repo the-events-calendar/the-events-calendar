@@ -298,7 +298,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		$keys    = array_intersect_key( $flipped, $values );
 
 		if ( ! empty( $keys ) ) {
-			$url = add_query_arg( array_combine( array_values( $keys ), array_values( $values ) ), $url );
+			$parameters = array_fill_keys( array_values( $keys ), '' );
+			foreach ( $keys as $key => $value ) {
+				$parameters[ $value ] = $args[ $key ];
+			}
+			$url = add_query_arg( $parameters, $url );
 		}
 
 		return $url;
