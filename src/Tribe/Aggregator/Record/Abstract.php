@@ -252,7 +252,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Gets a hash with the information we need to verify if a given record is a duplicate
 	 *
-	 * @since  TBD
+	 * @since  4.5.13
 	 *
 	 * @return string
 	 */
@@ -1251,7 +1251,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Fires before events and linked posts are inserted in the database.
 		 *
-		 * @since TBD
+		 * @since 4.5.13
 		 *
 		 * @param array $items An array of items to insert.
 		 * @param array $meta  The record meta information.
@@ -1852,7 +1852,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Fires after events and linked posts have been inserted in the database.
 		 *
-		 * @since TBD
+		 * @since 4.5.13
 		 *
 		 * @param array                                       $items    An array of items to insert.
 		 * @param array                                       $meta     The record meta information.
@@ -2147,7 +2147,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Assigns a new post thumbnail to the specified post if needed.
 	 *
-	 * @since TBD
+	 * @since 4.5.13
 	 *
 	 * @param int $post_id The ID of the post the thumbnail should be assigned to.
 	 * @param int $new_thumbnail_id The new attachment post ID.

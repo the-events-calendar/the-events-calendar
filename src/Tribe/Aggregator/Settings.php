@@ -288,7 +288,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Returns the list of limit options that should be applied to imports.
 	 *
-	 * @since TBD
+	 * @since 4.5.13
 	 *
 	 * @return array An array of limit type options in the [ <limit_type> => <limit description> ]
 	 *               format.
@@ -303,7 +303,7 @@ class Tribe__Events__Aggregator__Settings {
 		/**
 		 * Filters the options available for the default import limit options.
 		 *
-		 * @since TBD
+		 * @since 4.5.13
 		 *
 		 * @param array $options An array of arrays in the format
 		 *                       [ <limit_type> => <limit description> ].
@@ -316,7 +316,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Returns a list of date range options.
 	 *
-	 * @since TBD
+	 * @since 4.5.13
 	 *
 	 * @return array $options An array of arrays in the format
 	 *                      [ <range duration in seconds> => [ 'title' => <title>, 'range' => <range> ] ].
@@ -364,7 +364,7 @@ class Tribe__Events__Aggregator__Settings {
 	 * Titles are meant to be used in titles and make sense alone, range strings are meant to be used when using the
 	 * duration in a sentence and do not make sense alone.
 	 *
-	 * @since TBD
+	 * @since 4.5.13
 	 *
 	 * @param bool $title Whether the values of the array should be for title or for use as range.
 	 *
@@ -376,7 +376,7 @@ class Tribe__Events__Aggregator__Settings {
 		/**
 		 * Filters the options available for the import date range.
 		 *
-		 * @since TBD
+		 * @since 4.5.13
 		 *
 		 * @param array $options An array of arrays in the format
 		 *                       [ <range duration in seconds> => [ 'title' => <title>, 'range' => <range> ] ].
@@ -393,7 +393,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Return a list of available options for the import numeric limit.
 	 *
-	 * @since TBD
+	 * @since 4.5.13
 	 *
 	 * @return array $options An array of arrays in the format [ <number> => <number> ].
 	 */
@@ -405,7 +405,7 @@ class Tribe__Events__Aggregator__Settings {
 		/**
 		 * Filters the options available for the import numeric limit.
 		 *
-		 * @since TBD
+		 * @since 4.5.13
 		 *
 		 * @param array $options An array of arrays in the format [ <number> => <number> ].
 		 */
@@ -417,7 +417,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Returns the default value of the import count limit.
 	 *
-	 * @since TBD
+	 * @since 4.5.13
 	 *
 	 * @return int
 	 */
@@ -425,7 +425,7 @@ class Tribe__Events__Aggregator__Settings {
 		/**
 		 * Filters the default value of the import count limit.
 		 *
-		 * @since TBD
+		 * @since 4.5.13
 		 *
 		 * @param int
 		 */
@@ -435,7 +435,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Returns the default value of the import count limit.
 	 *
-	 * @since TBD
+	 * @since 4.5.13
 	 *
 	 * @return int
 	 */
@@ -443,7 +443,7 @@ class Tribe__Events__Aggregator__Settings {
 		/**
 		 * Filters the default value of the import range limit.
 		 *
-		 * @since TBD
+		 * @since 4.5.13
 		 *
 		 * @param int
 		 */

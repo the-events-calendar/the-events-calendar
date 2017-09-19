@@ -327,7 +327,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5.13] TBD =
+= [4.5.13] 2017-09-20 =
 
 * Feature - Add link to the featured image in the Events List widget. New filter introduced to control this: `tribe_events_list_widget_featured_image_link` (props to @cabadaj007  for the feature request) [84807]
 * Feature - Remove 'France, Metropolitan' option from country list to prevent issues with Google Maps API (thanks @varesanodotfr for pointing this out) [78023]

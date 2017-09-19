@@ -299,7 +299,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		/**
 		 * Allows users to have a string that allows numeric named Categories to be included
 		 *
-		 * @since  TBD
+		 * @since  4.5.13
 		 *
 		 * @param  string|null $flag Which is the string to be looked for in each category name
 		 */

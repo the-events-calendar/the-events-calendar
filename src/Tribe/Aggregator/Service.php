@@ -614,7 +614,7 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Applies a limit to the import request.
 	 *
-	 * @since TBD
+	 * @since 4.5.13
 	 *
 	 * @param array $args An array of request arguments.
 	 *
@@ -657,7 +657,7 @@ class Tribe__Events__Aggregator__Service {
 		/**
 		 * Filters the limit arguments before applying them to the import request arguments.
 		 *
-		 * @since TBD
+		 * @since 4.5.13
 		 *
 		 * @param array                              $limit_args The limit arguments.
 		 * @param array                              $args       The import request arguments.

@@ -60,7 +60,7 @@ if ( $posts ) : ?>
 					/**
 					 * Filters whether the featured image link should be added to the Events List Widget
 					 *
-					 * @since TBD
+					 * @since 4.5.13
 					 *
 					 * @param bool $featured_image_link Whether the featured image link should be added or not
 					 */
