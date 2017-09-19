@@ -28,11 +28,12 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Retrieves an array representation of the post.
 	 *
-	 * @param int $id The post ID.
+	 * @param int    $id      The post ID.
+	 * @param string $context Context of data.
 	 *
 	 * @return array An array representation of the post.
 	 */
-	public function get_data( $id ) {
+	public function get_data( $id, $context = '' ) {
 		$post = get_post( $id );
 
 		if ( empty( $post ) ) {
@@ -43,17 +44,18 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			return (array) $post;
 		}
 
-		return call_user_func( $this->types_get_map[ $post->post_type ], $id );
+		return call_user_func( $this->types_get_map[ $post->post_type ], $id, $context );
 	}
 
 	/**
 	 * Returns an array representation of an event.
 	 *
-	 * @param int $event_id An event post ID.
+	 * @param int    $event_id An event post ID.
+	 * @param string $context  Context of data.
 	 *
 	 * @return array|WP_Error Either the array representation of an event or an error object.
 	 */
-	public function get_event_data( $event_id ) {
+	public function get_event_data( $event_id, $context = '' ) {
 		$event = get_post( $event_id );
 
 		if ( empty( $event ) || ! tribe_is_event( $event ) ) {
@@ -62,8 +64,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$meta = array_map( 'reset', get_post_custom( $event_id ) );
 
-		$venue = $this->get_venue_data( $event_id );
-		$organizer = $this->get_organizer_data( $event_id );
+		$venue = $this->get_venue_data( $event_id, $context );
+		$organizer = $this->get_organizer_data( $event_id, $context );
 
 		$data = array(
 			'id'                     => $event_id,
@@ -127,11 +129,12 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Returns an array representation of an event venue.
 	 *
-	 * @param int $event_or_venue_id An event or venue post ID.
+	 * @param int    $event_or_venue_id An event or venue post ID.
+	 * @param string $context           Context of data.
 	 *
 	 * @return array|WP_Error Either the array representation of a venue or an error object.
 	 */
-	public function get_venue_data( $event_or_venue_id ) {
+	public function get_venue_data( $event_or_venue_id, $context = '' ) {
 		if ( tribe_is_event( $event_or_venue_id ) ) {
 			$venue = get_post( tribe_get_venue_id( $event_or_venue_id ) );
 			if ( empty( $venue ) ) {
@@ -263,13 +266,14 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Returns an array representation of an event organizer(s).
 	 *
-	 * @param int $event_or_organizer_id An event or organizer post ID.
+	 * @param int    $event_or_organizer_id An event or organizer post ID.
+	 * @param string $context               Context of data.
 	 *
 	 * @return array|WP_Error Either an the array representation of an orgnanizer, an
 	 *                        arrya of array representations of an event organizer or
 	 *                        an error object.
 	 */
-	public function get_organizer_data( $event_or_organizer_id ) {
+	public function get_organizer_data( $event_or_organizer_id, $context = '' ) {
 		if ( tribe_is_event( $event_or_organizer_id ) ) {
 			$organizers = tribe_get_organizer_ids( $event_or_organizer_id );
 			if ( empty( $organizers ) ) {
