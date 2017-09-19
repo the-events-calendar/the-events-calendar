@@ -15,7 +15,7 @@
  * your functions.php. In order to modify or extend a single filter, please see our
  * readme on templates hooks and filters (TO-DO)
  *
- * @version 4.4
+ * @version 4.5.13
  * @return string
  *
  * @package TribeEventsCalendar
