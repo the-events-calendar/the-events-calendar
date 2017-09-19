@@ -1789,7 +1789,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
 					// Set as featured image
-					$featured_status = set_post_thumbnail( $event['ID'], $image->post_id );
+					$featured_status = $this->set_post_thumbnail( $event['ID'], $image->post_id );
 
 					if ( $featured_status ) {
 						// Log this attachment was created
@@ -1809,7 +1809,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
 					// Set as featured image
-					$featured_status = set_post_thumbnail( $organizer_id, $image->post_id );
+					$featured_status = $this->set_post_thumbnail( $organizer_id, $image->post_id );
 
 					if ( $featured_status ) {
 						// Log this attachment was created
@@ -1829,7 +1829,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
 					// Set as featured image
-					$featured_status = set_post_thumbnail( $venue_id, $image->post_id );
+					$featured_status = $this->set_post_thumbnail( $venue_id, $image->post_id );
 
 					if ( $featured_status ) {
 						// Log this attachment was created
@@ -2142,5 +2142,29 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		return 0;
+	}
+
+	/**
+	 * Assigns a new post thumbnail to the specified post if needed.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The ID of the post the thumbnail should be assigned to.
+	 * @param int $new_thumbnail_id The new attachment post ID.
+	 *
+	 * @return bool Whether the post thumbnail ID changed or not.
+	 */
+	protected function set_post_thumbnail( $post_id, $new_thumbnail_id ) {
+		$current_thumbnail_id = has_post_thumbnail( $post_id )
+			? (int) get_post_thumbnail_id( $post_id )
+			: false;
+
+		if ( ! empty( $current_thumbnail_id ) && $current_thumbnail_id !== (int) $new_thumbnail_id ) {
+			set_post_thumbnail( $post_id, $new_thumbnail_id );
+
+			return true;
+		}
+
+		return false;
 	}
 }
