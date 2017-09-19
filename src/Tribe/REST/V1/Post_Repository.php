@@ -112,6 +112,14 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'organizer'              => is_wp_error( $organizer ) ? array() : $organizer,
 		);
 
+		if ( 'single' === $context ) {
+			$json_ld_data = Tribe__Events__JSON_LD__Event::instance()->get_data( $event );
+
+			if ( $json_ld_data ) {
+				$data['json_ld'] = $json_ld_data[ $event->ID ];
+			}
+		}
+
 		// Add the Global ID fields
 		$data = $this->add_global_id_fields( $data, $event_id );
 
@@ -170,6 +178,14 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'website'       => isset( $meta['_VenueURL'] ) ? $meta['_VenueURL'] : '',
 			'stateprovince' => isset( $meta['_VenueStateProvince'] ) ? $meta['_VenueStateProvince'] : '',
 		);
+
+		if ( 'single' === $context ) {
+			$json_ld_data = Tribe__Events__JSON_LD__Venue::instance()->get_data( $venue );
+
+			if ( $json_ld_data ) {
+				$data['json_ld'] = $json_ld_data[ $venue->ID ];
+			}
+		}
 
 		$data = array_filter( $data );
 
@@ -318,6 +334,14 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				'website'      => isset( $meta['_OrganizerWebsite'] ) ? $meta['_OrganizerWebsite'] : '',
 				'email'        => isset( $meta['_OrganizerEmail'] ) ? $meta['_OrganizerEmail'] : '',
 			);
+
+			if ( 'single' === $context ) {
+				$json_ld_data = Tribe__Events__JSON_LD__Organizer::instance()->get_data( $organizer );
+
+				if ( $json_ld_data ) {
+					$this_data['json_ld'] = $json_ld_data[ $organizer->ID ];
+				}
+			}
 
 			// Add the Global ID fields
 			$this_data = $this->add_global_id_fields( $this_data, $organizer->ID );
