@@ -329,7 +329,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.5.13] TBD =
 
-* Feature - Add link to the featured image in the Events List wiget. New filter introduced to control this: `tribe_events_list_widget_featured_image_link` (props to @cabadaj007  for the feature request) [84807]
+* Feature - Add link to the featured image in the Events List widget. New filter introduced to control this: `tribe_events_list_widget_featured_image_link` (props to @cabadaj007  for the feature request) [84807]
 * Feature - Remove 'France, Metropolitan' option from country list to prevent issues with Google Maps API (thanks @varesanodotfr for pointing this out) [78023]
 * Feature - Ignored Events will restore previous Status instead of setting to Publish [82213]
 * Fix - Patched jQuery Resize vendor library to avoid JavaScript conflicts (props to @britner for the original report) [71994]
