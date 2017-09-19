@@ -336,6 +336,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Fixed a typo in the Event List widget options [71081]
 * Fix - Addressed some PHP notices that would sometimes emerge in tag-filtered Post lists in the wp-admin. Thanks to @wfsec28 and others in the forums for reporting this! [45274]
 * Fix — When "Full Styles" or "Tribe Events Styles" are used, prevent duplicate featured images from showing up in the Twentyseventeen theme. Props to @want2what and others in the forums for reporting this. [80955]
+* Fix - Fixed the issue that would prevent the start date and date range parameters from being taken into account when using Other URL source in Event Aggregator [???]
 * Fix - Aggregator will no longer update comments while inactive [78890]
 * Fix - Avoid issues when REST API archive request parameters are not in the original order (thanks @Nslaver for reporting this and providing a fix) [88748]
 * Tweak - Aggregator prevents duplicated Records with the same params from being created [68833]
@@ -343,6 +344,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Improve Event Aggregator settings texts [77452]
 * Tweak - Add actions before and after posts are inserted or updated by Event Aggregator to allow custom functions to kick in: `tribe_aggregator_before_insert_posts` and `tribe_aggregator_after_insert_posts`, respectively. [87530]
 * Tweak - Allow users to import CSV with Numeric named Categories by using a flag currently: `%n` (thanks @Shamsi for reporting) [78340]
+* Tweak - Allow setting date range and events count limits on each type of import (save Other URL) in Event Aggregator [79975]
 
 = [4.5.12.2] 2017-09-08 =
 
