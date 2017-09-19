@@ -74,7 +74,9 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 				),
 				'image' => array(
 					'type' => 'string',
-					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),'$ref' => '#/definitions/Image' ),
+					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
+					'$ref' => '#/definitions/Image',
+				),
 				'show_map' => array(
 					'type' => 'boolean',
 					'description' => __( 'Whether the map should be shown for the venue or not', 'the-events-calendar' ),
@@ -118,6 +120,16 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 				'stateprovince' => array(
 					'type' => 'string',
 					'description' => __( 'The venue state or province', 'the-events-calendar' ),
+				),
+				'geo_lat' => array(
+					'type'   => 'number',
+					'format' => 'double',
+					'description' => __( 'The venue geo latitude', 'the-events-calendar' ),
+				),
+				'geo_lng' => array(
+					'type'   => 'number',
+					'format' => 'double',
+					'description' => __( 'The venue geo longitude', 'the-events-calendar' ),
 				),
 			),
 		);
