@@ -74,7 +74,9 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 				),
 				'image' => array(
 					'type' => 'string',
-					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),'$ref' => '#/definitions/Image' ),
+					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
+					'$ref' => '#/definitions/Image',
+				),
 				'show_map' => array(
 					'type' => 'boolean',
 					'description' => __( 'Whether the map should be shown for the venue or not', 'the-events-calendar' ),
