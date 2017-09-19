@@ -186,8 +186,6 @@ class Tribe__Events__Aggregator__Errors {
 			return $stats;
 		}
 
-		var_dump( tribe( 'events-aggregator.main' )->is_active( true ) );
-
 		// Prevent this happening if we don't have EA active
 		if ( ! tribe( 'events-aggregator.main' )->is_active( true ) ) {
 			return $stats;
