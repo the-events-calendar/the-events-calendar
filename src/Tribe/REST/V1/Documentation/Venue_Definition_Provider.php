@@ -119,6 +119,16 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 					'type' => 'string',
 					'description' => __( 'The venue state or province', 'the-events-calendar' ),
 				),
+				'geo_lat' => array(
+					'type'   => 'number',
+					'format' => 'double',
+					'description' => __( 'The venue geo latitude', 'the-events-calendar' ),
+				),
+				'geo_lng' => array(
+					'type'   => 'number',
+					'format' => 'double',
+					'description' => __( 'The venue geo longitude', 'the-events-calendar' ),
+				),
 			),
 		);
 
