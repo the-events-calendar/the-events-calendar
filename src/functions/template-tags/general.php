@@ -733,7 +733,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_events_admin_show_cost_field() {
-		$modules      = apply_filters( 'tribe_events_tickets_modules', null );
+		$modules = null;
+
+		if ( class_exists( 'Tribe__Tickets__Tickets' ) ) {
+			$modules = Tribe__Tickets__Tickets::modules();
+		}
+
 		$event_origin = get_post_meta( get_the_ID(), '_EventOrigin', true );
 		$show_cost    = empty( $modules ) ||
 						class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ||

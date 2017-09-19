@@ -250,6 +250,56 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	/**
+	 * Gets a hash with the information we need to verify if a given record is a duplicate
+	 *
+	 * @since  TBD
+	 *
+	 * @return string
+	 */
+	public function get_data_hash() {
+		$meta = array(
+			'file',
+			'keywords',
+			'location',
+			'start',
+			'end',
+			'radius',
+			'source',
+			'content_type',
+		);
+
+		$data = array(
+			'type' => $this->type,
+			'origin' => $this->origin,
+			'frequency' => null,
+		);
+
+		// If schedule Record, we need it's frequency
+		if ( $this->is_schedule ) {
+			$data['frequency'] = $this->frequency->id;
+		}
+
+		foreach ( $meta as $meta_key ) {
+			if ( ! isset( $this->meta[ $meta_key ] ) ) {
+				continue;
+			}
+
+			$data[ $meta_key ] = $this->meta[ $meta_key ];
+		}
+
+		// Remove the empty Keys
+		$data = array_filter( $data );
+
+		// Sort to avoid any weird MD5 stuff
+		ksort( $data );
+
+		// Create a string to be able to MD5
+		$data_string = maybe_serialize( $data );
+
+		return md5( $data_string );
+	}
+
+	/**
 	 * Creates an import record
 	 *
 	 * @param string $type Type of record to create - manual or schedule
