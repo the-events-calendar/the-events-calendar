@@ -4355,7 +4355,21 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			global $wp_query;
 
+			/**
+			 * Allows for customizing the "date search" field value.
+			 *
+			 * @deprecated TBD Use tribe_events_bar_date_search_default_value instead.
+			 *
+			 * @param string $value The "date search" field value, which defaults to an empty string.
+			 */
 			$value = apply_filters( 'tribe-events-bar-date-search-default-value', '' );
+
+			/**
+			 * Allows for customizing the "date search" field value.
+			 *
+			 * @param string $value The "date search" field value, which defaults to an empty string.
+			 */
+			$value = apply_filters( 'tribe_events_bar_date_search_default_value', '' );
 
 			if ( ! empty( $_REQUEST['tribe-bar-date'] ) ) {
 				$value = $_REQUEST['tribe-bar-date'];
@@ -4372,6 +4386,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$value   = date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( $wp_query->query_vars['eventDate'] ) );
 			}
 
+			/**
+			 * Allows for modifying the "date search" field's caption (e.g. "in" or "from").
+			 *
+			 * @param string $caption The "date search" field's caption string.
+			 */
 			$caption = apply_filters( 'tribe_bar_datepicker_caption', $caption );
 
 			$filters['tribe-bar-date'] = array(
@@ -4386,7 +4405,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Removes views that have been deselected in the Template Settings as hidden from the view array.
 		 *
-		 *
 		 * @param array $views The current views array.
 		 * @param bool  $visible
 		 *
@@ -4394,11 +4412,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function remove_hidden_views( $views, $visible = true ) {
 			$enable_views_defaults = array();
+
 			foreach ( $views as $view ) {
 				$enable_views_defaults[] = $view['displaying'];
 			}
+
 			if ( $visible ) {
 				$enable_views = tribe_get_option( 'tribeEnableViews', $enable_views_defaults );
+
 				foreach ( $views as $index => $view ) {
 					if ( ! in_array( $view['displaying'], $enable_views ) ) {
 						unset( $views[ $index ] );
@@ -4477,6 +4498,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function filter_wp_import_data_before( $post ) {
 			if ( $post['post_type'] === self::POSTTYPE ) {
 				$start_date = '';
+
 				if ( isset( $post['postmeta'] ) && is_array( $post['postmeta'] ) ) {
 					foreach ( $post['postmeta'] as $meta ) {
 						if ( $meta['key'] == '_EventStartDate' ) {
@@ -4485,6 +4507,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						}
 					}
 				}
+
 				if ( ! empty( $start_date ) ) {
 					$post['post_title'] .= '[tribe_start_date]' . $start_date . '[/tribe_start_date]';
 				}
@@ -4554,6 +4577,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( is_network_admin() ) {
 				return $url;
 			}
+
 			return add_query_arg( array( 'post_type' => self::POSTTYPE ), $url );
 		}
 
@@ -4574,9 +4598,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * If tickets don't have an end date, let's provide the end date from the event
+		 *
+		 * @param string $date
+		 * @param int $post_id
+		 *
+		 * @return string
 		 */
 		public function default_end_date_for_tickets( $date, $post_id ) {
 			$post = get_post( $post_id );
+
 			if ( self::POSTTYPE !== $post->post_type ) {
 				return $date;
 			}
