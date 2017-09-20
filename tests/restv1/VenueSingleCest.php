@@ -41,6 +41,7 @@ class VenueSingleCest extends BaseRestCest {
 			'phone',
 			'website',
 			'stateprovince',
+			'json_ld',
 			'global_id',
 			'global_id_lineage',
 			'image',

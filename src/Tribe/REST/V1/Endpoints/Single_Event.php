@@ -78,7 +78,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			return new WP_Error( 'event-not-accessible', $message, array( 'status' => 403 ) );
 		}
 
-		$data = $this->post_repository->get_event_data( $request['id'] );
+		$data = $this->post_repository->get_event_data( $request['id'], 'single' );
 
 		/**
 		 * Filters the data that will be returned for a single event request.

@@ -28,11 +28,12 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Retrieves an array representation of the post.
 	 *
-	 * @param int $id The post ID.
+	 * @param int    $id      The post ID.
+	 * @param string $context Context of data.
 	 *
 	 * @return array An array representation of the post.
 	 */
-	public function get_data( $id ) {
+	public function get_data( $id, $context = '' ) {
 		$post = get_post( $id );
 
 		if ( empty( $post ) ) {
@@ -43,17 +44,18 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			return (array) $post;
 		}
 
-		return call_user_func( $this->types_get_map[ $post->post_type ], $id );
+		return call_user_func( $this->types_get_map[ $post->post_type ], $id, $context );
 	}
 
 	/**
 	 * Returns an array representation of an event.
 	 *
-	 * @param int $event_id An event post ID.
+	 * @param int    $event_id An event post ID.
+	 * @param string $context  Context of data.
 	 *
 	 * @return array|WP_Error Either the array representation of an event or an error object.
 	 */
-	public function get_event_data( $event_id ) {
+	public function get_event_data( $event_id, $context = '' ) {
 		$event = get_post( $event_id );
 
 		if ( empty( $event ) || ! tribe_is_event( $event ) ) {
@@ -62,8 +64,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$meta = array_map( 'reset', get_post_custom( $event_id ) );
 
-		$venue = $this->get_venue_data( $event_id );
-		$organizer = $this->get_organizer_data( $event_id );
+		$venue = $this->get_venue_data( $event_id, $context );
+		$organizer = $this->get_organizer_data( $event_id, $context );
 
 		$data = array(
 			'id'                     => $event_id,
@@ -110,6 +112,14 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'organizer'              => is_wp_error( $organizer ) ? array() : $organizer,
 		);
 
+		if ( 'single' === $context ) {
+			$json_ld_data = Tribe__Events__JSON_LD__Event::instance()->get_data( $event );
+
+			if ( $json_ld_data ) {
+				$data['json_ld'] = $json_ld_data[ $event->ID ];
+			}
+		}
+
 		// Add the Global ID fields
 		$data = $this->add_global_id_fields( $data, $event_id );
 
@@ -127,11 +137,12 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Returns an array representation of an event venue.
 	 *
-	 * @param int $event_or_venue_id An event or venue post ID.
+	 * @param int    $event_or_venue_id An event or venue post ID.
+	 * @param string $context           Context of data.
 	 *
 	 * @return array|WP_Error Either the array representation of a venue or an error object.
 	 */
-	public function get_venue_data( $event_or_venue_id ) {
+	public function get_venue_data( $event_or_venue_id, $context = '' ) {
 		if ( tribe_is_event( $event_or_venue_id ) ) {
 			$venue = get_post( tribe_get_venue_id( $event_or_venue_id ) );
 			if ( empty( $venue ) ) {
@@ -167,6 +178,22 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'website'       => isset( $meta['_VenueURL'] ) ? $meta['_VenueURL'] : '',
 			'stateprovince' => isset( $meta['_VenueStateProvince'] ) ? $meta['_VenueStateProvince'] : '',
 		);
+
+		// Add geo coordinates (if any)
+		$geo = tribe_get_coordinates( $post_id );
+
+		if ( ! empty( $geo['lat'] ) && ! empty( $geo['lng'] ) ) {
+			$data['geo_lat'] = $geo['lat'];
+			$data['geo_lng'] = $geo['lng'];
+		}
+
+		if ( 'single' === $context ) {
+			$json_ld_data = Tribe__Events__JSON_LD__Venue::instance()->get_data( $venue );
+
+			if ( $json_ld_data ) {
+				$data['json_ld'] = $json_ld_data[ $venue->ID ];
+			}
+		}
 
 		$data = array_filter( $data );
 
@@ -263,13 +290,14 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Returns an array representation of an event organizer(s).
 	 *
-	 * @param int $event_or_organizer_id An event or organizer post ID.
+	 * @param int    $event_or_organizer_id An event or organizer post ID.
+	 * @param string $context               Context of data.
 	 *
 	 * @return array|WP_Error Either an the array representation of an orgnanizer, an
 	 *                        arrya of array representations of an event organizer or
 	 *                        an error object.
 	 */
-	public function get_organizer_data( $event_or_organizer_id ) {
+	public function get_organizer_data( $event_or_organizer_id, $context = '' ) {
 		if ( tribe_is_event( $event_or_organizer_id ) ) {
 			$organizers = tribe_get_organizer_ids( $event_or_organizer_id );
 			if ( empty( $organizers ) ) {
@@ -314,6 +342,14 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				'website'      => isset( $meta['_OrganizerWebsite'] ) ? $meta['_OrganizerWebsite'] : '',
 				'email'        => isset( $meta['_OrganizerEmail'] ) ? $meta['_OrganizerEmail'] : '',
 			);
+
+			if ( 'single' === $context ) {
+				$json_ld_data = Tribe__Events__JSON_LD__Organizer::instance()->get_data( $organizer );
+
+				if ( $json_ld_data ) {
+					$this_data['json_ld'] = $json_ld_data[ $organizer->ID ];
+				}
+			}
 
 			// Add the Global ID fields
 			$this_data = $this->add_global_id_fields( $this_data, $organizer->ID );

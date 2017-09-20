@@ -317,5 +317,9 @@ class SingleEventCest extends BaseRestCest {
 				],
 			]
 		] );
+
+		$response = json_decode( $I->grabResponse(), true );
+
+		$I->assertArrayHasKey( 'json_ld', $response );
 	}
 }

@@ -33,7 +33,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			return new WP_Error( 'venue-not-accessible', $message, array( 'status' => 403 ) );
 		}
 
-		$data = $this->post_repository->get_venue_data( $request['id'] );
+		$data = $this->post_repository->get_venue_data( $request['id'], 'single' );
 
 		return is_wp_error( $data ) ? $data : new WP_REST_Response( $data );
 	}
