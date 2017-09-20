@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-09-02 07:56:43+0000\n"
+"PO-Revision-Date: 2017-09-17 10:54:18+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -190,79 +190,79 @@ msgstr "L'ID dell'articolo richiesto non esiste o non è un evento"
 
 #: src/Tribe/REST/V1/Messages.php:13
 msgid "The event ID is missing from the request"
-msgstr ""
+msgstr "L'ID dell'evento non è incluso nella richiesta"
 
 #: src/Tribe/REST/V1/Messages.php:15
 msgid "The event does not have a venue assigned"
-msgstr ""
+msgstr "Non è stato assegnato il luogo all'evento."
 
 #: src/admin-views/aggregator/settings.php:398
 msgid "Import date range"
-msgstr ""
+msgstr "Importa intervallo di date"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:97
 msgid "Returns the data of the event with the specified post ID"
-msgstr ""
+msgstr "Restituisce la data dell'evento con l'ID dell'articolo"
 
 #: src/Tribe/REST/V1/Messages.php:27
 msgid "The requested post ID does not exist or is not an organizer"
-msgstr ""
+msgstr "L'ID dell'articolo richiesto non esiste o non è l'organizzatore"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:52
 msgid "The event last modification date in UTC time"
-msgstr ""
+msgstr "L'ultima data di modifica dell'evento (UTC)"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:449
 msgid "Events should start after the specified date"
-msgstr ""
+msgstr "Gli eventi dovrebbero iniziare dopo la data specificata"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:457
 msgid "Events should start before the specified date"
-msgstr ""
+msgstr "Gli eventi dovrebbero iniziare prima della data specificata"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:109
 msgid "An event with the specified event does not exist."
-msgstr ""
+msgstr "L'evento specificato non esiste."
 
 #: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:89
 msgid "The Events Calendar REST API"
-msgstr ""
+msgstr "L'API REST di The Events Calendar"
 
 #: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:90
 msgid "The Events Calendar REST API allows accessing upcoming events information easily and conveniently."
-msgstr ""
+msgstr "L'API REST di The Events Calendar consente di accedere facilmente e comodamente alle informazioni sui prossimi eventi."
 
 #: src/Tribe/REST/V1/Messages.php:16
 msgid "The event does not have an organizer assigned"
-msgstr ""
+msgstr "L'evento non ha un organizzatore"
 
 #: src/Tribe/REST/V1/Messages.php:17
 msgid "The requested event is not accessible"
-msgstr ""
+msgstr "L'evento richiesto non è accessibile"
 
 #: src/Tribe/REST/V1/Messages.php:18
 msgid "The 'page' parameter must be a positive integer greater than 1"
-msgstr ""
+msgstr "Il parametro \"pagina\" deve essere un intero positivo maggiore di 1"
 
 #: src/Tribe/REST/V1/Messages.php:22
 msgid "The 'search' parameter must be a string"
-msgstr ""
+msgstr "Il parametro \"ricerca\" deve essere una stringa"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:90
 msgid "the event post ID"
-msgstr ""
+msgstr "ID dell'evento"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:465
 msgid "Events should contain the specified string in the title or description"
-msgstr ""
+msgstr "Gli eventi devono contenere la stringa specificata nel titolo o nella descrizione"
 
 #: src/Tribe/REST/V1/Messages.php:24
 msgid "The 'tags' parameter contains invalid tag slugs or IDs"
-msgstr ""
+msgstr "Il parametro \"tags\" contiene tag slugs o ID non validi"
 
 #: src/Tribe/REST/V1/Messages.php:25
 msgid "The requested event archive page does not exist"
-msgstr ""
+msgstr "La pagina di archivio eventi richiesta non esiste"
 
 #: src/admin-views/aggregator/fields/schedule.php:50
 #: src/admin-views/aggregator/fields/schedule.php:68
@@ -275,7 +275,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/url.php:83
 msgid "example.com/"
-msgstr ""
+msgstr "example.com/"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:40
 msgid "The event creation date in the site timezone"
@@ -283,11 +283,11 @@ msgstr "La data di creazione dell'evento nel fuso orario del sito"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:56
 msgid "The URL to the event page"
-msgstr ""
+msgstr "L'URL alla pagina dell'evento"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:64
 msgid "The event name"
-msgstr ""
+msgstr "Il nome dell'evento"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:68
 msgid "The event long description"
@@ -2356,15 +2356,15 @@ msgstr "Devi utilizzare un numero intero per ridurre il limite giornaliero di im
 msgid "Event Aggregator System Status"
 msgstr "Stato sistema \"Event Aggregator\""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:367
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:368
 msgid "Enter Event Aggregator License"
 msgstr "Inserisci licenza di \"Event Aggregator\""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:361
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:362
 msgid "To continue using scheduled imports, please enter a valid Event Aggregator license key under %1$sEvents > Settings > Licenses%2$s."
 msgstr "Per continuare ad utilizzare l'importazione pianificata, inserisci una chiave di licenza valida di \"Event Aggregator\" in %1$sEventi > Impostazioni > Licenze%2$s."
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:356
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:357
 msgid "All scheduled imports are currently suspended, and no events will be imported."
 msgstr "Tutte le importazioni pianificate sono attualmente sospese e non verrà importato nessun evento."
 
@@ -6877,7 +6877,7 @@ msgstr "elenco"
 msgid "month"
 msgstr "mese"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.1) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.2) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:565

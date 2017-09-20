@@ -91,7 +91,7 @@ class Tribe__Events__Aggregator__Errors {
 		}
 
 		// Prevent this happening if we don't have EA active
-		if ( ! tribe( 'events-aggregator.main' )->is_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_active( true ) ) {
 			return;
 		}
 
@@ -137,7 +137,7 @@ class Tribe__Events__Aggregator__Errors {
 		global $wpdb, $wp_version;
 
 		// Prevent this happening if we don't have EA active
-		if ( ! tribe( 'events-aggregator.main' )->is_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_active( true ) ) {
 			return $clauses;
 		}
 
@@ -161,7 +161,7 @@ class Tribe__Events__Aggregator__Errors {
 	    global $wpdb;
 
 		// Prevent this happening if we don't have EA active
-		if ( ! tribe( 'events-aggregator.main' )->is_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_active( true ) ) {
 			return $where;
 		}
 
@@ -187,7 +187,7 @@ class Tribe__Events__Aggregator__Errors {
 		}
 
 		// Prevent this happening if we don't have EA active
-		if ( ! tribe( 'events-aggregator.main' )->is_active() ) {
+		if ( ! tribe( 'events-aggregator.main' )->is_active( true ) ) {
 			return $stats;
 		}
 

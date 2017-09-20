@@ -268,7 +268,61 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return array An associative array of durations and strings.
 	 */
 	public function get_url_import_range_options( $title = true ) {
+		$options = $this->get_range_options();
+
+		/**
+		 * Filters the options available for the URL import range.
+		 *
+		 * @param array $options An array of arrays in the format
+		 *                       [ <range duration in seconds> => [ 'title' => <title>, 'range' => <range> ] ].
+		 */
+		$options = apply_filters( 'tribe_aggregator_url_import_range_options', $options );
+
+		if ( $title ) {
+			return array_combine( array_keys( $options ), wp_list_pluck( $options, 'title' ) );
+		}
+
+		return array_combine( array_keys( $options ), wp_list_pluck( $options, 'range' ) );
+	}
+
+	/**
+	 * Returns the list of limit options that should be applied to imports.
+	 *
+	 * @since 4.5.13
+	 *
+	 * @return array An array of limit type options in the [ <limit_type> => <limit description> ]
+	 *               format.
+	 */
+	public function get_import_limit_type_options(  ) {
 		$options = array(
+			'range'    => __( 'By date range', 'the-events-calendar' ),
+			'count'    => __( 'By number of events', 'the-events-calendar' ),
+			'no_limit' => __( 'Do not limit (not recommended)', 'the-events-calendar' ),
+		);
+
+		/**
+		 * Filters the options available for the default import limit options.
+		 *
+		 * @since 4.5.13
+		 *
+		 * @param array $options An array of arrays in the format
+		 *                       [ <limit_type> => <limit description> ].
+		 */
+		$options = apply_filters( 'tribe_aggregator_import_limit_types', $options );
+
+		return $options;
+	}
+
+	/**
+	 * Returns a list of date range options.
+	 *
+	 * @since 4.5.13
+	 *
+	 * @return array $options An array of arrays in the format
+	 *                      [ <range duration in seconds> => [ 'title' => <title>, 'range' => <range> ] ].
+	 */
+	protected function get_range_options() {
+		return array(
 			DAY_IN_SECONDS          => array(
 				'title' => __( '24 hours', 'the-events-calendar' ),
 				'range' => __( '24 hours', 'the-events-calendar' ),
@@ -302,19 +356,97 @@ class Tribe__Events__Aggregator__Settings {
 				'range' => __( 'three months', 'the-events-calendar' ),
 			),
 		);
+	}
+
+	/**
+	 * Returns the range options available for imports.
+	 *
+	 * Titles are meant to be used in titles and make sense alone, range strings are meant to be used when using the
+	 * duration in a sentence and do not make sense alone.
+	 *
+	 * @since 4.5.13
+	 *
+	 * @param bool $title Whether the values of the array should be for title or for use as range.
+	 *
+	 * @return array An associative array of durations and strings.
+	 */
+	public function get_import_range_options( $title = true ) {
+		$options = $this->get_range_options();
 
 		/**
-		 * Filters the options available for the URL import range.
+		 * Filters the options available for the import date range.
+		 *
+		 * @since 4.5.13
 		 *
 		 * @param array $options An array of arrays in the format
 		 *                       [ <range duration in seconds> => [ 'title' => <title>, 'range' => <range> ] ].
 		 */
-		$options = apply_filters( 'tribe_aggregator_url_import_range_options', $options );
+		$options = apply_filters( 'tribe_aggregator_import_range_options', $options );
 
 		if ( $title ) {
 			return array_combine( array_keys( $options ), wp_list_pluck( $options, 'title' ) );
 		}
 
 		return array_combine( array_keys( $options ), wp_list_pluck( $options, 'range' ) );
+	}
+
+	/**
+	 * Return a list of available options for the import numeric limit.
+	 *
+	 * @since 4.5.13
+	 *
+	 * @return array $options An array of arrays in the format [ <number> => <number> ].
+	 */
+	public function get_import_limit_count_options() {
+		$numbers = array( 50, 100, 200, 300, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000 );
+
+		$options = array_combine( $numbers, $numbers );
+
+		/**
+		 * Filters the options available for the import numeric limit.
+		 *
+		 * @since 4.5.13
+		 *
+		 * @param array $options An array of arrays in the format [ <number> => <number> ].
+		 */
+		$options = apply_filters( 'tribe_aggregator_import_count_options', $options );
+
+		return $options;
+	}
+
+	/**
+	 * Returns the default value of the import count limit.
+	 *
+	 * @since 4.5.13
+	 *
+	 * @return int
+	 */
+	public function get_import_limit_count_default() {
+		/**
+		 * Filters the default value of the import count limit.
+		 *
+		 * @since 4.5.13
+		 *
+		 * @param int
+		 */
+		return apply_filters( 'tribe_aggregator_import_count_default', 200 );
+	}
+
+	/**
+	 * Returns the default value of the import count limit.
+	 *
+	 * @since 4.5.13
+	 *
+	 * @return int
+	 */
+	public function get_import_range_default() {
+		/**
+		 * Filters the default value of the import range limit.
+		 *
+		 * @since 4.5.13
+		 *
+		 * @param int
+		 */
+		return apply_filters( 'tribe_aggregator_import_range_default', 30 * DAY_IN_SECONDS );
 	}
 }
