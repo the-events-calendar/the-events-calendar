@@ -15,7 +15,7 @@
  * your functions.php. In order to modify or extend a single filter, please see our
  * readme on templates hooks and filters (TO-DO)
  *
- * @version 4.4
+ * @version 4.5.13
  * @return string
  *
  * @package TribeEventsCalendar
@@ -56,9 +56,26 @@ if ( $posts ) : ?>
 					 * @param $size
 					 */
 					$thumbnail_size = apply_filters( 'tribe_events_list_widget_thumbnail_size', 'post-thumbnail' );
+
+					/**
+					 * Filters whether the featured image link should be added to the Events List Widget
+					 *
+					 * @since 4.5.13
+					 *
+					 * @param bool $featured_image_link Whether the featured image link should be added or not
+					 */
+					$featured_image_link = apply_filters( 'tribe_events_list_widget_featured_image_link', true );
+					$post_thumbnail      = get_the_post_thumbnail( null, $thumbnail_size );
+
+					if ( $featured_image_link ) {
+						$post_thumbnail = '<a href="' . esc_url( tribe_get_event_link() ) . '">' . $post_thumbnail . '</a>';
+					}
 					?>
 					<div class="tribe-event-image">
-						<?php the_post_thumbnail( $thumbnail_size ); ?>
+						<?php
+						// not escaped because it contains markup
+						echo $post_thumbnail;
+						?>
 					</div>
 					<?php
 

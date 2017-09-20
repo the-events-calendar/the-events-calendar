@@ -188,15 +188,22 @@ class Tribe__Events__Aggregator__Event {
 		}
 
 		$key = "_{$fields[ $origin ]['target']}";
+		$post_type = Tribe__Events__Main::POSTTYPE;
+		$interval = "('" . implode( "','", array_map( 'esc_sql', $values ) ) . "')";
 
 		$sql = "
 			SELECT
-				meta_value,
-				post_id
+				pm.meta_value,
+				pm.post_id
 			FROM
-				{$wpdb->postmeta}
+				{$wpdb->postmeta} pm
+			JOIN
+				{$wpdb->posts} p
+			ON
+				pm.post_id = p.ID
 			WHERE
-				meta_value IN ( '" . implode( "','", $values ) ."' )
+				p.post_type = '{$post_type}'
+				AND meta_value IN {$interval}
 		";
 
 		/**

@@ -29,7 +29,7 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 				),
 				'global_id_lineage' => array(
 					'type' => 'array',
-					'description' => __( 'An Array containing the lineage of where this organizer comes from, this should not change after the organizer is created.', 'the-events-calendar' ),
+					'description' => __( 'An array containing the lineage of where this venue comes from; this should not change after the venue is created.', 'the-events-calendar' ),
 				),
 				'author' => array(
 					'type' => 'int',

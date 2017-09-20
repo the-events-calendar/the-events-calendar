@@ -1266,6 +1266,36 @@ select.tribe-events-dropdown {
 		max-height: 150px;
 		max-width: 150px;
 	}
+
+	/** For when a tooltip is near top edge of viewport, so displays below event title instead of above it. */
+	&.tribe-events-tooltip-flipdown {
+
+		&:before {
+			border: 10px solid transparent;
+			border-bottom-color: #666;
+			content: ' ';
+			display: block;
+			height: 0;
+			left: 17px;
+			position: absolute;
+			top: -21px;
+			width: 0;
+			z-index: 2;
+		}
+
+		.tribe-events-arrow {
+			display: none;
+		}
+	}
+}
+
+/** Tweak location of the arrow on "flipdown" tooltips for events on the right side of the screen. */
+.tribe-events-right .tribe-events-tooltip {
+
+	&.tribe-events-tooltip-flipdown:before {
+		left: auto;
+		right: 43px;
+	}
 }
 
 #tribe-events-content .tribe-events-tooltip {
@@ -1479,8 +1509,10 @@ select.tribe-events-dropdown {
 		}
 
 		.tribe-event-image {
+			line-height: 0;
 			margin-left: -1.5rem;
 			margin-right: -1.5rem;
+			overflow: hidden;
 		}
 
 		.tribe-event-duration {
@@ -2302,8 +2334,13 @@ input[name*='tribe-bar-']:-moz-placeholder {
 			box-shadow: none;
 		}
 	}
-}
 
+	&.single-tribe_events {
+		.single-featured-image-header {
+			display: none;
+		}
+	}	
+}
 
 /* = Events Retina
 =============================================*/

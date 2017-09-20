@@ -46,7 +46,13 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 			$option->upsell = isset( $option->upsell ) ? $option->upsell : false;
 
 			$option->is_selected = false;
-			if ( ! empty( $_GET['ea-auth'] ) && $_GET['ea-auth'] === $option->id ) {
+
+			if (
+				// Used on the EA Authorization
+				tribe_get_request_var( 'ea-auth', false ) === $option->id
+				// Used to Select a given origin when the page loads
+				|| tribe_get_request_var( 'ea-origin', false ) === $option->id
+			) {
 				$option->is_selected = true;
 			}
 
@@ -118,6 +124,7 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 		if ( 'edit' === $aggregator_action ) {
 			$this->template( 'origins/' . $record->meta['origin'], array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 		} else {
+			$this->template( 'origins/limit', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 			$this->template( 'origins/csv', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 			$this->template( 'origins/ics', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );
 			$this->template( 'origins/ical', array( 'record' => $record, 'aggregator_action' => $aggregator_action ) );

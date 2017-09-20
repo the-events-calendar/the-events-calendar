@@ -429,6 +429,13 @@ h2.tribe-events-page-title,
 	max-width: none;
 }
 
+.tribe-events-tooltip.tribe-events-tooltip-flipdown {
+	&::before {
+		border-bottom-color: #fff;
+		top: -20px; /* Normally it's -21px, but -20px works better in Tribe Events theme because of tooltip box-shadow. */
+	}
+}
+
 /**
  * Shortcode specific CSS
  */
