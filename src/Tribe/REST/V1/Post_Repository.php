@@ -32,6 +32,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @param string $context Context of data.
 	 *
 	 * @return array An array representation of the post.
+	 *
+	 * @since TBD Added $context param
 	 */
 	public function get_data( $id, $context = '' ) {
 		$post = get_post( $id );
@@ -54,6 +56,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @param string $context  Context of data.
 	 *
 	 * @return array|WP_Error Either the array representation of an event or an error object.
+	 *
+	 * @since TBD Added $context param
 	 */
 	public function get_event_data( $event_id, $context = '' ) {
 		$event = get_post( $event_id );
@@ -141,6 +145,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @param string $context           Context of data.
 	 *
 	 * @return array|WP_Error Either the array representation of a venue or an error object.
+	 *
+	 * @since TBD Added $context param
 	 */
 	public function get_venue_data( $event_or_venue_id, $context = '' ) {
 		if ( tribe_is_event( $event_or_venue_id ) ) {
@@ -296,6 +302,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @return array|WP_Error Either an the array representation of an orgnanizer, an
 	 *                        arrya of array representations of an event organizer or
 	 *                        an error object.
+	 *
+	 * @since TBD Added $context param
 	 */
 	public function get_organizer_data( $event_or_organizer_id, $context = '' ) {
 		if ( tribe_is_event( $event_or_organizer_id ) ) {
