@@ -1387,6 +1387,32 @@ select.tribe-events-dropdown {
 	max-width: 150px;
 }
 
+/** For when a tooltip is near top edge of viewport, so displays below event title instead of above it. */
+
+.tribe-events-tooltip.tribe-events-tooltip-flipdown:before {
+	border: 10px solid transparent;
+	border-bottom-color: #666;
+	content: ' ';
+	display: block;
+	height: 0;
+	left: 17px;
+	position: absolute;
+	top: -21px;
+	width: 0;
+	z-index: 2;
+}
+
+.tribe-events-tooltip.tribe-events-tooltip-flipdown .tribe-events-arrow {
+	display: none;
+}
+
+/** Tweak location of the arrow on "flipdown" tooltips for events on the right side of the screen. */
+
+.tribe-events-right .tribe-events-tooltip.tribe-events-tooltip-flipdown:before {
+	left: auto;
+	right: 43px;
+}
+
 /* Recurring info tooltip */
 
 .recurringinfo {

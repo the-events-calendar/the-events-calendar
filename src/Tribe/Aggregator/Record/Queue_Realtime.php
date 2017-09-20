@@ -127,10 +127,12 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 			$this->queue_processor->process_batch( $this->record_id );
 		}
 
-		$done       = $this->queue_processor->current_queue->is_empty();
-		$percentage = $this->queue_processor->current_queue->progress_percentage();
+		/** @var \Tribe__Events__Aggregator__Record__Queue $current_queue */
+		$current_queue = $this->queue_processor->current_queue;
+		$done          = $current_queue->is_empty();
+		$percentage    = $current_queue->progress_percentage();
 
-		$this->ajax_operations->exit_data( $this->get_progress_message_data( $this->queue_processor->current_queue, $percentage, $done ) );
+		$this->ajax_operations->exit_data( $this->get_progress_message_data( $current_queue, $percentage, $done ) );
 	}
 
 	/**
@@ -179,8 +181,11 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	}
 
 	/**
-	 * @param $percentage
-	 * @param $done
+	 * Returns the progress message data.
+	 *
+	 * @param Tribe__Events__Aggregator__Record__Queue $queue
+	 * @param int $percentage
+	 * @param bool $done
 	 *
 	 * @return mixed|string|void
 	 */

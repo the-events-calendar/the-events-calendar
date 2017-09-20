@@ -91,10 +91,10 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 			'type'          => empty( $data['import_type'] ) ? 'manual' : $data['import_type'],
 			'frequency'     => empty( $data['import_frequency'] ) ? null : $data['import_frequency'],
 			'file'          => empty( $data['file'] ) ? null : $data['file'],
-			'keywords'      => empty( $data['keywords'] ) ? null : $data['keywords'],
-			'location'      => empty( $data['location'] ) ? null : $data['location'],
-			'start'         => empty( $data['start'] ) ? null : $data['start'],
-			'end'           => empty( $data['end'] ) ? null : $data['end'],
+			'keywords'      => ! isset( $data['keywords'] ) ? null : trim( $data['keywords'] ),
+			'location'      => ! isset( $data['location'] ) ? null : trim( $data['location'] ),
+			'start'         => ! isset( $data['start'] ) ? null : trim( $data['start'] ),
+			'end'           => ! isset( $data['end'] ) ? null : trim( $data['end'] ),
 			'radius'        => empty( $data['radius'] ) ? null : $data['radius'],
 			'source'        => empty( $data['source'] ) ? null : $data['source'],
 			'content_type'  => empty( $data['content_type'] ) ? null : $data['content_type'],
@@ -147,9 +147,9 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 				break;
 			case 'url':
 				$now = time();
-				$range = tribe_get_option( 'tribe_aggregator_default_url_import_range', 3 * 30 * DAY_IN_SECONDS );
+				$range = tribe_get_option( 'tribe_aggregator_default_url_import_range', 30 * DAY_IN_SECONDS );
 				$start = ! empty( $meta['start'] ) ? $this->to_timestamp( $meta['start'], $now ) : $now;
-				$end = ! empty( $meta['end'] ) ? $this->to_timestamp( $meta['end'], $now + $range ) : $now + $range;
+				$end = ! empty( $meta['end'] ) ? $this->to_timestamp( $meta['end'], $start + $range ) : $start + $range;
 
 				/**
 				 * Filters the URL import range cap.

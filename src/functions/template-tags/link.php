@@ -259,27 +259,46 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Get link to a single event
 	 *
-	 * @param int $postId Optional post ID
-	 * @param bool $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output
+	 * @param WP_Post|int $post_id   Optional. WP Post that this affects
+	 * @param bool        $full_link Optional. If true outputs a complete HTML <a> link, otherwise only the URL is output
 	 *
-	 * @return string
+	 * @return string|bool Link to post or false if none found
 	 */
-	function tribe_get_event_link( $postId = null, $full_link = false ) {
+	function tribe_get_event_link( $post_id = null, $full_link = false ) {
+		$post_id = Tribe__Main::post_id_helper( $post_id );
+		$url = Tribe__Events__Main::instance()->getLink( 'single', $post_id );
 
-		$url = Tribe__Events__Main::instance()->getLink( 'single', $postId );
-
-		if ( '' != get_option( 'permalink_structure' ) ) $url = trailingslashit( $url );
+		if ( '' != get_option( 'permalink_structure' ) ) {
+			$url = trailingslashit( $url );
+		}
 
 		if ( $full_link ) {
-			$title_args = array( 'post' => $postId, 'echo' => false );
-			$name = get_the_title( $postId );
+			$title_args = array( 'post' => $post_id, 'echo' => false );
+			$name       = get_the_title( $post_id );
 			$attr_title = the_title_attribute( $title_args );
-			$link = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '" title="'.$attr_title.'"">' . $name . '</a>' : false;
+			$link       = false;
+
+			if ( ! empty( $url ) && ! empty( $name ) ) {
+				$link = sprintf(
+					'<a href="%1$s" title="%2$s"">%3$s</a>',
+					esc_url( $url ),
+					$attr_title,
+					$name
+				);
+			}
 		} else {
 			$link = $url;
 		}
 
-		return apply_filters( 'tribe_get_event_link', $link, $postId, $full_link, $url );
+		/**
+		 * Filters the permalink to events
+		 *
+		 * @param mixed  $link      The link, possibly HTML, just URL, or false
+		 * @param int    $post_id   Post ID
+		 * @param bool   $full_link Whether to output full HTML <a> link
+		 * @param string $url       The URL itself
+		 */
+		return apply_filters( 'tribe_get_event_link', $link, $post_id, $full_link, $url );
 	}
 
 	/**
