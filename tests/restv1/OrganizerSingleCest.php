@@ -34,6 +34,7 @@ class OrganizerSingleCest extends BaseRestCest {
 			'phone',
 			'website',
 			'email',
+			'json_ld',
 			'global_id',
 			'global_id_lineage',
 		];
