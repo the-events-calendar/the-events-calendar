@@ -18,7 +18,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		/**
 		 * Where we save the previous Status when ignoring an Event
 		 *
-		 * @since TBD
+		 * @since 4.5.13
 		 * @var string
 		 */
 		public static $key_previous_status = '_tribe_ignored_event_previous_status';
@@ -759,7 +759,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		/**
 		 * Making sure that we have the previous Status saved
 		 *
-		 * @since  TBD
+		 * @since  4.5.13
 		 *
 		 * @param  int|WP_Post  $event  Which event to track the Previous status
 		 *

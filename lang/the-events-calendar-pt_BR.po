@@ -2356,15 +2356,15 @@ msgstr ""
 msgid "Event Aggregator System Status"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:367
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:368
 msgid "Enter Event Aggregator License"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:361
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:362
 msgid "To continue using scheduled imports, please enter a valid Event Aggregator license key under %1$sEvents > Settings > Licenses%2$s."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:356
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:357
 msgid "All scheduled imports are currently suspended, and no events will be imported."
 msgstr ""
 
@@ -6880,7 +6880,7 @@ msgstr "lista"
 msgid "month"
 msgstr "mês"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.1) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.2) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:565
