@@ -132,7 +132,7 @@ class Tribe__Events__Meta__Save {
 	 */
 	public function maybe_save() {
 		// only continue if it's an event post
-		if ( ! $this->is_event() ) {
+		if ( ! ( $this->is_event() || $this->is_series() ) ) {
 			return false;
 		}
 
@@ -181,4 +181,13 @@ class Tribe__Events__Meta__Save {
 		return $this->post->post_type === Tribe__Events__Main::POSTTYPE;
 	}
 
+	/**
+	 * @return bool
+	 */
+	protected function is_series() {
+		if ( ! class_exists( 'Tribe__Events__Pro__Series' ) ) {
+			return false;
+		}
+		return $this->post->post_type === Tribe__Events__Pro__Series::POST_TYPE;
+	}
 }

@@ -34,7 +34,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		const VERSION             = '4.5.9';
 		const MIN_ADDON_VERSION   = '4.4';
-		const MIN_COMMON_VERSION  = '4.5.6';
+		const MIN_COMMON_VERSION  = '4.7dev';
 
 		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -387,11 +387,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return void
 		 */
-		public function bind_implementations(  ) {
+		public function bind_implementations() {
 			tribe_singleton( 'tec.main', $this );
-
 			// Utils
 			tribe_singleton( 'tec.cost-utils', 'Tribe__Events__Cost_Utils' );
+			tribe_singleton( 'tec.known-range', 'Tribe__Events__Dates__Known_Range' );
 
 			// Front page events archive support
 			tribe_singleton( 'tec.front-page-view', 'Tribe__Events__Front_Page_View' );
@@ -423,6 +423,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.customizer.month-week-view', new Tribe__Events__Customizer__Month_Week_View() );
 			tribe_singleton( 'tec.customizer.single-event', new Tribe__Events__Customizer__Single_Event() );
 			tribe_singleton( 'tec.customizer.widget', new Tribe__Events__Customizer__Widget() );
+
+			tribe_singleton( 'tec.admin.list', 'Tribe__Events__Admin__List' );
+			tribe_singleton( 'tec.admin.inactive-list', 'Tribe__Events__Admin__Inactive_List' );
+
+			tribe_singleton( 'tec.inactive-events', 'Tribe__Events__Inactive_Events' );
 
 			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', array( 'hook' ) );
@@ -552,7 +557,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 2 );
 			/* End Setup Tribe Events Bar */
 
-			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
+			add_action( 'add_meta_boxes', array( $this, 'addEventBox' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 
@@ -580,11 +585,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_tracker_post_types', array( $this, 'filter_tracker_event_post_types' ) );
 			add_filter( 'tribe_tracker_taxonomies', array( $this, 'filter_tracker_event_taxonomies' ) );
 
-			if ( ! Tribe__Main::instance()->doing_ajax() ) {
-				add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
-			} else {
-				add_action( 'admin_init', array( $this, 'init_admin_list_screen' ) );
-			}
+			add_action( 'init', tribe_callback( 'tec.admin.list', 'init' ) );
+
+			add_action( 'init', tribe_callback( 'tec.inactive-events', 'register' ) );
+			add_action( 'init', tribe_callback( 'tec.inactive-events', 'init' ) );
 
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
@@ -1974,11 +1978,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				// ecp placeholders
 				Tribe__Events__Template_Factory::asset_package( 'ecp-plugins' );
 
-				if ( $admin_helpers->is_post_type_screen( self::POSTTYPE ) ) {
+				/**
+				 * Controls whether the event editor script is enqueued within the current screen.
+				 *
+				 * @var bool $add_script
+				 */
+				if ( apply_filters( 'tribe_events_screen_add_event_editor_script', $admin_helpers->is_post_type_screen( self::POSTTYPE ) ) ) {
 					tribe_asset( $this, 'tribe-events-editor', 'event-editor.js', array( 'jquery' ), 'admin_enqueue_scripts' );
 
 					add_action( 'admin_footer', array( $this, 'printLocalizedAdmin' ) );
-					// hook for other plugins
+
+					/**
+					 * Fires after the event-editor.js script has been enqueued.
+					 */
 					do_action( 'tribe_events_enqueue' );
 				} elseif ( $admin_helpers->is_post_type_screen( self::VENUE_POST_TYPE ) ) {
 					// hook for other plugins
@@ -2161,27 +2173,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 				}
 			}
-		}
-
-		/**
-		 * Initializes admin-specific items for the events admin list dashboard page. Hooked to the
-		 * current_screen action
-		 *
-		 * @param WP_Screen $screen WP Admin screen object for the current page
-		 */
-		public function init_admin_list_screen( $screen ) {
-			// If we are dealing with a AJAX call just drop these checks
-			if ( ! Tribe__Main::instance()->doing_ajax() ) {
-				if ( 'edit' !== $screen->base ) {
-					return;
-				}
-
-				if ( self::POSTTYPE !== $screen->post_type ) {
-					return;
-				}
-			}
-
-			Tribe__Events__Admin_List::init();
 		}
 
 		/**
@@ -3720,38 +3711,82 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Callback for adding the Meta box to the admin page
-		 *
 		 */
 		public function addEventBox() {
-			add_meta_box(
-				'tribe_events_event_details', $this->plugin_name, array(
-					$this,
-					'EventsChooserBox',
-				), self::POSTTYPE, 'normal', 'high'
-			);
-			add_meta_box(
-				'tribe_events_event_options', sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ), array(
-					$this,
-					'eventMetaBox',
-				), self::POSTTYPE, 'side', 'default'
-			);
+			/**
+			 * Sets the post types for which the Event Details meta box will be registered.
+			 *
+			 * @since  TBD
+			 *
+			 * @param  array  $types
+			 */
+			$types = apply_filters( 'tribe_events_event_details_meta_box_post_types', array( self::POSTTYPE ) );
 
 			add_meta_box(
-				'tribe_events_venue_details', sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_venue_label ), array(
-					$this,
-					'VenueMetaBox',
-				), self::VENUE_POST_TYPE, 'normal', 'high'
+				'tribe_events_event_details',
+				$this->plugin_name,
+				array( $this, 'EventsChooserBox' ),
+				$types,
+				'normal',
+				'high'
+			);
+
+			/**
+			 * Sets the post types for which the Event Options meta box will be registered.
+			 *
+			 * @since  TBD
+			 *
+			 * @param  array  $types
+			 */
+			$types = apply_filters( 'tribe_events_event_options_meta_box_post_types', array( self::POSTTYPE ) );
+
+			add_meta_box(
+				'tribe_events_event_options',
+				sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ),
+				array( $this, 'eventMetaBox' ),
+				$types,
+				'side',
+				'default'
+			);
+
+			/**
+			 * Sets the post types for which the Venue Details meta box will be registered.
+			 *
+			 * @since  TBD
+			 *
+			 * @param  array  $types
+			 */
+			$types = apply_filters( 'tribe_events_venue_details_meta_box_post_types', array( self::VENUE_POST_TYPE ) );
+
+			add_meta_box(
+				'tribe_events_venue_details',
+				sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_venue_label ),
+				array( $this, 'VenueMetaBox' ),
+				$types,
+				'normal',
+				'high'
 			);
 
 			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 				remove_meta_box( 'slugdiv', self::VENUE_POST_TYPE, 'normal' );
 			}
 
+			/**
+			 * Sets the post types for which the Organizer Details meta box will be registered.
+			 *
+			 * @since  TBD
+			 *
+			 * @param  array  $types
+			 */
+			$types = apply_filters( 'tribe_events_organizer_details_meta_box_post_types', array( self::ORGANIZER_POST_TYPE ) );
+
 			add_meta_box(
-				'tribe_events_organizer_details', sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_organizer_label ), array(
-					$this,
-					'OrganizerMetaBox',
-				), self::ORGANIZER_POST_TYPE, 'normal', 'high'
+				'tribe_events_organizer_details',
+				sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_organizer_label ),
+				array( $this, 'OrganizerMetaBox' ),
+				$types,
+				'normal',
+				'high'
 			);
 		}
 
@@ -4825,489 +4860,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function saved_organizers_dropdown( $current = null, $name = 'organizer[OrganizerID]' ) {
 			_deprecated_function( __METHOD__, '4.2', 'Tribe__Events__Linked_Posts::saved_linked_post_dropdown' );
 			Tribe__Events__Linked_Posts::instance()->saved_linked_post_dropdown( Tribe__Events__Organizer::POSTTYPE, $current );
-		}
-
-		/**
-		 * When the edit-tags.php screen loads, setup filters
-		 * to fix the tagcloud links
-		 *
-		 * @deprecated 4.1.2
-		 *
-		 */
-		public function prepare_to_fix_tagcloud_links() {
-			_deprecated_function( __METHOD__, '4.1.2' );
-			if ( Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
-				add_filter( 'get_edit_term_link', array( $this, 'add_post_type_to_edit_term_link' ), 10, 4 );
-			}
-		}
-
-		/**
-		 * Tag clouds in the admin don't pass the post type arg
-		 * when getting the edit link. If we're on the tag admin
-		 * in Events post type context, make sure we add that
-		 * arg to the edit tag link
-		 *
-		 * @deprecated 4.1.2
-		 *
-		 * @param string $link
-		 * @param int    $term_id
-		 * @param string $taxonomy
-		 * @param string $context
-		 *
-		 * @return string
-		 */
-		public function add_post_type_to_edit_term_link( $link, $term_id, $taxonomy, $context ) {
-			_deprecated_function( __METHOD__, '4.1.2' );
-			if ( $taxonomy == 'post_tag' && empty( $context ) ) {
-				$link = add_query_arg( array( 'post_type' => self::POSTTYPE ), $link );
-			}
-
-			return esc_url_raw( $link );
-		}
-
-		/**
-		 * Insert an array after a specified key within another array.
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param $key
-		 * @param $source_array
-		 * @param $insert_array
-		 *
-		 * @return array
-		 */
-		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Main::array_insert_after_key' );
-
-			return self::instance()->common()->array_insert_after_key( $key, $source_array, $insert_array );
-		}
-
-		/**
-		 * Insert an array immediately before a specified key within another array.
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param $key
-		 * @param $source_array
-		 * @param $insert_array
-		 *
-		 * @return array
-		 */
-		public static function array_insert_before_key( $key, $source_array, $insert_array ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Main::array_insert_before_key' );
-
-			return self::instance()->common()->array_insert_before_key( $key, $source_array, $insert_array );
-		}
-
-		/**
-		 * Create setting tabs
-		 *
-		 * @deprecated 4.0
-		 *
-		 */
-		public function doSettingTabs() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::do_setting_tabs' );
-			Tribe__Settings_Manager::instance()->do_setting_tabs();
-		}
-
-		/**
-		 * Create the help tab
-		 *
-		 * @deprecated 4.0
-		 *
-		 */
-		public function doHelpTab() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::do_help_tab' );
-			Tribe__Settings_Manager::instance()->do_help_tab();
-		}
-
-		/**
-		 * Get taxonomy rewrite slug.
-		 *
-		 * This method returns a concatenation of the base rewrite slug (ie "events") and the taxonomy slug
-		 * (ie "category"). If you only wish the taxonomy slug itself, you should call the get_tax_slug()
-		 * method.
-		 *
-		 * @deprecated 4.0 please use getRewriteSlug() and get_category_slug() instead
-		 *
-		 * @return string
-		 */
-		public function getTaxRewriteSlug() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Events__Main::get_category_slug' );
-
-			$slug = $this->getRewriteSlug() . '/' . $this->category_slug;
-
-			/**
-			 * @deprecated since 4.0
-			 */
-			return apply_filters( 'tribe_events_category_rewrite_slug', $slug );
-		}
-
-		/**
-		 * Get tag rewrite slug.
-		 *
-		 * This method returns a concatenation of the base rewrite slug (ie "events") and the tag taxonomy slug
-		 * (ie "tag"). If you only wish the taxonomy slug itself, you should call the get_tag_slug()
-		 * method.
-		 *
-		 * @deprecated 4.0 please use getRewriteSlug() and get_tag_slug() instead
-		 *
-		 * @return string
-		 */
-		public function getTagRewriteSlug() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Events__Main::get_tag_slug' );
-
-			$slug = $this->getRewriteSlug() . '/' . $this->tag_slug;
-
-			/**
-			 * @deprecated since 4.0
-			 */
-			return apply_filters( 'tribe_events_tag_rewrite_slug', $slug );
-		}
-
-		/**
-		 * Get all options for the Events Calendar
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @return array of options
-		 */
-		public static function getOptions() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::get_options' );
-			return Tribe__Settings_Manager::get_options();
-		}
-
-		/**
-		 * Get value for a specific option
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param string $optionName name of option
-		 * @param string $default    default value
-		 *
-		 * @return mixed results of option query
-		 */
-		public static function getOption( $optionName, $default = '' ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::get_option' );
-			return Tribe__Settings_Manager::get_option( $optionName, $default );
-		}
-
-		/**
-		 * Saves the options for the plugin
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param array $options formatted the same as from getOptions()
-		 * @param bool  $apply_filters
-		 *
-		 */
-		public function setOptions( $options, $apply_filters = true ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::set_options' );
-			Tribe__Settings_Manager::set_options( $options, $apply_filters );
-		}
-
-		/**
-		 * Set an option
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param string $name
-		 * @param mixed  $value
-		 *
-		 */
-		public function setOption( $name, $value ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::set_option' );
-			Tribe__Settings_Manager::set_option( $name, $value );
-		}
-
-		/**
-		 * Get all network options for the Events Calendar
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @return array of options
-		 */
-		public static function getNetworkOptions() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::get_network_options' );
-			return Tribe__Settings_Manager::get_network_options();
-		}
-
-		/**
-		 * Get value for a specific network option
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param string $optionName name of option
-		 * @param string $default    default value
-		 *
-		 * @return mixed results of option query
-		 */
-		public function getNetworkOption( $optionName, $default = '' ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::get_network_option' );
-			return Tribe__Settings_Manager::get_network_option( $optionName, $default );
-		}
-
-		/**
-		 * Saves the network options for the plugin
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param array $options formatted the same as from getOptions()
-		 * @param bool  $apply_filters
-		 *
-		 */
-		public function setNetworkOptions( $options, $apply_filters = true ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::set_network_options' );
-			Tribe__Settings_Manager::set_network_options( $options, $apply_filters );
-		}
-
-		/**
-		 * Add the network admin options page
-		 *
-		 * @deprecated 4.0
-		 *
-		 */
-		public function addNetworkOptionsPage() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::add_network_options_page' );
-			Tribe__Settings_Manager::add_network_options_page();
-		}
-
-		/**
-		 * Render network admin options view
-		 *
-		 * @deprecated 4.0
-		 *
-		 */
-		public function doNetworkSettingTab() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::do_network_settings_tab' );
-			Tribe__Settings_Manager::do_network_settings_tab();
-		}
-
-		/**
-		 * Save hidden tabs
-		 *
-		 * @deprecated 4.0
-		 *
-		 */
-		public function saveAllTabsHidden() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::save_all_tabs_hidden' );
-			Tribe__Settings_Manager::instance()->save_all_tabs_hidden();
-		}
-
-		/**
-		 * Truncate a given string.
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param string $text           The text to truncate.
-		 * @param int    $excerpt_length How long you want it to be truncated to.
-		 *
-		 * @return string The truncated text.
-		 */
-		public function truncate( $text, $excerpt_length = 44 ) {
-			_deprecated_function( __FUNCTION__, '4.0', 'tribe_events_get_the_excerpt()' );
-
-			$text = apply_filters( 'the_content', $text );
-			$text = str_replace( ']]>', ']]&gt;', $text );
-			$text = strip_tags( $text );
-
-			$words = explode( ' ', $text, $excerpt_length + 1 );
-			if ( count( $words ) > $excerpt_length ) {
-				array_pop( $words );
-				$text = implode( ' ', $words );
-				$text = rtrim( $text );
-				$text .= '&hellip;';
-			}
-
-			return $text;
-		}
-
-		/**
-		 * Tribe debug function. usage: Tribe__Debug::debug( 'Message', $data, 'log' );
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param string      $title  Message to display in log
-		 * @param string|bool $data   Optional data to display
-		 * @param string      $format Optional format (log|warning|error|notice)
-		 *
-		 */
-		public static function debug( $title, $data = false, $format = 'log' ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Debug::debug' );
-			Tribe__Debug::debug( $title, $data, $format );
-		}
-
-		/**
-		 * Render the debug logging to the php error log. This can be over-ridden by removing the filter.
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param string      $title  - message to display in log
-		 * @param string|bool $data   - optional data to display
-		 * @param string      $format - optional format (log|warning|error|notice)
-		 *
-		 */
-		public function renderDebug( $title, $data = false, $format = 'log' ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Debug::render' );
-			Tribe__Debug::render( $title, $data, $format );
-		}
-
-		/**
-		 * Define an admin notice
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param string $key
-		 * @param string $notice
-		 *
-		 * @return bool
-		 */
-		public static function setNotice( $key, $notice ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices::set_notice' );
-			return Tribe__Notices::set_notice( $key, $notice );
-		}
-
-		/**
-		 * Check to see if an admin notice exists
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param string $key
-		 *
-		 * @return bool
-		 */
-		public static function isNotice( $key ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices::is_notice' );
-			return Tribe__Notices::is_notice( $key );
-		}
-
-		/**
-		 * Remove an admin notice
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param string $key
-		 *
-		 * @return bool
-		 */
-		public static function removeNotice( $key ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices::remove_notice' );
-			return Tribe__Notices::remove_notice( $key );
-		}
-
-		/**
-		 * Get the admin notices
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @return array
-		 */
-		public static function getNotices() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices::get' );
-			return Tribe__Notices::get();
-		}
-
-		/**
-		 * Add help menu item to the admin (unless blocked via network admin settings).
-		 *
-		 * @deprecated 4.0
-		 *
-		 */
-		public function addHelpAdminMenuItem() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::add_help_admin_menu_item' );
-			Tribe__Settings_Manager::instance()->add_help_admin_menu_item();
-		}
-
-		/**
-		 * Allow programmatic override of defaultValueReplace setting
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @return boolean
-		 */
-		public function defaultValueReplaceEnabled() {
-
-			_deprecated_function( __METHOD__, '4.0', "tribe_get_option( 'defaultValueReplace' )" );
-
-			if ( ! is_admin() ) {
-				return false;
-			}
-
-			return tribe_get_option( 'defaultValueReplace' );
-
-		}
-
-		/**
-		 * Converts a set of inputs to YYYY-MM-DD HH:MM:SS format for MySQL
-		 *
-		 * @deprecated 3.11
-		 *
-		 * @param string $date     The date.
-		 * @param int    $hour     The hour of the day.
-		 * @param int    $minute   The minute of the hour.
-		 * @param string $meridian "am" or "pm".
-		 *
-		 * @return string The date and time.
-		 */
-		public function dateToTimeStamp( $date, $hour, $minute, $meridian ) {
-			_deprecated_function( __METHOD__, '3.11', 'strtotime' );
-			if ( preg_match( '/(PM|pm)/', $meridian ) && $hour < 12 ) {
-				$hour += '12';
-			}
-			if ( preg_match( '/(AM|am)/', $meridian ) && $hour == 12 ) {
-				$hour = '00';
-			}
-			$date = $this->dateHelper( $date );
-
-			return "$date $hour:$minute:00";
-		}
-
-		/**
-		 * Ensures date follows proper YYYY-MM-DD format
-		 * converts /, - and space chars to -
-		 *
-		 * @deprecated 4.0
-		 *
-		 * @param string $date The date.
-		 *
-		 * @return string The cleaned-up date.
-		 */
-		protected function dateHelper( $date ) {
-			_deprecated_function( __METHOD__, '3.11', 'date' );
-
-			if ( $date == '' ) {
-				return date( Tribe__Date_Utils::DBDATEFORMAT );
-			}
-
-			$date = str_replace( array( '-', '/', ' ', ':', chr( 150 ), chr( 151 ), chr( 45 ) ), '-', $date );
-			// ensure no extra bits are added
-			list( $year, $month, $day ) = explode( '-', $date );
-
-			if ( ! checkdate( $month, $day, $year ) ) {
-				$date = date( Tribe__Date_Utils::DBDATEFORMAT );
-			} // today's date if error
-			else {
-				$date = $year . '-' . $month . '-' . $day;
-			}
-
-			return $date;
-		}
-
-		/**
-		 * Helper used to test if PRO is present and activated.
-		 *
-		 * This method should no longer be used, but is being retained to avoid potential
-		 * for fatal errors where core is updated before an addon plugin - such as Community
-		 * Events 3.4 or earlier - which might otherwise occur were it removed completely.
-		 *
-		 * @deprecated 3.7
-		 *
-		 * @param string $version
-		 *
-		 * @return bool
-		 */
-		public static function ecpActive( $version = '2.0.7' ) {
-			return class_exists( 'Tribe__Events__Pro__Main' ) && defined( 'Tribe__Events__Pro__Main::VERSION' ) && version_compare( Tribe__Events__Pro__Main::VERSION, $version, '>=' );
 		}
 
 		/**
