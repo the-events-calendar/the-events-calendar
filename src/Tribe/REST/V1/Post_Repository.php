@@ -117,7 +117,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		);
 
 		if ( 'single' === $context ) {
-			$json_ld_data = tribe( 'tec.json-ld.event'->get_data( $event );
+			$json_ld_data = tribe( 'tec.json-ld.event' )->get_data( $event );
 
 			if ( $json_ld_data ) {
 				$data['json_ld'] = $json_ld_data[ $event->ID ];
@@ -186,7 +186,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		);
 
 		// Add geo coordinates (if any)
-		$geo = tribe_get_coordinates( $post_id );
+		$geo = tribe_get_coordinates( $venue->ID );
 
 		if ( ! empty( $geo['lat'] ) && ! empty( $geo['lng'] ) ) {
 			$data['geo_lat'] = $geo['lat'];
