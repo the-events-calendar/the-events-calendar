@@ -327,9 +327,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [TBD] TBD =
+= [4.5.14] TBD =
 
 * Tweak - Adjusted the EA cron start time so that it never gets created in the past [88965]
+* Language - Improvements to aid translatability of text throughout plugin (props: @ramiy) [88982]
 
 = [4.5.13] 2017-09-20 =
 
