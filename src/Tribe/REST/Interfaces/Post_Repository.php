@@ -10,6 +10,8 @@ interface Tribe__Events__REST__Interfaces__Post_Repository {
 	 * @param string $context  Context of data.
 	 *
 	 * @return array|WP_Error Either the array representation of an event or an error object.
+	 *
+	 * @since TBD Added $context param
 	 */
 	public function get_event_data( $event_id, $context = '' );
 
@@ -20,6 +22,8 @@ interface Tribe__Events__REST__Interfaces__Post_Repository {
 	 * @param string $context           Context of data.
 	 *
 	 * @return array|WP_Error Either the array representation of a venue or an error object.
+	 *
+	 * @since TBD Added $context param
 	 */
 	public function get_venue_data( $event_or_venue_id, $context = '' );
 
@@ -32,6 +36,8 @@ interface Tribe__Events__REST__Interfaces__Post_Repository {
 	 * @return array|WP_Error Either an the array representation of an orgnanizer, an
 	 *                        arrya of array representations of an event organizer or
 	 *                        an error object.
+	 *
+	 * @since TBD Added $context param
 	 */
 	public function get_organizer_data( $event_or_organizer_id, $context = '' );
 
