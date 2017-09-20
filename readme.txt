@@ -327,6 +327,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.5.14] TBD =
+
+* Tweak - Remove unnecessary paramters from some remove_action calls in the plugin (thanks to @jpry on GitHub for submitting this fix!) [88867]
+
 = [4.5.13] TBD =
 
 * Feature - Add link to the featured image in the Events List wiget. New filter introduced to control this: `tribe_events_list_widget_featured_image_link` (props to @cabadaj007  for the feature request) [84807]
