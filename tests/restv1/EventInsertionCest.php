@@ -646,7 +646,7 @@ class EventInsertionCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should not allow inserting presentation meta to users that cannot `publish_posts` and `edit_other_posts`
+	 * It should allow inserting presentation meta to users that can publish posts
 	 *
 	 * @test
 	 * @example ["show_map", true ]
@@ -655,7 +655,7 @@ class EventInsertionCest extends BaseRestCest {
 	 * @example ["sticky", true]
 	 * @example ["featured", true]
 	 */
-	public function it_should_not_allow_inserting_presentation_meta_to_users_that_cannot_publish_posts_and_edit_other_posts( Tester $I, \Codeception\Example $data ) {
+	public function it_should_allow_inserting_presentation_meta_to_users_that_can_publish_posts( Tester $I, \Codeception\Example $data ) {
 		$I->generate_nonce_for_role( 'author' );
 
 		$params = [
@@ -670,7 +670,7 @@ class EventInsertionCest extends BaseRestCest {
 
 		$I->seeResponseCodeIs( 201 );
 		$I->seeResponseIsJson();
-		$I->seeResponseContainsJson( [ $data[0] => false ] );
+		$I->seeResponseContainsJson( [ $data[0] => true ] );
 	}
 
 	/**

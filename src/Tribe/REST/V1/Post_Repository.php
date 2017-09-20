@@ -76,6 +76,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'global_id'              => false,
 			'global_id_lineage'      => array(),
 			'author'                 => $event->post_author,
+			'status'                 => $event->post_status,
 			'date'                   => $event->post_date,
 			'date_utc'               => $event->post_date_gmt,
 			'modified'               => $event->post_modified,
@@ -174,6 +175,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$data = array(
 			'id'            => $venue->ID,
 			'author'        => $venue->post_author,
+			'status'        => $venue->post_status,
 			'date'          => $venue->post_date,
 			'date_utc'      => $venue->post_date_gmt,
 			'modified'      => $venue->post_modified,
@@ -356,6 +358,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			$this_data = array(
 				'id'           => $organizer->ID,
 				'author'       => $organizer->post_author,
+				'status'       => $organizer->post_status,
 				'date'         => $organizer->post_date,
 				'date_utc'     => $organizer->post_date_gmt,
 				'modified'     => $organizer->post_modified,
