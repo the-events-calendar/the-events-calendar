@@ -327,6 +327,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.5.14] TBD =
+
+* Language - Improvements to aid translatability of text throughout plugin (props: @ramiy) [88982]
+
 = [4.5.13] 2017-09-20 =
 
 * Feature - Add link to the featured image in the Events List widget. New filter introduced to control this: `tribe_events_list_widget_featured_image_link` (props to @cabadaj007 for the feature request) [84807]
