@@ -179,6 +179,14 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'stateprovince' => isset( $meta['_VenueStateProvince'] ) ? $meta['_VenueStateProvince'] : '',
 		);
 
+		// Add geo coordinates (if any)
+		$geo = tribe_get_coordinates( $post_id );
+
+		if ( ! empty( $geo['lat'] ) && ! empty( $geo['lng'] ) ) {
+			$data['geo_lat'] = $geo['lat'];
+			$data['geo_lng'] = $geo['lng'];
+		}
+
 		if ( 'single' === $context ) {
 			$json_ld_data = Tribe__Events__JSON_LD__Venue::instance()->get_data( $venue );
 
