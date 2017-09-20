@@ -2,6 +2,11 @@
 /** @var \Tribe__Events__Aggregator__Settings $settings */
 $settings             = tribe( 'events-aggregator.settings' );
 $global_limit_type    = tribe_get_option( 'tribe_aggregator_default_import_limit_type', 'range' );
+
+if ( 'no_limit' === $global_limit_type ) {
+	return;
+}
+
 $global_limit_option  = $global_limit_type === 'range'
 	? tribe_get_option( 'tribe_aggregator_default_import_limit_range', $settings->get_import_range_default() )
 	: tribe_get_option( 'tribe_aggregator_default_import_limit_number', $settings->get_import_limit_count_default() );
