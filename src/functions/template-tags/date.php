@@ -21,24 +21,41 @@ if ( ! function_exists( 'tribe_get_display_end_date' ) ) {
 	 * Returns the event end date that observes the end of day cutoff
 	 *
 	 * @category Events
-	 * @see http://php.net/manual/en/function.date.php
+	 * @see      http://php.net/manual/en/function.date.php
 	 *
-	 * @param int    $event        (optional)
-	 * @param bool   $display_time If true shows date and time, if false only shows date
-	 * @param string $date_format  Allows date and time formating using standard php syntax
-	 * @param string $timezone     Timezone in which to present the date/time (or default behaviour if not set)
+	 * @param int|WP_Post $event        The event (optional).
+	 * @param bool        $display_time If true shows date and time, if false only shows date.
+	 * @param string      $date_format  Allows date and time formatting using standard php syntax.
+	 * @param string      $timezone     Timezone in which to present the date/time (or default behaviour if not set).
 	 *
 	 * @return string|null Date
 	 */
 	function tribe_get_display_end_date( $event = null, $display_time = true, $date_format = '', $timezone = null ) {
-		$end_date = tribe_get_end_date( $event, true, 'U', $timezone );
-		$beginning_of_day = tribe_beginning_of_day( date( Tribe__Date_Utils::DBDATETIMEFORMAT, $end_date ) );
+		$timestamp = tribe_get_end_date( $event, true, 'U', $timezone );
+		$beginning_of_day = tribe_beginning_of_day( date( Tribe__Date_Utils::DBDATETIMEFORMAT, $timestamp ) );
 
-		if ( tribe_event_is_multiday( $event ) && $end_date < strtotime( $beginning_of_day ) ) {
-			$end_date -= DAY_IN_SECONDS;
+		if ( tribe_event_is_multiday( $event ) && $timestamp < strtotime( $beginning_of_day ) ) {
+			$timestamp -= DAY_IN_SECONDS;
 		}
 
-		return tribe_format_date( $end_date, $display_time, $date_format );
+		$formatted_date = tribe_format_date( $timestamp, $display_time, $date_format );
+
+		/**
+		 * Filters the displayed end date of an event, which factors in the EOD cutoff.
+		 *
+		 * @since 4.5.10
+		 *
+		 * @see tribe_get_display_end_date()
+		 *
+		 * @param string      $formatted_date Formatted date for the last day of the event.
+		 * @param int         $timestamp      Timestamp calculated for the last day of the event.
+		 * @param mixed       $event          The event.
+		 * @param bool        $display_time   If true shows date and time, if false only shows date.
+		 * @param string      $date_format    Allows date and time formatting using standard php syntax.
+		 * @param string|null $timezone       Timezone in which to present the date/time (or default behaviour if not set).
+		 *
+		 */
+		return apply_filters( 'tribe_get_display_end_date', $formatted_date, $timestamp, $event, $display_time, $date_format, $timezone );
 	}
 }
 

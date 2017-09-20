@@ -170,6 +170,30 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// `source` will be empty when importing .ics files
 		$this->meta['source'] = ! empty ( $this->meta['source'] ) ? $this->meta['source'] : '';
+		$original_source = $this->meta['source'];
+
+		// Intelligently prepend "http://" if the protocol is missing from the source URL
+		if ( ! empty( $this->meta['source'] ) && false === strpos( $this->meta['source'], '://' ) ) {
+			$this->meta['source'] = 'http://' . $this->meta['source'];
+		}
+
+		/**
+		 * Provides an opportunity to set or modify the source URL for an import.
+		 *
+		 * @since 4.5.11
+		 *
+		 * @param string  $source
+		 * @param string  $original_source
+		 * @param WP_Post $record
+		 * @param array   $meta
+		 */
+		$this->meta['source'] = apply_filters(
+			'tribe_aggregator_meta_source',
+			$this->meta['source'],
+			$original_source,
+			$this->post,
+			$this->meta
+		);
 
 		// This prevents lots of isset checks for no reason
 		if ( empty( $this->meta['activity'] ) ) {
@@ -295,7 +319,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$defaults = array(
 			'frequency' => null,
 		);
-
 		$meta = wp_parse_args( $meta, $defaults );
 
 		$post = $this->prep_post_args( $meta['type'], $args, $meta );
@@ -365,8 +388,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$value = trim( $value );
 			}
 
-			// if the value is blank or null, let's avoid inserting it
-			if ( null === $value || '' === $value ) {
+			// if the value is null, let's avoid inserting it
+			if ( null === $value ) {
 				continue;
 			}
 
@@ -615,6 +638,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$args = wp_parse_args( $args, $defaults );
 
+		if ( ! empty( $args['start'] ) ) {
+			// Tries to convert a Datepicker formated string
+			$args['start'] = Tribe__Date_Utils::maybe_format_from_datepicker( $args['start'] );
+		}
+
+		if ( ! empty( $args['end'] ) ) {
+			// Tries to convert a Datepicker formated string
+			$args['end'] = Tribe__Date_Utils::maybe_format_from_datepicker( $args['end'] );
+		}
+
 		// create the import on the Event Aggregator service
 		$response = $aggregator->api( 'import' )->create( $args );
 
@@ -683,6 +716,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		/** @var \Tribe__Events__Aggregator__API__Import $import_api */
 		$import_api  = $aggregator->api( 'import' );
+
+		if ( empty( $this->meta['import_id'] ) ) {
+			return tribe_error( 'core:aggregator:record-not-finalized' );
+		}
+
 		$import_data = $import_api->get( $this->meta['import_id'], $data );
 
 		$import_data = $this->maybe_cast_to_error( $import_data );
@@ -812,7 +850,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		);
 
 		$args = wp_parse_args( $args, $defaults );
-
 		return get_comments( $args );
 	}
 
@@ -826,8 +863,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function log_error( $error ) {
 		$today = getdate();
 		$args = array(
-			// Resets the Post ID
-			'post_id' => null,
 			'number' => 1,
 			'date_query' => array(
 				array(
@@ -882,6 +917,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// It's never time for On Demand schedule, bail!
 		if ( ! isset( $this->frequency->id ) || 'on_demand' === $this->frequency->id ) {
 			return false;
+		}
+
+		// If the last import status is an error and this scheduled import frequency is not on demand let's try again
+		if (
+			$this->get_last_import_status( 'error', true )
+			&& isset( $this->frequency->id )
+			&& 'on_demand' !== $this->frequency->id
+		) {
+			return true;
 		}
 
 		$current = time();
@@ -981,18 +1025,35 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Fetches the status message for the last import attempt on (scheduled) records
 	 *
 	 * @param string $type Type of message to fetch
+	 * @param bool   $lookup_children Whether the function should try to read the last children post status to return a coherent
+	 *                                last import status or not, default `false`.
 	 *
-	 * @return string
+	 * @return bool|string Either the message corresponding to the last import status or `false` if the last import status
+	 *                     is empty or not the one required.
 	 */
-	public function get_last_import_status( $type = 'error' ) {
+	public function get_last_import_status( $type = 'error', $lookup_children = false ) {
 		$status = empty( $this->meta['last_import_status'] ) ? null : $this->meta['last_import_status'];
 
+		if ( empty( $status ) && $lookup_children ) {
+			$last_children_query = $this->query_child_records( array( 'posts_per_page' => 1, 'order' => 'DESC', 'order_by' => 'modified' ) );
+			if ( $last_children_query->have_posts() ) {
+				$last_children = reset( $last_children_query->posts );
+
+				$map = array(
+					'tribe-ea-failed'  => 'error:import-failed',
+					'tribe-ea-success' => 'success:queued',
+				);
+
+				$status = Tribe__Utils__Array::get( $map, $last_children->post_status, null );
+			}
+		}
+
 		if ( ! $status ) {
-			return;
+			return false;
 		}
 
 		if ( 0 !== strpos( $status, $type ) ) {
-			return;
+			return false;
 		}
 
 		if ( 'error:usage-limit-exceeded' === $status ) {
@@ -1050,7 +1111,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$items = $this->prep_import_data( $data );
 
 		if ( is_wp_error( $items ) ) {
-			$this->set_status_as_failed( $items );
 			return $items;
 		}
 
@@ -1104,6 +1164,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( is_wp_error( $data ) ) {
+			$this->set_status_as_failed( $data );
 			return $data;
 		}
 
@@ -1132,6 +1193,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function insert_posts( $items = array() ) {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
+		// sets the default user ID to that of the first user that can edit events
+		$default_user_id = $this->get_default_user_id();
+
 		// Creates an Activity to log what Happened
 		$activity = new Tribe__Events__Aggregator__Record__Activity();
 
@@ -1154,8 +1218,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$import_settings = tribe( 'events-aggregator.settings' )->default_settings_import( $origin );
 		$should_import_settings = tribe_is_truthy( $import_settings ) ? true : false;
 
-		$unique_inserted = array();
-
 		foreach ( $items as $item ) {
 			$event = Tribe__Events__Aggregator__Event::translate_service_data( $item );
 
@@ -1168,7 +1230,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				&& isset( $event[ $unique_field['target'] ] )
 				&& isset( $existing_ids[ $event[ $unique_field['target'] ] ] )
 			) {
-				$event['ID'] = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
+				$event_post_id = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
+				if ( tribe_is_event( $event_post_id ) ) {
+					$event['ID'] = $event_post_id;
+				}
 			}
 
 			// Checks if we need to search for Global ID
@@ -1251,6 +1316,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// if we should create a venue or use existing
 			if ( ! empty( $event['Venue']['Venue'] ) ) {
+				$event['Venue']['Venue'] = trim( $event['Venue']['Venue'] );
+
 				if ( ! empty( $item->venue->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
 					// Pre-set for ICS based imports
 					$venue = false;
@@ -1301,10 +1368,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						$venue_id = array_search( $event['Venue']['Venue'], $found_venues );
 
 						if ( ! $venue_id ) {
-							$unique_field = $this->get_unique_field( 'venue' );
+							$venue_unique_field = $this->get_unique_field( 'venue' );
 
-							if ( ! empty( $unique_field ) ) {
-								$target = $unique_field['target'];
+							if ( ! empty( $venue_unique_field ) ) {
+								$target = $venue_unique_field['target'];
 								$value  = $venue_data[ $target ];
 								$venue  = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Venue{$target}", $value );
 							} else {
@@ -1381,6 +1448,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			//if we should create an organizer or use existing
 			if ( ! empty( $event['Organizer']['Organizer'] ) ) {
+				$event['Organizer']['Organizer'] = trim( $event['Organizer']['Organizer'] );
+
 				if ( ! empty( $item->organizer->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
 					// Pre-set for ICS based imports
 					$organizer = false;
@@ -1427,10 +1496,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						$organizer_id = array_search( $event['Organizer']['Organizer'], $found_organizers );
 
 						if ( ! $organizer_id ) {
-							$unique_field = $this->get_unique_field( 'organizer' );
+							$organizer_unique_field = $this->get_unique_field( 'organizer' );
 
-							if ( ! empty( $unique_field ) ) {
-								$target    = $unique_field['target'];
+							if ( ! empty( $organizer_unique_field ) ) {
+								$target    = $organizer_unique_field['target'];
 								$value     = $organizer_data[ $target ];
 								$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Organizer{$target}", $value );
 							} else {
@@ -1535,11 +1604,23 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				// Log that this event was updated
 				$activity->add( 'event', 'updated', $event['ID'] );
 			} else {
+				if ( isset( $event[ $unique_field['target'] ] ) ) {
+					if ( isset( $existing_ids[ $event[ $unique_field['target'] ] ] ) ) {
+						// we should not be here; probably a concurrency issue
+						continue;
+					}
+				}
+
+				// during cron runs the user will be set to 0; we assign the event to the first user that can edit events
+				if ( ! isset( $event['post_author'] ) ) {
+					$event['post_author'] = $default_user_id;
+				}
+
 				/**
 				 * Filters the event data before inserting event
 				 *
 				 * @param array $event Event data to save
-				 * @param Tribe__Events__Aggregator__Record__Abstract Importer record
+				 * @param Tribe__Events__Aggregator__Record__Abstract $record Importer record
 				 */
 				$event = apply_filters( 'tribe_aggregator_before_insert_event', $event, $this );
 				$event['ID'] = tribe_create_event( $event );
@@ -1567,7 +1648,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$possible_parents[ $event['ID'] ] = $event[ $unique_field['target'] ];
 			}
 
-			// Check for legacy Unique ID (now we try to use Global ID)
+			// Save the unique field information
 			if ( ! empty( $event[ $unique_field['target'] ] ) ) {
 				update_post_meta( $event['ID'], "_{$unique_field['target']}", $event[ $unique_field['target'] ] );
 			}
@@ -1691,6 +1772,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					}
 				}
 			}
+
+			// update the existing IDs in the context of this batch
+			if ( $unique_field && isset( $event[ $unique_field['target'] ] ) ) {
+				$existing_ids[ $event[ $unique_field['target'] ] ] = (object) array(
+					'post_id'    => $event['ID'],
+					'meta_value' => $event[ $unique_field['target'] ],
+				);
+			}
 		}
 
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
@@ -1712,8 +1801,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( ! $unique_field ) {
 			return array();
 		}
-
-		$parent_selected_ids = array();
 
 		if ( ! empty( $this->meta['ids_to_import'] ) && 'all' !== $this->meta['ids_to_import'] ) {
 			if ( is_array( $this->meta['ids_to_import'] ) ) {
@@ -1940,5 +2027,44 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		return $import_data;
+	}
+
+	/**
+	 * Sets the post associated with this record.
+	 *
+	 * @since 4.5.11
+	 *
+	 * @param WP_post|int $post A post object or post ID
+	 */
+	public function set_post( $post ) {
+		if ( ! $post instanceof WP_Post ) {
+			$post = get_post( $post );
+		}
+		$this->post = $post;
+	}
+
+	/**
+	 * Returns the user ID of the first user that can edit events or the current user ID if available.
+	 *
+	 * @since 4.5.11
+	 *
+	 * @return int The user ID or `0` (not logged in user) if not possible.
+	 */
+	protected function get_default_user_id() {
+		$current_user_id = get_current_user_id();
+
+		if ( 0 !== $current_user_id ) {
+			return $current_user_id;
+		}
+
+		$authors          = get_users( array( 'who' => 'authors' ) );
+		$post_type_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
+		foreach ( $authors as $author ) {
+			if ( user_can( $author, $post_type_object->cap->edit_posts ) ) {
+				return $author->ID;
+			}
+		}
+
+		return 0;
 	}
 }
