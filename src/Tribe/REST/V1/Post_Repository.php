@@ -117,7 +117,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		);
 
 		if ( 'single' === $context ) {
-			$json_ld_data = Tribe__Events__JSON_LD__Event::instance()->get_data( $event );
+			$json_ld_data = tribe( 'tec.json-ld.event'->get_data( $event );
 
 			if ( $json_ld_data ) {
 				$data['json_ld'] = $json_ld_data[ $event->ID ];
@@ -194,7 +194,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		}
 
 		if ( 'single' === $context ) {
-			$json_ld_data = Tribe__Events__JSON_LD__Venue::instance()->get_data( $venue );
+			$json_ld_data = tribe( 'tec.json-ld.venue' )->get_data( $venue );
 
 			if ( $json_ld_data ) {
 				$data['json_ld'] = $json_ld_data[ $venue->ID ];
@@ -352,7 +352,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			);
 
 			if ( 'single' === $context ) {
-				$json_ld_data = Tribe__Events__JSON_LD__Organizer::instance()->get_data( $organizer );
+				$json_ld_data = tribe( 'tec.json-ld.organizer' )->get_data( $organizer );
 
 				if ( $json_ld_data ) {
 					$this_data['json_ld'] = $json_ld_data[ $organizer->ID ];
