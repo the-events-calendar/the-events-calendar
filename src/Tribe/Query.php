@@ -404,7 +404,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				}
 			}
 
-			var_dump( $query );
 			return $query;
 		}
 
@@ -531,8 +530,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 				return $join_sql . implode( '', $joins );
 			}
-
-			var_dump( $join_sql );
 
 			return $join_sql;
 		}
