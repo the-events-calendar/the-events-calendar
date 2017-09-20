@@ -116,7 +116,16 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'organizer'              => is_wp_error( $organizer ) ? array() : $organizer,
 		);
 
-		if ( 'single' === $context ) {
+		/**
+		 * Filters the list of contexts that should trigger the attachment of the JSON LD information to the event
+		 * REST representation.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $json_ld_contexts An array of contexts.
+		 */
+		$json_ld_contexts = apply_filters( 'tribe_rest_event_json_ld_data_contexts', array( 'single' ) );
+		if ( in_array( $context, $json_ld_contexts, true ) ) {
 			$json_ld_data = tribe( 'tec.json-ld.event' )->get_data( $event );
 
 			if ( $json_ld_data ) {
@@ -193,7 +202,17 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			$data['geo_lng'] = $geo['lng'];
 		}
 
-		if ( 'single' === $context ) {
+		/**
+		 * Filters the list of contexts that should trigger the attachment of the JSON LD information to the venue
+		 * REST representation.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $json_ld_contexts An array of contexts.
+		 */
+		$json_ld_contexts = apply_filters( 'tribe_rest_venue_json_ld_data_contexts', array( 'single' ) );
+
+		if ( in_array( $context, $json_ld_contexts, true ) ) {
 			$json_ld_data = tribe( 'tec.json-ld.venue' )->get_data( $venue );
 
 			if ( $json_ld_data ) {
@@ -351,7 +370,17 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				'email'        => isset( $meta['_OrganizerEmail'] ) ? $meta['_OrganizerEmail'] : '',
 			);
 
-			if ( 'single' === $context ) {
+			/**
+			 * Filters the list of contexts that should trigger the attachment of the JSON LD information to the organizer
+			 * REST representation.
+			 *
+			 * @since TBD
+			 *
+			 * @param array $json_ld_contexts An array of contexts.
+			 */
+			$json_ld_contexts = apply_filters( 'tribe_rest_organizer_json_ld_data_contexts', array( 'single' ) );
+
+			if ( in_array( $context, $json_ld_contexts, true ) ) {
 				$json_ld_data = tribe( 'tec.json-ld.organizer' )->get_data( $organizer );
 
 				if ( $json_ld_data ) {
