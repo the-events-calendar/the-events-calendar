@@ -559,9 +559,19 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					LEFT JOIN $wpdb->posts ON tribe_event_start.post_id = $wpdb->posts.ID
 					LEFT JOIN $wpdb->postmeta as tribe_event_end_date ON ( tribe_event_start.post_id = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' )
 					WHERE $ignore_hidden_events_AND tribe_event_start.meta_key = '_EventStartDate'
-					AND ( (tribe_event_start.meta_value >= '{$start_date_sql}' AND  tribe_event_start.meta_value <= '{$end_date_sql}')
-						OR (tribe_event_start.meta_value <= '{$start_date_sql}' AND tribe_event_end_date.meta_value >= '{$end_date_sql}')
-						OR ( tribe_event_start.meta_value >= '{$start_date_sql}' AND  tribe_event_start.meta_value <= '{$end_date_sql}')
+					AND (
+						(
+							tribe_event_start.meta_value >= '{$start_date_sql}'
+							AND tribe_event_start.meta_value <= '{$end_date_sql}'
+						)
+						OR (
+							tribe_event_start.meta_value <= '{$start_date_sql}'
+							AND tribe_event_end_date.meta_value >= '{$end_date_sql}'
+						)
+						OR (
+							tribe_event_start.meta_value >= '{$start_date_sql}'
+							AND tribe_event_start.meta_value <= '{$end_date_sql}'
+						)
 					)
 					AND $wpdb->posts.post_status IN('$post_stati')
 					ORDER BY $wpdb->posts.menu_order ASC, DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;
