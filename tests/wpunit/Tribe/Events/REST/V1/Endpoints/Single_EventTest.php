@@ -2,6 +2,7 @@
 
 namespace Tribe\Events\REST\V1\Endpoints;
 
+use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Tribe\Events\Tests\Factories\Event;
 use Tribe\Events\Tests\Factories\Organizer;
@@ -97,7 +98,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$request->set_param( 'id', $id );
 
 		$this->repository = $this->prophesize( \Tribe__Events__REST__V1__Post_Repository::class );
-		$this->repository->get_event_data( $id )->willReturn( [ 'some' => 'data' ] );
+		$this->repository->get_event_data( $id, Argument::type( 'string' ) )->willReturn( [ 'some' => 'data' ] );
 
 		$sut = $this->make_instance();
 		$response = $sut->get( $request );

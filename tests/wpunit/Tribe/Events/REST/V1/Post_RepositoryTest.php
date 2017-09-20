@@ -577,4 +577,85 @@ class Post_RepositoryTest extends Events_TestCase {
 		$this->assertArrayHasKey( 'featured', $data );
 		$this->assertEquals( $expected, $data['featured'] );
 	}
+
+	/**
+	 * It should provide JSON LD data for events when the context matches
+	 *
+	 * @test
+	 */
+	public function should_provide_json_ld_data_for_events_when_the_context_matches() {
+		add_filter( 'tribe_rest_event_json_ld_data_contexts', function () {
+			return [ 'foo', 'bar' ];
+		} );
+
+		$sut = $this->make_instance();
+
+		$id = $this->factory()->event->create();
+
+		$data = $sut->get_event_data( $id, 'foo' );
+
+		$this->assertArrayHasKey( 'json_ld', $data );
+
+		$data = $sut->get_event_data( $id, 'bar' );
+
+		$this->assertArrayHasKey( 'json_ld', $data );
+
+		$data = $sut->get_event_data( $id, 'single' );
+
+		$this->assertArrayNotHasKey( 'json_ld', $data );
+	}
+
+	/**
+	 * It should provide JSON LD data for venues when the context matches
+	 *
+	 * @test
+	 */
+	public function should_provide_json_ld_data_for_venues_when_the_context_matches() {
+		add_filter( 'tribe_rest_venue_json_ld_data_contexts', function () {
+			return [ 'foo', 'bar' ];
+		} );
+
+		$sut = $this->make_instance();
+
+		$id = $this->factory()->venue->create();
+
+		$data = $sut->get_venue_data( $id, 'foo' );
+
+		$this->assertArrayHasKey( 'json_ld', $data );
+
+		$data = $sut->get_venue_data( $id, 'bar' );
+
+		$this->assertArrayHasKey( 'json_ld', $data );
+
+		$data = $sut->get_venue_data( $id, 'single' );
+
+		$this->assertArrayNotHasKey( 'json_ld', $data );
+	}
+
+	/**
+	 * It should provide JSON LD data for organizers when the context matches
+	 *
+	 * @test
+	 */
+	public function should_provide_json_ld_data_for_organizers_when_the_context_matches() {
+		add_filter( 'tribe_rest_organizer_json_ld_data_contexts', function () {
+			return [ 'foo', 'bar' ];
+		} );
+
+		$sut = $this->make_instance();
+
+		$id = $this->factory()->organizer->create();
+
+		$data = $sut->get_organizer_data( $id, 'foo' );
+
+		$this->assertArrayHasKey( 'json_ld', $data );
+
+		$data = $sut->get_organizer_data( $id, 'bar' );
+
+		$this->assertArrayHasKey( 'json_ld', $data );
+
+		$data = $sut->get_organizer_data( $id, 'single' );
+
+		$this->assertArrayNotHasKey( 'json_ld', $data );
+	}
 }

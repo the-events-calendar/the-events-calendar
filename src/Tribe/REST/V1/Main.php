@@ -37,6 +37,9 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		tribe_singleton( 'tec.rest-v1.repository', 'Tribe__Events__REST__V1__Post_Repository' );
 		tribe_singleton( 'tec.rest-v1.endpoints.single-venue', array( $this, 'build_single_venue_endpoint' ) );
 		tribe_singleton( 'tec.rest-v1.endpoints.single-organizer', array( $this, 'build_single_organizer_endpoint' ) );
+		tribe_singleton( 'tec.json-ld.event', array( 'Tribe__Events__JSON_LD__Event', 'instance' ) );
+		tribe_singleton( 'tec.json-ld.venue', array( 'Tribe__Events__JSON_LD__Venue', 'instance' ) );
+		tribe_singleton( 'tec.json-ld.organizer', array( 'Tribe__Events__JSON_LD__Organizer', 'instance' ) );
 
 		include_once Tribe__Events__Main::instance()->plugin_path . 'src/functions/advanced-functions/rest-v1.php';
 	}
