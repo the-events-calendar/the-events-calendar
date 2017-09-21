@@ -1616,10 +1616,12 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-list-widget .tribe-event-featured .tribe-event-image {
+	line-height: 0;
 	margin-left: -24px;
 	margin-left: -1.5rem;
 	margin-right: -24px;
 	margin-right: -1.5rem;
+	overflow: hidden;
 }
 
 .tribe-events-list-widget .tribe-event-featured .tribe-event-duration {
@@ -2387,6 +2389,10 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 .tribe-theme-twentyseventeen .entry-content a {
 	box-shadow: none;
+}
+
+.tribe-theme-twentyseventeen.single-tribe_events .single-featured-image-header {
+	display: none;
 }
 
 /* = Events Retina

@@ -462,7 +462,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		}
 
 		$source_info = $record->get_source_info();
-		$source_info['title'] = $source_info['title'];
+
+		if ( is_array( $source_info['title'] ) ) {
+			$source_info['title'] = implode( ', ', $source_info['title'] );
+		}
 
 		if ( $record->is_schedule && tribe( 'events-aggregator.main' )->is_service_active() ) {
 			$html[] = '<p><b><a href="' . get_edit_post_link( $post->ID ) . '">' . esc_html( $source_info['title'] ) . '</a></b></p>';

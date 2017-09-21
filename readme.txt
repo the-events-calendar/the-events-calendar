@@ -4,8 +4,8 @@ Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.5.11
-Tested up to: 4.8.1
+Stable tag: 4.5.13
+Tested up to: 4.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -327,11 +327,55 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.5.12] TBD =
+= [4.5.13] 2017-09-20 =
 
-* Fix - Fixed an issue where Tribe Bar searches weren't accurately displaying date formats with periods (e.g. "YYYY.MM") [84202]
+* Feature - Add link to the featured image in the Events List widget. New filter introduced to control this: `tribe_events_list_widget_featured_image_link` (props to @cabadaj007 for the feature request) [84807]
+* Feature - Remove 'France, Metropolitan' option from country list to prevent issues with Google Maps API (thanks @varesanodotfr for pointing this out) [78023]
+* Feature - Ignored Events will restore previous status instead of setting to 'publish' [82213]
+* Fix - Patched jQuery Resize vendor library to avoid JavaScript conflicts (props to @britner for the original report) [71994]
+* Fix - Fixed a typo in the Event List widget options [71081]
+* Fix - Addressed some PHP notices that would sometimes emerge in tag-filtered post lists in the wp-admin (thanks to @wfsec28 and others in the forums for reporting this!) [45274]
+* Fix - When "Full Styles" or "Tribe Events Styles" are used, prevent duplicate featured images from showing up in the Twenty Seventeen theme (props to @want2what and others in the forums for reporting this) [80955]
+* Fix - Fixed the issue that would prevent the start date and date range parameters from being taken into account when using 'Other URL' source in Event Aggregator
+* Fix - Aggregator will no longer update comments while inactive [78890]
+* Fix - Avoid issues when REST API archive request parameters are not in the original order (thanks @Nslaver for reporting this and providing a fix) [88748]
+* Tweak - Aggregator prevents duplicated records with the same params from being created [68833]
+* Tweak - Aggregator will now allow for some minor shifts in schedule execution time to help distribute requests to EA Service [86628]
+* Tweak - Improve text in the Event Aggregator settings [77452]
+* Tweak - Add actions before and after posts are inserted or updated by Event Aggregator to allow custom functions to kick in (`tribe_aggregator_before_insert_posts` and `tribe_aggregator_after_insert_posts`) [87530]
+* Tweak - Allow users to import CSV with numerically-named categories by using a flag (currently `%n`) (thanks @Shamsi for reporting) [78340]
+* Tweak - Allow date range and events count limits to be set on each type of import (except for 'Other URL') in Event Aggregator [79975]
+
+= [4.5.12.3] 2017-09-19 =
+
+* Fix - Display events on Month View correctly for WordPress version 4.8.2 and up (props @realcrozetva for reporting this) [88952]
+
+= [4.5.12.2] 2017-09-08 =
+
+* Fix - Fixed an issue where manually running Scheduled Imports would always result in a failed import [87321]
+
+= [4.5.12.1] 2017-09-07 =
+
+* Fix - Fixed an issue where events imported via Event Aggregator from an iCal-like source would be duplicated in place of being updated [87654]
+
+= [4.5.12] 2017-09-06 =
+
+* Fix - Fixed an issue where, with certain date formats chosen in the Events display settings, the "Next Month" link navigation wasn't working (props to @tttammi and others for reporting this issue!) [86937]
 * Fix - Fixed a typo in REST API Swagger documentation that mentioned "organizer" when it should have stated "venue".
 * Fix - Fixed issues with Event Aggregator queueing system where events might be duplicated or incorrectly updated [79975]
+* Fix - Prevent notice when the Aggregator Record title is an array [82149]
+* Fix - Allows Aggregator Google Map settings to extend the Global Setting by default (props to queerio for reporting this!) [67639]
+* Fix - Prevent Warnings when throwing WordPress admin notices from Aggregator daily usage limit (props to cigarplanner for reporting this!) [83187]
+* Fix - Resolved problem where Aggregator wouldn't allow you to remove filtering terms for Records [76949]
+* Fix - Allow any datepicker format to be used on Aggregator filtering Events (props to matthewseymour for reporting this!) [77819]
+* Fix - Added check to see if log directory is readable before listing logs within it (thank you @rodrigochallengeday-org and @richmondmom for reporting this) [86091]
+* Tweak - Datatables Head and Foot checkboxes will not select all items, only the current page [77395]
+* Tweak - Included tooltip for Aggregator "Hide & Ignore" button for events [67890]
+* Tweak - Added all the Aggregator Origins to the Admin Bar [68693]
+* Tweak - Added filters: `tribe_get_state_options`
+* Tweak - Added template tags: `maybe_format_from_datepicker()`
+* Tweak - Added the `tribe_rest_single_event_data` filter to the single event REST API endpoint to allow filtering the returned data (thanks @mwender) [88748]
+* Language - 2 new strings added, 90 updated, 0 fuzzied, and 1 obsoleted
 
 = [4.5.11] 2017-08-24 =
 

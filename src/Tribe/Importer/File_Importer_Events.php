@@ -295,10 +295,26 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 */
 	private function translate_terms_to_ids( array $terms ) {
 		$term_ids = array();
+
+		/**
+		 * Allows users to have a string that allows numeric named Categories to be included
+		 *
+		 * @since  4.5.13
+		 *
+		 * @param  string|null $flag Which is the string to be looked for in each category name
+		 */
+		$numeric_name_flag = apply_filters( 'tribe_aggregator_csv_category_numeric_name_flag', '%n' );
+
 		// duplicating some code from wp_set_object_terms()
 		foreach ( $terms as $term ) {
 			if ( ! strlen( trim( $term ) ) ) {
 				continue;
+			}
+
+			$is_numeric_named = false;
+			if ( false !== strpos( $term, $numeric_name_flag ) ) {
+				$is_numeric_named = true;
+				$term = str_replace( $numeric_name_flag, '', $term );
 			}
 
 			if ( is_numeric( $term ) ) {
@@ -310,7 +326,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 			if ( ! $term_info ) {
 				// Skip if a non-existent term ID is passed.
-				if ( is_numeric( $term ) ) {
+				if ( ! $is_numeric_named && is_numeric( $term ) ) {
 					continue;
 				}
 				$term_info = wp_insert_term( $term, Tribe__Events__Main::TAXONOMY );

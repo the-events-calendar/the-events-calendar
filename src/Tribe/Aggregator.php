@@ -516,6 +516,22 @@ class Tribe__Events__Aggregator {
 	}
 
 	/**
+	 * Adds the Items for Aggregator on the Admin bar
+	 *
+	 * @since   4.5.12
+	 *
+	 * @return  void
+	 */
+	public function add_admin_bar_items() {
+		$admin_bar = Tribe__Events__Aggregator__Admin_Bar::instance();
+		if ( ! $admin_bar->is_enabled() ) {
+			return;
+		}
+		global $wp_admin_bar;
+		$admin_bar->init( $wp_admin_bar );
+	}
+
+	/**
 	 * Hooks all the filters and actions needed for Events Aggregator to work.
      *
      * No action or filter will be loaded if Events Aggregator has not loaded first.
@@ -547,6 +563,9 @@ class Tribe__Events__Aggregator {
 
 		// Notify users about expiring Facebook Token if oauth is enabled
 		add_action( 'plugins_loaded', array( $this, 'setup_notices' ), 11 );
+
+		// Add admin bar items for Aggregator
+		add_action( 'wp_before_admin_bar_render', array( $this, 'add_admin_bar_items' ), 10 );
 
 		// Let's prevent events-importer-ical from DESTROYING its saved recurring imports when it gets deactivated
 		if ( class_exists( 'Tribe__Events__Ical_Importer__Main' ) ) {

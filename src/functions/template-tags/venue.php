@@ -29,7 +29,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 * Allow for customizing the Venue ID retrieved for this item.
 			 *
 			 * @since ??
-			 * @since TBD Added dockblock and venue ID to filter.
+			 * @since 4.5.12 Added docblock and venue ID to filter.
 			 *
 			 * @param int $venue_id The Venue ID for the specified event.
 			 * @param int $postId The ID of the event whose venue is being looked for.
@@ -50,7 +50,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Allows customization of the singular version of the Venue Label
 		 *
 		 * @since ??
-		 * @since TBD Added dockblock
+		 * @since 4.5.12 Added docblock
 		 *
 		 * @param string $label The singular version of the Venue label, defaults to "Venue" (uppercase)
 		 */
@@ -69,7 +69,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Allows customization of the plural version of the Venue Label
 		 *
 		 * @since ??
-		 * @since TBD Added dockblock
+		 * @since 4.5.12 Added docblock
 		 *
 		 * @param string $label The plural version of the Venue label, defaults to "Venues" (uppercase)
 		 */
@@ -91,7 +91,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Allows customization of whether a given event has a venue.
 		 *
 		 * @since ??
-		 * @since TBD Added dockblock and venue ID to filter.
+		 * @since 4.5.12 Added docblock and venue ID to filter.
 		 *
 		 * @param bool $has_venue Whether the specified event has a venue.
 		 * @param int $postId Can be either the event ID or its venue ID
@@ -115,7 +115,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Allows customization of the retrieved venue name for a specified event.
 		 *
 		 * @since ??
-		 * @since TBD Added dockblock and venue ID to filter.
+		 * @since 4.5.12 Added docblock and venue ID to filter.
 		 *
 		 * @param string $venue The name of the retrieved venue.
 		 * @param int $venue_id The venue ID.
@@ -151,7 +151,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Allows customization of the "Venue name with link" retrieved for a specified event.
 		 *
 		 * @since ??
-		 * @since TBD Added dockblock and function args to filter.
+		 * @since 4.5.12 Added docblock and function args to filter.
 		 *
 		 * @param string $link The assembled "Venue name with link" string
 		 * @param int $venue_id The venue's ID.
@@ -184,7 +184,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Allows customization of the retrieved venue country for a specified event.
 		 *
 		 * @since ??
-		 * @since TBD Added dockblock and venue ID to filter.
+		 * @since 4.5.12 Added docblock and venue ID to filter.
 		 *
 		 * @param string $output The escaped country name of the venue.
 		 * @param int $venue_id The venue ID.

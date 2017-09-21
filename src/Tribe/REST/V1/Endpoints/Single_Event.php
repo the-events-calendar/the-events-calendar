@@ -65,6 +65,16 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 		$data = $this->post_repository->get_event_data( $id );
 
+		/**
+		 * Filters the data that will be returned for a single event request.
+		 *
+		 * @since 4.5.13
+		 *
+		 * @param array           $data    The retrieved data.
+		 * @param WP_REST_Request $request The original request.
+		 */
+		$data = apply_filters( 'tribe_rest_single_event_data', $data, $request );
+
 		return is_wp_error( $data ) ? $data : new WP_REST_Response( $data );
 	}
 

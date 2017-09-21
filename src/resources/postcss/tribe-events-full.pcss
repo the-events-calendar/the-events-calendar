@@ -1509,8 +1509,10 @@ select.tribe-events-dropdown {
 		}
 
 		.tribe-event-image {
+			line-height: 0;
 			margin-left: -1.5rem;
 			margin-right: -1.5rem;
+			overflow: hidden;
 		}
 
 		.tribe-event-duration {
@@ -2332,8 +2334,13 @@ input[name*='tribe-bar-']:-moz-placeholder {
 			box-shadow: none;
 		}
 	}
-}
 
+	&.single-tribe_events {
+		.single-featured-image-header {
+			display: none;
+		}
+	}	
+}
 
 /* = Events Retina
 =============================================*/
