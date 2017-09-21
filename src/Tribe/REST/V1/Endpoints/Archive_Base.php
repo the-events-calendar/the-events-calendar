@@ -89,10 +89,11 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	 * Builds and returns the current rest URL depending on the query arguments.
 	 *
 	 * @param array $args
+	 * @param array $extra_args
 	 *
 	 * @return string
 	 */
-	protected function get_current_rest_url( array $args = array() ) {
+	protected function get_current_rest_url( array $args = array(), array $extra_args = array() ) {
 		$url = $this->get_base_rest_url();
 
 		$flipped = array_flip( $this->supported_query_vars );
@@ -104,7 +105,12 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 			foreach ( $keys as $key => $value ) {
 				$parameters[ $value ] = $args[ $key ];
 			}
+
 			$url = add_query_arg( $parameters, $url );
+		}
+
+		if ( ! empty( $extra_args ) ) {
+			$url = add_query_arg( $extra_args, $url );
 		}
 
 		return $url;
