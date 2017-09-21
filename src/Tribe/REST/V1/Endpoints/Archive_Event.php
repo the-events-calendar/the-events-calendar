@@ -234,11 +234,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$meta_values = Tribe__Utils__Array::list_to_array( $meta_value );
 
-		$parsed = array();
-		foreach ( $meta_values as $meta_value ) {
+		$parsed = array( 'relation' => 'OR' );
+		foreach ( $meta_values as $value ) {
 			$parsed[] = array(
 				'key'     => $meta_key,
-				'value'   => $meta_value,
+				'value'   => $value,
 				'type'    => $type,
 				'compare' => $compare,
 			);
