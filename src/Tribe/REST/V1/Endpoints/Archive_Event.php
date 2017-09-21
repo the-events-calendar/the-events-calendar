@@ -75,6 +75,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$this->parse_terms_query( $request['tags'], 'post_tag' ),
 		) );
 
+		$extra_rest_args = array(
+			'venue'     => Tribe__Utils__Array::to_list( $request['venue'] ),
+			'organizer' => Tribe__Utils__Array::to_list( $request['organizer'] ),
+			'featured'  => $request['featured'],
+		);
+		$extra_rest_args = array_diff_key( $extra_rest_args, array_filter( $extra_rest_args, 'is_null' ) );
+
 		// Filter by geoloc
 		if ( ! empty( $request['geoloc'] ) ) {
 			$args['tribe_geoloc'] = 1;
@@ -86,7 +93,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$data = array( 'events' => array() );
 
-		$data['rest_url'] = $this->get_current_rest_url( $args );
+		$data['rest_url'] = $this->get_current_rest_url( $args, $extra_rest_args );
 
 		if ( null === $request['status'] ) {
 			$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
@@ -234,18 +241,14 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$meta_values = Tribe__Utils__Array::list_to_array( $meta_value );
 
-		$parsed = array();
-		foreach ( $meta_values as $meta_value ) {
+		$parsed = array( 'relation' => 'OR' );
+		foreach ( $meta_values as $value ) {
 			$parsed[] = array(
 				'key'     => $meta_key,
-				'value'   => $meta_value,
+				'value'   => $value,
 				'type'    => $type,
 				'compare' => $compare,
 			);
-		}
-
-		if ( count( $parsed ) > 1 ) {
-			$parsed['relation'] = $relation;
 		}
 
 		return $parsed;

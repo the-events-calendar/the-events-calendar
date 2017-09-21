@@ -16,6 +16,14 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		public static $legacy_origin = 'ical-importer';
 
 		/**
+		 * Where we save the previous Status when ignoring an Event
+		 *
+		 * @since 4.5.13
+		 * @var string
+		 */
+		public static $key_previous_status = '_tribe_ignored_event_previous_status';
+
+		/**
 		 * Static Singleton Factory Method
 		 *
 		 * @return self
@@ -630,7 +638,14 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			}
 
 			// Try to update back to the Event CPT
-			return wp_update_post( $arguments );
+			$updated = wp_update_post( $arguments );
+
+			// Saves on a meta the previous Status
+			if ( $updated && 'trash' !== $event->post_status ) {
+				update_post_meta( $event->ID, self::$key_previous_status, $event->post_status );
+			}
+
+			return $updated;
 		}
 
 		/**
@@ -690,14 +705,33 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return null;
 			}
 
+			$restore_status = get_post_meta( $event->ID, self::$key_previous_status, true );
+
+			if ( empty( $restore_status ) ) {
+				/**
+				 * Which is the default Post status to Restore Ignored Events
+				 *
+				 * @param  string   $post_status
+				 * @param  WP_Post  $event
+				 */
+				$restore_status = apply_filters( 'tribe_events_ignored_events_default_restore_status', 'publish', $event );
+			}
+
 			// Update only what we need
 			$arguments = array(
 				'ID' => $event->ID,
-				'post_status' => 'publish',
+				'post_status' => $restore_status,
 			);
 
 			// Try to update back to the Event CPT
-			return wp_update_post( $arguments );
+			$updated = wp_update_post( $arguments );
+
+			// Delete the Previous status stored
+			if ( $updated ) {
+				delete_post_meta( $event->ID, self::$key_previous_status );
+			}
+
+			return $updated;
 		}
 
 		/**
@@ -720,6 +754,38 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			register_post_type( self::$legacy_deleted_post, array(
 				'public' => false,
 			) );
+		}
+
+		/**
+		 * Making sure that we have the previous Status saved
+		 *
+		 * @since  4.5.13
+		 *
+		 * @param  int|WP_Post  $event  Which event to track the Previous status
+		 *
+		 * @return bool
+		 */
+		public function action_track_previous_status( $event ) {
+			$event = get_post( $event );
+
+			if ( ! $event instanceof WP_Post ) {
+				return false;
+			}
+
+			// If we are not in the Event CPT we don't care either
+			if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
+				return false;
+			}
+
+			if ( self::$ignored_status === $event->post_type ) {
+				return false;
+			}
+
+			if ( 'trash' === $event->post_type ) {
+				return false;
+			}
+
+			return update_post_meta( $event->ID, self::$key_previous_status, $event->post_status );
 		}
 
 		/**
@@ -887,6 +953,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			 */
 			add_filter( 'pre_delete_post', array( $this, 'action_pre_delete_event' ), 10, 3 );
 			add_action( 'trashed_post', array( $this, 'action_from_trash_to_ignored' ) );
+			add_action( 'wp_trash_post', array( $this, 'action_track_previous_status' ) );
 
 			add_filter( 'views_edit-' . Tribe__Events__Main::POSTTYPE, array( $this, 'filter_views' ) );
 			add_filter( 'bulk_actions-edit-' . Tribe__Events__Main::POSTTYPE, array( $this, 'filter_bulk_actions' ), 15 );
