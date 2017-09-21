@@ -253,7 +253,6 @@
 	.linked-post-wrapper tbody + tfoot tr td {
 	margin-top: 1em;
 	padding-top: 1em;
-	border-top: 1px solid #e5e5e5;
 }
 
 .linked-post-wrapper .linked-post td:first-child {

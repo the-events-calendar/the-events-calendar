@@ -334,6 +334,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
+		// filter out the `null` values
+		$args = array_diff_key( $args, array_filter( $args, 'is_null' ) );
+
 		if ( tribe_is_truthy( $only_with_upcoming ) ) {
 			$args['only_with_upcoming'] = true;
 		}

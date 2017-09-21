@@ -680,4 +680,129 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$this->assertEquals( 7, $sut->get_max_posts_per_page() );
 	}
+
+	/**
+	 * It should return the correct REST URL parameters when filtering by venue
+	 *
+	 * @test
+	 */
+	public function should_return_the_correct_rest_url_parameters_when_filtering_by_venue() {
+		$venue = $this->factory()->venue->create();
+		$this->factory()->event->create( [ 'venue' => $venue ] );
+		$request = new \WP_REST_Request();
+		$request->set_param( 'venue', $venue );
+
+		$sut      = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertNotEmpty( $response->data['rest_url'] );
+		parse_str( parse_url( $response->data['rest_url'], PHP_URL_QUERY ), $params );
+
+		$this->assertArrayHasKey( 'venue', $params );
+		$this->assertEquals( $venue, $params['venue'] );
+	}
+
+	/**
+	 * It should return the correct REST URL parameters when filtering by organizer
+	 *
+	 * @test
+	 */
+	public function should_return_the_correct_rest_url_parameters_when_filtering_by_organizer() {
+		$organizer_1 = $this->factory()->organizer->create();
+		$organizer_2 = $this->factory()->organizer->create();
+		$this->factory()->event->create( [ 'organizer' => [ $organizer_1, $organizer_2 ] ] );
+		$request = new \WP_REST_Request();
+		$request->set_param( 'organizer', $organizer_1 );
+
+		$sut      = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertNotEmpty( $response->data['rest_url'] );
+		parse_str( parse_url( $response->data['rest_url'], PHP_URL_QUERY ), $params );
+
+		$this->assertArrayHasKey( 'organizer', $params );
+		$this->assertEquals( $organizer_1, $params['organizer'] );
+
+		$request->set_param( 'organizer', [ $organizer_1, $organizer_2 ] );
+
+		$response = $sut->get( $request );
+
+		$this->assertNotEmpty( $response->data['rest_url'] );
+		parse_str( parse_url( $response->data['rest_url'], PHP_URL_QUERY ), $params );
+
+		$this->assertArrayHasKey( 'organizer', $params );
+		$this->assertEquals( implode( ',', [ $organizer_1, $organizer_2 ]), $params['organizer'] );
+	}
+
+	/**
+	 * It should return the correct REST URL parameters when filtering by organizer and venue
+	 *
+	 * @test
+	 */
+	public function should_return_the_correct_rest_url_parameters_when_filtering_by_organizer_and_venue() {
+		$venue = $this->factory()->venue->create();
+		$organizer_1 = $this->factory()->organizer->create();
+		$organizer_2 = $this->factory()->organizer->create();
+		$this->factory()->event->create( [
+			'organizer' => [ $organizer_1, $organizer_2 ] ,
+			'venue' => $venue,
+		] );
+		$request = new \WP_REST_Request();
+		$request->set_param( 'venue', $venue );
+		$request->set_param( 'organizer', $organizer_1 );
+
+		$sut      = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertNotEmpty( $response->data['rest_url'] );
+		parse_str( parse_url( $response->data['rest_url'], PHP_URL_QUERY ), $params );
+
+		$this->assertArrayHasKey( 'organizer', $params );
+		$this->assertEquals( $organizer_1, $params['organizer'] );
+		$this->assertArrayHasKey( 'venue', $params );
+		$this->assertEquals( $venue, $params['venue'] );
+
+		$request->set_param( 'organizer', [ $organizer_1, $organizer_2 ] );
+
+		$response = $sut->get( $request );
+
+		$this->assertNotEmpty( $response->data['rest_url'] );
+		parse_str( parse_url( $response->data['rest_url'], PHP_URL_QUERY ), $params );
+
+		$this->assertArrayHasKey( 'organizer', $params );
+		$this->assertEquals( implode( ',', [ $organizer_1, $organizer_2 ]), $params['organizer'] );
+		$this->assertArrayHasKey( 'venue', $params );
+		$this->assertEquals( $venue, $params['venue'] );
+	}
+
+	/**
+	 * It should return the correct URL parameters when filtering by featured status
+	 *
+	 * @test
+	 */
+	public function should_return_the_correct_url_parameters_when_filtering_by_featured_status() {
+		$this->factory()->event->create( [ 'meta_input' => [ \Tribe__Events__Featured_Events::FEATURED_EVENT_KEY => '1' ] ] );
+		$this->factory()->event->create();
+		$request = new \WP_REST_Request();
+		$request->set_param( 'featured', '1' );
+
+		$sut      = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertNotEmpty( $response->data['rest_url'] );
+		parse_str( parse_url( $response->data['rest_url'], PHP_URL_QUERY ), $params );
+
+		$this->assertArrayHasKey( 'featured', $params );
+		$this->assertEquals( '1', $params['featured'] );
+
+		$request->set_param( 'featured', '0' );
+
+		$response = $sut->get( $request );
+
+		$this->assertNotEmpty( $response->data['rest_url'] );
+		parse_str( parse_url( $response->data['rest_url'], PHP_URL_QUERY ), $params );
+
+		$this->assertArrayHasKey( 'featured', $params );
+		$this->assertEquals( '0', $params['featured'] );
+	}
 }

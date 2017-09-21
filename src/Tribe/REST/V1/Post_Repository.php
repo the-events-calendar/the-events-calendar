@@ -76,6 +76,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'global_id'              => false,
 			'global_id_lineage'      => array(),
 			'author'                 => $event->post_author,
+			'status'                 => $event->post_status,
 			'date'                   => $event->post_date,
 			'date_utc'               => $event->post_date_gmt,
 			'modified'               => $event->post_modified,
@@ -116,8 +117,17 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'organizer'              => is_wp_error( $organizer ) ? array() : $organizer,
 		);
 
-		if ( 'single' === $context ) {
-			$json_ld_data = Tribe__Events__JSON_LD__Event::instance()->get_data( $event );
+		/**
+		 * Filters the list of contexts that should trigger the attachment of the JSON LD information to the event
+		 * REST representation.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $json_ld_contexts An array of contexts.
+		 */
+		$json_ld_contexts = apply_filters( 'tribe_rest_event_json_ld_data_contexts', array( 'single' ) );
+		if ( in_array( $context, $json_ld_contexts, true ) ) {
+			$json_ld_data = tribe( 'tec.json-ld.event' )->get_data( $event );
 
 			if ( $json_ld_data ) {
 				$data['json_ld'] = $json_ld_data[ $event->ID ];
@@ -165,6 +175,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$data = array(
 			'id'            => $venue->ID,
 			'author'        => $venue->post_author,
+			'status'        => $venue->post_status,
 			'date'          => $venue->post_date,
 			'date_utc'      => $venue->post_date_gmt,
 			'modified'      => $venue->post_modified,
@@ -186,15 +197,25 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		);
 
 		// Add geo coordinates (if any)
-		$geo = tribe_get_coordinates( $post_id );
+		$geo = tribe_get_coordinates( $venue->ID );
 
 		if ( ! empty( $geo['lat'] ) && ! empty( $geo['lng'] ) ) {
 			$data['geo_lat'] = $geo['lat'];
 			$data['geo_lng'] = $geo['lng'];
 		}
 
-		if ( 'single' === $context ) {
-			$json_ld_data = Tribe__Events__JSON_LD__Venue::instance()->get_data( $venue );
+		/**
+		 * Filters the list of contexts that should trigger the attachment of the JSON LD information to the venue
+		 * REST representation.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $json_ld_contexts An array of contexts.
+		 */
+		$json_ld_contexts = apply_filters( 'tribe_rest_venue_json_ld_data_contexts', array( 'single' ) );
+
+		if ( in_array( $context, $json_ld_contexts, true ) ) {
+			$json_ld_data = tribe( 'tec.json-ld.venue' )->get_data( $venue );
 
 			if ( $json_ld_data ) {
 				$data['json_ld'] = $json_ld_data[ $venue->ID ];
@@ -337,6 +358,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			$this_data = array(
 				'id'           => $organizer->ID,
 				'author'       => $organizer->post_author,
+				'status'       => $organizer->post_status,
 				'date'         => $organizer->post_date,
 				'date_utc'     => $organizer->post_date_gmt,
 				'modified'     => $organizer->post_modified,
@@ -351,8 +373,18 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				'email'        => isset( $meta['_OrganizerEmail'] ) ? $meta['_OrganizerEmail'] : '',
 			);
 
-			if ( 'single' === $context ) {
-				$json_ld_data = Tribe__Events__JSON_LD__Organizer::instance()->get_data( $organizer );
+			/**
+			 * Filters the list of contexts that should trigger the attachment of the JSON LD information to the organizer
+			 * REST representation.
+			 *
+			 * @since TBD
+			 *
+			 * @param array $json_ld_contexts An array of contexts.
+			 */
+			$json_ld_contexts = apply_filters( 'tribe_rest_organizer_json_ld_data_contexts', array( 'single' ) );
+
+			if ( in_array( $context, $json_ld_contexts, true ) ) {
+				$json_ld_data = tribe( 'tec.json-ld.organizer' )->get_data( $organizer );
 
 				if ( $json_ld_data ) {
 					$this_data['json_ld'] = $json_ld_data[ $organizer->ID ];

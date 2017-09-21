@@ -90,6 +90,11 @@ class Tribe__Events__Aggregator__Errors {
 			return;
 		}
 
+		// Prevent this happening if we don't have EA active
+		if ( ! tribe( 'events-aggregator.main' )->is_active( true ) ) {
+			return;
+		}
+
 		// If we passed this type is because we want to query it
 		if ( false !== strpos( $query->query_vars['type'], self::$comment_type ) ) {
 			return;
@@ -131,6 +136,11 @@ class Tribe__Events__Aggregator__Errors {
 	public function hide_error_comments_pre_41( $clauses, $wp_comment_query ) {
 		global $wpdb, $wp_version;
 
+		// Prevent this happening if we don't have EA active
+		if ( ! tribe( 'events-aggregator.main' )->is_active( true ) ) {
+			return $clauses;
+		}
+
 		if( version_compare( floatval( $wp_version ), '4.1', '<' ) ) {
 			$clauses['where'] .= $wpdb->prepare( ' AND comment_type != %s', self::$comment_type );
 		}
@@ -150,6 +160,11 @@ class Tribe__Events__Aggregator__Errors {
 	public function hide_error_comments_from_feeds( $where, $wp_comment_query ) {
 	    global $wpdb;
 
+		// Prevent this happening if we don't have EA active
+		if ( ! tribe( 'events-aggregator.main' )->is_active( true ) ) {
+			return $where;
+		}
+
 		$where .= $wpdb->prepare( ' AND comment_type != %s', self::$comment_type );
 		return $where;
 	}
@@ -168,6 +183,11 @@ class Tribe__Events__Aggregator__Errors {
 		global $wpdb, $pagenow;
 
 		if ( ! in_array( $pagenow, array( 'index.php', 'edit-comments.php' ) ) ) {
+			return $stats;
+		}
+
+		// Prevent this happening if we don't have EA active
+		if ( ! tribe( 'events-aggregator.main' )->is_active( true ) ) {
 			return $stats;
 		}
 

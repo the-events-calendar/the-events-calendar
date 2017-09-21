@@ -140,4 +140,17 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 		return str_replace( $mon_thousands_sep, '', $price );
 	}
 
+	/**
+	 * Get a link to the event
+	 *
+	 * @since 4.5.10
+	 *
+	 * @param  int|WP_Post  $post The Post Object or ID
+	 *
+	 * @return false|string Link to the event or false
+	 */
+	protected function get_link( $post ) {
+		return tribe_get_event_link( $post );
+	}
+
 }
