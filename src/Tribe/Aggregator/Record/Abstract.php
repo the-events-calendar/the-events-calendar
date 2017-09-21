@@ -2159,7 +2159,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			? (int) get_post_thumbnail_id( $post_id )
 			: false;
 
-		if ( ! empty( $current_thumbnail_id ) && $current_thumbnail_id !== (int) $new_thumbnail_id ) {
+		if ( empty( $current_thumbnail_id ) || $current_thumbnail_id !== (int) $new_thumbnail_id ) {
 			set_post_thumbnail( $post_id, $new_thumbnail_id );
 
 			return true;
