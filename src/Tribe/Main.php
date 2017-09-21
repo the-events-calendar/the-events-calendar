@@ -4369,7 +4369,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 *
 			 * @param string $value The "date search" field value, which defaults to an empty string.
 			 */
-			$value = apply_filters( 'tribe_events_bar_date_search_default_value', '' );
+			$value = apply_filters( 'tribe_events_bar_date_search_default_value', $value );
 
 			if ( ! empty( $_REQUEST['tribe-bar-date'] ) ) {
 				$value = $_REQUEST['tribe-bar-date'];
