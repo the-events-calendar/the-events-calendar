@@ -271,6 +271,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 					|| ! is_array( $data )
 					|| is_wp_error( $data )
 				) {
+					$this->release_lock();
 					return $this->activity();
 				}
 

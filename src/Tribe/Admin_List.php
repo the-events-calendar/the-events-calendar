@@ -109,7 +109,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				$clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS tribe_event_end_date ON {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ";
 			}
 
-			$append_orderby = false;
+			$append_orderby   = false;
 			$original_orderby = null;
 
 			if ( ! empty( $clauses['orderby'] ) ) {
@@ -122,7 +122,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			}
 
 			$start_orderby = "tribe_event_start_date.meta_value {$sort_direction}";
-			$end_orderby = "tribe_event_end_date.meta_value {$sort_direction}";
+			$end_orderby   = "tribe_event_end_date.meta_value {$sort_direction}";
 
 			$date_orderby = "{$start_orderby}, {$end_orderby}";
 

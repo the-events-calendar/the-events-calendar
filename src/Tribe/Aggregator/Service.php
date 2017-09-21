@@ -328,6 +328,8 @@ class Tribe__Events__Aggregator__Service {
 			return $api;
 		}
 
+		$args = $this->apply_import_limit( $args );
+
 		$request_args = array(
 			'body' => $args,
 		);
@@ -607,5 +609,66 @@ class Tribe__Events__Aggregator__Service {
 		);
 
 		return $origins;
+	}
+
+	/**
+	 * Applies a limit to the import request.
+	 *
+	 * @since 4.5.13
+	 *
+	 * @param array $args An array of request arguments.
+	 *
+	 * @return mixed
+	 */
+	protected function apply_import_limit( $args ) {
+		if ( isset( $args['limit_type'], $args['limit'] ) ) {
+			return $args;
+		}
+
+		$is_other_url = isset( $args['origin'] ) && $args['origin'] === 'url';
+		if ( $is_other_url ) {
+			$limit_type = 'range';
+		} else {
+			$limit_type = tribe_get_option( 'tribe_aggregator_default_import_limit_type', false );
+		}
+
+		/** @var \Tribe__Events__Aggregator__Settings $settings */
+		$settings = tribe( 'events-aggregator.settings' );
+
+		$limit_args = array();
+		switch ( $limit_type ) {
+			case 'no_limit':
+				break;
+			case 'count':
+				$limit_args['limit_type'] = 'count';
+				$default                  = $settings->get_import_limit_count_default();
+				$limit_args['limit']      = tribe_get_option( 'tribe_aggregator_default_import_limit_number', $default );
+				break;
+			default:
+			case 'range':
+				$limit_args['limit_type'] = 'range';
+				$default                  = $settings->get_import_range_default();
+				$limit_args['limit']      = $is_other_url
+					? tribe_get_option( 'tribe_aggregator_default_url_import_range', $default )
+					: tribe_get_option( 'tribe_aggregator_default_import_limit_range', $default );
+				break;
+		}
+
+		/**
+		 * Filters the limit arguments before applying them to the import request arguments.
+		 *
+		 * @since 4.5.13
+		 *
+		 * @param array                              $limit_args The limit arguments.
+		 * @param array                              $args       The import request arguments.
+		 * @param Tribe__Events__Aggregator__Service $service    The service instance handling the import request..
+		 */
+		$limit_args = apply_filters( 'tribe_aggregator_limit_args', $limit_args, $args, $this );
+
+		if ( is_array( $limit_args ) ) {
+			$args = array_merge( $args, $limit_args );
+		}
+
+		return $args;
 	}
 }
