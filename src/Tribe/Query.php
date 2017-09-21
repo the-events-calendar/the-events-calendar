@@ -64,8 +64,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * Set any query flags
 		 *
 		 * @param WP_Query $query
-		 **/
+		 */
 		public static function parse_query( $query ) {
+			$helper = Tribe__Admin__Helpers::instance();
 
 			// set paged
 			if ( $query->is_main_query() && isset( $_GET['tribe_paged'] ) ) {
@@ -73,11 +74,16 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			// Add tribe events post type to tag queries only in tag archives
-			if ( $query->is_tag && (array) $query->get( 'post_type' ) != array( Tribe__Events__Main::POSTTYPE ) ) {
+			if ( $query->is_tag
+				&& (array) $query->get( 'post_type' ) != array( Tribe__Events__Main::POSTTYPE )
+				&& ! $helper->is_post_type_screen( 'post' )
+			) {
 				$types = $query->get( 'post_type' );
+
 				if ( empty( $types ) ) {
 					$types = array( 'post' );
 				}
+
 				if ( is_array( $types ) && $query->is_main_query() ) {
 					$types[] = Tribe__Events__Main::POSTTYPE;
 				} elseif ( $query->is_main_query() ) {
@@ -89,6 +95,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						}
 					}
 				}
+
 				$query->set( 'post_type', $types );
 			}
 
@@ -403,6 +410,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					$query->set( 'order', $query->query['order'] );
 				}
 			}
+
 			return $query;
 		}
 
@@ -909,29 +917,35 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					default :
 						global $wp_query;
 						$output_date_format = '%Y-%m-%d %H:%i:%s';
-						$raw_counts = $wpdb->get_results(
-							$wpdb->prepare(
-								"
+						$start_date_sql = esc_sql( $post_id_query->query_vars['start_date'] );
+						$end_date_sql = esc_sql( $post_id_query->query_vars['end_date'] );
+						$sql_ids = esc_sql( implode( ',', array_map( 'intval', $post_ids ) ) );
+
+						$raw_counts = $wpdb->get_results( "
 							SELECT 	tribe_event_start.post_id as ID,
 									tribe_event_start.meta_value as EventStartDate,
-									DATE_FORMAT( tribe_event_end_date.meta_value, '%1\$s') as EventEndDate,
+									DATE_FORMAT( tribe_event_end_date.meta_value, '{$output_date_format}') as EventEndDate,
 									{$wpdb->posts}.menu_order as menu_order
 							FROM $wpdb->postmeta AS tribe_event_start
 									LEFT JOIN $wpdb->posts ON (tribe_event_start.post_id = {$wpdb->posts}.ID)
 							LEFT JOIN $wpdb->postmeta as tribe_event_end_date ON ( tribe_event_start.post_id = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' )
 							WHERE tribe_event_start.meta_key = '_EventStartDate'
-							AND tribe_event_start.post_id IN ( %5\$s )
-							AND ( (tribe_event_start.meta_value >= '%3\$s' AND  tribe_event_start.meta_value <= '%4\$s')
-								OR (tribe_event_start.meta_value <= '%3\$s' AND tribe_event_end_date.meta_value >= '%3\$s')
-								OR ( tribe_event_start.meta_value >= '%3\$s' AND  tribe_event_start.meta_value <= '%4\$s')
+							AND tribe_event_start.post_id IN ( {$sql_ids} )
+							AND (
+								(
+									tribe_event_start.meta_value >= '{$start_date_sql}'
+									AND  tribe_event_start.meta_value <= '{$end_date_sql}'
+								)
+								OR (
+									tribe_event_start.meta_value <= '{$start_date_sql}'
+									AND tribe_event_end_date.meta_value >= '{$start_date_sql}'
+								)
+								OR (
+									tribe_event_start.meta_value >= '{$start_date_sql}'
+									AND tribe_event_start.meta_value <= '{$end_date_sql}'
+								)
 							)
-							ORDER BY menu_order ASC, DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;",
-								$output_date_format,
-								$output_date_format,
-								$post_id_query->query_vars['start_date'],
-								$post_id_query->query_vars['end_date'],
-								implode( ',', array_map( 'intval', $post_ids ) )
-							)
+							ORDER BY menu_order ASC, DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;"
 						);
 						$start_date = new DateTime( $post_id_query->query_vars['start_date'] );
 						$end_date   = new DateTime( $post_id_query->query_vars['end_date'] );

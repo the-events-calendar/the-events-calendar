@@ -244,8 +244,24 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			);
 		}
 
-		if ( count( $parsed ) > 1 ) {
-			$parsed['relation'] = $relation;
+	/**
+	 * @param array $args
+	 *
+	 * @return string
+	 */
+	protected function get_current_rest_url( array $args = array() ) {
+		$url = tribe_events_rest_url( 'events/' );
+
+		$flipped = array_flip( $this->supported_query_vars );
+		$values  = array_intersect_key( $args, $flipped );
+		$keys    = array_intersect_key( $flipped, $values );
+
+		if ( ! empty( $keys ) ) {
+			$parameters = array_fill_keys( array_values( $keys ), '' );
+			foreach ( $keys as $key => $value ) {
+				$parameters[ $value ] = $args[ $key ];
+			}
+			$url = add_query_arg( $parameters, $url );
 		}
 
 		return $parsed;

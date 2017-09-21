@@ -250,6 +250,56 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	}
 
 	/**
+	 * Gets a hash with the information we need to verify if a given record is a duplicate
+	 *
+	 * @since  4.5.13
+	 *
+	 * @return string
+	 */
+	public function get_data_hash() {
+		$meta = array(
+			'file',
+			'keywords',
+			'location',
+			'start',
+			'end',
+			'radius',
+			'source',
+			'content_type',
+		);
+
+		$data = array(
+			'type' => $this->type,
+			'origin' => $this->origin,
+			'frequency' => null,
+		);
+
+		// If schedule Record, we need it's frequency
+		if ( $this->is_schedule ) {
+			$data['frequency'] = $this->frequency->id;
+		}
+
+		foreach ( $meta as $meta_key ) {
+			if ( ! isset( $this->meta[ $meta_key ] ) ) {
+				continue;
+			}
+
+			$data[ $meta_key ] = $this->meta[ $meta_key ];
+		}
+
+		// Remove the empty Keys
+		$data = array_filter( $data );
+
+		// Sort to avoid any weird MD5 stuff
+		ksort( $data );
+
+		// Create a string to be able to MD5
+		$data_string = maybe_serialize( $data );
+
+		return md5( $data_string );
+	}
+
+	/**
 	 * Creates an import record
 	 *
 	 * @param string $type Type of record to create - manual or schedule
@@ -639,13 +689,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$args = wp_parse_args( $args, $defaults );
 
 		if ( ! empty( $args['start'] ) ) {
-			// Tries to convert a Datepicker formated string
-			$args['start'] = Tribe__Date_Utils::maybe_format_from_datepicker( $args['start'] );
+			$args['start'] = ! is_numeric( $args['start'] )
+				? Tribe__Date_Utils::maybe_format_from_datepicker( $args['start'] )
+				: date( Tribe__Date_Utils::DBDATETIMEFORMAT, $args['start'] );
 		}
 
 		if ( ! empty( $args['end'] ) ) {
-			// Tries to convert a Datepicker formated string
-			$args['end'] = Tribe__Date_Utils::maybe_format_from_datepicker( $args['end'] );
+			$args['end'] = ! is_numeric( $args['end'] )
+				? Tribe__Date_Utils::maybe_format_from_datepicker( $args['end'] )
+				: date( Tribe__Date_Utils::DBDATETIMEFORMAT, $args['end'] );
 		}
 
 		// create the import on the Event Aggregator service
@@ -932,6 +984,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$last    = strtotime( $this->post->post_modified_gmt );
 		$next    = $last + $this->frequency->interval;
 
+		// let's add some randomization of -5 to 0 minutes (this makes sure we don't push a schedule beyond when it should fire off)
+		$next += ( mt_rand( -5, 0 ) * 60 );
+
 		// Only do anything if we have one of these metas
 		if ( ! empty( $this->meta['schedule_day'] ) || ! empty( $this->meta['schedule_time'] ) ) {
 			// Setup to avoid notices
@@ -1193,6 +1248,16 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function insert_posts( $items = array() ) {
 		add_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
 
+		/**
+		 * Fires before events and linked posts are inserted in the database.
+		 *
+		 * @since 4.5.13
+		 *
+		 * @param array $items An array of items to insert.
+		 * @param array $meta  The record meta information.
+		 */
+		do_action( 'tribe_aggregator_before_insert_posts', $items, $this->meta );
+
 		// sets the default user ID to that of the first user that can edit events
 		$default_user_id = $this->get_default_user_id();
 
@@ -1248,7 +1313,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// Only set the post status if there isn't an ID
 			if ( empty( $event['ID'] ) ) {
-				$event['post_status'] = $args['post_status'];
+				$event['post_status'] = Tribe__Utils__Array::get( $args, 'post_status', $this->meta['post_status'] );
 			}
 
 			/**
@@ -1724,7 +1789,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
 					// Set as featured image
-					$featured_status = set_post_thumbnail( $event['ID'], $image->post_id );
+					$featured_status = $this->set_post_thumbnail( $event['ID'], $image->post_id );
 
 					if ( $featured_status ) {
 						// Log this attachment was created
@@ -1744,7 +1809,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
 					// Set as featured image
-					$featured_status = set_post_thumbnail( $organizer_id, $image->post_id );
+					$featured_status = $this->set_post_thumbnail( $organizer_id, $image->post_id );
 
 					if ( $featured_status ) {
 						// Log this attachment was created
@@ -1764,7 +1829,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 				if ( ! is_wp_error( $image ) && ! empty( $image->post_id ) ) {
 					// Set as featured image
-					$featured_status = set_post_thumbnail( $venue_id, $image->post_id );
+					$featured_status = $this->set_post_thumbnail( $venue_id, $image->post_id );
 
 					if ( $featured_status ) {
 						// Log this attachment was created
@@ -1783,6 +1848,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
+
+		/**
+		 * Fires after events and linked posts have been inserted in the database.
+		 *
+		 * @since 4.5.13
+		 *
+		 * @param array                                       $items    An array of items to insert.
+		 * @param array                                       $meta     The record meta information.
+		 * @param Tribe__Events__Aggregator__Record__Activity $activity The record insertion activity report.
+		 */
+		do_action( 'tribe_aggregator_after_insert_posts', $items, $this->meta, $activity );
 
 		return $activity;
 	}
@@ -2066,5 +2142,29 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		return 0;
+	}
+
+	/**
+	 * Assigns a new post thumbnail to the specified post if needed.
+	 *
+	 * @since 4.5.13
+	 *
+	 * @param int $post_id The ID of the post the thumbnail should be assigned to.
+	 * @param int $new_thumbnail_id The new attachment post ID.
+	 *
+	 * @return bool Whether the post thumbnail ID changed or not.
+	 */
+	protected function set_post_thumbnail( $post_id, $new_thumbnail_id ) {
+		$current_thumbnail_id = has_post_thumbnail( $post_id )
+			? (int) get_post_thumbnail_id( $post_id )
+			: false;
+
+		if ( ! empty( $current_thumbnail_id ) && $current_thumbnail_id !== (int) $new_thumbnail_id ) {
+			set_post_thumbnail( $post_id, $new_thumbnail_id );
+
+			return true;
+		}
+
+		return false;
 	}
 }

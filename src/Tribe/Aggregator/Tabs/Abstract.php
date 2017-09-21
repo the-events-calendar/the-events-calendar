@@ -102,6 +102,36 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 			'schedule_time' => empty( $data['schedule_time'] ) ? null : $data['schedule_time'],
 		);
 
+		// Only apply this verification when dealing with Creating new items
+		if ( ! empty( $post_data['action'] ) && 'new' === $post_data['action'] ) {
+			$hash = array_filter( $meta );
+
+			// remove non-needed data from the Hash of the Record
+			unset( $hash['schedule_day'], $hash['schedule_time'] );
+			ksort( $hash );
+			$hash = maybe_serialize( $hash );
+			$hash = md5( $hash );
+
+			$matches = Tribe__Events__Aggregator__Records::instance()->query( array(
+				'post_status' => Tribe__Events__Aggregator__Records::instance()->get_status( 'schedule' )->name,
+				'meta_query' => array(
+					Tribe__Events__Aggregator__Records::instance()->prefix_meta( 'source' ) => $meta['source'],
+				),
+				'fields' => 'ids',
+			) );
+
+			foreach ( $matches->posts as $post_id ) {
+				$matching_hash = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post_id )->get_data_hash();
+
+				if ( $matching_hash == $hash ) {
+					$url = get_edit_post_link( $post_id );
+					$anchor = '<a href="' . esc_url( $url ) . '">' . esc_attr__( 'click here to edit it', 'the-events-calendar' ) .  '</a>';
+					$message = sprintf( __( 'A record already exists with these settings, %1$s.', 'the-events-calendar' ), $anchor );
+					wp_send_json_error( array( 'message' => $message ) );
+				}
+			}
+		}
+
 		$meta = $this->validate_meta_by_origin( $meta['origin'], $meta );
 
 		if ( is_wp_error( $meta ) ) {
