@@ -297,6 +297,11 @@ class Tribe__Events__Venue {
 		unset( $data['Venue'] );
 
 		foreach ( $data as $key => $var ) {
+			// Prevent these WP_Post object fields from ending up in the meta.
+			if ( in_array( $key, array( 'post_title', 'post_excerpt', 'post_content' ) ) ) {
+				continue;
+			}
+
 			update_post_meta( $venue_id, '_Venue' . $key, sanitize_text_field( $var ) );
 		}
 	}
@@ -331,7 +336,15 @@ class Tribe__Events__Venue {
 			$data['ShowMapLink'] = isset( $data['ShowMapLink'] ) ? $data['ShowMapLink'] : 'true';
 
 			if ( ! is_wp_error( $venue_id ) ) {
+
 				$this->save_meta( $venue_id, $data );
+
+				/**
+				 * Runs right after a successful creation of a venue (including its meta being saved).
+				 *
+				 * @param int $venue_id The ID of the venue being created.
+				 * @param array $data The full array of data that was used to create the venue.
+				 */
 				do_action( 'tribe_events_venue_created', $venue_id, $data );
 
 				return $venue_id;
@@ -406,6 +419,13 @@ class Tribe__Events__Venue {
 		}
 
 		$this->save_meta( $venue_id, $data );
+
+		/**
+		 * Runs right after a successful update of a venue (including its meta being saved).
+		 *
+		 * @param int $venue_id The ID of the venue being updated.
+		 * @param array $data The full array of data that was used to modify the venue.
+		 */
 		do_action( 'tribe_events_venue_updated', $venue_id, $data );
 	}
 

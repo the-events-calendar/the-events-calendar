@@ -331,6 +331,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 * Tweak - Remove unnecessary paramters from some remove_action calls in the plugin (thanks to @JPry on GitHub for submitting this fix!) [88867]
 * Tweak - Adjusted the EA cron start time so that it never gets created in the past [88965]
+* Tweak - Adjusted the `tribe_update_venue()` template tag so it no longer creates some unncessary meta fields involing post_title, post_content, etc. (thanks @oheinrich for bringing this to our attention) [66968]
 * Language - Improvements to aid translatability of text throughout plugin (props: @ramiy) [88982]
 * Deprecated - Deprecated the `tribe-events-bar-date-search-default-value` filter; use `tribe_events_bar_date_search_default_value` instead [67482]
 
