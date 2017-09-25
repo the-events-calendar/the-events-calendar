@@ -871,17 +871,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return WP_Query|WP_Error|bool
 	 */
-	public function get_child_record_by_status( $status = 'success', $qty = -1 ) {
+	public function get_child_record_by_status( $status = 'success', $qty = -1, array $args = array() ) {
 		$statuses = Tribe__Events__Aggregator__Records::$status;
 
 		if ( ! isset( $statuses->{ $status } ) && 'trash' !== $status ) {
 			return false;
 		}
 
-		$args = array(
-			'post_status'    => $statuses->{ $status },
+		$args = array_merge( $args, array(
+			'post_status'    => $statuses->{$status},
 			'posts_per_page' => $qty,
-		);
+		) );
 		$query = $this->query_child_records( $args );
 
 		if ( ! $query->have_posts() ) {
