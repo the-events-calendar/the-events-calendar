@@ -6439,7 +6439,7 @@ msgstr "No hay proximo %1$s listado en %2$s. Revisa los próximos %3$s en éste 
 msgid "This %s has passed."
 msgstr "Este %s ha pasado."
 
-#: src/Tribe/Template/Month.php:899
+#: src/Tribe/Template/Month.php:908
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "La fecha \"%s\" no es válida &ndash; se muestra el mes actual en lugar de éste."
 
@@ -6877,7 +6877,7 @@ msgstr "lista"
 msgid "month"
 msgstr "mes"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.2) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:565

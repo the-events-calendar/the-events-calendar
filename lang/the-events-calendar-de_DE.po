@@ -6439,7 +6439,7 @@ msgstr "Keine anstehenden %1$s für %2$s gefunden. Versuche anstehende %3$s für
 msgid "This %s has passed."
 msgstr "Diese %s hat bereits stattgefunden."
 
-#: src/Tribe/Template/Month.php:899
+#: src/Tribe/Template/Month.php:908
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Das abgefragte Datum \"%s\" war  nicht g&uuml;ltig &ndash; der aktuelle Monat wird stattdessen angezeigt"
 
@@ -6877,7 +6877,7 @@ msgstr "list"
 msgid "month"
 msgstr "Monat"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.2) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:565
@@ -7153,33 +7153,6 @@ msgid "Time:"
 msgstr "Zeit:"
 
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:68
-#: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:alendar generiert."
-
-#: common/src/Tribe/Cost_Utils.php:108
-msgid "Free"
-msgstr "kostenlos"
-
-#: src/Tribe/Cost_Utils.php:113
-msgctxt "Cost range separator"
-msgid " - "
-msgstr " - "
-
-#: common/src/Tribe/App_Shop.php:50 common/src/Tribe/App_Shop.php:51
-#: common/src/Tribe/App_Shop.php:72
-msgid "Event Add-Ons"
-msgstr "Add-Ons"
-
-#: src/Tribe/Amalgamator.php:253 src/admin-views/tribe-options-general.php:143
-msgid "Merge Duplicates"
-msgstr "Duplikate zusammenführen"
-
-#: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:111
-#: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:122
-#: src/views/modules/meta/details.php:48
-msgid "Time:"
-msgstr "Zeit:"
-
-#: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:68
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:100
 #: src/views/modules/meta/details.php:80 src/views/modules/meta/details.php:105
 msgid "Date:"
@@ -7216,7 +7189,7 @@ msgstr "%ss-Kategorien"
 
 #: src/Tribe/Admin/Timezone_Updater.php:105
 msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
-msgstr "Aufgrund eines Problems wurde das Zeitzonen Update gestoppt. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut."
+msgstr "Aufgrund eines Problems wurde das Zeitzonen Update gestoppt. Bitte aktualisiere die Seite und versuche es erneut."
 
 #: src/Tribe/Admin/Timezone_Updater.php:87
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:56
@@ -7231,7 +7204,7 @@ msgstr "Update abgeschlossen: die Zeitzonen Daten wurden zu allen Veranstaltunge
 
 #: src/Tribe/Admin/Timezone_Updater.php:77
 msgid "Please wait while timezone data is added to your events."
-msgstr "Bitte warten während die Zeitzonen Daten zu Ihrern Veranstaltungen hinzugefügt werden."
+msgstr "Bitte warten während die Zeitzonen Daten zu Deinen Veranstaltungen hinzugefügt werden."
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:208 src/Tribe/Main.php:1710
@@ -7246,11 +7219,11 @@ msgstr "Benutze gespeicherten %s:"
 
 #: src/Tribe/Main.php:953
 msgid " ask the site administrator set a different Events URL slug."
-msgstr "fragen Sie den Seitenadministrator eine andere Seiten Slug (URL) festzulegen."
+msgstr "Frage den Seitenadministrator einen andere Seiten Slug (URL) festzulegen."
 
 #: src/Tribe/Main.php:947
 msgid "Ask the site administrator to edit the %s slug"
-msgstr "Fragen Sie den Seitenadministrator den %s Slug (URL) zu bearbeiten"
+msgstr "Frage den Seitenadministrator den %s Slug (URL) zu bearbeiten"
 
 #: src/deprecated/Tribe__Events__Activation_Page.php:215
 msgid "Thanks for Updating The Events Calendar"
@@ -7263,6 +7236,32 @@ msgstr "Willkommen beim Plugin 'The Events Calendar'"
 
 #: common/src/Tribe/Admin/Activation_Page.php:85
 #: src/deprecated/Tribe__Events__Activation_Page.php:49
+msgid "Return to WordPress Updates"
+msgstr "Zurück zu WordPress Updates"
+
+#: common/src/Tribe/Admin/Activation_Page.php:85
+#: src/deprecated/Tribe__Events__Activation_Page.php:49
+msgid "Go to WordPress Updates page"
+msgstr "Gehe zur WordPress Updates Seite"
+
+#: common/src/Tribe/Admin/Activation_Page.php:77
+#: src/deprecated/Tribe__Events__Activation_Page.php:41
+msgid "Return to Plugins page"
+msgstr "Zurück zur Pluginseite"
+
+#: common/src/Tribe/Admin/Activation_Page.php:77
+#: src/deprecated/Tribe__Events__Activation_Page.php:41
+msgid "Go to plugins page"
+msgstr "Gehe zur Pluginseite"
+
+#: common/src/Tribe/View_Helpers.php:43 src/Tribe/Venue.php:274
+#: src/functions/template-tags/venue.php:379
+msgid "United States"
+msgstr "Vereinigte Staaten"
+
+#: src/Tribe/Venue.php:315
+msgid "Unnamed Venue"
+msgstr "Unbenannter Veranstaltungsort"Page.php:49
 msgid "Return to WordPress Updates"
 msgstr "Zurück zu WordPress Updates"
 
