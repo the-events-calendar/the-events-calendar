@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Events__Validator__Base
  *
- * @since TBD
+ * @since 4.6
  */
 class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	implements Tribe__Events__Validator__Interface {
@@ -11,7 +11,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether the provided value is an existing Venue post ID or not.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param mixed $venue_id
 	 *
@@ -24,7 +24,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether the provided value is an existing Organizer post ID or not.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param mixed $organizer Either an array of Organizer post IDs or a single Organizer post ID.
 	 *
@@ -43,7 +43,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether a list or array of organizer post IDs only contains valid organizer IDs or not.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param  string|array $organizers A list of organizer post IDs separated by the specified separator or an array
 	 *                                  of organizer post IDs.
@@ -64,7 +64,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether the event category exists or not.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param mixed $category Either a single event category `term_id` or `slug` or an array of
 	 *                        `term_id`s and `slug`s
@@ -78,7 +78,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether the value is the post ID of an existing event or not.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param int|string $event_id
 	 *
@@ -97,7 +97,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether the string represents a valid PHP timezone or not.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param string $candidate
 	 *
@@ -110,7 +110,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether a list or array of venue post IDs only contains valid venue IDs or not.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param  string|array $venues A list of venue post IDs separated by the specified separator or an array
 	 *                                  of venue post IDs.

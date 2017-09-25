@@ -11,7 +11,7 @@ interface Tribe__Events__REST__Interfaces__Post_Repository {
 	 *
 	 * @return array|WP_Error Either the array representation of an event or an error object.
 	 *
-	 * @since TBD Added $context param
+	 * @since 4.6 Added $context param
 	 */
 	public function get_event_data( $event_id, $context = '' );
 
@@ -23,7 +23,7 @@ interface Tribe__Events__REST__Interfaces__Post_Repository {
 	 *
 	 * @return array|WP_Error Either the array representation of a venue or an error object.
 	 *
-	 * @since TBD Added $context param
+	 * @since 4.6 Added $context param
 	 */
 	public function get_venue_data( $event_or_venue_id, $context = '' );
 
@@ -37,7 +37,7 @@ interface Tribe__Events__REST__Interfaces__Post_Repository {
 	 *                        arrya of array representations of an event organizer or
 	 *                        an error object.
 	 *
-	 * @since TBD Added $context param
+	 * @since 4.6 Added $context param
 	 */
 	public function get_organizer_data( $event_or_organizer_id, $context = '' );
 
@@ -49,14 +49,14 @@ interface Tribe__Events__REST__Interfaces__Post_Repository {
 	 *
 	 * @return array|\WP_Error Either the array representation of taxonomy terms or an error object.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function prepare_terms_data( array $terms_data, $taxonomy );
 
 	/**
 	 * Prepares a single term data for the response.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param array  $term_data
 	 * @param string $taxonomy

@@ -20,7 +20,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	/**
 	 * Tribe__Events__REST__V1__Endpoints__Archive_Organizer constructor.
 	 *
-	 * @TBD
+	 * @since 4.6
 	 *
 	 * @param Tribe__REST__Messages_Interface                  $messages
 	 * @param Tribe__Events__REST__Interfaces__Post_Repository $repository
@@ -78,7 +78,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 *
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function get( WP_REST_Request $request ) {
 		$args = array(
@@ -102,7 +102,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 		 *
 		 * @param bool $default_only_with_upcoming
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		$default_only_with_upcoming = apply_filters( 'tribe_rest_organizer_default_only_with_upcoming', false );
 
@@ -255,7 +255,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 *
 	 * @return int
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	protected function get_total( $args, $only_with_upcoming = false ) {
 		unset( $args['posts_per_page'] );
@@ -275,7 +275,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 *
 	 * @return string
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	protected function get_base_rest_url() {
 		$url = tribe_events_rest_url( 'organizers/' );
@@ -293,7 +293,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 *
 	 * @return bool
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	protected function has_next( $args, $page, $only_with_upcoming ) {
 		$overrides = array(

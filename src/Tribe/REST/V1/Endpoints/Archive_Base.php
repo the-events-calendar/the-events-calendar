@@ -146,7 +146,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	 * Filters a list of post stati returning only those accessible by the current user for the post type
 	 * managed by the endpoint.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param array|string $post_stati An array of post stati or a comma separated list of post stati.
 	 *

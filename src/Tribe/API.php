@@ -135,7 +135,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			 * @param array   $data     The meta fields we want saved.
 			 * @param WP_Post $event    The event itself.
 			 *
-			 * @since TBD
+			 * @since 4.6
 			 */
 			do_action( 'tribe_events_event_save', $event_id, $data, $event );
 
@@ -189,7 +189,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			 * @param array   $data     The meta fields we want saved.
 			 * @param WP_Post $event    The event itself.
 			 *
-			 * @since TBD
+			 * @since 4.6
 			 */
 			do_action( 'tribe_events_update_meta', $event_id, $data, $event );
 		}

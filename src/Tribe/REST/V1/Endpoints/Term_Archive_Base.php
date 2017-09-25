@@ -122,7 +122,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Archive_Base
 	 *
 	 * @return string
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	abstract protected function get_taxonomy();
 
@@ -131,7 +131,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Archive_Base
 	 *
 	 * @return string
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	abstract protected function get_data_key();
 }

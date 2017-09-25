@@ -357,7 +357,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		 * @param array  $data        The data provided to create the venue.
 		 * @param string $post_status The post status that should be applied to the created venue.
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		$check = apply_filters( 'tribe_events_tribe_venue_create', null, $data, $post_status );
 
@@ -471,7 +471,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		 * @param int   $venue_id The post ID of the venue that should be updated
 		 * @param array $data     The data provided to update the venue.
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		$check = apply_filters( 'tribe_events_tribe_venue_update', null, $venue_id, $data );
 
@@ -598,7 +598,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		 *
 		 * @see   Tribe__Duplicate__Strategy_Factory
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		return apply_filters( 'tribe_event_venue_duplicate_post_fields', $fields );
 	}
@@ -629,7 +629,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		 *
 		 * @see   Tribe__Duplicate__Strategy_Factory
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		return apply_filters( 'tribe_event_venue_duplicate_custom_fields', $fields );
 	}
