@@ -15,6 +15,8 @@ var tribe_timepickers = tribe_timepickers || {};
 		opts: {
 			forceRoundTime: false,
 			step: 30,
+			disableTimeRanges: [],
+			timeFormat: 'g:ia',
 		}
 	};
 
@@ -91,7 +93,7 @@ var tribe_timepickers = tribe_timepickers || {};
 				opts.forceRoundTime = true;
 			}
 
-			$item.timepicker( opts ).trigger( 'change' );
+			$item.tribe_timepicker( opts ).trigger( 'change' );
 		} );
 	};
 

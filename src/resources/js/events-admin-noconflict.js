@@ -1,0 +1,1 @@
+jQuery.fn.tribe_timepicker = jQuery.fn.timepicker;
