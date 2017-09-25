@@ -327,7 +327,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.6] TBD =
+= [4.6] 2017-09-25 =
 
 * Feature - Added full CRUD REST support for Events, Organizers, Venues, Event Categories, and Tags
 * Tweak - Updated Bootstrap Datepicker to v1.7.0
@@ -338,6 +338,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Added action: `tribe_events_organizer_created`
 * Tweak - Added REST filters: `tribe_rest_organizer_default_only_with_upcoming`, `tribe_rest_venue_default_only_with_upcoming`, `tribe_events_rest_term_allow_delete`
 * Tweak - Added duplicate-detection filters: `tribe_duplicate_post_strategies`, `tribe_duplicate_post_strategy`, `tribe_duplicate_post_{$strategy}_strategy`
+* Language - 152 new strings added, 217 updated, 6 fuzzied, and 1 obsoleted
 
 = [4.5.13] 2017-09-20 =
 
