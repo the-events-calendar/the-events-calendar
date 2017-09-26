@@ -1,7 +1,7 @@
 var tribe_timepickers = tribe_timepickers || {};
 
 ( function ( $, obj ) {
-	"use strict";
+	'use strict';
 
 	obj.selector = {
 		container  : '.tribe-datetime-block',
@@ -25,14 +25,14 @@ var tribe_timepickers = tribe_timepickers || {};
 	obj.$ = {};
 
 	obj.container = function( k, container ) {
-		var $container  = $( container ),
-			$all_day    = $container.find( obj.selector.all_day ),
-			$timepicker = $container.find( obj.selector.timepicker ),
-			$timezone   = $container.find( obj.selector.timezone ).not( obj.selector.input ),
-			$input      = $container.find( obj.selector.timezone ).filter( obj.selector.input ),
+		var $container  = $( container );
+		var $all_day    = $container.find( obj.selector.all_day );
+		var $timepicker = $container.find( obj.selector.timepicker );
+		var $timezone   = $container.find( obj.selector.timezone ).not( obj.selector.input );
+		var $input      = $container.find( obj.selector.timezone ).filter( obj.selector.input );
 
-			// Create the Link
-			$timezone_link = $( obj.timezone.link( { label: $input.data( 'timezoneLabel' ), timezone: $input.data( 'timezoneValue' ) } ) );
+		// Create the Link
+		var $timezone_link = $( obj.timezone.link( { label: $input.data( 'timezoneLabel' ), timezone: $input.data( 'timezoneValue' ) } ) );
 
 		// Toggle Timepickers on All Day change
 		$all_day.on( 'change', function() {
@@ -69,8 +69,8 @@ var tribe_timepickers = tribe_timepickers || {};
 	obj.setup_timepickers = function( $timepickers ) {
 		// Setup all Timepickers
 		$timepickers.each( function() {
-			var $item = $( this ),
-				opts  = $.extend( {}, obj.timepicker.opts );
+			var $item = $( this );
+			var opts  = $.extend( {}, obj.timepicker.opts );
 
 			if ( $item.data( 'format' ) ) {
 				opts.timeFormat = $item.data( 'format' );
@@ -533,8 +533,8 @@ jQuery( document ).ready( function( $ ) {
 			startofweek = $event_pickers.data( 'startofweek' );
 		}
 
-		var $start_date = $( '#EventStartDate' );
-		var $end_date   = $( '#EventEndDate' );
+		var $start_date = $( document.getElementById( 'EventStartDate' ) );
+		var $end_date   = $( document.getElementById( 'EventEndDate' ) );
 
 		tribe_datepicker_opts = {
 			dateFormat      : date_format,
@@ -554,7 +554,7 @@ jQuery( document ).ready( function( $ ) {
 
 				// If the start date was adjusted, then let's modify the minimum acceptable end date
 				if ( this.id === 'EventStartDate' ) {
-					var start_date = $( '#EventStartDate' ).data( 'prevDate' );
+					var start_date = $( document.getElementById( 'EventStartDate' ) ).data( 'prevDate' );
 					var date_diff = null == start_date ? 0 : date_diff_in_days( start_date, $end_date.datepicker( 'getDate' ) );
 					var end_date = new Date( date.setDate( date.getDate() + date_diff ) );
 
@@ -576,8 +576,8 @@ jQuery( document ).ready( function( $ ) {
 		$.extend( tribe_datepicker_opts, tribe_l10n_datatables.datepicker );
 
 		var dates            = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
-		var $start_end_month = $( "select[name='EventStartMonth'], select[name='EventEndMonth']" );
-		var $start_month     = $( "select[name='EventStartMonth']" );
+		var $start_end_month = $( 'select[name="EventStartMonth"], select[name="EventEndMonth"]' );
+		var $start_month     = $( 'select[name="EventStartMonth"]' );
 		var $end_month       = $( 'select[name="EventEndMonth"]' );
 		var selectObject;
 
@@ -596,12 +596,23 @@ jQuery( document ).ready( function( $ ) {
 		var tribeDaysPerMonth = [29, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 		// start and end date select sections
-		var tribeStartDays = [ $( '#28StartDays' ), $( '#29StartDays' ), $( '#30StartDays' ), $( '#31StartDays' ) ],
-			tribeEndDays   = [ $( '#28EndDays' ), $( '#29EndDays' ), $( '#30EndDays' ), $( '#31EndDays' ) ];
+		var tribeStartDays = [
+			$( document.getElementById( '28StartDays' ) ),
+			$( document.getElementById( '29StartDays' ) ),
+			$( document.getElementById( '30StartDays' ) ),
+			$( document.getElementById( '31StartDays' ) )
+		];
+		
+		var tribeEndDays = [
+			$( document.getElementById( '28EndDays' ) ),
+			$( document.getElementById( '29EndDays' ) ),
+			$( document.getElementById( '30EndDays' ) ),
+			$( document.getElementById( '31EndDays' ) )
+		];
 
 		$start_end_month.change( function() {
 			var t = $( this );
-			var startEnd = t.attr( "name" );
+			var startEnd = t.attr( 'name' );
 			// get changed select field
 			if ( startEnd == 'EventStartMonth' ) {
 				startEnd = 'Start';
@@ -615,15 +626,15 @@ jQuery( document ).ready( function( $ ) {
 				chosenMonth = chosenMonth.replace( '0', '' );
 			}
 			// leap year
-			var remainder = $( "select[name='Event" + startEnd + "Year']" ).attr( "value" ) % 4;
+			var remainder = $( 'select[name="Event' + startEnd + 'Year"]' ).attr( 'value' ) % 4;
 			if ( chosenMonth == 2 && remainder == 0 ) {
 				chosenMonth = 0;
 			}
 			// preserve selected option
-			var currentDateField = $( "select[name='Event" + startEnd + "Day']" );
+			var currentDateField = $( 'select[name="Event' + startEnd + 'Day"]' );
 
 			$( '.event' + startEnd + 'DateField' ).remove();
-			if ( startEnd == "Start" ) {
+			if ( startEnd == 'Start' ) {
 				selectObject = tribeStartDays[ tribeDaysPerMonth[ chosenMonth ] - 28 ];
 				selectObject.val( currentDateField.val() );
 				$start_month.after( selectObject );
@@ -637,11 +648,11 @@ jQuery( document ).ready( function( $ ) {
 
 		$start_end_month.change();
 
-		$( "select[name='EventStartYear']" ).change( function() {
+		$( 'select[name="EventStartYear"]' ).change( function() {
 			$start_month.change();
 		} );
 
-		$( "select[name='EventEndYear']" ).change( function() {
+		$( 'select[name="EventEndYear"]' ).change( function() {
 			$end_month.change();
 		} );
 
@@ -655,12 +666,12 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	//show state/province input based on first option in countries list, or based on user input of country
-	$( 'body' ).on( 'change', "#EventCountry", function () {
+	$( 'body' ).on( 'change', '#EventCountry', function () {
 		var $country        = $( this );
 			$container      = $country.parents( 'div.eventForm' ).eq( 0 ),
 			$state_dropdown = $container.find( '#s2id_StateProvinceSelect' ),
-			$state_select   = $container.find( "#StateProvinceSelect" ),
-			$state_text     = $container.find( "#StateProvinceText" ),
+			$state_select   = $container.find( '#StateProvinceSelect' ),
+			$state_text     = $container.find( '#StateProvinceText' ),
 			country         = $( this ).val();
 
 		if ( country == 'US' || country == 'United States' ) {
@@ -676,7 +687,7 @@ jQuery( document ).ready( function( $ ) {
 
 	// EventCoordinates
 	var overwriteCoordinates = {
-		$container : $( '#overwrite_coordinates' )
+		$container : $( document.getElementById( 'overwrite_coordinates' ) )
 	};
 
 	overwriteCoordinates.$lat = overwriteCoordinates.$container.find( '#VenueLatitude' );
@@ -724,7 +735,7 @@ jQuery( document ).ready( function( $ ) {
 	// Default Layout Settings
 	// shows / hides proper views that are to be used on front-end
 
-	var $tribe_views = $( '#tribe-field-tribeEnableViews' );
+	var $tribe_views = $( document.getElementById( 'tribe-field-tribeEnableViews' ) );
 
 	if ( $tribe_views.length ) {
 
