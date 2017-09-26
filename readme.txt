@@ -329,6 +329,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.5.14] TBD =
 
+* Fix - Fixed issues with the jQuery Timepicker vendor script conflicting with other plugins' similar scripts (props: @hcny et al.) [74644]
 * Tweak - Remove unnecessary paramters from some remove_action calls in the plugin (thanks to @JPry on GitHub for submitting this fix!) [88867]
 * Tweak - Adjusted the EA cron start time so that it never gets created in the past [88965]
 * Language - Improvements to aid translatability of text throughout plugin (props: @ramiy) [88982]
