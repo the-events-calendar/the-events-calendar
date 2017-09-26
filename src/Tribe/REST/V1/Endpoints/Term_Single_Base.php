@@ -21,7 +21,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	/**
 	 * Tribe__Events__REST__V1__Endpoints__Term_Single_Base constructor.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param \Tribe__REST__Messages_Interface                  $messages
 	 * @param \Tribe__Events__REST__Interfaces__Post_Repository $repository
@@ -43,7 +43,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	/**
 	 * Returns the taxonomy of the terms handled by the endpoint.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @return string
 	 */
@@ -52,7 +52,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	/**
 	 * Handles GET requests on the endpoint.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param WP_REST_Request $request
 	 *
@@ -75,7 +75,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	/**
 	 * Returns the term namespace used by the endpoint.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @return string
 	 */
@@ -84,7 +84,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	/**
 	 * Handles POST requests on the endpoint.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param WP_REST_Request $request
 	 * @param bool            $return_id Whether the created post ID should be returned or the full response object.
@@ -113,7 +113,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	/**
 	 * Whether the current user can create content of the specified type or not.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @return bool Whether the current user can post or not.
 	 */
@@ -126,7 +126,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	/**
 	 * Whether the current user can update content of this type or not.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @return bool Whether the current user can update or not.
 	 */
@@ -137,7 +137,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	/**
 	 * Handles UPDATE requests on the endpoint.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param WP_REST_Request $request
 	 *
@@ -162,7 +162,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	 * Returns the content of the `args` array that should be used to register the endpoint
 	 * with the `register_rest_route` function.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @return array
 	 */
@@ -178,7 +178,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	 * Returns the content of the `args` array that should be used to register the endpoint
 	 * with the `register_rest_route` function.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @return array
 	 */
@@ -189,7 +189,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	/**
 	 * Whether the current user can delete content of this type or not.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @return bool Whether the current user can delete or not.
 	 */
@@ -200,7 +200,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	/**
 	 * Handles DELETE requests on the endpoint.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param WP_REST_Request $request
 	 *
@@ -211,7 +211,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 		/**
 		 * Filters whether term deletion is supported in TEC REST API or not.
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 *
 		 * @param bool $support_deletion
 		 */

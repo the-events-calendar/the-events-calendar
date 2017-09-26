@@ -122,7 +122,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	 *
 	 * @param array $arg
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	protected function unrequire_arg( array &$arg ) {
 		$arg['required'] = false;
@@ -136,7 +136,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	 *
 	 * @return array
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	protected function parse_args( array $args, array $defaults ) {
 		foreach ( $this->supported_query_vars as $request_key => $query_var ) {
@@ -157,7 +157,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	 *
 	 * @return bool
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function is_not_null( $value ) {
 		return null !== $value;
@@ -166,7 +166,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	/**
 	 * Converts REST format type argument to the correspondant Swagger.io definition.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param string $type
 	 *

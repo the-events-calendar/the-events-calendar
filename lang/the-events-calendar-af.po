@@ -6441,7 +6441,7 @@ msgstr "Geen opkomende %1$s op die %2$s lys. Gaan kyk na ander opkomende %3$s vi
 msgid "This %s has passed."
 msgstr "Hierdie %s is al verby"
 
-#: src/Tribe/Template/Month.php:899
+#: src/Tribe/Template/Month.php:908
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "Die versoekte datum \"%s\" is nie geldig nie &ndash; wys in plaas daarvan die huidige maand"
 
@@ -6879,7 +6879,7 @@ msgstr "lys"
 msgid "month"
 msgstr "maand"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.2) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:565

@@ -53,7 +53,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		 * @param bool  $avoid_duplicates
 		 * @param array $postarr The organizer data provided in the request.
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		$avoid_duplicates = apply_filters( 'tribe_events_rest_organizer_insert_avoid_duplicates', true, $postarr );
 
@@ -378,7 +378,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		 * @param int|bool        $deleted Whether the organizer was successfully deleted or not.
 		 * @param WP_REST_Request $request The original API request.
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		$deleted = apply_filters( 'tribe_organizers_rest_organizer_delete', null, $request );
 		if ( null === $deleted ) {
@@ -409,7 +409,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	/**
 	 * Whether the current user can delete posts of the type managed by the endpoint or not.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @return bool
 	 */
@@ -463,7 +463,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	/**
 	 * Whether the current user can update content of this type or not.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @return bool Whether the current user can update or not.
 	 */

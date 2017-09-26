@@ -346,7 +346,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	protected function register_single_venue_endpoint( $register_routes = true ) {
 		$messages = tribe( 'tec.rest-v1.messages' );
@@ -462,7 +462,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	protected function register_venue_archives_endpoint( $register_routes = true ) {
 		$messages = tribe( 'tec.rest-v1.messages' );
@@ -488,7 +488,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	protected function register_organizer_archives_endpoint( $register_routes = true ) {
 		$messages = tribe( 'tec.rest-v1.messages' );
@@ -512,7 +512,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Builds and hooks the event categories archives endpoint
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 */
@@ -580,7 +580,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Builds and hooks the event tags archives endpoint
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 */
@@ -648,7 +648,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Filters the event category taxonomy registration arguments to make it show in REST API requests.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param array $taxonomy_args
 	 *

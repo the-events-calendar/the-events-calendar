@@ -111,7 +111,7 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	 *
 	 * @return array An array of matching post IDs.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function find_for_event( $event_id ) {
 		/** @var Tribe__Cache $cache */
@@ -164,7 +164,7 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	 *
 	 * @return array An array of matching post IDs.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function find_with_events( $has_events = true, $excluded_post_stati = null ) {
 		/** @var Tribe__Cache $cache */
@@ -191,7 +191,7 @@ abstract class Tribe__Events__Linked_Posts__Base {
 		 * @param array $excluded_post_stati
 		 *
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		$excluded_post_stati = apply_filters( "tribe_{$this->post_type}_has_events_excluded_post_stati", $excluded_post_stati );
 

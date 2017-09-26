@@ -6410,7 +6410,7 @@ msgstr "在 %2$s 列表下沒有任何的 %1$s ，在本目錄檢閱即將到來
 msgid "This %s has passed."
 msgstr "這個%s已經結束。"
 
-#: src/Tribe/Template/Month.php:899
+#: src/Tribe/Template/Month.php:908
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "要檢視日期的 \"%s\" 是無效的 &ndash; 正在顯示本月的資料。"
 
@@ -6847,7 +6847,7 @@ msgstr "list"
 msgid "month"
 msgstr "month"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.2) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:565

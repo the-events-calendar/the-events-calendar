@@ -343,7 +343,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		 * @param array $data The data provided to create the organizer.
 		 * @param string $post_status The post status that should be applied to the created organizer.
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		$check = apply_filters( 'tribe_events_tribe_organizer_create', null, $data, $post_status );
 
@@ -402,7 +402,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 				 * @param int   $organizer_id The updated organizer post ID.
 				 * @param array $data         The data used to update the organizer.
 				 *
-				 * @since TBD
+				 * @since 4.6
 				 */
 				do_action( 'tribe_events_organizer_created', $organizer_id, $data->to_array() );
 
@@ -422,7 +422,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 *
 	 * @return int The updated organizer post ID
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 */
 	public function update( $id, $data ) {
 		/**
@@ -434,7 +434,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		 * @param int   $organizer_id The post ID of the organizer that should be updated
 		 * @param array $data         The data provided to update the organizer.
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		$check = apply_filters( 'tribe_events_tribe_organizer_update', null, $id, $data );
 
@@ -531,7 +531,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		 *
 		 * @param string $template Template path
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		include apply_filters( 'tribe_events_tribe_organizer_new_form_fields', $template );
 	}
@@ -558,7 +558,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		 *
 		 * @see   Tribe__Duplicate__Strategy_Factory
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		return apply_filters( 'tribe_event_venue_duplicate_post_fields', $fields );
 	}
@@ -585,7 +585,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		 *
 		 * @see   Tribe__Duplicate__Strategy_Factory
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		return apply_filters( 'tribe_event_organizer_duplicate_custom_fields', $fields );
 	}
