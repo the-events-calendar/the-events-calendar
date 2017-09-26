@@ -253,9 +253,9 @@ jQuery( document ).ready( function( $ ) {
 	 */
 	var $date_format      = $( '[data-datepicker_format]' ),
 		$view_select      = $( '.tribe-field-dropdown_select2 select' ),
-		viewCalLinkHTML   = $( '#view-calendar-link-div' ).html(),
+		viewCalLinkHTML   = $( document.getElementById( 'view-calendar-link-div' ) ).html(),
 		$template_select  = $( 'select[name="tribeEventsTemplate"]' ),
-		$event_pickers    = $( '#tribe-event-datepickers' ),
+		$event_pickers    = $( document.getElementById( 'tribe-event-datepickers' ) ),
 		is_community_edit = $( 'body' ).is( '.tribe_community_edit' ),
 		datepicker_format = 0;
 
