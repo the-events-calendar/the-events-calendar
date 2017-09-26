@@ -94,6 +94,7 @@ var tribe_timepickers = tribe_timepickers || {};
 			if ( 'undefined' !== typeof $.fn.tribeTimepicker ) {
 				$item.tribeTimepicker( opts ).trigger( 'change' );
 			} else {
+				// @deprecated TBD
 				$item.timepicker( opts ).trigger( 'change' );
 			}
 		} );
