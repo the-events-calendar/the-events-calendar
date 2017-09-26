@@ -82,6 +82,7 @@ class OriginsTest extends Aggregator_TestCase {
 		delete_transient( $sut->cache_group . '_origin_oauth' );
 		delete_transient( $sut->cache_group . '_origins' );
 		delete_transient( $sut->cache_group . '_fetch_lock' );
+		tribe_set_var( 'events-aggregator.origins-data', [] );
 
 		$sut->get();
 
