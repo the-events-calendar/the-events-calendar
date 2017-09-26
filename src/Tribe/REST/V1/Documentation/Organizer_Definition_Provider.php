@@ -20,7 +20,7 @@ class Tribe__Events__REST__V1__Documentation__Organizer_Definition_Provider
 			'type'       => 'object',
 			'properties' => array(
 				'id' => array(
-					'type' => 'int',
+					'type' => 'integer',
 					'description' => __( 'The organizer WordPress post ID', 'the-events-calendar' ),
 				),
 				'global_id' => array(
@@ -29,10 +29,11 @@ class Tribe__Events__REST__V1__Documentation__Organizer_Definition_Provider
 				),
 				'global_id_lineage' => array(
 					'type' => 'array',
+					'items' => array( 'type' => 'string' ),
 					'description' => __( 'An Array containing the lineage of where this organizer comes from, this should not change after the organizer is created.', 'the-events-calendar' ),
 				),
 				'author' => array(
-					'type' => 'int',
+					'type' => 'integer',
 					'description' => __( 'The organizer author WordPress post ID', 'the-events-calendar' ),
 				),
 				'date' => array(
@@ -50,6 +51,10 @@ class Tribe__Events__REST__V1__Documentation__Organizer_Definition_Provider
 				'modified_utc' => array(
 					'type' => 'string',
 					'description' => __( 'The organizer last modification date in UTC time', 'the-events-calendar' ),
+				),
+				'status' => array(
+					'type' => 'string',
+					'description' => __( 'The organizer status', 'the-events-calendar' ),
 				),
 				'url' => array(
 					'type' => 'string',

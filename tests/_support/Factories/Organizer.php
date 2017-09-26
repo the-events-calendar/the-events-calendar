@@ -15,7 +15,7 @@ class Organizer extends \WP_UnitTest_Factory_For_Post {
 		$defaults = [
 			'meta_input' => [
 				'_OrganizerPhone'   => $lc_title . ' phone',
-				'_OrganizerWebsite' => $lc_title . ' website',
+				'_OrganizerWebsite' => 'http://' . str_slug( $lc_title ) . '.com',
 				'_OrganizerEmail'   => $lc_title . ' .email',
 			],
 		];

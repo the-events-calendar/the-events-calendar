@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.5.14';
+		const VERSION             = '4.6.1';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.5.10.1';
 
@@ -390,6 +390,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function bind_implementations(  ) {
+			tribe_singleton( 'tec.main', $this );
+
 			// Utils
 			tribe_singleton( 'tec.cost-utils', 'Tribe__Events__Cost_Utils' );
 
@@ -433,6 +435,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Integrations
 			tribe_singleton( 'tec.integrations.twenty-seventeen', 'Tribe__Events__Integrations__Twenty_Seventeen', array( 'hook' ) );
+
+			// Linked Posts
+			tribe_singleton( 'tec.linked-posts', 'Tribe__Events__Linked_Posts' );
+			tribe_singleton( 'tec.linked-posts.venue', 'Tribe__Events__Venue' );
+			tribe_singleton( 'tec.linked-posts.organizer', 'Tribe__Events__Organizer' );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -3217,7 +3224,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			// is the current user allowed to edit this venue?
+			// is the current user allowed to edit this organizer?
 			if ( ! current_user_can( 'edit_tribe_organizer', $postID ) ) {
 				return;
 			}

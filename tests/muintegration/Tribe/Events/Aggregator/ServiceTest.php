@@ -315,15 +315,18 @@ class ServiceTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected function make_import_limit_mock_response( $expected ) {
 		$mock_response = [
-			'headers' => [ 'content-type' => 'json' ],
-			'body'    => json_encode(
+			'response' => [
+				'code' => '200',
+			],
+			'headers'  => [ 'content-type' => 'json' ],
+			'body'     => json_encode(
 				[
 					'status' => 'success',
 					'data'   => [
 						'limit' => [
-							'import' => $expected
-						]
-					]
+							'import' => $expected,
+						],
+					],
 				]
 			),
 		];

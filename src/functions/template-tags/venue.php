@@ -537,21 +537,66 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Get all the venues
 	 *
-	 * @since ??
+	 * @param bool  $only_with_upcoming Only return venues with upcoming events attached to them.
+	 * @param int   $posts_per_page
+	 * @param bool  $suppress_filters
+	 * @param array $args {
+	 *		Optional. Array of Query parameters.
 	 *
-	 * @param bool $only_with_upcoming Only return venues with upcoming events attached to them.
-	 * @param      $posts_per_page
-	 * @param bool $suppress_filters
+	 *		@type int  $event      Only venues linked to this event post ID.
+	 *		@type bool $has_events Only venues that have events.
+	 * }
+	 *
 	 * @return array An array of venue post objects.
 	 */
-	function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true ) {
-		$venues = get_posts(
-			array(
+	function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true, array $args = array() ) {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		// filter out the `null` values
+		$args = array_diff_key( $args, array_filter( $args, 'is_null' ) );
+
+		if ( tribe_is_truthy( $only_with_upcoming ) ) {
+			$args['only_with_upcoming'] = true;
+		}
+
+		$filter_args = array(
+			'event' => 'find_for_event',
+			'has_events' => 'find_with_events',
+			'only_with_upcoming' => 'find_with_upcoming_events',
+		);
+
+		foreach ( $filter_args as $filter_arg => $method ) {
+			if ( ! isset( $args[ $filter_arg ] ) ) {
+				continue;
+			}
+
+			$found = call_user_func(
+				array( tribe( 'tec.linked-posts.venue' ), $method ),
+				$args[ $filter_arg ]
+			);
+
+			if ( empty( $found ) ) {
+				return array();
+			}
+
+			$args['post__in'] = ! empty( $args['post__in'] )
+				? array_intersect( (array) $args['post__in'], $found )
+				: $found;
+
+			if ( empty( $args['post__in'] ) ) {
+				return array();
+			}
+		}
+
+		$parsed_args = wp_parse_args( $args, array(
 				'post_type'        => Tribe__Events__Main::VENUE_POST_TYPE,
 				'posts_per_page'   => $posts_per_page,
 				'suppress_filters' => $suppress_filters,
 			)
 		);
+
+		$venues = get_posts( $parsed_args );
 
 		return $venues;
 	}

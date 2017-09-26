@@ -346,14 +346,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 		if ( ! empty( $event_id ) ) {
 			$featured_image = get_post_meta( $event_id, '_wp_attached_file', true );
 			if ( empty( $featured_image ) ) {
-				$featured_image = $this->featured_image_uploader( $featured_image_content )->upload_and_get_attachment();
+				$featured_image = $this->featured_image_uploader( $featured_image_content )->upload_and_get_attachment_id();
 
 				return $featured_image;
 			}
 
 			return $featured_image;
 		} else {
-			$featured_image = $this->featured_image_uploader( $featured_image_content )->upload_and_get_attachment();
+			$featured_image = $this->featured_image_uploader( $featured_image_content )->upload_and_get_attachment_id();
 
 			return $featured_image;
 

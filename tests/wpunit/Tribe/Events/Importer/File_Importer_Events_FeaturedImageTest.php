@@ -25,7 +25,7 @@ class File_Importer_Events_FeaturedImageTest extends File_Importer_EventsTest {
 	public function it_should_import_and_attach_featured_image_if_featured_image_is_ok() {
 		$image_url     = get_image_url();
 		$attachment_id = $this->factory()->attachment->create_upload_object( $image_url );
-		$this->featured_image_uploader->upload_and_get_attachment()->willReturn( $attachment_id );
+		$this->featured_image_uploader->upload_and_get_attachment_id()->willReturn( $attachment_id );
 
 		$sut = $this->make_instance( 'featured-image' );
 
@@ -39,7 +39,7 @@ class File_Importer_Events_FeaturedImageTest extends File_Importer_EventsTest {
 	 * it should not import and attach featured image if featured image is not ok
 	 */
 	public function it_should_not_import_and_attach_featured_image_if_featured_image_is_not_ok() {
-		$this->featured_image_uploader->upload_and_get_attachment()->willReturn( false );
+		$this->featured_image_uploader->upload_and_get_attachment_id()->willReturn( false );
 
 		$sut = $this->make_instance( 'featured-image' );
 

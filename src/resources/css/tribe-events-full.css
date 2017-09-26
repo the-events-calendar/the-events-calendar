@@ -1654,6 +1654,10 @@ select.tribe-events-dropdown {
 	color: inherit;
 }
 
+body.admin-bar .datepicker {
+	margin-top: 32px;
+}
+
 #tribe-events-bar {
 	clear: none;
 	height: auto;
@@ -2429,6 +2433,13 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	#tribe-events-content .tribe-events-tooltip ul,
 	#tribe-events-content .tribe-events-tooltip ol {
 		margin-left: 1.6em;
+	}
+}
+
+@media screen and (max-width: 782px) {
+
+	body.admin-bar .datepicker {
+		margin-top: 46px;
 	}
 }
 

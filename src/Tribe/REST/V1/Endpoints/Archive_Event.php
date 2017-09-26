@@ -2,14 +2,8 @@
 
 
 class Tribe__Events__REST__V1__Endpoints__Archive_Event
-	extends Tribe__Events__REST__V1__Endpoints__Base
-	implements Tribe__REST__Endpoints__Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface {
-
-	/**
-	 * @var Tribe__Events__REST__Interfaces__Post_Repository
-	 */
-	protected $repository;
-
+	extends Tribe__Events__REST__V1__Endpoints__Archive_Base
+	implements Tribe__REST__Endpoints__READ_Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface {
 	/**
 	 * @var array An array mapping the REST request supported query vars to the args used in a TEC WP_Query.
 	 */
@@ -20,29 +14,34 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		'end_date'   => 'end_date',
 		'search'     => 's',
 		'categories' => 'categories',
+		'tags'       => 'tags',
 		'venue'      => 'venue',
 		'organizer'  => 'organizer',
-		'featured'  => 'featured',
+		'featured'   => 'featured',
+		'geoloc'     => 'tribe_geoloc',
+		'geoloc_lat' => 'tribe_geoloc_lat',
+		'geoloc_lng' => 'tribe_geoloc_lng',
+		'status'     => 'post_status',
 	);
-
-	/**
-	 * @var int The total number of events according to the current request parameters and user access rights.
-	 */
-	protected $total;
 
 	/**
 	 * Tribe__Events__REST__V1__Endpoints__Archive_Event constructor.
 	 *
+	 * @since 4.6
+	 *
 	 * @param Tribe__REST__Messages_Interface                  $messages
 	 * @param Tribe__Events__REST__Interfaces__Post_Repository $repository
+	 * @param Tribe__Events__Validator__Interface              $validator
 	 */
 	public function __construct(
 		Tribe__REST__Messages_Interface $messages,
-		Tribe__Events__REST__Interfaces__Post_Repository $repository
+		Tribe__Events__REST__Interfaces__Post_Repository $repository,
+		Tribe__Events__Validator__Interface $validator
 	) {
-		parent::__construct( $messages );
-		$this->repository = $repository;
+		parent::__construct( $messages, $repository, $validator );
+		$this->post_type = Tribe__Events__Main::POSTTYPE;
 	}
+
 
 	/**
 	 * Handles GET requests on the endpoint.
@@ -52,45 +51,63 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 */
 	public function get( WP_REST_Request $request ) {
-		$defaults = array( 'posts_per_page' => get_option( 'posts_per_page' ) );
-
 		$args = array();
+		$date_format = Tribe__Date_Utils::DBDATETIMEFORMAT;
 
-		try {
-			$args['paged']          = $this->parse_page( $request );
-			$args['posts_per_page'] = $this->parse_per_page( $request );
-			$args['start_date']     = $this->parse_start_date( $request );
-			$args['end_date']       = $this->parse_end_date( $request );
-			$args['s']              = $this->parse_search( $request );
+		$args['paged'] = $request['page'];
+		$args['posts_per_page'] = $request['per_page'];
+		$args['start_date'] = isset( $request['start_date'] ) ?
+			Tribe__Timezones::localize_date( $date_format, $request['start_date'] )
+			: false;
+		$args['end_date'] = isset( $request['end_date'] ) ?
+			Tribe__Timezones::localize_date( $date_format, $request['end_date'] )
+			: false;
+		$args['s'] = $request['search'];
 
-			$args['meta_query'] = array_filter( array(
-				$this->parse_meta( $request, 'venue', '_EventVenueID', '=', 'NUMERIC' ),
-				$this->parse_meta( $request, 'organizer', '_EventOrganizerID', '=', 'NUMERIC' ),
-				$this->parse_featured( $request ),
-			) );
+		$args['meta_query'] = array_filter( array(
+			$this->parse_meta_query_entry( $request['venue'], '_EventVenueID', '=', 'NUMERIC' ),
+			$this->parse_meta_query_entry( $request['organizer'], '_EventOrganizerID', '=', 'NUMERIC' ),
+			$this->parse_featured_meta_query_entry( $request['featured'] ),
+		) );
 
-			$args['tax_query'] = array_filter( array(
-				$this->parse_categories( $request ),
-				$this->parse_tags( $request ),
-			) );
+		$args['tax_query'] = array_filter( array(
+			$this->parse_terms_query( $request['categories'], Tribe__Events__Main::TAXONOMY ),
+			$this->parse_terms_query( $request['tags'], 'post_tag' ),
+		) );
 
-			$args = array_filter( wp_parse_args( $args, $defaults ) );
+		$extra_rest_args = array(
+			'venue'     => Tribe__Utils__Array::to_list( $request['venue'] ),
+			'organizer' => Tribe__Utils__Array::to_list( $request['organizer'] ),
+			'featured'  => $request['featured'],
+		);
+		$extra_rest_args = array_diff_key( $extra_rest_args, array_filter( $extra_rest_args, 'is_null' ) );
 
-			$data = array( 'events' => array() );
-
-			$data['rest_url'] = $this->get_current_rest_url( $args );
-
-			if ( ! isset( $args['posts_per_page'] ) ) {
-				$args['posts_per_page'] = get_option( 'posts_per_page' );
-			}
-		} catch ( Tribe__REST__Exceptions__Exception $e ) {
-			return new WP_Error( $e->getCode(), $e->getMessage(), array( 'status' => $e->getStatus() ) );
+		// Filter by geoloc
+		if ( ! empty( $request['geoloc'] ) ) {
+			$args['tribe_geoloc'] = 1;
+			$args['tribe_geoloc_lat'] = isset( $request['geoloc_lat'] ) ? $request['geoloc_lat'] : '';
+			$args['tribe_geoloc_lng'] = isset( $request['geoloc_lng'] ) ? $request['geoloc_lng'] : '';
 		}
 
-		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
-		$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
+		$args = $this->parse_args( $args, $request->get_default_params() );
+
+		$data = array( 'events' => array() );
+
+		$data['rest_url'] = $this->get_current_rest_url( $args, $extra_rest_args );
+
+		if ( null === $request['status'] ) {
+			$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
+			$args['post_status'] = current_user_can( $cap ) ? 'any' : 'publish';
+		} else {
+			$args['post_status'] = $this->filter_post_status_list( $request['status'] );
+		}
+
 		// Due to an incompatibility between date based queries and 'ids' fields we cannot do this, see `wp_list_pluck` use down
 		// $args['fields'] = 'ids';
+
+		if ( empty( $args['posts_per_page'] ) ) {
+			$args['posts_per_page'] = $this->get_default_posts_per_page();
+		}
 
 		$events = tribe_get_events( $args );
 
@@ -118,8 +135,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$data['events'][] = $this->repository->get_event_data( $event_id );
 		}
 
-		$data['total']       = $total = $this->get_total( $args );
-		$data['total_pages'] = $this->get_total_pages( $total, $this->parse_per_page( $request ) );
+		$data['total'] = $total = $this->get_total( $args );
+		$data['total_pages'] = $this->get_total_pages( $total, $args['posts_per_page'] );
 
 		/**
 		 * Filters the data that will be returned for an events archive request.
@@ -139,120 +156,57 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		return $response;
 	}
 
+	/**
+	 * Parses the `page` argument from the request.
+	 *
+	 * @param WP_REST_Request $request
+	 * @return bool|int The `page` argument provided in the request or `false` if not set.
+	 */
 	protected function parse_page( WP_REST_Request $request ) {
-		if ( ! isset( $request['page'] ) ) {
-			return false;
-		}
-
-		if ( isset( $request['page'] ) && ! $this->is_positive_int_gte( $request['page'], 1 ) ) {
-			$message = $this->messages->get_message( 'event-archive-bad-page' );
-
-			throw new Tribe__REST__Exceptions__Exception( $message, 'event-archive-bad-page', 400 );
-		}
-
-		return intval( $request['page'] );
+		return ! empty( $request['page'] ) ? intval( $request['page'] ) : false;
 	}
 
-	protected function parse_per_page( WP_REST_Request $request ) {
-		if ( isset( $request['per_page'] ) && ! $this->is_positive_int_gte( $request['per_page'], 1 ) ) {
-			$message = $this->messages->get_message( 'event-archive-bad-per-page' );
-
-			throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-per-page', $message, 400 );
-		}
-
-		if ( ! empty( $request['per_page'] ) ) {
-			return min( $this->get_max_posts_per_page(), intval( $request['per_page'] ) );
-		}
-
-		return false;
-	}
-
-	protected function parse_start_date( WP_REST_Request $request ) {
-		if ( ! empty( $request['start_date'] ) ) {
-			$start_date = $request['start_date'];
-			// Unix timestamp is a thing...
-			$start_date = is_numeric( $start_date ) ? $start_date : strtotime( $request['start_date'] );
-			// at this point if it's legit it should be a number
-			if ( ! is_numeric( $start_date ) ) {
-				$message = $this->messages->get_message( 'event-archive-bad-start-date' );
-
-				throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-start-date', $message, 400 );
-			}
-			try {
-				return date( Tribe__Date_Utils::DBDATETIMEFORMAT, $start_date );
-			} catch ( Exception $e ) {
-				$message = $this->messages->get_message( 'event-archive-bad-start-date' );
-
-				throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-start-date', $message, 400 );
-			}
-		}
-
-		return false;
-	}
-
-	protected function parse_end_date( WP_REST_Request $request ) {
-		if ( isset( $request['end_date'] ) ) {
-			$end_date = $request['end_date'];
-			// Unix timestamp is a thing...
-			$end_date = is_numeric( $end_date ) ? $end_date : strtotime( $request['end_date'] );
-			// at this point if it's legit it should be a number
-			if ( ! is_numeric( $end_date ) ) {
-				$message = $this->messages->get_message( 'event-archive-bad-end-date' );
-
-				throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-end-date', $message,400);
-			}
-			try {
-				return date( Tribe__Date_Utils::DBDATETIMEFORMAT, $end_date );
-			} catch ( Exception $e ) {
-				$message = $this->messages->get_message( 'event-archive-bad-end-date' );
-
-				throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-end-date', $message, 400 );
-			}
-		}
-
-		return false;
-	}
-
-	protected function parse_categories( WP_REST_Request $request ) {
-		return $this->parse_terms( $request, 'categories', Tribe__Events__Main::TAXONOMY );
-	}
-
-	protected function parse_tags( $request ) {
-		return $this->parse_terms( $request, 'tags', 'post_tag' );
-	}
-
-	protected function parse_featured( $request ) {
-		if ( ! isset( $request['featured'] ) ) {
+	/**
+	 * Parses the request for featured events.
+	 *
+	 * @param string $featured
+	 *
+	 * @return array|bool Either the meta query for featured events or `false` if not specified.
+	 */
+	protected function parse_featured_meta_query_entry( $featured ) {
+		if ( null === $featured ) {
 			return false;
 		}
 
 		$parsed = array(
 			'key' => Tribe__Events__Featured_Events::FEATURED_EVENT_KEY,
-			'compare' => $request['featured'] ? 'EXISTS' : 'NOT EXISTS',
+			'compare' => $featured ? 'EXISTS' : 'NOT EXISTS',
 		);
 
 		return $parsed;
 	}
 
-	protected function parse_terms( $request, $key, $taxonomy ) {
-		if ( ! isset( $request[ $key ] ) ) {
+	/**
+	 * @param array|string $terms A list of terms term_id or slugs or a single term term_id or slug.
+	 * @param string $taxonomy The taxonomy of the terms to parse.
+	 *
+	 * @return array|bool Either an array of `terms_ids` or `false` on failure.
+	 *
+	 * @throws Tribe__REST__Exceptions__Exception If one of the terms does not exist for the specified taxonomy.
+	 */
+	protected function parse_terms_query( $terms, $taxonomy ) {
+		if ( empty( $terms ) ) {
 			return false;
 		}
 
 		$parsed    = array();
-		$requested = (array) $request[ $key ];
+		$requested = Tribe__Utils__Array::list_to_array( $terms );
 
-		foreach ( $requested as $requeste_term ) {
-			$term = get_term_by( 'slug', $requeste_term, $taxonomy );
-
-			if ( false === $term ) {
-				$term = get_term_by( 'id', $requeste_term, $taxonomy );
-			}
+		foreach ( $requested as $t ) {
+			$term = get_term_by( 'slug', $t, $taxonomy );
 
 			if ( false === $term ) {
-				$message = $this->messages->get_message( 'event-archive-bad-' . $key );
-
-				throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-' . $key, $message, 400 );
+				$term = get_term_by( 'id', $t, $taxonomy );
 			}
 
 			$parsed[] = $term->term_id;
@@ -269,48 +223,42 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		return $parsed;
 	}
 
-	protected function parse_meta( $request, $key, $meta, $compare = '=', $type = 'CHAR' ) {
-		if ( ! isset( $request[ $key ] ) ) {
+	/**
+	 * Parses and created a meta query entry in from the request.
+	 *
+	 * @param string $meta_value The value that should be used for comparison.
+	 * @param string $meta_key   The meta key that should be used for the comparison.
+	 * @param string $compare    The comparison operator.
+	 * @param string $type       The type to which compared values should be cast.
+	 * @param string $relation   If multiple meta values are provided then this is the relation that the query should use.
+	 *
+	 * @return array|bool The meta query entry or `false` on failure.
+	 */
+	protected function parse_meta_query_entry( $meta_value, $meta_key, $compare = '=', $type = 'CHAR', $relation = 'OR' ) {
+		if ( empty( $meta_value ) ) {
 			return false;
 		}
 
-		$parsed = array(
-			'key'     => $meta,
-			'value'   => $request[ $key ],
-			'type'    => $type,
-			'compare' => $compare,
-		);
+		$meta_values = Tribe__Utils__Array::list_to_array( $meta_value );
+
+		$parsed = array( 'relation' => 'OR' );
+		foreach ( $meta_values as $value ) {
+			$parsed[] = array(
+				'key'     => $meta_key,
+				'value'   => $value,
+				'type'    => $type,
+				'compare' => $compare,
+			);
+		}
 
 		return $parsed;
 	}
 
-
 	/**
-	 * @param array $args
+	 * Whether there is a next page in respect to the specified one.
 	 *
-	 * @return string
-	 */
-	protected function get_current_rest_url( array $args = array() ) {
-		$url = tribe_events_rest_url( 'events/' );
-
-		$flipped = array_flip( $this->supported_query_vars );
-		$values  = array_intersect_key( $args, $flipped );
-		$keys    = array_intersect_key( $flipped, $values );
-
-		if ( ! empty( $keys ) ) {
-			$parameters = array_fill_keys( array_values( $keys ), '' );
-			foreach ( $keys as $key => $value ) {
-				$parameters[ $value ] = $args[ $key ];
-			}
-			$url = add_query_arg( $parameters, $url );
-		}
-
-		return $url;
-	}
-
-	/**
-	 * @param $args
-	 * @param $page
+	 * @param array $args
+	 * @param int $page
 	 *
 	 * @return bool
 	 */
@@ -326,13 +274,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		return ! empty( $next );
 	}
 
-	protected function get_next_rest_url( $rest_url, $page ) {
-		return add_query_arg( array( 'page' => $page + 1 ), remove_query_arg( 'page', $rest_url ) );
-	}
-
 	/**
-	 * @param $page
-	 * @param $args
+	 * Whether there is a previous page in respect to the specified one.
+	 *
+	 * @param array $args
+	 * @param int $page
 	 *
 	 * @return bool
 	 */
@@ -348,71 +294,18 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		return 1 !== $page && ! empty( $previous );
 	}
 
-	protected function get_previous_rest_url( $rest_url, $page ) {
-		$rest_url = remove_query_arg( 'page', $rest_url );
-
-		return 2 === $page ? $rest_url : add_query_arg( array( 'page' => $page - 1 ), $rest_url );
-	}
-
-	protected function is_positive_int_gte( $value, $min ) {
-		return filter_var( $value, FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => $min ) ) );
-	}
-
 	/**
+	 * Returns the maximum number of posts per page fetched via the REST API.
+	 *
 	 * @return int
 	 */
-	protected function get_max_posts_per_page() {
+	public function get_max_posts_per_page() {
 		/**
 		 * Filters the maximum number of events per page that should be returned.
 		 *
 		 * @param int $per_page Default to 50.
 		 */
 		return apply_filters( 'tribe_rest_event_max_per_page', 50 );
-	}
-
-	protected function parse_search( $request ) {
-		if ( ! isset( $request['search'] ) ) {
-			return false;
-		}
-
-		$filtered = filter_var( $request['search'], FILTER_SANITIZE_STRING );
-
-		if ( ! $filtered ) {
-			$message = $this->messages->get_message( 'event-archive-bad-search-string' );
-
-			throw new Tribe__REST__Exceptions__Exception( 'event-archive-bad-search-string', $message, 400 );
-		}
-
-		return $filtered;
-	}
-
-	/**
-	 * @param array $args
-	 *
-	 * @return int
-	 */
-	protected function get_total( $args ) {
-		$this->total = count( tribe_get_events( array_merge( $args, array(
-			'posts_per_page'         => - 1,
-			'fields'                 => 'ids',
-			'update_post_meta_cache' => false,
-			'update_post_term_cache' => false
-		) ) ) );
-
-		return $this->total;
-	}
-
-	/**
-	 * @param int $total
-	 * @param int $per_page
-	 *
-	 * @return int
-	 */
-	protected function get_total_pages( $total, $per_page = null ) {
-		$per_page    = $per_page ? $per_page : get_option( 'posts_per_page' );
-		$total_pages = intval( ceil( $total / $per_page ) );
-
-		return $total_pages;
 	}
 
 	/**
@@ -430,64 +323,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	public function get_documentation() {
 		return array(
 			'get' => array(
-				'parameters' => array(
-					array(
-						'name'        => 'page',
-						'in'          => 'query',
-						'description' => __( 'The archive page to return', 'the-events-calendar' ),
-						'type'        => 'integer',
-						'required'    => false,
-						'default'     => 1,
-					),
-					array(
-						'name'        => 'per_page',
-						'in'          => 'query',
-						'description' => __( 'The number of events to return on each page', 'the-events-calendar' ),
-						'type'        => 'integer',
-						'required'    => false,
-						'default'     => get_option( 'posts_per_page' ),
-					),
-					array(
-						'name'        => 'start_date',
-						'in'          => 'query',
-						'description' => __( 'Events should start after the specified date', 'the-events-calendar' ),
-						'type'        => 'date',
-						'required'    => false,
-						'default'     => date( Tribe__Date_Utils::DBDATETIMEFORMAT, time() ),
-					),
-					array(
-						'name'        => 'end_date',
-						'in'          => 'query',
-						'description' => __( 'Events should start before the specified date', 'the-events-calendar' ),
-						'type'        => 'string',
-						'required'    => false,
-						'default'     => date( Tribe__Date_Utils::DBDATETIMEFORMAT, time() ),
-					),
-					array(
-						'name'        => 'search',
-						'in'          => 'query',
-						'description' => __( 'Events should contain the specified string in the title or description', 'the-events-calendar' ),
-						'type'        => 'string',
-						'required'    => false,
-						'default'     => '',
-					),
-					array(
-						'name'        => 'categories',
-						'in'          => 'query',
-						'description' => __( 'Events should be assigned one of the specified categories slugs or IDs', 'the-events-calendar' ),
-						'type'        => 'array',
-						'required'    => false,
-						'default'     => '',
-					),
-					array(
-						'name'        => 'tags',
-						'in'          => 'query',
-						'description' => __( 'Events should be assigned one of the specified tags slugs or IDs', 'the-events-calendar' ),
-						'type'        => 'array',
-						'required'    => false,
-						'default'     => '',
-					),
-				),
+				'parameters' => $this->swaggerize_args( $this->READ_args(), array( 'in' => 'query', 'default' => '' ) ),
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Returns all the upcoming events matching the search criteria', 'the-event-calendar' ),
@@ -506,5 +342,139 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				),
 			),
 		);
+	}
+
+	/**
+	 * Returns the content of the `args` array that should be used to register the endpoint
+	 * with the `register_rest_route` function.
+	 *
+	 * @return array
+	 */
+	public function READ_args() {
+		return array(
+			'page'       => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_positive_int' ),
+				'default'           => 1,
+				'description'       => __( 'The archive page to return', 'the-events-calendar' ),
+				'type'              => 'integer',
+			),
+			'per_page'   => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_positive_int' ),
+				'sanitize_callback' => array( $this, 'sanitize_per_page' ),
+				'default'           => $this->get_default_posts_per_page(),
+				'description'       => __( 'The number of events to return on each page', 'the-events-calendar' ),
+				'type'              => 'integer',
+			),
+			'start_date' => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_time' ),
+				'default'           => Tribe__Timezones::localize_date( Tribe__Date_Utils::DBDATETIMEFORMAT, 'yesterday 23:59' ),
+				'description'       => __( 'Events should start after the specified date', 'the-events-calendar' ),
+				'swagger_type'      => 'string',
+			),
+			'end_date'   => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_time' ),
+				'default'           => date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( '+24 months' ) ),
+				'description'       => __( 'Events should start before the specified date', 'the-events-calendar' ),
+				'swagger_type'      => 'string',
+			),
+			'search'     => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'description'       => __( 'Events should contain the specified string in the title or description', 'the-events-calendar' ),
+				'type'              => 'string',
+			),
+			'categories' => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_event_category' ),
+				'description' => __( 'Events should be assigned one of the specified categories slugs or IDs', 'the-events-calendar' ),
+				'swagger_type' => 'array',
+				'items' => array( 'type' => 'integer' ),
+				'collectionFormat' => 'csv',
+			),
+			'tags'       => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_post_tag' ),
+				'description' => __( 'Events should be assigned one of the specified tags slugs or IDs', 'the-events-calendar' ),
+				'swagger_type' => 'array',
+				'items' => array( 'type' => 'integer' ),
+				'collectionFormat' => 'csv',
+			),
+			'venue'      => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_venue_id_list' ),
+				'description' => __( 'Events should be assigned one of the specified venue IDs', 'the-events-calendar' ),
+				'swagger_type' => 'array',
+				'items' => array( 'type' => 'integer' ),
+				'collectionFormat' => 'csv',
+			),
+			'organizer'  => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_organizer_id_list' ),
+				'description' => __( 'Events should be assigned one of the specified organizer IDs', 'the-events-calendar' ),
+				'swagger_type' => 'array',
+				'items' => array( 'type' => 'integer' ),
+				'collectionFormat' => 'csv',
+			),
+			'featured'   => array(
+				'required'    => false,
+				'type'        => 'boolean',
+				'description' => __( 'Events should be filtered by their featured status', 'the-events-calendar' ),
+			),
+			'status'     => array(
+				'required'          => false,
+				'validate_callback' => array( $this, 'filter_post_status_list' ),
+				'swagger_type'      => 'string',
+				'format'            => 'string',
+				'description'       => __( 'The event post status', 'the-events-calendar' ),
+			),
+			'geoloc'     => array(
+				'required'    => false,
+				'type'        => 'boolean',
+				'description' => __( 'Requires Events Calendar Pro. Events should be filtered by whether their venue has geolocation data', 'the-events-calendar' ),
+			),
+			'geoloc_lat' => array(
+				'required'     => false,
+				'swagger_type' => 'number',
+				'format'       => 'double',
+				'description'  => __( 'Requires Events Calendar Pro. Events should be filtered by their venue latitude location, must also provide geoloc_lng', 'the-events-calendar' ),
+			),
+			'geoloc_lng' => array(
+				'required'     => false,
+				'swagger_type' => 'number',
+				'format'       => 'double',
+				'description'  => __( 'Requires Events Calendar Pro. Events should be filtered by their venue longitude location, must also provide geoloc_lat', 'the-events-calendar' ),
+			),
+		);
+	}
+
+	/**
+	 * @param array $args
+	 *
+	 * @return int
+	 */
+	protected function get_total( $args ) {
+		$this->total = count( tribe_get_events( array_merge( $args, array(
+			'posts_per_page'         => - 1,
+			'fields'                 => 'ids',
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false,
+		) ) ) );
+
+		return $this->total;
+	}
+
+	/**
+	 * Returns the archive base REST URL
+	 *
+	 * @return string
+	 */
+	protected function get_base_rest_url() {
+		$url = tribe_events_rest_url( 'events/' );
+
+		return $url;
 	}
 }

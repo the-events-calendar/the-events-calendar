@@ -55,6 +55,7 @@ class Tribe__Events__JSON_LD__Venue extends Tribe__JSON_LD__Abstract {
 
 		$data->address = array();
 
+		$data->address['@type'] = 'PostalAddress';
 		$data->address['streetAddress'] = tribe_get_address( $post_id );
 		$data->address['addressLocality'] = tribe_get_city( $post_id );
 		$data->address['addressRegion'] = tribe_get_region( $post_id );
