@@ -329,6 +329,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.6.1] TBD =
 
+* Fix - Fixed some layout issues with the Tribe Bar datepicker that would arise when using a Twentysixteen or Twentyfifteen child them (thanks to @stefanrueegger for reporting this) [46471]
 * Tweak - Remove unnecessary paramters from some remove_action calls in the plugin (thanks to @JPry on GitHub for submitting this fix!) [88867]
 * Tweak - Adjusted the EA cron start time so that it never gets created in the past [88965]
 * Tweak - Adjusted the `tribe_update_venue()` template tag so it no longer creates some unncessary meta fields involving post_title, post_content, etc. (thanks @oheinrich for bringing this to our attention) [66968]
