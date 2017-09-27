@@ -35,31 +35,37 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 				'id' => 'facebook',
 				'name' => __( 'Facebook', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 			'gcal' => (object) array(
 				'id' => 'gcal',
 				'name' => __( 'Google Calendar', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 			'ical' => (object) array(
 				'id' => 'ical',
 				'name' => __( 'iCalendar', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 			'ics' => (object) array(
 				'id' => 'ics',
 				'name' => __( 'ICS File', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 			'meetup' => (object) array(
 				'id' => 'meetup',
 				'name' => __( 'Meetup', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 			'url' => (object) array(
 				'id' => 'url',
 				'name' => __( 'Other URL (beta)', 'the-events-calendar' ),
 				'disabled' => true,
+				'upsell' => true,
 			),
 		);
 
@@ -77,10 +83,16 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 		}
 
 		$origins = $this->origins;
+		$origins = array_filter( $origins, array( $this, 'is_origin_available' ) );
 
-		$origins = array_filter($origins, array( $this, 'is_origin_available' ));
+		/**
+		 * The origins (sources) that EA can import from
+		 *
+		 * @param array $origins The origins
+		 */
+		$origins = apply_filters( 'tribe_aggregator_origins', $origins );
 
-		return apply_filters( 'tribe_aggregator_origins', $origins );
+		return $origins;
 	}
 
 	/**
@@ -112,7 +124,15 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 			}
 		}
 
-		set_transient( "{$this->cache_group}_origins", $this->origins, 6 * HOUR_IN_SECONDS );
+		// use the specified expiration if available
+		if ( isset( $this->origins->expiration ) ) {
+			$expiration = $this->origins->expiration;
+			unset( $this->origins->expiration );
+		} else {
+			$expiration = 6 * HOUR_IN_SECONDS;
+		}
+
+		set_transient( "{$this->cache_group}_origins", $this->origins, $expiration );
 
 		return $this->origins;
 	}
@@ -122,24 +142,37 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 */
 	private function fetch_origin_data() {
 		$cached = tribe_get_var( 'events-aggregator.origins-data' );
+		if ( empty( $cached ) ) {
+			// try to see if we have a lock in place
+			$cached = get_transient( "{$this->cache_group}_fetch_lock" );
+		}
 
 		if ( ! empty( $cached ) ) {
 			return $cached;
 		}
 
-		$origin_data = (object) $this->service->get_origins();
+		list( $origin_data, $error ) = $this->service->get_origins( true );
+		$origin_data = (object) $origin_data;
 
-		if ( ! get_transient( "{$this->cache_group}_origin_oauth" ) && ! empty( $origin_data->oauth ) ) {
-			set_transient( "{$this->cache_group}_origin_oauth", $origin_data->oauth, 6 * HOUR_IN_SECONDS );
-		}
+		if ( empty( $error ) ) {
+			if ( ! get_transient( "{$this->cache_group}_origin_oauth" ) && ! empty( $origin_data->oauth ) ) {
+				set_transient( "{$this->cache_group}_origin_oauth", $origin_data->oauth, 6 * HOUR_IN_SECONDS );
+			}
 
-		if ( ! get_transient( "{$this->cache_group}_origin_limit" ) && ! empty( $origin_data->limit ) ) {
-			set_transient( "{$this->cache_group}_origin_limit", $origin_data->limit, 6 * HOUR_IN_SECONDS );
+			if ( ! get_transient( "{$this->cache_group}_origin_limit" ) && ! empty( $origin_data->limit ) ) {
+				set_transient( "{$this->cache_group}_origin_limit", $origin_data->limit, 6 * HOUR_IN_SECONDS );
+			}
+		} elseif ( 403 == wp_remote_retrieve_response_code( $error ) ) {
+			// store the origins data for 5' only
+			$origin_data->expiration = 300;
+			// and avoid bugging the service for 5'
+			set_transient( "{$this->cache_group}_fetch_lock", $origin_data, 300 );
 		}
 
 		tribe_set_var( 'events-aggregator.origins-data', $origin_data );
 
 		return $origin_data;
+
 	}
 
 	/**

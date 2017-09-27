@@ -72,4 +72,43 @@ class Tribe__Events__Integrations__WPML__Category_Translation {
 
 		return $slug;
 	}
+
+	/**
+	 * Supplies an array containing all translated forms of the events category slug.
+	 *
+	 * The default (English) slug will not be containied in the resulting array.
+	 * Example: [ 'categorie', 'kategorie', 'categoria' ] // French, German, Italian
+	 *
+	 * @return array
+	 */
+	public function get_translated_base_slugs() {
+		/** @var SitePress $sitepress */
+		global $sitepress;
+
+		$translations     = array();
+		$tax_sync_options = $sitepress->get_setting( 'taxonomies_sync_option' );
+		$should_translate = ! empty( $tax_sync_options[ Tribe__Events__Main::TAXONOMY ] );
+
+		// If the event category slug shouldn't be translated, return an empty list
+		if ( ! $should_translate ) {
+			return array();
+		}
+
+		// Determine the translated form of the category slug for each active locale
+		foreach ( Tribe__Events__Integrations__WPML__Utils::get_active_locales() as $lang ) {
+			$slugs = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( array( 'category' ), $lang );
+
+			// We expect an array of arrays with at least one element to come back
+			if ( empty( $slugs[0] ) ) {
+				continue;
+			}
+
+			// Following the strategy used elsewhere, use the final translation if there are multiple
+			$translations[] = end( $slugs[0] );
+		}
+
+		$translations = array_map( 'urldecode', $translations );
+		$translations = array_map( 'remove_accents', $translations );
+		return array_unique( $translations );
+	}
 }

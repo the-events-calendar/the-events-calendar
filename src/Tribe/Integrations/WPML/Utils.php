@@ -110,4 +110,27 @@ class Tribe__Events__Integrations__WPML__Utils {
 
 		return array_combine( wp_list_pluck( $results, 'language' ), wp_list_pluck( $results, 'value' ) );
 	}
+
+	/**
+	 * Returns an array of currently active locales (other than English).
+	 *
+	 * Example: [ 'fr_FR', 'de_DE', 'it_IT' ]
+	 *
+	 * @return array
+	 */
+	public static function get_active_locales() {
+		global $sitepress;
+
+		$locales = array();
+		$languages = $sitepress->get_active_languages();
+		unset( $languages['en'] );
+
+		foreach ( $languages as $language_definition ) {
+			if ( isset( $language_definition['default_locale'] ) ) {
+				$locales[] = $language_definition['default_locale'];
+			}
+		}
+
+		return $locales;
+	}
 }

@@ -56,7 +56,7 @@ class Venue extends \WP_UnitTest_Factory_For_Post {
 				'_VenueState'         => $lc_title . ' state',
 				'_VenueZip'           => $lc_title . ' zip',
 				'_VenuePhone'         => $lc_title . ' phone',
-				'_VenueURL'           => $lc_title . ' url',
+				'_VenueURL'           => 'http://' . str_slug( $lc_title ) . '.com',
 				'_VenueStateProvince' => $lc_title . ' state_province',
 			],
 		];

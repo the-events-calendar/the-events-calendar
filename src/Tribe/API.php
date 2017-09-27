@@ -128,7 +128,16 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$data['EventDuration'] = null;
 			}
 
-			do_action( 'tribe_events_event_save', $event_id );
+			/**
+			 * Allow hooking in prior to updating meta fields.
+			 *
+			 * @param int     $event_id The event ID we are modifying meta for.
+			 * @param array   $data     The meta fields we want saved.
+			 * @param WP_Post $event    The event itself.
+			 *
+			 * @since 4.6
+			 */
+			do_action( 'tribe_events_event_save', $event_id, $data, $event );
 
 			//update meta fields
 			foreach ( $tec->metaTags as $tag ) {
@@ -173,7 +182,16 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				? tribe( 'tec.featured_events' )->unfeature( $event_id )
 				: tribe( 'tec.featured_events' )->feature( $event_id );
 
-			do_action( 'tribe_events_update_meta', $event_id, $data );
+			/**
+			 * Allow hooking in after all event meta has been saved.
+			 *
+			 * @param int     $event_id The event ID we are modifying meta for.
+			 * @param array   $data     The meta fields we want saved.
+			 * @param WP_Post $event    The event itself.
+			 *
+			 * @since 4.6
+			 */
+			do_action( 'tribe_events_update_meta', $event_id, $data, $event );
 		}
 
 		/**
@@ -271,10 +289,14 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			if ( isset( $data['EventStartDate'] ) ) {
 				$data['EventStartDate'] = Tribe__Date_Utils::datetime_from_format( $datepicker_format, $data['EventStartDate'] );
+			} elseif ( $existing_start_date = get_post_meta( $event_id, '_EventStartDate', true ) ) {
+				$data['EventStartDate'] = $existing_start_date;
 			}
 
 			if ( isset( $data['EventEndDate'] ) ) {
 				$data['EventEndDate'] = Tribe__Date_Utils::datetime_from_format( $datepicker_format, $data['EventEndDate'] );
+			} elseif ( $existing_end_date = get_post_meta( $event_id, '_EventEndDate', true ) ) {
+				$data['EventEndDate'] = $existing_end_date;
 			}
 
 			if ( isset( $data['EventAllDay'] ) && 'yes' === $data['EventAllDay'] ) {

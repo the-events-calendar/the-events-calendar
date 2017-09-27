@@ -46,7 +46,7 @@ class Tribe__Events__Linked_Posts {
 	 *
 	 * @param Tribe__Cache|null $cache
 	 */
-	protected function __construct( Tribe__Cache $cache = null ) {
+	public function __construct( Tribe__Cache $cache = null ) {
 		$this->cache = null !== $cache ? $cache : tribe( 'cache' );
 
 		$this->main = Tribe__Events__Main::instance();
@@ -541,9 +541,8 @@ class Tribe__Events__Linked_Posts {
 			return $linked_posts;
 		}
 
-		$subject_meta_key   = $this->get_meta_key( $subject_post_type );
-
-		$target_link_posts  = get_post_meta( $target_post_id, $subject_meta_key );
+		$subject_meta_key  = $this->get_meta_key( $subject_post_type );
+		$target_link_posts = get_post_meta( $target_post_id, $subject_meta_key );
 
 		// if the subject isn't in the target's linked posts, add it
 		if ( ! in_array( $subject_post_id, $target_link_posts ) ) {
@@ -556,7 +555,7 @@ class Tribe__Events__Linked_Posts {
 			}
 
 			// add the subject to the target
-			$linked_posts = add_metadata('post', $target_post_id, $subject_meta_key, $subject_post_id );
+			$linked_posts = add_metadata( 'post', $target_post_id, $subject_meta_key, $subject_post_id );
 		}
 
 		if ( $linked_posts ) {
@@ -733,7 +732,7 @@ class Tribe__Events__Linked_Posts {
 		$currently_linked_posts = $this->get_linked_posts_by_post_type( $event_id, $linked_post_type );
 		$currently_linked_posts = wp_list_pluck( $currently_linked_posts, 'ID' );
 
-		$posts_to_add = array_diff( $linked_posts, $currently_linked_posts );
+		$posts_to_add    = array_diff( $linked_posts, $currently_linked_posts );
 		$posts_to_remove = array_diff( $currently_linked_posts, $linked_posts );
 
 		foreach ( $posts_to_remove as $linked_post_id ) {
@@ -897,13 +896,36 @@ class Tribe__Events__Linked_Posts {
 		$user_can_create = ( ! empty( $post_type_object->cap->create_posts ) && current_user_can( $post_type_object->cap->create_posts ) );
 		$allowed_creation = ( ! empty( $this->linked_post_types[ $post_type ]['allow_creation'] ) && $this->linked_post_types[ $post_type ]['allow_creation'] );
 
-		$placeholder = sprintf( esc_attr__( 'Find a %s', 'the-events-calendar' ), $singular_name );
-		if ( $user_can_create && $allowed_creation ) {
+		/**
+		 * Controls whether the UI to create new linked posts should be displayed.
+		 *
+		 * @since 4.5.7
+		 *
+		 * @param bool $enabled
+		 * @param string $post_type
+		 * @param Tribe__Events__Linked_Posts
+		 */
+		$creation_enabled = apply_filters( 'tribe_events_linked_posts_dropdown_enable_creation', $user_can_create && $allowed_creation, $post_type, $this );
+
+		$indefinite_article = _x( 'a', 'Indefinite article for the phrase "Find a {post type name}. Will be replaced with "an" if the {post type name} starts with a vowel.', 'the-events-calendar' );
+
+		$post_type_starts_with = substr( $singular_name, 0, 1 );
+		$post_type_starts_with = strtolower( $post_type_starts_with );
+		$english_vowels        = array( 'a', 'e', 'i', 'o', 'u' );
+
+		if ( in_array( $post_type_starts_with, $english_vowels ) ) {
+			$indefinite_article = _x( 'an', 'Indefinite article for the phrase "Find a {post type name}" when the {post type name} starts with a vowel, e.g. "Find an Organizer".', 'the-events-calendar' );
+		}
+
+		$placeholder = sprintf( esc_attr__( 'Find %1$s %2$s', 'the-events-calendar' ), $indefinite_article, $singular_name );
+
+		if ( $creation_enabled ) {
 			$placeholder = sprintf( esc_attr__( 'Create or Find %s', 'the-events-calendar' ), $singular_name );
 		}
 
-		$search_placeholder = sprintf( esc_attr__( 'Find a %s', 'the-events-calendar' ), $singular_name );
-		if ( $user_can_create && $allowed_creation ) {
+		$search_placeholder = sprintf( esc_attr__( 'Find %1$s %2$s', 'the-events-calendar' ), $indefinite_article, $singular_name );
+
+		if ( $creation_enabled ) {
 			$search_placeholder = sprintf( esc_attr__( 'Create or Find %s', 'the-events-calendar' ), $singular_name );
 		}
 
@@ -915,7 +937,7 @@ class Tribe__Events__Linked_Posts {
 				id="saved_' . esc_attr( $post_type ) . '"
 				data-placeholder="' . $placeholder . '"
 				data-search-placeholder="' . $search_placeholder . '" ' .
-				( $user_can_create && $allowed_creation ?
+				( $creation_enabled ?
 				'data-freeform
 				data-sticky-search
 				data-create-choice-template="' . __( 'Create: <b><%= term %></b>', 'the-events-calendar' ) . '"

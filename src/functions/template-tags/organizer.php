@@ -318,22 +318,66 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Get all the organizers
 	 *
-	 * @param $deprecated
-	 * @param $posts_per_page Maximum number of results
+	 * @param bool  $only_with_upcoming Only return organizers with upcoming events attached to them.
+	 * @param int   $posts_per_page
+	 * @param bool  $suppress_filters
+	 * @param array $args {
+	 *		Optional. Array of Query parameters.
+	 *
+	 *		@type int  $event      Only organizers linked to this event post ID.
+	 *		@type bool $has_events Only organizers that have events.
+	 * }
 	 *
 	 * @return array An array of organizer post objects.
 	 */
-	function tribe_get_organizers( $deprecated = null, $posts_per_page = -1 ) {
-		if ( null !== $deprecated ) {
-			_deprecated_argument( __FUNCTION__, '3.0', 'This parameter is no longer supported.' );
+	function tribe_get_organizers( $only_with_upcoming = false, $posts_per_page = - 1, $suppress_filters = true, array $args = array() ) {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		// filter out the `null` values
+		$args = array_diff_key( $args, array_filter( $args, 'is_null' ) );
+
+		if ( tribe_is_truthy( $only_with_upcoming ) ) {
+			$args['only_with_upcoming'] = true;
 		}
 
-		$organizers = get_posts(
-			array(
-				'post_type' => Tribe__Events__Main::ORGANIZER_POST_TYPE,
-				'posts_per_page' => $posts_per_page,
+		$filter_args = array(
+			'event'              => 'find_for_event',
+			'has_events'         => 'find_with_events',
+			'only_with_upcoming' => 'find_with_upcoming_events',
+		);
+
+		foreach ( $filter_args as $filter_arg => $method ) {
+			if ( ! isset( $args[ $filter_arg ] ) ) {
+				continue;
+			}
+
+			$found = call_user_func(
+				array( tribe( 'tec.linked-posts.organizer' ), $method ),
+				$args[ $filter_arg ]
+			);
+
+			if ( empty( $found ) ) {
+				return array();
+			}
+
+			$args['post__in'] = ! empty( $args['post__in'] )
+				? array_intersect( (array) $args['post__in'], $found )
+				: $found;
+
+			if ( empty( $args['post__in'] ) ) {
+				return array();
+			}
+		}
+
+		$parsed_args = wp_parse_args( $args, array(
+				'post_type'        => Tribe__Events__Main::ORGANIZER_POST_TYPE,
+				'posts_per_page'   => $posts_per_page,
+				'suppress_filters' => $suppress_filters,
 			)
 		);
+
+		$organizers = get_posts( $parsed_args );
 
 		return $organizers;
 	}

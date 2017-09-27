@@ -188,15 +188,22 @@ class Tribe__Events__Aggregator__Event {
 		}
 
 		$key = "_{$fields[ $origin ]['target']}";
+		$post_type = Tribe__Events__Main::POSTTYPE;
+		$interval = "('" . implode( "','", array_map( 'esc_sql', $values ) ) . "')";
 
 		$sql = "
 			SELECT
-				meta_value,
-				post_id
+				pm.meta_value,
+				pm.post_id
 			FROM
-				{$wpdb->postmeta}
+				{$wpdb->postmeta} pm
+			JOIN
+				{$wpdb->posts} p
+			ON
+				pm.post_id = p.ID
 			WHERE
-				meta_value IN ( '" . implode( "','", $values ) ."' )
+				p.post_type = '{$post_type}'
+				AND meta_value IN {$interval}
 		";
 
 		/**
@@ -221,8 +228,8 @@ class Tribe__Events__Aggregator__Event {
 	 *
 	 * @return bool|WP_Post
 	 */
-	public static function get_post_by_meta( $key = 'global_id', $value = null ) {
-		if ( is_null( $value ) ) {
+	public static function get_post_by_meta( $key, $value = null ) {
+		if ( null === $value ) {
 			return false;
 		}
 
@@ -231,11 +238,9 @@ class Tribe__Events__Aggregator__Event {
 			'global_id_lineage' => self::$global_id_lineage_key,
 		);
 
-		if ( ! isset( $keys[ $key ] ) ) {
-			return false;
+		if ( isset( $keys[ $key ] ) ) {
+			$key = $keys[ $key ];
 		}
-
-		$key = $keys[ $key ];
 
 		global $wpdb;
 

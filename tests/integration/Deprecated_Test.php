@@ -94,12 +94,6 @@ class Deprecated_Test extends \Codeception\TestCase\WPTestCase {
 		);
 	}
 
-
-	public function test_main_set_option() {
-		$this->expected_deprecated[] = 'Tribe__Events__Main::setOption';
-		Tribe__Events__Main::instance()->setOption( 'schema-version', 0 );
-	}
-
 	/**
 	 * Test if a class exists was deprecated in 4.3 exists but is deprecated.
 	 *

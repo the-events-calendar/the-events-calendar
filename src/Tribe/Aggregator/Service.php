@@ -160,22 +160,53 @@ class Tribe__Events__Aggregator__Service {
 		 */
 		$timeout_in_seconds = (int) apply_filters( 'tribe_aggregator_connection_timeout', 60 );
 
-		$response = $this->requests->get( esc_url_raw( $url ), array( 'timeout' => $timeout_in_seconds ) );
+		$response = $http_response = $this->requests->get(
+			esc_url_raw( $url ),
+			array( 'timeout' => $timeout_in_seconds )
+		);
 
 		if ( is_wp_error( $response ) ) {
 			if ( isset( $response->errors['http_request_failed'] ) ) {
 				$response->errors['http_request_failed'][0] = __( 'Connection timed out while transferring the feed. If you are dealing with large feeds you may need to customize the tribe_aggregator_connection_timeout filter.', 'the-events-calendar' );
 			}
+
 			return $response;
 		}
 
+		if ( 403 == wp_remote_retrieve_response_code( $response ) ) {
+			return new WP_Error(
+				'core:aggregator:request-denied',
+				esc_html__( 'Event Aggregator server has blocked your request. Please try your import again later or contact support to know why.', 'the-events-calendar' )
+			);
+		}
+
+		// we know it is not a 404 or 403 at this point
+		if ( 200 != wp_remote_retrieve_response_code( $response ) ) {
+			return new WP_Error(
+				'core:aggregator:bad-response',
+				esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' )
+			);
+		}
+
 		if ( isset( $response->data ) && isset( $response->data->status ) && '404' === $response->data->status ) {
-			return new WP_Error( 'core:aggregator:daily-limit-reached', esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' ) );
+			return new WP_Error(
+				'core:aggregator:daily-limit-reached',
+				esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' )
+			);
 		}
 
 		// if the response is not an image, let's json decode the body
 		if ( ! preg_match( '/image/', $response['headers']['content-type'] ) ) {
 			$response = json_decode( wp_remote_retrieve_body( $response ) );
+		}
+
+		// It's possible that the json_decode() operation will have failed
+		if ( null === $response ) {
+			return new WP_Error(
+				'core:aggregator:bad-json-response',
+				esc_html__( 'The response from the Event Aggregator server was badly formed and could not be understood. Please try again.', 'the-events-calendar' ),
+				$http_response
+			);
 		}
 
 		return $response;
@@ -217,30 +248,30 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Fetch origins from service
 	 *
-	 * @return array
+	 * @param bool $return_error Whether response errors should be returned, if any.
+	 *
+	 * @return array The origins array of an array containing the origins first and an error second if `return_error` is set to `true`.
 	 */
-	public function get_origins() {
-		$origins = array(
-			'origin' => array(
-				(object) array(
-					'id' => 'csv',
-					'name' => __( 'CSV File', 'the-events-calendar' ),
-				),
-			),
-		);
+	public function get_origins( $return_error = false ) {
+		$origins = $this->get_default_origins();
 
 		$response = $this->get( 'origin' );
+		$error = null;
 
-		// If we have an WP_Error we return only CSV
+		// If we have an WP_Error or a bad response we return only CSV and set some error data
 		if ( is_wp_error( $response ) || empty( $response->status ) ) {
-			return $origins;
+			$error = $response;
+
+			return $return_error ? array( $origins, $error ) : $origins;
 		}
 
 		if ( $response && 'success' === $response->status ) {
 			$origins = array_merge( $origins, (array) $response->data );
 		}
 
-		return $origins;
+		return $return_error
+			? array( $origins, $error )
+			: $origins;
 	}
 
 	/**
@@ -296,6 +327,8 @@ class Tribe__Events__Aggregator__Service {
 		if ( is_wp_error( $api ) ) {
 			return $api;
 		}
+
+		$args = $this->apply_import_limit( $args );
 
 		$request_args = array(
 			'body' => $args,
@@ -496,6 +529,7 @@ class Tribe__Events__Aggregator__Service {
 			'error:create-import-failed' => __( 'Sorry, but something went wrong. Please try again.', 'the-events-calendar' ),
 			'error:create-import-invalid-params' => __( 'Events could not be imported. The import parameters were invalid.', 'the-events-calendar' ),
 			'error:fb-permissions' => __( 'Events cannot be imported because Facebook has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Facebook. You can <a href="https://theeventscalendar.com/knowledgebase/import-errors/" target="_blank">read more about Facebook restrictions in our knowledgebase</a>.', 'the-events-calendar' ),
+			'error:fb-no-results' => __( 'No upcoming Facebook events found.', 'the-events-calendar' ),
 			'error:fetch-404' => __( 'The URL provided could not be reached.', 'the-events-calendar' ),
 			'error:fetch-failed' => __( 'The URL provided failed to load.', 'the-events-calendar' ),
 			'error:get-image' => __( 'The image associated with your event could not be imported.', 'the-events-calendar' ),
@@ -555,5 +589,86 @@ class Tribe__Events__Aggregator__Service {
 		$confirmed = ! empty( $response->status ) && 0 !== strpos( $response->status, 'error' );
 
 		return $confirmed;
+	}
+
+	/**
+	 * Returns the default origins array.
+	 *
+	 * @since 4.5.11
+	 *
+	 * @return array
+	 */
+	protected function get_default_origins() {
+		$origins = array(
+			'origin' => array(
+				(object) array(
+					'id'   => 'csv',
+					'name' => __( 'CSV File', 'the-events-calendar' ),
+				),
+			),
+		);
+
+		return $origins;
+	}
+
+	/**
+	 * Applies a limit to the import request.
+	 *
+	 * @since 4.5.13
+	 *
+	 * @param array $args An array of request arguments.
+	 *
+	 * @return mixed
+	 */
+	protected function apply_import_limit( $args ) {
+		if ( isset( $args['limit_type'], $args['limit'] ) ) {
+			return $args;
+		}
+
+		$is_other_url = isset( $args['origin'] ) && $args['origin'] === 'url';
+		if ( $is_other_url ) {
+			$limit_type = 'range';
+		} else {
+			$limit_type = tribe_get_option( 'tribe_aggregator_default_import_limit_type', false );
+		}
+
+		/** @var \Tribe__Events__Aggregator__Settings $settings */
+		$settings = tribe( 'events-aggregator.settings' );
+
+		$limit_args = array();
+		switch ( $limit_type ) {
+			case 'no_limit':
+				break;
+			case 'count':
+				$limit_args['limit_type'] = 'count';
+				$default                  = $settings->get_import_limit_count_default();
+				$limit_args['limit']      = tribe_get_option( 'tribe_aggregator_default_import_limit_number', $default );
+				break;
+			default:
+			case 'range':
+				$limit_args['limit_type'] = 'range';
+				$default                  = $settings->get_import_range_default();
+				$limit_args['limit']      = $is_other_url
+					? tribe_get_option( 'tribe_aggregator_default_url_import_range', $default )
+					: tribe_get_option( 'tribe_aggregator_default_import_limit_range', $default );
+				break;
+		}
+
+		/**
+		 * Filters the limit arguments before applying them to the import request arguments.
+		 *
+		 * @since 4.5.13
+		 *
+		 * @param array                              $limit_args The limit arguments.
+		 * @param array                              $args       The import request arguments.
+		 * @param Tribe__Events__Aggregator__Service $service    The service instance handling the import request..
+		 */
+		$limit_args = apply_filters( 'tribe_aggregator_limit_args', $limit_args, $args, $this );
+
+		if ( is_array( $limit_args ) ) {
+			$args = array_merge( $args, $limit_args );
+		}
+
+		return $args;
 	}
 }

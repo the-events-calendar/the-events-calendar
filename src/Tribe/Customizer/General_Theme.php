@@ -375,7 +375,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 				),
 			),
 			'malacite' => array(
-				'label' => __( 'Malacite', 'the-events-calendar' ),
+				'label' => __( 'Malachite', 'the-events-calendar' ),
 				'colors' => array(
 					'#078e87',
 				),
