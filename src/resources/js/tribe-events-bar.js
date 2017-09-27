@@ -79,7 +79,7 @@ var tribe_events_bar_action;
 			eventsBarWidth( $tribebar );
 		} );
 
-		if ( !$( '.tribe-events-week-grid' ).length ) {
+		if ( ! $( '.tribe-events-week-grid' ).length ) {
 
 			if ( ts.view !== 'month' ) {
 
@@ -91,7 +91,7 @@ var tribe_events_bar_action;
 
 					// we are not using the default query date format, lets grab it from the data array
 
-					date_format = td.datepicker_formats.main[ts.datepicker_format];
+					date_format = td.datepicker_formats.main[ ts.datepicker_format ];
 
 					var url_date = tf.get_url_param( 'tribe-bar-date' );
 
@@ -122,7 +122,7 @@ var tribe_events_bar_action;
 
 		$tribedate.blur( function() {
 			if ( $tribedate.val() === '' && $( '.datepicker.dropdown-menu' ).is( ':hidden' ) && tt.live_ajax() && tt.pushstate ) {
-				ts.date = td.cur_date;
+				ts.date    = td.cur_date;
 				td.cur_url = td.base_url;
 				/**
 				 * DEPRECATED: tribe_ev_runAjax has been deprecated in 4.0. Use run-ajax.tribe instead
@@ -295,8 +295,8 @@ var tribe_events_bar_action;
 			tribe_events_bar_action = 'change_view';
 
 			if ( ts.view === 'month' && $tribedate.length ) {
-				var dp_date = $tribedate.val(),
-					day = tf.get_day();
+				var dp_date = $tribedate.val();
+				var day     = tf.get_day();
 
 				if ( ts.datepicker_format !== '0' ) {
 					if ( day.length ) {
