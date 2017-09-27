@@ -75,6 +75,10 @@
 			autoclose   : true
 		};
 
+		console.log( td.datepicker_opts );
+		console.log( $wrapper );
+		console.log( $tribedate );
+
 		$tribedate
 			.bootstrapDatepicker( td.datepicker_opts )
 			.on( 'changeDate', function( e ) {
