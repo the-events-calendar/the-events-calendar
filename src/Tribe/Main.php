@@ -1960,10 +1960,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				// date picker
 				Tribe__Events__Template_Factory::asset_package( 'datepicker' );
 
-				// jQuery Timepicker
-				wp_enqueue_script( 'tribe-jquery-timepicker' );
-				wp_enqueue_style( 'tribe-jquery-timepicker-css' );
-
 				// dialog
 				Tribe__Events__Template_Factory::asset_package( 'dialog' );
 
