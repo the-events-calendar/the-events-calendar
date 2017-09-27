@@ -2247,7 +2247,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	display: inherit;
 }
 
-/* Twenty Fifteen
+/* Twenty Fifteen (including Twenty Fifteen child themes)
 ========================================================================== */
 
 .tribe-theme-twentyfifteen #tribe-events, .tribe-theme-parent-twentyfifteen #tribe-events {
@@ -2363,7 +2363,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	display: none;
 }
 
-/* Twenty Sixteen
+/* Twenty Sixteen (including Twenty Sixteen child themes)
 ========================================================================== */
 
 .tribe-theme-twentysixteen table.tribe-events-calendar, .tribe-theme-parent-twentysixteen table.tribe-events-calendar {
