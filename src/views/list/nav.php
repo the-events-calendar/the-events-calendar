@@ -11,18 +11,8 @@
  */
 global $wp_query;
 
-write_log( '======= WP QUERY FROM TEMPLATE ========= ');
-
 $term_name = get_query_var( Tribe__Events__Main::instance()->get_event_taxonomy() );
-// $term_obj  = get_term_by( 'name', $term_name,  );
 
-// write_log( $wp_query );
-write_log( get_query_var( Tribe__Events__Main::instance()->get_event_taxonomy() )  );
-
-// POSSIBLE STEPS FORWARD
-// - Grab tribe_events_cat value from wp_query query vars
-// - pass this term (as an ID int) as the currently-unused $term arg in tribe_get_listview_prev_link and tribe_get_listview_next_link funcs below
-// - ensure the term is then passed along through generaed links as page forward and back through Cat-Filtered List View
 
 $events_label_plural = tribe_get_event_label_plural();
 

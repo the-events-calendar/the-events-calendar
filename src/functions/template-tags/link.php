@@ -181,10 +181,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$link = tribe_get_listview_link( $term );
 
-		write_log( '====== listview_dir_link LINK AND TERM =======' );
-		write_log( $term );
-		write_log( $link );
-
 		// if a page isn't passed in, attempt to fetch it from a get var
 		if ( ! $page ) {
 			if ( ! empty( $_POST['tribe_paged'] ) ) {
@@ -263,13 +259,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_listview_next_link( $term = null ) {
 		$link = tribe_get_listview_dir_link( 'next', $term );
 
-		$test = apply_filters( 'tribe_get_listview_next_link', $link, $term );
-
-		write_log( '==== template tag listview_next_link term and outputted link ===' );
-		write_log( $term );
-		write_log( $test );
-
-		return $test;
+		return apply_filters( 'tribe_get_listview_next_link', $link, $term );
 	}
 
 	/**

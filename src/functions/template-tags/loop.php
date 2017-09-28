@@ -212,22 +212,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$taxonomy_name = $tribe_ecp->get_event_taxonomy();
 
-		// if ( isset( $wp_query->query_vars[ $taxonomy_name ] ) ) {
-		// 	write_log( $wp_query->query_vars[ $taxonomy_name ] );
-		// }
-
-		// write_log( $wp_query->query_vars );
-
-		// write_log( '===taxonomy===' );
-		// write_log( $tribe_ecp->get_event_taxonomy() );
-		
-		// write_log( '===depth===' );
-		// write_log( $depth );
-
-		// write_log( '===cat===' );
-		// $cat = get_queried_object();
-		// write_log( $cat );
-
 		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) && $depth ) {
 			$cat = get_queried_object();
 			$title = '<a href="' . esc_url( tribe_get_events_link() ) . '">' . $title . '</a>';
