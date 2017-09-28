@@ -484,7 +484,7 @@ Date.prototype.format = function( mask, utc ) {
 	 */
 	$.fn.tribe_spin = function() {
 		var $loadingImg = $( '.tribe-events-ajax-loading:first' ).clone().addClass( 'tribe-events-active-spinner' );
-		$loadingImg.prependTo( '#tribe-events-content' );
+		$loadingImg.prependTo( document.getElementById( 'tribe-events-content' ) );
 		$( this ).addClass( 'tribe-events-loading' ).css( 'opacity', .25 )
 	};
 
@@ -602,9 +602,9 @@ Date.prototype.format = function( mask, utc ) {
 		 * @example var base_url = tribe_ev.fn.get_base_url();
 		 */
 		get_base_url          : function() {
-			var base_url = '',
-				$event_header = $( '#tribe-events-header' ),
-				$canonical = $( 'link[rel="canonical"]' );
+			var base_url      = '';
+			var $event_header = $( document.getElementById( 'tribe-events-header' ) );
+			var $canonical    = $( 'link[rel="canonical"]' );
 
 			if ( $canonical.length ) {
 				// use the canonical URL if it is available (it should be)
@@ -624,8 +624,8 @@ Date.prototype.format = function( mask, utc ) {
 		 * @desc tribe_ev.fn.update_base_url can be used on any events view to update base_url for that view
 		 */
 		update_base_url: function( url ) {
-			var $event_header = $( '#tribe-events-header' ),
-				$canonical = $( 'link[rel="canonical"]' );
+			var $event_header = $( document.getElementById( 'tribe-events-header' ) );
+			var $canonical    = $( 'link[rel="canonical"]' );
 
 			if ( $canonical.length ) {
 				// use the canonical URL if it is available (it should be)
@@ -643,7 +643,7 @@ Date.prototype.format = function( mask, utc ) {
 		 */
 		get_category          : function() {
 			if ( tribe_ev.fn.is_category() ) {
-				return $( '#tribe-events' ).data( 'category' );
+				return $( document.getElementById( 'tribe-events' ) ).data( 'category' );
 			}
 			else {
 				return '';
@@ -657,8 +657,8 @@ Date.prototype.format = function( mask, utc ) {
 		 */
 		get_day               : function() {
 			var dp_day = '';
-			if ( $( '#tribe-bar-date' ).length ) {
-				dp_day = $( '#tribe-bar-date-day' ).val();
+			if ( $( document.getElementById( 'tribe-bar-date' ) ).length ) {
+				dp_day = $( document.getElementById( 'tribe-bar-date-day' ) ).val();
 			}
 			// @ifdef DEBUG
 			dbug && debug.info( 'TEC Debug: tribe_ev.fn.get_day returned this date: "' + dp_day + '".' );
@@ -728,7 +728,7 @@ Date.prototype.format = function( mask, utc ) {
 		 * @example if (tribe_ev.fn.is_category()){ true } else { false }
 		 */
 		is_category           : function() {
-			var $tribe_events = $( '#tribe-events' );
+			var $tribe_events = $( document.getElementById( 'tribe-events' ) );
 			return ($tribe_events.length && $tribe_events.tribe_has_attr( 'data-category' ) && $tribe_events.data( 'category' ) !== '') ? true : false;
 		},
 
@@ -738,7 +738,7 @@ Date.prototype.format = function( mask, utc ) {
 		 * @return {boolean}
 		 */
 		is_featured: function() {
-			return $( '#tribe-events' ).data( 'featured' ) == '1';
+			return $( document.getElementById( 'tribe-events' ) ).data( 'featured' ) == '1';
 		},
 
 		/**
@@ -870,7 +870,7 @@ Date.prototype.format = function( mask, utc ) {
 		 */
 		set_form              : function( params ) {
 			var $body = $( 'body' ),
-				$tribe_bar = $( '#tribe-bar-form' );
+				$tribe_bar = $( document.getElementById( 'tribe-bar-form' ) );
 
 			$body.addClass( 'tribe-reset-on' );
 
@@ -962,21 +962,21 @@ Date.prototype.format = function( mask, utc ) {
 		 *        tribe_ev.fn.tooltips();
 		 */
 		tooltips                 : function() {
-			var $container = $( '#tribe-events' ),
-				$body = $( 'body' ),
-				is_shortcode = $container.hasClass( 'tribe-events-shortcode' ),
-				is_month_view = $container.hasClass( 'view-month' ) || $body.hasClass( 'events-gridview' ),
-				is_week_view = $container.hasClass( 'view-week' ) || $body.hasClass( 'tribe-events-week' ),
-				is_photo_view = $container.hasClass( 'view-photo' ) || $body.hasClass( 'tribe-events-photo' ),
-				is_day_view = $container.hasClass( 'view-day' ) || $body.hasClass( 'tribe-events-day' ),
-				is_list_view = $container.hasClass( 'view-list' ) || $body.hasClass( 'events-list' ),
-				is_map_view = $container.hasClass( 'view-map' ) || $body.hasClass( 'tribe-events-map' ),
-				is_single = $body.hasClass( 'single-tribe_events' );
+			var $container    = $( document.getElementById( 'tribe-events' ) );
+			var $body         = $( 'body' );
+			var is_shortcode  = $container.hasClass( 'tribe-events-shortcode' );
+			var is_month_view = $container.hasClass( 'view-month' ) || $body.hasClass( 'events-gridview' );
+			var is_week_view  = $container.hasClass( 'view-week' ) || $body.hasClass( 'tribe-events-week' );
+			var is_photo_view = $container.hasClass( 'view-photo' ) || $body.hasClass( 'tribe-events-photo' );
+			var is_day_view   = $container.hasClass( 'view-day' ) || $body.hasClass( 'tribe-events-day' );
+			var is_list_view  = $container.hasClass( 'view-list' ) || $body.hasClass( 'events-list' );
+			var is_map_view   = $container.hasClass( 'view-map' ) || $body.hasClass( 'tribe-events-map' );
+			var is_single     = $body.hasClass( 'single-tribe_events' );
 
 			$container.on( 'mouseenter', 'div[id*="tribe-events-event-"], div.event-is-recurring', function() {
-				var bottomPad = 0,
-					$this = $( this ),
-					$tip;
+				var bottomPad = 0;
+				var $this     = $( this );
+				var $tip;
 
 				if ( is_month_view ) { // Cal View Tooltips
 					bottomPad = $this.find( 'a' ).outerHeight() + 18;
@@ -1139,7 +1139,7 @@ Date.prototype.format = function( mask, utc ) {
 		 * }
 		 */
 		live_ajax     : function() {
-			var $tribe_events = $( '#tribe-events' );
+			var $tribe_events = $( document.getElementById( 'tribe-events' ) );
 			return ($tribe_events.length && $tribe_events.tribe_has_attr( 'data-live_ajax' ) && $tribe_events.data( 'live_ajax' ) == '1') ? true : false;
 		},
 		/**
@@ -1373,7 +1373,7 @@ Date.prototype.format = function( mask, utc ) {
 				return;
 			}
 
-			var $header = $( '#tribe-events-header' );
+			var $header = $( document.getElementById( 'tribe-events-header' ) );
 			var $canonical = $( 'link[rel="canonical"]' );
 			var url = null;
 

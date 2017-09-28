@@ -36,12 +36,12 @@ var tribe_events_bar_action;
 		}
 		// @endif
 
-		var $tribebar = $( '#tribe-bar-form' ),
-			$tribedate = $( '#tribe-bar-date' ),
-			$tribe_events = $( '#tribe-events' ),
-			$tribe_header = $( '#tribe-events-header' ),
-			start_day = 0,
-			$tribebarselect = $( 'select[name=tribe-bar-view]' );
+		var $tribebar       = $( document.getElementById( 'tribe-bar-form' ) );
+		var $tribedate      = $( document.getElementById( 'tribe-bar-date' ) );
+		var $tribe_events   = $( document.getElementById( 'tribe-events' ) );
+		var $tribe_header   = $( document.getElementById( 'tribe-events-header' ) );
+		var start_day       = 0;
+		var $tribebarselect = $( 'select[name=tribe-bar-view]' );
 
 		if ( $tribe_header.length ) {
 			start_day = $tribe_header.data( 'startofweek' );
@@ -79,7 +79,7 @@ var tribe_events_bar_action;
 			eventsBarWidth( $tribebar );
 		} );
 
-		if ( !$( '.tribe-events-week-grid' ).length ) {
+		if ( ! $( '.tribe-events-week-grid' ).length ) {
 
 			if ( ts.view !== 'month' ) {
 
@@ -91,7 +91,7 @@ var tribe_events_bar_action;
 
 					// we are not using the default query date format, lets grab it from the data array
 
-					date_format = td.datepicker_formats.main[ts.datepicker_format];
+					date_format = td.datepicker_formats.main[ ts.datepicker_format ];
 
 					var url_date = tf.get_url_param( 'tribe-bar-date' );
 
@@ -111,9 +111,9 @@ var tribe_events_bar_action;
 				// @endif
 
 				td.datepicker_opts = {
-					weekStart         : start_day,
-					format   : date_format,
-					autoclose: true
+					weekStart : start_day,
+					format    : date_format,
+					autoclose : true
 				};
 
 				$tribedate.bootstrapDatepicker( td.datepicker_opts );
@@ -122,7 +122,7 @@ var tribe_events_bar_action;
 
 		$tribedate.blur( function() {
 			if ( $tribedate.val() === '' && $( '.datepicker.dropdown-menu' ).is( ':hidden' ) && tt.live_ajax() && tt.pushstate ) {
-				ts.date = td.cur_date;
+				ts.date    = td.cur_date;
 				td.cur_url = td.base_url;
 				/**
 				 * DEPRECATED: tribe_ev_runAjax has been deprecated in 4.0. Use run-ajax.tribe instead
@@ -134,10 +134,10 @@ var tribe_events_bar_action;
 
 		// Add some classes
 		if ( $( '.tribe-bar-settings' ).length ) {
-			$( '#tribe-events-bar' ).addClass( 'tribe-has-settings' );
+			$( document.getElementById( 'tribe-events-bar' ) ).addClass( 'tribe-has-settings' );
 		}
 		if ( $( '#tribe-events-bar .hasDatepicker' ).length ) {
-			$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
+			$( document.getElementById( 'tribe-events-bar' ) ).addClass( 'tribe-has-datepicker' );
 		}
 
 		// Implement views links
@@ -172,31 +172,33 @@ var tribe_events_bar_action;
 		} );
 
 		//find the current view and select it in the bar
-		var currentview = $tribebarselect.find( ':selected' ).data( 'view' ),
-			$currentli = $tribebarviews.find( 'li[data-view=' + currentview + ']' );
+		var currentview = $tribebarselect.find( ':selected' ).data( 'view' );
+		var $currentli  = $tribebarviews.find( 'li[data-view=' + currentview + ']' );
 
 		$currentli.prependTo( $tribebarviews ).addClass( 'tribe-bar-active' );
 
 		// toggle the views dropdown
 		$tribebar.on( 'click', '#tribe-bar-views', function( e ) {
 			e.stopPropagation();
-			var $this = $( this );
-			$this.toggleClass( 'tribe-bar-views-open' );
+
+			$( this ).toggleClass( 'tribe-bar-views-open' );
 		} );
 
 		// change views
 		$tribebar.on( 'click', '.tribe-bar-views-option', function( e ) {
 			e.preventDefault();
+			
 			var $this = $( this );
-			if ( !$this.is( '.tribe-bar-active' ) ) {
+
+			if ( ! $this.is( '.tribe-bar-active' ) ) {
 
 				var target = $this.data( 'view' );
 
-				ts.cur_url = $( 'option[data-view=' + target + ']' ).val();
-				ts.view_target = $( 'select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]' ).data( 'view' );
+				ts.cur_url              = $( 'option[data-view=' + target + ']' ).val();
+				ts.view_target          = $( 'select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]' ).data( 'view' );
 				tribe_events_bar_action = 'change_view';
-				tribe_events_bar_change_view();
 
+				tribe_events_bar_change_view();
 			}
 		} );
 
@@ -206,15 +208,15 @@ var tribe_events_bar_action;
 		// change views with select (for skeleton styles)
 		$tribebar.on( 'change', '.tribe-bar-views-select', function( e ) {
 			e.preventDefault();
-			var $this = $( "option:selected", this );
-
+			
+			var $this  = $( 'option:selected', this );
 			var target = $this.data( 'view' );
 
-			ts.cur_url = $( 'option[data-view=' + target + ']' ).val();
-			ts.view_target = $( 'select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]' ).data( 'view' );
+			ts.cur_url              = $( 'option[data-view=' + target + ']' ).val();
+			ts.view_target          = $( 'select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]' ).data( 'view' );
 			tribe_events_bar_action = 'change_view';
-			tribe_events_bar_change_view();
 
+			tribe_events_bar_change_view();
 		} );
 
 		$tribebar.on( 'click', '#tribe-bar-collapse-toggle', function() {
@@ -226,7 +228,7 @@ var tribe_events_bar_action;
 		$( 'label[for="tribe-bar-date"], input[name="tribe-bar-date"]' ).wrapAll( '<div id="tribe-bar-dates" />' );
 
 		// Add our date bits outside of our filter container
-		$( '#tribe-bar-filters' ).before( $( '#tribe-bar-dates' ) );
+		$( document.getElementById( 'tribe-bar-filters' ) ).before( $( document.getElementById( 'tribe-bar-dates' ) ) );
 
 		$( te ).on( 'tribe_ev_serializeBar', function() {
 			$( 'form#tribe-bar-form input, form#tribe-bar-form select, #tribeHideRecurrence' ).each( function() {
@@ -246,8 +248,8 @@ var tribe_events_bar_action;
 						}
 						// In all other cases, pull the date from the datepicker
 						else {
-							ts.params[$this.attr( 'name' )] = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), "tribeQuery" );
-							ts.url_params[$this.attr( 'name' )] = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), "tribeQuery" );
+							ts.params[ $this.attr( 'name' ) ]     = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery' );
+							ts.url_params[ $this.attr( 'name' ) ] = tribeDateFormat( $this.bootstrapDatepicker( 'getDate' ), 'tribeQuery' );
 						}
 					}
 					else if ( $this.is( '.placeholder' ) && $this.is( '.bd-updated' ) ) {
@@ -293,8 +295,8 @@ var tribe_events_bar_action;
 			tribe_events_bar_action = 'change_view';
 
 			if ( ts.view === 'month' && $tribedate.length ) {
-				var dp_date = $tribedate.val(),
-					day = tf.get_day();
+				var dp_date = $tribedate.val();
+				var day     = tf.get_day();
 
 				if ( ts.datepicker_format !== '0' ) {
 					if ( day.length ) {
@@ -324,8 +326,8 @@ var tribe_events_bar_action;
 
 			// Select all the required fields
 			// Normal Form + Filter Bar
-			var $forms = $( document.getElementById( 'tribe-bar-form' ) ).add( document.getElementById( 'tribe_events_filters_wrapper' ) ),
-				$inputs = $forms.find( 'input, select' );
+			var $forms  = $( document.getElementById( 'tribe-bar-form' ) ).add( document.getElementById( 'tribe_events_filters_wrapper' ) );
+			var $inputs = $forms.find( 'input, select' );
 
 			$inputs.each( function() {
 				var $this = $( this );
@@ -375,7 +377,7 @@ var tribe_events_bar_action;
 		} );
 
 		$( document ).click( function() {
-			$( '#tribe-bar-views' ).removeClass( 'tribe-bar-views-open' );
+			$( document.getElementById( 'tribe-bar-views' ) ).removeClass( 'tribe-bar-views-open' );
 			if ( $tribeDropToggle.hasClass( 'open' ) ) {
 				$tribeDropToggle.removeClass( 'open' );
 				$tribeDropToggleEl.hide();
