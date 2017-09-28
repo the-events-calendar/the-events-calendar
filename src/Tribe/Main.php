@@ -2441,6 +2441,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$url_query = @parse_url( $event_url, PHP_URL_QUERY );
 			$url_args  = wp_parse_args( $url_query, array() );
 
+			write_log( '___MAYBE____' );
+			write_log( $url_args );
+
 			// Remove the "args"
 			if ( ! empty( $url_query ) ) {
 				$event_url = str_replace( '?' . $url_query, '', $event_url );

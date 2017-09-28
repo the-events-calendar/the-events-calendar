@@ -179,7 +179,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_listview_dir_link( $direction = 'next', $term = null, $currently_displaying = null, $page = null ) {
 
-		$link = tribe_get_listview_link( 'concerts' );
+		$link = tribe_get_listview_link( $term );
 
 		write_log( '====== listview_dir_link LINK AND TERM =======' );
 		write_log( $term );
@@ -223,10 +223,16 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$page--;
 		}
 
-		$link = add_query_arg( array(
+		$query_args = array(
 			'tribe_event_display' => $display,
 			'tribe_paged'         => $page,
-		), $link );
+		);
+
+		if ( $term ) {
+			$query_args['tribe_events_cat'] = $term;
+		}
+
+		$link = add_query_arg( $query_args, $link );
 
 		return apply_filters( 'tribe_get_listview_dir_link', $link, $term );
 	}
