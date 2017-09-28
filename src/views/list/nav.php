@@ -11,6 +11,9 @@
  */
 global $wp_query;
 
+write_log( '======= WP QUERY FROM TEMPLATE ========= ');
+write_log( $wp_query );
+
 $events_label_plural = tribe_get_event_label_plural();
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -2415,6 +2415,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string The link.
 		 */
 		public function getLink( $type = 'home', $secondary = false, $term = null, $featured = null ) {
+			write_log( $term );
 			// if permalinks are off or user doesn't want them: ugly.
 			if ( '' === get_option( 'permalink_structure' ) ) {
 				return esc_url_raw( $this->uglyLink( $type, $secondary ) );
@@ -2438,7 +2439,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// URL Arguments on home_url() pre-check
 			$url_query = @parse_url( $event_url, PHP_URL_QUERY );
-			$url_args = wp_parse_args( $url_query, array() );
+			$url_args  = wp_parse_args( $url_query, array() );
 
 			// Remove the "args"
 			if ( ! empty( $url_query ) ) {
@@ -2451,13 +2452,27 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// if we're on an Event Cat, show the cat link, except for home and days.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) && $term !== false && ! is_numeric( $term ) ) {
 				$term_link = get_term_link( get_query_var( 'term' ), self::TAXONOMY );
+
 				if ( ! is_wp_error( $term_link ) ) {
 					$event_url = trailingslashit( $term_link );
 				}
 			} elseif ( $term && is_numeric( $term ) ) {
 				$term_link = get_term_link( (int) $term, self::TAXONOMY );
+
 				if ( ! is_wp_error( $term_link ) ) {
 					$event_url = trailingslashit( $term_link );
+				}
+			} elseif ( $term && is_string( $term ) ) {
+				$term_obj = get_term_by( 'name', $term, self::TAXONOMY, OBJECT );
+
+				if ( isset( $term_obj->term_id ) ) {
+					$term_link = get_term_link( (int) $term_obj->term_id, self::TAXONOMY );
+
+					if ( ! is_wp_error( $term_link ) ) {
+						$event_url = trailingslashit( $term_link );
+						write_log( '====== event_url within ifelse ====');
+						write_log( $event_url );
+					}
 				}
 			}
 
@@ -2474,6 +2489,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					break;
 				case 'list':
 					$event_url = trailingslashit( esc_url_raw( $event_url . $this->listSlug ) );
+					write_log( '===== term and event_url inside "list" switch case ===' );
+					write_log( $term );
+					write_log( $event_url );
 					break;
 				case 'upcoming':
 					$event_url = trailingslashit( esc_url_raw( $event_url . $this->listSlug ) );
@@ -2513,6 +2531,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Add the Arguments back
 			$event_url = add_query_arg( $url_args, $event_url );
+
+			write_log( '====== eventurl final output from getLink =======');
+			write_log( $event_url );
 
 			return $event_url;
 		}
