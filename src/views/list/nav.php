@@ -16,7 +16,7 @@ $term_name = get_query_var( Tribe__Events__Main::TAXONOMY );
 
 if ( ! empty( $term_name ) ) {
 	$term_obj = get_term_by( 'name', $term_name, Tribe__Events__Main::TAXONOMY );
-	$term     = 0 < $term_obj->ID ? $term_obj->ID : null;
+	$term     = 0 < $term_obj->term_id ? $term_obj->term_id : null;
 }
 
 $events_label_plural = tribe_get_event_label_plural();

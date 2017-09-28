@@ -659,7 +659,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		if ( ! empty( $term_name ) ) {
 			$term_obj = get_term_by( 'name', $term_name, Tribe__Events__Main::TAXONOMY );
-			$term     = 0 < $term_obj->ID ? $term_obj->ID : null;
+			$term     = 0 < $term_obj->term_id ? $term_obj->term_id : null;
 		}
 
 		// wp_title was deprecated in WordPress 4.4. Fetch the document title with the new function (added in 4.4) if available

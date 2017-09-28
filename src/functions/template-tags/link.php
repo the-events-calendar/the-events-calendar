@@ -219,16 +219,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$page--;
 		}
 
-		$query_args = array(
+		$link = add_query_arg( array(
 			'tribe_event_display' => $display,
 			'tribe_paged'         => $page,
-		);
-
-		if ( $term ) {
-			$query_args['tribe_events_cat'] = $term;
-		}
-
-		$link = add_query_arg( $query_args, $link );
+		), $link );
 
 		return apply_filters( 'tribe_get_listview_dir_link', $link, $term );
 	}
