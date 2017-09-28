@@ -30,11 +30,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		if ( isset( $post->EventStartDate ) ) {
 			$postTimestamp = strtotime( $post->EventStartDate, $now );
 			$postTimestamp = strtotime( date( Tribe__Date_Utils::DBDATEFORMAT, $postTimestamp ), $now ); // strip the time
-			
+
 			if ( $postTimestamp != $tribe_ecp->currentPostTimestamp ) {
 				$retval = true;
 			}
-			
+
 			$tribe_ecp->currentPostTimestamp = $postTimestamp;
 			$return                          = $retval;
 		} else {
@@ -60,7 +60,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_is_past() {
 		global $wp_query;
 		$is_past = ! empty( $wp_query->tribe_is_past ) && ! tribe_is_showing_all() ? $wp_query->tribe_is_past : false;
-		
+
 		/**
 		 * Allows for customization of the result of whether the current view shows past events.
 		 *
@@ -99,7 +99,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_is_showing_all() {
 		$tribe_ecp            = Tribe__Events__Main::instance();
 		$tribe_is_showing_all = ( $tribe_ecp->displaying == 'all' ) ? true : false;
-		
+
 		if ( $tribe_is_showing_all ) {
 			add_filter( 'tribe_events_recurrence_tooltip', '__return_false' );
 		}
@@ -143,7 +143,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param string $title The events title as a result of the tribe_get_events_title() template tag.
 		 * @param bool $depth Whether to include the linked title or not.
-		 */	
+		 */
 		echo apply_filters( 'tribe_events_title', tribe_get_events_title( $depth ), $depth );
 	}
 
