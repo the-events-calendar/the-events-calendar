@@ -329,7 +329,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.6.1] TBD =
 
-* Fix - Fixed the "Next Events" and "Previous Events" navigation links in list views, which would sometimes load incorrectly-filtered events when viewing Category-filtered list view (props @forumhelpdesk and @atomicdust for reporting this!) [72013]
+* Fix - Fixed "Next Events" and "Previous Events" navigation links in list views, which would sometimes make a category-filtered list view lose its category filter as a user navigated through pages of future or past events (props @forumhelpdesk and @atomicdust for reporting this!) [72013]
 * Fix - Fixed some layout issues with the Tribe Bar datepicker that would arise when using a Twentysixteen or Twentyfifteen child them (thanks to @stefanrueegger for reporting this) [46471]
 * Fix - Fixed issues with the jQuery Timepicker vendor script conflicting with other plugins' similar scripts (props: @hcny et al.) [74644]
 * Fix - Fixed an issue that would prevent Event Aggregator scheduled imports from running [88395]
