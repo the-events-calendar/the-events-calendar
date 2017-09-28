@@ -650,8 +650,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @todo move to template classes
 	 **/
 	function tribe_events_the_header_attributes( $current_view = null ) {
-		$attrs               = array();
-		$current_view        = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
+		global $wp_query;
+
+		$attrs        = array();
+		$current_view = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
+		$term         = null;
+		$term_name    = get_query_var( Tribe__Events__Main::TAXONOMY );
+
+		if ( ! empty( $term_name ) ) {
+			$term_obj = get_term_by( 'name', $term_name, Tribe__Events__Main::TAXONOMY );
+			$term     = 0 < $term_obj->ID > ? $term_obj->ID : null;
+		}
 
 		// wp_title was deprecated in WordPress 4.4. Fetch the document title with the new function (added in 4.4) if available
 		if ( function_exists( 'wp_get_document_title' ) ) {
@@ -672,10 +681,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$attrs['data-startofweek'] = get_option( 'start_of_week' );
 				$attrs['data-view'] = 'list';
 				if ( tribe_is_upcoming() ) {
-					$attrs['data-baseurl'] = tribe_get_listview_link( false );
+					$attrs['data-baseurl'] = tribe_get_listview_link( $term );
 				} elseif ( tribe_is_past() ) {
 					$attrs['data-view']    = 'past';
-					$attrs['data-baseurl'] = tribe_get_listview_past_link( false );
+					$attrs['data-baseurl'] = tribe_get_listview_past_link( $term );
 				}
 				break;
 		}
