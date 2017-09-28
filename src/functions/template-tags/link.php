@@ -178,6 +178,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string URL
 	 */
 	function tribe_get_listview_dir_link( $direction = 'next', $term = null, $currently_displaying = null, $page = null ) {
+
 		$link = tribe_get_listview_link( $term );
 
 		// if a page isn't passed in, attempt to fetch it from a get var
@@ -220,7 +221,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$link = add_query_arg( array(
 			'tribe_event_display' => $display,
-			'tribe_paged' => $page,
+			'tribe_paged'         => $page,
 		), $link );
 
 		return apply_filters( 'tribe_get_listview_dir_link', $link, $term );
@@ -251,6 +252,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_listview_next_link( $term = null ) {
 		$link = tribe_get_listview_dir_link( 'next', $term );
+
 		return apply_filters( 'tribe_get_listview_next_link', $link, $term );
 	}
 
