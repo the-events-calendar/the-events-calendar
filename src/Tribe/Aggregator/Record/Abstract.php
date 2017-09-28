@@ -1034,8 +1034,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// Prevents Pending that is younger than 1 hour to be pruned
 		if (
-			Tribe__Events__Aggregator__Records::$status->pending === $this->post->post_status &&
-			$current < $created + HOUR_IN_SECONDS
+			Tribe__Events__Aggregator__Records::$status->pending === $this->post->post_status
+			&& $current < $created + HOUR_IN_SECONDS
 		) {
 			return false;
 		}
