@@ -27,7 +27,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	/**
 	 * Tribe__Events__REST__V1__Endpoints__Archive_Event constructor.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param Tribe__REST__Messages_Interface                  $messages
 	 * @param Tribe__Events__REST__Interfaces__Post_Repository $repository

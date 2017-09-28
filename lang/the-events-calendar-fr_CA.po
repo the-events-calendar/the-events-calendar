@@ -6442,7 +6442,7 @@ msgstr "Aucun %1$s à venir répertorié sous %2$s. Découvrez les %3$s à venir
 msgid "This %s has passed."
 msgstr "Cet %s est passé."
 
-#: src/Tribe/Template/Month.php:899
+#: src/Tribe/Template/Month.php:908
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "La date demandée \"%s\" n'était pas valide &ndash; voici le mois en cours à la place."
 
@@ -6880,7 +6880,7 @@ msgstr "liste"
 msgid "month"
 msgstr "mois"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.2) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:565

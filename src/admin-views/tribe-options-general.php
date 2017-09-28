@@ -63,9 +63,19 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 			'validation_type' => 'boolean',
 		),
 		'unprettyPermalinksUrl'         => array(
-			'type'        => 'html',
-			'label'       => esc_html__( 'Events URL slug', 'the-events-calendar' ),
-			'html'        => '<p>' . sprintf( __( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href="%1$s">%2$s</a>. In order to edit the slug here, <a href="%3$soptions-permalink.php">enable pretty permalinks</a>.', 'the-events-calendar' ), esc_url( $tec->getLink( 'home' ) ), $tec->getLink( 'home ' ), esc_url( trailingslashit( get_admin_url() ) ) ) . '</p>',
+			'type'  => 'html',
+			'label' => esc_html__( 'Events URL slug', 'the-events-calendar' ),
+			'html'  => '<p>'
+				. sprintf(
+					__( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is %1$s. In order to edit the slug here, <a href="%2$s">enable pretty permalinks</a>.', 'the-events-calendar' ),
+					sprintf (
+						'<a href="%1$s">%2$s</a>',
+						esc_url( $tec->getLink( 'home' ) ),
+						esc_url( $tec->getLink( 'home' ) )
+					),
+					esc_url( trailingslashit( get_admin_url() ) . 'options-permalink.php' )
+				)
+				. '</p>',
 			'conditional' => ( '' == get_option( 'permalink_structure' ) ),
 		),
 		'eventsSlug'                    => array(

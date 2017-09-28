@@ -12,7 +12,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 	 * Returns the content of the `args` array that should be used to register the endpoint
 	 * with the `register_rest_route` function.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @return array
 	 */
@@ -47,7 +47,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 	 * The intelligence lies in the "gatherer" of informations rather than in the single "providers" implementing this
 	 * interface.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @link  http://swagger.io/
 	 *
@@ -130,7 +130,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 	 * Returns the content of the `args` array that should be used to register the endpoint
 	 * with the `register_rest_route` function.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @return array
 	 */
@@ -149,7 +149,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 	/**
 	 * Returns the taxonomy of the terms handled by the endpoint.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @return string
 	 */
@@ -160,7 +160,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 	/**
 	 * Returns the term namespace used by the endpoint.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @return string
 	 */

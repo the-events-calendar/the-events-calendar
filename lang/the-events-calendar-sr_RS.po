@@ -6468,7 +6468,7 @@ msgstr ""
 msgid "This %s has passed."
 msgstr "Овај %s је прошао."
 
-#: src/Tribe/Template/Month.php:899
+#: src/Tribe/Template/Month.php:908
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr ""
 
@@ -6907,7 +6907,7 @@ msgstr "Листа"
 msgid "month"
 msgstr "месец"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.2) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:565

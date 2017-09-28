@@ -4,7 +4,7 @@ Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6dev1
+Stable tag: 4.6.1
 Tested up to: 4.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -327,7 +327,17 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.6] TBD =
+= [4.6.1] TBD =
+
+* Fix - Fixed some layout issues with the Tribe Bar datepicker that would arise when using a Twentysixteen or Twentyfifteen child them (thanks to @stefanrueegger for reporting this) [46471]
+* Fix - Fixed issues with the jQuery Timepicker vendor script conflicting with other plugins' similar scripts (props: @hcny et al.) [74644]
+* Tweak - Remove unnecessary paramters from some remove_action calls in the plugin (thanks to @JPry on GitHub for submitting this fix!) [88867]
+* Tweak - Adjusted the EA cron start time so that it never gets created in the past [88965]
+* Tweak - Adjusted the `tribe_update_venue()` template tag so it no longer creates some unncessary meta fields involving post_title, post_content, etc. (thanks @oheinrich for bringing this to our attention) [66968]
+* Language - Improvements to aid translatability of text throughout plugin (props: @ramiy) [88982]
+* Deprecated - Deprecated the `tribe-events-bar-date-search-default-value` filter; use `tribe_events_bar_date_search_default_value` instead [67482]
+
+= [4.6] 2017-09-25 =
 
 * Feature - Added full CRUD REST support for Events, Organizers, Venues, Event Categories, and Tags
 * Tweak - Updated Bootstrap Datepicker to v1.7.0
@@ -338,6 +348,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Added action: `tribe_events_organizer_created`
 * Tweak - Added REST filters: `tribe_rest_organizer_default_only_with_upcoming`, `tribe_rest_venue_default_only_with_upcoming`, `tribe_events_rest_term_allow_delete`
 * Tweak - Added duplicate-detection filters: `tribe_duplicate_post_strategies`, `tribe_duplicate_post_strategy`, `tribe_duplicate_post_{$strategy}_strategy`
+* Language - 152 new strings added, 217 updated, 6 fuzzied, and 1 obsoleted
 
 = [4.5.13] 2017-09-20 =
 

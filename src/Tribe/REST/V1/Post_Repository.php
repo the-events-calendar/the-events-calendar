@@ -33,7 +33,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 *
 	 * @return array An array representation of the post.
 	 *
-	 * @since TBD Added $context param
+	 * @since 4.6 Added $context param
 	 */
 	public function get_data( $id, $context = '' ) {
 		$post = get_post( $id );
@@ -57,7 +57,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 *
 	 * @return array|WP_Error Either the array representation of an event or an error object.
 	 *
-	 * @since TBD Added $context param
+	 * @since 4.6 Added $context param
 	 */
 	public function get_event_data( $event_id, $context = '' ) {
 		$event = get_post( $event_id );
@@ -121,7 +121,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 * Filters the list of contexts that should trigger the attachment of the JSON LD information to the event
 		 * REST representation.
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 *
 		 * @param array $json_ld_contexts An array of contexts.
 		 */
@@ -156,7 +156,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 *
 	 * @return array|WP_Error Either the array representation of a venue or an error object.
 	 *
-	 * @since TBD Added $context param
+	 * @since 4.6 Added $context param
 	 */
 	public function get_venue_data( $event_or_venue_id, $context = '' ) {
 		if ( tribe_is_event( $event_or_venue_id ) ) {
@@ -208,7 +208,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 * Filters the list of contexts that should trigger the attachment of the JSON LD information to the venue
 		 * REST representation.
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 *
 		 * @param array $json_ld_contexts An array of contexts.
 		 */
@@ -324,7 +324,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 *                        arrya of array representations of an event organizer or
 	 *                        an error object.
 	 *
-	 * @since TBD Added $context param
+	 * @since 4.6 Added $context param
 	 */
 	public function get_organizer_data( $event_or_organizer_id, $context = '' ) {
 		if ( tribe_is_event( $event_or_organizer_id ) ) {
@@ -377,7 +377,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			 * Filters the list of contexts that should trigger the attachment of the JSON LD information to the organizer
 			 * REST representation.
 			 *
-			 * @since TBD
+			 * @since 4.6
 			 *
 			 * @param array $json_ld_contexts An array of contexts.
 			 */
@@ -467,7 +467,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Returns the categories assigned to the specified event.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param int $event_id
 	 *
@@ -490,7 +490,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Returns the terms associated with an event.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param int $event_id An event post ID.
 	 * @param string $taxonomy
@@ -530,7 +530,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Returns the tags assigned to the specified event.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param int $event_id
 	 *
@@ -553,7 +553,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Returns an array of prepared array representations of a taxonomy term.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param array $terms_data An array of term objects.
 	 * @param string $taxonomy The taxonomy of the term objects.
@@ -583,7 +583,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Prepares a single term data for the response.
 	 *
-	 * @since TBD
+	 * @since 4.6
 	 *
 	 * @param array  $term_data
 	 * @param string $taxonomy
@@ -634,7 +634,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 * @param array                $term_data The data that will be returned in the response for the taxonomy term.
 		 * @param string               $taxonomy  The term taxonomy
 		 *
-		 * @since TBD
+		 * @since 4.6
 		 */
 		$data = apply_filters( 'tribe_rest_taxonomy_term_data', $term_data, $taxonomy );
 
