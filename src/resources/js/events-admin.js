@@ -1,7 +1,7 @@
 var tribe_timepickers = tribe_timepickers || {};
 
 ( function ( $, obj ) {
-	'use strict';
+	"use strict";
 
 	obj.selector = {
 		container  : '.tribe-datetime-block',
@@ -25,14 +25,14 @@ var tribe_timepickers = tribe_timepickers || {};
 	obj.$ = {};
 
 	obj.container = function( k, container ) {
-		var $container  = $( container );
-		var $all_day    = $container.find( obj.selector.all_day );
-		var $timepicker = $container.find( obj.selector.timepicker );
-		var $timezone   = $container.find( obj.selector.timezone ).not( obj.selector.input );
-		var $input      = $container.find( obj.selector.timezone ).filter( obj.selector.input );
+		var $container = $( container ),
+			$all_day = $container.find( obj.selector.all_day ),
+			$timepicker = $container.find( obj.selector.timepicker ),
+			$timezone = $container.find( obj.selector.timezone ).not( obj.selector.input ),
+			$input = $container.find( obj.selector.timezone ).filter( obj.selector.input ),
 
-		// Create the Link
-		var $timezone_link = $( obj.timezone.link( { label: $input.data( 'timezoneLabel' ), timezone: $input.data( 'timezoneValue' ) } ) );
+			// Create the Link
+			$timezone_link = $( obj.timezone.link( { label: $input.data( 'timezoneLabel' ), timezone: $input.data( 'timezoneValue' ) } ) );
 
 		// Toggle Timepickers on All Day change
 		$all_day.on( 'change', function() {
@@ -69,8 +69,8 @@ var tribe_timepickers = tribe_timepickers || {};
 	obj.setup_timepickers = function( $timepickers ) {
 		// Setup all Timepickers
 		$timepickers.each( function() {
-			var $item = $( this );
-			var opts  = $.extend( {}, obj.timepicker.opts );
+			var $item = $( this ),
+				opts = $.extend( {}, obj.timepicker.opts );
 
 			if ( $item.data( 'format' ) ) {
 				opts.timeFormat = $item.data( 'format' );
@@ -91,12 +91,7 @@ var tribe_timepickers = tribe_timepickers || {};
 				opts.forceRoundTime = true;
 			}
 
-			if ( 'undefined' !== typeof $.fn.tribeTimepicker ) {
-				$item.tribeTimepicker( opts ).trigger( 'change' );
-			} else {
-				// @deprecated TBD
-				$item.timepicker( opts ).trigger( 'change' );
-			}
+			$item.timepicker( opts ).trigger( 'change' );
 		} );
 	};
 
@@ -170,33 +165,33 @@ var tribeDateFormat = function() {
 			L = date[_ + "Milliseconds"](),
 			o = utc ? 0 : date.getTimezoneOffset(),
 			flags = {
-				d    : d,
-				dd   : pad( d ),
-				ddd  : dF.i18n.dayNames[D],
-				dddd : dF.i18n.dayNames[D + 7],
-				m    : m + 1,
-				mm   : pad( m + 1 ),
-				mmm  : dF.i18n.monthNames[m],
-				mmmm : dF.i18n.monthNames[m + 12],
-				yy   : String( y ).slice( 2 ),
-				yyyy : y,
-				h    : H % 12 || 12,
-				hh   : pad( H % 12 || 12 ),
-				H    : H,
-				HH   : pad( H ),
-				M    : M,
-				MM   : pad( M ),
-				s    : s,
-				ss   : pad( s ),
-				l    : pad( L, 3 ),
-				L    : pad( L > 99 ? Math.round( L / 10 ) : L ),
-				t    : H < 12 ? "a" : "p",
-				tt   : H < 12 ? "am" : "pm",
-				T    : H < 12 ? "A" : "P",
-				TT   : H < 12 ? "AM" : "PM",
-				Z    : utc ? "UTC" : (String( date ).match( timezone ) || [""]).pop().replace( timezoneClip, "" ),
-				o    : (o > 0 ? "-" : "+") + pad( Math.floor( Math.abs( o ) / 60 ) * 100 + Math.abs( o ) % 60, 4 ),
-				S    : ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
+				d   : d,
+				dd  : pad( d ),
+				ddd : dF.i18n.dayNames[D],
+				dddd: dF.i18n.dayNames[D + 7],
+				m   : m + 1,
+				mm  : pad( m + 1 ),
+				mmm : dF.i18n.monthNames[m],
+				mmmm: dF.i18n.monthNames[m + 12],
+				yy  : String( y ).slice( 2 ),
+				yyyy: y,
+				h   : H % 12 || 12,
+				hh  : pad( H % 12 || 12 ),
+				H   : H,
+				HH  : pad( H ),
+				M   : M,
+				MM  : pad( M ),
+				s   : s,
+				ss  : pad( s ),
+				l   : pad( L, 3 ),
+				L   : pad( L > 99 ? Math.round( L / 10 ) : L ),
+				t   : H < 12 ? "a" : "p",
+				tt  : H < 12 ? "am" : "pm",
+				T   : H < 12 ? "A" : "P",
+				TT  : H < 12 ? "AM" : "PM",
+				Z   : utc ? "UTC" : (String( date ).match( timezone ) || [""]).pop().replace( timezoneClip, "" ),
+				o   : (o > 0 ? "-" : "+") + pad( Math.floor( Math.abs( o ) / 60 ) * 100 + Math.abs( o ) % 60, 4 ),
+				S   : ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
 			};
 
 		return mask.replace( token, function( $0 ) {
@@ -206,40 +201,41 @@ var tribeDateFormat = function() {
 }();
 
 tribeDateFormat.masks = {
-	'default'         : 'ddd mmm dd yyyy HH:MM:ss',
-	'tribeQuery'      : 'yyyy-mm-dd',
-	'tribeMonthQuery' : 'yyyy-mm',
-	'0'               : 'yyyy-mm-dd',
-	'1'               : 'm/d/yyyy',
-	'2'               : 'mm/dd/yyyy',
-	'3'               : 'd/m/yyyy',
-	'4'               : 'dd/mm/yyyy',
-	'5'               : 'm-d-yyyy',
-	'6'               : 'mm-dd-yyyy',
-	'7'               : 'd-m-yyyy',
-	'8'               : 'dd-mm-yyyy',
-	'9'               : 'yyyy.mm.dd',
-	'10'              : 'mm.dd.yyyy',
-	'11'              : 'dd.mm.yyyy',
-	'm0'              : 'yyyy-mm',
-	'm1'              : 'm/yyyy',
-	'm2'              : 'mm/yyyy',
-	'm3'              : 'm/yyyy',
-	'm4'              : 'mm/yyyy',
-	'm5'              : 'm-yyyy',
-	'm6'              : 'mm-yyyy',
-	'm7'              : 'm-yyyy',
-	'm8'              : 'mm-yyyy'
+	"default":         "ddd mmm dd yyyy HH:MM:ss",
+	"tribeQuery":      "yyyy-mm-dd",
+	"tribeMonthQuery": "yyyy-mm",
+	"0":               'yyyy-mm-dd',
+	"1":               'm/d/yyyy',
+	"2":               'mm/dd/yyyy',
+	"3":               'd/m/yyyy',
+	"4":               'dd/mm/yyyy',
+	"5":               'm-d-yyyy',
+	"6":               'mm-dd-yyyy',
+	"7":               'd-m-yyyy',
+	"8":               'dd-mm-yyyy',
+	"9":               'yyyy.mm.dd',
+	"10":              'mm.dd.yyyy',
+	"11":              'dd.mm.yyyy',
+	"m0":              'yyyy-mm',
+	"m1":              'm/yyyy',
+	"m2":              'mm/yyyy',
+	"m3":              'm/yyyy',
+	"m4":              'mm/yyyy',
+	"m5":              'm-yyyy',
+	"m6":              'mm-yyyy',
+	"m7":              'm-yyyy',
+	"m8":              'mm-yyyy'
+
 };
 
 tribeDateFormat.i18n = {
 	dayNames  : [
-		'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat',
-		'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+		"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
+		"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 	],
 	monthNames: [
-		'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-		'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+		"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+		"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
 	]
 };
 
@@ -258,10 +254,10 @@ jQuery( document ).ready( function( $ ) {
 	 */
 	var $date_format      = $( '[data-datepicker_format]' ),
 		$view_select      = $( '.tribe-field-dropdown_select2 select' ),
-		viewCalLinkHTML   = $( document.getElementById( 'view-calendar-link-div' ) ).html(),
+		viewCalLinkHTML   = $( '#view-calendar-link-div' ).html(),
 		$template_select  = $( 'select[name="tribeEventsTemplate"]' ),
-		$event_pickers    = $( document.getElementById( 'tribe-event-datepickers' ) ),
-		is_community_edit = $( 'body' ).is( '.tribe_community_edit' ),
+		$event_pickers    = $( '#tribe-event-datepickers' ),
+		is_community_edit   = $( 'body' ).is( '.tribe_community_edit' ),
 		datepicker_format = 0;
 
 	// Modified from tribe_ev.data to match jQuery UI formatting.
@@ -323,10 +319,10 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	var setup_linked_post_fields = function( post_type ) {
-		var saved_template  = $( document.getElementById( 'tmpl-tribe-select-' + post_type ) ).length ? wp.template( 'tribe-select-' + post_type ) : null;
+		var saved_template = $( document.getElementById( 'tmpl-tribe-select-' + post_type ) ).length ? wp.template( 'tribe-select-' + post_type ) : null;
 		var create_template = $( document.getElementById( 'tmpl-tribe-create-' + post_type ) ).length ? wp.template( 'tribe-create-' + post_type ) : null;
-		var section         = $( document.getElementById( 'event_' + post_type ) );
-		var rows            = section.find( '.saved-linked-post' );
+		var section = $( document.getElementById( 'event_' + post_type ) );
+		var rows = section.find( '.saved-linked-post' );
 
 		section.on( 'click', '.tribe-add-post', function(e) {
 			e.preventDefault();
@@ -408,7 +404,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		rows.each( function () {
-			var row   = $( this );
+			var row = $( this );
 			var group = row.closest( 'tbody' );
 			var fields;
 
@@ -459,11 +455,11 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		section.sortable( {
-			items       : sortable_items,
-			handle      : '.move-linked-post-group',
-			containment : 'parent',
-			axis        : 'y',
-			delay       : 100
+			items: sortable_items,
+			handle: '.move-linked-post-group',
+			containment: 'parent',
+			axis: 'y',
+			delay: 100
 		} );
 
 		if ( section.find( 'tbody' ).length > 1 ) {
@@ -474,11 +470,11 @@ jQuery( document ).ready( function( $ ) {
 	};
 
 	var toggle_linked_post_fields = function( event ) {
-		var $select   = $( this ),
-			$group    = $select.closest( 'tbody' ),
-			$edit     = $group.find( '.edit-linked-post-link a' ),
+		var $select = $( this ),
+			$group = $select.closest( 'tbody' ),
+			$edit = $group.find( '.edit-linked-post-link a' ),
 			edit_link = $edit.attr( 'data-admin-url' ),
-			choice    = 'undefined' === typeof event.added ? {} : event.added;
+			choice = 'undefined' === typeof event.added ? {} : event.added;
 
 		// Maybe Hide Edit link
 		if ( _.isEmpty( choice ) ) {
@@ -533,18 +529,18 @@ jQuery( document ).ready( function( $ ) {
 			startofweek = $event_pickers.data( 'startofweek' );
 		}
 
-		var $start_date = $( document.getElementById( 'EventStartDate' ) );
-		var $end_date   = $( document.getElementById( 'EventEndDate' ) );
+		var $start_date = $( '#EventStartDate' );
+		var $end_date   = $( '#EventEndDate' );
 
 		tribe_datepicker_opts = {
-			dateFormat      : date_format,
-			showAnim        : 'fadeIn',
-			changeMonth     : true,
-			changeYear      : true,
-			numberOfMonths  : get_datepicker_num_months(),
-			firstDay        : startofweek,
-			showButtonPanel : false,
-			beforeShow      : function( element, object ) {
+			dateFormat     : date_format,
+			showAnim       : 'fadeIn',
+			changeMonth    : true,
+			changeYear     : true,
+			numberOfMonths : get_datepicker_num_months(),
+			firstDay       : startofweek,
+			showButtonPanel: false,
+			beforeShow     : function( element, object ) {
 				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
 				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
 			},
@@ -554,7 +550,7 @@ jQuery( document ).ready( function( $ ) {
 
 				// If the start date was adjusted, then let's modify the minimum acceptable end date
 				if ( this.id === 'EventStartDate' ) {
-					var start_date = $( document.getElementById( 'EventStartDate' ) ).data( 'prevDate' );
+					var start_date = $( '#EventStartDate' ).data( 'prevDate' );
 					var date_diff = null == start_date ? 0 : date_diff_in_days( start_date, $end_date.datepicker( 'getDate' ) );
 					var end_date = new Date( date.setDate( date.getDate() + date_diff ) );
 
@@ -575,10 +571,10 @@ jQuery( document ).ready( function( $ ) {
 
 		$.extend( tribe_datepicker_opts, tribe_l10n_datatables.datepicker );
 
-		var dates            = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
-		var $start_end_month = $( 'select[name="EventStartMonth"], select[name="EventEndMonth"]' );
-		var $start_month     = $( 'select[name="EventStartMonth"]' );
-		var $end_month       = $( 'select[name="EventEndMonth"]' );
+		var dates = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
+		var $start_end_month = $( "select[name='EventStartMonth'], select[name='EventEndMonth']" );
+		var $start_month = $( "select[name='EventStartMonth']" );
+		var $end_month = $( 'select[name="EventEndMonth"]' );
 		var selectObject;
 
 		if ( is_community_edit ) {
@@ -596,23 +592,12 @@ jQuery( document ).ready( function( $ ) {
 		var tribeDaysPerMonth = [29, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 		// start and end date select sections
-		var tribeStartDays = [
-			$( document.getElementById( '28StartDays' ) ),
-			$( document.getElementById( '29StartDays' ) ),
-			$( document.getElementById( '30StartDays' ) ),
-			$( document.getElementById( '31StartDays' ) )
-		];
-		
-		var tribeEndDays = [
-			$( document.getElementById( '28EndDays' ) ),
-			$( document.getElementById( '29EndDays' ) ),
-			$( document.getElementById( '30EndDays' ) ),
-			$( document.getElementById( '31EndDays' ) )
-		];
+		var tribeStartDays = [ $( '#28StartDays' ), $( '#29StartDays' ), $( '#30StartDays' ), $( '#31StartDays' ) ],
+			tribeEndDays = [ $( '#28EndDays' ), $( '#29EndDays' ), $( '#30EndDays' ), $( '#31EndDays' ) ];
 
 		$start_end_month.change( function() {
 			var t = $( this );
-			var startEnd = t.attr( 'name' );
+			var startEnd = t.attr( "name" );
 			// get changed select field
 			if ( startEnd == 'EventStartMonth' ) {
 				startEnd = 'Start';
@@ -626,15 +611,15 @@ jQuery( document ).ready( function( $ ) {
 				chosenMonth = chosenMonth.replace( '0', '' );
 			}
 			// leap year
-			var remainder = $( 'select[name="Event' + startEnd + 'Year"]' ).attr( 'value' ) % 4;
+			var remainder = $( "select[name='Event" + startEnd + "Year']" ).attr( "value" ) % 4;
 			if ( chosenMonth == 2 && remainder == 0 ) {
 				chosenMonth = 0;
 			}
 			// preserve selected option
-			var currentDateField = $( 'select[name="Event' + startEnd + 'Day"]' );
+			var currentDateField = $( "select[name='Event" + startEnd + "Day']" );
 
 			$( '.event' + startEnd + 'DateField' ).remove();
-			if ( startEnd == 'Start' ) {
+			if ( startEnd == "Start" ) {
 				selectObject = tribeStartDays[ tribeDaysPerMonth[ chosenMonth ] - 28 ];
 				selectObject.val( currentDateField.val() );
 				$start_month.after( selectObject );
@@ -648,11 +633,11 @@ jQuery( document ).ready( function( $ ) {
 
 		$start_end_month.change();
 
-		$( 'select[name="EventStartYear"]' ).change( function() {
+		$( "select[name='EventStartYear']" ).change( function() {
 			$start_month.change();
 		} );
 
-		$( 'select[name="EventEndYear"]' ).change( function() {
+		$( "select[name='EventEndYear']" ).change( function() {
 			$end_month.change();
 		} );
 
@@ -666,13 +651,13 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	//show state/province input based on first option in countries list, or based on user input of country
-	$( 'body' ).on( 'change', '#EventCountry', function () {
-		var $country        = $( this );
-			$container      = $country.parents( 'div.eventForm' ).eq( 0 ),
+	$( 'body' ).on( 'change', "#EventCountry", function () {
+		var $country = $( this );
+			$container = $country.parents( 'div.eventForm' ).eq( 0 ),
 			$state_dropdown = $container.find( '#s2id_StateProvinceSelect' ),
-			$state_select   = $container.find( '#StateProvinceSelect' ),
-			$state_text     = $container.find( '#StateProvinceText' ),
-			country         = $( this ).val();
+			$state_select = $container.find( "#StateProvinceSelect" ),
+			$state_text = $container.find( "#StateProvinceText" ),
+			country = $( this ).val();
 
 		if ( country == 'US' || country == 'United States' ) {
 			$state_text.hide();
@@ -687,14 +672,14 @@ jQuery( document ).ready( function( $ ) {
 
 	// EventCoordinates
 	var overwriteCoordinates = {
-		$container : $( document.getElementById( 'overwrite_coordinates' ) )
+		$container: $( '#overwrite_coordinates' )
 	};
 
 	overwriteCoordinates.$lat = overwriteCoordinates.$container.find( '#VenueLatitude' );
 	overwriteCoordinates.$lng = overwriteCoordinates.$container.find( '#VenueLongitude' );
 
 	overwriteCoordinates.$fields = $('').add( overwriteCoordinates.$lat ).add( overwriteCoordinates.$lng );
-	overwriteCoordinates.$toggle = overwriteCoordinates.$container.find( '#VenueOverwriteCoords' ).on( 'change', function( event ) {
+	overwriteCoordinates.$toggle = overwriteCoordinates.$container.find( '#VenueOverwriteCoords' ).on( 'change', function( event ){
 		if ( overwriteCoordinates.$toggle.is(':checked') ) {
 			overwriteCoordinates.$fields.prop( 'disabled', false ).removeClass( 'hidden' );
 		} else {
@@ -735,14 +720,15 @@ jQuery( document ).ready( function( $ ) {
 	// Default Layout Settings
 	// shows / hides proper views that are to be used on front-end
 
-	var $tribe_views = $( document.getElementById( 'tribe-field-tribeEnableViews' ) );
+	var $tribe_views = $( '#tribe-field-tribeEnableViews' );
 
 	if ( $tribe_views.length ) {
 
-		var $default_view_select = $( '.tribe-field-dropdown_select2 select[name="viewOption"]' ),
-			$view_inputs         = $tribe_views.find( 'input:checkbox' ),
-			$view_desc           = $( '#tribe-field-tribeEnableViews .tribe-field-wrap p.description' ),
-			view_options         = {};
+		var $default_view_select = $( 'select[name="viewOption"]' ),
+			$default_mobile_view_select = $( 'select[name="mobile_default_view"]' ),
+			$view_inputs = $tribe_views.find( 'input:checkbox' ),
+			$view_desc = $( '#tribe-field-tribeEnableViews .tribe-field-wrap p.description' ),
+			view_options = {};
 
 		function create_view_array() {
 
@@ -756,16 +742,35 @@ jQuery( document ).ready( function( $ ) {
 
 				} );
 
+			$default_mobile_view_select
+				.find( 'option' )
+				.each( function() {
+
+					var $this = $( this );
+
+					view_options[$this.attr( 'value' )] = $this.text();
+
+				} );
+
 		}
 
-		function set_selected_views() {
+		function set_selected_views( $this ) {
 			// Store the default view chosen prior to this change
 			var prev_default_view = $default_view_select
 				.find( "option:selected" )
 				.first()
 				.val();
 
+			var prev_default_mobile_view = $default_mobile_view_select
+				.find( "option:selected" )
+				.first()
+				.val();
+
 			$default_view_select
+				.find( 'option' )
+				.remove();
+
+			$default_mobile_view_select
 				.find( 'option' )
 				.remove();
 
@@ -777,26 +782,37 @@ jQuery( document ).ready( function( $ ) {
 						var value = $this.val();
 						$default_view_select
 							.append( '<option value="' + value + '">' + view_options[value] + '</option>' );
+						$default_mobile_view_select
+							.append( '<option value="' + value + '">' + view_options[value] + '</option>' );
 					}
 				} );
 
 			// Test to see if the previous default view is still available...
 			var $prev_default_option = $default_view_select.find( "option[value='" + prev_default_view + "']" );
+			var $prev_default_mobile_option = $default_mobile_view_select.find( "option[value='" + prev_default_mobile_view + "']" );
 
 			// ...if it is, keep it as the default (else switch to the first available remaining option)
-			if ( 1 === $prev_default_option.length ) {
-				$prev_default_option
-					.attr( 'selected', 'selected' );
+			if ( $prev_default_option.val() == $this.val() ) {
+				$prev_default_option .attr( 'selected', 'selected' );
 			} else {
-				$default_view_select
-					.find( 'option' )
-					.first()
-					.attr( 'selected', 'selected' );
+				var $default_reset = $tribe_views.find( 'checkbox:checked' ).first().val();
+				$default_view_select.find( 'option' ).find( "option[value='" + $default_reset + "']" ).attr( 'selected', 'selected' );
+			}
+
+			if ( $prev_default_mobile_option.val() == $this.val() ) {
+				$prev_default_mobile_option .attr( 'selected', 'selected' );
+			} else {
+				var $default_reset = $tribe_views.find( 'checkbox:checked' ).first().val();
+				$default_mobile_view_select.find( 'option' ).find( "option[value='" + $default_reset + "']" ).attr( 'selected', 'selected' );
 			}
 
 			$default_view_select
 				.select2( 'destroy' )
-				.select2( {width: '250px'} );
+				.select2( {width: 'auto'} );
+
+			$default_mobile_view_select
+				.select2( 'destroy' )
+				.select2( {width: 'auto'} );
 		}
 
 		create_view_array();
@@ -814,7 +830,7 @@ jQuery( document ).ready( function( $ ) {
 					$view_desc.removeAttr( 'style' );
 				}
 
-				set_selected_views();
+				set_selected_views( $this );
 
 			} );
 	}
