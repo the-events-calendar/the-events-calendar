@@ -335,6 +335,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Fixed issue when exporting all-day multi-day events via iCal where the end date was one day early (Thank you @fairmont for reporting this!) [87775]
 * Fix - Fixed issues with the jQuery Timepicker vendor script conflicting with other plugins' similar scripts (props: @hcny et al.) [74644]
 * Fix - Fixed an issue that would prevent Event Aggregator scheduled imports from running [88395]
+* Fix - Fixed the "Start Time" and "End Time" timepicker fields in the event-creation screen to make it impossible to have an end date/time that comes before the start date/time [72686]
 * Tweak - Remove unnecessary paramters from some remove_action calls in the plugin (thanks to @JPry on GitHub for submitting this fix!) [88867]
 * Tweak - Adjusted the EA cron start time so that it never gets created in the past [88965]
 * Tweak - Improved options format in the Event Aggregator settings [88970]
