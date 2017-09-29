@@ -151,7 +151,6 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	obj.event_date_change = function () {
 
 		$( '#EventStartDate, #EventStartTime, #EventEndDate, #EventEndTime, #allDayCheckbox' ).on( 'change', function () {
-			//obj.prevent_invalid_time();
 			obj.setup_and_display_text();
 		} );
 	};
