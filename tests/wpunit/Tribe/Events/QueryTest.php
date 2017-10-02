@@ -172,4 +172,16 @@ class QueryTest extends Events_TestCase {
 
 		$this->assertEquals( 5, $found_posts );
 	}
+
+	/**
+	 * It should return 0 when no posts are found and found_posts is set
+	 *
+	 * @test
+	 */
+	public function should_return_0_when_no_posts_are_found_and_found_posts_is_set() {
+		$args        = [ 'found_posts' => true ];
+		$found_posts = Query::getEvents( $args );
+
+		$this->assertEquals( 0, $found_posts );
+	}
 }

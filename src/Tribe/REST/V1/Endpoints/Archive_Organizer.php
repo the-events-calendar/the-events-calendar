@@ -260,12 +260,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	protected function get_total( $args, $only_with_upcoming = false ) {
 		unset( $args['posts_per_page'] );
 
-		$this->total = count( tribe_get_organizers( $only_with_upcoming, - 1, true,
+		$this->total = tribe_get_organizers( $only_with_upcoming, - 1, true,
 			array_merge( $args, array(
-				'fields'                 => 'ids',
+				'found_posts'            => true,
 				'update_post_meta_cache' => false,
 				'update_post_term_cache' => false,
-			) ) ) );
+			) ) );
 
 		return $this->total;
 	}

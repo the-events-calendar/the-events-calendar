@@ -324,16 +324,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param array $args {
 	 *		Optional. Array of Query parameters.
 	 *
-	 *		@type int  $event      Only organizers linked to this event post ID.
-	 *		@type bool $has_events Only organizers that have events.
+	 *		@type int  $event       Only organizers linked to this event post ID.
+	 *		@type bool $has_events  Only organizers that have events.
+	 *		@type bool $found_posts Return the number of found organizers.
 	 * }
 	 *
-	 * @return array An array of organizer post objects.
+	 * @return array|int An array of organizer post objects or an integer value if `found_posts` is set to a truthy value.
 	 */
 	function tribe_get_organizers( $only_with_upcoming = false, $posts_per_page = - 1, $suppress_filters = true, array $args = array() ) {
-		/** @var wpdb $wpdb */
-		global $wpdb;
-
 		// filter out the `null` values
 		$args = array_diff_key( $args, array_filter( $args, 'is_null' ) );
 
@@ -377,9 +375,25 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			)
 		);
 
-		$organizers = get_posts( $parsed_args );
+		$return_found_posts = ! empty( $args['found_posts'] );
 
-		return $organizers;
+		if ( $return_found_posts ) {
+			$parsed_args['posts_per_page'] = 1;
+			$parsed_args['paged']          = 1;
+		}
+
+		$query = new WP_Query( $parsed_args );
+
+		if ( $return_found_posts ) {
+			if ( $query->have_posts() ) {
+
+				return $query->found_posts;
+			}
+
+			return 0;
+		}
+
+		return $query->have_posts() ? $query->posts : array();
 	}
 
 }

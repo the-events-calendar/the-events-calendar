@@ -1009,12 +1009,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		/**
 		 * Customized WP_Query wrapper to setup event queries with default arguments.
 		 *
-		 * @param array $args An array of arguments supported by the `WP_Query` class
-		 *        {
-		 *              @param bool $found_posts If set to a truthy value the returned result will be an integer
-		 *                                       detailiing the number of total found posts for the provided
-		 *                                       query arguments.
-		 *        }
+		 * @param array $args {
+		 *		Optional. Array of Query parameters.
+		 *
+		 *      @type bool $found_posts Return the number of found events.
+		 * }
 		 * @param bool  $full Whether the full WP_Query object should returned (`true`) or just the
 		 *                    found posts (`false`)
 		 *
