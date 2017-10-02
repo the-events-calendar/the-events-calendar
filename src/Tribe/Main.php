@@ -4361,7 +4361,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Allows for customizing the "date search" field value.
 			 *
-			 * @deprecated TBD Use tribe_events_bar_date_search_default_value instead.
+			 * @deprecated 4.6.1 Use tribe_events_bar_date_search_default_value instead.
 			 *
 			 * @param string $value The "date search" field value, which defaults to an empty string.
 			 */

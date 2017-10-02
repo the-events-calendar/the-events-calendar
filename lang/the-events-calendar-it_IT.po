@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-09-17 10:54:18+0000\n"
+"PO-Revision-Date: 2017-09-30 09:40:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:958
 msgid "edit Events settings."
-msgstr ""
+msgstr "Modifica le impostazioni degli eventi."
 
 #: src/Tribe/Main.php:949
 msgid "Edit the %s slug"
@@ -29,7 +29,7 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts.php:920 src/Tribe/Linked_Posts.php:926
 msgid "Find %1$s %2$s"
-msgstr ""
+msgstr "Trova %1$s %2$s"
 
 #: src/Tribe/Linked_Posts.php:917
 msgctxt "Indefinite article for the phrase \"Find a {post type name}\" when the {post type name} starts with a vowel, e.g. \"Find an Organizer\"."
@@ -44,19 +44,19 @@ msgstr ""
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:388
 msgid "Hide and Ignore &#8220;%s&#8221;"
-msgstr ""
+msgstr "Nascondi e ignora &#8220;%s&#8221;"
 
 #: common/src/Tribe/Main.php:265
 msgid "Clear Selection."
-msgstr ""
+msgstr "Cancella la selezione."
 
 #: common/src/Tribe/Main.php:264
 msgid "Select all pages"
-msgstr ""
+msgstr "Seleziona tutte le pagine"
 
 #: common/src/Tribe/Main.php:263
 msgid "All items on this page were selected. "
-msgstr ""
+msgstr "Tutti gli elementi di questa pagina sono stati selezionati"
 
 #: src/admin-views/aggregator/tabs/import-form.php:101
 msgid "Add more sources"
@@ -267,11 +267,11 @@ msgstr "La pagina di archivio eventi richiesta non esiste"
 #: src/admin-views/aggregator/fields/schedule.php:50
 #: src/admin-views/aggregator/fields/schedule.php:68
 msgid "at approximately"
-msgstr ""
+msgstr "A circa"
 
 #: src/admin-views/aggregator/origins/url.php:89
 msgid "Event Aggregator will try to fetch events starting in %s from the current date or the specified date;"
-msgstr ""
+msgstr "L'aggregatore di eventi cercherà di recuperare gli eventi che iniziano con %s dalla data corrente o dalla data specificata;"
 
 #: src/admin-views/aggregator/origins/url.php:83
 msgid "example.com/"
@@ -291,105 +291,105 @@ msgstr "Il nome dell'evento"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:68
 msgid "The event long description"
-msgstr ""
+msgstr "La lunghezza della descrizione dell'evento"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:72
 msgid "The event short description"
-msgstr ""
+msgstr "Breve descrizione dell'evento"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:76
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:72
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:72
 msgid "The event featured image details if set"
-msgstr ""
+msgstr "I dettagli dell'immagine in evidenza dell'evento (se impostati)"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:81
 msgid "Whether or not this event is an all day Event"
-msgstr ""
+msgstr "Sia che questo sia un evento giornaliero o meno"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:85
 msgid "The event start date in the event or site timezone"
-msgstr ""
+msgstr "La data di inizio dell'evento o il fuso orario del sito"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:89
 msgid "An array of each component of the event start date"
-msgstr ""
+msgstr "Un array di ciascun componente della data di inizio dell'evento"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:94
 msgid "The event end date in the event or site timezone"
-msgstr ""
+msgstr "La data di fine dell'evento o il fuso orario del sito"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:98
 msgid "An array of each component of the event end date"
-msgstr ""
+msgstr "Un array di ciascun componente della data di fine dell'evento"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:103
 msgid "The event start date in UTC time"
-msgstr ""
+msgstr "La data di inizio dell'evento in UTC time"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:107
 msgid "An array of each component of the event start date in UTC time"
-msgstr ""
+msgstr "Un array di ciascun componente della data di inizio dell'evento in UTC time"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:112
 msgid "The event end date in UTC time"
-msgstr ""
+msgstr "La data di fine dell'evento in UTC time"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:116
 msgid "An array of each component of the event end date in UTC time"
-msgstr ""
+msgstr "Un array di ciascun componente della data di fine dell'evento in UTC time"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:125
 msgid "The abbreviated event timezone string"
-msgstr ""
+msgstr "La stringa abbreviata del fuso orario dell'evento"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:129
 msgid "The event cost including the currency symbol"
-msgstr ""
+msgstr "Il costo dell'evento, incluso il simbolo di valuta"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:133
 msgid "The event cost details"
-msgstr ""
+msgstr "I dettagli sul costo dell'evento"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:138
 msgid "The event website URL"
-msgstr ""
+msgstr "L'URL dell'evento"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:142
 msgid "Whether the map should be shown for the event or not"
-msgstr ""
+msgstr "Sia che la mappa sia visualizzata per l'evento o meno"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:146
 msgid "Whether the map link should be shown for the event or not"
-msgstr ""
+msgstr "Sia che il collegamento alla mappa sia indicato per l'evento o meno"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:150
 msgid "Whether an event should be hidden from the calendar view or not"
-msgstr ""
+msgstr "Sia che un evento sia nascosto dalla vista del calendario o meno"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:154
 msgid "Whether an event is sticky in the calendar view or not"
-msgstr ""
+msgstr "Sia che un evento sia in evidenza nel calendario o meno"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:158
 msgid "Whether the event is featured in the calendar or not"
-msgstr ""
+msgstr "Se l'evento è incluso nel calendario o meno"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:162
 msgid "The event categories"
-msgstr ""
+msgstr "Le categorie dell'evento"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:167
 msgid "The event tags"
-msgstr ""
+msgstr "I tag dell'evento"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:172
 msgid "The event venue"
-msgstr ""
+msgstr "Il luogo dell'evento"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:177
 msgid "The event organizers"
-msgstr ""
+msgstr "Gli organizzatori dell'evento"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:24
 msgid "The organizer WordPress post ID"
@@ -397,7 +397,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:32
 msgid "An Array containing the lineage of where this organizer comes from, this should not change after the organizer is created."
-msgstr ""
+msgstr "Un array contenente la provenienza dell'organizzatore non dovrebbe cambiare dopo che l'organizzatore è stato creato."
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:36
 msgid "The organizer author WordPress post ID"
@@ -405,227 +405,227 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:40
 msgid "The organizer creation date in the site timezone"
-msgstr ""
+msgstr "La data di creazione da parte dell'organizzatore nel fuso orario del sito"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:44
 msgid "The organizer creation date in UTC time"
-msgstr ""
+msgstr "La data di creazione da parte dell'organizzatore (UTC)"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:48
 msgid "The organizer last modification date in the site timezone"
-msgstr ""
+msgstr "La data di modifica da parte dell'organizzatore nel fuso orario del sito"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:56
 msgid "The URL to the organizer page"
-msgstr ""
+msgstr "L'URL alla pagina dell'organizzatore"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:60
 msgid "The organizer name"
-msgstr ""
+msgstr "Il nome dell'organizzatore"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:64
 msgid "The organizer long description"
-msgstr ""
+msgstr "La lunga descrizione dell'organizzatore"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:68
 msgid "The organizer short description"
-msgstr ""
+msgstr "La breve descrizione dell'organizzatore"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:77
 msgid "The organizer phone number"
-msgstr ""
+msgstr "Il numero di telefono dell'organizzatore"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:81
 msgid "The organizer website"
-msgstr ""
+msgstr "Il sito web dell'organizzatore"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:85
 msgid "The organizer email address"
-msgstr ""
+msgstr "L'indirizzo email dell'organizzatore"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:28
 msgid "The venue ID used to globally identify in Event Aggregator"
-msgstr ""
+msgstr "L'ID del luogo utilizzato globalmente nell'aggregatore degli eventi"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:40
 msgid "The venue creation date in the site timezone"
-msgstr ""
+msgstr "La data di creazione del luogo nel fuso orario del sito"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:44
 msgid "The venue creation date in UTC time"
-msgstr ""
+msgstr "La data di creazione del luogo (UTC)"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:48
 msgid "The venue last modification date in the site timezone"
-msgstr ""
+msgstr "La data dell'ultima modifica al luogo nel fuso orario del sito"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:56
 msgid "The URL to the venue page"
-msgstr ""
+msgstr "L'URL alla pagina del luogo"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:60
 msgid "The venue name"
-msgstr ""
+msgstr "Il nome del luogo"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:68
 msgid "The venue short description"
-msgstr ""
+msgstr "Piccola descrizione del luogo"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:75
 msgid "Whether the map should be shown for the venue or not"
-msgstr ""
+msgstr "Sia che la mappa sia indicata per la sede o meno"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:79
 msgid "Whether the map link should be shown for the venue or not"
-msgstr ""
+msgstr "Sia che il collegamento alla mappa sia indicato per la sede o meno"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:83
 msgid "The venue address"
-msgstr ""
+msgstr "L'indirizzo del luogo"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:87
 msgid "The venue city"
-msgstr ""
+msgstr "La città in cui si trova il luogo"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:91
 msgid "The venue country"
-msgstr ""
+msgstr "Il continente in cui si trova il luogo"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:107
 msgid "The venue phone number"
-msgstr ""
+msgstr "Il numero di telefono del luogo"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:111
 msgid "The venue website URL"
-msgstr ""
+msgstr "L'URL del sito web del luogo"
 
 #: src/Tribe/REST/V1/EA_Messages.php:9
 msgid "Event Aggregator cannot import events from this site."
-msgstr ""
+msgstr "L'aggregatore degli eventi non può importare gli stessi da questo sito"
 
 #: src/Tribe/REST/V1/EA_Messages.php:11
 msgid "The Events Calendar is API is not providing the site origin correctly."
-msgstr ""
+msgstr "L'API di The Events Calendar non sta ricevendo l'esatta origine del sito."
 
 #: src/Tribe/REST/V1/EA_Messages.php:14
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but returned malformed data."
-msgstr ""
+msgstr "Impossibile importare gli eventi. L'URL fornito potrebbe essere raggiunto e ha l'API REST di The Events Calendar abilitata, ma ha restituito dati non formattati correttamente."
 
 #: src/Tribe/REST/V1/EA_Messages.php:15
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but there was an error while fetching the archive control data."
-msgstr ""
+msgstr "Impossibile importare eventi. L'URL fornito potrebbe essere raggiunto e avere abilitata l'API REST di The Events Calendar, ma c'è stato un errore durante il recupero dei dati di controllo dell'archivio."
 
 #: src/Tribe/REST/V1/EA_Messages.php:16
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but there was an error while fetching the total number of events."
-msgstr ""
+msgstr "Impossibile importare eventi. L'URL fornito potrebbe essere raggiunto e avere abilitata l'API REST di The Events Calendar, ma c'è stato un errore durante il recupero del numero totale degli eventi."
 
 #: src/Tribe/REST/V1/EA_Messages.php:17
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but returned malformed data in regard to the total number of events."
-msgstr ""
+msgstr "Impossibile importare eventi. L'URL fornito potrebbe essere raggiunto e avere abilitata l'API REST di The Events Calendar, ma ha restituito dati errati rispetto al numero totale di eventi."
 
 #: src/Tribe/REST/V1/EA_Messages.php:19
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but returned an empty archive page."
-msgstr ""
+msgstr "Impossibile importare eventi. L'URL fornito potrebbe essere raggiunto e avere abilitata l'API REST di The Events Calendar, ma ha restituito una pagina di archivio vuota."
 
 #: src/Tribe/REST/V1/EA_Messages.php:20
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but there was an error while fetching the event data."
-msgstr ""
+msgstr "Impossibile importare eventi. L'URL fornito potrebbe essere raggiunto e avere abilitata l'API REST di The Events Calendar, ma c'è stato un errore mentre stava recuperando i dati degli eventi."
 
 #: src/Tribe/REST/V1/EA_Messages.php:22
 msgid "The requested URL does not have any upcoming and published events matching the search criteria."
-msgstr ""
+msgstr "L'URL richiesto non ha prossimi eventi pubblicati che corrispondono ai criteri di ricerca."
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:433
 msgid "The archive page to return"
-msgstr ""
+msgstr "La pagina dell'archivio per tornare"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:441
 msgid "The number of events to return on each page"
-msgstr ""
+msgstr "Il numero di eventi da restituire in ogni pagina"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:473
 msgid "Events should be assigned one of the specified categories slugs or IDs"
-msgstr ""
+msgstr "Gli eventi dovrebbero essere assegnati a uno slug delle categorie o agli ID specificati"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:481
 msgid "Events should be assigned one of the specified tags slugs or IDs"
-msgstr ""
+msgstr "Gli eventi devono essere assegnati a uno degli slug tag o ID specificati"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:489
 msgid "Returns all the upcoming events matching the search criteria"
-msgstr ""
+msgstr "Restituisce tutti i prossimi eventi che corrispondono ai criteri di ricerca"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:497
 msgid "One or more of the specified query variables has a bad format"
-msgstr ""
+msgstr "Una o più query specificate hanno un formato errato"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:106
 msgid "The event with the specified ID is not accesible."
-msgstr ""
+msgstr "L'evento con l'ID specificato non è accessibile."
 
 #: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:124
 msgid "Returns the documentation for The Events Calendar REST API in Swagger consumable format."
-msgstr ""
+msgstr "Restituisce la documentazione per L'API REST di The Events Calendar nel formato consumabile."
 
 #: src/Tribe/REST/V1/Messages.php:26
 msgid "The requested post ID does not exist or is not an venue"
-msgstr ""
+msgstr "L'ID dell'articolo richiesto non esiste o non è un luogo."
 
 #: src/admin-views/aggregator/fields/schedule.php:3
 msgid "Schedule:"
-msgstr ""
+msgstr "Programma:"
 
 #: src/admin-views/aggregator/fields/schedule.php:32
 msgid "Import runs daily at approximately"
-msgstr ""
+msgstr "L'importazione viene eseguita giornalmente a circa"
 
 #: src/admin-views/aggregator/fields/schedule.php:38
 msgid "Import runs weekly on"
-msgstr ""
+msgstr "L'importazione viene eseguita settimanalmente ogni"
 
 #: src/admin-views/aggregator/fields/schedule.php:56
 msgid "Import runs monthly on day"
-msgstr ""
+msgstr "Le importazioni vengono eseguite mensilmente il giorno"
 
 #: src/admin-views/aggregator/origins/refine.php:22
 msgid "Use the filters to narrow down which events are fetched from this site."
-msgstr ""
+msgstr "Utilizza i filtri per limitare gli eventi provenienti da questo sito."
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:44
 msgid "The event creation date in UTC time"
-msgstr ""
+msgstr "La data di creazione dell'evento (UTC)"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:48
 msgid "The event last modification date in the site timezone"
-msgstr ""
+msgstr "L'ultima data di modifica dell'evento nel fuso orario del sito"
 
 #: src/Tribe/REST/V1/EA_Messages.php:39
 msgid "Learn more."
-msgstr ""
+msgstr "Per saperne di più."
 
 #: src/Tribe/REST/V1/Messages.php:19
 msgid "The 'per_page' parameter must be a positive integer greater than 1"
-msgstr ""
+msgstr "Il parametro \"per_page\" deve essere un intero positivo maggiore di 1"
 
 #: src/Tribe/REST/V1/Messages.php:20
 msgid "The 'start_date' parameter must be in a supported format"
-msgstr ""
+msgstr "Il parametro 'start_date' deve essere in un formato supportato"
 
 #: src/admin-views/aggregator/settings.php:377
 msgid "The default event category for events imported via other URLs"
-msgstr ""
+msgstr "La categoria degli eventi predefinita per gli eventi importati tramite altri URL"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:60
 msgid "The TEC REST API link to fetch this event"
-msgstr ""
+msgstr "Il collegamento TEC REST API per recuperare questo evento"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:121
 msgid "The event timezone string"
-msgstr ""
+msgstr "La stringa di fuso orario degli eventi"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:28
 msgid "The organizer ID used to globally identify in Event Aggregator"
-msgstr ""
+msgstr "L'ID dell'organizzatore utilizzato per identificare globalmente nell'aggregatore di eventi"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:52
 msgid "The organizer last modification date in UTC time"
@@ -649,15 +649,15 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:99
 msgid "The venue state"
-msgstr ""
+msgstr "Lo stato del luogo"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:103
 msgid "The venue ZIP code"
-msgstr ""
+msgstr "Il CAP del luogo"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:115
 msgid "The venue state or province"
-msgstr ""
+msgstr "La provincia o lo stato del luogo"
 
 #: src/Tribe/REST/V1/EA_Messages.php:10
 msgid "Event Aggregator cannot import events because this site is running an outdated version of The Events Calendar."
@@ -681,7 +681,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/EA_Messages.php:58
 msgid "Try to adjust your import settings and try again."
-msgstr ""
+msgstr "Prova a modificare le impostazioni di importazione e riprova."
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:500
 msgid "No events match the query or the requested page was not found."
@@ -709,7 +709,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/url.php:91
 msgid "you can modify this setting here."
-msgstr ""
+msgstr "Puoi modificare questa impostazione qui."
 
 #: src/Tribe/Aggregator/Service.php:549
 msgid "Events could not be imported. The URL provided could not be reached."
@@ -725,11 +725,11 @@ msgstr "24 ore"
 
 #: src/Tribe/Aggregator/Settings.php:277 src/Tribe/Aggregator/Settings.php:278
 msgid "72 hours"
-msgstr ""
+msgstr "72 ore"
 
 #: src/Tribe/Aggregator/Settings.php:281
 msgid "One week"
-msgstr ""
+msgstr "Una settimana"
 
 #: src/Tribe/Aggregator/Service.php:550
 msgid "The requested source does not have any upcoming and published events matching the search criteria."
@@ -737,11 +737,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:282
 msgid "a week"
-msgstr ""
+msgstr "Una settimana"
 
 #: src/Tribe/Aggregator/Settings.php:285
 msgid "Two weeks"
-msgstr ""
+msgstr "Due settimane"
 
 #: src/Tribe/Aggregator/Settings.php:286
 msgid "two weeks"
@@ -749,7 +749,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:289
 msgid "Three weeks"
-msgstr ""
+msgstr "Tre settimane"
 
 #: src/Tribe/Aggregator/Settings.php:293
 msgid "One month"
@@ -863,7 +863,7 @@ msgstr ""
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:40
 msgid "The term description"
-msgstr ""
+msgstr "La descrizione del termine"
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:36
 msgid "The taxonomy the term belongs to"
@@ -875,11 +875,11 @@ msgstr ""
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:28
 msgid "The term name"
-msgstr ""
+msgstr "Il nome del termine"
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:24
 msgid "The WordPress term ID"
-msgstr ""
+msgstr "L'ID del termine di WordPress"
 
 #: common/src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:36
 msgid "The link to the image in the specified size on the site"
@@ -1223,35 +1223,35 @@ msgstr ""
 
 #: src/Tribe/Asset/Dynamic.php:64
 msgid "Sep"
-msgstr ""
+msgstr "Set"
 
 #: src/Tribe/Asset/Dynamic.php:63
 msgid "Aug"
-msgstr ""
+msgstr "Ago"
 
 #: src/Tribe/Asset/Dynamic.php:62
 msgid "Jul"
-msgstr ""
+msgstr "Lug"
 
 #: src/Tribe/Asset/Dynamic.php:61
 msgid "Jun"
-msgstr ""
+msgstr "Giu"
 
 #: src/Tribe/Asset/Dynamic.php:59
 msgid "Apr"
-msgstr ""
+msgstr "Apr"
 
 #: src/Tribe/Asset/Dynamic.php:58
 msgid "Mar"
-msgstr ""
+msgstr "Mar"
 
 #: src/Tribe/Asset/Dynamic.php:57
 msgid "Feb"
-msgstr ""
+msgstr "Feb"
 
 #: src/Tribe/Asset/Dynamic.php:56
 msgid "Jan"
-msgstr ""
+msgstr "Gen"
 
 #: src/Tribe/Asset/Dynamic.php:53
 msgid "December"
@@ -1303,31 +1303,31 @@ msgstr "Gennaio"
 
 #: src/Tribe/Asset/Dynamic.php:39
 msgid "Sat"
-msgstr ""
+msgstr "Sab"
 
 #: src/Tribe/Asset/Dynamic.php:38
 msgid "Fri"
-msgstr ""
+msgstr "Ven"
 
 #: src/Tribe/Asset/Dynamic.php:37
 msgid "Thu"
-msgstr ""
+msgstr "Gio"
 
 #: src/Tribe/Asset/Dynamic.php:36
 msgid "Wed"
-msgstr ""
+msgstr "Mer"
 
 #: src/Tribe/Asset/Dynamic.php:35
 msgid "Tue"
-msgstr ""
+msgstr "Mar"
 
 #: src/Tribe/Asset/Dynamic.php:34
 msgid "Mon"
-msgstr ""
+msgstr "Lun"
 
 #: src/Tribe/Asset/Dynamic.php:33
 msgid "Sun"
-msgstr ""
+msgstr "Dom"
 
 #: src/Tribe/Asset/Dynamic.php:30
 msgid "Saturday"
@@ -2542,7 +2542,7 @@ msgstr "Cronologia"
 #: src/Tribe/Aggregator/Tabs/History.php:55
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:57
 msgid "Records per page"
-msgstr ""
+msgstr "Righe per pagina"
 
 #: src/Tribe/Aggregator/Tabs/Favorite.php:37
 msgid "Favorite Imports"
@@ -3216,7 +3216,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Cron.php:118
 msgctxt "aggregator schedule frequency"
 msgid "Monthly"
-msgstr ""
+msgstr "Mensile"
 
 #: src/Tribe/Aggregator/Cron.php:113
 msgctxt "aggregator schedule frequency"
@@ -3254,7 +3254,7 @@ msgstr ""
 #: src/Tribe/Aggregator/API/Origins.php:54
 #: src/admin-views/aggregator/settings.php:456
 msgid "ICS File"
-msgstr ""
+msgstr "File ICS"
 
 #: src/Tribe/Aggregator/API/Origins.php:48
 #: src/Tribe/Aggregator/Record/iCal.php:14
@@ -3265,7 +3265,7 @@ msgstr ""
 #: src/Tribe/Aggregator/API/Origins.php:31
 #: src/Tribe/Aggregator/Admin_Bar.php:88 src/Tribe/Aggregator/Service.php:604
 msgid "CSV File"
-msgstr ""
+msgstr "File CSV"
 
 #: src/Tribe/Admin_List.php:330
 msgctxt "%s Event count in admin list"
@@ -3369,7 +3369,7 @@ msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:959 common/src/Tribe/PUE/Notices.php:283
 msgid "Renew Your License Now"
-msgstr ""
+msgstr "Rinnova ora la tua licenza"
 
 #: common/src/Tribe/Main.php:275
 msgid ": Selected 1 row"
@@ -3381,15 +3381,15 @@ msgstr ""
 
 #: common/src/Tribe/Main.php:269
 msgid "Previous"
-msgstr ""
+msgstr "Precedente"
 
 #: common/src/Tribe/Main.php:267
 msgid "All"
-msgstr ""
+msgstr "Tutti"
 
 #: common/src/Tribe/Main.php:262
 msgid "Search:"
-msgstr ""
+msgstr "Cerca:"
 
 #: common/src/Tribe/Main.php:261
 msgid "No matching records found"
@@ -3434,7 +3434,7 @@ msgstr ""
 #: common/src/Tribe/Main.php:243
 #: common/src/admin-views/tribe-options-help.php:43
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "Copia negli appunti"
 
 #: common/src/Tribe/Error.php:38
 msgid "An Unknown error occurred"
@@ -3504,7 +3504,7 @@ msgstr "organizzatore"
 
 #: src/Tribe/Venue.php:161
 msgid "venues"
-msgstr "sedi"
+msgstr "luoghi"
 
 #: src/Tribe/Venue.php:152
 msgid "venue"
@@ -3579,7 +3579,7 @@ msgstr ""
 #: src/Tribe/Google/Maps_API_Key.php:59
 #: src/admin-views/tribe-options-addons-api.php:99
 msgid "Click here"
-msgstr "Fai clic qui"
+msgstr "Clicca qui"
 
 #: src/Tribe/Google/Maps_API_Key.php:58
 msgid "<p>%s to create your Google Maps API key."
@@ -3623,11 +3623,11 @@ msgstr ""
 
 #: common/src/Tribe/Log.php:370
 msgid "Warnings and errors"
-msgstr ""
+msgstr "Avvisi ed errori"
 
 #: common/src/Tribe/Log.php:369
 msgid "Only errors"
-msgstr ""
+msgstr "Solo errori"
 
 #: common/src/Tribe/Log.php:368
 msgid "Disabled"

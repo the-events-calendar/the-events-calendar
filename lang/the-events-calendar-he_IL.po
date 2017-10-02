@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-08-24 21:02:15+0000\n"
+"PO-Revision-Date: 2017-09-28 00:23:36+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:958
 msgid "edit Events settings."
-msgstr ""
+msgstr "ערוך את הגדרות האירועים."
 
 #: src/Tribe/Main.php:949
 msgid "Edit the %s slug"
@@ -52,7 +52,7 @@ msgstr ""
 
 #: common/src/Tribe/Main.php:264
 msgid "Select all pages"
-msgstr ""
+msgstr "בחר את כל העמודים"
 
 #: common/src/Tribe/Main.php:263
 msgid "All items on this page were selected. "
@@ -60,11 +60,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:101
 msgid "Add more sources"
-msgstr ""
+msgstr "הוסף מקורות נוספים"
 
 #: src/Tribe/Aggregator/Service.php:530
 msgid "No upcoming Facebook events found."
-msgstr ""
+msgstr "לא נמצאו אירועי פייסבוק קרובים."
 
 #: src/Tribe/Aggregator/Service.php:179
 msgid "Event Aggregator server has blocked your request. Please try your import again later or contact support to know why."
@@ -146,7 +146,7 @@ msgstr[1] ""
 
 #: common/src/Tribe/PUE/Checker.php:976
 msgid "Please refresh the page and try your request again."
-msgstr ""
+msgstr "אנא רענן את העמוד ובצע את בקשתך שנית."
 
 #: common/src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:28
 msgid "The image WordPress post ID"
@@ -279,7 +279,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:40
 msgid "The event creation date in the site timezone"
-msgstr ""
+msgstr "תאריך יצירת האירוע בזמן המקומי של האתר"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:56
 msgid "The URL to the event page"
@@ -287,7 +287,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:64
 msgid "The event name"
-msgstr ""
+msgstr "שם האירוע"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:68
 msgid "The event long description"
@@ -295,7 +295,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:72
 msgid "The event short description"
-msgstr ""
+msgstr "תיאור קצר של האירוע"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:76
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:72
@@ -349,7 +349,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:133
 msgid "The event cost details"
-msgstr ""
+msgstr "פירוט עלויות האירוע"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:138
 msgid "The event website URL"

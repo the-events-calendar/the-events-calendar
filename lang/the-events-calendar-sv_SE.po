@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-07-30 19:24:15+0000\n"
+"PO-Revision-Date: 2017-09-27 19:41:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 
 #: src/admin-views/create-organizer-fields.php:19
 msgid "The e-mail address will be obfuscated on this site to avoid it getting harvested by spammers."
-msgstr ""
+msgstr "E-postadressen förvrängs på denna webbplats för att försvåra för spammare."
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:32
 msgid "An array containing the lineage of where this venue comes from; this should not change after the venue is created."
@@ -21,42 +21,42 @@ msgstr ""
 
 #: src/Tribe/Main.php:958
 msgid "edit Events settings."
-msgstr ""
+msgstr "redigera evenemangsinställningar."
 
 #: src/Tribe/Main.php:949
 msgid "Edit the %s slug"
-msgstr ""
+msgstr "Redigera permalänken %s"
 
 #: src/Tribe/Linked_Posts.php:920 src/Tribe/Linked_Posts.php:926
 msgid "Find %1$s %2$s"
-msgstr ""
+msgstr "Sök %1$s %2$s"
 
 #: src/Tribe/Linked_Posts.php:917
 msgctxt "Indefinite article for the phrase \"Find a {post type name}\" when the {post type name} starts with a vowel, e.g. \"Find an Organizer\"."
 msgid "an"
-msgstr ""
+msgstr "en"
 
 #: src/Tribe/Linked_Posts.php:910
 msgctxt "Indefinite article for the phrase \"Find a {post type name}. Will be replaced with \"an\" if the {post type name} starts with a vowel."
 msgid "a"
-msgstr ""
+msgstr "en"
 
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:388
 msgid "Hide and Ignore &#8220;%s&#8221;"
-msgstr ""
+msgstr "Dölj och ignorera &#8220;%s&#8221;"
 
 #: common/src/Tribe/Main.php:265
 msgid "Clear Selection."
-msgstr ""
+msgstr "Rensa markering."
 
 #: common/src/Tribe/Main.php:264
 msgid "Select all pages"
-msgstr ""
+msgstr "Välj alla sidor"
 
 #: common/src/Tribe/Main.php:263
 msgid "All items on this page were selected. "
-msgstr ""
+msgstr "Alla objekt på denna sida markerades."
 
 #: src/admin-views/aggregator/tabs/import-form.php:101
 msgid "Add more sources"
@@ -72,7 +72,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:305
 msgid "Featured Highlight Color"
-msgstr ""
+msgstr "Utvald färg för markering"
 
 #: src/Tribe/Aggregator/Service.php:207
 msgid "The response from the Event Aggregator server was badly formed and could not be understood. Please try again."
@@ -182,7 +182,7 @@ msgstr "Ange URL för den kalender, webbplats eller evenemang du vill importera.
 
 #: src/Tribe/REST/V1/Messages.php:23
 msgid "The 'categories' parameter contains invalid category slugs or IDs"
-msgstr ""
+msgstr "Parametern 'categories', innehåller ogiltig permalänk eller ID"
 
 #: src/Tribe/REST/V1/Messages.php:14
 msgid "The requested post ID does not exist or is not an event"
@@ -190,7 +190,7 @@ msgstr "Begärt post-ID existerar inte eller är inte ett evenemang"
 
 #: src/Tribe/REST/V1/Messages.php:13
 msgid "The event ID is missing from the request"
-msgstr ""
+msgstr "Evenemangets ID saknas i begäran"
 
 #: src/Tribe/REST/V1/Messages.php:15
 msgid "The event does not have a venue assigned"
@@ -202,15 +202,15 @@ msgstr "Importera datumintervall"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:97
 msgid "Returns the data of the event with the specified post ID"
-msgstr ""
+msgstr "Returnerar data för evenemang med angivet ID"
 
 #: src/Tribe/REST/V1/Messages.php:27
 msgid "The requested post ID does not exist or is not an organizer"
-msgstr ""
+msgstr "Begärt inläggs-ID finns ej eller är inte en organisatör"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:52
 msgid "The event last modification date in UTC time"
-msgstr ""
+msgstr "Tidpunkt (UTC) för senaste ändring av evenemanget"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:449
 msgid "Events should start after the specified date"
@@ -222,23 +222,23 @@ msgstr "Evenemang måste starta innan angivet datum"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:109
 msgid "An event with the specified event does not exist."
-msgstr ""
+msgstr "Evenemang med angivet evenemang finns ej."
 
 #: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:89
 msgid "The Events Calendar REST API"
-msgstr ""
+msgstr "The Events Calendar REST API"
 
 #: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:90
 msgid "The Events Calendar REST API allows accessing upcoming events information easily and conveniently."
-msgstr ""
+msgstr "The Events Calendar REST API ger tillgång till information om kommande evenemang på ett enkelt sätt."
 
 #: src/Tribe/REST/V1/Messages.php:16
 msgid "The event does not have an organizer assigned"
-msgstr ""
+msgstr "Evenemanget har ingen organisatör"
 
 #: src/Tribe/REST/V1/Messages.php:17
 msgid "The requested event is not accessible"
-msgstr ""
+msgstr "Kommer inte åt begärt evenemang"
 
 #: src/Tribe/REST/V1/Messages.php:18
 msgid "The 'page' parameter must be a positive integer greater than 1"
@@ -254,15 +254,15 @@ msgstr "evenemangets post ID"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:465
 msgid "Events should contain the specified string in the title or description"
-msgstr ""
+msgstr "Evenmang ska innehålla den angivna strängen i titel eller beskrivning"
 
 #: src/Tribe/REST/V1/Messages.php:24
 msgid "The 'tags' parameter contains invalid tag slugs or IDs"
-msgstr ""
+msgstr "Parametern 'tags' innehåller ogiltig permalänk eller ID"
 
 #: src/Tribe/REST/V1/Messages.php:25
 msgid "The requested event archive page does not exist"
-msgstr ""
+msgstr "Evenemangets arkivsida hittades inte"
 
 #: src/admin-views/aggregator/fields/schedule.php:50
 #: src/admin-views/aggregator/fields/schedule.php:68
@@ -271,7 +271,7 @@ msgstr "cirka kl"
 
 #: src/admin-views/aggregator/origins/url.php:89
 msgid "Event Aggregator will try to fetch events starting in %s from the current date or the specified date;"
-msgstr ""
+msgstr "Event Aggregator hämtar evenemang som börjar om %s dagens datum eller angivet datum;"
 
 #: src/admin-views/aggregator/origins/url.php:83
 msgid "example.com/"
@@ -279,7 +279,7 @@ msgstr "example.com/"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:40
 msgid "The event creation date in the site timezone"
-msgstr ""
+msgstr "Tidpunkt då evenemanget skapades i webbplatsens tidszon"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:56
 msgid "The URL to the event page"
@@ -295,13 +295,13 @@ msgstr "Lång beskrivning av evenemang"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:72
 msgid "The event short description"
-msgstr ""
+msgstr "Kort beskrivning av evenemang"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:76
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:72
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:72
 msgid "The event featured image details if set"
-msgstr ""
+msgstr "Utvald bild för evenemanget"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:81
 msgid "Whether or not this event is an all day Event"
@@ -309,11 +309,11 @@ msgstr "Är detta ett heldagsevenemang"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:85
 msgid "The event start date in the event or site timezone"
-msgstr ""
+msgstr "Starttid för evenemang"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:89
 msgid "An array of each component of the event start date"
-msgstr ""
+msgstr "En matris med alla delar av evenemangets starttid"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:94
 msgid "The event end date in the event or site timezone"
@@ -325,19 +325,19 @@ msgstr "En matris med varje komponent av evenemanget och datum"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:103
 msgid "The event start date in UTC time"
-msgstr ""
+msgstr "Starttid (UTC) för evenemang"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:107
 msgid "An array of each component of the event start date in UTC time"
-msgstr ""
+msgstr "En matris med alla delar av evenemangets starttid (UTC)"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:112
 msgid "The event end date in UTC time"
-msgstr ""
+msgstr "Sluttid (UTC) för evenemang"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:116
 msgid "An array of each component of the event end date in UTC time"
-msgstr ""
+msgstr "En matris med alla delar av evenemangets sluttid (UTC)"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:125
 msgid "The abbreviated event timezone string"
@@ -349,11 +349,11 @@ msgstr "Evenemangets pris med valutasymbol"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:133
 msgid "The event cost details"
-msgstr ""
+msgstr "Evenemangets pris - detaljer"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:138
 msgid "The event website URL"
-msgstr ""
+msgstr "URL till evenemangets webbplats"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:142
 msgid "Whether the map should be shown for the event or not"
@@ -361,19 +361,19 @@ msgstr "Om evenemangets karta ska visas eller ej"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:146
 msgid "Whether the map link should be shown for the event or not"
-msgstr ""
+msgstr "Om kartlänk för evenemanget ska visas eller ej"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:150
 msgid "Whether an event should be hidden from the calendar view or not"
-msgstr ""
+msgstr "Om ett evenemang ska döljas i kalendervyn eller ej"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:154
 msgid "Whether an event is sticky in the calendar view or not"
-msgstr ""
+msgstr "Om ett evenemang ska klistras i kalendervyn eller ej"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:158
 msgid "Whether the event is featured in the calendar or not"
-msgstr ""
+msgstr "Om ett evenemang är utvalt i Kalendern eller ej"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:162
 msgid "The event categories"
@@ -381,11 +381,11 @@ msgstr "Evenemangets kategorier"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:167
 msgid "The event tags"
-msgstr ""
+msgstr "Evenemangets taggar"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:172
 msgid "The event venue"
-msgstr ""
+msgstr "Platsen för evenemanget"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:177
 msgid "The event organizers"
@@ -397,7 +397,7 @@ msgstr "Arrangörens WordPress post ID"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:32
 msgid "An Array containing the lineage of where this organizer comes from, this should not change after the organizer is created."
-msgstr ""
+msgstr "En matris som innehåller organisatörens ursprung. Ändras inte efter att organisatören skapats."
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:36
 msgid "The organizer author WordPress post ID"
@@ -405,7 +405,7 @@ msgstr "Arrangörens författares WordPress post ID"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:40
 msgid "The organizer creation date in the site timezone"
-msgstr ""
+msgstr "Organisatören skapades (webbplatsens tidszon)"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:44
 msgid "The organizer creation date in UTC time"
@@ -413,11 +413,11 @@ msgstr "Datum då arrangören skapades (UTC)"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:48
 msgid "The organizer last modification date in the site timezone"
-msgstr ""
+msgstr "Senaste ändring av organisatören (webbplatsens tidszon)"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:56
 msgid "The URL to the organizer page"
-msgstr ""
+msgstr "URL till organisatörens sida"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:60
 msgid "The organizer name"
@@ -429,7 +429,7 @@ msgstr "Lång beskrivning av arrangör"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:68
 msgid "The organizer short description"
-msgstr ""
+msgstr "Kort beskrivning av organisatören"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:77
 msgid "The organizer phone number"
@@ -437,7 +437,7 @@ msgstr "Arrangörens telefonnummer"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:81
 msgid "The organizer website"
-msgstr ""
+msgstr "Organisatörens webbplats"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:85
 msgid "The organizer email address"
@@ -445,23 +445,23 @@ msgstr "Arrangörens e-post-adress"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:28
 msgid "The venue ID used to globally identify in Event Aggregator"
-msgstr ""
+msgstr "Platsens ID som används för global identifiering i Event Aggregator"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:40
 msgid "The venue creation date in the site timezone"
-msgstr ""
+msgstr "Datum då platsen skapades i webbplatsens tidszon"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:44
 msgid "The venue creation date in UTC time"
-msgstr ""
+msgstr "Datum då platsen skapades (UTC)"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:48
 msgid "The venue last modification date in the site timezone"
-msgstr ""
+msgstr "Datum för senaste ändring av platsen (webbplatsens tidszon)"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:56
 msgid "The URL to the venue page"
-msgstr ""
+msgstr "URL till platsens sida"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:60
 msgid "The venue name"
@@ -473,7 +473,7 @@ msgstr "Kort beskrivning av plats"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:75
 msgid "Whether the map should be shown for the venue or not"
-msgstr ""
+msgstr "Om kartan för platsen ska visas eller ej"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:79
 msgid "Whether the map link should be shown for the venue or not"
@@ -557,7 +557,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:497
 msgid "One or more of the specified query variables has a bad format"
-msgstr ""
+msgstr "En eller flera av angivna frågevariabler har felaktigt format."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:106
 msgid "The event with the specified ID is not accesible."
@@ -573,7 +573,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/fields/schedule.php:3
 msgid "Schedule:"
-msgstr ""
+msgstr "Schema:"
 
 #: src/admin-views/aggregator/fields/schedule.php:32
 msgid "Import runs daily at approximately"
@@ -601,15 +601,15 @@ msgstr ""
 
 #: src/Tribe/REST/V1/EA_Messages.php:39
 msgid "Learn more."
-msgstr ""
+msgstr "Lär dig mer."
 
 #: src/Tribe/REST/V1/Messages.php:19
 msgid "The 'per_page' parameter must be a positive integer greater than 1"
-msgstr ""
+msgstr "Parametern 'per_page' måste vara ett positivt heltal större än 1"
 
 #: src/Tribe/REST/V1/Messages.php:20
 msgid "The 'start_date' parameter must be in a supported format"
-msgstr ""
+msgstr "Parametern 'start_date' måste anges i ett format som stöds."
 
 #: src/admin-views/aggregator/settings.php:377
 msgid "The default event category for events imported via other URLs"
@@ -621,7 +621,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:121
 msgid "The event timezone string"
-msgstr ""
+msgstr "Evenemangets tidszonsträng"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:28
 msgid "The organizer ID used to globally identify in Event Aggregator"
@@ -681,19 +681,19 @@ msgstr ""
 
 #: src/Tribe/REST/V1/EA_Messages.php:58
 msgid "Try to adjust your import settings and try again."
-msgstr ""
+msgstr "Försök att justera importinställningarna och försök igen."
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:500
 msgid "No events match the query or the requested page was not found."
-msgstr ""
+msgstr "Inget evenemang matchar frågan eller begärd sida kunde inte hittas."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:103
 msgid "The event post ID is missing."
-msgstr ""
+msgstr "Inläggs-ID för evenemanget saknas."
 
 #: src/Tribe/REST/V1/Messages.php:21
 msgid "The 'end_date' parameter must be in a supported format"
-msgstr ""
+msgstr "Parametern 'end_date' måste anges i ett format som stöds."
 
 #: src/admin-views/aggregator/origins/url.php:7
 msgid "One-time imports include currently listed upcoming events, while scheduled imports automatically grab new events and updates from this url on a set schedule."
@@ -3109,7 +3109,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Errors.php:71
 msgid "Unable to save scheduled import. Please try again."
-msgstr ""
+msgstr "Gick inte att spara schemalagd import. Försök igen."
 
 #: src/Tribe/Aggregator/Errors.php:70
 msgid "Unable to save scheduled import instance. Please try again."
@@ -3154,7 +3154,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Errors.php:59
 msgid "Unable to attach an image to the event"
-msgstr ""
+msgstr "Gick inte att bifoga en bild till evenemanget"
 
 #: src/Tribe/Aggregator/Errors.php:58
 msgid "Unable to find an import record with the ID of %s."
@@ -3182,7 +3182,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Errors.php:52
 msgid "You must provide a valid CSV file to perform a CSV import."
-msgstr ""
+msgstr "Du måste ange en giltig CSV-fil för att kunna utföra en CSV-import"
 
 #: src/Tribe/Aggregator/Errors.php:51
 msgid "An invalid import type was used when trying to create this import record."
@@ -3451,7 +3451,7 @@ msgstr "Engelska"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:3
 msgid "Eventbrite Event"
-msgstr ""
+msgstr "Eventbrite evenemang"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:4
 msgid "Select from your existing Eventbrite events"
@@ -4073,7 +4073,7 @@ msgstr "Facebook-evenemang"
 #: common/src/Tribe/Admin/Help_Page.php:203
 #: common/src/Tribe/Plugins_API.php:111
 msgid "Eventbrite Tickets"
-msgstr ""
+msgstr "Eventbrite biljetter"
 
 #: common/src/Tribe/Admin/Help_Page.php:170
 msgid " and "

@@ -86,7 +86,7 @@ class Tribe__Events__Importer__File_Reader {
 	/**
 	 * Get the field parameters used for reading CSV files.
 	 *
-	 * @since TBD
+	 * @since 4.6.1
 	 *
 	 * @return array The CSV field parameters.
 	 */
@@ -102,7 +102,7 @@ class Tribe__Events__Importer__File_Reader {
 		 *
 		 * @see `SplFileObject::setCsvControl()`
 		 *
-		 * @since TBD
+		 * @since 4.6.1
 		 *
 		 * @param array $csv_params (
 		 *      The parameters
@@ -119,7 +119,7 @@ class Tribe__Events__Importer__File_Reader {
 	/**
 	 * Set the import params for CSV fields
 	 *
-	 * @since TBD
+	 * @since 4.6.1
 	 *
 	 * @param array $params (
 	 *      The parameters
