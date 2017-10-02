@@ -543,16 +543,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param array $args {
 	 *		Optional. Array of Query parameters.
 	 *
-	 *		@type int  $event      Only venues linked to this event post ID.
-	 *		@type bool $has_events Only venues that have events.
+	 *		@type int  $event       Only venues linked to this event post ID.
+	 *		@type bool $has_events  Only venues that have events.
+	 *		@type bool $found_posts Return the number of found venues.
 	 * }
 	 *
 	 * @return array An array of venue post objects.
 	 */
 	function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true, array $args = array() ) {
-		/** @var wpdb $wpdb */
-		global $wpdb;
-
 		// filter out the `null` values
 		$args = array_diff_key( $args, array_filter( $args, 'is_null' ) );
 
@@ -596,9 +594,25 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			)
 		);
 
-		$venues = get_posts( $parsed_args );
+		$return_found_posts = ! empty( $args['found_posts'] );
 
-		return $venues;
+		if ( $return_found_posts ) {
+			$parsed_args['posts_per_page'] = 1;
+			$parsed_args['paged']          = 1;
+		}
+
+		$query = new WP_Query( $parsed_args );
+
+		if ( $return_found_posts ) {
+			if ( $query->have_posts() ) {
+
+				return $query->found_posts;
+			}
+
+			return 0;
+		}
+
+		return $query->have_posts() ? $query->posts : array();
 	}
 
 	/**

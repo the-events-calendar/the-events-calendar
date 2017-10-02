@@ -250,12 +250,14 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	}
 
 	/**
+	 * Returns the total number of posts matching the request.
+	 *
+	 * @since 4.6
+	 *
 	 * @param array $args
 	 * @param bool  $only_with_upcoming
 	 *
 	 * @return int
-	 *
-	 * @since 4.6
 	 */
 	protected function get_total( $args, $only_with_upcoming = false ) {
 		unset( $args['posts_per_page'] );
@@ -273,9 +275,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	/**
 	 * Returns the archive base REST URL
 	 *
-	 * @return string
-	 *
 	 * @since 4.6
+	 *
+	 * @return string
 	 */
 	protected function get_base_rest_url() {
 		$url = tribe_events_rest_url( 'organizers/' );
