@@ -333,7 +333,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 
 		foreach ( $data as $key => $var ) {
 			// Prevent these WP_Post object fields from ending up in the meta.
-			if ( in_array( $key, array( 'post_title', 'post_excerpt', 'post_content' ) ) ) {
+			if ( in_array( $key, array( 'post_title', 'post_excerpt', 'post_content', 'post_status' ) ) ) {
 				continue;
 			}
 
@@ -525,16 +525,6 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		} else {
 			$data['ShowMapLink'] = true;
 		}
-
-		$this->save_meta( $venue_id, $data );
-
-		/**
-		 * Runs right after a successful update of a venue (including its meta being saved).
-		 *
-		 * @param int $venue_id The ID of the venue being updated.
-		 * @param array $data The full array of data that was used to modify the venue.
-		 */
-		do_action( 'tribe_events_venue_updated', $venue_id, $data );
 
 		$post_fields = array_merge( Tribe__Duplicate__Post::$post_table_columns, array(
 			'Venue',

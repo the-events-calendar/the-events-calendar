@@ -341,6 +341,8 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Improved options format in the Event Aggregator settings [88970]
 * Tweak - Added a filter to CSV importer for altering the delimter, escaping, and enclosing characters [70570]
 * Tweak - Adjusted the `tribe_update_venue()` template tag so it no longer creates some unncessary meta fields involving post_title, post_content, etc. (thanks @oheinrich for bringing this to our attention) [66968]
+* Tweak - Improved the performance of The Events Calendar REST API tweaking some queries [89743]
+* Tweak - Add support for a `found_posts` argument in `tribe_get_events`, `tribe_get_venues` and `tribe_get_organizers` functions to return the number of posts found matching the current query arguments [89743]
 * Language - Improvements to aid translatability of text throughout plugin (props: @ramiy) [88982]
 * Deprecated - Deprecated the `tribe-events-bar-date-search-default-value` filter; use `tribe_events_bar_date_search_default_value` instead [67482]
 

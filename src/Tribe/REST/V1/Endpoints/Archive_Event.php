@@ -452,23 +452,28 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	}
 
 	/**
+	 * Returns the total number of posts matching the request.
+	 *
+	 * @since 4.6
+	 *
 	 * @param array $args
 	 *
 	 * @return int
 	 */
 	protected function get_total( $args ) {
-		$this->total = count( tribe_get_events( array_merge( $args, array(
-			'posts_per_page'         => - 1,
-			'fields'                 => 'ids',
+		$this->total = tribe_get_events( array_merge( $args, array(
+			'found_posts'            => true,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false,
-		) ) ) );
+		) ) );
 
 		return $this->total;
 	}
 
 	/**
 	 * Returns the archive base REST URL
+	 *
+	 * @since 4.6
 	 *
 	 * @return string
 	 */
