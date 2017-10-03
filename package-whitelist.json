@@ -27,6 +27,7 @@
   "common/vendor/autoload_52.php",
   "common/vendor/composer/*",
   "common/vendor/lucatume/di52/src/**",
+  "common/vendor/momentjs/*.js",
   "common/vendor/select2/select2*.js",
   "common/vendor/select2/select2.css",
   "common/vendor/select2/*.css",
