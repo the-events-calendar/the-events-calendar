@@ -78,7 +78,7 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 				if ( 'undefined' !== typeof $.fn.tribeTimepicker ) {
 					$( '#EventEndTime' ).tribeTimepicker( 'setTime', obj.start_time );
 				} else {
-					// @deprecated TBD
+					// @deprecated 4.6.1
 					$( '#EventEndTime' ).timepicker( 'setTime', obj.start_time );
 				}
 

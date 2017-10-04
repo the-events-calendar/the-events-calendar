@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-09-13 06:21:26+0000\n"
+"PO-Revision-Date: 2017-10-01 08:25:42+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -52,7 +52,7 @@ msgstr ""
 
 #: common/src/Tribe/Main.php:264
 msgid "Select all pages"
-msgstr ""
+msgstr "Одабери све стране"
 
 #: common/src/Tribe/Main.php:263
 msgid "All items on this page were selected. "
@@ -750,7 +750,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:289
 msgid "Three weeks"
-msgstr ""
+msgstr "Три недеље"
 
 #: src/Tribe/Aggregator/Settings.php:293
 msgid "One month"
@@ -1080,7 +1080,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Month_Week_View.php:197
 msgid "Calendar Highlight Color"
-msgstr ""
+msgstr "Истакнута боја календара"
 
 #: src/Tribe/Customizer/Month_Week_View.php:175
 msgid "Calendar Table Color"
@@ -1213,31 +1213,31 @@ msgstr ""
 
 #: src/Tribe/Asset/Dynamic.php:67
 msgid "Dec"
-msgstr ""
+msgstr "Дец"
 
 #: src/Tribe/Asset/Dynamic.php:66
 msgid "Nov"
-msgstr ""
+msgstr "Нов"
 
 #: src/Tribe/Asset/Dynamic.php:65
 msgid "Oct"
-msgstr ""
+msgstr "Окт"
 
 #: src/Tribe/Asset/Dynamic.php:64
 msgid "Sep"
-msgstr ""
+msgstr "Септ"
 
 #: src/Tribe/Asset/Dynamic.php:63
 msgid "Aug"
-msgstr ""
+msgstr "Август"
 
 #: src/Tribe/Asset/Dynamic.php:62
 msgid "Jul"
-msgstr ""
+msgstr "Јул"
 
 #: src/Tribe/Asset/Dynamic.php:61
 msgid "Jun"
-msgstr ""
+msgstr "Јун"
 
 #: src/Tribe/Asset/Dynamic.php:59
 msgid "Apr"
@@ -1273,47 +1273,47 @@ msgstr ""
 
 #: src/Tribe/Asset/Dynamic.php:49
 msgid "August"
-msgstr ""
+msgstr "Август"
 
 #: src/Tribe/Asset/Dynamic.php:48
 msgid "July"
-msgstr ""
+msgstr "Јули"
 
 #: src/Tribe/Asset/Dynamic.php:47
 msgid "June"
-msgstr ""
+msgstr "Јун"
 
 #: src/Tribe/Asset/Dynamic.php:46 src/Tribe/Asset/Dynamic.php:60
 msgid "May"
-msgstr ""
+msgstr "Мај"
 
 #: src/Tribe/Asset/Dynamic.php:45
 msgid "April"
-msgstr ""
+msgstr "Април"
 
 #: src/Tribe/Asset/Dynamic.php:44
 msgid "March"
-msgstr ""
+msgstr "Март"
 
 #: src/Tribe/Asset/Dynamic.php:43
 msgid "February"
-msgstr ""
+msgstr "Фебруар"
 
 #: src/Tribe/Asset/Dynamic.php:42
 msgid "January"
-msgstr ""
+msgstr "Јануар"
 
 #: src/Tribe/Asset/Dynamic.php:39
 msgid "Sat"
-msgstr ""
+msgstr "Суб."
 
 #: src/Tribe/Asset/Dynamic.php:38
 msgid "Fri"
-msgstr ""
+msgstr "Пет."
 
 #: src/Tribe/Asset/Dynamic.php:37
 msgid "Thu"
-msgstr ""
+msgstr "Чет."
 
 #: src/Tribe/Asset/Dynamic.php:36
 msgid "Wed"
@@ -1321,19 +1321,19 @@ msgstr "Ср"
 
 #: src/Tribe/Asset/Dynamic.php:35
 msgid "Tue"
-msgstr ""
+msgstr "Уто."
 
 #: src/Tribe/Asset/Dynamic.php:34
 msgid "Mon"
-msgstr ""
+msgstr "Пон."
 
 #: src/Tribe/Asset/Dynamic.php:33
 msgid "Sun"
-msgstr ""
+msgstr "Нед."
 
 #: src/Tribe/Asset/Dynamic.php:30
 msgid "Saturday"
-msgstr ""
+msgstr "Субота"
 
 #: src/Tribe/Asset/Dynamic.php:29
 msgid "Friday"
@@ -1402,11 +1402,11 @@ msgstr ""
 
 #: common/src/admin-views/app-shop.php:31
 msgid "Installed"
-msgstr ""
+msgstr "Инсталирано"
 
 #: common/src/admin-views/app-shop.php:29
 msgid "Installed Add-Ons"
-msgstr ""
+msgstr "Инсталиран додатак"
 
 #: common/src/Tribe/Extension.php:368
 msgid "Unable to run Tribe Extensions. Your website host is running PHP 5.2 or older, and has likely disabled or misconfigured debug_backtrace(). You, or your website host, will need to upgrade PHP or properly configure debug_backtrace() for Tribe Extensions to work."
@@ -1414,7 +1414,7 @@ msgstr ""
 
 #: common/src/Tribe/Extension.php:144
 msgid "Tutorial"
-msgstr ""
+msgstr "Упуство"
 
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:92
 msgctxt "the final separator in a list of two or more items"
@@ -1436,7 +1436,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:533
 msgid "Unknown"
-msgstr ""
+msgstr "Непознато"
 
 #: src/Tribe/Aggregator/Record/Abstract.php:1060
 msgid "When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached."
@@ -1525,21 +1525,21 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:213
 msgid "Category:"
-msgstr ""
+msgstr "Категорија:"
 
 #: src/admin-views/aggregator/tabs/import-form.php:201
 msgid "Status:"
-msgstr ""
+msgstr "Статус:"
 
 #: src/admin-views/aggregator/tabs/import-form.php:181
 #: src/admin-views/aggregator/tabs/import-form.php:193
 msgid "Start Time"
-msgstr ""
+msgstr "Почетно време:"
 
 #: src/admin-views/aggregator/tabs/import-form.php:177
 #: src/admin-views/aggregator/tabs/import-form.php:189
 msgid "Select All"
-msgstr ""
+msgstr "Означи све"
 
 #: src/admin-views/aggregator/tabs/import-form.php:167
 msgid "The following preview does not necessarily contain all of the data from your CSV file. The data displayed below is meant as a guide to help you map your CSV file's columns to the appropriate Event fields."
@@ -1694,7 +1694,7 @@ msgstr "Проверите вашу лиценцу"
 
 #: src/admin-views/aggregator/status.php:35
 msgid "Your license is invalid"
-msgstr ""
+msgstr "Ваша лиценца је валидна"
 
 #: src/admin-views/aggregator/status.php:32
 msgid "Buy Event Aggregator to access more event sources and automatic imports!"
@@ -1702,7 +1702,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:30
 msgid "You do not have a license"
-msgstr ""
+msgstr "Ви немате лиценцу"
 
 #: src/admin-views/aggregator/status.php:23
 msgid "Your license is valid"
@@ -1716,7 +1716,7 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:481
 #: src/admin-views/aggregator/settings.php:521
 msgid "Imports"
-msgstr ""
+msgstr "Увези"
 
 #: src/admin-views/aggregator/settings.php:468
 msgid "Check out Event Aggregator."
@@ -2555,7 +2555,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/History.php:93
 msgid "History"
-msgstr ""
+msgstr "Историја"
 
 #: src/Tribe/Aggregator/Tabs/History.php:55
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:57
@@ -2840,7 +2840,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Record/List_Table.php:611
 #: src/Tribe/Aggregator/Record/List_Table.php:619
 msgid "updated"
-msgstr ""
+msgstr "ажурирано"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:600
 #: src/Tribe/Aggregator/Record/List_Table.php:608
@@ -2970,7 +2970,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:181
 msgid "Filter"
-msgstr ""
+msgstr "Филтер"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:163
 #: src/Tribe/Aggregator/Record/List_Table.php:164
@@ -3593,7 +3593,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:71
 msgid "Event Timezone"
-msgstr ""
+msgstr "Временска зона догађаја"
 
 #: src/Tribe/Importer/Column_Mapper.php:66
 msgid "Event Excerpt"
@@ -4062,7 +4062,7 @@ msgstr ""
 
 #: common/src/Tribe/Admin/Help_Page.php:825
 msgid "Active Users:"
-msgstr ""
+msgstr "Активни корисници:"
 
 #: common/src/Tribe/Admin/Help_Page.php:802
 msgid "Install Plugin"
@@ -4325,7 +4325,7 @@ msgstr "Импортуј подешавања"
 
 #: src/io/csv/admin-views/general.php:10
 msgid "Instructions"
-msgstr ""
+msgstr "Инструкције"
 
 #: src/io/csv/admin-views/columns.php:44
 msgid "Perform Import"
@@ -6964,7 +6964,7 @@ msgstr "Подешавања су сачувана."
 
 #: src/Tribe/Importer/File_Uploader.php:36
 msgid "Could not save %s."
-msgstr ""
+msgstr "Не може бити сачувано %s."
 
 #: src/Tribe/Importer/File_Uploader.php:28
 msgid "Temporary file not found. Could not save %s."

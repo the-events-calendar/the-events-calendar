@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-06-30 17:20:02+0000\n"
+"PO-Revision-Date: 2017-09-25 19:31:35+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:958
 msgid "edit Events settings."
-msgstr ""
+msgstr "Pas evenement-instellingen aan."
 
 #: src/Tribe/Main.php:949
 msgid "Edit the %s slug"
@@ -52,19 +52,19 @@ msgstr ""
 
 #: common/src/Tribe/Main.php:264
 msgid "Select all pages"
-msgstr ""
+msgstr "Selecteer alle pagina's"
 
 #: common/src/Tribe/Main.php:263
 msgid "All items on this page were selected. "
-msgstr ""
+msgstr "Alle items op deze pagina werden geselecteerd."
 
 #: src/admin-views/aggregator/tabs/import-form.php:101
 msgid "Add more sources"
-msgstr ""
+msgstr "Voeg meer bronnen toe"
 
 #: src/Tribe/Aggregator/Service.php:530
 msgid "No upcoming Facebook events found."
-msgstr ""
+msgstr "Geen aankomende Facebook evenementen gevonden."
 
 #: src/Tribe/Aggregator/Service.php:179
 msgid "Event Aggregator server has blocked your request. Please try your import again later or contact support to know why."
@@ -88,7 +88,7 @@ msgstr "Zoek of vind %s"
 
 #: src/Tribe/Integrations/WPML/Defaults.php:117
 msgid "The Events Calendar could not write WPML default config file: please create the file manually."
-msgstr ""
+msgstr "The Events Calendar kon niet schrijven in het WPML standaard config-bestand: Maak dit bestand handmatig aan."
 
 #: common/src/Tribe/Plugins_API.php:94
 msgid "Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go."
@@ -2342,7 +2342,7 @@ msgstr "Je Evenement Aggregator Facebook-token verloopt %s."
 
 #: src/Tribe/Aggregator.php:407
 msgid "Your Event Aggregator Facebook token expired %s."
-msgstr ""
+msgstr "Je Evenement Aggregator Facebook-token is verlopen %s."
 
 #: src/Tribe/Aggregator.php:359
 msgid "Successfully connected Event Aggregator to Facebook"
