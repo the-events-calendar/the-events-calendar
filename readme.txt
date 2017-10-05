@@ -325,6 +325,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.6.2] TBD =
 
 * Tweak - Improvements to the readme.txt file surrounding plugin requirements (thanks @ramiy) [90285]
+* Fix - Fixed an issue that would cause a 404 error if the selected default view was not enabled (thanks @pruneau) [45612]
 
 = [4.6.1] 2017-10-04 =
 
