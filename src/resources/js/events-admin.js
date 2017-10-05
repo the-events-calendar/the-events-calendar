@@ -817,11 +817,11 @@ jQuery( document ).ready( function( $ ) {
 
 			$default_view_select
 				.select2( 'destroy' )
-				.select2( {width: 'auto'} );
+				.select2( { width: 'auto' } );
 
 			$default_mobile_view_select
 				.select2( 'destroy' )
-				.select2( {width: 'auto'} );
+				.select2( { width: 'auto' } );
 		}
 
 		create_view_array();
