@@ -217,7 +217,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		if ( $cats ) {
-			$event['tax_input'][ Tribe__Events__Main::TAXONOMY ] = $this->translate_terms_to_ids( explode( ',', $cats ) );
+			$events_cat = Tribe__Events__Main::TAXONOMY;
+			$event['tax_input'][ $events_cat ] = Tribe__Terms::translate_terms_to_ids( explode( ',', $cats ), $events_cat );
 		}
 
 		if ( $tags = $this->get_value_by_key( $record, 'event_tags' ) ) {
@@ -283,67 +284,6 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$name = $this->get_value_by_key( $record, 'event_venue_name' );
 
 		return $this->find_matching_post_id( $name, Tribe__Events__Venue::POSTTYPE );
-	}
-
-	/**
-	 * When passing terms to wp_insert_post(), we're required to have IDs
-	 * for hierarchical taxonomies, not strings
-	 *
-	 * @param array $terms
-	 *
-	 * @return int[]
-	 */
-	private function translate_terms_to_ids( array $terms ) {
-		$term_ids = array();
-
-		/**
-		 * Allows users to have a string that allows numeric named Categories to be included
-		 *
-		 * @since  4.5.13
-		 *
-		 * @param  string|null $flag Which is the string to be looked for in each category name
-		 */
-		$numeric_name_flag = apply_filters( 'tribe_aggregator_csv_category_numeric_name_flag', '%n' );
-
-		// duplicating some code from wp_set_object_terms()
-		foreach ( $terms as $term ) {
-			if ( ! strlen( trim( $term ) ) ) {
-				continue;
-			}
-
-			$is_numeric_named = false;
-			if ( false !== strpos( $term, $numeric_name_flag ) ) {
-				$is_numeric_named = true;
-				$term = str_replace( $numeric_name_flag, '', $term );
-			}
-
-			if ( is_numeric( $term ) ) {
-				$term = absint( $term );
-				$term_info = get_term( $term, Tribe__Events__Main::TAXONOMY, ARRAY_A );
-			} else {
-				$term_info = term_exists( $term, Tribe__Events__Main::TAXONOMY );
-			}
-
-			if ( ! $term_info ) {
-				// Skip if a non-existent term ID is passed.
-				if ( ! $is_numeric_named && is_numeric( $term ) ) {
-					continue;
-				}
-				$term_info = wp_insert_term( $term, Tribe__Events__Main::TAXONOMY );
-			}
-
-			if ( is_wp_error( $term_info ) ) {
-				continue;
-			}
-
-			if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
-				$this->aggregator_record->meta['activity']->add( 'category', 'created', $term_info['term_id'] );
-			}
-
-			$term_ids[] = $term_info['term_id'];
-		}
-
-		return $term_ids;
 	}
 
 	/**

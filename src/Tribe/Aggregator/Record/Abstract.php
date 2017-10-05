@@ -871,17 +871,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return WP_Query|WP_Error|bool
 	 */
-	public function get_child_record_by_status( $status = 'success', $qty = -1 ) {
+	public function get_child_record_by_status( $status = 'success', $qty = -1, array $args = array() ) {
 		$statuses = Tribe__Events__Aggregator__Records::$status;
 
 		if ( ! isset( $statuses->{ $status } ) && 'trash' !== $status ) {
 			return false;
 		}
 
-		$args = array(
-			'post_status'    => $statuses->{ $status },
+		$args = array_merge( $args, array(
+			'post_status'    => $statuses->{$status},
 			'posts_per_page' => $qty,
-		);
+		) );
 		$query = $this->query_child_records( $args );
 
 		if ( ! $query->have_posts() ) {
@@ -1034,8 +1034,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// Prevents Pending that is younger than 1 hour to be pruned
 		if (
-			Tribe__Events__Aggregator__Records::$status->pending === $this->post->post_status &&
-			$current > $created + HOUR_IN_SECONDS
+			Tribe__Events__Aggregator__Records::$status->pending === $this->post->post_status
+			&& $current < $created + HOUR_IN_SECONDS
 		) {
 			return false;
 		}
@@ -2159,7 +2159,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			? (int) get_post_thumbnail_id( $post_id )
 			: false;
 
-		if ( ! empty( $current_thumbnail_id ) && $current_thumbnail_id !== (int) $new_thumbnail_id ) {
+		if ( empty( $current_thumbnail_id ) || $current_thumbnail_id !== (int) $new_thumbnail_id ) {
 			set_post_thumbnail( $post_id, $new_thumbnail_id );
 
 			return true;

@@ -90,7 +90,7 @@ class SwaggerDocumentationCest extends BaseRestCest {
 		$response = (array) json_decode( $I->grabResponse() );
 		$I->assertArrayHasKey( 'paths', $response );
 		$paths = (array) $response['paths'];
-		$I->assertArrayHasKey( '/events:', $paths );
+		$I->assertArrayHasKey( '/events', $paths );
 		$I->assertArrayHasKey( 'get', (array)$paths['/events:'] );
 	}
 
@@ -106,7 +106,7 @@ class SwaggerDocumentationCest extends BaseRestCest {
 		$response = (array) json_decode( $I->grabResponse() );
 		$I->assertArrayHasKey( 'paths', $response );
 		$paths = (array) $response['paths'];
-		$I->assertArrayHasKey( '/events/{id}:', $paths );
+		$I->assertArrayHasKey( '/events/{id}', $paths );
 		$I->assertArrayHasKey( 'get', (array)$paths['/events/{id}:'] );
 	}
 }

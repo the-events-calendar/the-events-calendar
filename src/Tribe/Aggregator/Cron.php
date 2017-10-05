@@ -173,11 +173,14 @@ class Tribe__Events__Aggregator__Cron {
 		$start_timestamp = strtotime( $date );
 
 		// randomize the time by plus/minus 0-5 minutes
-		$start_timestamp += ( mt_rand( -5, 5 ) * 60 );
+		$random_minutes = ( mt_rand( -5, 5 ) * 60 );
+		$start_timestamp += $random_minutes;
+
+		$current_time = time();
 
 		// if the start timestamp is older than RIGHT NOW, set it for 5 minutes from now
-		if ( time() > $start_timestamp ) {
-			$start_timestamp += 300;
+		if ( $current_time > $start_timestamp ) {
+			$start_timestamp = $current_time + absint( $random_minutes );
 		}
 
 		// Now add an action twice hourly
@@ -316,7 +319,7 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
-			if ( $record->get_child_record_by_status( 'pending' ) ) {
+			if ( $record->get_child_record_by_status( 'pending', - 1, array( 'after' => time() - 4 * 3600 ) ) ) {
 				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, has pending child(ren)', $record->id ), 'EA Cron' );
 				continue;
 			}

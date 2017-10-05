@@ -10,6 +10,11 @@ use Tribe__Events__Aggregator__Service as Service;
 class OriginsTest extends Aggregator_TestCase {
 
 	/**
+	 * @var \Tribe__Events__Aggregator__Service
+	 */
+	protected static $service_backup;
+
+	/**
 	 * @var Service
 	 */
 	protected $service;
@@ -19,12 +24,17 @@ class OriginsTest extends Aggregator_TestCase {
 		parent::setUp();
 
 		// your set up methods here
+		if ( null === self::$service_backup ) {
+			self::$service_backup = tribe( 'events-aggregator.service' );
+		}
+
 		tribe_set_var( 'events-aggregator.origins-data', null );
 		$this->service = $this->prophesize( Service::class );
 	}
 
 	public function tearDown() {
 		// your tear down methods here
+		tribe_register( 'events-aggregator.service', self::$service_backup );
 
 		// then
 		parent::tearDown();
@@ -48,6 +58,7 @@ class OriginsTest extends Aggregator_TestCase {
 		$mock_origins = $this->factory()->ea_service->create_origins();
 		$this->service->get_origins( true )->willReturn( [ $mock_origins, null ] );
 		$this->service->api()->willReturn( true );
+		$this->service->get_origins()->willReturn( $this->factory()->ea_service->create_origins() );
 
 		$sut = $this->make_instance();
 
@@ -138,5 +149,4 @@ class OriginsTest extends Aggregator_TestCase {
 
 		return new Origins();
 	}
-
 }

@@ -46,7 +46,7 @@ class Tribe__Events__Linked_Posts {
 	 *
 	 * @param Tribe__Cache|null $cache
 	 */
-	protected function __construct( Tribe__Cache $cache = null ) {
+	public function __construct( Tribe__Cache $cache = null ) {
 		$this->cache = null !== $cache ? $cache : tribe( 'cache' );
 
 		$this->main = Tribe__Events__Main::instance();

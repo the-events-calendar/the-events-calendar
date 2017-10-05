@@ -4,8 +4,10 @@ modules:
         - \Helper\Restv1
         - REST
         - WPDb
+        - WPBrowser
         - \Helper\TribeDb
         - Asserts
+        - WPLoader
     config:
         WPDb:
             dsn: 'mysql:host=localhost;dbname=test'
@@ -24,3 +26,12 @@ modules:
         REST:
             depends: WPBrowser
             url: 'http://tec.tri.be/wp-json/tribe/events/v1/'
+        WPLoader:
+            # just load WordPress using the same db as WPDb
+            loadOnly: true
+            wpRootFolder: /tmp/wordpress
+            dbName: test
+            dbHost: localhost
+            dbUser: root
+            dbPassword: ''
+

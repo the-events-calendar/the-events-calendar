@@ -1,7 +1,9 @@
 <?php
 
 class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
-	implements Tribe__REST__Endpoints__Endpoint_Interface, Tribe__Documentation__Swagger__Provider_Interface, Tribe__Documentation__Swagger__Builder_Interface {
+	implements Tribe__REST__Endpoints__READ_Endpoint_Interface,
+	Tribe__Documentation__Swagger__Provider_Interface,
+	Tribe__Documentation__Swagger__Builder_Interface {
 
 	/**
 	 * @var string
@@ -61,11 +63,11 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 		$documentation = array(
 			'swagger'     => $this->swagger_version,
 			'info'        => $this->get_api_info(),
-			'host'        => home_url(),
+			'host'        => parse_url( home_url(), PHP_URL_HOST ),
 			'basePath'    => str_replace( home_url(), '', tribe_events_rest_url() ),
 			'schemes'     => is_ssl() ? array( 'https', 'http' ) : array( 'http' ),
 			'consumes'    => array( 'application/json' ),
-			'produces'    => array( 'applicatin/json' ),
+			'produces'    => array( 'application/json' ),
 			'paths'       => $this->get_paths(),
 			'definitions' => $this->get_definitions(),
 		);
@@ -100,7 +102,7 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 			} else {
 				$documentation = $this->get_own_documentation();
 			}
-			$paths[ $path . ':' ] = $documentation;
+			$paths[ $path ] = $documentation;
 		}
 
 		return $paths;
@@ -110,7 +112,7 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 	 * Registers a documentation provider for a path.
 	 *
 	 * @param                                            $path
-	 * @param Tribe__REST__Endpoints__Endpoint_Interface $endpoint
+	 * @param Tribe__Documentation__Swagger__Provider_Interface $endpoint
 	 */
 	public function register_documentation_provider( $path, Tribe__Documentation__Swagger__Provider_Interface $endpoint ) {
 		$this->documentation_providers[ $path ] = $endpoint;
@@ -160,5 +162,15 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 	 */
 	public function get_registered_definition_providers() {
 		return $this->definition_providers;
+	}
+
+	/**
+	 * Returns the content of the `args` array that should be used to register the endpoint
+	 * with the `register_rest_route` function.
+	 *
+	 * @return array
+	 */
+	public function READ_args() {
+		return array();
 	}
 }
