@@ -739,11 +739,11 @@ jQuery( document ).ready( function( $ ) {
 
 	if ( $tribe_views.length ) {
 
-		var $default_view_select = $( 'select[name="viewOption"]' ),
-			$default_mobile_view_select = $( 'select[name="mobile_default_view"]' ),
-			$view_inputs = $tribe_views.find( 'input:checkbox' ),
-			$view_desc = $( '#tribe-field-tribeEnableViews .tribe-field-wrap p.description' ),
-			view_options = {};
+		var $default_view_select = $( 'select[name="viewOption"]' );
+		var $default_mobile_view_select = $( 'select[name="mobile_default_view"]' );
+		var $view_inputs = $tribe_views.find( 'input:checkbox' );
+		var $view_desc = $( '#tribe-field-tribeEnableViews .tribe-field-wrap p.description' );
+		var view_options = {};
 
 		function create_view_array() {
 
