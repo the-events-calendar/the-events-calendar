@@ -325,6 +325,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.6.2] TBD =
 
 * Tweak - Improvements to the readme.txt file surrounding plugin requirements (thanks @ramiy) [90285]
+* Tweak - Improve site identification in multisite installations using Event Aggregator to avoid throttling issues [90489]
 
 = [4.6.1] 2017-10-04 =
 
