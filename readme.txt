@@ -324,6 +324,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.6.2] TBD =
 
+* Fix - Fixed issue in Month view with multi-month events not appearing on subsequent months (thanks @shinno.kei & @schittly for helping isolate this) [89747]
 * Tweak - Improvements to the readme.txt file surrounding plugin requirements (thanks @ramiy) [90285]
 
 = [4.6.1] 2017-10-04 =
