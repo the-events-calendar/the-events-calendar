@@ -325,6 +325,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.6.2] TBD =
 
 * Tweak - Improvements to the readme.txt file surrounding plugin requirements (thanks @ramiy) [90285]
+* Tweak - Avoid notice level errors when a non-existent category archive is requested (our thanks to Charles Simmons for highlighting this) [90697]
 
 = [4.6.1] 2017-10-04 =
 
