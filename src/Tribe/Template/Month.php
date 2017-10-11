@@ -565,12 +565,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 							AND tribe_event_start.meta_value <= '{$end_date_sql}'
 						)
 						OR (
-							tribe_event_start.meta_value <= '{$start_date_sql}'
-							AND tribe_event_end_date.meta_value >= '{$end_date_sql}'
+							tribe_event_end_date.meta_value >= '{$start_date_sql}'
+							AND tribe_event_end_date.meta_value <= '{$end_date_sql}'
 						)
 						OR (
-							tribe_event_start.meta_value >= '{$start_date_sql}'
-							AND tribe_event_start.meta_value <= '{$end_date_sql}'
+							tribe_event_start.meta_value < '{$start_date_sql}'
+							AND tribe_event_end_date.meta_value > '{$end_date_sql}'
 						)
 					)
 					AND $wpdb->posts.post_status IN('$post_stati')
