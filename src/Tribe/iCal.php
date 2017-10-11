@@ -80,7 +80,7 @@ class Tribe__Events__iCal {
 		$calendar_links .= '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . esc_attr__( 'Download .ics file', 'the-events-calendar' ) . '" >+ ' . esc_html__( 'iCal Export', 'the-events-calendar' ) . '</a>';
 		$calendar_links .= '</div><!-- .tribe-events-cal-links -->';
 
-		echo apply_filters( 'tribe_events_single_links', $calendar_links );
+		echo apply_filters( 'tribe_events_single_links', esc_html( $calendar_links ) );
 	}
 
 
