@@ -43,14 +43,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		'ical' => array(
 			'source' => 'uid',
 			'target' => 'uid',
+			'legacy' => 'v1_uid',
 		),
 		'gcal' => array(
 			'source' => 'uid',
 			'target' => 'uid',
+			'legacy' => 'v1_uid',
 		),
 		'ics' => array(
 			'source' => 'uid',
 			'target' => 'uid',
+			'legacy' => 'v1_uid',
 		),
 		'url' => array(
 			'source' => 'id',
