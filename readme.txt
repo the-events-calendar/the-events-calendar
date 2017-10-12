@@ -327,6 +327,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.6.2] TBD =
+
+* Tweak - Added a new filter `tribe_events_single_links` to make customizing the iCal and gCal export links on single-event views easier [90705]
+
 = [4.6.1] 2017-10-04 =
 
 * Fix - Fixed "Next Events" and "Previous Events" navigation links in list views, which would sometimes make a category-filtered list view lose its category filter as a user navigated through pages of future or past events (props @forumhelpdesk and @atomicdust for reporting this!) [72013]
