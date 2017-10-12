@@ -934,15 +934,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							AND (
 								(
 									tribe_event_start.meta_value >= '{$start_date_sql}'
-									AND  tribe_event_start.meta_value <= '{$end_date_sql}'
-								)
-								OR (
-									tribe_event_start.meta_value <= '{$start_date_sql}'
-									AND tribe_event_end_date.meta_value >= '{$start_date_sql}'
-								)
-								OR (
-									tribe_event_start.meta_value >= '{$start_date_sql}'
 									AND tribe_event_start.meta_value <= '{$end_date_sql}'
+								)
+								OR (
+									tribe_event_end_date.meta_value >= '{$start_date_sql}'
+									AND tribe_event_end_date.meta_value <= '{$end_date_sql}'
+								)
+								OR (
+									tribe_event_start.meta_value < '{$start_date_sql}'
+									AND tribe_event_end_date.meta_value > '{$end_date_sql}'
 								)
 							)
 							ORDER BY menu_order ASC, DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;"
