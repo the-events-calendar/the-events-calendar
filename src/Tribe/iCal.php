@@ -355,7 +355,7 @@ class Tribe__Events__iCal {
 				 *
 				 * @param string $string This thumbnail's iCal-formatted "ATTACH;" string with the thumbnail mime type and URL.
 				 * @param int $post_id The ID of the event this thumbnail belongs to.
-				 */	
+				 */
 				$item[] = apply_filters( 'tribe_ical_feed_item_thumbnail', sprintf( 'ATTACH;FMTTYPE=%s:%s', $thumbnail_mime_type, $thumbnail_url ), $event_post->ID );
 			}
 
