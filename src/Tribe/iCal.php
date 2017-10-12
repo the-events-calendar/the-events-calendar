@@ -401,10 +401,25 @@ class Tribe__Events__iCal {
 		$content .= 'PRODID:-//' . $blogName . ' - ECPv' . Tribe__Events__Main::VERSION . "//NONSGML v1.0//EN\r\n";
 		$content .= "CALSCALE:GREGORIAN\r\n";
 		$content .= "METHOD:PUBLISH\r\n";
-		$content .= 'X-WR-CALNAME:' . apply_filters( 'tribe_ical_feed_calname', $blogName ) . "\r\n";
+
+		/**
+		 * Allows for customizing the value of the generated iCal file's "X-WR-CALNAME:" property.
+		 *
+		 * @param string $blogName The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
+		 */
+		$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blogName );
+
+		$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
 		$content .= 'X-ORIGINAL-URL:' . $blogHome . "\r\n";
 		$content .= 'X-WR-CALDESC:Events for ' . $blogName . "\r\n";
+
+		/**
+		 * Allows for customization of the various properties at the top of the generated iCal file.
+		 *
+		 * @param string $content Existing properties atop the file; starts at "BEGIN:VCALENDAR", ends at "X-WR-CALDESC".
+		 */
 		$content  = apply_filters( 'tribe_ical_properties', $content );
+
 		$content .= $events;
 		$content .= 'END:VCALENDAR';
 
