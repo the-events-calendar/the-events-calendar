@@ -85,7 +85,7 @@ class Tribe__Events__iCal {
 		 *
 		 * @param string $calendar_links The HTML of the iCal and gCal single-event link buttons.
 		 */
-		echo apply_filters( 'tribe_events_single_links', $calendar_links );
+		echo apply_filters( 'tribe_events_ical_single_event_links', $calendar_links );
 	}
 
 
