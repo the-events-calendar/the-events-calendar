@@ -36,26 +36,26 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'target' => 'EventFacebookID',
 			'legacy' => 'FacebookID',
 		),
-		'meetup' => array(
+		'meetup'   => array(
 			'source' => 'meetup_id',
 			'target' => 'EventMeetupID',
 		),
-		'ical' => array(
-			'source' => 'uid',
-			'target' => 'uid',
-			'legacy' => 'v1_uid',
+		'ical'     => array(
+			'source'       => 'uid',
+			'target'       => 'uid',
+			'upgrade_from' => array( 'v1_uid' ),
 		),
-		'gcal' => array(
-			'source' => 'uid',
-			'target' => 'uid',
-			'legacy' => 'v1_uid',
+		'gcal'     => array(
+			'source'       => 'uid',
+			'target'       => 'uid',
+			'upgrade_from' => array( 'v1_uid' ),
 		),
-		'ics' => array(
-			'source' => 'uid',
-			'target' => 'uid',
-			'legacy' => 'v1_uid',
+		'ics'      => array(
+			'source'       => 'uid',
+			'target'       => 'uid',
+			'upgrade_from' => array( 'v1_uid' ),
 		),
-		'url' => array(
+		'url'      => array(
 			'source' => 'id',
 			'target' => 'EventOriginalID',
 		),
@@ -1895,8 +1895,24 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return array();
 		}
 
-		$event_object = new Tribe__Events__Aggregator__Event;
-		$existing_ids = $event_object->get_existing_ids( $this->meta['origin'], $selected_ids );
+		$event_object         = new Tribe__Events__Aggregator__Event;
+		$existing_ids         = $event_object->get_existing_ids( $this->meta['origin'], $selected_ids );
+
+		// here we handle the case where the event unique field name did not change but we
+		// changed, service-side, how we build that unique field entry; during an import we
+		// will update the unique field to the new standard
+		if ( ! empty( $unique_field['upgrade_from'] ) && ! empty( $this->meta['queue'] ) ) {
+			$items                   = $this->meta['queue'];
+			$selected_old_format_ids = array();
+			foreach ( $unique_field['upgrade_from'] as $old_format_key ) {
+				$selected_old_format_ids = array_merge( $selected_old_format_ids, wp_list_pluck( $items, $old_format_key ) );
+			}
+			$target_ids              = wp_list_pluck( $items, $unique_field['target'] );
+			$existing_old_format_ids = $event_object->get_old_format_existing_ids( $this->meta['origin'], $selected_old_format_ids, $target_ids );
+			if ( ! empty( $existing_old_format_ids ) ) {
+				$existing_ids = array_merge( $existing_ids, $existing_old_format_ids );
+			}
+		}
 
 		return $existing_ids;
 	}
