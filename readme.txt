@@ -327,6 +327,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Fixed issue in Month view with multi-month events not appearing on subsequent months (thanks @shinno.kei & @schittly for helping isolate this) [89747]
 * Tweak - Improvements to the readme.txt file surrounding plugin requirements (thanks @ramiy) [90285]
 * Tweak - Avoid notice level errors when a non-existent category archive is requested (our thanks to Charles Simmons for highlighting this) [90697]
+* Tweak - Added a new filter `tribe_events_ical_single_event_links` to make customizing the iCal and gCal export links on single-event views easier [90705]
 
 = [4.6.1] 2017-10-04 =
 

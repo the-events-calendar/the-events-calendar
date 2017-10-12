@@ -75,37 +75,58 @@ class Tribe__Events__iCal {
 		if ( is_single() && post_password_required() ) {
 			return;
 		}
-		echo '<div class="tribe-events-cal-links">';
-		echo '<a class="tribe-events-gcal tribe-events-button" href="' . Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() ) . '" title="' . esc_attr__( 'Add to Google Calendar', 'the-events-calendar' ) . '">+ ' . esc_html__( 'Google Calendar', 'the-events-calendar' ) . '</a>';
-		echo '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . esc_attr__( 'Download .ics file', 'the-events-calendar' ) . '" >+ ' . esc_html__( 'iCal Export', 'the-events-calendar' ) . '</a>';
-		echo '</div><!-- .tribe-events-cal-links -->';
+		$calendar_links = '<div class="tribe-events-cal-links">';
+		$calendar_links .= '<a class="tribe-events-gcal tribe-events-button" href="' . Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() ) . '" title="' . esc_attr__( 'Add to Google Calendar', 'the-events-calendar' ) . '">+ ' . esc_html__( 'Google Calendar', 'the-events-calendar' ) . '</a>';
+		$calendar_links .= '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . esc_attr__( 'Download .ics file', 'the-events-calendar' ) . '" >+ ' . esc_html__( 'iCal Export', 'the-events-calendar' ) . '</a>';
+		$calendar_links .= '</div><!-- .tribe-events-cal-links -->';
+
+		/**
+		 * Allow for complete customization of the iCal and gCal single-event links.
+		 *
+		 * @param string $calendar_links The HTML of the iCal and gCal single-event link buttons.
+		 */
+		echo apply_filters( 'tribe_events_ical_single_event_links', $calendar_links );
 	}
+
 
 	/**
 	 * Generates the markup for the "iCal Import" link for the views.
 	 */
 	public function maybe_add_link() {
 		global $wp_query;
+
+		/**
+		 * A filter to control whether the "iCal Import" link shows up or not.
+		 *
+		 * @param boolean $show Whether to show the "iCal Import" link; defaults to true.
+		 */
 		$show_ical = apply_filters( 'tribe_events_list_show_ical_link', true );
 
 		if ( ! $show_ical ) {
 			return;
 		}
+
 		if ( tribe_is_month() && ! tribe_events_month_has_events() ) {
 			return;
 		}
+
 		if ( is_single() || empty( $wp_query->posts ) ) {
 			return;
 		}
 
-		$tec = Tribe__Events__Main::instance();
-
+		$tec  = Tribe__Events__Main::instance();
 		$view = $tec->displaying;
+
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $wp_query->query_vars['eventDisplay'] ) ) {
 			$view = $wp_query->query_vars['eventDisplay'];
 		}
 
-		$text = apply_filters( 'tribe_events_ical_export_text', esc_html__( 'Export Events', 'the-events-calendar' ) );
+		/**
+		 * Allow for customization of the iCal export link "Export Events" text.
+		 *
+		 * @param string $text The default link text, which is "Export Events".
+		 */
+		$text  = apply_filters( 'tribe_events_ical_export_text', esc_html__( 'Export Events', 'the-events-calendar' ) );
 		$title = esc_html__( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'the-events-calendar' );
 		$ical  = '<a class="tribe-events-ical tribe-events-button" title="' . $title . '" href="' . esc_url( tribe_get_ical_link() ) . '">+ ' . $text . '</a>';
 
@@ -156,11 +177,11 @@ class Tribe__Events__iCal {
 			: $wp_query->get( 'eventDate' );
 
 		$args = array(
-			'eventDisplay' => 'custom',
-			'start_date'   => Tribe__Events__Template__Month::calculate_first_cell_date( $month ),
-			'end_date'     => Tribe__Events__Template__Month::calculate_final_cell_date( $month ),
+			'eventDisplay'   => 'custom',
+			'start_date'     => Tribe__Events__Template__Month::calculate_first_cell_date( $month ),
+			'end_date'       => Tribe__Events__Template__Month::calculate_final_cell_date( $month ),
 			'posts_per_page' => -1,
-			'hide_upcoming' => true,
+			'hide_upcoming'  => true,
 		);
 
 		// Verify the Intial Category
@@ -220,6 +241,7 @@ class Tribe__Events__iCal {
 			global $wp_query;
 
 			$query_posts_per_page = $wp_query->get( 'posts_per_page' );
+
 			if ( $count > $query_posts_per_page ) {
 				$query        = new WP_Query( array_merge( $wp_query->query, array( 'posts_per_page' => $count ) ) );
 				$events_posts = $query->get_posts();
@@ -235,20 +257,20 @@ class Tribe__Events__iCal {
 			$item = array();
 
 			$full_format = 'Ymd\THis';
-			$utc_format = 'Ymd\THis\Z';
-			$all_day = ( 'yes' === get_post_meta( $event_post->ID, '_EventAllDay', true ) );
-			$time = (object) array(
-				'start' => tribe_get_start_date( $event_post->ID, false, 'U' ),
-				'end' => tribe_get_end_date( $event_post->ID, false, 'U' ),
+			$utc_format  = 'Ymd\THis\Z';
+			$all_day     = ( 'yes' === get_post_meta( $event_post->ID, '_EventAllDay', true ) );
+			$time        = (object) array(
+				'start'    => tribe_get_start_date( $event_post->ID, false, 'U' ),
+				'end'      => tribe_get_end_date( $event_post->ID, false, 'U' ),
 				'modified' => Tribe__Date_Utils::wp_strtotime( $event_post->post_modified ),
-				'created' => Tribe__Date_Utils::wp_strtotime( $event_post->post_date ),
+				'created'  => Tribe__Date_Utils::wp_strtotime( $event_post->post_date ),
 			);
 
 			if ( $all_day ) {
-				$type = 'DATE';
+				$type   = 'DATE';
 				$format = 'Ymd';
 			} else {
-				$type = 'DATE-TIME';
+				$type   = 'DATE-TIME';
 				$format = $full_format;
 			}
 
@@ -300,6 +322,7 @@ class Tribe__Events__iCal {
 			if ( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) ) {
 				$long = Tribe__Events__Pro__Geo_Loc::instance()->get_lng_for_event( $event_post->ID );
 				$lat  = Tribe__Events__Pro__Geo_Loc::instance()->get_lat_for_event( $event_post->ID );
+
 				if ( ! empty( $long ) && ! empty( $lat ) ) {
 					$item[] = sprintf( 'GEO:%s;%s', $lat, $long );
 
@@ -316,6 +339,7 @@ class Tribe__Events__iCal {
 
 			// add categories if available
 			$event_cats = (array) wp_get_object_terms( $event_post->ID, Tribe__Events__Main::TAXONOMY, array( 'fields' => 'names' ) );
+
 			if ( ! empty( $event_cats ) ) {
 				$item[] = 'CATEGORIES:' . html_entity_decode( join( ',', $event_cats ), ENT_QUOTES );
 			}
@@ -325,14 +349,21 @@ class Tribe__Events__iCal {
 				$thumbnail_id        = get_post_thumbnail_id( $event_post->ID );
 				$thumbnail_url       = wp_get_attachment_url( $thumbnail_id );
 				$thumbnail_mime_type = get_post_mime_type( $thumbnail_id );
-				$item[]              = apply_filters( 'tribe_ical_feed_item_thumbnail', sprintf( 'ATTACH;FMTTYPE=%s:%s', $thumbnail_mime_type, $thumbnail_url ), $event_post->ID );
+
+				/**
+				 * Allow for customization of an individual iCal-exported event's thumbnail.
+				 *
+				 * @param string $string This thumbnail's iCal-formatted "ATTACH;" string with the thumbnail mime type and URL.
+				 * @param int $post_id The ID of the event this thumbnail belongs to.
+				 */
+				$item[] = apply_filters( 'tribe_ical_feed_item_thumbnail', sprintf( 'ATTACH;FMTTYPE=%s:%s', $thumbnail_mime_type, $thumbnail_url ), $event_post->ID );
 			}
 
 			// add organizer if available
 			$organizer_email = tribe_get_organizer_email( $event_post->ID, false );
 			if ( $organizer_email ) {
 				$organizer_id = tribe_get_organizer_id( $event_post->ID );
-				$organizer = get_post( $organizer_id );
+				$organizer    = get_post( $organizer_id );
 
 				if ( $organizer_id ) {
 					$item[] = sprintf( 'ORGANIZER;CN="%s":MAILTO:%s', rawurlencode( $organizer->post_title ), $organizer_email );
@@ -341,6 +372,12 @@ class Tribe__Events__iCal {
 				}
 			}
 
+			/**
+			 * Allow for customization of an individual "VEVENT" item to be rendered inside an iCal export file.
+			 *
+			 * @param array $item The various iCal file format components of this specific event item.
+			 * @param object $event_post The WP_Post of this event.
+			 */
 			$item = apply_filters( 'tribe_ical_feed_item', $item, $event_post );
 
 			$events .= "BEGIN:VEVENT\r\n" . implode( "\r\n", $item ) . "\r\nEND:VEVENT\r\n";
@@ -359,15 +396,30 @@ class Tribe__Events__iCal {
 
 		header( 'Content-type: text/calendar; charset=UTF-8' );
 		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
-		$content = "BEGIN:VCALENDAR\r\n";
+		$content  = "BEGIN:VCALENDAR\r\n";
 		$content .= "VERSION:2.0\r\n";
 		$content .= 'PRODID:-//' . $blogName . ' - ECPv' . Tribe__Events__Main::VERSION . "//NONSGML v1.0//EN\r\n";
 		$content .= "CALSCALE:GREGORIAN\r\n";
 		$content .= "METHOD:PUBLISH\r\n";
-		$content .= 'X-WR-CALNAME:' . apply_filters( 'tribe_ical_feed_calname', $blogName ) . "\r\n";
+
+		/**
+		 * Allows for customizing the value of the generated iCal file's "X-WR-CALNAME:" property.
+		 *
+		 * @param string $blogName The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
+		 */
+		$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blogName );
+
+		$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
 		$content .= 'X-ORIGINAL-URL:' . $blogHome . "\r\n";
 		$content .= 'X-WR-CALDESC:Events for ' . $blogName . "\r\n";
-		$content = apply_filters( 'tribe_ical_properties', $content );
+
+		/**
+		 * Allows for customization of the various properties at the top of the generated iCal file.
+		 *
+		 * @param string $content Existing properties atop the file; starts at "BEGIN:VCALENDAR", ends at "X-WR-CALDESC".
+		 */
+		$content  = apply_filters( 'tribe_ical_properties', $content );
+
 		$content .= $events;
 		$content .= 'END:VCALENDAR';
 
