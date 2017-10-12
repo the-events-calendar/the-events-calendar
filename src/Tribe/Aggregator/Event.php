@@ -87,6 +87,7 @@ class Tribe__Events__Aggregator__Event {
 			'facebook_id'        => 'EventFacebookID',
 			'meetup_id'          => 'EventMeetupID',
 			'uid'                => 'uid',
+			'v1_uid'             => 'v1_uid',
 			'parent_uid'         => 'parent_uid',
 			'recurrence'         => 'recurrence',
 			'categories'         => 'categories',
@@ -409,5 +410,63 @@ class Tribe__Events__Aggregator__Event {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Returns a list of events that have their unique field entry in an old format.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $origin         The origin that is currently being handled.
+	 * @param array  $old_format_ids An array of unique fields in the old format.
+	 * @param array $new_format_ids An array of unique fields in the new format.
+	 *
+	 * @return array An array of objects in the format [ <new_format_id> => { 'meta_value' => <old_format_id>, 'pos_id' => <post_id> } ]
+	 */
+	public function get_old_format_existing_ids( $origin, $old_format_ids, $new_format_ids ) {
+		global $wpdb;
+
+		$target_to_legacy_map = array_combine( $new_format_ids, $old_format_ids );
+
+		$fields = Tribe__Events__Aggregator__Record__Abstract::$unique_id_fields;
+
+		if ( empty( $fields[ $origin ] ) ) {
+			return array();
+		}
+
+		if ( empty( $old_format_ids ) ) {
+			return array();
+		}
+
+		$key       = "_{$fields[ $origin ]['target']}";
+		$post_type = Tribe__Events__Main::POSTTYPE;
+		$interval  = "('" . implode( "','", array_map( 'esc_sql', $old_format_ids ) ) . "')";
+
+		$sql = $wpdb->prepare( "
+			SELECT
+				pm.meta_value,
+				pm.post_id
+			FROM
+				{$wpdb->postmeta} pm
+			JOIN
+				{$wpdb->posts} p
+			ON
+				pm.post_id = p.ID
+			WHERE
+				p.post_type = '{$post_type}'
+				AND meta_value IN {$interval}
+				AND meta_key = %s
+		", $key );
+
+		// find events using the correct format (`target`) meta_key and the old format unique field entry
+		$results = $wpdb->get_results( $sql, OBJECT_K );
+
+		if ( empty( $results ) ) {
+			return array();
+		}
+
+		$keys = array_values( array_intersect_key( array_flip( $target_to_legacy_map ), $results ) );
+
+		return array_combine( $keys, $results );
 	}
 }
