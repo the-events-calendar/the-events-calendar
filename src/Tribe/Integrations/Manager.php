@@ -32,7 +32,7 @@ class Tribe__Events__Integrations__Manager {
 	 * @return bool
 	 */
 	private function load_wpml_integration() {
-		if ( ! ( class_exists( 'SitePress' ) && defined( 'ICL_PLUGIN_PATH' ) ) ) {
+		if ( ! tribe_is_wpml_active() ) {
 			return false;
 		}
 
