@@ -21,4 +21,6 @@ extensions:
         - 'Codeception\Command\GenerateWPXMLRPC'
         - 'Codeception\Command\DbSnapshot'
         - 'tad\Codeception\Command\SearchReplace'
+params:
+    - .env
 

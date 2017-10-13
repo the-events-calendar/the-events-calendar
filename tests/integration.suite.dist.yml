@@ -4,24 +4,20 @@
 # Emulate web requests and make application process them.
 class_name: IntegrationTester
 modules:
-    enabled: [WPLoader, \Helper\Integration]
+    enabled:
+        - \Helper\Integration
+        - WPLoader
     config:
         WPLoader:
-            wpRootFolder: /tmp/wordpress
-            dbName: wploader
-            dbHost: localhost
-            dbUser: root
-            dbPassword: ''
+            wpRootFolder: '%WP_ROOT_FOLDER%'
+            dbName: %TEST_DB_NAME%
+            dbHost: %DB_HOST%
+            dbUser: %DB_USER%
+            dbPassword: %DB_PASSWORD%
             wpDebug: true
-            dbCharset: utf8
-            dbCollate: ''
             tablePrefix: wp_
-            domain: tec.tri.be
-            adminEmail: admin@tec.tri.be
+            domain: %WP_DOMAIN%
+            adminEmail: admin@%WP_DOMAIN%
             title: 'The Events Calendar Tests'
-            phpBinary: php
-            language: ''
             plugins:
-                - the-events-calendar/the-events-calendar.php
-            activatePlugins:
                 - the-events-calendar/the-events-calendar.php

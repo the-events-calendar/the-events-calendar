@@ -9,29 +9,29 @@ modules:
         - Asserts
         - WPLoader
     config:
-        WPDb:
-            dsn: 'mysql:host=localhost;dbname=test'
-            user: root
-            password: ''
-            dump: tests/_data/dump.sql
-            populate: true
-            cleanup: true
-            url: 'http://tec.tri.be'
-            tablePrefix: wp_
         WPBrowser:
-            url: 'http://tec.tri.be'
+            url: '%WP_URL%'
             adminUsername: admin
             adminPassword: admin
             adminUrl: /wp-admin
         REST:
             depends: WPBrowser
-            url: 'http://tec.tri.be/wp-json/tribe/events/v1/'
+            url: '%WP_URL%/wp-json/tribe/events/v1/'
+        WPDb:
+            dsn: 'mysql:host=%DB_HOST%;dbname=%DB_NAME%'
+            user: %DB_USER%
+            password: %DB_PASSWORD%
+            dump: tests/_data/dump.sql
+            populate: true
+            cleanup: true
+            url: '%WP_URL%'
+            tablePrefix: wp_
         WPLoader:
             # just load WordPress using the same db as WPDb
             loadOnly: true
-            wpRootFolder: /tmp/wordpress
-            dbName: test
-            dbHost: localhost
-            dbUser: root
-            dbPassword: ''
+            wpRootFolder: %WP_ROOT_FOLDER%
+            dbName: %DB_NAME%
+            dbHost: %DB_HOST%
+            dbUser: %DB_USER%
+            dbPassword: %DB_PASSWORD%
 
