@@ -80,8 +80,8 @@ install:
   - wp rewrite structure '/%postname%/' --hard
   # update WordPress database to avoid prompts
   - wp core update-db
-  # copy the plugin in the WordPress plugin folder
-  - cp -r $TRAVIS_BUILD_DIR $WP_FOLDER/wp-content/plugins
+  # link the plugin in the WordPress plugin folder
+  - ln -s $TRAVIS_BUILD_DIR $WP_FOLDER/wp-content/plugins
   # show the plugins folder contents to make sure the plugin folder is there
   - ls $WP_FOLDER/wp-content/plugins
   # activate the plugin
