@@ -34,9 +34,9 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	/**
 	 * Converts the start and end dates to the local timezone
 	 *
-	 * @param  string $event_tz_string
 	 * @param  string $date
-	 * @return srting
+	 * @param  string $event_tz_string
+	 * @return string
 	 */
 	private function get_localized_iso8601_string( $date, $event_tz_string ) {
 		$localTime = new DateTime( $date, new DateTimeZone( 'UTC' ) );
