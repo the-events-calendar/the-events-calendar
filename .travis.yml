@@ -112,6 +112,6 @@ before_script:
 
 script:
   - codecept run wpunit
-  - codecept run integration
-  - codecept run muintegration
-  - codecept run restv1
+#  - codecept run integration
+#  - codecept run muintegration
+#  - codecept run restv1
