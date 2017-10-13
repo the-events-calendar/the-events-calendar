@@ -32,6 +32,21 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	}
 
 	/**
+	 * Converts the start and end dates to the local timezone
+	 *
+	 * @param  string $date
+	 * @param  string $event_tz_string
+	 * @return string
+	 */
+	private function get_localized_iso8601_string( $date, $event_tz_string ) {
+		$localTime = new DateTime( $date, new DateTimeZone( 'UTC' ) );
+		$localTime->setTimezone( new DateTimeZone( $event_tz_string ) );
+		$localTime->date = $localTime->format( 'c' );
+
+		return $localTime->date;
+	}
+
+	/**
 	 * Fetches the JSON-LD data for this type of object
 	 *
 	 * @param  int|WP_Post|null $post The post/event
@@ -59,8 +74,10 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			$event_tz_string = get_post_meta( $post_id, '_EventTimezone', true );
 			$tz_mode         = tribe_get_option( 'tribe_events_timezone_mode', 'event' );
 			$tz_string       = $event_tz_string && $tz_mode === 'event' ? $event_tz_string : Tribe__Events__Timezones::wp_timezone_string();
-			$data->startDate = Tribe__Events__Timezones::to_utc( tribe_get_start_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' );
-			$data->endDate   = Tribe__Events__Timezones::to_utc( tribe_get_end_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' );
+
+			// @todo simplify to `tribe_get_start_date( $post_id, true, 'c' )` once #90984 is resolved
+			$data->startDate = self::get_localized_iso8601_string( Tribe__Events__Timezones::to_utc( tribe_get_start_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' ), $event_tz_string );
+			$data->endDate   = self::get_localized_iso8601_string( Tribe__Events__Timezones::to_utc( tribe_get_end_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' ), $event_tz_string );
 
 			if ( tribe_has_venue( $post_id ) ) {
 				$venue_id       = tribe_get_venue_id( $post_id );
