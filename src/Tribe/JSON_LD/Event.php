@@ -75,8 +75,8 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			$tz_mode         = tribe_get_option( 'tribe_events_timezone_mode', 'event' );
 			$tz_string       = $event_tz_string && $tz_mode === 'event' ? $event_tz_string : Tribe__Events__Timezones::wp_timezone_string();
 
-			$data->startDate = Tribe__Events__JSON_LD__Event::local_timezone( Tribe__Events__Timezones::to_utc( tribe_get_start_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' ), $event_tz_string );
-			$data->endDate   = Tribe__Events__JSON_LD__Event::local_timezone( Tribe__Events__Timezones::to_utc( tribe_get_end_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' ), $event_tz_string );
+			$data->startDate = self::local_timezone( Tribe__Events__Timezones::to_utc( tribe_get_start_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' ), $event_tz_string );
+			$data->endDate   = self::local_timezone( Tribe__Events__Timezones::to_utc( tribe_get_end_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' ), $event_tz_string );
 
 			if ( tribe_has_venue( $post_id ) ) {
 				$venue_id       = tribe_get_venue_id( $post_id );
