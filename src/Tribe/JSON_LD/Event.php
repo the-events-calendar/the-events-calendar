@@ -64,7 +64,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			function local_timezone( $date, $event_tz_string ) {
 				$localTime = new DateTime( $date, new DateTimeZone( 'UTC' ) );
 				$localTime->setTimezone( new DateTimeZone( $event_tz_string ) );
-				$localTime->startDate = $localTime->format('c');
+				$localTime->startDate = $localTime->format( 'c' );
 
 				return $localTime->startDate;
 			}
