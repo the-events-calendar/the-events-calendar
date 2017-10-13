@@ -18,8 +18,8 @@ services:
   - mysql
 
 # disable the default submodule logic, we'll handle with that
-git:
-  submodules: false
+#git:
+#  submodules: false
 
 cache:
   apt: true
@@ -54,8 +54,8 @@ env:
 
 before_install:
   # pull repos via HTTPS URLs, not SSH URLs
-  - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
-  - git submodule update --init --recursive
+#  - sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
+#  - git submodule update --init --recursive
   # create the databases that will be used in the tests
   - mysql -e "create database IF NOT EXISTS $DB_NAME;" -uroot
   - mysql -e "create database IF NOT EXISTS $TEST_DB_NAME;" -uroot
