@@ -16,7 +16,7 @@ params:
     - .env.local
 ```
 
-Codeception is configured to use [dynamic configuration](!g codeception dynamic configuration) and here we tell it that we want, locally, to load the configuration parameters from a file called `.env.local` found in the plugin root folder.  
+Codeception is configured to use [dynamic configuration](http://codeception.com/docs/06-ModulesAndHelpers#Dynamic-Configuration-With-Parameters) and here we tell it that we want, locally, to load the configuration parameters from a file called `.env.local` found in the plugin root folder.  
 Create the `.env.local` file copying the `.env` file and modify each entry to suite your **local** configuration; look up the suite configuration files (`wpunit.suite.dist.yml`, `integration.suite.dist.yml` and so on) to understand how those parameters will be used.  
 **Beware**: testing will wipe and burn the databases, if you have cherished data on them it will be gone forever.
 	
