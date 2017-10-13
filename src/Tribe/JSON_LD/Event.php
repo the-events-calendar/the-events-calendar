@@ -74,7 +74,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			$event_tz_string = get_post_meta( $post_id, '_EventTimezone', true );
 			$tz_mode         = tribe_get_option( 'tribe_events_timezone_mode', 'event' );
 			$tz_string       = $event_tz_string && $tz_mode === 'event' ? $event_tz_string : Tribe__Events__Timezones::wp_timezone_string();
-			
+
 			// @todo simplify to `tribe_get_start_date( $post_id, true, 'c' )` once #90984 is resolved
 			$data->startDate = self::get_localized_iso8601_string( Tribe__Events__Timezones::to_utc( tribe_get_start_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' ), $event_tz_string );
 			$data->endDate   = self::get_localized_iso8601_string( Tribe__Events__Timezones::to_utc( tribe_get_end_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' ), $event_tz_string );
