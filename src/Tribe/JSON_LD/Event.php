@@ -80,7 +80,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			$data->startDate = Tribe__Events__Timezones::to_utc( tribe_get_start_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' );
 			$data->endDate   = Tribe__Events__Timezones::to_utc( tribe_get_end_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' );
 
-			// @todo once #90984 this extra step should not be required
+			// @todo once #90984 is resolved this extra step should not be required
 			if ( ! empty( $tz_string ) ) {
 				$data->startDate = $this->get_localized_iso8601_string( $data->startDate, $tz_string );
 				$data->endDate   = $this->get_localized_iso8601_string( $data->endDate, $tz_string );
