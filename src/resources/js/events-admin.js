@@ -735,37 +735,51 @@ jQuery( document ).ready( function( $ ) {
 	// Default Layout Settings
 	// shows / hides proper views that are to be used on front-end
 
-	var $tribe_views = $( document.getElementById( 'tribe-field-tribeEnableViews' ) );
+	var $tribe_views = $( '#tribe-field-tribeEnableViews' );
 
 	if ( $tribe_views.length ) {
 
-		var $default_view_select = $( '.tribe-field-dropdown_select2 select[name="viewOption"]' ),
-			$view_inputs         = $tribe_views.find( 'input:checkbox' ),
-			$view_desc           = $( '#tribe-field-tribeEnableViews .tribe-field-wrap p.description' ),
-			view_options         = {};
+		var $default_view_select = $( 'select[name="viewOption"]' );
+		var $default_mobile_view_select = $( 'select[name="mobile_default_view"]' );
+		var $view_inputs = $tribe_views.find( 'input:checkbox' );
+		var $view_desc = $( '#tribe-field-tribeEnableViews .tribe-field-wrap p.description' );
+		var view_options = {};
 
 		function create_view_array() {
 
 			$default_view_select
 				.find( 'option' )
 				.each( function() {
-
 					var $this = $( this );
-
 					view_options[$this.attr( 'value' )] = $this.text();
+				} );
 
+			$default_mobile_view_select
+				.find( 'option' )
+				.each( function() {
+					var $this = $( this );
+					view_options[$this.attr( 'value' )] = $this.text();
 				} );
 
 		}
 
-		function set_selected_views() {
+		function set_selected_views( $this ) {
 			// Store the default view chosen prior to this change
 			var prev_default_view = $default_view_select
 				.find( "option:selected" )
 				.first()
 				.val();
 
+			var prev_default_mobile_view = $default_mobile_view_select
+				.find( "option:selected" )
+				.first()
+				.val();
+
 			$default_view_select
+				.find( 'option' )
+				.remove();
+
+			$default_mobile_view_select
 				.find( 'option' )
 				.remove();
 
@@ -777,26 +791,37 @@ jQuery( document ).ready( function( $ ) {
 						var value = $this.val();
 						$default_view_select
 							.append( '<option value="' + value + '">' + view_options[value] + '</option>' );
+						$default_mobile_view_select
+							.append( '<option value="' + value + '">' + view_options[value] + '</option>' );
 					}
 				} );
 
 			// Test to see if the previous default view is still available...
 			var $prev_default_option = $default_view_select.find( "option[value='" + prev_default_view + "']" );
+			var $prev_default_mobile_option = $default_mobile_view_select.find( "option[value='" + prev_default_mobile_view + "']" );
 
 			// ...if it is, keep it as the default (else switch to the first available remaining option)
-			if ( 1 === $prev_default_option.length ) {
-				$prev_default_option
-					.attr( 'selected', 'selected' );
+			if ( $prev_default_option.val() == $this.val() ) {
+				$prev_default_option .attr( 'selected', 'selected' );
 			} else {
-				$default_view_select
-					.find( 'option' )
-					.first()
-					.attr( 'selected', 'selected' );
+				var $default_reset = $tribe_views.find( 'checkbox:checked' ).first().val();
+				$default_view_select.find( 'option' ).find( "option[value='" + $default_reset + "']" ).attr( 'selected', 'selected' );
+			}
+
+			if ( $prev_default_mobile_option.val() == $this.val() ) {
+				$prev_default_mobile_option .attr( 'selected', 'selected' );
+			} else {
+				var $default_reset = $tribe_views.find( 'checkbox:checked' ).first().val();
+				$default_mobile_view_select.find( 'option' ).find( "option[value='" + $default_reset + "']" ).attr( 'selected', 'selected' );
 			}
 
 			$default_view_select
 				.select2( 'destroy' )
-				.select2( {width: '250px'} );
+				.select2( { width: 'auto' } );
+
+			$default_mobile_view_select
+				.select2( 'destroy' )
+				.select2( { width: 'auto' } );
 		}
 
 		create_view_array();
@@ -814,7 +839,7 @@ jQuery( document ).ready( function( $ ) {
 					$view_desc.removeAttr( 'style' );
 				}
 
-				set_selected_views();
+				set_selected_views( $this );
 
 			} );
 	}
