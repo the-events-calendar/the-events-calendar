@@ -326,6 +326,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 * Fix - Restored functionality to the "currency position" options in Events Settings, and in the per-event cost settings (props @schola and many others!) [89918] 
 * Fix - Fixed issue in Month view with multi-month events not appearing on subsequent months (thanks @shinno.kei & @schittly for helping isolate this) [89747]
+* Fix - Made some changes to prevent Month View caching from breaking WPML support when in Month View (props: @mpike and many others!) [82286]
 * Fix - Fixed start/end times being displayed in incorrect timezone in structured data (thanks @mtncreative & @esosa) [42125]
 * Fix - Fixed an issue that would cause a 404 error if the selected default view was not enabled (thanks @pruneau) [45612]
 * Fix - Improved translatability by adding missing textdomains for a number of strings (props @pedro-mendonca) [91071]
