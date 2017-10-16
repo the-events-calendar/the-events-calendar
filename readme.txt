@@ -329,6 +329,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Fixed start/end times being displayed in incorrect timezone in structured data (thanks @mtncreative & @esosa) [42125]
 * Fix - Fixed an issue that would cause a 404 error if the selected default view was not enabled (thanks @pruneau) [45612]
 * Fix - Improved translatability by adding missing textdomains for a number of strings (props @pedro-mendonca) [91071]
+* Fix - Removed unneeded escaping to ensure the organizer link displays as expected (pros @f4w-pwharton) [91074]
 * Tweak - Improvements to the readme.txt file surrounding plugin requirements (thanks @ramiy) [90285]
 * Tweak - Improve site identification in multisite installations using Event Aggregator to avoid throttling issues [90489]
 * Tweak - Avoid notice level errors when a non-existent category archive is requested (our thanks to Charles Simmons for highlighting this) [90697]
