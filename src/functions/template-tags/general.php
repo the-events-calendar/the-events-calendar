@@ -659,7 +659,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$term_name    = get_query_var( Tribe__Events__Main::TAXONOMY );
 
 		if ( ! empty( $term_name ) ) {
-			$term_obj = get_term_by( 'name', $term_name, Tribe__Events__Main::TAXONOMY );
+			$term_obj = get_term_by( 'slug', $term_name, Tribe__Events__Main::TAXONOMY );
 		}
 
 		if ( ! empty( $term_obj ) ) {
