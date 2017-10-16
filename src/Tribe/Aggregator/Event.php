@@ -421,7 +421,7 @@ class Tribe__Events__Aggregator__Event {
 	 * @param array  $old_format_ids An array of unique fields in the old format.
 	 * @param array $new_format_ids An array of unique fields in the new format.
 	 *
-	 * @return array An array of objects in the format [ <new_format_id> => { 'meta_value' => <old_format_id>, 'pos_id' => <post_id> } ]
+	 * @return array An array of objects in the format [ <new_format_id> => { 'meta_value' => <old_format_id>, 'post_id' => <post_id> } ]
 	 */
 	public function get_old_format_existing_ids( $origin, $old_format_ids, $new_format_ids ) {
 		global $wpdb;
