@@ -322,12 +322,15 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.6.2] TBD =
+= [4.6.2] 2017-10-18 =
 
 * Fix - Restored functionality to the "currency position" options in Events Settings, and in the per-event cost settings (props @schola and many others!) [89918] 
 * Fix - Fixed issue in Month view with multi-month events not appearing on subsequent months (thanks @shinno.kei & @schittly for helping isolate this) [89747]
+* Fix - Made some changes to prevent Month View caching from breaking WPML support when in Month View (props: @mpike and many others!) [82286]
 * Fix - Fixed start/end times being displayed in incorrect timezone in structured data (thanks @mtncreative & @esosa) [42125]
 * Fix - Fixed an issue that would cause a 404 error if the selected default view was not enabled (thanks @pruneau) [45612]
+* Fix - Improved translatability by adding missing textdomains for a number of strings (props @pedro-mendonca) [91071]
+* Fix - Removed unneeded escaping to ensure the organizer link displays as expected (pros @f4w-pwharton) [91074]
 * Tweak - Improvements to the readme.txt file surrounding plugin requirements (thanks @ramiy) [90285]
 * Tweak - Improve site identification in multisite installations using Event Aggregator to avoid throttling issues [90489]
 * Tweak - Avoid notice level errors when a non-existent category archive is requested (our thanks to Charles Simmons for highlighting this) [90697]

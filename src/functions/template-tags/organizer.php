@@ -125,7 +125,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		if ( $organizer_id && $link = tribe_get_organizer_website_link() ) {
-			$details[] = '<span class="link"> <a href="' . esc_attr( $link ) . '">' . $link . '</a> </span>';
+			// $link is a full HTML string (<a>) whose components are already escaped, so we don't need create an anchor tag or escape again here
+			$details[] = '<span class="link">' . $link . '</span>';
 		}
 
 		$html = join( '<span class="tribe-events-divider">|</span>', $details );

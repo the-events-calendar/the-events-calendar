@@ -10,7 +10,7 @@ class Tribe__Events__Aggregator__API__Requests {
 	/**
 	 * Builds and returns the custom headers needed to identify the site in the service.
 	 *
-	 * @since TBD
+	 * @since 4.6.2
 	 *
 	 * @return array
 	 */
@@ -44,7 +44,7 @@ class Tribe__Events__Aggregator__API__Requests {
 	/**
 	 * Retrieve the raw response from the HTTP request using the POST method.
 	 *
-	 * @since TBD
+	 * @since 4.6.2
 	 *
 	 * @param string $url  Site URL to retrieve.
 	 * @param array  $args Optional. Request arguments. Default empty array.
