@@ -1299,17 +1299,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$event['ID'] = $found_event_id;
 			}
 
-			if (
-				$unique_field
-				&& isset( $event[ $unique_field['upgrade_to'] ] )
-				&& isset( $existing_ids[ $event[ $unique_field['upgrade_to'] ] ] )
-			) {
-				$event_post_id = $existing_ids[ $event[ $unique_field['upgrade_to'] ] ]->post_id;
-				if ( tribe_is_event( $event_post_id ) ) {
-					$event['ID'] = $event_post_id;
-				}
-			}
-
 			// Checks if we need to search for Global ID
 			if ( ! empty( $item->global_id ) ) {
 				$global_event = Tribe__Events__Aggregator__Event::get_post_by_meta( 'global_id', $item->global_id );
