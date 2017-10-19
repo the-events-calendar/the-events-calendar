@@ -1898,7 +1898,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		if ( isset( $unique_field['upgrade_to'] ) ) {
 			// if the unique field specifies a unique field value we should upgrade the current one to
-			// then we need to search by the upgraded value too
+			// then we need to search by the upgraded value too as the value might have been upgraded already
 			$upgraded_selected_ids  = wp_list_pluck( $import_data, $unique_field['upgrade_to'] );
 			$upgraded_existing_uids = $event_object->get_existing_ids( $this->meta['origin'], $upgraded_selected_ids, 'target' );
 			if ( ! empty( $upgraded_existing_uids ) ) {
