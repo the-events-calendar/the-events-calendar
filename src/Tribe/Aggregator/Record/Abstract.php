@@ -41,19 +41,19 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'target' => 'EventMeetupID',
 		),
 		'ical'     => array(
-			'source'       => 'uid',
-			'target'       => 'uid',
-			'upgrade_from' => array( 'v1_uid' ),
+			'source'     => 'uid',
+			'target'     => 'uid',
+			'upgrade_to' => 'v2_uid',
 		),
 		'gcal'     => array(
-			'source'       => 'uid',
-			'target'       => 'uid',
-			'upgrade_from' => array( 'v1_uid' ),
+			'source'     => 'uid',
+			'target'     => 'uid',
+			'upgrade_to' => 'v2_uid',
 		),
 		'ics'      => array(
-			'source'       => 'uid',
-			'target'       => 'uid',
-			'upgrade_from' => array( 'v1_uid' ),
+			'source'     => 'uid',
+			'target'     => 'uid',
+			'upgrade_to' => 'v2_uid',
 		),
 		'url'      => array(
 			'source' => 'id',
@@ -1293,12 +1293,18 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$event['post_type'] = Tribe__Events__Main::POSTTYPE;
 
 			// Set the event ID if it can be set
+			$found_event_id = $this->find_event_id( $event, $existing_ids );
+
+			if ( ! empty( $found_event_id ) ) {
+				$event['ID'] = $found_event_id;
+			}
+
 			if (
 				$unique_field
-				&& isset( $event[ $unique_field['target'] ] )
-				&& isset( $existing_ids[ $event[ $unique_field['target'] ] ] )
+				&& isset( $event[ $unique_field['upgrade_to'] ] )
+				&& isset( $existing_ids[ $event[ $unique_field['upgrade_to'] ] ] )
 			) {
-				$event_post_id = $existing_ids[ $event[ $unique_field['target'] ] ]->post_id;
+				$event_post_id = $existing_ids[ $event[ $unique_field['upgrade_to'] ] ]->post_id;
 				if ( tribe_is_event( $event_post_id ) ) {
 					$event['ID'] = $event_post_id;
 				}
@@ -1718,7 +1724,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// Save the unique field information
 			if ( ! empty( $event[ $unique_field['target'] ] ) ) {
-				update_post_meta( $event['ID'], "_{$unique_field['target']}", $event[ $unique_field['target'] ] );
+				// if the event comes with a new format unique field value then let's update the unique field value
+				$unique_field_value = isset( $unique_field['upgrade_to'], $event[ $unique_field['upgrade_to'] ] )
+					? $event[ $unique_field['upgrade_to'] ]
+					: $event[ $unique_field['target'] ];
+				update_post_meta( $event['ID'], "_{$unique_field['target']}", $unique_field_value );
 			}
 
 			// Save the meta data in case of updating to pro later on
@@ -1869,8 +1879,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Gets all ids that already exist in the post meta table from the provided records
 	 *
-	 * @param array $records Array of records
-	 * @param array $data Submitted data
+	 * @param array $import_data Submitted data
 	 *
 	 * @return array
 	 */
@@ -1896,21 +1905,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		$event_object         = new Tribe__Events__Aggregator__Event;
-		$existing_ids         = $event_object->get_existing_ids( $this->meta['origin'], $selected_ids );
+		$existing_ids = $event_object->get_existing_ids( $this->meta['origin'], $selected_ids, array( 'target', 'legacy' ) );
 
-		// here we handle the case where the event unique field name did not change but we
-		// changed, service-side, how we build that unique field entry; during an import we
-		// will update the unique field to the new standard
-		if ( ! empty( $unique_field['upgrade_from'] ) && ! empty( $this->meta['queue'] ) ) {
-			$items                   = $this->meta['queue'];
-			$selected_old_format_ids = array();
-			foreach ( $unique_field['upgrade_from'] as $old_format_key ) {
-				$selected_old_format_ids = array_merge( $selected_old_format_ids, wp_list_pluck( $items, $old_format_key ) );
-			}
-			$target_ids              = wp_list_pluck( $items, $unique_field['target'] );
-			$existing_old_format_ids = $event_object->get_old_format_existing_ids( $this->meta['origin'], $selected_old_format_ids, $target_ids );
-			if ( ! empty( $existing_old_format_ids ) ) {
-				$existing_ids = array_merge( $existing_ids, $existing_old_format_ids );
+		if ( isset( $unique_field['upgrade_to'] ) ) {
+			// if the unique field specifies a unique field value we should upgrade the current one to
+			// then we need to search by the upgraded value too
+			$upgraded_selected_ids  = wp_list_pluck( $import_data, $unique_field['upgrade_to'] );
+			$upgraded_existing_uids = $event_object->get_existing_ids( $this->meta['origin'], $upgraded_selected_ids, 'target' );
+			if ( ! empty( $upgraded_existing_uids ) ) {
+				$existing_ids = array_merge( $existing_ids, $upgraded_existing_uids );
 			}
 		}
 
@@ -2182,6 +2185,36 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			set_post_thumbnail( $post_id, $new_thumbnail_id );
 
 			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Finds the ID of an existing event matching the existing unique fields to the event data.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $event        The event data
+	 * @param array $existing_ids An array of existing unique fields entries
+	 *                            in the format [ <unique_field> => [ 'post_id' => <post_id>, 'meta_value' => <unique_field> ] ]
+	 *
+	 * @return int|false An event post ID or `false` on failure.
+	 */
+	protected function find_event_id( array $event, array $existing_ids ) {
+		$unique_field = $this->get_unique_field();
+
+		if ( empty( $unique_field ) ) {
+			return false;
+		}
+
+		foreach ( array( 'target', 'upgrade_to' ) as $unique_field_key ) {
+			if ( isset( $event[ $unique_field[ $unique_field_key ] ], $existing_ids[ $event[ $unique_field[ $unique_field_key ] ] ] ) ) {
+				$event_post_id = $existing_ids[ $event[ $unique_field[ $unique_field_key ] ] ]->post_id;
+				if ( tribe_is_event( $event_post_id ) ) {
+					return $event_post_id;
+				}
+			}
 		}
 
 		return false;
