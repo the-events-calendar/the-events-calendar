@@ -355,8 +355,6 @@ jQuery( document ).ready( function( $ ) {
 			} else {
 				section.find( '.move-linked-post-group' ).hide();
 			}
-
-			fields.find( '.tribe-dropdown' ).tribe_dropdowns().trigger( 'change' );
 		});
 
 		section.on( 'change', '.linked-post-dropdown', toggle_linked_post_fields );
@@ -397,7 +395,7 @@ jQuery( document ).ready( function( $ ) {
 					}
 
 					// Set the value accordingly
-					$field.val( sticky_data[ key ] );
+					$field.val( sticky_data[ key ] ).trigger( 'change' );
 					sticky_data_added = true;
 				}
 			}
@@ -440,7 +438,6 @@ jQuery( document ).ready( function( $ ) {
 				add_sticky_linked_post_data( post_type, tribe_events_linked_posts.post_types[ post_type ], fields );
 			}
 
-			fields.find( '.tribe-dropdown' ).tribe_dropdowns().trigger( 'change' );
 			group.append( fields );
 		} );
 
@@ -477,13 +474,7 @@ jQuery( document ).ready( function( $ ) {
 		var $select   = $( this ),
 			$group    = $select.closest( 'tbody' ),
 			$edit     = $group.find( '.edit-linked-post-link a' ),
-			edit_link = $edit.attr( 'data-admin-url' ),
 			choice    = 'undefined' === typeof event.added ? {} : event.added;
-
-		// Maybe Hide Edit link
-		if ( _.isEmpty( choice ) ) {
-			$edit.hide();
-		}
 
 		if ( 'undefined' !== typeof choice.new && choice.new ) {
 			// Apply the New Given Title to the Correct Field
@@ -500,8 +491,10 @@ jQuery( document ).ready( function( $ ) {
 			$group.find( '.linked-post' ).hide().find( 'input' ).val( '' );
 
 			// Modify and Show edit link
-			if ( ! _.isEmpty( choice ) ) {
-				$edit.attr( 'href', edit_link + choice.id ).show();
+			if ( ! _.isEmpty( choice.edit ) ) {
+				$edit.attr( 'href', choice.edit ).show();
+			} else {
+				$edit.hide();
 			}
 		}
 	};
