@@ -55,7 +55,7 @@ $organizer = tribe_get_organizer();
 				// These details are already escaped in various ways earlier in the process.
 				echo implode( $address_delimiter, $venue_details );
 
-				if ( tribe_get_map_link() ) {
+				if ( tribe_show_google_map_link() ) {
 					echo tribe_get_map_link_html();
 				}
 			?>
