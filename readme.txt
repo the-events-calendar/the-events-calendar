@@ -322,6 +322,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.6.3] TBD =
+
+* Fix - Fixed issue where the value of an event's "Show Google Maps Link" option would not properly affect the displaying of the link on List View (props: @etechnologie) [75547]
+
 = [4.6.2] 2017-10-18 =
 
 * Fix - Restored functionality to the "currency position" options in Events Settings, and in the per-event cost settings (props @schola and many others!) [89918] 
