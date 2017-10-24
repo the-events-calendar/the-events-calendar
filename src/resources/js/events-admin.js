@@ -516,7 +516,7 @@ jQuery( document ).ready( function( $ ) {
 
 		if ( $date_format.length && $date_format.attr( 'data-datepicker_format' ).length >= 1 ) {
 			datepicker_format = $date_format.attr( 'data-datepicker_format' );
-			date_format = datepicker_formats.main[ datepicker_format ];
+			date_format       = datepicker_formats.main[ datepicker_format ];
 		}
 
 		function date_diff_in_days( a, b ) {
@@ -544,23 +544,53 @@ jQuery( document ).ready( function( $ ) {
 			numberOfMonths  : get_datepicker_num_months(),
 			firstDay        : startofweek,
 			showButtonPanel : false,
+
+			onClose : function( selected_date, object ) {
+				//console.log( object)
+				//console.log( this.changeYear)
+//console.log('HHAHAHAHAHAA')
+alert( 'hi' );
+				//console.log( object.dpDiv ) 
+				// $( object.dpDiv ).promise().done(function() {
+				// 	$( object.dpDiv ).removeClass('HAHAHAHA');
+				// });
+			},
 			beforeShow      : function( element, object ) {
 				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
 				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
+//console.log( object)
+				//console.log( object.dpDiv )
+
+				$datepicker_modal = $( object.dpDiv );
+
+				$datepicker_modal.addClass( 'TRIBETEST' );
+
+				//console.log( object.dpDiv );
+
+				$( object.input ).attr( 'data-tribe-dpdiv-id', $datepicker_modal.attr( 'id' ) );
+
+				// $( object.input ).on( 'tribe-test', function(e) {
+				// 	console.log( 'YOLO' );
+				// })
+				//$( object.dpDiv ).on( 'hide')
 			},
-			onSelect: function( selected_date ) {
-				var instance = $( this ).data( "datepicker" );
-				var date = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selected_date, instance.settings );
+			onSelect: function( selected_date, object ) {
+
+				console.log( object );
+
+				var instance = $( this ).data( 'datepicker' );
+				var date     = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selected_date, instance.settings );
 
 				// If the start date was adjusted, then let's modify the minimum acceptable end date
 				if ( this.id === 'EventStartDate' ) {
 					var start_date = $( document.getElementById( 'EventStartDate' ) ).data( 'prevDate' );
-					var date_diff = null == start_date ? 0 : date_diff_in_days( start_date, $end_date.datepicker( 'getDate' ) );
-					var end_date = new Date( date.setDate( date.getDate() + date_diff ) );
+					var date_diff  = null == start_date ? 0 : date_diff_in_days( start_date, $end_date.datepicker( 'getDate' ) );
+					var end_date   = new Date( date.setDate( date.getDate() + date_diff ) );
 
 					$end_date
 						.datepicker( 'option', 'minDate', end_date )
-						.datepicker( 'setDate', end_date );
+						.datepicker( 'setDate', end_date )
+						.datepicker_format;
 				}
 				// If the end date was adjusted, then let's modify the maximum acceptable start date
 				else if ( this.id === 'EventEndDate' ) {
@@ -570,8 +600,26 @@ jQuery( document ).ready( function( $ ) {
 				// fire the change and blur handlers on the field
 				$( this ).change();
 				$( this ).blur();
+				//$( this ).trigger( 'tribe-test' );
 			}
 		};
+
+		$start_date.add( $end_date ).on( 'blur', function(e) {
+			
+			var datepicker_modal_id = $(this).attr( 'data-tribe-dpdiv-id' );
+			var $datepicker_modal   = ''; 
+
+			if ( '' == datepicker_modal_id ) {
+				return;
+			}
+
+			datepicker_modal_id = '#' + datepicker_modal_id;
+			$datepicker_modal   = $( datepicker_modal_id );
+
+			if ( $datepicker_modal.is( '.TRIBETEST' ) ) {
+				$datepicker_modal.removeClass( 'TRIBETEST' );
+			}
+		});
 
 		$.extend( tribe_datepicker_opts, tribe_l10n_datatables.datepicker );
 
@@ -735,15 +783,15 @@ jQuery( document ).ready( function( $ ) {
 	// Default Layout Settings
 	// shows / hides proper views that are to be used on front-end
 
-	var $tribe_views = $( '#tribe-field-tribeEnableViews' );
+	var $tribe_views = $( document.getElementById( 'tribe-field-tribeEnableViews' ) );
 
 	if ( $tribe_views.length ) {
 
-		var $default_view_select = $( 'select[name="viewOption"]' );
+		var $default_view_select        = $( 'select[name="viewOption"]' );
 		var $default_mobile_view_select = $( 'select[name="mobile_default_view"]' );
-		var $view_inputs = $tribe_views.find( 'input:checkbox' );
-		var $view_desc = $( '#tribe-field-tribeEnableViews .tribe-field-wrap p.description' );
-		var view_options = {};
+		var $view_inputs                = $tribe_views.find( 'input:checkbox' );
+		var $view_desc                  = $( '#tribe-field-tribeEnableViews .tribe-field-wrap p.description' );
+		var view_options                = {};
 
 		function create_view_array() {
 
