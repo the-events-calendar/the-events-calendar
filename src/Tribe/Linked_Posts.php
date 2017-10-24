@@ -934,14 +934,12 @@ class Tribe__Events__Linked_Posts {
 				type="hidden"
 				class="tribe-dropdown linked-post-dropdown"
 				name="' . esc_attr( $name ) . '"
-				id="saved_' . esc_attr( $post_type ) . '"
-				data-placeholder="' . $placeholder . '"
-				data-search-placeholder="' . $search_placeholder . '" ' .
+				id="saved_' . esc_attr( $post_type ) . '" data-placeholder="' . $placeholder . 
+				'" data-search-placeholder="' . $search_placeholder . '" ' .
 				( $creation_enabled ?
 				'data-freeform
 				data-sticky-search
-				data-create-choice-template="' . __( 'Create: <b><%= term %></b>', 'the-events-calendar' ) . '"
-				data-allow-html ' : '' ) .
+				data-create-choice-template="' . __( 'Create: <b><%= term %></b>', 'the-events-calendar' ) . '" data-allow-html ' : '' ) .
 				'data-options="' . esc_attr( json_encode( $data ) ) . '"' .
 				( empty( $current ) ? '' : ' value="' . esc_attr( $current ) . '"' ) .
 			'>';
