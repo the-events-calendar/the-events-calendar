@@ -536,6 +536,27 @@ jQuery( document ).ready( function( $ ) {
 		var $start_date = $( document.getElementById( 'EventStartDate' ) );
 		var $end_date   = $( document.getElementById( 'EventEndDate' ) );
 
+		// $start_date.add( $end_date ).on( 'tribe-test', function(e) {
+		// 	console.log( 'BINGBING') 
+		// 	// var datepicker_modal_id = $(this).attr( 'data-tribe-dpdiv-id' );
+		// 	// var $datepicker_modal   = ''; 
+
+		// 	// if ( '' == datepicker_modal_id ) {
+		// 	// 	return;
+		// 	// }
+
+		// 	// datepicker_modal_id = '#' + datepicker_modal_id;
+		// 	// $datepicker_modal   = $( datepicker_modal_id );
+
+		// 	// // This helps prevent issues with removing the classname too early.
+		// 	// if ( $datepicker_modal.is( '.TRIBETEST' ) ) {
+		// 	// 	$datepicker_modal.removeClass( 'TRIBETEST' );
+		// 	// }
+		// });
+
+	//	$start_date.add
+
+
 		tribe_datepicker_opts = {
 			dateFormat      : date_format,
 			showAnim        : 'fadeIn',
@@ -544,39 +565,30 @@ jQuery( document ).ready( function( $ ) {
 			numberOfMonths  : get_datepicker_num_months(),
 			firstDay        : startofweek,
 			showButtonPanel : false,
-
-			onClose : function( selected_date, object ) {
-				//console.log( object)
-				//console.log( this.changeYear)
-//console.log('HHAHAHAHAHAA')
-alert( 'hi' );
-				//console.log( object.dpDiv ) 
-				// $( object.dpDiv ).promise().done(function() {
-				// 	$( object.dpDiv ).removeClass('HAHAHAHA');
-				// });
-			},
 			beforeShow      : function( element, object ) {
 				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
-				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
-//console.log( object)
-				//console.log( object.dpDiv )
+				object.input.data( 'prevDate', object.input.datepicker( 'getDate' ) );
+// //console.log( object)
+// console.log('HEHEHE')
+// 				//console.log( object.dpDiv )
+// 				//console.log( $(element).is( $start_date ) || $(element).is( $end_date ) )
 
-				$datepicker_modal = $( object.dpDiv );
+// 				//$datepicker_modal = $( object.dpDiv );
 
-				$datepicker_modal.addClass( 'TRIBETEST' );
+// 				$( '#ui-datepicker-div' ).addClass( 'TRIBETEST' );
 
-				//console.log( object.dpDiv );
+// 				//console.log( object.dpDiv );
+// 				$( '#ui-datepicker-div' ).parent( '.acf-ui-datepicker' ).remove();
 
-				$( object.input ).attr( 'data-tribe-dpdiv-id', $datepicker_modal.attr( 'id' ) );
+// 				//$( object.input ).attr( 'data-tribe-dpdiv-id', $datepicker_modal.attr( 'id' ) );
 
-				// $( object.input ).on( 'tribe-test', function(e) {
-				// 	console.log( 'YOLO' );
-				// })
-				//$( object.dpDiv ).on( 'hide')
+// 				// $( object.input ).on( 'tribe-test', function(e) {
+// 				// 	console.log( 'YOLO' );
+// 				// })
+// 				//$( object.dpDiv ).on( 'hide')
 			},
 			onSelect: function( selected_date, object ) {
 
-				console.log( object );
 
 				var instance = $( this ).data( 'datepicker' );
 				var date     = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selected_date, instance.settings );
@@ -600,26 +612,31 @@ alert( 'hi' );
 				// fire the change and blur handlers on the field
 				$( this ).change();
 				$( this ).blur();
-				//$( this ).trigger( 'tribe-test' );
+				// if ()
+				// $('body > #ui-datepicker-div').removeClass('TRIBETEST');
+			//	$('body > #ui-datepicker-div').wrap( '<div class="acf-ui-datepicker" />' );
 			}
 		};
 
-		$start_date.add( $end_date ).on( 'blur', function(e) {
+
+		// Remove the TRIBETEST class from the datepicker popup so that we only "namespace" our own datepicker instances.
+		// $start_date.add( $end_date ).on( 'blur', function(e) {
 			
-			var datepicker_modal_id = $(this).attr( 'data-tribe-dpdiv-id' );
-			var $datepicker_modal   = ''; 
+		// 	var datepicker_modal_id = $(this).attr( 'data-tribe-dpdiv-id' );
+		// 	var $datepicker_modal   = ''; 
 
-			if ( '' == datepicker_modal_id ) {
-				return;
-			}
+		// 	if ( '' == datepicker_modal_id ) {
+		// 		return;
+		// 	}
 
-			datepicker_modal_id = '#' + datepicker_modal_id;
-			$datepicker_modal   = $( datepicker_modal_id );
+		// 	datepicker_modal_id = '#' + datepicker_modal_id;
+		// 	$datepicker_modal   = $( datepicker_modal_id );
 
-			if ( $datepicker_modal.is( '.TRIBETEST' ) ) {
-				$datepicker_modal.removeClass( 'TRIBETEST' );
-			}
-		});
+		// 	// This helps prevent issues with removing the classname too early.
+		// 	if ( $datepicker_modal.is( '.TRIBETEST' ) ) {
+		// 		$datepicker_modal.removeClass( 'TRIBETEST' );
+		// 	}
+		// });
 
 		$.extend( tribe_datepicker_opts, tribe_l10n_datatables.datepicker );
 
