@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 4.6.1\n"
+"Project-Id-Version: The Events Calendar 4.6.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2017-10-04 18:29:22+00:00\n"
+"POT-Creation-Date: 2017-10-17 20:52:21+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-10-04 18:29\n"
+"PO-Revision-Date: 2017-10-17 20:52\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -1523,7 +1523,7 @@ msgid ""
 "%enddatewithyear%%."
 msgstr ""
 
-#: src/Tribe/Cost_Utils.php:116
+#: src/Tribe/Cost_Utils.php:120
 msgctxt "Cost range separator"
 msgid " - "
 msgstr ""
@@ -2230,10 +2230,10 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.6.1)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.6.2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: src/Tribe/Main.php:726 src/Tribe/Main.php:1061
-#: src/functions/template-tags/general.php:1288
+#: src/functions/template-tags/general.php:1291
 msgid "The Events Calendar"
 msgstr ""
 
@@ -4104,11 +4104,11 @@ msgstr ""
 msgid "iCal Export"
 msgstr ""
 
-#: src/Tribe/iCal.php:108
+#: src/Tribe/iCal.php:129
 msgid "Export Events"
 msgstr ""
 
-#: src/Tribe/iCal.php:109
+#: src/Tribe/iCal.php:130
 msgid ""
 "Use this to share calendar data with Google Calendar, Apple iCal and other "
 "compatible apps"
@@ -5931,15 +5931,15 @@ msgstr ""
 msgid "Loading %s"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1167
+#: src/functions/template-tags/general.php:1170
 msgid "Find out more »"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1168
+#: src/functions/template-tags/general.php:1171
 msgid "%s for"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1288
+#: src/functions/template-tags/general.php:1291
 msgid "Calendar powered by %s"
 msgstr ""
 

@@ -172,7 +172,7 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 				$manager,
 				$customizer->get_setting_name( 'table_bg_color', $section ),
 				array(
-					'label'   => __( 'Calendar Table Color' ),
+					'label'   => __( 'Calendar Table Color', 'the-events-calendar' ),
 					'section' => $section->id,
 				)
 			)
@@ -194,7 +194,7 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 				$manager,
 				$customizer->get_setting_name( 'highlight_color', $section ),
 				array(
-					'label'   => __( 'Calendar Highlight Color' ),
+					'label'   => __( 'Calendar Highlight Color', 'the-events-calendar' ),
 					'section' => $section->id,
 				)
 			)

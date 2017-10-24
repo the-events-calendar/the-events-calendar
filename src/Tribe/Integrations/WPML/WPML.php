@@ -68,6 +68,10 @@ class Tribe__Events__Integrations__WPML__WPML {
 		$language_switcher = Tribe__Events__Integrations__WPML__Language_Switcher::instance();
 		add_filter( 'icl_ls_languages', array( $language_switcher, 'filter_icl_ls_languages' ), 5 );
 
+		// Disable month view caching when WPML is activated for now, until we
+		// fully implement multilingual support for the month view cache.
+		add_filter( 'tribe_events_enable_month_view_cache', '__return_false' );
+
 		if ( ! is_admin() ) {
 			$category_translation = Tribe__Events__Integrations__WPML__Category_Translation::instance();
 			add_filter( 'tribe_events_category_slug', array( $category_translation, 'filter_tribe_events_category_slug' ), 20, 2 );

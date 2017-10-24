@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-01-09 22:27:25+0000\n"
+"PO-Revision-Date: 2017-10-13 09:16:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -959,17 +959,17 @@ msgstr ""
 
 #: src/Tribe/Main.php:4340
 msgid "Keyword"
-msgstr ""
+msgstr "Nøkkelord"
 
 #: src/functions/template-tags/loop.php:130
 msgctxt "featured events title"
 msgid "Featured %s"
-msgstr ""
+msgstr "Fremhevet %s"
 
 #: src/admin-views/widget-admin-list.php:35
 msgctxt "events list widget setting"
 msgid "Limit to featured events only"
-msgstr ""
+msgstr "Begrens til kun fremhevede arrangementer"
 
 #: src/admin-views/events-meta-box.php:99
 msgctxt "Start Date Time \"to\" End Date Time"
@@ -980,7 +980,7 @@ msgstr "til"
 #: src/admin-views/events-meta-box.php:97
 #: src/admin-views/events-meta-box.php:112
 msgid "HH:MM"
-msgstr "TT:MM"
+msgstr "HH:MM"
 
 #: src/admin-views/events-meta-box.php:72
 msgid "Start/End:"
@@ -988,7 +988,7 @@ msgstr "Start/slutt:"
 
 #: src/admin-views/event-sidebar-options.php:33
 msgid "Featured events are highlighted on the front end in views, archives, and widgets."
-msgstr ""
+msgstr "Fremhevede arrangementer vises fremhevet på nettstedet på sidene, i arkiv og i widgeter."
 
 #: src/admin-views/event-sidebar-options.php:31
 msgid "Feature Event"
@@ -996,11 +996,11 @@ msgstr "Fremhevet arrangement"
 
 #: src/admin-views/create-venue-fields.php:233
 msgid "Show Google Map Link?"
-msgstr ""
+msgstr "Vis lenke til Google-kart?"
 
 #: src/admin-views/create-venue-fields.php:215
 msgid "Show Google Map?"
-msgstr ""
+msgstr "Vis Google-kart?"
 
 #: src/admin-views/create-venue-fields.php:179
 msgid "Venue URL"
@@ -1008,7 +1008,7 @@ msgstr ""
 
 #: src/admin-views/create-venue-fields.php:151
 msgid "Venue Zip Code"
-msgstr ""
+msgstr "Postnummer"
 
 #: src/admin-views/create-venue-fields.php:124
 #: src/admin-views/create-venue-fields.php:130
@@ -1042,7 +1042,7 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:279
 msgid "Delete this"
-msgstr ""
+msgstr "Slett dette"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:38
 msgid "Event Date:"
@@ -1050,27 +1050,27 @@ msgstr "Arrangementdato:"
 
 #: src/Tribe/Customizer/Widget.php:132
 msgid "Show Featured Event Images"
-msgstr ""
+msgstr "Vis fremhevede arrangementers bilder"
 
 #: src/Tribe/Customizer/Widget.php:113
 msgid "Calendar Date Bar Color"
-msgstr ""
+msgstr "Farge på kalenderens datolinje"
 
 #: src/Tribe/Customizer/Widget.php:91
 msgid "Calendar Header Color"
-msgstr ""
+msgstr "Farge på kalenderoverskrift"
 
 #: src/Tribe/Customizer/Widget.php:59
 msgid "Widgets"
-msgstr ""
+msgstr "Widgeter"
 
 #: src/Tribe/Customizer/Single_Event.php:132
 msgid "Details Background Color"
-msgstr ""
+msgstr "Bakgrunnsfarge på detaljer"
 
 #: src/Tribe/Customizer/Single_Event.php:110
 msgid "Post Title Color"
-msgstr ""
+msgstr "Farge på innleggsoverskrift"
 
 #: src/Tribe/Customizer/Single_Event.php:78
 msgid "Single Event"
@@ -1078,11 +1078,11 @@ msgstr "Enkeltarrangement"
 
 #: src/Tribe/Customizer/Month_Week_View.php:197
 msgid "Calendar Highlight Color"
-msgstr ""
+msgstr "Markeringsfarge i kalender"
 
 #: src/Tribe/Customizer/Month_Week_View.php:175
 msgid "Calendar Table Color"
-msgstr ""
+msgstr "Farge på kalendertabell"
 
 #: src/Tribe/Customizer/Month_Week_View.php:144
 #: src/Tribe/Customizer/Single_Event.php:79 src/Tribe/Customizer/Widget.php:60
@@ -1099,11 +1099,11 @@ msgstr ""
 
 #: src/Tribe/Customizer/Global_Elements.php:189
 msgid "Button Color"
-msgstr ""
+msgstr "Knappefarge"
 
 #: src/Tribe/Customizer/Global_Elements.php:167
 msgid "Filter Bar Color"
-msgstr ""
+msgstr "Farge på filterlinje"
 
 #: src/Tribe/Customizer/Global_Elements.php:145
 msgid "Link Color"
@@ -1115,47 +1115,47 @@ msgstr ""
 
 #: src/Tribe/Customizer/Global_Elements.php:113
 msgid "Global Elements"
-msgstr ""
+msgstr "Globale elementer"
 
 #: src/Tribe/Customizer/General_Theme.php:396
 msgid "Custom"
-msgstr ""
+msgstr "Egendefinert"
 
 #: src/Tribe/Customizer/General_Theme.php:390
 msgid "Sunshine"
-msgstr ""
+msgstr "Solskinn"
 
 #: src/Tribe/Customizer/General_Theme.php:384
 msgid "Skyfall"
-msgstr ""
+msgstr "Himmelfall"
 
 #: src/Tribe/Customizer/General_Theme.php:378
 msgid "Malachite"
-msgstr ""
+msgstr "Malakitt"
 
 #: src/Tribe/Customizer/General_Theme.php:372
 msgid "Lagoon"
-msgstr ""
+msgstr "Lagune"
 
 #: src/Tribe/Customizer/General_Theme.php:366
 msgid "Evergreen"
-msgstr ""
+msgstr "Evighetsgrønn"
 
 #: src/Tribe/Customizer/General_Theme.php:360
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #: src/Tribe/Customizer/General_Theme.php:354
 msgid "Deep Sea"
-msgstr ""
+msgstr "Dyphav"
 
 #: src/Tribe/Customizer/General_Theme.php:348
 msgid "Blue Steel"
-msgstr ""
+msgstr "Blå stål"
 
 #: src/Tribe/Customizer/General_Theme.php:328
 msgid "If the Featured highlight color is set to Custom, the following color will be used:"
-msgstr ""
+msgstr "Hvis fargen for fremhevede arrangementer er satt til egendefinert, vil følgende farge bli brukt:"
 
 #: src/Tribe/Customizer/General_Theme.php:285
 msgid "Accent Color"
@@ -1163,23 +1163,23 @@ msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:254
 msgid "Global configurations for the styling of The Events Calendar"
-msgstr ""
+msgstr "Globale innstillinger for stilen på The Events Calendar"
 
 #: src/Tribe/Customizer/General_Theme.php:253
 msgid "General Theme"
-msgstr ""
+msgstr "Generelt tema"
 
 #: src/Tribe/Customizer/Day_List_View.php:115
 msgid "Price Background Color"
-msgstr ""
+msgstr "Bakgrunnsfarge for pris"
 
 #: src/Tribe/Customizer/Day_List_View.php:83
 msgid "List-style Views"
-msgstr ""
+msgstr "Stil på listevisninger"
 
 #: src/Tribe/Customizer/Day_List_View.php:75
 msgid "These settings impact all list-style views, including List View and Day View."
-msgstr ""
+msgstr "Disse innstillingene påvirker alle visninger av lister, inkludert listevisning og dagvisning."
 
 #: src/Tribe/Customizer/Day_List_View.php:72
 msgid "Options selected here will override what was selected in the \"General Theme\" and \"Global Elements\" sections."
@@ -1187,27 +1187,27 @@ msgstr ""
 
 #: src/Tribe/Asset/Dynamic.php:75
 msgid "This event is all day starting on %%startdatenoyear%% and ending on %%enddatewithyear%%."
-msgstr ""
+msgstr "Arrangementet er heldags og starter %%startdatenoyear%% og slutter  %%enddatewithyear%%."
 
 #: src/Tribe/Asset/Dynamic.php:74
 msgid "This event starts at %%starttime%% on %%startdatenoyear%% and ends on %%enddatewithyear%%"
-msgstr ""
+msgstr "Arrangementet starter %%starttime%% %%startdatenoyear%% og slutter  %%enddatewithyear%%."
 
 #: src/Tribe/Asset/Dynamic.php:73
 msgid "This event starts at %%starttime%% on %%startdatenoyear%% and ends at %%endtime%% on %%enddatewithyear%%"
-msgstr ""
+msgstr "Arrangementet starter %%starttime%% %%startdatenoyear%% og slutter  %%endtime%% %%enddatewithyear%%."
 
 #: src/Tribe/Asset/Dynamic.php:72
 msgid "This event is all day on %%startdatewithyear%%."
-msgstr ""
+msgstr "Eventet er hele dagen %%startdatewithyear%%."
 
 #: src/Tribe/Asset/Dynamic.php:71
 msgid "This event is at %%starttime%% on %%startdatewithyear%%."
-msgstr ""
+msgstr "Arrangementet er %%starttime%% %%startdatewithyear%%."
 
 #: src/Tribe/Asset/Dynamic.php:70
 msgid "This event is from %%starttime%% to %%endtime%% on %%startdatewithyear%%."
-msgstr ""
+msgstr "Arrangementet er fra %%starttime%% til %%endtime%% %%startdatewithyear%%."
 
 #: src/Tribe/Asset/Dynamic.php:67
 msgid "Dec"
@@ -1360,23 +1360,23 @@ msgstr "Søndag"
 #: src/Tribe/Admin/Front_Page_View.php:18
 msgctxt "Static front page setting"
 msgid "Main events page"
-msgstr ""
+msgstr "Hovedside for arrangementer"
 
 #: common/src/Tribe/Settings.php:269 common/src/Tribe/Settings.php:270
 msgid "Events Help"
-msgstr ""
+msgstr "Arrangementhjelp"
 
 #: common/src/Tribe/PUE/Checker.php:1670
 msgid "Expired license. Consult your network administrator."
-msgstr ""
+msgstr "Utløpt lisens. Kontakt din nettverksadministrator."
 
 #: common/src/Tribe/PUE/Checker.php:1669
 msgid "No license entered. Consult your network administrator."
-msgstr ""
+msgstr "Ingen lisens oppgitt. Kontakt din nettverksadministrator."
 
 #: common/src/Tribe/PUE/Checker.php:1668
 msgid "A valid license has been entered by your network administrator."
-msgstr ""
+msgstr "En gyldig lisens har blitt fylt inn av din administrator."
 
 #: common/src/Tribe/PUE/Checker.php:550
 msgid "Site License Key"
@@ -1384,19 +1384,19 @@ msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:539
 msgid "Check this box if you wish to override the network license key with your own"
-msgstr ""
+msgstr "Huk av boksen hvis du vil overstyre nettverkslisensen med din egen"
 
 #: common/src/Tribe/PUE/Checker.php:538
 msgid "Override network license key"
-msgstr ""
+msgstr "Overstyr nettverkets lisensnøkkel"
 
 #: common/src/Tribe/PUE/Checker.php:529 common/src/Tribe/PUE/Checker.php:563
 msgid "License Key Status:"
-msgstr ""
+msgstr "Status for lisens:"
 
 #: common/src/Tribe/Customizer.php:566
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
-msgstr ""
+msgstr "Bruk følgende panel i Utseende -> Tilpass for å endre stilen på dine kalender- og arrangementssider."
 
 #: common/src/admin-views/app-shop.php:31
 msgid "Installed"
@@ -1408,7 +1408,7 @@ msgstr "Installerte tillegg"
 
 #: common/src/Tribe/Extension.php:368
 msgid "Unable to run Tribe Extensions. Your website host is running PHP 5.2 or older, and has likely disabled or misconfigured debug_backtrace(). You, or your website host, will need to upgrade PHP or properly configure debug_backtrace() for Tribe Extensions to work."
-msgstr ""
+msgstr "Kunne ikke kjøre Tribe Extensions. Nettsiden din kjører PHP 5.2 eller eldre, og har mest sannsynlig deaktivert eller feilkonfigurert debug_backtrace(). Du, eller hosting-leverandøren din, er nødt til å oppdatere PHP eller konfigurere debug_backtrace() riktig for at Tribe Extensions skal fungere."
 
 #: common/src/Tribe/Extension.php:144
 msgid "Tutorial"
@@ -1426,7 +1426,7 @@ msgstr ", "
 
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:75
 msgid "To begin using %1$s, please install and activate the latest version of %2$s."
-msgstr ""
+msgstr "For å  begynne å bruke %1$s, installer og aktiver den nyeste versjonen av %2$s."
 
 #: src/Tribe/Aggregator/Service.php:567
 msgid "Unknown service message"
@@ -1438,7 +1438,7 @@ msgstr "Ukjent"
 
 #: src/Tribe/Aggregator/Record/Abstract.php:1060
 msgid "When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached."
-msgstr ""
+msgstr "Når denne importen sist skulle kjøre, hadde den daglige grensa for din arrangement-import-lisens allerede blitt nådd."
 
 #: src/admin-views/aggregator/origins/refine.php:5
 msgid "Location"
@@ -1459,15 +1459,15 @@ msgstr "Alle %s"
 
 #: src/io/csv/admin-views/header.php:17
 msgid "Legacy Events Import"
-msgstr ""
+msgstr "Gammel arrangementimportør"
 
 #: src/admin-views/widget-admin-list.php:41
 msgid "Generate JSON-LD data"
-msgstr "Generér JSON-LD-data"
+msgstr "Generer JSON-LD-data"
 
 #: src/admin-views/tribe-options-addons-api.php:126
 msgid "Some features and add-ons require you to enter an API key or log into a third-party website so that The Events Calendar can communicate with an outside source."
-msgstr ""
+msgstr "Noen funksjoner og tillegg krever at du skriver inn en API-nøkkel eller logger inn hos en tredjepart så The Events Calendar kan kommunisere med en ekstern kilde."
 
 #: src/admin-views/tribe-options-addons-api.php:99
 msgid "%s to view your Meetup API Key"
@@ -1479,11 +1479,11 @@ msgstr "Meetup API-nøkkel"
 
 #: src/admin-views/tribe-options-addons-api.php:94
 msgid "You need a Meetup API Key to import your events from Meetup."
-msgstr "Du behøver en Meetup API-nøkkel for å importere dine arrangementer fra Meetup."
+msgstr "Du må ha en Meetup API-nøkkel for å importere arrangementene dine fra Meetup."
 
 #: src/admin-views/tribe-options-addons-api.php:82
 msgid "You need to connect Event Aggregator to Facebook to import your events from Facebook."
-msgstr ""
+msgstr "Du må koble Event Aggregator til Facebook for å importere arrangementene dine fra Facebook."
 
 #: src/admin-views/tribe-options-addons-api.php:60
 msgid "Disconnect"
@@ -1495,7 +1495,7 @@ msgstr "Oppdater din tilkobling til Facebook"
 
 #: src/admin-views/tribe-options-addons-api.php:57
 msgid "Your Event Aggregator Facebook connection will expire %s."
-msgstr ""
+msgstr "Din Facebook-tilkobling til Event Aggregator utløper %s."
 
 #: src/admin-views/tribe-options-addons-api.php:55
 msgid "Your Event Aggregator Facebook connection has expired %s."
@@ -1507,19 +1507,19 @@ msgstr "Koble til Facebook"
 
 #: src/admin-views/tribe-options-addons-api.php:51
 msgid "You need to connect to Facebook for Event Aggregator to work properly"
-msgstr ""
+msgstr "Du må koble til Facebook for at Event Aggregator skal fungere"
 
 #: src/admin-views/tribe-options-addons-api.php:46
 msgid "Facebook Token"
-msgstr ""
+msgstr "Facebook-token"
 
 #: src/admin-views/organizer-meta-box.php:45
 msgid "The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers."
-msgstr ""
+msgstr "E-post-adressen vil skjules på siden så den ikke fanges opp av spammere."
 
 #: src/admin-views/aggregator/tabs/import-form.php:265
 msgid "Events will be imported with the timezone defined by the source. If no timezone is specified, events will be assigned your site's default timezone (see %1$sSettings > General%2$s)."
-msgstr ""
+msgstr "Arrangementene vil bli importert med tidssonen spesifisert i kilden. Hvis ingen tidssone er spesifisert, vil arrangementene bruke ditt nettsteds standard tidssone (se %1$sInnstillinger > Generelt%2$s)."
 
 #: src/admin-views/aggregator/tabs/import-form.php:213
 msgid "Category:"
@@ -1541,7 +1541,7 @@ msgstr "Velg alle"
 
 #: src/admin-views/aggregator/tabs/import-form.php:167
 msgid "The following preview does not necessarily contain all of the data from your CSV file. The data displayed below is meant as a guide to help you map your CSV file's columns to the appropriate Event fields."
-msgstr ""
+msgstr "Følgende forhåndsvisning inneholder ikke nødvendigvis alle dataene fra din CSV-fil. Dataene vist under er ment som en guide for å hjelpe deg med å koble kolonnene i CSV-filen til riktig felt i arrangementet."
 
 #: src/admin-views/aggregator/tabs/import-form.php:161
 msgid "Column Mapping:"
@@ -1549,27 +1549,27 @@ msgstr "Kolonnetilordning:"
 
 #: src/admin-views/aggregator/tabs/import-form.php:158
 msgid "This is a preview of the type of content you will be getting in during the import based on what is on the calendar now."
-msgstr ""
+msgstr "Dette er en forhåndsvisning av typen innhold du får inn under importen basert på hva som er på kalenderen nå."
 
 #: src/admin-views/aggregator/tabs/import-form.php:148
 msgid "When you save this scheduled import, the events above will begin importing."
-msgstr ""
+msgstr "Når du lagrer denne planlagte importen, vil import av arrangementene nedenfor begynne."
 
 #: src/admin-views/aggregator/tabs/import-form.php:146
 msgid "Select the Event Field that best matches your CSV file column. The contents of that column will then be mapped to the specified event field when the event is created."
-msgstr ""
+msgstr "Velg arrangementfeltet som passer best til kolonnen i CSV-filen. Innholdet i den kolonnen vil kobles opp mot det spesifiserte arrangementet når arrangementet opprettes."
 
 #: src/admin-views/aggregator/tabs/import-form.php:144
 msgid "These settings will also apply to events imported in the future via this scheduled import."
-msgstr ""
+msgstr "Disse innstillingene gjelder også for arrangementer som importeres i fremtiden via denne planlagte importen."
 
 #: src/admin-views/aggregator/tabs/import-form.php:143
 msgid "Choose a status for the event(s) to be imported with and/or define an Event Category to automatically assign. An assigned category will be added to the event in addition to any Event Categories from the import source."
-msgstr ""
+msgstr "Velg en status arrangement(ene) skal importeres med og/eller definer en arrangementkategori som automatisk skal legges til. En valgt kategori vil bli lagt til arrangementet i tillegg til eventuelle arrangementkategorier fra importkilden."
 
 #: src/admin-views/aggregator/tabs/import-form.php:104
 msgid "Access more event sources and automatic imports!"
-msgstr ""
+msgstr "Få tilgang til flere arrangementkilder og automatisk import!"
 
 #: src/admin-views/aggregator/tabs/import-form.php:105
 msgid "Buy Event Aggregator"
@@ -1585,11 +1585,11 @@ msgstr "Velg opprinnelse"
 
 #: src/admin-views/aggregator/tabs/import-form.php:38
 msgid "Import Origin:"
-msgstr "Velg opprinnelse:"
+msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:25
 msgid "No Additional Categories"
-msgstr "Ingen andre kategorier"
+msgstr "Ingen flere kategorier"
 
 #: src/admin-views/aggregator/status.php:197
 msgid "Enter your API key"
@@ -1626,7 +1626,7 @@ msgstr "Tredjepartskontoer"
 
 #: src/admin-views/aggregator/status.php:144
 msgid "Scheduler Status"
-msgstr ""
+msgstr "Planlegger-status"
 
 #: src/admin-views/aggregator/status.php:139
 msgid "WP Cron enabled"
@@ -1634,7 +1634,7 @@ msgstr "WP-cron aktivert"
 
 #: src/admin-views/aggregator/status.php:137
 msgid "Scheduled imports may not run reliably"
-msgstr ""
+msgstr "Planlagte importer kjøres kanskje ikke pålitelig"
 
 #: src/admin-views/aggregator/status.php:136
 msgid "WP Cron not enabled"
@@ -1674,28 +1674,28 @@ msgstr "Gjeldende bruk"
 #: src/admin-views/aggregator/status.php:70
 msgid "%1$d import used out of %2$d available today"
 msgid_plural "%1$d imports used out of %2$d available today"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$d import brukt av %2$d tilgjengelig i dag."
+msgstr[1] "%1$d importer brukt av %2$d tilgjengelig i dag."
 
 #: src/admin-views/aggregator/status.php:66
 msgid "You are approaching your daily import limit. You may want to adjust your Scheduled Import frequencies."
-msgstr ""
+msgstr "Du nærmer deg din daglige importgrense. Du vil muligens justere hyppigheten på dine planlagte importer."
 
 #: src/admin-views/aggregator/status.php:63
 msgid "You have reached your daily import limit. Scheduled imports will be paused until tomorrow."
-msgstr "Du har nådd din daglige importgrense. Planlagte importer vil pause til i morgen."
+msgstr "Du har nådd din daglige importgrense. Planlagte importer vil settes på pause til i morgen."
 
 #: src/admin-views/aggregator/status.php:36
 msgid "Check your license key"
-msgstr "Sjekk din lisensnøkkel"
+msgstr "Sjekk lisensnøkkelen din"
 
 #: src/admin-views/aggregator/status.php:35
 msgid "Your license is invalid"
-msgstr "Din lisens er ugyldig"
+msgstr "Lisensen din er ugyldig"
 
 #: src/admin-views/aggregator/status.php:32
 msgid "Buy Event Aggregator to access more event sources and automatic imports!"
-msgstr ""
+msgstr "Kjøp Event Aggregator for å få tilgang til flere arrangementkilder og automatisk import!"
 
 #: src/admin-views/aggregator/status.php:30
 msgid "You do not have a license"
@@ -1703,7 +1703,7 @@ msgstr "Du har ikke en lisens"
 
 #: src/admin-views/aggregator/status.php:23
 msgid "Your license is valid"
-msgstr "Din lisens er gyldig"
+msgstr "Lisensen din er gyldig"
 
 #: src/admin-views/aggregator/status.php:14
 msgid "License &amp; Usage"
@@ -1721,15 +1721,15 @@ msgstr "Sjekk Event Aggregator."
 
 #: src/admin-views/aggregator/settings.php:467
 msgid "Use the options below to configure your imports. Looking for more ways to import events from other websites?"
-msgstr ""
+msgstr "Bruk valgene under for å konfigurere dine importer. Ser du etter flere måter å importere arrangementer fra andre nettsider?"
 
 #: src/admin-views/aggregator/settings.php:453
 msgid "Global"
-msgstr ""
+msgstr "Globalt"
 
 #: src/admin-views/aggregator/settings.php:452
 msgid "Update Authority"
-msgstr ""
+msgstr "Oppdater autoritet"
 
 #: src/admin-views/aggregator/settings.php:447
 msgid "Help page"
@@ -1737,7 +1737,7 @@ msgstr "Hjelpeside"
 
 #: src/admin-views/aggregator/settings.php:443
 msgid "Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options. Check your Event Aggregator Service Status on the %1$s."
-msgstr ""
+msgstr "Bruk valgene nedenfor for å konfigurere importer. Globale importinnstillinger gjelder på alle importer, men kan også overstyres ved å endre mål-spesifikke valgene. Sjekk status på Event Aggregator på %1$s."
 
 #: src/admin-views/aggregator/settings.php:337
 msgid "The default event category for events imported via Meetup"
@@ -1749,7 +1749,7 @@ msgstr "Standard innleggstatus for arrangementer importert via Meetup"
 
 #: src/admin-views/aggregator/settings.php:315
 msgid "To import Meetup events, please be sure to add your Meetup API key on %1$sEvents > Settings > APIs%2$s"
-msgstr ""
+msgstr "For å importere Meetup-arrangementer, legg inn Meetup-API-nøkkelen din på %1$sArrangementer > Innstillinger > APIer%2$s"
 
 #: src/admin-views/aggregator/settings.php:310
 msgid "Meetup Import Settings"
@@ -1757,51 +1757,51 @@ msgstr "Innstillinger for import fra Meetup"
 
 #: src/admin-views/aggregator/settings.php:286
 msgid "The default event category for events imported via Google Calendar"
-msgstr ""
+msgstr "Standardkategori for arrangementer importert via Google Calendar"
 
 #: src/admin-views/aggregator/settings.php:275
 msgid "The default post status for events imported via Google Calendar"
-msgstr ""
+msgstr "Standardstatus for arrangementer importert via Google Calendar"
 
 #: src/admin-views/aggregator/settings.php:270
 msgid "Google Calendar Import Settings"
-msgstr ""
+msgstr "Importinnstillinger for Google Calendar"
 
 #: src/admin-views/aggregator/settings.php:246
 msgid "The default event category for events imported via Facebook"
-msgstr ""
+msgstr "Standardkategori for arrangementer importert via Facebook"
 
 #: src/admin-views/aggregator/settings.php:235
 msgid "The default post status for events imported via Facebook"
-msgstr ""
+msgstr "Standardstatus for arrangementer importert via Facebook"
 
 #: src/admin-views/aggregator/settings.php:230
 msgid "Facebook Import Settings"
-msgstr "Innstillinger for import fra Facebook"
+msgstr "Importinnstillinger for Facebook"
 
 #: src/admin-views/aggregator/settings.php:206
 msgid "The default event category for events imported via .ics files"
-msgstr ""
+msgstr "Standardkategori for arrangementer importert fra .ics-filer"
 
 #: src/admin-views/aggregator/settings.php:195
 msgid "The default post status for events imported via .ics files"
-msgstr ""
+msgstr "Standardstatus for arrangementer importert fra .ics-filer"
 
 #: src/admin-views/aggregator/settings.php:190
 msgid "ICS File Import Settings"
-msgstr ""
+msgstr "Importinnstillinger for ICS-filer"
 
 #: src/admin-views/aggregator/settings.php:166
 msgid "The default event category for events imported via iCalendar"
-msgstr ""
+msgstr "Standardkategori for arrangementer importert fra iCalendar"
 
 #: src/admin-views/aggregator/settings.php:155
 msgid "The default post status for events imported via iCalendar"
-msgstr ""
+msgstr "Standardstatus for arrangementer importert fra iCalendar"
 
 #: src/admin-views/aggregator/settings.php:150
 msgid "iCalendar Import Settings"
-msgstr ""
+msgstr "Importinnstillinger for iCalendar"
 
 #: src/admin-views/aggregator/settings.php:137
 #: src/admin-views/aggregator/settings.php:177
@@ -1811,7 +1811,7 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:348
 #: src/admin-views/aggregator/settings.php:388
 msgid "Show Google Map by default on imported event and venues"
-msgstr ""
+msgstr "Vis Google-kart som standard på importerte arrangementer og steder"
 
 #: src/admin-views/aggregator/settings.php:136
 #: src/admin-views/aggregator/settings.php:176
@@ -1825,11 +1825,11 @@ msgstr "Vis Google-kart"
 
 #: src/admin-views/aggregator/settings.php:126
 msgid "The default event category for events"
-msgstr ""
+msgstr "Standardkategori for arrangementer"
 
 #: src/admin-views/aggregator/settings.php:115
 msgid "The default post status for events"
-msgstr ""
+msgstr "Standardstatus for arrangementer"
 
 #: src/admin-views/aggregator/settings.php:110
 msgid "Global Import Settings"
@@ -1837,7 +1837,7 @@ msgstr "Globale importinnstillinger"
 
 #: src/admin-views/aggregator/settings.php:79
 msgid "The default event category for events imported via CSV"
-msgstr "Standard arrangementkategori for arrangementer importert via CSV"
+msgstr "Standardtkategori for arrangementer importert fra CSV"
 
 #: src/admin-views/aggregator/settings.php:78
 #: src/admin-views/aggregator/settings.php:125
@@ -1848,11 +1848,11 @@ msgstr "Standard arrangementkategori for arrangementer importert via CSV"
 #: src/admin-views/aggregator/settings.php:336
 #: src/admin-views/aggregator/settings.php:376
 msgid "Default Event Category"
-msgstr "Standard arrangementkategegori"
+msgstr "Standardkategegori"
 
 #: src/admin-views/aggregator/settings.php:68
 msgid "The default post status for events imported via CSV"
-msgstr "Standard innleggstatus for arrangemeter importert via CSV"
+msgstr "Standardstatus for arrangementer importert fra CSV"
 
 #: src/admin-views/aggregator/settings.php:67
 #: src/admin-views/aggregator/settings.php:114
@@ -1863,24 +1863,24 @@ msgstr "Standard innleggstatus for arrangemeter importert via CSV"
 #: src/admin-views/aggregator/settings.php:325
 #: src/admin-views/aggregator/settings.php:365
 msgid "Default Status"
-msgstr "Standard status"
+msgstr "Standardstatus"
 
 #: src/admin-views/aggregator/settings.php:54
 msgid "Do not re-import events. Changes made locally will be preserved."
-msgstr ""
+msgstr "Ikke re-importer arrangementer. Endringer gjort lokalt vil beholdes."
 
 #: src/admin-views/aggregator/settings.php:53
 msgid "Overwrite my event with any changes from the original source."
-msgstr ""
+msgstr "Overskriv mitt arrangement med endringer fra originalkilden."
 
 #: src/admin-views/aggregator/settings.php:44
 msgid "You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Facebook group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed."
-msgstr ""
+msgstr "Du kan gjøre endringer i importerte arrangementer i The Events Calendar og se endringene i sidens kalender. Eieren av den originale eventkilden (f.eks. iCalendar-feeden eller Facebook-siden) kan også gjøre endringer i sine arrangementer. Hvis du velger å re-importere et endret arrangement (manuelt eller via planlagt import), vil endringer gjort i kilden eller i din kalender måtte håndteres."
 
 #: src/admin-views/aggregator/settings.php:40
 #: src/admin-views/aggregator/settings.php:48
 msgid "Event Update Authority"
-msgstr ""
+msgstr "Autoritet for arrangementsoppdatering"
 
 #: src/admin-views/aggregator/settings.php:31
 msgid "No"
@@ -1892,7 +1892,7 @@ msgstr "Ingen standardkategori"
 
 #: src/admin-views/aggregator/settings.php:7
 msgid "Use global import settings"
-msgstr ""
+msgstr "Bruk globale importinnstillinger"
 
 #: src/admin-views/aggregator/origins/refine.php:67
 msgid "Events on or after"
@@ -1900,15 +1900,15 @@ msgstr "Arrangementer på eller etter"
 
 #: src/admin-views/aggregator/origins/refine.php:33
 msgid "Refine:"
-msgstr ""
+msgstr "Raffiner:"
 
 #: src/admin-views/aggregator/origins/refine.php:27
 msgid "Use the filters to narrow down which events are fetched from this iCalendar feed."
-msgstr ""
+msgstr "Bruk filtrene for å begrense hvilke arrangementer som hentes fra denne iCalendar-feeden."
 
 #: src/admin-views/aggregator/origins/refine.php:18
 msgid "Use the filters to narrow down which events are fetched from this Google Calendar."
-msgstr ""
+msgstr "Bruk filtrene for å begrense hvilke arrangementer som hentes fra denne Google-kalenderen."
 
 #: src/admin-views/aggregator/origins/refine.php:14
 msgid "Use the filters to narrow down which events are fetched from your ICS file."
@@ -1917,7 +1917,7 @@ msgstr ""
 #: src/admin-views/aggregator/origins/refine.php:9
 msgctxt "Radius with abbreviation"
 msgid "Radius (%s)"
-msgstr ""
+msgstr "Radius (%s)"
 
 #: src/admin-views/aggregator/origins/refine.php:3
 msgid "Keyword(s)"
@@ -1937,19 +1937,19 @@ msgstr "Lagre"
 
 #: src/admin-views/aggregator/origins/meetup.php:59
 msgid "Meetup API Key:"
-msgstr "Meetup API-nøkkel"
+msgstr "Meetup API-nøkkel:"
 
 #: src/admin-views/aggregator/origins/meetup.php:47
 msgid "Your Meetup API key has been saved to %1$sEvents &gt; Settings &gt; APIs%2$s"
-msgstr ""
+msgstr "Din Meetup API-nøkkel har blitt lagret til %1$sArrangementer &gt; Innstillinger &gt; APIer%2$s"
 
 #: src/admin-views/aggregator/origins/meetup.php:32
 msgid "Enter your Meetup API key to import Meetup events. %1$sClick here to get your Meetup API key%2$s. You only need to do this once, it will be saved under %3$sEvents &gt; Settings &gt; APIs%4$s"
-msgstr ""
+msgstr "Skriv inn din Meetup API-nøkkel for å importere Meetup-arrangementer. %1$sTrykk her for å få din Meetup API-nøkkel%2$s. Du trenger kun gjøre dette en gang, den vil bli lagret under %3$sArrangementer &gt; Innstillinger &gt; APIer%4$s"
 
 #: src/admin-views/aggregator/origins/meetup.php:7
 msgid "One-time imports include all currently listed events, while scheduled imports automatically grab new events and updates from Meetup on a set schedule. Single events can be added via a one-time import."
-msgstr ""
+msgstr "Engangsimporter inkluderer alle arrangementer som er på listen nå, mens planlagte importer automatisk henter nye arrangementer og oppdateringer fra Meetup på en valgt tidsplan. Enkeltarrangementer kan bli lagt til gjennom engangsimporter."
 
 #: src/admin-views/aggregator/origins/ics.php:10
 msgid "Upload an ICS File"
@@ -1957,7 +1957,7 @@ msgstr "Last opp en ICS-fil"
 
 #: src/admin-views/aggregator/origins/ics.php:7
 msgid "Select your ICS file from the WordPress media library. You may need to first upload the file from your computer to the library."
-msgstr ""
+msgstr "Velg din ICS-fil fra WordPress’ mediabibliotek. Du må laste opp filen fra din datamaskin til biblioteket først."
 
 #: src/admin-views/aggregator/origins/ics.php:6
 msgid "Choose File"
@@ -1965,7 +1965,7 @@ msgstr "Velg fil"
 
 #: src/admin-views/aggregator/origins/ical.php:84
 msgid "Enter the url for the iCalendar feed you wish to import, e.g. https://central.wordcamp.org/calendar.ics"
-msgstr ""
+msgstr "Skriv inn URLen for iCalendar-feeden du vil importere, f.eks. https://central.wordcamp.org/calendar.ics"
 
 #: src/admin-views/aggregator/origins/ical.php:83
 msgid "example.com/url.ics"
@@ -1973,7 +1973,7 @@ msgstr "example.com/url.ics"
 
 #: src/admin-views/aggregator/origins/gcal.php:89
 msgid "Copy the provided url into this field to import the events into your WordPress site."
-msgstr ""
+msgstr "Kopier URLen inn i dette feltet for å importere arrangementer inn på din WordPress-side."
 
 #: src/admin-views/aggregator/origins/gcal.php:88
 msgid "Scroll down to Calendar Address and click the iCal button (note: if your calendar is private, you'll need to click the iCal button next to the Private Address header instead)."
@@ -1981,15 +1981,15 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/gcal.php:87
 msgid "Go to Settings &gt; Calendars and select the calendar you wish to import."
-msgstr ""
+msgstr "Gå til Innstillinger &gt; Kalendere og velg kalenderen du vil importere."
 
 #: src/admin-views/aggregator/origins/gcal.php:85
 msgid "You can find the url you need in your Google Calendar settings."
-msgstr ""
+msgstr "Du kan finne URLen du trenger i Google Calendar-innstillingene."
 
 #: src/admin-views/aggregator/origins/gcal.php:83
 msgid "Enter the url for the Google Calendar feed you wish to import."
-msgstr ""
+msgstr "Skriv inn URLen til Google Calendar-feeden du vil importere."
 
 #: src/admin-views/aggregator/origins/gcal.php:82
 msgid "https://calendar.google.com/calendar/ical/example/basic.ics"
@@ -2002,7 +2002,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/facebook.php:111
 msgid "Enter the url for a Facebook group or page. You can also enter the url of a single Facebook event."
-msgstr ""
+msgstr "Skriv inn URLen til en Facebook-gruppe eller -side. Du kan også skrive inn URLen til et enkelt Facebook-arrangement."
 
 #: src/admin-views/aggregator/origins/facebook.php:110
 msgid "facebook.com/example"
@@ -2027,15 +2027,15 @@ msgstr "Engangsimport"
 #: src/admin-views/aggregator/origins/url.php:25
 #: src/admin-views/aggregator/origins/url.php:37
 msgid "Scheduled Import"
-msgstr "Tidsstyrt import"
+msgstr "Planlagt import"
 
 #: src/admin-views/aggregator/origins/facebook.php:39
 msgid "Log into Facebook"
-msgstr "Logg på Facebook"
+msgstr "Logg inn på Facebook"
 
 #: src/admin-views/aggregator/origins/facebook.php:33
 msgid "Please log in to enable event imports from Facebook."
-msgstr "Vennligst logg inn for å aktivere arrangementimport fra Facebook"
+msgstr "Logg inn for å aktivere arrangementimport fra Facebook"
 
 #: src/admin-views/aggregator/origins/facebook.php:12
 #: src/admin-views/aggregator/origins/gcal.php:12
@@ -2067,7 +2067,7 @@ msgstr "Velg importtype"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:23
 msgid "Enter an Eventbrite event URL, e.g. https://www.eventbrite.com/e/example-12345"
-msgstr "Legg inn en URL til et Eventbrite-arrangement, f.eks. https://www.eventbrite.com/e/example-12345"
+msgstr "Legg inn URLen til et Eventbrite-arrangement, f.eks. https://www.eventbrite.com/e/example-12345"
 
 #: src/admin-views/aggregator/origins/csv.php:76
 #: src/admin-views/aggregator/origins/facebook.php:132
@@ -2095,7 +2095,7 @@ msgstr "Last opp"
 
 #: src/admin-views/aggregator/origins/csv.php:41
 msgid "Select your .CSV file from the WordPress media library. You may need to first upload the file from your computer to the library."
-msgstr ""
+msgstr "Velg .CSV-filen fra WordPress’ mediebibliotek. Du må laste opp filen fra din datamaskin først."
 
 #: src/admin-views/aggregator/origins/csv.php:40
 msgid "Choose a CSV file"
@@ -2108,11 +2108,11 @@ msgstr "Velg fil:"
 
 #: src/admin-views/aggregator/origins/csv.php:8
 msgid "For the best results, import venue and organizer files before importing event files."
-msgstr ""
+msgstr "For best resultat, importer steds- og organisator-filer før du importerer arrangement-filer."
 
 #: src/admin-views/aggregator/origins/csv.php:6
 msgid "Specify the type of content you wish to import, e.g. events."
-msgstr ""
+msgstr "Spesifiser typen innhold du vil importere, f.eks. arrangementer."
 
 #: src/admin-views/aggregator/origins/csv.php:5
 msgid "Select Content Type"
@@ -2124,19 +2124,19 @@ msgstr "Innholdstype:"
 
 #: src/admin-views/aggregator/meta-box.php:45
 msgid "Change Event Update Authority"
-msgstr ""
+msgstr "Endre oppdateringsautoritet for arrangement"
 
 #: src/admin-views/aggregator/meta-box.php:36
 msgid "This event will not be re-imported and changes made locally will be preserved."
-msgstr ""
+msgstr "Dette arrangementet vil ikke bli re-importert og endringer gjort lokalt vil beholdes."
 
 #: src/admin-views/aggregator/meta-box.php:29
 msgid "If this event is re-imported, event fields that have not been changed locally will be overwritten with any changes from the source."
-msgstr ""
+msgstr "Dersom arrangementet re-importeres vil feltene som ikke har blitt endret lokalt bli overskrevet med endringer fra kilden."
 
 #: src/admin-views/aggregator/meta-box.php:23
 msgid "If this event is re-imported, event fields will be overwritten with any changes from the source."
-msgstr ""
+msgstr "Hvis arrangementet re-importeres vil feltene bli overskrevet med endringer fra kilden."
 
 #: src/admin-views/aggregator/meta-box.php:9
 msgid "Last Import:"
@@ -2152,7 +2152,7 @@ msgstr "Utviklernyheter"
 
 #: src/admin-views/admin-welcome-message.php:21
 msgid "Rate us today!"
-msgstr "Ranger i dag!"
+msgstr "Vurder oss i dag!"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:22
 msgid "Eventbrite URL"
@@ -2178,37 +2178,37 @@ msgstr ""
 
 #: src/Tribe/Importer/Admin_Page.php:76 src/Tribe/Importer/Admin_Page.php:77
 msgid "Legacy Import"
-msgstr ""
+msgstr "Gammel importfunksjon"
 
 #: src/Tribe/Ignored_Events.php:860
 msgid "Migration: %d Legacy Ignored Post was migrated successfully. To see the migrated event you will first need to refresh this screen."
 msgid_plural "Migration: %d Legacy Ignored Posts were migrated successfully. To see the migrated events you will first need to refresh this screen."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Overføring: %d gammelt ignorert innlegg ble overført. For å se det overførte arrangementet må du først laste inn siden på nytt."
+msgstr[1] "Overføring: %d gamle ignorerte innlegg ble overført. For å se de overførte arrangementene må du først laste inn siden på nytt."
 
 #: src/Tribe/Ignored_Events.php:853
 msgid "Event %d: %s"
-msgstr ""
+msgstr "Arrangement %d: %s"
 
 #: src/Tribe/Ignored_Events.php:841
 msgid "Migration: %d Legacy Ignored Post failed to be migrated."
 msgid_plural "Migration: %d Legacy Ignored Posts failed to be migrated."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Overføring: %d gammelt ignorert innlegg kunne ikke overføres."
+msgstr[1] "Overføring: %d gamle ignorerte innlegg kunne ikke overføres."
 
 #: src/Tribe/Ignored_Events.php:829
 msgid "Migration: %d Legacy Ignored Post was migrated but %d failed. To see the migrated event you will first need to refresh this screen."
 msgid_plural "Migration: %d Legacy Ignored Posts were migrated but %d failed. To see the migrated events you will first need to refresh this screen."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Overføring: %d gammelt ignorert innlegg ble overført, men %d kunne ikke overføres. For å se det overførte arrangementet må du først laste inn siden på nytt."
+msgstr[1] "Overføring: %d gamle ignorerte innlegg ble overført, men %d kunne ikke overføres. For å se de overførte arrangementene må du først laste inn siden på nytt."
 
 #: src/Tribe/Ignored_Events.php:805
 msgid "There were no Legacy Events to be Migrated, you are ready to rock!"
-msgstr ""
+msgstr "Det var ingen gamle ignorerte innlegg som skulle overføres, du er klar til å rocke!"
 
 #: src/Tribe/Ignored_Events.php:798
 msgid "You do not have permission to migrate Legacy Ignored Events"
-msgstr ""
+msgstr "Du har ikke rettigheter til å overføre gamle ignorerte arrangementer"
 
 #: src/Tribe/Ignored_Events.php:791
 msgid "Error, a unknown bug happened and it was impossible to migrate the Legacy Ignored Events, try again later."
@@ -2245,7 +2245,7 @@ msgstr "Siste import"
 
 #: src/Tribe/Ignored_Events.php:306 src/admin-views/aggregator/meta-box.php:14
 msgid "The last time this event was imported and/or updated via import."
-msgstr ""
+msgstr "Forrige gang dette arrangementet ble importert og/eller oppdatert via import."
 
 #: src/Tribe/Ignored_Events.php:304
 msgid "Source"
@@ -2254,8 +2254,8 @@ msgstr "Kilde"
 #: src/Tribe/Ignored_Events.php:275
 msgid "%s post restored."
 msgid_plural "%s posts restored."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s innlegg gjenopprettet."
+msgstr[1] "%s innlegg gjenopprettet."
 
 #: src/Tribe/Ignored_Events.php:223 src/Tribe/Ignored_Events.php:267
 msgid "Error restoring from Ignored Events."
@@ -2267,7 +2267,7 @@ msgstr "Du har ikke tillatelse til å gjenopprette dette innlegget."
 
 #: src/Tribe/Ignored_Events.php:165
 msgid "Migrate Legacy Ignored Events"
-msgstr ""
+msgstr "Overfør gamle ignorerte arrangementer"
 
 #: src/Tribe/Ignored_Events.php:164
 msgctxt "link to knowlegebase article"
@@ -2276,7 +2276,7 @@ msgstr "Les mer om ignorerte arrangementer."
 
 #: src/Tribe/Ignored_Events.php:163
 msgid "Event Aggregator includes a new, better system for removing unwanted imported events from your calendar. Click the button below to transition previously deleted events. This process will remove unwanted records from your database and include recent or upcoming trashed events in your Ignored archive."
-msgstr ""
+msgstr "Event Aggregator har et nytt, bedre system for å fjerne uønskede importerte arrangementer fra din kalender. Trykk på knappen under for å overføre gamle slettede arrangementer. Denne prosessen vil fjerne uønskede elementer fra databasen din og inkludere nye eller kommende slettede elementer i ditt ignorerte-arkiv."
 
 #: src/Tribe/Utils/Radius.php:28
 msgctxt "X (kilometers abbreviation)"
@@ -2295,14 +2295,14 @@ msgstr "Angre"
 #: src/Tribe/Ignored_Events.php:129
 msgid "and %s post moved to Ignored."
 msgid_plural "and %s posts moved to Ignored."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "og %s innlegg flyttet til ignorerte."
+msgstr[1] "og %s innlegg flyttet til ignorerte."
 
 #: src/Tribe/Ignored_Events.php:128
 msgid "%s post moved to the Trash"
 msgid_plural "%s posts moved to the Trash"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "og %s innlegg flyttet til papirkurven."
+msgstr[1] "og %s innlegg flyttet til papirkurven."
 
 #: src/Tribe/Ignored_Events.php:125
 msgid "post moved to Ignored."
@@ -2312,7 +2312,7 @@ msgstr[1] "innlegg flyttet til ignorerte."
 
 #: src/Tribe/Ignored_Events.php:44 src/Tribe/Ignored_Events.php:389
 msgid "Ignored events do not show on the calendar but can be updated with future imports"
-msgstr ""
+msgstr "Ignorerte arrangementer vises ikke på kalenderen din, men kan oppdateres i fremtidige importer"
 
 #: src/Tribe/Ignored_Events.php:43 src/Tribe/Ignored_Events.php:390
 msgid "Hide & Ignore"
@@ -2325,7 +2325,7 @@ msgstr "Ignorert"
 
 #: src/Tribe/Ignored_Events.php:36
 msgid "Ignored events that are deleted will be removed permanently. They can be recreated via import."
-msgstr ""
+msgstr "Ignorerte arrangementer som er slettet vil fjernes permanent. De kan gjenskapes ved import."
 
 #: src/Tribe/Ignored_Events.php:35 src/Tribe/Ignored_Events.php:51
 #: src/Tribe/Ignored_Events.php:427
@@ -2346,15 +2346,15 @@ msgstr ""
 
 #: src/Tribe/Aggregator.php:359
 msgid "Successfully connected Event Aggregator to Facebook"
-msgstr ""
+msgstr "Koblet Event Aggregator til Facebook"
 
 #: src/Tribe/Aggregator.php:329
 msgid "You must use an integer to reduce the daily import limit"
-msgstr ""
+msgstr "Du må bruke et tall for å redusere den daglige importgrensen"
 
 #: src/Tribe/Aggregator.php:85
 msgid "Event Aggregator System Status"
-msgstr ""
+msgstr "Systemstatus for Event Aggregator"
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:368
 msgid "Enter Event Aggregator License"
@@ -2362,19 +2362,19 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:362
 msgid "To continue using scheduled imports, please enter a valid Event Aggregator license key under %1$sEvents > Settings > Licenses%2$s."
-msgstr ""
+msgstr "For å fortsette å bruke planlagt import, skriv inn en gyldig Event Aggregator-lisensnøkkel under %1$sArrangementer > Innstillinger > Lisenser%2$s."
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:357
 msgid "All scheduled imports are currently suspended, and no events will be imported."
-msgstr ""
+msgstr "Alle planlagte importer er for tiden suspendert, og ingen arrangementer vil bli importert."
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:256
 msgid "Successfully %s %d scheduled import"
-msgstr ""
+msgstr "%s %d planlagt import"
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:246
 msgid "Error: %d scheduled import was not %s."
-msgstr ""
+msgstr "Feil: %d planlagt import var ikke %s."
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:193
 msgid "deactivated"
@@ -2398,19 +2398,19 @@ msgstr "Planlagte importer"
 
 #: src/Tribe/Aggregator/Tabs/New.php:554
 msgid "Renew your Event Aggregator license"
-msgstr ""
+msgstr "Forny din Event Aggregator-lisens"
 
 #: src/Tribe/Aggregator/Tabs/New.php:551
 msgid "Renew your license in order to import events from Facebook, iCalendar, Google, or Meetup."
-msgstr ""
+msgstr "Forny lisensen din for å importere arrangementer fra Facebook, iCalendar, Google eller Meetup."
 
 #: src/Tribe/Aggregator/Tabs/New.php:550
 msgid "Your Event Aggregator license is expired."
-msgstr ""
+msgstr "Din Event Aggregator-lisens har utløpt."
 
 #: src/Tribe/Aggregator/Tabs/New.php:530
 msgid "Learn More"
-msgstr "Les mer"
+msgstr "Lær mer"
 
 #: src/Tribe/Aggregator/Tabs/New.php:525 src/Tribe/Aggregator/Tabs/New.php:532
 msgid "opens in a new window"
@@ -2422,7 +2422,7 @@ msgstr "Kjøp nå"
 
 #: src/Tribe/Aggregator/Tabs/New.php:520
 msgid "With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup.com in a jiffy."
-msgstr ""
+msgstr "Med Event Aggregator kan du importere arrangementer fra Facebook, iCalendar, Google og Meetup.com på null komma niks."
 
 #: src/Tribe/Aggregator/Tabs/New.php:518
 msgid "Import Using Event Aggregator"
@@ -2430,11 +2430,11 @@ msgstr "Importer med Event Aggregator"
 
 #: src/Tribe/Aggregator/Tabs/New.php:439
 msgid "Unable to save credentials"
-msgstr ""
+msgstr "Kunne ikke lagre nøkler."
 
 #: src/Tribe/Aggregator/Tabs/New.php:432
 msgid "Credentials have been saved"
-msgstr ""
+msgstr "Nøkler ble lagret"
 
 #: src/Tribe/Aggregator/Tabs/New.php:423
 msgid "The Meetup API key is required."
@@ -2442,19 +2442,19 @@ msgstr "Meetup API-nøkkel kreves."
 
 #: src/Tribe/Aggregator/Tabs/New.php:414
 msgid "Invalid credential save nonce"
-msgstr ""
+msgstr "Ugyldig nøkkellagrings-nonce"
 
 #: src/Tribe/Aggregator/Tabs/New.php:404
 msgid "Invalid credential save request"
-msgstr ""
+msgstr "Ugyldig nøkkellagrings-forespørsel"
 
 #: src/Tribe/Aggregator/Tabs/New.php:393
 msgid "View your scheduled imports."
-msgstr ""
+msgstr "Se dine planlagte importer."
 
 #: src/Tribe/Aggregator/Tabs/New.php:389
 msgid "The next import is scheduled for %1$s."
-msgstr ""
+msgstr "Den neste importen er planlagt %1$s."
 
 #: src/Tribe/Aggregator/Tabs/New.php:384
 msgctxt "separator between date and time"
@@ -2463,17 +2463,17 @@ msgstr " klokken "
 
 #: src/Tribe/Aggregator/Tabs/New.php:380
 msgid "Your scheduled import was saved and the first import is complete!"
-msgstr ""
+msgstr "Din planlagte import ble lagret og den første importen er fullført!"
 
 #: src/Tribe/Aggregator/Tabs/New.php:355
 msgid "View your event categories"
-msgstr ""
+msgstr "Se dine arrangementkategorier"
 
 #: src/Tribe/Aggregator/Tabs/New.php:351
 msgid "%1$d new event category was created."
 msgid_plural "%1$d new event categories were created."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$d ny arrangementkategori ble opprettet."
+msgstr[1] "%1$d ny arrangementkategorier ble opprettet."
 
 #: src/Tribe/Aggregator/Tabs/New.php:342
 msgid "View your event organizers"
@@ -2487,13 +2487,13 @@ msgstr[1] ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:330
 msgid "View your event venues"
-msgstr ""
+msgstr "Se dine arrangementssteder"
 
 #: src/Tribe/Aggregator/Tabs/New.php:326
 msgid "%1$d new venue was imported."
 msgid_plural "%1$d new venues were imported."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$d nytt sted ble opprettet."
+msgstr[1] "%1$d nye steder ble opprettet."
 
 #: src/Tribe/Aggregator/Tabs/New.php:316
 msgid "View all %s"
@@ -2501,25 +2501,25 @@ msgstr "Vis alle %s"
 
 #: src/Tribe/Aggregator/Tabs/New.php:308
 msgid "No %1$s were imported or updated."
-msgstr ""
+msgstr "Ingen %1$s ble importert eller oppdatert."
 
 #: src/Tribe/Aggregator/Tabs/New.php:301
 msgid "%1$d new image was imported."
 msgid_plural "%1$d new images were imported."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$d nytt bilde ble importert."
+msgstr[1] "%1$d nye bilder ble importert."
 
 #: src/Tribe/Aggregator/Tabs/New.php:292
 msgid "%1$d already-imported %2$s was skipped."
 msgid_plural "%1$d already-imported %2$s were skipped."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$d allerede importert %2$s ble hoppet over."
+msgstr[1] "%1$d allerede importerte %2$s ble hoppet over."
 
 #: src/Tribe/Aggregator/Tabs/New.php:281
 msgid "%1$d existing %2$s was updated."
 msgid_plural "%1$d existing %2$s were updated."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$d eksisterende %2$s ble oppdatert."
+msgstr[1] "%1$d eksisterende %2$s ble oppdatert."
 
 #: src/Tribe/Aggregator/Tabs/New.php:269
 msgid "%1$d new %2$s was imported."
@@ -3538,11 +3538,11 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:124
 msgid "Organizer Description"
-msgstr ""
+msgstr "Arrangørbeskrivelse"
 
 #: src/Tribe/Importer/Column_Mapper.php:101
 msgid "Venue Description"
-msgstr ""
+msgstr "Stedbeskrivelse"
 
 #: src/Tribe/Importer/Column_Mapper.php:87
 msgid "Event Allow Trackbacks and Pingbacks"
@@ -3550,7 +3550,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:86
 msgid "Event Allow Comments"
-msgstr ""
+msgstr "Tillat kommentarer på arrangement"
 
 #: src/Tribe/Importer/Column_Mapper.php:76
 msgid "Event Organizer Name(s) or ID(s)"
@@ -3566,11 +3566,11 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:71
 msgid "Event Timezone"
-msgstr ""
+msgstr "Tidssone for arrangement"
 
 #: src/Tribe/Importer/Column_Mapper.php:66
 msgid "Event Excerpt"
-msgstr ""
+msgstr "Utdrag for arrangement"
 
 #: src/Tribe/Importer/Admin_Page.php:103
 msgid "Default encoding for imported csv file"
@@ -3579,15 +3579,15 @@ msgstr ""
 #: src/Tribe/Google/Maps_API_Key.php:59
 #: src/admin-views/tribe-options-addons-api.php:99
 msgid "Click here"
-msgstr ""
+msgstr "Trykk her"
 
 #: src/Tribe/Google/Maps_API_Key.php:58
 msgid "<p>%s to create your Google Maps API key."
-msgstr ""
+msgstr "<p>%s for å generere en Google Maps API-nøkkel."
 
 #: src/Tribe/Google/Maps_API_Key.php:51 src/Tribe/Google/Maps_API_Key.php:57
 msgid "Google Maps API key"
-msgstr ""
+msgstr "Google Maps API-nøkkel"
 
 #: src/Tribe/Google/Maps_API_Key.php:50
 msgid "We highly recommend that you specify a valid %s for The Events Calendar to use. Doing this will help prevent problems with maps, especially for sites that receive a lot of traffic."
@@ -3693,15 +3693,15 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:128
 msgid "Organizer Featured Image"
-msgstr ""
+msgstr "Fremhevet bilde for arrangør"
 
 #: src/Tribe/Importer/Column_Mapper.php:110
 msgid "Venue Featured Image"
-msgstr ""
+msgstr "Fremhevet bilde for sted"
 
 #: src/Tribe/Importer/Column_Mapper.php:85
 msgid "Event Featured Image"
-msgstr ""
+msgstr "Fremhevet bilde for arrangement"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:50
 msgid "Edit Venue"
@@ -3713,7 +3713,7 @@ msgstr "Neste %s"
 
 #: src/views/list/nav.php:26
 msgid "Previous %s"
-msgstr "Tidligere %s"
+msgstr "Forrige %s"
 
 #: src/io/csv/admin-views/result.php:26
 msgid "%1$s%2$s%3$sInserted:%4$s A new item was inserted successfully. %5$s%2$s%3$sUpdated:%4$s An item was found with the same name and/or start date. The existing item was updated with the new value from the file.%5$s%2$s%3$sSkipped:%4$s A row was found in the CSV file that could not be imported. Please see below for the invalid rows.%5$s%6$s"
@@ -3749,7 +3749,7 @@ msgstr "%s navn kan ikke være blankt"
 
 #: src/admin-views/admin-update-message.php:32
 msgid "Keep the Core Plugin %sFREE%s!"
-msgstr "Hold Core Plugin %sGRATIS%s!"
+msgstr "Hold hovedutvidelsen %sGRATIS%s!"
 
 #: src/Tribe/Template_Factory.php:295
 msgid "No results were found for %1$s in or near %2$s."
@@ -4073,7 +4073,7 @@ msgstr "Facebookarrangementer"
 #: common/src/Tribe/Admin/Help_Page.php:203
 #: common/src/Tribe/Plugins_API.php:111
 msgid "Eventbrite Tickets"
-msgstr "Eventbrite billetter"
+msgstr "Eventbrite-billetter"
 
 #: common/src/Tribe/Admin/Help_Page.php:170
 msgid " and "
@@ -4107,11 +4107,11 @@ msgstr[1] "Se alle %1$s %2$s"
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:54
 msgid "Completed!"
-msgstr ""
+msgstr "Fullført!"
 
 #: src/Tribe/Organizer.php:178
 msgid "organizers"
-msgstr ""
+msgstr "arrangører"
 
 #: src/admin-views/aggregator/origins/gcal.php:117
 #: src/admin-views/aggregator/origins/ical.php:111
@@ -4151,11 +4151,11 @@ msgstr "Se alle %s"
 
 #: src/views/single-event.php:46 src/views/single-event.php:79
 msgid "%s Navigation"
-msgstr "%s Navigasjon"
+msgstr ""
 
 #: src/views/month/nav.php:19
 msgid "Calendar Month Navigation"
-msgstr "Kalender månedsnavigasjon"
+msgstr "Månedsnavigasjon i kalender"
 
 #: src/views/modules/meta/details.php:142
 msgid "%s Tags:"
@@ -4184,7 +4184,7 @@ msgstr "Les mer"
 
 #: src/views/day/nav.php:17
 msgid "Day Navigation"
-msgstr "Dag navigasjon"
+msgstr "Navigasjon etter dag"
 
 #: src/io/csv/admin-views/result.php:29
 msgid "Skipped row numbers: %s"
@@ -4204,7 +4204,7 @@ msgstr "Oppdatert: %d"
 
 #: src/io/csv/admin-views/result.php:18
 msgid "Inserted: %d"
-msgstr "Innsatt: %d"
+msgstr "Satt inn: %d"
 
 #: src/Tribe/Aggregator/Tabs/New.php:378 src/io/csv/admin-views/result.php:16
 msgid "Import complete!"
@@ -4233,7 +4233,7 @@ msgstr "CSV fil:"
 #: src/admin-views/aggregator/origins/url.php:5
 #: src/io/csv/admin-views/import.php:43
 msgid "Import Type:"
-msgstr "Import type:"
+msgstr "Importtype:"
 
 #: src/io/csv/admin-views/import.php:31
 msgid "One column in your CSV should have the Event title. Another should have the Event start date. All other fields are optional."
@@ -4313,7 +4313,7 @@ msgstr "Kollonneoverskrifter"
 
 #: src/io/csv/admin-views/columns.php:27
 msgid "Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file."
-msgstr "Kolonner har blitt koblet basert på din forrige import. Vennligst forsikre deg om at de valgte feltene passer sammen med kolonnene i tekstfilen din."
+msgstr "Kolonner har blitt koblet sammen basert på din forrige import. Vennligst forsikre deg om at de valgte feltene passer sammen med kolonnene i tekstfilen din."
 
 #: src/io/csv/admin-views/columns.php:22
 msgid "Column Mapping: %s"
@@ -4341,7 +4341,7 @@ msgstr "Kommende %s"
 
 #: src/functions/template-tags/google-map.php:47
 msgid "+ Google Map"
-msgstr "+ Google Map"
+msgstr "+ Google-kart"
 
 #: src/functions/template-tags/google-map.php:46
 msgid "Click to view a Google Map"
@@ -4381,11 +4381,11 @@ msgstr "Kategori"
 
 #: src/functions/template-tags/day.php:112
 msgid "Tomorrow"
-msgstr "Imorgen"
+msgstr "I morgen"
 
 #: src/functions/template-tags/day.php:110
 msgid "Yesterday"
-msgstr "Igår"
+msgstr "I går"
 
 #: src/functions/template-tags/date.php:82
 msgid "The function needs to be passed an $event or used in the loop."
@@ -4405,7 +4405,7 @@ msgstr "Detaljer"
 
 #: src/admin-views/widget-admin-list.php:31
 msgid "Show widget only if there are upcoming events:"
-msgstr "Vis widget bare hvis det er kommende arrangementer:"
+msgstr "Vis widget bare hvis det finnes kommende arrangementer:"
 
 #: src/admin-views/widget-admin-list.php:18
 msgid "Show:"
@@ -4427,12 +4427,12 @@ msgstr "Vis Google Map link:"
 #: src/admin-views/venue-meta-box.php:183
 #: src/admin-views/venue-meta-box.php:219
 msgid "Show Google Map:"
-msgstr "Vis Google Map:"
+msgstr "Vis Google-kart:"
 
 #: src/admin-views/create-venue-fields.php:142
 #: src/admin-views/venue-meta-box.php:134
 msgid "Postal Code:"
-msgstr "Postnr:"
+msgstr "Postnummer:"
 
 #: src/admin-views/create-venue-fields.php:132
 #: src/admin-views/venue-meta-box.php:120
@@ -4512,7 +4512,7 @@ msgstr "Nyheter og tutorials"
 
 #: common/src/Tribe/Admin/Help_Page.php:847
 msgid "Premium Add-Ons"
-msgstr "Premium Add-Ons"
+msgstr "Premium-tillegg"
 
 #: common/src/Tribe/Admin/Help_Page.php:823
 msgid "WordPress "
@@ -4598,7 +4598,7 @@ msgstr "0 = zoomet ut; 21 = zoomet inn."
 
 #: src/admin-views/tribe-options-general.php:193
 msgid "Google Maps default zoom level"
-msgstr "Google Maps standard zoomnivå"
+msgstr "Standard zoomnivå på Google Maps"
 
 #: src/admin-views/tribe-options-general.php:186
 msgid "Check to enable maps for events and venues."
@@ -4934,7 +4934,7 @@ msgstr "%s navn eksisterer allerede"
 #: src/admin-views/organizer-meta-box.php:43
 #: src/views/modules/meta/organizer.php:54
 msgid "Email:"
-msgstr "Epost:"
+msgstr "E-post:"
 
 #: src/admin-views/create-organizer-fields.php:8
 #: src/admin-views/create-venue-fields.php:170
@@ -5010,7 +5010,7 @@ msgstr "Tidssone:"
 #: src/admin-views/events-meta-box.php:83
 #: src/admin-views/events-meta-box.php:122
 msgid "YYYY-MM-DD"
-msgstr "ÅÅÅÅ-MM-DD"
+msgstr "DD.MM.YYYY"
 
 #: src/admin-views/events-meta-box.php:69
 msgid "You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page."
@@ -5034,11 +5034,11 @@ msgstr "Skjul fra %s listene"
 
 #: src/admin-views/admin-welcome-message.php:54
 msgid "Product Releases, Tutorials and Community Activity"
-msgstr "Versjonshistorikk, brukerveiledninger og Community aktivitet"
+msgstr "Versjonshistorikk, brukerveiledninger og samfunnsaktivitet"
 
 #: src/admin-views/admin-welcome-message.php:51
 msgid "Get the Skinny on the Latest Updates"
-msgstr "Få Skinny på de siste oppdateringene"
+msgstr "Få siste nytt på de siste oppdateringene"
 
 #: src/admin-views/admin-welcome-message.php:50
 msgid "Release Notes"
@@ -5066,7 +5066,7 @@ msgstr "Sjekk ut brukerveiledningene for nye brukere."
 
 #: src/admin-views/admin-welcome-message.php:40
 msgid "Getting Started"
-msgstr "Komme igang"
+msgstr "Kom i gang"
 
 #: src/admin-views/admin-welcome-message.php:25
 msgid "Newsletter Signup"
@@ -5153,7 +5153,7 @@ msgstr "Legg til i Google kalender"
 
 #: src/Tribe/iCal.php:33
 msgid "%1$s %2$s iCal Feed"
-msgstr "%1$s %2$s iCal Feed"
+msgstr "%1$s %2$s iCal-feed"
 
 #: src/Tribe/iCal.php:32
 msgctxt "feed link"
@@ -5410,7 +5410,7 @@ msgstr "Uruguay"
 
 #: common/src/Tribe/View_Helpers.php:270
 msgid "United States Minor Outlying Islands"
-msgstr "De forenede staters mindre omkringliggende øyer"
+msgstr "USAs mindre omkringliggende øyer"
 
 #: common/src/Tribe/View_Helpers.php:269
 msgid "United Kingdom"
@@ -5470,7 +5470,7 @@ msgstr "Thailand"
 
 #: common/src/Tribe/View_Helpers.php:255
 msgid "Tanzania, United Republic Of"
-msgstr "Billett #"
+msgstr "Tanzania"
 
 #: common/src/Tribe/View_Helpers.php:254
 msgid "Tajikistan"
@@ -5610,7 +5610,7 @@ msgstr "Romania"
 
 #: common/src/Tribe/View_Helpers.php:220
 msgid "Reunion"
-msgstr "Gjenforening"
+msgstr "Réunion"
 
 #: common/src/Tribe/View_Helpers.php:219
 msgid "Qatar"
@@ -6914,7 +6914,7 @@ msgstr "Sted"
 #: src/Tribe/Importer/Admin_Page.php:204 src/Tribe/Venue.php:144
 #: src/functions/template-tags/venue.php:76
 msgid "Venues"
-msgstr "Sted"
+msgstr "Steder"
 
 #: src/Tribe/List_Widget.php:219
 msgid "Upcoming Events"
@@ -6922,7 +6922,7 @@ msgstr "Kommende arrangementer"
 
 #: src/Tribe/List_Widget.php:38
 msgid "Events List"
-msgstr "Eventliste"
+msgstr "Arrangementliste"
 
 #: src/Tribe/List_Widget.php:30
 msgid "A widget that displays upcoming events."
@@ -6983,11 +6983,11 @@ msgstr "Stedets hjemmeside"
 #: src/Tribe/Importer/Column_Mapper.php:108
 #: src/admin-views/create-venue-fields.php:165
 msgid "Venue Phone"
-msgstr "Stedets telefonnr"
+msgstr "Stedets telefonnummer"
 
 #: src/Tribe/Importer/Column_Mapper.php:107
 msgid "Venue Zip"
-msgstr "Stedets postnr"
+msgstr "Stedets postnummer"
 
 #: src/Tribe/Importer/Column_Mapper.php:106
 msgid "Venue State/Province"
@@ -7000,7 +7000,7 @@ msgstr "Stedets by"
 
 #: src/Tribe/Importer/Column_Mapper.php:104
 msgid "Venue Address 2"
-msgstr "Lokansjonens adresse 2"
+msgstr "Stedets adresselinje 2"
 
 #: src/Tribe/Importer/Column_Mapper.php:103
 #: src/admin-views/create-venue-fields.php:61
