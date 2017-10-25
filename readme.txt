@@ -326,6 +326,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 * Fix - Fixed issue where the value of an event's "Show Google Maps Link" option would not properly affect the displaying of the link on List View (props: @etechnologie) [75547]
 * Tweak - Fixed some display issues for the event schedule details (props @mia-caro)
+* Tweak - Fix PHP 7.1 compatibility with Event Aggregator (props @BJP NEALE) [90002]
 
 = [4.6.2] 2017-10-18 =
 
