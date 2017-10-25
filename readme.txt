@@ -325,7 +325,6 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.6.3] TBD =
 
 * Fix - Fixed issue where the value of an event's "Show Google Maps Link" option would not properly affect the displaying of the link on List View (props: @etechnologie) [75547]
-* Fix - Fixed issue where the value of an event's "Show Google Maps Link" option would not properly affect the displaying of the link on List View (props: @etechnologie) [75547]
 * Fix - Improve shortcode pagination/view change url so it is reusable (props: @der.chef and others) [70021]
 
 = [4.6.2] 2017-10-18 =
