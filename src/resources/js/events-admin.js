@@ -553,7 +553,7 @@ jQuery( document ).ready( function( $ ) {
 				$dpDiv = $( object.dpDiv );
 
 				// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere with other plugins'/themes'.
-				$dpDiv.addClass( 'TRIBETEST' );
+				$dpDiv.addClass( 'tribe-ui-datepicker' );
 
 				// If ACF is active, we need to (temporarily) remove their wrap around the UI datepicker modal.
 				if ( $dpDiv.parent( '.acf-ui-datepicker' ).length ) {
@@ -565,7 +565,7 @@ jQuery( document ).ready( function( $ ) {
 					trackValues : true,
 					callback    : function( attr ) {
 						if ( ! $dpDiv.is( ':visible' ) ) {
-							$dpDiv.removeClass( 'TRIBETEST' );
+							$dpDiv.removeClass( 'tribe-ui-datepicker' );
 
 							// If ACF is active, add their "wrap" div element back.
 							if ( acf_compat_mode ) {
@@ -601,13 +601,6 @@ jQuery( document ).ready( function( $ ) {
 				$( this ).blur();
 			}
 		};
-
-		// $( document.getElementById( 'ui-datepicker-div' ) ).attrchange({
-		// 	trackValues : true,
-		// 	callback    : function( e ) {
-		// 		console.log( e );
-		// 	}				
-		// });
 
 		$.extend( tribe_datepicker_opts, tribe_l10n_datatables.datepicker );
 
