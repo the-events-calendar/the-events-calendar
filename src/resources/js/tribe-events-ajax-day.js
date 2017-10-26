@@ -221,7 +221,7 @@
 				};
 
 				// add shortcode display value
-				if ( !ts.url_params.hasOwnProperty( 'tribe_event_display' ) ) {
+				if ( ! ts.url_params.hasOwnProperty( 'tribe_event_display' ) ) {
 					ts.url_params['tribe_event_display'] = ts.view;
 				}
 
