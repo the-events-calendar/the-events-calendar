@@ -326,6 +326,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 * Fix - Fixed issue where the value of an event's "Show Google Maps Link" option would not properly affect the displaying of the link on List View (props: @etechnologie) [75547]
 * Tweak - Fixed some display issues for the event schedule details (props @mia-caro)
+* Tweak - Improved the clarity of and amount of context for some linked post labels to make translation of those labels a little easier and more nuanced (props @hnacc and others) [88589]
 
 = [4.6.2] 2017-10-18 =
 
