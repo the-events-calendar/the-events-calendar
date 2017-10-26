@@ -969,14 +969,14 @@ class Tribe__Events__Linked_Posts {
 			$indefinite_article = _x( 'an', 'Indefinite article for the phrase "Find a {post type name}" when the {post type name} starts with a vowel, e.g. "Find an Organizer".', 'the-events-calendar' );
 		}
 
-		// Here we render the main label string. The "core" linked post types (venue and organizer) are explicitly named to make 
+		// Here we render the main label string. The "core" linked post types (venue and organizer) are explicitly named to make
 		// translation a bit easier for the many languages where the words *around* the post type name may need to be different
 		// based on the specific post type name. For non-"core" post types, we just dynamically populate the post type name.
 		switch ( $post_type ) {
 
 			// Organizers
 			case Tribe__Events__Organizer::POSTTYPE :
-				
+
 				if ( tribe_is_organizer_label_customized() ) {
 					$label = sprintf( esc_attr_x( 'Find %1$s %2$s', '"Find an Organizer", but when the word "Organizer" is customized to something else.', 'the-events-calendar' ), $indefinite_article, $singular_name );
 
