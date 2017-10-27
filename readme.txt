@@ -4,7 +4,7 @@ Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.2
+Stable tag: 4.6.3
 Tested up to: 4.8.2
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -164,7 +164,7 @@ If you're already a PRO user, you're entitled access to our more actively-monito
 
 = Events Calendar PRO looks awesome! I'm sold! How can I get my hands on it? =
 
-Events Calendar PRO can be purchased directly on [our website](http://m.tri.be/18wi). There are five (5) license types available, and all licenses include 1 year of access to support + updates.
+Events Calendar PRO can be purchased directly on [our website](http://m.tri.be/18wi). There are five (5) license types available, and all licenses include access to premium support, new feature releases, and regular maintenance updates.
 
 = I'm interested in PRO or another add-on, but there are a few questions I've got before making the purchase. Can you help me get those addressed? =
 
@@ -324,8 +324,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.6.3] TBD =
 
-* Prevent JS error when adding a Pro widget in the WP Customizer screen [72127]
-
+* Fix - Prevent JS error when adding a Pro widget in the WP Customizer screen [72127]
+* Fix - Fixed issue where the value of an event's "Show Google Maps Link" option would not properly affect the displaying of the link on List View (props: @etechnologie) [75547]
+* Fix - Improve shortcode pagination/view change url so it is reusable (props: @der.chef and others) [70021]
+* Tweak - Fixed some display issues for the event schedule details (props @mia-caro)
 
 = [4.6.2] 2017-10-18 =
 
