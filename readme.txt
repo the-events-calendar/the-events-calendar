@@ -324,6 +324,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 = [4.6.3] TBD =
 
+* Fix - Prevent JS error when adding a Pro widget in the WP Customizer screen [72127]
 * Fix - Fixed issue where the value of an event's "Show Google Maps Link" option would not properly affect the displaying of the link on List View (props: @etechnologie) [75547]
 * Fix - Improve shortcode pagination/view change url so it is reusable (props: @der.chef and others) [70021]
 * Fix - Ensure the `tribe_json_ld_{type}_object` filter is available to make modifications of event, venue and organizer JSON LD data possible (thanks to Mathew for flagging this problem) [89801]

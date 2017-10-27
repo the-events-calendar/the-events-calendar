@@ -1941,7 +1941,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				do_action( 'tribe_settings_enqueue' );
 			}
 
-			if ( $admin_helpers->is_screen( 'widgets' ) ) {
+			if ( $admin_helpers->is_screen( array( 'widgets', 'customize' ) ) ) {
 				Tribe__Events__Template_Factory::asset_package( 'tribe-select2' );
 				Tribe__Events__Template_Factory::asset_package( 'admin' );
 			}
