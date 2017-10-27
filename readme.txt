@@ -322,6 +322,11 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.6.3] TBD =
+
+* Prevent JS error when adding a Pro widget in the WP Customizer screen [72127]
+
+
 = [4.6.2] 2017-10-18 =
 
 * Fix - Restored functionality to the "currency position" options in Events Settings, and in the per-event cost settings (props @schola and many others!) [89918] 
