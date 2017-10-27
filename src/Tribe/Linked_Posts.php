@@ -978,10 +978,21 @@ class Tribe__Events__Linked_Posts {
 			case Tribe__Events__Organizer::POSTTYPE :
 
 				if ( tribe_is_organizer_label_customized() ) {
-					$label = esc_attr( sprintf( _x( 'Find %1$s %2$s', '"Find an Organizer", but when the word "Organizer" is customized to something else.', 'the-events-calendar' ), $indefinite_article, $singular_name ) );
+					$label = esc_attr(
+						sprintf(
+							_x( 'Find %1$s %2$s', '"Find an Organizer", but when the word "Organizer" is customized to something else.', 'the-events-calendar' ),
+							$indefinite_article,
+							$singular_name
+						)
+					);
 
 					if ( $creation_enabled ) {
-						$label = esc_attr( sprintf( _x( 'Create or Find %s', '"Create or Find Organizer", but when the word "Organizer" is customized to something else.', 'the-events-calendar' ), $singular_name ) );
+						$label = esc_attr(
+							sprintf(
+								_x( 'Create or Find %s', '"Create or Find Organizer", but when the word "Organizer" is customized to something else.', 'the-events-calendar' ),
+								$singular_name
+							)
+						);
 					}
 				} else {
 					$label = $creation_enabled ? esc_attr__( 'Create or Find an Organizer', 'the-events-calendar' ) : esc_attr__( 'Find an Organizer', 'the-events-calendar' );
@@ -993,10 +1004,21 @@ class Tribe__Events__Linked_Posts {
 			case Tribe__Events__Venue::POSTTYPE :
 
 				if ( tribe_is_venue_label_customized() ) {
-					$label = esc_attr( sprintf( _x( 'Find %1$s %2$s', '"Find a Venue", but when the word "Venue" is customized to something else.', 'the-events-calendar' ), $indefinite_article, $singular_name ) );
+					$label = esc_attr(
+						sprintf(
+							_x( 'Find %1$s %2$s', '"Find a Venue", but when the word "Venue" is customized to something else.', 'the-events-calendar' ),
+							$indefinite_article,
+							$singular_name
+						)
+					);
 
 					if ( $creation_enabled ) {
-						$label = esc_attr( sprintf( _x( 'Create or Find %s', '"Create or Find Venue", but when the word "Venue" is customized to something else.', 'the-events-calendar' ), $singular_name ) );
+						$label = esc_attr(
+							sprintf(
+								_x( 'Create or Find %s', '"Create or Find Venue", but when the word "Venue" is customized to something else.', 'the-events-calendar' ),
+								$singular_name
+							)
+						);
 					}
 				} else {
 					$label = $creation_enabled ? esc_attr__( 'Create or Find a Venue', 'the-events-calendar' ) : esc_attr__( 'Find a Venue', 'the-events-calendar' );
@@ -1006,10 +1028,21 @@ class Tribe__Events__Linked_Posts {
 
 			// Any other potential Linked Post types
 			default :
-				$label = esc_attr( sprintf( _x( 'Find %1$s %2$s', 'The "Find a {post type name}" label for custom linked post types that are *not* Venues or Organizers', 'the-events-calendar' ), $indefinite_article, $singular_name ) );
+				$label = esc_attr(
+					sprintf(
+						_x( 'Find %1$s %2$s', 'The "Find a {post type name}" label for custom linked post types that are *not* Venues or Organizers', 'the-events-calendar' ),
+						$indefinite_article,
+						$singular_name
+					)
+				);
 
 				if ( $creation_enabled ) {
-					$label = esc_attr( sprintf( _x( 'Create or Find %s', 'The "Create or Find {post type name}" label for custom linked post types that are *not* Venues or Organizers', 'the-events-calendar' ), $singular_name ) );
+					$label = esc_attr(
+						sprintf(
+							_x( 'Create or Find %s', 'The "Create or Find {post type name}" label for custom linked post types that are *not* Venues or Organizers', 'the-events-calendar' ),
+							$singular_name
+						)
+					);
 				}
 
 				break;
