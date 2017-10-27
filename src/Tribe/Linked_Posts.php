@@ -995,7 +995,9 @@ class Tribe__Events__Linked_Posts {
 						);
 					}
 				} else {
-					$label = $creation_enabled ? esc_attr__( 'Create or Find an Organizer', 'the-events-calendar' ) : esc_attr__( 'Find an Organizer', 'the-events-calendar' );
+					$label = $creation_enabled
+						? esc_attr__( 'Create or Find an Organizer', 'the-events-calendar' )
+						: esc_attr__( 'Find an Organizer', 'the-events-calendar' );
 				}
 
 				break;
@@ -1021,7 +1023,9 @@ class Tribe__Events__Linked_Posts {
 						);
 					}
 				} else {
-					$label = $creation_enabled ? esc_attr__( 'Create or Find a Venue', 'the-events-calendar' ) : esc_attr__( 'Find a Venue', 'the-events-calendar' );
+					$label = $creation_enabled
+						? esc_attr__( 'Create or Find a Venue', 'the-events-calendar' )
+						: esc_attr__( 'Find a Venue', 'the-events-calendar' );
 				}
 
 				break;
