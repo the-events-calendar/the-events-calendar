@@ -1,8 +1,8 @@
 (function( $ ) {
 	'use strict';
 
-	$event_details  = $( document.getElementById( 'tribe_events_event_details' ) );
-	reinit_acf_wrap = false;
+	var $event_details  = $( document.getElementById( 'tribe_events_event_details' ) );
+	var reinit_acf_wrap = false;
 
 	// Runs right before the datepicker div is rendered.
 	$event_details.on( 'tribe.ui-datepicker-div-beforeshow', function( e, object ) {
