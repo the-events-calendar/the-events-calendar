@@ -111,6 +111,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 				);
 			}
 
+			$data = $this->apply_object_data_filter( $data, $args, $post );
 			$return[ $post_id ] = $data;
 		}
 
