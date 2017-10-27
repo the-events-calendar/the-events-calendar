@@ -555,24 +555,39 @@ jQuery( document ).ready( function( $ ) {
 				// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere with other plugins'/themes'.
 				$dpDiv.addClass( 'tribe-ui-datepicker' );
 
+				$( document ).trigger( 'tribe.ui-datepicker-beforeshow' );
+
 				// If ACF is active, we need to (temporarily) remove their wrap around the UI datepicker modal.
-				if ( $dpDiv.parent( '.acf-ui-datepicker' ).length ) {
-					acf_compat_mode = true;
-					$dpDiv.parent( '.acf-ui-datepicker' ).remove();
-				}
+				// if ( $dpDiv.parent( '.acf-ui-datepicker' ).length ) {
+				// 	acf_compat_mode = true;
+				// 	$dpDiv.parent( '.acf-ui-datepicker' ).remove();
+				// }
 
-				$dpDiv.attrchange({
-					trackValues : true,
-					callback    : function( attr ) {
-						if ( ! $dpDiv.is( ':visible' ) ) {
-							$dpDiv.removeClass( 'tribe-ui-datepicker' );
+				// $dpDiv.attrchange({
+				// 	trackValues : true,
+				// 	callback    : function( attr ) {
+				// 		if ( ! $dpDiv.is( ':visible' ) ) {
+				// 			$dpDiv.removeClass( 'tribe-ui-datepicker' );
 
-							// If ACF is active, add their "wrap" div element back.
-							if ( acf_compat_mode ) {
-								$dpDiv.wrap( '<div class="acf-ui-datepicker" />' );
-							}
-						}
-					}				
+				// 			// If ACF is active, add their "wrap" div element back.
+				// 			if ( acf_compat_mode ) {
+				// 				$dpDiv.wrap( '<div class="acf-ui-datepicker" />' );
+				// 			}
+				// 		}
+				// 	}				
+				// });
+			},
+			onClose: function( element, object ) {
+				alert('YAA')
+				//var instance = $(this).data('datepicker');
+				console.log(instance);
+				// Capture the datepicker div here; it's dynamically generated so best to grab here instead of elsewhere.
+				$dpDiv = $( object.dpDiv );
+
+				// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere with other plugins'/themes'.
+				$dpDiv.fadeOut( 200, function() {
+					$dpDiv.removeClass( 'tribe-ui-datepicker' );
+					$( document ).trigger( 'tribe.ui-datepicker-closed' );
 				});
 			},
 			onSelect: function( selected_date, object ) {
@@ -604,7 +619,52 @@ jQuery( document ).ready( function( $ ) {
 
 		$.extend( tribe_datepicker_opts, tribe_l10n_datatables.datepicker );
 
-		var dates            = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
+		var dates               = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
+		var datepicker_instance =  dates.data( 'datepicker' );
+
+		if ( 'undefined' !== typeof datepicker_instance.settings.onClose ) {
+			console.log( 'HI')
+			var savedFunc = datepicker_instance.settings.onClose;
+			
+			dates.datepicker( 'destroy' );
+
+			// tribe_datepicker_opts.onClose = function( element, object ) {
+			// 	savedFunc();
+
+			// 	console.log('YAA')
+			// 	//var instance = $(this).data('datepicker');
+			// 	console.log(instance);
+			// 	// Capture the datepicker div here; it's dynamically generated so best to grab here instead of elsewhere.
+			// 	$dpDiv = $( object.dpDiv );
+
+			// 	// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere with other plugins'/themes'.
+			// 	$dpDiv.fadeOut( 200, function() {
+			// 		$dpDiv.removeClass( 'tribe-ui-datepicker' );
+			// 		$( document ).trigger( 'tribe.ui-datepicker-closed' );
+			// 	});
+			// }
+
+			//var dates = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
+
+			// datepicker_instance.settings.onClose = function( element, object ) {
+			// 	//savedFunc();
+
+			// 	console.log('YAA')
+			// 	//var instance = $(this).data('datepicker');
+			// 	console.log(instance);
+			// 	// Capture the datepicker div here; it's dynamically generated so best to grab here instead of elsewhere.
+			// 	$dpDiv = $( object.dpDiv );
+
+			// 	// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere with other plugins'/themes'.
+			// 	$dpDiv.fadeOut( 200, function() {
+			// 		$dpDiv.removeClass( 'tribe-ui-datepicker' );
+			// 		$( document ).trigger( 'tribe.ui-datepicker-closed' );
+			// 	});
+			// }
+
+			// dates.datepicker( 'refresh' );
+		}
+
 		var $start_end_month = $( 'select[name="EventStartMonth"], select[name="EventEndMonth"]' );
 		var $start_month     = $( 'select[name="EventStartMonth"]' );
 		var $end_month       = $( 'select[name="EventEndMonth"]' );
