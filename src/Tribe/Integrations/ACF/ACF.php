@@ -43,7 +43,6 @@ class Tribe__Events__Integrations__ACF__ACF {
 		$admin_helpers = Tribe__Admin__Helpers::instance();
 
 		if ( $admin_helpers->is_post_type_screen() ) {
-
 			wp_enqueue_script(
 				'tribe-admin-acf-compat',
 				plugin_dir_url( __FILE__ ) . 'resources/tribe-admin-acf-compat.js',

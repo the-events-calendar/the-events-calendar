@@ -1,5 +1,5 @@
-
-(function($) {
+(function( $ ) {
+	'use strict';
 
 	$event_details  = $( document.getElementById( 'tribe_events_event_details' ) );
 	reinit_acf_wrap = false;
@@ -28,4 +28,4 @@
 		}
 	});
 
-})(jQuery);
+})( jQuery );
