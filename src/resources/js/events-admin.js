@@ -535,7 +535,7 @@ jQuery( document ).ready( function( $ ) {
 
 		var $start_date       = $( document.getElementById( 'EventStartDate' ) );
 		var $end_date         = $( document.getElementById( 'EventEndDate' ) );
-		var acf_compat_mode   = false;
+		var $event_details    = $( document.getElementById( 'tribe_events_event_details' ) );
 
 		tribe_datepicker_opts = {
 			dateFormat      : date_format,
@@ -555,39 +555,21 @@ jQuery( document ).ready( function( $ ) {
 				// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere with other plugins'/themes'.
 				$dpDiv.addClass( 'tribe-ui-datepicker' );
 
-				$( document ).trigger( 'tribe.ui-datepicker-beforeshow' );
+				$event_details.trigger( 'tribe.ui-datepicker-div-beforeshow', [ object ] );
 
-				// If ACF is active, we need to (temporarily) remove their wrap around the UI datepicker modal.
-				// if ( $dpDiv.parent( '.acf-ui-datepicker' ).length ) {
-				// 	acf_compat_mode = true;
-				// 	$dpDiv.parent( '.acf-ui-datepicker' ).remove();
-				// }
-
-				// $dpDiv.attrchange({
-				// 	trackValues : true,
-				// 	callback    : function( attr ) {
-				// 		if ( ! $dpDiv.is( ':visible' ) ) {
-				// 			$dpDiv.removeClass( 'tribe-ui-datepicker' );
-
-				// 			// If ACF is active, add their "wrap" div element back.
-				// 			if ( acf_compat_mode ) {
-				// 				$dpDiv.wrap( '<div class="acf-ui-datepicker" />' );
-				// 			}
-				// 		}
-				// 	}				
-				// });
-			},
-			onClose: function( element, object ) {
-				alert('YAA')
-				//var instance = $(this).data('datepicker');
-				console.log(instance);
-				// Capture the datepicker div here; it's dynamically generated so best to grab here instead of elsewhere.
-				$dpDiv = $( object.dpDiv );
-
-				// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere with other plugins'/themes'.
-				$dpDiv.fadeOut( 200, function() {
-					$dpDiv.removeClass( 'tribe-ui-datepicker' );
-					$( document ).trigger( 'tribe.ui-datepicker-closed' );
+				$dpDiv.attrchange({
+					trackValues : true,
+					callback    : function( attr ) {
+						// This is a non-ideal, but very reliable way to look for the closing of the ui-datepicker box,
+						// since onClose method is often occluded by other plugins, including Events Calender PRO.
+						if ( 
+							attr.newValue.indexOf( 'display: none' ) >= 0 ||
+							attr.newValue.indexOf( 'display:none' ) >= 0
+						) {
+							$dpDiv.removeClass( 'tribe-ui-datepicker' );
+							$event_details.trigger( 'tribe.ui-datepicker-div-closed', [ object ] );
+						}
+					}
 				});
 			},
 			onSelect: function( selected_date, object ) {
@@ -619,52 +601,7 @@ jQuery( document ).ready( function( $ ) {
 
 		$.extend( tribe_datepicker_opts, tribe_l10n_datatables.datepicker );
 
-		var dates               = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
-		var datepicker_instance =  dates.data( 'datepicker' );
-
-		if ( 'undefined' !== typeof datepicker_instance.settings.onClose ) {
-			console.log( 'HI')
-			var savedFunc = datepicker_instance.settings.onClose;
-			
-			dates.datepicker( 'destroy' );
-
-			// tribe_datepicker_opts.onClose = function( element, object ) {
-			// 	savedFunc();
-
-			// 	console.log('YAA')
-			// 	//var instance = $(this).data('datepicker');
-			// 	console.log(instance);
-			// 	// Capture the datepicker div here; it's dynamically generated so best to grab here instead of elsewhere.
-			// 	$dpDiv = $( object.dpDiv );
-
-			// 	// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere with other plugins'/themes'.
-			// 	$dpDiv.fadeOut( 200, function() {
-			// 		$dpDiv.removeClass( 'tribe-ui-datepicker' );
-			// 		$( document ).trigger( 'tribe.ui-datepicker-closed' );
-			// 	});
-			// }
-
-			//var dates = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
-
-			// datepicker_instance.settings.onClose = function( element, object ) {
-			// 	//savedFunc();
-
-			// 	console.log('YAA')
-			// 	//var instance = $(this).data('datepicker');
-			// 	console.log(instance);
-			// 	// Capture the datepicker div here; it's dynamically generated so best to grab here instead of elsewhere.
-			// 	$dpDiv = $( object.dpDiv );
-
-			// 	// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere with other plugins'/themes'.
-			// 	$dpDiv.fadeOut( 200, function() {
-			// 		$dpDiv.removeClass( 'tribe-ui-datepicker' );
-			// 		$( document ).trigger( 'tribe.ui-datepicker-closed' );
-			// 	});
-			// }
-
-			// dates.datepicker( 'refresh' );
-		}
-
+		var dates            = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
 		var $start_end_month = $( 'select[name="EventStartMonth"], select[name="EventEndMonth"]' );
 		var $start_month     = $( 'select[name="EventStartMonth"]' );
 		var $end_month       = $( 'select[name="EventEndMonth"]' );
