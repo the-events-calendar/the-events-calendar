@@ -40,7 +40,9 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	 */
 	private function get_localized_iso8601_string( $date, $event_tz_string ) {
 		try {
-			$timezone = Tribe__Timezones::timezone_from_utc_offset( $event_tz_string );
+			$timezone = 0 === strpos( $event_tz_string, 'UTC' )
+				? Tribe__Timezones::timezone_from_utc_offset( $event_tz_string )
+				: new DateTimeZone( $event_tz_string );
 
 			if ( false === $timezone ) {
 				return $date;
