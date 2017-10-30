@@ -62,10 +62,19 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	 *
 	 * @param  int|WP_Post|null $post The post/event
 	 * @param  array  $args
+	 *
 	 * @return array
 	 */
 	public function get_data( $posts = null, $args = array() ) {
-		$posts = ( $posts instanceof WP_Post ) ? array( $posts ) : (array) $posts;
+		// Fetch the global post object if no posts are provided
+		if ( ! is_array( $posts ) && empty( $posts ) ) {
+			$posts = array( $GLOBALS['post'] );
+		}
+		// If we only received a single post object, wrap it in an array
+		else {
+			$posts = ( $posts instanceof WP_Post ) ? array( $posts ) : (array) $posts;
+		}
+
 		$return = array();
 
 		foreach ( $posts as $i => $post ) {
