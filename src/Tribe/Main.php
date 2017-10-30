@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.6.2';
+		const VERSION             = '4.6.3';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.5.10.1';
 
@@ -493,6 +493,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'src/functions/advanced-functions/organizer.php';
 			require_once $this->plugin_path . 'src/functions/advanced-functions/linked-posts.php';
 			require_once $this->plugin_path . 'src/functions/utils/array.php';
+			require_once $this->plugin_path . 'src/functions/utils/labels.php';
 
 			// Load Deprecated Template Tags
 			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
@@ -1941,7 +1942,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				do_action( 'tribe_settings_enqueue' );
 			}
 
-			if ( $admin_helpers->is_screen( 'widgets' ) ) {
+			if ( $admin_helpers->is_screen( array( 'widgets', 'customize' ) ) ) {
 				Tribe__Events__Template_Factory::asset_package( 'tribe-select2' );
 				Tribe__Events__Template_Factory::asset_package( 'admin' );
 			}

@@ -49,7 +49,7 @@ echo tribe_event_featured_image( null, 'large' );
 			<div class="tribe-events-venue-details">
 				<?php echo implode( ', ', $venue_details ); ?>
 				<?php
-				if ( tribe_get_map_link() ) {
+				if ( tribe_show_google_map_link() ) {
 					echo tribe_get_map_link_html();
 				}
 				?>

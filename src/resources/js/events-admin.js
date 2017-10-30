@@ -516,7 +516,7 @@ jQuery( document ).ready( function( $ ) {
 
 		if ( $date_format.length && $date_format.attr( 'data-datepicker_format' ).length >= 1 ) {
 			datepicker_format = $date_format.attr( 'data-datepicker_format' );
-			date_format = datepicker_formats.main[ datepicker_format ];
+			date_format       = datepicker_formats.main[ datepicker_format ];
 		}
 
 		function date_diff_in_days( a, b ) {
@@ -533,8 +533,9 @@ jQuery( document ).ready( function( $ ) {
 			startofweek = $event_pickers.data( 'startofweek' );
 		}
 
-		var $start_date = $( document.getElementById( 'EventStartDate' ) );
-		var $end_date   = $( document.getElementById( 'EventEndDate' ) );
+		var $start_date       = $( document.getElementById( 'EventStartDate' ) );
+		var $end_date         = $( document.getElementById( 'EventEndDate' ) );
+		var $event_details    = $( document.getElementById( 'tribe_events_event_details' ) );
 
 		tribe_datepicker_opts = {
 			dateFormat      : date_format,
@@ -546,21 +547,46 @@ jQuery( document ).ready( function( $ ) {
 			showButtonPanel : false,
 			beforeShow      : function( element, object ) {
 				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
-				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
+				object.input.data( 'prevDate', object.input.datepicker( 'getDate' ) );
+
+				// Capture the datepicker div here; it's dynamically generated so best to grab here instead of elsewhere.
+				$dpDiv = $( object.dpDiv );
+
+				// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere with other plugins'/themes'.
+				$dpDiv.addClass( 'tribe-ui-datepicker' );
+
+				$event_details.trigger( 'tribe.ui-datepicker-div-beforeshow', [ object ] );
+
+				$dpDiv.attrchange({
+					trackValues : true,
+					callback    : function( attr ) {
+						// This is a non-ideal, but very reliable way to look for the closing of the ui-datepicker box,
+						// since onClose method is often occluded by other plugins, including Events Calender PRO.
+						if ( 
+							attr.newValue.indexOf( 'display: none' ) >= 0 ||
+							attr.newValue.indexOf( 'display:none' ) >= 0
+						) {
+							$dpDiv.removeClass( 'tribe-ui-datepicker' );
+							$event_details.trigger( 'tribe.ui-datepicker-div-closed', [ object ] );
+						}
+					}
+				});
 			},
-			onSelect: function( selected_date ) {
-				var instance = $( this ).data( "datepicker" );
-				var date = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selected_date, instance.settings );
+			onSelect: function( selected_date, object ) {
+
+				var instance = $( this ).data( 'datepicker' );
+				var date     = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selected_date, instance.settings );
 
 				// If the start date was adjusted, then let's modify the minimum acceptable end date
 				if ( this.id === 'EventStartDate' ) {
 					var start_date = $( document.getElementById( 'EventStartDate' ) ).data( 'prevDate' );
-					var date_diff = null == start_date ? 0 : date_diff_in_days( start_date, $end_date.datepicker( 'getDate' ) );
-					var end_date = new Date( date.setDate( date.getDate() + date_diff ) );
+					var date_diff  = null == start_date ? 0 : date_diff_in_days( start_date, $end_date.datepicker( 'getDate' ) );
+					var end_date   = new Date( date.setDate( date.getDate() + date_diff ) );
 
 					$end_date
 						.datepicker( 'option', 'minDate', end_date )
-						.datepicker( 'setDate', end_date );
+						.datepicker( 'setDate', end_date )
+						.datepicker_format;
 				}
 				// If the end date was adjusted, then let's modify the maximum acceptable start date
 				else if ( this.id === 'EventEndDate' ) {
@@ -735,15 +761,15 @@ jQuery( document ).ready( function( $ ) {
 	// Default Layout Settings
 	// shows / hides proper views that are to be used on front-end
 
-	var $tribe_views = $( '#tribe-field-tribeEnableViews' );
+	var $tribe_views = $( document.getElementById( 'tribe-field-tribeEnableViews' ) );
 
 	if ( $tribe_views.length ) {
 
-		var $default_view_select = $( 'select[name="viewOption"]' );
+		var $default_view_select        = $( 'select[name="viewOption"]' );
 		var $default_mobile_view_select = $( 'select[name="mobile_default_view"]' );
-		var $view_inputs = $tribe_views.find( 'input:checkbox' );
-		var $view_desc = $( '#tribe-field-tribeEnableViews .tribe-field-wrap p.description' );
-		var view_options = {};
+		var $view_inputs                = $tribe_views.find( 'input:checkbox' );
+		var $view_desc                  = $( '#tribe-field-tribeEnableViews .tribe-field-wrap p.description' );
+		var view_options                = {};
 
 		function create_view_array() {
 

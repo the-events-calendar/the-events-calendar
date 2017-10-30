@@ -77,6 +77,7 @@ class Tribe__Events__JSON_LD__Venue extends Tribe__JSON_LD__Abstract {
 		$data->telephone = tribe_get_phone( $post_id );
 		$data->sameAs = tribe_get_venue_website_url( $post_id );
 
+		$data = $this->apply_object_data_filter( $data, $args, $post );
 		return array( $post_id => $data );
 	}
 
