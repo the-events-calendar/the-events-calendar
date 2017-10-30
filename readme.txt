@@ -329,6 +329,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Added some more specification to our jquery-ui-datepicker CSS to limit conflicts with other plugins and themes [90577]
 * Fix - Improve shortcode pagination/view change url so it is reusable (props: @der.chef and others) [70021]
 * Fix - Ensure the `tribe_json_ld_{type}_object` filter is available to make modifications of event, venue and organizer JSON LD data possible (thanks to Mathew for flagging this problem) [89801]
+* Fix - Improved JSON LD output for events by outputting the correct UTC offset where required (our thanks to Nina and many others for flagging this issue) [78233]
 * Tweak - Fixed some display issues for the event schedule details (props @mia-caro)
 * Tweak - Improved the clarity of and amount of context for some linked post labels to make translation of those labels a little easier and more nuanced (props @hnacc and others) [88589]
 * Tweak - Changed the order in which the list view "next events" link is assembled for better translatability (with thanks to @alelouya for highlighting this problem) [72097]
