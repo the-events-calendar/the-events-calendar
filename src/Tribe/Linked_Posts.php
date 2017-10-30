@@ -921,8 +921,7 @@ class Tribe__Events__Linked_Posts {
 				( $creation_enabled ?
 				'data-freeform
 				data-sticky-search
-				data-create-choice-template="' . __( 'Create: <b><%= term %></b>', 'the-events-calendar' ) . '"
-				data-allow-html ' : '' ) .
+				data-create-choice-template="' . __( 'Create: <b><%= term %></b>', 'the-events-calendar' ) . '" data-allow-html ' : '' ) .
 				'data-options="' . esc_attr( json_encode( $data ) ) . '"' .
 				( empty( $current ) ? '' : ' value="' . esc_attr( $current ) . '"' ) .
 			'>';

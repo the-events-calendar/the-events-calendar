@@ -333,6 +333,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Fixed some display issues for the event schedule details (props @mia-caro)
 * Tweak - Improved the clarity of and amount of context for some linked post labels to make translation of those labels a little easier and more nuanced (props @hnacc and others) [88589]
 * Tweak - Changed the order in which the list view "next events" link is assembled for better translatability (with thanks to @alelouya for highlighting this problem) [72097]
+* Tweak - Adjusted linked posts selector HTML to improve compatibility with Batcache [92049]
 
 = [4.6.2] 2017-10-18 =
 
