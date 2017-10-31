@@ -78,6 +78,16 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 		$return = array();
 
 		foreach ( $posts as $i => $post ) {
+			// We may have been passed a post ID - let's ensure we have the post object
+			if ( is_numeric( $post ) ) {
+				$post = get_post( $post );
+			}
+
+			// If we don't have a valid post object, skip to the next item
+			if ( ! $post instanceof WP_Post ) {
+				continue;
+			}
+
 			$data = parent::get_data( $post, $args );
 
 			// If we have an Empty data we just skip
