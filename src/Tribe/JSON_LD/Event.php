@@ -84,7 +84,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			}
 
 			// If we don't have a valid post object, skip to the next item
-			if ( ! is_object( $post ) ) {
+			if ( ! $post instanceof WP_Post ) {
 				continue;
 			}
 
