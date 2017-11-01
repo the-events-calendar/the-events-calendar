@@ -42,4 +42,4 @@ var tribe_aggregator = tribe_aggregator || {};
 	var listen = window[ ( window.addEventListener ? 'addEventListener' : 'attachEvent' ) ];
 	listen( ( window.addEventListener ? "message" : "onmessage" ), ea.facebook.receive_message, false );
 
-} )( jQuery, _, tribe_aggregator );
+} )( jQuery, _.noConflict(), tribe_aggregator );
