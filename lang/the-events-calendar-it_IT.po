@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-09-30 09:40:29+0000\n"
+"PO-Revision-Date: 2017-10-19 13:39:10+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 
 #: src/admin-views/create-organizer-fields.php:19
 msgid "The e-mail address will be obfuscated on this site to avoid it getting harvested by spammers."
-msgstr ""
+msgstr "L'indirizzo e-mail sarà offuscato su questo sito per evitare che venga raccolto dagli spammer."
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:32
 msgid "An array containing the lineage of where this venue comes from; this should not change after the venue is created."
@@ -34,12 +34,12 @@ msgstr "Trova %1$s %2$s"
 #: src/Tribe/Linked_Posts.php:917
 msgctxt "Indefinite article for the phrase \"Find a {post type name}\" when the {post type name} starts with a vowel, e.g. \"Find an Organizer\"."
 msgid "an"
-msgstr ""
+msgstr "un"
 
 #: src/Tribe/Linked_Posts.php:910
 msgctxt "Indefinite article for the phrase \"Find a {post type name}. Will be replaced with \"an\" if the {post type name} starts with a vowel."
 msgid "a"
-msgstr ""
+msgstr "un"
 
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:388
@@ -629,7 +629,7 @@ msgstr "L'ID dell'organizzatore utilizzato per identificare globalmente nell'agg
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:52
 msgid "The organizer last modification date in UTC time"
-msgstr ""
+msgstr "La data dell'ultima modifica fatta dall'organizzatore (UTC)"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:36
 msgid "The venue author WordPress post ID"
@@ -689,7 +689,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:103
 msgid "The event post ID is missing."
-msgstr ""
+msgstr "Manca l'ID dell'articolo dell'evento."
 
 #: src/Tribe/REST/V1/Messages.php:21
 msgid "The 'end_date' parameter must be in a supported format"
@@ -697,11 +697,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/url.php:7
 msgid "One-time imports include currently listed upcoming events, while scheduled imports automatically grab new events and updates from this url on a set schedule."
-msgstr ""
+msgstr "Le importazioni una tantum includono i prossimi eventi attualmente elencati, mentre le importazioni pianificate prendono automaticamente i nuovi eventi e gli aggiornamenti da questo URL secondo il piano definito."
 
 #: src/admin-views/aggregator/settings.php:366
 msgid "The default post status for events imported via other URLs"
-msgstr ""
+msgstr "Lo stato predefinito degli articoli per gli eventi importati tramite altre URL"
 
 #: src/admin-views/aggregator/settings.php:361
 msgid "Other URL Import Settings"
@@ -717,7 +717,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/API/Origins.php:66
 msgid "Other URL (beta)"
-msgstr ""
+msgstr "Altra URL (beta)"
 
 #: src/Tribe/Aggregator/Settings.php:273 src/Tribe/Aggregator/Settings.php:274
 msgid "24 hours"
@@ -757,19 +757,19 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:294
 msgid "a month"
-msgstr ""
+msgstr "un mese"
 
 #: src/Tribe/Aggregator/Settings.php:297
 msgid "Two months"
-msgstr ""
+msgstr "Due mesi"
 
 #: src/Tribe/Aggregator/Settings.php:298
 msgid "two months"
-msgstr ""
+msgstr "due mesi"
 
 #: src/Tribe/Aggregator/Settings.php:301
 msgid "Three months"
-msgstr ""
+msgstr "Tre mesi"
 
 #: src/Tribe/Aggregator/Settings.php:302
 msgid "three months"
@@ -799,15 +799,15 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/Url.php:17
 msgid "Other URL"
-msgstr ""
+msgstr "Altra URL"
 
 #: src/Tribe/Aggregator/Service.php:528
 msgid "Events could not be imported. The import parameters were invalid."
-msgstr ""
+msgstr "Impossibile importare gli eventi. I parametri di importazione non sono validi."
 
 #: src/Tribe/Aggregator/Settings.php:290
 msgid "three weeks"
-msgstr ""
+msgstr "tre settimane"
 
 #: src/Tribe/Aggregator/Service.php:536
 msgid "Events could not be imported. The URL provided did not have events in the proper format."
@@ -824,7 +824,7 @@ msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:497
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
-msgstr ""
+msgstr "%1$sCompra una licenza%2$s per il servizio aggregatore degli eventi per accedere a ulteriori funzioni di importazione."
 
 #: src/functions/template-tags/loop.php:171
 msgctxt "day_view"
@@ -838,7 +838,7 @@ msgstr "%1$s del %2$s"
 
 #: src/admin-views/tribe-options-display.php:185
 msgid "Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href=\"%s\">Read more</a>."
-msgstr ""
+msgstr "Modifica l'impostazione predefinita di 3 eventi al giorno nella visualizzazione mensile. Per imporre nessun limite, è possibile specificare -1. ATTENZIONE Si possono verificare problemi di prestazioni se vengono visualizzati troppi eventi al giorno. <a href=\"%s\"> Leggi di più </a>."
 
 #: src/Tribe/Main.php:733
 msgctxt "all events slug"

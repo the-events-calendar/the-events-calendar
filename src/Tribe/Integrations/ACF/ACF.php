@@ -28,7 +28,7 @@ class Tribe__Events__Integrations__ACF__ACF {
 	/**
 	 * Hooks the filters and actions neede for this integration to work.
 	 *
-	 * @since TBD
+	 * @since 4.6.3
 	 */
 	public function hook() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_compat_js' ) );
@@ -37,7 +37,7 @@ class Tribe__Events__Integrations__ACF__ACF {
 	/**
 	 * Load our compatability JS script to supplement the events-admin.js script.
 	 *
-	 * @since TBD
+	 * @since 4.6.3
 	 */
 	public function load_compat_js() {
 		$admin_helpers = Tribe__Admin__Helpers::instance();

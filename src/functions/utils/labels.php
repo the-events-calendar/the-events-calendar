@@ -6,7 +6,7 @@
 /**
  * A simple function for knowing if the "Event"/"Events" label has been changed.
  *
- * @since TBD
+ * @since 4.6.3
  *
  * @return bool
  */
@@ -22,7 +22,7 @@ function tribe_is_event_label_customized() {
 /**
  * A simple function for knowing if the "Venue"/"Venues" label has been changed.
  *
- * @since TBD
+ * @since 4.6.3
  *
  * @return bool
  */
@@ -33,7 +33,7 @@ function tribe_is_venue_label_customized() {
 /**
  * A simple function for knowing if the "Organizer"/"Organizers" label has been changed.
  *
- * @since TBD
+ * @since 4.6.3
  *
  * @return bool
  */

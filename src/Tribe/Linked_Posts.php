@@ -944,7 +944,7 @@ class Tribe__Events__Linked_Posts {
 	 * Numerous steps and caveats are covered in this method so that we can make these labels, which
 	 * are rather important, as translation-friendly as possible.
 	 *
-	 * @since TBD
+	 * @since 4.6.3
 	 *
 	 * @param object $post_type The linked post type whose label is being rendered.
 	 * @param boolean $creation_enabled Whether the current user can create post types. If false, they can only add existing ones.
