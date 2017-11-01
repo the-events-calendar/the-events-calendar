@@ -1152,4 +1152,4 @@ tribe_aggregator.fields = {
 
 	// Run Init on Document Ready
 	$( document ).ready( obj.init );
-} )( jQuery, _, tribe_aggregator.fields, tribe_aggregator );
+} )( jQuery, _.noConflict(), tribe_aggregator.fields, tribe_aggregator );

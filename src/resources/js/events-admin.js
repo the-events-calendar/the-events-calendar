@@ -1,6 +1,6 @@
 var tribe_timepickers = tribe_timepickers || {};
 
-( function ( $, obj ) {
+( function ( $, obj, _ ) {
 	'use strict';
 
 	obj.selector = {
@@ -101,7 +101,7 @@ var tribe_timepickers = tribe_timepickers || {};
 	};
 
 	$( document ).ready( obj.init );
-} ( jQuery, tribe_timepickers ) );
+} ( jQuery, tribe_timepickers, _.noConflict() ) );
 
 /*
  * Date Format 1.2.3
@@ -478,7 +478,8 @@ jQuery( document ).ready( function( $ ) {
 			$group    = $select.closest( 'tbody' ),
 			$edit     = $group.find( '.edit-linked-post-link a' ),
 			edit_link = $edit.attr( 'data-admin-url' ),
-			choice    = 'undefined' === typeof event.added ? {} : event.added;
+			choice    = 'undefined' === typeof event.added ? {} : event.added,
+			_         = _.noConflict();
 
 		// Maybe Hide Edit link
 		if ( _.isEmpty( choice ) ) {
@@ -602,7 +603,7 @@ jQuery( document ).ready( function( $ ) {
 			$( document.getElementById( '30StartDays' ) ),
 			$( document.getElementById( '31StartDays' ) )
 		];
-		
+
 		var tribeEndDays = [
 			$( document.getElementById( '28EndDays' ) ),
 			$( document.getElementById( '29EndDays' ) ),
