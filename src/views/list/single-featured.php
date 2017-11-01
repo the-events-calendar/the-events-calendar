@@ -5,7 +5,7 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/list/single-featured.php
  *
- * @version 4.5.6
+ * @version 4.6.3
  *
  */
 if ( ! defined( 'ABSPATH' ) ) {
