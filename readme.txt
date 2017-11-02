@@ -322,7 +322,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.6.3] 2017-11-01 =
+= [4.6.3] 2017-11-02 =
 
 * Fix - Prevent JS error when adding a Pro widget in the WP Customizer screen [72127]
 * Fix - Fixed issue where the value of an event's "Show Google Maps Link" option would not properly affect the displaying of the link on List View (props: @etechnologie) [75547]
