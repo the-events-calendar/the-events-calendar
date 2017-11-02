@@ -32,6 +32,7 @@
   "common/vendor/tribe-select2/*.js",
   "common/vendor/tribe-select2/*.gif",
   "common/vendor/tribe-select2/*.png",
+  "common/vendor/attrchange/js/*.js",
   "lang/**/*",
   "license.txt",
   "readme.txt",
