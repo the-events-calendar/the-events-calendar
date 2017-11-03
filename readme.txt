@@ -322,6 +322,10 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.6.4] TBD =
+
+* Fix - Modified tribe_get_template_part() to remove potential for multiple templates to be rendered in a single call [46630]
+
 = [4.6.3] 2017-11-02 =
 
 * Fix - Prevent JS error when adding a Pro widget in the WP Customizer screen [72127]
