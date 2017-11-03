@@ -325,6 +325,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.6.4] TBD =
 
 * Fix - Modified tribe_get_template_part() to remove potential for multiple templates to be rendered in a single call [46630]
+* Tweak - Made the "End of Day Cutoff" option better accommodate 24-hour and other time formats (thanks @festivalgeneral for bringing this issue to our attention!) [78621]
 
 = [4.6.3] 2017-11-02 =
 
