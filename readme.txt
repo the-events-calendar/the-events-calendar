@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
 Stable tag: 4.6.4
-Tested up to: 4.8.3
+Tested up to: 4.8.4
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -322,7 +322,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.6.3] TBD =
+= [4.6.4] TBD =
 
 * Tweak - Timepicker is now part of Tribe Common, it was removed from The Events Calendar
 * Tweak - Required changes to make the plugin compatible with version 4.7 of Event Tickets
