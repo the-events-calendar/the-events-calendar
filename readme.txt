@@ -4,8 +4,8 @@ Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.3
-Tested up to: 4.8.2
+Stable tag: 4.6.4
+Tested up to: 4.8.3
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -322,11 +322,23 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
-= [4.6.3] TBD =
+= [4.6.4] TBD =
 
+* Fix - Modified tribe_get_template_part() to remove potential for multiple templates to be rendered in a single call [46630]
+
+= [4.6.3] 2017-11-02 =
+
+* Fix - Prevent JS error when adding a Pro widget in the WP Customizer screen [72127]
 * Fix - Fixed issue where the value of an event's "Show Google Maps Link" option would not properly affect the displaying of the link on List View (props: @etechnologie) [75547]
+* Fix - Added some more specification to our jquery-ui-datepicker CSS to limit conflicts with other plugins and themes [90577]
+* Fix - Improve shortcode pagination/view change url so it is reusable (props: @der.chef and others) [70021]
+* Fix - Ensure the `tribe_json_ld_{type}_object` filter is available to make modifications of event, venue and organizer JSON LD data possible (thanks to Mathew for flagging this problem) [89801]
+* Fix - Improved JSON LD output for events by outputting the correct UTC offset where required (our thanks to Nina and many others for flagging this issue) [78233]
 * Tweak - Fixed some display issues for the event schedule details (props @mia-caro)
-* Tweak - Fix PHP 7.1 compatibility with Event Aggregator (props @BJP NEALE) [90002]
+* Tweak - Improved the clarity of and amount of context for some linked post labels to make translation of those labels a little easier and more nuanced (props @hnacc and others) [88589]
+* Tweak - Changed the order in which the list view "next events" link is assembled for better translatability (with thanks to @alelouya for highlighting this problem) [72097]
+* Tweak - Adjusted linked posts selector HTML to improve compatibility with Batcache [92049]
+* Language - 0 new strings added, 7 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.6.2] 2017-10-18 =
 

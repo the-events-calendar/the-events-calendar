@@ -221,7 +221,7 @@ msgid "Events should start before the specified date"
 msgstr "Veranstaltungen sollten vor dem angegebenen Datum beginnen"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:109
-msgid "An event with the specified event does not exist."
+msgid "An event with the specified eventn eventot exist."
 msgstr "Eine Veranstaltung mit der angegeben Veranstaltung existiert nicht"
 
 #: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:89
@@ -6020,36 +6020,6 @@ msgstr "Französisch-Guayana"
 msgid "France, Metropolitan"
 msgstr "Frankreich (mit Korsika)"
 
-#: common/src/Tribe/View_and"
-
-#: common/src/Tribe/View_Helpers.php:124 common/src/Tribe/View_Helpers.php:332
-msgid "Georgia"
-msgstr "Georgien"
-
-#: common/src/Tribe/View_Helpers.php:123
-msgid "Gambia"
-msgstr "Gambia"
-
-#: common/src/Tribe/View_Helpers.php:122
-msgid "Gabon"
-msgstr "Gabon"
-
-#: common/src/Tribe/View_Helpers.php:121
-msgid "French Southern Territories"
-msgstr "Französische Süd- und Antarktisgebiete"
-
-#: common/src/Tribe/View_Helpers.php:120
-msgid "French Polynesia"
-msgstr "Französisch-Polynesien"
-
-#: common/src/Tribe/View_Helpers.php:119
-msgid "French Guiana"
-msgstr "Französisch-Guayana"
-
-#: common/src/Tribe/View_Helpers.php:118
-msgid "France, Metropolitan"
-msgstr "Frankreich (mit Korsika)"
-
 #: common/src/Tribe/View_Helpers.php:117
 msgid "France"
 msgstr "Frankreich"
@@ -6459,11 +6429,11 @@ msgstr "Keine vorherige %s"
 
 #: src/Tribe/Template_Factory.php:299 src/Tribe/Template_Factory.php:304
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s."
-msgstr "Keine anstehenden %1$s für %2$s gefunden. Versuchen Sie alle Veranstaltungen anzuzeigen (Filter aufheben) für eine komplette Anzeige von %3$s."
+msgstr "Keine anstehenden %1$s für %2$s gefunden. Versuche alle Veranstaltungen anzuzeigen (Filter aufheben) für eine komplette Anzeige von %3$s."
 
 #: src/Tribe/Template_Factory.php:297
 msgid "No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar."
-msgstr "Keine anstehenden %1$s für %2$s gefunden. Versuchen Sie anstehende %3$s für diese Kategorie oder zeigen Sie alle Veranstaltungen an (Filter aufheben)."
+msgstr "Keine anstehenden %1$s für %2$s gefunden. Versuche anstehende %3$s für diese Kategorie oder zeige alle Veranstaltungen an (Filter aufheben)."
 
 #: src/Tribe/Template/Embed.php:59 src/Tribe/Template/Single_Event.php:119
 msgid "This %s has passed."
@@ -6479,11 +6449,11 @@ msgstr "Es wurden keine Ergebnisse gefunden."
 
 #: src/Tribe/Template/Month.php:416
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
-msgstr "Keine passenden %1$s gefunden für %2$s. Bitte versuchen Sie alle Veranstaltungen anzuzeigen (Filter aufheben)."
+msgstr "Keine passenden %1$s gefunden für %2$s. Bitte versuche alle Veranstaltungen anzuzeigen (Filter aufheben)."
 
 #: src/Tribe/Template/Day.php:145
 msgid "No matching %1$s listed under %2$s scheduled for %3$s. Please try another day."
-msgstr "Keine passenden %1$s gefunden am %2$s für %3$s. Wählen Sie bitte einen anderen Tag."
+msgstr "Keine passenden %1$s gefunden am %2$s für %3$s. Wähle bitte einen anderen Tag."
 
 #: src/Tribe/Template/Day.php:111 src/Tribe/Template/Day.php:127
 msgid "Ongoing"
@@ -6518,11 +6488,11 @@ msgstr[1] "Die obigen Einstellungen wurde nicht gespeichert. Andere Einstellunge
 
 #: common/src/Tribe/Settings.php:597
 msgid "None of your settings were saved. Please try again."
-msgstr "Die Eintellungen konnten gespeichert werden. Versuchen Sie es erneut."
+msgstr "Die Eintellungen konnten gespeichert werden. Versuche es erneut."
 
 #: common/src/Tribe/Settings.php:587
 msgid "Your form had the following errors:"
-msgstr "Ihr Formular hat folgende Fehler:"
+msgstr "Dein Formular hat folgende Fehler:"
 
 #: common/src/Tribe/Settings.php:420
 msgid "The request wasn't sent from this tab."
@@ -6534,7 +6504,7 @@ msgstr "Die Anfrage wurde unverschlüsselt gesendet."
 
 #: common/src/Tribe/Settings.php:408
 msgid "You don't have permission to do that."
-msgstr "Sie besitzen nicht die nötigen Rechte dafür."
+msgstr "Du besitzt nicht die nötigen Rechte dafür."
 
 #: common/src/Tribe/Settings.php:360 src/Tribe/Aggregator/Page.php:88
 msgid "Save Changes"
@@ -6542,7 +6512,7 @@ msgstr "Änderungen speichern"
 
 #: common/src/Tribe/Settings.php:352
 msgid "You've requested a non-existent tab."
-msgstr "Sie wollen einen nicht vorhandenen Reiter anzeigen."
+msgstr "Du willst einen nicht vorhandenen Reiter anzeigen."
 
 #: common/src/Tribe/Settings.php:338
 msgid "%s Settings"
@@ -6554,7 +6524,7 @@ msgstr "Veranstaltungseinstellungen"
 
 #: common/src/Tribe/PUE/Checker.php:888
 msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s."
-msgstr "Hmmm... irgendetwas stimmt mit diesem Validator nicht. Bitte kontaktieren Sie den %sSupport%s."
+msgstr "Hmmm... irgendetwas stimmt mit diesem Validator nicht. Bitte kontaktiere den %sSupport%s."
 
 #: common/src/Tribe/PUE/Checker.php:927
 msgid "Valid Key! Expires on %s"
@@ -6582,7 +6552,48 @@ msgid "License Key"
 msgstr "Lizenzschlüssel"
 
 #: src/Tribe/Options_Exception.php:19 src/Tribe/Post_Exception.php:22
-mMain.php:4263
+msgid "Error"
+msgstr "Fehler"
+
+#: src/Tribe/Main.php:4444
+msgid "Once Every 30 Mins"
+msgstr "Alle 30 Minuten"
+
+#: src/Tribe/Main.php:4371
+msgid "Day Of"
+msgstr "Tag"
+
+#: src/Tribe/Main.php:4369
+msgid "%s From"
+msgstr "%s am"
+
+#: src/Tribe/Main.php:4367
+msgid "%s In"
+msgstr "%s in"
+
+#: src/Tribe/Main.php:4364 src/Tribe/Main.php:4380
+#: src/admin-views/aggregator/origins/refine.php:7
+msgid "Date"
+msgstr "Datum"
+
+#: src/Tribe/Main.php:4339
+msgid "Search"
+msgstr "Suche"
+
+#: src/Tribe/Main.php:4314 src/admin-views/aggregator/fields/schedule.php:44
+#: src/admin-views/aggregator/fields/schedule.php:62
+msgid "Day"
+msgstr "Tag"
+
+#: src/Tribe/Main.php:4297
+msgid "Month"
+msgstr "Monat"
+
+#: src/Tribe/Main.php:4279
+msgid "List"
+msgstr "Liste"
+
+#: src/Tribe/Main.php:4263
 msgid "Calendar"
 msgstr "Kalender"
 
@@ -7142,33 +7153,6 @@ msgid "Time:"
 msgstr "Zeit:"
 
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:68
-#: src/deprecaalendar generiert."
-
-#: common/src/Tribe/Cost_Utils.php:108
-msgid "Free"
-msgstr "kostenlos"
-
-#: src/Tribe/Cost_Utils.php:113
-msgctxt "Cost range separator"
-msgid " - "
-msgstr " - "
-
-#: common/src/Tribe/App_Shop.php:50 common/src/Tribe/App_Shop.php:51
-#: common/src/Tribe/App_Shop.php:72
-msgid "Event Add-Ons"
-msgstr "Add-Ons"
-
-#: src/Tribe/Amalgamator.php:253 src/admin-views/tribe-options-general.php:143
-msgid "Merge Duplicates"
-msgstr "Duplikate zusammenführen"
-
-#: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:111
-#: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:122
-#: src/views/modules/meta/details.php:48
-msgid "Time:"
-msgstr "Zeit:"
-
-#: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:68
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:100
 #: src/views/modules/meta/details.php:80 src/views/modules/meta/details.php:105
 msgid "Date:"
@@ -7205,7 +7189,7 @@ msgstr "%ss-Kategorien"
 
 #: src/Tribe/Admin/Timezone_Updater.php:105
 msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
-msgstr "Aufgrund eines Problems wurde das Zeitzonen Update gestoppt. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut."
+msgstr "Aufgrund eines Problems wurde das Zeitzonen Update gestoppt. Bitte aktualisiere die Seite und versuche es erneut."
 
 #: src/Tribe/Admin/Timezone_Updater.php:87
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:56
@@ -7220,7 +7204,7 @@ msgstr "Update abgeschlossen: die Zeitzonen Daten wurden zu allen Veranstaltunge
 
 #: src/Tribe/Admin/Timezone_Updater.php:77
 msgid "Please wait while timezone data is added to your events."
-msgstr "Bitte warten während die Zeitzonen Daten zu Ihrern Veranstaltungen hinzugefügt werden."
+msgstr "Bitte warten während die Zeitzonen Daten zu Deinen Veranstaltungen hinzugefügt werden."
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:208 src/Tribe/Main.php:1710
@@ -7235,11 +7219,11 @@ msgstr "Benutze gespeicherten %s:"
 
 #: src/Tribe/Main.php:953
 msgid " ask the site administrator set a different Events URL slug."
-msgstr "fragen Sie den Seitenadministrator eine andere Seiten Slug (URL) festzulegen."
+msgstr "Frage den Seitenadministrator einen andere Seiten Slug (URL) festzulegen."
 
 #: src/Tribe/Main.php:947
 msgid "Ask the site administrator to edit the %s slug"
-msgstr "Fragen Sie den Seitenadministrator den %s Slug (URL) zu bearbeiten"
+msgstr "Frage den Seitenadministrator den %s Slug (URL) zu bearbeiten"
 
 #: src/deprecated/Tribe__Events__Activation_Page.php:215
 msgid "Thanks for Updating The Events Calendar"
@@ -7254,6 +7238,30 @@ msgstr "Willkommen beim Plugin 'The Events Calendar'"
 #: src/deprecated/Tribe__Events__Activation_Page.php:49
 msgid "Return to WordPress Updates"
 msgstr "Zurück zu WordPress Updates"
+
+#: common/src/Tribe/Admin/Activation_Page.php:85
+#: src/deprecated/Tribe__Events__Activation_Page.php:49
+msgid "Go to WordPress Updates page"
+msgstr "Gehe zur WordPress Updates Seite"
+
+#: common/src/Tribe/Admin/Activation_Page.php:77
+#: src/deprecated/Tribe__Events__Activation_Page.php:41
+msgid "Return to Plugins page"
+msgstr "Zurück zur Pluginseite"
+
+#: common/src/Tribe/Admin/Activation_Page.php:77
+#: src/deprecated/Tribe__Events__Activation_Page.php:41
+msgid "Go to plugins page"
+msgstr "Gehe zur Pluginseite"
+
+#: common/src/Tribe/View_Helpers.php:43 src/Tribe/Venue.php:274
+#: src/functions/template-tags/venue.php:379
+msgid "United States"
+msgstr "Vereinigte Staaten"
+
+#: src/Tribe/Venue.php:315
+msgid "Unnamed Venue"
+msgstr "Unbenannter Veranstaltungsort"urück zu WordPress Updates"
 
 #: common/src/Tribe/Admin/Activation_Page.php:85
 #: src/deprecated/Tribe__Events__Activation_Page.php:49
