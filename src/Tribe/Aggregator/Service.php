@@ -234,7 +234,7 @@ class Tribe__Events__Aggregator__Service {
 			$args = $data;
 		}
 
-		$response = wp_remote_post( esc_url_raw( $url ), $args );
+		$response = $this->requests->post( esc_url_raw( $url ), $args );
 
 		if ( is_wp_error( $response ) ) {
 			return $response;

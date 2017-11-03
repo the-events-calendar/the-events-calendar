@@ -7,7 +7,7 @@
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/single-event.php
  *
  * @package TribeEventsCalendar
- * @version  4.3
+ * @version 4.6.3
  *
  */
 
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $events_label_singular = tribe_get_event_label_singular();
-$events_label_plural = tribe_get_event_label_plural();
+$events_label_plural   = tribe_get_event_label_plural();
 
 $event_id = get_the_ID();
 

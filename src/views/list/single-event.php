@@ -5,7 +5,7 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/list/single-event.php
  *
- * @version 4.5.11
+ * @version 4.6.3
  *
  */
 if ( ! defined( 'ABSPATH' ) ) {
@@ -55,7 +55,7 @@ $organizer = tribe_get_organizer();
 				// These details are already escaped in various ways earlier in the process.
 				echo implode( $address_delimiter, $venue_details );
 
-				if ( tribe_get_map_link() ) {
+				if ( tribe_show_google_map_link() ) {
 					echo tribe_get_map_link_html();
 				}
 			?>
