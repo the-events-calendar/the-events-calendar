@@ -220,6 +220,11 @@
 					action: 'tribe_event_day'
 				};
 
+				// add shortcode display value
+				if ( ! ts.url_params.hasOwnProperty( 'tribe_event_display' ) ) {
+					ts.url_params['tribe_event_display'] = ts.view;
+				}
+
 				if ( ts.category ) {
 					ts.params['tribe_event_category'] = ts.category;
 				}

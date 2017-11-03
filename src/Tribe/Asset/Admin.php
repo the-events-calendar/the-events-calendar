@@ -16,6 +16,7 @@ class Tribe__Events__Asset__Admin extends Tribe__Events__Asset__Abstract_Asset {
 				'wp-util',
 				'tribe-jquery-timepicker',
 				'tribe-timepicker',
+				'tribe-attrchange',
 			)
 		);
 
