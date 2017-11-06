@@ -325,7 +325,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 = [4.6.4] TBD =
 
 * Fix - Modified tribe_get_template_part() to remove potential for multiple templates to be rendered in a single call [46630]
-* Tweak - Added new filter: `tribe_force_filtered_ical_link`. This makes the "Export Events" URL more easily modifiable (thanks to @tdudley07 for highlighting this issue) [43908]
+* Tweak - Added new filter: `tribe_events_force_filtered_ical_link`. This makes the "Export Events" URL more easily modifiable (thanks to @tdudley07 for highlighting this issue) [43908]
 
 = [4.6.3] 2017-11-02 =
 
