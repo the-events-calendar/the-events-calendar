@@ -15,6 +15,10 @@ class Tribe__Events__Asset__Calendar_Script extends Tribe__Events__Asset__Abstra
 			'events_base'        => tribe_get_events_link(),
 		);
 
+		if ( apply_filters( 'tribe_force_filtered_ical_link', false ) ) {
+			$js_config_array['force_filtered_ical_link'] = true;
+		}
+
 		wp_localize_script( $handle, 'tribe_js_config', $js_config_array );
 	}
 }
