@@ -37,7 +37,7 @@ class Tribe__Events__iCal {
 			esc_attr( $feed_title ),
 			esc_url( tribe_get_ical_link() )
 		);
-		
+
 		echo "\n";
 	}
 
