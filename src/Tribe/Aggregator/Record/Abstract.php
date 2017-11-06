@@ -577,6 +577,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
 		}
 
+		// add the queue meta information, empty for the time being, to the child record; it will be filled in later
+		$post['meta_input'][ self::$meta_key_prefix . Tribe__Events__Aggregator__Record__Queue::$queue_key ] = array();
+
 		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
 		if ( ! $frequency ) {
 			return tribe_error( 'core:aggregator:invalid-record-frequency', $post['meta_input'] );
