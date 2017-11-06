@@ -1,6 +1,7 @@
 <?php
 
-$tec = Tribe__Events__Main::instance();
+$tec              = Tribe__Events__Main::instance();
+$site_time_format = get_option( 'time_format' );
 
 $general_tab_fields = Tribe__Main::array_insert_after_key(
 	'info-start',
@@ -112,20 +113,20 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 			'label'           => esc_html__( 'End of day cutoff', 'the-events-calendar' ),
 			'validation_type' => 'options',
 			'size'            => 'small',
-			'default'         => '12:00',
+			'default'         => date_i18n( $site_time_format, strtotime( '12:00 am' ) ),
 			'options'         => array(
-				'00:00' => '12:00 am',
-				'01:00' => '01:00 am',
-				'02:00' => '02:00 am',
-				'03:00' => '03:00 am',
-				'04:00' => '04:00 am',
-				'05:00' => '05:00 am',
-				'06:00' => '06:00 am',
-				'07:00' => '07:00 am',
-				'08:00' => '08:00 am',
-				'09:00' => '09:00 am',
-				'10:00' => '10:00 am',
-				'11:00' => '11:00 am',
+				'00:00' => date_i18n( $site_time_format, strtotime( '12:00 am' ) ),
+				'01:00' => date_i18n( $site_time_format, strtotime( '01:00 am' ) ),
+				'02:00' => date_i18n( $site_time_format, strtotime( '02:00 am' ) ),
+				'03:00' => date_i18n( $site_time_format, strtotime( '03:00 am' ) ),
+				'04:00' => date_i18n( $site_time_format, strtotime( '04:00 am' ) ),
+				'05:00' => date_i18n( $site_time_format, strtotime( '05:00 am' ) ),
+				'06:00' => date_i18n( $site_time_format, strtotime( '06:00 am' ) ),
+				'07:00' => date_i18n( $site_time_format, strtotime( '07:00 am' ) ),
+				'08:00' => date_i18n( $site_time_format, strtotime( '08:00 am' ) ),
+				'09:00' => date_i18n( $site_time_format, strtotime( '09:00 am' ) ),
+				'10:00' => date_i18n( $site_time_format, strtotime( '10:00 am' ) ),
+				'11:00' => date_i18n( $site_time_format, strtotime( '11:00 am' ) ),
 			),
 		),
 		'multiDayCutoffHelper'          => array(
