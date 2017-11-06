@@ -2399,23 +2399,23 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$legacy_upcoming_events_url = $this->getRewriteSlug() . '/' . $this->upcomingSlug;
 
 			// Check if the request is for either the legacy past or upcoming event views and redirect if appropriate
-				switch ( $requested_path ) {
-					case $legacy_past_events_url:
-						$search = '#/' . $this->pastSlug . '/?#';
-						$replace = '/' . $this->listSlug . '/';
-						$redirect_url = preg_replace( $search, $replace, $_SERVER['REQUEST_URI'] );
-						$redirect_url = esc_url_raw( add_query_arg( array( 'tribe_event_display' => 'past' ), $redirect_url ) );
-						wp_redirect( $redirect_url );
-						tribe_exit();
-						break;
+			switch ( $requested_path ) {
+				case $legacy_past_events_url:
+					$search = '#/' . $this->pastSlug . '/?#';
+					$replace = '/' . $this->listSlug . '/';
+					$redirect_url = preg_replace( $search, $replace, $_SERVER['REQUEST_URI'] );
+					$redirect_url = esc_url_raw( add_query_arg( array( 'tribe_event_display' => 'past' ), $redirect_url ) );
+					wp_redirect( $redirect_url );
+					tribe_exit();
+					break;
 
-					case $legacy_upcoming_events_url:
-						$search = '#/' . $this->upcomingSlug . '/?#';
-						$replace = '/' . $this->listSlug . '/';
-						$redirect_url = preg_replace( $search, $replace, $_SERVER['REQUEST_URI'] );
-						wp_redirect( $redirect_url );
-						tribe_exit();
-						break;
+				case $legacy_upcoming_events_url:
+					$search = '#/' . $this->upcomingSlug . '/?#';
+					$replace = '/' . $this->listSlug . '/';
+					$redirect_url = preg_replace( $search, $replace, $_SERVER['REQUEST_URI'] );
+					wp_redirect( $redirect_url );
+					tribe_exit();
+					break;
 			}
 		}
 
