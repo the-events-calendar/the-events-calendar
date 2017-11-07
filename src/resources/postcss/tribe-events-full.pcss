@@ -778,6 +778,12 @@ select.tribe-events-dropdown {
 			float: none;
 			position: relative;
 		}
+
+		/* Reset list-view descriptions to static position; fixes bug with relative positioning
+		   that prevented the full area of the .tribe-events-event-image being "clickable". */
+		+ div.tribe-events-content.tribe-events-list-event-description {
+			position: static;
+		}
 	}
 
 	.tribe-events-loop .tribe-events-event-meta {
