@@ -355,6 +355,8 @@ jQuery( document ).ready( function( $ ) {
 			} else {
 				section.find( '.move-linked-post-group' ).hide();
 			}
+
+			fields.find( '.tribe-dropdown' ).tribe_dropdowns().trigger( 'change' );
 		});
 
 		section.on( 'change', '.linked-post-dropdown', toggle_linked_post_fields );
@@ -395,7 +397,7 @@ jQuery( document ).ready( function( $ ) {
 					}
 
 					// Set the value accordingly
-					$field.val( sticky_data[ key ] ).trigger( 'change' );
+					$field.val( sticky_data[ key ] );
 					sticky_data_added = true;
 				}
 			}
@@ -438,6 +440,7 @@ jQuery( document ).ready( function( $ ) {
 				add_sticky_linked_post_data( post_type, tribe_events_linked_posts.post_types[ post_type ], fields );
 			}
 
+			fields.find( '.tribe-dropdown' ).tribe_dropdowns().trigger( 'change' );
 			group.append( fields );
 		} );
 
@@ -474,7 +477,13 @@ jQuery( document ).ready( function( $ ) {
 		var $select   = $( this ),
 			$group    = $select.closest( 'tbody' ),
 			$edit     = $group.find( '.edit-linked-post-link a' ),
+			edit_link = $edit.attr( 'data-admin-url' ),
 			choice    = 'undefined' === typeof event.added ? {} : event.added;
+
+		// Maybe Hide Edit link
+		if ( _.isEmpty( choice ) ) {
+			$edit.hide();
+		}
 
 		if ( 'undefined' !== typeof choice.new && choice.new ) {
 			// Apply the New Given Title to the Correct Field
@@ -491,10 +500,8 @@ jQuery( document ).ready( function( $ ) {
 			$group.find( '.linked-post' ).hide().find( 'input' ).val( '' );
 
 			// Modify and Show edit link
-			if ( ! _.isEmpty( choice.edit ) ) {
-				$edit.attr( 'href', choice.edit ).show();
-			} else {
-				$edit.hide();
+			if ( ! _.isEmpty( choice ) ) {
+				$edit.attr( 'href', edit_link + choice.id ).show();
 			}
 		}
 	};
@@ -555,7 +562,7 @@ jQuery( document ).ready( function( $ ) {
 					callback    : function( attr ) {
 						// This is a non-ideal, but very reliable way to look for the closing of the ui-datepicker box,
 						// since onClose method is often occluded by other plugins, including Events Calender PRO.
-						if ( 
+						if (
 							attr.newValue.indexOf( 'display: none' ) >= 0 ||
 							attr.newValue.indexOf( 'display:none' ) >= 0
 						) {
@@ -621,7 +628,7 @@ jQuery( document ).ready( function( $ ) {
 			$( document.getElementById( '30StartDays' ) ),
 			$( document.getElementById( '31StartDays' ) )
 		];
-		
+
 		var tribeEndDays = [
 			$( document.getElementById( '28EndDays' ) ),
 			$( document.getElementById( '29EndDays' ) ),
@@ -687,7 +694,7 @@ jQuery( document ).ready( function( $ ) {
 	//show state/province input based on first option in countries list, or based on user input of country
 	$( 'body' ).on( 'change', '#EventCountry', function () {
 		var $country        = $( this );
-			$container      = $country.parents( 'div.eventForm' ).eq( 0 ),
+		$container      = $country.parents( 'div.eventForm' ).eq( 0 ),
 			$state_dropdown = $container.find( '#s2id_StateProvinceSelect' ),
 			$state_select   = $container.find( '#StateProvinceSelect' ),
 			$state_text     = $container.find( '#StateProvinceText' ),
