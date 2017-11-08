@@ -327,6 +327,10 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * execution hangs half way through the processing of a batch.
 	 */
 	public function set_in_progress_flag() {
+		if ( empty( $this->record->id ) ) {
+			return;
+		}
+
 		Tribe__Post_Transient::instance()->set( $this->record->id, self::$in_progress_key, true, HOUR_IN_SECONDS );
 	}
 
@@ -334,6 +338,10 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * Clears the in progress flag.
 	 */
 	public function clear_in_progress_flag() {
+		if ( empty( $this->record->id ) ) {
+			return;
+		}
+
 		Tribe__Post_Transient::instance()->delete( $this->record->id, self::$in_progress_key );
 	}
 
@@ -343,6 +351,10 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 * @return bool
 	 */
 	public function is_in_progress() {
+		if ( empty( $this->record->id ) ) {
+			return false;
+		}
+
 		Tribe__Post_Transient::instance()->get( $this->record->id, self::$in_progress_key );
 	}
 
@@ -354,7 +366,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 	public function get_queue_type() {
 		$item_type = Tribe__Events__Main::POSTTYPE;
 
-		if ( 'csv' === $this->record->origin ) {
+		if ( ! empty( $this->record->origin ) && 'csv' === $this->record->origin ) {
 			$item_type = $this->record->meta['content_type'];
 		}
 
