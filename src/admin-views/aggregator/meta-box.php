@@ -40,7 +40,17 @@
 			break;
 	}
 
+	// CSVs are not governed by Event Authority, so if that's the origin, always display the "overwrite" method.
+	if ( 'CSV File' === $origin ) {
+		$message = __(
+			'If this event is re-imported, event fields will be overwritten with any changes from the source.',
+			'the-events-calendar'
+		);
+	}
+
 	echo esc_html( $message );
-	?>
-	<a href="<?php echo esc_url( $settings_link ); ?>"><?php echo esc_html__( 'Change Event Update Authority', 'the-events-calendar' ); ?></a>
+
+	if ( 'CSV File' !== $origin ) : ?>
+		<a href="<?php echo esc_url( $settings_link ); ?>"><?php echo esc_html__( 'Change Event Update Authority', 'the-events-calendar' ); ?></a>
+	<?php endif; ?>
 </p>

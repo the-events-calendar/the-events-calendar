@@ -326,6 +326,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 * Fix - Improved legacy URL redirect logic to prevent unwanted redirects (our thanks to wesleyanhq and Adam Schwartz for highlighting this issue) [86942]
 * Fix - Modified tribe_get_template_part() to remove potential for multiple templates to be rendered in a single call [46630]
+* Tweak - Tweaked some language in Event Aggregator's metabox on individual edit-event screens to reduce confusion around the impact of the Update Authority on CSV imports [77957]
 * Tweak - Made the "End of Day Cutoff" option better accommodate 24-hour and other time formats (thanks @festivalgeneral for bringing this issue to our attention!) [78621]
 
 = [4.6.3] 2017-11-02 =
