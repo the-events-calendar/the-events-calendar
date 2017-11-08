@@ -104,7 +104,7 @@ if ( ! $_POST ) {
 				if ( $abbr == '' ) {
 					echo '<option value="">' . esc_html( $fullname ) . '</option>';
 				} else {
-					echo '<option value="' . esc_attr( $fullname ) . '" ' . selected( ( $current == $fullname ), true, false ) . '>' . esc_html( $fullname ) . '</option>';
+					echo '<option value="' . esc_attr( $fullname ) . '">' . esc_html( $fullname ) . '</option>';
 				}
 			}
 			?>
@@ -132,7 +132,7 @@ if ( ! $_POST ) {
 			<option value=""><?php esc_html_e( 'Select a State:', 'the-events-calendar' ); ?></option>
 			<?php
 			foreach ( Tribe__View_Helpers::loadStates() as $abbr => $fullname ) {
-				echo '<option value="' . esc_attr( $abbr ) . '" ' . selected( ( ( $_VenueStateProvince != - 1 ? $_VenueStateProvince : $currentState ) == $abbr ), true, false ) . '>' . esc_html( $fullname ) . '</option>';
+				echo '<option value="' . esc_attr( $abbr ) . '">' . esc_html( $fullname ) . '</option>';
 			}
 			?>
 		</select>
