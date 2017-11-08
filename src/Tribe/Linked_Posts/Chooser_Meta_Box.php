@@ -189,12 +189,12 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 */
 	protected function edit_post_link( $linked_post_id ) {
 		$linked_post_pto = get_post_type_object( $this->post_type );
-		$can_edit_others_posts = (
+		$cannot_edit_others_posts = (
 			empty( $linked_post_pto->cap->edit_others_posts )
 			|| ! current_user_can( $linked_post_pto->cap->edit_others_posts )
 		);
 
-		if ( is_admin() && $can_edit_others_posts ) {
+		if ( is_admin() && $cannot_edit_others_posts ) {
 			return;
 		}
 

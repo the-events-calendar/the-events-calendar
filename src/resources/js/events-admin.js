@@ -694,11 +694,11 @@ jQuery( document ).ready( function( $ ) {
 	//show state/province input based on first option in countries list, or based on user input of country
 	$( 'body' ).on( 'change', '#EventCountry', function () {
 		var $country        = $( this );
-		$container      = $country.parents( 'div.eventForm' ).eq( 0 ),
-			$state_dropdown = $container.find( '#s2id_StateProvinceSelect' ),
-			$state_select   = $container.find( '#StateProvinceSelect' ),
-			$state_text     = $container.find( '#StateProvinceText' ),
-			country         = $( this ).val();
+		var $container      = $country.parents( 'div.eventForm' ).eq( 0 );
+		var $state_dropdown = $container.find( '#s2id_StateProvinceSelect' );
+		var $state_select   = $container.find( '#StateProvinceSelect' );
+		var $state_text     = $container.find( '#StateProvinceText' );
+		var country         = $( this ).val();
 
 		if ( country == 'US' || country == 'United States' ) {
 			$state_text.hide();
