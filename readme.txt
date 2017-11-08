@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, brook-tribe, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, leahkoerper, jentheo, lucatume, mastromktg, mat-lipe, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, shelbelliott, tribecari, vicskf, zbtirrell
+Contributors: ModernTribe, borkweb, aguseo, barry.hughes, bordoni, brianjessee, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, jentheo, leahkoerper, lucatume, mastromktg, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, tribecari, vicskf, zbtirrell
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
@@ -25,7 +25,6 @@ Looking for additional functionality including recurring events, ticket sales, p
 ><strong>New Import Tool!</strong>
 >We’ve made bulk event imports easier to manage than ever. This add-on service for The Events Calendar allows you to import events from your favorite sources, including Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS.
 >[Check out Event Aggregator now](http://m.tri.be/197u).
->
 
 = BUILT SOLID & SUPPORTED =
 
@@ -93,7 +92,7 @@ Add recurring events, a whole recurring events, a whole range of new views ( wee
 
 = Event Ticketing =
 
-Collect free RSVPs with Event Tickets or add paid ticketing features with [Event Tickets Plus](http://m.tri.be/18wg), including the ability to sell tickets, collect sales, and manage attendees all from within your WordPress dashboard! Works with your favorite eCommerce plugin (WooCommerce, Shopp, Easy Digital Downloads, or WP E-Commerce).
+Collect free RSVPs with Event Tickets or add paid ticketing features with [Event Tickets Plus](http://m.tri.be/18wg), including the ability to sell tickets, collect sales, and manage attendees all from within your WordPress dashboard! Works with your favorite eCommerce plugin (WooCommerce or Easy Digital Downloads).
 
 = Bulk Event Import =
 
@@ -213,10 +212,8 @@ Our Free Plugins:
 
 * [Event Tickets](https://wordpress.org/plugins/event-tickets/)
 * [Advanced Post Manager](https://wordpress.org/plugins/advanced-post-manager/)
-* [Blog Copier](https://wordpress.org/plugins/blog-copier/)
 * [GigPress](https://wordpress.org/plugins/gigpress/)
 * [Image Widget](https://wordpress.org/plugins/image-widget/)
-* [Widget Builder](https://wordpress.org/plugins/widget-builder/)
 
 Our Premium Plugins and Services:
 
@@ -265,67 +262,56 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 = Current Contributors =
 
-* [Andras Guseo](https://profiles.wordpress.org/aguseo)
-* [Barry Hughes](https://profiles.wordpress.org/barryhughes)
-* [Brian Jessee](https://profiles.wordpress.org/brianjessee)
-* [Brook Harding](https://profiles.wordpress.org/brook-tribe)
-* [Caroline Tucker](https://profiles.wordpress.org/tribecari)
-* [Clifford Paulick](https://profiles.wordpress.org/cliffpaulick)
-* [Daniel Dvorkin](https://profiles.wordpress.org/MZAWeb)
-* [Geoff Graham](https://profiles.wordpress.org/geoffgraham)
-* [George Gecewicz](https://profiles.wordpress.org/ggwicz)
-* [Gustavo Bordoni](https://profiles.wordpress.org/bordoni)
-* [Leah Koerper](https://profiles.wordpress.org/leahkoerper)
-* [Luca Tumedei](https://profiles.wordpress.org/lucatume)
-* [Matthew Batchelder](https://profiles.wordpress.org/borkweb)
-* [Neill McShea](https://profiles.wordpress.org/neillmcshea)
-* [Nico Santos](https://profiles.wordpress.org/nicosantos)
-* [Patricia Hillebrandt](https://profiles.wordpress.org/patriciahillebrandt)
-* [Peter Chester](https://profiles.wordpress.org/peterchester)
-* [Reid Peifer](https://profiles.wordpress.org/reid.peifer)
-* [Shane Pearlman](https://profiles.wordpress.org/shane.pearlman)
-* [Shelby Elliott](https://profiles.wordpress.org/shelbelliott)
-* [Zachary Tirrell](https://profiles.wordpress.org/zbtirrell)
+* <a href="https://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
+* <a href="https://profiles.wordpress.org/users/brianjessee">Brian Jessee</a>
+* <a href="https://profiles.wordpress.org/users/geoffgraham">Geoff Graham</a>
+* <a href="https://profiles.wordpress.org/users/ggwicz">George Gecewicz</a>
+* <a href="https://profiles.wordpress.org/users/bordoni">Gustavo Bordoni</a>
+* <a href="https://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
+* <a href="https://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
+* <a href="https://profiles.wordpress.org/users/lucatume">Luca Tumedei</a>
+* <a href="https://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
+* <a href="https://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
+* <a href="https://profiles.wordpress.org/users/mastromktg">Nick Mastromattei</a>
+* <a href="https://profiles.wordpress.org/users/nicosantos">Nico Santo</a>
+* <a href="https://profiles.wordpress.org/users/peterchester">Peter Chester</a>
+* <a href="https://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
+* <a href="https://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
+* <a href="https://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
+* <a href="https://profiles.wordpress.org/users/faction23">Samuel Estok</a>
+* <a href="https://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
+* <a href="https://profiles.wordpress.org/users/zbtirrell">Zachary Tirrell</a>
 
 = Past Contributors =
 
-* [Casey Driscoll](https://profiles.wordpress.org/caseypatrickdriscoll)
-* [Casey Picker](https://profiles.wordpress.org/ckpicker)
-* [Dan Cameron](https://profiles.wordpress.org/dancameron)
-* [Jessica Yazbek](https://profiles.wordpress.org/jazbek)
-* [Joachim Kudish](https://profiles.wordpress.org/jkudish)
-* [John Gadbois](https://profiles.wordpress.org/jgadbois)
-* [Jonah West](https://profiles.wordpress.org/jonahcoyote)
-* [Jonathan Brinley](https://profiles.wordpress.org/jbrinley)
-* [Josh Mallard](https://profiles.wordpress.org/joshlimecuda)
-* [Justin Endler](https://profiles.wordpress.org/justinendler)
-* [Kelly Groves](https://profiles.wordpress.org/kellykathryn)
-* [Kelsey Damas](https://profiles.wordpress.org/kelseydamas)
-* [Kyle Unzicker](https://profiles.wordpress.org/kyleunzicker)
-* [Mat Lipe](https://profiles.wordpress.org/mat-lipe)
-* [Matt Wiebe](https://profiles.wordpress.org/mattwiebe)
-* [Matthew Denton](https://profiles.wordpress.org/mdbitz)
-* [Nick Ciske](https://profiles.wordpress.org/nickciske)
-* [Nick Mastromattei](https://profiles.wordpress.org/mastromktg)
-* [Paul Hughes](https://profiles.wordpress.org/paulhughes01)
-* [Rob La Gatta](https://profiles.wordpress.org/roblagatta)
-* [Ryan Urban](https://profiles.wordpress.org/ryancurban)
-* [Samuel Estok](https://profiles.wordpress.org/faction23)
-* [Timothy Wood](https://profiles.wordpress.org/codearachnid)
-* [Trisha Salas](https://profiles.wordpress.org/trishasalas)
-
-== Upgrade Notice ==
-
-= [4.3] =
-
-Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
+* <a href="https://profiles.wordpress.org/users/brook-tribe">Brook Harding</a>
+* <a href="https://profiles.wordpress.org/users/caseypatrickdriscoll">Casey Driscoll</a>
+* <a href="https://profiles.wordpress.org/users/ckpicker">Casey Picker</a>
+* <a href="https://profiles.wordpress.org/users/dancameron">Dan Cameron</a>
+* <a href="https://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
+* <a href="https://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
+* <a href="https://profiles.wordpress.org/users/jkudish">Joachim Kudish</a>
+* <a href="https://profiles.wordpress.org/users/jgadbois">John Gadbois</a>
+* <a href="https://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
+* <a href="https://profiles.wordpress.org/users/joshlimecuda">Josh Mallard</a>
+* <a href="https://profiles.wordpress.org/justinendler/">Justin Endler</a>
+* <a href="https://profiles.wordpress.org/users/kellykathryn">Kelly Groves</a>
+* <a href="https://profiles.wordpress.org/users/kelseydamas">Kelsey Damas</a>
+* <a href="https://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
+* <a href="https://profiles.wordpress.org/users/mat-lipe">Mat Lipe</a>
+* <a href="https://profiles.wordpress.org/users/mdbitz">Matthew Denton</a>
+* <a href="https://profiles.wordpress.org/users/mattwiebe">Matt Wiebe</a>
+* <a href="https://profiles.wordpress.org/users/nickciske">Nick Ciske</a>
+* <a href="https://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
+* <a href="https://profiles.wordpress.org/users/codearachnid">Timothy Wood</a>
+* <a href="https://profiles.wordpress.org/users/thatdudebutch">Wayne Stratton</a>
 
 == Changelog ==
 
 = [4.6.4] 2017-11-09 =
 
 * Tweak - Timepicker is now part of Tribe Common, it was removed from The Events Calendar
-* Tweak - Required changes to make the plugin compatible with version 4.7 of Event Tickets
+* Tweak - Required changes to make the plugin compatible with version 4.6 of Event Tickets
 * Language - 10 new strings added, 167 updated, 0 fuzzied, and 2 obsoleted
 
 = [4.6.3] 2017-11-02 =
