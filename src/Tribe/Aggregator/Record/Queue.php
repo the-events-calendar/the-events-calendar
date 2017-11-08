@@ -264,6 +264,24 @@ class Tribe__Events__Aggregator__Record__Queue {
 
 		if ( $this->has_lock ) {
 			if ( $this->is_fetching() ) {
+				if ( $this->record->should_queue_import() ) {
+					$response = $this->record->queue_import();
+
+					if ( $response instanceof WP_Error ) {
+						// the import queueing generated an error
+						$this->record->set_status_as_failed( $response );
+
+						return $this;
+					}
+
+					if ( is_numeric( $response ) ) {
+						// the import queueing was rescheduled
+						$this->record->set_status_as_pending();
+
+						return $this;
+					}
+				}
+
 				$data = $this->record->prep_import_data();
 
 				if (
