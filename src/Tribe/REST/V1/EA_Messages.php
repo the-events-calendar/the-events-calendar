@@ -35,7 +35,7 @@ class Tribe__Events__REST__V1__EA_Messages extends Tribe__Events__REST__V1__Mess
 			'tec-rest-api-single-event-empty',
 		);
 
-		$learn_more_link = esc_attr( 'https://theeventscalendar.com/knowledgebase/other-url-import-errors-in-event-aggregator' );
+		$learn_more_link = esc_attr( 'https://theeventscalendar.com/knowledgebase/url-import-errors-event-aggregator/' );
 		$learn_more_message = esc_html__( 'Learn more.', 'the-events-calendar' );
 		$learn_more_message_html = sprintf( '<a href="%s" target="_blank">%s</a> ', $learn_more_link, $learn_more_message );
 
