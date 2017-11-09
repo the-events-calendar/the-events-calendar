@@ -85,10 +85,11 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		if ( 'preserve_changes' === $update_authority_setting ) {
 			$event['ID'] = $post_id;
-			$event = Tribe__Events__Aggregator__Event::preserve_changed_fields( $event );
+			$event       = Tribe__Events__Aggregator__Event::preserve_changed_fields( $event );
 		}
 
 		add_filter( 'tribe_tracker_enabled', '__return_false' );
+
 		Tribe__Events__API::updateEvent( $post_id, $event );
 
 		if ( $this->is_aggregator && ! empty( $this->aggregator_record ) ) {
@@ -198,6 +199,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		$cats = $this->get_value_by_key( $record, 'event_category' );
+
 		if ( $this->is_aggregator && ! empty( $this->default_category ) ) {
 			$cats = $cats ? $cats . ',' . $this->default_category : $this->default_category;
 		} elseif ( $category_setting = tribe( 'events-aggregator.settings' )->default_category( 'csv' ) ) {
@@ -205,12 +207,14 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		if ( $this->is_aggregator ) {
-			if ( $show_map_setting = tribe( 'events-aggregator.settings' )->default_map( 'csv' ) ) {
-
+			$show_map_setting = tribe( 'events-aggregator.settings' )->default_map( 'csv' );
+			
+			write_log( $show_map_setting, 'show_map_setting' );
+			
+			if ( tribe_is_truthy( $show_map_setting ) ) {
 				$event['EventShowMap']     = $show_map_setting;
 				$event['EventShowMapLink'] = $show_map_setting;
 			} else {
-
 				if ( isset( $event['EventShowMap'] ) ) {
 					unset( $event['EventShowMap'] );
 				}
@@ -243,6 +247,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', array() );
+
 		if ( ! empty ( $additional_fields ) ) {
 			foreach ( $additional_fields as $key => $csv_column ) {
 				$event[ $key ] = $this->get_value_by_key( $record, $key );
