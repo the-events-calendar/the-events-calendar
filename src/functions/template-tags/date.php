@@ -107,3 +107,28 @@ if ( ! function_exists( 'tribe_event_is_on_date' ) ) {
 		return apply_filters( 'tribe_event_is_on_date', $event_is_on_date, $date, $event );
 	}
 }
+
+if ( ! function_exists( 'tribe_events_timezone_choice' ) ) {
+	/**
+	 * Event-specific wrapper for wp_timezone_choice().
+	 *
+	 * @param string $selected_zone
+	 * @param string $locale (optional)
+	 *
+	 * @return string
+	 */
+	function tribe_events_timezone_choice( $selected_zone, $locale = null ) {
+		/**
+		 * Opportunity to modify the timezone <option>s used within the timezone picker.
+		 *
+		 * @param string $selected_zone
+		 * @param string $locale
+		 */
+		return apply_filters(
+			'tribe_events_timezone_choice',
+			wp_timezone_choice( $selected_zone, $locale ),
+			$selected_zone,
+			$locale
+		);
+	}
+}
