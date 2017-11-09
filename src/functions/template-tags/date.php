@@ -125,6 +125,7 @@ if ( ! function_exists( 'tribe_events_timezone_choice' ) ) {
 		 *
 		 * @since TBD
 		 *
+		 * @param string $html
 		 * @param string $selected_zone
 		 * @param string $locale
 		 */
