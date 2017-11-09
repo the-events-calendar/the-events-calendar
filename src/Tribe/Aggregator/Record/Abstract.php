@@ -1331,7 +1331,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$activity->add( 'event', 'skipped', $event['ID'] );
 				continue;
 			}
-			
+
 			if ( $show_map_setting ) {
 				$event['EventShowMap'] = $show_map_setting || (bool) isset( $event['show_map'] );
 

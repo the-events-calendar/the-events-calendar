@@ -130,7 +130,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 
 		$importer = $this->prep_import_data( $data );
 		$queue    = new Tribe__Events__Aggregator__Record__Queue( $this->post->ID, $importer );
-		
+
 		return $queue->process();
 	}
 
@@ -213,7 +213,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			$file_path      = get_attached_file( absint( $this->meta['file'] ) );
 			$file_reader    = new Tribe__Events__Importer__File_Reader( $file_path );
 			$this->importer = Tribe__Events__Importer__File_Importer::get_importer( $content_type, $file_reader );
-			
+
 			$this->importer->set_map( get_option( 'tribe_events_import_column_mapping_' . $content_type, array() ) );
 			$this->importer->set_type( $content_type );
 			$this->importer->set_limit( absint( apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size ) ) );
