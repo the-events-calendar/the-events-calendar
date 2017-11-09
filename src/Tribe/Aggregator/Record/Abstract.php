@@ -1276,8 +1276,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$found_organizers = array();
 		$found_venues     = array();
 
-		$origin = $this->meta['origin'];
-		$show_map_setting = tribe_is_truthy( tribe( 'events-aggregator.settings' )->default_map( $origin ) );
+		$origin                   = $this->meta['origin'];
+		$show_map_setting         = tribe_is_truthy( tribe( 'events-aggregator.settings' )->default_map( $origin ) );
 		$update_authority_setting = tribe( 'events-aggregator.settings' )->default_update_authority( $origin );
 
 		$import_settings = tribe( 'events-aggregator.settings' )->default_settings_import( $origin );
@@ -1331,15 +1331,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$activity->add( 'event', 'skipped', $event['ID'] );
 				continue;
 			}
-
+			
 			if ( $show_map_setting ) {
 				$event['EventShowMap'] = $show_map_setting || (bool) isset( $event['show_map'] );
+
 				if ( $this->has_import_policy_for( $origin, 'show_map_link' ) ) {
 					$event['EventShowMapLink'] = isset( $event['show_map_link'] ) ? (bool) $event['show_map_link'] : $show_map_setting;
 				} else {
 					$event['EventShowMapLink'] = $show_map_setting;
 				}
 			}
+
 			unset( $event['show_map'], $event['show_map_link'] );
 
 			if ( $should_import_settings && isset( $event['hide_from_listings'] ) ) {

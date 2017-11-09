@@ -157,7 +157,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			$post_status_setting = tribe( 'events-aggregator.settings' )->default_post_status( 'csv' );
 		}
 
-		$event                  = array(
+		$event = array(
 			'post_type'             => Tribe__Events__Main::POSTTYPE,
 			'post_title'            => $this->get_value_by_key( $record, 'event_name' ),
 			'post_status'           => $post_status_setting,
@@ -186,6 +186,9 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventTimezone'         => $this->get_timezone( $this->get_value_by_key( $record, 'event_timezone' ) ),
 		);
 
+		write_log( $event['EventShowMapLink'], sprintf('BEFORE array showMapLinkVal for %s', $record[0]) );
+		write_log( $event['EventShowMap'], sprintf('BEFORE array showMapVal for %s', $record[0]) );
+
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {
 			$event['organizer'] = is_array( $organizer_id ) ? $organizer_id : array( 'OrganizerID' => $organizer_id );
 		}
@@ -203,9 +206,11 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		if ( $this->is_aggregator ) {
 			if ( $show_map_setting = tribe( 'events-aggregator.settings' )->default_map( 'csv' ) ) {
+
 				$event['EventShowMap']     = $show_map_setting;
 				$event['EventShowMapLink'] = $show_map_setting;
 			} else {
+
 				if ( isset( $event['EventShowMap'] ) ) {
 					unset( $event['EventShowMap'] );
 				}
@@ -215,6 +220,9 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 				}
 			}
 		}
+
+		write_log( $event['EventShowMapLink'], sprintf('AFTER array showMapLinkVal for %s', $record[0]) );
+		write_log( $event['EventShowMap'], sprintf('AFTER array showMapVal for %s', $record[0]) );
 
 		if ( $cats ) {
 			$events_cat = Tribe__Events__Main::TAXONOMY;

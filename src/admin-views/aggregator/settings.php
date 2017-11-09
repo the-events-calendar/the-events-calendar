@@ -96,7 +96,7 @@ $ea_disable = array(
 		'label'           => __( 'Disable Event Aggregator imports', 'the-events-calendar' ),
 		'tooltip'         => __( 'Stop all Event Aggregator imports from running. Existing imported events will not be affected. Imports via CSV file will still be available.', 'the-events-calendar' ),
 		'default'         => false,
-		'parent_option' => Tribe__Events__Main::OPTIONNAME,
+		'parent_option'   => Tribe__Events__Main::OPTIONNAME,
 		'validation_type' => 'boolean',
 	),
 );
