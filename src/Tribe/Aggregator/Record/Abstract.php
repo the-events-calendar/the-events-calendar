@@ -2122,19 +2122,31 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Returns the user ID of the first user that can edit events or the current user ID if available.
 	 *
+	 * During cron runs current user ID will be set to 0; here we try to get a legit author user ID to
+	 * be used as an author using the first non-0 user ID among the record author, the current user, the
+	 * first available event editor.
+	 *
 	 * @since 4.5.11
 	 *
 	 * @return int The user ID or `0` (not logged in user) if not possible.
 	 */
 	protected function get_default_user_id() {
+		$post_type_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
+
+		// try the record author
+		if ( ! empty( $this->post->post_author ) && user_can( $this->post->post_author, $post_type_object->cap->edit_posts ) ) {
+			return $this->post->post_author;
+		}
+
+		// try the current user
 		$current_user_id = get_current_user_id();
 
-		if ( 0 !== $current_user_id ) {
+		if ( ! empty( $current_user_id ) && user_can( $current_user_id, $post_type_object->cap->edit_posts ) ) {
 			return $current_user_id;
 		}
 
+		// let's try and find a legit author among the available event authors
 		$authors          = get_users( array( 'who' => 'authors' ) );
-		$post_type_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 		foreach ( $authors as $author ) {
 			if ( user_can( $author, $post_type_object->cap->edit_posts ) ) {
 				return $author->ID;
