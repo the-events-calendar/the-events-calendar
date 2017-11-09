@@ -47,28 +47,28 @@ class Tribe__Events__Aggregator__Meta_Box {
 		$aggregator = tribe( 'events-aggregator.main' );
 
 		$event_id = get_the_ID();
-		$record = Tribe__Events__Aggregator__Records::instance()->get_by_event_id( $event_id );
+		$record   = Tribe__Events__Aggregator__Records::instance()->get_by_event_id( $event_id );
 
 		$last_import = null;
-		$source = null;
-		$origin = null;
+		$source      = null;
+		$origin      = null;
 
 		if ( tribe_is_error( $record ) ) {
 			$last_import = get_post_meta( $event_id, Tribe__Events__Aggregator__Event::$updated_key, true );
-			$source = get_post_meta( $event_id, Tribe__Events__Aggregator__Event::$source_key, true );
-			$origin = get_post_meta( $event_id, Tribe__Events__Aggregator__Event::$origin_key, true );
+			$source      = get_post_meta( $event_id, Tribe__Events__Aggregator__Event::$source_key, true );
+			$origin      = get_post_meta( $event_id, Tribe__Events__Aggregator__Event::$origin_key, true );
 		} else {
 			$last_import = $record->post->post_modified;
 			$source_info = $record->get_source_info();
-			$source = $source_info['title'];
-			$origin = $record->origin;
+			$source      = $source_info['title'];
+			$origin      = $record->origin;
 		}
 
-		$origin = $aggregator->api( 'origins' )->get_name( $origin );
+		$origin            = $aggregator->api( 'origins' )->get_name( $origin );
 		$datepicker_format = Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
-		$last_import = $last_import ? tribe_format_date( $last_import, true, $datepicker_format . ' h:i a' ) : null;
-		$settings_link = Tribe__Settings::instance()->get_url( array( 'tab' => 'imports' ) );
-		$import_setting = tribe_get_option( 'tribe_aggregator_default_update_authority', Tribe__Events__Aggregator__Settings::$default_update_authority );
+		$last_import       = $last_import ? tribe_format_date( $last_import, true, $datepicker_format . ' h:i a' ) : null;
+		$settings_link     = Tribe__Settings::instance()->get_url( array( 'tab' => 'imports' ) );
+		$import_setting    = tribe_get_option( 'tribe_aggregator_default_update_authority', Tribe__Events__Aggregator__Settings::$default_update_authority );
 
 		include Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/aggregator/meta-box.php';
 	}
