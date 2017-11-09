@@ -2141,7 +2141,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// try the current user
 		$current_user_id = get_current_user_id();
 
-		if ( ! empty( $current_user_id ) && user_can( $current_user_id, $post_type_object->cap->edit_posts ) ) {
+		if ( ! empty( $current_user_id ) && current_user_can( $post_type_object->cap->edit_posts ) ) {
 			return $current_user_id;
 		}
 
