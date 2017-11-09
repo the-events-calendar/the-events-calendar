@@ -292,7 +292,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 
 	public function continue_import() {
 		$importer                    = $this->get_importer();
-		$importer->is_aggregator     = true;
+		$importer->is_aggregator     = tribe( 'events-aggregator.main' )->is_service_active();
 		$importer->aggregator_record = $this;
 		$importer                    = $this->maybe_set_default_category( $importer );
 		$importer                    = $this->maybe_set_default_post_status( $importer );
