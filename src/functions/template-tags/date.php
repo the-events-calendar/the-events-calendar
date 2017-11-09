@@ -124,7 +124,7 @@ if ( ! function_exists( 'tribe_events_timezone_choice' ) ) {
 		 * Opportunity to modify the timezone <option>s used within the timezone picker.
 		 *
 		 * @since TBD
-		 * 
+		 *
 		 * @param string $selected_zone
 		 * @param string $locale
 		 */
