@@ -1885,8 +1885,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			} else {
 				$selected_ids = json_decode( $this->meta['ids_to_import'] );
 			}
-		} else {
-			$selected_ids = wp_list_pluck( $import_data, $unique_field['source'] );
+		} else {$selected_ids = wp_list_pluck( $import_data, $unique_field['source'] );
 		}
 
 		if ( empty( $selected_ids ) ) {
@@ -1899,10 +1898,21 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( isset( $unique_field['upgrade_to'] ) ) {
 			// if the unique field specifies a unique field value we should upgrade the current one to
 			// then we need to search by the upgraded value too as the value might have been upgraded already
-			$upgraded_selected_ids  = wp_list_pluck( $import_data, $unique_field['upgrade_to'] );
-			$upgraded_existing_uids = $event_object->get_existing_ids( $this->meta['origin'], $upgraded_selected_ids, 'target' );
-			if ( ! empty( $upgraded_existing_uids ) ) {
-				$existing_ids = array_merge( $existing_ids, $upgraded_existing_uids );
+			$filtered = array();
+
+			foreach ( $import_data as $data ) {
+				if ( empty( $data->{$unique_field['upgrade_to']} ) ) {
+					continue;
+				}
+				$filtered[] = $data;
+			}
+
+			if ( ! empty( $filtered ) ) {
+				$upgraded_selected_ids  = wp_list_pluck( $filtered, $unique_field['upgrade_to'] );
+				$upgraded_existing_uids = $event_object->get_existing_ids( $this->meta['origin'], $upgraded_selected_ids, 'target' );
+				if ( ! empty( $upgraded_existing_uids ) ) {
+					$existing_ids = array_merge( $existing_ids, $upgraded_existing_uids );
+				}
 			}
 		}
 
