@@ -394,7 +394,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
                                              ' <a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=scheduled' ) . '">' .
                                              __( 'View your scheduled imports.', 'the-events-calendar' ) .
                                              '</a>';
-			    }
+                }
 			}
 		}
 
