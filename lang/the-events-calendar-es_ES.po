@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-08-27 08:40:10+0000\n"
+"PO-Revision-Date: 2017-10-12 08:57:06+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -44,19 +44,19 @@ msgstr ""
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:388
 msgid "Hide and Ignore &#8220;%s&#8221;"
-msgstr ""
+msgstr "Ocultar e ignorar &#8220;%s&#8221;"
 
 #: common/src/Tribe/Main.php:265
 msgid "Clear Selection."
-msgstr ""
+msgstr "Limpiar selección."
 
 #: common/src/Tribe/Main.php:264
 msgid "Select all pages"
-msgstr ""
+msgstr "Selecciona todas las páginas"
 
 #: common/src/Tribe/Main.php:263
 msgid "All items on this page were selected. "
-msgstr ""
+msgstr "Todos los elementos de esta página han sido seleccionados."
 
 #: src/admin-views/aggregator/tabs/import-form.php:101
 msgid "Add more sources"
@@ -1725,7 +1725,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:453
 msgid "Global"
-msgstr ""
+msgstr "Global"
 
 #: src/admin-views/aggregator/settings.php:452
 msgid "Update Authority"

@@ -55,6 +55,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_event_label_singular() {
+		/**
+		 * Allows customization of the singular version of the Event Label
+		 *
+		 * @param string $label The singular version of the Event label, defaults to "Event" (uppercase)
+		 */
 		return apply_filters( 'tribe_event_label_singular', esc_html__( 'Event', 'the-events-calendar' ) );
 	}
 
@@ -66,6 +71,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_event_label_singular_lowercase() {
+		/**
+		 * Allows customization of the singular lowercase version of the Event Label
+		 *
+		 * @param string $label The singular lowercase version of the Event label, defaults to "event" (lowercase)
+		 */
 		return apply_filters( 'tribe_event_label_singular_lowercase', esc_html__( 'event', 'the-events-calendar' ) );
 	}
 
@@ -77,6 +87,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_event_label_plural() {
+		/**
+		 * Allows customization of the plural version of the Event Label
+		 *
+		 * @param string $label The plural version of the Event label, defaults to "Events" (uppercase)
+		 */
 		return apply_filters( 'tribe_event_label_plural', esc_html__( 'Events', 'the-events-calendar' ) );
 	}
 
@@ -88,6 +103,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_event_label_plural_lowercase() {
+		/**
+		 * Allows customization of the plural lowercase version of the Event Label
+		 *
+		 * @param string $label The plural lowercase version of the Event label, defaults to "events" (lowercase)
+		 */
 		return apply_filters( 'tribe_event_label_plural_lowercase', esc_html__( 'events', 'the-events-calendar' ) );
 	}
 
@@ -132,6 +152,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				do_action( 'tribe_after_get_template_part', $template, $file, $slug, $name );
 				$html = ob_get_clean();
 				echo apply_filters( 'tribe_get_template_part_content', $html, $template, $file, $slug, $name );
+				break; // We found our template, no need to continue the loop
 			}
 		}
 		do_action( 'tribe_post_get_template_part_' . $slug, $slug, $name, $data );
@@ -659,8 +680,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$term_name    = get_query_var( Tribe__Events__Main::TAXONOMY );
 
 		if ( ! empty( $term_name ) ) {
-			$term_obj = get_term_by( 'name', $term_name, Tribe__Events__Main::TAXONOMY );
-			$term     = 0 < $term_obj->term_id ? $term_obj->term_id : false;
+			$term_obj = get_term_by( 'slug', $term_name, Tribe__Events__Main::TAXONOMY );
+		}
+
+		if ( ! empty( $term_obj ) ) {
+			$term = 0 < $term_obj->term_id ? $term_obj->term_id : false;
 		}
 
 		// wp_title was deprecated in WordPress 4.4. Fetch the document title with the new function (added in 4.4) if available

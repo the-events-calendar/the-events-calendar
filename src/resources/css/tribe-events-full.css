@@ -296,8 +296,12 @@ a.tribe-events-gcal {
 /* Event Schedule Detail Styling */
 
 .tribe-events-schedule h2 {
+	display: inline-block;
+	margin-bottom: 0;
+	font-size: 1.2em;
 	font-style: normal;
 	font-weight: bold;
+	line-height: normal;
 }
 
 .tribe-events-event-schedule-details {
@@ -806,6 +810,13 @@ select.tribe-events-dropdown {
 	position: relative;
 }
 
+/* Reset list-view descriptions to static position; fixes bug with relative positioning
+		   that prevented the full area of the .tribe-events-event-image being "clickable". */
+
+.tribe-events-list .tribe-events-event-image + div.tribe-events-content.tribe-events-list-event-description {
+	position: static;
+}
+
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	display: inline;
 	display: inline-block;
@@ -978,6 +989,7 @@ select.tribe-events-dropdown {
 
 .tribe-events-schedule {
 	margin: 20px 0 0;
+	vertical-align: middle;
 }
 
 .single-tribe_events .tribe-events-schedule .tribe-events-divider,
@@ -1419,7 +1431,6 @@ select.tribe-events-dropdown {
 	*display: inline;
 	display: inline-block;
 	position: relative;
-	vertical-align: middle;
 	zoom: 1;
 }
 

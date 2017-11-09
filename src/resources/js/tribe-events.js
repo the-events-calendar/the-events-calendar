@@ -791,9 +791,9 @@ Date.prototype.format = function( mask, utc ) {
 				return false;
 			}
 
-			var $views = $( '.tribe-bar-views-option' ),
-				view_class_filter = '.tribe-bar-views-option-' + tribe_ev.data.default_mobile_view,
-				$default_view_link = $views.filter( view_class_filter );
+			var $views             = $( '.tribe-bar-views-option' );
+			var view_class_filter  = '.tribe-bar-views-option-' + tribe_ev.data.default_mobile_view;
+			var $default_view_link = $views.filter( view_class_filter );
 
 			// Actually do the Changing View
 			$default_view_link.trigger( 'click' );
@@ -1497,18 +1497,26 @@ Date.prototype.format = function( mask, utc ) {
 		 * @function tribe_ical_url
 		 * @desc tribe_ical_url This function adds required params to the ical url. Runs on doc ready, and hooks into 'ajax-success.tribe' also.
 		 */
-
 		function tribe_ical_url() {
-			var url = document.URL,
-				separator = '?';
+			var should_overwrite = true;
 
-			if ( url.indexOf( '?' ) > 0 ) {
-				separator = '&';
+			// If the "force filtered iCal link" option is set, we should not overwrite.
+			if ( 'undefined' !== typeof tribe_js_config.force_filtered_ical_link ) {
+				should_overwrite = ! tribe_js_config.force_filtered_ical_link;
 			}
+			
+			if ( should_overwrite ) {
+				var url       = document.URL;
+				var separator = '?';
 
-			var new_link = url + separator + 'ical=1' + '&' + 'tribe_display=' + ts.view;
+				if ( url.indexOf( '?' ) > 0 ) {
+					separator = '&';
+				}
 
-			$( 'a.tribe-events-ical' ).attr( 'href', new_link );
+				var new_link = url + separator + 'ical=1' + '&' + 'tribe_display=' + ts.view;
+
+				$( 'a.tribe-events-ical' ).attr( 'href', new_link );
+			}
 		}
 
 		$( te ).on( 'tribe_ev_ajaxSuccess', function() {

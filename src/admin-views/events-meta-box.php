@@ -8,10 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-$events_label_singular = tribe_get_event_label_singular();
-$events_label_plural = tribe_get_event_label_plural();
+$events_label_singular           = tribe_get_event_label_singular();
+$events_label_plural             = tribe_get_event_label_plural();
 $events_label_singular_lowercase = tribe_get_event_label_singular_lowercase();
-$events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
+$events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 ?>
 <div id="eventIntro">
 	<div id="tribe-events-post-error" class="tribe-events-error error"></div>
