@@ -384,14 +384,17 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 										 _x( ' at ', 'separator between date and time', 'the-events-calendar' ) .
 										 date( get_option( 'time_format' ), $scheduled_time );
 
-				$messages['success'][] = '<br/>' .
-										 sprintf( // add in timing
-											 __( 'The next import is scheduled for %1$s.', 'the-events-calendar' ),
-											 esc_html( $scheduled_time_string )
-										 ) .
-										 ' <a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=scheduled' ) . '">' .
-										 __( 'View your scheduled imports.', 'the-events-calendar' ) .
-										 '</a>';
+                if ( 'on_demand' !== $queue->record->frequency->id ) {
+
+                    $messages['success'][] = '<br/>' .
+                                             sprintf( // add in timing
+                                                 __( 'The next import is scheduled for %1$s.', 'the-events-calendar' ),
+                                                 esc_html( $scheduled_time_string )
+                                             ) .
+                                             ' <a href="' . admin_url( 'edit.php?page=aggregator&post_type=tribe_events&tab=scheduled' ) . '">' .
+                                             __( 'View your scheduled imports.', 'the-events-calendar' ) .
+                                             '</a>';
+                }
 			}
 		}
 
