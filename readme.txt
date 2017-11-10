@@ -335,6 +335,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Tweak - Fix PHP 7.1 compatibility with Event Aggregator (props @BJP NEALE) [90002]
 * Tweak - Added new filter: `tribe_events_force_filtered_ical_link`. This makes the "Export Events" URL more easily modifiable (thanks to @tdudley07 for highlighting this issue) [43908]
 * Tweak - Made the "End of Day Cutoff" option better accommodate 24-hour and other time formats (thanks @festivalgeneral for bringing this issue to our attention!) [78621]
+* Tweak - Made the options presented by the timezone selector filterable (via the newly added `tribe_events_timezone_choice` hook - our thanks to National University's Marketing Department for this idea) [92909]
 
 = [4.6.3] 2017-11-02 =
 
