@@ -227,7 +227,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		if ( $echo != false ) _deprecated_argument( __FUNCTION__, '4.0' );
 
 		$org_id = tribe_get_organizer_id( $postId );
-		if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
+		if ( class_exists( 'Tribe__Events__Pro__Main' ) && get_post_status( $org_id ) == 'publish' ) {
 			$url = esc_url_raw( get_permalink( $org_id ) );
 			if ( $full_link ) {
 				$name = tribe_get_organizer( $org_id );
