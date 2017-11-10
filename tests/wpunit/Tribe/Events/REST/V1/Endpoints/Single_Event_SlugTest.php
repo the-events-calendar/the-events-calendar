@@ -459,6 +459,8 @@ class Single_Event_SlugTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 * @test
 	 */
 	public function it_should_return_organizer_error_if_trying_to_insert_organizer_with_invalid_organizer_data_in_update() {
+		$sut = $this->make_instance();
+
 		$request = new \WP_REST_Request();
 
 		$id = $this->factory()->event->create();
