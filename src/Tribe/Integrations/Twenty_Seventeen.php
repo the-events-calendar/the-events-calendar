@@ -72,6 +72,11 @@ class Tribe__Events__Integrations__Twenty_Seventeen {
 			$classes[ $index ] = 'page-one-column';
 		}
 
+		// Use standard full height header when main events page is used as the front page
+		if ( ! is_singular() && ! is_archive() && tribe_get_option( 'front_page_event_archive', true ) ) {
+			$classes[] = 'twentyseventeen-front-page';
+		}
+
 		return $classes;
 	}
 }
