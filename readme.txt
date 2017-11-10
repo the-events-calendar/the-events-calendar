@@ -319,6 +319,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Remove net import scheduled notes for on domand imports [79079]
 * Fix - Fixed the broken 'Learn more' URL received after an unsuccessful "Other URL" import preview [92890]
 * Fix - Fixed issue in list view navigation with backwards previous/next classes (thanks @secondtoughest) [36230]
+* Fix - Unlinked unpublished organizers on event page when Pro is active to prevent 404s [91201]
 * Tweak - Fixed some layout issues that would emerge with "Events URL Slug" option when "Plain" permalinks were enabled [92314]
 * Tweak - Tweaked some language in Event Aggregator's metabox on individual edit-event screens to reduce confusion around the impact of the Update Authority on CSV imports [77957]
 * Tweak - Fix PHP 7.1 compatibility with Event Aggregator (props @BJP NEALE) [90002]
