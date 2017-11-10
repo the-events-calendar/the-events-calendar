@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-06-27 05:29:44+0000\n"
+"PO-Revision-Date: 2017-11-03 16:43:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -6705,7 +6705,7 @@ msgstr "Rețea"
 
 #: common/src/Tribe/Main.php:287
 msgid "Done"
-msgstr "Realizat"
+msgstr "Gata"
 
 #: common/src/Tribe/Main.php:286 src/Tribe/Asset/Bootstrap_Datepicker.php:27
 #: src/functions/template-tags/day.php:104
@@ -6948,7 +6948,7 @@ msgstr "Locaţii"
 
 #: src/Tribe/List_Widget.php:219
 msgid "Upcoming Events"
-msgstr "Evenimente Următoare"
+msgstr "Evenimente viitoare"
 
 #: src/Tribe/List_Widget.php:38
 msgid "Events List"
