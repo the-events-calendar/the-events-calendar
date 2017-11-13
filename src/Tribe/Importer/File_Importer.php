@@ -251,7 +251,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return $record[ $this->inverted_map[ $key ] ];
 	}
 
-	protected function find_matching_post_id( $name, $post_type ) {
+	protected function find_matching_post_id( $name, $post_type, $post_status = 'publish' ) {
 		if ( empty( $name ) ) {
 			return 0;
 		}
@@ -265,7 +265,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 
 		$query_args = array(
 			'post_type'        => $post_type,
-			'post_status'      => 'publish',
+			'post_status'      => $post_status,
 			'post_title'       => $name,
 			'fields'           => 'ids',
 			'suppress_filters' => false,

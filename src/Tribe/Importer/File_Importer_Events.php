@@ -240,7 +240,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			$split = preg_split( '/[\\s,]+/', $name );
 			$match = array();
 			foreach ( $split as $possible_id_match ) {
-				$match[] = $this->find_matching_post_id( $possible_id_match, Tribe__Events__Organizer::POSTTYPE );
+				$match[] = $this->find_matching_post_id( $possible_id_match, Tribe__Events__Organizer::POSTTYPE, 'any' );
 			}
 
 			$match = array_unique( $match );
@@ -259,7 +259,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			}
 		}
 
-		$matching_post_ids = $this->find_matching_post_id( $name, Tribe__Events__Organizer::POSTTYPE );
+		$matching_post_ids = $this->find_matching_post_id( $name, Tribe__Events__Organizer::POSTTYPE, 'any' );
 
 		if ( ! is_array( $matching_post_ids ) ) {
 			$matching_post_ids = array( $matching_post_ids );
@@ -271,7 +271,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	private function find_matching_venue_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_venue_name' );
 
-		return $this->find_matching_post_id( $name, Tribe__Events__Venue::POSTTYPE );
+		return $this->find_matching_post_id( $name, Tribe__Events__Venue::POSTTYPE, 'any' );
 	}
 
 	/**
