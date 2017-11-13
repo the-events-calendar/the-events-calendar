@@ -479,7 +479,7 @@ jQuery( document ).ready( function( $ ) {
 					var end_date   = new Date( date.setDate( date.getDate() + date_diff ) );
 
 					$end_date
-						.datepicker( 'option', 'minDate', end_date )
+						.datepicker( 'option', 'minDate', $start_date.datepicker( 'getDate' ) )
 						.datepicker( 'setDate', end_date )
 						.datepicker_format;
 				}

@@ -348,6 +348,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Improved the clarity of and amount of context for some linked post labels to make translation of those labels a little easier and more nuanced (props @hnacc and others) [88589]
 * Tweak - Changed the order in which the list view "next events" link is assembled for better translatability (with thanks to @alelouya for highlighting this problem) [72097]
 * Tweak - Adjusted linked posts selector HTML to improve compatibility with Batcache [92049]
+* Tweak - Improved datepicker handling so an end date on or later than the start date can always be selected [89825]
 * Language - 0 new strings added, 7 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.6.2] 2017-10-18 =
