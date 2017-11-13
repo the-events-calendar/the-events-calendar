@@ -318,14 +318,17 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Fix - Fixed a bug where only some parts of event featured images were clickable in List Views (thanks @mattemkadia for highlighting this issue) [81392]
 * Fix - Fixed the broken 'Learn more' URL received after an unsuccessful "Other URL" import preview [92890]
 * Fix - Fixed issue in list view navigation with backwards previous/next classes (thanks @secondtoughest) [36230]
+* Fix - Fixed an issue where venues and organizers would not be correctly assigned to events in CSV imports with import statuses other than "Publish" [79680]
 * Tweak - Remove net import scheduled notes for on domand imports [79079]
 * Tweak - Allow for non-Latin characters to be used as the Events URL slug and the Single Event URL slug (thanks @daviddweb for originally reporting this) [61880]
+* Tweak - Remove net import scheduled notes for on domand imports [79079]
 * Tweak - Fixed some layout issues that would emerge with "Events URL Slug" option when "Plain" permalinks were enabled [92314]
 * Tweak - Tweaked some language in Event Aggregator's metabox on individual edit-event screens to reduce confusion around the impact of the Update Authority on CSV imports [77957]
 * Tweak - Fix PHP 7.1 compatibility with Event Aggregator (props @BJP NEALE) [90002]
 * Tweak - Added new filter: `tribe_events_force_filtered_ical_link`. This makes the "Export Events" URL more easily modifiable (thanks to @tdudley07 for highlighting this issue) [43908]
 * Tweak - Made the "End of Day Cutoff" option better accommodate 24-hour and other time formats (thanks @festivalgeneral for bringing this issue to our attention!) [78621]
 * Tweak - Made the options presented by the timezone selector filterable (via the newly added `tribe_events_timezone_choice` hook - our thanks to National University's Marketing Department for this idea) [92909]
+* Tweak - Improved integration with Twenty Seventeen - main events page now uses full height header when set to front page (thanks @uncovery for pointing this out) [89767]
 
 = [4.6.4] 2017-11-09 =
 
