@@ -372,7 +372,7 @@ jQuery( document ).ready( function( $ ) {
 		var $select   = $( this ),
 			$group    = $select.closest( 'tbody' ),
 			$edit     = $group.find( '.edit-linked-post-link a' ),
-			edit_link = $edit.attr( 'data-admin-url' ),
+			edit_link = $edit.attr( 'href' ),
 			choice    = 'undefined' === typeof event.added ? {} : event.added;
 
 		// Maybe Hide Edit link
@@ -396,6 +396,11 @@ jQuery( document ).ready( function( $ ) {
 
 			// Modify and Show edit link
 			if ( ! _.isEmpty( choice ) ) {
+				// The edit link href is filterable so let's not assume it has a trailing slash applied
+				if ( ! edit_link.endsWith( '/' ) ) {
+					edit_link += '/';
+				}
+
 				$edit.attr( 'href', edit_link + choice.id ).show();
 			}
 		}
