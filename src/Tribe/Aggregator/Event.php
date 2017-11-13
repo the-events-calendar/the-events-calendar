@@ -87,6 +87,7 @@ class Tribe__Events__Aggregator__Event {
 			'facebook_id'        => 'EventFacebookID',
 			'meetup_id'          => 'EventMeetupID',
 			'uid'                => 'uid',
+			'v2_uid'             => 'v2_uid',
 			'parent_uid'         => 'parent_uid',
 			'recurrence'         => 'recurrence',
 			'categories'         => 'categories',
@@ -169,12 +170,13 @@ class Tribe__Events__Aggregator__Event {
 	/**
 	 * Fetch all existing unique IDs from the provided list that exist in meta
 	 *
-	 * @param string $key Meta key
-	 * @param array $values Array of meta values
+	 * @param string       $origin The imports origin type
+	 * @param array        $values Array of meta values
+	 * @param array|string $keys   The key, or keys, to look up existing ids by
 	 *
 	 * @return array
 	 */
-	public function get_existing_ids( $origin, $values ) {
+	public function get_existing_ids( $origin, $values, $keys ) {
 		global $wpdb;
 
 		$fields = Tribe__Events__Aggregator__Record__Abstract::$unique_id_fields;
@@ -187,7 +189,6 @@ class Tribe__Events__Aggregator__Event {
 			return array();
 		}
 
-		$key = "_{$fields[ $origin ]['target']}";
 		$post_type = Tribe__Events__Main::POSTTYPE;
 		$interval = "('" . implode( "','", array_map( 'esc_sql', $values ) ) . "')";
 
@@ -206,17 +207,13 @@ class Tribe__Events__Aggregator__Event {
 				AND meta_value IN {$interval}
 		";
 
-		/**
-		 * Allows us to check for legacy meta keys
-		 */
-		if ( ! empty( $fields[ $origin ]['legacy'] ) ) {
-			$keys[] = $key;
-			$keys[] = "_{$fields[ $origin ]['legacy']}";
+		$keys = (array) $keys;
 
-			$sql .= 'AND meta_key IN ( "' . implode( '", "', array_map( 'esc_sql', $keys ) ) .'" )';
-		} else {
-			$sql .= 'AND meta_key = "' . esc_sql( $key ) . '"';
+		foreach ( $keys as &$key ) {
+			$key = isset( $fields[ $origin ][ $key ] ) ? "_{$fields[$origin][$key]}" : false;
 		}
+
+		$sql .= 'AND meta_key IN ( "' . implode( '", "', array_map( 'esc_sql', array_filter( $keys ) ) ) . '" )';
 
 		return $wpdb->get_results( $sql, OBJECT_K );
 	}
