@@ -9,7 +9,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 
 	protected function match_existing_post( array $record ) {
 		$name = $this->get_value_by_key( $record, 'venue_name' );
-		$id   = $th is->find_matching_post_id( $name, Tribe__Events__Main::VENUE_POST_TYPE );
+		$id   = $this->find_matching_post_id( $name, Tribe__Events__Main::VENUE_POST_TYPE );
 
 		return $id;
 	}
