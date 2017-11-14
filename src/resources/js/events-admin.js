@@ -369,18 +369,18 @@ jQuery( document ).ready( function( $ ) {
 	};
 
 	var toggle_linked_post_fields = function( event ) {
-		var $select   = $( this );
-		var	$group    = $select.closest( 'tbody' );
-		var	$edit     = $group.find( '.edit-linked-post-link a' );
-		var	choice    = 'undefined' === typeof event.added ? {} : event.added;
-		var edit_link = '';
+		var $select  = $( this );
+		var $group   = $select.closest( 'tbody' );
+		var $edit    = $group.find( '.edit-linked-post-link a' );
+		var choice   = 'undefined' === typeof event.added ? {} : event.added;
+		var editLink = '';
 
 		if ( 'string' === typeof $select.select2( 'data' ).edit ) {
-			edit_link = $select.select2( 'data' ).edit;
+			editLink = $select.select2( 'data' ).edit;
 		}
 
 		// Maybe Hide Edit link
-		if ( _.isEmpty( edit_link ) ) {
+		if ( _.isEmpty( editLink ) ) {
 			$edit.hide();
 		}
 
@@ -399,8 +399,8 @@ jQuery( document ).ready( function( $ ) {
 			$group.find( '.linked-post' ).hide().find( 'input' ).val( '' );
 
 			// Modify and Show edit link
-			if ( ! _.isEmpty( edit_link ) ) {
-				$edit.attr( 'href', edit_link ).show();
+			if ( ! _.isEmpty( editLink ) ) {
+				$edit.attr( 'href', editLink ).show();
 			}
 		}
 	};
