@@ -1437,11 +1437,26 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						if ( ! $venue_id ) {
 							$venue_unique_field = $this->get_unique_field( 'venue' );
 
+							/**
+							 * Whether Venues should be additionally searched by title when no match could be found
+							 * using other methods.
+							 *
+							 * @since TBD
+							 *
+							 * @param bool                                        $lookup_venues_by_title
+							 * @param stdClass                                    $item    The event data that is being currently processed, it includes the Venue data
+							 *                                                             if any.
+							 * @param Tribe__Events__Aggregator__Record__Abstract $record  The current record that is processing events.
+							 */
+							$lookup_venues_by_title = apply_filters( 'tribe_aggregator_lookup_venues_by_title', true, $item, $this );
+
 							if ( ! empty( $venue_unique_field ) ) {
 								$target = $venue_unique_field['target'];
 								$value  = $venue_data[ $target ];
 								$venue  = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Venue{$target}", $value );
-							} else {
+							}
+
+							if ( empty( $venue_unique_field ) || ( $lookup_venues_by_title && empty( $venue ) ) ) {
 								$venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Venue::POSTTYPE );
 							}
 
