@@ -2385,7 +2385,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Redirect the legacy past/upcoming view URLs to list
 		 *
-		 * @since TBD revised to avoid unwanted redirects
+		 * @since 4.6.5 revised to avoid unwanted redirects
 		 */
 		public function redirect_past_upcoming_view_urls() {
 			// We are only interested in the path and not any query args

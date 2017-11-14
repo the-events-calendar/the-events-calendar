@@ -112,7 +112,7 @@ if ( ! function_exists( 'tribe_events_timezone_choice' ) ) {
 	/**
 	 * Event-specific wrapper for wp_timezone_choice().
 	 *
-	 * @since TBD
+	 * @since 4.6.5
 	 *
 	 * @param string $selected_zone
 	 * @param string $locale (optional)
@@ -123,7 +123,7 @@ if ( ! function_exists( 'tribe_events_timezone_choice' ) ) {
 		/**
 		 * Opportunity to modify the timezone <option>s used within the timezone picker.
 		 *
-		 * @since TBD
+		 * @since 4.6.5
 		 *
 		 * @param string $html
 		 * @param string $selected_zone

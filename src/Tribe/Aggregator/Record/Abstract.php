@@ -1442,7 +1442,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 							 * Whether Venues should be additionally searched by title when no match could be found
 							 * using other methods.
 							 *
-							 * @since TBD
+							 * @since 4.6.5
 							 *
 							 * @param bool                                        $lookup_venues_by_title
 							 * @param stdClass                                    $item    The event data that is being currently processed, it includes the Venue data
