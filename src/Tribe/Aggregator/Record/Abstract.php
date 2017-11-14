@@ -1291,7 +1291,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// Set the event ID if it can be set
 			if (
-				$unique_field
+				$this->origin !== 'url'
+				&& $unique_field
 				&& isset( $event[ $unique_field['target'] ] )
 				&& isset( $existing_ids[ $event[ $unique_field['target'] ] ] )
 			) {
@@ -1686,7 +1687,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				// Log that this event was updated
 				$activity->add( 'event', 'updated', $event['ID'] );
 			} else {
-				if ( isset( $event[ $unique_field['target'] ] ) ) {
+				if ( 'url' !== $this->origin && isset( $event[ $unique_field['target'] ] ) ) {
 					if ( isset( $existing_ids[ $event[ $unique_field['target'] ] ] ) ) {
 						// we should not be here; probably a concurrency issue
 						continue;
