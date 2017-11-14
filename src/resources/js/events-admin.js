@@ -487,10 +487,6 @@ jQuery( document ).ready( function( $ ) {
 						.datepicker( 'setDate', end_date )
 						.datepicker_format;
 				}
-				// If the end date was adjusted, then let's modify the maximum acceptable start date
-				else if ( this.id === 'EventEndDate' ) {
-					$start_date.datepicker( 'option', 'maxDate', date );
-				}
 
 				// fire the change and blur handlers on the field
 				$( this ).change();
