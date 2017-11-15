@@ -312,6 +312,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 * Fix - Improved legacy URL redirect logic to prevent unwanted redirects (our thanks to wesleyanhq and Adam Schwartz for highlighting this issue) [86942]
 * Fix - Modified tribe_get_template_part() to remove potential for multiple templates to be rendered in a single call [46630]
+* Fix - Fixed an issue where Event Aggregator scheduled imports might remain stuck in pending status [90501, 92614, 91754]
 * Fix - Removed code which was automatically populating various address fields with default values when creating a new venue from within the event editor [44732]
 * Fix - Resolved some issues with the "Show Map" and "Show Map Link" options in CSV files not being reliably respected on import (props @joappf and many others for highlighting this issue) [82784]
 * Fix - Added opportunities to override edit linked post links [89015]

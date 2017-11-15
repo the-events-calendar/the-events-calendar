@@ -577,6 +577,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
 		}
 
+		// initialize the queue meta entry and set its status to fetching
+		$post['meta_input'][ self::$meta_key_prefix . Tribe__Events__Aggregator__Record__Queue::$queue_key ] = 'fetch';
+
 		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
 		if ( ! $frequency ) {
 			return tribe_error( 'core:aggregator:invalid-record-frequency', $post['meta_input'] );
@@ -708,6 +711,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			// if the error is just a reschedule set this record as pending
 			/** @var WP_Error $response */
 			if ( 'core:aggregator:http_request-limit' === $response->get_error_code() ) {
+				$this->should_queue_import( true );
 				return $this->set_status_as_pending();
 			} else {
 				$error = $response;
@@ -748,7 +752,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		// store the import id
-		update_post_meta( $this->id, self::$meta_key_prefix . 'import_id', $response->data->import_id );
+		$this->update_meta( 'import_id', $response->data->import_id );
+		$this->should_queue_import( false );
 
 		return $response;
 	}
@@ -2196,5 +2201,28 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Getter/setter to check/set whether the import for this record should be queued on EA Service or not.
+	 *
+	 * Note this is a passive check: if the meta is not set or set to `false` we assume the import
+	 * should not be queued on EA Service.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $should_queue_import If a value is provided here then the `should_queue_import` meta will
+	 *                                  be set to the boolean representation of that value.
+	 *
+	 * @return bool
+	 */
+	public function should_queue_import( $should_queue_import = null ) {
+		$key = 'should_queue_import';
+
+		if ( null === $should_queue_import ) {
+			return isset( $this->meta[ $key ] ) && true == $this->meta[ $key ];
+		}
+
+		$this->update_meta( $key, (bool) $should_queue_import );
 	}
 }
