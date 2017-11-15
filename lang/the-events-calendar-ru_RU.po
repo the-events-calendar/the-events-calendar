@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-05-24 14:52:04+0000\n"
+"PO-Revision-Date: 2017-11-04 10:11:51+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 
 #: src/admin-views/create-organizer-fields.php:19
 msgid "The e-mail address will be obfuscated on this site to avoid it getting harvested by spammers."
-msgstr ""
+msgstr "Адрес электронной почты будет скрыт, чтобы спамеры не воспользовались им."
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:32
 msgid "An array containing the lineage of where this venue comes from; this should not change after the venue is created."
@@ -29,7 +29,7 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts.php:920 src/Tribe/Linked_Posts.php:926
 msgid "Find %1$s %2$s"
-msgstr ""
+msgstr "Найти %1$s %2$s"
 
 #: src/Tribe/Linked_Posts.php:917
 msgctxt "Indefinite article for the phrase \"Find a {post type name}\" when the {post type name} starts with a vowel, e.g. \"Find an Organizer\"."
@@ -44,27 +44,27 @@ msgstr ""
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:388
 msgid "Hide and Ignore &#8220;%s&#8221;"
-msgstr ""
+msgstr "Спрятать и игнорировать &#8220;%s&#8221;"
 
 #: common/src/Tribe/Main.php:265
 msgid "Clear Selection."
-msgstr ""
+msgstr "Очистить выбор"
 
 #: common/src/Tribe/Main.php:264
 msgid "Select all pages"
-msgstr ""
+msgstr "Выбрать все страницы"
 
 #: common/src/Tribe/Main.php:263
 msgid "All items on this page were selected. "
-msgstr ""
+msgstr "Все элементы на этой странице были выбраны."
 
 #: src/admin-views/aggregator/tabs/import-form.php:101
 msgid "Add more sources"
-msgstr ""
+msgstr "Добавить больше источников"
 
 #: src/Tribe/Aggregator/Service.php:530
 msgid "No upcoming Facebook events found."
-msgstr ""
+msgstr "Ближайшие события Facebook не найдены."
 
 #: src/Tribe/Aggregator/Service.php:179
 msgid "Event Aggregator server has blocked your request. Please try your import again later or contact support to know why."
@@ -84,7 +84,7 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts.php:923 src/Tribe/Linked_Posts.php:929
 msgid "Create or Find %s"
-msgstr ""
+msgstr "Создать или найти %s"
 
 #: src/Tribe/Integrations/WPML/Defaults.php:117
 msgid "The Events Calendar could not write WPML default config file: please create the file manually."
@@ -104,11 +104,11 @@ msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:1095
 msgid "There is a new version of %1$s available. %2$s"
-msgstr ""
+msgstr "Доступна новая версия %1$s. %2$s"
 
 #: common/src/Tribe/PUE/Checker.php:1084
 msgid "Update now to version %s."
-msgstr ""
+msgstr "Обновитесь до версии %s."
 
 #: common/src/Tribe/Ajax/Dropdown.php:238
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
@@ -163,7 +163,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:460
 msgid "Other URLs"
-msgstr ""
+msgstr "Другие URL"
 
 #: src/admin-views/aggregator/settings.php:411
 msgid "Fetch source event's settings (e.g. Show Google Maps Link or Sticky in Month View) when importing from another site using The Events Calendar."
@@ -171,7 +171,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:410
 msgid "Import Event Settings"
-msgstr ""
+msgstr "Импортировать настройки событий"
 
 #: src/admin-views/aggregator/settings.php:400
 msgid "When importing from a website that uses The Events Calendar, the REST API will attempt to fetch events this far in the future. That website's hosting resources may impact the success of imports. Selecting a shorter time period may improve results."
@@ -195,7 +195,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:15
 msgid "The event does not have a venue assigned"
-msgstr ""
+msgstr "У мероприятия отсутствует место проведения"
 
 #: src/admin-views/aggregator/settings.php:398
 msgid "Import date range"
@@ -235,11 +235,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:16
 msgid "The event does not have an organizer assigned"
-msgstr ""
+msgstr "У мероприятия отсутствует организатор"
 
 #: src/Tribe/REST/V1/Messages.php:17
 msgid "The requested event is not accessible"
-msgstr ""
+msgstr "Запрашиваемое мероприятие недоступно"
 
 #: src/Tribe/REST/V1/Messages.php:18
 msgid "The 'page' parameter must be a positive integer greater than 1"
@@ -378,19 +378,19 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:162
 msgid "The event categories"
-msgstr ""
+msgstr "Категории событий"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:167
 msgid "The event tags"
-msgstr ""
+msgstr "Теги событий"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:172
 msgid "The event venue"
-msgstr ""
+msgstr "Место проведения события"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:177
 msgid "The event organizers"
-msgstr ""
+msgstr "Организаторы события"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:24
 msgid "The organizer WordPress post ID"
@@ -422,27 +422,27 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:60
 msgid "The organizer name"
-msgstr ""
+msgstr "Имя организатора"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:64
 msgid "The organizer long description"
-msgstr ""
+msgstr "Полное описание организатора"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:68
 msgid "The organizer short description"
-msgstr ""
+msgstr "Краткое описание организатора"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:77
 msgid "The organizer phone number"
-msgstr ""
+msgstr "Номер телефона организатора"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:81
 msgid "The organizer website"
-msgstr ""
+msgstr "Веб-сайт организатора"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:85
 msgid "The organizer email address"
-msgstr ""
+msgstr "Адрес электронной почты организатора"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:28
 msgid "The venue ID used to globally identify in Event Aggregator"
@@ -466,11 +466,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:60
 msgid "The venue name"
-msgstr ""
+msgstr "Название места проведения мероприятия"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:68
 msgid "The venue short description"
-msgstr ""
+msgstr "Краткое описание места проведения мероприятия"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:75
 msgid "Whether the map should be shown for the venue or not"
@@ -486,7 +486,7 @@ msgstr "Адрес места проведения"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:87
 msgid "The venue city"
-msgstr ""
+msgstr "Город, где проводится мепроприятие"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:91
 msgid "The venue country"
@@ -602,7 +602,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/EA_Messages.php:39
 msgid "Learn more."
-msgstr ""
+msgstr "Узнать больше."
 
 #: src/Tribe/REST/V1/Messages.php:19
 msgid "The 'per_page' parameter must be a positive integer greater than 1"
@@ -642,7 +642,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:64
 msgid "The venue long description"
-msgstr ""
+msgstr "Полное описание места проведения мероприятия"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:95
 msgid "The venue province"
@@ -654,11 +654,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:103
 msgid "The venue ZIP code"
-msgstr ""
+msgstr "Почтовый индекс места проведения мероприятия"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:115
 msgid "The venue state or province"
-msgstr ""
+msgstr "Штат или область места проведения мероприятия"
 
 #: src/Tribe/REST/V1/EA_Messages.php:10
 msgid "Event Aggregator cannot import events because this site is running an outdated version of The Events Calendar."
@@ -722,15 +722,15 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:273 src/Tribe/Aggregator/Settings.php:274
 msgid "24 hours"
-msgstr ""
+msgstr "24 часа"
 
 #: src/Tribe/Aggregator/Settings.php:277 src/Tribe/Aggregator/Settings.php:278
 msgid "72 hours"
-msgstr ""
+msgstr "72 часа"
 
 #: src/Tribe/Aggregator/Settings.php:281
 msgid "One week"
-msgstr ""
+msgstr "Одна неделя"
 
 #: src/Tribe/Aggregator/Service.php:550
 msgid "The requested source does not have any upcoming and published events matching the search criteria."
@@ -738,43 +738,43 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:282
 msgid "a week"
-msgstr ""
+msgstr "неделя"
 
 #: src/Tribe/Aggregator/Settings.php:285
 msgid "Two weeks"
-msgstr ""
+msgstr "Две недели"
 
 #: src/Tribe/Aggregator/Settings.php:286
 msgid "two weeks"
-msgstr ""
+msgstr "две недели"
 
 #: src/Tribe/Aggregator/Settings.php:289
 msgid "Three weeks"
-msgstr ""
+msgstr "Три недели"
 
 #: src/Tribe/Aggregator/Settings.php:293
 msgid "One month"
-msgstr ""
+msgstr "Один месяц"
 
 #: src/Tribe/Aggregator/Settings.php:294
 msgid "a month"
-msgstr ""
+msgstr "месяц"
 
 #: src/Tribe/Aggregator/Settings.php:297
 msgid "Two months"
-msgstr ""
+msgstr "Два месяца"
 
 #: src/Tribe/Aggregator/Settings.php:298
 msgid "two months"
-msgstr ""
+msgstr "два месяца"
 
 #: src/Tribe/Aggregator/Settings.php:301
 msgid "Three months"
-msgstr ""
+msgstr "Три месяца"
 
 #: src/Tribe/Aggregator/Settings.php:302
 msgid "three months"
-msgstr ""
+msgstr "три месяца"
 
 #: src/Tribe/Aggregator/Tabs/New.php:363
 msgid "%1$d new event tag was created."
@@ -818,7 +818,7 @@ msgstr ""
 #: src/Tribe/Venue.php:201
 msgctxt "Metabox title"
 msgid "Location"
-msgstr ""
+msgstr "Место расположения"
 
 #: src/admin-views/aggregator/settings.php:55
 msgid "Import events but preserve local changes to event fields."
@@ -1036,11 +1036,11 @@ msgstr "Экспорт мероприятий"
 #: src/Tribe/Main.php:732
 msgctxt "featured events slug"
 msgid "featured"
-msgstr ""
+msgstr "избранные"
 
 #: src/Tribe/Linked_Posts.php:943
 msgid "Create: <b><%= term %></b>"
-msgstr ""
+msgstr "Создать: <b><%= term %></b>"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:279
 msgid "Delete this"
@@ -1080,7 +1080,7 @@ msgstr "Одно событие"
 
 #: src/Tribe/Customizer/Month_Week_View.php:197
 msgid "Calendar Highlight Color"
-msgstr ""
+msgstr "Цвет выделения календаря"
 
 #: src/Tribe/Customizer/Month_Week_View.php:175
 msgid "Calendar Table Color"
@@ -1133,7 +1133,7 @@ msgstr "Падение небес"
 
 #: src/Tribe/Customizer/General_Theme.php:378
 msgid "Malachite"
-msgstr ""
+msgstr "Малахит"
 
 #: src/Tribe/Customizer/General_Theme.php:372
 msgid "Lagoon"
@@ -2168,12 +2168,12 @@ msgstr ""
 #: src/Tribe/Utils/Radius.php:55
 msgctxt "Abbreviation for the kilometers unit of measure"
 msgid "km"
-msgstr ""
+msgstr "км."
 
 #: src/Tribe/Utils/Radius.php:53
 msgctxt "Abbreviation for the miles unit of measure"
 msgid "mi"
-msgstr ""
+msgstr "м."
 
 #: src/Tribe/Main.php:944
 msgid "The %3$s \"%1$s\" uses the \"/%2$s\" slug: the Events Calendar plugin will show its calendar in place of the page."
@@ -2223,23 +2223,23 @@ msgstr ""
 #: src/Tribe/Ignored_Events.php:711
 msgid "Ignored <span class=\"count\">(%s)</span>"
 msgid_plural "Ignored <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Игнорируется: <span class=\"count\">(%s)</span>"
+msgstr[1] "Игнорируется: <span class=\"count\">(%s)</span>"
+msgstr[2] "Игнорируется: <span class=\"count\">(%s)</span>"
 
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:426
 msgid "Delete &#8220;%s&#8221; permanently"
-msgstr ""
+msgstr "Удалить &#8220;%s&#8221; без возможности восстановления"
 
 #: src/Tribe/Ignored_Events.php:419
 msgid "Restore"
-msgstr ""
+msgstr "Восстановить"
 
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:418
 msgid "Restore &#8220;%s&#8221; from the Ignored"
-msgstr ""
+msgstr "Восстановить &#8220;%s&#8221; из игнорируемых"
 
 #: src/Tribe/Ignored_Events.php:333 src/Tribe/Ignored_Events.php:335
 #: src/admin-views/aggregator/meta-box.php:5
@@ -2248,7 +2248,7 @@ msgstr "Источник:"
 
 #: src/Tribe/Ignored_Events.php:307
 msgid "Last Import"
-msgstr ""
+msgstr "Последнее импортирование"
 
 #: src/Tribe/Ignored_Events.php:306 src/admin-views/aggregator/meta-box.php:14
 msgid "The last time this event was imported and/or updated via import."
@@ -2327,12 +2327,12 @@ msgstr ""
 
 #: src/Tribe/Ignored_Events.php:43 src/Tribe/Ignored_Events.php:390
 msgid "Hide & Ignore"
-msgstr ""
+msgstr "Спрятать и игнорировать"
 
 #: src/Tribe/Ignored_Events.php:39 src/Tribe/Ignored_Events.php:460
 #: src/Tribe/Ignored_Events.php:710
 msgid "Ignored"
-msgstr ""
+msgstr "Игнорируется"
 
 #: src/Tribe/Ignored_Events.php:36
 msgid "Ignored events that are deleted will be removed permanently. They can be recreated via import."
@@ -3328,15 +3328,15 @@ msgstr ""
 
 #: common/src/admin-views/app-shop.php:26
 msgid "Buy This Add-On"
-msgstr ""
+msgstr "Купить это дополнение"
 
 #: common/src/admin-views/app-shop.php:5
 msgid "Browse All Add-Ons"
-msgstr ""
+msgstr "Просмотреть все дополнения"
 
 #: common/src/admin-views/app-shop.php:4
 msgid "Events Add-Ons"
-msgstr ""
+msgstr "Дополнения для событий"
 
 #: common/src/Tribe/View_Helpers.php:96
 msgid "C&ocirc;te d'Ivoire"
@@ -3626,11 +3626,11 @@ msgstr "API Google Maps"
 
 #: common/src/admin-views/event-log.php:117
 msgid "Download log"
-msgstr "Скачать лог"
+msgstr "Загрузить журнал событий"
 
 #: common/src/admin-views/event-log.php:100
 msgid "The selected log file is empty or has not been generated yet."
-msgstr "Выбранный файл пуст или еще не создался."
+msgstr "Выбранный файл пуст или еще не создавался."
 
 #: common/src/admin-views/event-log.php:43
 msgid "Method"
@@ -3638,7 +3638,7 @@ msgstr "Метод"
 
 #: common/src/admin-views/event-log.php:21
 msgid "Logging level"
-msgstr "Уровень лога"
+msgstr "Уровень журнала событий"
 
 #: common/src/Tribe/Validate.php:183
 msgid "%s must contain numbers, letters, dashes and undescores only"
@@ -3824,7 +3824,7 @@ msgstr "Мероприятие опубликовано. %1$sПросмотре�
 
 #: src/Tribe/Main.php:1750
 msgid "%1$s updated. %2$sView %1$s%3$s"
-msgstr ""
+msgstr "Обновлено: %1$s. %2$Просмотреть %1$s%3$s"
 
 #: src/Tribe/Main.php:1433
 msgid "It appears as if the tribe-common libraries cannot be found! The directory should be in the \"common/\" directory in the events calendar plugin."
@@ -4187,7 +4187,7 @@ msgstr "Навигация месяца календаря"
 
 #: src/views/modules/meta/details.php:142
 msgid "%s Tags:"
-msgstr "%s Тэги:"
+msgstr "Теги %s:"
 
 #: src/views/modules/bar.php:42
 msgid "View As"
@@ -4799,11 +4799,11 @@ msgstr "Расширенные настройки шаблона"
 
 #: common/src/admin-views/tribe-options-display.php:31
 msgid "Select the date format to use in datepickers"
-msgstr "Выберите формат даты, который будет исспользоваться в datepickers"
+msgstr "Выберите формат даты, который будет исспользоваться в окнах выбора даты"
 
 #: common/src/admin-views/tribe-options-display.php:30
 msgid "Datepicker Date Format"
-msgstr "Формат даты Datepicker"
+msgstr ""
 
 #: src/admin-views/tribe-options-display.php:114
 msgid "Enter the separator that will be used between the start and end time of an event."
@@ -6920,7 +6920,7 @@ msgstr "The Events Calendar"
 #: src/admin-views/aggregator/tabs/import-form.php:195
 #: src/functions/template-tags/general.php:58
 msgid "Event"
-msgstr "Мероприятие"
+msgstr "события"
 
 #: common/src/Tribe/Settings.php:165 common/src/Tribe/Settings.php:229
 #: common/src/Tribe/Settings.php:230 src/Tribe/Importer/Admin_Page.php:206
@@ -7160,7 +7160,7 @@ msgstr "Этот календарь работает на The Events Calendar."
 
 #: common/src/Tribe/Cost_Utils.php:108
 msgid "Free"
-msgstr "Бесплатные"
+msgstr "Бесплатно"
 
 #: src/Tribe/Cost_Utils.php:113
 msgctxt "Cost range separator"

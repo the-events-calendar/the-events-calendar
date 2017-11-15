@@ -1281,8 +1281,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$found_organizers = array();
 		$found_venues     = array();
 
-		$origin = $this->meta['origin'];
-		$show_map_setting = tribe_is_truthy( tribe( 'events-aggregator.settings' )->default_map( $origin ) );
+		$origin                   = $this->meta['origin'];
+		$show_map_setting         = tribe_is_truthy( tribe( 'events-aggregator.settings' )->default_map( $origin ) );
 		$update_authority_setting = tribe( 'events-aggregator.settings' )->default_update_authority( $origin );
 
 		$import_settings = tribe( 'events-aggregator.settings' )->default_settings_import( $origin );
@@ -1296,7 +1296,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// Set the event ID if it can be set
 			if (
-				$unique_field
+				$this->origin !== 'url'
+				&& $unique_field
 				&& isset( $event[ $unique_field['target'] ] )
 				&& isset( $existing_ids[ $event[ $unique_field['target'] ] ] )
 			) {
@@ -1339,12 +1340,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			if ( $show_map_setting ) {
 				$event['EventShowMap'] = $show_map_setting || (bool) isset( $event['show_map'] );
+
 				if ( $this->has_import_policy_for( $origin, 'show_map_link' ) ) {
 					$event['EventShowMapLink'] = isset( $event['show_map_link'] ) ? (bool) $event['show_map_link'] : $show_map_setting;
 				} else {
 					$event['EventShowMapLink'] = $show_map_setting;
 				}
 			}
+
 			unset( $event['show_map'], $event['show_map_link'] );
 
 			if ( $should_import_settings && isset( $event['hide_from_listings'] ) ) {
@@ -1440,11 +1443,26 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						if ( ! $venue_id ) {
 							$venue_unique_field = $this->get_unique_field( 'venue' );
 
+							/**
+							 * Whether Venues should be additionally searched by title when no match could be found
+							 * using other methods.
+							 *
+							 * @since 4.6.5
+							 *
+							 * @param bool                                        $lookup_venues_by_title
+							 * @param stdClass                                    $item    The event data that is being currently processed, it includes the Venue data
+							 *                                                             if any.
+							 * @param Tribe__Events__Aggregator__Record__Abstract $record  The current record that is processing events.
+							 */
+							$lookup_venues_by_title = apply_filters( 'tribe_aggregator_lookup_venues_by_title', true, $item, $this );
+
 							if ( ! empty( $venue_unique_field ) ) {
 								$target = $venue_unique_field['target'];
 								$value  = $venue_data[ $target ];
 								$venue  = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Venue{$target}", $value );
-							} else {
+							}
+
+							if ( empty( $venue_unique_field ) || ( $lookup_venues_by_title && empty( $venue ) ) ) {
 								$venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Venue::POSTTYPE );
 							}
 
@@ -1674,7 +1692,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				// Log that this event was updated
 				$activity->add( 'event', 'updated', $event['ID'] );
 			} else {
-				if ( isset( $event[ $unique_field['target'] ] ) ) {
+				if ( 'url' !== $this->origin && isset( $event[ $unique_field['target'] ] ) ) {
 					if ( isset( $existing_ids[ $event[ $unique_field['target'] ] ] ) ) {
 						// we should not be here; probably a concurrency issue
 						continue;
@@ -2127,19 +2145,31 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Returns the user ID of the first user that can edit events or the current user ID if available.
 	 *
+	 * During cron runs current user ID will be set to 0; here we try to get a legit author user ID to
+	 * be used as an author using the first non-0 user ID among the record author, the current user, the
+	 * first available event editor.
+	 *
 	 * @since 4.5.11
 	 *
 	 * @return int The user ID or `0` (not logged in user) if not possible.
 	 */
 	protected function get_default_user_id() {
+		$post_type_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
+
+		// try the record author
+		if ( ! empty( $this->post->post_author ) && user_can( $this->post->post_author, $post_type_object->cap->edit_posts ) ) {
+			return $this->post->post_author;
+		}
+
+		// try the current user
 		$current_user_id = get_current_user_id();
 
-		if ( 0 !== $current_user_id ) {
+		if ( ! empty( $current_user_id ) && current_user_can( $post_type_object->cap->edit_posts ) ) {
 			return $current_user_id;
 		}
 
+		// let's try and find a legit author among the available event authors
 		$authors          = get_users( array( 'who' => 'authors' ) );
-		$post_type_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 		foreach ( $authors as $author ) {
 			if ( user_can( $author, $post_type_object->cap->edit_posts ) ) {
 				return $author->ID;

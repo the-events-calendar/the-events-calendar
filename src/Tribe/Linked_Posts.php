@@ -417,9 +417,9 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Get Linked Post info
 	 *
-	 * @param string $linked_post_type Post type of linked post
-	 * @param array $args
-	 * @param int $linked_post_id post id
+	 * @param string    $linked_post_type Post type of linked post
+	 * @param array     $args             Extra WP Query args.
+	 * @param array|int $linked_post_id   Post ID(s).
 	 *
 	 * @return array
 	 */
@@ -757,8 +757,8 @@ class Tribe__Events__Linked_Posts {
 		$name                       = "{$linked_post_type_container}[{$linked_post_type_id_field}][]";
 		$my_linked_post_ids         = array();
 		$current_user               = wp_get_current_user();
+		$can_edit_others_posts      = current_user_can( $post_type_object->cap->edit_others_posts );
 		$my_linked_posts            = false;
-		$my_linked_post_options     = '';
 
 		$plural_name             = $this->linked_post_types[ $post_type ]['name'];
 		$singular_name           = ! empty( $this->linked_post_types[ $post_type ]['singular_name'] ) ? $this->linked_post_types[ $post_type ]['singular_name'] : $plural_name;
@@ -836,15 +836,23 @@ class Tribe__Events__Linked_Posts {
 				foreach ( $my_linked_posts as $my_linked_post ) {
 					$my_linked_post_ids[] = $my_linked_post->ID;
 
-					$options->owned['children'][] = array(
+					$new_child = array(
 						'id' => $my_linked_post->ID,
 						'text' => wp_kses( get_the_title( $my_linked_post->ID ), array() ),
 					);
+
+					$edit_link = get_edit_post_link( $my_linked_post );
+
+					if ( ! empty( $edit_link ) ) {
+						$new_child['edit'] = $edit_link;
+					}
+
+					$options->available['children'][] = $new_child;
 				}
 			}
 		}
 
-		if ( current_user_can( $post_type_object->cap->edit_others_posts ) ) {
+		if ( $can_edit_others_posts ) {
 			$linked_posts = $this->get_linked_post_info(
 				$post_type,
 				array(
@@ -869,10 +877,18 @@ class Tribe__Events__Linked_Posts {
 
 		if ( $linked_posts ) {
 			foreach ( $linked_posts as $linked_post ) {
-				$options->available['children'][] = array(
+				$new_child = array(
 					'id' => $linked_post->ID,
 					'text' => wp_kses( get_the_title( $linked_post->ID ), array() ),
 				);
+
+				$edit_link = get_edit_post_link( $linked_post );
+
+				if ( ! empty( $edit_link ) ) {
+					$new_child['edit'] = $edit_link;
+				}
+
+				$options->available['children'][] = $new_child;
 			}
 		}
 

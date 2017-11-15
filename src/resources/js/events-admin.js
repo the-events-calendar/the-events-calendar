@@ -1,108 +1,3 @@
-var tribe_timepickers = tribe_timepickers || {};
-
-( function ( $, obj ) {
-	'use strict';
-
-	obj.selector = {
-		container  : '.tribe-datetime-block',
-		timepicker : '.tribe-timepicker',
-		all_day    : '#allDayCheckbox',
-		timezone   : '.tribe-field-timezone',
-		input      : 'select, input'
-	};
-
-	obj.timepicker = {
-		opts: {
-			forceRoundTime: false,
-			step: 30,
-		}
-	};
-
-	obj.timezone = {
-		link: _.template( '<a href="#" class="tribe-change-timezone"><%= label %> <%= timezone %></a>' )
-	}
-
-	obj.$ = {};
-
-	obj.container = function( k, container ) {
-		var $container  = $( container );
-		var $all_day    = $container.find( obj.selector.all_day );
-		var $timepicker = $container.find( obj.selector.timepicker );
-		var $timezone   = $container.find( obj.selector.timezone ).not( obj.selector.input );
-		var $input      = $container.find( obj.selector.timezone ).filter( obj.selector.input );
-
-		// Create the Link
-		var $timezone_link = $( obj.timezone.link( { label: $input.data( 'timezoneLabel' ), timezone: $input.data( 'timezoneValue' ) } ) );
-
-		// Toggle Timepickers on All Day change
-		$all_day.on( 'change', function() {
-			if ( true === $all_day.prop( 'checked' ) ) {
-				$timepicker.hide();
-			} else {
-				$timepicker.show();
-			}
-		} ).trigger( 'change' );
-
-		obj.setup_timepickers( $timepicker );
-
-		// Attach a Click action the Timezone Link
-		$timezone_link.on( 'click', function( e ) {
-			$timezone = $container.find( obj.selector.timezone ).filter( '.select2-container' );
-			e.preventDefault();
-
-			$timezone_link.hide();
-			$timezone.show();
-		} );
-
-		// Append the Link to the Timezone
-		$timezone.after( $timezone_link );
-	};
-
-	obj.init = function() {
-		obj.$.containers = $( obj.selector.container );
-		obj.$.containers.each( obj.container );
-	};
-
-	/**
-	 * Initializes timepickers
-	 */
-	obj.setup_timepickers = function( $timepickers ) {
-		// Setup all Timepickers
-		$timepickers.each( function() {
-			var $item = $( this );
-			var opts  = $.extend( {}, obj.timepicker.opts );
-
-			if ( $item.data( 'format' ) ) {
-				opts.timeFormat = $item.data( 'format' );
-			}
-
-			// By default the step is 15
-			if ( $item.data( 'step' ) ) {
-				opts.step = $item.data( 'step' );
-			}
-
-			// Passing anything but 0 or 'false' will make it round to the nearest step
-			var round = $item.data( 'round' );
-			if (
-				round &&
-				0 != round &&
-				'false' !== round
-			) {
-				opts.forceRoundTime = true;
-			}
-
-			if ( 'undefined' !== typeof $.fn.tribeTimepicker ) {
-				$item.tribeTimepicker( opts ).trigger( 'change' );
-			} else {
-				// @deprecated 4.6.1
-				$item.timepicker( opts ).trigger( 'change' );
-			}
-		} );
-	};
-
-	$( document ).ready( obj.init );
-} ( jQuery, tribe_timepickers ) );
-
 /*
  * Date Format 1.2.3
  * (c) 2007-2009 Steven Levithan <stevenlevithan.com>
@@ -474,14 +369,19 @@ jQuery( document ).ready( function( $ ) {
 	};
 
 	var toggle_linked_post_fields = function( event ) {
-		var $select   = $( this ),
-			$group    = $select.closest( 'tbody' ),
-			$edit     = $group.find( '.edit-linked-post-link a' ),
-			edit_link = $edit.attr( 'data-admin-url' ),
-			choice    = 'undefined' === typeof event.added ? {} : event.added;
+		var $select    = $( this );
+		var selectData = $select.select2( 'data' );
+		var $group     = $select.closest( 'tbody' );
+		var $edit      = $group.find( '.edit-linked-post-link a' );
+		var choice     = 'undefined' === typeof event.added ? {} : event.added;
+		var editLink   = '';
+
+		if ( null !== selectData && 'string' === typeof selectData.edit ) {
+			editLink = selectData.edit;
+		}
 
 		// Maybe Hide Edit link
-		if ( _.isEmpty( choice ) ) {
+		if ( _.isEmpty( editLink ) ) {
 			$edit.hide();
 		}
 
@@ -500,8 +400,8 @@ jQuery( document ).ready( function( $ ) {
 			$group.find( '.linked-post' ).hide().find( 'input' ).val( '' );
 
 			// Modify and Show edit link
-			if ( ! _.isEmpty( choice ) ) {
-				$edit.attr( 'href', edit_link + choice.id ).show();
+			if ( ! _.isEmpty( editLink ) ) {
+				$edit.attr( 'href', editLink ).show();
 			}
 		}
 	};
@@ -562,7 +462,7 @@ jQuery( document ).ready( function( $ ) {
 					callback    : function( attr ) {
 						// This is a non-ideal, but very reliable way to look for the closing of the ui-datepicker box,
 						// since onClose method is often occluded by other plugins, including Events Calender PRO.
-						if ( 
+						if (
 							attr.newValue.indexOf( 'display: none' ) >= 0 ||
 							attr.newValue.indexOf( 'display:none' ) >= 0
 						) {
@@ -584,13 +484,9 @@ jQuery( document ).ready( function( $ ) {
 					var end_date   = new Date( date.setDate( date.getDate() + date_diff ) );
 
 					$end_date
-						.datepicker( 'option', 'minDate', end_date )
+						.datepicker( 'option', 'minDate', $start_date.datepicker( 'getDate' ) )
 						.datepicker( 'setDate', end_date )
 						.datepicker_format;
-				}
-				// If the end date was adjusted, then let's modify the maximum acceptable start date
-				else if ( this.id === 'EventEndDate' ) {
-					$start_date.datepicker( 'option', 'maxDate', date );
 				}
 
 				// fire the change and blur handlers on the field
@@ -628,7 +524,7 @@ jQuery( document ).ready( function( $ ) {
 			$( document.getElementById( '30StartDays' ) ),
 			$( document.getElementById( '31StartDays' ) )
 		];
-		
+
 		var tribeEndDays = [
 			$( document.getElementById( '28EndDays' ) ),
 			$( document.getElementById( '29EndDays' ) ),
@@ -694,11 +590,11 @@ jQuery( document ).ready( function( $ ) {
 	//show state/province input based on first option in countries list, or based on user input of country
 	$( 'body' ).on( 'change', '#EventCountry', function () {
 		var $country        = $( this );
-			$container      = $country.parents( 'div.eventForm' ).eq( 0 ),
-			$state_dropdown = $container.find( '#s2id_StateProvinceSelect' ),
-			$state_select   = $container.find( '#StateProvinceSelect' ),
-			$state_text     = $container.find( '#StateProvinceText' ),
-			country         = $( this ).val();
+		var $container      = $country.parents( 'div.eventForm' ).eq( 0 );
+		var $state_dropdown = $container.find( '#s2id_StateProvinceSelect' );
+		var $state_select   = $container.find( '#StateProvinceSelect' );
+		var $state_text     = $container.find( '#StateProvinceText' );
+		var country         = $( this ).val();
 
 		if ( country == 'US' || country == 'United States' ) {
 			$state_text.hide();

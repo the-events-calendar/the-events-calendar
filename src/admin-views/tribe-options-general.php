@@ -64,11 +64,11 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 			'validation_type' => 'boolean',
 		),
 		'unprettyPermalinksUrl'         => array(
-			'type'  => 'html',
+			'type'  => 'wrapped_html',
 			'label' => esc_html__( 'Events URL slug', 'the-events-calendar' ),
 			'html'  => '<p>'
 				. sprintf(
-					__( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is %1$s. In order to edit the slug here, <a href="%2$s">enable pretty permalinks</a>.', 'the-events-calendar' ),
+					__( 'The current URL for your events page is %1$s. <br><br> You cannot edit the slug for your events page as you do not have pretty permalinks enabled. In order to edit the slug here, <a href="%2$s">enable pretty permalinks</a>.', 'the-events-calendar' ),
 					sprintf (
 						'<a href="%1$s">%2$s</a>',
 						esc_url( $tec->getLink( 'home' ) ),
@@ -88,7 +88,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 		),
 		'current-events-slug'           => array(
 			'type'        => 'html',
-			'html'        => '<p class="tribe-field-indent tribe-field-description description">' . esc_html__( 'The slug used for building the events URL.', 'the-events-calendar' ) . sprintf( esc_html__( 'Your current events URL is: %s', 'the-events-calendar' ), '<code><a href="' . esc_url( tribe_get_events_link() ) . '">' . tribe_get_events_link() . '</a></code>' ) . '</p>',
+			'html'        => '<p class="tribe-field-indent tribe-field-description description">' . esc_html__( 'The slug used for building the events URL.', 'the-events-calendar' ) . sprintf( esc_html__( 'Your current events URL is: %s', 'the-events-calendar' ), '<code><a href="' . esc_url( tribe_get_events_link() ) . '">' . urldecode( tribe_get_events_link() ) . '</a></code>' ) . '</p>',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 		),
 		'ical-info'                     => array(
@@ -105,7 +105,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 		),
 		'current-single-event-slug'     => array(
 			'type'        => 'html',
-			'html'        => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'The above should ideally be plural, and this singular.<br />Your single event URL is: %s', 'the-events-calendar' ), '<code>' . trailingslashit( home_url() ) . tribe_get_option( 'singleEventSlug', 'event' ) . '/single-post-name/</code>' ) . '</p>',
+			'html'        => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'The above should ideally be plural, and this singular.<br />Your single event URL is: %s', 'the-events-calendar' ), '<code>' . trailingslashit( home_url() ) . urldecode( tribe_get_option( 'singleEventSlug', 'event' ) ) . '/single-post-name/</code>' ) . '</p>',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 		),
 		'multiDayCutoff'                => array(

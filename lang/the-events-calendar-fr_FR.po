@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-09-10 12:13:25+0000\n"
+"PO-Revision-Date: 2017-11-03 12:18:36+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -80,7 +80,7 @@ msgstr "La réponse du serveur Event Aggregator a été mal formée et n’a pu 
 
 #: common/src/Tribe/Plugins_API.php:37
 msgid "Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support."
-msgstr "Importez des évènements sur le web ! Event Aggregator facilite l’exécution des imports programmés ou manuels depuis Facebook, Meetup, Google Calendar et iCalendar, ainsi les mises en ligne à partir de fichiers CSV ou ICS. Vous pouvez aussi importer directement depuis d’autres sites qui utilisent The Events Calendar grâce à notre support intégré de l’API REST."
+msgstr "Importez des évènements sur le web ! Event Aggregator facilite l’exécution des imports programmés ou manuels depuis Facebook, Meetup, Google Calendar et iCalendar, ainsi les téléversements à partir de fichiers CSV ou ICS. Vous pouvez aussi importer directement depuis d’autres sites qui utilisent The Events Calendar grâce à notre support intégré de l’API REST."
 
 #: src/Tribe/Linked_Posts.php:923 src/Tribe/Linked_Posts.php:929
 msgid "Create or Find %s"
@@ -1953,11 +1953,11 @@ msgstr "Les imports ponctuels incluent tous les évènements actuellement réper
 
 #: src/admin-views/aggregator/origins/ics.php:10
 msgid "Upload an ICS File"
-msgstr "Mettre en ligne un fichier ICS"
+msgstr "Téléverser un fichier ICS"
 
 #: src/admin-views/aggregator/origins/ics.php:7
 msgid "Select your ICS file from the WordPress media library. You may need to first upload the file from your computer to the library."
-msgstr "Sélectionnez votre fichier ICS depuis la bibliothèque WordPress des médias. Vous aurez surement à mettre en ligne le fichier auparavant."
+msgstr "Sélectionnez votre fichier ICS depuis la bibliothèque WordPress des médias. Vous aurez surement à téléverser le fichier auparavant."
 
 #: src/admin-views/aggregator/origins/ics.php:6
 msgid "Choose File"
@@ -2086,16 +2086,16 @@ msgstr "Aucun fichier choisi"
 
 #: src/admin-views/aggregator/origins/csv.php:43
 msgid "Upload a CSV File"
-msgstr "Mettre en ligne un fichier CSV"
+msgstr "Téléverser un fichier CSV"
 
 #: src/admin-views/aggregator/origins/csv.php:42
 #: src/admin-views/aggregator/origins/ics.php:9
 msgid "Upload"
-msgstr "Mettre en ligne"
+msgstr "Téléverser"
 
 #: src/admin-views/aggregator/origins/csv.php:41
 msgid "Select your .CSV file from the WordPress media library. You may need to first upload the file from your computer to the library."
-msgstr "Sélectionnez votre fichier .CSV depuis la bibliothèque de médias WordPress. Vous devrez d’abord mettre en ligne le fichier depuis votre ordinateur vers la bibliothèque."
+msgstr "Sélectionnez votre fichier .CSV depuis la bibliothèque de médias WordPress. Vous devrez d’abord téléverser le fichier depuis votre ordinateur vers la bibliothèque."
 
 #: src/admin-views/aggregator/origins/csv.php:40
 msgid "Choose a CSV file"
@@ -3121,7 +3121,7 @@ msgstr "L’enregistrement d’import doit être finalisé avant que l’évène
 
 #: src/Tribe/Aggregator/Errors.php:68
 msgid "The CSV file cannot be found. You may need to re-upload the file."
-msgstr "Le fichier CSV n’a pas été trouvé. Vous devriez le mettre de nouveau en ligne."
+msgstr "Le fichier CSV n’a pas été trouvé. Vous devriez le téléverser de nouveau."
 
 #: src/Tribe/Aggregator/Errors.php:67
 msgid "You must map columns from the CSV file to specific fields in order to perform a CSV import."
@@ -3724,7 +3724,7 @@ msgstr ""
 
 #: src/io/csv/admin-views/import.php:59
 msgid "Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file is UTF-8 encoded? Make sure to specify the character encoding when you save the file, or pass it through a %sconversion tool%s."
-msgstr "Mettre en ligne un fichier CSV, correctement formaté en UTF-8. Vous ne savez pas si votre fichier est codé en UTF-8 ? Assurez-vous de spécifier le codage de caractères lorsque vous enregistrez le fichier, ou passer à travers un %soutil de conversion%s."
+msgstr "Téléverser un fichier CSV, correctement formaté en UTF-8. Vous ne savez pas si votre fichier est codé en UTF-8 ? Assurez-vous de spécifier le codage de caractères lorsque vous enregistrez le fichier, ou passer à travers un %s outil de conversion%s."
 
 #: src/io/csv/admin-views/import.php:36
 msgid "Questions? %sWatch the video%s."

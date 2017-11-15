@@ -18,7 +18,7 @@ class Tribe__Events__Asset__Calendar_Script extends Tribe__Events__Asset__Abstra
 		/**
 		 * Allows for easier filtering of the "Export Events" iCal link URL.
 		 *
-		 * @since TBD
+		 * @since 4.6.5
 		 *
 		 * @see tribe_get_ical_link
 		 * @param boolean $force Defaults to false; when true, the dynamic JS generation of the "Export Events" URL is disabled.

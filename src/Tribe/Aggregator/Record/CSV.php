@@ -1,10 +1,10 @@
 <?php
 
 class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__Record__Abstract {
-	private $state = '';
-	private $output = '';
+	private $state    = '';
+	private $output   = '';
 	private $messages = array();
-	private $errors = array();
+	private $errors   = array();
 
 	public $origin = 'csv';
 
@@ -21,7 +21,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 	 */
 	public function create( $type = 'manual', $args = array(), $meta = array() ) {
 		$defaults = array(
-			'file'   => empty( $this->meta['file'] ) ? null : $this->meta['file'],
+			'file' => empty( $this->meta['file'] ) ? null : $this->meta['file'],
 		);
 
 		$meta = wp_parse_args( $meta, $defaults );
@@ -39,17 +39,18 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		);
 
 		$data = $this->get_csv_data();
+
 		$result = array(
-			'status' => 'success',
+			'status'       => 'success',
 			'message_code' => 'success',
-			'data' => array(
+			'data'         => array(
 				'import_id' => $this->id,
-				'items' => $data,
+				'items'     => $data,
 			),
 		);
 
 		$first_row = reset( $data );
-		$columns = array_keys( $first_row );
+		$columns   = array_keys( $first_row );
 
 		$result['data']['columns'] = $columns;
 
@@ -84,18 +85,19 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 
 		$content_type = str_replace( 'tribe_', '', $this->meta['content_type'] );
 
-		$file_path = get_attached_file( absint( $this->meta['file'] ) );
+		$file_path   = get_attached_file( absint( $this->meta['file'] ) );
 		$file_reader = new Tribe__Events__Importer__File_Reader( $file_path );
-		$importer = Tribe__Events__Importer__File_Importer::get_importer( $content_type, $file_reader );
+		$importer    = Tribe__Events__Importer__File_Importer::get_importer( $content_type, $file_reader );
 
 		$this->update_meta( 'source_name', basename( $file_path ) );
 
-		$rows = $importer->do_import_preview();
+		$rows    = $importer->do_import_preview();
 		$headers = array_shift( $rows );
-		$data = array();
+		$data    = array();
 
 		foreach ( $rows as $row ) {
 			$item = array();
+
 			foreach ( $headers as $key => $header ) {
 				$item[ $header ] = $row[ $key ];
 			}
@@ -127,8 +129,8 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		}
 
 		$importer = $this->prep_import_data( $data );
+		$queue    = new Tribe__Events__Aggregator__Record__Queue( $this->post->ID, $importer );
 
-		$queue = new Tribe__Events__Aggregator__Record__Queue( $this->post->ID, $importer );
 		return $queue->process();
 	}
 
@@ -179,7 +181,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		}
 
 		$required_fields = $importer->get_required_fields();
-		$missing = array_diff( $required_fields, $data['column_map'] );
+		$missing         = array_diff( $required_fields, $data['column_map'] );
 
 		if ( ! empty( $missing ) ) {
 			$mapper = new Tribe__Events__Importer__Column_Mapper( $content_type );
@@ -208,9 +210,10 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		if ( ! $this->importer ) {
 			$content_type = $this->get_csv_content_type();
 
-			$file_path = get_attached_file( absint( $this->meta['file'] ) );
-			$file_reader = new Tribe__Events__Importer__File_Reader( $file_path );
+			$file_path      = get_attached_file( absint( $this->meta['file'] ) );
+			$file_reader    = new Tribe__Events__Importer__File_Reader( $file_path );
 			$this->importer = Tribe__Events__Importer__File_Importer::get_importer( $content_type, $file_reader );
+
 			$this->importer->set_map( get_option( 'tribe_events_import_column_mapping_' . $content_type, array() ) );
 			$this->importer->set_type( $content_type );
 			$this->importer->set_limit( absint( apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size ) ) );
@@ -288,12 +291,13 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 	}
 
 	public function continue_import() {
-		$importer = $this->get_importer();
-		$importer->is_aggregator = true;
+		$importer                    = $this->get_importer();
+		$importer->is_aggregator     = true;
 		$importer->aggregator_record = $this;
-		$importer = $this->maybe_set_default_category( $importer );
-		$importer = $this->maybe_set_default_post_status( $importer );
-		$offset = (int) get_option( 'tribe_events_importer_offset', 1 );
+		$importer                    = $this->maybe_set_default_category( $importer );
+		$importer                    = $this->maybe_set_default_post_status( $importer );
+		$offset                      = (int) get_option( 'tribe_events_importer_offset', 1 );
+
 		if ( -1 === $offset ) {
 			$this->state = 'complete';
 			$this->clean_up_after_import();
