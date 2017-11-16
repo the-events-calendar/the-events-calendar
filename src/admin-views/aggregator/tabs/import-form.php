@@ -150,6 +150,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 ?>
 <div class="tribe-ea-table-container tribe-preview-container">
 	<div class="tribe-fetch-error-message"></div>
+	<div class="tribe-fetch-warning-message"></div>
 	<div class="spinner-container">
 		<span class="spinner tribe-ea-active"></span>
 		<span class="spinner-message"></span>
