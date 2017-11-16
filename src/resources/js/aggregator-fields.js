@@ -154,6 +154,9 @@ tribe_aggregator.fields = {
 	obj.preview_import = function() {
 		obj.reset_polling_counter();
 
+		// clear the warning area
+		var $message_container = $( '.tribe-fetch-warning-message' ).html( '' );
+
 		// when generating data for previews, temporarily remove the post ID and import ID values from their fields
 		var $post_id = $( '#tribe-post_id' );
 		$post_id.data( 'value', $post_id.val() );
@@ -297,6 +300,17 @@ tribe_aggregator.fields = {
 		} );
 
 		jqxhr.done( function( response ) {
+			if ( 'undefined' !== typeof response.data.warning && response.data.warning ) {
+				var warning_message = response.data.warning;
+
+				obj.display_fetch_warning( [
+					'<b>',
+					ea.l10n.preview_fetch_warning_prefix,
+					'</b>',
+					' ' + warning_message
+				].join( ' ' ) );
+			}
+
 			if ( ! response.success ) {
 				var error_message;
 
@@ -313,17 +327,6 @@ tribe_aggregator.fields = {
 					' ' + error_message
 				].join( ' ' ) );
 				return;
-			}
-
-			if ( 'undefined' !== typeof response.data.warning && response.data.warning ) {
-				var warning_message = response.data.warning;
-
-				obj.display_fetch_warning( [
-					'<b>',
-					ea.l10n.preview_fetch_warning_prefix,
-					'</b>',
-					' ' + warning_message
-				].join( ' ' ) );
 			}
 
 			if ( 'error' === response.data.status ) {
