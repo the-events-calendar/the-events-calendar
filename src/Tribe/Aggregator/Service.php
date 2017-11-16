@@ -550,6 +550,8 @@ class Tribe__Events__Aggregator__Service {
 			'success:queued' => __( 'Import queued', 'the-events-calendar' ),
 			'error:invalid-other-url' => __( 'Events could not be imported. The URL provided could not be reached.', 'the-events-calendar' ),
 			'error:no-results' => __( 'The requested source does not have any upcoming and published events matching the search criteria.', 'the-events-calendar' ),
+			'error:ical-missing-uids-schedule'   => __( 'Some events defined by the requested source are missing the UID attribute which is required by the iCal format standard, because of this the import cannot be scheduled as it would generate duplicate events on each import. Please contact the source provider to solve the issue.', 'the-events-calendar' ),
+			'warning:ical-missing-uids-manual'   => __( 'Some events defined by the requested source are missing the UID attribute which is required by the iCal format standard, because of this one-time and .ics file imports are allowed but successive imports will produce duplicated events. Please contact the source provider to solve the issue.', 'the-events-calendar' ),
 		);
 
 		/**
