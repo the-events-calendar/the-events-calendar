@@ -32,7 +32,12 @@ class Tribe__Events__iCal {
 		$separator  = _x( '&raquo;', 'feed link', 'the-events-calendar' );
 		$feed_title = sprintf( esc_html__( '%1$s %2$s iCal Feed', 'the-events-calendar' ), get_bloginfo( 'name' ), $separator );
 
-		printf( '<link rel="alternate" type="text/calendar" title="%s" href="%s" />', esc_attr( $feed_title ), esc_url( tribe_get_ical_link() ) );
+		printf(
+			'<link rel="alternate" type="text/calendar" title="%s" href="%s" />',
+			esc_attr( $feed_title ),
+			esc_url( tribe_get_ical_link() )
+		);
+
 		echo "\n";
 	}
 
@@ -128,9 +133,13 @@ class Tribe__Events__iCal {
 		 */
 		$text  = apply_filters( 'tribe_events_ical_export_text', esc_html__( 'Export Events', 'the-events-calendar' ) );
 		$title = esc_html__( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'the-events-calendar' );
-		$ical  = '<a class="tribe-events-ical tribe-events-button" title="' . $title . '" href="' . esc_url( tribe_get_ical_link() ) . '">+ ' . $text . '</a>';
 
-		echo $ical;
+		printf(
+			'<a class="tribe-events-ical tribe-events-button" title="%1$s" href="%2$s">+ %3$s</a>',
+			$title,
+			esc_url( tribe_get_ical_link() ),
+			$text
+		);
 	}
 
 	/**

@@ -152,6 +152,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				do_action( 'tribe_after_get_template_part', $template, $file, $slug, $name );
 				$html = ob_get_clean();
 				echo apply_filters( 'tribe_get_template_part_content', $html, $template, $file, $slug, $name );
+				break; // We found our template, no need to continue the loop
 			}
 		}
 		do_action( 'tribe_post_get_template_part_' . $slug, $slug, $name, $data );

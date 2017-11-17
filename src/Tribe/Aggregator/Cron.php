@@ -326,8 +326,9 @@ class Tribe__Events__Aggregator__Cron {
 
 			// if there are no remaining imports for today, log that and skip
 			if ( $service->is_over_limit( true ) ) {
-				tribe( 'logger' )->log_debug( sprintf( $service->get_service_message( 'error:usage-limit-exceeded' ) . ' (%1$d)', $record->id ),
-					'EA Cron' );
+				$import_limit     = $service->get_limit( 'import' );
+				$service_template = $service->get_service_message( 'error:usage-limit-exceeded', array( $import_limit ) );
+				tribe( 'logger' )->log_debug( sprintf( $service_template . ' (%1$d)', $record->id ), 'EA Cron' );
 				$record->update_meta( 'last_import_status', 'error:usage-limit-exceeded' );
 				continue;
 			}

@@ -1,6 +1,7 @@
 <?php
 
-$tec = Tribe__Events__Main::instance();
+$tec              = Tribe__Events__Main::instance();
+$site_time_format = get_option( 'time_format' );
 
 $general_tab_fields = Tribe__Main::array_insert_after_key(
 	'info-start',
@@ -63,11 +64,11 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 			'validation_type' => 'boolean',
 		),
 		'unprettyPermalinksUrl'         => array(
-			'type'  => 'html',
+			'type'  => 'wrapped_html',
 			'label' => esc_html__( 'Events URL slug', 'the-events-calendar' ),
 			'html'  => '<p>'
 				. sprintf(
-					__( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is %1$s. In order to edit the slug here, <a href="%2$s">enable pretty permalinks</a>.', 'the-events-calendar' ),
+					__( 'The current URL for your events page is %1$s. <br><br> You cannot edit the slug for your events page as you do not have pretty permalinks enabled. In order to edit the slug here, <a href="%2$s">enable pretty permalinks</a>.', 'the-events-calendar' ),
 					sprintf (
 						'<a href="%1$s">%2$s</a>',
 						esc_url( $tec->getLink( 'home' ) ),
@@ -87,7 +88,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 		),
 		'current-events-slug'           => array(
 			'type'        => 'html',
-			'html'        => '<p class="tribe-field-indent tribe-field-description description">' . esc_html__( 'The slug used for building the events URL.', 'the-events-calendar' ) . sprintf( esc_html__( 'Your current events URL is: %s', 'the-events-calendar' ), '<code><a href="' . esc_url( tribe_get_events_link() ) . '">' . tribe_get_events_link() . '</a></code>' ) . '</p>',
+			'html'        => '<p class="tribe-field-indent tribe-field-description description">' . esc_html__( 'The slug used for building the events URL.', 'the-events-calendar' ) . sprintf( esc_html__( 'Your current events URL is: %s', 'the-events-calendar' ), '<code><a href="' . esc_url( tribe_get_events_link() ) . '">' . urldecode( tribe_get_events_link() ) . '</a></code>' ) . '</p>',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 		),
 		'ical-info'                     => array(
@@ -104,7 +105,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 		),
 		'current-single-event-slug'     => array(
 			'type'        => 'html',
-			'html'        => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'The above should ideally be plural, and this singular.<br />Your single event URL is: %s', 'the-events-calendar' ), '<code>' . trailingslashit( home_url() ) . tribe_get_option( 'singleEventSlug', 'event' ) . '/single-post-name/</code>' ) . '</p>',
+			'html'        => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'The above should ideally be plural, and this singular.<br />Your single event URL is: %s', 'the-events-calendar' ), '<code>' . trailingslashit( home_url() ) . urldecode( tribe_get_option( 'singleEventSlug', 'event' ) ) . '/single-post-name/</code>' ) . '</p>',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 		),
 		'multiDayCutoff'                => array(
@@ -112,20 +113,20 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 			'label'           => esc_html__( 'End of day cutoff', 'the-events-calendar' ),
 			'validation_type' => 'options',
 			'size'            => 'small',
-			'default'         => '12:00',
+			'default'         => date_i18n( $site_time_format, strtotime( '12:00 am' ) ),
 			'options'         => array(
-				'00:00' => '12:00 am',
-				'01:00' => '01:00 am',
-				'02:00' => '02:00 am',
-				'03:00' => '03:00 am',
-				'04:00' => '04:00 am',
-				'05:00' => '05:00 am',
-				'06:00' => '06:00 am',
-				'07:00' => '07:00 am',
-				'08:00' => '08:00 am',
-				'09:00' => '09:00 am',
-				'10:00' => '10:00 am',
-				'11:00' => '11:00 am',
+				'00:00' => date_i18n( $site_time_format, strtotime( '12:00 am' ) ),
+				'01:00' => date_i18n( $site_time_format, strtotime( '01:00 am' ) ),
+				'02:00' => date_i18n( $site_time_format, strtotime( '02:00 am' ) ),
+				'03:00' => date_i18n( $site_time_format, strtotime( '03:00 am' ) ),
+				'04:00' => date_i18n( $site_time_format, strtotime( '04:00 am' ) ),
+				'05:00' => date_i18n( $site_time_format, strtotime( '05:00 am' ) ),
+				'06:00' => date_i18n( $site_time_format, strtotime( '06:00 am' ) ),
+				'07:00' => date_i18n( $site_time_format, strtotime( '07:00 am' ) ),
+				'08:00' => date_i18n( $site_time_format, strtotime( '08:00 am' ) ),
+				'09:00' => date_i18n( $site_time_format, strtotime( '09:00 am' ) ),
+				'10:00' => date_i18n( $site_time_format, strtotime( '10:00 am' ) ),
+				'11:00' => date_i18n( $site_time_format, strtotime( '11:00 am' ) ),
 			),
 		),
 		'multiDayCutoffHelper'          => array(
