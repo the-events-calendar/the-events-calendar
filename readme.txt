@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, aguseo, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.4
-Tested up to: 4.8.4
+Stable tag: 4.6.5
+Tested up to: 4.9
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -307,6 +307,11 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * <a href="https://profiles.wordpress.org/users/thatdudebutch">Wayne Stratton</a>
 
 == Changelog ==
+
+= [4.6.5] TBD =
+
+* Feature - Added Template class which adds a few layers of filtering to any template file included
+* Tweak - Included `tribe_callback_return` for static returns for Hooks
 
 = [4.6.4] 2017-11-09 =
 
