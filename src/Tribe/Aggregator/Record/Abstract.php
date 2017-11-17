@@ -2128,14 +2128,21 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return int The user ID or `0` (not logged in user) if not possible.
 	 */
 	protected function get_default_user_id() {
-		$current_user_id = get_current_user_id();
+		$post_type_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 
-		if ( 0 !== $current_user_id ) {
+		// try the record author
+		if ( ! empty( $this->post->post_author ) && user_can( $this->post->post_author, $post_type_object->cap->edit_posts ) ) {
+			return $this->post->post_author;
+		}
+
+		// try the current user
+		$current_user_id = get_current_user_id();
+		if ( ! empty( $current_user_id ) && current_user_can( $post_type_object->cap->edit_posts ) ) {
 			return $current_user_id;
 		}
 
+		// let's try and find a legit author among the available event authors
 		$authors          = get_users( array( 'who' => 'authors' ) );
-		$post_type_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 		foreach ( $authors as $author ) {
 			if ( user_can( $author, $post_type_object->cap->edit_posts ) ) {
 				return $author->ID;
