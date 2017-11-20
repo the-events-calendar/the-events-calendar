@@ -450,10 +450,10 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		if ( is_wp_error( $result ) ) {
 			/** @var Tribe__Events__Aggregator__Service $service */
-			$service = tribe( 'events-aggregator.service' );
-			$result  = (object) array(
+			$service      = tribe( 'events-aggregator.service' );
+			$result       = (object) array(
 				'message_code' => $result->get_error_code(),
-				'message'      => $service->get_service_message( $result->get_error_code() ),
+				'message'      => $service->get_service_message( $result->get_error_code(), $result->get_error_data() ),
 			);
 			wp_send_json_error( $result );
 		}
