@@ -557,7 +557,7 @@ class Tribe__Events__Aggregator__Service {
 			'error:no-results' => __( 'The requested source does not have any upcoming and published events matching the search criteria.', 'the-events-calendar' ),
 			'error:ical-missing-uids-schedule'   => sprintf(
 				_x(
-					'Some events at the requested source are missing the UID attribute required by the iCalendar Specification. Creating a scheduled import would generate duplicate events on each import. Instead, please use a one-time import or contact the source provider to fix the UID issue; linking them to %s may help them more quickly resolve their feed\'s UID issue.',
+					'Some events at the requested source are missing the UID attribute required by the iCalendar Specification. Creating a scheduled import would generate duplicate events on each import. Instead, please use a One-Time import or contact the source provider to fix the UID issue; linking them to %s may help them more quickly resolve their feed\'s UID issue.',
 					'The placeholder is for the localized version of the iCal UID specification link',
 					'the-events-calendar'
 				),
@@ -565,7 +565,7 @@ class Tribe__Events__Aggregator__Service {
 			),
 			'warning:ical-missing-uids-manual'   => sprintf(
 				_x(
-					'Some events at the requested source are missing the UID attribute required by the iCalendar Specification. One-time and .ics file imports are allowed but successive imports will create duplicated events on your site. Please contact the source provider to fix the UID issue; linking them to %s may help them more quickly resolve their feed\'s UID issue.',
+					'Some events at the requested source are missing the UID attribute required by the iCalendar Specification. One-Time and ICS File imports are allowed but successive imports will create duplicated events on your site. Please contact the source provider to fix the UID issue; linking them to %s may help them more quickly resolve their feed\'s UID issue.',
 					'The placeholder is for the localized version of the iCal UID specification link',
 					'the-events-calendar' ),
 				$ical_uid_specification_link
