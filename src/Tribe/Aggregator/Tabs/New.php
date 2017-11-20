@@ -493,6 +493,14 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			}
 		}
 
+		// if there is a warning in the data let's localize it
+		if ( ! empty( $result->warning_code ) ) {
+			/** @var Tribe__Events__Aggregator__Service $service */
+			$service         = tribe( 'events-aggregator.service' );
+			$default_warning = ! empty( $result->warning ) ? $result->warning : null;
+			$result->warning = $service->get_service_message( $result->warning_code, array(), $default_warning );
+		}
+
 		wp_send_json_success( $result );
 	}
 
