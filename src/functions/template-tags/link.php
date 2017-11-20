@@ -108,12 +108,20 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Returns a link to the events URL
 	 *
+	 * @param string $context Optional; defaults to 'href'. Can be 'display', in which case non-latin chars are not url-encoded.
 	 * @return string URL
 	 */
-	function tribe_get_events_link() {
+	function tribe_get_events_link( $context = 'href' ) {
 		$plugin = Tribe__Events__Main::instance();
-
-		return apply_filters( 'tribe_get_events_link', $plugin->getLink( 'home' ) );
+		/**
+		 * Allows for filtering the main events link.
+		 *
+		 * Returns a link to the events URL
+		 *
+		 * @param string $link The main events link.
+		 * @param string $context Defaults to 'href'. Can also be 'display', in which case non-latin chars are not url-encoded.
+		 */
+		return apply_filters( 'tribe_get_events_link', $plugin->getLink( 'home' ), $context );
 	}
 
 	/**

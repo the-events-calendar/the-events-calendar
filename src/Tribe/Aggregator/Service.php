@@ -431,19 +431,19 @@ class Tribe__Events__Aggregator__Service {
 	 * @param string $type Type of limits to return
 	 * @param boolean $ignore_cache Whether or not cache should be ignored when fetching the value
 	 *
-	 * @return array
+	 * @return array|int Either an array detailing the limit information (used, remaining) or `0` if
+	 *                   the limit for the specified type could not be determined.
 	 */
 	public function get_limit( $type, $ignore_cache = false ) {
 		if ( false === $this->origins || $ignore_cache ) {
-			$origins = (object) $this->get_origins();
-			$this->origins = $origins;
+			$this->origins = ( (object) $this->get_origins() );
 		}
 
-		if ( ! isset( $origins->limit->$type ) ) {
+		if ( ! isset( $this->origins->limit->$type ) ) {
 			return 0;
 		}
 
-		return $origins->limit->$type;
+		return $this->origins->limit->$type;
 	}
 
 	/**
