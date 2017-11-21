@@ -731,13 +731,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'success:create-import' != $response->message_code
 			&& 'queued' != $response->message_code
 		) {
+			$data = ! empty( $response->data ) ? $response->data : array();
+
 			$error = new WP_Error(
 				$response->message_code,
 				Tribe__Events__Aggregator__Errors::build(
 					esc_html__( $response->message, 'the-events-calendar' ),
-					empty( $response->data->message_args ) ? array() : $response->data->message_args
-				)
+					$data
+				),
+				$data
 			);
+
 			return $this->set_status_as_failed( $error );
 		}
 

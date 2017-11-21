@@ -311,7 +311,9 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 = [4.6.6] TBD =
 
 * Feature - Added Template class which adds a few layers of filtering to any template file included
+* Tweak - Add clear warnings and errors to prevent and limit the import of iCalendar sources missing required fields [93600]
 * Tweak - Included `tribe_callback_return` for static returns for Hooks
+* Tweak - Improve Aggregator notices including error data on the responses [87326]
 * Language - 4 new strings added, 79 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.6.5] 2017-11-16 =

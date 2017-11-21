@@ -154,6 +154,9 @@ tribe_aggregator.fields = {
 	obj.preview_import = function() {
 		obj.reset_polling_counter();
 
+		// clear the warning area
+		var $message_container = $( '.tribe-fetch-warning-message' ).html( '' );
+
 		// when generating data for previews, temporarily remove the post ID and import ID values from their fields
 		var $post_id = $( '#tribe-post_id' );
 		$post_id.data( 'value', $post_id.val() );
@@ -297,20 +300,31 @@ tribe_aggregator.fields = {
 		} );
 
 		jqxhr.done( function( response ) {
+			if ( 'undefined' !== typeof response.data.warning && response.data.warning ) {
+				var warning_message = response.data.warning;
+
+				obj.display_fetch_warning( [
+					'<b>',
+					ea.l10n.preview_fetch_warning_prefix,
+					'</b>',
+					' ' + warning_message
+				].join( ' ' ) );
+			}
+
 			if ( ! response.success ) {
-				var message;
+				var error_message;
 
 				if ( 'undefined' !== typeof response.data.message ) {
-					message = response.data.message;
+					error_message = response.data.message;
 				} else if ( 'undefined' !== typeof response.data[0].message ) {
-					message = response.data[0].message;
+					error_message = response.data[0].message;
 				}
 
 				obj.display_fetch_error( [
 					'<b>',
 						ea.l10n.preview_fetch_error_prefix,
 					'</b>',
-					' ' + message
+					' ' + error_message
 				].join( ' ' ) );
 				return;
 			}
@@ -552,7 +566,20 @@ tribe_aggregator.fields = {
 	};
 
 	/**
-	 * displays an error to a container on the page
+	 * Displays a fetch warning
+	 */
+	obj.display_fetch_warning = function( message ) {
+		var $message_container = $( '.tribe-fetch-warning-message' );
+		obj.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetch-warning' );
+
+		// clear out the error message area
+		$message_container.html('');
+
+		obj.display_warning( $message_container, message );
+	};
+
+	/**
+	 * Displays an error to a container on the page
 	 */
 	obj.display_error = function( $container, message ) {
 		$container.prepend(
@@ -561,6 +588,21 @@ tribe_aggregator.fields = {
 					'<p>',
 						message,
 					'</p>',
+				'</div>'
+			].join( '' )
+		);
+	};
+
+	/**
+	 * Displays a warning to a container on the page
+	 */
+	obj.display_warning = function( $container, message ) {
+		$container.prepend(
+			[
+				'<div class="notice notice-warning">',
+				'<p>',
+				message,
+				'</p>',
 				'</div>'
 			].join( '' )
 		);
