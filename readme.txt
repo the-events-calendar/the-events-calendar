@@ -312,6 +312,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 * Feature - Added Template class which adds a few layers of filtering to any template file included
 * Tweak - Included `tribe_callback_return` for static returns for Hooks
+* Language - 4 new strings added, 79 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.6.5] 2017-11-16 =
 
