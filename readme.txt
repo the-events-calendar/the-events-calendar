@@ -308,7 +308,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
-= [4.6.6] TBD =
+= [4.6.6] 2017-11-21 =
 
 * Feature - Added Template class which adds a few layers of filtering to any template file included
 * Tweak - Add clear warnings and errors to prevent and limit the import of iCalendar sources missing required fields [93600]
