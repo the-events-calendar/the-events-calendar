@@ -308,6 +308,10 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
+= [4.6.8 | M17.25] TBD =
+
+* Fix - Ensure the correct properties are set for list widget queries, to avoid problems when running alongside Events Calendar PRO (props @KZeni) [94105]
+
 = [4.6.6] 2017-11-21 =
 
 * Feature - Added Template class which adds a few layers of filtering to any template file included
