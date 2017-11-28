@@ -431,19 +431,19 @@ class Tribe__Events__Aggregator__Service {
 	 * @param string $type Type of limits to return
 	 * @param boolean $ignore_cache Whether or not cache should be ignored when fetching the value
 	 *
-	 * @return array
+	 * @return array|int Either an array detailing the limit information (used, remaining) or `0` if
+	 *                   the limit for the specified type could not be determined.
 	 */
 	public function get_limit( $type, $ignore_cache = false ) {
 		if ( false === $this->origins || $ignore_cache ) {
-			$origins = (object) $this->get_origins();
-			$this->origins = $origins;
+			$this->origins = ( (object) $this->get_origins() );
 		}
 
-		if ( ! isset( $origins->limit->$type ) ) {
+		if ( ! isset( $this->origins->limit->$type ) ) {
 			return 0;
 		}
 
-		return $origins->limit->$type;
+		return $this->origins->limit->$type;
 	}
 
 	/**
@@ -525,6 +525,11 @@ class Tribe__Events__Aggregator__Service {
 	 * here so that they can be translated.
 	 */
 	protected function register_messages() {
+		$ical_uid_specification_link = sprintf(
+			'<a target="_blank" href="https://tools.ietf.org/html/rfc5545#section-3.8.4.7">%s</a>',
+			esc_html__( 'the UID part of the iCalendar Specification', 'the-events-calendar' )
+		);
+
 		$this->service_messages = array(
 			'error:create-import-failed' => __( 'Sorry, but something went wrong. Please try again.', 'the-events-calendar' ),
 			'error:create-import-invalid-params' => __( 'Events could not be imported. The import parameters were invalid.', 'the-events-calendar' ),
@@ -550,6 +555,21 @@ class Tribe__Events__Aggregator__Service {
 			'success:queued' => __( 'Import queued', 'the-events-calendar' ),
 			'error:invalid-other-url' => __( 'Events could not be imported. The URL provided could not be reached.', 'the-events-calendar' ),
 			'error:no-results' => __( 'The requested source does not have any upcoming and published events matching the search criteria.', 'the-events-calendar' ),
+			'error:ical-missing-uids-schedule'   => sprintf(
+				_x(
+					'Some events at the requested source are missing the UID attribute required by the iCalendar Specification. Creating a scheduled import would generate duplicate events on each import. Instead, please use a One-Time import or contact the source provider to fix the UID issue; linking them to %s may help them more quickly resolve their feed\'s UID issue.',
+					'The placeholder is for the localized version of the iCal UID specification link',
+					'the-events-calendar'
+				),
+				$ical_uid_specification_link
+			),
+			'warning:ical-missing-uids-manual'   => sprintf(
+				_x(
+					'Some events at the requested source are missing the UID attribute required by the iCalendar Specification. One-Time and ICS File imports are allowed but successive imports will create duplicated events on your site. Please contact the source provider to fix the UID issue; linking them to %s may help them more quickly resolve their feed\'s UID issue.',
+					'The placeholder is for the localized version of the iCal UID specification link',
+					'the-events-calendar' ),
+				$ical_uid_specification_link
+			),
 		);
 
 		/**

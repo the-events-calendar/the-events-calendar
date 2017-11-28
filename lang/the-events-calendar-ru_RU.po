@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-11-04 10:11:51+0000\n"
+"PO-Revision-Date: 2017-11-17 08:37:12+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -809,7 +809,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:290
 msgid "three weeks"
-msgstr ""
+msgstr "три недели"
 
 #: src/Tribe/Aggregator/Service.php:536
 msgid "Events could not be imported. The URL provided did not have events in the proper format."
@@ -2421,11 +2421,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:530
 msgid "Learn More"
-msgstr ""
+msgstr "Узнать больше"
 
 #: src/Tribe/Aggregator/Tabs/New.php:525 src/Tribe/Aggregator/Tabs/New.php:532
 msgid "opens in a new window"
-msgstr ""
+msgstr "открывается в новом окне"
 
 #: src/Tribe/Aggregator/Tabs/New.php:523
 msgid "Buy It Now"
@@ -2547,7 +2547,7 @@ msgstr[2] ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:205
 msgid "1 import was scheduled."
-msgstr ""
+msgstr "1 импортирование было запланировано."
 
 #: src/Tribe/Aggregator/Tabs/New.php:81
 msgid "New Import"
@@ -2555,52 +2555,52 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/History.php:93
 msgid "History"
-msgstr ""
+msgstr "История"
 
 #: src/Tribe/Aggregator/Tabs/History.php:55
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:57
 msgid "Records per page"
-msgstr ""
+msgstr "Записей на страницу"
 
 #: src/Tribe/Aggregator/Tabs/Favorite.php:37
 msgid "Favorite Imports"
-msgstr ""
+msgstr "Избранные импортирования"
 
 #: src/Tribe/Aggregator/Tabs/Edit.php:143
 msgid "Your Scheduled Import has been updated!"
-msgstr ""
+msgstr "Ваше запланированное импортирование обновлено!"
 
 #: src/Tribe/Aggregator/Tabs/Edit.php:137
 msgid "View All Scheduled Imports"
-msgstr ""
+msgstr "Просмотреть все запланированные импортирования"
 
 #: src/Tribe/Aggregator/Tabs/Edit.php:131
 msgid "Scheduled import was successfully updated."
-msgstr ""
+msgstr "Запланированное импортирование было успешно обновлено."
 
 #: src/Tribe/Aggregator/Tabs/Edit.php:52
 msgid "Edit Import"
-msgstr ""
+msgstr "Редактировать импорт"
 
 #: src/Tribe/Aggregator/Tabs/Abstract.php:145
 msgid "Please provide a Meetup URL when importing from Meetup."
-msgstr ""
+msgstr "Укажите URL Meetup при импорте из Meetup."
 
 #: src/Tribe/Aggregator/Tabs/Abstract.php:140
 msgid "Please provide a Facebook URL when importing from Facebook."
-msgstr ""
+msgstr "Укажите URL Facebook при импорте с Facebook."
 
 #: src/Tribe/Aggregator/Tabs/Abstract.php:189
 msgid "Please provide the URL that you wish to import."
-msgstr ""
+msgstr "Укажите URL, который вы хотите импортировать."
 
 #: src/Tribe/Aggregator/Tabs/Abstract.php:135
 msgid "Please provide the file that you wish to import."
-msgstr ""
+msgstr "Укажите файл, который вы хотите импортировать."
 
 #: src/Tribe/Aggregator/Tabs/Abstract.php:59
 msgid "There was a problem processing your import. Please try again."
-msgstr ""
+msgstr "Во время импортирования произошла ошибка. Попробуйте снова."
 
 #: src/Tribe/Aggregator/Service.php:170
 msgid "Connection timed out while transferring the feed. If you are dealing with large feeds you may need to customize the tribe_aggregator_connection_timeout filter."

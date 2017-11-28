@@ -40,7 +40,19 @@
 			break;
 	}
 
+	// CSVs can be imported when EA isn't active, so they're not always governed by Event Authority.
+	// In the case the EA is not active, the "overwrite" behavior is the default; so let's ensure the message reflects that.
+	if ( 'CSV File' === $origin && ! tribe( 'events-aggregator.main' )->is_service_active() ) {
+		$message = __(
+			'If this event is re-imported, event fields will be overwritten with any changes from the source.',
+			'the-events-calendar'
+		);
+	}
+
 	echo esc_html( $message );
-	?>
-	<a href="<?php echo esc_url( $settings_link ); ?>"><?php echo esc_html__( 'Change Event Update Authority', 'the-events-calendar' ); ?></a>
+
+	// CSVs can be imported when EA isn't active, so only mention the Event Authority when appropriate.
+	if ( 'CSV File' !== $origin || tribe( 'events-aggregator.main' )->is_service_active() ) : ?>
+		<a href="<?php echo esc_url( $settings_link ); ?>"><?php echo esc_html__( 'Change Event Update Authority', 'the-events-calendar' ); ?></a>
+	<?php endif; ?>
 </p>

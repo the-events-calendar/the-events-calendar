@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-09-27 19:41:30+0000\n"
+"PO-Revision-Date: 2017-11-15 13:47:40+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3897,16 +3897,16 @@ msgstr ""
 
 #: src/Tribe/Main.php:1014
 msgid "New User Primer"
-msgstr ""
+msgstr "Introduktion för nya användare"
 
 #: src/Tribe/Importer/Admin_Page.php:249 src/Tribe/Importer/Options.php:24
 #: src/Tribe/Importer/Options.php:84
 msgid "This Filter has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: \"%s\" To: \"%s\""
-msgstr ""
+msgstr "Detta filter är föråldrat. För att anpassa till WordPress-standard används nu understrykning(_) i stället för bindestreck (-). Från \"%s\" Till: \"%s\""
 
 #: src/Tribe/Importer/Admin_Page.php:138
 msgid "This Action has been deprecated, to comply with WordPress Standards we are now using Underscores (_) instead of Dashes (-). From: \"%s\" To: \"%s\""
-msgstr ""
+msgstr "Denna åtgärd är föråldrad. För att anpassa till WordPress-standard används nu understrykning(_) i stället för bindestreck (-). Från \"%s\" Till: \"%s\" "
 
 #: src/Tribe/Importer/Admin_Page.php:96
 msgid "Default status to use for imported events"

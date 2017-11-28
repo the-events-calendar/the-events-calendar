@@ -15,6 +15,18 @@ class Tribe__Events__Asset__Calendar_Script extends Tribe__Events__Asset__Abstra
 			'events_base'        => tribe_get_events_link(),
 		);
 
+		/**
+		 * Allows for easier filtering of the "Export Events" iCal link URL.
+		 *
+		 * @since 4.6.5
+		 *
+		 * @see tribe_get_ical_link
+		 * @param boolean $force Defaults to false; when true, the dynamic JS generation of the "Export Events" URL is disabled.
+		 */
+		if ( apply_filters( 'tribe_events_force_filtered_ical_link', false ) ) {
+			$js_config_array['force_filtered_ical_link'] = true;
+		}
+
 		wp_localize_script( $handle, 'tribe_js_config', $js_config_array );
 	}
 }

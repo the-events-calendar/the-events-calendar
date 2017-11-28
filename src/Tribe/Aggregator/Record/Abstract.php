@@ -566,6 +566,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'post_date'      => current_time( 'mysql' ),
 			'post_status'    => Tribe__Events__Aggregator__Records::$status->draft,
 			'post_parent'    => $this->id,
+			'post_author'    => $this->post->post_author,
 			'meta_input'     => array(),
 		);
 
@@ -576,6 +577,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 			$post['meta_input'][ self::$meta_key_prefix . $key ] = $value;
 		}
+
+		// initialize the queue meta entry and set its status to fetching
+		$post['meta_input'][ self::$meta_key_prefix . Tribe__Events__Aggregator__Record__Queue::$queue_key ] = 'fetch';
 
 		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $this->meta['frequency'] ) );
 		if ( ! $frequency ) {
@@ -708,6 +712,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			// if the error is just a reschedule set this record as pending
 			/** @var WP_Error $response */
 			if ( 'core:aggregator:http_request-limit' === $response->get_error_code() ) {
+				$this->should_queue_import( true );
 				return $this->set_status_as_pending();
 			} else {
 				$error = $response;
@@ -726,13 +731,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'success:create-import' != $response->message_code
 			&& 'queued' != $response->message_code
 		) {
+			$data = ! empty( $response->data ) ? $response->data : array();
+
 			$error = new WP_Error(
 				$response->message_code,
 				Tribe__Events__Aggregator__Errors::build(
 					esc_html__( $response->message, 'the-events-calendar' ),
-					empty( $response->data->message_args ) ? array() : $response->data->message_args
-				)
+					$data
+				),
+				$data
 			);
+
 			return $this->set_status_as_failed( $error );
 		}
 
@@ -748,7 +757,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		// store the import id
-		update_post_meta( $this->id, self::$meta_key_prefix . 'import_id', $response->data->import_id );
+		$this->update_meta( 'import_id', $response->data->import_id );
+		$this->should_queue_import( false );
 
 		return $response;
 	}
@@ -1276,8 +1286,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$found_organizers = array();
 		$found_venues     = array();
 
-		$origin = $this->meta['origin'];
-		$show_map_setting = tribe_is_truthy( tribe( 'events-aggregator.settings' )->default_map( $origin ) );
+		$origin                   = $this->meta['origin'];
+		$show_map_setting         = tribe_is_truthy( tribe( 'events-aggregator.settings' )->default_map( $origin ) );
 		$update_authority_setting = tribe( 'events-aggregator.settings' )->default_update_authority( $origin );
 
 		$import_settings = tribe( 'events-aggregator.settings' )->default_settings_import( $origin );
@@ -1291,7 +1301,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			// Set the event ID if it can be set
 			if (
-				$unique_field
+				$this->origin !== 'url'
+				&& $unique_field
 				&& isset( $event[ $unique_field['target'] ] )
 				&& isset( $existing_ids[ $event[ $unique_field['target'] ] ] )
 			) {
@@ -1334,12 +1345,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			if ( $show_map_setting ) {
 				$event['EventShowMap'] = $show_map_setting || (bool) isset( $event['show_map'] );
+
 				if ( $this->has_import_policy_for( $origin, 'show_map_link' ) ) {
 					$event['EventShowMapLink'] = isset( $event['show_map_link'] ) ? (bool) $event['show_map_link'] : $show_map_setting;
 				} else {
 					$event['EventShowMapLink'] = $show_map_setting;
 				}
 			}
+
 			unset( $event['show_map'], $event['show_map_link'] );
 
 			if ( $should_import_settings && isset( $event['hide_from_listings'] ) ) {
@@ -1435,11 +1448,26 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						if ( ! $venue_id ) {
 							$venue_unique_field = $this->get_unique_field( 'venue' );
 
+							/**
+							 * Whether Venues should be additionally searched by title when no match could be found
+							 * using other methods.
+							 *
+							 * @since 4.6.5
+							 *
+							 * @param bool                                        $lookup_venues_by_title
+							 * @param stdClass                                    $item    The event data that is being currently processed, it includes the Venue data
+							 *                                                             if any.
+							 * @param Tribe__Events__Aggregator__Record__Abstract $record  The current record that is processing events.
+							 */
+							$lookup_venues_by_title = apply_filters( 'tribe_aggregator_lookup_venues_by_title', true, $item, $this );
+
 							if ( ! empty( $venue_unique_field ) ) {
 								$target = $venue_unique_field['target'];
 								$value  = $venue_data[ $target ];
 								$venue  = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Venue{$target}", $value );
-							} else {
+							}
+
+							if ( empty( $venue_unique_field ) || ( $lookup_venues_by_title && empty( $venue ) ) ) {
 								$venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Venue::POSTTYPE );
 							}
 
@@ -1669,7 +1697,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				// Log that this event was updated
 				$activity->add( 'event', 'updated', $event['ID'] );
 			} else {
-				if ( isset( $event[ $unique_field['target'] ] ) ) {
+				if ( 'url' !== $this->origin && isset( $event[ $unique_field['target'] ] ) ) {
 					if ( isset( $existing_ids[ $event[ $unique_field['target'] ] ] ) ) {
 						// we should not be here; probably a concurrency issue
 						continue;
@@ -2122,19 +2150,31 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Returns the user ID of the first user that can edit events or the current user ID if available.
 	 *
+	 * During cron runs current user ID will be set to 0; here we try to get a legit author user ID to
+	 * be used as an author using the first non-0 user ID among the record author, the current user, the
+	 * first available event editor.
+	 *
 	 * @since 4.5.11
 	 *
 	 * @return int The user ID or `0` (not logged in user) if not possible.
 	 */
 	protected function get_default_user_id() {
+		$post_type_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
+
+		// try the record author
+		if ( ! empty( $this->post->post_author ) && user_can( $this->post->post_author, $post_type_object->cap->edit_posts ) ) {
+			return $this->post->post_author;
+		}
+
+		// try the current user
 		$current_user_id = get_current_user_id();
 
-		if ( 0 !== $current_user_id ) {
+		if ( ! empty( $current_user_id ) && current_user_can( $post_type_object->cap->edit_posts ) ) {
 			return $current_user_id;
 		}
 
+		// let's try and find a legit author among the available event authors
 		$authors          = get_users( array( 'who' => 'authors' ) );
-		$post_type_object = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 		foreach ( $authors as $author ) {
 			if ( user_can( $author, $post_type_object->cap->edit_posts ) ) {
 				return $author->ID;
@@ -2166,5 +2206,28 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Getter/setter to check/set whether the import for this record should be queued on EA Service or not.
+	 *
+	 * Note this is a passive check: if the meta is not set or set to `false` we assume the import
+	 * should not be queued on EA Service.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $should_queue_import If a value is provided here then the `should_queue_import` meta will
+	 *                                  be set to the boolean representation of that value.
+	 *
+	 * @return bool
+	 */
+	public function should_queue_import( $should_queue_import = null ) {
+		$key = 'should_queue_import';
+
+		if ( null === $should_queue_import ) {
+			return isset( $this->meta[ $key ] ) && true == $this->meta[ $key ];
+		}
+
+		$this->update_meta( $key, (bool) $should_queue_import );
 	}
 }

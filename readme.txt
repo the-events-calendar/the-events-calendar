@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, aguseo, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.6.4
-Tested up to: 4.8.4
+Stable tag: 4.6.6
+Tested up to: 4.9
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -314,6 +314,39 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Added `slug` to the REST API responses for event data [92825]
 * Tweak - Added `slug` to the REST API parameters allowed to use when inserting or updating an event [92825]
 
+= [4.6.6] 2017-11-21 =
+
+* Feature - Added Template class which adds a few layers of filtering to any template file included
+* Tweak - Add clear warnings and errors to prevent and limit the import of iCalendar sources missing required fields [93600]
+* Tweak - Included `tribe_callback_return` for static returns for Hooks
+* Tweak - Improve Aggregator notices including error data on the responses [87326]
+* Language - 4 new strings added, 79 updated, 0 fuzzied, and 0 obsoleted
+
+= [4.6.5] 2017-11-16 =
+
+* Fix - Improved legacy URL redirect logic to prevent unwanted redirects (our thanks to wesleyanhq and Adam Schwartz for highlighting this issue) [86942]
+* Fix - Modified tribe_get_template_part() to remove potential for multiple templates to be rendered in a single call [46630]
+* Fix - Fixed an issue where Event Aggregator scheduled imports might remain stuck in pending status [90501, 92614, 91754]
+* Fix - Removed code which was automatically populating various address fields with default values when creating a new venue from within the event editor [44732]
+* Fix - Resolved some issues with the "Show Map" and "Show Map Link" options in CSV files not being reliably respected on import (props @joappf and many others for highlighting this issue) [82784]
+* Fix - Added opportunities to override edit linked post links [89015]
+* Fix - Fixed a bug where only some parts of event featured images were clickable in List Views (thanks @mattemkadia for highlighting this issue) [81392]
+* Fix - Fixed the broken 'Learn more' URL received after an unsuccessful "Other URL" import preview [92890]
+* Fix - Fixed issue in list view navigation with backwards previous/next classes (thanks @secondtoughest) [36230]
+* Fix - Fixed an issue where venues and organizers would not be correctly assigned to events in CSV imports with import statuses other than "Publish" [79680]
+* Tweak - Remove net import scheduled notes for on domand imports [79079]
+* Tweak - Allow for non-Latin characters to be used as the Events URL slug and the Single Event URL slug (thanks @daviddweb for originally reporting this) [61880]
+* Tweak - Remove net import scheduled notes for on domand imports [79079]
+* Tweak - Fixed some layout issues that would emerge with "Events URL Slug" option when "Plain" permalinks were enabled [92314]
+* Tweak - Tweaked some language in Event Aggregator's metabox on individual edit-event screens to reduce confusion around the impact of the Update Authority on CSV imports [77957]
+* Tweak - Fix PHP 7.1 compatibility with Event Aggregator (props @BJP NEALE) [90002]
+* Tweak - Added new filter: `tribe_events_force_filtered_ical_link`. This makes the "Export Events" URL more easily modifiable (thanks to @tdudley07 for highlighting this issue) [43908]
+* Tweak - Made the "End of Day Cutoff" option better accommodate 24-hour and other time formats (thanks @festivalgeneral for bringing this issue to our attention!) [78621]
+* Tweak - Made the options presented by the timezone selector filterable (via the newly added `tribe_events_timezone_choice` hook - our thanks to National University's Marketing Department for this idea) [92909]
+* Tweak - Improved integration with Twenty Seventeen - main events page now uses full height header when set to front page (thanks @uncovery for pointing this out) [89767]
+* Tweak - Ensured REST API taxonomy endpoints are only registered in WordPress versions 4.7 and higher (thanks @dnaber-de for reporting this) [93227]
+* Language - 1 new strings added, 132 updated, 0 fuzzied, and 1 obsoleted
+
 = [4.6.4] 2017-11-09 =
 
 * Tweak - Timepicker is now part of Tribe Common, it was removed from The Events Calendar
@@ -332,6 +365,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Tweak - Improved the clarity of and amount of context for some linked post labels to make translation of those labels a little easier and more nuanced (props @hnacc and others) [88589]
 * Tweak - Changed the order in which the list view "next events" link is assembled for better translatability (with thanks to @alelouya for highlighting this problem) [72097]
 * Tweak - Adjusted linked posts selector HTML to improve compatibility with Batcache [92049]
+* Tweak - Improved datepicker handling so an end date on or later than the start date can always be selected [89825]
 * Language - 0 new strings added, 7 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.6.2] 2017-10-18 =

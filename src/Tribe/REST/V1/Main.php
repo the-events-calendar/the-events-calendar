@@ -117,8 +117,13 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$this->register_single_venue_endpoint( $register_routes );
 		$this->register_organizer_archives_endpoint( $register_routes );
 		$this->register_single_organizer_endpoint( $register_routes );
-		$this->register_categories_endpoint( $register_routes );
-		$this->register_tags_endpoint( $register_routes );
+
+		global $wp_version;
+
+		if ( version_compare( $wp_version, '4.7', '>=' ) ) {
+			$this->register_categories_endpoint( $register_routes );
+			$this->register_tags_endpoint( $register_routes );
+		}
 	}
 
 	/**

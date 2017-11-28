@@ -160,6 +160,13 @@ a.tribe-events-gmap {
 	width: 100%;
 }
 
+/* Reset list-view descriptions to static position; fixes bug with relative positioning
+       that prevented the full area of the .tribe-events-event-image being "clickable". */
+
+.tribe-events-list .tribe-events-event-image + div.tribe-events-content.tribe-events-list-event-description {
+	position: static;
+}
+
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	display: block;
 	margin: 4px 0 0;
