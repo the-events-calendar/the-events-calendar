@@ -308,6 +308,10 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 
 == Changelog ==
 
+= [4.6.7] TBD =
+
+* Fix - Fixed an issue where EA imports might not correctly create venues for iCalendar imports [94323]
+
 = [4.6.6] 2017-11-21 =
 
 * Feature - Added Template class which adds a few layers of filtering to any template file included
