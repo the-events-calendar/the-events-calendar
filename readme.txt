@@ -311,6 +311,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 = [4.6.8 | M17.25] TBD =
 
 * Fix - Ensure the correct properties are set for list widget queries, to avoid problems when running alongside Events Calendar PRO (props @KZeni) [94105]
+* Fix - Fixed some layout issues with the "Buy Now" button and stock labels on mobile list views [81115]
 * Tweak - Adjusted CSS to improve the display of venue URLs/phone numbers (especially when Events Calendar PRO is also active) (our thanks to Mathew on the forums for flagging this issue) [69127]
 
 = [4.6.6] 2017-11-21 =
