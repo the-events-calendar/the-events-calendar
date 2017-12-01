@@ -311,6 +311,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 = [4.6.7] TBD =
 
 * Fix - Fixed an issue where EA imports might not correctly create venues for iCalendar imports [94323]
+* Fix - Fixed a WPML incompatibility issue where language could be switched to the wrong one (thanks @dgwatkins) [94732]
 
 = [4.6.6] 2017-11-21 =
 
