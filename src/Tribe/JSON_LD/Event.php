@@ -32,17 +32,62 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	}
 
 	/**
+	 * Converts the start and end dates to the local timezone
+	 *
+	 * @param  string $date
+	 * @param  string $event_tz_string
+	 * @return string
+	 */
+	private function get_localized_iso8601_string( $date, $event_tz_string ) {
+		try {
+			$timezone = 0 === strpos( $event_tz_string, 'UTC' )
+				? Tribe__Timezones::timezone_from_utc_offset( $event_tz_string )
+				: new DateTimeZone( $event_tz_string );
+
+			if ( false === $timezone ) {
+				return $date;
+			}
+
+			$datetime = new DateTime( $date, new DateTimeZone( 'UTC' ) );
+			$datetime->setTimezone( $timezone );
+
+			return $datetime->format( 'c' );
+		} catch ( Exception $e ) {
+			return $date;
+		}
+	}
+
+	/**
 	 * Fetches the JSON-LD data for this type of object
 	 *
 	 * @param  int|WP_Post|null $post The post/event
 	 * @param  array  $args
+	 *
 	 * @return array
 	 */
 	public function get_data( $posts = null, $args = array() ) {
-		$posts = ( $posts instanceof WP_Post ) ? array( $posts ) : (array) $posts;
+		// Fetch the global post object if no posts are provided
+		if ( ! is_array( $posts ) && empty( $posts ) ) {
+			$posts = array( $GLOBALS['post'] );
+		}
+		// If we only received a single post object, wrap it in an array
+		else {
+			$posts = ( $posts instanceof WP_Post ) ? array( $posts ) : (array) $posts;
+		}
+
 		$return = array();
 
 		foreach ( $posts as $i => $post ) {
+			// We may have been passed a post ID - let's ensure we have the post object
+			if ( is_numeric( $post ) ) {
+				$post = get_post( $post );
+			}
+
+			// If we don't have a valid post object, skip to the next item
+			if ( ! $post instanceof WP_Post ) {
+				continue;
+			}
+
 			$data = parent::get_data( $post, $args );
 
 			// If we have an Empty data we just skip
@@ -59,8 +104,15 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			$event_tz_string = get_post_meta( $post_id, '_EventTimezone', true );
 			$tz_mode         = tribe_get_option( 'tribe_events_timezone_mode', 'event' );
 			$tz_string       = $event_tz_string && $tz_mode === 'event' ? $event_tz_string : Tribe__Events__Timezones::wp_timezone_string();
+
 			$data->startDate = Tribe__Events__Timezones::to_utc( tribe_get_start_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' );
 			$data->endDate   = Tribe__Events__Timezones::to_utc( tribe_get_end_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' );
+
+			// @todo once #90984 is resolved this extra step should not be required
+			if ( ! empty( $tz_string ) ) {
+				$data->startDate = $this->get_localized_iso8601_string( $data->startDate, $tz_string );
+				$data->endDate   = $this->get_localized_iso8601_string( $data->endDate, $tz_string );
+			}
 
 			if ( tribe_has_venue( $post_id ) ) {
 				$venue_id       = tribe_get_venue_id( $post_id );
@@ -87,6 +139,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 				);
 			}
 
+			$data = $this->apply_object_data_filter( $data, $args, $post );
 			$return[ $post_id ] = $data;
 		}
 

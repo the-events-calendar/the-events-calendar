@@ -55,6 +55,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_event_label_singular() {
+		/**
+		 * Allows customization of the singular version of the Event Label
+		 *
+		 * @param string $label The singular version of the Event label, defaults to "Event" (uppercase)
+		 */
 		return apply_filters( 'tribe_event_label_singular', esc_html__( 'Event', 'the-events-calendar' ) );
 	}
 
@@ -66,6 +71,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_event_label_singular_lowercase() {
+		/**
+		 * Allows customization of the singular lowercase version of the Event Label
+		 *
+		 * @param string $label The singular lowercase version of the Event label, defaults to "event" (lowercase)
+		 */
 		return apply_filters( 'tribe_event_label_singular_lowercase', esc_html__( 'event', 'the-events-calendar' ) );
 	}
 
@@ -77,6 +87,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_event_label_plural() {
+		/**
+		 * Allows customization of the plural version of the Event Label
+		 *
+		 * @param string $label The plural version of the Event label, defaults to "Events" (uppercase)
+		 */
 		return apply_filters( 'tribe_event_label_plural', esc_html__( 'Events', 'the-events-calendar' ) );
 	}
 
@@ -88,6 +103,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_event_label_plural_lowercase() {
+		/**
+		 * Allows customization of the plural lowercase version of the Event Label
+		 *
+		 * @param string $label The plural lowercase version of the Event label, defaults to "events" (lowercase)
+		 */
 		return apply_filters( 'tribe_event_label_plural_lowercase', esc_html__( 'events', 'the-events-calendar' ) );
 	}
 
@@ -132,6 +152,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				do_action( 'tribe_after_get_template_part', $template, $file, $slug, $name );
 				$html = ob_get_clean();
 				echo apply_filters( 'tribe_get_template_part_content', $html, $template, $file, $slug, $name );
+				break; // We found our template, no need to continue the loop
 			}
 		}
 		do_action( 'tribe_post_get_template_part_' . $slug, $slug, $name, $data );
@@ -650,8 +671,21 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @todo move to template classes
 	 **/
 	function tribe_events_the_header_attributes( $current_view = null ) {
-		$attrs               = array();
-		$current_view        = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
+
+		global $wp_query;
+
+		$attrs        = array();
+		$current_view = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
+		$term         = false;
+		$term_name    = get_query_var( Tribe__Events__Main::TAXONOMY );
+
+		if ( ! empty( $term_name ) ) {
+			$term_obj = get_term_by( 'slug', $term_name, Tribe__Events__Main::TAXONOMY );
+		}
+
+		if ( ! empty( $term_obj ) ) {
+			$term = 0 < $term_obj->term_id ? $term_obj->term_id : false;
+		}
 
 		// wp_title was deprecated in WordPress 4.4. Fetch the document title with the new function (added in 4.4) if available
 		if ( function_exists( 'wp_get_document_title' ) ) {
@@ -672,10 +706,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$attrs['data-startofweek'] = get_option( 'start_of_week' );
 				$attrs['data-view'] = 'list';
 				if ( tribe_is_upcoming() ) {
-					$attrs['data-baseurl'] = tribe_get_listview_link( false );
+					$attrs['data-baseurl'] = tribe_get_listview_link( $term );
 				} elseif ( tribe_is_past() ) {
 					$attrs['data-view']    = 'past';
-					$attrs['data-baseurl'] = tribe_get_listview_past_link( false );
+					$attrs['data-baseurl'] = tribe_get_listview_past_link( $term );
 				}
 				break;
 		}
@@ -1275,7 +1309,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 **/
 	function tribe_events_promo_banner( $echo = true ) {
 		if ( tribe_get_option( 'donate-link', false ) == true && ! tribe_is_bot() ) {
-			$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( esc_html__( 'Calendar powered by %sThe Events Calendar%s', 'the-events-calendar' ), '<a class="vcard url org fn" href="' . Tribe__Events__Main::$tecUrl . 'product/wordpress-events-calendar/?utm_medium=plugin-tec&utm_source=banner&utm_campaign=in-app">', '</a>' ) );
+			$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( esc_html__( 'Calendar powered by %s', 'the-events-calendar' ), '<a class="vcard url org fn" href="' . Tribe__Events__Main::$tecUrl . 'product/wordpress-events-calendar/?utm_medium=plugin-tec&utm_source=banner&utm_campaign=in-app">' . esc_html__( 'The Events Calendar', 'the-events-calendar' ) . '</a>' ) );
 			$html  = apply_filters( 'tribe_events_promo_banner', sprintf( '<p class="tribe-events-promo">%s</p>', $promo ), $promo );
 			if ( $echo ) {
 				echo $html;
@@ -1450,7 +1484,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		if ( ! has_excerpt( $post->ID ) ) {
 			// Temporarily alter the global post in preparation for our filters.
-			$global_post     = $GLOBALS['post'];
+			$global_post = isset( $GLOBALS['post'] ) ? $GLOBALS['post'] : null;
 			$GLOBALS['post'] = $post;
 
 			// We will only trim Excerpt if it comes from Post Content

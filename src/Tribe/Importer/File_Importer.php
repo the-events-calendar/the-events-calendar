@@ -7,18 +7,18 @@ abstract class Tribe__Events__Importer__File_Importer {
 	protected $required_fields = array();
 
 	/** @var Tribe__Events__Importer__File_Reader */
-	private $reader = null;
-	private $map = array();
-	private $type = '';
-	private $limit = 100;
-	private $offset = 0;
-	private $errors = array();
-	private $updated = 0;
-	private $created = 0;
+	private $reader   = null;
+	private $map      = array();
+	private $type     = '';
+	private $limit    = 100;
+	private $offset   = 0;
+	private $errors   = array();
+	private $updated  = 0;
+	private $created  = 0;
 	private $encoding = array();
-	private $log = array();
+	private $log      = array();
 
-	protected $skipped = array();
+	protected $skipped      = array();
 	protected $inverted_map = array();
 
 	public $is_aggregator = false;
@@ -70,9 +70,9 @@ abstract class Tribe__Events__Importer__File_Importer {
 	 * @param Tribe__Events__Importer__File_Reader $file_reader
 	 */
 	public function __construct( Tribe__Events__Importer__File_Reader $file_reader, Tribe__Events__Importer__Featured_Image_Uploader $featured_image_uploader = null ) {
-		$this->reader = $file_reader;
+		$this->reader                  = $file_reader;
 		$this->featured_image_uploader = $featured_image_uploader;
-		$this->limit = apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size );
+		$this->limit                   = apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size );
 	}
 
 	public function set_map( array $map_array ) {
@@ -251,7 +251,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 		return $record[ $this->inverted_map[ $key ] ];
 	}
 
-	protected function find_matching_post_id( $name, $post_type ) {
+	protected function find_matching_post_id( $name, $post_type, $post_status = 'publish' ) {
 		if ( empty( $name ) ) {
 			return 0;
 		}
@@ -265,7 +265,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 
 		$query_args = array(
 			'post_type'        => $post_type,
-			'post_status'      => 'publish',
+			'post_status'      => $post_status,
 			'post_title'       => $name,
 			'fields'           => 'ids',
 			'suppress_filters' => false,

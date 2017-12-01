@@ -8,10 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-$events_label_singular = tribe_get_event_label_singular();
-$events_label_plural = tribe_get_event_label_plural();
+$events_label_singular           = tribe_get_event_label_singular();
+$events_label_plural             = tribe_get_event_label_plural();
 $events_label_singular_lowercase = tribe_get_event_label_singular_lowercase();
-$events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
+$events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 ?>
 <div id="eventIntro">
 	<div id="tribe-events-post-error" class="tribe-events-error error"></div>
@@ -129,7 +129,7 @@ $events_label_plural_lowercase = tribe_get_event_label_plural_lowercase();
 								data-timezone-label="<?php esc_attr_e( 'Timezone:', 'the-events-calendar' ) ?>"
 								data-timezone-value="<?php echo esc_attr( Tribe__Events__Timezones::get_event_timezone_string() ) ?>"
 							>
-								<?php echo wp_timezone_choice( Tribe__Events__Timezones::get_event_timezone_string() ); ?>
+								<?php echo tribe_events_timezone_choice( Tribe__Events__Timezones::get_event_timezone_string() ); ?>
 							</select>
 
 							<p class="tribe-allday">

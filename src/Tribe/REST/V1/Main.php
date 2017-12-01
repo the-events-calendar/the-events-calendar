@@ -117,8 +117,13 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		$this->register_single_venue_endpoint( $register_routes );
 		$this->register_organizer_archives_endpoint( $register_routes );
 		$this->register_single_organizer_endpoint( $register_routes );
-		$this->register_categories_endpoint( $register_routes );
-		$this->register_tags_endpoint( $register_routes );
+
+		global $wp_version;
+
+		if ( version_compare( $wp_version, '4.7', '>=' ) ) {
+			$this->register_categories_endpoint( $register_routes );
+			$this->register_tags_endpoint( $register_routes );
+		}
 	}
 
 	/**
@@ -258,6 +263,55 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		}
 
 		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/events/{id}', $endpoint );
+	}
+
+	/**
+	 * Registers the endpoint that will handle requests for a single event slug.
+	 *
+	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
+	 *
+	 * @since 4.5
+	 */
+	protected function register_single_event_slug_endpoint( $register_routes = true ) {
+		$messages = tribe( 'tec.rest-v1.messages' );
+		$post_repository = tribe( 'tec.rest-v1.repository' );
+		$validator = tribe( 'tec.rest-v1.validator' );
+		$venue_endpoint = tribe( 'tec.rest-v1.endpoints.single-venue' );
+		$organizer_endpoint = tribe( 'tec.rest-v1.endpoints.single-organizer' );
+
+		$endpoint = new Tribe__Events__REST__V1__Endpoints__Single_Event_Slug( $messages, $post_repository, $validator, $venue_endpoint, $organizer_endpoint );
+
+		tribe_singleton( 'tec.rest-v1.endpoints.single-event-slug', $endpoint );
+
+		$namespace = $this->get_events_route_namespace();
+
+		if ( $register_routes ) {
+			register_rest_route(
+				$namespace,
+				'/events/by-slug/(?P<slug>[^/]+)',
+				array(
+					array(
+						'methods'  => WP_REST_Server::READABLE,
+						'args'     => $endpoint->READ_args(),
+						'callback' => array( $endpoint, 'get' ),
+					),
+					array(
+						'methods'             => WP_REST_Server::DELETABLE,
+						'args'                => $endpoint->DELETE_args(),
+						'permission_callback' => array( $endpoint, 'can_delete' ),
+						'callback'            => array( $endpoint, 'delete' ),
+					),
+					array(
+						'methods'             => WP_REST_Server::EDITABLE,
+						'args'                => $endpoint->EDIT_args(),
+						'permission_callback' => array( $endpoint, 'can_edit' ),
+						'callback'            => array( $endpoint, 'update' ),
+					),
+				)
+			);
+		}
+
+		tribe( 'tec.rest-v1.endpoints.documentation' )->register_documentation_provider( '/events/by-slug/{slug}', $endpoint );
 	}
 
 	/**

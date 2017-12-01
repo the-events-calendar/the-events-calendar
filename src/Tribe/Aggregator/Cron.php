@@ -173,11 +173,14 @@ class Tribe__Events__Aggregator__Cron {
 		$start_timestamp = strtotime( $date );
 
 		// randomize the time by plus/minus 0-5 minutes
-		$start_timestamp += ( mt_rand( -5, 5 ) * 60 );
+		$random_minutes = ( mt_rand( -5, 5 ) * 60 );
+		$start_timestamp += $random_minutes;
+
+		$current_time = time();
 
 		// if the start timestamp is older than RIGHT NOW, set it for 5 minutes from now
-		if ( time() > $start_timestamp ) {
-			$start_timestamp += 300;
+		if ( $current_time > $start_timestamp ) {
+			$start_timestamp = $current_time + absint( $random_minutes );
 		}
 
 		// Now add an action twice hourly
@@ -316,15 +319,16 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
-			if ( $record->get_child_record_by_status( 'pending' ) ) {
+			if ( $record->get_child_record_by_status( 'pending', - 1, array( 'after' => time() - 4 * 3600 ) ) ) {
 				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, has pending child(ren)', $record->id ), 'EA Cron' );
 				continue;
 			}
 
 			// if there are no remaining imports for today, log that and skip
 			if ( $service->is_over_limit( true ) ) {
-				tribe( 'logger' )->log_debug( sprintf( $service->get_service_message( 'error:usage-limit-exceeded' ) . ' (%1$d)', $record->id ),
-					'EA Cron' );
+				$import_limit     = $service->get_limit( 'import' );
+				$service_template = $service->get_service_message( 'error:usage-limit-exceeded', array( $import_limit ) );
+				tribe( 'logger' )->log_debug( sprintf( $service_template . ' (%1$d)', $record->id ), 'EA Cron' );
 				$record->update_meta( 'last_import_status', 'error:usage-limit-exceeded' );
 				continue;
 			}

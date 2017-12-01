@@ -423,16 +423,16 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 					'<a href="%s" aria-label="%s">%s</a>',
 					wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=tribe-restore', $event->ID ) ), 'restore-post_' . $event->ID ),
 					/* translators: %s: post title */
-					esc_attr( sprintf( __( 'Restore &#8220;%s&#8221; from the Ignored' ), $title ), 'the-events-calendar' ),
-					__( 'Restore' )
+					esc_attr( sprintf( __( 'Restore &#8220;%s&#8221; from the Ignored', 'the-events-calendar' ), $title ) ),
+					__( 'Restore', 'the-events-calendar' )
 				);
 
 				$actions['delete'] = sprintf(
 					'<a href="%s" class="submitdelete" aria-label="%s">%s</a>',
 					get_delete_post_link( $event->ID, '', true ),
 					/* translators: %s: post title */
-					esc_attr( sprintf( __( 'Delete &#8220;%s&#8221; permanently' ), $title ) ),
-					__( 'Delete Permanently' )
+					esc_attr( sprintf( __( 'Delete &#8220;%s&#8221; permanently', 'the-events-calendar' ), $title ) ),
+					__( 'Delete Permanently', 'the-events-calendar' )
 				);
 			}
 

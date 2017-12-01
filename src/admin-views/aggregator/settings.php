@@ -96,7 +96,7 @@ $ea_disable = array(
 		'label'           => __( 'Disable Event Aggregator imports', 'the-events-calendar' ),
 		'tooltip'         => __( 'Stop all Event Aggregator imports from running. Existing imported events will not be affected. Imports via CSV file will still be available.', 'the-events-calendar' ),
 		'default'         => false,
-		'parent_option' => Tribe__Events__Main::OPTIONNAME,
+		'parent_option'   => Tribe__Events__Main::OPTIONNAME,
 		'validation_type' => 'boolean',
 	),
 );
@@ -144,7 +144,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		),
 		'tribe_aggregator_default_import_limit_type' => array(
 			'type' => 'dropdown',
-			'label' => esc_html__( 'Import limit type', 'the-events-calendar' ),
+			'label' => esc_html__( 'Import Limit Type', 'the-events-calendar' ),
 			'tooltip' => esc_html__( 'Limit the number of imported events by number, date range, or not at all; on slower websites this may impact the success of imports. Selecting a shorter time period or a smaller number of events may improve results.', 'the-events-calendar' ),
 
 			'size' => 'medium',
@@ -156,7 +156,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		),
 		'tribe_aggregator_default_import_limit_range' => array(
 			'type' => 'dropdown',
-			'label' => esc_html__( 'Import date range limit', 'the-events-calendar' ),
+			'label' => esc_html__( 'Import Date Range Limit', 'the-events-calendar' ),
 			'tooltip' => esc_html__( 'When importing from an event source, this is how far into the future the events will be fetched; on slower websites a larger date range may impact the success of imports. Selecting a shorter time period may improve results.', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
@@ -172,7 +172,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		),
 		'tribe_aggregator_default_import_limit_number' => array(
 			'type' => 'dropdown',
-			'label' => esc_html__( 'Import quantity limit', 'the-events-calendar' ),
+			'label' => esc_html__( 'Import Quantity Limit', 'the-events-calendar' ),
 			'tooltip' => esc_html__( 'When importing from an event source, this is the maximum number of events that will be imported; on slower websites this may impact the success of imports. Setting this to a smaller number may improve results.', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
@@ -440,7 +440,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'tribe_aggregator_default_url_import_range' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Import Date Range', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'When importing from a website that uses The Events Calendar, the REST API will attempt to fetch events this far in the future. That website\'s hosting resources may impact the success of imports. Selecting a shorter time period may improve results.', 'the-events-calendar' ) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/other-url-import-errors-in-event-aggregator' ), esc_html( 'Learn more.' ) ),
+			'tooltip' => esc_html__( 'When importing from a website that uses The Events Calendar, the REST API will attempt to fetch events this far in the future. That website\'s hosting resources may impact the success of imports. Selecting a shorter time period may improve results.', 'the-events-calendar' ) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/url-import-errors-event-aggregator/' ), esc_html( 'Learn more.' ) ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => tribe( 'events-aggregator.settings' )->get_import_range_default(),

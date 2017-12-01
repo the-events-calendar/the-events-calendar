@@ -149,6 +149,7 @@ $csv_help = esc_html__( 'Select the Event Field that best matches your CSV file 
 $scheduled_save_help = esc_html__( 'When you save this scheduled import, the events above will begin importing.', 'the-events-calendar' );
 ?>
 <div class="tribe-ea-table-container tribe-preview-container">
+	<div class="tribe-fetch-warning-message"></div>
 	<div class="tribe-fetch-error-message"></div>
 	<div class="spinner-container">
 		<span class="spinner tribe-ea-active"></span>

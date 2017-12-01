@@ -128,8 +128,9 @@ class AbstractTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_mark_a_scheduled_import_that_has_no_children_and_no_last_import_status_as_in_schedule_if_in_schedule() {
-		$schedule_day     = date( 'N', strtotime( 'yesterday' ) );
-		$scheduled_record = $this->make_scheduled_record_instance( 'daily', '-1 week', $schedule_day );
+		$schedule_day     = date( 'N', strtotime( 'today' ) );
+		$schedule_time    = date( 'H:i:s', time() - 10 );
+		$scheduled_record = $this->make_scheduled_record_instance( 'daily', '-1 week', $schedule_day, $schedule_time );
 
 		$this->assertTrue( $scheduled_record->is_schedule_time() );
 	}

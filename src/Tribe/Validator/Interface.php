@@ -50,4 +50,13 @@ interface Tribe__Events__Validator__Interface extends Tribe__Validator__Interfac
 	 * @return bool
 	 */
 	public function is_event_id( $event_id );
+
+	/**
+	 * Whether the value is the post name of an existing event or not.
+	 *
+	 * @param string $event_slug
+	 *
+	 * @return bool
+	 */
+	public function is_event_slug( $event_slug );
 }

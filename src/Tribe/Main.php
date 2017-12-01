@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.6';
+		const VERSION             = '4.6.6';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.7dev';
 
@@ -498,6 +498,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'src/functions/advanced-functions/organizer.php';
 			require_once $this->plugin_path . 'src/functions/advanced-functions/linked-posts.php';
 			require_once $this->plugin_path . 'src/functions/utils/array.php';
+			require_once $this->plugin_path . 'src/functions/utils/labels.php';
 
 			// Load Deprecated Template Tags
 			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
@@ -549,7 +550,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'nav_menu_items_' . self::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events' ), null, 2 );
 
-			add_filter( 'template_redirect', array( $this, 'redirect_past_upcoming_view_urls' ), 11 );
+			add_filter( 'template_redirect', array( $this, 'redirect_past_upcoming_view_urls' ), 9 );
 
 			/* Setup Tribe Events Bar */
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_listview_in_bar' ), 1, 1 );
@@ -1945,7 +1946,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				do_action( 'tribe_settings_enqueue' );
 			}
 
-			if ( $admin_helpers->is_screen( 'widgets' ) ) {
+			if ( $admin_helpers->is_screen( array( 'widgets', 'customize' ) ) ) {
 				Tribe__Events__Template_Factory::asset_package( 'tribe-select2' );
 				Tribe__Events__Template_Factory::asset_package( 'admin' );
 			}
@@ -1963,10 +1964,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 				// date picker
 				Tribe__Events__Template_Factory::asset_package( 'datepicker' );
-
-				// jQuery Timepicker
-				wp_enqueue_script( 'tribe-jquery-timepicker' );
-				wp_enqueue_style( 'tribe-jquery-timepicker-css' );
 
 				// dialog
 				Tribe__Events__Template_Factory::asset_package( 'dialog' );
@@ -2378,24 +2375,39 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Redirect the legacy past/upcoming view URLs to list
+		 *
+		 * @since 4.6.5 revised to avoid unwanted redirects
 		 */
 		public function redirect_past_upcoming_view_urls() {
-
-			if ( strpos( $_SERVER['REQUEST_URI'], $this->getRewriteSlug() . '/' . $this->pastSlug ) !== false ) {
-				$search = '#/' . $this->pastSlug . '/?#';
-				$replace = '/' . $this->listSlug . '/';
-				$redirect_url = preg_replace( $search, $replace, $_SERVER['REQUEST_URI'] );
-				$redirect_url = esc_url_raw( add_query_arg( array( 'tribe_event_display' => 'past' ), $redirect_url ) );
-				wp_redirect( $redirect_url );
-				die;
-			} elseif ( strpos( $_SERVER['REQUEST_URI'], $this->getRewriteSlug() . '/' . $this->upcomingSlug ) !== false ) {
-				$search = '#/' . $this->upcomingSlug . '/?#';
-				$replace = '/' . $this->listSlug . '/';
-				$redirect_url = preg_replace( $search, $replace, $_SERVER['REQUEST_URI'] );
-				wp_redirect( $redirect_url );
-				die;
+			// We are only interested in the path and not any query args
+			if ( ! $requested_path = wp_parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ) ) {
+				return;
 			}
 
+			// Prep strings so we can compare paths sans any leading/trailing slashes
+			$requested_path = trim( $requested_path, '/' );
+			$legacy_past_events_url = $this->getRewriteSlug() . '/' . $this->pastSlug;
+			$legacy_upcoming_events_url = $this->getRewriteSlug() . '/' . $this->upcomingSlug;
+
+			// Check if the request is for either the legacy past or upcoming event views and redirect if appropriate
+			switch ( $requested_path ) {
+				case $legacy_past_events_url:
+					$search = '#/' . $this->pastSlug . '/?#';
+					$replace = '/' . $this->listSlug . '/';
+					$redirect_url = preg_replace( $search, $replace, $_SERVER['REQUEST_URI'] );
+					$redirect_url = esc_url_raw( add_query_arg( array( 'tribe_event_display' => 'past' ), $redirect_url ) );
+					wp_redirect( $redirect_url );
+					tribe_exit();
+					break;
+
+				case $legacy_upcoming_events_url:
+					$search = '#/' . $this->upcomingSlug . '/?#';
+					$replace = '/' . $this->listSlug . '/';
+					$redirect_url = preg_replace( $search, $replace, $_SERVER['REQUEST_URI'] );
+					wp_redirect( $redirect_url );
+					tribe_exit();
+					break;
+			}
 		}
 
 		/**
@@ -3101,8 +3113,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function publishAssociatedTypes( $post_id, $post ) {
 
 			// don't need to save the venue or organizer meta when we are just publishing
-			remove_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
-			remove_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
+			remove_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16 );
+			remove_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16 );
 
 			// Remove any "preview" venues and organizers (duplicates) attached to this event.
 			$this->remove_preview_venues( $post_id, true );
@@ -4397,7 +4409,21 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			global $wp_query;
 
+			/**
+			 * Allows for customizing the "date search" field value.
+			 *
+			 * @deprecated 4.6.1 Use tribe_events_bar_date_search_default_value instead.
+			 *
+			 * @param string $value The "date search" field value, which defaults to an empty string.
+			 */
 			$value = apply_filters( 'tribe-events-bar-date-search-default-value', '' );
+
+			/**
+			 * Allows for customizing the "date search" field value.
+			 *
+			 * @param string $value The "date search" field value, which defaults to an empty string.
+			 */
+			$value = apply_filters( 'tribe_events_bar_date_search_default_value', $value );
 
 			if ( ! empty( $_REQUEST['tribe-bar-date'] ) ) {
 				$value = $_REQUEST['tribe-bar-date'];
@@ -4414,6 +4440,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$value   = date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( $wp_query->query_vars['eventDate'] ) );
 			}
 
+			/**
+			 * Allows for modifying the "date search" field's caption (e.g. "in" or "from").
+			 *
+			 * @param string $caption The "date search" field's caption string.
+			 */
 			$caption = apply_filters( 'tribe_bar_datepicker_caption', $caption );
 
 			$filters['tribe-bar-date'] = array(
@@ -4428,7 +4459,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Removes views that have been deselected in the Template Settings as hidden from the view array.
 		 *
-		 *
 		 * @param array $views The current views array.
 		 * @param bool  $visible
 		 *
@@ -4436,11 +4466,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function remove_hidden_views( $views, $visible = true ) {
 			$enable_views_defaults = array();
+
 			foreach ( $views as $view ) {
 				$enable_views_defaults[] = $view['displaying'];
 			}
+
 			if ( $visible ) {
 				$enable_views = tribe_get_option( 'tribeEnableViews', $enable_views_defaults );
+
 				foreach ( $views as $index => $view ) {
 					if ( ! in_array( $view['displaying'], $enable_views ) ) {
 						unset( $views[ $index ] );
@@ -4519,6 +4552,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function filter_wp_import_data_before( $post ) {
 			if ( $post['post_type'] === self::POSTTYPE ) {
 				$start_date = '';
+
 				if ( isset( $post['postmeta'] ) && is_array( $post['postmeta'] ) ) {
 					foreach ( $post['postmeta'] as $meta ) {
 						if ( $meta['key'] == '_EventStartDate' ) {
@@ -4527,6 +4561,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						}
 					}
 				}
+
 				if ( ! empty( $start_date ) ) {
 					$post['post_title'] .= '[tribe_start_date]' . $start_date . '[/tribe_start_date]';
 				}
@@ -4596,6 +4631,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( is_network_admin() ) {
 				return $url;
 			}
+
 			return add_query_arg( array( 'post_type' => self::POSTTYPE ), $url );
 		}
 
@@ -4616,9 +4652,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * If tickets don't have an end date, let's provide the end date from the event
+		 *
+		 * @param string $date
+		 * @param int $post_id
+		 *
+		 * @return string
 		 */
 		public function default_end_date_for_tickets( $date, $post_id ) {
 			$post = get_post( $post_id );
+
 			if ( self::POSTTYPE !== $post->post_type ) {
 				return $date;
 			}

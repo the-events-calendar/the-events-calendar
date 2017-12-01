@@ -1,6 +1,4 @@
 <?php
-
-
 /**
  * Class Tribe__Events__Integrations__X_Theme__X_Theme
  *

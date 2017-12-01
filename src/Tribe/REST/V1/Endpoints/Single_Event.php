@@ -83,16 +83,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		/**
 		 * Filters the data that will be returned for a single event request.
 		 *
-		 * @since 4.6
-		 *
-		 * @param array           $data    The retrieved data.
-		 * @param WP_REST_Request $request The original request.
-		 */
-		$data = apply_filters( 'tribe_rest_single_event_data', $data, $request );
-
-		/**
-		 * Filters the data that will be returned for a single event request.
-		 *
 		 * @since 4.5.13
 		 *
 		 * @param array           $data    The retrieved data.
@@ -246,6 +236,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'validate_callback' => array( $this->validator, 'is_string' ),
 				'type'              => 'string',
 				'description'       => __( 'The event description', 'the-events-calendar' ),
+			),
+			'slug'               => array(
+				'required'          => false,
+				'validate_callback' => array( $this->validator, 'is_string' ),
+				'type'              => 'string',
+				'description'       => __( 'The event slug', 'the-events-calendar' ),
 			),
 			'excerpt'            => array(
 				'required'          => false,
@@ -545,6 +541,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'post_date'             => $post_date,
 			'post_date_gmt'         => $post_date_gmt,
 			'post_title'            => $request['title'],
+			'post_name'             => $request['slug'],
 			'post_content'          => $request['description'],
 			'post_excerpt'          => $request['excerpt'],
 			'post_status'           => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
