@@ -53,7 +53,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		public static function init() {
 
 			// Choose the wordpress theme template to use
-			add_filter( 'template_include', array( __CLASS__, 'templateChooser' ) );
+			add_filter( 'template_include', array( __CLASS__, 'templateChooser' ), 100 );
 
 			// include our view class
 			add_action( 'template_redirect', 'tribe_initialize_view' );

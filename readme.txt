@@ -311,6 +311,8 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 = [4.6.7] TBD =
 
 * Fix - Fixed an issue where EA imports might not correctly create venues for iCalendar imports [94323]
+* Fix - Fixed an issue where Month View wouldn't render correctly in X Theme with the "Events template" option set to "Default Page Template" [92554]
+* New - Added the `tribe_events_x_theme_force_full_content()` filter to let users disable X Theme compatibility code [92554]
 
 = [4.6.6] 2017-11-21 =
 
