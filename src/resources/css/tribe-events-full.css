@@ -1031,6 +1031,12 @@ select.tribe-events-dropdown {
 	text-align: center;
 }
 
+/* Export Links */
+
+.single-tribe_events .tribe-events-cal-links {
+	clear: both;
+}
+
 /* Meta Sections */
 
 .single-tribe_events .tribe-events-event-meta {
