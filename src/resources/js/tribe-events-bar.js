@@ -348,6 +348,11 @@ var tribe_events_bar_action;
 								ts.url_params[ $this.attr( 'name' ) ].push( $this.val() );
 							}
 						}
+						else if ( 'radio' === $this.attr( 'type' ) ) {
+							if ( $this.is( ':checked' ) ) {
+								ts.url_params[$this.attr( 'name' )] = $this.val();
+							}
+						}
 						else if ( 'undefined' !== typeof $this.attr( 'name' ) ) {
 							ts.url_params[ $this.attr( 'name' ) ] = $this.val();
 						}
