@@ -40,12 +40,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string A fully qualified link to https://maps.google.com/ for this event
 	 */
 	function tribe_get_map_link_html( $postId = null ) {
-		$link = sprintf(
-			'<a class="tribe-events-gmap" href="%s" title="%s" target="_blank">%s</a>',
-			esc_url( tribe_get_map_link( $postId ) ),
-			esc_html__( 'Click to view a Google Map', 'the-events-calendar' ),
-			esc_html__( '+ Google Map', 'the-events-calendar' )
-		);
+		$map_link = esc_url( tribe_get_map_link( $postId ) );
+
+		$link = '';
+
+		if ( ! empty( $map_link ) ) {
+			$link = sprintf(
+				'<a class="tribe-events-gmap" href="%s" title="%s" target="_blank">%s</a>',
+				$map_link,
+				esc_html__( 'Click to view a Google Map', 'the-events-calendar' ),
+				esc_html__( '+ Google Map', 'the-events-calendar' )
+			);
+		}
 
 		return apply_filters( 'tribe_get_map_link_html', $link );
 	}
