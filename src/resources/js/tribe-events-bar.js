@@ -339,8 +339,20 @@ var tribe_events_bar_action;
 					}
 					else {
 						if ( $this.is( ':checkbox' ) ) {
+							if ( $this.is( ':checked' ) && 'undefined' === typeof ts.url_params[ $this.attr( 'name' ) ] ) {
+
+								// if checkbox and not defined setup as an array
+								if ( 'undefined' === typeof ts.url_params[ $this.attr( 'name' ) ] ) {
+									ts.url_params[$this.attr( 'name' )] = [];
+								}
+
+								// add value to array
+								ts.url_params[ $this.attr( 'name' ) ].push( $this.val() );
+							}
+						}
+						else if ( 'radio' === $this.attr( 'type' ) ) {
 							if ( $this.is( ':checked' ) ) {
-								ts.url_params[ $this.attr( 'name' ) ] = $this.val();
+								ts.url_params[$this.attr( 'name' )] = $this.val();
 							}
 						}
 						else if ( 'undefined' !== typeof $this.attr( 'name' ) ) {
