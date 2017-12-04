@@ -1626,14 +1626,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 									$activity->add( 'organizer', 'created', $event['EventOrganizerID'] );
 
 									// Create the Organizer Global ID
-									if ( ! empty( $item->organizer->global_id ) ) {
+									if ( ! empty( $item->organizer[$key]->global_id ) ) {
 										update_post_meta( $event['EventOrganizerID'], Tribe__Events__Aggregator__Event::$global_id_key,
-											$item->organizer->global_id );
+											$item->organizer[$key]->global_id );
 									}
 
 									// Create the Organizer Global ID History
-									if ( ! empty( $item->organizer->global_id_lineage ) ) {
-										foreach ( $item->organizer->global_id_lineage as $gid ) {
+									if ( ! empty( $item->organizer[$key]->global_id_lineage ) ) {
+										foreach ( $item->organizer[$key]->global_id_lineage as $gid ) {
 											add_post_meta( $event['EventOrganizerID'], Tribe__Events__Aggregator__Event::$global_id_lineage_key,
 												$gid );
 										}
