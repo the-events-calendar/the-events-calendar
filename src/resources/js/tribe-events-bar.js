@@ -340,10 +340,12 @@ var tribe_events_bar_action;
 					else {
 						if ( $this.is( ':checkbox' ) ) {
 							if ( $this.is( ':checked' ) && 'undefined' === typeof ts.url_params[ $this.attr( 'name' ) ] ) {
+
 								// if checkbox and not defined setup as an array
-								ts.url_params[ $this.attr( 'name' ) ] = [];
-								ts.url_params[ $this.attr( 'name' ) ].push( $this.val() );
-							} else if ( $this.is( ':checked' ) && 'undefined' !== typeof ts.url_params[ $this.attr( 'name' ) ] ) {
+								if ( 'undefined' === typeof ts.url_params[ $this.attr( 'name' ) ] ) {
+									ts.url_params[$this.attr( 'name' )] = [];
+								}
+
 								// add value to array
 								ts.url_params[ $this.attr( 'name' ) ].push( $this.val() );
 							}
