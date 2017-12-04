@@ -316,12 +316,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$defaults = array(
 			'parent'    => 0,
 		);
+
 		$args = (object) wp_parse_args( $args, $defaults );
 
 		$defaults = array(
-			'frequency' => null,
-			'hash'      => wp_generate_password( 32, true, true ),
-			'preview'   => false,
+			'frequency'                 => null,
+			'hash'                      => wp_generate_password( 32, true, true ),
+			'preview'                   => false,
+			'allow_multiple_organizers' => true,
 		);
 
 		$meta = wp_parse_args( $meta, $defaults );
@@ -684,6 +686,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		if ( ! empty( $this->meta['radius'] ) ) {
 			$defaults['radius'] = $this->meta['radius'];
+		}
+
+		if ( ! empty( $this->meta['allow_multiple_organizers'] ) ) {
+			$defaults['allow_multiple_organizers'] = $this->meta['allow_multiple_organizers'];
 		}
 
 		if ( $is_previewing ) {
