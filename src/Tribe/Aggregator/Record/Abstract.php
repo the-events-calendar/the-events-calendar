@@ -1553,20 +1553,23 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					if ( ! empty( $organizer_data['Organizer'] ) ) {
 						$organizer_data['Organizer'] = trim( $organizer_data['Organizer'] );
 
-						if ( ! empty( $item->organizer[$key]->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
+						if ( ! empty( $item->organizer[ $key ]->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
 							// Pre-set for ICS based imports
 							$organizer = false;
-							if ( ! empty( $item->organizer[$key]->global_id ) ) {
+							if ( ! empty( $item->organizer[ $key ]->global_id ) ) {
 								// Did we find a Post with a matching Global ID in History
-								$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta( 'global_id_lineage', $item->organizer[$key]->global_id );
+								$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta(
+									'global_id_lineage',
+									$item->organizer[ $key ]->global_id
+								);
 							}
 
-							if ( isset( $item->organizer[$key]->description ) ) {
-								$organizer_data['Description'] = $item->organizer[$key]->description;
+							if ( isset( $item->organizer[ $key ]->description ) ) {
+								$organizer_data['Description'] = $item->organizer[ $key ]->description;
 							}
 
-							if ( isset( $item->organizer[$key]->excerpt ) ) {
-								$organizer_data['Excerpt'] = $item->organizer[$key]->excerpt;
+							if ( isset( $item->organizer[ $key ]->excerpt ) ) {
+								$organizer_data['Excerpt'] = $item->organizer[ $key ]->excerpt;
 							}
 
 							if ( $organizer ) {
@@ -1843,10 +1846,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			// If we have a Image Field for the Organizer from Service
-			if ( ! empty( $item->organizer[$key]->image ) && $organizer_id ) {
-				$args = array(
-					'ID' => $organizer_id,
-					'image' => $item->organizer[$key]->image,
+			if ( ! empty( $item->organizer[ $key ]->image ) && $organizer_id ) {
+				$args  = array(
+					'ID'         => $organizer_id,
+					'image'      => $item->organizer[ $key ]->image,
 					'post_title' => get_the_title( $organizer_id ),
 				);
 				$image = $this->import_image( $args );
