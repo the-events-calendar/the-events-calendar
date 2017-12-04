@@ -1541,11 +1541,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				&& 'preserve_changes' === $update_authority_setting
 				&& $existing_organizer_ids = tribe_get_organizer_ids( $event['ID'] )
 			) {
-				$event['EventOrganizerID'] = $existing_organizer_ids;
+				$event['Organizer'] = $existing_organizer_ids;
 				unset( $event['Organizer'] );
 			}
 
 			if ( ! empty( $event['Organizer'] ) ) {
+				$event_organizers = array();
+
 				foreach ( $event['Organizer'] as $key => $organizer_data ) {
 					//if we should create an organizer or use existing
 					if ( ! empty( $organizer_data['Organizer'] ) ) {
@@ -1559,19 +1561,18 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 								$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta( 'global_id_lineage', $item->organizer[$key]->global_id );
 							}
 
-							// Save the Organizer Data for Updating
-							$organizer_data = $organizer_data;
-
-							if ( isset( $item->organizer->description ) ) {
-								$organizer_data['Description'] = $item->organizer->description;
+							if ( isset( $item->organizer[$key]->description ) ) {
+								$organizer_data['Description'] = $item->organizer[$key]->description;
 							}
 
-							if ( isset( $item->organizer->excerpt ) ) {
-								$organizer_data['Excerpt'] = $item->organizer->excerpt;
+							if ( isset( $item->organizer[$key]->excerpt ) ) {
+								$organizer_data['Excerpt'] = $item->organizer[$key]->excerpt;
 							}
 
 							if ( $organizer ) {
-								$organizer_id                       = $event['EventOrganizerID'] = $organizer_data['ID'] = $organizer->ID;
+								$organizer_id                = $organizer_data['ID'] = $organizer->ID;
+								$event_organizers[] = $organizer_id;
+
 								$found_organizers[ $organizer->ID ] = $organizer_data['Organizer'];
 
 								// Here we might need to update the Organizer depending we found something based on old code
@@ -1617,29 +1618,30 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 								// We didn't find any matching Organizer for the provided one
 								if ( ! $organizer_id ) {
-									$organizer_id                                   = $event['EventOrganizerID'] = Tribe__Events__Organizer::instance()
-									                                                                                                       ->create( $organizer_data,
-										                                                                                                       $this->meta['post_status'] );
-									$found_organizers[ $event['EventOrganizerID'] ] = $organizer_data['Organizer'];
+									$organizer_id = $event_organizers[] = Tribe__Events__Organizer::instance()
+									                                                                     ->create( $organizer_data,
+										                                                                     $this->meta['post_status'] );
+
+									$found_organizers[ $organizer_id ] = $organizer_data['Organizer'];
 
 									// Log this Organizer was created
-									$activity->add( 'organizer', 'created', $event['EventOrganizerID'] );
+									$activity->add( 'organizer', 'created', $organizer_id );
 
 									// Create the Organizer Global ID
-									if ( ! empty( $item->organizer[$key]->global_id ) ) {
-										update_post_meta( $event['EventOrganizerID'], Tribe__Events__Aggregator__Event::$global_id_key,
-											$item->organizer[$key]->global_id );
+									if ( ! empty( $item->organizer[ $key ]->global_id ) ) {
+										update_post_meta( $organizer_id, Tribe__Events__Aggregator__Event::$global_id_key,
+											$item->organizer[ $key ]->global_id );
 									}
 
 									// Create the Organizer Global ID History
-									if ( ! empty( $item->organizer[$key]->global_id_lineage ) ) {
-										foreach ( $item->organizer[$key]->global_id_lineage as $gid ) {
-											add_post_meta( $event['EventOrganizerID'], Tribe__Events__Aggregator__Event::$global_id_lineage_key,
+									if ( ! empty( $item->organizer[ $key ]->global_id_lineage ) ) {
+										foreach ( $item->organizer[ $key ]->global_id_lineage as $gid ) {
+											add_post_meta( $organizer_id, Tribe__Events__Aggregator__Event::$global_id_lineage_key,
 												$gid );
 										}
 									}
 								} else {
-									$event['EventOrganizerID'] = $organizer_data['ID'] = $organizer_id;
+									$event_organizers[] = $organizer_data['ID'] = $organizer_id;
 
 									// Here we might need to update the Organizer depending we found something based on old code
 									if ( 'retain' === $update_authority_setting ) {
@@ -1667,8 +1669,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					}
 				}
 
-				// Remove the Organizer to avoid duplicates
-				unset( $event['Organizer'] );
+				// Update the organizer submission data
+				$event['Organizer']['OrganizerID'] = $event_organizers;
 			}
 
 			/**
@@ -1841,10 +1843,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			// If we have a Image Field for the Organizer from Service
-			if ( ! empty( $item->organizer->image ) && $organizer_id ) {
+			if ( ! empty( $item->organizer[$key]->image ) && $organizer_id ) {
 				$args = array(
 					'ID' => $organizer_id,
-					'image' => $item->organizer->image,
+					'image' => $item->organizer[$key]->image,
 					'post_title' => get_the_title( $organizer_id ),
 				);
 				$image = $this->import_image( $args );
