@@ -146,12 +146,20 @@ class Tribe__Events__Aggregator__Event {
 
 		if ( ! empty( $item->organizer ) ) {
 			$event['Organizer'] = array();
-			foreach ( $organizer_field_map as $origin_field => $target_field ) {
-				if ( ! isset( $item->organizer->$origin_field ) ) {
-					continue;
+			$organizer_entries  = $item->organizer;
+
+			foreach ( $organizer_entries as $organizer_entry ) {
+				$this_organizer = array();
+
+				foreach ( $organizer_field_map as $origin_field => $target_field ) {
+					if ( ! isset( $organizer_entry->$origin_field ) ) {
+						continue;
+					}
+
+					$this_organizer[ $target_field ] = $organizer_entry->$origin_field;
 				}
 
-				$event['Organizer'][ $target_field ] = $item->organizer->$origin_field;
+				$event['Organizer'][] = $this_organizer;
 			}
 		}
 

@@ -21,6 +21,10 @@ switch ( $origin_slug ) {
 		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
 		$radius->help = __( 'Use the filters to narrow down which events are fetched from this site.', 'the-events-calendar' );
 		break;
+	case 'facebook':
+		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
+		$radius->help = __( 'Use the filters to narrow down which events are fetched from Facebook.', 'the-events-calendar' );
+		break;
 	case 'ical':
 	default:
 		$depends = "#tribe-ea-field-{$origin_slug}_import_type";
@@ -33,7 +37,7 @@ switch ( $origin_slug ) {
 		<label for="tribe-ea-field-refine_keywords"><?php echo __( 'Refine:', 'the-events-calendar' ); ?></label>
 	</th>
 	<td>
-		<div class="tribe-refine">
+		<div class="tribe-refine tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not="facebook">
 			<input
 				name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][keywords]"
 				type="text"
@@ -68,7 +72,8 @@ switch ( $origin_slug ) {
 				<span id="tribe-date-helper-date-<?php echo esc_attr( $origin_slug ); ?>"><?php echo esc_html( $start ); ?></span>
 			</span>
 		</div>
-		<div class="tribe-refine tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not="url">
+		<div class="tribe-refine tribe-dependent" data-depends="#tribe-ea-field-origin"
+		     data-condition-relation="and" data-condition-not='["url","facebook"]'>
 			<input
 				name="aggregator[<?php echo esc_attr( $origin_slug ); ?>][location]"
 				type="text"
