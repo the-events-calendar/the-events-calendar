@@ -1573,7 +1573,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 							}
 
 							if ( $organizer ) {
-								$organizer_id                = $organizer_data['ID'] = $organizer->ID;
+								$organizer_id       = $organizer_data['ID'] = $organizer->ID;
 								$event_organizers[] = $organizer_id;
 
 								$found_organizers[ $organizer->ID ] = $organizer_data['Organizer'];
@@ -1622,8 +1622,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 								// We didn't find any matching Organizer for the provided one
 								if ( ! $organizer_id ) {
 									$organizer_id = $event_organizers[] = Tribe__Events__Organizer::instance()
-									                                                                     ->create( $organizer_data,
-										                                                                     $this->meta['post_status'] );
+									                                                              ->create( $organizer_data,
+										                                                              $this->meta['post_status'] );
 
 									$found_organizers[ $organizer_id ] = $organizer_data['Organizer'];
 
