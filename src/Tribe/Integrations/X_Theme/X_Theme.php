@@ -38,7 +38,7 @@ class Tribe__Events__Integrations__X_Theme__X_Theme {
 	 * Tries to "catch" the loading of X theme content templates that render a highly-filtered
 	 * excerpt view instead of full content, which often ruins the display of our Month View etc.
 	 *
-	 * @since TBD
+	 * @since 4.6.2
 	 * @see x_get_view()
 	 *
 	 * @return array $view An array of X-theme view data with the template file and render options.
@@ -97,7 +97,7 @@ class Tribe__Events__Integrations__X_Theme__X_Theme {
 	 * Checks if we're in a "main" calendar view, like Month View etc., where we want to apply our
 	 * various integration filters and overrides.
 	 *
-	 * @since TBD
+	 * @since 4.6.2
 	 *
 	 * @return boolean
 	 */
