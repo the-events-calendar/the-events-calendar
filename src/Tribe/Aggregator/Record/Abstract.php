@@ -1396,7 +1396,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			if ( ! empty( $event['Venue']['Venue'] ) ) {
 				$event['Venue']['Venue'] = trim( $event['Venue']['Venue'] );
 
-				if ( ! empty( $item->venue->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal' ) ) ) {
+				if ( ! empty( $item->venue->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal', 'ical' ) ) ) {
 					// Pre-set for ICS based imports
 					$venue = false;
 					if ( ! empty( $item->venue->global_id ) ) {
@@ -2214,7 +2214,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Note this is a passive check: if the meta is not set or set to `false` we assume the import
 	 * should not be queued on EA Service.
 	 *
-	 * @since TBD
+	 * @since 4.6.2
 	 *
 	 * @param bool $should_queue_import If a value is provided here then the `should_queue_import` meta will
 	 *                                  be set to the boolean representation of that value.

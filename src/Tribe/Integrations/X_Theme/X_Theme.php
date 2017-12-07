@@ -30,11 +30,50 @@ class Tribe__Events__Integrations__X_Theme__X_Theme {
 	 * Hooks the filters and actions neede for this integration to work.
 	 */
 	public function hook() {
-		if ( function_exists( 'x_force_template_override' ) ) {
-			add_filter(
-				'template_include', array( $this, 'filter_template_include' )
-			);
+		add_filter( 'template_include', array( $this, 'filter_template_include' ) );
+		add_filter( 'x_get_view', array( $this, 'force_full_content' ), 10, 4 );
+	}
+
+	/**
+	 * Tries to "catch" the loading of X theme content templates that render a highly-filtered
+	 * excerpt view instead of full content, which often ruins the display of our Month View etc.
+	 *
+	 * @since 4.6.2
+	 * @see x_get_view()
+	 *
+	 * @return array $view An array of X-theme view data with the template file and render options.
+	 */
+	public function force_full_content( $view, $directory, $file_base, $file_extension ) {
+
+		// Let users disable this forceful override behavior if they'd like.
+		if ( ! apply_filters( 'tribe_events_x_theme_force_full_content', true ) ) {
+			return $view;
 		}
+
+		// Don't proceed if we're not on a main Tribe view or if $view isn't fully fleshed-out.
+		if ( ! $this->should_run_tribe_overrides() || ! is_array( $view ) ) {
+			return $view;
+		}
+
+		// Don't proceed if we're not dealing with an X-theme view that doesn't have these params.
+		if ( ! isset( $view['base'] ) || ! isset( $view['extension'] ) ) {
+			return $view;
+		}
+
+		// Only interrupt the normal process if we're dealing with an excerpted "content" template.
+		if (
+			'framework/views/global/_content' === $view['base']
+			&& 'the-excerpt' === $view['extension']
+		) {
+			remove_filter( 'x_get_view', array( $this, 'force_full_content' ), 10, 4 );
+
+			// Grab the global "content" template with full content.
+			$view = x_get_view( 'global', '_content', 'the-content' );
+
+			add_filter( 'x_get_view', array( $this, 'force_full_content' ), 10, 4 );
+		}
+
+		return $view;
 	}
 
 	/**
@@ -46,16 +85,29 @@ class Tribe__Events__Integrations__X_Theme__X_Theme {
 	 * @return string $template
 	 */
 	public function filter_template_include( $template ) {
-		/** @var WP_Query $wp_query */
-		global $wp_query;
 
-		if ( $wp_query->is_main_query()
-		     && empty( $wp_query->tribe_is_multi_posttype )
-		     && ! empty( $wp_query->tribe_is_event_query )
-		) {
+		if ( $this->should_run_tribe_overrides() ) {
 			remove_filter( 'template_include', 'x_force_template_override', 99 );
 		}
 
 		return $template;
+	}
+
+	/**
+	 * Checks if we're in a "main" calendar view, like Month View etc., where we want to apply our
+	 * various integration filters and overrides.
+	 *
+	 * @since 4.6.2
+	 *
+	 * @return boolean
+	 */
+	public function should_run_tribe_overrides() {
+
+		/** @var WP_Query $wp_query */
+		global $wp_query;
+
+		return $wp_query->is_main_query()
+			   && empty( $wp_query->tribe_is_multi_posttype )
+			   && ! empty( $wp_query->tribe_is_event_query );
 	}
 }
