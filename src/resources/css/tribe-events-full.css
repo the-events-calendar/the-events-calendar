@@ -2514,7 +2514,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	}
 
 	#tribe-events-bar [class^='tribe-bar-button-']::after {
-		background-image: url(../../../common/vendor/select2/select2x2.png);
+		background-image: url(../../../common/vendor/tribe-select2/select2x2.png);
 	}/* Default icon */
 
 	.tribe-select2-results-views span[class^='tribe-icon-'],
