@@ -316,6 +316,7 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 * Fix - Fixed some layout issues with the "Buy Now" button and stock labels on mobile list views [81115]
 * Fix - Fixed issue where left- or right-aligned images at the bottom of event descriptions would overlap event meta on single-event pages [71134]
 * Fix - Fixed issue where Google Maps Link would display in some situations even when there is no address information for which to generate a link. [94909]
+* Fix - Corrected reference to a Select2 asset (our thanks to @pyxis630 for flagging this problem and props to @andrasguseo for the fix) [95348]
 * Tweak - Adjusted CSS to improve the display of venue URLs/phone numbers (especially when Events Calendar PRO is also active) (our thanks to Mathew on the forums for flagging this issue) [69127]
 * Tweak - Added new REST API endpoint that allows looking up events by slug instead of ID at the path `events/by-slug/{slug}/`, it has the same functionality as the endpoint `events/{ID}` [92825]
 * Tweak - Added `slug` to the REST API responses for event data [92825]
